@@ -1,6 +1,10 @@
 ﻿@import "variables.less";
 
 .flashcard {
+    header .close {
+        margin-right: 10px;
+    }
+
     .content {
         max-width: 860px;
         padding: 10px 30px 0 30px;
@@ -23,6 +27,15 @@
     .flashcard-top {
         margin-top: @heightOfHeader + 30px;
 
+        @media(max-width: 600px) {
+            margin-top: @heightOfHeader + 20px;
+            margin-bottom: 30px;
+
+            md-input-container {
+                margin-bottom: 0;
+            }
+        }
+
         form {
             max-width: 800px;
             padding-top: 10px;
@@ -42,10 +55,14 @@
                 fill: @svgColorGrey;
             }
         }
+
+        .btn-wrapper {
+            text-align: right;
+        }
     }
 
     .flashcard-body {
-        @cardHeight: 60px;
+        @cardHeight: 58px;
         @mobileCardHeight: 40px;
 
         .header {
@@ -158,8 +175,15 @@
                 }
 
                 md-icon {
-                    width: 15px;
-                    height: 15px;
+                    width: 12px;
+                    height: 12px;
+                }
+            }
+
+
+            .drag-btn, .remove-btn, .add-btn {
+                md-icon {
+                    fill: @borderColorBottomGrey;
                 }
             }
 
@@ -175,6 +199,10 @@
             card-form {
                 .displayFlex;
 
+                ~ card-form md-input-container {
+                    border-left: none;
+                }
+
                 md-input-container {
                     border: 1px solid #b7b7b7;
                     background: @textColorWhite;
@@ -183,11 +211,12 @@
 
                     &.has-image {
                         padding-right: 0;
-                        padding-bottom: @cardHeight;
+                        padding-top: @cardHeight;
 
                         @media(min-width: 600px) {
                             padding-right: @cardHeight;
                             padding-bottom: 0;
+                            padding-top: 0;
                         }
                     }
 
@@ -200,28 +229,41 @@
                         width: 23px;
                         height: 19px;
                         margin-right: 4px;
-                        fill: @svgColorGrey;
+                        fill: @borderColorBottomGrey;
                         cursor: pointer;
                     }
                 }
+                //@media(min-width:600px) {
+                &.focused {
 
+                    .add-image-btn {
+                        display: block;
+                        outline: none;
+                    }
 
-                @media(min-width:600px) {
-                    &.focused {
-                        .add-image-btn {
-                            display: block;
-                            outline: none;
+                    @media(max-width: 600px) {
+                        md-input-container:not(.has-image) {
+                            padding-top: 24px;
+                            padding-right: 0;
                         }
                     }
                 }
 
+                &:not(.focused) {
+                    md-input-container {
+                        @media(max-width: 600px) {
+                            padding-right: 0;
+                        }
+                    }
+                }
+                // }
                 .md-resize-wrapper {
                     min-height: @mobileCardHeight;
                     .displayFlex;
                     .align-items(center);
                     flex-direction: column;
                     height: 100%;
-                    padding: 0 0 5px 5px;
+                    padding: 6px 10px 8px 10px;
 
                     @media(min-width: 600px) {
                         min-height: @cardHeight - 2px;
@@ -234,17 +276,24 @@
                     }
                 }
 
+                .has-image .image-container {
+                    @media(max-width: 600px) {
+                        top: 0;
+                        left: 0;
+                    }
+                }
+
                 .image-container {
                     position: absolute;
                     top: 0;
                     right: 0;
-                    margin: 5px;
-                    width: 50px;
-                    height: 50px;
+                    margin: 2px;
+                    width: @cardHeight - 4px;
+                    height: @cardHeight - 4px;
                     overflow: hidden;
 
                     @media(max-width: 600px) {
-                        bottom: 0;
+                        top: 0;
                         top: initial;
                         left: 0;
                     }
@@ -287,6 +336,7 @@
                             margin: 0;
                             width: 10px;
                             height: 10px;
+                            fill: @borderColorBottomGrey;
                         }
                     }
                 }
@@ -304,7 +354,6 @@
                     right: 36px;
                     overflow: hidden;
                     .transition(left, 0.2s, ease);
-                    background: @backgroundCalmGrey;
                 }
 
                 &.active {
@@ -324,7 +373,7 @@
                         .displayFlex;
                         .align-items(stretch);
                         .justifyContet(flex-end);
-                        background: @backgroundCalmGrey;
+                        background: rgba(238,238,238,0.9);
                         height: 100%;
                         padding: 0 10px;
                     }
@@ -421,9 +470,9 @@
 
         .add-card div {
             background: @backgroundCalmGrey;
-            height: @mobileCardHeight;
-            line-height: @mobileCardHeight;
-            padding-left: 10px;
+            height: @mobileCardHeight + 4;
+            line-height: @mobileCardHeight + 4;
+            padding-left: 18px;
             border: 1px solid #b7b7b7;
 
             @media(min-width: 600px) {
@@ -434,12 +483,16 @@
             md-icon {
                 width: 19px;
                 height: 19px;
-                fill: @svgColorGrey;
+                fill: @borderColorBottomGrey;
 
                 @media(max-width: 600px) {
                     width: 14px;
                     height: 14px;
                 }
+            }
+
+            &.back {
+                border-left: none;
             }
         }
 

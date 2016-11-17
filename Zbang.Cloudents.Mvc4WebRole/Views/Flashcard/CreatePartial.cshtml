@@ -6,17 +6,19 @@
     <button flex="none" type="button" ng-click="f.close($event)" class="close" ga-track-event="['createFlashcard', 'close']"><md-icon md-svg-icon="t:close"></md-icon></button>
 </header>
 <form name="f.form" class="content" interaction-done>
-    <div layout="row" layout-align="space-between center" class="flashcard-top">
-        <md-input-container flex="50">
+    <div layout="row" layout-align="space-between center" class="flashcard-top" layout-wrap>
+        <md-input-container flex="100" flex-gt-xs="50">
             <input name="name" type="text"
                    placeholder="@FlashcardResources.FlashcardPlaceholder" autocomplete="off"
-                    required md-no-asterisk ng-model="f.data.name" ng-change="f.form['name'].$setValidity('duplicate', true)"/>
+                   required md-no-asterisk ng-model="f.data.name" ng-change="f.form['name'].$setValidity('duplicate', true)" />
             <div class="error-message" ng-messages="f.form.name.$error" ng-show="f.form.name.$touched">
                 <div ng-message="required">@GeneralResources.RequiredField</div>
                 <div ng-message="duplicate">@FlashcardResources.SameName</div>
             </div>
         </md-input-container>
-        <button type="button" ng-click="f.publish()" ng-disabled="f.disabled" class="action-btn">@FlashcardResources.Create</button>
+        <div class="btn-wrapper" flex="100" flex-gt-xs="50">
+            <button type="button" flex="100" flex-gt-xs="50" ng-click="f.publish()" ng-disabled="f.disabled" class="action-btn">@FlashcardResources.Create</button>
+        </div>
     </div>
     <div class="flashcard-body">
         <div layout="row" layout-align="space-between center" class="header">
@@ -35,7 +37,7 @@
                     <md-icon hide-xs md-svg-icon="t:close"></md-icon>
                 </button>
                 <button type="button" class="add-btn" ng-click="f.add($index)"><md-icon md-svg-icon="t:add"></md-icon></button>
-                <input type="checkbox" id="settings-toggler{{$index}}" ng-model="card.checked" ng-checked="card.checked" class="settings-toggler"/>
+                <input type="checkbox" id="settings-toggler{{$index}}" ng-model="card.checked" ng-checked="card.checked" class="settings-toggler" />
                 <div class="card-settings" hide-gt-xs>
                     <div class="content">
                         <button type="button" class="remove-btn desktop" ng-click="f.removeCard($index)">
@@ -63,7 +65,7 @@
                 <div flex="50" flex-xs="100">
                     <md-icon md-svg-icon="t:add"></md-icon>
                 </div>
-                <div flex="50" hide-xs></div>
+                <div class="back" flex="50" hide-xs></div>
             </li>
 
         </ol>
