@@ -125,7 +125,7 @@
   </data>
   <data name="ofZbang" xml:space="preserve">
     <value />
-  </data>
+  <comment>do not add english</comment></data>
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Privacy Policy</value>
   </data>

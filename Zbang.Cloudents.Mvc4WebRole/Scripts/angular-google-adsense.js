@@ -1,12 +1,11 @@
-﻿//https://github.com/Stegoo/angular-google-adsense
-(function () {
+﻿(function () {
 
     'use strict';
 
     angular.module('angular-google-adsense', []).
 
     service('Adsense', [function () {
-        this.url = '//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+        this.url = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
         this.isAlreadyLoaded = false;
     }]).
 
@@ -17,9 +16,10 @@
             scope: {
                 adClient: '@',
                 adSlot: '@',
-                inlineStyle: '@'
+                inlineStyle: '@',
+                adFormat: '@'
             },
-            template: '<div class="ads"><ins class="adsbygoogle" data-ad-client="{{adClient}}" data-ad-slot="{{adSlot}}" style="{{inlineStyle}}"></ins></div>',
+            template: '<div class="ads"><ins class="adsbygoogle" data-ad-client="{{adClient}}" data-ad-slot="{{adSlot}}" style="{{inlineStyle}}" data-ad-format="{{adFormat}}"></ins></div>',
             controller: ['Adsense', '$timeout', function (Adsense, $timeout) {
                 if (!Adsense.isAlreadyLoaded) {
                     var s = document.createElement('script');

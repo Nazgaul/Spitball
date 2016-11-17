@@ -23,8 +23,7 @@ select
    END ) as OwnerName
 from zbox.box b
 where b.BoxId = @BoxId
-and b.IsDeleted = 0;
-";
+and b.IsDeleted = 0;";
         public const string BoxTabs = @"
 select 
 ItemTabId as id
@@ -32,10 +31,6 @@ ItemTabId as id
  from zbox.ItemTab
 where boxid = @BoxId
 order by name;";
-
-
-
-
 
         //used for reply view in mobile app
         public const string GetCommentForMobile = @" SELECT q.[QuestionId] as id
@@ -46,8 +41,8 @@ order by name;";
     ,q.CreationTime as creationTime
 	,q.ReplyCount as RepliesCount
     FROM [Zbox].[Question] q join zbox.users u on u.userid = q.userid
-    where q.QuestionId = @QuestionId;
-";
+    where q.QuestionId = @QuestionId;";
+
         public const string GetCommentFileForMobile = @"select
     i.itemid as Id,
     i.Name as Name,
