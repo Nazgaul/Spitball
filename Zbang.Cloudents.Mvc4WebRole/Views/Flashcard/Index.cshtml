@@ -91,7 +91,7 @@
                     @FlashcardResources.Shuffle
                 </md-switch>
             </div>
-            <div ng-if="f.step==2 && f.canLike()" class="like-wrapper">
+            <div ng-if="f.step==2" class="like-wrapper">
                 <span>@FlashcardResources.LikeLabel</span>&nbsp;
                 <button ng-click="f.like()" ng-class="{liked:f.flashcard.like}"><md-icon md-svg-icon="b:like"></md-icon>@GeneralResources.Like</button>
             </div>
@@ -109,7 +109,7 @@
                             <button type="button" class="pin-btn" ng-click="f.pin(slide)" ng-class="{pinned:slide.pin}" keyboard-action="80">
                                 <md-icon md-svg-icon="b:pin"></md-icon>
                             </button>
-                            <div class="data-wrapper" ng-click="f.flip()" keyboard-action="38 40">
+                            <div class="data-wrapper" ng-click="f.flip()" keyboard-action="38|40">
                                 <div class="img-container" ng-if="::slide.front.image">
                                     <img ng-src="{{::slide.front.image}}" alt="font image" />
                                 </div>
@@ -158,4 +158,31 @@
             <md-icon md-svg-icon="t:arrow"></md-icon>
         </button>
     </nav>
+
+    <md-menu md-position-mode="target-right target" class="keyboard" md-offset="0 42">
+        <md-button ng-click="$mdOpenMenu($event)" aria-label="Open menu">
+            <md-icon md-svg-icon="b:keyboard"></md-icon>
+        </md-button>
+        <md-menu-content md-menu-align-target class="md-user-menu">
+            <md-menu-item>
+                <div>key 1</div>
+            </md-menu-item>
+            <md-menu-item>
+                <div>key 1</div>
+            </md-menu-item>
+            <md-menu-item>
+                <div>key 1</div>
+            </md-menu-item>
+            <md-menu-item>
+                <div>key 1</div>
+            </md-menu-item>
+            <md-menu-item>
+                <div>key 1</div>
+            </md-menu-item>
+            <md-menu-item>
+                <div>key 1</div>
+            </md-menu-item>
+        </md-menu-content>
+    </md-menu>
+
 </div>
