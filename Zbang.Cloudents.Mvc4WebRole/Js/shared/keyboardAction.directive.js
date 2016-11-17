@@ -8,7 +8,8 @@
             restrict: 'A',
             link: function (scope, element, attrs) {
                 var keyDownHandler = function (e) {
-                    if (e.keyCode == attrs.keyboardAction) {
+                    var keys = attrs.keyboardAction.split(" ");
+                    if (!element.closest(".ng-hide").length && keys.indexOf(e.keyCode.toString()) != -1) {
                         element.click();
                     }
                 }

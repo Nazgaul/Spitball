@@ -38,15 +38,15 @@
             </div>
         </div>
         <div multiswitch-when="1" class="card-sides" hide-xs>
-            <button type="button" class="front capitalize" ng-click="f.style=true" ng-class="{active:f.style===true}">
+            <button type="button" class="front capitalize" ng-click="f.style=true" ng-class="{active:f.style===true}" keyboard-action="70">
                 <div class="flashcard-icon"></div>
                 @FlashcardResources.Front
             </button>
-            <button type="button" class="back capitalize" ng-click="f.style=false" ng-class="{active:f.style===false}">
+            <button type="button" class="back capitalize" ng-click="f.style=false" ng-class="{active:f.style===false}" keyboard-action="75">
                 <div class="flashcard-icon"></div>
                 @FlashcardResources.Back
             </button>
-            <button type="button" class="both capitalize" ng-click="f.style=null" ng-class="{active:f.style==null}">
+            <button type="button" class="both capitalize" ng-click="f.style=null" ng-class="{active:f.style==null}" keyboard-action="66">
                 <div class="flashcard-icon"></div>
                 @FlashcardResources.Both
             </button>
@@ -87,7 +87,7 @@
             </div>
             <div class="shuffle" user-not-register-popup="click">
                 <md-icon md-svg-icon="b:shuffle"></md-icon>
-                <md-switch ng-model="f.shuffle">
+                <md-switch ng-model="f.shuffle" keyboard-action="83">
                     @FlashcardResources.Shuffle
                 </md-switch>
             </div>
@@ -106,10 +106,10 @@
                 <div class="flipper">
                     <div class="card-content">
                         <div class="side front">
-                            <button type="button" class="pin-btn" ng-click="f.pin(slide)" ng-class="{pinned:slide.pin}">
+                            <button type="button" class="pin-btn" ng-click="f.pin(slide)" ng-class="{pinned:slide.pin}" keyboard-action="80">
                                 <md-icon md-svg-icon="b:pin"></md-icon>
                             </button>
-                            <div class="data-wrapper" ng-click="f.flip()">
+                            <div class="data-wrapper" ng-click="f.flip()" keyboard-action="38 40">
                                 <div class="img-container" ng-if="::slide.front.image">
                                     <img ng-src="{{::slide.front.image}}" alt="font image" />
                                 </div>
