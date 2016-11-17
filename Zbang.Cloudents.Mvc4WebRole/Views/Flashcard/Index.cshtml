@@ -38,15 +38,15 @@
             </div>
         </div>
         <div multiswitch-when="1" class="card-sides" hide-xs>
-            <button type="button" class="front capitalize" ng-click="f.style=true" ng-class="{active:f.style===true}" keyboard-action="70">
+            <button type="button" class="front capitalize" ng-click="f.changeLegend(true)" ng-class="{active:f.styleLegend===true}" keyboard-action="70">
                 <div class="flashcard-icon"></div>
                 @FlashcardResources.Front
             </button>
-            <button type="button" class="back capitalize" ng-click="f.style=false" ng-class="{active:f.style===false}" keyboard-action="75">
+            <button type="button" class="back capitalize" ng-click="f.changeLegend(false)" ng-class="{active:f.styleLegend===false}" keyboard-action="75">
                 <div class="flashcard-icon"></div>
                 @FlashcardResources.Back
             </button>
-            <button type="button" class="both capitalize" ng-click="f.style=null" ng-class="{active:f.style==null}" keyboard-action="66">
+            <button type="button" class="both capitalize" ng-click="f.changeLegend(null)" ng-class="{active:f.styleLegend==null}" keyboard-action="66">
                 <div class="flashcard-icon"></div>
                 @FlashcardResources.Both
             </button>
