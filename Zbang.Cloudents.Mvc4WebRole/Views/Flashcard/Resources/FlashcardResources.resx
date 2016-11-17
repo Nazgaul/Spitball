@@ -123,8 +123,17 @@
   <data name="Both" xml:space="preserve">
     <value>both</value>
   </data>
+  <data name="Card" xml:space="preserve">
+    <value>card</value>
+  </data>
+  <data name="Cards" xml:space="preserve">
+    <value>cards</value>
+  </data>
   <data name="CardsLabel" xml:space="preserve">
     <value>flashcards</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>create</value>
   </data>
   <data name="CreatedBy" xml:space="preserve">
     <value>Created by</value>
@@ -156,8 +165,14 @@
   <data name="Over" xml:space="preserve">
     <value>over</value>
   </data>
+  <data name="Pin" xml:space="preserve">
+    <value>pin</value>
+  </data>
   <data name="Pinned" xml:space="preserve">
     <value>pinned</value>
+  </data>
+  <data name="Pins" xml:space="preserve">
+    <value>pins</value>
   </data>
   <data name="Progress" xml:space="preserve">
     <value>progress</value>
@@ -170,5 +185,8 @@
   </data>
   <data name="Start" xml:space="preserve">
     <value>start</value>
+  </data>
+  <data name="Study" xml:space="preserve">
+    <value>study</value>
   </data>
 </root>

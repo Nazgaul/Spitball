@@ -171,4 +171,22 @@
   <data name="Start" xml:space="preserve">
     <value>התחל</value>
   </data>
+  <data name="Card" xml:space="preserve">
+    <value>כרטיסיה</value>
+  </data>
+  <data name="Cards" xml:space="preserve">
+    <value>כרטיסיות</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>צור</value>
+  </data>
+  <data name="Pins" xml:space="preserve">
+    <value>כרטיסיות מסומנות</value>
+  </data>
+  <data name="Pin" xml:space="preserve">
+    <value>כרטיסיה מסומנת</value>
+  </data>
+  <data name="Study" xml:space="preserve">
+    <value>למד</value>
+  </data>
 </root>

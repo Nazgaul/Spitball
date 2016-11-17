@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <div class="ad">
@@ -27,7 +28,7 @@
         <md-tab-label><span>@GeneralResources.Quizzes</span></md-tab-label>
     </md-tab>
     <md-tab ui-sref="box.flashcards" md-active="b.isActiveState('box.flashcards')">
-        <md-tab-label><span>Flashcards</span></md-tab-label>
+        <md-tab-label><span>@FlashcardResources.CardsLabel</span></md-tab-label>
     </md-tab>
     <md-tab ui-sref="box.members" md-active="b.isActiveState('box.members')">
         <md-tab-label><span>@GeneralResources.Members</span></md-tab-label>

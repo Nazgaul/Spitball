@@ -68,8 +68,8 @@
                 <h4 ng-if="f.step==2">@FlashcardResources.JustStudied&nbsp;</h4>
                 <ng-pluralize count="::f.flashcard.cards.length"
                               when="{
-                        '1': '1 card',
-                        'other': '{} cards'
+                        '1': '1 @FlashcardResources.Card',
+                        'other': '{} @FlashcardResources.Cards'
                       }"></ng-pluralize>
                 <span ng-if="f.step==2">!</span>
             </div>
@@ -78,10 +78,10 @@
                     <span>@FlashcardResources.Start</span><span ng-if="f.step==2">&nbsp;@FlashcardResources.Over</span>
                 </button>
                 <button type="button" class="action-btn pinned-cards" user-not-register-popup="click" ng-if="::f.pinCount" ng-click="f.startPin()">
-                    Study&nbsp;<ng-pluralize count="::f.pinCount"
+                    @FlashcardResources.Study&nbsp;<ng-pluralize count="::f.pinCount"
                                              when="{
-                        '1': '1 pin',
-                        'other': '{} pinned'
+                        '1': '1 @FlashcardResources.Pin',
+                        'other': '{} @FlashcardResources.Pins'
                       }"></ng-pluralize>
                 </button>
             </div>
