@@ -102,12 +102,12 @@
 }
 .flashcardPage .header .close-btn md-icon {
   fill: #888b8e;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
 }
 @media (max-width: 600px) {
   .flashcardPage .header .close-btn {
-    top: 30px;
+    top: 29px;
     left: 12px;
     z-index: 1;
   }
@@ -207,8 +207,8 @@
   }
 }
 .flashcardPage .header .progress-wrapper .progress-settings .sides md-icon {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   fill: #4190b9;
   margin: 0;
 }
@@ -884,6 +884,12 @@
 .flashcardPage .card-player .card-template.both .card-content .side .text-container {
   width: 100%;
 }
+@media (max-width: 600px) {
+  .flashcardPage .card-player .card-template.both .card-content .side .img-container,
+  .flashcardPage .card-player .card-template.both .card-content .side .text-container {
+    padding: 0 25px;
+  }
+}
 .flashcardPage .card-player .card-template .card-content {
   display: -webkit-flex;
   display: -ms-flex;
@@ -948,6 +954,16 @@
   display: -ms-flex;
   display: flex;
   -webkit-align-items: center;
+  align-items: center;
+}
+.flashcardPage .card-player .card-template .card-content .side .text-container p {
+  font-size: 48px;
+  overflow: auto;
+  height: 100%;
+}
+.flashcardPage .card-player .card-template .card-content .side .text-container p.lessText {
+  margin: 0 auto;
+  display: flex;
   align-items: center;
 }
 .flashcardPage .card-player .card-template .card-content .side .img-container ~ .text-container {

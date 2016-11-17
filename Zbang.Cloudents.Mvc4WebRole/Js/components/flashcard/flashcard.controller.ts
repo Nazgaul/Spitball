@@ -39,7 +39,7 @@
 
 
     }
-    class Card {
+    class Card  {
         front = new CardSlide();
         cover = new CardSlide();
         index: number;
@@ -49,6 +49,16 @@
         //    this.cover = new CardSlide().deserialize(input.cover);
         //    return this;
         //}
+    }
+    class CardSlide {
+        text: string;
+        image: string;
+        //deserialize(input: CardSlide) {
+        //    this.text = input.text;
+        //    this.image = input.image;
+        //    return this;
+        //}
+
     }
     export class FlashcardController {
         static $inject = ["flashcard", "flashcardService", "$stateParams", "user", "$state","$mdMedia"];
@@ -62,7 +72,7 @@
         styleLegend = true;
         style = true;
         backUrl;
-        notMobile: boolean
+        notMobile: boolean;
 
         pinCount = 0;
         constructor(flashcard: Flashcard,
@@ -77,6 +87,12 @@
                         v.pin = true;
                     }
                     v.index = k;
+                    if (!v.front.text) {
+                        v.front.text = "...";
+                    }
+                    if (!v.cover.text) {
+                        v.cover.text = "...";
+                    }
 
                 });
             this.notMobile = $mdMedia("gt-xs");
@@ -105,7 +121,6 @@
             this.slidepos = Math.max(0, --this.slidepos);
             this.step = Steps.Memo;
             this.style = this.styleLegend;
-            //this.slide = this.fc[this.slidepos];
         }
         next() {
             this.slidepos = Math.min(this.cards.length, ++this.slidepos);
@@ -114,7 +129,10 @@
                 return;
             }
             this.style = this.styleLegend;
-            //this.slide = this.fc[this.slidepos];
+        }
+        changeLegend(legend?: boolean) {
+            this.styleLegend = legend;
+            this.style = legend;
         }
         flip() {
             if (this.style !== null) {

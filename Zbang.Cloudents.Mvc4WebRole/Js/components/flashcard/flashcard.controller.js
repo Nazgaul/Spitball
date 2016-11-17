@@ -24,10 +24,15 @@ var app;
     }());
     var Card = (function () {
         function Card() {
-            this.front = new app.CardSlide();
-            this.cover = new app.CardSlide();
+            this.front = new CardSlide();
+            this.cover = new CardSlide();
         }
         return Card;
+    }());
+    var CardSlide = (function () {
+        function CardSlide() {
+        }
+        return CardSlide;
     }());
     var FlashcardController = (function () {
         function FlashcardController(flashcard, flashcardService, $stateParams, user, $state, $mdMedia) {
@@ -47,6 +52,12 @@ var app;
                     v.pin = true;
                 }
                 v.index = k;
+                if (!v.front.text) {
+                    v.front.text = "...";
+                }
+                if (!v.cover.text) {
+                    v.cover.text = "...";
+                }
             });
             this.notMobile = $mdMedia("gt-xs");
             this.flashcard = flashcard;
@@ -80,6 +91,10 @@ var app;
                 return;
             }
             this.style = this.styleLegend;
+        };
+        FlashcardController.prototype.changeLegend = function (legend) {
+            this.styleLegend = legend;
+            this.style = legend;
         };
         FlashcardController.prototype.flip = function () {
             if (this.style !== null) {

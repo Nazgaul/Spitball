@@ -2,7 +2,7 @@
 module app {
     "use strict";
 
-    export class FlashCard implements ISerializable<FlashCard> {
+    class FlashCard implements ISerializable<FlashCard> {
 
         id: number;
         name: string;
@@ -29,7 +29,7 @@ module app {
 
 
     }
-    export class Card implements ISerializable<Card> {
+    class Card implements ISerializable<Card> {
         front = new CardSlide();
         cover = new CardSlide();
         checked: boolean;
@@ -46,7 +46,7 @@ module app {
             return this;
         }
     }
-    export class CardSlide implements ISerializable<CardSlide> {
+    class CardSlide implements ISerializable<CardSlide> {
         text: string;
         image: string;
         deserialize(input: CardSlide) {
@@ -212,7 +212,7 @@ module app {
         move(dropCardIndex: number, card: Card) {
             card.checked = false;
             if (dropCardIndex < 0 || dropCardIndex > this.data.cards.length) {
-               
+
                 return;
             }
             const cardIndex = this.data.cards.indexOf(card);
