@@ -76,6 +76,7 @@
       <column name="CommentCount" default="0" not-null="true"/>
     </property>
     <property name="QuizCount" />
+    <property name="FlashcardCount" />
 
 
     <subclass name="PrivateBox" discriminator-value="null">

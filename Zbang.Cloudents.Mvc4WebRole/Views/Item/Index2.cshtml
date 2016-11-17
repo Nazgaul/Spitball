@@ -35,7 +35,7 @@
                 </div>
                 <div class="item-actions" layout="row" layout-align="space-between center">
                     <button class="fb-like content-wrapper" hide show-gt-xs ng-class="{blue : i.details.like}" layout="row" layout-align="space-between center" user-not-register-popup="click" type="button" ng-click="i.like()" ga-track-event="['itemPage', 'like item']">
-                        <span><md-icon md-svg-icon="b:like"></md-icon>@*@Html.Svg("~/images/site/box-icons.svg", "like")*@</span>
+                        <span><md-icon md-svg-icon="b:like"></md-icon></span>
                         <span>{{i.details.likes}}</span>
                     </button>
                     <a hide-xs target="_blank" ng-click="i.followBox()" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']"><md-icon md-svg-icon="i:download"></md-icon>@*@Html.Svg(svgUrl, "download")*@</a>
@@ -92,11 +92,15 @@
         </div>
     </header>
     <div class="item-content" md-swipe-left="i.swipeLeft()" md-swipe-right="i.swipeRight()">
-        <div class="ad" data-ng-dfp-ad-container>
+        @*<div class="ad" data-ng-dfp-ad-container>
             <div data-ng-dfp-ad="div-gpt-ad-1461568291501-0" data-ng-dfp-ad-hide-when-empty></div>
+        </div>*@
+        <div class="ad">
+            <adsense ad-client="ca-pub-1215688692145777" ad-slot="8210510557" inline-style="display:block;" ad-format="auto"></adsense>
         </div>
-        <div class="side-ad" data-ng-dfp-ad-container>
-            <div data-ng-dfp-ad="div-gpt-ad-1461244713254-0" data-ng-dfp-ad-hide-when-empty></div>
+        <div class="side-ad" @*data-ng-dfp-ad-container*@>
+            <adsense ad-client="ca-pub-1215688692145777" ad-slot="8210510557" inline-style="display:block;" ad-format="auto"></adsense>
+            @*<div data-ng-dfp-ad="div-gpt-ad-1461244713254-0" data-ng-dfp-ad-hide-when-empty></div>*@
         </div>
         @{ Html.RenderPartial("_ItemComments");}
 

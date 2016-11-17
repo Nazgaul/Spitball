@@ -173,15 +173,16 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         //new JsFileWithCdn("~/scripts/svg4everybodyAngular.js"),
                          //TODO: move to oclazy in user
                         new JsFileWithCdn("~/scripts/angular-countUp.js"),
+                        new JsFileWithCdn("~/scripts/angular-google-adsense.js"),
 
-                        new JsFileWithCdn("~/scripts/angular-dfp.js"),
+                       // new JsFileWithCdn("~/scripts/angular-dfp.js"),
 
                         new JsFileWithCdn("~/bower_components/angular-timeago/dist/angular-timeago.min.js"),
                         new JsFileWithCdn("~/js/polyfills.js"),
 
                         new JsFileWithCdn("~/js/app.js"),
                         new JsFileWithCdn("~/js/app.config.js"),
-                        new JsFileWithCdn("~/js/doubleclick.config.js"),
+                        //new JsFileWithCdn("~/js/doubleclick.config.js"),
                         new JsFileWithCdn("~/js/shared/languageHandler.js"),
                         new JsFileWithCdn("~/js/routerHelperProvider.js"),
                         new JsFileWithCdn("~/js/app.route.js"),
@@ -327,7 +328,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/scrollToTop.directive.js"),
                         new JsFileWithCdn("~/js/shared/collapseHeader.directive.js"),
                         new JsFileWithCdn("~/js/shared/keyboardAction.directive.js"),
-                        new JsFileWithCdn("~/js/shared/menuAd.directive.js"),
+                        //new JsFileWithCdn("~/js/shared/menuAd.directive.js"),
                         new JsFileWithCdn("~/js/shared/cartAnimation.directive.js"),
 
 
