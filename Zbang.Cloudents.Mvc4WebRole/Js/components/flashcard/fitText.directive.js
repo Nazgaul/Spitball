@@ -9,9 +9,13 @@ var app;
             this.link = function (scope, element, attrs) {
                 var attributeToChange = "font-size";
                 var changeFontSize = function (isPositive) {
-                    var change = isPositive ? 1 : -1;
-                    var elNewFontSize = (parseInt($(element).css(attributeToChange).slice(0, -2)) + change) + 'px';
-                    return $(element).css(attributeToChange, elNewFontSize);
+                    var change = isPositive ? 1 : -1, currentFontSize = parseInt($(element).css(attributeToChange).slice(0, -2));
+                    if (currentFontSize <= 18) {
+                        return false;
+                    }
+                    var elNewFontSize = (currentFontSize + change) + 'px';
+                    $(element).css(attributeToChange, elNewFontSize);
+                    return true;
                 };
                 scope.$watchGroup([attrs["ngBind"], "f.style", "f.slidepos"], function (newValue) {
                     _this.$animate.removeClass(element.parents("angular-animate"), "ng-hide")
@@ -24,23 +28,20 @@ var app;
                     });
                     changeFont();
                     function changeFont() {
-                        $(element).css(attributeToChange, "");
+                        $(element).css(attributeToChange, "").removeClass("lessText");
                         if (!newValue[0]) {
                             return;
                         }
                         if (element.parents(".ng-hide").length) {
                             return;
                         }
-                        var resizeOccured = false;
+                        if (newValue[0].length <= 80) {
+                            element.addClass("lessText");
+                        }
                         while (element[0].scrollHeight > element.parent()[0].offsetHeight ||
                             element[0].scrollWidth > element.parent()[0].offsetWidth) {
-                            changeFontSize(false);
-                            resizeOccured = true;
-                        }
-                        if (!resizeOccured) {
-                            while (element[0].scrollHeight < element.parent()[0].offsetHeight &&
-                                element[0].scrollWidth < element.parent()[0].offsetWidth) {
-                                changeFontSize(true);
+                            if (!changeFontSize(false)) {
+                                break;
                             }
                         }
                     }

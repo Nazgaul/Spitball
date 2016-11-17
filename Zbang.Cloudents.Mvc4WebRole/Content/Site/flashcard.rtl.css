@@ -924,6 +924,16 @@
   -webkit-align-items: center;
   align-items: center;
 }
+.flashcardPage .card-player .card-template .card-content .side .text-container p {
+  font-size: 48px;
+  overflow: auto;
+  height: 100%;
+}
+.flashcardPage .card-player .card-template .card-content .side .text-container p.lessText {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
 .flashcardPage .card-player .card-template .card-content .side .img-container ~ .text-container {
   -webkit-align-items: center;
   align-items: center;
