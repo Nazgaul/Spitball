@@ -51,6 +51,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             flashcard.Pins?.Clear();
             flashcard.Publish = true;
             m_FlashcardMetaRepository.Save(flashcard);
+            box.UpdateFlashcardCount();
+            m_BoxRepository.Save(box);
             await m_FlashcardRepository.UpdateItemAsync(message.Flashcard.id, message.Flashcard);
         }
     }

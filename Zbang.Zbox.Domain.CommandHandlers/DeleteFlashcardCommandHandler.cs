@@ -12,13 +12,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<FlashcardMeta> m_FlashcardMetaRepository;
         private readonly IUserRepository m_UserRepository;
         private readonly IDocumentDbRepository<Flashcard> m_FlashcardRepository;
+        private readonly IRepository<Box> m_BoxRepository;
 
         public DeleteFlashcardCommandHandler(IRepository<FlashcardMeta> flashcardMetaRepository,
-            IUserRepository userRepository, IDocumentDbRepository<Flashcard> flashcardRepository)
+            IUserRepository userRepository, IDocumentDbRepository<Flashcard> flashcardRepository, IRepository<Box> boxRepository)
         {
             m_FlashcardMetaRepository = flashcardMetaRepository;
             m_UserRepository = userRepository;
             m_FlashcardRepository = flashcardRepository;
+            m_BoxRepository = boxRepository;
         }
 
         public async Task HandleAsync(DeleteFlashcardCommand message)
@@ -32,6 +34,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var flashcard =  await m_FlashcardRepository.GetItemAsync(message.Id.ToString());
             flashcard.IsDeleted = true;
+
+            flashcardMeta.IsDeleted = true; // for update flash cards count correctly
+            flashcardMeta.Box.UpdateFlashcardCount();
+            m_BoxRepository.Save(flashcardMeta.Box);
             await m_FlashcardRepository.UpdateItemAsync(message.Id.ToString(), flashcard);
             m_FlashcardMetaRepository.Delete(flashcardMeta);
         }
