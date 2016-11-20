@@ -44,6 +44,7 @@
         cover = new CardSlide();
         index: number;
         pin: boolean;
+        style: boolean = true;
         //deserialize(input: Card) {
         //    this.front = new CardSlide().deserialize(input.front);
         //    this.cover = new CardSlide().deserialize(input.cover);
@@ -70,7 +71,7 @@
         //slide: Card;
         disabled = false;
         styleLegend = true;
-        style = true;
+        //style = true;
         backUrl;
         notMobile: boolean;
 
@@ -93,6 +94,7 @@
                     if (!v.cover.text && !v.cover.image) {
                         v.cover.text = "...";
                     }
+                    v.style = true;
 
                 });
             this.notMobile = $mdMedia("gt-xs");
@@ -109,6 +111,7 @@
             if (this.shuffle) {
                 shuffle(this.cards);
             }
+            this.flashcardService.solve(this.$stateParams["id"]);
             this.slidepos = 0;
             // this.slide = this.cards[this.slidepos];
             this.step = Steps.Memo;
@@ -120,7 +123,9 @@
         prev() {
             this.slidepos = Math.max(0, --this.slidepos);
             this.step = Steps.Memo;
-            this.style = this.styleLegend;
+            //console.log(this.style, this.styleLegend);
+            //this.style = this.styleLegend;
+           
         }
         next() {
             this.slidepos = Math.min(this.cards.length, ++this.slidepos);
@@ -128,19 +133,20 @@
                 this.step = Steps.End;
                 return;
             }
-            this.style = this.styleLegend;
+            //console.log(this.style, this.styleLegend);
+            //this.style = this.styleLegend;
         }
         changeLegend(legend?: boolean) {
             this.styleLegend = legend;
-            this.style = legend;
+            //this.style = legend;
+            angular.forEach(this.cards,
+                (c => {
+                    c.style = this.styleLegend;
+                }));
         }
-        flip() {
-            if (this.style !== null) {
-                this.style = !this.style;
-            }
-        }
-        changeStyle(s) {
-            this.style = this.styleLegend = s;
+        flip(slide) {
+            slide.style = !slide.style;
+           
         }
         pin(slide: Card) {
             //const index = this.flashcard.cards.indexOf(this.slide);

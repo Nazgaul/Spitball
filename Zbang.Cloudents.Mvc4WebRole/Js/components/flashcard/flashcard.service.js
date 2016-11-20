@@ -26,16 +26,19 @@ var app;
             return this.ajaxService2.delete("/flashcard/", { id: id });
         };
         Flashcard.prototype.pin = function (id, index) {
-            return this.ajaxService2.post("/flashcard/pin", { id: id, index: index });
+            return this.ajaxService2.post("/flashcard/pin/", { id: id, index: index });
         };
         Flashcard.prototype.pinDelete = function (id, index) {
-            return this.ajaxService2.delete("/flashcard/pin", { id: id, index: index });
+            return this.ajaxService2.delete("/flashcard/pin/", { id: id, index: index });
         };
         Flashcard.prototype.like = function (id) {
-            return this.ajaxService2.post("/flashcard/like", { id: id });
+            return this.ajaxService2.post("/flashcard/like/", { id: id });
         };
         Flashcard.prototype.likeDelete = function (id) {
-            return this.ajaxService2.delete("/flashcard/like", { id: id });
+            return this.ajaxService2.delete("/flashcard/like/", { id: id });
+        };
+        Flashcard.prototype.solve = function (id) {
+            return this.ajaxService2.post("/flashcard/solve/", { id: id });
         };
         Flashcard.$inject = ["ajaxService2"];
         return Flashcard;

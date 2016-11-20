@@ -288,6 +288,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/flashcard/interaction.directive.js"),
                         new JsFileWithCdn("~/js/components/flashcard/fitText.directive.js"),
                         new JsFileWithCdn("~/js/components/flashcard/cardScroll.directive.js"),
+                        new JsFileWithCdn("~/js/components/flashcard/cardAnimation.directive.js"),
                        
 
                         new JsFileWithCdn("~/js/components/app.controller.js"),

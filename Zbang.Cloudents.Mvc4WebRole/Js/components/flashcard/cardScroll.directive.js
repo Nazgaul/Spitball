@@ -29,23 +29,30 @@ var app;
                     startY = getCoord(ev);
                 })
                     .on("touchend", function (ev) {
-                    if (Math.abs(startY - getCoord(ev)) < 20) {
+                    var cordY = getCoord(ev);
+                    var directionDown = startY > cordY;
+                    if (Math.abs(startY - cordY) < 20) {
                         return;
                     }
                     var target = ev.target, jTarget = $(target);
                     if (target.scrollHeight > target.clientHeight) {
-                        if (jTarget.scrollTop() + jTarget.innerHeight() < jTarget[0].scrollHeight) {
+                        if (directionDown && jTarget.scrollTop() + jTarget.innerHeight() < jTarget[0].scrollHeight) {
+                            return;
+                        }
+                        if (!directionDown && jTarget.scrollTop() > 0) {
                             return;
                         }
                     }
                     _this.$anchorScroll.yOffset = 150;
                     ev.preventDefault();
-                    if (startY > getCoord(ev)) {
+                    if (directionDown) {
                         ctrl.next();
+                        scope.$digest();
                         _this.$anchorScroll("card" + ctrl.slidepos);
                     }
                     else {
                         ctrl.prev();
+                        scope.$digest();
                         _this.$anchorScroll("card" + ctrl.slidepos);
                     }
                 });

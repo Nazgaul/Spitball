@@ -41,6 +41,14 @@
     <property name="DateTime" not-null="true" type="DateTime2"></property>
     <property name="Index" column="Position" not-null="true" unique-key="FlashcardPinFlashCardIdUserIdIndex"></property>
   </class>
+  <class name="FlashcardSolve" table="FlashcardSolve">
+    <id name="Id" column="Id">
+      <generator class="assigned"/>
+    </id>
+    <many-to-one name="Flashcard" class="FlashcardMeta" column="FlashcardId" not-null="true" foreign-key="FlashcardPin" unique-key="FlashcardSolveFlashCardIdUserId"/>
+    <many-to-one name="User" class="User" column="UserId" not-null="true" foreign-key="UserPin" unique-key="FlashcardSolveFlashCardIdUserId"/>
+    <property name="DateTime" not-null="true" type="DateTime2"></property>
+  </class>
   <class name="FlashcardLike" table="FlashcardLike">
     <id name="Id" column="Id">
       <generator class="assigned"/>

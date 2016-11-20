@@ -1,4 +1,64 @@
-@-moz-keyframes cardIn {
+@-moz-keyframes cardNextIn {
+  from {
+    opacity: 0;
+    transform: translate(-70%, 85%) rotate(-45deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@-webkit-keyframes cardNextIn {
+  from {
+    opacity: 0;
+    transform: translate(-70%, 85%) rotate(-45deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes cardNextIn {
+  from {
+    opacity: 0;
+    transform: translate(-70%, 85%) rotate(-45deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@-moz-keyframes cardNextOut {
+  from {
+    transform: none;
+    opacity: 1;
+  }
+  to {
+    transform: rotate(45deg) translate(80%, -45%);
+    opacity: 0;
+  }
+}
+@-webkit-keyframes cardNextOut {
+  from {
+    transform: none;
+    opacity: 1;
+  }
+  to {
+    transform: rotate(45deg) translate(80%, -45%);
+    opacity: 0;
+  }
+}
+@keyframes cardNextOut {
+  from {
+    transform: none;
+    opacity: 1;
+  }
+  to {
+    transform: rotate(45deg) translate(80%, -45%);
+    opacity: 0;
+  }
+}
+@-moz-keyframes cardPrevIn {
   from {
     opacity: 0;
     transform: rotate(45deg) translate(80%, -45%);
@@ -8,7 +68,7 @@
     transform: none;
   }
 }
-@-webkit-keyframes cardIn {
+@-webkit-keyframes cardPrevIn {
   from {
     opacity: 0;
     transform: rotate(45deg) translate(80%, -45%);
@@ -18,7 +78,7 @@
     transform: none;
   }
 }
-@keyframes cardIn {
+@keyframes cardPrevIn {
   from {
     opacity: 0;
     transform: rotate(45deg) translate(80%, -45%);
@@ -28,7 +88,7 @@
     transform: none;
   }
 }
-@-moz-keyframes cardOut {
+@-moz-keyframes cardPrevOut {
   from {
     transform: none;
     opacity: 1;
@@ -38,7 +98,7 @@
     opacity: 0;
   }
 }
-@-webkit-keyframes cardOut {
+@-webkit-keyframes cardPrevOut {
   from {
     transform: none;
     opacity: 1;
@@ -48,7 +108,7 @@
     opacity: 0;
   }
 }
-@keyframes cardOut {
+@keyframes cardPrevOut {
   from {
     transform: none;
     opacity: 1;
@@ -822,21 +882,9 @@
     margin: 16px 0;
   }
 }
-.flashcardPage .card-player .card-template.ng-hide-add {
-  display: block !important;
-  animation-name: cardOut;
-  animation-duration: 0.3s;
-  animation-timing-function: ease-out;
-  animation-iteration-count: 1;
-  position: absolute !important;
-  height: 400px;
-  max-width: 800px;
-  width: 100%;
-  /* the transition is defined in the active class */
-}
+.flashcardPage .card-player .card-template.ng-hide-add,
 .flashcardPage .card-player .card-template.ng-hide-remove {
   display: block !important;
-  animation-name: cardIn;
   animation-duration: 0.3s;
   animation-timing-function: ease-out;
   animation-iteration-count: 1;
@@ -844,7 +892,20 @@
   height: 400px;
   max-width: 800px;
   width: 100%;
+}
+.flashcardPage .card-player .card-template.ng-hide-add {
+  animation-name: cardNextOut;
   /* the transition is defined in the active class */
+}
+.flashcardPage .card-player .card-template.ng-hide-add.backSlide {
+  animation-name: cardPrevOut;
+}
+.flashcardPage .card-player .card-template.ng-hide-remove {
+  animation-name: cardNextIn;
+  /* the transition is defined in the active class */
+}
+.flashcardPage .card-player .card-template.ng-hide-remove.backSlide {
+  animation-name: cardPrevIn;
 }
 .flashcardPage .card-player .card-template.front .card-content .side,
 .flashcardPage .card-player .card-template.back .card-content .side {

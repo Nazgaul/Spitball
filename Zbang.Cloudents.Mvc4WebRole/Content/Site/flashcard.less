@@ -17,9 +17,36 @@
     width: 100%;
 }
 
-.cardInAnimation() {
+.cardNextInAnimation() {
     from {
         opacity: 0;
+         transform: translate(70%, 85%) rotate(45deg);
+       // transform: rotate(-45deg) translate(-80%,-45%);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.cardNextOutAnimation() {
+    from {
+        transform: none;
+        opacity: 1;
+    }
+
+    to {
+        transform: rotate(-45deg) translate(-80%,-45%);
+        //transform: translate(70%, 85%) rotate(45deg);
+        opacity: 0;
+    }
+}
+
+.cardPrevInAnimation() {
+    from {
+        opacity: 0;
+         //transform: translate(70%, 85%) rotate(45deg);
         transform: rotate(-45deg) translate(-80%,-45%);
     }
 
@@ -29,40 +56,69 @@
     }
 }
 
-.cardOutAnimation() {
+.cardPrevOutAnimation() {
     from {
         transform: none;
         opacity: 1;
     }
 
     to {
+        //transform: rotate(-45deg) translate(-80%,-45%);
         transform: translate(70%, 85%) rotate(45deg);
         opacity: 0;
     }
 }
 
-@-moz-keyframes cardIn {
-    .cardInAnimation();
+@-moz-keyframes cardNextIn {
+    .cardNextInAnimation();
 }
 
-@-webkit-keyframes cardIn {
-    .cardInAnimation();
+@-webkit-keyframes cardNextIn {
+    .cardNextInAnimation();
 }
 
-@keyframes cardIn {
-    .cardInAnimation();
+@keyframes cardNextIn {
+    .cardNextInAnimation();
 }
 
-@-moz-keyframes cardOut {
-    .cardOutAnimation();
+@-moz-keyframes cardNextOut {
+    .cardNextOutAnimation();
 }
 
-@-webkit-keyframes cardOut {
-    .cardOutAnimation();
+@-webkit-keyframes cardNextOut {
+    .cardNextOutAnimation();
 }
 
-@keyframes cardOut {
-    .cardOutAnimation();
+@keyframes cardNextOut {
+    .cardNextOutAnimation();
+}
+
+
+
+
+
+@-moz-keyframes cardPrevIn {
+    .cardPrevInAnimation();
+}
+
+@-webkit-keyframes cardPrevIn {
+    .cardPrevInAnimation();
+}
+
+@keyframes cardPrevIn {
+    .cardPrevInAnimation();
+}
+
+@-moz-keyframes cardPrevOut {
+    .cardPrevOutAnimation();
+}
+
+@-webkit-keyframes cardPrevOut {
+    .cardPrevOutAnimation();
+}
+
+@keyframes cardPrevOut {
+    .cardPrevOutAnimation();
 }
 
 .flashcardPage {
@@ -630,26 +686,31 @@
             @media(max-width: 600px) {
                 margin: 16px 0;
             }
-            //.my-element.ng-hide-add-active,
-            &.ng-hide-add {
+
+            &.ng-hide-add, &.ng-hide-remove {
                 display: block !important;
-                animation-name: cardOut;
                 animation-duration: 0.3s;
                 animation-timing-function: ease-out;
                 animation-iteration-count: 1;
                 position: absolute !important;
                 .card-size();
+            }
+            //.my-element.ng-hide-add-active,
+            &.ng-hide-add {
+                animation-name: cardNextOut;
+
+                &.backSlide {
+                    animation-name: cardPrevOut;
+                }
                 /* the transition is defined in the active class */
             }
 
             &.ng-hide-remove {
-                display: block !important;
-                animation-name: cardIn;
-                animation-duration: 0.3s;
-                animation-timing-function: ease-out;
-                animation-iteration-count: 1;
-                position: absolute !important;
-                .card-size();
+                animation-name: cardNextIn;
+
+                &.backSlide {
+                    animation-name: cardPrevIn;
+                }
                 /* the transition is defined in the active class */
             }
             /*&.front, &.back {

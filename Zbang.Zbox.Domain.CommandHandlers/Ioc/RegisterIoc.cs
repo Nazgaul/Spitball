@@ -172,6 +172,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
        typeof(AddFlashcardLikeCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<DeleteFlashcardLikeCommand>),
       typeof(DeleteFlashcardLikeCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandler<SaveUserFlashcardCommand>),
+     typeof(SaveUserFlashcardCommandHandler));
+
+            
         }
     }
 }

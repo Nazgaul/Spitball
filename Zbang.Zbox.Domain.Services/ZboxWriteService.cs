@@ -814,5 +814,15 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
+
+        public void SolveFlashcard(SaveUserFlashcardCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+
     }
 }

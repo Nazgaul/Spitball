@@ -124,6 +124,7 @@
     <Compile Include="RateItemCommand.cs" />
     <Compile Include="RemoveOldConnectionCommand.cs" />
     <Compile Include="RequestAccessLibraryNodeCommand.cs" />
+    <Compile Include="SaveUserFlashcardCommand.cs" />
     <Compile Include="UnsubscribeUsersFromEmailCommand.cs" />
     <Compile Include="UpdateFlashcardCommand.cs" />
     <Compile Include="UpdateNodeSettingsCommand.cs" />
