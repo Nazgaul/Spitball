@@ -16,6 +16,7 @@ var app;
             this.showBoxesNodes = true;
             this.coursesOpen = false;
             this.boxesOpen = false;
+            loaded = false;
             $scope.$on("close-menu", function () {
                 $mdSidenav("left").close();
             });
