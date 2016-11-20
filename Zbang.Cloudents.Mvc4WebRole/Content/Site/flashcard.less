@@ -223,7 +223,7 @@
 
                 .flashcard-icon {
                     margin-right: 10px;
-                    .flashcard-icon(42px, #4190b9, #4190b9, #dadada);
+                    .flashcard-icon(42px, @buttonColorBlue, @buttonColorBlue, #dadada, @buttonColorBlue, @buttonColorBlue);
                 }
             }
 
@@ -307,16 +307,16 @@
 
                 &:not(.active) .flashcard-icon {
                     margin-right: 10px;
-                    .flashcard-icon(36px, @textColorLightGrey, @textColorLightGrey, @backgroundColor);
+                    .flashcard-icon(36px, @textColorLightGrey, #b5b4b4, @backgroundColor, @textColorLightGrey, #9e9d9d);
                 }
 
                 &.active {
                     &.front .flashcard-icon {
-                        .flashcard-icon(36px, @buttonColorBlue, @headerbackground, @backgroundColor);
+                        .flashcard-icon(36px, @buttonColorBlue, @headerbackground, @backgroundColor, @buttonColorBlue, @headerbackground);
                     }
 
                     &.back .flashcard-icon {
-                        .flashcard-icon(36px, @headerbackground, @buttonColorBlue, @backgroundColor);
+                        .flashcard-icon(36px, @headerbackground, @buttonColorBlue, @backgroundColor,@headerbackground, @buttonColorBlue);
 
                         md-icon {
                             fill: @buttonColorBlue;
@@ -324,7 +324,7 @@
                     }
 
                     &.both .flashcard-icon {
-                        .flashcard-icon(36px, @buttonColorBlue, @buttonColorBlue, @backgroundColor);
+                        .flashcard-icon(36px, @buttonColorBlue, @buttonColorBlue, @backgroundColor, @buttonColorBlue, @buttonColorBlue);
                     }
                 }
             }
@@ -723,6 +723,10 @@
                 animation-timing-function: ease-out;
                 animation-iteration-count: 1;
                 position: absolute !important;
+
+                ~ .buttons, ~ .keyboard {
+                    display: none;
+                }
                 //.card-size();
             }
             //.my-element.ng-hide-add-active,
@@ -1030,7 +1034,7 @@
         background-color: @textColorLightGrey;
     }
 
-    .flashcard-icon(@width, @frontColor, @backColor, @borderColor) {
+    .flashcard-icon(@width, @frontColor, @backColor, @borderColor, @frontHover, @backHover) {
         @height: 0.88*@width;
         position: relative;
         width: @width;
@@ -1057,6 +1061,16 @@
             bottom: @height/4;
             left: 0;
             background: @frontColor;
+        }
+
+        &:hover {
+            &:before {
+                background: @backHover;
+            }
+
+            &:after {
+                background: @frontHover;
+            }
         }
     }
 }

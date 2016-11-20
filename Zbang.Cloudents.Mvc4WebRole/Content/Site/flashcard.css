@@ -237,6 +237,12 @@
   left: 0;
   background: #4190b9;
 }
+.flashcardPage .header .progress-wrapper .title .flashcard-icon:hover:before {
+  background: #4190b9;
+}
+.flashcardPage .header .progress-wrapper .title .flashcard-icon:hover:after {
+  background: #4190b9;
+}
 .flashcardPage .header .progress-wrapper .progress-settings {
   display: -webkit-flex;
   display: -ms-flex;
@@ -355,12 +361,18 @@
 .flashcardPage .header .card-sides button:not(.active) .flashcard-icon:before {
   bottom: 0;
   left: 9px;
-  background: #c3c3c3;
+  background: #b5b4b4;
 }
 .flashcardPage .header .card-sides button:not(.active) .flashcard-icon:after {
   transform: rotate(-20deg);
   bottom: 7.92px;
   left: 0;
+  background: #c3c3c3;
+}
+.flashcardPage .header .card-sides button:not(.active) .flashcard-icon:hover:before {
+  background: #9e9d9d;
+}
+.flashcardPage .header .card-sides button:not(.active) .flashcard-icon:hover:after {
   background: #c3c3c3;
 }
 .flashcardPage .header .card-sides button.active.front .flashcard-icon {
@@ -389,6 +401,12 @@
   left: 0;
   background: #4190b9;
 }
+.flashcardPage .header .card-sides button.active.front .flashcard-icon:hover:before {
+  background: #323538;
+}
+.flashcardPage .header .card-sides button.active.front .flashcard-icon:hover:after {
+  background: #4190b9;
+}
 .flashcardPage .header .card-sides button.active.back .flashcard-icon {
   position: relative;
   width: 36px;
@@ -413,6 +431,12 @@
   transform: rotate(-20deg);
   bottom: 7.92px;
   left: 0;
+  background: #323538;
+}
+.flashcardPage .header .card-sides button.active.back .flashcard-icon:hover:before {
+  background: #4190b9;
+}
+.flashcardPage .header .card-sides button.active.back .flashcard-icon:hover:after {
   background: #323538;
 }
 .flashcardPage .header .card-sides button.active.back .flashcard-icon md-icon {
@@ -442,6 +466,12 @@
   transform: rotate(-20deg);
   bottom: 7.92px;
   left: 0;
+  background: #4190b9;
+}
+.flashcardPage .header .card-sides button.active.both .flashcard-icon:hover:before {
+  background: #4190b9;
+}
+.flashcardPage .header .card-sides button.active.both .flashcard-icon:hover:after {
   background: #4190b9;
 }
 .flashcardPage .header .pinned-counter {
@@ -907,6 +937,12 @@
   animation-timing-function: ease-out;
   animation-iteration-count: 1;
   position: absolute !important;
+}
+.flashcardPage .card-player .card-template.ng-hide-add ~ .buttons,
+.flashcardPage .card-player .card-template.ng-hide-remove ~ .buttons,
+.flashcardPage .card-player .card-template.ng-hide-add ~ .keyboard,
+.flashcardPage .card-player .card-template.ng-hide-remove ~ .keyboard {
+  display: none;
 }
 .flashcardPage .card-player .card-template.ng-hide-add {
   animation-name: cardNextOut;
