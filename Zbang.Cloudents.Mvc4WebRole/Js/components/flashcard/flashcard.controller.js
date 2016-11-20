@@ -100,7 +100,9 @@ var app;
             }));
         };
         FlashcardController.prototype.flip = function (slide) {
-            slide.style = !slide.style;
+            if (typeof (slide.style) === "boolean") {
+                slide.style = !slide.style;
+            }
         };
         FlashcardController.prototype.pin = function (slide) {
             slide.pin = !slide.pin;

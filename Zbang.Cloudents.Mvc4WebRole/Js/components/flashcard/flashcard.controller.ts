@@ -145,8 +145,10 @@
                 }));
         }
         flip(slide) {
-            slide.style = !slide.style;
-           
+            if (typeof (slide.style) === "boolean") {
+                slide.style = !slide.style;
+            }
+
         }
         pin(slide: Card) {
             //const index = this.flashcard.cards.indexOf(this.slide);

@@ -13,7 +13,6 @@
         link = (scope: angular.IScope, element: JQuery, attrs: ng.IAttributes) => {
             var $body = $("body");
             var d = scope.$watchGroup(['myHide', "slidePos"], (newValue, oldValue) => {
-
                 console.log(newValue, oldValue, element.attr("id"));
                 element.removeClass("backSlide");
                 if (newValue[1] < oldValue[1]) {
@@ -29,8 +28,8 @@
                         });
                 }
                 else {
-                    $body.css("overflow", "hidden");
                     if (!element.hasClass("ng-hide")) {
+                        $body.css("overflow", "hidden");
                         this.$animate.addClass(element, "ng-hide")
                             .then(() => {
                                 removeOverFlow(newValue[0], oldValue[0]);
@@ -38,7 +37,7 @@
                     }
                 }
             });
-            function removeOverFlow(newVal,oldVal) {
+            function removeOverFlow(newVal, oldVal) {
                 if (newVal === oldVal) {
                     return;
                 }

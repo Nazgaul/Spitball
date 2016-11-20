@@ -27,8 +27,8 @@ var app;
                         });
                     }
                     else {
-                        $body.css("overflow", "hidden");
                         if (!element.hasClass("ng-hide")) {
+                            $body.css("overflow", "hidden");
                             _this.$animate.addClass(element, "ng-hide")
                                 .then(function () {
                                 removeOverFlow(newValue[0], oldValue[0]);
