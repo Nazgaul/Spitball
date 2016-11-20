@@ -408,6 +408,7 @@
 
     .keyboard {
         right: 10px;
+
         .md-ripple-container {
             display: none;
         }
@@ -440,7 +441,10 @@
     }
 
 
-
+    .flip-container, .flipper {
+        .displayFlex;
+        flex-grow: 1;
+    }
 
     .front, .back {
 
@@ -785,13 +789,18 @@
 
                     .data-wrapper {
                         flex-direction: column;
+                        padding-bottom: 10px;
                     }
 
-                    img {
+                    .img-container img {
                         width: initial;
                         max-width: 100%;
                         margin: 0 auto;
                         display: block;
+
+                        @media(max-width: 600px) {
+                            max-height: @cardHeight/4 - 12px;
+                        }
                     }
                 }
             }
@@ -809,6 +818,10 @@
 
                     @media(max-width: 600px) {
                         max-height: @cardHeight/2;
+
+                        .text-container p {
+                            margin: 0;
+                        }
                     }
                 }
 
@@ -821,7 +834,7 @@
                         width: 100%;
 
                         @media(max-width: 600px) {
-                            padding: 0 25px;
+                            padding: 6px 25px;
                         }
                     }
                 }
@@ -1007,6 +1020,10 @@
             background: @frontColor;
         }
     }
+}
+
+.keyboard-menu:before {
+    display: none;
 }
 
 .mdno-object-fit .flashcardPage .card-player .card-template .card-content .side .img-container img {
