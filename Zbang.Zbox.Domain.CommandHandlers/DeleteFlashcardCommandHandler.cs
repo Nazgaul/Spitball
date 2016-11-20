@@ -28,10 +28,21 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (message == null) throw new ArgumentNullException(nameof(message));
             var user = m_UserRepository.Load(message.UserId);
             var flashcardMeta = m_FlashcardMetaRepository.Load(message.Id);
-            if (flashcardMeta.User != user)
+
+            bool isAuthorize = flashcardMeta.User.Id == message.UserId
+               || flashcardMeta.Box.Owner.Id == message.UserId
+               || user.IsAdmin();
+
+            if (!isAuthorize)
             {
                 throw new UnauthorizedAccessException();
             }
+
+
+            //if (flashcardMeta.User != user)
+            //{
+            //    throw new UnauthorizedAccessException();
+            //}
             var flashcard =  await m_FlashcardRepository.GetItemAsync(message.Id.ToString());
             flashcard.IsDeleted = true;
 

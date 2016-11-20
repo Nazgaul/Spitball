@@ -5,7 +5,7 @@
         public const string UserBoxes = @"select b.boxid as id,
                                 b.BoxName as Name,
                                 ub.UserType, 
-                                b.quizcount + b.itemcount + b.FlashcardCount as ItemCount,
+                                b.quizcount + b.itemcount + COALESCE(b.FlashcardCount,0) as ItemCount,
                                 b.MembersCount as MembersCount,
                                 b.commentcount as CommentCount,
                                 b.CourseCode,

@@ -266,7 +266,7 @@
   text-transform: lowercase;
 }
 .capitalize {
-  text-transform: capitalize;
+  text-transform: capitalize !important;
 }
 .upper-case {
   text-transform: uppercase;
