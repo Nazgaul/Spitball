@@ -1,6 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-<div @*ng-switch="f.step"*@ ng-switch="f.step" class="flashcard-wrapper">
+<div ng-switch="f.step" class="flashcard-wrapper">
     <div class="header">
         <button ng-click="app.back(f.backUrl)" class="close-btn">
             <md-icon md-svg-icon="t:close"></md-icon>
@@ -17,13 +17,13 @@
                     </md-button>
                     <md-menu-content width="1">
                         <md-menu-item>
-                            <md-button ng-click="f.style=true">@FlashcardResources.Front</md-button>
+                            <md-button ng-click="f.changeLegend(true)">@FlashcardResources.Front</md-button>
                         </md-menu-item>
                         <md-menu-item>
-                            <md-button ng-click="f.style=false">@FlashcardResources.Back</md-button>
+                            <md-button ng-click="f.changeLegend(false)">@FlashcardResources.Back</md-button>
                         </md-menu-item>
                         <md-menu-item>
-                            <md-button ng-click="f.style=null">@FlashcardResources.Both</md-button>
+                            <md-button ng-click="f.changeLegend(null)">@FlashcardResources.Both</md-button>
                         </md-menu-item>
                     </md-menu-content>
                 </md-menu>
@@ -98,7 +98,7 @@
         </div>
     </div>
     <div multiswitch-when="1" class="card-player angular-animate" card-scroll>
-        <div ng-attr-id="card{{::$index}}" class="card-template angular-animate" my-hide="$index !== f.slidepos && f.notMobile" slide-pos="f.slidepos" ng-class="{front: f.style==true,back:f.style==false,both:f.style==null}" ng-repeat="slide in ::f.cards">
+        <div ng-attr-id="card{{::$index}}" class="card-template angular-animate" my-hide="$index !== f.slidepos && f.notMobile" slide-pos="f.slidepos" ng-class="{front: slide.style==true,back:slide.style==false,both:slide.style==null}" ng-repeat="slide in ::f.cards">
             <div class="flip-container">
                 <div class="flipper">
                     <div class="card-content">
@@ -106,12 +106,12 @@
                             <button type="button" class="pin-btn" ng-click="f.pin(slide)" ng-class="{pinned:slide.pin}" keyboard-action="80">
                                 <md-icon md-svg-icon="b:pin"></md-icon>
                             </button>
-                            <div class="data-wrapper" ng-click="f.flip()" keyboard-action="38|40">
+                            <div class="data-wrapper" ng-click="f.flip(slide)" keyboard-action="38|40">
                                 <div class="img-container" ng-if="::slide.front.image">
                                     <img ng-src="{{::slide.front.image}}" alt="font image" />
                                 </div>
                                 <div class="text-container">
-                                    <p dir="auto" ng-bind="::slide.front.text" fit-text></p>
+                                    <p class="scrollbar" dir="auto" ng-bind="::slide.front.text" fit-text></p>
                                 </div>
                                 <div class="flip" ng-if="f.style !== null">
                                     <md-icon md-svg-icon="b:flip"></md-icon>
@@ -123,12 +123,12 @@
                             <button type="button" class="pin-btn" ng-click="f.pin(slide)" ng-class="{pinned:slide.pin}">
                                 <md-icon md-svg-icon="b:pin"></md-icon>
                             </button>
-                            <div class="data-wrapper" ng-click="f.flip()">
+                            <div class="data-wrapper" ng-click="f.flip(slide)">
                                 <div class="img-container" ng-if="::slide.cover.image">
                                     <img ng-src="{{::slide.cover.image}}" alt="font image" />
                                 </div>
                                 <div class="text-container">
-                                    <p dir="auto" ng-bind="::slide.cover.text" fit-text></p>
+                                    <p class="scrollbar" dir="auto" ng-bind="::slide.cover.text" fit-text></p>
                                 </div>
                                 <div class="flip" ng-if="f.style !== null">
                                     <md-icon md-svg-icon="b:flip"></md-icon>

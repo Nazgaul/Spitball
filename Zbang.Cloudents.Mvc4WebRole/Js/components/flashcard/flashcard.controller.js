@@ -26,6 +26,7 @@ var app;
         function Card() {
             this.front = new CardSlide();
             this.cover = new CardSlide();
+            this.style = true;
         }
         return Card;
     }());
@@ -45,7 +46,6 @@ var app;
             this.slidepos = 0;
             this.disabled = false;
             this.styleLegend = true;
-            this.style = true;
             this.pinCount = 0;
             angular.forEach(flashcard.cards, function (v, k) {
                 if (flashcard.pins.indexOf(k) !== -1) {
@@ -58,6 +58,7 @@ var app;
                 if (!v.cover.text) {
                     v.cover.text = "...";
                 }
+                v.style = true;
             });
             this.notMobile = $mdMedia("gt-xs");
             this.flashcard = flashcard;
@@ -82,8 +83,6 @@ var app;
         FlashcardController.prototype.prev = function () {
             this.slidepos = Math.max(0, --this.slidepos);
             this.step = Steps.Memo;
-            console.log(this.style, this.styleLegend);
-            this.style = this.styleLegend;
         };
         FlashcardController.prototype.next = function () {
             this.slidepos = Math.min(this.cards.length, ++this.slidepos);
@@ -91,20 +90,16 @@ var app;
                 this.step = Steps.End;
                 return;
             }
-            console.log(this.style, this.styleLegend);
-            this.style = this.styleLegend;
         };
         FlashcardController.prototype.changeLegend = function (legend) {
+            var _this = this;
             this.styleLegend = legend;
-            this.style = legend;
+            angular.forEach(this.cards, (function (c) {
+                c.style = _this.styleLegend;
+            }));
         };
-        FlashcardController.prototype.flip = function () {
-            if (this.style !== null) {
-                this.style = !this.style;
-            }
-        };
-        FlashcardController.prototype.changeStyle = function (s) {
-            this.style = this.styleLegend = s;
+        FlashcardController.prototype.flip = function (slide) {
+            slide.style = !slide.style;
         };
         FlashcardController.prototype.pin = function (slide) {
             slide.pin = !slide.pin;
