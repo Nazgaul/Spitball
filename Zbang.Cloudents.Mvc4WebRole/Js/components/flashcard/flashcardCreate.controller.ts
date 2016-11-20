@@ -6,11 +6,13 @@ module app {
 
         id: number;
         name: string;
+        publish: boolean;
         cards: Array<Card> = [new Card(), new Card(), new Card(), new Card(), new Card()];
         deserialize(input: FlashCard) {
             this.cards = [];
             this.id = input.id;
             this.name = input.name;
+            this.publish = input.publish;
             input.cards = input.cards || [];
             for (let i = 0; i < input.cards.length; i++) {
                 this.cards.push(new Card().deserialize(input.cards[i]));
@@ -18,9 +20,6 @@ module app {
             for (let j = this.cards.length; j < 5; j++) {
                 this.cards.push(new Card());
             }
-            //if (this.cards.length < 5) {
-            //    this.cards.push(new Card(), new Card(), new Card(), new Card(), new Card());
-            //}
             return this;
         }
         flip() {
@@ -189,6 +188,10 @@ module app {
         close(ev) {
             if (!this.data.id && !this.form.$dirty) {
                 this.navigateBackToBox();
+                return;
+            }
+            if (this.data.publish) {
+                this.create().then(this.navigateBackToBox);
                 return;
             }
 

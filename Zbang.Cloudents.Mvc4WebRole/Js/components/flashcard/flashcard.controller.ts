@@ -58,7 +58,7 @@
             private $mdMedia: angular.material.IMedia) {
             angular.forEach(flashcard.cards,
                 (v, k) => {
-                    if (flashcard.pins.indexOf(k) !== -1) {
+                    if (flashcard.pins && flashcard.pins.indexOf(k) !== -1) {
                         v.pin = true;
                     }
                     v.index = k;
@@ -73,7 +73,8 @@
                 });
             this.notMobile = $mdMedia("gt-xs");
             this.flashcard = flashcard;
-            this.pinCount = flashcard.pins.length;
+            flashcard.pins = flashcard.pins || [];
+            this.pinCount =  flashcard.pins.length;
             this.backUrl = $state.href("box.flashcards", angular.extend({}, $stateParams, { boxtype: "course" }));
         }
 
