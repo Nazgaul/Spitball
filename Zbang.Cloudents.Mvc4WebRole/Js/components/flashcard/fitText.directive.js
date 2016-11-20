@@ -61,3 +61,45 @@ var app;
         .module("app.flashcard")
         .directive("fitText", FitText.factory());
 })(app || (app = {}));
+var app;
+(function (app) {
+    "use strict";
+    var CardSlideAnimation = (function () {
+        function CardSlideAnimation($animate) {
+            var _this = this;
+            this.$animate = $animate;
+            this.scope = {
+                'myHide': '='
+            };
+            this.restrict = "A";
+            this.link = function (scope, element, attrs) {
+                scope.$watch('myHide', function (show, oldShow) {
+                    if (!show) {
+                        $("body").css("overflow", "hidden");
+                        _this.$animate.removeClass(element, "ng-hide")
+                            .then(function () {
+                            $("body").css("overflow", "");
+                        });
+                    }
+                    else {
+                        $("body").css("overflow", "hidden");
+                        _this.$animate.addClass(element, "ng-hide").then(function () {
+                            $("body").css("overflow", "");
+                        });
+                    }
+                });
+            };
+        }
+        CardSlideAnimation.factory = function () {
+            var directive = function ($animate) {
+                return new CardSlideAnimation($animate);
+            };
+            directive["$inject"] = ["$animate"];
+            return directive;
+        };
+        return CardSlideAnimation;
+    }());
+    angular
+        .module("app.flashcard")
+        .directive("myHide", CardSlideAnimation.factory());
+})(app || (app = {}));

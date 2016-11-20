@@ -816,6 +816,7 @@
   }
 }
 .flashcardPage .card-player .card-template.ng-hide-add {
+  display: block !important;
   animation-name: cardOut;
   animation-duration: 0.3s;
   animation-timing-function: ease-out;
@@ -827,6 +828,7 @@
   /* the transition is defined in the active class */
 }
 .flashcardPage .card-player .card-template.ng-hide-remove {
+  display: block !important;
   animation-name: cardIn;
   animation-duration: 0.3s;
   animation-timing-function: ease-out;
