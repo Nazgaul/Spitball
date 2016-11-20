@@ -109,9 +109,11 @@ var app;
         FlashcardController.prototype.pin = function (slide) {
             slide.pin = !slide.pin;
             if (slide.pin) {
+                this.pinCount++;
                 this.flashcardService.pin(this.$stateParams["id"], slide.index);
             }
             else {
+                this.pinCount--;
                 this.flashcardService.pinDelete(this.$stateParams["id"], slide.index);
             }
         };

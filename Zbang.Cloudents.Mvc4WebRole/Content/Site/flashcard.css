@@ -483,6 +483,18 @@
     top: 560px;
   }
 }
+.flashcardPage nav.buttons button md-icon,
+.flashcardPage .keyboard button md-icon {
+  fill: #4190b9;
+}
+.flashcardPage nav.buttons button:hover,
+.flashcardPage .keyboard button:hover {
+  background: none;
+}
+.flashcardPage nav.buttons button:hover md-icon,
+.flashcardPage .keyboard button:hover md-icon {
+  fill: #297095;
+}
 .flashcardPage nav.buttons {
   display: -webkit-flex;
   display: -ms-flex;
@@ -525,12 +537,14 @@
   margin: 0;
 }
 .flashcardPage nav.buttons md-icon {
-  fill: #4190b9;
   width: 40px;
   height: 40px;
 }
 .flashcardPage .keyboard {
   right: 10px;
+}
+.flashcardPage .keyboard .md-ripple-container {
+  display: none;
 }
 .flashcardPage .keyboard > button {
   min-width: 0;
@@ -538,7 +552,6 @@
 .flashcardPage .keyboard md-icon {
   width: 40px;
   height: 40px;
-  fill: #4190b9;
 }
 .flashcardPage .card-wrapper-cover {
   background: #ffffff;

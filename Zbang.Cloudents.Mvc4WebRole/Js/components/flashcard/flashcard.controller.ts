@@ -150,8 +150,10 @@
             //console.log(this.slide, index);
             slide.pin = !slide.pin;
             if (slide.pin) {
+                this.pinCount++;
                 this.flashcardService.pin(this.$stateParams["id"], slide.index);
             } else {
+                this.pinCount--;
                 this.flashcardService.pinDelete(this.$stateParams["id"], slide.index);
             }
         }

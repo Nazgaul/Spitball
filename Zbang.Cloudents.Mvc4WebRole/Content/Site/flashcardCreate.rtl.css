@@ -206,6 +206,9 @@
   margin: 0;
   padding-top: 0;
 }
+.flashcard .flashcard-body .card-container card-form md-input-container:not(.md-input-focused) {
+  padding-left: 0;
+}
 .flashcard .flashcard-body .card-container card-form md-input-container.has-image {
   padding-left: 0;
   padding-top: 58px;
@@ -303,8 +306,12 @@
 .flashcard .flashcard-body .card-container card-form .image-container:hover .remove-img {
   display: block;
 }
+@media (min-width: 600px) {
+  .flashcard .flashcard-body .card-container card-form .image-container .remove-img {
+    display: none;
+  }
+}
 .flashcard .flashcard-body .card-container card-form .image-container .remove-img {
-  display: none;
   position: absolute;
   left: 0;
   top: 0;
