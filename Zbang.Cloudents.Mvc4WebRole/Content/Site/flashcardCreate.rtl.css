@@ -1,4 +1,4 @@
-.flashcard .content {
+﻿.flashcard .content {
   max-width: 860px;
   padding: 10px 30px 0 30px;
   margin: 0 auto;
@@ -49,7 +49,7 @@
 .flashcard .flashcard-top form svg {
   width: 16px;
   height: 16px;
-  fill: #484F56;
+  fill: #484f56;
 }
 .flashcard .flashcard-body .header {
   text-transform: capitalize;
@@ -162,6 +162,11 @@
   width: 15px;
   height: 15px;
 }
+.flashcard .flashcard-body .card-container .drag-btn md-icon,
+.flashcard .flashcard-body .card-container .remove-btn md-icon,
+.flashcard .flashcard-body .card-container .add-btn md-icon {
+  fill: #5d6063;
+}
 @media (min-width: 600px) {
   .flashcard .flashcard-body .card-container.focused .drag-btn,
   .flashcard .flashcard-body .card-container:hover .drag-btn,
@@ -177,6 +182,9 @@
   display: -ms-flex;
   display: flex;
 }
+.flashcard .flashcard-body .card-container card-form ~ card-form md-input-container {
+  border-right: none;
+}
 .flashcard .flashcard-body .card-container card-form md-input-container {
   border: 1px solid #b7b7b7;
   background: #ffffff;
@@ -185,11 +193,11 @@
 }
 .flashcard .flashcard-body .card-container card-form md-input-container.has-image {
   padding-left: 0;
-  padding-bottom: 60px;
+  padding-bottom: 58px;
 }
 @media (min-width: 600px) {
   .flashcard .flashcard-body .card-container card-form md-input-container.has-image {
-    padding-left: 60px;
+    padding-left: 58px;
     padding-bottom: 0;
   }
 }
@@ -201,7 +209,7 @@
   width: 23px;
   height: 19px;
   margin-left: 4px;
-  fill: #484F56;
+  fill: #5d6063;
   cursor: pointer;
 }
 @media (min-width: 600px) {
@@ -223,7 +231,7 @@
 }
 @media (min-width: 600px) {
   .flashcard .flashcard-body .card-container card-form .md-resize-wrapper {
-    min-height: 58px;
+    min-height: 56px;
   }
 }
 .flashcard .flashcard-body .card-container card-form .md-resize-wrapper textarea {
@@ -235,9 +243,9 @@
   position: absolute;
   top: 0;
   left: 0;
-  margin: 5px;
-  width: 50px;
-  height: 50px;
+  margin: 2px;
+  width: 54px;
+  height: 54px;
   overflow: hidden;
 }
 @media (max-width: 600px) {
@@ -278,6 +286,7 @@
   margin: 0;
   width: 10px;
   height: 10px;
+  fill: #5d6063;
 }
 .flashcard .flashcard-body .card-container .card-settings {
   position: absolute;
@@ -340,7 +349,7 @@
   }
 }
 .flashcard .flashcard-body .card-container .card-settings button md-icon {
-  fill: #484F56;
+  fill: #484f56;
 }
 .flashcard .flashcard-body .card-container .card-settings .add-image md-icon {
   width: 18px;
@@ -382,25 +391,28 @@
   background: #eeeeee;
   height: 40px;
   line-height: 40px;
-  padding-right: 10px;
+  padding-right: 18px;
   border: 1px solid #b7b7b7;
 }
 @media (min-width: 600px) {
   .flashcard .flashcard-body .add-card div {
-    height: 60px;
-    line-height: 60px;
+    height: 58px;
+    line-height: 58px;
   }
 }
 .flashcard .flashcard-body .add-card div md-icon {
   width: 19px;
   height: 19px;
-  fill: #484F56;
+  fill: #5d6063;
 }
 @media (max-width: 600px) {
   .flashcard .flashcard-body .add-card div md-icon {
     width: 14px;
     height: 14px;
   }
+}
+.flashcard .flashcard-body .add-card div.back {
+  border-right: none;
 }
 .flashcard .flashcard-body .card-container,
 .flashcard .flashcard-body .add-card {

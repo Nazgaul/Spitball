@@ -1,4 +1,7 @@
-﻿.flashcard .content {
+﻿.flashcard header .close {
+  margin-right: 10px;
+}
+.flashcard .content {
   max-width: 860px;
   padding: 10px 30px 0 30px;
   margin: 0 auto;
@@ -17,6 +20,15 @@
 }
 .flashcard .flashcard-top {
   margin-top: 95px;
+}
+@media (max-width: 600px) {
+  .flashcard .flashcard-top {
+    margin-top: 85px;
+    margin-bottom: 30px;
+  }
+  .flashcard .flashcard-top md-input-container {
+    margin-bottom: 0;
+  }
 }
 .flashcard .flashcard-top form {
   max-width: 800px;
@@ -50,6 +62,9 @@
   width: 16px;
   height: 16px;
   fill: #484F56;
+}
+.flashcard .flashcard-top .btn-wrapper {
+  text-align: right;
 }
 .flashcard .flashcard-body .header {
   text-transform: capitalize;
@@ -159,8 +174,13 @@
   }
 }
 .flashcard .flashcard-body .card-container .remove-btn md-icon {
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
+}
+.flashcard .flashcard-body .card-container .drag-btn md-icon,
+.flashcard .flashcard-body .card-container .remove-btn md-icon,
+.flashcard .flashcard-body .card-container .add-btn md-icon {
+  fill: #5d6063;
 }
 @media (min-width: 600px) {
   .flashcard .flashcard-body .card-container.focused .drag-btn,
@@ -177,6 +197,9 @@
   display: -ms-flex;
   display: flex;
 }
+.flashcard .flashcard-body .card-container card-form ~ card-form md-input-container {
+  border-left: none;
+}
 .flashcard .flashcard-body .card-container card-form md-input-container {
   border: 1px solid #b7b7b7;
   background: #ffffff;
@@ -185,12 +208,13 @@
 }
 .flashcard .flashcard-body .card-container card-form md-input-container.has-image {
   padding-right: 0;
-  padding-bottom: 60px;
+  padding-top: 58px;
 }
 @media (min-width: 600px) {
   .flashcard .flashcard-body .card-container card-form md-input-container.has-image {
-    padding-right: 60px;
+    padding-right: 58px;
     padding-bottom: 0;
+    padding-top: 0;
   }
 }
 .flashcard .flashcard-body .card-container card-form md-input-container .md-errors-spacer {
@@ -201,13 +225,22 @@
   width: 23px;
   height: 19px;
   margin-right: 4px;
-  fill: #484F56;
+  fill: #5d6063;
   cursor: pointer;
 }
-@media (min-width: 600px) {
-  .flashcard .flashcard-body .card-container card-form.focused .add-image-btn {
-    display: block;
-    outline: none;
+.flashcard .flashcard-body .card-container card-form.focused .add-image-btn {
+  display: block;
+  outline: none;
+}
+@media (max-width: 600px) {
+  .flashcard .flashcard-body .card-container card-form.focused md-input-container:not(.has-image) {
+    padding-top: 24px;
+    padding-right: 0;
+  }
+}
+@media (max-width: 600px) {
+  .flashcard .flashcard-body .card-container card-form:not(.focused) md-input-container {
+    padding-right: 0;
   }
 }
 .flashcard .flashcard-body .card-container card-form .md-resize-wrapper {
@@ -219,11 +252,11 @@
   align-items: center;
   flex-direction: column;
   height: 100%;
-  padding: 0 0 5px 5px;
+  padding: 6px 10px 8px 10px;
 }
 @media (min-width: 600px) {
   .flashcard .flashcard-body .card-container card-form .md-resize-wrapper {
-    min-height: 58px;
+    min-height: 56px;
   }
 }
 .flashcard .flashcard-body .card-container card-form .md-resize-wrapper textarea {
@@ -231,18 +264,24 @@
   flex: 1;
   padding: 0;
 }
+@media (max-width: 600px) {
+  .flashcard .flashcard-body .card-container card-form .has-image .image-container {
+    top: 0;
+    left: 0;
+  }
+}
 .flashcard .flashcard-body .card-container card-form .image-container {
   position: absolute;
   top: 0;
   right: 0;
-  margin: 5px;
-  width: 50px;
-  height: 50px;
+  margin: 2px;
+  width: 54px;
+  height: 54px;
   overflow: hidden;
 }
 @media (max-width: 600px) {
   .flashcard .flashcard-body .card-container card-form .image-container {
-    bottom: 0;
+    top: 0;
     top: initial;
     left: 0;
   }
@@ -278,6 +317,7 @@
   margin: 0;
   width: 10px;
   height: 10px;
+  fill: #5d6063;
 }
 .flashcard .flashcard-body .card-container .card-settings {
   position: absolute;
@@ -295,7 +335,6 @@
     -o-transition: left 0.2s ease !important;
     -webkit-transition: left 0.2s ease !important;
     transition: left 0.2s ease !important;
-    background: #eeeeee;
   }
 }
 @media (max-width: 600px) {
@@ -315,7 +354,7 @@
     align-items: stretch;
     -webkit-justify-content: flex-end;
     justify-content: flex-end;
-    background: #eeeeee;
+    background: rgba(238, 238, 238, 0.9);
     height: 100%;
     padding: 0 10px;
   }
@@ -380,27 +419,30 @@
 }
 .flashcard .flashcard-body .add-card div {
   background: #eeeeee;
-  height: 40px;
-  line-height: 40px;
-  padding-left: 10px;
+  height: 44px;
+  line-height: 44px;
+  padding-left: 18px;
   border: 1px solid #b7b7b7;
 }
 @media (min-width: 600px) {
   .flashcard .flashcard-body .add-card div {
-    height: 60px;
-    line-height: 60px;
+    height: 58px;
+    line-height: 58px;
   }
 }
 .flashcard .flashcard-body .add-card div md-icon {
   width: 19px;
   height: 19px;
-  fill: #484F56;
+  fill: #5d6063;
 }
 @media (max-width: 600px) {
   .flashcard .flashcard-body .add-card div md-icon {
     width: 14px;
     height: 14px;
   }
+}
+.flashcard .flashcard-body .add-card div.back {
+  border-left: none;
 }
 .flashcard .flashcard-body .card-container,
 .flashcard .flashcard-body .add-card {
