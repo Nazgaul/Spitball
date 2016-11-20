@@ -291,6 +291,20 @@
         @media(min-width: 600px) {
             top: @cardHeight + @flashcardHeaderHeight;
         }
+
+        button {
+            md-icon {
+                fill: @buttonColorBlue;
+            }
+
+            &:hover {
+                background: none;
+
+                md-icon {
+                    fill: @buttonColorBlueHover;
+                }
+            }
+        }
     }
 
     nav.buttons {
@@ -331,7 +345,6 @@
         }
 
         md-icon {
-            fill: @buttonColorBlue;
             width: 40px;
             height: 40px;
         }
@@ -339,6 +352,10 @@
 
     .keyboard {
         right: 10px;
+        .md-ripple-container {
+            display: none;
+        }
+
 
         > button {
             min-width: 0;
@@ -347,7 +364,6 @@
         md-icon {
             width: 40px;
             height: 40px;
-            fill: @buttonColorBlue;
         }
     }
 
@@ -800,16 +816,16 @@
                     .text-container {
                         .displayFlex;
                         .align-items(center);
-                         p {
-                            font-size:48px;
-                            overflow:auto;
-                            
-                            height:100%;
-                           
+
+                        p {
+                            font-size: 48px;
+                            overflow: auto;
+                            height: 100%;
+
                             &.lessText {
-                                margin:0 auto;
-                                display:flex;
-                                align-items:center;
+                                margin: 0 auto;
+                                display: flex;
+                                align-items: center;
                             }
                         }
                     }

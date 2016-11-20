@@ -209,6 +209,10 @@
                     margin: 0;
                     padding-top: 0;
 
+                    &:not(.md-input-focused) {
+                        padding-right: 0;
+                    }
+
                     &.has-image {
                         padding-right: 0;
                         padding-top: @cardHeight;
@@ -322,8 +326,13 @@
                         }
                     }
 
+                    @media(min-width: 600px) {
+                        .remove-img {
+                            display: none;
+                        }
+                    }
+
                     .remove-img {
-                        display: none;
                         position: absolute;
                         right: 0;
                         top: 0;

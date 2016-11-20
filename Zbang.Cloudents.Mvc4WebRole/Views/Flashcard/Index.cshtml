@@ -52,7 +52,7 @@
             </button>
         </div>
         <div multiswitch-when="2" class="pinned-counter">
-            <div class="num" ng-bind="::f.pinCount"></div>
+            <div class="num" ng-bind="f.pinCount"></div>
             <div class="icon">
                 <md-icon md-svg-icon="b:pin"></md-icon>
                 <div>@FlashcardResources.Pinned</div>
@@ -77,8 +77,8 @@
                 <button type="button" class="action-btn" user-not-register-popup="click" ng-click="f.start()">
                     <span>@FlashcardResources.Start</span><span ng-if="f.step==2">&nbsp;@FlashcardResources.Over</span>
                 </button>
-                <button type="button" class="action-btn pinned-cards" user-not-register-popup="click" ng-if="::f.pinCount" ng-click="f.startPin()">
-                    @FlashcardResources.Study&nbsp;<ng-pluralize count="::f.pinCount"
+                <button type="button" class="action-btn pinned-cards" user-not-register-popup="click" ng-if="f.pinCount" ng-click="f.startPin()">
+                    @FlashcardResources.Study&nbsp;<ng-pluralize count="f.pinCount"
                                              when="{
                         '1': '1 @FlashcardResources.Pin',
                         'other': '{} @FlashcardResources.Pins'
@@ -150,7 +150,7 @@
         </div>
     </div>
 
-    <nav multiswitch-when="1" class="buttons">
+    <nav multiswitch-when="1" class="buttons" hide-xs>
         <button type="button" class="prev" keyboard-action="37" ng-click="f.prev()" ng-disabled="f.slidepos == 0">
             <md-icon md-svg-icon="t:arrow"></md-icon>
         </button>
@@ -159,7 +159,7 @@
         </button>
     </nav>
 
-    <md-menu md-position-mode="target-right target" class="keyboard" md-offset="0 42">
+    <md-menu md-position-mode="target-right target" class="keyboard" md-offset="0 42" hide-xs>
         <md-button ng-click="$mdOpenMenu($event)" aria-label="Open menu">
             <md-icon md-svg-icon="b:keyboard"></md-icon>
         </md-button>
