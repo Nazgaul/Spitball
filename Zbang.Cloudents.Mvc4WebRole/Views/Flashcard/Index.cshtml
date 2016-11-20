@@ -140,50 +140,51 @@
                 </div>
             </div>
         </div>
+
+        <nav class="buttons" hide-xs>
+            <button type="button" class="prev" keyboard-action="37" keyboard-action-rtl="39" ng-click="f.prev()" ng-disabled="f.slidepos == 0">
+                <md-icon md-svg-icon="t:arrow"></md-icon>
+            </button>
+            <button type="button" class="next" ng-click="f.next()" keyboard-action="39" keyboard-action-rtl="37" ng-disabled="f.slidepos == f.flashcard.cards.length">
+                <md-icon md-svg-icon="t:arrow"></md-icon>
+            </button>
+        </nav>
+
+        <md-menu md-position-mode="target-right target" class="keyboard" md-offset="18 -300" hide-xs>
+            <md-button ng-click="$mdOpenMenu($event)" aria-label="Open menu">
+                <md-icon md-svg-icon="b:keyboard"></md-icon>
+            </md-button>
+            <md-menu-content md-menu-align-target class="keyboard-menu">
+                <md-menu-item>
+                    <div><span>&larr;</span>Previous</div>
+                </md-menu-item>
+                <md-menu-item>
+                    <div><span>&rarr;</span>Next</div>
+                </md-menu-item>
+                <md-menu-item>
+                    <div><span>&uarr;</span>Flip up</div>
+                </md-menu-item>
+                <md-menu-item>
+                    <div><span>&darr;</span>Flip down</div>
+                </md-menu-item>
+                <md-menu-item>
+                    <div><span>P</span>@FlashcardResources.Pinned</div>
+                </md-menu-item>
+                <md-menu-item>
+                    <div><span>S</span>Shuffle</div>
+                </md-menu-item>
+                <md-menu-item>
+                    <div><span>F</span>Front</div>
+                </md-menu-item>
+                <md-menu-item>
+                    <div><span>K</span>Back</div>
+                </md-menu-item>
+                <md-menu-item>
+                    <div><span>B</span>Both</div>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+
     </div>
-
-    <nav multiswitch-when="1" class="buttons" hide-xs>
-        <button type="button" class="prev" keyboard-action="37" ng-click="f.prev()" ng-disabled="f.slidepos == 0">
-            <md-icon md-svg-icon="t:arrow"></md-icon>
-        </button>
-        <button type="button" class="next" ng-click="f.next()" keyboard-action="39" ng-disabled="f.slidepos == f.flashcard.cards.length">
-            <md-icon md-svg-icon="t:arrow"></md-icon>
-        </button>
-    </nav>
-
-    <md-menu md-position-mode="target-right target" class="keyboard" md-offset="18 -300" hide-xs>
-        <md-button ng-click="$mdOpenMenu($event)" aria-label="Open menu">
-            <md-icon md-svg-icon="b:keyboard"></md-icon>
-        </md-button>
-        <md-menu-content md-menu-align-target class="keyboard-menu">
-            <md-menu-item>
-                <div><span>&larr;</span>Previous</div>
-            </md-menu-item>
-            <md-menu-item>
-                <div><span>&rarr;</span>Next</div>
-            </md-menu-item>
-            <md-menu-item>
-                <div><span>&uarr;</span>Flip up</div>
-            </md-menu-item>
-            <md-menu-item>
-                <div><span>&darr;</span>Flip down</div>
-            </md-menu-item>
-            <md-menu-item>
-                <div><span>P</span>@FlashcardResources.Pinned</div>
-            </md-menu-item>
-            <md-menu-item>
-                <div><span>S</span>Shuffle</div>
-            </md-menu-item>
-            <md-menu-item>
-                <div><span>F</span>Front</div>
-            </md-menu-item>
-            <md-menu-item>
-                <div><span>K</span>Back</div>
-            </md-menu-item>
-            <md-menu-item>
-                <div><span>B</span>Both</div>
-            </md-menu-item>
-        </md-menu-content>
-    </md-menu>
 
 </div>

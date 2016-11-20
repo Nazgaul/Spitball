@@ -130,8 +130,7 @@
   }
 }
 .flashcardPage .header {
-  min-height: 160px;
-  padding-top: 32px;
+  min-height: 126px;
   position: relative;
   display: -webkit-flex;
   display: -ms-flex;
@@ -140,7 +139,7 @@
   align-items: flex-end;
   -webkit-justify-content: space-between;
   justify-content: space-between;
-  padding-bottom: 24px;
+  padding-bottom: 12px;
 }
 @media (max-width: 600px) {
   .flashcardPage .header {
@@ -156,7 +155,7 @@
 }
 .flashcardPage .header .close-btn {
   position: absolute;
-  top: 26px;
+  top: 10px;
   left: 10px;
   line-height: 0;
 }
@@ -474,14 +473,12 @@
 }
 .flashcardPage nav.buttons,
 .flashcardPage .keyboard {
-  margin-top: 24px;
   position: absolute;
+  bottom: -44px;
 }
-@media (min-width: 600px) {
-  .flashcardPage nav.buttons,
-  .flashcardPage .keyboard {
-    top: 560px;
-  }
+.flashcardPage nav.buttons button,
+.flashcardPage .keyboard button {
+  margin: 0;
 }
 .flashcardPage nav.buttons button md-icon,
 .flashcardPage .keyboard button md-icon {
@@ -508,7 +505,6 @@
 }
 @media (min-width: 600px) {
   .flashcardPage nav.buttons {
-    top: 560px;
     right: calc(50% - 90px);
   }
 }
@@ -537,8 +533,8 @@
   margin: 0;
 }
 .flashcardPage nav.buttons md-icon {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
 }
 .flashcardPage .keyboard {
   left: 10px;
@@ -579,16 +575,6 @@
   perspective: 1000px;
   height: 100%;
 }
-.flashcardPage .front .flip-container,
-.flashcardPage .back .flip-container,
-.flashcardPage .front .front,
-.flashcardPage .back .front,
-.flashcardPage .front .back,
-.flashcardPage .back .back {
-  height: 400px;
-  max-width: 800px;
-  width: 100%;
-}
 .flashcardPage .front .flipper,
 .flashcardPage .back .flipper {
   transition: 0.6s;
@@ -622,9 +608,32 @@
     flex-direction: column;
   }
 }
-.flashcardPage .front .flipper,
-.flashcardPage .back .flipper {
-  height: 400px;
+@media (min-width: 600px) {
+  .flashcardPage .front .flip-container,
+  .flashcardPage .back .flip-container,
+  .flashcardPage .both .flip-container {
+    position: relative;
+    max-height: 400px;
+    max-width: 800px;
+    width: 100%;
+  }
+  .flashcardPage .front .flip-container:before,
+  .flashcardPage .back .flip-container:before,
+  .flashcardPage .both .flip-container:before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: 50%;
+  }
+  .flashcardPage .front .flip-container .flipper,
+  .flashcardPage .back .flip-container .flipper,
+  .flashcardPage .both .flip-container .flipper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+  }
 }
 .flashcardPage .back .flip-container .flipper {
   transform: rotateX(-180deg);
@@ -816,7 +825,6 @@
 }
 .flashcardPage .card-player .card-template {
   width: 100%;
-  height: 400px;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -880,6 +888,16 @@
 @media (max-width: 600px) {
   .flashcardPage .card-player .card-template {
     margin: 16px 0;
+    height: 400px;
+  }
+}
+@media (min-width: 600px) {
+  .flashcardPage .card-player .card-template:not(.both) .card-content .side {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
   }
 }
 .flashcardPage .card-player .card-template.ng-hide-add,
@@ -889,9 +907,6 @@
   animation-timing-function: ease-out;
   animation-iteration-count: 1;
   position: absolute !important;
-  height: 400px;
-  max-width: 800px;
-  width: 100%;
 }
 .flashcardPage .card-player .card-template.ng-hide-add {
   animation-name: cardNextOut;
@@ -1022,6 +1037,9 @@
   max-height: 400px;
 }
 @media (max-width: 600px) {
+  .flashcardPage .card-player .card-template .card-content .side {
+    height: 100%;
+  }
   .flashcardPage .card-player .card-template .card-content .side .data-wrapper {
     padding: 10px 10px 35px 10px;
   }
@@ -1070,13 +1088,16 @@
   height: 100%;
   width: 50%;
   flex-grow: 1;
-  padding: 40px 25px 30px 25px;
+  padding: 50px 30px;
 }
 @media (max-width: 600px) {
   .flashcardPage .card-player .card-template .card-content .side .img-container,
   .flashcardPage .card-player .card-template .card-content .side .text-container {
     width: 100%;
   }
+}
+.flashcardPage .card-player .card-template .card-content .side .text-container p {
+  margin: 10px 0 0 0;
 }
 .flashcardPage .card-player .card-template .pin-btn {
   position: absolute;
