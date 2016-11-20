@@ -17,7 +17,7 @@ var app;
                     $(element).css(attributeToChange, elNewFontSize);
                     return true;
                 };
-                var d = scope.$watchGroup([attrs["ngBind"], "f.style", "f.slidepos"], function (newValue) {
+                var d = scope.$watchGroup([attrs["ngBind"], "f.styleLegend", "f.slidepos"], function (newValue) {
                     _this.$animate.removeClass(element.parents("angular-animate"), "ng-hide")
                         .then(function () {
                         changeFont();

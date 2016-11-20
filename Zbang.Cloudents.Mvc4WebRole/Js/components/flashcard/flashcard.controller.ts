@@ -22,22 +22,6 @@
         like: Guid;
         userId: number;
         ownerName: string;
-
-        //deserialize(input: FlashCard) {
-        //    this.cards = [];
-        //    this.id = input.id;
-        //    this.name = input.name;
-        //    for (let i = 0; i < input.cards.length; i++) {
-        //        this.cards.push(new Card().deserialize(input.cards[i]));
-        //    }
-        //    if (!this.cards.length) {
-        //        this.cards.push(new Card(), new Card(), new Card(), new Card(), new Card());
-        //    }
-        //    return this;
-        //}
-
-
-
     }
     class Card  {
         front = new CardSlide();
@@ -45,20 +29,10 @@
         index: number;
         pin: boolean;
         style: boolean = true;
-        //deserialize(input: Card) {
-        //    this.front = new CardSlide().deserialize(input.front);
-        //    this.cover = new CardSlide().deserialize(input.cover);
-        //    return this;
-        //}
     }
     class CardSlide {
         text: string;
         image: string;
-        //deserialize(input: CardSlide) {
-        //    this.text = input.text;
-        //    this.image = input.image;
-        //    return this;
-        //}
 
     }
     export class FlashcardController {
@@ -123,9 +97,6 @@
         prev() {
             this.slidepos = Math.max(0, --this.slidepos);
             this.step = Steps.Memo;
-            //console.log(this.style, this.styleLegend);
-            //this.style = this.styleLegend;
-           
         }
         next() {
             this.slidepos = Math.min(this.cards.length, ++this.slidepos);
@@ -133,12 +104,9 @@
                 this.step = Steps.End;
                 return;
             }
-            //console.log(this.style, this.styleLegend);
-            //this.style = this.styleLegend;
         }
         changeLegend(legend?: boolean) {
             this.styleLegend = legend;
-            //this.style = legend;
             angular.forEach(this.cards,
                 (c => {
                     c.style = this.styleLegend;
@@ -151,8 +119,6 @@
 
         }
         pin(slide: Card) {
-            //const index = this.flashcard.cards.indexOf(this.slide);
-            //console.log(this.slide, index);
             slide.pin = !slide.pin;
             if (slide.pin) {
                 this.pinCount++;

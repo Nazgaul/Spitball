@@ -10,13 +10,12 @@ var app;
                 "slidePos": "="
             };
             this.restrict = "A";
-            this.link = function (scope, element, attrs) {
+            this.link = function (scope, element) {
                 var $body = $("body");
                 var d = scope.$watchGroup(['myHide', "slidePos"], function (newValue, oldValue) {
                     console.log(newValue, oldValue, element.attr("id"));
                     element.removeClass("backSlide");
                     if (newValue[1] < oldValue[1]) {
-                        console.log(newValue, oldValue);
                         element.addClass("backSlide");
                     }
                     if (!newValue[0]) {
@@ -37,10 +36,6 @@ var app;
                     }
                 });
                 function removeOverFlow(newVal, oldVal) {
-                    if (newVal === oldVal) {
-                        return;
-                    }
-                    console.log(element);
                     $body.css("overflow", "");
                 }
                 scope.$on("$destroy", function () {

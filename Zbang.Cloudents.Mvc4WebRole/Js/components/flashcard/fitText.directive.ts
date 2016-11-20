@@ -20,7 +20,7 @@
             }
 
 
-            var d = scope.$watchGroup([attrs["ngBind"], "f.style", "f.slidepos"], (newValue) => {
+            var d = scope.$watchGroup([attrs["ngBind"], "f.styleLegend", "f.slidepos"], (newValue) => {
                 this.$animate.removeClass(element.parents("angular-animate"), "ng-hide")
                     .then(() => {
                         changeFont();
