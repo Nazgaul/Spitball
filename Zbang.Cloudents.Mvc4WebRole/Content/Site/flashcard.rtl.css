@@ -474,6 +474,11 @@
 .flashcardPage nav.buttons,
 .flashcardPage .keyboard {
   position: absolute;
+  bottom: -44px;
+}
+.flashcardPage nav.buttons button,
+.flashcardPage .keyboard button {
+  margin: 0;
 }
 .flashcardPage nav.buttons button md-icon,
 .flashcardPage .keyboard button md-icon {
@@ -487,14 +492,7 @@
 .flashcardPage .keyboard button:hover md-icon {
   fill: #297095;
 }
-@media (min-width: 600px) {
-  .flashcardPage nav.buttons,
-  .flashcardPage .keyboard {
-    top: 526px;
-  }
-}
 .flashcardPage nav.buttons {
-  margin-top: 10px;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;

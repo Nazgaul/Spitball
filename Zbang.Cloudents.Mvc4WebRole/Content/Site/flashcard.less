@@ -360,8 +360,11 @@
 
     nav.buttons, .keyboard {
         position: absolute;
+        bottom: -44px;
 
         button {
+            margin: 0;
+
             md-icon {
                 fill: @buttonColorBlue;
             }
@@ -377,14 +380,7 @@
     }
 
 
-    nav.buttons, .keyboard {
-        @media(min-width: 600px) {
-            top: @cardHeight + @flashcardHeaderHeight;
-        }
-    }
-
     nav.buttons {
-        margin-top: 10px;
         .displayFlex;
         .align-items(center);
         .justifyContet(space-between);
