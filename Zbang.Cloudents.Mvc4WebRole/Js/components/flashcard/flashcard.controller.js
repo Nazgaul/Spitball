@@ -82,6 +82,7 @@ var app;
         FlashcardController.prototype.prev = function () {
             this.slidepos = Math.max(0, --this.slidepos);
             this.step = Steps.Memo;
+            console.log(this.style, this.styleLegend);
             this.style = this.styleLegend;
         };
         FlashcardController.prototype.next = function () {
@@ -90,6 +91,7 @@ var app;
                 this.step = Steps.End;
                 return;
             }
+            console.log(this.style, this.styleLegend);
             this.style = this.styleLegend;
         };
         FlashcardController.prototype.changeLegend = function (legend) {

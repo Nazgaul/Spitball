@@ -17,7 +17,7 @@ var app;
                     $(element).css(attributeToChange, elNewFontSize);
                     return true;
                 };
-                scope.$watchGroup([attrs["ngBind"], "f.style", "f.slidepos"], function (newValue) {
+                var d = scope.$watchGroup([attrs["ngBind"], "f.style", "f.slidepos"], function (newValue) {
                     _this.$animate.removeClass(element.parents("angular-animate"), "ng-hide")
                         .then(function () {
                         changeFont();
@@ -46,6 +46,9 @@ var app;
                         }
                     }
                 });
+                scope.$on("$destroy", function () {
+                    d();
+                });
             };
         }
         FitText.factory = function () {
@@ -60,46 +63,4 @@ var app;
     angular
         .module("app.flashcard")
         .directive("fitText", FitText.factory());
-})(app || (app = {}));
-var app;
-(function (app) {
-    "use strict";
-    var CardSlideAnimation = (function () {
-        function CardSlideAnimation($animate) {
-            var _this = this;
-            this.$animate = $animate;
-            this.scope = {
-                'myHide': '='
-            };
-            this.restrict = "A";
-            this.link = function (scope, element, attrs) {
-                scope.$watch('myHide', function (show, oldShow) {
-                    if (!show) {
-                        $("body").css("overflow", "hidden");
-                        _this.$animate.removeClass(element, "ng-hide")
-                            .then(function () {
-                            $("body").css("overflow", "");
-                        });
-                    }
-                    else {
-                        $("body").css("overflow", "hidden");
-                        _this.$animate.addClass(element, "ng-hide").then(function () {
-                            $("body").css("overflow", "");
-                        });
-                    }
-                });
-            };
-        }
-        CardSlideAnimation.factory = function () {
-            var directive = function ($animate) {
-                return new CardSlideAnimation($animate);
-            };
-            directive["$inject"] = ["$animate"];
-            return directive;
-        };
-        return CardSlideAnimation;
-    }());
-    angular
-        .module("app.flashcard")
-        .directive("myHide", CardSlideAnimation.factory());
 })(app || (app = {}));

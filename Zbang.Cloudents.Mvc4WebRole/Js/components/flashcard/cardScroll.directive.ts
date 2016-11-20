@@ -22,6 +22,7 @@
                 .on("touchmove",
                 (ev) => {
                     if (ev.target.scrollHeight > ev.target.clientHeight) {
+                        // if the element has scroll on it.
                         return;
                     }
                     ev.preventDefault();
@@ -35,6 +36,7 @@
                 .on("touchend",
                 ev => {
                     if (Math.abs(startY - getCoord(ev)) < 20) {
+                        // click was made
                         return;
                     }
                     //console.log(ev, ev.target.scrollHeight, ev.target.clientHeight);

@@ -98,11 +98,8 @@
         </div>
     </div>
     <div multiswitch-when="1" class="card-player angular-animate" card-scroll>
-        <div ng-attr-id="card{{::$index}}" class="card-template angular-animate" my-hide="$index !== f.slidepos && f.notMobile" ng-class="{front: f.style==true,back:f.style==false,both:f.style==null}" ng-repeat="slide in ::f.cards">
+        <div ng-attr-id="card{{::$index}}" class="card-template angular-animate" my-hide="$index !== f.slidepos && f.notMobile" slide-pos="f.slidepos" ng-class="{front: f.style==true,back:f.style==false,both:f.style==null}" ng-repeat="slide in ::f.cards">
             <div class="flip-container">
-                @*<button type="button" class="pin-btn" ng-click="f.pin()" ng-class="{pinned:slide.pin}">
-                        <md-icon md-svg-icon="b:pin"></md-icon>
-                    </button>*@
                 <div class="flipper">
                     <div class="card-content">
                         <div class="side front">
@@ -142,15 +139,10 @@
                     </div>
                 </div>
             </div>
-            @*<div class="flip" ng-if="f.style !== null">
-                    <md-icon md-svg-icon="b:flip"></md-icon>
-                    Click to flip
-                </div>*@
-
         </div>
     </div>
 
-    <nav multiswitch-when="1" class="buttons">
+    <nav multiswitch-when="1" class="buttons" hide-xs>
         <button type="button" class="prev" keyboard-action="37" ng-click="f.prev()" ng-disabled="f.slidepos == 0">
             <md-icon md-svg-icon="t:arrow"></md-icon>
         </button>
@@ -159,7 +151,7 @@
         </button>
     </nav>
 
-    <md-menu md-position-mode="target-right target" class="keyboard" md-offset="0 42">
+    <md-menu hide-xs md-position-mode="target-right target" class="keyboard" md-offset="0 42">
         <md-button ng-click="$mdOpenMenu($event)" aria-label="Open menu">
             <md-icon md-svg-icon="b:keyboard"></md-icon>
         </md-button>

@@ -120,7 +120,9 @@
         prev() {
             this.slidepos = Math.max(0, --this.slidepos);
             this.step = Steps.Memo;
+            console.log(this.style, this.styleLegend);
             this.style = this.styleLegend;
+           
         }
         next() {
             this.slidepos = Math.min(this.cards.length, ++this.slidepos);
@@ -128,6 +130,7 @@
                 this.step = Steps.End;
                 return;
             }
+            console.log(this.style, this.styleLegend);
             this.style = this.styleLegend;
         }
         changeLegend(legend?: boolean) {
