@@ -51,7 +51,7 @@
                 @FlashcardResources.Both
             </button>
         </div>
-        <div multiswitch-when="2" class="pinned-counter">
+        <div multiswitch-when="2" class="pinned-counter" ng-if="f.pinCount">
             <div class="num" ng-bind="f.pinCount"></div>
             <div class="icon">
                 <md-icon md-svg-icon="b:pin"></md-icon>
@@ -169,7 +169,7 @@
                 <div><span>&darr;</span>Flip down</div>
             </md-menu-item>
             <md-menu-item>
-                <div><span>P</span>Pinned</div>
+                <div><span>P</span>@FlashcardResources.Pinned</div>
             </md-menu-item>
             <md-menu-item>
                 <div><span>S</span>Shuffle</div>

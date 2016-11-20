@@ -22,7 +22,7 @@
             </md-button>
             <md-menu-content width="1">
                 <md-menu-item ng-if="::f.canEdit(e)">
-                    <md-button ui-sref="flashcardCreate({boxtype: f.params.boxtype, universityType:f.params.universityType, boxId: f.params.boxId, boxName:f.params.boxName, id:e.id})" ga-track-event="['box-flashcard', 'didEdit']">
+                    <md-button class="capitalize" ui-sref="flashcardCreate({boxtype: f.params.boxtype, universityType:f.params.universityType, boxId: f.params.boxId, boxName:f.params.boxName, id:e.id})" ga-track-event="['box-flashcard', 'didEdit']">
                         @FlashcardResources.Edit
                     </md-button>
                 </md-menu-item>

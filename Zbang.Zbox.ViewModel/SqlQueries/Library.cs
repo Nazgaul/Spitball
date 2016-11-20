@@ -6,7 +6,7 @@
  select b.boxid as Id,
     b.BoxName as Name,
     (select ub2.UserType from zbox.UserBoxRel ub2 where ub2.userid = @UserId and ub2.boxid = b.BoxId) as UserType ,
-    b.quizcount + b.itemcount + b.FlashcardCount as ItemCount,
+    b.quizcount + b.itemcount + COALESCE(b.FlashcardCount,0) as ItemCount,
     b.MembersCount as MembersCount,
     b.commentcount as CommentCount,
     b.CourseCode as CourseCode,
