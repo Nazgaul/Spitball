@@ -42,8 +42,8 @@
                     if (newValue[0].length <= 80) {
                         element.addClass("lessText");
                     }
-                    while (element[0].scrollHeight > element.parent()[0].offsetHeight ||
-                        element[0].scrollWidth > element.parent()[0].offsetWidth) {
+                    while (element[0].scrollHeight > element.parent().height() ||
+                        element[0].scrollWidth > element.parent().width()) {
                         if (!changeFontSize(false)) {
                             break;
                         }
