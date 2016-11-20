@@ -12,6 +12,7 @@
         pinDelete(id: number, index: number): angular.IPromise<any>;
         like(id: number): angular.IPromise<number>;
         likeDelete(id: Guid): angular.IPromise<any>;
+        solve(id: number): angular.IPromise<any>;
     }
 
     class Flashcard implements IFlashcardService {
@@ -42,16 +43,19 @@
             return this.ajaxService2.delete("/flashcard/", { id: id });
         }
         pin(id: number,index:number) {
-            return this.ajaxService2.post("/flashcard/pin", { id: id ,index:index});
+            return this.ajaxService2.post("/flashcard/pin/", { id: id ,index:index});
         }
         pinDelete(id: number, index: number) {
-            return this.ajaxService2.delete("/flashcard/pin", { id: id, index: index });
+            return this.ajaxService2.delete("/flashcard/pin/", { id: id, index: index });
         }
         like(id: number) {
-            return this.ajaxService2.post("/flashcard/like", { id: id });
+            return this.ajaxService2.post("/flashcard/like/", { id: id });
         }
         likeDelete(id: Guid) {
-            return this.ajaxService2.delete("/flashcard/like", { id: id });
+            return this.ajaxService2.delete("/flashcard/like/", { id: id });
+        }
+        solve(id: number) {
+            return this.ajaxService2.post("/flashcard/solve/", { id: id });
         }
     }
     angular.module("app.flashcard").service("flashcardService", Flashcard);

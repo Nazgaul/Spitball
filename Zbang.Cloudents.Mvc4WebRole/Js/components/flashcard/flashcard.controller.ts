@@ -111,6 +111,7 @@
             if (this.shuffle) {
                 shuffle(this.cards);
             }
+            this.flashcardService.solve(this.$stateParams["id"]);
             this.slidepos = 0;
             // this.slide = this.cards[this.slidepos];
             this.step = Steps.Memo;
@@ -145,13 +146,8 @@
         }
         flip(slide) {
             slide.style = !slide.style;
-            //if (this.style !== null) {
-            //    this.style = !this.style;
-            //}
+           
         }
-        //changeStyle(s) {
-        //    this.style = this.styleLegend = s;
-        //}
         pin(slide: Card) {
             //const index = this.flashcard.cards.indexOf(this.slide);
             //console.log(this.slide, index);

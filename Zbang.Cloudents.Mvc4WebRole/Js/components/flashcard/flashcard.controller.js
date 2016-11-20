@@ -73,6 +73,7 @@ var app;
             if (this.shuffle) {
                 shuffle(this.cards);
             }
+            this.flashcardService.solve(this.$stateParams["id"]);
             this.slidepos = 0;
             this.step = Steps.Memo;
         };

@@ -349,5 +349,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ZboxWriteService.DeleteFlashcardLike(command);
             return JsonOk();
         }
+
+        [HttpPost, ZboxAuthorize]
+        public JsonResult Solve(long id)
+        {
+            var command = new SaveUserFlashcardCommand(id, User.GetUserId());
+            ZboxWriteService.SolveFlashcard(command);
+            return JsonOk();
+        }
     }
 }
