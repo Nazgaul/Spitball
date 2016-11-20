@@ -3,7 +3,31 @@
 @pinColor: #ebbc18;
 @cardHeight: 400px;
 @cardWidth: 800px;
-@flashcardHeaderHeight: 160px;
+@flashcardHeaderHeight: 126px;
+
+.card-size(@width: 2, @height: 1) {
+    @media(min-width: 600px) {
+        position: relative;
+        max-height: @cardHeight;
+        max-width: @cardWidth;
+        width: 100%;
+
+        &:before {
+            display: block;
+            content: "";
+            width: 100%;
+            padding-top: (@height / @width) * 100%;
+        }
+
+        .flipper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    }
+}
 
 .card-style() {
     background-color: @textColorWhite;
@@ -11,11 +35,6 @@
     box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.43);
 }
 
-.card-size() {
-    height: @cardHeight;
-    max-width: @cardWidth;
-    width: 100%;
-}
 
 .cardNextInAnimation() {
     from {
@@ -130,12 +149,11 @@
 
     .header {
         min-height: @flashcardHeaderHeight;
-        padding-top: 32px;
         position: relative;
         .displayFlex;
         .align-items(flex-end);
         .justifyContet(space-between);
-        padding-bottom: 24px;
+        padding-bottom: 12px;
 
         @media(max-width: 600px) {
             min-height: 80px;
@@ -150,7 +168,7 @@
 
         .close-btn {
             position: absolute;
-            top: 26px;
+            top: 10px;
             right: 10px;
             line-height: 0;
 
@@ -341,12 +359,7 @@
     }
 
     nav.buttons, .keyboard {
-        margin-top: 24px;
         position: absolute;
-
-        @media(min-width: 600px) {
-            top: @cardHeight + @flashcardHeaderHeight;
-        }
 
         button {
             md-icon {
@@ -363,7 +376,15 @@
         }
     }
 
+
+    nav.buttons, .keyboard {
+        @media(min-width: 600px) {
+            top: @cardHeight + @flashcardHeaderHeight;
+        }
+    }
+
     nav.buttons {
+        margin-top: 10px;
         .displayFlex;
         .align-items(center);
         .justifyContet(space-between);
@@ -371,7 +392,6 @@
         width: 180px;
 
         @media(min-width: 600px) {
-            top: 560px;
             left: ~"calc(50% - 90px)";
         }
 
@@ -401,8 +421,8 @@
         }
 
         md-icon {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
         }
     }
 
@@ -453,10 +473,6 @@
             height: 100%;
         }
 
-        .flip-container, .front, .back {
-            .card-size();
-        }
-
         .flipper {
             transition: 0.6s;
             transform-style: preserve-3d;
@@ -489,7 +505,14 @@
 
     .front, .back {
         .flipper {
-            height: @cardHeight;
+            // height: @cardHeight;
+        }
+    }
+
+    .front, .back, .both {
+
+        .flip-container {
+            .card-size();
         }
     }
 
@@ -676,7 +699,7 @@
         .card-template {
             position: relative;
             width: 100%;
-            height: @cardHeight;
+            //height: @cardHeight;
             .displayFlex;
             .align-items(stretch);
             .justifyContet(center);
@@ -685,6 +708,17 @@
 
             @media(max-width: 600px) {
                 margin: 16px 0;
+                height: @cardHeight;
+            }
+
+            &:not(.both) .card-content .side {
+                @media(min-width: 600px) {
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    right: 0;
+                    left: 0;
+                }
             }
 
             &.ng-hide-add, &.ng-hide-remove {
@@ -693,7 +727,7 @@
                 animation-timing-function: ease-out;
                 animation-iteration-count: 1;
                 position: absolute !important;
-                .card-size();
+                //.card-size();
             }
             //.my-element.ng-hide-add-active,
             &.ng-hide-add {
@@ -819,7 +853,6 @@
                 .card-content .side .data-wrapper {
                     cursor: auto;
 
-
                     @media(max-width: 600px) {
                         max-height: @cardHeight/2;
 
@@ -871,6 +904,8 @@
                     }
 
                     @media(max-width: 600px) {
+                        height: 100%;
+
                         .data-wrapper {
                             padding: 10px 10px 35px 10px;
                         }
@@ -918,11 +953,15 @@
                         height: 100%;
                         width: 50%;
                         flex-grow: 1;
-                        padding: 40px 25px 30px 25px;
+                        padding: 50px 30px;
 
                         @media(max-width: 600px) {
                             width: 100%;
                         }
+                    }
+
+                    .text-container p {
+                        margin: 10px 0 0 0;
                     }
                 }
             }
