@@ -939,6 +939,9 @@
   flex-direction: column;
   padding-bottom: 10px;
 }
+.flashcardPage .card-player .card-template.both .card-content .side .img-container ~ .text-container {
+  padding-top: 25px;
+}
 .flashcardPage .card-player .card-template.both .card-content .side .img-container img {
   width: initial;
   max-width: 100%;
@@ -1067,7 +1070,7 @@
   height: 100%;
   width: 50%;
   flex-grow: 1;
-  padding: 25px;
+  padding: 40px 25px 30px 25px;
 }
 @media (max-width: 600px) {
   .flashcardPage .card-player .card-template .card-content .side .img-container,
@@ -1134,6 +1137,10 @@
 }
 .keyboard-menu:before {
   display: none;
+}
+.keyboard-menu md-menu-item {
+  min-height: 30px;
+  height: 36px;
 }
 .mdno-object-fit .flashcardPage .card-player .card-template .card-content .side .img-container img {
   width: 100%;
