@@ -86,6 +86,36 @@
                     $rootScope.$broadcast('show-unregisterd-box');
                 });
 
+
+            }
+        };
+    }
+})();
+(function () {
+    angular.module('app').directive('uiSrefAuth', unregShow);
+    unregShow.$inject = ['$compile', 'userDetailsFactory', '$rootScope'];
+
+
+    function unregShow($compile, userDetailsFactory, $rootScope) {
+        return {
+            scope: {
+                val: '@uiSrefAuth'
+                //if: '=uiSrefIf'
+            },
+            link: function ($scope, $element, $attrs) {
+                $element.removeAttr('ui-sref-auth');
+                $compile($element)($scope);
+
+                // $scope.$watch('if', function (bool) {
+                if (userDetailsFactory.isAuthenticated()) {
+                    $element.attr('ui-sref', $scope.val);
+                } else {
+                    $element.removeAttr('ui-sref');
+                    $element.removeAttr('href');
+                    
+                }
+                $compile($element)($scope);
+                //});
             }
         };
     }
