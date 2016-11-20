@@ -142,10 +142,10 @@
         </div>
 
         <nav class="buttons" hide-xs>
-            <button type="button" class="prev" keyboard-action="37" ng-click="f.prev()" ng-disabled="f.slidepos == 0">
+            <button type="button" class="prev" keyboard-action="37" keyboard-action-rtl="39" ng-click="f.prev()" ng-disabled="f.slidepos == 0">
                 <md-icon md-svg-icon="t:arrow"></md-icon>
             </button>
-            <button type="button" class="next" ng-click="f.next()" keyboard-action="39" ng-disabled="f.slidepos == f.flashcard.cards.length">
+            <button type="button" class="next" ng-click="f.next()" keyboard-action="39" keyboard-action-rtl="37" ng-disabled="f.slidepos == f.flashcard.cards.length">
                 <md-icon md-svg-icon="t:arrow"></md-icon>
             </button>
         </nav>
