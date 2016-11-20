@@ -79,7 +79,7 @@
                 </button>
                 <button type="button" class="action-btn pinned-cards" user-not-register-popup="click" ng-if="f.pinCount" ng-click="f.startPin()">
                     @FlashcardResources.Study&nbsp;<ng-pluralize count="f.pinCount"
-                                             when="{
+                                                                 when="{
                         '1': '1 @FlashcardResources.Pin',
                         'other': '{} @FlashcardResources.Pins'
                       }"></ng-pluralize>
@@ -159,28 +159,37 @@
         </button>
     </nav>
 
-    <md-menu md-position-mode="target-right target" class="keyboard" md-offset="0 42" hide-xs>
+    <md-menu md-position-mode="target-right target" class="keyboard" md-offset="0 50" hide-xs>
         <md-button ng-click="$mdOpenMenu($event)" aria-label="Open menu">
             <md-icon md-svg-icon="b:keyboard"></md-icon>
         </md-button>
-        <md-menu-content md-menu-align-target class="md-user-menu">
+        <md-menu-content md-menu-align-target class="keyboard-menu">
             <md-menu-item>
-                <div>key 1</div>
+                <div><span>&larr;</span>Previous</div>
             </md-menu-item>
             <md-menu-item>
-                <div>key 1</div>
+                <div><span>&rarr;</span>Next</div>
             </md-menu-item>
             <md-menu-item>
-                <div>key 1</div>
+                <div><span>&uarr;</span>Flip up</div>
             </md-menu-item>
             <md-menu-item>
-                <div>key 1</div>
+                <div><span>&darr;</span>Flip down</div>
             </md-menu-item>
             <md-menu-item>
-                <div>key 1</div>
+                <div><span>P</span>Pinned</div>
             </md-menu-item>
             <md-menu-item>
-                <div>key 1</div>
+                <div><span>S</span>Shuffle</div>
+            </md-menu-item>
+            <md-menu-item>
+                <div><span>F</span>Front</div>
+            </md-menu-item>
+            <md-menu-item>
+                <div><span>K</span>Back</div>
+            </md-menu-item>
+            <md-menu-item>
+                <div><span>B</span>Both</div>
             </md-menu-item>
         </md-menu-content>
     </md-menu>

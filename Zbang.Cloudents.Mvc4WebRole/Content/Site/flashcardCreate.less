@@ -9,18 +9,11 @@
         max-width: 860px;
         padding: 10px 30px 0 30px;
         margin: 0 auto;
+        padding: 10px;
 
         .bottom {
-            display: none;
-        }
-
-        @media(max-width: 600px) {
-            padding: 10px;
-
-            .bottom {
-                display: block;
-                text-align: right;
-            }
+            display: block;
+            text-align: right;
         }
     }
 
@@ -209,10 +202,6 @@
                     margin: 0;
                     padding-top: 0;
 
-                    &:not(.md-input-focused) {
-                        padding-right: 0;
-                    }
-
                     &.has-image {
                         padding-right: 0;
                         padding-top: @cardHeight;
@@ -254,6 +243,10 @@
                 }
 
                 &:not(.focused) {
+                    md-input-container:not(.has-image) {
+                        padding-right: 0;
+                    }
+
                     md-input-container {
                         @media(max-width: 600px) {
                             padding-right: 0;
@@ -284,6 +277,7 @@
                     @media(max-width: 600px) {
                         top: 0;
                         left: 0;
+                        overflow: visible;
                     }
                 }
 
@@ -340,6 +334,10 @@
                         line-height: 0;
                         padding: 6px;
                         z-index: 1;
+
+                        @media(max-width: 600px) {
+                            right: -22px;
+                        }
 
                         md-icon {
                             margin: 0;
@@ -514,6 +512,13 @@
             }
         }
     }
+}
+
+.keyboard-menu span {
+    width: 18px;
+    display: inline-block;
+    text-align: center;
+    margin-right: 10px;
 }
 
 .mdno-object-fit .flashcard .flashcard-body .card-container card-form .image-container img {

@@ -5,18 +5,11 @@
   max-width: 860px;
   padding: 10px 30px 0 30px;
   margin: 0 auto;
+  padding: 10px;
 }
 .flashcard .content .bottom {
-  display: none;
-}
-@media (max-width: 600px) {
-  .flashcard .content {
-    padding: 10px;
-  }
-  .flashcard .content .bottom {
-    display: block;
-    text-align: right;
-  }
+  display: block;
+  text-align: right;
 }
 .flashcard .flashcard-top {
   margin-top: 95px;
@@ -206,9 +199,6 @@
   margin: 0;
   padding-top: 0;
 }
-.flashcard .flashcard-body .card-container card-form md-input-container:not(.md-input-focused) {
-  padding-right: 0;
-}
 .flashcard .flashcard-body .card-container card-form md-input-container.has-image {
   padding-right: 0;
   padding-top: 58px;
@@ -241,6 +231,9 @@
     padding-right: 0;
   }
 }
+.flashcard .flashcard-body .card-container card-form:not(.focused) md-input-container:not(.has-image) {
+  padding-right: 0;
+}
 @media (max-width: 600px) {
   .flashcard .flashcard-body .card-container card-form:not(.focused) md-input-container {
     padding-right: 0;
@@ -271,6 +264,7 @@
   .flashcard .flashcard-body .card-container card-form .has-image .image-container {
     top: 0;
     left: 0;
+    overflow: visible;
   }
 }
 .flashcard .flashcard-body .card-container card-form .image-container {
@@ -319,6 +313,11 @@
   line-height: 0;
   padding: 6px;
   z-index: 1;
+}
+@media (max-width: 600px) {
+  .flashcard .flashcard-body .card-container card-form .image-container .remove-img {
+    right: -22px;
+  }
 }
 .flashcard .flashcard-body .card-container card-form .image-container .remove-img md-icon {
   margin: 0;
@@ -460,6 +459,12 @@
   .flashcard .flashcard-body .add-card {
     margin: 14px 0;
   }
+}
+.keyboard-menu span {
+  width: 18px;
+  display: inline-block;
+  text-align: center;
+  margin-right: 10px;
 }
 .mdno-object-fit .flashcard .flashcard-body .card-container card-form .image-container img {
   width: 100%;

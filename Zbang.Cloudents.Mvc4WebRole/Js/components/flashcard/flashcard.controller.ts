@@ -87,10 +87,10 @@
                         v.pin = true;
                     }
                     v.index = k;
-                    if (!v.front.text) {
+                    if (!v.front.text && !v.front.image) {
                         v.front.text = "...";
                     }
-                    if (!v.cover.text) {
+                    if (!v.cover.text && !v.cover.image) {
                         v.cover.text = "...";
                     }
 
