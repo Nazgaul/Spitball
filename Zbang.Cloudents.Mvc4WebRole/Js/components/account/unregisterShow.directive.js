@@ -81,6 +81,13 @@
                 if (userDetailsFactory.isAuthenticated()) {
                     return;
                 }
+                if (element.is("a")) {
+                    element.bind('click', 'a', function (e) {
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
+                        $rootScope.$broadcast('show-unregisterd-box');
+                    });
+                };
                 element.on('click', 'a', function (e) {
                     e.preventDefault();
                     $rootScope.$broadcast('show-unregisterd-box');
@@ -91,35 +98,7 @@
         };
     }
 })();
-(function () {
-    angular.module('app').directive('uiSrefAuth', unregShow);
-    unregShow.$inject = ['$compile', 'userDetailsFactory', '$rootScope'];
 
-
-    function unregShow($compile, userDetailsFactory, $rootScope) {
-        return {
-            scope: {
-                val: '@uiSrefAuth'
-                //if: '=uiSrefIf'
-            },
-            link: function ($scope, $element, $attrs) {
-                $element.removeAttr('ui-sref-auth');
-                $compile($element)($scope);
-
-                // $scope.$watch('if', function (bool) {
-                if (userDetailsFactory.isAuthenticated()) {
-                    $element.attr('ui-sref', $scope.val);
-                } else {
-                    $element.removeAttr('ui-sref');
-                    $element.removeAttr('href');
-                    
-                }
-                $compile($element)($scope);
-                //});
-            }
-        };
-    }
-})();
 
 (function () {
     angular.module('app').directive('userNotRegisterPopup', unregShow);

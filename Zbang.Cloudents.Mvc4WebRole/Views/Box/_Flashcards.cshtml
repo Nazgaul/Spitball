@@ -2,8 +2,7 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources
 <ul layout="row" layout-padding layout-wrap layout-align="start stretch" class="list-unstyled quizzes-list flashcards-list">
     <li user-not-register-click  flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" hide-xs class="add-button i-q-wrapper">
-        @*TODO: use directive user-not-register-click - its not working somehow *@
-        <a class="content" ui-sref-auth="flashcardCreate({boxtype: f.params.boxtype, universityType:f.params.universityType, boxId: f.params.boxId, boxName:f.params.boxName})" ga-track-event="['box-flashcards', 'addFlashcard']">
+        <a class="content" user-not-register-click  ui-sref="flashcardCreate({boxtype: f.params.boxtype, universityType:f.params.universityType, boxId: f.params.boxId, boxName:f.params.boxName})" ga-track-event="['box-flashcards', 'addFlashcard']">
             <div class="quizCreate">
                 <md-icon md-svg-icon="t:add"></md-icon>
                 <div class="text">
