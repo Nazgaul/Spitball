@@ -30,7 +30,7 @@ var app;
             return this.ajaxService.post('/quiz/create/', {
                 boxId: boxId,
                 name: name
-            });
+            }, "boxData");
         };
         QuizService.prototype.updateQuiz = function (id, name) {
             return this.ajaxService.post('/quiz/update/', {

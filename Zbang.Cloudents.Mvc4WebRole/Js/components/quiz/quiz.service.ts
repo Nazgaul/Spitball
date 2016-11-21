@@ -49,7 +49,7 @@ module app {
                 boxId: boxId,
                 name: name
 
-            });
+            },"boxData");
         }
         updateQuiz(id: number, name: string) {
             return this.ajaxService.post('/quiz/update/', {
