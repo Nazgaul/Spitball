@@ -702,17 +702,28 @@
                 height: @cardHeight;
             }
 
-            &:not(.both) .card-content .side {
-                @media(min-width: 600px) {
-                    position: absolute;
-                    top: 0;
-                    bottom: 0;
-                    right: 0;
-                    left: 0;
-                }
+            &:not(.both) {
+                .card-content .side {
+                    @media(min-width: 600px) {
+                        position: absolute;
+                        top: 0;
+                        bottom: 0;
+                        right: 0;
+                        left: 0;
+                    }
 
-                &.front, &.back {
-                    .card-style;
+                    &.front, &.back {
+                        .card-style;
+                    }
+
+                    .img-container, .text-container {
+                        width: ~"calc(100% - 60px)";
+                        margin: 0 auto;
+
+                        @media(max-width: 600px) {
+                            padding: 6px 25px;
+                        }
+                    }
                 }
             }
 
@@ -778,18 +789,12 @@
                         padding-bottom: 10px;
                     }
 
-                    .img-container ~ .text-container {
-                        padding-top: 25px;
-                    }
 
                     .img-container img {
                         width: initial;
                         max-width: 100%;
                         //margin: auto;
                         display: block;
-
-                        @media(max-width: 600px) {
-                        }
                     }
                 }
             }
@@ -821,10 +826,6 @@
                     .img-container, .text-container {
                         width: ~"calc(100% - 60px)";
                         margin: 0 auto;
-
-                        @media(max-width: 600px) {
-                            padding: 6px 25px;
-                        }
                     }
                 }
             }
@@ -918,12 +919,16 @@
                         }
                     }
 
-                    .img-container img, .text-container {
-                        padding: 50px 30px;
+                    .img-container img, .text-container p {
+                        padding: 35px;
+
+                        @media(max-width: 600px) {
+                            padding: 10px 0;
+                        }
                     }
 
                     .text-container p {
-                        margin: 10px 0 0 0;
+                        margin: 0;
                     }
                 }
             }

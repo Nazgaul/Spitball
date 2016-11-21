@@ -886,6 +886,17 @@
   border-radius: 10px;
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.43);
 }
+.flashcardPage .card-player .card-template:not(.both) .card-content .side .img-container,
+.flashcardPage .card-player .card-template:not(.both) .card-content .side .text-container {
+  width: calc(100% - 60px);
+  margin: 0 auto;
+}
+@media (max-width: 600px) {
+  .flashcardPage .card-player .card-template:not(.both) .card-content .side .img-container,
+  .flashcardPage .card-player .card-template:not(.both) .card-content .side .text-container {
+    padding: 6px 25px;
+  }
+}
 .flashcardPage .card-player .card-template.ng-hide-add,
 .flashcardPage .card-player .card-template.ng-hide-remove {
   display: block !important;
@@ -947,9 +958,6 @@
   flex-direction: column;
   padding-bottom: 10px;
 }
-.flashcardPage .card-player .card-template.both .card-content .side .img-container ~ .text-container {
-  padding-top: 25px;
-}
 .flashcardPage .card-player .card-template.both .card-content .side .img-container img {
   width: initial;
   max-width: 100%;
@@ -981,12 +989,6 @@
 .flashcardPage .card-player .card-template.both .card-content .side .text-container {
   width: calc(100% - 60px);
   margin: 0 auto;
-}
-@media (max-width: 600px) {
-  .flashcardPage .card-player .card-template.both .card-content .side .img-container,
-  .flashcardPage .card-player .card-template.both .card-content .side .text-container {
-    padding: 6px 25px;
-  }
 }
 .flashcardPage .card-player .card-template .card-content {
   display: -webkit-flex;
@@ -1087,11 +1089,17 @@
   }
 }
 .flashcardPage .card-player .card-template .card-content .side .img-container img,
-.flashcardPage .card-player .card-template .card-content .side .text-container {
-  padding: 50px 30px;
+.flashcardPage .card-player .card-template .card-content .side .text-container p {
+  padding: 35px;
+}
+@media (max-width: 600px) {
+  .flashcardPage .card-player .card-template .card-content .side .img-container img,
+  .flashcardPage .card-player .card-template .card-content .side .text-container p {
+    padding: 10px 0;
+  }
 }
 .flashcardPage .card-player .card-template .card-content .side .text-container p {
-  margin: 10px 0 0 0;
+  margin: 0;
 }
 .flashcardPage .card-player .card-template .pin-btn {
   position: absolute;
