@@ -127,16 +127,16 @@
     <value>כרטיסיות לימוד</value>
   </data>
   <data name="CreatedBy" xml:space="preserve">
-    <value>נוצר על ידי</value>
+    <value>נוצר ע"י</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>ערוך</value>
   </data>
   <data name="FlashcardPlaceholder" xml:space="preserve">
-    <value>הכנס את שם הכרטיסייה</value>
+    <value>שם הכרטיסיות</value>
   </data>
   <data name="FlashcardTitle" xml:space="preserve">
-    <value>צור כרטיסיית לימוד</value>
+    <value>צור כרטיסיות לימוד</value>
   </data>
   <data name="Front" xml:space="preserve">
     <value>צד קדמי</value>
@@ -148,16 +148,16 @@
     <value>לחץ כדי להפוך</value>
   </data>
   <data name="JustStudied" xml:space="preserve">
-    <value>כרגע למדת</value>
+    <value>סיימת ללמוד</value>
   </data>
   <data name="LikeLabel" xml:space="preserve">
-    <value>נהנית מהכרטיסיות? תן להן "לייק": </value>
+    <value>הכרטיסיות עזרו לך? לחץ</value>
   </data>
   <data name="Over" xml:space="preserve">
     <value>מחדש</value>
   </data>
   <data name="Pinned" xml:space="preserve">
-    <value>מסומנות</value>
+    <value>כרטיסיות מסומנות</value>
   </data>
   <data name="Progress" xml:space="preserve">
     <value>התקדמות</value>
@@ -166,7 +166,7 @@
     <value>כרטיסיה בשם זה כבר קיימת</value>
   </data>
   <data name="Shuffle" xml:space="preserve">
-    <value>ערבב</value>
+    <value>שנה סדר כרטיסיות</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>התחל</value>

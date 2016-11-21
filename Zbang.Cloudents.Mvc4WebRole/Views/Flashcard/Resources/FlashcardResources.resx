@@ -181,7 +181,7 @@
     <value>flashcard with the same name already exists</value>
   </data>
   <data name="Shuffle" xml:space="preserve">
-    <value>shuffle</value>
+    <value>shuffle cards</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>start</value>

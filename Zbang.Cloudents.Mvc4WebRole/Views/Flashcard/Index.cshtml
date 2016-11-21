@@ -70,6 +70,7 @@
                 <ng-pluralize count="::f.flashcard.cards.length"
                               when="{
                         '1': '1 @FlashcardResources.Card',
+                        '2': '{} @FlashcardResources.Pins',
                         'other': '{} @FlashcardResources.Cards'
                       }"></ng-pluralize>
                 <span ng-if="f.step==2">!</span>
@@ -82,6 +83,7 @@
                     @FlashcardResources.Study&nbsp;<ng-pluralize count="f.pinCount"
                                                                  when="{
                         '1': '1 @FlashcardResources.Pin',
+                        '2': '{} @FlashcardResources.Pins',
                         'other': '{} @FlashcardResources.Pins'
                       }"></ng-pluralize>
                 </button>
