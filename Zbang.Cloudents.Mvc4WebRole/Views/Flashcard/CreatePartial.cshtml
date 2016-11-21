@@ -30,7 +30,7 @@
         </div>
         <ol ui-on-drop="true">
             <li id="drag{{$index}}" class="card-container" ui-on-drop="f.move($data,card)" layout="row" line-focus @*card-settings="gt-xs"*@ ng-repeat="card in f.data.cards">
-                <button type="button" hide-xs class="drag-btn" drag="{{$index}}" ui-draggable="true" drag-image-element-id="'drag' + $index"><md-icon md-svg-icon="t:headerMenu"></md-icon></button>
+                <div type="button" hide-xs class="drag-btn" drag="{{$index}}" ui-draggable="true" drag-image-element-id="'drag' + $index"><md-icon md-svg-icon="t:headerMenu"></md-icon></div>
                 <card-form flex="50" index="$index*2 + 1" slide="card.front" upload="f.upload"></card-form>
                 <card-form flex="50" index="$index*2 + 2" slide="card.cover" upload="f.upload"></card-form>
                 <button type="button" hidex-xs class="remove-btn desktop" ng-click="f.removeCard($index)">
