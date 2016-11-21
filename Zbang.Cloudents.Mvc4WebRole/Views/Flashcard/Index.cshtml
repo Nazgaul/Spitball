@@ -113,7 +113,7 @@
                                 <div class="img-container" ng-if="::slide.front.image">
                                     <img ng-src="{{::slide.front.image}}" alt="font image" />
                                 </div>
-                                <div class="text-container">
+                                <div class="text-container" ng-if="::slide.front.text">
                                     <p class="scrollbar" dir="auto" ng-bind="::slide.front.text" fit-text></p>
                                 </div>
                                 <div class="flip" ng-if="slide.style !== null">
@@ -130,7 +130,7 @@
                                 <div class="img-container" ng-if="::slide.cover.image">
                                     <img ng-src="{{::slide.cover.image}}" alt="font image" />
                                 </div>
-                                <div class="text-container">
+                                <div class="text-container" ng-if="::slide.cover.text">
                                     <p class="scrollbar" dir="auto" ng-bind="::slide.cover.text" fit-text></p>
                                 </div>
                                 <div class="flip" ng-if="slide.style !== null">

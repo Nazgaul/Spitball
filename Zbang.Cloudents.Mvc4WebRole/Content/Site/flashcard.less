@@ -693,11 +693,7 @@
         .card-template {
             position: relative;
             width: 100%;
-            //height: @cardHeight;
-            /*.displayFlex;
-            .align-items(stretch);
-            .justifyContet(center);
-            flex-direction: column;*/
+            max-height: 400px;
             position: relative;
 
             @media(max-width: 600px) {
@@ -713,6 +709,7 @@
                     right: 0;
                     left: 0;
                 }
+
                 &.front, &.back {
                     .card-style;
                 }
@@ -787,11 +784,10 @@
                     .img-container img {
                         width: initial;
                         max-width: 100%;
-                        margin: 0 auto;
+                        //margin: auto;
                         display: block;
 
                         @media(max-width: 600px) {
-                            max-height: @cardHeight/4 - 12px;
                         }
                     }
                 }
@@ -822,7 +818,8 @@
 
                 .card-content .side {
                     .img-container, .text-container {
-                        width: 100%;
+                        width: ~"calc(100% - 60px)";
+                        margin: 0 auto;
 
                         @media(max-width: 600px) {
                             padding: 6px 25px;
@@ -871,14 +868,21 @@
                     }
 
                     .img-container {
-                        .displayFlex;
+                        /*.displayFlex;
                         .align-items(center);
-                        .justifyContet(center);
+                        .justifyContet(center);*/
+                        position: relative;
 
                         img {
+                            position: absolute;
                             max-width: 100%;
                             max-height: 100%;
                             object-fit: contain;
+                            left: 0;
+                            right: 0;
+                            top: 0;
+                            bottom: 0;
+                            margin: auto;
                         }
                     }
 
@@ -907,11 +911,13 @@
                         height: 100%;
                         width: 50%;
                         flex-grow: 1;
-                        padding: 50px 30px;
 
                         @media(max-width: 600px) {
                             width: 100%;
                         }
+                    }
+                    .img-container img, .text-container {
+                            padding: 50px 30px;
                     }
 
                     .text-container p {

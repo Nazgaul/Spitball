@@ -861,10 +861,7 @@
 }
 .flashcardPage .card-player .card-template {
   width: 100%;
-  /*.displayFlex;
-            .align-items(stretch);
-            .justifyContet(center);
-            flex-direction: column;*/
+  max-height: 400px;
   position: relative;
 }
 @media (max-width: 600px) {
@@ -955,13 +952,7 @@
 .flashcardPage .card-player .card-template.both .card-content .side .img-container img {
   width: initial;
   max-width: 100%;
-  margin: 0 auto;
   display: block;
-}
-@media (max-width: 600px) {
-  .flashcardPage .card-player .card-template.both .card-content .side .img-container img {
-    max-height: 88px;
-  }
 }
 .flashcardPage .card-player .card-template.both {
   background-color: #ffffff;
@@ -987,7 +978,8 @@
 }
 .flashcardPage .card-player .card-template.both .card-content .side .img-container,
 .flashcardPage .card-player .card-template.both .card-content .side .text-container {
-  width: 100%;
+  width: calc(100% - 60px);
+  margin: 0 auto;
 }
 @media (max-width: 600px) {
   .flashcardPage .card-player .card-template.both .card-content .side .img-container,
@@ -1044,18 +1036,21 @@
   }
 }
 .flashcardPage .card-player .card-template .card-content .side .img-container {
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-  -webkit-align-items: center;
-  align-items: center;
-  -webkit-justify-content: center;
-  justify-content: center;
+  /*.displayFlex;
+                        .align-items(center);
+                        .justifyContet(center);*/
+  position: relative;
 }
 .flashcardPage .card-player .card-template .card-content .side .img-container img {
+  position: absolute;
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
 }
 .flashcardPage .card-player .card-template .card-content .side .text-container {
   display: -webkit-flex;
@@ -1083,13 +1078,16 @@
   height: 100%;
   width: 50%;
   flex-grow: 1;
-  padding: 50px 30px;
 }
 @media (max-width: 600px) {
   .flashcardPage .card-player .card-template .card-content .side .img-container,
   .flashcardPage .card-player .card-template .card-content .side .text-container {
     width: 100%;
   }
+}
+.flashcardPage .card-player .card-template .card-content .side .img-container img,
+.flashcardPage .card-player .card-template .card-content .side .text-container {
+  padding: 50px 30px;
 }
 .flashcardPage .card-player .card-template .card-content .side .text-container p {
   margin: 10px 0 0 0;

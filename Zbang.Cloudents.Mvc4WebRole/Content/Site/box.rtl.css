@@ -434,8 +434,10 @@ md-menu-item > a.md-button {
     margin: -8px;
   }
 }
-.boxes-side-area.flex {
-  padding: 0;
+@media (min-width: 600px) {
+  .boxes-side-area.flex {
+    padding: 0;
+  }
 }
 .boxes-side-area .leaderboard-container {
   display: flex;
