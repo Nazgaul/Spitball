@@ -151,6 +151,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Flip down.
+        /// </summary>
+        public static string FlipDown {
+            get {
+                return ResourceManager.GetString("FlipDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Flip up.
+        /// </summary>
+        public static string FlipUp {
+            get {
+                return ResourceManager.GetString("FlipUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to front.
         /// </summary>
         public static string Front {
@@ -232,6 +250,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Previous.
+        /// </summary>
+        public static string Previous {
+            get {
+                return ResourceManager.GetString("Previous", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to progress.
         /// </summary>
         public static string Progress {
@@ -250,7 +277,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to shuffle cards.
+        ///   Looks up a localized string similar to shuffle.
         /// </summary>
         public static string Shuffle {
             get {

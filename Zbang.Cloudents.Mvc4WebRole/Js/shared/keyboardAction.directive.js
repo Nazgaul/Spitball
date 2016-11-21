@@ -8,7 +8,8 @@
             restrict: 'A',
             link: function (scope, element, attrs) {
                 var keyDownHandler = function (e) {
-                    var keys = $("html[dir=rtl]").length ? attrs.keyboardActionRtl.split("|") : attrs.keyboardAction.split("|");
+                    var keys = attrs.keyboardActionRtl && $("html[dir=rtl]").length ? attrs.keyboardActionRtl.split("|") : attrs.keyboardAction.split("|");
+
                     if (!element.is(':hidden') && keys.indexOf(e.keyCode.toString()) != -1) {
                         element.click();
                     }

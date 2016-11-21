@@ -460,12 +460,6 @@
     margin: 14px 0;
   }
 }
-.keyboard-menu span {
-  width: 18px;
-  display: inline-block;
-  text-align: center;
-  margin-left: 10px;
-}
 .mdno-object-fit .flashcard .flashcard-body .card-container card-form .image-container img {
   width: 100%;
   height: auto;

@@ -790,6 +790,7 @@ md-tooltip .md-content {
 }
 md-toast .md-toast-content span {
   text-align: center;
+  color: white;
 }
 .nav-bar {
   background: #323538;

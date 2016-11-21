@@ -312,11 +312,11 @@
 
                 &.active {
                     &.front .flashcard-icon {
-                        .flashcard-icon(36px, @buttonColorBlue, @headerbackground, @backgroundColor, @buttonColorBlue, @headerbackground);
+                        .flashcard-icon(36px, @buttonColorBlue, @headerbackground, @backgroundColor, #337fa7, @headerbackground);
                     }
 
                     &.back .flashcard-icon {
-                        .flashcard-icon(36px, @headerbackground, @buttonColorBlue, @backgroundColor,@headerbackground, @buttonColorBlue);
+                        .flashcard-icon(36px, @headerbackground, @buttonColorBlue, @backgroundColor,@headerbackground, #337fa7);
 
                         md-icon {
                             fill: @buttonColorBlue;
@@ -324,7 +324,7 @@
                     }
 
                     &.both .flashcard-icon {
-                        .flashcard-icon(36px, @buttonColorBlue, @buttonColorBlue, @backgroundColor, @buttonColorBlue, @buttonColorBlue);
+                        .flashcard-icon(36px, @buttonColorBlue, @buttonColorBlue, @backgroundColor, #337fa7, #337fa7);
                     }
                 }
             }
@@ -498,16 +498,11 @@
             }
         }
     }
-
-    .front, .back {
-        .flipper {
-            // height: @cardHeight;
-        }
-    }
-
+    
     .front, .back, .both {
 
         .flip-container {
+            display: inline-block;
             .card-size();
         }
     }
@@ -1076,6 +1071,14 @@
 }
 
 .keyboard-menu {
+
+    .key {
+        width: 18px;
+        display: inline-block;
+        text-align: center;
+        margin-right: 10px;
+    }
+
     &:before {
         display: none;
     }
