@@ -3,9 +3,6 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.University.Resources
 <div ng-switch="f.step" class="flashcard-wrapper">
     <div class="header">
-        <button ng-click="app.back(f.backUrl)" class="close-btn">
-            <md-icon md-svg-icon="t:close"></md-icon>
-        </button>
         <div multiswitch-when="1|2" class="progress-wrapper">
             <div class="title">
                 <div class="flashcard-icon"></div>
@@ -38,6 +35,9 @@
                 <span>{{f.slidepos}}/{{::f.flashcard.cards.length}}</span>
             </div>
         </div>
+        <button ng-click="app.back(f.backUrl)" class="close-btn">
+            <md-icon md-svg-icon="t:close"></md-icon>
+        </button>
         <div multiswitch-when="1" class="card-sides" hide-xs>
             <button type="button" class="front capitalize" ng-click="f.changeLegend(true)" ng-class="{active:f.styleLegend===true}" keyboard-action="70">
                 <div class="flashcard-icon"></div>
@@ -96,7 +96,11 @@
             </div>
             <div ng-if="f.step==2" class="like-wrapper">
                 <span>@FlashcardResources.LikeLabel</span>&nbsp;
-                <button ng-click="f.like()" ng-class="{liked:f.flashcard.like}"><md-icon md-svg-icon="b:like"></md-icon>@GeneralResources.Like</button>
+                <button ng-click="f.like()" ng-class="{liked:f.flashcard.like}">
+                    <div>
+                        <md-icon md-svg-icon="b:like"></md-icon>@GeneralResources.Like
+                    </div>
+                </button>
             </div>
         </div>
     </div>

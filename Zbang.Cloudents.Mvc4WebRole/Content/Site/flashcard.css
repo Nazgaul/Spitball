@@ -151,6 +151,7 @@
     right: 0;
     z-index: 1;
     background: #dadada;
+    padding-bottom: 25px;
   }
 }
 .flashcardPage .header .close-btn {
@@ -707,7 +708,7 @@
 }
 @media (max-width: 600px) {
   .flashcardPage .cards-info h1 {
-    font-size: 28px;
+    font-size: 34px;
   }
 }
 .flashcardPage .cards-info h4 {
@@ -842,7 +843,7 @@
   fill: #4190b9;
 }
 .flashcardPage .cards-info .like-wrapper,
-.flashcardPage .cards-info .like-wrapper button {
+.flashcardPage .cards-info .like-wrapper button > div {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;

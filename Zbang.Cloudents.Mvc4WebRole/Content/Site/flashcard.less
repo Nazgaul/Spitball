@@ -164,6 +164,7 @@
             right: 0;
             z-index: 1;
             background: @backgroundColor;
+            padding-bottom: 25px;
         }
 
         .close-btn {
@@ -544,7 +545,7 @@
             margin: 0;
 
             @media(max-width: 600px) {
-                font-size: 28px;
+                font-size: 34px;
             }
         }
 
@@ -676,7 +677,7 @@
             }
         }
 
-        .like-wrapper, .like-wrapper button {
+        .like-wrapper, .like-wrapper button > div {
             .displayFlex;
             .align-items(center);
             .justifyContet(center);
@@ -916,8 +917,9 @@
                             width: 100%;
                         }
                     }
+
                     .img-container img, .text-container {
-                            padding: 50px 30px;
+                        padding: 50px 30px;
                     }
 
                     .text-container p {
