@@ -69,7 +69,7 @@ var app;
                 item = item.replace(/[<>*%&:\\/;?@=+$,{}|^[\]`"#'()]/g, "");
                 item = item.replace(/[ _-]/g, "-");
                 item = item.replace(/-{2,999}/g, "-");
-                return item;
+                return item.toLowerCase();
             },
             decode: function (item) {
                 return item;
@@ -90,7 +90,7 @@ var app;
                 return app.Guid.fromBase64(enc + "==");
             },
             is: function (val) {
-                return val == null || (typeof val === "string" && val.match(/-/g).length === 4);
+                return val == null || (typeof val === "string");
             },
             pattern: /[^/]*/
         });

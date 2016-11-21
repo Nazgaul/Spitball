@@ -347,20 +347,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     Id = command.Id,
                     Name = model.Name
                 };
-                //if (!model.SkipUrl)
-                //{
-                //    var route = BuildRouteDataFromUrl(Request.UrlReferrer.AbsoluteUri);
-
-                //    var universityName = route.Values["universityName"];
-                //    var url = Url.RouteUrlCache("universityLibraryNodes", new RouteValueDictionary
-                //    {
-                //        ["universityId"] = universityId,
-                //        ["universityName"] = HttpUtility.UrlDecode(universityName.ToString()),
-                //        ["id"] = GuidEncoder.Encode(command.Id),
-                //        ["libraryname"] = UrlConst.NameToQueryString(model.Name)
-                //    });
-                //    result.Url = url;
-                //}
                 return JsonOk(result);
             }
             catch (DuplicateDepartmentNameException)

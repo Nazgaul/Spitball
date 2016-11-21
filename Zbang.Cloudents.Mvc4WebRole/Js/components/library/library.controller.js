@@ -4,11 +4,12 @@
     library.$inject = ["libraryService", "$stateParams", "userDetailsFactory",
         "nodeData", "$mdDialog",
         "$location", "$scope", "resManager", "universityData",
-        "itemThumbnailService", "ajaxService2", "$timeout", "$mdMedia", "$anchorScroll"];
+        "itemThumbnailService", "ajaxService2", "$timeout", "$mdMedia", "$anchorScroll", "$state"];
 
     function library(libraryService, $stateParams, userDetailsFactory, nodeData, $mdDialog,
-        $location, $scope, resManager, universityData, itemThumbnailService, ajaxService, $timeout,
-        $mdMedia, $anchorScroll) {
+        $location, $scope, resManager, universityData, itemThumbnailService, ajaxService,
+        $timeout,
+        $mdMedia, $anchorScroll, $state) {
         $anchorScroll.yOffset = 70;
         var l = this, nodeId = $stateParams.id;
         l.departments = nodeData.nodes;
@@ -202,14 +203,22 @@
         function createDepartment(myform) {
             l.submitDisabled = true;
             libraryService.createDepartment(l.departmentName, nodeId).then(function (response) {
-                response.state = l.nodeDetail ? l.nodeDetail.state : 'open';
-                response.userType = l.nodeDetail ? l.nodeDetail.userType : 'none';
-                l.departments.push(response);
-                l.createDepartmentOn = false;
-                l.createClassShow = false;
-                resetFiled(myform);
-                buildState();
+               
+                //response.state = l.nodeDetail ? l.nodeDetail.state : 'open';
+                //response.userType = l.nodeDetail ? l.nodeDetail.userType : 'none';
+                //l.departments.push(response);
+                //l.createDepartmentOn = false;
+                //l.createClassShow = false;
+                //resetFiled(myform);
+                //buildState();
                 $scope.app.showToaster(resManager.get('toasterCreateDepartment'));
+                $state.go("departmentWithNode",
+               {
+                   universityId: $stateParams.universityId,
+                   universityName: $stateParams.universityName,
+                   nodeName: response.name,
+                   id: response.id
+               });
             }, function (response) {
                 myform.name.$setValidity('server', false);
                 l.error = response;
