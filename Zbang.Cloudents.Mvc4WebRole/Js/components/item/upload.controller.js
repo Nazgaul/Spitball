@@ -25,16 +25,20 @@
         externalUploadProvider.googleDriveInit().then(function () {
             u.googleDriveLoaded = true;
         });
+        scrollToUpload();
 
         $scope.$on('open_upload', function () {
             tab = $stateParams.tabId;
             boxid = $stateParams.boxId;
-            
-            $anchorScroll.yOffset = 100;
+            scrollToUpload();
+        });
+
+        function scrollToUpload() {
+            $anchorScroll.yOffset = 65;
             $timeout(function () {
                 $anchorScroll('upload');
             });
-        });
+        }
 
         $scope.$on('close-collapse', function () {
             closeUpload();

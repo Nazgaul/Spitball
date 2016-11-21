@@ -568,9 +568,9 @@ md-menu-item.blue svg {
 }
 .itemPage .ad {
   text-align: center;
-  display: inline;
   width: 970px;
-  height: 300px;
+  height: 98px;
+  margin: 0 auto;
 }
 .itemPage .hideActions .top-wrapper {
   padding: 10px 0 24px 0;
