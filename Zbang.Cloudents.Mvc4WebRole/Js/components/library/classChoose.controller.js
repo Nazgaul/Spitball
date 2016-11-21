@@ -164,6 +164,7 @@ var app;
                 _this.nodeData = response.nodeData;
                 _this.selectedCourses.push(response.box);
                 _this.selectedCoursesView = _this.selectedCourses.slice();
+                _this.$scope.$emit("refresh-boxes");
             });
         };
         ClassChoose.prototype.requestAccess = function (department) {

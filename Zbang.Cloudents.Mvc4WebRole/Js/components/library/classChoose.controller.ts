@@ -205,6 +205,7 @@
                 this.nodeData = response.nodeData;
                 this.selectedCourses.push((response.box as ISelectedBoxClassChoose));
                 this.selectedCoursesView = this.selectedCourses.slice();
+                this.$scope.$emit("refresh-boxes");
             });
         }
 
