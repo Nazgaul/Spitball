@@ -157,7 +157,7 @@
     <value>מחדש</value>
   </data>
   <data name="Pinned" xml:space="preserve">
-    <value>שמורות</value>
+    <value>מסומנות</value>
   </data>
   <data name="Progress" xml:space="preserve">
     <value>התקדמות</value>
@@ -166,7 +166,7 @@
     <value>כרטיסיה בשם זה כבר קיימת</value>
   </data>
   <data name="Shuffle" xml:space="preserve">
-    <value>ערבב כרטיסיות</value>
+    <value>ערבב</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>התחל</value>
@@ -188,5 +188,8 @@
   </data>
   <data name="Study" xml:space="preserve">
     <value>למד</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>קודם</value>
   </data>
 </root>

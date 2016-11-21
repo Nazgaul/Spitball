@@ -181,12 +181,21 @@
     <value>flashcard with the same name already exists</value>
   </data>
   <data name="Shuffle" xml:space="preserve">
-    <value>shuffle cards</value>
+    <value>shuffle</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>start</value>
   </data>
   <data name="Study" xml:space="preserve">
     <value>study</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="FlipUp" xml:space="preserve">
+    <value>Flip up</value>
+  </data>
+  <data name="FlipDown" xml:space="preserve">
+    <value>Flip down</value>
   </data>
 </root>

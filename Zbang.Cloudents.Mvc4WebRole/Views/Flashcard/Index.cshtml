@@ -1,5 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.University.Resources
 <div ng-switch="f.step" class="flashcard-wrapper">
     <div class="header">
         <button ng-click="app.back(f.backUrl)" class="close-btn">
@@ -88,7 +89,7 @@
             <div class="shuffle" user-not-register-popup="click">
                 <md-icon md-svg-icon="b:shuffle"></md-icon>
                 <md-switch ng-model="f.shuffle" keyboard-action="83">
-                    @FlashcardResources.Shuffle
+                    @FlashcardResources.Shuffle&nbsp;@FlashcardResources.Cards
                 </md-switch>
             </div>
             <div ng-if="f.step==2" class="like-wrapper">
@@ -156,31 +157,31 @@
             </md-button>
             <md-menu-content md-menu-align-target class="keyboard-menu">
                 <md-menu-item>
-                    <div><span>&larr;</span>Previous</div>
+                    <div><span class="key">&larr;</span><span class="capitalize">@FlashcardResources.Previous</span></div>
                 </md-menu-item>
                 <md-menu-item>
-                    <div><span>&rarr;</span>Next</div>
+                    <div><span class="key">&rarr;</span><span class="capitalize">@UniversityResources.Next</span></div>
                 </md-menu-item>
                 <md-menu-item>
-                    <div><span>&uarr;</span>Flip up</div>
+                    <div><span class="key">&uarr;</span><span>@FlashcardResources.FlipUp</span></div>
                 </md-menu-item>
                 <md-menu-item>
-                    <div><span>&darr;</span>Flip down</div>
+                    <div><span class="key">&darr;</span><span>@FlashcardResources.FlipDown</span></div>
                 </md-menu-item>
                 <md-menu-item>
-                    <div><span>P</span>@FlashcardResources.Pinned</div>
+                    <div><span class="key">P</span><span class="capitalize">@FlashcardResources.Pinned</span></div>
                 </md-menu-item>
                 <md-menu-item>
-                    <div><span>S</span>Shuffle</div>
+                    <div><span class="key">S</span><span class="capitalize">@FlashcardResources.Shuffle</span></div>
                 </md-menu-item>
                 <md-menu-item>
-                    <div><span>F</span>Front</div>
+                    <div><span class="key">F</span><span class="capitalize">@FlashcardResources.Front</span></div>
                 </md-menu-item>
                 <md-menu-item>
-                    <div><span>K</span>Back</div>
+                    <div><span class="key">K</span><span class="capitalize">@FlashcardResources.Back</span></div>
                 </md-menu-item>
                 <md-menu-item>
-                    <div><span>B</span>Both</div>
+                    <div><span class="key">B</span><span class="capitalize">@FlashcardResources.Both</span></div>
                 </md-menu-item>
             </md-menu-content>
         </md-menu>

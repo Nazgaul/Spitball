@@ -405,7 +405,7 @@
   background: #323538;
 }
 .flashcardPage .header .card-sides button.active.front .flashcard-icon:hover:after {
-  background: #4190b9;
+  background: #337fa7;
 }
 .flashcardPage .header .card-sides button.active.back .flashcard-icon {
   position: relative;
@@ -434,7 +434,7 @@
   background: #323538;
 }
 .flashcardPage .header .card-sides button.active.back .flashcard-icon:hover:before {
-  background: #4190b9;
+  background: #337fa7;
 }
 .flashcardPage .header .card-sides button.active.back .flashcard-icon:hover:after {
   background: #323538;
@@ -469,10 +469,10 @@
   background: #4190b9;
 }
 .flashcardPage .header .card-sides button.active.both .flashcard-icon:hover:before {
-  background: #4190b9;
+  background: #337fa7;
 }
 .flashcardPage .header .card-sides button.active.both .flashcard-icon:hover:after {
-  background: #4190b9;
+  background: #337fa7;
 }
 .flashcardPage .header .pinned-counter {
   display: -webkit-flex;
@@ -638,6 +638,11 @@
   .flashcardPage .back .data-wrapper {
     flex-direction: column;
   }
+}
+.flashcardPage .front .flip-container,
+.flashcardPage .back .flip-container,
+.flashcardPage .both .flip-container {
+  display: inline-block;
 }
 @media (min-width: 600px) {
   .flashcardPage .front .flip-container,
@@ -1193,6 +1198,12 @@
 }
 .flashcardPage .md-bar {
   background-color: #c3c3c3;
+}
+.keyboard-menu .key {
+  width: 18px;
+  display: inline-block;
+  text-align: center;
+  margin-left: 10px;
 }
 .keyboard-menu:before {
   display: none;
