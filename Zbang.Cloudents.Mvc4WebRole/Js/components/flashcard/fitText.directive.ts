@@ -29,16 +29,20 @@
                     .then(() => {
                         changeFont();
                     });
+                
                 changeFont();
                 function changeFont() {
+                    
                     $(element).css(attributeToChange, "").removeClass("lessText");
                     if (!newValue[0]) {
                         return;
                     }
-
-                    if (element.parents(".ng-hide").length) {
+                    if (element.is(":hidden")) {
                         return;
                     }
+                    //if (element.parents(".ng-hide").length) {
+                    //    return;
+                    //}
                     if (newValue[0].length <= 80) {
                         element.addClass("lessText");
                     }

@@ -87,6 +87,11 @@
         }
 
         .card-container, .add-card {
+            margin: 8px 0;
+
+            @media(min-width: 600px) {
+                margin: 14px 0;
+            }
             &:before {
                 content: counter(counter,decimal);
                 counter-increment: counter;
@@ -504,13 +509,7 @@
         }
 
 
-        .card-container, .add-card {
-            margin: 8px 0;
-
-            @media(min-width: 600px) {
-                margin: 14px 0;
-            }
-        }
+        
     }
 }
 

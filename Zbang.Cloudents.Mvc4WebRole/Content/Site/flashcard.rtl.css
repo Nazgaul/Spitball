@@ -599,6 +599,7 @@
   display: -ms-flex;
   display: flex;
   flex-grow: 1;
+  width: 100%;
 }
 .flashcardPage .front .flip-container,
 .flashcardPage .back .flip-container {
@@ -979,6 +980,7 @@
 @media (max-width: 600px) {
   .flashcardPage .card-player .card-template.both .card-content {
     flex-direction: column;
+    width: 100%;
   }
 }
 @media (min-width: 600px) {

@@ -84,6 +84,16 @@
 .flashcard .flashcard-body ol {
   counter-reset: counter;
 }
+.flashcard .flashcard-body .card-container,
+.flashcard .flashcard-body .add-card {
+  margin: 8px 0;
+}
+@media (min-width: 600px) {
+  .flashcard .flashcard-body .card-container,
+  .flashcard .flashcard-body .add-card {
+    margin: 14px 0;
+  }
+}
 .flashcard .flashcard-body .card-container:before,
 .flashcard .flashcard-body .add-card:before {
   content: counter(counter, decimal);
@@ -449,16 +459,6 @@
 }
 .flashcard .flashcard-body .add-card div.back {
   border-left: none;
-}
-.flashcard .flashcard-body .card-container,
-.flashcard .flashcard-body .add-card {
-  margin: 8px 0;
-}
-@media (min-width: 600px) {
-  .flashcard .flashcard-body .card-container,
-  .flashcard .flashcard-body .add-card {
-    margin: 14px 0;
-  }
 }
 .mdno-object-fit .flashcard .flashcard-body .card-container card-form .image-container img {
   width: 100%;

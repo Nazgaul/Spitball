@@ -13,7 +13,6 @@
         link = (scope: angular.IScope, element: JQuery) => {
             var $body = $("body");
             var d = scope.$watchGroup(['myHide', "slidePos"], (newValue, oldValue) => {
-                console.log(newValue, oldValue, element.attr("id"));
                 element.removeClass("backSlide");
                 if (newValue[1] < oldValue[1]) {
                     element.addClass("backSlide");

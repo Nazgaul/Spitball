@@ -45,7 +45,6 @@
 /// <reference path="../js/components/item/comments.controller.js" />
 /// <reference path="../js/components/item/externalproviderupload.service.js" />
 /// <reference path="../Js/components/item/item.controller.js" />
-/// <reference path="../js/components/item/item.service.js" />
 /// <reference path="../js/components/item/upload.controller.js" />
 /// <reference path="../js/components/leaderboard.controller.js" />
 /// <reference path="../js/components/library/countryservice.service.js" />

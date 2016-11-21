@@ -29,8 +29,8 @@
                     </md-menu-content>
                 </md-menu>
                 <div class="progress-line">
-                    <md-progress-linear md-mode="determinate" value="{{f.slidepos / f.cards.length * 100}}"></md-progress-linear>
-                    <span hide-gt-xs>{{f.slidepos}}/{{::f.flashcard.cards.length}}</span>
+                    <md-progress-linear md-mode="determinate" value="{{f.slidepos / (f.cards.length - 1) * 100}}"></md-progress-linear>
+                    <span hide-gt-xs>{{f.slidepos}}/{{::f.flashcard.cards.length - 1}}</span>
                 </div>
             </div>
             <div class="progress-text" hide-xs>

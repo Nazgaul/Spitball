@@ -25,7 +25,7 @@ var app;
         VerionChecker.prototype.checkVersion = function () {
             var _this = this;
             this.$http.get("/home/version/").then(function (response) {
-                var retVal = response.data;
+                var retVal = response.data || {};
                 if (retVal.success) {
                     if (window["version"] === retVal.payload) {
                         return;

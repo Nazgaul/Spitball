@@ -89,7 +89,7 @@
                         <input ng-model="cd.create.name" id="className" required md-no-asterisk autocomplete="off" type="text" name="name" ng-change="createBox.name.$setValidity('server',true)" />
                         <div class="error" ng-messages="createBox.name.$error">
                             <div ng-message="required">@GeneralResources.RequiredField</div>
-                            <div ng-message="server">{{cc.create.error}}</div>
+                            <div ng-message="server">{{cd.create.error}}</div>
                         </div>
                     </md-input-container>
 

@@ -69,9 +69,6 @@
 
                     var z = angular.extend({}, box, { selected: true });
                     department.boxes.push(z);
-                    //box["department"] = this.selectedDepartment.name;
-                    //this.selectedCourses.push((box as ISmallBoxClassChoose));
-                    //this.selectedDepartment = null;
                     angular.forEach(createObj,
                         (value, key) => {
                             this.create[key] = '';
