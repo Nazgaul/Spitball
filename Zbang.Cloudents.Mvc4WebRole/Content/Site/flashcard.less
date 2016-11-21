@@ -460,6 +460,7 @@
     .flip-container, .flipper {
         .displayFlex;
         flex-grow: 1;
+        width:100%;
     }
 
     .front, .back {
@@ -499,11 +500,11 @@
         }
     }
 
-    .front, .back {
-        .flipper {
-            // height: @cardHeight;
-        }
-    }
+    //.front, .back {
+    //    .flipper {
+    //        // height: @cardHeight;
+    //    }
+    //}
 
     .front, .back, .both {
 
@@ -793,6 +794,7 @@
 
                     @media(max-width: 600px) {
                         flex-direction: column;
+                       
                     }
                 }
             }
@@ -810,6 +812,7 @@
             &.both .card-content {
                 @media(max-width: 600px) {
                     flex-direction: column;
+                     width:100%;
                 }
 
                 .side {

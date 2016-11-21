@@ -558,6 +558,8 @@ md-menu-item.blue svg {
   position: fixed;
   left: calc(50% - 650px);
   top: 130px;
+  width: 160px;
+  height: 600px;
 }
 @media (max-width: 1279px) {
   .itemPage .side-ad {
@@ -567,6 +569,8 @@ md-menu-item.blue svg {
 .itemPage .ad {
   text-align: center;
   display: inline;
+  width: 970px;
+  height: 300px;
 }
 .itemPage .hideActions .top-wrapper {
   padding: 10px 0 24px 0;

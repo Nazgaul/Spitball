@@ -187,7 +187,14 @@
             this.hub.invoke('send', userId, message, conversationId, blob);
         }
         changeUniversity() {
-            this.hub.invoke('changeUniversity');
+            if (this.canSend) {
+                this.hub.invoke('changeUniversity');
+            }
+            else {
+                this.commands.push(() => {
+                    this.changeUniversity.apply(this);
+                });
+            }
         };
         boxIds: Array<number> = [];
 

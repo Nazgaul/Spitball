@@ -32,7 +32,7 @@ var app;
                         if (!newValue[0]) {
                             return;
                         }
-                        if (element.parents(".ng-hide").length) {
+                        if (element.is(":hidden")) {
                             return;
                         }
                         if (newValue[0].length <= 80) {

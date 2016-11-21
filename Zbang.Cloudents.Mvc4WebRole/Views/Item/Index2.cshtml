@@ -39,7 +39,7 @@
                         <span>{{i.details.likes}}</span>
                     </button>
                     <a hide-xs target="_blank" ng-click="i.followBox()" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']"><md-icon md-svg-icon="i:download"></md-icon>@*@Html.Svg(svgUrl, "download")*@</a>
-                    <a hide-xs target="_blank" user-not-register-popup="click" ng-click="i.followBox()" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']"><md-icon md-svg-icon="i:print"></md-icon>@*@Html.Svg(svgUrl, "print")*@</a>
+                    <a hide-xs user-not-register-popup="click" ng-click="i.followBox()" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']"><md-icon md-svg-icon="i:print"></md-icon>@*@Html.Svg(svgUrl, "print")*@</a>
                     <div class="item-menu">
                         <md-menu flex>
                             <md-button aria-label="open menu" class="md-icon-button" user-not-register-popup="click" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['itemPage', 'delete']">
@@ -52,7 +52,7 @@
                                     </md-button>
                                 </md-menu-item>
                                 <md-menu-item hide-gt-xs>
-                                    <md-button target="_blank" user-not-register-popup="click" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']">
+                                    <md-button user-not-register-popup="click" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']">
                                         @ItemsResources.Print
                                     </md-button>
                                 </md-menu-item>
@@ -98,10 +98,10 @@
         <div class="ad">
             <adsense ad-client="ca-pub-1215688692145777" ad-slot="8210510557" inline-style="display:block;" ad-format="auto"></adsense>
         </div>
-        <div class="side-ad" @*data-ng-dfp-ad-container*@>
-            <adsense ad-client="ca-pub-1215688692145777" ad-slot="8210510557" inline-style="display:block;" ad-format="auto"></adsense>
+        @*<div class="side-ad">*@
+            @*<adsense ad-client="ca-pub-1215688692145777" ad-slot="8210510557" inline-style="display:block;" ad-format="auto"></adsense>*@
             @*<div data-ng-dfp-ad="div-gpt-ad-1461244713254-0" data-ng-dfp-ad-hide-when-empty></div>*@
-        </div>
+        @*</div>*@
         @{ Html.RenderPartial("_ItemComments");}
 
         <a class="arrow prev" ng-if="i.details.previous" href="{{i.details.previous}}" hide-xs keyboard-action="37" ga-track-event="['itemPage', 'previous item']">

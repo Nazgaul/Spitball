@@ -13,7 +13,6 @@ var app;
             this.link = function (scope, element) {
                 var $body = $("body");
                 var d = scope.$watchGroup(['myHide', "slidePos"], function (newValue, oldValue) {
-                    console.log(newValue, oldValue, element.attr("id"));
                     element.removeClass("backSlide");
                     if (newValue[1] < oldValue[1]) {
                         element.addClass("backSlide");
