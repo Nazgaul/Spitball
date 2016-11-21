@@ -92,16 +92,12 @@
         </div>
     </header>
     <div class="item-content" md-swipe-left="i.swipeLeft()" md-swipe-right="i.swipeRight()">
-        @*<div class="ad" data-ng-dfp-ad-container>
-            <div data-ng-dfp-ad="div-gpt-ad-1461568291501-0" data-ng-dfp-ad-hide-when-empty></div>
-        </div>*@
         <div class="ad">
-            <adsense ad-client="ca-pub-1215688692145777" ad-slot="8210510557" inline-style="display:block;" ad-format="auto"></adsense>
+            <adsense ad-client="ca-pub-1215688692145777" ad-slot="1167934950" inline-style="display:block;" ad-format="auto"></adsense>
         </div>
-        @*<div class="side-ad">*@
-            @*<adsense ad-client="ca-pub-1215688692145777" ad-slot="8210510557" inline-style="display:block;" ad-format="auto"></adsense>*@
-            @*<div data-ng-dfp-ad="div-gpt-ad-1461244713254-0" data-ng-dfp-ad-hide-when-empty></div>*@
-        @*</div>*@
+        <div class="side-ad">
+            <adsense ad-client="ca-pub-1215688692145777" ad-slot="5039731352" inline-style="display:inline-block;width:160px;height:600px"></adsense>
+        </div>
         @{ Html.RenderPartial("_ItemComments");}
 
         <a class="arrow prev" ng-if="i.details.previous" href="{{i.details.previous}}" hide-xs keyboard-action="37" ga-track-event="['itemPage', 'previous item']">
