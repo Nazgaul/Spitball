@@ -100,7 +100,6 @@
 
             });
             const department = this.$filter("filter")(this.nodeData, { name: this.term });
-            console.log(boxes, department);
 
             this.data = this.makeUnique(department.concat(boxes));
             this.$anchorScroll(); //scroll to the top
