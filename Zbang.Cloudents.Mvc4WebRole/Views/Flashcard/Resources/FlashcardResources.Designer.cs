@@ -277,7 +277,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to shuffle cards.
+        ///   Looks up a localized string similar to shuffle.
         /// </summary>
         public static string Shuffle {
             get {

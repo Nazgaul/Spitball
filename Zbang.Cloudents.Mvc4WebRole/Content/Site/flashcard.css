@@ -149,7 +149,7 @@
     top: 65px;
     left: 0;
     right: 0;
-    z-index: 1;
+    z-index: 2;
     background: #dadada;
     padding-bottom: 25px;
   }
@@ -807,7 +807,7 @@
 }
 @media (max-width: 600px) {
   .flashcardPage .cards-info .action-buttons .action-btn {
-    height: 42px;
+    height: 46px;
     font-size: 16px;
   }
 }
@@ -817,8 +817,9 @@
 .flashcardPage .cards-info .action-buttons .action-btn.pinned-cards:hover {
   background: #c7a017;
 }
-.flashcardPage .cards-info .action-buttons .action-btn.pinned-cards ng-pluralize {
-  display: inline-block;
+.flashcardPage .cards-info .action-buttons .action-btn.pinned-cards ng-pluralize,
+.flashcardPage .cards-info .action-buttons .action-btn.pinned-cards span {
+  display: inline;
   margin: 0;
 }
 .flashcardPage .cards-info .like-wrapper {
@@ -978,9 +979,6 @@
   .flashcardPage .card-player .card-template.both .card-content .side .data-wrapper {
     max-height: 200px;
   }
-  .flashcardPage .card-player .card-template.both .card-content .side .data-wrapper .text-container p {
-    margin: 0;
-  }
 }
 .flashcardPage .card-player .card-template.both .side.back .pinned {
   display: none;
@@ -1066,6 +1064,7 @@
   font-size: 48px;
   overflow: auto;
   height: 100%;
+  margin: 0 auto;
 }
 .flashcardPage .card-player .card-template .card-content .side .text-container p.lessText {
   margin: 0 auto;
@@ -1098,13 +1097,11 @@
     padding: 10px 0;
   }
 }
-.flashcardPage .card-player .card-template .card-content .side .text-container p {
-  margin: 0;
-}
 .flashcardPage .card-player .card-template .pin-btn {
   position: absolute;
   top: 10px;
   right: 5px;
+  z-index: 1;
 }
 .flashcardPage .card-player .card-template .pin-btn.pinned md-icon {
   fill: #ebbc18;

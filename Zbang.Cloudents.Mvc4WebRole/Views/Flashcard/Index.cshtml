@@ -80,7 +80,7 @@
                     <span>@FlashcardResources.Start</span><span ng-if="f.step==2">&nbsp;@FlashcardResources.Over</span>
                 </button>
                 <button type="button" class="action-btn pinned-cards" user-not-register-popup="click" ng-if="f.pinCount" ng-click="f.startPin()">
-                    @FlashcardResources.Study&nbsp;<ng-pluralize count="f.pinCount"
+                    <span>@FlashcardResources.Study&nbsp;</span><ng-pluralize count="f.pinCount"
                                                                  when="{
                         '1': '1 @FlashcardResources.Pin',
                         '2': '{} @FlashcardResources.Pins',
@@ -127,9 +127,9 @@
                             </div>
                         </div>
                         <div class="side back">
-                            <button type="button" class="pin-btn" ng-click="f.pin(slide)" ng-class="{pinned:slide.pin}">
+                            @*<button type="button" class="pin-btn" ng-click="f.pin(slide)" ng-class="{pinned:slide.pin}">
                                 <md-icon md-svg-icon="b:pin"></md-icon>
-                            </button>
+                            </button>*@
                             <div class="data-wrapper" ng-click="f.flip(slide)">
                                 <div class="img-container" ng-if="::slide.cover.image">
                                     <img ng-src="{{::slide.cover.image}}" alt="font image" />
