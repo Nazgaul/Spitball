@@ -31776,7 +31776,8 @@ function MdTabScroll ($parse) {
 angular
     .module('material.components.tabs')
     .controller('MdTabsController', MdTabsController);
-
+MdTabsController.$inject = ["$scope", "$element", "$window", "$mdConstant", "$mdTabInkRipple",
+    "$mdUtil", "$animateCss", "$attrs", "$compile", "$mdTheming"]
     /**
      * @ngInject
      */
