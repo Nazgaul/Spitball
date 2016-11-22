@@ -490,9 +490,6 @@
   -o-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
-.chat .content .conversasion .chat-content {
-  position: relative;
-}
 .chat .content .conversasion .chat-content .messages {
   width: calc(100% - 5px);
   padding: 0;
@@ -689,7 +686,7 @@
 .chat-item-preview md-toolbar .md-toolbar-tools {
   font-size: 18px;
   height: 40px !important;
-  padding: 0;
+  padding: 0 8px;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
