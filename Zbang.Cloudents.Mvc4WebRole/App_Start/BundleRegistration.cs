@@ -156,7 +156,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/bower_components/angular-vs-repeat/src/angular-vs-repeat.js"),
                         new JsFileWithCdn("~/Scripts/angular-animate.js"),
                         new JsFileWithCdn("~/Scripts/angular-aria.js"),
-                        new JsFileWithCdn("~/Scripts/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js"),
+                        // on version 1.1.1 there is a bug with md-tabs. fix that locally. until upgrade we dont use google cdn
+                        new JsFileWithCdn("~/Scripts/angular-material/angular-material.js"),//, "https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js"),
 
                         new JsFileWithCdn("~/scripts/angular-srph-infinite-scroll.js"),
 

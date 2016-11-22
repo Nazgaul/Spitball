@@ -240,7 +240,7 @@ module app {
                         ]
                     },
                     resize: {
-                        preserve_headers: false,
+                        //preserve_headers: false,
                         width: 350,
                         height: 350
                     }
