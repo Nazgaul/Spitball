@@ -101,6 +101,7 @@ var app;
                 clickOutsideToClose: true,
                 controller: 'classChooseUnfollowDialog',
                 controllerAs: 'cd',
+                disableParentScroll: true,
                 locals: {
                     course: course,
                     courses: this.selectedCourses
@@ -159,7 +160,7 @@ var app;
                     selectedDepartment: department,
                     nodeData: this.nodeData
                 },
-                fullscreen: false
+                disableParentScroll: true
             }).then(function (response) {
                 _this.nodeData = response.nodeData;
                 _this.selectedCourses.push(response.box);

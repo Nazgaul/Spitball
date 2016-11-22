@@ -42,7 +42,7 @@ namespace Zbang.Zbox.Infrastructure.Security
             // Configure the sign in cookie
             if (shouldUseCookie)
             {
-                var cookieDomain = "spitball.co";
+                var cookieDomain = string.Empty; //"spitball.co";
                 var cookieName = "dev-a5";
                 if (ConfigFetcher.IsRunningOnCloud) 
                 {
@@ -51,7 +51,7 @@ namespace Zbang.Zbox.Infrastructure.Security
                 }
                 app.UseCookieAuthentication(new CookieAuthenticationOptions
                 {
-                    CookieDomain = cookieDomain,
+                    CookieDomain = cookieDomain, // DO NOT CHANGE THIS AT ALL TIME
                     CookieName = cookieName,
                     CookieSecure = CookieSecureOption.Always,
                     LogoutPath = new PathString("/account/logoff/"),

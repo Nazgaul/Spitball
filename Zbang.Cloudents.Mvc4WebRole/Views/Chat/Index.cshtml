@@ -106,7 +106,8 @@
 
                         <form name="chatDialog" novalidate ng-submit="cv.send()">
                             <md-input-container md-no-float>
-                                <textarea md-no-asterisk autofocus class="scrollbar _md" enter-submit="cv.send()" autocomplete="off" type="text" maxlength="16000" required ng-model="cv.newText" placeholder="@ChatResources.NewMessagePlaceholder"></textarea>
+                                @*autofocus fucks up iphone stuff. http://stackoverflow.com/questions/26146252/in-ios8-using-focus-will-show-virtual-keyboard-and-scroll-page-after-touch*@
+                                <textarea md-no-asterisk class="scrollbar _md" enter-submit="cv.send()" autocomplete="off" type="text" maxlength="16000" required ng-model="cv.newText" placeholder="@ChatResources.NewMessagePlaceholder"></textarea>
                             </md-input-container>
                             <button type="submit" class="action-btn no-text" ng-disabled="cv.disabled" ga-track-event="['chat', 'sent-message']">
                                 <md-icon md-svg-icon="u:post"></md-icon>
@@ -130,7 +131,7 @@
         </div>
         <md-tooltip class="chat-tooltip" md-direction="@direction">
             <div>@ChatResources.ChatWith</div>
-            <div>{{::e.name}}</div>
+            <div ng-bind="::e.name"></div>
         </md-tooltip>
 
     </script>
