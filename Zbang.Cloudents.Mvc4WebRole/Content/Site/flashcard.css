@@ -628,11 +628,19 @@
 .flashcardPage .front .front,
 .flashcardPage .back .front {
   z-index: 2;
-  transform: rotateX(0deg);
+  -moz-transform: rotateX(0deg) translateZ(1px);
+  -ms-transform: rotateX(0deg) translateZ(1px);
+  -o-transform: rotateX(0deg) translateZ(1px);
+  -webkit-transform: rotateX(0deg) translateZ(1px);
+  transform: rotateX(0deg) translateZ(1px);
 }
 .flashcardPage .front .back,
 .flashcardPage .back .back {
-  transform: rotateX(-180deg);
+  -moz-transform: rotateX(-180deg) translateZ(1px);
+  -ms-transform: rotateX(-180deg) translateZ(1px);
+  -o-transform: rotateX(-180deg) translateZ(1px);
+  -webkit-transform: rotateX(-180deg) translateZ(1px);
+  transform: rotateX(-180deg) translateZ(1px);
 }
 @media (max-width: 600px) {
   .flashcardPage .front .data-wrapper,

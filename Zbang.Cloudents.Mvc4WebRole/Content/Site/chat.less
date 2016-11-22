@@ -115,7 +115,7 @@
 }
 
 .chatPage .chat {
-    margin: -5px;
+    margin: 0 -5px;
 
     .users-list {
         padding-top: @chatHeaderHeight;
@@ -127,7 +127,7 @@
 
     .search-friend {
         position: fixed;
-        top: 70px;
+        top: @heightOfHeader;
         left: 0;
         right: 0;
         background: @backgroundCalmGrey;
@@ -138,6 +138,8 @@
         //overflow-y: scroll; /* has to be scroll, not auto */
         //-webkit-overflow-scrolling: touch;
         //height: ~"calc(100vh - @{heightOfHeader})";
+        position: relative;
+
         &.stateChat {
             .conversasion {
                 .header {
@@ -186,12 +188,14 @@
     }
 
     .error {
-        z-index: 1;
+        z-index: 2;
         color: @textColorWhite;
         position: absolute;
         width: 100%;
         text-align: center;
-        top: 50px;
+        top: 0;
+        left: 0;
+        right: 0;
         box-shadow: 0 0 3px black;
         text-align: center;
         background: @textColorRed;
@@ -204,11 +208,17 @@
         -moz-transition: height 0.3s;
         transition: height 0.3s;
 
+        @media(max-width: 600px) {
+            top: @heightOfHeader;
+        position: fixed;
+        }
+
         &.disconnected {
-            padding: 5px 10px;
+            padding: 0 10px;
             height: 60px;
         }
     }
+
 
     .content {
         //height: ~"calc(100vh - @{heightOfHeader})";
@@ -436,6 +446,14 @@
             .conversasion {
                 right: 0;
             }
+
+            .error.disconnected {
+                top: @chatHeaderHeight;
+
+                @media(max-width: 600px) {
+                    top: @chatHeaderHeight + @heightOfHeader;
+                }
+            }
         }
 
         &:not(.stateChat) {
@@ -545,6 +563,8 @@
             }
 
             .chat-content {
+                position: relative;
+
                 .messages {
                     width: ~"calc(100% - 5px)";
                     padding: 0;
@@ -791,11 +811,6 @@
             .displayFlex;
             .align-items(stretch);
             .justifyContet(space-between);
-
-            > .md-button {
-                margin-right: 0;
-                margin-left: 0;
-            }
         }
 
 

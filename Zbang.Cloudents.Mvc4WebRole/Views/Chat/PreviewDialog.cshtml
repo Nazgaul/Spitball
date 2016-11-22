@@ -4,12 +4,12 @@
     <md-toolbar>
         <div class="md-toolbar-tools">
             @*<h2 class="ellipsis"></h2>*@
-            <md-button aria-label="close" class="close-btn" ng-click="lc.close()">
+            <button aria-label="close" class="close-btn" ng-click="lc.close()">
                 <md-icon md-svg-icon="t:close"></md-icon>
-            </md-button>
-            <md-button aria-label="download" download target="_blank" class="download-btn" ng-href="{{::lc.downloadLink}}" title="@ItemsResources.Download">
+            </button>
+            <button aria-label="download" download target="_blank" class="download-btn" ng-href="{{::lc.downloadLink}}" title="@ItemsResources.Download">
                 <md-icon md-svg-icon="i:download"></md-icon>
-            </md-button>
+            </button>
         </div>
     </md-toolbar>
     <md-dialog-content>
