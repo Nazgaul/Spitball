@@ -205,7 +205,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enjoy this set? give it a.
+        ///   Looks up a localized string similar to Enjoyed this set? give it a.
         /// </summary>
         public static string LikeLabel {
             get {
