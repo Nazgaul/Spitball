@@ -61,6 +61,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Passwords should match.
+        /// </summary>
+        public static string ConfirmPasswordComapre {
+            get {
+                return ResourceManager.GetString("ConfirmPasswordComapre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter your email address.
         /// </summary>
         public static string EmailRequired {
