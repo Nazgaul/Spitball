@@ -125,6 +125,7 @@
                 clickOutsideToClose: true,
                 controller: 'classChooseUnfollowDialog',
                 controllerAs: 'cd',
+                disableParentScroll:true,
                 locals: {
                     course: course,
                     courses: this.selectedCourses //this.selectedCoursesView
@@ -199,8 +200,9 @@
                     nodeData: this.nodeData
                     //    courses: this.selectedCourses
                 },
+                disableParentScroll:true
                 //scope: this.$scope,
-                fullscreen: false // Only for -xs, -sm breakpoints.
+                //fullscreen: true // Only for -xs, -sm breakpoints.
             }).then((response) => {
                 this.nodeData = response.nodeData;
                 this.selectedCourses.push((response.box as ISelectedBoxClassChoose));

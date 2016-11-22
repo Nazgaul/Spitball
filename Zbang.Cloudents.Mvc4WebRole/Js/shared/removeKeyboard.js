@@ -23,7 +23,7 @@
     function enterSubmit() {
         return {
             link: function (scope, element, attrs) {
-                var textFields = $(element).children('input');
+                //var textFields = $(element).children('input');
 
                 element.bind('keydown', function (e) {
                     if (e.keyCode === 13) {
@@ -34,6 +34,10 @@
                         e.preventDefault();
                     }
                 });
+                scope.$on("$destroy",
+                    function() {
+                        element.unbind('keydown');
+                    });
             }
         };
     }
