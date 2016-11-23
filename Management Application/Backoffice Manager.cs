@@ -19,6 +19,10 @@ using SendGrid;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Win32;
+using System.Net.Http;
+using System.Text.RegularExpressions;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Cache;
@@ -32,6 +36,7 @@ namespace Management_Application
 
     public partial class Form1 : Form
     {
+        string QUIZ_URL = "https://api.quizlet.com/2.0/sets/";
         DataTable m_GlobalUserTable;
         DataTable m_GlobalTable;
         string m_Id;
@@ -40,6 +45,7 @@ namespace Management_Application
         string m_UserId;
         UserrequestEntity m_GlobalFlaggedItem;
         UserrequestEntity m_GlobalFlaggedPost;
+        private readonly IIdGenerator m_IdGenerator;
 
         public Form1()
         {
@@ -1280,6 +1286,66 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
 
 
             MessageBox.Show("Done");
+        }
+
+        private void openFileDialogReplaceItem_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+        public class FlashcardConverter
+        {
+
+        }
+        private async void buttonImportQuiz_Click(object sender, EventArgs e)
+        {
+            var httpClient = new HttpClient();
+            using (var sr = await httpClient.GetAsync(quizUrlId.Text))
+            {
+                var currentQuizId= (quizUrlId.Text.Split('/'))[3];
+                string output="issue with the link";
+                if (sr.IsSuccessStatusCode)
+                {
+                    try
+                    {
+                        var josi = new WebClient().DownloadString(String.Format(QUIZ_URL + "{0}" + "?client_id=53m5PP5tK3&whitespace=1&format=json", currentQuizId));
+                        var json = JObject.Parse(josi);
+                        var converter = JsonConvert.DeserializeObject<Zbang.Zbox.Domain.Flashcard>(josi);
+                        var cardsList = (JObject.Parse(josi)).SelectToken("terms");
+                        var id = IocFactory.IocWrapper.Resolve<IGuidIdGenerator>().GetId();
+                        var flashCard = new Zbang.Zbox.Domain.Flashcard(BitConverter.ToInt64(id.ToByteArray(), 0))
+                        {
+                            BoxId = long.Parse(quizBoxID.Text),
+                            UserId = 1,
+                            Name = quizName.Text,
+                            Publish = true,
+                            DateTime = DateTime.UtcNow,
+                            Cards = cardsList.Select(s => new Zbang.Zbox.Domain.Card
+                            {
+                                Cover = new Zbang.Zbox.Domain.CardSlide
+                                {
+                                    Text = (string)s.SelectToken("term"),
+                                    Image = null
+                                },
+                                Front = new Zbang.Zbox.Domain.CardSlide
+                                {
+                                    Image = null,
+                                    Text = (string)s.SelectToken("definition")
+                                }
+                            }
+                                    )
+                        };
+                        output = JsonConvert.SerializeObject(flashCard);
+                    }
+                    catch (Exception ex){
+                        Console.WriteLine(ex.Message);
+                        output = ex.Message;
+                    }                   
+                }
+                quizResult.Text=output;
+                quizResult.Refresh();
+                Console.WriteLine("Hello");
+
+            }
         }
     }
 }
