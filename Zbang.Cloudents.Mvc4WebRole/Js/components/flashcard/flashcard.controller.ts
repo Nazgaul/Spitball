@@ -79,6 +79,10 @@
         }
 
         start() {
+            angular.forEach(this.flashcard.cards,
+                (v) => {
+                    v.style = true;
+                });
             this.cards = this.flashcard.cards.slice(0);
             this.goToStep2();
         }

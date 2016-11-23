@@ -67,6 +67,9 @@ var app;
             this.backUrl = $state.href("box.flashcards", angular.extend({}, $stateParams, { boxtype: "course" }));
         }
         FlashcardController.prototype.start = function () {
+            angular.forEach(this.flashcard.cards, function (v) {
+                v.style = true;
+            });
             this.cards = this.flashcard.cards.slice(0);
             this.goToStep2();
         };

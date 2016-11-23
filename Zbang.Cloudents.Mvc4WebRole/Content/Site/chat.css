@@ -154,9 +154,9 @@
   top: 0;
   left: 0;
   right: 0;
-  box-shadow: 0 0 3px black;
+  box-shadow: 0 0 1px black;
   text-align: center;
-  background: #db4437;
+  background: #1d3a02;
   overflow: hidden;
   display: -webkit-flex;
   display: -ms-flex;
@@ -177,7 +177,7 @@
 }
 .chat .error.disconnected {
   padding: 0 10px;
-  height: 60px;
+  height: 40px;
 }
 .chat .content {
   /*&.stateChat .menu-content, .conversasion, &:not(.stateChat) .menu-content {
