@@ -36,7 +36,7 @@
 
     }
     export class FlashcardController {
-        static $inject = ["flashcard", "flashcardService", "$stateParams", "user", "$state", "$mdMedia"];
+        static $inject = ["flashcard", "flashcardService", "$stateParams", "user", "$state", "$mdMedia", "$scope"];
         cards: Array<Card>;
         flashcard: Flashcard;
         shuffle: boolean;
@@ -48,6 +48,7 @@
         //style = true;
         backUrl;
         notMobile: boolean;
+        flipped = false;
 
         pinCount = 0;
         constructor(flashcard: Flashcard,
@@ -55,7 +56,8 @@
             private $stateParams: angular.ui.IStateParamsService,
             private user: IUserData,
             private $state: angular.ui.IStateService,
-            private $mdMedia: angular.material.IMedia) {
+            private $mdMedia: angular.material.IMedia,
+            private $scope: angular.IScope) {
             angular.forEach(flashcard.cards,
                 (v, k) => {
                     if (flashcard.pins && flashcard.pins.indexOf(k) !== -1) {
@@ -79,10 +81,6 @@
         }
 
         start() {
-            angular.forEach(this.flashcard.cards,
-                (v) => {
-                    v.style = true;
-                });
             this.cards = this.flashcard.cards.slice(0);
             this.goToStep2();
         }
@@ -100,10 +98,12 @@
             this.goToStep2();
         }
         prev() {
+            this.clearFlip();
             this.slidepos = Math.max(0, --this.slidepos);
             this.step = Steps.Memo;
         }
         next() {
+            this.clearFlip();
             this.slidepos = Math.min(this.cards.length, ++this.slidepos);
             if (this.slidepos === this.cards.length) {
                 this.step = Steps.End;
@@ -120,8 +120,17 @@
         flip(slide) {
             if (typeof (slide.style) === "boolean") {
                 slide.style = !slide.style;
+                this.flipped = !this.flipped;
             }
 
+        }
+        clearFlip() {
+            if (this.flipped) {
+                this.flip(this.cards[this.slidepos]);
+            }
+            if (!this.notMobile) {
+                this.$scope.$digest();
+            }
         }
         pin(slide: Card) {
             slide.pin = !slide.pin;
