@@ -67,7 +67,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<RedirectToRouteResult> LibraryRedirectAsync()
         {
 
-            // ReSharper disable once PossibleInvalidOperationException
+            // ReSharper disable once PossibleInvalidOperationExcept
+            //ion
             var universityWrapper = User.GetUniversityId().Value;
 
             var query = new UniversityQuery(universityWrapper);
