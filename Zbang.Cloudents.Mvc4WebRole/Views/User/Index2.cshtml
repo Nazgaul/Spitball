@@ -9,7 +9,7 @@
 </div>
 <div class="userPage">
     <div class="profile-sidebar">
-        <div class="portlet light profile-sidebar-portlet">
+        <div class="portlet light profile-sidebar-portlet" ng-if="!u.isUserProfile">
             <div class="profile-userpic">
                 <user-image ng-if="u.details" class="img-responsive" name="u.details.name" image="u.details.image" width="125" height="125"></user-image>
             </div>
@@ -29,11 +29,11 @@
                 </button>
             </div>
         </div>
-        <div class="points-container">
+        <div class="points-container" ng-if="!u.isUserProfile">
             <h5 count-up id="points" end-val="{{u.details.score}}" duration="3"></h5>
             <h5>@UserResources.Points</h5>
         </div>
-        <div class="points-awards" hide-xs>
+        @*<div class="points-awards" hide-xs>
             <span class="earn">@UserResources.Share</span>
             <ul style="list-style-type:square">
                 <li>@UserResources.Creating</li>
@@ -48,18 +48,18 @@
                 <li>@UserResources.Likes</li>
                 <li>@UserResources.ShareFB</li>
             </ul>
-        </div>
+        </div>*@
     </div>
     <div class="profile-content">
         <div class="portlet light">
 
             <md-tabs class="page-tabs" md-dynamic-height="true">
-                @*<md-tab md-on-select="u.changeTab(u.state.badges)" md-active="u.tab === u.state.levels || u.tab === u.state.badges || u.tab === u.state.community">
+                <md-tab md-on-select="u.changeTab(u.state.badges)" md-active="u.tab === u.state.levels || u.tab === u.state.badges || u.tab === u.state.community">
                     <md-tab-label><h3>@GamificationResources.Badges</h3> <div class="number">4</div></md-tab-label>
-                </md-tab>*@
-                <md-tab md-on-select="u.changeTab(u.state.box)" md-active="u.tab === u.state.box">
-                    <md-tab-label><h3>@GeneralResources.Classes</h3> <div class="number">{{::u.details.numClass | megaNumber}}</div></md-tab-label>
                 </md-tab>
+                @*<md-tab md-on-select="u.changeTab(u.state.box)" md-active="u.tab === u.state.box">
+                    <md-tab-label><h3>@GeneralResources.Classes</h3> <div class="number">{{::u.details.numClass | megaNumber}}</div></md-tab-label>
+                </md-tab>*@
                 <md-tab md-on-select="u.changeTab(u.state.item)" md-active="u.tab === u.state.item">
                     <md-tab-label><h3>@UserResources.Uploads</h3> <div class="number">{{u.details.numItem | megaNumber}}</div></md-tab-label>
                 </md-tab>
@@ -75,7 +75,7 @@
 
             </md-tabs>
             <div class="tab-content" ng-switch on="u.tab">
-                @*<div ng-switch-when="b" class="badges">
+                <div ng-switch-when="b" class="badges">
                     <div class="badges-bar">
                         <div class="info">
                             <md-icon md-svg-icon="p:q-mark" class="" ng-click="u.showInfo()"></md-icon>
@@ -258,7 +258,7 @@
                             </div>
                         </div>
                     </div>
-                </div>*@
+                </div>
                 <div ng-switch-when="b">
                     <div layout-padding layout="row" layout-wrap layout-align="start center" srph-infinite-scroll="u.myPagingFunction()">
                         <div class="user-box" flex-xs="100" flex-xl="33" flex="33" flex-sm="50" flex-md="50" ng-repeat="e in u.boxes" ng-include="'box-template.html'"></div>
