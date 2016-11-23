@@ -128,7 +128,9 @@
             if (this.flipped) {
                 this.flip(this.cards[this.slidepos]);
             }
-            this.$scope.$digest();
+            if (!this.notMobile) {
+                this.$scope.$digest();
+            }
         }
         pin(slide: Card) {
             slide.pin = !slide.pin;

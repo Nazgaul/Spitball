@@ -114,7 +114,9 @@ var app;
             if (this.flipped) {
                 this.flip(this.cards[this.slidepos]);
             }
-            this.$scope.$digest();
+            if (!this.notMobile) {
+                this.$scope.$digest();
+            }
         };
         FlashcardController.prototype.pin = function (slide) {
             slide.pin = !slide.pin;
