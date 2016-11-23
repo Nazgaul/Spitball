@@ -161,6 +161,7 @@
 }
 @media (min-width: 600px) {
   .flashcard .flashcard-body .card-container .drag-btn {
+    cursor: pointer;
     position: absolute;
     left: -26px;
     top: calc(50% - 10px);
