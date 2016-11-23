@@ -94,7 +94,7 @@
                     @FlashcardResources.Shuffle&nbsp;@FlashcardResources.Cards
                 </md-switch>
             </div>
-            <div ng-if="f.step==2" class="like-wrapper">
+            <div ng-if="f.step==2" class="like-wrapper" ng-hide="f.user.id === f.flashcard.userId">
                 <span>@FlashcardResources.LikeLabel</span>&nbsp;
                 <button ng-click="f.like()" ng-class="{liked:f.flashcard.like}">
                     <div>
