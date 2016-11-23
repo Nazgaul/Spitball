@@ -486,7 +486,6 @@
             top: 0;
             left: 0;
         }
-
         //The translateZ(1px) part is added to fix half card not being clickable bug: http://stackoverflow.com/questions/8446189/180-degree-rotated-div-is-only-clickable-from-one-side
         .front {
             z-index: 2;
@@ -503,7 +502,6 @@
             -o-transform: rotateX(-180deg) translateZ(1px);
             -webkit-transform: rotateX(-180deg) translateZ(1px);
             transform: rotateX(-180deg) translateZ(1px);
-
         }
 
         @media(max-width: 600px) {
@@ -1050,9 +1048,12 @@
 
     .key {
         width: 18px;
-        display: inline-block;
         text-align: center;
         margin-right: 10px;
+    }
+
+    .key, .info {
+        display: inline-block;
     }
 
     &:before {

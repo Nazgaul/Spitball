@@ -35,7 +35,7 @@ var app;
             return this.ajaxService2.post("/flashcard/like/", { id: id });
         };
         Flashcard.prototype.likeDelete = function (id) {
-            return this.ajaxService2.delete("/flashcard/like/", { id: id });
+            return this.ajaxService2.delete("/flashcard/unlike/", { id: id });
         };
         Flashcard.prototype.solve = function (id) {
             return this.ajaxService2.post("/flashcard/solve/", { id: id });

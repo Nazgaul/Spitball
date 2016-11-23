@@ -23,7 +23,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new UnauthorizedAccessException();
             }
-            like.Flashcard.NumberOfViews--;
+            like.Flashcard.LikeCount--;
 
             m_FlashcardLikeRepository.Delete(like);
             m_FlashcardRepository.Save(like.Flashcard);

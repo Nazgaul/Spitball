@@ -67,6 +67,9 @@ var app;
             this.backUrl = $state.href("box.flashcards", angular.extend({}, $stateParams, { boxtype: "course" }));
         }
         FlashcardController.prototype.start = function () {
+            angular.forEach(this.flashcard.cards, function (v) {
+                v.style = true;
+            });
             this.cards = this.flashcard.cards.slice(0);
             this.goToStep2();
         };
@@ -118,6 +121,9 @@ var app;
         };
         FlashcardController.prototype.like = function () {
             var _this = this;
+            if (!this.canLike()) {
+                return;
+            }
             this.disabled = true;
             if (!this.flashcard.like) {
                 this.flashcardService.like(this.$stateParams["id"]).then(function (response) { return _this.flashcard.like = response; }).finally(function () { return _this.disabled = false; });
