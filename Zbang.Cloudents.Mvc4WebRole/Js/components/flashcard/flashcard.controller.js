@@ -46,6 +46,7 @@ var app;
             this.slidepos = 0;
             this.disabled = false;
             this.styleLegend = true;
+            this.flipped = false;
             this.pinCount = 0;
             angular.forEach(flashcard.cards, function (v, k) {
                 if (flashcard.pins && flashcard.pins.indexOf(k) !== -1) {
@@ -67,9 +68,6 @@ var app;
             this.backUrl = $state.href("box.flashcards", angular.extend({}, $stateParams, { boxtype: "course" }));
         }
         FlashcardController.prototype.start = function () {
-            angular.forEach(this.flashcard.cards, function (v) {
-                v.style = true;
-            });
             this.cards = this.flashcard.cards.slice(0);
             this.goToStep2();
         };
@@ -86,10 +84,12 @@ var app;
             this.goToStep2();
         };
         FlashcardController.prototype.prev = function () {
+            this.clearFlip();
             this.slidepos = Math.max(0, --this.slidepos);
             this.step = Steps.Memo;
         };
         FlashcardController.prototype.next = function () {
+            this.clearFlip();
             this.slidepos = Math.min(this.cards.length, ++this.slidepos);
             if (this.slidepos === this.cards.length) {
                 this.step = Steps.End;
@@ -106,6 +106,12 @@ var app;
         FlashcardController.prototype.flip = function (slide) {
             if (typeof (slide.style) === "boolean") {
                 slide.style = !slide.style;
+                this.flipped = !this.flipped;
+            }
+        };
+        FlashcardController.prototype.clearFlip = function () {
+            if (this.flipped) {
+                this.flip(this.cards[this.slidepos]);
             }
         };
         FlashcardController.prototype.pin = function (slide) {

@@ -48,6 +48,7 @@
         //style = true;
         backUrl;
         notMobile: boolean;
+        flipped = false;
 
         pinCount = 0;
         constructor(flashcard: Flashcard,
@@ -79,10 +80,6 @@
         }
 
         start() {
-            angular.forEach(this.flashcard.cards,
-                (v) => {
-                    v.style = true;
-                });
             this.cards = this.flashcard.cards.slice(0);
             this.goToStep2();
         }
@@ -100,10 +97,12 @@
             this.goToStep2();
         }
         prev() {
+            this.clearFlip();
             this.slidepos = Math.max(0, --this.slidepos);
             this.step = Steps.Memo;
         }
         next() {
+            this.clearFlip();
             this.slidepos = Math.min(this.cards.length, ++this.slidepos);
             if (this.slidepos === this.cards.length) {
                 this.step = Steps.End;
@@ -120,8 +119,14 @@
         flip(slide) {
             if (typeof (slide.style) === "boolean") {
                 slide.style = !slide.style;
+                this.flipped = !this.flipped;
             }
 
+        }
+        clearFlip() {
+            if (this.flipped) {
+                this.flip(this.cards[this.slidepos]);
+            }
         }
         pin(slide: Card) {
             slide.pin = !slide.pin;
