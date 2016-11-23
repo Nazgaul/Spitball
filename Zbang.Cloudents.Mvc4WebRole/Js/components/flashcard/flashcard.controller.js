@@ -118,6 +118,9 @@ var app;
         };
         FlashcardController.prototype.like = function () {
             var _this = this;
+            if (!this.canLike()) {
+                return;
+            }
             this.disabled = true;
             if (!this.flashcard.like) {
                 this.flashcardService.like(this.$stateParams["id"]).then(function (response) { return _this.flashcard.like = response; }).finally(function () { return _this.disabled = false; });

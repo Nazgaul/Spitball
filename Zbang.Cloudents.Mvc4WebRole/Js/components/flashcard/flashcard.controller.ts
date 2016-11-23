@@ -23,7 +23,7 @@
         userId: number;
         ownerName: string;
     }
-    class Card  {
+    class Card {
         front = new CardSlide();
         cover = new CardSlide();
         index: number;
@@ -36,7 +36,7 @@
 
     }
     export class FlashcardController {
-        static $inject = ["flashcard", "flashcardService", "$stateParams", "user", "$state","$mdMedia"];
+        static $inject = ["flashcard", "flashcardService", "$stateParams", "user", "$state", "$mdMedia"];
         cards: Array<Card>;
         flashcard: Flashcard;
         shuffle: boolean;
@@ -74,7 +74,7 @@
             this.notMobile = $mdMedia("gt-xs");
             this.flashcard = flashcard;
             flashcard.pins = flashcard.pins || [];
-            this.pinCount =  flashcard.pins.length;
+            this.pinCount = flashcard.pins.length;
             this.backUrl = $state.href("box.flashcards", angular.extend({}, $stateParams, { boxtype: "course" }));
         }
 
@@ -130,6 +130,9 @@
             }
         }
         like() {
+            if (!this.canLike()) {
+                return;
+            }
             this.disabled = true;
             if (!this.flashcard.like) {
                 this.flashcardService.like(this.$stateParams["id"]).then(response => this.flashcard.like = response).finally(() => this.disabled = false);
