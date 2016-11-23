@@ -208,12 +208,12 @@ u.GoogleUserId as GoogleId
 								select 
 								b.boxid,
     b.BoxName,
-	b.quizcount + b.itemcount as ItemCount,
+	b.quizcount + b.itemcount + COALESCE(b.FlashcardCount,0) as ItemCount,
 	b.CourseCode as CourseCode,
 	b.MembersCount as MembersCount,
 	b.ProfessorName,
 	b.Url as Url,
-	Rank() over (partition BY libraryid order by  b.MembersCount + (b.ItemCount + b.QuizCount + b.CommentCount) / 3 desc,b.updatetime desc) as x
+	Rank() over (partition BY libraryid order by  b.MembersCount + (b.ItemCount + COALESCE(b.FlashcardCount,0) + b.QuizCount + b.CommentCount) / 4 desc,b.updatetime desc) as x
 	from zbox.box b join zbox.university u on b.university=u.id
 	where Discriminator = 2
 	and MembersCount > 5

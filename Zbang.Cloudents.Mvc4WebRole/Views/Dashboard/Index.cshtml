@@ -1,10 +1,14 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<div uib-collapse="!d.inviteOpen" compile-html="d.html" expanding="d.inviteExpand()"></div>
-<div class="ad" data-ng-dfp-ad-container>
-    <div data-ng-dfp-ad="div-gpt-ad-1461243129238-0" data-ng-dfp-ad-hide-when-empty></div>
+<div class="ad">
+    <adsense ad-client="ca-pub-1215688692145777" ad-slot="8210510557" inline-style="display:block;" ad-format="auto"></adsense>
 </div>
+<div uib-collapse="!d.inviteOpen" compile-html="d.html" expanding="d.inviteExpand()"></div>
+
+@*<div class="ad" data-ng-dfp-ad-container>
+    <div data-ng-dfp-ad="div-gpt-ad-1461243129238-0" data-ng-dfp-ad-hide-when-empty></div>
+</div>*@
 <div class="page-title">
     <h1>@DashboardResource.Title</h1>
 </div>
@@ -35,9 +39,9 @@
         @* ReSharper disable once Mvc.PartialViewNotResolved *@
         @{ Html.RenderPartial("_Leaderboard", DashboardResource.LeaderboardTitle);}
     </div>
-    @*<div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-sm="50" class="flex" flex="100">
+    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-sm="50" class="flex" flex="100">
         @{ Html.RenderPartial("_Gamification");}
-    </div>*@
+    </div>
     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" ng-repeat="e in d.boxes track by e.id" class="flex">
         <div class="box-cube">
             <div ng-include="'box-template.html'"></div>

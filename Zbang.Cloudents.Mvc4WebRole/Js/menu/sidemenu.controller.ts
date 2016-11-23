@@ -16,7 +16,8 @@ module app {
             private $location: angular.ILocationService,
             private $scope: angular.IScope,
             private $mdSidenav: angular.material.ISidenavService
-           ) {
+        ) {
+            loaded = false; //loaded need to be initialize
             $scope.$on("close-menu", () => {
                 $mdSidenav("left").close();
                 //$scope.app.menuOpened = false;

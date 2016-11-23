@@ -641,6 +641,12 @@ md-input-container .md-input-message-animation:not(.ng-animate) {
   opacity: 1;
   margin-top: 0;
 }
+[dir=rtl] md-tabs-wrapper md-next-button {
+  transform: translate(0, -50%) rotate(180deg);
+}
+[dir=rtl] md-tabs-wrapper md-prev-button {
+  transform: translate(0, -50%) rotate(180deg);
+}
 .back-arrow {
   margin-right: 10px;
   -moz-transform: rotate(180deg) /*rtl:rotate(0)*/;
@@ -790,6 +796,7 @@ md-tooltip .md-content {
 }
 md-toast .md-toast-content span {
   text-align: center;
+  color: white;
 }
 .nav-bar {
   background: #323538;

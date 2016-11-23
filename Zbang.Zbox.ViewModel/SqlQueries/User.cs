@@ -54,7 +54,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
        /// </summary>
        public const string UserWithFriendBoxes = @"select b.boxid as id,
 b.BoxName as Name,
-        b.quizcount + b.itemcount as ItemCount,
+        b.quizcount + b.itemcount + COALESCE(b.FlashcardCount,0) as ItemCount,
         b.MembersCount as MembersCount,
         b.CourseCode,
         b.ProfessorName,

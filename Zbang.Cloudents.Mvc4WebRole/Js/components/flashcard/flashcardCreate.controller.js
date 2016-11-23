@@ -9,6 +9,7 @@ var app;
             this.cards = [];
             this.id = input.id;
             this.name = input.name;
+            this.publish = input.publish;
             input.cards = input.cards || [];
             for (var i = 0; i < input.cards.length; i++) {
                 this.cards.push(new Card().deserialize(input.cards[i]));
@@ -23,7 +24,6 @@ var app;
         };
         return FlashCard;
     }());
-    app.FlashCard = FlashCard;
     var Card = (function () {
         function Card() {
             this.front = new CardSlide();
@@ -43,7 +43,6 @@ var app;
         };
         return Card;
     }());
-    app.Card = Card;
     var CardSlide = (function () {
         function CardSlide() {
         }
@@ -54,7 +53,6 @@ var app;
         };
         return CardSlide;
     }());
-    app.CardSlide = CardSlide;
     var FlashcardCreateController = (function () {
         function FlashcardCreateController(flashcardService, $stateParams, $state, flashcard, $scope, $timeout, $window, resManager, $mdDialog, $q) {
             var _this = this;
@@ -97,7 +95,6 @@ var app;
                             ]
                         },
                         resize: {
-                            preserve_headers: false,
                             width: 350,
                             height: 350
                         }
@@ -250,6 +247,10 @@ var app;
             var _this = this;
             if (!this.data.id && !this.form.$dirty) {
                 this.navigateBackToBox();
+                return;
+            }
+            if (this.data.publish) {
+                this.create().then(this.navigateBackToBox);
                 return;
             }
             var confirm = this.$mdDialog.confirm()

@@ -374,7 +374,7 @@ md-menu-item.blue svg {
 }
 .itemPage .comments-wrapper {
   left: 0;
-  color: #ffffff;
+  color: #212325;
   position: fixed !important;
   top: 65px;
   width: 300px;
@@ -558,6 +558,8 @@ md-menu-item.blue svg {
   position: fixed;
   right: calc(50% - 650px);
   top: 130px;
+  width: 160px;
+  height: 600px;
 }
 @media (max-width: 1279px) {
   .itemPage .side-ad {
@@ -566,7 +568,9 @@ md-menu-item.blue svg {
 }
 .itemPage .ad {
   text-align: center;
-  display: inline;
+  width: 970px;
+  height: 98px;
+  margin: 0 auto;
 }
 .itemPage .hideActions .top-wrapper {
   padding: 10px 0 24px 0;

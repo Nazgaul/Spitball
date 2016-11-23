@@ -77,7 +77,6 @@ var app;
                 ;
             });
             var department = this.$filter("filter")(this.nodeData, { name: this.term });
-            console.log(boxes, department);
             this.data = this.makeUnique(department.concat(boxes));
             this.$anchorScroll();
         };
@@ -102,6 +101,7 @@ var app;
                 clickOutsideToClose: true,
                 controller: 'classChooseUnfollowDialog',
                 controllerAs: 'cd',
+                disableParentScroll: true,
                 locals: {
                     course: course,
                     courses: this.selectedCourses
@@ -160,11 +160,12 @@ var app;
                     selectedDepartment: department,
                     nodeData: this.nodeData
                 },
-                fullscreen: false
+                disableParentScroll: true
             }).then(function (response) {
                 _this.nodeData = response.nodeData;
                 _this.selectedCourses.push(response.box);
                 _this.selectedCoursesView = _this.selectedCourses.slice();
+                _this.$scope.$emit("refresh-boxes");
             });
         };
         ClassChoose.prototype.requestAccess = function (department) {

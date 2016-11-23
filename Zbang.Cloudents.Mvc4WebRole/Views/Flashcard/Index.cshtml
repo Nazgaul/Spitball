@@ -1,10 +1,8 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-<div @*ng-switch="f.step"*@ ng-switch="f.step" class="flashcard-wrapper">
+@using Zbang.Cloudents.Mvc4WebRole.Views.University.Resources
+<div ng-switch="f.step" class="flashcard-wrapper">
     <div class="header">
-        <button ng-click="app.back(f.backUrl)" class="close-btn">
-            <md-icon md-svg-icon="t:close"></md-icon>
-        </button>
         <div multiswitch-when="1|2" class="progress-wrapper">
             <div class="title">
                 <div class="flashcard-icon"></div>
@@ -17,13 +15,13 @@
                     </md-button> 
                     <md-menu-content width="1">
                         <md-menu-item>
-                            <md-button ng-click="f.style=true">@FlashcardResources.Front</md-button>
+                            <md-button ng-click="f.changeLegend(true)">@FlashcardResources.Front</md-button>
                         </md-menu-item>
                         <md-menu-item>
-                            <md-button ng-click="f.style=false">@FlashcardResources.Back</md-button>
+                            <md-button ng-click="f.changeLegend(false)">@FlashcardResources.Back</md-button>
                         </md-menu-item>
                         <md-menu-item>
-                            <md-button ng-click="f.style=null">@FlashcardResources.Both</md-button>
+                            <md-button ng-click="f.changeLegend(null)">@FlashcardResources.Both</md-button>
                         </md-menu-item>
                     </md-menu-content>
                 </md-menu>
@@ -37,22 +35,25 @@
                 <span>{{f.slidepos}}/{{::f.flashcard.cards.length}}</span>
             </div>
         </div>
+        <button ng-click="app.back(f.backUrl)" class="close-btn">
+            <md-icon md-svg-icon="t:close"></md-icon>
+        </button>
         <div multiswitch-when="1" class="card-sides" hide-xs>
-            <button type="button" class="front capitalize" ng-click="f.style=true" ng-class="{active:f.style===true}">
+            <button type="button" class="front capitalize" ng-click="f.changeLegend(true)" ng-class="{active:f.styleLegend===true}" keyboard-action="70">
                 <div class="flashcard-icon"></div>
                 @FlashcardResources.Front
             </button>
-            <button type="button" class="back capitalize" ng-click="f.style=false" ng-class="{active:f.style===false}">
+            <button type="button" class="back capitalize" ng-click="f.changeLegend(false)" ng-class="{active:f.styleLegend===false}" keyboard-action="75">
                 <div class="flashcard-icon"></div>
                 @FlashcardResources.Back
             </button>
-            <button type="button" class="both capitalize" ng-click="f.style=null" ng-class="{active:f.style==null}">
+            <button type="button" class="both capitalize" ng-click="f.changeLegend(null)" ng-class="{active:f.styleLegend==null}" keyboard-action="66">
                 <div class="flashcard-icon"></div>
                 @FlashcardResources.Both
             </button>
         </div>
-        <div multiswitch-when="2" class="pinned-counter">
-            <div class="num" ng-bind="::f.pinCount"></div>
+        <div multiswitch-when="2" class="pinned-counter" ng-if="f.pinCount">
+            <div class="num" ng-bind="f.pinCount"></div>
             <div class="icon">
                 <md-icon md-svg-icon="b:pin"></md-icon>
                 <div>@FlashcardResources.Pinned</div>
@@ -68,8 +69,9 @@
                 <h4 ng-if="f.step==2">@FlashcardResources.JustStudied&nbsp;</h4>
                 <ng-pluralize count="::f.flashcard.cards.length"
                               when="{
-                        '1': '1 card',
-                        'other': '{} cards'
+                        '1': '1 @FlashcardResources.Card',
+                        '2': '{} @FlashcardResources.Pins',
+                        'other': '{} @FlashcardResources.Cards'
                       }"></ng-pluralize>
                 <span ng-if="f.step==2">!</span>
             </div>
@@ -77,46 +79,48 @@
                 <button type="button" class="action-btn" user-not-register-popup="click" ng-click="f.start()">
                     <span>@FlashcardResources.Start</span><span ng-if="f.step==2">&nbsp;@FlashcardResources.Over</span>
                 </button>
-                <button type="button" class="action-btn pinned-cards" user-not-register-popup="click" ng-if="::f.pinCount" ng-click="f.startPin()">
-                    Study&nbsp;<ng-pluralize count="::f.pinCount"
-                                             when="{
-                        '1': '1 pin',
-                        'other': '{} pinned'
+                <button type="button" class="action-btn pinned-cards" user-not-register-popup="click" ng-if="f.pinCount" ng-click="f.startPin()">
+                    <span>@FlashcardResources.Study&nbsp;</span><ng-pluralize count="f.pinCount"
+                                                                 when="{
+                        '1': '1 @FlashcardResources.Pin',
+                        '2': '{} @FlashcardResources.Pins',
+                        'other': '{} @FlashcardResources.Pins'
                       }"></ng-pluralize>
                 </button>
             </div>
             <div class="shuffle" user-not-register-popup="click">
                 <md-icon md-svg-icon="b:shuffle"></md-icon>
-                <md-switch ng-model="f.shuffle">
-                    @FlashcardResources.Shuffle
+                <md-switch ng-model="f.shuffle" keyboard-action="83">
+                    @FlashcardResources.Shuffle&nbsp;@FlashcardResources.Cards
                 </md-switch>
             </div>
-            <div ng-if="f.step==2 && f.canLike()" class="like-wrapper">
+            <div ng-if="f.step==2" class="like-wrapper">
                 <span>@FlashcardResources.LikeLabel</span>&nbsp;
-                <button ng-click="f.like()" ng-class="{liked:f.flashcard.like}"><md-icon md-svg-icon="b:like"></md-icon>@GeneralResources.Like</button>
+                <button ng-click="f.like()" ng-class="{liked:f.flashcard.like}">
+                    <div>
+                        <md-icon md-svg-icon="b:like"></md-icon>@GeneralResources.Like
+                    </div>
+                </button>
             </div>
         </div>
     </div>
     <div multiswitch-when="1" class="card-player angular-animate" card-scroll>
-        <div ng-attr-id="card{{::$index}}" class="card-template angular-animate" ng-hide="$index !== f.slidepos" ng-class="{front: f.style==true,back:f.style==false,both:f.style==null}" ng-repeat="slide in ::f.cards">
+        <div ng-attr-id="card{{::$index}}" class="card-template angular-animate" my-hide="$index !== f.slidepos && f.notMobile" slide-pos="f.slidepos" ng-class="{front: slide.style==true,back:slide.style==false,both:slide.style==null}" ng-repeat="slide in ::f.cards">
             <div class="flip-container">
-                @*<button type="button" class="pin-btn" ng-click="f.pin()" ng-class="{pinned:slide.pin}">
-                        <md-icon md-svg-icon="b:pin"></md-icon>
-                    </button>*@
                 <div class="flipper">
                     <div class="card-content">
                         <div class="side front">
-                            <button type="button" class="pin-btn" ng-click="f.pin(slide)" ng-class="{pinned:slide.pin}">
+                            <button type="button" class="pin-btn" ng-click="f.pin(slide)" ng-class="{pinned:slide.pin}" keyboard-action="80">
                                 <md-icon md-svg-icon="b:pin"></md-icon>
                             </button>
-                            <div class="data-wrapper" ng-click="f.flip()">
+                            <div class="data-wrapper" ng-click="f.flip(slide)" keyboard-action="38|40">
                                 <div class="img-container" ng-if="::slide.front.image">
                                     <img ng-src="{{::slide.front.image}}" alt="font image" />
                                 </div>
-                                <div class="text-container">
-                                    <p dir="auto" ng-bind="::slide.front.text" fit-text></p>
+                                <div class="text-container" ng-if="::slide.front.text">
+                                    <p class="scrollbar" dir="auto" ng-bind="::slide.front.text" fit-text></p>
                                 </div>
-                                <div class="flip" ng-if="f.style !== null">
+                                <div class="flip" ng-if="slide.style !== null">
                                     <md-icon md-svg-icon="b:flip"></md-icon>
                                     @FlashcardResources.InstructionFlip
                                 </div>
@@ -126,14 +130,14 @@
                             <button type="button" class="pin-btn" ng-click="f.pin(slide)" ng-class="{pinned:slide.pin}">
                                 <md-icon md-svg-icon="b:pin"></md-icon>
                             </button>
-                            <div class="data-wrapper" ng-click="f.flip()">
+                            <div class="data-wrapper" ng-click="f.flip(slide)">
                                 <div class="img-container" ng-if="::slide.cover.image">
                                     <img ng-src="{{::slide.cover.image}}" alt="font image" />
                                 </div>
-                                <div class="text-container">
-                                    <p dir="auto" ng-bind="::slide.cover.text" fit-text></p>
+                                <div class="text-container" ng-if="::slide.cover.text">
+                                    <p class="scrollbar" dir="auto" ng-bind="::slide.cover.text" fit-text></p>
                                 </div>
-                                <div class="flip" ng-if="f.style !== null">
+                                <div class="flip" ng-if="slide.style !== null">
                                     <md-icon md-svg-icon="b:flip"></md-icon>
                                     @FlashcardResources.InstructionFlip
                                 </div>
@@ -142,20 +146,52 @@
                     </div>
                 </div>
             </div>
-            @*<div class="flip" ng-if="f.style !== null">
-                    <md-icon md-svg-icon="b:flip"></md-icon>
-                    Click to flip
-                </div>*@
-
         </div>
+
+        <nav class="buttons" hide-xs>
+            <button type="button" class="prev" keyboard-action="37" keyboard-action-rtl="39" ng-click="f.prev()" ng-disabled="f.slidepos == 0">
+                <md-icon md-svg-icon="t:arrow"></md-icon>
+            </button>
+            <button type="button" class="next" ng-click="f.next()" keyboard-action="39" keyboard-action-rtl="37" ng-disabled="f.slidepos == f.flashcard.cards.length">
+                <md-icon md-svg-icon="t:arrow"></md-icon>
+            </button>
+        </nav>
+
+        <md-menu md-position-mode="target-right target" class="keyboard" md-offset="18 -300" hide-xs>
+            <md-button ng-click="$mdOpenMenu($event)" aria-label="Open menu">
+                <md-icon md-svg-icon="b:keyboard"></md-icon>
+            </md-button>
+            <md-menu-content md-menu-align-target class="keyboard-menu">
+                <md-menu-item>
+                    <div><span class="key">&larr;</span><span class="capitalize">@FlashcardResources.Previous</span></div>
+                </md-menu-item>
+                <md-menu-item>
+                    <div><span class="key">&rarr;</span><span class="capitalize">@UniversityResources.Next</span></div>
+                </md-menu-item>
+                <md-menu-item>
+                    <div><span class="key">&uarr;</span><span>@FlashcardResources.FlipUp</span></div>
+                </md-menu-item>
+                <md-menu-item>
+                    <div><span class="key">&darr;</span><span>@FlashcardResources.FlipDown</span></div>
+                </md-menu-item>
+                <md-menu-item>
+                    <div><span class="key">P</span><span class="capitalize">@FlashcardResources.Pinned</span></div>
+                </md-menu-item>
+                <md-menu-item>
+                    <div><span class="key">S</span><span class="capitalize">@FlashcardResources.Shuffle</span></div>
+                </md-menu-item>
+                <md-menu-item>
+                    <div><span class="key">F</span><span class="capitalize">@FlashcardResources.Front</span></div>
+                </md-menu-item>
+                <md-menu-item>
+                    <div><span class="key">K</span><span class="capitalize">@FlashcardResources.Back</span></div>
+                </md-menu-item>
+                <md-menu-item>
+                    <div><span class="key">B</span><span class="capitalize">@FlashcardResources.Both</span></div>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+
     </div>
 
-    <nav multiswitch-when="1|2" class="buttons">
-        <button type="button" class="prev" keyboard-action="37" ng-click="f.prev()" ng-disabled="f.slidepos == 0">
-            <md-icon md-svg-icon="t:arrow"></md-icon>
-        </button>
-        <button type="button" class="next" ng-click="f.next()" keyboard-action="39" ng-disabled="f.slidepos == f.flashcard.cards.length">
-            <md-icon md-svg-icon="t:arrow"></md-icon>
-        </button>
-    </nav>
 </div>

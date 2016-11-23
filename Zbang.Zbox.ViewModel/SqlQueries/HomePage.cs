@@ -25,11 +25,11 @@
         public const string UniversityBoxes = @"select top 6 Name,ItemCount,CourseCode,ProfessorName,Url from (
 select 
     b.BoxName as Name,
-	b.quizcount + b.itemcount as ItemCount,
+	b.quizcount + b.itemcount + COALESCE(b.FlashcardCount,0) as ItemCount,
 	b.CourseCode as CourseCode,
 	b.ProfessorName,
 	b.Url as Url,
-	Rank() over (partition BY libraryid order by b.ItemCount + b.QuizCount + b.CommentCount desc,b.updatetime desc) as x
+	Rank() over (partition BY libraryid order by b.ItemCount + b.QuizCount + b.CommentCount + COALESCE(b.FlashcardCount,0) desc,b.updatetime desc) as x
 	from zbox.box b join zbox.university u on b.university=u.id
 	where Discriminator = 2
 	and b.isdeleted = 0

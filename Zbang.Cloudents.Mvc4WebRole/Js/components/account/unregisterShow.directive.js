@@ -81,15 +81,24 @@
                 if (userDetailsFactory.isAuthenticated()) {
                     return;
                 }
+                if (element.is("a")) {
+                    element.bind('click', 'a', function (e) {
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
+                        $rootScope.$broadcast('show-unregisterd-box');
+                    });
+                };
                 element.on('click', 'a', function (e) {
                     e.preventDefault();
                     $rootScope.$broadcast('show-unregisterd-box');
                 });
 
+
             }
         };
     }
 })();
+
 
 (function () {
     angular.module('app').directive('userNotRegisterPopup', unregShow);

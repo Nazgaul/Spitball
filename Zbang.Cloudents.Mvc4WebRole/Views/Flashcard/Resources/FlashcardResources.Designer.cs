@@ -79,11 +79,38 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to card.
+        /// </summary>
+        public static string Card {
+            get {
+                return ResourceManager.GetString("Card", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to cards.
+        /// </summary>
+        public static string Cards {
+            get {
+                return ResourceManager.GetString("Cards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to flashcards.
         /// </summary>
         public static string CardsLabel {
             get {
                 return ResourceManager.GetString("CardsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to create.
+        /// </summary>
+        public static string Create {
+            get {
+                return ResourceManager.GetString("Create", resourceCulture);
             }
         }
         
@@ -124,6 +151,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Flip down.
+        /// </summary>
+        public static string FlipDown {
+            get {
+                return ResourceManager.GetString("FlipDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Flip up.
+        /// </summary>
+        public static string FlipUp {
+            get {
+                return ResourceManager.GetString("FlipUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to front.
         /// </summary>
         public static string Front {
@@ -160,7 +205,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enjoy this set? give it a like:.
+        ///   Looks up a localized string similar to Enjoyed this set? give it a.
         /// </summary>
         public static string LikeLabel {
             get {
@@ -178,11 +223,38 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to pin.
+        /// </summary>
+        public static string Pin {
+            get {
+                return ResourceManager.GetString("Pin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to pinned.
         /// </summary>
         public static string Pinned {
             get {
                 return ResourceManager.GetString("Pinned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pins.
+        /// </summary>
+        public static string Pins {
+            get {
+                return ResourceManager.GetString("Pins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous.
+        /// </summary>
+        public static string Previous {
+            get {
+                return ResourceManager.GetString("Previous", resourceCulture);
             }
         }
         
@@ -205,7 +277,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to shuffle cards.
+        ///   Looks up a localized string similar to shuffle.
         /// </summary>
         public static string Shuffle {
             get {
@@ -219,6 +291,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources {
         public static string Start {
             get {
                 return ResourceManager.GetString("Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to study.
+        /// </summary>
+        public static string Study {
+            get {
+                return ResourceManager.GetString("Study", resourceCulture);
             }
         }
     }

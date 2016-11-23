@@ -59,6 +59,7 @@
         //}
 
         function followBox() {
+            itemService.followbox();
             //cacheFactory.clearAll();//autofollow issue
         }
         function getPreview() {
@@ -146,7 +147,6 @@
             if (i.details.like) {
                 i.details.likes--;
             } else {
-                //TODO: bring back the toaster when item page is no longer pop up
                 $scope.app.showToaster(resManager.get('toasterLikeItem'), 'main-nav');
                 i.details.likes++;
             }

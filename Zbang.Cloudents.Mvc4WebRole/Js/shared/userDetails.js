@@ -51,13 +51,6 @@ var app;
                 _this.analytics.set("dimension2", data.universityCountry || "null");
                 _this.analytics.set("dimension3", data.id || "null");
             });
-            var interval = this.$interval(function () {
-                if (googletag.pubads !== undefined && googletag.pubads) {
-                    googletag.pubads().setTargeting("gender", data.sex);
-                    googletag.pubads().setTargeting("university", data.universityId);
-                    _this.$interval.cancel(interval);
-                }
-            }, 20);
             this.userData = {
                 id: data.id,
                 name: data.name,

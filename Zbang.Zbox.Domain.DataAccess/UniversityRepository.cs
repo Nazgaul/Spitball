@@ -43,6 +43,7 @@ namespace Zbang.Zbox.Domain.DataAccess
                 .SelectList(list => list
                     .SelectSum(s => s.QuizCount)
                     .SelectSum(s => s.ItemCount)
+                    .SelectSum(s=> s.FlashcardCount)
                     .Select(Projections.RowCount())
                 ).FutureValue<object[]>();
 

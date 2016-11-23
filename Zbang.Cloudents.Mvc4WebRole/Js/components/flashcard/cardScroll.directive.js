@@ -8,32 +8,51 @@ var app;
             this.$anchorScroll = $anchorScroll;
             this.$timeout = $timeout;
             this.restrict = "A";
-            this.link = function (scope, element, attrs) {
+            this.link = function (scope, element) {
                 if (!_this.$mdMedia("xs")) {
                     return;
                 }
-                function getCoord(e, c) {
-                    return /touch/.test(e.type) ? (e.originalEvent || e).changedTouches[0]['page' + c] : e['page' + c];
+                function getCoord(e) {
+                    return /touch/.test(e.type) ? (e.originalEvent || e).changedTouches[0]["pageY"] : e["pageY"];
                 }
                 var ctrl = scope["f"];
                 var startY;
-                $(window)
+                $(element)
                     .on("touchmove", function (ev) {
+                    if (ev.target.scrollHeight > ev.target.clientHeight) {
+                        return;
+                    }
                     ev.preventDefault();
                 });
-                $(window)
-                    .on('touchstart', function (ev) {
-                    startY = getCoord(ev, 'Y');
+                $(element)
+                    .on("touchstart", function (ev) {
+                    startY = getCoord(ev);
                 })
-                    .on('touchend', function (ev) {
+                    .on("touchend", function (ev) {
+                    var cordY = getCoord(ev);
+                    var directionDown = startY > cordY;
+                    if (Math.abs(startY - cordY) < 20) {
+                        return;
+                    }
+                    var target = ev.target, jTarget = $(target);
+                    if (target.scrollHeight > target.clientHeight) {
+                        if (directionDown && jTarget.scrollTop() + jTarget.innerHeight() < jTarget[0].scrollHeight) {
+                            return;
+                        }
+                        if (!directionDown && jTarget.scrollTop() > 0) {
+                            return;
+                        }
+                    }
+                    _this.$anchorScroll.yOffset = 150;
                     ev.preventDefault();
-                    if (startY > getCoord(ev, 'Y')) {
+                    if (directionDown) {
                         ctrl.next();
+                        scope.$digest();
                         _this.$anchorScroll("card" + ctrl.slidepos);
                     }
                     else {
-                        console.log(startY, getCoord(ev, 'Y'), "up");
                         ctrl.prev();
+                        scope.$digest();
                         _this.$anchorScroll("card" + ctrl.slidepos);
                     }
                 });

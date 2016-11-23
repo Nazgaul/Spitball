@@ -288,6 +288,7 @@ md-menu-item > a.md-button {
         @media(max-width: 600px) {
             padding: 0 10px;
         }
+
         &.ng-enter {
             animation-name: breathing;
             animation-duration: 3s;
@@ -385,8 +386,26 @@ md-menu-item > a.md-button {
     }
 }
 
-.box-nav-bar ~ div {
-    margin: 0 -8px;
+.box-nav-bar {
+    ~ div {
+        margin: 0 -8px;
+    }
+
+    .md-tab .flashcard-title {
+        padding: 5px 15px;
+    }
+
+    .md-tab:not(.md-active) {
+        .flashcard-title {
+            border-radius: 5px;
+            background: #ebbc18;
+        }
+
+        &:hover .flashcard-title {
+            background: #ffdc61;
+            color: #0d3a52;
+        }
+    }
 }
 
 .invite-btn {
@@ -473,8 +492,10 @@ md-menu-item > a.md-button {
         }
     }
 
-    &.flex {
-        padding: 0;
+    @media(min-width: 600px) {
+        &.flex {
+            padding: 0;
+        }
     }
 
     .leaderboard-container {

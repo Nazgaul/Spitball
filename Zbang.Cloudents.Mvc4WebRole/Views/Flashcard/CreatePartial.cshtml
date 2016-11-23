@@ -6,17 +6,19 @@
     <button flex="none" type="button" ng-click="f.close($event)" class="close" ga-track-event="['createFlashcard', 'close']"><md-icon md-svg-icon="t:close"></md-icon></button>
 </header>
 <form name="f.form" class="content" interaction-done>
-    <div layout="row" layout-align="space-between center" class="flashcard-top">
-        <md-input-container flex="50">
+    <div layout="row" layout-align="space-between center" class="flashcard-top" layout-wrap>
+        <md-input-container flex="100" flex-gt-xs="50">
             <input name="name" type="text"
                    placeholder="@FlashcardResources.FlashcardPlaceholder" autocomplete="off"
-                    required md-no-asterisk ng-model="f.data.name" ng-change="f.form['name'].$setValidity('duplicate', true)"/>
+                   required md-no-asterisk ng-model="f.data.name" ng-change="f.form['name'].$setValidity('duplicate', true)" />
             <div class="error-message" ng-messages="f.form.name.$error" ng-show="f.form.name.$touched">
                 <div ng-message="required">@GeneralResources.RequiredField</div>
                 <div ng-message="duplicate">@FlashcardResources.SameName</div>
             </div>
         </md-input-container>
-        <button type="button" ng-click="f.publish()" ng-disabled="f.disabled" class="action-btn">@GeneralResources.Create</button>
+        <div class="btn-wrapper" flex="100" flex-gt-xs="50">
+            <button type="button" flex="100" flex-gt-xs="50" ng-click="f.publish()" ng-disabled="f.disabled" class="action-btn">@FlashcardResources.Create</button>
+        </div>
     </div>
     <div class="flashcard-body">
         <div layout="row" layout-align="space-between center" class="header">
@@ -28,14 +30,14 @@
         </div>
         <ol ui-on-drop="true">
             <li id="drag{{$index}}" class="card-container" ui-on-drop="f.move($data,card)" layout="row" line-focus @*card-settings="gt-xs"*@ ng-repeat="card in f.data.cards">
-                <button type="button" hide-xs class="drag-btn" drag="{{$index}}" ui-draggable="true" drag-image-element-id="'drag' + $index"><md-icon md-svg-icon="t:headerMenu"></md-icon></button>
+                <div type="button" hide-xs class="drag-btn" drag="{{$index}}" ui-draggable="true" drag-image-element-id="'drag' + $index"><md-icon md-svg-icon="t:headerMenu"></md-icon></div>
                 <card-form flex="50" index="$index*2 + 1" slide="card.front" upload="f.upload"></card-form>
                 <card-form flex="50" index="$index*2 + 2" slide="card.cover" upload="f.upload"></card-form>
                 <button type="button" hidex-xs class="remove-btn desktop" ng-click="f.removeCard($index)">
                     <md-icon hide-xs md-svg-icon="t:close"></md-icon>
                 </button>
                 <button type="button" class="add-btn" ng-click="f.add($index)"><md-icon md-svg-icon="t:add"></md-icon></button>
-                <input type="checkbox" id="settings-toggler{{$index}}" ng-model="card.checked" ng-checked="card.checked" class="settings-toggler"/>
+                <input type="checkbox" id="settings-toggler{{$index}}" ng-model="card.checked" ng-checked="card.checked" class="settings-toggler" />
                 <div class="card-settings" hide-gt-xs>
                     <div class="content">
                         <button type="button" class="remove-btn desktop" ng-click="f.removeCard($index)">
@@ -63,13 +65,13 @@
                 <div flex="50" flex-xs="100">
                     <md-icon md-svg-icon="t:add"></md-icon>
                 </div>
-                <div flex="50" hide-xs></div>
+                <div class="back" flex="50" hide-xs></div>
             </li>
 
         </ol>
     </div>
     <div class="bottom">
-        <button type="button" ng-click="f.publish()" ng-disabled="f.disabled" class="action-btn">@GeneralResources.Create</button>
+        <button type="button" ng-click="f.publish()" ng-disabled="f.disabled" class="action-btn">@FlashcardResources.Create</button>
     </div>
 </form>
 <script type="text/ng-template" id="card-form.html">
@@ -80,7 +82,7 @@
                  plupload-callbacks="upload.callbacks" hide-xs></md-icon>
         <div class="image-container">
             <md-progress-circular ng-if="slide.uploadProgress" md-mode="determinate" md-diameter="50" value="{{slide.uploadProgress}}"></md-progress-circular>
-            <img width="100" height="100" ng-src="{{slide.image}}" ng-if="slide.image" />
+            <img @*width="100" height="100"*@ ng-src="{{slide.image}}" ng-if="slide.image" />
             <button type="button" class="remove-img" ng-click="upload.removeImage(slide)" ng-if="slide.image"><md-icon md-svg-icon="t:close"></md-icon></button>
         </div>
     </md-input-container>

@@ -71,13 +71,13 @@ module app {
             // this.analytics.set("dimension4", data.theme || "dark");
 
 
-            var interval = this.$interval(() => {
-                if (googletag.pubads !== undefined && googletag.pubads) {
-                    googletag.pubads().setTargeting("gender", data.sex);
-                    googletag.pubads().setTargeting("university", data.universityId);
-                    this.$interval.cancel(interval);
-                }
-            }, 20);
+            //var interval = this.$interval(() => {
+            //    if (googletag.pubads !== undefined && googletag.pubads) {
+            //        googletag.pubads().setTargeting("gender", data.sex);
+            //        googletag.pubads().setTargeting("university", data.universityId);
+            //        this.$interval.cancel(interval);
+            //    }
+            //}, 20);
 
             this.userData = {
                 id: data.id,

@@ -18,12 +18,13 @@ using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
+using Zbang.Zbox.ViewModel.Dto;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
 
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
-    [ZboxAuthorize]
+
     public class FlashcardController : BaseController
     {
         private readonly IIdGenerator m_IdGenerator;
@@ -56,6 +57,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize]
         [DonutOutputCache(CacheProfile = "PartialPage")]
+
         public ActionResult CreatePartial()
         {
             return PartialView();
@@ -77,7 +79,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(new
             {
                 values.Cards,
-                values.Name
+                values.Name,
+                values.Publish
 
             });
         }
@@ -96,9 +99,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             Action = (int)StatisticsAction.Flashcard
                         }
                     }));
-            var tUserValues =
-                ZboxReadService.GetUserFlashcardAsync(new Zbox.ViewModel.Queries.GetUserFlashcardQuery(
-                    User.GetUserId(), id));
+
+            var tUserValues = ZboxReadService.GetUserFlashcardAsync(new Zbox.ViewModel.Queries.GetUserFlashcardQuery(
+                    User.GetUserId(false), id));
             var tValues = m_DocumentDbReadService.FlashcardAsync(id);
             await Task.WhenAll(tTransAction, tValues, tUserValues);
             var values = tValues.Result;
@@ -323,7 +326,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk();
         }
 
-        [HttpDelete, ZboxAuthorize,ActionName("Pin")]
+        [HttpDelete, ZboxAuthorize, ActionName("Pin")]
         public JsonResult DeletePin(Pin model)
         {
             if (!ModelState.IsValid)
@@ -335,7 +338,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk();
         }
 
-        [HttpPost, ZboxAuthorize,ActionName("like")]
+        [HttpPost, ZboxAuthorize, ActionName("like")]
         public JsonResult AddLike(long id)
         {
             var command = new AddFlashcardLikeCommand(User.GetUserId(), id);
@@ -347,6 +350,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var command = new DeleteFlashcardLikeCommand(User.GetUserId(), id);
             ZboxWriteService.DeleteFlashcardLike(command);
+            return JsonOk();
+        }
+
+        [HttpPost, ZboxAuthorize]
+        public JsonResult Solve(long id)
+        {
+            var command = new SaveUserFlashcardCommand(id, User.GetUserId());
+            ZboxWriteService.SolveFlashcard(command);
             return JsonOk();
         }
     }

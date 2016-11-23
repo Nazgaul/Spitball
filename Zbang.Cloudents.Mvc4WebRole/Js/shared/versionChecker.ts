@@ -26,7 +26,7 @@
         }
         checkVersion() {
             this.$http.get("/home/version/").then(response => {
-                var retVal: any = response.data;
+                var retVal: any = response.data || {};
                 if (retVal.success) {
                     if (window["version"] === retVal.payload) {
                         return;

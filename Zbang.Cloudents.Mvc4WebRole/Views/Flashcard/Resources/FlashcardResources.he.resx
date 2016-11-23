@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,84 +118,78 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Back" xml:space="preserve">
-    <value>back</value>
+    <value>צד אחורי</value>
   </data>
   <data name="Both" xml:space="preserve">
-    <value>both</value>
-  </data>
-  <data name="Card" xml:space="preserve">
-    <value>card</value>
-  </data>
-  <data name="Cards" xml:space="preserve">
-    <value>cards</value>
+    <value>שניהם</value>
   </data>
   <data name="CardsLabel" xml:space="preserve">
-    <value>flashcards</value>
-  </data>
-  <data name="Create" xml:space="preserve">
-    <value>create</value>
+    <value>כרטיסיות לימוד</value>
   </data>
   <data name="CreatedBy" xml:space="preserve">
-    <value>Created by</value>
+    <value>נוצר ע"י</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>edit</value>
+    <value>ערוך</value>
   </data>
   <data name="FlashcardPlaceholder" xml:space="preserve">
-    <value>Enter flashcard name</value>
+    <value>שם הכרטיסיות</value>
   </data>
   <data name="FlashcardTitle" xml:space="preserve">
-    <value>Create a Flashcard</value>
+    <value>צור כרטיסיות לימוד</value>
   </data>
   <data name="Front" xml:space="preserve">
-    <value>front</value>
+    <value>צד קדמי</value>
   </data>
   <data name="GoodWork" xml:space="preserve">
-    <value>Nice work!</value>
+    <value>עבודה טובה!</value>
   </data>
   <data name="InstructionFlip" xml:space="preserve">
-    <value>Click to flip</value>
+    <value>לחץ כדי להפוך</value>
   </data>
   <data name="JustStudied" xml:space="preserve">
-    <value>You just studied</value>
+    <value>סיימת ללמוד</value>
   </data>
   <data name="LikeLabel" xml:space="preserve">
-    <value>Enjoyed this set? give it a</value>
+    <value>הכרטיסיות עזרו לך? לחץ</value>
   </data>
   <data name="Over" xml:space="preserve">
-    <value>over</value>
-  </data>
-  <data name="Pin" xml:space="preserve">
-    <value>pin</value>
+    <value>מחדש</value>
   </data>
   <data name="Pinned" xml:space="preserve">
-    <value>pinned</value>
-  </data>
-  <data name="Pins" xml:space="preserve">
-    <value>pins</value>
+    <value>כרטיסיות מסומנות</value>
   </data>
   <data name="Progress" xml:space="preserve">
-    <value>progress</value>
+    <value>התקדמות</value>
   </data>
   <data name="SameName" xml:space="preserve">
-    <value>flashcard with the same name already exists</value>
+    <value>כרטיסיה בשם זה כבר קיימת</value>
   </data>
   <data name="Shuffle" xml:space="preserve">
-    <value>shuffle</value>
+    <value>שנה סדר</value>
   </data>
   <data name="Start" xml:space="preserve">
-    <value>start</value>
+    <value>התחל</value>
+  </data>
+  <data name="Card" xml:space="preserve">
+    <value>כרטיסיה</value>
+  </data>
+  <data name="Cards" xml:space="preserve">
+    <value>כרטיסיות</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>צור</value>
+  </data>
+  <data name="Pins" xml:space="preserve">
+    <value>כרטיסיות מסומנות</value>
+  </data>
+  <data name="Pin" xml:space="preserve">
+    <value>כרטיסיה מסומנת</value>
   </data>
   <data name="Study" xml:space="preserve">
-    <value>study</value>
+    <value>למד</value>
   </data>
   <data name="Previous" xml:space="preserve">
-    <value>Previous</value>
-  </data>
-  <data name="FlipUp" xml:space="preserve">
-    <value>Flip up</value>
-  </data>
-  <data name="FlipDown" xml:space="preserve">
-    <value>Flip down</value>
+    <value>קודם</value>
   </data>
 </root>

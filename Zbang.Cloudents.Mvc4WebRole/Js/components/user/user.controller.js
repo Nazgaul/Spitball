@@ -18,8 +18,8 @@
         self.isUserProfile = userDetailsFactory.get().id === userData.id;
         self.details = userData;
         self.state = {
-            box: 'b',
-            //badges: 'b',
+            //box: 'b',
+            badges: 'b',
             item: 'u',
             post: 'p',
             quiz: 'q',
@@ -31,8 +31,8 @@
             badges: 'b',
             community: 'c'
         }
-        self.tab = self.state.box;
-        //self.tab = self.state.badges;
+        //self.tab = self.state.box;
+        self.tab = self.state.badges;
         self.badgesTab = self.badgesState.levels;
         self.showInfo = showInfo;
         //self.elements = [];

@@ -247,4 +247,13 @@
   <data name="deleteObj" xml:space="preserve">
     <value>האם ברצונך למחוק {0} זו?</value>
   </data>
+  <data name="flashcardLeaveTitle" xml:space="preserve">
+    <value>לא סיימת את כרטיסיית הלימוד, האם ברצונך לצאת?</value>
+  </data>
+  <data name="flashcardLeaveContent" xml:space="preserve">
+    <value>שמור את הכרטיסיה כ"טיוטא" לשם עריכה (רק אתה יכול לראות ולערוך את הטיוטא)</value>
+  </data>
+  <data name="flashcard" xml:space="preserve">
+    <value>כרטיסיית לימוד</value>
+  </data>
 </root>

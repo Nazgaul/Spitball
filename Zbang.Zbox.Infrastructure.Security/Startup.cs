@@ -51,7 +51,7 @@ namespace Zbang.Zbox.Infrastructure.Security
                 }
                 app.UseCookieAuthentication(new CookieAuthenticationOptions
                 {
-                    CookieDomain = cookieDomain,
+                    CookieDomain = cookieDomain, // DO NOT CHANGE THIS AT ALL TIME
                     CookieName = cookieName,
                     CookieSecure = CookieSecureOption.Always,
                     LogoutPath = new PathString("/account/logoff/"),

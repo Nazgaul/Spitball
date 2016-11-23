@@ -1431,6 +1431,7 @@
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.controller.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.routes.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.service.ts" />
+    <TypeScriptCompile Include="Js\components\flashcard\cardAnimation.directive.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\cardScroll.directive.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\cardSettings.directive.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\card.directive.ts" />
@@ -1441,6 +1442,7 @@
     <TypeScriptCompile Include="Js\components\flashcard\flashcard.service.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\interaction.directive.ts" />
     <TypeScriptCompile Include="Js\components\item\dropFileClass.directive.ts" />
+    <TypeScriptCompile Include="Js\components\item\item.service.ts" />
     <TypeScriptCompile Include="Js\components\library\classChooseCreateDialog.controller.ts" />
     <TypeScriptCompile Include="Js\components\library\classChooseUnfollowDialog.controller.ts" />
     <TypeScriptCompile Include="Js\components\library\classChoose.controller.ts" />
@@ -2279,7 +2281,6 @@
     <Content Include="Js\components\quiz\popup\quiz.challenge.module.js" />
     <Content Include="Js\components\quiz\popup\quiz.score.controller.js" />
     <Content Include="Js\components\item\item.controller.js" />
-    <Content Include="Js\components\item\item.service.js" />
     <Content Include="Js\components\item\upload.controller.js" />
     <Content Include="Js\components\library\library.controller.js" />
     <Content Include="Js\components\quiz\stopwatch.filter.js" />
@@ -2716,6 +2717,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ValidatePasswordResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Flashcard\Resources\FlashcardResources.he.resx" />
     <EmbeddedResource Include="Views\Flashcard\Resources\FlashcardResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>FlashcardResources.Designer.cs</LastGenOutput>

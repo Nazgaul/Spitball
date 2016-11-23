@@ -2,15 +2,17 @@
 module app {
     "use strict";
 
-    export class FlashCard implements ISerializable<FlashCard> {
+    class FlashCard implements ISerializable<FlashCard> {
 
         id: number;
         name: string;
+        publish: boolean;
         cards: Array<Card> = [new Card(), new Card(), new Card(), new Card(), new Card()];
         deserialize(input: FlashCard) {
             this.cards = [];
             this.id = input.id;
             this.name = input.name;
+            this.publish = input.publish;
             input.cards = input.cards || [];
             for (let i = 0; i < input.cards.length; i++) {
                 this.cards.push(new Card().deserialize(input.cards[i]));
@@ -18,9 +20,6 @@ module app {
             for (let j = this.cards.length; j < 5; j++) {
                 this.cards.push(new Card());
             }
-            //if (this.cards.length < 5) {
-            //    this.cards.push(new Card(), new Card(), new Card(), new Card(), new Card());
-            //}
             return this;
         }
         flip() {
@@ -29,11 +28,11 @@ module app {
 
 
     }
-    export class Card implements ISerializable<Card> {
+    class Card implements ISerializable<Card> {
         front = new CardSlide();
         cover = new CardSlide();
         checked: boolean;
-        index: string = "";
+        index = "";
         flip() {
             const temp = this.front;
             this.front = this.cover;
@@ -46,7 +45,7 @@ module app {
             return this;
         }
     }
-    export class CardSlide implements ISerializable<CardSlide> {
+    class CardSlide implements ISerializable<CardSlide> {
         text: string;
         image: string;
         deserialize(input: CardSlide) {
@@ -191,6 +190,10 @@ module app {
                 this.navigateBackToBox();
                 return;
             }
+            if (this.data.publish) {
+                this.create().then(this.navigateBackToBox);
+                return;
+            }
 
             const confirm = this.$mdDialog.confirm()
                 .title(this.resManager.get('flashcardLeaveTitle'))
@@ -212,7 +215,7 @@ module app {
         move(dropCardIndex: number, card: Card) {
             card.checked = false;
             if (dropCardIndex < 0 || dropCardIndex > this.data.cards.length) {
-               
+
                 return;
             }
             const cardIndex = this.data.cards.indexOf(card);
@@ -237,7 +240,7 @@ module app {
                         ]
                     },
                     resize: {
-                        preserve_headers: false,
+                        //preserve_headers: false,
                         width: 350,
                         height: 350
                     }

@@ -1,9 +1,8 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources
 <ul layout="row" layout-padding layout-wrap layout-align="start stretch" class="list-unstyled quizzes-list flashcards-list">
-    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" hide-xs class="add-button i-q-wrapper">
-        @*TODO: use directive user-not-register-click - its not working somehow *@
-        <a class="content" ui-sref="flashcardCreate({boxtype: f.params.boxtype, universityType:f.params.universityType, boxId: f.params.boxId, boxName:f.params.boxName})" ga-track-event="['box-flashcards', 'addFlashcard']">
+    <li user-not-register-click  flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" hide-xs class="add-button i-q-wrapper">
+        <a class="content" user-not-register-click  ui-sref="flashcardCreate({boxtype: f.params.boxtype, universityType:f.params.universityType, boxId: f.params.boxId, boxName:f.params.boxName})" ga-track-event="['box-flashcards', 'addFlashcard']">
             <div class="quizCreate">
                 <md-icon md-svg-icon="t:add"></md-icon>
                 <div class="text">
@@ -22,7 +21,7 @@
             </md-button>
             <md-menu-content width="1">
                 <md-menu-item ng-if="::f.canEdit(e)">
-                    <md-button ui-sref="flashcardCreate({boxtype: f.params.boxtype, universityType:f.params.universityType, boxId: f.params.boxId, boxName:f.params.boxName, id:e.id})" ga-track-event="['box-flashcard', 'didEdit']">
+                    <md-button class="capitalize" ui-sref="flashcardCreate({boxtype: f.params.boxtype, universityType:f.params.universityType, boxId: f.params.boxId, boxName:f.params.boxName, id:e.id})" ga-track-event="['box-flashcard', 'didEdit']">
                         @FlashcardResources.Edit
                     </md-button>
                 </md-menu-item>

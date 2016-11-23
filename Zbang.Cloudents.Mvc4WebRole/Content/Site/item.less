@@ -439,7 +439,7 @@ md-menu-item {
 
     .comments-wrapper {
         left: 0;
-        color: @textColorWhite;
+        color: @textColorBlack;
         position: fixed !important;
         top: @heightOfHeader;
         width: 300px;
@@ -655,7 +655,8 @@ md-menu-item {
         position: fixed;
         right: ~"calc(50% - 650px)";
         top: @heightOfHeader + @actionsNavHeight + 5;
-
+        width:160px;
+        height:600px;
         @media(max-width: 1279px) {
             display: none;
         }
@@ -663,7 +664,10 @@ md-menu-item {
 
     .ad {
         text-align: center;
-        display: inline;
+        //display: inline;
+        width:970px;
+        height:98px;
+        margin:0 auto;
     }
 
     .hideActions {

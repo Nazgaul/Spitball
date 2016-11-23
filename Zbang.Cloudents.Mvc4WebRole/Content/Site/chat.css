@@ -98,7 +98,7 @@
   left: 6px;
 }
 .chatPage .chat {
-  margin: -5px;
+  margin: 0 -5px;
 }
 .chatPage .chat .users-list {
   padding-top: 50px;
@@ -108,11 +108,14 @@
 }
 .chatPage .chat .search-friend {
   position: fixed;
-  top: 70px;
+  top: 65px;
   left: 0;
   right: 0;
   background: #eeeeee;
   z-index: 1;
+}
+.chatPage .chat .content {
+  position: relative;
 }
 .chatPage .chat .content.stateChat .conversasion .header {
   position: fixed;
@@ -144,11 +147,13 @@
   display: none;
 }
 .chat .error {
-  z-index: 1;
+  z-index: 2;
   color: #ffffff;
   position: absolute;
   width: 100%;
-  top: 50px;
+  top: 0;
+  left: 0;
+  right: 0;
   box-shadow: 0 0 3px black;
   text-align: center;
   background: #db4437;
@@ -164,8 +169,14 @@
   -moz-transition: height 0.3s;
   transition: height 0.3s;
 }
+@media (max-width: 600px) {
+  .chat .error {
+    top: 65px;
+    position: fixed;
+  }
+}
 .chat .error.disconnected {
-  padding: 5px 10px;
+  padding: 0 10px;
   height: 60px;
 }
 .chat .content {
@@ -375,6 +386,14 @@
 }
 .chat .content.stateChat .conversasion {
   right: 0;
+}
+.chat .content.stateChat .error.disconnected {
+  top: 50px;
+}
+@media (max-width: 600px) {
+  .chat .content.stateChat .error.disconnected {
+    top: 115px;
+  }
 }
 .chat .content:not(.stateChat) .menu-content {
   right: 0;
@@ -667,7 +686,7 @@
 .chat-item-preview md-toolbar .md-toolbar-tools {
   font-size: 18px;
   height: 40px !important;
-  padding: 0;
+  padding: 0 8px;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -675,10 +694,6 @@
   align-items: stretch;
   -webkit-justify-content: space-between;
   justify-content: space-between;
-}
-.chat-item-preview md-toolbar .md-toolbar-tools > .md-button {
-  margin-right: 0;
-  margin-left: 0;
 }
 .chat-item-preview md-toolbar .download-btn {
   min-width: 0;

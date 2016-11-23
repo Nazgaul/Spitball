@@ -1,27 +1,34 @@
 ﻿@import "variables.less";
 
 .flashcard {
+    header .close {
+        margin-right: 10px;
+    }
+
     .content {
         max-width: 860px;
         padding: 10px 30px 0 30px;
         margin: 0 auto;
+        padding: 10px;
 
         .bottom {
-            display: none;
-        }
-
-        @media(max-width: 600px) {
-            padding: 10px;
-
-            .bottom {
-                display: block;
-                text-align: right;
-            }
+            display: block;
+            text-align: right;
+            padding-bottom: 50px;
         }
     }
 
     .flashcard-top {
         margin-top: @heightOfHeader + 30px;
+
+        @media(max-width: 600px) {
+            margin-top: @heightOfHeader + 20px;
+            margin-bottom: 30px;
+
+            md-input-container {
+                margin-bottom: 0;
+            }
+        }
 
         form {
             max-width: 800px;
@@ -42,10 +49,14 @@
                 fill: @svgColorGrey;
             }
         }
+
+        .btn-wrapper {
+            text-align: right;
+        }
     }
 
     .flashcard-body {
-        @cardHeight: 60px;
+        @cardHeight: 58px;
         @mobileCardHeight: 40px;
 
         .header {
@@ -77,6 +88,12 @@
         }
 
         .card-container, .add-card {
+            margin: 8px 0;
+
+            @media(min-width: 600px) {
+                margin: 14px 0;
+            }
+
             &:before {
                 content: counter(counter,decimal);
                 counter-increment: counter;
@@ -95,24 +112,27 @@
                 padding-top: 100px;
             }
 
-            .settings-btn {
+            label {
                 .displayFlex;
-                .align-items(center);
-                .justifyContet(center);
-                width: @mobileCardHeight;
-                background: @backgroundCalmGrey;
-                border: 1px solid #b7b7b7;
-                border-left: none;
-                height: 100%;
 
-                @media(min-width: 600px) {
-                    display: none;
-                }
+                .settings-btn {
+                    .displayFlex;
+                    .align-items(center);
+                    .justifyContet(center);
+                    width: @mobileCardHeight;
+                    background: @backgroundCalmGrey;
+                    border: 1px solid #b7b7b7;
+                    border-left: none;
+                    //height: 100%;
+                    @media(min-width: 600px) {
+                        display: none;
+                    }
 
-                md-icon {
-                    width: 20px;
-                    height: 20px;
-                    fill: @textColorLightGrey;
+                    md-icon {
+                        width: 20px;
+                        height: 20px;
+                        fill: @textColorLightGrey;
+                    }
                 }
             }
 
@@ -158,8 +178,15 @@
                 }
 
                 md-icon {
-                    width: 15px;
-                    height: 15px;
+                    width: 12px;
+                    height: 12px;
+                }
+            }
+
+
+            .drag-btn, .remove-btn, .add-btn {
+                md-icon {
+                    fill: @borderColorBottomGrey;
                 }
             }
 
@@ -175,18 +202,24 @@
             card-form {
                 .displayFlex;
 
+                ~ card-form md-input-container {
+                    border-left: none;
+                }
+
                 md-input-container {
                     border: 1px solid #b7b7b7;
                     background: @textColorWhite;
                     margin: 0;
+                    padding-top: 0;
 
                     &.has-image {
                         padding-right: 0;
-                        padding-bottom: @cardHeight;
+                        padding-top: @cardHeight;
 
                         @media(min-width: 600px) {
                             padding-right: @cardHeight;
                             padding-bottom: 0;
+                            padding-top: 0;
                         }
                     }
 
@@ -199,36 +232,62 @@
                         width: 23px;
                         height: 19px;
                         margin-right: 4px;
-                        fill: @svgColorGrey;
+                        fill: @borderColorBottomGrey;
                         cursor: pointer;
                     }
                 }
+                //@media(min-width:600px) {
+                &.focused {
 
+                    .add-image-btn {
+                        display: block;
+                        outline: none;
+                    }
 
-                @media(min-width:600px) {
-                    &.focused {
-                        .add-image-btn {
-                            display: block;
-                            outline: none;
+                    @media(max-width: 600px) {
+                        md-input-container:not(.has-image) {
+                            padding-top: 24px;
+                            padding-right: 0;
                         }
                     }
                 }
 
+                &:not(.focused) {
+                    md-input-container:not(.has-image) {
+                        padding-right: 0;
+                    }
+
+                    md-input-container {
+                        @media(max-width: 600px) {
+                            padding-right: 0;
+                        }
+                    }
+                }
+                // }
                 .md-resize-wrapper {
                     min-height: @mobileCardHeight;
                     .displayFlex;
                     .align-items(center);
                     flex-direction: column;
                     height: 100%;
-                    padding: 0 0 5px 3px;
+                    padding: 6px 10px 8px 10px;
 
                     @media(min-width: 600px) {
-                        min-height: @cardHeight - 5px;
+                        min-height: @cardHeight - 2px;
                     }
 
                     textarea {
                         border: none;
                         flex: 1;
+                        padding: 0;
+                    }
+                }
+
+                .has-image .image-container {
+                    @media(max-width: 600px) {
+                        top: 0;
+                        left: 0;
+                        overflow: visible;
                     }
                 }
 
@@ -236,13 +295,16 @@
                     position: absolute;
                     top: 0;
                     right: 0;
-                    margin: 5px;
-                    width: 50px;
-                    height: 50px;
+                    margin: 2px;
+                    width: @cardHeight - 4px;
+                    height: @cardHeight - 4px;
                     overflow: hidden;
+                    .displayFlex;
+                    .align-items(center);
+                    .justifyContet(center);
 
                     @media(max-width: 600px) {
-                        bottom: 0;
+                        top: 0;
                         top: initial;
                         left: 0;
                     }
@@ -257,8 +319,8 @@
 
                     img {
                         object-fit: cover;
-                        width: 100%;
-                        height: 100%;
+                        max-width: 100%;
+                        max-height: 100%;
                     }
 
                     &:hover {
@@ -271,8 +333,13 @@
                         }
                     }
 
+                    @media(min-width: 600px) {
+                        .remove-img {
+                            display: none;
+                        }
+                    }
+
                     .remove-img {
-                        display: none;
                         position: absolute;
                         right: 0;
                         top: 0;
@@ -281,10 +348,15 @@
                         padding: 6px;
                         z-index: 1;
 
+                        @media(max-width: 600px) {
+                            right: -22px;
+                        }
+
                         md-icon {
                             margin: 0;
                             width: 10px;
                             height: 10px;
+                            fill: @borderColorBottomGrey;
                         }
                     }
                 }
@@ -302,7 +374,6 @@
                     right: 36px;
                     overflow: hidden;
                     .transition(left, 0.2s, ease);
-                    background: @backgroundCalmGrey;
                 }
 
                 &.active {
@@ -322,7 +393,7 @@
                         .displayFlex;
                         .align-items(stretch);
                         .justifyContet(flex-end);
-                        background: @backgroundCalmGrey;
+                        background: rgba(238,238,238,0.9);
                         height: 100%;
                         padding: 0 10px;
                     }
@@ -419,9 +490,9 @@
 
         .add-card div {
             background: @backgroundCalmGrey;
-            height: @mobileCardHeight;
-            line-height: @mobileCardHeight;
-            padding-left: 10px;
+            height: @mobileCardHeight + 4;
+            line-height: @mobileCardHeight + 4;
+            padding-left: 18px;
             border: 1px solid #b7b7b7;
 
             @media(min-width: 600px) {
@@ -432,21 +503,16 @@
             md-icon {
                 width: 19px;
                 height: 19px;
-                fill: @svgColorGrey;
+                fill: @borderColorBottomGrey;
 
                 @media(max-width: 600px) {
                     width: 14px;
                     height: 14px;
                 }
             }
-        }
 
-
-        .card-container, .add-card {
-            margin: 8px 0;
-
-            @media(min-width: 600px) {
-                margin: 14px 0;
+            &.back {
+                border-left: none;
             }
         }
     }

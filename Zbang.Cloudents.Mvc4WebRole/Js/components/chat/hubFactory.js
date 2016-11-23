@@ -183,7 +183,15 @@ var app;
             this.hub.invoke('send', userId, message, conversationId, blob);
         };
         RealTimeFactory.prototype.changeUniversity = function () {
-            this.hub.invoke('changeUniversity');
+            var _this = this;
+            if (this.canSend) {
+                this.hub.invoke('changeUniversity');
+            }
+            else {
+                this.commands.push(function () {
+                    _this.changeUniversity.apply(_this);
+                });
+            }
         };
         ;
         RealTimeFactory.$inject = ["Hub", "$rootScope", "ajaxService2"];

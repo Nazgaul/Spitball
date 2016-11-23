@@ -1,109 +1,100 @@
-﻿(function () {
+var app;
+(function (app) {
     'use strict';
-    angular.module('app.item').service('itemService', library);
-    library.$inject = ['ajaxService2'];
-
-    function library(ajaxservice) {
-        var d = this;
-
-        d.getDetails = function (boxId, itemId, firstTime) {
-            return ajaxservice.get('/item/load/', { boxId: boxId, itemId: itemId, firstTime: firstTime });
+    var ItemService = (function () {
+        function ItemService(ajaxService2) {
+            this.ajaxService2 = ajaxService2;
+        }
+        ItemService.prototype.getDetails = function (boxId, itemId, firstTime) {
+            return this.ajaxService2.get('/item/load/', { boxId: boxId, itemId: itemId, firstTime: firstTime });
         };
-       
-        d.getPreview = function (blobName, index, itemId, boxId) {
-            return ajaxservice.get('/item/preview/', {
+        ;
+        ItemService.prototype.getPreview = function (blobName, index, itemId, boxId) {
+            return this.ajaxService2.get('/item/preview/', {
                 blobName: blobName,
                 index: index,
                 id: itemId,
                 boxId: boxId
             });
         };
-
-
-        d.addLink = function (url, boxid, tabid, question, name) {
-            return ajaxservice.post('/upload/link', {
+        ;
+        ItemService.prototype.addLink = function (url, boxid, tabid, question, name) {
+            return this.ajaxService2.post('/upload/link', {
                 url: url,
                 boxid: boxid,
                 tabid: tabid,
                 question: question,
                 name: name
             });
-        }
-        d.addFromDropBox = function (boxId, tabid, url, name, question) {
-            return ajaxservice.post('/upload/dropbox/', {
+        };
+        ItemService.prototype.addFromDropBox = function (boxId, tabid, url, name, question) {
+            return this.ajaxService2.post('/upload/dropbox/', {
                 boxId: boxId,
                 tabId: tabid,
                 url: url,
                 name: name,
                 question: question
             });
-        }
-
-        d.renameItem = function (name, id) {
-            return ajaxservice.post('/item/rename', {
+        };
+        ItemService.prototype.renameItem = function (name, id) {
+            return this.ajaxService2.post('/item/rename', {
                 id: id,
                 newName: name
-            }).then(function (response) {
-                return { name: response.name, url: response.url }
-            });
-        }
-
-        d.getComments = function (boxId, itemId) {
-            return ajaxservice.get('/item/comment',
-            {
+            })
+                .then(function (response) { return ({ name: response["name"], url: response["url"] }); });
+        };
+        ItemService.prototype.getComments = function (boxId, itemId) {
+            return this.ajaxService2.get('/item/comment', {
                 boxId: boxId,
                 itemId: itemId
             }, 'itemComment');
-        }
-
-        d.addComment = function (comment, boxId, id) {
-            return ajaxservice.post('/item/addcomment', {
+        };
+        ItemService.prototype.addComment = function (comment, boxId, id) {
+            return this.ajaxService2.post('/item/addcomment', {
                 itemId: id,
                 boxId: boxId,
                 comment: comment
-            }, 'itemComment');
-        }
-
-        d.replycomment = function (reply, itemId, boxid, commentId) {
-            return ajaxservice.post('/item/replycomment', {
+            }, ['itemComment', "boxData"]);
+        };
+        ItemService.prototype.replycomment = function (reply, itemId, boxid, commentId) {
+            return this.ajaxService2.post('/item/replycomment', {
                 comment: reply,
                 itemid: itemId,
                 commentid: commentId,
                 boxid: boxid
-            }, 'itemComment');
-        }
-
-        d.deleteReply = function (replyId, itemId) {
-            return ajaxservice.post('/item/deletecommentreply', {
+            }, ['itemComment', "boxData"]);
+        };
+        ItemService.prototype.deleteReply = function (replyId, itemId) {
+            return this.ajaxService2.post('/item/deletecommentreply', {
                 ReplyId: replyId,
                 itemid: itemId
             }, 'itemComment');
-        }
-
-        d.deleteComment = function (commentId, itemId) {
-            return ajaxservice.post('/item/deletecomment', {
+        };
+        ItemService.prototype.deleteComment = function (commentId, itemId) {
+            return this.ajaxService2.post('/item/deletecomment', {
                 CommentId: commentId,
                 itemid: itemId
             }, 'itemComment');
-        }
-
-        //no need to wipe cache
-        d.like = function (id, boxId) {
-            return ajaxservice.post('/item/like', {
+        };
+        ItemService.prototype.like = function (id, boxId) {
+            return this.ajaxService2.post('/item/like', {
                 itemId: id,
                 boxId: boxId
-            });
+            }, "boxData");
         };
-
-
-
-        d.flag = function (badItem, other, itemId) {
-            return ajaxservice.post('/item/flagrequest/', {
+        ;
+        ItemService.prototype.followbox = function () {
+            this.ajaxService2.deleteCacheCategory("boxData");
+        };
+        ItemService.prototype.flag = function (badItem, other, itemId) {
+            return this.ajaxService2.post('/item/flagrequest/', {
                 badItem: badItem,
                 other: other,
                 itemId: itemId
             });
-        }
-
-    }
-})();
+        };
+        ItemService.$inject = ['ajaxService2'];
+        return ItemService;
+    }());
+    angular.module('app.item').service('itemService', ItemService);
+})(app || (app = {}));

@@ -22,36 +22,21 @@
         like: Guid;
         userId: number;
         ownerName: string;
-
-        //deserialize(input: FlashCard) {
-        //    this.cards = [];
-        //    this.id = input.id;
-        //    this.name = input.name;
-        //    for (let i = 0; i < input.cards.length; i++) {
-        //        this.cards.push(new Card().deserialize(input.cards[i]));
-        //    }
-        //    if (!this.cards.length) {
-        //        this.cards.push(new Card(), new Card(), new Card(), new Card(), new Card());
-        //    }
-        //    return this;
-        //}
-
-
-
     }
-    class Card {
+    class Card  {
         front = new CardSlide();
         cover = new CardSlide();
         index: number;
         pin: boolean;
-        //deserialize(input: Card) {
-        //    this.front = new CardSlide().deserialize(input.front);
-        //    this.cover = new CardSlide().deserialize(input.cover);
-        //    return this;
-        //}
+        style: boolean = true;
+    }
+    class CardSlide {
+        text: string;
+        image: string;
+
     }
     export class FlashcardController {
-        static $inject = ["flashcard", "flashcardService", "$stateParams", "user", "$state"];
+        static $inject = ["flashcard", "flashcardService", "$stateParams", "user", "$state","$mdMedia"];
         cards: Array<Card>;
         flashcard: Flashcard;
         shuffle: boolean;
@@ -60,25 +45,36 @@
         //slide: Card;
         disabled = false;
         styleLegend = true;
-        style = true;
+        //style = true;
         backUrl;
+        notMobile: boolean;
 
         pinCount = 0;
         constructor(flashcard: Flashcard,
             private flashcardService: IFlashcardService,
             private $stateParams: angular.ui.IStateParamsService,
             private user: IUserData,
-            private $state: angular.ui.IStateService) {
+            private $state: angular.ui.IStateService,
+            private $mdMedia: angular.material.IMedia) {
             angular.forEach(flashcard.cards,
                 (v, k) => {
-                    if (flashcard.pins.indexOf(k) !== -1) {
+                    if (flashcard.pins && flashcard.pins.indexOf(k) !== -1) {
                         v.pin = true;
                     }
                     v.index = k;
+                    if (!v.front.text && !v.front.image) {
+                        v.front.text = "...";
+                    }
+                    if (!v.cover.text && !v.cover.image) {
+                        v.cover.text = "...";
+                    }
+                    v.style = true;
 
                 });
+            this.notMobile = $mdMedia("gt-xs");
             this.flashcard = flashcard;
-            this.pinCount = flashcard.pins.length;
+            flashcard.pins = flashcard.pins || [];
+            this.pinCount =  flashcard.pins.length;
             this.backUrl = $state.href("box.flashcards", angular.extend({}, $stateParams, { boxtype: "course" }));
         }
 
@@ -90,6 +86,7 @@
             if (this.shuffle) {
                 shuffle(this.cards);
             }
+            this.flashcardService.solve(this.$stateParams["id"]);
             this.slidepos = 0;
             // this.slide = this.cards[this.slidepos];
             this.step = Steps.Memo;
@@ -101,8 +98,6 @@
         prev() {
             this.slidepos = Math.max(0, --this.slidepos);
             this.step = Steps.Memo;
-            this.style = this.styleLegend;
-            //this.slide = this.fc[this.slidepos];
         }
         next() {
             this.slidepos = Math.min(this.cards.length, ++this.slidepos);
@@ -110,24 +105,27 @@
                 this.step = Steps.End;
                 return;
             }
-            this.style = this.styleLegend;
-            //this.slide = this.fc[this.slidepos];
         }
-        flip() {
-            if (this.style !== null) {
-                this.style = !this.style;
+        changeLegend(legend?: boolean) {
+            this.styleLegend = legend;
+            angular.forEach(this.cards,
+                (c => {
+                    c.style = this.styleLegend;
+                }));
+        }
+        flip(slide) {
+            if (typeof (slide.style) === "boolean") {
+                slide.style = !slide.style;
             }
-        }
-        changeStyle(s) {
-            this.style = this.styleLegend = s;
+
         }
         pin(slide: Card) {
-            //const index = this.flashcard.cards.indexOf(this.slide);
-            //console.log(this.slide, index);
             slide.pin = !slide.pin;
             if (slide.pin) {
+                this.pinCount++;
                 this.flashcardService.pin(this.$stateParams["id"], slide.index);
             } else {
+                this.pinCount--;
                 this.flashcardService.pinDelete(this.$stateParams["id"], slide.index);
             }
         }

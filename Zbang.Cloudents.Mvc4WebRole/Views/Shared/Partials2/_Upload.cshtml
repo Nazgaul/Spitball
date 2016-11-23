@@ -7,7 +7,6 @@
 <script defer type="text/ng-template" id="file-upload.html">
     <span class="check-mark" ng-if="file.complete">
         <md-icon md-svg-icon="u:checkMark"></md-icon>
-        @*@Html.Svg(url, "checkMark")*@
     </span>
     <span class="check-mark error" ng-if="file.error"><md-icon md-svg-icon="t:close"></md-icon>@*@Html.Svg("~/images/site/icons.svg", "close")*@</span>
     <div class="file" layout="column" layout-align="space-between center">

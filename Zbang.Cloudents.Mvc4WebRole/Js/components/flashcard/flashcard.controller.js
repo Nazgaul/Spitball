@@ -24,30 +24,45 @@ var app;
     }());
     var Card = (function () {
         function Card() {
-            this.front = new app.CardSlide();
-            this.cover = new app.CardSlide();
+            this.front = new CardSlide();
+            this.cover = new CardSlide();
+            this.style = true;
         }
         return Card;
     }());
+    var CardSlide = (function () {
+        function CardSlide() {
+        }
+        return CardSlide;
+    }());
     var FlashcardController = (function () {
-        function FlashcardController(flashcard, flashcardService, $stateParams, user, $state) {
+        function FlashcardController(flashcard, flashcardService, $stateParams, user, $state, $mdMedia) {
             this.flashcardService = flashcardService;
             this.$stateParams = $stateParams;
             this.user = user;
             this.$state = $state;
+            this.$mdMedia = $mdMedia;
             this.step = Steps.Start;
             this.slidepos = 0;
             this.disabled = false;
             this.styleLegend = true;
-            this.style = true;
             this.pinCount = 0;
             angular.forEach(flashcard.cards, function (v, k) {
-                if (flashcard.pins.indexOf(k) !== -1) {
+                if (flashcard.pins && flashcard.pins.indexOf(k) !== -1) {
                     v.pin = true;
                 }
                 v.index = k;
+                if (!v.front.text && !v.front.image) {
+                    v.front.text = "...";
+                }
+                if (!v.cover.text && !v.cover.image) {
+                    v.cover.text = "...";
+                }
+                v.style = true;
             });
+            this.notMobile = $mdMedia("gt-xs");
             this.flashcard = flashcard;
+            flashcard.pins = flashcard.pins || [];
             this.pinCount = flashcard.pins.length;
             this.backUrl = $state.href("box.flashcards", angular.extend({}, $stateParams, { boxtype: "course" }));
         }
@@ -59,6 +74,7 @@ var app;
             if (this.shuffle) {
                 shuffle(this.cards);
             }
+            this.flashcardService.solve(this.$stateParams["id"]);
             this.slidepos = 0;
             this.step = Steps.Memo;
         };
@@ -69,7 +85,6 @@ var app;
         FlashcardController.prototype.prev = function () {
             this.slidepos = Math.max(0, --this.slidepos);
             this.step = Steps.Memo;
-            this.style = this.styleLegend;
         };
         FlashcardController.prototype.next = function () {
             this.slidepos = Math.min(this.cards.length, ++this.slidepos);
@@ -77,22 +92,27 @@ var app;
                 this.step = Steps.End;
                 return;
             }
-            this.style = this.styleLegend;
         };
-        FlashcardController.prototype.flip = function () {
-            if (this.style !== null) {
-                this.style = !this.style;
+        FlashcardController.prototype.changeLegend = function (legend) {
+            var _this = this;
+            this.styleLegend = legend;
+            angular.forEach(this.cards, (function (c) {
+                c.style = _this.styleLegend;
+            }));
+        };
+        FlashcardController.prototype.flip = function (slide) {
+            if (typeof (slide.style) === "boolean") {
+                slide.style = !slide.style;
             }
-        };
-        FlashcardController.prototype.changeStyle = function (s) {
-            this.style = this.styleLegend = s;
         };
         FlashcardController.prototype.pin = function (slide) {
             slide.pin = !slide.pin;
             if (slide.pin) {
+                this.pinCount++;
                 this.flashcardService.pin(this.$stateParams["id"], slide.index);
             }
             else {
+                this.pinCount--;
                 this.flashcardService.pinDelete(this.$stateParams["id"], slide.index);
             }
         };
@@ -109,7 +129,7 @@ var app;
         FlashcardController.prototype.canLike = function () {
             return this.user.id !== this.flashcard.userId;
         };
-        FlashcardController.$inject = ["flashcard", "flashcardService", "$stateParams", "user", "$state"];
+        FlashcardController.$inject = ["flashcard", "flashcardService", "$stateParams", "user", "$state", "$mdMedia"];
         return FlashcardController;
     }());
     app.FlashcardController = FlashcardController;

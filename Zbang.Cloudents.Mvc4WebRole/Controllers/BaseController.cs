@@ -152,6 +152,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             return base.RedirectToRoutePermanent(routeName, routeValues);
         }
+        
 
         protected override void Initialize(RequestContext requestContext)
         {

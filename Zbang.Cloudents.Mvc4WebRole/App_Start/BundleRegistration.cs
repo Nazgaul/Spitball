@@ -156,7 +156,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/bower_components/angular-vs-repeat/src/angular-vs-repeat.js"),
                         new JsFileWithCdn("~/Scripts/angular-animate.js"),
                         new JsFileWithCdn("~/Scripts/angular-aria.js"),
-                        new JsFileWithCdn("~/Scripts/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js"),
+                        // on version 1.1.1 there is a bug with md-tabs. fix that locally. until upgrade we dont use google cdn
+                        new JsFileWithCdn("~/Scripts/angular-material/angular-material.js"),//, "https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js"),
 
                         new JsFileWithCdn("~/scripts/angular-srph-infinite-scroll.js"),
 
@@ -173,15 +174,16 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         //new JsFileWithCdn("~/scripts/svg4everybodyAngular.js"),
                          //TODO: move to oclazy in user
                         new JsFileWithCdn("~/scripts/angular-countUp.js"),
+                        new JsFileWithCdn("~/scripts/angular-google-adsense.js"),
 
-                        new JsFileWithCdn("~/scripts/angular-dfp.js"),
+                       // new JsFileWithCdn("~/scripts/angular-dfp.js"),
 
                         new JsFileWithCdn("~/bower_components/angular-timeago/dist/angular-timeago.min.js"),
                         new JsFileWithCdn("~/js/polyfills.js"),
 
                         new JsFileWithCdn("~/js/app.js"),
                         new JsFileWithCdn("~/js/app.config.js"),
-                        new JsFileWithCdn("~/js/doubleclick.config.js"),
+                        //new JsFileWithCdn("~/js/doubleclick.config.js"),
                         new JsFileWithCdn("~/js/shared/languageHandler.js"),
                         new JsFileWithCdn("~/js/routerHelperProvider.js"),
                         new JsFileWithCdn("~/js/app.route.js"),
@@ -287,6 +289,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/flashcard/interaction.directive.js"),
                         new JsFileWithCdn("~/js/components/flashcard/fitText.directive.js"),
                         new JsFileWithCdn("~/js/components/flashcard/cardScroll.directive.js"),
+                        new JsFileWithCdn("~/js/components/flashcard/cardAnimation.directive.js"),
                        
 
                         new JsFileWithCdn("~/js/components/app.controller.js"),
@@ -327,7 +330,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/scrollToTop.directive.js"),
                         new JsFileWithCdn("~/js/shared/collapseHeader.directive.js"),
                         new JsFileWithCdn("~/js/shared/keyboardAction.directive.js"),
-                        new JsFileWithCdn("~/js/shared/menuAd.directive.js"),
+                        //new JsFileWithCdn("~/js/shared/menuAd.directive.js"),
                         new JsFileWithCdn("~/js/shared/cartAnimation.directive.js"),
 
 

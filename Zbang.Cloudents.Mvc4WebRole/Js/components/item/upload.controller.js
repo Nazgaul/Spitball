@@ -19,24 +19,26 @@
             dropbox: 3,
             link: 4
         };
+        externalUploadProvider.dropboxInit().then(function () {
+            u.dropBoxLoaded = true;
+        });
+        externalUploadProvider.googleDriveInit().then(function () {
+            u.googleDriveLoaded = true;
+        });
+        scrollToUpload();
 
         $scope.$on('open_upload', function () {
             tab = $stateParams.tabId;
             boxid = $stateParams.boxId;
-            
-            $anchorScroll.yOffset = 100;
+            scrollToUpload();
+        });
+
+        function scrollToUpload() {
+            $anchorScroll.yOffset = 65;
             $timeout(function () {
                 $anchorScroll('upload');
             });
-           // u.open = true;
-
-            externalUploadProvider.dropboxInit().then(function () {
-                u.dropBoxLoaded = true;
-            });
-            externalUploadProvider.googleDriveInit().then(function () {
-                u.googleDriveLoaded = true;
-            });
-        });
+        }
 
         $scope.$on('close-collapse', function () {
             closeUpload();
