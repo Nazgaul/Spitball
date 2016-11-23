@@ -36,7 +36,7 @@
 
     }
     export class FlashcardController {
-        static $inject = ["flashcard", "flashcardService", "$stateParams", "user", "$state", "$mdMedia"];
+        static $inject = ["flashcard", "flashcardService", "$stateParams", "user", "$state", "$mdMedia", "$scope"];
         cards: Array<Card>;
         flashcard: Flashcard;
         shuffle: boolean;
@@ -56,7 +56,8 @@
             private $stateParams: angular.ui.IStateParamsService,
             private user: IUserData,
             private $state: angular.ui.IStateService,
-            private $mdMedia: angular.material.IMedia) {
+            private $mdMedia: angular.material.IMedia,
+            private $scope: angular.IScope) {
             angular.forEach(flashcard.cards,
                 (v, k) => {
                     if (flashcard.pins && flashcard.pins.indexOf(k) !== -1) {
@@ -127,6 +128,7 @@
             if (this.flipped) {
                 this.flip(this.cards[this.slidepos]);
             }
+            this.$scope.$digest();
         }
         pin(slide: Card) {
             slide.pin = !slide.pin;

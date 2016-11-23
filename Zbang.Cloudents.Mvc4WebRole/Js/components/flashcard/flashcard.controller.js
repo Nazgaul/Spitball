@@ -36,12 +36,13 @@ var app;
         return CardSlide;
     }());
     var FlashcardController = (function () {
-        function FlashcardController(flashcard, flashcardService, $stateParams, user, $state, $mdMedia) {
+        function FlashcardController(flashcard, flashcardService, $stateParams, user, $state, $mdMedia, $scope) {
             this.flashcardService = flashcardService;
             this.$stateParams = $stateParams;
             this.user = user;
             this.$state = $state;
             this.$mdMedia = $mdMedia;
+            this.$scope = $scope;
             this.step = Steps.Start;
             this.slidepos = 0;
             this.disabled = false;
@@ -113,6 +114,7 @@ var app;
             if (this.flipped) {
                 this.flip(this.cards[this.slidepos]);
             }
+            this.$scope.$digest();
         };
         FlashcardController.prototype.pin = function (slide) {
             slide.pin = !slide.pin;
@@ -141,7 +143,7 @@ var app;
         FlashcardController.prototype.canLike = function () {
             return this.user.id !== this.flashcard.userId;
         };
-        FlashcardController.$inject = ["flashcard", "flashcardService", "$stateParams", "user", "$state", "$mdMedia"];
+        FlashcardController.$inject = ["flashcard", "flashcardService", "$stateParams", "user", "$state", "$mdMedia", "$scope"];
         return FlashcardController;
     }());
     app.FlashcardController = FlashcardController;
