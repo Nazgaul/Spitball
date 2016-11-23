@@ -345,7 +345,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ZboxWriteService.AddFlashcardLike(command);
             return JsonOk(command.Id);
         }
-        [HttpDelete, ZboxAuthorize, ActionName("like")]
+        [HttpDelete, ZboxAuthorize, ActionName("unlike")]
         public JsonResult DeleteLike(Guid id)
         {
             var command = new DeleteFlashcardLikeCommand(User.GetUserId(), id);
