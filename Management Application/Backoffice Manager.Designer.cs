@@ -152,7 +152,6 @@
             this.buttonAddComment = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.quizResult = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
             this.quizBoxID = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
@@ -163,6 +162,8 @@
             this.openFileDialogReplaceItem = new System.Windows.Forms.OpenFileDialog();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.eventLog1 = new System.Diagnostics.EventLog();
+            this.label27 = new System.Windows.Forms.Label();
+            this.quizUserID = new System.Windows.Forms.TextBox();
             label15 = new System.Windows.Forms.Label();
             label16 = new System.Windows.Forms.Label();
             label18 = new System.Windows.Forms.Label();
@@ -1476,8 +1477,9 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.quizUserID);
+            this.tabPage2.Controls.Add(this.label27);
             this.tabPage2.Controls.Add(this.quizResult);
-            this.tabPage2.Controls.Add(this.label26);
             this.tabPage2.Controls.Add(this.quizBoxID);
             this.tabPage2.Controls.Add(this.label25);
             this.tabPage2.Controls.Add(this.label24);
@@ -1496,37 +1498,29 @@
             // quizResult
             // 
             this.quizResult.AutoSize = true;
-            this.quizResult.Location = new System.Drawing.Point(53, 236);
+            this.quizResult.Location = new System.Drawing.Point(53, 366);
             this.quizResult.Name = "quizResult";
             this.quizResult.Size = new System.Drawing.Size(52, 16);
             this.quizResult.TabIndex = 8;
             this.quizResult.Text = "label27";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(50, 206);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(46, 16);
-            this.label26.TabIndex = 7;
-            this.label26.Text = "Result";
+            this.quizResult.Visible = false;
             // 
             // quizBoxID
             // 
-            this.quizBoxID.Location = new System.Drawing.Point(822, 112);
+            this.quizBoxID.Location = new System.Drawing.Point(559, 187);
             this.quizBoxID.Name = "quizBoxID";
-            this.quizBoxID.Size = new System.Drawing.Size(189, 22);
+            this.quizBoxID.Size = new System.Drawing.Size(431, 22);
             this.quizBoxID.TabIndex = 6;
             // 
             // label25
             // 
             this.label25.AutoSize = true;
             this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(819, 86);
+            this.label25.Location = new System.Drawing.Point(556, 158);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(61, 16);
+            this.label25.Size = new System.Drawing.Size(172, 16);
             this.label25.TabIndex = 5;
-            this.label25.Text = "Box ID :";
+            this.label25.Text = "Box IDS(seperate by ;) :";
             // 
             // label24
             // 
@@ -1547,7 +1541,7 @@
             // 
             // buttonImportQuiz
             // 
-            this.buttonImportQuiz.Location = new System.Drawing.Point(205, 150);
+            this.buttonImportQuiz.Location = new System.Drawing.Point(56, 315);
             this.buttonImportQuiz.Name = "buttonImportQuiz";
             this.buttonImportQuiz.Size = new System.Drawing.Size(75, 23);
             this.buttonImportQuiz.TabIndex = 2;
@@ -1576,6 +1570,27 @@
             // 
             this.openFileDialogReplaceItem.FileName = "openFileDialog1";
             this.openFileDialogReplaceItem.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogReplaceItem_FileOk);
+            // 
+            // eventLog1
+            // 
+            this.eventLog1.SynchronizingObject = this;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(556, 228);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(72, 16);
+            this.label27.TabIndex = 9;
+            this.label27.Text = "User ID : ";
+            // 
+            // quizUserID
+            // 
+            this.quizUserID.Location = new System.Drawing.Point(559, 259);
+            this.quizUserID.Name = "quizUserID";
+            this.quizUserID.Size = new System.Drawing.Size(149, 22);
+            this.quizUserID.TabIndex = 10;
             // 
             // Form1
             // 
@@ -1752,9 +1767,10 @@
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.TextBox quizName;
         private System.Windows.Forms.Label quizResult;
-        private System.Windows.Forms.Label label26;
         private System.Windows.Forms.FontDialog fontDialog1;
         private System.Diagnostics.EventLog eventLog1;
+        private System.Windows.Forms.TextBox quizUserID;
+        private System.Windows.Forms.Label label27;
     }
 }
 
