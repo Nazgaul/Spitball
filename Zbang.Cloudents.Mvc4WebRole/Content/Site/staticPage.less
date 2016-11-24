@@ -284,7 +284,7 @@ iframe {
                     position: relative;
 
                     @media(min-width: @staticPageBreakPoint) {
-                        padding-left: ~"calc(100% - 635px)";
+                        padding-left: ~"calc(100% - 725px)";
                         min-width: 75px;
                     }
 
@@ -1497,8 +1497,279 @@ iframe {
     }
 }
 
+.promo-page, .homePage {
+    .home-page-body {
+        background-attachment: scroll;
+        background-repeat: no-repeat;
 
-.features-page {
+        .page-content {
+            max-width: 100%;
+            padding: 0;
+        }
+
+        section {
+            &.main {
+                position: relative;
+                text-align: center;
+                padding-bottom: 200px;
+                margin-top: @heightOfstaticPageHeader;
+                background: linear-gradient(to top, #000 -20px, transparent 200px, transparent 100%);
+                padding: 0;
+                overflow: visible;
+
+                #main-wrapper {
+                    padding: 296px 0 40px 0;
+                    overflow: visible;
+                    position: relative;
+
+                    @media(max-width: 600px) {
+                        padding: 50px 0 40px 0;
+                    }
+                }
+
+                .welcome-text {
+                    position: relative;
+                    text-align: center;
+                    //margin: 400px auto 0 auto;
+                    padding: 0 10px;
+                    -moz-box-sizing: border-box;
+                    -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
+                    color: @textColorWhite;
+                    display: inline-block;
+                    max-width: 800px;
+                    position: relative;
+
+                    .uni-logo-wrapper {
+                        @media(max-width: 960px) {
+                            display: none;
+                        }
+                    }
+
+                    .sb-logo {
+                        left: -210px;
+                        bottom: -40px;
+                        bottom: -80px;
+                        z-index: 1;
+                        width: 200px;
+                        height: 200px;
+                        position: absolute;
+                        background-color: #383838;
+                        background-size: cover;
+                        border: 5px solid @textColorWhite;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+                    }
+
+
+                    @media(max-width: 960px) {
+                        width: 100% !important;
+                        padding: 0 10px;
+                    }
+
+                    > h1 {
+                        text-shadow: 2px 2px 4px @textColorBlack;
+                        font-weight: bold;
+                        width: 100%; //rtl:520px
+                        margin: 14px auto;
+                        text-transform: capitalize;
+                        display: inline-block;
+                        font-size: 50px;
+
+                        @media(max-width: 1200px) {
+                            font-size: 4vw;
+                        }
+
+                        @media(max-width: 960px) {
+                            font-size: 5.3vw;
+                        }
+
+                        @media(max-width: 600px) {
+                            font-size: 6vw;
+                        }
+                    }
+                }
+
+
+                @media(min-width: 960px) {
+                    .statistics, .welcome-text {
+                        width: ~"calc(100% - 430px)";
+                    }
+                }
+            }
+
+            &.intro, &.signup-area {
+                .login-option {
+                    border: none;
+                    padding: 8px;
+                    border-radius: 16px;
+                    width: 200px;
+                    color: @textColorWhite;
+                    text-decoration: none;
+                    margin-bottom: 20px;
+                    font-size: 18px;
+                    line-height: 25px;
+                    cursor: pointer;
+
+                    &.signup {
+                        font-size: 26px;
+                        padding: 14px 28px;
+                        font-weight: bold;
+                        margin: 0 auto;
+                        display: block;
+                        width: auto;
+                    }
+                }
+            }
+        }
+
+        > section, footer {
+            overflow: auto;
+            padding: 50px 5%;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+
+            @media(max-width: 600px) {
+                padding: 30px 5%;
+            }
+        }
+    }
+}
+
+.promo-page {
+    color: @textColorBlack;
+
+    .page-content {
+        min-height: 0;
+        height: 100%;
+    }
+
+    .intro {
+        .text h2 {
+            font-size: 38px;
+            margin: 0 0 40px 0;
+        }
+
+        .description > div {
+            margin-left: 50px;
+            position: relative;
+            font-size: 22px;
+            margin-bottom: 15px;
+
+
+            &:before {
+                content: '\2022';
+                position: absolute;
+                left: -20px;
+                font-size: 40px;
+                line-height: 36px;
+            }
+
+            &:not(:last-child) {
+                width: ~"calc(50% - 100px)";
+                display: inline-block;
+            }
+        }
+    }
+
+    .prizes {
+        color: @textColorWhite;
+
+        h1 {
+        }
+
+        .prize-list {
+            .displayFlex;
+            .align-items(center);
+            .justifyContet(space-between);
+            max-width: 1000px;
+            margin: 0 auto;
+
+            .prize {
+                width: 30%;
+
+                .place {
+                    font-size: 26px;
+                    font-weight: bold;
+                    text-align: center;
+
+                    sup {
+                        font-weight: normal;
+                        font-size: 50%;
+                        top: -0.8em;
+                    }
+                }
+
+                svg {
+                    width: 100%;
+                }
+
+                &:nth-child(1) svg {
+                    fill: #AAA7A7;
+                }
+
+                &:nth-child(2) svg {
+                    fill: #C6A21B;
+                }
+
+                &:nth-child(3) svg {
+                    fill: #CD7F32;
+                }
+            }
+        }
+
+        .text p {
+            font-size: 20px;
+            max-width: 450px;
+            margin: 0 auto 20px auto;
+        }
+    }
+
+
+    .intro, .prizes {
+
+        .text {
+            text-align: center;
+
+            h1 {
+                font-weight: bold;
+                font-size: 48px;
+            }
+        }
+    }
+
+    .rules {
+        background: @textColorWhite;
+
+        h1 {
+            padding-left: 70px;
+            margin-bottom: 40px;
+        }
+
+        ul {
+            padding: 0;
+
+            li {
+                .displayInlineFlex;
+                .align-items(flex-start);
+                .justifyContet(flex-start);
+                max-width: 46%;
+
+                .rule {
+                    margin: 10px;
+                    font-size: 20px;
+                }
+
+                .icon {
+                    width: 60px;
+                    height: 60px;
+                    border: 1px solid black;
+                    border-radius: 100%;
+                    flex-shrink: 0;
+                }
+            }
+        }
+    }
 }
 
 .boxes {
@@ -1747,7 +2018,6 @@ iframe {
         }
     }
 }
-
 /*#region cssCheck*/
 #cssCheck {
     position: absolute;

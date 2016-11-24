@@ -1,0 +1,120 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources
+@{
+    Layout = "~/Views/Shared/_LayoutStatic.cshtml";
+    const string iconsSvg = "~/images/site/icons.svg";
+}
+<style>
+    .intro {
+        background: #ffcb0b !important;
+    }
+
+
+    .login-option.signup {
+        background-color: #ffcb0b;
+    }
+
+    .main-signup, .prizes {
+        background-color: #002e62 !important;
+    }
+
+
+    .sb-logo {
+        background-image: url("https://zboxstorage.blob.core.windows.net/universities/171885.png");
+    }
+
+    .static-page-header {
+        background: rgba(0,46,98,.9) !important;
+    }
+
+    .signup-btn {
+        background: #ffcb0b !important;
+    }
+
+    .prizes .text p {
+        color: #ffcb0b !important;
+    }
+
+    .intro .text h1, .rules h1, .description > div:before {
+        color: #002e62;
+    }
+</style>
+
+<div class="static-page promo-page">
+    <div>
+        @* ReSharper disable once Mvc.PartialViewNotResolved *@
+        @{Html.RenderPartial("_StaticPageHeader");}
+        <div class="home-page-body">
+            <section class="main">
+                <div id="main-wrapper">
+                    <div class="welcome-text">
+                        <div class="uni-logo-wrapper">
+                            <div class="sb-logo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="intro">
+                <button type="button" class="login-option signup toggle main-signup" data-form-action="register">
+                    Sign Up, It's Free!
+                </button>
+                <div class="text">
+                    <h1>Flashcard Launch Contest</h1>
+                    <h2>November 28th - December 15th</h2>
+                </div>
+                <div class="description offset-bottom">
+                    <div>Create a flashcard set on Spitball for any class to study for finals.</div>
+                    <div>Share your study set to receive as many “likes” as you can.</div>
+                    <div>The top 3 students with the most “likes” on their flashcard set will win cash prizes of $500, $250 and $100!</div>
+                </div>
+            </section>
+            <section class="prizes">
+                <div class="text">
+                    <h1>Cash Prizes</h1>
+                    <p>Each winner will also receive a goodie bag of Spitball swag!</p>
+                </div>
+                <div class="prize-list">
+                    <div class="prize">
+                        <div class="place">2<sup>nd</sup></div>
+                        @Html.Svg(iconsSvg, "promo-2nd-place")
+                    </div>
+                    <div class="prize">
+                        <div class="place">1<sup>st</sup></div>
+                        @Html.Svg(iconsSvg, "promo-1st-place")
+                    </div>
+                    <div class="prize">
+                        <div class="place">3<sup>rd</sup></div>
+                        @Html.Svg(iconsSvg, "promo-3rd-place")
+                    </div>
+                </div>
+            </section>
+            <section class="rules">
+                <h1>Rules</h1>
+                <ul>
+                    <li>
+                        <div class="icon"></div>
+                        <div class="rule">You must be currently enrolled as a student at the University of Michigan</div>
+                    </li>
+                    <li>
+                        <div class="icon"></div>
+                        <div class="rule">The flashcard set must have a minimum of 10 likes to be considered a valid entry</div>
+                    </li>
+                    <li>
+                        <div class="icon"></div>
+                        <div class="rule">Flashcards must contain original content and cannot be duplicated from another site or source</div>
+                    </li>
+                    <li>
+                        <div class="icon"></div>
+                        <div class="rule">The contest will run until December 15, 2016, at which point the winners will be notified</div>
+                    </li>
+                </ul>
+            </section>
+            <section class="signup-area">
+                <button type="button" class="login-option signup toggle main-signup" data-form-action="register">
+                    Sign Up, It's Free!
+                </button>
+            </section>
+        </div>
+    </div>
+</div>
+@Html.Script2("jsHomePage")

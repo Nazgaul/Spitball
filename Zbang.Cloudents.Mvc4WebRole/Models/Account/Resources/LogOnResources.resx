@@ -129,4 +129,7 @@
   <data name="PwdAtLeast6Chars" xml:space="preserve">
     <value>Your password must be at least 6 characters</value>
   </data>
+  <data name="ConfirmPasswordComapre" xml:space="preserve">
+    <value>Passwords should match</value>
+  </data>
 </root>

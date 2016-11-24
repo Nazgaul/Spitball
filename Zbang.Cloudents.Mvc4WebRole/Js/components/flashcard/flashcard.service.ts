@@ -52,7 +52,7 @@
             return this.ajaxService2.post("/flashcard/like/", { id: id });
         }
         likeDelete(id: Guid) {
-            return this.ajaxService2.delete("/flashcard/like/", { id: id });
+            return this.ajaxService2.delete("/flashcard/unlike/", { id: id });
         }
         solve(id: number) {
             return this.ajaxService2.post("/flashcard/solve/", { id: id });

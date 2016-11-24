@@ -34,14 +34,31 @@
   display: none;
 }
 .homePage .home-page-body {
-  background-attachment: scroll;
-  background-repeat: no-repeat;
   z-index: 1;
   position: absolute;
   right: 0;
   top: 0;
   bottom: 0;
   left: 0;
+  /*background-attachment: scroll;
+        background-repeat: no-repeat;
+        z-index: 1;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;*/
+  /*> section, footer {
+            overflow: auto;
+            padding: 50px 5%;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+
+            @media(max-width: 600px) {
+                padding: 30px 5%;
+            }
+        }*/
   /*.hide-section {
             height: 0 !important;
             padding: 0 !important;
@@ -90,22 +107,29 @@
   width: 140px;
   font-weight: bold;
 }
-.homePage .home-page-body > section,
-.homePage .home-page-body footer {
-  overflow: auto;
-  padding: 50px 5%;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-@media (max-width: 600px) {
-  .homePage .home-page-body > section,
-  .homePage .home-page-body footer {
-    padding: 30px 5%;
-  }
-}
 .homePage .home-page-body section {
   position: relative;
+  /*&.intro .login-option {
+                border: none;
+                padding: 8px;
+                border-radius: 16px;
+                width: 200px;
+                color: @textColorWhite;
+                text-decoration: none;
+                margin-bottom: 20px;
+                font-size: 18px;
+                line-height: 25px;
+                cursor: pointer;
+
+                &.signup {
+                    font-size: 26px;
+                    padding: 14px 28px;
+                    font-weight: bold;
+                    margin: 0 auto;
+                    display: block;
+                    width: auto;
+                }
+            }*/
 }
 .homePage .home-page-body section .section-start {
   position: absolute;
@@ -117,105 +141,93 @@
   text-align: center;
   margin-top: 0;
 }
-.homePage .home-page-body section.intro .login-option {
-  border: none;
-  padding: 8px;
-  border-radius: 16px;
-  width: 200px;
-  color: #ffffff;
-  text-decoration: none;
-  margin-bottom: 20px;
-  font-size: 18px;
-  line-height: 25px;
-  cursor: pointer;
-}
-.homePage .home-page-body section.intro .login-option.signup {
-  font-size: 26px;
-  padding: 14px 28px;
-  font-weight: bold;
-  margin: 0 auto;
-  display: block;
-  width: auto;
-}
 .homePage .home-page-body section.main {
-  position: relative;
-  text-align: center;
-  padding-bottom: 200px;
-  margin-top: 60px;
-  background: linear-gradient(to top, #000 -20px, transparent 200px, transparent 100%);
-  padding: 0;
-  overflow: visible;
+  /*position: relative;
+                text-align: center;
+                padding-bottom: 200px;
+                margin-top: @heightOfstaticPageHeader;
+                background: linear-gradient(to top, #000 -20px, transparent 200px, transparent 100%);
+                padding: 0;
+                overflow: visible;
+
+                #main-wrapper {
+                    padding: 296px 0 40px 0;
+                    overflow: visible;
+                    position: relative;
+
+                    @media(max-width: 600px) {
+                        padding: 50px 0 40px 0;
+                    }
+                }
+
+                .welcome-text {
+                    position: relative;
+                    text-align: center;
+                    //margin: 400px auto 0 auto;
+                    padding: 0 10px;
+                    -moz-box-sizing: border-box;
+                    -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
+                    color: @textColorWhite;
+                    display: inline-block;
+                    max-width: 800px;
+                    position: relative;
+
+                    .uni-logo-wrapper {
+                        @media(max-width: 960px) {
+                            display: none;
+                        }
+                    }
+
+                    .sb-logo {
+                        left: -210px;
+                        bottom: -40px;
+                        bottom: -80px;
+                        z-index: 1;
+                        width: 200px;
+                        height: 200px;
+                        position: absolute;
+                        background-color: #383838;
+                        background-size: cover;
+                        border: 5px solid @textColorWhite;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+                    }
+
+
+                    @media(max-width: 960px) {
+                        width: 100% !important;
+                        padding: 0 10px;
+                    }
+
+                    > h1 {
+                        text-shadow: 2px 2px 4px @textColorBlack;
+                        font-weight: bold;
+                        width: 100%; //rtl:520px
+                        margin: 14px auto;
+                        text-transform: capitalize;
+                        display: inline-block;
+                        font-size: 50px;
+
+                        @media(max-width: 1200px) {
+                            font-size: 4vw;
+                        }
+
+                        @media(max-width: 960px) {
+                            font-size: 5.3vw;
+                        }
+
+                        @media(max-width: 600px) {
+                            font-size: 6vw;
+                        }
+                    }
+                }*/
   /*#region forms*/
   /*#endregion*/
-}
-.homePage .home-page-body section.main #main-wrapper {
-  padding: 296px 0 40px 0;
-  overflow: visible;
-  position: relative;
-}
-@media (max-width: 600px) {
-  .homePage .home-page-body section.main #main-wrapper {
-    padding: 50px 0 40px 0;
-  }
-}
-.homePage .home-page-body section.main .welcome-text {
-  text-align: center;
-  padding: 0 10px;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  color: #ffffff;
-  display: inline-block;
-  max-width: 800px;
-  position: relative;
-}
-@media (max-width: 960px) {
-  .homePage .home-page-body section.main .welcome-text .uni-logo-wrapper {
-    display: none;
-  }
-}
-.homePage .home-page-body section.main .welcome-text .sb-logo {
-  right: -210px;
-  bottom: -40px;
-  bottom: -80px;
-  z-index: 1;
-  width: 200px;
-  height: 200px;
-  position: absolute;
-  background-color: #383838;
-  background-size: cover;
-  border: 5px solid #ffffff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
-}
-@media (max-width: 960px) {
-  .homePage .home-page-body section.main .welcome-text {
-    width: 100% !important;
-    padding: 0 10px;
-  }
-}
-.homePage .home-page-body section.main .welcome-text > h1 {
-  text-shadow: -2px 2px 4px #212325;
-  font-weight: bold;
-  width: 100%;
-  margin: 14px auto;
-  text-transform: capitalize;
-  display: inline-block;
-  font-size: 50px;
-}
-@media (max-width: 1200px) {
-  .homePage .home-page-body section.main .welcome-text > h1 {
-    font-size: 4vw;
-  }
-}
-@media (max-width: 960px) {
-  .homePage .home-page-body section.main .welcome-text > h1 {
-    font-size: 5.3vw;
-  }
-}
-@media (max-width: 600px) {
-  .homePage .home-page-body section.main .welcome-text > h1 {
-    font-size: 6vw;
-  }
+  /*@media(min-width: 960px) {
+                    .statistics, .welcome-text {
+                        width: ~"calc(100% - 430px)";
+                    }
+                }*/
 }
 .homePage .home-page-body section.main .forms {
   -webkit-transition: max-height 0.5s;
@@ -651,12 +663,6 @@
 }
 .homePage .home-page-body section.main .statistics .statistic a:hover span {
   color: #4190B9;
-}
-@media (min-width: 960px) {
-  .homePage .home-page-body section.main .statistics,
-  .homePage .home-page-body section.main .welcome-text {
-    width: calc(100% - 430px);
-  }
 }
 .homePage .home-page-body section.intro {
   overflow: visible;

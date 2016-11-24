@@ -36,16 +36,18 @@ var app;
         return CardSlide;
     }());
     var FlashcardController = (function () {
-        function FlashcardController(flashcard, flashcardService, $stateParams, user, $state, $mdMedia) {
+        function FlashcardController(flashcard, flashcardService, $stateParams, user, $state, $mdMedia, $scope) {
             this.flashcardService = flashcardService;
             this.$stateParams = $stateParams;
             this.user = user;
             this.$state = $state;
             this.$mdMedia = $mdMedia;
+            this.$scope = $scope;
             this.step = Steps.Start;
             this.slidepos = 0;
             this.disabled = false;
             this.styleLegend = true;
+            this.flipped = false;
             this.pinCount = 0;
             angular.forEach(flashcard.cards, function (v, k) {
                 if (flashcard.pins && flashcard.pins.indexOf(k) !== -1) {
@@ -83,10 +85,12 @@ var app;
             this.goToStep2();
         };
         FlashcardController.prototype.prev = function () {
+            this.clearFlip();
             this.slidepos = Math.max(0, --this.slidepos);
             this.step = Steps.Memo;
         };
         FlashcardController.prototype.next = function () {
+            this.clearFlip();
             this.slidepos = Math.min(this.cards.length, ++this.slidepos);
             if (this.slidepos === this.cards.length) {
                 this.step = Steps.End;
@@ -103,6 +107,15 @@ var app;
         FlashcardController.prototype.flip = function (slide) {
             if (typeof (slide.style) === "boolean") {
                 slide.style = !slide.style;
+                this.flipped = !this.flipped;
+            }
+        };
+        FlashcardController.prototype.clearFlip = function () {
+            if (this.flipped) {
+                this.flip(this.cards[this.slidepos]);
+            }
+            if (!this.notMobile) {
+                this.$scope.$digest();
             }
         };
         FlashcardController.prototype.pin = function (slide) {
@@ -118,6 +131,9 @@ var app;
         };
         FlashcardController.prototype.like = function () {
             var _this = this;
+            if (!this.canLike()) {
+                return;
+            }
             this.disabled = true;
             if (!this.flashcard.like) {
                 this.flashcardService.like(this.$stateParams["id"]).then(function (response) { return _this.flashcard.like = response; }).finally(function () { return _this.disabled = false; });
@@ -129,7 +145,7 @@ var app;
         FlashcardController.prototype.canLike = function () {
             return this.user.id !== this.flashcard.userId;
         };
-        FlashcardController.$inject = ["flashcard", "flashcardService", "$stateParams", "user", "$state", "$mdMedia"];
+        FlashcardController.$inject = ["flashcard", "flashcardService", "$stateParams", "user", "$state", "$mdMedia", "$scope"];
         return FlashcardController;
     }());
     app.FlashcardController = FlashcardController;

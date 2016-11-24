@@ -1362,6 +1362,7 @@
     <Content Include="Images\Site\quizIcons.svg" />
     <Content Include="Images\Site\itemIcons.svg" />
     <Content Include="Images\Site\icons.svg" />
+    <Content Include="Images\Site\promo-icons.svg" />
     <Content Include="Images\Site\social-icons.svg" />
     <Content Include="Images\Site\stars.png" />
     <Content Include="Images\Site\leaderboard-bg.png" />
@@ -2510,6 +2511,7 @@
     <Content Include="Views\Box\_Flashcards.cshtml" />
     <Content Include="Views\Flashcard\CreatePartial.cshtml" />
     <Content Include="Views\Flashcard\Index.cshtml" />
+    <Content Include="Views\Home\Promotion.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2539,6 +2541,7 @@
     <Folder Include="bower_components\plupload\src\moxie\" />
     <Folder Include="bower_components\plupload\tests\js\testrunner\" />
     <Folder Include="Content\Fonts\" />
+    <Folder Include="Images\Promotion\" />
     <Folder Include="Js\homePage\" />
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>

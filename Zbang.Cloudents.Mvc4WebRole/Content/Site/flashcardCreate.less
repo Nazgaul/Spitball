@@ -109,7 +109,7 @@
             position: relative;
 
             &.on-drag-hover:not(.focused) {
-                padding-top: 100px;
+                padding-bottom: 100px;
             }
 
             label {
@@ -156,6 +156,7 @@
                 display: none;
 
                 @media(min-width: 600px) {
+                    cursor: pointer;
                     position: absolute;
                     left: -26px;
                     top: ~"calc(50% - 10px)";

@@ -112,7 +112,7 @@
   position: relative;
 }
 .flashcard .flashcard-body .card-container.on-drag-hover:not(.focused) {
-  padding-top: 100px;
+  padding-bottom: 100px;
 }
 .flashcard .flashcard-body .card-container label {
   display: -webkit-flex;
@@ -161,6 +161,7 @@
 }
 @media (min-width: 600px) {
   .flashcard .flashcard-body .card-container .drag-btn {
+    cursor: pointer;
     position: absolute;
     left: -26px;
     top: calc(50% - 10px);

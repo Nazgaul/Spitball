@@ -1165,9 +1165,12 @@
 }
 .keyboard-menu .key {
   width: 18px;
-  display: inline-block;
   text-align: center;
   margin-left: 10px;
+}
+.keyboard-menu .key,
+.keyboard-menu .info {
+  display: inline-block;
 }
 .keyboard-menu:before {
   display: none;
