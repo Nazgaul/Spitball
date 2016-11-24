@@ -29,6 +29,8 @@ using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Url;
+using Zbang.Zbox.Infrastructure.Storage;
+using System.Threading;
 
 namespace Management_Application
 {
@@ -1311,20 +1313,26 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
                 var converter = JsonConvert.DeserializeObject<Zbang.Zbox.Domain.Flashcard>(responseBody);
                 var cardsList = (JObject.Parse(responseBody)).SelectToken("terms");
                 var cardsConverters = new List<Zbang.Zbox.Domain.Card>();
-                var imageUrl = "";
+                var haveImage=false;
+                var imageLink = "";
+                //go over the cards from json and convert them to Flashcard cards struct
                 foreach (var card in cardsList)
                 {
+                    haveImage = false;
+                    imageLink = "";
+                    //Check if have image
                     if (card.SelectToken("image").HasValues) {
-                        imageUrl = (string)card.SelectToken("image.url");
-                        //saveImage(imageUrl);
+                        haveImage = true;
+                        imageLink= await saveImage((string)card.SelectToken("image.url"));
                     }
+                    //create and add card object to the list according the data
                     cardsConverters.Add(
                         new Zbang.Zbox.Domain.Card
                         {
                             Cover = new Zbang.Zbox.Domain.CardSlide
                             {
                                 Text = (string)card.SelectToken("definition"),
-                                Image = (imageUrl=="")?null:imageUrl
+                                Image = (!haveImage) ?null: imageLink
                             },
                             Front = new Zbang.Zbox.Domain.CardSlide
                             {
@@ -1342,10 +1350,17 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
                 }
                 var boxIds = boxIdstr.Select(long.Parse);
                 var userId = long.Parse(quizUserID.Text);
+                var tasks = new List<Task>();
                 foreach (var box in boxIds)
                 {
-                    output += "\nboxId:#" + box +" "+ await createFlashCard(userId, quizName.Text, cardsConverters, box);
+                    //tasks.Add(createFlashCard(userId, quizName.Text, cardsConverters, box));
+                    output += "\nboxId:#" + await createFlashCard(userId, quizName.Text, cardsConverters, box);
                 }
+                //Task.WaitAll(tasks.ToArray());
+                //foreach (var task in tasks)
+                //{
+                //    output += "\nboxId:#" + task;
+                //}
             }
             catch (Exception ex)
             {
@@ -1358,30 +1373,32 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
             Console.WriteLine("Hello");
             httpClient.Dispose();
         }
-        private  void saveImage(string url)
+        private async Task<string> saveImage(string url)
         {
             var name = url.Split('/').Last();
             using (WebClient webClient = new WebClient())
             {
                  webClient.DownloadFile(new Uri(url), name);
                 var file = new FileStream(name,FileMode.Open);
-                 //var m_flash=  IocFactory.IocWrapper.Resolve<IBlobProvider2<FlashcardContainerName>>();
-                 //var fileName = Guid.NewGuid() + Path.GetExtension(name);
-                 //await m_flash.UploadStreamAsync(fileName, file, GetMimeType(name), default(CancellationToken));
+                var m_flash = IocFactory.IocWrapper.Resolve<IBlobProvider2<FlashcardContainerName>>();
+                var fileName = Guid.NewGuid() + Path.GetExtension(name);
+                await m_flash.UploadStreamAsync(fileName, file, GetMimeType(name), default(CancellationToken));
+                return m_flash.GetBlobUrl(fileName, true).ToString();
             }
         }
         private string GetMimeType(string fileName)
         {
             string mimeType = "application/unknown";
-            //string ext = Path.GetExtension(fileName).ToLower();
-            //RegistryKey regKey = Registry.ClassesRoot.OpenSubKey(ext);
-            //if (regKey != null && regKey.GetValue("Content Type") != null)
-            //    mimeType = regKey.GetValue("Content Type").ToString();
+            string ext = Path.GetExtension(fileName).ToLower();
+            RegistryKey regKey = Registry.ClassesRoot.OpenSubKey(ext);
+            if (regKey != null && regKey.GetValue("Content Type") != null)
+                mimeType = regKey.GetValue("Content Type").ToString();
             return mimeType;
         }
 
         private async Task<string> createFlashCard(long userId,string quizName,List<Zbang.Zbox.Domain.Card> cardsList,long boxId)
         {
+            var output = boxId.ToString();
             try
             {
                 var id = IocFactory.IocWrapper.Resolve<IIdGenerator>().GetId(Zbang.Zbox.Infrastructure.Consts.IdContainer.FlashcardScope);
@@ -1399,12 +1416,12 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
                 var command = new AddFlashcardCommand(flashCard);
                 await ZboxWriteService.AddFlashcardAsync(command);
                 await ZboxWriteService.PublishFlashcardAsync(new PublishFlashcardCommand(flashCard));
-                return "done";
+                return output+" done";
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return ex.Message;
+                return output+" "+ex.Message;
             }
           
         }
