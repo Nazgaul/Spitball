@@ -1297,81 +1297,98 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
 
         private async void buttonImportQuiz_Click(object sender, EventArgs e)
         {
-            var httpClient = new HttpClient();
-            var output="";
-            //Validate that the link is valid
-            try
+            foreach (Control control in this.Controls)
             {
-                var sr = await httpClient.GetAsync(quizUrlId.Text);
-                sr.EnsureSuccessStatusCode();
-                //Get the id of the quid for the json data query
-                var currentQuizId= (quizUrlId.Text.Split('/'))[3];
-                var response = await httpClient.GetAsync(String.Format(QUIZ_URL + "{0}" + "?client_id=53m5PP5tK3&whitespace=1&format=json", currentQuizId));
-                response.EnsureSuccessStatusCode();
-                string responseBody = await response.Content.ReadAsStringAsync();
-                var json = JObject.Parse(responseBody);
-                var converter = JsonConvert.DeserializeObject<Zbang.Zbox.Domain.Flashcard>(responseBody);
-                var cardsList = (JObject.Parse(responseBody)).SelectToken("terms");
-                var cardsConverters = new List<Zbang.Zbox.Domain.Card>();
-                var haveImage=false;
-                var imageLink = "";
-                //go over the cards from json and convert them to Flashcard cards struct
-                foreach (var card in cardsList)
+                // Set focus on control
+                control.Focus();
+                // Validate causes the control's Validating event to be fired,
+                // if CausesValidation is True
+                if (!Validate())
                 {
-                    haveImage = false;
-                    imageLink = "";
-                    //Check if have image
-                    if (card.SelectToken("image").HasValues) {
-                        haveImage = true;
-                        imageLink= await saveImage((string)card.SelectToken("image.url"));
-                    }
-                    //create and add card object to the list according the data
-                    cardsConverters.Add(
-                        new Zbang.Zbox.Domain.Card
-                        {
-                            Cover = new Zbang.Zbox.Domain.CardSlide
-                            {
-                                Text = (string)card.SelectToken("definition"),
-                                Image = (!haveImage) ?null: imageLink
-                            },
-                            Front = new Zbang.Zbox.Domain.CardSlide
-                            {
-                                Image = null,
-                                Text = (string)card.SelectToken("term")
-                            }
-                        }
-                   );
-
-                }
-                var boxIdstr = quizBoxID.Text?.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
-                if (boxIdstr == null)
-                {
+                    DialogResult = DialogResult.None;
                     return;
                 }
-                var boxIds = boxIdstr.Select(long.Parse);
-                var userId = long.Parse(quizUserID.Text);
-                var tasks = new List<Task>();
-                foreach (var box in boxIds)
+                else
                 {
-                    //tasks.Add(createFlashCard(userId, quizName.Text, cardsConverters, box));
-                    output += "\nboxId:#" + await createFlashCard(userId, quizName.Text, cardsConverters, box);
+
+                    var httpClient = new HttpClient();
+                    var output = "";
+                    //Validate that the link is valid
+                    try
+                    {
+                        var sr = await httpClient.GetAsync(quizUrlId.Text);
+                        sr.EnsureSuccessStatusCode();
+                        //Get the id of the quid for the json data query
+                        var currentQuizId = (quizUrlId.Text.Split('/'))[3];
+                        var response = await httpClient.GetAsync(String.Format(QUIZ_URL + "{0}" + "?client_id=53m5PP5tK3&whitespace=1&format=json", currentQuizId));
+                        response.EnsureSuccessStatusCode();
+                        string responseBody = await response.Content.ReadAsStringAsync();
+                        var json = JObject.Parse(responseBody);
+                        var converter = JsonConvert.DeserializeObject<Zbang.Zbox.Domain.Flashcard>(responseBody);
+                        var cardsList = (JObject.Parse(responseBody)).SelectToken("terms");
+                        var cardsConverters = new List<Zbang.Zbox.Domain.Card>();
+                        var haveImage = false;
+                        var imageLink = "";
+                        //go over the cards from json and convert them to Flashcard cards struct
+                        foreach (var card in cardsList)
+                        {
+                            haveImage = false;
+                            imageLink = "";
+                            //Check if have image
+                            if (card.SelectToken("image").HasValues)
+                            {
+                                haveImage = true;
+                                imageLink = await saveImage((string)card.SelectToken("image.url"));
+                            }
+                            //create and add card object to the list according the data
+                            cardsConverters.Add(
+                                new Zbang.Zbox.Domain.Card
+                                {
+                                    Cover = new Zbang.Zbox.Domain.CardSlide
+                                    {
+                                        Text = (string)card.SelectToken("definition"),
+                                        Image = (!haveImage) ? null : imageLink
+                                    },
+                                    Front = new Zbang.Zbox.Domain.CardSlide
+                                    {
+                                        Image = null,
+                                        Text = (string)card.SelectToken("term")
+                                    }
+                                }
+                           );
+
+                        }
+                        var boxIdstr = quizBoxID.Text?.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+                        if (boxIdstr == null)
+                        {
+                            return;
+                        }
+                        var boxIds = boxIdstr.Select(long.Parse);
+                        var userId = long.Parse(quizUserID.Text);
+                        var tasks = new List<Task>();
+                        foreach (var box in boxIds)
+                        {
+                            //tasks.Add(createFlashCard(userId, quizName.Text, cardsConverters, box));
+                            output += "\nboxId:#" + await createFlashCard(userId, quizName.Text, cardsConverters, box);
+                        }
+                        //Task.WaitAll(tasks.ToArray());
+                        //foreach (var task in tasks)
+                        //{
+                        //    output += "\nboxId:#" + task;
+                        //}
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        output = ex.Message;
+                    }
+                    quizResult.Text = output;
+                    quizResult.Visible = true;
+                    quizResult.Refresh();
+                    Console.WriteLine("Hello");
+                    httpClient.Dispose();
                 }
-                //Task.WaitAll(tasks.ToArray());
-                //foreach (var task in tasks)
-                //{
-                //    output += "\nboxId:#" + task;
-                //}
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                output = ex.Message;
-            }
-            quizResult.Text = output;
-            quizResult.Visible = true;
-            quizResult.Refresh();
-            Console.WriteLine("Hello");
-            httpClient.Dispose();
         }
         private async Task<string> saveImage(string url)
         {
