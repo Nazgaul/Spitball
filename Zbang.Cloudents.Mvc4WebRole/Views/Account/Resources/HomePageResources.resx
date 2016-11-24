@@ -260,4 +260,7 @@ chat with their classmates, create online quizzes and get better grades. </value
   <data name="SignUpForFree" xml:space="preserve">
     <value>Sign Up, It's Free!</value>
   </data>
+  <data name="A12" xml:space="preserve">
+    <value>Win $500</value>
+  </data>
 </root>

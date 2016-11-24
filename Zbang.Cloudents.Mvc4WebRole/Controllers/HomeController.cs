@@ -313,6 +313,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
+        [Route("promotion", Name = "promotion")]
+        [DonutOutputCache(CacheProfile = "FullPage")]
+        public ActionResult Promotion()
+        {
+            ViewBag.title = SeoResources.PromotionTitle;
+            ViewBag.metaDescription = SeoResources.PromotionMeta;
+            return View();
+        }
+
         [Route("classnotes", Name = "classnotes")]
         [Route("classnotes/{lang:regex(^(en|he))}", Name = "classnotes2")]
         public ActionResult ClassNotes(string lang)

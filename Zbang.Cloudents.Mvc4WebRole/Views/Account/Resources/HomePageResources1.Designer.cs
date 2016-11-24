@@ -70,6 +70,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Win $500.
+        /// </summary>
+        public static string A12 {
+            get {
+                return ResourceManager.GetString("A12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Spitball Guide.
         /// </summary>
         public static string A3 {
