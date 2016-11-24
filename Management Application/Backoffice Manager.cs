@@ -19,11 +19,15 @@ using SendGrid;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Win32;
+using System.Net.Http;
+using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.IdGenerator;
-using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Url;
 
 namespace Management_Application
@@ -32,6 +36,7 @@ namespace Management_Application
 
     public partial class Form1 : Form
     {
+        string QUIZ_URL = "https://api.quizlet.com/2.0/sets/";
         DataTable m_GlobalUserTable;
         DataTable m_GlobalTable;
         string m_Id;
@@ -40,6 +45,7 @@ namespace Management_Application
         string m_UserId;
         UserrequestEntity m_GlobalFlaggedItem;
         UserrequestEntity m_GlobalFlaggedPost;
+        private readonly IIdGenerator m_IdGenerator;
 
         public Form1()
         {
@@ -1280,6 +1286,127 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
 
 
             MessageBox.Show("Done");
+        }
+
+        private void openFileDialogReplaceItem_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private async void buttonImportQuiz_Click(object sender, EventArgs e)
+        {
+            var httpClient = new HttpClient();
+            var output="";
+            //Validate that the link is valid
+            try
+            {
+                var sr = await httpClient.GetAsync(quizUrlId.Text);
+                sr.EnsureSuccessStatusCode();
+                //Get the id of the quid for the json data query
+                var currentQuizId= (quizUrlId.Text.Split('/'))[3];
+                var response = await httpClient.GetAsync(String.Format(QUIZ_URL + "{0}" + "?client_id=53m5PP5tK3&whitespace=1&format=json", currentQuizId));
+                response.EnsureSuccessStatusCode();
+                string responseBody = await response.Content.ReadAsStringAsync();
+                var json = JObject.Parse(responseBody);
+                var converter = JsonConvert.DeserializeObject<Zbang.Zbox.Domain.Flashcard>(responseBody);
+                var cardsList = (JObject.Parse(responseBody)).SelectToken("terms");
+                var cardsConverters = new List<Zbang.Zbox.Domain.Card>();
+                var imageUrl = "";
+                foreach (var card in cardsList)
+                {
+                    if (card.SelectToken("image").HasValues) {
+                        imageUrl = (string)card.SelectToken("image.url");
+                        //saveImage(imageUrl);
+                    }
+                    cardsConverters.Add(
+                        new Zbang.Zbox.Domain.Card
+                        {
+                            Cover = new Zbang.Zbox.Domain.CardSlide
+                            {
+                                Text = (string)card.SelectToken("definition"),
+                                Image = (imageUrl=="")?null:imageUrl
+                            },
+                            Front = new Zbang.Zbox.Domain.CardSlide
+                            {
+                                Image = null,
+                                Text = (string)card.SelectToken("term")
+                            }
+                        }
+                   );
+
+                }
+                var boxIdstr = quizBoxID.Text?.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+                if (boxIdstr == null)
+                {
+                    return;
+                }
+                var boxIds = boxIdstr.Select(long.Parse);
+                var userId = long.Parse(quizUserID.Text);
+                foreach (var box in boxIds)
+                {
+                    output += "\nboxId:#" + box +" "+ await createFlashCard(userId, quizName.Text, cardsConverters, box);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                output = ex.Message;
+            }
+            quizResult.Text = output;
+            quizResult.Visible = true;
+            quizResult.Refresh();
+            Console.WriteLine("Hello");
+            httpClient.Dispose();
+        }
+        private  void saveImage(string url)
+        {
+            var name = url.Split('/').Last();
+            using (WebClient webClient = new WebClient())
+            {
+                 webClient.DownloadFile(new Uri(url), name);
+                var file = new FileStream(name,FileMode.Open);
+                 //var m_flash=  IocFactory.IocWrapper.Resolve<IBlobProvider2<FlashcardContainerName>>();
+                 //var fileName = Guid.NewGuid() + Path.GetExtension(name);
+                 //await m_flash.UploadStreamAsync(fileName, file, GetMimeType(name), default(CancellationToken));
+            }
+        }
+        private string GetMimeType(string fileName)
+        {
+            string mimeType = "application/unknown";
+            //string ext = Path.GetExtension(fileName).ToLower();
+            //RegistryKey regKey = Registry.ClassesRoot.OpenSubKey(ext);
+            //if (regKey != null && regKey.GetValue("Content Type") != null)
+            //    mimeType = regKey.GetValue("Content Type").ToString();
+            return mimeType;
+        }
+
+        private async Task<string> createFlashCard(long userId,string quizName,List<Zbang.Zbox.Domain.Card> cardsList,long boxId)
+        {
+            try
+            {
+                var id = IocFactory.IocWrapper.Resolve<IIdGenerator>().GetId(Zbang.Zbox.Infrastructure.Consts.IdContainer.FlashcardScope);
+                var flashCard = new Zbang.Zbox.Domain.Flashcard(id)
+                {
+                    BoxId = boxId,
+                    UserId = userId,
+                    Name = quizName,
+                    Publish = true,
+                    DateTime = DateTime.UtcNow,
+                    Cards = cardsList
+                };
+                //Write the new Flashcard to the db
+                var ZboxWriteService = IocFactory.IocWrapper.Resolve<IZboxWriteService>();
+                var command = new AddFlashcardCommand(flashCard);
+                await ZboxWriteService.AddFlashcardAsync(command);
+                await ZboxWriteService.PublishFlashcardAsync(new PublishFlashcardCommand(flashCard));
+                return "done";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return ex.Message;
+            }
+          
         }
     }
 }

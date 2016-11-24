@@ -4,6 +4,10 @@ using System.Text;
 using System.IO;
 using System.Xml.Linq;
 using Autofac;
+using Dapper;
+using Zbang.Zbox.Infrastructure.Data.Dapper;
+using Zbang.Zbox.ViewModel.Dto.ItemDtos;
+using NHibernate;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Notifications;
@@ -102,10 +106,20 @@ namespace Testing
 
         static void Main(string[] args)
         {
-            
+
             //var z = GuidEncoder.Encode("0114F1D3-85E3-40D6-B6FA-A5D7000465CA");
-           //var v =  GuidEncoder.Decode(z);
+            //var v =  GuidEncoder.Decode(z);
             var unity = IocFactory.IocWrapper;
+            //Console.WriteLine(Environment.MachineName);
+            //Console.WriteLine("Hello\vWorld\n\n");
+            var tr = getAllInvalidLinks();
+            Task.WaitAll(tr);
+
+
+            Console.WriteLine("ended ");
+            //k.Wait();
+
+            return;
             Zbang.Zbox.Infrastructure.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Data.RegisterIoc.Register();
             Zbang.Zbox.Domain.Services.RegisterIoc.Register();
@@ -192,14 +206,14 @@ namespace Testing
                 AllowQuotedStrings = true,
                 LocalHostFqdn = "mg.spitball.co",
                 LocalSenderAddress = "michael@spitball.co",
-                LocalEndPoint = new IPEndPoint(IPAddress.Parse("184.173.153.166"),25)
-        };
+                LocalEndPoint = new IPEndPoint(IPAddress.Parse("184.173.153.166"), 25)
+            };
 
             // The component will use just the provided DNS server for its lookups
 
             settings.DnsServers.Clear();
             settings.DnsServers.Add(IPAddress.Parse("8.8.8.8"));
-           // settings.SmtpConnectionTimeout = TimeSpan.FromMinutes(5);
+            // settings.SmtpConnectionTimeout = TimeSpan.FromMinutes(5);
             var x = verifier.Run("MHW0008@auburn.edu", VerificationLevel.CatchAll, settings).Result;
             var result = verifier.Run("LEW0019@auburn.edu", VerificationLevel.CatchAll, settings).Result;
 
@@ -264,66 +278,195 @@ namespace Testing
         //    };
         //}
 
-            //private static async Task GetValue()
-            //{
-            //    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            //    var httpClient = new HttpClient();
-            //    var iocFactory = IocFactory.IocWrapper;
-            //    var blobProvider = iocFactory.Resolve<ICloudBlockProvider>();
-            //    using (var conn = DapperConnection.OpenConnection())
-            //    {
-            //        var data = conn.Query("select Id, LargeImage from zbox.University where LargeImage not like 'https://az%' ");
-            //        foreach (var singleRow in data)
-            //        {
-            //            string extension = Path.GetExtension(singleRow.LargeImage);
-            //            try
-            //            {
-            //                using (var sr = await httpClient.GetAsync(singleRow.LargeImage))
-            //                {
+        //private static async Task GetValue()
+        //{
+        //    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+        //    var httpClient = new HttpClient();
+        //    var iocFactory = IocFactory.IocWrapper;
+        //    var blobProvider = iocFactory.Resolve<ICloudBlockProvider>();
+        //    using (var conn = DapperConnection.OpenConnection())
+        //    {
+        //        var data = conn.Query("select Id, LargeImage from zbox.University where LargeImage not like 'https://az%' ");
+        //        foreach (var singleRow in data)
+        //        {
+        //            string extension = Path.GetExtension(singleRow.LargeImage);
+        //            try
+        //            {
+        //                using (var sr = await httpClient.GetAsync(singleRow.LargeImage))
+        //                {
 
-            //                    if (!sr.IsSuccessStatusCode)
-            //                    {
-            //                        conn.Execute("update zbox.university set isdirty = 1, largeImage=null where id=@id", new
-            //                        {
-            //                            //image = $"https://az32006.vo.msecnd.net/universities/{singleRow.Id}{extension}",
-            //                            id = singleRow.Id
-            //                        });
-            //                        continue;
-            //                        //throw new UnauthorizedAccessException("Cannot access dropbox");
-            //                    }
-            //                    ////sr.Content.Headers.ContentType.
-            //                    CloudBlockBlob blob = blobProvider.GetFile(singleRow.Id.ToString() + extension,
-            //                        "universities");
-            //                    using (var stream = await blob.OpenWriteAsync())
-            //                    {
-            //                        await sr.Content.CopyToAsync(stream);
+        //                    if (!sr.IsSuccessStatusCode)
+        //                    {
+        //                        conn.Execute("update zbox.university set isdirty = 1, largeImage=null where id=@id", new
+        //                        {
+        //                            //image = $"https://az32006.vo.msecnd.net/universities/{singleRow.Id}{extension}",
+        //                            id = singleRow.Id
+        //                        });
+        //                        continue;
+        //                        //throw new UnauthorizedAccessException("Cannot access dropbox");
+        //                    }
+        //                    ////sr.Content.Headers.ContentType.
+        //                    CloudBlockBlob blob = blobProvider.GetFile(singleRow.Id.ToString() + extension,
+        //                        "universities");
+        //                    using (var stream = await blob.OpenWriteAsync())
+        //                    {
+        //                        await sr.Content.CopyToAsync(stream);
 
-            //                    }
-            //                    blob.Properties.ContentType = sr.Content.Headers.ContentType.MediaType;
-            //                    blob.Properties.CacheControl = "public  max-age=" + TimeConst.Week;
-            //                    await blob.SetPropertiesAsync();
-            //                }
-            //            }
-            //            catch (Exception ex)
-            //            {
-            //                conn.Execute("update zbox.university set isdirty = 1, largeImage=null where id=@id", new
-            //                {
-            //                    //image = $"https://az32006.vo.msecnd.net/universities/{singleRow.Id}{extension}",
-            //                    id = singleRow.Id
-            //                });
-            //                continue;
-            //            }
-            //            conn.Execute("update zbox.university set isdirty = 1, largeImage=@image where id=@id", new
-            //            {
-            //                image = $"https://az32006.vo.msecnd.net/universities/{singleRow.Id}{extension}",
-            //                id = singleRow.Id
-            //            });
-            //        }
-            //    }
-            //}
+        //                    }
+        //                    blob.Properties.ContentType = sr.Content.Headers.ContentType.MediaType;
+        //                    blob.Properties.CacheControl = "public  max-age=" + TimeConst.Week;
+        //                    await blob.SetPropertiesAsync();
+        //                }
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                conn.Execute("update zbox.university set isdirty = 1, largeImage=null where id=@id", new
+        //                {
+        //                    //image = $"https://az32006.vo.msecnd.net/universities/{singleRow.Id}{extension}",
+        //                    id = singleRow.Id
+        //                });
+        //                continue;
+        //            }
+        //            conn.Execute("update zbox.university set isdirty = 1, largeImage=@image where id=@id", new
+        //            {
+        //                image = $"https://az32006.vo.msecnd.net/universities/{singleRow.Id}{extension}",
+        //                id = singleRow.Id
+        //            });
+        //        }
+        //    }
+        //}
 
+        /**
+        * This function return the number of not deleted links
+        * */
+        private static async Task<int> LinksNum()
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return conn.QuerySingle<int>(@"select count(*) from zbox.Item 
+                where  Discriminator = 'Link'
+                and isdeleted = 0");
+            }
+        }
 
-        public static void ShowChars(char[] charArray)
+        /**
+         * This function write to csv file all invalid links (URL,ids, reason)
+         * **/
+        public static async Task<bool> getAllInvalidLinks()
+        {
+            var validLinks = new List<String>();
+            var invalidLinks = new List<LinkItemStatus>();
+            var numOfRows = await LinksNum();
+            
+            //Calc the Max index that return results
+            var maxIndex = Math.Ceiling(numOfRows / (double)100);
+            var tasks = new List<Task>();
+           
+            //Go over the indexes and add the invalidLinks action to the task list
+            for (var index = 0; index < maxIndex; index++)
+            {
+                Console.WriteLine("The index is:"+index+ "\\"+ maxIndex);
+                tasks.Add(GetLinkItems(invalidLinks, validLinks, index, 100));
+            }
+            
+            //Wait untill all lines will be called
+            await Task.WhenAll(tasks);
+           
+            //Write to the csv file the invalid links and reason
+            using (System.IO.StreamWriter sw = new StreamWriter(@"C:\Users\USER\Desktop\InvalidLinksList.csv")) { 
+                foreach (var obj in invalidLinks)
+                     sw.WriteLine(String.Format("{0},{1},{2}", obj.BlobName, string.Join(" ", obj.ItemIds), obj.Code));
+            }
+            return true;
+        }
+        /**
+         * This function check the validity of links item according to the index and offset parameters
+         * add the invalid links to the InvalidLinks Parameter and the valid links to the validList parameter
+         * */
+        public static async Task GetLinkItems(List<LinkItemStatus> invalidLinks,List<string> validLinks,int index = 0, int RowSize = 100)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                var VALID_STATUS = HttpStatusCode.OK.ToString();
+                var httpClient = new HttpClient();
+                var list = conn.Query(@"select itemid, blobname from zbox.Item 
+                where  Discriminator = 'Link'
+                and isdeleted = 0
+                order by itemid
+                OFFSET @Offset ROWS
+                FETCH NEXT @RowSize ROWS ONLY"
+                , new { Offset = index * 100, RowSize = RowSize });
+
+                Console.WriteLine(String.Format("Start index {0}",index));
+                //Run on the Query result rows
+                foreach (var singleRow in list)
+                {
+                    var currentUrl = singleRow.blobname;
+                    //Check if currentUrl exist in one of the given lists(valid or invalid)
+                    var dictVal = invalidLinks.Find(r => r.BlobName == currentUrl);
+                    //CurrentUrl is already known as valid
+                    if (validLinks.IndexOf(currentUrl) > -1) { continue; }
+                    //CurrentUrl known as invalid
+                    else if (dictVal!=null)
+                    {
+                        //Add the current id to the invalidItem ids list
+                        var idsList = dictVal.ItemIds.AsList();
+                        idsList.Add(singleRow.itemid);
+                        dictVal.ItemIds= idsList.ToArray();
+                        Console.WriteLine(String.Format("id :{0} val {1}" ,singleRow.itemid,dictVal.Code));
+                    }
+                    else
+                    {
+                        var status = "";
+                        try
+                        {
+                            //Start http process
+                            using (var sr = await httpClient.GetAsync(singleRow.blobname))
+                            {
+                                //The response Ok add the item to the valid List and update the Status
+                                if (sr.IsSuccessStatusCode)
+                                {
+                                    validLinks.Add(currentUrl);
+                                    status = VALID_STATUS;
+                                }
+                                else
+                                {
+                                    status = (String.Format("{0}({1})",((System.Net.Http.HttpResponseMessage)sr).StatusCode.ToString(), ((int)((System.Net.Http.HttpResponseMessage)sr).StatusCode)));
+                                }
+                            }
+                        }catch(Exception e) {
+                            status = e.Message;
+                            Console.WriteLine(String.Format("issue id :{0} val {1} error:{2}",singleRow.itemid,singleRow.blobname,e.Message));
+                            continue;
+                        }
+                        finally
+                        {
+                            if(status!= VALID_STATUS)
+                                invalidLinks.Add(new LinkItemStatus(singleRow.blobname, singleRow.itemid, status));
+                        }
+                        
+
+                        }
+                    }
+                    Console.WriteLine(String.Format("end index {0}", index));
+            }
+        }
+        /**
+         * This Class Used for Invalid Items 
+         * */
+        public class LinkItemStatus
+        {
+            public LinkItemStatus(string blobName, long id,string code)
+            {
+                BlobName = blobName;
+                ItemIds = new long[] { id};
+                Code = code;
+            }
+            public long[] ItemIds { get; set; }
+            public string BlobName { get; set; }
+            public string Code { get; set; }
+        }
+            public static void ShowChars(char[] charArray)
         {
             Console.WriteLine("Char\tHex Value");
             // Display each invalid character to the console. 
@@ -359,9 +502,9 @@ namespace Testing
             t.Wait();
 
             t = mail.GenerateAndSendEmailAsync("ariel@cloudents.com",
-               new ReplyToCommentMailParams(new CultureInfo("he"),"אריאל","משתמש מסויים","שם הקופסא", "/" ));
+               new ReplyToCommentMailParams(new CultureInfo("he"), "אריאל", "משתמש מסויים", "שם הקופסא", "/"));
             t.Wait();
-            
+
             mail.GenerateAndSendEmailAsync("yaari.ram@gmail.com",
                 new FlagItemMailParams("דגכחלדיג", "חדיגחלכדיכ", "גלחכךדגחכך", "asdas", "asda")).Wait();
             //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new StoreOrder("ram y", "הליכון משגע", 12341234));

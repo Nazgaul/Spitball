@@ -36,7 +36,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("course/{universityName}/{boxId:long}/{boxName}", Name = "CourseBox")]
         public ActionResult RedirectToFeed(long boxId, string boxName, string invId, string universityName)
         {
-
             if (string.IsNullOrEmpty(universityName))
             {
                 return RedirectToRoutePermanent("PrivateBoxWithSub", new RouteValueDictionary

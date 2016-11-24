@@ -333,6 +333,7 @@ namespace Zbang.Zbox.ReadServices
                         item.UserIds = usersInItems.Where(w => w.BoxId == boxid).Select(s => s.UserId);
                     }
                     retVal.ItemsToDelete = await grid.ReadAsync<long>();
+                    
                     return retVal;
                 }
             }
