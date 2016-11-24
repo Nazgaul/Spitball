@@ -7,6 +7,54 @@ window.addEventListener("load", function load() {
 
 
 (function (document) {
+    function setBackground() {
+        var background = $('.home-page-body');
+        var main = $('.main');
+        //var header = $('.static-page-header');
+        var backgroundUrl = 'https://az779114.vo.msecnd.net/universities/cover/' +
+                encodeURIComponent(main.data('image')) +
+                '?mode=crop&anchor=topcenter&quality=70&scale=both&width=' +
+                 main.outerWidth() +
+                '&height=' +
+                ($(window).outerHeight());
+        background
+            .css('background-image', 'url(' + backgroundUrl + ')');
+    }
+
+    function handleScrollToTop() {
+        if ($(this).scrollTop() > offset) {
+            $('.scroll-to-top').fadeIn(duration);
+        } else {
+            $('.scroll-to-top').fadeOut(duration);
+        }
+    }
+
+    // Init On scroll animations
+    function onScrollInit(items, trigger) {
+        items.each(function () {
+            var osElement = $(this),
+                osAnimationClass = osElement.attr('data-os-animation'),
+                osAnimationDelay = osElement.attr('data-os-animation-delay');
+            osElement.css({
+                '-webkit-animation-delay': osAnimationDelay,
+                '-moz-animation-delay': osAnimationDelay,
+                'animation-delay': osAnimationDelay
+            });
+
+            var osTrigger = (trigger) ? trigger : osElement;
+
+            osTrigger.waypoint(function () {
+                osElement.addClass('animated').addClass(osAnimationClass);
+            }, {
+                triggerOnce: true,
+                offset: '90%'
+            });
+        });
+    }
+
+    function initialisePageScrollAnimations() {
+        onScrollInit($('.os-animation'));
+    }
     if ($("body.homePage").length > 0) {
         var options = {
             useEasing: true,
@@ -35,19 +83,7 @@ window.addEventListener("load", function load() {
 
         var padding = $(window).height() + $('.welcome-text').offset().top - $('.offset-bottom').offset().top - $('.static-page-header').height();
         $('#main-wrapper').css('padding-top', padding);
-        function setBackground() {
-            var background = $('.home-page-body');
-            var main = $('.main');
-            //var header = $('.static-page-header');
-            var backgroundUrl = 'https://az779114.vo.msecnd.net/universities/cover/' +
-                    encodeURIComponent(main.data('image')) +
-                    '?mode=crop&anchor=topcenter&quality=70&scale=both&width=' +
-                     main.outerWidth() +
-                    '&height=' +
-                    ($(window).outerHeight());
-            background
-                .css('background-image', 'url(' + backgroundUrl + ')');
-        }
+
 
         setBackground();
         var timeout;
@@ -62,13 +98,6 @@ window.addEventListener("load", function load() {
         //    $('button.signup').css(bgColor, backgroundColor);
         //}
 
-        function handleScrollToTop() {
-            if ($(this).scrollTop() > offset) {
-                $('.scroll-to-top').fadeIn(duration);
-            } else {
-                $('.scroll-to-top').fadeOut(duration);
-            }
-        }
         if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {  // ios supported
             $(window).bind("touchend touchcancel touchleave", function () {
                 handleScrollToTop();
@@ -97,32 +126,6 @@ window.addEventListener("load", function load() {
             }
         });
 
-        // Init On scroll animations
-        function onScrollInit(items, trigger) {
-            items.each(function () {
-                var osElement = $(this),
-                    osAnimationClass = osElement.attr('data-os-animation'),
-                    osAnimationDelay = osElement.attr('data-os-animation-delay');
-                osElement.css({
-                    '-webkit-animation-delay': osAnimationDelay,
-                    '-moz-animation-delay': osAnimationDelay,
-                    'animation-delay': osAnimationDelay
-                });
-
-                var osTrigger = (trigger) ? trigger : osElement;
-
-                osTrigger.waypoint(function () {
-                    osElement.addClass('animated').addClass(osAnimationClass);
-                }, {
-                    triggerOnce: true,
-                    offset: '90%'
-                });
-            });
-        }
-
-        function initialisePageScrollAnimations() {
-            onScrollInit($('.os-animation'));
-        }
 
         initialisePageScrollAnimations();
         //#endregion
