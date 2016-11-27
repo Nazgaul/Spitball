@@ -55,6 +55,14 @@ window.addEventListener("load", function load() {
     function initialisePageScrollAnimations() {
         onScrollInit($('.os-animation'));
     }
+
+    function scrolledToElem($scrollTo) {
+        var hT = $scrollTo.offset().top,
+            wH = $(window).height(),
+            wS = $(this).scrollTop();
+        return wS > hT - wH;
+    }
+
     if ($("body.homePage").length > 0) {
         var options = {
             useEasing: true,
@@ -80,10 +88,6 @@ window.addEventListener("load", function load() {
         //#region scroll to top
         var offset = 300;
         var duration = 500;
-
-        var padding = $(window).height() + $('.welcome-text').offset().top - $('.offset-bottom').offset().top - $('.static-page-header').height();
-        $('#main-wrapper').css('padding-top', padding);
-
 
         setBackground();
         var timeout;
@@ -153,12 +157,6 @@ window.addEventListener("load", function load() {
         //Metronic.init(); // init metronic core components
         //Layout.init(); // init current layout
         Login.init();
-        function scrolledToElem($scrollTo) {
-            var hT = $scrollTo.offset().top,
-                wH = $(window).height(),
-                wS = $(this).scrollTop();
-            return wS > hT - wH;
-        }
 
         $(window).scroll(function () {
             if (!hasBoxes && scrolledToElem($('section.check-us'))) {
@@ -213,5 +211,8 @@ window.addEventListener("load", function load() {
             }
         });
     }
+
+    var padding = $(window).height() + $('.welcome-text').offset().top - $('.offset-bottom').offset().top - $('.static-page-header').height();
+    $('#main-wrapper').css('padding-top', padding);
 
 })(window.document);

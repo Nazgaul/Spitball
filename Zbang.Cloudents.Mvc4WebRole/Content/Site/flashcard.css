@@ -219,20 +219,24 @@
 }
 .flashcardPage .header .progress-wrapper .title .flashcard-icon:before,
 .flashcardPage .header .progress-wrapper .title .flashcard-icon:after {
-  content: '';
   display: block;
   width: 33.6px;
   height: 26.6112px;
   border-radius: 6.16px;
-  border: 2px solid #dadada;
+  border: 2.016px solid #dadada;
   position: absolute;
 }
 .flashcardPage .header .progress-wrapper .title .flashcard-icon:before {
+  content: '';
   bottom: 0;
   left: 10.5px;
   background: #4190b9;
 }
 .flashcardPage .header .progress-wrapper .title .flashcard-icon:after {
+  content: '';
+  text-align: center;
+  line-height: 25.872px;
+  color: #4190b9;
   transform: rotate(-20deg);
   bottom: 9.24px;
   left: 0;
@@ -351,20 +355,24 @@
 }
 .flashcardPage .header .card-sides button:not(.active) .flashcard-icon:before,
 .flashcardPage .header .card-sides button:not(.active) .flashcard-icon:after {
-  content: '';
   display: block;
   width: 28.8px;
   height: 22.8096px;
   border-radius: 5.28px;
-  border: 2px solid #dadada;
+  border: 1.728px solid #dadada;
   position: absolute;
 }
 .flashcardPage .header .card-sides button:not(.active) .flashcard-icon:before {
+  content: '';
   bottom: 0;
   left: 9px;
   background: #b5b4b4;
 }
 .flashcardPage .header .card-sides button:not(.active) .flashcard-icon:after {
+  content: '';
+  text-align: center;
+  line-height: 22.176px;
+  color: #b5b4b4;
   transform: rotate(-20deg);
   bottom: 7.92px;
   left: 0;
@@ -383,20 +391,24 @@
 }
 .flashcardPage .header .card-sides button.active.front .flashcard-icon:before,
 .flashcardPage .header .card-sides button.active.front .flashcard-icon:after {
-  content: '';
   display: block;
   width: 28.8px;
   height: 22.8096px;
   border-radius: 5.28px;
-  border: 2px solid #dadada;
+  border: 1.728px solid #dadada;
   position: absolute;
 }
 .flashcardPage .header .card-sides button.active.front .flashcard-icon:before {
+  content: '';
   bottom: 0;
   left: 9px;
   background: #323538;
 }
 .flashcardPage .header .card-sides button.active.front .flashcard-icon:after {
+  content: '';
+  text-align: center;
+  line-height: 22.176px;
+  color: #323538;
   transform: rotate(-20deg);
   bottom: 7.92px;
   left: 0;
@@ -415,20 +427,24 @@
 }
 .flashcardPage .header .card-sides button.active.back .flashcard-icon:before,
 .flashcardPage .header .card-sides button.active.back .flashcard-icon:after {
-  content: '';
   display: block;
   width: 28.8px;
   height: 22.8096px;
   border-radius: 5.28px;
-  border: 2px solid #dadada;
+  border: 1.728px solid #dadada;
   position: absolute;
 }
 .flashcardPage .header .card-sides button.active.back .flashcard-icon:before {
+  content: '';
   bottom: 0;
   left: 9px;
   background: #4190b9;
 }
 .flashcardPage .header .card-sides button.active.back .flashcard-icon:after {
+  content: '';
+  text-align: center;
+  line-height: 22.176px;
+  color: #4190b9;
   transform: rotate(-20deg);
   bottom: 7.92px;
   left: 0;
@@ -450,20 +466,24 @@
 }
 .flashcardPage .header .card-sides button.active.both .flashcard-icon:before,
 .flashcardPage .header .card-sides button.active.both .flashcard-icon:after {
-  content: '';
   display: block;
   width: 28.8px;
   height: 22.8096px;
   border-radius: 5.28px;
-  border: 2px solid #dadada;
+  border: 1.728px solid #dadada;
   position: absolute;
 }
 .flashcardPage .header .card-sides button.active.both .flashcard-icon:before {
+  content: '';
   bottom: 0;
   left: 9px;
   background: #4190b9;
 }
 .flashcardPage .header .card-sides button.active.both .flashcard-icon:after {
+  content: '';
+  text-align: center;
+  line-height: 22.176px;
+  color: #4190b9;
   transform: rotate(-20deg);
   bottom: 7.92px;
   left: 0;

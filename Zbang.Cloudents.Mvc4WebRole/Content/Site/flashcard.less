@@ -224,7 +224,7 @@
 
                 .flashcard-icon {
                     margin-right: 10px;
-                    .flashcard-icon(42px, @buttonColorBlue, @buttonColorBlue, #dadada, @buttonColorBlue, @buttonColorBlue);
+                    .flashcard-icon(42px, @buttonColorBlue, @buttonColorBlue, #dadada, @buttonColorBlue, @buttonColorBlue, '');
                 }
             }
 
@@ -308,16 +308,16 @@
 
                 &:not(.active) .flashcard-icon {
                     margin-right: 10px;
-                    .flashcard-icon(36px, @textColorLightGrey, #b5b4b4, @backgroundColor, @textColorLightGrey, #9e9d9d);
+                    .flashcard-icon(36px, @textColorLightGrey, #b5b4b4, @backgroundColor, @textColorLightGrey, #9e9d9d, '');
                 }
 
                 &.active {
                     &.front .flashcard-icon {
-                        .flashcard-icon(36px, @buttonColorBlue, @headerbackground, @backgroundColor, #337fa7, @headerbackground);
+                        .flashcard-icon(36px, @buttonColorBlue, @headerbackground, @backgroundColor, #337fa7, @headerbackground, '');
                     }
 
                     &.back .flashcard-icon {
-                        .flashcard-icon(36px, @headerbackground, @buttonColorBlue, @backgroundColor,@headerbackground, #337fa7);
+                        .flashcard-icon(36px, @headerbackground, @buttonColorBlue, @backgroundColor,@headerbackground, #337fa7, '');
 
                         md-icon {
                             fill: @buttonColorBlue;
@@ -325,7 +325,7 @@
                     }
 
                     &.both .flashcard-icon {
-                        .flashcard-icon(36px, @buttonColorBlue, @buttonColorBlue, @backgroundColor, #337fa7, #337fa7);
+                        .flashcard-icon(36px, @buttonColorBlue, @buttonColorBlue, @backgroundColor, #337fa7, #337fa7, '');
                     }
                 }
             }
@@ -1003,45 +1003,6 @@
         background-color: @textColorLightGrey;
     }
 
-    .flashcard-icon(@width, @frontColor, @backColor, @borderColor, @frontHover, @backHover) {
-        @height: 0.88*@width;
-        position: relative;
-        width: @width;
-        height: @height;
-
-        &:before, &:after {
-            content: '';
-            display: block;
-            width: 0.8*@width;
-            height: 0.72*@height;
-            border-radius: @height/6;
-            border: 2px solid @borderColor;
-            position: absolute;
-        }
-
-        &:before {
-            bottom: 0;
-            left: @width/4;
-            background: @backColor;
-        }
-
-        &:after {
-            transform: rotate(-20deg);
-            bottom: @height/4;
-            left: 0;
-            background: @frontColor;
-        }
-
-        &:hover {
-            &:before {
-                background: @backHover;
-            }
-
-            &:after {
-                background: @frontHover;
-            }
-        }
-    }
 }
 
 .keyboard-menu {
