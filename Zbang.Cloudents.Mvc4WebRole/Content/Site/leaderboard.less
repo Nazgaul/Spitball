@@ -159,3 +159,37 @@
         }
     }
 }
+
+.promo-box {
+    .displayFlex;
+    .align-items(stretch);
+    padding: 0;
+    flex-direction: column;
+
+    .top {
+        flex-grow: 1;
+    }
+
+    .bottom {
+        padding: 5px;
+
+        .stats {
+            .displayFlex;
+            .align-items(center);
+            .justifyContet(center);
+
+            .rank, .likes {
+                margin: 0 10px;
+                text-align: center;
+
+                .num {
+                    width: 100px;
+                    border: 1px solid #888b8e;
+                    padding: 5px;
+                    margin-top: 5px;
+                    border-radius: 5px;
+                }
+            }
+        }
+    }
+}

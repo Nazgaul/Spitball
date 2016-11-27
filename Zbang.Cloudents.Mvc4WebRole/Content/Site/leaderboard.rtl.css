@@ -166,3 +166,40 @@
   background: rgba(255, 206, 47, 0.5);
   margin-left: 5px;
 }
+.promo-box {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: stretch;
+  align-items: stretch;
+  padding: 0;
+  flex-direction: column;
+}
+.promo-box .top {
+  flex-grow: 1;
+}
+.promo-box .bottom {
+  padding: 5px;
+}
+.promo-box .bottom .stats {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.promo-box .bottom .stats .rank,
+.promo-box .bottom .stats .likes {
+  margin: 0 10px;
+  text-align: center;
+}
+.promo-box .bottom .stats .rank .num,
+.promo-box .bottom .stats .likes .num {
+  width: 100px;
+  border: 1px solid #888b8e;
+  padding: 5px;
+  margin-top: 5px;
+  border-radius: 5px;
+}
