@@ -20,4 +20,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
 
         public const string CookieName = "uni1";
     }
+
+    public class UniversityFlashcardPromo
+    {
+
+        public bool Visited { get; set; }
+
+
+        public const string CookieName = "fpro1";
+    }
 }

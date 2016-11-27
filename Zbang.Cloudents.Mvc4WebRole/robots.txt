@@ -11,5 +11,6 @@ disallow: */download/$
 disallow: /b/
 disallow: /i/
 disallow: /d/
+disallow: /promotion/
 
 Sitemap: https://www.spitball.co/sitemap.xml/

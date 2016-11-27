@@ -53,6 +53,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             if (university != null && string.IsNullOrEmpty(universityName))
             {
+
                 return RedirectToRoute("UniversityLink", new { invId, universityName = university.UniversityName, step });
             }
 
@@ -60,8 +61,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return RedirectToRoute("homePage", new { invId });
             }
-
-            //long? universityId = null;
 
             if (!string.IsNullOrEmpty(invId))
             {
@@ -96,12 +95,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var result =
                 await ZboxReadService.GetUniversityBoxesAsync(new GetHomeBoxesUniversityQuery(universityId, country));
-            //result = result.Select(s => s.Url = Url.RouteUrlCache("CourseBox", new RouteValueDictionary
-            //{
-            //    ["universityName"] = "xxxx",
-            //    ["boxId"] = GuidEncoder.Encode(s.Id),
-            //    ["boxName"] = UrlConst.NameToQueryString(s.Name)
-            //}));
             return JsonOk(result);
 
         }
@@ -315,11 +308,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [Route("promotion", Name = "promotion")]
         [DonutOutputCache(CacheProfile = "FullPage")]
-        public ActionResult Promotion()
+        public async Task<ActionResult> PromotionAsync()
         {
-            ViewBag.title = SeoResources.PromotionTitle;
-            ViewBag.metaDescription = SeoResources.PromotionMeta;
-            return View();
+            //ViewBag.title = SeoResources.PromotionTitle;
+            //ViewBag.metaDescription = SeoResources.PromotionMeta;
+            var value = m_CookieHelper.ReadCookie<UniversityCookie>(UniversityCookie.CookieName);
+            if (value == null)
+            {
+                return RedirectToRoute("homePage");
+            }
+            var query = new GetHomePageQuery(value.UniversityId);
+            var homeStats = await ZboxReadService.GetHomePageDataAsync(query);
+            return View("Promotion",homeStats);
         }
 
         [Route("classnotes", Name = "classnotes")]

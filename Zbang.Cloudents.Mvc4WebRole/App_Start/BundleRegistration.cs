@@ -140,13 +140,13 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     "jsSite4", new[]
                     {
 
-                        new JsFileWithCdn("~/Scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
+                        new JsFileWithCdn("~/scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/Modernizr.js"),
                         new JsFileWithCdn("~/scripts/angular.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"),
-                        new JsFileWithCdn("~/Scripts/angular-ui-router.js"),
-                        new JsFileWithCdn("~/Scripts/angular-messages.js"),
+                        new JsFileWithCdn("~/scripts/angular-ui-router.js"),
+                        new JsFileWithCdn("~/scripts/angular-messages.js"),
                         new JsFileWithCdn("~/bower_components/angular-cache/dist/angular-cache.js"),
-                        new JsFileWithCdn("~/Scripts/angular-sanitize.js"),
+                        new JsFileWithCdn("~/scripts/angular-sanitize.js"),
 
                         new JsFileWithCdn("~/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"),
                         new JsFileWithCdn("~/bower_components/ng-scrollbars/src/scrollbars.js"),
@@ -154,15 +154,15 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/bower_components/angular-google-analytics/dist/angular-google-analytics.js"),
                         new JsFileWithCdn("~/bower_components/oclazyload/dist/oclazyload.js"),
                         new JsFileWithCdn("~/bower_components/angular-vs-repeat/src/angular-vs-repeat.js"),
-                        new JsFileWithCdn("~/Scripts/angular-animate.js"),
-                        new JsFileWithCdn("~/Scripts/angular-aria.js"),
+                        new JsFileWithCdn("~/scripts/angular-animate.js"),
+                        new JsFileWithCdn("~/scripts/angular-aria.js"),
                         // on version 1.1.1 there is a bug with md-tabs. fix that locally. until upgrade we dont use google cdn
-                        new JsFileWithCdn("~/Scripts/angular-material/angular-material.js"),//, "https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js"),
+                        new JsFileWithCdn("~/scripts/angular-material/angular-material.js"),//, "https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js"),
 
                         new JsFileWithCdn("~/scripts/angular-srph-infinite-scroll.js"),
 
-                        new JsFileWithCdn("~/Scripts/jquery.signalR-2.2.0.js"),
-                        new JsFileWithCdn("~/Scripts/angular-signalr-hub.js"),
+                        new JsFileWithCdn("~/scripts/jquery.signalR-2.2.0.js"),
+                        new JsFileWithCdn("~/scripts/angular-signalr-hub.js"),
 
                         //TODO: move to oclazy in box
                         new JsFileWithCdn("~/bower_components/plupload/js/moxie.min.js"),
