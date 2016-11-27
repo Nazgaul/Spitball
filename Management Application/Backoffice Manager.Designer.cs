@@ -1596,12 +1596,12 @@
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Font = new System.Drawing.Font("Microsoft YaHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label25.Location = new System.Drawing.Point(47, 237);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(172, 16);
+            this.label25.Size = new System.Drawing.Size(140, 19);
             this.label25.TabIndex = 5;
-            this.label25.Text = "Box IDS(seperate by ;) :";
+            this.label25.Text = "Box IDS seperate by ;";
             // 
             // label24
             // 

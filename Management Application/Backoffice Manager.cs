@@ -38,7 +38,7 @@ namespace Management_Application
 
     public partial class Form1 : Form
     {
-        string QUIZ_URL = "https://api.quizlet.com/2.0/sets/";
+        static string QUIZ_URL = "https://api.quizlet.com/2.0/sets/";
         DataTable m_GlobalUserTable;
         DataTable m_GlobalTable;
         string m_Id;
@@ -1297,19 +1297,7 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
 
         private async void buttonImportQuiz_Click(object sender, EventArgs e)
         {
-            
-            //foreach (Control control in this.Controls)
-            //{
-            //    // Set focus on control
-            //    control.Focus();
-            //    // Validate causes the control's Validating event to be fired,
-            //    // if CausesValidation is True
-            //    if (!Validate())
-            //    {
-            //        DialogResult = DialogResult.None;
-            //        return;
-            //    }  
-            //}
+            // Split box ids
             var boxIdstr = quizBoxID.Text?.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
             if (boxIdstr == null)
             {
@@ -1319,62 +1307,60 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
             var userId = long.Parse(quizUserID.Text);
             importQuizResult.Text = await importQuiz(quizUrlId.Text, quizName.Text, boxIds, userId);
         }
-        private async Task<string> importQuiz(string quizUrl,string quizName,IEnumerable<long> boxIds,long userId)
+        private static async Task<string> importQuiz(string quizUrl,string quizName,IEnumerable<long> boxIds,long userId)
         {
             var httpClient = new HttpClient();
             var output = "";
             //Validate that the link is valid
             try
             {
-                var sr = await httpClient.GetAsync(quizUrl);
-                sr.EnsureSuccessStatusCode();
-                //Get the id of the quid for the json data query
-                var currentQuizId = (quizUrlId.Text.Split('/'))[3];
-                var response = await httpClient.GetAsync(String.Format(QUIZ_URL + "{0}" + "?client_id=53m5PP5tK3&whitespace=1&format=json", currentQuizId));
-                response.EnsureSuccessStatusCode();
-                string responseBody = await response.Content.ReadAsStringAsync();
-                var json = JObject.Parse(responseBody);
-                var converter = JsonConvert.DeserializeObject<Zbang.Zbox.Domain.Flashcard>(responseBody);
-                var cardsList = (JObject.Parse(responseBody)).SelectToken("terms");
-                var cardImages = cardsList.Where(card=> card.SelectToken("image").HasValues);
-                var cardsConverters = new List<Zbang.Zbox.Domain.Card>();
-                var imageLink = "";
-                var dictionaryImage = new Dictionary<long, string>();
-                var imagesTask = new List<Task<IDictionary<long,string>>>();
-                //go over the cards from json and convert them to Flashcard cards struct
-                foreach (var card in cardImages)
+                using (var sr = await httpClient.GetAsync(quizUrl))
                 {
-                    dictionaryImage.Add((long)card.SelectToken("id"),await saveImage((string)card.SelectToken("image.url")));
-                   //imagesTask.Add(saveImage(httpClient,(string)card.SelectToken("image.url"), (long)card.SelectToken("id")));
-                }
-                //Task.WaitAll(imagesTask.ToArray());
-                //foreach(var image in imagesTask)
-                //{
-                //    IDictionary<long,string> val = image.Result;
-                //    dictionaryImage.Add(val.First().Key, val.First().Value);
-                //}
-
-                //create and add card object to the list according the data
-                var cardsConverters2 = cardsList.Select(card =>
-                    new Zbang.Zbox.Domain.Card
+                    sr.EnsureSuccessStatusCode();
+                    //Get the id of the quid for the json data query
+                    var currentQuizId = (quizUrl.Split('/'))[3];
+                    using (var response = await httpClient.GetAsync(String.Format(QUIZ_URL + "{0}" + "?client_id=53m5PP5tK3&whitespace=1&format=json", currentQuizId)))
                     {
-                        Cover = new Zbang.Zbox.Domain.CardSlide
+                        response.EnsureSuccessStatusCode();
+                        string responseBody = await response.Content.ReadAsStringAsync();
+                        var json = JObject.Parse(responseBody);
+                        var converter = JsonConvert.DeserializeObject<Zbang.Zbox.Domain.Flashcard>(responseBody);
+                        var cardsList = (JObject.Parse(responseBody)).SelectToken("terms");
+                        var cardImages = cardsList.Where(card => card.SelectToken("image").HasValues);
+                        var cardsConverters = new List<Zbang.Zbox.Domain.Card>();
+                        var imageLink = "";
+                        var dictionaryImage = new Dictionary<long, string>();
+                        var imagesTask = new List<Task<string>>();
+                        //go over the cards from json and convert them to Flashcard cards struct
+                        foreach (var card in cardImages)
                         {
-                            Text = (string)card.SelectToken("definition"),
-                            Image = (!dictionaryImage.TryGetValue((long)card.SelectToken("id"), out imageLink)) ? null : imageLink
-                        },
-                        Front = new Zbang.Zbox.Domain.CardSlide
+                            imagesTask.Add(saveImage((long)card.SelectToken("id"), (string)card.SelectToken("image.url"), dictionaryImage));
+                        }
+                        await Task.WhenAll(imagesTask);
+
+                        //create and add card object to the list according the data
+                        var cardsConverters2 = cardsList.Select(card =>
+                            new Zbang.Zbox.Domain.Card
+                            {
+                                Cover = new Zbang.Zbox.Domain.CardSlide
+                                {
+                                    Text = (string)card.SelectToken("definition"),
+                                    Image = (!dictionaryImage.TryGetValue((long)card.SelectToken("id"), out imageLink)) ? null : imageLink
+                                },
+                                Front = new Zbang.Zbox.Domain.CardSlide
+                                {
+                                    Image = null,
+                                    Text = (string)card.SelectToken("term")
+                                }
+                            }
+                       );
+
+                        var tasks = new List<Task>();
+                        foreach (var box in boxIds)
                         {
-                            Image = null,
-                            Text = (string)card.SelectToken("term")
+                            output += "\nboxId:#" + await createFlashCard(userId, quizName, cardsConverters2, box);
                         }
                     }
-               );
-
-                var tasks = new List<Task>();
-                foreach (var box in boxIds)
-                {
-                    output += "\nboxId:#" + await createFlashCard(userId, quizName, cardsConverters2, box);
                 }
             }
             catch (Exception ex)
@@ -1383,31 +1369,24 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
                 output = ex.Message;
             }
             
-            httpClient.Dispose();
             return output;
         }
-        private async Task<string> saveImage(string url)
+        private static async Task<string> saveImage(long id,string url,IDictionary<long,string> dictinary)
         {
             var client = new HttpClient();
             var name = url.Split('/').Last();
             var dictionary = new Dictionary<long, string>();
-                using (var res = await client.GetAsync(url))
-                {
-                    var m_flash = IocFactory.IocWrapper.Resolve<IBlobProvider2<FlashcardContainerName>>();
-                    var fileName = Guid.NewGuid() + Path.GetExtension(name);
-                    await m_flash.UploadStreamAsync(fileName, await res.Content.ReadAsStreamAsync(), res.Content.Headers.ContentType.ToString(), default(CancellationToken));
-                    return m_flash.GetBlobUrl(fileName, true).ToString();
-                //dictionary[id] = m_flash.GetBlobUrl(fileName, true).ToString();
-                //return dictionary;
+            using (var res = await client.GetAsync(url))
+            {
+                var m_flash = IocFactory.IocWrapper.Resolve<IBlobProvider2<FlashcardContainerName>>();
+                var fileName = Guid.NewGuid() + Path.GetExtension(name);
+                await m_flash.UploadStreamAsync(fileName, await res.Content.ReadAsStreamAsync(), res.Content.Headers.ContentType.ToString(), default(CancellationToken));
+                dictinary.Add(id, m_flash.GetBlobUrl(fileName, true).ToString());
+                return m_flash.GetBlobUrl(fileName, true).ToString();
             }
-            //}catch(Exception ex)
-            //{
-            //    Console.WriteLine(ex.Message);
-            //    return dictionary;
-            //}
         }
 
-        private async Task<string> createFlashCard(long userId,string quizName,IEnumerable<Zbang.Zbox.Domain.Card> cardsList,long boxId)
+        private static async Task<string> createFlashCard(long userId,string quizName,IEnumerable<Zbang.Zbox.Domain.Card> cardsList,long boxId)
         {
             var output = boxId.ToString();
             try
