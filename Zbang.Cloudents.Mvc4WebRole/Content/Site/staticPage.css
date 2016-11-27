@@ -166,6 +166,14 @@ iframe {
   font-size: 14px;
   text-transform: capitalize;
 }
+.static-page-header nav #promo a,
+.static-page-header nav #promo a.active {
+  color: #FFCB0B;
+}
+.static-page-header nav #promo a:hover,
+.static-page-header nav #promo a.active:hover {
+  font-weight: bold;
+}
 .static-page-header nav .dropdown-menu li button:hover {
   text-decoration: none;
   background-image: none;
@@ -672,6 +680,9 @@ iframe {
 .static-page .static-page-header nav li a.active,
 .static-page .items-container a.active {
   font-weight: bold;
+}
+.static-page .static-page-header nav li:not(#promo) a.active,
+.static-page .items-container:not(#promo) a.active {
   color: #4190B9;
 }
 .help-page .panel-body img {
@@ -1317,7 +1328,6 @@ iframe {
   text-align: center;
   padding-bottom: 200px;
   margin-top: 60px;
-  background: linear-gradient(to top, #000 -20px, transparent 200px, transparent 100%);
   padding: 0;
   overflow: visible;
 }
@@ -1459,15 +1469,49 @@ iframe {
   min-height: 0;
   height: 100%;
 }
+.promo-page .home-page-body {
+  background-image: url(/Images/Site/promo_bg.png);
+  background-size: contain;
+}
+.promo-page .intro .text h1 {
+  margin-bottom: 2px;
+}
 .promo-page .intro .text h2 {
-  font-size: 38px;
-  margin: 0 0 40px 0;
+  font-size: 48px;
+  margin: 0 0 50px 0;
+}
+@media (max-width: 960px) {
+  .promo-page .intro .text h2 {
+    font-size: 36px;
+  }
+}
+@media (max-width: 600px) {
+  .promo-page .intro .text h2 {
+    font-size: 18px;
+    margin: 0 0 30px 0;
+  }
+}
+.promo-page .intro .description {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 .promo-page .intro .description > div {
   margin-left: 50px;
   position: relative;
-  font-size: 22px;
   margin-bottom: 15px;
+}
+@media (max-width: 600px) {
+  .promo-page .intro .description > div {
+    margin-left: 28px;
+  }
 }
 .promo-page .intro .description > div:before {
   content: '\2022';
@@ -1476,19 +1520,31 @@ iframe {
   font-size: 40px;
   line-height: 36px;
 }
-.promo-page .intro .description > div:not(:last-child) {
-  width: calc(50% - 100px);
-  display: inline-block;
+@media (max-width: 600px) {
+  .promo-page .intro .description > div:before {
+    line-height: 20px;
+  }
+}
+@media (min-width: 600px) {
+  .promo-page .intro .description > div:not(:last-child) {
+    flex: 1 1 calc(50% - 100px);
+  }
+}
+@media (min-width: 600px) {
+  .promo-page .intro .description > div:last-child {
+    margin-top: 18px;
+  }
 }
 .promo-page .prizes {
+  background-color: #323538;
   color: #ffffff;
 }
 .promo-page .prizes .prize-list {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
-  -webkit-align-items: center;
-  align-items: center;
+  -webkit-align-items: flex-end;
+  align-items: flex-end;
   -webkit-justify-content: space-between;
   justify-content: space-between;
   max-width: 1000px;
@@ -1496,32 +1552,364 @@ iframe {
 }
 .promo-page .prizes .prize-list .prize {
   width: 30%;
+  position: relative;
+}
+.promo-page .prizes .prize-list .prize:nth-child(3) {
+  margin-bottom: 8px;
+}
+@media (min-width: 600px) {
+  .promo-page .prizes .prize-list .prize:nth-child(3) svg {
+    margin-top: -22px;
+  }
+}
+.promo-page .prizes .prize-list .prize svg {
+  width: 100%;
+  height: 210px;
+}
+@media (max-width: 1200px) {
+  .promo-page .prizes .prize-list .prize {
+    width: 26vw;
+  }
+  .promo-page .prizes .prize-list .prize svg {
+    height: 20vw;
+  }
+}
+@media (max-width: 1200px) {
+  .promo-page .prizes .prize-list .prize {
+    width: 30vw;
+  }
 }
 .promo-page .prizes .prize-list .prize .place {
-  font-size: 26px;
+  font-size: 56px;
   font-weight: bold;
   text-align: center;
+  line-height: normal;
+}
+@media (max-width: 960px) {
+  .promo-page .prizes .prize-list .prize .place {
+    margin-bottom: 0;
+  }
+}
+@media (max-width: 600px) {
+  .promo-page .prizes .prize-list .prize .place {
+    font-size: 8vw;
+  }
 }
 .promo-page .prizes .prize-list .prize .place sup {
   font-weight: normal;
   font-size: 50%;
   top: -0.8em;
 }
-.promo-page .prizes .prize-list .prize svg {
-  width: 100%;
+.promo-page .prizes .prize-list .prize:nth-child(1) .value {
+  color: #AAA7A7;
+}
+@media (min-width: 1000px) {
+  .promo-page .prizes .prize-list .prize:nth-child(1) .card {
+    position: relative;
+    width: 140px;
+    height: 110px;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(1) .card:before,
+  .promo-page .prizes .prize-list .prize:nth-child(1) .card:after {
+    display: block;
+    width: 112px;
+    height: 79.2px;
+    border-radius: 18.33333333px;
+    border: 6.72px solid white;
+    position: absolute;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(1) .card:before {
+    content: '';
+    bottom: 0;
+    left: 35px;
+    background: #AAA7A7;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(1) .card:after {
+    content: '$250';
+    text-align: center;
+    line-height: 77px;
+    color: #AAA7A7;
+    transform: rotate(-20deg);
+    bottom: 27.5px;
+    left: 0;
+    background: #ffffff;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(1) .card:hover:before {
+    background: #AAA7A7;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(1) .card:hover:after {
+    background: #ffffff;
+  }
+}
+@media (max-width: 1000px) {
+  .promo-page .prizes .prize-list .prize:nth-child(1) .card {
+    position: relative;
+    width: 12vw;
+    height: 9vw;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(1) .card:before,
+  .promo-page .prizes .prize-list .prize:nth-child(1) .card:after {
+    display: block;
+    width: 9.6vw;
+    height: 6.48vw;
+    border-radius: 1.5vw;
+    border: 0.576vw solid white;
+    position: absolute;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(1) .card:before {
+    content: '';
+    bottom: 0;
+    left: 3vw;
+    background: #AAA7A7;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(1) .card:after {
+    content: '$250';
+    text-align: center;
+    line-height: 6.3vw;
+    color: #AAA7A7;
+    transform: rotate(-20deg);
+    bottom: 2.25vw;
+    left: 0;
+    background: #ffffff;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(1) .card:hover:before {
+    background: #AAA7A7;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(1) .card:hover:after {
+    background: #ffffff;
+  }
 }
 .promo-page .prizes .prize-list .prize:nth-child(1) svg {
   fill: #AAA7A7;
 }
+.promo-page .prizes .prize-list .prize:nth-child(2) {
+  margin-bottom: 80px;
+}
+@media (max-width: 600px) {
+  .promo-page .prizes .prize-list .prize:nth-child(2) {
+    margin-bottom: 60px;
+  }
+}
+.promo-page .prizes .prize-list .prize:nth-child(2) .value {
+  color: #C6A21B;
+}
+@media (min-width: 1000px) {
+  .promo-page .prizes .prize-list .prize:nth-child(2) .card {
+    position: relative;
+    width: 140px;
+    height: 110px;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(2) .card:before,
+  .promo-page .prizes .prize-list .prize:nth-child(2) .card:after {
+    display: block;
+    width: 112px;
+    height: 79.2px;
+    border-radius: 18.33333333px;
+    border: 6.72px solid white;
+    position: absolute;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(2) .card:before {
+    content: '';
+    bottom: 0;
+    left: 35px;
+    background: #C6A21B;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(2) .card:after {
+    content: '$500';
+    text-align: center;
+    line-height: 77px;
+    color: #C6A21B;
+    transform: rotate(-20deg);
+    bottom: 27.5px;
+    left: 0;
+    background: #ffffff;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(2) .card:hover:before {
+    background: #C6A21B;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(2) .card:hover:after {
+    background: #ffffff;
+  }
+}
+@media (max-width: 1000px) {
+  .promo-page .prizes .prize-list .prize:nth-child(2) .card {
+    position: relative;
+    width: 12vw;
+    height: 9vw;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(2) .card:before,
+  .promo-page .prizes .prize-list .prize:nth-child(2) .card:after {
+    display: block;
+    width: 9.6vw;
+    height: 6.48vw;
+    border-radius: 1.5vw;
+    border: 0.576vw solid white;
+    position: absolute;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(2) .card:before {
+    content: '';
+    bottom: 0;
+    left: 3vw;
+    background: #C6A21B;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(2) .card:after {
+    content: '$500';
+    text-align: center;
+    line-height: 6.3vw;
+    color: #C6A21B;
+    transform: rotate(-20deg);
+    bottom: 2.25vw;
+    left: 0;
+    background: #ffffff;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(2) .card:hover:before {
+    background: #C6A21B;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(2) .card:hover:after {
+    background: #ffffff;
+  }
+}
 .promo-page .prizes .prize-list .prize:nth-child(2) svg {
   fill: #C6A21B;
+}
+.promo-page .prizes .prize-list .prize:nth-child(3) .value {
+  color: #CD7F32;
+}
+@media (min-width: 1000px) {
+  .promo-page .prizes .prize-list .prize:nth-child(3) .card {
+    position: relative;
+    width: 140px;
+    height: 110px;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(3) .card:before,
+  .promo-page .prizes .prize-list .prize:nth-child(3) .card:after {
+    display: block;
+    width: 112px;
+    height: 79.2px;
+    border-radius: 18.33333333px;
+    border: 6.72px solid white;
+    position: absolute;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(3) .card:before {
+    content: '';
+    bottom: 0;
+    left: 35px;
+    background: #CD7F32;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(3) .card:after {
+    content: '$100';
+    text-align: center;
+    line-height: 77px;
+    color: #CD7F32;
+    transform: rotate(-20deg);
+    bottom: 27.5px;
+    left: 0;
+    background: #ffffff;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(3) .card:hover:before {
+    background: #CD7F32;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(3) .card:hover:after {
+    background: #ffffff;
+  }
+}
+@media (max-width: 1000px) {
+  .promo-page .prizes .prize-list .prize:nth-child(3) .card {
+    position: relative;
+    width: 12vw;
+    height: 9vw;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(3) .card:before,
+  .promo-page .prizes .prize-list .prize:nth-child(3) .card:after {
+    display: block;
+    width: 9.6vw;
+    height: 6.48vw;
+    border-radius: 1.5vw;
+    border: 0.576vw solid white;
+    position: absolute;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(3) .card:before {
+    content: '';
+    bottom: 0;
+    left: 3vw;
+    background: #CD7F32;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(3) .card:after {
+    content: '$100';
+    text-align: center;
+    line-height: 6.3vw;
+    color: #CD7F32;
+    transform: rotate(-20deg);
+    bottom: 2.25vw;
+    left: 0;
+    background: #ffffff;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(3) .card:hover:before {
+    background: #CD7F32;
+  }
+  .promo-page .prizes .prize-list .prize:nth-child(3) .card:hover:after {
+    background: #ffffff;
+  }
 }
 .promo-page .prizes .prize-list .prize:nth-child(3) svg {
   fill: #CD7F32;
 }
+.promo-page .prizes .prize-list .prize .value-wrapper {
+  position: absolute;
+  top: 80px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  padding-right: 14px;
+}
+@media (max-width: 960px) {
+  .promo-page .prizes .prize-list .prize .value-wrapper {
+    top: 11vw;
+    padding-right: 1vw;
+  }
+}
+@media (max-width: 600px) {
+  .promo-page .prizes .prize-list .prize .value-wrapper {
+    top: 10vw;
+  }
+}
+.promo-page .prizes .prize-list .prize .value-wrapper .value {
+  text-align: center;
+  transform: rotate(-20deg);
+  font-size: 6vw;
+  font-weight: bold;
+}
+@media (min-width: 600px) {
+  .promo-page .prizes .prize-list .prize .value-wrapper .value {
+    display: none;
+  }
+}
+@media (max-width: 600px) {
+  .promo-page .prizes .prize-list .prize .value-wrapper .value {
+    padding-left: 4px;
+  }
+}
+.promo-page .prizes .prize-list .prize .value-wrapper .card {
+  margin: 0 auto;
+  font-weight: bold;
+  font-size: 3vw;
+}
+@media (max-width: 600px) {
+  .promo-page .prizes .prize-list .prize .value-wrapper .card {
+    display: none;
+  }
+}
+@media (min-width: 1200px) {
+  .promo-page .prizes .prize-list .prize .value-wrapper .card:after {
+    font-size: 34px;
+  }
+}
+.promo-page .prizes .prize-list .prize .value-wrapper .card:before,
+.promo-page .prizes .prize-list .prize .value-wrapper .card:after {
+  border-color: #323538;
+}
 .promo-page .prizes .text p {
-  font-size: 20px;
-  max-width: 450px;
+  max-width: 560px;
   margin: 0 auto 20px auto;
 }
 .promo-page .intro .text,
@@ -1531,17 +1919,49 @@ iframe {
 .promo-page .intro .text h1,
 .promo-page .prizes .text h1 {
   font-weight: bold;
-  font-size: 48px;
+  font-size: 72px;
+}
+@media (max-width: 960px) {
+  .promo-page .intro .text h1,
+  .promo-page .prizes .text h1 {
+    font-size: 60px;
+  }
+}
+@media (max-width: 600px) {
+  .promo-page .intro .text h1,
+  .promo-page .prizes .text h1 {
+    font-size: 36px;
+  }
 }
 .promo-page .rules {
   background: #ffffff;
 }
+.promo-page .rules h1,
+.promo-page .rules ul {
+  max-width: 1200px;
+  margin: 0 auto;
+}
 .promo-page .rules h1 {
-  padding-left: 70px;
+  padding-left: 90px;
   margin-bottom: 40px;
+}
+@media (max-width: 600px) {
+  .promo-page .rules h1 {
+    padding-left: 70px;
+    margin-bottom: 10px;
+  }
 }
 .promo-page .rules ul {
   padding: 0;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 0 auto;
 }
 .promo-page .rules ul li {
   display: -webkit-flex;
@@ -1551,18 +1971,110 @@ iframe {
   align-items: flex-start;
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
-  max-width: 46%;
+  margin-bottom: 50px;
+}
+@media (min-width: 860px) {
+  .promo-page .rules ul li {
+    max-width: 46%;
+  }
+}
+@media (max-width: 600px) {
+  .promo-page .rules ul li {
+    margin-bottom: 20px;
+  }
 }
 .promo-page .rules ul li .rule {
-  margin: 10px;
-  font-size: 20px;
+  margin: 14px 10px 0 20px;
 }
-.promo-page .rules ul li .icon {
-  width: 60px;
-  height: 60px;
-  border: 1px solid black;
+.promo-page .rules ul li .icon-wrapper {
+  width: 70px;
+  height: 70px;
   border-radius: 100%;
   flex-shrink: 0;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+@media (max-width: 600px) {
+  .promo-page .rules ul li .icon-wrapper {
+    width: 50px;
+    height: 50px;
+  }
+}
+.promo-page .rules ul li .icon-wrapper.uni .icon {
+  width: 42px;
+  height: 42px;
+}
+@media (max-width: 600px) {
+  .promo-page .rules ul li .icon-wrapper.uni .icon {
+    width: 34px;
+    height: 34px;
+  }
+}
+.promo-page .rules ul li .icon-wrapper.like .icon {
+  width: 36px;
+  height: 36px;
+}
+@media (max-width: 600px) {
+  .promo-page .rules ul li .icon-wrapper.like .icon {
+    width: 26px;
+    height: 26px;
+  }
+}
+.promo-page .rules ul li .icon-wrapper.original .icon {
+  width: 86px;
+  height: 60px;
+  margin: -30px;
+  padding-right: 2px;
+}
+@media (max-width: 600px) {
+  .promo-page .rules ul li .icon-wrapper.original .icon {
+    width: 70px;
+    height: 30px;
+  }
+}
+.promo-page .rules ul li .icon-wrapper.spy .icon {
+  width: 42px;
+  height: 48px;
+}
+@media (max-width: 600px) {
+  .promo-page .rules ul li .icon-wrapper.spy .icon {
+    width: 32px;
+    height: 30px;
+  }
+}
+.promo-page .rules ul li .icon-wrapper .icon {
+  fill: #ffffff;
+}
+.promo-page .intro .description > div,
+.promo-page .prizes .description > div,
+.promo-page .rules .description > div,
+.promo-page .intro .text p,
+.promo-page .prizes .text p,
+.promo-page .rules .text p,
+.promo-page .intro ul li .rule,
+.promo-page .prizes ul li .rule,
+.promo-page .rules ul li .rule {
+  font-size: 28px;
+  line-height: 36px;
+}
+@media (max-width: 600px) {
+  .promo-page .intro .description > div,
+  .promo-page .prizes .description > div,
+  .promo-page .rules .description > div,
+  .promo-page .intro .text p,
+  .promo-page .prizes .text p,
+  .promo-page .rules .text p,
+  .promo-page .intro ul li .rule,
+  .promo-page .prizes ul li .rule,
+  .promo-page .rules ul li .rule {
+    font-size: 16px;
+    line-height: 22px;
+  }
 }
 .boxes {
   width: 100%;

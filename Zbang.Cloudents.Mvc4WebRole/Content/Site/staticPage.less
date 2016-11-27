@@ -208,6 +208,18 @@ iframe {
             text-transform: capitalize;
         }
 
+        #promo {
+
+
+            a, a.active {
+                color: #FFCB0B;
+
+                &:hover {
+                    font-weight: bold;
+                }
+            }
+        }
+
         .dropdown-menu li button:hover {
             text-decoration: none;
             background-image: none;
@@ -778,6 +790,9 @@ iframe {
     .static-page-header nav li, .items-container {
         a.active {
             font-weight: bold;
+        }
+
+        &:not(#promo) a.active {
             color: #4190B9;
         }
     }
@@ -1513,7 +1528,6 @@ iframe {
                 text-align: center;
                 padding-bottom: 200px;
                 margin-top: @heightOfstaticPageHeader;
-                background: linear-gradient(to top, #000 -20px, transparent 200px, transparent 100%);
                 padding: 0;
                 overflow: visible;
 
@@ -1644,35 +1658,78 @@ iframe {
         height: 100%;
     }
 
+    .home-page-body {
+        background-image: url(/Images/Site/promo_bg.png);
+        background-size: contain;
+    }
+
     .intro {
-        .text h2 {
-            font-size: 38px;
-            margin: 0 0 40px 0;
-        }
-
-        .description > div {
-            margin-left: 50px;
-            position: relative;
-            font-size: 22px;
-            margin-bottom: 15px;
-
-
-            &:before {
-                content: '\2022';
-                position: absolute;
-                left: -20px;
-                font-size: 40px;
-                line-height: 36px;
+        .text {
+            h1 {
+                margin-bottom: 2px;
             }
 
-            &:not(:last-child) {
-                width: ~"calc(50% - 100px)";
-                display: inline-block;
+            h2 {
+                font-size: 48px;
+                margin: 0 0 50px 0;
+
+                @media(max-width:960px) {
+                    font-size: 36px;
+                }
+
+                @media(max-width:600px) {
+                    font-size: 18px;
+                    margin: 0 0 30px 0;
+                }
+            }
+        }
+
+        .description {
+            max-width: 1200px;
+            margin: 0 auto;
+            .displayFlex;
+            .align-items(flex-start);
+            .justifyContet(space-between);
+            flex-wrap: wrap;
+
+            > div {
+                margin-left: 50px;
+                position: relative;
+                margin-bottom: 15px;
+
+                @media(max-width: 600px) {
+                    margin-left: 28px;
+                }
+
+                &:before {
+                    content: '\2022';
+                    position: absolute;
+                    left: -20px;
+                    font-size: 40px;
+                    line-height: 36px;
+
+                    @media(max-width: 600px) {
+                        line-height: 20px;
+                    }
+                }
+
+                &:not(:last-child) {
+                    @media(min-width: 600px) {
+                        flex: ~"1 1 calc(50% - 100px)";
+                    }
+                }
+
+                @media(min-width: 600px) {
+                    &:last-child {
+                        margin-top: 18px;
+                    }
+                }
             }
         }
     }
 
     .prizes {
+        background-color: @headerbackground;
         color: @textColorWhite;
 
         h1 {
@@ -1680,18 +1737,60 @@ iframe {
 
         .prize-list {
             .displayFlex;
-            .align-items(center);
+            .align-items(flex-end);
             .justifyContet(space-between);
             max-width: 1000px;
             margin: 0 auto;
 
             .prize {
                 width: 30%;
+                @first: #C6A21B;
+                @second: #AAA7A7;
+                @third: #CD7F32;
+                position: relative;
+
+                &:nth-child(3) {
+                    margin-bottom: 8px;
+
+                    svg {
+                        @media(min-width: 600px) {
+                            margin-top: -22px;
+                        }
+                    }
+                }
+
+
+                svg {
+                    width: 100%;
+                    height: 210px;
+                }
+
+
+                @media(max-width: 1200px) {
+                    width: 26vw;
+
+                    svg {
+                        height: 20vw;
+                    }
+                }
+
+                @media(max-width: 1200px) {
+                    width: 30vw;
+                }
 
                 .place {
-                    font-size: 26px;
+                    font-size: 56px;
                     font-weight: bold;
                     text-align: center;
+                    line-height: normal;
+
+                    @media(max-width: 960px) {
+                        margin-bottom: 0;
+                    }
+
+                    @media(max-width: 600px) {
+                        font-size: 8vw;
+                    }
 
                     sup {
                         font-weight: normal;
@@ -1700,27 +1799,132 @@ iframe {
                     }
                 }
 
-                svg {
-                    width: 100%;
+                &:nth-child(1) {
+                    .value {
+                        color: @second;
+                    }
+
+                    .card {
+                        @media(min-width: 1000px) {
+                            .flashcard-icon(140px, @textColorWhite, @second, white, @textColorWhite, @second, '$250', 110px);
+                        }
+
+                        @media(max-width: 1000px) {
+                            .flashcard-icon(12vw, @textColorWhite, @second, white, @textColorWhite, @second, '$250', 9vw);
+                        }
+                    }
+
+                    svg {
+                        fill: @second;
+                    }
                 }
 
-                &:nth-child(1) svg {
-                    fill: #AAA7A7;
+                &:nth-child(2) {
+                    margin-bottom: 80px;
+
+                    @media(max-width: 600px) {
+                        margin-bottom: 60px;
+                    }
+
+                    .value {
+                        color: @first;
+                    }
+
+
+                    .card {
+                        @media(min-width: 1000px) {
+                            .flashcard-icon(140px, @textColorWhite, @first, white, @textColorWhite, @first, '$500', 110px);
+                        }
+
+                        @media(max-width: 1000px) {
+                            .flashcard-icon(12vw, @textColorWhite, @first, white, @textColorWhite, @first, '$500', 9vw);
+                        }
+                    }
+
+                    svg {
+                        fill: @first;
+                    }
                 }
 
-                &:nth-child(2) svg {
-                    fill: #C6A21B;
+                &:nth-child(3) {
+                    .value {
+                        color: @third;
+                    }
+
+
+                    .card {
+                        @media(min-width: 1000px) {
+                            .flashcard-icon(140px, @textColorWhite, @third, white, @textColorWhite, @third, '$100', 110px);
+                        }
+
+                        @media(max-width: 1000px) {
+                            .flashcard-icon(12vw, @textColorWhite, @third, white, @textColorWhite, @third, '$100', 9vw);
+                        }
+                    }
+
+                    svg {
+                        fill: @third;
+                    }
                 }
 
-                &:nth-child(3) svg {
-                    fill: #CD7F32;
+                .value-wrapper {
+                    position: absolute;
+                    top: 80px;
+                    margin: 0 auto;
+                    left: 0;
+                    right: 0;
+                    padding-right: 14px;
+
+                    @media(max-width: 960px) {
+                        top: 11vw;
+                        padding-right: 1vw;
+                    }
+
+                    @media(max-width: 600px) {
+                        top: 10vw;
+                    }
+
+                    .value {
+                        text-align: center;
+                        transform: rotate(-20deg);
+                        font-size: 6vw;
+                        font-weight: bold;
+
+                        @media(min-width: 600px) {
+                            display: none;
+                        }
+
+                        @media(max-width: 600px) {
+                            padding-left: 4px;
+                        }
+                    }
+
+
+                    .card {
+                        margin: 0 auto;
+                        font-weight: bold;
+                        font-size: 3vw;
+
+                        @media(max-width: 600px) {
+                            display: none;
+                        }
+
+                        @media(min-width: 1200px) {
+                            &:after {
+                                font-size: 34px;
+                            }
+                        }
+
+                        &:before, &:after {
+                            border-color: @headerbackground;
+                        }
+                    }
                 }
             }
         }
 
         .text p {
-            font-size: 20px;
-            max-width: 450px;
+            max-width: 560px;
             margin: 0 auto 20px auto;
         }
     }
@@ -1733,7 +1937,15 @@ iframe {
 
             h1 {
                 font-weight: bold;
-                font-size: 48px;
+                font-size: 72px;
+
+                @media(max-width:960px) {
+                    font-size: 60px;
+                }
+
+                @media(max-width:600px) {
+                    font-size: 36px;
+                }
             }
         }
     }
@@ -1741,32 +1953,121 @@ iframe {
     .rules {
         background: @textColorWhite;
 
+        h1, ul {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
         h1 {
-            padding-left: 70px;
+            padding-left: 90px;
             margin-bottom: 40px;
+
+            @media(max-width: 600px) {
+                padding-left: 70px;
+                margin-bottom: 10px;
+            }
         }
 
         ul {
             padding: 0;
+            .displayFlex;
+            .align-items(flex-start);
+            .justifyContet(space-between);
+            flex-wrap: wrap;
+            margin: 0 auto;
 
             li {
                 .displayInlineFlex;
                 .align-items(flex-start);
                 .justifyContet(flex-start);
-                max-width: 46%;
+                margin-bottom: 50px;
+
+                @media(min-width: 860px) {
+                    max-width: 46%;
+                }
+
+                @media(max-width: 600px) {
+                    margin-bottom: 20px;
+                }
 
                 .rule {
-                    margin: 10px;
-                    font-size: 20px;
+                    margin: 14px 10px 0 20px;
                 }
 
-                .icon {
-                    width: 60px;
-                    height: 60px;
-                    border: 1px solid black;
+                .icon-wrapper {
+                    width: 70px;
+                    height: 70px;
                     border-radius: 100%;
                     flex-shrink: 0;
+                    .displayFlex;
+                    .align-items(center);
+                    .justifyContet(center);
+
+                    @media(max-width: 600px) {
+                        width: 50px;
+                        height: 50px;
+                    }
+
+                    &.uni .icon {
+                        width: 42px;
+                        height: 42px;
+
+                        @media(max-width: 600px) {
+                            width: 34px;
+                            height: 34px;
+                        }
+                    }
+
+                    &.like .icon {
+                        width: 36px;
+                        height: 36px;
+
+                        @media(max-width: 600px) {
+                            width: 26px;
+                            height: 26px;
+                        }
+                    }
+
+                    &.original .icon {
+                        width: 86px;
+                        height: 60px;
+                        margin: -30px;
+                        padding-right: 2px;
+
+                        @media(max-width: 600px) {
+                            width: 70px;
+                            height: 30px;
+                        }
+                    }
+
+                    &.spy .icon {
+                        width: 42px;
+                        height: 48px;
+
+                        @media(max-width: 600px) {
+                            width: 32px;
+                            height: 30px;
+                        }
+                    }
+
+                    .icon {
+                        fill: @textColorWhite;
+                    }
                 }
+            }
+        }
+    }
+
+
+
+    .intro, .prizes, .rules {
+        .description > div, .text p, ul li .rule {
+            font-size: 28px;
+            line-height: 36px;
+
+            @media(max-width: 600px) {
+                font-size: 16px;
+                line-height: 22px;
             }
         }
     }

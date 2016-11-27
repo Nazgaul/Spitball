@@ -1295,6 +1295,7 @@
     <Content Include="Images\Site\no_search_results.png" />
     <Content Include="Images\Site\no_uni.png" />
     <Content Include="Images\Site\profileIcons.svg" />
+    <Content Include="Images\Site\promo_bg.png" />
     <Content Include="Images\Site\search_uni.png" />
     <Content Include="Images\HomePage2\testimonial1_he.jpg" />
     <Content Include="Images\HomePage2\testimonial2_he.jpg" />
@@ -1362,7 +1363,6 @@
     <Content Include="Images\Site\quizIcons.svg" />
     <Content Include="Images\Site\itemIcons.svg" />
     <Content Include="Images\Site\icons.svg" />
-    <Content Include="Images\Site\promo-icons.svg" />
     <Content Include="Images\Site\social-icons.svg" />
     <Content Include="Images\Site\stars.png" />
     <Content Include="Images\Site\leaderboard-bg.png" />

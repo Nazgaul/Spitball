@@ -142,6 +142,7 @@
   margin-top: 0;
 }
 .homePage .home-page-body section.main {
+  background: linear-gradient(to top, #000 -20px, transparent 200px, transparent 100%);
   /*position: relative;
                 text-align: center;
                 padding-bottom: 200px;

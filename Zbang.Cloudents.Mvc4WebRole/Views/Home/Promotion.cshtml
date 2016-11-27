@@ -2,6 +2,7 @@
 @{
     Layout = "~/Views/Shared/_LayoutStatic.cshtml";
     const string iconsSvg = "~/images/site/icons.svg";
+    const string boxIconsSvg = "~/images/site/box-icons.svg";
     ViewBag.headerbackground = Model.HomePageUniversityData.HeaderBackgroundColor;
     ViewBag.signupColor = Model.HomePageUniversityData.SignupColor;
 }
@@ -14,7 +15,8 @@
         .login-option.signup{
             background-color: @ViewBag.signupColor;
         }
-        .main-signup {
+
+    .main-signup, .promo-page .rules ul li .icon-wrapper {
             background-color: @Model.HomePageUniversityData.MainSignupColor !important;
         }
 
@@ -31,6 +33,10 @@
     .signup-btn{
         background: @ViewBag.signupColor !important;
     }
+    .promo-page .prizes .text p{
+        color: @Model.HomePageUniversityData.VideoBackgroundColor !important;
+    }
+
 </style>
 
 <div class="static-page promo-page">
@@ -70,14 +76,26 @@
                 <div class="prize-list">
                     <div class="prize">
                         <div class="place">2<sup>nd</sup></div>
+                        <div class="value-wrapper">
+                            <div class="card"></div>
+                            <div class="value">$250</div>
+                        </div>
                         @Html.Svg(iconsSvg, "promo-2nd-place")
                     </div>
                     <div class="prize">
                         <div class="place">1<sup>st</sup></div>
+                        <div class="value-wrapper">
+                            <div class="card"></div>
+                            <div class="value">$500</div>
+                        </div>
                         @Html.Svg(iconsSvg, "promo-1st-place")
                     </div>
                     <div class="prize">
                         <div class="place">3<sup>rd</sup></div>
+                        <div class="value-wrapper">
+                            <div class="card"></div>
+                            <div class="value">$100</div>
+                        </div>
                         @Html.Svg(iconsSvg, "promo-3rd-place")
                     </div>
                 </div>
@@ -86,19 +104,19 @@
                 <h1>Rules</h1>
                 <ul>
                     <li>
-                        <div class="icon"></div>
+                        <div class="icon-wrapper uni">@Html.Svg(iconsSvg, "universityMenu", new { @class = "icon" })</div>
                         <div class="rule">You must be currently enrolled as a student at the University of Michigan</div>
                     </li>
                     <li>
-                        <div class="icon"></div>
+                        <div class="icon-wrapper like">@Html.Svg(boxIconsSvg, "like", new { @class = "icon" })</div>
                         <div class="rule">The flashcard set must have a minimum of 10 likes to be considered a valid entry</div>
                     </li>
                     <li>
-                        <div class="icon"></div>
+                        <div class="icon-wrapper original">@Html.Svg(iconsSvg, "original", new { @class = "icon" })</div>
                         <div class="rule">Flashcards must contain original content and cannot be duplicated from another site or source</div>
                     </li>
                     <li>
-                        <div class="icon"></div>
+                        <div class="icon-wrapper spy">@Html.Svg(iconsSvg, "spy", new { @class = "icon" })</div>
                         <div class="rule">The contest will run until December 15, 2016, at which point the winners will be notified</div>
                     </li>
                 </ul>
