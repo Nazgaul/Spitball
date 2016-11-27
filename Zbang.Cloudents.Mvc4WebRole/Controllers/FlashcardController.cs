@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
-using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Consts;
@@ -18,7 +17,6 @@ using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
-using Zbang.Zbox.ViewModel.Dto;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {

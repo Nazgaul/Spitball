@@ -23,7 +23,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
 
     public class UniversityFlashcardPromo
     {
-
+        public UniversityFlashcardPromo()
+        {
+            Visited = true;
+        }
         public bool Visited { get; set; }
 
 
