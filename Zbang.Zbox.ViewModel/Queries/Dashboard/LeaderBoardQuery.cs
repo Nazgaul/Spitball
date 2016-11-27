@@ -14,19 +14,22 @@ namespace Zbang.Zbox.ViewModel.Queries.Dashboard
         public long UniversityId { get; }
 
 
-        public string CacheKey
+        public string CacheKey => UniversityId.ToString(CultureInfo.InvariantCulture);
+
+        public string CacheRegion => "leaderboardDashboard";
+
+        public TimeSpan Expiration => TimeSpan.FromDays(1);
+    }
+
+    public class FlashcardLeaderboardQuery
+    {
+        public FlashcardLeaderboardQuery(long userId, long universityId)
         {
-            get { return UniversityId.ToString(CultureInfo.InvariantCulture); }
+            UserId = userId;
+            UniversityId = universityId;
         }
 
-        public string CacheRegion
-        {
-            get { return "leaderboardDashboard"; }
-        }
-
-        public TimeSpan Expiration
-        {
-            get { return TimeSpan.FromDays(1); }
-        }
+        public long UserId { get; private set; }
+        public long UniversityId { get; private set; }
     }
 }

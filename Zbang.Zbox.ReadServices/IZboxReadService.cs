@@ -58,6 +58,7 @@ namespace Zbang.Zbox.ReadServices
         Task<FileSeo> GetItemSeoAsync(GetFileSeoQuery query);
         Task<BoxSeoDto> GetBoxSeoAsync(GetBoxSeoQuery query);
 
+        Task<LeaderboardFlashcardDto> GetDashboardFlashcardStatusAsync(FlashcardLeaderboardQuery query);
 
         Task<BoxDto2> GetBox2Async(GetBoxQuery query);
 

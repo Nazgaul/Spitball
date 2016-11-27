@@ -61,13 +61,11 @@
                     ev.preventDefault();
                     if (directionDown) {
                         ctrl.next();
-                        scope.$digest();
-                        this.$anchorScroll("card" + ctrl.slidepos);
                     } else {
                         ctrl.prev();
-                        scope.$digest();
-                        this.$anchorScroll("card" + ctrl.slidepos);
                     }
+                    //scope.$apply();
+                    this.$anchorScroll("card" + ctrl.slidepos);
                 });
             scope.$on("$destroy",
                 () => {

@@ -103,7 +103,6 @@ var app;
             angular.forEach(this.cards, (function (c) {
                 c.style = _this.styleLegend;
             }));
-            this.$scope.$digest();
         };
         FlashcardController.prototype.flip = function (slide) {
             if (typeof (slide.style) === "boolean") {

@@ -764,7 +764,7 @@
             this.buttonUserSave.FlatAppearance.BorderSize = 0;
             this.buttonUserSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonUserSave.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.buttonUserSave.Location = new System.Drawing.Point(926, 479);
+            this.buttonUserSave.Location = new System.Drawing.Point(903, 187);
             this.buttonUserSave.Name = "buttonUserSave";
             this.buttonUserSave.Size = new System.Drawing.Size(136, 29);
             this.buttonUserSave.TabIndex = 13;
@@ -778,7 +778,7 @@
             this.buttonUserDelete.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.buttonUserDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonUserDelete.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonUserDelete.Location = new System.Drawing.Point(818, 188);
+            this.buttonUserDelete.Location = new System.Drawing.Point(364, 483);
             this.buttonUserDelete.Name = "buttonUserDelete";
             this.buttonUserDelete.Size = new System.Drawing.Size(127, 28);
             this.buttonUserDelete.TabIndex = 12;
