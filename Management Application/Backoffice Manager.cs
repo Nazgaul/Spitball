@@ -1439,7 +1439,7 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
 
         private async void buttonItemDelete_Click(object sender, EventArgs e)
         {
-            var itemIdstr = textBoxItemsToDelete.Text?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            var itemIdstr = textBoxItemsToDelete2.Text?.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
             if (itemIdstr == null)
             {
                 return;
