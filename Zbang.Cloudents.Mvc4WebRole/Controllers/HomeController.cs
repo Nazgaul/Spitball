@@ -64,6 +64,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return RedirectToRoute("Promotion");
                 }
+                ViewBag.promoEnable = true;
 
 
             }
@@ -333,6 +334,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 new UniversityFlashcardPromo());
             var query = new GetHomePageQuery(value.UniversityId);
             var homeStats = await ZboxReadService.GetHomePageDataAsync(query);
+            ViewBag.promoEnable = true;
+            //homeStats.FlashcardPromo = true;
             return View("Promotion", homeStats);
         }
 
