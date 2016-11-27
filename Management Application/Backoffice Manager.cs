@@ -1442,5 +1442,21 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
             }
           
         }
+
+        private async void buttonItemDelete_Click(object sender, EventArgs e)
+        {
+            var itemIdstr = textBoxItemsToDelete.Text?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            if (itemIdstr == null)
+            {
+                return;
+            }
+            var itemIds = itemIdstr.Select(long.Parse);
+            var zboxWriteService = IocFactory.IocWrapper.Resolve<IZboxWriteService>();
+            foreach (var boxId in itemIds)
+            {
+               await zboxWriteService.DeleteItemAsync(new DeleteItemCommand(boxId, 1));
+            }
+            MessageBox.Show("Done");
+        }
     }
 }

@@ -151,6 +151,8 @@
             this.textBoxComment = new System.Windows.Forms.TextBox();
             this.buttonAddComment = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.quizUserID = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
             this.quizResult = new System.Windows.Forms.Label();
             this.quizBoxID = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
@@ -162,8 +164,9 @@
             this.openFileDialogReplaceItem = new System.Windows.Forms.OpenFileDialog();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.eventLog1 = new System.Diagnostics.EventLog();
-            this.label27 = new System.Windows.Forms.Label();
-            this.quizUserID = new System.Windows.Forms.TextBox();
+            this.buttonItemDelete = new System.Windows.Forms.Button();
+            this.textBoxItemsToDelete = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
             label15 = new System.Windows.Forms.Label();
             label16 = new System.Windows.Forms.Label();
             label18 = new System.Windows.Forms.Label();
@@ -1131,6 +1134,9 @@
             // 
             // tabPageReplaceItem
             // 
+            this.tabPageReplaceItem.Controls.Add(this.label26);
+            this.tabPageReplaceItem.Controls.Add(this.textBoxItemsToDelete);
+            this.tabPageReplaceItem.Controls.Add(this.buttonItemDelete);
             this.tabPageReplaceItem.Controls.Add(this.buttonReplaceItem);
             this.tabPageReplaceItem.Controls.Add(this.labelAttachment);
             this.tabPageReplaceItem.Controls.Add(this.buttonBrowseAttachments);
@@ -1495,6 +1501,23 @@
             this.tabPage2.Text = "Import Quiz";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // quizUserID
+            // 
+            this.quizUserID.Location = new System.Drawing.Point(559, 259);
+            this.quizUserID.Name = "quizUserID";
+            this.quizUserID.Size = new System.Drawing.Size(149, 22);
+            this.quizUserID.TabIndex = 10;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(556, 228);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(72, 16);
+            this.label27.TabIndex = 9;
+            this.label27.Text = "User ID : ";
+            // 
             // quizResult
             // 
             this.quizResult.AutoSize = true;
@@ -1575,22 +1598,31 @@
             // 
             this.eventLog1.SynchronizingObject = this;
             // 
-            // label27
+            // buttonItemDelete
             // 
-            this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(556, 228);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(72, 16);
-            this.label27.TabIndex = 9;
-            this.label27.Text = "User ID : ";
+            this.buttonItemDelete.Location = new System.Drawing.Point(681, 49);
+            this.buttonItemDelete.Name = "buttonItemDelete";
+            this.buttonItemDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonItemDelete.TabIndex = 7;
+            this.buttonItemDelete.Text = "Delete";
+            this.buttonItemDelete.UseVisualStyleBackColor = true;
+            this.buttonItemDelete.Click += new System.EventHandler(this.buttonItemDelete_Click);
             // 
-            // quizUserID
+            // textBoxItemsToDelete
             // 
-            this.quizUserID.Location = new System.Drawing.Point(559, 259);
-            this.quizUserID.Name = "quizUserID";
-            this.quizUserID.Size = new System.Drawing.Size(149, 22);
-            this.quizUserID.TabIndex = 10;
+            this.textBoxItemsToDelete.Location = new System.Drawing.Point(385, 51);
+            this.textBoxItemsToDelete.Name = "textBoxItemsToDelete";
+            this.textBoxItemsToDelete.Size = new System.Drawing.Size(290, 22);
+            this.textBoxItemsToDelete.TabIndex = 8;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(385, 21);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(76, 16);
+            this.label26.TabIndex = 9;
+            this.label26.Text = "Delete Item";
             // 
             // Form1
             // 
@@ -1771,6 +1803,9 @@
         private System.Diagnostics.EventLog eventLog1;
         private System.Windows.Forms.TextBox quizUserID;
         private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox textBoxItemsToDelete;
+        private System.Windows.Forms.Button buttonItemDelete;
     }
 }
 
