@@ -22,13 +22,13 @@ using Microsoft.Win32;
 using System.Net.Http;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Ioc;
-using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Url;
+using Zbang.Zbox.Infrastructure.Storage;
+using System.Threading;
 
 namespace Management_Application
 {
@@ -36,7 +36,7 @@ namespace Management_Application
 
     public partial class Form1 : Form
     {
-        string QUIZ_URL = "https://api.quizlet.com/2.0/sets/";
+        private const string QuizUrl = "https://api.quizlet.com/2.0/sets/";
         DataTable m_GlobalUserTable;
         DataTable m_GlobalTable;
         string m_Id;
@@ -45,7 +45,7 @@ namespace Management_Application
         string m_UserId;
         UserrequestEntity m_GlobalFlaggedItem;
         UserrequestEntity m_GlobalFlaggedPost;
-        private readonly IIdGenerator m_IdGenerator;
+        //private readonly IIdGenerator m_IdGenerator;
 
         public Form1()
         {
@@ -189,10 +189,7 @@ namespace Management_Application
                     comboBoxCountry.Text = dataTable.Rows[0]["Country"].ToString();
                     m_Id = dataTable.Rows[0]["Id"].ToString();
                     m_NoOfStudents = dataTable.Rows[0]["NoOfUsers"].ToString();
-                    if (dataTable.Rows[0]["Active"].ToString() == "True")
-                        comboBox1.Text = "Active";
-                    else
-                        comboBox1.Text = "Not Active";
+                    comboBox1.Text = dataTable.Rows[0]["Active"].ToString() == "True" ? "Active" : "Not Active";
                     if (dataTable.Rows[0]["IsDeleted"].ToString() == "True")
                     {
                         LabelIsDeleted.ForeColor = Color.Red;
@@ -305,25 +302,18 @@ namespace Management_Application
         private void Refresh()
 #pragma warning restore CS0114 // 'Form1.Refresh()' hides inherited member 'Control.Refresh()'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword.
         {
-            String name;
-            name = textBoxUniName.Text;
+            var uniName = textBoxUniName.Text;
             searchButton_Click(new object(), new EventArgs());
-            //string select = "SELECT * FROM Zbox.University WHERE UniversityName like N'%" + uniListBox.GetItemText(uniListBox.SelectedItem)+ "%'";
-            //string connectionString = "Data Source=LENOVO-PC;Initial Catalog=Zbox;Integrated Security=True";
             var c = new SqlConnection(m_ConnectionString);
             SqlCommand command = c.CreateCommand();
-            command.Parameters.AddWithValue("@name", name);
+            command.Parameters.AddWithValue("@name", uniName);
             command.CommandText = "SELECT top 1 * FROM Zbox.University WHERE UniversityName like @name";
-            //string select = command.CommandText;
-            //SqlDataAdapter dataAdapter = new SqlDataAdapter(select, "Data Source=LENOVO-PC;Initial Catalog=Zbox;Integrated Security=True");
             SqlDataAdapter dataAdapter = new SqlDataAdapter { SelectCommand = command };
-            SqlCommandBuilder commandBuilder = new SqlCommandBuilder(dataAdapter);
             var ds = new DataSet();
-            var dataTable = new DataTable();
             c.Open();
             dataAdapter.Fill(ds);
             c.Close();
-            dataTable = ds.Tables[0];
+            var dataTable = ds.Tables[0];
             textBoxUniName.Text = dataTable.Rows[0]["UniversityName"].ToString();
             textBoxUniUrl.Text = dataTable.Rows[0]["WebSiteUrl"].ToString();
             try
@@ -347,10 +337,7 @@ namespace Management_Application
             comboBoxCountry.Text = dataTable.Rows[0]["Country"].ToString();
             m_Id = dataTable.Rows[0]["Id"].ToString();
             m_NoOfStudents = dataTable.Rows[0]["NoOfUsers"].ToString();
-            if (dataTable.Rows[0]["Active"].ToString() == "True")
-                comboBox1.Text = "Active";
-            else
-                comboBox1.Text = "Not Active";
+            comboBox1.Text = dataTable.Rows[0]["Active"].ToString() == "True" ? "Active" : "Not Active";
             if (dataTable.Rows[0]["IsDeleted"].ToString() == "True")
             {
                 LabelIsDeleted.ForeColor = Color.Red;
@@ -364,7 +351,7 @@ namespace Management_Application
             }
 
             richTextBoxStats.Text = "Stats:\n\nCreated on: " + dataTable.Rows[0]["CreationTime"] + "\n\nStudents: " + dataTable.Rows[0]["NoOfUsers"] + "\n\nItems: " + dataTable.Rows[0]["NoOfItems"] +
-                "\n\nBoxes: " + dataTable.Rows[0]["NoOfBoxes"] + "\nQuizes: " + dataTable.Rows[0]["NoOfQuizzes"] + "\nAdmin Score:" + dataTable.Rows[0]["AdminScore"] + "\nuniversityID:" + dataTable.Rows[0]["ID"];
+                "\n\nBoxes: " + dataTable.Rows[0]["NoOfBoxes"] + "\nQuizes: " + dataTable.Rows[0]["NoOfQuizzes"] + "\nAdmin Score:" + dataTable.Rows[0]["AdminScore"] + "\n universityID:" + dataTable.Rows[0]["ID"];
             richTextBoxStats.ReadOnly = true;
             int index = uniListBox.FindString(textBoxUniName.Text);
             if (index != -1)
@@ -378,7 +365,7 @@ namespace Management_Application
             {
                 try
                 {
-                    using (SqlCommand command = connection.CreateCommand())
+                    using (var command = connection.CreateCommand())
                     {
                         command.Parameters.AddWithValue("@email", textBoxUserEmailSearch.Text);
                         command.CommandText = "SELECT * FROM Zbox.Users WHERE Email=@email";
@@ -455,22 +442,21 @@ namespace Management_Application
 
         private void buttonUserSave_Click(object sender, EventArgs e)
         {
-            using (SqlConnection connection = new SqlConnection(m_ConnectionString))
+            using (var connection = new SqlConnection(m_ConnectionString))
             {
-                SqlCommand command = connection.CreateCommand();
-                command.Parameters.AddWithValue("@email", textBoxUserEmail.Text);
-                command.Parameters.AddWithValue("@userName", textBoxUserName.Text);
-                String type;
-                if (comboBoxUserType.Text == "Admin")
-                    type = "1";
-                else
-                    type = "0";
-                command.Parameters.AddWithValue("@type", type);
-                command.Parameters.AddWithValue("@userId", m_UserId);
-                command.CommandText = "UPDATE Zbox.Users SET Email=@email, UserName=@userName, UserType=@type WHERE UserId=@userId";
-                connection.Open();
-                command.ExecuteNonQuery();
-                connection.Close();
+                using (var command = connection.CreateCommand())
+                {
+                    command.Parameters.AddWithValue("@email", textBoxUserEmail.Text);
+                    command.Parameters.AddWithValue("@userName", textBoxUserName.Text);
+                    var type = comboBoxUserType.Text == "Admin" ? "1" : "0";
+                    command.Parameters.AddWithValue("@type", type);
+                    command.Parameters.AddWithValue("@userId", m_UserId);
+                    command.CommandText =
+                        "UPDATE Zbox.Users SET Email=@email, UserName=@userName, UserType=@type WHERE UserId=@userId";
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
             }
             MessageBox.Show("Changes were saved", "Saved", MessageBoxButtons.OK);
         }
@@ -595,13 +581,12 @@ namespace Management_Application
 
                 }
                 //flaggedItemsListBox.GetItemText(flaggedItemsListBox.SelectedItem) //--Item ID not users
-                SqlCommand command = connection.CreateCommand();
+                var command = connection.CreateCommand();
                 command.Parameters.AddWithValue("@id", m_GlobalFlaggedItem?.UserId);
                 command.CommandText = "SELECT * FROM Zbox.Users WHERE UserId=@id";
-                SqlDataAdapter dataAdapter = new SqlDataAdapter();
-                dataAdapter.SelectCommand = command;
+                var dataAdapter = new SqlDataAdapter {SelectCommand = command};
                 connection.Open();
-                SqlCommandBuilder commandBuilder = new SqlCommandBuilder(dataAdapter);
+                //SqlCommandBuilder commandBuilder = new SqlCommandBuilder(dataAdapter);
                 DataSet ds = new DataSet();
                 dataAdapter.Fill(ds);
                 var dataTable = ds.Tables[0];
@@ -618,25 +603,18 @@ namespace Management_Application
                         dataAdapter2.Fill(dataTable2);
                         uniName = dataTable2.Rows[0]["UniversityName"].ToString();
                     }
-                    string gender = "";
-                    if (dataTable.Rows[0]["Sex"].ToString() == "True")
-                        gender = "Female";
-                    else
-                        gender = "Male";
+                    var gender = dataTable.Rows[0]["Sex"].ToString() == "True" ? "Female" : "Male";
                     string mobile = "No";
                     if (dataTable.Rows[0]["MobileDevice"].ToString() == "1")
                         mobile = "Yes";
-                    int Boxes = 0;
                     command.Parameters.AddWithValue("@userId", dataTable.Rows[0]["UserId"].ToString());
                     command.CommandText = "SELECT COUNT(*) FROM Zbox.UserBoxRel WHERE UserId=@userId";
                     connection.Open();
-                    Boxes = (int)command.ExecuteScalar();
-                    int quizzes = 0;
+                    var boxes = (int)command.ExecuteScalar();
                     command.CommandText = "SELECT COUNT(*) FROM Zbox.Quiz WHERE UserId=@userId";
-                    quizzes = (int)command.ExecuteScalar();
-                    int items = 0;
+                    var quizzes = (int)command.ExecuteScalar();
                     command.CommandText = "SELECT COUNT(*) FROM Zbox.Item WHERE UserId=@userId";
-                    items = (int)command.ExecuteScalar();
+                    var items = (int)command.ExecuteScalar();
 
 
                     var urls = connection.Query<string>("SELECT url FROM Zbox.Item WHERE Itemid=@itemId", new { itemId = m_GlobalFlaggedItem.ItemId });
@@ -646,7 +624,7 @@ namespace Management_Application
                     connection.Close();
                     richTextBoxUserThatFlagged.Text = "Created on:" + dataTable.Rows[0]["CreationTime"] + "\nLast Activity: " + dataTable.Rows[0]["UpdateTime"] + "\nUniversity Name: " + uniName + "\nUrl: https://www.spitball.co/"
                         + dataTable.Rows[0]["Url"] + "\nFacebook: https://www.facebook.com" + "/" + dataTable.Rows[0]["FacebookUserId"] + "\nReputation: " + dataTable.Rows[0]["UserReputation"] + "\nCulture: "
-                        + dataTable.Rows[0]["Culture"] + "\nGender: " + gender + "\nMobile: " + mobile + "\nMobile Joined: " + "--" + "\nBoxes: " + Boxes + "\nQuizzes: " + quizzes + "\nItems: " + items + "\nitemUrl: https://www.spitball.co/" + itemUrl;
+                        + dataTable.Rows[0]["Culture"] + "\nGender: " + gender + "\nMobile: " + mobile + "\nMobile Joined: " + "--" + "\nBoxes: " + boxes + "\nQuizzes: " + quizzes + "\nItems: " + items + "\nitemUrl: https://www.spitball.co/" + itemUrl;
 
                     //richTextBoxUserThatFlagged.Text = ("Name: "+dataTable.Rows[0]["UserName"].ToString())+"\n\nEmail: "+dataTable.Rows[0]["Email"].ToString()+"\n\n"+dataTable.Rows[0][];
                     try
@@ -716,9 +694,9 @@ namespace Management_Application
             CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials("zboxstorage", "HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw=="), false);
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
             CloudTable table = tableClient.GetTableReference("userrequests");
-            TableQuery<UserrequestEntity> Query = new TableQuery<UserrequestEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "FlagPost"));
+            TableQuery<UserrequestEntity> query = new TableQuery<UserrequestEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "FlagPost"));
             listBoxFlaggedPosts.Items.Clear();
-            foreach (UserrequestEntity entity in table.ExecuteQuery(Query))
+            foreach (UserrequestEntity entity in table.ExecuteQuery(query))
             {
                 listBoxFlaggedPosts.Items.Add(entity.PostId.ToString());
             }
@@ -736,9 +714,9 @@ namespace Management_Application
                 CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials("zboxstorage", "HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw=="), false);
                 CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
                 CloudTable table = tableClient.GetTableReference("userrequests");
-                TableQuery<UserrequestEntity> Query = new TableQuery<UserrequestEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "FlagPost"));
+                TableQuery<UserrequestEntity> query = new TableQuery<UserrequestEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "FlagPost"));
                 m_GlobalFlaggedPost = null;
-                foreach (UserrequestEntity entity in table.ExecuteQuery(Query))
+                foreach (UserrequestEntity entity in table.ExecuteQuery(query))
                 {
                     if (entity.PostId.ToString() == listBoxFlaggedPosts.GetItemText(listBoxFlaggedPosts.SelectedItem))
                     {
@@ -760,11 +738,10 @@ namespace Management_Application
                 SqlDataAdapter dataAdapter = new SqlDataAdapter();
                 dataAdapter.SelectCommand = command;
                 connection.Open();
-                SqlCommandBuilder commandBuilder = new SqlCommandBuilder(dataAdapter);
-                DataTable dataTable = new DataTable();
+                //SqlCommandBuilder commandBuilder = new SqlCommandBuilder(dataAdapter);
                 DataSet ds = new DataSet();
                 dataAdapter.Fill(ds);
-                dataTable = ds.Tables[0];
+                var dataTable = ds.Tables[0];
                 connection.Close();
                 try
                 {
@@ -774,31 +751,23 @@ namespace Management_Application
                     {
                         command.Parameters.AddWithValue("@uniId", dataTable.Rows[0]["UniversityId"].ToString());
                         command.CommandText = "SELECT UniversityName FROM Zbox.University WHERE Id=@uniId";
-                        SqlDataAdapter dataAdapter2 = new SqlDataAdapter();
-                        dataAdapter2.SelectCommand = command;
+                        SqlDataAdapter dataAdapter2 = new SqlDataAdapter {SelectCommand = command};
                         DataTable dataTable2 = new DataTable();
                         dataAdapter2.Fill(dataTable2);
                         uniName = dataTable2.Rows[0]["UniversityName"].ToString();
                     }
-                    String Gender = "";
-                    if (dataTable.Rows[0]["Sex"].ToString() == "True")
-                        Gender = "Female";
-                    else
-                        Gender = "Male";
-                    String Mobile = "No";
+                    var gender = dataTable.Rows[0]["Sex"].ToString() == "True" ? "Female" : "Male";
+                    var mobile = "No";
                     if (dataTable.Rows[0]["MobileDevice"].ToString() == "1")
-                        Mobile = "Yes";
-                    var Boxes = 0;
+                        mobile = "Yes";
                     command.Parameters.AddWithValue("@userId", dataTable.Rows[0]["UserId"].ToString());
                     command.CommandText = "SELECT COUNT(*) FROM Zbox.UserBoxRel WHERE UserId=@userId";
                     connection.Open();
-                    Boxes = (int)command.ExecuteScalar();
-                    int Quizzes = 0;
+                    var boxes = (int)command.ExecuteScalar();
                     command.CommandText = "SELECT COUNT(*) FROM Zbox.Quiz WHERE UserId=@userId";
-                    Quizzes = (int)command.ExecuteScalar();
-                    int Items = 0;
+                    var quizzes = (int)command.ExecuteScalar();
                     command.CommandText = "SELECT COUNT(*) FROM Zbox.Item WHERE UserId=@userId";
-                    Items = (int)command.ExecuteScalar();
+                    var items = (int)command.ExecuteScalar();
 
                     var urls = connection.Query<string>("select url from zbox.box b inner join zbox.question q on b.boxid = q.boxid where questionid = @items", new { items = m_GlobalFlaggedPost.PostId });
                     var url = urls.FirstOrDefault();
@@ -807,7 +776,7 @@ namespace Management_Application
                     connection.Close();
                     richTextBoxUserFlaggedPost.Text = "Created on:" + dataTable.Rows[0]["CreationTime"] + "\nLast Activity: " + dataTable.Rows[0]["UpdateTime"] + "\nUniversity Name: " + uniName + "\nUrl: https://www.spitball.co/"
                         + dataTable.Rows[0]["Url"] + "\nFacebook: https://www.facebook.com" + "/" + dataTable.Rows[0]["FacebookUserId"] + "\nReputation: " + dataTable.Rows[0]["UserReputation"] + "\nCulture: "
-                        + dataTable.Rows[0]["Culture"] + "\nGender: " + Gender + "\nMobile: " + Mobile + "\nMobile Joined: " + "--" + "\nBoxes: " + Boxes + "\nQuizzes: " + Quizzes + "\nItems: " + Items + "\nURL: https://www.spitball.co/" + url;
+                        + dataTable.Rows[0]["Culture"] + "\nGender: " + gender + "\nMobile: " + mobile + "\nMobile Joined: " + "--" + "\nBoxes: " + boxes + "\nQuizzes: " + quizzes + "\nItems: " + items + "\nURL: https://www.spitball.co/" + url;
 
                 }
                 catch (Exception ex)
@@ -964,8 +933,7 @@ namespace Management_Application
                 SqlCommand command = connection.CreateCommand();
                 command.Parameters.AddWithValue("@id", m_GlobalFlaggedPost.UserId);
                 command.CommandText = "SELECT * FROM Zbox.Users WHERE UserId=@id";
-                var dataAdapter = new SqlDataAdapter();
-                dataAdapter.SelectCommand = command;
+                var dataAdapter = new SqlDataAdapter {SelectCommand = command};
                 connection.Open();
                 var ds = new DataSet();
                 dataAdapter.Fill(ds);
@@ -1067,15 +1035,14 @@ namespace Management_Application
             }
 
 
-            await UploadBlob(blobName, fileLocation);
+            await UploadBlobAsync(blobName, fileLocation);
             MessageBox.Show("File has been replaced, press OK to continue.", "File Replaced", MessageBoxButtons.OK);
             textBoxAttachment.Text = "";
         }
 
-        private async Task UploadBlob(string blobName, string fileLocation)
+        private async Task UploadBlobAsync(string blobName, string fileLocation)
         {
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
-            //CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials("zboxstorage", "HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw=="), false);
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
             CloudBlobContainer container = blobClient.GetContainerReference("zboxfiles");
             CloudBlockBlob blockBlob = container.GetBlockBlobReference(blobName);
@@ -1190,7 +1157,7 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
             var iocFactory = IocFactory.IocWrapper;
 
             var writeService = iocFactory.Resolve<IZboxWorkerRoleService>();
-            await writeService.DeleteBoxAsync(new Zbang.Zbox.Domain.Commands.DeleteBoxCommand(boxId));
+            await writeService.DeleteBoxAsync(new DeleteBoxCommand(boxId));
 
 
             //            using (var conn = new SqlConnection(m_ConnectionString))
@@ -1264,13 +1231,13 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
 
             var writeService = IocFactory.IocWrapper.Resolve<IZboxWriteService>();
             var idGenerator = IocFactory.IocWrapper.Resolve<IGuidIdGenerator>();
-            var cache = IocFactory.IocWrapper.Resolve<ICache>();
+            //var cache = IocFactory.IocWrapper.Resolve<ICache>();
 
             foreach (var boxId in boxIds)
             {
                 var questionId = idGenerator.GetId();
                 var command = new AddCommentCommand(commentUserId, boxId, textBoxComment.Text, questionId, null, false);
-                var details = await writeService.AddCommentAsync(command);
+                await writeService.AddCommentAsync(command);
 
                 if (needReply)
                 {
@@ -1278,7 +1245,7 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
                     var replyCommand = new AddReplyToCommentCommand(replyUserId, boxId, textBoxReply.Text, answerId, questionId, null);
                     await writeService.AddReplyAsync(replyCommand);
                 }
-               // await cache.RemoveFromCacheAsyncSlowAsync(CacheRegions.BuildFeedRegion(boxId));
+                // await cache.RemoveFromCacheAsyncSlowAsync(CacheRegions.BuildFeedRegion(boxId));
 
             }
 
@@ -1295,56 +1262,70 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
 
         private async void buttonImportQuiz_Click(object sender, EventArgs e)
         {
+            // Split box ids
+            var boxIdstr = quizBoxID.Text?.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+            if (boxIdstr == null)
+            {
+                return;
+            }
+            var boxIds = boxIdstr.Select(long.Parse);
+            var userId = long.Parse(quizUserID.Text);
+            importQuizResult.Text = await ImportQuizAsync(quizUrlId.Text, quizName.Text, boxIds, userId);
+        }
+        private static async Task<string> ImportQuizAsync(string quizUrl, string quizName, IEnumerable<long> boxIds, long userId)
+        {
             var httpClient = new HttpClient();
-            var output="";
+            var output = "";
             //Validate that the link is valid
             try
             {
-                var sr = await httpClient.GetAsync(quizUrlId.Text);
-                sr.EnsureSuccessStatusCode();
-                //Get the id of the quid for the json data query
-                var currentQuizId= (quizUrlId.Text.Split('/'))[3];
-                var response = await httpClient.GetAsync(String.Format(QUIZ_URL + "{0}" + "?client_id=53m5PP5tK3&whitespace=1&format=json", currentQuizId));
-                response.EnsureSuccessStatusCode();
-                string responseBody = await response.Content.ReadAsStringAsync();
-                var json = JObject.Parse(responseBody);
-                var converter = JsonConvert.DeserializeObject<Zbang.Zbox.Domain.Flashcard>(responseBody);
-                var cardsList = (JObject.Parse(responseBody)).SelectToken("terms");
-                var cardsConverters = new List<Zbang.Zbox.Domain.Card>();
-                var imageUrl = "";
-                foreach (var card in cardsList)
+                using (var sr = await httpClient.GetAsync(quizUrl))
                 {
-                    if (card.SelectToken("image").HasValues) {
-                        imageUrl = (string)card.SelectToken("image.url");
-                        //saveImage(imageUrl);
-                    }
-                    cardsConverters.Add(
-                        new Zbang.Zbox.Domain.Card
+                    sr.EnsureSuccessStatusCode();
+                    //Get the id of the quid for the json data query
+                    var currentQuizId = (quizUrl.Split('/'))[3];
+                    using (var response = await httpClient.GetAsync(String.Format(QuizUrl + "{0}" + "?client_id=53m5PP5tK3&whitespace=1&format=json", currentQuizId)))
+                    {
+                        response.EnsureSuccessStatusCode();
+                        string responseBody = await response.Content.ReadAsStringAsync();
+                        //var json = JObject.Parse(responseBody);
+                        //var converter = JsonConvert.DeserializeObject<Zbang.Zbox.Domain.Flashcard>(responseBody);
+                        var cardsList = (JObject.Parse(responseBody)).SelectToken("terms");
+                        var cardImages = cardsList.Where(card => card.SelectToken("image").HasValues);
+                        //var cardsConverters = new List<Zbang.Zbox.Domain.Card>();
+                        string imageLink;
+                        var dictionaryImage = new Dictionary<long, string>();
+                        var imagesTask = new List<Task<string>>();
+                        //go over the cards from json and convert them to Flashcard cards structure
+                        foreach (var card in cardImages)
                         {
-                            Cover = new Zbang.Zbox.Domain.CardSlide
-                            {
-                                Text = (string)card.SelectToken("definition"),
-                                Image = (imageUrl=="")?null:imageUrl
-                            },
-                            Front = new Zbang.Zbox.Domain.CardSlide
-                            {
-                                Image = null,
-                                Text = (string)card.SelectToken("term")
-                            }
+                            imagesTask.Add(SaveImageAsync((long)card.SelectToken("id"), (string)card.SelectToken("image.url"), dictionaryImage));
                         }
-                   );
+                        await Task.WhenAll(imagesTask);
 
-                }
-                var boxIdstr = quizBoxID.Text?.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
-                if (boxIdstr == null)
-                {
-                    return;
-                }
-                var boxIds = boxIdstr.Select(long.Parse);
-                var userId = long.Parse(quizUserID.Text);
-                foreach (var box in boxIds)
-                {
-                    output += "\nboxId:#" + box +" "+ await createFlashCard(userId, quizName.Text, cardsConverters, box);
+                        //create and add card object to the list according the data
+                        var cardsConverters2 = cardsList.Select(card =>
+                            new Zbang.Zbox.Domain.Card
+                            {
+                                Cover = new Zbang.Zbox.Domain.CardSlide
+                                {
+                                    Text = (string)card.SelectToken("definition"),
+                                    Image = (!dictionaryImage.TryGetValue((long)card.SelectToken("id"), out imageLink)) ? null : imageLink
+                                },
+                                Front = new Zbang.Zbox.Domain.CardSlide
+                                {
+                                    Image = null,
+                                    Text = (string)card.SelectToken("term")
+                                }
+                            }
+                       ).ToList();
+
+                        //var tasks = new List<Task>();
+                        foreach (var box in boxIds)
+                        {
+                            output += "\nboxId:#" + await CreateFlashCardAsync(userId, quizName, cardsConverters2, box);
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -1352,36 +1333,27 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
                 Console.WriteLine(ex.Message);
                 output = ex.Message;
             }
-            quizResult.Text = output;
-            quizResult.Visible = true;
-            quizResult.Refresh();
-            Console.WriteLine("Hello");
-            httpClient.Dispose();
+
+            return output;
         }
-        private  void saveImage(string url)
+        private static async Task<string> SaveImageAsync(long id, string url, IDictionary<long, string> dictinary)
         {
+            var client = new HttpClient();
             var name = url.Split('/').Last();
-            using (WebClient webClient = new WebClient())
+            //var dictionary = new Dictionary<long, string>();
+            using (var res = await client.GetAsync(url))
             {
-                 webClient.DownloadFile(new Uri(url), name);
-                var file = new FileStream(name,FileMode.Open);
-                 //var m_flash=  IocFactory.IocWrapper.Resolve<IBlobProvider2<FlashcardContainerName>>();
-                 //var fileName = Guid.NewGuid() + Path.GetExtension(name);
-                 //await m_flash.UploadStreamAsync(fileName, file, GetMimeType(name), default(CancellationToken));
+                var flash = IocFactory.IocWrapper.Resolve<IBlobProvider2<FlashcardContainerName>>();
+                var fileName = Guid.NewGuid() + Path.GetExtension(name);
+                await flash.UploadStreamAsync(fileName, await res.Content.ReadAsStreamAsync(), res.Content.Headers.ContentType.ToString(), default(CancellationToken));
+                dictinary.Add(id, flash.GetBlobUrl(fileName, true).ToString());
+                return flash.GetBlobUrl(fileName, true).ToString();
             }
         }
-        private string GetMimeType(string fileName)
-        {
-            string mimeType = "application/unknown";
-            //string ext = Path.GetExtension(fileName).ToLower();
-            //RegistryKey regKey = Registry.ClassesRoot.OpenSubKey(ext);
-            //if (regKey != null && regKey.GetValue("Content Type") != null)
-            //    mimeType = regKey.GetValue("Content Type").ToString();
-            return mimeType;
-        }
 
-        private async Task<string> createFlashCard(long userId,string quizName,List<Zbang.Zbox.Domain.Card> cardsList,long boxId)
+        private static async Task<string> CreateFlashCardAsync(long userId, string quizName, IEnumerable<Zbang.Zbox.Domain.Card> cardsList, long boxId)
         {
+            var output = boxId.ToString();
             try
             {
                 var id = IocFactory.IocWrapper.Resolve<IIdGenerator>().GetId(Zbang.Zbox.Infrastructure.Consts.IdContainer.FlashcardScope);
@@ -1395,18 +1367,35 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
                     Cards = cardsList
                 };
                 //Write the new Flashcard to the db
-                var ZboxWriteService = IocFactory.IocWrapper.Resolve<IZboxWriteService>();
+                var zboxWriteService = IocFactory.IocWrapper.Resolve<IZboxWriteService>();
                 var command = new AddFlashcardCommand(flashCard);
-                await ZboxWriteService.AddFlashcardAsync(command);
-                await ZboxWriteService.PublishFlashcardAsync(new PublishFlashcardCommand(flashCard));
-                return "done";
+                await zboxWriteService.AddFlashcardAsync(command);
+                await zboxWriteService.PublishFlashcardAsync(new PublishFlashcardCommand(flashCard));
+                return output + " done";
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return ex.Message;
+                return output + " " + ex.Message;
             }
-          
+
+        }
+
+        private async void buttonItemDelete_Click(object sender, EventArgs e)
+        {
+            var itemIdstr = textBoxItemsToDelete2.Text?.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+            if (itemIdstr == null)
+            {
+                return;
+            }
+            var itemIds = itemIdstr.Select(long.Parse);
+            var userId = long.Parse(textBoxItemDeleteUserId.Text);
+            var zboxWriteService = IocFactory.IocWrapper.Resolve<IZboxWriteService>();
+            foreach (var boxId in itemIds)
+            {
+                await zboxWriteService.DeleteItemAsync(new DeleteItemCommand(boxId, userId));
+            }
+            MessageBox.Show("Done");
         }
     }
 }

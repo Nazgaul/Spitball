@@ -1317,7 +1317,6 @@ iframe {
   text-align: center;
   padding-bottom: 200px;
   margin-top: 60px;
-  background: linear-gradient(to top, #000 -20px, transparent 200px, transparent 100%);
   padding: 0;
   overflow: visible;
 }

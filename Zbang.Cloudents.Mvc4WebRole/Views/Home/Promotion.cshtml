@@ -1,42 +1,37 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources
+﻿@model Zbang.Zbox.ViewModel.Dto.HomePageDataDto
 @{
     Layout = "~/Views/Shared/_LayoutStatic.cshtml";
     const string iconsSvg = "~/images/site/icons.svg";
     const string boxIconsSvg = "~/images/site/box-icons.svg";
+    ViewBag.headerbackground = Model.HomePageUniversityData.HeaderBackgroundColor;
+    ViewBag.signupColor = Model.HomePageUniversityData.SignupColor;
 }
 <style>
-    .intro {
-        background: #ffcb0b !important;
-    }
+    .intro{
+            background: @Model.HomePageUniversityData.VideoBackgroundColor !important;
+        }
 
-
-    .login-option.signup {
-        background-color: #ffcb0b;
-    }
-
+        @*We need not important due to js changes*@
+        .login-option.signup{
+            background-color: @ViewBag.signupColor;
+        }
+        
     .main-signup, .prizes, .promo-page .rules ul li .icon-wrapper {
-        background-color: #002e62 !important;
+            background-color: @Model.HomePageUniversityData.MainSignupColor !important;
+        }
+
+        .intro .text{
+            color:@Model.HomePageUniversityData.VideoFontColor !important;
+        }
+
+        .sb-logo{
+            background-image: url("@Model.HomePageUniversityData.Logo");
+        }
+        .static-page-header{
+        background: @ViewBag.headerbackground !important;
     }
-
-
-    .sb-logo {
-        background-image: url("https://zboxstorage.blob.core.windows.net/universities/171885.png");
-    }
-
-    .static-page-header {
-        background: rgba(0,46,98,.9) !important;
-    }
-
-    .signup-btn {
-        background: #ffcb0b !important;
-    }
-
-    .prizes .text p {
-        color: #ffcb0b !important;
-    }
-
-    .intro .text h1, .rules h1, .description > div:before {
-        color: #002e62;
+    .signup-btn{
+        background: @ViewBag.signupColor !important;
     }
 
     .promo-page .prizes .prize-list .prize .card:before,

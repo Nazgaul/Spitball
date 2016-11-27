@@ -8,6 +8,7 @@
         }
         public HomePageStats HomePageStats { get; set; }
         public HomePageUniversityData HomePageUniversityData { get; set; }
+        //public bool FlashcardPromo { get; set; }
         //public IEnumerable<RecommendBoxDto> Boxes { get; set; }
     }
 

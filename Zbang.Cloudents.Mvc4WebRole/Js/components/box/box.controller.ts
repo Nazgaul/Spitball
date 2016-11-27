@@ -23,6 +23,7 @@
         owner;
         inviteOpen;
 
+
         //TODO: To fix that
         settingsOpen;
         settingsHtml;

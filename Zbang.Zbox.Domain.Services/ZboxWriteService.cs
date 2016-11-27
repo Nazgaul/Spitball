@@ -155,12 +155,12 @@ namespace Zbang.Zbox.Domain.Services
 
         public async Task DeleteItemAsync(DeleteItemCommand command)
         {
-            using (UnitOfWork.Start())
+            using (var unitOfWork = UnitOfWork.Start())
             {
                 var t1 = m_CommandBus.SendAsync(command);
                 var t2 = m_Cache.RemoveAsync(command);
                 await Task.WhenAll(t1, t2);
-                UnitOfWork.Current.TransactionalFlush();
+                unitOfWork.TransactionalFlush();
             }
         }
 

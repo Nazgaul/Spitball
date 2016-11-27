@@ -357,25 +357,26 @@ namespace Testing
             var validLinks = new List<String>();
             var invalidLinks = new List<LinkItemStatus>();
             var numOfRows = await LinksNum();
-            
+
             //Calc the Max index that return results
             var maxIndex = Math.Ceiling(numOfRows / (double)100);
             var tasks = new List<Task>();
-           
+
             //Go over the indexes and add the invalidLinks action to the task list
             for (var index = 0; index < maxIndex; index++)
             {
-                Console.WriteLine("The index is:"+index+ "\\"+ maxIndex);
+                Console.WriteLine("The index is:" + index + "\\" + maxIndex);
                 tasks.Add(GetLinkItems(invalidLinks, validLinks, index, 100));
             }
-            
+
             //Wait untill all lines will be called
             await Task.WhenAll(tasks);
-           
+
             //Write to the csv file the invalid links and reason
-            using (System.IO.StreamWriter sw = new StreamWriter(@"C:\Users\USER\Desktop\InvalidLinksList.csv")) { 
+            using (var sw = new StreamWriter(@"C:\Users\USER\Desktop\InvalidLinksList.csv"))
+            {
                 foreach (var obj in invalidLinks)
-                     sw.WriteLine(String.Format("{0},{1},{2}", obj.BlobName, string.Join(" ", obj.ItemIds), obj.Code));
+                    sw.WriteLine(String.Format("{0},{1},{2}", obj.BlobName, string.Join(" ", obj.ItemIds), obj.Code));
             }
             return true;
         }
@@ -383,7 +384,7 @@ namespace Testing
          * This function check the validity of links item according to the index and offset parameters
          * add the invalid links to the InvalidLinks Parameter and the valid links to the validList parameter
          * */
-        public static async Task GetLinkItems(List<LinkItemStatus> invalidLinks,List<string> validLinks,int index = 0, int RowSize = 100)
+        public static async Task GetLinkItems(List<LinkItemStatus> invalidLinks, List<string> validLinks, int index = 0, int RowSize = 100)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -395,9 +396,9 @@ namespace Testing
                 order by itemid
                 OFFSET @Offset ROWS
                 FETCH NEXT @RowSize ROWS ONLY"
-                , new { Offset = index * 100, RowSize = RowSize });
+                , new { Offset = index * 100, RowSize });
 
-                Console.WriteLine(String.Format("Start index {0}",index));
+                Console.WriteLine($"Start index {index}");
                 //Run on the Query result rows
                 foreach (var singleRow in list)
                 {
@@ -407,13 +408,13 @@ namespace Testing
                     //CurrentUrl is already known as valid
                     if (validLinks.IndexOf(currentUrl) > -1) { continue; }
                     //CurrentUrl known as invalid
-                    else if (dictVal!=null)
+                    if (dictVal != null)
                     {
                         //Add the current id to the invalidItem ids list
                         var idsList = dictVal.ItemIds.AsList();
                         idsList.Add(singleRow.itemid);
-                        dictVal.ItemIds= idsList.ToArray();
-                        Console.WriteLine(String.Format("id :{0} val {1}" ,singleRow.itemid,dictVal.Code));
+                        dictVal.ItemIds = idsList.ToArray();
+                        Console.WriteLine(string.Format("id :{0} val {1}", singleRow.itemid, dictVal.Code));
                     }
                     else
                     {
@@ -431,24 +432,25 @@ namespace Testing
                                 }
                                 else
                                 {
-                                    status = (String.Format("{0}({1})",((System.Net.Http.HttpResponseMessage)sr).StatusCode.ToString(), ((int)((System.Net.Http.HttpResponseMessage)sr).StatusCode)));
+                                    status = ($"{((HttpResponseMessage) sr).StatusCode}({((int) ((HttpResponseMessage) sr).StatusCode)})");
                                 }
                             }
-                        }catch(Exception e) {
+                        }
+                        catch (Exception e)
+                        {
                             status = e.Message;
-                            Console.WriteLine(String.Format("issue id :{0} val {1} error:{2}",singleRow.itemid,singleRow.blobname,e.Message));
-                            continue;
+                            Console.WriteLine(string.Format("issue id :{0} val {1} error:{2}", singleRow.itemid, singleRow.blobname, e.Message));
                         }
                         finally
                         {
-                            if(status!= VALID_STATUS)
+                            if (status != VALID_STATUS)
                                 invalidLinks.Add(new LinkItemStatus(singleRow.blobname, singleRow.itemid, status));
                         }
-                        
 
-                        }
+
                     }
-                    Console.WriteLine(String.Format("end index {0}", index));
+                }
+                Console.WriteLine($"end index {index}");
             }
         }
         /**
@@ -456,32 +458,32 @@ namespace Testing
          * */
         public class LinkItemStatus
         {
-            public LinkItemStatus(string blobName, long id,string code)
+            public LinkItemStatus(string blobName, long id, string code)
             {
                 BlobName = blobName;
-                ItemIds = new long[] { id};
+                ItemIds = new[] { id };
                 Code = code;
             }
             public long[] ItemIds { get; set; }
             public string BlobName { get; set; }
             public string Code { get; set; }
         }
-            public static void ShowChars(char[] charArray)
-        {
-            Console.WriteLine("Char\tHex Value");
-            // Display each invalid character to the console. 
-            foreach (char someChar in charArray)
-            {
-                if (Char.IsWhiteSpace(someChar))
-                {
-                    Console.WriteLine(",\t{0:X4}", (int)someChar);
-                }
-                else
-                {
-                    Console.WriteLine("{0:c},\t{1:X4}", someChar, (int)someChar);
-                }
-            }
-        }
+        //public static void ShowChars(char[] charArray)
+        //{
+        //    Console.WriteLine("Char\tHex Value");
+        //    // Display each invalid character to the console. 
+        //    foreach (char someChar in charArray)
+        //    {
+        //        if (Char.IsWhiteSpace(someChar))
+        //        {
+        //            Console.WriteLine(",\t{0:X4}", (int)someChar);
+        //        }
+        //        else
+        //        {
+        //            Console.WriteLine("{0:c},\t{1:X4}", someChar, (int)someChar);
+        //        }
+        //    }
+        //}
         private static void Emails()
         {
 

@@ -117,10 +117,6 @@
             this.listBoxFlaggedPosts = new System.Windows.Forms.ListBox();
             this.label14 = new System.Windows.Forms.Label();
             this.tabPageReplaceItem = new System.Windows.Forms.TabPage();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.textBoxItemsToDelete2 = new System.Windows.Forms.TextBox();
-            this.textBoxItemDeleteUserId = new System.Windows.Forms.TextBox();
-            this.buttonItemDelete = new System.Windows.Forms.Button();
             this.buttonReplaceItem = new System.Windows.Forms.Button();
             this.labelAttachment = new System.Windows.Forms.Label();
             this.buttonBrowseAttachments = new System.Windows.Forms.Button();
@@ -157,7 +153,6 @@
             this.textBoxComment = new System.Windows.Forms.TextBox();
             this.buttonAddComment = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.importQuizResult = new System.Windows.Forms.RichTextBox();
             this.quizUserID = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
             this.quizBoxID = new System.Windows.Forms.TextBox();
@@ -170,6 +165,11 @@
             this.openFileDialogReplaceItem = new System.Windows.Forms.OpenFileDialog();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.eventLog1 = new System.Diagnostics.EventLog();
+            this.importQuizResult = new System.Windows.Forms.RichTextBox();
+            this.buttonItemDelete = new System.Windows.Forms.Button();
+            this.textBoxItemsToDelete = new System.Windows.Forms.TextBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.textBoxItemDeleteUserId = new System.Windows.Forms.TextBox();
             label15 = new System.Windows.Forms.Label();
             label16 = new System.Windows.Forms.Label();
             label18 = new System.Windows.Forms.Label();
@@ -189,7 +189,6 @@
             this.tabPageFlaggedPost.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUserFlaggedPost)).BeginInit();
             this.tabPageReplaceItem.SuspendLayout();
-            this.groupBox5.SuspendLayout();
             this.tabPageMergeBoxes.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -199,6 +198,7 @@
             this.groupBox3.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).BeginInit();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // label15
@@ -255,24 +255,6 @@
             label23.Size = new System.Drawing.Size(141, 16);
             label23.TabIndex = 6;
             label23.Text = "BoxIds (seperate by ,):";
-            // 
-            // label26
-            // 
-            label26.AutoSize = true;
-            label26.Location = new System.Drawing.Point(16, 31);
-            label26.Name = "label26";
-            label26.Size = new System.Drawing.Size(54, 16);
-            label26.TabIndex = 9;
-            label26.Text = "Item Ids";
-            // 
-            // label28
-            // 
-            label28.AutoSize = true;
-            label28.Location = new System.Drawing.Point(16, 102);
-            label28.Name = "label28";
-            label28.Size = new System.Drawing.Size(117, 16);
-            label28.TabIndex = 11;
-            label28.Text = "User to delete with";
             // 
             // menuStrip1
             // 
@@ -1173,43 +1155,6 @@
             this.tabPageReplaceItem.Text = "Replace Item";
             this.tabPageReplaceItem.UseVisualStyleBackColor = true;
             // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.textBoxItemsToDelete2);
-            this.groupBox5.Controls.Add(label28);
-            this.groupBox5.Controls.Add(this.textBoxItemDeleteUserId);
-            this.groupBox5.Controls.Add(label26);
-            this.groupBox5.Controls.Add(this.buttonItemDelete);
-            this.groupBox5.Location = new System.Drawing.Point(385, 105);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(577, 279);
-            this.groupBox5.TabIndex = 10;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Delete Item";
-            // 
-            // textBoxItemsToDelete2
-            // 
-            this.textBoxItemsToDelete2.Location = new System.Drawing.Point(16, 50);
-            this.textBoxItemsToDelete2.Name = "textBoxItemsToDelete2";
-            this.textBoxItemsToDelete2.Size = new System.Drawing.Size(290, 22);
-            this.textBoxItemsToDelete2.TabIndex = 13;
-            // 
-            // textBoxItemDeleteUserId
-            // 
-            this.textBoxItemDeleteUserId.Location = new System.Drawing.Point(16, 132);
-            this.textBoxItemDeleteUserId.Name = "textBoxItemDeleteUserId";
-            this.textBoxItemDeleteUserId.Size = new System.Drawing.Size(290, 22);
-            this.textBoxItemDeleteUserId.TabIndex = 10;
-            // 
-            // buttonItemDelete
-            // 
-            this.buttonItemDelete.Location = new System.Drawing.Point(357, 132);
-            this.buttonItemDelete.Name = "buttonItemDelete";
-            this.buttonItemDelete.Size = new System.Drawing.Size(108, 23);
-            this.buttonItemDelete.TabIndex = 12;
-            this.buttonItemDelete.Text = "Delete item";
-            this.buttonItemDelete.Click += new System.EventHandler(this.buttonItemDelete_Click);
-            // 
             // buttonReplaceItem
             // 
             this.buttonReplaceItem.Location = new System.Drawing.Point(6, 300);
@@ -1560,16 +1505,27 @@
             this.tabPage2.Text = "Import Flashcard";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // importQuizResult
-            // 
-            this.importQuizResult.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.importQuizResult.Location = new System.Drawing.Point(695, 84);
-            this.importQuizResult.Name = "importQuizResult";
-            this.importQuizResult.Size = new System.Drawing.Size(346, 281);
-            this.importQuizResult.TabIndex = 11;
-            this.importQuizResult.Text = "";
-            // 
             // quizUserID
+<<<<<<< HEAD
+=======
+            // 
+            this.quizUserID.Location = new System.Drawing.Point(559, 259);
+            this.quizUserID.Name = "quizUserID";
+            this.quizUserID.Size = new System.Drawing.Size(149, 22);
+            this.quizUserID.TabIndex = 10;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(556, 228);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(72, 16);
+            this.label27.TabIndex = 9;
+            this.label27.Text = "User ID : ";
+            // 
+            // quizResult
+>>>>>>> 8ca84d32346f6966adec4df332238559f3ae800f
             // 
             this.quizUserID.Location = new System.Drawing.Point(50, 370);
             this.quizUserID.Name = "quizUserID";
@@ -1596,12 +1552,12 @@
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Microsoft YaHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label25.Location = new System.Drawing.Point(47, 237);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(140, 19);
+            this.label25.Size = new System.Drawing.Size(172, 16);
             this.label25.TabIndex = 5;
-            this.label25.Text = "Box IDS seperate by ;";
+            this.label25.Text = "Box IDS(seperate by ;) :";
             // 
             // label24
             // 
@@ -1656,6 +1612,73 @@
             // 
             this.eventLog1.SynchronizingObject = this;
             // 
+<<<<<<< HEAD
+            // importQuizResult
+            // 
+            this.importQuizResult.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.importQuizResult.Location = new System.Drawing.Point(695, 84);
+            this.importQuizResult.Name = "importQuizResult";
+            this.importQuizResult.Size = new System.Drawing.Size(346, 281);
+            this.importQuizResult.TabIndex = 11;
+            this.importQuizResult.Text = "";
+=======
+            // buttonItemDelete
+            // 
+            this.buttonItemDelete.Location = new System.Drawing.Point(312, 59);
+            this.buttonItemDelete.Name = "buttonItemDelete";
+            this.buttonItemDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonItemDelete.TabIndex = 7;
+            this.buttonItemDelete.Text = "Delete";
+            this.buttonItemDelete.UseVisualStyleBackColor = true;
+            this.buttonItemDelete.Click += new System.EventHandler(this.buttonItemDelete_Click);
+            // 
+            // textBoxItemsToDelete
+            // 
+            this.textBoxItemsToDelete.Location = new System.Drawing.Point(16, 61);
+            this.textBoxItemsToDelete.Name = "textBoxItemsToDelete";
+            this.textBoxItemsToDelete.Size = new System.Drawing.Size(290, 22);
+            this.textBoxItemsToDelete.TabIndex = 8;
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Location = new System.Drawing.Point(16, 31);
+            label26.Name = "label26";
+            label26.Size = new System.Drawing.Size(54, 16);
+            label26.TabIndex = 9;
+            label26.Text = "Item Ids";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(label28);
+            this.groupBox5.Controls.Add(this.textBoxItemDeleteUserId);
+            this.groupBox5.Controls.Add(label26);
+            this.groupBox5.Controls.Add(this.buttonItemDelete);
+            this.groupBox5.Controls.Add(this.textBoxItemsToDelete);
+            this.groupBox5.Location = new System.Drawing.Point(385, 105);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(577, 279);
+            this.groupBox5.TabIndex = 10;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Delete Item";
+            // 
+            // label28
+            // 
+            label28.AutoSize = true;
+            label28.Location = new System.Drawing.Point(16, 102);
+            label28.Name = "label28";
+            label28.Size = new System.Drawing.Size(117, 16);
+            label28.TabIndex = 11;
+            label28.Text = "User to delete with";
+            // 
+            // textBoxItemDeleteUserId
+            // 
+            this.textBoxItemDeleteUserId.Location = new System.Drawing.Point(16, 132);
+            this.textBoxItemDeleteUserId.Name = "textBoxItemDeleteUserId";
+            this.textBoxItemDeleteUserId.Size = new System.Drawing.Size(290, 22);
+            this.textBoxItemDeleteUserId.TabIndex = 10;
+>>>>>>> 8ca84d32346f6966adec4df332238559f3ae800f
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1682,8 +1705,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUserFlaggedPost)).EndInit();
             this.tabPageReplaceItem.ResumeLayout(false);
             this.tabPageReplaceItem.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
             this.tabPageMergeBoxes.ResumeLayout(false);
             this.tabPageMergeBoxes.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -1700,6 +1721,8 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).EndInit();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1836,11 +1859,14 @@
         private System.Diagnostics.EventLog eventLog1;
         private System.Windows.Forms.TextBox quizUserID;
         private System.Windows.Forms.Label label27;
+<<<<<<< HEAD
         private System.Windows.Forms.RichTextBox importQuizResult;
+=======
+        private System.Windows.Forms.TextBox textBoxItemsToDelete;
         private System.Windows.Forms.Button buttonItemDelete;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.TextBox textBoxItemDeleteUserId;
-        private System.Windows.Forms.TextBox textBoxItemsToDelete2;
+>>>>>>> 8ca84d32346f6966adec4df332238559f3ae800f
     }
 }
 

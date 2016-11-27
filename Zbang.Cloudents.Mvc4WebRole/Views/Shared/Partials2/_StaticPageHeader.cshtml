@@ -4,6 +4,7 @@
 @{
     ViewBag.headerbackground = ViewBag.headerbackground ?? "#181c1d";
     ViewBag.signupColor = ViewBag.signupColor ?? "#EC610D";
+    ViewBag.promoEnable = ViewBag.promoEnable ?? false;
 }
 @*<style>
         .static-page-header{
@@ -47,10 +48,13 @@
                 <li id="apps">
                     <a href="@Url.RouteUrl("Apps")">@HomePageResources.A11</a>
                 </li>
-                <li class="pipe"></li>
+                @if (ViewBag.promoEnable)
+                {
+                    <li class="pipe"></li>
                 <li id="promo">
-                    <a href="@Url.RouteUrl("Promotion")">@HomePageResources.A12</a>
-                </li>
+                        <a href="@Url.RouteUrl("Promotion")">@HomePageResources.A12</a>
+                    </li>
+                }
 
                 <li class="language">
                     @if (!User.Identity.IsAuthenticated)
