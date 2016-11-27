@@ -34,6 +34,8 @@
             System.Windows.Forms.Label label21;
             System.Windows.Forms.Label label22;
             System.Windows.Forms.Label label23;
+            System.Windows.Forms.Label label26;
+            System.Windows.Forms.Label label28;
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tabUniversity = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -166,13 +168,16 @@
             this.eventLog1 = new System.Diagnostics.EventLog();
             this.buttonItemDelete = new System.Windows.Forms.Button();
             this.textBoxItemsToDelete = new System.Windows.Forms.TextBox();
-            this.label26 = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.textBoxItemDeleteUserId = new System.Windows.Forms.TextBox();
             label15 = new System.Windows.Forms.Label();
             label16 = new System.Windows.Forms.Label();
             label18 = new System.Windows.Forms.Label();
             label21 = new System.Windows.Forms.Label();
             label22 = new System.Windows.Forms.Label();
             label23 = new System.Windows.Forms.Label();
+            label26 = new System.Windows.Forms.Label();
+            label28 = new System.Windows.Forms.Label();
             this.tabUniversity.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUni)).BeginInit();
@@ -193,6 +198,7 @@
             this.groupBox3.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).BeginInit();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // label15
@@ -1134,9 +1140,7 @@
             // 
             // tabPageReplaceItem
             // 
-            this.tabPageReplaceItem.Controls.Add(this.label26);
-            this.tabPageReplaceItem.Controls.Add(this.textBoxItemsToDelete);
-            this.tabPageReplaceItem.Controls.Add(this.buttonItemDelete);
+            this.tabPageReplaceItem.Controls.Add(this.groupBox5);
             this.tabPageReplaceItem.Controls.Add(this.buttonReplaceItem);
             this.tabPageReplaceItem.Controls.Add(this.labelAttachment);
             this.tabPageReplaceItem.Controls.Add(this.buttonBrowseAttachments);
@@ -1600,7 +1604,7 @@
             // 
             // buttonItemDelete
             // 
-            this.buttonItemDelete.Location = new System.Drawing.Point(681, 49);
+            this.buttonItemDelete.Location = new System.Drawing.Point(312, 59);
             this.buttonItemDelete.Name = "buttonItemDelete";
             this.buttonItemDelete.Size = new System.Drawing.Size(75, 23);
             this.buttonItemDelete.TabIndex = 7;
@@ -1610,19 +1614,49 @@
             // 
             // textBoxItemsToDelete
             // 
-            this.textBoxItemsToDelete.Location = new System.Drawing.Point(385, 51);
+            this.textBoxItemsToDelete.Location = new System.Drawing.Point(16, 61);
             this.textBoxItemsToDelete.Name = "textBoxItemsToDelete";
             this.textBoxItemsToDelete.Size = new System.Drawing.Size(290, 22);
             this.textBoxItemsToDelete.TabIndex = 8;
             // 
             // label26
             // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(385, 21);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(76, 16);
-            this.label26.TabIndex = 9;
-            this.label26.Text = "Delete Item";
+            label26.AutoSize = true;
+            label26.Location = new System.Drawing.Point(16, 31);
+            label26.Name = "label26";
+            label26.Size = new System.Drawing.Size(54, 16);
+            label26.TabIndex = 9;
+            label26.Text = "Item Ids";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(label28);
+            this.groupBox5.Controls.Add(this.textBoxItemDeleteUserId);
+            this.groupBox5.Controls.Add(label26);
+            this.groupBox5.Controls.Add(this.buttonItemDelete);
+            this.groupBox5.Controls.Add(this.textBoxItemsToDelete);
+            this.groupBox5.Location = new System.Drawing.Point(385, 105);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(577, 279);
+            this.groupBox5.TabIndex = 10;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Delete Item";
+            // 
+            // label28
+            // 
+            label28.AutoSize = true;
+            label28.Location = new System.Drawing.Point(16, 102);
+            label28.Name = "label28";
+            label28.Size = new System.Drawing.Size(117, 16);
+            label28.TabIndex = 11;
+            label28.Text = "User to delete with";
+            // 
+            // textBoxItemDeleteUserId
+            // 
+            this.textBoxItemDeleteUserId.Location = new System.Drawing.Point(16, 132);
+            this.textBoxItemDeleteUserId.Name = "textBoxItemDeleteUserId";
+            this.textBoxItemDeleteUserId.Size = new System.Drawing.Size(290, 22);
+            this.textBoxItemDeleteUserId.TabIndex = 10;
             // 
             // Form1
             // 
@@ -1666,6 +1700,8 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).EndInit();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1803,9 +1839,10 @@
         private System.Diagnostics.EventLog eventLog1;
         private System.Windows.Forms.TextBox quizUserID;
         private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.Label label26;
         private System.Windows.Forms.TextBox textBoxItemsToDelete;
         private System.Windows.Forms.Button buttonItemDelete;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.TextBox textBoxItemDeleteUserId;
     }
 }
 

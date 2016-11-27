@@ -1451,10 +1451,11 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
                 return;
             }
             var itemIds = itemIdstr.Select(long.Parse);
+            var userId = long.Parse(textBoxItemDeleteUserId.Text);
             var zboxWriteService = IocFactory.IocWrapper.Resolve<IZboxWriteService>();
             foreach (var boxId in itemIds)
             {
-               await zboxWriteService.DeleteItemAsync(new DeleteItemCommand(boxId, 1));
+               await zboxWriteService.DeleteItemAsync(new DeleteItemCommand(boxId, userId));
             }
             MessageBox.Show("Done");
         }
