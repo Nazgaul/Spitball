@@ -166,6 +166,14 @@ iframe {
   font-size: 14px;
   text-transform: capitalize;
 }
+.static-page-header nav #promo a,
+.static-page-header nav #promo a.active {
+  color: #FFCB0B;
+}
+.static-page-header nav #promo a:hover,
+.static-page-header nav #promo a.active:hover {
+  font-weight: bold;
+}
 .static-page-header nav .dropdown-menu li button:hover {
   text-decoration: none;
   background-image: none;
@@ -672,6 +680,9 @@ iframe {
 .static-page .static-page-header nav li a.active,
 .static-page .items-container a.active {
   font-weight: bold;
+}
+.static-page .static-page-header nav li:not(#promo) a.active,
+.static-page .items-container:not(#promo) a.active {
   color: #4190B9;
 }
 .help-page .panel-body img {
@@ -1525,6 +1536,7 @@ iframe {
   }
 }
 .promo-page .prizes {
+  background-color: #323538;
   color: #ffffff;
 }
 .promo-page .prizes .prize-list {
@@ -1587,56 +1599,6 @@ iframe {
   font-weight: normal;
   font-size: 50%;
   top: -0.8em;
-}
-.promo-page .prizes .prize-list .prize .value-wrapper {
-  position: absolute;
-  top: 80px;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
-  padding-right: 14px;
-}
-@media (max-width: 960px) {
-  .promo-page .prizes .prize-list .prize .value-wrapper {
-    top: 11vw;
-    padding-right: 1vw;
-  }
-}
-@media (max-width: 600px) {
-  .promo-page .prizes .prize-list .prize .value-wrapper {
-    top: 10vw;
-  }
-}
-.promo-page .prizes .prize-list .prize .value-wrapper .value {
-  text-align: center;
-  transform: rotate(-20deg);
-  font-size: 6vw;
-  font-weight: bold;
-}
-@media (min-width: 600px) {
-  .promo-page .prizes .prize-list .prize .value-wrapper .value {
-    display: none;
-  }
-}
-@media (max-width: 600px) {
-  .promo-page .prizes .prize-list .prize .value-wrapper .value {
-    padding-left: 4px;
-  }
-}
-.promo-page .prizes .prize-list .prize .value-wrapper .card {
-  margin: 0 auto;
-  font-weight: bold;
-  font-size: 3vw;
-}
-@media (max-width: 600px) {
-  .promo-page .prizes .prize-list .prize .value-wrapper .card {
-    display: none;
-  }
-}
-@media (min-width: 1200px) {
-  .promo-page .prizes .prize-list .prize .value-wrapper .card:after {
-    font-size: 34px;
-  }
 }
 .promo-page .prizes .prize-list .prize:nth-child(1) .value {
   color: #AAA7A7;
@@ -1891,6 +1853,60 @@ iframe {
 }
 .promo-page .prizes .prize-list .prize:nth-child(3) svg {
   fill: #CD7F32;
+}
+.promo-page .prizes .prize-list .prize .value-wrapper {
+  position: absolute;
+  top: 80px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  padding-right: 14px;
+}
+@media (max-width: 960px) {
+  .promo-page .prizes .prize-list .prize .value-wrapper {
+    top: 11vw;
+    padding-right: 1vw;
+  }
+}
+@media (max-width: 600px) {
+  .promo-page .prizes .prize-list .prize .value-wrapper {
+    top: 10vw;
+  }
+}
+.promo-page .prizes .prize-list .prize .value-wrapper .value {
+  text-align: center;
+  transform: rotate(-20deg);
+  font-size: 6vw;
+  font-weight: bold;
+}
+@media (min-width: 600px) {
+  .promo-page .prizes .prize-list .prize .value-wrapper .value {
+    display: none;
+  }
+}
+@media (max-width: 600px) {
+  .promo-page .prizes .prize-list .prize .value-wrapper .value {
+    padding-left: 4px;
+  }
+}
+.promo-page .prizes .prize-list .prize .value-wrapper .card {
+  margin: 0 auto;
+  font-weight: bold;
+  font-size: 3vw;
+}
+@media (max-width: 600px) {
+  .promo-page .prizes .prize-list .prize .value-wrapper .card {
+    display: none;
+  }
+}
+@media (min-width: 1200px) {
+  .promo-page .prizes .prize-list .prize .value-wrapper .card:after {
+    font-size: 34px;
+  }
+}
+.promo-page .prizes .prize-list .prize .value-wrapper .card:before,
+.promo-page .prizes .prize-list .prize .value-wrapper .card:after {
+  border-color: #323538;
 }
 .promo-page .prizes .text p {
   max-width: 560px;

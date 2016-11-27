@@ -15,8 +15,8 @@
         .login-option.signup{
             background-color: @ViewBag.signupColor;
         }
-        
-    .main-signup, .prizes, .promo-page .rules ul li .icon-wrapper {
+
+    .main-signup, .promo-page .rules ul li .icon-wrapper {
             background-color: @Model.HomePageUniversityData.MainSignupColor !important;
         }
 
@@ -33,11 +33,10 @@
     .signup-btn{
         background: @ViewBag.signupColor !important;
     }
-
-    .promo-page .prizes .prize-list .prize .card:before,
-    .promo-page .prizes .prize-list .prize .card:after {
-        border-color: #002e62 !important;
+    .promo-page .prizes .text p{
+        color: @Model.HomePageUniversityData.VideoBackgroundColor !important;
     }
+
 </style>
 
 <div class="static-page promo-page">

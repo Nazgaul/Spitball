@@ -208,6 +208,18 @@ iframe {
             text-transform: capitalize;
         }
 
+        #promo {
+
+
+            a, a.active {
+                color: #FFCB0B;
+
+                &:hover {
+                    font-weight: bold;
+                }
+            }
+        }
+
         .dropdown-menu li button:hover {
             text-decoration: none;
             background-image: none;
@@ -778,6 +790,9 @@ iframe {
     .static-page-header nav li, .items-container {
         a.active {
             font-weight: bold;
+        }
+
+        &:not(#promo) a.active {
             color: #4190B9;
         }
     }
@@ -1714,6 +1729,7 @@ iframe {
     }
 
     .prizes {
+        background-color: @headerbackground;
         color: @textColorWhite;
 
         h1 {
@@ -1783,56 +1799,6 @@ iframe {
                     }
                 }
 
-                .value-wrapper {
-                    position: absolute;
-                    top: 80px;
-                    margin: 0 auto;
-                    left: 0;
-                    right: 0;
-                    padding-right: 14px;
-
-                    @media(max-width: 960px) {
-                        top: 11vw;
-                        padding-right: 1vw;
-                    }
-
-                    @media(max-width: 600px) {
-                        top: 10vw;
-                    }
-
-                    .value {
-                        text-align: center;
-                        transform: rotate(-20deg);
-                        font-size: 6vw;
-                        font-weight: bold;
-
-                        @media(min-width: 600px) {
-                            display: none;
-                        }
-
-                        @media(max-width: 600px) {
-                            padding-left: 4px;
-                        }
-                    }
-
-
-                    .card {
-                        margin: 0 auto;
-                        font-weight: bold;
-                        font-size: 3vw;
-
-                        @media(max-width: 600px) {
-                            display: none;
-                        }
-
-                        @media(min-width: 1200px) {
-                            &:after {
-                                font-size: 34px;
-                            }
-                        }
-                    }
-                }
-
                 &:nth-child(1) {
                     .value {
                         color: @second;
@@ -1898,6 +1864,60 @@ iframe {
 
                     svg {
                         fill: @third;
+                    }
+                }
+
+                .value-wrapper {
+                    position: absolute;
+                    top: 80px;
+                    margin: 0 auto;
+                    left: 0;
+                    right: 0;
+                    padding-right: 14px;
+
+                    @media(max-width: 960px) {
+                        top: 11vw;
+                        padding-right: 1vw;
+                    }
+
+                    @media(max-width: 600px) {
+                        top: 10vw;
+                    }
+
+                    .value {
+                        text-align: center;
+                        transform: rotate(-20deg);
+                        font-size: 6vw;
+                        font-weight: bold;
+
+                        @media(min-width: 600px) {
+                            display: none;
+                        }
+
+                        @media(max-width: 600px) {
+                            padding-left: 4px;
+                        }
+                    }
+
+
+                    .card {
+                        margin: 0 auto;
+                        font-weight: bold;
+                        font-size: 3vw;
+
+                        @media(max-width: 600px) {
+                            display: none;
+                        }
+
+                        @media(min-width: 1200px) {
+                            &:after {
+                                font-size: 34px;
+                            }
+                        }
+
+                        &:before, &:after {
+                            border-color: @headerbackground;
+                        }
                     }
                 }
             }
