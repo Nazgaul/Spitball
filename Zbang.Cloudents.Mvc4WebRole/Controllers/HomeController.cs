@@ -31,7 +31,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     {
         private readonly Lazy<IBlobProvider> m_BlobProvider;
         private readonly ICookieHelper m_CookieHelper;
-        private readonly long[] m_FlashcardUniversities = { 173408, 171885, 172566 };
+        public static readonly long[] FlashcardUniversities = { 173408, 171885, 172566 };
 
         public HomeController(Lazy<IBlobProvider> blobProvider, ICookieHelper cookieHelper)
         {
@@ -57,7 +57,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 return RedirectToRoute("UniversityLink", new { invId, universityName = university.UniversityName, step });
             }
-            if (university != null && m_FlashcardUniversities.Contains(university.UniversityId))
+            if (university != null && FlashcardUniversities.Contains(university.UniversityId))
             {
                 var flashcardPromo = m_CookieHelper.ReadCookie<UniversityFlashcardPromo>(UniversityFlashcardPromo.CookieName);
                 if (flashcardPromo == null)
@@ -326,7 +326,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return RedirectToRoute("homePage");
             }
-            if (!m_FlashcardUniversities.Contains(value.UniversityId))
+            if (!FlashcardUniversities.Contains(value.UniversityId))
             {
                 return RedirectToRoute("homePage");
             }

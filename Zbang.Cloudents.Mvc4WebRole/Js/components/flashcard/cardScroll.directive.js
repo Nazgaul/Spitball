@@ -47,14 +47,11 @@ var app;
                     ev.preventDefault();
                     if (directionDown) {
                         ctrl.next();
-                        scope.$digest();
-                        _this.$anchorScroll("card" + ctrl.slidepos);
                     }
                     else {
                         ctrl.prev();
-                        scope.$digest();
-                        _this.$anchorScroll("card" + ctrl.slidepos);
                     }
+                    _this.$anchorScroll("card" + ctrl.slidepos);
                 });
                 scope.$on("$destroy", function () {
                     $(window).unbind("touchstart touchend touchmove");

@@ -129,7 +129,7 @@
                 (c => {
                     c.style = this.styleLegend;
                 }));
-            this.$scope.$digest(); // we want to digest the legend before doing the next phase. - mobile do problem due to animation
+            //this.$scope.$apply(); // we want to digest the legend before doing the next phase. - mobile do problem due to animation
         }
         flip(slide) {
             if (typeof (slide.style) === "boolean") {

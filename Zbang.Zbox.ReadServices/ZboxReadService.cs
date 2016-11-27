@@ -110,9 +110,27 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<IEnumerable<LeaderBoardDto>> GetDashboardLeaderBoardAsync(LeaderBoardQuery query)
         {
-            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<LeaderBoardDto>(Sql.Sql.UniversityLeaderBoard, new { query.UniversityId });
+                return await conn.QueryAsync<LeaderBoardDto>(Sql.Sql.UniversityLeaderBoard, query);
+            }
+        }
+
+        public async Task<LeaderboardFlashcardDto> GetDashboardFlashcardStatusAsync(FlashcardLeaderboardQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                const string sql = @"select row,likecount as count from ( 
+select ROW_NUMBER() OVER(ORDER BY likecount desc) AS Row, * from (
+select  sum(likecount) as likecount, f.userid from zbox.flashcard f 
+join zbox.users u on f.userid = u.userid
+where u.universityid = @UniversityId
+group by f.userid 
+) t) z
+where z.userid = @UserId
+";
+                return await conn.QueryFirstOrDefaultAsync<LeaderboardFlashcardDto>(sql, query);
+
             }
         }
 

@@ -104,7 +104,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUserFriendsAsync(query);
         }
 
-       
+
 
         public Task<UserAccountDto> GetUserAccountDetailsAsync(GetUserDetailsQuery query)
         {
@@ -400,6 +400,10 @@ namespace Zbang.Zbox.ReadServices
         public Task<IEnumerable<LeaderBoardDto>> GetDashboardLeaderBoardAsync(LeaderBoardQuery query)
         {
             return m_Cache.QueryAsync(m_ReadService.GetDashboardLeaderBoardAsync, query);
+        }
+        public Task<LeaderboardFlashcardDto> GetDashboardFlashcardStatusAsync(FlashcardLeaderboardQuery query)
+        {
+            return m_ReadService.GetDashboardFlashcardStatusAsync(query);
         }
 
         public Task<UserWithStats> GetUserProfileWithStatsAsync(GetUserWithFriendQuery query)
