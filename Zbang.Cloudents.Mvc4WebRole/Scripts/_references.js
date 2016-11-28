@@ -95,6 +95,7 @@
 /// <reference path="../js/shared/soundalert.directive.js" />
 /// <reference path="../js/shared/sounds.js" />
 /// <reference path="../js/shared/userimage.js" />
+/// <reference path="../js/signin/backgroundimage.js" />
 /// <reference path="../Js/signin/bootstrap.min.js" />
 /// <reference path="../js/signin/itemgallery.js" />
 /// <reference path="../js/signin/layout.js" />

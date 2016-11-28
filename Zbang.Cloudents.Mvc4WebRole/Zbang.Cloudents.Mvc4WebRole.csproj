@@ -1413,6 +1413,7 @@
     <Content Include="Js\shared\menuAd.directive.js" />
     <Content Include="Js\shared\pagingOnScroll.directive.js" />
     <Content Include="Js\shared\scrollToTop.directive.js" />
+    <Content Include="Js\signin\backgroundimage.js" />
     <Content Include="Js\signin\itemGallery.js" />
     <Content Include="Js\signin\layout.js" />
     <Content Include="Js\signin\staticPages.js" />

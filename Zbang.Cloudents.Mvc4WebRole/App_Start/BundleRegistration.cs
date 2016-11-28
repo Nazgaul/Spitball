@@ -108,7 +108,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/jquery.bxslider.js"),
                         new JsFileWithCdn("~/scripts/CountUp.js"),
                         new JsFileWithCdn("~/js/shared/languageHandler.js"),
-                        new JsFileWithCdn("~/js/HomePage.js")
+                        new JsFileWithCdn("~/js/HomePage.js"),
+                        new JsFileWithCdn("~/js/signin/backgroundimage.js")
                     }
                 },
                 {
@@ -119,7 +120,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
                         new JsFileWithCdn("~/js/shared/languageHandler.js"),
                         new JsFileWithCdn("~/js/signin/staticPages.js"),
-                        new JsFileWithCdn("~/js/signin/itemGallery.js")
+                        new JsFileWithCdn("~/js/signin/itemGallery.js"),
+                        new JsFileWithCdn("~/js/signin/backgroundimage.js")
+
 
                     }
                 },

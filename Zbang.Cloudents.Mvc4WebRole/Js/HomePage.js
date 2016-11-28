@@ -7,20 +7,7 @@ window.addEventListener("load", function load() {
 
 
 (function (document) {
-    function setBackground() {
-        var background = $('[background-cover]');
-        var main = $('.main');
-        //var header = $('.static-page-header');
-        var backgroundUrl = 'https://az779114.vo.msecnd.net/universities/cover/' +
-                encodeURIComponent(background.data('image')) +
-                '?mode=crop&anchor=topcenter&quality=70&scale=both&width=' +
-                 main.outerWidth() +
-                '&height=' +
-                ($(window).outerHeight());
-        background.css('background-image', 'url(' + backgroundUrl + ')');
-        //window.getComputedStyle(background[0], ":before").setPropertyValue(backgroundUrl, 'url(' + backgroundUrl + ')');
-        //background.attr('backgroundUrl', 'url(' + backgroundUrl + ')');
-    }
+   
 
     function handleScrollToTop() {
         if ($(this).scrollTop() > offset) {
@@ -89,14 +76,6 @@ window.addEventListener("load", function load() {
         //#region scroll to top
         var offset = 300;
         var duration = 500;
-
-       
-
-        //var bgColor = 'background-color';
-        //if ($('.intro').css(bgColor) === $('button.signup').css(bgColor)) {
-        //    var backgroundColor = $('.static-page-header').css(bgColor);
-        //    $('button.signup').css(bgColor, backgroundColor);
-        //}
 
         if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {  // ios supported
             $(window).bind("touchend touchcancel touchleave", function () {
@@ -193,13 +172,5 @@ window.addEventListener("load", function load() {
             }
         });
     }
-    setBackground();
-    var timeout;
-    $(window).resize(function () {
-        clearTimeout(timeout);
-        timeout = setTimeout(setBackground, 1000);
-    });
-    var padding = $(window).height() + $('.welcome-text').offset().top - $('.offset-bottom').offset().top - $('.static-page-header').height();
-    $('#main-wrapper').css('padding-top', padding);
 
 })(window.document);
