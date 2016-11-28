@@ -8,17 +8,18 @@ window.addEventListener("load", function load() {
 
 (function (document) {
     function setBackground() {
-        var background = $('.home-page-body');
+        var background = $('[background-cover]');
         var main = $('.main');
         //var header = $('.static-page-header');
         var backgroundUrl = 'https://az779114.vo.msecnd.net/universities/cover/' +
-                encodeURIComponent(main.data('image')) +
+                encodeURIComponent(background.data('image')) +
                 '?mode=crop&anchor=topcenter&quality=70&scale=both&width=' +
                  main.outerWidth() +
                 '&height=' +
                 ($(window).outerHeight());
-        background
-            .css('background-image', 'url(' + backgroundUrl + ')');
+        background.css('background-image', 'url(' + backgroundUrl + ')');
+        //window.getComputedStyle(background[0], ":before").setPropertyValue(backgroundUrl, 'url(' + backgroundUrl + ')');
+        //background.attr('backgroundUrl', 'url(' + backgroundUrl + ')');
     }
 
     function handleScrollToTop() {
@@ -89,12 +90,7 @@ window.addEventListener("load", function load() {
         var offset = 300;
         var duration = 500;
 
-        setBackground();
-        var timeout;
-        $(window).resize(function () {
-            clearTimeout(timeout);
-            timeout = setTimeout(setBackground, 1000);
-        });
+       
 
         //var bgColor = 'background-color';
         //if ($('.intro').css(bgColor) === $('button.signup').css(bgColor)) {
@@ -142,20 +138,6 @@ window.addEventListener("load", function load() {
                 $(document.getElementById('video')).empty();
             }
         });
-        ////#region video shadowbox
-        //$(document.getElementById('close-video')).click(function () {
-        //    $(document.getElementById('video')).empty();
-        //});
-
-        //$(document.getElementById('open-video')).click(function () {
-        //    var videoHtml = '<iframe id="spitball-video" src="https://www.youtube.com/embed/69daYsNqNUA" frameborder="0" allowfullscreen></iframe>';
-        //    $(document.getElementById('video')).html(videoHtml);
-        //});
-
-        //#endregion
-
-        //Metronic.init(); // init metronic core components
-        //Layout.init(); // init current layout
         Login.init();
 
         $(window).scroll(function () {
@@ -211,7 +193,12 @@ window.addEventListener("load", function load() {
             }
         });
     }
-
+    setBackground();
+    var timeout;
+    $(window).resize(function () {
+        clearTimeout(timeout);
+        timeout = setTimeout(setBackground, 1000);
+    });
     var padding = $(window).height() + $('.welcome-text').offset().top - $('.offset-bottom').offset().top - $('.static-page-header').height();
     $('#main-wrapper').css('padding-top', padding);
 

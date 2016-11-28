@@ -1469,9 +1469,26 @@ iframe {
   min-height: 0;
   height: 100%;
 }
+.promo-page [background-cover] {
+  filter: blur(2px) brightness(0.4);
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+.promo-page .promo-title {
+  z-index: 10;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 35%;
+  transform: translateY(-50%);
+  top: 50%;
+}
 .promo-page .home-page-body {
-  background-image: url(/Images/Site/promo_bg.png);
-  background-size: contain;
+  position: relative;
 }
 .promo-page .intro .text h1 {
   margin-bottom: 2px;
