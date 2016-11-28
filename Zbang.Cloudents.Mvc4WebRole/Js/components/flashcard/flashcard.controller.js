@@ -36,13 +36,14 @@ var app;
         return CardSlide;
     }());
     var FlashcardController = (function () {
-        function FlashcardController(flashcard, flashcardService, $stateParams, user, $state, $mdMedia, $scope) {
+        function FlashcardController(flashcard, flashcardService, $stateParams, user, $state, $mdMedia, $scope, $mdDialog) {
             this.flashcardService = flashcardService;
             this.$stateParams = $stateParams;
             this.user = user;
             this.$state = $state;
             this.$mdMedia = $mdMedia;
             this.$scope = $scope;
+            this.$mdDialog = $mdDialog;
             this.step = Steps.Start;
             this.slidepos = 0;
             this.disabled = false;
@@ -137,7 +138,22 @@ var app;
         FlashcardController.prototype.canLike = function () {
             return this.user.id !== this.flashcard.userId;
         };
-        FlashcardController.$inject = ["flashcard", "flashcardService", "$stateParams", "user", "$state", "$mdMedia", "$scope"];
+        FlashcardController.prototype.details = function (ev) {
+            this.$mdDialog.show({
+                templateUrl: "/flashcard/promo/",
+                targetEvent: ev,
+                clickOutsideToClose: true,
+                locals: {
+                    color1: "rgb(255, 203, 11)",
+                    color2: "rgba(0, 46, 98, 0.901961)"
+                },
+                controller: "DialogPromo",
+                controllerAs: "dp",
+                fullscreen: false
+            });
+        };
+        FlashcardController.$inject = ["flashcard", "flashcardService", "$stateParams",
+            "user", "$state", "$mdMedia", "$scope", "$mdDialog"];
         return FlashcardController;
     }());
     app.FlashcardController = FlashcardController;

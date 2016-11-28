@@ -36,7 +36,8 @@
 
     }
     export class FlashcardController {
-        static $inject = ["flashcard", "flashcardService", "$stateParams", "user", "$state", "$mdMedia", "$scope"];
+        static $inject = ["flashcard", "flashcardService", "$stateParams",
+            "user", "$state", "$mdMedia", "$scope","$mdDialog"];
         cards: Array<Card>;
         flashcard: Flashcard;
         shuffle: boolean;
@@ -57,7 +58,8 @@
             private user: IUserData,
             private $state: angular.ui.IStateService,
             private $mdMedia: angular.material.IMedia,
-            private $scope: angular.IScope
+            private $scope: angular.IScope,
+            private $mdDialog: angular.material.IDialogService
             ) {
             angular.forEach(flashcard.cards,
                 (v, k) => {
@@ -169,6 +171,21 @@
         }
         canLike() {
             return this.user.id !== this.flashcard.userId;
+        }
+        
+        details(ev) {
+            this.$mdDialog.show({
+                templateUrl: "/flashcard/promo/",
+                targetEvent: ev,
+                clickOutsideToClose: true,
+                locals: {
+                    color1: "rgb(255, 203, 11)",
+                    color2: "rgba(0, 46, 98, 0.901961)"
+                },
+                controller: "DialogPromo",
+                controllerAs: "dp",
+                fullscreen: false // Only for -xs, -sm breakpoints.
+            });
         }
     }
 
