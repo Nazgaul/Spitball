@@ -52,7 +52,7 @@ iframe {
 }
 .static-page-header {
   position: fixed;
-  z-index: 2;
+  z-index: 11;
   top: 0;
   right: 0;
   left: 0;
@@ -1442,7 +1442,7 @@ iframe {
   font-weight: bold;
   margin: 0 auto;
   display: block;
-  width: auto;
+  width: 276px;
 }
 .promo-page .home-page-body > section,
 .homePage .home-page-body > section,

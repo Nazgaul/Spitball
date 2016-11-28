@@ -71,6 +71,7 @@ var app;
                 this.serverCallUniversityMeta = true;
                 this.ajaxService2.get('dashboard/university', { universityId: universityId }, 'university')
                     .then(function (response) {
+                    _this.serverCallUniversityMeta = false;
                     _this.universityMeta = response;
                     _this.deferUniversityMeta.resolve(_this.universityMeta);
                 });
