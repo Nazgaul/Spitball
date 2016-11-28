@@ -216,19 +216,28 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
 
         public static Uri BuildCollectionUri(string collectionId)
         {
+            collectionId = BuildCollectionName(collectionId);
+            return UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionId);
+        }
+
+        private static string BuildCollectionName(string collectionId)
+        {
+            bool isProduction;
+            bool.TryParse(ConfigFetcher.Fetch("documentDbProduction"), out isProduction);
+            if (isProduction)
+            {
+                return collectionId;
+            }
             if (!ConfigFetcher.IsRunningOnCloud || ConfigFetcher.IsEmulated)
             {
                 collectionId += DevPrefix;
             }
-            return UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionId);
+            return collectionId;
         }
 
         public static Uri BuildDocumentUri(string collectionId, string documentId)
         {
-            if (!ConfigFetcher.IsRunningOnCloud || ConfigFetcher.IsEmulated)
-            {
-                collectionId += DevPrefix;
-            }
+            collectionId = BuildCollectionName(collectionId);
             return UriFactory.CreateDocumentUri(DatabaseId, collectionId, documentId);
         }
 
