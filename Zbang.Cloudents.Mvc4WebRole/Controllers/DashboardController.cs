@@ -86,6 +86,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
             var universityWrapper = User.GetUniversityId().Value;
+            if (HomeController.FlashcardUniversities.Contains(universityWrapper))
+            {
+
+               var model2 = await ZboxReadService.GetDashboardFlashcardStatusAsync(new FlashcardLeaderboardQuery(User.GetUserId(),
+                    universityWrapper));
+                return JsonOk(model2);
+            }
 
             var query = new LeaderBoardQuery(universityWrapper);
             var model = await ZboxReadService.GetDashboardLeaderBoardAsync(query);

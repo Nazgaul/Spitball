@@ -82,7 +82,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new CssWithRtl("~/content/site/accordion.css"),
                         new CssWithRtl("~/content/site/selectClass.css"),
                         new CssWithRtl("~/content/site/flashcardCreate.css"),
-                        new CssWithRtl("~/content/site/flashcard.css")
+                        new CssWithRtl("~/content/site/flashcard.css"),
+                        new CssWithRtl("~/content/flipclock.css","~/content/flipclock.css"),
+
                     }
 
             };
@@ -175,6 +177,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                          //TODO: move to oclazy in user
                         new JsFileWithCdn("~/scripts/angular-countUp.js"),
                         new JsFileWithCdn("~/scripts/angular-google-adsense.js"),
+                        new JsFileWithCdn("~/scripts/flipclock.min.js"),
 
                        // new JsFileWithCdn("~/scripts/angular-dfp.js"),
 
@@ -214,6 +217,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/dashboard/dashboard.routes.js"),
                         new JsFileWithCdn("~/js/components/dashboard/university.controller.js"),
                         new JsFileWithCdn("~/js/components/dashboard/createBox.controller.js"),
+                        new JsFileWithCdn("~/js/components/dashboard/flipclock.directive.js"),
 
                         new JsFileWithCdn("~/js/menu/menulink.directive.js"),
                         new JsFileWithCdn("~/js/menu/sidemenu.controller.js"),

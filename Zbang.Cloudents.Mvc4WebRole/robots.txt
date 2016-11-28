@@ -2,11 +2,11 @@ User-agent: *
 disallow: /error/
 disallow: /dashboard/
 disallow: /user/
-disallow: /invite/
-disallow: /account/changelanguage/
 disallow: /account/forgotpassword/
 disallow: /account/resetpassword/
+disallow: /account/settings/
 disallow: */print/$
+disallow: */members/$
 disallow: */download/$
 disallow: /b/
 disallow: /i/
