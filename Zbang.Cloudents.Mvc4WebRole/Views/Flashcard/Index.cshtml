@@ -12,7 +12,7 @@
                 <md-menu hide-gt-xs>
                     <md-button class="md-icon-button sides" ng-click="app.openMenu($mdOpenMenu, $event)">
                         <md-icon md-svg-icon="t:settingMenu"></md-icon>
-                    </md-button> 
+                    </md-button>
                     <md-menu-content width="1">
                         <md-menu-item>
                             <md-button ng-click="f.changeLegend(true)">@FlashcardResources.Front</md-button>
@@ -33,6 +33,19 @@
             <div class="progress-text" hide-xs>
                 <span>@FlashcardResources.Progress</span>
                 <span>{{f.slidepos}}/{{::f.flashcard.cards.length}}</span>
+            </div>
+        </div>
+        <div multiswitch-when="0" class="promo-ad">
+            <div class="text">
+                <h1>Flashcard Lounch Contest</h1>
+                <div class="text-line">
+                    <div>Your chance to win $500</div>
+                    <md-icon md-svg-icon="t:share"></md-icon>
+                    <div>your flashcard set</div>
+                </div>
+            </div>
+            <div class="button">
+                <div class="content">Learn More</div>
             </div>
         </div>
         <button ng-click="app.back(f.backUrl)" class="close-btn">
@@ -81,7 +94,7 @@
                 </button>
                 <button type="button" class="action-btn pinned-cards" user-not-register-popup="click" ng-if="f.pinCount" ng-click="f.startPin()">
                     <span>@FlashcardResources.Study&nbsp;</span><ng-pluralize count="f.pinCount"
-                                                                 when="{
+                                                                              when="{
                         '1': '1 @FlashcardResources.Pin',
                         '2': '{} @FlashcardResources.Pins',
                         'other': '{} @FlashcardResources.Pins'
