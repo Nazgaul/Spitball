@@ -35,6 +35,7 @@ var app;
             };
             this.setUniversity = function () {
                 _this.ajaxService.deleteCacheCategory("accountDetail");
+                _this.$rootScope.$broadcast("refresh-university");
                 _this.userData = null;
                 _this.deferDetails = _this.$q.defer();
                 return _this.init();

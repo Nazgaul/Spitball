@@ -1296,6 +1296,7 @@
     <Content Include="Images\Site\no_search_results.png" />
     <Content Include="Images\Site\no_uni.png" />
     <Content Include="Images\Site\profileIcons.svg" />
+    <Content Include="Images\Site\promo.png" />
     <Content Include="Images\Site\promo_bg.png" />
     <Content Include="Images\Site\search_uni.png" />
     <Content Include="Images\HomePage2\testimonial1_he.jpg" />
@@ -1412,6 +1413,7 @@
     <Content Include="Js\shared\menuAd.directive.js" />
     <Content Include="Js\shared\pagingOnScroll.directive.js" />
     <Content Include="Js\shared\scrollToTop.directive.js" />
+    <Content Include="Js\signin\backgroundimage.js" />
     <Content Include="Js\signin\itemGallery.js" />
     <Content Include="Js\signin\layout.js" />
     <Content Include="Js\signin\staticPages.js" />

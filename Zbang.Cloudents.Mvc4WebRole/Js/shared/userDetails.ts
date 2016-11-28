@@ -140,6 +140,7 @@ module app {
         };
         setUniversity = (): angular.IPromise<IUserData> => {
             this.ajaxService.deleteCacheCategory("accountDetail");
+            this.$rootScope.$broadcast("refresh-university");
             this.userData = null;
             this.deferDetails = this.$q.defer();
             return this.init();

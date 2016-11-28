@@ -43,9 +43,12 @@
     <div>
         @* ReSharper disable once Mvc.PartialViewNotResolved *@
         @{Html.RenderPartial("_StaticPageHeader");}
+        <div background-cover data-image="@Model.HomePageUniversityData.BackgroundImage">
+        </div>
         <div class="home-page-body">
             <section class="main">
                 <div id="main-wrapper">
+                    <img class="promo-title" alt="win 500$ on your spitball flashcard" src="@Url.CdnContent("~/Images/Site/promo.png")"/>
                     <div class="welcome-text">
                         <div class="uni-logo-wrapper">
                             <div class="sb-logo">
@@ -75,7 +78,8 @@
                 </div>
                 <div class="prize-list">
                     <div class="prize">
-                        <div class="place">2<sup>nd</sup></div>
+                        <div class="place">2<sup>nd</sup>
+                        </div>
                         <div class="value-wrapper">
                             <div class="card"></div>
                             <div class="value">$250</div>
@@ -83,7 +87,8 @@
                         @Html.Svg(iconsSvg, "promo-2nd-place")
                     </div>
                     <div class="prize">
-                        <div class="place">1<sup>st</sup></div>
+                        <div class="place">1<sup>st</sup>
+                        </div>
                         <div class="value-wrapper">
                             <div class="card"></div>
                             <div class="value">$500</div>
@@ -91,7 +96,8 @@
                         @Html.Svg(iconsSvg, "promo-1st-place")
                     </div>
                     <div class="prize">
-                        <div class="place">3<sup>rd</sup></div>
+                        <div class="place">3<sup>rd</sup>
+                        </div>
                         <div class="value-wrapper">
                             <div class="card"></div>
                             <div class="value">$100</div>
@@ -104,29 +110,29 @@
                 <h1>Rules</h1>
                 <ul>
                     <li>
-                        <div class="icon-wrapper uni">@Html.Svg(iconsSvg, "universityMenu", new { @class = "icon" })</div>
+                        <div class="icon-wrapper uni">@Html.Svg(iconsSvg, "universityMenu", new {@class = "icon"})</div>
                         <div class="rule">You must be currently enrolled as a student at the University of Michigan</div>
                     </li>
                     <li>
-                        <div class="icon-wrapper like">@Html.Svg(boxIconsSvg, "like", new { @class = "icon" })</div>
+                        <div class="icon-wrapper like">@Html.Svg(boxIconsSvg, "like", new {@class = "icon"})</div>
                         <div class="rule">The flashcard set must have a minimum of 10 likes to be considered a valid entry</div>
                     </li>
                     <li>
-                        <div class="icon-wrapper original">@Html.Svg(iconsSvg, "original", new { @class = "icon" })</div>
+                        <div class="icon-wrapper original">@Html.Svg(iconsSvg, "original", new {@class = "icon"})</div>
                         <div class="rule">Flashcards must contain original content and cannot be duplicated from another site or source</div>
                     </li>
                     <li>
-                        <div class="icon-wrapper spy">@Html.Svg(iconsSvg, "spy", new { @class = "icon" })</div>
+                        <div class="icon-wrapper spy">@Html.Svg(iconsSvg, "spy", new {@class = "icon"})</div>
                         <div class="rule">The contest will run until December 15, 2016, at which point the winners will be notified</div>
                     </li>
                 </ul>
             </section>
             <section class="signup-area">
-                <button type="button" class="login-option signup toggle main-signup" data-form-action="register">
+                <a href="@Url.RouteUrl("HomePage", new { step = "signup" })" type="button" class="login-option signup toggle main-signup">
                     Sign Up, It's Free!
-                </button>
+                </a>
             </section>
         </div>
     </div>
 </div>
-@Html.Script2("jsHomePage")
+@Html.Script2("staticPage")

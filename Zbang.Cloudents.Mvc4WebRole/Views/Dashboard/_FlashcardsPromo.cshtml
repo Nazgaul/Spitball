@@ -1,22 +1,22 @@
-﻿<div class="promo-box box-style" ng-hide="lb.hidePromo">
-    <div class="top" style="background: #FFCB0B">
-        <div class="title">Flashcard Contest Ends</div>
+﻿<div class="promo-box box-style" ng-if="!lb.hidePromo">
+    <div class="top" ng-style="{'background': '{{::lb.color1}}'}">
+        <div class="title" ng-style="{'color': '{{::lb.color2}}'}">Flashcard Contest Ends</div>
         <div class="clock-container">
             <flip-clock></flip-clock>
         </div>
     </div>
-    <div class="bottom" style="background: #002E62">
+    <div class="bottom" ng-style="{'background': '{{::lb.color2}}'}">
         <div class="stats">
             <div class="rank">
                 <div class="title">Your Rank</div>
-                <div class="count" style="color: #002E62">
+                <div class="count" ng-style="{'color': '{{::lb.color2}}'}">
                     <div class="icon">#</div>
                     <div class="num" ng-bind="::lb.flashcardPromo.row"></div>
                 </div>
             </div>
-            <div class="likes" style="color: #002E62">
+            <div class="likes">
                 <div class="title">Your Likes</div>
-                <div class="count">
+                <div class="count" ng-style="{'color': '{{::lb.color2}}'}">
                     <md-icon class="icon" md-svg-icon="b:like"></md-icon>
                     <div class="num" ng-bind="::lb.flashcardPromo.count"></div>
                 </div>

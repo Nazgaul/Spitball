@@ -1469,9 +1469,31 @@ iframe {
   min-height: 0;
   height: 100%;
 }
+.promo-page [background-cover] {
+  -ms-filter: blur(2px) brightness(0.4);
+  -moz-filter: blur(2px) brightness(0.4);
+  -webkit-filter: blur(2px) brightness(0.4);
+  filter: blur(2px) brightness(0.4);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.promo-page .promo-title {
+  z-index: 10;
+  position: absolute;
+  right: 0;
+  left: 0;
+  margin: 0 auto;
+  width: 35%;
+  transform: translateY(-50%);
+  top: 50%;
+  max-width: 670px;
+  width: calc(100% - 20px);
+}
 .promo-page .home-page-body {
-  background-image: url(/Images/Site/promo_bg.png);
-  background-size: contain;
+  position: relative;
 }
 .promo-page .intro .text h1 {
   margin-bottom: 2px;

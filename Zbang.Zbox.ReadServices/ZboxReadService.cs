@@ -144,7 +144,7 @@ where z.userid = @UserId
         /// <returns></returns>
         public async Task<IEnumerable<Box.RecommendBoxDto>> GetRecommendedCoursesAsync(RecommendedCoursesQuery query)
         {
-            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 return await conn.QueryAsync<Box.RecommendBoxDto>(Sql.Sql.RecommendedCourses,
                     new { query.UniversityId, query.UserId });
