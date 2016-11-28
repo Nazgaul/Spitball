@@ -175,3 +175,221 @@
 .dashboard .ad > div {
   margin: 0 auto;
 }
+.promo-info-dialog {
+  max-width: 650px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.promo-info-dialog md-toolbar {
+  display: block;
+  padding: 28px 8px 10px 8px;
+  text-align: center;
+  flex-grow: 1;
+  flex-shrink: 0;
+  border-radius: 10px 10px 0 0;
+}
+.promo-info-dialog md-toolbar .close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  fill: #212325;
+  width: 20px;
+  height: 20px;
+}
+.promo-info-dialog md-toolbar h1,
+.promo-info-dialog md-toolbar h2 {
+  margin: 0;
+}
+.promo-info-dialog md-toolbar h1 {
+  font-weight: bold;
+  font-size: 40px;
+}
+@media (max-width: 600px) {
+  .promo-info-dialog md-toolbar h1 {
+    font-size: 36px;
+  }
+}
+.promo-info-dialog md-toolbar h2 {
+  color: #212325;
+  font-size: 28px;
+  margin-top: 8px;
+}
+@media (max-width: 600px) {
+  .promo-info-dialog md-toolbar h2 {
+    font-size: 20px;
+    margin-top: 8px;
+  }
+}
+.promo-info-dialog md-dialog-content {
+  border-radius: 0 0 10px 10px;
+}
+.promo-info-dialog md-dialog-content .description {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.promo-info-dialog md-dialog-content .description > div {
+  margin-right: 32px;
+  margin-left: 18px;
+  position: relative;
+  margin-bottom: 15px;
+  font-size: 16px;
+  line-height: normal;
+}
+@media (max-width: 600px) {
+  .promo-info-dialog md-dialog-content .description > div {
+    margin-left: 28px;
+  }
+}
+.promo-info-dialog md-dialog-content .description > div:before {
+  content: '\2022';
+  position: absolute;
+  left: -20px;
+  font-size: 40px;
+  line-height: 18px;
+}
+@media (max-width: 600px) {
+  .promo-info-dialog md-dialog-content .description > div:before {
+    line-height: 20px;
+  }
+}
+@media (min-width: 600px) {
+  .promo-info-dialog md-dialog-content .description > div:not(:last-child) {
+    flex: 1 1 calc(50% - 100px);
+  }
+}
+@media (min-width: 600px) {
+  .promo-info-dialog md-dialog-content .description > div:last-child {
+    margin-top: 8px;
+  }
+}
+.promo-info-dialog md-dialog-content .rules {
+  background: #ffffff;
+}
+.promo-info-dialog md-dialog-content .rules h1,
+.promo-info-dialog md-dialog-content .rules ul {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.promo-info-dialog md-dialog-content .rules h1 {
+  padding-left: 70px;
+  margin-bottom: 20px;
+}
+@media (max-width: 600px) {
+  .promo-info-dialog md-dialog-content .rules h1 {
+    padding-left: 70px;
+    margin-bottom: 10px;
+  }
+}
+.promo-info-dialog md-dialog-content .rules ul {
+  padding: 0;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+.promo-info-dialog md-dialog-content .rules ul li {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: inline-flex;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+@media (max-width: 600px) {
+  .promo-info-dialog md-dialog-content .rules ul li {
+    margin-bottom: 20px;
+  }
+}
+.promo-info-dialog md-dialog-content .rules ul li .rule {
+  margin: 6px 10px 0 20px;
+  font-size: 16px;
+}
+.promo-info-dialog md-dialog-content .rules ul li .icon-wrapper {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  flex-shrink: 0;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+@media (max-width: 600px) {
+  .promo-info-dialog md-dialog-content .rules ul li .icon-wrapper {
+    width: 50px;
+    height: 50px;
+  }
+}
+.promo-info-dialog md-dialog-content .rules ul li .icon-wrapper.uni .icon {
+  width: 32px;
+  height: 32px;
+}
+@media (max-width: 600px) {
+  .promo-info-dialog md-dialog-content .rules ul li .icon-wrapper.uni .icon {
+    width: 34px;
+    height: 34px;
+  }
+}
+.promo-info-dialog md-dialog-content .rules ul li .icon-wrapper.like .icon {
+  width: 28px;
+  height: 28px;
+}
+@media (max-width: 600px) {
+  .promo-info-dialog md-dialog-content .rules ul li .icon-wrapper.like .icon {
+    width: 26px;
+    height: 26px;
+  }
+}
+.promo-info-dialog md-dialog-content .rules ul li .icon-wrapper.original .icon {
+  width: 62px;
+  height: 50px;
+  margin: -30px;
+  padding-right: 2px;
+}
+@media (max-width: 600px) {
+  .promo-info-dialog md-dialog-content .rules ul li .icon-wrapper.original .icon {
+    width: 70px;
+    height: 30px;
+  }
+}
+.promo-info-dialog md-dialog-content .rules ul li .icon-wrapper.spy .icon {
+  width: 34px;
+  height: 34px;
+}
+@media (max-width: 600px) {
+  .promo-info-dialog md-dialog-content .rules ul li .icon-wrapper.spy .icon {
+    width: 32px;
+    height: 30px;
+  }
+}
+.promo-info-dialog md-dialog-content .rules ul li .icon-wrapper .icon {
+  fill: #ffffff;
+}
+.promo-info-dialog md-dialog-content .description,
+.promo-info-dialog md-dialog-content .rules {
+  padding: 30px;
+}
+@media (max-width: 600px) {
+  .promo-info-dialog md-dialog-content .description,
+  .promo-info-dialog md-dialog-content .rules {
+    padding: 15px;
+  }
+}
