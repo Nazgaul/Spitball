@@ -10,8 +10,9 @@
             <div class="rank">
                 <div class="title">Your Rank</div>
                 <div class="count" ng-style="{'color': '{{::lb.color2}}'}">
-                    <div class="icon">#</div>
-                    <div class="num" ng-bind="::lb.flashcardPromo.row"></div>
+                    <div ng-if="lb.flashcardPromo.row == null">--</div>
+                    <div ng-if="lb.flashcardPromo.row != null" class="icon">#</div>
+                    <div ng-if="lb.flashcardPromo.row != null" class="num" ng-bind="::lb.flashcardPromo.row"></div>
                 </div>
             </div>
             <div class="likes">

@@ -27,11 +27,12 @@
                     }
 
                     this.leaderboard = response.model;
-                    console.log(this.leaderboard);
                 } else {
                     //this.hideLeaderBoard = true;
 
-                    this.flashcardPromo = response.model;
+                    this.flashcardPromo = response.model || {};
+                    this.flashcardPromo.count = this.flashcardPromo.count || 0;
+                    console.log(this.flashcardPromo);
                     this.dashboardService.getUniversityMeta()
                         .then(response => {
                             this.hidePromo = false;
