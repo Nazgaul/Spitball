@@ -10,8 +10,10 @@
             '&height=' +
             ($(window).outerHeight());
         background.css('background-image', 'url(' + backgroundUrl + ')');
-        //window.getComputedStyle(background[0], ":before").setPropertyValue(backgroundUrl, 'url(' + backgroundUrl + ')');
-        //background.attr('backgroundUrl', 'url(' + backgroundUrl + ')');
+        var padding = $(window).height() + $('.welcome-text').offset().top - $('.offset-bottom').offset().top - $('.static-page-header').height();
+        $('#main-wrapper').css('padding-top', padding);
+        //$('#main-wrapper').find(".promo-title").height(padding - 100);
+
     }
     setBackground();
     var timeout;
@@ -19,6 +21,8 @@
         clearTimeout(timeout);
         timeout = setTimeout(setBackground, 1000);
     });
-    var padding = $(window).height() + $('.welcome-text').offset().top - $('.offset-bottom').offset().top - $('.static-page-header').height();
-    $('#main-wrapper').css('padding-top', padding);
+    $('.close-form')
+        .click(function () {
+            setBackground();
+        });
 })();
