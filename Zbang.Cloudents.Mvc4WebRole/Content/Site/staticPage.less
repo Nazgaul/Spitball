@@ -1659,6 +1659,9 @@ iframe {
     }
 
     [background-cover] {
+        -ms-filter : blur(2px) brightness(0.4);
+        -moz-filter : blur(2px) brightness(0.4);
+        -webkit-filter : blur(2px) brightness(0.4);
         filter: blur(2px) brightness(0.4);
         position: absolute;
         top: 0;
@@ -1676,6 +1679,8 @@ iframe {
         width: 35%;
         transform: translateY(-50%);
         top: 50%;
+        max-width: 670px;
+        width: ~"calc(100% - 20px)";
     }
 
     .home-page-body {
