@@ -13,12 +13,8 @@ var app;
             this.resManager = resManager;
             this.ajaxService2 = ajaxService2;
             this.inviteOpen = false;
-            this.showLeaderboard = true;
             $scope.$on("close_invite", function () {
                 _this.inviteOpen = false;
-            });
-            $scope.$on('hide-leader-board', function () {
-                _this.showLeaderboard = false;
             });
         }
         Dashboard.prototype.inviteExpand = function () {

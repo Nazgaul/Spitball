@@ -1,21 +1,20 @@
 ﻿(function () {
     'use strict';
     angular.module('app').controller('LeaderboardController', leaderboard);
-    leaderboard.$inject = ['dashboardService', '$stateParams', 'boxService', '$scope','$filter'];
+    leaderboard.$inject = [ '$stateParams', 'boxService', '$scope','$filter'];
 
-    function leaderboard(dashboardService, $stateParams, boxService, $scope, $filter) {
+    function leaderboard($stateParams, boxService, $scope, $filter) {
         var self = this;
-        //self.loading = true;
-        if ($stateParams.boxId) {
+        //if ($stateParams.boxId) {
             if ($stateParams.boxtype.toLowerCase() === 'box') {
                 self.hide = true;
             } else {
                 boxService.leaderBoard($stateParams.boxId).then(successCallback);
             }
-        }
-        else {
-            dashboardService.leaderboard().then(successCallback);
-        }
+        //}
+        //else {
+        //    dashboardService.leaderboard().then(successCallback);
+        //}
 
         function successCallback(response) {
             if (response.length < 3) {

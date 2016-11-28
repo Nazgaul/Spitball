@@ -6,7 +6,6 @@ var app;
             this.restrict = "E";
             this.link = function (scope, element) {
                 var d = new Date(2016, 11, 16);
-                var now = new Date();
                 element["FlipClock"]((d.getTime() - new Date().getTime()) / 1000, {
                     clockFace: 'DailyCounter',
                     countdown: true

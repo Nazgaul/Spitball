@@ -358,5 +358,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ZboxWriteService.SolveFlashcard(command);
             return JsonOk();
         }
+
+        [HttpGet, ZboxAuthorize, NoUniversity]
+        public ActionResult Promo()
+        {
+            var universityWrapper = User.GetUniversityId().Value;
+            if (HomeController.FlashcardUniversities.Contains(universityWrapper))
+            {
+                return PartialView("_Promo");
+            }
+            return JsonError();
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿<div class="promo-box box-style">
+﻿<div class="promo-box box-style" ng-hide="lb.hidePromo">
     <div class="top" style="background: #FFCB0B">
         <div class="title">Flashcard Contest Ends</div>
         <div class="clock-container">
@@ -11,17 +11,17 @@
                 <div class="title">Your Rank</div>
                 <div class="count" style="color: #002E62">
                     <div class="icon">#</div>
-                    <div class="num">20</div>
+                    <div class="num" ng-bind="::lb.flashcardPromo.row"></div>
                 </div>
             </div>
             <div class="likes" style="color: #002E62">
                 <div class="title">Your Likes</div>
                 <div class="count">
                     <md-icon class="icon" md-svg-icon="b:like"></md-icon>
-                    <div class="num">100</div>
+                    <div class="num" ng-bind="::lb.flashcardPromo.count"></div>
                 </div>
             </div>
         </div>
-        <div class="info"></div>
+        <div class="info" ng-click="lb.details()">click</div>
     </div>
 </div>

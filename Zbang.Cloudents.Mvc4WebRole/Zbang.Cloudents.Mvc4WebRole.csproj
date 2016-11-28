@@ -1434,6 +1434,7 @@
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.routes.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.service.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\flipclock.directive.ts" />
+    <TypeScriptCompile Include="Js\components\dashboard\leaderboard.controller.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\cardAnimation.directive.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\cardScroll.directive.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\cardSettings.directive.ts" />
@@ -2517,6 +2518,7 @@
     <Content Include="Views\Flashcard\Index.cshtml" />
     <Content Include="Views\Home\Promotion.cshtml" />
     <Content Include="Views\Dashboard\_FlashcardsPromo.cshtml" />
+    <Content Include="Views\Flashcard\_Promo.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
