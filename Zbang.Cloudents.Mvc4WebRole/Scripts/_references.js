@@ -121,6 +121,7 @@
 /// <reference path="angular-ui-router.min.js" />
 /// <reference path="countup.js" />
 /// <reference path="draganddrop.min.js" />
+/// <reference path="flipclock.js" />
 /// <reference path="jquery.bxslider.js" />
 /// <reference path="jquery.signalr-2.2.0.min.js" />
 /// <reference path="jquery.validate.min.js" />

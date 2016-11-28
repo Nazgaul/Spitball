@@ -792,6 +792,7 @@
     <Content Include="Content\Bootstrap\bootstrap.rtl.css">
       <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
+    <Content Include="Content\flipclock.css" />
     <Content Include="Content\HomePage\homePage2.css">
       <DependentUpon>homePage2.less</DependentUpon>
     </Content>
@@ -1432,6 +1433,7 @@
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.controller.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.routes.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.service.ts" />
+    <TypeScriptCompile Include="Js\components\dashboard\flipclock.directive.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\cardAnimation.directive.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\cardScroll.directive.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\cardSettings.directive.ts" />
@@ -1506,6 +1508,8 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\angular\angular.js" />
     <Content Include="Scripts\angular\angular.min.js" />
+    <Content Include="Scripts\flipclock.js" />
+    <Content Include="Scripts\flipclock.min.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-er.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-et.js" />
