@@ -2512,6 +2512,7 @@
     <Content Include="Views\Flashcard\CreatePartial.cshtml" />
     <Content Include="Views\Flashcard\Index.cshtml" />
     <Content Include="Views\Home\Promotion.cshtml" />
+    <Content Include="Views\Dashboard\_FlashcardsPromo.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
