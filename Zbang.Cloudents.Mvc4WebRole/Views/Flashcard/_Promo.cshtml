@@ -1,32 +1,32 @@
 ﻿<md-dialog class="promo-info-dialog">
-    <md-toolbar style="background: #FFCB0B">
-        <md-icon class="close" md-svg-icon="t:close"></md-icon>
-        <h1 style="color: #002E62">Flashcard Launch Contest</h1>
+    <md-toolbar ng-style="{'background': '{{::dp.colorB}}'}" >
+        <md-icon class="close" md-svg-icon="t:close" ng-click="dp.close()"></md-icon>
+        <h1 ng-style="{'color': '{{::dp.colorA}}'}">Flashcard Launch Contest</h1>
         <h2>November 28th - December 15th</h2>
     </md-toolbar>
     <md-dialog-content>
-        <div class="description offset-bottom" style="background: #FFCB0B">
+        <div class="description offset-bottom" ng-style="{'background': '{{::dp.colorB}}'}">
             <div>Create a flashcard set on Spitball for any class to study for finals.</div>
             <div>Share your study set to receive as many “likes” as you can.</div>
             <div>The top 3 students with the most “likes” on their flashcard set will win cash prizes of $500, $250 and $100!</div>
         </div>
         <section class="rules">
-            <h1 style="color: #002E62">Rules</h1>
+            <h1 ng-style="{'color': '{{::dp.colorA}}'}">Rules</h1>
             <ul>
                 <li>
-                    <div class="icon-wrapper uni" style="background: #002E62"><md-icon class="icon" md-svg-icon="t:universityMenu"></md-icon></div>
+                    <div class="icon-wrapper uni" ng-style="{'background': '{{::dp.colorA}}'}"><md-icon class="icon" md-svg-icon="t:universityMenu"></md-icon></div>
                     <div class="rule">You must be currently enrolled as a student at the University of Michigan</div>
                 </li>
                 <li>
-                    <div class="icon-wrapper like" style="background: #002E62"><md-icon class="icon" md-svg-icon="b:like"></md-icon></div>
+                    <div class="icon-wrapper like" ng-style="{'background': '{{::dp.colorA}}'}"><md-icon class="icon" md-svg-icon="b:like"></md-icon></div>
                     <div class="rule">The flashcard set must have a minimum of 10 likes to be considered a valid entry</div>
                 </li>
                 <li>
-                    <div class="icon-wrapper original" style="background: #002E62"><md-icon class="icon" md-svg-icon="t:original"></md-icon></div>
+                    <div class="icon-wrapper original" ng-style="{'background': '{{::dp.colorA}}'}"><md-icon class="icon" md-svg-icon="t:original"></md-icon></div>
                     <div class="rule">Flashcards must contain original content and cannot be duplicated from another site or source</div>
                 </li>
                 <li>
-                    <div class="icon-wrapper spy" style="background: #002E62"><md-icon class="icon" md-svg-icon="t:spy"></md-icon></div>
+                    <div class="icon-wrapper spy" ng-style="{'background': '{{::dp.colorA}}'}"><md-icon class="icon" md-svg-icon="t:spy"></md-icon></div>
                     <div class="rule">The contest will run until December 15, 2016, at which point the winners will be notified</div>
                 </li>
             </ul>

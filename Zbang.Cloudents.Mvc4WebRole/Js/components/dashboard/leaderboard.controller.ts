@@ -30,17 +30,16 @@
                     console.log(this.leaderboard);
                 } else {
                     //this.hideLeaderBoard = true;
-                   
+
                     this.flashcardPromo = response.model;
                     this.dashboardService.getUniversityMeta()
                         .then(response => {
-                            console.log(response);
                             this.hidePromo = false;
                             this.color1 = response.btnColor;
                             this.color2 = response.stripColor;
                         });
                 }
-//                this.hideBox = this.hideLeaderBoard && this.hidePromo;
+                //                this.hideBox = this.hideLeaderBoard && this.hidePromo;
 
             });
         }
@@ -49,11 +48,35 @@
                 templateUrl: "/flashcard/promo/",
                 targetEvent: ev,
                 clickOutsideToClose: true,
+                locals: {
+                    color1: this.color1,
+                    color2: this.color2
+                },
+                controller: "DialogPromo",
+                controllerAs:"dp",
+                //controller: ["color1","color2",function(color1, color2) {
+
+                //}],
                 fullscreen: false // Only for -xs, -sm breakpoints.
             });
-            console.log("here");
         }
+
+
     }
+    class DialogController {
+        static $inject = ["color1", "color2","$mdDialog"];
+        colorA;
+        colorB;
+        constructor(private color1: string, private color2, private $mdDialog: angular.material.IDialogService) {
+            this.colorA = color1;
+            this.colorB = color2;
+        }
+        close() {
+            this.$mdDialog.hide();
+        }
+
+    }
+    angular.module("app.dashboard").controller("DialogPromo", DialogController);
 
     angular.module("app.dashboard").controller("DashboardLeaderboard", LeaderBoard);
 }

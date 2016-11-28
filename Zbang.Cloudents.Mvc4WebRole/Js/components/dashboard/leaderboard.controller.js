@@ -27,7 +27,6 @@ var app;
                     _this.flashcardPromo = response.model;
                     _this.dashboardService.getUniversityMeta()
                         .then(function (response) {
-                        console.log(response);
                         _this.hidePromo = false;
                         _this.color1 = response.btnColor;
                         _this.color2 = response.stripColor;
@@ -40,12 +39,32 @@ var app;
                 templateUrl: "/flashcard/promo/",
                 targetEvent: ev,
                 clickOutsideToClose: true,
+                locals: {
+                    color1: this.color1,
+                    color2: this.color2
+                },
+                controller: "DialogPromo",
+                controllerAs: "dp",
                 fullscreen: false
             });
-            console.log("here");
         };
         LeaderBoard.$inject = ["dashboardService", "$filter", "$mdDialog"];
         return LeaderBoard;
     }());
+    var DialogController = (function () {
+        function DialogController(color1, color2, $mdDialog) {
+            this.color1 = color1;
+            this.color2 = color2;
+            this.$mdDialog = $mdDialog;
+            this.colorA = color1;
+            this.colorB = color2;
+        }
+        DialogController.prototype.close = function () {
+            this.$mdDialog.hide();
+        };
+        DialogController.$inject = ["color1", "color2", "$mdDialog"];
+        return DialogController;
+    }());
+    angular.module("app.dashboard").controller("DialogPromo", DialogController);
     angular.module("app.dashboard").controller("DashboardLeaderboard", LeaderBoard);
 })(app || (app = {}));
