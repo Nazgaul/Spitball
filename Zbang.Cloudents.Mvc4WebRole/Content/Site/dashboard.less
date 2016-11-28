@@ -200,6 +200,10 @@
     border-radius: 10px;
     overflow: hidden;
 
+    @media(max-width: 600px) {
+        max-width: ~"calc(100% - 20px)";
+    }
+
     md-toolbar {
         display: block;
         padding: 28px 8px 10px 8px;
@@ -244,7 +248,7 @@
             margin-top: 8px;
 
             @media(max-width:600px) {
-                font-size: 20px;
+                font-size: 18px;
                 margin-top: 8px;
             }
         }
@@ -252,6 +256,11 @@
 
     md-dialog-content {
         border-radius: 0 0 10px 10px;
+
+
+        &::-webkit-scrollbar {
+            width: 4px;
+        }
 
         .description {
             max-width: 1200px;
@@ -270,7 +279,8 @@
                 line-height: normal;
 
                 @media(max-width: 600px) {
-                    margin-left: 28px;
+                    margin-left: 20px;
+                    margin-right: 0;
                 }
 
                 &:before {
