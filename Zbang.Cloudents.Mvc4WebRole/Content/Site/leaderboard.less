@@ -188,6 +188,7 @@
 
     .bottom {
         padding: 5px;
+        position: relative;
 
         .stats {
             .displayFlex;
@@ -218,9 +219,17 @@
                 }
             }
 
-            .rank .num span {
-                font-size: 15px;
-                margin-right: 4px;
+            .rank {
+                .num span {
+                    font-size: 15px;
+                    margin-right: 4px;
+                }
+
+                .icon {
+                    font-size: 16px;
+                    margin-right: 4px;
+                    margin-top: 2px;
+                }
             }
 
             .likes .icon {
@@ -228,6 +237,15 @@
                 height: 18px;
                 margin-right: 4px;
             }
+        }
+
+        .info {
+            width: 26px;
+            height: 26px;
+            bottom: 8px;
+            right: 12px;
+            fill: @textColorWhite;
+            position: absolute;
         }
     }
 }

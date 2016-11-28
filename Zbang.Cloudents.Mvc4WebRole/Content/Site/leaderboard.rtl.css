@@ -200,6 +200,7 @@
 }
 .promo-box .bottom {
   padding: 5px;
+  position: relative;
 }
 .promo-box .bottom .stats {
   display: -webkit-flex;
@@ -241,8 +242,21 @@
   font-size: 15px;
   margin-left: 4px;
 }
+.promo-box .bottom .stats .rank .icon {
+  font-size: 16px;
+  margin-left: 4px;
+  margin-top: 2px;
+}
 .promo-box .bottom .stats .likes .icon {
   width: 18px;
   height: 18px;
   margin-left: 4px;
+}
+.promo-box .bottom .info {
+  width: 26px;
+  height: 26px;
+  bottom: 8px;
+  left: 12px;
+  fill: #ffffff;
+  position: absolute;
 }
