@@ -235,7 +235,7 @@
 .flashcardPage .header .progress-wrapper .title .flashcard-icon:after {
   content: '';
   text-align: center;
-  line-height: 25.872px;
+  line-height: 22.9152px;
   color: #4190b9;
   transform: rotate(20deg);
   bottom: 9.24px;
@@ -371,7 +371,7 @@
 .flashcardPage .header .card-sides button:not(.active) .flashcard-icon:after {
   content: '';
   text-align: center;
-  line-height: 22.176px;
+  line-height: 19.6416px;
   color: #b5b4b4;
   transform: rotate(20deg);
   bottom: 7.92px;
@@ -407,7 +407,7 @@
 .flashcardPage .header .card-sides button.active.front .flashcard-icon:after {
   content: '';
   text-align: center;
-  line-height: 22.176px;
+  line-height: 19.6416px;
   color: #323538;
   transform: rotate(20deg);
   bottom: 7.92px;
@@ -443,7 +443,7 @@
 .flashcardPage .header .card-sides button.active.back .flashcard-icon:after {
   content: '';
   text-align: center;
-  line-height: 22.176px;
+  line-height: 19.6416px;
   color: #4190b9;
   transform: rotate(20deg);
   bottom: 7.92px;
@@ -482,7 +482,7 @@
 .flashcardPage .header .card-sides button.active.both .flashcard-icon:after {
   content: '';
   text-align: center;
-  line-height: 22.176px;
+  line-height: 19.6416px;
   color: #4190b9;
   transform: rotate(20deg);
   bottom: 7.92px;

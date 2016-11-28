@@ -193,6 +193,11 @@
   flex-shrink: 0;
   border-radius: 10px 10px 0 0;
 }
+@media (max-width: 600px) {
+  .promo-info-dialog md-toolbar {
+    padding: 40px 8px 10px 8px;
+  }
+}
 .promo-info-dialog md-toolbar .close {
   position: absolute;
   top: 12px;
@@ -218,12 +223,12 @@
 }
 @media (max-width: 600px) {
   .promo-info-dialog md-toolbar h1 {
-    font-size: 36px;
+    font-size: 28px;
   }
 }
 .promo-info-dialog md-toolbar h2 {
   color: #212325;
-  font-size: 28px;
+  font-size: 26px;
   margin-top: 8px;
 }
 @media (max-width: 600px) {
@@ -325,10 +330,12 @@
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
   margin-bottom: 20px;
+  max-width: 48%;
 }
 @media (max-width: 600px) {
   .promo-info-dialog md-dialog-content .rules ul li {
     margin-bottom: 20px;
+    max-width: 100%;
   }
 }
 .promo-info-dialog md-dialog-content .rules ul li .rule {

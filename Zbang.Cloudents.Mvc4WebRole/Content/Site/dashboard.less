@@ -212,6 +212,10 @@
         flex-shrink: 0;
         border-radius: 10px 10px 0 0;
 
+        @media(max-width: 600px) {
+            padding: 40px 8px 10px 8px;
+        }
+
         .close {
             position: absolute;
             top: 12px;
@@ -238,13 +242,13 @@
             font-size: 40px;
 
             @media(max-width:600px) {
-                font-size: 36px;
+                font-size: 28px;
             }
         }
 
         h2 {
             color: @textColorBlack;
-            font-size: 28px;
+            font-size: 26px;
             margin-top: 8px;
 
             @media(max-width:600px) {
@@ -340,9 +344,11 @@
                     .align-items(flex-start);
                     .justifyContet(flex-start);
                     margin-bottom: 20px;
+                    max-width: 48%;
 
                     @media(max-width: 600px) {
                         margin-bottom: 20px;
+                        max-width: 100%;
                     }
 
                     .rule {

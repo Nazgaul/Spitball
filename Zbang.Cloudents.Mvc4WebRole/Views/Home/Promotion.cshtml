@@ -20,8 +20,8 @@
             background-color: @Model.HomePageUniversityData.MainSignupColor !important;
         }
 
-        .intro .text{
-            color:@Model.HomePageUniversityData.VideoFontColor !important;
+        .intro .text h1, .rules h1, .intro  .description > div:before {
+            color: @Model.HomePageUniversityData.MainSignupColor;
         }
 
         .sb-logo{
@@ -48,7 +48,9 @@
         <div class="home-page-body">
             <section class="main">
                 <div id="main-wrapper">
-                    <img class="promo-title" alt="win 500$ on your spitball flashcard" src="@Url.CdnContent("~/Images/Site/promo.png?v=1")"/>
+                    <div class="promo-img-wrapper">
+                        <img class="promo-title" alt="win 500$ on your spitball flashcard" src="@Url.CdnContent("~/Images/Site/promo.png?v=1")" />
+                    </div>
                     <div class="welcome-text">
                         <div class="uni-logo-wrapper">
                             <div class="sb-logo">
@@ -78,7 +80,8 @@
                 </div>
                 <div class="prize-list">
                     <div class="prize">
-                        <div class="place">2<sup>nd</sup>
+                        <div class="place">
+                            2<sup>nd</sup>
                         </div>
                         <div class="value-wrapper">
                             <div class="card"></div>
@@ -87,7 +90,8 @@
                         @Html.Svg(iconsSvg, "promo-2nd-place")
                     </div>
                     <div class="prize">
-                        <div class="place">1<sup>st</sup>
+                        <div class="place">
+                            1<sup>st</sup>
                         </div>
                         <div class="value-wrapper">
                             <div class="card"></div>
@@ -96,7 +100,8 @@
                         @Html.Svg(iconsSvg, "promo-1st-place")
                     </div>
                     <div class="prize">
-                        <div class="place">3<sup>rd</sup>
+                        <div class="place">
+                            3<sup>rd</sup>
                         </div>
                         <div class="value-wrapper">
                             <div class="card"></div>
@@ -110,19 +115,19 @@
                 <h1>Rules</h1>
                 <ul>
                     <li>
-                        <div class="icon-wrapper uni">@Html.Svg(iconsSvg, "universityMenu", new {@class = "icon"})</div>
+                        <div class="icon-wrapper uni">@Html.Svg(iconsSvg, "universityMenu", new { @class = "icon" })</div>
                         <div class="rule">You must be currently enrolled as a student at the University of Michigan</div>
                     </li>
                     <li>
-                        <div class="icon-wrapper like">@Html.Svg(boxIconsSvg, "like", new {@class = "icon"})</div>
+                        <div class="icon-wrapper like">@Html.Svg(boxIconsSvg, "like", new { @class = "icon" })</div>
                         <div class="rule">The flashcard set must have a minimum of 10 likes to be considered a valid entry</div>
                     </li>
                     <li>
-                        <div class="icon-wrapper original">@Html.Svg(iconsSvg, "original", new {@class = "icon"})</div>
+                        <div class="icon-wrapper original">@Html.Svg(iconsSvg, "original", new { @class = "icon" })</div>
                         <div class="rule">Flashcards must contain original content and cannot be duplicated from another site or source</div>
                     </li>
                     <li>
-                        <div class="icon-wrapper spy">@Html.Svg(iconsSvg, "spy", new {@class = "icon"})</div>
+                        <div class="icon-wrapper spy">@Html.Svg(iconsSvg, "spy", new { @class = "icon" })</div>
                         <div class="rule">The contest will run until December 15, 2016, at which point the winners will be notified</div>
                     </li>
                 </ul>

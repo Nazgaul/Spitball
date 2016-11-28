@@ -1480,17 +1480,23 @@ iframe {
   left: 0;
   bottom: 0;
 }
-.promo-page .promo-title {
-  z-index: 10;
+.promo-page .promo-img-wrapper {
   position: absolute;
-  left: 0;
+  top: 0;
+  bottom: 0;
   right: 0;
-  margin: 0 auto;
-  width: 35%;
-  transform: translateY(-50%);
-  top: 50%;
+  left: 0;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.promo-page .promo-img-wrapper img {
+  max-height: 80%;
   max-width: 670px;
-  width: calc(100% - 20px);
 }
 .promo-page .home-page-body {
   position: relative;
@@ -1501,6 +1507,7 @@ iframe {
 .promo-page .intro .text h2 {
   font-size: 48px;
   margin: 0 0 50px 0;
+  color: #212325;
 }
 @media (max-width: 960px) {
   .promo-page .intro .text h2 {
@@ -1538,7 +1545,7 @@ iframe {
 .promo-page .intro .description > div:before {
   content: '\2022';
   position: absolute;
-  right: -20px;
+  right: -24px;
   font-size: 40px;
   line-height: 36px;
 }
@@ -1649,7 +1656,7 @@ iframe {
   .promo-page .prizes .prize-list .prize:nth-child(1) .card:after {
     content: '$250';
     text-align: center;
-    line-height: 77px;
+    line-height: 68.2px;
     color: #AAA7A7;
     transform: rotate(20deg);
     bottom: 27.5px;
@@ -1687,7 +1694,7 @@ iframe {
   .promo-page .prizes .prize-list .prize:nth-child(1) .card:after {
     content: '$250';
     text-align: center;
-    line-height: 6.3vw;
+    line-height: 5.58vw;
     color: #AAA7A7;
     transform: rotate(20deg);
     bottom: 2.25vw;
@@ -1739,7 +1746,7 @@ iframe {
   .promo-page .prizes .prize-list .prize:nth-child(2) .card:after {
     content: '$500';
     text-align: center;
-    line-height: 77px;
+    line-height: 68.2px;
     color: #C6A21B;
     transform: rotate(20deg);
     bottom: 27.5px;
@@ -1777,7 +1784,7 @@ iframe {
   .promo-page .prizes .prize-list .prize:nth-child(2) .card:after {
     content: '$500';
     text-align: center;
-    line-height: 6.3vw;
+    line-height: 5.58vw;
     color: #C6A21B;
     transform: rotate(20deg);
     bottom: 2.25vw;
@@ -1821,7 +1828,7 @@ iframe {
   .promo-page .prizes .prize-list .prize:nth-child(3) .card:after {
     content: '$100';
     text-align: center;
-    line-height: 77px;
+    line-height: 68.2px;
     color: #CD7F32;
     transform: rotate(20deg);
     bottom: 27.5px;
@@ -1859,7 +1866,7 @@ iframe {
   .promo-page .prizes .prize-list .prize:nth-child(3) .card:after {
     content: '$100';
     text-align: center;
-    line-height: 6.3vw;
+    line-height: 5.58vw;
     color: #CD7F32;
     transform: rotate(20deg);
     bottom: 2.25vw;
@@ -1924,6 +1931,7 @@ iframe {
 @media (min-width: 1200px) {
   .promo-page .prizes .prize-list .prize .value-wrapper .card:after {
     font-size: 34px;
+    line-height: 64px;
   }
 }
 .promo-page .prizes .prize-list .prize .value-wrapper .card:before,
