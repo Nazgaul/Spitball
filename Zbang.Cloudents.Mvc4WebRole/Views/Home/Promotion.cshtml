@@ -49,7 +49,8 @@
             <section class="main">
                 <div id="main-wrapper">
                     <div class="promo-img-wrapper">
-                        <img class="promo-title" alt="win 500$ on your spitball flashcard" src="@Url.CdnContent("~/Images/Site/promo.png?v=1")" />
+                        <div class="promo-title"></div>
+                        @*<img class="promo-title" alt="win 500$ on your spitball flashcard" src="@Url.CdnContent("~/Images/Site/promo.png?v=1")" />*@
                     </div>
                     <div class="welcome-text">
                         <div class="uni-logo-wrapper">
@@ -116,7 +117,7 @@
                 <ul>
                     <li>
                         <div class="icon-wrapper uni">@Html.Svg(iconsSvg, "universityMenu", new { @class = "icon" })</div>
-                        <div class="rule">You must be currently enrolled as a student at the University of Michigan</div>
+                        <div class="rule">You must be currently enrolled as a student at the @Model.HomePageUniversityData.UniversityName</div>
                     </li>
                     <li>
                         <div class="icon-wrapper like">@Html.Svg(boxIconsSvg, "like", new { @class = "icon" })</div>

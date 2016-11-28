@@ -1680,11 +1680,19 @@ iframe {
         .align-items(center);
         .justifyContet(center);
 
-        img {
-            max-height: 80%;
+        .promo-title {
+            background-image: url(/Images/Site/promo.png?v=2);
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: 50%;
             max-width: 670px;
+            margin: 0 auto;
         }
-
     }
 
     .home-page-body {
@@ -2019,6 +2027,7 @@ iframe {
 
                 @media(min-width: 860px) {
                     max-width: 46%;
+                    flex: 1 1 50%;
                 }
 
                 @media(max-width: 600px) {

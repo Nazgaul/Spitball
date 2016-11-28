@@ -1494,9 +1494,18 @@ iframe {
   -webkit-justify-content: center;
   justify-content: center;
 }
-.promo-page .promo-img-wrapper img {
-  max-height: 80%;
+.promo-page .promo-img-wrapper .promo-title {
+  background-image: url(/Images/Site/promo.png?v=2);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 50%;
   max-width: 670px;
+  margin: 0 auto;
 }
 .promo-page .home-page-body {
   position: relative;
@@ -2006,6 +2015,7 @@ iframe {
 @media (min-width: 860px) {
   .promo-page .rules ul li {
     max-width: 46%;
+    flex: 1 1 50%;
   }
 }
 @media (max-width: 600px) {

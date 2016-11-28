@@ -9,6 +9,7 @@
         flashcardPromo;
         color1: string;
         color2: string;
+        uni: string;
         hideBox = false;
         constructor(private dashboardService: IDashboardService,
             private $filter: any, //meganumber is need defined
@@ -38,6 +39,7 @@
                             this.hidePromo = false;
                             this.color1 = response.btnColor;
                             this.color2 = response.stripColor;
+                            this.uni = response.name;
                         });
                 }
                 //                this.hideBox = this.hideLeaderBoard && this.hidePromo;
@@ -51,7 +53,8 @@
                 clickOutsideToClose: true,
                 locals: {
                     color1: this.color1,
-                    color2: this.color2
+                    color2: this.color2,
+                    uni: this.uni
                 },
                 controller: "DialogPromo",
                 controllerAs:"dp",
@@ -65,12 +68,14 @@
 
     }
     class DialogController {
-        static $inject = ["color1", "color2","$mdDialog"];
+        static $inject = ["color1", "color2", "uni","$mdDialog"];
         colorA;
         colorB;
-        constructor(private color1: string, private color2, private $mdDialog: angular.material.IDialogService) {
+        uniName;
+        constructor(private color1: string, private color2, private uni, private $mdDialog: angular.material.IDialogService) {
             this.colorA = color1;
             this.colorB = color2;
+            this.uniName = uni;
         }
         close() {
             this.$mdDialog.hide();
