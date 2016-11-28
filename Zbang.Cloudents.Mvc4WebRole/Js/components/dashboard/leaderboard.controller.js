@@ -2,10 +2,11 @@ var app;
 (function (app) {
     "use strict";
     var LeaderBoard = (function () {
-        function LeaderBoard(dashboardService, $filter) {
+        function LeaderBoard(dashboardService, $filter, $mdDialog) {
             var _this = this;
             this.dashboardService = dashboardService;
             this.$filter = $filter;
+            this.$mdDialog = $mdDialog;
             this.hideLeaderBoard = true;
             this.hidePromo = false;
             this.leaderboard = [];
@@ -30,7 +31,16 @@ var app;
                 _this.hideBox = _this.hideLeaderBoard && _this.hidePromo;
             });
         }
-        LeaderBoard.$inject = ["dashboardService", "$filter"];
+        LeaderBoard.prototype.details = function (ev) {
+            this.$mdDialog.show({
+                templateUrl: "/flashcard/promo/",
+                targetEvent: ev,
+                clickOutsideToClose: true,
+                fullscreen: false
+            });
+            console.log("here");
+        };
+        LeaderBoard.$inject = ["dashboardService", "$filter", "$mdDialog"];
         return LeaderBoard;
     }());
     angular.module("app.dashboard").controller("DashboardLeaderboard", LeaderBoard);

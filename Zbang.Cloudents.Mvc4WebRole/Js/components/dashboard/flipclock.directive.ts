@@ -4,9 +4,8 @@
     class FlipClock implements angular.IDirective {
         restrict = "E";
 
-        link = (scope: angular.IScope, element: JQuery) => {
+        link = (scope: angular.IScope, element: JQuery/*, attrs: angular.IAttributes*/) => {
             var d = new Date(2016, 11, 16);
-            var now = new Date();
             element["FlipClock"]((d.getTime() - new Date().getTime())/1000, {
                 clockFace: 'DailyCounter',
                 countdown: true
