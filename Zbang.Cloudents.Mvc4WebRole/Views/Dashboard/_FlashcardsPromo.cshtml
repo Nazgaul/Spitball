@@ -1,4 +1,4 @@
-﻿<div class="promo-box box-style">
+﻿<div class="promo-box box-style" ng-hide="lb.hidePromo">
     <div class="top">
         <div class="title"></div>
         <flip-clock></flip-clock>
@@ -8,14 +8,14 @@
             <div class="rank">
                 <div class="title">Your Rank</div>
                 <div class="count">
-                    <div class="num">20</div>
+                    <div class="num" ng-bind="::lb.flashcardPromo.row"></div>
                     <div class="icon"></div>
                 </div>
             </div>
             <div class="likes">
                 <div class="title">Your Likes</div>
                 <div class="count">
-                    <div class="num">100</div>
+                    <div class="num" ng-bind="::lb.flashcardPromo.count"></div>
                     <div class="icon"></div>
                 </div>
             </div>

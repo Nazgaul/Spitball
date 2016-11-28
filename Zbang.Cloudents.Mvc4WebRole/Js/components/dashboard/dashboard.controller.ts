@@ -10,7 +10,7 @@
         //suggested;
         html;
         createBoxOn;
-        showLeaderboard = true;
+        //showLeaderboard = true;
         constructor(
             private dashboardService: IDashboardService,
             // TODO
@@ -34,9 +34,9 @@
             $scope.$on("close_invite", () => {
                 this.inviteOpen = false;
             });
-            $scope.$on('hide-leader-board', () => {
-                this.showLeaderboard = false;
-            });
+            //$scope.$on('hide-leader-board', () => {
+            //    this.showLeaderboard = false;
+            //});
         }
 
 

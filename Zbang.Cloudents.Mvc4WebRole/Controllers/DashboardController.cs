@@ -89,14 +89,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (HomeController.FlashcardUniversities.Contains(universityWrapper))
             {
 
-               var model2 = await ZboxReadService.GetDashboardFlashcardStatusAsync(new FlashcardLeaderboardQuery(User.GetUserId(),
-                    universityWrapper));
-                return JsonOk(model2);
+                var model2 = await ZboxReadService.GetDashboardFlashcardStatusAsync(new FlashcardLeaderboardQuery(User.GetUserId(),
+                     universityWrapper));
+                return JsonOk(new
+                {
+                    type = 2,
+                    model = model2
+                });
             }
 
             var query = new LeaderBoardQuery(universityWrapper);
             var model = await ZboxReadService.GetDashboardLeaderBoardAsync(query);
-            return JsonOk(model);
+            return JsonOk(new
+            {
+                type = 1,
+                model
+            });
 
         }
 

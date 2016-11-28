@@ -1434,6 +1434,7 @@
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.routes.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.service.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\flipclock.directive.ts" />
+    <TypeScriptCompile Include="Js\components\dashboard\leaderboard.controller.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\cardAnimation.directive.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\cardScroll.directive.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\cardSettings.directive.ts" />
