@@ -10,8 +10,11 @@ var app;
             this.userUpdatesService = userUpdatesService;
             this.$rootScope = $rootScope;
             this.serverCall = false;
+            this.serverCallUniversityMeta = false;
             this.boxes = null;
+            this.universityMeta = null;
             this.defer = $q.defer();
+            this.deferUniversityMeta = $q.defer();
             $rootScope.$on("delete-updates", function (e, arg) {
                 var box = _this.boxes.find(function (v) { return (v.id === arg); });
                 if (box) {
@@ -29,6 +32,10 @@ var app;
             $rootScope.$on("refresh-boxes", function () {
                 _this.boxes = null;
                 _this.defer = $q.defer();
+            });
+            $rootScope.$on("refresh-university", function () {
+                _this.universityMeta = null;
+                _this.deferUniversityMeta = $q.defer();
             });
         }
         Dashboard.prototype.getBoxes = function () {
@@ -56,7 +63,19 @@ var app;
             return this.defer.promise;
         };
         Dashboard.prototype.getUniversityMeta = function (universityId) {
-            return this.ajaxService2.get('dashboard/university', { universityId: universityId }, 'university');
+            var _this = this;
+            if (this.universityMeta) {
+                return this.$q.when(this.universityMeta);
+            }
+            if (!this.serverCallUniversityMeta) {
+                this.serverCallUniversityMeta = true;
+                this.ajaxService2.get('dashboard/university', { universityId: universityId }, 'university')
+                    .then(function (response) {
+                    _this.universityMeta = response;
+                    _this.deferUniversityMeta.resolve(_this.universityMeta);
+                });
+            }
+            return this.deferUniversityMeta.promise;
         };
         ;
         Dashboard.prototype.createPrivateBox = function (boxName) {

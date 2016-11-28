@@ -8,13 +8,13 @@ var app;
             this.$filter = $filter;
             this.$mdDialog = $mdDialog;
             this.hideLeaderBoard = true;
-            this.hidePromo = false;
+            this.hidePromo = true;
             this.leaderboard = [];
             this.hideBox = false;
             dashboardService.leaderboard().then(function (response) {
                 if (response.type === 1) {
-                    _this.hidePromo = true;
                     if (response.model.length < 3) {
+                        _this.hideBox = true;
                     }
                     _this.hideLeaderBoard = false;
                     for (var i = 0; i < response.model.length; i++) {
@@ -24,11 +24,15 @@ var app;
                     console.log(_this.leaderboard);
                 }
                 else {
-                    _this.hideLeaderBoard = true;
                     _this.flashcardPromo = response.model;
-                    console.log(_this.flashcardPromo);
+                    _this.dashboardService.getUniversityMeta()
+                        .then(function (response) {
+                        console.log(response);
+                        _this.hidePromo = false;
+                        _this.color1 = response.btnColor;
+                        _this.color2 = response.stripColor;
+                    });
                 }
-                _this.hideBox = _this.hideLeaderBoard && _this.hidePromo;
             });
         }
         LeaderBoard.prototype.details = function (ev) {

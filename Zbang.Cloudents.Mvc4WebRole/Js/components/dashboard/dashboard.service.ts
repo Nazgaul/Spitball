@@ -16,12 +16,17 @@
         static $inject = ["$q", "ajaxService2", "realtimeFactory", "userUpdatesService", "$rootScope"];
         private defer: angular.IDeferred<any>;
         private serverCall = false;
+        private serverCallUniversityMeta = false;
+
+        private deferUniversityMeta: angular.IDeferred<any>;
+
         constructor(private $q: angular.IQService,
             private ajaxService2: IAjaxService2,
             private realtimeFactotry: IRealtimeFactory,
             private userUpdatesService: IUserUpdatesService,
             private $rootScope: angular.IRootScopeService) {
             this.defer = $q.defer();
+            this.deferUniversityMeta = $q.defer();
 
 
             $rootScope.$on("delete-updates",
@@ -43,8 +48,13 @@
                 this.boxes = null;
                 this.defer = $q.defer();
             });
+            $rootScope.$on("refresh-university", () => {
+                this.universityMeta = null;
+                this.deferUniversityMeta = $q.defer();
+            });
         }
         boxes = null;
+        universityMeta = null;
         getBoxes() {
             if (this.boxes) {
                 //defer.resolve(this.boxes);
@@ -70,7 +80,19 @@
             return this.defer.promise;
         }
         getUniversityMeta(universityId?: number) {
-            return this.ajaxService2.get('dashboard/university', { universityId: universityId }, 'university');
+            if (this.universityMeta) {
+                return this.$q.when(this.universityMeta);
+            }
+            if (!this.serverCallUniversityMeta) {
+                this.serverCallUniversityMeta = true;
+                this.ajaxService2.get('dashboard/university', { universityId: universityId }, 'university')
+                    .then(response => {
+                        this.universityMeta = response;
+                        this.deferUniversityMeta.resolve(this.universityMeta);
+                    });
+            }
+            return this.deferUniversityMeta.promise;
+            //return this.ajaxService2.get('dashboard/university', { universityId: universityId }, 'university');
         };
         createPrivateBox(boxName: string) {
             return this.ajaxService2.post("/dashboard/create/", { boxName: boxName });
