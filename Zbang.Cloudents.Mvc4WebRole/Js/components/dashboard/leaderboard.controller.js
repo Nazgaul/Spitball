@@ -21,10 +21,11 @@ var app;
                         response.model[i].score = $filter("megaNumber")(response.model[i].score);
                     }
                     _this.leaderboard = response.model;
-                    console.log(_this.leaderboard);
                 }
                 else {
-                    _this.flashcardPromo = response.model;
+                    _this.flashcardPromo = response.model || {};
+                    _this.flashcardPromo.count = _this.flashcardPromo.count || 0;
+                    console.log(_this.flashcardPromo);
                     _this.dashboardService.getUniversityMeta()
                         .then(function (response) {
                         _this.hidePromo = false;
