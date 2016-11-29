@@ -13,7 +13,8 @@
 
     class BoxController {
         static $inject = ["$state", "$stateParams", "boxData", "$scope",
-            "$rootScope", "user", "resManager", "boxService", "ajaxService2", "$timeout", "$window", "userUpdatesService"];
+            "$rootScope", "user", "resManager", "boxService", "ajaxService2",
+            "$timeout", "$window", "userUpdatesService"];
         data;
         showLeaderboard;
         isAcademic;

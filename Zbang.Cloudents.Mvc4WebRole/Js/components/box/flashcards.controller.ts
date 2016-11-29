@@ -1,8 +1,9 @@
 ﻿module app {
     "use strict";
     class Flashcards {
-        static $inject = ["$stateParams", "flashcards", "$state", "$mdDialog", "resManager", "flashcardService", "user"];
-        params : angular.ui.IStateParamsService;
+        static $inject = ["$stateParams", "flashcards", "$state",
+            "$mdDialog", "resManager", "flashcardService", "user", "shareService","$scope"];
+        params: angular.ui.IStateParamsService;
         flashcards: Array<any>;
         constructor(
             private $stateParams: angular.ui.IStateParamsService,
@@ -11,7 +12,9 @@
             private $mdDialog: angular.material.IDialogService,
             private resManager: IResManager,
             private flashcardService: IFlashcardService,
-            private user: IUserData) {
+            private user: IUserData,
+            private shareService: IShareService,
+            private $scope: angular.IScope) {
             this.params = $stateParams;
             angular.forEach(flashcards,
                 val => {
@@ -30,6 +33,18 @@
                     }
                 });
             this.flashcards = flashcards;
+
+            this.$scope.$on("$stateChangeSuccess",
+            (event: angular.IAngularEvent,
+                toState: angular.ui.IState,
+                toParams: spitaball.ISpitballStateParamsService,
+                fromState: angular.ui.IState,
+                fromParams: spitaball.ISpitballStateParamsService) => {
+                //need indication that he actually created one
+               // if (fromState.name === "flashcardCreate") {
+                    this.shareService.shareDialog();
+                //}
+            });
         }
 
         deleteFlashcard(ev: MouseEvent, flashcard) {

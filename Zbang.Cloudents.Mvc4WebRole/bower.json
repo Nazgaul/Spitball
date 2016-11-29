@@ -9,7 +9,9 @@
     "ng-scrollbars": "0.0.10",
     "oclazyload": "1.0.9",
     "angular-plupload": "0.1.6",
-    "angular-vs-repeat": "1.1.7"
+    "angular-vs-repeat": "1.1.7",
+    "clipboard": "1.5.15",
+    "ngclipboard": "1.1.1"
   },
   "resolutions": {
     "angular": "^1.2.0",

@@ -379,6 +379,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, ZboxAuthorize, NoUniversity]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult Promo()
         {
             var universityWrapper = User.GetUniversityId().Value;

@@ -121,7 +121,8 @@ var app;
             return false;
         };
         BoxController.$inject = ["$state", "$stateParams", "boxData", "$scope",
-            "$rootScope", "user", "resManager", "boxService", "ajaxService2", "$timeout", "$window", "userUpdatesService"];
+            "$rootScope", "user", "resManager", "boxService", "ajaxService2",
+            "$timeout", "$window", "userUpdatesService"];
         return BoxController;
     }());
     angular.module('app.box').controller('BoxController', BoxController);

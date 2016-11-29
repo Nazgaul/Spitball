@@ -1,35 +1,46 @@
-﻿(function () {
+var app;
+(function (app) {
     'use strict';
-    angular.module('app').service('shareService', share);
-
-    share.$inject = ['ajaxService'];
-    function share(ajaxService) {
-        var self = this;
-
-        self.googleFriends = function (token) {
-            return ajaxService.post('/user/googlecontacts/', {
-                token: token
-
-            });
+    var Share = (function () {
+        function Share(ajaxService, $mdDialog) {
+            this.ajaxService = ajaxService;
+            this.$mdDialog = $mdDialog;
         }
-        self.users = function (term, boxId, page) {
-            return ajaxService.get('/search/membersinbox/', {
+        Share.prototype.googleFriends = function (token) {
+            return this.ajaxService.post('/user/googlecontacts/', {
+                token: token
+            });
+        };
+        Share.prototype.users = function (term, boxId, page) {
+            return this.ajaxService.get('/search/membersinbox/', {
                 term: term,
                 boxId: boxId,
                 page: page
             });
-        }
-
-        self.inviteToSystem = function (recipients) {
-            return ajaxService.post('/share/invite/', {
+        };
+        Share.prototype.inviteToSystem = function (recipients) {
+            return this.ajaxService.post('/share/invite/', {
                 recipients: recipients
             });
-        }
-        self.inviteToBox = function (recipients, boxId) {
-            return ajaxService.post('/share/invitebox/', {
+        };
+        Share.prototype.inviteToBox = function (recipients, boxId) {
+            return this.ajaxService.post('/share/invitebox/', {
                 recipients: recipients,
                 boxId: boxId
-            })
-        }
-    }
-})()
+            });
+        };
+        Share.prototype.shareDialog = function () {
+            return this.$mdDialog.show({
+                templateUrl: "/share/sharedialog/",
+                clickOutsideToClose: true,
+                controller: "ShareDialog",
+                controllerAs: "sd",
+                fullscreen: false
+            });
+        };
+        Share.$inject = ["ajaxService2", "$mdDialog"];
+        return Share;
+    }());
+    angular.module("app").service("shareService", Share);
+})(app || (app = {}));
+;

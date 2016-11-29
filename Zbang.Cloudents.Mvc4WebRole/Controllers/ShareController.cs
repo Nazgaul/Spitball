@@ -151,7 +151,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         //    }
         //}
-        
+        [ZboxAuthorize, HttpGet]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
+        public ActionResult ShareDialog()
+        {
+            return PartialView("ShareDialog");
+        }
 
         [ZboxAuthorize, HttpGet]
         [DonutOutputCache(CacheProfile = "PartialPage")]

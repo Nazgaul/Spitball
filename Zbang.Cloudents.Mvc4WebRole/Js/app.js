@@ -29,7 +29,8 @@
          'app.upload',
          'app.search',
          'app.chat',
-         "app.flashcard"
+         "app.flashcard",
+         "ngclipboard"
     ]);
 
 })();

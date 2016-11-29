@@ -159,6 +159,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/bower_components/angular-google-analytics/dist/angular-google-analytics.js"),
                         new JsFileWithCdn("~/bower_components/oclazyload/dist/oclazyload.js"),
                         new JsFileWithCdn("~/bower_components/angular-vs-repeat/src/angular-vs-repeat.js"),
+                        new JsFileWithCdn("~/bower_components/clipboard/dist/clipboard.js"),
+                        new JsFileWithCdn("~/bower_components/ngclipboard/dist/ngclipboard.js"),
                         new JsFileWithCdn("~/scripts/angular-animate.js"),
                         new JsFileWithCdn("~/scripts/angular-aria.js"),
                         // on version 1.1.1 there is a bug with md-tabs. fix that locally. until upgrade we dont use google cdn
@@ -176,7 +178,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/draganddrop.js"),
 
                         new JsFileWithCdn("~/scripts/ui-bootstrap-custom-tpls-1.2.1.min.js"),
-                        //new JsFileWithCdn("~/scripts/svg4everybodyAngular.js"),
                          //TODO: move to oclazy in user
                         new JsFileWithCdn("~/scripts/angular-countUp.js"),
                         new JsFileWithCdn("~/scripts/angular-google-adsense.js"),
@@ -222,7 +223,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/dashboard/createBox.controller.js"),
                         new JsFileWithCdn("~/js/components/dashboard/flipclock.directive.js"),
                         new JsFileWithCdn("~/js/components/dashboard/leaderboard.controller.js"),
-                       
+
                         new JsFileWithCdn("~/js/menu/menulink.directive.js"),
                         new JsFileWithCdn("~/js/menu/sidemenu.controller.js"),
 
@@ -238,7 +239,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                      new JsFileWithCdn("~/js/components/box/quizzes.controller.js"),
                      new JsFileWithCdn("~/js/components/box/members.controller.js"),
                      new JsFileWithCdn("~/js/components/box/flashcards.controller.js"),
-                     
+
                      new JsFileWithCdn("~/js/components/box/recommended.controller.js"),
                      new JsFileWithCdn("~/js/components/box/slideit.directive.js"),
 
@@ -276,6 +277,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/library/classChooseCreateDialog.controller.js"),
                         new JsFileWithCdn("~/js/components/share/invite.controller.js"),
                         new JsFileWithCdn("~/js/components/share/share.service.js"),
+                        new JsFileWithCdn("~/js/components/share/shareDialog.controller.js"),
 
                         new JsFileWithCdn("~/js/components/item/item.controller.js"),
                         new JsFileWithCdn("~/js/components/item/comments.controller.js"),
@@ -298,7 +300,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/flashcard/fitText.directive.js"),
                         new JsFileWithCdn("~/js/components/flashcard/cardScroll.directive.js"),
                         new JsFileWithCdn("~/js/components/flashcard/cardAnimation.directive.js"),
-                       
+
 
                         new JsFileWithCdn("~/js/components/app.controller.js"),
                         new JsFileWithCdn("~/js/shared/ajaxService.js"),

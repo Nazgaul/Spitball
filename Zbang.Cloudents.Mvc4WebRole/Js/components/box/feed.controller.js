@@ -1,9 +1,11 @@
 ﻿(function () {
     'use strict';
     angular.module('app.box.feed').controller('FeedController', feed);
-    feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService',
+    feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider',
+        'itemThumbnailService',
         'user', 'userUpdatesService', '$mdDialog', '$scope', '$rootScope',
-        'resManager', 'routerHelper', '$filter', 'feedData', 'updates', "$q", "$window", "likes"];
+        'resManager', 'routerHelper', '$filter', 'feedData',
+        'updates', "$q", "$window", "likes"];
 
     function feed(boxService, $stateParams, $timeout, externalUploadProvider,
         itemThumbnailService, user, userUpdatesService,
