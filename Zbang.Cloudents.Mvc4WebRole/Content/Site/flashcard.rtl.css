@@ -988,33 +988,35 @@
     padding: 6px 25px;
   }
 }
-.flashcardPage .card-player .card-template.ng-hide-add,
-.flashcardPage .card-player .card-template.ng-hide-remove {
-  display: block !important;
-  animation-duration: 0.3s;
-  animation-timing-function: ease-out;
-  animation-iteration-count: 1;
-  position: absolute !important;
-}
-.flashcardPage .card-player .card-template.ng-hide-add ~ .buttons,
-.flashcardPage .card-player .card-template.ng-hide-remove ~ .buttons,
-.flashcardPage .card-player .card-template.ng-hide-add ~ .keyboard,
-.flashcardPage .card-player .card-template.ng-hide-remove ~ .keyboard {
-  display: none;
-}
-.flashcardPage .card-player .card-template.ng-hide-add {
-  animation-name: cardNextOut;
-  /* the transition is defined in the active class */
-}
-.flashcardPage .card-player .card-template.ng-hide-add.backSlide {
-  animation-name: cardPrevOut;
-}
-.flashcardPage .card-player .card-template.ng-hide-remove {
-  animation-name: cardNextIn;
-  /* the transition is defined in the active class */
-}
-.flashcardPage .card-player .card-template.ng-hide-remove.backSlide {
-  animation-name: cardPrevIn;
+@media (min-width: 600px) {
+  .flashcardPage .card-player .card-template.ng-hide-add,
+  .flashcardPage .card-player .card-template.ng-hide-remove {
+    display: block !important;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-out;
+    animation-iteration-count: 1;
+    position: absolute !important;
+  }
+  .flashcardPage .card-player .card-template.ng-hide-add ~ .buttons,
+  .flashcardPage .card-player .card-template.ng-hide-remove ~ .buttons,
+  .flashcardPage .card-player .card-template.ng-hide-add ~ .keyboard,
+  .flashcardPage .card-player .card-template.ng-hide-remove ~ .keyboard {
+    display: none;
+  }
+  .flashcardPage .card-player .card-template.ng-hide-add {
+    animation-name: cardNextOut;
+    /* the transition is defined in the active class */
+  }
+  .flashcardPage .card-player .card-template.ng-hide-add.backSlide {
+    animation-name: cardPrevOut;
+  }
+  .flashcardPage .card-player .card-template.ng-hide-remove {
+    animation-name: cardNextIn;
+    /* the transition is defined in the active class */
+  }
+  .flashcardPage .card-player .card-template.ng-hide-remove.backSlide {
+    animation-name: cardPrevIn;
+  }
 }
 .flashcardPage .card-player .card-template.front .card-content .side,
 .flashcardPage .card-player .card-template.back .card-content .side {

@@ -65,7 +65,9 @@
                         ctrl.prev();
                     }
                     scope.$apply();
-                    this.$anchorScroll("card" + ctrl.slidepos);
+                    //this.$timeout(() => {
+                        this.$anchorScroll("card" + ctrl.slidepos);
+                    //},1000);
                 });
             scope.$on("$destroy",
                 () => {

@@ -109,13 +109,15 @@
             this.goToStep2();
         }
         prev() {
-            this.changeLegend(this.styleLegend);
+            //this.changeLegend(this.styleLegend);
+            this.cards[this.slidepos].style = this.styleLegend;
             this.slidepos = Math.max(0, --this.slidepos);
 
             this.step = Steps.Memo;
         }
         next() {
-            this.changeLegend(this.styleLegend);
+            //this.changeLegend(this.styleLegend);
+            this.cards[this.slidepos].style = this.styleLegend;
 
             this.slidepos = Math.min(this.cards.length, ++this.slidepos);
             if (this.slidepos === this.cards.length) {
