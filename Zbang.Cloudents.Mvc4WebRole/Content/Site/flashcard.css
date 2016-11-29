@@ -1537,13 +1537,6 @@
   flex-wrap: wrap;
 }
 .share-dialog md-dialog-content .share-options .share-button {
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-  -webkit-align-items: center;
-  align-items: center;
-  -webkit-justify-content: center;
-  justify-content: center;
   border: 1px solid #212325;
   height: 50px;
   margin: 14px 0;
@@ -1551,6 +1544,15 @@
   max-width: calc(50% - 24px);
   font-size: 20px;
   color: #212325;
+}
+.share-dialog md-dialog-content .share-options .share-button > div {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
 @media (max-width: 600px) {
   .share-dialog md-dialog-content .share-options .share-button {

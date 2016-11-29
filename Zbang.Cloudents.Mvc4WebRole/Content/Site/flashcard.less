@@ -1329,9 +1329,6 @@
             flex-wrap: wrap;
 
             .share-button {
-                .displayFlex;
-                .align-items(center);
-                .justifyContet(center);
                 border: 1px solid @textColorBlack;
                 height: 50px;
                 margin: 14px 0;
@@ -1339,6 +1336,12 @@
                 max-width: ~"calc(50% - @{dialogPadding})";
                 font-size: 20px;
                 color: @textColorBlack;
+
+                > div {
+                    .displayFlex;
+                    .align-items(center);
+                    .justifyContet(center);
+                }
 
                 @media(max-width: 600px) {
                     font-size: 16px;
