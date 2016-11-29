@@ -24,7 +24,7 @@
         </div>
         <hr />
         <div>@FlashcardResources.FlashcardShareCopyUrl</div>
-        <input id="shareUrl" type="text" ng-model="sd.url" />
+        <input id="shareUrl"  type="text" ng-model="sd.url" readonly/>
         <button class="action-btn" type="button" ngclipboard ngclipboard-success="sd.onSuccess()" data-clipboard-target="#shareUrl">
             @FlashcardResources.FlashcardShareCopyLink
             <md-tooltip md-direction="top" md-visible="">

@@ -494,10 +494,12 @@
 .flashcardPage .header .card-sides button.active.both .flashcard-icon:hover:after {
   background: #337fa7;
 }
-.flashcardPage .header .progress-wrapper,
-.flashcardPage .header .card-sides,
-.flashcardPage .header .pinned-counter {
-  padding-bottom: 12px;
+@media (min-width: 600px) {
+  .flashcardPage .header .progress-wrapper,
+  .flashcardPage .header .card-sides,
+  .flashcardPage .header .pinned-counter {
+    padding-bottom: 12px;
+  }
 }
 .flashcardPage .header .pinned-counter {
   display: -webkit-flex;

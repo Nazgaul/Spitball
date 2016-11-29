@@ -332,7 +332,9 @@
         }
 
         .progress-wrapper, .card-sides, .pinned-counter {
-            padding-bottom: 12px;
+            @media(min-width: 600px) {
+                padding-bottom: 12px;
+            }
         }
 
         .pinned-counter {
