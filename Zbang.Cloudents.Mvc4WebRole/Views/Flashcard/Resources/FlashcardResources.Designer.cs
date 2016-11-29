@@ -142,6 +142,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy this short url.
+        /// </summary>
+        public static string FlashcardShareCopyUrl {
+            get {
+                return ResourceManager.GetString("FlashcardShareCopyUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share with others.
+        /// </summary>
+        public static string FlashcardShareSubtitle {
+            get {
+                return ResourceManager.GetString("FlashcardShareSubtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Promote flashcard set.
+        /// </summary>
+        public static string FlashcardShareTitle {
+            get {
+                return ResourceManager.GetString("FlashcardShareTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create a Flashcard.
         /// </summary>
         public static string FlashcardTitle {

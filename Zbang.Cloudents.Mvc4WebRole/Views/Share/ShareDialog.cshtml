@@ -1,12 +1,13 @@
-﻿<md-dialog class="share-dialog">
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources
+<md-dialog class="share-dialog">
     <md-toolbar>
-        <h1>Promote flashcard set</h1>
+        <h1>@FlashcardResources.FlashcardShareTitle</h1>
         <md-button class="close" ng-click="sd.close()">
             <md-icon md-svg-icon="t:close"></md-icon>
         </md-button>
     </md-toolbar>
     <md-dialog-content>
-        <span>share with others</span>
+        <span>@FlashcardResources.FlashcardShareSubtitle</span>
         <div class="share-options">
             <button class="twitter" type="button" ng-click="sd.twitter()">
                 <md-icon md-svg-icon="s:twitter"></md-icon>
@@ -16,13 +17,13 @@
                 <md-icon md-svg-icon="b:facebook-colored"></md-icon>
                 <div>Facebook</div>
             </button>
-            <button class="whatsapp" type="button" ng-click="sd.whatapp()" ng-click="sd.whatsapp()">
+            <button class="whatsapp" type="button" ng-click="sd.whatapp()">
                 <md-icon md-svg-icon="b:whatsapp"></md-icon>
                 <div>Whatsapp</div>
             </button>
         </div>
         <hr />
-        <div>Copy this short url to share</div>
+        <div>@FlashcardResources.FlashcardShareCopyUrl</div>
         <input id="shareUrl" type="text" ng-model="sd.url" />
         <button class="action-btn" type="button" ngclipboard data-clipboard-target="#shareUrl">Copy link</button>
     </md-dialog-content>
