@@ -120,7 +120,9 @@ module app {
             }
             function publish2() {
                 self.flashcardService.publish(self.data.id, self.data, self.$stateParams.boxId)
-                    .then(self.navigateBackToBox)
+                    .then(() => {
+                        self.navigateBackToBox(true);
+                    })
                     .catch((response: angular.IHttpPromiseCallbackArg<{}>) => {
                         if (response.status === 409) {
                             self.form["name"].$setValidity('duplicate', false);
@@ -129,15 +131,19 @@ module app {
                     });
             }
         }
-        private navigateBackToBox = () => {
+        private navigateBackToBox = (isNew?: boolean) => {
             this.form.$setPristine();
-            this.$state.go("box.flashcards",
-                {
-                    boxtype: this.$stateParams["boxtype"],
-                    universityType: this.$stateParams["universityType"],
-                    boxId: this.$stateParams.boxId,
-                    boxName: this.$stateParams["boxName"]
-                });
+            var params = {
+                boxtype: this.$stateParams["boxtype"],
+                universityType: this.$stateParams["universityType"],
+                boxId: this.$stateParams.boxId,
+                boxName: this.$stateParams["boxName"]
+
+            };
+            if (isNew) {
+                params["newId"] = this.data.id;
+            }
+            this.$state.go("box.flashcards", params);
         }
         create() {
             const self = this;
@@ -191,7 +197,9 @@ module app {
                 return;
             }
             if (this.data.publish) {
-                this.create().then(this.navigateBackToBox);
+                this.create().then(() => {
+                    this.navigateBackToBox()
+                });
                 return;
             }
 
@@ -209,7 +217,9 @@ module app {
                     this.navigateBackToBox();
                 }
             }, () => {
-                this.create().then(this.navigateBackToBox);
+                this.create().then(() => {
+                    this.navigateBackToBox();
+                });
             });
         }
         move(dropCardIndex: number, card: Card) {

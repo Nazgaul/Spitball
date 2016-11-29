@@ -173,7 +173,7 @@
 
         deleteItem(ev, item) {
             disablePaging = true;
-            var confirm = this.$mdDialog.confirm()
+            const confirm = this.$mdDialog.confirm()
                 .title(this.resManager.get('deleteItem'))
                 .targetEvent(ev)
                 .ok(this.resManager.get('dialogOk'))

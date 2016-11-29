@@ -68,14 +68,18 @@ var app;
             this.$q = $q;
             this.disabled = false;
             this.serviceCalled = false;
-            this.navigateBackToBox = function () {
+            this.navigateBackToBox = function (isNew) {
                 _this.form.$setPristine();
-                _this.$state.go("box.flashcards", {
+                var params = {
                     boxtype: _this.$stateParams["boxtype"],
                     universityType: _this.$stateParams["universityType"],
                     boxId: _this.$stateParams.boxId,
                     boxName: _this.$stateParams["boxName"]
-                });
+                };
+                if (isNew) {
+                    params["newId"] = _this.data.id;
+                }
+                _this.$state.go("box.flashcards", params);
             };
             this.upload = {
                 url: "/flashcard/image/",
@@ -190,7 +194,9 @@ var app;
             }
             function publish2() {
                 self.flashcardService.publish(self.data.id, self.data, self.$stateParams.boxId)
-                    .then(self.navigateBackToBox)
+                    .then(function () {
+                    self.navigateBackToBox(true);
+                })
                     .catch(function (response) {
                     if (response.status === 409) {
                         self.form["name"].$setValidity('duplicate', false);
@@ -250,7 +256,9 @@ var app;
                 return;
             }
             if (this.data.publish) {
-                this.create().then(this.navigateBackToBox);
+                this.create().then(function () {
+                    _this.navigateBackToBox();
+                });
                 return;
             }
             var confirm = this.$mdDialog.confirm()
@@ -267,7 +275,9 @@ var app;
                     _this.navigateBackToBox();
                 }
             }, function () {
-                _this.create().then(_this.navigateBackToBox);
+                _this.create().then(function () {
+                    _this.navigateBackToBox();
+                });
             });
         };
         FlashcardCreateController.prototype.move = function (dropCardIndex, card) {
