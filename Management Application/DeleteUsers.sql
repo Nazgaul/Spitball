@@ -73,6 +73,12 @@ Delete from Zbox.userBoxrel where userid=@userid
  delete from [Zbox].[QuizDiscussion] where userid=@userid
  delete from [Zbox].[SolvedQuestion] where userid=@userid
  delete from [Zbox].[SolvedQuiz] where userid=@userid
+
+ -- flashcard 
+ --update [Zbox].quiz set userid=@SysUserid, isdeleted=1,isdirty=1 where userid=@userid 
+ --delete from [Zbox].[QuizDiscussion] where userid=@userid
+ --delete from [Zbox].[SolvedQuestion] where userid=@userid
+ --delete from [Zbox].[SolvedQuiz] where userid=@userid
  
 -- Reputation 
  Delete from [Zbox].[Reputation] where userid=@userid

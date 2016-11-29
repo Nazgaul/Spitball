@@ -61,6 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (university != null && FlashcardUniversities.Contains(university.UniversityId))
             {
                 var flashcardPromo = m_CookieHelper.ReadCookie<UniversityFlashcardPromo>(UniversityFlashcardPromo.CookieName);
+
                 if (flashcardPromo == null)
                 {
                     return RedirectToRoute("Promotion");
@@ -319,7 +320,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [Route("promotion", Name = "Promotion")]
-        [DonutOutputCache(CacheProfile = "FullPage")]
         public async Task<ActionResult> PromotionAsync()
         {
             var value = m_CookieHelper.ReadCookie<UniversityCookie>(UniversityCookie.CookieName);
