@@ -75,6 +75,13 @@ left join zbox.library l on b.libraryid = l.libraryid
 where itemid = @ItemId
 and i.IsDeleted = 0;";
 
+        public const string FlashcardSeo = @"select u.universityname as UniversityName, b.boxid as BoxId,b.boxname as BoxName,f.id,f.name 
+from zbox.flashcard f
+join zbox.box b on f.boxid = b.boxid
+left join zbox.university u on u.id = b.university
+where f.id = @FlashcardId
+and f.isdeleted = 0";
+
         public const string BoxSeo = @"select b.BoxName as name 
 ,b.url
 ,b.Discriminator as boxType

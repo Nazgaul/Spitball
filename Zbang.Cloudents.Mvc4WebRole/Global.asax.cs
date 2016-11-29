@@ -88,6 +88,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         
                         value += context.Request.Cookies[UniversityCookie.CookieName]?.Value;
                     }
+                    if (key == CustomCacheKeys.Promo)
+                    {
+
+                        value += context.Request.Cookies[UniversityFlashcardPromo.CookieName]?.Value;
+                    }
                     //if (key == CustomCacheKeys.Url)
                     //{
                     //    value += context.Request.Url.AbsolutePath;

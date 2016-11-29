@@ -50,7 +50,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ViewBag.title = SeoResources.HomePageTitle;
             ViewBag.metaDescription = SeoResources.HomePageMeta;
 
-            var university = m_CookieHelper.ReadCookie<UniversityCookie>(UniversityCookie.CookieName);
+            var university = HttpContext.Items[UniversityCookie.CookieName] as UniversityCookie;
+            //var university = m_CookieHelper.ReadCookie<UniversityCookie>(UniversityCookie.CookieName);
 
             if (university != null && string.IsNullOrEmpty(universityName))
             {

@@ -56,6 +56,7 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<AnnotationDto>> GetItemCommentsAsync(ItemCommentQuery query);
         Task<ItemMobileDto> GetItemDetailApiAsync(GetItemQuery query);
         Task<FileSeo> GetItemSeoAsync(GetFileSeoQuery query);
+        Task<FlashcardSeoDto> GetFlashcardUrlAsync(GetFlashcardSeoQuery query);
         Task<BoxSeoDto> GetBoxSeoAsync(GetBoxSeoQuery query);
 
         Task<LeaderboardFlashcardDto> GetDashboardFlashcardStatusAsync(FlashcardLeaderboardQuery query);

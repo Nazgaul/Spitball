@@ -21,10 +21,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
         {
             //CookieHelper.RemoveCookie(UniversityCookie.CookieName);
             var universityName = filterContext.ActionParameters[m_UniversityPrefix]?.ToString();
-
+            var cookieHelper = CookieHelper.ReadCookie<UniversityCookie>(UniversityCookie.CookieName);
+            filterContext.HttpContext.Items[UniversityCookie.CookieName] = cookieHelper;
 
             if (!string.IsNullOrEmpty(universityName))
             {
+                //if we have cookie check if its the same as url
+                if (string.Equals(cookieHelper?.UniversityName, universityName,
+                    System.StringComparison.InvariantCultureIgnoreCase))
+                {
+                    base.OnActionExecuting(filterContext);
+                    return;
+                }
+
                 var universityId = ZboxReadService.GetUniversityIdByUrl(universityName);
                 if (!universityId.HasValue)
                 {
@@ -32,9 +41,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                     return;
                     //return RedirectToRoute("homePage", new { invId });
                 }
-                CookieHelper.InjectCookie(UniversityCookie.CookieName, 
-                    new UniversityCookie { UniversityId = universityId.Value, UniversityName = universityName });
+                var universityCookie = new UniversityCookie
+                {
+                    UniversityId = universityId.Value,
+                    UniversityName = universityName
+                };
+
+                filterContext.HttpContext.Items[UniversityCookie.CookieName] = universityCookie;
+                CookieHelper.InjectCookie(UniversityCookie.CookieName, universityCookie);
             }
+            
             base.OnActionExecuting(filterContext);
         }
     }

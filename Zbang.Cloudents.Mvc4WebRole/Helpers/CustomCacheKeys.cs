@@ -7,6 +7,7 @@
         //public const string Mobile = "Mobile";
         public const string Lang = "Lang";
         public const string University = "Uni";
+        public const string Promo = "Promo";
         // public const string IsAjax = "Ajax";
         //public const string User = "User";
 

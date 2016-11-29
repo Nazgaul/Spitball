@@ -357,7 +357,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\CloudentsOutsputCacheProvider.cs" />
+    <Compile Include="Helpers\CloudentsOutputCacheProvider.cs" />
     <Compile Include="Helpers\CloudentsViewLocationCache.cs" />
     <Compile Include="Helpers\CookieHelper.cs" />
     <Compile Include="Helpers\CookieTempDataProvider.cs" />
@@ -1459,6 +1459,7 @@
     <TypeScriptCompile Include="Js\components\search\search.controller.ts" />
     <TypeScriptCompile Include="Js\components\search\search.service.ts" />
     <TypeScriptCompile Include="Js\components\search\searchTrigger.controller.ts" />
+    <TypeScriptCompile Include="Js\components\share\shareDialog.controller.ts" />
     <TypeScriptCompile Include="Js\components\uploadWrapper.controller.ts" />
     <TypeScriptCompile Include="Js\components\user\updates.service.ts" />
     <TypeScriptCompile Include="Js\components\chat\hideChatOnMobile.directive.ts" />
