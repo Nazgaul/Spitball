@@ -1,16 +1,15 @@
 ﻿module app {
     "use strict";
 
-
-
     class ShareDialog {
-        static $inject = ["$mdDialog", "data"];
+        static $inject = ["$mdDialog", "data","$window"];
 
         url: string;
 
         constructor(
             private $mdDialog: angular.material.IDialogService,
-            private data
+            private data,
+            private $window: angular.IWindowService
         ) {
 
             //angularjs dont have origin in $location
@@ -31,7 +30,18 @@
         close() {
             this.$mdDialog.cancel();
         }
+        facebook() {
+            const shareFb = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(this.url);
+            this.$window.open(shareFb, "pop", "width=600, height=400, scrollbars=no");
+        }
 
+        whatsapp() {
+            this.$window.open("whatsapp://send?text=" + this.url, "pop", "width=600, height=400, scrollbars=no");
+        }
+        twitter() {
+            const shareTwiiter = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(this.url);
+            this.$window.open(shareTwiiter, "pop", "width=600, height=400, scrollbars=no");
+        }
 
 
 
