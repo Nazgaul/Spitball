@@ -57,8 +57,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             return RedirectToRoutePermanent("Flashcard", new RouteValueDictionary
             {
-                ["universityName"] = UrlConst.NameToQueryString(model.UniversityName),
-                ["boxId"] = model.Id,
+                ["universityName"] = UrlConst.NameToQueryString(model.UniversityName ?? "my"),
+                ["boxId"] = model.BoxId,
                 ["boxName"] = UrlConst.NameToQueryString(model.BoxName),
                 ["flashcardId"] = model.Id,
                 ["flashcardName"] = UrlConst.NameToQueryString(model.Name)

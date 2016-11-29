@@ -85,6 +85,7 @@
                     url: 'flashcards/',
                     controller: 'FlashcardsController as f',
                     parent: 'box',
+                    params: { newId: null },
                     resolve: {
                         flashcards: ['boxService', '$stateParams',function(boxService, $stateParams) {
                             return boxService.flashcards($stateParams.boxId);

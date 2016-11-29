@@ -29,8 +29,14 @@ var app;
                 }
             });
             this.flashcards = flashcards;
-            this.$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams) {
-                _this.shareService.shareDialog();
+            console.log(this.flashcards);
+            this.$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState) {
+                if (fromState.name === "flashcardCreate" && toParams["newId"]) {
+                    var flashcard = _this.flashcards.find(function (f) { return f.ownerId === user.id && toParams["newId"] === f.id; });
+                    if (flashcard && flashcard.publish) {
+                        _this.shareService.shareDialog("f", flashcard.id);
+                    }
+                }
             });
         }
         Flashcards.prototype.deleteFlashcard = function (ev, flashcard) {

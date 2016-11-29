@@ -2,7 +2,7 @@
     "use strict";
     class Flashcards {
         static $inject = ["$stateParams", "flashcards", "$state",
-            "$mdDialog", "resManager", "flashcardService", "user", "shareService","$scope"];
+            "$mdDialog", "resManager", "flashcardService", "user", "shareService", "$scope"];
         params: angular.ui.IStateParamsService;
         flashcards: Array<any>;
         constructor(
@@ -33,18 +33,20 @@
                     }
                 });
             this.flashcards = flashcards;
-
+            console.log(this.flashcards);
             this.$scope.$on("$stateChangeSuccess",
-            (event: angular.IAngularEvent,
-                toState: angular.ui.IState,
-                toParams: spitaball.ISpitballStateParamsService,
-                fromState: angular.ui.IState,
-                fromParams: spitaball.ISpitballStateParamsService) => {
-                //need indication that he actually created one
-               // if (fromState.name === "flashcardCreate") {
-                    this.shareService.shareDialog();
-                //}
-            });
+                (event: angular.IAngularEvent,
+                    toState: angular.ui.IState,
+                    toParams: spitaball.ISpitballStateParamsService,
+                    fromState: angular.ui.IState) => {
+                    //need indication that he actually created one
+                    if (fromState.name === "flashcardCreate" && toParams["newId"]) {
+                        var flashcard = this.flashcards.find(f => f.ownerId === user.id && toParams["newId"] === f.id);
+                        if (flashcard && flashcard.publish) {
+                            this.shareService.shareDialog("f", flashcard.id);
+                        }
+                    }
+                });
         }
 
         deleteFlashcard(ev: MouseEvent, flashcard) {
