@@ -22,7 +22,15 @@
         like: Guid;
         userId: number;
         ownerName: string;
+        universityData: UniversityData;
+
     }
+    class UniversityData {
+        btnColor: string;
+        universityName: string;
+        btnFontColor: string;
+    }
+
     class Card {
         front = new CardSlide();
         cover = new CardSlide();
@@ -37,16 +45,14 @@
     }
     export class FlashcardController {
         static $inject = ["flashcard", "flashcardService", "$stateParams",
-            "user", "$state", "$mdMedia", "$scope","$mdDialog"];
+            "user", "$state", "$mdMedia", "$scope", "$mdDialog","shareService"];
         cards: Array<Card>;
         flashcard: Flashcard;
         shuffle: boolean;
         step = Steps.Start;
         slidepos = 0;
-        //slide: Card;
         disabled = false;
         styleLegend = true;
-        //style = true;
         backUrl;
         notMobile: boolean;
         flipped = false;
@@ -59,8 +65,10 @@
             private $state: angular.ui.IStateService,
             private $mdMedia: angular.material.IMedia,
             private $scope: angular.IScope,
-            private $mdDialog: angular.material.IDialogService
-            ) {
+            private $mdDialog: angular.material.IDialogService,
+            private shareService: IShareService
+        ) {
+            console.log(flashcard);
             angular.forEach(flashcard.cards,
                 (v, k) => {
                     if (flashcard.pins && flashcard.pins.indexOf(k) !== -1) {
@@ -101,24 +109,14 @@
             this.goToStep2();
         }
         prev() {
-           
-            //if (!this.notMobile) {
-            //    this.$scope.$digest();
-            //}
-            // this.clearFlip();
             this.changeLegend(this.styleLegend);
             this.slidepos = Math.max(0, --this.slidepos);
-            
+
             this.step = Steps.Memo;
         }
         next() {
-           
-            //if (!this.notMobile) {
-            //    this.$scope.$digest();
-            //}
-            //this.clearFlip();
             this.changeLegend(this.styleLegend);
-            
+
             this.slidepos = Math.min(this.cards.length, ++this.slidepos);
             if (this.slidepos === this.cards.length) {
                 this.step = Steps.End;
@@ -140,14 +138,6 @@
             }
 
         }
-        //clearFlip() {
-        //    if (this.flipped) {
-        //        this.flip(this.cards[this.slidepos]);
-        //    }
-        //    if (!this.notMobile) {
-        //        this.$scope.$digest();
-        //    }
-        //}
         pin(slide: Card) {
             slide.pin = !slide.pin;
             if (slide.pin) {
@@ -172,20 +162,24 @@
         canLike() {
             return this.user.id !== this.flashcard.userId;
         }
-        
+
         details(ev) {
             this.$mdDialog.show({
                 templateUrl: "/flashcard/promo/",
                 targetEvent: ev,
                 clickOutsideToClose: true,
                 locals: {
-                    color1: "rgb(255, 203, 11)",
-                    color2: "rgba(0, 46, 98, 0.901961)"
+                    color1: this.flashcard.universityData.btnColor,
+                    color2: this.flashcard.universityData.btnFontColor,
+                    university: this.flashcard.universityData.universityName
                 },
                 controller: "DialogPromo",
                 controllerAs: "dp",
                 fullscreen: false // Only for -xs, -sm breakpoints.
             });
+        }
+        share() {
+            this.shareService.shareDialog("f", this.$stateParams["id"]);
         }
     }
 

@@ -9,7 +9,7 @@
         flashcardPromo;
         color1: string;
         color2: string;
-        uni: string;
+        private university: string;
         hideBox = false;
         constructor(private dashboardService: IDashboardService,
             private $filter: any, //meganumber is need defined
@@ -30,16 +30,14 @@
                     this.leaderboard = response.model;
                 } else {
                     //this.hideLeaderBoard = true;
-
                     this.flashcardPromo = response.model || {};
                     this.flashcardPromo.count = this.flashcardPromo.count || 0;
-                    console.log(this.flashcardPromo);
                     this.dashboardService.getUniversityMeta()
                         .then(response => {
                             this.hidePromo = false;
                             this.color1 = response.btnColor;
                             this.color2 = response.stripColor;
-                            this.uni = response.name;
+                            this.university = response.name;
                         });
                 }
                 //                this.hideBox = this.hideLeaderBoard && this.hidePromo;
@@ -54,10 +52,10 @@
                 locals: {
                     color1: this.color1,
                     color2: this.color2,
-                    uni: this.uni
+                    university: this.university
                 },
                 controller: "DialogPromo",
-                controllerAs:"dp",
+                controllerAs: "dp",
                 //controller: ["color1","color2",function(color1, color2) {
 
                 //}],
@@ -68,14 +66,14 @@
 
     }
     class DialogController {
-        static $inject = ["color1", "color2", "uni","$mdDialog"];
+        static $inject = ["color1", "color2", "university", "$mdDialog"];
         colorA;
         colorB;
-        uniName;
-        constructor(private color1: string, private color2, private uni, private $mdDialog: angular.material.IDialogService) {
+        universityName;
+        constructor(private color1: string, private color2, private university, private $mdDialog: angular.material.IDialogService) {
             this.colorA = color1;
             this.colorB = color2;
-            this.uniName = uni;
+            this.universityName = university;
         }
         close() {
             this.$mdDialog.hide();

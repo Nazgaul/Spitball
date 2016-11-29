@@ -25,13 +25,12 @@ var app;
                 else {
                     _this.flashcardPromo = response.model || {};
                     _this.flashcardPromo.count = _this.flashcardPromo.count || 0;
-                    console.log(_this.flashcardPromo);
                     _this.dashboardService.getUniversityMeta()
                         .then(function (response) {
                         _this.hidePromo = false;
                         _this.color1 = response.btnColor;
                         _this.color2 = response.stripColor;
-                        _this.uni = response.name;
+                        _this.university = response.name;
                     });
                 }
             });
@@ -44,7 +43,7 @@ var app;
                 locals: {
                     color1: this.color1,
                     color2: this.color2,
-                    uni: this.uni
+                    university: this.university
                 },
                 controller: "DialogPromo",
                 controllerAs: "dp",
@@ -55,19 +54,19 @@ var app;
         return LeaderBoard;
     }());
     var DialogController = (function () {
-        function DialogController(color1, color2, uni, $mdDialog) {
+        function DialogController(color1, color2, university, $mdDialog) {
             this.color1 = color1;
             this.color2 = color2;
-            this.uni = uni;
+            this.university = university;
             this.$mdDialog = $mdDialog;
             this.colorA = color1;
             this.colorB = color2;
-            this.uniName = uni;
+            this.universityName = university;
         }
         DialogController.prototype.close = function () {
             this.$mdDialog.hide();
         };
-        DialogController.$inject = ["color1", "color2", "uni", "$mdDialog"];
+        DialogController.$inject = ["color1", "color2", "university", "$mdDialog"];
         return DialogController;
     }());
     angular.module("app.dashboard").controller("DialogPromo", DialogController);

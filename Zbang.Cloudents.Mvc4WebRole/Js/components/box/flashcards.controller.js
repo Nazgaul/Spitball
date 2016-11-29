@@ -29,7 +29,6 @@ var app;
                 }
             });
             this.flashcards = flashcards;
-            console.log(this.flashcards);
             this.$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState) {
                 if (fromState.name === "flashcardCreate" && toParams["newId"]) {
                     var flashcard = _this.flashcards.find(function (f) { return f.ownerId === user.id && toParams["newId"] === f.id; });

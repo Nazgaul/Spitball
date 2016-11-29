@@ -22,6 +22,11 @@ var app;
         }
         return Flashcard;
     }());
+    var UniversityData = (function () {
+        function UniversityData() {
+        }
+        return UniversityData;
+    }());
     var Card = (function () {
         function Card() {
             this.front = new CardSlide();
@@ -36,7 +41,7 @@ var app;
         return CardSlide;
     }());
     var FlashcardController = (function () {
-        function FlashcardController(flashcard, flashcardService, $stateParams, user, $state, $mdMedia, $scope, $mdDialog) {
+        function FlashcardController(flashcard, flashcardService, $stateParams, user, $state, $mdMedia, $scope, $mdDialog, shareService) {
             this.flashcardService = flashcardService;
             this.$stateParams = $stateParams;
             this.user = user;
@@ -44,12 +49,14 @@ var app;
             this.$mdMedia = $mdMedia;
             this.$scope = $scope;
             this.$mdDialog = $mdDialog;
+            this.shareService = shareService;
             this.step = Steps.Start;
             this.slidepos = 0;
             this.disabled = false;
             this.styleLegend = true;
             this.flipped = false;
             this.pinCount = 0;
+            console.log(flashcard);
             angular.forEach(flashcard.cards, function (v, k) {
                 if (flashcard.pins && flashcard.pins.indexOf(k) !== -1) {
                     v.pin = true;
@@ -144,16 +151,20 @@ var app;
                 targetEvent: ev,
                 clickOutsideToClose: true,
                 locals: {
-                    color1: "rgb(255, 203, 11)",
-                    color2: "rgba(0, 46, 98, 0.901961)"
+                    color1: this.flashcard.universityData.btnColor,
+                    color2: this.flashcard.universityData.btnFontColor,
+                    university: this.flashcard.universityData.universityName
                 },
                 controller: "DialogPromo",
                 controllerAs: "dp",
                 fullscreen: false
             });
         };
+        FlashcardController.prototype.share = function () {
+            this.shareService.shareDialog("f", this.$stateParams["id"]);
+        };
         FlashcardController.$inject = ["flashcard", "flashcardService", "$stateParams",
-            "user", "$state", "$mdMedia", "$scope", "$mdDialog"];
+            "user", "$state", "$mdMedia", "$scope", "$mdDialog", "shareService"];
         return FlashcardController;
     }());
     app.FlashcardController = FlashcardController;

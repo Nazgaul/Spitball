@@ -6,7 +6,6 @@ using System.Data;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Zbang.Zbox.Domain;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
@@ -865,25 +864,7 @@ where ownerid = @UserId and boxid = @BoxId;";
             }
         }
 
-        /// <summary>
-        /// Used for push notification to send message to users in box
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        //public async Task<IEnumerable<long>> GetBoxUsersIdAsync(GetBoxWithUserQuery query)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        return await conn.QueryAsync<long>(Sql.Box.BoxUserIds,
-        //            new
-        //            {
-        //                query.BoxId,
-        //                pageNumber = query.PageNumber,
-        //                rowsperpage = query.RowsPerPage,
-        //                query.UserId
-        //            });
-        //    }
-        //}
+
 
         #endregion
 
@@ -1227,15 +1208,24 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
                 const string sqlLike = "SELECT  [Id] FROM[Zbox].[FlashcardLike] where flashcardid = @FlashcardId and userid = @UserId;";
                 const string sqlOwnerName =
                     "select username from zbox.users u join zbox.Flashcard f on f.UserId = u.UserId where id = @FlashcardId";
+                const string universityFlashcardPromo = @"
+select u.universityname as UniversityName,u.VideoBackgroundColor as BtnColor,
+u.VideoFontColor as BtnFontColor
+from zbox.flashcard f
+join zbox.box b on f.boxid = b.boxid
+join zbox.university u on u.id = b.university and u.id in (173408, 171885, 172566)
+where f.id = @FlashcardId
+and f.isdeleted = 0";
                 using (
-                    var grid = await conn.QueryMultipleAsync(sql + sqlLike + sqlOwnerName, query))
+                    var grid = await conn.QueryMultipleAsync(sql + sqlLike + sqlOwnerName + universityFlashcardPromo, query))
                 {
                     var result = new FlashcardUserDto
                     {
                         Pins = await grid.ReadAsync<int>(),
                         Like = await grid.ReadFirstOrDefaultAsync<Guid?>(),
-                        OwnerName = await grid.ReadFirstAsync<string>()
-                        
+                        OwnerName = await grid.ReadFirstAsync<string>(),
+                        UniversityData = await grid.ReadFirstOrDefaultAsync<UniversityData>()
+
                     };
                     return result;
                 }
