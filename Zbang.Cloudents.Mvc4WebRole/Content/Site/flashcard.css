@@ -707,6 +707,9 @@
 .flashcardPage .back .flip-container .flipper {
   transform: rotateX(-180deg);
 }
+.flashcardPage .cards-info {
+  position: relative;
+}
 .flashcardPage .cards-info .card-template {
   padding: 15px;
   text-align: center;
@@ -916,6 +919,27 @@
   align-items: center;
   -webkit-justify-content: center;
   justify-content: center;
+}
+.flashcardPage .cards-info .share-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  color: #4190b9;
+  font-weight: bold;
+  font-size: 16px;
+}
+.flashcardPage .cards-info .share-btn md-icon {
+  width: 22px;
+  height: 22px;
+  margin-right: 4px;
+  fill: #4190b9;
 }
 .flashcardPage .card-player {
   position: relative;
