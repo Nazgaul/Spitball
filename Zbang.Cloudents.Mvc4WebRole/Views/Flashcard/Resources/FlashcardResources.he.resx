@@ -201,4 +201,10 @@
   <data name="FlashcardShareSubtitle" xml:space="preserve">
     <value>שתף עם חבריך</value>
   </data>
+  <data name="FlashcardShareCopyLink" xml:space="preserve">
+    <value>העתק קישור</value>
+  </data>
+  <data name="FlashcardShareCopiedLink" xml:space="preserve">
+    <value>הקישור הועתק</value>
+  </data>
 </root>

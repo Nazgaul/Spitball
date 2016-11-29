@@ -1,6 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.University.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
 <div ng-switch="f.step" class="flashcard-wrapper">
     <div class="header">
         <div multiswitch-when="1|2" class="progress-wrapper">
@@ -117,7 +118,10 @@
                     </div>
                 </button>
             </div>
-            <div ng-if="f.step==2" ng-click="f.share()">share</div>
+            <md-button class="share-btn" ng-if="f.step==2" ng-click="f.share()">
+                <md-icon md-svg-icon="t:share"></md-icon>
+                <span>@UserResources.Share</span>
+            </md-button>
         </div>
     </div>
     <div multiswitch-when="1" class="card-player angular-animate" card-scroll>
