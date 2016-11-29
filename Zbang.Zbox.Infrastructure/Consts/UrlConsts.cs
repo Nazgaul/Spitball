@@ -17,6 +17,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
 
         public const string ShortBox = "b/{box62Id}";
         public const string ShortItem = "i/{item62Id}";
+        public const string ShortFlashcard = "f/{flashcard62Id}";
 
         public static string BuildShortBoxUrl(string box62Id)
         {

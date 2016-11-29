@@ -6,6 +6,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Routing;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models;
@@ -16,7 +17,9 @@ using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
+using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ReadServices;
+using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -39,12 +42,28 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_QueueProvider = queueProvider;
         }
 
-        [Route("flashcard/{universityName}/{boxId:long}/{boxName}/{itemid:long}/{itemName}", Name = "Flashcard")]
+        [Route("flashcard/{universityName}/{boxId:long}/{boxName}/{flashcardId:long}/{flashcardName}", Name = "Flashcard")]
         public ActionResult Index()
         {
             return View("Empty");
         }
 
+        [Route(UrlConst.ShortFlashcard, Name = "shortFlashcard")]
+        public async Task<ActionResult> ShortUrlAsync(string flashcard62Id)
+        {
+            var base62 = new Base62(flashcard62Id);
+            var query = new GetFlashcardSeoQuery(base62.Value);
+            var model = await ZboxReadService.GetFlashcardUrlAsync(query);
+
+            return RedirectToRoutePermanent("Flashcard", new RouteValueDictionary
+            {
+                ["universityName"] = UrlConst.NameToQueryString(model.UniversityName),
+                ["boxId"] = model.Id,
+                ["boxName"] = UrlConst.NameToQueryString(model.BoxName),
+                ["flashcardId"] = model.Id,
+                ["flashcardName"] = UrlConst.NameToQueryString(model.Name)
+            });
+        }
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [DonutOutputCache(CacheProfile = "PartialPage")]

@@ -295,6 +295,11 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetItemSeoAsync(query);
         }
 
+        public Task<FlashcardSeoDto> GetFlashcardUrlAsync(GetFlashcardSeoQuery query)
+        {
+            return m_ReadService.GetFlashcardUrlAsync(query);
+        }
+
 
         public Task<BoxSeoDto> GetBoxSeoAsync(GetBoxSeoQuery query)
         {

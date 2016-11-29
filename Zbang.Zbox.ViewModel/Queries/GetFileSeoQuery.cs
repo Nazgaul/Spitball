@@ -11,4 +11,14 @@ namespace Zbang.Zbox.ViewModel.Queries
 
         public long ItemId { get; private set; }
     }
+
+    public class GetFlashcardSeoQuery
+    {
+        public GetFlashcardSeoQuery(long flashcardId)
+        {
+            FlashcardId = flashcardId;
+        }
+
+        public long FlashcardId { get; private set; }
+    }
 }
