@@ -93,12 +93,12 @@ var app;
             this.goToStep2();
         };
         FlashcardController.prototype.prev = function () {
-            this.changeLegend(this.styleLegend);
+            this.cards[this.slidepos].style = this.styleLegend;
             this.slidepos = Math.max(0, --this.slidepos);
             this.step = Steps.Memo;
         };
         FlashcardController.prototype.next = function () {
-            this.changeLegend(this.styleLegend);
+            this.cards[this.slidepos].style = this.styleLegend;
             this.slidepos = Math.min(this.cards.length, ++this.slidepos);
             if (this.slidepos === this.cards.length) {
                 this.step = Steps.End;
