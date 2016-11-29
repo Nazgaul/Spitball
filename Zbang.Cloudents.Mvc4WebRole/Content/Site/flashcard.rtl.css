@@ -926,6 +926,11 @@
   position: absolute;
   top: 0;
   left: 0;
+  color: #4190b9;
+  font-weight: bold;
+  font-size: 16px;
+}
+.flashcardPage .cards-info .share-btn > div {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -933,9 +938,6 @@
   align-items: center;
   -webkit-justify-content: center;
   justify-content: center;
-  color: #4190b9;
-  font-weight: bold;
-  font-size: 16px;
 }
 .flashcardPage .cards-info .share-btn md-icon {
   width: 22px;

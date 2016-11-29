@@ -735,12 +735,15 @@
             position: absolute;
             top: 0;
             right: 0;
-            .displayFlex;
-            .align-items(center);
-            .justifyContet(center);
             color: @buttonColorBlue;
             font-weight: bold;
             font-size: 16px;
+
+            > div {
+                .displayFlex;
+                .align-items(center);
+                .justifyContet(center);
+            }
 
             md-icon {
                 width: 22px;
