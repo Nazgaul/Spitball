@@ -8,7 +8,7 @@ var app;
             this.$window = $window;
             this.analytics = analytics;
             this.url = location.origin + "/" + data.what + "/" + encodeBase64(data.id);
-            console.log(analytics);
+            this.whatappLink = "whatsapp://send?text=" + encodeURIComponent(this.url);
             function encodeBase64(integer) {
                 var characterSet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
                 if (integer === 0) {
@@ -33,7 +33,6 @@ var app;
         };
         ShareDialog.prototype.whatsapp = function () {
             this.analytics["send"]('social', "whatsApp", "share", this.url);
-            this.$window.open("whatsapp://send?text=" + this.url, "pop", "width=600, height=400, scrollbars=no");
         };
         ShareDialog.prototype.twitter = function () {
             this.analytics["send"]('social', "twitter", "share", this.url);

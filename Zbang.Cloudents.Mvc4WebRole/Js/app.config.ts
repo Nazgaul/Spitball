@@ -4,7 +4,8 @@
     angular.module("app").config(config);
     config.$inject = ["$controllerProvider", "$locationProvider", "$provide",
         "$httpProvider", "$compileProvider", "$animateProvider",
-        "$mdAriaProvider", "$mdIconProvider", "$sceDelegateProvider", "$mdThemingProvider", "$urlMatcherFactoryProvider"];
+        "$mdAriaProvider", "$mdIconProvider", "$sceDelegateProvider",
+        "$mdThemingProvider", "$urlMatcherFactoryProvider"];
     // ReSharper disable once Class
     function config(
         $controllerProvider: angular.IControllerProvider,
@@ -63,6 +64,7 @@
         })]);
         $httpProvider.interceptors.push("requestinterceptor");
         $compileProvider.debugInfoEnabled(false);
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|whatsapp):/);
         $animateProvider.classNameFilter(/angular-animate/);
         $mdThemingProvider.disableTheming();
         //$provide.constant("$MD_THEME_CSS", "");

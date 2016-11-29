@@ -5,6 +5,7 @@
         static $inject = ["$mdDialog", "data", "$window","Analytics"];
 
         url: string;
+        whatappLink: string;
 
         constructor(
             private $mdDialog: angular.material.IDialogService,
@@ -15,7 +16,7 @@
 
             //angularjs dont have origin in $location
             this.url = location.origin + "/" + data.what + "/" + encodeBase64(data.id);
-            console.log(analytics);
+            this.whatappLink = "whatsapp://send?text=" + encodeURIComponent(this.url);
             function encodeBase64(integer: number) {
                 const characterSet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
                 if (integer === 0) { return '0'; }
@@ -41,7 +42,8 @@
         whatsapp() {
             this.analytics["send"]('social', "whatsApp", "share", this.url);
             //ga('send', 'social', "whatsApp", "share", this.url);
-            this.$window.open("whatsapp://send?text=" + this.url, "pop", "width=600, height=400, scrollbars=no");
+
+            //this.$window.open("whatsapp://send?text=" + this.url, "pop", "width=600, height=400, scrollbars=no");
         }
         twitter() {
             this.analytics["send"]('social', "twitter", "share", this.url);

@@ -4,7 +4,8 @@ var app;
     angular.module("app").config(config);
     config.$inject = ["$controllerProvider", "$locationProvider", "$provide",
         "$httpProvider", "$compileProvider", "$animateProvider",
-        "$mdAriaProvider", "$mdIconProvider", "$sceDelegateProvider", "$mdThemingProvider", "$urlMatcherFactoryProvider"];
+        "$mdAriaProvider", "$mdIconProvider", "$sceDelegateProvider",
+        "$mdThemingProvider", "$urlMatcherFactoryProvider"];
     function config($controllerProvider, $locationProvider, $provide, $httpProvider, $compileProvider, $animateProvider, $mdAriaProvider, $mdIconProvider, $sceDelegateProvider, $mdThemingProvider, $urlMatcherFactoryProvider) {
         $controllerProvider.allowGlobals();
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
@@ -42,6 +43,7 @@ var app;
             }); }]);
         $httpProvider.interceptors.push("requestinterceptor");
         $compileProvider.debugInfoEnabled(false);
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|whatsapp):/);
         $animateProvider.classNameFilter(/angular-animate/);
         $mdThemingProvider.disableTheming();
         $mdAriaProvider.disableWarnings();

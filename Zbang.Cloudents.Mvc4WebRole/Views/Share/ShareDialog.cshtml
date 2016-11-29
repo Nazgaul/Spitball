@@ -17,10 +17,10 @@
                 <md-icon md-svg-icon="b:facebook-colored"></md-icon>
                 <div>Facebook</div>
             </button>
-            <button class="whatsapp" type="button" ng-click="sd.whatapp()">
+            <a ng-href="{{::sd.whatappLink}}" target="_top" class="whatsapp" ng-click="sd.whatapp()">
                 <md-icon md-svg-icon="b:whatsapp"></md-icon>
                 <div>Whatsapp</div>
-            </button>
+            </a>
         </div>
         <hr />
         <div>@FlashcardResources.FlashcardShareCopyUrl</div>

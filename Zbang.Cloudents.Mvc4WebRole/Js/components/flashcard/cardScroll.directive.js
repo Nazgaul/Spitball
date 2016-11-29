@@ -51,6 +51,7 @@ var app;
                     else {
                         ctrl.prev();
                     }
+                    scope.$apply();
                     _this.$anchorScroll("card" + ctrl.slidepos);
                 });
                 scope.$on("$destroy", function () {
