@@ -671,20 +671,52 @@
             right: 0;
             margin: 0 auto;
             color: @textColorGrey;
+            font-size: 16px;
+
+            @media(max-width: 600px) {
+                font-size: 14px;
+            }
+
+            span {
+                font-weight: bold;
+            }
 
             md-icon {
                 width: 20px;
-                height: 20px;
+                height: 21px;
                 fill: @textColorGrey;
-                margin-bottom: 7px;
+                margin-bottom: 2px;
                 margin-right: 5px;
+
+                @media(max-width: 600px) {
+                    width: 18px;
+                    height: 18px;
+                }
             }
 
             .liked {
-                color: @buttonColorBlue;
+                background: @buttonColorBlue;
+                color: @textColorWhite;
+                border-color: @buttonColorBlue;
 
                 md-icon {
-                    fill: @buttonColorBlue;
+                    fill: @textColorWhite;
+                }
+            }
+
+            button {
+                border: 1px solid @textColorGrey;
+                border-radius: 5px;
+                margin-left: 10px;
+                padding: 0 10px;
+
+                @media(max-width: 600px) {
+                    padding: 0 6px;
+                    margin-left: 4px;
+                }
+
+                > div {
+                    margin-top: 2px;
                 }
             }
         }
