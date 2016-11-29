@@ -41,7 +41,7 @@ var app;
         return CardSlide;
     }());
     var FlashcardController = (function () {
-        function FlashcardController(flashcard, flashcardService, $stateParams, user, $state, $mdMedia, $scope, $mdDialog) {
+        function FlashcardController(flashcard, flashcardService, $stateParams, user, $state, $mdMedia, $scope, $mdDialog, shareService) {
             this.flashcardService = flashcardService;
             this.$stateParams = $stateParams;
             this.user = user;
@@ -49,6 +49,7 @@ var app;
             this.$mdMedia = $mdMedia;
             this.$scope = $scope;
             this.$mdDialog = $mdDialog;
+            this.shareService = shareService;
             this.step = Steps.Start;
             this.slidepos = 0;
             this.disabled = false;
@@ -159,8 +160,11 @@ var app;
                 fullscreen: false
             });
         };
+        FlashcardController.prototype.share = function () {
+            this.shareService.shareDialog("f", this.$stateParams["id"]);
+        };
         FlashcardController.$inject = ["flashcard", "flashcardService", "$stateParams",
-            "user", "$state", "$mdMedia", "$scope", "$mdDialog"];
+            "user", "$state", "$mdMedia", "$scope", "$mdDialog", "shareService"];
         return FlashcardController;
     }());
     app.FlashcardController = FlashcardController;

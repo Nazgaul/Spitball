@@ -45,7 +45,7 @@
     }
     export class FlashcardController {
         static $inject = ["flashcard", "flashcardService", "$stateParams",
-            "user", "$state", "$mdMedia", "$scope", "$mdDialog"];
+            "user", "$state", "$mdMedia", "$scope", "$mdDialog","shareService"];
         cards: Array<Card>;
         flashcard: Flashcard;
         shuffle: boolean;
@@ -65,7 +65,8 @@
             private $state: angular.ui.IStateService,
             private $mdMedia: angular.material.IMedia,
             private $scope: angular.IScope,
-            private $mdDialog: angular.material.IDialogService
+            private $mdDialog: angular.material.IDialogService,
+            private shareService: IShareService
         ) {
             console.log(flashcard);
             angular.forEach(flashcard.cards,
@@ -176,6 +177,9 @@
                 controllerAs: "dp",
                 fullscreen: false // Only for -xs, -sm breakpoints.
             });
+        }
+        share() {
+            this.shareService.shareDialog("f", this.$stateParams["id"]);
         }
     }
 
