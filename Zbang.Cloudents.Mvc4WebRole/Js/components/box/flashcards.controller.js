@@ -29,8 +29,9 @@ var app;
                 }
             });
             this.flashcards = flashcards;
+            console.log(this.flashcards);
             this.$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams) {
-                _this.shareService.shareDialog();
+                _this.shareService.shareDialog("f", 101010);
             });
         }
         Flashcards.prototype.deleteFlashcard = function (ev, flashcard) {

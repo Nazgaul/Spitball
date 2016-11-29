@@ -33,7 +33,7 @@
                     }
                 });
             this.flashcards = flashcards;
-
+            console.log(this.flashcards);
             this.$scope.$on("$stateChangeSuccess",
             (event: angular.IAngularEvent,
                 toState: angular.ui.IState,
@@ -42,7 +42,7 @@
                 fromParams: spitaball.ISpitballStateParamsService) => {
                 //need indication that he actually created one
                // if (fromState.name === "flashcardCreate") {
-                    this.shareService.shareDialog();
+                this.shareService.shareDialog("f", 101010);
                 //}
             });
         }

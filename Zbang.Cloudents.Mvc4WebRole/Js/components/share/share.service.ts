@@ -5,7 +5,7 @@
         users(term, boxId, page): angular.IPromise<any>;
         inviteToSystem(recipients): angular.IPromise<any>;
         inviteToBox(recipients, boxId): angular.IPromise<any>;
-        shareDialog(): angular.IPromise<any>;
+        shareDialog(what: string, id: number): angular.IPromise<any>;
     }
 
     class Share implements IShareService {
@@ -41,15 +41,17 @@
                     boxId: boxId
                 });
         }
-        shareDialog() {
+        shareDialog(what:string,id:number) {
             return this.$mdDialog.show({
                 templateUrl: "/share/sharedialog/",
                 //targetEvent: ev,
                 clickOutsideToClose: true,
-                //locals: {
-                //    color1: "rgb(255, 203, 11)",
-                //    color2: "rgba(0, 46, 98, 0.901961)"
-                //},
+                locals: {
+                    data: {
+                        what: what,
+                        id: id
+                    }
+                },
                 controller: "ShareDialog",
                 controllerAs: "sd",
                 fullscreen: false

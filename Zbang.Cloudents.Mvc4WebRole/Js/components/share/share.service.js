@@ -29,10 +29,16 @@ var app;
                 boxId: boxId
             });
         };
-        Share.prototype.shareDialog = function () {
+        Share.prototype.shareDialog = function (what, id) {
             return this.$mdDialog.show({
                 templateUrl: "/share/sharedialog/",
                 clickOutsideToClose: true,
+                locals: {
+                    data: {
+                        what: what,
+                        id: id
+                    }
+                },
                 controller: "ShareDialog",
                 controllerAs: "sd",
                 fullscreen: false
