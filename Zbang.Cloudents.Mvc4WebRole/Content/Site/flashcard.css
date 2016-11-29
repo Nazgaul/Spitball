@@ -1532,7 +1532,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
 }
-.share-dialog md-dialog-content .share-options button {
+.share-dialog md-dialog-content .share-options .share-button {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -1546,9 +1546,10 @@
   width: 100%;
   max-width: calc(50% - 24px);
   font-size: 20px;
+  color: #212325;
 }
 @media (max-width: 600px) {
-  .share-dialog md-dialog-content .share-options button {
+  .share-dialog md-dialog-content .share-options .share-button {
     font-size: 16px;
     max-width: 100%;
     height: 40px;
@@ -1558,32 +1559,32 @@
     padding-left: calc(50% - 56px);
   }
 }
-.share-dialog md-dialog-content .share-options button md-icon {
+.share-dialog md-dialog-content .share-options .share-button md-icon {
   width: 30px;
   height: 30px;
   margin-right: 8px;
 }
 @media (max-width: 600px) {
-  .share-dialog md-dialog-content .share-options button md-icon {
+  .share-dialog md-dialog-content .share-options .share-button md-icon {
     width: 24px;
     height: 24px;
   }
 }
-.share-dialog md-dialog-content .share-options button.twitter md-icon {
+.share-dialog md-dialog-content .share-options .share-button.twitter md-icon {
   fill: #1DA1F2;
 }
 @media (min-width: 600px) {
-  .share-dialog md-dialog-content .share-options button.whatsapp {
+  .share-dialog md-dialog-content .share-options .share-button.whatsapp {
     display: none;
   }
 }
-.share-dialog md-dialog-content .share-options button.whatsapp md-icon {
+.share-dialog md-dialog-content .share-options .share-button.whatsapp md-icon {
   width: 29px;
   height: 29px;
   margin-left: -3px;
   margin-right: 6px;
 }
-.share-dialog md-dialog-content .share-options button:hover {
+.share-dialog md-dialog-content .share-options .share-button:hover {
   background: #f0f0f0;
 }
 .share-dialog md-dialog-content hr {

@@ -9,15 +9,15 @@
     <md-dialog-content>
         <span>@FlashcardResources.FlashcardShareSubtitle</span>
         <div class="share-options">
-            <button class="twitter" type="button" ng-click="sd.twitter()">
+            <button class="twitter share-button" type="button" ng-click="sd.twitter()">
                 <md-icon md-svg-icon="s:twitter"></md-icon>
                 <div>Twitter</div>
             </button>
-            <button class="fb" type="button" ng-click="sd.facebook()">
+            <button class="fb share-button" type="button" ng-click="sd.facebook()">
                 <md-icon md-svg-icon="b:facebook-colored"></md-icon>
                 <div>Facebook</div>
             </button>
-            <a ng-href="{{::sd.whatappLink}}" target="_top" class="whatsapp" ng-click="sd.whatapp()">
+            <a ng-href="{{::sd.whatappLink}}" target="_top" class="whatsapp share-button" ng-click="sd.whatapp()">
                 <md-icon md-svg-icon="b:whatsapp"></md-icon>
                 <div>Whatsapp</div>
             </a>
