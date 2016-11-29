@@ -26,11 +26,11 @@ var app;
                     _this.flashcardPromo = response.model || {};
                     _this.flashcardPromo.count = _this.flashcardPromo.count || 0;
                     _this.dashboardService.getUniversityMeta()
-                        .then(function (response) {
+                        .then(function (response2) {
                         _this.hidePromo = false;
-                        _this.color1 = response.btnColor;
-                        _this.color2 = response.stripColor;
-                        _this.university = response.name;
+                        _this.color1 = response2.btnColor;
+                        _this.color2 = response2.stripColor;
+                        _this.university = response2.name;
                     });
                 }
             });

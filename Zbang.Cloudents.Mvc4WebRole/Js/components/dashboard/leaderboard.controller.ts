@@ -33,11 +33,11 @@
                     this.flashcardPromo = response.model || {};
                     this.flashcardPromo.count = this.flashcardPromo.count || 0;
                     this.dashboardService.getUniversityMeta()
-                        .then(response => {
+                        .then(response2 => {
                             this.hidePromo = false;
-                            this.color1 = response.btnColor;
-                            this.color2 = response.stripColor;
-                            this.university = response.name;
+                            this.color1 = response2.btnColor;
+                            this.color2 = response2.stripColor;
+                            this.university = response2.name;
                         });
                 }
                 //                this.hideBox = this.hideLeaderBoard && this.hidePromo;

@@ -49,6 +49,9 @@
             const shareTwiiter = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(this.url);
             this.$window.open(shareTwiiter, "pop", "width=600, height=400, scrollbars=no");
         }
+        onSuccess() {
+            console.log("here");
+        }
 
 
 
