@@ -1658,16 +1658,25 @@ iframe {
         height: 100%;
     }
 
-    [background-cover] {
-        -ms-filter: blur(2px) brightness(0.4);
-        -moz-filter: blur(2px) brightness(0.4);
-        -webkit-filter: blur(2px) brightness(0.4);
-        filter: blur(2px) brightness(0.4);
+    .bg-container {
+        overflow: hidden;
         position: absolute;
-        top: 0;
         left: 0;
         right: 0;
+        top: 0;
         bottom: 0;
+
+        [background-cover] {
+            -ms-filter: blur(2px) brightness(0.4);
+            -moz-filter: blur(2px) brightness(0.4);
+            -webkit-filter: blur(2px) brightness(0.4);
+            filter: blur(2px) brightness(0.4);
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+        }
     }
 
     .promo-img-wrapper {

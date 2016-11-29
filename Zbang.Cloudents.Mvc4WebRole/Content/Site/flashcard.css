@@ -139,7 +139,6 @@
   align-items: flex-end;
   -webkit-justify-content: space-between;
   justify-content: space-between;
-  padding-bottom: 12px;
 }
 @media (max-width: 600px) {
   .flashcardPage .header {
@@ -151,7 +150,6 @@
     right: 0;
     z-index: 2;
     background: #dadada;
-    padding-bottom: 25px;
   }
 }
 .flashcardPage .header .close-btn {
@@ -265,6 +263,7 @@
 @media (max-width: 600px) {
   .flashcardPage .header .progress-wrapper .progress-settings {
     padding-right: 50px;
+    padding-bottom: 25px;
   }
 }
 .flashcardPage .header .progress-wrapper .progress-settings .sides {
@@ -494,6 +493,11 @@
 }
 .flashcardPage .header .card-sides button.active.both .flashcard-icon:hover:after {
   background: #337fa7;
+}
+.flashcardPage .header .progress-wrapper,
+.flashcardPage .header .card-sides,
+.flashcardPage .header .pinned-counter {
+  padding-bottom: 12px;
 }
 .flashcardPage .header .pinned-counter {
   display: -webkit-flex;
@@ -857,19 +861,51 @@
   right: 0;
   margin: 0 auto;
   color: #888b8e;
+  font-size: 16px;
+}
+@media (max-width: 600px) {
+  .flashcardPage .cards-info .like-wrapper {
+    font-size: 14px;
+  }
+}
+.flashcardPage .cards-info .like-wrapper span {
+  font-weight: bold;
 }
 .flashcardPage .cards-info .like-wrapper md-icon {
   width: 20px;
-  height: 20px;
+  height: 21px;
   fill: #888b8e;
-  margin-bottom: 7px;
+  margin-bottom: 2px;
   margin-right: 5px;
 }
+@media (max-width: 600px) {
+  .flashcardPage .cards-info .like-wrapper md-icon {
+    width: 18px;
+    height: 18px;
+  }
+}
 .flashcardPage .cards-info .like-wrapper .liked {
-  color: #4190b9;
+  background: #4190b9;
+  color: #ffffff;
+  border-color: #4190b9;
 }
 .flashcardPage .cards-info .like-wrapper .liked md-icon {
-  fill: #4190b9;
+  fill: #ffffff;
+}
+.flashcardPage .cards-info .like-wrapper button {
+  border: 1px solid #888b8e;
+  border-radius: 5px;
+  margin-left: 10px;
+  padding: 0 10px;
+}
+@media (max-width: 600px) {
+  .flashcardPage .cards-info .like-wrapper button {
+    padding: 0 6px;
+    margin-left: 4px;
+  }
+}
+.flashcardPage .cards-info .like-wrapper button > div {
+  margin-top: 2px;
 }
 .flashcardPage .cards-info .like-wrapper,
 .flashcardPage .cards-info .like-wrapper button > div {
@@ -1205,8 +1241,8 @@
   height: auto;
 }
 .promo-ad {
-  width: 100%;
-  max-width: 700px;
+  width: 700px;
+  max-width: calc(100% - 100px);
   height: 90px;
   margin: 0 auto;
   background: #4190b9;
@@ -1217,6 +1253,14 @@
   align-items: center;
   -webkit-justify-content: space-between;
   justify-content: space-between;
+  align-self: center;
+  position: relative;
+}
+@media (max-width: 850px) {
+  .promo-ad {
+    height: 10.5vw;
+    min-height: 70px;
+  }
 }
 .promo-ad md-icon {
   width: 18px;
@@ -1224,33 +1268,173 @@
   color: #FFCB0B;
   margin: 0 10px;
 }
+@media (max-width: 850px) {
+  .promo-ad md-icon {
+    width: 16px;
+    height: 16px;
+    margin: 0 8px;
+  }
+}
+@media (max-width: 530px) {
+  .promo-ad md-icon {
+    margin: 0 5px;
+    width: 4vw;
+    height: 4vw;
+  }
+}
+.promo-ad .text,
+.promo-ad .button {
+  padding-left: 25px;
+}
+@media (max-width: 850px) {
+  .promo-ad .text,
+  .promo-ad .button {
+    padding-left: 3vw;
+  }
+}
 .promo-ad .text {
   color: #ffffff;
+  flex-grow: 1;
+  text-align: center;
+  padding-right: 146px;
+}
+@media (max-width: 850px) {
+  .promo-ad .text {
+    padding-right: 19vw;
+  }
+}
+@media (max-width: 530px) {
+  .promo-ad .text {
+    padding: 5px;
+    height: 100%;
+  }
 }
 .promo-ad .text h1 {
   margin: 0;
   font-size: 38px;
   font-weight: bold;
 }
+@media (max-width: 850px) {
+  .promo-ad .text h1 {
+    font-size: 4.1vw;
+  }
+}
+@media (max-width: 600px) {
+  .promo-ad .text h1 {
+    display: none;
+  }
+}
 .promo-ad .text .text-line {
+  font-size: 18px;
+}
+@media (min-width: 600px) {
+  .promo-ad .text .text-line {
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+  }
+}
+@media (max-width: 850px) {
+  .promo-ad .text .text-line {
+    font-size: 2.5vw;
+  }
+}
+@media (max-width: 600px) {
+  .promo-ad .text .text-line {
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    font-size: 2.75vw;
+  }
+}
+@media (max-width: 530px) {
+  .promo-ad .text .text-line {
+    flex-direction: column;
+    margin: 0;
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
+    height: 100%;
+  }
+}
+@media (max-width: 530px) {
+  .promo-ad .text .text-line .start {
+    font-weight: bold;
+    font-size: 5.3vw;
+    line-height: normal;
+  }
+}
+@media (max-width: 530px) {
+  .promo-ad .text .text-line .end {
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+  }
+}
+.promo-ad .text .text-line .share {
+  display: inline-block;
+  line-height: normal;
+}
+@media (max-width: 530px) {
+  .promo-ad .text .text-line .share {
+    font-size: 4vw;
+  }
+}
+.promo-ad .button {
+  padding-right: 25px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
   -webkit-align-items: center;
   align-items: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  font-size: 18px;
-  margin-top: 2px;
+}
+@media (max-width: 850px) {
+  .promo-ad .button {
+    padding-right: 3vw;
+  }
+}
+@media (max-width: 530px) {
+  .promo-ad .button {
+    position: static;
+    padding: 0 1.5vw;
+  }
 }
 .promo-ad .button .content {
+  color: #212325;
   background: #ffcb0b;
   padding: 8px 14px;
   border-radius: 10px;
   font-size: 16px;
   font-weight: bold;
+  white-space: nowrap;
 }
-.promo-ad .text,
-.promo-ad .button {
-  padding: 0 25px;
+@media (max-width: 850px) {
+  .promo-ad .button .content {
+    font-size: 2.1vw;
+    padding: 0.8vw 1.5vw;
+    border-radius: 1.2vw;
+  }
+}
+@media (max-width: 530px) {
+  .promo-ad .button .content {
+    padding: 5px 6px;
+    border-radius: 10px;
+    font-size: 3.5vw;
+    line-height: normal;
+  }
 }

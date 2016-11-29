@@ -43,7 +43,9 @@
     <div>
         @* ReSharper disable once Mvc.PartialViewNotResolved *@
         @{Html.RenderPartial("_StaticPageHeader");}
-        <div background-cover data-image="@Model.HomePageUniversityData.BackgroundImage">
+        <div class="bg-container">
+            <div background-cover data-image="@Model.HomePageUniversityData.BackgroundImage">
+            </div>
         </div>
         <div class="home-page-body">
             <section class="main">

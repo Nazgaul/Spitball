@@ -35,19 +35,21 @@
                 <span>{{f.slidepos}}/{{::f.flashcard.cards.length}}</span>
             </div>
         </div>
-        @*<div multiswitch-when="0" class="promo-ad">
+        <div multiswitch-when="0" class="promo-ad">
             <div class="text">
                 <h1>Flashcard Lounch Contest</h1>
                 <div class="text-line">
-                    <div>Your chance to win $500</div>
-                    <md-icon md-svg-icon="t:share"></md-icon>
-                    <div>your flashcard set</div>
+                    <div class="start">Your chance to win $500</div>
+                    <div class="end">
+                        <md-icon md-svg-icon="t:share"></md-icon>
+                        <div class="share">your flashcard set</div>
+                        <div class="button">
+                            <div class="content">Learn More</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="button">
-                <div class="content">Learn More</div>
-            </div>
-        </div>*@
+        </div>
         <button ng-click="app.back(f.backUrl)" class="close-btn">
             <md-icon md-svg-icon="t:close"></md-icon>
         </button>
