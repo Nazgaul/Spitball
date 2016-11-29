@@ -1,20 +1,29 @@
-﻿<md-dialog style="background:black">
+﻿<md-dialog class="share-dialog">
     <md-toolbar>
+        <h1>Promote flashcard set</h1>
         <md-button class="close" ng-click="sd.close()">
             <md-icon md-svg-icon="t:close"></md-icon>
         </md-button>
-        <h1>Promote flashcard set</h1>
     </md-toolbar>
-    <md-dialog-content >
+    <md-dialog-content>
         <span>share with others</span>
-        <div>
-            <button type="button" ng-click="sd.twitter()">Twitter</button>
-            <button type="button" ng-click="sd.facebook()">Facebook</button>
-            <button type="button" ng-click="sd.whatsapp()">Whatsapp</button>
+        <div class="share-options">
+            <button class="twitter" type="button" ng-click="sd.twitter()">
+                <md-icon md-svg-icon="s:twitter"></md-icon>
+                <div>Twitter</div>
+            </button>
+            <button class="fb" type="button" ng-click="sd.facebook()">
+                <md-icon md-svg-icon="b:facebook-colored"></md-icon>
+                <div>Facebook</div>
+            </button>
+            <button class="whatsapp" type="button" ng-click="sd.whatapp()" ng-click="sd.whatsapp()">
+                <md-icon md-svg-icon="b:whatsapp"></md-icon>
+                <div>Whatsapp</div>
+            </button>
         </div>
         <hr />
-        <span>Copy this short url to share</span>
-        <input id="shareUrl" type="text" ng-model="sd.url"/>
-        <button type="button" ngclipboard data-clipboard-target="#shareUrl">Copy link</button>
+        <div>Copy this short url to share</div>
+        <input id="shareUrl" type="text" ng-model="sd.url" />
+        <button class="action-btn" type="button" ngclipboard data-clipboard-target="#shareUrl">Copy link</button>
     </md-dialog-content>
 </md-dialog>
