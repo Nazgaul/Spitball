@@ -33,7 +33,6 @@
                     }
                 });
             this.flashcards = flashcards;
-            console.log(this.flashcards);
             this.$scope.$on("$stateChangeSuccess",
                 (event: angular.IAngularEvent,
                     toState: angular.ui.IState,
@@ -41,7 +40,7 @@
                     fromState: angular.ui.IState) => {
                     //need indication that he actually created one
                     if (fromState.name === "flashcardCreate" && toParams["newId"]) {
-                        var flashcard = this.flashcards.find(f => f.ownerId === user.id && toParams["newId"] === f.id);
+                        const flashcard = this.flashcards.find(f => f.ownerId === user.id && toParams["newId"] === f.id);
                         if (flashcard && flashcard.publish) {
                             this.shareService.shareDialog("f", flashcard.id);
                         }

@@ -22,6 +22,11 @@ var app;
         }
         return Flashcard;
     }());
+    var UniversityData = (function () {
+        function UniversityData() {
+        }
+        return UniversityData;
+    }());
     var Card = (function () {
         function Card() {
             this.front = new CardSlide();
@@ -50,6 +55,7 @@ var app;
             this.styleLegend = true;
             this.flipped = false;
             this.pinCount = 0;
+            console.log(flashcard);
             angular.forEach(flashcard.cards, function (v, k) {
                 if (flashcard.pins && flashcard.pins.indexOf(k) !== -1) {
                     v.pin = true;
@@ -144,8 +150,9 @@ var app;
                 targetEvent: ev,
                 clickOutsideToClose: true,
                 locals: {
-                    color1: "rgb(255, 203, 11)",
-                    color2: "rgba(0, 46, 98, 0.901961)"
+                    color1: this.flashcard.universityData.btnColor,
+                    color2: this.flashcard.universityData.btnFontColor,
+                    university: this.flashcard.universityData.universityName
                 },
                 controller: "DialogPromo",
                 controllerAs: "dp",

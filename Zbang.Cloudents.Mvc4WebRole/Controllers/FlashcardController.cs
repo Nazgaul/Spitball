@@ -117,7 +117,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         }
                     }));
 
-            var tUserValues = ZboxReadService.GetUserFlashcardAsync(new Zbox.ViewModel.Queries.GetUserFlashcardQuery(
+            var tUserValues = ZboxReadService.GetUserFlashcardAsync(new GetUserFlashcardQuery(
                     User.GetUserId(false), id));
             var tValues = m_DocumentDbReadService.FlashcardAsync(id);
             await Task.WhenAll(tTransAction, tValues, tUserValues);
@@ -137,7 +137,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 values.UserId,
                 tUserValues.Result.Pins,
                 tUserValues.Result.Like,
-                tUserValues.Result.OwnerName
+                tUserValues.Result.OwnerName,
+                tUserValues.Result.UniversityData
 
             });
         }

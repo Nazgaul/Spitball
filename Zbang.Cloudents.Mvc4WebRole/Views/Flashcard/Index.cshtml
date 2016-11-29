@@ -35,9 +35,9 @@
                 <span>{{f.slidepos}}/{{::f.flashcard.cards.length}}</span>
             </div>
         </div>
-        <div multiswitch-when="0" class="promo-ad">
+        <div multiswitch-when="0" class="promo-ad" ng-click="f.details($event)" ng-if="f.flashcard.universityData">
             <div class="text">
-                <h1>Flashcard Lounch Contest</h1>
+                <h1>Flashcard Launch Contest</h1>
                 <div class="text-line">
                     <div class="start">Your chance to win $500</div>
                     <div class="end">
