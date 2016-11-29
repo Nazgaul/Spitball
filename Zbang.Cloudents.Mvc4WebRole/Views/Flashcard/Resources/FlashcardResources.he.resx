@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -191,5 +191,14 @@
   </data>
   <data name="Previous" xml:space="preserve">
     <value>קודם</value>
+  </data>
+  <data name="FlashcardShareTitle" xml:space="preserve">
+    <value>שתף את הכרטיסיות שיצרת</value>
+  </data>
+  <data name="FlashcardShareCopyUrl" xml:space="preserve">
+    <value>העתק לינק זה על מנת לשתף</value>
+  </data>
+  <data name="FlashcardShareSubtitle" xml:space="preserve">
+    <value>שתף עם חבריך</value>
   </data>
 </root>
