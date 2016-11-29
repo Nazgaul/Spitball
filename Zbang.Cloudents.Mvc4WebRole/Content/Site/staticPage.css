@@ -1513,6 +1513,7 @@ iframe {
   background-repeat: no-repeat;
   background-position: 50%;
   max-width: 670px;
+  width: 100%;
   margin: 0 auto;
 }
 .promo-page .home-page-body {
