@@ -11,7 +11,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             filters.Add(new RequireHttpsAttribute());
             filters.Add(new NoCacheAjaxFilterAttribute());
             filters.Add(new ETagAttribute());
-            filters.Add(new EnforceLowercaseUrlAttribute());
+            filters.Add(new EnforceLowercaseUrlAttribute()); //this fucks up short urls
 
 
         }

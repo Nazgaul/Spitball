@@ -107,12 +107,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [Route(UrlConst.ShortItem, Name = "shortItem"), ActionName("ShortUrl")]
+        [Route(UrlConst.ShortItem, Name = "shortItem"), NoUrlLowercase]
         public async Task<ActionResult> ShortUrlAsync(string item62Id)
         {
             var base62 = new Base62(item62Id);
             var query = new GetFileSeoQuery(base62.Value);
             var model = await ZboxReadService.GetItemSeoAsync(query);
+            if (model == null)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
             return RedirectPermanent(model.Url);
         }
 
@@ -228,7 +232,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         }
                     }));
             var t2 = ZboxReadService.GetItemDetailApiAsync(query);
-           
+
             var userType = ViewBag.UserType as UserRelationshipType?;
             var t3 = Zbox.Infrastructure.Extensions.TaskExtensions.CompletedTask;
             if (!userType.HasValue || (int)userType.Value < 2)

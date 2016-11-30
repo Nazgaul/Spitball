@@ -48,13 +48,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("Empty");
         }
 
-        [Route(UrlConst.ShortFlashcard, Name = "shortFlashcard")]
+        [Route(UrlConst.ShortFlashcard, Name = "shortFlashcard"), NoUrlLowercase]
         public async Task<ActionResult> ShortUrlAsync(string flashcard62Id)
         {
             var base62 = new Base62(flashcard62Id);
             var query = new GetFlashcardSeoQuery(base62.Value);
             var model = await ZboxReadService.GetFlashcardUrlAsync(query);
-
+            if (model == null)
+            {
+                return RedirectToAction("NotFound","Error");
+            }
             return RedirectToRoutePermanent("Flashcard", new RouteValueDictionary
             {
                 ["universityName"] = UrlConst.NameToQueryString(model.UniversityName ?? "my"),
