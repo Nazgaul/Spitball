@@ -1262,6 +1262,7 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
 
         private async void buttonImportQuiz_Click(object sender, EventArgs e)
         {
+            importQuizResult.Text = string.Empty;
             // Split box ids
             var boxIdstr = quizBoxID.Text?.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
             if (boxIdstr == null)
@@ -1271,6 +1272,8 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
             var boxIds = boxIdstr.Select(long.Parse);
             var userId = long.Parse(quizUserID.Text);
             importQuizResult.Text = await ImportQuizAsync(quizUrlId.Text, quizName.Text, boxIds, userId);
+            quizBoxID.Text = string.Empty;
+            quizUrlId.Text = string.Empty;
         }
         private static async Task<string> ImportQuizAsync(string quizUrl, string quizName, IEnumerable<long> boxIds, long userId)
         {
@@ -1283,19 +1286,16 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
                 {
                     sr.EnsureSuccessStatusCode();
                     //Get the id of the quid for the json data query
-                    var currentQuizId = (quizUrl.Split('/'))[3];
-                    using (var response = await httpClient.GetAsync(String.Format(QuizUrl + "{0}" + "?client_id=53m5PP5tK3&whitespace=1&format=json", currentQuizId)))
+                    var currentQuizId = quizUrl.Split('/')[3];
+                    using (var response = await httpClient.GetAsync(string.Format(QuizUrl + "{0}" + "?client_id=53m5PP5tK3&whitespace=1&format=json", currentQuizId)))
                     {
                         response.EnsureSuccessStatusCode();
                         string responseBody = await response.Content.ReadAsStringAsync();
-                        //var json = JObject.Parse(responseBody);
-                        //var converter = JsonConvert.DeserializeObject<Zbang.Zbox.Domain.Flashcard>(responseBody);
                         var cardsList = (JObject.Parse(responseBody)).SelectToken("terms");
                         var cardImages = cardsList.Where(card => card.SelectToken("image").HasValues);
-                        //var cardsConverters = new List<Zbang.Zbox.Domain.Card>();
                         string imageLink;
                         var dictionaryImage = new Dictionary<long, string>();
-                        var imagesTask = new List<Task<string>>();
+                        var imagesTask = new List<Task>();
                         //go over the cards from json and convert them to Flashcard cards structure
                         foreach (var card in cardImages)
                         {
@@ -1323,20 +1323,20 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
                         //var tasks = new List<Task>();
                         foreach (var box in boxIds)
                         {
-                            output += "\nboxId:#" + await CreateFlashCardAsync(userId, quizName, cardsConverters2, box);
+                            var retVal = await CreateFlashCardAsync(userId, quizName, cardsConverters2, box);
+                            output += "\nboxId:#" + retVal;
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                output = ex.Message;
+                output = ex.ToString();
             }
 
             return output;
         }
-        private static async Task<string> SaveImageAsync(long id, string url, IDictionary<long, string> dictinary)
+        private static async Task SaveImageAsync(long id, string url, IDictionary<long, string> dictionary)
         {
             var client = new HttpClient();
             var name = url.Split('/').Last();
@@ -1346,8 +1346,8 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
                 var flash = IocFactory.IocWrapper.Resolve<IBlobProvider2<FlashcardContainerName>>();
                 var fileName = Guid.NewGuid() + Path.GetExtension(name);
                 await flash.UploadStreamAsync(fileName, await res.Content.ReadAsStreamAsync(), res.Content.Headers.ContentType.ToString(), default(CancellationToken));
-                dictinary.Add(id, flash.GetBlobUrl(fileName, true).ToString());
-                return flash.GetBlobUrl(fileName, true).ToString();
+                dictionary.Add(id, flash.GetBlobUrl(fileName, true).ToString());
+                //return flash.GetBlobUrl(fileName, true).ToString();
             }
         }
 
