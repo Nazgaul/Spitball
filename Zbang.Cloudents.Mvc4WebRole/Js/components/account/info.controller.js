@@ -2,9 +2,9 @@
     'use strict';
     angular.module('app.account').controller('AccountSettingsInfoController', info);
     info.$inject = ['accountService', '$timeout', 'userData', 'userDetailsFactory',
-        '$mdDialog', '$mdMedia', '$scope', 'resManager', 'ajaxService2'];
+        '$mdDialog', '$mdMedia', '$scope', 'resManager', 'ajaxService2', 'showToasterService'];
     function info(accountService, $timeout, userData, userDetailsFactory,
-        $mdDialog, $mdMedia, $scope, resManager, ajaxService2) {
+        $mdDialog, $mdMedia, $scope, resManager, ajaxService2, showToasterService) {
         var self = this;
 
 
@@ -119,7 +119,7 @@
         //}
 
         function showToast(message,location) {
-            $scope.app.showToaster(message, location);
+            showToasterService.showToaster(message, location);
 
         }
     }

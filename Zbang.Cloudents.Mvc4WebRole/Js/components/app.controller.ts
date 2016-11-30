@@ -4,7 +4,7 @@
         back(defaultUrl: string);
         //logOut();
         toggleMenu();
-        showToaster(text: string, parentId?: string);
+        //showToaster(text: string, parentId?: string);
         openMenu($mdOpenMenu: any, ev: Event);
         //resetForm(myform: angular.IFormController);
     }
@@ -125,22 +125,6 @@
         toggleMenu = () => {
             this.$rootScope.$broadcast("open-menu");
         };
-
-        showToaster = (text: string, parentId: string) => {
-            let element: Element = this.$document.find("header")[0];
-            if (parentId) {
-                element = this.$document[0].querySelector(`#${parentId}`);
-            }
-            var toaster: any = this.$mdToast.simple()
-                .textContent(text)
-                .position("top right")
-                .parent(element)
-                .hideDelay(2000);
-            // typedef doesnt have definition of toastClass
-            toaster.toastClass("angular-animate");
-            this.$mdToast.show(toaster);
-        };
-
 
         openMenu = ($mdOpenMenu: any, ev: Event) => {
             if (!this.userDetails.isAuthenticated()) {

@@ -72,7 +72,8 @@ module app {
             private $window: angular.IWindowService,
             private resManager: IResManager,
             private $mdDialog: angular.material.IDialogService,
-            private $q: angular.IQService) {
+            private $q: angular.IQService,
+            private showToasterService: IShowToasterService) {
             if (flashcard) {
                 this.data = new FlashCard().deserialize(flashcard);
                 this.data.id = $stateParams["id"];
@@ -284,7 +285,7 @@ module app {
                 },
                 error: (uploader, error: plupload_error) => {
                     if (error.code === plupload.FILE_EXTENSION_ERROR) {
-                        (this.$scope["app"] as IAppController).showToaster("file error");
+                        this.showToasterService.showToaster("file error");
                     }
                 },
                 UploadComplete: () => {

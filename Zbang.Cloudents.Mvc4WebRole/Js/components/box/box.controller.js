@@ -3,7 +3,7 @@ var app;
     "use strict";
     var boxId;
     var BoxController = (function () {
-        function BoxController($state, $stateParams, boxData, $scope, $rootScope, user, resManager, boxService, ajaxService2, $timeout, $window, userUpdatesService, shareService) {
+        function BoxController($state, $stateParams, boxData, $scope, $rootScope, user, resManager, boxService, ajaxService2, $timeout, $window, userUpdatesService, shareService, showToasterService) {
             var _this = this;
             this.$state = $state;
             this.$stateParams = $stateParams;
@@ -18,6 +18,7 @@ var app;
             this.$window = $window;
             this.userUpdatesService = userUpdatesService;
             this.shareService = shareService;
+            this.showToasterService = showToasterService;
             boxId = $stateParams.boxId;
             this.data = boxData;
             this.showLeaderboard = this.isAcademic = boxData.boxType === "academic" || boxData.boxType === "academicClosed";
@@ -55,7 +56,7 @@ var app;
                 return;
             }
             var appController = this.$scope["app"];
-            appController.showToaster(this.resManager.get("toasterFollowBox"));
+            this.showToasterService.showToaster(this.resManager.get("toasterFollowBox"));
             this.boxService.follow(boxId).then(function () {
                 _this.followBox();
             });
@@ -127,7 +128,7 @@ var app;
         };
         BoxController.$inject = ["$state", "$stateParams", "boxData", "$scope",
             "$rootScope", "user", "resManager", "boxService", "ajaxService2",
-            "$timeout", "$window", "userUpdatesService", "shareService"];
+            "$timeout", "$window", "userUpdatesService", "shareService", "showToasterService"];
         return BoxController;
     }());
     angular.module('app.box').controller('BoxController', BoxController);

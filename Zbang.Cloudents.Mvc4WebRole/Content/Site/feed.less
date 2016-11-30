@@ -67,7 +67,7 @@
                 }
             }
 
-            &:first-child .option {
+            &:not(:last-child) .option {
                 border-right: 1px solid @textColorLightGrey;
             }
         }
@@ -104,47 +104,6 @@
                 }
             }
 
-            #open-share {
-                display: none;
-
-                &:not(:checked) {
-                    ~ .option.share {
-                        //display: none;
-                        z-index: -1;
-                        opacity: 0;
-                        transition: opacity 0.3s;
-                    }
-
-                    ~ label.title .wrapper {
-                        // opacity: 1;
-                        //transition: opacity 0.3s;
-                    }
-                }
-
-                &:checked {
-                    ~ .option.share {
-                        z-index: 9;
-                        opacity: 1;
-                        transition: opacity 0.3s;
-                    }
-
-                    ~ label.title .wrapper {
-                        opacity: 0;
-                        //transition: opacity 0.3s;
-                    }
-
-                    ~ label.backdrop {
-                        display: block;
-                        height: 100vh;
-                        width: 100%;
-                        position: fixed;
-                        left: 0;
-                        top: 0;
-                        z-index: 8;
-                    }
-                }
-            }
-
             .option.share {
                 position: absolute;
                 left: 0;
@@ -152,14 +111,9 @@
                 top: 0;
                 width: ~"calc(100% - 1px)";
 
-                .title {
-                    .displayFlex;
-                    .align-items(center);
-
-                    md-icon {
-                        width: 16px;
-                        height: 16px;
-                    }
+                md-icon {
+                    width: 16px;
+                    height: 16px;
                 }
 
                 .share-options {

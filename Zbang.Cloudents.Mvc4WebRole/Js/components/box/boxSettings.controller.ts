@@ -19,7 +19,9 @@
             private resManager: IResManager,
             private boxService: IBoxService,
             private ajaxService2: IAjaxService2,
-            private $timeout: angular.ITimeoutService
+            private $timeout: angular.ITimeoutService,
+            private showToasterService: IShowToasterService
+
         ) {
 
             boxId = $stateParams.boxId;
@@ -87,7 +89,7 @@
                     const appController: IAppController = this.$scope["app"];
                     boxController["settingsOpen"] = false;
                     this.$stateParams["boxName"] = response.queryString;
-                    appController.showToaster(this.resManager.get("toasterBoxSettings"));
+                    this.showToasterService.showToaster(this.resManager.get("toasterBoxSettings"));
                     this.$state.go('box.feed', this.$stateParams, { location: "replace" });
 
                 }).finally(() => {

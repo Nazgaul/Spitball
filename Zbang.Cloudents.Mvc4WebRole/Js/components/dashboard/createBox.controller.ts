@@ -3,7 +3,7 @@
 
     class CreateBoxController {
 
-        static $inject = ['dashboardService', '$location', '$scope', '$rootScope', 'resManager'];
+        static $inject = ['dashboardService', '$location', '$scope', '$rootScope', 'resManager', 'showToasterService'];
 
         submitDisabled = false;
         boxName: string;
@@ -14,7 +14,9 @@
             private $location: angular.ILocationService,
             private $scope: angular.IScope,
             private $rootScope: angular.IRootScopeService,
-            private resManager: IResManager) {
+            private resManager: IResManager,
+            private showToasterService: IShowToasterService
+        ) {
 
         }
 
@@ -26,7 +28,7 @@
                 this.cancel(myform);
                 this.$rootScope.$broadcast("refresh-boxes");
                 const appController: IAppController = this.$scope["app"];
-                appController.showToaster(this.resManager.get('toasterCreateBox'));
+                this.showToasterService.showToaster(this.resManager.get('toasterCreateBox'));
                 this.$location.url(response.url);
             }, response => {
                 myform["name"].$setValidity('server', false);

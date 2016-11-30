@@ -54,7 +54,7 @@ var app;
         return CardSlide;
     }());
     var FlashcardCreateController = (function () {
-        function FlashcardCreateController(flashcardService, $stateParams, $state, flashcard, $scope, $timeout, $window, resManager, $mdDialog, $q) {
+        function FlashcardCreateController(flashcardService, $stateParams, $state, flashcard, $scope, $timeout, $window, resManager, $mdDialog, $q, showToasterService) {
             var _this = this;
             this.flashcardService = flashcardService;
             this.$stateParams = $stateParams;
@@ -66,6 +66,7 @@ var app;
             this.resManager = resManager;
             this.$mdDialog = $mdDialog;
             this.$q = $q;
+            this.showToasterService = showToasterService;
             this.disabled = false;
             this.serviceCalled = false;
             this.navigateBackToBox = function (isNew) {
@@ -130,7 +131,7 @@ var app;
                     },
                     error: function (uploader, error) {
                         if (error.code === plupload.FILE_EXTENSION_ERROR) {
-                            _this.$scope["app"].showToaster("file error");
+                            _this.showToasterService.showToaster("file error");
                         }
                     },
                     UploadComplete: function () {
