@@ -43,9 +43,9 @@
         @{ Html.RenderPartial("_Leaderboard", DashboardResource.LeaderboardTitle);}
         @{ Html.RenderPartial("_FlashcardsPromo");}
     </div>
-    @*<div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-sm="50" class="flex" flex="100">
+    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-sm="50" class="flex" flex="100">
             @{ Html.RenderPartial("_Gamification");}
-        </div>*@
+        </div>
     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" ng-repeat="e in d.boxes track by e.id" class="flex">
         <div class="box-cube">
             <div ng-include="'box-template.html'"></div>
