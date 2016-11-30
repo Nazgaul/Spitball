@@ -9,4 +9,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
     public class NoEtagAttribute : Attribute
     {
     }
+
+
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+    public class NoUrlLowercaseAttribute : Attribute
+    {
+    }
 }

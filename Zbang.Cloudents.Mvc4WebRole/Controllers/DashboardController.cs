@@ -26,7 +26,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     {
         [AllowAnonymous]
         [DonutOutputCache(CacheProfile = "FullPage")]
-        [Route("Dashboard")]
+        [Route("Dashboard",Name ="dashboard")]
         public ActionResult Index()
         {
             if (!User.Identity.IsAuthenticated)

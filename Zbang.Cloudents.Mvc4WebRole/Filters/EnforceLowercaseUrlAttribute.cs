@@ -4,6 +4,7 @@ using System.Web.Mvc;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Filters
 {
+    //this fucks up short url
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class EnforceLowercaseUrlAttribute : ActionFilterAttribute
     {
@@ -16,6 +17,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            bool skipLowercase = filterContext.ActionDescriptor.IsDefined(typeof(NoUrlLowercaseAttribute), inherit: true)
+                                    || filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(NoUrlLowercaseAttribute), inherit: true);
+            if (skipLowercase) return;
+
+
             var request = filterContext.HttpContext.Request;
             if (request.Url == null) return;
             var path = System.Web.HttpUtility.UrlDecode(request.Url.AbsolutePath);

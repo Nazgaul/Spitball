@@ -121,7 +121,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [Route(UrlConst.ShortBox, Name = "shortBox"), ActionName("ShortUrl")]
+        [Route(UrlConst.ShortBox, Name = "shortBox"), NoUrlLowercase]
         public async Task<ActionResult> ShortUrlAsync(string box62Id)
         {
             var base62 = new Base62(box62Id);
@@ -134,7 +134,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (BoxDoesntExistException ex)
             {
                 TraceLog.WriteError($"base 62: {box62Id} id: {base62.Value}", ex);
-                return RedirectToAction("Index", "Dashboard");
+                return RedirectToAction("NotFound", "Error");
             }
 
 
