@@ -45,6 +45,11 @@ body .itemPage header {
   -webkit-transition: top 0.2s ease !important;
   transition: top 0.2s ease !important;
 }
+@media (min-width: 960px) {
+  body .itemPage header {
+    padding-left: 75px;
+  }
+}
 body .box-template .status-title,
 body .box-template .status-number {
   font-size: 12px;

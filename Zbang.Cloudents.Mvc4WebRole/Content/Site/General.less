@@ -43,7 +43,6 @@ body {
     //.transition(margin-top, 0.2s, ease);
     &.collapseHeader {
         //margin-top: -@heightOfHeader;
-
         #main-nav {
             transform: translate(0, -@heightOfHeader);
             //margin-top: -@heightOfHeader;
@@ -69,6 +68,10 @@ body {
         right: 0;
         left: 0;
         .transition(top, 0.2s, ease);
+
+        @media(min-width: 960px) {
+            padding-right: @widthOfChat - 20px;
+        }
     }
 
 
@@ -202,9 +205,9 @@ body {
     align-content: center;
 
     md-icon {
-       // width: 20px;
-       // height: 20px;
-       // margin: 0 auto;
+        // width: 20px;
+        // height: 20px;
+        // margin: 0 auto;
         fill: @textColorWhite;
     }
 }
@@ -848,10 +851,11 @@ md-input-container .md-input-message-animation:not(.ng-animate) {
 
 //issue with version 1.1.1 agular material with rtl tabs
 [dir=rtl] md-tabs-wrapper md-next-button {
-    transform: translate(0,-50%) rotate(180deg)
+    transform: translate(0,-50%) rotate(180deg);
 }
+
 [dir=rtl] md-tabs-wrapper md-prev-button {
-    transform: translate(0,-50%) rotate(180deg)
+    transform: translate(0,-50%) rotate(180deg);
 }
 
 //back arrow
