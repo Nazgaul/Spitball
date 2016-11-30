@@ -10,7 +10,8 @@ update [Zbox].item set userid=@SysUserid, isdeleted=1,isdirty=1 where userid=@us
 update [Zbox].item set userid=@SysUserid, isdeleted=1,isdirty=1 where [QuestionId] in (Select [QuestionId] from Zbox.Question where userid=@Userid)
 update [Zbox].item set userid=@SysUserid, isdeleted=1,isdirty=1 where AnswerId in (Select AnswerId  from zbox.Answer where userid=@Userid)
 
-
+--remove signalr
+delete from zbox.SignalRConnection where userid = @userid
 
 -- Change Box (Only private) ownership to userid=22886 
 update [Zbox].box set ownerid=@SysUserid, isdeleted=1,isdirty=1 where [OwnerId]=@userid and Discriminator is NULL and [MembersCount]<=1

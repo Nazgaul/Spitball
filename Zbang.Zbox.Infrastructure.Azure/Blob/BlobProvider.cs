@@ -32,9 +32,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         internal const string AzureIdGeneratorContainer = "zboxIdGenerator";
 
-        private readonly ILocalStorageProvider m_LocalStorageProvider;
+        private readonly Lazy<ILocalStorageProvider> m_LocalStorageProvider;
 
-        public BlobProvider(ILocalStorageProvider localStorageProvider)
+        public BlobProvider(Lazy<ILocalStorageProvider> localStorageProvider)
         {
             m_LocalStorageProvider = localStorageProvider;
             InitStorage();
@@ -247,7 +247,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         public async Task<string> DownloadToLocalDiskAsync(Uri blobUri, CancellationToken cancelToken)
         {
             var blob = GetBlob(blobUri);
-            var fileSystemLocation = Path.Combine(m_LocalStorageProvider.LocalStorageLocation, blob.Name);
+            var fileSystemLocation = Path.Combine(m_LocalStorageProvider.Value.LocalStorageLocation, blob.Name);
             if (File.Exists(fileSystemLocation))
             {
                 return fileSystemLocation;
@@ -261,7 +261,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             }
             catch (IOException)
             {
-                m_LocalStorageProvider.DeleteOldFiles();
+                m_LocalStorageProvider.Value.DeleteOldFiles();
             }
             await blob.DownloadToFileAsync(fileSystemLocation,
                     FileMode.Create, cancelToken);

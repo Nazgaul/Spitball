@@ -1,17 +1,12 @@
 using System;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
-using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Blob
 {
@@ -21,7 +16,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         // private readonly ILocalStorageProvider m_LocalStorageProvider;
         private readonly T m_Container = new T();
 
-        public BlobProvider2(ILocalStorageProvider localStorageProvider)
+        //There is some race condition with initialize until the localstorage provider is actually initialized
+        public BlobProvider2(Lazy<ILocalStorageProvider> localStorageProvider)
             : base(localStorageProvider)
         {
         }
