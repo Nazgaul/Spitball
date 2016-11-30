@@ -10,7 +10,7 @@
 
 
 <ul layout="row" layout-padding layout-fill layout-wrap class="list-unstyled" srph-infinite-scroll="i.myPagingFunction()">
-    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" hide-xs class="item-animate add-button"  ng-click="i.openUpload()" ga-track-event="['box-items', 'addFile']">
+    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" hide-xs class="fade-in-repeat add-button"  ng-click="i.openUpload()" ga-track-event="['box-items', 'addFile']">
         <div class="content ">
             <button type="button">
                 <md-icon md-svg-icon="t:add"></md-icon>
@@ -20,7 +20,7 @@
             </button>
         </div>
     </li>
-    <li flex-gt-lg="10" flex flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="angular-animate item-animate i-q-wrapper" ng-repeat="e in i.items track by e.id ">
+    <li flex-gt-lg="10" flex flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="angular-animate fade-in-repeat i-q-wrapper" ng-repeat="e in i.items track by e.id ">
         <div ui-draggable="true" drag="e" drag-image-element-id="'drag' + $index" ng-include="'item-template.html'"></div>
         <md-menu class="item-menu">
             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-items', 'deleteFile']">

@@ -1486,6 +1486,7 @@
     <TypeScriptCompile Include="Js\components\share\share.service.ts" />
     <TypeScriptCompile Include="Js\components\share\shareDialog.controller.ts" />
     <TypeScriptCompile Include="Js\components\uploadWrapper.controller.ts" />
+    <TypeScriptCompile Include="Js\components\user\gamificationDialog.controller.ts" />
     <TypeScriptCompile Include="Js\components\user\updates.service.ts" />
     <TypeScriptCompile Include="Js\components\chat\hideChatOnMobile.directive.ts" />
     <TypeScriptCompile Include="Js\components\chat\toggleChat.directive.ts" />
