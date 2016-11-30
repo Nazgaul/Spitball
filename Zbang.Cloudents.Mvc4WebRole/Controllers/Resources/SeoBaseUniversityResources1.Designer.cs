@@ -97,11 +97,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Get class notes for free with Spitball:.
+        ///   Looks up a localized string similar to Try out this new flashcard set {0} in {1}.
         /// </summary>
-        internal static string ItemMataDescription {
+        internal static string FlashcardMetaDescription {
             get {
-                return ResourceManager.GetString("ItemMataDescription", resourceCulture);
+                return ResourceManager.GetString("FlashcardMetaDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get class notes for free with Spitball.
+        /// </summary>
+        internal static string ItemMetaDescription {
+            get {
+                return ResourceManager.GetString("ItemMetaDescription", resourceCulture);
             }
         }
         

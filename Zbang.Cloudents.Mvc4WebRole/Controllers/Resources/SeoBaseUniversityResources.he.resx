@@ -129,13 +129,16 @@
   <data name="QuizTitle" xml:space="preserve">
     <value>מבחן</value>
   </data>
-  <data name="ItemMataDescription" xml:space="preserve">
-    <value>מבחר סיכומים מחכים לך בחינם באפליקציית ספיטבול: </value>
+  <data name="ItemMetaDescription" xml:space="preserve">
+    <value>מבחר סיכומים מחכים לך בחינם באפליקציית ספיטבול</value>
   </data>
   <data name="BoxTitleItems" xml:space="preserve">
     <value>סיכומים</value>
   </data>
   <data name="BoxTitleQuizzes" xml:space="preserve">
     <value>מבחנים</value>
+  </data>
+  <data name="FlashcardMetaDescription" xml:space="preserve">
+    <value>תנסו את כרטיסיות הלימוד החדשות {0}. ב {1} </value>
   </data>
 </root>
