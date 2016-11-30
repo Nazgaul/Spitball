@@ -84,15 +84,18 @@
                 });;
         }
 
-        function cancelComment(form) {
+        function cancelComment(myform) {
             c.newCommentText = '';
-            $scope.app.resetForm(form);
+            myform.$setPristine();
+            myform.$setUntouched();
+            //$scope.app.resetForm(form);
             c.showButtons = false;
         }
 
         function cancelReply(form, comment) {
             c.newCommentReplyText = '';
-            $scope.app.resetForm(form);
+            form.$setPristine();
+            form.$setUntouched();
             comment.showFrom = false;
         }
 

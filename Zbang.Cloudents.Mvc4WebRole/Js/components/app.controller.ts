@@ -2,11 +2,11 @@
     "use strict";
     export interface IAppController {
         back(defaultUrl: string);
-        logOut();
+        //logOut();
         toggleMenu();
         showToaster(text: string, parentId?: string);
         openMenu($mdOpenMenu: any, ev: Event);
-        resetForm(myform: angular.IFormController);
+        //resetForm(myform: angular.IFormController);
     }
 
     class AppController implements IAppController {
@@ -44,13 +44,7 @@
 
             $rootScope.$on("$stateChangeStart",
                 (event: angular.IAngularEvent, toState: angular.ui.IState,
-                    toParams: spitaball.ISpitballStateParamsService, fromState: angular.ui.IState,
-                    fromParams: spitaball.ISpitballStateParamsService) => {
-                    //if (!fromState.name) {
-                    //    return;
-                    //}
-
-                    //$urlRouter.sync();
+                    toParams: spitaball.ISpitballStateParamsService) => {
                     // can't access anonymous user
                     if (toState.name === "user" && toParams.userId === 22886) {
                         event.preventDefault();
@@ -126,12 +120,7 @@
             this.$state.go(element.name, element.params);
         };
 
-        logOut = () => {
-            // we want to remove the user data and not the html
-            sessionStorage.clear();
-            //this.cacheFactory.clearAll();
-            Intercom("shutdown");
-        };
+       
 
         toggleMenu = () => {
             this.$rootScope.$broadcast("open-menu");
@@ -154,7 +143,6 @@
 
 
         openMenu = ($mdOpenMenu: any, ev: Event) => {
-            // this.menuOpened = true;
             if (!this.userDetails.isAuthenticated()) {
                 this.$rootScope.$broadcast("show-unregisterd-box");
                 return;
@@ -162,10 +150,10 @@
             $mdOpenMenu(ev);
         };
 
-        resetForm(myform: angular.IFormController) {
-            myform.$setPristine();
-            myform.$setUntouched();
-        };
+        //resetForm(myform: angular.IFormController) {
+        //    myform.$setPristine();
+        //    myform.$setUntouched();
+        //};
     }
     angular.module("app").controller("AppController", AppController);
 

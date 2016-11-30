@@ -5,24 +5,30 @@
 
     function userDetailsController(accountService, $scope, userDetails) {
         var ud = this;
-       
+
         var response = userDetails.get();
         if (response.id) {
             assignValues(response);
             $scope.$on('userDetailsChange',
-                function() {
+                function () {
                     assignValues(userDetails.get());
                 });
-            
-            
-           
+
+
+
         }
+
         else {
-            ud.signup = function(e) {
+            ud.signup = function (e) {
                 var url = getParameterByName('returnUrl', e.target.href);
                 e.target.href = e.target.href.replace(encodeURIComponent(url), encodeURIComponent(window.location.href));
             }
         }
+        ud.logOut = function () {
+            // we want to remove the user data and not the html
+            sessionStorage.clear();
+            Intercom("shutdown");
+        };
         function assignValues(response) {
             ud.id = response.id;
             ud.name = response.name;

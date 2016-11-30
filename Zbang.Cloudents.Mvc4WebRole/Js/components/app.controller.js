@@ -24,10 +24,6 @@ var app;
                 _this.$rootScope.$broadcast("from-back");
                 _this.$state.go(element.name, element.params);
             };
-            this.logOut = function () {
-                sessionStorage.clear();
-                Intercom("shutdown");
-            };
             this.toggleMenu = function () {
                 _this.$rootScope.$broadcast("open-menu");
             };
@@ -59,7 +55,7 @@ var app;
             $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
                 console.error(error);
             });
-            $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
+            $rootScope.$on("$stateChangeStart", function (event, toState, toParams) {
                 if (toState.name === "user" && toParams.userId === 22886) {
                     event.preventDefault();
                     $rootScope.$broadcast("state-change-start-prevent");
@@ -123,11 +119,6 @@ var app;
                 }
             });
         }
-        AppController.prototype.resetForm = function (myform) {
-            myform.$setPristine();
-            myform.$setUntouched();
-        };
-        ;
         AppController.$inject = ["$rootScope", "$location",
             "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
             "CacheFactory",

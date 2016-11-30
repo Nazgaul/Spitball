@@ -30,8 +30,8 @@ var app;
         ;
         CreateBoxController.prototype.cancel = function (myform) {
             this.boxName = '';
-            var appController = this.$scope["app"];
-            appController.resetForm(myform);
+            myform.$setPristine();
+            myform.$setUntouched();
             this.$scope["d"].createBoxOn = false;
         };
         CreateBoxController.$inject = ['dashboardService', '$location', '$scope', '$rootScope', 'resManager'];

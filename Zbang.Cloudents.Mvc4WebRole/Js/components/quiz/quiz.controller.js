@@ -329,7 +329,8 @@
                 if (!question.comments) {
                     question.comments = [];
                 }
-                $scope.app.resetForm(myform);
+                myform.$setPristine();
+                myform.$setUntouched();
                 question.newComment = '';
                 comment.id = id;
                 question.comments.unshift(comment);
