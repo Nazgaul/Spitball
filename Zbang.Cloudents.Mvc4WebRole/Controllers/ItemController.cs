@@ -88,10 +88,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 ViewBag.title =
                     $"{model.BoxName} - {model.DepartmentName} - {model.Name} | {SeoBaseUniversityResources.Cloudents}";
 
-                ViewBag.metaDescription = SeoBaseUniversityResources.ItemMataDescription;
+                ViewBag.metaDescription = SeoBaseUniversityResources.ItemMetaDescription;
                 if (!string.IsNullOrEmpty(model.Description))
                 {
-                    ViewBag.metaDescription += model.Description.RemoveEndOfString(100);
+                    ViewBag.metaDescription += ":" + model.Description.RemoveEndOfString(100);
                 }
                 ViewBag.metaDescription = Server.HtmlDecode(ViewBag.metaDescription);
                 return View("Empty");

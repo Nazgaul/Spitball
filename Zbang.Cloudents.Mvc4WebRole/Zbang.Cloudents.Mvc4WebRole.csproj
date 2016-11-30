@@ -1192,6 +1192,7 @@
     <Content Include="Gruntfile.js" />
     <Content Include="gulpfile.js" />
     <Content Include="Images\3rdParty\fbShare.png" />
+    <Content Include="Images\3rdParty\fbFlashcard.png" />
     <Content Include="Images\3rdParty\logo_120_4_google.png" />
     <Content Include="Images\aboutUs\aboutBg.jpg" />
     <Content Include="Images\aboutUs\dean.png" />
@@ -1434,7 +1435,6 @@
     <Content Include="Js\shared\soundAlert.directive.js" />
     <Content Include="Js\shared\languageHandler.js" />
     <Content Include="Js\shared\keyboardAction.directive.js" />
-    <Content Include="Js\shared\menuAd.directive.js" />
     <Content Include="Js\shared\pagingOnScroll.directive.js" />
     <Content Include="Js\shared\scrollToTop.directive.js" />
     <Content Include="Js\signin\backgroundimage.js" />
@@ -2684,6 +2684,7 @@
     <EmbeddedResource Include="Controllers\Resources\SeoBaseUniversityResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SeoBaseUniversityResources1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\Resources\SeoResources.he.resx" />
     <EmbeddedResource Include="Controllers\Resources\SeoResources.resx">

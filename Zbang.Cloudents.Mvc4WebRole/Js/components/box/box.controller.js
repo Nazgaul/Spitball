@@ -3,7 +3,7 @@ var app;
     "use strict";
     var boxId;
     var BoxController = (function () {
-        function BoxController($state, $stateParams, boxData, $scope, $rootScope, user, resManager, boxService, ajaxService2, $timeout, $window, userUpdatesService) {
+        function BoxController($state, $stateParams, boxData, $scope, $rootScope, user, resManager, boxService, ajaxService2, $timeout, $window, userUpdatesService, shareService) {
             var _this = this;
             this.$state = $state;
             this.$stateParams = $stateParams;
@@ -17,9 +17,7 @@ var app;
             this.$timeout = $timeout;
             this.$window = $window;
             this.userUpdatesService = userUpdatesService;
-            if ($state.current.name === "box") {
-                $state.go("box.feed", $stateParams, { location: "replace" });
-            }
+            this.shareService = shareService;
             boxId = $stateParams.boxId;
             this.data = boxData;
             this.showLeaderboard = this.isAcademic = boxData.boxType === "academic" || boxData.boxType === "academicClosed";
@@ -46,6 +44,9 @@ var app;
                 }
                 userUpdatesService.deleteUpdates(boxId);
             };
+            $scope.$on("$destroy", function () {
+                $window.onbeforeunload = null;
+            });
         }
         BoxController.prototype.follow = function () {
             var _this = this;
@@ -120,9 +121,13 @@ var app;
             }
             return false;
         };
+        BoxController.prototype.share = function () {
+            this.settingsOpen = this.inviteOpen = false;
+            this.shareService.shareDialog("b", boxId);
+        };
         BoxController.$inject = ["$state", "$stateParams", "boxData", "$scope",
             "$rootScope", "user", "resManager", "boxService", "ajaxService2",
-            "$timeout", "$window", "userUpdatesService"];
+            "$timeout", "$window", "userUpdatesService", "shareService"];
         return BoxController;
     }());
     angular.module('app.box').controller('BoxController', BoxController);

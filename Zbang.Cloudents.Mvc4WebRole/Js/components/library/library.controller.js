@@ -245,7 +245,8 @@
         }
         function resetFiled(myform) {
             l.departmentName = l.boxName = l.code = l.professor = '';
-            $scope.app.resetForm(myform);
+            myform.$setPristine();
+            myform.$setUntouched();
         }
         function departmentCancel(myform) {
             resetFiled(myform);

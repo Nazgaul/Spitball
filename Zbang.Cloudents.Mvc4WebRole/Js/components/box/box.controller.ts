@@ -14,7 +14,7 @@
     class BoxController {
         static $inject = ["$state", "$stateParams", "boxData", "$scope",
             "$rootScope", "user", "resManager", "boxService", "ajaxService2",
-            "$timeout", "$window", "userUpdatesService"];
+            "$timeout", "$window", "userUpdatesService","shareService"];
         data;
         showLeaderboard;
         isAcademic;
@@ -43,11 +43,10 @@
             private ajaxService2: IAjaxService2,
             private $timeout: angular.ITimeoutService,
             private $window: angular.IWindowService,
-            private userUpdatesService: IUserUpdatesService
+            private userUpdatesService: IUserUpdatesService,
+            private shareService: IShareService
         ) {
-            if ($state.current.name === "box") {
-                $state.go("box.feed", $stateParams, { location: "replace" });
-            }
+           
             boxId = $stateParams.boxId;
             this.data = boxData;
             this.showLeaderboard = this.isAcademic = boxData.boxType === "academic" || boxData.boxType === "academicClosed";
@@ -79,8 +78,15 @@
                     return;
                 }
                 userUpdatesService.deleteUpdates(boxId);
-
             };
+            $scope.$on("$destroy",
+                () => {
+                    $window.onbeforeunload = null;
+                });
+            //if ($state.current.name === "box") {
+            //    $state.go(".feed", $stateParams, { location: "replace", notify: false });
+            //}
+
         }
         follow() {
             if (!this.user.id) {
@@ -188,30 +194,30 @@
             }
             return this.ajaxService2.getHtml('/box/boxsettings/').then(response => {
                 this.settingsHtml = response;
-        //        this.$timeout(() => {
-        //            this.$rootScope.$broadcast('close-collapse');
-        //            this.settingsOpen = true;
+                //        this.$timeout(() => {
+                //            this.$rootScope.$broadcast('close-collapse');
+                //            this.settingsOpen = true;
 
-        //            this.settings = this.settings || {};
-        //            //boxType
-        //            //privacySetting
+                //            this.settings = this.settings || {};
+                //            //boxType
+                //            //privacySetting
 
-        //            this.settings.name = this.data.name;
-        //            this.settings.needFollow = this.needFollow;
-        //            this.settings.submitDisabled = false;
-        //            if (this.isAcademic) {
-        //                this.settings.courseId = this.data.courseId;
-        //                this.settings.professorName = this.data.professorName;
-        //            } else if (this.owner) {
-        //                this.settings.privacy = this.data.privacySetting;
-        //            }
+                //            this.settings.name = this.data.name;
+                //            this.settings.needFollow = this.needFollow;
+                //            this.settings.submitDisabled = false;
+                //            if (this.isAcademic) {
+                //                this.settings.courseId = this.data.courseId;
+                //                this.settings.professorName = this.data.professorName;
+                //            } else if (this.owner) {
+                //                this.settings.privacy = this.data.privacySetting;
+                //            }
 
-        //            if (!this.settings.notificationSettings) {
-        //                this.boxService.notification(boxId).then(response2 => {
-        //                    this.settings.notificationSettings = response2;
-        //                });
-        //            }
-        //        });
+                //            if (!this.settings.notificationSettings) {
+                //                this.boxService.notification(boxId).then(response2 => {
+                //                    this.settings.notificationSettings = response2;
+                //                });
+                //            }
+                //        });
             });
 
         }
@@ -223,6 +229,11 @@
                 return true;
             }
             return false;
+        }
+
+        share() {
+            this.settingsOpen = this.inviteOpen = false;
+            this.shareService.shareDialog("b", boxId);
         }
 
 

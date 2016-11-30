@@ -1,8 +1,8 @@
 ﻿(function () {
     'use strict';
     angular.module('app').config(config);
-    config.$inject = ['$stateProvider'];
-    function config($stateProvider) {
+    config.$inject = ['$stateProvider', "$urlRouterProvider"];
+    function config($stateProvider, $urlRouterProvider) {
 
         $stateProvider
             .state("root", {
@@ -58,6 +58,9 @@
                 }
                 //template: '<div class="page-animation" ui-view animation-class></div>'
             });
+        $urlRouterProvider.when('/{boxtype:box|course}/{universityType:encodeStr}/{boxId:int}/{boxName:encodeStr}/?{invId}', '/{boxtype:box|course}/{universityType:encodeStr}/{boxId:int}/{boxName:encodeStr}/feed/?{invId}');
+        $urlRouterProvider.when('/account/settings/', '/account/settings/info/');
+
         //$urlRouterProvider.otherwise('/dashboard/');
     }
 })();

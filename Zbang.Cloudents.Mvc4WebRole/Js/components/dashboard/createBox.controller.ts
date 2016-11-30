@@ -38,8 +38,10 @@
 
         cancel(myform: angular.IFormController) {
             this.boxName = '';
-            const appController: IAppController = this.$scope["app"];
-            appController.resetForm(myform);
+
+            myform.$setPristine();
+            myform.$setUntouched();
+            
             this.$scope["d"].createBoxOn = false;
         }
     }

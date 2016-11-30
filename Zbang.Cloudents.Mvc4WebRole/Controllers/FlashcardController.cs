@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Routing;
 using DevTrends.MvcDonutCaching;
+using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
+using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
@@ -43,8 +45,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [Route("flashcard/{universityName}/{boxId:long}/{boxName}/{flashcardId:long}/{flashcardName}", Name = "Flashcard")]
-        public ActionResult Index()
+        public async Task<ViewResult> IndexAsync(long flashcardId)
         {
+            ViewBag.fbImage = Url.CdnContent("/images/3rdParty/fbFlashcard.png");
+            ViewBag.imageSrc = Url.CdnContent("/images/3rdParty/fbFlashcard.png");
+            var query = new GetFlashcardSeoQuery(flashcardId);
+            var model = await ZboxReadService.GetFlashcardUrlAsync(query);
+            ViewBag.metaDescription = string.Format(SeoBaseUniversityResources.FlashcardMetaDescription, model.Name, model.BoxName);
+
             return View("Empty");
         }
 
@@ -56,7 +64,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var model = await ZboxReadService.GetFlashcardUrlAsync(query);
             if (model == null)
             {
-                return RedirectToAction("NotFound","Error");
+                return RedirectToAction("NotFound", "Error");
             }
             return RedirectToRoutePermanent("Flashcard", new RouteValueDictionary
             {

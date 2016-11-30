@@ -234,7 +234,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                      new JsFileWithCdn("~/js/components/box/box.controller.js"),
                      new JsFileWithCdn("~/js/components/box/boxSettings.controller.js"),
                      new JsFileWithCdn("~/js/components/box/tab.controller.js"),
-                     new JsFileWithCdn("~/js/components/box/shareBox.directive.js"),
+                     //new JsFileWithCdn("~/js/components/box/shareBox.directive.js"),
                      new JsFileWithCdn("~/js/components/box/feed.controller.js"),
                      new JsFileWithCdn("~/js/components/box/feed.likes.controller.js"),
                      new JsFileWithCdn("~/js/components/box/item.controller.js"),
@@ -342,7 +342,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/scrollToTop.directive.js"),
                         new JsFileWithCdn("~/js/shared/collapseHeader.directive.js"),
                         new JsFileWithCdn("~/js/shared/keyboardAction.directive.js"),
-                        //new JsFileWithCdn("~/js/shared/menuAd.directive.js"),
                         new JsFileWithCdn("~/js/shared/cartAnimation.directive.js"),
 
 
