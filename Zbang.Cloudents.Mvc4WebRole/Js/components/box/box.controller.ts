@@ -14,7 +14,7 @@
     class BoxController {
         static $inject = ["$state", "$stateParams", "boxData", "$scope",
             "$rootScope", "user", "resManager", "boxService", "ajaxService2",
-            "$timeout", "$window", "userUpdatesService"];
+            "$timeout", "$window", "userUpdatesService","shareService"];
         data;
         showLeaderboard;
         isAcademic;
@@ -43,7 +43,8 @@
             private ajaxService2: IAjaxService2,
             private $timeout: angular.ITimeoutService,
             private $window: angular.IWindowService,
-            private userUpdatesService: IUserUpdatesService
+            private userUpdatesService: IUserUpdatesService,
+            private shareService: IShareService
         ) {
            
             boxId = $stateParams.boxId;
@@ -228,6 +229,11 @@
                 return true;
             }
             return false;
+        }
+
+        share() {
+            this.settingsOpen = this.inviteOpen = false;
+            this.shareService.shareDialog("b", boxId);
         }
 
 
