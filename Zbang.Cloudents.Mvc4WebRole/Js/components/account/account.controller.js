@@ -7,9 +7,9 @@
         var self = this;
 
         self.canChangePassword = userData.system;
-        if ($state.current.name === 'settings') {
-            $state.go('settings.profile', $stateParams, { location: "replace" });
-        }
+        //if ($state.current.name === 'settings') {
+        //    $state.go('settings.profile', $stateParams, { location: "replace", notify: false });
+        //}
       
         self.isActiveState = isActiveState;
         self.needChangePassword = userData.system;

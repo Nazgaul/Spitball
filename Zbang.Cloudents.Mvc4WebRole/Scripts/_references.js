@@ -88,7 +88,6 @@
 /// <reference path="../js/shared/keyboardaction.directive.js" />
 /// <reference path="../js/shared/languagehandler.js" />
 /// <reference path="../js/shared/meganumbers.js" />
-/// <reference path="../js/shared/menuad.directive.js" />
 /// <reference path="../js/shared/multiswitchwhen.directive.js" />
 /// <reference path="../js/shared/pagingonscroll.directive.js" />
 /// <reference path="../js/shared/removekeyboard.js" />

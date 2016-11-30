@@ -17,9 +17,6 @@ var app;
             this.$timeout = $timeout;
             this.$window = $window;
             this.userUpdatesService = userUpdatesService;
-            if ($state.current.name === "box") {
-                $state.go("box.feed", $stateParams, { location: "replace" });
-            }
             boxId = $stateParams.boxId;
             this.data = boxData;
             this.showLeaderboard = this.isAcademic = boxData.boxType === "academic" || boxData.boxType === "academicClosed";
@@ -46,6 +43,9 @@ var app;
                 }
                 userUpdatesService.deleteUpdates(boxId);
             };
+            $scope.$on("$destroy", function () {
+                $window.onbeforeunload = null;
+            });
         }
         BoxController.prototype.follow = function () {
             var _this = this;

@@ -51,9 +51,7 @@ var app;
                 }
                 $mdOpenMenu(ev);
             };
-            this.showBoxAd = false;
-            $rootScope.$on("$stateChangeSuccess", function (event, toState) {
-                _this.showBoxAd = toState.parent === "box";
+            $rootScope.$on("$stateChangeSuccess", function () {
                 var path = $location.path(), absUrl = $location.absUrl(), virtualUrl = absUrl.substring(absUrl.indexOf(path));
                 window["dataLayer"].push({ event: "virtualPageView", virtualUrl: virtualUrl });
                 __insp.push(["virtualPage"]);
@@ -70,18 +68,6 @@ var app;
                 $mdToast.hide();
                 $rootScope.$broadcast("close-menu");
                 $rootScope.$broadcast("close-collapse");
-                var toStateName = toState.name;
-                if (fromParams.boxId && toParams.boxId) {
-                    if (fromParams.boxId === toParams.boxId && toStateName === "box"
-                        && fromState.name.startsWith("box")) {
-                        event.preventDefault();
-                        $rootScope.$broadcast("state-change-start-prevent");
-                    }
-                }
-                if (toStateName === "settings" && fromState.name.startsWith("settings")) {
-                    event.preventDefault();
-                    $rootScope.$broadcast("state-change-start-prevent");
-                }
                 checkUniversityChoose();
                 function checkUniversityChoose() {
                     var details = userDetails.get();
@@ -91,7 +77,7 @@ var app;
                         }
                         if (!details.university.id) {
                             var userWithNoUniversityState = "universityChoose";
-                            if (toStateName !== userWithNoUniversityState) {
+                            if (toState.name !== userWithNoUniversityState) {
                                 $rootScope.$broadcast("state-change-start-prevent");
                                 event.preventDefault();
                             }

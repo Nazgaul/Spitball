@@ -15,10 +15,6 @@
             "CacheFactory",
             "sbHistory", "$state", "dashboardService"];
 
-
-        private showBoxAd: boolean;
-
-
         constructor(private $rootScope: angular.IRootScopeService,
             private $location: angular.ILocationService,
             private userDetails: IUserDetailsFactory,
@@ -31,18 +27,7 @@
             private $state: angular.ui.IStateService,
             private dashboardService: IDashboardService
         ) {
-
-            // directive with menu
-            // $rootScope.$on("$mdMenuClose", () => {
-            //    this.menuOpened = false;
-            // });
-
-            // this.showMenu = true;
-            this.showBoxAd = false;
-
-            $rootScope.$on("$stateChangeSuccess", (event: angular.IAngularEvent, toState: angular.ui.IState
-               /* toParams: ISpitballStateParamsService*/) => {
-                this.showBoxAd = toState.parent === "box";
+            $rootScope.$on("$stateChangeSuccess", () => {
                 var path = $location.path(),
                     absUrl = $location.absUrl(),
                     virtualUrl = absUrl.substring(absUrl.indexOf(path));
@@ -56,7 +41,7 @@
                     fromState: angular.ui.IState, fromParams: angular.ui.IStateParamsService, error) => {
                     console.error(error);
                 });
-            
+
             $rootScope.$on("$stateChangeStart",
                 (event: angular.IAngularEvent, toState: angular.ui.IState,
                     toParams: spitaball.ISpitballStateParamsService, fromState: angular.ui.IState,
@@ -75,26 +60,8 @@
                     $mdToast.hide(); // hide toasters
                     $rootScope.$broadcast("close-menu");
                     $rootScope.$broadcast("close-collapse");
-                    var toStateName = toState.name;
-                    //if (toStateName !== "searchinfo") {
-                    //    $rootScope.$broadcast("search-close");
-                    //}
-                    // TODO remove this to box controller
-                    if (fromParams.boxId && toParams.boxId) {
-                        if (fromParams.boxId === toParams.boxId && toStateName === "box"
-                            && fromState.name.startsWith("box")) {
-                            event.preventDefault();
-                            $rootScope.$broadcast("state-change-start-prevent");
-                        }
-                    }
 
-                    // TODO remove this to settings controller
-                    if (toStateName === "settings" && fromState.name.startsWith("settings")) {
-                        event.preventDefault();
-                        $rootScope.$broadcast("state-change-start-prevent");
-                    }
                     checkUniversityChoose();
-                    //checkNumberOfBoxes();
 
                     function checkUniversityChoose() {
                         const details = userDetails.get();
@@ -105,7 +72,7 @@
                             // TODO remove that to university choose controller
                             if (!details.university.id) {
                                 var userWithNoUniversityState = "universityChoose";
-                                if (toStateName !== userWithNoUniversityState) {
+                                if (toState.name !== userWithNoUniversityState) {
                                     $rootScope.$broadcast("state-change-start-prevent");
                                     event.preventDefault();
                                 }
@@ -143,15 +110,10 @@
                             dashboardService.getBoxes()
                                 .then(() => {
                                     $state.go(toState, toParams);
-                                    //$urlRouter.sync();
-
                                 });
                         }
                     }
-                    //event.preventDefault();
-
                 });
-
         }
 
         back = (defaultUrl: string) => {
@@ -184,8 +146,6 @@
                 .textContent(text)
                 .position("top right")
                 .parent(element)
-
-                //.theme(theme)
                 .hideDelay(2000);
             // typedef doesnt have definition of toastClass
             toaster.toastClass("angular-animate");

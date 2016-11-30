@@ -1435,7 +1435,6 @@
     <Content Include="Js\shared\soundAlert.directive.js" />
     <Content Include="Js\shared\languageHandler.js" />
     <Content Include="Js\shared\keyboardAction.directive.js" />
-    <Content Include="Js\shared\menuAd.directive.js" />
     <Content Include="Js\shared\pagingOnScroll.directive.js" />
     <Content Include="Js\shared\scrollToTop.directive.js" />
     <Content Include="Js\signin\backgroundimage.js" />
