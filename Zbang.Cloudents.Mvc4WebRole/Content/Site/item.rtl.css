@@ -181,9 +181,6 @@ md-menu-item.blue svg {
   padding-top: 90px;
 }
 @media (min-width: 960px) {
-  .itemPage .item-content {
-    padding-right: 95px;
-  }
 }
 .itemPage .fileName {
   text-align: center;
@@ -297,8 +294,8 @@ md-menu-item.blue svg {
 .itemPage .iframeContent {
   border: 0;
   height: calc(100vh - 175px);
-  width: calc(100% - 155px);
-  max-width: 800px;
+  width: calc(100% - 40px);
+  max-width: 760px;
   background: #fff;
 }
 @media (max-width: 600px) {
@@ -529,7 +526,7 @@ md-menu-item.blue svg {
   -o-transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
-  left: calc(50% - 440px);
+  left: calc(50% - 400px);
 }
 @media (max-width: 960px) {
   .itemPage .arrow.next {
@@ -542,7 +539,7 @@ md-menu-item.blue svg {
   -o-transform: rotate(0);
   -webkit-transform: rotate(0);
   transform: rotate(0);
-  right: calc(50% - 450px);
+  right: calc(50% - 470px);
 }
 @media (max-width: 960px) {
   .itemPage .arrow.prev {
