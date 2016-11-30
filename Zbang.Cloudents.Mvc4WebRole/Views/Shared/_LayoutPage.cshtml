@@ -1,9 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Zbox.Infrastructure.Extensions
-
 @{
-
-    //const string svgUrl = "~/images/site/icons.svg";
     var shouldPostBack = @ViewBag.postBag == true ? "target=_self" : string.Empty;
     var logoLink = Url.Action("Index", "dashboard"); //: Url.RouteUrl("homePage");
 }
