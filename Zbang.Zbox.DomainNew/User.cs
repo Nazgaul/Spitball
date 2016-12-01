@@ -4,7 +4,6 @@ using System.Linq;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Culture;
-using Zbang.Zbox.Infrastructure.IdGenerator;
 using System.Text;
 using Zbang.Zbox.Infrastructure;
 
@@ -109,6 +108,7 @@ namespace Zbang.Zbox.Domain
         public virtual DateTime? LastAccessTime { get; set; }
 
         public virtual int Reputation { get; set; }
+        public virtual int Score { get; set; }
 
         //public virtual RussianDepartment RussianDepartment { get; set; }
 

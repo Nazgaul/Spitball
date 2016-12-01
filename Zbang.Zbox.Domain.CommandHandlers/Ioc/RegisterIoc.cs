@@ -69,7 +69,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandlerAsync<AddItemCommentCommand>), typeof(AddItemCommentCommandHandler));
             ioc.RegisterType(typeof(ICommandHandlerAsync<AddItemReplyToCommentCommand>), typeof(AddItemReplyToCommentCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<DeleteItemCommentCommand>), typeof(DeleteItemCommentCommandHandler));
-            ioc.RegisterType(typeof(ICommandHandlerAsync<DeleteItemCommentReplyCommand>), typeof(DeleteItemCommentReplyCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandler<DeleteItemCommentReplyCommand>), typeof(DeleteItemCommentReplyCommandHandler));
 
 
             ioc.RegisterType(typeof(ICommandHandler<CreateItemTabCommand>), typeof(CreateItemTabCommandHandler));
@@ -84,7 +84,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
 
 
             //statistics
-            ioc.RegisterType(typeof(ICommandHandler<UpdateStatisticsCommand>), typeof(UpdateStatisticsCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandlerAsync<UpdateStatisticsCommand>), typeof(UpdateStatisticsCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<UpdateReputationCommand>), typeof(UpdateReputationCommandHandler));
 
             //create university app
@@ -97,8 +97,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandlerAsync<AddReplyToCommentCommand>), typeof(AddReplyToCommentCommandHandler));
             ioc.RegisterType(typeof(ICommandHandlerAsync<DeleteCommentCommand>), typeof(DeleteCommentCommandHandler));
             ioc.RegisterType(typeof(ICommandHandlerAsync<DeleteReplyCommand>), typeof(DeleteReplyCommandHandler));
-            ioc.RegisterType(typeof(ICommandHandler<LikeCommentCommand, LikeCommentCommandResult>), typeof(LikeCommentCommandHandler));
-            ioc.RegisterType(typeof(ICommandHandler<LikeReplyCommand, LikeReplyCommandResult>), typeof(LikeReplyCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandlerAsync<LikeCommentCommand, LikeCommentCommandResult>), typeof(LikeCommentCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandlerAsync<LikeReplyCommand, LikeReplyCommandResult>), typeof(LikeReplyCommandHandler));
 
             //message
             ioc.RegisterType(typeof(ICommandHandlerAsync<ShareBoxCommand>), typeof(ShareBoxCommandHandler));
@@ -118,7 +118,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
                 .RegisterType(typeof(ICommandHandler<CreateQuestionCommand>), typeof(CreateQuestionCommandHandler))
                 .RegisterType(typeof(ICommandHandlerAsync<SaveQuizCommand, SaveQuizCommandResult>),
                     typeof(SaveQuizCommandHandler))
-                .RegisterType(typeof(ICommandHandler<SaveUserQuizCommand>), typeof(SaveUserQuizCommandHandler))
+                .RegisterType(typeof(ICommandHandlerAsync<SaveUserQuizCommand>), typeof(SaveUserQuizCommandHandler))
                 .RegisterType(typeof(ICommandHandlerAsync<CreateDiscussionCommand>),
                     typeof(CreateDiscussionCommandHandler))
                 .RegisterType(typeof(ICommandHandler<DeleteDiscussionCommand>), typeof(DeleteDiscussionCommandHandler));
@@ -168,9 +168,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandler<DeleteFlashcardPinCommand>),
         typeof(DeleteFlashcardPinCommandHandler));
 
-            ioc.RegisterType(typeof(ICommandHandler<AddFlashcardLikeCommand>),
+            ioc.RegisterType(typeof(ICommandHandlerAsync<AddFlashcardLikeCommand>),
        typeof(AddFlashcardLikeCommandHandler));
-            ioc.RegisterType(typeof(ICommandHandler<DeleteFlashcardLikeCommand>),
+            ioc.RegisterType(typeof(ICommandHandlerAsync<DeleteFlashcardLikeCommand>),
       typeof(DeleteFlashcardLikeCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<SaveUserFlashcardCommand>),
      typeof(SaveUserFlashcardCommandHandler));

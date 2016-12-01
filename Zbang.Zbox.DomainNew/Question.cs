@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Domain
             }
             Text = text?.Trim(); ;
             Quiz = quiz;
-            DateTimeUser = new UserTimeDetails(quiz.Owner.Id);
+            DateTimeUser = new UserTimeDetails(quiz.User.Id);
         }
         public virtual Guid Id { get; private set; }
         public virtual Quiz Quiz { get; private set; }

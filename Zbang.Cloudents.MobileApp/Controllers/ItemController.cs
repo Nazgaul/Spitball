@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Net.Http;
@@ -10,7 +9,6 @@ using Zbang.Cloudents.MobileApp.DataObjects;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure.Azure.Blob;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
@@ -56,14 +54,13 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             var tItem = m_ZboxReadService.GetItemDetailApiAsync(query);
 
             var tTransAction = m_QueueProvider.InsertMessageToTranactionAsync(
-                  new StatisticsData4(new List<StatisticsData4.StatisticItemData>
-                    {
+                  new StatisticsData4(
                         new StatisticsData4.StatisticItemData
                         {
                             Id = id,
                             Action = (int)StatisticsAction.View
                         }
-                    }));
+                    , userId));
 
             await Task.WhenAll(tItem, tTransAction);
             var retVal = tItem.Result;
@@ -111,14 +108,13 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             m_ZboxWriteService.SubscribeToSharedBox(autoFollowCommand);
 
             var t1 = m_QueueProvider.InsertMessageToTranactionAsync(
-                   new StatisticsData4(new List<StatisticsData4.StatisticItemData>
-                    {
+                   new StatisticsData4(
                         new StatisticsData4.StatisticItemData
                         {
                             Id = id,
                             Action = (int)StatisticsAction.Download
                         }
-                    }));
+                    , userId));
 
             await Task.WhenAll(t1, t2);
             var item = t2.Result;
@@ -152,7 +148,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/item/upload")]
         public string UploadLink(string blob, string mimeType)
         {
-           return m_BlobProviderFiles.GenerateSharedAccessWritePermission(blob, mimeType);
+            return m_BlobProviderFiles.GenerateSharedAccessWritePermission(blob, mimeType);
             //return m_BlobUpload.GenerateWriteAccessPermissionToBlob(blob, mimeType);
         }
         // ReSharper disable once ConsiderUsingAsyncSuffix - api call
@@ -272,7 +268,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         }
         [Route("api/item/upload/commit")]
         [HttpPost]
-        public async Task<HttpResponseMessage> CommitFile(FileUploadRequest model)
+        public async Task<HttpResponseMessage> CommitFileAsync(FileUploadRequest model)
         {
             if (model == null)
             {

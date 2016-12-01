@@ -4,7 +4,7 @@ using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands.Quiz
 {
-    public class SaveUserQuizCommand : ICommand
+    public class SaveUserQuizCommand : ICommandAsync
     {
         public SaveUserQuizCommand(IEnumerable<UserAnswers> answers, long userId, long quizId, TimeSpan timeTaken, long boxId)
         {

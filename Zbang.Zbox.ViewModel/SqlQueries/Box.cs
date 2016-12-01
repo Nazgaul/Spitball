@@ -82,14 +82,14 @@ order by x desc;
 ";
 
         public const string LeaderBoard = @"
-select top(3) u.userid as id, u.UserImageLarge as image, coalesce(u.FirstName,u.username) as name, u.UserReputation as score, u.Url as Url
+select top(3) u.userid as id, u.UserImageLarge as image, coalesce(u.FirstName,u.username) as name, u.score as score, u.Url as Url
 from zbox.userboxrel ub 
 join zbox.users u on ub.userid = u.userid
  where boxid = @BoxId
  and u.usertype <> 1
  and ub.UserType > 1
  and u.userreputation > 0
- order by userreputation desc;";
+ order by score desc;";
 
 
 
@@ -110,11 +110,11 @@ union
     FETCH NEXT @rowsperpage ROWS ONLY;";
 
 
-        public const string BoxMembersWithoutInvited = @" select top (@top) u.UserId as Id , u.UserImageLarge as Image, u.UserReputation
+        public const string BoxMembersWithoutInvited = @" select top (@top) u.UserId as Id , u.UserImageLarge as Image, u.Score
     from zbox.UserBoxRel ub 
 	    join zbox.users u on ub.UserId =  u.UserId
 	    where ub.BoxId=@BoxId
-		order by u.UserReputation desc";
+		order by u.Score desc";
 
         //TODO: improve the query
         public const string Items = @"

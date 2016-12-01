@@ -37,12 +37,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new UnauthorizedAccessException("User is unauthorized to delete annotation");
             }
-            //itemComment.Item.DecreaseNumberOfComments();
             itemComment.Item.ShouldMakeDirty = () => false;
             m_ItemRepository.Save(itemComment.Item);
             m_ItemCommentRepository.Delete(itemComment);
-            //return m_QueueProvider.InsertMessageToTranactionAsync(
-            //    new ReputationData(itemComment.GetUserIdReplies().Union(new[] {user.Id})));
            
         }
     }

@@ -63,7 +63,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
                 UserRepository.Save(invite.Sender);
                 m_InviteToCloudentsRepository.Save(invite);
-                //list.Add(m_QueueRepository.InsertMessageToTranactionAsync(new ReputationData(invite.Sender.Id)));
 
                 var inviteToBox = invite as InviteToBox;
                 if (inviteToBox != null)

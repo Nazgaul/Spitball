@@ -43,7 +43,7 @@ namespace Zbang.Zbox.Domain
 
 
         public virtual bool IsDirty { get; set; }
-        public Func<bool> ShouldMakeDirty { get; set; }
+        public virtual Func<bool> ShouldMakeDirty { get; set; }
 
         public virtual UserTimeDetails DateTimeUser { get; private set; }
 

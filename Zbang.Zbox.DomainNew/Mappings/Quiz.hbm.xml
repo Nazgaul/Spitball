@@ -12,10 +12,11 @@
     <property name="Content" not-null="false"></property>
     <property name="Rate" not-null="true"></property>
     <property name="NumberOfViews" not-null="true"></property>
+    <property name="LikeCount" not-null="true"></property>
+    <property name="SolveCount" not-null="true"></property>
     <property name="Url" not-null="false" length="8000"></property>
-    <!--<property name="Banner" length="8000"></property>-->
 
-    <many-to-one name="Owner" class="User" column="UserId" not-null="true" foreign-key="userIdQuiz"/>
+    <many-to-one name="User" class="User" column="UserId" not-null="true" foreign-key="userIdQuiz"/>
     <many-to-one name="Box" class="Box" column="BoxId" not-null="true" foreign-key="boxIdQuiz"/>
     <many-to-one column="QuestionId" class="Comment" name="Comment" />
 

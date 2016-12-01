@@ -32,7 +32,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var box = m_BoxRepository.Load(message.BoxId);
 
             var academicBox = box.Actual as AcademicBox;
-            var users = box.UserBoxRelationship.Select(s => s.User.Id).ToList();
+            //var users = box.UserBoxRelationship.Select(s => s.User.Id).ToList();
 
 
             if (academicBox != null)
@@ -50,8 +50,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
 
             m_BoxRepository.Delete(box);
-            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new QuotaData(users));
-            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(users));
+            var reputationItemUsers = box.Items.Where(w => !w.IsDeleted).Select(s=>s.UploaderId);
+            var reputationQuizUsers = box.Quizzes.Where(w => !w.IsDeleted).Select(s => s.User.Id);
+            var reputationFlashcardUsers = box.Flashcards.Where(w => !w.IsDeleted).Select(s => s.User.Id);
+            var reputationCommentUsers = box.Comments.Where(w => w.LikeCount > 0).Select(s => s.User.Id);
+            var reputationReplyUsers = box.Replies.Where(w => w.LikeCount > 0).Select(s => s.User.Id);
+            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new QuotaData(box.Items.Select(s=>s.UploaderId)));
+            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(
+                reputationItemUsers.Union(reputationQuizUsers)
+                .Union(reputationFlashcardUsers)
+                .Union(reputationCommentUsers)
+                .Union(reputationReplyUsers)
+                ));
             return Task.WhenAll(t1, t2);
         }
     }

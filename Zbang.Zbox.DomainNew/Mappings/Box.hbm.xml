@@ -55,6 +55,10 @@
       <key column="BoxId" />
       <one-to-many class="Comment"/>
     </bag>
+    <bag name="Replies" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key column="BoxId" />
+      <one-to-many class="CommentReply"/>
+    </bag>
 
     <bag name="Updates" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key column="BoxId" />

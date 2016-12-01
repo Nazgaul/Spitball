@@ -6,7 +6,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
    {
        public const string UserProfileWithStats = @"
 		select u.userid as Id, u.username as name, u.UserImageLarge as image,u.Online,
-                            u.userReputation as score, uu.universityname as universityName, u.url as Url
+                            u.score as score, uu.universityname as universityName, u.url as Url
                             from zbox.users u left join zbox.university uu on u.UniversityId = uu.id
                             where u.userid =@Myfriend;
     select count(*)
@@ -112,7 +112,7 @@ q.NumberOfViews as numOfViews
 
         #region Gamification
 
-       public const string GamificationBoard = @"select UserReputation as score from zbox.users
+       public const string GamificationBoard = @"select Score as score from zbox.users
 where userid = @userId";
 
        #endregion

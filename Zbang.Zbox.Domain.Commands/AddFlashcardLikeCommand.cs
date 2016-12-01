@@ -3,7 +3,7 @@ using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class AddFlashcardLikeCommand : ICommand
+    public class AddFlashcardLikeCommand : ICommandAsync
     {
         public AddFlashcardLikeCommand(long userId, long flashcardId)
         {

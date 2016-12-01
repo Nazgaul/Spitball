@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
-using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
@@ -55,16 +54,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 files = message.FilesIds.Select(s => m_ItemRepository.Load(s)).ToList();
             }
             var answer = new CommentReply(user, message.Text, box, message.Id, question, files);
-            //var reputation = user.AddReputation(ReputationAction.AddReply);
             question.ReplyCount++;
             question.DateTimeUser.UpdateUserTime(user.Id);
             box.UserTime.UpdateUserTime(user.Id);
             var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, answerId: answer.Id));
-            //var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(user.Id));
 
             m_QuestionRepository.Save(question);
             m_BoxRepository.Save(box);
-            //m_ReputationRepository.Save(reputation);
             m_AnswerRepository.Save(answer);
             m_UserRepository.Save(user);
             return Task.WhenAll(t1);

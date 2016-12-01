@@ -35,7 +35,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         }
 
 
-        public HttpResponseMessage Post(SaveUserAnswersRequests model)
+        public async Task<HttpResponseMessage> Post(SaveUserAnswersRequests model)
         {
             if (!ModelState.IsValid)
             {
@@ -49,7 +49,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 new SaveUserQuizCommand(
                   model.Answers.Select(s => new UserAnswers { AnswerId = s.AnswerId, QuestionId = s.QuestionId }),
                     User.GetUserId(), model.QuizId, TimeSpan.FromSeconds(model.NumberOfSeconds), model.BoxId);
-            m_ZboxWriteService.SaveUserAnswers(command);
+            await m_ZboxWriteService.SaveUserAnswersAsync(command);
 
             return Request.CreateResponse();
         }
@@ -61,14 +61,13 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             var tModel = m_ZboxReadService.GetQuizQuestionWithAnswersAsync(query);
 
             var tTransaction = m_QueueProvider.InsertMessageToTranactionAsync(
-                 new StatisticsData4(new List<StatisticsData4.StatisticItemData>
-                    {
+                 new StatisticsData4(
                         new StatisticsData4.StatisticItemData
                         {
                             Id = quizId,
                             Action = (int)Zbox.Infrastructure.Enums.StatisticsAction.Quiz
                         }
-                    }));
+                    , userId));
 
             await Task.WhenAll(tModel, tTransaction);
             return Request.CreateResponse(new

@@ -51,7 +51,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var comment = new ItemCommentReply(user, item, message.Comment, itemComment, id);
             m_ItemCommentReplyRepository.Save(comment);
             message.ReplyId = comment.Id;
-            //var t1 =  m_QueueRepository.InsertMessageToTranactionAsync(new ReputationData(user.Id));
             var t2 =
                 m_QueueRepository.InsertMessageToTranactionAsync(new UpdateData(user.Id, item.Box.Id,
                     itemDiscussionReplyId: comment.Id));

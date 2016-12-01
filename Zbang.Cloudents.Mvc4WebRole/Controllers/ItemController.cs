@@ -141,14 +141,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var tItem = ZboxReadService.GetItem2Async(query);
 
                 var tTransAction = m_QueueProvider.InsertMessageToTranactionAsync(
-                      new StatisticsData4(new List<StatisticsData4.StatisticItemData>
-                    {
+                      new StatisticsData4(
                         new StatisticsData4.StatisticItemData
                         {
                             Id = itemId,
                             Action = (int)StatisticsAction.View
                         }
-                    }));
+                    , userId));
 
                 var tContent = Zbox.Infrastructure.Extensions.TaskExtensions.CompletedTaskString;
                 if (firstTime.HasValue && firstTime.Value)
@@ -223,14 +222,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var query = new GetItemQuery(userId, itemId, boxId);
             var t1 = m_QueueProvider.InsertMessageToTranactionAsync(
-                   new StatisticsData4(new List<StatisticsData4.StatisticItemData>
-                    {
+                   new StatisticsData4(
                         new StatisticsData4.StatisticItemData
                         {
                             Id = itemId,
                             Action = (int)StatisticsAction.Download
                         }
-                    }));
+                    , userId));
             var t2 = ZboxReadService.GetItemDetailApiAsync(query);
 
             var userType = ViewBag.UserType as UserRelationshipType?;

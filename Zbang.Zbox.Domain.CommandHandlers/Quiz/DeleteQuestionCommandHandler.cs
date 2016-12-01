@@ -16,7 +16,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
             var question = m_QuestionRepository.Load(message.QuestionId);
-            if (question.Quiz.Owner.Id != message.UserId)
+            if (question.Quiz.User.Id != message.UserId)
             {
                 throw new UnauthorizedAccessException("User is not owner of quiz");
             }

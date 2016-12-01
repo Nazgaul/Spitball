@@ -85,7 +85,7 @@ namespace Zbang.Zbox.Domain.Common
         void CreateQuestion(CreateQuestionCommand command);
         void DeleteQuestion(DeleteQuestionCommand command);
         Task<SaveQuizCommandResult> SaveQuizAsync(SaveQuizCommand command);
-        void SaveUserAnswers(SaveUserQuizCommand command);
+        Task SaveUserAnswersAsync(SaveUserQuizCommand command);
         Task CreateItemInDiscussionAsync(CreateDiscussionCommand command);
         void DeleteItemInDiscussion(DeleteDiscussionCommand command);
 
@@ -127,8 +127,8 @@ namespace Zbang.Zbox.Domain.Common
 
         void AddPinFlashcard(AddFlashcardPinCommand command);
         void DeletePinFlashcard(DeleteFlashcardPinCommand command);
-        void AddFlashcardLike(AddFlashcardLikeCommand command);
-        void DeleteFlashcardLike(DeleteFlashcardLikeCommand command);
+        Task AddFlashcardLikeAsync(AddFlashcardLikeCommand command);
+        Task DeleteFlashcardLikeAsync(DeleteFlashcardLikeCommand command);
         void SolveFlashcard(SaveUserFlashcardCommand command);
 
         #endregion

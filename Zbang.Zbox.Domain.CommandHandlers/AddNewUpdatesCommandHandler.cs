@@ -101,7 +101,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var item = m_ItemRepository.Load(itemId.Value);
             DoUpdateLoop(userIds, u => new Updates(u, box, item));
-            return m_SendPush.SendAddItemNotificationAsync(item.Uploader.Name, box.Name, box.Id, userIds);
+            return m_SendPush.SendAddItemNotificationAsync(item.User.Name, box.Name, box.Id, userIds);
         }
 
 

@@ -74,10 +74,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     return;
                 if (invite.IsUsed)
                     return;
-                //m_ReputationRepository.Save(invite.Sender.AddReputation(invite.GiveAction()));
                 invite.UsedInvite();
                 m_UserRepository.Save(invite.Sender);
-                //await m_QueueRepository.InsertMessageToTranactionAsync(new ReputationData(invite.Sender.Id));
             }
         }
     }

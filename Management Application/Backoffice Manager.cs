@@ -423,7 +423,7 @@ namespace Management_Application
                                                    + dataTable.Rows[0]["Url"] +
                                                    "\n\nFacebook: https://www.facebook.com" + "/" +
                                                    dataTable.Rows[0]["FacebookUserId"] + "\n\nReputation: " +
-                                                   dataTable.Rows[0]["UserReputation"] + "\n\nCulture: "
+                                                   dataTable.Rows[0]["score"] + "\n\nCulture: "
                                                    + dataTable.Rows[0]["Culture"] + "\n\nGender: " + gender +
                                                    "\n\nMobile: " + mobile + "\n\nMobile Joined: " + "--" +
                                                    "\n\nBoxes: " +
@@ -623,7 +623,7 @@ namespace Management_Application
 
                     connection.Close();
                     richTextBoxUserThatFlagged.Text = "Created on:" + dataTable.Rows[0]["CreationTime"] + "\nLast Activity: " + dataTable.Rows[0]["UpdateTime"] + "\nUniversity Name: " + uniName + "\nUrl: https://www.spitball.co/"
-                        + dataTable.Rows[0]["Url"] + "\nFacebook: https://www.facebook.com" + "/" + dataTable.Rows[0]["FacebookUserId"] + "\nReputation: " + dataTable.Rows[0]["UserReputation"] + "\nCulture: "
+                        + dataTable.Rows[0]["Url"] + "\nFacebook: https://www.facebook.com" + "/" + dataTable.Rows[0]["FacebookUserId"] + "\nReputation: " + dataTable.Rows[0]["score"] + "\nCulture: "
                         + dataTable.Rows[0]["Culture"] + "\nGender: " + gender + "\nMobile: " + mobile + "\nMobile Joined: " + "--" + "\nBoxes: " + boxes + "\nQuizzes: " + quizzes + "\nItems: " + items + "\nitemUrl: https://www.spitball.co/" + itemUrl;
 
                     //richTextBoxUserThatFlagged.Text = ("Name: "+dataTable.Rows[0]["UserName"].ToString())+"\n\nEmail: "+dataTable.Rows[0]["Email"].ToString()+"\n\n"+dataTable.Rows[0][];
@@ -775,7 +775,7 @@ namespace Management_Application
 
                     connection.Close();
                     richTextBoxUserFlaggedPost.Text = "Created on:" + dataTable.Rows[0]["CreationTime"] + "\nLast Activity: " + dataTable.Rows[0]["UpdateTime"] + "\nUniversity Name: " + uniName + "\nUrl: https://www.spitball.co/"
-                        + dataTable.Rows[0]["Url"] + "\nFacebook: https://www.facebook.com" + "/" + dataTable.Rows[0]["FacebookUserId"] + "\nReputation: " + dataTable.Rows[0]["UserReputation"] + "\nCulture: "
+                        + dataTable.Rows[0]["Url"] + "\nFacebook: https://www.facebook.com" + "/" + dataTable.Rows[0]["FacebookUserId"] + "\nReputation: " + dataTable.Rows[0]["score"] + "\nCulture: "
                         + dataTable.Rows[0]["Culture"] + "\nGender: " + gender + "\nMobile: " + mobile + "\nMobile Joined: " + "--" + "\nBoxes: " + boxes + "\nQuizzes: " + quizzes + "\nItems: " + items + "\nURL: https://www.spitball.co/" + url;
 
                 }

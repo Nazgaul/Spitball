@@ -59,7 +59,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             foreach (var file in files)
             {
-                file.Uploader = user;
+                file.User = user;
                 m_ItemRepository.Save(file);
             }
             var comment = box.AddComment(user, command.Text, command.Id, files, FeedType.None);
@@ -69,7 +69,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
            // m_ReputationRepository.Save(reputation);
             m_BoxRepository.Save(box);
             var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, questionId: comment.Id));
-            //var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(user.Id));
 
             await Task.WhenAll(t1);
 

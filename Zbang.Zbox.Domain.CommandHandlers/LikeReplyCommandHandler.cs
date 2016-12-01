@@ -1,30 +1,35 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class LikeReplyCommandHandler : ICommandHandler<LikeReplyCommand, LikeReplyCommandResult>
+    public class LikeReplyCommandHandler : ICommandHandlerAsync<LikeReplyCommand, LikeReplyCommandResult>
     {
         private readonly IReplyLikeRepository m_ReplyLikeRepository;
         private readonly IUserRepository m_UserRepository;
         private readonly IRepository<CommentReply> m_ReplyRepository;
         private readonly IGuidIdGenerator m_GuidGenerator;
+        private readonly IQueueProvider m_QueueProvider;
 
         public LikeReplyCommandHandler(IReplyLikeRepository replyLikeRepository,
             IUserRepository userRepository,
-            IRepository<CommentReply> replyRepository, IGuidIdGenerator guidGenerator)
+            IRepository<CommentReply> replyRepository, IGuidIdGenerator guidGenerator, IQueueProvider queueProvider)
         {
             m_ReplyLikeRepository = replyLikeRepository;
             m_UserRepository = userRepository;
             m_ReplyRepository = replyRepository;
             m_GuidGenerator = guidGenerator;
+            m_QueueProvider = queueProvider;
         }
 
-        public LikeReplyCommandResult Execute(LikeReplyCommand message)
+        public async Task<LikeReplyCommandResult> ExecuteAsync(LikeReplyCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
 
@@ -39,12 +44,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
                 m_ReplyRepository.Save(reply);
                 m_ReplyLikeRepository.Save(replyLike);
+                await m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(reply.User.Id));
                 return new LikeReplyCommandResult(true);
             }
 
             reply.LikeCount--;
             m_ReplyRepository.Save(reply);
             m_ReplyLikeRepository.Delete(replyLike);
+            await m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(reply.User.Id));
             return new LikeReplyCommandResult(false);
 
         }

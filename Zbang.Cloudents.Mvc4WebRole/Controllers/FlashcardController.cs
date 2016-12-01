@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -118,18 +117,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [BoxPermission("boxId")]
         public async Task<ActionResult> DataAsync(long id, long boxId)
         {
+            var userId = User.GetUserId(false);
             var tTransAction = m_QueueProvider.InsertMessageToTranactionAsync(
-                      new StatisticsData4(new List<StatisticsData4.StatisticItemData>
-                    {
+                      new StatisticsData4(
                         new StatisticsData4.StatisticItemData
                         {
                             Id = id,
                             Action = (int)StatisticsAction.Flashcard
                         }
-                    }));
+                    , userId));
 
             var tUserValues = ZboxReadService.GetUserFlashcardAsync(new GetUserFlashcardQuery(
-                    User.GetUserId(false), id));
+                    userId, id));
             var tValues = m_DocumentDbReadService.FlashcardAsync(id);
             await Task.WhenAll(tTransAction, tValues, tUserValues);
             var values = tValues.Result;
@@ -368,17 +367,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost, ZboxAuthorize, ActionName("like")]
-        public JsonResult AddLike(long id)
+        public async Task<JsonResult> AddLikeAsync(long id)
         {
             var command = new AddFlashcardLikeCommand(User.GetUserId(), id);
-            ZboxWriteService.AddFlashcardLike(command);
+            await ZboxWriteService.AddFlashcardLikeAsync(command);
             return JsonOk(command.Id);
         }
         [HttpDelete, ZboxAuthorize, ActionName("unlike")]
-        public JsonResult DeleteLike(Guid id)
+        public async Task<JsonResult> DeleteLikeAsync(Guid id)
         {
             var command = new DeleteFlashcardLikeCommand(User.GetUserId(), id);
-            ZboxWriteService.DeleteFlashcardLike(command);
+            await ZboxWriteService.DeleteFlashcardLikeAsync(command);
             return JsonOk();
         }
 

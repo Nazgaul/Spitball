@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
@@ -18,23 +16,30 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             m_ZboxWriteService = zboxService;
 
         }
-        public Task<bool> ExecuteAsync(Infrastructure.Transport.DomainProcess data, CancellationToken token)
+        public async Task<bool> ExecuteAsync(Infrastructure.Transport.DomainProcess data, CancellationToken token)
         {
             var parameters = data as StatisticsData4;
-            if (parameters == null) return Infrastructure.Extensions.TaskExtensions.CompletedTaskTrue;
+            if (parameters == null) return true;
 
-            IEnumerable<StatisticItemData> itemsIdData = null;
 
             if (parameters.ItemsIds != null)
             {
-                itemsIdData = parameters.ItemsIds.Select(
-                    s => new StatisticItemData {ItemId = s.Id, Action = (StatisticsAction) s.Action});
+                foreach (var statisticItemData in parameters.ItemsIds)
+                {
+
+                    var command = new UpdateStatisticsCommand(new StatisticItemData
+                    { ItemId = statisticItemData.Id, Action = (StatisticsAction)statisticItemData.Action }, parameters.UserId);
+                  await  m_ZboxWriteService.StatisticsAsync(command);
+                }
+               
             }
-
-            var command = new UpdateStatisticsCommand(itemsIdData);
-            m_ZboxWriteService.Statistics(command);
-
-            return Infrastructure.Extensions.TaskExtensions.CompletedTaskTrue;
+            if (parameters.ItemsId != null)
+            {
+                var command = new UpdateStatisticsCommand(new StatisticItemData
+                { ItemId = parameters.ItemsId.Id, Action = (StatisticsAction)parameters.ItemsId.Action }, parameters.UserId);
+               await m_ZboxWriteService.StatisticsAsync(command);
+            }
+            return true;
         }
     }
 }

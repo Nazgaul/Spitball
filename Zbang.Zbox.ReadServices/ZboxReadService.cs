@@ -584,7 +584,7 @@ where ownerid = @UserId and boxid = @BoxId;";
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 const string sql = @"select u.userid as Id, u.username as name, u.UserImageLarge as image,
-                            u.userReputation as score, uu.universityname as universityName, u.url as Url
+                            u.score as score, uu.universityname as universityName, u.url as Url
                             from zbox.users u left join zbox.university uu on u.UniversityId = uu.id
                             where u.userid =@UserId";
                 var retVal = await conn.QueryFirstAsync<User.UserMinProfile>(sql, query);

@@ -3,7 +3,7 @@ using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class DeleteFlashcardLikeCommand : ICommand
+    public class DeleteFlashcardLikeCommand : ICommandAsync
     {
         public DeleteFlashcardLikeCommand(long userId, Guid id/*, long flashCardId*/)
         {

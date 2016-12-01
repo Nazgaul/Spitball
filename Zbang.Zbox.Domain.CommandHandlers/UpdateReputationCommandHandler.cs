@@ -24,6 +24,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 var reputation = m_ReputationRepository.GetUserReputation(userId);
                 m_UserRepository.UpdateUserReputation(reputation, userId);
+
+                var score = m_ReputationRepository.CalculateReputation(userId);
+                m_UserRepository.UpdateScore(score, userId);
             }
         }
     }

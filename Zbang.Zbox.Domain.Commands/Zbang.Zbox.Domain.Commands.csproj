@@ -108,7 +108,9 @@
     <Compile Include="LibraryNodeApproveAccessCommand.cs" />
     <Compile Include="LikeCommentCommand.cs" />
     <Compile Include="AddFlashcardLikeCommand.cs" />
+    <Compile Include="LikeCommentCommandResult.cs" />
     <Compile Include="LikeReplyCommand.cs" />
+    <Compile Include="LikeReplyCommandResult.cs" />
     <Compile Include="ManageConnectionsCommand.cs" />
     <Compile Include="PreviewFailedCommand.cs" />
     <Compile Include="Quiz\CreateDiscussionCommand.cs" />

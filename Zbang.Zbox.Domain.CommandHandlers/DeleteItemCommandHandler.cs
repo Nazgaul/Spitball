@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
@@ -49,7 +48,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var userType = m_UserRepository.GetUserToBoxRelationShipType(user.Id, item.Box.Id);
 
             bool isAuthorize = userType == UserRelationshipType.Owner
-                || Equals(item.Uploader, user)
+                || Equals(item.User, user)
                 || user.IsAdmin();
 
             if (!isAuthorize)
@@ -61,7 +60,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var box = item.Box;
             box.ShouldMakeDirty = () => false;
             var uploaderFileId = item.UploaderId;
-            var usersAffectReputation = new List<long> { uploaderFileId };
 
             if (item.CommentReply != null && string.IsNullOrEmpty(item.CommentReply.Text) && item.CommentReply.Items.Count == 1) // only one answer
             {
@@ -74,7 +72,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 if (shouldRemove)
                 {
                     m_UpdatesRepository.DeleteCommentUpdates(item.Comment.Id);
-                    usersAffectReputation.AddRange(box.DeleteComment(item.Comment));
                 }
             }
             if (item.Tab != null)
@@ -82,7 +79,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 item.Tab.DeleteItemFromTab(item);
                 m_ItemTabRepository.Save(item.Tab);
             }
-            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(usersAffectReputation));
+            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(item.UploaderId));
             var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new QuotaData(uploaderFileId));
             m_ItemRepository.Delete(item);
             box.UpdateItemCount();

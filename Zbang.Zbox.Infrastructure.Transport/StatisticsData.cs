@@ -12,21 +12,21 @@ namespace Zbang.Zbox.Infrastructure.Transport
         {
             ItemsIds = new List<StatisticItemData>();
         }
-        public StatisticsData4(IEnumerable<StatisticItemData> itemIds/*, long userId, DateTime statTime*/)
+        public StatisticsData4(StatisticItemData itemId, long userId/*, DateTime statTime*/)
             : this()
         {
-            ItemsIds = itemIds;
-          //  UserId = userId;
+            ItemsId = itemId;
+            UserId = userId;
            // StatTime = statTime;
         }
 
 
         [ProtoMember(3)]
         public IEnumerable<StatisticItemData> ItemsIds { get; private set; }
-       // [ProtoMember(4)]
-       // public long UserId { get; private set; }
-       // [ProtoMember(5)]
-       // public DateTime StatTime { get; private set; }
+        [ProtoMember(4)]
+        public long UserId { get; private set; }
+        [ProtoMember(5)]
+        public StatisticItemData ItemsId { get; private set; }
 
 
         public override string ProcessResolver => StatisticsResolver;

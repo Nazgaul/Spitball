@@ -24,7 +24,7 @@ namespace Zbang.Zbox.Domain
             DateTimeUser = new UserTimeDetails(uploader.Id);
 
             Name = itemName.Trim();
-            Uploader = uploader;
+            User = uploader;
             Size = iSized;
             Box = box;
             ItemContentUrl = itemContentUrl;
@@ -37,7 +37,7 @@ namespace Zbang.Zbox.Domain
         public virtual UserTimeDetails DateTimeUser { get; protected set; }
         public virtual bool IsDeleted { get; set; }
 
-        public virtual User Uploader { get; set; }
+        public virtual User User { get; set; }
         public virtual long UploaderId { get; set; }
         public virtual long Size { get; set; }
         public virtual Box Box { get; set; }
