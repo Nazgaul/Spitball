@@ -3,7 +3,7 @@ var app;
     "use strict";
     var boxId;
     var BoxSettingsController = (function () {
-        function BoxSettingsController($state, $stateParams, $scope, $rootScope, resManager, boxService, ajaxService2, $timeout) {
+        function BoxSettingsController($state, $stateParams, $scope, $rootScope, resManager, boxService, ajaxService2, $timeout, showToasterService) {
             var _this = this;
             this.$state = $state;
             this.$stateParams = $stateParams;
@@ -13,6 +13,7 @@ var app;
             this.boxService = boxService;
             this.ajaxService2 = ajaxService2;
             this.$timeout = $timeout;
+            this.showToasterService = showToasterService;
             boxId = $stateParams.boxId;
             $scope.$on("close-collapse", function () {
                 var boxController = _this.$scope["b"];
@@ -71,7 +72,7 @@ var app;
                     var appController = _this.$scope["app"];
                     boxController_1["settingsOpen"] = false;
                     _this.$stateParams["boxName"] = response.queryString;
-                    appController.showToaster(_this.resManager.get("toasterBoxSettings"));
+                    _this.showToasterService.showToaster(_this.resManager.get("toasterBoxSettings"));
                     _this.$state.go('box.feed', _this.$stateParams, { location: "replace" });
                 }).finally(function () {
                     _this.settings.submitDisabled = false;

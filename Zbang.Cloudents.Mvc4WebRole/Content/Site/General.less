@@ -1171,6 +1171,27 @@ md-toast .md-toast-content span {
     }
 }
 
+
+
+.fade-in-repeat.ng-enter {
+    /* standard transition code */
+    transition: 1s linear all;
+    opacity: 0;
+}
+
+.fade-in-repeat.ng-enter-stagger {
+    /* this will have a 100ms delay between each successive leave animation */
+    transition-delay: 0.1s;
+    /* As of 1.4.4, this must always be set: it signals ngAnimate
+    to not accidentally inherit a delay property from another CSS class */
+    transition-duration: 0s;
+}
+
+.fade-in-repeat.ng-enter.ng-enter-active {
+    /* standard transition styles */
+    opacity: 1;
+}
+
 @media(min-width: 600px) {
     .library-choose .add-univeristy {
         background-image: url('../../Images/Site/create_uni_w.png');

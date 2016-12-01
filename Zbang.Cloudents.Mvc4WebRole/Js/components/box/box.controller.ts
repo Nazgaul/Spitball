@@ -14,7 +14,7 @@
     class BoxController {
         static $inject = ["$state", "$stateParams", "boxData", "$scope",
             "$rootScope", "user", "resManager", "boxService", "ajaxService2",
-            "$timeout", "$window", "userUpdatesService","shareService"];
+            "$timeout", "$window", "userUpdatesService", "shareService", "showToasterService"];
         data;
         showLeaderboard;
         isAcademic;
@@ -44,7 +44,8 @@
             private $timeout: angular.ITimeoutService,
             private $window: angular.IWindowService,
             private userUpdatesService: IUserUpdatesService,
-            private shareService: IShareService
+            private shareService: IShareService,
+            private showToasterService: IShowToasterService
         ) {
            
             boxId = $stateParams.boxId;
@@ -94,7 +95,7 @@
                 return;
             }
             const appController: IAppController = this.$scope["app"];
-            appController.showToaster(this.resManager.get("toasterFollowBox"));
+            this.showToasterService.showToaster(this.resManager.get("toasterFollowBox"));
             this.boxService.follow(boxId).then(() => {
                 this.followBox();
             });

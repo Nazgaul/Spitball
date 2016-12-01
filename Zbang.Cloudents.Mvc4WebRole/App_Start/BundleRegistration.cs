@@ -212,6 +212,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/user/userdetails.controller.js"),
                         new JsFileWithCdn("~/js/components/user/user.controller.js"),
                         new JsFileWithCdn("~/js/components/user/user.routes.js"),
+                        new JsFileWithCdn("~/js/components/user/gamificationDialog.controller.js"),
+
 
                         new JsFileWithCdn("~/js/components/user/user.service.js"),
                         new JsFileWithCdn("~/js/components/user/updates.service.js"),
@@ -343,6 +345,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/collapseHeader.directive.js"),
                         new JsFileWithCdn("~/js/shared/keyboardAction.directive.js"),
                         new JsFileWithCdn("~/js/shared/cartAnimation.directive.js"),
+                        new JsFileWithCdn("~/js/shared/showToaster.service.js"),
 
 
 

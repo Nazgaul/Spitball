@@ -61,7 +61,7 @@
 .feed .box-options .option-wrapper.active md-icon {
   fill: #ffffff;
 }
-.feed .box-options .option-wrapper:first-child .option {
+.feed .box-options .option-wrapper:not(:last-child) .option {
   border-left: 1px solid #c3c3c3;
 }
 .feed .box-options .option-wrapper:first-child {
@@ -96,31 +96,6 @@
   height: 16px;
   fill: #4190b9;
 }
-.feed .box-options .option-wrapper:nth-child(2) #open-share {
-  display: none;
-}
-.feed .box-options .option-wrapper:nth-child(2) #open-share:not(:checked) ~ .option.share {
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.feed .box-options .option-wrapper:nth-child(2) #open-share:checked ~ .option.share {
-  z-index: 9;
-  opacity: 1;
-  transition: opacity 0.3s;
-}
-.feed .box-options .option-wrapper:nth-child(2) #open-share:checked ~ label.title .wrapper {
-  opacity: 0;
-}
-.feed .box-options .option-wrapper:nth-child(2) #open-share:checked ~ label.backdrop {
-  display: block;
-  height: 100vh;
-  width: 100%;
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 8;
-}
 .feed .box-options .option-wrapper:nth-child(2) .option.share {
   position: absolute;
   right: 0;
@@ -128,14 +103,7 @@
   top: 0;
   width: calc(100% - 1px);
 }
-.feed .box-options .option-wrapper:nth-child(2) .option.share .title {
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-  -webkit-align-items: center;
-  align-items: center;
-}
-.feed .box-options .option-wrapper:nth-child(2) .option.share .title md-icon {
+.feed .box-options .option-wrapper:nth-child(2) .option.share md-icon {
   width: 16px;
   height: 16px;
 }

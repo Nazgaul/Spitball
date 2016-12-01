@@ -1,9 +1,9 @@
 ﻿(function () {
 'use strict';
     angular.module('app.account').controller('AccountSettingsDepartmentController', department);
-    department.$inject = ['accountService', '$scope', 'resManager'];
+    department.$inject = ['accountService', '$scope', 'resManager', 'showToasterService'];
 
-    function department(accountService, $scope, resManager) {
+    function department(accountService, $scope, resManager, showToasterService) {
         var ad = this;
         ad.departments = [];
         accountService.closeddepartment().then(function (response) {
@@ -20,7 +20,7 @@
             ad.disabled = true;
             accountService.approveRequest(dep.id, user.id).then(function () {
                 user.userType = 2;
-                $scope.app.showToaster(resManager.get('toasterDepartmentApproved'));
+                showToasterService.showToaster(resManager.get('toasterDepartmentApproved'));
             }).finally(function () {
                 ad.disabled = false;
             });

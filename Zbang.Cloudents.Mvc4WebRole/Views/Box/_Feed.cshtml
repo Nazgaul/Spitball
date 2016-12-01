@@ -14,15 +14,17 @@
                 </button>
             </div>
             <div class="option-wrapper">
-                <input id="open-share" type="checkbox" user-not-register-popup="click" />
-                <label class="title" for="open-share" ng-click="b.share()">
-                    <span class="wrapper" scroll-to-top>
+                @*<input id="open-share" type="checkbox" user-not-register-popup="click" />
+                    <label class="title" for="open-share" ng-click="b.share()">
+                    </label>
+                                <share-box class="option share"></share-box>
+                                <label class="backdrop" for="open-share"></label>*@
+                <button class="option share" type="button" scroll-to-top ng-click="b.share()">
+                    <div>
                         <md-icon md-svg-icon="t:share" class="option-icon"></md-icon>
                         <span class="text">@UserResources.Share</span>
-                    </span>
-                </label>
-                <share-box class="option share"></share-box>
-                <label class="backdrop" for="open-share"></label>
+                    </div>
+                </button>
             </div>
             <div class="option-wrapper" ng-class="{disabled: b.needFollow, active: b.settingsOpen}">
                 <button ng-disabled="b.needFollow" class="option box-settings" flex="none" type="button" ng-click="b.toggleSettings()" scroll-to-top ga-track-event="['box', 'settings']">
@@ -73,7 +75,7 @@
                 <div class="counters">
                     <div ng-if="post.likesCount" class="like-btn indent">
                         <md-icon md-svg-icon="b:like" class="like-icon"></md-icon>
-                        <input type="button" value="{{post.likesCount}}" class="like-count" user-not-register-popup="click" ng-click="f.likeCommentDialog(post,$event)"/>
+                        <input type="button" value="{{post.likesCount}}" class="like-count" user-not-register-popup="click" ng-click="f.likeCommentDialog(post,$event)" />
                     </div>
                     <div class="show-more" ng-if="post.repliesCount > 4 && !post.expandReplies">
                         <span ng-click="f.openReply(post)" ng-if="post.repliesCount === 5"> @BoxResources.SingleComment</span>

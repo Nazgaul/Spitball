@@ -398,21 +398,17 @@
             }
 
         }
+        
 
         function showInfo() {
             $mdDialog.show({
-                controller: DialogController,
                 templateUrl: '/user/infodialog/',
                 parent: angular.element(document.body),
                 clickOutsideToClose: true,
+                controller: "gamificationDialog",
+                controllerAs: "gd",
                 //fullscreen: true
             });
-        }
-
-        function DialogController($scope, $mdDialog) {
-            $scope.hide = function () {
-                $mdDialog.hide();
-            };
         }
     }
 })();
