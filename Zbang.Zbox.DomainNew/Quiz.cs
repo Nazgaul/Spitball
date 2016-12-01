@@ -21,7 +21,7 @@ namespace Zbang.Zbox.Domain
             }
             if (owner == null) throw new ArgumentNullException(nameof(owner));
             Name = name?.Trim();
-            Owner = owner;
+            User = owner;
             Box = box;
 
             DateTimeUser = new UserTimeDetails(owner.Id);
@@ -33,13 +33,15 @@ namespace Zbang.Zbox.Domain
 
         //public virtual string Banner { get; set; }
 
-        public virtual User Owner { get; private set; }
+        public virtual User User { get; private set; }
         public virtual Box Box { get; private set; }
 
         public virtual string Content { get; set; }
 
         // ReSharper disable UnusedAutoPropertyAccessor.Local
         public virtual float Rate { get; protected set; }
+        public virtual int LikeCount { get; set; }
+        public virtual int SolveCount { get; set; }
 
         public virtual int NumberOfViews { get; private set; }
         public virtual UserTimeDetails DateTimeUser { get; private set; }
@@ -92,7 +94,6 @@ namespace Zbang.Zbox.Domain
         {
             Questions.Clear();
             SolvedQuizes.Clear();
-            //Updates.Clear();
         }
     }
 }

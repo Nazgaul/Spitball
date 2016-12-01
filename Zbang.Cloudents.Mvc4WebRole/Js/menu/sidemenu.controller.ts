@@ -6,7 +6,7 @@ module app {
 
     var loaded = false;
     class SideMenu {
-        static $inject = ["user", "dashboardService", "$location", "$scope", "$mdSidenav"];
+        static $inject = ["user", "dashboardService", "$location", "$scope", "$mdSidenav","$state"];
 
         courses = [];
         privateBoxes = [];
@@ -15,7 +15,8 @@ module app {
             private dashboardService: IDashboardService,
             private $location: angular.ILocationService,
             private $scope: angular.IScope,
-            private $mdSidenav: angular.material.ISidenavService
+            private $mdSidenav: angular.material.ISidenavService,
+            private $state: angular.ui.IStateService
         ) {
             loaded = false; //loaded need to be initialize
             $scope.$on("close-menu", () => {
@@ -63,7 +64,7 @@ module app {
                 }
             });
         }
-        userUrl = this.user.url;
+        userUrl = this.$state.href("user", { userId: this.user.id, userName: this.user.name });
         showBoxesNodes = true;
         coursesOpen = false;
         boxesOpen = false;
@@ -97,14 +98,13 @@ module app {
 
 
         isSectionSelected(section) {
-            
             return decodeURI(this.$location.url()).startsWith(section);
         }
 
         private getBoxes() {
             this.dashboardService.getBoxes().then(response2 => {
-                for (var i = 0; i < response2.length; i++) {
-                    var b = response2[i];
+                for (let i = 0; i < response2.length; i++) {
+                    const b = response2[i];
                     if (b.boxType.startsWith('academic')) {
                         this.courses.push(b);
                     } else {

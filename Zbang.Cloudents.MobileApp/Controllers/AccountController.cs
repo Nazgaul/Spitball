@@ -11,7 +11,6 @@ using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
 using Microsoft.Azure.Mobile.Server.Login;
 using Zbang.Cloudents.MobileApp.DataObjects;
-using Zbang.Cloudents.MobileApp.Extensions;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
@@ -55,8 +54,8 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 return Request.CreateUnauthorizedResponse();
             }
-            var t1 = m_ZboxReadService.GetUserDataAsync(new GetUserDetailsQuery(User.GetUserId()));
-            var t2 = m_ZboxReadService.GetChatUnreadMessagesAsync(new GetUserDetailsQuery(User.GetUserId()));
+            var t1 = m_ZboxReadService.GetUserDataAsync(new QueryBaseUserId(User.GetUserId()));
+            var t2 = m_ZboxReadService.GetChatUnreadMessagesAsync(new QueryBaseUserId(User.GetUserId()));
             //var retVal = await m_ZboxReadService.GetUserDataAsync(new GetUserDetailsQuery(User.GetUserId()));
             await Task.WhenAll(t1, t2);
             return Request.CreateResponse(new
@@ -78,7 +77,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         [HttpPost]
         [Route("api/account/tokenrefresh")]
-        public async Task<HttpResponseMessage> Refresh()
+        public async Task<HttpResponseMessage> RefreshAsync()
         {
 
             var systemData = await m_ZboxReadService.GetUserDetailsById(new GetUserByIdQuery(User.GetUserId()));
@@ -165,7 +164,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [HttpPost]
         //[VersionedRoute("api/account/university", 2)]
         [Route("api/account/university")]
-        public async Task<HttpResponseMessage> UpdateUniversity(UpdateUniversityRequest model)
+        public async Task<HttpResponseMessage> UpdateUniversityAsync(UpdateUniversityRequest model)
         {
 
             if (model == null)

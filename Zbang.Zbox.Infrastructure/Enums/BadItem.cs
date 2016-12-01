@@ -5,17 +5,17 @@ namespace Zbang.Zbox.Infrastructure.Enums
 {
     public enum BadItem
     {
-        [EnumDescription(typeof(EnumResources), "Infringe")]
+        [ResourceDescription(typeof(EnumResources), "Infringe")]
         RightViolation = 1,
-        [EnumDescription(typeof(EnumResources), "Spam")]
+        [ResourceDescription(typeof(EnumResources), "Spam")]
         Spam,
-        [EnumDescription(typeof(EnumResources), "Nudity")]
+        [ResourceDescription(typeof(EnumResources), "Nudity")]
         Porn,
-        [EnumDescription(typeof(EnumResources), "Attacks")]
+        [ResourceDescription(typeof(EnumResources), "Attacks")]
         Attack,
-        [EnumDescription(typeof(EnumResources), "Hateful")]
+        [ResourceDescription(typeof(EnumResources), "Hateful")]
         Hate,
-        [EnumDescription(typeof(EnumResources), "Other")]
+        [ResourceDescription(typeof(EnumResources), "Other")]
         Other
     }
 }

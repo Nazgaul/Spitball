@@ -57,7 +57,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
             await commandHandler.HandleAsync(command);
 
-            Assert.AreEqual(5, item.Uploader.Reputation);
+            Assert.AreEqual(5, item.User.Reputation);
         }
 
         [TestMethod]
@@ -84,7 +84,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
             await commandHandler.HandleAsync(command);
 
-            Assert.AreEqual(20, item.Uploader.Reputation);
+            Assert.AreEqual(20, item.User.Reputation);
         }
     }
 }

@@ -54,7 +54,7 @@
                             if (user.id) {
                                 return boxService.feedLikes($stateParams.boxId);
                             }
-                        }],
+                        }]
 
                     }
                 },

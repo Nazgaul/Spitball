@@ -128,6 +128,7 @@
     <Compile Include="Dto\UserDtos\ActivityDto.cs" />
     <Compile Include="Dto\UserDtos\ChatUserDto.cs" />
     <Compile Include="Dto\UserDtos\ForgotPasswordDto.cs" />
+    <Compile Include="Dto\UserDtos\GamificationBoardDto.cs" />
     <Compile Include="Dto\UserDtos\LogInUserDto.cs" />
     <Compile Include="Dto\UserDtos\UserDetailDto.cs" />
     <Compile Include="Dto\UserDtos\UserDto.cs" />
@@ -181,7 +182,6 @@
     <Compile Include="Queries\QueryBase.cs" />
     <Compile Include="Queries\GetBoxQuery.cs" />
     <Compile Include="Queries\GetBoxItemsPagedQuery.cs" />
-    <Compile Include="Queries\GetUserDetailsQuery.cs" />
     <Compile Include="Queries\GetUserFriendsQuery.cs" />
     <Compile Include="Queries\Boxes\GetBoxesQuery.cs" />
     <Compile Include="Queries\RecommendedCoursesQuery.cs" />

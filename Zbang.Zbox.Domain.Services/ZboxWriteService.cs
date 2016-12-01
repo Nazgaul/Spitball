@@ -45,7 +45,7 @@ namespace Zbang.Zbox.Domain.Services
                     if (command.BoxId.HasValue)
                     {
                         var autoFollowCommand = new SubscribeToSharedBoxCommand(result.User.Id, command.BoxId.Value);
-                        await m_CommandBus.SendAsync(autoFollowCommand);
+                        m_CommandBus.Send(autoFollowCommand);
                     }
                     UnitOfWork.Current.TransactionalFlush();
                     return result;
@@ -138,15 +138,15 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (var unitOfWork = UnitOfWork.Start())
             {
-                var reputationCommand = new AddReputationCommand(command.UserId,
-                     Infrastructure.Enums.ReputationAction.AddItem);
+                //var reputationCommand = new AddReputationCommand(command.UserId,
+                //     Infrastructure.Enums.ReputationAction.AddItem);
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
                 var t4 = m_Cache.RemoveAsync(command);
-                var t3 = m_CommandBus.SendAsync(autoFollowCommand);
+                m_CommandBus.Send(autoFollowCommand);
                 var t2 = m_CommandBus.DispatchAsync<AddItemToBoxCommand, AddItemToBoxCommandResult>(command, command.ResolverName);
-                var t1 = m_CommandBus.SendAsync(reputationCommand);
+                // var t1 = m_CommandBus.SendAsync(reputationCommand);
 
-                await Task.WhenAll(t1, t2, t3, t4);
+                await Task.WhenAll(t2, t4);
                 unitOfWork.TransactionalFlush();
 
                 return t2.Result;
@@ -169,9 +169,9 @@ namespace Zbang.Zbox.Domain.Services
             using (UnitOfWork.Start())
             {
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
-                var t1 = m_CommandBus.SendAsync(autoFollowCommand);
+                m_CommandBus.Send(autoFollowCommand);
                 var t2 = m_CommandBus.SendAsync(command);
-                await Task.WhenAll(t1, t2);
+                await Task.WhenAll(t2);
 
                 UnitOfWork.Current.TransactionalFlush();
             }
@@ -203,9 +203,9 @@ namespace Zbang.Zbox.Domain.Services
             using (UnitOfWork.Start())
             {
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(command.InviteeId, command.BoxId);
-                var t1 = m_CommandBus.SendAsync(autoFollowCommand);
+                m_CommandBus.Send(autoFollowCommand);
                 var t2 = m_CommandBus.SendAsync(command);
-                await Task.WhenAll(t1, t2);
+                await Task.WhenAll(t2);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
@@ -219,11 +219,11 @@ namespace Zbang.Zbox.Domain.Services
         }
 
 
-        public async Task SubscribeToSharedBoxAsync(SubscribeToSharedBoxCommand command)
+        public void SubscribeToSharedBox(SubscribeToSharedBoxCommand command)
         {
             using (UnitOfWork.Start())
             {
-                await m_CommandBus.SendAsync(command);
+                m_CommandBus.Send(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
@@ -299,23 +299,23 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public async Task CreateBoxItemTabAsync(CreateItemTabCommand command)
+        public void CreateBoxItemTab(CreateItemTabCommand command)
         {
             using (UnitOfWork.Start())
             {
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
-                await m_CommandBus.SendAsync(autoFollowCommand);
+                m_CommandBus.Send(autoFollowCommand);
                 m_CommandBus.Send(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
 
-        public async Task AssignBoxItemToTabAsync(AssignItemToTabCommand command)
+        public void AssignBoxItemToTab(AssignItemToTabCommand command)
         {
             using (UnitOfWork.Start())
             {
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
-                await m_CommandBus.SendAsync(autoFollowCommand);
+                m_CommandBus.Send(autoFollowCommand);
                 m_CommandBus.Send(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
@@ -348,10 +348,10 @@ namespace Zbang.Zbox.Domain.Services
             using (UnitOfWork.Start())
             {
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
-                var t1 = m_CommandBus.SendAsync(autoFollowCommand);
+                m_CommandBus.Send(autoFollowCommand);
                 var t3 = m_Cache.RemoveAsync(command);
                 var t2 = m_CommandBus.SendAsync(command);
-                await Task.WhenAll(t1, t2, t3);
+                await Task.WhenAll(t2, t3);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
@@ -361,9 +361,9 @@ namespace Zbang.Zbox.Domain.Services
             {
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
                 var t1 = m_CommandBus.SendAsync(command);
-                var t2 = m_CommandBus.SendAsync(autoFollowCommand);
+                m_CommandBus.Send(autoFollowCommand);
                 var t3 = m_Cache.RemoveAsync(command);
-                await Task.WhenAll(t1, t2, t3);
+                await Task.WhenAll(t1, t3);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
@@ -371,9 +371,9 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (UnitOfWork.Start())
             {
-                var t1 = m_CommandBus.SendAsync(command);
+                m_CommandBus.Send(command);
                 var t2 = m_Cache.RemoveAsync(command);
-                await Task.WhenAll(t1, t2);
+                await Task.WhenAll(t2);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
@@ -381,9 +381,9 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (UnitOfWork.Start())
             {
-                var t1 = m_CommandBus.SendAsync(command);
+                m_CommandBus.Send(command);
                 var t2 = m_Cache.RemoveAsync(command);
-                await Task.WhenAll(t1, t2);
+                await Task.WhenAll(t2);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
@@ -395,15 +395,15 @@ namespace Zbang.Zbox.Domain.Services
             using (UnitOfWork.Start())
             {
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
-                var reputationCommand = new AddReputationCommand(command.UserId,
-                     Infrastructure.Enums.ReputationAction.AddComment);
+                //var reputationCommand = new AddReputationCommand(command.UserId,
+                //     Infrastructure.Enums.ReputationAction.AddComment);
                 var t4 = m_Cache.RemoveAsync(command);
-                var t3 = m_CommandBus.SendAsync(reputationCommand);
-                var t2 = m_CommandBus.SendAsync(autoFollowCommand);
+                //var t3 = m_CommandBus.SendAsync(reputationCommand);
+                m_CommandBus.Send(autoFollowCommand);
                 var t1 = m_CommandBus.DispatchAsync<AddCommentCommand, AddCommentCommandResult>(command);
 
 
-                await Task.WhenAll(t1, t2, t3, t4);
+                await Task.WhenAll(t1, t4);
                 UnitOfWork.Current.TransactionalFlush();
                 return t1.Result;
             }
@@ -413,15 +413,15 @@ namespace Zbang.Zbox.Domain.Services
             using (UnitOfWork.Start())
             {
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
-                var reputationCommand = new AddReputationCommand(command.UserId,
-                     Infrastructure.Enums.ReputationAction.AddReply);
+                //var reputationCommand = new AddReputationCommand(command.UserId,
+                //     Infrastructure.Enums.ReputationAction.AddReply);
                 var t4 = m_Cache.RemoveAsync(command);
-                var t3 = m_CommandBus.SendAsync(reputationCommand);
-                var t2 = m_CommandBus.SendAsync(autoFollowCommand);
+                //var t3 = m_CommandBus.SendAsync(reputationCommand);
+                m_CommandBus.Send(autoFollowCommand);
                 var t1 = m_CommandBus.SendAsync(command);
 
 
-                await Task.WhenAll(t1, t2, t3, t4);
+                await Task.WhenAll(t1, t4);
                 UnitOfWork.Current.TransactionalFlush();
 
             }
@@ -454,10 +454,10 @@ namespace Zbang.Zbox.Domain.Services
             {
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
                 var t2 = m_Cache.RemoveAsync(command);
-                var t1 = m_CommandBus.SendAsync(autoFollowCommand);
+                m_CommandBus.Send(autoFollowCommand);
 
-                await Task.WhenAll(t1, t2);
-                var result = m_CommandBus.Dispatch<LikeCommentCommand, LikeCommentCommandResult>(command);
+                await Task.WhenAll(t2);
+                var result = await m_CommandBus.DispatchAsync<LikeCommentCommand, LikeCommentCommandResult>(command);
 
                 UnitOfWork.Current.TransactionalFlush();
                 return result;
@@ -469,10 +469,10 @@ namespace Zbang.Zbox.Domain.Services
             {
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
                 var t2 = m_Cache.RemoveAsync(command);
-                var t1 = m_CommandBus.SendAsync(autoFollowCommand);
+                m_CommandBus.Send(autoFollowCommand);
 
-                await Task.WhenAll(t1, t2);
-                var result = m_CommandBus.Dispatch<LikeReplyCommand, LikeReplyCommandResult>(command);
+                await Task.WhenAll(t2);
+                var result = await m_CommandBus.DispatchAsync<LikeReplyCommand, LikeReplyCommandResult>(command);
                 UnitOfWork.Current.TransactionalFlush();
                 return result;
             }
@@ -497,14 +497,14 @@ namespace Zbang.Zbox.Domain.Services
         #endregion
 
 
-        public async Task AddReputationAsync(AddReputationCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                await m_CommandBus.SendAsync(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
+        //public async Task AddReputationAsync(AddReputationCommand command)
+        //{
+        //    using (UnitOfWork.Start())
+        //    {
+        //        await m_CommandBus.SendAsync(command);
+        //        UnitOfWork.Current.TransactionalFlush();
+        //    }
+        //}
 
 
 
@@ -518,7 +518,7 @@ namespace Zbang.Zbox.Domain.Services
         }
 
         #region quiz
-        public async Task CreateQuizAsync(CreateQuizCommand command)
+        public void CreateQuiz(CreateQuizCommand command)
         {
             using (UnitOfWork.Start())
             {
@@ -526,7 +526,7 @@ namespace Zbang.Zbox.Domain.Services
 
 
                 m_CommandBus.Send(command);
-                await m_CommandBus.SendAsync(autoFollowCommand);
+                m_CommandBus.Send(autoFollowCommand);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
@@ -606,14 +606,14 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (UnitOfWork.Start())
             {
-                var reputationCommand = new AddReputationCommand(command.UserId,
-                     Infrastructure.Enums.ReputationAction.AddQuiz);
+                //var reputationCommand = new AddReputationCommand(command.UserId,
+                //     Infrastructure.Enums.ReputationAction.AddQuiz);
 
-                var t1 = m_CommandBus.SendAsync(reputationCommand);
-                var t2 = m_CommandBus.DispatchAsync<SaveQuizCommand, SaveQuizCommandResult>(command);
-                await Task.WhenAll(t1, t2);
+                //var t1 = m_CommandBus.SendAsync(reputationCommand);
+                var result = await m_CommandBus.DispatchAsync<SaveQuizCommand, SaveQuizCommandResult>(command);
+                //await Task.WhenAll(t1, t2);
                 UnitOfWork.Current.TransactionalFlush();
-                return t2.Result;
+                return result;
             }
         }
         public async Task SaveUserAnswersAsync(SaveUserQuizCommand command)
@@ -621,8 +621,8 @@ namespace Zbang.Zbox.Domain.Services
             using (UnitOfWork.Start())
             {
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
-                await m_CommandBus.SendAsync(autoFollowCommand);
-                m_CommandBus.Send(command);
+                m_CommandBus.Send(autoFollowCommand);
+                await m_CommandBus.SendAsync(command);
 
 
                 UnitOfWork.Current.TransactionalFlush();
@@ -748,9 +748,9 @@ namespace Zbang.Zbox.Domain.Services
             using (UnitOfWork.Start())
             {
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(command.Flashcard.UserId, command.Flashcard.BoxId);
-                var t1 = m_CommandBus.SendAsync(autoFollowCommand);
+                m_CommandBus.Send(autoFollowCommand);
                 var t2 = m_CommandBus.SendAsync(command);
-                await Task.WhenAll(t1, t2);
+                await Task.WhenAll(t2);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
@@ -781,7 +781,7 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public  void AddPinFlashcard(AddFlashcardPinCommand command)
+        public void AddPinFlashcard(AddFlashcardPinCommand command)
         {
             using (UnitOfWork.Start())
             {
@@ -797,19 +797,19 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-        public void AddFlashcardLike(AddFlashcardLikeCommand command)
+        public async Task AddFlashcardLikeAsync(AddFlashcardLikeCommand command)
         {
             using (UnitOfWork.Start())
             {
-                m_CommandBus.Send(command);
+                await m_CommandBus.SendAsync(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-        public void DeleteFlashcardLike(DeleteFlashcardLikeCommand command)
+        public async Task DeleteFlashcardLikeAsync(DeleteFlashcardLikeCommand command)
         {
             using (UnitOfWork.Start())
             {
-                m_CommandBus.Send(command);
+                await m_CommandBus.SendAsync(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }

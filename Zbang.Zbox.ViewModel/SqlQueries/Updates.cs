@@ -4,6 +4,6 @@
     {
         public const string GetUserUpdates = 
         @"select BoxId,QuestionId,AnswerId,ItemId,QuizId from zbox.NewUpdates
-        where UserId = @userid";
+        where UserId = @UserId";
     }
 }

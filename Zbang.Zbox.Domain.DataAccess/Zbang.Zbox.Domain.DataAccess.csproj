@@ -88,6 +88,7 @@
     <Compile Include="InviteRepository.cs" />
     <Compile Include="IQuestionRepository.cs" />
     <Compile Include="IReplyLikeRepository.cs" />
+    <Compile Include="IReputationRepository.cs" />
     <Compile Include="ItemRepository.cs" />
     <Compile Include="ItemTabRepository.cs" />
     <Compile Include="IUniversityRepository.cs" />

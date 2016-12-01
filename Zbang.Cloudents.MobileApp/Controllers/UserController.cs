@@ -24,7 +24,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         [HttpGet]
         [Route("api/user/{userId}/boxes")]
-        public async Task<HttpResponseMessage> Boxes(long userId, int page, int sizePerPage = 15)
+        public async Task<HttpResponseMessage> BoxesAsync(long userId, int page, int sizePerPage = 15)
         {
             var query = new GetUserWithFriendQuery(userId, page, sizePerPage);
             var model = await m_ZboxReadService.GetUserBoxesActivityAsync(query);
@@ -60,7 +60,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         [HttpGet]
         [Route("api/user/{userId}/friends")]
-        public async Task<HttpResponseMessage> Friends(long userId, int page, int sizePerPage = 15)
+        public async Task<HttpResponseMessage> FriendsAsync(long userId, int page, int sizePerPage = 15)
         {
             var query = new GetUserFriendsQuery(userId, page, sizePerPage);
             var result = await m_ZboxReadService.GetUserFriendsAsync(query);
@@ -74,7 +74,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         [HttpGet]
         [Route("api/user/{userId}/activity")]
-        public async Task<HttpResponseMessage> Activity(long userId, int page, int sizePerPage = 15)
+        public async Task<HttpResponseMessage> ActivityAsync(long userId, int page, int sizePerPage = 15)
         {
             var query = new GetUserWithFriendQuery( userId, page, sizePerPage);
             var result = await m_ZboxReadService.GetUserCommentActivityAsync(query);
@@ -93,7 +93,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         [HttpGet]
         [Route("api/user/{userId}/items")]
-        public async Task<HttpResponseMessage> Items(long userId, int page, int sizePerPage = 15)
+        public async Task<HttpResponseMessage> ItemsAsync(long userId, int page, int sizePerPage = 15)
         {
             var query = new GetUserWithFriendQuery(userId, page, sizePerPage);
             var result = await m_ZboxReadService.GetUserItemsActivityAsync(query);

@@ -3,16 +3,17 @@ var app;
     'use strict';
     var loaded = false;
     var SideMenu = (function () {
-        function SideMenu(user, dashboardService, $location, $scope, $mdSidenav) {
+        function SideMenu(user, dashboardService, $location, $scope, $mdSidenav, $state) {
             var _this = this;
             this.user = user;
             this.dashboardService = dashboardService;
             this.$location = $location;
             this.$scope = $scope;
             this.$mdSidenav = $mdSidenav;
+            this.$state = $state;
             this.courses = [];
             this.privateBoxes = [];
-            this.userUrl = this.user.url;
+            this.userUrl = this.$state.href("user", { userId: this.user.id, userName: this.user.name });
             this.showBoxesNodes = true;
             this.coursesOpen = false;
             this.boxesOpen = false;
@@ -111,7 +112,7 @@ var app;
                 arr.splice(index, 1);
             }
         };
-        SideMenu.$inject = ["user", "dashboardService", "$location", "$scope", "$mdSidenav"];
+        SideMenu.$inject = ["user", "dashboardService", "$location", "$scope", "$mdSidenav", "$state"];
         return SideMenu;
     }());
     angular.module("app").controller("SideMenu", SideMenu);

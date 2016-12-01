@@ -9,8 +9,6 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
         public string Name { get; set; }
         public string Image { get; set; }
        
-
-        public string Url { get; set; }
         public string Culture { get; set; }
 
         public int Score { get; set; }
@@ -26,9 +24,8 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 
         public string Token { get; set; }
 
+       // public string Level { get; set; }
+        //public Sex Sex { get; set; }
 
-        public Sex Sex { get; set; }
-
-       // public int Unread { get; set; }
     }
 }

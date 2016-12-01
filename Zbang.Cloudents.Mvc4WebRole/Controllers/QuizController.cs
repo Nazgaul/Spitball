@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Web.Mvc;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
@@ -109,14 +107,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var tModel = ZboxReadService.GetQuizAsync(query);
 
             var tTransaction = m_QueueProvider.InsertMessageToTranactionAsync(
-                 new StatisticsData4(new List<StatisticsData4.StatisticItemData>
-                    {
+                 new StatisticsData4(
                         new StatisticsData4.StatisticItemData
                         {
                             Id = quizId,
                             Action = (int)Zbox.Infrastructure.Enums.StatisticsAction.Quiz
                         }
-                    }));
+                    , userId));
 
             await Task.WhenAll(tModel, tTransaction);
             return JsonOk(tModel.Result);
@@ -229,7 +226,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         [ZboxAuthorize]
         [RemoveBoxCookie, ActionName("Create")]
-        public async Task<ActionResult> CreateAsync(Quiz model)
+        public ActionResult Create(Quiz model)
         {
             if (!ModelState.IsValid)
             {
@@ -237,7 +234,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var id = m_IdGenerator.GetId(IdContainer.QuizScope);
             var command = new CreateQuizCommand(User.GetUserId(), id, model.Name, model.BoxId);
-            await ZboxWriteService.CreateQuizAsync(command);
+            ZboxWriteService.CreateQuiz(command);
 
             return JsonOk(id);
         }
@@ -291,7 +288,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #region question
         [HttpPost]
-        [ZboxAuthorize,ActionName("CreateQuestion")]
+        [ZboxAuthorize, ActionName("CreateQuestion")]
         public async Task<JsonResult> CreateQuestionAsync(long? quizId, Models.Quiz.Question model)
         {
             //return JsonOk(model);
@@ -316,17 +313,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             foreach (var answer in model.Answers)
             {
                 answer.Id = m_GuidGenerator.GetId();
-               await Task.Delay(1);
+                await Task.Delay(1);
             }
             var command = new CreateQuestionCommand(quizId.Value, User.GetUserId(),
                 new Zbox.Domain.Commands.Quiz.Question(model.Id.Value,
                 model.Text,
-                model.Answers.Select((s,i) =>
+                model.Answers.Select((s, i) =>
                  new Zbox.Domain.Commands.Quiz.Answer(s.Id.Value, s.Text, i == model.CorrectAnswer))));
             ZboxWriteService.CreateQuestion(command);
             return JsonOk(model);
         }
-        
+
         [HttpPost]
         [ZboxAuthorize]
         public ActionResult DeleteQuestion(Guid id)
@@ -345,10 +342,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         #endregion
 
-       
+
 
         #region Discussion
-        [HttpPost, ZboxAuthorize,ActionName("CreateDiscussion")]
+        [HttpPost, ZboxAuthorize, ActionName("CreateDiscussion")]
         public async Task<JsonResult> CreateDiscussionAsync(Discussion model)
         {
             if (!ModelState.IsValid)

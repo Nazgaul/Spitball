@@ -1,4 +1,4 @@
-﻿<div class="leaderboardbox leaderboard score-board box-style">
+﻿<div class="leaderboardbox leaderboard score-board box-style" ng-controller="gamificationBoard as gb">
     <div class="bg-l">
         <md-icon md-svg-icon="p:stars" class="bg"></md-icon>
     </div>
@@ -8,24 +8,24 @@
     <div class="top">
         <div class="points">
             <div class="points-wrapper">
-                <span class="number">1,002,800</span>
+                <span class="number" ng-bind="::gb.data.score | number">{{::gb}}</span>
                 <span>points</span>
             </div>
         </div>
-        <div class="text">Next Level in 500 pts</div>
-        <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="80"></md-progress-linear>
+        <div class="text">Next Level in {{::gb.data.nextLevel}} pts</div>
+        <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{gb.data.score / gb.data.nextLevel * 100}}"></md-progress-linear>
     </div>
     <div class="bottom">
         <div class="level">
             <div class="icon"></div>
             <div class="description">
-                <div>Your level apprentice</div>
-                <div>Level 2</div>
+                <div>Your level {{::gb.data.level}}</div>
+                <div>Level {{::gb.data.number}}</div>
             </div>
         </div>
         <div class="badges">
             <div class="icon"></div>
-            <div class="description">3 Badges</div>
+            <div class="description">{{::gb.data.badgesCount}} Badges</div>
         </div>
     </div>
 </div>

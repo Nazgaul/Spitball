@@ -39,7 +39,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, quiz.Box.Id);
             var user = m_UserRepository.Load(message.UserId);
             bool isAuthorize = userType == UserRelationshipType.Owner
-               || Equals(quiz.Owner, user)
+               || Equals(quiz.User, user)
                || user.IsAdmin();
 
             if (!isAuthorize)
@@ -60,7 +60,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
                     m_CommentRepository.Save(quiz.Comment);
                 }
             }
-            await m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(quiz.Owner.Id));
+            await m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(quiz.User.Id));
             m_UpdatesRepository.DeleteQuizUpdates(quiz.Id);
             m_QuizRepository.Delete(quiz, true);
             quiz.Box.UpdateItemCount();

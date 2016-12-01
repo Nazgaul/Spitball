@@ -77,6 +77,7 @@ namespace Zbang.Zbox.Domain
         public virtual ICollection<FlashcardMeta> Flashcards { get; protected set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<CommentReply> Replies { get; set; }
         protected virtual ICollection<ItemTab> ItemTabs { get; set; }
 
         protected virtual ICollection<Updates> Updates { get; set; }
@@ -149,7 +150,7 @@ namespace Zbang.Zbox.Domain
             //Need to put in here unique item name check per box
             Items.Add(item);
             UpdateItemCount();
-            UserTime.UpdateUserTime(item.Uploader.Id);
+            UserTime.UpdateUserTime(item.User.Id);
             return item;
         }
 
@@ -170,7 +171,7 @@ namespace Zbang.Zbox.Domain
         /// <returns>Users list who their post are deleted</returns>
         public virtual IEnumerable<long> DeleteComment(Comment comment)
         {
-            var usersAffectedByDeleteComment = comment.RepliesReadOnly.Select(s => s.User.Id).Union(new[] { comment.User.Id });
+            var usersAffectedByDeleteComment = comment.RepliesReadOnly.Where(w => w.LikeCount > 0).Select(s => s.User.Id).Union(new[] { comment.User.Id });
             Comments.Remove(comment);
             ShouldMakeDirty = () => false;
             UpdateCommentsCount();
@@ -224,35 +225,35 @@ namespace Zbang.Zbox.Domain
 
         #endregion
 
-       // #region Nhibernate
-       // public override bool Equals(object obj)
-       // {
-       //     if (this == obj) return true;
-       //
-       //     var box = obj as Box;
-       //     if (box == null) return false;
-       //
-       //     if (Name != box.Name) return false;
-       //     if (UserTime.CreationTime != box.UserTime.CreationTime) return false;
-       //     if (UserTime.CreatedUser != box.UserTime.CreatedUser) return false;
-       //     if (IsDeleted != box.IsDeleted) return false;
-       //
-       //
-       //     return true;
-       // }
-       //
-       // public override int GetHashCode()
-       // {
-       //     unchecked
-       //     {
-       //         int result = 13 * Name.GetHashCode();
-       //         result += 11 * UserTime.CreationTime.GetHashCode();
-       //         result += 19 * UserTime.CreatedUser.GetHashCode();
-       //         result += 17 * IsDeleted.GetHashCode();
-       //         return result;
-       //     }
-       // }
-       // #endregion
+        // #region Nhibernate
+        // public override bool Equals(object obj)
+        // {
+        //     if (this == obj) return true;
+        //
+        //     var box = obj as Box;
+        //     if (box == null) return false;
+        //
+        //     if (Name != box.Name) return false;
+        //     if (UserTime.CreationTime != box.UserTime.CreationTime) return false;
+        //     if (UserTime.CreatedUser != box.UserTime.CreatedUser) return false;
+        //     if (IsDeleted != box.IsDeleted) return false;
+        //
+        //
+        //     return true;
+        // }
+        //
+        // public override int GetHashCode()
+        // {
+        //     unchecked
+        //     {
+        //         int result = 13 * Name.GetHashCode();
+        //         result += 11 * UserTime.CreationTime.GetHashCode();
+        //         result += 19 * UserTime.CreatedUser.GetHashCode();
+        //         result += 17 * IsDeleted.GetHashCode();
+        //         return result;
+        //     }
+        // }
+        // #endregion
 
 
 

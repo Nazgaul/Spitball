@@ -5,7 +5,6 @@ using NHibernate.Linq;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Data.Repositories;
 using Zbang.Zbox.Infrastructure.Enums;
-using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Domain.DataAccess
 {
@@ -58,7 +57,7 @@ namespace Zbang.Zbox.Domain.DataAccess
         public long GetItemsByUser(long userId)
         {
             return UnitOfWork.CurrentSession.Query<Item>()
-                  .Where(w => w.Uploader.Id == userId)
+                  .Where(w => w.User.Id == userId)
                   .Where(w => w.IsDeleted == false)
                   .Sum(s => s.Size);
 
@@ -76,9 +75,16 @@ namespace Zbang.Zbox.Domain.DataAccess
 
         public void UpdateUserReputation(int reputation, long userid)
         {
-            // const string hqlUpdate = "update User c set c.Reputation = :reputation where c.Id = :userid";
             UnitOfWork.CurrentSession.GetNamedQuery("UpdateUserReputation")//.Get.CreateQuery(hqlUpdate)
                 .SetInt64("reputation", reputation)
+                .SetInt64("userid", userid)
+                .ExecuteUpdate();
+        }
+
+        public void UpdateScore(int score, long userid)
+        {
+            UnitOfWork.CurrentSession.GetNamedQuery("UpdateUserScore")//.Get.CreateQuery(hqlUpdate)
+                .SetInt64("Score", score)
                 .SetInt64("userid", userid)
                 .ExecuteUpdate();
         }

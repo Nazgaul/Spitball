@@ -412,7 +412,7 @@ FETCH NEXT @RowsPerPage ROWS ONLY";
         {
             const string sql = @"select email,Culture,UserName as Name
 from zbox.users u 
-where u.UserReputation < 600
+where u.score < 600
 and UniversityId is not null
 and exists (select userid from zbox.userboxrel ub where ub.userid = u.userid)
 and u.UniversityId in (	select Id from zbox.University u where u.NoOfBoxes >= 5 and isdeleted = 0)

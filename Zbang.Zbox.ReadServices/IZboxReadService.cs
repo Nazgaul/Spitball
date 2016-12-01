@@ -69,11 +69,11 @@ namespace Zbang.Zbox.ReadServices
 
         Task<IEnumerable<UserDto>> GetUserFriendsAsync(GetUserFriendsQuery query);
 
-        Task<UserDetailDto> GetUserDataAsync(GetUserDetailsQuery query);
+        Task<UserDetailDto> GetUserDataAsync(QueryBaseUserId query);
         //Theme GetUserTheme(GetUserDetailsQuery query);
 
-        Task<UserAccountDto> GetUserAccountDetailsAsync(GetUserDetailsQuery query);
-        Task<UserNotification> GetUserBoxesNotificationAsync(GetUserDetailsQuery query);
+        Task<UserAccountDto> GetUserAccountDetailsAsync(QueryBaseUserId query);
+        Task<UserNotification> GetUserBoxesNotificationAsync(QueryBaseUserId query);
         Task<NotificationSetting> GetUserBoxNotificationSettingsAsync(GetBoxQuery query, long userId);
 
 
@@ -137,12 +137,18 @@ namespace Zbang.Zbox.ReadServices
         #region chat
         Task<IEnumerable<ChatUserDto>> GetUsersConversationAndFriendsAsync(GetUserConversationAndFriends query);
         Task<IEnumerable<ChatDto>> GetUserConversationAsync(GetChatRoomMessagesQuery query);
-        Task<int> GetChatUnreadMessagesAsync(GetUserDetailsQuery query);
+        Task<int> GetChatUnreadMessagesAsync(QueryBaseUserId query);
         #endregion
         Task<IEnumerable<SmallNodeDto>> GetUniversityNodesAsync(long universityId);
 
         #region flashcard
         Task<FlashcardUserDto> GetUserFlashcardAsync(GetUserFlashcardQuery query);
+        #endregion
+
+        #region Gamification
+
+        Task<GamificationBoardDto> GamificationBoardAsync(QueryBaseUserId query);
+
         #endregion
 
     }

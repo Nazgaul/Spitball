@@ -42,7 +42,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 
                 if (m_ContextBase.User != null && m_ContextBase.User.Identity.IsAuthenticated)
                 {
-                    var userData = await m_ZboxReadService.GetUserDataAsync(new GetUserDetailsQuery(m_ContextBase.User.GetUserId()));
+                    var userData = await m_ZboxReadService.GetUserDataAsync(new QueryBaseUserId(m_ContextBase.User.GetUserId()));
                     m_LanguageCookie.InjectCookie(userData.Culture);
                     ChangeThreadLanguage(userData.Culture);
                     await Next.Invoke(context);

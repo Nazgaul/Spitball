@@ -8,7 +8,7 @@ namespace Zbang.Zbox.Domain.Common
     public interface IZboxWorkerRoleService
     {
         Task DeleteBoxAsync(DeleteBoxCommand command);
-        void Statistics(UpdateStatisticsCommand command);
+        Task StatisticsAsync(UpdateStatisticsCommand command);
         void UpdateQuota(UpdateQuotaCommand updateQuotaCommand);
         void UpdateReputation(UpdateReputationCommand command);
         Task AddNewUpdateAsync(AddNewUpdatesCommand command);

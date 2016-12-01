@@ -4,7 +4,6 @@ using System.Linq;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Culture;
-using Zbang.Zbox.Infrastructure.IdGenerator;
 using System.Text;
 using Zbang.Zbox.Infrastructure;
 
@@ -42,7 +41,7 @@ namespace Zbang.Zbox.Domain
             CreateName();
             UpdateLanguage(culture);
             Sex = sex;
-            AddReputation(ReputationAction.Register);
+            //AddReputation(ReputationAction.Register);
         }
         // ReSharper restore DoNotCallOverridableMethodsInConstructor
         public void CreateName()
@@ -109,6 +108,7 @@ namespace Zbang.Zbox.Domain
         public virtual DateTime? LastAccessTime { get; set; }
 
         public virtual int Reputation { get; set; }
+        public virtual int Score { get; set; }
 
         //public virtual RussianDepartment RussianDepartment { get; set; }
 
@@ -127,13 +127,13 @@ namespace Zbang.Zbox.Domain
 
         
 
-        public Reputation AddReputation(ReputationAction action)
-        {
-            var reputation = new Reputation(GuidIdGenerator.GetGuid(), this, action);
+        //public Reputation AddReputation(ReputationAction action)
+        //{
+        //    var reputation = new Reputation(GuidIdGenerator.GetGuid(), this, action);
 
-            Reputation += reputation.Score;
-            return reputation;
-        }
+        //    Reputation += reputation.Score;
+        //    return reputation;
+        //}
 
         public virtual void AddConnection(string connectionId)
         {

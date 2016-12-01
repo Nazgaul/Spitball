@@ -106,7 +106,6 @@
     <Compile Include="Question.cs" />
     <Compile Include="Quiz.cs" />
     <Compile Include="Quota.cs" />
-    <Compile Include="Reputation.cs" />
     <Compile Include="SolvedQuestion.cs" />
     <Compile Include="SolvedQuiz.cs" />
     <Compile Include="Student.cs" />
@@ -180,9 +179,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\Departments.hbm.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Mappings\Reputaion.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\NewUpdates.hbm.xml" />

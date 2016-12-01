@@ -1,36 +1,36 @@
-﻿(function () {
+var app;
+(function (app) {
     'use strict';
-    angular.module('app.user').service('userService', user);
-    user.$inject = ['ajaxService'];
-
-    function user(ajaxservice) {
-        var u = this;
-
-        u.getDetails = function (userid) {
-            return ajaxservice.get('/user/profilestats/', { id: userid });
+    var UserService = (function () {
+        function UserService(ajaxService2) {
+            this.ajaxService2 = ajaxService2;
         }
-        u.boxes = function (userid, page) {
-            return ajaxservice.get('/user/boxes/', { id: userid, page: page });
-        }
-
-        u.friends = function (userid, page) {
-            return ajaxservice.get('/user/friends/', { id: userid, page: page });
-        }
-        u.files = function (userid, page) {
-            return ajaxservice.get('/user/items/', { id: userid, page: page });
-        }
-        u.feed = function (userid, page) {
-            return ajaxservice.get('/user/comment/', { id: userid, page: page });
-        }
-        u.quiz = function (userid, page) {
-            return ajaxservice.get('/user/quiz/', { id: userid, page: page });
-        }
-
-        u.getNotification = function () {
-            return ajaxservice.get('/share/notifications/');
-        }
-
-        
-   
-    }
-})();
+        UserService.prototype.getDetails = function (userid) {
+            return this.ajaxService2.get("/user/profilestats/", { id: userid });
+        };
+        UserService.prototype.boxes = function (userid, page) {
+            return this.ajaxService2.get("/user/boxes/", { id: userid, page: page });
+        };
+        UserService.prototype.friends = function (userid, page) {
+            return this.ajaxService2.get("/user/friends/", { id: userid, page: page });
+        };
+        UserService.prototype.files = function (userid, page) {
+            return this.ajaxService2.get("/user/items/", { id: userid, page: page });
+        };
+        UserService.prototype.feed = function (userid, page) {
+            return this.ajaxService2.get("/user/comment/", { id: userid, page: page });
+        };
+        UserService.prototype.quiz = function (userid, page) {
+            return this.ajaxService2.get("/user/quiz/", { id: userid, page: page });
+        };
+        UserService.prototype.getNotification = function () {
+            return this.ajaxService2.get("/share/notifications/");
+        };
+        UserService.prototype.gamificationBoard = function () {
+            return this.ajaxService2.get("/user/gamificationboard");
+        };
+        UserService.$inject = ['ajaxService2'];
+        return UserService;
+    }());
+    angular.module("app.user").service("userService", UserService);
+})(app || (app = {}));

@@ -108,11 +108,15 @@
     <Compile Include="Enums\MessageType.cs" />
     <Compile Include="Enums\MobileOperatingSystem.cs" />
     <Compile Include="Enums\PushNotificationSettings.cs" />
-    <Compile Include="Enums\ReputationAction.cs" />
     <Compile Include="Enums\Resources\EnumResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EnumResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Enums\Resources\Gamification.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Gamification.resx</DependentUpon>
     </Compile>
     <Compile Include="Enums\Resources\QuestionResource.Designer.cs">
       <DependentUpon>QuestionResource.resx</DependentUpon>
@@ -133,7 +137,7 @@
     <Compile Include="Extensions\ConfigFetcher.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Extensions\EnumDescriptionAttribute.cs" />
+    <Compile Include="Extensions\ResourceDescriptionAttribute.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\PrincipalExtension.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
@@ -150,6 +154,7 @@
     <Compile Include="Profile\ProfilePictureProvider.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Query\IUniversityWithCode.cs" />
+    <Compile Include="Range.cs" />
     <Compile Include="RegisterIoc.cs" />
     <Compile Include="Repositories\IDirty.cs" />
     <Compile Include="Repositories\ISoftDelete.cs" />
@@ -250,6 +255,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Enums\Resources\Gamification.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Gamification.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Enums\Resources\QuestionResource.he.resx" />
     <EmbeddedResource Include="Enums\Resources\QuestionResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

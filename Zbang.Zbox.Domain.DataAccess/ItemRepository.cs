@@ -29,14 +29,14 @@ namespace Zbang.Zbox.Domain.DataAccess
             var questions = UnitOfWork.CurrentSession.QueryOver<Item>()
                 .Where(w => w.DateTimeUser.CreationTime > DateTime.UtcNow.AddHours(-1))
                 .And(w => w.Box.Id == boxId)
-                .And(w => w.Uploader.Id == userId)
+                .And(w => w.User.Id == userId)
                 .And(w => w.IsDeleted == false)
                 .Select(s => s.Comment).Future<Comment>();
 
             var questions2 = UnitOfWork.CurrentSession.QueryOver<Quiz>()
                 .Where(w => w.DateTimeUser.CreationTime > DateTime.UtcNow.AddHours(-1))
                 .And(w => w.Box.Id == boxId)
-                .And(w => w.Owner.Id == userId)
+                .And(w => w.User.Id == userId)
                 .Select(s => s.Comment).Future<Comment>();
 
             return questions.Union(questions2)

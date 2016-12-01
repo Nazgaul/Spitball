@@ -24,10 +24,10 @@ namespace Zbang.Zbox.Domain
         public virtual bool Read { get; protected set; }
         public virtual bool New { get; protected set; }
 
-        public override ReputationAction GiveAction()
-        {
-            return ReputationAction.InviteToBox;
-        }
+        //public override ReputationAction GiveAction()
+        //{
+        //    return ReputationAction.InviteToBox;
+        //}
 
         public override string UrlToRedirect()
         {

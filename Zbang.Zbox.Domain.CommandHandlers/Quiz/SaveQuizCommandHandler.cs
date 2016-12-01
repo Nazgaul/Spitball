@@ -22,9 +22,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
         private readonly IGuidIdGenerator m_IdGenerator;
         private readonly IRepository<Comment> m_CommentRepository;
         private readonly IUserRepository m_UserRepository;
-        private readonly IRepository<Reputation> m_ReputationRepository
+        //private readonly IRepository<Reputation> m_ReputationRepository
 
-            ;
+            
 
         public SaveQuizCommandHandler(
             IRepository<Domain.Quiz> quizRepository,
@@ -32,7 +32,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             IBoxRepository boxRepository,
             IItemRepository itemRepository,
             IGuidIdGenerator idGenerator,
-            IRepository<Comment> commentRepository, IUserRepository userRepository, IRepository<Reputation> reputationRepository)
+            IRepository<Comment> commentRepository, IUserRepository userRepository
+            //IRepository<Reputation> reputationRepository
+            )
         {
             m_QuizRepository = quizRepository;
             m_QueueProvider = queueProvider;
@@ -41,13 +43,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             m_IdGenerator = idGenerator;
             m_CommentRepository = commentRepository;
             m_UserRepository = userRepository;
-            m_ReputationRepository = reputationRepository;
+           // m_ReputationRepository = reputationRepository;
         }
         public async Task<SaveQuizCommandResult> ExecuteAsync(SaveQuizCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
             var quiz = m_QuizRepository.Load(message.QuizId);
-            if (quiz.Owner.Id != message.UserId)
+            if (quiz.User.Id != message.UserId)
             {
                 throw new UnauthorizedAccessException("user is not owner of quiz");
             }
@@ -66,7 +68,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
                 {
                     throw new ArgumentException("question have no right answer");
                 }
-                if (question.Answers.Count() < 2)
+                if (question.Answers.Count < 2)
                 {
                     throw new ArgumentException("question answers are below 2");
                 }
@@ -86,24 +88,21 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 
             quiz.Content = sb.ToString().Substring(0, Math.Min(sb.Length, 254));
 
-            quiz.Box.UserTime.UpdateUserTime(quiz.Owner.Id);
+            quiz.Box.UserTime.UpdateUserTime(quiz.User.Id);
             quiz.Box.UpdateItemCount();
             quiz.GenerateUrl();
             m_BoxRepository.Save(quiz.Box);
             m_QuizRepository.Save(quiz);
 
-            var comment = m_ItemRepository.GetPreviousCommentId(quiz.Box.Id, quiz.Owner.Id) ??
-                         new Comment(quiz.Owner, null, quiz.Box, m_IdGenerator.GetId(), null, FeedType.AddedItems);
+            var comment = m_ItemRepository.GetPreviousCommentId(quiz.Box.Id, quiz.User.Id) ??
+                         new Comment(quiz.User, null, quiz.Box, m_IdGenerator.GetId(), null, FeedType.AddedItems);
             comment.AddQuiz(quiz);
             m_CommentRepository.Save(comment);
 
-            m_ReputationRepository.Save(quiz.Owner.AddReputation(ReputationAction.AddQuiz));
-            m_UserRepository.Save(quiz.Owner);
+            m_UserRepository.Save(quiz.User);
 
-            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(quiz.Owner.Id, quiz.Box.Id, null, null, null, quiz.Id));
-            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(quiz.Owner.Id));
+            await m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(quiz.User.Id, quiz.Box.Id, null, null, null, quiz.Id));
 
-           await Task.WhenAll(t1, t2);
 
             return new SaveQuizCommandResult(quiz.Url);
         }

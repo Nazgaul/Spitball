@@ -1,26 +1,21 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Repositories;
-using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class DeleteItemCommentReplyCommandHandler : ICommandHandlerAsync<DeleteItemCommentReplyCommand>
+    public class DeleteItemCommentReplyCommandHandler : ICommandHandler<DeleteItemCommentReplyCommand>
     {
         private readonly IRepository<ItemCommentReply> m_ItemCommentReplyRepository;
-        private readonly IQueueProvider m_QueueProvider;
 
         public DeleteItemCommentReplyCommandHandler(
-            IRepository<ItemCommentReply> itemCommentReplyRepository, IQueueProvider queueProvider)
+            IRepository<ItemCommentReply> itemCommentReplyRepository)
         {
             m_ItemCommentReplyRepository = itemCommentReplyRepository;
-            m_QueueProvider = queueProvider;
         }
 
-        public Task HandleAsync(DeleteItemCommentReplyCommand message)
+        public void Handle(DeleteItemCommentReplyCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
 
@@ -35,7 +30,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             
             m_ItemCommentReplyRepository.Delete(itemReply);
-            return m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(itemReply.Author.Id));
+            //return m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(itemReply.Author.Id));
         }
     }
 }

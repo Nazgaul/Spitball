@@ -72,11 +72,11 @@ namespace Zbang.Zbox.Domain.DataAccess
             }
 
             var sqlQuery = UnitOfWork.CurrentSession.CreateSQLQuery(@"with topreputation as (
-                        select userreputation , ROW_NUMBER() OVER(ORDER BY userreputation DESC) AS Row
+                        select score , ROW_NUMBER() OVER(ORDER BY score DESC) AS Row
                          from zbox.users u
                         where universityid = :id
                         )
-                        select  top 1 UserReputation  from topreputation 
+                        select  top 1 score  from topreputation 
                         where Row <= (select AdminNoOfPeople from zbox.University where id = :id)
                         order by Row desc");
             sqlQuery.SetInt64("id", universityId);

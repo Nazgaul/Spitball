@@ -27,7 +27,7 @@
     <many-to-one column="BoxId" class="Box" name="Box" index="iBoxIsDeleted"/>
     <property  name="BoxId" column="BoxId" insert="false" update="false" />
 
-    <many-to-one name="Uploader" class="User" column="UserId" not-null="true"/>
+    <many-to-one name="User" class="User" column="UserId" not-null="true"/>
     <property  name="UploaderId" column="UserId" insert="false" update="false" />
 
     <many-to-one column="QuestionId" class="Comment" name="Comment" />

@@ -12,14 +12,14 @@
                                 u.UserName as Name ,
                                 u.url as Url,
                                 u.UserImageLarge as Image,
-                                u.UserReputation
+                                u.Score
                                 from zbox.userboxrel ub 
                                 join zbox.userboxrel ub2 on ub.boxid = ub2.boxid
                                 join zbox.users u on u.userid = ub2.userid
                                 where ub.userid = @UserId
                                 and u.userid != @UserId
-                                group by u.userid ,u.UserName  ,u.UserImageLarge,u.UserReputation ,u.url
-                                order by u.UserReputation desc
+                                group by u.userid ,u.UserName  ,u.UserImageLarge,u.Score ,u.url
+                                order by u.Score desc
     offset @pageNumber*@rowsperpage ROWS
     FETCH NEXT @rowsperpage ROWS ONLY;";
 
@@ -83,12 +83,12 @@ order by rank desc";
 
 
         public const string UniversityLeaderBoard = @"
-select top(3) u.userid as id, u.UserImageLarge as image, coalesce(u.FirstName,u.username)  as name, u.UserReputation as score, u.url as url
+select top(3) u.userid as id, u.UserImageLarge as image, coalesce(u.FirstName,u.username)  as name, u.Score as score, u.url as url
 from zbox.Users u 
 where u.UniversityId = @UniversityId
 and u.usertype <> 1
-and userreputation > 0
- order by userreputation desc";
+and score > 0
+ order by score desc";
 
 
         public const string UserAuthenticationDetail =
@@ -96,14 +96,12 @@ and userreputation > 0
 u.UserId as Id, 
 u.UserName as Name, 
 u.UserImageLarge as Image,
-u.Sex as Sex,
-u.Url as Url,
 u.Culture as Culture,
-u.UserReputation as Score,
+u.score as Score,
 uu.UniversityName as UniversityName,
 uu.Country as UniversityCountry,
 uu.id as UniversityId,
-case when u.UserReputation >= uu.AdminScore or usertype = 1 then 1 else 0 end  as isAdmin,
+case when u.score >= uu.AdminScore or usertype = 1 then 1 else 0 end  as isAdmin,
 u.Email as Email,
 u.CreationTime as DateTime
 from zbox.Users u 
@@ -115,7 +113,7 @@ where u.userid = @UserId";
 
         public const string GetUserByMembershipId = @" select u.UserId as Id, u.UserName as Name, u.Culture as Culture, 
     u.UserImageLarge as Image, u.Email as Email,
-    u.UserReputation as Score,
+    u.score as Score,
     uu.UniversityName as LibName,
     uu.LargeImage as LibImage,
     uu.Id as UniversityId,
@@ -125,7 +123,7 @@ where u.userid = @UserId";
 
         public const string GetUserByFacebookId = @" select u.UserId as Id, u.UserName as Name, u.Culture as Culture, 
     u.UserImageLarge as Image, u.Email as Email,
-    u.UserReputation as Score,
+    u.score as Score,
     uu.UniversityName as LibName,
     uu.LargeImage as LibImage,
     uu.Id as UniversityId,
@@ -136,7 +134,7 @@ where u.userid = @UserId";
 
         public const string GetUserByGoogleId = @" select u.UserId as Id, u.UserName as Name, u.Culture as Culture, 
     u.UserImageLarge as Image, u.Email as Email,
-    u.UserReputation as Score,
+    u.score as Score,
     uu.UniversityName as LibName,
     uu.LargeImage as LibImage,
     uu.Id as UniversityId,
@@ -147,7 +145,7 @@ where u.userid = @UserId";
 
         public const string GetUserById = @" select u.UserId as Id, u.UserName as Name, u.Culture as Culture, 
     u.UserImageLarge as Image, u.Email as Email,
-    u.UserReputation as Score,
+    u.score as Score,
     uu.UniversityName as LibName,
     uu.LargeImage as LibImage,
     uu.Id as UniversityId,
@@ -166,7 +164,7 @@ u.facebookuserid as FacebookId,
 u.MembershipUserId as membershipId,
     u.UserImageLarge as Image,
     u.Email as Email,
-    u.UserReputation as Score,
+    u.score as Score,
     uu.UniversityName as LibName,
     uu.LargeImage as LibImage,
     uu.Id as UniversityId,

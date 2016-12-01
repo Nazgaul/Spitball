@@ -40,7 +40,7 @@ namespace Zbang.Zbox.Domain
             IsUsed = true;
         }
 
-        public abstract ReputationAction GiveAction();
+        //public abstract ReputationAction GiveAction();
         public abstract string UrlToRedirect();
 
 

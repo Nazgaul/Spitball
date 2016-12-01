@@ -1,28 +1,33 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class LikeCommentCommandHandler : ICommandHandler<LikeCommentCommand, LikeCommentCommandResult>
+    public class LikeCommentCommandHandler : ICommandHandlerAsync<LikeCommentCommand, LikeCommentCommandResult>
     {
         private readonly ICommentLikeRepository m_CommentLikeRepository;
         private readonly IUserRepository m_UserRepository;
         private readonly IRepository<Comment> m_CommentRepository;
         private readonly IGuidIdGenerator m_GuidGenerator;
+        private readonly IQueueProvider m_QueueProvider;
 
-        public LikeCommentCommandHandler(ICommentLikeRepository commentLikeRepository, IUserRepository userRepository, IRepository<Comment> commentRepository, IGuidIdGenerator guidGenerator)
+        public LikeCommentCommandHandler(ICommentLikeRepository commentLikeRepository, IUserRepository userRepository, IRepository<Comment> commentRepository, IGuidIdGenerator guidGenerator, IQueueProvider queueProvider)
         {
             m_CommentLikeRepository = commentLikeRepository;
             m_UserRepository = userRepository;
             m_CommentRepository = commentRepository;
             m_GuidGenerator = guidGenerator;
+            m_QueueProvider = queueProvider;
         }
 
-        public LikeCommentCommandResult Execute(LikeCommentCommand message)
+        public async Task<LikeCommentCommandResult> ExecuteAsync(LikeCommentCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
 
@@ -37,12 +42,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
                 m_CommentRepository.Save(comment);
                 m_CommentLikeRepository.Save(commentLike);
+               await m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(comment.User.Id));
                 return new LikeCommentCommandResult(true);
             }
 
             comment.LikeCount--;
             m_CommentRepository.Save(comment);
             m_CommentLikeRepository.Delete(commentLike);
+           await m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(comment.User.Id));
             return new LikeCommentCommandResult(false);
 
         }

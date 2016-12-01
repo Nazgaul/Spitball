@@ -189,27 +189,18 @@ select u.userid as Id, username as Name,UserImageLarge as Image
 from zbox.users u 
 where u.userid not in ( select userid from zbox.UserBoxRel where boxid = @BoxId)
 order by
-case when u.UniversityId = @UniversityId then 0 else 1 end asc, UserReputation desc
+case when u.UniversityId = @UniversityId then 0 else 1 end asc, Score desc
 offset @pageNumber*@rowsperpage ROWS
 FETCH NEXT @rowsperpage ROWS ONLY;";
 
         public const string GetUsersInBoxByTerm =
-            //            @"Declare @SearchWithWildcard VARCHAR(200)
-            //SET @SearchWithWildcard = '""' + @term + '*""'
-            //select u.userid as Id, username as Name,UserImageLarge as Image 
-            //from zbox.users u 
-            //where contains (u.UserName, @SearchWithWildcard)
-            //and u.userid not in ( select userid from zbox.UserBoxRel where boxid = @BoxId)
-            //order by
-            //case when u.UniversityId = @UniversityId then 0 else 1 end asc, UserReputation desc
-            //offset @pageNumber*@rowsperpage ROWS
-            //FETCH NEXT @rowsperpage ROWS ONLY;";
+           
             @"select u.userid as Id, username as Name,UserImageLarge as Image 
 from zbox.users u 
 where username like  @Term + '%'
 and u.userid not in ( select userid from zbox.UserBoxRel where boxid = @BoxId)
 order by
-case when u.UniversityId = @UniversityId then 0 else 1 end asc, UserReputation desc
+case when u.UniversityId = @UniversityId then 0 else 1 end asc, Score desc
 offset @pageNumber*@rowsperpage ROWS
 FETCH NEXT @rowsperpage ROWS ONLY; ";
 

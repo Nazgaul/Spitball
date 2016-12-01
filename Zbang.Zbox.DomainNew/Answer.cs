@@ -26,7 +26,7 @@ namespace Zbang.Zbox.Domain
             Question = question;
 
             // ReSharper disable once DoNotCallOverridableMethodsInConstructor Resharper
-            DateTimeUser = new UserTimeDetails(Quiz.Owner.Id);
+            DateTimeUser = new UserTimeDetails(Quiz.User.Id);
         }
         public virtual Guid Id { get; private set; }
         public virtual Quiz Quiz { get; private set; }

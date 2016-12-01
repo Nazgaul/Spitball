@@ -4,7 +4,7 @@ using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class LikeReplyCommand : ICommand, ICommandCache
+    public class LikeReplyCommand : ICommandAsync, ICommandCache
     {
         public LikeReplyCommand(Guid replyId, long userId, long boxId)
         {
@@ -18,14 +18,5 @@ namespace Zbang.Zbox.Domain.Commands
 
         public long BoxId { get; }
         public string CacheRegion => CacheRegions.BuildFeedRegion(BoxId);
-    }
-    public class LikeReplyCommandResult : ICommandResult
-    {
-        public LikeReplyCommandResult(bool liked)
-        {
-            Liked = liked;
-        }
-
-        public bool Liked { get; private set; }
     }
 }

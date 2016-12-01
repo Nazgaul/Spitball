@@ -484,11 +484,11 @@ select top(3) id from zbox.university where isdeleted = 1 and updatetime < getut
 
 
 
-        public void Statistics(UpdateStatisticsCommand command)
+        public async Task StatisticsAsync(UpdateStatisticsCommand command)
         {
             using (var unitOfWork = UnitOfWork.Start())
             {
-                m_CommandBus.Send(command);
+                await m_CommandBus.SendAsync(command);
                 unitOfWork.TransactionalFlush();
             }
         }

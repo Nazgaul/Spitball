@@ -2,14 +2,13 @@
     "use strict";
 
     angular.module("app").config(config);
-    config.$inject = ["$controllerProvider", "$locationProvider", "$provide",
+    config.$inject = ["$controllerProvider",  "$provide",
         "$httpProvider", "$compileProvider", "$animateProvider",
         "$mdAriaProvider", "$mdIconProvider", "$sceDelegateProvider",
         "$mdThemingProvider", "$urlMatcherFactoryProvider"];
     // ReSharper disable once Class
     function config(
         $controllerProvider: angular.IControllerProvider,
-        $locationProvider: angular.ILocationProvider,
         $provide,
         $httpProvider: angular.IHttpProvider,
         $compileProvider: angular.ICompileProvider,

@@ -34,6 +34,7 @@
     <property name="ImageLarge" column="UserImageLarge" not-null="false"/>
     <property name="StudentId" column="UserCode"/>
     <property name="Reputation" column="UserReputation"/>
+    <property name="Score" column="Score"/>
 
    
 
@@ -137,6 +138,11 @@
   <query name="UpdateUserReputation">
     <![CDATA[
     update User c set c.Reputation = :reputation where c.Id = :userid
+    ]]>
+  </query>
+  <query name="UpdateUserScore">
+    <![CDATA[
+    update User c set c.Score = :Score where c.Id = :userid
     ]]>
   </query>
   <query name="UpdateUserMobileDevice">

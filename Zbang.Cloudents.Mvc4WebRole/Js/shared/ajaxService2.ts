@@ -48,6 +48,9 @@ module app {
                     maxAge: 1 * second,
                     storageMode: "localStorage"
                 };
+                this.cacheCategories.accountDetail = {
+                    maxAge: 1 * second
+                };
             }
             for (let cacheKey in this.cacheCategories) {
                 this.buildFactoryObject(cacheKey);
