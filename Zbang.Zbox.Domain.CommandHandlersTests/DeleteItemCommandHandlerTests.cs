@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         private IBlobProvider m_StubBlobProvider;
         //private IActionRepository m_StubActionRepository;
         private IRepository<Item> m_StubItemRepository;
-        private IRepository<Reputation> m_StubReputationRepository;
+        //private IRepository<Reputation> m_StubReputationRepository;
         private IRepository<Updates> m_StubUpdatesRepository;
 
         private IRepository<CommentReply> m_CommentRepliesRepository;
@@ -36,7 +36,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             m_StubBlobProvider = MockRepository.GenerateStub<IBlobProvider>();
             //  m_StubActionRepository = MockRepository.GenerateStub<IActionRepository>();
             m_StubItemRepository = MockRepository.GenerateStub<IRepository<Item>>();
-            m_StubReputationRepository = MockRepository.GenerateStub<IRepository<Reputation>>();
+           // m_StubReputationRepository = MockRepository.GenerateStub<IRepository<Reputation>>();
             m_StubUpdatesRepository = MockRepository.GenerateStub<IRepository<Updates>>();
             m_CommentRepliesRepository = MockRepository.GenerateStub<IRepository<CommentReply>>();
             m_CommentRepository = MockRepository.GenerateStub<IRepository<Comment>>();

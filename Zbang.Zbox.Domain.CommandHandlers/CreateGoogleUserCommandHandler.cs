@@ -14,10 +14,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IQueueProvider queueRepository,
             IRepository<University> universityRepository,
             IInviteRepository inviteToCloudentsRepository,
-            IRepository<Reputation> reputationRepository,
+            //IRepository<Reputation> reputationRepository,
             IRepository<Box> boxRepository)
             : base(userRepository, queueRepository, universityRepository, inviteToCloudentsRepository,
-                  reputationRepository, boxRepository)
+                   boxRepository)
         {
 
         }
@@ -83,7 +83,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             UpdateUniversityByBox(command.BoxId, result, user);
             UpdateUniversity(googleCommand, result, user);
 
-            await GiveReputationAndAssignToBoxAsync(command.InviteId, user);
+            GiveReputationAndAssignToBox(command.InviteId, user);
             UserRepository.Save(user);
             return result;
         }

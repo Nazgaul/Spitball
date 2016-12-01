@@ -2,11 +2,11 @@ var app;
 (function (app) {
     "use strict";
     angular.module("app").config(config);
-    config.$inject = ["$controllerProvider", "$locationProvider", "$provide",
+    config.$inject = ["$controllerProvider", "$provide",
         "$httpProvider", "$compileProvider", "$animateProvider",
         "$mdAriaProvider", "$mdIconProvider", "$sceDelegateProvider",
         "$mdThemingProvider", "$urlMatcherFactoryProvider"];
-    function config($controllerProvider, $locationProvider, $provide, $httpProvider, $compileProvider, $animateProvider, $mdAriaProvider, $mdIconProvider, $sceDelegateProvider, $mdThemingProvider, $urlMatcherFactoryProvider) {
+    function config($controllerProvider, $provide, $httpProvider, $compileProvider, $animateProvider, $mdAriaProvider, $mdIconProvider, $sceDelegateProvider, $mdThemingProvider, $urlMatcherFactoryProvider) {
         $controllerProvider.allowGlobals();
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
         $provide.factory("requestinterceptor", [function () { return ({

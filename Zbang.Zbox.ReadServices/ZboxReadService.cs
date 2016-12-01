@@ -41,7 +41,7 @@ namespace Zbang.Zbox.ReadServices
                     sql += Sql.HomePage.UniversityColors;
                 }
                 using (var grid = await conn.QueryMultipleAsync(sql
-                    , new { query.UniversityId }))
+                    , query))
                 {
                     var retVal = new HomePageDataDto
                     {
@@ -70,7 +70,7 @@ namespace Zbang.Zbox.ReadServices
                 return
                     await
                         conn.QueryAsync<Box.RecommendBoxDto>(Sql.HomePage.UniversityBoxes,
-                            new { query.UniversityId, query.Country });
+                            query);
             }
         }
 
@@ -102,7 +102,7 @@ namespace Zbang.Zbox.ReadServices
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 return await conn.QueryAsync<BoxDto>(Sql.Dashboard.UserBoxes,
-                    new { query.UserId, query.RowsPerPage, query.PageNumber });
+                    query);
             }
 
         }
@@ -146,7 +146,7 @@ where z.userid = @UserId
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 return await conn.QueryAsync<Box.RecommendBoxDto>(Sql.Sql.RecommendedCourses,
-                    new { query.UniversityId, query.UserId });
+                    query);
             }
         }
 
@@ -162,7 +162,7 @@ where z.userid = @UserId
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var retVal = await conn.QueryFirstAsync<UniversityDashboardInfoDto>(Sql.Sql.UniversityInfo,
-                    new { query.UniversityId });
+                    query);
                 return retVal;
             }
         }
@@ -216,7 +216,7 @@ where z.userid = @UserId
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var retVal =
-                    await conn.QueryAsync<ClosedNodeDto>(Sql.Library.GetClosedLibraryByUser, new { query.UserId });
+                    await conn.QueryAsync<ClosedNodeDto>(Sql.Library.GetClosedLibraryByUser, query);
 
                 return retVal;
             }
@@ -228,7 +228,7 @@ where z.userid = @UserId
             {
                 var retVal =
                    await conn.QueryAsync<ClosedNodeUsersDto>(Sql.Library.GetClosedLibraryUsers,
-                   new { query.UserId, query.LibraryId });
+                   query);
 
                 return retVal;
             }
@@ -238,7 +238,7 @@ where z.userid = @UserId
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryFirstOrDefaultAsync<Box.BoxDto2>(Sql.Box.BoxData, new { query.BoxId });
+                var retVal = await conn.QueryFirstOrDefaultAsync<Box.BoxDto2>(Sql.Box.BoxData, query);
                 var box = retVal;
                 if (box == null)
                 {
@@ -279,7 +279,7 @@ where z.userid = @UserId
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<TabDto>(Sql.Box.BoxTabs, new { query.BoxId });
+                return await conn.QueryAsync<TabDto>(Sql.Box.BoxTabs, query);
 
             }
         }
@@ -383,7 +383,7 @@ where z.userid = @UserId
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<Item.ItemMobileDto>(Sql.Item.ItemDetailApi, new { query.ItemId, query.UserId });
+                var retVal = await conn.QueryAsync<Item.ItemMobileDto>(Sql.Item.ItemDetailApi, query);
                 return retVal.SingleOrDefault();
             }
         }
@@ -393,7 +393,7 @@ where z.userid = @UserId
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 using (var grid = await conn.QueryMultipleAsync($"{Sql.Item.ItemComments} {Sql.Item.ItemCommentReply}",
-                    new { query.ItemId }))
+                    query))
                 {
                     var retVal = await grid.ReadAsync<Activity.AnnotationDto>();
 
@@ -419,7 +419,7 @@ where z.userid = @UserId
                         await
                             conn.QueryMultipleAsync(
                                 $"{Sql.Item.ItemDetail} {Sql.Item.Navigation}  {Sql.Item.UserItemRate}",
-                                new { query.ItemId, query.BoxId, query.UserId }))
+                                query))
                 {
                     var retVal = await grid.ReadFirstOrDefaultAsync<Item.ItemDetailDto>();
                     if (retVal == null)
@@ -440,7 +440,7 @@ where z.userid = @UserId
             using (var con = await DapperConnection.OpenConnectionAsync(token))
             {
                 return await con.QueryAsync<Box.RecommendBoxDto>(
-                    new CommandDefinition(Sql.Box.RecommendedCourses, new { query.BoxId, query.UserId }, commandTimeout: 5, cancellationToken: token)
+                    new CommandDefinition(Sql.Box.RecommendedCourses, query, commandTimeout: 5, cancellationToken: token)
                 );
 
             }
@@ -450,7 +450,7 @@ where z.userid = @UserId
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
                 return await con.QueryAsync<LeaderBoardDto>(Sql.Box.LeaderBoard,
-                    new { query.BoxId });
+                    query);
             }
         }
 
@@ -493,7 +493,7 @@ where z.userid = @UserId
             {
                 using (var grid = await con.QueryMultipleAsync(
                     $"{Sql.Box.GetCommentForMobile} {Sql.Box.GetCommentFileForMobile}",
-                    new { query.BoxId, query.QuestionId }))
+                    query))
                 {
                     var comment = await grid.ReadFirstAsync<Qna.CommentDto>();
                     comment.Files = await grid.ReadAsync<Qna.ItemDto>();
@@ -508,7 +508,7 @@ where z.userid = @UserId
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
                 const string sql = "select UserImageLarge as Image ,UserName as Name,Url from zbox.ReplyLike join zbox.Users on OwnerId = userid where replyid = @Id";
-                return await con.QueryAsync<Qna.LikeDto>(sql, new { query.Id });
+                return await con.QueryAsync<Qna.LikeDto>(sql, query);
             }
         }
         public async Task<IEnumerable<Qna.LikeDto>> GetCommentLikesAsync(GetFeedLikesQuery query)
@@ -516,7 +516,7 @@ where z.userid = @UserId
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
                 const string sql = "select UserImageLarge as Image ,UserName as Name,Url from zbox.CommentLike join zbox.Users on OwnerId = userid where CommentId = @Id";
-                return await con.QueryAsync<Qna.LikeDto>(sql, new { query.Id });
+                return await con.QueryAsync<Qna.LikeDto>(sql, query);
             }
         }
 
@@ -530,7 +530,7 @@ where ownerid = @UserId and boxid = @BoxId;";
                 const string replySql = @"select ReplyId from zbox.ReplyLike
 where ownerid = @UserId and boxid = @BoxId;";
 
-                using (var grid = await con.QueryMultipleAsync(commentSql + replySql, new { query.UserId, query.BoxId }))
+                using (var grid = await con.QueryMultipleAsync(commentSql + replySql, query))
                 {
                     var retVal = new List<Guid>();
                     retVal.AddRange(await grid.ReadAsync<Guid>());
@@ -587,7 +587,7 @@ where ownerid = @UserId and boxid = @BoxId;";
                             u.userReputation as score, uu.universityname as universityName, u.url as Url
                             from zbox.users u left join zbox.university uu on u.UniversityId = uu.id
                             where u.userid =@UserId";
-                var retVal = await conn.QueryFirstAsync<User.UserMinProfile>(sql, new { query.UserId });
+                var retVal = await conn.QueryFirstAsync<User.UserMinProfile>(sql, query);
                 return retVal;
 
             }
@@ -769,35 +769,29 @@ where ownerid = @UserId and boxid = @BoxId;";
         }
 
 
-        public async Task<int> GetChatUnreadMessagesAsync(GetUserDetailsQuery query)
+        public async Task<int> GetChatUnreadMessagesAsync(QueryBaseUserId query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var result = await conn.QueryFirstOrDefaultAsync<int?>(Sql.Chat.GetUnreadMessages, new { query.UserId });
+                var result = await conn.QueryFirstOrDefaultAsync<int?>(Sql.Chat.GetUnreadMessages, query);
                 return result.GetValueOrDefault();
             }
         }
 
-        public async Task<User.UserDetailDto> GetUserDataAsync(GetUserDetailsQuery query)
+        public async Task<User.UserDetailDto> GetUserDataAsync(QueryBaseUserId query)
         {
 
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                // {Sql.Chat.GetUnreadMessages}
                 using (
                     var grid = await conn.QueryMultipleAsync($"{Sql.Sql.UserAuthenticationDetail}",
-                        new { query.UserId }))
+                        query))
                 {
                     var user = await grid.ReadFirstOrDefaultAsync<User.UserDetailDto>();
                     if (user == null)
                     {
                         throw new UserNotFoundException("user is null");
                     }
-                    //var count = await grid.ReadFirstOrDefaultAsync<int?>();
-                    //if (count != null)
-                    //{
-                    //    user.Unread = count.Value;
-                    //}
                     return user;
                 }
 
@@ -807,11 +801,11 @@ where ownerid = @UserId and boxid = @BoxId;";
 
 
         #region Account Settings
-        public async Task<User.UserAccountDto> GetUserAccountDetailsAsync(GetUserDetailsQuery query)
+        public async Task<User.UserAccountDto> GetUserAccountDetailsAsync(QueryBaseUserId query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryFirstAsync<User.UserAccountDto>(Sql.Sql.GetUserAccountData, new { query.UserId });
+                return await conn.QueryFirstAsync<User.UserAccountDto>(Sql.Sql.GetUserAccountData, query);
             }
         }
         /// <summary>
@@ -819,7 +813,7 @@ where ownerid = @UserId and boxid = @BoxId;";
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<User.UserNotification> GetUserBoxesNotificationAsync(GetUserDetailsQuery query)
+        public async Task<User.UserNotification> GetUserBoxesNotificationAsync(QueryBaseUserId query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -831,7 +825,7 @@ where ownerid = @UserId and boxid = @BoxId;";
                     where ub.UserId = @UserId";
 
                 const string userEmailSettings = @"select EmailSendSettings from zbox.Users where userid = @UserId";
-                using (var grid = await conn.QueryMultipleAsync($"{boxNotificationSql} {userEmailSettings}", new { query.UserId }))
+                using (var grid = await conn.QueryMultipleAsync($"{boxNotificationSql} {userEmailSettings}", query))
                 {
                     var retVal = new User.UserNotification
                     {
@@ -841,11 +835,7 @@ where ownerid = @UserId and boxid = @BoxId;";
                     return retVal;
 
                 }
-                //           await conn.QueryAsync<Box.BoxNotificationDto>(@"select b.BoxId as Id, b.BoxName as Name,  ub.NotificationSettings as Notifications, b.Url as url, u.UserName
-                //               from zbox.Box b 
-                //            inner join zbox.UserBoxRel ub on b.BoxId = ub.BoxId
-                //inner join zbox.Users u on b.OwnerId = u.UserId
-                //               where ub.UserId = @UserId", new { query.UserId });
+
             }
 
         }
@@ -860,7 +850,7 @@ where ownerid = @UserId and boxid = @BoxId;";
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<User.UserMemberDto>(Sql.Box.BoxMembers, new { query.BoxId, query.PageNumber, query.RowsPerPage });
+                return await conn.QueryAsync<User.UserMemberDto>(Sql.Box.BoxMembers, query);
             }
         }
 
@@ -877,7 +867,7 @@ where ownerid = @UserId and boxid = @BoxId;";
                                 where TypeOfMsg = 2
                                 and MessageId = @MessageId
                                 and isActive = 1";
-                var count = await conn.QueryFirstOrDefaultAsync<int>(sqlQuery, new { query.MessageId });
+                var count = await conn.QueryFirstOrDefaultAsync<int>(sqlQuery, query);
 
                 return count > 0;
             }
@@ -888,7 +878,7 @@ where ownerid = @UserId and boxid = @BoxId;";
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<UpdatesDto>(Sql.Updates.GetUserUpdates, new { userid = query.UserId });
+                return await conn.QueryAsync<UpdatesDto>(Sql.Updates.GetUserUpdates, query);
             }
         }
 
@@ -996,7 +986,7 @@ where ownerid = @UserId and boxid = @BoxId;";
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryFirstAsync<Item.QuizSeo>(Sql.Quiz.QuizSeoQuery, new { query.QuizId });
+                var retVal = await conn.QueryFirstAsync<Item.QuizSeo>(Sql.Quiz.QuizSeoQuery, query);
                 return retVal;
             }
         }
@@ -1005,7 +995,7 @@ where ownerid = @UserId and boxid = @BoxId;";
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryFirstOrDefaultAsync<Item.FileSeo>(Sql.Seo.FileSeo, new { query.ItemId });
+                var retVal = await conn.QueryFirstOrDefaultAsync<Item.FileSeo>(Sql.Seo.FileSeo, query);
                 return retVal;
             }
         }
@@ -1023,7 +1013,7 @@ where ownerid = @UserId and boxid = @BoxId;";
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryFirstOrDefaultAsync<Box.BoxSeoDto>(Sql.Seo.BoxSeo, new { query.BoxId });
+                var retVal = await conn.QueryFirstOrDefaultAsync<Box.BoxSeoDto>(Sql.Seo.BoxSeo, query);
                 var box = retVal;
                 if (box == null)
                 {
@@ -1058,7 +1048,7 @@ where ownerid = @UserId and boxid = @BoxId;";
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var sql = $"{Sql.Quiz.Question} {Sql.Quiz.Answer} {Sql.Quiz.UserAnswer} {Sql.Quiz.UserQuiz}";
-                using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId, query.UserId }))
+                using (var grid = await conn.QueryMultipleAsync(sql, query))
                 {
                     var retVal = new Item.QuizQuestionWithSolvedAnswersDto
                     {
@@ -1113,7 +1103,7 @@ where ownerid = @UserId and boxid = @BoxId;";
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<Item.DiscussionDto>(Sql.Quiz.Discussion, new { query.QuizId });
+                return await conn.QueryAsync<Item.DiscussionDto>(Sql.Quiz.Discussion, query);
             }
         }
 
@@ -1123,7 +1113,7 @@ where ownerid = @UserId and boxid = @BoxId;";
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 using (var grid = await conn.QueryMultipleAsync(
-                    $"{Sql.Quiz.QuizQuery} {Sql.Quiz.Question} {Sql.Quiz.Answer}", new { query.QuizId }))
+                    $"{Sql.Quiz.QuizQuery} {Sql.Quiz.Question} {Sql.Quiz.Answer}", query))
                 {
                     var retVal = await grid.ReadFirstAsync<Item.QuizWithDetailDto>();
                     retVal.Questions = grid.Read<Item.QuestionWithDetailDto>();
@@ -1145,7 +1135,7 @@ where ownerid = @UserId and boxid = @BoxId;";
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryFirstOrDefaultAsync<int>(Sql.Quiz.NumberOfQuizSolved, new { QuizId = quizId });
+                var retVal = await conn.QueryFirstOrDefaultAsync<int>(Sql.Quiz.NumberOfQuizSolved, quizId);
                 return retVal;
             }
         }
@@ -1231,5 +1221,16 @@ and f.isdeleted = 0";
                 }
             }
         }
+
+        #region Gamification
+
+        public async Task<User.GamificationBoardDto> GamificationBoardAsync(QueryBaseUserId query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return await conn.QueryFirstAsync<User.GamificationBoardDto>(Sql.User.GamificationBoard, query);
+            }
+        }
+        #endregion
     }
 }

@@ -65,7 +65,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, ActionName("unread")]
         public async Task<JsonResult> UnreadAsync()
         {
-            var query = new GetUserDetailsQuery(User.GetUserId());
+            var query = new QueryBaseUserId(User.GetUserId());
             var model = await ZboxReadService.GetChatUnreadMessagesAsync(query);
             return JsonOk(model);
         }

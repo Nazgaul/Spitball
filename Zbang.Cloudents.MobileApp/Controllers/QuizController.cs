@@ -6,7 +6,6 @@ using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
 using System.Threading.Tasks;
 using Zbang.Cloudents.MobileApp.DataObjects;
-using Zbang.Cloudents.MobileApp.Extensions;
 using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Extensions;
@@ -36,7 +35,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         }
 
 
-        public async Task<HttpResponseMessage> Post(SaveUserAnswersRequests model)
+        public HttpResponseMessage Post(SaveUserAnswersRequests model)
         {
             if (!ModelState.IsValid)
             {
@@ -50,7 +49,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 new SaveUserQuizCommand(
                   model.Answers.Select(s => new UserAnswers { AnswerId = s.AnswerId, QuestionId = s.QuestionId }),
                     User.GetUserId(), model.QuizId, TimeSpan.FromSeconds(model.NumberOfSeconds), model.BoxId);
-            await m_ZboxWriteService.SaveUserAnswersAsync(command);
+            m_ZboxWriteService.SaveUserAnswers(command);
 
             return Request.CreateResponse();
         }
@@ -92,7 +91,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         }
 
         [Route("api/quiz/{id:long}/solvers"), HttpGet]
-        public async Task<HttpResponseMessage> GetQuizSolvers(long id)
+        public async Task<HttpResponseMessage> GetQuizSolversAsync(long id)
         {
             var query = new GetQuizBestSolvers(id, 4);
             var retVal = await m_ZboxReadService.GetQuizSolversAsync(query);
@@ -107,7 +106,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         }
 
         [Route("api/quiz/{id:long}/discussion"), HttpGet]
-        public async Task<HttpResponseMessage> Discussion(long id)
+        public async Task<HttpResponseMessage> DiscussionAsync(long id)
         {
             var query = new GetDisscussionQuery(id);
             var model = await m_ZboxReadService.GetDiscussionAsync(query);

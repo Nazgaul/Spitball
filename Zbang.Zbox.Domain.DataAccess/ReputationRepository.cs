@@ -4,7 +4,7 @@ using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.DataAccess
 {
-    public class ReputationRepository : NHibernateRepository<Reputation>, IReputationRepository
+    public class ReputationRepository : IReputationRepository
     {
         public int GetUserReputation(long userId)
         {
@@ -53,7 +53,7 @@ from quiz,item,answers,question,rate,invite,share
         }
     }
 
-    public interface IReputationRepository : IRepository<Reputation>
+    public interface IReputationRepository 
     {
         int GetUserReputation(long userId);
     }

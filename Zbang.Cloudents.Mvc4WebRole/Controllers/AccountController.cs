@@ -18,6 +18,7 @@ using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -65,10 +66,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public ActionResult Index(string lang, string invId)
         {
-            return RedirectToRoutePermanent("homePage", new  { lang, invId });
+            return RedirectToRoutePermanent("homePage", new { lang, invId });
         }
 
-        
+
 
         #region Login
 
@@ -90,7 +91,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                     var inv = m_CookieHelper.ReadCookie<Invite>(Invite.CookieName);
                     var university = m_CookieHelper.ReadCookie<UniversityCookie>(UniversityCookie.CookieName);
-                   
+
 
                     model.BoxId = model.BoxId ?? GetBoxIdRouteDataFromDifferentUrl();
                     var command = new CreateGoogleUserCommand(googleUserData.Email,
@@ -209,7 +210,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-       
+
 
 
         [HttpPost]
@@ -230,7 +231,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                     var inv = m_CookieHelper.ReadCookie<Invite>(Invite.CookieName);
                     var university = m_CookieHelper.ReadCookie<UniversityCookie>(UniversityCookie.CookieName);
-                    
+
                     model.BoxId = model.BoxId ?? GetBoxIdRouteDataFromDifferentUrl();
 
                     var command = new CreateFacebookUserCommand(facebookUserData.Id, facebookUserData.Email,
@@ -506,7 +507,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<JsonResult> SettingsDataAsync()
         {
             var userId = User.GetUserId();
-            var query = new GetUserDetailsQuery(userId);
+            var query = new QueryBaseUserId(userId);
 
             var user = await ZboxReadService.GetUserAccountDetailsAsync(query);
             return JsonOk(user);
@@ -521,7 +522,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [DonutOutputCache(CacheProfile = "PartialPage")]
-       
+
         public ActionResult UnregisterView()
         {
             return PartialView();
@@ -845,7 +846,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-       
+
 
         private const string ResetPasswordCrypticPropose = "reset password";
         [NonAction]
@@ -883,7 +884,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 //TODO : merge that
                 var command = new AddUserLocationActivityCommand(User.GetUserId(), HttpContext.Request.UserAgent);
                 await ZboxWriteService.AddUserLocationActivityAsync(command);
-                var retVal = await ZboxReadService.GetUserDataAsync(new GetUserDetailsQuery(User.GetUserId()));
+                var retVal = await ZboxReadService.GetUserDataAsync(new QueryBaseUserId(User.GetUserId()));
+
+               // var levelName = GamificationLevels.GetLevel(retVal.Score);
+                //retVal.Level = levelName;
                 return JsonOk(retVal);
             }
             catch (UserNotFoundException)

@@ -22,9 +22,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
         private readonly IGuidIdGenerator m_IdGenerator;
         private readonly IRepository<Comment> m_CommentRepository;
         private readonly IUserRepository m_UserRepository;
-        private readonly IRepository<Reputation> m_ReputationRepository
+        //private readonly IRepository<Reputation> m_ReputationRepository
 
-            ;
+            
 
         public SaveQuizCommandHandler(
             IRepository<Domain.Quiz> quizRepository,
@@ -32,7 +32,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             IBoxRepository boxRepository,
             IItemRepository itemRepository,
             IGuidIdGenerator idGenerator,
-            IRepository<Comment> commentRepository, IUserRepository userRepository, IRepository<Reputation> reputationRepository)
+            IRepository<Comment> commentRepository, IUserRepository userRepository
+            //IRepository<Reputation> reputationRepository
+            )
         {
             m_QuizRepository = quizRepository;
             m_QueueProvider = queueProvider;
@@ -41,7 +43,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             m_IdGenerator = idGenerator;
             m_CommentRepository = commentRepository;
             m_UserRepository = userRepository;
-            m_ReputationRepository = reputationRepository;
+           // m_ReputationRepository = reputationRepository;
         }
         public async Task<SaveQuizCommandResult> ExecuteAsync(SaveQuizCommand message)
         {
@@ -97,13 +99,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             comment.AddQuiz(quiz);
             m_CommentRepository.Save(comment);
 
-            m_ReputationRepository.Save(quiz.Owner.AddReputation(ReputationAction.AddQuiz));
+           // m_ReputationRepository.Save(quiz.Owner.AddReputation(ReputationAction.AddQuiz));
             m_UserRepository.Save(quiz.Owner);
 
-            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(quiz.Owner.Id, quiz.Box.Id, null, null, null, quiz.Id));
-            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(quiz.Owner.Id));
+            await m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(quiz.Owner.Id, quiz.Box.Id, null, null, null, quiz.Id));
+            //var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(quiz.Owner.Id));
 
-           await Task.WhenAll(t1, t2);
+           //await Task.WhenAll(t1, t2);
 
             return new SaveQuizCommandResult(quiz.Url);
         }

@@ -32,7 +32,7 @@ namespace Zbang.Zbox.Domain.Common
         Task ShareBoxAsync(ShareBoxCommand command);
         Task InviteSystemAsync(InviteToSystemCommand command);
 
-        Task SubscribeToSharedBoxAsync(SubscribeToSharedBoxCommand command);
+        void SubscribeToSharedBox(SubscribeToSharedBoxCommand command);
         ChangeFileNameCommandResult ChangeFileName(ChangeFileNameCommand command);
 
 
@@ -45,10 +45,10 @@ namespace Zbang.Zbox.Domain.Common
 
 
 
-        Task CreateBoxItemTabAsync(CreateItemTabCommand command);
+        void CreateBoxItemTab(CreateItemTabCommand command);
 
 
-        Task AssignBoxItemToTabAsync(AssignItemToTabCommand command);
+        void AssignBoxItemToTab(AssignItemToTabCommand command);
         void RenameBoxItemTab(ChangeItemTabNameCommand command);
         void DeleteBoxItemTab(DeleteItemTabCommand command);
 
@@ -74,18 +74,18 @@ namespace Zbang.Zbox.Domain.Common
         Task<LikeReplyCommandResult> LikeReplyAsync(LikeReplyCommand command);
         #endregion
 
-        Task AddReputationAsync(AddReputationCommand command);
+        //Task AddReputationAsync(AddReputationCommand command);
         void DeleteUpdates(DeleteUpdatesCommand command);
 
 
         #region Quiz
-        Task CreateQuizAsync(CreateQuizCommand command);
+        void CreateQuiz(CreateQuizCommand command);
         void UpdateQuiz(UpdateQuizCommand command);
         Task DeleteQuizAsync(DeleteQuizCommand command);
         void CreateQuestion(CreateQuestionCommand command);
         void DeleteQuestion(DeleteQuestionCommand command);
         Task<SaveQuizCommandResult> SaveQuizAsync(SaveQuizCommand command);
-        Task SaveUserAnswersAsync(SaveUserQuizCommand command);
+        void SaveUserAnswers(SaveUserQuizCommand command);
         Task CreateItemInDiscussionAsync(CreateDiscussionCommand command);
         void DeleteItemInDiscussion(DeleteDiscussionCommand command);
 

@@ -3,7 +3,7 @@
 /// <reference path="ajaxservice2.ts" />
 // ReSharper disable once InconsistentNaming
 declare var __insp: any;
-declare var googletag: any;
+//declare var googletag: any;
 
 
 interface IUniversity {
@@ -16,10 +16,10 @@ interface IUserData {
     id: number;
     name: string;
     image: string;
-    sex: number;
+    //sex: number;
     score: number;
     email: string;
-    url: string;
+    //url: string;
     isAdmin: boolean;
     culture: string;
     createTime: Date;
@@ -83,14 +83,11 @@ module app {
                 id: data.id,
                 name: data.name,
                 image: data.image,
-                sex: data.sex,
                 score: data.score,
-                url: data.url,
                 createTime: new Date(data.dateTime),
                 isAdmin: data.isAdmin,
                 culture: data.culture,
                 email: data.email,
-                //unread: data.unread,
                 university: {
                     country: data.universityCountry, // for google analytics
                     name: data.universityName, // in library page

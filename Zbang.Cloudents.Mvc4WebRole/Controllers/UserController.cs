@@ -4,8 +4,8 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Queries;
@@ -20,7 +20,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     {
         [DonutOutputCache(CacheProfile = "FullPage")]
         [NoUniversity]
-        [Route("user/{userId:long}/{userName}",Name = "User")]
+        [Route("user/{userId:long}/{userName}", Name = "User")]
         public ActionResult Index(long userId)
         {
             if (userId == 22886)
@@ -155,7 +155,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<JsonResult> NotificationAsync()
         {
             var userid = User.GetUserId();
-            var query = new GetUserDetailsQuery(userid);
+            var query = new QueryBaseUserId(userid);
             var result = await ZboxReadService.GetUserBoxesNotificationAsync(query);
             return JsonOk(result);
         }
@@ -177,11 +177,23 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpGet]
         [DonutOutputCache(CacheProfile = "PartialPage")]
-        public ActionResult infoDialog()
+        public ActionResult InfoDialog()
         {
             return PartialView();
         }
 
+
+        [HttpGet, ZboxAuthorize, ActionName("GamificationBoard")]
+        public async Task<JsonResult> GamificationBoardAsync()
+        {
+            var query = new QueryBaseUserId(User.GetUserId());
+            var result = await ZboxReadService.GamificationBoardAsync(query);
+            var level = GamificationLevels.GetLevel(result.Score);
+            result.Level = level.Name;
+            result.NextLevel = level.NextLevel;
+            result.Number = level.Level;
+            return JsonOk(result);
+        }
 
 
 

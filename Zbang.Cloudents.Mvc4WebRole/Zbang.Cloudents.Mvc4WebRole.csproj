@@ -1426,7 +1426,6 @@
     <Content Include="Js\components\quiz\quiz.controller.js" />
     <Content Include="Js\components\quiz\quiz.routes.js" />
     <Content Include="Js\components\quiz\quizCreate.config.js" />
-    <Content Include="Js\components\user\user.service.js" />
     <Content Include="Js\initAngular.js" />
     <Content Include="Js\shared\collapseHeader.directive.js" />
     <Content Include="Js\shared\inlineManualNew.js" />
@@ -1460,6 +1459,7 @@
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.routes.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.service.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\flipclock.directive.ts" />
+    <TypeScriptCompile Include="Js\components\dashboard\gamificationBoard.controller.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\leaderboard.controller.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\cardAnimation.directive.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\cardScroll.directive.ts" />
@@ -1490,6 +1490,7 @@
     <TypeScriptCompile Include="Js\components\chat\hideChatOnMobile.directive.ts" />
     <TypeScriptCompile Include="Js\components\chat\toggleChat.directive.ts" />
     <TypeScriptCompile Include="Js\components\user\user.routes.ts" />
+    <TypeScriptCompile Include="Js\components\user\user.service.ts" />
     <TypeScriptCompile Include="Js\doubleclick.config.ts" />
     <TypeScriptCompile Include="Js\menu\sidemenu.controller.ts" />
     <TypeScriptCompile Include="Js\routerHelperProvider.ts" />

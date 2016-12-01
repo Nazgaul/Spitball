@@ -51,8 +51,7 @@ public static class EnumExtension
         if (value == null) throw new ArgumentNullException(nameof(value));
         var fi = value.GetType().GetField(value.ToString());
 
-        var attributes = (EnumDescriptionAttribute[])fi.GetCustomAttributes(typeof(EnumDescriptionAttribute), false);
-
+        var attributes = (ResourceDescriptionAttribute[])fi.GetCustomAttributes(typeof(ResourceDescriptionAttribute), false);
 
         if ((attributes.Length <= 0)) return value.GetStringValue();
         var att = attributes[0];

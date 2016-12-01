@@ -234,14 +234,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var t2 = ZboxReadService.GetItemDetailApiAsync(query);
 
             var userType = ViewBag.UserType as UserRelationshipType?;
-            var t3 = Zbox.Infrastructure.Extensions.TaskExtensions.CompletedTask;
+            //var t3 = Zbox.Infrastructure.Extensions.TaskExtensions.CompletedTask;
             if (!userType.HasValue || (int)userType.Value < 2)
             {
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(userId, boxId);
-                t3 = ZboxWriteService.SubscribeToSharedBoxAsync(autoFollowCommand);
+                ZboxWriteService.SubscribeToSharedBox(autoFollowCommand);
             }
 
-            await Task.WhenAll(t1, t2, t3);
+            await Task.WhenAll(t1, t2);
             var item = t2.Result;
             if (item.Type == "Link")
             {
@@ -315,8 +315,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var t1 = ZboxReadService.GetItemDetailApiAsync(query);
             var autoFollowCommand = new SubscribeToSharedBoxCommand(userId, boxId);
-            var t2 = ZboxWriteService.SubscribeToSharedBoxAsync(autoFollowCommand);
-            await Task.WhenAll(t1, t2);
+            ZboxWriteService.SubscribeToSharedBox(autoFollowCommand);
+            await Task.WhenAll(t1);
             var item = t1.Result;
             if (item.Type == "Link")
             {

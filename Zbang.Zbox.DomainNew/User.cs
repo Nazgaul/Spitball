@@ -42,7 +42,7 @@ namespace Zbang.Zbox.Domain
             CreateName();
             UpdateLanguage(culture);
             Sex = sex;
-            AddReputation(ReputationAction.Register);
+            //AddReputation(ReputationAction.Register);
         }
         // ReSharper restore DoNotCallOverridableMethodsInConstructor
         public void CreateName()
@@ -127,13 +127,13 @@ namespace Zbang.Zbox.Domain
 
         
 
-        public Reputation AddReputation(ReputationAction action)
-        {
-            var reputation = new Reputation(GuidIdGenerator.GetGuid(), this, action);
+        //public Reputation AddReputation(ReputationAction action)
+        //{
+        //    var reputation = new Reputation(GuidIdGenerator.GetGuid(), this, action);
 
-            Reputation += reputation.Score;
-            return reputation;
-        }
+        //    Reputation += reputation.Score;
+        //    return reputation;
+        //}
 
         public virtual void AddConnection(string connectionId)
         {

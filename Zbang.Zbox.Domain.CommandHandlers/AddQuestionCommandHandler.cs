@@ -18,7 +18,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IBoxRepository m_BoxRepository;
         private readonly IRepository<Comment> m_CommentRepository;
         private readonly IRepository<Item> m_ItemRepository;
-        private readonly IRepository<Reputation> m_ReputationRepository;
+       // private readonly IRepository<Reputation> m_ReputationRepository;
         private readonly IQueueProvider m_QueueProvider;
 
         private const long AnonymousUserId = 22886;
@@ -27,14 +27,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IBoxRepository boxRepository,
             IRepository<Comment> commentRepository
             , IRepository<Item> itemRepository,
-            IRepository<Reputation> reputationRepository,
+            //IRepository<Reputation> reputationRepository,
             IQueueProvider queueProvider)
         {
             m_UserRepository = userRepository;
             m_BoxRepository = boxRepository;
             m_CommentRepository = commentRepository;
             m_ItemRepository = itemRepository;
-            m_ReputationRepository = reputationRepository;
+           // m_ReputationRepository = reputationRepository;
             m_QueueProvider = queueProvider;
         }
         public async Task<AddCommentCommandResult> ExecuteAsync(AddCommentCommand command)
@@ -65,13 +65,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var comment = box.AddComment(user, command.Text, command.Id, files, FeedType.None);
             m_CommentRepository.Save(comment);
 
-            var reputation = user.AddReputation(ReputationAction.AddComment);
-            m_ReputationRepository.Save(reputation);
+            //var reputation = user.AddReputation(ReputationAction.AddComment);
+           // m_ReputationRepository.Save(reputation);
             m_BoxRepository.Save(box);
             var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, questionId: comment.Id));
-            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(user.Id));
+            //var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(user.Id));
 
-            await Task.WhenAll(t1, t2);
+            await Task.WhenAll(t1);
 
             return new AddCommentCommandResult(command.Id, user.Name, user.ImageLarge, user.Url, user.Id);
         }

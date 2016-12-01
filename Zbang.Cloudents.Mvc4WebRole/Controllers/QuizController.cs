@@ -175,7 +175,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         [ZboxAuthorize]
         [RemoveBoxCookie, ActionName("SaveAnswers")]
-        public async Task<JsonResult> SaveAnswersAsync(SaveUserAnswers model)
+        public JsonResult SaveAnswers(SaveUserAnswers model)
         {
             if (!ModelState.IsValid)
             {
@@ -192,7 +192,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     new SaveUserQuizCommand(
                       model.Answers.Select(s => new UserAnswers { AnswerId = s.AnswerId, QuestionId = s.QuestionId }),
                         User.GetUserId(), model.QuizId, TimeSpan.FromMilliseconds(model.NumberOfMilliseconds), model.BoxId);
-                await ZboxWriteService.SaveUserAnswersAsync(command);
+                ZboxWriteService.SaveUserAnswers(command);
 
                 return JsonOk();
             }
@@ -229,7 +229,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         [ZboxAuthorize]
         [RemoveBoxCookie, ActionName("Create")]
-        public async Task<ActionResult> CreateAsync(Quiz model)
+        public ActionResult Create(Quiz model)
         {
             if (!ModelState.IsValid)
             {
@@ -237,7 +237,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var id = m_IdGenerator.GetId(IdContainer.QuizScope);
             var command = new CreateQuizCommand(User.GetUserId(), id, model.Name, model.BoxId);
-            await ZboxWriteService.CreateQuizAsync(command);
+            ZboxWriteService.CreateQuiz(command);
 
             return JsonOk(id);
         }

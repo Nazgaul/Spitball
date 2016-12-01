@@ -109,38 +109,12 @@ q.NumberOfViews as numOfViews
     offset @pageNumber*@rowsperpage ROWS
     FETCH NEXT @rowsperpage ROWS ONLY;";
 
-       // <summary>
-       //  Used in user page to get question common with current user
-       // </summary>
-//       public const string UserWithFriendQuestion = @" select b.BoxName as boxName,q.Text as content, b.BoxId as boxId,
-//                        (select count(*) from zbox.Answer a where a.QuestionId = q.QuestionId) as answersCount,
-//						b.url as Url, q.QuestionId as id
-//                          from zbox.Question q
-//                         join zbox.box b on b.BoxId = q.BoxId and b.IsDeleted = 0
-//                         left join zbox.userboxrel ub on b.BoxId = ub.BoxId and ub.UserId = @Me
-//                        where q.UserId = @Myfriend
-//                        and q.IsSystemGenerated = 0
-//                        and (b.PrivacySetting = 3 or 
-//                         ub.UserId = @Me)
-//                    order by q.QuestionId desc
-//  offset @pageNumber*@rowsperpage ROWS
-//    FETCH NEXT @rowsperpage ROWS ONLY;";
 
-       // <summary>
-       //  Used in user page to get answers common with current user
-       // </summary>
-//       public const string UserWithFriendAnswer = @"select b.BoxId as boxId, b.BoxName as boxName, q.UserId as qUserId, q.Text as qContent, 
-//                   uQuestion.UserImageLarge as qUserImage, uQuestion.UserName as qUserName, a.Text as Content, 
-//                   (select count(*) from zbox.Answer a where a.QuestionId = q.QuestionId) as answersCount,
-//				  b.url as Url , a.AnswerId as Id
-//                 from zbox.Answer a
-//                 join zbox.Question q on a.QuestionId = q.QuestionId
-//                 join zbox.Users uQuestion on uQuestion.UserId = q.UserId
-//                 join zbox.box b on b.BoxId = a.BoxId and b.IsDeleted = 0
-//                 where a.UserId = @Myfriend
-//                 and b.Discriminator = 2
-//                 order by a.AnswerId desc
-//  offset @pageNumber*@rowsperpage ROWS
-//    FETCH NEXT @rowsperpage ROWS ONLY;";
+        #region Gamification
+
+       public const string GamificationBoard = @"select UserReputation as score from zbox.users
+where userid = @userId";
+
+       #endregion
    }
 }

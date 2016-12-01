@@ -7,11 +7,11 @@ namespace Zbang.Zbox.Infrastructure.Enums
     {
         None = 0,
 
-        [EnumDescription(typeof(QuestionResource), "NewCourse")]
+        [ResourceDescription(typeof(QuestionResource), "NewCourse")]
         CreatedCourse = 1,
-        [EnumDescription(typeof(QuestionResource), "AddedFiles")]
+        [ResourceDescription(typeof(QuestionResource), "AddedFiles")]
         AddedItems = 2,
-        [EnumDescription(typeof(QuestionResource), "NewGroup")]
+        [ResourceDescription(typeof(QuestionResource), "NewGroup")]
         CreatedBox = 3
     }
 }

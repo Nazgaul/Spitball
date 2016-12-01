@@ -2,14 +2,14 @@
 
 namespace Zbang.Zbox.Infrastructure.Extensions
 {
-    [AttributeUsage(AttributeTargets.All)]
-    public sealed class EnumDescriptionAttribute : Attribute
+    [AttributeUsage(AttributeTargets.Enum| AttributeTargets.Field)]
+    public sealed class ResourceDescriptionAttribute : Attribute
     {
-        public EnumDescriptionAttribute(string description)
+        public ResourceDescriptionAttribute(string description)
         {
             Description = description;
         }
-        public EnumDescriptionAttribute(Type resourceType, string resourceName)
+        public ResourceDescriptionAttribute(Type resourceType, string resourceName)
         {
             ResourceType = resourceType;
             ResourceName = resourceName;

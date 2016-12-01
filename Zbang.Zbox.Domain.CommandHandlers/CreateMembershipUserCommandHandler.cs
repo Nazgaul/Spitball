@@ -15,9 +15,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IRepository<University> universityRepository,
             IQueueProvider queueRepository,
             IInviteRepository inviteToCloudentsRepository,
-            IRepository<Reputation> reputationRepository,
+            //IRepository<Reputation> reputationRepository,
             IRepository<Box> boxRepository)
-            : base(userRepository, queueRepository, universityRepository, inviteToCloudentsRepository, reputationRepository,
+            : base(userRepository, queueRepository, universityRepository, inviteToCloudentsRepository,
                   boxRepository)
         {
         }
@@ -64,7 +64,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             UpdateUniversityByBox(membershipCommand.BoxId, retVal, user);
             UpdateUniversity(membershipCommand, retVal, user);
 
-            await GiveReputationAndAssignToBoxAsync(command.InviteId, user);
+            GiveReputationAndAssignToBox(command.InviteId, user);
             UserRepository.Save(user);
             return retVal;
         }

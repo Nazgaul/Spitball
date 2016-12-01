@@ -10,7 +10,7 @@ using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class DeleteItemCommentCommandHandler : ICommandHandlerAsync<DeleteItemCommentCommand>
+    public class DeleteItemCommentCommandHandler : ICommandHandler<DeleteItemCommentCommand>
     {
         private readonly IUserRepository m_UserRepository;
         private readonly IRepository<ItemComment> m_ItemCommentRepository;
@@ -26,7 +26,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ItemRepository = itemRepository;
             m_QueueProvider = queueProvider;
         }
-        public Task HandleAsync(DeleteItemCommentCommand message)
+        public void Handle(DeleteItemCommentCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
 
@@ -41,8 +41,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             itemComment.Item.ShouldMakeDirty = () => false;
             m_ItemRepository.Save(itemComment.Item);
             m_ItemCommentRepository.Delete(itemComment);
-            return m_QueueProvider.InsertMessageToTranactionAsync(
-                new ReputationData(itemComment.GetUserIdReplies().Union(new[] {user.Id})));
+            //return m_QueueProvider.InsertMessageToTranactionAsync(
+            //    new ReputationData(itemComment.GetUserIdReplies().Union(new[] {user.Id})));
            
         }
     }

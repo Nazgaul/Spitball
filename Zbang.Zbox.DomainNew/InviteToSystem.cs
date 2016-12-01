@@ -17,10 +17,10 @@ namespace Zbang.Zbox.Domain
         }
 
 
-        public override ReputationAction GiveAction()
-        {
-            return ReputationAction.Invite;
-        }
+        //public override ReputationAction GiveAction()
+        //{
+        //    return ReputationAction.Invite;
+        //}
 
         public override string UrlToRedirect()
         {

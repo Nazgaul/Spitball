@@ -431,7 +431,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public async Task GetUserAccountDetails_Query_ReturnResult()
         {
-            var query = new GetUserDetailsQuery(1);
+            var query = new QueryBaseUserId(1);
             try
             {
                 await m_ZboxReadService.GetUserAccountDetailsAsync(query);
@@ -444,7 +444,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public async Task GetUserBoxesNotification_Query_ReturnResult()
         {
-            var query = new GetUserDetailsQuery(1);
+            var query = new QueryBaseUserId(1);
             try
             {
                 await m_ZboxReadService.GetUserBoxesNotificationAsync(query);

@@ -18,20 +18,21 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IQueueProvider m_QueueRepository;
         private readonly IRepository<University> m_UniversityRepository;
         private readonly IInviteRepository m_InviteToCloudentsRepository;
-        private readonly IRepository<Reputation> m_ReputationRepository;
+        //private readonly IRepository<Reputation> m_ReputationRepository;
         private readonly IRepository<Box> m_BoxRepository;
 
         protected CreateUserCommandHandler(IUserRepository userRepository,
             IQueueProvider queueRepository,
             IRepository<University> universityRepository,
             IInviteRepository inviteToCloudentsRepository,
-            IRepository<Reputation> reputationRepository, IRepository<Box> boxRepository)
+            //IRepository<Reputation> reputationRepository, 
+            IRepository<Box> boxRepository)
         {
             UserRepository = userRepository;
             m_QueueRepository = queueRepository;
             m_UniversityRepository = universityRepository;
             m_InviteToCloudentsRepository = inviteToCloudentsRepository;
-            m_ReputationRepository = reputationRepository;
+            // m_ReputationRepository = reputationRepository;
             m_BoxRepository = boxRepository;
         }
 
@@ -44,25 +45,25 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             return m_QueueRepository.InsertMessageToTranactionAsync(new NewUserData(user.Id, user.Name, user.Culture, user.Email, command.Parameters?["ref"]));
         }
 
-        protected async Task GiveReputationAndAssignToBoxAsync(Guid? invId, User user)
+        protected void GiveReputationAndAssignToBox(Guid? invId, User user)
         {
             var inviteId = invId ?? Guid.Empty;
             var invites = m_InviteToCloudentsRepository.GetUserInvites(user.Email, inviteId); // Load won't give null
 
-            var list = new List<Task>();
+            //var list = new List<Task>();
             foreach (var invite in invites)
             {
                 if (invite.IsUsed)
                 {
                     continue;
                 }
-                var reputation = invite.Sender.AddReputation(invite.GiveAction());
-                m_ReputationRepository.Save(reputation);
+                //var reputation = invite.Sender.AddReputation(invite.GiveAction());
+                //m_ReputationRepository.Save(reputation);
                 invite.UsedInvite();
 
                 UserRepository.Save(invite.Sender);
                 m_InviteToCloudentsRepository.Save(invite);
-                list.Add(m_QueueRepository.InsertMessageToTranactionAsync(new ReputationData(invite.Sender.Id)));
+                //list.Add(m_QueueRepository.InsertMessageToTranactionAsync(new ReputationData(invite.Sender.Id)));
 
                 var inviteToBox = invite as InviteToBox;
                 if (inviteToBox != null)
@@ -70,7 +71,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     user.ChangeUserRelationShipToBoxType(inviteToBox.Box, UserRelationshipType.Subscribe);
                 }
             }
-            await Task.WhenAll(list);
+            //await Task.WhenAll(list);
         }
 
 

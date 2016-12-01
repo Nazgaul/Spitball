@@ -8,25 +8,12 @@ using Zbang.Cloudents.Mvc4WebRole.Models.Share;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.Infrastructure.Url;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class ShareController : BaseController
     {
-        //private readonly Lazy<IInviteLinkDecrypt> m_InviteLinkDecrypt;
-        //private readonly Lazy<IShortCodesCache> m_ShortCodesCache;
-
-
-        //public ShareController(
-        //    Lazy<IShortCodesCache> shortToLongCache,
-        //    Lazy<IInviteLinkDecrypt> inviteLinkDecrypt)
-        //{
-        //    m_InviteLinkDecrypt = inviteLinkDecrypt;
-        //    m_ShortCodesCache = shortToLongCache;
-        //}
-
 
         [HttpPost, ZboxAuthorize,ActionName("Invite")]
         public async Task<JsonResult> InviteAsync(InviteSystem model)
@@ -94,14 +81,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [ZboxAuthorize]
-        [RemoveBoxCookie,ActionName("SubscribeToBox")]
-        public async Task<JsonResult> SubscribeToBoxAsync(long boxId)
+        [RemoveBoxCookie, ActionName("SubscribeToBox")]
+        public JsonResult SubscribeToBox(long boxId)
         {
             var userid = User.GetUserId();
             try
             {
                 var command = new SubscribeToSharedBoxCommand(userid, boxId);
-                await ZboxWriteService.SubscribeToSharedBoxAsync(command);
+                ZboxWriteService.SubscribeToSharedBox(command);
                 return JsonOk();
             }
             catch (Exception ex)
@@ -165,13 +152,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView();
         }
 
-        [ZboxAuthorize,HttpPost,ActionName("Index")]
-        public async Task<JsonResult> IndexAsync()
-        {
-            var command = new AddReputationCommand(User.GetUserId(),
-                Zbox.Infrastructure.Enums.ReputationAction.ShareFacebook);
-            await ZboxWriteService.AddReputationAsync(command);
-            return JsonOk();
-        }
+        //[ZboxAuthorize,HttpPost,ActionName("Index")]
+        //public async Task<JsonResult> IndexAsync()
+        //{
+        //    var command = new AddReputationCommand(User.GetUserId(),
+        //        Zbox.Infrastructure.Enums.ReputationAction.ShareFacebook);
+        //    await ZboxWriteService.AddReputationAsync(command);
+        //    return JsonOk();
+        //}
     }
 }

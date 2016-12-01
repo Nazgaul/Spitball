@@ -106,12 +106,12 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        public Task<UserAccountDto> GetUserAccountDetailsAsync(GetUserDetailsQuery query)
+        public Task<UserAccountDto> GetUserAccountDetailsAsync(QueryBaseUserId query)
         {
             return m_ReadService.GetUserAccountDetailsAsync(query);
         }
 
-        public Task<UserNotification> GetUserBoxesNotificationAsync(GetUserDetailsQuery query)
+        public Task<UserNotification> GetUserBoxesNotificationAsync(QueryBaseUserId query)
         {
             return m_ReadService.GetUserBoxesNotificationAsync(query);
         }
@@ -326,7 +326,7 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        public Task<UserDetailDto> GetUserDataAsync(GetUserDetailsQuery query)
+        public Task<UserDetailDto> GetUserDataAsync(QueryBaseUserId query)
         {
             return m_ReadService.GetUserDataAsync(query);
         }
@@ -375,7 +375,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUserConversationAsync(query);
         }
 
-        public Task<int> GetChatUnreadMessagesAsync(GetUserDetailsQuery query)
+        public Task<int> GetChatUnreadMessagesAsync(QueryBaseUserId query)
         {
             return m_ReadService.GetChatUnreadMessagesAsync(query);
         }
@@ -388,6 +388,11 @@ namespace Zbang.Zbox.ReadServices
         public Task<FlashcardUserDto> GetUserFlashcardAsync(GetUserFlashcardQuery query)
         {
             return m_ReadService.GetUserFlashcardAsync(query);
+        }
+
+        public Task<GamificationBoardDto> GamificationBoardAsync(QueryBaseUserId query)
+        {
+            return m_ReadService.GamificationBoardAsync(query);
         }
 
         public Task<QuizSolversWithCountDto> GetQuizSolversAsync(GetQuizBestSolvers query)
