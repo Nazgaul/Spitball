@@ -344,6 +344,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/keyboardAction.directive.js"),
                         new JsFileWithCdn("~/js/shared/cartAnimation.directive.js"),
                         new JsFileWithCdn("~/js/shared/showToaster.service.js"),
+                        new JsFileWithCdn("~/js/shared/openMenu.directive.js"),
 
 
 

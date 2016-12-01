@@ -1500,6 +1500,7 @@
     <TypeScriptCompile Include="Js\shared\itemThumbnail.ts" />
     <TypeScriptCompile Include="Js\shared\loader.ts" />
     <TypeScriptCompile Include="Js\shared\notification.ts" />
+    <TypeScriptCompile Include="Js\shared\openMenu.directive.ts" />
     <TypeScriptCompile Include="Js\shared\resourceManager.ts" />
     <TypeScriptCompile Include="Js\shared\sbScroll.directive.ts" />
     <TypeScriptCompile Include="Js\shared\showToaster.service.ts" />

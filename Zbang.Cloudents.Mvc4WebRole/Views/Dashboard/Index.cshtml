@@ -51,7 +51,7 @@
             <div ng-include="'box-template.html'"></div>
             <div class="updates" ng-if="e.updates !== 0">{{e.updates}}</div>
             <md-menu>
-                <button type="button" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['dashboard', 'deleteBoxMenu']">
+                <button type="button" class="md-icon-button delete" ng-click="$mdOpenMenu($event)" @*open-menu="$mdOpenMenu($event)"*@ ga-track-event="['dashboard', 'deleteBoxMenu']">
                     <md-icon md-svg-icon="t:ThreeDots" class="dots-3"></md-icon>
                 </button>
                 <md-menu-content width="1">
