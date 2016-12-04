@@ -63,7 +63,6 @@
         //    //content: attr(backgroundurl);
         //    //background-image: attr(backgroundurl);
         //}
-
         .loader {
             display: none;
             position: fixed;
@@ -846,6 +845,13 @@
 
                     &:not(:checked) ~ .shadowbox {
                         display: none;
+                    }
+                    /* Fixes the youtube full screen z-index issue (elements appearing on top of it)*/
+                    &:checked ~ .shadowbox {
+                        -moz-animation-name: none;
+                        -o-animation-name: none;
+                        -webkit-animation-name: none;
+                        animation-name: none;
                     }
                 }
 
