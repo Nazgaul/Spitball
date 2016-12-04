@@ -778,9 +778,16 @@
 }
 .homePage .home-page-body section.intro #showVideo {
   display: none;
+  /* Fixes the youtube full screen z-index issue (elements appearing on top of it)*/
 }
 .homePage .home-page-body section.intro #showVideo:not(:checked) ~ .shadowbox {
   display: none;
+}
+.homePage .home-page-body section.intro #showVideo:checked ~ .shadowbox {
+  -moz-animation-name: none;
+  -o-animation-name: none;
+  -webkit-animation-name: none;
+  animation-name: none;
 }
 .homePage .home-page-body section.intro .video-section {
   max-width: 800px;
