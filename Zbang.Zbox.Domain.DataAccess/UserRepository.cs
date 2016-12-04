@@ -19,7 +19,7 @@ namespace Zbang.Zbox.Domain.DataAccess
             return criteria.SingleOrDefault();
         }
 
-      
+
         public User GetUserByFacebookId(long facebookUserId)
         {
             var criteria = UnitOfWork.CurrentSession.QueryOver<User>();
@@ -84,11 +84,11 @@ namespace Zbang.Zbox.Domain.DataAccess
                 .ExecuteUpdate();
         }
 
-        
+
         public void UnsubscribeUserFromMail(IEnumerable<string> emails, EmailSend type)
         {
             UnitOfWork.CurrentSession.GetNamedQuery("UpdateUserUnsubscribe")
-                .SetEnum("emailSettings",type)
+                .SetEnum("emailSettings", type)
                 .SetParameterList("userEmail", emails)
                 .SetDateTime("dateTime", DateTime.UtcNow)
                 .ExecuteUpdate();
@@ -126,6 +126,25 @@ namespace Zbang.Zbox.Domain.DataAccess
                .FutureValue<int>();
 
             return fCommentLikes.Value + fReplyLikes.Value + fItemLikes.Value + fFlashcardLikes.Value;
+        }
+
+        public int ItemCount(long userId)
+        {
+            return UnitOfWork.CurrentSession.QueryOver<Item>()
+                .Where(w => w.User.Id == userId).And(w => !w.IsDeleted)
+                .Select(Projections.RowCount())
+                .SingleOrDefault<int>();
+
+        }
+
+
+        public int QuizCount(long userId)
+        {
+            return UnitOfWork.CurrentSession.QueryOver<Quiz>()
+               .Where(w => w.User.Id == userId).And(w => !w.IsDeleted).And(w => w.Publish)
+               .Select(Projections.RowCount())
+               .SingleOrDefault<int>();
+
         }
     }
 }

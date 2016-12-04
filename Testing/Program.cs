@@ -28,6 +28,7 @@ using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Url;
 using File = System.IO.File;
 using System.Collections.Generic;
+using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Testing
 {
@@ -112,14 +113,14 @@ namespace Testing
             var unity = IocFactory.IocWrapper;
             //Console.WriteLine(Environment.MachineName);
             //Console.WriteLine("Hello\vWorld\n\n");
-            var tr = getAllInvalidLinks();
-            Task.WaitAll(tr);
+            //var tr = getAllInvalidLinks();
+            //Task.WaitAll(tr);
 
 
-            Console.WriteLine("ended ");
+            //Console.WriteLine("ended ");
             //k.Wait();
 
-            return;
+            //return;
             Zbang.Zbox.Infrastructure.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Data.RegisterIoc.Register();
             Zbang.Zbox.Domain.Services.RegisterIoc.Register();
@@ -171,8 +172,17 @@ namespace Testing
             //log4net.Config.XmlConfigurator.Configure();
 
             var iocFactory = IocFactory.IocWrapper;
-            var service = iocFactory.Resolve<IZboxWorkerRoleService>();
-            service.OneTimeDbi();
+            var m_QueueRepository = iocFactory.Resolve<IQueueProvider>();
+            var t1 = m_QueueRepository.InsertMessageToTranactionAsync(new RegisterBadgeData(1));
+            var t2 = m_QueueRepository.InsertMessageToTranactionAsync(new FollowClassBadgeData(1));
+            var t3 = m_QueueRepository.InsertMessageToTranactionAsync(new CreateQuizzesBadgeData(1));
+            var t4 = m_QueueRepository.InsertMessageToTranactionAsync(new UploadItemsBadgeData(1));
+            var t5 = m_QueueRepository.InsertMessageToTranactionAsync(new LikesBadgeData(1));
+
+            Task.WaitAll(t1, t2, t3, t4, t5);
+            return;
+            //var service = iocFactory.Resolve<IZboxWorkerRoleService>();
+            //service.OneTimeDbi();
             //var t = service.CheckEmailValidateAsync("exn5038@psu.edu");
             //var t = service.SendSpanGunEmailAsync("ariel@cloudents.com", "1",
             //    "Spitball, the free social studying app, has over 250,000 students across the world using our product to access class documents (including past exams, study guides, lecture notes, etc).You can also chat with your classmates, create quizzes, and more, all for free!    We’re live at Auburn this semester, and we have over 1,900 documents exclusively for Auburn students!    Sign up for free today, it takes less than a minute. Check us out!",

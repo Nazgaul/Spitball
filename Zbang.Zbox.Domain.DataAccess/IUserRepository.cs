@@ -23,5 +23,7 @@ namespace Zbang.Zbox.Domain.DataAccess
         void UpdateScore(int score, long userid);
         void UnsubscribeUserFromMail(IEnumerable<string> emails, EmailSend type);
         int LikesCount(long userId);
+        int ItemCount(long userId);
+        int QuizCount(long userId);
     }
 }
