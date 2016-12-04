@@ -2551,6 +2551,11 @@
     <Content Include="Views\Dashboard\_FlashcardsPromo.cshtml" />
     <Content Include="Views\Flashcard\_Promo.cshtml" />
     <Content Include="Views\Share\ShareDialog.cshtml" />
+    <Content Include="Views\User\Badges.cshtml" />
+    <Content Include="Views\User\Items.cshtml" />
+    <Content Include="Views\User\Feed.cshtml" />
+    <Content Include="Views\User\Quizzes.cshtml" />
+    <Content Include="Views\User\Members.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

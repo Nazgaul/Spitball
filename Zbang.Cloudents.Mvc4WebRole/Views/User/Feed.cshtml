@@ -1,0 +1,16 @@
+﻿
+
+<div ng-switch-when="p">
+    <div layout-padding layout="row" layout-wrap layout-align="start center" srph-infinite-scroll="u.myPagingFunction()">
+        <div flex="100" ng-repeat="e in u.feed" ng-include="'user-feed-template.html'"></div>
+    </div>
+</div>
+<script type="text/ng-template" id="user-feed-template.html">
+    <a class="posts" href="{{::e.url}}">
+        <div>
+            <span class="post-headline" d-color="{{::e.boxName.length}}">{{::e.boxName}}</span>
+            <span class="post-content" ng-bind-html="::e.content | linky:'_blank'"></span>
+        </div>
+        <time-ago class="time-ago" from-time="{{::e.creationTime }}" format="mediumDate"></time-ago>
+    </a>
+</script>

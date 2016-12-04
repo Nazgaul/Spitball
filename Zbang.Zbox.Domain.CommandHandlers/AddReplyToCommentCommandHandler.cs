@@ -62,7 +62,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_QuestionRepository.Save(question);
             m_BoxRepository.Save(box);
             m_AnswerRepository.Save(answer);
-            m_UserRepository.Save(user);
+            //m_UserRepository.Save(user);
             return Task.WhenAll(t1);
         }
     }
