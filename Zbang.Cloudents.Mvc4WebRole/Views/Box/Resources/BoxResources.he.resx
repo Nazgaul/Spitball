@@ -192,4 +192,7 @@
   <data name="JoinClass" xml:space="preserve">
     <value>עקוב</value>
   </data>
+  <data name="SingleItem" xml:space="preserve">
+    <value>מסמך 1</value>
+  </data>
 </root>

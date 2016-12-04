@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 <script defer type="text/ng-template" id="box-template.html">
     <a ng-href="{{::e.url}}" class="box-template box-style" ga-track-event="['dashboard', 'box']">
         @*<span ng-if="e.recommended" class="ribbon background text-capitalize" d-color="{{::e.name.length}}">@IndexResources.Suggested</span>*@
@@ -16,10 +17,16 @@
             <div class="progress background" color="{{::e.departmentId}}"></div>
             <div class="status">
                 <div class="status-title" ng-hide="::e.membersCount === undefined">
-                    {{::e.membersCount}} @GeneralResources.Members
+                    <ng-pluralize count="e.membersCount"
+                                  when="{'one': '@GeneralResources.SingleMember',
+                                          'other': '{{::e.membersCount}} @GeneralResources.Members'}">
+                    </ng-pluralize>                    
                 </div>
                 <div class="status-number" ng-hide="::e.itemCount === undefined">
-                    {{::e.itemCount}} @IndexResources.Items
+                    <ng-pluralize count="e.itemCount"
+                                  when="{'one': '@BoxResources.SingleItem',
+                                          'other': '{{::e.itemCount}} @IndexResources.Items'}">
+                    </ng-pluralize>
                 </div>
             </div>
         </div>

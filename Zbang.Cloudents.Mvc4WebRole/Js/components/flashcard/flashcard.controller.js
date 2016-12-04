@@ -131,9 +131,6 @@ var app;
         };
         FlashcardController.prototype.like = function () {
             var _this = this;
-            if (!this.canLike()) {
-                return;
-            }
             this.disabled = true;
             if (!this.flashcard.like) {
                 this.flashcardService.like(this.$stateParams["id"]).then(function (response) { return _this.flashcard.like = response; }).finally(function () { return _this.disabled = false; });
@@ -141,9 +138,6 @@ var app;
             else {
                 this.flashcardService.likeDelete(this.flashcard.like).then(function () { return _this.flashcard.like = null; }).finally(function () { return _this.disabled = false; });
             }
-        };
-        FlashcardController.prototype.canLike = function () {
-            return this.user.id !== this.flashcard.userId;
         };
         FlashcardController.prototype.details = function (ev) {
             this.$mdDialog.show({

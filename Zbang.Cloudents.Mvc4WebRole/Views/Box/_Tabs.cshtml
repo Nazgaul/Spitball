@@ -37,7 +37,12 @@
         <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" ui-on-drop="i.addItemToTab($data,e)" class="folder-name i-q-wrapper" ng-repeat="e in t.tabs" ng-click="t.tabChange(e)">
             <div class="name-and-icon content">
                 <div class="text ellipsis name" ng-bind="::e.name"></div>
-                <div class="counter">{{e.count}} @IndexResources.Items</div>
+                <div class="counter">
+                    <ng-pluralize count="e.count"
+                                  when="{'one': '@BoxResources.SingleItem',
+                                            'other': '{{e.count}} @IndexResources.Items'}">
+                    </ng-pluralize>
+                </div>
             </div>
         </li>
         <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="add-folder folder-name fade-in-repeat i-q-wrapper">
@@ -48,7 +53,7 @@
                 </span>
             </button>
             <form class="content" ng-if="t.newFolderTabOpened" ng-submit="t.addTab()" name="addTabForm">
-                <input required focus-me="t.newFolderTabOpened" type="text" class="designed-input" ng-model="t.newFolderName" ng-blur="t.addTab()"/>
+                <input required focus-me="t.newFolderTabOpened" type="text" class="designed-input" ng-model="t.newFolderName" ng-blur="t.addTab()" />
             </form>
         </li>
     </ul>

@@ -195,4 +195,7 @@
   <data name="WriteQuestion" xml:space="preserve">
     <value>Enter the question here</value>
   </data>
+  <data name="LikeLabel" xml:space="preserve">
+    <value>Enjoyed this quiz? Give it a</value>
+  </data>
 </root>

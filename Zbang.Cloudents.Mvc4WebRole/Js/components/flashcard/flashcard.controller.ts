@@ -151,18 +151,12 @@
             }
         }
         like() {
-            if (!this.canLike()) {
-                return;
-            }
             this.disabled = true;
             if (!this.flashcard.like) {
                 this.flashcardService.like(this.$stateParams["id"]).then(response => this.flashcard.like = response).finally(() => this.disabled = false);
             } else {
                 this.flashcardService.likeDelete(this.flashcard.like).then(() => this.flashcard.like = null).finally(() => this.disabled = false);
             }
-        }
-        canLike() {
-            return this.user.id !== this.flashcard.userId;
         }
 
         details(ev) {

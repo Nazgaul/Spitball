@@ -192,4 +192,7 @@
   <data name="JoinClass" xml:space="preserve">
     <value>Join class</value>
   </data>
+  <data name="SingleItem" xml:space="preserve">
+    <value>1 Document</value>
+  </data>
 </root>

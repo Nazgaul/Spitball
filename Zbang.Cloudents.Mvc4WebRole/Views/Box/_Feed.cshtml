@@ -78,8 +78,10 @@
                         <input type="button" value="{{post.likesCount}}" class="like-count" user-not-register-popup="click" ng-click="f.likeCommentDialog(post,$event)" />
                     </div>
                     <div class="show-more" ng-if="post.repliesCount > 4 && !post.expandReplies">
-                        <span ng-click="f.openReply(post)" ng-if="post.repliesCount === 5"> @BoxResources.SingleComment</span>
-                        <span ng-click="f.openReply(post)" ng-if="post.repliesCount > 5"> @GeneralResources.View {{post.repliesCount-4}} @BoxResources.Comments</span>
+                        <ng-pluralize count="post.repliesCount" offset="4" ng-click="f.openReply(post)"
+                                      when="{'one': '@BoxResources.SingleComment',
+                                            'other': '@GeneralResources.View {{post.repliesCount-4}} @BoxResources.Comments'}">
+                        </ng-pluralize>
                     </div>
                 </div>
                 <div class="actions-wrapper">
