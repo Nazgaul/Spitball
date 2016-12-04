@@ -23,6 +23,7 @@ body.collapseHeader #main-nav {
   transform: translate(0, -65px);
 }
 body.collapseHeader .itemPage header {
+  z-index: 1;
   top: 0;
   left: 0;
   right: 0;
