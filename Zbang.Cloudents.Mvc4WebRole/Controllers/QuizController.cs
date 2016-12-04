@@ -226,7 +226,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         [ZboxAuthorize]
         [RemoveBoxCookie, ActionName("Create")]
-        public ActionResult Create(Quiz model)
+        public async Task<JsonResult> CreateAsync(Quiz model)
         {
             if (!ModelState.IsValid)
             {
@@ -234,7 +234,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var id = m_IdGenerator.GetId(IdContainer.QuizScope);
             var command = new CreateQuizCommand(User.GetUserId(), id, model.Name, model.BoxId);
-            ZboxWriteService.CreateQuiz(command);
+            await ZboxWriteService.CreateQuizAsync(command);
 
             return JsonOk(id);
         }

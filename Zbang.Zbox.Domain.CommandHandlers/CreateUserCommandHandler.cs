@@ -38,11 +38,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public abstract Task<CreateUserCommandResult> ExecuteAsync(CreateUserCommand command);
 
+        //TODO: change name
         private Task TriggerWelcomeMailAsync(User user, CreateUserCommand command)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
 
-            return m_QueueRepository.InsertMessageToTranactionAsync(new NewUserData(user.Id, user.Name, user.Culture, user.Email, command.Parameters?["ref"]));
+            var t4 = m_QueueRepository.InsertMessageToTranactionAsync(new RegisterBadgeData(user.Id));
+            var t1 =  m_QueueRepository.InsertMessageToTranactionAsync(new NewUserData(user.Id, user.Name, user.Culture, user.Email, command.Parameters?["ref"]));
+            return Task.WhenAll(t1, t4);
         }
 
         protected void GiveReputationAndAssignToBox(Guid? invId, User user)

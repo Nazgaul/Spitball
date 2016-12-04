@@ -142,7 +142,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             if (totalCount > 0)
             {
-                await m_MailComponent.GenerateSystemEmailAsync("spam gun", $"send {totalCount} emails");
+                TraceLog.WriteInfo($"spam gun send {totalCount} emails");
+                //await m_MailComponent.GenerateSystemEmailAsync("spam gun", $"send {totalCount} emails");
             }
 
             TraceLog.WriteInfo($"{ServiceName} going not running.");

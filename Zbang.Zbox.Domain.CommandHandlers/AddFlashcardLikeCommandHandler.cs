@@ -36,7 +36,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_FlashcardLikeRepository.Save(like);
             m_FlashcardRepository.Save(flashcard);
             message.Id = like.Id;
-            return m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(like.Flashcard.User.Id));
+            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(like.Flashcard.User.Id));
+            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new LikesBadgeData(message.UserId));
+            return Task.WhenAll(t1, t2);
         }
     }
 }

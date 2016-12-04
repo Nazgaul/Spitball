@@ -70,7 +70,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_BoxRepository.Save(box, true);
             AddItemToTab(command.TabId, link);// DUPLICATE in FILE as well
 
-            await m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, itemId: link.Id));
+            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, itemId: link.Id));
+            var t4 = m_QueueProvider.InsertMessageToTranactionAsync(new UploadItemsBadgeData(user.Id));
+
+            await Task.WhenAll(t1, t4);
             return new AddLinkToBoxCommandResult(link);
 
 

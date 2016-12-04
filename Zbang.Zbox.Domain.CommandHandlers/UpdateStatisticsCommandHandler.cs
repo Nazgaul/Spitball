@@ -28,19 +28,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public Task HandleAsync(UpdateStatisticsCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
-
-            //if (message.UserId > 0)
-            //{
-            //    var user = m_UserRepository.Load(message.UserId);
-            //    user.LastAccessTime = message.StatTime;
-            //    m_UserRepository.Save(user);
-            //}
-
             var t = Infrastructure.Extensions.TaskExtensions.CompletedTask;
             if (message.ItemId == null) return t;
             var itemId = message.ItemId;
-            //foreach (var itemId in message.ItemId)
-            //{
             if (itemId.ItemId == 0)
             {
                 TraceLog.WriteInfo("itemId is 0 " + itemId);
@@ -119,8 +109,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             m_ItemRepository.Save(item);
             return UpdateReputationAsync(item.UploaderId);
-
-            //}
         }
 
         private Task UpdateReputationAsync(long userId)

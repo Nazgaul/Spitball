@@ -44,16 +44,22 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
                 m_ReplyRepository.Save(reply);
                 m_ReplyLikeRepository.Save(replyLike);
-                await m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(reply.User.Id));
+                await CreateQueuesDataAsync(message.UserId, reply.User.Id);
                 return new LikeReplyCommandResult(true);
             }
 
             reply.LikeCount--;
             m_ReplyRepository.Save(reply);
             m_ReplyLikeRepository.Delete(replyLike);
-            await m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(reply.User.Id));
+            await CreateQueuesDataAsync(message.UserId, reply.User.Id);
             return new LikeReplyCommandResult(false);
 
+        }
+        private async Task CreateQueuesDataAsync(long userWhoMadeAction, long commentUser)
+        {
+            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(commentUser));
+            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new LikesBadgeData(userWhoMadeAction));
+            await Task.WhenAll(t1, t2);
         }
     }
 }

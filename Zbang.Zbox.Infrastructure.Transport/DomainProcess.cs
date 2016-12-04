@@ -12,18 +12,19 @@ namespace Zbang.Zbox.Infrastructure.Transport
     [ProtoInclude(20, typeof(DeleteBoxData))]
     [ProtoInclude(21, typeof(BadPostData))]
     [ProtoInclude(22, typeof(NewUserData))]
+    [ProtoInclude(23, typeof(BadgeData))]
     public abstract class DomainProcess
     {
         // ReSharper disable once EmptyConstructor - for protobuf
         protected DomainProcess()
         { }
-        //public const string AddAFriendResolver = "AddAFriend";
         public const string StatisticsResolver = "Statistics";
         public const string BadItemResolver = "BadItem";
 
         public const string UpdateResolver = "UpdateResolver";
         public const string UniversityResolver = "University";
         public const string ReputationResolver = "Reputation";
+        public const string BadgeResolver = "Badge";
         public const string DeleteBoxResolver = "DeleteBox";
         public const string QuotaResolver = "Quota";
 

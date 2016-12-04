@@ -9,6 +9,7 @@ namespace Zbang.Zbox.Domain.Common
     {
         Task DeleteBoxAsync(DeleteBoxCommand command);
         Task StatisticsAsync(UpdateStatisticsCommand command);
+        void UpdateBadges(UpdateBadgesCommand command);
         void UpdateQuota(UpdateQuotaCommand updateQuotaCommand);
         void UpdateReputation(UpdateReputationCommand command);
         Task AddNewUpdateAsync(AddNewUpdatesCommand command);

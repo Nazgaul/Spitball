@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessApprovedData.cs" />
+    <Compile Include="BadgeData.cs" />
     <Compile Include="BadItemData.cs" />
     <Compile Include="BadPostData.cs" />
     <Compile Include="BoxFileProcessData.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="InviteToCloudentsData.cs" />
     <Compile Include="MessageMailData.cs" />
     <Compile Include="ProtobufSerializer.cs" />
+    <Compile Include="QuotaData.cs" />
     <Compile Include="ReplyToCommentData.cs" />
     <Compile Include="ReputationData.cs" />
     <Compile Include="RequestAccessData.cs" />

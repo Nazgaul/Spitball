@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.Domain"
+                   namespace="Zbang.Zbox.Domain">
+  <class name="Badge" table="Badge" >
+    <id name="Id" column="Id">
+      <generator class="assigned"></generator>
+    </id>
+    <many-to-one column="UserId" class="User" name="User" foreign-key="BadgeUser" unique-key="badgeUserIdName"/>
+    <property name="DateTime" type="DateTime2" not-null="true"  />
+    <property name="Name"  unique-key="badgeUserIdName"/>
+    <property name="Progress"/>
+  </class>
+</hibernate-mapping>

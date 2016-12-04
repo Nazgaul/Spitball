@@ -32,7 +32,7 @@ namespace Zbang.Zbox.Domain.Common
         Task ShareBoxAsync(ShareBoxCommand command);
         Task InviteSystemAsync(InviteToSystemCommand command);
 
-        void SubscribeToSharedBox(SubscribeToSharedBoxCommand command);
+        Task SubscribeToSharedBoxAsync(SubscribeToSharedBoxCommand command);
         ChangeFileNameCommandResult ChangeFileName(ChangeFileNameCommand command);
 
 
@@ -45,10 +45,10 @@ namespace Zbang.Zbox.Domain.Common
 
 
 
-        void CreateBoxItemTab(CreateItemTabCommand command);
+        Task CreateBoxItemTabAsync(CreateItemTabCommand command);
 
 
-        void AssignBoxItemToTab(AssignItemToTabCommand command);
+        Task AssignBoxItemToTabAsync(AssignItemToTabCommand command);
         void RenameBoxItemTab(ChangeItemTabNameCommand command);
         void DeleteBoxItemTab(DeleteItemTabCommand command);
 
@@ -79,7 +79,7 @@ namespace Zbang.Zbox.Domain.Common
 
 
         #region Quiz
-        void CreateQuiz(CreateQuizCommand command);
+        Task CreateQuizAsync(CreateQuizCommand command);
         void UpdateQuiz(UpdateQuizCommand command);
         Task DeleteQuizAsync(DeleteQuizCommand command);
         void CreateQuestion(CreateQuestionCommand command);

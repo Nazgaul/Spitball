@@ -1,25 +1,28 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class SubscribeToSharedBoxCommandHandler : ICommandHandler<SubscribeToSharedBoxCommand>
+    public class SubscribeToSharedBoxCommandHandler : ICommandHandlerAsync<SubscribeToSharedBoxCommand>
     {
         private readonly IRepository<Box> m_BoxRepository;
         private readonly IUserRepository m_UserRepository;
         private readonly IInviteRepository m_InviteRepository;
        // private readonly IRepository<Reputation> m_ReputationRepository;
-        //private readonly IQueueProvider m_QueueRepository;
+        private readonly IQueueProvider m_QueueRepository;
 
 
         public SubscribeToSharedBoxCommandHandler(IRepository<Box> boxRepository, IUserRepository userRepository,
-            IInviteRepository inviteRepository
+            IInviteRepository inviteRepository,
             //IRepository<Reputation> reputationRepository,
-            //IQueueProvider queueRepository
+            IQueueProvider queueRepository
             )
         {
 
@@ -27,10 +30,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_BoxRepository = boxRepository;
             m_InviteRepository = inviteRepository;
             //m_ReputationRepository = reputationRepository;
-            //m_QueueRepository = queueRepository;
+            m_QueueRepository = queueRepository;
         }
 
-        public void Handle(SubscribeToSharedBoxCommand command)
+        public async Task HandleAsync(SubscribeToSharedBoxCommand command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
 
@@ -60,6 +63,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     box.ShouldMakeDirty = () => false;
                 }
                 m_BoxRepository.Save(box);
+                await m_QueueRepository.InsertMessageToTranactionAsync(new FollowClassBadgeData(user.Id));
             }
         }
 

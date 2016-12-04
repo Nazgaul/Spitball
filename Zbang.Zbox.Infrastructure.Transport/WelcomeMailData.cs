@@ -9,7 +9,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
         {
         }
         public WelcomeMailData(string emailAddress, string userName, string culture)
-            : base(emailAddress,culture)
+            : base(emailAddress, culture)
         {
             UserName = userName;
         }

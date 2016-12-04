@@ -24,7 +24,7 @@ namespace Zbang.Zbox.Domain.DataAccess
             //ioc.RegisterType<IQuizRepository, QuizRepository>();
 
             ioc.RegisterType<IItemRepository, ItemRepository>();
-            ioc.RegisterType<IReputationRepository, ReputationRepository>();
+            ioc.RegisterType<IGamificationRepository, GamificationRepository>();
             ioc.RegisterType<ILibraryRepository, LibraryRepository>();
             ioc.RegisterType<IChatUserRepository, ChatUserRepository>();
             ioc.RegisterType<IConnectionRepository, ConnectionRepository>();

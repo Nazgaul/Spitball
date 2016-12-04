@@ -492,8 +492,16 @@ select top(3) id from zbox.university where isdeleted = 1 and updatetime < getut
                 unitOfWork.TransactionalFlush();
             }
         }
-
         public void UpdateQuota(UpdateQuotaCommand command)
+        {
+            using (var unitOfWork = UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                unitOfWork.TransactionalFlush();
+            }
+        }
+
+        public void UpdateBadges(UpdateBadgesCommand command)
         {
             using (var unitOfWork = UnitOfWork.Start())
             {

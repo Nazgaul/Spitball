@@ -117,6 +117,7 @@
     <Compile Include="RequestAccessLibraryNodeCommandHandler.cs" />
     <Compile Include="SaveUserFlashcardCommandHandler.cs" />
     <Compile Include="UnsubscribeUsersFromEmailCommandHandler.cs" />
+    <Compile Include="UpdateBadgesCommandHandler.cs" />
     <Compile Include="UpdateFlashcardCommandHandler.cs" />
     <Compile Include="UpdateNodeSettingsCommandHandler.cs" />
     <Compile Include="Resources\CommandHandlerResources.Designer.cs">

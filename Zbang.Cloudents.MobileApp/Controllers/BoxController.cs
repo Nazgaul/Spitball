@@ -230,7 +230,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         [Route("api/box/follow")]
         [HttpPost]
-        public HttpResponseMessage FollowAsync(FollowRequest model)
+        public async Task<HttpResponseMessage> FollowAsync(FollowRequest model)
         {
             if (model == null)
             {
@@ -241,7 +241,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 return Request.CreateBadRequestResponse();
             }
             var command = new SubscribeToSharedBoxCommand(User.GetUserId(), model.BoxId);
-            m_ZboxWriteService.SubscribeToSharedBox(command);
+            await m_ZboxWriteService.SubscribeToSharedBoxAsync(command);
             return Request.CreateResponse();
         }
 

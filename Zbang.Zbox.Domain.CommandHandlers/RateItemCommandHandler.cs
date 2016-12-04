@@ -41,19 +41,21 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 m_ItemRateRepository.Delete(userRate);
                 item.LikeCount--;
                 m_ItemRepository.Save(item);
-                return ReturnValueAsync(item.UploaderId);
+                return ReturnValueAsync(item.UploaderId, message.UserId);
             }
             var user = m_UserRepository.Load(message.UserId);
             userRate = new ItemRate(user, item, message.Id);
             m_ItemRateRepository.Save(userRate);
             item.LikeCount++;
             m_ItemRepository.Save(item);
-            return ReturnValueAsync(item.UploaderId);
+            return ReturnValueAsync(item.UploaderId, message.UserId);
         }
 
-        private Task ReturnValueAsync(long userId)
+        private Task ReturnValueAsync(long userId, long userWhoMadeAction)
         {
-            return m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(userId));
+            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new LikesBadgeData(userWhoMadeAction));
+            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(userId));
+            return Task.WhenAll(t1, t2);
         }
 
 

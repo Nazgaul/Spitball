@@ -482,7 +482,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpPost, ZboxAuthorize, ActionName("CreateTab")]
-        public JsonResult CreateTab(CreateBoxItemTab model)
+        public async Task<JsonResult> CreateTabAsync(CreateBoxItemTab model)
         {
             if (!ModelState.IsValid)
             {
@@ -493,7 +493,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var userId = User.GetUserId();
                 var guid = Guid.NewGuid();
                 var command = new CreateItemTabCommand(guid, model.Name, model.BoxId, userId);
-                ZboxWriteService.CreateBoxItemTab(command);
+                await ZboxWriteService.CreateBoxItemTabAsync(command);
                 var result = new TabDto { Id = guid, Name = model.Name };
                 return JsonOk(result);
             }
@@ -505,7 +505,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost, ZboxAuthorize, ActionName("AddItemToTab")]
-        public JsonResult AddItemToTab(AssignItemToTab model)
+        public async Task<JsonResult> AddItemToTabAsync(AssignItemToTab model)
         {
             if (!ModelState.IsValid)
             {
@@ -513,7 +513,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var userId = User.GetUserId();
             var command = new AssignItemToTabCommand(model.ItemId, model.TabId, model.BoxId, userId);
-            ZboxWriteService.AssignBoxItemToTab(command);
+            await ZboxWriteService.AssignBoxItemToTabAsync(command);
             return JsonOk();
         }
 

@@ -96,6 +96,8 @@ namespace Zbang.Zbox.Domain
         public virtual ICollection<UserBoxRel> UserBoxRel { get; protected set; }
         public virtual ICollection<UserLibraryRel> UserLibraryRel { get; protected set; }
         public virtual ICollection<Connection> Connections { get; protected set; }
+        public virtual ICollection<Item> Items { get; protected set; }
+        public virtual ICollection<Quiz> Quizzes { get; protected set; }
         public virtual Guid? MembershipId { get; set; }
         public virtual long? FacebookId { get; set; }
         public virtual string GoogleId { get; set; }
@@ -109,6 +111,9 @@ namespace Zbang.Zbox.Domain
 
         public virtual int Reputation { get; set; }
         public virtual int Score { get; set; }
+
+        public virtual ICollection<Badge> Badges { get; protected set; }
+        public virtual int BadgeCount { get; set; }
 
         //public virtual RussianDepartment RussianDepartment { get; set; }
 

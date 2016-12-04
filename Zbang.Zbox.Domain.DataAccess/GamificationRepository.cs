@@ -1,9 +1,11 @@
 ﻿using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
+using Zbang.Zbox.Infrastructure.Data.Repositories;
+using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.Domain.DataAccess
 {
-    public class ReputationRepository : IReputationRepository
+    public class GamificationRepository : NHibernateRepository<Badge> ,IGamificationRepository
     {
         public int GetUserReputation(long userId)
         {
@@ -100,5 +102,16 @@ select i.score + q.score +f.score + c.score + r.score from itemScore i ,quizScor
             var retVal = sqlQuery.UniqueResult<int>();
             return retVal;
         }
+
+
+        public Badge GetBadgeOfUser(long userId, BadgeType type)
+        {
+            var query = UnitOfWork.CurrentSession.QueryOver<Badge>();
+            query.Where(b => b.User.Id == userId);
+            query.Where(b => b.Name == type);
+            return query.SingleOrDefault<Badge>();
+        }
+
+
     }
 }

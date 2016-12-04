@@ -82,13 +82,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         [ZboxAuthorize]
         [RemoveBoxCookie, ActionName("SubscribeToBox")]
-        public JsonResult SubscribeToBox(long boxId)
+        public async Task<JsonResult> SubscribeToBoxAsync(long boxId)
         {
             var userid = User.GetUserId();
             try
             {
                 var command = new SubscribeToSharedBoxCommand(userid, boxId);
-                ZboxWriteService.SubscribeToSharedBox(command);
+                await ZboxWriteService.SubscribeToSharedBoxAsync(command);
                 return JsonOk();
             }
             catch (Exception ex)

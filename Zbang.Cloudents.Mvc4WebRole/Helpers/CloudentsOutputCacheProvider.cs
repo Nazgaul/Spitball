@@ -46,7 +46,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             try
             {
-                TraceLog.WriteInfo("output cache key" + key);
+                //TraceLog.WriteInfo("output cache key" + key);
                 return m_Cache.Get(m_CachePrefix + key);
             }
             catch (Exception ex)

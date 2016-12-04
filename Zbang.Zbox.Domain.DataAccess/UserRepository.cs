@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NHibernate.Criterion;
 using NHibernate.Linq;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Data.Repositories;
@@ -18,13 +19,7 @@ namespace Zbang.Zbox.Domain.DataAccess
             return criteria.SingleOrDefault();
         }
 
-        //public User GetUserByMembershipId(Guid membershipId)
-        //{
-        //    var criteria = UnitOfWork.CurrentSession.QueryOver<User>();
-        //    criteria.Where(w => w.MembershipId == membershipId);
-
-        //    return criteria.SingleOrDefault();
-        //}
+      
         public User GetUserByFacebookId(long facebookUserId)
         {
             var criteria = UnitOfWork.CurrentSession.QueryOver<User>();
@@ -89,22 +84,14 @@ namespace Zbang.Zbox.Domain.DataAccess
                 .ExecuteUpdate();
         }
 
-        //public void RegisterUserNotification(long userid, MobileOperatingSystem os)
-        //{
-        //    UnitOfWork.CurrentSession.GetNamedQuery("UpdateUserMobileDevice")
-        //        .SetInt64("userid", userid)
-        //        .SetEnum("mobileDevice", os)
-        //        .ExecuteUpdate();
-        //}
-
+        
         public void UnsubscribeUserFromMail(IEnumerable<string> emails, EmailSend type)
         {
-            var x = UnitOfWork.CurrentSession.GetNamedQuery("UpdateUserUnsubscribe")
+            UnitOfWork.CurrentSession.GetNamedQuery("UpdateUserUnsubscribe")
                 .SetEnum("emailSettings",type)
                 .SetParameterList("userEmail", emails)
                 .SetDateTime("dateTime", DateTime.UtcNow)
                 .ExecuteUpdate();
-            //TraceLog.WriteInfo($"updating {x} users in type {type}");
 
         }
 
@@ -117,6 +104,28 @@ namespace Zbang.Zbox.Domain.DataAccess
                 .Where(w => w.Library.Id == departmentId).SingleOrDefault();
 
             return userBoxRel?.UserType ?? UserLibraryRelationType.None;
+        }
+
+        public int LikesCount(long userId)
+        {
+            var fCommentLikes = UnitOfWork.CurrentSession.QueryOver<CommentLike>()
+                .Where(w => w.User.Id == userId)
+                .Select(Projections.RowCount())
+                .FutureValue<int>();
+            var fReplyLikes = UnitOfWork.CurrentSession.QueryOver<ReplyLike>()
+               .Where(w => w.User.Id == userId)
+               .Select(Projections.RowCount())
+               .FutureValue<int>();
+            var fItemLikes = UnitOfWork.CurrentSession.QueryOver<ItemRate>()
+               .Where(w => w.User.Id == userId)
+               .Select(Projections.RowCount())
+               .FutureValue<int>();
+            var fFlashcardLikes = UnitOfWork.CurrentSession.QueryOver<FlashcardLike>()
+               .Where(w => w.User.Id == userId)
+               .Select(Projections.RowCount())
+               .FutureValue<int>();
+
+            return fCommentLikes.Value + fReplyLikes.Value + fItemLikes.Value + fFlashcardLikes.Value;
         }
     }
 }

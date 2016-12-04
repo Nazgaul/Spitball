@@ -11,7 +11,6 @@ namespace Zbang.Zbox.Domain.DataAccess
         public bool CheckFileNameExists(string fileName, long boxId)
         {
             var file = UnitOfWork.CurrentSession.QueryOver<File>()
-                // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
                 .Where(w => w.Box.Id == boxId)
                 .And(w => w.Name == fileName)
                 .And(w => w.IsDeleted == false)
@@ -21,10 +20,6 @@ namespace Zbang.Zbox.Domain.DataAccess
 
         public Comment GetPreviousCommentId(long boxId, long userId)
         {
-            //UnitOfWork.CurrentSession.QueryOver<Comment>()
-            //    .Where(w => w.FeedType == Infrastructure.Enums.FeedType.AddedItems)
-            //    .And(w => w.Box.Id == boxId)
-            //    .And(w => w.User.Id == userId)
 
             var questions = UnitOfWork.CurrentSession.QueryOver<Item>()
                 .Where(w => w.DateTimeUser.CreationTime > DateTime.UtcNow.AddHours(-1))

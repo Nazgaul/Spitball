@@ -121,6 +121,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Ioc.RegisterType<IDomainProcess, UpdatesProcess>(Infrastructure.Transport.DomainProcess.UpdateResolver);
             Ioc.RegisterType<IDomainProcess, UpdateReputation>(
                 Infrastructure.Transport.DomainProcess.ReputationResolver);
+            Ioc.RegisterType<IDomainProcess, UpdateBadge>(
+              Infrastructure.Transport.DomainProcess.BadgeResolver);
             Ioc.RegisterType<IDomainProcess, UpdateQuota>(
                 Infrastructure.Transport.DomainProcess.QuotaResolver);
             Ioc.RegisterType<IDomainProcess, DeleteBox>(
