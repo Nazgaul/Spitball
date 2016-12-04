@@ -7,10 +7,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class UpdateReputationCommandHandler : ICommandHandler<UpdateReputationCommand>
     {
-        private readonly IReputationRepository m_ReputationRepository;
+        private readonly IGamificationRepository m_ReputationRepository;
         private readonly IUserRepository m_UserRepository;
 
-        public UpdateReputationCommandHandler(IReputationRepository reputationRepository, IUserRepository userRepository)
+        public UpdateReputationCommandHandler(IGamificationRepository reputationRepository, IUserRepository userRepository)
         {
             m_ReputationRepository = reputationRepository;
             m_UserRepository = userRepository;

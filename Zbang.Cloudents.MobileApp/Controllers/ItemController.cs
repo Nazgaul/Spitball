@@ -105,7 +105,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
 
             var autoFollowCommand = new SubscribeToSharedBoxCommand(userId, boxId);
-            m_ZboxWriteService.SubscribeToSharedBox(autoFollowCommand);
+            var t3 = m_ZboxWriteService.SubscribeToSharedBoxAsync(autoFollowCommand);
 
             var t1 = m_QueueProvider.InsertMessageToTranactionAsync(
                    new StatisticsData4(
@@ -116,7 +116,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                         }
                     , userId));
 
-            await Task.WhenAll(t1, t2);
+            await Task.WhenAll(t1, t2, t3);
             var item = t2.Result;
             if (item.Type == "Link")
             {

@@ -59,7 +59,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             item.DateTimeUser.UpdateUserTime(user.Id);
             var box = item.Box;
             box.ShouldMakeDirty = () => false;
-            var uploaderFileId = item.UploaderId;
 
             if (item.CommentReply != null && string.IsNullOrEmpty(item.CommentReply.Text) && item.CommentReply.Items.Count == 1) // only one answer
             {
@@ -80,13 +79,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 m_ItemTabRepository.Save(item.Tab);
             }
             var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(item.UploaderId));
-            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new QuotaData(uploaderFileId));
+            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new QuotaData(item.UploaderId));
+            var t4 = m_QueueProvider.InsertMessageToTranactionAsync(new UploadItemsBadgeData(item.UploaderId));
             m_ItemRepository.Delete(item);
             box.UpdateItemCount();
             command.BoxId = box.Id;
             m_BoxRepository.Save(box);
 
-            return Task.WhenAll(t1, t2);
+            return Task.WhenAll(t1, t2, t4);
         }
 
     }

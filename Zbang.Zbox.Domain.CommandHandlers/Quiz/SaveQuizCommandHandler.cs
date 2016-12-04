@@ -101,9 +101,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 
             m_UserRepository.Save(quiz.User);
 
-            await m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(quiz.User.Id, quiz.Box.Id, null, null, null, quiz.Id));
+            var t1 =  m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(quiz.User.Id, quiz.Box.Id, null, null, null, quiz.Id));
+            var t2 =  m_QueueProvider.InsertMessageToTranactionAsync(new CreateQuizzesBadgeData(quiz.User.Id));
 
-
+            await Task.WhenAll(t1, t2);
             return new SaveQuizCommandResult(quiz.Url);
         }
     }

@@ -137,6 +137,7 @@
     <Compile Include="DomainProcess\NewUserProcess.cs" />
     <Compile Include="DomainProcess\PreProcessFile.cs" />
     <Compile Include="DomainProcess\Statistics.cs" />
+    <Compile Include="DomainProcess\UpdateBadge.cs" />
     <Compile Include="DomainProcess\UpdateQuota.cs" />
     <Compile Include="DomainProcess\UpdateReputation.cs" />
     <Compile Include="DomainProcess\UpdatesProcess.cs" />

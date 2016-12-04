@@ -98,6 +98,7 @@
     <Compile Include="Consts\TimeConsts.cs" />
     <Compile Include="Consts\UrlConsts.cs" />
     <Compile Include="Culture\Languages.cs" />
+    <Compile Include="Enums\BadgeType.cs" />
     <Compile Include="Enums\BadItem.cs" />
     <Compile Include="Enums\BoxType.cs" />
     <Compile Include="Enums\EmailSend.cs" />

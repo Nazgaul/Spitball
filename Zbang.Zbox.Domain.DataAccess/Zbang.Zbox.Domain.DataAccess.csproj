@@ -102,7 +102,7 @@
     <Compile Include="ItemRateRepository.cs" />
     <Compile Include="RegisterIoc.cs" />
     <Compile Include="ReplyLikeRepository.cs" />
-    <Compile Include="ReputationRepository.cs" />
+    <Compile Include="GamificationRepository.cs" />
     <Compile Include="UniversityRepository.cs" />
     <Compile Include="UpdatesRepository.cs" />
     <Compile Include="UserBoxRelRepository.cs" />

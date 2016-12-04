@@ -84,9 +84,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             AddItemToTab(command.TabId, item);
             var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, itemId: item.Id));
+            var t4 = m_QueueProvider.InsertMessageToTranactionAsync(new UploadItemsBadgeData(user.Id));
             var t3 = m_QueueProvider.InsertMessageToTranactionAsync(new QuotaData(user.Id));
             var t1 = m_QueueProvider.InsertMessageToThumbnailAsync(new BoxFileProcessData(item.Id));
-            await Task.WhenAll(t1, t2, t3);
+            await Task.WhenAll(t1, t2, t3, t4);
 
             var result = new AddFileToBoxCommandResult(item);
 

@@ -128,6 +128,7 @@
     <Compile Include="RequestAccessLibraryNodeCommand.cs" />
     <Compile Include="SaveUserFlashcardCommand.cs" />
     <Compile Include="UnsubscribeUsersFromEmailCommand.cs" />
+    <Compile Include="UpdateBadgesCommand.cs" />
     <Compile Include="UpdateFlashcardCommand.cs" />
     <Compile Include="UpdateNodeSettingsCommand.cs" />
     <Compile Include="UnFollowBoxCommand.cs" />

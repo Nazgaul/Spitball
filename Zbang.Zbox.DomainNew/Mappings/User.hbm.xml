@@ -35,6 +35,7 @@
     <property name="StudentId" column="UserCode"/>
     <property name="Reputation" column="UserReputation"/>
     <property name="Score" column="Score"/>
+    <property name="BadgeCount" column="BadgeCount"/>
 
    
 
@@ -56,6 +57,18 @@
     <bag name="Connections"  cascade="all-delete-orphan" inverse="true" lazy="true">
       <key column="UserId"/>
       <one-to-many class="Connection"/>
+    </bag>
+    <bag name="Badges"  cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key column="UserId"/>
+      <one-to-many class="Badge"/>
+    </bag>
+    <bag name="Items" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key column="UserId"/>
+      <one-to-many class="Item"/>
+    </bag>
+    <bag name="Quizzes" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key column="UserId" foreign-key="userIdQuiz"/>
+      <one-to-many class="Quiz"/>
     </bag>
   </class>
 

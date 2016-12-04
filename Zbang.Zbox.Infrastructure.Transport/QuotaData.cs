@@ -1,21 +1,22 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using ProtoBuf;
 
 namespace Zbang.Zbox.Infrastructure.Transport
 {
     [ProtoContract]
-    public class ReputationData : DomainProcess
+    public class QuotaData : DomainProcess
     {
-        protected ReputationData()
+        protected QuotaData()
         {
-        }
-        
-        public ReputationData(long userId)
-        {
-            UserIds = new[] { userId};
         }
 
-        public ReputationData(IEnumerable<long> userIds)
+
+        public QuotaData(long userId)
+        {
+            UserIds = new[] { userId };
+        }
+
+        public QuotaData(IEnumerable<long> userIds)
         {
             UserIds = userIds;
         }

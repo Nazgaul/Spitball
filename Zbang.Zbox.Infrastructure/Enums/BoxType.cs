@@ -9,5 +9,6 @@
         Abstract = -1
     }
 
-    // ReSharper disable once EnumUnderlyingTypeIsInt - need for dapper
+    
 }
+   
