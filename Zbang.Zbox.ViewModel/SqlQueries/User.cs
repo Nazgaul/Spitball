@@ -112,8 +112,7 @@ q.NumberOfViews as numOfViews
 
         #region Gamification
 
-       public const string GamificationBoard = @"select Score as score from zbox.users
-where userid = @userId";
+       public const string GamificationBoard = @"select score,BadgeCount from zbox.users where userid = @userId";
 
        #endregion
    }
