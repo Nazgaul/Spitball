@@ -1,38 +1,33 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 <script defer type="text/ng-template" id="box-template.html">
-    <a ng-href="{{::e.url}}" class="box-template box-style" ga-track-event="['dashboard', 'box']">
-        @*<span ng-if="e.recommended" class="ribbon background text-capitalize" d-color="{{::e.name.length}}">@IndexResources.Suggested</span>*@
-        <div class="display">
-            <div class="number">
-                <div class="title">
-                    <div class="icon background" color="{{::e.departmentId}}" ng-bind="::e.name.substr(0,2) | lowercase"></div>
-                    <h5 color="{{::e.departmentId}}" ng-bind="::e.name"></h5>
-                </div>
-                <small class="ellipsis" ng-bind="::e.professor"></small><br />
-                <small class="ellipsis" ng-bind="::e.courseCode"></small>
+    <a ng-href="{{::e.url}}" class="box-template-flex box-style" ga-track-event="['dashboard', 'box']">
+        <div class="info">
+            <div class="top">
+                <div class="icon background" color="{{::e.departmentId}}" ng-bind="::e.name.substr(0,2) | lowercase"></div>
+                <h5 class="multi-line-ellipsis limit-two" color="{{::e.departmentId}}" ng-bind="::e.name"></h5>
+            </div>
+            <div class="bottom">
+                <span class="ellipsis" ng-bind="::e.professor"></span>
+                <span class="ellipsis" ng-bind="::e.courseCode"></span>
             </div>
         </div>
-        <div class="progress-info">
-            <div class="progress background" color="{{::e.departmentId}}"></div>
-            <div class="status">
-                <div class="status-title" ng-hide="::e.membersCount === undefined">
-                    <ng-pluralize count="e.membersCount"
-                                  when="{'one': '@GeneralResources.SingleMember',
+        <div class="stats border" color="{{::e.departmentId}}">
+            <div class="members-count" ng-hide="::e.membersCount === undefined">
+                <ng-pluralize count="e.membersCount"
+                              when="{'one': '@GeneralResources.SingleMember',
                                           'other': '{{::e.membersCount}} @GeneralResources.Members'}">
-                    </ng-pluralize>                    
-                </div>
-                <div class="status-number" ng-hide="::e.itemCount === undefined">
-                    <ng-pluralize count="e.itemCount"
-                                  when="{'one': '@BoxResources.SingleItem',
+                </ng-pluralize>
+            </div>
+            <div class="items-count" ng-hide="::e.itemCount === undefined">
+                <ng-pluralize count="e.itemCount"
+                              when="{'one': '@BoxResources.SingleItem',
                                           'other': '{{::e.itemCount}} @IndexResources.Items'}">
-                    </ng-pluralize>
-                </div>
+                </ng-pluralize>
             </div>
         </div>
     </a>
 </script>
-
 <script defer type="text/ng-template" id="item-template.html">
     <a class="clearfix item item-template" ng-href="{{::e.url}}">
         <div class="base">

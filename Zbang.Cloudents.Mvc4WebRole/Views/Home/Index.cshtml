@@ -384,6 +384,27 @@
             </div>
         </a>
     </script>
+
+
+    <script defer type="text/ng-template" id="box-template-flex">
+        <a href="{boxUrl}" class="box box-template-flex box-style" ga-track-event="['home-page', 'box']">
+            <div class="info">
+                <div class="top">
+                    <div class="icon background {boxClass}">{boxLetters}</div>
+                    <h5 class="multi-line-ellipsis limit-two {boxClass}">{boxName}</h5>
+                </div>
+                <div class="bottom">
+                    <span class="ellipsis">{boxProfessor}</span>
+                    <span class="ellipsis">{boxCourseCode}</span>
+                </div>
+            </div>
+            <div class="stats border {boxClass}">
+                <div class="items-count">
+                    {boxItemCount} @IndexResources.Items
+                </div>
+            </div>
+        </a>
+    </script>
     <script type="text/javascript" src="~/js/CDNFallbackWithoutAngular.js?v=@VersionHelper.CurrentVersion(true)" defer></script>
 </body>
 </html>

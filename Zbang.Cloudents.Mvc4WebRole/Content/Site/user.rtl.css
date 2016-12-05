@@ -752,6 +752,13 @@
     height: 4vw;
   }
 }
+.userPage .ad {
+  text-align: center;
+  padding: 8px;
+}
+.userPage .ad > div {
+  margin: 0 auto;
+}
 .info-dialog {
   overflow: visible;
   width: 100%;

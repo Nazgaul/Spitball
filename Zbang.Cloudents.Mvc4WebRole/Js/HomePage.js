@@ -128,7 +128,7 @@ window.addEventListener("load", function load() {
                         scrollTo.addClass('no-boxes');
                         return;
                     }
-                    var boxElement = $('#box-template').html();
+                    var boxElement = $('#box-template-flex').html();
 
                     for (var box in boxes) {
                         var currBox = boxes[box];
@@ -136,6 +136,7 @@ window.addEventListener("load", function load() {
                         var mapObj = {
                             '{boxUrl}': currBox.url,
                             '{boxName}': currBox.name,
+                            '{boxLetters}': currBox.name.substr(0, 2).toLowerCase(),
                             '{boxProfessor}': currBox.professor,
                             '{boxCourseCode}': currBox.courseCode,
                             '{boxClass}': boxClass,
