@@ -9,7 +9,7 @@
                                 b.MembersCount as MembersCount,
                                 b.commentcount as CommentCount,
                                 b.CourseCode,
-                                b.ProfessorName,
+                                b.ProfessorName as Professor,
                                 b.Discriminator as boxType,
 								b.Url as Url,
                                 b.LibraryId as departmentId
