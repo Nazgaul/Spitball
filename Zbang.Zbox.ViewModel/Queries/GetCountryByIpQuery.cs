@@ -12,19 +12,10 @@ namespace Zbang.Zbox.ViewModel.Queries
         }
 
         public long IpAddress { get; }
-        public string CacheKey
-        {
-            get { return IpAddress.ToString(CultureInfo.InvariantCulture); }
-        }
+        public string CacheKey => IpAddress.ToString(CultureInfo.InvariantCulture);
 
-        public string CacheRegion
-        {
-            get { return "IpAddress"; }
-        }
+        public string CacheRegion => "IpAddress";
 
-        public TimeSpan Expiration
-        {
-            get { return TimeSpan.FromDays(365); }
-        }
+        public TimeSpan Expiration => TimeSpan.FromDays(365);
     }
 }

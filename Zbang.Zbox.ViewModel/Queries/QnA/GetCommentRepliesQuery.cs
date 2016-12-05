@@ -26,6 +26,6 @@ namespace Zbang.Zbox.ViewModel.Queries.QnA
         public Guid BelowReplyId { get; }
         public string CacheKey  => $"{CommentId}_{BelowReplyId}_{PageNumber}_{RowsPerPage}";
         public string CacheRegion => CacheRegions.BuildFeedRegion(BoxId);
-        public TimeSpan Expiration => TimeSpan.FromDays(28);
+        public TimeSpan Expiration => TimeSpan.FromMinutes(30);
     }
 }

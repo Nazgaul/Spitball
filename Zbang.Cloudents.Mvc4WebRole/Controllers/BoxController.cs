@@ -33,6 +33,32 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class BoxController : BaseController
     {
         [Route("box/my/{boxId:long}/{boxName}", Name = "PrivateBox")]
+        public ActionResult RedirectToNewRoute(long boxId, string boxName, string invId, string universityName)
+        {
+            return RedirectToRoutePermanent("CourseBox", new RouteValueDictionary
+            {
+                ["boxId"] = boxId,
+                ["boxName"] = boxName,
+                ["invId"] = invId,
+                ["universityName"] = "my"
+                //["part"] = "feed"
+            });
+        }
+        [Route("box/my/{boxId:long}/{boxName}/{part:regex(^(feed|items|quizzes|members|flashcards))}", Name = "PrivateBoxWithSub")]
+        public ActionResult RedirectToNewRoute2(long boxId, string boxName, string invId, string universityName,string part)
+        {
+            return RedirectToRoutePermanent("CourseBox", new RouteValueDictionary
+            {
+                ["boxId"] = boxId,
+                ["boxName"] = boxName,
+                ["invId"] = invId,
+                ["universityName"] = "my",
+                ["part"] = part
+                //["part"] = "feed"
+            });
+        }
+
+
         [Route("course/{universityName}/{boxId:long}/{boxName}", Name = "CourseBox")]
         public ActionResult RedirectToFeed(long boxId, string boxName, string invId, string universityName)
         {
@@ -59,7 +85,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [DonutOutputCache(CacheProfile = "BoxPage")]
         [BoxPermission("boxId", Order = 3), ActionName("Index")]
-        [Route("box/my/{boxId:long}/{boxName}/{part:regex(^(feed|items|quizzes|members|flashcards))}", Name = "PrivateBoxWithSub")]
         [Route("course/{universityName}/{boxId:long}/{boxName}/{part:regex(^(feed|items|quizzes|members|flashcards))}", Name = "CourseBoxWithSub")]
         public async Task<ActionResult> IndexAsync(long boxId, string boxName, string invId, string part)
         {

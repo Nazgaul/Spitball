@@ -58,7 +58,8 @@
                 }
                 //template: '<div class="page-animation" ui-view animation-class></div>'
             });
-        $urlRouterProvider.when('/{boxtype:box|course}/{universityType:encodeStr}/{boxId:int}/{boxName:encodeStr}/?{invId}', '/{boxtype:box|course}/{universityType:encodeStr}/{boxId:int}/{boxName:encodeStr}/feed/?{invId}');
+        $urlRouterProvider.when('/course/{universityType:encodeStr}/{boxId:int}/{boxName:encodeStr}/?{invId}', '/course/{universityType:encodeStr}/{boxId:int}/{boxName:encodeStr}/feed/?{invId}');
+        $urlRouterProvider.when('/box/{universityType:encodeStr}/{boxId:int}/{boxName:encodeStr}/?{invId}', '/course/{universityType:encodeStr}/{boxId:int}/{boxName:encodeStr}/feed/?{invId}');
         $urlRouterProvider.when('/account/settings/', '/account/settings/info/');
         $urlRouterProvider.when('/user/{userId:int}/{userName:encodeStr}/', '/user/{userId:int}/{userName:encodeStr}/badges/');
 

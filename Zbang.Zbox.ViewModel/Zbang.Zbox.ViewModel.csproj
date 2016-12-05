@@ -153,7 +153,6 @@
     <Compile Include="Queries\GetBoxSeoQuery.cs" />
     <Compile Include="Queries\GetBoxSideBarQuery.cs" />
     <Compile Include="Queries\GetChatRoomMessagesQuery.cs" />
-    <Compile Include="Queries\GetCountryByIpQuery.cs" />
     <Compile Include="Queries\GetHomeBoxesUniversityQuery.cs" />
     <Compile Include="Queries\GetHomePageQuery.cs" />
     <Compile Include="Queries\GetInviteDetailQuery.cs" />
@@ -170,10 +169,10 @@
     <Compile Include="Queries\GetUserFlashcardQuery.cs" />
     <Compile Include="Queries\GetUserMinProfileQuery.cs" />
     <Compile Include="Queries\IPagedQuery.cs" />
+    <Compile Include="Queries\ItemCommentQuery.cs" />
     <Compile Include="Queries\IUserQuery.cs" />
     <Compile Include="Queries\Library\GetClosedNodeMembersQuery.cs" />
     <Compile Include="Queries\Library\GetLibraryNodeQuery.cs" />
-    <Compile Include="Queries\Library\GetUniversityDetailQuery.cs" />
     <Compile Include="Queries\QnA\GetBoxQuestionsQuery.cs" />
     <Compile Include="Queries\QnA\GetCommentRepliesQuery.cs" />
     <Compile Include="Queries\QnA\GetFeedLikesQuery.cs" />
@@ -185,8 +184,11 @@
     <Compile Include="Queries\GetUserFriendsQuery.cs" />
     <Compile Include="Queries\Boxes\GetBoxesQuery.cs" />
     <Compile Include="Queries\RecommendedCoursesQuery.cs" />
+    <Compile Include="Queries\Search\SearchBoxesQuery.cs" />
+    <Compile Include="Queries\Search\SearchItemsQuery.cs" />
     <Compile Include="Queries\Search\SearchQuery.cs" />
     <Compile Include="Queries\Search\SearchQueryMobile.cs" />
+    <Compile Include="Queries\Search\SearchQuizesQuery.cs" />
     <Compile Include="Queries\Search\UniversitySearchQuery.cs" />
     <Compile Include="Queries\Search\UserInBoxSearchQuery.cs" />
     <Compile Include="Queries\Dashboard\UniversityQuery.cs" />

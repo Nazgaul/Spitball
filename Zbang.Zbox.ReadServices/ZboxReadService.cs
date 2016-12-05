@@ -625,17 +625,17 @@ where ownerid = @UserId and boxid = @BoxId;";
         /// Get The country the user is in based on the ip address
         /// </summary>
         /// <returns></returns>
-        public async Task<string> GetLocationByIpAsync(GetCountryByIpQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                const string sql = @" select country_code2  from zbox.ip_range 
-    where ip_from <= @IP and @IP <= ip_to";
-                var retVal = await conn.QueryFirstOrDefaultAsync<string>(sql, new { IP = query.IpAddress });
-                return retVal;
-            }
+    //    public async Task<string> GetLocationByIpAsync(GetCountryByIpQuery query)
+    //    {
+    //        using (var conn = await DapperConnection.OpenConnectionAsync())
+    //        {
+    //            const string sql = @" select country_code2  from zbox.ip_range 
+    //where ip_from <= @IP and @IP <= ip_to";
+    //            var retVal = await conn.QueryFirstOrDefaultAsync<string>(sql, new { IP = query.IpAddress });
+    //            return retVal;
+    //        }
 
-        }
+    //    }
 
         public async Task<IEnumerable<UniversityByPrefixDto>> GetUniversityByIpAddressAsync(UniversityByIpQuery query)
         {

@@ -415,18 +415,18 @@ namespace Zbang.Zbox.ReadServicesTests
                 Assert.Fail("Expected no exception, but got: " + ex.Message);
             }
         }
-        [TestMethod]
-        public async Task GetLocationByIP_Query_ReturnResult()
-        {
-            try
-            {
-                await m_ZboxReadService.GetLocationByIpAsync(new GetCountryByIpQuery(200));
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
+        //[TestMethod]
+        //public async Task GetLocationByIP_Query_ReturnResult()
+        //{
+        //    try
+        //    {
+        //        await m_ZboxReadService.GetLocationByIpAsync(new GetCountryByIpQuery(200));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Assert.Fail("Expected no exception, but got: " + ex.Message);
+        //    }
+        //}
       
         [TestMethod]
         public async Task GetUserAccountDetails_Query_ReturnResult()

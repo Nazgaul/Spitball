@@ -4,42 +4,6 @@ using Zbang.Zbox.Infrastructure.Query;
 
 namespace Zbang.Zbox.ViewModel.Queries.Search
 {
-    public class SearchBoxesQuery : SearchQuery
-    {
-        public SearchBoxesQuery(string term, long userId, long universityId, int pageNumber = 0, int rowsPerPage = 50) : base(term, userId, universityId, pageNumber, rowsPerPage)
-        {
-        }
-
-        public override string CacheKey
-        {
-            get { return "boxes " + GetUniversityId(); }
-        }
-    }
-    public class SearchItemsQuery : SearchQuery
-    {
-        public SearchItemsQuery(string term, long userId, long universityId, int pageNumber = 0, int rowsPerPage = 50)
-            : base(term, userId, universityId, pageNumber, rowsPerPage)
-        {
-        }
-
-        public override string CacheKey
-        {
-            get { return "items " + GetUniversityId(); }
-        }
-    }
-    public class SearchQuizesQuery : SearchQuery
-    {
-        public SearchQuizesQuery(string term, long userId, long universityId, int pageNumber = 0, int rowsPerPage = 50)
-            : base(term, userId, universityId, pageNumber, rowsPerPage)
-        {
-        }
-
-        public override string CacheKey
-        {
-            get { return "quizzes " + GetUniversityId(); }
-        }
-    }
-
     public abstract class SearchQuery : IPagedQuery, IUserQuery, IQueryCache
     {
         protected SearchQuery(string term,
@@ -86,14 +50,8 @@ namespace Zbang.Zbox.ViewModel.Queries.Search
             return UniversityId.ToString(CultureInfo.InvariantCulture);
         }
 
-        public virtual string CacheRegion
-        {
-            get { return "search"; }
-        }
+        public virtual string CacheRegion => "search";
 
-        public System.TimeSpan Expiration
-        {
-            get { return System.TimeSpan.FromMinutes(20); }
-        }
+        public System.TimeSpan Expiration => System.TimeSpan.FromMinutes(20);
     }
 }

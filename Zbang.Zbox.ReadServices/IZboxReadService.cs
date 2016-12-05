@@ -85,7 +85,7 @@ namespace Zbang.Zbox.ReadServices
 
         Task<UserMinProfile> GetUserMinProfileAsync(GetUserMinProfileQuery query);
 
-        Task<string> GetLocationByIpAsync(GetCountryByIpQuery query);
+        //Task<string> GetLocationByIpAsync(GetCountryByIpQuery query);
         Task<IEnumerable<CommentDto>> GetCommentsAsync(GetBoxQuestionsQuery query);
         Task<IEnumerable<ReplyDto>> GetRepliesAsync(GetCommentRepliesQuery query);
 

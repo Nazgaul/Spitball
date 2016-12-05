@@ -2317,7 +2317,6 @@
     <Content Include="Js\components\box\quizzes.controller.js" />
     <Content Include="Js\components\box\members.controller.js" />
     <Content Include="Js\components\box\feed.controller.js" />
-    <Content Include="Js\components\box\recommended.controller.js" />
     <Content Include="Js\components\dashboard\university.controller.js" />
     <Content Include="Js\components\leaderboard.controller.js" />
     <Content Include="Js\components\quiz\popup\quiz.challenge.controller.js" />
