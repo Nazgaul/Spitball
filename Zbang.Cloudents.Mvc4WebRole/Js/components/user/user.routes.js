@@ -10,10 +10,11 @@ var app;
                     {
                         state: "user",
                         config: {
+                            abstract: true,
                             url: "/user/{userId:int}/{userName:encodeStr}/",
                             controller: "UserController as u",
                             resolve: {
-                                userData: [
+                                profileData: [
                                     "userService", "$stateParams", function (userService, $stateParams) {
                                         return userService.getDetails($stateParams.userId);
                                     }
@@ -21,6 +22,48 @@ var app;
                             }
                         },
                         templateUrl: "/user/indexpartial/"
+                    },
+                    {
+                        state: 'user.badge',
+                        config: {
+                            url: 'badges/',
+                            controller: 'gamification as g',
+                            parent: 'user'
+                        },
+                        templateUrl: "/user/badges/"
+                    },
+                    {
+                        state: 'user.item',
+                        config: {
+                            url: 'items/',
+                            controller: 'item as i',
+                            parent: 'user'
+                        },
+                        templateUrl: '/user/uploads/'
+                    }, {
+                        state: 'user.quiz',
+                        config: {
+                            url: 'quizzes/',
+                            controller: 'quiz as q',
+                            parent: 'user'
+                        },
+                        templateUrl: '/user/quizzes/'
+                    }, {
+                        state: 'user.feed',
+                        config: {
+                            url: 'feed/',
+                            controller: 'feed as f',
+                            parent: 'user'
+                        },
+                        templateUrl: '/user/posts/'
+                    }, {
+                        state: 'user.classmates',
+                        config: {
+                            url: 'members/',
+                            controller: 'classmates as c',
+                            parent: 'user'
+                        },
+                        templateUrl: '/user/classmates/'
                     }
                 ];
             }

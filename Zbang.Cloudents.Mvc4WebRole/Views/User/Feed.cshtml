@@ -1,10 +1,10 @@
-﻿
-
-<div ng-switch-when="p">
-    <div layout-padding layout="row" layout-wrap layout-align="start center" srph-infinite-scroll="u.myPagingFunction()">
-        <div flex="100" ng-repeat="e in u.feed" ng-include="'user-feed-template.html'"></div>
+﻿@*<script type="text/ng-template" id="user-feed.htm">*@
+<div @*ng-switch-when="p"*@>
+    <div layout-padding layout="row" layout-wrap layout-align="start center" srph-infinite-scroll="f.loadComment()">
+        <div flex="100" ng-repeat="e in f.feed" ng-include="'user-feed-template.html'"></div>
     </div>
 </div>
+@*</script>*@
 <script type="text/ng-template" id="user-feed-template.html">
     <a class="posts" href="{{::e.url}}">
         <div>

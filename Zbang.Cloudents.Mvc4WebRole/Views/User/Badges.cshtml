@@ -1,5 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
-<div ng-switch-when="b" class="badges">
+<div @*ng-switch-when="b"*@ class="badges">
     <div class="badges-bar">
         <div class="info">
             <md-icon md-svg-icon="p:q-mark" class="" ng-click="u.showInfo()"></md-icon>
@@ -149,7 +149,7 @@
             <div class="top">
                 <div class="bg-l"></div>
                 <div class="bg-r"></div>
-                <img class="title" src="~/Images/Site/Leaderborad-title.png" />
+                <img class="title" src="@Url.CdnContent("~/Images/Site/Leaderborad-title.png")" />
             </div>
             <div class="content">
                 <div class="filters" layout="row" layout-padding layout-wrap>
@@ -171,7 +171,7 @@
                     <div class="user" flex-lg="20" flex-md="25" flex-gt-lg="20" flex-xs="50" flex-sm="25" ng-repeat="user in u.communityUsers | orderBy : '-points'" ng-class="{'top-user' : $index < 5}">
                         <div class="user-data">
                             <div class="img-wrapper">
-                                <img src="{{user.image}}" />
+                                <img ng-src="{{user.image}}" />
                                 <div class="rank">{{$index+1}}</div>
                             </div>
                             <div class="name ellipsis">{{user.name}}</div>
