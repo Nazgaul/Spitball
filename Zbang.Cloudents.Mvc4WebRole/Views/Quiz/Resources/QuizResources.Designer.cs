@@ -169,6 +169,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enjoyed this quiz? Give it a.
+        /// </summary>
+        public static string LikeLabel {
+            get {
+                return ResourceManager.GetString("LikeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No answer given.
         /// </summary>
         public static string NoAnswer {

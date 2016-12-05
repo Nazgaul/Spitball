@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @*@{
     const string svgUrl = "~/images/site/quizIcons.svg";
@@ -48,6 +49,14 @@
         <div class="buttons" layout="row" layout-align="center stretch">
             <button type="button" class="cancel-btn text-capitalize" ng-click="q.back()" ga-track-event="['quiz', 'go back']">@QuizResources.GoBack</button>
             <button type="button" class="action-btn space-before text-capitalize" ng-click="q.checkAnswers()" ga-track-event="['quiz', 'submit']">@QuizResources.Submit</button>
+        </div>
+        <div class="like-wrapper">
+            <span>@QuizResources.LikeLabel</span>&nbsp;
+            <button @*ng-class="{liked:...}"*@>
+                <div>
+                    <md-icon md-svg-icon="b:like"></md-icon>@GeneralResources.Like
+                </div>
+            </button>
         </div>
     </div>
 </script>

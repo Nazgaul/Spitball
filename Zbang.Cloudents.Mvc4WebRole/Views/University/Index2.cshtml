@@ -57,7 +57,10 @@
             <h3 class="name ellipsis border" color="{{::dep.id}}">{{::dep.name}}</h3>
             <div class="status" layout="row" layout-align="space-between center">
                 <div class="status-title">
-                    {{::dep.noBoxes}} @GeneralResources.Courses
+                    <ng-pluralize count="dep.noBoxes"
+                                  when="{'one': '@GeneralResources.SingleCourse',
+                                          'other': '{{::dep.noBoxes}} @GeneralResources.Courses'}">
+                    </ng-pluralize>
                 </div>
                 <div ng-if="::dep.state === 'closed'">
                     <div ng-if="::dep.userType !== 'subscribe' && dep.userType !== 'owner'">

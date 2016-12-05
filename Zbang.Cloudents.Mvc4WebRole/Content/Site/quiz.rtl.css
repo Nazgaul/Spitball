@@ -392,6 +392,7 @@
   text-align: center;
   background-size: cover;
   border-radius: 15px;
+  position: relative;
 }
 @media (max-width: 600px) {
   .quiz-challenge {
@@ -510,6 +511,69 @@
 .quiz-challenge .buttons .scared {
   background: #9E9E9E;
   color: #ffffff;
+}
+.quiz-challenge .like-wrapper {
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+  left: 0;
+  margin: 0 auto;
+  color: #888b8e;
+  font-size: 16px;
+}
+@media (max-width: 600px) {
+  .quiz-challenge .like-wrapper {
+    font-size: 14px;
+  }
+}
+.quiz-challenge .like-wrapper span {
+  font-weight: bold;
+}
+.quiz-challenge .like-wrapper md-icon {
+  width: 20px;
+  height: 21px;
+  fill: #888b8e;
+  margin-bottom: 2px;
+  margin-left: 5px;
+}
+@media (max-width: 600px) {
+  .quiz-challenge .like-wrapper md-icon {
+    width: 18px;
+    height: 18px;
+  }
+}
+.quiz-challenge .like-wrapper .liked {
+  background: #4190b9;
+  color: #ffffff;
+  border-color: #4190b9;
+}
+.quiz-challenge .like-wrapper .liked md-icon {
+  fill: #ffffff;
+}
+.quiz-challenge .like-wrapper button {
+  border: 1px solid #888b8e;
+  border-radius: 5px;
+  margin-right: 10px;
+  padding: 0 10px;
+}
+@media (max-width: 600px) {
+  .quiz-challenge .like-wrapper button {
+    padding: 0 6px;
+    margin-right: 4px;
+  }
+}
+.quiz-challenge .like-wrapper button > div {
+  margin-top: 2px;
+}
+.quiz-challenge .like-wrapper,
+.quiz-challenge .like-wrapper button > div {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
 .md-open-menu-container {
   z-index: 9999;

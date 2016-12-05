@@ -259,6 +259,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 1 Document.
+        /// </summary>
+        public static string SingleItem {
+            get {
+                return ResourceManager.GetString("SingleItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status:.
         /// </summary>
         public static string Status {

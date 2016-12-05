@@ -211,4 +211,10 @@ but try checking the documents tab for related material</value>
   <data name="Remove" xml:space="preserve">
     <value>remove</value>
   </data>
+  <data name="SingleCourse" xml:space="preserve">
+    <value>1 Course</value>
+  </data>
+  <data name="SingleMember" xml:space="preserve">
+    <value>1 Classmate</value>
+  </data>
 </root>

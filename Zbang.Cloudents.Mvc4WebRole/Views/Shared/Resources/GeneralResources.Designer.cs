@@ -281,6 +281,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 1 Course.
+        /// </summary>
+        public static string SingleCourse {
+            get {
+                return ResourceManager.GetString("SingleCourse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1 Classmate.
+        /// </summary>
+        public static string SingleMember {
+            get {
+                return ResourceManager.GetString("SingleMember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Spitball.
         /// </summary>
         public static string Spitball {
