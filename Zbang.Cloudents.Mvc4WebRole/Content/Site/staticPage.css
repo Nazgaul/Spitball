@@ -64,6 +64,41 @@ iframe {
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
 }
+.static-page-header .logo-wrapper {
+  height: 60px;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
+}
+.static-page-header .logo-wrapper .logo {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKIAAAAlCAMAAAD2mcJJAAAAe1BMVEUAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////NgkbwAAAAKHRSTlMAcFAQ0OBAkLBgIPChgMAwA/oHuJZa5dtpxKkVDHZjMyzrSYmDVkQ3xs6YBQAAAhBJREFUWMPtlemSojAUhY+gKLRLQEBWxZ33f8KpxlxIkwSaHmeKqub7Fe7NPfW5JGDiN+FF+7kKAx0s+aYANHxCTcRLNwyiicrIARXpvFRjo4MV3zTDgq8s1Gx4aY1BNFEmOXD1cuyKRTl6xWj8ijP+4BpmCw8dZLTpPyruoWRnz1rYxWfd4E+7OtenDUdBMWjmogt9Zqep0siTfUNxBQVOXCrYp9IPLbIQFOdi4xxU3/9alTkv+hW3kDH5jJTnDVQk7gDT3CAfTq9imZ92DWnVu5Ya8h8qhgx3XWaiVbTVA/EJwEEXFw9VJCysdZmuVtHRTVjAB/2JbrOKKxUWomL/ccljSg2wpXy+fxNSz9Qpwtc4HlitaIATkeLAe9EjD7tWvFFv16/oJRpHq1Z0wLF+qFiL2cKKY3YqcqxlsmoIqW2PSPEr5nn0itj+TsX4rYpeqFfMOxQjWXHOeCE7S4rL7ytay6/4B8VxKV69xKULSaHoJjxhg7wkR8qU78Vy9epZnYr0Auy/dIxWay8obuW3S6DNfEpvl9lfKIaeXvEoKEayokmDUovh8j5F14BWccsERRZLijhqMh8AkncpHi7QKbq+B0ERme+2FXEPVZnVoWdXd6CiY6jYAaJiKrQs87P15E9OdSgtcfZRiZzakZcCnEzc7jBaMTz4Kq1r6KFRxGiZFCfFsbBevUgxMfFv+QNI4GIdOx/ouwAAAABJRU5ErkJggg==') /*../../Images/HomePage2/header_logo.png*/;
+  width: 160px;
+  height: 35px;
+  background-repeat: no-repeat;
+  margin: 0 24px;
+}
+@media (max-width: 1080px) {
+  .static-page-header .logo-wrapper .logo {
+    display: inline-block;
+    margin: 0;
+  }
+}
+.static-page-header .logo-wrapper .logo-small {
+  display: none;
+}
+@media (max-width: 600px) {
+  .static-page-header .logo-wrapper .logo {
+    display: none;
+  }
+  .static-page-header .logo-wrapper .logo-small {
+    display: block;
+    height: 30px;
+    width: 60px;
+    fill: #fff;
+  }
+}
 .static-page-header nav {
   height: inherit;
 }
@@ -81,41 +116,6 @@ iframe {
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
   height: inherit;
-}
-.static-page-header nav .navbar-header .logo-wrapper {
-  height: 60px;
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-  align-items: center;
-  margin: 0 10px;
-}
-.static-page-header nav .navbar-header .logo-wrapper .logo {
-  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKIAAAAlCAMAAAD2mcJJAAAAe1BMVEUAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////NgkbwAAAAKHRSTlMAcFAQ0OBAkLBgIPChgMAwA/oHuJZa5dtpxKkVDHZjMyzrSYmDVkQ3xs6YBQAAAhBJREFUWMPtlemSojAUhY+gKLRLQEBWxZ33f8KpxlxIkwSaHmeKqub7Fe7NPfW5JGDiN+FF+7kKAx0s+aYANHxCTcRLNwyiicrIARXpvFRjo4MV3zTDgq8s1Gx4aY1BNFEmOXD1cuyKRTl6xWj8ijP+4BpmCw8dZLTpPyruoWRnz1rYxWfd4E+7OtenDUdBMWjmogt9Zqep0siTfUNxBQVOXCrYp9IPLbIQFOdi4xxU3/9alTkv+hW3kDH5jJTnDVQk7gDT3CAfTq9imZ92DWnVu5Ya8h8qhgx3XWaiVbTVA/EJwEEXFw9VJCysdZmuVtHRTVjAB/2JbrOKKxUWomL/ccljSg2wpXy+fxNSz9Qpwtc4HlitaIATkeLAe9EjD7tWvFFv16/oJRpHq1Z0wLF+qFiL2cKKY3YqcqxlsmoIqW2PSPEr5nn0itj+TsX4rYpeqFfMOxQjWXHOeCE7S4rL7ytay6/4B8VxKV69xKULSaHoJjxhg7wkR8qU78Vy9epZnYr0Auy/dIxWay8obuW3S6DNfEpvl9lfKIaeXvEoKEayokmDUovh8j5F14BWccsERRZLijhqMh8AkncpHi7QKbq+B0ERme+2FXEPVZnVoWdXd6CiY6jYAaJiKrQs87P15E9OdSgtcfZRiZzakZcCnEzc7jBaMTz4Kq1r6KFRxGiZFCfFsbBevUgxMfFv+QNI4GIdOx/ouwAAAABJRU5ErkJggg==') /*../../Images/HomePage2/header_logo.png*/;
-  width: 160px;
-  height: 35px;
-  background-repeat: no-repeat;
-  margin: 0 24px;
-}
-@media (max-width: 1080px) {
-  .static-page-header nav .navbar-header .logo-wrapper .logo {
-    display: inline-block;
-    margin: 0;
-  }
-}
-.static-page-header nav .navbar-header .logo-wrapper .logo-small {
-  display: none;
-}
-@media (max-width: 600px) {
-  .static-page-header nav .navbar-header .logo-wrapper .logo {
-    display: none;
-  }
-  .static-page-header nav .navbar-header .logo-wrapper .logo-small {
-    display: block;
-    height: 30px;
-    width: 60px;
-    fill: #fff;
-  }
 }
 .static-page-header nav .navbar-header .navbar-toggle {
   display: none;
