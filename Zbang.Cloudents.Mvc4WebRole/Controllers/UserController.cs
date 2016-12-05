@@ -21,6 +21,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DonutOutputCache(CacheProfile = "FullPage")]
         [NoUniversity]
         [Route("user/{userId:long}/{userName}", Name = "User")]
+        [Route("user/{userId:long}/{userName}/{part:regex(^(badges|items|quizzes|feed|members))}", Name = "User2")]
         public ActionResult Index(long userId)
         {
             if (userId == 22886)
@@ -35,6 +36,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return PartialView("Index2");
         }
+
+        [DonutOutputCache(CacheProfile = "PartialPage")]
+        public ActionResult Badges()
+        {
+            return PartialView("Badges");
+        }
+        [DonutOutputCache(CacheProfile = "PartialPage")]
+        public ActionResult Uploads()
+        {
+            return PartialView("Items");
+        }
+        [DonutOutputCache(CacheProfile = "PartialPage")]
+        public ActionResult Posts()
+        {
+            return PartialView("Feed");
+        }
+        [DonutOutputCache(CacheProfile = "PartialPage")]
+        public ActionResult Quizzes()
+        {
+            return PartialView("Quizzes");
+        }
+        [DonutOutputCache(CacheProfile = "PartialPage")]
+        public ActionResult Classmates()
+        {
+            return PartialView("Members");
+        }
+
 
         [HttpGet, ActionName("ProfileStats")]
         public async Task<ActionResult> ProfileStatsAsync(long id)

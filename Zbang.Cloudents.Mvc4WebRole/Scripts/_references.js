@@ -65,7 +65,6 @@
 /// <reference path="../Js/components/quiz/stopwatch.filter.js" />
 /// <reference path="../Js/components/quiz/stopwatch.module.js" />
 /// <reference path="../js/components/share/invite.controller.js" />
-/// <reference path="../Js/components/user/user.controller.js" />
 /// <reference path="../js/components/user/userdetails.controller.js" />
 /// <reference path="../Js/components/userdetails/userdetails.module.js" />
 /// <reference path="../Js/HomePage.js" />

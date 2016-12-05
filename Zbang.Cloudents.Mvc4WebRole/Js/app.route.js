@@ -60,6 +60,7 @@
             });
         $urlRouterProvider.when('/{boxtype:box|course}/{universityType:encodeStr}/{boxId:int}/{boxName:encodeStr}/?{invId}', '/{boxtype:box|course}/{universityType:encodeStr}/{boxId:int}/{boxName:encodeStr}/feed/?{invId}');
         $urlRouterProvider.when('/account/settings/', '/account/settings/info/');
+        $urlRouterProvider.when('/user/{userId:int}/{userName:encodeStr}/', '/user/{userId:int}/{userName:encodeStr}/badges/');
 
         //$urlRouterProvider.otherwise('/dashboard/');
     }

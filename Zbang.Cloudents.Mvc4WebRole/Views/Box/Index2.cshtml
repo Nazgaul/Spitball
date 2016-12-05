@@ -16,7 +16,7 @@
     </div>
 </div>
 <div uib-collapse="!b.settingsOpen" compile-html="b.settingsHtml" class="collapsible settings"></div>
-<div  dir="ltr">
+<div>
     <md-tabs class="box-nav-bar page-tabs" @*md-enable-disconnect="true"*@>
         <md-tab ui-sref="box.feed" md-active="b.isActiveState('box.feed')">
             <md-tab-label><span>@BoxResources.Feed</span></md-tab-label>
@@ -37,14 +37,14 @@
 </div>
 <div ui-view></div>
 @*<script defer type="text/ng-template" id="shareBoxTemplate.html">
-    <div class="share-section">
-        <div class="share-options">
-            <button type="button" class="share-btn share-fb" aria-label="share" ga-track-event="['box-feed', 'share']">
-                <md-icon class="fb" md-svg-icon="b:facebook-colored"></md-icon>
-            </button>
-            <a class="share-btn share-whatsapp" aria-label="share" target="_blank" href="" ga-track-event="['box-feed', 'share']">
-                <md-icon class="whatsapp" md-svg-icon="b:whatsapp"></md-icon>
-            </a>
+        <div class="share-section">
+            <div class="share-options">
+                <button type="button" class="share-btn share-fb" aria-label="share" ga-track-event="['box-feed', 'share']">
+                    <md-icon class="fb" md-svg-icon="b:facebook-colored"></md-icon>
+                </button>
+                <a class="share-btn share-whatsapp" aria-label="share" target="_blank" href="" ga-track-event="['box-feed', 'share']">
+                    <md-icon class="whatsapp" md-svg-icon="b:whatsapp"></md-icon>
+                </a>
+            </div>
         </div>
-    </div>
-</script>*@
+    </script>*@

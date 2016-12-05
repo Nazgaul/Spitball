@@ -9,6 +9,7 @@
     <property name="Name" not-null="false" length="8000"></property>
     <property name="Publish" not-null="true"></property>
     <property name="LikeCount" not-null="true"></property>
+    <property name="CardCount" not-null="true"></property>
     <property name="NumberOfViews" not-null="true"></property>
     <!--<property name="Url" not-null="false" length="8000"></property>-->
     <!--<property name="Banner" length="8000"></property>-->

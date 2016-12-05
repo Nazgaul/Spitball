@@ -1,119 +1,76 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
-<div ng-switch-when="b" class="badges">
+@using Zbang.Zbox.Infrastructure.Enums.Resources
+<div class="badges">
     <div class="badges-bar">
         <div class="info">
-            <md-icon md-svg-icon="p:q-mark" class="" ng-click="u.showInfo()"></md-icon>
+            <md-icon md-svg-icon="p:q-mark" class="" ng-click="g.showInfo()"></md-icon>
         </div>
         <md-tabs class="badges-tabs" md-dynamic-height="true">
-            <md-tab md-on-select="u.changeBadgesTab(u.badgesState.levels)" md-active="u.badgesTab === u.badgesState.levels">
+            <md-tab md-on-select="g.changeBadgesTab(g.badgesState.levels)" md-active="g.badgesTab === g.badgesState.levels">
                 <md-tab-label><h4>@GamificationResources.Levels</h4></md-tab-label>
             </md-tab>
-            <md-tab md-on-select="u.changeBadgesTab(u.badgesState.badges)" md-active="u.badgesTab === u.badgesState.badges">
+            <md-tab md-on-select="g.changeBadgesTab(g.badgesState.badges)" md-active="g.badgesTab === g.badgesState.badges">
                 <md-tab-label><h4>@GamificationResources.Badges</h4></md-tab-label>
             </md-tab>
-            <md-tab md-on-select="u.changeBadgesTab(u.badgesState.community)" md-active="u.badgesTab === u.badgesState.community">
+            <md-tab md-on-select="g.changeBadgesTab(g.badgesState.community)" md-active="g.badgesTab === g.badgesState.community">
                 <md-tab-label><h4>@GamificationResources.Community</h4></md-tab-label>
             </md-tab>
         </md-tabs>
     </div>
-    <div class="badges-tab-content" ng-switch on="u.badgesTab">
+    <div class="badges-tab-content" ng-switch on="g.badgesTab">
         <div ng-switch-when="l" class="tab levels">
             <md-icon md-svg-icon="p:stars" class="bg"></md-icon>
             <ul>
                 <li class="level">
                     <div class="title">
                         <div class="image"></div>
-                        <div class="name">@GamificationResources.LevelFreshmanTitle</div>
+                        <div class="name">@Gamification.Level1</div>
                     </div>
                     <div class="body">
                         @GamificationResources.LevelFreshmanBody
-                        <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="80"></md-progress-linear>
+                        <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="80"></md-progress-linear>
                         <div class="counter">200,000 Students</div>
                     </div>
                 </li>
                 <li class="level">
                     <div class="title">
                         <div class="image"></div>
-                        <div class="name">@GamificationResources.LevelSophomoreTitle</div>
+                        <div class="name">@Gamification.Level2</div>
                     </div>
                     <div class="body">
                         @GamificationResources.LevelSophomoreBody
-                        <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="80"></md-progress-linear>
+                        <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="80"></md-progress-linear>
                         <div class="counter">200,000 Students</div>
                     </div>
                 </li>
                 <li class="level">
                     <div class="title">
                         <div class="image"></div>
-                        <div class="name">@GamificationResources.LevelUpperclassmanTitle</div>
+                        <div class="name">@Gamification.Level3</div>
                     </div>
                     <div class="body">
                         @GamificationResources.LevelUpperclassmanBody
-                        <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="80"></md-progress-linear>
+                        <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="80"></md-progress-linear>
                         <div class="counter">200,000 Students</div>
                     </div>
                 </li>
                 <li class="level">
                     <div class="title">
                         <div class="image"></div>
-                        <div class="name">@GamificationResources.LevelStraightAStudentTitle</div>
+                        <div class="name">@Gamification.Level4</div>
                     </div>
                     <div class="body">
                         @GamificationResources.LevelStraightAStudentBody
-                        <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="80"></md-progress-linear>
-                        <div class="counter">200,000 Students</div>
-                    </div>
-                </li>
-                <li class="level">
-                    <div class="title">
-                        <div class="image"></div>
-                        <div class="name">@GamificationResources.LevelScholarTitle</div>
-                    </div>
-                    <div class="body">
-                        @GamificationResources.LevelScholarBody
-                        <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="80"></md-progress-linear>
-                        <div class="counter">200,000 Students</div>
-                    </div>
-                </li>
-                <li class="level">
-                    <div class="title">
-                        <div class="image"></div>
-                        <div class="name">@GamificationResources.LevelProfessorTitle</div>
-                    </div>
-                    <div class="body">
-                        @GamificationResources.LevelProfessorBody
-                        <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="80"></md-progress-linear>
-                        <div class="counter">200,000 Students</div>
-                    </div>
-                </li>
-                <li class="level">
-                    <div class="title">
-                        <div class="image"></div>
-                        <div class="name">@GamificationResources.LevelPhDTitle</div>
-                    </div>
-                    <div class="body">
-                        @GamificationResources.LevelPhDBody
-                        <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="80"></md-progress-linear>
-                        <div class="counter">200,000 Students</div>
-                    </div>
-                </li>
-                <li class="level">
-                    <div class="title">
-                        <div class="image"></div>
-                        <div class="name">@GamificationResources.LevelEinsteinTitle</div>
-                    </div>
-                    <div class="body">
-                        @GamificationResources.LevelEinsteinBody
-                        <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="80"></md-progress-linear>
+                        <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="80"></md-progress-linear>
                         <div class="counter">200,000 Students</div>
                     </div>
                 </li>
             </ul>
         </div>
         <div ng-switch-when="b" class="tab badges">
-            <div class="badges-container" ng-if="!u.badgeInfo" layout="row" layout-padding layout-wrap>
-                <div class="wrapper" flex-lg="20" flex-md="25" flex-gt-lg="20" flex-xs="50" flex-sm="25" ng-repeat="badge in u.badges">
-                    <div class="badge-container" ng-click="u.showBadge(badge)">
+            <div class="badges-container" ng-if="!g.badgeInfo" layout="row" layout-padding layout-wrap>
+                <div class="wrapper" flex-lg="20" flex-md="25" flex-gt-lg="20" flex-xs="50" flex-sm="25" ng-repeat="badge in g.badges">
+                    <div class="badge-container" ng-click="g.showBadge(badge)">
                         <md-icon md-svg-icon="p:checkmark" ng-if="badge.progress === 100"></md-icon>
                         <div class="image"></div>
                         <div class="text">{{::badge.name}}</div>
@@ -123,39 +80,39 @@
                     </div>
                 </div>
             </div>
-            <div ng-if="u.badgeInfo" class="expanded">
+            <div ng-if="g.badgeInfo" class="expanded">
                 <div class="prev">
-                    <md-icon ng-class="{disabled: !u.badgeInfo.prev}" ng-click="u.showBadge(u.badgeInfo.prev)" md-svg-icon="p:arrow-right"></md-icon>
+                    <md-icon ng-class="{disabled: !g.badgeInfo.prev}" ng-click="g.showBadge(g.badgeInfo.prev)" md-svg-icon="p:arrow-right"></md-icon>
                 </div>
                 <div class="badge-container">
-                    <md-icon md-svg-icon="p:checkmark" ng-if="u.badgeInfo.data.progress === 100"></md-icon>
+                    <md-icon md-svg-icon="p:checkmark" ng-if="g.badgeInfo.data.progress === 100"></md-icon>
                     <div class="image"></div>
-                    <div class="text">{{u.badgeInfo.data.name}}</div>
+                    <div class="text">{{g.badgeInfo.data.name}}</div>
                     <div class="progress">
-                        <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{u.badgeInfo.data.progress}}"></md-progress-linear>
+                        <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{g.badgeInfo.data.progress}}"></md-progress-linear>
                     </div>
                     <div class="details">
-                        <div class="condition">{{u.badgeInfo.data.condition}}</div>
-                        <div class="points">+{{u.badgeInfo.data.points}} pts</div>
+                        <div class="condition">{{g.badgeInfo.data.condition}}</div>
+                        <div class="points">+{{g.badgeInfo.data.points}} pts</div>
                     </div>
                 </div>
                 <div class="next">
-                    <md-icon ng-class="{disabled: !u.badgeInfo.next}" ng-click="u.showBadge(u.badgeInfo.next)" md-svg-icon="p:arrow-right"></md-icon>
+                    <md-icon ng-class="{disabled: !g.badgeInfo.next}" ng-click="g.showBadge(g.badgeInfo.next)" md-svg-icon="p:arrow-right"></md-icon>
                 </div>
-                <md-icon class="close" md-svg-icon="t:close" ng-click="u.badgeInfo=false"></md-icon>
+                <md-icon class="close" md-svg-icon="t:close" ng-click="g.badgeInfo=false"></md-icon>
             </div>
         </div>
         <div ng-switch-when="c" class="tab community">
             <div class="top">
                 <div class="bg-l"></div>
                 <div class="bg-r"></div>
-                <img class="title" src="~/Images/Site/Leaderborad-title.png" />
+                <img class="title" src="@Url.CdnContent("~/Images/Site/Leaderboard-title.png")" />
             </div>
             <div class="content">
                 <div class="filters" layout="row" layout-padding layout-wrap>
                     <div class="filter-wrapper" flex-lg="20" flex-md="25" flex-gt-lg="20" flex-xs="50" flex-sm="25">
                         <md-input-container class="dates action-btn">
-                            <md-select ng-model="u.communityFilter">
+                            <md-select ng-model="g.communityFilter">
                                 <md-option value="This Month">This Month</md-option>
                                 <md-option value="Filter 1">Filter 1</md-option>
                                 <md-option value="Filter 2">Filter 2</md-option>
@@ -168,10 +125,10 @@
                     </div>
                 </div>
                 <div class="users" layout="row" layout-padding layout-wrap>
-                    <div class="user" flex-lg="20" flex-md="25" flex-gt-lg="20" flex-xs="50" flex-sm="25" ng-repeat="user in u.communityUsers | orderBy : '-points'" ng-class="{'top-user' : $index < 5}">
+                    <div class="user" flex-lg="20" flex-md="25" flex-gt-lg="20" flex-xs="50" flex-sm="25" ng-repeat="user in g.communityUsers | orderBy : '-points'" ng-class="{'top-user' : $index < 5}">
                         <div class="user-data">
                             <div class="img-wrapper">
-                                <img src="{{user.image}}" />
+                                <img ng-src="{{user.image}}" />
                                 <div class="rank">{{$index+1}}</div>
                             </div>
                             <div class="name ellipsis">{{user.name}}</div>

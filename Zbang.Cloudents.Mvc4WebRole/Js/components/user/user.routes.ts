@@ -8,18 +8,75 @@
                     {
                         state: "user",
                         config: {
+                            abstract: true,
                             url: "/user/{userId:int}/{userName:encodeStr}/",
                             controller: "UserController as u",
                             resolve: {
-                                userData: [
+                                profileData: [
                                     "userService", "$stateParams", (userService, $stateParams) =>
                                         userService.getDetails($stateParams.userId)
                                 ]
-                               
+
                             }
                         },
                         templateUrl: "/user/indexpartial/"
 
+                    },
+                    {
+                        state: 'user.badge',
+                        config: {
+                            url: 'badges/',
+                            controller: 'gamification as g',
+                            parent: 'user'
+                            //templateProvider: ["$templateCache", "$interval", "$q",
+                            //    ($templateCache: angular.ITemplateCacheService,
+                            //        $interval: angular.IIntervalService, $q: angular.IQService) => {
+                            //        var defered = $q.defer();
+                            //        var q = $interval(() => {
+                            //            var str = $templateCache.get("user-badges.html");
+                            //            if (str) {
+                            //                $interval.cancel(q);
+                            //                defered.resolve(str);
+                            //            }
+                            //        }, 10);
+                            //        return defered.promise;
+                            //    }]
+                            //template: "user-badges.html"
+                        },
+                        templateUrl: "/user/badges/"
+                    },
+                    {
+                        state: 'user.item',
+                        config: {
+                            url: 'items/',
+                            controller: 'item as i',
+                            parent: 'user'
+                        },
+                        templateUrl: '/user/uploads/'
+                    }, {
+                        state: 'user.quiz',
+                        config: {
+                            url: 'quizzes/',
+                            controller: 'quiz as q',
+                            parent: 'user'
+                        },
+                        templateUrl: '/user/quizzes/'
+                    }, {
+                        state: 'user.feed',
+                        config: {
+                            url: 'feed/',
+                            controller: 'feed as f',
+                            parent: 'user'
+                        },
+                        templateUrl: '/user/posts/'
+                    }, {
+                        state: 'user.classmates',
+                        config: {
+                            url: 'members/',
+                            controller: 'classmates as c',
+                            parent: 'user'
+                        },
+                        templateUrl: '/user/classmates/'
                     }
                 ];
             }

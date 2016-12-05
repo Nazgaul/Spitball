@@ -22,7 +22,7 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Gamification {
+    public class Gamification {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Zbang.Zbox.Infrastructure.Enums.Resources.Gamification", typeof(Gamification).Assembly);
@@ -51,7 +51,7 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Freshman.
         /// </summary>
-        internal static string Level1 {
+        public static string Level1 {
             get {
                 return ResourceManager.GetString("Level1", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Sophomore.
         /// </summary>
-        internal static string Level2 {
+        public static string Level2 {
             get {
                 return ResourceManager.GetString("Level2", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Upperclassman.
         /// </summary>
-        internal static string Level3 {
+        public static string Level3 {
             get {
                 return ResourceManager.GetString("Level3", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Scholar.
         /// </summary>
-        internal static string Level4 {
+        public static string Level4 {
             get {
                 return ResourceManager.GetString("Level4", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Professor.
         /// </summary>
-        internal static string Level5 {
+        public static string Level5 {
             get {
                 return ResourceManager.GetString("Level5", resourceCulture);
             }

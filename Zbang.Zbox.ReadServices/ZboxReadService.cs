@@ -603,30 +603,21 @@ where ownerid = @UserId and boxid = @BoxId;";
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-
-
                 using (var grid = await conn.QueryMultipleAsync(Sql.User.UserProfileWithStats, new
                 {
-                    //Me = query.UserId,
                     Myfriend = query.FriendId,
                 }))
                 {
                     var retVal = await grid.ReadFirstOrDefaultAsync<User.UserWithStats>();
-                    if (retVal != null)
-                    {
-                        retVal.NumClass = await grid.ReadFirstOrDefaultAsync<int>();
-                        retVal.NumItem = await grid.ReadFirstOrDefaultAsync<int>();
-                        retVal.NumFeed = await grid.ReadFirstOrDefaultAsync<int>() + await grid.ReadFirstOrDefaultAsync<int>();
-                        retVal.NumQuiz = await grid.ReadFirstOrDefaultAsync<int>();
-                        retVal.NumFriend = await grid.ReadFirstOrDefaultAsync<int>();
-
-                    }
+                    if (retVal == null) return null;
+                    //retVal.NumClass = await grid.ReadFirstOrDefaultAsync<int>();
+                    retVal.NumItem = await grid.ReadFirstOrDefaultAsync<int>();
+                    retVal.NumFeed = await grid.ReadFirstOrDefaultAsync<int>() + await grid.ReadFirstOrDefaultAsync<int>();
+                    retVal.NumQuiz = await grid.ReadFirstOrDefaultAsync<int>();
+                    retVal.NumFriend = await grid.ReadFirstOrDefaultAsync<int>();
+                    retVal.NumBadge = await grid.ReadFirstOrDefaultAsync<int>();
                     return retVal;
                 }
-
-
-
-
             }
         }
 
