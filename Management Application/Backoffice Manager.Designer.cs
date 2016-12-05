@@ -170,6 +170,9 @@
             this.openFileDialogReplaceItem = new System.Windows.Forms.OpenFileDialog();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.eventLog1 = new System.Diagnostics.EventLog();
+            this.uploadFile = new System.Windows.Forms.TabPage();
+            this.buttonUploadFile = new System.Windows.Forms.Button();
+            this.textBoxUrl = new System.Windows.Forms.TextBox();
             label15 = new System.Windows.Forms.Label();
             label16 = new System.Windows.Forms.Label();
             label18 = new System.Windows.Forms.Label();
@@ -199,6 +202,7 @@
             this.groupBox3.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).BeginInit();
+            this.uploadFile.SuspendLayout();
             this.SuspendLayout();
             // 
             // label15
@@ -292,12 +296,14 @@
             this.tabUniversity.Controls.Add(this.tabPageMergeBoxes);
             this.tabUniversity.Controls.Add(this.PostComment);
             this.tabUniversity.Controls.Add(this.tabPage2);
+            this.tabUniversity.Controls.Add(this.uploadFile);
             this.tabUniversity.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabUniversity.Location = new System.Drawing.Point(12, 0);
             this.tabUniversity.Name = "tabUniversity";
             this.tabUniversity.SelectedIndex = 0;
             this.tabUniversity.Size = new System.Drawing.Size(1094, 566);
             this.tabUniversity.TabIndex = 3;
+            this.tabUniversity.SelectedIndexChanged += new System.EventHandler(this.tabUniversity_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -1104,9 +1110,9 @@
             // pictureBoxUserFlaggedPost
             // 
             this.pictureBoxUserFlaggedPost.BackColor = System.Drawing.Color.DarkGray;
-            this.pictureBoxUserFlaggedPost.Location = new System.Drawing.Point(954, 31);
+            this.pictureBoxUserFlaggedPost.Location = new System.Drawing.Point(954, 25);
             this.pictureBoxUserFlaggedPost.Name = "pictureBoxUserFlaggedPost";
-            this.pictureBoxUserFlaggedPost.Size = new System.Drawing.Size(109, 103);
+            this.pictureBoxUserFlaggedPost.Size = new System.Drawing.Size(109, 109);
             this.pictureBoxUserFlaggedPost.TabIndex = 18;
             this.pictureBoxUserFlaggedPost.TabStop = false;
             // 
@@ -1180,7 +1186,7 @@
             this.groupBox5.Controls.Add(this.textBoxItemDeleteUserId);
             this.groupBox5.Controls.Add(label26);
             this.groupBox5.Controls.Add(this.buttonItemDelete);
-            this.groupBox5.Location = new System.Drawing.Point(385, 105);
+            this.groupBox5.Location = new System.Drawing.Point(351, 52);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(577, 279);
             this.groupBox5.TabIndex = 10;
@@ -1656,6 +1662,34 @@
             // 
             this.eventLog1.SynchronizingObject = this;
             // 
+            // uploadFile
+            // 
+            this.uploadFile.Controls.Add(this.textBoxUrl);
+            this.uploadFile.Controls.Add(this.buttonUploadFile);
+            this.uploadFile.Location = new System.Drawing.Point(4, 25);
+            this.uploadFile.Name = "uploadFile";
+            this.uploadFile.Size = new System.Drawing.Size(1086, 537);
+            this.uploadFile.TabIndex = 8;
+            this.uploadFile.Text = "UploadFile";
+            this.uploadFile.UseVisualStyleBackColor = true;
+            // 
+            // buttonUploadFile
+            // 
+            this.buttonUploadFile.Location = new System.Drawing.Point(72, 65);
+            this.buttonUploadFile.Name = "buttonUploadFile";
+            this.buttonUploadFile.Size = new System.Drawing.Size(146, 23);
+            this.buttonUploadFile.TabIndex = 0;
+            this.buttonUploadFile.Text = "Upload FIle";
+            this.buttonUploadFile.UseVisualStyleBackColor = true;
+            this.buttonUploadFile.Click += new System.EventHandler(this.buttonUploadFile_Click);
+            // 
+            // textBoxUrl
+            // 
+            this.textBoxUrl.Location = new System.Drawing.Point(278, 67);
+            this.textBoxUrl.Name = "textBoxUrl";
+            this.textBoxUrl.Size = new System.Drawing.Size(421, 22);
+            this.textBoxUrl.TabIndex = 1;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1700,6 +1734,8 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).EndInit();
+            this.uploadFile.ResumeLayout(false);
+            this.uploadFile.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1841,6 +1877,9 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.TextBox textBoxItemDeleteUserId;
         private System.Windows.Forms.TextBox textBoxItemsToDelete2;
+        private System.Windows.Forms.TabPage uploadFile;
+        private System.Windows.Forms.TextBox textBoxUrl;
+        private System.Windows.Forms.Button buttonUploadFile;
     }
 }
 

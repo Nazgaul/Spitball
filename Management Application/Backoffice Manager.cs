@@ -29,6 +29,9 @@ using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.Infrastructure.Storage;
 using System.Threading;
+using Zbang.Zbox.Infrastructure.Azure.Entities;
+using Zbang.Zbox.Infrastructure.Data.Dapper;
+using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Management_Application
 {
@@ -42,9 +45,9 @@ namespace Management_Application
         string m_Id;
         string m_NoOfStudents;
         readonly string m_ConnectionString;
-        string m_UserId;
-        UserrequestEntity m_GlobalFlaggedItem;
-        UserrequestEntity m_GlobalFlaggedPost;
+        long m_UserId;
+        FlagItem m_GlobalFlaggedItem;
+        FlagCommentOrReply m_GlobalFlaggedPost;
         //private readonly IIdGenerator m_IdGenerator;
 
         public Form1()
@@ -64,8 +67,9 @@ namespace Management_Application
                 {
                 }
             }
-            InitializeFlaggedItems();
-            InitializeFlaggedPosts();
+            //tabUniversity.Ta
+            //InitializeFlaggedItems();
+            //InitializeFlaggedPosts();
         }
 
         private bool IsEmailValid(string emailaddress)
@@ -361,83 +365,76 @@ namespace Management_Application
 
         private async void buttonSearch_Click(object sender, EventArgs e)
         {
-            using (var connection = new SqlConnection(m_ConnectionString))
+            using (var connection = await DapperConnection.OpenConnectionAsync())
             {
-                try
+                const string startOfsql =
+                    @"select userid,email,UserName,UserType,UserImageLarge,Sex,MobileDevice,u.CreationTime, u.url,FacebookUserId,
+score,Culture,uu.UniversityName
+from zbox.Users u
+left join zbox.University uu on u.UniversityId = uu.Id ";
+                long temp;
+                var sql = startOfsql + "where email = @email";
+                if (long.TryParse(textBoxUserEmailSearch.Text, out temp))
                 {
-                    using (var command = connection.CreateCommand())
-                    {
-                        command.Parameters.AddWithValue("@email", textBoxUserEmailSearch.Text);
-                        command.CommandText = "SELECT * FROM Zbox.Users WHERE Email=@email";
-                        var dataAdapter = new SqlDataAdapter { SelectCommand = command };
-                        await connection.OpenAsync();
-                        using (var dataTable = new DataTable())
-                        {
-                            dataAdapter.Fill(dataTable);
-                            m_GlobalUserTable = dataTable;
-                            m_UserId = dataTable.Rows[0]["UserId"].ToString();
-                            textBoxUserEmail.Text = dataTable.Rows[0]["Email"].ToString();
-                            textBoxUserName.Text = dataTable.Rows[0]["UserName"].ToString();
-                            comboBoxUserType.Text = dataTable.Rows[0]["UserType"].ToString() == "1"
-                                ? "Admin"
-                                : "Not Admin";
-                            pictureBoxUser.InitialImage = null;
-
-                            if (dataTable.Rows[0]["UserImageLarge"].ToString() != "NULL" &&
-                                dataTable.Rows[0]["UserImageLarge"].ToString() != "")
-                            {
-                                pictureBoxUser.LoadAsync(dataTable.Rows[0]["UserImageLarge"].ToString());
-                                pictureBoxUser.SizeMode = PictureBoxSizeMode.Zoom;
-                            }
-                            string uniName = "-None-";
-                            if (dataTable.Rows[0]["UniversityId"].ToString() != "NULL" &&
-                                dataTable.Rows[0]["UniversityId"].ToString() != "")
-                            {
-                                command.Parameters.AddWithValue("@uniId", dataTable.Rows[0]["UniversityId"].ToString());
-                                command.CommandText = "SELECT UniversityName FROM Zbox.University WHERE Id=@uniId";
-                                using (var dataAdapter2 = new SqlDataAdapter { SelectCommand = command })
-                                {
-
-                                    var dataTable2 = new DataTable();
-                                    dataAdapter2.Fill(dataTable2);
-                                    uniName = dataTable2.Rows[0]["UniversityName"].ToString();
-                                }
-                            }
-                            var gender = dataTable.Rows[0]["Sex"].ToString() == "True" ? "Female" : "Male";
-                            string mobile = "No";
-                            if (dataTable.Rows[0]["MobileDevice"].ToString() == "1")
-                                mobile = "Yes";
-                            command.Parameters.AddWithValue("@userId", dataTable.Rows[0]["UserId"].ToString());
-                            command.CommandText = "SELECT COUNT(*) FROM Zbox.UserBoxRel WHERE UserId=@userId";
-                            int boxes = (int)command.ExecuteScalar();
-
-                            command.CommandText = "SELECT COUNT(*) FROM Zbox.Quiz WHERE UserId=@userId";
-                            int quizzes = (int)command.ExecuteScalar();
-
-
-
-                            richTextBoxUser.Text = "Stats\n\nCreated on:" + dataTable.Rows[0]["CreationTime"] +
-                                                   "\n\nLast Activity: " + dataTable.Rows[0]["UpdateTime"] +
-                                                   "\n\nUniversity Name: " + uniName +
-                                                   "\n\nUrl: https://www.spitball.co/"
-                                                   + dataTable.Rows[0]["Url"] +
-                                                   "\n\nFacebook: https://www.facebook.com" + "/" +
-                                                   dataTable.Rows[0]["FacebookUserId"] + "\n\nReputation: " +
-                                                   dataTable.Rows[0]["score"] + "\n\nCulture: "
-                                                   + dataTable.Rows[0]["Culture"] + "\n\nGender: " + gender +
-                                                   "\n\nMobile: " + mobile + "\n\nMobile Joined: " + "--" +
-                                                   "\n\nBoxes: " +
-                                                   boxes + "\n\nQuizzes: " + quizzes + "\n\nItems: ";
-                        }
-                    }
+                    sql = startOfsql + "where userid = @email";
                 }
-                catch (Exception)
+                var data = await connection.QueryFirstOrDefaultAsync<User>(sql, new { email = textBoxUserEmailSearch.Text });
+                if (data == null)
                 {
-                    MessageBox.Show("Couldn't find the specified mail", "Error", MessageBoxButtons.OK);
+                    MessageBox.Show("No User");
+                    return;
+                }
+                m_UserId = data.UserId;
+                textBoxUserEmail.Text = data.Email;
+                textBoxUserName.Text = data.UserName;
+                comboBoxUserType.Text = data.UserType == UserType.TooHighScore
+                    ? "Admin"
+                    : "Not Admin";
+                pictureBoxUser.InitialImage = null;
+
+                if (!string.IsNullOrEmpty(data.UserImageLarge))
+                {
+                    pictureBoxUser.LoadAsync(data.UserImageLarge);
+                    pictureBoxUser.SizeMode = PictureBoxSizeMode.Zoom;
                 }
 
+                var gender = data.Sex.GetEnumDescription();
+                var mobile = data.MobileDevice;
+                var boxes = 0;
+                var quizzes = 0;
+                using (var grid = await connection.QueryMultipleAsync(
+                    "SELECT COUNT(*) FROM Zbox.UserBoxRel WHERE UserId=@userId;" +
+                    "SELECT COUNT(*) FROM Zbox.Quiz WHERE UserId=@userId and isdeleted = 0 and publish =1 ;"
+                    , new { userId = data.UserId }))
+                {
+                    boxes = await grid.ReadFirstOrDefaultAsync<int>();
+                    quizzes = await grid.ReadFirstOrDefaultAsync<int>();
+                }
 
+                //command.Parameters.AddWithValue("@userId", dataTable.Rows[0]["UserId"].ToString());
+                //command.CommandText = "SELECT COUNT(*) FROM Zbox.UserBoxRel WHERE UserId=@userId";
+                //int boxes = (int)command.ExecuteScalar();
+
+                //command.CommandText = "SELECT COUNT(*) FROM Zbox.Quiz WHERE UserId=@userId";
+                //int quizzes = (int)command.ExecuteScalar();
+
+
+
+                richTextBoxUser.Text = "Stats\n\nCreated on:" + data.CreationTime +
+                                       // "\n\nLast Activity: " + data.UpdateTime +
+                                       "\n\nUniversity Name: " + data.UniversityName +
+                                       "\n\nUrl: https://www.spitball.co/"
+                                       + data.Url +
+                                       "\n\nFacebook: https://www.facebook.com" + "/" +
+                                       data.FacebookUserId + "\n\nReputation: " +
+                                       data.Score + "\n\nCulture: "
+                                       + data.Culture + "\n\nGender: " + gender +
+                                       "\n\nMobile: " + mobile + "\n\nMobile Joined: " + "--" +
+                                       "\n\nBoxes: " +
+                                       boxes + "\n\nQuizzes: " + quizzes;
+                //+ "\n\nItems: ";
             }
+
         }
 
         private void buttonUserSave_Click(object sender, EventArgs e)
@@ -522,32 +519,14 @@ namespace Management_Application
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
 
             CloudTable table = tableClient.GetTableReference("userrequests");
-            TableQuery<UserrequestEntity> query = new TableQuery<UserrequestEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "FlagItem"));
+            var query = new TableQuery<FlagItem>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "FlagItem"));
             flaggedItemsListBox.Items.Clear();
-            foreach (UserrequestEntity entity in table.ExecuteQuery(query))
+            foreach (var entity in table.ExecuteQuery(query))
             {
                 flaggedItemsListBox.Items.Add(entity.ItemId);
             }
         }
-        public class UserrequestEntity : TableEntity
-        {
 
-            public UserrequestEntity(string partition, string row)
-            {
-                PartitionKey = partition;
-                RowKey = row;
-            }
-
-            public UserrequestEntity() { }
-
-            // public string Timestamp { get; set; }
-
-            public string BadItem { get; set; }
-            public long ItemId { get; set; }
-            public long UserId { get; set; }
-            public Guid PostId { get; set; }
-
-        }
         private void flaggedItemsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -560,33 +539,40 @@ namespace Management_Application
             richTextBoxFlaggedItem.Text = "";
             richTextBoxUserThatFlagged.Text = "";
             richTextBoxItemToReplace.Text = "";
+            m_GlobalFlaggedItem = null;
+            CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials("zboxstorage", "HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw=="), false);
+            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+            CloudTable table = tableClient.GetTableReference("userrequests");
+            TableQuery<FlagItem> query = new TableQuery<FlagItem>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "FlagItem"));
+
+            //m_GlobalFlaggedItem = null;
+            foreach (var entity in table.ExecuteQuery(query))
+            {
+                if (entity.ItemId.ToString() == flaggedItemsListBox.GetItemText(flaggedItemsListBox.SelectedItem))
+                {
+                    m_GlobalFlaggedItem = entity;
+                    break;
+                }
+
+                //Console.WriteLine(flaggedItemsListBox.GetItemText(flaggedItemsListBox.SelectedItem));
+                //Console.WriteLine(entity.ItemId);
+                //Console.WriteLine(entity.UserId);
+
+            }
+            if (m_GlobalFlaggedItem == null)
+            {
+                MessageBox.Show("Something not right");
+                return;
+            }
             using (var connection = new SqlConnection(m_ConnectionString))
             {
-                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials("zboxstorage", "HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw=="), false);
-                CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
-                CloudTable table = tableClient.GetTableReference("userrequests");
-                TableQuery<UserrequestEntity> query = new TableQuery<UserrequestEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "FlagItem"));
-                m_GlobalFlaggedItem = null;
-                foreach (UserrequestEntity entity in table.ExecuteQuery(query))
-                {
-                    if (entity.ItemId.ToString() == flaggedItemsListBox.GetItemText(flaggedItemsListBox.SelectedItem))
-                    {
-                        m_GlobalFlaggedItem = entity;
-                        break;
-                    }
 
-                    //Console.WriteLine(flaggedItemsListBox.GetItemText(flaggedItemsListBox.SelectedItem));
-                    //Console.WriteLine(entity.ItemId);
-                    //Console.WriteLine(entity.UserId);
-
-                }
                 //flaggedItemsListBox.GetItemText(flaggedItemsListBox.SelectedItem) //--Item ID not users
                 var command = connection.CreateCommand();
-                command.Parameters.AddWithValue("@id", m_GlobalFlaggedItem?.UserId);
+                command.Parameters.AddWithValue("@id", m_GlobalFlaggedItem.UserId);
                 command.CommandText = "SELECT * FROM Zbox.Users WHERE UserId=@id";
-                var dataAdapter = new SqlDataAdapter {SelectCommand = command};
+                var dataAdapter = new SqlDataAdapter { SelectCommand = command };
                 connection.Open();
-                //SqlCommandBuilder commandBuilder = new SqlCommandBuilder(dataAdapter);
                 DataSet ds = new DataSet();
                 dataAdapter.Fill(ds);
                 var dataTable = ds.Tables[0];
@@ -616,17 +602,11 @@ namespace Management_Application
                     command.CommandText = "SELECT COUNT(*) FROM Zbox.Item WHERE UserId=@userId";
                     var items = (int)command.ExecuteScalar();
 
-
-                    var urls = connection.Query<string>("SELECT url FROM Zbox.Item WHERE Itemid=@itemId", new { itemId = m_GlobalFlaggedItem.ItemId });
-                    var itemUrl = urls.FirstOrDefault();
-
-
                     connection.Close();
                     richTextBoxUserThatFlagged.Text = "Created on:" + dataTable.Rows[0]["CreationTime"] + "\nLast Activity: " + dataTable.Rows[0]["UpdateTime"] + "\nUniversity Name: " + uniName + "\nUrl: https://www.spitball.co/"
                         + dataTable.Rows[0]["Url"] + "\nFacebook: https://www.facebook.com" + "/" + dataTable.Rows[0]["FacebookUserId"] + "\nReputation: " + dataTable.Rows[0]["score"] + "\nCulture: "
-                        + dataTable.Rows[0]["Culture"] + "\nGender: " + gender + "\nMobile: " + mobile + "\nMobile Joined: " + "--" + "\nBoxes: " + boxes + "\nQuizzes: " + quizzes + "\nItems: " + items + "\nitemUrl: https://www.spitball.co/" + itemUrl;
+                        + dataTable.Rows[0]["Culture"] + "\nGender: " + gender + "\nMobile: " + mobile + "\nMobile Joined: " + "--" + "\nBoxes: " + boxes + "\nQuizzes: " + quizzes + "\nItems: " + items;
 
-                    //richTextBoxUserThatFlagged.Text = ("Name: "+dataTable.Rows[0]["UserName"].ToString())+"\n\nEmail: "+dataTable.Rows[0]["Email"].ToString()+"\n\n"+dataTable.Rows[0][];
                     try
                     {
                         pictureBoxUserThatFlagged.Load(dataTable.Rows[0]["UserImageLarge"].ToString());
@@ -643,7 +623,7 @@ namespace Management_Application
                     MessageBox.Show("Check if the user exists", "User Problem", MessageBoxButtons.OK);
                 }
                 command.Parameters.AddWithValue("@ItemId", m_GlobalFlaggedItem.ItemId);
-                command.CommandText = "SELECT*  FROM Zbox.Item WHERE ItemId=@ItemId";
+                command.CommandText = "SELECT *  FROM Zbox.Item WHERE ItemId=@ItemId";
                 dataAdapter.SelectCommand = command;
                 connection.Open();
                 ds.Clear();
@@ -652,13 +632,16 @@ namespace Management_Application
                 connection.Close();
                 try
                 {
-                    richTextBoxFlaggedItem.Text = "Item Name: " + dataTable.Rows[0]["name"] + "\n\nCreated User: " + dataTable.Rows[0]["CreatedUser"] + "\n\nUploaded On: " + dataTable.Rows[0]["CreationTime"] + "\n\nDownloads: " + dataTable.Rows[0]["NumberOfDownloads"] + "\n\nUrl: https://www.spitball.co/" + dataTable.Rows[0]["Url"];
+                    richTextBoxFlaggedItem.Text = "Item Name: " + dataTable.Rows[0]["name"] + "\n\nCreated User: "
+                        + dataTable.Rows[0]["CreatedUser"] + "\n\nUploaded On: "
+                        + dataTable.Rows[0]["CreationTime"] + "\n\nDownloads: "
+                        + dataTable.Rows[0]["NumberOfDownloads"]
+                        + "\n\nUrl: https://www.spitball.co/" + dataTable.Rows[0]["Url"] + "\n\nreason:" + m_GlobalFlaggedItem.BadItem;
                     string boxId = dataTable.Rows[0]["BoxId"].ToString();
                     try
                     {
-                        //Console.WriteLine("https://www.cloudents.com/" + dataTable.Rows[0]["ThumbnailUrl"]);
-                        pictureBoxFlaggedItem.Load(dataTable.Rows[0]["ThumbnailUrl"].ToString());
-                        pictureBoxUserThatFlagged.SizeMode = PictureBoxSizeMode.StretchImage;
+                        pictureBoxFlaggedItem.Load($"https://az779114.vo.msecnd.net:443/preview/{dataTable.Rows[0]["BlobName"]}.jpg?width=209&height=157");
+                        //pictureBoxUserThatFlagged.SizeMode = PictureBoxSizeMode.StretchImage;
                     }
                     catch (Exception)
                     {
@@ -680,10 +663,9 @@ namespace Management_Application
 
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    //pictureBoxFlaggedItem.Load("C:\\Users\\USER\\Desktop\\Android\\palette.png");
-                    //pictureBoxUserThatFlagged.SizeMode = PictureBoxSizeMode.Zoom;
+                    MessageBox.Show(ex.ToString());
                 }
                 Cursor.Current = Cursors.Arrow;
             }
@@ -694,9 +676,9 @@ namespace Management_Application
             CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials("zboxstorage", "HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw=="), false);
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
             CloudTable table = tableClient.GetTableReference("userrequests");
-            TableQuery<UserrequestEntity> query = new TableQuery<UserrequestEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "FlagPost"));
+            var query = new TableQuery<FlagCommentOrReply>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "FlagPost"));
             listBoxFlaggedPosts.Items.Clear();
-            foreach (UserrequestEntity entity in table.ExecuteQuery(query))
+            foreach (var entity in table.ExecuteQuery(query))
             {
                 listBoxFlaggedPosts.Items.Add(entity.PostId.ToString());
             }
@@ -714,9 +696,9 @@ namespace Management_Application
                 CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials("zboxstorage", "HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw=="), false);
                 CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
                 CloudTable table = tableClient.GetTableReference("userrequests");
-                TableQuery<UserrequestEntity> query = new TableQuery<UserrequestEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "FlagPost"));
+                TableQuery<FlagCommentOrReply> query = new TableQuery<FlagCommentOrReply>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "FlagPost"));
                 m_GlobalFlaggedPost = null;
-                foreach (UserrequestEntity entity in table.ExecuteQuery(query))
+                foreach (var entity in table.ExecuteQuery(query))
                 {
                     if (entity.PostId.ToString() == listBoxFlaggedPosts.GetItemText(listBoxFlaggedPosts.SelectedItem))
                     {
@@ -730,13 +712,17 @@ namespace Management_Application
                     //Console.WriteLine(entity.UserId);
 
                 }
+                if (m_GlobalFlaggedPost == null)
+                {
+                    MessageBox.Show("Something wrong");
+                    return;
+                }
                 //globalFlaggedItem.ItemId  itemid
                 //flaggedItemsListBox.GetItemText(flaggedItemsListBox.SelectedItem) //--Item ID not users
                 SqlCommand command = connection.CreateCommand();
                 command.Parameters.AddWithValue("@id", m_GlobalFlaggedPost.UserId);
                 command.CommandText = "SELECT * FROM Zbox.Users WHERE UserId=@id";
-                SqlDataAdapter dataAdapter = new SqlDataAdapter();
-                dataAdapter.SelectCommand = command;
+                SqlDataAdapter dataAdapter = new SqlDataAdapter { SelectCommand = command };
                 connection.Open();
                 //SqlCommandBuilder commandBuilder = new SqlCommandBuilder(dataAdapter);
                 DataSet ds = new DataSet();
@@ -751,7 +737,7 @@ namespace Management_Application
                     {
                         command.Parameters.AddWithValue("@uniId", dataTable.Rows[0]["UniversityId"].ToString());
                         command.CommandText = "SELECT UniversityName FROM Zbox.University WHERE Id=@uniId";
-                        SqlDataAdapter dataAdapter2 = new SqlDataAdapter {SelectCommand = command};
+                        SqlDataAdapter dataAdapter2 = new SqlDataAdapter { SelectCommand = command };
                         DataTable dataTable2 = new DataTable();
                         dataAdapter2.Fill(dataTable2);
                         uniName = dataTable2.Rows[0]["UniversityName"].ToString();
@@ -837,9 +823,9 @@ namespace Management_Application
             CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials("zboxstorage", "HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw=="), false);
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
             CloudTable table = tableClient.GetTableReference("userrequests");
-            TableQuery<UserrequestEntity> query = new TableQuery<UserrequestEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "FlagItem"));
-            m_GlobalFlaggedItem = null;
-            foreach (UserrequestEntity entity in table.ExecuteQuery(query))
+            var query = new TableQuery<FlagItem>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "FlagItem"));
+            //m_GlobalFlaggedItem = null;
+            foreach (var entity in table.ExecuteQuery(query))
             {
                 if (entity.ItemId.ToString() == flaggedItemsListBox.GetItemText(flaggedItemsListBox.SelectedItem))
                 {
@@ -859,17 +845,11 @@ namespace Management_Application
             pictureBoxFlaggedItem.InitialImage = null;
         }
 
-        private void buttonDeleteFlaggedItem_Click(object sender, EventArgs e)
+        private async void buttonDeleteFlaggedItem_Click(object sender, EventArgs e)
         {
-            using (var connection = new SqlConnection(m_ConnectionString))
-            {
-                SqlCommand command = connection.CreateCommand();
-                command.Parameters.AddWithValue("@ItemId", m_GlobalFlaggedItem.ItemId);
-                command.CommandText = "UPDATE Zbox.Item SET IsDeleted=1 WHERE ItemId=@ItemId";
-                connection.Open();
-                command.ExecuteNonQuery();
-                connection.Close();
-            }
+            var itemId = m_GlobalFlaggedItem.ItemId;
+            var service = IocFactory.IocWrapper.Resolve<IZboxWriteService>();
+            await service.DeleteItemAsync(new DeleteItemCommand(itemId, 1));
         }
 
         private async void buttonDeletePost_Click(object sender, EventArgs e)
@@ -896,25 +876,24 @@ namespace Management_Application
             }
         }
 
-        private void buttonDeleteFlagPost_Click(object sender, EventArgs e)
+        private async void buttonDeleteFlagPost_Click(object sender, EventArgs e)
         {
             CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials("zboxstorage", "HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw=="), false);
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
             CloudTable table = tableClient.GetTableReference("userrequests");
-            TableQuery<UserrequestEntity> query = new TableQuery<UserrequestEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "FlagPost"));
-            m_GlobalFlaggedItem = null;
-            foreach (UserrequestEntity entity in table.ExecuteQuery(query))
+            var query = new TableQuery<FlagCommentOrReply>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "FlagPost"));
+            //m_GlobalFlaggedItem = null;
+            foreach (var entity in table.ExecuteQuery(query))
             {
                 if (entity.PostId.ToString() == listBoxFlaggedPosts.GetItemText(listBoxFlaggedPosts.SelectedItem))
                 {
                     TableOperation deleteOperation = TableOperation.Delete(entity);
-                    table.Execute(deleteOperation);
+                    await table.ExecuteAsync(deleteOperation);
                     break;
                 }
 
             }
             MessageBox.Show("Flag deleted", "Deleted", MessageBoxButtons.OK);
-            //richTextBoxFlaggedPost.Text = "";
             richTextBoxUserFlaggedPost.Text = "";
             pictureBoxUserFlaggedPost.InitialImage = null;
             pictureBoxUserFlaggedPost.Image = null;
@@ -933,7 +912,7 @@ namespace Management_Application
                 SqlCommand command = connection.CreateCommand();
                 command.Parameters.AddWithValue("@id", m_GlobalFlaggedPost.UserId);
                 command.CommandText = "SELECT * FROM Zbox.Users WHERE UserId=@id";
-                var dataAdapter = new SqlDataAdapter {SelectCommand = command};
+                var dataAdapter = new SqlDataAdapter { SelectCommand = command };
                 connection.Open();
                 var ds = new DataSet();
                 dataAdapter.Fill(ds);
@@ -962,8 +941,9 @@ namespace Management_Application
             using (var connection = new SqlConnection(m_ConnectionString))
             {
                 SqlCommand command = connection.CreateCommand();
-                command.Parameters.AddWithValue("@id", m_GlobalFlaggedItem.UserId);
-                command.CommandText = "SELECT * FROM Zbox.Users WHERE UserId=@id";
+
+                //command.Parameters.AddWithValue("@id", m_GlobalFlaggedItem.UserId);
+                command.CommandText = "SELECT Email FROM Zbox.Users WHERE UserId=@id";
                 var dataAdapter = new SqlDataAdapter { SelectCommand = command };
                 connection.Open();
                 var ds = new DataSet();
@@ -1396,6 +1376,51 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
                 await zboxWriteService.DeleteItemAsync(new DeleteItemCommand(boxId, userId));
             }
             MessageBox.Show("Done");
+        }
+
+        private void tabUniversity_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabUniversity.SelectedIndex == 2)
+            {
+                InitializeFlaggedItems();
+            }
+            if (tabUniversity.SelectedIndex == 3)
+            {
+                InitializeFlaggedPosts();
+            }
+        }
+
+        private async void buttonUploadFile_Click(object sender, EventArgs e)
+        {
+            openFileDialogReplaceItem = new OpenFileDialog
+            {
+                Multiselect = false
+            };
+            if (openFileDialogReplaceItem.ShowDialog() == DialogResult.OK)
+            {
+                using (var stream = openFileDialogReplaceItem.OpenFile())
+                {
+                    if (stream == null)
+                    {
+                        return;
+                    }
+
+                    CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials("zboxstorage", "HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw=="), false);
+                    var blobClient = storageAccount.CreateCloudBlobClient();
+                    var mailContainer = blobClient.GetContainerReference("mailcontainer");
+                    var blob = mailContainer.GetBlockBlobReference(Path.GetFileName(openFileDialogReplaceItem.FileName));
+                    if (await blob.ExistsAsync())
+                    {
+                        MessageBox.Show("file with that name exists");
+                        return;
+                    }
+                    await blob.UploadFromStreamAsync(stream);
+                    textBoxUrl.Text = blob.Uri.AbsoluteUri;
+
+
+                }
+
+            }
         }
     }
 }

@@ -157,6 +157,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="User.cs" />
     <EmbeddedResource Include="Backoffice Manager.resx">
       <DependentUpon>Backoffice Manager.cs</DependentUpon>
     </EmbeddedResource>

@@ -1,26 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Management_Application
 {
     public partial class ChangePictureUser : Form
     {
-        String userId;
+        private readonly long m_UserId;
         public ChangePictureUser()
         {
             InitializeComponent();
         }
-        public ChangePictureUser(String UserId)
+        public ChangePictureUser(long userId)
         {
-            userId = UserId;
+            m_UserId = userId;
             InitializeComponent();
         }
 
@@ -36,7 +29,7 @@ namespace Management_Application
             SqlConnection connection = new SqlConnection(connectionString);
             SqlCommand command = connection.CreateCommand();
             command.Parameters.AddWithValue("@path", textBoxPath.Text);
-            command.CommandText = "UPDATE Zbox.Users SET UserImageLarge=@path WHERE UserId=" + userId;
+            command.CommandText = "UPDATE Zbox.Users SET UserImageLarge=@path WHERE UserId=" + m_UserId;
             connection.Open();
             command.ExecuteNonQuery();
             connection.Close();
