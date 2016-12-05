@@ -106,7 +106,7 @@
                    {
                        state: 'item',
                        config: {
-                           url: '/item/{universityName:encodeStr}/{boxId:int}/{boxName:encodeStr}/{itemId:int}/{itemName:encodeStr}/',
+                           url: '/item/{universityType:encodeStr}/{boxId:int}/{boxName:encodeStr}/{itemId:int}/{itemName:encodeStr}/',
                            controller: 'ItemController as i',
                            resolve: {
                                itemData: ['itemService', '$stateParams', 'sbHistory', function (itemService, $stateParams, sbHistory) {

@@ -105,8 +105,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     Source = result2.File.ItemContentUrl,
                     Owner = result2.File.User.Name,
                     Date = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc),
-                    Url = result2.File.Url,
-                    DownloadUrl = Url.RouteUrl("ItemDownload2", new { model.BoxId, itemId = result2.File.Id }),
+                    //Url = result2.File.Url,
+                    //DownloadUrl = Url.RouteUrl("ItemDownload2", new { model.BoxId, itemId = result2.File.Id }),
 
                 };
                 if (model.TabId.HasValue)
@@ -324,9 +324,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     Source = result2.Link.ItemContentUrl,
                     Owner = result2.Link.User.Name,
                     Date = DateTime.UtcNow,
-                    Url = result2.Link.Url,
-                    DownloadUrl =
-                        Url.RouteUrl("ItemDownload2", new { boxId = result2.Link.Box.Id, itemId = result2.Link.Id })
+                    //Url = result2.Link.Url,
+                    //DownloadUrl =
+                    //    Url.RouteUrl("ItemDownload2", new { boxId = result2.Link.Box.Id, itemId = result2.Link.Id })
                 };
 
                 if (model.TabId.HasValue)
@@ -396,8 +396,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 Source = result2.File.ItemContentUrl,
                 Owner = result2.File.User.Name,
                 Date = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc),
-                Url = result2.File.Url,
-                DownloadUrl = Url.RouteUrl("ItemDownload2", new { model.BoxId, itemId = result2.File.Id })
+                //Url = result2.File.Url,
+                //DownloadUrl = Url.RouteUrl("ItemDownload2", new { model.BoxId, itemId = result2.File.Id })
             };
             if (model.TabId.HasValue)
             {

@@ -23,14 +23,12 @@ select Prev as Previous,Next from  cte where itemid = @ItemId
 	i.numberofdownloads as numberOfDownloads,
     i.BlobName as blob,
     i.Discriminator as type,
-    i.likeCount as Likes,
-    b.Url as BoxUrl
+    i.likeCount as Likes
+    --b.Url as BoxUrl
     from zbox.Item i
     join zbox.Users u on u.UserId = i.UserId
-    join zbox.box b on b.BoxId=i.BoxId and b.isdeleted = 0
     where i.ItemId = @ItemId
-    and i.IsDeleted = 0 
-	and i.boxid = @BoxId;";
+    and i.IsDeleted = 0 ;";
 
         public const string ItemDetailApi = @" select 
  i.itemid as Id,

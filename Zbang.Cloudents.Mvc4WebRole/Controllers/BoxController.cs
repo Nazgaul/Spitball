@@ -333,10 +333,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var query = new GetBoxItemsPagedQuery(id, tabId, page, 80);
                 var result = await ZboxReadService.GetBoxItemsPagedAsync(query);
                 var itemDtos = result as IList<ItemDto> ?? result.ToList();
-                foreach (var item in itemDtos)
-                {
-                    item.DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId = id, itemId = item.Id });
-                }
+                //foreach (var item in itemDtos)
+                //{
+                //    item.DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId = id, itemId = item.Id });
+                //}
                 return JsonOk(itemDtos.Select(s => new
                 {
                     s.Id,
@@ -344,7 +344,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     NumOfViews = s.NumOfViews + s.NumOfDownloads,
                     s.OwnerId,
                     s.Likes,
-                    s.Url,
+                    //s.Url,
                     s.Type,
                     s.Source
 

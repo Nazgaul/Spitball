@@ -31,11 +31,11 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public int Likes { get; set; }
         public string Type { get; set; }
 
-        public string BoxUrl { get; set; }
+        //public string BoxUrl { get; set; }
 
 
-        public string DownloadUrl { get; set; }
-        public string PrintUrl { get; set; }
+        //public string DownloadUrl { get; set; }
+        //public string PrintUrl { get; set; }
 
         public ItemNavigationDto Navigation { get; set; }
 

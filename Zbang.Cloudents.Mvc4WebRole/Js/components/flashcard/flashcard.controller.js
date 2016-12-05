@@ -74,7 +74,7 @@ var app;
             this.flashcard = flashcard;
             flashcard.pins = flashcard.pins || [];
             this.pinCount = flashcard.pins.length;
-            this.backUrl = $state.href("box.flashcards", angular.extend({}, $stateParams, { boxtype: "course" }));
+            this.backUrl = $state.href("box.flashcards", angular.extend({}, $stateParams));
         }
         FlashcardController.prototype.start = function () {
             this.cards = this.flashcard.cards.slice(0);

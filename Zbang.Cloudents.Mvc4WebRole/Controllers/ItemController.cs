@@ -164,7 +164,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonOk(new
                 {
                     retVal.Blob,
-                    retVal.BoxUrl,
+                    //retVal.BoxUrl,
                     retVal.Name,
                     retVal.Navigation.Next,
                     retVal.Navigation.Previous,

@@ -2,10 +2,10 @@
     'use strict';
     angular.module('app.item').controller('ItemController', item);
     item.$inject = ['$stateParams', 'itemService', '$sce', '$location', '$q', 'user',
-        'itemData', '$scope', '$rootScope', 'resManager', '$timeout', '$mdMenu'];
+        'itemData', '$scope', '$rootScope', 'resManager', '$timeout', '$mdMenu', '$state'];
 
     function item($stateParams, itemService, $sce, $location, $q,
-        user, itemData, $scope, $rootScope, resManager, $timeout, $mdMenu) {
+        user, itemData, $scope, $rootScope, resManager, $timeout, $mdMenu, $state) {
         var i = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId, disablePaging = false;
         var index = 0, needLoadMore = false;
 
@@ -26,7 +26,7 @@
 
         i.details.downloadUrl = $location.path() + 'download/';
         i.details.printUrl = $location.path() + 'print/';
-        i.details.boxUrl = i.details.boxUrl + 'items/';
+        i.details.boxUrl = $state.href("box.items", angular.extend({}, $stateParams));//i.details.boxUrl + 'items/';
         getPreview();
         // i.firstPage = history2.firstState();
         i.showRawText = false;

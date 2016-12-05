@@ -25,6 +25,13 @@ var app;
             this.items = [];
             this.uploadShow = true;
             this.buildItem = function (value) {
+                value.url = _this.$state.href("item", {
+                    universityType: _this.$stateParams["universityType"],
+                    boxId: _this.$stateParams["boxId"],
+                    boxName: _this.$stateParams["boxName"],
+                    itemId: value.id,
+                    itemName: value.name
+                });
                 value.downloadLink = value.url + 'download/';
                 var retVal = _this.itemThumbnailService.assignValue(value.source);
                 value.thumbnail = retVal.thumbnail;

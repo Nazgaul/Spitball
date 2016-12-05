@@ -3,10 +3,10 @@
     angular.module('app.quiz').controller('QuizController', quiz);
 
     quiz.$inject = ['data', '$timeout', '$stateParams', 'quizService', '$filter',
-        'userDetailsFactory', '$rootScope', '$scope'];
+        'userDetailsFactory', '$rootScope', '$state'];
 
     function quiz(quizData, $timeout, $stateParams, quizService, $filter,
-        userDetailsFactory, $rootScope, $scope) {
+        userDetailsFactory, $rootScope, $state) {
 
         var q = this;
         q.states = {
@@ -50,7 +50,7 @@
             });
         }
 
-        q.boxUrl = quizData.quiz.boxUrl;
+        q.boxUrl = $state.href("box.quiz", angular.extend({}, $stateParams)); //quizData.quiz.boxUrl;
 
         q.afraid = afraid;
         if (quizData.sheet) {

@@ -10,7 +10,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
         public const string SystemUrl = "https://www.spitball.co";
         private const string ItemUrl = "/item/{0}/{1}/{2}/{3}/{4}/";
         private const string QuizUrl = "/quiz/{0}/{1}/{2}/{3}/{4}/";
-        private const string BoxUrl = "/box/my/{0}/{1}/";
+        private const string BoxUrl = "/course/my/{0}/{1}/";
         private const string CourseUrl = "/course/{2}/{0}/{1}/";
         private const string UserUrl = "/user/{0}/{1}/";
         private const string LogInUrl = "/?invId={0}";
@@ -125,23 +125,6 @@ namespace Zbang.Zbox.Infrastructure.Consts
             }
             return relativeUrl;
         }
-
-
-
-
-
-        //public static string BuildLibraryUrl(Guid id, string name)
-        //{
-        //    if (string.IsNullOrEmpty(name))
-        //    {
-        //        throw new ArgumentNullException(nameof(name));
-        //    }
-        //    return VirtualPathUtility.AppendTrailingSlash(
-        //        string.Format(
-        //            LibraryUrl, 
-        //            GuidEncoder.Encode(id), 
-        //            NameToQueryString(name)));
-        //}
 
         public static string NameToQueryString(string name)
         {

@@ -21,13 +21,11 @@ select u.country as Country
 
         public const string QuizQuery =
             @"select q.Id, q.Name, u.UserId as OwnerId, u.UserName as Owner, 
-q.CreationTime as Date, q.NumberOfViews, q.Banner,
-b.Url as BoxUrl, q.Publish
+q.CreationTime as Date, q.NumberOfViews, q.Banner, q.Publish
 from zbox.quiz q 
 join zbox.Users u on q.UserId = u.UserId
-join zbox.Box b on q.BoxId = b.BoxId
  where q.id = @QuizId
- and q.isdeleted = 0
+ and q.isdeleted = 0;
 ";
 
 

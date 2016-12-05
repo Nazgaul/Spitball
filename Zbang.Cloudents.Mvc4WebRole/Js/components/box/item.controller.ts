@@ -214,6 +214,14 @@
 
         }
         private buildItem = (value) => {
+            value.url = this.$state.href("item",
+                {
+                    universityType: this.$stateParams["universityType"],
+                    boxId: this.$stateParams["boxId"],
+                    boxName: this.$stateParams["boxName"],
+                    itemId: value.id,
+                    itemName: value.name
+                });
             value.downloadLink = value.url + 'download/';
             const retVal = this.itemThumbnailService.assignValue(value.source);
             value.thumbnail = retVal.thumbnail;

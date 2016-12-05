@@ -36,7 +36,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
         public int NumberOfViews { get; set; }
 
-        public string BoxUrl { get; set; }
+        //public string BoxUrl { get; set; }
 
 
 

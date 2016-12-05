@@ -88,7 +88,7 @@
             this.flashcard = flashcard;
             flashcard.pins = flashcard.pins || [];
             this.pinCount = flashcard.pins.length;
-            this.backUrl = $state.href("box.flashcards", angular.extend({}, $stateParams, { boxtype: "course" }));
+            this.backUrl = $state.href("box.flashcards", angular.extend({}, $stateParams));
         }
 
         start() {
