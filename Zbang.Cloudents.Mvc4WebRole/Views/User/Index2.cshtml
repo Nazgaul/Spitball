@@ -50,31 +50,31 @@
                 <md-tab ui-sref="user.badge" md-active="u.isActive('user.badge')">
                     <md-tab-label>
                         <h3>@GamificationResources.Badges</h3>
-                        <div class="number">4</div>
+                        <div class="number" ng-bind="::u.details.numBadge"></div>
                     </md-tab-label>
                 </md-tab>
                 <md-tab ui-sref="user.item" md-active="u.isActive('user.item')">
                     <md-tab-label>
                         <h3>@UserResources.Uploads</h3>
-                        <div class="number">{{::u.details.numItem | megaNumber}}</div>
+                        <div class="number" ng-bind="::u.details.numItem | megaNumber"></div>
                     </md-tab-label>
                 </md-tab>
                 <md-tab ui-sref="user.feed" md-active="u.isActive('user.feed')">
                     <md-tab-label>
                         <h3>@UserResources.Posts</h3>
-                        <div class="number">{{::u.details.numFeed | megaNumber}}</div>
+                        <div class="number" ng-bind="::u.details.numFeed | megaNumber"></div>
                     </md-tab-label>
                 </md-tab>
                 <md-tab ui-sref="user.quiz" md-active="u.isActive('user.quiz')">
                     <md-tab-label>
                         <h3>@GeneralResources.Quizzes</h3>
-                        <div class="number">{{::u.details.numQuiz | megaNumber}}</div>
+                        <div class="number" ng-bind="::u.details.numQuiz | megaNumber"></div>
                     </md-tab-label>
                 </md-tab>
                 <md-tab ui-sref="user.classmates" md-active="u.isActive('user.classmates')">
                     <md-tab-label>
                         <h3>@GeneralResources.Members</h3>
-                        <div class="number">{{::u.details.numFriend | megaNumber}}</div>
+                        <div class="number" ng-bind="::u.details.numFriend | megaNumber"></div>
                     </md-tab-label>
                 </md-tab>
             </md-tabs>

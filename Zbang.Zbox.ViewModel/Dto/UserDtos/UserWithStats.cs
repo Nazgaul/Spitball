@@ -12,11 +12,12 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 
         public string Url { get; set; }
 
-        public int NumClass { get; set; }
+        //public int NumClass { get; set; }
         public int NumItem { get; set; }
         public int NumFeed { get; set; }
         public int NumQuiz { get; set; }
         public int NumFriend { get; set; }
+        public int NumBadge { get; set; }
 
         public bool Online { get; set; }
     }

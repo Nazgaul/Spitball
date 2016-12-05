@@ -1313,9 +1313,9 @@
     <Content Include="Images\Site\community-bg.png" />
     <Content Include="Images\Site\course_choose_popup.png" />
     <Content Include="Images\Site\create_uni_text_blue.png" />
-    <Content Include="Images\Site\Leaderborad-bg-l.png" />
-    <Content Include="Images\Site\Leaderborad-bg-r.png" />
-    <Content Include="Images\Site\Leaderborad-title.png" />
+    <Content Include="Images\Site\Leaderboard-bg-l.png" />
+    <Content Include="Images\Site\Leaderboard-bg-r.png" />
+    <Content Include="Images\Site\Leaderboard-title.png" />
     <Content Include="Images\Site\logo_spitball.png" />
     <Content Include="Audio\message.mp3" />
     <Content Include="Images\Site\no_search_results.png" />

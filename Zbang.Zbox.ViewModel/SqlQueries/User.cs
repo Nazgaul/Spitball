@@ -4,20 +4,21 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
 {
    public static class User
    {
-       public const string UserProfileWithStats = @"
+    //    select count(*)
+    //    from
+    //zbox.UserBoxRel uFriend
+    //join zbox.box b on b.BoxId = uFriend.BoxId and b.IsDeleted = 0
+    //where uFriend.UserId = @Myfriend
+    //and b.Discriminator = 2 ;
+        public const string UserProfileWithStats = @"
 		select u.userid as Id, u.username as name, u.UserImageLarge as image,u.Online,
                             u.score as score, uu.universityname as universityName, u.url as Url
                             from zbox.users u left join zbox.university uu on u.UniversityId = uu.id
                             where u.userid =@Myfriend;
-    select count(*)
-        from 
-    zbox.UserBoxRel uFriend
-    join zbox.box b on b.BoxId = uFriend.BoxId and b.IsDeleted = 0
-    where uFriend.UserId = @Myfriend
-    and b.Discriminator = 2 ;
+
 		 select count(*)
                         from zbox.item i 
-                        join zbox.box b on i.boxid = b.BoxId and b.IsDeleted = 0
+                        join zbox.box b on i.boxid = b.BoxId
                         where i.UserId = @Myfriend
                         and i.IsDeleted = 0
                         and b.Discriminator = 2;
@@ -45,9 +46,10 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
 						select count(*)
                                 from zbox.userboxrel ub 
                                 join zbox.userboxrel ub2 on ub.boxid = ub2.boxid
-                                join zbox.users u on u.userid = ub2.userid
                                 where ub.userid = @Myfriend
-                                and u.userid != @Myfriend;";
+                                and ub2.userid != @Myfriend;
+select count(*) from zbox.Badge
+where userid = @Myfriend and progress = 100;";
 
        /// <summary>
        /// Used in user page to get boxes common with current user and his friend
