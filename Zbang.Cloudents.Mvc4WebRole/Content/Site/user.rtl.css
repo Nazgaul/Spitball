@@ -1,5 +1,25 @@
 .userPage {
-  margin: 0 -8px;
+  /*.points-awards {
+        margin-top: 18px;
+        line-height: 18px;
+        padding-left: 13px;
+        color: @textColorBlack;
+
+        .earn {
+            font-size: 16px;
+        }
+
+        hr {
+            margin: 5px 5px 7px 0;
+            border-color: @borderColorLightGrey;
+        }
+
+        ul {
+            padding-left: 0;
+            margin-top: 2px;
+            margin-bottom: 20px;
+        }
+    }*/
 }
 .userPage .portlet {
   margin-bottom: 0;
@@ -53,12 +73,16 @@
 }
 .userPage .points-container {
   text-align: center;
-  margin-top: 7px;
-  background: #3293F6;
+  margin: 16px 0;
+  background: #ffce2f;
+  color: #212325;
+}
+.userPage .points-container #points {
+  font-weight: bold;
   color: #ffffff;
 }
 .userPage h5 {
-  font-size: 16px;
+  font-size: 12px;
   margin: 0;
   padding: 3px 0 12px 0;
 }
@@ -67,23 +91,51 @@
   margin: 0;
   padding: 10px 0 0 0;
 }
-.userPage .points-awards {
-  margin-top: 18px;
-  line-height: 18px;
-  padding-right: 13px;
-  color: #212325;
+.userPage .points-info {
+  background: #ffffff;
+  padding-bottom: 10px;
 }
-.userPage .points-awards .earn {
-  font-size: 16px;
+.userPage .points-info h1 {
+  background: #323538;
+  color: #ffffff;
+  font-size: 20px;
+  text-align: center;
+  padding: 8px 0;
+  margin: 0 0 10px 0;
 }
-.userPage .points-awards hr {
-  margin: 5px 0 7px 5px;
-  border-color: #8c99a6;
+.userPage .points-info table {
+  width: 100%;
+  text-align: center;
 }
-.userPage .points-awards ul {
-  padding-right: 0;
-  margin-top: 2px;
-  margin-bottom: 20px;
+.userPage .points-info table th {
+  vertical-align: top;
+  text-align: right;
+  padding-right: 10px;
+  font-size: 14px;
+  color: #4190b9;
+  width: 1%;
+}
+.userPage .points-info table tr td:nth-last-child(1) {
+  padding-left: 20px;
+  width: 1%;
+}
+.userPage .points-info table .odd th,
+.userPage .points-info table .even th,
+.userPage .points-info table .odd tr:nth-child(1) td,
+.userPage .points-info table .even tr:nth-child(1) td {
+  padding-top: 10px;
+}
+.userPage .points-info table .odd th,
+.userPage .points-info table .even th,
+.userPage .points-info table .odd tr:nth-last-child(1) td,
+.userPage .points-info table .even tr:nth-last-child(1) td {
+  padding-bottom: 10px;
+}
+.userPage .points-info table tbody.odd {
+  background: #d1e1e9;
+}
+.userPage .points-info table tbody tr {
+  line-height: 22px;
 }
 .userPage .r-table {
   display: table;
@@ -101,7 +153,7 @@
 }
 .userPage md-tabs-canvas,
 .userPage md-pagination-wrapper {
-  height: 54px;
+  height: 70px;
 }
 .userPage .badges-tabs md-tabs-canvas,
 .userPage .badges-tabs md-pagination-wrapper {
@@ -141,7 +193,6 @@
   background: #ffce2f;
 }
 .userPage .badges {
-  background: #f5f5f5;
   margin-top: -10px;
 }
 .userPage .badges .badges-bar {
@@ -150,7 +201,6 @@
   display: flex;
   -webkit-align-items: center;
   align-items: center;
-  background: #f5f5f5;
 }
 .userPage .badges .info {
   flex-grow: 0;
@@ -169,6 +219,9 @@
     margin-bottom: 0;
     margin-right: 10px;
   }
+}
+.userPage .badges md-tab-item {
+  color: #0d3a52;
 }
 @media (min-width: 600px) {
   .userPage .badges md-tab-item {
@@ -671,9 +724,28 @@
   -webkit-animation: none !important;
   animation: none !important;
 }
+.userPage .page-tabs > md-tabs-wrapper md-ink-bar {
+  display: block;
+}
+.userPage .page-tabs > md-tabs-wrapper md-ink-bar:after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-right: 12px solid transparent;
+  border-left: 12px solid transparent;
+  border-bottom: 12px solid #f5f5f5;
+  position: absolute;
+  right: calc(50% - 12px);
+  bottom: 0;
+}
 .userPage .page-tabs md-tab-item {
-  padding: 0 10px;
-  margin: 5px 10px;
+  padding: 0 10px 12px 10px;
+  margin: 7px 10px;
+}
+.userPage .page-tabs md-tab-item.md-active:after {
+  content: '';
+  display: block;
 }
 .userPage .page-tabs md-tab-item .number {
   font-size: 18px;
@@ -694,30 +766,58 @@
 .userPage .portlet.light {
   padding: 0;
 }
-.userPage .posts {
-  margin-bottom: 20px;
+.userPage .post-data {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
   -webkit-align-items: center;
   align-items: center;
   color: #212325;
+  background: #eeeeee;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  padding: 10px;
 }
-.userPage .posts > div {
+.userPage .post-data > div {
   width: 100%;
 }
-.userPage .posts .post-headline {
+.userPage .post-data .top {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.userPage .post-data .top .name {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+}
+.userPage .post-data .top .name .box-letters {
+  color: #ffffff;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 22px;
+  text-transform: capitalize;
+  text-align: center;
+  margin-left: 10px;
+}
+.userPage .post-data .top .name .post-headline {
+  text-transform: capitalize;
+}
+.userPage .post-data .post-headline {
   display: block;
   font-size: 18px;
 }
-.userPage .posts .post-content {
-  width: 70%;
-  display: inline-block;
-}
-.userPage .posts .time-ago {
+.userPage .post-data .time-ago {
   font-size: 11px;
-  flex-basis: 200px;
-  text-align: left;
   color: #888b8e;
 }
 .userPage .profile-content .container {
@@ -725,11 +825,17 @@
 }
 .userPage .profile-content .portlet.light {
   margin: 0 12px;
-  background: none;
+  background: #f5f5f5;
   max-width: 1000px;
+  min-height: 500px;
 }
 .userPage .profile-content .user-box {
   min-width: 300px;
+}
+@media (min-width: 600px) {
+  .userPage .profile-content .files .file {
+    padding: 20px;
+  }
 }
 @media (max-width: 599px) {
   .userPage .quiz .top .first-letter {

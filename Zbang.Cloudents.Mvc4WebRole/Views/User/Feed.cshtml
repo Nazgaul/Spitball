@@ -1,16 +1,23 @@
 ﻿@*<script type="text/ng-template" id="user-feed.htm">*@
 <div @*ng-switch-when="p"*@>
-    <div layout-padding layout="row" layout-wrap layout-align="start center" srph-infinite-scroll="f.loadComment()">
-        <div flex="100" ng-repeat="e in f.feed" ng-include="'user-feed-template.html'"></div>
+    <div class="posts-list" layout-padding layout="row" layout-wrap layout-align="start center" srph-infinite-scroll="f.loadComment()">
+        <div class="post" flex-gt-md="50" flex="100" ng-repeat="e in f.feed">
+            <div ng-include="'user-feed-template.html'"></div>
+        </div>
     </div>
 </div>
 @*</script>*@
 <script type="text/ng-template" id="user-feed-template.html">
-    <a class="posts" href="{{::e.url}}">
+    <a class="post-data" href="{{::e.url}}">
         <div>
-            <span class="post-headline" d-color="{{::e.boxName.length}}">{{::e.boxName}}</span>
+            <div class="top">
+                <div class="name">
+                    <span class="box-letters background" d-color="{{::e.boxName.length}}" ng-bind="::e.boxName.substr(0,2) | lowercase"></span>
+                    <span class="post-headline" d-color="{{::e.boxName.length}}" ng-bind="::e.boxName"></span>
+                </div>
+                <time-ago class="time-ago" from-time="{{::e.creationTime }}" format="mediumDate"></time-ago>
+            </div>
             <span class="post-content" ng-bind-html="::e.content | linky:'_blank'"></span>
         </div>
-        <time-ago class="time-ago" from-time="{{::e.creationTime }}" format="mediumDate"></time-ago>
     </a>
 </script>

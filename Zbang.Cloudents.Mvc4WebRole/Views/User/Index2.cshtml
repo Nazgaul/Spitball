@@ -29,22 +29,146 @@
             <h5 count-up id="points" end-val="{{::u.details.score}}" duration="3"></h5>
             <h5>@UserResources.Points</h5>
         </div>
-        <div class="points-awards" hide-xs>
-            <span class="earn">@UserResources.Share</span>
-            <ul style="list-style-type:square">
-                <li>@UserResources.Creating</li>
-                <li>@UserResources.Accepted</li>
-            </ul>
-            <span class="earn">@UserResources.PointMenu2</span>
-            <ul style="list-style-type:square">
-                <li>@UserResources.AcceptedToCourse</li>
-                <li>@UserResources.UploadItem</li>
-                <li>@UserResources.Answering</li>
-                <li>@UserResources.Asking</li>
-                <li>@UserResources.Likes</li>
-                <li>@UserResources.ShareFB</li>
-            </ul>
-        </div>
+        <section class="points-info" hide-xs>
+            <h1>Earning points</h1>
+            <table>
+                <tbody class="odd">
+                    <tr>
+                        <th rowspan="3">Documents:</th>
+                        <td>View</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>Download</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>Like</td>
+                        <td>100</td>
+                    </tr>
+                </tbody>
+                <tbody class="even">
+                    <tr>
+                        <th rowspan="3">Quiz:</th>
+                        <td>View</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>Solve</td>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <td>Like</td>
+                        <td>150</td>
+                    </tr>
+                </tbody>
+                <tbody class="odd">
+                    <tr>
+                        <th rowspan="2">Flashcard:</th>
+                        <td>View</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>Like</td>
+                        <td>100</td>
+                    </tr>
+                </tbody>
+                <tbody class="even">
+                    <tr>
+                        <th rowspan="1">Post:</th>
+                        <td>Like</td>
+                        <td>100</td>
+                    </tr>
+                </tbody>
+                <tbody class="odd">
+                    <tr>
+                        <th rowspan="1">Comment:</th>
+                        <td>Like</td>
+                        <td>100</td>
+                    </tr>
+                </tbody>
+</table>
+
+
+
+
+
+            @*<div class="info-wrapper">
+                    <div class="section docs">
+                        <h2 class="title">Documents</h2>
+                        <div class="points">
+                            <div class="keys">
+                                <div class="name">View</div>
+                                <div class="name">Download</div>
+                                <div class="name">Like</div>
+                            </div>
+                            <div class="values">
+                                <div class="value">20</div>
+                                <div class="value">1</div>
+                                <div class="value">100</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section quiz">
+                        <h2 class="title">Quiz</h2>
+                        <div class="keys">
+                            <div class="name">View</div>
+                            <div class="name">Solve</div>
+                            <div class="name">Like</div>
+                        </div>
+                        <div class="values">
+                            <div class="value">5</div>
+                            <div class="value">100</div>
+                            <div class="value">150</div>
+                        </div>
+                    </div>
+                    <div class="section flashcards">
+                        <h2 class="title">Flashcard</h2>
+                        <div class="keys">
+                            <div class="name">View</div>
+                            <div class="name">Like</div>
+                        </div>
+                        <div class="values">
+                            <div class="value">5</div>
+                            <div class="value">100</div>
+                        </div>
+                    </div>
+                    <div class="section post">
+                        <h2 class="title">Post</h2>
+                        <div class="keys">
+                            <div class="name">Like</div>
+                        </div>
+                        <div class="values">
+                            <div class="value">100</div>
+                        </div>
+                    </div>
+                    <div class="section comment">
+                        <h2 class="title">Comment</h2>
+                        <div class="keys">
+                            <div class="name">Like</div>
+                        </div>
+                        <div class="values">
+                            <div class="value">100</div>
+                        </div>
+                    </div>
+                </div>*@
+        </section>
+        @*<div class="points-awards" hide-xs>
+                <span class="earn">@UserResources.Share</span>
+                <ul style="list-style-type:square">
+                    <li>@UserResources.Creating</li>
+                    <li>@UserResources.Accepted</li>
+                </ul>
+                <span class="earn">@UserResources.PointMenu2</span>
+                <ul style="list-style-type:square">
+                    <li>@UserResources.AcceptedToCourse</li>
+                    <li>@UserResources.UploadItem</li>
+                    <li>@UserResources.Answering</li>
+                    <li>@UserResources.Asking</li>
+                    <li>@UserResources.Likes</li>
+                    <li>@UserResources.ShareFB</li>
+                </ul>
+            </div>*@
     </div>
     <div class="profile-content">
         <div class="portlet light">
