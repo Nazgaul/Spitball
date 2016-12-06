@@ -32,6 +32,9 @@ var app;
         UserService.prototype.levels = function (userid) {
             return this.ajaxService2.get("/user/levels");
         };
+        UserService.prototype.badges = function (userid) {
+            return this.ajaxService2.get("/user/userbadges/");
+        };
         UserService.$inject = ['ajaxService2'];
         return UserService;
     }());

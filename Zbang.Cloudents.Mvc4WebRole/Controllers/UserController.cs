@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using DevTrends.MvcDonutCaching;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -8,6 +9,7 @@ using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources;
 using Zbang.Zbox.Infrastructure;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Queries;
@@ -248,11 +250,34 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var query = new QueryBaseUserId(id);
             var result = await ZboxReadService.UserLevelsAsync(query);
             var level = GamificationLevels.GetLevel(result.Score);
-            result.Level = level.Name;
+            //result.Level = level.Name;
             result.NextLevel = level.NextLevel;
             result.Number = level.Level;
             return JsonOk(result);
+        }
 
+        [HttpGet, ActionName("UserBadges")]
+        public async Task<JsonResult> BadgesAsync(long? userId)
+        {
+            var id = userId ?? User.GetUserId();
+
+            var query = new QueryBaseUserId(id);
+            var model = await ZboxReadService.UserBadgesAsync(query);
+            var badges = new List<Badge>();
+            foreach (var value in Enum.GetValues(typeof(BadgeType)).Cast<BadgeType>())
+            {
+                if (value == BadgeType.None)
+                {
+                    continue;
+                }
+                badges.Add(new Badge(value.GetEnumDescription()));
+            }
+
+            return JsonOk(new
+            {
+                model,
+                badges
+            });
         }
 
 

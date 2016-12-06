@@ -14,6 +14,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         public IList<Level> Levels { get; set; }
     }
 
+
+    public class Badge
+    {
+        public Badge(string name)
+        {
+            Name = name;
+        }
+
+        public string Name { get;private set; }
+
+        public string Image { get; set; }
+        public string Details { get; set; }
+        public int Points { get; set; }
+    }
+
     public class Level
     {
         public Level(string name, string description, int index)

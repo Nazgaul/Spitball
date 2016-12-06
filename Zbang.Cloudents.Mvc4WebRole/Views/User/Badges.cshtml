@@ -1,5 +1,4 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
-@using Zbang.Zbox.Infrastructure.Enums.Resources
 @model Zbang.Cloudents.Mvc4WebRole.Models.Gamification
 <div class="badges">
     <div class="badges-bar">
@@ -35,66 +34,17 @@
                             <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="{{@progress}}"></md-progress-linear>
                         </div>
                     </li>
-                                }
-                @*<li class="level">
-                        <div class="title">
-                            <div class="image"></div>
-                            <div class="name">@Gamification.Level1</div>
-                        </div>
-                        <div class="body">
-                            @GamificationResources.LevelFreshmanBody
-                            <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="{{::g.level1.progress}}"></md-progress-linear>
-                        </div>
-                    </li>
-                    <li class="level">
-                        <div class="title">
-                            <div class="image"></div>
-                            <div class="name">@Gamification.Level2</div>
-                        </div>
-                        <div class="body">
-                            @GamificationResources.LevelSophomoreBody
-                            <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="{{::g.level2.progress}}"></md-progress-linear>
-                        </div>
-                    </li>
-                    <li class="level">
-                        <div class="title">
-                            <div class="image"></div>
-                            <div class="name">@Gamification.Level3</div>
-                        </div>
-                        <div class="body">
-                            @GamificationResources.LevelUpperclassmanBody
-                            <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="{{::g.level3.progress}}"></md-progress-linear>
-                        </div>
-                    </li>
-                    <li class="level">
-                        <div class="title">
-                            <div class="image"></div>
-                            <div class="name">@Gamification.Level4</div>
-                        </div>
-                        <div class="body">
-                            @GamificationResources.LevelStraightAStudentBody
-                            <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="{{::g.level4.progress}}"></md-progress-linear>
-                        </div>
-                    </li>
-                    <li class="level">
-                        <div class="title">
-                            <div class="image"></div>
-                            <div class="name">@Gamification.Level5</div>
-                        </div>
-                        <div class="body">
-                            @GamificationResources.LevelStraightAStudentBody
-                            <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="{{::g.level5.progress}}"></md-progress-linear>
-                        </div>
-                    </li>*@
+                }
+
             </ul>
         </div>
         <div ng-switch-when="badge" class="tab badges">
             <div class="badges-container" ng-if="!g.badgeInfo" layout="row" layout-padding layout-wrap>
-                <div class="wrapper" flex-lg="20" flex-md="25" flex-gt-lg="20" flex-xs="50" flex-sm="25" ng-repeat="badge in g.badges">
+                <div class="wrapper" flex-lg="20" flex-md="25" flex-gt-lg="20" flex-xs="50" flex-sm="25" ng-repeat="badge in ::g.badges">
                     <div class="badge-container" ng-click="g.showBadge(badge)">
                         <md-icon md-svg-icon="p:checkmark" ng-if="badge.progress === 100"></md-icon>
                         <div class="image"></div>
-                        <div class="text">{{::badge.name}}</div>
+                        <div class="text" ng-bind="::badge.name"></div>
                         <div class="progress">
                             <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{::badge.progress}}"></md-progress-linear>
                         </div>

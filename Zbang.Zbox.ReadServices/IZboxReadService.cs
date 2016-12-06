@@ -150,6 +150,8 @@ namespace Zbang.Zbox.ReadServices
         Task<GamificationBoardDto> GamificationBoardAsync(QueryBaseUserId query);
         Task<LevelDto> UserLevelsAsync(QueryBaseUserId query);
 
+        Task<IEnumerable<BadgeDto>> UserBadgesAsync(QueryBaseUserId query);
+
         #endregion
 
 

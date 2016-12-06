@@ -399,6 +399,11 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.UserLevelsAsync(query);
         }
 
+        public Task<IEnumerable<BadgeDto>> UserBadgesAsync(QueryBaseUserId query)
+        {
+            return m_ReadService.UserBadgesAsync(query);
+        }
+
         public Task<QuizSolversWithCountDto> GetQuizSolversAsync(GetQuizBestSolvers query)
         {
             return m_ReadService.GetQuizSolversAsync(query);
