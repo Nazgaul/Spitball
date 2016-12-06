@@ -1,7 +1,8 @@
 var app;
 (function (app) {
     var Gamification = (function () {
-        function Gamification() {
+        function Gamification($state) {
+            this.$state = $state;
             this.badgesState = {
                 levels: 'l',
                 badges: 'b',
@@ -153,7 +154,9 @@ var app;
                     image: "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/f2338ed9-d5be-4d39-8fca-2896ef836ef6.jpg",
                     points: 800000
                 }];
-            console.log("badge");
+            if (!$state.params["type"]) {
+                this.$state.go($state.current.name, { type: "level" });
+            }
         }
         Gamification.prototype.changeBadgesTab = function (tab) {
             this.badgesTab = tab;
@@ -166,6 +169,7 @@ var app;
                     break;
             }
         };
+        Gamification.$inject = ["$state"];
         return Gamification;
     }());
     angular.module("app.user").controller("gamification", Gamification);

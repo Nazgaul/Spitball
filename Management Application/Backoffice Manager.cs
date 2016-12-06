@@ -1400,11 +1400,6 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
             {
                 using (var stream = openFileDialogReplaceItem.OpenFile())
                 {
-                    if (stream == null)
-                    {
-                        return;
-                    }
-
                     CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials("zboxstorage", "HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw=="), false);
                     var blobClient = storageAccount.CreateCloudBlobClient();
                     var mailContainer = blobClient.GetContainerReference("mailcontainer");

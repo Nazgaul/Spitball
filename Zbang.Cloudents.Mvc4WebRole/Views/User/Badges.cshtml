@@ -6,13 +6,13 @@
             <md-icon md-svg-icon="p:q-mark" class="" ng-click="g.showInfo()"></md-icon>
         </div>
         <md-tabs class="badges-tabs" md-dynamic-height="true">
-            <md-tab md-on-select="g.changeBadgesTab(g.badgesState.levels)" md-active="g.badgesTab === g.badgesState.levels">
+            <md-tab ui-sref="user.badge({type:level})" md-active="g.badgesTab === g.badgesState.levels">
                 <md-tab-label><h4>@GamificationResources.Levels</h4></md-tab-label>
             </md-tab>
-            <md-tab md-on-select="g.changeBadgesTab(g.badgesState.badges)" md-active="g.badgesTab === g.badgesState.badges">
+            <md-tab ui-sref="user.badge({type:badge})" md-active="g.badgesTab === g.badgesState.badges">
                 <md-tab-label><h4>@GamificationResources.Badges</h4></md-tab-label>
             </md-tab>
-            <md-tab md-on-select="g.changeBadgesTab(g.badgesState.community)" md-active="g.badgesTab === g.badgesState.community">
+            <md-tab ui-sref="user.badge({type:community})" md-active="g.badgesTab === g.badgesState.community">
                 <md-tab-label><h4>@GamificationResources.Community</h4></md-tab-label>
             </md-tab>
         </md-tabs>
@@ -29,7 +29,7 @@
                     <div class="body">
                         @GamificationResources.LevelFreshmanBody
                         <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="80"></md-progress-linear>
-                        <div class="counter">200,000 Students</div>
+                        @*<div class="counter">200,000 Students</div>*@
                     </div>
                 </li>
                 <li class="level">
@@ -40,7 +40,7 @@
                     <div class="body">
                         @GamificationResources.LevelSophomoreBody
                         <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="80"></md-progress-linear>
-                        <div class="counter">200,000 Students</div>
+                        @*<div class="counter">200,000 Students</div>*@
                     </div>
                 </li>
                 <li class="level">
@@ -51,7 +51,7 @@
                     <div class="body">
                         @GamificationResources.LevelUpperclassmanBody
                         <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="80"></md-progress-linear>
-                        <div class="counter">200,000 Students</div>
+                        @*<div class="counter">200,000 Students</div>*@
                     </div>
                 </li>
                 <li class="level">
@@ -62,7 +62,7 @@
                     <div class="body">
                         @GamificationResources.LevelStraightAStudentBody
                         <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="80"></md-progress-linear>
-                        <div class="counter">200,000 Students</div>
+                        @*<div class="counter">200,000 Students</div>*@
                     </div>
                 </li>
             </ul>

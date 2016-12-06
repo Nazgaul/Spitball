@@ -29,6 +29,7 @@ using Zbang.Zbox.Infrastructure.Url;
 using File = System.IO.File;
 using System.Collections.Generic;
 using Zbang.Zbox.Infrastructure.Transport;
+using Zbang.Zbox.ReadServices;
 
 namespace Testing
 {
@@ -172,14 +173,17 @@ namespace Testing
             //log4net.Config.XmlConfigurator.Configure();
 
             var iocFactory = IocFactory.IocWrapper;
+            var ReadService = iocFactory.Resolve<IZboxReadServiceWorkerRole>();
+            var tusers =  ReadService.GetUsersForNewRepAsync();
+            tusers.Wait();
             var m_QueueRepository = iocFactory.Resolve<IQueueProvider>();
-            var t1 = m_QueueRepository.InsertMessageToTranactionAsync(new RegisterBadgeData(1));
-            var t2 = m_QueueRepository.InsertMessageToTranactionAsync(new FollowClassBadgeData(1));
-            var t3 = m_QueueRepository.InsertMessageToTranactionAsync(new CreateQuizzesBadgeData(1));
-            var t4 = m_QueueRepository.InsertMessageToTranactionAsync(new UploadItemsBadgeData(1));
-            var t5 = m_QueueRepository.InsertMessageToTranactionAsync(new LikesBadgeData(1));
+            var t1 = m_QueueRepository.InsertMessageToTranactionAsync(new ReputationData(tusers.Result));
+            //var t2 = m_QueueRepository.InsertMessageToTranactionAsync(new FollowClassBadgeData(1));
+            //var t3 = m_QueueRepository.InsertMessageToTranactionAsync(new CreateQuizzesBadgeData(1));
+            //var t4 = m_QueueRepository.InsertMessageToTranactionAsync(new UploadItemsBadgeData(1));
+            //var t5 = m_QueueRepository.InsertMessageToTranactionAsync(new LikesBadgeData(1));
 
-            Task.WaitAll(t1, t2, t3, t4, t5);
+            //Task.WaitAll(t1, t2, t3, t4, t5);
             return;
             //var service = iocFactory.Resolve<IZboxWorkerRoleService>();
             //service.OneTimeDbi();

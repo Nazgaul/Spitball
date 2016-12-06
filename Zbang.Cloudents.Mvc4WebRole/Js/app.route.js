@@ -62,6 +62,7 @@
         $urlRouterProvider.when('/box/{universityType:encodeStr}/{boxId:int}/{boxName:encodeStr}/?{invId}', '/course/{universityType:encodeStr}/{boxId:int}/{boxName:encodeStr}/feed/?{invId}');
         $urlRouterProvider.when('/account/settings/', '/account/settings/info/');
         $urlRouterProvider.when('/user/{userId:int}/{userName:encodeStr}/', '/user/{userId:int}/{userName:encodeStr}/badges/');
+        //$urlRouterProvider.when('/user/{userId:int}/{userName:encodeStr}/badges/', '/user/{userId:int}/{userName:encodeStr}/badges/?type=level');
 
         //$urlRouterProvider.otherwise('/dashboard/');
     }

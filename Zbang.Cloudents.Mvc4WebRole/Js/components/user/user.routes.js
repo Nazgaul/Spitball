@@ -26,9 +26,10 @@ var app;
                     {
                         state: 'user.badge',
                         config: {
-                            url: 'badges/',
+                            url: 'badges/?{type:level|badge|community}',
                             controller: 'gamification as g',
-                            parent: 'user'
+                            parent: 'user',
+                            reloadOnSearch: false
                         },
                         templateUrl: "/user/badges/"
                     },

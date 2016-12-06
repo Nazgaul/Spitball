@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
@@ -17,7 +18,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             m_ZboxWriteService = zboxWriteService;
         }
 
-        public Task<bool> ExecuteAsync(Infrastructure.Transport.DomainProcess data, CancellationToken token)
+        public async Task<bool> ExecuteAsync(Infrastructure.Transport.DomainProcess data, CancellationToken token)
         {
             var parameters = data as BadgeData;
             if (parameters == null)
@@ -48,7 +49,29 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             }
             var command = new UpdateBadgesCommand(parameters.UserId, badge);
             m_ZboxWriteService.UpdateBadges(command);
-            return Infrastructure.Extensions.TaskExtensions.CompletedTaskTrue;
+            if (command.Progress == 100)
+            {
+                try
+                {
+                    //TODO: culture
+                    var proxy = await SignalrClient.GetProxyAsync();
+                    await proxy.Invoke("Badge", badge.GetEnumDescription(), parameters.UserId);
+                    //var blobName = parameters.BlobUri.Segments[parameters.BlobUri.Segments.Length - 1];
+                    //if (parameters.Users != null)
+                    //{
+                    //    await proxy.Invoke("UpdateImage", blobName, parameters.Users);
+                    //}
+                    //else
+                    //{
+                    //    TraceLog.WriteError($"users is null on {blobName}");
+                    //}
+                }
+                catch (Exception ex)
+                {
+                    TraceLog.WriteError("on signalr update image", ex);
+                }
+            }
+            return true;
         }
     }
 }

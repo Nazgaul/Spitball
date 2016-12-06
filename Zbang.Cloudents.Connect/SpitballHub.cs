@@ -59,6 +59,14 @@ namespace Zbang.Cloudents.Connect
             }
             Clients.Group($"box:{boxId}").updateThumbnail(itemId);
         }
+        public void Badge(string badge, long userId)
+        {
+            if (Context.User.Identity.IsAuthenticated)
+            {
+                return;
+            }
+            Clients.User(userId.ToString()).badge(badge);
+        }
 
 
         /// <summary>
@@ -91,7 +99,7 @@ namespace Zbang.Cloudents.Connect
             {
                 Groups.Add(Context.ConnectionId, $"box:{boxId}");
             }
-           
+
         }
         /// <summary>
         /// Api to disconnect user from signalr - use by mobile api

@@ -62,6 +62,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     throw new ArgumentOutOfRangeException();
             }
             CreateOrUpdateBadge(ref badge, message.BadgeType, user, progress);
+            message.Progress = badge.Progress;
             if (badge.Progress == 100)
             {
                 user.BadgeCount = user.Badges.Count(w => w.Progress == 100);
