@@ -61,11 +61,56 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create 5 quiz.
+        /// </summary>
+        public static string BadgeCreateQuizzesDescription {
+            get {
+                return ResourceManager.GetString("BadgeCreateQuizzesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Follow 3 Classes.
+        /// </summary>
+        public static string BadgeFollowClassDescription {
+            get {
+                return ResourceManager.GetString("BadgeFollowClassDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Like 50 posts or docs that you really think are of great value to unlock this badge.
+        /// </summary>
+        public static string BadgeLikesDescription {
+            get {
+                return ResourceManager.GetString("BadgeLikesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        public static string BadgeRegisterDescription {
+            get {
+                return ResourceManager.GetString("BadgeRegisterDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Badges.
         /// </summary>
         public static string Badges {
             get {
                 return ResourceManager.GetString("Badges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have one job: upload 15 documents to your class.
+        /// </summary>
+        public static string BadgeUploadFilesDescription {
+            get {
+                return ResourceManager.GetString("BadgeUploadFilesDescription", resourceCulture);
             }
         }
         
@@ -97,7 +142,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Welcome to a Spitball! Sure, you just started, but you have a promising career ahead of you. Work hard and you’ll be rewarded with wisdom, Spitball swag, and an abundance of points!.
+        ///   Looks up a localized string similar to Welcome to Spitball! Sure, you just started, but you have a promising career ahead of you. Work hard and you’ll be rewarded with wisdom, Spitball swag, and an abundance of points!.
         /// </summary>
         public static string Level1Description {
             get {
@@ -124,7 +169,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Other students in the class look up to you. There’s a reason your parents always told you that you were special!.
+        ///   Looks up a localized string similar to You’ve achieved far more than the average student – you will forever be known as a Spitball Scholar..
         /// </summary>
         public static string Level4Description {
             get {
@@ -133,7 +178,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You’ve achieved far more than the average student – you will forever be known as a Spitball Scholar.
+        ///   Looks up a localized string similar to Few have made it this far, and even fewer will make it further. Are you ready to teach other students the key to success?.
         /// </summary>
         public static string Level5Description {
             get {

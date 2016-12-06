@@ -1488,8 +1488,7 @@
     <TypeScriptCompile Include="Js\components\share\shareDialog.controller.ts" />
     <TypeScriptCompile Include="Js\components\uploadWrapper.controller.ts" />
     <TypeScriptCompile Include="Js\components\user\classmates.controller.ts" />
-    <TypeScriptCompile Include="Js\components\user\Gamification.controller.ts" />
-    <TypeScriptCompile Include="Js\components\user\gamificationDialog.controller.ts" />
+    <TypeScriptCompile Include="Js\components\user\gamification.controller.ts" />
     <TypeScriptCompile Include="Js\components\user\posts.controller.ts" />
     <TypeScriptCompile Include="Js\components\user\quizzes.controller.ts" />
     <TypeScriptCompile Include="Js\components\user\updates.service.ts" />

@@ -58,12 +58,12 @@
                 <div class="badge-container">
                     <md-icon md-svg-icon="p:checkmark" ng-if="g.badgeInfo.data.progress === 100"></md-icon>
                     <div class="image"></div>
-                    <div class="text">{{g.badgeInfo.data.name}}</div>
+                    <div class="text" ng-bind="g.badgeInfo.data.name"></div>
                     <div class="progress">
                         <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{g.badgeInfo.data.progress}}"></md-progress-linear>
                     </div>
                     <div class="details">
-                        <div class="condition">{{g.badgeInfo.data.condition}}</div>
+                        <div class="condition" ng-bind="g.badgeInfo.data.details"></div>
                         <div class="points">+{{g.badgeInfo.data.points}} pts</div>
                     </div>
                 </div>

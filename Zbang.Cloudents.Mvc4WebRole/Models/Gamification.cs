@@ -17,15 +17,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
 
     public class Badge
     {
-        public Badge(string name)
+        public Badge(string name, string details)
         {
             Name = name;
+            Details = details;
         }
 
         public string Name { get;private set; }
 
         public string Image { get; set; }
-        public string Details { get; set; }
+        public string Details { get; private set; }
         public int Points { get; set; }
     }
 

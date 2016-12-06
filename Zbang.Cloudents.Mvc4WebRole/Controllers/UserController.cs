@@ -264,13 +264,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var query = new QueryBaseUserId(id);
             var model = await ZboxReadService.UserBadgesAsync(query);
             var badges = new List<Badge>();
+            var resourceManger = new System.Resources.ResourceManager(typeof(GamificationResources));
             foreach (var value in Enum.GetValues(typeof(BadgeType)).Cast<BadgeType>())
             {
                 if (value == BadgeType.None)
                 {
                     continue;
                 }
-                badges.Add(new Badge(value.GetEnumDescription()));
+                badges.Add(new Badge(value.GetEnumDescription(), resourceManger.GetString($"Badge{value}Description")));
             }
 
             return JsonOk(new

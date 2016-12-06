@@ -127,19 +127,24 @@
     <value>Levels</value>
   </data>
   <data name="Level1Description" xml:space="preserve">
-    <value>Welcome to a Spitball! Sure, you just started, but you have a promising career ahead of you. Work hard and you’ll be rewarded with wisdom, Spitball swag, and an abundance of points!</value>
+    <value>Welcome to Spitball! Sure, you just started, but you have a promising career ahead of you. Work hard and you’ll be rewarded with wisdom, Spitball swag, and an abundance of points!</value>
+    <comment>Via Code</comment>
   </data>
   <data name="Level2Description" xml:space="preserve">
     <value>You’re no longer the new kid at school! Training wheels have been removed. There is still much to learn and achieve. Study on, young Sophomore!</value>
+    <comment>Via Code</comment>
   </data>
   <data name="Level3Description" xml:space="preserve">
     <value>It’s clear you know what you’re doing. Young Spitballers rely on you for wisdom and knowledge. Yet, a smart upperclassman knows there is still much to learn!</value>
+    <comment>Via Code</comment>
   </data>
   <data name="Level4Description" xml:space="preserve">
-    <value>Other students in the class look up to you. There’s a reason your parents always told you that you were special!</value>
+    <value>You’ve achieved far more than the average student – you will forever be known as a Spitball Scholar.</value>
+    <comment>Via Code</comment>
   </data>
   <data name="Level5Description" xml:space="preserve">
-    <value>You’ve achieved far more than the average student – you will forever be known as a Spitball Scholar</value>
+    <value>Few have made it this far, and even fewer will make it further. Are you ready to teach other students the key to success?</value>
+    <comment>Via Code</comment>
   </data>
   <data name="InfoText" xml:space="preserve">
     <value>Earn points and badges by contributing to your community through specific actions, and rise up through the levels to gain special privileges that control what you can do on Spitball.</value>
@@ -173,5 +178,20 @@
   </data>
   <data name="Points" xml:space="preserve">
     <value>pts</value>
+  </data>
+  <data name="BadgeCreateQuizzesDescription" xml:space="preserve">
+    <value>Create 5 quiz</value>
+  </data>
+  <data name="BadgeFollowClassDescription" xml:space="preserve">
+    <value>Follow 3 Classes</value>
+  </data>
+  <data name="BadgeLikesDescription" xml:space="preserve">
+    <value>Like 50 posts or docs that you really think are of great value to unlock this badge</value>
+  </data>
+  <data name="BadgeRegisterDescription" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="BadgeUploadFilesDescription" xml:space="preserve">
+    <value>You have one job: upload 15 documents to your class</value>
   </data>
 </root>
