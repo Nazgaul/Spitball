@@ -1,11 +1,12 @@
 ﻿module app {
 
     class Gamification {
-        static $inject = ["$state", "$scope", "userService"];
+        static $inject = ["$state", "$scope", "userService", "$anchorScroll"];
         levels;
         doneLevel = false;
         badges;
         badgeInfo;
+        leaderboard;
 
         //badgesState = {
         //    levels: 'l',
@@ -15,7 +16,8 @@
         //badgesTab = this.badgesState.levels;
         constructor(private $state: angular.ui.IStateService,
             private $scope: angular.IScope,
-            private userService: IUserService) {
+            private userService: IUserService,
+            private $anchorScroll: angular.IAnchorScrollService) {
             $scope["$state"] = this.$state;
             if (!$state.params["type"]) {
                 this.$state.go($state.current.name, { type: "level" });
@@ -28,6 +30,9 @@
                     }
                     if (newVal === "badge") {
                         this.badgeTab();
+                    }
+                    if (newVal === "community") {
+                        this.communityTab();
                     }
                 });
 
@@ -78,6 +83,20 @@
                             }
                         });
                 });
+        }
+        private communityTab() {
+            if (this.leaderboard) {
+                return;
+
+            }
+            this.userService.leaderboard(this.$state.params["userId"])
+                .then(response => {
+                    this.leaderboard = response;
+                    console.log(response);
+                });
+        }
+        goToSelf() {
+            this.$anchorScroll("user_" + this.$state.params["userId"]);
         }
         showBadge(badge) {
             if (!badge) {

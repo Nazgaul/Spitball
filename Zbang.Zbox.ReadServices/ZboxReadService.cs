@@ -1237,6 +1237,13 @@ and f.isdeleted = 0";
                 return await conn.QueryAsync<User.BadgeDto>(Sql.User.Badge, query);
             }
         }
+        public async Task<IEnumerable<LeaderBoardDto>> UserLeaderboardAsync(QueryBaseUserId query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return await conn.QueryAsync<LeaderBoardDto>(Sql.User.LeaderBoard, query);
+            }
+        }
         #endregion
     }
 }

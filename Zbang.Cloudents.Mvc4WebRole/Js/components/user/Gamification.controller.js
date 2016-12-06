@@ -1,11 +1,12 @@
 var app;
 (function (app) {
     var Gamification = (function () {
-        function Gamification($state, $scope, userService) {
+        function Gamification($state, $scope, userService, $anchorScroll) {
             var _this = this;
             this.$state = $state;
             this.$scope = $scope;
             this.userService = userService;
+            this.$anchorScroll = $anchorScroll;
             this.doneLevel = false;
             $scope["$state"] = this.$state;
             if (!$state.params["type"]) {
@@ -17,6 +18,9 @@ var app;
                 }
                 if (newVal === "badge") {
                     _this.badgeTab();
+                }
+                if (newVal === "community") {
+                    _this.communityTab();
                 }
             });
         }
@@ -62,6 +66,20 @@ var app;
                 });
             });
         };
+        Gamification.prototype.communityTab = function () {
+            var _this = this;
+            if (this.leaderboard) {
+                return;
+            }
+            this.userService.leaderboard(this.$state.params["userId"])
+                .then(function (response) {
+                _this.leaderboard = response;
+                console.log(response);
+            });
+        };
+        Gamification.prototype.goToSelf = function () {
+            this.$anchorScroll("user_" + this.$state.params["userId"]);
+        };
         Gamification.prototype.showBadge = function (badge) {
             if (!badge) {
                 return;
@@ -73,7 +91,7 @@ var app;
                 prev: this.badges[badgeIndex - 1]
             };
         };
-        Gamification.$inject = ["$state", "$scope", "userService"];
+        Gamification.$inject = ["$state", "$scope", "userService", "$anchorScroll"];
         return Gamification;
     }());
     angular.module("app.user").controller("gamification", Gamification);

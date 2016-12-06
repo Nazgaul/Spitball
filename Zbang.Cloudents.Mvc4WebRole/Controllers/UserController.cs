@@ -14,6 +14,7 @@ using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
+using Zbang.Zbox.ViewModel.Queries.Dashboard;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -279,6 +280,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 model,
                 badges
             });
+        }
+
+        [HttpGet, ActionName("leaderboard")]
+        public async Task<JsonResult> LeaderboardAsync(long userid)
+        {
+            var query = new QueryBaseUserId(userid);
+            var model = await ZboxReadService.UserLeaderboardAsync(query);
+            return JsonOk(model);
         }
 
 

@@ -151,6 +151,7 @@ namespace Zbang.Zbox.ReadServices
         Task<LevelDto> UserLevelsAsync(QueryBaseUserId query);
 
         Task<IEnumerable<BadgeDto>> UserBadgesAsync(QueryBaseUserId query);
+        Task<IEnumerable<LeaderBoardDto>> UserLeaderboardAsync(QueryBaseUserId query);
 
         #endregion
 

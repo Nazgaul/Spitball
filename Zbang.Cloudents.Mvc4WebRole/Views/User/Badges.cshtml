@@ -23,17 +23,17 @@
             <ul>
                 @foreach (var level in Model.Levels)
                 {
-                    <li class="level">
-                        <div class="title">
-                            <div class="image"></div>
-                            <div class="name">@level.Name</div>
-                        </div>
-                        <div class="body">
-                            @level.Description
-                            @{ string progress = "g.levels.l" + level.Index + ".progress"; }
-                            <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="{{@progress}}"></md-progress-linear>
-                        </div>
-                    </li>
+                <li class="level">
+                    <div class="title">
+                        <div class="image"></div>
+                        <div class="name">@level.Name</div>
+                    </div>
+                    <div class="body">
+                        @level.Description
+                        @{ string progress = "g.levels.l" + level.Index + ".progress"; }
+                        <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="{{@progress}}"></md-progress-linear>
+                    </div>
+                </li>
                 }
 
             </ul>
@@ -92,20 +92,21 @@
                         </md-input-container>
                     </div>
                     <div class="filter-wrapper" flex-lg="20" flex-md="25" flex-gt-lg="20" flex-xs="50" flex-sm="25">
-                        <button type="button" class="action-btn">Show Myself</button>
+                        <button type="button" ng-click="g.goToSelf()" class="action-btn">Show Myself</button>
                     </div>
                 </div>
                 <div class="users" layout="row" layout-padding layout-wrap>
-                    <div class="user" flex-lg="20" flex-md="25" flex-gt-lg="20" flex-xs="50" flex-sm="25" ng-repeat="user in g.communityUsers | orderBy : '-points'" ng-class="{'top-user' : $index < 5}">
+                    <a ng-attr-id="{{'user_' + user.id}}" ui-sref="user({userId:user.id,userName:user.name})" class="user" flex-lg="20" flex-md="25" flex-gt-lg="20" flex-xs="50" flex-sm="25" ng-repeat="user in ::g.leaderboard track by user.id" ng-class="{'top-user' : $index < 5}">
                         <div class="user-data">
                             <div class="img-wrapper">
-                                <img ng-src="{{user.image}}" />
-                                <div class="rank">{{$index+1}}</div>
+                                <user-image class="img-responsive" name="user.name" image="user.image" width="125" height="125"></user-image>
+                                @*<img alt="logo" ng-src="{{::user.image}}" />*@
+                                <div class="rank" ng-bind="::$index+1"></div>
                             </div>
-                            <div class="name ellipsis">{{user.name}}</div>
-                            <div class="points">{{user.points}}</div>
+                            <div class="name ellipsis" ng-bind="::user.name"></div>
+                            <div class="points" ng-bind="::user.score"></div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>

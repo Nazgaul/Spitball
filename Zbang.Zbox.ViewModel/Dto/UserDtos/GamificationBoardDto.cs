@@ -29,8 +29,7 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
         public string Badge { get; private set; }
 
         public int Progress { get;private set; }
-
-
-
     }
+
+  
 }

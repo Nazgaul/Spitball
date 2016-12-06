@@ -404,6 +404,11 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.UserBadgesAsync(query);
         }
 
+        public Task<IEnumerable<LeaderBoardDto>> UserLeaderboardAsync(QueryBaseUserId query)
+        {
+            return m_ReadService.UserLeaderboardAsync(query);
+        }
+
         public Task<QuizSolversWithCountDto> GetQuizSolversAsync(GetQuizBestSolvers query)
         {
             return m_ReadService.GetQuizSolversAsync(query);
