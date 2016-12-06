@@ -58,13 +58,18 @@
 
     .points-container {
         text-align: center;
-        margin-top: 7px;
-        background: @backgroundColorSpitballBlue;
-        color: @textColorWhite;
+        margin: 16px 0;
+        background: @gamificationYellow;
+        color: @textColorBlack;
+
+        #points {
+            font-weight: bold;
+            color: @textColorWhite;
+        }
     }
 
     h5 {
-        font-size: 16px;
+        font-size: 12px;
         margin: 0;
         padding: 3px 0 12px 0;
     }
@@ -75,7 +80,61 @@
         padding: 10px 0 0 0;
     }
 
-    .points-awards {
+    .points-info {
+        background: @textColorWhite;
+        padding-bottom: 10px;
+
+        h1 {
+            background: @headerbackground;
+            color: @textColorWhite;
+            font-size: 20px;
+            text-align: center;
+            padding: 8px 0;
+            margin: 0 0 10px 0;
+        }
+
+        table {
+            width: 100%;
+            text-align: center;
+
+            th {
+                vertical-align: top;
+                text-align: left;
+                padding-left: 10px;
+                font-size: 14px;
+                color: @buttonColorBlue;
+                //max-width: 50px;
+                width: 1%;
+            }
+
+            tr td:nth-last-child(1) {
+                padding-right: 20px;
+                width: 1%;
+            }
+
+            .odd, .even {
+                th, tr:nth-child(1) td {
+                    padding-top: 10px;
+                }
+
+                th, tr:nth-last-child(1) td {
+                    padding-bottom: 10px;
+                }
+            }
+
+
+            tbody {
+                &.odd {
+                    background: #d1e1e9;
+                }
+
+                tr {
+                    line-height: 22px;
+                }
+            }
+        }
+    }
+    /*.points-awards {
         margin-top: 18px;
         line-height: 18px;
         padding-left: 13px;
@@ -95,7 +154,7 @@
             margin-top: 2px;
             margin-bottom: 20px;
         }
-    }
+    }*/
     // svg {
     //     width: 17px;
     //     height: 17px;
@@ -124,7 +183,7 @@
     }
 
     md-tabs-canvas, md-pagination-wrapper {
-        height: 54px;
+        height: 70px;
     }
 
     .badges-tabs {
@@ -141,20 +200,17 @@
         }
     }
     //.tab-content {
-    margin: 0 -8px;
     //bottom: 0;
     .custom-progress-bar {
         .custom-progress-bar(@gamificationYellow,@backgroundCalmGrey,10px,5px);
     }
 
     .badges {
-        background: @textColorLightWhite;
         margin-top: -10px;
 
         .badges-bar {
             .displayFlex;
             .align-items(center);
-            background: @textColorLightWhite;
         }
 
         .info {
@@ -177,6 +233,7 @@
         }
 
         md-tab-item {
+            color: #0d3a52;
 
             @media(min-width: 600px) {
                 min-width: 33%;
@@ -703,9 +760,33 @@
             animation: none !important;
         }
 
+        > md-tabs-wrapper {
+            md-ink-bar {
+                display: block;
+
+                &:after {
+                    content: '';
+                    display: block;
+                    width: 0;
+                    height: 0;
+                    border-left: 12px solid transparent;
+                    border-right: 12px solid transparent;
+                    border-bottom: 12px solid @textColorLightWhite;
+                    position: absolute;
+                    left: ~"calc(50% - 12px)";
+                    bottom: 0;
+                }
+            }
+        }
+
         md-tab-item {
-            padding: 0 10px;
-            margin: 5px 10px;
+            padding: 0 10px 12px 10px;
+            margin: 7px 10px;
+
+            &.md-active:after {
+                content: '';
+                display: block;
+            }
 
             .number {
                 font-size: 18px;
@@ -732,14 +813,47 @@
         padding: 0; //override
     }
 
-    .posts {
-        margin-bottom: 20px;
+    .post {
+    }
+
+    .post-data {
         .displayFlex();
         .align-items(center);
         color: @textColorBlack;
+        background: @backgroundCalmGrey;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+        padding: 10px;
 
         > div {
             width: 100%;
+        }
+
+        .top {
+            .displayFlex();
+            .align-items(flex-start);
+            .justifyContet(space-between);
+            margin-bottom: 14px;
+
+            .name {
+                .displayFlex();
+                .align-items(center);
+                .justifyContet(flex-start);
+
+                .box-letters {
+                    color: @textColorWhite;
+                    width: 40px;
+                    height: 40px;
+                    line-height: 40px;
+                    font-size: 22px;
+                    text-transform: capitalize;
+                    text-align: center;
+                    margin-right: 10px;
+                }
+
+                .post-headline {
+                    text-transform: capitalize;
+                }
+            }
         }
 
         .post-headline {
@@ -747,15 +861,8 @@
             font-size: 18px;
         }
 
-        .post-content {
-            width: 70%;
-            display: inline-block;
-        }
-
         .time-ago {
             font-size: 11px;
-            flex-basis: 200px;
-            text-align: right;
             color: @textColorGrey;
         }
     }
@@ -767,12 +874,21 @@
 
         .portlet.light {
             margin: 0 12px;
-            background: none;
+            background: @textColorLightWhite;
             max-width: 1000px;
+            min-height: 500px;
         }
 
         .user-box {
             min-width: 300px;
+        }
+
+        .files {
+            .file {
+                @media(min-width: 600px) {
+                    padding: 20px;
+                }
+            }
         }
     }
 
