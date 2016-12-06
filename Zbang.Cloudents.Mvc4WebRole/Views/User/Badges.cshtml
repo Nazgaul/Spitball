@@ -6,19 +6,19 @@
             <md-icon md-svg-icon="p:q-mark" class="" ng-click="g.showInfo()"></md-icon>
         </div>
         <md-tabs class="badges-tabs" md-dynamic-height="true">
-            <md-tab ui-sref="user.badge({type:level})" md-active="g.badgesTab === g.badgesState.levels">
+            <md-tab ui-sref="user.badge({type:'level'})" md-active="g.isActive('level')">
                 <md-tab-label><h4>@GamificationResources.Levels</h4></md-tab-label>
             </md-tab>
-            <md-tab ui-sref="user.badge({type:badge})" md-active="g.badgesTab === g.badgesState.badges">
+            <md-tab ui-sref="user.badge({type:'badge'})" md-active="g.isActive('badge')">
                 <md-tab-label><h4>@GamificationResources.Badges</h4></md-tab-label>
             </md-tab>
-            <md-tab ui-sref="user.badge({type:community})" md-active="g.badgesTab === g.badgesState.community">
+            <md-tab ui-sref="user.badge({type:'community'})" md-active="g.isActive('community')">
                 <md-tab-label><h4>@GamificationResources.Community</h4></md-tab-label>
             </md-tab>
         </md-tabs>
     </div>
-    <div class="badges-tab-content" ng-switch on="g.badgesTab">
-        <div ng-switch-when="l" class="tab levels">
+    <div class="badges-tab-content" ng-switch="$state.params['type']">
+        <div ng-switch-when="level" class="tab levels">
             <md-icon md-svg-icon="p:stars" class="bg"></md-icon>
             <ul>
                 <li class="level">
@@ -67,7 +67,7 @@
                 </li>
             </ul>
         </div>
-        <div ng-switch-when="b" class="tab badges">
+        <div ng-switch-when="badge" class="tab badges">
             <div class="badges-container" ng-if="!g.badgeInfo" layout="row" layout-padding layout-wrap>
                 <div class="wrapper" flex-lg="20" flex-md="25" flex-gt-lg="20" flex-xs="50" flex-sm="25" ng-repeat="badge in g.badges">
                     <div class="badge-container" ng-click="g.showBadge(badge)">
@@ -102,7 +102,7 @@
                 <md-icon class="close" md-svg-icon="t:close" ng-click="g.badgeInfo=false"></md-icon>
             </div>
         </div>
-        <div ng-switch-when="c" class="tab community">
+        <div ng-switch-when="community" class="tab community">
             <div class="top">
                 <div class="bg-l"></div>
                 <div class="bg-r"></div>

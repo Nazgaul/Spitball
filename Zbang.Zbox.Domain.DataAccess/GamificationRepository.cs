@@ -68,24 +68,23 @@ from quiz,item,answers,question,rate,invite,share
 @replyLike int = :replyLike;
 with itemScore as 
 (
-	select sum(coalesce(i.LikeCount,0))*@itemLikePoints + sum(coalesce(i.NumberOfViews,0)) * @itemView + sum(coalesce(i.NumberOfDownloads,0)) * @itemDownload as score  from zbox.item i where i.UserId  = @userid and isdeleted = 0
+	select coalesce(sum(i.LikeCount),0)*@itemLikePoints + coalesce(sum(i.NumberOfViews),0) * @itemView + coalesce(sum(i.NumberOfDownloads),0) * @itemDownload as score  from zbox.item i where i.UserId  = @userid and isdeleted = 0
 ),
 quizScore as 
 (
-	select sum(coalesce(q.NumberOfViews,0))*@quizView as score from zbox.Quiz q where q.Publish = 1 and q.IsDeleted = 0 and q.UserId = @userid
+	select coalesce(sum(q.NumberOfViews),0)*@quizView as score from zbox.Quiz q where q.Publish = 1 and q.IsDeleted = 0 and q.UserId = @userid
 ),
 flashcardScore as 
 (
-	select sum(coalesce(f.NumberOfViews,0))*@flashcardView + sum(coalesce(f.LikeCount,0)) * @flashcardLike as score from zbox.Flashcard f where f.IsDeleted = 0 and f.UserId = @userid
+	select coalesce(sum(f.NumberOfViews),0)*@flashcardView + coalesce(sum(f.LikeCount),0) * @flashcardLike as score from zbox.Flashcard f where f.IsDeleted = 0 and f.UserId = @userid
 ),
 commentScore as (
-	select sum(coalesce(q.likecount,0))*@commentLike as  score from Zbox.Question q where q.UserId = @userid
+	select coalesce(sum(q.likecount),0)*@commentLike as  score from Zbox.Question q where q.UserId = @userid
 ),
 replyScore as (
-	select sum(coalesce(a.likecount,0))*@commentLike as score from Zbox.Answer a where a.UserId = @userid
+	select coalesce(sum(a.likecount),0)*@replyLike as score from Zbox.Answer a where a.UserId = @userid
 )
 select i.score + q.score +f.score + c.score + r.score from itemScore i ,quizScore q,flashcardScore f,commentScore c,replyScore r
-
 ");
             sqlQuery.SetInt64("userId", userId);
             sqlQuery.SetInt64("itemLikePoints", ReputationConst.ItemLike);

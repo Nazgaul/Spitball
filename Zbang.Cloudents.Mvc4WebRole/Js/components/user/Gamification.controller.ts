@@ -1,31 +1,35 @@
 ﻿module app {
 
     class Gamification {
-        static $inject = ["$state"];
+        static $inject = ["$state","$scope"];
         badgesState = {
             levels: 'l',
             badges: 'b',
             community: 'c'
         }
         badgesTab = this.badgesState.levels;
-        constructor(private $state: angular.ui.IStateService) {
+        constructor(private $state: angular.ui.IStateService, private $scope: angular.IScope) {
             if (!$state.params["type"]) {
                 this.$state.go($state.current.name, { type: "level" });
             }
+            $scope["$state"] = this.$state;
 
         }
-
-        changeBadgesTab(tab) {
-            this.badgesTab = tab;
-            switch (this.badgesTab) {
-                case this.badgesState.levels:
-                    break;
-                case this.badgesState.badges:
-                    break;
-                case this.badgesState.community:
-                    break;
-            }
+        isActive(state) {
+            return this.$state.params["type"] === state;
         }
+
+        //changeBadgesTab(tab) {
+        //    this.badgesTab = tab;
+        //    switch (this.badgesTab) {
+        //        case this.badgesState.levels:
+        //            break;
+        //        case this.badgesState.badges:
+        //            break;
+        //        case this.badgesState.community:
+        //            break;
+        //    }
+        //}
 
         badges = [
             {
