@@ -29,6 +29,9 @@ var app;
         UserService.prototype.gamificationBoard = function () {
             return this.ajaxService2.get("/user/gamificationboard");
         };
+        UserService.prototype.levels = function (userid) {
+            return this.ajaxService2.get("/user/levels");
+        };
         UserService.$inject = ['ajaxService2'];
         return UserService;
     }());

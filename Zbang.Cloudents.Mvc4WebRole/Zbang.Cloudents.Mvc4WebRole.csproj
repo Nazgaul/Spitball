@@ -426,6 +426,7 @@
     <Compile Include="Models\CreateLibraryItem.cs" />
     <Compile Include="Models\CreateUniversity.cs" />
     <Compile Include="Models\Flashcard.cs" />
+    <Compile Include="Models\Gamification.cs" />
     <Compile Include="Models\InsertUser.cs" />
     <Compile Include="Models\ItemPreview.cs" />
     <Compile Include="Models\JavaScriptError.cs" />

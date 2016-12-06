@@ -1,15 +1,12 @@
 var app;
 (function (app) {
     var Gamification = (function () {
-        function Gamification($state, $scope) {
+        function Gamification($state, $scope, userService) {
+            var _this = this;
             this.$state = $state;
             this.$scope = $scope;
-            this.badgesState = {
-                levels: 'l',
-                badges: 'b',
-                community: 'c'
-            };
-            this.badgesTab = this.badgesState.levels;
+            this.userService = userService;
+            this.doneLevel = false;
             this.badges = [
                 {
                     name: 'Spitballer',
@@ -155,15 +152,40 @@ var app;
                     image: "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/f2338ed9-d5be-4d39-8fca-2896ef836ef6.jpg",
                     points: 800000
                 }];
+            $scope["$state"] = this.$state;
             if (!$state.params["type"]) {
                 this.$state.go($state.current.name, { type: "level" });
             }
-            $scope["$state"] = this.$state;
+            $scope.$watch(function () { return $state.params["type"]; }, function (newVal, oldVal) {
+                console.log(newVal, oldVal);
+                if (newVal === "level") {
+                    _this.levelTab();
+                }
+            });
         }
         Gamification.prototype.isActive = function (state) {
             return this.$state.params["type"] === state;
         };
-        Gamification.$inject = ["$state", "$scope"];
+        Gamification.prototype.levelTab = function () {
+            var _this = this;
+            if (this.doneLevel) {
+                return;
+            }
+            this.levels = {};
+            this.userService.levels(this.$state.params["userId"])
+                .then(function (response) {
+                var i;
+                for (i = 0; i < response.number; i++) {
+                    _this.levels["l" + i] = { progress: 100 };
+                }
+                _this.levels["l" + response.number] = { progress: response.score / response.nextLevel * 100 };
+                for (i = response.number + 1; i < 5; i++) {
+                    _this.levels["l" + i] = { progress: 0 };
+                }
+                _this.doneLevel = true;
+            });
+        };
+        Gamification.$inject = ["$state", "$scope", "userService"];
         return Gamification;
     }());
     angular.module("app.user").controller("gamification", Gamification);

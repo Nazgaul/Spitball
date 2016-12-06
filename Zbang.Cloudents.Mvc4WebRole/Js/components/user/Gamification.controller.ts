@@ -1,22 +1,57 @@
 ﻿module app {
 
     class Gamification {
-        static $inject = ["$state","$scope"];
-        badgesState = {
-            levels: 'l',
-            badges: 'b',
-            community: 'c'
-        }
-        badgesTab = this.badgesState.levels;
-        constructor(private $state: angular.ui.IStateService, private $scope: angular.IScope) {
+        static $inject = ["$state", "$scope", "userService"];
+        levels;
+        doneLevel = false;
+        //badgesState = {
+        //    levels: 'l',
+        //    badges: 'b',
+        //    community: 'c'
+        //}
+        //badgesTab = this.badgesState.levels;
+        constructor(private $state: angular.ui.IStateService,
+            private $scope: angular.IScope,
+            private userService: IUserService) {
+            $scope["$state"] = this.$state;
             if (!$state.params["type"]) {
                 this.$state.go($state.current.name, { type: "level" });
             }
-            $scope["$state"] = this.$state;
+            $scope.$watch(() => { return $state.params["type"] },
+                (newVal, oldVal) => {
+                    console.log(newVal, oldVal);
+                    if (newVal === "level") {
+                        this.levelTab();
+                    }
+                });
+
+
+
 
         }
         isActive(state) {
             return this.$state.params["type"] === state;
+        }
+        //level1;
+        private levelTab() {
+            if (this.doneLevel) {
+                return;
+            }
+            this.levels = {};
+            this.userService.levels(this.$state.params["userId"])
+                .then(response => {
+                    var i: number;
+                    //var progress = { progress: 0 }
+                    for (i = 0; i < response.number; i++) {
+                        this.levels["l" + i] = { progress: 100 };
+                    }
+                    this.levels["l" + response.number] = { progress: response.score / response.nextLevel * 100 };
+                    for (i = response.number + 1; i < 5; i++) {
+                        this.levels["l" + i] = { progress: 0 };
+                    }
+                    this.doneLevel = true;
+                    // this.levels = response;
+                });
         }
 
         //changeBadgesTab(tab) {

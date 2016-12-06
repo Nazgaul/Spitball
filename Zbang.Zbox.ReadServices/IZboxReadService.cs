@@ -148,11 +148,12 @@ namespace Zbang.Zbox.ReadServices
         #region Gamification
 
         Task<GamificationBoardDto> GamificationBoardAsync(QueryBaseUserId query);
+        Task<LevelDto> UserLevelsAsync(QueryBaseUserId query);
 
         #endregion
 
 
-       
+
 
     }
 }

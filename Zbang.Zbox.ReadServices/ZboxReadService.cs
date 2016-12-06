@@ -1222,6 +1222,14 @@ and f.isdeleted = 0";
                 return await conn.QueryFirstAsync<User.GamificationBoardDto>(Sql.User.GamificationBoard, query);
             }
         }
+
+        public async Task<User.LevelDto> UserLevelsAsync(QueryBaseUserId query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return await conn.QueryFirstAsync<User.LevelDto>(Sql.User.Level, query);
+            }
+        }
         #endregion
     }
 }

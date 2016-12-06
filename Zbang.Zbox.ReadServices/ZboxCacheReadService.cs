@@ -394,6 +394,10 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GamificationBoardAsync(query);
         }
+        public Task<LevelDto> UserLevelsAsync(QueryBaseUserId query)
+        {
+            return m_ReadService.UserLevelsAsync(query);
+        }
 
         public Task<QuizSolversWithCountDto> GetQuizSolversAsync(GetQuizBestSolvers query)
         {
