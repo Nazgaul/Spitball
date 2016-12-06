@@ -126,53 +126,25 @@
   <data name="Levels" xml:space="preserve">
     <value>Levels</value>
   </data>
-  <data name="LevelFreshmanTitle" xml:space="preserve">
-    <value>Freshman</value>
-  </data>
-  <data name="LevelSophomoreTitle" xml:space="preserve">
-    <value>Sophomore</value>
-  </data>
-  <data name="LevelUpperclassmanTitle" xml:space="preserve">
-    <value>Upperclassman</value>
-  </data>
-  <data name="LevelStraightAStudentTitle" xml:space="preserve">
-    <value>Straight A Student</value>
-  </data>
-  <data name="LevelScholarTitle" xml:space="preserve">
-    <value>Scholar</value>
-  </data>
-  <data name="LevelProfessorTitle" xml:space="preserve">
-    <value>Professor</value>
-  </data>
-  <data name="LevelPhDTitle" xml:space="preserve">
-    <value>PhD</value>
-  </data>
-  <data name="LevelEinsteinTitle" xml:space="preserve">
-    <value>Einstein</value>
-  </data>
-  <data name="LevelFreshmanBody" xml:space="preserve">
+  <data name="Level1Description" xml:space="preserve">
     <value>Welcome to Spitball! Sure, you just started, but you have a promising career ahead of you. Work hard and you’ll be rewarded with wisdom, Spitball swag, and an abundance of points!</value>
+    <comment>Via Code</comment>
   </data>
-  <data name="LevelSophomoreBody" xml:space="preserve">
+  <data name="Level2Description" xml:space="preserve">
     <value>You’re no longer the new kid at school! Training wheels have been removed. There is still much to learn and achieve. Study on, young Sophomore!</value>
+    <comment>Via Code</comment>
   </data>
-  <data name="LevelUpperclassmanBody" xml:space="preserve">
+  <data name="Level3Description" xml:space="preserve">
     <value>It’s clear you know what you’re doing. Young Spitballers rely on you for wisdom and knowledge. Yet, a smart upperclassman knows there is still much to learn!</value>
+    <comment>Via Code</comment>
   </data>
-  <data name="LevelStraightAStudentBody" xml:space="preserve">
-    <value>Other students in the class look up to you. There’s a reason your parents always told you that you were special!</value>
+  <data name="Level4Description" xml:space="preserve">
+    <value>You’ve achieved far more than the average student – you will forever be known as a Spitball Scholar.</value>
+    <comment>Via Code</comment>
   </data>
-  <data name="LevelScholarBody" xml:space="preserve">
-    <value>You’ve achieved far more than the average student – you will forever be known as a Spitball Scholar</value>
-  </data>
-  <data name="LevelProfessorBody" xml:space="preserve">
+  <data name="Level5Description" xml:space="preserve">
     <value>Few have made it this far, and even fewer will make it further. Are you ready to teach other students the key to success?</value>
-  </data>
-  <data name="LevelPhDBody" xml:space="preserve">
-    <value>Anotha One! You’re now official, with a PhD in Spitballing from the School of Hard Knocks. Go get ‘em doc.</value>
-  </data>
-  <data name="LevelEinsteinBody" xml:space="preserve">
-    <value>People will forever remember your name. You are a Spitballing legend. You’ll receive a t-shirt exclusive for “Einstein” level Spitballers. (we should also mark their accounts with a little Einstein insignia or something)</value>
+    <comment>Via Code</comment>
   </data>
   <data name="InfoText" xml:space="preserve">
     <value>Earn points and badges by contributing to your community through specific actions, and rise up through the levels to gain special privileges that control what you can do on Spitball.</value>
@@ -206,5 +178,20 @@
   </data>
   <data name="Points" xml:space="preserve">
     <value>pts</value>
+  </data>
+  <data name="BadgeCreateQuizzesDescription" xml:space="preserve">
+    <value>Create 5 quiz</value>
+  </data>
+  <data name="BadgeFollowClassDescription" xml:space="preserve">
+    <value>Follow 3 Classes</value>
+  </data>
+  <data name="BadgeLikesDescription" xml:space="preserve">
+    <value>Like 50 posts or docs that you really think are of great value to unlock this badge</value>
+  </data>
+  <data name="BadgeRegisterDescription" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="BadgeUploadFilesDescription" xml:space="preserve">
+    <value>You have one job: upload 15 documents to your class</value>
   </data>
 </root>

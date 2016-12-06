@@ -61,11 +61,56 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create 5 quiz.
+        /// </summary>
+        public static string BadgeCreateQuizzesDescription {
+            get {
+                return ResourceManager.GetString("BadgeCreateQuizzesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Follow 3 Classes.
+        /// </summary>
+        public static string BadgeFollowClassDescription {
+            get {
+                return ResourceManager.GetString("BadgeFollowClassDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Like 50 posts or docs that you really think are of great value to unlock this badge.
+        /// </summary>
+        public static string BadgeLikesDescription {
+            get {
+                return ResourceManager.GetString("BadgeLikesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        public static string BadgeRegisterDescription {
+            get {
+                return ResourceManager.GetString("BadgeRegisterDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Badges.
         /// </summary>
         public static string Badges {
             get {
                 return ResourceManager.GetString("Badges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have one job: upload 15 documents to your class.
+        /// </summary>
+        public static string BadgeUploadFilesDescription {
+            get {
+                return ResourceManager.GetString("BadgeUploadFilesDescription", resourceCulture);
             }
         }
         
@@ -97,74 +142,47 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to People will forever remember your name. You are a Spitballing legend. You’ll receive a t-shirt exclusive for “Einstein” level Spitballers. (we should also mark their accounts with a little Einstein insignia or something).
-        /// </summary>
-        public static string LevelEinsteinBody {
-            get {
-                return ResourceManager.GetString("LevelEinsteinBody", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Einstein.
-        /// </summary>
-        public static string LevelEinsteinTitle {
-            get {
-                return ResourceManager.GetString("LevelEinsteinTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Welcome to Spitball! Sure, you just started, but you have a promising career ahead of you. Work hard and you’ll be rewarded with wisdom, Spitball swag, and an abundance of points!.
         /// </summary>
-        public static string LevelFreshmanBody {
+        public static string Level1Description {
             get {
-                return ResourceManager.GetString("LevelFreshmanBody", resourceCulture);
+                return ResourceManager.GetString("Level1Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Freshman.
+        ///   Looks up a localized string similar to You’re no longer the new kid at school! Training wheels have been removed. There is still much to learn and achieve. Study on, young Sophomore!.
         /// </summary>
-        public static string LevelFreshmanTitle {
+        public static string Level2Description {
             get {
-                return ResourceManager.GetString("LevelFreshmanTitle", resourceCulture);
+                return ResourceManager.GetString("Level2Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Anotha One! You’re now official, with a PhD in Spitballing from the School of Hard Knocks. Go get ‘em doc..
+        ///   Looks up a localized string similar to It’s clear you know what you’re doing. Young Spitballers rely on you for wisdom and knowledge. Yet, a smart upperclassman knows there is still much to learn!.
         /// </summary>
-        public static string LevelPhDBody {
+        public static string Level3Description {
             get {
-                return ResourceManager.GetString("LevelPhDBody", resourceCulture);
+                return ResourceManager.GetString("Level3Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PhD.
+        ///   Looks up a localized string similar to You’ve achieved far more than the average student – you will forever be known as a Spitball Scholar..
         /// </summary>
-        public static string LevelPhDTitle {
+        public static string Level4Description {
             get {
-                return ResourceManager.GetString("LevelPhDTitle", resourceCulture);
+                return ResourceManager.GetString("Level4Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Few have made it this far, and even fewer will make it further. Are you ready to teach other students the key to success?.
         /// </summary>
-        public static string LevelProfessorBody {
+        public static string Level5Description {
             get {
-                return ResourceManager.GetString("LevelProfessorBody", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Professor.
-        /// </summary>
-        public static string LevelProfessorTitle {
-            get {
-                return ResourceManager.GetString("LevelProfessorTitle", resourceCulture);
+                return ResourceManager.GetString("Level5Description", resourceCulture);
             }
         }
         
@@ -174,78 +192,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         public static string Levels {
             get {
                 return ResourceManager.GetString("Levels", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You’ve achieved far more than the average student – you will forever be known as a Spitball Scholar.
-        /// </summary>
-        public static string LevelScholarBody {
-            get {
-                return ResourceManager.GetString("LevelScholarBody", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scholar.
-        /// </summary>
-        public static string LevelScholarTitle {
-            get {
-                return ResourceManager.GetString("LevelScholarTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You’re no longer the new kid at school! Training wheels have been removed. There is still much to learn and achieve. Study on, young Sophomore!.
-        /// </summary>
-        public static string LevelSophomoreBody {
-            get {
-                return ResourceManager.GetString("LevelSophomoreBody", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sophomore.
-        /// </summary>
-        public static string LevelSophomoreTitle {
-            get {
-                return ResourceManager.GetString("LevelSophomoreTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Other students in the class look up to you. There’s a reason your parents always told you that you were special!.
-        /// </summary>
-        public static string LevelStraightAStudentBody {
-            get {
-                return ResourceManager.GetString("LevelStraightAStudentBody", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Straight A Student.
-        /// </summary>
-        public static string LevelStraightAStudentTitle {
-            get {
-                return ResourceManager.GetString("LevelStraightAStudentTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to It’s clear you know what you’re doing. Young Spitballers rely on you for wisdom and knowledge. Yet, a smart upperclassman knows there is still much to learn!.
-        /// </summary>
-        public static string LevelUpperclassmanBody {
-            get {
-                return ResourceManager.GetString("LevelUpperclassmanBody", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Upperclassman.
-        /// </summary>
-        public static string LevelUpperclassmanTitle {
-            get {
-                return ResourceManager.GetString("LevelUpperclassmanTitle", resourceCulture);
             }
         }
         

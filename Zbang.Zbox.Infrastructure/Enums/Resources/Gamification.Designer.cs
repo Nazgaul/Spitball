@@ -61,6 +61,51 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quizzy Lizzy.
+        /// </summary>
+        public static string BadgeCreateQuizzes {
+            get {
+                return ResourceManager.GetString("BadgeCreateQuizzes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Explorer.
+        /// </summary>
+        public static string BadgeFollowClass {
+            get {
+                return ResourceManager.GetString("BadgeFollowClass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kiss from Keanu.
+        /// </summary>
+        public static string BadgeLikes {
+            get {
+                return ResourceManager.GetString("BadgeLikes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spitballer.
+        /// </summary>
+        public static string BadgeRegister {
+            get {
+                return ResourceManager.GetString("BadgeRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Helpful Harry.
+        /// </summary>
+        public static string BadgeUploadFiles {
+            get {
+                return ResourceManager.GetString("BadgeUploadFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Freshman.
         /// </summary>
         public static string Level1 {

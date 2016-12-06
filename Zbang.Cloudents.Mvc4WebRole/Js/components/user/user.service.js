@@ -29,6 +29,15 @@ var app;
         UserService.prototype.gamificationBoard = function () {
             return this.ajaxService2.get("/user/gamificationboard");
         };
+        UserService.prototype.levels = function (userid) {
+            return this.ajaxService2.get("/user/levels", { userid: userid });
+        };
+        UserService.prototype.badges = function (userid) {
+            return this.ajaxService2.get("/user/userbadges/", { userid: userid });
+        };
+        UserService.prototype.leaderboard = function (userid) {
+            return this.ajaxService2.get("/user/leaderboard/", { userid: userid });
+        };
         UserService.$inject = ['ajaxService2'];
         return UserService;
     }());

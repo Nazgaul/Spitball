@@ -1222,6 +1222,28 @@ and f.isdeleted = 0";
                 return await conn.QueryFirstAsync<User.GamificationBoardDto>(Sql.User.GamificationBoard, query);
             }
         }
+
+        public async Task<User.LevelDto> UserLevelsAsync(QueryBaseUserId query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return await conn.QueryFirstAsync<User.LevelDto>(Sql.User.Level, query);
+            }
+        }
+        public async Task<IEnumerable<User.BadgeDto>> UserBadgesAsync(QueryBaseUserId query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return await conn.QueryAsync<User.BadgeDto>(Sql.User.Badge, query);
+            }
+        }
+        public async Task<IEnumerable<LeaderBoardDto>> UserLeaderboardAsync(QueryBaseUserId query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return await conn.QueryAsync<LeaderBoardDto>(Sql.User.LeaderBoard, query);
+            }
+        }
         #endregion
     }
 }

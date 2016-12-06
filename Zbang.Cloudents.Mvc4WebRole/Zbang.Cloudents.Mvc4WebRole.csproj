@@ -426,6 +426,7 @@
     <Compile Include="Models\CreateLibraryItem.cs" />
     <Compile Include="Models\CreateUniversity.cs" />
     <Compile Include="Models\Flashcard.cs" />
+    <Compile Include="Models\Gamification.cs" />
     <Compile Include="Models\InsertUser.cs" />
     <Compile Include="Models\ItemPreview.cs" />
     <Compile Include="Models\JavaScriptError.cs" />
@@ -1487,8 +1488,7 @@
     <TypeScriptCompile Include="Js\components\share\shareDialog.controller.ts" />
     <TypeScriptCompile Include="Js\components\uploadWrapper.controller.ts" />
     <TypeScriptCompile Include="Js\components\user\classmates.controller.ts" />
-    <TypeScriptCompile Include="Js\components\user\Gamification.controller.ts" />
-    <TypeScriptCompile Include="Js\components\user\gamificationDialog.controller.ts" />
+    <TypeScriptCompile Include="Js\components\user\gamification.controller.ts" />
     <TypeScriptCompile Include="Js\components\user\posts.controller.ts" />
     <TypeScriptCompile Include="Js\components\user\quizzes.controller.ts" />
     <TypeScriptCompile Include="Js\components\user\updates.service.ts" />

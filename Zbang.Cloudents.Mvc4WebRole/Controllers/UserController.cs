@@ -1,15 +1,20 @@
 ﻿using System.Linq;
 using DevTrends.MvcDonutCaching;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
+using Zbang.Cloudents.Mvc4WebRole.Models;
+using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources;
 using Zbang.Zbox.Infrastructure;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
+using Zbang.Zbox.ViewModel.Queries.Dashboard;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -40,7 +45,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult Badges()
         {
-            return PartialView("Badges");
+            var model = new Gamification();
+            var resourceManger = new System.Resources.ResourceManager(typeof(GamificationResources));
+            int index = 0,
+                score = 0;
+            while (score != int.MaxValue)
+            {
+                var level = GamificationLevels.GetLevel(score + 1);
+                score = level.NextLevel;
+
+                var description = resourceManger.GetString($"Level{index + 1}Description");
+                model.Levels.Add(new Level(level.Name, description, index));
+                index++;
+            }
+
+            //var model = GamificationLevels.GetLevels();
+            return PartialView("Badges", model);
         }
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult Uploads()
@@ -221,6 +241,53 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             result.NextLevel = level.NextLevel;
             result.Number = level.Level;
             return JsonOk(result);
+        }
+
+        [HttpGet, ActionName("Levels")]
+        public async Task<JsonResult> LevelsAsync(long? userId)
+        {
+            var id = userId ?? User.GetUserId();
+
+            var query = new QueryBaseUserId(id);
+            var result = await ZboxReadService.UserLevelsAsync(query);
+            var level = GamificationLevels.GetLevel(result.Score);
+            //result.Level = level.Name;
+            result.NextLevel = level.NextLevel;
+            result.Number = level.Level;
+            return JsonOk(result);
+        }
+
+        [HttpGet, ActionName("UserBadges")]
+        public async Task<JsonResult> BadgesAsync(long? userId)
+        {
+            var id = userId ?? User.GetUserId();
+
+            var query = new QueryBaseUserId(id);
+            var model = await ZboxReadService.UserBadgesAsync(query);
+            var badges = new List<Badge>();
+            var resourceManger = new System.Resources.ResourceManager(typeof(GamificationResources));
+            foreach (var value in Enum.GetValues(typeof(BadgeType)).Cast<BadgeType>())
+            {
+                if (value == BadgeType.None)
+                {
+                    continue;
+                }
+                badges.Add(new Badge(value.GetEnumDescription(), resourceManger.GetString($"Badge{value}Description")));
+            }
+
+            return JsonOk(new
+            {
+                model,
+                badges
+            });
+        }
+
+        [HttpGet, ActionName("leaderboard")]
+        public async Task<JsonResult> LeaderboardAsync(long userid)
+        {
+            var query = new QueryBaseUserId(userid);
+            var model = await ZboxReadService.UserLeaderboardAsync(query);
+            return JsonOk(model);
         }
 
 

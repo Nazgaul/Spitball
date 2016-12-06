@@ -298,7 +298,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     s.Id,
                     s.Image,
                     s.Score,
-                    s.Url,
+                    //s.Url,
                 }));
             }
             return JsonOk(result);

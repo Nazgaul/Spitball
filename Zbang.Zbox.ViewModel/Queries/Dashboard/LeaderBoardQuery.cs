@@ -21,6 +21,8 @@ namespace Zbang.Zbox.ViewModel.Queries.Dashboard
         public TimeSpan Expiration => TimeSpan.FromDays(1);
     }
 
+   
+
     public class FlashcardLeaderboardQuery
     {
         public FlashcardLeaderboardQuery(long userId, long universityId)
