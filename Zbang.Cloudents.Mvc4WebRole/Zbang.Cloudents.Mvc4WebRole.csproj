@@ -1416,6 +1416,7 @@
     <Content Include="Js\components\box\box.module.js" />
     <Content Include="Js\components\box\box.routes.js" />
     <Content Include="Js\components\box\feed.likes.controller.js" />
+    <Content Include="Js\components\box\recommended.controller.js" />
     <Content Include="Js\components\box\slideit.directive.js" />
     <Content Include="Js\components\box\tab.controller.js" />
     <Content Include="Js\components\item\comments.controller.js" />
