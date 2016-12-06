@@ -1,4 +1,4 @@
-﻿(function() {
+﻿(function () {
     function setBackground() {
         var background = $('[background-cover]');
         var main = $('.main');
@@ -10,8 +10,10 @@
             '&height=' +
             ($(window).outerHeight());
         background.css('background-image', 'url(' + backgroundUrl + ')');
-        var padding = $(window).height() + $('.welcome-text').offset().top - $('.offset-bottom').offset().top - $('.static-page-header').height();
-        $('#main-wrapper').css('padding-top', padding);
+        if ($('.welcome-text').length && $('.offset-bottom') && $('.static-page-header')) {
+            var padding = $(window).height() + $('.welcome-text').offset().top - $('.offset-bottom').offset().top - $('.static-page-header').height();
+            $('#main-wrapper').css('padding-top', padding);
+        }
         //$('#main-wrapper').find(".promo-title").height(padding - 100);
 
     }

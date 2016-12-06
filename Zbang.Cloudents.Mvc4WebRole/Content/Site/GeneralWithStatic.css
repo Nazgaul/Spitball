@@ -327,10 +327,86 @@ body {
 .suggested .box-style {
   position: relative;
 }
+.box-template-flex {
+  display: -webkit-flex !important;
+  display: -ms-flex !important;
+  display: flex !important;
+  -webkit-align-items: stretch !important;
+  align-items: stretch !important;
+  -webkit-justify-content: space-between !important;
+  justify-content: space-between !important;
+  flex-direction: column !important;
+  padding: 10px !important;
+}
+.box-template-flex > * {
+  box-sizing: border-box;
+}
+.box-template-flex .info {
+  color: #212325;
+  flex-grow: 1;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.box-template-flex .info .top {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+}
+.box-template-flex .info .top .icon {
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  color: #ffffff;
+  font-size: 28px;
+  text-transform: capitalize;
+  flex-shrink: 0;
+}
+.box-template-flex .info .top h5 {
+  font-size: 22px;
+  line-height: 29px;
+  height: 58px;
+  margin: 0;
+  padding: 0 10px;
+  text-transform: capitalize;
+  font-weight: normal;
+}
+.box-template-flex .info .bottom span {
+  font-size: 12px;
+  display: block;
+  margin-top: 5px;
+}
+.box-template-flex .stats {
+  border-top: 1px solid;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  padding-top: 10px;
+  margin-top: 10px;
+  height: 24px;
+  font-size: 12px;
+}
+.box-template-flex .stats .members-count,
+.box-template-flex .stats .items-count {
+  color: #212325;
+}
 .box-style {
   background: #ffffff;
   box-shadow: 0px 1px 5px 0 rgba(0, 0, 0, 0.34);
-  padding: 15px 15px 30px 15px;
   display: block;
   width: 100%;
   height: 179px;
@@ -396,60 +472,25 @@ body {
   line-height: normal;
   padding-right: 6px;
 }
-.box-style .display .number {
-  float: left;
-  display: inline-block;
-  height: 116px;
-  width: 100%;
-}
-.box-style .display .number h3,
-.box-style .display .number h5 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  margin: 0 0 14px 0;
-  padding: 0;
-  font-size: 25px;
-  line-height: 29px;
-  height: 58px;
-  overflow: hidden;
-  width: calc(80%);
-  -ms-word-wrap: break-word;
-  word-wrap: break-word;
-}
-.box-style .display .number small {
-  font-size: 12px;
-  font-weight: 400;
-  text-transform: uppercase;
-  height: 16px;
-  display: inline-block;
-  max-width: 100%;
-}
-.box-style .progress-info {
-  clear: both;
-  position: relative;
-}
-.box-style .progress-info .progress {
-  margin: 0;
-  height: 1px;
-  clear: both;
-  display: block;
-}
-.box-style .progress-info .status {
-  margin-top: 18px;
-}
-.box-style .progress-info .status .status-title {
-  float: left;
-  display: inline-block;
-}
-.box-style .progress-info .status .status-number {
-  float: right;
-  display: inline-block;
-}
 #intercom-container,
 #intercom-launcher {
   z-index: 120;
 }
+/*#region: multi line ellipsis classes*/
+.multi-line-ellipsis {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -ms-word-break: break-word;
+  word-break: break-word;
+}
+.multi-line-ellipsis.limit-three {
+  -webkit-line-clamp: 3;
+}
+.multi-line-ellipsis.limit-two {
+  -webkit-line-clamp: 2;
+}
+/*#endregion*/
 /*#region: new button classes*/
 .action-btn,
 .signin-header-btn {

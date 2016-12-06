@@ -2,8 +2,159 @@
 @import "../../Images/HomePage2/testimonials_he.jpg.less";
 @import "../../Images/HomePage2/testimonials_en.jpg.less";
 
-.homePage {
+.homePage, .forgot-pw {
     font-family: sans-serif;
+    margin: 0;
+}
+
+.homePage .home-page-body, .forgot-pw-page {
+    section.main {
+        background: linear-gradient(to top, #000 -20px, transparent 200px, transparent 100%);
+
+        .form-wrapper {
+            background: rgba(24,26,22,.93);
+            max-width: 460px;
+            width: ~"calc(100% - 20px)";
+            margin: 0 auto;
+            position: relative;
+            margin-top: 40px;
+
+            @media(max-width: 600px) {
+                margin-top: 10px;
+            }
+
+            .signin-options, form, .forgot-password-text {
+                padding-right: 30px;
+                padding-left: 30px;
+                margin: 0 auto;
+
+                @media(max-width: 600px) {
+                    padding-right: 15px;
+                    padding-left: 15px;
+                }
+            }
+
+            .form-title {
+                color: @textColorWhite;
+                padding: 27px 25px 0 25px;
+                text-align: center;
+                font-weight: 300;
+                font-size: 21px;
+                margin: 0 auto;
+
+                @media(max-width: 600px) {
+                    font-size: 18px;
+                    padding-top: 24px;
+                }
+            }
+
+            form {
+
+                .form-group:not(:last-child) {
+                    margin-bottom: 20px;
+
+                    @media(max-width:600px) {
+                        margin-bottom: 12px;
+                    }
+
+                    .form-control {
+                        background-color: #dde3ec;
+                        color: #282828;
+                        border-radius: 0;
+                        padding-left: 15px;
+                        border: 1px solid #c3c3c3;
+                        box-shadow: 0 0 0 1000px #e9eaed inset;
+                        height: 46px;
+                        width: 100%;
+                        box-sizing: border-box;
+
+                        @media(max-width:600px) {
+                            height: 40px;
+                        }
+                    }
+                }
+
+                .form-actions {
+                    .displayFlex;
+                    .align-items(center);
+                    .justifyContet(space-between);
+                    margin-bottom: 20px;
+
+                    @media(max-width:600px) {
+                        margin-bottom: 10px;
+                    }
+
+                    a {
+                        color: @textColorGrey;
+                    }
+
+                    .terms {
+                        color: @textColorGrey;
+                        font-size: 11px;
+                        padding-right: 0;
+                        white-space: pre-line;
+                        text-align: left;
+                        width: 100%;
+                    }
+                }
+
+                .alert {
+                    padding: 0;
+                    color: #f3565d;
+                    display: block;
+                    margin-bottom: 0;
+                    margin-top: 0;
+                    background: none;
+                    border: none;
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+}
+
+.forgot-pw * {
+    box-sizing: border-box;
+
+    .static-page-header {
+        background: rgba(0,0,0,.9) !important;
+
+        @media (max-width: 1080px) {
+            padding-left: 30px;
+        }
+    }
+
+    section.main {
+        padding-top: @heightOfHeader;
+        height: 100vh;
+
+        .form-wrapper {
+            padding-bottom: 30px;
+
+            form {
+                .form-title {
+                    margin-bottom: 30px;
+                }
+
+                .form-actions {
+                    .justifyContet(flex-end);
+
+                    .action-btn {
+                        margin-left: 10px;
+                    }
+
+                    .cancel-btn {
+                        min-height: 0;
+                        text-decoration: none;
+                        color: @textColorBlack;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.homePage {
 
     .static-page-header .toggle {
         opacity: 1 !important;
@@ -160,86 +311,6 @@
                 }
             }*/
             &.main {
-                background: linear-gradient(to top, #000 -20px, transparent 200px, transparent 100%);
-                /*position: relative;
-                text-align: center;
-                padding-bottom: 200px;
-                margin-top: @heightOfstaticPageHeader;
-                background: linear-gradient(to top, #000 -20px, transparent 200px, transparent 100%);
-                padding: 0;
-                overflow: visible;
-
-                #main-wrapper {
-                    padding: 296px 0 40px 0;
-                    overflow: visible;
-                    position: relative;
-
-                    @media(max-width: 600px) {
-                        padding: 50px 0 40px 0;
-                    }
-                }
-
-                .welcome-text {
-                    position: relative;
-                    text-align: center;
-                    //margin: 400px auto 0 auto;
-                    padding: 0 10px;
-                    -moz-box-sizing: border-box;
-                    -webkit-box-sizing: border-box;
-                    box-sizing: border-box;
-                    color: @textColorWhite;
-                    display: inline-block;
-                    max-width: 800px;
-                    position: relative;
-
-                    .uni-logo-wrapper {
-                        @media(max-width: 960px) {
-                            display: none;
-                        }
-                    }
-
-                    .sb-logo {
-                        left: -210px;
-                        bottom: -40px;
-                        bottom: -80px;
-                        z-index: 1;
-                        width: 200px;
-                        height: 200px;
-                        position: absolute;
-                        background-color: #383838;
-                        background-size: cover;
-                        border: 5px solid @textColorWhite;
-                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
-                    }
-
-
-                    @media(max-width: 960px) {
-                        width: 100% !important;
-                        padding: 0 10px;
-                    }
-
-                    > h1 {
-                        text-shadow: 2px 2px 4px @textColorBlack;
-                        font-weight: bold;
-                        width: 100%; //rtl:520px
-                        margin: 14px auto;
-                        text-transform: capitalize;
-                        display: inline-block;
-                        font-size: 50px;
-
-                        @media(max-width: 1200px) {
-                            font-size: 4vw;
-                        }
-
-                        @media(max-width: 960px) {
-                            font-size: 5.3vw;
-                        }
-
-                        @media(max-width: 600px) {
-                            font-size: 6vw;
-                        }
-                    }
-                }*/
                 /*#region forms*/
                 .forms {
                     -webkit-transition: max-height 0.5s;
@@ -279,30 +350,6 @@
                         }
                     }
 
-                    .form-title {
-                        color: @textColorWhite;
-                        padding: 27px 25px 0 25px;
-                        text-align: center;
-                        font-weight: 300;
-                        font-size: 21px;
-                        margin: 0 auto;
-
-                        @media(max-width: 600px) {
-                            font-size: 18px;
-                            padding-top: 24px;
-                        }
-                    }
-
-                    .signin-options, form, .forgot-password-text {
-                        padding-right: 30px;
-                        padding-left: 30px;
-                        margin: 0 auto;
-
-                        @media(max-width: 600px) {
-                            padding-right: 15px;
-                            padding-left: 15px;
-                        }
-                    }
 
                     .signin-options {
                         .displayFlex;
@@ -355,68 +402,6 @@
                                     font-size: 16px;
                                 }
                             }
-                        }
-                    }
-
-                    form {
-                        .form-group:not(:last-child) {
-                            margin-bottom: 15px;
-
-                            @media(max-width:600px) {
-                                margin-bottom: 12px;
-                            }
-
-                            .form-control {
-                                background-color: #dde3ec;
-                                color: #282828;
-                                border-radius: 0;
-                                padding-left: 15px;
-                                border: 1px solid #c3c3c3;
-                                box-shadow: 0 0 0 1000px #e9eaed inset;
-                                height: 46px;
-                                width: 100%;
-                                box-sizing: border-box;
-                                margin-bottom: 5px;
-
-                                @media(max-width:600px) {
-                                    height: 40px;
-                                }
-                            }
-                        }
-
-                        .form-actions {
-                            .displayFlex;
-                            .align-items(center);
-                            .justifyContet(space-between);
-                            margin-bottom: 20px;
-
-                            @media(max-width:600px) {
-                                margin-bottom: 10px;
-                            }
-
-                            a {
-                                color: @textColorGrey;
-                            }
-
-                            .terms {
-                                color: @textColorGrey;
-                                font-size: 11px;
-                                padding-right: 0;
-                                white-space: pre-line;
-                                text-align: left;
-                                width: 100%;
-                            }
-                        }
-
-                        .alert {
-                            padding: 0;
-                            color: #f3565d;
-                            display: block;
-                            margin-bottom: 0;
-                            margin-top: 0;
-                            background: none;
-                            border: none;
-                            box-shadow: none;
                         }
                     }
 

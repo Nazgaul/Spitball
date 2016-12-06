@@ -82,7 +82,7 @@
   width: 100%;
   flex-grow: 1;
   border-bottom: 1px solid;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 .library .department-wrap .box-style {
   display: -webkit-flex;
@@ -93,7 +93,7 @@
   align-items: flex-start;
   -webkit-justify-content: space-between;
   justify-content: space-between;
-  padding: 15px;
+  padding: 10px;
 }
 .library .department-wrap .box-style:hover .status .lock {
   background: #f0f0f0;

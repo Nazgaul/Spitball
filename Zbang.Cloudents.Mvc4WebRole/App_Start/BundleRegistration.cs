@@ -36,16 +36,14 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new CssWithRtl("~/content/site/itemGallery.css")
                     },
 
-                ["signin"] = new[] // passwordUpdate uses it - this page will be modified in v4.
-                    {
-                        new CssWithRtl("~/Content/homepage/bootstrap.css"), //TODO: check if we need this.
-                        new CssWithRtl("~/Content/signin/login-soft.css"),
-                        new CssWithRtl("~/Content/signin/components-md.css"),
-                        new CssWithRtl("~/Content/signin/plugins-md.css"),
-                        new CssWithRtl("~/Content/site/layout.css"),
-                        new CssWithRtl("~/Content/signin/default.css"),
-                        new CssWithRtl("~/Content/signin/custom.css")
-                    },
+                //["signin"] = new[] // passwordUpdate uses it - this page will be modified in v4.
+                //    {
+                //        new CssWithRtl("~/content/homepage/homePage2.css","~/content/homepage/homePage2.rtl.css"),
+                //        new CssWithRtl("~/content/site/GeneralWithStatic.css"),
+                //        new CssWithRtl("~/content/site/staticPage.css"),
+                //        new CssWithRtl("~/Content/site/layout.css"),
+                //        //new CssWithRtl("~/Content/signin/custom.css")
+                //    },
 
                 ["site4"] = new[]
                     {
@@ -134,10 +132,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/Scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
                         new JsFileWithCdn("~/Scripts/jquery.validate.js"),
-                        new JsFileWithCdn("~/js/signin/metronic.js"),
-                        new JsFileWithCdn("~/js/signin/layout.js"),
+                        //new JsFileWithCdn("~/js/signin/metronic.js"),
+                        //new JsFileWithCdn("~/js/signin/layout.js"),
                         new JsFileWithCdn("~/js/signin/login-soft.js"),
-                        new JsFileWithCdn("~/scripts/svg4everybody.js")
+                        new JsFileWithCdn("~/scripts/svg4everybody.js"),
+                        new JsFileWithCdn("~/js/signin/backgroundimage.js")
                     }
                 },
 
