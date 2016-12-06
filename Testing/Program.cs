@@ -174,10 +174,10 @@ namespace Testing
 
             var iocFactory = IocFactory.IocWrapper;
             var ReadService = iocFactory.Resolve<IZboxReadServiceWorkerRole>();
-            var tusers =  ReadService.GetUsersForNewRepAsync();
-            tusers.Wait();
+           // var tusers =  ReadService.GetUsersForNewRepAsync();
+            //tusers.Wait();
             var m_QueueRepository = iocFactory.Resolve<IQueueProvider>();
-            var t1 = m_QueueRepository.InsertMessageToTranactionAsync(new ReputationData(tusers.Result));
+            //var t1 = m_QueueRepository.InsertMessageToTranactionAsync(new ReputationData(tusers.Result));
             //var t2 = m_QueueRepository.InsertMessageToTranactionAsync(new FollowClassBadgeData(1));
             //var t3 = m_QueueRepository.InsertMessageToTranactionAsync(new CreateQuizzesBadgeData(1));
             //var t4 = m_QueueRepository.InsertMessageToTranactionAsync(new UploadItemsBadgeData(1));
