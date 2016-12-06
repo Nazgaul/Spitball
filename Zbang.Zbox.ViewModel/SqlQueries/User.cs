@@ -48,8 +48,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
                                 join zbox.userboxrel ub2 on ub.boxid = ub2.boxid
                                 where ub.userid = @Myfriend
                                 and ub2.userid != @Myfriend;
-select count(*) from zbox.Badge
-where userid = @Myfriend and progress = 100;";
+";
 
        /// <summary>
        /// Used in user page to get boxes common with current user and his friend
