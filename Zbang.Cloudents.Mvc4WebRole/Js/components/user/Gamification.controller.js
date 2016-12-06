@@ -1,8 +1,9 @@
 var app;
 (function (app) {
     var Gamification = (function () {
-        function Gamification($state) {
+        function Gamification($state, $scope) {
             this.$state = $state;
+            this.$scope = $scope;
             this.badgesState = {
                 levels: 'l',
                 badges: 'b',
@@ -157,19 +158,12 @@ var app;
             if (!$state.params["type"]) {
                 this.$state.go($state.current.name, { type: "level" });
             }
+            $scope["$state"] = this.$state;
         }
-        Gamification.prototype.changeBadgesTab = function (tab) {
-            this.badgesTab = tab;
-            switch (this.badgesTab) {
-                case this.badgesState.levels:
-                    break;
-                case this.badgesState.badges:
-                    break;
-                case this.badgesState.community:
-                    break;
-            }
+        Gamification.prototype.isActive = function (state) {
+            return this.$state.params["type"] === state;
         };
-        Gamification.$inject = ["$state"];
+        Gamification.$inject = ["$state", "$scope"];
         return Gamification;
     }());
     angular.module("app.user").controller("gamification", Gamification);

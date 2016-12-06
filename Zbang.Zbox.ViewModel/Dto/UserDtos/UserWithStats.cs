@@ -17,7 +17,7 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
         public int NumFeed { get; set; }
         public int NumQuiz { get; set; }
         public int NumFriend { get; set; }
-        public int NumBadge { get; set; }
+        //public int NumBadge { get; set; }
 
         public bool Online { get; set; }
     }

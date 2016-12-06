@@ -555,13 +555,13 @@ OPTION (TABLE HINT(s, INDEX ([students_shouldsend2])),Recompile);";
 
         }
 
-        public async Task<IEnumerable<long>> GetUsersForNewRepAsync()
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                return await conn.QueryAsync<long>(
-                    "select userid from zbox.users where  [UserReputation] > 600 and ([CreationTime] >'2015' or [LastAccessTime] >'2015'");
-            }
-        }
+        //public async Task<IEnumerable<long>> GetUsersForNewRepAsync()
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        return await conn.QueryAsync<long>(
+        //            "select userid from zbox.users where  [UserReputation] > 600 and ([CreationTime] >'2015' or [LastAccessTime] >'2015'");
+        //    }
+        //}
     }
 }

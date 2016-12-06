@@ -25,8 +25,8 @@
                 </button>
             </div>
         </div>
-        <div class="points-container" ng-if="!u.isUserProfile">
-            <h5 count-up id="points" end-val="{{u.details.score}}" duration="3"></h5>
+        <div class="points-container" @*ng-if="!u.isUserProfile"*@>
+            <h5 count-up id="points" end-val="{{::u.details.score}}" duration="3"></h5>
             <h5>@UserResources.Points</h5>
         </div>
         <div class="points-awards" hide-xs>
@@ -51,8 +51,8 @@
             <md-tabs class="page-tabs">
                 <md-tab ui-sref="user.badge" md-active="u.isActive('user.badge')">
                     <md-tab-label>
-                        <h3>@GamificationResources.Badges</h3>
-                        <div class="number" ng-bind="::u.details.numBadge"></div>
+                        <h3>@UserResources.Points</h3>
+                        <div class="number" ng-bind="::u.details.score | megaNumber"></div>
                     </md-tab-label>
                 </md-tab>
                 <md-tab ui-sref="user.item" md-active="u.isActive('user.item')">

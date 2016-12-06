@@ -615,7 +615,7 @@ where ownerid = @UserId and boxid = @BoxId;";
                     retVal.NumFeed = await grid.ReadFirstOrDefaultAsync<int>() + await grid.ReadFirstOrDefaultAsync<int>();
                     retVal.NumQuiz = await grid.ReadFirstOrDefaultAsync<int>();
                     retVal.NumFriend = await grid.ReadFirstOrDefaultAsync<int>();
-                    retVal.NumBadge = await grid.ReadFirstOrDefaultAsync<int>();
+                    //retVal.NumBadge = await grid.ReadFirstOrDefaultAsync<int>();
                     return retVal;
                 }
             }
