@@ -18,5 +18,7 @@ namespace Zbang.Zbox.Domain.Commands
 
        public long UserId { get; private set; }
        public BadgeType BadgeType { get; private set; }
+
+       public int Progress { get; set; }
     }
 }

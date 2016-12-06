@@ -1,14 +1,18 @@
 ﻿module app {
 
     class Gamification {
+        static $inject = ["$state"];
         badgesState = {
             levels: 'l',
             badges: 'b',
             community: 'c'
         }
         badgesTab = this.badgesState.levels;
-        constructor() {
-            console.log("badge");
+        constructor(private $state: angular.ui.IStateService) {
+            if (!$state.params["type"]) {
+                this.$state.go($state.current.name, { type: "level" });
+            }
+
         }
 
         changeBadgesTab(tab) {

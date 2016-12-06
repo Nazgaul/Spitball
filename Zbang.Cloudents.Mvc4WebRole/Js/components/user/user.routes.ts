@@ -25,23 +25,11 @@
                     {
                         state: 'user.badge',
                         config: {
-                            url: 'badges/',
+                            //?{type:level|badge|community}
+                            url: 'badges/?{type:level|badge|community}',
                             controller: 'gamification as g',
-                            parent: 'user'
-                            //templateProvider: ["$templateCache", "$interval", "$q",
-                            //    ($templateCache: angular.ITemplateCacheService,
-                            //        $interval: angular.IIntervalService, $q: angular.IQService) => {
-                            //        var defered = $q.defer();
-                            //        var q = $interval(() => {
-                            //            var str = $templateCache.get("user-badges.html");
-                            //            if (str) {
-                            //                $interval.cancel(q);
-                            //                defered.resolve(str);
-                            //            }
-                            //        }, 10);
-                            //        return defered.promise;
-                            //    }]
-                            //template: "user-badges.html"
+                            parent: 'user',
+                            reloadOnSearch: false
                         },
                         templateUrl: "/user/badges/"
                     },
