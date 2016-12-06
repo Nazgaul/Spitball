@@ -129,7 +129,7 @@
 
     .badges-tabs {
         md-tabs-canvas, md-pagination-wrapper {
-            height: 90px;
+            height: 50px;
 
             @media(min-width: 600px) {
                 min-width: 100%;
@@ -148,15 +148,13 @@
     }
 
     .badges {
-        margin: 0 8px;
         background: @textColorLightWhite;
-        border-radius: 10px;
+        margin-top: -10px;
 
         .badges-bar {
             .displayFlex;
             .align-items(center);
-            border-radius: 10px 10px 0 0;
-            background: @headerbackground;
+            background: @textColorLightWhite;
         }
 
         .info {
@@ -188,10 +186,11 @@
         md-tabs {
             flex-grow: 1;
             flex-shrink: 0;
+            border-bottom: 1px solid @buttonColorBlue;
 
             h4 {
                 font-size: 20px;
-                margin: 26px 0;
+                margin: 6px 0;
 
                 @media(max-width: 600px) {
                     font-size: 12px;
@@ -200,7 +199,7 @@
             }
 
             .md-tab.md-active {
-                color: @gamificationYellow;
+                color: @buttonColorBlue;
             }
         }
 
@@ -679,8 +678,8 @@
         }
 
         md-ink-bar {
-            background: @gamificationYellow;
-            height: 10px;
+            background: @buttonColorBlue;
+            height: 4px;
 
             @media(max-width: 600px) {
                 height: 3px;
@@ -694,6 +693,7 @@
 
 
     .page-tabs {
+        border-radius: 4px 4px 0 0;
         padding: 0;
         /*Fixed color box overalying members and items*/
         md-tab-content.md-left:not(.md-active) {
@@ -801,7 +801,7 @@
     }
 }
 
-.info-dialog {
+/*.info-dialog {
     overflow: visible;
     width: 100%;
     max-width: 1000px;
@@ -1084,4 +1084,4 @@
             }
         }
     }
-}
+}*/
