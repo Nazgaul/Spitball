@@ -74,7 +74,8 @@
             </div>
         </div>
         <div ng-switch-when="community" class="tab community">
-            @{ Html.RenderPartial("_LeaderBoard");}
+            @{ // ReSharper disable once Mvc.PartialViewNotResolved
+                Html.RenderPartial("_LeaderBoard");}
         </div>
     </div>
 </div>

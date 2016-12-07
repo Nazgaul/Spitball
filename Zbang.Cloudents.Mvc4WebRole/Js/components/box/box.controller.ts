@@ -16,7 +16,7 @@
             "$rootScope", "user", "resManager", "boxService", "ajaxService2",
             "$timeout", "$window", "userUpdatesService", "shareService", "showToasterService"];
         data;
-        showLeaderboard;
+        //showLeaderboard;
         isAcademic;
         needFollow;
         canInvite;
@@ -50,7 +50,7 @@
            
             boxId = $stateParams.boxId;
             this.data = boxData;
-            this.showLeaderboard = this.isAcademic = boxData.boxType === "academic" || boxData.boxType === "academicClosed";
+            //this.showLeaderboard = this.isAcademic = boxData.boxType === "academic" || boxData.boxType === "academicClosed";
             this.needFollow = boxData.userType === "invite" || boxData.userType === "none";
             this.canInvite = boxData.boxType !== "academicClosed" && this.isAcademic || (boxData.userType === "owner" && !this.isAcademic);
             this.canShare = boxData.boxType !== "academicClosed" && this.isAcademic && !this.needFollow;
@@ -70,9 +70,9 @@
                 this.settingsOpen = false;
             });
 
-            $scope.$on("hide-leader-board", () => {
-                this.showLeaderboard = false;
-            });
+            //$scope.$on("hide-leader-board", () => {
+            //    this.showLeaderboard = false;
+            //});
 
             $window.onbeforeunload = () => {
                 if (!this.user.id) {

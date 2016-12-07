@@ -115,23 +115,23 @@ namespace Zbang.Zbox.ReadServices
         //    }
         //}
 
-        public async Task<LeaderboardFlashcardDto> GetDashboardFlashcardStatusAsync(FlashcardLeaderboardQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                const string sql = @"select row,likecount as count from ( 
-select ROW_NUMBER() OVER(ORDER BY likecount desc) AS Row, * from (
-select  sum(likecount) as likecount, f.userid from zbox.flashcard f 
-join zbox.users u on f.userid = u.userid and coalesce (u.usertype,0) = 0
-where u.universityid = @UniversityId
-group by f.userid 
-) t) z
-where z.userid = @UserId
-";
-                return await conn.QueryFirstOrDefaultAsync<LeaderboardFlashcardDto>(sql, query);
+//        public async Task<LeaderboardFlashcardDto> GetDashboardFlashcardStatusAsync(FlashcardLeaderboardQuery query)
+//        {
+//            using (var conn = await DapperConnection.OpenConnectionAsync())
+//            {
+//                const string sql = @"select row,likecount as count from ( 
+//select ROW_NUMBER() OVER(ORDER BY likecount desc) AS Row, * from (
+//select  sum(likecount) as likecount, f.userid from zbox.flashcard f 
+//join zbox.users u on f.userid = u.userid and coalesce (u.usertype,0) = 0
+//where u.universityid = @UniversityId
+//group by f.userid 
+//) t) z
+//where z.userid = @UserId
+//";
+//                return await conn.QueryFirstOrDefaultAsync<LeaderboardFlashcardDto>(sql, query);
 
-            }
-        }
+//            }
+//        }
 
 
 

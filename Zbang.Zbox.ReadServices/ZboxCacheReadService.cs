@@ -425,10 +425,10 @@ namespace Zbang.Zbox.ReadServices
         //{
         //    return m_Cache.QueryAsync(m_ReadService.GetDashboardLeaderBoardAsync, query);
         //}
-        public Task<LeaderboardFlashcardDto> GetDashboardFlashcardStatusAsync(FlashcardLeaderboardQuery query)
-        {
-            return m_ReadService.GetDashboardFlashcardStatusAsync(query);
-        }
+        //public Task<LeaderboardFlashcardDto> GetDashboardFlashcardStatusAsync(FlashcardLeaderboardQuery query)
+        //{
+        //    return m_ReadService.GetDashboardFlashcardStatusAsync(query);
+        //}
 
         public Task<UserWithStats> GetUserProfileWithStatsAsync(GetUserWithFriendQuery query)
         {
