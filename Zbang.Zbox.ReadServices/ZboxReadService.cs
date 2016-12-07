@@ -107,13 +107,13 @@ namespace Zbang.Zbox.ReadServices
 
         }
 
-        public async Task<IEnumerable<LeaderBoardDto>> GetDashboardLeaderBoardAsync(LeaderBoardQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                return await conn.QueryAsync<LeaderBoardDto>(Sql.Sql.UniversityLeaderBoard, query);
-            }
-        }
+        //public async Task<IEnumerable<LeaderBoardDto>> GetDashboardLeaderBoardAsync(LeaderBoardQuery query)
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        return await conn.QueryAsync<LeaderBoardDto>(Sql.Sql.UniversityLeaderBoard, query);
+        //    }
+        //}
 
         public async Task<LeaderboardFlashcardDto> GetDashboardFlashcardStatusAsync(FlashcardLeaderboardQuery query)
         {
@@ -1242,11 +1242,12 @@ and f.isdeleted = 0";
                 return await conn.QueryAsync<User.BadgeDto>(Sql.User.Badge, query);
             }
         }
-        public async Task<IEnumerable<LeaderBoardDto>> UserLeaderboardAsync(QueryBaseUserId query)
+        public async Task<IEnumerable<LeaderBoardDto>> UserLeaderboardAsync(LeaderBoardQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<LeaderBoardDto>(Sql.User.LeaderBoard, query);
+                var sql = query.Myself ? Sql.User.LeaderBoardMySelf : Sql.User.LeaderBoardAll;
+                return await conn.QueryAsync<LeaderBoardDto>(sql, query);
             }
         }
         #endregion

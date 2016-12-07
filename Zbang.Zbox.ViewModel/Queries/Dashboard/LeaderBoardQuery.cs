@@ -4,24 +4,27 @@ using Zbang.Zbox.Infrastructure.Query;
 
 namespace Zbang.Zbox.ViewModel.Queries.Dashboard
 {
-    public class LeaderBoardQuery : IQueryCache
+    public class LeaderBoardQuery : IPagedQuery
     {
-        public LeaderBoardQuery(long universityId)
+        public LeaderBoardQuery(long userId, bool myself, int pageNumber = 0)
         {
-            UniversityId = universityId;
+            UserId = userId;
+            PageNumber = pageNumber;
+            Myself = myself;
+            RowsPerPage = 1000;
         }
 
-        public long UniversityId { get; }
 
+        public long UserId { get; private set; }
 
-        public string CacheKey => UniversityId.ToString(CultureInfo.InvariantCulture);
+        public bool Myself { get; private set; }
 
-        public string CacheRegion => "leaderboardDashboard";
-
-        public TimeSpan Expiration => TimeSpan.FromDays(1);
+        public int PageNumber { get; }
+        public int RowsPerPage { get; }
     }
 
-   
+
+
 
     public class FlashcardLeaderboardQuery
     {

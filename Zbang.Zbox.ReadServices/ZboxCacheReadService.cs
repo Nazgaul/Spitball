@@ -404,7 +404,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.UserBadgesAsync(query);
         }
 
-        public Task<IEnumerable<LeaderBoardDto>> UserLeaderboardAsync(QueryBaseUserId query)
+        public Task<IEnumerable<LeaderBoardDto>> UserLeaderboardAsync(LeaderBoardQuery query)
         {
             return m_ReadService.UserLeaderboardAsync(query);
         }
@@ -421,10 +421,10 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<LeaderBoardDto>> GetDashboardLeaderBoardAsync(LeaderBoardQuery query)
-        {
-            return m_Cache.QueryAsync(m_ReadService.GetDashboardLeaderBoardAsync, query);
-        }
+        //public Task<IEnumerable<LeaderBoardDto>> GetDashboardLeaderBoardAsync(LeaderBoardQuery query)
+        //{
+        //    return m_Cache.QueryAsync(m_ReadService.GetDashboardLeaderBoardAsync, query);
+        //}
         public Task<LeaderboardFlashcardDto> GetDashboardFlashcardStatusAsync(FlashcardLeaderboardQuery query)
         {
             return m_ReadService.GetDashboardFlashcardStatusAsync(query);

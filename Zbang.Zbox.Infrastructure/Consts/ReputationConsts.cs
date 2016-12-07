@@ -18,6 +18,10 @@ namespace Zbang.Zbox.Infrastructure.Consts
         public const int CommentLike = 15;
         public const int ReplyLike = 15;
 
-
+        public const int Badge1 = 500;
+        public const int Badge2 = 500;
+        public const int Badge3 = 500;
+        public const int Badge4 = 500;
+        public const int Badge5 = 500;
     }
 }

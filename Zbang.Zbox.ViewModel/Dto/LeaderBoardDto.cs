@@ -11,6 +11,7 @@ namespace Zbang.Zbox.ViewModel.Dto
         public string Name { get; set; }
         public int Score { get; set; }
 
+        public int? Badges { get; set; }
         //public string Url { get; set; }
       
     }
