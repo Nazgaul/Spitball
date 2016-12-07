@@ -63,6 +63,8 @@ namespace Zbang.Zbox.ReadServices
         IEnumerable<long> GetUsersBadgeQuiz(int page);
         IEnumerable<long> GetUsersBadgeItem(int page);
         IEnumerable<long> GetUsersBadgeLike(int page);
+        IEnumerable<long> GetUserReputationUpdate(int page);
+        
 
     }
 }

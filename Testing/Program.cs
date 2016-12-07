@@ -213,6 +213,15 @@ namespace Testing
             //    Task.WaitAll(list.ToArray());
             //    index++;
             //} while (users.Any());
+            do
+            {
+                users = ReadService.GetUserReputationUpdate(index);
+
+                var list = new List<Task>();
+                list.Add(m_QueueRepository.InsertMessageToTranactionAsync(new ReputationData(users)));
+                Task.WaitAll(list.ToArray());
+                index++;
+            } while (users.Any());
             //var t1 = m_QueueRepository.InsertMessageToTranactionAsync(new ReputationData(tusers.Result));
             //var t2 = m_QueueRepository.InsertMessageToTranactionAsync(new FollowClassBadgeData(1));
             //var t3 = m_QueueRepository.InsertMessageToTranactionAsync(new CreateQuizzesBadgeData(1));

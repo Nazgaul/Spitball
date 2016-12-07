@@ -1,5 +1,8 @@
 ﻿
 
+using System.Reflection;
+using Zbang.Zbox.Infrastructure.Enums;
+
 namespace Zbang.Zbox.Infrastructure.Consts
 {
     public static class ReputationConst
@@ -18,10 +21,22 @@ namespace Zbang.Zbox.Infrastructure.Consts
         public const int CommentLike = 15;
         public const int ReplyLike = 15;
 
-        public const int Badge1 = 500;
-        public const int Badge2 = 500;
-        public const int Badge3 = 500;
-        public const int Badge4 = 500;
-        public const int Badge5 = 500;
+        public const int BadgeRegister = 500;
+        public const int BadgeFollowClass = 500;
+        public const int BadgeCreateQuizzes = 500;
+        public const int BadgeUploadFiles = 500;
+        public const int BadgeLikes = 500;
+
+        public static int GetBadgeScore(BadgeType badge)
+        {
+            foreach (var fi in typeof(ReputationConst).GetFields(BindingFlags.Public | BindingFlags.Static))
+            {
+                if (fi.Name == "Badge" + badge)
+                {
+                    return (int) fi.GetValue(null);
+                }
+            }
+            return 0;
+        }
     }
 }

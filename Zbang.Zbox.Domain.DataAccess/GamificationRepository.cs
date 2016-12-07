@@ -112,11 +112,11 @@ select i.score + q.score +f.score + c.score + r.score + b.score
             sqlQuery.SetInt32("flashcardLike", ReputationConst.FlashcardLike);
             sqlQuery.SetInt32("commentLike", ReputationConst.CommentLike);
             sqlQuery.SetInt32("replyLike", ReputationConst.ReplyLike);
-            sqlQuery.SetInt32("badge1", ReputationConst.Badge1);
-            sqlQuery.SetInt32("badge2", ReputationConst.Badge2);
-            sqlQuery.SetInt32("badge3", ReputationConst.Badge3);
-            sqlQuery.SetInt32("badge4", ReputationConst.Badge4);
-            sqlQuery.SetInt32("badge5", ReputationConst.Badge5);
+            sqlQuery.SetInt32("badge1", ReputationConst.BadgeRegister);
+            sqlQuery.SetInt32("badge2", ReputationConst.BadgeFollowClass);
+            sqlQuery.SetInt32("badge3", ReputationConst.BadgeCreateQuizzes);
+            sqlQuery.SetInt32("badge4", ReputationConst.BadgeUploadFiles);
+            sqlQuery.SetInt32("badge5", ReputationConst.BadgeLikes);
 
             var retVal = sqlQuery.UniqueResult<int>();
             return retVal;

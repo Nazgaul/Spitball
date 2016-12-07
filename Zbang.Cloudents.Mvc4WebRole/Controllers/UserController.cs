@@ -9,6 +9,7 @@ using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources;
 using Zbang.Zbox.Infrastructure;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -239,7 +240,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var level = GamificationLevels.GetLevel(result.Score);
             result.Level = level.Name;
             result.NextLevel = level.NextLevel;
-            result.Number = level.Level;
+            result.Number = level.Level + 1;
             return JsonOk(result);
         }
 
@@ -272,7 +273,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     continue;
                 }
-                badges.Add(new Badge(value.GetEnumDescription(), resourceManger.GetString($"Badge{value}Description")));
+                badges.Add(new Badge(value.GetEnumDescription(), 
+                    resourceManger.GetString($"Badge{value}Description"),
+                    ReputationConst.GetBadgeScore(value)));
             }
 
             return JsonOk(new

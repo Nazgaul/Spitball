@@ -608,5 +608,18 @@ offset @page*100 ROWS
     FETCH NEXT 100 ROWS ONLY;", new { page });
             }
         }
+
+        public IEnumerable<long> GetUserReputationUpdate(int page)
+        {
+            using (var conn = DapperConnection.OpenConnection())
+            {
+                return conn.Query<long>(
+                    @"select userid from zbox.users where score = 0 and userid in (
+select distinct(userid) from zbox.badge )
+order by userid
+offset @page*100 ROWS
+    FETCH NEXT 100 ROWS ONLY;", new { page });
+            }
+        }
     }
 }
