@@ -90,6 +90,8 @@ namespace Zbang.Zbox.Domain.Common
         void DeleteItemInDiscussion(DeleteDiscussionCommand command);
 
         void AddStudent(AddStudentCommand command);
+        Task AddQuizLikeAsync(AddQuizLikeCommand command);
+        Task DeleteQuizLikeAsync(DeleteQuizLikeCommand command);
 
         #endregion
 

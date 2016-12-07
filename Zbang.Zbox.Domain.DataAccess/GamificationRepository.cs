@@ -72,7 +72,7 @@ with itemScore as
 ),
 quizScore as 
 (
-	select coalesce(sum(q.NumberOfViews),0)*@quizView as score from zbox.Quiz q where q.Publish = 1 and q.IsDeleted = 0 and q.UserId = @userid
+	select coalesce(sum(q.LikeCount),0)*@quizLike+  coalesce(sum(q.NumberOfViews),0)*@quizView + coalesce(sum(q.SolveCount),0) * @quizSolve  as score from zbox.Quiz q where q.Publish = 1 and q.IsDeleted = 0 and q.UserId = @userid
 ),
 flashcardScore as 
 (

@@ -132,5 +132,14 @@
     </bag>
   </class>
 
+  <class name="QuizLike" table="QuizLike">
+    <id name="Id" column="Id">
+      <generator class="assigned"/>
+    </id>
+    <many-to-one name="Quiz" class="Quiz" column="QuizId" not-null="true" foreign-key="QuizLike" unique-key="QuizLikeQuizIdUserId"/>
+    <many-to-one name="User" class="User" column="UserId" not-null="true" foreign-key="UserQuizLike" unique-key="QuizLikeQuizUserId"/>
+    <property name="DateTime" not-null="true" type="DateTime2"></property>
+  </class>
+
 
 </hibernate-mapping>

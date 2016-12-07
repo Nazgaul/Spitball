@@ -16,6 +16,8 @@ module app {
         deleteQuestion(questionId): angular.IPromise<any>;
         publish(quizId: number): angular.IPromise<any>;
         deleteQuiz(quizId: number): angular.IPromise<any>;
+        like(id: number): angular.IPromise<number>;
+        likeDelete(id: Guid): angular.IPromise<any>;
     }
     class QuizService implements IQuizService {
         static $inject = ["ajaxService2"];
@@ -69,28 +71,7 @@ module app {
                 text: text
             });
         }
-        //createAnswer(questionId: string, text: string) {
-        //    return this.ajaxService.post('/quiz/createanswer/', {
-        //        questionId: questionId,
-        //        text: text
-        //    });
-        //}
-        //updateAnswer(answerId: string, text: string) {
-        //    return this.ajaxService.post('/quiz/updateanswer/', {
-        //        Id: answerId,
-        //        text: text
-        //    });
-        //}
-        //markCorrect(answerId: string) {
-        //    return this.ajaxService.post('/quiz/markcorrect/', {
-        //        answerId: answerId
-        //    });
-        //}
-        //deleteAnswer(answerId: string) {
-        //    return this.ajaxService.post('/quiz/deleteanswer/', {
-        //        id: answerId
-        //    });
-        //}
+        
         deleteQuestion(questionId) {
             return this.ajaxService.post('/quiz/deletequestion/', {
                 id: questionId
@@ -107,6 +88,13 @@ module app {
                 id: quizId
             });
         }
+        like(id: number) {
+            return this.ajaxService.post("/quiz/like/", { id: id });
+        }
+        likeDelete(id: Guid) {
+            return this.ajaxService.delete("/quiz/like/", { id: id });
+        }
+
     }
 
     angular.module("app.quiz").service('quizService', QuizService);

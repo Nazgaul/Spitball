@@ -42,7 +42,9 @@
         q.questions = quizData.quiz.questions;
         q.index = 0;
         q.sheet = quizData.sheet || {};
+        
         q.topUsers = quizData.quiz.topUsers || [];
+        q.like = like;
 
         for (var j = q.topUsers.length; j < 4; j++) {
             q.topUsers.push({
@@ -73,15 +75,6 @@
             }
             q.classmatesCount = response.solversCount;
         });
-
-        //q.backToBox = backToBox;
-
-        //function backToBox() {
-        //    if ($previousState.get()) {
-        //        $previousState.go();
-        //    }
-        //    $location.url(q.boxUrl);
-        //}
 
 
         function start() {
@@ -123,7 +116,9 @@
             q.isSolved = false;
             q.state = q.states.solving;
             q.answersCount = 0;
+            var like = q.sheet.like;
             q.sheet = {};
+            q.sheet.like = like;
             q.index = 0;
             angular.forEach(q.questions, function (v) {
                 v.isCorrect = undefined;
@@ -343,6 +338,24 @@
 
             quizService.removeDiscussion({ id: comment.id });
 
+        }
+
+        function like() {
+            //this.disabled = true;
+            
+            if (!q.sheet.like) {
+                quizService.like($stateParams.quizId)
+                    .then(function(response) {
+                        q.sheet.like = response;
+                    });
+                //this.flashcardService.like(this.$stateParams["id"]).then(response => this.flashcard.like = response).finally(() => this.disabled = false);
+            } else {
+                quizService.likeDelete(q.sheet.like)
+                    .then(function () {
+                        q.sheet.like = null;
+                    });
+                //this.flashcardService.likeDelete(this.flashcard.like).then(() => this.flashcard.like = null).finally(() => this.disabled = false);
+            }
         }
     }
 

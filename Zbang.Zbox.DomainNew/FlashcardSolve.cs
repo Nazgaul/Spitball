@@ -1,20 +1,20 @@
-﻿using System;
+using System;
 
 namespace Zbang.Zbox.Domain
 {
-    public class FlashcardLike
+    public class FlashcardSolve
     {
-        protected FlashcardLike()
+        protected FlashcardSolve()
         {
 
         }
 
-        public FlashcardLike(Guid id, User user, FlashcardMeta flashcard) : this()
+        public FlashcardSolve(Guid id, User user, FlashcardMeta flashcard) : this()
         {
             Id = id;
             User = user;
             Flashcard = flashcard;
-           
+
             DateTime = DateTime.UtcNow;
         }
         public Guid Id { get; set; }

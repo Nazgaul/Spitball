@@ -17,6 +17,7 @@ using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using System.Web.UI;
+using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
@@ -285,6 +286,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
         #endregion
+
+        [HttpPost, ZboxAuthorize, ActionName("like")]
+        public async Task<JsonResult> AddLikeAsync(long id)
+        {
+            var command = new AddQuizLikeCommand(User.GetUserId(), id);
+            await ZboxWriteService.AddQuizLikeAsync(command);
+            return JsonOk(command.Id);
+        }
+        [HttpDelete, ZboxAuthorize, ActionName("like")]
+        public async Task<JsonResult> DeleteLikeAsync(Guid id)
+        {
+            var command = new DeleteQuizLikeCommand(User.GetUserId(), id);
+            await ZboxWriteService.DeleteQuizLikeAsync(command);
+            return JsonOk();
+        }
 
         #region question
         [HttpPost]

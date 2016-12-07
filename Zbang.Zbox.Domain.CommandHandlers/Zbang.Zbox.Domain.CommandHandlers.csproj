@@ -58,6 +58,7 @@
     <Compile Include="AddFlashcardCommandHandler.cs" />
     <Compile Include="AddFlashcardPinCommandHandler.cs" />
     <Compile Include="AddItemCommentCommandHandler.cs" />
+    <Compile Include="AddQuizLikeCommandHandler.cs" />
     <Compile Include="AddReplyToCommentCommandHandler.cs" />
     <Compile Include="AddFileToBoxCommandHandler.cs" />
     <Compile Include="AddLinkToBoxCommandHandler.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="DeleteItemCommentReplyCommandHandler.cs" />
     <Compile Include="DeleteItemTabCommandHandler.cs" />
     <Compile Include="DeleteNodeFromLibraryCommandHandler.cs" />
+    <Compile Include="DeleteQuizLikeCommandHandler.cs" />
     <Compile Include="DeleteReplyCommandHandler.cs" />
     <Compile Include="DeleteCommentCommandHandler.cs" />
     <Compile Include="DeleteUpdatesCommandHandler.cs" />

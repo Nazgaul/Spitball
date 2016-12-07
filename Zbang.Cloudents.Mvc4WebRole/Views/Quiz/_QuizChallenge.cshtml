@@ -38,12 +38,10 @@
     <div class="completed-quiz" flex-xs="100" flex-gt-xs="50">
         <div layout="row" layout-align="space-between center" class="complete backgrounds">
             <md-icon md-svg-icon="q:checkmark"></md-icon>
-            @*@Html.Svg("/images/site/quizicons.svg", "checkmark")*@
             <span>@QuizResources.CompletedQuiz</span>
         </div>
         <div layout="row" layout-align="space-between center" class="ranking backgrounds">
             <md-icon md-svg-icon="q:rank"></md-icon>
-            @*@Html.Svg("/images/site/quizicons.svg", "rank")*@
             <span>@QuizResources.Answered {{q.answersCount}}/{{::q.questions.length}}</span>
         </div>
         <div class="buttons" layout="row" layout-align="center stretch">
@@ -52,7 +50,7 @@
         </div>
         <div class="like-wrapper">
             <span>@QuizResources.LikeLabel</span>&nbsp;
-            <button @*ng-class="{liked:...}"*@>
+            <button ng-click="q.like()" ng-class="{liked: q.sheet.like}">
                 <div>
                     <md-icon md-svg-icon="b:like"></md-icon>@GeneralResources.Like
                 </div>

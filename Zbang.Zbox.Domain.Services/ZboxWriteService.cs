@@ -570,38 +570,22 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-        //public void CreateAnswer(CreateAnswerCommand command)
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send(command);
-        //        UnitOfWork.Current.TransactionalFlush();
-        //    }
-        //}
-        //public void DeleteAnswer(DeleteAnswerCommand command)
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send(command);
-        //        UnitOfWork.Current.TransactionalFlush();
-        //    }
-        //}
-        //public void UpdateAnswer(UpdateAnswerCommand command)
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send(command);
-        //        UnitOfWork.Current.TransactionalFlush();
-        //    }
-        //}
-        //public void MarkAnswerAsCorrect(MarkAnswerCorrectCommand command)
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send(command);
-        //        UnitOfWork.Current.TransactionalFlush();
-        //    }
-        //}
+        public async Task AddQuizLikeAsync(AddQuizLikeCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                await m_CommandBus.SendAsync(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+        public async Task DeleteQuizLikeAsync(DeleteQuizLikeCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                await m_CommandBus.SendAsync(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
         public async Task<SaveQuizCommandResult> SaveQuizAsync(SaveQuizCommand command)
         {
             using (UnitOfWork.Start())

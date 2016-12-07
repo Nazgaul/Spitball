@@ -1065,7 +1065,12 @@ where ownerid = @UserId and boxid = @BoxId;";
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var sql =
-                    $"{Sql.Quiz.QuizQuery} {Sql.Quiz.Question} {Sql.Quiz.Answer} {Sql.Quiz.UserQuiz} {Sql.Quiz.UserAnswer} {Sql.Quiz.TopUsers}";
+                    $"{Sql.Quiz.QuizQuery} " +
+                    $"{Sql.Quiz.Question} " +
+                    $"{Sql.Quiz.Answer} " +
+                    $"{Sql.Quiz.UserQuiz} " +
+                    $"{Sql.Quiz.UserAnswer} " +
+                    $"{Sql.Quiz.TopUsers}";
                 using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId, query.BoxId, query.UserId, topusers = 3 }))
                 {
                     retVal.Quiz = await grid.ReadFirstAsync<Item.QuizWithDetailDto>();
