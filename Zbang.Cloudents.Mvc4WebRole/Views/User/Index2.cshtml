@@ -1,5 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Zbox.Infrastructure.Consts
 <div class="ad">
     <adsense ad-client="ca-pub-1215688692145777" ad-slot="1334764954" inline-style="display:block;" ad-format="auto"></adsense>
 </div>
@@ -41,33 +42,33 @@
                     </tr>
                     <tr>
                         <th>Documents:</th>
-                        <td>1</td>
-                        <td>20</td>
-                        <td>100</td>
+                        <td>@ReputationConst.ItemView</td>
+                        <td>@ReputationConst.ItemDownload</td>
+                        <td>@ReputationConst.ItemLike</td>
                     </tr>
                     <tr>
                         <th>Quiz:</th>
-                        <td>5</td>
-                        <td>100</td>
-                        <td>150</td>
+                        <td>@ReputationConst.QuizView</td>
+                        <td>@ReputationConst.QuizSolve</td>
+                        <td>@ReputationConst.QuizLike</td>
                     </tr>
                     <tr>
                         <th>Flashcard:</th>
-                        <td>5</td>
+                        <td>@ReputationConst.FlashcardView</td>
                         <td></td>
-                        <td>100</td>
+                        <td>@ReputationConst.FlashcardLike</td>
                     </tr>
                     <tr>
                         <th>Post:</th>
                         <td></td>
                         <td></td>
-                        <td>100</td>
+                        <td>@ReputationConst.CommentLike</td>
                     </tr>
                     <tr>
                         <th>Comment:</th>
                         <td></td>
                         <td></td>
-                        <td>100</td>
+                        <td>@ReputationConst.ReplyLike</td>
                     </tr>
                 </tbody>
             </table>

@@ -73,7 +73,7 @@ with itemScore as
 ),
 quizScore as 
 (
-	select coalesce(sum(q.LikeCount),0)*@quizLike+  coalesce(sum(q.NumberOfViews),0)*@quizView + coalesce(sum(q.SolveCount),0) * @quizSolve  as score from zbox.Quiz q where q.Publish = 1 and q.IsDeleted = 0 and q.UserId = @userid
+	select coalesce(sum(q.LikeCount),0)*@quizLike +  coalesce(sum(q.NumberOfViews),0)*@quizView + coalesce(sum(q.SolveCount),0) * @quizSolve  as score from zbox.Quiz q where q.Publish = 1 and q.IsDeleted = 0 and q.UserId = @userid
 ),
 flashcardScore as 
 (
@@ -86,10 +86,9 @@ replyScore as (
 	select coalesce(sum(a.likecount),0)*@replyLike as score from Zbox.Answer a where a.UserId = @userid
 ),
 badges as (
-select coalesce(sum(x),0) as score from (
+select coalesce(sum(x),0)+ @badge1 as score from (
 select 
 	case name
-		when 1 then @badge1
 		when 2 then @badge2
 		when 3 then @badge3
 		when 4 then @badge4

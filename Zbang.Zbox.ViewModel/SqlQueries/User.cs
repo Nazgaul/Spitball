@@ -115,7 +115,8 @@ q.NumberOfViews as numOfViews
 
         public const string GamificationBoard = @"select score,BadgeCount from zbox.users where userid = @userId";
         public const string Level = @"select score from zbox.users where userid = @userId";
-        public const string Badge = @"select name as badge,progress from zbox.Badge where userid = @userId";
+        public const string Badge = @"select name as badge,progress from zbox.Badge where userid = @userId
+union select 1,100";
         public const string LeaderBoardMySelf = @"with leaderboard as (
 select userid as id,username as name,score,UserImageLarge as image, BadgeCount as badges,
 ROW_NUMBER () over (partition BY universityid order by score desc) as location

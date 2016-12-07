@@ -1,4 +1,5 @@
-﻿using ProtoBuf;
+﻿using System.Collections.Generic;
+using ProtoBuf;
 
 namespace Zbang.Zbox.Infrastructure.Transport
 {
@@ -14,16 +15,23 @@ namespace Zbang.Zbox.Infrastructure.Transport
         {
         }
 
-        protected BadgeData(long userId/*, int badge*/)
+        protected BadgeData(long userId) : this(new[] { userId})
         {
-            UserId = userId ;
-           // Badge = badge;
+        }
+        protected BadgeData(IEnumerable<long> userIds)
+        {
+            UserIds = userIds;
         }
 
-        
+
+
+
 
         [ProtoMember(1)]
         public long UserId { get; private set; }
+
+        [ProtoMember(2)]
+        public IEnumerable<long> UserIds { get; private set; }
         //[ProtoMember(2)]
         //public int Badge { get; private set; }
         public override string ProcessResolver => BadgeResolver;
@@ -40,7 +48,12 @@ namespace Zbang.Zbox.Infrastructure.Transport
         {
            
         }
-        
+        public RegisterBadgeData(IEnumerable<long> userIds)
+            : base(userIds)
+        {
+
+        }
+
     }
     [ProtoContract]
     public class FollowClassBadgeData : BadgeData
@@ -51,6 +64,11 @@ namespace Zbang.Zbox.Infrastructure.Transport
 
         public FollowClassBadgeData(long userId)
             : base(userId)
+        {
+
+        }
+        public FollowClassBadgeData(IEnumerable<long> userIds)
+            :base(userIds)
         {
 
         }
@@ -68,6 +86,11 @@ namespace Zbang.Zbox.Infrastructure.Transport
         {
 
         }
+        public CreateQuizzesBadgeData(IEnumerable<long> userIds)
+            :base(userIds)
+        {
+
+        }
 
     }
     [ProtoContract]
@@ -82,6 +105,11 @@ namespace Zbang.Zbox.Infrastructure.Transport
         {
 
         }
+        public UploadItemsBadgeData(IEnumerable<long> userIds)
+            :base(userIds)
+        {
+
+        }
 
     }
     [ProtoContract]
@@ -93,6 +121,11 @@ namespace Zbang.Zbox.Infrastructure.Transport
 
         public LikesBadgeData(long userId)
             : base(userId)
+        {
+
+        }
+        public LikesBadgeData(IEnumerable<long> userIds)
+            :base(userIds)
         {
 
         }

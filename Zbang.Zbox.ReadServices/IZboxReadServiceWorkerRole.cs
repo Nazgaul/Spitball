@@ -59,5 +59,10 @@ namespace Zbang.Zbox.ReadServices
 
         Task<IEnumerable<SpamGunDto>> GetSpamGunDataAsync(int universityId, CancellationToken token);
 
+        IEnumerable<long> GetUsersBadgeFollow(int page);
+        IEnumerable<long> GetUsersBadgeQuiz(int page);
+        IEnumerable<long> GetUsersBadgeItem(int page);
+        IEnumerable<long> GetUsersBadgeLike(int page);
+
     }
 }

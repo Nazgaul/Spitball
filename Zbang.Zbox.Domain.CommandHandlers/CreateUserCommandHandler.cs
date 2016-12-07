@@ -43,9 +43,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
 
-            var t4 = m_QueueRepository.InsertMessageToTranactionAsync(new RegisterBadgeData(user.Id));
+            //var t4 = m_QueueRepository.InsertMessageToTranactionAsync(new RegisterBadgeData(user.Id));
             var t1 =  m_QueueRepository.InsertMessageToTranactionAsync(new NewUserData(user.Id, user.Name, user.Culture, user.Email, command.Parameters?["ref"]));
-            return Task.WhenAll(t1, t4);
+            return Task.WhenAll(t1);
         }
 
         protected void GiveReputationAndAssignToBox(Guid? invId, User user)
