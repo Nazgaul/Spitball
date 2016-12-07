@@ -1,9 +1,5 @@
-﻿
-using System;
-
-namespace Zbang.Zbox.ViewModel.Dto
+﻿namespace Zbang.Zbox.ViewModel.Dto
 {
-    [Serializable]
     public class LeaderBoardDto
     {
         public long Id { get; set; }
@@ -16,10 +12,10 @@ namespace Zbang.Zbox.ViewModel.Dto
       
     }
 
-    public class LeaderboardFlashcardDto
-    {
-        public int Row { get; set; }
-        public int Count { get; set; }
+    //public class LeaderboardFlashcardDto
+    //{
+    //    public int Row { get; set; }
+    //    public int Count { get; set; }
         
-    }
+    //}
 }

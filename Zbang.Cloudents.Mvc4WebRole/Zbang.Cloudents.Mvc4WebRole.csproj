@@ -1454,6 +1454,7 @@
     <TypeScriptCompile Include="Js\components\box\boxSettings.controller.ts" />
     <TypeScriptCompile Include="Js\components\box\flashcards.controller.ts" />
     <TypeScriptCompile Include="Js\components\box\item.controller.ts" />
+    <TypeScriptCompile Include="Js\components\box\leaderboard.controller.ts" />
     <TypeScriptCompile Include="Js\components\chat\chat.controller.ts" />
     <TypeScriptCompile Include="Js\components\chat\chat.factory.ts" />
     <TypeScriptCompile Include="Js\components\chat\chatTimeAgo.ts" />
@@ -1467,7 +1468,6 @@
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.service.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\flipclock.directive.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\gamificationBoard.controller.ts" />
-    <TypeScriptCompile Include="Js\components\dashboard\leaderboard.controller.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\cardAnimation.directive.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\cardScroll.directive.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\cardSettings.directive.ts" />
@@ -2324,7 +2324,6 @@
     <Content Include="Js\components\box\members.controller.js" />
     <Content Include="Js\components\box\feed.controller.js" />
     <Content Include="Js\components\dashboard\university.controller.js" />
-    <Content Include="Js\components\leaderboard.controller.js" />
     <Content Include="Js\components\quiz\popup\quiz.challenge.controller.js" />
     <Content Include="Js\components\quiz\popup\quiz.score.module.js" />
     <Content Include="Js\components\quiz\popup\quiz.challenge.module.js" />

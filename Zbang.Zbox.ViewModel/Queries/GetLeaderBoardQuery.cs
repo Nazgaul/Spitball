@@ -1,6 +1,6 @@
 ﻿namespace Zbang.Zbox.ViewModel.Queries
 {
-    public class GetLeaderBoardQuery //: IQueryCache
+    public class GetLeaderBoardQuery
     {
         public GetLeaderBoardQuery(long boxId)
         {
@@ -23,5 +23,6 @@
         //{
         //    get { return TimeSpan.FromMinutes(60); }
         //}
+       
     }
 }

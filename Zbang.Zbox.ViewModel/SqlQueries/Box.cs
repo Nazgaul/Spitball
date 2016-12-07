@@ -82,15 +82,10 @@ order by x desc;
 ";
 
         public const string LeaderBoard = @"
-select top(3) u.userid as id, u.UserImageLarge as image, coalesce(u.FirstName,u.username) as name, u.score as score, u.Url as Url
-from zbox.userboxrel ub 
-join zbox.users u on ub.userid = u.userid
- where boxid = @BoxId
- and u.usertype <> 1
- and ub.UserType > 1
- and u.userreputation > 0
- order by score desc;";
-
+select top 25 u.userid as id,username as name,score,UserImageLarge as image ,BadgeCount as badges
+from zbox.users u join zbox.UserBoxRel ub on u.UserId = ub.UserId
+where ub.boxid = @BoxId
+order by score desc";
 
 
 

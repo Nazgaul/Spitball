@@ -21,7 +21,6 @@ var app;
             this.showToasterService = showToasterService;
             boxId = $stateParams.boxId;
             this.data = boxData;
-            this.showLeaderboard = this.isAcademic = boxData.boxType === "academic" || boxData.boxType === "academicClosed";
             this.needFollow = boxData.userType === "invite" || boxData.userType === "none";
             this.canInvite = boxData.boxType !== "academicClosed" && this.isAcademic || (boxData.userType === "owner" && !this.isAcademic);
             this.canShare = boxData.boxType !== "academicClosed" && this.isAcademic && !this.needFollow;
@@ -35,9 +34,6 @@ var app;
             $scope.$on("close-collapse", function () {
                 _this.inviteOpen = false;
                 _this.settingsOpen = false;
-            });
-            $scope.$on("hide-leader-board", function () {
-                _this.showLeaderboard = false;
             });
             $window.onbeforeunload = function () {
                 if (!_this.user.id) {

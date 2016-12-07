@@ -224,7 +224,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/dashboard/university.controller.js"),
                         new JsFileWithCdn("~/js/components/dashboard/createBox.controller.js"),
                         new JsFileWithCdn("~/js/components/dashboard/flipclock.directive.js"),
-                        new JsFileWithCdn("~/js/components/dashboard/leaderboard.controller.js"),
+                        //new JsFileWithCdn("~/js/components/dashboard/leaderboard.controller.js"),
                         new JsFileWithCdn("~/js/components/dashboard/gamificationBoard.controller.js"),
 
 
@@ -246,7 +246,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                      new JsFileWithCdn("~/js/components/box/recommended.controller.js"),
                      new JsFileWithCdn("~/js/components/box/slideit.directive.js"),
-
+                     new JsFileWithCdn("~/js/components/box/leaderboard.controller.js"),
                         new JsFileWithCdn("~/js/components/box/box.routes.js"),
 
 
@@ -268,7 +268,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/search/search.service.js"),
 
 
-                        new JsFileWithCdn("~/js/components/leaderboard.controller.js"),
+                        new JsFileWithCdn("~/js/components/box/leaderboard.controller.js"),
 
                         new JsFileWithCdn("~/js/components/library/library.controller.js"),
                         new JsFileWithCdn("~/js/components/library/libraryChoose.controller.js"),
