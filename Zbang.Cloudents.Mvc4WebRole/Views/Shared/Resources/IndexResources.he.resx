@@ -120,9 +120,6 @@
   <data name="AddMail" xml:space="preserve">
     <value>הקלד את כתובת המייל של חברך</value>
   </data>
-  <data name="Best" xml:space="preserve">
-    <value>המצטיין הכיתתי</value>
-  </data>
   <data name="Classes" xml:space="preserve">
     <value>הקורסים שלי</value>
   </data>

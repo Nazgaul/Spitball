@@ -115,15 +115,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Community.
-        /// </summary>
-        public static string Community {
-            get {
-                return ResourceManager.GetString("Community", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Earn points and badges by contributing to your community through specific actions, and rise up through the levels to gain special privileges that control what you can do on Spitball..
         /// </summary>
         public static string InfoText {
@@ -138,6 +129,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         public static string InfoTitle {
             get {
                 return ResourceManager.GetString("InfoTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leaderboard.
+        /// </summary>
+        public static string Leaderboard {
+            get {
+                return ResourceManager.GetString("Leaderboard", resourceCulture);
             }
         }
         

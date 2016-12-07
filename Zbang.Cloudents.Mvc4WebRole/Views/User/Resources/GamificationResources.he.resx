@@ -120,10 +120,10 @@
   <data name="Badges" xml:space="preserve">
     <value>תגים</value>
   </data>
-  <data name="Community" xml:space="preserve">
-    <value>קהילה</value>
-  </data>
   <data name="Levels" xml:space="preserve">
     <value>דרגות</value>
+  </data>
+  <data name="Leaderboard" xml:space="preserve">
+    <value>לוח מובילים</value>
   </data>
 </root>

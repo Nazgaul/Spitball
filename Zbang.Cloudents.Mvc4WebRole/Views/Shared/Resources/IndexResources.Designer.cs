@@ -79,15 +79,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Best in the class.
-        /// </summary>
-        public static string Best {
-            get {
-                return ResourceManager.GetString("Best", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to My Classes.
         /// </summary>
         public static string Classes {

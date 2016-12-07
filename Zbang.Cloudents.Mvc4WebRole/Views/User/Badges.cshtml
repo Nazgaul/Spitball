@@ -13,7 +13,7 @@
                 <md-tab-label><h4>@GamificationResources.Badges</h4></md-tab-label>
             </md-tab>
             <md-tab ui-sref="user.badge({type:'community'})" md-active="g.isActive('community')">
-                <md-tab-label><h4>@GamificationResources.Community</h4></md-tab-label>
+                <md-tab-label><h4>@GamificationResources.Leaderboard</h4></md-tab-label>
             </md-tab>
         </md-tabs>
     </div>
@@ -74,33 +74,7 @@
             </div>
         </div>
         <div ng-switch-when="community" class="tab community">
-            <div class="top">
-                <div class="bg-l"></div>
-                <div class="bg-r"></div>
-                <img class="title" src="@Url.CdnContent("~/Images/Site/Leaderboard-title.png")" />
-            </div>
-            <div class="content">
-                <div class="filter-wrapper">
-                    <button type="button" ng-click="g.goToSelf()" class="action-btn">Show Myself</button>
-                </div>
-                <div class="users" layout="row" layout-padding layout-wrap vs-repeat="94" vs-scroll-parent="window">
-                    <div class="user-data" ng-repeat="user in g.leaderboard track by user.id">
-                        <div class="rank" ng-bind="::$index+1 + startIndex "></div>
-                        <a class="img-wrapper" ng-attr-id="{{'user_' + user.id}}" ui-sref="user({userId:user.id,userName:user.name})">
-                            <user-image class="img-responsive" name="user.name" image="user.image" width="68" height="68"></user-image>
-                        </a>
-                        <div class="progress-user">
-                            <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{::user.progress}}"></md-progress-linear>
-                            <div class="text">
-                                <div class="name ellipsis" ng-bind="::user.name"></div>
-                                <div class="badges">@GamificationResources.Badges</div>
-                            </div>
-                        </div>
-                        <div class="points" ng-bind="::user.score"></div>
-                    </div>
-
-                </div>
-            </div>
+            @{ Html.RenderPartial("_LeaderBoard");}
         </div>
     </div>
 </div>

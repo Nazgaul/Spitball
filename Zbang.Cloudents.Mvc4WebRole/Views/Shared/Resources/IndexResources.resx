@@ -120,9 +120,6 @@
   <data name="AddMail" xml:space="preserve">
     <value>Type your classmate's email</value>
   </data>
-  <data name="Best" xml:space="preserve">
-    <value>Best in the class</value>
-  </data>
   <data name="Classes" xml:space="preserve">
     <value>My Classes</value>
   </data>

@@ -1,19 +1,28 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-@model string
-<div class="light leaderboard leaderboardbox box-style" ng-if="!lb.hideLeaderBoard">
-    <div class="portlet-body">
-        <h4 class="uppercase">@Model</h4>
-        <div class="r-table">
-            <div class="r-table-row" ng-repeat="l in ::lb.leaderboard">
-                <div class="r-table-cell">
-                    <a ng-href="{{::l.url}}" ga-track-event="['leaderboard', 'userPage']">
-                        <user-image class="img-circle" name="l.name" image="l.image" width="30" height="30"></user-image>
-                        <span class="user-name" ng-bind="::l.name"></span>
-                    </a>
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
+<div class="top">
+    <div class="bg-l"></div>
+    <div class="bg-r"></div>
+    <img class="title" src="@Url.CdnContent("~/Images/Site/Leaderboard-title.png")" />
+</div>
+<div class="content">
+    <div class="filter-wrapper">
+        <button type="button" ng-click="g.goToSelf()" class="action-btn">Show Myself</button>
+    </div>
+    <div class="users" layout="row" layout-padding layout-wrap vs-repeat="94" vs-scroll-parent="window">
+        <div class="user-data" ng-repeat="user in g.leaderboard track by user.id">
+            <div class="rank" ng-bind="::$index+1 + startIndex "></div>
+            <a class="img-wrapper" ng-attr-id="{{'user_' + user.id}}" ui-sref="user({userId:user.id,userName:user.name})">
+                <user-image class="img-responsive" name="user.name" image="user.image" width="68" height="68"></user-image>
+            </a>
+            <div class="progress-user">
+                <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{::user.progress}}"></md-progress-linear>
+                <div class="text">
+                    <div class="name ellipsis" ng-bind="::user.name"></div>
+                    <div class="badges">@GamificationResources.Badges</div>
                 </div>
-                <div class="r-table-cell" ng-bind="::$index + 1"></div>
-                <div class="r-table-cell last">{{::l.score}} @IndexResources.Pts</div>
             </div>
+            <div class="points" ng-bind="::user.score"></div>
         </div>
+
     </div>
 </div>
