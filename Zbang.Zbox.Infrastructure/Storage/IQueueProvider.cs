@@ -1,4 +1,5 @@
-﻿using Zbang.Zbox.Infrastructure.Transport;
+﻿using System.Threading;
+using Zbang.Zbox.Infrastructure.Transport;
 using System.Threading.Tasks;
 
 namespace Zbang.Zbox.Infrastructure.Storage
@@ -11,6 +12,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         Task InsertMessageToMailNewAsync(BaseMailData message);
 
         Task InsertMessageToTranactionAsync(DomainProcess message);
+        Task InsertMessageToTranactionAsync(DomainProcess message, CancellationToken token);
         Task InsertMessageToDownloadAsync(UrlToDownloadData message);
 
         Task InsertMessageToThumbnailAsync(FileProcess message);

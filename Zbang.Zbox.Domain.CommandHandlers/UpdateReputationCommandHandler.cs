@@ -22,6 +22,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (message.UserIds == null) return;
             foreach (var userId in message.UserIds)
             {
+                message.Token.ThrowIfCancellationRequested();
                 var reputation = m_ReputationRepository.GetUserReputation(userId);
                 m_UserRepository.UpdateUserReputation(reputation, userId);
 

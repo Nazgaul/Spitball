@@ -53,6 +53,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
         {
             return GetTransactionQueue().InsertToQueueProtoAsync(message);
         }
+        public Task InsertMessageToTranactionAsync(DomainProcess message, CancellationToken token)
+        {
+            return GetTransactionQueue().InsertToQueueProtoAsync(message, token);
+        }
 
         public Task InsertMessageToThumbnailAsync(FileProcess message)
         {

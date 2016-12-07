@@ -58,25 +58,26 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
                 foreach (var userId in parameters.UserIds)
                 {
 
-                    tasks.Add(DoUpdateAsync(userId, badge));
+                    tasks.Add(DoUpdateAsync(userId, badge, token));
                 }
             }
             if (parameters.UserId > 0)
             {
-                tasks.Add(DoUpdateAsync(parameters.UserId, badge));
+                tasks.Add(DoUpdateAsync(parameters.UserId, badge, token));
             }
             await Task.WhenAll(tasks);
             return true;
         }
 
-        private Task DoUpdateAsync(long userId, BadgeType badge)
+        private Task DoUpdateAsync(long userId, BadgeType badge, CancellationToken token)
         {
+            token.ThrowIfCancellationRequested();
             TraceLog.WriteInfo($"processing badge {badge.GetEnumDescription()} for user {userId}");
             var command = new UpdateBadgesCommand(userId, badge);
             m_ZboxWriteService.UpdateBadges(command);
             if (command.Progress == 100)
             {
-                return m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(userId));
+                return m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(userId), token);
                 //try
                 //{
                 //    //TODO: culture

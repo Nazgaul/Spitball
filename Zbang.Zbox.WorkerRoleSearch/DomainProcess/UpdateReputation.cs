@@ -25,11 +25,12 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             {
                 var userIds = string.Join(",", parameters.UserIds);
                 TraceLog.WriteInfo($"processing reputation for user {userIds}");
-                m_ZboxWriteService.UpdateReputation(new UpdateReputationCommand(parameters.UserIds));
+                m_ZboxWriteService.UpdateReputation(new UpdateReputationCommand(parameters.UserIds, token));
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("On new update model:" + parameters, ex);
+                TraceLog.WriteError("On update reputation model:" + parameters, ex);
+                return Infrastructure.Extensions.TaskExtensions.CompletedTaskFalse;
             }
             return Infrastructure.Extensions.TaskExtensions.CompletedTaskTrue;
         }
