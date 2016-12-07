@@ -10,7 +10,7 @@
 </div>
 <div class="userPage">
     <div class="profile-sidebar">
-        <div class="portlet light profile-sidebar-portlet" @*ng-if="::!u.isUserProfile"*@>
+        <div class="portlet light profile-sidebar-portlet" ng-if="::!u.isUserProfile">
             <div class="profile-userpic">
                 <user-image ng-if="u.details" class="img-responsive" name="u.details.name" image="u.details.image" width="125" height="125"></user-image>
             </div>
@@ -32,62 +32,45 @@
         <section class="points-info" hide-xs>
             <h1>Earning points</h1>
             <table>
-                <tbody class="odd">
+                <tbody>
+                    <tr class="titles">
+                        <th></th>
+                        <td><md-icon class="view" md-svg-icon="b:eye"></md-icon></td>
+                        <td><md-icon class="download" md-svg-icon="i:download"></md-icon></td>
+                        <td><md-icon class="like" md-svg-icon="b:like"></md-icon></td>
+                    </tr>
                     <tr>
-                        <th rowspan="3">Documents:</th>
-                        <td>View</td>
+                        <th>Documents:</th>
                         <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>Download</td>
                         <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Like</td>
                         <td>100</td>
                     </tr>
-                </tbody>
-                <tbody class="even">
                     <tr>
-                        <th rowspan="3">Quiz:</th>
-                        <td>View</td>
+                        <th>Quiz:</th>
                         <td>5</td>
-                    </tr>
-                    <tr>
-                        <td>Solve</td>
                         <td>100</td>
-                    </tr>
-                    <tr>
-                        <td>Like</td>
                         <td>150</td>
                     </tr>
-                </tbody>
-                <tbody class="odd">
                     <tr>
-                        <th rowspan="2">Flashcard:</th>
-                        <td>View</td>
+                        <th>Flashcard:</th>
                         <td>5</td>
+                        <td></td>
+                        <td>100</td>
                     </tr>
                     <tr>
-                        <td>Like</td>
+                        <th>Post:</th>
+                        <td></td>
+                        <td></td>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <th>Comment:</th>
+                        <td></td>
+                        <td></td>
                         <td>100</td>
                     </tr>
                 </tbody>
-                <tbody class="even">
-                    <tr>
-                        <th rowspan="1">Post:</th>
-                        <td>Like</td>
-                        <td>100</td>
-                    </tr>
-                </tbody>
-                <tbody class="odd">
-                    <tr>
-                        <th rowspan="1">Comment:</th>
-                        <td>Like</td>
-                        <td>100</td>
-                    </tr>
-                </tbody>
-</table>
+            </table>
 
 
 

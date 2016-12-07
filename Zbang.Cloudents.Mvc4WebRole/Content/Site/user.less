@@ -58,7 +58,6 @@
 
     .points-container {
         text-align: center;
-        margin: 16px 0;
         background: @gamificationYellow;
         color: @textColorBlack;
 
@@ -82,15 +81,14 @@
 
     .points-info {
         background: @textColorWhite;
-        padding-bottom: 10px;
 
         h1 {
-            background: @headerbackground;
+            background: @buttonColorBlue;
             color: @textColorWhite;
             font-size: 20px;
             text-align: center;
             padding: 8px 0;
-            margin: 0 0 10px 0;
+            margin: 0;
         }
 
         table {
@@ -100,19 +98,41 @@
             th {
                 vertical-align: top;
                 text-align: left;
-                padding-left: 10px;
+                padding: 0 20px 0 10px;
                 font-size: 14px;
                 color: @buttonColorBlue;
                 //max-width: 50px;
                 width: 1%;
+                line-height: 36px;
             }
 
-            tr td:nth-last-child(1) {
-                padding-right: 20px;
-                width: 1%;
+            tr:nth-child(even) {
+                background: #d1e1e9;
             }
 
-            .odd, .even {
+            .titles {
+                line-height: 40px;
+
+                md-icon {
+                    fill: @buttonColorBlue;
+
+                    &.view {
+                        width: 30px;
+                        height: 20px;
+                    }
+
+                    &.download {
+                        width: 17px;
+                        height: 22px;
+                    }
+
+                    &.like {
+                        width: 23px;
+                        height: 22px;
+                    }
+                }
+            }
+            /*.odd, .even {
                 th, tr:nth-child(1) td {
                     padding-top: 10px;
                 }
@@ -120,19 +140,12 @@
                 th, tr:nth-last-child(1) td {
                     padding-bottom: 10px;
                 }
-            }
-
-
-            tbody {
-                &.odd {
-                    background: #d1e1e9;
-                }
-
-                tr {
-                    line-height: 22px;
-                }
-            }
+            }*/
         }
+    }
+
+    .profile-sidebar-portlet, .points-container, .points-info {
+        box-shadow: 0 0px 1px rgba(0,0,0,.3);
     }
     /*.points-awards {
         margin-top: 18px;
@@ -202,7 +215,7 @@
     //.tab-content {
     //bottom: 0;
     .custom-progress-bar {
-        .custom-progress-bar(@gamificationYellow,@backgroundCalmGrey,10px,5px);
+        .custom-progress-bar(@gamificationYellow,@backgroundColor,16px);
     }
 
     .badges {
@@ -524,7 +537,7 @@
                     .align-items(center);
                     .justifyContet(center);
                     background-size: cover;
-                    background-color: @headerbackground;
+                    background-color: #bbcbd3;
                     background-position: 50% 50%;
 
                     @media(max-width: 600px) {
@@ -579,153 +592,70 @@
                 }
 
                 .content {
-                    @media(min-width: 600px) {
-                        padding: 30px;
-                    }
+                    max-width: 840px;
+                    padding: 0 20px;
+                    margin: 30px auto;
 
-                    .user, .filter-wrapper {
-                        padding: 15px;
-                        display: inline-block;
+                    .filter-wrapper {
+                        padding-left: 190px;
 
-                        @media(max-width: 600px) {
-                            padding: 10px;
+                        .action-btn {
+                            font-size: 20px;
                         }
                     }
-
-                    .filters {
-                        .displayFlex;
-                        .align-items(center);
-
-                        .dates, button {
-                            border-radius: 8px;
-                            box-shadow: none;
-                            max-width: none;
-                            padding: 1px 5px;
-                        }
-
-                        button, .dates .md-text {
-                            font-size: 18px;
-
-                            @media(max-width: 600px) {
-                                font-size: 14px;
-                            }
-                        }
-
-                        button {
-                            color: @textColorWhite;
-                            line-height: 28px;
-                            width: 100%;
-                            padding: 1px;
-                        }
-
-                        .dates {
-                            padding: 0;
-
-                            .md-text {
-                                padding-left: 10px;
-                                color: @textColorWhite;
-                            }
-
-                            .md-select-icon {
-                                color: @textColorWhite;
-                            }
-
-                            .md-select-value {
-                                border: none;
-                                padding: 2px;
-                            }
-                        }
-                    }
-
 
                     .users {
-                        .displayFlex;
-                        .align-items(flex-start);
-                        flex-wrap: wrap;
+                        .user-data {
+                            width: 100%;
+                            .displayFlex;
+                            .align-items(stretch);
+                            color: @GreyBlue;
+                            padding: 12px 0;
 
-                        .user {
-                            .user-data {
-                                background: @textColorWhite;
-                                border: 1px solid #5d6d7e;
-                                text-align: center;
-                                height: 200px;
-                                padding: 0 5px 25px 5px;
-                                position: relative;
-
-                                img {
-                                    border-radius: 100%;
-                                    width: 90px;
-                                    height: 90px;
-                                    border: 1px solid @textColorBlack;
-                                    margin: 8px;
-                                }
-
-                                .name, .points {
-                                    font-size: 20px;
-                                    line-height: normal;
-                                    color: @textColorGrey;
-                                }
-
-                                .rank {
-                                    background: #5d6d7e;
-                                    font-weight: bold;
-                                    color: @textColorWhite;
-                                    line-height: 32px;
-                                    font-size: 22px;
-                                    position: absolute;
-                                    left: 0;
-                                    bottom: 0;
-                                    width: 100%;
-                                }
+                            .rank {
+                                font-size: 22px;
+                                font-weight: bold;
                             }
 
-                            &.top-user {
-                                .user-data {
-                                    border: 3px solid @gamificationYellow;
-                                    position: relative;
-                                    overflow: hidden;
+                            .rank, .points {
+                                min-width: 92px;
+                                text-align: center;
+                            }
 
-                                    &:before {
-                                        content: '';
-                                        display: block;
-                                        width: ~"calc(100% + 50px)";
-                                        height: 100px;
-                                        background: @gamificationYellow;
-                                        position: relative;
-                                        border-radius: 0 0 100% 100%;
-                                        top: -40px;
-                                        left: -25px;
-                                        margin-bottom: -90px;
-                                    }
+                            .points {
+                                font-size: 24px;
+                                font-weight: bold;
+                            }
 
-                                    .name, .points {
-                                        font-size: 22px;
-                                    }
+                            .img-wrapper {
+                                border-radius: 100%;
+                                overflow: hidden;
+                                border: solid 1px @GreyBlue;
+                            }
 
-                                    .img-wrapper {
-                                        position: relative;
-                                        display: inline-block;
+                            .rank, .img-wrapper, .progress-user, .points {
+                                .displayFlex;
+                                .justifyContet(center);
+                                flex-direction: column;
+                            }
 
-                                        img {
-                                            position: relative;
-                                            border: 3px solid @textColorWhite;
-                                        }
-                                    }
+                            .progress-user {
+                                position: relative;
+                                flex-grow: 1;
+                                flex-shrink: 0;
+                                margin: 0 26px;
 
-                                    .rank {
-                                        background: @gamificationYellow;
-                                        width: 30px;
-                                        height: 30px;
-                                        line-height: 28px;
-                                        border-radius: 100%;
-                                        padding: 0 2px;
-                                        font-size: 20px;
-                                        right: 10px;
-                                        bottom: 10px;
-                                        border: 2px solid #888b8e;
-                                        position: absolute;
-                                        left: inherit;
-                                    }
+                                .name, .badges {
+                                    position: absolute;
+                                    bottom: 0;
+                                }
+
+                                .name {
+                                    left: 8px;
+                                }
+
+                                .badges {
+                                    right: 8px;
                                 }
                             }
                         }
@@ -875,7 +805,7 @@
         .portlet.light {
             margin: 0 12px;
             background: @textColorLightWhite;
-            max-width: 1000px;
+            max-width: 1040px;
             min-height: 500px;
         }
 
@@ -883,11 +813,9 @@
             min-width: 300px;
         }
 
-        .files {
-            .file {
-                @media(min-width: 600px) {
-                    padding: 20px;
-                }
+        .files .file, .quizzes .quiz {
+            @media(min-width: 600px) {
+                padding: 20px;
             }
         }
     }

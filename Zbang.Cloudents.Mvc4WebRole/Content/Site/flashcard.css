@@ -300,13 +300,13 @@
 }
 .flashcardPage .header .progress-wrapper .progress-settings md-progress-linear {
   height: 20px;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
 }
 .flashcardPage .header .progress-wrapper .progress-settings md-progress-linear.md-default-theme .md-container,
 .flashcardPage .header .progress-wrapper .progress-settings md-progress-linear .md-container {
-  border-radius: 8px;
+  border-radius: 10px;
 }
 .flashcardPage .header .progress-wrapper .progress-settings md-progress-linear.md-default-theme .md-container,
 .flashcardPage .header .progress-wrapper .progress-settings md-progress-linear .md-bar,
