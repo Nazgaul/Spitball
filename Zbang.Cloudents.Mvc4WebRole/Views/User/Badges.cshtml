@@ -1,6 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
 @model Zbang.Cloudents.Mvc4WebRole.Models.Gamification
-<div class="badges">
+<div class="badges-wrapper">
     <div class="badges-bar">
         @*<div class="info">
                 <md-icon md-svg-icon="p:q-mark" class="" ng-click="g.showInfo()"></md-icon>
@@ -85,15 +85,17 @@
                 </div>
                 <div class="users" layout="row" layout-padding layout-wrap>
 
-                    <div class="user-data" ng-repeat="user in ::g.leaderboard track by user.id" ng-class="{'top-user' : $index < 5}">
+                    <div class="user-data" ng-repeat="user in ::g.leaderboard track by user.id" ng-if="$index < 15">
                         <div class="rank" ng-bind="::$index+1"></div>
                         <a class="img-wrapper" ng-attr-id="{{'user_' + user.id}}" ui-sref="user({userId:user.id,userName:user.name})">
                             <user-image class="img-responsive" name="user.name" image="user.image" width="68" height="68"></user-image>
                         </a>
                         <div class="progress-user">
                             <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{gb.score}}"></md-progress-linear>
-                            <div class="name ellipsis" ng-bind="::user.name"></div>
-                            <div class="badges">@GamificationResources.Badges</div>
+                            <div class="text">
+                                <div class="name ellipsis" ng-bind="::user.name"></div>
+                                <div class="badges">@GamificationResources.Badges</div>
+                            </div>
                         </div>
                         <div class="points" ng-bind="::user.score"></div>
                     </div>

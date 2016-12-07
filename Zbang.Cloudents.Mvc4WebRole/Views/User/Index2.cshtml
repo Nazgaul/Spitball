@@ -29,7 +29,7 @@
             <h5 count-up id="points" end-val="{{::u.details.score}}" duration="3"></h5>
             <h5>@UserResources.Points</h5>
         </div>
-        <section class="points-info" hide-xs>
+        <section class="points-info" hide-xs ng-if="::u.isUserProfile">
             <h1>Earning points</h1>
             <table>
                 <tbody>

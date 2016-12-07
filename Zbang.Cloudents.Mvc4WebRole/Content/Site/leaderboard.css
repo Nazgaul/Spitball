@@ -69,6 +69,7 @@
   justify-content: space-between;
   flex-direction: column;
   position: relative;
+  background: #ffce2f;
 }
 .leaderboardbox .bg-l,
 .leaderboardbox .bg-r {
@@ -100,12 +101,15 @@
   background: #323538;
   border-radius: 0 0 5px 5px;
   font-weight: bold;
+  min-width: 60%;
 }
 .leaderboardbox .top .points-wrapper span:not(.number) {
   position: absolute;
   font-size: 12px;
   bottom: 5px;
-  right: 20px;
+  width: 100%;
+  left: 0;
+  text-transform: capitalize;
 }
 .leaderboardbox .top .text {
   text-align: center;
@@ -113,22 +117,22 @@
   margin: 14px 0;
 }
 .leaderboardbox .top .custom-progress-bar {
-  height: 10px;
-  border-radius: 5px;
+  height: 14px;
+  border-radius: 7px;
   overflow: hidden;
 }
 .leaderboardbox .top .custom-progress-bar.md-default-theme .md-container,
 .leaderboardbox .top .custom-progress-bar .md-container {
-  border-radius: 5px;
+  border-radius: 7px;
 }
 .leaderboardbox .top .custom-progress-bar.md-default-theme .md-container,
 .leaderboardbox .top .custom-progress-bar .md-bar,
 .leaderboardbox .top .custom-progress-bar .md-container {
-  height: 10px;
+  height: 14px;
 }
 .leaderboardbox .top .custom-progress-bar .md-container {
   background: #eeeeee;
-  height: 10px;
+  height: 14px;
 }
 .leaderboardbox .top .custom-progress-bar .md-container .md-bar {
   background: #ffce2f;
