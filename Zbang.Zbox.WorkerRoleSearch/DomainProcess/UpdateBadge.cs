@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
@@ -31,7 +33,8 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             var badge = BadgeType.None;
             if (parameters is RegisterBadgeData)
             {
-                badge = BadgeType.Register;
+                return true;
+                //badge = BadgeType.Register;
             }
             if (parameters is FollowClassBadgeData)
             {
@@ -49,12 +52,31 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             {
                 badge = BadgeType.Likes;
             }
+            var tasks = new List<Task>();
+            if (parameters.UserIds != null)
+            {
+                foreach (var userId in parameters.UserIds)
+                {
 
-            var command = new UpdateBadgesCommand(parameters.UserId, badge);
+                    tasks.Add(DoUpdateAsync(userId, badge));
+                }
+            }
+            if (parameters.UserId > 0)
+            {
+                tasks.Add(DoUpdateAsync(parameters.UserId, badge));
+            }
+            await Task.WhenAll(tasks);
+            return true;
+        }
+
+        private Task DoUpdateAsync(long userId, BadgeType badge)
+        {
+            TraceLog.WriteInfo($"processing badge {badge.GetEnumDescription()} for user {userId}");
+            var command = new UpdateBadgesCommand(userId, badge);
             m_ZboxWriteService.UpdateBadges(command);
             if (command.Progress == 100)
             {
-                await m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(parameters.UserId));
+                return m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(userId));
                 //try
                 //{
                 //    //TODO: culture
@@ -77,7 +99,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
                 //}
 
             }
-            return true;
+            return Infrastructure.Extensions.TaskExtensions.CompletedTask;
         }
     }
 }

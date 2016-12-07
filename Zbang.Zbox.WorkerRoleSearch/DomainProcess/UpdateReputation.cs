@@ -23,6 +23,8 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             if (parameters == null) return Infrastructure.Extensions.TaskExtensions.CompletedTaskTrue; 
             try
             {
+                var userIds = string.Join(",", parameters.UserIds);
+                TraceLog.WriteInfo($"processing reputation for user {userIds}");
                 m_ZboxWriteService.UpdateReputation(new UpdateReputationCommand(parameters.UserIds));
             }
             catch (Exception ex)
