@@ -1314,6 +1314,11 @@
     <Content Include="Images\Site\community-bg.png" />
     <Content Include="Images\Site\course_choose_popup.png" />
     <Content Include="Images\Site\create_uni_text_blue.png" />
+    <Content Include="Images\Site\gamification_level_Freshman.png" />
+    <Content Include="Images\Site\gamification_level_Professor.png" />
+    <Content Include="Images\Site\gamification_level_Scholar.png" />
+    <Content Include="Images\Site\gamification_level_Sophomore.png" />
+    <Content Include="Images\Site\gamification_level_Upperclassman.png" />
     <Content Include="Images\Site\Leaderboard-bg-l.png" />
     <Content Include="Images\Site\Leaderboard-bg-r.png" />
     <Content Include="Images\Site\Leaderboard-title.png" />
