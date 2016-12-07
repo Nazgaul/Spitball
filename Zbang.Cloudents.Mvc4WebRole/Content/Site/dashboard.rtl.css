@@ -45,6 +45,10 @@
 .dashboard .score-board {
   padding: 0;
 }
+.dashboard .dashboard-actions,
+.dashboard .dashboard-content {
+  margin: 0 -8px;
+}
 .dashboard .dashboard-actions .actions-container {
   display: -webkit-flex;
   display: -ms-flex;

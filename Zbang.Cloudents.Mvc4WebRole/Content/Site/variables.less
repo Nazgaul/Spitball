@@ -48,7 +48,7 @@
 @backgroundColorItem: #6a737d;
 @backgroundColorRed: #db4437;
 @backgroundColorSpitballBlue: #3293F6;
-@backgroundColorDropdown: #536470;
+@GreyBlue: #536470;
 @backgroundColorHover: #404346;
 @backgroundColorGreen: #008000;
 @backgroundColorMenuSelect: #292d31;
@@ -143,8 +143,9 @@
 
 
 
-.custom-progress-bar(@color,@backgroundColor, @height, @radius) {
+.custom-progress-bar(@color,@backgroundColor, @height) {
     height: @height;
+    @radius: @height/2;
     border-radius: @radius;
     overflow: hidden;
 

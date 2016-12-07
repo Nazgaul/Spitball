@@ -146,6 +146,9 @@
     width: 50%;
   }
 }
+.feed-wrapper {
+  margin: 0 -8px;
+}
 .feed-wrapper,
 .members,
 .quizzes-list,
