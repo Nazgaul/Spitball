@@ -177,15 +177,42 @@ namespace Testing
             var m_QueueRepository = iocFactory.Resolve<IQueueProvider>();
             var index = 0;
             IEnumerable<long> users;
-            do
-            {
-                users = ReadService.GetUsersBadgeFollow(index);
+            //do
+            //{
+            //    users = ReadService.GetUsersBadgeFollow(index);
 
-                var list = new List<Task>();
-                list.Add(m_QueueRepository.InsertMessageToTranactionAsync(new FollowClassBadgeData(users)));
-                Task.WaitAll(list.ToArray());
-                index++;
-            } while (users.Any());
+            //    var list = new List<Task>();
+            //    list.Add(m_QueueRepository.InsertMessageToTranactionAsync(new FollowClassBadgeData(users)));
+            //    Task.WaitAll(list.ToArray());
+            //    index++;
+            //} while (users.Any());
+            //do
+            //{
+            //    users = ReadService.GetUsersBadgeItem(index);
+
+            //    var list = new List<Task>();
+            //    list.Add(m_QueueRepository.InsertMessageToTranactionAsync(new UploadItemsBadgeData(users)));
+            //    Task.WaitAll(list.ToArray());
+            //    index++;
+            //} while (users.Any());
+            //do
+            //{
+            //    users = ReadService.GetUsersBadgeQuiz(index);
+
+            //    var list = new List<Task>();
+            //    list.Add(m_QueueRepository.InsertMessageToTranactionAsync(new CreateQuizzesBadgeData(users)));
+            //    Task.WaitAll(list.ToArray());
+            //    index++;
+            //} while (users.Any());
+            //do
+            //{
+            //    users = ReadService.GetUsersBadgeLike(index);
+
+            //    var list = new List<Task>();
+            //    list.Add(m_QueueRepository.InsertMessageToTranactionAsync(new LikesBadgeData(users)));
+            //    Task.WaitAll(list.ToArray());
+            //    index++;
+            //} while (users.Any());
             //var t1 = m_QueueRepository.InsertMessageToTranactionAsync(new ReputationData(tusers.Result));
             //var t2 = m_QueueRepository.InsertMessageToTranactionAsync(new FollowClassBadgeData(1));
             //var t3 = m_QueueRepository.InsertMessageToTranactionAsync(new CreateQuizzesBadgeData(1));
