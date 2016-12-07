@@ -174,9 +174,18 @@ namespace Testing
 
             var iocFactory = IocFactory.IocWrapper;
             var ReadService = iocFactory.Resolve<IZboxReadServiceWorkerRole>();
-           // var tusers =  ReadService.GetUsersForNewRepAsync();
-            //tusers.Wait();
             var m_QueueRepository = iocFactory.Resolve<IQueueProvider>();
+            var index = 0;
+            IEnumerable<long> users;
+            do
+            {
+                users = ReadService.GetUsersBadgeFollow(index);
+
+                var list = new List<Task>();
+                list.Add(m_QueueRepository.InsertMessageToTranactionAsync(new FollowClassBadgeData(users)));
+                Task.WaitAll(list.ToArray());
+                index++;
+            } while (users.Any());
             //var t1 = m_QueueRepository.InsertMessageToTranactionAsync(new ReputationData(tusers.Result));
             //var t2 = m_QueueRepository.InsertMessageToTranactionAsync(new FollowClassBadgeData(1));
             //var t3 = m_QueueRepository.InsertMessageToTranactionAsync(new CreateQuizzesBadgeData(1));
@@ -446,7 +455,7 @@ namespace Testing
                                 }
                                 else
                                 {
-                                    status = ($"{((HttpResponseMessage) sr).StatusCode}({((int) ((HttpResponseMessage) sr).StatusCode)})");
+                                    status = ($"{((HttpResponseMessage)sr).StatusCode}({((int)((HttpResponseMessage)sr).StatusCode)})");
                                 }
                             }
                         }

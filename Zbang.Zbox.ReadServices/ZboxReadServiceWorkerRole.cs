@@ -555,13 +555,58 @@ OPTION (TABLE HINT(s, INDEX ([students_shouldsend2])),Recompile);";
 
         }
 
-        //public async Task<IEnumerable<long>> GetUsersForNewRepAsync()
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        return await conn.QueryAsync<long>(
-        //            "select userid from zbox.users where  [UserReputation] > 600 and ([CreationTime] >'2015' or [LastAccessTime] >'2015'");
-        //    }
-        //}
+        public IEnumerable<long> GetUsersBadgeFollow(int page)
+        {
+            using (var conn = DapperConnection.OpenConnection())
+            {
+                return conn.Query<long>(
+                    @"select distinct u.userid from zbox.Users u join zbox.UserBoxRel ub on u.UserId = ub.UserId
+ order by u.userid
+ offset @page*100 ROWS
+    FETCH NEXT 100 ROWS ONLY;", new {page});
+            }
+        }
+
+        public IEnumerable<long> GetUsersBadgeQuiz(int page)
+        {
+            using (var conn = DapperConnection.OpenConnection())
+            {
+                return conn.Query<long>(
+                    @"select distinct u.userid from zbox.Users u join zbox.Quiz q on u.UserId = q.UserId and q.IsDeleted = 0 and q.Publish = 1
+ order by u.userid
+ offset @page*100 ROWS
+    FETCH NEXT 100 ROWS ONLY;", new { page });
+            }
+        }
+        public IEnumerable<long> GetUsersBadgeItem(int page)
+        {
+            using (var conn = DapperConnection.OpenConnection())
+            {
+                return conn.Query<long>(
+                    @"select distinct u.userid from zbox.Users u join zbox.Item q on u.UserId = q.UserId and q.IsDeleted = 0 
+ order by u.userid
+ offset @page*100 ROWS
+    FETCH NEXT 100 ROWS ONLY;", new { page });
+            }
+        }
+        public IEnumerable<long> GetUsersBadgeLike(int page)
+        {
+            using (var conn = DapperConnection.OpenConnection())
+            {
+                return conn.Query<long>(
+                    @"select * from (select OwnerId from zbox.CommentLike
+union
+select OwnerId from zbox.ReplyLike
+union
+select OwnerId from zbox.ItemRate
+union
+select UserId from zbox.FlashcardLike
+union 
+select userid from zbox.quizlike) t
+order by OwnerId
+offset @page*100 ROWS
+    FETCH NEXT 100 ROWS ONLY;", new { page });
+            }
+        }
     }
 }
