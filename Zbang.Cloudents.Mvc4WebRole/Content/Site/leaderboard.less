@@ -76,6 +76,7 @@
     .justifyContet(space-between);
     flex-direction: column;
     position: relative;
+    background: @gamificationYellow;
 
     .bg-l, .bg-r {
         height: 90px;
@@ -110,12 +111,15 @@
             background: @headerbackground;
             border-radius: 0 0 5px 5px;
             font-weight: bold;
+            min-width: 60%;
 
             span:not(.number) {
                 position: absolute;
                 font-size: 12px;
                 bottom: 5px;
-                right: 20px;
+                width: 100%;
+                left: 0;
+                text-transform: capitalize;
             }
         }
 
@@ -126,7 +130,7 @@
         }
 
         .custom-progress-bar {
-            .custom-progress-bar(@gamificationYellow, @backgroundCalmGrey, 10px);
+            .custom-progress-bar(@gamificationYellow, @backgroundCalmGrey, 14px);
 
             .md-container .md-bar {
                 border-radius: 5px;

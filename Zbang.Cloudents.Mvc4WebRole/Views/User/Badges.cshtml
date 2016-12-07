@@ -1,6 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
 @model Zbang.Cloudents.Mvc4WebRole.Models.Gamification
-<div class="badges">
+<div class="badges-wrapper">
     <div class="badges-bar">
         @*<div class="info">
                 <md-icon md-svg-icon="p:q-mark" class="" ng-click="g.showInfo()"></md-icon>
@@ -91,8 +91,10 @@
                         </a>
                         <div class="progress-user">
                             <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{::user.progress}}"></md-progress-linear>
-                            <div class="name ellipsis" ng-bind="::user.name"></div>
-                            <div class="badges">@GamificationResources.Badges</div>
+                            <div class="text">
+                                <div class="name ellipsis" ng-bind="::user.name"></div>
+                                <div class="badges">@GamificationResources.Badges</div>
+                            </div>
                         </div>
                         <div class="points" ng-bind="::user.score"></div>
                     </div>
