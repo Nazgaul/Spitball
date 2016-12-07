@@ -2,26 +2,26 @@
 
 namespace Zbang.Zbox.Domain
 {
-    public class FlashcardLike
+    public class QuizLike
     {
-        protected FlashcardLike()
+        protected QuizLike()
         {
 
         }
 
-        public FlashcardLike(Guid id, User user, FlashcardMeta flashcard) : this()
+        public QuizLike(Guid id, User user, Quiz quiz) : this()
         {
             Id = id;
             User = user;
-            Flashcard = flashcard;
-           
+            Quiz = quiz;
+
             DateTime = DateTime.UtcNow;
         }
         public Guid Id { get; set; }
 
         public virtual User User { get; set; }
 
-        public virtual FlashcardMeta Flashcard { get; set; }
+        public virtual Quiz Quiz { get; set; }
 
         public DateTime DateTime { get; set; }
 

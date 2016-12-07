@@ -83,15 +83,14 @@
                 <div class="filter-wrapper">
                     <button type="button" ng-click="g.goToSelf()" class="action-btn">Show Myself</button>
                 </div>
-                <div class="users" layout="row" layout-padding layout-wrap>
-
-                    <div class="user-data" ng-repeat="user in ::g.leaderboard track by user.id" ng-if="$index < 15">
-                        <div class="rank" ng-bind="::$index+1"></div>
+                <div class="users" layout="row" layout-padding layout-wrap vs-repeat="94" vs-scroll-parent="window">
+                    <div class="user-data" ng-repeat="user in g.leaderboard track by user.id">
+                        <div class="rank" ng-bind="::$index+1 + startIndex "></div>
                         <a class="img-wrapper" ng-attr-id="{{'user_' + user.id}}" ui-sref="user({userId:user.id,userName:user.name})">
                             <user-image class="img-responsive" name="user.name" image="user.image" width="68" height="68"></user-image>
                         </a>
                         <div class="progress-user">
-                            <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{gb.score}}"></md-progress-linear>
+                            <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{::user.progress}}"></md-progress-linear>
                             <div class="text">
                                 <div class="name ellipsis" ng-bind="::user.name"></div>
                                 <div class="badges">@GamificationResources.Badges</div>

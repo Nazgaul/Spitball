@@ -76,6 +76,8 @@
     <Compile Include="FlashcardLike.cs" />
     <Compile Include="FlashcardMeta.cs" />
     <Compile Include="FlashcardPin.cs" />
+    <Compile Include="FlashcardSolve.cs" />
+    <Compile Include="QuizLike.cs" />
     <Compile Include="Resources\DomainResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

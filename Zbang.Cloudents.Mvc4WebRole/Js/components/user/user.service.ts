@@ -1,7 +1,7 @@
 ﻿module app {
     'use strict';
     export interface IUserService {
-        getDetails(userid:number): angular.IPromise<any>;
+        getDetails(userid: number): angular.IPromise<any>;
         boxes(userid: number, page: number): angular.IPromise<any>;
         friends(userid: number, page: number): angular.IPromise<any>;
         files(userid: number, page: number): angular.IPromise<any>;
@@ -11,34 +11,34 @@
         gamificationBoard(): angular.IPromise<any>;
         levels(userid: number): angular.IPromise<any>;
         badges(userid: number): angular.IPromise<any>;
-        leaderboard(userid: number): angular.IPromise<any>;
+        leaderboard(userid: number, mySelf: boolean, page?: number): angular.IPromise<any>;
     }
     class UserService implements IUserService {
         static $inject = ['ajaxService2'];
 
         constructor(private ajaxService2: IAjaxService2) {
-            
+
         }
-        getDetails  (userid) {
+        getDetails(userid) {
             return this.ajaxService2.get("/user/profilestats/", { id: userid });
         }
-        boxes  (userid, page) {
+        boxes(userid, page) {
             return this.ajaxService2.get("/user/boxes/", { id: userid, page: page });
         }
 
-        friends (userid, page) {
+        friends(userid, page) {
             return this.ajaxService2.get("/user/friends/", { id: userid, page: page });
         }
-        files  (userid, page) {
+        files(userid, page) {
             return this.ajaxService2.get("/user/items/", { id: userid, page: page });
         }
-        feed  (userid, page) {
+        feed(userid, page) {
             return this.ajaxService2.get("/user/comment/", { id: userid, page: page });
         }
-        quiz  (userid, page) {
+        quiz(userid, page) {
             return this.ajaxService2.get("/user/quiz/", { id: userid, page: page });
         }
-        getNotification  () {
+        getNotification() {
             return this.ajaxService2.get("/share/notifications/");
         }
 
@@ -49,10 +49,15 @@
             return this.ajaxService2.get("/user/levels", { userid: userid });
         }
         badges(userid: number): angular.IPromise<any> {
-            return this.ajaxService2.get("/user/userbadges/", { userid: userid});
+            return this.ajaxService2.get("/user/userbadges/", { userid: userid });
         }
-        leaderboard(userid: number): angular.IPromise<any> {
-            return this.ajaxService2.get("/user/leaderboard/", { userid: userid });
+        leaderboard(userid: number, mySelf: boolean, page?: number): angular.IPromise<any> {
+            return this.ajaxService2.get("/user/leaderboard/",
+                {
+                    userid: userid,
+                    mySelf: mySelf,
+                    page: page
+                });
         }
     }
     angular.module("app.user").service("userService", UserService);

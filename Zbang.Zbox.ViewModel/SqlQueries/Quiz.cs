@@ -38,7 +38,10 @@ join zbox.Users u on q.UserId = u.UserId
 
 
         public const string UserQuiz = @"
-select q.TimeTaken,q.Score from zbox.SolvedQuiz q where QuizId = @QuizId and UserId = @UserId;";
+select q.TimeTaken,q.Score ,q2.id
+from zbox.SolvedQuiz q , zbox.quizlike q2 
+where q.QuizId = @QuizId and q.UserId = @UserId
+and q2.QuizId = @QuizId and q2.UserId = @UserId;";
 
         public const string UserAnswer = @"select q.AnswerId,q.QuestionId from zbox.SolvedQuestion q where QuizId = @QuizId and UserId = @UserId;";
 

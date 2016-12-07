@@ -283,9 +283,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, ActionName("leaderboard")]
-        public async Task<JsonResult> LeaderboardAsync(long userid)
+        public async Task<JsonResult> LeaderboardAsync(long userid, bool mySelf, int? page)
         {
-            var query = new QueryBaseUserId(userid);
+
+            var query = new LeaderBoardQuery(userid, mySelf, page.GetValueOrDefault());
             var model = await ZboxReadService.UserLeaderboardAsync(query);
             return JsonOk(model);
         }

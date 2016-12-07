@@ -5,8 +5,6 @@ using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.IdGenerator;
-using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -15,14 +13,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IUserRepository m_UserRepository;
         private readonly IGamificationRepository m_BadgeRepository;
         private readonly IGuidIdGenerator m_IdGenerator;
-        private readonly IQueueProvider m_QueueProvider;
 
-        public UpdateBadgesCommandHandler(IUserRepository userRepository, IGamificationRepository badgeRepository, IGuidIdGenerator idGenerator, IQueueProvider queueProvider)
+        public UpdateBadgesCommandHandler(IUserRepository userRepository, 
+            IGamificationRepository badgeRepository, IGuidIdGenerator idGenerator)
         {
             m_UserRepository = userRepository;
             m_BadgeRepository = badgeRepository;
             m_IdGenerator = idGenerator;
-            m_QueueProvider = queueProvider;
         }
 
 
@@ -66,7 +63,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (badge.Progress == 100)
             {
                 user.BadgeCount = user.Badges.Count(w => w.Progress == 100);
-                m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(user.Id));
                 m_UserRepository.Save(user);
             }
             m_BadgeRepository.Save(badge);

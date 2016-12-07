@@ -38,11 +38,10 @@
     @*<div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-sm="50" class="flex" flex="100">
 
         </div>*@
-    <div ng-hide="lb.hideBox" flex-lg="33" flex-gt-lg="25" flex-md="50" flex-sm="50" class="flex" flex="100" ng-controller="DashboardLeaderboard as lb">
-        @* ReSharper disable once Mvc.PartialViewNotResolved *@
+    @*<div ng-hide="lb.hideBox" flex-lg="33" flex-gt-lg="25" flex-md="50" flex-sm="50" class="flex" flex="100" ng-controller="DashboardLeaderboard as lb">
         @{ Html.RenderPartial("_Leaderboard", DashboardResource.LeaderboardTitle);}
         @{ Html.RenderPartial("_FlashcardsPromo");}
-    </div>
+    </div>*@
     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-sm="50" class="flex" flex="100">
         @{ Html.RenderPartial("_Gamification");}
     </div>

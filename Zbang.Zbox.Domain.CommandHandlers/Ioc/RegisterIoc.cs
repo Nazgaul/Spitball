@@ -127,6 +127,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandler<AddStudentCommand>), typeof(AddStudentCommandHandler));
             ioc.RegisterType(typeof(ICommandHandlerAsync<AddUserLocationActivityCommand>), typeof(AddUserLocationActivityCommandHandler));
 
+            ioc.RegisterType(typeof(ICommandHandlerAsync<AddQuizLikeCommand>),
+      typeof(AddQuizLikeCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandlerAsync<DeleteQuizLikeCommand>),
+      typeof(DeleteQuizLikeCommandHandler));
 
             //library
             ioc.RegisterType(typeof(ICommandHandler<AddNodeToLibraryCommand>),

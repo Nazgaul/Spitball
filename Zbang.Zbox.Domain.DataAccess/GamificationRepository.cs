@@ -65,14 +65,15 @@ from quiz,item,answers,question,rate,invite,share
 @flashcardView int = :flashcardView, 
 @flashcardLike int = :flashcardLike, 
 @commentLike int = :commentLike, 
-@replyLike int = :replyLike;
+@replyLike int = :replyLike,
+@badge1 int = :badge1, @badge2 int = :badge2, @badge3 int = :badge3, @badge4 int = :badge4, @badge5 int  = :badge5 ;
 with itemScore as 
 (
 	select coalesce(sum(i.LikeCount),0)*@itemLikePoints + coalesce(sum(i.NumberOfViews),0) * @itemView + coalesce(sum(i.NumberOfDownloads),0) * @itemDownload as score  from zbox.item i where i.UserId  = @userid and isdeleted = 0
 ),
 quizScore as 
 (
-	select coalesce(sum(q.NumberOfViews),0)*@quizView as score from zbox.Quiz q where q.Publish = 1 and q.IsDeleted = 0 and q.UserId = @userid
+	select coalesce(sum(q.LikeCount),0)*@quizLike+  coalesce(sum(q.NumberOfViews),0)*@quizView + coalesce(sum(q.SolveCount),0) * @quizSolve  as score from zbox.Quiz q where q.Publish = 1 and q.IsDeleted = 0 and q.UserId = @userid
 ),
 flashcardScore as 
 (
@@ -83,20 +84,40 @@ commentScore as (
 ),
 replyScore as (
 	select coalesce(sum(a.likecount),0)*@replyLike as score from Zbox.Answer a where a.UserId = @userid
+),
+badges as (
+select coalesce(sum(x),0) as score from (
+select 
+	case name
+		when 1 then @badge1
+		when 2 then @badge2
+		when 3 then @badge3
+		when 4 then @badge4
+		when 5 then @badge5 
+		end as x
+ from zbox.Badge
+where userid = @userid
+and Progress = 100) t
 )
-select i.score + q.score +f.score + c.score + r.score from itemScore i ,quizScore q,flashcardScore f,commentScore c,replyScore r
+select i.score + q.score +f.score + c.score + r.score + b.score
+ from itemScore i ,quizScore q,flashcardScore f,commentScore c,replyScore r, badges b
 ");
             sqlQuery.SetInt64("userId", userId);
-            sqlQuery.SetInt64("itemLikePoints", ReputationConst.ItemLike);
-            sqlQuery.SetInt64("itemView", ReputationConst.ItemView);
-            sqlQuery.SetInt64("itemDownload", ReputationConst.ItemDownload);
-            sqlQuery.SetInt64("quizView", ReputationConst.QuizView);
-            sqlQuery.SetInt64("quizSolve", ReputationConst.QuizSolve);
-            sqlQuery.SetInt64("quizLike", ReputationConst.QuizLike);
-            sqlQuery.SetInt64("flashcardView", ReputationConst.FlashcardView);
-            sqlQuery.SetInt64("flashcardLike", ReputationConst.FlashcardLike);
-            sqlQuery.SetInt64("commentLike", ReputationConst.CommentLike);
-            sqlQuery.SetInt64("replyLike", ReputationConst.ReplyLike);
+            sqlQuery.SetInt32("itemLikePoints", ReputationConst.ItemLike);
+            sqlQuery.SetInt32("itemView", ReputationConst.ItemView);
+            sqlQuery.SetInt32("itemDownload", ReputationConst.ItemDownload);
+            sqlQuery.SetInt32("quizView", ReputationConst.QuizView);
+            sqlQuery.SetInt32("quizSolve", ReputationConst.QuizSolve);
+            sqlQuery.SetInt32("quizLike", ReputationConst.QuizLike);
+            sqlQuery.SetInt32("flashcardView", ReputationConst.FlashcardView);
+            sqlQuery.SetInt32("flashcardLike", ReputationConst.FlashcardLike);
+            sqlQuery.SetInt32("commentLike", ReputationConst.CommentLike);
+            sqlQuery.SetInt32("replyLike", ReputationConst.ReplyLike);
+            sqlQuery.SetInt32("badge1", ReputationConst.Badge1);
+            sqlQuery.SetInt32("badge2", ReputationConst.Badge2);
+            sqlQuery.SetInt32("badge3", ReputationConst.Badge3);
+            sqlQuery.SetInt32("badge4", ReputationConst.Badge4);
+            sqlQuery.SetInt32("badge5", ReputationConst.Badge5);
 
             var retVal = sqlQuery.UniqueResult<int>();
             return retVal;

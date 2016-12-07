@@ -28,7 +28,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public Task HandleAsync(AddFlashcardLikeCommand message)
         {
-
             var user = m_UserRepository.Load(message.UserId);
             var flashcard = m_FlashcardRepository.Load(message.FlashcardId);
             flashcard.LikeCount++;

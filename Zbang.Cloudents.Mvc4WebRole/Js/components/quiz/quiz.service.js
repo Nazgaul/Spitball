@@ -65,6 +65,12 @@ var app;
                 id: quizId
             });
         };
+        QuizService.prototype.like = function (id) {
+            return this.ajaxService.post("/quiz/like/", { id: id });
+        };
+        QuizService.prototype.likeDelete = function (id) {
+            return this.ajaxService.delete("/quiz/like/", { id: id });
+        };
         QuizService.$inject = ["ajaxService2"];
         return QuizService;
     }());

@@ -47,13 +47,12 @@
 
                         </div>
                         <md-icon md-svg-icon="q:wrong"></md-icon>
-                        @*@Html.Svg(svgUrl, "wrong")*@
                     </div>
                 </div>
 
                 <div flex-xs="100" class="black-bullet time-taken" layout="row" layout-align="center center">
                     <md-icon md-svg-icon="q:clock"></md-icon>
-                    @*@Html.Svg(svgUrl, "clock")*@ <span class="text">{{q.sheet.timeTaken}}</span>
+                    <span class="text">{{q.sheet.timeTaken}}</span>
                 </div>
             </div>
 
@@ -65,8 +64,6 @@
                 <button type="button" class="stopwatch-btn" ng-click="q.timerControl.toggle()" ng-disabled="q.state === 1">
                     <md-icon md-svg-icon="q:pause" class="pause" ng-if="q.timerControl.isRunning"></md-icon>
                     <md-icon md-svg-icon="q:play" class="play" ng-if="!q.timerControl.isRunning"></md-icon>
-                    @*@Html.Svg(svgUrl, "pause", new {@class = "pause", ng_if = "q.timerControl.isRunning"})*@
-                    @*@Html.Svg(svgUrl, "play", new {@class = "play", ng_if = "!q.timerControl.isRunning"})*@
                 </button>
 
             </div>
@@ -98,7 +95,6 @@
                                 <span class="user-name ellipsis">{{::post.userName}}</span>
                             </a>
                             <time-ago class="comment-date" from-time="{{::post.creationTime }}" format="mediumDate"></time-ago>
-                            @*<span class="comment-date">{{::post.creationTime | date : 'medium'}}</span>*@
                         </div>
                         <md-menu ng-if="post.userId === q.user.id">
                             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['quiz', 'deletePost']">

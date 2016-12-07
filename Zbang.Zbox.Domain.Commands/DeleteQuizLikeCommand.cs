@@ -3,9 +3,9 @@ using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class DeleteFlashcardLikeCommand : ICommandAsync
+    public class DeleteQuizLikeCommand : ICommandAsync
     {
-        public DeleteFlashcardLikeCommand(long userId, Guid id)
+        public DeleteQuizLikeCommand(long userId, Guid id)
         {
             UserId = userId;
             Id = id;

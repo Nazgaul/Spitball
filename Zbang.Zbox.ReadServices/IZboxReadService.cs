@@ -33,7 +33,7 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<RecommendBoxDto>> GetCoursesPageDataAsync();
         Task<IEnumerable<BoxDto>> GetUserBoxesAsync(GetBoxesQuery query);
 
-        Task<IEnumerable<LeaderBoardDto>> GetDashboardLeaderBoardAsync(LeaderBoardQuery query);
+        //Task<IEnumerable<LeaderBoardDto>> GetDashboardLeaderBoardAsync(LeaderBoardQuery query);
 
         Task<UniversityDashboardInfoDto> GetUniversityInfoAsync(UniversityQuery query);
 
@@ -151,7 +151,7 @@ namespace Zbang.Zbox.ReadServices
         Task<LevelDto> UserLevelsAsync(QueryBaseUserId query);
 
         Task<IEnumerable<BadgeDto>> UserBadgesAsync(QueryBaseUserId query);
-        Task<IEnumerable<LeaderBoardDto>> UserLeaderboardAsync(QueryBaseUserId query);
+        Task<IEnumerable<LeaderBoardDto>> UserLeaderboardAsync(LeaderBoardQuery query);
 
         #endregion
 

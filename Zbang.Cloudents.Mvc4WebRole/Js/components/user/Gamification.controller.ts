@@ -1,12 +1,14 @@
 ﻿module app {
 
     class Gamification {
-        static $inject = ["$state", "$scope", "userService", "$anchorScroll"];
+        static $inject = ["$state", "$scope", "userService"];
         levels;
         doneLevel = false;
         badges;
         badgeInfo;
         leaderboard;
+        leaderboardMyself = false;
+        leaderboardPage = 0;
 
         //badgesState = {
         //    levels: 'l',
@@ -16,8 +18,7 @@
         //badgesTab = this.badgesState.levels;
         constructor(private $state: angular.ui.IStateService,
             private $scope: angular.IScope,
-            private userService: IUserService,
-            private $anchorScroll: angular.IAnchorScrollService) {
+            private userService: IUserService) {
             $scope["$state"] = this.$state;
             if (!$state.params["type"]) {
                 this.$state.go($state.current.name, { type: "level" });
@@ -85,18 +86,26 @@
                 });
         }
         private communityTab() {
-            if (this.leaderboard) {
-                return;
-
-            }
-            this.userService.leaderboard(this.$state.params["userId"])
+            //if (this.leaderboard) {
+            //    return;
+            //}
+            this.userService.leaderboard(this.$state.params["userId"], this.leaderboardMyself, this.leaderboardPage)
                 .then(response => {
+                    for (let i = 0; i < response.length; i++) {
+                        const elem = response[i];
+                        if (i === 0) {
+                            elem.progress = 100;
+                            continue;
+                        }
+                        elem.progress = elem.score / response[0].score * 100;
+                    }
                     this.leaderboard = response;
-                    console.log(response);
                 });
         }
         goToSelf() {
-            this.$anchorScroll("user_" + this.$state.params["userId"]);
+            this.leaderboardPage = 0;
+            this.leaderboardMyself = !this.leaderboardMyself;
+            this.communityTab();
         }
         showBadge(badge) {
             if (!badge) {
