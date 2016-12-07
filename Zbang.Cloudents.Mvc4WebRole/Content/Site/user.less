@@ -278,10 +278,6 @@
         }
 
         .tab {
-            .image {
-                background: rgba(255,206,47,0.5);
-            }
-
             &.levels {
                 position: relative;
 
@@ -313,6 +309,7 @@
 
                     .title {
                         text-align: center;
+                        position: relative;
 
                         @media(max-width: 600px) {
                             min-width: 100px;
@@ -320,7 +317,10 @@
                     }
 
                     .name {
-                        margin-top: 10px;
+                        padding-top: 160px;
+                        width: 150px;
+                        font-weight: bold;
+                        color: @GreyBlue;
 
                         @media(max-width: 600px) {
                             font-size: 14px;
@@ -342,6 +342,8 @@
                     width: 150px;
                     height: 150px;
                     margin: 0 auto;
+                    position: absolute;
+                    top: 0;
 
                     @media(max-width: 600px) {
                         width: 80px;

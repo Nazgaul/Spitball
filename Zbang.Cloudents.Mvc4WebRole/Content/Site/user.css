@@ -281,9 +281,6 @@
 .userPage .badges-wrapper md-tabs .md-tab.md-active {
   color: #4190b9;
 }
-.userPage .badges-wrapper .tab .image {
-  background: rgba(255, 206, 47, 0.5);
-}
 .userPage .badges-wrapper .tab.levels {
   position: relative;
 }
@@ -319,6 +316,7 @@
 }
 .userPage .badges-wrapper .tab.levels .level .title {
   text-align: center;
+  position: relative;
 }
 @media (max-width: 600px) {
   .userPage .badges-wrapper .tab.levels .level .title {
@@ -326,7 +324,10 @@
   }
 }
 .userPage .badges-wrapper .tab.levels .level .name {
-  margin-top: 10px;
+  padding-top: 160px;
+  width: 150px;
+  font-weight: bold;
+  color: #536470;
 }
 @media (max-width: 600px) {
   .userPage .badges-wrapper .tab.levels .level .name {
@@ -347,6 +348,8 @@
   width: 150px;
   height: 150px;
   margin: 0 auto;
+  position: absolute;
+  top: 0;
 }
 @media (max-width: 600px) {
   .userPage .badges-wrapper .tab.levels .image {
