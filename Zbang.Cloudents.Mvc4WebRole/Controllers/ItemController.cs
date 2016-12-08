@@ -147,7 +147,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             Id = itemId,
                             Action = (int)StatisticsAction.View
                         }
-                    , userId));
+                    , userId), cancellationToken);
 
                 var tContent = Zbox.Infrastructure.Extensions.TaskExtensions.CompletedTaskString;
                 if (firstTime.HasValue && firstTime.Value)
@@ -164,12 +164,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonOk(new
                 {
                     retVal.Blob,
-                    //retVal.BoxUrl,
                     retVal.Name,
                     retVal.Navigation.Next,
                     retVal.Navigation.Previous,
                     retVal.Owner,
-                    retVal.OwnerUrl,
+                    retVal.OwnerBadges,
+                    retVal.OwnerScore,
                     retVal.Type,
                     retVal.Like,
                     retVal.Likes,

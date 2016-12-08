@@ -19,7 +19,8 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public string Owner { get; set; }
         public long OwnerId { get; set; }
 
-        public string OwnerUrl { get; set; }
+        public int OwnerScore { get; set; }
+        public int OwnerBadges { get; set; }
 
         public int NumberOfViews { get; set; }
 
