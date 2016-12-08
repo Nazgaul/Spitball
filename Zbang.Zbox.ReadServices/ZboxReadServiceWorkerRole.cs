@@ -614,8 +614,18 @@ offset @page*100 ROWS
             using (var conn = DapperConnection.OpenConnection())
             {
                 return conn.Query<long>(
-                    @"select userid from zbox.users where score = 0 and userid in (
-select distinct(userid) from zbox.badge )
+                    @"select * from (
+select userid from zbox.badge
+union 
+select userid from zbox.item where isdeleted = 0 and (NumberOfDownloads > 0 or NumberOfViews > 0 or LikeCount > 0)
+union
+select userid from zbox.Quiz where IsDeleted = 0 and Publish = 1 and (NumberOfViews > 0 or SolveCount > 0 or LikeCount > 0)
+union
+select userid from zbox.Flashcard where IsDeleted = 0 and Publish = 1 and (NumberOfViews > 0  or LikeCount > 0)
+union
+select userid from zbox.Question where LikeCount > 0
+union
+select userid from zbox.Answer where LikeCount > 0) t
 order by userid
 offset @page*100 ROWS
     FETCH NEXT 100 ROWS ONLY;", new { page });

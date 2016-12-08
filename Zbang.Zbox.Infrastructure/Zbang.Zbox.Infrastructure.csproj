@@ -143,6 +143,7 @@
     <Compile Include="Extensions\PrincipalExtension.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\TaskExtensions.cs" />
+    <Compile Include="GamificationLevels.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IdGenerator\GuidIdGenerator.cs" />
     <Compile Include="IdGenerator\IIdGenerator.cs" />

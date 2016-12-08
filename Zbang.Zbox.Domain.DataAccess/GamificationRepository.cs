@@ -103,8 +103,8 @@ select i.score + q.score +f.score + c.score + r.score + b.score
 ");
             sqlQuery.SetInt64("userId", userId);
             sqlQuery.SetInt32("itemLikePoints", ReputationConst.ItemLike);
-            sqlQuery.SetInt32("itemView", ReputationConst.ItemView);
-            sqlQuery.SetInt32("itemDownload", ReputationConst.ItemDownload);
+            sqlQuery.SetDouble("itemView", ReputationConst.ItemView);
+            sqlQuery.SetDouble("itemDownload", ReputationConst.ItemDownload);
             sqlQuery.SetInt32("quizView", ReputationConst.QuizView);
             sqlQuery.SetInt32("quizSolve", ReputationConst.QuizSolve);
             sqlQuery.SetInt32("quizLike", ReputationConst.QuizLike);
