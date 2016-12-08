@@ -4,12 +4,9 @@
     members.$inject = ['boxService', '$stateParams'];
 
     function members(boxService, $stateParams) {
-
-
         var m = this;
         boxService.getMembers($stateParams.boxId).then(function (response) {
             m.members = response;
         });
-
     }
 })();

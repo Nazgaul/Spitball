@@ -1,12 +1,9 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 <div layout="row" layout-padding class="members">
     <div flex-gt-md="25" flex-md="33" flex-sm="50" hide-xs ng-if="b.canInvite">
-
         <button type="button" ng-click="b.inviteToBox()" class="inviteBtn box-style action" ng-class="{'active' :b.inviteOpen}" ga-track-event="['box-members', 'inviteFriends']">
             <div class="wrapper">
                 <md-icon md-svg-icon="t:invite" class="icon"></md-icon>
-                @*@Html.Svg("~/images/site/icons.svg", "invite")*@
-                @*@Html.Svg("~/images/site/icons.svg", "invite", new { @class = "icon" })*@
                 <span class="text">@BoxResources.InviteFriendsMember</span>
             </div>
         </button>
@@ -21,5 +18,4 @@
 
 <button type="button" class="invite-container invite-members" ng-if="b.canInvite" ng-class="{hideMobile: b.inviteOpen}" hide show-xs ng-click="b.inviteToBox()" ga-track-event="['box-members', 'inviteFriends']">
     <md-icon md-svg-icon="t:invite"></md-icon>
-    @*@Html.Svg("~/images/site/icons.svg", "invite")*@
 </button>

@@ -3,17 +3,15 @@ using System.Collections.Generic;
 
 namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 {
-    [Serializable]
     public class UserDto
     {
         public string Image { get; set; }
         public string Name {get;set;}
         public long Id { get; set; }
-
-        public string Url { get; set; }
+        public int Badges { get; set; }
+        public int Score { get; set; }
 
     }
-    [Serializable]
     public class UserMinProfile
     {
         public long Id { get; set; }

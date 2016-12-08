@@ -114,18 +114,17 @@ WHERE location IN (SELECT location+i
 			 );";
 
 
-
+//--union 
+//--	  select null as Id , m.UserName as Name,m.Image as Image , 1 as userStatus , null as Url, m.email
+//--	  from zbox.invite m
+//--	  where m.BoxId = @BoxId
+//--     and m.userboxrelid is null
+//--       and m.isused = 0
         public const string BoxMembers =
-            @"  select u.UserId as Id , u.UserName as Name,u.UserImageLarge as Image , ub.UserType as userStatus, u.url as Url , null as Email
+            @"select u.UserId as Id , u.UserName as Name,u.UserImageLarge as Image , ub.UserType as userStatus, u.BadgeCount as badges, u.Score as score
     from zbox.UserBoxRel ub 
 	    join zbox.users u on ub.UserId =  u.UserId
 	    where ub.BoxId=@BoxId
-union 
-	  select null as Id , m.UserName as Name,m.Image as Image , 1 as userStatus , null as Url, m.email
-	  from zbox.invite m
-	  where m.BoxId = @BoxId
-	   and m.userboxrelid is null
-       and m.isused = 0
 	   order by userStatus desc
 	offset @pageNumber*@rowsperpage ROWS
     FETCH NEXT @rowsperpage ROWS ONLY;";

@@ -562,14 +562,9 @@ where ownerid = @UserId and boxid = @BoxId;";
             }
         }
 
-        /// <summary>
-        /// Used for autocomplete in the share box dialog
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
         public async Task<IEnumerable<User.UserDto>> GetUserFriendsAsync(GetUserFriendsQuery query)
         {
-            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 return await conn.QueryAsync<User.UserDto>(Sql.Sql.FriendList, new
                 {
