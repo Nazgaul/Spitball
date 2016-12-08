@@ -75,7 +75,7 @@
             </div>
             <div class="conversasion angular-animate" ng-if="c.state === 3" ng-controller="conversation as cv">
                 <div class="header">
-                    <a ng-href="{{cv.userChat.url}}" ng-class="{online: cv.userChat.online}" class="user" ga-track-event="['chat', 'opened-partners-profile']">
+                    <a ui-sref="user({userId:cv.userChat.id,userName:cv.userChat.name})" ng-class="{online: cv.userChat.online}" class="user" ga-track-event="['chat', 'opened-partners-profile']">
                         <user-image class="img-circle" name="cv.userChat.name" image="cv.userChat.image" width="35" height="35" noremove="true"></user-image>
                         <span class="member-name ellipsis" ng-bind="cv.userChat.name"></span>
 
