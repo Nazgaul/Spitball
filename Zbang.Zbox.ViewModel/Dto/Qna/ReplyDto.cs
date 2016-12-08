@@ -26,8 +26,8 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
         public int LikesCount { get; set; }
         public IEnumerable<ItemDto> Files { get; set; }
 
-        public string Url { get; set; }
+        public int Badges { get; set; }
+        public int Score { get; set; }
 
-      
     }
 }

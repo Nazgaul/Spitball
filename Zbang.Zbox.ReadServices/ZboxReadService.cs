@@ -106,50 +106,7 @@ namespace Zbang.Zbox.ReadServices
             }
 
         }
-
-        //public async Task<IEnumerable<LeaderBoardDto>> GetDashboardLeaderBoardAsync(LeaderBoardQuery query)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        return await conn.QueryAsync<LeaderBoardDto>(Sql.Sql.UniversityLeaderBoard, query);
-        //    }
-        //}
-
-        //        public async Task<LeaderboardFlashcardDto> GetDashboardFlashcardStatusAsync(FlashcardLeaderboardQuery query)
-        //        {
-        //            using (var conn = await DapperConnection.OpenConnectionAsync())
-        //            {
-        //                const string sql = @"select row,likecount as count from ( 
-        //select ROW_NUMBER() OVER(ORDER BY likecount desc) AS Row, * from (
-        //select  sum(likecount) as likecount, f.userid from zbox.flashcard f 
-        //join zbox.users u on f.userid = u.userid and coalesce (u.usertype,0) = 0
-        //where u.universityid = @UniversityId
-        //group by f.userid 
-        //) t) z
-        //where z.userid = @UserId
-        //";
-        //                return await conn.QueryFirstOrDefaultAsync<LeaderboardFlashcardDto>(sql, query);
-
-        //            }
-        //        }
-
-
-
-
-        /// <summary>
-        /// Used in dashboard
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        //public async Task<IEnumerable<Box.RecommendBoxDto>> GetRecommendedCoursesAsync(RecommendedCoursesQuery query)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        return await conn.QueryAsync<Box.RecommendBoxDto>(Sql.Sql.RecommendedCourses,
-        //            query);
-        //    }
-        //}
-
+        
 
 
         /// <summary>
@@ -562,14 +519,9 @@ where ownerid = @UserId and boxid = @BoxId;";
             }
         }
 
-        /// <summary>
-        /// Used for autocomplete in the share box dialog
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
         public async Task<IEnumerable<User.UserDto>> GetUserFriendsAsync(GetUserFriendsQuery query)
         {
-            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 return await conn.QueryAsync<User.UserDto>(Sql.Sql.FriendList, new
                 {

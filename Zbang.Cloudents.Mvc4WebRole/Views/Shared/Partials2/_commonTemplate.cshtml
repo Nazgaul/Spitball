@@ -1,6 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
 <script defer type="text/ng-template" id="box-template.html">
     <a ng-href="{{::e.url}}" class="box-template-flex box-style" ga-track-event="['dashboard', 'box']">
         <div class="info">
@@ -87,9 +88,15 @@
 </script>
 
 <script defer type="text/ng-template" id="user-template.html">
-    <a ng-href="{{::e.url}}" class="member">
+    <a ui-sref="user({userId:e.id,userName:e.name})" class="member">
         <user-image class="img-circle" name="::e.name" image="::e.image" width="35" height="35"></user-image>
         <span class="member-name ellipsis" ng-bind="::e.name"></span>
+        <span ng-bind="::e.score | megaNumber"></span>
+        <ng-pluralize class="badges" count="e.badges" when="{
+                                                'one': '{} @GamificationResources.Badge',
+                                                'two': '{} @GamificationResources.Badges',
+                                                'other' : '{} @GamificationResources.Badges'
+                                                }"></ng-pluralize>
     </a>
 </script>
 <script defer type="text/ng-template" id="scrollToTopTemplate.html">

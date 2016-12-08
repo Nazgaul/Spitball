@@ -8,17 +8,16 @@
         /// Used in user page to bring friends
         /// </summary>
         public const string FriendList = @"
-								select u.userid as Id,
+								select distinct u.userid as Id,
                                 u.UserName as Name ,
-                                u.url as Url,
                                 u.UserImageLarge as Image,
-                                u.Score
+                                u.Score,
+                                u.BadgeCount as badges
                                 from zbox.userboxrel ub 
                                 join zbox.userboxrel ub2 on ub.boxid = ub2.boxid
                                 join zbox.users u on u.userid = ub2.userid
                                 where ub.userid = @UserId
                                 and u.userid != @UserId
-                                group by u.userid ,u.UserName  ,u.UserImageLarge,u.Score ,u.url
                                 order by u.Score desc
     offset @pageNumber*@rowsperpage ROWS
     FETCH NEXT @rowsperpage ROWS ONLY;";

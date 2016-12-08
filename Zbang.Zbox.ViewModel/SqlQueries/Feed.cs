@@ -6,7 +6,8 @@
     ,u.[UserName] as UserName
 	,u.UserImageLarge as UserImage
 	,u.userid as UserId
-    ,u.url as Url
+    ,u.BadgeCount as Badges
+	,u.Score as Score
     ,[Text] as Content
     ,q.CreationTime as creationTime
 	,q.ReplyCount as RepliesCount
@@ -29,7 +30,8 @@ select a.[AnswerId] as id
 	  ,u.[UserName] as UserName
       ,u.UserImageLarge as UserImage
       ,u.userid as UserId
-      ,u.url as Url
+      ,u.BadgeCount as Badges
+	  ,u.Score as Score
       ,a.[Text] as Content
       ,a.LikeCount as LikesCount
       ,a.QuestionId as questionId
@@ -99,6 +101,8 @@ select questionid from zbox.question
 	  ,u.[UserName] as UserName
       ,u.UserImageLarge as UserImage
       ,u.userid as UserId
+,u.BadgeCount as Badges
+	,u.Score as Score
       ,[Text] as Content
       ,a.CreationTime as creationTime
       ,a.LikeCount as LikesCount
