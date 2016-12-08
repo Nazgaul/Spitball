@@ -1,5 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
 <div srph-infinite-scroll="i.loadMore()" unregister-scroll="true" collapse-header ng-class="{hideActions: i.selectedState === i.state.flag || i.selectedState === i.state.rename}">
     <header layout="row" layout-align="space-between center">
         <div class="progress-bar"><md-progress-linear ng-if="i.loader" md-mode="indeterminate"></md-progress-linear></div>
@@ -7,7 +8,7 @@
             <div class="name-actions" layout="row" layout-align="space-between center">
                 <div class="fileName">
                     <div class="name-info" layout="row" layout-align="center center" ng-if="i.selectedState === i.state.regular">
-                        <h1 class="ellipsis">{{i.details.name}}</h1>
+                        <h1 class="ellipsis" dir="auto">{{i.details.name}}</h1>
                         <div class="info">
                             <md-icon md-svg-icon="i:info"></md-icon>
                             <md-tooltip>
@@ -84,9 +85,14 @@
             </div>
             <div class="second-line" layout="row" layout-align="space-between center" ng-if="i.selectedState === i.state.regular">
                 <div class="item-meta">
-                    <a class="ellipsis" href="{{::i.details.ownerUrl}}">{{::i.details.owner}}</a>
+                    <a class="ellipsis" ui-sref="user({userId:i.details.ownerId,userName:i.details.owner})" ng-bind="::i.details.owner"></a>
                     <span>&nbsp;-&nbsp;</span>
                     <span class="date">{{::i.details.date | date : 'mediumDate'}}</span>
+                    <span ng-bind="::i.details.ownerScore | megaNumber"></span>&#x25CF;<ng-pluralize count="i.details.ownerBadges" when="{
+                                                                                     'one': '{} @GamificationResources.Badge',
+                                                                                     'two': '{} @GamificationResources.Badges',
+                                                                                     'other' : '{} @GamificationResources.Badges'
+                                                                                     }"></ng-pluralize>
                 </div>
             </div>
         </div>

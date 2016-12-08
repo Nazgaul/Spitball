@@ -36,7 +36,7 @@
     <ul id="tabSection" ng-if="!t.tabSelected" layout-padding layout-wrap class="list-unstyled folders" layout="row" layout-align="start stretch">
         <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" ui-on-drop="i.addItemToTab($data,e)" class="folder-name i-q-wrapper" ng-repeat="e in t.tabs" ng-click="t.tabChange(e)">
             <div class="name-and-icon content">
-                <div class="text ellipsis name" ng-bind="::e.name"></div>
+                <div class="text ellipsis name" dir="auto" ng-bind="::e.name"></div>
                 <div class="counter">
                     <ng-pluralize count="e.count"
                                   when="{'one': '@BoxResources.SingleItem',
