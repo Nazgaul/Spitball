@@ -22,7 +22,11 @@
                 <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{::user.progress}}"></md-progress-linear>
                 <div class="text">
                     <div class="name ellipsis" ng-bind="::user.name"></div>
-                    <div class="badges" ng-if="::user.badges">{{::user.badges}} @GamificationResources.Badges</div>
+                    <ng-pluralize class="badges" count="user.badges" when="{
+                                                'one': '{} @GamificationResources.Badge',
+                                                'two': '{} @GamificationResources.Badges',
+                                                'other' : '{} @GamificationResources.Badges'
+                                                }"></ng-pluralize>
                 </div>
             </div>
             <div class="points" ng-bind="::user.score"></div>
