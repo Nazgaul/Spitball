@@ -1,8 +1,5 @@
 ﻿module app {
     'use strict';
-
-
-
     class UserDetailsController {
         static $inject = ['accountService', '$scope', 'userDetailsFactory'];
         constructor(
@@ -10,27 +7,20 @@
             private $scope: angular.IScope,
             private userDetailsFactory: IUserDetailsFactory
         ) {
-            var response = this.userDetailsFactory.get();
+            const response = this.userDetailsFactory.get();
             if (response.id) {
                 this.assignValues(response);
                 $scope.$on('userDetailsChange',
                     function () {
                         this.assignValues(this.userDetailsFactory.get());
                     });
-
-
-
-            }
-
-            else {
-                ud.signup = function (e) {
-                    var url = getParameterByName('returnUrl', e.target.href);
-                    e.target.href = e.target.href.replace(encodeURIComponent(url), encodeURIComponent(window.location.href));
-                }
             }
         }
 
-
+        signup(e) {
+            const url = this.getParameterByName('returnUrl', e.target.href);
+            e.target.href = e.target.href.replace(encodeURIComponent(url), encodeURIComponent(window.location.href));
+        }
 
         logOut() {
             // we want to remove the user data and not the html
@@ -57,8 +47,6 @@
             if (!results[2]) return '';
             return decodeURIComponent(results[2].replace(/\+/g, " "));
         }
-
-
     }
     angular.module('app.user.details').controller('UserDetailsController', UserDetailsController);
 }
