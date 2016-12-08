@@ -450,3 +450,67 @@
         }
     }
 }
+
+.feed-wrapper .community {
+    .top {
+        height: 70px;
+    }
+
+    .bg-r, .bg-l {
+        display: none;
+    }
+
+    .filter-wrapper {
+        text-align: center;
+        padding: 10px 0 0 0;
+    }
+
+    .content {
+        background: @textColorWhite;
+        margin-top: 0;
+        padding: 0 5px;
+
+        .users {
+            .user-data {
+                padding: 8px 0;
+
+                .img-wrapper {
+                    width: 36px;
+                    height: 36px;
+                    margin: 5px 0;
+                }
+
+                .img-wrapper span {
+                    font-size: 18px;
+                    line-height: 36px !important;
+                }
+
+                .progress-user {
+                    margin: 0 10px;
+                }
+
+                .rank, .points {
+                    min-width: 30px;
+                }
+
+                .rank {
+                    font-size: 16px;
+                }
+
+                .points {
+                    font-size: 18px;
+                }
+
+                .progress-user .text {
+                    font-size: 12px;
+                    padding: 0;
+                }
+            }
+        }
+    }
+
+
+    .custom-progress-bar {
+        .custom-progress-bar(@gamificationYellow,@backgroundColor,12px);
+    }
+}

@@ -470,3 +470,69 @@
     padding: 0;
   }
 }
+.feed-wrapper .community .top {
+  height: 70px;
+}
+.feed-wrapper .community .bg-r,
+.feed-wrapper .community .bg-l {
+  display: none;
+}
+.feed-wrapper .community .filter-wrapper {
+  text-align: center;
+  padding: 10px 0 0 0;
+}
+.feed-wrapper .community .content {
+  background: #ffffff;
+  margin-top: 0;
+  padding: 0 5px;
+}
+.feed-wrapper .community .content .users .user-data {
+  padding: 8px 0;
+}
+.feed-wrapper .community .content .users .user-data .img-wrapper {
+  width: 36px;
+  height: 36px;
+  margin: 5px 0;
+}
+.feed-wrapper .community .content .users .user-data .img-wrapper span {
+  font-size: 18px;
+  line-height: 36px !important;
+}
+.feed-wrapper .community .content .users .user-data .progress-user {
+  margin: 0 10px;
+}
+.feed-wrapper .community .content .users .user-data .rank,
+.feed-wrapper .community .content .users .user-data .points {
+  min-width: 30px;
+}
+.feed-wrapper .community .content .users .user-data .rank {
+  font-size: 16px;
+}
+.feed-wrapper .community .content .users .user-data .points {
+  font-size: 18px;
+}
+.feed-wrapper .community .content .users .user-data .progress-user .text {
+  font-size: 12px;
+  padding: 0;
+}
+.feed-wrapper .community .custom-progress-bar {
+  height: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.feed-wrapper .community .custom-progress-bar.md-default-theme .md-container,
+.feed-wrapper .community .custom-progress-bar .md-container {
+  border-radius: 6px;
+}
+.feed-wrapper .community .custom-progress-bar.md-default-theme .md-container,
+.feed-wrapper .community .custom-progress-bar .md-bar,
+.feed-wrapper .community .custom-progress-bar .md-container {
+  height: 12px;
+}
+.feed-wrapper .community .custom-progress-bar .md-container {
+  background: #dadada;
+  height: 12px;
+}
+.feed-wrapper .community .custom-progress-bar .md-container .md-bar {
+  background: #ffce2f;
+}
