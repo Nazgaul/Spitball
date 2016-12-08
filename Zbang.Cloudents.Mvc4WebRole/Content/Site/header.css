@@ -280,32 +280,6 @@
   display: -ms-flex;
   display: inline-flex;
 }
-.nav-bar .user-md-menu .md-icon-button .achievements {
-  text-transform: none;
-  white-space: nowrap;
-  overflow: hidden;
-  -ms-text-overflow: ellipsis;
-  -o-text-overflow: ellipsis;
-  text-overflow: ellipsis;
-  max-width: 130px;
-  padding-left: 10px;
-  position: relative;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 12px;
-}
-.nav-bar .user-md-menu .md-icon-button .achievements .separator {
-  width: 5px;
-  height: 5px;
-  display: inline-block;
-  margin: 2px 5px;
-  border-radius: 100%;
-  background: rgba(255, 255, 255, 0.6);
-}
-@media (max-width: 767px) {
-  .nav-bar .user-md-menu .md-icon-button .achievements {
-    display: none;
-  }
-}
 .nav-bar .user-md-menu md-icon {
   width: 40px;
   height: 40px;

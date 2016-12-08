@@ -483,7 +483,7 @@ md-menu-item > a.md-button {
   display: flex;
   -webkit-align-items: center;
   align-items: center;
-  margin-bottom: 20px;
+  padding: 0 8px;
 }
 .member-wrapper .user-section,
 .member-wrapper .admin {
@@ -589,11 +589,24 @@ md-menu-item > a.md-button {
   color: transparent;
   text-decoration: none;
 }
-.member .member-name {
-  font-size: 15px;
-  margin-right: 10px;
+.member .info {
   width: calc(100% - 45px);
+  padding: 18px 0;
+  margin-right: 4px;
+  border-bottom: 1px solid rgba(50, 53, 56, 0.2);
+}
+.member .info .member-name {
+  font-size: 15px;
+  margin-right: 6px;
   color: #212325;
+  display: block;
+}
+.member .info .achievements {
+  padding-right: 6px;
+  color: #4190b9;
+}
+.member .info .achievements .separator {
+  background: #5d6063;
 }
 .invite-members {
   background: #4190b9;

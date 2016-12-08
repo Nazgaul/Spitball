@@ -535,7 +535,7 @@ md-menu-item > a.md-button {
 .member-wrapper {
     .displayFlex;
     .align-items(center);
-    margin-bottom: 20px;
+    padding: 0 8px;
 
     .user-section, .admin {
         min-width: 0;
@@ -649,12 +649,28 @@ md-menu-item > a.md-button {
         text-decoration: none;
     }
 
-
-    .member-name {
-        font-size: 15px;
-        margin-left: 10px;
+    .info {
         width: ~"calc(100% - 45px)";
-        color: @textColorBlack;
+        padding: 18px 0;
+        margin-left: 4px;
+        border-bottom: 1px solid rgba(50,53,56,0.2);
+
+
+        .member-name {
+            font-size: 15px;
+            margin-left: 6px;
+            color: @textColorBlack;
+            display: block;
+        }
+
+        .achievements {
+            padding-left: 6px;
+            color: @buttonColorBlue;
+
+            .separator {
+                background: @borderColorBottomGrey;
+            }
+        }
     }
 }
 
