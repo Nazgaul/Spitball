@@ -93,9 +93,9 @@
         <div class="info">
             <span class="member-name ellipsis" ng-bind="::e.name"></span>
             <div class="achievements">
-                <span @*ng-bind="::e.score | megaNumber"*@>11.8K</span>
+                <span @**@ng-bind="::e.score | megaNumber"*@>11.8K</span>
                 <span class="separator"></span>
-                <ng-pluralize class="badges" count="5" when="{
+                <ng-pluralize class="badges" count="e.badges" when="{
                                                 'one': '{} @GamificationResources.Badge',
                                                 'two': '{} @GamificationResources.Badges',
                                                 'other' : '{} @GamificationResources.Badges'
