@@ -288,8 +288,16 @@ md-menu-item.blue svg {
 .itemPage .second-line .item-meta .date {
   padding-left: 5px;
 }
-.itemPage .second-line span {
+.itemPage .second-line .item-meta span {
   color: #212325;
+}
+.itemPage .second-line .achievements {
+  color: #4190b9;
+  padding-right: 0;
+  margin-top: 4px;
+}
+.itemPage .second-line .achievements .separator {
+  background: #4190b9;
 }
 .itemPage .iframeContent {
   border: 0;

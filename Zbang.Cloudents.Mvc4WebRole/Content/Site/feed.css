@@ -456,6 +456,14 @@
   bottom: 10px;
   left: 62px;
 }
+.feed .comment .achievements {
+  color: #4190b9;
+  padding: 0 20px 10px 0;
+  max-width: 100%;
+}
+.feed .comment .achievements .separator {
+  background: #4190b9;
+}
 .feed .comment .delete {
   height: 17px;
   width: 25px;
@@ -519,6 +527,18 @@
   .feed .reply > .content-text {
     margin-top: -8px;
   }
+}
+.feed .reply .info {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+.feed .reply .info .achievements {
+  padding: 0 30px 0 0;
 }
 .feed .new-comment-border md-input-container textarea.md-input,
 .feed .reply-wrapper md-input-container textarea.md-input {

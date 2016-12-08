@@ -723,11 +723,6 @@ md-toast .md-toast-content span {
   border-radius: 100%;
   background: rgba(255, 255, 255, 0.6);
 }
-@media (max-width: 767px) {
-  .achievements {
-    display: none;
-  }
-}
 .fade-in-repeat.ng-enter {
   /* standard transition code */
   transition: 1s linear all;

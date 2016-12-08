@@ -280,6 +280,11 @@
   display: -ms-flex;
   display: inline-flex;
 }
+@media (max-width: 767px) {
+  .nav-bar .user-md-menu .md-icon-button {
+    display: none;
+  }
+}
 .nav-bar .user-md-menu md-icon {
   width: 40px;
   height: 40px;

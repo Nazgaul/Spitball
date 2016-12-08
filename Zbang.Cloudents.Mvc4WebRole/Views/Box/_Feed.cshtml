@@ -39,17 +39,21 @@
         <ol class="list-unstyled posts-list" srph-infinite-scroll="f.myPagingFunction()" threshold="600">
             <li ng-repeat="post in f.data track by post.id" class="post comment">
                 <div class="comments-wrapper">
-                    <div class="info" layout="row" align-items="start-center">
+                    <div class="info" layout="row" layout-align="space-between center">
                         <a ui-sref="user({userId:post.userId, userName:post.userName})" class="userblock" layout="row" layout-align="start center" ga-track-event="['box-feed', 'userNameImage']">
                             <user-image class="c-img" name="::post.userName" image="::post.userImage" width="52" height="52"></user-image>
                             <span class="user-name ellipsis" ng-bind="::post.userName"></span>
                         </a>
                         <time-ago class="comment-date" from-time="{{::post.creationTime }}" format="mediumDate"></time-ago>
-                        <span ng-bind="::post.score | megaNumber"></span>&#x25CF;<ng-pluralize count="post.badges" when="{
+                        <div class="achievements">
+                            <span ng-bind="::post.score | megaNumber"></span>
+                            <span class="separator"></span>
+                            <ng-pluralize count="post.badges" when="{
                                                                                      'one': '{} @GamificationResources.Badge',
                                                                                      'two': '{} @GamificationResources.Badges',
                                                                                      'other' : '{} @GamificationResources.Badges'
                                                                                      }"></ng-pluralize>
+                        </div>
                     </div>
                     <md-menu ng-if="::b.canDelete(post.userId)">
                         <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">
@@ -108,11 +112,15 @@
                                 <user-image class="c-img" name="::reply.userName" image="::reply.userImage" width="40" height="40"></user-image>
                                 <span class="user-name ellipsis" ng-bind="::reply.userName"></span>
                             </a>
-                            <span ng-bind="::reply.score | megaNumber"></span>&#x25CF;<ng-pluralize count="reply.badges" when="{
+                            <div class="achievements">
+                                <span ng-bind="::reply.score | megaNumber"></span>
+                                <span class="separator"></span>
+                                <ng-pluralize count="reply.badges" when="{
                                                                                      'one': '{} @GamificationResources.Badge',
                                                                                      'two': '{} @GamificationResources.Badges',
                                                                                      'other' : '{} @GamificationResources.Badges'
                                                                                      }"></ng-pluralize>
+                            </div>
                         </div>
                         <md-menu ng-if="::b.canDelete(reply.userId)">
                             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">
@@ -185,9 +193,9 @@
         </ol>
     </div>
     <div class="boxes-side-area flex" layout-padding flex="100" flex-md="33" flex-lg="30" flex-gt-lg="30">
-            <div flex="100" flex-sm="50" @*ng-if="b.showLeaderboard"*@ class="flex community" ng-controller="Leaderboard as g">
-                @* ReSharper disable once Mvc.PartialViewNotResolved *@
-                @{ Html.RenderPartial("_LeaderBoard");}
+        <div flex="100" flex-sm="50" @*ng-if="b.showLeaderboard"*@ class="flex community" ng-controller="Leaderboard as g">
+            @* ReSharper disable once Mvc.PartialViewNotResolved *@
+            @{ Html.RenderPartial("_LeaderBoard");}
             @*<div class="suggested flex" flex="100" flex-gt-md="100" flex-sm="50" ng-repeat="e in ::r.boxes track by e.boxId" ng-include="'box-template.html'"></div>*@
         </div>
     </div>
