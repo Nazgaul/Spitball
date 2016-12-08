@@ -470,6 +470,10 @@
     padding: 0;
   }
 }
+.community .content .users .user-data .progress-user .text .name,
+.community .content .users .user-data .progress-user .text .badges {
+  white-space: nowrap;
+}
 .feed-wrapper .community .top {
   height: 70px;
 }

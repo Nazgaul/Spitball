@@ -83,12 +83,16 @@
 
                 </div>
             </div>
-            <div class="second-line" layout="row" layout-align="space-between center" ng-if="i.selectedState === i.state.regular">
+            <div class="second-line" ng-if="i.selectedState === i.state.regular">
                 <div class="item-meta">
                     <a class="ellipsis" ui-sref="user({userId:i.details.ownerId,userName:i.details.owner})" ng-bind="::i.details.owner"></a>
                     <span>&nbsp;-&nbsp;</span>
                     <span class="date">{{::i.details.date | date : 'mediumDate'}}</span>
-                    <span ng-bind="::i.details.ownerScore | megaNumber"></span>&#x25CF;<ng-pluralize count="i.details.ownerBadges" when="{
+                </div>
+                <div class="achievements">
+                    <span ng-bind="::i.details.ownerScore | megaNumber"></span>
+                    <span class="separator"></span>
+                    <ng-pluralize count="i.details.ownerBadges" when="{
                                                                                      'one': '{} @GamificationResources.Badge',
                                                                                      'two': '{} @GamificationResources.Badges',
                                                                                      'other' : '{} @GamificationResources.Badges'

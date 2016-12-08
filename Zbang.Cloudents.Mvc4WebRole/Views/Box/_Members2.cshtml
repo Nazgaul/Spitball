@@ -10,7 +10,7 @@
     </div>
 </div>
 <div layout-padding layout="row" layout-wrap>
-    <div flex-gt-md="25" flex-md="33" flex-sm="50" flex-xs="100" ng-repeat="e in m.members" class="member-wrapper">
+    <div flex-gt-lg="25" flex-lg="33" flex-md="33" flex-sm="50" flex-xs="100" ng-repeat="e in m.members" class="member-wrapper">
         <div class="user-section" ng-include="'user-template.html'"></div>
         <span class="admin" ng-if="b.data.boxType==='box' && e.userStatus === 'owner'">@BoxResources.BoxAdmin</span>
     </div>

@@ -530,6 +530,16 @@
             left: @userImageIndent;
         }
 
+        .achievements {
+            color: @buttonColorBlue;
+            padding: 0 20px 10px 0;
+            max-width: 100%;
+
+            .separator {
+                background: @buttonColorBlue;
+            }
+        }
+
         .delete {
             height: 17px;
             width: 25px;
@@ -598,6 +608,16 @@
 
             @media(min-width: 600px) {
                 margin-top: -8px;
+            }
+        }
+
+        .info {
+            .displayFlex;
+            .align-items(center);
+            .justifyContet(space-between);
+
+            .achievements {
+                padding: 0 30px 0 0;
             }
         }
     }
