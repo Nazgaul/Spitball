@@ -25,6 +25,22 @@
             toaster.toastClass("angular-animate");
             this.$mdToast.show(toaster);
         };
+
+
+        showTemplateToaster(template, parentId) {
+            let element: Element = this.$document.find("body")[0];
+            if (parentId) {
+                element = this.$document[0].querySelector(`#${parentId}`);
+            } 
+            this.$mdToast.show({
+                hideDelay: 0,
+                position: 'top right',
+                templateUrl: template,
+                toastClass: 'angular-animate',
+                parent: element
+            });
+        };
+
     }
 
     angular.module("app").service("showToasterService", ShowToasterService);

@@ -2,10 +2,10 @@
     'use strict';
     angular.module('app.item').controller('ItemController', item);
     item.$inject = ['$stateParams', 'itemService', '$sce', '$location', '$q', 'user',
-        'itemData', '$scope', '$rootScope', 'resManager', '$timeout', '$mdMenu', '$state'];
+        'itemData', '$scope', '$rootScope', 'resManager', '$timeout', '$mdMenu', '$state', 'showToasterService'];
 
     function item($stateParams, itemService, $sce, $location, $q,
-        user, itemData, $scope, $rootScope, resManager, $timeout, $mdMenu, $state) {
+        user, itemData, $scope, $rootScope, resManager, $timeout, $mdMenu, $state, showToasterService) {
         var i = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId, disablePaging = false;
         var index = 0, needLoadMore = false;
 
@@ -47,6 +47,8 @@
         i.swipeRight = swipeRight;
         i.followBox = followBox;
         i.document = itemData.fileContent;
+
+        $timeout(() =>showLikeToaster(), 1000);
 
         //i.back = back;
 
@@ -147,7 +149,7 @@
             if (i.details.like) {
                 i.details.likes--;
             } else {
-                $scope.app.showToaster(resManager.get('toasterLikeItem'), 'main-nav');
+                showToasterService.showToaster(resManager.get('toasterLikeItem'), 'main-nav');
                 i.details.likes++;
             }
             i.details.like = !i.details.like;
@@ -155,6 +157,10 @@
             $timeout(function () {
                 $mdMenu.hide();
             }, 2000);
+        }
+
+        function showLikeToaster() {
+            showToasterService.showTemplateToaster('likeToasterTemplate.html', 'main-nav');
         }
 
     }
