@@ -15,14 +15,14 @@ namespace Zbang.Zbox.Domain.DataAccess
 
         }
 
-        public void DeleteUserUpdateByFeedId(long userId, long boxId, Guid commentId)
-        {
-            var query = UnitOfWork.CurrentSession.GetNamedQuery("DeleteUpdatesByFeedId");
-            query.SetInt64("userid", userId);
-            query.SetInt64("boxId", boxId);
-            query.SetGuid("CommentId", commentId);
-            query.ExecuteUpdate();
-        }
+        //public void DeleteUserUpdateByFeedId(long userId, long boxId, Guid commentId)
+        //{
+        //    var query = UnitOfWork.CurrentSession.GetNamedQuery("DeleteUpdatesByCommentId");
+        //    query.SetInt64("userid", userId);
+        //    query.SetInt64("boxId", boxId);
+        //    query.SetGuid("CommentId", commentId);
+        //    query.ExecuteUpdate();
+        //}
 
         public void DeleteReplyUpdates(Guid answerId)
         {

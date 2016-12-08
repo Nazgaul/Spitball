@@ -8,7 +8,6 @@ using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
 using Microsoft.Azure.NotificationHubs;
 using Zbang.Cloudents.MobileApp.DataObjects;
-using Zbang.Cloudents.MobileApp.Extensions;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -61,7 +60,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         public HttpResponseMessage DeleteFeed(long boxId, Guid feedId)
         {
             var userId = User.GetUserId();
-            var command = new DeleteUpdatesFeedCommand(userId, boxId, feedId);
+            var command = new DeleteUpdatesCommand(userId, boxId);
             m_ZboxWriteService.DeleteUpdates(command);
             return Request.CreateResponse();
         }

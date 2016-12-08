@@ -56,7 +56,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }
             var t1 = m_ZboxReadService.GetUserDataAsync(new QueryBaseUserId(User.GetUserId()));
             var t2 = m_ZboxReadService.GetChatUnreadMessagesAsync(new QueryBaseUserId(User.GetUserId()));
-            //var retVal = await m_ZboxReadService.GetUserDataAsync(new GetUserDetailsQuery(User.GetUserId()));
             await Task.WhenAll(t1, t2);
             return Request.CreateResponse(new
             {

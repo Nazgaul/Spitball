@@ -1,6 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <div layout="row" layout-align="center center" flex="none">
+    @*TODO remove that*@
     <button type="button" toggle-chat user-not-register-popup="click" class="chat-icon" hide-gt-sm>
         <md-icon md-svg-icon="t:chat"></md-icon>
         <div class="chat-counter"></div>
@@ -11,15 +12,15 @@
                 <md-icon md-menu-origin>
                     <user-image class="img-circle" name="ud.name" image="ud.image" width="39" height="39" noremove="true"></user-image>
                 </md-icon>
-                <span>{{ud.name}}</span>
+                <span ng-bind="ud.name"></span>
             </div>
         </md-button>
         <md-menu-content md-menu-align-target class="md-user-menu">
             <md-menu-item class="user-menu-item">
-                <md-button href="{{::ud.url}}" ga-track-event="['header', 'user activities']">
-                    <md-icon  md-menu-align-target md-svg-icon="t:userMenu"></md-icon>
+                <a class="md-button" ui-sref="user({id:ud.id, name:ud.name})" ga-track-event="['header', 'user activities']">
+                    <md-icon md-menu-align-target md-svg-icon="t:userMenu"></md-icon>
                     @IndexResources.User
-                </md-button>
+                </a>
             </md-menu-item>
             <md-menu-item class="user-menu-item">
                 <md-button href="@Url.RouteUrl("AccountSettings")" ga-track-event="['header', 'settings']">

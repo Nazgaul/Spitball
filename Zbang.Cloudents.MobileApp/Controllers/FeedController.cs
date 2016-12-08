@@ -6,7 +6,6 @@ using System.Web;
 using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
 using Zbang.Cloudents.MobileApp.DataObjects;
-using Zbang.Cloudents.MobileApp.Extensions;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
@@ -15,6 +14,7 @@ using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Extensions;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.Qna;
 using Zbang.Zbox.ViewModel.Queries.QnA;
 
@@ -48,10 +48,11 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [HttpGet]
         //, VersionedRoute("api/box/{boxId:long}/feed", 3)]
         [Route("api/box/{boxId:long}/feed")]
-        public async Task<HttpResponseMessage> Feed3(long boxId, int page, int sizePerPage = 20)
+        public async Task<HttpResponseMessage> FeedAsync(long boxId, int page, int sizePerPage = 20)
         {
             try
             {
+                TraceLog.WriteInfo($"feed async boxid {boxId} page {page}");
                 var query = GetBoxQuestionsQuery.GetBoxQueryOldVersion(boxId, page, sizePerPage);
                 var retVal =
                   await m_ZboxReadService.GetCommentsAsync(query);
@@ -117,7 +118,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         }
 
         [HttpGet, Route("api/box/{boxId:long}/feed/{feedId:guid}")]
-        public async Task<HttpResponseMessage> Post(long boxId, Guid feedId)
+        public async Task<HttpResponseMessage> PostAsync(long boxId, Guid feedId)
         {
             var retVal =
                 await m_ZboxReadService.GetCommentAsync(new GetQuestionQuery(feedId, boxId));
@@ -136,7 +137,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         }
 
         [HttpGet, Route("api/box/{boxId:long}/feed/{feedId:guid}/reply")]
-        public async Task<HttpResponseMessage> GetReplies(long boxId, Guid feedId, /*Guid? belowReplyId,*/ int page, int sizePerPage = 20)
+        public async Task<HttpResponseMessage> GetRepliesAsync(long boxId, Guid feedId, /*Guid? belowReplyId,*/ int page, int sizePerPage = 20)
         {
 
             var replyId = /*belowReplyId ??*/ Guid.Parse("FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF");
@@ -171,7 +172,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [HttpPost]
         // [VersionedRoute("api/box/{boxId:long}/feed", 2)]
         [Route("api/box/{boxId:long}/feed")]
-        public async Task<HttpResponseMessage> PostCommentAnonymous(long boxId, AddCommentRequest model)
+        public async Task<HttpResponseMessage> PostCommentAnonymousAsync(long boxId, AddCommentRequest model)
         {
             if (string.IsNullOrEmpty(model.Content))
             {
@@ -197,7 +198,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         [HttpPost]
         [Route("api/box/{boxId:long}/feed/{feedId:guid}/reply")]
-        public async Task<HttpResponseMessage> PostReply(long boxId, Guid feedId, AddCommentRequest model)
+        public async Task<HttpResponseMessage> PostReplyAsync(long boxId, Guid feedId, AddCommentRequest model)
         {
             if (string.IsNullOrEmpty(model.Content))
             {
@@ -217,7 +218,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         [HttpDelete]
         [Route("api/box/{boxId:long}/feed/{feedId:guid}")]
-        public async Task<HttpResponseMessage> DeleteComment(long boxId, Guid feedId)
+        public async Task<HttpResponseMessage> DeleteCommentAsync(long boxId, Guid feedId)
         {
             var command = new DeleteCommentCommand(feedId, User.GetUserId(), boxId);
             await m_ZboxWriteService.DeleteCommentAsync(command);
@@ -226,7 +227,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         [HttpDelete]
         [Route("api/box/{boxId:long}/reply/{replyId:guid}")]
-        public async Task<HttpResponseMessage> DeleteReply(long boxId, Guid replyId)
+        public async Task<HttpResponseMessage> DeleteReplyAsync(long boxId, Guid replyId)
         {
             var command = new DeleteReplyCommand(replyId, User.GetUserId(), boxId);
             await m_ZboxWriteService.DeleteReplyAsync(command);
@@ -236,7 +237,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         [Route("api/feed/flag")]
         [HttpPost]
-        public async Task<HttpResponseMessage> Flag(FlagPostReplyRequest model)
+        public async Task<HttpResponseMessage> FlagAsync(FlagPostReplyRequest model)
         {
             if (model == null)
             {

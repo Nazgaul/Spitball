@@ -1519,6 +1519,7 @@
     <TypeScriptCompile Include="Js\components\user\user.routes.ts" />
     <TypeScriptCompile Include="Js\components\user\user.service.ts" />
     <TypeScriptCompile Include="Js\components\user\items.controller.ts" />
+    <TypeScriptCompile Include="Js\components\user\userdetails.controller.ts" />
     <TypeScriptCompile Include="Js\doubleclick.config.ts" />
     <TypeScriptCompile Include="Js\menu\sidemenu.controller.ts" />
     <TypeScriptCompile Include="Js\routerHelperProvider.ts" />

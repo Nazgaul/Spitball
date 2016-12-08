@@ -16,12 +16,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
 
-            var feedDelete = message as DeleteUpdatesFeedCommand;
-            if (feedDelete != null)
-            {
-                m_UpdatesRepository.DeleteUserUpdateByFeedId(message.UserId, message.BoxId, feedDelete.CommentId);
-                return;
-            }
+            //var feedDelete = message as DeleteUpdatesFeedCommand;
+            //if (feedDelete != null)
+            //{
+            //    m_UpdatesRepository.DeleteCommentUpdates(message.UserId, message.BoxId, feedDelete.CommentId);
+            //    return;
+            //}
             var itemDelete = message as DeleteUpdatesItemCommand;
             if (itemDelete != null)
             {

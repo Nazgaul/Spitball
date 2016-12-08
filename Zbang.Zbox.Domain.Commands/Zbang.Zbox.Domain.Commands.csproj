@@ -102,7 +102,6 @@
     <Compile Include="DeleteReplyCommand.cs" />
     <Compile Include="DeleteCommentCommand.cs" />
     <Compile Include="DeleteUpdatesCommand.cs" />
-    <Compile Include="DeleteUpdatesFeedCommand.cs" />
     <Compile Include="DeleteUpdatesItemCommand.cs" />
     <Compile Include="DeleteUserFromBoxCommand.cs" />
     <Compile Include="GlobalSuppressions.cs" />

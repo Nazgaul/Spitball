@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Web;
 using StackExchange.Redis;
 using Zbang.Zbox.Infrastructure.Extensions;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Cache
 {
@@ -36,6 +37,8 @@ namespace Zbang.Zbox.Infrastructure.Cache
             var viewModelBuildVersion = viewModel.GetName().Version.Revision;
             m_CachePrefix = $"{domainBuildVersion}_{viewModelBuildVersion}_{ConfigurationManager.AppSettings[AppKey]}";
             m_CacheExists = m_IsRedisCacheAvailable || m_IsHttpCacheAvailable;
+            TraceLog.WriteInfo(
+                $"m_IsRedisCacheAvailable {m_IsRedisCacheAvailable} m_IsHttpCacheAvailable {m_IsHttpCacheAvailable}");
         }
 
         public Task AddToCacheAsync<T>(string region, string key, T value, TimeSpan expiration) where T : class
@@ -54,6 +57,8 @@ namespace Zbang.Zbox.Infrastructure.Cache
                     return Extensions.TaskExtensions.CompletedTaskTrue;
                 }
                 var db = Connection.GetDatabase();
+
+                TraceLog.WriteInfo($"cache add region {region} key {cacheKey}");
                 var t1 = db.StringAppendAsync(region, cacheKey + ";", CommandFlags.FireAndForget);
                 var t2 = db.SetAsync(cacheKey, value, expiration);
                 return Task.WhenAll(t1, t2);
@@ -94,16 +99,20 @@ namespace Zbang.Zbox.Infrastructure.Cache
             //var server = Connection.GetServer(Connection.GetEndPoints().FirstOrDefault());
             var db = Connection.GetDatabase();
             string keys = await db.StringGetAsync(region);
+            
             if (keys == null)
             {
+                TraceLog.WriteInfo($"cache deleteing key {region}");
                 await db.KeyDeleteAsync(region, CommandFlags.FireAndForget);
                 return;
             }
             var taskList = new List<Task>();
             foreach (var key in keys.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries))
             {
+                TraceLog.WriteInfo($"cache deleteing key {key}");
                 taskList.Add(db.KeyDeleteAsync(key, CommandFlags.FireAndForget));
             }
+            TraceLog.WriteInfo($"cache deleteing key {region}");
             taskList.Add(db.KeyDeleteAsync(region, CommandFlags.FireAndForget));
             await Task.WhenAll(taskList);
 
@@ -138,10 +147,14 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 var cache = Connection.GetDatabase();
 
                 var t = await cache.GetAsync<T>(cacheKey);
+
                 if (t != default(T))
                 {
+                    TraceLog.WriteInfo($"cache is not empty. cache append to region {region} key {cacheKey}");
+
                     await cache.StringAppendAsync(region, cacheKey + ";", CommandFlags.FireAndForget);
                 }
+
                 return t;
             }
             catch (Exception ex)

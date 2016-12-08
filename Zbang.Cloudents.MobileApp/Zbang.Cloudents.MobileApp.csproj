@@ -374,6 +374,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\spitball - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\spitballtest - Web Deploy.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
