@@ -40,11 +40,16 @@
             <li ng-repeat="post in f.data track by post.id" class="post comment">
                 <div class="comments-wrapper">
                     <div class="info" layout="row" align-items="start-center">
-                        <a href="{{::post.url}}" class="userblock" layout="row" layout-align="start center" ga-track-event="['box-feed', 'userNameImage']">
+                        <a ui-sref="user({userId:post.userId, userName:post.userName})" class="userblock" layout="row" layout-align="start center" ga-track-event="['box-feed', 'userNameImage']">
                             <user-image class="c-img" name="::post.userName" image="::post.userImage" width="52" height="52"></user-image>
                             <span class="user-name ellipsis" ng-bind="::post.userName"></span>
                         </a>
                         <time-ago class="comment-date" from-time="{{::post.creationTime }}" format="mediumDate"></time-ago>
+                        <span ng-bind="::post.score | megaNumber"></span>&#x25CF;<ng-pluralize count="post.badges" when="{
+                                                                                     'one': '{} @GamificationResources.Badge',
+                                                                                     'two': '{} @GamificationResources.Badges',
+                                                                                     'other' : '{} @GamificationResources.Badges'
+                                                                                     }"></ng-pluralize>
                     </div>
                     <md-menu ng-if="::b.canDelete(post.userId)">
                         <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">
@@ -99,10 +104,15 @@
                 <ol class="list-unstyled replies" ng-if="post.replies.length">
                     <li ng-repeat="reply in post.replies track by reply.id" class="reply" ng-if="post.expandReplies || $index < 4" @*ng-if="$last || post.showReplies"*@>
                         <div class="info">
-                            <a href="{{::reply.url}}" layout="row" layout-align="start center" class="userblock username" ga-track-event="['box-feed', 'replyUserNameImg']">
+                            <a ui-sref="user({userId:reply.userId, userName:reply.userName})" layout="row" layout-align="start center" class="userblock username" ga-track-event="['box-feed', 'replyUserNameImg']">
                                 <user-image class="c-img" name="::reply.userName" image="::reply.userImage" width="40" height="40"></user-image>
                                 <span class="user-name ellipsis" ng-bind="::reply.userName"></span>
                             </a>
+                            <span ng-bind="::reply.score | megaNumber"></span>&#x25CF;<ng-pluralize count="reply.badges" when="{
+                                                                                     'one': '{} @GamificationResources.Badge',
+                                                                                     'two': '{} @GamificationResources.Badges',
+                                                                                     'other' : '{} @GamificationResources.Badges'
+                                                                                     }"></ng-pluralize>
                         </div>
                         <md-menu ng-if="::b.canDelete(reply.userId)">
                             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">

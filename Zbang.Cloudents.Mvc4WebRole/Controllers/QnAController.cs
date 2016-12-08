@@ -48,8 +48,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         s.Id,
                         s.RepliesCount,
                         s.LikesCount,
-                        s.Url,
                         s.UserId,
+                        s.Badges,
+                        s.Score,
                         s.UserImage,
                         Files = s.Files.Select(x => new
                         {
@@ -65,7 +66,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                                 v.Content,
                                 v.CreationTime,
                                 v.Id,
-                                v.Url,
                                 v.UserId,
                                 v.UserImage,
 
@@ -90,8 +90,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     s.CreationTime,
                     s.Id,
                     s.RepliesCount,
-                    s.Url,
                     s.UserId,
+                    s.Badges,
+                    s.Score,
                     s.LikesCount,
                     s.UserImage,
                     s.UserName,
@@ -109,10 +110,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         v.Content,
                         v.CreationTime,
                         v.Id,
-                        v.Url,
                         v.UserId,
                         v.UserImage,
                         v.UserName,
+                        s.Badges,
+                        s.Score,
                         v.LikesCount,
                         Files = v.Files.Select(b => new
                         {
@@ -266,7 +268,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         v.Name
                     }),
                     s.Id,
-                    s.Url,
+                    s.Badges,
+                    s.Score,
                     s.UserId,
                     s.UserImage
 
@@ -286,7 +289,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     v.Name
                 }),
                 s.Id,
-                s.Url,
+                s.Badges,
+                s.Score,
                 s.UserId,
                 s.UserImage,
                 s.UserName
