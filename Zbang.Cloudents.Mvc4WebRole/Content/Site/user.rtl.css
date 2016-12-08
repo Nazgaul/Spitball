@@ -388,8 +388,8 @@
   }
 }
 .userPage .badges-wrapper .tab.badges .expanded .badge-container .image {
-  width: 126px;
-  height: 110px;
+  width: 100%;
+  max-width: 126px;
 }
 @media (max-width: 600px) {
   .userPage .badges-wrapper .tab.badges .expanded .badge-container .image {
@@ -477,9 +477,16 @@
 }
 .userPage .badges-wrapper .tab.badges .badges-container {
   margin-top: 20px;
+  padding-bottom: 20px;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
 .userPage .badges-wrapper .tab.badges .wrapper {
   padding: 10px;
+  width: 190px;
+  display: inline-block;
 }
 @media (max-width: 600px) {
   .userPage .badges-wrapper .tab.badges .wrapper {
@@ -506,8 +513,8 @@
   background: #ffce2f;
 }
 .userPage .badges-wrapper .tab.badges .badge-container .image {
-  width: 100px;
-  height: 87px;
+  width: 100%;
+  max-width: 100px;
   margin: 0 auto;
 }
 .userPage .badges-wrapper .tab.badges .badge-container .text {

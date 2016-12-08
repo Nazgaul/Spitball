@@ -42,12 +42,12 @@
             </ul>
         </div>
         <div ng-switch-when="badge" class="tab badges">
-            <div class="badges-container" ng-if="!g.badgeInfo" layout="row" layout-padding layout-wrap>
-                <div class="wrapper" flex-lg="20" flex-md="25" flex-gt-lg="20" flex-xs="50" flex-sm="25" ng-repeat="badge in ::g.badges">
+            <div class="badges-container" ng-if="!g.badgeInfo">
+                <div class="wrapper" ng-repeat="badge in ::g.badges">
                     <div class="badge-container" ng-click="g.showBadge(badge)">
                         <md-icon md-svg-icon="p:checkmark" ng-if="badge.progress === 100"></md-icon>
-                        <img class="image" ng-if="g.badgeInfo.data.progress === 100" ng-src="" alt="{{g.badgeInfo.data.name}}" />
-                        <img class="image" ng-if="g.badgeInfo.data.progress !== 100" ng-src="" alt="{{g.badgeInfo.data.name}}" />
+                        <img class="image" ng-if="badge.progress === 100" ng-src="{{::badge.image}}" alt="{{badge.name}}" />
+                        <img class="image" ng-if="badge.progress !== 100" ng-src="{{::badge.imageHidden}}" alt="{{badge.name}}" />
                         <div class="text" ng-bind="::badge.name"></div>
                         <div class="progress">
                             <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{::badge.progress}}"></md-progress-linear>
@@ -62,8 +62,8 @@
                 <div class="badge-container">
                     
                     <md-icon md-svg-icon="p:checkmark" ng-if="g.badgeInfo.data.progress === 100"></md-icon>
-                    <img class="image" ng-if="g.badgeInfo.data.progress === 100" ng-src="" alt="{{g.badgeInfo.data.name}}" />
-                    <img class="image" ng-if="g.badgeInfo.data.progress !== 100" ng-src="" alt="{{g.badgeInfo.data.name}}" />
+                    <img class="image" ng-if="g.badgeInfo.data.progress === 100" ng-src="{{::g.badgeInfo.data.image}}" alt="{{g.badgeInfo.data.name}}" />
+                    <img class="image" ng-if="g.badgeInfo.data.progress !== 100" ng-src="{{::g.badgeInfo.data.imageHidden}}" alt="{{g.badgeInfo.data.name}}" />
                     <div class="text" ng-bind="g.badgeInfo.data.name"></div>
                     <div class="progress">
                         <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{g.badgeInfo.data.progress}}"></md-progress-linear>

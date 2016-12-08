@@ -381,8 +381,8 @@
                         }
 
                         .image {
-                            width: 126px;
-                            height: 110px;
+                            width: 100%;
+                            max-width: 126px;
 
                             @media(max-width:600px) {
                                 width: 100px;
@@ -474,10 +474,15 @@
 
                 .badges-container {
                     margin-top: 20px;
+                    padding-bottom: 20px;
+                    .align-items(center);
+                    .justifyContet(center);
                 }
 
                 .wrapper {
                     padding: 10px;
+                    width: 190px;
+                    display: inline-block;
 
                     @media(max-width: 600px) {
                         padding: 8px;
@@ -506,8 +511,8 @@
                     }
 
                     .image {
-                        width: 100px;
-                        height: 87px;
+                        width: 100%;
+                        max-width: 100px;
                         margin: 0 auto;
                     }
 

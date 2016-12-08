@@ -115,6 +115,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enjoyed this document? give it a like:.
+        /// </summary>
+        public static string LikeToasterText {
+            get {
+                return ResourceManager.GetString("LikeToasterText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This may take several minutes.
         /// </summary>
         public static string MayTake {
