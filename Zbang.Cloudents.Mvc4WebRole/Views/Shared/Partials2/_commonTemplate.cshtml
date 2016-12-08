@@ -1,5 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
 <script defer type="text/ng-template" id="box-template.html">
     <a ng-href="{{::e.url}}" class="box-template-flex box-style" ga-track-event="['dashboard', 'box']">
@@ -101,5 +102,14 @@
 <script defer type="text/ng-template" id="scrollToTopTemplate.html">
     <div class="scroll-to-top">
         <md-icon md-svg-icon="t:arrow"></md-icon>
+    </div>
+</script>
+<script defer type="text/ng-template" id="likeToasterTemplate.html">
+    <div>
+        <div class="">@ItemsResources.LikeToasterText</div>
+        <button class="fb-like content-wrapper" user-not-register-popup="click" type="button" ga-track-event="['itemPage', 'like item']">
+            <span><md-icon md-svg-icon="b:like"></md-icon></span>
+            <span>@GeneralResources.Like</span>
+        </button>
     </div>
 </script>

@@ -174,4 +174,7 @@
   <data name="NewReply" xml:space="preserve">
     <value>Reply</value>
   </data>
+  <data name="LikeToasterText" xml:space="preserve">
+    <value>Enjoyed this document? give it a like:</value>
+  </data>
 </root>
