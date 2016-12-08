@@ -34,7 +34,7 @@
             ud.name = response.name;
             ud.image = response.image;
             ud.score = response.score;
-            ud.url = response.url;
+            //ud.url = response.url;
         }
         function getParameterByName(name, url) {
             if (!url) url = window.location.href;
