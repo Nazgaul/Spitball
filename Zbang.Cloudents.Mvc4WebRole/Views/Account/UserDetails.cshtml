@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
 
 <div layout="row" layout-align="center center" flex="none">
     @*TODO remove that*@
@@ -12,7 +13,11 @@
                 <md-icon md-menu-origin>
                     <user-image class="img-circle" name="ud.name" image="ud.image" width="39" height="39" noremove="true"></user-image>
                 </md-icon>
-                <span ng-bind="ud.name"></span>
+                <span ng-bind="::ud.score | megaNumber"></span>&#x25CF;<ng-pluralize count="ud.badges" when="{
+                                                                                     'one': '{} @GamificationResources.Badge',
+                                                                                     'two': '{} @GamificationResources.Badges',
+                                                                                     'other' : '{} @GamificationResources.Badges'
+                                                                                     }"></ng-pluralize>
             </div>
         </md-button>
         <md-menu-content md-menu-align-target class="md-user-menu">

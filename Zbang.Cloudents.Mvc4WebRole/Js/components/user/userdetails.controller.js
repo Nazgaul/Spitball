@@ -28,6 +28,7 @@ var app;
             this.name = response.name;
             this.image = response.image;
             this.score = response.score;
+            this.badges = response.badges;
         };
         UserDetailsController.prototype.getParameterByName = function (name, url) {
             if (!url)

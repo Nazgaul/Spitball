@@ -61,6 +61,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Badge.
+        /// </summary>
+        public static string Badge {
+            get {
+                return ResourceManager.GetString("Badge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create 5 quiz.
         /// </summary>
         public static string BadgeCreateQuizzesDescription {
@@ -138,6 +147,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         public static string Leaderboard {
             get {
                 return ResourceManager.GetString("Leaderboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show all.
+        /// </summary>
+        public static string LeaderboardShowAll {
+            get {
+                return ResourceManager.GetString("LeaderboardShowAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show my self.
+        /// </summary>
+        public static string LeaderboardShowMySelf {
+            get {
+                return ResourceManager.GetString("LeaderboardShowMySelf", resourceCulture);
             }
         }
         

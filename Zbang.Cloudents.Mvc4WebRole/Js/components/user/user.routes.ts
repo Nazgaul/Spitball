@@ -8,7 +8,7 @@
                     {
                         state: "user",
                         config: {
-                            abstract: true,
+                            //abstract: true,
                             url: "/user/{userId:int}/{userName:encodeStr}/",
                             controller: "UserController as u",
                             resolve: {

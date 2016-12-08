@@ -20,12 +20,12 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
         public string Email { get; set; }
         public DateTime DateTime { get; set; }
 
+        public int Badges { get; set; }
+
         public bool IsAdmin { get; set; }
 
-        public string Token { get; set; }
+        //public string Token { get; set; }
 
-       // public string Level { get; set; }
-        //public Sex Sex { get; set; }
 
     }
 }

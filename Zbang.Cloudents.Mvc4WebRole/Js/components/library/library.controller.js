@@ -71,10 +71,8 @@
             l.state = {
                 topTree: nodeId == null && l.departments.length,
                 emptyTopTree: nodeId == null && l.departments.length === 0,
-               // withDepartmentAdmin: userDetailsFactory.get().isAdmin && l.departments.length,
                 withBoxes: l.boxes.length,
                 emptyNode: nodeId != null && l.boxes.length === 0 && l.departments.length === 0
-               // emptyNodeAdmin: nodeId != null && l.boxes.length === 0 && l.departments.length === 0 && userDetailsFactory.get().isAdmin
             };
         }
 

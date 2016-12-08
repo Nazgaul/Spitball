@@ -2337,7 +2337,6 @@
     <Content Include="Js\components\quiz\stopwatch.module.js" />
     <Content Include="Js\components\share\invite.controller.js" />
     <Content Include="Js\components\account\account.controller.js" />
-    <Content Include="Js\components\user\userdetails.controller.js" />
     <Content Include="Js\components\userdetails\userdetails.module.js" />
     <Content Include="Js\shared\colorOnLength.js" />
     <Content Include="Js\shared\dropbox.js" />

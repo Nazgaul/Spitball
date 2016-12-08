@@ -10,7 +10,6 @@ var app;
                     {
                         state: "user",
                         config: {
-                            abstract: true,
                             url: "/user/{userId:int}/{userName:encodeStr}/",
                             controller: "UserController as u",
                             resolve: {

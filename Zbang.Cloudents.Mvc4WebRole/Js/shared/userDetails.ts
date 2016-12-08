@@ -16,11 +16,10 @@ interface IUserData {
     id: number;
     name: string;
     image: string;
-    //sex: number;
     score: number;
     email: string;
-    //url: string;
     isAdmin: boolean;
+    badges: number;
     culture: string;
     createTime: Date;
     university: IUniversity;
@@ -39,7 +38,7 @@ module app {
     }
 
     class UserDetails implements IUserDetailsFactory {
-        static $inject = ["$rootScope", "$q", "ajaxService2", "Analytics", "$timeout","$interval"];
+        static $inject = ["$rootScope", "$q", "ajaxService2", "Analytics", "$timeout", "$interval"];
 
         private isLogedIn = false;
         private userData: IUserData;
@@ -68,16 +67,7 @@ module app {
                 this.analytics.set("dimension2", data.universityCountry || "null"); // analytics doesnt support null
                 this.analytics.set("dimension3", data.id || "null"); // analytics doesnt support null
             });
-            // this.analytics.set("dimension4", data.theme || "dark");
 
-
-            //var interval = this.$interval(() => {
-            //    if (googletag.pubads !== undefined && googletag.pubads) {
-            //        googletag.pubads().setTargeting("gender", data.sex);
-            //        googletag.pubads().setTargeting("university", data.universityId);
-            //        this.$interval.cancel(interval);
-            //    }
-            //}, 20);
 
             this.userData = {
                 id: data.id,
@@ -87,6 +77,7 @@ module app {
                 createTime: new Date(data.dateTime),
                 isAdmin: data.isAdmin,
                 culture: data.culture,
+                badges: data.badges,
                 email: data.email,
                 university: {
                     country: data.universityCountry, // for google analytics

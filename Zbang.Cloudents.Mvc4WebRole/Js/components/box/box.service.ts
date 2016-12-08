@@ -5,7 +5,7 @@
         getBox(boxid: number): angular.IPromise<any>;
         getFeed(boxid: number, top: number, skip: number): angular.IPromise<any>;
         getReplies(boxid: number, commentId: Guid, replyId: Guid): angular.IPromise<any>;
-        leaderBoard(boxid: number): angular.IPromise<any>;
+        leaderBoard(boxid: number, myself: boolean): angular.IPromise<any>;
         getRecommended(boxid: number): angular.IPromise<any>;
         updateBox(boxId: number, name: string, course: string, professor: string, privacy, notification): angular.IPromise<any>;
         unfollow(boxId: number): angular.IPromise<any>;
@@ -49,8 +49,8 @@
         getReplies(boxid, commentId, replyId) {
             return this.ajaxService2.get('/qna/replies/', { boxid: boxid, id: commentId, replyId: replyId });
         }
-        leaderBoard(boxid: number) {
-            return this.ajaxService2.get('/box/leaderboard/', { id: boxid });
+        leaderBoard(boxid: number, myself: boolean) {
+            return this.ajaxService2.get('/box/leaderboard/', { id: boxid, myself: myself });
         }
         getRecommended(boxid: number) {
             return this.ajaxService2.get('/box/recommended/', { id: boxid });

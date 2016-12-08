@@ -6,11 +6,15 @@
 </div>
 <div class="content">
     <div class="filter-wrapper">
-        <button type="button" ng-click="g.goToSelf()" class="action-btn">Show Myself</button>
+        <button type="button" ng-click="g.goToSelf()" class="action-btn">
+            <span ng-if="!g.leaderboardMyself">@GamificationResources.LeaderboardShowMySelf</span>
+            <span ng-if="g.leaderboardMyself">@GamificationResources.LeaderboardShowAll</span>
+        </button>
+
     </div>
     <div class="users" layout="row" layout-padding layout-wrap vs-repeat="94" vs-scroll-parent="window">
         <div class="user-data" ng-repeat="user in g.leaderboard track by user.id">
-            <div class="rank" ng-bind="::$index+1 + startIndex "></div>
+            <div class="rank" ng-bind="::$index+1 + startIndex"></div>
             <a class="img-wrapper" ng-attr-id="{{'user_' + user.id}}" ui-sref="user({userId:user.id,userName:user.name})">
                 <user-image class="img-responsive" name="user.name" image="user.image" width="68" height="68"></user-image>
             </a>

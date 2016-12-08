@@ -2,12 +2,17 @@
 {
     public class GetLeaderBoardQuery
     {
-        public GetLeaderBoardQuery(long boxId)
+        public GetLeaderBoardQuery(long boxId, long userId, bool myself)
         {
             BoxId = boxId;
+            UserId = userId;
+            Myself = myself;
         }
 
         public long BoxId { get; private set; }
+
+        public long UserId { get; private set; }
+        public bool Myself { get; private set; }
 
         //public string CacheKey
         //{

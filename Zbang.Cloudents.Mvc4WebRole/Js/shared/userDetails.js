@@ -60,6 +60,7 @@ var app;
                 createTime: new Date(data.dateTime),
                 isAdmin: data.isAdmin,
                 culture: data.culture,
+                badges: data.badges,
                 email: data.email,
                 university: {
                     country: data.universityCountry,

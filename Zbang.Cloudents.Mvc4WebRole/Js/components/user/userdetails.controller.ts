@@ -30,12 +30,14 @@
         id: number;
         name: string;
         image: string;
-        score: string;
-        private assignValues(response) {
+        score: number;
+        badges: number;
+        private assignValues(response: IUserData) {
             this.id = response.id;
             this.name = response.name;
             this.image = response.image;
             this.score = response.score;
+            this.badges = response.badges;
             //ud.url = response.url;
         }
         private getParameterByName(name, url) {

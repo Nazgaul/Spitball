@@ -275,10 +275,10 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetSeoItemCountAsync();
         }
 
-        public Task<IEnumerable<RecommendBoxDto>> GetRecommendedCoursesAsync(RecommendedCoursesQuery query)
-        {
-            return m_ReadService.GetRecommendedCoursesAsync(query);
-        }
+        //public Task<IEnumerable<RecommendBoxDto>> GetRecommendedCoursesAsync(RecommendedCoursesQuery query)
+        //{
+        //    return m_ReadService.GetRecommendedCoursesAsync(query);
+        //}
 
 
         public Task<int> GetNumberOfSolversAsync(long quizId)

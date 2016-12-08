@@ -115,23 +115,23 @@ namespace Zbang.Zbox.ReadServices
         //    }
         //}
 
-//        public async Task<LeaderboardFlashcardDto> GetDashboardFlashcardStatusAsync(FlashcardLeaderboardQuery query)
-//        {
-//            using (var conn = await DapperConnection.OpenConnectionAsync())
-//            {
-//                const string sql = @"select row,likecount as count from ( 
-//select ROW_NUMBER() OVER(ORDER BY likecount desc) AS Row, * from (
-//select  sum(likecount) as likecount, f.userid from zbox.flashcard f 
-//join zbox.users u on f.userid = u.userid and coalesce (u.usertype,0) = 0
-//where u.universityid = @UniversityId
-//group by f.userid 
-//) t) z
-//where z.userid = @UserId
-//";
-//                return await conn.QueryFirstOrDefaultAsync<LeaderboardFlashcardDto>(sql, query);
+        //        public async Task<LeaderboardFlashcardDto> GetDashboardFlashcardStatusAsync(FlashcardLeaderboardQuery query)
+        //        {
+        //            using (var conn = await DapperConnection.OpenConnectionAsync())
+        //            {
+        //                const string sql = @"select row,likecount as count from ( 
+        //select ROW_NUMBER() OVER(ORDER BY likecount desc) AS Row, * from (
+        //select  sum(likecount) as likecount, f.userid from zbox.flashcard f 
+        //join zbox.users u on f.userid = u.userid and coalesce (u.usertype,0) = 0
+        //where u.universityid = @UniversityId
+        //group by f.userid 
+        //) t) z
+        //where z.userid = @UserId
+        //";
+        //                return await conn.QueryFirstOrDefaultAsync<LeaderboardFlashcardDto>(sql, query);
 
-//            }
-//        }
+        //            }
+        //        }
 
 
 
@@ -141,14 +141,14 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<Box.RecommendBoxDto>> GetRecommendedCoursesAsync(RecommendedCoursesQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                return await conn.QueryAsync<Box.RecommendBoxDto>(Sql.Sql.RecommendedCourses,
-                    query);
-            }
-        }
+        //public async Task<IEnumerable<Box.RecommendBoxDto>> GetRecommendedCoursesAsync(RecommendedCoursesQuery query)
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        return await conn.QueryAsync<Box.RecommendBoxDto>(Sql.Sql.RecommendedCourses,
+        //            query);
+        //    }
+        //}
 
 
 
@@ -449,7 +449,8 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
-                return await con.QueryAsync<LeaderBoardDto>(Sql.Box.LeaderBoard,
+                var sql = query.Myself ? Sql.Box.LeaderboardMyself : Sql.Box.LeaderBoard;
+                return await con.QueryAsync<LeaderBoardDto>(sql,
                     query);
             }
         }
@@ -625,17 +626,17 @@ where ownerid = @UserId and boxid = @BoxId;";
         /// Get The country the user is in based on the ip address
         /// </summary>
         /// <returns></returns>
-    //    public async Task<string> GetLocationByIpAsync(GetCountryByIpQuery query)
-    //    {
-    //        using (var conn = await DapperConnection.OpenConnectionAsync())
-    //        {
-    //            const string sql = @" select country_code2  from zbox.ip_range 
-    //where ip_from <= @IP and @IP <= ip_to";
-    //            var retVal = await conn.QueryFirstOrDefaultAsync<string>(sql, new { IP = query.IpAddress });
-    //            return retVal;
-    //        }
+        //    public async Task<string> GetLocationByIpAsync(GetCountryByIpQuery query)
+        //    {
+        //        using (var conn = await DapperConnection.OpenConnectionAsync())
+        //        {
+        //            const string sql = @" select country_code2  from zbox.ip_range 
+        //where ip_from <= @IP and @IP <= ip_to";
+        //            var retVal = await conn.QueryFirstOrDefaultAsync<string>(sql, new { IP = query.IpAddress });
+        //            return retVal;
+        //        }
 
-    //    }
+        //    }
 
         public async Task<IEnumerable<UniversityByPrefixDto>> GetUniversityByIpAddressAsync(UniversityByIpQuery query)
         {
@@ -774,17 +775,12 @@ where ownerid = @UserId and boxid = @BoxId;";
 
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                using (
-                    var grid = await conn.QueryMultipleAsync($"{Sql.Sql.UserAuthenticationDetail}",
-                        query))
+                var user = await conn.QueryFirstOrDefaultAsync<User.UserDetailDto>(Sql.Sql.UserAuthenticationDetail, query);
+                if (user == null)
                 {
-                    var user = await grid.ReadFirstOrDefaultAsync<User.UserDetailDto>();
-                    if (user == null)
-                    {
-                        throw new UserNotFoundException("user is null");
-                    }
-                    return user;
+                    throw new UserNotFoundException("user is null");
                 }
+                return user;
 
             }
         }

@@ -126,7 +126,7 @@ namespace Zbang.Cloudents.MobileApp
 
             Zbox.Infrastructure.Data.RegisterIoc.Register();
             Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
-
+            Zbox.Infrastructure.Mail.RegisterIoc.Register();
             //Zbox.Infrastructure.File.RegisterIoc.Register();
             Zbox.Domain.Services.RegisterIoc.Register();
             Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();

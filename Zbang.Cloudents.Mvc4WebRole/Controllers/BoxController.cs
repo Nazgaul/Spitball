@@ -45,7 +45,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             });
         }
         [Route("box/my/{boxId:long}/{boxName}/{part:regex(^(feed|items|quizzes|members|flashcards))}", Name = "PrivateBoxWithSub")]
-        public ActionResult RedirectToNewRoute2(long boxId, string boxName, string invId, string universityName,string part)
+        public ActionResult RedirectToNewRoute2(long boxId, string boxName, string invId, string universityName, string part)
         {
             return RedirectToRoutePermanent("CourseBox", new RouteValueDictionary
             {
@@ -287,9 +287,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("id"), ActionName("LeaderBoard")]
-        public async Task<JsonResult> LeaderBoardAsync(long id)
+        public async Task<JsonResult> LeaderBoardAsync(long id, bool myself)
         {
-            var query = new GetLeaderBoardQuery(id);
+            myself = User.Identity.IsAuthenticated && myself;
+            var query = new GetLeaderBoardQuery(id, User.GetUserId(false), myself);
             var result = await ZboxReadService.GetBoxLeaderBoardAsync(query);
             if (IsCrawler())
             {
@@ -332,10 +333,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var query = new GetBoxItemsPagedQuery(id, tabId, page, 80);
                 var result = await ZboxReadService.GetBoxItemsPagedAsync(query);
                 var itemDtos = result as IList<ItemDto> ?? result.ToList();
-                //foreach (var item in itemDtos)
-                //{
-                //    item.DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId = id, itemId = item.Id });
-                //}
                 return JsonOk(itemDtos.Select(s => new
                 {
                     s.Id,
@@ -343,7 +340,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     NumOfViews = s.NumOfViews + s.NumOfDownloads,
                     s.OwnerId,
                     s.Likes,
-                    //s.Url,
                     s.Type,
                     s.Source
 

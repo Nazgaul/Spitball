@@ -82,10 +82,36 @@ order by x desc;
 ";
 
         public const string LeaderBoard = @"
-select top 25 u.userid as id,username as name,score,UserImageLarge as image ,BadgeCount as badges
+select top 10 u.userid as id,username as name,score,UserImageLarge as image ,BadgeCount as badges
 from zbox.users u join zbox.UserBoxRel ub on u.UserId = ub.UserId
 where ub.boxid = @BoxId
 order by score desc";
+
+        public const string LeaderboardMyself = @"with leaderboard as (
+select u.userid as id,username as name,score,UserImageLarge as image, BadgeCount as badges,
+ROW_NUMBER () over (partition BY boxid order by score desc) as location
+ from zbox.Users  u 
+ join zbox.UserBoxRel ub on u.UserId = ub.UserId and ub.boxid = @BoxId
+ )
+ SELECT *
+FROM leaderboard
+WHERE location IN (SELECT location+i
+             FROM leaderboard
+             CROSS JOIN (
+			 SELECT -1 AS i 
+			 UNION ALL SELECT -2
+			 UNION ALL SELECT -3
+			 UNION ALL SELECT -4 
+			 UNION ALL SELECT -5
+			 UNION ALL SELECT 0 
+			 UNION ALL SELECT 1
+			 UNION ALL SELECT 2
+			 UNION ALL SELECT 3
+			 UNION ALL SELECT 4
+			 UNION ALL SELECT 5
+			 ) n
+             WHERE id = @UserId
+			 );";
 
 
 

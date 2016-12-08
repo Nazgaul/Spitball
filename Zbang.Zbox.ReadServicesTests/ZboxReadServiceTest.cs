@@ -60,19 +60,19 @@ namespace Zbang.Zbox.ReadServicesTests
 
 
 
-        [TestMethod]
-        public async Task GetRecommendedCourses_Query_ReturnResult()
-        {
-            var query = new RecommendedCoursesQuery(920, 1);
-            try
-            {
-                var x = await m_ZboxReadService.GetRecommendedCoursesAsync(query);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
+        //[TestMethod]
+        //public async Task GetRecommendedCourses_Query_ReturnResult()
+        //{
+        //    var query = new RecommendedCoursesQuery(920, 1);
+        //    try
+        //    {
+        //        var x = await m_ZboxReadService.GetRecommendedCoursesAsync(query);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Assert.Fail("Expected no exception, but got: " + ex.Message);
+        //    }
+        //}
 
 
 
@@ -510,19 +510,19 @@ namespace Zbang.Zbox.ReadServicesTests
             }
         }
 
-        [TestMethod]
-        public async Task GetBoxLeaderBoard_Query_ReturnResult()
-        {
-            var query = new GetLeaderBoardQuery(60130);
-            try
-            {
-                var x = await m_ZboxReadService.GetBoxLeaderBoardAsync(query);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
+        //[TestMethod]
+        //public async Task GetBoxLeaderBoard_Query_ReturnResult()
+        //{
+        //    var query = new GetLeaderBoardQuery(60130);
+        //    try
+        //    {
+        //        var x = await m_ZboxReadService.GetBoxLeaderBoardAsync(query);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Assert.Fail("Expected no exception, but got: " + ex.Message);
+        //    }
+        //}
 
         [TestMethod]
         public async Task GetBoxRecommendedCourses_Query_ReturnResult()

@@ -4,10 +4,14 @@
     class Leaderboard {
         static $inject = ["boxService", "$stateParams"];
         leaderboard;
+        leaderboardMyself = true;
         constructor(
             private boxService: IBoxService,
             private $stateParams: spitaball.ISpitballStateParamsService) {
-            boxService.leaderBoard($stateParams.boxId)
+            this.leaderBoard();
+        }
+        private leaderBoard() {
+            this.boxService.leaderBoard(this.$stateParams.boxId, this.leaderboardMyself)
                 .then(response => {
                     for (let i = 0; i < response.length; i++) {
                         const elem = response[i];
@@ -19,6 +23,10 @@
                     }
                     this.leaderboard = response;
                 });
+        }
+        goToSelf() {
+            this.leaderboardMyself = !this.leaderboardMyself;
+            this.leaderBoard();
         }
     }
 

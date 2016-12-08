@@ -194,4 +194,13 @@
   <data name="BadgeUploadFilesDescription" xml:space="preserve">
     <value>You have one job: upload 15 documents to your class</value>
   </data>
+  <data name="LeaderboardShowAll" xml:space="preserve">
+    <value>Show all</value>
+  </data>
+  <data name="LeaderboardShowMySelf" xml:space="preserve">
+    <value>Show my self</value>
+  </data>
+  <data name="Badge" xml:space="preserve">
+    <value>Badge</value>
+  </data>
 </root>
