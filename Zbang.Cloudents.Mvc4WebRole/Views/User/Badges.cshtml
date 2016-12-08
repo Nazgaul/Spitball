@@ -24,19 +24,20 @@
                 @foreach (var level in Model.Levels)
                 {
                     <li class="level">
+                        @{ string progress = "g.levels.l" + level.Index + ".progress"; }
                         <div class="title">
                             <div class="image">
-                                <img src="@Url.CdnContent("/images/site/gamification_level_" + level.Name + ".png")" alt="@level.Name" />
+                                <img ng-if="@progress===0" src="@Url.CdnContent("/images/gamification/level_" + level.Name + "_hidden.png")" alt="@level.Name" />
+                                <img ng-if="@progress!==0" src="@Url.CdnContent("/images/gamification/level_" + level.Name + ".png")" alt="@level.Name" />
                             </div>
                             <div class="name">@level.Name</div>
                         </div>
                         <div class="body">
                             @level.Description
-                            @{ string progress = "g.levels.l" + level.Index + ".progress"; }
                             <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="{{@progress}}"></md-progress-linear>
                         </div>
                     </li>
-                                }
+                            }
 
             </ul>
         </div>
@@ -45,7 +46,8 @@
                 <div class="wrapper" flex-lg="20" flex-md="25" flex-gt-lg="20" flex-xs="50" flex-sm="25" ng-repeat="badge in ::g.badges">
                     <div class="badge-container" ng-click="g.showBadge(badge)">
                         <md-icon md-svg-icon="p:checkmark" ng-if="badge.progress === 100"></md-icon>
-                        <div class="image"></div>
+                        <img class="image" ng-if="g.badgeInfo.data.progress === 100" ng-src="" alt="{{g.badgeInfo.data.name}}" />
+                        <img class="image" ng-if="g.badgeInfo.data.progress !== 100" ng-src="" alt="{{g.badgeInfo.data.name}}" />
                         <div class="text" ng-bind="::badge.name"></div>
                         <div class="progress">
                             <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{::badge.progress}}"></md-progress-linear>
@@ -58,8 +60,10 @@
                     <md-icon ng-class="{disabled: !g.badgeInfo.prev}" ng-click="g.showBadge(g.badgeInfo.prev)" md-svg-icon="p:arrow-right"></md-icon>
                 </div>
                 <div class="badge-container">
+                    
                     <md-icon md-svg-icon="p:checkmark" ng-if="g.badgeInfo.data.progress === 100"></md-icon>
-                    <div class="image"></div>
+                    <img class="image" ng-if="g.badgeInfo.data.progress === 100" ng-src="" alt="{{g.badgeInfo.data.name}}" />
+                    <img class="image" ng-if="g.badgeInfo.data.progress !== 100" ng-src="" alt="{{g.badgeInfo.data.name}}" />
                     <div class="text" ng-bind="g.badgeInfo.data.name"></div>
                     <div class="progress">
                         <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{g.badgeInfo.data.progress}}"></md-progress-linear>
