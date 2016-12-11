@@ -359,6 +359,11 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUserQuizActivityAsync(query);
         }
 
+        public Task<IEnumerable<FlashcardDto>> GetUserFlashcardActivityAsync(GetUserWithFriendQuery query)
+        {
+            return m_ReadService.GetUserFlashcardActivityAsync(query);
+        }
+
 
         public Task<IEnumerable<UserWithImageNameDto>> GetUsersInBoxByTermAsync(UserInBoxSearchQuery query)
         {

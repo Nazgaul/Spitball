@@ -2,7 +2,8 @@
     "use strict";
 
     export interface IShowToasterService {
-        showToaster(text: string, parentId?: string): void,
+        showToaster(text: string, parentId?: string): void;
+        showTemplateToaster(template: string, controller: string, parentId: string): void;
     }
 
     class ShowToasterService implements IShowToasterService {
@@ -31,7 +32,7 @@
             let element: Element = this.$document.find("body")[0];
             if (parentId) {
                 element = this.$document[0].querySelector(`#${parentId}`);
-            } 
+            }
             this.$mdToast.show({
                 hideDelay: 0,
                 position: 'top right',

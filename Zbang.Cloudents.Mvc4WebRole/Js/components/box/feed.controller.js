@@ -5,12 +5,12 @@
         'itemThumbnailService',
         'user', 'userUpdatesService', '$mdDialog', '$scope', '$rootScope',
         'resManager', 'routerHelper', '$filter', 'feedData',
-        'updates', "$q", "$window", "likes"];
+        'updates', "$q", "$window", "likes", "$state"];
 
     function feed(boxService, $stateParams, $timeout, externalUploadProvider,
         itemThumbnailService, user, userUpdatesService,
         $mdDialog, $scope, $rootScope, resManager, routerHelper,
-        $filter, feedData, updates, $q, $window, likes) {
+        $filter, feedData, updates, $q, $window, likes, $state) {
         var self = this, boxId = parseInt($stateParams.boxId, 10), top = 30;
 
         self.add = {
@@ -208,7 +208,7 @@
                 var currentPost = data[i];
                 if (flags[currentPost.id]) continue;
                 flags[currentPost.id] = true;
-               
+
 
 
                 var files = currentPost.files;
@@ -218,14 +218,29 @@
                     if (item.done) {
                         continue;
                     }
-                    if (item.type !== 'quiz') {
-                        var retVal = itemThumbnailService.assignValue(item.source, 100, 141);
-                        item.thumbnail = retVal.thumbnail;
-                        item.name = item.name || '';
-                        item.nameExtension = item.name.replace(/\.[^/.]+$/, "");
-                        //item.icon = retVal.icon;
-                    } else {
+                    if (item.type === 'quiz') {
                         item.publish = true;
+                        item.url = $state.href("quiz",
+                        {
+                            universityType: $stateParams["universityType"],
+                            boxId: $stateParams["boxId"],
+                            boxName: $stateParams["boxName"],
+                            id: item.id,
+                            name: item.name
+                        });
+                    } else if (item.type === "flashcard") {
+                        item.publish = true;
+                        item.url = $state.href("flashcard",
+                        {
+                            universityType: $stateParams["universityType"],
+                            boxId: $stateParams["boxId"],
+                            boxName: $stateParams["boxName"],
+                            id: item.id,
+                            name: item.name
+                        });
+                    }
+                    else {
+                        buildItem(item);
                     }
                     item.done = true;
                 }
@@ -243,13 +258,25 @@
             function buildItem(elem) {
                 var retVal2 = itemThumbnailService.assignValue(elem.source, 100, 141);
                 elem.thumbnail = retVal2.thumbnail;
+                elem.name = elem.name || '';
                 elem.nameExtension = elem.name.replace(/\.[^/.]+$/, "");
+                elem.url = $state.href("item",
+                        {
+                            universityType: $stateParams["universityType"],
+                            boxId: $stateParams["boxId"],
+                            boxName: $stateParams["boxName"],
+                            itemId: elem.id,
+                            itemName: elem.name
+                        });
             }
         }
 
         function postItemTemplate(elmenet) {
             if (elmenet.type === 'quiz') {
                 return 'quiz-template.html';
+            }
+            if (elmenet.type === 'flashcard') {
+                return 'flashcard-template.html';
             }
             return 'item-template.html';
 

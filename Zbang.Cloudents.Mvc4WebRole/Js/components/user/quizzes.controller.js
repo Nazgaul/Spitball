@@ -25,8 +25,7 @@ var app;
                 }
             });
         };
-        Quiz.$inject = ["profileData", "userService"
-        ];
+        Quiz.$inject = ["profileData", "userService"];
         return Quiz;
     }());
     angular.module("app.user").controller("quiz", Quiz);

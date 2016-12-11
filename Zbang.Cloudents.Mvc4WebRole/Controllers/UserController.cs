@@ -27,7 +27,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DonutOutputCache(CacheProfile = "FullPage")]
         [NoUniversity]
         [Route("user/{userId:long}/{userName}", Name = "User")]
-        [Route("user/{userId:long}/{userName}/{part:regex(^(badges|items|quizzes|feed|members))}", Name = "User2")]
+        [Route("user/{userId:long}/{userName}/{part:regex(^(badges|items|quizzes|feed|members|flashcards))}", Name = "User2")]
         public ActionResult Index(long userId)
         {
             if (userId == 22886)
@@ -77,6 +77,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public ActionResult Quizzes()
         {
             return PartialView("Quizzes");
+        }
+        [DonutOutputCache(CacheProfile = "PartialPage")]
+        public ActionResult Flashcards()
+        {
+            return PartialView("Flashcards");
         }
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult Classmates()
@@ -161,6 +166,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var query = new GetUserWithFriendQuery(id, page, 20);
             var result = await ZboxReadService.GetUserQuizActivityAsync(query);
+            return JsonOk(result);
+        }
+        [HttpGet, ActionName("Flashcard")]
+        public async Task<ActionResult> FlashcardAsync(long id, int page)
+        {
+            var query = new GetUserWithFriendQuery(id, page, 20);
+            var result = await ZboxReadService.GetUserFlashcardActivityAsync(query);
             return JsonOk(result);
         }
 

@@ -55,6 +55,7 @@ namespace Zbang.Zbox.Domain
 
 
         protected virtual ICollection<Quiz> Quizes { get; set; }
+        protected virtual ICollection<FlashcardMeta> Flashcards { get; set; }
 
         protected virtual ICollection<CommentReply> Replies { get; set; }
         protected virtual ICollection<Updates> Updates { get; set; }
@@ -90,6 +91,14 @@ namespace Zbang.Zbox.Domain
                 Quizes = new List<Quiz>();
             }
             Quizes.Add(quiz);
+        }
+        public virtual void AddFlashcard(FlashcardMeta flashcard)
+        {
+            if (Flashcards == null)
+            {
+                Flashcards = new List<FlashcardMeta>();
+            }
+            Flashcards.Add(flashcard);
         }
 
         public bool RemoveItem(Item item)

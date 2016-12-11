@@ -1,7 +1,5 @@
-﻿@*<script type="text/ng-template" id="user-quiz.html">*@
-<div @*ng-switch-when="q"*@>
+﻿<div>
     <div class="quizzes" layout-padding layout="row" layout-wrap layout-align="start center" srph-infinite-scroll="q.loadQuiz()">
         <div class="quiz" flex-xs="50" flex-xl="20" flex="25" flex-sm="50" flex-md="50" ng-repeat="e in q.quiz" ng-include="'quiz-template.html'"></div>
     </div>
 </div>
-@*</script>*@

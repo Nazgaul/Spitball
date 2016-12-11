@@ -48,6 +48,13 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
                                 join zbox.userboxrel ub2 on ub.boxid = ub2.boxid
                                 where ub.userid = @Myfriend
                                 and ub2.userid != @Myfriend;
+  select count(*)
+                        from zbox.Flashcard q 
+                        join zbox.box b on q.boxid = b.BoxId and b.IsDeleted = 0
+                        where q.UserId = @Myfriend
+                        and q.IsDeleted = 0
+						and q.Publish = 1
+                        and b.Discriminator = 2;
 ";
 
         /// <summary>
@@ -109,6 +116,24 @@ q.NumberOfViews as numOfViews
                         order by q.Id desc
     offset @pageNumber*@rowsperpage ROWS
     FETCH NEXT @rowsperpage ROWS ONLY;";
+
+
+        public const string UserWithFriendFlashcards = @"select q.Id as id,
+q.Name as name,
+q.LikeCount as rate,
+q.NumberOfViews as numOfViews,
+q.BoxId,
+b.BoxName,u.UniversityName as UniversityName
+                        from zbox.Flashcard q 
+                        join zbox.box b on q.boxid = b.BoxId and b.IsDeleted = 0
+						join zbox.University u on u.Id = b.University
+                        where q.UserId = @Myfriend
+                        and q.IsDeleted = 0
+						and q.Publish = 1
+                        and b.Discriminator = 2 
+                        order by q.Id desc
+    offset @pageNumber*@rowsperpage ROWS
+    FETCH NEXT @rowsperpage ROWS ONLY";
 
 
         #region Gamification

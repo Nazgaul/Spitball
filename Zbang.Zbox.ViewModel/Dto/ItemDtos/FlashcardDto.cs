@@ -10,5 +10,8 @@
         public int NumOfViews { get; set; }
 
         public int Likes { get; set; }
+
+        public string BoxName { get; set; }
+        public string UniversityName { get; set; }
     }
 }

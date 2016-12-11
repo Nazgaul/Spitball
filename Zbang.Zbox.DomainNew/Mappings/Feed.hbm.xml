@@ -28,6 +28,10 @@
       <key column="QuestionId" foreign-key="questionIdQuizes" />
       <one-to-many class="Quiz"/>
     </bag>
+    <bag name="Flashcards" inverse="false" lazy="true" cascade="none" >
+      <key column="QuestionId" foreign-key="questionIdFlashcard" />
+      <one-to-many class="FlashcardMeta"/>
+    </bag>
     <bag name="Replies" inverse="true" lazy="true" cascade="delete-orphan" >
       <key column="QuestionId" foreign-key="questionIdAnswer"/>
       <one-to-many class="CommentReply"/>

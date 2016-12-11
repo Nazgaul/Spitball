@@ -57,7 +57,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             x.Source,
                             x.Type,
                             x.Id,
-                            x.Url,
                             x.Name
                         }),
                         Replies = s.Replies.Select(v =>
@@ -75,7 +74,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                                     b.Source,
                                     b.Type,
                                     b.Id,
-                                    b.Url,
                                     b.Name
                                 })
                             })
@@ -101,7 +99,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         x.Source,
                         x.Type,
                         x.Id,
-                        x.Url,
                         x.Name
                     }),
                     Replies = s.Replies.Select(v =>
@@ -121,7 +118,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             b.Source,
                             b.Type,
                             b.Id,
-                            b.Url,
                             b.Name
                         })
                     }
@@ -264,7 +260,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         v.Id,
                         v.Source,
                         v.Type,
-                        v.Url,
                         v.Name
                     }),
                     s.Id,
@@ -285,7 +280,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     v.Id,
                     v.Source,
                     v.Type,
-                    v.Url,
                     v.Name
                 }),
                 s.Id,

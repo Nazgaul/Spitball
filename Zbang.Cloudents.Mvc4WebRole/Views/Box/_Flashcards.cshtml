@@ -37,36 +37,3 @@
 <a ui-sref="flashcardCreate({boxtype: f.params.boxtype, universityType:f.params.universityType, boxId: f.params.boxId, boxName:f.params.boxName})" class="add" hide show-xs ng-click="i.openUpload()" hide-gt-xs>
     <md-icon md-svg-icon="t:add"></md-icon>
 </a>
-<script type="text/ng-template" id="flashcard-template.html">
-    <a class="quiz quiz-template" ng-href="{{::e.url}}">
-        <div class="base">
-            <div class="quiz-ratio">
-                <div class="content">
-                    <div ng-if="::e.publish" class="top background" d-color="{{::e.name.length}}">
-                        <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
-                    </div>
-                    <div ng-if="::!e.publish" class="top draft-wpr">
-                        <span class="draft">@IndexResources.Draft</span>
-                    </div>
-                    <div class="bottom">
-                        <h2 class="name ellipsis" ng-bind="::e.name"></h2>
-                    </div>
-                </div>
-
-
-            </div>
-            <div class="stats" @*ng-hide="::e.numOfViews === underfined"*@>
-                <div class="views">
-                    {{::e.numOfViews}} <md-icon md-svg-icon="b:eye"></md-icon>
-                </div>
-                <div class="likes">
-                    {{::e.likes}} <md-icon md-svg-icon="b:like"></md-icon>
-                </div>
-            </div>
-        </div>
-        @*<div class="extra-details">
-            <h5 ng-bind-html="::e.name"></h5>
-            <span ng-bind-html="::e.content"></span>
-        </div>*@
-    </a>
-</script>

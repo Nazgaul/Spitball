@@ -49,6 +49,14 @@ var app;
                         },
                         templateUrl: '/user/quizzes/'
                     }, {
+                        state: 'user.flashcard',
+                        config: {
+                            url: 'flashcards/',
+                            controller: 'userFlashcard as f',
+                            parent: 'user'
+                        },
+                        templateUrl: '/user/flashcards/'
+                    }, {
                         state: 'user.feed',
                         config: {
                             url: 'feed/',

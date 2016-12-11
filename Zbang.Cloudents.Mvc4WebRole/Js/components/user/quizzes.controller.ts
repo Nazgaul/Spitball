@@ -4,8 +4,7 @@
         quiz = [];
         quizLoading = false;
         quizzesPage = 0;
-        static $inject = ["profileData", "userService"
-        ];
+        static $inject = ["profileData", "userService"];
         constructor(
             private profileData: IUserData,
             private userService: IUserService
@@ -14,12 +13,6 @@
         }
 
         loadQuiz() {
-            //if (fromTab && self.quiz.length) {
-            //    return returnEmptyPromise();
-            //}
-            //if (self.quizLoading) {
-            //    return returnEmptyPromise();
-            //}
             var self = this;
             self.quizLoading = true;
             return this.userService.quiz(self.profileData.id, self.quizzesPage).then(response => {
