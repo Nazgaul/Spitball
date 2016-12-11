@@ -220,6 +220,14 @@
                     }
                     if (item.type === 'quiz') {
                         item.publish = true;
+                        item.url = $state.href("quiz",
+                        {
+                            universityType: $stateParams["universityType"],
+                            boxId: $stateParams["boxId"],
+                            boxName: $stateParams["boxName"],
+                            id: item.id,
+                            name: item.name
+                        });
                     } else if (item.type === "flashcard") {
                         item.publish = true;
                         item.url = $state.href("flashcard",
@@ -232,11 +240,7 @@
                         });
                     }
                     else {
-                        var retVal = itemThumbnailService.assignValue(item.source, 100, 141);
-                        item.thumbnail = retVal.thumbnail;
-                        item.name = item.name || '';
-                        item.nameExtension = item.name.replace(/\.[^/.]+$/, "");
-                        //item.icon = retVal.icon;
+                        buildItem(item);
                     }
                     item.done = true;
                 }
@@ -254,7 +258,16 @@
             function buildItem(elem) {
                 var retVal2 = itemThumbnailService.assignValue(elem.source, 100, 141);
                 elem.thumbnail = retVal2.thumbnail;
+                elem.name = elem.name || '';
                 elem.nameExtension = elem.name.replace(/\.[^/.]+$/, "");
+                elem.url = $state.href("item",
+                        {
+                            universityType: $stateParams["universityType"],
+                            boxId: $stateParams["boxId"],
+                            boxName: $stateParams["boxName"],
+                            itemId: elem.id,
+                            itemName: elem.name
+                        });
             }
         }
 

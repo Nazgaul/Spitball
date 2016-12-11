@@ -7,6 +7,7 @@
         files(userid: number, page: number): angular.IPromise<any>;
         feed(userid: number, page: number): angular.IPromise<any>;
         quiz(userid: number, page: number): angular.IPromise<any>;
+        flashcard(userid: number, page: number): angular.IPromise<any>;
         getNotification(): angular.IPromise<any>;
         gamificationBoard(): angular.IPromise<any>;
         levels(userid: number): angular.IPromise<any>;
@@ -37,6 +38,9 @@
         }
         quiz(userid, page) {
             return this.ajaxService2.get("/user/quiz/", { id: userid, page: page });
+        }
+        flashcard(userid, page) {
+            return this.ajaxService2.get("/user/flashcard/", { id: userid, page: page });
         }
         getNotification() {
             return this.ajaxService2.get("/share/notifications/");

@@ -23,6 +23,9 @@ var app;
         UserService.prototype.quiz = function (userid, page) {
             return this.ajaxService2.get("/user/quiz/", { id: userid, page: page });
         };
+        UserService.prototype.flashcard = function (userid, page) {
+            return this.ajaxService2.get("/user/flashcard/", { id: userid, page: page });
+        };
         UserService.prototype.getNotification = function () {
             return this.ajaxService2.get("/share/notifications/");
         };

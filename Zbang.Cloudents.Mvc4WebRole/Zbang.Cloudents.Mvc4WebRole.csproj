@@ -1511,6 +1511,7 @@
     <TypeScriptCompile Include="Js\components\share\shareDialog.controller.ts" />
     <TypeScriptCompile Include="Js\components\uploadWrapper.controller.ts" />
     <TypeScriptCompile Include="Js\components\user\classmates.controller.ts" />
+    <TypeScriptCompile Include="Js\components\user\flashcards.controller.ts" />
     <TypeScriptCompile Include="Js\components\user\gamification.controller.ts" />
     <TypeScriptCompile Include="Js\components\user\posts.controller.ts" />
     <TypeScriptCompile Include="Js\components\user\quizzes.controller.ts" />
@@ -2579,6 +2580,7 @@
     <Content Include="Views\User\Quizzes.cshtml" />
     <Content Include="Views\User\Members.cshtml" />
     <Content Include="Views\Box\LeaderboardPartial.cshtml" />
+    <Content Include="Views\User\Flashcards.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

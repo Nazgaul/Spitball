@@ -568,6 +568,7 @@ where ownerid = @UserId and boxid = @BoxId;";
                     retVal.NumFeed = await grid.ReadFirstOrDefaultAsync<int>() + await grid.ReadFirstOrDefaultAsync<int>();
                     retVal.NumQuiz = await grid.ReadFirstOrDefaultAsync<int>();
                     retVal.NumFriend = await grid.ReadFirstOrDefaultAsync<int>();
+                    retVal.NumFlashcard = await grid.ReadFirstOrDefaultAsync<int>();
                     //retVal.NumBadge = await grid.ReadFirstOrDefaultAsync<int>();
                     return retVal;
                 }
@@ -859,7 +860,19 @@ where ownerid = @UserId and boxid = @BoxId;";
             {
                 return await conn.QueryAsync<Item.ItemDto>(Sql.User.UserWithFriendFiles, new
                 {
-                    // Me = query.UserId,
+                    Myfriend = query.FriendId,
+                    pageNumber = query.PageNumber,
+                    rowsperpage = query.RowsPerPage
+                });
+            }
+        }
+
+        public async Task<IEnumerable<Item.FlashcardDto>> GetUserFlashcardActivityAsync(GetUserWithFriendQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return await conn.QueryAsync<Item.FlashcardDto>(Sql.User.UserWithFriendFlashcards, new
+                {
                     Myfriend = query.FriendId,
                     pageNumber = query.PageNumber,
                     rowsperpage = query.RowsPerPage
