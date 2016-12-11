@@ -290,6 +290,7 @@
 @media (max-width: 600px) {
   .community .top {
     height: 100px;
+    min-height: 100px;
   }
 }
 .community .top .bg-r,
@@ -474,6 +475,27 @@
 .community .content .users .user-data .progress-user .text .badges {
   white-space: nowrap;
 }
+.community .custom-progress-bar {
+  height: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.community .custom-progress-bar.md-default-theme .md-container,
+.community .custom-progress-bar .md-container {
+  border-radius: 6px;
+}
+.community .custom-progress-bar.md-default-theme .md-container,
+.community .custom-progress-bar .md-bar,
+.community .custom-progress-bar .md-container {
+  height: 12px;
+}
+.community .custom-progress-bar .md-container {
+  background: #dadada;
+  height: 12px;
+}
+.community .custom-progress-bar .md-container .md-bar {
+  background: #ffce2f;
+}
 .feed-wrapper .community .top {
   height: 70px;
 }
@@ -519,24 +541,28 @@
   font-size: 12px;
   padding: 0;
 }
-.feed-wrapper .community .custom-progress-bar {
-  height: 12px;
-  border-radius: 6px;
-  overflow: hidden;
+.md-dialog-container .community {
+  max-width: calc(100% - 20px);
+  max-height: calc(100% - 20px);
 }
-.feed-wrapper .community .custom-progress-bar.md-default-theme .md-container,
-.feed-wrapper .community .custom-progress-bar .md-container {
-  border-radius: 6px;
+.md-dialog-container .community md-toolbar {
+  position: absolute;
+  display: inline-block;
+  right: 0;
+  width: initial;
+  min-height: 0;
 }
-.feed-wrapper .community .custom-progress-bar.md-default-theme .md-container,
-.feed-wrapper .community .custom-progress-bar .md-bar,
-.feed-wrapper .community .custom-progress-bar .md-container {
-  height: 12px;
+.md-dialog-container .community .close {
+  min-width: 0;
+  min-height: 0px;
+  width: 30px;
+  line-height: 30px;
+  margin: 0;
 }
-.feed-wrapper .community .custom-progress-bar .md-container {
-  background: #dadada;
-  height: 12px;
+.md-dialog-container .community .close md-icon {
+  fill: #323538;
 }
-.feed-wrapper .community .custom-progress-bar .md-container .md-bar {
-  background: #ffce2f;
+.md-dialog-container .community .top .bg-r,
+.md-dialog-container .community .top .bg-l {
+  display: none;
 }

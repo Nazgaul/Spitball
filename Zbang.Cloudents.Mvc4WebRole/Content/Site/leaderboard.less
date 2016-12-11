@@ -277,6 +277,7 @@
 
         @media(max-width: 600px) {
             height: 100px;
+            min-height: 100px;
         }
 
         .bg-r, .bg-l {
@@ -453,6 +454,10 @@
             }
         }
     }
+
+    .custom-progress-bar {
+        .custom-progress-bar(@gamificationYellow,@backgroundColor,12px);
+    }
 }
 
 .feed-wrapper .community {
@@ -512,9 +517,35 @@
             }
         }
     }
+}
 
+.md-dialog-container .community {
+    max-width: ~"calc(100% - 20px)";
+    max-height: ~"calc(100% - 20px)";
 
-    .custom-progress-bar {
-        .custom-progress-bar(@gamificationYellow,@backgroundColor,12px);
+    md-toolbar {
+        position: absolute;
+        display: inline-block;
+        right: 0;
+        width: initial;
+        min-height: 0;
+    }
+
+    .close {
+        min-width: 0;
+        min-height: 0px;
+        width: 30px;
+        line-height: 30px;
+        margin: 0;
+
+        md-icon {
+            fill: @headerbackground;
+        }
+    }
+
+    .top {
+        .bg-r, .bg-l {
+            display: none;
+        }
     }
 }
