@@ -174,4 +174,7 @@
   <data name="NewReply" xml:space="preserve">
     <value>השב</value>
   </data>
+  <data name="LikeToasterText" xml:space="preserve">
+    <value>המסמך עזר לך? לחץ</value>
+  </data>
 </root>

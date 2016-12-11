@@ -195,4 +195,7 @@
   <data name="WriteQuestion" xml:space="preserve">
     <value>הכנס את נוסח השאלה כאן</value>
   </data>
+  <data name="LikeLabel" xml:space="preserve">
+    <value>המבחו עזר לך? לחץ</value>
+  </data>
 </root>

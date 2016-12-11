@@ -257,6 +257,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Enums\Resources\Gamification.he.resx" />
     <EmbeddedResource Include="Enums\Resources\Gamification.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Gamification.Designer.cs</LastGenOutput>
