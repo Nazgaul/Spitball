@@ -89,6 +89,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             return new User(email, largeImage,
                    firstName,
                    lastName, culture, sex);
+
         }
 
         protected bool IsUserRegistered(User user)
