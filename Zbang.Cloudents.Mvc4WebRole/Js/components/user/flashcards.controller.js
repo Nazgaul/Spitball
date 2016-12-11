@@ -2,9 +2,10 @@ var app;
 (function (app) {
     "use strict";
     var Flashcard = (function () {
-        function Flashcard(profileData, userService) {
+        function Flashcard(profileData, userService, $state) {
             this.profileData = profileData;
             this.userService = userService;
+            this.$state = $state;
             this.flashcard = [];
             this.flashcardLoading = false;
             this.flashcardPage = 0;
@@ -16,7 +17,15 @@ var app;
             self.flashcardLoading = true;
             return this.userService.flashcard(self.profileData.id, self.flashcardPage).then(function (response) {
                 for (var i = 0; i < response.length; i++) {
-                    response[i].publish = true;
+                    var elem = response[i];
+                    elem.publish = true;
+                    elem.url = _this.$state.href("flashcard", {
+                        universityType: elem.universityName,
+                        boxId: elem.boxName,
+                        boxName: elem.boxName,
+                        id: elem.id,
+                        name: elem.name
+                    });
                 }
                 _this.flashcard = _this.flashcard.concat(response);
                 if (response.length) {
@@ -25,7 +34,7 @@ var app;
                 }
             });
         };
-        Flashcard.$inject = ["profileData", "userService"];
+        Flashcard.$inject = ["profileData", "userService", "$state"];
         return Flashcard;
     }());
     angular.module("app.user").controller("userFlashcard", Flashcard);

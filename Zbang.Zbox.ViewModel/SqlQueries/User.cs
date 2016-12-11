@@ -121,16 +121,19 @@ q.NumberOfViews as numOfViews
         public const string UserWithFriendFlashcards = @"select q.Id as id,
 q.Name as name,
 q.LikeCount as rate,
-q.NumberOfViews as numOfViews
+q.NumberOfViews as numOfViews,
+q.BoxId,
+b.BoxName,u.UniversityName as UniversityName
                         from zbox.Flashcard q 
                         join zbox.box b on q.boxid = b.BoxId and b.IsDeleted = 0
+						join zbox.University u on u.Id = b.University
                         where q.UserId = @Myfriend
                         and q.IsDeleted = 0
 						and q.Publish = 1
                         and b.Discriminator = 2 
                         order by q.Id desc
     offset @pageNumber*@rowsperpage ROWS
-    FETCH NEXT @rowsperpage ROWS ONLY;";
+    FETCH NEXT @rowsperpage ROWS ONLY";
 
 
         #region Gamification
