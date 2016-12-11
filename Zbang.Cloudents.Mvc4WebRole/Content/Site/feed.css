@@ -41,11 +41,11 @@
   margin-top: 2px;
 }
 @media (max-width: 600px) {
-  .feed .box-options .option-wrapper .text {
+  .feed .box-options .option-wrapper .option-icon {
     margin-left: 0;
     font-size: 13px;
   }
-  .feed .box-options .option-wrapper .option-icon {
+  .feed .box-options .option-wrapper .text {
     display: none;
   }
 }
@@ -181,13 +181,18 @@
   width: 20px;
   height: 20px;
 }
-.feed .box-options .option.box-settings md-icon {
-  width: 18px;
-  height: 18px;
+.feed .box-options .option.leaderboard md-icon {
+  width: 36px;
+  height: 16px;
+  fill: #ffce2f;
 }
 .feed .box-options .option.invite md-icon,
 .feed .box-options .option.box-settings md-icon {
   flex-shrink: 0;
+}
+.feed .box-options .option.box-settings md-icon {
+  width: 18px;
+  height: 18px;
 }
 .feed .userblock img {
   border: 1px solid #d7dde0;

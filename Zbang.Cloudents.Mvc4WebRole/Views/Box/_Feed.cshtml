@@ -21,18 +21,18 @@
                     </div>
                 </button>
             </div>
+            <div class="option-wrapper" hide-gt-xs>
+                <button class="option leaderboard" flex="none" type="button" ng-click="b.showLeaderboard()" scroll-to-top ga-track-event="['box', 'leaderboard']">
+                    <div>
+                        <md-icon md-svg-icon="b:podium" class="option-icon"></md-icon>
+                    </div>
+                </button>
+            </div>
             <div class="option-wrapper" ng-class="{disabled: b.needFollow, active: b.settingsOpen}">
                 <button ng-disabled="b.needFollow" class="option box-settings" flex="none" type="button" ng-click="b.toggleSettings()" scroll-to-top ga-track-event="['box', 'settings']">
                     <div>
                         <md-icon md-svg-icon="t:settingMenu" class="option-icon"></md-icon>
                         <span class="text">@IndexResources.Settings</span>
-                    </div>
-                </button>
-            </div>
-            <div class="option-wrapper">
-                <button class="option box-settings" flex="none" type="button" ng-click="b.showLeaderboard()" scroll-to-top ga-track-event="['box', 'leaderboard']">
-                    <div>
-                        leadearboard
                     </div>
                 </button>
             </div>
@@ -195,7 +195,7 @@
         </ol>
     </div>
     <div class="boxes-side-area flex" layout-padding flex="100" flex-md="33" flex-lg="30" flex-gt-lg="30">
-        <div flex="100" flex-sm="50"  class="flex community" ng-controller="Leaderboard as g">
+        <div flex="100" flex-sm="50" hide-xs class="flex community" ng-controller="Leaderboard as g">
             @* ReSharper disable once Mvc.PartialViewNotResolved *@
             @{ Html.RenderPartial("_LeaderBoard");}
         </div>

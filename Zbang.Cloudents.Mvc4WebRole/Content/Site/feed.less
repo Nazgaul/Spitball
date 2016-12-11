@@ -40,12 +40,12 @@
             }
 
             @media(max-width:600px) {
-                .text {
+                .option-icon {
                     margin-left: 0;
                     font-size: 13px;
                 }
 
-                .option-icon {
+                .text {
                     display: none;
                 }
             }
@@ -187,16 +187,22 @@
                 }
             }
 
-            &.box-settings {
-                md-icon {
-                    width: 18px;
-                    height: 18px;
-                }
+            &.leaderboard md-icon {
+                width: 36px;
+                height: 16px;
+                fill: @gamificationYellow;
             }
 
             &.invite, &.box-settings {
                 md-icon {
                     flex-shrink: 0;
+                }
+            }
+
+            &.box-settings {
+                md-icon {
+                    width: 18px;
+                    height: 18px;
                 }
             }
         }
