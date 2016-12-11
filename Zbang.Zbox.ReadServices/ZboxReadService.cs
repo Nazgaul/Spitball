@@ -421,12 +421,12 @@ namespace Zbang.Zbox.ReadServices
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
                 using (var grid = await con.QueryMultipleAsync(
-                    $"{Sql.Feed.Comments} {Sql.Feed.RepliesInComments} {Sql.Feed.GetItemsInCommentsAndReplies} {Sql.Feed.GetQuizzesForComments}",
+                    $"{Sql.Feed.Comments} {Sql.Feed.RepliesInComments} {Sql.Feed.GetItemsInCommentsAndReplies} {Sql.Feed.GetQuizzesForComments} {Sql.Feed.GetFlashcardFromComments}",
                     new { query.BoxId, query.Top, query.Skip, rtop = GetBoxQuestionsQuery.TopOfReplies }))
                 {
                     var comments = grid.Read<Qna.CommentDto>();//.ToList();
                     var replies = grid.Read<Qna.ReplyDto>();//.ToDictionary(x => x.QuestionId);
-                    var items = grid.Read<Qna.ItemDto>().Union(grid.Read<Qna.ItemDto>());//.ToLookup(c => c.QuestionId ?? c.AnswerId);
+                    var items = grid.Read<Qna.ItemDto>().Union(grid.Read<Qna.ItemDto>()).Union(grid.Read<Qna.ItemDto>());//.ToLookup(c => c.QuestionId ?? c.AnswerId);
 
 
                     replies = replies.Select(s =>

@@ -55,8 +55,7 @@ select questionid from zbox.question
     i.QuestionId as QuestionId,
     i.AnswerId as AnswerId,
     i.Discriminator as Type,
-    i.BlobName as Source,
-	i.Url as Url
+    i.BlobName as Source
     from zbox.item i cross apply (select * from questions q
 	             where i.QuestionId = q.QuestionId 
 				) t
@@ -71,8 +70,7 @@ select questionid from zbox.question
     i.QuestionId as QuestionId,
     i.AnswerId as AnswerId,
     i.Discriminator as Type,
-    i.BlobName as Source,
-	i.Url as Url
+    i.BlobName as Source
     from zbox.item i 
 				cross apply (select top (@rtop) * from zbox.Answer a where i.AnswerId = a.AnswerId order by a.AnswerId desc) as z
     where i.IsDeleted = 0
@@ -84,9 +82,24 @@ select questionid from zbox.question
     i.Name as Name,
     i.UserId as OwnerId,
     i.QuestionId as QuestionId,
-    i.url as Url,
     'quiz' as Type
     from zbox.Quiz i
+    where i.IsDeleted = 0
+	and i.Publish = 1
+    and i.BoxId = @BoxId
+    and QuestionId in  (select questionid from zbox.question where boxid = @boxid 
+                
+	            order by updatetime desc
+	            offset @skip ROWS
+	FETCH NEXT @top ROWS ONLY)";
+
+        public const string GetFlashcardFromComments = @"select
+    i.Id as Id,
+    i.Name as Name,
+    i.UserId as OwnerId,
+    i.QuestionId as QuestionId,
+    'flashcard' as Type
+    from zbox.Flashcard i
     where i.IsDeleted = 0
 	and i.Publish = 1
     and i.BoxId = @BoxId

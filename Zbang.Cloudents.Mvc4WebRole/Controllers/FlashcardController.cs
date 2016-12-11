@@ -189,7 +189,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost, ZboxAuthorize, ActionName("publish")]
-        public async Task<ActionResult> PublishAsync(long id, Flashcard model, long boxId)
+        public async Task<ActionResult> PublishAsync(long id, 
+            Flashcard model, long boxId)
         {
             if (!ModelState.IsValid)
             {
@@ -232,7 +233,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             };
             try
             {
-                var command = new PublishFlashcardCommand(flashCard);
+                var command = new PublishFlashcardCommand(flashCard, boxId);
                 await ZboxWriteService.PublishFlashcardAsync(command);
                 return JsonOk();
             }

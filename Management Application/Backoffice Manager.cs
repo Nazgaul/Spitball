@@ -1350,7 +1350,7 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
                 var zboxWriteService = IocFactory.IocWrapper.Resolve<IZboxWriteService>();
                 var command = new AddFlashcardCommand(flashCard);
                 await zboxWriteService.AddFlashcardAsync(command);
-                await zboxWriteService.PublishFlashcardAsync(new PublishFlashcardCommand(flashCard));
+                await zboxWriteService.PublishFlashcardAsync(new PublishFlashcardCommand(flashCard, boxId));
                 return output + " done";
             }
             catch (Exception ex)

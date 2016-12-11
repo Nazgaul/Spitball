@@ -12,16 +12,6 @@ namespace Zbang.Zbox.Domain.Commands
         public Flashcard Flashcard { get; private set; }
     }
 
-    public class PublishFlashcardCommand : ICommandAsync
-    {
-        public PublishFlashcardCommand(Flashcard flashcard)
-        {
-            Flashcard = flashcard;
-        }
-
-        public Flashcard Flashcard { get; private set; }
-    }
-
     public class DeleteFlashcardCommand : ICommandAsync
     {
         public DeleteFlashcardCommand(long id, long userId)

@@ -10,7 +10,7 @@
                     {
                         state: "flashcardCreate",
                         config: {
-                            url: "/{boxtype:box|course}/{universityType:encodeStr}/{boxId:int}/{boxName:encodeStr}/flashcardcreate/?{id:int}",
+                            url: "/course/{universityType:encodeStr}/{boxId:int}/{boxName:encodeStr}/flashcardcreate/?{id:int}",
                             controller: "flashcardCreate as f",
                             resolve: {
                                 flashcard: [

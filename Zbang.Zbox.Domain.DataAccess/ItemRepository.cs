@@ -33,8 +33,13 @@ namespace Zbang.Zbox.Domain.DataAccess
                 .And(w => w.Box.Id == boxId)
                 .And(w => w.User.Id == userId)
                 .Select(s => s.Comment).Future<Comment>();
+            var question3 = UnitOfWork.CurrentSession.QueryOver<FlashcardMeta>()
+                .Where(w => w.DateTimeUser.CreationTime > DateTime.UtcNow.AddHours(-1))
+                .And(w => w.Box.Id == boxId)
+                .And(w => w.User.Id == userId)
+                .Select(s => s.Comment).Future<Comment>();
 
-            return questions.Union(questions2)
+            return questions.Union(questions2).Union(question3)
                 .Where(w => w != null)
                 //.Where(w => w.Text == null)
                 .Where(w => w.FeedType == Infrastructure.Enums.FeedType.AddedItems)

@@ -114,6 +114,7 @@
     <Compile Include="LikeReplyCommandResult.cs" />
     <Compile Include="ManageConnectionsCommand.cs" />
     <Compile Include="PreviewFailedCommand.cs" />
+    <Compile Include="PublishFlashcardCommand.cs" />
     <Compile Include="Quiz\CreateDiscussionCommand.cs" />
     <Compile Include="Quiz\CreateQuestionCommand.cs" />
     <Compile Include="Quiz\CreateQuizCommand.cs" />

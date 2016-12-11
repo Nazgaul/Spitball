@@ -751,7 +751,9 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (UnitOfWork.Start())
             {
-                await m_CommandBus.SendAsync(command);
+                var t4 = m_Cache.RemoveAsync(command);
+                var t1 =  m_CommandBus.SendAsync(command);
+                await Task.WhenAll(t1, t4);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }

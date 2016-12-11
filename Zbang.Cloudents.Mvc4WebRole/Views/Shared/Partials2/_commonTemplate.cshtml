@@ -109,6 +109,33 @@
         <md-icon md-svg-icon="t:arrow"></md-icon>
     </div>
 </script>
+<script type="text/ng-template" id="flashcard-template.html">
+    <a class="quiz quiz-template" ng-href="{{::e.url}}">
+        <div class="base">
+            <div class="quiz-ratio">
+                <div class="content">
+                    <div ng-if="::e.publish" class="top background" d-color="{{::e.name.length}}">
+                        <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
+                    </div>
+                    <div ng-if="::!e.publish" class="top draft-wpr">
+                        <span class="draft">@IndexResources.Draft</span>
+                    </div>
+                    <div class="bottom">
+                        <h2 class="name ellipsis" ng-bind="::e.name"></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="stats" ng-hide="::e.numOfViews === underfined">
+                <div class="views">
+                    {{::e.numOfViews}} <md-icon md-svg-icon="b:eye"></md-icon>
+                </div>
+                <div class="likes">
+                    {{::e.likes}} <md-icon md-svg-icon="b:like"></md-icon>
+                </div>
+            </div>
+        </div>
+    </a>
+</script>
 <script defer type="text/ng-template" id="likeToasterTemplate.html">
     <md-toast class="like-toaster-template">
         <div class="wrapper" layout="row" layout-align="space-between center">

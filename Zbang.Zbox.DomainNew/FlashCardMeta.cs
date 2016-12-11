@@ -30,6 +30,8 @@ namespace Zbang.Zbox.Domain
         public virtual int CardCount { get; set; }
 
         public virtual bool IsDeleted { get; set; }
+
+        public virtual Comment Comment { get; set; }
         public void DeleteAssociation()
         {
             Pins.Clear();
