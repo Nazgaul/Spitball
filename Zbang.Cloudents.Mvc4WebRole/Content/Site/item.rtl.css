@@ -704,6 +704,11 @@ md-menu-item.blue svg {
 .like-toaster-template .md-toast-content {
   background: #ffce2f;
 }
+@media (min-width: 1920px) {
+  .like-toaster-template .md-toast-content {
+    max-width: 100%;
+  }
+}
 .like-toaster-template .wrapper {
   width: 100%;
   max-width: 860px;
