@@ -126,7 +126,7 @@
   <data name="PwdAtLeast6Chars" xml:space="preserve">
     <value>הסיסמה חייבת להיות מורכבת מ-6 תווים לכל הפחות</value>
   </data>
-  <data name="ConfirmPasswordComapre" xml:space="preserve">
+  <data name="ConfirmPasswordCompare" xml:space="preserve">
     <value>הסיסמאות אינן תואמות</value>
   </data>
 </root>

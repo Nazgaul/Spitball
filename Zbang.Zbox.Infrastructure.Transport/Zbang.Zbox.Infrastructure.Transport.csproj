@@ -74,7 +74,6 @@
     <Compile Include="UniversityData.cs" />
     <Compile Include="UniversityProcessData.cs" />
     <Compile Include="UpdateData.cs" />
-    <Compile Include="UrlToDownloadData.cs" />
     <Compile Include="WelcomeMailData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

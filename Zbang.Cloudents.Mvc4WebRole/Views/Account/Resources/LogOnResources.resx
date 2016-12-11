@@ -153,9 +153,6 @@
   <data name="NoWorries" xml:space="preserve">
     <value>No worries, click</value>
   </data>
-  <data name="OrLoginWith" xml:space="preserve">
-    <value>Or login with</value>
-  </data>
   <data name="ToResetPassword" xml:space="preserve">
     <value>To reset your password</value>
   </data>

@@ -1,4 +1,6 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Zbox.Infrastructure.Consts
 <div class="ad">
@@ -31,7 +33,7 @@
             <h5>@UserResources.Points</h5>
         </div>
         <section class="points-info" hide-xs ng-if="::u.isUserProfile">
-            <h1>Earning points</h1>
+            <h1>@GamificationResources.GamificationTableTitle</h1>
             <table>
                 <tbody>
                     <tr class="titles">
@@ -41,31 +43,31 @@
                         <td><md-icon class="like" md-svg-icon="b:like"></md-icon></td>
                     </tr>
                     <tr>
-                        <th>Documents:</th>
+                        <th>@IndexResources.Items:</th>
                         <td>@ReputationConst.ItemView</td>
                         <td>@ReputationConst.ItemDownload</td>
                         <td>@ReputationConst.ItemLike</td>
                     </tr>
                     <tr>
-                        <th>Quiz:</th>
+                        <th>@GeneralResources.Quizzes:</th>
                         <td>@ReputationConst.QuizView</td>
                         <td>@ReputationConst.QuizSolve</td>
                         <td>@ReputationConst.QuizLike</td>
                     </tr>
                     <tr>
-                        <th>Flashcard:</th>
+                        <th>@FlashcardResources.CardsLabel:</th>
                         <td>@ReputationConst.FlashcardView</td>
                         <td></td>
                         <td>@ReputationConst.FlashcardLike</td>
                     </tr>
                     <tr>
-                        <th>Post:</th>
+                        <th>@GeneralResources.Post:</th>
                         <td></td>
                         <td></td>
                         <td>@ReputationConst.CommentLike</td>
                     </tr>
                     <tr>
-                        <th>Comment:</th>
+                        <th>@BoxResources.Comment:</th>
                         <td></td>
                         <td></td>
                         <td>@ReputationConst.ReplyLike</td>
@@ -77,82 +79,9 @@
 
 
 
-            @*<div class="info-wrapper">
-                    <div class="section docs">
-                        <h2 class="title">Documents</h2>
-                        <div class="points">
-                            <div class="keys">
-                                <div class="name">View</div>
-                                <div class="name">Download</div>
-                                <div class="name">Like</div>
-                            </div>
-                            <div class="values">
-                                <div class="value">20</div>
-                                <div class="value">1</div>
-                                <div class="value">100</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="section quiz">
-                        <h2 class="title">Quiz</h2>
-                        <div class="keys">
-                            <div class="name">View</div>
-                            <div class="name">Solve</div>
-                            <div class="name">Like</div>
-                        </div>
-                        <div class="values">
-                            <div class="value">5</div>
-                            <div class="value">100</div>
-                            <div class="value">150</div>
-                        </div>
-                    </div>
-                    <div class="section flashcards">
-                        <h2 class="title">Flashcard</h2>
-                        <div class="keys">
-                            <div class="name">View</div>
-                            <div class="name">Like</div>
-                        </div>
-                        <div class="values">
-                            <div class="value">5</div>
-                            <div class="value">100</div>
-                        </div>
-                    </div>
-                    <div class="section post">
-                        <h2 class="title">Post</h2>
-                        <div class="keys">
-                            <div class="name">Like</div>
-                        </div>
-                        <div class="values">
-                            <div class="value">100</div>
-                        </div>
-                    </div>
-                    <div class="section comment">
-                        <h2 class="title">Comment</h2>
-                        <div class="keys">
-                            <div class="name">Like</div>
-                        </div>
-                        <div class="values">
-                            <div class="value">100</div>
-                        </div>
-                    </div>
-                </div>*@
+          
         </section>
-        @*<div class="points-awards" hide-xs>
-                <span class="earn">@UserResources.Share</span>
-                <ul style="list-style-type:square">
-                    <li>@UserResources.Creating</li>
-                    <li>@UserResources.Accepted</li>
-                </ul>
-                <span class="earn">@UserResources.PointMenu2</span>
-                <ul style="list-style-type:square">
-                    <li>@UserResources.AcceptedToCourse</li>
-                    <li>@UserResources.UploadItem</li>
-                    <li>@UserResources.Answering</li>
-                    <li>@UserResources.Asking</li>
-                    <li>@UserResources.Likes</li>
-                    <li>@UserResources.ShareFB</li>
-                </ul>
-            </div>*@
+      
     </div>
     <div class="profile-content">
         <div class="portlet light">

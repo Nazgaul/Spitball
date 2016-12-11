@@ -153,9 +153,6 @@
   <data name="NoWorries" xml:space="preserve">
     <value>אל דאגה, לחץ</value>
   </data>
-  <data name="OrLoginWith" xml:space="preserve">
-    <value>או התחבר באמצעות</value>
-  </data>
   <data name="ToResetPassword" xml:space="preserve">
     <value>לאיפוס סיסמא</value>
   </data>

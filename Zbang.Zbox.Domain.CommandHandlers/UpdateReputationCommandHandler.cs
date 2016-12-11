@@ -32,7 +32,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 var score = m_ReputationRepository.CalculateReputation(userId);
                 if (user.UserType == Infrastructure.Enums.UserType.TooHighScore)
                 {
-                    m_UserRepository.UpdateScore(score/100, userId);
+                    m_UserRepository.UpdateScore(score/20, userId);
                 }
                 else
                 {

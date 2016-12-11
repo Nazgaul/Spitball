@@ -268,24 +268,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Win $500.
-        /// </summary>
-        internal static string PromotionMeta {
-            get {
-                return ResourceManager.GetString("PromotionMeta", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Win $500.
-        /// </summary>
-        internal static string PromotionTitle {
-            get {
-                return ResourceManager.GetString("PromotionTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Find out all you need to know about Spitball&apos;s terms of service. Get class notes, chat with your classmates, create study groups and share your knowledge!.
         /// </summary>
         internal static string TermsMeta {

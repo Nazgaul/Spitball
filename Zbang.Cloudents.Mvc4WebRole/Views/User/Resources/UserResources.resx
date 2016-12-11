@@ -117,44 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Accepted" xml:space="preserve">
-    <value>Each accepted invite: 150 pts</value>
-  </data>
-  <data name="AcceptedToCourse" xml:space="preserve">
-    <value>Each accepted class invite: 50 pts</value>
-  </data>
-  <data name="Answering" xml:space="preserve">
-    <value>Reply to a Class Feed comment: 100 pts</value>
-  </data>
-  <data name="Asking" xml:space="preserve">
-    <value>Submit a Class Feed comment: 50 pts</value>
-  </data>
-  <data name="Creating" xml:space="preserve">
-    <value>Creating a quiz: 50 pts</value>
-  </data>
-  <data name="Likes" xml:space="preserve">
-    <value>Getting a like: 150 pts</value>
-  </data>
   <data name="Points" xml:space="preserve">
     <value>Points</value>
   </data>
   <data name="Posts" xml:space="preserve">
     <value>Posts</value>
   </data>
-  <data name="ShareFB" xml:space="preserve">
-    <value>Sharing on FB: 50 pts</value>
-  </data>
-  <data name="UploadItem" xml:space="preserve">
-    <value>Upload a document to a class: 100 pts</value>
-  </data>
   <data name="Uploads" xml:space="preserve">
     <value>Uploads</value>
   </data>
   <data name="Share" xml:space="preserve">
     <value>Share</value>
-  </data>
-  <data name="PointMenu2" xml:space="preserve">
-    <value>Study Socially</value>
   </data>
   <data name="MessageButton" xml:space="preserve">
     <value>Personal message</value>

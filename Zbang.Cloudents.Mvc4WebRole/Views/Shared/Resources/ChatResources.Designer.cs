@@ -79,15 +79,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was a problem connecting to chat.
-        /// </summary>
-        public static string DisconnectedHeader {
-            get {
-                return ResourceManager.GetString("DisconnectedHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Connecting....
         /// </summary>
         public static string DisconnectedText {

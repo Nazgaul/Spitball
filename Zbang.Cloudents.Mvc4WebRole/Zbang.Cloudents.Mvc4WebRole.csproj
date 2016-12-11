@@ -52,7 +52,8 @@
     <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
     <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
     <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
-    <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
+    <TypeScriptModuleKind>
+    </TypeScriptModuleKind>
     <TypeScriptRemoveComments>True</TypeScriptRemoveComments>
     <TypeScriptOutFile />
     <TypeScriptOutDir />
@@ -1521,7 +1522,6 @@
     <TypeScriptCompile Include="Js\components\user\user.service.ts" />
     <TypeScriptCompile Include="Js\components\user\items.controller.ts" />
     <TypeScriptCompile Include="Js\components\user\userdetails.controller.ts" />
-    <TypeScriptCompile Include="Js\doubleclick.config.ts" />
     <TypeScriptCompile Include="Js\menu\sidemenu.controller.ts" />
     <TypeScriptCompile Include="Js\routerHelperProvider.ts" />
     <TypeScriptCompile Include="Js\shared\ajaxService2.ts" />
@@ -2564,7 +2564,6 @@
     <Content Include="Views\Account\UnregisterView.cshtml" />
     <Content Include="Views\Chat\Index.cshtml" />
     <Content Include="Views\Shared\_AudioNotifications.cshtml" />
-    <Content Include="Views\User\infoDialog.cshtml" />
     <Content Include="Views\Dashboard\_Gamification.cshtml" />
     <Content Include="Views\University\ClassChoose.cshtml" />
     <Content Include="Views\Box\_Flashcards.cshtml" />
@@ -2579,6 +2578,7 @@
     <Content Include="Views\User\Feed.cshtml" />
     <Content Include="Views\User\Quizzes.cshtml" />
     <Content Include="Views\User\Members.cshtml" />
+    <Content Include="Views\Box\LeaderboardPartial.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2955,12 +2955,13 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-    <TypeScriptSourceMap>False</TypeScriptSourceMap>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
     <TypeScriptTarget>ES5</TypeScriptTarget>
     <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
     <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
     <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
-    <TypeScriptModuleKind>System</TypeScriptModuleKind>
+    <TypeScriptModuleKind>
+    </TypeScriptModuleKind>
     <TypeScriptRemoveComments>True</TypeScriptRemoveComments>
     <TypeScriptOutFile>
     </TypeScriptOutFile>

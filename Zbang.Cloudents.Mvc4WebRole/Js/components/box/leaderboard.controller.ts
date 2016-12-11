@@ -2,12 +2,13 @@
     "use strict";
 
     class Leaderboard {
-        static $inject = ["boxService", "$stateParams"];
+        static $inject = ["boxService", "$stateParams","$mdDialog"];
         leaderboard;
         leaderboardMyself = true;
         constructor(
             private boxService: IBoxService,
-            private $stateParams: spitaball.ISpitballStateParamsService) {
+            private $stateParams: spitaball.ISpitballStateParamsService,
+            private $mdDialog: angular.material.IDialogService) {
             this.leaderBoard();
         }
         private leaderBoard() {
@@ -27,6 +28,9 @@
         goToSelf() {
             this.leaderboardMyself = !this.leaderboardMyself;
             this.leaderBoard();
+        }
+        close() {
+            this.$mdDialog.hide();
         }
     }
 

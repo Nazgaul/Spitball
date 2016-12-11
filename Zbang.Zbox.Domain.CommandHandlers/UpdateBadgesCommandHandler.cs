@@ -37,8 +37,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 case BadgeType.None:
                     throw new ArgumentOutOfRangeException();
                 case BadgeType.Register:
-                    progress.Start = progress.To = 100;
-                    break;
+                    return;
+                    //progress.Start = progress.To = 100;
                 case BadgeType.FollowClass:
                     progress.Start = user.UserBoxRel.Count;
                     progress.To = 3;
@@ -62,7 +62,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             message.Progress = badge.Progress;
             if (badge.Progress == 100)
             {
-                user.BadgeCount = user.Badges.Count(w => w.Progress == 100);
+                user.BadgeCount = user.Badges.Count(w => w.Progress == 100) + 1; //register is virtual
                 m_UserRepository.Save(user);
             }
             m_BadgeRepository.Save(badge);

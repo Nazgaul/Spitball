@@ -59,3 +59,4 @@ var app;
     }());
     angular.module("app.chat").controller("ChatController", ChatController);
 })(app || (app = {}));
+//# sourceMappingURL=chat.controller.js.map

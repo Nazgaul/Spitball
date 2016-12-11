@@ -14,7 +14,8 @@
     class BoxController {
         static $inject = ["$state", "$stateParams", "boxData", "$scope",
             "$rootScope", "user", "resManager", "boxService", "ajaxService2",
-            "$timeout", "$window", "userUpdatesService", "shareService", "showToasterService"];
+            "$timeout", "$window", "userUpdatesService", "shareService",
+            "showToasterService","$mdDialog"];
         data;
         //showLeaderboard;
         isAcademic;
@@ -45,12 +46,13 @@
             private $window: angular.IWindowService,
             private userUpdatesService: IUserUpdatesService,
             private shareService: IShareService,
-            private showToasterService: IShowToasterService
+            private showToasterService: IShowToasterService,
+            private $mdDialog: angular.material.IDialogService
+
         ) {
            
             boxId = $stateParams.boxId;
             this.data = boxData;
-            //this.showLeaderboard = this.isAcademic = boxData.boxType === "academic" || boxData.boxType === "academicClosed";
             this.needFollow = boxData.userType === "invite" || boxData.userType === "none";
             this.canInvite = boxData.boxType !== "academicClosed" && this.isAcademic || (boxData.userType === "owner" && !this.isAcademic);
             this.canShare = boxData.boxType !== "academicClosed" && this.isAcademic && !this.needFollow;
@@ -70,9 +72,6 @@
                 this.settingsOpen = false;
             });
 
-            //$scope.$on("hide-leader-board", () => {
-            //    this.showLeaderboard = false;
-            //});
 
             $window.onbeforeunload = () => {
                 if (!this.user.id) {
@@ -84,9 +83,6 @@
                 () => {
                     $window.onbeforeunload = null;
                 });
-            //if ($state.current.name === "box") {
-            //    $state.go(".feed", $stateParams, { location: "replace", notify: false });
-            //}
 
         }
         follow() {
@@ -235,6 +231,16 @@
         share() {
             this.settingsOpen = this.inviteOpen = false;
             this.shareService.shareDialog("b", boxId);
+        }
+        showLeaderboard() {
+            this.$mdDialog.show({
+                templateUrl: "/box/leaderboardpartial/",
+                //targetEvent: ev,
+                clickOutsideToClose: true,
+                controller: "Leaderboard",
+                controllerAs: "g",
+                fullscreen: false
+            });
         }
 
 

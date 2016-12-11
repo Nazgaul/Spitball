@@ -192,10 +192,4 @@
   <data name="ProductTitle" xml:space="preserve">
     <value>Product - Use Spitball like a Pro | Spitball</value>
   </data>
-  <data name="PromotionTitle" xml:space="preserve">
-    <value>Win $500</value>
-  </data>
-  <data name="PromotionMeta" xml:space="preserve">
-    <value>Win $500</value>
-  </data>
 </root>

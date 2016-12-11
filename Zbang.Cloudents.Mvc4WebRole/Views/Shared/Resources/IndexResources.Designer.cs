@@ -216,15 +216,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Points.
-        /// </summary>
-        public static string Pts {
-            get {
-                return ResourceManager.GetString("Pts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Delete file.
         /// </summary>
         public static string Remove {
@@ -257,24 +248,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string Share {
             get {
                 return ResourceManager.GetString("Share", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Suggested.
-        /// </summary>
-        public static string Suggested {
-            get {
-                return ResourceManager.GetString("Suggested", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to University Page.
-        /// </summary>
-        public static string Uni {
-            get {
-                return ResourceManager.GetString("Uni", resourceCulture);
             }
         }
         

@@ -14,11 +14,6 @@
                 </button>
             </div>
             <div class="option-wrapper">
-                @*<input id="open-share" type="checkbox" user-not-register-popup="click" />
-                    <label class="title" for="open-share" ng-click="b.share()">
-                    </label>
-                                <share-box class="option share"></share-box>
-                                <label class="backdrop" for="open-share"></label>*@
                 <button class="option share" type="button" scroll-to-top ng-click="b.share()">
                     <div>
                         <md-icon md-svg-icon="t:share" class="option-icon"></md-icon>
@@ -31,6 +26,13 @@
                     <div>
                         <md-icon md-svg-icon="t:settingMenu" class="option-icon"></md-icon>
                         <span class="text">@IndexResources.Settings</span>
+                    </div>
+                </button>
+            </div>
+            <div class="option-wrapper">
+                <button class="option box-settings" flex="none" type="button" ng-click="b.showLeaderboard()" scroll-to-top ga-track-event="['box', 'leaderboard']">
+                    <div>
+                        leadearboard
                     </div>
                 </button>
             </div>
@@ -193,10 +195,9 @@
         </ol>
     </div>
     <div class="boxes-side-area flex" layout-padding flex="100" flex-md="33" flex-lg="30" flex-gt-lg="30">
-        <div flex="100" flex-sm="50" @*ng-if="b.showLeaderboard"*@ class="flex community" ng-controller="Leaderboard as g">
+        <div flex="100" flex-sm="50"  class="flex community" ng-controller="Leaderboard as g">
             @* ReSharper disable once Mvc.PartialViewNotResolved *@
             @{ Html.RenderPartial("_LeaderBoard");}
-            @*<div class="suggested flex" flex="100" flex-gt-md="100" flex-sm="50" ng-repeat="e in ::r.boxes track by e.boxId" ng-include="'box-template.html'"></div>*@
         </div>
     </div>
 </div>

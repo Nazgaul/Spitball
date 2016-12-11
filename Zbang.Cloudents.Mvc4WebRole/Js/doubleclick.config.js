@@ -42,3 +42,4 @@
             .addSize([0, 0], [160, 600]);
     }
 })();
+//# sourceMappingURL=doubleclick.config.js.map

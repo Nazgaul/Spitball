@@ -63,9 +63,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Passwords should match.
         /// </summary>
-        public static string ConfirmPasswordComapre {
+        public static string ConfirmPasswordCompare {
             get {
-                return ResourceManager.GetString("ConfirmPasswordComapre", resourceCulture);
+                return ResourceManager.GetString("ConfirmPasswordCompare", resourceCulture);
             }
         }
         

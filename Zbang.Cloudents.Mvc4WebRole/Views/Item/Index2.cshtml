@@ -100,12 +100,10 @@
 
         <a class="arrow prev" ng-if="i.details.previous" href="{{i.details.previous}}" hide-xs keyboard-action="37" ga-track-event="['itemPage', 'previous item']">
             <md-icon md-svg-icon="t:arrow"></md-icon>
-            @*@Html.Svg("~/images/site/icons.svg", "arrow")*@
         </a>
         <div class="preview" ng-bind-html="i.preview"></div>
         <a class="arrow next" ng-if="i.details.next" href="{{i.details.next}}" hide-xs keyboard-action="39" ga-track-event="['itemPage', 'next item']">
             <md-icon md-svg-icon="t:arrow"></md-icon>
-            @*@Html.Svg("~/images/site/icons.svg", "arrow")*@
         </a>
 
         <div class="raw-text" ng-if="i.document">

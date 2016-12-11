@@ -153,9 +153,6 @@
   <data name="Oops" xml:space="preserve">
     <value>אופס!</value>
   </data>
-  <data name="Pts" xml:space="preserve">
-    <value>נק'</value>
-  </data>
   <data name="Remove" xml:space="preserve">
     <value>הסר קובץ</value>
   </data>
@@ -164,12 +161,6 @@
   </data>
   <data name="Settings" xml:space="preserve">
     <value>הגדרות</value>
-  </data>
-  <data name="Suggested" xml:space="preserve">
-    <value>מומלצים</value>
-  </data>
-  <data name="Uni" xml:space="preserve">
-    <value>דף המוסד האקדמי</value>
   </data>
   <data name="UploadFiles" xml:space="preserve">
     <value>העלה מסמכים</value>

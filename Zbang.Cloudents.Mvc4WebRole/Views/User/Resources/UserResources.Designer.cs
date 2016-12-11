@@ -61,74 +61,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Each accepted invite: 150 pts.
-        /// </summary>
-        public static string Accepted {
-            get {
-                return ResourceManager.GetString("Accepted", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Each accepted class invite: 50 pts.
-        /// </summary>
-        public static string AcceptedToCourse {
-            get {
-                return ResourceManager.GetString("AcceptedToCourse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reply to a Class Feed comment: 100 pts.
-        /// </summary>
-        public static string Answering {
-            get {
-                return ResourceManager.GetString("Answering", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Submit a Class Feed comment: 50 pts.
-        /// </summary>
-        public static string Asking {
-            get {
-                return ResourceManager.GetString("Asking", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Creating a quiz: 50 pts.
-        /// </summary>
-        public static string Creating {
-            get {
-                return ResourceManager.GetString("Creating", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Getting a like: 150 pts.
-        /// </summary>
-        public static string Likes {
-            get {
-                return ResourceManager.GetString("Likes", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Personal message.
         /// </summary>
         public static string MessageButton {
             get {
                 return ResourceManager.GetString("MessageButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Study Socially.
-        /// </summary>
-        public static string PointMenu2 {
-            get {
-                return ResourceManager.GetString("PointMenu2", resourceCulture);
             }
         }
         
@@ -156,24 +93,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         public static string Share {
             get {
                 return ResourceManager.GetString("Share", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sharing on FB: 50 pts.
-        /// </summary>
-        public static string ShareFB {
-            get {
-                return ResourceManager.GetString("ShareFB", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Upload a document to a class: 100 pts.
-        /// </summary>
-        public static string UploadItem {
-            get {
-                return ResourceManager.GetString("UploadItem", resourceCulture);
             }
         }
         

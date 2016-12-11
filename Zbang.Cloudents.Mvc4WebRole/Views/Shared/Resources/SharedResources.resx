@@ -134,5 +134,5 @@
   </data>
   <data name="LoaderText" xml:space="preserve">
     <value>Let's Spitball</value>
-  </data>
+  <comment>do not translate</comment></data>
 </root>
