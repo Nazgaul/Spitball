@@ -27,3 +27,4 @@ var app;
     }());
     angular.module("app.user").controller("classmates", Members);
 })(app || (app = {}));
+//# sourceMappingURL=classmates.controller.js.map

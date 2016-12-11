@@ -9,6 +9,7 @@ var app;
             this.$timeout = $timeout;
             this.$anchorScroll = $anchorScroll;
             this.doneLevel = false;
+            this.leaderboard = [];
             this.leaderboardMyself = true;
             this.leaderboardPage = 0;
             $scope["$state"] = this.$state;
@@ -71,17 +72,22 @@ var app;
         };
         Gamification.prototype.communityTab = function () {
             var _this = this;
-            this.userService.leaderboard(this.$state.params["userId"], this.leaderboardMyself, this.leaderboardPage)
+            return this.userService.leaderboard(this.$state.params["userId"], this.leaderboardMyself, this.leaderboardPage)
                 .then(function (response) {
                 for (var i = 0; i < response.length; i++) {
                     var elem = response[i];
                     if (i === 0) {
-                        elem.progress = 100;
+                        elem.progress = _this.leaderboard[_this.leaderboard.length - 1] || 100;
                         continue;
                     }
                     elem.progress = elem.score / response[0].score * 100;
                 }
-                _this.leaderboard = response;
+                if (_this.leaderboardPage) {
+                    _this.leaderboard = _this.leaderboard.concat(response);
+                }
+                else {
+                    _this.leaderboard = response;
+                }
                 if (_this.leaderboardMyself) {
                     _this.$timeout(function () {
                         _this.$anchorScroll("user_" + _this.$state.params["userId"]);
@@ -105,8 +111,15 @@ var app;
                 prev: this.badges[badgeIndex - 1]
             };
         };
+        Gamification.prototype.loadMoreLeaderboard = function () {
+            if (!this.leaderboardMyself) {
+                this.leaderboardPage++;
+                return this.communityTab();
+            }
+        };
         Gamification.$inject = ["$state", "$scope", "userService", "$timeout", "$anchorScroll"];
         return Gamification;
     }());
     angular.module("app.user").controller("gamification", Gamification);
 })(app || (app = {}));
+//# sourceMappingURL=gamification.controller.js.map

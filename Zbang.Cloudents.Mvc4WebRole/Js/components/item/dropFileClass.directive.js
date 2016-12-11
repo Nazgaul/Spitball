@@ -34,3 +34,4 @@ var app;
         .module("app.item")
         .directive("dropFile", DropFileClass.factory());
 })(app || (app = {}));
+//# sourceMappingURL=dropFileClass.directive.js.map

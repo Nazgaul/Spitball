@@ -1,12 +1,12 @@
 ﻿module app {
 
     class Gamification {
-        static $inject = ["$state", "$scope", "userService","$timeout","$anchorScroll"];
+        static $inject = ["$state", "$scope", "userService", "$timeout", "$anchorScroll"];
         levels;
         doneLevel = false;
         badges;
         badgeInfo;
-        leaderboard;
+        leaderboard: Array<any> = [];
         leaderboardMyself = true;
         leaderboardPage = 0;
 
@@ -76,17 +76,21 @@
                 });
         }
         private communityTab() {
-            this.userService.leaderboard(this.$state.params["userId"], this.leaderboardMyself, this.leaderboardPage)
-                .then(response => {
+            return this.userService.leaderboard(this.$state.params["userId"], this.leaderboardMyself, this.leaderboardPage)
+                .then((response: Array<any>) => {
                     for (let i = 0; i < response.length; i++) {
                         const elem = response[i];
                         if (i === 0) {
-                            elem.progress = 100;
+                            elem.progress = this.leaderboard[this.leaderboard.length - 1] || 100;
                             continue;
                         }
                         elem.progress = elem.score / response[0].score * 100;
                     }
-                    this.leaderboard = response;
+                    if (this.leaderboardPage) {
+                        this.leaderboard = this.leaderboard.concat(response);
+                    } else {
+                        this.leaderboard = response;
+                    }
                     if (this.leaderboardMyself) {
                         this.$timeout(() => {
                             this.$anchorScroll("user_" + this.$state.params["userId"]);
@@ -109,6 +113,12 @@
                 next: this.badges[badgeIndex + 1],
                 prev: this.badges[badgeIndex - 1]
             };
+        }
+        loadMoreLeaderboard() {
+            if (!this.leaderboardMyself) {
+                this.leaderboardPage++;
+                return this.communityTab();
+            }
         }
     }
     angular.module("app.user").controller("gamification", Gamification);

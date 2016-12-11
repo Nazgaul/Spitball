@@ -28,3 +28,4 @@ var app;
     }());
     angular.module("app.search").controller("SearchTriggerController", SearchTriggerController);
 })(app || (app = {}));
+//# sourceMappingURL=searchTrigger.controller.js.map

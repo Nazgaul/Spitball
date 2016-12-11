@@ -79,7 +79,7 @@
                 <md-icon class="close" md-svg-icon="t:close" ng-click="g.badgeInfo=false"></md-icon>
             </div>
         </div>
-        <div ng-switch-when="community" class="tab community">
+        <div ng-switch-when="community" class="tab community" srph-infinite-scroll="g.loadMoreLeaderboard()">
             @{ // ReSharper disable once Mvc.PartialViewNotResolved
                 Html.RenderPartial("_LeaderBoard");}
         </div>

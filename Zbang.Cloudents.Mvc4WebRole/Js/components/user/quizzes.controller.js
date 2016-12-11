@@ -31,3 +31,4 @@ var app;
     }());
     angular.module("app.user").controller("quiz", Quiz);
 })(app || (app = {}));
+//# sourceMappingURL=quizzes.controller.js.map

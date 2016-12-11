@@ -53,3 +53,4 @@ var app;
         .module("app")
         .directive("cartAnimation", CartAnimation.factory());
 })(app || (app = {}));
+//# sourceMappingURL=cartAnimation.directive.js.map

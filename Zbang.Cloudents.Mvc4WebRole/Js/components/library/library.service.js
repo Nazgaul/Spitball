@@ -64,3 +64,4 @@ var app;
     }());
     angular.module("app.library").service("libraryService", Library);
 })(app || (app = {}));
+//# sourceMappingURL=library.service.js.map

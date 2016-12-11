@@ -129,3 +129,4 @@ var app;
     }());
     angular.module('app.box').controller('BoxController', BoxController);
 })(app || (app = {}));
+//# sourceMappingURL=box.controller.js.map
