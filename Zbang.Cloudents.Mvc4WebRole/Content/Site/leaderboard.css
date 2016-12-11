@@ -78,37 +78,45 @@
   z-index: 0;
   position: absolute;
   overflow: hidden;
-  width: 100px;
+  width: 80px;
 }
 .leaderboardbox .bg-l md-icon,
 .leaderboardbox .bg-r md-icon {
-  fill: #ffffff;
+  fill: rgba(255, 255, 255, 0.9);
+  margin-left: -10px;
+  width: 80px;
 }
 .leaderboardbox .bg-l {
   left: 0;
 }
 .leaderboardbox .bg-r {
   right: 0;
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
 }
 .leaderboardbox .top .points {
   text-align: center;
-  padding-bottom: 42px;
+  padding-bottom: 35px;
 }
 .leaderboardbox .top .points-wrapper {
   display: inline-block;
   font-size: 38px;
   position: relative;
-  padding: 5px 18px 14px 18px;
+  padding: 5px 18px 24px 18px;
   color: #ffce2f;
   background: #323538;
-  border-radius: 0 0 5px 5px;
+  border-radius: 0 0 10px 10px;
   font-weight: bold;
   min-width: 60%;
 }
 .leaderboardbox .top .points-wrapper span:not(.number) {
   position: absolute;
   font-size: 12px;
-  bottom: 5px;
+  bottom: 6px;
   width: 100%;
   left: 0;
   text-transform: capitalize;
@@ -118,7 +126,7 @@
   font-size: 14px;
   margin: 14px 0;
   position: absolute;
-  top: 56px;
+  top: 66px;
   width: 100%;
 }
 .leaderboardbox .top .custom-progress-bar {
@@ -141,7 +149,7 @@
   height: 14px;
 }
 .leaderboardbox .top .custom-progress-bar .md-container .md-bar {
-  background: #ffce2f;
+  background: #5d6d7e;
 }
 .leaderboardbox .top .custom-progress-bar .md-container .md-bar {
   border-radius: 5px;
@@ -342,7 +350,7 @@
 }
 .community .content {
   max-width: 840px;
-  padding: 0 20px 30px 20px;
+  padding: 0 0 30px 0;
   margin: 22px auto;
 }
 @media (max-width: 600px) {
@@ -351,8 +359,9 @@
   }
 }
 .community .content .filter-wrapper {
-  padding-left: 190px;
-  padding-bottom: 10px;
+  text-align: right;
+  margin-bottom: -24px;
+  padding: 0 20px;
 }
 @media (max-width: 600px) {
   .community .content .filter-wrapper {
@@ -370,7 +379,10 @@
   -webkit-align-items: stretch;
   align-items: stretch;
   color: #536470;
-  padding: 12px 0;
+  padding: 6px 20px;
+}
+.community .content .users .user-data.current-user {
+  background: #bbcbd3;
 }
 @media (max-width: 600px) {
   .community .content .users .user-data {
@@ -411,6 +423,7 @@
 }
 .community .content .users .user-data .img-wrapper {
   border-radius: 100%;
+  margin: 6px 0;
 }
 @media (max-width: 600px) {
   .community .content .users .user-data .img-wrapper {
@@ -476,49 +489,58 @@
   white-space: nowrap;
 }
 .community .custom-progress-bar {
-  height: 12px;
-  border-radius: 6px;
+  height: 16px;
+  border-radius: 8px;
   overflow: hidden;
 }
 .community .custom-progress-bar.md-default-theme .md-container,
 .community .custom-progress-bar .md-container {
-  border-radius: 6px;
+  border-radius: 8px;
 }
 .community .custom-progress-bar.md-default-theme .md-container,
 .community .custom-progress-bar .md-bar,
 .community .custom-progress-bar .md-container {
-  height: 12px;
+  height: 16px;
 }
 .community .custom-progress-bar .md-container {
   background: #dadada;
-  height: 12px;
+  height: 16px;
 }
 .community .custom-progress-bar .md-container .md-bar {
   background: #ffce2f;
 }
 .feed-wrapper .community .top {
-  height: 70px;
+  height: 76px;
+}
+.feed-wrapper .community .top .title {
+  margin-bottom: 6px;
 }
 .feed-wrapper .community .bg-r,
 .feed-wrapper .community .bg-l {
   display: none;
 }
 .feed-wrapper .community .filter-wrapper {
-  text-align: center;
+  text-align: right;
   padding: 10px 0 0 0;
+}
+.feed-wrapper .community .filter-wrapper .action-btn {
+  line-height: 14px;
+  font-size: 14px;
+  padding: 4px 10px;
+  min-width: 0;
 }
 .feed-wrapper .community .content {
   background: #ffffff;
   margin-top: 0;
-  padding: 0 5px;
+  padding: 0 10px;
 }
 .feed-wrapper .community .content .users .user-data {
-  padding: 8px 0;
+  padding: 4px 0;
 }
 .feed-wrapper .community .content .users .user-data .img-wrapper {
   width: 36px;
   height: 36px;
-  margin: 5px 0;
+  margin: 9px 0;
 }
 .feed-wrapper .community .content .users .user-data .img-wrapper span {
   font-size: 18px;
@@ -529,7 +551,7 @@
 }
 .feed-wrapper .community .content .users .user-data .rank,
 .feed-wrapper .community .content .users .user-data .points {
-  min-width: 30px;
+  min-width: 40px;
 }
 .feed-wrapper .community .content .users .user-data .rank {
   font-size: 16px;
@@ -539,7 +561,7 @@
 }
 .feed-wrapper .community .content .users .user-data .progress-user .text {
   font-size: 12px;
-  padding: 0;
+  padding: 0 5px;
 }
 .md-dialog-container .community {
   max-width: calc(100% - 20px);

@@ -159,8 +159,8 @@
   height: 22px;
 }
 .userPage .points-info table .titles md-icon.like {
-  width: 23px;
-  height: 22px;
+  width: 20px;
+  height: 19px;
 }
 .userPage .profile-sidebar-portlet,
 .userPage .points-container,
@@ -398,8 +398,8 @@
   }
 }
 .userPage .badges-wrapper .tab.badges .expanded .badge-container md-icon {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   padding: 8px;
 }
 @media (max-width: 600px) {
@@ -434,9 +434,9 @@
 .userPage .badges-wrapper .tab.badges .expanded .details .points {
   display: inline-block;
   margin: 0 auto;
-  padding: 5px 10px;
-  border: 1px solid #ffffff;
-  border-radius: 9px;
+  padding: 2px 10px;
+  border: 2px solid #ffffff;
+  border-radius: 20px;
 }
 @media (max-width: 600px) {
   .userPage .badges-wrapper .tab.badges .expanded .details .points {
@@ -451,8 +451,8 @@
 }
 .userPage .badges-wrapper .tab.badges .expanded .next md-icon,
 .userPage .badges-wrapper .tab.badges .expanded .prev md-icon {
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   fill: #323538;
 }
 .userPage .badges-wrapper .tab.badges .expanded .next md-icon.disabled,
@@ -470,7 +470,7 @@
 .userPage .badges-wrapper .tab.badges .expanded .close {
   position: absolute;
   top: 20px;
-  right: 8px;
+  right: 20px;
   width: 16px;
   height: 16px;
   fill: #323538;
@@ -503,8 +503,8 @@
   position: relative;
 }
 .userPage .badges-wrapper .tab.badges .badge-container md-icon {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   border-radius: 100%;
   padding: 4px;
   position: absolute;
@@ -518,7 +518,7 @@
   margin: 0 auto;
 }
 .userPage .badges-wrapper .tab.badges .badge-container .text {
-  margin: 24px 0 6px 0;
+  margin: 8px 0 6px 0;
 }
 @media (max-width: 600px) {
   .userPage .badges-wrapper .tab.badges .badge-container .text {
@@ -526,9 +526,9 @@
   }
 }
 .userPage .badges-wrapper .tab.badges .badge-container .progress {
-  padding: 10px;
+  padding: 6px;
   border: 2px solid #ffce2f;
-  border-radius: 10px;
+  border-radius: 20px;
   max-width: 140px;
   margin: 0 auto;
 }
