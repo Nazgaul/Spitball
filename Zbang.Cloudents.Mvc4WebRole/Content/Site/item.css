@@ -692,3 +692,14 @@ md-menu-item.blue svg {
     max-width: 60vw;
   }
 }
+.like-toaster-template {
+  background: #ffce2f;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+}
+.like-toaster-template md-icon {
+  width: 20px;
+  height: 20px;
+}
