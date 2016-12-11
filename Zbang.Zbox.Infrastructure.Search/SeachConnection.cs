@@ -29,10 +29,10 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         private static bool IsProductionEnvironment()
         {
-            if (ConfigFetcher.IsRunningOnCloud)
-            {
-                return true;
-            }
+            //if (ConfigFetcher.IsRunningOnCloud)
+            //{
+            //    return true;
+            //}
             bool shouldUseCacheFromConfig = true;
             bool.TryParse(ConfigFetcher.Fetch("SearchProduction"), out shouldUseCacheFromConfig);
             

@@ -47,7 +47,7 @@
         i.followBox = followBox;
         i.document = itemData.fileContent;
 
-        $timeout(() =>showLikeToaster(), 1000);
+        $timeout(showLikeToaster, 1000);
 
         //i.back = back;
 

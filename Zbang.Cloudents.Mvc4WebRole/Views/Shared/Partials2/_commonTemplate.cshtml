@@ -1,30 +1,31 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
-@using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
 <script defer type="text/ng-template" id="box-template.html">
     <a ng-href="{{::e.url}}" class="box-template-flex box-style" ga-track-event="['dashboard', 'box']">
         <div class="info">
             <div class="top">
                 <div class="icon background" color="{{::e.departmentId}}" ng-bind="::e.name.substr(0,2) | lowercase"></div>
-                <h5 class="multi-line-ellipsis limit-two" color="{{::e.departmentId}}" ng-bind="::e.name"></h5>
+                <h5 class="multi-line-ellipsis limit-two" dir="auto" color="{{::e.departmentId}}" ng-bind="::e.name"></h5>
             </div>
             <div class="bottom">
-                <span class="ellipsis" ng-bind="::e.professor"></span>
-                <span class="ellipsis" ng-bind="::e.courseCode"></span>
+                <span class="ellipsis" dir="auto" ng-bind="::e.professor"></span>
+                <span class="ellipsis" dir="auto" ng-bind="::e.courseCode"></span>
             </div>
         </div>
         <div class="stats border" color="{{::e.departmentId}}">
-            <div class="members-count" ng-hide="::e.membersCount === undefined">
+            <div class="members-count">
                 <ng-pluralize count="e.membersCount"
                               when="{'one': '@GeneralResources.SingleMember',
-                                          'other': '{{::e.membersCount}} @GeneralResources.Members'}">
+                              'two': '{} @GeneralResources.Members',
+                                          'other': '{} @GeneralResources.Members'}">
                 </ng-pluralize>
             </div>
-            <div class="items-count" ng-hide="::e.itemCount === undefined">
+            <div class="items-count">
                 <ng-pluralize count="e.itemCount"
                               when="{'one': '@BoxResources.SingleItem',
-                                          'other': '{{::e.itemCount}} @IndexResources.Items'}">
+                              'two': '{} @IndexResources.Items',
+                                          'other': '{} @IndexResources.Items'}">
                 </ng-pluralize>
             </div>
         </div>

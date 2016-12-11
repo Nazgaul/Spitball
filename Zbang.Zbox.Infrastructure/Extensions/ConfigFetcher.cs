@@ -77,12 +77,8 @@ namespace Zbang.Zbox.Infrastructure.Extensions
 
             var connStr = ConfigurationManager.ConnectionStrings[name];
 
-            if (connStr != null)
-            {
-                return connStr.ConnectionString;
-            }
+            return connStr?.ConnectionString;
 
-            return null;
             //throw new ConfigurationErrorsException(name);
         }
 

@@ -65,14 +65,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return RedirectToAction("NotFound", "Error");
             }
-            return RedirectToRoutePermanent("Flashcard", new RouteValueDictionary
+            var route = new RouteValueDictionary
             {
                 ["universityName"] = UrlConst.NameToQueryString(model.UniversityName ?? "my"),
                 ["boxId"] = model.BoxId,
                 ["boxName"] = UrlConst.NameToQueryString(model.BoxName),
                 ["flashcardId"] = model.Id,
                 ["flashcardName"] = UrlConst.NameToQueryString(model.Name)
-            });
+            };
+            if (Request.IsAjaxRequest())
+            {
+                return JsonOk(Url.RouteUrl("Flashcard", route));
+            }
+            return RedirectToRoutePermanent("Flashcard", route);
         }
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
@@ -189,7 +194,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost, ZboxAuthorize, ActionName("publish")]
-        public async Task<ActionResult> PublishAsync(long id, 
+        public async Task<ActionResult> PublishAsync(long id,
             Flashcard model, long boxId)
         {
             if (!ModelState.IsValid)

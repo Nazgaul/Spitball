@@ -17,6 +17,8 @@ b.boxid  as Id
    as universityid
 ,  b.discriminator as Type
 , b.LibraryId as DepartmentId
+, b.MembersCount as MembersCount
+, b.ItemCount + b.FlashcardCount + b.QuizCount as ItemsCount
   from zbox.box b
   where isdirty = 1 and isdeleted = 0 and url is not null and b.boxid % @count  = @index
   order by b.BoxId;";

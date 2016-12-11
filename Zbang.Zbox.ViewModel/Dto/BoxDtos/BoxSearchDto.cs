@@ -23,11 +23,14 @@ namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
         public Infrastructure.Enums.BoxType Type { get; set; }
 
         public IEnumerable<string> Department { get; set; }
-        public Guid DepartmentId { get; set; }
+        public Guid? DepartmentId { get; set; }
 
         public IEnumerable<string> Feed { get; set; }
 
         public IEnumerable<long> UserIds { get; set; }
+
+        public int MembersCount { get; set; }
+        public int ItemsCount { get; set; }
     }
 
     public class UsersInBoxSearchDto

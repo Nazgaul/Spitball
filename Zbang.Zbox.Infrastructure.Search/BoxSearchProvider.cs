@@ -41,9 +41,14 @@ namespace Zbang.Zbox.Infrastructure.Search
         private const string DepartmentField = "department";
         private const string TypeFiled = "type";
         private const string FeedField = "feed";
+
+        private const string MembersField = "membersCount";
+        private const string ItemsField = "itemsCount";
         private const string DepartmentIdField = "departmentId";
 
-        private const string ParentDepartmentField = "parentDepartment";
+
+
+        //private const string ParentDepartmentField = "parentDepartment";
 
         private Index GetBoxIndex()
         {
@@ -59,8 +64,11 @@ namespace Zbang.Zbox.Infrastructure.Search
                 new Field(DepartmentField, DataType.Collection(DataType.String)) { IsSearchable = true, IsRetrievable = true},
                 new Field(TypeFiled, DataType.Int32) { IsRetrievable = true},
                 new Field(FeedField, DataType.Collection(DataType.String)) { IsSearchable = true, IsRetrievable = true},
-                new Field(ParentDepartmentField, DataType.String) { IsRetrievable = true ,IsSortable = true, IsSearchable = true},
-                new Field(DepartmentIdField, DataType.String) { IsFilterable = true, IsRetrievable = true }
+                new Field("parentDepartment", DataType.String) { IsRetrievable = true ,IsSortable = true, IsSearchable = true},
+                new Field(DepartmentIdField, DataType.String) { IsFilterable = true, IsRetrievable = true },
+
+                new Field(MembersField, DataType.Int32) {  IsRetrievable = true },
+                new Field(ItemsField, DataType.Int32) {  IsRetrievable = true }
             });
         }
 
@@ -79,15 +87,16 @@ namespace Zbang.Zbox.Infrastructure.Search
                     Course = s.CourseCode,
                     Department = s.Department.ToArray(),
                     Feed = s.Feed.ToArray(),
-                    DepartmentId = s.DepartmentId.ToString(),
+                    DepartmentId = s.DepartmentId?.ToString(),
                     Id = s.Id.ToString(CultureInfo.InvariantCulture),
                     Name = s.Name,
                     Professor = s.Professor,
                     Type = (int)s.Type,
                     UniversityId = s.UniversityId,
                     Url = s.Url,
+                    ItemsCount = s.ItemsCount,
+                    MembersCount = s.MembersCount,
                     UserId = s.UserIds.Select(v => v.ToString(CultureInfo.InvariantCulture)).ToArray()
-
                 });
 
                 var batch = IndexBatch.Upload(uploadBatch);
@@ -126,57 +135,6 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
             m_CheckIndexExists = true;
         }
-        //public async Task<IEnumerable<SearchBoxes>> SearchBoxWithoutHighlightWithUrlAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
-        //{
-        //    if (query == null) throw new ArgumentNullException(nameof(query));
-        //    var result = await m_IndexClient.Documents.SearchAsync<BoxSearch>(query.Term + "*", new SearchParameters
-        //    {
-        //        Filter =
-        //            string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')", UniversityIdField, UserIdsField,
-        //                query.UniversityId, query.UserId),
-        //        Top = query.RowsPerPage,
-        //        Skip = query.RowsPerPage * query.PageNumber,
-        //        Select = new[] { IdField, NameField, ProfessorField, CourseField, UrlField,TypeFiled },
-        //    }, cancellationToken: cancelToken);
-        //    return result.Results.Select(s => new SearchBoxes
-        //    {
-        //        Id = long.Parse(s.Document.Id),
-        //        Name = s.Document.Name,
-        //        Professor = s.Document.Professor,
-        //        CourseCode = s.Document.Course,
-        //        Url = s.Document.Url,
-        //        Type = (BoxType)s.Document.Type.Value
-        //    });
-
-
-        //}
-
-
-        //public async Task<IEnumerable<SearchBoxes>> SearchBoxClassChooseAsync(
-        //    ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
-        //{
-        //    if (query == null) throw new ArgumentNullException(nameof(query));
-        //    var result = await m_IndexClient.Documents.SearchAsync<BoxSearch>(query.Term + "*", new SearchParameters
-        //    {
-        //        Filter = $"{UniversityIdField} eq {query.UniversityId}",
-        //        Top = query.RowsPerPage,
-        //        Skip = query.RowsPerPage * query.PageNumber,
-        //        OrderBy = new[] { ParentDepartmentField },
-        //        SearchFields = new[] { NameField, DepartmentField, ProfessorField, CourseField },
-        //        Select = new[] { IdField, NameField, ProfessorField, CourseField, ParentDepartmentField }
-        //    }, cancellationToken: cancelToken);
-        //    return result.Results.Select(s => new SearchBoxes(
-        //        SeachConnection.ConvertToType<long>(s.Document.Id),
-        //        s.Document.Name,
-        //        s.Document.Professor,
-        //        s.Document.Course,
-        //        s.Document.Url
-        //        )
-        //    {
-        //        Department = s.Document.ParentDepartment
-        //    }
-        //    ).ToList();
-        //}
 
         public async Task<IEnumerable<SearchBoxes>> SearchBoxAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
@@ -188,7 +146,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                         query.UniversityId, query.UserId),
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
-                Select = new[] { IdField, NameField, ProfessorField, CourseField, UrlField, TypeFiled,DepartmentIdField },
+                Select = new[] { IdField, NameField, ProfessorField, CourseField, UrlField, TypeFiled,DepartmentIdField , MembersField ,ItemsField},
             }, cancellationToken: cancelToken);
             return result.Results.Select(s => new SearchBoxes(
                 SeachConnection.ConvertToType<long>(s.Document.Id),
@@ -197,25 +155,12 @@ namespace Zbang.Zbox.Infrastructure.Search
                 s.Document.Course,
                 s.Document.Url,
                 s.Document.DepartmentId,
+                s.Document.ItemsCount.GetValueOrDefault(),
+                s.Document.MembersCount.GetValueOrDefault(),
                 (BoxType)s.Document.Type.GetValueOrDefault()
                 )
             ).ToList();
         }
-
-        //private static string HighLightInField(SearchResult<BoxSearch> record, string field, string defaultValue)
-        //{
-        //    if (record.Highlights == null)
-        //    {
-        //        return defaultValue;
-        //    }
-        //    IList<string> highLight;
-        //    if (record.Highlights.TryGetValue(field, out highLight))
-        //    {
-        //        return string.Join("...", highLight);
-        //    }
-        //    return defaultValue;
-        //}
-
         public void Dispose()
         {
             m_IndexClient.Dispose();

@@ -275,6 +275,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     catch (Exception ex)
                     {
                         TraceLog.WriteError("on elem " + elem, ex);
+                        wait.Set();
                     }
                 });
                 work.Start();
