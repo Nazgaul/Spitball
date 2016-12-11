@@ -16,6 +16,8 @@ namespace Zbang.Zbox.Infrastructure.Enums
         [ResourceDescription(typeof(EnumResources), "Hateful")]
         Hate,
         [ResourceDescription(typeof(EnumResources), "Other")]
-        Other
+        Other,
+        [ResourceDescription(typeof(EnumResources), "CannotView")]
+        CannotView
     }
 }

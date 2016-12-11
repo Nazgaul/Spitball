@@ -88,6 +88,15 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Item cannot be viewed.
+        /// </summary>
+        internal static string CannotView {
+            get {
+                return ResourceManager.GetString("CannotView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Female.
         /// </summary>
         internal static string Female {

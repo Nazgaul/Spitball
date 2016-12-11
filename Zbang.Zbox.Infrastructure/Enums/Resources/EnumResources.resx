@@ -165,4 +165,7 @@
   <data name="LikeTypeReply" xml:space="preserve">
     <value>Comment</value>
   </data>
+  <data name="CannotView" xml:space="preserve">
+    <value>Item cannot be viewed</value>
+  </data>
 </root>
