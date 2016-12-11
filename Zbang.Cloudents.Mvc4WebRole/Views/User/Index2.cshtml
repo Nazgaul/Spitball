@@ -28,11 +28,12 @@
                 </button>
             </div>
         </div>
-        <div class="points-container" @*ng-if="!u.isUserProfile"*@>
-            <h5 count-up id="points" end-val="{{::u.details.score}}" duration="3"></h5>
-            <h5>@UserResources.Points</h5>
-        </div>
-        <section class="points-info" hide-xs ng-if="::u.isUserProfile">
+        <label for="show-points-info" class="points-container" @*ng-if="!u.isUserProfile"*@>
+            <span count-up id="points" end-val="{{::u.details.score}}" duration="3"></span>
+            <span>@UserResources.Points</span>
+        </label>
+        <input id="show-points-info" type="checkbox" />
+        <section class="points-info" ng-if="::u.isUserProfile">
             <h1>@GamificationResources.GamificationTableTitle</h1>
             <table>
                 <tbody>
@@ -79,9 +80,9 @@
 
 
 
-          
+
         </section>
-      
+
     </div>
     <div class="profile-content">
         <div class="portlet light">
@@ -122,7 +123,7 @@
                         <div class="number" ng-bind="::u.details.numFriend | megaNumber"></div>
                     </md-tab-label>
                 </md-tab>
-                
+
             </md-tabs>
             <div class="page-animation" ui-view></div>
         </div>
