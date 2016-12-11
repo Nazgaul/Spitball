@@ -1112,7 +1112,7 @@ md-menu-item > a.md-button {
   color: #ffffff;
   background-color: #db4437;
 }
-.flashcards-list .content .draft-wpr {
+.flashcard-element .content .draft-wpr {
   background: #888b8e;
   display: -webkit-flex;
   display: -ms-flex;
@@ -1122,12 +1122,12 @@ md-menu-item > a.md-button {
   -webkit-align-items: center;
   align-items: center;
 }
-.flashcards-list .content .draft-wpr .draft {
+.flashcard-element .content .draft-wpr .draft {
   color: #ffffff;
   height: auto;
   font-size: 24px;
 }
-.flashcards-list .content md-icon {
+.flashcard-element .content md-icon {
   width: 40%;
   fill: rgba(255, 255, 255, 0.5);
 }
