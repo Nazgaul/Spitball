@@ -699,7 +699,7 @@ md-menu-item.blue svg {
   top: 0;
   z-index: 9999;
 }
-.like-toaster-template .md-icon {
+.like-toaster-template md-icon {
   width: 20px;
   height: 20px;
 }

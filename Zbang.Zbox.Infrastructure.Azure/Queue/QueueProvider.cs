@@ -26,10 +26,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
         {
             return GetQueue(QueueName.NewMailQueueName.ToLower());
         }
-        private CloudQueue GetDownloadContentFromUrlQueue()
-        {
-            return GetQueue(QueueName.DownloadContentFromUrl.ToLower());
-        }
+        //private CloudQueue GetDownloadContentFromUrlQueue()
+        //{
+        //    return GetQueue(QueueName.DownloadContentFromUrl.ToLower());
+        //}
 
         private CloudQueue GetThumbnailQueue()
         {
@@ -63,10 +63,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
             return GetThumbnailQueue().InsertToQueueProtoAsync(message);
         }
 
-        public async Task InsertMessageToDownloadAsync(UrlToDownloadData message)
-        {
-            await GetDownloadContentFromUrlQueue().InsertToQueueProtoAsync(message);
-        }
+        //public async Task InsertMessageToDownloadAsync(UrlToDownloadData message)
+        //{
+        //    await GetDownloadContentFromUrlQueue().InsertToQueueProtoAsync(message);
+        //}
 
         public CloudQueue GetQueue(string queueName)
         {

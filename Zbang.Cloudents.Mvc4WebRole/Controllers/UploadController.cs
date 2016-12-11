@@ -2,7 +2,6 @@
 using System.Data;
 using System.Data.Entity.Core;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -360,24 +359,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var blobAddressUri = Guid.NewGuid().ToString().ToLower() + Path.GetExtension(model.Name)?.ToLower();
 
-            var size = 0L;
-            bool notUploaded;
+            long size;
+           // bool notUploaded;
             try
             {
                 await m_BlobProviderFiles.UploadFromLinkAsync(model.Url, blobAddressUri);
                 size = await m_BlobProviderFiles.SizeAsync(blobAddressUri);
-                notUploaded = false;
+                //notUploaded = false;
             }
             catch (UnauthorizedAccessException)
             {
-                notUploaded = true;
+                return JsonError();
             }
-            if (notUploaded)
-            {
-                await m_QueueProvider.Value.InsertMessageToDownloadAsync(
-                    new UrlToDownloadData(model.Url, model.Name, model.BoxId, model.TabId, userId));
-                return JsonOk();
-            }
+            //if (notUploaded)
+            //{
+                //await m_QueueProvider.Value.InsertMessageToDownloadAsync(
+                //    new UrlToDownloadData(model.Url, model.Name, model.BoxId, model.TabId, userId));
+                //return JsonOk();
+            //}
             var command = new AddFileToBoxCommand(userId, model.BoxId, blobAddressUri,
                model.Name,
                 size, model.TabId, model.Question);
