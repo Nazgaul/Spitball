@@ -2,7 +2,7 @@
 @model Zbang.Cloudents.Mvc4WebRole.Models.Gamification
 <div class="badges-wrapper">
     <div class="badges-bar">
-        <md-tabs class="badges-tabs" md-dynamic-height="true">
+        <md-tabs class="badges-tabs" md-dynamic-height="true" md-stretch-tabs="always">
             <md-tab ui-sref="user.badge({type:'level'})" md-active="g.isActive('level')">
                 <md-tab-label><h4>@GamificationResources.Levels</h4></md-tab-label>
             </md-tab>
@@ -16,7 +16,6 @@
     </div>
     <div class="badges-tab-content" ng-switch="$state.params['type']">
         <div ng-switch-when="level" class="tab levels">
-            <md-icon md-svg-icon="p:stars" class="bg"></md-icon>
             <ul>
                 @foreach (var level in Model.Levels)
                 {
@@ -59,8 +58,8 @@
                 <div class="badge-container">
                     
                     <md-icon md-svg-icon="p:checkmark" ng-if="g.badgeInfo.data.progress === 100"></md-icon>
-                    <img class="image" ng-if="g.badgeInfo.data.progress === 100" ng-src="{{::g.badgeInfo.data.image}}" alt="{{g.badgeInfo.data.name}}" />
-                    <img class="image" ng-if="g.badgeInfo.data.progress !== 100" ng-src="{{::g.badgeInfo.data.imageHidden}}" alt="{{g.badgeInfo.data.name}}" />
+                    <img class="image" ng-if="g.badgeInfo.data.progress === 100" ng-src="{{g.badgeInfo.data.image}}" alt="{{g.badgeInfo.data.name}}" />
+                    <img class="image" ng-if="g.badgeInfo.data.progress !== 100" ng-src="{{g.badgeInfo.data.imageHidden}}" alt="{{g.badgeInfo.data.name}}" />
                     <div class="text" ng-bind="g.badgeInfo.data.name"></div>
                     <div class="progress">
                         <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{g.badgeInfo.data.progress}}"></md-progress-linear>

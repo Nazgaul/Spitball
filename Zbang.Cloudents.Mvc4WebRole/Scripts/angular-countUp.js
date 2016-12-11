@@ -183,10 +183,10 @@
 					animate();
 				}
 
-				// re-animate on click
-				$el.on('click', function() { 
-					animate();
-				});
+				//// re-animate on click
+				//$el.on('click', function() { 
+				//	animate();
+				//});
 			}
 		}
 	}]);
