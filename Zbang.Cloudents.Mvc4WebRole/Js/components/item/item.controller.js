@@ -39,7 +39,6 @@
         i.renameItem = renameItem;
         i.flagItem = flagItem;
         i.cancelFlag = cancelFlag;
-        i.like = like;
 
         i.showRename = showRename;
 
@@ -143,24 +142,8 @@
             i.selectedState = i.state.regular;
         }
 
-
-        function like() {
-            itemService.like(itemId, boxid);
-            if (i.details.like) {
-                i.details.likes--;
-            } else {
-                showToasterService.showToaster(resManager.get('toasterLikeItem'), 'main-nav');
-                i.details.likes++;
-            }
-            i.details.like = !i.details.like;
-
-            $timeout(function () {
-                $mdMenu.hide();
-            }, 2000);
-        }
-
         function showLikeToaster() {
-            showToasterService.showTemplateToaster('likeToasterTemplate.html', 'main-nav');
+            showToasterService.showTemplateToaster('likeToasterTemplate.html', 'likeToasterDialog as lt');
         }
 
     }

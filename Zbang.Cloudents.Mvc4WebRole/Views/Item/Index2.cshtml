@@ -35,10 +35,6 @@
                     @{ Html.RenderPartial("_FlagItem");}
                 </div>
                 <div class="item-actions" layout="row" layout-align="space-between center">
-                    <button class="fb-like content-wrapper" hide show-gt-xs ng-class="{blue : i.details.like}" layout="row" layout-align="space-between center" user-not-register-popup="click" type="button" ng-click="i.like()" ga-track-event="['itemPage', 'like item']">
-                        <span><md-icon md-svg-icon="b:like"></md-icon></span>
-                        <span>{{i.details.likes}}</span>
-                    </button>
                     <a hide-xs target="_blank" ng-click="i.followBox()" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']"><md-icon md-svg-icon="i:download"></md-icon></a>
                     <a hide-xs user-not-register-popup="click" ng-click="i.followBox()" target="_blank" href="{{i.details.printUrl}}"><md-icon md-svg-icon="i:print"></md-icon></a>
                     <div class="item-menu">
@@ -65,14 +61,6 @@
                                 <md-menu-item>
                                     <md-button ng-click="i.selectedState = i.state.flag" ga-track-event="['itemPage', 'flag']">
                                         @ItemsResources.Flag
-                                    </md-button>
-                                </md-menu-item>
-                                <md-menu-item hide-gt-xs ng-class="{blue : i.details.like}">
-                                    <md-button md-prevent-menu-close user-not-register-popup="click" ng-click="i.like()" ga-track-event="['itemPage', 'like item']">
-                                        <div class="fb-like content-wrapper" layout="row" layout-align="start center" user-not-register-popup="click">
-                                            <md-icon md-svg-icon="b:like"></md-icon>
-                                            <span>{{i.details.likes}}</span>
-                                        </div>
                                     </md-button>
                                 </md-menu-item>
                             </md-menu-content>

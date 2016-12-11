@@ -1493,6 +1493,7 @@
     <TypeScriptCompile Include="Js\components\flashcard\flashcard.routes.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\flashcard.service.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\interaction.directive.ts" />
+    <TypeScriptCompile Include="Js\components\item\likeToasterController.ts" />
     <TypeScriptCompile Include="Js\components\item\dropFileClass.directive.ts" />
     <TypeScriptCompile Include="Js\components\item\item.service.ts" />
     <TypeScriptCompile Include="Js\components\library\classChooseCreateDialog.controller.ts" />

@@ -110,11 +110,20 @@
     </div>
 </script>
 <script defer type="text/ng-template" id="likeToasterTemplate.html">
-    <div class="like-toaster-template">
-        <div class="">@ItemsResources.LikeToasterText</div>
-        <button class="fb-like content-wrapper" user-not-register-popup="click" type="button" ga-track-event="['itemPage', 'like item']">
-            <span><md-icon md-svg-icon="b:like"></md-icon></span>
-            <span>@GeneralResources.Like</span>
-        </button>
-    </div>
+    <md-toast class="like-toaster-template">
+        <div class="wrapper" layout="row" layout-align="space-between center">
+            <div class="like-area">
+                <div class="text">@ItemsResources.LikeToasterText</div>
+                <button class="fb-like content-wrapper" ng-click="lt.like()" ng-class="{blue : lt.details.like}" user-not-register-popup="click" type="button" ga-track-event="['itemPage', 'like item']">
+                    <div>
+                        <md-icon md-svg-icon="b:like"></md-icon>
+                        <div class="button-text">@GeneralResources.Like</div>
+                    </div>
+                </button>
+            </div>
+            <button class="close" ng-click="lt.close()">
+                <md-icon md-svg-icon="t:close"></md-icon>
+            </button>
+        </div>
+    </md-toast>
 </script>

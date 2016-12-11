@@ -74,7 +74,7 @@ md-menu-item.blue svg {
 }
 .itemPage header .item-actions a,
 .itemPage header .close-btn a {
-  margin: 0 15px;
+  margin: 0 10px;
   display: inline-block;
 }
 .itemPage header .item-actions svg,
@@ -153,6 +153,7 @@ md-menu-item.blue svg {
   margin: 0;
   min-height: 0;
   padding: 0;
+  width: 30px;
 }
 .itemPage header .top-wrapper .name-actions .item-actions a svg {
   display: inherit;
@@ -249,7 +250,7 @@ md-menu-item.blue svg {
 }
 .itemPage .fileName .info {
   line-height: 0;
-  margin-left: 10px;
+  margin: 0 15px;
   position: relative;
   cursor: pointer;
 }
@@ -693,13 +694,110 @@ md-menu-item.blue svg {
   }
 }
 .like-toaster-template {
-  background: #ffce2f;
   width: 100%;
   position: fixed;
   top: 0;
-  z-index: 9999;
+  z-index: 11;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  padding: 0;
 }
-.like-toaster-template md-icon {
+.like-toaster-template .md-toast-content {
+  background: #ffce2f;
+}
+.like-toaster-template .wrapper {
+  width: 100%;
+  max-width: 860px;
+  padding: 0 80px 0 10px;
+  margin: 0 auto;
+  height: 65px;
+}
+@media (max-width: 960px) {
+  .like-toaster-template .wrapper {
+    padding: 0 44px 0 48px;
+  }
+}
+@media (max-width: 900px) {
+  .like-toaster-template .wrapper {
+    padding: 0 0 0 62px;
+    max-width: 800px;
+  }
+}
+@media (max-width: 600px) {
+  .like-toaster-template .wrapper {
+    padding-left: 10px;
+  }
+}
+.like-toaster-template .wrapper .like-area {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+  font-size: 18px;
+  font-weight: bold;
+  color: #777471;
+}
+.like-toaster-template .wrapper .like-area .text {
+  margin-bottom: -2px;
+}
+@media (max-width: 600px) {
+  .like-toaster-template .wrapper .like-area .text {
+    font-size: 14px;
+  }
+}
+.like-toaster-template .wrapper .like-area button > div {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  width: 92px;
+  background: #ffffff;
+  border-radius: 5px;
+  margin-left: 10px;
+  font-weight: normal;
+}
+@media (max-width: 600px) {
+  .like-toaster-template .wrapper .like-area button > div {
+    width: 76px;
+  }
+}
+.like-toaster-template .wrapper .like-area button > div .button-text {
+  font-size: 16px;
+  margin-bottom: -2px;
+  line-height: 30px;
+  color: #777471;
+}
+@media (max-width: 600px) {
+  .like-toaster-template .wrapper .like-area button > div .button-text {
+    font-size: 14px;
+  }
+}
+.like-toaster-template .wrapper .like-area button > div md-icon {
+  fill: #777471;
   width: 20px;
   height: 20px;
+  margin-right: 10px;
+}
+@media (max-width: 600px) {
+  .like-toaster-template .wrapper .like-area button > div md-icon {
+    width: 16px;
+    height: 16px;
+  }
+}
+.like-toaster-template .wrapper .like-area button.blue > div {
+  background: #4190b9;
+}
+.like-toaster-template .wrapper .like-area button.blue > div .button-text {
+  color: #ffffff;
+}
+.like-toaster-template .wrapper .like-area button.blue > div md-icon {
+  fill: #ffffff;
+}
+.like-toaster-template .wrapper md-icon {
+  fill: #888b8e;
 }
