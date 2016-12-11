@@ -224,12 +224,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [HttpGet]
-        [DonutOutputCache(CacheProfile = "PartialPage")]
-        public ActionResult InfoDialog()
-        {
-            return PartialView();
-        }
 
 
         [HttpGet, ZboxAuthorize, ActionName("GamificationBoard")]

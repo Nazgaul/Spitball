@@ -153,9 +153,6 @@
   <data name="Oops" xml:space="preserve">
     <value>Oops!</value>
   </data>
-  <data name="Pts" xml:space="preserve">
-    <value>Points</value>
-  </data>
   <data name="Remove" xml:space="preserve">
     <value>Delete file</value>
   </data>
@@ -167,12 +164,6 @@
   </data>
   <data name="Share" xml:space="preserve">
     <value>Please enter the URL you wish to share here</value>
-  </data>
-  <data name="Suggested" xml:space="preserve">
-    <value>Suggested</value>
-  </data>
-  <data name="Uni" xml:space="preserve">
-    <value>University Page</value>
   </data>
   <data name="UploadFailed" xml:space="preserve">
     <value>upload failed</value>

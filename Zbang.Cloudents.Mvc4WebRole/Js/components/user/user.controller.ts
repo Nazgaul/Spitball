@@ -108,16 +108,7 @@
         //}
 
 
-        //function showInfo() {
-        //    $mdDialog.show({
-        //        templateUrl: '/user/infodialog/',
-        //        parent: angular.element(document.body),
-        //        clickOutsideToClose: true,
-        //        controller: "gamificationDialog",
-        //        controllerAs: "gd",
-        //        //fullscreen: true
-        //    });
-        //}
+        
     }
 
     angular.module('app.user').controller('UserController', User);

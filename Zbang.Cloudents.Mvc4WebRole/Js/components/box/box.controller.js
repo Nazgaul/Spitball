@@ -3,7 +3,7 @@ var app;
     "use strict";
     var boxId;
     var BoxController = (function () {
-        function BoxController($state, $stateParams, boxData, $scope, $rootScope, user, resManager, boxService, ajaxService2, $timeout, $window, userUpdatesService, shareService, showToasterService) {
+        function BoxController($state, $stateParams, boxData, $scope, $rootScope, user, resManager, boxService, ajaxService2, $timeout, $window, userUpdatesService, shareService, showToasterService, $mdDialog) {
             var _this = this;
             this.$state = $state;
             this.$stateParams = $stateParams;
@@ -19,6 +19,7 @@ var app;
             this.userUpdatesService = userUpdatesService;
             this.shareService = shareService;
             this.showToasterService = showToasterService;
+            this.$mdDialog = $mdDialog;
             boxId = $stateParams.boxId;
             this.data = boxData;
             this.needFollow = boxData.userType === "invite" || boxData.userType === "none";
@@ -122,9 +123,19 @@ var app;
             this.settingsOpen = this.inviteOpen = false;
             this.shareService.shareDialog("b", boxId);
         };
+        BoxController.prototype.showLeaderboard = function () {
+            this.$mdDialog.show({
+                templateUrl: "/box/leaderboardpartial/",
+                clickOutsideToClose: true,
+                controller: "Leaderboard",
+                controllerAs: "g",
+                fullscreen: false
+            });
+        };
         BoxController.$inject = ["$state", "$stateParams", "boxData", "$scope",
             "$rootScope", "user", "resManager", "boxService", "ajaxService2",
-            "$timeout", "$window", "userUpdatesService", "shareService", "showToasterService"];
+            "$timeout", "$window", "userUpdatesService", "shareService",
+            "showToasterService", "$mdDialog"];
         return BoxController;
     }());
     angular.module('app.box').controller('BoxController', BoxController);

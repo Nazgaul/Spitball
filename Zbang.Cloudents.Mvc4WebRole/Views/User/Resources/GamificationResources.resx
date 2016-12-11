@@ -146,54 +146,21 @@
     <value>Few have made it this far, and even fewer will make it further. Are you ready to teach other students the key to success?</value>
     <comment>Via Code</comment>
   </data>
-  <data name="InfoText" xml:space="preserve">
-    <value>Earn points and badges by contributing to your community through specific actions, and rise up through the levels to gain special privileges that control what you can do on Spitball.</value>
-  </data>
-  <data name="InfoTitle" xml:space="preserve">
-    <value>What are point and levels and what are they good for...</value>
-  </data>
-  <data name="PointsDescription1" xml:space="preserve">
-    <value>Creating a quiz</value>
-  </data>
-  <data name="PointsDescription2" xml:space="preserve">
-    <value>Each accepted invite</value>
-  </data>
-  <data name="PointsDescription3" xml:space="preserve">
-    <value>Each accepted class invite</value>
-  </data>
-  <data name="PointsDescription4" xml:space="preserve">
-    <value>Upload a document to a class</value>
-  </data>
-  <data name="PointsDescription5" xml:space="preserve">
-    <value>Reply to a Class Feed comment</value>
-  </data>
-  <data name="PointsDescription6" xml:space="preserve">
-    <value>Getting a like</value>
-  </data>
-  <data name="PointsDescription7" xml:space="preserve">
-    <value>Sharing on FB</value>
-  </data>
-  <data name="PointsDescription8" xml:space="preserve">
-    <value>Submit a Class Feed comment</value>
-  </data>
-  <data name="Points" xml:space="preserve">
-    <value>pts</value>
-  </data>
   <data name="BadgeCreateQuizzesDescription" xml:space="preserve">
     <value>Create 5 quiz</value>
-  </data>
+  <comment>Via Code</comment></data>
   <data name="BadgeFollowClassDescription" xml:space="preserve">
     <value>Follow 3 Classes</value>
-  </data>
+  <comment>Via Code</comment></data>
   <data name="BadgeLikesDescription" xml:space="preserve">
     <value>Like 50 posts or docs that you really think are of great value to unlock this badge</value>
-  </data>
+  <comment>Via Code</comment></data>
   <data name="BadgeRegisterDescription" xml:space="preserve">
     <value>Register</value>
-  </data>
+  <comment>Via Code</comment></data>
   <data name="BadgeUploadFilesDescription" xml:space="preserve">
     <value>You have one job: upload 15 documents to your class</value>
-  </data>
+  <comment>Via Code</comment></data>
   <data name="LeaderboardShowAll" xml:space="preserve">
     <value>Show all</value>
   </data>
@@ -202,5 +169,8 @@
   </data>
   <data name="Badge" xml:space="preserve">
     <value>Badge</value>
+  </data>
+  <data name="GamificationTableTitle" xml:space="preserve">
+    <value>Earning points</value>
   </data>
 </root>

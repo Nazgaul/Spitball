@@ -129,9 +129,6 @@
   <data name="EmptyStateSubtitle" xml:space="preserve">
     <value>Check if you typed the name correctly</value>
   </data>
-  <data name="DisconnectedHeader" xml:space="preserve">
-    <value>There was a problem connecting to chat</value>
-  </data>
   <data name="DisconnectedText" xml:space="preserve">
     <value>Connecting...</value>
   </data>

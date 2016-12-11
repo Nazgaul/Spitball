@@ -117,44 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Accepted" xml:space="preserve">
-    <value>150 נקודות בעבור הזמנת חבר שנענה</value>
-  </data>
-  <data name="AcceptedToCourse" xml:space="preserve">
-    <value>50 נקודות בעבור הזמנת חבר לקורס שנענה</value>
-  </data>
-  <data name="Answering" xml:space="preserve">
-    <value>100 נקודות בעבור תגובה להודעה בעמוד העדכונים הכיתתי</value>
-  </data>
-  <data name="Asking" xml:space="preserve">
-    <value>50 נקודות בעבור הודעה בעמוד העדכונים הכיתתי</value>
-  </data>
-  <data name="Creating" xml:space="preserve">
-    <value>50 נקודות בעבור יצירת מבחן מקוון</value>
-  </data>
   <data name="Points" xml:space="preserve">
     <value>נקודות</value>
   </data>
   <data name="Posts" xml:space="preserve">
     <value>הודעות</value>
   </data>
-  <data name="ShareFB" xml:space="preserve">
-    <value>50 נקודות בעבור שיתוף בפייסבוק</value>
-  </data>
-  <data name="UploadItem" xml:space="preserve">
-    <value>100 נקודות בעבור העלאת קובץ לקורס</value>
-  </data>
   <data name="Uploads" xml:space="preserve">
     <value>העלאות</value>
   </data>
-  <data name="Likes" xml:space="preserve">
-    <value>150 נקודות בעבור קבלת לייק</value>
-  </data>
   <data name="Share" xml:space="preserve">
     <value>שתף</value>
-  </data>
-  <data name="PointMenu2" xml:space="preserve">
-    <value>למידה חברתית</value>
   </data>
   <data name="MessageButton" xml:space="preserve">
     <value>הודעה אישית</value>

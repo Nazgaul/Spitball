@@ -129,9 +129,6 @@
   <data name="EmptyStateSubtitle" xml:space="preserve">
     <value>בידקו אם הקלדתם את השם נכון</value>
   </data>
-  <data name="DisconnectedHeader" xml:space="preserve">
-    <value>ישנה בעיה בהתחברות לצ'אט</value>
-  </data>
   <data name="DisconnectedText" xml:space="preserve">
     <value>מתחבר...</value>
   </data>
