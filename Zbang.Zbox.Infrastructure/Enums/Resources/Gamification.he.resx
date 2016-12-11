@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,57 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Levels" xml:space="preserve">
-    <value>שלבים</value>
+  <data name="BadgeCreateQuizzes" xml:space="preserve">
+    <value>בוחן פתע</value>
   </data>
-  <data name="Leaderboard" xml:space="preserve">
-    <value>טבלת המובילים</value>
+  <data name="BadgeLikes" xml:space="preserve">
+    <value>נשיקה מלנה</value>
   </data>
-  <data name="BadgeUploadFilesDescription" xml:space="preserve">
-    <value>תהיה חבר - העלה 15 מסמכים</value>
+  <data name="BadgeRegister" xml:space="preserve">
+    <value>ספיטבולר</value>
   </data>
-  <data name="Level4Description" xml:space="preserve">
-    <value>אתה כבר משתמש ותיק ומנוסה - תרמת למערכת יותר מרוב הסטודנטים, המשך להוות דוגמא לדורות הבאים!</value>
+  <data name="BadgeUploadFiles" xml:space="preserve">
+    <value>גיל המציל</value>
   </data>
-  <data name="Level2Description" xml:space="preserve">
-    <value>אתה כבר לא הסטודנט החדש בקמפוס! עם זאת, עוד ארוכה הדרך ולימודים רבים עוד לפנייך. המשך כך וההישגים עוד יגיעו!</value>
+  <data name="Level1" xml:space="preserve">
+    <value>סטודנט</value>
   </data>
-  <data name="Level1Description" xml:space="preserve">
-    <value>ברוך הבא לספיטבול!
-עשית את הצעד הראשון בדרך לקריירה אקדמית מפוארת. עבוד קשה ותוכל לטפס בטבלת המובילים ולזכות בהערצת חבריך.
-</value>
+  <data name="Level2" xml:space="preserve">
+    <value>מתרגל</value>
   </data>
-  <data name="BadgeCreateQuizzesDescription" xml:space="preserve">
-    <value>צור 5 מבחנים מקוונים</value>
+  <data name="Level3" xml:space="preserve">
+    <value>דוקטורנט</value>
   </data>
-  <data name="BadgeFollowClassDescription" xml:space="preserve">
-    <value>עקוב אחרי 3 קורסים</value>
+  <data name="Level4" xml:space="preserve">
+    <value>מרצה</value>
   </data>
-  <data name="BadgeLikesDescription" xml:space="preserve">
-    <value>פרגן ב"אהבתי" ל-50 פוסטים או מסמכים על מנת לזכות במדליה זו</value>
+  <data name="Level5" xml:space="preserve">
+    <value>פרופסור</value>
   </data>
-  <data name="BadgeRegisterDescription" xml:space="preserve">
-    <value>הירשם</value>
-  </data>
-  <data name="Level3Description" xml:space="preserve">
-    <value>אתה כבר ותיק במערכת! סטודנטים חדשים יכול לסמוך על הידע והניסיון שלך. בקצב הנוכחי עוד תגיע לפסגה!</value>
-  </data>
-  <data name="Level5Description" xml:space="preserve">
-    <value>אתה קרוב לפסגה ומעטים המשתמשים שבקיאים כמוך במערכת. אולי תחלוק עם שאר הסטודנטים את סודותייך להצלחה בלימודים?</value>
-  </data>
-  <data name="LeaderboardShowMySelf" xml:space="preserve">
-    <value>הצג ת'מיקום שלי</value>
-  </data>
-  <data name="LeaderboardShowAll" xml:space="preserve">
-    <value>הצג הכל</value>
-  </data>
-  <data name="GamificationTableTitle" xml:space="preserve">
-    <value>שיטת הניקוד</value>
-  </data>
-  <data name="Badge" xml:space="preserve">
-    <value>מדליה</value>
-  </data>
-  <data name="Badges" xml:space="preserve">
-    <value>מדליות</value>
+  <data name="BadgeFollowClass" xml:space="preserve">
+    <value>עקוב אחריי</value>
   </data>
 </root>

@@ -154,6 +154,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var model = await ZboxReadService.GetBoxSeoAsync(query);
+                if (Request.IsAjaxRequest())
+                {
+                    return JsonOk(model.Url);
+                }
                 return RedirectPermanent(model.Url);
             }
             catch (BoxDoesntExistException ex)
@@ -230,7 +234,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var query = new GetBoxQuery(id);
                 var result = await ZboxReadService.GetBox2Async(query);
                 result.UserType = ViewBag.UserType;
-                result.ShortUrl = UrlConst.BuildShortBoxUrl(new Base62(id).ToString());
+                //result.ShortUrl = UrlConst.BuildShortBoxUrl(new Base62(id).ToString());
 
                 if (IsCrawler())
                 {
@@ -246,7 +250,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         result.OwnerId,
                         result.PrivacySetting,
                         result.Quizes,
-                        result.ShortUrl,
+                        //result.ShortUrl,
                         result.UserType
                     });
                 }

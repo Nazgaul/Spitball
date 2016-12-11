@@ -33,7 +33,7 @@ namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
 
         public BoxType BoxType { get; set; }//new
 
-        public string ShortUrl { get; set; }
+        //public string ShortUrl { get; set; }
 
        
     }

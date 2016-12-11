@@ -165,4 +165,7 @@
   <data name="LikeTypeReply" xml:space="preserve">
     <value>תגובה</value>
   </data>
+  <data name="CannotView" xml:space="preserve">
+    <value>המסמך אינו ניתן לצפייה</value>
+  </data>
 </root>

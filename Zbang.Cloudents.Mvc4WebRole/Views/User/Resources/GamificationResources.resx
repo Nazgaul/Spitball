@@ -147,13 +147,13 @@
     <comment>Via Code</comment>
   </data>
   <data name="BadgeCreateQuizzesDescription" xml:space="preserve">
-    <value>Create 5 quiz</value>
+    <value>Create 5 Quizzes</value>
   <comment>Via Code</comment></data>
   <data name="BadgeFollowClassDescription" xml:space="preserve">
     <value>Follow 3 Classes</value>
   <comment>Via Code</comment></data>
   <data name="BadgeLikesDescription" xml:space="preserve">
-    <value>Like 50 posts or docs that you really think are of great value to unlock this badge</value>
+    <value>Like 50 posts or docs that you think are of great value to unlock this badge</value>
   <comment>Via Code</comment></data>
   <data name="BadgeRegisterDescription" xml:space="preserve">
     <value>Register</value>
@@ -165,12 +165,12 @@
     <value>Show all</value>
   </data>
   <data name="LeaderboardShowMySelf" xml:space="preserve">
-    <value>Show my self</value>
+    <value>Show My Rank</value>
   </data>
   <data name="Badge" xml:space="preserve">
     <value>Badge</value>
   </data>
   <data name="GamificationTableTitle" xml:space="preserve">
-    <value>Earning points</value>
+    <value>Points System</value>
   </data>
 </root>
