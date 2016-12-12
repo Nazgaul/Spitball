@@ -16,7 +16,7 @@
         <div class="user-data" ng-repeat="user in g.leaderboard track by user.id">
             <div class="rank" ng-bind="::(user.location || $index+1 + startIndex)"></div>
             <a class="img-wrapper" ng-attr-id="{{'user_' + user.id}}" ui-sref="user({userId:user.id,userName:user.name})">
-                <user-image class="img-responsive" name="user.name" image="user.image" width="68" height="68"></user-image>
+                <user-image class="img-responsive" name="user.name" image="user.image" width="60" height="60"></user-image>
             </a>
             <div class="progress-user">
                 <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{::user.progress}}"></md-progress-linear>

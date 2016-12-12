@@ -84,10 +84,12 @@
         z-index: 0;
         position: absolute;
         overflow: hidden;
-        width: 100px;
+        width: 80px;
 
         md-icon {
-            fill: @textColorWhite;
+            fill: rgba(255,255,255,0.9);
+            margin-left: -10px;
+            width: 80px;
         }
     }
 
@@ -97,29 +99,35 @@
 
     .bg-r {
         right: 0;
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
     }
 
     .top {
         .points {
             text-align: center;
-            padding-bottom: 42px;
+            padding-bottom: 35px;
         }
 
         .points-wrapper {
             display: inline-block;
             font-size: 38px;
             position: relative;
-            padding: 5px 18px 14px 18px;
+            padding: 5px 18px 24px 18px;
             color: @gamificationYellow;
             background: @headerbackground;
-            border-radius: 0 0 5px 5px;
+            border-radius: 0 0 10px 10px;
             font-weight: bold;
             min-width: 60%;
 
             span:not(.number) {
                 position: absolute;
                 font-size: 12px;
-                bottom: 5px;
+                bottom: 6px;
                 width: 100%;
                 left: 0;
                 text-transform: capitalize;
@@ -131,12 +139,12 @@
             font-size: 14px;
             margin: 14px 0;
             position: absolute;
-            top: 56px;
+            top: 66px;
             width: 100%;
         }
 
         .custom-progress-bar {
-            .custom-progress-bar(@gamificationYellow, @backgroundCalmGrey, 14px);
+            .custom-progress-bar(#5d6d7e, @backgroundCalmGrey, 14px);
             padding: 0 10px;
 
             .md-container .md-bar {
@@ -331,7 +339,7 @@
 
     .content {
         max-width: 840px;
-        padding: 0 20px 30px 20px;
+        padding: 0 0 30px 0;
         margin: 22px auto;
 
         @media(max-width: 600px) {
@@ -339,8 +347,9 @@
         }
 
         .filter-wrapper {
-            padding-left: 190px;
-            padding-bottom: 10px;
+            text-align: right;
+            margin-bottom: -24px;
+            padding: 0 20px;
 
             @media(max-width: 600px) {
                 padding-left: 86px;
@@ -357,7 +366,11 @@
                 .displayFlex;
                 .align-items(stretch);
                 color: @GreyBlue;
-                padding: 12px 0;
+                padding: 6px 20px;
+
+                &.current-user {
+                    background: rgb(187, 203, 211);
+                }
 
                 @media(max-width: 600px) {
                     padding: 8px 0;
@@ -396,6 +409,7 @@
 
                 .img-wrapper {
                     border-radius: 100%;
+                    margin: 6px 0;
 
                     @media(max-width: 600px) {
                         width: 36px;
@@ -456,13 +470,17 @@
     }
 
     .custom-progress-bar {
-        .custom-progress-bar(@gamificationYellow,@backgroundColor,12px);
+        .custom-progress-bar(@gamificationYellow,@backgroundColor,16px);
     }
 }
 
 .feed-wrapper .community {
     .top {
-        height: 70px;
+        height: 76px;
+
+        .title {
+            margin-bottom: 6px;
+        }
     }
 
     .bg-r, .bg-l {
@@ -470,23 +488,30 @@
     }
 
     .filter-wrapper {
-        text-align: center;
+        text-align: right;
         padding: 10px 0 0 0;
+
+        .action-btn {
+            line-height: 14px;
+            font-size: 14px;
+            padding: 4px 10px;
+            min-width: 0;
+        }
     }
 
     .content {
         background: @textColorWhite;
         margin-top: 0;
-        padding: 0 5px;
+        padding: 0 10px;
 
         .users {
             .user-data {
-                padding: 8px 0;
+                padding: 4px 0;
 
                 .img-wrapper {
                     width: 36px;
                     height: 36px;
-                    margin: 5px 0;
+                    margin: 9px 0;
                 }
 
                 .img-wrapper span {
@@ -499,7 +524,7 @@
                 }
 
                 .rank, .points {
-                    min-width: 30px;
+                    min-width: 40px;
                 }
 
                 .rank {
@@ -512,7 +537,7 @@
 
                 .progress-user .text {
                     font-size: 12px;
-                    padding: 0;
+                    padding: 0 5px;
                 }
             }
         }
