@@ -22,7 +22,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
         private readonly IGuidIdGenerator m_IdGenerator;
         private readonly IRepository<Comment> m_CommentRepository;
         private readonly IUserRepository m_UserRepository;
-        //private readonly IRepository<Reputation> m_ReputationRepository
 
 
 
@@ -33,7 +32,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             IItemRepository itemRepository,
             IGuidIdGenerator idGenerator,
             IRepository<Comment> commentRepository, IUserRepository userRepository
-            //IRepository<Reputation> reputationRepository
             )
         {
             m_QuizRepository = quizRepository;
@@ -43,7 +41,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             m_IdGenerator = idGenerator;
             m_CommentRepository = commentRepository;
             m_UserRepository = userRepository;
-            // m_ReputationRepository = reputationRepository;
         }
         public async Task<SaveQuizCommandResult> ExecuteAsync(SaveQuizCommand message)
         {
@@ -101,7 +98,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 
             m_UserRepository.Save(quiz.User);
 
-            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(quiz.User.Id, quiz.Box.Id, null, null, null, quiz.Id));
+            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(quiz.User.Id, quiz.Box.Id, quizId: quiz.Id));
             var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new CreateQuizzesBadgeData(quiz.User.Id));
             var t5 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(quiz.Box.Id));
 

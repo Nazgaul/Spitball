@@ -30,7 +30,10 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
                     parameters.QuestionId,
                     parameters.AnswerId,
                     parameters.ItemId,
-                    parameters.QuizId, parameters.ItemDiscussionId, parameters.ItemDiscussionReplyId,parameters.QuizDiscussionId)
+                    parameters.QuizId,
+                    parameters.ItemDiscussionId,
+                    parameters.ItemDiscussionReplyId,
+                    parameters.QuizDiscussionId)
                     );
             }
             catch (Exception ex)

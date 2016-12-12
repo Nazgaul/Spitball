@@ -1,7 +1,5 @@
 ﻿module app {
     "use strict";
-    //item.$inject = ['$stateParams', 'itemService', '$sce', '$location', '$q', 'user',
-    //    'itemData', '$scope', '$rootScope', 'resManager', '$timeout', '$mdMenu', '$state', '$mdToast'];
     enum State {
         Regular = 0,
         Rename = 1,
