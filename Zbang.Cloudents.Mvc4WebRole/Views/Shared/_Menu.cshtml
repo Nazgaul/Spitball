@@ -102,6 +102,6 @@
 <script type="text/ng-template" id="partials/menu-link.tmpl.html">
     <a class="md-button" ng-class="{active: isSectionSelected(section.url)}" ng-href="{{::section.url}}">
         <span ng-bind="::section.name"></span>
-        <span class="badge badge-danger" ng-if="section.updates !== 0">{{section.updates > 99 ? "99+" : section.updates}}</span>
+        <span class="badge badge-danger" ng-if="section.updates === 0"><span>{{section.updates > 99 ? "99+" : section.updates}}</span></span>
     </a>
 </script>

@@ -229,7 +229,9 @@
   -webkit-justify-content: center;
   justify-content: center;
   flex-shrink: 0;
-  padding: 0 7px;
+  padding: 0 6px;
+  height: 18px;
+  min-width: 18px;
   background-color: #F3565D;
 }
 .main-md-sidenav .menu-toggle-list {
