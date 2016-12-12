@@ -25,7 +25,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         private readonly SearchIndexClient m_IndexClient;
         private readonly ISearchFilterProvider m_FilterProvider;
 
-
+        private object lockObj;
         public ItemSearchProvider3(ISearchFilterProvider filterProvider, ISearchConnection connection)
         {
             m_FilterProvider = filterProvider;
@@ -74,39 +74,39 @@ namespace Zbang.Zbox.Infrastructure.Search
                 new Field(BlobNameField, DataType.String) { IsRetrievable = true}
 
             });
-            var scoringFunction = new TagScoringFunction("university", 2, UniversityidField);
-            //var scoringFunction = new TagScoringFunction(new TagScoringParameters("university"),
-            //    UniversityidField, 2);
+            var scoringFunction = new TagScoringFunction(UniversityidField, 2, "university");
             var scoringProfile = new ScoringProfile(ScoringProfileName)
             {
                 FunctionAggregation = ScoringFunctionAggregation.Sum,
-
+                Functions = new List<ScoringFunction>
+                {
+                    scoringFunction
+                }
             };
-            scoringProfile.Functions.Add(scoringFunction);
-            index.ScoringProfiles.Add(scoringProfile);
+            index.ScoringProfiles = new List<ScoringProfile> { scoringProfile };
             return index;
         }
 
-        //private async Task BuildIndexAsync()
-        //{
-        //    try
-        //    {
-        //        // m_Connection.SearchClient.Indexes.Delete(m_IndexName);
-        //        await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure());
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("on item build index", ex);
-        //    }
-        //    m_CheckIndexExists = true;
-        //}
+        private async Task BuildIndexAsync()
+        {
+            try
+            {
+                await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure());
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("on item build index", ex);
+            }
+            m_CheckIndexExists = true;
+        }
 
         public async Task UpdateDataAsync(ItemSearchDto itemToUpload, IEnumerable<long> itemToDelete)
         {
-            //if (!m_CheckIndexExists)
-            //{
-                //  await BuildIndex();
-            //}
+            if (!m_CheckIndexExists)
+            {
+                await BuildIndexAsync();
+
+            }
             //var listOfCommands = new List<IndexAction<ItemSearch>>();
             if (itemToUpload != null)
             {

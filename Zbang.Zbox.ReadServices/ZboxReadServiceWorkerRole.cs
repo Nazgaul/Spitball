@@ -251,27 +251,14 @@ namespace Zbang.Zbox.ReadServices
                     , new { id }))
                 {
                     var retVal = await grid.ReadSingleAsync<UniversitySearchDto>();
-                    //var retVal = new UniversityToUpdateSearchDto
-                    //{
-                    //    UniversitiesToUpdate = await grid.ReadAsync<UniversitySearchDto>()
-                    //};
                     retVal.UsersImages = (await grid.ReadAsync<UserImagesForUniversitySearchDto>()).Select(s => s.Image);
-                    //var userImagesForUniversitySearchDtos = images as UserImagesForUniversitySearchDto[] ??
-                    //                                        images.ToArray();
-                    //foreach (var university in retVal.UniversitiesToUpdate)
-                    //{
-                    //    UniversitySearchDto university1 = university;
-                    //    university.UsersImages =
-                    //        userImagesForUniversitySearchDtos.Where(w => w.UniversityId == university1.Id)
-                    //            .Select(s => s.Image);
-                    //}
                     return retVal;
 
                 }
             }
         }
 
-        public async Task<BoxToUpdateSearchDto> GetBoxDirtyUpdatesAsync(int index, int total, int top,
+        public async Task<BoxSearchDto> GetBoxDirtyUpdatesAsync(long id,
             CancellationToken token)
         {
             using (var conn = await DapperConnection.OpenReliableConnectionAsync(token))
@@ -284,8 +271,49 @@ namespace Zbang.Zbox.ReadServices
                         (Search.GetBoxToUploadToSearch +
                          Search.GetBoxUsersToUploadToSearch +
                          Search.GetBoxDepartmentToUploadToSearch +
-                         Search.GetBoxFeedToUploadToSearch +
-                         Search.GetBoxToDeleteToSearch, new { index, count = total, top }))
+                         Search.GetBoxFeedToUploadToSearch
+                         , new { boxid = id }))
+                    {
+                        var retVal = await grid.ReadSingleAsync<BoxSearchDto>();
+                        retVal.UserIds = await grid.ReadAsync<long>();
+                        retVal.Department = await grid.ReadAsync<string>();
+                        retVal.Feed = await grid.ReadAsync<string>();
+                        //var retVal = new BoxSearchDto
+                        //{
+                        //    BoxesToUpdate = await grid.ReadAsync<BoxSearchDto>()
+                        //};
+                        //var usersInBoxes = grid.Read<UsersInBoxSearchDto>().ToList();
+                        //var departmentsOfBoxes = grid.Read<DepartmentOfBoxSearchDto>().ToList();
+                        //var feedOfBoxes = grid.Read<FeedOfBoxSearchDto>().ToList();
+                        //foreach (var box in retVal.BoxesToUpdate)
+                        //{
+                        //    var boxid = box.Id;
+                        //    box.UserIds = usersInBoxes.Where(w => w.BoxId == boxid).Select(s => s.UserId);
+                        //    box.Department = departmentsOfBoxes.Where(w => w.BoxId == boxid).Select(s => s.Name);
+                        //    box.Feed = feedOfBoxes.Where(w => w.BoxId == boxid).Select(s => s.Text);
+                        //}
+                        return retVal;
+                    }
+                }, token);
+
+            }
+        }
+
+        public async Task<BoxToUpdateSearchDto> GetBoxesDirtyUpdatesAsync(int index, int total, int top,
+            CancellationToken token)
+        {
+            using (var conn = await DapperConnection.OpenReliableConnectionAsync(token))
+            {
+                var retry = GetRetryPolicy();
+                return await retry.ExecuteAsync(async () =>
+                {
+                    // ReSharper disable once AccessToDisposedClosure
+                    using (var grid = await conn.QueryMultipleAsync
+                        (Search.GetBoxesToUploadToSearch +
+                         Search.GetBoxesUsersToUploadToSearch +
+                         Search.GetBoxesDepartmentToUploadToSearch +
+                         Search.GetBoxesFeedToUploadToSearch +
+                         Search.GetBoxesToDeleteToSearch, new { index, count = total, top }))
                     {
                         var retVal = new BoxToUpdateSearchDto
                         {
@@ -299,7 +327,6 @@ namespace Zbang.Zbox.ReadServices
                             var boxid = box.Id;
                             box.UserIds = usersInBoxes.Where(w => w.BoxId == boxid).Select(s => s.UserId);
                             box.Department = departmentsOfBoxes.Where(w => w.BoxId == boxid).Select(s => s.Name);
-                            //box.ParentDepartment = box.Department.LastOrDefault();
                             box.Feed = feedOfBoxes.Where(w => w.BoxId == boxid).Select(s => s.Text);
                         }
                         retVal.BoxesToDelete = await grid.ReadAsync<long>();

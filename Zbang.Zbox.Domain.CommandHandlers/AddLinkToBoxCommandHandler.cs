@@ -72,8 +72,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, itemId: link.Id));
             var t4 = m_QueueProvider.InsertMessageToTranactionAsync(new UploadItemsBadgeData(user.Id));
+            var t5 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
 
-            await Task.WhenAll(t1, t4);
+            await Task.WhenAll(t1, t4, t5);
             return new AddLinkToBoxCommandResult(link);
 
 

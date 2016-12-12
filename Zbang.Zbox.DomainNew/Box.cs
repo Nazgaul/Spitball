@@ -22,7 +22,7 @@ namespace Zbang.Zbox.Domain
             Comments = new List<Comment>();
             PrivacySettings = new PrivacySettings();
             ItemTabs = new List<ItemTab>();
-            ShouldMakeDirty = () => true;
+            ShouldMakeDirty = () => false;
         }
 
         protected Box(string boxName, User user, BoxPrivacySetting privacySetting, Guid newCommentId)
@@ -157,7 +157,6 @@ namespace Zbang.Zbox.Domain
         public virtual Comment AddComment(User user, string text, Guid id, IList<Item> items, FeedType feedType)
         {
             var comment = new Comment(user, text, this, id, items, feedType);
-            ShouldMakeDirty = () => false;
             Comments.Add(comment);
             UpdateCommentsCount();
             UserTime.UpdateUserTime(user.Id);
@@ -173,27 +172,9 @@ namespace Zbang.Zbox.Domain
         {
             var usersAffectedByDeleteComment = comment.RepliesReadOnly.Where(w => w.LikeCount > 0).Select(s => s.User.Id).Union(new[] { comment.User.Id });
             Comments.Remove(comment);
-            ShouldMakeDirty = () => false;
             UpdateCommentsCount();
             return usersAffectedByDeleteComment;
         }
-        #region dbiTemp
-
-        //public void UpdateMembersDbi(int count)
-        //{
-        //    MembersCount = count;
-        //}
-        //public void UpdateItemDbi(int count)
-        //{
-        //    ItemCount = count;
-        //}
-        //public void UpdateCommentDbi(int count)
-        //{
-        //    CommentCount = count;
-        //}
-
-
-        #endregion
 
 
         #region membersCount

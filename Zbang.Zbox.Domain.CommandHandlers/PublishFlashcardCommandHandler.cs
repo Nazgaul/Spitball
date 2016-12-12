@@ -7,6 +7,8 @@ using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -19,8 +21,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IBoxRepository m_BoxRepository;
         private readonly IRepository<Comment> m_CommentRepository;
         private readonly IGuidIdGenerator m_IdGenerator;
+        private readonly IQueueProvider m_QueueProvider;
 
-        public PublishFlashcardCommandHandler(IDocumentDbRepository<Flashcard> flashcardRepository, IRepository<FlashcardMeta> flashcardMetaRepository, IUserRepository userRepository, IBoxRepository boxRepository, IItemRepository itemRepository, IRepository<Comment> commentRepository, IGuidIdGenerator idGenerator)
+
+        public PublishFlashcardCommandHandler(IDocumentDbRepository<Flashcard> flashcardRepository, IRepository<FlashcardMeta> flashcardMetaRepository, IUserRepository userRepository, IBoxRepository boxRepository, IItemRepository itemRepository, IRepository<Comment> commentRepository, IGuidIdGenerator idGenerator, IQueueProvider queueProvider)
         {
             m_FlashcardRepository = flashcardRepository;
             m_FlashcardMetaRepository = flashcardMetaRepository;
@@ -29,6 +33,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ItemRepository = itemRepository;
             m_CommentRepository = commentRepository;
             m_IdGenerator = idGenerator;
+            m_QueueProvider = queueProvider;
         }
 
         public async Task HandleAsync(PublishFlashcardCommand message)
@@ -76,7 +81,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             box.UpdateFlashcardCount();
             m_BoxRepository.Save(box);
-            await m_FlashcardRepository.UpdateItemAsync(message.Flashcard.id, message.Flashcard);
+            var t5 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
+
+            var t1 =  m_FlashcardRepository.UpdateItemAsync(message.Flashcard.id, message.Flashcard);
+            await Task.WhenAll(t1, t5);
         }
     }
 }

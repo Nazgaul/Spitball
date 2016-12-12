@@ -21,6 +21,7 @@
       <Setting name="NumberOfEmailsPerHour" value="1000" />
       <Setting name="NumberOfSpamGunEmailBatch" value="50" />
       <Setting name="SearchProduction" value="false" />
+      <Setting name="APPINSIGHTS_INSTRUMENTATIONKEY" value="bceed25d-fdd9-4581-b477-068120221ebd" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="D504F00C3E35AB536CD6EC83FF8EBA9FD8E3BA4D" thumbprintAlgorithm="sha1" />

@@ -20,6 +20,9 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public int? Type { get; set; }
 
+        public int? MembersCount { get; set; }
+        public int? ItemsCount { get; set; }
+
 
     }
 }

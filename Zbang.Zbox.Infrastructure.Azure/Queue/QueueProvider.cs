@@ -58,7 +58,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
             return GetTransactionQueue().InsertToQueueProtoAsync(message, token);
         }
 
-        public Task InsertMessageToThumbnailAsync(FileProcess message)
+        public Task InsertFileMessageAsync(FileProcess message)
         {
             return GetThumbnailQueue().InsertToQueueProtoAsync(message);
         }

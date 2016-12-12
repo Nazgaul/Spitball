@@ -18,7 +18,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<CommentReply> m_AnswerRepository;
         private readonly IRepository<Comment> m_QuestionRepository;
         private readonly IRepository<Item> m_ItemRepository;
-        //private readonly IRepository<Reputation> m_ReputationRepository;
         private readonly IQueueProvider m_QueueProvider;
 
 
@@ -27,7 +26,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IRepository<CommentReply> answerRepository,
             IRepository<Comment> questionRepository,
             IRepository<Item> itemRepository,
-           // IRepository<Reputation> reputationRepository,
             IQueueProvider queueProvider)
         {
             m_UserRepository = userRepository;
@@ -35,7 +33,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_AnswerRepository = answerRepository;
             m_QuestionRepository = questionRepository;
             m_ItemRepository = itemRepository;
-           // m_ReputationRepository = reputationRepository;
             m_QueueProvider = queueProvider;
         }
         public Task HandleAsync(AddReplyToCommentCommand message)
@@ -58,12 +55,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             question.DateTimeUser.UpdateUserTime(user.Id);
             box.UserTime.UpdateUserTime(user.Id);
             var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, answerId: answer.Id));
-
+            var t2 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
             m_QuestionRepository.Save(question);
             m_BoxRepository.Save(box);
             m_AnswerRepository.Save(answer);
-            //m_UserRepository.Save(user);
-            return Task.WhenAll(t1);
+            return Task.WhenAll(t1, t2);
         }
     }
 }

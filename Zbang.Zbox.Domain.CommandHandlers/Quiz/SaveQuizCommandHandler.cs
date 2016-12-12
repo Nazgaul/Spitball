@@ -24,7 +24,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
         private readonly IUserRepository m_UserRepository;
         //private readonly IRepository<Reputation> m_ReputationRepository
 
-            
+
 
         public SaveQuizCommandHandler(
             IRepository<Domain.Quiz> quizRepository,
@@ -43,7 +43,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             m_IdGenerator = idGenerator;
             m_CommentRepository = commentRepository;
             m_UserRepository = userRepository;
-           // m_ReputationRepository = reputationRepository;
+            // m_ReputationRepository = reputationRepository;
         }
         public async Task<SaveQuizCommandResult> ExecuteAsync(SaveQuizCommand message)
         {
@@ -101,10 +101,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 
             m_UserRepository.Save(quiz.User);
 
-            var t1 =  m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(quiz.User.Id, quiz.Box.Id, null, null, null, quiz.Id));
-            var t2 =  m_QueueProvider.InsertMessageToTranactionAsync(new CreateQuizzesBadgeData(quiz.User.Id));
+            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(quiz.User.Id, quiz.Box.Id, null, null, null, quiz.Id));
+            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new CreateQuizzesBadgeData(quiz.User.Id));
+            var t5 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(quiz.Box.Id));
 
-            await Task.WhenAll(t1, t2);
+            await Task.WhenAll(t1, t2, t5);
             return new SaveQuizCommandResult(quiz.Url);
         }
     }

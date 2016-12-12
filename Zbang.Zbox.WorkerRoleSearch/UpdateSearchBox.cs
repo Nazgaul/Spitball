@@ -7,11 +7,13 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
+using Zbang.Zbox.WorkerRoleSearch.DomainProcess;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
-    public class UpdateSearchBox : UpdateSearch, IJob
+    public class UpdateSearchBox : UpdateSearch, IJob, IFileProcess
     {
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IBoxWriteSearchProvider2 m_BoxSearchProvider;
@@ -71,7 +73,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
         {
             const int top = 100;
-            var updates = await m_ZboxReadService.GetBoxDirtyUpdatesAsync(instanceId, instanceCount, top, cancellationToken);
+            var updates = await m_ZboxReadService.GetBoxesDirtyUpdatesAsync(instanceId, instanceCount, top, cancellationToken);
             if (!updates.BoxesToUpdate.Any() && !updates.BoxesToDelete.Any()) return TimeToSleep.Increase;
 
             var isSuccess = await m_BoxSearchProvider.UpdateDataAsync(updates.BoxesToUpdate, updates.BoxesToDelete);
@@ -89,6 +91,24 @@ namespace Zbang.Zbox.WorkerRoleSearch
         protected override string GetPrefix()
         {
             return "Search Box";
+        }
+
+        public async Task<bool> ExecuteAsync(FileProcess data, CancellationToken token)
+        {
+            var parameters = data as BoxProcessData;
+            if (parameters == null) return true;
+
+            var elem = await m_ZboxReadService.GetBoxDirtyUpdatesAsync(parameters.BoxId, token);
+
+            var isSuccess =
+                await m_BoxSearchProvider.UpdateDataAsync(new[] { elem }, null);
+            if (isSuccess)
+            {
+                await m_ZboxWriteService.UpdateSearchUniversityDirtyToRegularAsync(
+                    new UpdateDirtyToRegularCommand(new[] { parameters.BoxId }));
+
+            }
+            return true;
         }
     }
 }

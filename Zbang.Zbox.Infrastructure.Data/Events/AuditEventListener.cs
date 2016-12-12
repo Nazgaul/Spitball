@@ -29,19 +29,16 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
         public bool OnPreUpdate(PreUpdateEvent @event)
         {
             var dirty = @event.Entity as IDirty;
-            if (dirty != null)
+            if (dirty == null) return false;
+            if (dirty.ShouldMakeDirty == null)
             {
-                if (dirty.ShouldMakeDirty == null)
-                {
-                    MakeDirty(@event, @event.State, dirty);
-                    return false;
-                }
-                if (dirty.ShouldMakeDirty())
-                {
-                    MakeDirty(@event, @event.State, dirty);
-                }
+                MakeDirty(@event, @event.State, dirty);
+                return false;
             }
-
+            if (dirty.ShouldMakeDirty())
+            {
+                MakeDirty(@event, @event.State, dirty);
+            }
 
 
             return false;

@@ -15,13 +15,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<Box> m_BoxRepository;
         private readonly IUserRepository m_UserRepository;
         private readonly IInviteRepository m_InviteRepository;
-       // private readonly IRepository<Reputation> m_ReputationRepository;
         private readonly IQueueProvider m_QueueRepository;
 
 
         public SubscribeToSharedBoxCommandHandler(IRepository<Box> boxRepository, IUserRepository userRepository,
             IInviteRepository inviteRepository,
-            //IRepository<Reputation> reputationRepository,
             IQueueProvider queueRepository
             )
         {
@@ -57,13 +55,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 m_UserRepository.Save(user);
                 if (userBoxRel != null) GiveReputation(user.Email, box.Id);
                 box.CalculateMembers();
-                var academicBox = box.Actual as AcademicBox;
-                if (academicBox != null)
-                {
-                    box.ShouldMakeDirty = () => false;
-                }
                 m_BoxRepository.Save(box);
-                await m_QueueRepository.InsertMessageToTranactionAsync(new FollowClassBadgeData(user.Id));
+                var t5 = m_QueueRepository.InsertFileMessageAsync(new BoxProcessData(box.Id));
+
+                var t1 =  m_QueueRepository.InsertMessageToTranactionAsync(new FollowClassBadgeData(user.Id));
+                await Task.WhenAll(t1, t5);
             }
         }
 

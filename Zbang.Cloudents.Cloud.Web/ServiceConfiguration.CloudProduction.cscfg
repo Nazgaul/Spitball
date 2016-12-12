@@ -18,6 +18,7 @@
       <Setting name="AzureSeachServiceName" value="cloudents" />
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=zboxdiagnostic;AccountKey=JragZe0lJsCWYvgdFNzgjit+YPpJUGhpJGNEE3CDFeZ++g2OaBVvAIyP0hIBcZbBUFt4fbzRwPPbeC7TGPNtpg==" />
       <Setting name="signalR" value="https://connect.spitball.co/" />
+      <Setting name="APPINSIGHTS_INSTRUMENTATIONKEY" value="7f8df0c1-018b-4f0c-95bc-0441481acf0a" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="82AF1259FAF65569650641B957B64BCD595BF552" thumbprintAlgorithm="sha1" />

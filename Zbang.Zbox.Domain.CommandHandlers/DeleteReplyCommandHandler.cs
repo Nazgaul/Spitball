@@ -49,7 +49,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 task = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(answer.User.Id));
             }
-            return task;
+            var t2 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
+
+            return Task.WhenAll(task, t2);
 
         }
     }
