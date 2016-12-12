@@ -168,6 +168,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     retVal.Navigation.Next,
                     retVal.Navigation.Previous,
                     retVal.Owner,
+                    retVal.OwnerId,
                     retVal.OwnerBadges,
                     retVal.OwnerScore,
                     retVal.Type,
