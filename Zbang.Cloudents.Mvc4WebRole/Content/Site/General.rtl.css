@@ -89,6 +89,7 @@ body .quiz-template .bottom .name {
 }
 @media (max-width: 960px) {
   .page-body {
+    padding: 0 4px;
     margin-left: 0;
   }
 }
@@ -109,7 +110,7 @@ body .quiz-template .bottom .name {
 }
 @media (min-width: 960px) {
   .page-body {
-    margin-right: 240px;
+    margin-right: 232px;
     padding: 0;
   }
 }
@@ -722,6 +723,10 @@ md-toast .md-toast-content span {
   margin: 2px 5px;
   border-radius: 100%;
   background: rgba(255, 255, 255, 0.6);
+}
+.indent-content {
+  margin-right: 8px;
+  margin-left: 8px;
 }
 .fade-in-repeat.ng-enter {
   /* standard transition code */

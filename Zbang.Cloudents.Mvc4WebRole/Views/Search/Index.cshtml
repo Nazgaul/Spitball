@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Search.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<div class="page-head">
+<div class="page-head indent-content">
     <div class="ad">
         <adsense ad-client="ca-pub-1215688692145777" ad-slot="8691201752" inline-style="display:block;" ad-format="auto"></adsense>
 
@@ -12,7 +12,7 @@
         <button flex="none" type="button" class="close" ng-click="s.back()" ga-track-event="['search', 'close search']"><md-icon md-svg-icon="t:close"></md-icon></button>
     </div>
 </div>
-<div srph-infinite-scroll="s.myPagingFunction()">
+<div srph-infinite-scroll="s.myPagingFunction()" class="indent-content">
     <md-tabs md-selected="s.tabIndex" md-enable-disconnect="true" class="page-tabs">
         <md-tab md-on-select="s.changeTab('doc')" md-active="s.tab === 'doc'" ga-track-event="['search', 'search items']">
             <md-tab-label>@IndexResources.Items</md-tab-label>

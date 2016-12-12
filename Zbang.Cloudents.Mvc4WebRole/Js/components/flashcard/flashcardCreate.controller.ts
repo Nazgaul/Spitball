@@ -62,7 +62,7 @@ module app {
         form: angular.IFormController;
         disabled = false;
         static $inject = ["flashcardService", "$stateParams", "$state", "flashcard", "$scope",
-            "$timeout", "$window", "resManager", "$mdDialog", "$q"];
+            "$timeout", "$window", "resManager", "$mdDialog", "$q", "showToasterService"];
         constructor(private flashcardService: IFlashcardService,
             private $stateParams: spitaball.ISpitballStateParamsService,
             private $state: angular.ui.IStateService,

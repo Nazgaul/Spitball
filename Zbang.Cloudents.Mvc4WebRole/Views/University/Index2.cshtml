@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.University.Resources
 
-<div class="page-title">
+<div class="page-title indent-content">
     <div class="university" layout="row" layout-align="start center" univeristy-cover="{{::l.university.image}}">
         <h1 layout="row" layout-align="start center" style="">
             <img ng-src="{{::l.university.logo}}" height="60" width="60" alt="university-logo" />
@@ -17,7 +17,7 @@
         </a>
     </div>
 </div>
-<div uib-collapse="!l.settingsOpen" compile-html="l.settingsHtml" class="collapsible settings" ng-if="l.nodeDetail" ng-cloak></div>
+<div uib-collapse="!l.settingsOpen" compile-html="l.settingsHtml" class="collapsible settings indent-content" ng-if="l.nodeDetail" ng-cloak></div>
 
 @{
     Html.RenderPartial("_EmptyStateTopTree");

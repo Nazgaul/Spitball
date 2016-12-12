@@ -20,7 +20,7 @@
                         <md-content>
                             <md-input-container flex>
                                 <label class="text-capitalize">@ItemsResources.Name</label>
-                                <input focus-me="i.selectedState === 1" dir="auto" autocomplete="off" required md-no-asterisk ng-model="i.renameText" name="name" />
+                                <input @*focus-me="i.selectedState === 1"*@ dir="auto" autocomplete="off" required md-no-asterisk ng-model="i.renameText" name="name" />
                                 <div ng-messages="renameItem.name.$error" ng-show="renameItem.name.$dirty">
                                     <div ng-message="required">@GeneralResources.RequiredField</div>
                                 </div>

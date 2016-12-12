@@ -3,9 +3,9 @@
     angular.module('app').controller('inviteController', invite);
 
     invite.$inject = ['googleService', 'shareService', '$scope', '$stateParams',
-        '$anchorScroll', '$timeout', 'resManager'];
+        '$anchorScroll', '$timeout', 'resManager', 'showToasterService'];
 
-    function invite(googleService, shareService, $scope, $stateParams, $anchorScroll, $timeout, resManager) {
+    function invite(googleService, shareService, $scope, $stateParams, $anchorScroll, $timeout, resManager, showToasterService) {
         var self = this;
         self.querySearch = querySearch;
         self.allContacts = [];// loadContacts();
@@ -181,7 +181,7 @@
             if (self.inBox) {
                 $scope.$emit('follow-box');
                 shareService.inviteToBox(contacts, $stateParams.boxId).then(successSend, function (response) {
-                    $scope.app.showToaster(response, null, 'warn');
+                    showToasterService.showToaster(response, null, 'warn');
                 }).finally(function () {
                     self.submitDisabled = false;
                 });
@@ -191,7 +191,7 @@
         }
 
         function successSend() {
-            $scope.app.showToaster(resManager.get('toasterInviteComplete'));
+            showToasterService.showToaster(resManager.get('toasterInviteComplete'));
             self.closeInvite();
 
         }

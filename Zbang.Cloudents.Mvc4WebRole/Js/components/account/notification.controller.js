@@ -2,8 +2,8 @@
 'use strict';
     angular.module('app.account').controller('AccountSettingsNotificationController', notification);
 
-    notification.$inject = ['accountService', '$document', 'resManager', '$scope'];
-    function notification(accountService, $document, resManager, $scope) {
+    notification.$inject = ['accountService', '$document', 'resManager', '$scope', 'showToasterService'];
+    function notification(accountService, $document, resManager, $scope, showToasterService) {
         var self = this;
 
         accountService.getNotification().then(function (response) {
@@ -26,7 +26,7 @@
         }
 
         function showToast(message) {
-            $scope.app.showToaster(message, 'notification');
+            showToasterService.showToaster(message, 'notification');
 
         }
 

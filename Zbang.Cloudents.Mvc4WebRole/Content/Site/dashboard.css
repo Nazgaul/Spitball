@@ -1,4 +1,7 @@
 ﻿.dashboard {
+  /*.dashboard-actions, .dashboard-content {
+        margin: 0 -8px;
+    }*/
   /*.content {
         .displayFlex();
         -ms-flex-direction: column;
@@ -44,10 +47,6 @@
 }
 .dashboard .score-board {
   padding: 0;
-}
-.dashboard .dashboard-actions,
-.dashboard .dashboard-content {
-  margin: 0 -8px;
 }
 .dashboard .dashboard-actions .actions-container {
   display: -webkit-flex;

@@ -43,13 +43,13 @@
 }
 /* END PROFILE SIDEBAR */
 /* RESPONSIVE MODE */
-@media (max-width: 991px) {
+@media (max-width: 960px) {
   /* 991px */
   /* 991px */
   .profile-sidebar {
     float: none;
-    width: calc(100% - 24px);
-    margin: 0 12px 32px;
+    width: 100%;
+    margin-bottom: 32px;
   }
   .profile-sidebar > .portlet {
     margin-bottom: 20px;

@@ -342,7 +342,9 @@
                     userImage: user.image,
                     userName: user.name,
                     likesCount: 0,
-                    files: self.add.files.map(pushItem)
+                    files: self.add.files.map(pushItem),
+                    score: user.score,
+                    badges: user.badges
                 };
                 comment.replies.push(newComment);
                 comment.repliesCount++;
@@ -392,7 +394,9 @@
                     userName: response.userName,
                     files: files.map(pushItem),
                     likesCount: 0,
-                    replies: []
+                    replies: [],
+                    score: user.score,
+                    badges: user.badges
                 };
                 self.data.unshift(newComment);
                 self.data = assignData(self.data);
