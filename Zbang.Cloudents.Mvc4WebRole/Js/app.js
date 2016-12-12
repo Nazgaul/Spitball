@@ -30,7 +30,8 @@
          'app.search',
          'app.chat',
          "app.flashcard",
-         "ngclipboard"
+         "ngclipboard",
+         "ApplicationInsightsModule"
     ]);
 
 })();

@@ -103,6 +103,7 @@
 /// <reference path="angular/angular.min.js" />
 /// <reference path="angular-animate.min.js" />
 /// <reference path="angular-animate/angular-animate.min.js" />
+/// <reference path="angular-applicationinsights.min.js" />
 /// <reference path="angular-aria.min.js" />
 /// <reference path="angular-aria/angular-aria.min.js" />
 /// <reference path="angular-countup.js" />

@@ -7,6 +7,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
+            filters.Add(new ErrorHandler.AiHandleErrorAttribute());
             filters.Add(new ZboxHandleErrorAttribute());
             filters.Add(new RequireHttpsAttribute());
             filters.Add(new NoCacheAjaxFilterAttribute());
@@ -15,6 +16,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
         }
-        
+
     }
 }

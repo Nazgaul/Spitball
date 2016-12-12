@@ -25,7 +25,8 @@
     @{Html.RenderPartial("_Head");}
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
-    <base href="/" />
+    <base href="/"/>
+    @Helpers.AppInsight()
 </head>
 <body @*md-layout-css*@ ng-controller="AppController as app"
       class="clearfix" @*ng-class="{menuOpened: app.menuOpened}"*@>

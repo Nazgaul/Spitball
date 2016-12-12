@@ -152,4 +152,24 @@ var app;
     }
     ;
 })();
+var app;
+(function (app) {
+    "use strict";
+    var Config = (function () {
+        function Config(applicationInsightsServiceProvider) {
+            this.applicationInsightsServiceProvider = applicationInsightsServiceProvider;
+            var options = { applicationName: 'spitball' };
+            applicationInsightsServiceProvider.configure('7f8df0c1-018b-4f0c-95bc-0441481acf0a', options);
+        }
+        Config.factory = function () {
+            var directive = function (applicationInsightsServiceProvider) {
+                return new Config(applicationInsightsServiceProvider);
+            };
+            directive["$inject"] = ["applicationInsightsServiceProvider"];
+            return directive;
+        };
+        return Config;
+    }());
+    angular.module("app").config(Config.factory());
+})(app || (app = {}));
 //# sourceMappingURL=app.config.js.map
