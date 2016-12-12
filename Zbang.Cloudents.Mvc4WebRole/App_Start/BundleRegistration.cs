@@ -174,6 +174,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/bower_components/angular-plupload/src/angular-plupload.js"),
                         new JsFileWithCdn("~/scripts/draganddrop.js"),
 
+                        new JsFileWithCdn("~/scripts/angular-applicationinsights.min.js"),
+
                         new JsFileWithCdn("~/scripts/ui-bootstrap-custom-tpls-1.2.1.min.js"),
                          //TODO: move to oclazy in user
                         new JsFileWithCdn("~/scripts/angular-countUp.js"),

@@ -4,10 +4,13 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Cloudents.Mvc4WebRole.Controllers;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account;
+using Zbang.Zbox.Infrastructure.Extensions;
 
 //using Microsoft.AspNet.SignalR.ServiceBus;
 
@@ -41,7 +44,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //this disable identity check
             System.Web.Helpers.AntiForgeryConfig.SuppressIdentityHeuristicChecks = true;
             MvcHandler.DisableMvcResponseHeader = true;
-
+            TelemetryConfiguration.Active.InstrumentationKey = ConfigFetcher.Fetch("APPINSIGHTS_INSTRUMENTATIONKEY");
         }
 
        

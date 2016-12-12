@@ -210,4 +210,27 @@
     };
 })();
 
+module app {
+    "use strict";
+
+    class Config {
+        constructor(private applicationInsightsServiceProvider) {
+
+            var options = { applicationName: 'spitball' };
+            // Configuration options are described below     
+            applicationInsightsServiceProvider.configure('7f8df0c1-018b-4f0c-95bc-0441481acf0a', options);
+        }
+
+        static factory() {
+            const directive = (applicationInsightsServiceProvider) => {
+                return new Config(applicationInsightsServiceProvider);
+            };
+            directive["$inject"] = ["applicationInsightsServiceProvider"];
+            return directive;
+        }
+    }
+
+    angular.module("app").config(Config.factory());
+}
+
 
