@@ -51,7 +51,6 @@ module app {
 
         private showToaster() {
             var element = this.$document.find('header')[0];
-            console.log('showing toaster');
             this.$mdToast.show(
                 this.$mdToast.simple()
                     .textContent(this.resManager.get('toasterChatMessage'))

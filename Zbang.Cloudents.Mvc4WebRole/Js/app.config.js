@@ -158,7 +158,7 @@ var app;
     var Config = (function () {
         function Config(applicationInsightsServiceProvider) {
             this.applicationInsightsServiceProvider = applicationInsightsServiceProvider;
-            var options = { applicationName: 'spitball' };
+            var options = { applicationName: 'spitball', autoLogTracking: false };
             applicationInsightsServiceProvider.configure('7f8df0c1-018b-4f0c-95bc-0441481acf0a', options);
         }
         Config.factory = function () {

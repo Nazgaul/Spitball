@@ -21,7 +21,6 @@
             timeoutvalidate = null;
             $scope.$watch(realtimeFactory.isConnected,
                 (newValue: boolean, oldValue: boolean) => {
-                    //console.log(newValue, oldValue);
                     if (newValue === false) {
                         // firefox issue upon reload
                         timeoutvalidate = this.$timeout(() => {

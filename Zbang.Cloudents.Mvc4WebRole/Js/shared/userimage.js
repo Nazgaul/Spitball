@@ -32,10 +32,6 @@
                     elem.remove();
                 }
 
-                //scope.$watch('name', function () {
-                //    console.log('z');
-                //});
-
                 var innerEl, className;
 
                 if (scope.image) {

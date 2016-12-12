@@ -2,7 +2,7 @@
     "use strict";
 
     angular.module("app").config(config);
-    config.$inject = ["$controllerProvider",  "$provide",
+    config.$inject = ["$controllerProvider", "$provide",
         "$httpProvider", "$compileProvider", "$animateProvider",
         "$mdAriaProvider", "$mdIconProvider", "$sceDelegateProvider",
         "$mdThemingProvider", "$urlMatcherFactoryProvider"];
@@ -216,7 +216,7 @@ module app {
     class Config {
         constructor(private applicationInsightsServiceProvider) {
 
-            var options = { applicationName: 'spitball' };
+            var options = { applicationName: 'spitball', autoLogTracking: false };
             // Configuration options are described below     
             applicationInsightsServiceProvider.configure('7f8df0c1-018b-4f0c-95bc-0441481acf0a', options);
         }

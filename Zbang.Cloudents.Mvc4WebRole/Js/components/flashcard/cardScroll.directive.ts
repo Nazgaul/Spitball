@@ -41,7 +41,6 @@
                         // click was made
                         return;
                     }
-                    //console.log(ev, ev.target.scrollHeight, ev.target.clientHeight);
                     var target = ev.target, jTarget = $(target);
                     
                     if (target.scrollHeight > target.clientHeight) {

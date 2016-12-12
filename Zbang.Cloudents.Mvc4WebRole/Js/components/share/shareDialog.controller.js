@@ -40,7 +40,6 @@ var app;
             this.$window.open(shareTwiiter, "pop", "width=600, height=400, scrollbars=no");
         };
         ShareDialog.prototype.onSuccess = function () {
-            console.log("here");
         };
         ShareDialog.$inject = ["$mdDialog", "data", "$window", "Analytics"];
         return ShareDialog;

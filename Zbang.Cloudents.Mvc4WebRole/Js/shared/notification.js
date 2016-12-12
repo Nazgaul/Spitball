@@ -39,7 +39,6 @@ var app;
         };
         DesktopNotification.prototype.showToaster = function () {
             var element = this.$document.find('header')[0];
-            console.log('showing toaster');
             this.$mdToast.show(this.$mdToast.simple()
                 .textContent(this.resManager.get('toasterChatMessage'))
                 .capsule(true)

@@ -36,9 +36,6 @@
 
             });
         }
-        //myPagingFunction() {
-        //    console.log("here");
-        //}
         deleteItem(ev, item) {
             //disablePaging = true;
             const confirm = this.$mdDialog.confirm()

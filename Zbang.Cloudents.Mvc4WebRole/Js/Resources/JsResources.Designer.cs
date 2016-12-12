@@ -151,6 +151,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Flag submitted.
+        /// </summary>
+        public static string flagItem {
+            get {
+                return ResourceManager.GetString("flagItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to flashcard.
         /// </summary>
         public static string flashcard {
@@ -311,6 +320,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         public static string quizSaveAsDraft {
             get {
                 return ResourceManager.GetString("quizSaveAsDraft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Document name changed.
+        /// </summary>
+        public static string renameItem {
+            get {
+                return ResourceManager.GetString("renameItem", resourceCulture);
             }
         }
         

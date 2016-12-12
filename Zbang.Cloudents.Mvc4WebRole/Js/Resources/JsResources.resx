@@ -258,4 +258,10 @@
   <data name="flashcard" xml:space="preserve">
     <value>flashcard</value>
   </data>
+  <data name="flagItem" xml:space="preserve">
+    <value>Flag submitted</value>
+  </data>
+  <data name="renameItem" xml:space="preserve">
+    <value>Document name changed</value>
+  </data>
 </root>

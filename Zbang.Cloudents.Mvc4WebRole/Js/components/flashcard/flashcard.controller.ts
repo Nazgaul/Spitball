@@ -68,7 +68,6 @@
             private $mdDialog: angular.material.IDialogService,
             private shareService: IShareService
         ) {
-            console.log(flashcard);
             angular.forEach(flashcard.cards,
                 (v, k) => {
                     if (flashcard.pins && flashcard.pins.indexOf(k) !== -1) {

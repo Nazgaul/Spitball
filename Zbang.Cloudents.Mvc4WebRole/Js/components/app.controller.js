@@ -2,7 +2,7 @@ var app;
 (function (app) {
     "use strict";
     var AppController = (function () {
-        function AppController($rootScope, $location, userDetails, $mdToast, $document, $mdMenu, resManager, cacheFactory, sbHistory, $state, dashboardService) {
+        function AppController($rootScope, $location, userDetails, $mdToast, $document, $mdMenu, resManager, cacheFactory, sbHistory, $state, dashboardService, $log) {
             var _this = this;
             this.$rootScope = $rootScope;
             this.$location = $location;
@@ -15,6 +15,7 @@ var app;
             this.sbHistory = sbHistory;
             this.$state = $state;
             this.dashboardService = dashboardService;
+            this.$log = $log;
             this.back = function (defaultUrl) {
                 var element = _this.sbHistory.popElement();
                 if (!element) {
@@ -40,7 +41,7 @@ var app;
                 __insp.push(["virtualPage"]);
             });
             $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
-                console.error(error);
+                $log.error(error);
             });
             $rootScope.$on("$stateChangeStart", function (event, toState, toParams) {
                 if (toState.name === "user" && toParams.userId === 22886) {
@@ -109,7 +110,7 @@ var app;
         AppController.$inject = ["$rootScope", "$location",
             "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
             "CacheFactory",
-            "sbHistory", "$state", "dashboardService"];
+            "sbHistory", "$state", "dashboardService", "$log"];
         return AppController;
     }());
     angular.module("app").controller("AppController", AppController);

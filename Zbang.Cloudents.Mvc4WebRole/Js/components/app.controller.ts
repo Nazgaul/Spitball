@@ -13,7 +13,7 @@
         static $inject = ["$rootScope", "$location",
             "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
             "CacheFactory",
-            "sbHistory", "$state", "dashboardService"];
+            "sbHistory", "$state", "dashboardService","$log"];
 
         constructor(private $rootScope: angular.IRootScopeService,
             private $location: angular.ILocationService,
@@ -25,7 +25,8 @@
             private cacheFactory: CacheFactory.ICacheFactory,
             private sbHistory: ISbHistory,
             private $state: angular.ui.IStateService,
-            private dashboardService: IDashboardService
+            private dashboardService: IDashboardService,
+            private $log: angular.ILogService
         ) {
             $rootScope.$on("$stateChangeSuccess", () => {
                 var path = $location.path(),
@@ -39,7 +40,7 @@
                 (event: angular.IAngularEvent,
                     toState: angular.ui.IState, toParams: angular.ui.IStateParamsService,
                     fromState: angular.ui.IState, fromParams: angular.ui.IStateParamsService, error) => {
-                    console.error(error);
+                    $log.error(error);
                 });
 
             $rootScope.$on("$stateChangeStart",

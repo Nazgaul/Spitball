@@ -57,7 +57,6 @@ var app;
             }
             this.userService.badges(this.$state.params["userId"])
                 .then(function (response) {
-                console.log(response);
                 _this.badges = response.badges;
                 angular.forEach(_this.badges, function (v) {
                     var badge = response.model.find(function (f) { return f.badge === v.name; });
