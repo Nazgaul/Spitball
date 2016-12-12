@@ -269,6 +269,10 @@
   text-shadow: -1px 1px 0px #5d6063;
   padding-top: 5px;
 }
+.feed .items-container .feed-item .flashcard-element md-icon {
+  width: 44px;
+  height: 36px;
+}
 .feed .posts-list .actions .comment-btn,
 .feed .posts-list .actions .like-btn {
   margin: 0 0 0 20px;
