@@ -119,7 +119,6 @@
                         $rootScope.$broadcast('update-thumbnail', itemId);
                     },
                     echo(i) {
-                        //console.log('echo', i);
                     }
                 },
                 errorHandler(error) {

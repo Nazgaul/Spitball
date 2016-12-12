@@ -176,7 +176,6 @@ var Login = function () {
                     return;
                 }
                 if (element.attr("name") === "sex") {
-                    console.log('here');
                     error.insertAfter($('label[for="female"]'));
                     return;
                 }

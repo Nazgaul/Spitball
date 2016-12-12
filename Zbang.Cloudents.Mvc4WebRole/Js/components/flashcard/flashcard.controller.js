@@ -56,7 +56,6 @@ var app;
             this.styleLegend = true;
             this.flipped = false;
             this.pinCount = 0;
-            console.log(flashcard);
             angular.forEach(flashcard.cards, function (v, k) {
                 if (flashcard.pins && flashcard.pins.indexOf(k) !== -1) {
                     v.pin = true;

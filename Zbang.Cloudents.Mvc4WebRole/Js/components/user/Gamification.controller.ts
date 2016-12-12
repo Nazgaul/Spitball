@@ -62,7 +62,6 @@
             }
             this.userService.badges(this.$state.params["userId"])
                 .then(response => {
-                    console.log(response);
                     this.badges = response.badges;
                     angular.forEach(this.badges,
                         (v) => {

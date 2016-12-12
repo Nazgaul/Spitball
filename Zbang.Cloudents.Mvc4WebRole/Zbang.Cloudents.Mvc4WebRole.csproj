@@ -1536,6 +1536,7 @@
     <TypeScriptCompile Include="Js\components\flashcard\flashcard.routes.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\flashcard.service.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\interaction.directive.ts" />
+    <TypeScriptCompile Include="Js\components\item\item.controller.ts" />
     <TypeScriptCompile Include="Js\components\item\likeToasterController.ts" />
     <TypeScriptCompile Include="Js\components\item\dropFileClass.directive.ts" />
     <TypeScriptCompile Include="Js\components\item\item.service.ts" />
@@ -2390,7 +2391,6 @@
     <Content Include="Js\components\quiz\popup\quiz.score.module.js" />
     <Content Include="Js\components\quiz\popup\quiz.challenge.module.js" />
     <Content Include="Js\components\quiz\popup\quiz.score.controller.js" />
-    <Content Include="Js\components\item\item.controller.js" />
     <Content Include="Js\components\item\upload.controller.js" />
     <Content Include="Js\components\library\library.controller.js" />
     <Content Include="Js\components\quiz\stopwatch.filter.js" />

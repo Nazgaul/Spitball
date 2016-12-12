@@ -28,8 +28,6 @@ module app {
 
             this.$rootScope.$on('$stateChangeStart', (event: angular.IAngularEvent) => {
                 this.pageYOffset = $window.pageYOffset;
-                //console.log($window.pageXOffset, $window.pageYOffset);
-                //this.url = this.$location.url();
             });
             this.$rootScope.$on('$stateChangeSuccess',
                 (event, toState: angular.ui.IState, toParams: any, fromState: angular.ui.IState, fromParams: angular.ui.IStateParamsService) => {

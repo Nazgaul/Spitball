@@ -223,8 +223,7 @@
     <value>Spitball</value>
   </data>
   <data name="toasterDepartmentApproved" xml:space="preserve">
-    <value>Access was granted
-</value>
+    <value>Access was granted</value>
   </data>
   <data name="quizDelete" xml:space="preserve">
     <value>Delete</value>
@@ -257,5 +256,11 @@
   </data>
   <data name="flashcard" xml:space="preserve">
     <value>flashcard</value>
+  </data>
+  <data name="flagItem" xml:space="preserve">
+    <value>Document has been reported</value>
+  </data>
+  <data name="renameItem" xml:space="preserve">
+    <value>Document has been renamed</value>
   </data>
 </root>

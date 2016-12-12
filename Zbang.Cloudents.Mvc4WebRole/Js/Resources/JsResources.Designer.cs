@@ -151,6 +151,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Document has been reported.
+        /// </summary>
+        public static string flagItem {
+            get {
+                return ResourceManager.GetString("flagItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to flashcard.
         /// </summary>
         public static string flashcard {
@@ -315,6 +324,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Document has been renamed.
+        /// </summary>
+        public static string renameItem {
+            get {
+                return ResourceManager.GetString("renameItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to update complete.
         /// </summary>
         public static string settingsChangeName {
@@ -405,8 +423,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Access was granted
-        ///.
+        ///   Looks up a localized string similar to Access was granted.
         /// </summary>
         public static string toasterDepartmentApproved {
             get {

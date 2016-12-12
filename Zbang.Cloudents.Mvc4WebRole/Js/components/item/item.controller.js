@@ -1,154 +1,132 @@
-﻿(function () {
-    'use strict';
-    angular.module('app.item').controller('ItemController', item);
-    item.$inject = ['$stateParams', 'itemService', '$sce', '$location', '$q', 'user',
-        'itemData', '$scope', '$rootScope', 'resManager', '$timeout', '$mdMenu', '$state', 'showToasterService'];
-
-    function item($stateParams, itemService, $sce, $location, $q,
-        user, itemData, $scope, $rootScope, resManager, $timeout, $mdMenu, $state, showToasterService) {
-        var i = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId, disablePaging = false;
-        var index = 0, needLoadMore = false;
-
-        i.state = {
-            regular: 0,
-            rename: 1,
-            flag: 2
-        };
-
-        i.preview = '';
-
-        //$('[ui-view].class').hide();
-        //$scope.$on('$destroy', function () {
-        //    $('[ui-view].class').show()
-        //})
-        i.details = itemData;
-
-
-        i.details.downloadUrl = $location.path() + 'download/';
-        i.details.printUrl = $location.path() + 'print/';
-        i.details.boxUrl = $state.href("box.items", angular.extend({}, $stateParams));//i.details.boxUrl + 'items/';
-        getPreview();
-        // i.firstPage = history2.firstState();
-        i.showRawText = false;
-
-        //i.renameOn = true;
-        i.loadMore = loadMore;
-        i.selectedState = i.state.regular;
-
-
-        i.renameItem = renameItem;
-        i.flagItem = flagItem;
-        i.cancelFlag = cancelFlag;
-
-        i.showRename = showRename;
-
-        i.swipeLeft = swipeLeft;
-        i.swipeRight = swipeRight;
-        i.followBox = followBox;
-        i.document = itemData.fileContent;
-
-        $timeout(showLikeToaster, 1000);
-
-        //i.back = back;
-
-        //function back() {
-        //    if ($previousState.get()) {
-        //        $previousState.go();
-        //        return;
-        //    }
-        //    $location.url(i.details.boxUrl);
-        //}
-
-        function followBox() {
-            itemService.followbox();
-            //cacheFactory.clearAll();//autofollow issue
+var app;
+(function (app) {
+    "use strict";
+    var State;
+    (function (State) {
+        State[State["Regular"] = 0] = "Regular";
+        State[State["Rename"] = 1] = "Rename";
+        State[State["Flag"] = 2] = "Flag";
+    })(State || (State = {}));
+    var Item = (function () {
+        function Item(itemData, $state, $stateParams, $timeout, itemService, $mdToast, $sce, $location, user, showToasterService, resManager) {
+            var _this = this;
+            this.itemData = itemData;
+            this.$state = $state;
+            this.$stateParams = $stateParams;
+            this.$timeout = $timeout;
+            this.itemService = itemService;
+            this.$mdToast = $mdToast;
+            this.$sce = $sce;
+            this.$location = $location;
+            this.user = user;
+            this.showToasterService = showToasterService;
+            this.resManager = resManager;
+            this.index = 0;
+            this.needLoadMore = false;
+            this.preview = "";
+            this.selectedState = State.Regular;
+            this.loader = false;
+            this.showRawText = false;
+            this.details = itemData;
+            var href = this.$state.href(this.$state.current.name, this.$state.current.params);
+            this.details.downloadUrl = href + 'download/';
+            this.details.printUrl = href + 'print/';
+            this.details.boxUrl = $state.href("box.items", angular.extend({}, $stateParams));
+            this.getPreview();
+            this.document = itemData.fileContent;
+            $timeout(function () { _this.showLikeToaster(); }, 1000);
         }
-        function getPreview() {
-            i.loader = true;
-            return itemService.getPreview(i.details.blob, index, itemId, boxid).then(function (data) {
+        Item.prototype.followBox = function () {
+            this.itemService.followbox();
+        };
+        Item.prototype.getPreview = function () {
+            var _this = this;
+            this.loader = true;
+            return this.itemService.getPreview(this.details.blob, this.index, this.$stateParams.itemId, this.$stateParams.boxId).then(function (data) {
                 data = data || {};
-                i.loader = false;
-
-                if (data.preview) {
-                    if (data.preview.indexOf('iframe') > 0
-                        || data.preview.indexOf('audio') > 0
-                        || data.preview.indexOf('video') > 0
-                        || data.preview.indexOf('previewFailed') > 0) {
-                        i.preview = $sce.trustAsHtml(data.preview);
-                    } else {
-                        var element = angular.element(data.preview);
-                        i.preview += data.preview;
-                        if (element.find('img,svg').length === 3) {
-                            needLoadMore = true;
-                        }
-
+                _this.loader = false;
+                var preview = data.preview;
+                if (preview) {
+                    if (preview.indexOf('iframe') > 0
+                        || preview.indexOf('audio') > 0
+                        || preview.indexOf('video') > 0
+                        || preview.indexOf('previewFailed') > 0) {
+                        _this.preview = _this.$sce.trustAsHtml(preview);
                     }
-
+                    else {
+                        var element = angular.element(preview);
+                        _this.preview += preview;
+                        if (element.find('img,svg').length === 3) {
+                            _this.needLoadMore = true;
+                        }
+                    }
                 }
             });
-        }
-        function swipeLeft() {
-            if (i.details.next) {
-                $location.url(i.details.next);
+        };
+        Item.prototype.swipeLeft = function () {
+            if (this.details.next) {
+                this.$location.url(this.details.next);
             }
-        }
-
-
-        function swipeRight() {
-            if (i.details.previous) {
-                $location.url(i.details.previous);
+        };
+        Item.prototype.swipeRight = function () {
+            if (this.details.previous) {
+                this.$location.url(this.details.previous);
             }
-        }
-
-        function showRename() {
-            i.selectedState = i.state.rename;
-            i.renameText = i.details.name;
-        }
-
-        $rootScope.$on('disablePaging', function () {
-            disablePaging = true;
-        });
-        $rootScope.$on('enablePaging', function () {
-            disablePaging = false;
-        });
-        function loadMore() {
-            if (!disablePaging && needLoadMore && user.id) {
-                needLoadMore = false;
-                ++index;
-                return getPreview();
+        };
+        Item.prototype.showRename = function () {
+            this.selectedState = State.Rename;
+            this.renameText = this.details.name;
+        };
+        Item.prototype.loadMore = function () {
+            if (this.needLoadMore && this.user.id) {
+                this.needLoadMore = false;
+                ++this.index;
+                return this.getPreview();
             }
-            return $q.when();
-        }
-        function renameItem() {
-            if (i.renameText === i.details.name) {
-                i.selectedState = i.state.regular;
+        };
+        Item.prototype.renameItem = function () {
+            var _this = this;
+            if (this.renameText === this.details.name) {
+                this.selectedState = State.Regular;
                 return;
             }
-            i.submitDisabled = true;
-            itemService.renameItem(i.renameText, itemId).then(function (response) {
-                i.details.name = response.name;
-                $location.path(response.url).replace();
+            this.submitDisabled = true;
+            this.itemService.renameItem(this.renameText, this.$stateParams.itemId).then(function (response) {
+                _this.details.name = response.name;
+                _this.$location.path(response.url).replace();
+                _this.showToasterService.showToaster(_this.resManager.get("renameItem"));
             }).finally(function () {
-                i.submitDisabled = false;
+                _this.submitDisabled = false;
             });
-        }
-        function flagItem() {
-            itemService.flag(i.flag, i.customFlag, itemId);
-            cancelFlag();
-        }
-
-        function cancelFlag() {
-            i.flag = '';
-            i.selectedState = i.state.regular;
-        }
-
-        function showLikeToaster() {
-            showToasterService.showTemplateToaster('likeToasterTemplate.html', 'likeToasterDialog as lt');
-        }
-
-    }
-
-
-})();
-
-
+        };
+        Item.prototype.flagItem = function () {
+            this.itemService.flag(this.flag, this.customFlag, this.$stateParams.itemId);
+            this.showToasterService.showToaster(this.resManager.get("flagItem"));
+            this.cancelFlag();
+        };
+        Item.prototype.cancelFlag = function () {
+            this.flag = '';
+            this.selectedState = State.Regular;
+        };
+        Item.prototype.showLikeToaster = function () {
+            var _this = this;
+            this.$mdToast.show({
+                hideDelay: 0,
+                locals: {
+                    userLike: this.details.like
+                },
+                position: 'top right',
+                controller: "likeToasterDialog as lt",
+                templateUrl: "likeToasterTemplate.html",
+                toastClass: 'angular-animate'
+            }).then(function () {
+                _this.itemService.like(_this.$stateParams.itemId, _this.$stateParams.boxId);
+            });
+        };
+        Item.$inject = ["itemData", "$state", "$stateParams", "$timeout",
+            "itemService", "$mdToast", "$sce", "$location", "user", "showToasterService", "resManager"];
+        return Item;
+    }());
+    angular.module('app.item').controller('ItemController', Item);
+})(app || (app = {}));
+//# sourceMappingURL=item.controller.js.map

@@ -1,13 +1,13 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
-<div srph-infinite-scroll="i.loadMore()" unregister-scroll="true" collapse-header ng-class="{hideActions: i.selectedState === i.state.flag || i.selectedState === i.state.rename}">
+<div srph-infinite-scroll="i.loadMore()" unregister-scroll="true" collapse-header ng-class="{hideActions: i.selectedState === 1 || i.selectedState === 2}">
     <header layout="row" layout-align="space-between center">
         <div class="progress-bar"><md-progress-linear ng-if="i.loader" md-mode="indeterminate"></md-progress-linear></div>
         <div class="top-wrapper">
             <div class="name-actions" layout="row" layout-align="space-between center">
                 <div class="fileName">
-                    <div class="name-info" layout="row" layout-align="center center" ng-if="i.selectedState === i.state.regular">
+                    <div class="name-info" layout="row" layout-align="center center" ng-if="i.selectedState === 0">
                         <h1 class="ellipsis" dir="auto">{{i.details.name}}</h1>
                         <div class="info">
                             <md-icon md-svg-icon="i:info"></md-icon>
@@ -16,18 +16,18 @@
                             </md-tooltip>
                         </div>
                     </div>
-                    <form name="renameItem" class="rename-form" novalidate ng-submit="i.renameItem(renameItem)" ng-if="i.selectedState === i.state.rename">
+                    <form name="renameItem" class="rename-form" novalidate ng-submit="i.renameItem(renameItem)" ng-if="i.selectedState === 1">
                         <md-content>
                             <md-input-container flex>
                                 <label class="text-capitalize">@ItemsResources.Name</label>
-                                <input focus-me="i.selectedState === i.state.rename" autocomplete="off" required md-no-asterisk ng-model="i.renameText" name="name" />
+                                <input @*focus-me="i.selectedState === 1"*@ dir="auto" autocomplete="off" required md-no-asterisk ng-model="i.renameText" name="name" />
                                 <div ng-messages="renameItem.name.$error" ng-show="renameItem.name.$dirty">
                                     <div ng-message="required">@GeneralResources.RequiredField</div>
                                 </div>
                             </md-input-container>
                         </md-content>
                         <span layout="row" layout-align="end center  text-capitalize">
-                            <button type="button" class="cancel-btn" ng-click="i.selectedState = i.state.regular" ga-track-event="['itemPage', 'cancel rename']">@GeneralResources.Cancel</button>
+                            <button type="button" class="cancel-btn" ng-click="i.selectedState = 0" ga-track-event="['itemPage', 'cancel rename']">@GeneralResources.Cancel</button>
                             <button type="submit" class="action-btn space-before" ng-disabled="!renameItem.$valid || i.submitDisabled" ga-track-event="['itemPage', 'save rename']">@ItemsResources.Save</button>
                         </span>
                     </form>
@@ -59,7 +59,7 @@
                                     </md-button>
                                 </md-menu-item>
                                 <md-menu-item>
-                                    <md-button ng-click="i.selectedState = i.state.flag" ga-track-event="['itemPage', 'flag']">
+                                    <md-button ng-click="i.selectedState = 2" ga-track-event="['itemPage', 'flag']">
                                         @ItemsResources.Flag
                                     </md-button>
                                 </md-menu-item>
@@ -71,7 +71,7 @@
 
                 </div>
             </div>
-            <div class="second-line" ng-if="i.selectedState === i.state.regular">
+            <div class="second-line" ng-if="i.selectedState === 0">
                 <div class="item-meta">
                     <a class="ellipsis" ui-sref="user({userId:i.details.ownerId,userName:i.details.owner})" ng-bind="::i.details.owner"></a>
                     <span>&nbsp;-&nbsp;</span>
@@ -124,7 +124,7 @@
         <div class="wrapper" layout="row" layout-align="space-between center">
             <div class="like-area">
                 <div class="text">@ItemsResources.LikeToasterText</div>
-                <button class="fb-like content-wrapper" ng-click="lt.like()" ng-class="{blue : lt.details.like}" user-not-register-popup="click" type="button" ga-track-event="['itemPage', 'like item']">
+                <button class="fb-like content-wrapper" ng-click="lt.like()" ng-class="{blue : lt.detail}" user-not-register-popup="click" type="button" ga-track-event="['itemPage', 'like item']">
                     <div>
                         <md-icon md-svg-icon="b:like"></md-icon>
                         <div class="button-text">@GeneralResources.Like</div>

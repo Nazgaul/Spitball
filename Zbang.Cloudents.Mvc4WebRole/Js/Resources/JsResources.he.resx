@@ -256,4 +256,10 @@
   <data name="flashcard" xml:space="preserve">
     <value>כרטיסיית לימוד</value>
   </data>
+  <data name="renameItem" xml:space="preserve">
+    <value>שם המסמך הוחלף</value>
+  </data>
+  <data name="flagItem" xml:space="preserve">
+    <value>הדיווח נשלח בהצלחה</value>
+  </data>
 </root>
