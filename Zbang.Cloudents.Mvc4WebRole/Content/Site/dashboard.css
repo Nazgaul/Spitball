@@ -87,8 +87,16 @@
   font-size: 11px;
   font-weight: 300;
   border-radius: 12px;
-  padding: 4px 9px;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  padding: 0 6px;
   height: 24px;
+  min-width: 24px;
   background-color: #db4437;
   color: #ffffff;
 }

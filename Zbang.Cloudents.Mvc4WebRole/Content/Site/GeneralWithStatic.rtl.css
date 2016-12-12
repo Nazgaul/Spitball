@@ -381,6 +381,9 @@ body {
   text-transform: capitalize;
   font-weight: normal;
 }
+.box-template-flex .info .bottom {
+  width: 100%;
+}
 .box-template-flex .info .bottom span {
   font-size: 12px;
   display: block;
@@ -402,6 +405,7 @@ body {
 }
 .box-template-flex .stats .members-count,
 .box-template-flex .stats .items-count {
+  max-width: 50%;
   color: #212325;
 }
 .box-style {
