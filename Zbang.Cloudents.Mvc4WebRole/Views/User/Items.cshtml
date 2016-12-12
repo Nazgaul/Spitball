@@ -3,7 +3,7 @@
 @*<script type="text/ng-template" id="user-item.html">*@
 <div @*ng-switch-when="u"*@>
     <div layout="row" layout-padding layout-fill layout-wrap srph-infinite-scroll="i.item()" class="files">
-        <div flex-xs="50" flex-xl="20" flex="25" flex-sm="50" flex-md="50" class="file angular-animate fade-in-repeat i-q-wrapper" ng-repeat="e in i.files">
+        <div flex-xs="50" flex-xl="20" flex="25" flex-sm="50" flex-md="50" class="file-element angular-animate fade-in-repeat i-q-wrapper" ng-repeat="e in i.files">
             <div ng-include="'item-template.html'"></div>
             <md-menu class="item-menu">
                 <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['user-uploads', 'deleteFile']">

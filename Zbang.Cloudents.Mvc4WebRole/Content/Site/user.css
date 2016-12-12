@@ -680,8 +680,8 @@
   min-width: 300px;
 }
 @media (min-width: 600px) {
-  .userPage .profile-content .files .file,
-  .userPage .profile-content .quizzes .quiz {
+  .userPage .profile-content .files .file-element,
+  .userPage .profile-content .quizzes .quiz-element {
     padding: 20px;
   }
 }
