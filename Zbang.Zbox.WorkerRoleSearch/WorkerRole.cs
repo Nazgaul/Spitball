@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Infrastructure.Trace;
 
@@ -29,6 +30,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         }
         public override void Run()
         {
+           
             Trace.TraceInformation("Zbang.Zbox.WorkerRoleSearch is running");
             try
             {
@@ -52,6 +54,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public override bool OnStart()
         {
+            TelemetryConfiguration.Active.InstrumentationKey = "bceed25d-fdd9-4581-b477-068120221ebd";
             // Set the maximum number of concurrent connections
             ServicePointManager.DefaultConnectionLimit = 12;
 
