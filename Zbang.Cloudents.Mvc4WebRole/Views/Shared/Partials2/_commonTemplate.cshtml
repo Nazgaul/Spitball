@@ -14,14 +14,14 @@
             </div>
         </div>
         <div class="stats border" color="{{::e.departmentId}}">
-            <div class="members-count">
+            <div class="members-count ellipsis">
                 <ng-pluralize count="e.membersCount"
                               when="{'one': '@GeneralResources.SingleMember',
                               'two': '{} @GeneralResources.Members',
                                           'other': '{} @GeneralResources.Members'}">
                 </ng-pluralize>
             </div>
-            <div class="items-count">
+            <div class="items-count ellipsis">
                 <ng-pluralize count="e.itemCount"
                               when="{'one': '@BoxResources.SingleItem',
                               'two': '{} @IndexResources.Items',
