@@ -80,7 +80,7 @@ var app;
             }
         };
         BoxSettingsController.$inject = ["$state", "$stateParams", "$scope",
-            "$rootScope", "resManager", "boxService", "ajaxService2", "$timeout"];
+            "$rootScope", "resManager", "boxService", "ajaxService2", "$timeout", "showToasterService"];
         return BoxSettingsController;
     }());
     angular.module('app.box').controller('BoxSettingsController', BoxSettingsController);

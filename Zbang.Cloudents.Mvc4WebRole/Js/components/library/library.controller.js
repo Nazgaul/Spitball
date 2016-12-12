@@ -4,12 +4,12 @@
     library.$inject = ["libraryService", "$stateParams", "userDetailsFactory",
         "nodeData", "$mdDialog",
         "$location", "$scope", "resManager", "universityData",
-        "itemThumbnailService", "ajaxService2", "$timeout", "$mdMedia", "$anchorScroll", "$state"];
+        "itemThumbnailService", "ajaxService2", "$timeout", "$mdMedia", "$anchorScroll", "$state", "showToasterService"];
 
     function library(libraryService, $stateParams, userDetailsFactory, nodeData, $mdDialog,
         $location, $scope, resManager, universityData, itemThumbnailService, ajaxService,
         $timeout,
-        $mdMedia, $anchorScroll, $state) {
+        $mdMedia, $anchorScroll, $state, showToasterService) {
         $anchorScroll.yOffset = 70;
         var l = this, nodeId = $stateParams.id;
         l.departments = nodeData.nodes;
@@ -86,7 +86,7 @@
                 l.departments.push(response);
 
                 libraryService.createClass(l.boxName, l.code, l.professor, response.id).then(function (response2) {
-                    $scope.app.showToaster(resManager.get('toasterCreateCourse'));
+                    showToasterService.showToaster(resManager.get('toasterCreateCourse'));
                     $location.url(response2.url);
                 }, function (response2) {
                     myform.depName.$setValidity('server', false);
@@ -188,7 +188,7 @@
                 boxCancel();
                 l.createClassShow = l.secondStep = false;
                 //resetFiled(myform);
-                $scope.app.showToaster(resManager.get('toasterCreateCourse'));
+                showToasterService.showToaster(resManager.get('toasterCreateCourse'));
                 $location.url(response.url);
             }, function (response) {
                 myform.professor.$setValidity('server', false);
@@ -209,7 +209,7 @@
                 //l.createClassShow = false;
                 //resetFiled(myform);
                 //buildState();
-                $scope.app.showToaster(resManager.get('toasterCreateDepartment'));
+                showToasterService.showToaster(resManager.get('toasterCreateDepartment'));
                 $state.go("departmentWithNode",
                {
                    universityId: $stateParams.universityId,

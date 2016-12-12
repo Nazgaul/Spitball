@@ -3,7 +3,7 @@
     var boxId: number;
     class BoxSettingsController {
         static $inject = ["$state", "$stateParams", "$scope",
-            "$rootScope", "resManager", "boxService", "ajaxService2", "$timeout"];
+            "$rootScope", "resManager", "boxService", "ajaxService2", "$timeout", "showToasterService"];
 
         //TODO: remove to different controller
         settings;

@@ -3,10 +3,10 @@
     angular.module("app.library").controller("LibraryChoose", libraryChoose);
 
     libraryChoose.$inject = ["libraryService", "$state", "countryService",
-        "userDetailsFactory", "$scope", "resManager", "realtimeFactory", "$location", "$rootScope"];
+        "userDetailsFactory", "$scope", "resManager", "realtimeFactory", "$location", "$rootScope", "showToasterService"];
 
     function libraryChoose(libraryService, $state, countryService, userDetailsFactory,
-        $scope, resManager, realtimeFactory, $location, $rootScope) {
+        $scope, resManager, realtimeFactory, $location, $rootScope, showToasterService) {
         var self = this, page = 0;
         self.term = '';
         self.universities = [];
@@ -117,7 +117,7 @@
             }
             self.submitDisabled = true;
             libraryService.createUniversity(self.universityName, self.countryCode).then(function (response) {
-                $scope.app.showToaster(resManager.get('toasterOpenSchool'));
+                showToasterService.showToaster(resManager.get('toasterOpenSchool'));
                 //userDetailsFactory.init(true).then(function () {
                 
                 goToLibrary(response.url);

@@ -2,9 +2,9 @@
     'use strict';
     angular.module('app.box.items').controller('TabsController', tabs);
     tabs.$inject = ['boxService', '$stateParams', '$rootScope', 'itemThumbnailService', '$mdDialog',
-        '$scope', '$q', 'resManager', '$state'];
+        '$scope', '$q', 'resManager', '$state', 'showToasterService'];
 
-    function tabs(boxService, $stateParams, $rootScope, itemThumbnailService, $mdDialog, $scope, $q, resManager, $state) {
+    function tabs(boxService, $stateParams, $rootScope, itemThumbnailService, $mdDialog, $scope, $q, resManager, $state, showToasterService) {
         var t = this,
             boxId = $stateParams.boxId;
             
@@ -57,7 +57,7 @@
                 $scope.$emit('follow-box');
                 t.newFolderTabOpened = false;
             }, function (response) {
-                $scope.app.showToaster(response, 'tabSection');
+                showToasterService.showToaster(response, 'tabSection');
             }).finally(function () {
                 submitDisabled = false;
                 t.newFolderName = '';
@@ -84,7 +84,7 @@
                 t.tabSelected.name = t.tabNewName;
                 t.openRenameTab = false;
             }, function (response) {
-                $scope.app.showToaster(response, 'tabSection');
+                showToasterService.showToaster(response, 'tabSection');
             });
         }
 
