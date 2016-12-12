@@ -19,6 +19,7 @@
       <Setting name="NumberOfEmailsPerHour" />
       <Setting name="NumberOfSpamGunEmailBatch" />
       <Setting name="SearchProduction" />
+      <Setting name="APPINSIGHTS_INSTRUMENTATIONKEY" />
     </ConfigurationSettings>
     <LocalResources>
       <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="false" sizeInMB="222000" />

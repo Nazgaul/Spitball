@@ -36,7 +36,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var academicBox = box.Actual as AcademicBox;
             if (academicBox != null)
             {
-                UnFollowBox(box, message.UserId);
+                await UnFollowBoxAsync(box, message.UserId);
                 return;
             }
 
@@ -48,7 +48,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             if (userType == UserRelationshipType.Subscribe)
             {
-                UnFollowBox(box, message.UserId);
+                await UnFollowBoxAsync(box, message.UserId);
             }
 
 
@@ -61,11 +61,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_BoxRepository.Save(box);
             return m_QueueProvider.InsertMessageToTranactionAsync(new DeleteBoxData(box.Id));
         }
-        private void UnFollowBox(Box box, long userId)
+        private Task UnFollowBoxAsync(Box box, long userId)
         {
             box.UnFollowBox(userId);
             m_UpdatesRepository.DeleteUserUpdateByBoxId(userId, box.Id);
             m_BoxRepository.Save(box);
+            return m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
+
         }
     }
 }

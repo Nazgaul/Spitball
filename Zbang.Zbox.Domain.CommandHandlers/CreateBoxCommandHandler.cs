@@ -5,26 +5,31 @@ using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Repositories;
 using System;
+using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class CreateBoxCommandHandler : ICommandHandler<CreateBoxCommand, CreateBoxCommandResult>
+    public class CreateBoxCommandHandler : ICommandHandlerAsync<CreateBoxCommand, CreateBoxCommandResult>
     {
         protected readonly IUserRepository UserRepository;
         protected readonly IRepository<UserBoxRel> UserBoxRelRepository;
-        protected readonly IGuidIdGenerator m_GuidGenerator;
+        protected readonly IGuidIdGenerator GuidGenerator;
+        protected readonly IQueueProvider QueueProvider;
         private readonly IBoxRepository m_BoxRepository;
 
         public CreateBoxCommandHandler(IBoxRepository boxRepository,
-            IUserRepository userRepository, IRepository<UserBoxRel> userBoxRel, IGuidIdGenerator guidGenerator)
+            IUserRepository userRepository, IRepository<UserBoxRel> userBoxRel, IGuidIdGenerator guidGenerator, IQueueProvider queueProvider)
         {
             m_BoxRepository = boxRepository;
             UserRepository = userRepository;
             UserBoxRelRepository = userBoxRel;
-            m_GuidGenerator = guidGenerator;
+            GuidGenerator = guidGenerator;
+            QueueProvider = queueProvider;
         }
 
-        public virtual CreateBoxCommandResult Execute(CreateBoxCommand command)
+        public virtual async Task<CreateBoxCommandResult> ExecuteAsync(CreateBoxCommand command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
             if (command.BoxName.Length > Box.NameLength)
@@ -32,20 +37,21 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new OverflowException("Box Name exceed" + Box.NameLength);
             }
 
-            User user = UserRepository.Get(command.UserId);
-            Box box = m_BoxRepository.GetBoxWithSameName(command.BoxName.Trim().ToLower(), user);
+            var user = UserRepository.Load(command.UserId);
+            var box = m_BoxRepository.GetBoxWithSameName(command.BoxName.Trim().ToLower(), user);
             if (box != null)
             {
                 throw new BoxNameAlreadyExistsException();
             }
             box = CreateNewBox(command, user);
+            await QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
             var result = new CreateBoxCommandResult(box.Id, box.Url);
             return result;
         }
 
         private Box CreateNewBox(CreateBoxCommand command, User user)
         {
-            var box = new PrivateBox(command.BoxName, user, Infrastructure.Enums.BoxPrivacySetting.AnyoneWithUrl, m_GuidGenerator.GetId());
+            var box = new PrivateBox(command.BoxName, user, Infrastructure.Enums.BoxPrivacySetting.AnyoneWithUrl, GuidGenerator.GetId());
 
             SaveRepositories(user, box);
             box.GenerateUrl();

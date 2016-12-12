@@ -10,12 +10,12 @@ using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 {
-    class DeleteQuizCommandHandler : ICommandHandlerAsync<DeleteQuizCommand>
+    public class DeleteQuizCommandHandler : ICommandHandlerAsync<DeleteQuizCommand>
     {
         private readonly IRepository<Domain.Quiz> m_QuizRepository;
         private readonly IRepository<Box> m_BoxRepository;
         private readonly IRepository<Comment> m_CommentRepository;
-       
+
         private readonly IUserRepository m_UserRepository;
         private readonly IQueueProvider m_QueueProvider;
         private readonly IUpdatesRepository m_UpdatesRepository;
@@ -24,14 +24,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             IUserRepository userRepository, IRepository<Box> boxRepository, IQueueProvider queueProvider, IRepository<Comment> commentRepository, IUpdatesRepository updatesRepository)
         {
             m_QuizRepository = quizRepository;
-          
+
             m_UserRepository = userRepository;
             m_BoxRepository = boxRepository;
             m_QueueProvider = queueProvider;
             m_CommentRepository = commentRepository;
             m_UpdatesRepository = updatesRepository;
         }
-        public async Task HandleAsync(DeleteQuizCommand message)
+        public Task HandleAsync(DeleteQuizCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
 
@@ -60,11 +60,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
                     m_CommentRepository.Save(quiz.Comment);
                 }
             }
-            await m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(quiz.User.Id));
+            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(quiz.User.Id));
+            var t5 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(quiz.Box.Id));
+
             m_UpdatesRepository.DeleteQuizUpdates(quiz.Id);
             m_QuizRepository.Delete(quiz, true);
             quiz.Box.UpdateItemCount();
             m_BoxRepository.Save(quiz.Box);
+            return Task.WhenAll(t1, t5);
         }
     }
 }

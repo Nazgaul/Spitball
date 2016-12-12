@@ -1,9 +1,8 @@
 ﻿using Zbang.Zbox.Infrastructure.Commands;
-using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class CreateBoxCommand : ICommand
+    public class CreateBoxCommand : ICommandAsync
     {
 
         public CreateBoxCommand(long userId, string boxName)

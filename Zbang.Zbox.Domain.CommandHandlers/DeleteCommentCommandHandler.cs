@@ -37,7 +37,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var box = comment.Box;
 
 
-            bool isAuthorize = comment.User.Id == message.UserId
+            var isAuthorize = comment.User.Id == message.UserId
                 || box.Owner.Id == message.UserId
                 || user.IsAdmin();
 
@@ -50,7 +50,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             m_BoxCommentRepository.Delete(comment);
             m_BoxRepository.Save(box);
-            return m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(userIds.Union(new[] { user.Id })));
+            var t2 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
+
+            var t1 =  m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(userIds.Union(new[] { user.Id })));
+            return Task.WhenAll(t1, t2);
         }
     }
 }

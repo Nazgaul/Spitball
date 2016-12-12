@@ -78,12 +78,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Ioc.RegisterType<ISchedulerProcess, FollowLowActivityCourses>("followLowActivity");
             Ioc.RegisterType<ISchedulerProcess, LikesMailProcess>("likesReport");
 
-            //Ioc.ContainerBuilder.RegisterType<DigestEmail>()
-            //   .Named<ISchedulerProcess>("digestOnceADay")
-            //   .WithParameter("hourForEmailDigest", NotificationSettings.OnceADay);
-            //Ioc.ContainerBuilder.RegisterType<DigestEmail>()
-            //   .Named<ISchedulerProcess>("digestOnceAWeek")
-            //   .WithParameter("hourForEmailDigest", NotificationSettings.OnceAWeek);
 
             var arrayOfUtcOfset = new[] { 0, 3, -5, -4, -6 };
             foreach (var i in arrayOfUtcOfset)
@@ -133,6 +127,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Ioc.RegisterType<IFileProcess, PreProcessFile>(nameof(ChatFileProcessData));
             Ioc.RegisterType<IFileProcess, UpdateSearchItem>(nameof(BoxFileProcessData));
             Ioc.RegisterType<IFileProcess, UpdateSearchUniversity>(nameof(UniversityProcessData));
+            Ioc.RegisterType<IFileProcess, UpdateSearchBox>(nameof(BoxProcessData));
 
         }
 

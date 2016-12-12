@@ -47,16 +47,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             //{
             //    throw new UnauthorizedAccessException();
             //}
-            var flashcard =  await m_FlashcardRepository.GetItemAsync(message.Id.ToString());
+            var flashcard = await m_FlashcardRepository.GetItemAsync(message.Id.ToString());
             flashcard.IsDeleted = true;
 
             flashcardMeta.IsDeleted = true; // for update flash cards count correctly
             flashcardMeta.Box.UpdateFlashcardCount();
             m_BoxRepository.Save(flashcardMeta.Box);
-            var t1 =  m_FlashcardRepository.UpdateItemAsync(message.Id.ToString(), flashcard);
+            var t1 = m_FlashcardRepository.UpdateItemAsync(message.Id.ToString(), flashcard);
             m_FlashcardMetaRepository.Delete(flashcardMeta);
-            var t2 =  m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(flashcardMeta.User.Id));
-            await Task.WhenAll(t1, t2);
+            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(flashcardMeta.User.Id));
+            var t5 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(flashcardMeta.Box.Id));
+
+            await Task.WhenAll(t1, t2, t5);
         }
     }
 }

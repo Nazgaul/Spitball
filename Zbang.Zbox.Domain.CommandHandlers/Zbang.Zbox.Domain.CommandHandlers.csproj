@@ -64,7 +64,7 @@
     <Compile Include="AddLinkToBoxCommandHandler.cs" />
     <Compile Include="AddNewUpdatesCommandHandler.cs" />
     <Compile Include="AddNodeToLibraryCommandHandler.cs" />
-    <Compile Include="AddQuestionCommandHandler.cs" />
+    <Compile Include="AddCommentCommandHandler.cs" />
     <Compile Include="AddItemReplyToCommentCommandHandler.cs" />
     <Compile Include="AddStudentCommandHandler.cs" />
     <Compile Include="AddUserLocationActivityCommandHandler.cs" />

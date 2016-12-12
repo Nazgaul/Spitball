@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -21,15 +24,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IRepository<UserBoxRel> userBoxRelRepository,
             IAcademicBoxRepository academicRepository,
             ILibraryRepository departmentRepository,
-            IUniversityRepository universityRepository, IGuidIdGenerator guidGenerator)
-            : base(boxRepository, userRepository, userBoxRelRepository, guidGenerator)
+            IUniversityRepository universityRepository, IGuidIdGenerator guidGenerator,
+            IQueueProvider queueProvider)
+            : base(boxRepository, userRepository, userBoxRelRepository, guidGenerator, queueProvider)
         {
             m_AcademicRepository = academicRepository;
             m_DepartmentRepository = departmentRepository;
             m_UniversityRepository = universityRepository;
 
         }
-        public override CreateBoxCommandResult Execute(CreateBoxCommand command)
+        public override async Task<CreateBoxCommandResult> ExecuteAsync(CreateBoxCommand command)
         {
             var academicCommand = command as CreateAcademicBoxCommand;
             if (academicCommand == null)
@@ -58,13 +62,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 var topDepartment = m_DepartmentRepository.Load(topDepartmentId);
                 box = new AcademicBoxClosed(academicCommand.BoxName, department,
                     academicCommand.CourseCode, academicCommand.Professor,
-                    user, m_GuidGenerator.GetId(), topDepartment);
+                    user, GuidGenerator.GetId(), topDepartment);
             }
             else
             {
                 box = new AcademicBox(academicCommand.BoxName, department,
                     academicCommand.CourseCode, academicCommand.Professor,
-                    user, m_GuidGenerator.GetId());
+                    user, GuidGenerator.GetId());
             }
             box.UserBoxRelationship.Add(new UserBoxRel(user, box, UserRelationshipType.Owner));
             SaveRepositories(user, box);
@@ -82,6 +86,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             m_UniversityRepository.Save(user.University);
             m_UniversityRepository.Save(user.University.UniversityData);
+            await QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
 
             var result = new CreateBoxCommandResult(box.Id, box.Url);
 

@@ -38,13 +38,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var university = m_UniversityRepository.GetQueryable()
                  .Where(w => w.UniversityName == message.Name)
                  .FirstOrDefault();
-            var t1 = Zbox.Infrastructure.Extensions.TaskExtensions.CompletedTask;
+            var t1 = Infrastructure.Extensions.TaskExtensions.CompletedTask;
             if (university == null)
             {
                 var id = m_IdGenerator.GetId(IdContainer.UniversityScope);
                 university = new University(id, message.Name, message.Country,
                     user.Id);
-                t1 = m_QueueProvider.InsertMessageToThumbnailAsync(new UniversityProcessData(id));
+                t1 = m_QueueProvider.InsertFileMessageAsync(new UniversityProcessData(id));
                 m_UniversityRepository.Save(university);
 
             }

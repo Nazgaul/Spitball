@@ -29,6 +29,7 @@
       <Setting name="AzureSearchKey" />
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
       <Setting name="signalR" />
+      <Setting name="APPINSIGHTS_INSTRUMENTATIONKEY" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Spitball" storeLocation="LocalMachine" storeName="My" />

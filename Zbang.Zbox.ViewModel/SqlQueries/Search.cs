@@ -2,7 +2,7 @@
 {
     public static class Search
     {
-        public const string GetBoxToUploadToSearch =
+        public const string GetBoxesToUploadToSearch =
             @"select top (@top) 
 b.boxid  as Id
 ,b.BoxName as Name
@@ -23,12 +23,42 @@ b.boxid  as Id
   where isdirty = 1 and isdeleted = 0 and url is not null and b.boxid % @count  = @index
   order by b.BoxId;";
 
-        public const string GetBoxUsersToUploadToSearch = @"select UserId,BoxId from zbox.UserBoxRel where boxId in (
+        public const string GetBoxToUploadToSearch =
+            @"select 
+b.boxid  as Id
+,b.BoxName as Name
+, b.ProfessorName as Professor
+,b.CourseCode as CourseCode
+, b.Url as Url
+, case b.Discriminator
+   when 2 then
+       b.University
+	   else null
+	   end
+   as universityid
+,  b.discriminator as Type
+, b.LibraryId as DepartmentId
+, b.MembersCount as MembersCount
+, b.ItemCount + b.FlashcardCount + b.QuizCount as ItemsCount
+  from zbox.box b
+  where boxid = @Boxid ;";
+
+        public const string GetBoxUsersToUploadToSearch = @"select UserId from zbox.UserBoxRel where boxId =@boxid;";
+
+        public const string GetBoxesUsersToUploadToSearch = @"select UserId,BoxId from zbox.UserBoxRel where boxId in (
 select top (@top) b.boxid  from zbox.box b
   where isdirty = 1 and isdeleted = 0  and url is not null and b.boxid % @count  = @index
   order by b.BoxId);";
 
         public const string GetBoxFeedToUploadToSearch = @"select text,boxid from zbox.question
+  where boxid =@boxid
+  and IsSystemGenerated = 0
+  and text is not null
+  union all
+  select text,boxid from zbox.answer
+  where boxid =@boxid
+  and text is not null;";
+        public const string GetBoxesFeedToUploadToSearch = @"select text,boxid from zbox.question
   where boxid in (select top (@top) b.boxid  from zbox.box b
   where isdirty = 1 and isdeleted = 0  and url is not null and b.boxid % @count  = @index
   order by b.BoxId)
@@ -40,8 +70,16 @@ select top (@top) b.boxid  from zbox.box b
   where isdirty = 1 and isdeleted = 0  and url is not null and b.boxid % @count  = @index
   order by b.BoxId)
   and text is not null;";
+        public const string GetBoxDepartmentToUploadToSearch = @"
+with c as (
+select l.* from zbox.library l join zbox.box b on l.libraryid = b.libraryid and b.boxid =@boxid
+ 
+	union all
+	select t.* from zbox.library t inner join c on c.parentid = t.libraryid
+)
 
-        public const string GetBoxDepartmentToUploadToSearch = @"  with c as (
+select Name from c;";
+        public const string GetBoxesDepartmentToUploadToSearch = @"  with c as (
 select l.*, b.boxid from zbox.library l join zbox.box b on l.libraryid = b.libraryid and b.boxid in 
 ( select top (@top) b.boxid  from zbox.box b
   where isdirty = 1 and isdeleted = 0  and url is not null and b.boxid % @count  = @index
@@ -54,7 +92,7 @@ select l.*, b.boxid from zbox.library l join zbox.box b on l.libraryid = b.libra
 select Name,boxid from c;";
 
 
-        public const string GetBoxToDeleteToSearch = @"
+        public const string GetBoxesToDeleteToSearch = @"
         select top 500 boxid as id from zbox.box
         where isdirty = 1 and isdeleted = 1 and boxid % @count  = @index;";
 

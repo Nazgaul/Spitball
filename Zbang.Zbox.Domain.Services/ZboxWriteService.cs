@@ -99,7 +99,7 @@ namespace Zbang.Zbox.Domain.Services
                 {
                     await m_Cache.RemoveAsync(commandCache);
                 }
-                var result = m_CommandBus.Dispatch<CreateBoxCommand, CreateBoxCommandResult>(command, command.GetType().Name);
+                var result = await m_CommandBus.DispatchAsync<CreateBoxCommand, CreateBoxCommandResult>(command, command.GetType().Name);
                 UnitOfWork.Current.TransactionalFlush();
                 return result;
             }

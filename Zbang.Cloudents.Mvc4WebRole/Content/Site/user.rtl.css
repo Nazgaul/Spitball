@@ -94,6 +94,9 @@
   .userPage #show-points-info ~ .points-info {
     max-height: 0;
     overflow: hidden;
+    -moz-transition: max-height 0.3s ease-in;
+    -o-transition: max-height 0.3s ease-in;
+    -webkit-transition: max-height 0.3s ease-in;
     transition: max-height 0.3s ease-in;
   }
   .userPage #show-points-info:checked ~ .points-info {

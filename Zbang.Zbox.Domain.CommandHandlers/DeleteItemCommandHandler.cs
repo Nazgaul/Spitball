@@ -81,12 +81,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(item.UploaderId));
             var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new QuotaData(item.UploaderId));
             var t4 = m_QueueProvider.InsertMessageToTranactionAsync(new UploadItemsBadgeData(item.UploaderId));
+            var t5 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
+
+
             m_ItemRepository.Delete(item);
             box.UpdateItemCount();
             command.BoxId = box.Id;
             m_BoxRepository.Save(box);
 
-            return Task.WhenAll(t1, t2, t4);
+            return Task.WhenAll(t1, t2, t4, t5);
         }
 
     }

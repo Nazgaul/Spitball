@@ -13,9 +13,8 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
         Task InsertMessageToTranactionAsync(DomainProcess message);
         Task InsertMessageToTranactionAsync(DomainProcess message, CancellationToken token);
-        //Task InsertMessageToDownloadAsync(UrlToDownloadData message);
 
-        Task InsertMessageToThumbnailAsync(FileProcess message);
+        Task InsertFileMessageAsync(FileProcess message);
     }
 
 }
