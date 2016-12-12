@@ -1,6 +1,14 @@
 ﻿@import "variables.less";
 
 .userPage {
+
+    .profile-sidebar, .profile-content {
+        @media(max-width: 960px) {
+            margin-right: 0;
+            margin-left: 0;
+        }
+    }
+
     .portlet {
         margin-bottom: 0; //override
         border-radius: 0; //override
@@ -686,10 +694,13 @@
         }
 
         .portlet.light {
-            margin: 0 12px;
             background: @textColorLightWhite;
             max-width: 1040px;
             min-height: 500px;
+
+            @media(min-width: 960px) {
+                margin: 0 12px;
+            }
         }
 
         .user-box {

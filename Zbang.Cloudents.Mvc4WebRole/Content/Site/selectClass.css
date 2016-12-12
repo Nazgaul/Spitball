@@ -13,7 +13,7 @@ body.collapseHeader .class-choose .top-container {
 }
 @media (min-width: 960px) {
   .class-choose {
-    margin-left: -240px;
+    margin-left: -232px;
     margin-right: -95px;
   }
 }

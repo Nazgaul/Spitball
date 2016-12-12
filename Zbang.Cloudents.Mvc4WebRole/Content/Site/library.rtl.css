@@ -1,6 +1,9 @@
 /* Set default body */
 .library {
   margin-bottom: 50px;
+  /*.actions, .library-list{
+        margin: 0 -8px;
+    }*/
   /*.dots-3 {
         fill: @textColorLightGrey;
     }*/
@@ -39,10 +42,6 @@
             }
         }
     }*/
-}
-.library .actions,
-.library .library-list {
-  margin: 0 -8px;
 }
 .library .university {
   height: 136px;

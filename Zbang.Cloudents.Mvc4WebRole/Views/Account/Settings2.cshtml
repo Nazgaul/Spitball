@@ -1,12 +1,12 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 
 <div class="accountPage-wrapper">
-    <div class="page-head">
+    <div class="page-head indent-content">
         <div class="page-title">
             <h1>@Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources.IndexResources.Settings</h1>
         </div>
     </div>
-    <md-tabs class="page-tabs">
+    <md-tabs class="page-tabs indent-content">
         <md-tab ui-sref="settings.profile" md-active="a.isActiveState('settings.profile')">
             <md-tab-label>@AccountResource.ProfileAccount</md-tab-label>
         </md-tab>
@@ -21,7 +21,7 @@
             <md-tab-label>@AccountResource.Department</md-tab-label>
         </md-tab>
     </md-tabs>
-    <div class="page-animation" ui-view></div>
+    <div class="page-animation indent-content" ui-view></div>
 </div>
 
 

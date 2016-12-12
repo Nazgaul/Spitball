@@ -8,16 +8,16 @@
 @*<div class="ad" data-ng-dfp-ad-container>
         <div data-ng-dfp-ad="div-gpt-ad-1461243129238-3" data-ng-dfp-ad-hide-when-empty></div>
     </div>*@
-<div uib-collapse="!b.inviteOpen" compile-html="b.html" expanding="b.inviteExpand()" class="collapsible"></div>
-<div class="page-head">
+<div uib-collapse="!b.inviteOpen" compile-html="b.html" expanding="b.inviteExpand()" class="collapsible indent-content"></div>
+<div class="page-head indent-content">
     <div layout="row" layout-align="start start" ng-hide="b.settingsOpen" class="page-title box-title" ng-class="{'need-follow' : b.needFollow}">
         <h1 class="multi-line-ellipsis limit-two">{{b.data.name}}</h1>
         <button ng-if="b.needFollow" type="button" ng-click="b.follow()" class="angular-animate notificationButton text-capitalize" ga-track-event="['box', 'follow']">@BoxResources.JoinClass</button>
     </div>
 </div>
-<div uib-collapse="!b.settingsOpen" compile-html="b.settingsHtml" class="collapsible settings"></div>
+<div uib-collapse="!b.settingsOpen" compile-html="b.settingsHtml" class="collapsible settings indent-content"></div>
 <div>
-    <md-tabs class="box-nav-bar page-tabs" @*md-enable-disconnect="true"*@>
+    <md-tabs class="box-nav-bar page-tabs indent-content" @*md-enable-disconnect="true"*@>
         <md-tab ui-sref="box.feed" md-active="b.isActiveState('box.feed')">
             <md-tab-label><span>@BoxResources.Feed</span></md-tab-label>
         </md-tab>

@@ -21,6 +21,13 @@
         }
     }*/
 }
+@media (max-width: 960px) {
+  .userPage .profile-sidebar,
+  .userPage .profile-content {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
 .userPage .portlet {
   margin-bottom: 0;
   border-radius: 0;
@@ -660,10 +667,14 @@
   margin: 0 3px;
 }
 .userPage .profile-content .portlet.light {
-  margin: 0 12px;
   background: #f5f5f5;
   max-width: 1040px;
   min-height: 500px;
+}
+@media (min-width: 960px) {
+  .userPage .profile-content .portlet.light {
+    margin: 0 12px;
+  }
 }
 .userPage .profile-content .user-box {
   min-width: 300px;
