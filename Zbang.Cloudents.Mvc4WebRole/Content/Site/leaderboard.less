@@ -1,6 +1,6 @@
 ﻿@import "variables.less";
 
-.leaderboard {
+/*.leaderboard {
     width: 100%;
 
     h4 {
@@ -67,7 +67,7 @@
             color: @textColorBlack;
         }
     }
-}
+}*/
 
 
 .leaderboardbox {
@@ -76,9 +76,10 @@
     .justifyContet(space-between);
     flex-direction: column;
     position: relative;
-    background: @gamificationYellow;
+    background: @gamificationMediumGreen;
 
     .bg-l, .bg-r {
+        display: none;
         height: 90px;
         top: 0;
         z-index: 0;
@@ -107,75 +108,30 @@
         -ms-filter: "FlipH";
     }
 
-    .top {
-        .points {
-            text-align: center;
-            padding-bottom: 35px;
-        }
-
-        .points-wrapper {
-            display: inline-block;
-            font-size: 38px;
-            position: relative;
-            padding: 5px 18px 24px 18px;
-            color: @gamificationYellow;
-            background: @headerbackground;
-            border-radius: 0 0 10px 10px;
-            font-weight: bold;
-            min-width: 60%;
-
-            span:not(.number) {
-                position: absolute;
-                font-size: 12px;
-                bottom: 6px;
-                width: 100%;
-                left: 0;
-                text-transform: capitalize;
-            }
-        }
-
-        .text {
-            text-align: center;
-            font-size: 14px;
-            margin: 14px 0;
-            position: absolute;
-            top: 66px;
-            width: 100%;
-        }
-
-        .custom-progress-bar {
-            .custom-progress-bar(#5d6d7e, @backgroundCalmGrey, 14px);
-            padding: 0 10px;
-
-            .md-container .md-bar {
-                border-radius: 5px;
-            }
-
-            .md-container {
-                box-shadow: inset 0 0 7px 0 rgba(0, 0, 0, 0.35);
-            }
-        }
-    }
-
-    .bottom {
+    .content {
         .displayFlex;
         .align-items(center);
         .justifyContet(space-between);
-        padding: 10px;
-        background: @backgroundCalmGrey;
+        height: 100%;
+        padding: 16px;
 
-        .level, .badges {
-            .displayFlex;
-            .align-items(center);
-            .justifyContet(flex-start);
+        .data-side {
+            flex-grow: 1;
+            padding-left: 20px;
+            height: 100%;
+
+            .name-level{
+                color: @textColorWhite;
+
+                .level{
+                    color: @gamificationYellow
+                }
+            }
+        .custom-progress-bar {
+            .custom-progress-bar(@gamificationLightGreen, @gamificationGreen,22px);
+        }
         }
 
-        .icon {
-            width: 30px;
-            height: 30px;
-            background: rgba(255, 206, 47, 0.5);
-            margin-right: 5px;
-        }
     }
 }
 

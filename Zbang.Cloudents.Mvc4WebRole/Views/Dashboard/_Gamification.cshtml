@@ -1,11 +1,46 @@
 ﻿<div class="leaderboardbox leaderboard score-board box-style" ng-controller="gamificationBoard as gb">
+
+    <div class="bg-round"></div>
     <div class="bg-l">
         <md-icon md-svg-icon="p:stars" class="bg"></md-icon>
     </div>
     <div class="bg-r">
         <md-icon md-svg-icon="p:stars" class="bg"></md-icon>
     </div>
-    <div class="top">
+    <div class="content">
+        <div class="image-side">
+            <user-image class="img-circle" name="::gb.data.userName" image="::gb.data.userImage" width="70" height="70" noremove="true"></user-image>
+        </div>
+        <div class="data-side">
+            <div class="top">
+                <div class="name-level">
+                    <span class="name">{{::gb.data.userName}}</span>
+                    <span class="seperator">-</span>
+                    <span class="level">{{::gb.data.level}}</span>
+                </div>
+                <div class="points"></div>
+            </div>
+            <div class="bottom">
+                <div class="level">
+                    <div class="text">
+                        <span>Next Level in</span>
+                        <span>{{::gb.data.nextLevel}}</span>
+                    </div>
+                    <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{gb.score}}"></md-progress-linear>
+                </div>
+                <div class="badges">
+                    <div class="text">
+                        <span>Badges</span>
+                        <span>{{::gb.data.badgeCount}}</span>
+                    </div>
+                    <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{gb.badges}}"></md-progress-linear>
+                </div>
+                <div class="rank"></div>
+            </div>
+        </div>
+    </div>
+
+    @*<div class="top">
         <div class="points">
             <div class="points-wrapper">
                 <span class="number" ng-bind="::gb.data.score | number">{{::gb}}</span>
@@ -27,5 +62,5 @@
             <div class="icon"></div>
             <div class="description">{{::gb.data.badgeCount}} Badges</div>
         </div>
-    </div>
+    </div>*@
 </div>

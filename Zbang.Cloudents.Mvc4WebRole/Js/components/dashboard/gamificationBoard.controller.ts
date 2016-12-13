@@ -1,14 +1,21 @@
 ﻿module app {
     "use strict";
     var scoreToReach = 0;
+    var badgesToReach = 0;
     class GamificationBoard {
-        static $inject = ["userService", "$interval"];
+        static $inject = ["userService", "$interval", "userDetailsFactory"];
         data;
         score = 0;
-        constructor(private userService: IUserService, private $interval: angular.IIntervalService) {
+        badges = 0;
+        constructor(private userService: IUserService, private $interval: angular.IIntervalService, private userDetailsFactory: IUserDetailsFactory) {
+
             this.userService.gamificationBoard()
                 .then(response => {
                     this.data = response;
+                    //TODO: Add userName and userImage to the userService.gamificationBoard() response instead calling userDetailsFactory.get()
+                    var userData = userDetailsFactory.get();
+                    this.data.userName = userData.name;
+                    this.data.userImage = userData.image;
                     //this.data.score = 1073741823;
                     scoreToReach = this.data.score / this.data.nextLevel * 100;
                     var q = $interval(() => {
@@ -17,7 +24,16 @@
                         if (this.score === scoreToReach) {
                             this.$interval.cancel(q);
                         }
-                    },10);
+                    }, 10);
+                    //TODO: Get total num of badges - not hardcode it to 5
+                    badgesToReach = this.data.badgeCount / 5 * 100;
+                    var b = $interval(() => {
+                        this.badges += 1;
+                        this.badges = Math.min(this.badges, badgesToReach);
+                        if (this.badges === badgesToReach) {
+                            this.$interval.cancel(b);
+                        }
+                    }, 10);
                 });
         }
 
