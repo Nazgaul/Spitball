@@ -18,7 +18,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         }
         public string UserPicture { get; set; }
         public long UserId { get; set; }
-        public string UserUrl { get; set; }
+        //public string UserUrl { get; set; }
         public string Text { get; set; }
         public Guid QuestionId { get; set; }
     }

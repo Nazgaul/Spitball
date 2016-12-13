@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Microsoft.ApplicationInsights;
 using Microsoft.Azure.Mobile.Server.Config;
 using Zbang.Cloudents.MobileApp.Extensions;
 using Zbang.Zbox.Infrastructure.Consts;
@@ -24,6 +26,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         private readonly IItemReadSearchProvider2 m_ItemSearchService2;
         private readonly IUniversityReadSearchProvider m_UniversitySearch;
         private readonly IZboxCacheReadService m_ZboxReadService;
+        private readonly TelemetryClient m_TelemetryClient = new TelemetryClient();
 
         public SearchController(IBoxReadSearchProvider2 boxSearchService2, IItemReadSearchProvider2 itemSearchService2, IUniversityReadSearchProvider universitySearch, IZboxCacheReadService zboxReadService)
         {
@@ -41,7 +44,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/search/boxes")]
         public async Task<HttpResponseMessage> BoxesAsync(string term, int page, int sizePerPage = 20)
         {
-
             var cancelToken = Request.GetCancellationToken();
             var universityId = User.GetUniversityDataId();
             if (!universityId.HasValue)
@@ -57,15 +59,16 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 s.Name,
                 s.Professor,
                 s.CourseCode,
-                shortUrl = UrlConst.BuildShortItemUrl(new Base62(s.Id).ToString()),
+               // shortUrl = UrlConst.BuildShortItemUrl(new Base62(s.Id).ToString()),
                 s.Type,
                 s.ItemCount,
                 s.MembersCount
             }));
+
         }
 
 
-        
+
         [HttpGet]
         [Route("api/search/items")]
         public async Task<HttpResponseMessage> Items2Async(string term, int page, int sizePerPage = 20)

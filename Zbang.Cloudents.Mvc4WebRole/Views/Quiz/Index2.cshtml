@@ -90,7 +90,7 @@
                 <ol class="list-unstyled replies feed" ng-if="q.questions[q.index].comments.length">
                     <li ng-repeat="post in q.questions[q.index].comments" class="comment reply post">
                         <div class="indent info">
-                            <a href="{{::post.userUrl}}" layout="row" layout-align="start center" class="userblock username" ga-track-event="['quiz', 'go to user page']">
+                            <a ui-sref="user({userId:post.userId, userName:post.userName})" layout="row" layout-align="start center" class="userblock username" ga-track-event="['quiz', 'go to user page']">
                                 <user-image class="c-img" name="::post.userName" image="::post.userImage" width="52" height="52"></user-image>
                                 <span class="user-name ellipsis">{{::post.userName}}</span>
                             </a>

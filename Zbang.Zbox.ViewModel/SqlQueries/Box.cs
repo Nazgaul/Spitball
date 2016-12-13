@@ -143,7 +143,6 @@ WHERE location IN (SELECT location+i
     i.Name as Name,
     i.userid as OwnerId,
     u.UserName as Owner,
-    u.Url as UserUrl,
     i.Discriminator as Discriminator,
     i.ItemTabId as TabId,
     i.NumberOfViews as NumOfViews,
@@ -162,13 +161,12 @@ WHERE location IN (SELECT location+i
     offset @pageNumber*@rowsperpage ROWS
     FETCH NEXT @rowsperpage ROWS ONLY;";
 
-
+        //TODO improve query
         public const string ItemsWithoutTabs = @" select
     i.itemid as Id,
     i.Name as Name,
     i.userid as OwnerId,
     u.UserName as Owner,
-    u.Url as UserUrl,
     i.Discriminator as Discriminator,
     i.NumberOfViews as NumOfViews,
     i.LikeCount as Likes,

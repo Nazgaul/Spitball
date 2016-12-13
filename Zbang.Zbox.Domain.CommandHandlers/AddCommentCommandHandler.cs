@@ -67,7 +67,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             await Task.WhenAll(t1, t2);
 
-            return new AddCommentCommandResult(command.Id, user.Name, user.ImageLarge, user.Url, user.Id);
+            return new AddCommentCommandResult(command.Id, user.Name, user.ImageLarge, user.Id);
         }
 
 

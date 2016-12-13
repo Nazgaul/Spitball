@@ -57,7 +57,6 @@ u.UserName,
 qd.CreationTime as Date,
 u.UserImageLarge as UserPicture,
 u.UserId,
-u.Url as UserUrl,
 qd.Text,
 qd.QuestionId
 from zbox.QuizDiscussion qd
@@ -84,6 +83,5 @@ where quizid = @QuizId";
 	order by q.Id desc
 	offset @pageNumber*@rowsperpage ROWS
     FETCH NEXT @rowsperpage ROWS ONLY";
-
     }
 }
