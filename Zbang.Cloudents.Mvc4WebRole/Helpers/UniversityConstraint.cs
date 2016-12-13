@@ -22,7 +22,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             var str = obj.ToString().ToLower();
 
 
-            if (str == "dashboard" || str == "error" || str == "chat" || str == "promotion")
+            if (str == "dashboard" || str == "error" || str == "chat")
             {
                 return false;
             }
