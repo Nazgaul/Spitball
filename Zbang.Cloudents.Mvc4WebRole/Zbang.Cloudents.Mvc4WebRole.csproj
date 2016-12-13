@@ -1475,7 +1475,6 @@
     <Content Include="Js\components\account\notification.controller.js" />
     <Content Include="Js\components\account\password.controller.js" />
     <Content Include="Js\components\account\unregister.controller.js" />
-    <Content Include="Js\components\account\unregisterShow.directive.js" />
     <Content Include="Js\components\box\box.module.js" />
     <Content Include="Js\components\box\box.routes.js" />
     <Content Include="Js\components\box\feed.likes.controller.js" />
@@ -1506,6 +1505,7 @@
     <Content Include="Js\signin\layout.js" />
     <Content Include="Js\signin\staticPages.js" />
     <TypeScriptCompile Include="Js\app.config.ts" />
+    <TypeScriptCompile Include="Js\components\account\unregisterShow.directive.ts" />
     <TypeScriptCompile Include="Js\components\app.controller.ts" />
     <TypeScriptCompile Include="Js\components\box\box.controller.ts" />
     <TypeScriptCompile Include="Js\components\box\box.service.ts" />
