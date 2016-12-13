@@ -106,7 +106,7 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Freshman.
+        ///   Looks up a localized string similar to Novice.
         /// </summary>
         public static string Level1 {
             get {
@@ -115,7 +115,7 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sophomore.
+        ///   Looks up a localized string similar to Practitioner.
         /// </summary>
         public static string Level2 {
             get {

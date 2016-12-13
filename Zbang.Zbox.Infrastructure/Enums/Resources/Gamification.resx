@@ -133,10 +133,10 @@
     <value>Helpful Harry</value>
   </data>
   <data name="Level1" xml:space="preserve">
-    <value>Freshman</value>
+    <value>Novice</value>
   </data>
   <data name="Level2" xml:space="preserve">
-    <value>Sophomore</value>
+    <value>Practitioner</value>
   </data>
   <data name="Level3" xml:space="preserve">
     <value>Upperclassman</value>
