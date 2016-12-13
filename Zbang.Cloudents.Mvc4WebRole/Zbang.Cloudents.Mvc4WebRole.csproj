@@ -1481,7 +1481,6 @@
     <Content Include="Js\components\box\slideit.directive.js" />
     <Content Include="Js\components\box\tab.controller.js" />
     <Content Include="Js\components\item\comments.controller.js" />
-    <Content Include="Js\components\item\externalProviderUpload.service.js" />
     <Content Include="Js\components\library\countryService.service.js" />
     <Content Include="Js\components\library\library.routes.js" />
     <Content Include="Js\components\library\libraryChoose.controller.js" />
@@ -1536,6 +1535,7 @@
     <TypeScriptCompile Include="Js\components\flashcard\flashcard.routes.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\flashcard.service.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\interaction.directive.ts" />
+    <TypeScriptCompile Include="Js\components\item\externalProviderUpload.service.ts" />
     <TypeScriptCompile Include="Js\components\item\item.controller.ts" />
     <TypeScriptCompile Include="Js\components\item\likeToasterController.ts" />
     <TypeScriptCompile Include="Js\components\item\dropFileClass.directive.ts" />
@@ -1570,6 +1570,8 @@
     <TypeScriptCompile Include="Js\routerHelperProvider.ts" />
     <TypeScriptCompile Include="Js\shared\ajaxService2.ts" />
     <TypeScriptCompile Include="Js\shared\cartAnimation.directive.ts" />
+    <TypeScriptCompile Include="Js\shared\dropbox.ts" />
+    <TypeScriptCompile Include="Js\shared\google.ts" />
     <TypeScriptCompile Include="Js\shared\history.ts" />
     <TypeScriptCompile Include="Js\shared\itemThumbnail.ts" />
     <TypeScriptCompile Include="Js\shared\loader.ts" />
@@ -2400,9 +2402,7 @@
     <Content Include="Js\components\account\account.controller.js" />
     <Content Include="Js\components\userdetails\userdetails.module.js" />
     <Content Include="Js\shared\colorOnLength.js" />
-    <Content Include="Js\shared\dropbox.js" />
     <Content Include="Js\shared\focusMe.js" />
-    <Content Include="Js\shared\google.js" />
     <Content Include="Js\shared\megaNumbers.js" />
     <Content Include="Js\shared\userimage.js" />
     <Content Include="Js\signin\bootstrap.min.js" />
