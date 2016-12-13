@@ -4,15 +4,14 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
 using Zbang.Cloudents.MobileApp.DataObjects;
-using Zbang.Cloudents.MobileApp.Extensions;
 using Zbang.Cloudents.MobileApp.Filters;
+using Zbang.Cloudents.MobileApp.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ReadServices;
-using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 
 namespace Zbang.Cloudents.MobileApp.Controllers
@@ -29,11 +28,12 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             m_ZboxReadService = zboxReadService;
         }
 
-        
-        //[VersionedRoute("api/boxes", 3)]
-        
+
+
+
         [ZboxAuthorize]
-        [Route("api/boxes", Order = 3)]
+        [VersionedRoute("api/boxes", 1, Order = 3)]
+        //[Route("api/boxes", Order = 3)]
         public async Task<HttpResponseMessage> GetBoxesAsync(int page, int sizePerPage = 15)
         {
             var userid = User.GetUserId();
@@ -45,6 +45,26 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 s.Id,
                 s.ItemCount,
                 s.CommentCount,
+                s.BoxType,
+                s.UserType,
+                s.Professor,
+                s.CourseCode,
+                shortUrl = UrlConst.BuildShortBoxUrl(new Base62(s.Id).ToString())
+            }));
+        }
+        [ZboxAuthorize]
+        [VersionedRoute("api/search/boxes", 2, Order = 3)]
+        public async Task<HttpResponseMessage> GetBoxesWithMembersCountAsync(int page, int sizePerPage = 15)
+        {
+            var userid = User.GetUserId();
+            var query = new GetBoxesQuery(userid, page, sizePerPage);
+            var data = await m_ZboxReadService.GetUserBoxesAsync(query);
+            return Request.CreateResponse(data.Select(s => new
+            {
+                s.Name,
+                s.Id,
+                s.ItemCount,
+                s.MembersCount,
                 s.BoxType,
                 s.UserType,
                 s.Professor,
@@ -67,7 +87,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             //{
             //    return Request.CreateBadRequestResponse("user don't have university");
             //}
-            
+
             //var query = new RecommendedCoursesQuery(university.Value, User.GetUserId());
             //var result = await m_ZboxReadService.GetRecommendedCoursesAsync(query);
             //return Request.CreateResponse(result.Select(s => new

@@ -64,4 +64,3 @@ var app;
         .module("app.flashcard")
         .directive("fitText", FitText.factory());
 })(app || (app = {}));
-//# sourceMappingURL=fitText.directive.js.map

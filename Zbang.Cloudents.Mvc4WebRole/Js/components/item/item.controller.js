@@ -129,4 +129,3 @@ var app;
     }());
     angular.module('app.item').controller('ItemController', Item);
 })(app || (app = {}));
-//# sourceMappingURL=item.controller.js.map

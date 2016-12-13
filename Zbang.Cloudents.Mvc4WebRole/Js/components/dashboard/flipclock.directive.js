@@ -24,4 +24,3 @@ var app;
         .module("app.dashboard")
         .directive("flipClock", FlipClock.factory());
 })(app || (app = {}));
-//# sourceMappingURL=flipclock.directive.js.map

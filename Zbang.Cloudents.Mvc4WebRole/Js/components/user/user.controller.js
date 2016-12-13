@@ -45,4 +45,3 @@ var app;
     }());
     angular.module('app.user').controller('UserController', User);
 })(app || (app = {}));
-//# sourceMappingURL=user.controller.js.map

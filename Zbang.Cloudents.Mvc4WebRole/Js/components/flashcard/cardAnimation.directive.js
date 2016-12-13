@@ -56,4 +56,3 @@ var app;
         .module("app.flashcard")
         .directive("myHide", CardSlideAnimation.factory());
 })(app || (app = {}));
-//# sourceMappingURL=cardAnimation.directive.js.map

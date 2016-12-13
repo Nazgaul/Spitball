@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
 using Zbang.Cloudents.MobileApp.Extensions;
 using Zbang.Zbox.Infrastructure.Consts;
-using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Url;
@@ -40,21 +38,18 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
 
         [HttpGet]
-        //, VersionedRoute("api/search/boxes", 3)]
         [Route("api/search/boxes")]
-        public async Task<HttpResponseMessage> Boxes(string term, int page, int sizePerPage = 20)
+        public async Task<HttpResponseMessage> BoxesAsync(string term, int page, int sizePerPage = 20)
         {
-            long? universityId = User.GetUniversityDataId();
-            //var userDetail = FormsAuthenticationService.GetUserData();
 
-
+            var cancelToken = Request.GetCancellationToken();
+            var universityId = User.GetUniversityDataId();
             if (!universityId.HasValue)
                 return Request.CreateBadRequestResponse("need university");
 
 
             var query = new SearchQueryMobile(term, User.GetUserId(), universityId.Value, page, sizePerPage);
-            // Services.Log.Info(String.Format("search boxes query: {0}", query));
-            var retVal = await m_BoxSearchService2.SearchBoxAsync(query, default(CancellationToken)) ?? new List<SearchBoxes>();
+            var retVal = await m_BoxSearchService2.SearchBoxAsync(query, cancelToken) ?? new List<SearchBoxes>();
 
             return Request.CreateResponse(retVal.Select(s => new
             {
@@ -63,24 +58,25 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 s.Professor,
                 s.CourseCode,
                 shortUrl = UrlConst.BuildShortItemUrl(new Base62(s.Id).ToString()),
-                s.Type
+                s.Type,
+                s.ItemCount,
+                s.MembersCount
             }));
         }
 
 
         
         [HttpGet]
-        //[VersionedRoute("api/search/items", 2)]
         [Route("api/search/items")]
-        public async Task<HttpResponseMessage> Items2(string term, int page, int sizePerPage = 20)
+        public async Task<HttpResponseMessage> Items2Async(string term, int page, int sizePerPage = 20)
         {
             long? universityId = User.GetUniversityDataId();
             if (!universityId.HasValue)
                 return Request.CreateBadRequestResponse("need university");
-
+            var cancelToken = Request.GetCancellationToken();
             var query = new SearchQueryMobile(term, User.GetUserId(), universityId.Value, page, sizePerPage);
             // Services.Log.Info(String.Format("search items query: {0}", query));
-            var retVal = await m_ItemSearchService2.SearchItemAsync(query, default(CancellationToken)) ?? new List<SearchItems>();
+            var retVal = await m_ItemSearchService2.SearchItemAsync(query, cancelToken) ?? new List<SearchItems>();
             return Request.CreateResponse(retVal.Select(s => new
             {
                 s.Name,
@@ -94,7 +90,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [HttpGet]
         [Route("api/search/university")]
         [AllowAnonymous]
-        public async Task<HttpResponseMessage> University(string term, int page, int sizePerPage = 20)
+        public async Task<HttpResponseMessage> UniversityAsync(string term, int page, int sizePerPage = 20)
         {
             if (string.IsNullOrEmpty(term))
             {
@@ -115,8 +111,10 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
                 return Request.CreateResponse(retValWithoutSearch);
             }
+            var cancelToken = Request.GetCancellationToken();
+
             var query = new UniversitySearchQuery(term, sizePerPage, page);
-            var retVal = await m_UniversitySearch.SearchUniversityAsync(query, default(CancellationToken));
+            var retVal = await m_UniversitySearch.SearchUniversityAsync(query, cancelToken);
 
             retVal = retVal.Select(s =>
             {
@@ -130,7 +128,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         }
 
         [HttpGet, Route("api/search/user")]
-        public async Task<HttpResponseMessage> Members(string term, long boxId, int page, int sizePerPage = 20)
+        public async Task<HttpResponseMessage> MembersAsync(string term, long boxId, int page, int sizePerPage = 20)
         {
             if (string.IsNullOrEmpty(term))
             {

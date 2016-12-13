@@ -2,6 +2,7 @@
 using System;
 using System.Net.Http;
 using System.ServiceModel.Channels;
+using System.Threading;
 using System.Web;
 
 namespace Zbang.Cloudents.MobileApp.Extensions
@@ -35,6 +36,10 @@ namespace Zbang.Cloudents.MobileApp.Extensions
             return null;
         }
 
-       
+
+        public static CancellationToken GetCancellationToken(this HttpRequestMessage request)
+        {
+            return HttpContext.Current.Response.ClientDisconnectedToken;
+        }
     }
 }

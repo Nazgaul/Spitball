@@ -36,7 +36,7 @@ offset (@pageNumber-1)*@rowsperpage ROWS
 FETCH NEXT @rowsperpage ROWS ONLY;";
 
         public const string GetSeoItemsCount = @"select sum(c)  from (
-select count(*)*3 as c
+select count(*)*4 as c
 from zbox.box b 
 where University in (select id from zbox.University where  needcode = 0)
 and Discriminator = 2
@@ -57,7 +57,15 @@ join zbox.box b on b.BoxId = i.BoxId
 where b.University in (select id from zbox.University where  needcode = 0)
 and i.IsDeleted = 0
 and b.discriminator = 2
-and i.publish = 1 ) t";
+and i.publish = 1 
+union all
+select count(*)
+from zbox.Flashcard i 
+join zbox.box b on b.BoxId = i.BoxId
+where b.University in (select id from zbox.University where  needcode = 0)
+and i.IsDeleted = 0
+and b.discriminator = 2
+and i.publish = 1) t";
 
 
         public const string FileSeo = @"select i.name

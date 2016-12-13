@@ -49,4 +49,3 @@
         return this;
     }
 })();
-//# sourceMappingURL=routerHelperProvider.js.map

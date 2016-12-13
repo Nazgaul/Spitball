@@ -199,4 +199,3 @@ var app;
     }());
     angular.module('app.chat').service('realtimeFactory', RealTimeFactory);
 })(app || (app = {}));
-//# sourceMappingURL=hubFactory.js.map
