@@ -1469,7 +1469,6 @@
     <Content Include="Js\app.route.js" />
     <Content Include="Js\CDNFallbackWithoutAngular.js" />
     <Content Include="Js\components\account\account.routes.js" />
-    <Content Include="Js\components\account\account.service.js" />
     <Content Include="Js\components\account\department.controller.js" />
     <Content Include="Js\components\account\info.controller.js" />
     <Content Include="Js\components\account\notification.controller.js" />
@@ -1505,6 +1504,7 @@
     <Content Include="Js\signin\layout.js" />
     <Content Include="Js\signin\staticPages.js" />
     <TypeScriptCompile Include="Js\app.config.ts" />
+    <TypeScriptCompile Include="Js\components\account\account.service.ts" />
     <TypeScriptCompile Include="Js\components\account\unregisterShow.directive.ts" />
     <TypeScriptCompile Include="Js\components\app.controller.ts" />
     <TypeScriptCompile Include="Js\components\box\box.controller.ts" />
