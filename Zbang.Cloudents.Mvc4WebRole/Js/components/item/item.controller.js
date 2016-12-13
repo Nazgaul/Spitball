@@ -27,6 +27,8 @@ var app;
             this.selectedState = State.Regular;
             this.loader = false;
             this.showRawText = false;
+            this.view = "preview-svg.html";
+            this.documents = [];
             this.details = itemData;
             var href = this.$state.href(this.$state.current.name, this.$state.current.params);
             this.details.downloadUrl = href + 'download/';
@@ -45,18 +47,27 @@ var app;
             return this.itemService.getPreview(this.details.blob, this.index, this.$stateParams.itemId, this.$stateParams.boxId).then(function (data) {
                 data = data || {};
                 _this.loader = false;
+                if (data.template) {
+                    _this.view = "preview-" + data.template.toLowerCase() + ".html";
+                    if (data.content) {
+                        _this.documents = _this.documents.concat(data.content);
+                        if (data.content > 3) {
+                            _this.needLoadMore = true;
+                        }
+                    }
+                    return;
+                }
                 var preview = data.preview;
                 if (preview) {
                     if (preview.indexOf('iframe') > 0
                         || preview.indexOf('audio') > 0
-                        || preview.indexOf('video') > 0
-                        || preview.indexOf('previewFailed') > 0) {
+                        || preview.indexOf('video') > 0) {
                         _this.preview = _this.$sce.trustAsHtml(preview);
                     }
                     else {
-                        var element = angular.element(preview);
-                        _this.preview += preview;
-                        if (element.find('img,svg').length === 3) {
+                        _this.view = "preview-" + preview.toLowerCase() + ".html";
+                        _this.documents = _this.documents.concat(data.content);
+                        if (data.content > 15) {
                             _this.needLoadMore = true;
                         }
                     }

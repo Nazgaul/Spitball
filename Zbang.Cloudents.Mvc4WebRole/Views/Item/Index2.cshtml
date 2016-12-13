@@ -101,7 +101,8 @@
         <a class="arrow prev" ng-if="i.details.previous" href="{{i.details.previous}}" hide-xs keyboard-action="37" ga-track-event="['itemPage', 'previous item']">
             <md-icon md-svg-icon="t:arrow"></md-icon>
         </a>
-        <div class="preview" ng-bind-html="i.preview"></div>
+        @*<div class="preview" ng-bind-html="i.preview"></div>*@
+        <div class="preview" ng-include="i.view"></div>
         <a class="arrow next" ng-if="i.details.next" href="{{i.details.next}}" hide-xs keyboard-action="39" ga-track-event="['itemPage', 'next item']">
             <md-icon md-svg-icon="t:arrow"></md-icon>
         </a>
@@ -119,7 +120,7 @@
     </div>
 </div>
 
-<script defer type="text/ng-template" id="likeToasterTemplate.html">
+<script type="text/ng-template" id="likeToasterTemplate.html">
     <md-toast class="like-toaster-template">
         <div class="wrapper" layout="row" layout-align="space-between center">
             <div class="like-area">
@@ -136,4 +137,42 @@
             </button>
         </div>
     </md-toast>
+</script>
+<script type="text/ng-template" id="preview-svg.html">
+    <div class="preview preview-page">
+        <div class="preview-svg">
+            <img class="svgContent" ng-src="{{::i}}" alt="" ng-repeat="i in i.documents" />
+        </div>
+    </div>
+</script>
+<script type="text/ng-template" id="preview-text.html">
+    <iframe sandbox="" class="iframeContent" ng-src="{{::i}}" ng-repeat="i in i.documents"></iframe>
+</script>
+<script type="text/ng-template" id="preview-medialoading.html">
+    <div class="mediaLoading">
+        <div class="mediaLoader">
+            <div class="spinner"></div>
+        </div>
+        <h2>@ItemsResources.Processing</h2>
+        <div>@ItemsResources.MayTake</div>
+    </div>
+</script>
+<script type="text/ng-template" id="preview-link.html">
+    <iframe class="iframeContent" ng-src="{{::i}}" ng-repeat="i in i.documents"></iframe>
+</script>
+<script type="text/ng-template" id="preview-image.html">
+    <div class="preview preview-page">
+        <div class="preview-image">
+            <img class="imageContent" ng-src="{{::i}}" alt="" ng-repeat="i in i.documents" />
+        </div>
+    </div>
+</script>
+<script type="text/ng-template" id="preview-failed.html">
+    <div class="previewFailed">
+        <img src="@Url.CdnContent("~/Images/Site/preview_failed_icon.png")" alt="Preview failed">
+        <p>
+            @ItemsResources.PreviewNotAvailable<br />
+            @ItemsResources.PleaseUseThe@Html.Raw("&nbsp")<a class="actionText" target="_Blank" href="{{i.details.downloadUrl}}">@ItemsResources.Download</a>@Html.Raw("&nbsp")@ItemsResources.PreviewFailed2
+        </p>
+    </div>
 </script>

@@ -18,6 +18,10 @@
         loader = false;
         showRawText = false; // for ui purpose
         renameText;
+
+        view = "preview-svg.html";
+        documents = [];
+
         constructor(private itemData,
             private $state: angular.ui.IStateService,
             private $stateParams: spitaball.ISpitballStateParamsService,
@@ -55,17 +59,28 @@
             return this.itemService.getPreview(this.details.blob, this.index, this.$stateParams.itemId, this.$stateParams.boxId).then(data => {
                 data = data || {};
                 this.loader = false;
+                if (data.template) {
+                    this.view = "preview-" + data.template.toLowerCase() + ".html";
+                    if (data.content) {
+                        this.documents = this.documents.concat(data.content);
+                        if (data.content > 3) {
+                            this.needLoadMore = true;
+                        }
+                    }
+                    return;
+                }
                 var preview: string = data.preview;
                 if (preview) {
                     if (preview.indexOf('iframe') > 0
                         || preview.indexOf('audio') > 0
                         || preview.indexOf('video') > 0
-                        || preview.indexOf('previewFailed') > 0) {
+                        /*|| preview.indexOf('previewFailed') > 0*/) {
                         this.preview = this.$sce.trustAsHtml(preview);
                     } else {
-                        const element = angular.element(preview);
-                        this.preview += preview;
-                        if (element.find('img,svg').length === 3) {
+
+                        this.view = "preview-" + preview.toLowerCase() + ".html";
+                        this.documents = this.documents.concat(data.content);
+                        if (data.content > 15) {
                             this.needLoadMore = true;
                         }
 

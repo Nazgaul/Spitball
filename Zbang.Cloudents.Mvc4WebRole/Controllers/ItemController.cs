@@ -399,9 +399,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     JsonOk(
                         new
                         {
-                            preview =
-                                RenderRazorViewToString("_PreviewFailed",
-                                    Url.RouteUrl("ItemDownload2", new { boxId, itemId = id }))
+                            template = "failed"
+                            //preview =
+                            //    RenderRazorViewToString("_PreviewFailed",
+                            //        Url.RouteUrl("ItemDownload2", new { boxId, itemId = id }))
                         });
 
             try
@@ -411,8 +412,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return JsonOk(new
                     {
-                        preview = RenderRazorViewToString("_PreviewFailed",
-                            Url.RouteUrl("ItemDownload2", new { boxId, itemId = id }))
+                        template = "failed"
+                        //preview = RenderRazorViewToString("_PreviewFailed",
+                        //    Url.RouteUrl("ItemDownload2", new { boxId, itemId = id }))
                     });
 
                 }
@@ -428,11 +430,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 return JsonOk(new
                 {
-                    preview = RenderRazorViewToString("_Preview" + retVal.ViewName,
-                     new ItemPreview(
-                           retVal.Content.Take(3),
-                           index,
-                           User.Identity.IsAuthenticated))
+                    template = retVal.ViewName,
+                    retVal.Content
+                    //preview = RenderRazorViewToString("_Preview" + retVal.ViewName,
+                    // new ItemPreview(
+                    //       retVal.Content.Take(3),
+                    //       index,
+                    //       User.Identity.IsAuthenticated))
                 });
 
             }
@@ -444,8 +448,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return JsonOk(new
                     {
-                        preview = RenderRazorViewToString("_PreviewFailed",
-                            Url.RouteUrl("ItemDownload2", new { boxId, itemId = id }))
+                        template = "failed"
+                        //preview = RenderRazorViewToString("_PreviewFailed",
+                        //    Url.RouteUrl("ItemDownload2", new { boxId, itemId = id }))
                     });
                 }
                 return JsonOk();
