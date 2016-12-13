@@ -1347,10 +1347,12 @@
     <Content Include="Images\Gamification\badge_Quizzy Lizzy_hidden.png" />
     <Content Include="Images\Gamification\badge_Spitballer.png" />
     <Content Include="Images\Gamification\badge_Spitballer_hidden.png" />
-    <Content Include="Images\Gamification\level_Freshman_hidden.png" />
+    <Content Include="Images\Gamification\level_Novice.png" />
+    <Content Include="Images\Gamification\level_Novice_hidden.png" />
+    <Content Include="Images\Gamification\level_Practitioner.png" />
+    <Content Include="Images\Gamification\level_Practitioner_hidden.png" />
     <Content Include="Images\Gamification\level_Professor_hidden.png" />
     <Content Include="Images\Gamification\level_Scholar_hidden.png" />
-    <Content Include="Images\Gamification\level_Sophomore_hidden.png" />
     <Content Include="Images\Gamification\level_Upperclassman_hidden.png" />
     <Content Include="Images\HomePage2\apps.png">
       <DependentUpon>apps.sprite</DependentUpon>
@@ -1371,10 +1373,8 @@
     <Content Include="Images\Site\community-bg.png" />
     <Content Include="Images\Site\course_choose_popup.png" />
     <Content Include="Images\Site\create_uni_text_blue.png" />
-    <Content Include="Images\Gamification\level_Freshman.png" />
     <Content Include="Images\Gamification\level_Professor.png" />
     <Content Include="Images\Gamification\level_Scholar.png" />
-    <Content Include="Images\Gamification\level_Sophomore.png" />
     <Content Include="Images\Gamification\level_Upperclassman.png" />
     <Content Include="Images\Site\Leaderboard-bg-l.png" />
     <Content Include="Images\Site\Leaderboard-bg-r.png" />
