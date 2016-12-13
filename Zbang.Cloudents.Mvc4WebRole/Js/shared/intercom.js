@@ -56,3 +56,4 @@ var app;
     }());
     angular.module("app").run(IntercomComponent.factory());
 })(app || (app = {}));
+//# sourceMappingURL=intercom.js.map

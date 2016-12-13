@@ -60,3 +60,4 @@ var app;
     }());
     angular.module('app.box.flashcards').controller('FlashcardsController', Flashcards);
 })(app || (app = {}));
+//# sourceMappingURL=flashcards.controller.js.map

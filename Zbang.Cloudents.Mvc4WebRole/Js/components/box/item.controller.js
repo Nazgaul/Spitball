@@ -233,3 +233,4 @@ var app;
     }());
     angular.module('app.box.items').controller('ItemsController', ItemsController);
 })(app || (app = {}));
+//# sourceMappingURL=item.controller.js.map

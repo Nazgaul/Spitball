@@ -36,3 +36,4 @@ var app;
     }());
     angular.module("app.box").controller("Leaderboard", Leaderboard);
 })(app || (app = {}));
+//# sourceMappingURL=leaderboard.controller.js.map

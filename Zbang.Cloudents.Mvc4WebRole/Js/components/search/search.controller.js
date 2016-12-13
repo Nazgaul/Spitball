@@ -140,3 +140,4 @@ var app;
     }());
     angular.module("app.search").controller("SearchController", SearchController);
 })(app || (app = {}));
+//# sourceMappingURL=search.controller.js.map
