@@ -2623,6 +2623,7 @@
     <Content Include="Views\Box\LeaderboardPartial.cshtml" />
     <Content Include="Views\User\Flashcards.cshtml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
+    <Content Include="Views\Home\Promotion.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
