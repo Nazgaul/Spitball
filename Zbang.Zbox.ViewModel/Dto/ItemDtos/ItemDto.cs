@@ -16,8 +16,8 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public int NumOfViews { get; set; }
 
         public string Url { get; set; }
-        public string DownloadUrl { get; set; }
-        public string UserUrl { get; set; }
+        //public string DownloadUrl { get; set; }
+        //public string UserUrl { get; set; }
 
         public DateTime Date { get; set; }
 

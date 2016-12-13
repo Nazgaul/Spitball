@@ -7,7 +7,6 @@
             <div class="menu-toggler">
                 <button type="button" class="menu-icon" ng-click="c.toggleComments()">
                     <md-icon md-svg-icon="b:comment" class="commentsMenu"></md-icon>
-                    @*@Html.Svg("~/images/site/box-icons.svg", "comment", new {@class = "commentsMenu"})*@
                 </button>
             </div>
             <md-content role="navigation">
@@ -15,7 +14,7 @@
                     <div class="title">@ItemsResources.CreateComment</div>
                     <div class="new-comment" layout="row">
                         <div class="user-image">
-                            <a href="{{::c.currUser.url}}" user-not-register-popup="click" class="username">
+                            <a ui-sref="user({userId:c.currUser.id, userName:c.currUser.name})" @*href="{{::c.currUser.url}}"*@ user-not-register-popup="click" class="username">
                                 <user-image class="img-circle c-img" name="c.currUser.name" image="c.currUser.image" width="25" height="25"></user-image>
                             </a>
                         </div>
@@ -37,12 +36,12 @@
                         <li ng-repeat="comment in c.comments" class="reply">
                             <div class="comment-data" layout="row">
                                 <div class="user-image">
-                                    <a href="{{::comment.userUrl}}" class="username">
+                                    <a ui-sref="user({userId:comment.userId, userName:comment.userName})" class="username">
                                         <user-image class="img-circle c-img" name="comment.userName" image="comment.userImage" width="25" height="25"></user-image>
                                     </a>
                                 </div>
                                 <div class="comment-text">
-                                    <div class="comment-info"><span class="author">@ItemsResources.CommentAuthor <a href="{{::comment.userUrl}}"> {{::comment.userName}}</a></span><span class="date"><time-ago class="comment-date" from-time="{{::comment.creationDate }}" format="mediumDate"></time-ago></span></div>
+                                    <div class="comment-info"><span class="author">@ItemsResources.CommentAuthor <a ui-sref="user({userId:comment.userId, userName:comment.userName})"> {{::comment.userName}}</a></span><span class="date"><time-ago class="comment-date" from-time="{{::comment.creationDate }}" format="mediumDate"></time-ago></span></div>
                                     <div class="comment-content" ng-bind-html="::comment.comment | linky:'_blank'"></div>
 
                                 </div>
@@ -63,13 +62,13 @@
                                 <li ng-repeat="reply in comment.replies" class="reply">
                                     <div class="reply-data" layout="row">
                                         <div class="user-image">
-                                            <a href="{{::reply.userUrl}}" user-not-register-popup="click" class="username">
+                                            <a ui-sref="user({userId:reply.userId, userName:reply.userName})" user-not-register-popup="click" class="username">
                                                 <user-image class="img-circle c-img" name="comment.userName" image="reply.userImage" width="25" height="25"></user-image>
                                             </a>
                                         </div>
                                         <div class="reply-wrapper">
                                             <div class="reply-text">
-                                                <div class="comment-info"><span class="author">@ItemsResources.CommentAuthor <a href="{{::reply.userUrl}}"> {{::reply.userName}}</a></span> <span class="date"><time-ago class="comment-date" from-time="{{::reply.creationDate }}" format="mediumDate"></time-ago></span></div>
+                                                <div class="comment-info"><span class="author">@ItemsResources.CommentAuthor <a ui-sref="user({userId:comment.userId, userName:comment.userName})"> {{::reply.userName}}</a></span> <span class="date"><time-ago class="comment-date" from-time="{{::reply.creationDate }}" format="mediumDate"></time-ago></span></div>
                                                 <div class="comment-content" ng-bind-html="::reply.comment | linky:'_blank'"></div>
                                             </div>
                                             <md-menu ng-if="::c.canDelete(reply.userId)">

@@ -59,7 +59,6 @@ select Prev as Previous,Next from  cte where itemid = @ItemId
                           ,ic.CreationTime as CreationDate
 	                      ,u.UserName
 ,u.UserImageLarge as UserImage
-,u.url as UserUrl
                           ,u.userid as UserId
   FROM [Zbox].[ItemComment] ic join zbox.Users u on ic.UserId = u.UserId
                       where itemid = @ItemId
@@ -70,7 +69,6 @@ select Prev as Previous,Next from  cte where itemid = @ItemId
 ,cr.CreationTime as CreationDate
 ,u.UserName as UserName
     ,u.UserImageLarge as UserImage
-    ,u.url as UserUrl
       ,u.UserId
       ,[ParentId]
       

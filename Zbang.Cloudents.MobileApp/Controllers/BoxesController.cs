@@ -53,7 +53,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }));
         }
         [ZboxAuthorize]
-        [VersionedRoute("api/search/boxes", 2, Order = 3)]
+        [VersionedRoute("api/boxes", 2, Order = 3)]
         public async Task<HttpResponseMessage> GetBoxesWithMembersCountAsync(int page, int sizePerPage = 15)
         {
             var userid = User.GetUserId();

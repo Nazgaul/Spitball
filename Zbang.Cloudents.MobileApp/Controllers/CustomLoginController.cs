@@ -110,7 +110,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                    Convert.ToBase64String(
                        System.Text.Encoding.UTF8.GetBytes(
                            "947726dd6318753268f3bfbe5e87ae2afe220db399c26e119c181a59227b0c60"));
-            //Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes("dev"));
         }
 
 
