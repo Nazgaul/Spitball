@@ -46,7 +46,7 @@ md-menu-item.blue svg {
 .itemPage header {
   width: 100%;
   position: relative;
-  min-height: 60px;
+  min-height: 90px;
   display: block;
   padding: 6px 0;
   display: -webkit-flex;
@@ -562,8 +562,8 @@ md-menu-item.blue svg {
 }
 .itemPage .side-ad {
   position: fixed;
-  right: calc(50% - 650px);
-  top: 130px;
+  left: calc(50% - 700px);
+  top: 160px;
   width: 160px;
   height: 600px;
 }

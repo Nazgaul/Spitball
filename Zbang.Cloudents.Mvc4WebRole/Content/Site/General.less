@@ -273,13 +273,20 @@ body {
     padding-top: 0;
     border: 2px solid @buttonColorBlue;
     color: @buttonColorBlue;
+    max-height: 100%;
 
     form {
+        max-height: 100%;
         width: 100%;
         align-self: center;
+        padding: 0 8px 32px;
 
         span {
             margin: 0;
+        }
+
+        md-input-container {
+            margin-bottom: 0;
         }
 
         .buttons {

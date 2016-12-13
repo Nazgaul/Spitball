@@ -204,13 +204,19 @@ body .quiz-template .bottom .name {
   padding-top: 0;
   border: 2px solid #4190b9;
   color: #4190b9;
+  max-height: 100%;
 }
 .box-style-form form {
+  max-height: 100%;
   width: 100%;
   align-self: center;
+  padding: 0 8px 32px;
 }
 .box-style-form form span {
   margin: 0;
+}
+.box-style-form form md-input-container {
+  margin-bottom: 0;
 }
 .box-style-form form .buttons {
   position: absolute;
