@@ -31,7 +31,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     {
         private readonly Lazy<IBlobProvider> m_BlobProvider;
         private readonly ICookieHelper m_CookieHelper;
-        public static readonly long[] FlashcardUniversities = { 173408, 171885, 172566 };
+       // public static readonly long[] FlashcardUniversities = { 173408, 171885, 172566 };
 
         public HomeController(Lazy<IBlobProvider> blobProvider, ICookieHelper cookieHelper)
         {
@@ -58,18 +58,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 return RedirectToRoute("UniversityLink", new { invId, universityName = university.UniversityName, step });
             }
-            if (university != null && FlashcardUniversities.Contains(university.UniversityId))
-            {
-                var flashcardPromo = m_CookieHelper.ReadCookie<UniversityFlashcardPromo>(UniversityFlashcardPromo.CookieName);
+            //if (university != null && FlashcardUniversities.Contains(university.UniversityId))
+            //{
+            //    var flashcardPromo = m_CookieHelper.ReadCookie<UniversityFlashcardPromo>(UniversityFlashcardPromo.CookieName);
 
-                if (flashcardPromo == null)
-                {
-                    return RedirectToRoute("Promotion");
-                }
-                ViewBag.promoEnable = true;
+            //    if (flashcardPromo == null)
+            //    {
+            //        return RedirectToRoute("Promotion");
+            //    }
+            //    ViewBag.promoEnable = true;
 
 
-            }
+            //}
             if (!string.IsNullOrEmpty(universityName) && university == null)
             {
                 return RedirectToRoute("homePage", new { invId });
@@ -319,26 +319,26 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
-        [Route("promotion", Name = "Promotion")]
-        public async Task<ActionResult> PromotionAsync()
-        {
-            var value = m_CookieHelper.ReadCookie<UniversityCookie>(UniversityCookie.CookieName);
-            if (value == null)
-            {
-                return RedirectToRoute("homePage");
-            }
-            if (!FlashcardUniversities.Contains(value.UniversityId))
-            {
-                return RedirectToRoute("homePage");
-            }
-            m_CookieHelper.InjectCookie(UniversityFlashcardPromo.CookieName,
-                new UniversityFlashcardPromo());
-            var query = new GetHomePageQuery(value.UniversityId);
-            var homeStats = await ZboxReadService.GetHomePageDataAsync(query);
-            ViewBag.promoEnable = true;
-            //homeStats.FlashcardPromo = true;
-            return View("Promotion", homeStats);
-        }
+        //[Route("promotion", Name = "Promotion")]
+        //public async Task<ActionResult> PromotionAsync()
+        //{
+        //    var value = m_CookieHelper.ReadCookie<UniversityCookie>(UniversityCookie.CookieName);
+        //    if (value == null)
+        //    {
+        //        return RedirectToRoute("homePage");
+        //    }
+        //    if (!FlashcardUniversities.Contains(value.UniversityId))
+        //    {
+        //        return RedirectToRoute("homePage");
+        //    }
+        //    m_CookieHelper.InjectCookie(UniversityFlashcardPromo.CookieName,
+        //        new UniversityFlashcardPromo());
+        //    var query = new GetHomePageQuery(value.UniversityId);
+        //    var homeStats = await ZboxReadService.GetHomePageDataAsync(query);
+        //    ViewBag.promoEnable = true;
+        //    //homeStats.FlashcardPromo = true;
+        //    return View("Promotion", homeStats);
+        //}
 
         [Route("classnotes", Name = "classnotes")]
         [Route("classnotes/{lang:regex(^(en|he))}", Name = "classnotes2")]

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -13,7 +12,6 @@ using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 using Zbang.Zbox.ViewModel.Queries.Dashboard;
 
@@ -80,33 +78,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-        //[HttpGet, ActionName("Leaderboard")]
-        ////TODO: add output cache
-        //public async Task<JsonResult> LeaderboardAsync()
-        //{
-        //    // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
-        //    var universityWrapper = User.GetUniversityId().Value;
-        //    if (HomeController.FlashcardUniversities.Contains(universityWrapper) && DateTime.UtcNow < new DateTime(2016, 12, 16))
-        //    {
-
-        //        var model2 = await ZboxReadService.GetDashboardFlashcardStatusAsync(new FlashcardLeaderboardQuery(User.GetUserId(),
-        //             universityWrapper));
-        //        return JsonOk(new
-        //        {
-        //            type = 2,
-        //            model = model2
-        //        });
-        //    }
-
-        //    var query = new LeaderBoardQuery(universityWrapper);
-        //    var model = await ZboxReadService.GetDashboardLeaderBoardAsync(query);
-        //    return JsonOk(new
-        //    {
-        //        type = 1,
-        //        model
-        //    });
-
-        //}
+       
 
         #region CreateBox
 
@@ -138,28 +110,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         #endregion
-
-
-        //[HttpGet, ActionName("RecommendedCourses")]
-        //public async Task<JsonResult> RecommendedCoursesAsync()
-        //{
-        //    // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
-        //    var universityWrapper = User.GetUniversityId().Value;
-
-        //    var query = new RecommendedCoursesQuery(universityWrapper, User.GetUserId());
-        //    var result = await ZboxReadService.GetRecommendedCoursesAsync(query);
-        //    return JsonOk(result.Select(s => new
-        //    {
-        //        s.CourseCode,
-        //        s.ItemCount,
-        //        s.MembersCount,
-        //        s.Name,
-        //        s.Professor,
-        //        s.Url
-        //    }));
-        //}
-
-
-
+       
     }
 }

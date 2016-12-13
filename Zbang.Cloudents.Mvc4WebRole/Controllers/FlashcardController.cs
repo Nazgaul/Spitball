@@ -395,16 +395,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk();
         }
 
-        [HttpGet, ZboxAuthorize, NoUniversity]
-        [DonutOutputCache(CacheProfile = "PartialPage")]
-        public ActionResult Promo()
-        {
-            var universityWrapper = User.GetUniversityId().Value;
-            if (HomeController.FlashcardUniversities.Contains(universityWrapper))
-            {
-                return PartialView("_Promo");
-            }
-            return JsonError();
-        }
+        //[HttpGet, ZboxAuthorize, NoUniversity]
+        //[DonutOutputCache(CacheProfile = "PartialPage")]
+        //public ActionResult Promo()
+        //{
+        //    var universityWrapper = User.GetUniversityId().Value;
+        //    if (HomeController.FlashcardUniversities.Contains(universityWrapper))
+        //    {
+        //        return PartialView("_Promo");
+        //    }
+        //    return JsonError();
+        //}
     }
 }

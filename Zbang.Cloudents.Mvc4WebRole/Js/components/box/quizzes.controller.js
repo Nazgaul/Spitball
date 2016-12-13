@@ -1,5 +1,5 @@
 ﻿(function () {
-'use strict';
+    'use strict';
     angular.module('app.box.quizzes').controller('QuizzesController', quizzes);
     quizzes.$inject = ['boxService', '$stateParams', '$mdDialog', 'quizService', 'boxData', '$mdMedia', '$state', 'user', '$rootScope', 'resManager'];
 
@@ -23,6 +23,15 @@
                     params.name = boxData.name;
                     var url = $state.href('quizCreate', params);
                     quiz.url = url;
+                } else {
+                    quiz.url = $state.href("quiz",
+               {
+                   universityType: $stateParams["universityType"],
+                   boxId: $stateParams["boxId"],
+                   boxName: $stateParams["boxName"],
+                   quizId: quiz.id,
+                   quizName: quiz.name
+               });
                 }
                 q.quizzes.push(quiz);
             }
