@@ -106,12 +106,12 @@
             $scope.$watchCollection(() => {
                 return [$state.params["tabId"], $state.params["q"]];
             }, (newParams, oldParams) => {
-                if ($state.current.name !== 'box.items') {
+                if ($state.current.name !== "box.items") {
                     return; //happen upon link
                 }
                 if (newParams[0] !== oldParams[0]) {
                     if ($stateParams["tabId"] && $stateParams["q"]) {
-                        $state.go('box.items', { tabId: $stateParams["tabId"], q: null });
+                        $state.go("box.items", { tabId: $stateParams["tabId"], q: null });
                         return;
                     }
                     resetParams();

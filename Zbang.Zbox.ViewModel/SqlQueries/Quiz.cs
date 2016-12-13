@@ -70,25 +70,20 @@ order by qd.id desc";
 where quizid = @QuizId";
 
 
-        public const string GetBoxQuiz = @" select 
+        public const string GetBoxQuiz = @"  select 
     id as Id, 
     q.userid as OwnerId,
-    u.UserName as Owner,
-    u.Url as UserUrl,
     name as Name,
     Publish,
-    rate as Rate,
+    LikeCount as Likes,
     NumberOfViews as NumOfViews,
-    Content as Description,
-    q.CreationTime as Date,
-    q.Url as Url
+    q.CreationTime as Date
     from zbox.quiz q
-    join zbox.Users u on u.userid = q.UserId
     where boxid = @BoxId
     and q.isdeleted = 0
 	order by q.Id desc
 	offset @pageNumber*@rowsperpage ROWS
-    FETCH NEXT @rowsperpage ROWS ONLY;";
+    FETCH NEXT @rowsperpage ROWS ONLY";
 
     }
 }
