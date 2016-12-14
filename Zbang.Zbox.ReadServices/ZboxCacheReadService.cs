@@ -307,16 +307,16 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetLeaderBoardQuery query)
+        public Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetBoxLeaderboardQuery query)
         {
             return m_ReadService.GetBoxLeaderBoardAsync(query);
             //return m_Cache.QueryAsync(m_ReadService.GetBoxLeaderBoardAsync, query);
         }
 
-        public Task<IEnumerable<RecommendBoxDto>> GetBoxRecommendedCoursesAsync(GetBoxSideBarQuery query, CancellationToken token)
-        {
-            return m_ReadService.GetBoxRecommendedCoursesAsync(query, token);
-        }
+        //public Task<IEnumerable<RecommendBoxDto>> GetBoxRecommendedCoursesAsync(GetBoxSideBarQuery query, CancellationToken token)
+        //{
+        //    return m_ReadService.GetBoxRecommendedCoursesAsync(query, token);
+        //}
 
 
 
@@ -409,7 +409,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.UserBadgesAsync(query);
         }
 
-        public Task<IEnumerable<LeaderBoardDto>> UserLeaderboardAsync(LeaderBoardQuery query)
+        public Task<IEnumerable<LeaderBoardDto>> UserLeaderboardAsync(LeaderboardQuery query)
         {
             return m_ReadService.UserLeaderboardAsync(query);
         }

@@ -12,7 +12,7 @@
         gamificationBoard(): angular.IPromise<any>;
         levels(userid: number): angular.IPromise<any>;
         badges(userid: number): angular.IPromise<any>;
-        leaderboard(userid: number, mySelf: boolean, page?: number): angular.IPromise<any>;
+        leaderboard(userid: number, page?: number): angular.IPromise<any>;
     }
     class UserService implements IUserService {
         static $inject = ['ajaxService2'];
@@ -55,11 +55,10 @@
         badges(userid: number): angular.IPromise<any> {
             return this.ajaxService2.get("/user/userbadges/", { userid: userid });
         }
-        leaderboard(userid: number, mySelf: boolean, page?: number): angular.IPromise<any> {
+        leaderboard(userid: number, page?: number): angular.IPromise<any> {
             return this.ajaxService2.get("/user/leaderboard/",
                 {
                     userid: userid,
-                    mySelf: mySelf,
                     page: page
                 });
         }

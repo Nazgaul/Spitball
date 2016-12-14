@@ -47,10 +47,10 @@ namespace Zbang.Zbox.ReadServices
 
         Task<IEnumerable<FlashcardDto>> GetBoxFlashcardsAsync(GetFlashCardsQuery query);
 
-        Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetLeaderBoardQuery query);
+        Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetBoxLeaderboardQuery query);
 
-        Task<IEnumerable<RecommendBoxDto>> GetBoxRecommendedCoursesAsync(GetBoxSideBarQuery query,
-            CancellationToken token);
+        //Task<IEnumerable<RecommendBoxDto>> GetBoxRecommendedCoursesAsync(GetBoxSideBarQuery query,
+        //    CancellationToken token);
 
         Task<ItemDetailDto> GetItem2Async(GetItemQuery query);
         Task<IEnumerable<AnnotationDto>> GetItemCommentsAsync(ItemCommentQuery query);
@@ -152,7 +152,7 @@ namespace Zbang.Zbox.ReadServices
         Task<LevelDto> UserLevelsAsync(QueryBaseUserId query);
 
         Task<IEnumerable<BadgeDto>> UserBadgesAsync(QueryBaseUserId query);
-        Task<IEnumerable<LeaderBoardDto>> UserLeaderboardAsync(LeaderBoardQuery query);
+        Task<IEnumerable<LeaderBoardDto>> UserLeaderboardAsync(LeaderboardQuery query);
 
         #endregion
 

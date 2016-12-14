@@ -387,22 +387,21 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<IEnumerable<Box.RecommendBoxDto>> GetBoxRecommendedCoursesAsync(GetBoxSideBarQuery query, CancellationToken token)
-        {
-            using (var con = await DapperConnection.OpenConnectionAsync(token))
-            {
-                return await con.QueryAsync<Box.RecommendBoxDto>(
-                    new CommandDefinition(Sql.Box.RecommendedCourses, query, commandTimeout: 5, cancellationToken: token)
-                );
+        //public async Task<IEnumerable<Box.RecommendBoxDto>> GetBoxRecommendedCoursesAsync(GetBoxSideBarQuery query, CancellationToken token)
+        //{
+        //    using (var con = await DapperConnection.OpenConnectionAsync(token))
+        //    {
+        //        return await con.QueryAsync<Box.RecommendBoxDto>(
+        //            new CommandDefinition(Sql.Box.RecommendedCourses, query, commandTimeout: 5, cancellationToken: token)
+        //        );
 
-            }
-        }
-        public async Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetLeaderBoardQuery query)
+        //    }
+        //}
+        public async Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetBoxLeaderboardQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
-                var sql = query.Myself ? Sql.Box.LeaderboardMyself : Sql.Box.LeaderBoard;
-                return await con.QueryAsync<LeaderBoardDto>(sql,
+                return await con.QueryAsync<LeaderBoardDto>(Sql.Box.LeaderBoard,
                     query);
             }
         }
@@ -1196,12 +1195,12 @@ and f.isdeleted = 0";
             }
         }
 
-        public async Task<IEnumerable<LeaderBoardDto>> UserLeaderboardAsync(LeaderBoardQuery query)
+        public async Task<IEnumerable<LeaderBoardDto>> UserLeaderboardAsync(LeaderboardQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var sql = query.Myself ? Sql.User.LeaderBoardMySelf : Sql.User.LeaderBoardAll;
-                return await conn.QueryAsync<LeaderBoardDto>(sql, query);
+               // var sql = query.Myself ? Sql.User.LeaderBoardMySelf : Sql.User.LeaderBoardAll;
+                return await conn.QueryAsync<LeaderBoardDto>(Sql.User.LeaderBoardAll, query);
             }
         }
 

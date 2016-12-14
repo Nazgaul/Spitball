@@ -62,6 +62,8 @@ var app;
                 culture: data.culture,
                 badges: data.badges,
                 email: data.email,
+                levelName: data.levelName,
+                nextLevel: data.nextLevel,
                 university: {
                     country: data.universityCountry,
                     name: data.universityName,

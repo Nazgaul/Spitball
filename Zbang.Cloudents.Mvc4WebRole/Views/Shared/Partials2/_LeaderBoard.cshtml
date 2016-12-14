@@ -1,36 +1,40 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
-<div class="top">
+@*<div class="top">
     <div class="bg-l"></div>
     <div class="bg-r"></div>
     <img alt="leaderboard title" class="title" src="@Url.CdnContent("~/Images/Site/Leaderboard-title.png")" />
-</div>
+</div>*@
 <div class="content">
-    <div class="filter-wrapper">
+    @*<div class="filter-wrapper">
         <button type="button" ng-click="g.goToSelf()" class="action-btn">
             <span ng-if="!g.leaderboardMyself">@GamificationResources.LeaderboardShowMySelf</span>
             <span ng-if="g.leaderboardMyself">@GamificationResources.LeaderboardShowAll</span>
         </button>
 
-    </div>
+    </div>*@
     <div class="users" layout="row" layout-padding layout-wrap vs-repeat="94" vs-scroll-parent="window">
-        <div class="user-data" ng-repeat="user in g.leaderboard track by user.id">
-            <div class="rank" ng-bind="::(user.location || $index+1 + startIndex)"></div>
-            <a class="img-wrapper" ng-attr-id="{{'user_' + user.id}}" ui-sref="user({userId:user.id,userName:user.name})">
+        <a ui-sref="user({userId:user.id,userName:user.name})" class="user-data" ng-repeat="user in g.leaderboard track by user.id">
+            <div class="rank" ng-bind="::($index+1 + startIndex)"></div>
+            @*<a class="img-wrapper" >*@
                 <user-image class="img-responsive" name="user.name" image="user.image" width="60" height="60"></user-image>
-            </a>
+            @*</a>*@
             <div class="progress-user">
-                <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{::user.progress}}"></md-progress-linear>
-                <div class="text">
+                <div>
+                    <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="{{::user.progress}}"></md-progress-linear>
                     <div class="name ellipsis" ng-bind="::user.name"></div>
-                    <ng-pluralize class="badges" count="user.badges" when="{
+                </div>
+                <div class="text">
+                    <div class="points" ng-bind="::user.score | megaNumber : 2"></div>
+                    <div ng-bind="::user.levelName"></div>
+                    @*<ng-pluralize class="badges" count="user.badges" when="{
                                                 'one': '{} @GamificationResources.Badge',
                                                 'two': '{} @GamificationResources.Badges',
                                                 'other' : '{} @GamificationResources.Badges'
-                                                }"></ng-pluralize>
+                                                }"></ng-pluralize>*@
                 </div>
             </div>
-            <div class="points" ng-bind="::user.score"></div>
-        </div>
+            @*<div  ng-bind="::user.score"></div>*@
+        </a>
 
     </div>
 </div>

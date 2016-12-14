@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -13,6 +12,7 @@ using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Cloudents.Mvc4WebRole.Models.Tabs;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -295,25 +295,41 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //        return JsonOk();
         //    }
         //}
-       
+
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("id"), ActionName("LeaderBoard")]
-        public async Task<JsonResult> LeaderBoardAsync(long id, bool myself)
+        public async Task<JsonResult> LeaderBoardAsync(long id)
         {
-            myself = User.Identity.IsAuthenticated && myself;
-            var query = new GetLeaderBoardQuery(id, User.GetUserId(false), myself);
-            var result = await ZboxReadService.GetBoxLeaderBoardAsync(query);
+            //myself = User.Identity.IsAuthenticated && myself;
+            var userId = User.GetUserId(false);
+            var query = new GetBoxLeaderboardQuery(id, userId);
+            var model = await ZboxReadService.GetBoxLeaderBoardAsync(query);
+            var leaderBoardDtos = model as IList<LeaderBoardDto> ?? model.ToList();
+            var rank = leaderBoardDtos.Where(w => w.Id == userId).Select(s => s.Location);
+            model = leaderBoardDtos.Where(w => w.Id != userId).Select(s =>
+              {
+                  s.LevelName = GamificationLevels.GetLevel(s.Score).Name;
+                  return s;
+              });
+
             if (IsCrawler())
             {
-                return JsonOk(result.Select(s => new
+                return JsonOk(new
                 {
-                    s.Id,
-                    s.Image,
-                    s.Score,
-                }));
+                    rank,
+                    model = model.Select(s => new
+                    {
+                        s.Id,
+                        s.Image,
+                        s.Score,
+                        s.LevelName,
+                        s.Location
+
+                    })
+                });
             }
-            return JsonOk(result);
+            return JsonOk(new { rank, model });
         }
 
         [HttpGet]

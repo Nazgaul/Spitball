@@ -23,6 +23,9 @@ interface IUserData {
     culture: string;
     createTime: Date;
     university: IUniversity;
+
+    levelName: string;
+    nextLevel: number;
 }
 
 module app {
@@ -79,6 +82,8 @@ module app {
                 culture: data.culture,
                 badges: data.badges,
                 email: data.email,
+                levelName: data.levelName,
+                nextLevel: data.nextLevel,
                 university: {
                     country: data.universityCountry, // for google analytics
                     name: data.universityName, // in library page

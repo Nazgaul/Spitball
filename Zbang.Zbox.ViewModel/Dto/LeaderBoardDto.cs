@@ -8,7 +8,9 @@
         public string Name { get; set; }
         public int Score { get; set; }
 
-        public int? Badges { get; set; }
+        public string LevelName { get; set; }
+
+        //public int? Badges { get; set; }
         //public string Url { get; set; }
       
     }
