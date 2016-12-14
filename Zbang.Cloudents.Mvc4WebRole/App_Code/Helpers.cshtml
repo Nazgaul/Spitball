@@ -16,3 +16,15 @@
 // <p>@msg</p>
 // For more information, visit http://go.microsoft.com/fwlink/?LinkID=204658
 }
+
+@helper UserGamification()
+{
+    <div>
+        <span>rank2</span>
+        <md-progress-circular md-mode="determinate" value="{{50}}"></md-progress-circular>
+        <user-image class="img-circle" name="::e.name" image="::e.image" width="35" height="35"></user-image>
+        <span>points</span>
+        <span>username</span>
+        <span>level</span>
+    </div>
+}

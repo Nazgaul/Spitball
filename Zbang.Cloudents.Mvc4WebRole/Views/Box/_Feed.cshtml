@@ -197,6 +197,7 @@
     <div class="boxes-side-area flex" layout-padding flex="100" flex-md="33" flex-lg="30" flex-gt-lg="30">
         <div flex="100" flex-sm="50" hide-xs class="flex community" ng-controller="Leaderboard as g">
             @* ReSharper disable once Mvc.PartialViewNotResolved *@
+            @Helpers.UserGamification()
             @{ Html.RenderPartial("_LeaderBoard");}
         </div>
     </div>
