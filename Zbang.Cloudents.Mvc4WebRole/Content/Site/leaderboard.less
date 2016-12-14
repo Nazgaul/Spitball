@@ -358,6 +358,10 @@
                 stroke: @gamificationYellow;
             }
 
+            img {
+                background: @textColorWhite;
+            }
+
             img, .userLetter {
                 position: absolute;
                 top: 0;
@@ -589,6 +593,7 @@
                         left: 0;
                         bottom: 0;
                         color: @textColorWhite;
+                        padding: 0 10px;
                     }
                 }
             }
@@ -609,10 +614,6 @@
         }
     }
 
-    .bg-r, .bg-l {
-        display: none;
-    }
-
     .filter-wrapper {
         text-align: right;
         padding: 10px 0 0 0;
@@ -628,11 +629,10 @@
     .content {
         background: @textColorWhite;
         margin-top: 0;
-        padding: 0 10px;
 
         .users {
             .user-data {
-                padding: 4px 0;
+                padding: 4px 10px;
 
                 .img-wrapper {
                     width: 36px;
@@ -655,6 +655,7 @@
 
                 .rank {
                     font-size: 16px;
+                    min-width: 45px;
                 }
 
                 .points {
@@ -664,6 +665,10 @@
                 .progress-user .text {
                     font-size: 12px;
                     padding: 0 5px;
+                }
+
+                .text {
+                    min-width: 70px;
                 }
             }
         }

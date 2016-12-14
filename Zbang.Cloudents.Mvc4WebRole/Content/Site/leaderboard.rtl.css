@@ -360,6 +360,9 @@
 .gamification-header .middle .image-progress md-progress-circular {
   stroke: #ffce2f;
 }
+.gamification-header .middle .image-progress img {
+  background: #ffffff;
+}
 .gamification-header .middle .image-progress img,
 .gamification-header .middle .image-progress .userLetter {
   position: absolute;
@@ -592,6 +595,7 @@
   right: 0;
   bottom: 0;
   color: #ffffff;
+  padding: 0 10px;
 }
 .community .custom-progress-bar {
   height: 20px;
@@ -620,10 +624,6 @@
 .feed-wrapper .community .top .title {
   margin-bottom: 6px;
 }
-.feed-wrapper .community .bg-r,
-.feed-wrapper .community .bg-l {
-  display: none;
-}
 .feed-wrapper .community .filter-wrapper {
   text-align: left;
   padding: 10px 0 0 0;
@@ -637,10 +637,9 @@
 .feed-wrapper .community .content {
   background: #ffffff;
   margin-top: 0;
-  padding: 0 10px;
 }
 .feed-wrapper .community .content .users .user-data {
-  padding: 4px 0;
+  padding: 4px 10px;
 }
 .feed-wrapper .community .content .users .user-data .img-wrapper {
   width: 36px;
@@ -660,6 +659,7 @@
 }
 .feed-wrapper .community .content .users .user-data .rank {
   font-size: 16px;
+  min-width: 45px;
 }
 .feed-wrapper .community .content .users .user-data .points {
   font-size: 18px;
@@ -667,6 +667,9 @@
 .feed-wrapper .community .content .users .user-data .progress-user .text {
   font-size: 12px;
   padding: 0 5px;
+}
+.feed-wrapper .community .content .users .user-data .text {
+  min-width: 70px;
 }
 .md-dialog-container .community {
   max-width: calc(100% - 20px);
