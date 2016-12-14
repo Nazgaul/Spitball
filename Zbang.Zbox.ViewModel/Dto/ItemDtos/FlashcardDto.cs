@@ -13,5 +13,7 @@
 
         public string BoxName { get; set; }
         public string UniversityName { get; set; }
+
+        public int? BoxId { get; set; }
     }
 }

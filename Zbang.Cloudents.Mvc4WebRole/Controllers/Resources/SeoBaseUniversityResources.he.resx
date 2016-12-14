@@ -141,4 +141,7 @@
   <data name="FlashcardMetaDescription" xml:space="preserve">
     <value>תנסו את כרטיסיות הלימוד החדשות {0}. ב {1} </value>
   </data>
+  <data name="FlashcardTitle" xml:space="preserve">
+    <value>כרטיסיות לימוד</value>
+  </data>
 </root>

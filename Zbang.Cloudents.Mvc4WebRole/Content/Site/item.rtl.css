@@ -730,6 +730,11 @@ md-menu-item.blue svg {
   padding: 0 40px;
   position: relative;
 }
+@media (max-width: 600px) {
+  .like-toaster-template .wrapper {
+    padding-right: 10px;
+  }
+}
 .like-toaster-template .wrapper .like-area {
   display: -webkit-flex;
   display: -ms-flex;

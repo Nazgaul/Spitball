@@ -21,7 +21,7 @@ var app;
                     elem.publish = true;
                     elem.url = _this.$state.href("flashcard", {
                         universityType: elem.universityName,
-                        boxId: elem.boxName,
+                        boxId: elem.boxId,
                         boxName: elem.boxName,
                         id: elem.id,
                         name: elem.name
