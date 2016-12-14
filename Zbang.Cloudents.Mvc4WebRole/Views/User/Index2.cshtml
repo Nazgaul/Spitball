@@ -33,18 +33,19 @@
                         <div class="number" ng-bind="::u.details.numFeed | megaNumber"></div>
                     </md-tab-label>
                 </md-tab>
-                <md-tab ui-sref="user.quiz" md-active="u.isActive('user.quiz')">
-                    <md-tab-label>
-                        <h3>@GeneralResources.Quizzes</h3>
-                        <div class="number" ng-bind="::u.details.numQuiz | megaNumber"></div>
-                    </md-tab-label>
-                </md-tab>
                 <md-tab ui-sref="user.flashcard" md-active="u.isActive('user.flashcard')">
                     <md-tab-label>
                         <h3>@FlashcardResources.CardsLabel</h3>
                         <div class="number" ng-bind="::u.details.numFlashcard | megaNumber"></div>
                     </md-tab-label>
                 </md-tab>
+                <md-tab ui-sref="user.quiz" md-active="u.isActive('user.quiz')">
+                    <md-tab-label>
+                        <h3>@GeneralResources.Quizzes</h3>
+                        <div class="number" ng-bind="::u.details.numQuiz | megaNumber"></div>
+                    </md-tab-label>
+                </md-tab>
+                
                 <md-tab ui-sref="user.classmates" md-active="u.isActive('user.classmates')">
                     <md-tab-label>
                         <h3>@GeneralResources.Members</h3>
