@@ -26,4 +26,3 @@ var app;
     }());
     angular.module("app.library").controller("classChooseUnfollowDialog", ClassChooseUnfollowDialog);
 })(app || (app = {}));
-//# sourceMappingURL=classChooseUnfollowDialog.controller.js.map

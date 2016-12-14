@@ -178,7 +178,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You’re no longer the new kid at school! Training wheels have been removed. There is still much to learn and achieve. Study on, young Spitballer!.
+        ///   Looks up a localized string similar to You’re no longer the new kid at school! Training wheels have been removed. There is still much to learn and achieve. Study on, Young Gun!.
         /// </summary>
         public static string Level2Description {
             get {
@@ -187,7 +187,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to It’s clear you know what you’re doing. Young Spitballers rely on you for wisdom and knowledge. Yet, a smart upperclassman knows there is still much to learn!.
+        ///   Looks up a localized string similar to It’s clear you know what you’re doing. Young Spitballers rely on you for wisdom and knowledge. Yet, a smart student knows there is still much to learn!.
         /// </summary>
         public static string Level3Description {
             get {
@@ -196,7 +196,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You’ve achieved far more than the average student – you will forever be known as a Spitball Scholar..
+        ///   Looks up a localized string similar to Other students in the class look up to you. There’s a reason your parents always told you that you were special!.
         /// </summary>
         public static string Level4Description {
             get {
@@ -205,7 +205,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Few have made it this far, and even fewer will make it further. Are you ready to teach other students the key to success?.
+        ///   Looks up a localized string similar to You’ve achieved far more than the average student – you will forever be known as a Spitball Legend..
         /// </summary>
         public static string Level5Description {
             get {

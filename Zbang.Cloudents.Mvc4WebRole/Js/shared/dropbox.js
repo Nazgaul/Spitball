@@ -67,4 +67,3 @@ var app;
     angular.module("app")
         .factory("dropboxService", DropboxService.factory());
 })(app || (app = {}));
-//# sourceMappingURL=dropbox.js.map

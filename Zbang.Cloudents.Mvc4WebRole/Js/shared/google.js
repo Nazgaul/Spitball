@@ -237,4 +237,3 @@ var app;
     angular.module("app")
         .factory("googleService", GoogleService.factory());
 })(app || (app = {}));
-//# sourceMappingURL=google.js.map

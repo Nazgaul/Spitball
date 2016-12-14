@@ -66,4 +66,3 @@ var app;
     }());
     angular.module("app.upload").service("externalUploadProvider", ExternalUploadProvider);
 })(app || (app = {}));
-//# sourceMappingURL=externalProviderUpload.service.js.map

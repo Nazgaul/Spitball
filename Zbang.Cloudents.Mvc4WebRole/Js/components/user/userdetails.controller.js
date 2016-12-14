@@ -46,4 +46,3 @@ var app;
     }());
     angular.module('app.user.details').controller('UserDetailsController', UserDetailsController);
 })(app || (app = {}));
-//# sourceMappingURL=userdetails.controller.js.map

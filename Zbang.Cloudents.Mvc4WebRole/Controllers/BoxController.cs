@@ -306,8 +306,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var query = new GetBoxLeaderboardQuery(id, userId);
             var model = await ZboxReadService.GetBoxLeaderBoardAsync(query);
             var leaderBoardDtos = model as IList<LeaderBoardDto> ?? model.ToList();
-            var rank = leaderBoardDtos.Where(w => w.Id == userId).Select(s => s.Location);
-            model = leaderBoardDtos.Where(w => w.Id != userId).Select(s =>
+            var rank = leaderBoardDtos.FirstOrDefault(w => w.Id == userId)?.Location;
+            
+            model = leaderBoardDtos.Where(w => w.Id != userId && rank > 10).Select(s =>
               {
                   s.LevelName = GamificationLevels.GetLevel(s.Score).Name;
                   return s;
