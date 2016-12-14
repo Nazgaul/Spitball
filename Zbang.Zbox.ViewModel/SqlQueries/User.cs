@@ -137,7 +137,15 @@ b.BoxName,u.UniversityName as UniversityName
 
         #region Gamification
 
-        public const string GamificationBoard = @"select score,BadgeCount from zbox.users where userid = @userId";
+        public const string GamificationBoard = @"with leaderboard as (
+select userid as id,
+ROW_NUMBER () over (partition BY universityid order by score desc) as location
+ from zbox.Users  u
+ where universityid = (select UniversityId from zbox.Users where userid = @userId)
+ )
+select *
+                            from leaderboard u 
+                            where u.id =@userId;";
         public const string Level = @"select score from zbox.users where userid = @userId";
         public const string Badge = @"select name as badge,progress from zbox.Badge where userid = @userId
 union select 1,100";

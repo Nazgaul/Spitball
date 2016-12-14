@@ -259,10 +259,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var query = new QueryBaseUserId(User.GetUserId());
             var result = await ZboxReadService.GamificationBoardAsync(query);
-            var level = GamificationLevels.GetLevel(result.Score);
-            result.Level = level.Name;
-            result.NextLevel = level.NextLevel;
-            result.Number = level.Level + 1;
+            result.BadgeCount = Enum.GetNames(typeof(BadgeType)).Length - 1;
             return JsonOk(result);
         }
 

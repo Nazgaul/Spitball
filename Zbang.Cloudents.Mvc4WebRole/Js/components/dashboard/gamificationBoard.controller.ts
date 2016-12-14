@@ -1,44 +1,48 @@
 ﻿module app {
     "use strict";
-    var scoreToReach = 0;
-    var badgesToReach = 0;
+    interface IDashboardGamification extends IUserGamification {
+        badges: number;
+        badgesProgress: number;
+        nextLevel: number;
+    }
+    //var scoreToReach = 0;
+    //var badgesToReach = 0;
     class GamificationBoard {
         static $inject = ["userService", "$interval", "userDetailsFactory"];
         data;
-        score = 0;
-        badges = 0;
-        totalBadgs = 5; //TODO: Get total num of badges - not hardcode it to 5
-        constructor(private userService: IUserService, private $interval: angular.IIntervalService, private userDetailsFactory: IUserDetailsFactory) {
 
+        //score = 0;
+        nextLevel: number;
+        badges: number;
+        constructor(private userService: IUserService,
+            private $interval: angular.IIntervalService,
+            private userDetailsFactory: IUserDetailsFactory) {
+
+            const user = userDetailsFactory.get();
+            this.data = {};
+            this.data.progress = 0;
             this.userService.gamificationBoard()
                 .then(response => {
-                    this.data = response;
-                    //TODO: Add userName and userImage to the userService.gamificationBoard() response instead calling userDetailsFactory.get()
-                    var userData = userDetailsFactory.get();
-                    this.data.userName = userData.name;
-                    this.data.userImage = userData.image;
-                    this.data.userId = userData.id;
-                    //this.data.score = 1073741823;
-                    scoreToReach = this.data.score / this.data.nextLevel * 100;
-                    var q = $interval(() => {
-                        this.score += 1;
-                        this.score = Math.min(this.score, scoreToReach);
-                        if (this.score === scoreToReach) {
-                            this.$interval.cancel(q);
-                        }
-                    }, 10);
-                    badgesToReach = this.data.badgeCount / this.totalBadgs * 100;
-                    var b = $interval(() => {
-                        this.badges += 1;
-                        this.badges = Math.min(this.badges, badgesToReach);
-                        if (this.badges === badgesToReach) {
-                            this.$interval.cancel(b);
-                        }
-                    }, 10);
+                    this.badges = response.badgeCount;
+                    var d: IDashboardGamification =
+                        {
+                            badges: user.badges,
+                            image: user.image,
+                            levelName: user.levelName,
+                            name: user.name,
+                            points: user.score,
+                            progress: user.score / user.nextLevel * 100,
+                            badgesProgress: user.badges / this.badges * 100,
+                            rank: response.location,
+                            nextLevel: user.nextLevel
+
+                        };
+                    this.data = d;
+                    this.nextLevel = this.data.nextLevel - this.data.points;
+                    console.log(this.data, response);
+
                 });
         }
-
-
     }
 
     angular.module("app.dashboard").controller("gamificationBoard", GamificationBoard);
