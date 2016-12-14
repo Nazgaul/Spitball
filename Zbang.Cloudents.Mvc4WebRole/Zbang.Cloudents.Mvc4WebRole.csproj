@@ -1337,23 +1337,18 @@
     <Content Include="Images\Features\quiz_he.png" />
     <Content Include="Images\Features\uni_en.png" />
     <Content Include="Images\Features\uni_he.png" />
-    <Content Include="Images\Gamification\badge_Explorer.png" />
-    <Content Include="Images\Gamification\badge_Explorer_hidden.png" />
-    <Content Include="Images\Gamification\badge_Helpful Harry.png" />
-    <Content Include="Images\Gamification\badge_Helpful Harry_hidden.png" />
-    <Content Include="Images\Gamification\badge_Kiss from Keanu.png" />
-    <Content Include="Images\Gamification\badge_Kiss from Keanu_hidden.png" />
-    <Content Include="Images\Gamification\badge_Quizzy Lizzy.png" />
-    <Content Include="Images\Gamification\badge_Quizzy Lizzy_hidden.png" />
-    <Content Include="Images\Gamification\badge_Spitballer.png" />
-    <Content Include="Images\Gamification\badge_Spitballer_hidden.png" />
-    <Content Include="Images\Gamification\level_Novice.png" />
-    <Content Include="Images\Gamification\level_Novice_hidden.png" />
+    <Content Include="Images\Gamification\badge_FollowClass.png" />
+    <Content Include="Images\Gamification\badge_UploadFiles.png" />
+    <Content Include="Images\Gamification\badge_Likes.png" />
+    <Content Include="Images\Gamification\badge_CreateQuizzes.png" />
+    <Content Include="Images\Gamification\badge_Register.png" />
+    <Content Include="Images\Gamification\level1.png" />
+    <Content Include="Images\Gamification\level2.png" />
+    <Content Include="Images\Gamification\level3.png" />
+    <Content Include="Images\Gamification\level4.png" />
+    <Content Include="Images\Gamification\level5.png" />
+    <Content Include="Images\Gamification\level_1.png" />
     <Content Include="Images\Gamification\level_Practitioner.png" />
-    <Content Include="Images\Gamification\level_Practitioner_hidden.png" />
-    <Content Include="Images\Gamification\level_Professor_hidden.png" />
-    <Content Include="Images\Gamification\level_Scholar_hidden.png" />
-    <Content Include="Images\Gamification\level_Upperclassman_hidden.png" />
     <Content Include="Images\HomePage2\apps.png">
       <DependentUpon>apps.sprite</DependentUpon>
     </Content>

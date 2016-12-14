@@ -26,7 +26,7 @@
                         @{ string progress = "g.levels.l" + level.Index + ".progress"; }
                         <div class="title">
                             <div class="image">
-                                <img ng-class="{inprogress: @progress!==100}" src="@Url.CdnContent("/images/gamification/level_" + level.Name + ".png")" alt="@level.Name"/>
+                                <img ng-class="{inprogress: @progress!==100}" src="@Url.CdnContent("/images/gamification/level" + (level.Index+1) + ".png")" alt="@level.Name"/>
                             </div>
                             <div class="name">@level.Name</div>
                         </div>
@@ -50,7 +50,7 @@
                         @{ string progress = "g.badges." + level.BadgeSystem + ".progress"; }
                         <div class="title">
                             <div class="image">
-                                <img ng-class="{inprogress: @progress!==100}" src="@Url.CdnContent("/images/gamification/badge_" + level.Name + ".png")" alt="@level.Name" />
+                                <img ng-class="{inprogress: @progress!==100}" src="@Url.CdnContent("/images/gamification/badge_" + level.BadgeSystem + ".png")" alt="@level.Name" />
                             </div>
                             <div class="name">@level.Name</div>
                         </div>
