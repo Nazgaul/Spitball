@@ -38,6 +38,7 @@
 
                         };
                     this.data = d;
+                    this.data.id = user.id;
                     this.nextLevel = this.data.nextLevel - this.data.points;
                     console.log(this.data, response);
 

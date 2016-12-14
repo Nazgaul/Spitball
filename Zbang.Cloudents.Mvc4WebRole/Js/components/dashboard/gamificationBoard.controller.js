@@ -25,6 +25,7 @@ var app;
                     nextLevel: user.nextLevel
                 };
                 _this.data = d;
+                _this.data.id = user.id;
                 _this.nextLevel = _this.data.nextLevel - _this.data.points;
                 console.log(_this.data, response);
             });
