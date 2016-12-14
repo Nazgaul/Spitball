@@ -4,12 +4,6 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
 {
     public static class User
     {
-        //    select count(*)
-        //    from
-        //zbox.UserBoxRel uFriend
-        //join zbox.box b on b.BoxId = uFriend.BoxId and b.IsDeleted = 0
-        //where uFriend.UserId = @Myfriend
-        //and b.Discriminator = 2 ;
         public const string UserProfileWithStats = @"
 		select u.userid as Id, u.username as name, u.UserImageLarge as image,u.Online,
                             u.score as score, uu.universityname as universityName, u.url as Url

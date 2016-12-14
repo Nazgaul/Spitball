@@ -59,6 +59,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 model.Levels.Add(new Level(level.Name, description, index));
                 index++;
             }
+            index = 0;
+            foreach (var value in Enum.GetValues(typeof(BadgeType)).Cast<BadgeType>())
+            {
+                if (value == BadgeType.None)
+                {
+                    continue;
+                }
+                model.Badges.Add(new Badge(value.GetEnumDescription(),
+                    resourceManger.GetString($"Badge{value}Description"),
+                    value.ToString()
+                    //"/Images/Gamification/badge_" + value.GetEnumDescription() + ".png",
+                    //"/Images/Gamification/badge_" + value.GetEnumDescription() + "_hidden.png"
+                    ));
+                index++;
+            }
 
             //var model = GamificationLevels.GetLevels();
             return PartialView("Badges", model);
@@ -271,26 +286,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var query = new QueryBaseUserId(id);
             var model = await ZboxReadService.UserBadgesAsync(query);
-            var badges = new List<Badge>();
-            var resourceManger = new System.Resources.ResourceManager(typeof(GamificationResources));
-            foreach (var value in Enum.GetValues(typeof(BadgeType)).Cast<BadgeType>())
-            {
-                if (value == BadgeType.None)
-                {
-                    continue;
-                }
-                badges.Add(new Badge(value.GetEnumDescription(), 
-                    resourceManger.GetString($"Badge{value}Description"),
-                    ReputationConst.GetBadgeScore(value),
-                    "/Images/Gamification/badge_" + value.GetEnumDescription() + ".png",
-                    "/Images/Gamification/badge_" + value.GetEnumDescription() + "_hidden.png"));
-            }
+            //var badges = new List<Badge>();
+            //var resourceManger = new System.Resources.ResourceManager(typeof(GamificationResources));
+            //foreach (var value in Enum.GetValues(typeof(BadgeType)).Cast<BadgeType>())
+            //{
+            //    if (value == BadgeType.None)
+            //    {
+            //        continue;
+            //    }
+            //    badges.Add(new Badge(value.GetEnumDescription(), 
+            //        resourceManger.GetString($"Badge{value}Description"),
+            //        ReputationConst.GetBadgeScore(value),
+            //        "/Images/Gamification/badge_" + value.GetEnumDescription() + ".png",
+            //        "/Images/Gamification/badge_" + value.GetEnumDescription() + "_hidden.png"));
+            //}
 
-            return JsonOk(new
-            {
-                model,
-                badges
-            });
+            return JsonOk(
+                model
+                );
         }
 
         [HttpGet, ActionName("leaderboard")]

@@ -43,7 +43,7 @@ var app;
                 for (i = 0; i < response.number; i++) {
                     _this.levels["l" + i] = { progress: 100 };
                 }
-                _this.levels["l" + response.number] = { progress: response.score / response.nextLevel * 100 };
+                _this.levels["l" + response.number] = { progress: (response.score / response.nextLevel * 100).toFixed(2) };
                 for (i = response.number + 1; i < 5; i++) {
                     _this.levels["l" + i] = { progress: 0 };
                 }
@@ -57,15 +57,11 @@ var app;
             }
             this.userService.badges(this.$state.params["userId"])
                 .then(function (response) {
-                _this.badges = response.badges;
-                angular.forEach(_this.badges, function (v) {
-                    var badge = response.model.find(function (f) { return f.badge === v.name; });
-                    if (badge) {
-                        v.progress = badge.progress;
-                    }
-                    else {
-                        v.progress = 0;
-                    }
+                _this.badges = {};
+                console.log(response);
+                angular.forEach(response, function (v) {
+                    _this.badges[v.badge] = {};
+                    _this.badges[v.badge].progress = v.progress;
                 });
             });
         };
@@ -98,17 +94,6 @@ var app;
             this.leaderboardPage = 0;
             this.leaderboardMyself = !this.leaderboardMyself;
             this.communityTab();
-        };
-        Gamification.prototype.showBadge = function (badge) {
-            if (!badge) {
-                return;
-            }
-            var badgeIndex = this.badges.indexOf(badge);
-            this.badgeInfo = {
-                data: badge,
-                next: this.badges[badgeIndex + 1],
-                prev: this.badges[badgeIndex - 1]
-            };
         };
         Gamification.prototype.loadMoreLeaderboard = function () {
             if (!this.leaderboardMyself) {

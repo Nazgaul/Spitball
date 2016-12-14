@@ -11,7 +11,7 @@ module app {
         contacts = [],
         clientLoaded = false,
         clientLoading = false,
-        driveLoaded = false
+        driveLoaded = false;
     export interface IGoogleService {
         initDrive(): angular.IPromise<any>;
         initGApi(): angular.IPromise<any>;

@@ -23,7 +23,7 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
     {
         public BadgeDto(BadgeType badge, int progress)
         {
-            Badge = badge.GetEnumDescription();
+            Badge = badge.ToString();
             Progress = progress;
         }
         public string Badge { get; private set; }
