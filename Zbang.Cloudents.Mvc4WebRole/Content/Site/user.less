@@ -1,7 +1,8 @@
 ﻿@import "variables.less";
 
 .userPage {
-
+    .displayFlex;
+    .justifyContet(flex-start);
     .profile-sidebar, .profile-content {
         @media(max-width: 960px) {
             margin-right: 0;
@@ -690,13 +691,15 @@
     }
 
     .profile-content {
+        max-width: 1040px;
+        flex-grow: 1;
+
         .container {
             margin: 0 3px;
         }
 
         .portlet.light {
             background: @textColorLightWhite;
-            max-width: 1040px;
             min-height: 500px;
 
             @media(min-width: 960px) {

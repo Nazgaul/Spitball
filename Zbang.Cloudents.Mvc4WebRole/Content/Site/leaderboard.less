@@ -451,9 +451,6 @@
     }
 
     .content {
-        max-width: 840px;
-        padding: 0 0 30px 0;
-        margin: 22px auto;
 
         @media(max-width: 600px) {
             padding: 0;
@@ -477,13 +474,10 @@
             .user-data {
                 width: 100%;
                 .displayFlex;
-                .align-items(stretch);
+                .align-items(center);
+                .justifyContet(center);
                 color: @GreyBlue;
-                padding: 6px 20px;
-
-                &.current-user {
-                    background: rgb(187, 203, 211);
-                }
+                padding: 10px 20px;
 
                 @media(max-width: 600px) {
                     padding: 8px 0;
@@ -493,16 +487,35 @@
                     padding-top: 0;
                 }
 
-                .rank {
-                    font-size: 22px;
-                    font-weight: bold;
+                &:nth-child(odd) {
+                    background: #ebebeb;
+                }
 
-                    @media(max-width: 600px) {
-                        font-size: 16px;
+                .img-circle {
+                    border: 1px solid @gamificationMediumGreen;
+                }
+
+                .rank {
+                    min-width: 70px;
+                    text-align: right;
+                    padding-right: 14px;
+
+                    span {
+                        display: inline-block;
+                        background: @gamificationMediumGreen;
+                        color: @textColorWhite;
+                        min-width: 24px;
+                        height: 24px;
+                        line-height: 24px;
+                        text-align: center;
+                        border-radius: 5px;
+                        padding-top: 1px;
+                        font-weight: bold;
+                        padding: 0 6px;
                     }
                 }
 
-                .rank, .points {
+                .points {
                     min-width: 92px;
                     text-align: center;
 
@@ -511,12 +524,19 @@
                     }
                 }
 
-                .points {
-                    font-size: 24px;
-                    font-weight: bold;
+                .text {
+                    text-align: center;
+                    font-size: 10px;
+                    color: @textColorGrey;
 
-                    @media(max-width: 600px) {
+                    .points {
                         font-size: 18px;
+                        color: @gamificationDarkGreen;
+                        font-weight: bold;
+
+                        @media(max-width: 600px) {
+                            font-size: 18px;
+                        }
                     }
                 }
 
@@ -542,13 +562,14 @@
                     }
                 }
 
-                .rank, .img-wrapper, .progress-user, .points {
+                .img-wrapper, .progress-user, .points {
                     .displayFlex;
                     .justifyContet(center);
                     flex-direction: column;
                 }
 
                 .progress-user {
+                    max-width: 520px;
                     position: relative;
                     flex-grow: 1;
                     flex-shrink: 0;
@@ -558,24 +579,16 @@
                         margin: 0 10px;
                     }
 
-                    .text {
+                    .name {
                         position: absolute;
                         .displayFlex;
                         .align-items(center);
-                        .justifyContet(space-between);
+                        .justifyContet(center);
+                        top: 0;
+                        right: 0;
+                        left: 0;
                         bottom: 0;
-                        font-size: 16px;
-                        padding: 0 8px;
-                        width: 100%;
-
-                        @media(max-width: 600px) {
-                            font-size: 12px;
-                            padding: 0;
-                        }
-
-                        .name, .badges {
-                            white-space: nowrap;
-                        }
+                        color: @textColorWhite;
                     }
                 }
             }
@@ -583,7 +596,7 @@
     }
 
     .custom-progress-bar {
-        .custom-progress-bar(@gamificationYellow,@backgroundColor,16px);
+        .custom-progress-bar(@gamificationMediumGreen,@gamificationDarkGreen,20px);
     }
 }
 

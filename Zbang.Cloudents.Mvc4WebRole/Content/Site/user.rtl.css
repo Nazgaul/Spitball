@@ -1,4 +1,9 @@
 .userPage {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
   /*#show-points-info {
         display: none;
     }*/
@@ -680,12 +685,15 @@
   font-size: 11px;
   color: #888b8e;
 }
+.userPage .profile-content {
+  max-width: 1040px;
+  flex-grow: 1;
+}
 .userPage .profile-content .container {
   margin: 0 3px;
 }
 .userPage .profile-content .portlet.light {
   background: #f5f5f5;
-  max-width: 1040px;
   min-height: 500px;
 }
 @media (min-width: 960px) {

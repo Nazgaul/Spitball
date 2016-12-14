@@ -449,11 +449,6 @@
   margin-top: 2%;
   padding: 0 10%;
 }
-.community .content {
-  max-width: 840px;
-  padding: 0 0 30px 0;
-  margin: 22px auto;
-}
 @media (max-width: 600px) {
   .community .content {
     padding: 0;
@@ -477,13 +472,12 @@
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
-  -webkit-align-items: stretch;
-  align-items: stretch;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
   color: #536470;
-  padding: 6px 20px;
-}
-.community .content .users .user-data.current-user {
-  background: #bbcbd3;
+  padding: 10px 20px;
 }
 @media (max-width: 600px) {
   .community .content .users .user-data {
@@ -493,32 +487,51 @@
 .community .content .users .user-data:first-child {
   padding-top: 0;
 }
+.community .content .users .user-data:nth-child(odd) {
+  background: #ebebeb;
+}
+.community .content .users .user-data .img-circle {
+  border: 1px solid #73b435;
+}
 .community .content .users .user-data .rank {
-  font-size: 22px;
+  min-width: 70px;
+  text-align: right;
+  padding-right: 14px;
+}
+.community .content .users .user-data .rank span {
+  display: inline-block;
+  background: #73b435;
+  color: #ffffff;
+  min-width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  border-radius: 5px;
+  padding-top: 1px;
   font-weight: bold;
+  padding: 0 6px;
 }
-@media (max-width: 600px) {
-  .community .content .users .user-data .rank {
-    font-size: 16px;
-  }
-}
-.community .content .users .user-data .rank,
 .community .content .users .user-data .points {
   min-width: 92px;
   text-align: center;
 }
 @media (max-width: 600px) {
-  .community .content .users .user-data .rank,
   .community .content .users .user-data .points {
     min-width: 40px;
   }
 }
-.community .content .users .user-data .points {
-  font-size: 24px;
+.community .content .users .user-data .text {
+  text-align: center;
+  font-size: 10px;
+  color: #888b8e;
+}
+.community .content .users .user-data .text .points {
+  font-size: 18px;
+  color: #2a5501;
   font-weight: bold;
 }
 @media (max-width: 600px) {
-  .community .content .users .user-data .points {
+  .community .content .users .user-data .text .points {
     font-size: 18px;
   }
 }
@@ -543,7 +556,6 @@
   overflow: hidden;
   border: solid 1px #536470;
 }
-.community .content .users .user-data .rank,
 .community .content .users .user-data .img-wrapper,
 .community .content .users .user-data .progress-user,
 .community .content .users .user-data .points {
@@ -555,6 +567,7 @@
   flex-direction: column;
 }
 .community .content .users .user-data .progress-user {
+  max-width: 520px;
   position: relative;
   flex-grow: 1;
   flex-shrink: 0;
@@ -565,50 +578,41 @@
     margin: 0 10px;
   }
 }
-.community .content .users .user-data .progress-user .text {
+.community .content .users .user-data .progress-user .name {
   position: absolute;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
   -webkit-align-items: center;
   align-items: center;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
+  -webkit-justify-content: center;
+  justify-content: center;
+  top: 0;
+  right: 0;
+  left: 0;
   bottom: 0;
-  font-size: 16px;
-  padding: 0 8px;
-  width: 100%;
-}
-@media (max-width: 600px) {
-  .community .content .users .user-data .progress-user .text {
-    font-size: 12px;
-    padding: 0;
-  }
-}
-.community .content .users .user-data .progress-user .text .name,
-.community .content .users .user-data .progress-user .text .badges {
-  white-space: nowrap;
+  color: #ffffff;
 }
 .community .custom-progress-bar {
-  height: 16px;
-  border-radius: 8px;
+  height: 20px;
+  border-radius: 10px;
   overflow: hidden;
 }
 .community .custom-progress-bar.md-default-theme .md-container,
 .community .custom-progress-bar .md-container {
-  border-radius: 8px;
+  border-radius: 10px;
 }
 .community .custom-progress-bar.md-default-theme .md-container,
 .community .custom-progress-bar .md-bar,
 .community .custom-progress-bar .md-container {
-  height: 16px;
+  height: 20px;
 }
 .community .custom-progress-bar .md-container {
-  background: #dadada;
-  height: 16px;
+  background: #2a5501;
+  height: 20px;
 }
 .community .custom-progress-bar .md-container .md-bar {
-  background: #ffce2f;
+  background: #73b435;
 }
 .feed-wrapper .community .top {
   height: 76px;
