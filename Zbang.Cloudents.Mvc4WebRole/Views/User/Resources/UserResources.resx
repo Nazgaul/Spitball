@@ -130,6 +130,6 @@
     <value>Share</value>
   </data>
   <data name="MessageButton" xml:space="preserve">
-    <value>Personal message</value>
+    <value>Message</value>
   </data>
 </root>
