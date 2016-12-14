@@ -465,15 +465,11 @@
   right: 0;
 }
 .feed .comment .achievements {
-  color: #73b435;
   padding: 0;
   max-width: 100%;
   left: 62px;
   bottom: 10px;
   position: absolute;
-}
-.feed .comment .achievements .separator {
-  background: #73b435;
 }
 .feed .comment .delete {
   height: 17px;

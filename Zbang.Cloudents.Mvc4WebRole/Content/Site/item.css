@@ -280,6 +280,19 @@ md-menu-item.blue svg {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
+  -webkit-align-items: baseline;
+  align-items: baseline;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+.itemPage .second-line .item-meta .user-meta {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  margin-right: 10px;
+  flex-shrink: 1;
+  flex-grow: 0;
+  overflow: hidden;
 }
 .itemPage .second-line .item-meta a,
 .itemPage .second-line .item-meta span {
@@ -288,17 +301,13 @@ md-menu-item.blue svg {
 }
 .itemPage .second-line .item-meta .date {
   padding-right: 5px;
-}
-.itemPage .second-line .item-meta span {
-  color: #212325;
+  font-size: 12px;
 }
 .itemPage .second-line .achievements {
-  color: #73b435;
   padding-left: 0;
-  margin-top: 4px;
-}
-.itemPage .second-line .achievements .separator {
-  background: #5d6063;
+  margin-left: 10px;
+  text-overflow: initial;
+  flex-shrink: 0;
 }
 .itemPage .iframeContent {
   border: 0;
@@ -704,6 +713,11 @@ md-menu-item.blue svg {
 .like-toaster-template .md-toast-content {
   background: #73b435;
 }
+@media (max-width: 600px) {
+  .like-toaster-template .md-toast-content {
+    padding: 0;
+  }
+}
 @media (min-width: 1920px) {
   .like-toaster-template .md-toast-content {
     max-width: 100%;
@@ -711,20 +725,10 @@ md-menu-item.blue svg {
 }
 .like-toaster-template .wrapper {
   width: 100%;
-  padding: 0 80px 0 10px;
   margin: 0 auto;
   height: 65px;
-}
-@media (max-width: 960px) {
-  .like-toaster-template .wrapper {
-    padding: 0 44px 0 48px;
-  }
-}
-@media (max-width: 900px) {
-  .like-toaster-template .wrapper {
-    padding: 0 0 0 62px;
-    max-width: 800px;
-  }
+  padding: 0 40px;
+  position: relative;
 }
 @media (max-width: 600px) {
   .like-toaster-template .wrapper {
@@ -737,12 +741,12 @@ md-menu-item.blue svg {
   display: flex;
   -webkit-align-items: center;
   align-items: center;
-  -webkit-justify-content: flex-start;
-  justify-content: flex-start;
+  -webkit-justify-content: center;
+  justify-content: center;
   font-size: 18px;
   font-weight: bold;
   color: #ffffff;
-  margin: 0 auto;
+  width: 100%;
 }
 .like-toaster-template .wrapper .like-area .text {
   margin-bottom: -2px;
@@ -803,6 +807,10 @@ md-menu-item.blue svg {
 .like-toaster-template .wrapper .like-area button.blue > div md-icon {
   fill: #ffffff;
 }
-.like-toaster-template .wrapper md-icon {
-  fill: #888b8e;
+.like-toaster-template .wrapper .close {
+  position: absolute;
+  right: 0;
+}
+.like-toaster-template .wrapper .close md-icon {
+  fill: #ffffff;
 }

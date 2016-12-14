@@ -148,9 +148,10 @@
 .userPage .points-info table th {
   vertical-align: top;
   text-align: right;
-  padding: 0 10px 0 20px;
+  padding: 0 6px;
   font-size: 14px;
   color: #2a5501;
+  min-width: 120px;
   width: 1%;
   line-height: 36px;
 }
