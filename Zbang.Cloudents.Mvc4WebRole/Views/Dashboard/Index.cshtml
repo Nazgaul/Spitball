@@ -6,9 +6,6 @@
 </div>
 <div uib-collapse="!d.inviteOpen" compile-html="d.html" expanding="d.inviteExpand()"></div>
 
-@*<div class="ad" data-ng-dfp-ad-container>
-        <div data-ng-dfp-ad="div-gpt-ad-1461243129238-0" data-ng-dfp-ad-hide-when-empty></div>
-    </div>*@
 <div class="page-title indent-content">
     <h1>@DashboardResource.Title</h1>
 </div>
@@ -35,13 +32,6 @@
     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-sm="50" flex="100" class="flex">
         @{ Html.RenderPartial("_University");}
     </div>
-    @*<div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-sm="50" class="flex" flex="100">
-
-        </div>*@
-    @*<div ng-hide="lb.hideBox" flex-lg="33" flex-gt-lg="25" flex-md="50" flex-sm="50" class="flex" flex="100" ng-controller="DashboardLeaderboard as lb">
-        @{ Html.RenderPartial("_Leaderboard", DashboardResource.LeaderboardTitle);}
-        @{ Html.RenderPartial("_FlashcardsPromo");}
-    </div>*@
     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-sm="50" class="flex" flex="100">
         @{ Html.RenderPartial("_Gamification");}
     </div>

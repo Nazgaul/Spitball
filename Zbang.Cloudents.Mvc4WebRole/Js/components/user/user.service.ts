@@ -46,8 +46,9 @@
             return this.ajaxService2.get("/share/notifications/");
         }
 
+
         gamificationBoard() {
-            return this.ajaxService2.get("/user/gamificationboard");
+            return this.ajaxService2.get("/user/gamificationboard", null, "accountDetail");
         }
         levels(userid: number): angular.IPromise<any> {
             return this.ajaxService2.get("/user/levels", { userid: userid });

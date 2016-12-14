@@ -1,42 +1,42 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
+@using Zbang.Zbox.Infrastructure.Enums
 <div class="leaderboardbox leaderboard score-board box-style" ng-controller="gamificationBoard as gb">
 
     <div class="bg-round"></div>
     <div class="bg-l"></div>
     <div class="bg-r"></div>
-    @*<a class="content">*@
     <a class="content" ga-track-event="['dashboard', 'to user page']" ui-sref="user({userId:gb.data.userId, userName:gb.data.userName})">
         <div class="image-side">
-            <user-image class="img-circle" name="::gb.data.userName" image="::gb.data.userImage" width="70" height="70" noremove="true"></user-image>
+            <user-image class="img-circle" name="::gb.data.name" image="::gb.data.image" width="70" height="70" noremove="true"></user-image>
         </div>
         <div class="data-side">
             <div class="top">
                 <div class="name-level">
-                    <span class="name">{{::gb.data.userName}}</span>
+                    <span class="name" ng-bind="::gb.data.name"></span>
                     <span class="seperator">-</span>
-                    <span class="level">{{::gb.data.level}}</span>
+                    <span class="level" ng-bind="gb.data.levelName"></span>
                 </div>
-                <div class="points">{{::gb.data.score}} @GamificationResources.Points</div>
+                <div class="points">{{::gb.data.points}} @GamificationResources.Points</div>
             </div>
             <div class="bottom">
                 <div class="level gamification-data">
-                    <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{gb.score}}"></md-progress-linear>
+                    <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="{{gb.data.progress}}"></md-progress-linear>
                     <div class="text">
-                        <span class="title">@GamificationResources.NextLevelTItle</span>
-                        <span class="value">{{::gb.data.nextLevel}}</span>
+                        <span class="title">@GamificationResources.NextLevelTItle:</span>
+                        <span class="value" ng-bind="gb.nextLevel"></span>
                     </div>
                 </div>
                 <div class="badges gamification-data">
-                    <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{gb.badges}}"></md-progress-linear>
+                    <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{gb.data.badgesProgress}}"></md-progress-linear>
                     <div class="text">
                         <span class="title">@GamificationResources.Badges</span>
-                        <span class="value">{{::gb.data.badgeCount}}/{{::gb.totalBadgs}}</span>
+                        <span class="value">{{::gb.data.badges}}/{{::gb.badges}}</span>
                     </div>
                 </div>
                 <div class="rank gamification-data">
                     <div class="text">
                         <span class="title">@GamificationResources.Rank</span>
-                        <span class="value"></span>
+                        <span class="value" ng-bind="::gb.data.rank"></span>
                     </div>
                 </div>
             </div>

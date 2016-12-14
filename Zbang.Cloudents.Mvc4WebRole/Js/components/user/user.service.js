@@ -30,7 +30,7 @@ var app;
             return this.ajaxService2.get("/share/notifications/");
         };
         UserService.prototype.gamificationBoard = function () {
-            return this.ajaxService2.get("/user/gamificationboard");
+            return this.ajaxService2.get("/user/gamificationboard", null, "accountDetail");
         };
         UserService.prototype.levels = function (userid) {
             return this.ajaxService2.get("/user/levels", { userid: userid });

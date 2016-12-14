@@ -18,5 +18,6 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
         public int NumFriend { get; set; }
         public int NumFlashcard { get; set; }
 
+        public int Location { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
 @model Zbang.Cloudents.Mvc4WebRole.Models.Gamification
+
 <div class="badges-wrapper">
     @Helpers.UserGamification("u.leaderboardUser")
     <div class="badges-bar">
@@ -25,7 +26,7 @@
                         @{ string progress = "g.levels.l" + level.Index + ".progress"; }
                         <div class="title">
                             <div class="image">
-                                <img ng-class="{inprogress: @progress!==0}" src="@Url.CdnContent("/images/gamification/level_" + level.Name + ".png")" alt="@level.Name"/>
+                                <img ng-class="{inprogress: @progress!==100}" src="@Url.CdnContent("/images/gamification/level_" + level.Name + ".png")" alt="@level.Name"/>
                             </div>
                             <div class="name">@level.Name</div>
                         </div>
@@ -49,7 +50,6 @@
                         @{ string progress = "g.badges." + level.BadgeSystem + ".progress"; }
                         <div class="title">
                             <div class="image">
-                                @*<img ng-if="@progress===0" src="@Url.CdnContent("/images/gamification/level_" + level.Name + "_hidden.png")" alt="@level.Name" />*@
                                 <img ng-class="{inprogress: @progress!==100}" src="@Url.CdnContent("/images/gamification/badge_" + level.Name + ".png")" alt="@level.Name" />
                             </div>
                             <div class="name">@level.Name</div>

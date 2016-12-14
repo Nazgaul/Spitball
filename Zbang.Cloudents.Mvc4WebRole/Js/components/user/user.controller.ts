@@ -25,7 +25,9 @@
                 image: profileData.image,
                 levelName: profileData.levelName,
                 progress: profileData.score / profileData.nextLevel * 100,
-                points: profileData.score
+                points: profileData.score,
+                rank: profileData.location
+
             };
         }
         isActive(state) {

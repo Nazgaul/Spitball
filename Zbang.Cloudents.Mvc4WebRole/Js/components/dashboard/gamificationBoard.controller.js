@@ -1,40 +1,32 @@
 var app;
 (function (app) {
     "use strict";
-    var scoreToReach = 0;
-    var badgesToReach = 0;
     var GamificationBoard = (function () {
         function GamificationBoard(userService, $interval, userDetailsFactory) {
             var _this = this;
             this.userService = userService;
             this.$interval = $interval;
             this.userDetailsFactory = userDetailsFactory;
-            this.score = 0;
-            this.badges = 0;
-            this.totalBadgs = 5;
+            var user = userDetailsFactory.get();
+            this.data = {};
+            this.data.progress = 0;
             this.userService.gamificationBoard()
                 .then(function (response) {
-                _this.data = response;
-                var userData = userDetailsFactory.get();
-                _this.data.userName = userData.name;
-                _this.data.userImage = userData.image;
-                _this.data.userId = userData.id;
-                scoreToReach = _this.data.score / _this.data.nextLevel * 100;
-                var q = $interval(function () {
-                    _this.score += 1;
-                    _this.score = Math.min(_this.score, scoreToReach);
-                    if (_this.score === scoreToReach) {
-                        _this.$interval.cancel(q);
-                    }
-                }, 10);
-                badgesToReach = _this.data.badgeCount / _this.totalBadgs * 100;
-                var b = $interval(function () {
-                    _this.badges += 1;
-                    _this.badges = Math.min(_this.badges, badgesToReach);
-                    if (_this.badges === badgesToReach) {
-                        _this.$interval.cancel(b);
-                    }
-                }, 10);
+                _this.badges = response.badgeCount;
+                var d = {
+                    badges: user.badges,
+                    image: user.image,
+                    levelName: user.levelName,
+                    name: user.name,
+                    points: user.score,
+                    progress: user.score / user.nextLevel * 100,
+                    badgesProgress: user.badges / _this.badges * 100,
+                    rank: response.location,
+                    nextLevel: user.nextLevel
+                };
+                _this.data = d;
+                _this.nextLevel = _this.data.nextLevel - _this.data.points;
+                console.log(_this.data, response);
             });
         }
         GamificationBoard.$inject = ["userService", "$interval", "userDetailsFactory"];
