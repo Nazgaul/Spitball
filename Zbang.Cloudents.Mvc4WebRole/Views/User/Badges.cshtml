@@ -33,9 +33,8 @@
                         <div class="body">
                             @level.Description
                             <div class="progress">
-                                <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="{{@progress}}">
-                                </md-progress-linear>
-                                {{@progress}}% complete
+                                <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="{{@progress}}"></md-progress-linear>
+                                <div class="text">{{@progress}}% complete</div>
                             </div>
                         </div>
                     </li>
@@ -59,10 +58,9 @@
                         <div class="body">
                             @level.Description
                             <div class="progress">
-                                <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="{{@progress}}">
-                                </md-progress-linear>
-                                {{@progress}}% complete
-                            </div>
+                                <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="{{@progress}}"></md-progress-linear>
+                                <div class="text">{{@progress}}% complete</div>
+                                </div>
                         </div>
                     </li>
                 }
