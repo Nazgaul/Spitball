@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rhino.Mocks;
 using System;
 using System.Threading;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.ReadServices;
@@ -245,7 +246,7 @@ namespace Zbang.Zbox.ReadServicesTests
         {
             try
             {
-                var x = m_ZboxReadService.GetSeoItemsAsync(1).Result;
+                var x = m_ZboxReadService.GetSeoItemsAsync(SeoType.Course,1).Result;
             }
             catch (Exception ex)
             {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Models
 {
@@ -10,28 +7,25 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         public Gamification()
         {
             Levels = new List<Level>();
+            Badges = new List<Badge>();
         }
         public IList<Level> Levels { get; set; }
+        public IList<Badge> Badges { get; set; }
     }
 
 
     public class Badge
     {
-        public Badge(string name, string details, int points, string image, string imageHidden)
+        public Badge(string name, string description, string badge)
         {
             Name = name;
-            Details = details;
-            Points = points;
-            Image = image;
-            ImageHidden = imageHidden;
+            Description = description;
+            BadgeSystem = badge;
         }
 
-        public string Name { get;private set; }
-
-        public string Image { get; set; }
-        public string Details { get; private set; }
-        public int Points { get; private set; }
-        public string ImageHidden { get; private set; }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public string BadgeSystem { get; private set; }
     }
 
     public class Level

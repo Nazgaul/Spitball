@@ -82,12 +82,10 @@
             padding: 3px 0 12px 0;
         }
     }
-
-    #show-points-info {
+    /*#show-points-info {
         display: none;
-    }
-
-    @media(max-width: 600px) {
+    }*/
+    /*@media(max-width: 600px) {
         #show-points-info ~ .points-info {
             max-height: 0;
             overflow: hidden;
@@ -100,9 +98,7 @@
         #show-points-info:checked ~ .points-info {
             max-height: 100vh;
         }
-    }
-
-
+    }*/
     #points {
         font-size: 30px;
         margin: 0;
@@ -343,11 +339,17 @@
                     .body {
                         padding-left: 50px;
                         width: 100%;
+                        position: relative;
 
                         @media(max-width: 600px) {
                             padding-left: 10px;
                             font-size: 12px;
                         }
+                    }
+
+                    .inprogress {
+                        -webkit-filter:grayscale(100%);
+                        filter: grayscale(100%);
                     }
                 }
 
@@ -378,7 +380,7 @@
                 }
             }
 
-            &.badges {
+            /*&.badges {
                 .expanded {
                     padding: 70px 0;
                     position: relative;
@@ -552,7 +554,7 @@
                         }
                     }
                 }
-            }
+            }*/
         }
 
         md-ink-bar {

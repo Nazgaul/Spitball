@@ -53,7 +53,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             routes.MapRoute(
               "Sitemap1",
-              "sitemap-{index}.xml",
+              "sitemap-{type}-{index}.xml",
               new { controller = "Home", action = "SiteMap", index = UrlParameter.Optional }
               );
 
