@@ -1455,7 +1455,6 @@
     <Content Include="Images\Site\itemIcons.svg" />
     <Content Include="Images\Site\icons.svg" />
     <Content Include="Images\Site\social-icons.svg" />
-    <Content Include="Images\Site\stars-bg.png" />
     <Content Include="Images\Site\stars.png" />
     <Content Include="Images\Site\leaderboard-bg.png" />
     <Content Include="Images\Site\uploadIcons.svg" />

@@ -13,7 +13,7 @@
 </div>
 <div class="userPage indent-content">
     <div class="profile-sidebar">
-        <div class="portlet light profile-sidebar-portlet" ng-if="::!u.isUserProfile">
+        @*<div class="portlet light profile-sidebar-portlet" ng-if="::!u.isUserProfile">
             <div class="profile-userpic">
                 <user-image ng-if="u.details" class="img-responsive" name="u.details.name" image="u.details.image" width="125" height="125"></user-image>
             </div>
@@ -27,12 +27,12 @@
                     </div>
                 </button>
             </div>
-        </div>
-        <label for="show-points-info" class="points-container" @*ng-if="!u.isUserProfile"*@>
+        </div>*@
+        @*<label for="show-points-info" class="points-container">
             <span count-up id="points" end-val="{{::u.details.score}}" duration="3"></span>
             <span>@UserResources.Points</span>
         </label>
-        <input id="show-points-info" type="checkbox" />
+        <input id="show-points-info" type="checkbox" />*@
         <section class="points-info" ng-if="::u.isUserProfile">
             <h1>@GamificationResources.GamificationTableTitle</h1>
             <table>
