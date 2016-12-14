@@ -7,6 +7,7 @@
         data;
         score = 0;
         badges = 0;
+        totalBadgs = 5; //TODO: Get total num of badges - not hardcode it to 5
         constructor(private userService: IUserService, private $interval: angular.IIntervalService, private userDetailsFactory: IUserDetailsFactory) {
 
             this.userService.gamificationBoard()
@@ -16,6 +17,7 @@
                     var userData = userDetailsFactory.get();
                     this.data.userName = userData.name;
                     this.data.userImage = userData.image;
+                    this.data.userId = userData.id;
                     //this.data.score = 1073741823;
                     scoreToReach = this.data.score / this.data.nextLevel * 100;
                     var q = $interval(() => {
@@ -25,8 +27,7 @@
                             this.$interval.cancel(q);
                         }
                     }, 10);
-                    //TODO: Get total num of badges - not hardcode it to 5
-                    badgesToReach = this.data.badgeCount / 5 * 100;
+                    badgesToReach = this.data.badgeCount / this.totalBadgs * 100;
                     var b = $interval(() => {
                         this.badges += 1;
                         this.badges = Math.min(this.badges, badgesToReach);

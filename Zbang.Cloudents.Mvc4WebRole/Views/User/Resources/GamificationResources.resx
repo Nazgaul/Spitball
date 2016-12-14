@@ -173,4 +173,13 @@
   <data name="GamificationTableTitle" xml:space="preserve">
     <value>Points System</value>
   </data>
+  <data name="Points" xml:space="preserve">
+    <value>Points</value>
+  </data>
+  <data name="NextLevelTItle" xml:space="preserve">
+    <value>Next Level in</value>
+  </data>
+  <data name="Rank" xml:space="preserve">
+    <value>Rank</value>
+  </data>
 </root>

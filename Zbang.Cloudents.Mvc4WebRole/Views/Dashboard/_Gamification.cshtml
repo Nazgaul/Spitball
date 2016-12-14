@@ -1,13 +1,11 @@
-﻿<div class="leaderboardbox leaderboard score-board box-style" ng-controller="gamificationBoard as gb">
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
+<div class="leaderboardbox leaderboard score-board box-style" ng-controller="gamificationBoard as gb">
 
     <div class="bg-round"></div>
-    <div class="bg-l">
-        <md-icon md-svg-icon="p:stars" class="bg"></md-icon>
-    </div>
-    <div class="bg-r">
-        <md-icon md-svg-icon="p:stars" class="bg"></md-icon>
-    </div>
-    <div class="content">
+    <div class="bg-l"></div>
+    <div class="bg-r"></div>
+    @*<a class="content">*@
+    <a class="content" ga-track-event="['dashboard', 'to user page']" ui-sref="user({userId:gb.data.userId, userName:gb.data.userName})">
         <div class="image-side">
             <user-image class="img-circle" name="::gb.data.userName" image="::gb.data.userImage" width="70" height="70" noremove="true"></user-image>
         </div>
@@ -18,49 +16,54 @@
                     <span class="seperator">-</span>
                     <span class="level">{{::gb.data.level}}</span>
                 </div>
-                <div class="points"></div>
+                <div class="points">{{::gb.data.score}} @GamificationResources.Points</div>
             </div>
             <div class="bottom">
-                <div class="level">
-                    <div class="text">
-                        <span>Next Level in</span>
-                        <span>{{::gb.data.nextLevel}}</span>
-                    </div>
+                <div class="level gamification-data">
                     <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{gb.score}}"></md-progress-linear>
-                </div>
-                <div class="badges">
                     <div class="text">
-                        <span>Badges</span>
-                        <span>{{::gb.data.badgeCount}}</span>
+                        <span class="title">@GamificationResources.NextLevelTItle</span>
+                        <span class="value">{{::gb.data.nextLevel}}</span>
                     </div>
-                    <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{gb.badges}}"></md-progress-linear>
                 </div>
-                <div class="rank"></div>
+                <div class="badges gamification-data">
+                    <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{gb.badges}}"></md-progress-linear>
+                    <div class="text">
+                        <span class="title">@GamificationResources.Badges</span>
+                        <span class="value">{{::gb.data.badgeCount}}/{{::gb.totalBadgs}}</span>
+                    </div>
+                </div>
+                <div class="rank gamification-data">
+                    <div class="text">
+                        <span class="title">@GamificationResources.Rank</span>
+                        <span class="value"></span>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </a>
 
     @*<div class="top">
-        <div class="points">
-            <div class="points-wrapper">
-                <span class="number" ng-bind="::gb.data.score | number">{{::gb}}</span>
-                <span>points</span>
+            <div class="points">
+                <div class="points-wrapper">
+                    <span class="number" ng-bind="::gb.data.score | number">{{::gb}}</span>
+                    <span>points</span>
+                </div>
             </div>
+            <div class="text">Next Level in {{::gb.data.nextLevel}} pts</div>
+            <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{gb.score}}"></md-progress-linear>
         </div>
-        <div class="text">Next Level in {{::gb.data.nextLevel}} pts</div>
-        <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{gb.score}}"></md-progress-linear>
-    </div>
-    <div class="bottom">
-        <div class="level">
-            <div class="icon"></div>
-            <div class="description">
-                <div>Your level {{::gb.data.level}}</div>
-                <div>Level {{::gb.data.number}}</div>
+        <div class="bottom">
+            <div class="level">
+                <div class="icon"></div>
+                <div class="description">
+                    <div>Your level {{::gb.data.level}}</div>
+                    <div>Level {{::gb.data.number}}</div>
+                </div>
             </div>
-        </div>
-        <div class="badges">
-            <div class="icon"></div>
-            <div class="description">{{::gb.data.badgeCount}} Badges</div>
-        </div>
-    </div>*@
+            <div class="badges">
+                <div class="icon"></div>
+                <div class="description">{{::gb.data.badgeCount}} Badges</div>
+            </div>
+        </div>*@
 </div>

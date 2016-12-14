@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create 5 quiz.
+        ///   Looks up a localized string similar to Create 5 Quizzes.
         /// </summary>
         public static string BadgeCreateQuizzesDescription {
             get {
@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Like 50 posts or docs that you really think are of great value to unlock this badge.
+        ///   Looks up a localized string similar to Like 50 posts or docs that you think are of great value to unlock this badge.
         /// </summary>
         public static string BadgeLikesDescription {
             get {
@@ -124,7 +124,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Earning points.
+        ///   Looks up a localized string similar to Points System.
         /// </summary>
         public static string GamificationTableTitle {
             get {
@@ -151,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show my self.
+        ///   Looks up a localized string similar to Show My Rank.
         /// </summary>
         public static string LeaderboardShowMySelf {
             get {
@@ -169,7 +169,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You’re no longer the new kid at school! Training wheels have been removed. There is still much to learn and achieve. Study on, young Sophomore!.
+        ///   Looks up a localized string similar to You’re no longer the new kid at school! Training wheels have been removed. There is still much to learn and achieve. Study on, young Spitballer!.
         /// </summary>
         public static string Level2Description {
             get {
@@ -210,6 +210,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         public static string Levels {
             get {
                 return ResourceManager.GetString("Levels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next Level in.
+        /// </summary>
+        public static string NextLevelTItle {
+            get {
+                return ResourceManager.GetString("NextLevelTItle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Points.
+        /// </summary>
+        public static string Points {
+            get {
+                return ResourceManager.GetString("Points", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rank.
+        /// </summary>
+        public static string Rank {
+            get {
+                return ResourceManager.GetString("Rank", resourceCulture);
             }
         }
     }

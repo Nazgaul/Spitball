@@ -1376,6 +1376,7 @@
     <Content Include="Images\Gamification\level_Professor.png" />
     <Content Include="Images\Gamification\level_Scholar.png" />
     <Content Include="Images\Gamification\level_Upperclassman.png" />
+    <Content Include="Images\Site\dashboard_leaderboard_stars.png" />
     <Content Include="Images\Site\Leaderboard-bg-l.png" />
     <Content Include="Images\Site\Leaderboard-bg-r.png" />
     <Content Include="Images\Site\Leaderboard-title.png" />

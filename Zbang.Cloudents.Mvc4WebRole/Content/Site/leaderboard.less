@@ -77,29 +77,25 @@
     flex-direction: column;
     position: relative;
     background: @gamificationMediumGreen;
+    @heightOfProgress: 22px;
+    overflow: hidden;
 
     .bg-l, .bg-r {
-        display: none;
-        height: 90px;
-        top: 0;
-        z-index: 0;
         position: absolute;
-        overflow: hidden;
-        width: 80px;
-
-        md-icon {
-            fill: rgba(255,255,255,0.9);
-            margin-left: -10px;
-            width: 80px;
-        }
+        height: 80px;
+        width: 110px;
+        background-repeat: no-repeat;
+        background-image: url(../../Images/Site/dashboard_leaderboard_stars.png);
     }
 
     .bg-l {
         left: 0;
+        background-position: -8px -8px;
     }
 
     .bg-r {
         right: 0;
+        background-position: -6px -13px;
         -moz-transform: scaleX(-1);
         -o-transform: scaleX(-1);
         -webkit-transform: scaleX(-1);
@@ -108,34 +104,96 @@
         -ms-filter: "FlipH";
     }
 
+    .bg-round {
+        background: @gamificationDarkGreen;
+        width: 500px;
+        height: 330px;
+        position: absolute;
+        border-radius: 350px 0 0 450px;
+        border: 2px solid @textColorWhite;
+        bottom: -60px;
+        left: 45px;
+    }
+
     .content {
         .displayFlex;
         .align-items(center);
         .justifyContet(space-between);
         height: 100%;
         padding: 16px;
+        z-index: 1;
+
+        .image-side img {
+            border: 2px solid @textColorWhite;
+        }
 
         .data-side {
             flex-grow: 1;
             padding-left: 20px;
             height: 100%;
 
-            .name-level{
-                color: @textColorWhite;
 
-                .level{
-                    color: @gamificationYellow
+            .top {
+                .name-level {
+                    color: @textColorWhite;
+                    font-size: 14px;
+                    margin-bottom: 8px;
+
+                    .level {
+                        color: @gamificationYellow;
+                    }
+                }
+
+                .points {
+                    color: @gamificationLightGreen;
                 }
             }
-        .custom-progress-bar {
-            .custom-progress-bar(@gamificationLightGreen, @gamificationGreen,22px);
-        }
-        }
 
+            .bottom .gamification-data {
+                position: relative;
+                margin-top: 10px;
+
+                &.rank {
+                    height: @heightOfProgress+2px;
+                    border-radius: @heightOfProgress/2;
+                    border: 1px solid @gamificationLightGreen;
+                }
+
+                .text {
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 0 10px;
+                    font-size: 12px;
+                    color: @textColorWhite;
+                    font-weight: bold;
+                }
+
+                .custom-progress-bar {
+                    .custom-progress-bar(@gamificationLightGreen, @gamificationGreen,@heightOfProgress);
+                    //border radius for progress bar
+                    /*.md-container .md-bar:after {
+                        content:'';
+                        display: block;
+                        width: @heightOfProgress;
+                        height: @heightOfProgress;
+                        position: absolute;
+                        right: -@heightOfProgress/2;
+                        background: @gamificationLightGreen;
+                        border-radius: 0 @heightOfProgress/2 @heightOfProgress/2 0;
+                    }*/
+                }
+            }
+        }
     }
 }
 
-.promo-box {
+/*.promo-box {
     .displayFlex;
     .align-items(stretch);
     padding: 0;
@@ -223,7 +281,7 @@
             position: absolute;
         }
     }
-}
+}*/
 
 .community {
     .top {
