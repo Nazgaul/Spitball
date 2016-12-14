@@ -604,10 +604,6 @@ md-menu-item > a.md-button {
 }
 .member .info .achievements {
   padding-right: 6px;
-  color: #4190b9;
-}
-.member .info .achievements .separator {
-  background: #5d6063;
 }
 .invite-members {
   background: #4190b9;

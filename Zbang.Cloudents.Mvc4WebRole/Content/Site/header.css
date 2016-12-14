@@ -289,6 +289,12 @@
   width: 40px;
   height: 40px;
 }
+.nav-bar .user-md-menu .achievements {
+  color: rgba(255, 255, 255, 0.6);
+}
+.nav-bar .user-md-menu .achievements .separator {
+  background: rgba(255, 255, 255, 0.6);
+}
 @media (max-width: 450px) {
   .nav-bar.expand-search .logo-search .logo,
   .nav-bar.expand-search .menu-toggler {

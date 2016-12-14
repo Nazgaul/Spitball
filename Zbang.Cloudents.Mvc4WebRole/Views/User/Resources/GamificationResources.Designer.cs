@@ -124,6 +124,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Doc (per 10).
+        /// </summary>
+        public static string DocsPointsValueTitle {
+            get {
+                return ResourceManager.GetString("DocsPointsValueTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Points System.
         /// </summary>
         public static string GamificationTableTitle {

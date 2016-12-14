@@ -196,9 +196,11 @@
     </div>
     <div class="boxes-side-area flex" layout-padding flex="100" flex-md="33" flex-lg="30" flex-gt-lg="30">
         <div flex="100" flex-sm="50" hide-xs class="flex community" ng-controller="BoxLeaderboard as g">
-            @Helpers.UserGamification("g.leaderboardUser")
-            @* ReSharper disable once Mvc.PartialViewNotResolved *@
-            @{ Html.RenderPartial("_LeaderBoard");}
+            <div class="community-wrapper">
+                @Helpers.UserGamification("g.leaderboardUser")
+                @* ReSharper disable once Mvc.PartialViewNotResolved *@
+                @{ Html.RenderPartial("_LeaderBoard");}
+            </div>
         </div>
     </div>
 </div>
