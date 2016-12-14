@@ -36,7 +36,9 @@ var app;
             this.details.boxUrl = $state.href("box.items", angular.extend({}, $stateParams));
             this.getPreview();
             this.document = itemData.fileContent;
-            $timeout(function () { _this.showLikeToaster(); }, 1000);
+            if (!this.details.like) {
+                $timeout(function () { _this.showLikeToaster(); }, 2000);
+            }
         }
         Item.prototype.followBox = function () {
             this.itemService.followbox();

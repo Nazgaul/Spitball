@@ -41,13 +41,10 @@
             this.details.boxUrl = $state.href("box.items", angular.extend({}, $stateParams));
             this.getPreview();
             this.document = itemData.fileContent;
-            $timeout(() => { this.showLikeToaster() }, 1000);
+            if (!this.details.like) {
+                $timeout(() => { this.showLikeToaster() }, 2000);
+            }
         }
-
-
-
-
-
 
 
         followBox() {

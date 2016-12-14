@@ -293,12 +293,12 @@ md-menu-item.blue svg {
   color: #212325;
 }
 .itemPage .second-line .achievements {
-  color: #4190b9;
+  color: #73b435;
   padding-left: 0;
   margin-top: 4px;
 }
 .itemPage .second-line .achievements .separator {
-  background: #4190b9;
+  background: #5d6063;
 }
 .itemPage .iframeContent {
   border: 0;
@@ -702,7 +702,7 @@ md-menu-item.blue svg {
   padding: 0;
 }
 .like-toaster-template .md-toast-content {
-  background: #ffce2f;
+  background: #73b435;
 }
 @media (min-width: 1920px) {
   .like-toaster-template .md-toast-content {
@@ -711,7 +711,6 @@ md-menu-item.blue svg {
 }
 .like-toaster-template .wrapper {
   width: 100%;
-  max-width: 860px;
   padding: 0 80px 0 10px;
   margin: 0 auto;
   height: 65px;
@@ -742,7 +741,8 @@ md-menu-item.blue svg {
   justify-content: flex-start;
   font-size: 18px;
   font-weight: bold;
-  color: #777471;
+  color: #ffffff;
+  margin: 0 auto;
 }
 .like-toaster-template .wrapper .like-area .text {
   margin-bottom: -2px;
