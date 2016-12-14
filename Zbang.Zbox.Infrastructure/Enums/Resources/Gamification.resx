@@ -133,18 +133,18 @@
     <value>Helpful Harry</value>
   </data>
   <data name="Level1" xml:space="preserve">
-    <value>Novice</value>
+    <value>New Kid</value>
   </data>
   <data name="Level2" xml:space="preserve">
-    <value>Practitioner</value>
+    <value>Young Gun</value>
   </data>
   <data name="Level3" xml:space="preserve">
-    <value>Upperclassman</value>
+    <value>Seasoned Vet</value>
   </data>
   <data name="Level4" xml:space="preserve">
-    <value>Scholar</value>
+    <value>Hotshot</value>
   </data>
   <data name="Level5" xml:space="preserve">
-    <value>Professor</value>
+    <value>Legend</value>
   </data>
 </root>

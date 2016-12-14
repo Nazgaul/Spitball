@@ -61,4 +61,3 @@ var app;
     }());
     angular.module("app.dashboard").controller("Dashboard", Dashboard);
 })(app || (app = {}));
-//# sourceMappingURL=dashboard.controller.js.map

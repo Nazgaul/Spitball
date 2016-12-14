@@ -45,4 +45,3 @@ var app;
     }());
     angular.module("app.flashcard").service("flashcardService", Flashcard);
 })(app || (app = {}));
-//# sourceMappingURL=flashcard.service.js.map

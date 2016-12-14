@@ -51,4 +51,3 @@ var app;
         };
     }
 })();
-//# sourceMappingURL=uploadWrapper.controller.js.map

@@ -143,4 +143,3 @@ var app;
     }());
     angular.module("app.chat").controller("chatUsers", ChatUsers);
 })(app || (app = {}));
-//# sourceMappingURL=chatUsers.controller.js.map

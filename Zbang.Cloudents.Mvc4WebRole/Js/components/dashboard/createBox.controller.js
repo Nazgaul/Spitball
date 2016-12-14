@@ -40,4 +40,3 @@ var app;
     }());
     angular.module("app.dashboard").controller("CreateBoxController", CreateBoxController);
 })(app || (app = {}));
-//# sourceMappingURL=createBox.controller.js.map

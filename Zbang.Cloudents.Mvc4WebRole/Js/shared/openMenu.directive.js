@@ -33,4 +33,3 @@ var app;
         .module("app")
         .directive("openMenu", OpenMenu.factory());
 })(app || (app = {}));
-//# sourceMappingURL=openMenu.directive.js.map

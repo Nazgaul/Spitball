@@ -98,4 +98,3 @@ var app;
     }());
     angular.module('app.item').service('itemService', ItemService);
 })(app || (app = {}));
-//# sourceMappingURL=item.service.js.map

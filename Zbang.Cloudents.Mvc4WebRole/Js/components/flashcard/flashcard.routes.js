@@ -57,4 +57,3 @@ var app;
     }());
     angular.module("app.flashcard").run(AppRun.factory());
 })(app || (app = {}));
-//# sourceMappingURL=flashcard.routes.js.map

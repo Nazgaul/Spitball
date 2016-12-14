@@ -106,7 +106,7 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Novice.
+        ///   Looks up a localized string similar to New Kid.
         /// </summary>
         public static string Level1 {
             get {
@@ -115,7 +115,7 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Practitioner.
+        ///   Looks up a localized string similar to Young Gun.
         /// </summary>
         public static string Level2 {
             get {
@@ -124,7 +124,7 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upperclassman.
+        ///   Looks up a localized string similar to Seasoned Vet.
         /// </summary>
         public static string Level3 {
             get {
@@ -133,7 +133,7 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scholar.
+        ///   Looks up a localized string similar to Hotshot.
         /// </summary>
         public static string Level4 {
             get {
@@ -142,7 +142,7 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Professor.
+        ///   Looks up a localized string similar to Legend.
         /// </summary>
         public static string Level5 {
             get {
