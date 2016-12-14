@@ -7,13 +7,13 @@ module app {
         googleDriveInit(): angular.IPromise<any>;
         buildGoogleDeferes(link: string, boxId: number, tab: Guid, name: string, isQuestion: Guid): angular.IPromise<any>;
         google(boxId: number, tab: Guid, isQuestion: Guid): angular.IPromise<any>;
-        buildDropBoxDeferes(link: string, boxId: number, tab: Guid, name: string, isQuestion: Guid)
-        dropBox(boxId: number, tab: Guid, isQuestion: Guid) 
+        buildDropBoxDeferes(link: string, boxId: number, tab: Guid, name: string, isQuestion: Guid);
+        dropBox(boxId: number, tab: Guid, isQuestion: Guid);
     }
 
 
     class ExternalUploadProvider implements IExternalUploadProvider {
-        $inject = ['dropboxService', 'googleService', '$q', 'itemService']
+        static $inject = ['dropboxService', 'googleService', '$q', 'itemService']
         constructor(private dropboxService: IDropboxService,
             private googleService: IGoogleService,
             private $q: angular.IQService,
