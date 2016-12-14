@@ -12,4 +12,13 @@ namespace Zbang.Zbox.Infrastructure.Enums
         [ResourceDescription(typeof(EnumResources), "LikeTypeItem")]
         Item
     }
+
+    public enum SeoType
+    {
+        Static,
+        Course,
+        Item,
+        Quiz,
+        Flashcard
+    }
 }

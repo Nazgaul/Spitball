@@ -106,7 +106,7 @@ namespace Zbang.Zbox.ReadServices
             }
 
         }
-        
+
 
 
         /// <summary>
@@ -897,35 +897,56 @@ where ownerid = @UserId and boxid = @BoxId;";
         #endregion
 
         #region Seo
-        public async Task<IEnumerable<SeoDto>> GetSeoItemsAsync(int page)
+        public async Task<IEnumerable<SeoDto>> GetSeoItemsAsync(SeoType type, int page)
         {
             const int pageSize = 49950;
-            if (page < 1)
+            string sql;
+            switch (type)
             {
-                return null;
+                case SeoType.Static:
+                    return null;
+                case SeoType.Course:
+                    sql = Sql.Seo.GetBoxSeoByPage;
+                    break;
+                case SeoType.Item:
+                    sql = Sql.Seo.GetItemSeoByPage;
+                    break;
+                case SeoType.Quiz:
+                    sql = Sql.Seo.GetQuizSeoByPage;
+                    break;
+                case SeoType.Flashcard:
+                    sql = Sql.Seo.GetFlashcardSeoByPage;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
+            //if (page < 1)
+            //{
+            //    return null;
+            //}
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<SeoDto>($"{Sql.Seo.GetSeoItemsByPage}",
-                    new { rowsperpage = pageSize, pageNumber = page });
+                return await conn.QueryAsync<SeoDto>(sql, new {rowsperpage = pageSize, pageNumber = page});
             }
         }
 
-        public async Task<int> GetSeoItemCountAsync()
+        public async Task<IEnumerable<SitemapDto>> GetSeoItemCountAsync()
         {
-            const int pageSize = 49950;
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryFirstOrDefaultAsync<int>($"{Sql.Seo.GetSeoItemsCount}");
-                return (retVal / pageSize) + 1;
+                var data = await conn.QueryFirstOrDefaultAsync(new CommandDefinition(Sql.Seo.GetSeoItemsCount));
+                var list = new List<SitemapDto>()
+                {
+                    new SitemapDto(SeoType.Course, data.boxcount), new SitemapDto(SeoType.Item, data.itemCount), new SitemapDto(SeoType.Quiz, data.quizCount), new SitemapDto(SeoType.Flashcard, data.flashcardCount),
+                };
+                return list;
+
+
+                //return (retVal / pageSize) + 1;
             }
         }
 
         #endregion
-
-
-
-
 
         #region Quiz
 
@@ -975,14 +996,11 @@ where ownerid = @UserId and boxid = @BoxId;";
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var sql = $"{Sql.Quiz.TopUsers} {Sql.Quiz.NumberOfQuizSolved}";
-                using (
-                    var grid =
-                        await conn.QueryMultipleAsync(sql, new { query.QuizId, topusers = query.NumberOfUsers }))
+                using (var grid = await conn.QueryMultipleAsync(sql, new {query.QuizId, topusers = query.NumberOfUsers}))
                 {
                     var retVal = new Item.QuizSolversWithCountDto
                     {
-                        Users = await grid.ReadAsync<Item.QuizBestUser>(),
-                        SolversCount = await grid.ReadFirstOrDefaultAsync<int>()
+                        Users = await grid.ReadAsync<Item.QuizBestUser>(), SolversCount = await grid.ReadFirstOrDefaultAsync<int>()
                     };
 
                     return retVal;
@@ -1020,14 +1038,8 @@ where ownerid = @UserId and boxid = @BoxId;";
             var retVal = new Item.QuizWithDetailSolvedDto();
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var sql =
-                    $"{Sql.Quiz.QuizQuery} " +
-                    $"{Sql.Quiz.Question} " +
-                    $"{Sql.Quiz.Answer} " +
-                    $"{Sql.Quiz.UserQuiz} " +
-                    $"{Sql.Quiz.UserAnswer} " +
-                    $"{Sql.Quiz.TopUsers}";
-                using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId, query.BoxId, query.UserId, topusers = 3 }))
+                var sql = $"{Sql.Quiz.QuizQuery} " + $"{Sql.Quiz.Question} " + $"{Sql.Quiz.Answer} " + $"{Sql.Quiz.UserQuiz} " + $"{Sql.Quiz.UserAnswer} " + $"{Sql.Quiz.TopUsers}";
+                using (var grid = await conn.QueryMultipleAsync(sql, new {query.QuizId, query.BoxId, query.UserId, topusers = 3}))
                 {
                     retVal.Quiz = await grid.ReadFirstAsync<Item.QuizWithDetailDto>();
                     retVal.Quiz.Questions = await grid.ReadAsync<Item.QuestionWithDetailDto>();
@@ -1050,7 +1062,6 @@ where ownerid = @UserId and boxid = @BoxId;";
         }
 
 
-
         public async Task<IEnumerable<Item.DiscussionDto>> GetDiscussionAsync(GetDisscussionQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
@@ -1061,11 +1072,9 @@ where ownerid = @UserId and boxid = @BoxId;";
 
         public async Task<Item.QuizWithDetailDto> GetDraftQuizAsync(GetQuizDraftQuery query)
         {
-
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                using (var grid = await conn.QueryMultipleAsync(
-                    $"{Sql.Quiz.QuizQuery} {Sql.Quiz.Question} {Sql.Quiz.Answer}", query))
+                using (var grid = await conn.QueryMultipleAsync($"{Sql.Quiz.QuizQuery} {Sql.Quiz.Question} {Sql.Quiz.Answer}", query))
                 {
                     var retVal = await grid.ReadFirstAsync<Item.QuizWithDetailDto>();
                     retVal.Questions = grid.Read<Item.QuestionWithDetailDto>();
@@ -1077,10 +1086,8 @@ where ownerid = @UserId and boxid = @BoxId;";
                         question.Answers.AddRange(answers.Where(w => w.QuestionId == question.Id));
                     }
                     return retVal;
-
                 }
             }
-
         }
 
         public async Task<int> GetNumberOfSolversAsync(long quizId)
@@ -1091,6 +1098,7 @@ where ownerid = @UserId and boxid = @BoxId;";
                 return retVal;
             }
         }
+
         #endregion
 
         public async Task<IEnumerable<long>> GetUniversityWithCodeAsync()
@@ -1111,15 +1119,12 @@ where ownerid = @UserId and boxid = @BoxId;";
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                const string sql =
-                    @"select l.Name,l.LibraryId as id, l.Settings as type ,
+                const string sql = @"select l.Name,l.LibraryId as id, l.Settings as type ,
 b.boxid as Id,b.BoxName as Name, b.CourseCode as CourseId,b.ProfessorName as ProfessorName , b.quizcount + b.itemcount + b.FlashcardCount as Items,
                                 b.MembersCount as Members
 from zbox.library l join zbox.box b on l.libraryid = b.libraryid where university = @UniversityId and isdeleted = 0 and Discriminator = 2;";
                 const string sql2 = "select l.Name,l.LibraryId as id,l.Settings as type from zbox.library l where id = @UniversityId and settings = 1 and ParentId is null";
-                using (
-                   var grid = await conn.QueryMultipleAsync(sql + sql2,
-                       new { UniversityId = universityId }))
+                using (var grid = await conn.QueryMultipleAsync(sql + sql2, new {UniversityId = universityId}))
                 {
                     var dic = new Dictionary<Guid, SmallNodeDto>();
                     grid.Read<SmallNodeDto, Box.SmallBoxDto, Guid>((node, box) =>
@@ -1128,16 +1133,13 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
                             dic[node.Id].Boxes.Add(box);
                         else
                         {
-                            node.Boxes = new List<Box.SmallBoxDto> { box };
+                            node.Boxes = new List<Box.SmallBoxDto> {box};
                             dic.Add(node.Id, node);
                         }
                         return node.Id;
                     });
-                    var nodes = dic.Select(s => s.Value)
-                        .Union(await grid.ReadAsync<SmallNodeDto>())
-                        .OrderByDescending(a => a.Boxes?.Count);
+                    var nodes = dic.Select(s => s.Value).Union(await grid.ReadAsync<SmallNodeDto>()).OrderByDescending(a => a.Boxes?.Count);
                     return nodes;
-
                 }
             }
         }
@@ -1148,8 +1150,7 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
             {
                 const string sql = "SELECT position FROM [Zbox].[FlashcardPin] where flashcardid = @FlashcardId and userid = @UserId;";
                 const string sqlLike = "SELECT  [Id] FROM[Zbox].[FlashcardLike] where flashcardid = @FlashcardId and userid = @UserId;";
-                const string sqlOwnerName =
-                    "select username from zbox.users u join zbox.Flashcard f on f.UserId = u.UserId where id = @FlashcardId";
+                const string sqlOwnerName = "select username from zbox.users u join zbox.Flashcard f on f.UserId = u.UserId where id = @FlashcardId";
                 const string universityFlashcardPromo = @"
 select u.universityname as UniversityName,u.VideoBackgroundColor as BtnColor,
 u.VideoFontColor as BtnFontColor
@@ -1158,16 +1159,11 @@ join zbox.box b on f.boxid = b.boxid
 join zbox.university u on u.id = b.university and u.id in (173408, 171885, 172566)
 where f.id = @FlashcardId
 and f.isdeleted = 0";
-                using (
-                    var grid = await conn.QueryMultipleAsync(sql + sqlLike + sqlOwnerName + universityFlashcardPromo, query))
+                using (var grid = await conn.QueryMultipleAsync(sql + sqlLike + sqlOwnerName + universityFlashcardPromo, query))
                 {
                     var result = new FlashcardUserDto
                     {
-                        Pins = await grid.ReadAsync<int>(),
-                        Like = await grid.ReadFirstOrDefaultAsync<Guid?>(),
-                        OwnerName = await grid.ReadFirstAsync<string>(),
-                        UniversityData = await grid.ReadFirstOrDefaultAsync<UniversityData>()
-
+                        Pins = await grid.ReadAsync<int>(), Like = await grid.ReadFirstOrDefaultAsync<Guid?>(), OwnerName = await grid.ReadFirstAsync<string>(), UniversityData = await grid.ReadFirstOrDefaultAsync<UniversityData>()
                     };
                     return result;
                 }
@@ -1191,6 +1187,7 @@ and f.isdeleted = 0";
                 return await conn.QueryFirstAsync<User.LevelDto>(Sql.User.Level, query);
             }
         }
+
         public async Task<IEnumerable<User.BadgeDto>> UserBadgesAsync(QueryBaseUserId query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
@@ -1198,6 +1195,7 @@ and f.isdeleted = 0";
                 return await conn.QueryAsync<User.BadgeDto>(Sql.User.Badge, query);
             }
         }
+
         public async Task<IEnumerable<LeaderBoardDto>> UserLeaderboardAsync(LeaderBoardQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
@@ -1206,6 +1204,7 @@ and f.isdeleted = 0";
                 return await conn.QueryAsync<LeaderBoardDto>(sql, query);
             }
         }
+
         #endregion
     }
 }

@@ -19,6 +19,7 @@ using Zbang.Cloudents.Mvc4WebRole.Models.Account;
 using Zbang.Cloudents.Mvc4WebRole.Models.FAQ;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Url;
@@ -31,7 +32,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     {
         private readonly Lazy<IBlobProvider> m_BlobProvider;
         private readonly ICookieHelper m_CookieHelper;
-       // public static readonly long[] FlashcardUniversities = { 173408, 171885, 172566 };
+        // public static readonly long[] FlashcardUniversities = { 173408, 171885, 172566 };
 
         public HomeController(Lazy<IBlobProvider> blobProvider, ICookieHelper cookieHelper)
         {
@@ -157,12 +158,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var data = XDocument.Load(stream);
                 var model = from category in data.Descendants("category")
                             let faqs = category.Descendants("content")
-                            orderby int.Parse(category.Attribute("order").Value)
+                            orderby int.Parse(category.Attribute("order")?.Value)
                             select new Category
                             {
-                                Language = category.Attribute("lang").Value,
-                                Name = category.Attribute("name").Value,
-                                Order = int.Parse(category.Attribute("order").Value),
+                                Language = category.Attribute("lang")?.Value,
+                                Name = category.Attribute("name")?.Value,
+                                Order = int.Parse(category.Attribute("order")?.Value),
                                 QuestionNAnswers = faqs.Select(s =>
                                     new QnA
                                     {
@@ -192,8 +193,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             orderby int.Parse(category.Attribute("order").Value)
                             select new Category
                             {
-                                Language = category.Attribute("lang").Value,
-                                Name = category.Attribute("name").Value,
+                                Language = category.Attribute("lang")?.Value,
+                                Name = category.Attribute("name")?.Value,
                                 Order = int.Parse(category.Attribute("order").Value),
                                 QuestionNAnswers = faqs.Select(s =>
                                     new QnA
@@ -410,60 +411,84 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [AllowAnonymous]
         [HttpGet]
         [NoAsyncTimeout, ActionName("SiteMap")]
-        [OutputCache(Duration = 2 * TimeConst.Day, VaryByParam = "index", Location = OutputCacheLocation.Any)]
-        public async Task<ActionResult> SiteMapAsync(int? index)
+        [OutputCache(Duration = 2 * TimeConst.Day, VaryByParam = "type;index", Location = OutputCacheLocation.Any)]
+        public async Task<ActionResult> SiteMapAsync(SeoType? type, int? index)
         {
             if (!index.HasValue)
             {
                 var contentIndex = await GetSitemapIndexAsync();
-                return Content(contentIndex, "application/xml", Encoding.UTF8);
+                return Content(contentIndex, "application/xml");
             }
-            var content = await GetSitemapXmlAsync(index.Value);
-            return Content(content, "application/xml", Encoding.UTF8);
+            if (!type.HasValue)
+            {
+                return Content("");
+            }
+            var content = await GetSitemapXmlAsync(type.Value, index.Value);
+            return Content(content?.Trim(), "application/xml");
         }
 
         private async Task<string> GetSitemapIndexAsync()
         {
             const string sitemapsNamespace = "http://www.sitemaps.org/schemas/sitemap/0.9";
             XNamespace xmlns = sitemapsNamespace;
-            var noOfSiteMaps = await ZboxReadService.GetSeoItemCountAsync();
+            var model = await ZboxReadService.GetSeoItemCountAsync();
 
+            const int pageSize = 49950;
             // ReSharper disable once StringLiteralTypo
             var root = new XElement(xmlns + "sitemapindex");
-            for (int i = 1; i <= noOfSiteMaps; i++)
-            {
-                root.Add(
-                    new XElement(xmlns + "sitemap",
-                        new XElement(xmlns + "loc", $"https://www.spitball.co/sitemap-{i}.xml")
-                           )
-                        );
+            root.Add(
+                        new XElement(xmlns + "sitemap",
+                            new XElement(xmlns + "loc", $"https://www.spitball.co/sitemap-{SeoType.Static}-0.xml")
+                               )
+                            );
 
-            }
-            using (var ms = new MemoryStream())
+            foreach (var elem in model)
             {
-                using (var writer = new StreamWriter(ms, Encoding.UTF8))
+                for (var i = 0; i <= elem.Count / pageSize; i++)
                 {
-                    root.Save(writer);
-                }
+                    root.Add(
+                        new XElement(xmlns + "sitemap",
+                            new XElement(xmlns + "loc", $"https://www.spitball.co/sitemap-{elem.Type}-{i}.xml")
+                               )
+                            );
 
-                return Encoding.UTF8.GetString(ms.ToArray());
+                }
             }
+
+            //using (var ms = new MemoryStream())
+            //{
+            //    using (var writer = new StreamWriter(ms))
+            //    {
+            //        root.T
+            //        root.Save(writer);
+            //    }
+
+            //    return Encoding.Unicode.GetString(ms.ToArray());
+            //}
+            XDocument document = new XDocument(new XDeclaration("1.0", "utf-8", "yes"), root);
+            return document.ToString();
 
 
         }
 
         [NonAction]
-        private async Task<string> GetSitemapXmlAsync(int index)
+        private async Task<string> GetSitemapXmlAsync(SeoType type, int index)
         {
             XNamespace xmlns = "http://www.sitemaps.org/schemas/sitemap/0.9";
             XNamespace xhtml = "http://www.w3.org/1999/xhtml";
-            var nodes = await GetSitemapNodesAsync(index);
+            IEnumerable<SitemapNode> nodes;
+            if (type == SeoType.Static)
+            {
+                nodes = GetSitemapStaticLinks();
+
+            }
+            else
+            {
+                nodes = await GetSitemapNodesAsync(type, index);
+            }
 
             var root = new XElement(xmlns + "urlset",
-                //new XAttribute("xmlns", xmlns.NamespaceName),
                 new XAttribute(XNamespace.Xmlns + "xhtml", xhtml));
-
-
 
             foreach (var node in nodes)
             {
@@ -502,122 +527,156 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 root.Add(url);
 
             }
-            using (var ms = new MemoryStream())
-            {
-                using (var writer = new StreamWriter(ms, Encoding.UTF8))
-                {
-                    root.Save(writer);
-                }
+            XDocument document = new XDocument(new XDeclaration("1.0", "utf-8", "yes"), root);
+            return document.ToString();
+            //using (var ms = new MemoryStream())
+            //{
+            //    using (var writer = new StreamWriter(ms, Encoding.Unicode))
+            //    {
+            //        root.Save(writer);
+            //    }
 
-                return Encoding.UTF8.GetString(ms.ToArray());
-            }
+            //    return Encoding.Unicode.GetString(ms.ToArray());
+            //}
         }
+
         [NonAction]
-        private async Task<IEnumerable<SitemapNode>> GetSitemapNodesAsync(int index)
+        private IEnumerable<SitemapNode> GetSitemapStaticLinks()
         {
             var requestContext = ControllerContext.RequestContext;
-            var nodes = new List<SitemapNode>();
-            if (index == 1)
+            var nodes = new List<SitemapNode>
             {
-                nodes.Add(
                 new SitemapNode(requestContext, "homePage", null)
                 {
                     Priority = 1.0,
                     Frequency = SitemapFrequency.Daily
-                });
-                nodes.Add(
-                     new SitemapNode(requestContext, "Blog", new { lang = "en-us" })
-                     {
-                         Priority = 0.95,
-                         Frequency = SitemapFrequency.Daily
-                     });
-                //Something is wrong with this url
-                //nodes.Add(
-                //    new SitemapNode(requestContext, "Blog", new { lang = "he-il" })
-                //    {
-                //        Priority = 0.95,
-                //        Frequency = SitemapFrequency.Daily
-                //    });
-                nodes.Add(
-                    new SitemapNode(requestContext, "AboutUs", null)
-                    {
-                        Priority = 0.95,
-                        Frequency = SitemapFrequency.Daily
-                    });
-                nodes.Add(
-                   new SitemapNode(requestContext, "Help", null)
-                   {
-                       Priority = 0.95,
-                       Frequency = SitemapFrequency.Daily
-                   });
-                //nodes.Add(
-                //  new SitemapNode(requestContext, "homePage", new { step = "signin" })
-                //  {
-                //      Priority = 0.95,
-                //      Frequency = SitemapFrequency.Daily
-                //  });
-                //nodes.Add(
-                //  new SitemapNode(requestContext, "homePage", new { step = "signup" })
-                //  {
-                //      Priority = 0.95,
-                //      Frequency = SitemapFrequency.Daily
-                //  });
-                nodes.Add(
-                   new SitemapNode(requestContext, "Jobs", null)
-                   {
-                       Priority = 0.95,
-                       Frequency = SitemapFrequency.Daily
-                   });
+                },
+                new SitemapNode(requestContext, "Blog", new {lang = "en-us"})
+                {
+                    Priority = 0.95,
+                    Frequency = SitemapFrequency.Daily
+                },
+                new SitemapNode(requestContext, "AboutUs", null)
+                {
+                    Priority = 0.95,
+                    Frequency = SitemapFrequency.Daily
+                },
+                new SitemapNode(requestContext, "Help", null)
+                {
+                    Priority = 0.95,
+                    Frequency = SitemapFrequency.Daily
+                },
+                new SitemapNode(requestContext, "Jobs", null)
+                {
+                    Priority = 0.95,
+                    Frequency = SitemapFrequency.Daily
+                },
+                new SitemapNode(requestContext, "Privacy", null)
+                {
+                    Priority = 0.8,
+                    Frequency = SitemapFrequency.Daily
+                },
+                new SitemapNode(requestContext, "TOS", null)
+                {
+                    Priority = 0.8,
+                    Frequency = SitemapFrequency.Daily
+                },
+                new SitemapNode(requestContext, "Advertise", null)
+                {
+                    Priority = 0.8,
+                    Frequency = SitemapFrequency.Daily
+                }
+            };
+            //Something is wrong with this url
+            //nodes.Add(
+            //    new SitemapNode(requestContext, "Blog", new { lang = "he-il" })
+            //    {
+            //        Priority = 0.95,
+            //        Frequency = SitemapFrequency.Daily
+            //    });
 
-                nodes.Add(
-                    new SitemapNode(requestContext, "Privacy", null)
-                    {
-                        Priority = 0.8,
-                        Frequency = SitemapFrequency.Daily
-                    });
-                nodes.Add(
-                    new SitemapNode(requestContext, "TOS", null)
-                    {
-                        Priority = 0.8,
-                        Frequency = SitemapFrequency.Daily
-                    });
-                nodes.Add(
-                    new SitemapNode(requestContext, "Advertise", null)
-                    {
-                        Priority = 0.8,
-                        Frequency = SitemapFrequency.Daily
-                    });
-                nodes.AddRange(SitemapNode.SiteMapNodesWithLang(requestContext,
-                    new SitemapNodeLangHelper("Product", null, "en"),
-                    new SitemapNodeLangHelper("Product2", new { lang = "he" }, "he")
-                    ));
-                nodes.AddRange(SitemapNode.SiteMapNodesWithLang(requestContext,
-                   new SitemapNodeLangHelper("Features", null, "en"),
-                   new SitemapNodeLangHelper("Features2", new { lang = "he" }, "he")
-                   ));
-                nodes.AddRange(SitemapNode.SiteMapNodesWithLang(requestContext,
-                   new SitemapNodeLangHelper("classnotes", null, "en"),
-                   new SitemapNodeLangHelper("classnotes2", new { lang = "he" }, "he")
-                   ));
-                nodes.AddRange(SitemapNode.SiteMapNodesWithLang(requestContext,
-                   new SitemapNodeLangHelper("courses", null, "en"),
-                   new SitemapNodeLangHelper("courses2", new { lang = "he" }, "he")
-                   ));
+            nodes.AddRange(SitemapNode.SiteMapNodesWithLang(requestContext,
+                new SitemapNodeLangHelper("Product", null, "en"),
+                new SitemapNodeLangHelper("Product2", new { lang = "he" }, "he")
+                ));
+            nodes.AddRange(SitemapNode.SiteMapNodesWithLang(requestContext,
+               new SitemapNodeLangHelper("Features", null, "en"),
+               new SitemapNodeLangHelper("Features2", new { lang = "he" }, "he")
+               ));
+            nodes.AddRange(SitemapNode.SiteMapNodesWithLang(requestContext,
+               new SitemapNodeLangHelper("classnotes", null, "en"),
+               new SitemapNodeLangHelper("classnotes2", new { lang = "he" }, "he")
+               ));
+            nodes.AddRange(SitemapNode.SiteMapNodesWithLang(requestContext,
+               new SitemapNodeLangHelper("courses", null, "en"),
+               new SitemapNodeLangHelper("courses2", new { lang = "he" }, "he")
+               ));
 
 
-                nodes.Add(
-                   new SitemapNode(requestContext, "apps", null)
-                   {
-                       Priority = 0.8,
-                       Frequency = SitemapFrequency.Daily
-                   });
-            }
 
-            var seoItems = await ZboxReadService.GetSeoItemsAsync(index);
-            nodes.AddRange(seoItems.Where(w => !string.IsNullOrEmpty(w.Url))
-                .Select(s => new SitemapNode(s.Url, requestContext)));
-
+            nodes.Add(
+               new SitemapNode(requestContext, "apps", null)
+               {
+                   Priority = 0.8,
+                   Frequency = SitemapFrequency.Daily
+               });
             return nodes;
+        }
+
+        [NonAction]
+        private async Task<IEnumerable<SitemapNode>> GetSitemapNodesAsync(SeoType type, int index)
+        {
+            var requestContext = ControllerContext.RequestContext;
+
+            var seoItems = await ZboxReadService.GetSeoItemsAsync(type, index);
+            if (type == SeoType.Course)
+            {
+                return seoItems.Select(s => new SitemapNode(requestContext, "CourseBoxWithSub", new
+                {
+                    UniversityName = UrlBuilder.NameToQueryString(s.UniversityName),
+                    s.BoxId,
+                    BoxName = UrlBuilder.NameToQueryString(s.BoxName),
+                    s.Part
+                }));
+            }
+            if (type == SeoType.Item)
+            {
+                return seoItems.Select(s => new SitemapNode(requestContext, "Item", new
+                {
+                    UniversityName = UrlBuilder.NameToQueryString(s.UniversityName),
+                    s.BoxId,
+                    BoxName = UrlBuilder.NameToQueryString(s.BoxName),
+                    itemid = s.Id,
+                    itemName = UrlBuilder.NameToQueryString(s.Name)
+                }));
+            }
+            if (type == SeoType.Quiz)
+            {
+                return seoItems.Select(s => new SitemapNode(requestContext, "Quiz", new
+                {
+                    UniversityName = UrlBuilder.NameToQueryString(s.UniversityName),
+                    s.BoxId,
+                    BoxName = UrlBuilder.NameToQueryString(s.BoxName),
+                    quizId = s.Id,
+                    quizName = UrlBuilder.NameToQueryString(s.Name)
+                }));
+            }
+            if (type == SeoType.Flashcard)
+            {
+                return seoItems.Select(s => new SitemapNode(requestContext, "Flashcard", new
+                {
+                    UniversityName = UrlBuilder.NameToQueryString(s.UniversityName),
+                    s.BoxId,
+                    BoxName = UrlBuilder.NameToQueryString(s.BoxName),
+                    flashcardId = s.Id,
+                    flashcardName = UrlBuilder.NameToQueryString(s.Name)
+                }));
+            }
+            return null;
+            //nodes.AddRange(seoItems.Where(w => !string.IsNullOrEmpty(w.Url))
+            //    .Select(s => new SitemapNode(s.Url, requestContext)));
+
+            //return nodes;
         }
 
 
