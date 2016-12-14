@@ -124,6 +124,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Complete.
+        /// </summary>
+        public static string Complete {
+            get {
+                return ResourceManager.GetString("Complete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Doc (per 10).
         /// </summary>
         public static string DocsPointsValueTitle {
@@ -228,15 +237,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         public static string NextLevelTItle {
             get {
                 return ResourceManager.GetString("NextLevelTItle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Points.
-        /// </summary>
-        public static string Points {
-            get {
-                return ResourceManager.GetString("Points", resourceCulture);
             }
         }
         
