@@ -394,3 +394,4 @@ var app;
     }());
     angular.module('app.quiz.create').controller('QuizCreateController', QuizCreateController);
 })(app || (app = {}));
+//# sourceMappingURL=quizCreate2.controller.js.map

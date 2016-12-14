@@ -51,3 +51,4 @@ var app;
     }());
     angular.module("app").service("notificationService", DesktopNotification);
 })(app || (app = {}));
+//# sourceMappingURL=notification.js.map

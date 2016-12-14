@@ -56,10 +56,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     throw new ItemNotFoundException();
                 }
-                if (Request.Url != null && model.Url != Server.UrlDecode(Request.Url.AbsolutePath))
-                {
-                    throw new ItemNotFoundException();
-                }
+                //if (Request.Url != null && model.Url != Server.UrlDecode(Request.Url.AbsolutePath))
+                //{
+                //    throw new ItemNotFoundException();
+                //}
 
                 if (string.IsNullOrEmpty(model.Country)) return View("Empty");
                 SeoBaseUniversityResources.Culture = Languages.GetCultureBaseOnCountry(model.Country);
