@@ -1,6 +1,6 @@
 ﻿module app {
     "use strict";
-    interface IUserGamification {
+    export interface IUserGamification {
         rank?: number;
         name: string;
         image: string;
@@ -12,7 +12,7 @@
     class Leaderboard {
         static $inject = ["boxService", "$stateParams", "$mdDialog", "userDetailsFactory"];
         leaderboard;
-        user: IUserGamification;
+        leaderboardUser: IUserGamification;
         //leaderboardMyself = true;
         constructor(
             private boxService: IBoxService,
@@ -23,7 +23,7 @@
         }
         private leaderBoard() {
             const user = this.userDetailsFactory.get();
-            this.user = {
+            this.leaderboardUser = {
                 name: user.name,
                 image: user.image,
                 levelName: user.levelName,
@@ -41,7 +41,7 @@
                         }
                         elem.progress = elem.score / leaderBoard[0].score * 100;
                     }
-                    this.user.rank = response.rank;
+                    this.leaderboardUser.rank = response.rank;
                     this.leaderboard = leaderBoard;
                 });
         }

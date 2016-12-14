@@ -10,6 +10,13 @@ var app;
             this.$rootScope = $rootScope;
             this.isUserProfile = user.id === profileData.id;
             this.details = profileData;
+            this.leaderboardUser = {
+                name: profileData.name,
+                image: profileData.image,
+                levelName: profileData.levelName,
+                progress: profileData.score / profileData.nextLevel * 100,
+                points: profileData.score
+            };
         }
         User.prototype.isActive = function (state) {
             return state === this.$state.current.name;

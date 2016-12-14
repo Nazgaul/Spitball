@@ -5,10 +5,15 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
     public static class User
     {
         public const string UserProfileWithStats = @"
-		select u.userid as Id, u.username as name, u.UserImageLarge as image,u.Online,
-                            u.score as score, uu.universityname as universityName, u.url as Url
-                            from zbox.users u left join zbox.university uu on u.UniversityId = uu.id
-                            where u.userid =@Myfriend;
+		with leaderboard as (
+select userid as id,username as name,score,UserImageLarge as image,
+ROW_NUMBER () over (partition BY universityid order by score desc) as location
+ from zbox.Users  u
+ where universityid = (select UniversityId from zbox.Users where userid = @Myfriend)
+ )
+select *
+                            from leaderboard u 
+                            where u.id =@Myfriend;
 
 		 select count(*)
                         from zbox.item i 

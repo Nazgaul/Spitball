@@ -5,7 +5,7 @@
             <md-icon md-svg-icon="t:close"></md-icon>
         </md-button>
     </md-toolbar>
-    @Helpers.UserGamification()
+    @Helpers.UserGamification("g.leaderboardUser")
     @* ReSharper disable once Mvc.PartialViewNotResolved *@
     @{ Html.RenderPartial("_LeaderBoard");}
 </md-dialog>

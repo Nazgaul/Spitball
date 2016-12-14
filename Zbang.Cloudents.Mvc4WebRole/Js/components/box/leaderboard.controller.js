@@ -12,7 +12,7 @@ var app;
         Leaderboard.prototype.leaderBoard = function () {
             var _this = this;
             var user = this.userDetailsFactory.get();
-            this.user = {
+            this.leaderboardUser = {
                 name: user.name,
                 image: user.image,
                 levelName: user.levelName,
@@ -30,7 +30,7 @@ var app;
                     }
                     elem.progress = elem.score / leaderBoard[0].score * 100;
                 }
-                _this.user.rank = response.rank;
+                _this.leaderboardUser.rank = response.rank;
                 _this.leaderboard = leaderBoard;
             });
         };

@@ -86,7 +86,7 @@ var app;
             this.leaderboardPage++;
             return this.communityTab();
         };
-        Gamification.$inject = ["$state", "$scope", "userService"];
+        Gamification.$inject = ["$state", "$scope", "userService", "user"];
         return Gamification;
     }());
     angular.module("app.user").controller("gamification", Gamification);

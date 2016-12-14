@@ -108,6 +108,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var query = new GetUserWithFriendQuery(id);
             var model = await ZboxReadService.GetUserProfileWithStatsAsync(query);
+            var level = GamificationLevels.GetLevel(model.Score);
+            model.LevelName = level.Name;
+            model.NextLevel = level.NextLevel;
             return JsonOk(model);
         }
 

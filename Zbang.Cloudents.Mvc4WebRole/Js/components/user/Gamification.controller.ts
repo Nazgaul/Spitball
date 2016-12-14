@@ -1,7 +1,7 @@
 ﻿module app {
 
     class Gamification {
-        static $inject = ["$state", "$scope", "userService"];
+        static $inject = ["$state", "$scope", "userService", "user"];
         levels;
         doneLevel = false;
         badges;
@@ -9,10 +9,11 @@
         leaderboard: Array<any> = [];
         //leaderboardMyself = true;
         leaderboardPage = 0;
-
+       
         constructor(private $state: angular.ui.IStateService,
             private $scope: angular.IScope,
             private userService: IUserService
+             
             ) {
             $scope["$state"] = this.$state;
             if (!$state.params["type"]) {
@@ -30,6 +31,9 @@
                         this.communityTab();
                     }
                 });
+
+            //const user = this.userDetailsFactory.get();
+            
         }
         isActive(state) {
             return this.$state.params["type"] === state;

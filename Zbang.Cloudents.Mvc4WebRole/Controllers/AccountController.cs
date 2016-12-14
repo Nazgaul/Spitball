@@ -889,7 +889,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var level = GamificationLevels.GetLevel(retVal.Score);
                 retVal.LevelName = level.Name;
                 retVal.NextLevel = level.NextLevel;
-                //retVal.Level = levelName;
                 return JsonOk(retVal);
             }
             catch (UserNotFoundException)
