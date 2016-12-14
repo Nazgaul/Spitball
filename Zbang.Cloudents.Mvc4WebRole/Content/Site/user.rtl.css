@@ -578,21 +578,6 @@
   -webkit-animation: none !important;
   animation: none !important;
 }
-.userPage .page-tabs > md-tabs-wrapper md-ink-bar {
-  display: block;
-}
-.userPage .page-tabs > md-tabs-wrapper md-ink-bar:after {
-  content: '';
-  display: block;
-  width: 0;
-  height: 0;
-  border-right: 12px solid transparent;
-  border-left: 12px solid transparent;
-  border-bottom: 12px solid #f5f5f5;
-  position: absolute;
-  right: calc(50% - 12px);
-  bottom: 0;
-}
 .userPage .page-tabs md-tab-item {
   padding: 0 10px 12px 10px;
   margin: 7px 10px;
