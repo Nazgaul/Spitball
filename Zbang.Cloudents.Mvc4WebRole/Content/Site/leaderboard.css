@@ -329,7 +329,6 @@
   text-align: center;
   font-size: 22px;
   font-weight: bold;
-  margin: 0 34px;
 }
 .gamification-header .gamification-data span {
   display: block;
@@ -345,6 +344,7 @@
   -webkit-align-items: center;
   align-items: center;
   flex-direction: column;
+  margin: 0 34px;
 }
 .gamification-header .middle .image-progress {
   position: relative;
@@ -618,21 +618,11 @@
 .community .custom-progress-bar .md-container .md-bar {
   background: #73b435;
 }
-.feed-wrapper .community .top {
-  height: 76px;
+.feed-wrapper .community .gamification-header .gamification-data {
+  font-size: 18px;
 }
-.feed-wrapper .community .top .title {
-  margin-bottom: 6px;
-}
-.feed-wrapper .community .filter-wrapper {
-  text-align: right;
-  padding: 10px 0 0 0;
-}
-.feed-wrapper .community .filter-wrapper .action-btn {
-  line-height: 14px;
-  font-size: 14px;
-  padding: 4px 10px;
-  min-width: 0;
+.feed-wrapper .community .gamification-header .middle {
+  margin: 0 10px;
 }
 .feed-wrapper .community .content {
   background: #ffffff;

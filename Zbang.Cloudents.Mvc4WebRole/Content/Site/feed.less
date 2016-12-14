@@ -328,7 +328,7 @@
                 }
             }
 
-            .flashcard-element md-icon{
+            .flashcard-element md-icon {
                 width: 44px;
                 height: 36px;
             }
@@ -536,18 +536,20 @@
         .comment-date {
             color: @textColorGrey;
             font-size: 12px;
-            position: absolute;
-            bottom: 10px;
-            left: @userImageIndent;
+            padding: 0 20px 10px 0;
+            right: 0;
         }
 
         .achievements {
-            color: @buttonColorBlue;
-            padding: 0 20px 10px 0;
+            color: @gamificationMediumGreen;
+            padding: 0;
             max-width: 100%;
+            left: @userImageIndent;
+            bottom: 10px;
+            position: absolute;
 
             .separator {
-                background: @buttonColorBlue;
+                background: @gamificationMediumGreen;
             }
         }
 
@@ -610,16 +612,19 @@
 
             .user-name {
                 font-weight: normal;
-                padding-bottom: 0;
+            }
+        }
+
+        .achievements {
+            bottom: 4px;
+            @media(max-width: 600px){
+                left: 50px;
             }
         }
 
         > .content-text {
             margin-bottom: 0;
 
-            @media(min-width: 600px) {
-                margin-top: -8px;
-            }
         }
 
         .info {
