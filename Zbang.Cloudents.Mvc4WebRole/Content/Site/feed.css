@@ -461,17 +461,19 @@
 .feed .comment .comment-date {
   color: #888b8e;
   font-size: 12px;
-  position: absolute;
-  bottom: 10px;
-  left: 62px;
+  padding: 0 20px 10px 0;
+  right: 0;
 }
 .feed .comment .achievements {
-  color: #4190b9;
-  padding: 0 20px 10px 0;
+  color: #73b435;
+  padding: 0;
   max-width: 100%;
+  left: 62px;
+  bottom: 10px;
+  position: absolute;
 }
 .feed .comment .achievements .separator {
-  background: #4190b9;
+  background: #73b435;
 }
 .feed .comment .delete {
   height: 17px;
@@ -527,15 +529,17 @@
 }
 .feed .reply .userblock .user-name {
   font-weight: normal;
-  padding-bottom: 0;
+}
+.feed .reply .achievements {
+  bottom: 4px;
+}
+@media (max-width: 600px) {
+  .feed .reply .achievements {
+    left: 50px;
+  }
 }
 .feed .reply > .content-text {
   margin-bottom: 0;
-}
-@media (min-width: 600px) {
-  .feed .reply > .content-text {
-    margin-top: -8px;
-  }
 }
 .feed .reply .info {
   display: -webkit-flex;
