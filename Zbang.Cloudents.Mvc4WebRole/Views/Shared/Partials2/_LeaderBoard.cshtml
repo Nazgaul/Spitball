@@ -12,7 +12,7 @@
             </button>
 
         </div>*@
-    <div class="users" layout="row" layout-padding layout-wrap vs-repeat="94" vs-scroll-parent="window">
+    <div class="users" layout="row" layout-padding layout-wrap vs-repeat="65" vs-scroll-parent="window">
         <a ui-sref="user({userId:user.id,userName:user.name})" class="user-data" ng-repeat="user in g.leaderboard track by user.id">
             <div class="rank">
                 <span ng-bind="::($index+1 + startIndex)"></span>
