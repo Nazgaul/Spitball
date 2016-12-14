@@ -172,3 +172,4 @@ var app;
     }());
     angular.module("app").config(Config.factory());
 })(app || (app = {}));
+//# sourceMappingURL=app.config.js.map

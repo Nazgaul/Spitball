@@ -26,3 +26,4 @@ var app;
         .module("app.flashcard")
         .directive("cardForm", CardDirective.factory());
 })(app || (app = {}));
+//# sourceMappingURL=card.directive.js.map

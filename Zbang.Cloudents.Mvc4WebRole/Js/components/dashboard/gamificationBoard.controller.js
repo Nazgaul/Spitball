@@ -34,3 +34,4 @@ var app;
     }());
     angular.module("app.dashboard").controller("gamificationBoard", GamificationBoard);
 })(app || (app = {}));
+//# sourceMappingURL=gamificationBoard.controller.js.map

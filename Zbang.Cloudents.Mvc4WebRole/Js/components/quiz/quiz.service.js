@@ -76,3 +76,4 @@ var app;
     }());
     angular.module("app.quiz").service('quizService', QuizService);
 })(app || (app = {}));
+//# sourceMappingURL=quiz.service.js.map

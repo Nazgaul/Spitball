@@ -46,3 +46,4 @@ var app;
     }());
     angular.module('app').service('sbHistory', SbHistory);
 })(app || (app = {}));
+//# sourceMappingURL=history.js.map

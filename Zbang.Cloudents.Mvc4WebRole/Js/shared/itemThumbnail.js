@@ -41,3 +41,4 @@ var app;
     }());
     angular.module("app").service("itemThumbnailService", ItemThumbnailService);
 })(app || (app = {}));
+//# sourceMappingURL=itemThumbnail.js.map

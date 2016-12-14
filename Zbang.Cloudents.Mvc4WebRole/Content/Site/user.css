@@ -77,15 +77,16 @@
 }
 .userPage .message {
   font-size: 16px;
-  background: #F76446;
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  border: 1px solid #ffffff;
   color: #ffffff;
   padding: 3px 13px;
   border-radius: 8px;
-  margin: 20px 0 9px 0;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
-  margin: 20px auto 9px auto;
 }
 .userPage .message .content {
   display: -webkit-flex;
