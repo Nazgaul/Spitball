@@ -7,7 +7,6 @@ var app;
             this.googleService = googleService;
             this.$q = $q;
             this.itemService = itemService;
-            this.$inject = ['dropboxService', 'googleService', '$q', 'itemService'];
         }
         ExternalUploadProvider.prototype.dropboxInit = function () {
             return this.dropboxService.init();
@@ -62,6 +61,7 @@ var app;
             return defer.promise;
         };
         ;
+        ExternalUploadProvider.$inject = ['dropboxService', 'googleService', '$q', 'itemService'];
         return ExternalUploadProvider;
     }());
     angular.module("app.upload").service("externalUploadProvider", ExternalUploadProvider);
