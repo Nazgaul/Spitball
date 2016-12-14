@@ -24,8 +24,7 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 
         public bool IsAdmin { get; set; }
 
-        //public string Token { get; set; }
-
-
+        public string LevelName { get; set; }
+        public int NextLevel { get; set; }
     }
 }

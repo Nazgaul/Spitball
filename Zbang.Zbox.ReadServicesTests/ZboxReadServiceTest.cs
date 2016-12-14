@@ -525,18 +525,18 @@ namespace Zbang.Zbox.ReadServicesTests
         //    }
         //}
 
-        [TestMethod]
-        public async Task GetBoxRecommendedCourses_Query_ReturnResult()
-        {
-            var query = new GetBoxSideBarQuery(60130,1);
-            try
-            {
-                var x = await m_ZboxReadService.GetBoxRecommendedCoursesAsync(query,default(CancellationToken));
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
+        //[TestMethod]
+        //public async Task GetBoxRecommendedCourses_Query_ReturnResult()
+        //{
+        //    var query = new GetBoxSideBarQuery(60130,1);
+        //    try
+        //    {
+        //        var x = await m_ZboxReadService.GetBoxRecommendedCoursesAsync(query,default(CancellationToken));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Assert.Fail("Expected no exception, but got: " + ex.Message);
+        //    }
+        //}
     }
 }

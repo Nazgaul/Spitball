@@ -1,20 +1,19 @@
 ﻿module app {
 
     class Gamification {
-        static $inject = ["$state", "$scope", "userService", "$timeout", "$anchorScroll"];
+        static $inject = ["$state", "$scope", "userService"];
         levels;
         doneLevel = false;
         badges;
         badgeInfo;
         leaderboard: Array<any> = [];
-        leaderboardMyself = true;
+        //leaderboardMyself = true;
         leaderboardPage = 0;
 
         constructor(private $state: angular.ui.IStateService,
             private $scope: angular.IScope,
-            private userService: IUserService,
-            private $timeout: angular.ITimeoutService,
-            private $anchorScroll: angular.IAnchorScrollService) {
+            private userService: IUserService
+            ) {
             $scope["$state"] = this.$state;
             if (!$state.params["type"]) {
                 this.$state.go($state.current.name, { type: "level" });
@@ -72,7 +71,7 @@
                 });
         }
         private communityTab() {
-            return this.userService.leaderboard(this.$state.params["userId"], this.leaderboardMyself, this.leaderboardPage)
+            return this.userService.leaderboard(this.$state.params["userId"], this.leaderboardPage)
                 .then((response: Array<any>) => {
                     for (let i = 0; i < response.length; i++) {
                         const elem = response[i];
@@ -87,18 +86,18 @@
                     } else {
                         this.leaderboard = response;
                     }
-                    if (this.leaderboardMyself) {
-                        this.$timeout(() => {
-                            this.$anchorScroll("user_" + this.$state.params["userId"]);
-                        });
-                    }
+                    //if (this.leaderboardMyself) {
+                    //    this.$timeout(() => {
+                    //        this.$anchorScroll("user_" + this.$state.params["userId"]);
+                    //    });
+                    //}
                 });
         }
-        goToSelf() {
-            this.leaderboardPage = 0;
-            this.leaderboardMyself = !this.leaderboardMyself;
-            this.communityTab();
-        }
+        //goToSelf() {
+        //    this.leaderboardPage = 0;
+        //    this.leaderboardMyself = !this.leaderboardMyself;
+        //    this.communityTab();
+        //}
         //showBadge(badge) {
         //    if (!badge) {
         //        return;
@@ -111,10 +110,10 @@
         //    };
         //}
         loadMoreLeaderboard() {
-            if (!this.leaderboardMyself) {
-                this.leaderboardPage++;
-                return this.communityTab();
-            }
+            //if (!this.leaderboardMyself) {
+            this.leaderboardPage++;
+            return this.communityTab();
+            //}
         }
     }
     angular.module("app.user").controller("gamification", Gamification);

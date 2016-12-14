@@ -66,28 +66,7 @@ where uWrap.Id = @UniversityId";
 				 order by t.CreationTime desc
   offset @pageNumber*@rowsperpage ROWS
     FETCH NEXT @rowsperpage ROWS ONLY;";
-
         
-
-//        public const string RecommendedCourses =
-//            @"select top(3) b.BoxId, b.BoxName as Name,b.CourseCode,b.ProfessorName as professor,
-//b.MembersCount,b.ItemCount , b.url,
-//b.MembersCount+b.ItemCount+(DATEDIFF(MINUTE,'20120101 05:00:00:000', b.UpdateTime)/(DATEDIFF(MINUTE,'20120101 05:00:00:000', GETUTCDATE())/45)) as rank  
-//from zbox.Box b
-//where b.isdeleted = 0
-//and b.boxid not in (select boxid from zbox.UserBoxRel ub where userid = @UserId)
-//and b.discriminator = 2
-//and b.University = @UniversityId
-//order by rank desc";
-
-
-//        public const string UniversityLeaderBoard = @"
-//select top(3) u.userid as id, u.UserImageLarge as image, coalesce(u.FirstName,u.username)  as name, u.Score as score, u.url as url
-//from zbox.Users u 
-//where u.UniversityId = @UniversityId
-//and u.usertype <> 1
-//and score > 0
-// order by score desc";
 
 
         public const string UserAuthenticationDetail =

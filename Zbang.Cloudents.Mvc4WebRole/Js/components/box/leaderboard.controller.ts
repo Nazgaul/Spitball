@@ -1,38 +1,54 @@
 ﻿module app {
     "use strict";
+    interface IUserGamification {
+        rank?: number;
+        name: string;
+        image: string;
+        points: number;
+        levelName: string;
+        progress: number;
+    }
 
     class Leaderboard {
-        static $inject = ["boxService", "$stateParams","$mdDialog"];
+        static $inject = ["boxService", "$stateParams", "$mdDialog", "userDetailsFactory"];
         leaderboard;
-        leaderboardMyself = true;
+        user: IUserGamification;
+        //leaderboardMyself = true;
         constructor(
             private boxService: IBoxService,
             private $stateParams: spitaball.ISpitballStateParamsService,
-            private $mdDialog: angular.material.IDialogService) {
+            private $mdDialog: angular.material.IDialogService,
+            private userDetailsFactory: IUserDetailsFactory) {
             this.leaderBoard();
         }
         private leaderBoard() {
-            this.boxService.leaderBoard(this.$stateParams.boxId, this.leaderboardMyself)
+            const user = this.userDetailsFactory.get();
+            this.user = {
+                name: user.name,
+                image: user.image,
+                levelName: user.levelName,
+                progress: user.score / user.nextLevel * 100,
+                points: user.score
+            };
+            this.boxService.leaderBoard(this.$stateParams.boxId)
                 .then(response => {
-                    for (let i = 0; i < response.length; i++) {
-                        const elem = response[i];
+                    var leaderBoard = response.model;
+                    for (let i = 0; i < leaderBoard.length; i++) {
+                        const elem = leaderBoard[i];
                         if (i === 0) {
                             elem.progress = 100;
                             continue;
                         }
-                        elem.progress = elem.score / response[0].score * 100;
+                        elem.progress = elem.score / leaderBoard[0].score * 100;
                     }
-                    this.leaderboard = response;
+                    this.user.rank = response.rank;
+                    this.leaderboard = leaderBoard;
                 });
-        }
-        goToSelf() {
-            this.leaderboardMyself = !this.leaderboardMyself;
-            this.leaderBoard();
         }
         close() {
             this.$mdDialog.hide();
         }
     }
 
-    angular.module("app.box").controller("Leaderboard", Leaderboard);
+    angular.module("app.box").controller("BoxLeaderboard", Leaderboard);
 }

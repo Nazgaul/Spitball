@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using DevTrends.MvcDonutCaching;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -9,7 +8,6 @@ using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources;
 using Zbang.Zbox.Infrastructure;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -273,7 +271,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var query = new QueryBaseUserId(id);
             var result = await ZboxReadService.UserLevelsAsync(query);
             var level = GamificationLevels.GetLevel(result.Score);
-            //result.Level = level.Name;
             result.NextLevel = level.NextLevel;
             result.Number = level.Level;
             return JsonOk(result);
@@ -307,11 +304,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, ActionName("leaderboard")]
-        public async Task<JsonResult> LeaderboardAsync(long userid, bool mySelf, int? page)
+        public async Task<JsonResult> LeaderboardAsync(long userid, int? page)
         {
 
-            var query = new LeaderBoardQuery(userid, mySelf, page.GetValueOrDefault());
+            var query = new LeaderboardQuery(userid, page.GetValueOrDefault());
             var model = await ZboxReadService.UserLeaderboardAsync(query);
+
+            model = model.Select(s => 
+            {
+                s.LevelName = GamificationLevels.GetLevel(s.Score).Name;
+                return s;
+            });
             return JsonOk(model);
         }
 

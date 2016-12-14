@@ -1,23 +1,17 @@
-﻿using System;
-using System.Globalization;
-using Zbang.Zbox.Infrastructure.Query;
-
-namespace Zbang.Zbox.ViewModel.Queries.Dashboard
+﻿namespace Zbang.Zbox.ViewModel.Queries.Dashboard
 {
-    public class LeaderBoardQuery : IPagedQuery
+    public class LeaderboardQuery : IPagedQuery
     {
-        public LeaderBoardQuery(long userId, bool myself, int pageNumber = 0)
+        public LeaderboardQuery(long userId,  int pageNumber = 0)
         {
             UserId = userId;
             PageNumber = pageNumber;
-            Myself = myself;
             RowsPerPage = 1000;
         }
 
 
         public long UserId { get; private set; }
 
-        public bool Myself { get; private set; }
 
         public int PageNumber { get; }
         public int RowsPerPage { get; }
@@ -26,15 +20,15 @@ namespace Zbang.Zbox.ViewModel.Queries.Dashboard
 
 
 
-    public class FlashcardLeaderboardQuery
-    {
-        public FlashcardLeaderboardQuery(long userId, long universityId)
-        {
-            UserId = userId;
-            UniversityId = universityId;
-        }
+    //public class FlashcardLeaderboardQuery
+    //{
+    //    public FlashcardLeaderboardQuery(long userId, long universityId)
+    //    {
+    //        UserId = userId;
+    //        UniversityId = universityId;
+    //    }
 
-        public long UserId { get; private set; }
-        public long UniversityId { get; private set; }
-    }
+    //    public long UserId { get; private set; }
+    //    public long UniversityId { get; private set; }
+    //}
 }

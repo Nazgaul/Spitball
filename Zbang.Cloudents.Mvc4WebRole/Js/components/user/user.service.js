@@ -38,10 +38,9 @@ var app;
         UserService.prototype.badges = function (userid) {
             return this.ajaxService2.get("/user/userbadges/", { userid: userid });
         };
-        UserService.prototype.leaderboard = function (userid, mySelf, page) {
+        UserService.prototype.leaderboard = function (userid, page) {
             return this.ajaxService2.get("/user/leaderboard/", {
                 userid: userid,
-                mySelf: mySelf,
                 page: page
             });
         };

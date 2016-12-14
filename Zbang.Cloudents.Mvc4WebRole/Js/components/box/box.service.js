@@ -16,8 +16,8 @@ var app;
         BoxService.prototype.getReplies = function (boxid, commentId, replyId) {
             return this.ajaxService2.get('/qna/replies/', { boxid: boxid, id: commentId, replyId: replyId });
         };
-        BoxService.prototype.leaderBoard = function (boxid, myself) {
-            return this.ajaxService2.get('/box/leaderboard/', { id: boxid, myself: myself });
+        BoxService.prototype.leaderBoard = function (boxid) {
+            return this.ajaxService2.get('/box/leaderboard/', { id: boxid });
         };
         BoxService.prototype.getRecommended = function (boxid) {
             return this.ajaxService2.get('/box/recommended/', { id: boxid });

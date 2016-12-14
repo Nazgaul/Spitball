@@ -12,32 +12,28 @@
         window.appInsights = appInsights;
         appInsights.trackPageView();
     </script>
-// your helper can contain code and/or markup, e.g.
-// var msg = "Hello " + name;
-// <p>@msg</p>
-// For more information, visit http://go.microsoft.com/fwlink/?LinkID=204658
 }
 
-@helper UserGamification()
+@helper UserGamification(string alias)
 {
     <div class="gamification-header">
         <div class="bg-l"></div>
         <div class="bg-r"></div>
         <div class="gamification-data">
             <span class="title">@GamificationResources.Rank</span>
-            <span class="value">38</span>
+            <span class="value" ng-bind="::@(alias).rank"></span>
         </div>
         <div class="middle">
             <div class="image-progress">
-                <md-progress-circular md-mode="determinate" value="50" md-diameter="120px"></md-progress-circular>
-                <user-image class="img-circle" name="::e.name" image="::e.image" width="35" height="110"></user-image>
+                <md-progress-circular md-mode="determinate" value="{{@(alias).progress}}" md-diameter="120px"></md-progress-circular>
+                <user-image class="img-circle" name="::@(alias).name" image="::@(alias).image" width="35" height="110" @*noremove="true"*@></user-image>
             </div>
-            <span class="name">username</span>
-            <span class="level">level</span>
+            <span class="name" ng-bind="::@(alias).name"></span>
+            <span class="level" ng-bind="::@(alias).levelName"></span>
         </div>
         <div class="gamification-data">
             <span class="title">@GamificationResources.Points</span>
-            <span class="value">436</span>
+            <span class="value" ng-bind="::@(alias).points"></span>
         </div>
     </div>
 }
