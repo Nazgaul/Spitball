@@ -48,22 +48,36 @@
         position: absolute;
         right: 16px;
         bottom: 16px;
-        border: 1px solid @textColorWhite;
+        border: 2px solid @textColorWhite;
         color: @textColorWhite;
-        padding: 3px 13px;
+        padding: 5px 15px;
         border-radius: 8px;
         .displayFlex;
 
         .content {
             .displayInlineFlex;
             .align-items(center);
+
+            md-icon {
+                width: 22px;
+                height: 22px;
+                margin-right: 10px;
+                fill: @textColorWhite;
+            }
         }
 
-        svg {
-            width: 22px;
-            height: 22px;
-            margin-right: 10px;
-            fill: @textColorWhite;
+        @media(max-width: 600px) {
+            padding: 4px 10px;
+
+            .content {
+                span {
+                    display: none;
+                }
+
+                md-icon {
+                    margin-right: 0;
+                }
+            }
         }
     }
 
@@ -225,12 +239,12 @@
     }
 
     md-tabs-canvas, md-pagination-wrapper {
-        height: 70px;
+        height: 60px;
     }
 
     .badges-tabs {
         md-tabs-canvas, md-pagination-wrapper {
-            height: 50px;
+            height: 56px;
 
             @media(min-width: 600px) {
                 min-width: 100%;
@@ -238,16 +252,22 @@
 
             @media(max-width: 600px) {
                 height: 40px;
+
+                md-tab-item {
+                    padding: 10px 0;
+                }
             }
         }
     }
     //.tab-content {
     //bottom: 0;
+    @costomProgressHeight: 30px;
+
     .custom-progress-bar {
-        .custom-progress-bar(@gamificationMediumGreen,@gamificationDarkGreen,30px);
+        .custom-progress-bar(@gamificationMediumGreen,@gamificationDarkGreen,@costomProgressHeight);
 
         @media(max-width: 600px) {
-            .custom-progress-bar(@gamificationMediumGreen,@gamificationDarkGreen,30px);
+            .custom-progress-bar(@gamificationMediumGreen,@gamificationDarkGreen,@costomProgressHeight);
         }
     }
 
@@ -280,6 +300,7 @@
 
         md-tab-item {
             color: @textColorBlack;
+            padding: 14px 0;
 
             @media(min-width: 600px) {
                 min-width: 33%;
@@ -292,7 +313,7 @@
             border-bottom: 1px solid @gamificationMediumGreen;
 
             h4 {
-                font-size: 20px;
+                font-size: 16px;
                 margin: 6px 0;
 
                 @media(max-width: 600px) {
@@ -320,6 +341,10 @@
                     .justifyContet(center);
                     font-size: 14px;
                     padding: 25px;
+
+                    @media(max-width: 600px) {
+                        padding: 25px 10px 25px 0;
+                    }
 
                     &:nth-child(odd) {
                         background: #ebebeb;
@@ -350,6 +375,10 @@
                         @media(max-width: 600px) {
                             padding-left: 10px;
                             font-size: 12px;
+                        }
+
+                        .text {
+                            padding: 0 @costomProgressHeight/2;
                         }
 
                         .progress {
@@ -605,7 +634,7 @@
         }
 
         md-tab-item {
-            padding: 0 10px 12px 10px;
+            padding: 0 10px;
             margin: 7px 10px;
 
             &.md-active:after {
@@ -705,7 +734,7 @@
             min-height: 500px;
 
             @media(min-width: 960px) {
-                margin: 0 12px;
+                margin-right: 24px;
             }
         }
 

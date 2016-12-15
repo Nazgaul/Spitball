@@ -80,9 +80,9 @@
   position: absolute;
   right: 16px;
   bottom: 16px;
-  border: 1px solid #ffffff;
+  border: 2px solid #ffffff;
   color: #ffffff;
-  padding: 3px 13px;
+  padding: 5px 15px;
   border-radius: 8px;
   display: -webkit-flex;
   display: -ms-flex;
@@ -95,11 +95,22 @@
   -webkit-align-items: center;
   align-items: center;
 }
-.userPage .message svg {
+.userPage .message .content md-icon {
   width: 22px;
   height: 22px;
   margin-right: 10px;
   fill: #ffffff;
+}
+@media (max-width: 600px) {
+  .userPage .message {
+    padding: 4px 10px;
+  }
+  .userPage .message .content span {
+    display: none;
+  }
+  .userPage .message .content md-icon {
+    margin-right: 0;
+  }
 }
 .userPage .points-container {
   display: block;
@@ -198,11 +209,11 @@
 }
 .userPage md-tabs-canvas,
 .userPage md-pagination-wrapper {
-  height: 70px;
+  height: 60px;
 }
 .userPage .badges-tabs md-tabs-canvas,
 .userPage .badges-tabs md-pagination-wrapper {
-  height: 50px;
+  height: 56px;
 }
 @media (min-width: 600px) {
   .userPage .badges-tabs md-tabs-canvas,
@@ -214,6 +225,10 @@
   .userPage .badges-tabs md-tabs-canvas,
   .userPage .badges-tabs md-pagination-wrapper {
     height: 40px;
+  }
+  .userPage .badges-tabs md-tabs-canvas md-tab-item,
+  .userPage .badges-tabs md-pagination-wrapper md-tab-item {
+    padding: 10px 0;
   }
 }
 .userPage .custom-progress-bar {
@@ -290,6 +305,7 @@
 }
 .userPage .badges-wrapper md-tab-item {
   color: #212325;
+  padding: 14px 0;
 }
 @media (min-width: 600px) {
   .userPage .badges-wrapper md-tab-item {
@@ -302,7 +318,7 @@
   border-bottom: 1px solid #73b435;
 }
 .userPage .badges-wrapper md-tabs h4 {
-  font-size: 20px;
+  font-size: 16px;
   margin: 6px 0;
 }
 @media (max-width: 600px) {
@@ -508,6 +524,11 @@
   font-size: 14px;
   padding: 25px;
 }
+@media (max-width: 600px) {
+  .userPage .badges-wrapper .tab.levels .level {
+    padding: 25px 10px 25px 0;
+  }
+}
 .userPage .badges-wrapper .tab.levels .level:nth-child(odd) {
   background: #ebebeb;
 }
@@ -537,6 +558,9 @@
     padding-left: 10px;
     font-size: 12px;
   }
+}
+.userPage .badges-wrapper .tab.levels .level .body .text {
+  padding: 0 15px;
 }
 .userPage .badges-wrapper .tab.levels .level .body .progress {
   position: relative;
@@ -607,7 +631,7 @@
   animation: none !important;
 }
 .userPage .page-tabs md-tab-item {
-  padding: 0 10px 12px 10px;
+  padding: 0 10px;
   margin: 7px 10px;
 }
 .userPage .page-tabs md-tab-item.md-active:after {
@@ -700,7 +724,7 @@
 }
 @media (min-width: 960px) {
   .userPage .profile-content .portlet.light {
-    margin: 0 12px;
+    margin-right: 24px;
   }
 }
 .userPage .profile-content .user-box {

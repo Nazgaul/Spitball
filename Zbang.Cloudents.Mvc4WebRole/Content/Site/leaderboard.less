@@ -77,7 +77,7 @@
     flex-direction: column;
     position: relative;
     background: @gamificationMediumGreen;
-    @heightOfProgress: 22px;
+    @heightOfProgress: 26px;
     overflow: hidden;
 
     .bg-l, .bg-r {
@@ -134,22 +134,35 @@
             flex-grow: 1;
             padding-left: 20px;
             height: 100%;
-
+            min-width: 0;
 
             .top {
+                font-size: 16px;
+
                 .name-level {
                     color: @textColorWhite;
-                    font-size: 14px;
                     margin-bottom: 8px;
+                    .displayFlex;
+                    .align-items(center);
+                    .justifyContet(flex-start);
 
                     .level {
                         color: @gamificationYellow;
+                        white-space: nowrap;
+                    }
+
+                    .seperator {
+                        padding: 0 5px;
                     }
                 }
 
                 .points {
                     color: @gamificationLightGreen;
                 }
+            }
+
+            .top, .bottom .gamification-data .text {
+                padding: 0 @heightOfProgress/2;
             }
 
             .bottom .gamification-data {
@@ -171,10 +184,9 @@
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    padding: 0 10px;
-                    font-size: 12px;
+                    font-size: 14px;
                     color: @textColorWhite;
-                    font-weight: bold;
+                    letter-spacing: 1px;
                 }
 
                 .custom-progress-bar {
@@ -286,11 +298,8 @@
     }
 }*/
 .gamification-header {
-    .displayFlex;
-    .align-items(center);
-    .justifyContet(center);
     background: @gamificationMediumGreen;
-    padding: 20px 0 10px 0;
+    padding: 14px 0;
     position: relative;
 
     .bg-l, .bg-r {
@@ -320,69 +329,123 @@
         background-position: ~"calc(100% + 8px) -26px";
     }
 
-    .gamification-data {
-        color: @textColorWhite;
-        text-align: center;
-        font-size: 22px;
-        font-weight: bold;
 
-        span {
-            display: block;
-            text-transform: uppercase;
+    .vertical {
+        .displayFlex;
+        .align-items(center);
+        .justifyContet(center);
 
-            &.value {
-                color: #d5fcaf;
+        .gamification-data {
+            color: @textColorWhite;
+            font-size: 22px;
+            font-weight: bold;
+            width: ~"calc(50% - 61px)";
+
+            @media(max-width: 600px) {
+                width: ~"calc(50% - 33px)";
+                font-size: 16px;
+            }
+
+            &.rank {
+                text-align: right;
+            }
+
+            &.points {
+                text-align: left;
+            }
+
+            .content {
+                text-align: center;
+                display: inline-block;
+
+                span {
+                    display: block;
+                    text-transform: uppercase;
+
+                    &.value {
+                        color: #d5fcaf;
+                    }
+                }
+            }
+        }
+
+        .middle {
+            .displayFlex;
+            .align-items(center);
+            flex-direction: column;
+            margin: 0 34px;
+
+            @media(max-width: 600px) {
+                margin: 0 16px;
+            }
+
+            .image-progress {
+                position: relative;
+                position: relative;
+                width: 112px;
+                height: 112px;
+                border-radius: 100%;
+                border: 2px solid @textColorWhite;
+                background: @textColorWhite;
+                overflow: hidden;
+                box-sizing: content-box;
+                margin-bottom: 6px;
+
+                @media(max-width: 600px) {
+                    width: 66px;
+                    height: 66px;
+                }
+
+                md-progress-circular {
+                    stroke: @gamificationYellow;
+
+                    @media(max-width: 600px) {
+                        width: 66px !important;
+                        height: 66px !important;
+                    }
+                }
+
+                img {
+                    background: @textColorWhite;
+                }
+
+                .userLetter {
+                    font-size: 56px;
+                }
+
+                img, .userLetter {
+                    position: absolute;
+                    top: 0;
+                    width: 100px;
+                    height: 100px;
+                    margin: 3px;
+                    border: 2px solid @textColorWhite;
+
+                    @media(max-width: 600px) {
+                        margin: 1px;
+                        font-size: 32px;
+                        width: 64px !important;
+                        height: 64px !important;
+                        line-height: 64px !important;
+                    }
+                }
             }
         }
     }
 
-    .middle {
-        .displayFlex;
-        .align-items(center);
-        flex-direction: column;
-        margin: 0 34px;
+    .name, .level {
+        font-size: 16px;
+        line-height: 18px;
+        display: block;
+        text-align: center;
+    }
 
-        .image-progress {
-            position: relative;
-            position: relative;
-            width: 120px;
-            height: 120px;
-            border-radius: 100%;
-            border: 2px solid @textColorWhite;
-            background: @textColorWhite;
-            overflow: hidden;
-            box-sizing: content-box;
-            margin-bottom: 6px;
+    .name {
+        color: @textColorWhite;
+    }
 
-            md-progress-circular {
-                stroke: @gamificationYellow;
-            }
-
-            img {
-                background: @textColorWhite;
-            }
-
-            img, .userLetter {
-                position: absolute;
-                top: 0;
-                width: 106px;
-                height: 106px;
-                margin: 7px;
-                border: 2px solid @textColorWhite;
-            }
-        }
-
-        .name, .level {
-            font-size: 14px;
-        }
-
-        .name {
-            color: @textColorWhite;
-        }
-
-        .level {
-            color: @gamificationYellow;
-        }
+    .level {
+        color: @gamificationYellow;
     }
 }
 
@@ -477,123 +540,129 @@
         .users {
             .user-data {
                 width: 100%;
-                .displayFlex;
-                .align-items(center);
-                .justifyContet(center);
-                color: @GreyBlue;
-                padding: 10px 20px;
 
-                @media(max-width: 600px) {
-                    padding: 8px 0;
-                }
-
-                &:first-child {
-                    padding-top: 0;
+                &:nth-child(2) {
+                    padding-top: 2px;
                 }
 
                 &:nth-child(odd) {
                     background: #ebebeb;
                 }
 
-                .img-circle {
-                    border: 1px solid @gamificationMediumGreen;
-                }
-
-                .rank {
-                    min-width: 70px;
-                    text-align: right;
-                    padding-right: 14px;
-
-                    span {
-                        display: inline-block;
-                        background: @gamificationMediumGreen;
-                        color: @textColorWhite;
-                        min-width: 24px;
-                        height: 24px;
-                        line-height: 24px;
-                        text-align: center;
-                        border-radius: 5px;
-                        padding-top: 1px;
-                        font-weight: bold;
-                        padding: 0 6px;
-                    }
-                }
-
-                .points {
-                    min-width: 92px;
-                    text-align: center;
+                .content {
+                    width: 100%;
+                    .displayFlex;
+                    .align-items(center);
+                    .justifyContet(center);
+                    color: @GreyBlue;
+                    padding: 18px 6px;
+                    max-width: 740px;
+                    margin: 0 auto;
 
                     @media(max-width: 600px) {
-                        min-width: 40px;
+                        padding: 8px 0;
                     }
-                }
 
-                .text {
-                    text-align: center;
-                    font-size: 10px;
-                    color: @textColorGrey;
-
-                    .points {
-                        font-size: 18px;
-                        color: @gamificationDarkGreen;
-                        font-weight: bold;
-
-                        @media(max-width: 600px) {
-                            font-size: 18px;
-                        }
+                    .img-circle {
+                        border: 1px solid @textColorGrey;
                     }
-                }
 
-                .img-wrapper {
-                    border-radius: 100%;
-                    margin: 6px 0;
-
-                    @media(max-width: 600px) {
-                        width: 36px;
-                        height: 36px;
-                        margin: 5px 0;
+                    .rank {
+                        min-width: 70px;
+                        text-align: right;
+                        padding-right: 14px;
 
                         span {
-                            font-size: 18px;
-                            line-height: 36px !important;
+                            display: inline-block;
+                            background: @gamificationMediumGreen;
+                            color: @textColorWhite;
+                            min-width: 24px;
+                            height: 24px;
+                            line-height: 24px;
+                            text-align: center;
+                            border-radius: 5px;
+                            padding-top: 1px;
+                            font-weight: bold;
+                            padding: 0 6px;
                         }
                     }
 
-                    img, span {
+                    .points {
+                        min-width: 92px;
+                        text-align: center;
+
+                        @media(max-width: 600px) {
+                            min-width: 40px;
+                        }
+                    }
+
+                    .text {
+                        text-align: center;
+                        font-size: 10px;
+                        color: @textColorGrey;
+
+                        .points {
+                            font-size: 18px;
+                            color: @gamificationDarkGreen;
+                            font-weight: bold;
+
+                            @media(max-width: 600px) {
+                                font-size: 18px;
+                            }
+                        }
+                    }
+
+                    .img-wrapper {
                         border-radius: 100%;
-                        overflow: hidden;
-                        border: solid 1px @GreyBlue;
-                    }
-                }
+                        margin: 6px 0;
 
-                .img-wrapper, .progress-user, .points {
-                    .displayFlex;
-                    .justifyContet(center);
-                    flex-direction: column;
-                }
+                        @media(max-width: 600px) {
+                            width: 36px;
+                            height: 36px;
+                            margin: 5px 0;
 
-                .progress-user {
-                    max-width: 520px;
-                    position: relative;
-                    flex-grow: 1;
-                    flex-shrink: 0;
-                    margin: 0 26px;
+                            span {
+                                font-size: 18px;
+                                line-height: 36px !important;
+                            }
+                        }
 
-                    @media(max-width: 600px) {
-                        margin: 0 10px;
+                        img, span {
+                            border-radius: 100%;
+                            overflow: hidden;
+                            border: solid 1px @GreyBlue;
+                        }
                     }
 
-                    .name {
-                        position: absolute;
+                    .img-wrapper, .progress-user, .points {
                         .displayFlex;
-                        .align-items(center);
                         .justifyContet(center);
-                        top: 0;
-                        right: 0;
-                        left: 0;
-                        bottom: 0;
-                        color: @textColorWhite;
-                        padding: 0 10px;
+                        flex-direction: column;
+                    }
+
+                    .progress-user {
+                        max-width: 520px;
+                        position: relative;
+                        flex-grow: 1;
+                        flex-shrink: 0;
+                        margin: 0 26px;
+
+                        @media(max-width: 600px) {
+                            margin: 0 10px;
+                        }
+
+                        .name {
+                            position: absolute;
+                            .displayFlex;
+                            .align-items(center);
+                            .justifyContet(center);
+                            top: 0;
+                            right: 0;
+                            left: 0;
+                            bottom: 0;
+                            color: @textColorWhite;
+                            padding: 0 10px;
+                        }
                     }
                 }
             }
@@ -601,41 +670,68 @@
     }
 
     .custom-progress-bar {
-        .custom-progress-bar(@gamificationMediumGreen,@gamificationDarkGreen,20px);
+        .custom-progress-bar(@gamificationMediumGreen,@gamificationDarkGreen,30px);
     }
 }
 
-.feed-wrapper .community {
-    .community-wrapper{
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-    }
+.feed-wrapper .community .community-wrapper {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+
+
     .gamification-header {
         .gamification-data {
             font-size: 18px;
+            width: ~"calc(50% - 76px)";
         }
 
         .middle {
-            margin: 0 10px;
+            margin: 0 20px;
+        }
+
+        .image-progress {
+            width: 66px;
+            height: 66px;
+        }
+
+        md-progress-circular {
+            width: 66px !important;
+            height: 66px !important;
+        }
+
+        img, .userLetter {
+            margin: 1px;
+            font-size: 32px;
+            width: 64px !important;
+            height: 64px !important;
+            line-height: 64px !important;
         }
     }
 
-    .content {
+    > .content {
         background: @textColorWhite;
         margin-top: 0;
 
         .users {
             .user-data {
-                padding: 10px;
+                &:nth-child(2) {
+                    .content {
+                        padding-top: 8px;
+                    }
+                }
+
+                .content {
+                    padding: 12px 6px;
+                }
 
                 .img-wrapper {
                     width: 36px;
                     height: 36px;
                     margin: 9px 0;
-                }
 
-                .img-wrapper span {
-                    font-size: 18px;
-                    line-height: 36px !important;
+                    span {
+                        font-size: 18px;
+                        line-height: 36px !important;
+                    }
                 }
 
                 .progress-user {
@@ -663,6 +759,10 @@
                 .text {
                     min-width: 70px;
                 }
+            }
+
+            .vs-repeat-after-content{
+                display: none;
             }
         }
     }
