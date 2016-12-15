@@ -83,4 +83,3 @@ var app;
     }());
     angular.module("app.library").controller("ClassChooseDialog", ClassChooseDialog);
 })(app || (app = {}));
-//# sourceMappingURL=classChooseCreateDialog.controller.js.map

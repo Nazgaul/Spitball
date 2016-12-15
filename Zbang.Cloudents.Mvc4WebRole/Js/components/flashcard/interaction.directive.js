@@ -30,4 +30,3 @@ var app;
         .module("app.flashcard")
         .directive("interactionDone", InteractionDone.factory());
 })(app || (app = {}));
-//# sourceMappingURL=interaction.directive.js.map

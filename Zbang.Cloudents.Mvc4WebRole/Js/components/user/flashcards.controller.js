@@ -39,4 +39,3 @@ var app;
     }());
     angular.module("app.user").controller("userFlashcard", Flashcard);
 })(app || (app = {}));
-//# sourceMappingURL=flashcards.controller.js.map

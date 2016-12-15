@@ -193,4 +193,3 @@ var app;
     }());
     angular.module("app.chat").controller("conversation", Conversation);
 })(app || (app = {}));
-//# sourceMappingURL=conversation.controller.js.map

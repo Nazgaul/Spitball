@@ -24,4 +24,3 @@ var app;
     }());
     angular.module('app.chat').controller('previewController', PreviewController);
 })(app || (app = {}));
-//# sourceMappingURL=previewController.js.map

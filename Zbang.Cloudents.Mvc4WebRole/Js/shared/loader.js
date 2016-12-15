@@ -35,4 +35,3 @@ var app;
         .module("app")
         .directive("ngSpinnerBar", NgSpinnerBar.factory());
 })(app || (app = {}));
-//# sourceMappingURL=loader.js.map

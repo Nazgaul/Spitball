@@ -43,4 +43,3 @@ var app;
         .directive("chatTimeAgo", ChatTimeAgo.factory());
 })(app || (app = {}));
 ;
-//# sourceMappingURL=chatTimeAgo.js.map

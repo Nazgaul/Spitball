@@ -50,4 +50,3 @@ var app;
     angular.module("app").service("shareService", Share);
 })(app || (app = {}));
 ;
-//# sourceMappingURL=share.service.js.map
