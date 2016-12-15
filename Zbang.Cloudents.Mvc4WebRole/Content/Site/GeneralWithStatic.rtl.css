@@ -380,6 +380,7 @@ body {
   padding: 0 10px;
   text-transform: capitalize;
   font-weight: normal;
+  text-align: right;
 }
 .box-template-flex .info .bottom {
   width: 100%;
@@ -388,6 +389,7 @@ body {
   font-size: 12px;
   display: block;
   margin-top: 5px;
+  text-align: right;
 }
 .box-template-flex .stats {
   border-top: 1px solid;

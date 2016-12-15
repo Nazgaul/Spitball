@@ -21,6 +21,26 @@
             },
             //templateUrl: 'usericon.html'
             link: function (scope, elem) {
+                var innerEl, className;
+
+                 scope.$watchGroup(["image", "name"],
+                     function (newVal, oldVal) {
+                         if (scope.noremove) {
+                             
+                             //if (newVal[0] || newVal[1]) {
+                             //    buildTemplate();
+                             //}
+                             //return;
+                         }
+                         console.log(elem, newVal, oldVal);
+                         if (newVal[0] || newVal[1]) {
+                             console.log(elem, newVal, oldVal);
+                             buildTemplate();
+                         }
+                         //console.log(newVal, oldVal);
+                     });
+
+
 
                 function compile() {
                     var el = $compile(innerEl)(scope);
@@ -32,29 +52,30 @@
                     elem.remove();
                 }
 
-                var innerEl, className;
 
-                if (scope.image) {
-                    scope.image === true ? letter() : image();
+                function buildTemplate() {
+                    if (scope.image) {
+                        scope.image === true ? letter() : image();
 
-                } else if (scope.name) {
-                    letter();
-                } else {
-                    emptyState();
+                    } else if (scope.name) {
+                        letter();
+                    } else {
+                        emptyState();
 
+                    }
+                    if (scope.noremove) {
+                       scope.$watch('image', function () {
+                            if (scope.image) {
+                                elem.next().remove();
+                                image();
+                                compile();
+                            }
+                        });
+                    }
+                    compile();
                 }
-                if (scope.noremove) {
-                    scope.$watch('image', function () {
-                        if (scope.image) {
-                            elem.next().remove();
-                            image();
-                            compile();
-                        }
 
-                        //elem.remove();
-                    });
-                }
-                compile();
+               
 
 
                 function image() {

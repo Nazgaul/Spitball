@@ -8,8 +8,6 @@ var app;
             this.$interval = $interval;
             this.userDetailsFactory = userDetailsFactory;
             var user = userDetailsFactory.get();
-            this.data = {};
-            this.data.progress = 0;
             this.userService.gamificationBoard()
                 .then(function (response) {
                 _this.badges = response.badgeCount;

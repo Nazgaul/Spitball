@@ -50,7 +50,7 @@
                     for (i = 0; i < response.number; i++) {
                         this.levels["l" + i] = { progress: 100 };
                     }
-                    this.levels["l" + response.number] = { progress: (response.score / response.nextLevel * 100).toFixed(2) };
+                    this.levels["l" + response.number] = { progress: (response.score / response.nextLevel * 100).toFixed(0) };
                     for (i = response.number + 1; i < 5; i++) {
                         this.levels["l" + i] = { progress: 0 };
                     }
@@ -66,8 +66,6 @@
             this.userService.badges(this.$state.params["userId"])
                 .then(response => {
                     this.badges = {};
-                    console.log(response);
-                    //this.badges = response.badges;
                     angular.forEach(response,
                         (v) => {
                             this.badges[v.badge] = {};
