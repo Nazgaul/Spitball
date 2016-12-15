@@ -27,3 +27,4 @@ var app;
     }());
     angular.module("app.user").controller("feed", Feed);
 })(app || (app = {}));
+//# sourceMappingURL=posts.controller.js.map

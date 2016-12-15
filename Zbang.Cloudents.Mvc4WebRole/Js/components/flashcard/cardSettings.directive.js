@@ -37,3 +37,4 @@ var app;
         .module("app.flashcard")
         .directive("lineFocus", LineFocus.factory());
 })(app || (app = {}));
+//# sourceMappingURL=cardSettings.directive.js.map

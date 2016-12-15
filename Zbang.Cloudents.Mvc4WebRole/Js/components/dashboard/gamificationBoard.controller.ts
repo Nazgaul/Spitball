@@ -19,8 +19,9 @@
             private userDetailsFactory: IUserDetailsFactory) {
 
             const user = userDetailsFactory.get();
-            this.data = {};
-            this.data.progress = 0;
+            
+            //this.data = {};
+            //this.data.progress = 0;
             this.userService.gamificationBoard()
                 .then(response => {
                     this.badges = response.badgeCount;

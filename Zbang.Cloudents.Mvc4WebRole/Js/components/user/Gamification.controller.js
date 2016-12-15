@@ -92,3 +92,4 @@ var app;
     }());
     angular.module("app.user").controller("gamification", Gamification);
 })(app || (app = {}));
+//# sourceMappingURL=gamification.controller.js.map
