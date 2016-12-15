@@ -6,11 +6,11 @@
         <div class="info">
             <div class="top">
                 <div class="icon background" color="{{::e.departmentId}}" ng-bind="::e.name.substr(0,2) | lowercase"></div>
-                <h5 class="multi-line-ellipsis limit-two" color="{{::e.departmentId}}" ng-bind="::e.name"></h5>
+                <h5 class="multi-line-ellipsis limit-two" dir="auto" color="{{::e.departmentId}}" ng-bind="::e.name"></h5>
             </div>
             <div class="bottom">
-                <span class="ellipsis" ng-bind="::e.professor"></span>
-                <span class="ellipsis" ng-bind="::e.courseCode"></span>
+                <span class="ellipsis" dir="auto" ng-bind="::e.professor"></span>
+                <span class="ellipsis" dir="auto" ng-bind="::e.courseCode"></span>
             </div>
         </div>
         <div class="stats border" color="{{::e.departmentId}}">

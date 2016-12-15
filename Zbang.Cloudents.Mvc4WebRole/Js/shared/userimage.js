@@ -21,18 +21,20 @@
             },
             //templateUrl: 'usericon.html'
             link: function (scope, elem) {
-                var innerEl, className, w2;
+                var innerEl, className;
 
-                var w1 = scope.$watchGroup(["image", "name"],
+                 scope.$watchGroup(["image", "name"],
                      function (newVal, oldVal) {
                          if (scope.noremove) {
-                             console.log(elem, newVal, oldVal);
-                             if (newVal[0] || newVal[1]) {
-                                 buildTemplate();
-                             }
-                             return;
+                             
+                             //if (newVal[0] || newVal[1]) {
+                             //    buildTemplate();
+                             //}
+                             //return;
                          }
+                         console.log(elem, newVal, oldVal);
                          if (newVal[0] || newVal[1]) {
+                             console.log(elem, newVal, oldVal);
                              buildTemplate();
                          }
                          //console.log(newVal, oldVal);
@@ -62,7 +64,7 @@
 
                     }
                     if (scope.noremove) {
-                        w2 =   scope.$watch('image', function () {
+                       scope.$watch('image', function () {
                             if (scope.image) {
                                 elem.next().remove();
                                 image();
@@ -73,12 +75,7 @@
                     compile();
                 }
 
-                scope.$destroy(function () {
-                    w1();
-                    if (w2) {
-                        w2();
-                    }
-                });
+               
 
 
                 function image() {
