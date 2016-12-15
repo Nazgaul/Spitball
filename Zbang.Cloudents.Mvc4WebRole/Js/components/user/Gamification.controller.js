@@ -40,7 +40,7 @@ var app;
                 for (i = 0; i < response.number; i++) {
                     _this.levels["l" + i] = { progress: 100 };
                 }
-                _this.levels["l" + response.number] = { progress: (response.score / response.nextLevel * 100).toFixed(2) };
+                _this.levels["l" + response.number] = { progress: (response.score / response.nextLevel * 100).toFixed(0) };
                 for (i = response.number + 1; i < 5; i++) {
                     _this.levels["l" + i] = { progress: 0 };
                 }
