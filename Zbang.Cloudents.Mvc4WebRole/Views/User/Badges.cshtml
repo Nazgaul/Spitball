@@ -34,7 +34,8 @@
                         @{ string progress = "g.levels.l" + level.Index + ".progress"; }
                         <div class="title">
                             <div class="image">
-                                <img ng-class="{inprogress: @progress!==100}" src="@Url.CdnContent("/images/gamification/level" + (level.Index+1) + ".png")" alt="@level.Name" />
+                                @*no number all the time *@
+                                <img ng-class="{inprogress: @progress!=100}" src="@Url.CdnContent("/images/gamification/level" + (level.Index + 1) + ".png")" alt="@level.Name"/>
                             </div>
                             <div class="name">@level.Name</div>
                         </div>

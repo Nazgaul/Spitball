@@ -1,13 +1,15 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources
 <md-dialog class="share-dialog">
     <md-toolbar>
-        <h1>@FlashcardResources.FlashcardShareTitle</h1>
+        <h1 ng-if="sd.what==='f'">@FlashcardResources.ShareTitle</h1>
+        <h1 ng-if="sd.what==='b'">@BoxResources.ShareTitle</h1>
         <md-button class="close" ng-click="sd.close()">
             <md-icon md-svg-icon="t:close"></md-icon>
         </md-button>
     </md-toolbar>
     <md-dialog-content>
-        <span>@FlashcardResources.FlashcardShareSubtitle</span>
+        <span>@FlashcardResources.ShareSubtitle</span>
         <div class="share-options">
             <button class="twitter share-button" type="button" ng-click="sd.twitter()">
                 <div>
@@ -29,12 +31,12 @@
             </a>
         </div>
         <hr />
-        <div>@FlashcardResources.FlashcardShareCopyUrl</div>
+        <div>@FlashcardResources.ShareCopyUrl</div>
         <input id="shareUrl"  type="text" ng-model="sd.url" readonly/>
         <button class="action-btn" type="button" ngclipboard ngclipboard-success="sd.onSuccess()" data-clipboard-target="#shareUrl">
-            @FlashcardResources.FlashcardShareCopyLink
+            @FlashcardResources.ShareCopyLink
             <md-tooltip md-direction="top" md-visible="">
-                <div>@FlashcardResources.FlashcardShareCopiedLink</div>
+                <div>@FlashcardResources.ShareCopiedLink</div>
             </md-tooltip>
         </button>
     </md-dialog-content>

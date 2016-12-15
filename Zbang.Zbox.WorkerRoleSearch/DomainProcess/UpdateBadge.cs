@@ -69,7 +69,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             return true;
         }
 
-        private Task DoUpdateAsync(long userId, BadgeType badge, CancellationToken token)
+        private async Task DoUpdateAsync(long userId, BadgeType badge, CancellationToken token)
         {
             token.ThrowIfCancellationRequested();
             TraceLog.WriteInfo($"processing badge {badge.GetEnumDescription()} for user {userId}");
@@ -77,30 +77,23 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             m_ZboxWriteService.UpdateBadges(command);
             if (command.Progress == 100)
             {
-                return m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(userId), token);
-                //try
-                //{
-                //    //TODO: culture
-                //    var proxy = await SignalrClient.GetProxyAsync();
-                //    await proxy.Invoke("Badge", badge.GetEnumDescription(), parameters.UserId);
-                //    //var blobName = parameters.BlobUri.Segments[parameters.BlobUri.Segments.Length - 1];
-                //    //if (parameters.Users != null)
-                //    //{
-                //    //    await proxy.Invoke("UpdateImage", blobName, parameters.Users);
-                //    //}
-                //    //else
-                //    //{
-                //    //    TraceLog.WriteError($"users is null on {blobName}");
-                //    //}
-                //}
-                //catch (Exception ex)
-                //{
-                //    TraceLog.WriteError("on signalr update image", ex);
-                //}
-                //}
 
+                try
+                {
+                    //TODO: culture
+                    var proxy = await SignalrClient.GetProxyAsync();
+                    await proxy.Invoke("Badge", badge, userId);
+                }
+                catch (Exception ex)
+                {
+                    TraceLog.WriteError("on signalr update image", ex);
+                }
+            
+                await m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(userId), token);
             }
-            return Infrastructure.Extensions.TaskExtensions.CompletedTask;
+
+
+            //return Infrastructure.Extensions.TaskExtensions.CompletedTask;
         }
     }
 }

@@ -39,8 +39,9 @@
                 <div class="text ellipsis name" dir="auto" ng-bind="::e.name"></div>
                 <div class="counter">
                     <ng-pluralize count="e.count"
-                                  when="{'one': '@BoxResources.SingleItem',
-                                            'other': '{{e.count}} @IndexResources.Items'}">
+                                  when="{'one': '{} @BoxResources.SingleItem',
+                                  'two': '{} @IndexResources.Items'
+                                            'other': '{} @IndexResources.Items'}">
                     </ng-pluralize>
                 </div>
             </div>

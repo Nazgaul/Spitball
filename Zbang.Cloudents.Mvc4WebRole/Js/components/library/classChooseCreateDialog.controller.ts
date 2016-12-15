@@ -29,7 +29,7 @@
             }
             this.submitDisabled = true;
             if (!this.selectedDepartment) {
-                this.libraryService.createDepartment(this.departmentName, null, true)
+                this.libraryService.createDepartment(this.departmentName)
                     .then(response => {
                         this.nodeData.push(response);
                         this.selectedDepartment = response;

@@ -198,19 +198,19 @@
   <data name="FlipDown" xml:space="preserve">
     <value>Flip down</value>
   </data>
-  <data name="FlashcardShareTitle" xml:space="preserve">
+  <data name="ShareTitle" xml:space="preserve">
     <value>Promote flashcard set</value>
   </data>
-  <data name="FlashcardShareCopyUrl" xml:space="preserve">
-    <value>Copy this short url</value>
+  <data name="ShareCopyUrl" xml:space="preserve">
+    <value>Copy this url</value>
   </data>
-  <data name="FlashcardShareSubtitle" xml:space="preserve">
+  <data name="ShareSubtitle" xml:space="preserve">
     <value>Share with others</value>
   </data>
-  <data name="FlashcardShareCopyLink" xml:space="preserve">
+  <data name="ShareCopyLink" xml:space="preserve">
     <value>Copy link</value>
   </data>
-  <data name="FlashcardShareCopiedLink" xml:space="preserve">
+  <data name="ShareCopiedLink" xml:space="preserve">
     <value>Link copied to clipboard</value>
   </data>
 </root>

@@ -72,11 +72,12 @@ var app;
     app.Guid = Guid;
     var connectionStatus = false;
     var RealTimeFactory = (function () {
-        function RealTimeFactory(Hub, $rootScope, ajaxService) {
+        function RealTimeFactory(Hub, $rootScope, ajaxService, userDetailsFactory) {
             var _this = this;
             this.Hub = Hub;
             this.$rootScope = $rootScope;
             this.ajaxService = ajaxService;
+            this.userDetailsFactory = userDetailsFactory;
             this.commands = [];
             this.changeStatus = function (isConnected) {
                 connectionStatus = isConnected;
@@ -133,6 +134,12 @@ var app;
                         $rootScope.$broadcast('update-thumbnail', itemId);
                     },
                     echo: function (i) {
+                    },
+                    badge: function (badge) {
+                        userDetailsFactory.updateBadge();
+                    },
+                    score: function (score) {
+                        userDetailsFactory.updateScore(score);
                     }
                 },
                 errorHandler: function (error) {
@@ -194,7 +201,7 @@ var app;
             }
         };
         ;
-        RealTimeFactory.$inject = ["Hub", "$rootScope", "ajaxService2"];
+        RealTimeFactory.$inject = ["Hub", "$rootScope", "ajaxService2", "userDetailsFactory"];
         return RealTimeFactory;
     }());
     angular.module('app.chat').service('realtimeFactory', RealTimeFactory);

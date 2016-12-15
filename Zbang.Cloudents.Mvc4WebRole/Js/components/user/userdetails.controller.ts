@@ -38,7 +38,6 @@
             this.image = response.image;
             this.score = response.score;
             this.badges = response.badges;
-            //ud.url = response.url;
         }
         private getParameterByName(name, url) {
             if (!url) url = window.location.href;
