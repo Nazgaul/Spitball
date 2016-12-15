@@ -56,7 +56,6 @@ var app;
             this.userService.badges(this.$state.params["userId"])
                 .then(function (response) {
                 _this.badges = {};
-                console.log(response);
                 angular.forEach(response, function (v) {
                     _this.badges[v.badge] = {};
                     _this.badges[v.badge].progress = v.progress;
