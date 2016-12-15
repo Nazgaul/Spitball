@@ -413,10 +413,10 @@
   display: flex;
   -webkit-align-items: center;
   align-items: center;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
   height: 50px;
-  background: #042E5E;
+  background: #4190b9;
   position: relative;
 }
 .chat .content .conversasion .header .user {
@@ -428,7 +428,7 @@
 }
 .chat .content .conversasion .header .user.online:before {
   bottom: 2px;
-  box-shadow: 0 0 1px 2px #042E5E;
+  box-shadow: 0 0 1px 2px #2e6582;
 }
 .chat .content .conversasion .header md-fab-actions {
   margin-top: 20px;
@@ -452,43 +452,20 @@
   justify-content: center;
 }
 .chat .content .conversasion .header .back {
-  background: #ffffff;
-  border-radius: 100%;
-  padding: 2px;
-  margin: 0 10px;
+  width: 32px;
 }
 .chat .content .conversasion .header .back .close {
-  position: relative;
-  display: block;
+  border-left: 3px solid;
+  border-bottom: 3px solid;
   width: 14px;
   height: 14px;
-  overflow: hidden;
-  margin: 0;
-}
-.chat .content .conversasion .header .back .close:before,
-.chat .content .conversasion .header .back .close:after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  top: 50%;
-  right: 0;
-  margin-top: -1px;
-  background: #042E5E;
-  height: 2px;
-}
-.chat .content .conversasion .header .back .close:before {
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-}
-.chat .content .conversasion .header .back .close:after {
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
+  -moz-transform: rotate(-135deg);
+  -ms-transform: rotate(-135deg);
+  -o-transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+  transform: rotate(-135deg);
+  border-color: #ffffff;
+  margin: 14px;
 }
 .chat .content .conversasion .chat-content .messages {
   width: calc(100% - 5px);
@@ -649,6 +626,7 @@
   bottom: 7px;
 }
 .chat .content .user .img-circle {
+  border: 1px solid #888b8e;
   margin: 0 8px;
   flex-shrink: 0;
 }

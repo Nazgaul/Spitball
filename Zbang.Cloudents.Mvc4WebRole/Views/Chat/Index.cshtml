@@ -75,14 +75,14 @@
             </div>
             <div class="conversasion angular-animate" ng-if="c.state === 3" ng-controller="conversation as cv">
                 <div class="header">
+                    <div class="back" ng-click="c.backFromChat()">
+                        <div class="close"></div>
+                    </div>
                     <a ui-sref="user({userId:cv.userChat.id,userName:cv.userChat.name})" ng-class="{online: cv.userChat.online}" class="user" ga-track-event="['chat', 'opened-partners-profile']">
                         <user-image class="img-circle" name="cv.userChat.name" image="cv.userChat.image" width="35" height="35" noremove="true"></user-image>
                         <span class="member-name ellipsis" ng-bind="cv.userChat.name"></span>
 
                     </a>
-                    <div class="back" ng-click="c.backFromChat()">
-                        <div class="close"></div>
-                    </div>
                 </div>
                 <div class="chat-content">
                     <ul class="messages scrollbar" sb-scroll chat-scroll-buttom="scrollToBotton"

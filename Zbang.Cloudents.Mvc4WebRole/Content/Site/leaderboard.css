@@ -422,9 +422,9 @@
 .gamification-header .vertical .middle .image-progress .userLetter {
   position: absolute;
   top: 0;
-  width: 100px;
-  height: 100px;
-  margin: 3px;
+  margin: 6px;
+  width: 100px !important;
+  height: 100px !important;
   border: 2px solid #ffffff;
 }
 @media (max-width: 600px) {

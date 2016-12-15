@@ -210,7 +210,7 @@
 
         @media(max-width: 600px) {
             top: @heightOfHeader;
-        position: fixed;
+            position: fixed;
         }
 
         &.disconnected {
@@ -476,9 +476,9 @@
             .header {
                 .displayFlex;
                 .align-items(center);
-                .justifyContet(space-between);
+                .justifyContet(flex-start);
                 height: @chatHeaderHeight;
-                background: @conversationHeaderColor;
+                background: @buttonColorBlue;
                 position: relative;
 
                 .user {
@@ -491,7 +491,7 @@
 
                     &.online:before {
                         bottom: 2px;
-                        box-shadow: 0 0 1px 2px @conversationHeaderColor;
+                        box-shadow: 0 0 1px 2px #2e6582;
                     }
                 }
 
@@ -518,46 +518,20 @@
                 }
 
                 .back {
-                    background: @textColorWhite;
-                    border-radius: 100%;
-                    padding: 2px;
-                    margin: 0 10px;
+                    width: 32px;
 
                     .close {
-                        position: relative;
-                        display: block;
+                        border-right: 3px solid;
+                        border-bottom: 3px solid;
                         width: 14px;
                         height: 14px;
-                        overflow: hidden;
-                        margin: 0;
-
-                        &:before, &:after {
-                            content: '';
-                            position: absolute;
-                            height: 2px;
-                            width: 100%;
-                            top: 50%;
-                            left: 0;
-                            margin-top: -1px;
-                            background: @conversationHeaderColor;
-                            height: 2px;
-                        }
-
-                        &:before {
-                            -webkit-transform: rotate(45deg);
-                            -moz-transform: rotate(45deg);
-                            -ms-transform: rotate(45deg);
-                            -o-transform: rotate(45deg);
-                            transform: rotate(45deg);
-                        }
-
-                        &:after {
-                            -webkit-transform: rotate(-45deg);
-                            -moz-transform: rotate(-45deg);
-                            -ms-transform: rotate(-45deg);
-                            -o-transform: rotate(-45deg);
-                            transform: rotate(-45deg);
-                        }
+                        -moz-transform: rotate(135deg);
+                        -ms-transform: rotate(135deg);
+                        -o-transform: rotate(135deg);
+                        -webkit-transform: rotate(135deg);
+                        transform: rotate(135deg);
+                        border-color: @textColorWhite;
+                        margin: 14px;
                     }
                 }
             }
@@ -752,6 +726,7 @@
             }
 
             .img-circle {
+                border: 1px solid @textColorGrey;
                 margin: 0 8px;
                 flex-shrink: 0;
             }
