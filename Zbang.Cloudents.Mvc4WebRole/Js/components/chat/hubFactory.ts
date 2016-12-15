@@ -83,11 +83,14 @@
     //}
 
     class RealTimeFactory implements IRealtimeFactory {
-        static $inject = ["Hub", "$rootScope", "ajaxService2"];
+        static $inject = ["Hub", "$rootScope", "ajaxService2","userDetailsFactory"];
         private commands: Array<Function> = [];
         private canSend: boolean;
         private hub: ngSignalr.Hub;
-        constructor(private Hub: ngSignalr.HubFactory, private $rootScope: angular.IRootScopeService, private ajaxService: IAjaxService2) {
+        constructor(private Hub: ngSignalr.HubFactory, 
+            private $rootScope: angular.IRootScopeService,
+            private ajaxService: IAjaxService2,
+            private userDetailsFactory: IUserDetailsFactory) {
             this.hub = new Hub('spitballHub', {
                 rootPath: (dChat || 'https://connect.spitball.co') + '/s',
                 listeners: {
@@ -119,6 +122,12 @@
                         $rootScope.$broadcast('update-thumbnail', itemId);
                     },
                     echo(i) {
+                    },
+                    badge(badge) {
+                        userDetailsFactory.updateBadge();
+                    },
+                    score(score) {
+                        userDetailsFactory.updateScore(score);
                     }
                 },
                 errorHandler(error) {

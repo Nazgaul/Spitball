@@ -192,19 +192,19 @@
   <data name="Previous" xml:space="preserve">
     <value>קודם</value>
   </data>
-  <data name="FlashcardShareTitle" xml:space="preserve">
-    <value>שתף את הכרטיסיות שיצרת</value>
+  <data name="ShareTitle" xml:space="preserve">
+    <value>שתף את הכרטיסיות הלימוד</value>
   </data>
-  <data name="FlashcardShareCopyUrl" xml:space="preserve">
+  <data name="ShareCopyUrl" xml:space="preserve">
     <value>העתק לינק זה על מנת לשתף</value>
   </data>
-  <data name="FlashcardShareSubtitle" xml:space="preserve">
+  <data name="ShareSubtitle" xml:space="preserve">
     <value>שתף עם חבריך</value>
   </data>
-  <data name="FlashcardShareCopyLink" xml:space="preserve">
+  <data name="ShareCopyLink" xml:space="preserve">
     <value>העתק קישור</value>
   </data>
-  <data name="FlashcardShareCopiedLink" xml:space="preserve">
+  <data name="ShareCopiedLink" xml:space="preserve">
     <value>הקישור הועתק</value>
   </data>
 </root>

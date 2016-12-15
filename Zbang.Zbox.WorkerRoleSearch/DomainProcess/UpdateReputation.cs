@@ -17,22 +17,40 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             m_ZboxWriteService = zboxWriteService;
         }
 
-        public Task<bool> ExecuteAsync(Infrastructure.Transport.DomainProcess data, CancellationToken token)
+        public async Task<bool> ExecuteAsync(Infrastructure.Transport.DomainProcess data, CancellationToken token)
         {
             var parameters = data as ReputationData;
-            if (parameters == null) return Infrastructure.Extensions.TaskExtensions.CompletedTaskTrue; 
+            if (parameters == null) return true;
             try
             {
                 var userIds = string.Join(",", parameters.UserIds);
                 TraceLog.WriteInfo($"processing reputation for user {userIds}");
-                m_ZboxWriteService.UpdateReputation(new UpdateReputationCommand(parameters.UserIds, token));
+                var proxy = await SignalrClient.GetProxyAsync();
+                foreach (var userId in parameters.UserIds)
+                {
+                    token.ThrowIfCancellationRequested();
+                    var command = new UpdateReputationCommand(userId);
+                    m_ZboxWriteService.UpdateReputation(command);
+                    try
+                    {
+                        await proxy.Invoke("Score", command.Score, userId);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        TraceLog.WriteError("on signalr reputation", ex);
+                    }
+                }
+                //m_ZboxWriteService.UpdateReputation(new UpdateReputationCommand(parameters.UserIds, token));
+
+
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("On update reputation model:" + parameters, ex);
-                return Infrastructure.Extensions.TaskExtensions.CompletedTaskFalse;
+                return false;
             }
-            return Infrastructure.Extensions.TaskExtensions.CompletedTaskTrue;
+            return true;
         }
     }
 }

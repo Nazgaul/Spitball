@@ -7,14 +7,14 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class UpdateReputationCommand : ICommand
     {
-        public UpdateReputationCommand(IEnumerable<long> userIds, CancellationToken token)
+        public UpdateReputationCommand(long userId)
         {
-            UserIds = userIds;
-            Token = token;
+            UserId = userId;
         }
 
-        public IEnumerable<long> UserIds { get; private set; }
+        public long UserId { get; private set; }
 
-        public CancellationToken Token { get; private set; }
+
+        public int Score { get; set; }
     }
 }

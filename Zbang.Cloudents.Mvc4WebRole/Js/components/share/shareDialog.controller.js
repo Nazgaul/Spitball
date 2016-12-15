@@ -7,6 +7,7 @@ var app;
             this.data = data;
             this.$window = $window;
             this.analytics = analytics;
+            this.what = data.what;
             this.url = location.origin + "/" + data.what + "/" + encodeBase64(data.id);
             this.whatappLink = "whatsapp://send?text=" + encodeURIComponent(this.url);
             function encodeBase64(integer) {

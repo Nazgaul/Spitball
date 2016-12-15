@@ -44,6 +44,7 @@ var app;
                 for (i = response.number + 1; i < 5; i++) {
                     _this.levels["l" + i] = { progress: 0 };
                 }
+                console.log(_this.levels);
                 _this.doneLevel = true;
             });
         };

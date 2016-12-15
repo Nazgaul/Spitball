@@ -14,7 +14,7 @@
                     <user-image class="img-circle" name="ud.name" image="ud.image" width="39" height="39" noremove="true"></user-image>
                 </md-icon>
                 <div class="achievements">
-                    <span ng-bind="::ud.score | megaNumber"></span>
+                    <span ng-bind="ud.score | megaNumber"></span>
                     <span class="separator"></span>
                     <ng-pluralize count="ud.badges" when="{
                                                                                      'one': '{} @GamificationResources.Badge',

@@ -40,6 +40,16 @@ var app;
                 _this.deferDetails = _this.$q.defer();
                 return _this.init();
             };
+            this.updateScore = function (score) {
+                _this.userData.score = score;
+                _this.ajaxService.deleteCacheCategory("accountDetail");
+                _this.$rootScope.$broadcast("userDetailsChange");
+            };
+            this.updateBadge = function () {
+                _this.userData.badges++;
+                _this.ajaxService.deleteCacheCategory("accountDetail");
+                _this.$rootScope.$broadcast("userDetailsChange");
+            };
         }
         UserDetails.prototype.setDetails = function (data) {
             var _this = this;

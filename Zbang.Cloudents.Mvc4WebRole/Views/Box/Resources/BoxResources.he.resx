@@ -193,6 +193,9 @@
     <value>עקוב</value>
   </data>
   <data name="SingleItem" xml:space="preserve">
-    <value>מסמך 1</value>
+    <value>מסמך</value>
+  </data>
+  <data name="ShareTitle" xml:space="preserve">
+    <value>שתף את הקורס</value>
   </data>
 </root>

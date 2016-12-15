@@ -193,6 +193,9 @@
     <value>Join class</value>
   </data>
   <data name="SingleItem" xml:space="preserve">
-    <value>1 Document</value>
+    <value>Document</value>
+  </data>
+  <data name="ShareTitle" xml:space="preserve">
+    <value>Promote course</value>
   </data>
 </root>

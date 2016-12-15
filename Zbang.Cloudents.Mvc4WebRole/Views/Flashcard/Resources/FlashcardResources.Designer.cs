@@ -142,51 +142,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Link copied to clipboard.
-        /// </summary>
-        public static string FlashcardShareCopiedLink {
-            get {
-                return ResourceManager.GetString("FlashcardShareCopiedLink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Copy link.
-        /// </summary>
-        public static string FlashcardShareCopyLink {
-            get {
-                return ResourceManager.GetString("FlashcardShareCopyLink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Copy this short url.
-        /// </summary>
-        public static string FlashcardShareCopyUrl {
-            get {
-                return ResourceManager.GetString("FlashcardShareCopyUrl", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Share with others.
-        /// </summary>
-        public static string FlashcardShareSubtitle {
-            get {
-                return ResourceManager.GetString("FlashcardShareSubtitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Promote flashcard set.
-        /// </summary>
-        public static string FlashcardShareTitle {
-            get {
-                return ResourceManager.GetString("FlashcardShareTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Create a Flashcard.
         /// </summary>
         public static string FlashcardTitle {
@@ -318,6 +273,51 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources {
         public static string SameName {
             get {
                 return ResourceManager.GetString("SameName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link copied to clipboard.
+        /// </summary>
+        public static string ShareCopiedLink {
+            get {
+                return ResourceManager.GetString("ShareCopiedLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy link.
+        /// </summary>
+        public static string ShareCopyLink {
+            get {
+                return ResourceManager.GetString("ShareCopyLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy this url.
+        /// </summary>
+        public static string ShareCopyUrl {
+            get {
+                return ResourceManager.GetString("ShareCopyUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share with others.
+        /// </summary>
+        public static string ShareSubtitle {
+            get {
+                return ResourceManager.GetString("ShareSubtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Promote flashcard set.
+        /// </summary>
+        public static string ShareTitle {
+            get {
+                return ResourceManager.GetString("ShareTitle", resourceCulture);
             }
         }
         

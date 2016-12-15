@@ -179,9 +179,6 @@
   <data name="Rank" xml:space="preserve">
     <value>Rank</value>
   </data>
-  <data name="DocsPointsValueTitle" xml:space="preserve">
-    <value>Doc (per 10)</value>
-  </data>
   <data name="Complete" xml:space="preserve">
     <value>Complete</value>
   </data>

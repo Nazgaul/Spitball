@@ -38,6 +38,8 @@ module app {
         setImage(image: string): void;
         getUniversity(): number;
         setUniversity(name: string, id: number): angular.IPromise<IUserData>;
+        updateScore(score: number);
+        updateBadge();
     }
 
     class UserDetails implements IUserDetailsFactory {
@@ -138,6 +140,17 @@ module app {
             this.deferDetails = this.$q.defer();
             return this.init();
         };
+
+        updateScore = (score: number) => {
+            this.userData.score = score;
+            this.ajaxService.deleteCacheCategory("accountDetail");
+            this.$rootScope.$broadcast("userDetailsChange");
+        }
+        updateBadge = () => {
+            this.userData.badges++;
+            this.ajaxService.deleteCacheCategory("accountDetail");
+            this.$rootScope.$broadcast("userDetailsChange");
+        }
     }
     angular.module("app").service("userDetailsFactory", UserDetails);
 }

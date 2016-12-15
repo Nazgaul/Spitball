@@ -25,7 +25,7 @@ var app;
             }
             this.submitDisabled = true;
             if (!this.selectedDepartment) {
-                this.libraryService.createDepartment(this.departmentName, null, true)
+                this.libraryService.createDepartment(this.departmentName)
                     .then(function (response) {
                     _this.nodeData.push(response);
                     _this.selectedDepartment = response;

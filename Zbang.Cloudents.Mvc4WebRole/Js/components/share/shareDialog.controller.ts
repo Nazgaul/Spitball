@@ -6,6 +6,7 @@
 
         url: string;
         whatappLink: string;
+        what;
 
         constructor(
             private $mdDialog: angular.material.IDialogService,
@@ -14,6 +15,7 @@
             private analytics: angular.google.analytics.AnalyticsService
         ) {
 
+            this.what = data.what;
             //angularjs dont have origin in $location
             this.url = location.origin + "/" + data.what + "/" + encodeBase64(data.id);
             this.whatappLink = "whatsapp://send?text=" + encodeURIComponent(this.url);

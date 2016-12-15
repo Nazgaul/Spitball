@@ -5,7 +5,7 @@ using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure.Extensions;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Cloudents.Connect
@@ -59,13 +59,24 @@ namespace Zbang.Cloudents.Connect
             }
             Clients.Group($"box:{boxId}").updateThumbnail(itemId);
         }
-        public void Badge(string badge, long userId)
+        public void Badge(BadgeType badge, long userId)
         {
             if (Context.User.Identity.IsAuthenticated)
             {
                 return;
             }
-            Clients.User(userId.ToString()).badge(badge);
+            //Clients.All.badge(badge);
+            Clients.User(userId.ToString()).badge(badge.GetEnumDescription());
+        }
+
+        public void Score(int score, long userId)
+        {
+            if (Context.User.Identity.IsAuthenticated)
+            {
+                return;
+            }
+            //Clients.All.badge(badge);
+            Clients.User(userId.ToString()).score(score);
         }
 
 
