@@ -246,3 +246,4 @@ var app;
     }());
     angular.module("app.library").controller("Library", Library);
 })(app || (app = {}));
+//# sourceMappingURL=library.controller.js.map

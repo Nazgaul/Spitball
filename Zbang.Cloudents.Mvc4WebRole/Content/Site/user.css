@@ -43,13 +43,6 @@
         }
     }*/
 }
-@media (max-width: 960px) {
-  .userPage .profile-sidebar,
-  .userPage .profile-content {
-    margin-right: 0;
-    margin-left: 0;
-  }
-}
 .userPage .portlet {
   margin-bottom: 0;
   border-radius: 0;
@@ -714,25 +707,37 @@
 .userPage .profile-content {
   max-width: 1040px;
   flex-grow: 1;
+  min-width: 0;
 }
-.userPage .profile-content .container {
+@media (max-width: 960px) {
+  .userPage .profile-content {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+@media (max-width: 960px) {
+  .userPage .profile-sidebar {
+    display: none;
+  }
+}
+@media (min-width: 960px) {
+  .userPage .profile-sidebar {
+    margin-left: 24px;
+  }
+}
+.userPage .profile-sidebar .container {
   margin: 0 3px;
 }
-.userPage .profile-content .portlet.light {
+.userPage .profile-sidebar .portlet.light {
   background: #f5f5f5;
   min-height: 500px;
 }
-@media (min-width: 960px) {
-  .userPage .profile-content .portlet.light {
-    margin-right: 24px;
-  }
-}
-.userPage .profile-content .user-box {
+.userPage .profile-sidebar .user-box {
   min-width: 300px;
 }
 @media (min-width: 600px) {
-  .userPage .profile-content .files .file-element,
-  .userPage .profile-content .quizzes .quiz-element {
+  .userPage .profile-sidebar .files .file-element,
+  .userPage .profile-sidebar .quizzes .quiz-element {
     padding: 20px;
   }
 }

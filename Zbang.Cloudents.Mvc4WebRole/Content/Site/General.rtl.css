@@ -180,6 +180,9 @@ body .quiz-template .bottom .name {
 .page-tabs .md-tab:hover {
   color: #95cfec;
 }
+.page-tabs md-icon {
+  color: transparent;
+}
 .page-tabs md-ink-bar {
   display: none;
 }

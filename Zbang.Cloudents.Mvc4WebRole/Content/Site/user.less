@@ -4,13 +4,6 @@
     .displayFlex;
     .justifyContet(flex-start);
 
-    .profile-sidebar, .profile-content {
-        @media(max-width: 960px) {
-            margin-right: 0;
-            margin-left: 0;
-        }
-    }
-
     .portlet {
         margin-bottom: 0; //override
         border-radius: 0; //override
@@ -724,6 +717,22 @@
     .profile-content {
         max-width: 1040px;
         flex-grow: 1;
+        min-width: 0;
+
+        @media(max-width: 960px) {
+            margin-right: 0;
+            margin-left: 0;
+        }
+    }
+
+    .profile-sidebar {
+        @media(max-width:960px) {
+            display: none;
+        }
+
+        @media(min-width: 960px) {
+            margin-left: 24px;
+        }
 
         .container {
             margin: 0 3px;
@@ -732,11 +741,8 @@
         .portlet.light {
             background: @textColorLightWhite;
             min-height: 500px;
-
-            @media(min-width: 960px) {
-                margin-right: 24px;
-            }
         }
+
 
         .user-box {
             min-width: 300px;

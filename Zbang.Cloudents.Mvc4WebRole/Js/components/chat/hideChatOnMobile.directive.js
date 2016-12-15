@@ -26,3 +26,4 @@ var app;
         .module("app.chat")
         .directive("hideChatOnMobile", HideChatOnMobile.factory());
 })(app || (app = {}));
+//# sourceMappingURL=hideChatOnMobile.directive.js.map

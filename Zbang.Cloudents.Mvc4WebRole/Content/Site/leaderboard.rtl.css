@@ -407,7 +407,8 @@
   stroke: #ffce2f;
 }
 @media (max-width: 600px) {
-  .gamification-header .vertical .middle .image-progress md-progress-circular {
+  .gamification-header .vertical .middle .image-progress md-progress-circular,
+  .gamification-header .vertical .middle .image-progress md-progress-circular svg {
     width: 66px !important;
     height: 66px !important;
   }
@@ -430,10 +431,10 @@
 @media (max-width: 600px) {
   .gamification-header .vertical .middle .image-progress img,
   .gamification-header .vertical .middle .image-progress .userLetter {
-    margin: 1px;
+    margin: 3px;
     font-size: 32px;
-    width: 64px !important;
-    height: 64px !important;
+    width: 60px !important;
+    height: 60px !important;
     line-height: 64px !important;
   }
 }
@@ -443,6 +444,13 @@
   line-height: 18px;
   display: block;
   text-align: center;
+  padding: 0 150px;
+}
+@media (max-width: 600px) {
+  .gamification-header .name,
+  .gamification-header .level {
+    padding: 0 64px;
+  }
 }
 .gamification-header .name {
   color: #ffffff;
@@ -570,7 +578,6 @@
   border: 1px solid #888b8e;
 }
 .community .content .users .user-data .content .rank {
-  min-width: 70px;
   text-align: left;
   padding-left: 14px;
 }
@@ -705,16 +712,17 @@
   width: 66px;
   height: 66px;
 }
-.feed-wrapper .community .community-wrapper .gamification-header md-progress-circular {
+.feed-wrapper .community .community-wrapper .gamification-header md-progress-circular,
+.feed-wrapper .community .community-wrapper .gamification-header md-progress-circular svg {
   width: 66px !important;
   height: 66px !important;
 }
 .feed-wrapper .community .community-wrapper .gamification-header img,
 .feed-wrapper .community .community-wrapper .gamification-header .userLetter {
-  margin: 1px;
+  margin: 3px;
   font-size: 32px;
-  width: 64px !important;
-  height: 64px !important;
+  width: 60px !important;
+  height: 60px !important;
   line-height: 64px !important;
 }
 .feed-wrapper .community .community-wrapper > .content {
@@ -745,7 +753,6 @@
 }
 .feed-wrapper .community .community-wrapper > .content .users .user-data .rank {
   font-size: 16px;
-  min-width: 45px;
 }
 .feed-wrapper .community .community-wrapper > .content .users .user-data .points {
   font-size: 18px;
