@@ -51,4 +51,3 @@ var app;
     }());
     angular.module("app").run(VerionChecker.factory());
 })(app || (app = {}));
-//# sourceMappingURL=versionChecker.js.map

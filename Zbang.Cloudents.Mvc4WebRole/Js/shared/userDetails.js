@@ -102,4 +102,3 @@ var app;
     }());
     angular.module("app").service("userDetailsFactory", UserDetails);
 })(app || (app = {}));
-//# sourceMappingURL=userDetails.js.map

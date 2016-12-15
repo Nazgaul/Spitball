@@ -72,4 +72,3 @@ var app;
         .module("app.flashcard")
         .directive("cardScroll", CardScroll.factory());
 })(app || (app = {}));
-//# sourceMappingURL=cardScroll.directive.js.map

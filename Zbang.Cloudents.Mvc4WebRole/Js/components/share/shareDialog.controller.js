@@ -47,4 +47,3 @@ var app;
     }());
     angular.module("app").controller("ShareDialog", ShareDialog);
 })(app || (app = {}));
-//# sourceMappingURL=shareDialog.controller.js.map

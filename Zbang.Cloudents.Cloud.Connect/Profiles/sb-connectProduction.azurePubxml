@@ -18,5 +18,6 @@
     <AzureStorageAccountLabel>zboxstorage</AzureStorageAccountLabel>
     <AzureStorageAccountName>zboxstorage</AzureStorageAccountName>
     <AzureAppendTimestampToDeploymentLabel>True</AzureAppendTimestampToDeploymentLabel>
+    <AzureHostedServiceResourceGroup />
   </PropertyGroup>
 </Project>

@@ -183,4 +183,3 @@ var app;
     }());
     angular.module("app.library").controller("ClassChoose", ClassChoose);
 })(app || (app = {}));
-//# sourceMappingURL=classChoose.controller.js.map

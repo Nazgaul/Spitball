@@ -148,4 +148,3 @@ var app;
     app.FlashcardController = FlashcardController;
     angular.module("app.flashcard").controller("flashcard", FlashcardController);
 })(app || (app = {}));
-//# sourceMappingURL=flashcard.controller.js.map

@@ -6,6 +6,9 @@ using Microsoft.AspNet.SignalR.Hubs;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Enums;
+
+// ReSharper disable once RedundantUsingDirective we need that for mobile
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Cloudents.Connect
