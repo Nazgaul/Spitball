@@ -138,21 +138,6 @@ var app;
                 this.flashcardService.likeDelete(this.flashcard.like).then(function () { return _this.flashcard.like = null; }).finally(function () { return _this.disabled = false; });
             }
         };
-        FlashcardController.prototype.details = function (ev) {
-            this.$mdDialog.show({
-                templateUrl: "/flashcard/promo/",
-                targetEvent: ev,
-                clickOutsideToClose: true,
-                locals: {
-                    color1: this.flashcard.universityData.btnColor,
-                    color2: this.flashcard.universityData.btnFontColor,
-                    university: this.flashcard.universityData.universityName
-                },
-                controller: "DialogPromo",
-                controllerAs: "dp",
-                fullscreen: false
-            });
-        };
         FlashcardController.prototype.share = function () {
             this.shareService.shareDialog("f", this.$stateParams["id"]);
         };
@@ -163,3 +148,4 @@ var app;
     app.FlashcardController = FlashcardController;
     angular.module("app.flashcard").controller("flashcard", FlashcardController);
 })(app || (app = {}));
+//# sourceMappingURL=flashcard.controller.js.map

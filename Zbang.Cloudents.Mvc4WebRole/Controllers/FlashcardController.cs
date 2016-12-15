@@ -160,8 +160,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 values.UserId,
                 tUserValues.Result.Pins,
                 tUserValues.Result.Like,
-                tUserValues.Result.OwnerName,
-                tUserValues.Result.UniversityData
+                tUserValues.Result.OwnerName
+                //tUserValues.Result.UniversityData
 
             });
         }

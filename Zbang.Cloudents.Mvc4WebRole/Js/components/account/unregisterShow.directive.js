@@ -159,3 +159,4 @@ var app;
         .module("app")
         .directive("userNotRegisterPopup", unregShow.factory());
 })(app || (app = {}));
+//# sourceMappingURL=unregisterShow.directive.js.map

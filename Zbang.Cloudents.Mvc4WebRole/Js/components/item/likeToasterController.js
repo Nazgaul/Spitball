@@ -24,3 +24,4 @@ var app;
     }());
     angular.module("app.item").controller("likeToasterDialog", LikeToasterDialog);
 })(app || (app = {}));
+//# sourceMappingURL=likeToasterController.js.map

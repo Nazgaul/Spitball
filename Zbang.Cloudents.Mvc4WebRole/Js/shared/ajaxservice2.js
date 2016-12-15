@@ -232,3 +232,4 @@ var app;
     }());
     angular.module("app").service("ajaxService2", AjaxService2);
 })(app || (app = {}));
+//# sourceMappingURL=ajaxservice2.js.map

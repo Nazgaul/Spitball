@@ -83,3 +83,4 @@ var app;
     }());
     angular.module('app.user').service('userUpdatesService', UserUpdatesService);
 })(app || (app = {}));
+//# sourceMappingURL=updates.service.js.map

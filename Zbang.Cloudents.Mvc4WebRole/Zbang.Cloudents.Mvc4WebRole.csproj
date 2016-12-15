@@ -1538,6 +1538,7 @@
     <TypeScriptCompile Include="Js\components\library\classChooseCreateDialog.controller.ts" />
     <TypeScriptCompile Include="Js\components\library\classChooseUnfollowDialog.controller.ts" />
     <TypeScriptCompile Include="Js\components\library\classChoose.controller.ts" />
+    <TypeScriptCompile Include="Js\components\library\library.controller.ts" />
     <TypeScriptCompile Include="Js\components\library\library.service.ts" />
     <TypeScriptCompile Include="Js\components\quiz\quiz.service.ts" />
     <TypeScriptCompile Include="Js\components\quiz\quizCreate.module.ts" />
