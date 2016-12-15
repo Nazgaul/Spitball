@@ -178,7 +178,6 @@ namespace Zbang.Cloudents.Connect
             if (Context.User.GetUniversityId().HasValue)
             {
                 Clients.Others.offline(Context.User.GetUserId());
-                //Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).offline(Context.User.GetUserId());
             }
             return base.OnDisconnected(stopCalled);
         }
