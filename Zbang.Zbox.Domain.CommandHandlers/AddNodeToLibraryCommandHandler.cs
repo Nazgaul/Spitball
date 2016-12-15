@@ -31,11 +31,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
 
-            var university = m_UniversityRepository.Load(message.UniversityId);
+            var university = user.University;
 
             var id = m_IdGenerator.GetId();
 
-            if (message.ParentId.HasValue)
+            if (message.ParentId.HasValue )
             {
                 var libraryNode = m_LibraryRepository.Load(message.ParentId);
                 var childNode = libraryNode.CreateSubLibrary(id, message.Name, user);

@@ -26,11 +26,10 @@ var app;
                 country: country
             }, "university");
         };
-        Library.prototype.createDepartment = function (name, nodeId, skipUrl) {
+        Library.prototype.createDepartment = function (name, nodeId) {
             return this.ajaxService.post("/university/create/", {
                 name: name,
-                parentId: nodeId,
-                skipUrl: skipUrl
+                parentId: nodeId
             }, ["department", "searchFirstBox"]);
         };
         Library.prototype.deleteDepartment = function (id) {

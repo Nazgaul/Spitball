@@ -158,21 +158,21 @@
             }
         }
 
-        details(ev) {
-            this.$mdDialog.show({
-                templateUrl: "/flashcard/promo/",
-                targetEvent: ev,
-                clickOutsideToClose: true,
-                locals: {
-                    color1: this.flashcard.universityData.btnColor,
-                    color2: this.flashcard.universityData.btnFontColor,
-                    university: this.flashcard.universityData.universityName
-                },
-                controller: "DialogPromo",
-                controllerAs: "dp",
-                fullscreen: false // Only for -xs, -sm breakpoints.
-            });
-        }
+        //details(ev) {
+        //    this.$mdDialog.show({
+        //        templateUrl: "/flashcard/promo/",
+        //        targetEvent: ev,
+        //        clickOutsideToClose: true,
+        //        locals: {
+        //            color1: this.flashcard.universityData.btnColor,
+        //            color2: this.flashcard.universityData.btnFontColor,
+        //            university: this.flashcard.universityData.universityName
+        //        },
+        //        controller: "DialogPromo",
+        //        controllerAs: "dp",
+        //        fullscreen: false // Only for -xs, -sm breakpoints.
+        //    });
+        //}
         share() {
             this.shareService.shareDialog("f", this.$stateParams["id"]);
         }

@@ -53,7 +53,7 @@
     <div id="createDepartment" flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex create-box" ng-show="l.createDepartmentOn">@{ Html.RenderPartial("_CreateDepartment");}</div>
     <div id="createCourse" flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex create-box" ng-show="l.createBoxOn">@{ Html.RenderPartial("_CreateCourse");}</div>
     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex department-wrap" ng-repeat="dep in l.departments track by dep.id">
-        <a ng-click="l.goToSubLib(dep,$event)" @*href="{{::dep.url}}"*@ ui-sref="departmentWithNode({ universityId : l.university.id, universityName: l.university.name, nodeName: dep.name , id:dep.id})" class="box-style" ga-track-event="['university', 'select department']">
+        <a ng-click="l.goToSubLib(dep,$event)" ui-sref="departmentWithNode({ universityId : l.university.id, universityName: l.university.name, nodeName: dep.name , id:dep.id})" class="box-style" ga-track-event="['university', 'select department']">
             <h3 class="name ellipsis border" color="{{::dep.id}}">{{::dep.name}}</h3>
             <div class="status" layout="row" layout-align="space-between center">
                 <div class="status-title">
