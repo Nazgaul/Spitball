@@ -56,7 +56,7 @@ delete from [dbo].[AspNetUsers]	   where Id=@ASPid
  delete from [Zbox].[ItemCommentReply] where userid=@userid 
  
 
-
+ delete from zbox.badge where userid = @userid;
 
 
 
