@@ -7,12 +7,12 @@
     <div class="bg-r"></div>
     <a class="content" ga-track-event="['dashboard', 'to user page']" ui-sref="user({userId:gb.data.id, userName:gb.data.name})">
         <div class="image-side">
-            <user-image class="img-circle" name="::gb.data.name" image="::gb.data.image" width="70" height="70" noremove="true"></user-image>
+            <user-image class="img-circle" name="::gb.data.name" image="::gb.data.image" width="70" height="70"></user-image>
         </div>
         <div class="data-side">
             <div class="top">
                 <div class="name-level">
-                    <span class="name" ng-bind="::gb.data.name"></span>
+                    <span class="name ellipsis" ng-bind="::gb.data.name"></span>
                     <span class="seperator">-</span>
                     <span class="level" ng-bind="gb.data.levelName"></span>
                 </div>

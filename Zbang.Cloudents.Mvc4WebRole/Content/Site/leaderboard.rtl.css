@@ -132,25 +132,43 @@
   flex-grow: 1;
   padding-right: 20px;
   height: 100%;
+  min-width: 0;
+}
+.leaderboardbox .content .data-side .top {
+  font-size: 16px;
 }
 .leaderboardbox .content .data-side .top .name-level {
   color: #ffffff;
-  font-size: 14px;
   margin-bottom: 8px;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
 }
 .leaderboardbox .content .data-side .top .name-level .level {
   color: #ffce2f;
+  white-space: nowrap;
+}
+.leaderboardbox .content .data-side .top .name-level .seperator {
+  padding: 0 5px;
 }
 .leaderboardbox .content .data-side .top .points {
   color: #91ca5a;
+}
+.leaderboardbox .content .data-side .top,
+.leaderboardbox .content .data-side .bottom .gamification-data .text {
+  padding: 0 13px;
 }
 .leaderboardbox .content .data-side .bottom .gamification-data {
   position: relative;
   margin-top: 10px;
 }
 .leaderboardbox .content .data-side .bottom .gamification-data.rank {
-  height: 24px;
-  border-radius: 11px;
+  height: 28px;
+  border-radius: 13px;
   border: 1px solid #91ca5a;
 }
 .leaderboardbox .content .data-side .bottom .gamification-data .text {
@@ -162,14 +180,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 10px;
-  font-size: 12px;
+  font-size: 14px;
   color: #ffffff;
-  font-weight: bold;
+  letter-spacing: 1px;
 }
 .leaderboardbox .content .data-side .bottom .gamification-data .custom-progress-bar {
-  height: 22px;
-  border-radius: 11px;
+  height: 26px;
+  border-radius: 13px;
   overflow: hidden;
   /*.md-container .md-bar:after {
                         content:'';
@@ -184,16 +201,16 @@
 }
 .leaderboardbox .content .data-side .bottom .gamification-data .custom-progress-bar.md-default-theme .md-container,
 .leaderboardbox .content .data-side .bottom .gamification-data .custom-progress-bar .md-container {
-  border-radius: 11px;
+  border-radius: 13px;
 }
 .leaderboardbox .content .data-side .bottom .gamification-data .custom-progress-bar.md-default-theme .md-container,
 .leaderboardbox .content .data-side .bottom .gamification-data .custom-progress-bar .md-bar,
 .leaderboardbox .content .data-side .bottom .gamification-data .custom-progress-bar .md-container {
-  height: 22px;
+  height: 26px;
 }
 .leaderboardbox .content .data-side .bottom .gamification-data .custom-progress-bar .md-container {
   background: #438604;
-  height: 22px;
+  height: 26px;
 }
 .leaderboardbox .content .data-side .bottom .gamification-data .custom-progress-bar .md-container .md-bar {
   background: #91ca5a;
@@ -288,15 +305,8 @@
     }
 }*/
 .gamification-header {
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-  -webkit-align-items: center;
-  align-items: center;
-  -webkit-justify-content: center;
-  justify-content: center;
   background: #73b435;
-  padding: 20px 0 10px 0;
+  padding: 14px 0;
   position: relative;
 }
 .gamification-header .bg-l,
@@ -324,20 +334,45 @@
   left: 0;
   background-position: calc(100%-(100% + 8px)) -26px;
 }
-.gamification-header .gamification-data {
+.gamification-header .vertical {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.gamification-header .vertical .gamification-data {
   color: #ffffff;
-  text-align: center;
   font-size: 22px;
   font-weight: bold;
+  width: calc(50% - 61px);
 }
-.gamification-header .gamification-data span {
+@media (max-width: 600px) {
+  .gamification-header .vertical .gamification-data {
+    width: calc(50% - 33px);
+    font-size: 16px;
+  }
+}
+.gamification-header .vertical .gamification-data.rank {
+  text-align: left;
+}
+.gamification-header .vertical .gamification-data.points {
+  text-align: right;
+}
+.gamification-header .vertical .gamification-data .content {
+  text-align: center;
+  display: inline-block;
+}
+.gamification-header .vertical .gamification-data .content span {
   display: block;
   text-transform: uppercase;
 }
-.gamification-header .gamification-data span.value {
+.gamification-header .vertical .gamification-data .content span.value {
   color: #d5fcaf;
 }
-.gamification-header .middle {
+.gamification-header .vertical .middle {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -346,10 +381,15 @@
   flex-direction: column;
   margin: 0 34px;
 }
-.gamification-header .middle .image-progress {
+@media (max-width: 600px) {
+  .gamification-header .vertical .middle {
+    margin: 0 16px;
+  }
+}
+.gamification-header .vertical .middle .image-progress {
   position: relative;
-  width: 120px;
-  height: 120px;
+  width: 112px;
+  height: 112px;
   border-radius: 100%;
   border: 2px solid #ffffff;
   background: #ffffff;
@@ -357,29 +397,57 @@
   box-sizing: content-box;
   margin-bottom: 6px;
 }
-.gamification-header .middle .image-progress md-progress-circular {
+@media (max-width: 600px) {
+  .gamification-header .vertical .middle .image-progress {
+    width: 66px;
+    height: 66px;
+  }
+}
+.gamification-header .vertical .middle .image-progress md-progress-circular {
   stroke: #ffce2f;
 }
-.gamification-header .middle .image-progress img {
+@media (max-width: 600px) {
+  .gamification-header .vertical .middle .image-progress md-progress-circular {
+    width: 66px !important;
+    height: 66px !important;
+  }
+}
+.gamification-header .vertical .middle .image-progress img {
   background: #ffffff;
 }
-.gamification-header .middle .image-progress img,
-.gamification-header .middle .image-progress .userLetter {
+.gamification-header .vertical .middle .image-progress .userLetter {
+  font-size: 56px;
+}
+.gamification-header .vertical .middle .image-progress img,
+.gamification-header .vertical .middle .image-progress .userLetter {
   position: absolute;
   top: 0;
-  width: 106px;
-  height: 106px;
-  margin: 7px;
+  width: 100px;
+  height: 100px;
+  margin: 3px;
   border: 2px solid #ffffff;
 }
-.gamification-header .middle .name,
-.gamification-header .middle .level {
-  font-size: 14px;
+@media (max-width: 600px) {
+  .gamification-header .vertical .middle .image-progress img,
+  .gamification-header .vertical .middle .image-progress .userLetter {
+    margin: 1px;
+    font-size: 32px;
+    width: 64px !important;
+    height: 64px !important;
+    line-height: 64px !important;
+  }
 }
-.gamification-header .middle .name {
+.gamification-header .name,
+.gamification-header .level {
+  font-size: 16px;
+  line-height: 18px;
+  display: block;
+  text-align: center;
+}
+.gamification-header .name {
   color: #ffffff;
 }
-.gamification-header .middle .level {
+.gamification-header .level {
   color: #ffce2f;
 }
 .community .top {
@@ -472,6 +540,15 @@
 }
 .community .content .users .user-data {
   width: 100%;
+}
+.community .content .users .user-data:nth-child(2) {
+  padding-top: 2px;
+}
+.community .content .users .user-data:nth-child(odd) {
+  background: #ebebeb;
+}
+.community .content .users .user-data .content {
+  width: 100%;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -480,28 +557,24 @@
   -webkit-justify-content: center;
   justify-content: center;
   color: #536470;
-  padding: 10px 20px;
+  padding: 18px 6px;
+  max-width: 740px;
+  margin: 0 auto;
 }
 @media (max-width: 600px) {
-  .community .content .users .user-data {
+  .community .content .users .user-data .content {
     padding: 8px 0;
   }
 }
-.community .content .users .user-data:first-child {
-  padding-top: 0;
+.community .content .users .user-data .content .img-circle {
+  border: 1px solid #888b8e;
 }
-.community .content .users .user-data:nth-child(odd) {
-  background: #ebebeb;
-}
-.community .content .users .user-data .img-circle {
-  border: 1px solid #73b435;
-}
-.community .content .users .user-data .rank {
+.community .content .users .user-data .content .rank {
   min-width: 70px;
   text-align: left;
   padding-left: 14px;
 }
-.community .content .users .user-data .rank span {
+.community .content .users .user-data .content .rank span {
   display: inline-block;
   background: #73b435;
   color: #ffffff;
@@ -514,54 +587,54 @@
   font-weight: bold;
   padding: 0 6px;
 }
-.community .content .users .user-data .points {
+.community .content .users .user-data .content .points {
   min-width: 92px;
   text-align: center;
 }
 @media (max-width: 600px) {
-  .community .content .users .user-data .points {
+  .community .content .users .user-data .content .points {
     min-width: 40px;
   }
 }
-.community .content .users .user-data .text {
+.community .content .users .user-data .content .text {
   text-align: center;
   font-size: 10px;
   color: #888b8e;
 }
-.community .content .users .user-data .text .points {
+.community .content .users .user-data .content .text .points {
   font-size: 18px;
   color: #2a5501;
   font-weight: bold;
 }
 @media (max-width: 600px) {
-  .community .content .users .user-data .text .points {
+  .community .content .users .user-data .content .text .points {
     font-size: 18px;
   }
 }
-.community .content .users .user-data .img-wrapper {
+.community .content .users .user-data .content .img-wrapper {
   border-radius: 100%;
   margin: 6px 0;
 }
 @media (max-width: 600px) {
-  .community .content .users .user-data .img-wrapper {
+  .community .content .users .user-data .content .img-wrapper {
     width: 36px;
     height: 36px;
     margin: 5px 0;
   }
-  .community .content .users .user-data .img-wrapper span {
+  .community .content .users .user-data .content .img-wrapper span {
     font-size: 18px;
     line-height: 36px !important;
   }
 }
-.community .content .users .user-data .img-wrapper img,
-.community .content .users .user-data .img-wrapper span {
+.community .content .users .user-data .content .img-wrapper img,
+.community .content .users .user-data .content .img-wrapper span {
   border-radius: 100%;
   overflow: hidden;
   border: solid 1px #536470;
 }
-.community .content .users .user-data .img-wrapper,
-.community .content .users .user-data .progress-user,
-.community .content .users .user-data .points {
+.community .content .users .user-data .content .img-wrapper,
+.community .content .users .user-data .content .progress-user,
+.community .content .users .user-data .content .points {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -569,7 +642,7 @@
   justify-content: center;
   flex-direction: column;
 }
-.community .content .users .user-data .progress-user {
+.community .content .users .user-data .content .progress-user {
   max-width: 520px;
   position: relative;
   flex-grow: 1;
@@ -577,11 +650,11 @@
   margin: 0 26px;
 }
 @media (max-width: 600px) {
-  .community .content .users .user-data .progress-user {
+  .community .content .users .user-data .content .progress-user {
     margin: 0 10px;
   }
 }
-.community .content .users .user-data .progress-user .name {
+.community .content .users .user-data .content .progress-user .name {
   position: absolute;
   display: -webkit-flex;
   display: -ms-flex;
@@ -598,22 +671,22 @@
   padding: 0 10px;
 }
 .community .custom-progress-bar {
-  height: 20px;
-  border-radius: 10px;
+  height: 30px;
+  border-radius: 15px;
   overflow: hidden;
 }
 .community .custom-progress-bar.md-default-theme .md-container,
 .community .custom-progress-bar .md-container {
-  border-radius: 10px;
+  border-radius: 15px;
 }
 .community .custom-progress-bar.md-default-theme .md-container,
 .community .custom-progress-bar .md-bar,
 .community .custom-progress-bar .md-container {
-  height: 20px;
+  height: 30px;
 }
 .community .custom-progress-bar .md-container {
   background: #2a5501;
-  height: 20px;
+  height: 30px;
 }
 .community .custom-progress-bar .md-container .md-bar {
   background: #73b435;
@@ -621,48 +694,71 @@
 .feed-wrapper .community .community-wrapper {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
-.feed-wrapper .community .gamification-header .gamification-data {
+.feed-wrapper .community .community-wrapper .gamification-header .gamification-data {
   font-size: 18px;
+  width: calc(50% - 76px);
 }
-.feed-wrapper .community .gamification-header .middle {
-  margin: 0 10px;
+.feed-wrapper .community .community-wrapper .gamification-header .middle {
+  margin: 0 20px;
 }
-.feed-wrapper .community .content {
+.feed-wrapper .community .community-wrapper .gamification-header .image-progress {
+  width: 66px;
+  height: 66px;
+}
+.feed-wrapper .community .community-wrapper .gamification-header md-progress-circular {
+  width: 66px !important;
+  height: 66px !important;
+}
+.feed-wrapper .community .community-wrapper .gamification-header img,
+.feed-wrapper .community .community-wrapper .gamification-header .userLetter {
+  margin: 1px;
+  font-size: 32px;
+  width: 64px !important;
+  height: 64px !important;
+  line-height: 64px !important;
+}
+.feed-wrapper .community .community-wrapper > .content {
   background: #ffffff;
   margin-top: 0;
 }
-.feed-wrapper .community .content .users .user-data {
-  padding: 10px;
+.feed-wrapper .community .community-wrapper > .content .users .user-data:nth-child(2) .content {
+  padding-top: 8px;
 }
-.feed-wrapper .community .content .users .user-data .img-wrapper {
+.feed-wrapper .community .community-wrapper > .content .users .user-data .content {
+  padding: 12px 6px;
+}
+.feed-wrapper .community .community-wrapper > .content .users .user-data .img-wrapper {
   width: 36px;
   height: 36px;
   margin: 9px 0;
 }
-.feed-wrapper .community .content .users .user-data .img-wrapper span {
+.feed-wrapper .community .community-wrapper > .content .users .user-data .img-wrapper span {
   font-size: 18px;
   line-height: 36px !important;
 }
-.feed-wrapper .community .content .users .user-data .progress-user {
+.feed-wrapper .community .community-wrapper > .content .users .user-data .progress-user {
   margin: 0 10px;
 }
-.feed-wrapper .community .content .users .user-data .rank,
-.feed-wrapper .community .content .users .user-data .points {
+.feed-wrapper .community .community-wrapper > .content .users .user-data .rank,
+.feed-wrapper .community .community-wrapper > .content .users .user-data .points {
   min-width: 40px;
 }
-.feed-wrapper .community .content .users .user-data .rank {
+.feed-wrapper .community .community-wrapper > .content .users .user-data .rank {
   font-size: 16px;
   min-width: 45px;
 }
-.feed-wrapper .community .content .users .user-data .points {
+.feed-wrapper .community .community-wrapper > .content .users .user-data .points {
   font-size: 18px;
 }
-.feed-wrapper .community .content .users .user-data .progress-user .text {
+.feed-wrapper .community .community-wrapper > .content .users .user-data .progress-user .text {
   font-size: 12px;
   padding: 0 5px;
 }
-.feed-wrapper .community .content .users .user-data .text {
+.feed-wrapper .community .community-wrapper > .content .users .user-data .text {
   min-width: 70px;
+}
+.feed-wrapper .community .community-wrapper > .content .users .vs-repeat-after-content {
+  display: none;
 }
 .md-dialog-container .community {
   max-width: calc(100% - 20px);

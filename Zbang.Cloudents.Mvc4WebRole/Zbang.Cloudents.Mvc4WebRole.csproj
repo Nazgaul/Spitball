@@ -1372,9 +1372,6 @@
     <Content Include="Images\Gamification\level_Scholar.png" />
     <Content Include="Images\Gamification\level_Upperclassman.png" />
     <Content Include="Images\Site\dashboard_leaderboard_stars.png" />
-    <Content Include="Images\Site\Leaderboard-bg-l.png" />
-    <Content Include="Images\Site\Leaderboard-bg-r.png" />
-    <Content Include="Images\Site\Leaderboard-title.png" />
     <Content Include="Images\Site\logo_spitball.png" />
     <Content Include="Audio\message.mp3" />
     <Content Include="Images\Site\no_search_results.png" />
@@ -1451,7 +1448,6 @@
     <Content Include="Images\Site\icons.svg" />
     <Content Include="Images\Site\social-icons.svg" />
     <Content Include="Images\Site\stars.png" />
-    <Content Include="Images\Site\leaderboard-bg.png" />
     <Content Include="Images\Site\uploadIcons.svg" />
     <Content Include="Images\Site\user_0.png" />
     <Content Include="Images\Site\user_1.png" />

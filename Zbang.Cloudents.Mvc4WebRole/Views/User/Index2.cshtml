@@ -56,28 +56,8 @@
             <div class="page-animation" ui-view></div>
         </div>
     </div>
-    <div class="profile-sidebar">
-        @*<div class="portlet light profile-sidebar-portlet" ng-if="::!u.isUserProfile">
-                <div class="profile-userpic">
-                    <user-image ng-if="u.details" class="img-responsive" name="u.details.name" image="u.details.image" width="125" height="125"></user-image>
-                </div>
-                <div class="profile-usertitle">
-                    <h3 class="profile-usertitle-name multi-line-ellipsis limit-two" ng-bind="::u.details.name"></h3>
-                    <h4 class="profile-usertitle-job" ng-bind="::u.details.universityName"></h4>
-                    <button class="message" ng-if="::!u.isUserProfile" ng-click="u.sendMessage()" user-not-register-popup="click">
-                        <div class="content">
-                            <md-icon md-svg-icon="t:chat"></md-icon>
-                            <span>@UserResources.MessageButton</span>
-                        </div>
-                    </button>
-                </div>
-            </div>*@
-        @*<label for="show-points-info" class="points-container">
-                <span count-up id="points" end-val="{{::u.details.score}}" duration="3"></span>
-                <span>@UserResources.Points</span>
-            </label>
-            <input id="show-points-info" type="checkbox" />*@
-        <section class="points-info" ng-if="::u.isUserProfile">
+    <div class="profile-sidebar" ng-if="::u.isUserProfile">
+        <section class="points-info">
             <h1>@GamificationResources.GamificationTableTitle</h1>
             <table>
                 <tbody>

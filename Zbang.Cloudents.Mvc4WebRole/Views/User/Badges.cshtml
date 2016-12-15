@@ -34,12 +34,14 @@
                         @{ string progress = "g.levels.l" + level.Index + ".progress"; }
                         <div class="title">
                             <div class="image">
-                                <img ng-class="{inprogress: @progress!==100}" src="@Url.CdnContent("/images/gamification/level" + (level.Index+1) + ".png")" alt="@level.Name"/>
+                                <img ng-class="{inprogress: @progress!==100}" src="@Url.CdnContent("/images/gamification/level" + (level.Index+1) + ".png")" alt="@level.Name" />
                             </div>
                             <div class="name">@level.Name</div>
                         </div>
                         <div class="body">
-                            @level.Description
+                            <div class="text">
+                                @level.Description
+                            </div>
                             <div class="progress">
                                 <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="{{@progress}}"></md-progress-linear>
                                 <div class="text">{{@progress}}% @GamificationResources.Complete</div>
@@ -63,7 +65,9 @@
                             <div class="name">@level.Name</div>
                         </div>
                         <div class="body">
-                            @level.Description
+                            <div class="text">
+                                @level.Description
+                            </div>
                             <div class="progress">
                                 <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="{{@progress}}"></md-progress-linear>
                                 <div class="text">{{@progress}}% @GamificationResources.Complete</div>
