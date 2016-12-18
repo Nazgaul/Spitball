@@ -143,7 +143,6 @@ var app;
                 _this.noResults = false;
                 for (var j = 0; j < response.length; j++) {
                     var flashcard = response[j];
-                    console.log(flashcard);
                     flashcard.publish = true;
                     flashcard.url = _this.$state.href("flashcard", {
                         universityType: flashcard.uniName,

@@ -155,7 +155,6 @@
                     this.noResults = false;
                     for (let j = 0; j < response.length; j++) {
                         const flashcard = response[j];
-                        console.log(flashcard);
                         flashcard.publish = true;
                         flashcard.url = this.$state.href("flashcard",
                             {
