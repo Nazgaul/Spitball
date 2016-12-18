@@ -42,10 +42,10 @@
         q.questions = quizData.quiz.questions;
         q.index = 0;
         q.sheet = quizData.sheet || {};
-        
-        q.topUsers = quizData.quiz.topUsers || [];
-        q.like = like;
 
+        q.topUsers = quizData.quiz.topUsers || [];
+        q.likeSubmit = likeSubmit;
+        q.like = quizData.like;
         for (var j = q.topUsers.length; j < 4; j++) {
             q.topUsers.push({
                 image: '/images/site/user_' + j + '.png'
@@ -250,7 +250,7 @@
         }
 
         function sendData() {
-           // cacheFactory.clearAll(); //autofollow issue
+            // cacheFactory.clearAll(); //autofollow issue
             var data = {
                 boxId: $stateParams.boxId,
                 quizId: $stateParams.quizId,
@@ -340,21 +340,22 @@
 
         }
 
-        function like() {
-            //this.disabled = true;
-            
-            if (!q.sheet.like) {
+
+        q.likeSubmitDisabled = false;
+        function likeSubmit() {
+            q.likeSubmitDisabled = true;
+            if (!q.like) {
                 quizService.like($stateParams.quizId)
-                    .then(function(response) {
-                        q.sheet.like = response;
+                    .then(function (response) {
+                        q.like = response;
+                        q.likeSubmitDisabled = false;
                     });
-                //this.flashcardService.like(this.$stateParams["id"]).then(response => this.flashcard.like = response).finally(() => this.disabled = false);
             } else {
-                quizService.likeDelete(q.sheet.like)
+                quizService.likeDelete(q.like)
                     .then(function () {
-                        q.sheet.like = null;
+                        q.like = null;
+                        q.likeSubmitDisabled = false;
                     });
-                //this.flashcardService.likeDelete(this.flashcard.like).then(() => this.flashcard.like = null).finally(() => this.disabled = false);
             }
         }
     }

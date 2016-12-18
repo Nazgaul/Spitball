@@ -1037,7 +1037,9 @@ where ownerid = @UserId and boxid = @BoxId;";
             var retVal = new Item.QuizWithDetailSolvedDto();
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var sql = $"{Sql.Quiz.QuizQuery} " + $"{Sql.Quiz.Question} " + $"{Sql.Quiz.Answer} " + $"{Sql.Quiz.UserQuiz} " + $"{Sql.Quiz.UserAnswer} " + $"{Sql.Quiz.TopUsers}";
+                const string sql = Sql.Quiz.QuizQuery + Sql.Quiz.Question + Sql.Quiz.Answer + Sql.Quiz.UserQuiz
+                                   + Sql.Quiz.UserLike +
+                                   Sql.Quiz.UserAnswer  + Sql.Quiz.TopUsers;
                 using (var grid = await conn.QueryMultipleAsync(sql, new {query.QuizId, query.BoxId, query.UserId, topusers = 3}))
                 {
                     retVal.Quiz = await grid.ReadFirstAsync<Item.QuizWithDetailDto>();
@@ -1049,6 +1051,7 @@ where ownerid = @UserId and boxid = @BoxId;";
                         question.Answers.AddRange(answers.Where(w => w.QuestionId == question.Id));
                     }
                     retVal.Sheet = await grid.ReadFirstOrDefaultAsync<Item.SolveSheet>();
+                    retVal.Like = await grid.ReadFirstOrDefaultAsync<Guid?>();
                     var solvedQuestion = await grid.ReadAsync<Item.SolveQuestion>();
                     if (retVal.Sheet != null)
                     {

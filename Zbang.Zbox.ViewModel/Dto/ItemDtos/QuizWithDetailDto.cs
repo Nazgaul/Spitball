@@ -5,9 +5,11 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 {
     public class QuizWithDetailSolvedDto
     {
+       
         public QuizWithDetailDto Quiz { get; set; }
         public SolveSheet Sheet { get; set; }
-       
+
+        public Guid? Like { get; set; }
     }
 
     public class QuizQuestionWithSolvedAnswersDto
@@ -47,7 +49,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
         public IEnumerable<QuizBestUser> TopUsers { get; set; }
 
-        public string Banner { get; set; }
 
     }
 
