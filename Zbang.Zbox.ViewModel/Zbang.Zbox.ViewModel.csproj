@@ -87,6 +87,7 @@
     <Compile Include="Dto\ItemDtos\DiscussionDto.cs" />
     <Compile Include="Dto\ItemDtos\FileWithDetailDto.cs" />
     <Compile Include="Dto\ItemDtos\FlashcardDto.cs" />
+    <Compile Include="Dto\ItemDtos\FlashcardSearchDto.cs" />
     <Compile Include="Dto\ItemDtos\ItemDetailDto.cs" />
     <Compile Include="Dto\ItemDtos\ItemDto.cs" />
     <Compile Include="Dto\ItemDtos\FileSeo.cs" />

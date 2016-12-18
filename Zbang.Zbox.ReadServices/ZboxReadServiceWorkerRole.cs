@@ -360,7 +360,7 @@ namespace Zbang.Zbox.ReadServices
                         item.UserIds = usersInItems.Where(w => w.BoxId == boxid).Select(s => s.UserId);
                     }
                     retVal.ItemsToDelete = await grid.ReadAsync<long>();
-                    
+
                     return retVal;
                 }
             }
@@ -377,6 +377,32 @@ namespace Zbang.Zbox.ReadServices
                 {
                     var retVal = await grid.ReadFirstAsync<ItemSearchDto>();
                     retVal.UserIds = await grid.ReadAsync<long>();
+                    return retVal;
+                }
+            }
+        }
+
+        public async Task<FlashcardToUpdateSearchDto> GetFlashcardsDirtyUpdatesAsync(int index, int total, int top, CancellationToken token)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync(token))
+            {
+                using (var grid = await conn.QueryMultipleAsync(
+                    Search.GetFlashcardToDeleteFromSearch +
+                    Search.GetFlashcardToUploadToSearch +
+                    Search.GetFlashcardUsersToUploadToSearch
+                    , new { index, count = total, top }))
+                {
+                    var retVal = new FlashcardToUpdateSearchDto
+                    {
+                        Deletes = await grid.ReadAsync<long>(),
+                        Updates = await grid.ReadAsync<FlashcardSearchDto>()
+                    };
+                    var users = grid.Read<UsersInBoxSearchDto>().ToList();
+                    foreach (var flashcards in retVal.Updates)
+                    {
+                        var boxId = flashcards.BoxId;
+                        flashcards.UserIds = users.Where(w => w.BoxId == boxId).Select(s => s.UserId);
+                    }
                     return retVal;
                 }
             }
@@ -570,7 +596,7 @@ OPTION (TABLE HINT(s, INDEX ([students_shouldsend2])),Recompile);";
                     // ReSharper disable once AccessToDisposedClosure
                     using (var grid = await conn.QueryMultipleAsync(
                         new CommandDefinition(
-                            sql1 + sql2, new {UniId = universityId}, cancellationToken: token)))
+                            sql1 + sql2, new { UniId = universityId }, cancellationToken: token)))
                     {
                         var result = await grid.ReadAsync<GreekPartnerDto>();
                         //result.Union(await grid.ReadAsync<GreekPartnerDto>());
@@ -590,7 +616,7 @@ OPTION (TABLE HINT(s, INDEX ([students_shouldsend2])),Recompile);";
                     @"select distinct u.userid from zbox.Users u join zbox.UserBoxRel ub on u.UserId = ub.UserId
  order by u.userid
  offset @page*100 ROWS
-    FETCH NEXT 100 ROWS ONLY;", new {page});
+    FETCH NEXT 100 ROWS ONLY;", new { page });
             }
         }
 

@@ -73,14 +73,17 @@ namespace Zbang.Zbox.Infrastructure.Search
             var scoringProfile = new ScoringProfile("universityTag")
             {
                 FunctionAggregation = ScoringFunctionAggregation.Sum,
+                Functions = new List<ScoringFunction>
+                {
+                    scoringFunction
+                }
 
             };
-            scoringProfile.Functions.Add(scoringFunction);
-            index.ScoringProfiles.Add(scoringProfile);
+            index.ScoringProfiles = new List<ScoringProfile> { scoringProfile };
             return index;
         }
 
-        private async Task BuildIndex()
+        private async Task BuildIndexAsync()
         {
             try
             {
@@ -89,7 +92,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("on box build index", ex);
+                TraceLog.WriteError("on quiz build index", ex);
             }
             m_CheckIndexExists = true;
         }

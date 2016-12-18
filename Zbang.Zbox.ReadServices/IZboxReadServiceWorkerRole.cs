@@ -38,6 +38,9 @@ namespace Zbang.Zbox.ReadServices
         Task<ItemToUpdateSearchDto> GetItemsDirtyUpdatesAsync(int index, int total, int top);
         Task<QuizToUpdateSearchDto> GetQuizzesDirtyUpdatesAsync(int index, int total, int top);
 
+        Task<FlashcardToUpdateSearchDto> GetFlashcardsDirtyUpdatesAsync(int index, int total, int top,
+            CancellationToken token);
+
         Task<ItemSearchDto> GetItemDirtyUpdatesAsync(long itemId);
 
         Task<IEnumerable<MarketingDto>> GetUsersWithoutUniversityAsync(MarketingQuery query,
