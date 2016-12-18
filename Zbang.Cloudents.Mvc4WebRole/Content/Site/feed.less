@@ -536,8 +536,9 @@
         .comment-date {
             color: @textColorGrey;
             font-size: 12px;
-            padding: 0 20px 10px 0;
-            right: 0;
+            right: 20px;
+            position: absolute;
+            top: ~"calc(50% - 6px)";
         }
 
         .achievements {
@@ -612,14 +613,14 @@
 
         .achievements {
             bottom: 4px;
-            @media(max-width: 600px){
+
+            @media(max-width: 600px) {
                 left: 50px;
             }
         }
 
         > .content-text {
             margin-bottom: 0;
-
         }
 
         .info {

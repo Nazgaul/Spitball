@@ -709,6 +709,7 @@ md-menu-item.blue svg {
   z-index: 11;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
   padding: 0;
+  bottom: auto;
 }
 .like-toaster-template .md-toast-content {
   background: #73b435;
