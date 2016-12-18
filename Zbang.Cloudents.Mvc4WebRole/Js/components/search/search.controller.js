@@ -2,7 +2,7 @@ var app;
 (function (app) {
     "use strict";
     var stateName = "searchinfo";
-    var tabs = ["doc", "course", "quiz"];
+    var tabs = ["doc", "course", "quiz", "flashcard"];
     var page = 0, needToBringMore = true;
     var SearchController = (function () {
         function SearchController($scope, dashboardService, $location, $state, $stateParams, analytics, searchService, itemThumbnailService, $q) {
@@ -66,6 +66,8 @@ var app;
             switch (this.tab) {
                 case tabs[0]:
                     return this.getItems(needToAppend);
+                case tabs[3]:
+                    return this.getFlashcards(needToAppend);
                 case tabs[2]:
                     return this.getQuizzes(needToAppend);
                 default:
@@ -120,6 +122,35 @@ var app;
                 _this.noResults = false;
                 for (var j = 0; j < response.length; j++) {
                     response[j].publish = true;
+                }
+                if (needToAppend) {
+                    _this.result = _this.result.concat(response);
+                }
+                else {
+                    _this.result = response;
+                }
+                if (!response.length && page === 0) {
+                    needToBringMore = false;
+                    _this.noResults = true;
+                }
+                page++;
+            });
+        };
+        SearchController.prototype.getFlashcards = function (needToAppend) {
+            var _this = this;
+            return this.searchService.searchFlashcards(this.$state.params["q"], page)
+                .then(function (response) {
+                _this.noResults = false;
+                for (var j = 0; j < response.length; j++) {
+                    var flashcard = response[j];
+                    flashcard.publish = true;
+                    flashcard.url = _this.$state.href("flashcard", {
+                        universityType: flashcard.uniName,
+                        boxId: flashcard.boxId,
+                        boxName: flashcard.boxName,
+                        id: flashcard.id,
+                        name: flashcard.name
+                    });
                 }
                 if (needToAppend) {
                     _this.result = _this.result.concat(response);

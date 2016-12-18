@@ -8,7 +8,7 @@
     class Item {
 
         static $inject = ["itemData", "$state", "$stateParams", "$timeout",
-            "itemService", "$mdToast", "$sce", "$location", "user", "showToasterService","resManager"];
+            "itemService", "$mdToast", "$sce", "$location", "user", "showToasterService", "resManager"];
         details;
         index = 0;
         needLoadMore = false;
@@ -41,7 +41,7 @@
             this.details.boxUrl = $state.href("box.items", angular.extend({}, $stateParams));
             this.getPreview();
             this.document = itemData.fileContent;
-            if (!this.details.like) {
+            if (!this.details.like && user.id) {
                 $timeout(() => { this.showLikeToaster() }, 2000);
             }
         }
@@ -49,7 +49,6 @@
 
         followBox() {
             this.itemService.followbox();
-            //cacheFactory.clearAll();//autofollow issue
         }
         getPreview() {
             this.loader = true;
@@ -154,8 +153,10 @@
                 templateUrl: "likeToasterTemplate.html",
                 toastClass: 'angular-animate'
                 //parent: element
-            }).then(() => {
-                this.itemService.like(this.$stateParams.itemId, this.$stateParams.boxId);
+            }).then((res) => {
+                if (res) {
+                    this.itemService.like(this.$stateParams.itemId, this.$stateParams.boxId);
+                }
             });
         }
 

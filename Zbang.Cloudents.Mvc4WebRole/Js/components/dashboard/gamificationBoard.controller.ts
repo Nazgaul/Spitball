@@ -8,7 +8,7 @@
     //var scoreToReach = 0;
     //var badgesToReach = 0;
     class GamificationBoard {
-        static $inject = ["userService", "$interval", "userDetailsFactory"];
+        static $inject = ["userService", "$interval", "userDetailsFactory", "$scope"];
         data;
 
         //score = 0;
@@ -16,10 +16,11 @@
         badges: number;
         constructor(private userService: IUserService,
             private $interval: angular.IIntervalService,
-            private userDetailsFactory: IUserDetailsFactory) {
+            private userDetailsFactory: IUserDetailsFactory,
+            private $scope: angular.IScope) {
 
             const user = userDetailsFactory.get();
-            
+
             //this.data = {};
             //this.data.progress = 0;
             this.userService.gamificationBoard()
@@ -44,6 +45,16 @@
                     console.log(this.data, response);
 
                 });
+            $scope.$on('userDetailsChange', () => {
+                var userData = this.userDetailsFactory.get();
+
+                this.data = {
+                    progress: userData.score / userData.nextLevel * 100,
+                    badgesProgress: userData.badges / this.badges * 100
+                }
+                $scope.$apply();
+
+            });
         }
     }
 

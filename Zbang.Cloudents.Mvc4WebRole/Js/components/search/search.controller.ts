@@ -6,7 +6,7 @@
     //    Quiz = 3
     // }
     var stateName = "searchinfo";
-    var tabs = ["doc", "course", "quiz"];
+    var tabs = ["doc", "course", "quiz","flashcard"];
     var page = 0, needToBringMore = true;
     class SearchController {
 
@@ -62,9 +62,6 @@
                 return;
             }
             this.$state.go(stateName, { q: this.$stateParams["q"], t: tab });
-            //self.result = [];
-            //bug 5411
-            //$timeout(searchElements);
         }
         myPagingFunction() {
             return this.doQuery(true);
@@ -82,6 +79,8 @@
             switch (this.tab) {
                 case tabs[0]:
                     return this.getItems(needToAppend);
+                case tabs[3]:
+                    return this.getFlashcards(needToAppend);
                 case tabs[2]:
                     return this.getQuizzes(needToAppend);
                 default:
@@ -136,6 +135,35 @@
                     this.noResults = false;
                     for (let j = 0; j < response.length; j++) {
                         response[j].publish = true;
+                    }
+                    if (needToAppend) {
+                        this.result = this.result.concat(response);
+                    } else {
+                        this.result = response;
+                    }
+                    if (!response.length && page === 0) {
+                        needToBringMore = false;
+                        this.noResults = true;
+                    }
+                    page++;
+                });
+        }
+        private getFlashcards(needToAppend: boolean) {
+
+            return this.searchService.searchFlashcards(this.$state.params["q"], page)
+                .then(response => {
+                    this.noResults = false;
+                    for (let j = 0; j < response.length; j++) {
+                        const flashcard = response[j];
+                        flashcard.publish = true;
+                        flashcard.url = this.$state.href("flashcard",
+                            {
+                                universityType: flashcard.uniName,
+                                boxId: flashcard.boxId,
+                                boxName: flashcard.boxName,
+                                id: flashcard.id,
+                                name: flashcard.name
+                            });
                     }
                     if (needToAppend) {
                         this.result = this.result.concat(response);

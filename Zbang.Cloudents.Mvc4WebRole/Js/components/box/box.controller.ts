@@ -53,8 +53,10 @@
            
             boxId = $stateParams.boxId;
             this.data = boxData;
+            this.isAcademic = boxData.boxType === 'academic' || boxData.boxType === 'academicClosed';
             this.needFollow = boxData.userType === "invite" || boxData.userType === "none";
-            this.canInvite = boxData.boxType !== "academicClosed" && this.isAcademic || (boxData.userType === "owner" && !this.isAcademic);
+            this.canInvite = boxData.boxType !== "academicClosed" &&
+                this.isAcademic || (boxData.userType === "owner" && !this.isAcademic);
             this.canShare = boxData.boxType !== "academicClosed" && this.isAcademic && !this.needFollow;
             this.owner = boxData.userType === "owner";
 
@@ -235,9 +237,8 @@
         showLeaderboard() {
             this.$mdDialog.show({
                 templateUrl: "/box/leaderboardpartial/",
-                //targetEvent: ev,
                 clickOutsideToClose: true,
-                controller: "Leaderboard",
+                controller: "BoxLeaderboard",
                 controllerAs: "g",
                 fullscreen: false
             });

@@ -16,6 +16,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public const string UpdateSearchItem = "UpdateSearchItem";
         public const string UpdateSearchBox = "UpdateSearchBox";
         public const string UpdateSearchQuiz = "UpdateSearchQuiz";
+        public const string UpdateSearchFlashcard = "UpdateSearchFlashcard";
         public const string UpdateSearchUniversity = "UpdateSearchUniversity";
 
         public Infrastructure.Ioc.IocFactory Ioc { get; }
@@ -59,6 +60,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Ioc.RegisterType<IJob, UpdateSearchItem>(UpdateSearchItem);
             Ioc.RegisterType<IJob, UpdateSearchBox>(UpdateSearchBox);
             Ioc.RegisterType<IJob, UpdateSearchQuiz>(UpdateSearchQuiz);
+            Ioc.RegisterType<IJob, UpdateSearchFlashcard>(UpdateSearchFlashcard);
             Ioc.RegisterType<IJob, UpdateSearchUniversity>(UpdateSearchUniversity);
             Ioc.RegisterType<IJob, SchedulerListener>(nameof(SchedulerListener));
             Ioc.RegisterType<IJob, UpdateUnsubscribeList>(nameof(UpdateUnsubscribeList));

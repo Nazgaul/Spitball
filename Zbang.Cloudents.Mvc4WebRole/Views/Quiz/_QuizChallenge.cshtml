@@ -50,7 +50,7 @@
         </div>
         <div class="like-wrapper">
             <span>@QuizResources.LikeLabel</span>&nbsp;
-            <button ng-click="q.like()" ng-class="{liked: q.sheet.like}">
+            <button ng-disabled="q.likeSubmitDisabled" ng-click="q.likeSubmit()" ng-class="{liked: q.like}">
                 <div>
                     <md-icon md-svg-icon="b:like"></md-icon>@GeneralResources.Like
                 </div>

@@ -281,7 +281,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1 Course.
+        ///   Looks up a localized string similar to Course.
         /// </summary>
         public static string SingleCourse {
             get {
@@ -290,7 +290,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1 Classmate.
+        ///   Looks up a localized string similar to Classmate.
         /// </summary>
         public static string SingleMember {
             get {

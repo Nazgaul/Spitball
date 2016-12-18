@@ -209,9 +209,9 @@
     <value>הסר</value>
   </data>
   <data name="SingleCourse" xml:space="preserve">
-    <value>קורס 1</value>
+    <value>קורס</value>
   </data>
   <data name="SingleMember" xml:space="preserve">
-    <value>סטודנט 1</value>
+    <value>סטודנט</value>
   </data>
 </root>

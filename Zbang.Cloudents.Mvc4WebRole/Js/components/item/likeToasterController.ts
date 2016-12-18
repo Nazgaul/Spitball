@@ -21,7 +21,7 @@
             //this.details.likes++;
             this.detail = !this.detail;
             this.$timeout(() => {
-                this.$mdToast.hide();
+                this.$mdToast.hide(true);
             }, 2000);
             //}
             //this.details.like = !this.details.like;

@@ -32,19 +32,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
             TraceLog.WriteWarning("quiz index " + index + " count " + count);
             while (!cancellationToken.IsCancellationRequested)
             {
-
                 try
                 {
                     await DoProcessAsync(cancellationToken, index, count);
-                    //var retVal = await UpdateQuizAsync(index, count);
-                    //if (!retVal)
-                    //{
-                    //    await SleepAndIncreaseIntervalAsync(cancellationToken);
-                    //}
-                    //else
-                    //{
-                    //    m_Interval = MinInterval;
-                    //}
                 }
                 catch (Exception ex)
                 {
@@ -54,47 +44,27 @@ namespace Zbang.Zbox.WorkerRoleSearch
             TraceLog.WriteError("On finish run");
         }
 
-      
-
-        //private int m_Interval = MinInterval;
-        //private const int MinInterval = 30;
-        //private const int MaxInterval = 240;
-        //private async Task SleepAndIncreaseIntervalAsync(CancellationToken cancellationToken)
-        //{
-        //    m_Interval = Math.Min(MaxInterval, m_Interval * 2);
-        //    await Task.Delay(TimeSpan.FromSeconds(m_Interval), cancellationToken);
-
-        //}
-
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
         {
             const int top = 100;
             var updates = await m_ZboxReadService.GetQuizzesDirtyUpdatesAsync(instanceId, instanceCount, top);
-            //var updates = new QuizToUpdateSearchDto()
-            //{
-            //    QuizzesToUpdate = new List<QuizSearchDto>(),
-            //    QuizzesToDelete = new long[] { 17153L, 17156L }
-            //};
-            if (updates.QuizzesToUpdate.Any() || updates.QuizzesToDelete.Any())
-            {
-                TraceLog.WriteInfo(PrefixLog,
-                    $"quiz updating {updates.QuizzesToUpdate.Count()} deleting {updates.QuizzesToDelete.Count()}");
+            if (!updates.QuizzesToUpdate.Any() && !updates.QuizzesToDelete.Any()) return TimeToSleep.Increase;
+            TraceLog.WriteInfo(PrefixLog,
+                $"quiz updating {updates.QuizzesToUpdate.Count()} deleting {updates.QuizzesToDelete.Count()}");
 
-                var isSuccess =
-                    await m_QuizSearchProvider.UpdateDataAsync(updates.QuizzesToUpdate, updates.QuizzesToDelete);
-                if (isSuccess)
-                {
-                    await m_ZboxWriteService.UpdateSearchQuizDirtyToRegularAsync(
-                        new UpdateDirtyToRegularCommand(
-                            updates.QuizzesToDelete.Union(updates.QuizzesToUpdate.Select(s => s.Id))));
-                }
-                if (updates.QuizzesToUpdate.Count() == top)
-                {
-                    return TimeToSleep.Min;
-                }
-                return TimeToSleep.Same;
+            var isSuccess =
+                await m_QuizSearchProvider.UpdateDataAsync(updates.QuizzesToUpdate, updates.QuizzesToDelete);
+            if (isSuccess)
+            {
+                await m_ZboxWriteService.UpdateSearchQuizDirtyToRegularAsync(
+                    new UpdateDirtyToRegularCommand(
+                        updates.QuizzesToDelete.Union(updates.QuizzesToUpdate.Select(s => s.Id))));
             }
-            return TimeToSleep.Increase;
+            if (updates.QuizzesToUpdate.Count() == top)
+            {
+                return TimeToSleep.Min;
+            }
+            return TimeToSleep.Same;
         }
 
         protected override string GetPrefix()

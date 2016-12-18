@@ -36,7 +36,7 @@ var app;
             this.details.boxUrl = $state.href("box.items", angular.extend({}, $stateParams));
             this.getPreview();
             this.document = itemData.fileContent;
-            if (!this.details.like) {
+            if (!this.details.like && user.id) {
                 $timeout(function () { _this.showLikeToaster(); }, 2000);
             }
         }
@@ -132,8 +132,10 @@ var app;
                 controller: "likeToasterDialog as lt",
                 templateUrl: "likeToasterTemplate.html",
                 toastClass: 'angular-animate'
-            }).then(function () {
-                _this.itemService.like(_this.$stateParams.itemId, _this.$stateParams.boxId);
+            }).then(function (res) {
+                if (res) {
+                    _this.itemService.like(_this.$stateParams.itemId, _this.$stateParams.boxId);
+                }
             });
         };
         Item.$inject = ["itemData", "$state", "$stateParams", "$timeout",

@@ -14,6 +14,9 @@ var app;
         SearchService.prototype.searchQuizzes = function (term, page) {
             return this.ajaxService2.get("/search/quizzes/", { q: term, page: page }, "searchQuiz", "search");
         };
+        SearchService.prototype.searchFlashcards = function (term, page) {
+            return this.ajaxService2.get("/search/flashcards/", { q: term, page: page });
+        };
         SearchService.$inject = ["ajaxService2"];
         return SearchService;
     }());

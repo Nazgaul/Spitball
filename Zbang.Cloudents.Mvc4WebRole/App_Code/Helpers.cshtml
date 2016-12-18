@@ -20,19 +20,19 @@
     <div class="bg-r"></div>
     <div class="vertical">
         <div class="gamification-data rank">
-            <div class="content">
+            <div class="content" ng-if="::@(alias).rank">
                 <span class="title">@GamificationResources.Rank</span>
                 <span class="value" ng-bind="::@(alias).rank"></span>
             </div>
         </div>
         <div class="middle">
-            <div class="image-progress">
-                <md-progress-circular md-mode="determinate" value="{{@(alias).progress}}" md-diameter="112px"></md-progress-circular>
+            <div class="image-progress" ng-class="{bColor :@(alias).name}">
+                <md-progress-circular ng-if="::@(alias).progress" md-mode="determinate" value="{{@(alias).progress}}" md-diameter="112px"></md-progress-circular>
                 <user-image class="img-circle" name="::@(alias).name" image="::@(alias).image" width="106" height="106" @*noremove="true"*@></user-image>
             </div>
         </div>
         <div class="gamification-data points">
-            <div class="content">
+            <div class="content" ng-if="::@(alias).points">
                 <span class="title">@UserResources.Points</span>
                 <span class="value" ng-bind="::@(alias).points"></span>
             </div>

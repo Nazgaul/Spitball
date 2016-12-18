@@ -64,6 +64,8 @@
     <Compile Include="BoxSearch.cs" />
     <Compile Include="BoxSearchProvider.cs" />
     <Compile Include="FilterProvider.cs" />
+    <Compile Include="FlashcardSearch.cs" />
+    <Compile Include="FlashcardSearchProvider.cs" />
     <Compile Include="IBoxSearchProvider.cs" />
     <Compile Include="IItemReadSearchProvider.cs" />
     <Compile Include="IItemWriteSearchProvider.cs" />

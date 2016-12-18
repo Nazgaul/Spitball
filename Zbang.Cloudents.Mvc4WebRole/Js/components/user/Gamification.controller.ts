@@ -54,7 +54,6 @@
                     for (i = response.number + 1; i < 5; i++) {
                         this.levels["l" + i] = { progress: 0 };
                     }
-                    console.log(this.levels);
                     this.doneLevel = true;
                 });
         }

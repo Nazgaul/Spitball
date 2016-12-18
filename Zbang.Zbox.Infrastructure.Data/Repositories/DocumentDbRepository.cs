@@ -181,12 +181,12 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
                 // ReSharper disable once ConditionIsAlwaysTrueOrFalse - for further need
                 //if (NeedUpdate)
                 //{
-                CreateDatabaseIfNotExistsAsync().Wait();
+              //  CreateDatabaseIfNotExistsAsync().Wait();
                 foreach (var collectionId in CollectionIds.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries)
                     )
                 {
-                    CreateCollectionIfNotExistsAsync(collectionId).Wait();
-                    CreateCollectionIfNotExistsAsync(collectionId + DevPrefix).Wait();
+                   // CreateCollectionIfNotExistsAsync(collectionId).Wait();
+                   // CreateCollectionIfNotExistsAsync(collectionId + DevPrefix).Wait();
                 }
                 //}
             }

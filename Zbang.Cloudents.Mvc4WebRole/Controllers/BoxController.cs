@@ -307,19 +307,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var model = await ZboxReadService.GetBoxLeaderBoardAsync(query);
             var leaderBoardDtos = model as IList<LeaderBoardDto> ?? model.ToList();
             var rank = leaderBoardDtos.FirstOrDefault(w => w.Id == userId)?.Location;
-            
-            model = leaderBoardDtos.Where(w => w.Id != userId && rank > 10).Select(s =>
-              {
-                  s.LevelName = GamificationLevels.GetLevel(s.Score).Name;
-                  return s;
-              });
+            if (rank.HasValue && rank > 10)
+            {
+                leaderBoardDtos = leaderBoardDtos.Where(w => w.Id != userId).Select(s =>
+                {
+                    s.LevelName = GamificationLevels.GetLevel(s.Score).Name;
+                    return s;
+                }).ToList();
+            }
 
             if (IsCrawler())
             {
                 return JsonOk(new
                 {
                     rank,
-                    model = model.Select(s => new
+                    model = leaderBoardDtos.Select(s => new
                     {
                         s.Id,
                         s.Image,
@@ -330,7 +332,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     })
                 });
             }
-            return JsonOk(new { rank, model });
+            return JsonOk(new { rank, model = leaderBoardDtos });
         }
 
         [HttpGet]

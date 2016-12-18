@@ -2,11 +2,12 @@ var app;
 (function (app) {
     "use strict";
     var GamificationBoard = (function () {
-        function GamificationBoard(userService, $interval, userDetailsFactory) {
+        function GamificationBoard(userService, $interval, userDetailsFactory, $scope) {
             var _this = this;
             this.userService = userService;
             this.$interval = $interval;
             this.userDetailsFactory = userDetailsFactory;
+            this.$scope = $scope;
             var user = userDetailsFactory.get();
             this.userService.gamificationBoard()
                 .then(function (response) {
@@ -27,8 +28,16 @@ var app;
                 _this.nextLevel = _this.data.nextLevel - _this.data.points;
                 console.log(_this.data, response);
             });
+            $scope.$on('userDetailsChange', function () {
+                var userData = _this.userDetailsFactory.get();
+                _this.data = {
+                    progress: userData.score / userData.nextLevel * 100,
+                    badgesProgress: userData.badges / _this.badges * 100
+                };
+                $scope.$apply();
+            });
         }
-        GamificationBoard.$inject = ["userService", "$interval", "userDetailsFactory"];
+        GamificationBoard.$inject = ["userService", "$interval", "userDetailsFactory", "$scope"];
         return GamificationBoard;
     }());
     angular.module("app.dashboard").controller("gamificationBoard", GamificationBoard);

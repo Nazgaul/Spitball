@@ -201,6 +201,7 @@
     <Compile Include="ThumbnailQueueProcess.cs" />
     <Compile Include="TransactionQueueProcess.cs" />
     <Compile Include="UpdateSearch.cs" />
+    <Compile Include="UpdateSearchFlashcard.cs" />
     <Compile Include="UpdateSearchItem.cs" />
     <Compile Include="UpdateSearchBox.cs" />
     <Compile Include="UpdateSearchQuiz.cs" />
@@ -233,6 +234,10 @@
     <ProjectReference Include="..\Zbang.Zbox.Domain.Services\Zbang.Zbox.Domain.Services.csproj">
       <Project>{f1ac4d4d-0633-4343-a657-da275d33466d}</Project>
       <Name>Zbang.Zbox.Domain.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.DomainNew\Zbang.Zbox.Domain.csproj">
+      <Project>{35DC2A36-5E24-4E09-8967-838C6EDCA465}</Project>
+      <Name>Zbang.Zbox.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Azure\Zbang.Zbox.Infrastructure.Azure.csproj">
       <Project>{9a210d03-f7a2-4cf6-b311-742a2a1949d4}</Project>

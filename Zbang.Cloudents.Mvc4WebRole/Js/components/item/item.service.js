@@ -27,6 +27,15 @@ var app;
                 name: name
             });
         };
+        ItemService.prototype.addGoogle = function (url, boxid, tabid, question, name) {
+            return this.ajaxService2.post('/upload/google', {
+                url: url,
+                boxid: boxid,
+                tabid: tabid,
+                question: question,
+                name: name
+            });
+        };
         ItemService.prototype.addFromDropBox = function (boxId, tabid, url, name, question) {
             return this.ajaxService2.post('/upload/dropbox/', {
                 boxId: boxId,

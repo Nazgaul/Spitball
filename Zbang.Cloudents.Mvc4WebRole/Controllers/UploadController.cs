@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.Entity.Core;
 using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -28,7 +29,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly ICookieHelper m_CookieHelper;
         private readonly IBlobProvider2<ChatContainerName> m_BlobProvider2;
         private readonly IBlobProvider2<FilesContainerName> m_BlobProviderFiles;
-        
+
         public UploadController(
             Lazy<IQueueProvider> queueProvider,
             IProfilePictureProvider profilePicture, ICookieHelper cookieHelper, IBlobProvider2<ChatContainerName> blobProvider2, IBlobProvider2<FilesContainerName> blobProviderFiles, IBlobProvider blobProvider)
@@ -67,7 +68,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var uploadedfile = HttpContext.Request.Files[0];
                 if (uploadedfile == null) throw new NullReferenceException("uploadedfile");
 
-               
+
                 var fileUploadedDetails = GetCookieUpload(UploadcookieName, model.FileSize, model.FileName, uploadedfile);
 
 
@@ -230,8 +231,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(url);
         }
 
-        
-       
+
+
 
         internal const string ChatCookieName = "uploadchat";
         [HttpPost, ZboxAuthorize, ActionName("ChatFile")]
@@ -252,7 +253,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var uploadedfile = HttpContext.Request.Files[0];
             if (uploadedfile == null) throw new NullReferenceException("uploadedfile");
 
-           
+
             FileUploadDetails fileUploadedDetails = GetCookieUpload(ChatCookieName, model.FileSize, model.FileName, uploadedfile);
 
 
@@ -273,6 +274,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             return JsonOk(blobAddressUri);
         }
+
+
 
         [HttpPost, ZboxAuthorize, RemoveBoxCookie, ActionName("Link")]
         public async Task<ActionResult> LinkAsync(AddLink model)
@@ -345,34 +348,99 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
+        [HttpPost, ZboxAuthorize, RemoveBoxCookie, ActionName("Google")]
+        public async Task<ActionResult> GooleAsync(AddLink model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return JsonError(GetErrorFromModelState());
+            }
+            if (!model.BoxId.HasValue)
+            {
+                return JsonError("box id required");
+            }
+            try
+            {
+                var userid = User.GetUserId();
+
+                using (var webRequestHandler = new WebRequestHandler { AllowAutoRedirect = false })
+                {
+
+
+                    using (HttpClient httpClient = new HttpClient(webRequestHandler))
+                    {
+
+                        // Send a request using GetAsync or PostAsync
+
+                        var response = await httpClient.GetAsync(model.Url);
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            throw new ObjectNotFoundException();
+                        }
+
+                    }
+                }
+
+                var title = model.Name ?? model.Url;
+
+                var command = new AddLinkToBoxCommand(userid, model.BoxId.Value, model.Url, model.TabId, title,
+                    model.Question);
+                var result = await ZboxWriteService.AddItemToBoxAsync(command);
+                var result2 = result as AddLinkToBoxCommandResult;
+                if (result2 == null)
+                {
+                    throw new NullReferenceException("result2");
+                }
+
+                var item = new ItemDto
+                {
+                    Id = result2.Link.Id,
+                    Name = result2.Link.Name,
+                    OwnerId = result2.Link.User.Id,
+                    Source = result2.Link.ItemContentUrl,
+                    Owner = result2.Link.User.Name,
+                    Date = DateTime.UtcNow,
+                };
+
+                if (model.TabId.HasValue)
+                {
+                    item.TabId = model.TabId.Value;
+                }
+                return JsonOk(new { item, boxId = model.BoxId });
+            }
+            catch (ObjectNotFoundException)
+            {
+                return JsonError(BoxControllerResources.GoogleShare);
+            }
+            catch (DuplicateNameException)
+            {
+                return JsonError(BoxControllerResources.LinkExists);
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError($"Link user: {User.GetUserId()} BoxId: {model.BoxId} url: {model.Url}", ex);
+                return JsonError(BoxControllerResources.ProblemUrl);
+            }
+        }
+
         [HttpPost, ZboxAuthorize, ActionName("Dropbox")]
         [RemoveBoxCookie]
         public async Task<ActionResult> DropboxAsync(AddFromDropBox model)
         {
 
             var userId = User.GetUserId();
-
-
             var blobAddressUri = Guid.NewGuid().ToString().ToLower() + Path.GetExtension(model.Name)?.ToLower();
 
             long size;
-           // bool notUploaded;
             try
             {
                 await m_BlobProviderFiles.UploadFromLinkAsync(model.Url, blobAddressUri);
                 size = await m_BlobProviderFiles.SizeAsync(blobAddressUri);
-                //notUploaded = false;
             }
             catch (UnauthorizedAccessException)
             {
                 return JsonError();
             }
-            //if (notUploaded)
-            //{
-                //await m_QueueProvider.Value.InsertMessageToDownloadAsync(
-                //    new UrlToDownloadData(model.Url, model.Name, model.BoxId, model.TabId, userId));
-                //return JsonOk();
-            //}
             var command = new AddFileToBoxCommand(userId, model.BoxId, blobAddressUri,
                model.Name,
                 size, model.TabId, model.Question);
@@ -390,8 +458,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 Source = result2.File.ItemContentUrl,
                 Owner = result2.File.User.Name,
                 Date = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc),
-                //Url = result2.File.Url,
-                //DownloadUrl = Url.RouteUrl("ItemDownload2", new { model.BoxId, itemId = result2.File.Id })
             };
             if (model.TabId.HasValue)
             {
@@ -402,6 +468,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-        
+
     }
 }

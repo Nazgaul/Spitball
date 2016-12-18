@@ -384,11 +384,15 @@
                 width: 112px;
                 height: 112px;
                 border-radius: 100%;
-                border: 2px solid @textColorWhite;
-                background: @textColorWhite;
+
                 overflow: hidden;
                 box-sizing: content-box;
                 margin-bottom: 6px;
+
+                &.bColor {
+                border: 2px solid @textColorWhite;
+                background: @textColorWhite;
+                }
 
                 @media(max-width: 600px) {
                     width: 66px;

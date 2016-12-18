@@ -390,11 +390,13 @@
   width: 112px;
   height: 112px;
   border-radius: 100%;
-  border: 2px solid #ffffff;
-  background: #ffffff;
   overflow: hidden;
   box-sizing: content-box;
   margin-bottom: 6px;
+}
+.gamification-header .vertical .middle .image-progress.bColor {
+  border: 2px solid #ffffff;
+  background: #ffffff;
 }
 @media (max-width: 600px) {
   .gamification-header .vertical .middle .image-progress {

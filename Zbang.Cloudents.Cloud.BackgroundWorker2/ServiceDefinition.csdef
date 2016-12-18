@@ -20,6 +20,7 @@
       <Setting name="NumberOfSpamGunEmailBatch" />
       <Setting name="SearchProduction" />
       <Setting name="APPINSIGHTS_INSTRUMENTATIONKEY" />
+      <Setting name="documentDbProduction" />
     </ConfigurationSettings>
     <LocalResources>
       <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="false" sizeInMB="222000" />

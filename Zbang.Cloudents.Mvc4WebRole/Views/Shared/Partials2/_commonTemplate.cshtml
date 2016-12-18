@@ -125,7 +125,8 @@
                         <span class="draft">@IndexResources.Draft</span>
                     </div>
                     <div class="bottom">
-                        <h2 class="name ellipsis" ng-bind="::e.name"></h2>
+                        @*because of search*@
+                        <h2 class="name ellipsis" ng-bind-html="::e.name"></h2>
                     </div>
                 </div>
             </div>
@@ -137,6 +138,10 @@
                     {{::e.likes}} <md-icon md-svg-icon="b:like"></md-icon>
                 </div>
             </div>
+        </div>
+        <div class="extra-details">
+            <h5 ng-bind-html="::e.name"></h5>
+            <span ng-bind-html="::e.content"></span>
         </div>
     </a>
 </script>

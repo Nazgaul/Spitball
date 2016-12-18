@@ -14,14 +14,7 @@
         Ok
     }
 
-    //var emptyForm = true;
-    var quizId: number;
-    var saveInProgress = false;
-    var canNavigateBack = false;
 
-    function finishUpdate() {
-        saveInProgress = false;
-    }
 
     class QuizData implements ISerializable<QuizData> {
         id;
@@ -120,7 +113,7 @@
             }
             return ValidQuestion.AnswerNeedText;
         }
-        deserialize(input:Answer) {
+        deserialize(input: Answer) {
             this.id = input.id;
             this.text = input.text;
             return this;
@@ -134,6 +127,14 @@
         quizNameDisabled = true;
         error: string;
         submitDisabled = false;
+
+        quizId: number;
+        saveInProgress = false;
+        canNavigateBack = false;
+
+        finishUpdate() {
+            this.saveInProgress = false;
+        }
         constructor(private $mdDialog: angular.material.IDialogService,
             private $state: angular.ui.IStateService,
             private $stateParams: spitaball.ISpitballStateParamsService,
@@ -146,7 +147,7 @@
         ) {
 
             this.boxName = $stateParams["name"] || $stateParams["boxName"];
-            quizId = $stateParams["quizid"];
+            this.quizId = $stateParams["quizid"];
             this.newName();
 
             if (quizData) {
@@ -169,7 +170,7 @@
             });
             $scope.$on("$stateChangeStart",
                 (event: angular.IAngularEvent) => {
-                    if (canNavigateBack) {
+                    if (this.canNavigateBack) {
                         return;
                     }
                     if (!canNavigate()) {
@@ -196,9 +197,9 @@
 
 
         private newName = () => {
-            var self = this;
             this.$scope.$watch(() => { return this.quizData.name; },
                 (newVal: string, oldVal: string) => {
+                    var self = this;
                     if (newVal === oldVal) {
                         return;
                     }
@@ -208,11 +209,11 @@
                         return;
                     }
                     form.$setPristine();
-                    if (!saveInProgress) {
+                    if (!this.saveInProgress) {
                         submitQuizName();
 
                         function finishSaveName() {
-                            finishUpdate();
+                            self.finishUpdate();
                             if (!form.$submitted) {
                                 submitQuizName();
                             }
@@ -221,9 +222,9 @@
                         function submitQuizName() {
                             form.$setSubmitted();
 
-                            saveInProgress = true;
-                            if (quizId) {
-                                self.quizService.updateQuiz(quizId, newVal).finally(finishSaveName);
+                            self.saveInProgress = true;
+                            if (self.quizId) {
+                                self.quizService.updateQuiz(self.quizId, newVal).finally(finishSaveName);
                             } else {
                                 self.createQuiz(newVal).finally(finishSaveName);
                             }
@@ -237,7 +238,7 @@
         private createQuiz(name: string) {
             var self = this;
             return self.quizService.createQuiz(self.$stateParams.boxId, name).then((response: number) => {
-                quizId = response;
+                self.quizId = response;
                 this.$state.go("quizCreate",
                     {
                         boxtype: self.$stateParams["boxtype"],
@@ -254,7 +255,7 @@
             var self = this;
             var $qArray = [this.$q.when()];
             let promiseCreateQuiz = this.$q.when();
-            if (!quizId) {
+            if (!self.quizId) {
                 promiseCreateQuiz = this.createQuiz(this.quizData.name);
             }
             promiseCreateQuiz.then(() => {
@@ -268,7 +269,7 @@
 
                     if (validQuestion === ValidQuestion.Ok && !question.id) {
                         ((question, index) => {
-                            $qArray.push(self.quizService.createQuestion(quizId, question)
+                            $qArray.push(self.quizService.createQuestion(self.quizId, question)
                                 .then((response) => {
                                     self.quizData.questions[index] = new Question().deserialize(response);
 
@@ -355,8 +356,8 @@
         }
 
         close(ev) {
-            canNavigateBack = true;
-            if (!quizId) {
+            this.canNavigateBack = true;
+            if (!this.quizId) {
                 this.navigateBackToBox();
                 return;
             }
@@ -368,7 +369,7 @@
                 .cancel(this.resManager.get('quizSaveAsDraft'));
 
             this.$mdDialog.show(confirm).then(() => {
-                this.quizService.deleteQuiz(quizId).then(this.navigateBackToBox);
+                this.quizService.deleteQuiz(this.quizId).then(this.navigateBackToBox);
             }, () => {
                 var $qArray = [this.$q.when()], self = this;
                 for (let i = 0; i < this.quizData.questions.length; i++) {
@@ -378,7 +379,7 @@
                     }
                     if (!question.id) {
                         ((question) => {
-                            $qArray.push(self.quizService.createQuestion(quizId, question));
+                            $qArray.push(self.quizService.createQuestion(this.quizId, question));
                         })(question);
                     }
                 }
@@ -421,16 +422,16 @@
                     return;
                 }
                 if (validQuestion === ValidQuestion.Ok && !question.id) {
-                    $qArray.push(this.quizService.createQuestion(quizId, question));
+                    $qArray.push(this.quizService.createQuestion(this.quizId, question));
                 }
 
             }
             this.submitDisabled = true;
             this.$q.when($qArray)
                 .then(() => {
-                    this.quizService.publish(quizId)
+                    this.quizService.publish(this.quizId)
                         .then(() => {
-                            canNavigateBack = true;
+                            this.canNavigateBack = true;
                             this.navigateBackToBox();
                         })
                         .finally(() => {

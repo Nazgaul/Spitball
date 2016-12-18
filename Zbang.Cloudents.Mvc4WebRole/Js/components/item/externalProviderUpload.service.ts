@@ -29,10 +29,10 @@ module app {
         }
         buildGoogleDeferes(link: string, boxId: number, tab: Guid, name: string, isQuestion: Guid) {
             var defer1 = this.$q.defer();
-            this.itemService.addLink(link, boxId, tab, isQuestion, name).then((response2) => {
+            this.itemService.addGoogle(link, boxId, tab, isQuestion, name).then((response2) => {
                 defer1.resolve(response2);
-            }, () => {
-                defer1.resolve();
+            }, (response3) => {
+                defer1.reject(response3);
             });
             return defer1.promise;
         }
@@ -47,6 +47,8 @@ module app {
                 }
                 this.$q.all(filesUpload).then((retVal) => {
                     defer.resolve(retVal);
+                }, retVal => {
+                    defer.reject(retVal);
                 });
             });
             return defer.promise;

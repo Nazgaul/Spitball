@@ -17,7 +17,7 @@ namespace Zbang.Zbox.Domain
             Name = type;
             DateTime = DateTime.UtcNow;
             Progress = progress;
-            User.BadgeCount++;
+            //User.BadgeCount++;
         }
         public Guid Id { get; set; }
         public virtual User User { get; set; }

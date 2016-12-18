@@ -10,12 +10,6 @@ var app;
         ValidQuestion[ValidQuestion["EmptyQuestion"] = 5] = "EmptyQuestion";
         ValidQuestion[ValidQuestion["Ok"] = 6] = "Ok";
     })(ValidQuestion || (ValidQuestion = {}));
-    var quizId;
-    var saveInProgress = false;
-    var canNavigateBack = false;
-    function finishUpdate() {
-        saveInProgress = false;
-    }
     var QuizData = (function () {
         function QuizData() {
             this.questions = [new Question()];
@@ -133,9 +127,11 @@ var app;
             this.$window = $window;
             this.quizNameDisabled = true;
             this.submitDisabled = false;
+            this.saveInProgress = false;
+            this.canNavigateBack = false;
             this.newName = function () {
-                var self = _this;
                 _this.$scope.$watch(function () { return _this.quizData.name; }, function (newVal, oldVal) {
+                    var self = _this;
                     if (newVal === oldVal) {
                         return;
                     }
@@ -144,19 +140,19 @@ var app;
                         return;
                     }
                     form.$setPristine();
-                    if (!saveInProgress) {
+                    if (!_this.saveInProgress) {
                         submitQuizName();
                         function finishSaveName() {
-                            finishUpdate();
+                            self.finishUpdate();
                             if (!form.$submitted) {
                                 submitQuizName();
                             }
                         }
                         function submitQuizName() {
                             form.$setSubmitted();
-                            saveInProgress = true;
-                            if (quizId) {
-                                self.quizService.updateQuiz(quizId, newVal).finally(finishSaveName);
+                            self.saveInProgress = true;
+                            if (self.quizId) {
+                                self.quizService.updateQuiz(self.quizId, newVal).finally(finishSaveName);
                             }
                             else {
                                 self.createQuiz(newVal).finally(finishSaveName);
@@ -174,7 +170,7 @@ var app;
                 });
             };
             this.boxName = $stateParams["name"] || $stateParams["boxName"];
-            quizId = $stateParams["quizid"];
+            this.quizId = $stateParams["quizid"];
             this.newName();
             if (quizData) {
                 this.quizData = new QuizData().deserialize(quizData);
@@ -194,7 +190,7 @@ var app;
                 $window.onbeforeunload = undefined;
             });
             $scope.$on("$stateChangeStart", function (event) {
-                if (canNavigateBack) {
+                if (_this.canNavigateBack) {
                     return;
                 }
                 if (!canNavigate()) {
@@ -214,11 +210,14 @@ var app;
                 return true;
             }
         }
+        QuizCreateController.prototype.finishUpdate = function () {
+            this.saveInProgress = false;
+        };
         QuizCreateController.prototype.createQuiz = function (name) {
             var _this = this;
             var self = this;
             return self.quizService.createQuiz(self.$stateParams.boxId, name).then(function (response) {
-                quizId = response;
+                self.quizId = response;
                 _this.$state.go("quizCreate", {
                     boxtype: self.$stateParams["boxtype"],
                     universityType: self.$stateParams["universityType"],
@@ -234,7 +233,7 @@ var app;
             var self = this;
             var $qArray = [this.$q.when()];
             var promiseCreateQuiz = this.$q.when();
-            if (!quizId) {
+            if (!self.quizId) {
                 promiseCreateQuiz = this.createQuiz(this.quizData.name);
             }
             promiseCreateQuiz.then(function () {
@@ -247,7 +246,7 @@ var app;
                     }
                     if (validQuestion === ValidQuestion.Ok && !question.id) {
                         (function (question, index) {
-                            $qArray.push(self.quizService.createQuestion(quizId, question)
+                            $qArray.push(self.quizService.createQuestion(self.quizId, question)
                                 .then(function (response) {
                                 self.quizData.questions[index] = new Question().deserialize(response);
                             }));
@@ -319,8 +318,8 @@ var app;
         };
         QuizCreateController.prototype.close = function (ev) {
             var _this = this;
-            canNavigateBack = true;
-            if (!quizId) {
+            this.canNavigateBack = true;
+            if (!this.quizId) {
                 this.navigateBackToBox();
                 return;
             }
@@ -331,7 +330,7 @@ var app;
                 .ok(this.resManager.get('quizDelete'))
                 .cancel(this.resManager.get('quizSaveAsDraft'));
             this.$mdDialog.show(confirm).then(function () {
-                _this.quizService.deleteQuiz(quizId).then(_this.navigateBackToBox);
+                _this.quizService.deleteQuiz(_this.quizId).then(_this.navigateBackToBox);
             }, function () {
                 var $qArray = [_this.$q.when()], self = _this;
                 for (var i = 0; i < _this.quizData.questions.length; i++) {
@@ -341,7 +340,7 @@ var app;
                     }
                     if (!question.id) {
                         (function (question) {
-                            $qArray.push(self.quizService.createQuestion(quizId, question));
+                            $qArray.push(self.quizService.createQuestion(_this.quizId, question));
                         })(question);
                     }
                 }
@@ -371,15 +370,15 @@ var app;
                     return;
                 }
                 if (validQuestion === ValidQuestion.Ok && !question.id) {
-                    $qArray.push(this.quizService.createQuestion(quizId, question));
+                    $qArray.push(this.quizService.createQuestion(this.quizId, question));
                 }
             }
             this.submitDisabled = true;
             this.$q.when($qArray)
                 .then(function () {
-                _this.quizService.publish(quizId)
+                _this.quizService.publish(_this.quizId)
                     .then(function () {
-                    canNavigateBack = true;
+                    _this.canNavigateBack = true;
                     _this.navigateBackToBox();
                 })
                     .finally(function () {

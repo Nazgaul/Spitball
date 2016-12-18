@@ -447,6 +447,15 @@ select top(3) id from zbox.university where isdeleted = 1 and updatetime < getut
             }
         }
 
+        public async Task UpdateSearchFlashcardDirtyToRegularAsync(UpdateDirtyToRegularCommand command)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                const string sql = "update zbox.Flashcard set isdirty = 0 where id in @Ids";
+                await conn.ExecuteAsync(sql, new { command.Ids }, commandType: CommandType.Text);
+            }
+        }
+
         public void UpdateUserFromUnsubscribe(UnsubscribeUsersFromEmailCommand command)
         {
             using (var unitOfWork = UnitOfWork.Start())
