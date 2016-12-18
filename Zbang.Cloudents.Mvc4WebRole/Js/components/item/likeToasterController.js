@@ -16,7 +16,7 @@ var app;
             var _this = this;
             this.detail = !this.detail;
             this.$timeout(function () {
-                _this.$mdToast.hide();
+                _this.$mdToast.hide(true);
             }, 2000);
         };
         LikeToasterDialog.$inject = ["$mdToast", "$timeout", "userLike"];

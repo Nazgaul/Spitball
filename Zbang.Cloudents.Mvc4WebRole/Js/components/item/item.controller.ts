@@ -153,8 +153,10 @@
                 templateUrl: "likeToasterTemplate.html",
                 toastClass: 'angular-animate'
                 //parent: element
-            }).then(() => {
-                this.itemService.like(this.$stateParams.itemId, this.$stateParams.boxId);
+            }).then((res) => {
+                if (res) {
+                    this.itemService.like(this.$stateParams.itemId, this.$stateParams.boxId);
+                }
             });
         }
 
