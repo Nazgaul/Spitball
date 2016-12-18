@@ -141,15 +141,11 @@ var app;
                     if (data[window["google"].picker.Response.ACTION] !== window["google"].picker.Action.PICKED) {
                         return;
                     }
+                    console.log(data);
                     var doc, url, name, size;
                     for (var i = 0, l = data[window["google"].picker.Response.DOCUMENTS].length; i < l; i++) {
                         doc = data[window["google"].picker.Response.DOCUMENTS][i];
-                        if (doc.type === window["google"].picker.Type.DOCUMENT) {
-                            url = doc[window["google"].picker.Document.URL];
-                        }
-                        else {
-                            url = 'https://drive.google.com/uc?id=' + doc.id;
-                        }
+                        url = doc[window["google"].picker.Document.URL];
                         name = doc.name;
                         size = doc.sizeBytes;
                         if (!url) {

@@ -5,6 +5,7 @@
         getDetails(boxId: number, itemId: number, firstTime: boolean): angular.IPromise<any>;
         getPreview(blobName: string, index: number, itemId: number, boxId: number): angular.IPromise<any>;
         addLink(url: string, boxid: number, tabid: Guid, question: Guid, name: string): angular.IPromise<any>;
+        addGoogle(url: string, boxid: number, tabid: Guid, question: Guid, name: string): angular.IPromise<any>;
         addFromDropBox(boxId: number, tabid: Guid, url: string, name: string, question: Guid): angular.IPromise<any>;
         renameItem(name: string, id: number): angular.IPromise<any>;
         getComments(boxId: number, itemId: number): angular.IPromise<any>;
@@ -40,6 +41,16 @@
 
         addLink(url, boxid, tabid, question, name) {
             return this.ajaxService2.post('/upload/link',
+                {
+                    url: url,
+                    boxid: boxid,
+                    tabid: tabid,
+                    question: question,
+                    name: name
+                });
+        }
+        addGoogle(url, boxid, tabid, question, name) {
+            return this.ajaxService2.post('/upload/google',
                 {
                     url: url,
                     boxid: boxid,

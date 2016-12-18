@@ -66,7 +66,6 @@
             });
         };
         function externalUploadCallback(response) {
-            
             $rootScope.$broadcast('item_upload', response);
             ajaxService2.deleteCacheCategory("boxItems");
             showToasterService.showToaster(resManager.get('toasterUploadComplete'));

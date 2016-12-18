@@ -123,6 +123,9 @@
   <data name="DashboardController_Create_Problem_with_Create_new_box" xml:space="preserve">
     <value>There seems to be an issue creating this new study group</value>
   </data>
+  <data name="GoogleShare" xml:space="preserve">
+    <value>Please upload pulic link</value>
+  </data>
   <data name="LinkExists" xml:space="preserve">
     <value>One of your classmates has already posted this link</value>
   </data>

@@ -16,10 +16,10 @@ var app;
         };
         ExternalUploadProvider.prototype.buildGoogleDeferes = function (link, boxId, tab, name, isQuestion) {
             var defer1 = this.$q.defer();
-            this.itemService.addLink(link, boxId, tab, isQuestion, name).then(function (response2) {
+            this.itemService.addGoogle(link, boxId, tab, isQuestion, name).then(function (response2) {
                 defer1.resolve(response2);
-            }, function () {
-                defer1.resolve();
+            }, function (response3) {
+                defer1.reject(response3);
             });
             return defer1.promise;
         };
@@ -33,6 +33,8 @@ var app;
                 }
                 _this.$q.all(filesUpload).then(function (retVal) {
                     defer.resolve(retVal);
+                }, function (retVal) {
+                    defer.reject(retVal);
                 });
             });
             return defer.promise;
