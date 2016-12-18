@@ -237,9 +237,8 @@
         showLeaderboard() {
             this.$mdDialog.show({
                 templateUrl: "/box/leaderboardpartial/",
-                //targetEvent: ev,
                 clickOutsideToClose: true,
-                controller: "Leaderboard",
+                controller: "BoxLeaderboard",
                 controllerAs: "g",
                 fullscreen: false
             });

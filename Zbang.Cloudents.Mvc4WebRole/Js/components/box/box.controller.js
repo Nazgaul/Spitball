@@ -129,7 +129,7 @@ var app;
             this.$mdDialog.show({
                 templateUrl: "/box/leaderboardpartial/",
                 clickOutsideToClose: true,
-                controller: "Leaderboard",
+                controller: "BoxLeaderboard",
                 controllerAs: "g",
                 fullscreen: false
             });
