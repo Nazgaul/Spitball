@@ -125,7 +125,8 @@
                         <span class="draft">@IndexResources.Draft</span>
                     </div>
                     <div class="bottom">
-                        <h2 class="name ellipsis" ng-bind="::e.name"></h2>
+                        @*because of search*@
+                        <h2 class="name ellipsis" ng-bind-html="::e.name"></h2>
                     </div>
                 </div>
             </div>
