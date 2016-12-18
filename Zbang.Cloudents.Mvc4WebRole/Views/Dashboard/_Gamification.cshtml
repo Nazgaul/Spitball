@@ -7,7 +7,7 @@
     <div class="bg-r"></div>
     <a class="content" ga-track-event="['dashboard', 'to user page']" ui-sref="user({userId:gb.data.id, userName:gb.data.name})">
         <div class="image-side">
-            <user-image class="img-circle" name="::gb.data.name" image="::gb.data.image" width="70" height="70"></user-image>
+            <user-image class="img-circle" name="::gb.data.name" image="::gb.data.image" width="70" height="70" noremove="true"></user-image>
         </div>
         <div class="data-side">
             <div class="top">
@@ -21,14 +21,14 @@
             <div class="bottom">
                 <div class="level gamification-data">
                     <md-progress-linear class="custom-progress-bar" md-mode="determinate" value="{{gb.data.progress}}"></md-progress-linear>
-                    <div class="text">
+                    <div dir="auto" class="text">
                         <span class="title">@GamificationResources.NextLevelTItle:</span>
                         <span class="value" ng-bind="gb.nextLevel + 1"></span>
                     </div>
                 </div>
                 <div class="badges gamification-data">
                     <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{gb.data.badgesProgress}}"></md-progress-linear>
-                    <div class="text">
+                    <div dir="auto" class="text">
                         <span class="title">@GamificationResources.Badges</span>
                         <span class="value">{{::gb.data.badges}}/{{::gb.badges}}</span>
                     </div>

@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Like 50 posts or docs that you think are of great value to unlock this badge.
+        ///   Looks up a localized string similar to Like 50 posts or docs that you think are of great value.
         /// </summary>
         public static string BadgeLikesDescription {
             get {
