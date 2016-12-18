@@ -36,7 +36,7 @@ var app;
             this.details.boxUrl = $state.href("box.items", angular.extend({}, $stateParams));
             this.getPreview();
             this.document = itemData.fileContent;
-            if (!this.details.like) {
+            if (!this.details.like && user.id) {
                 $timeout(function () { _this.showLikeToaster(); }, 2000);
             }
         }
