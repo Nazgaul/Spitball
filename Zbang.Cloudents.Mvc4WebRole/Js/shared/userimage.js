@@ -32,9 +32,7 @@
                              //}
                              //return;
                          }
-                         console.log(elem, newVal, oldVal);
                          if (newVal[0] || newVal[1]) {
-                             console.log(elem, newVal, oldVal);
                              buildTemplate();
                          }
                          //console.log(newVal, oldVal);

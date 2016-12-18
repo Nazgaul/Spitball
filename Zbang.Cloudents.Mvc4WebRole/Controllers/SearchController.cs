@@ -18,16 +18,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly IBoxReadSearchProvider2 m_BoxSearchService;
         private readonly IItemReadSearchProvider2 m_ItemSearchService;
         private readonly IQuizReadSearchProvider2 m_QuizSearchService;
+        private readonly IFlashcardReadSearchProvider m_FlashcardSearchService;
 
         private const int ResultSizeRegularState = 25;
 
         public SearchController(IBoxReadSearchProvider2 boxSearchService,
             IItemReadSearchProvider2 itemSearchService,
-            IQuizReadSearchProvider2 quizSearchService)
+            IQuizReadSearchProvider2 quizSearchService, IFlashcardReadSearchProvider flashcardSearchService)
         {
             m_BoxSearchService = boxSearchService;
             m_ItemSearchService = itemSearchService;
             m_QuizSearchService = quizSearchService;
+            m_FlashcardSearchService = flashcardSearchService;
         }
 
         [Route("Search")]
@@ -55,6 +57,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var query = new SearchBoxesQuery(q, User.GetUserId(), universityDataId.Value, page,
                 ResultSizeRegularState);
             return await SearchQueryAsync(q, cancellationToken, query, m_BoxSearchService.SearchBoxAsync);
+        }
+        [HttpGet, ActionName("Flashcards")]
+        public async Task<JsonResult> FlashcardsAsync(string q, int page, CancellationToken cancellationToken)
+        {
+            var universityDataId = User.GetUniversityDataId();
+            if (!universityDataId.HasValue) return JsonError();
+            var query = new SearchFlashcardQuery(q, User.GetUserId(), universityDataId.Value, page,
+                ResultSizeRegularState);
+            return await SearchQueryAsync(q, cancellationToken, query, m_FlashcardSearchService.SearchFlashcardAsync);
         }
         [HttpGet,ActionName("Items")]
         public async Task<JsonResult> ItemsAsync(string q, int page, CancellationToken cancellationToken)

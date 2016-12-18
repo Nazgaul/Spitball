@@ -118,7 +118,7 @@
     <Compile Include="Dto\Qna\ItemDto.cs" />
     <Compile Include="Dto\Qna\CommentDto.cs" />
     <Compile Include="Dto\Search\SearchBoxes.cs" />
-    <Compile Include="Dto\Search\SearchDto.cs" />
+    <Compile Include="Dto\Search\SearchFlashcard.cs" />
     <Compile Include="Dto\Search\SearchItems.cs" />
     <Compile Include="Dto\Search\SearchQuizzes.cs" />
     <Compile Include="Dto\SeoDto.cs" />

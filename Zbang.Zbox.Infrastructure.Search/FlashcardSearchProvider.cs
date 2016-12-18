@@ -10,10 +10,11 @@ using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Dto.Search;
+using Zbang.Zbox.ViewModel.Queries.Search;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
-    public class FlashcardSearchProvider : IFlashcardWriteSearchProvider
+    public class FlashcardSearchProvider : IFlashcardWriteSearchProvider, IFlashcardReadSearchProvider
     {
         private readonly string m_IndexName = "flashcard";
         private readonly ISearchFilterProvider m_FilterProvider;
@@ -136,54 +137,54 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         }
 
-        //public async Task<IEnumerable<SearchQuizzes>> SearchQuizAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
-        //{
-        //    if (query == null) throw new ArgumentNullException(nameof(query));
-        //    var filter = await m_FilterProvider.BuildFilterExpressionAsync(
-        //      query.UniversityId, UniversityidField, UseridsField, query.UserId);
+        public async Task<IEnumerable<SearchFlashcard>> SearchFlashcardAsync(SearchQuery query, CancellationToken cancelToken)
+        {
+            if (query == null) throw new ArgumentNullException(nameof(query));
+            var filter = await m_FilterProvider.BuildFilterExpressionAsync(
+              query.UniversityId, UniversityidField, UseridsField, query.UserId);
 
-        //    //if we put asterisk highlight is not working
-        //    var result = await m_IndexClient.Documents.SearchAsync<QuizSearch>(query.Term, new SearchParameters
-        //    {
-        //        Filter = filter,
-        //        Top = query.RowsPerPage,
-        //        Skip = query.RowsPerPage * query.PageNumber,
-        //        ScoringProfile = "universityTag",
-        //        ScoringParameters = new[] { new ScoringParameter("university", new[] { query.UniversityId.ToString() }) },
-        //        HighlightFields = new[] { QuestionsField, AnswersField, NameField },
-        //        Select = new[] { NameField, IdField, BoxNameField, UniversityNameField, UrlField, ContentField }
-        //    }, cancellationToken: cancelToken);
+            //if we put asterisk highlight is not working
+            var result = await m_IndexClient.Documents.SearchAsync<FlashcardSearch>(query.Term, new SearchParameters
+            {
+                Filter = filter,
+                Top = query.RowsPerPage,
+                Skip = query.RowsPerPage * query.PageNumber,
+                ScoringProfile = "universityTag",
+                ScoringParameters = new[] { new ScoringParameter("university", new[] { query.UniversityId.ToString() }) },
+                HighlightFields = new[] { FrontCardsField, BackCardsField, NameField },
+                Select = new[] { NameField, IdField, BoxNameField, UniversityNameField, BoxIdField, ContentField }
+            }, cancellationToken: cancelToken);
 
-        //    return result.Results.Select(s => new SearchQuizzes
-        //    {
-        //        Boxname = s.Document.BoxName,
-        //        Content = HighLightInField(s, new[] { QuestionsField, AnswersField }, s.Document.MetaContent),
-        //        Id = long.Parse(s.Document.Id),
-        //        Name = HighLightInField(s, new[] { NameField }, s.Document.Name),
-        //        UniName = s.Document.UniversityName,
-        //        Url = s.Document.Url
-        //    });
+            return result.Results.Select(s => new SearchFlashcard
+            {
+                BoxName = s.Document.BoxName,
+                Content = HighLightInField(s, new[] { FrontCardsField, BackCardsField }, s.Document.MetaContent),
+                Id = long.Parse(s.Document.Id),
+                Name = HighLightInField(s, new[] { NameField }, s.Document.Name),
+                UniName = s.Document.UniversityName,
+                BoxId = s.Document.BoxId.GetValueOrDefault()
+            });
 
-        //}
-        //private static string HighLightInField(SearchResult<QuizSearch> record, IEnumerable<string> fields, string defaultValue)
-        //{
-        //    if (record.Highlights == null)
-        //    {
-        //        return defaultValue;
-        //    }
-        //    foreach (var field in fields)
-        //    {
-        //        IList<string> highLight;
-        //        if (record.Highlights.TryGetValue(field, out highLight))
-        //        {
-        //            return string.Join("...", highLight);
-        //        }
-        //    }
-        //    return defaultValue;
-        //}
+        }
+        private static string HighLightInField(SearchResult<FlashcardSearch> record, IEnumerable<string> fields, string defaultValue)
+        {
+            if (record.Highlights == null)
+            {
+                return defaultValue;
+            }
+            foreach (var field in fields)
+            {
+                IList<string> highLight;
+                if (record.Highlights.TryGetValue(field, out highLight))
+                {
+                    return string.Join("...", highLight);
+                }
+            }
+            return defaultValue;
+        }
 
 
-
+      
     }
     public interface IFlashcardWriteSearchProvider
     {
@@ -193,6 +194,6 @@ namespace Zbang.Zbox.Infrastructure.Search
 
     public interface IFlashcardReadSearchProvider
     {
-        Task<IEnumerable<SearchQuizzes>> SearchQuizAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken);
+        Task<IEnumerable<SearchFlashcard>> SearchFlashcardAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken);
     }
 }
