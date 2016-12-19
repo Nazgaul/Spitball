@@ -41,9 +41,6 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
                         TraceLog.WriteError("on signalr reputation", ex);
                     }
                 }
-                //m_ZboxWriteService.UpdateReputation(new UpdateReputationCommand(parameters.UserIds, token));
-
-
             }
             catch (Exception ex)
             {

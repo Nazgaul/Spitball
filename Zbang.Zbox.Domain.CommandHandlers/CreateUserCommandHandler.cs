@@ -50,8 +50,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         protected void GiveReputationAndAssignToBox(Guid? invId, User user)
         {
-            var inviteId = invId ?? Guid.Empty;
-            var invites = m_InviteToCloudentsRepository.GetUserInvites(user.Email, inviteId); // Load won't give null
+            //var inviteId = invId ?? Guid.Empty;
+            if (!invId.HasValue)
+            {
+                return;
+            }
+            var invites = m_InviteToCloudentsRepository.GetUserInvites(user.Email, invId.Value); // Load won't give null
 
             //var list = new List<Task>();
             foreach (var invite in invites)
@@ -64,7 +68,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 //m_ReputationRepository.Save(reputation);
                 invite.UsedInvite();
 
-                UserRepository.Save(invite.Sender);
+                //UserRepository.Save(invite.Sender);
                 m_InviteToCloudentsRepository.Save(invite);
 
                 var inviteToBox = invite as InviteToBox;

@@ -19,15 +19,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public void Handle(UpdateReputationCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
-            //if (message.UserId == null) return;
-            //foreach (var userId in message.UserIds)
-            //{
-            //message.Token.ThrowIfCancellationRequested();
             var userId = message.UserId;
             var reputation = m_ReputationRepository.GetUserReputation(userId);
             m_UserRepository.UpdateUserReputation(reputation, userId);
-
-
 
             var user = m_UserRepository.Load(userId);
             var score = m_ReputationRepository.CalculateReputation(userId);
@@ -37,8 +31,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             message.Score = score;
             m_UserRepository.UpdateScore(score, userId);
-
-            //}
         }
     }
 }
