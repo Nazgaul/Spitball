@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create 5 Quizzes.
+        ///   Looks up a localized string similar to Create 5 quizzes to help you and your classmates study - we&apos;ll reward you with 500 points!.
         /// </summary>
         public static string BadgeCreateQuizzesDescription {
             get {
@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Follow 3 Classes.
+        ///   Looks up a localized string similar to Join 3 Spitball classes for a quick 500 points! Now you&apos;re getting the hang of it..
         /// </summary>
         public static string BadgeFollowClassDescription {
             get {
@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Like 50 posts or docs that you think are of great value.
+        ///   Looks up a localized string similar to For a whopping 1500 points, like 50 posts or docs that you think are of great value.
         /// </summary>
         public static string BadgeLikesDescription {
             get {
@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Register.
+        ///   Looks up a localized string similar to Woohoo! You did it! 500 points for signing up - that was easy!.
         /// </summary>
         public static string BadgeRegisterDescription {
             get {
@@ -115,7 +115,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have one job: upload 15 documents to your class.
+        ///   Looks up a localized string similar to Be a hero: upload 15 documents to your classes and earn 500 points..
         /// </summary>
         public static string BadgeUploadFilesDescription {
             get {

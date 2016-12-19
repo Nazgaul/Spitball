@@ -147,19 +147,19 @@
     <comment>Via Code</comment>
   </data>
   <data name="BadgeCreateQuizzesDescription" xml:space="preserve">
-    <value>Create 5 Quizzes</value>
+    <value>Create 5 quizzes to help you and your classmates study - we'll reward you with 500 points!</value>
   <comment>Via Code</comment></data>
   <data name="BadgeFollowClassDescription" xml:space="preserve">
-    <value>Follow 3 Classes</value>
+    <value>Join 3 Spitball classes for a quick 500 points! Now you're getting the hang of it.</value>
   <comment>Via Code</comment></data>
   <data name="BadgeLikesDescription" xml:space="preserve">
-    <value>Like 50 posts or docs that you think are of great value</value>
+    <value>For a whopping 1500 points, like 50 posts or docs that you think are of great value</value>
   <comment>Via Code</comment></data>
   <data name="BadgeRegisterDescription" xml:space="preserve">
-    <value>Register</value>
+    <value>Woohoo! You did it! 500 points for signing up - that was easy!</value>
   <comment>Via Code</comment></data>
   <data name="BadgeUploadFilesDescription" xml:space="preserve">
-    <value>You have one job: upload 15 documents to your class</value>
+    <value>Be a hero: upload 15 documents to your classes and earn 500 points.</value>
   <comment>Via Code</comment></data>
   <data name="LeaderboardShowAll" xml:space="preserve">
     <value>Show all</value>

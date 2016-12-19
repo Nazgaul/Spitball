@@ -5,10 +5,11 @@
         Rename = 1,
         Flag = 2
     }
+    var promise;
     class Item {
 
         static $inject = ["itemData", "$state", "$stateParams", "$timeout",
-            "itemService", "$mdToast", "$sce", "$location", "user", "showToasterService", "resManager"];
+            "itemService", "$mdToast", "$sce", "$location", "user", "showToasterService", "resManager", "$scope"];
         details;
         index = 0;
         needLoadMore = false;
@@ -32,7 +33,8 @@
             private $location: angular.ILocationService,
             private user: IUserData,
             private showToasterService: IShowToasterService,
-            private resManager: IResManager) {
+            private resManager: IResManager,
+            private $scope: angular.IScope) {
 
             this.details = itemData;
             const href = this.$state.href(this.$state.current.name, this.$state.current.params);
@@ -42,8 +44,11 @@
             this.getPreview();
             this.document = itemData.fileContent;
             if (!this.details.like && user.id) {
-                $timeout(() => { this.showLikeToaster() }, 2000);
+                promise = $timeout(() => { this.showLikeToaster() }, 2000);
             }
+            this.$scope.$on('$destroy', () => {
+                $timeout.cancel(promise);
+            });
         }
 
 
@@ -159,11 +164,11 @@
                     this.itemService.like(this.$stateParams.itemId, this.$stateParams.boxId);
                 }
             });
+
         }
+}
 
-    }
-
-    angular.module('app.item').controller('ItemController', Item);
+angular.module('app.item').controller('ItemController', Item);
 
 }
 

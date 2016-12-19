@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BadgeCreateQuizzes" xml:space="preserve">
-    <value>בוחן פתע</value>
+    <value>רב פתרן</value>
   </data>
   <data name="BadgeLikes" xml:space="preserve">
     <value>נשיקה מלנה</value>
@@ -130,21 +130,21 @@
     <value>גיל המציל</value>
   </data>
   <data name="Level1" xml:space="preserve">
-    <value>סטודנט</value>
+    <value>צעיר</value>
   </data>
   <data name="Level2" xml:space="preserve">
-    <value>מתרגל</value>
+    <value>מתקדם</value>
   </data>
   <data name="Level3" xml:space="preserve">
-    <value>דוקטורנט</value>
+    <value>חזק</value>
   </data>
   <data name="Level4" xml:space="preserve">
-    <value>מרצה</value>
+    <value>חם</value>
   </data>
   <data name="Level5" xml:space="preserve">
-    <value>פרופסור</value>
+    <value>אגדה</value>
   </data>
   <data name="BadgeFollowClass" xml:space="preserve">
-    <value>עקוב אחריי</value>
+    <value>תייר מדופלם</value>
   </data>
 </root>

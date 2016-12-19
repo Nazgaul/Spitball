@@ -7,8 +7,9 @@ var app;
         State[State["Rename"] = 1] = "Rename";
         State[State["Flag"] = 2] = "Flag";
     })(State || (State = {}));
+    var promise;
     var Item = (function () {
-        function Item(itemData, $state, $stateParams, $timeout, itemService, $mdToast, $sce, $location, user, showToasterService, resManager) {
+        function Item(itemData, $state, $stateParams, $timeout, itemService, $mdToast, $sce, $location, user, showToasterService, resManager, $scope) {
             var _this = this;
             this.itemData = itemData;
             this.$state = $state;
@@ -21,6 +22,7 @@ var app;
             this.user = user;
             this.showToasterService = showToasterService;
             this.resManager = resManager;
+            this.$scope = $scope;
             this.index = 0;
             this.needLoadMore = false;
             this.preview = "";
@@ -37,8 +39,11 @@ var app;
             this.getPreview();
             this.document = itemData.fileContent;
             if (!this.details.like && user.id) {
-                $timeout(function () { _this.showLikeToaster(); }, 2000);
+                promise = $timeout(function () { _this.showLikeToaster(); }, 2000);
             }
+            this.$scope.$on('$destroy', function () {
+                $timeout.cancel(promise);
+            });
         }
         Item.prototype.followBox = function () {
             this.itemService.followbox();
@@ -140,7 +145,7 @@ var app;
             });
         };
         Item.$inject = ["itemData", "$state", "$stateParams", "$timeout",
-            "itemService", "$mdToast", "$sce", "$location", "user", "showToasterService", "resManager"];
+            "itemService", "$mdToast", "$sce", "$location", "user", "showToasterService", "resManager", "$scope"];
         return Item;
     }());
     angular.module('app.item').controller('ItemController', Item);

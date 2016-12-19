@@ -124,7 +124,7 @@
     <value>טבלת המובילים</value>
   </data>
   <data name="BadgeUploadFilesDescription" xml:space="preserve">
-    <value>תהיה חבר - העלה 15 מסמכים</value>
+    <value>תהיה חבר - העלה 15 מסמכים וזכה ב500 נקודות.</value>
   </data>
   <data name="Level4Description" xml:space="preserve">
     <value>אתה כבר משתמש ותיק ומנוסה - תרמת למערכת יותר מרוב הסטודנטים, המשך להוות דוגמא לדורות הבאים!</value>
@@ -138,16 +138,16 @@
 </value>
   </data>
   <data name="BadgeCreateQuizzesDescription" xml:space="preserve">
-    <value>צור 5 מבחנים מקוונים</value>
+    <value>צור 5 מבחנים מקוונים וקבל 500 נקודות</value>
   </data>
   <data name="BadgeFollowClassDescription" xml:space="preserve">
-    <value>עקוב אחרי 3 קורסים</value>
+    <value>עקוב אחרי 3 קורסים לקבלת 500 נקודות </value>
   </data>
   <data name="BadgeLikesDescription" xml:space="preserve">
-    <value>פרגן ב"אהבתי" ל-50 פוסטים או מסמכים על מנת לזכות במדליה זו</value>
+    <value>פרגן ב"אהבתי" ל-50 פוסטים או מסמכים על מנת לזכות במדליה זו וקבל 1,500 נקודות</value>
   </data>
   <data name="BadgeRegisterDescription" xml:space="preserve">
-    <value>הירשם</value>
+    <value>כל הכבוד נרשמת, זכית ב500 נקודות, זה היה קל.</value>
   </data>
   <data name="Level3Description" xml:space="preserve">
     <value>אתה כבר ותיק במערכת! סטודנטים חדשים יכול לסמוך על הידע והניסיון שלך. בקצב הנוכחי עוד תגיע לפסגה!</value>
@@ -169,5 +169,14 @@
   </data>
   <data name="Badges" xml:space="preserve">
     <value>מדליות</value>
+  </data>
+  <data name="NextLevelTItle" xml:space="preserve">
+    <value>השלב הבא בעוד</value>
+  </data>
+  <data name="Complete" xml:space="preserve">
+    <value>סיים</value>
+  </data>
+  <data name="Rank" xml:space="preserve">
+    <value>מיקום</value>
   </data>
 </root>

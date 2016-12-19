@@ -698,6 +698,9 @@
 .userPage .post-data .top .name .post-headline {
   text-transform: capitalize;
 }
+.userPage .post-data .post-content {
+  word-break: break-word;
+}
 .userPage .post-data .post-headline {
   display: block;
   font-size: 18px;
