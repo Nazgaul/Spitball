@@ -44,18 +44,20 @@
                     <div class="info" layout="row" layout-align="space-between center">
                         <a ui-sref="user({userId:post.userId, userName:post.userName})" class="userblock" layout="row" layout-align="start center" ga-track-event="['box-feed', 'userNameImage']">
                             <user-image class="c-img" name="::post.userName" image="::post.userImage" width="52" height="52"></user-image>
-                            <span class="user-name ellipsis" ng-bind="::post.userName"></span>
-                        </a>
-                        <time-ago class="comment-date" from-time="{{::post.creationTime }}" format="mediumDate"></time-ago>
-                        <div class="achievements">
-                            <span ng-bind="::post.score | megaNumber"></span>
-                            <span class="separator"></span>
-                            <ng-pluralize count="post.badges" when="{
+                            <div class="user-info ellipsis">
+                                <span class="user-name ellipsis" ng-bind="::post.userName"></span>
+                                <div class="achievements">
+                                    <span ng-bind="::post.score | megaNumber"></span>
+                                    <span class="separator"></span>
+                                    <ng-pluralize count="post.badges" when="{
                                                                                      'one': '{} @GamificationResources.Badge',
                                                                                      'two': '{} @GamificationResources.Badges',
                                                                                      'other' : '{} @GamificationResources.Badges'
                                                                                      }"></ng-pluralize>
-                        </div>
+                                </div>
+                            </div>
+                        </a>
+                        <time-ago class="comment-date" from-time="{{::post.creationTime }}" format="mediumDate"></time-ago>
                     </div>
                     <md-menu ng-if="::b.canDelete(post.userId)">
                         <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">
@@ -112,17 +114,19 @@
                         <div class="info">
                             <a ui-sref="user({userId:reply.userId, userName:reply.userName})" layout="row" layout-align="start center" class="userblock username" ga-track-event="['box-feed', 'replyUserNameImg']">
                                 <user-image class="c-img" name="::reply.userName" image="::reply.userImage" width="40" height="40"></user-image>
-                                <span class="user-name ellipsis" ng-bind="::reply.userName"></span>
-                            </a>
-                            <div class="achievements">
-                                <span ng-bind="::reply.score | megaNumber"></span>
-                                <span class="separator"></span>
-                                <ng-pluralize count="reply.badges" when="{
+                                <div class="user-info ellipsis">
+                                    <span class="user-name ellipsis" ng-bind="::reply.userName"></span>
+                                    <div class="achievements">
+                                        <span ng-bind="::reply.score | megaNumber"></span>
+                                        <span class="separator"></span>
+                                        <ng-pluralize count="reply.badges" when="{
                                                                                      'one': '{} @GamificationResources.Badge',
                                                                                      'two': '{} @GamificationResources.Badges',
                                                                                      'other' : '{} @GamificationResources.Badges'
                                                                                      }"></ng-pluralize>
-                            </div>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                         <md-menu ng-if="::b.canDelete(reply.userId)">
                             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">

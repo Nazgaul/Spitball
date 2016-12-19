@@ -523,30 +523,40 @@
 
         .user-name, .reply .user-name {
             color: @textColorBlack;
-            padding-right: 25px;
+            //padding-right: 25px;
         }
 
         .user-name {
             color: @textColorBlack;
             font-weight: 400;
             margin-top: 0;
-            padding-bottom: 12px;
+            padding-bottom: 4px;
+            max-width: 100%;
         }
 
         .comment-date {
             color: @textColorGrey;
             font-size: 12px;
-            right: 20px;
-            position: absolute;
-            top: ~"calc(50% - 6px)";
+            padding-top: 12px;
+            padding-right: 20px;
+            flex-shrink: 0;
         }
 
-        .achievements {
-            padding: 0;
-            max-width: 100%;
-            left: @userImageIndent;
-            bottom: 10px;
-            position: absolute;
+        .info {
+            .align-items(flex-start);
+
+            .user-info {
+                .displayFlex();
+                .align-items(flex-start);
+                .justifyContet(center);
+                flex-direction: column;
+                padding-right: 10px;
+
+                .achievements {
+                    width: 100%;
+                    padding: 0;
+                }
+            }
         }
 
         .delete {
@@ -611,13 +621,6 @@
             }
         }
 
-        .achievements {
-            bottom: 4px;
-
-            @media(max-width: 600px) {
-                left: 50px;
-            }
-        }
 
         > .content-text {
             margin-bottom: 0;

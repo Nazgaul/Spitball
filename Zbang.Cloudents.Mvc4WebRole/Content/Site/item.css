@@ -46,9 +46,9 @@ md-menu-item.blue svg {
 .itemPage header {
   width: 100%;
   position: relative;
-  min-height: 90px;
+  min-height: 65px;
   display: block;
-  padding: 6px 0;
+  padding: 4px 0;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -294,6 +294,11 @@ md-menu-item.blue svg {
   flex-grow: 0;
   overflow: hidden;
 }
+.itemPage .second-line .item-meta .user-meta .achievements,
+.itemPage .second-line .item-meta .user-meta .name {
+  line-height: 14px;
+  font-size: 12px;
+}
 .itemPage .second-line .item-meta a,
 .itemPage .second-line .item-meta span {
   display: inline-block;
@@ -303,7 +308,7 @@ md-menu-item.blue svg {
   padding-right: 5px;
   font-size: 12px;
 }
-.itemPage .second-line .achievements {
+.itemPage .second-line .item-meta .achievements {
   padding-left: 0;
   margin-left: 10px;
   text-overflow: initial;
@@ -572,7 +577,7 @@ md-menu-item.blue svg {
 .itemPage .side-ad {
   position: fixed;
   left: calc(50% - 700px);
-  top: 160px;
+  top: 135px;
   width: 160px;
   height: 600px;
 }

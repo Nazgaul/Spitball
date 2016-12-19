@@ -73,8 +73,8 @@
             </div>
             <div class="second-line" ng-if="i.selectedState === 0">
                 <div class="item-meta">
-                    <div class="user-meta">
-                        <a class="ellipsis" ui-sref="user({userId:i.details.ownerId,userName:i.details.owner})" ng-bind="::i.details.owner"></a>
+                    <a class="user-meta ellipsis" ui-sref="user({userId:i.details.ownerId,userName:i.details.owner})">
+                        <span class="name ellipsis" ng-bind="::i.details.owner"></span>
                         <div class="achievements">
                             <span ng-bind="::i.details.ownerScore | megaNumber"></span>
                             <span class="separator"></span>
@@ -84,7 +84,7 @@
                                                                                      'other' : '{} @GamificationResources.Badges'
                                                                                      }"></ng-pluralize>
                         </div>
-                    </div>
+                    </a>
                     <span class="date">{{::i.details.date | date : 'mediumDate'}}</span>
                 </div>
             </div>

@@ -450,27 +450,39 @@
 .feed .comment .user-name,
 .feed .comment .reply .user-name {
   color: #212325;
-  padding-left: 25px;
 }
 .feed .comment .user-name {
   color: #212325;
   font-weight: 400;
   margin-top: 0;
-  padding-bottom: 12px;
+  padding-bottom: 4px;
+  max-width: 100%;
 }
 .feed .comment .comment-date {
   color: #888b8e;
   font-size: 12px;
-  left: 20px;
-  position: absolute;
-  top: calc(50% - 6px);
+  padding-top: 12px;
+  padding-left: 20px;
+  flex-shrink: 0;
 }
-.feed .comment .achievements {
+.feed .comment .info {
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+}
+.feed .comment .info .user-info {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+  -webkit-justify-content: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-left: 10px;
+}
+.feed .comment .info .user-info .achievements {
+  width: 100%;
   padding: 0;
-  max-width: 100%;
-  right: 62px;
-  bottom: 10px;
-  position: absolute;
 }
 .feed .comment .delete {
   height: 17px;
@@ -526,14 +538,6 @@
 }
 .feed .reply .userblock .user-name {
   font-weight: normal;
-}
-.feed .reply .achievements {
-  bottom: 4px;
-}
-@media (max-width: 600px) {
-  .feed .reply .achievements {
-    right: 50px;
-  }
 }
 .feed .reply > .content-text {
   margin-bottom: 0;

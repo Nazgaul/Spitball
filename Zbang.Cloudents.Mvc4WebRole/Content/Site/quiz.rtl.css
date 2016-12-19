@@ -301,10 +301,10 @@
   margin: 0;
 }
 .quizPage .feed .userblock {
-  position: relative;
+  min-width: 0;
 }
 .quizPage .feed .userblock .user-name {
-  padding-bottom: 16px;
+  padding-bottom: 0;
 }
 @media (max-width: 600px) {
   .quizPage .feed .userblock .user-name {
@@ -313,8 +313,7 @@
 }
 .quizPage .feed .comment-date {
   margin-right: 12px;
-  position: absolute;
-  bottom: 14px;
+  padding: 0 0 0 20px;
 }
 .quizPage .feed .content-text {
   margin-right: 74px;
