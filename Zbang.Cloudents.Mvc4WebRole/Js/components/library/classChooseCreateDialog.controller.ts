@@ -11,7 +11,6 @@
             if (selectedDepartment) {
                 this.departmentName = selectedDepartment.name;
             }
-            //console.log(department)
         }
         departmentName;
         submitDisabled = false;

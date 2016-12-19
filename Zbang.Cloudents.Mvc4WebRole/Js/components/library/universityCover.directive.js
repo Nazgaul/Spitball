@@ -19,14 +19,6 @@
                 }
                 //need because the css height need to kicks in
                 $timeout(appenUrl);
-                //scope.$watch(scope.univeristyCover,
-                //    function (newval, oldval) {
-                //        //if (newval !== oldval) {
-                //            console.log(newval, oldval);
-                //            appenUrl(); // Sometimes trigger before the xhr
-
-                //        //}
-                //    });
             }
         };
     }

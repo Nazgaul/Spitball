@@ -130,12 +130,6 @@
             pattern: /[^/]*/
         });
 
-        //$stateProvider.state('list', {
-        //    url: "/list/{item:listItem}",
-        //    controller: function ($scope, $stateParams) {
-        //        console.log($stateParams.item);
-        //    }
-        //});
     }
 }
 

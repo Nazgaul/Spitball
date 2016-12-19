@@ -29,8 +29,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new UnauthorizedAccessException();
             }
-            like.Quiz.LikeCount--;
-
+            like.Quiz.LikeCount = like.Quiz.Likes.Count - 1;
             m_QuizLikeRepository.Delete(like);
             m_QuizRepository.Save(like.Quiz);
             var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(like.Quiz.User.Id));

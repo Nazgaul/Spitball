@@ -158,7 +158,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var query = new GetUserWithFriendQuery(id, page, 20);
             var model = await ZboxReadService.GetUserCommentActivityAsync(query);
 
-
             return JsonOk(model.Select(s =>
             new
             {

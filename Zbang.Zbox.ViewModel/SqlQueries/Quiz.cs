@@ -43,7 +43,7 @@ from zbox.SolvedQuiz q
 where q.QuizId = @QuizId and q.UserId = @UserId;";
 
         public const string UserLike = @"
-select q2.id from zbox.quizlike q2  where q2.QuizId = @QuizId and q2.UserId = @UserId;
+select q2.id from zbox.quizlike2 q2  where q2.QuizId = @QuizId and q2.UserId = @UserId;
 ";
 
         public const string UserAnswer = @"select q.AnswerId,q.QuestionId from zbox.SolvedQuestion q where QuizId = @QuizId and UserId = @UserId;";

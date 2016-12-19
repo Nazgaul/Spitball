@@ -30,7 +30,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             var user = m_UserRepository.Load(message.UserId);
             var quiz = m_QuizRepository.Load(message.QuizId);
-            quiz.LikeCount++;
+            quiz.LikeCount = quiz.Likes.Count + 1;
             var like = new QuizLike(m_GuidGenerator.GetId(), user, quiz);
             m_QuizLikeRepository.Save(like);
             m_QuizRepository.Save(quiz);

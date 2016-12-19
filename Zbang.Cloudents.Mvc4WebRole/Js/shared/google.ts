@@ -193,7 +193,6 @@ module app {
                     if (data[window["google"].picker.Response.ACTION] !== window["google"].picker.Action.PICKED) {
                         return;
                     }
-                    console.log(data);
                     var doc, url, name, size;
 
                     for (var i = 0, l = data[window["google"].picker.Response.DOCUMENTS].length; i < l; i++) {
