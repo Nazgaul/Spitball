@@ -57,8 +57,8 @@ from quiz,item,answers,question,rate,invite,share
         {
             var sqlQuery = UnitOfWork.CurrentSession.CreateSQLQuery(@"declare @userid bigint = :userId, 
 @itemLikePoints int = :itemLikePoints,
-@itemView int = :itemView, 
-@itemDownload int = :itemDownload, 
+@itemView float = :itemView, 
+@itemDownload float = :itemDownload, 
 @quizView int = :quizView, 
 @quizSolve int = :quizSolve, 
 @quizLike int = :quizLike ,
