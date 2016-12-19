@@ -33,6 +33,10 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         // GET api/Notification
         public async Task<HttpResponseMessage> Get()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Request.CreateUnauthorizedResponse();
+            }
             var model = await m_ZboxReadService.GetUpdatesAsync(new QueryBase(User.GetUserId()));
             return Request.CreateResponse(model.Where(w => w.QuizId == null));
         }

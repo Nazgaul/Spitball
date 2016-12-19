@@ -42,7 +42,6 @@ namespace Zbang.Zbox.ReadServices
         public Task<UniversityDashboardInfoDto> GetUniversityInfoAsync(UniversityQuery query)
         {
             return m_Cache.QueryAsync(m_ReadService.GetUniversityInfoAsync, query);
-            //return m_ReadService.GetUniversityInfoAsync(query);
         }
 
         public Task<NodeBoxesDto> GetLibraryNodeAsync(GetLibraryNodeQuery query)
@@ -51,8 +50,6 @@ namespace Zbang.Zbox.ReadServices
             //return m_Cache.QueryAsync(m_ReadService.GetLibraryNodeAsync, query);
             return m_ReadService.GetLibraryNodeAsync(query);
         }
-
-
 
         public Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetBoxItemsPagedAsync(GetBoxItemsPagedQuery query)
         {
@@ -127,28 +124,12 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetBoxMembersAsync(query);
         }
-        //public Task<IEnumerable<long>> GetBoxUsersIdAsync(GetBoxWithUserQuery query)
-        //{
-        //    return m_ReadService.GetBoxUsersIdAsync(query);
-        //}
 
         public Task<UserMinProfile> GetUserMinProfileAsync(GetUserMinProfileQuery query)
         {
-            //return m_Cache.QueryAsync
-            //   (m_ReadService.GetUserMinProfileAsync, query);
             return m_ReadService.GetUserMinProfileAsync(query);
         }
 
-        //public Task<string> GetLocationByIpAsync(GetCountryByIpQuery query)
-        //{
-        //    return m_Cache.QueryAsync
-        //      (m_ReadService.GetLocationByIpAsync, query);
-        //}
-
-        //public Task<IEnumerable<QuestionDto>> GetQuestionsWithAnswersAsync(GetBoxQuestionsQuery query)
-        //{
-        //    return m_ReadService.GetQuestionsWithAnswersAsync(query);
-        //}
 
         public Task<IEnumerable<CommentDto>> GetCommentsAsync(GetBoxQuestionsQuery query)
         {
@@ -206,12 +187,6 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUserDetailsByEmail(query);
         }
 
-        //public long GetItemIdByBlobId(string blobId)
-        //{
-        //    return m_ReadService.GetItemIdByBlobId(blobId);
-        //}
-
-
         public Task<IEnumerable<BoxDto>> GetUserBoxesActivityAsync(GetUserWithFriendQuery query)
         {
             return m_ReadService.GetUserBoxesActivityAsync(query);
@@ -252,14 +227,6 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-
-
-        //public Task<IEnumerable<UniversityByPrefixDto>> GetUniversityListByFriendsIdsAsync(IEnumerable<long> friendsIds)
-        //{
-        //    return m_ReadService.GetUniversityListByFriendsIdsAsync(friendsIds);
-        //}
-
-
         public Task<IEnumerable<ActivityDto>> GetUserCommentActivityAsync(GetUserWithFriendQuery query)
         {
             return m_ReadService.GetUserCommentActivityAsync(query);
@@ -274,12 +241,6 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetSeoItemCountAsync();
         }
-
-        //public Task<IEnumerable<RecommendBoxDto>> GetRecommendedCoursesAsync(RecommendedCoursesQuery query)
-        //{
-        //    return m_ReadService.GetRecommendedCoursesAsync(query);
-        //}
-
 
         public Task<int> GetNumberOfSolversAsync(long quizId)
         {
@@ -310,20 +271,7 @@ namespace Zbang.Zbox.ReadServices
         public Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetBoxLeaderboardQuery query)
         {
             return m_ReadService.GetBoxLeaderBoardAsync(query);
-            //return m_Cache.QueryAsync(m_ReadService.GetBoxLeaderBoardAsync, query);
         }
-
-        //public Task<IEnumerable<RecommendBoxDto>> GetBoxRecommendedCoursesAsync(GetBoxSideBarQuery query, CancellationToken token)
-        //{
-        //    return m_ReadService.GetBoxRecommendedCoursesAsync(query, token);
-        //}
-
-
-
-
-
-
-
 
 
         public Task<UserDetailDto> GetUserDataAsync(QueryBaseUserId query)
@@ -425,16 +373,6 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetQuizQuestionWithAnswersAsync(query);
         }
 
-
-        //public Task<IEnumerable<LeaderBoardDto>> GetDashboardLeaderBoardAsync(LeaderBoardQuery query)
-        //{
-        //    return m_Cache.QueryAsync(m_ReadService.GetDashboardLeaderBoardAsync, query);
-        //}
-        //public Task<LeaderboardFlashcardDto> GetDashboardFlashcardStatusAsync(FlashcardLeaderboardQuery query)
-        //{
-        //    return m_ReadService.GetDashboardFlashcardStatusAsync(query);
-        //}
-
         public Task<UserWithStats> GetUserProfileWithStatsAsync(GetUserWithFriendQuery query)
         {
             return m_ReadService.GetUserProfileWithStatsAsync(query);
@@ -465,16 +403,10 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetCoursesPageDataAsync();
         }
 
-        //public Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetItemsPageDataAsync()
-        //{
-        //    return m_ReadService.GetItemsPageDataAsync();
-        //}
-
         public Task<IEnumerable<ClosedNodeDto>> GetUserClosedDepartmentAsync(QueryBase query)
         {
             return m_ReadService.GetUserClosedDepartmentAsync(query);
         }
-
 
         public Task<IEnumerable<ClosedNodeUsersDto>> GetMembersClosedDepartmendAsync(GetClosedNodeMembersQuery query)
         {

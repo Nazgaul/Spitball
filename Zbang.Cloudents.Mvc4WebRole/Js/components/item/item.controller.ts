@@ -122,6 +122,7 @@
                 this.details.name = response.name;
                 this.$location.path(response.url).replace();
                 this.showToasterService.showToaster(this.resManager.get("renameItem"));
+                this.selectedState = State.Regular;
             }).finally(() => {
                 this.submitDisabled = false;
             });

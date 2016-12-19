@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
+    [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Local")]
     public class Quiz : IDirty
     {
         protected Quiz()
@@ -34,6 +36,8 @@ namespace Zbang.Zbox.Domain
         //public virtual string Banner { get; set; }
 
         public virtual User User { get; private set; }
+
+
         public virtual Box Box { get; private set; }
 
         public virtual string Content { get; set; }
@@ -48,6 +52,7 @@ namespace Zbang.Zbox.Domain
         public virtual ICollection<Question> Questions { get; protected set; }
 
         public virtual ICollection<SolvedQuiz> SolvedQuizes { get; protected set; }
+        public virtual ICollection<QuizLike> Likes { get; protected set; }
 
         public virtual string Url { get; set; }
 
@@ -88,12 +93,14 @@ namespace Zbang.Zbox.Domain
             set;
         }
 
+
         public bool IsDeleted {get;set;}
 
         public void DeleteAssociation()
         {
             Questions.Clear();
             SolvedQuizes.Clear();
+            Likes.Clear();
         }
     }
 }

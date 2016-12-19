@@ -108,6 +108,7 @@ var app;
                 _this.details.name = response.name;
                 _this.$location.path(response.url).replace();
                 _this.showToasterService.showToaster(_this.resManager.get("renameItem"));
+                _this.selectedState = State.Regular;
             }).finally(function () {
                 _this.submitDisabled = false;
             });

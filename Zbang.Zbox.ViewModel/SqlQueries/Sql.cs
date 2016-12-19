@@ -47,8 +47,8 @@ where uWrap.Id = @UniversityId";
         /// <summary>
         /// Mobile api - bring user comment and reply activity in user screen
         /// </summary>
-        public const string UserQuestionAndAnswersActivityMobileApi = @"select t.BoxId as BoxId, t.Text as Content, t.BoxName as boxName, t.QuestionId as Id,t.CreationTime,  t.Type, t.PostId, t.Url from (
-	select b.boxid, q.Text, b.BoxName,q.QuestionId,'comment' as Type, q.CreationTime, null as PostId, b.Url
+        public const string UserQuestionAndAnswersActivityMobileApi = @"select t.BoxId as BoxId, t.Text as Content, t.BoxName as boxName, t.QuestionId as Id,t.CreationTime,  t.Type, t.PostId, t.Url,t.LibraryId from (
+	select b.boxid, q.Text, b.BoxName,q.QuestionId,'comment' as Type, q.CreationTime, null as PostId, b.Url,b.LibraryId
                           from zbox.Question q
                          join zbox.box b on b.BoxId = q.BoxId and b.IsDeleted = 0
                         where q.UserId = @Myfriend
@@ -56,7 +56,7 @@ where uWrap.Id = @UniversityId";
                         and q.text is not null
                         and b.Discriminator = 2 
 					union 
-			select b.BoxId, a.Text,b.BoxName,a.AnswerId,'reply', a.CreationTime, a.QuestionId ,b.Url
+			select b.BoxId, a.Text,b.BoxName,a.AnswerId,'reply', a.CreationTime, a.QuestionId ,b.Url,b.LibraryId
                  from zbox.Answer a
                  join zbox.box b on b.BoxId = a.BoxId and b.IsDeleted = 0
                  where a.UserId = @Myfriend

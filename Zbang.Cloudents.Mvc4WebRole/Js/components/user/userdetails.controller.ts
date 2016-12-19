@@ -9,11 +9,11 @@
         ) {
             const response = this.userDetailsFactory.get();
             if (response.id) {
+                var self = this;
                 this.assignValues(response);
-                $scope.$on('userDetailsChange',
-                    function () {
-                        this.assignValues(this.userDetailsFactory.get());
-                    });
+                $scope.$on('userDetailsChange', () => {
+                    self.assignValues(this.userDetailsFactory.get());
+                });
             }
         }
 

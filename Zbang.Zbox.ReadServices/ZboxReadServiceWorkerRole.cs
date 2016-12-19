@@ -655,7 +655,7 @@ select OwnerId from zbox.ItemRate
 union
 select UserId from zbox.FlashcardLike
 union 
-select userid from zbox.quizlike) t
+select userid from zbox.quizlike2) t
 order by OwnerId
 offset @page*100 ROWS
     FETCH NEXT 100 ROWS ONLY;", new { page });
