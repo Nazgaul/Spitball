@@ -461,8 +461,9 @@
 .feed .comment .comment-date {
   color: #888b8e;
   font-size: 12px;
-  padding: 0 0 10px 20px;
-  left: 0;
+  left: 20px;
+  position: absolute;
+  top: calc(50% - 6px);
 }
 .feed .comment .achievements {
   padding: 0;

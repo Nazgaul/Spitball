@@ -4,6 +4,7 @@
   display: flex;
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
+  margin-top: 30px;
   /*#show-points-info {
         display: none;
     }*/
@@ -159,6 +160,7 @@
   min-width: 120px;
   width: 1%;
   line-height: 36px;
+  text-transform: capitalize;
 }
 .userPage .points-info table tr:nth-child(even) {
   background: rgba(115, 180, 53, 0.3);
