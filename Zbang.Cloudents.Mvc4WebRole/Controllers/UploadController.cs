@@ -369,13 +369,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                     using (HttpClient httpClient = new HttpClient(webRequestHandler))
                     {
-
-                        // Send a request using GetAsync or PostAsync
-
                         var response = await httpClient.GetAsync(model.Url);
-                        if (!response.IsSuccessStatusCode)
+                        if (response.StatusCode == System.Net.HttpStatusCode.Redirect)
                         {
-                            throw new ObjectNotFoundException();
+                            if (response.Headers.Location.AbsoluteUri.ToLowerInvariant().Contains("servicelogin"))
+                            {
+                                throw new ObjectNotFoundException();
+                            }
                         }
 
                     }

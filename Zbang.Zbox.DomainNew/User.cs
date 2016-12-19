@@ -42,6 +42,7 @@ namespace Zbang.Zbox.Domain
             UpdateLanguage(culture);
             Sex = sex;
             BadgeCount = 1;
+            Score = ReputationConst.BadgeRegister;
             //AddReputation(ReputationAction.Register);
         }
         // ReSharper restore DoNotCallOverridableMethodsInConstructor

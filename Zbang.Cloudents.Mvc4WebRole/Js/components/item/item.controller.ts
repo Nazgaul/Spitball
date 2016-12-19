@@ -56,16 +56,17 @@
             this.itemService.followbox();
         }
         getPreview() {
-            this.loader = true;
-            return this.itemService.getPreview(this.details.blob, this.index, this.$stateParams.itemId, this.$stateParams.boxId).then(data => {
+            var self = this;
+            self.loader = true;
+            return self.itemService.getPreview(self.details.blob, self.index, self.$stateParams.itemId, self.$stateParams.boxId).then(data => {
                 data = data || {};
-                this.loader = false;
+                self.loader = false;
                 if (data.template) {
-                    this.view = "preview-" + data.template.toLowerCase() + ".html";
+                    self.view = "preview-" + data.template.toLowerCase() + ".html";
                     if (data.content) {
-                        this.documents = this.documents.concat(data.content);
+                        self.documents = self.documents.concat(data.content);
                         if (data.content > 3) {
-                            this.needLoadMore = true;
+                            self.needLoadMore = true;
                         }
                     }
                     return;
@@ -76,13 +77,14 @@
                         || preview.indexOf('audio') > 0
                         || preview.indexOf('video') > 0
                         /*|| preview.indexOf('previewFailed') > 0*/) {
-                        this.preview = this.$sce.trustAsHtml(preview);
+                        //self.document.push(self.$sce.trustAsHtml(preview));
+                        self.preview = self.$sce.trustAsHtml(preview);
                     } else {
 
-                        this.view = "preview-" + preview.toLowerCase() + ".html";
-                        this.documents = this.documents.concat(data.content);
+                        self.view = "preview-" + preview.toLowerCase() + ".html";
+                        self.documents = self.documents.concat(data.content);
                         if (data.content > 15) {
-                            this.needLoadMore = true;
+                            self.needLoadMore = true;
                         }
 
                     }

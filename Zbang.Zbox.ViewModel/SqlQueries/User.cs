@@ -104,7 +104,7 @@ b.BoxId as boxId
         public const string UserWithFriendQuizzes = @"select q.Id as id,
 q.url as Url,
 q.Name as name,
-q.Rate as rate,
+q.LikeCount as Likes,
 q.NumberOfViews as numOfViews
                         from zbox.Quiz q 
                         join zbox.box b on q.boxid = b.BoxId and b.IsDeleted = 0
