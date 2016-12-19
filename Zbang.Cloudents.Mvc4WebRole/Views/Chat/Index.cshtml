@@ -73,45 +73,47 @@
                     </div>
                 </div>
             </div>
-            <div class="conversasion angular-animate" ng-if="c.state === 3" ng-controller="conversation as cv">
-                <div class="header">
-                    <div class="back" ng-click="c.backFromChat()">
-                        <div class="close"></div>
-                    </div>
-                    <a ui-sref="user({userId:cv.userChat.id,userName:cv.userChat.name})" ng-class="{online: cv.userChat.online}" class="user" ga-track-event="['chat', 'opened-partners-profile']">
-                        <user-image class="img-circle" name="cv.userChat.name" image="cv.userChat.image" width="35" height="35" noremove="true"></user-image>
-                        <span class="member-name ellipsis" ng-bind="cv.userChat.name"></span>
+            <div class="conversasion angular-animate">
+                <div ng-if="c.state === 3" ng-controller="conversation as cv">
+                    <div class="header">
+                        <div class="back" ng-click="c.backFromChat()">
+                            <div class="close"></div>
+                        </div>
+                        <a ui-sref="user({userId:cv.userChat.id,userName:cv.userChat.name})" ng-class="{online: cv.userChat.online}" class="user" ga-track-event="['chat', 'opened-partners-profile']">
+                            <user-image class="img-circle" name="cv.userChat.name" image="cv.userChat.image" width="35" height="35" noremove="true"></user-image>
+                            <span class="member-name ellipsis" ng-bind="cv.userChat.name"></span>
 
-                    </a>
-                </div>
-                <div class="chat-content">
-                    <ul class="messages scrollbar" sb-scroll chat-scroll-buttom="scrollToBotton"
-                        ng-scrollbars ng-scrollbars-update="c.updateScrollbar" ng-scrollbars-config="c.scrollSetting">
-                        <li>
-                            <md-button id="chatLoadMore" ng-if="!cv.lastPage" ng-click="cv.loadMoreMessages()">@ChatResources.LoadMore</md-button>
-                        </li>
-                        <li ng-attr-id="{{::e.id ? 'chatMessage_' + e.id : undefined}}" class="message" ng-repeat="e in cv.messages" ng-class="{partner: e.partner}">
-                            <div ng-if="e.text" class="text" ng-bind-html="::e.text | linky:'_blank'"></div>
-                            <div ng-if="e.blob" class="image" ng-click="cv.dialog(e.blob, $event)" ga-track-event="['chat', 'opened-attachment']">
-                                <img ng-src="{{e.thumb}}" width="256" height="138" alt="preview"/>
-                            </div>
-                            <time-ago class="time" from-time="{{::e.time}}" format="mediumDate"></time-ago>
-                        </li>
-                    </ul>
-                    <div class="new-message">
-                        <a class="menu menu-item" plupload="cv.upload.url" plupload-options="cv.upload.options" plupload-callbacks="cv.upload.callbacks" href="#" ga-track-event="['chat', 'upload-file']">
-                            <md-icon md-svg-icon="u:file" class="attach"></md-icon>
                         </a>
+                    </div>
+                    <div class="chat-content">
+                        <ul class="messages scrollbar" sb-scroll chat-scroll-buttom="scrollToBotton"
+                            ng-scrollbars ng-scrollbars-update="c.updateScrollbar" ng-scrollbars-config="c.scrollSetting">
+                            <li>
+                                <md-button id="chatLoadMore" ng-if="!cv.lastPage" ng-click="cv.loadMoreMessages()">@ChatResources.LoadMore</md-button>
+                            </li>
+                            <li ng-attr-id="{{::e.id ? 'chatMessage_' + e.id : undefined}}" class="message" ng-repeat="e in cv.messages" ng-class="{partner: e.partner}">
+                                <div ng-if="e.text" class="text" ng-bind-html="::e.text | linky:'_blank'"></div>
+                                <div ng-if="e.blob" class="image" ng-click="cv.dialog(e.blob, $event)" ga-track-event="['chat', 'opened-attachment']">
+                                    <img ng-src="{{e.thumb}}" width="256" height="138" alt="preview" />
+                                </div>
+                                <time-ago class="time" from-time="{{::e.time}}" format="mediumDate"></time-ago>
+                            </li>
+                        </ul>
+                        <div class="new-message">
+                            <a class="menu menu-item" plupload="cv.upload.url" plupload-options="cv.upload.options" plupload-callbacks="cv.upload.callbacks" href="#" ga-track-event="['chat', 'upload-file']">
+                                <md-icon md-svg-icon="u:file" class="attach"></md-icon>
+                            </a>
 
-                        <form name="chatDialog" novalidate ng-submit="cv.send()">
-                            <md-input-container md-no-float>
-                                @*autofocus fucks up iphone stuff. http://stackoverflow.com/questions/26146252/in-ios8-using-focus-will-show-virtual-keyboard-and-scroll-page-after-touch*@
-                                <textarea md-no-asterisk class="scrollbar _md" enter-submit="cv.send()" autocomplete="off" type="text" maxlength="16000" required ng-model="cv.newText" placeholder="@ChatResources.NewMessagePlaceholder"></textarea>
-                            </md-input-container>
-                            <button type="submit" class="action-btn no-text" ng-disabled="cv.disabled" ga-track-event="['chat', 'sent-message']">
-                                <md-icon md-svg-icon="u:post"></md-icon>
-                            </button>
-                        </form>
+                            <form name="chatDialog" novalidate ng-submit="cv.send()">
+                                <md-input-container md-no-float>
+                                    @*autofocus fucks up iphone stuff. http://stackoverflow.com/questions/26146252/in-ios8-using-focus-will-show-virtual-keyboard-and-scroll-page-after-touch*@
+                                    <textarea md-no-asterisk class="scrollbar _md" enter-submit="cv.send()" autocomplete="off" type="text" maxlength="16000" required ng-model="cv.newText" placeholder="@ChatResources.NewMessagePlaceholder"></textarea>
+                                </md-input-container>
+                                <button type="submit" class="action-btn no-text" ng-disabled="cv.disabled" ga-track-event="['chat', 'sent-message']">
+                                    <md-icon md-svg-icon="u:post"></md-icon>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
