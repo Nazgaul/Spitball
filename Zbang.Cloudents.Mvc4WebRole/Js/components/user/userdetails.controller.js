@@ -3,14 +3,16 @@ var app;
     'use strict';
     var UserDetailsController = (function () {
         function UserDetailsController(accountService, $scope, userDetailsFactory) {
+            var _this = this;
             this.accountService = accountService;
             this.$scope = $scope;
             this.userDetailsFactory = userDetailsFactory;
             var response = this.userDetailsFactory.get();
             if (response.id) {
+                var self = this;
                 this.assignValues(response);
                 $scope.$on('userDetailsChange', function () {
-                    this.assignValues(this.userDetailsFactory.get());
+                    self.assignValues(_this.userDetailsFactory.get());
                 });
             }
         }

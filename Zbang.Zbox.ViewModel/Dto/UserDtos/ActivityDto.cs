@@ -14,7 +14,8 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
         public Guid? PostId { get; set; }
 
         public DateTime CreationTime { get; set; }
-                        
+
+        public Guid DepartmentId { get; set; }                
 
         public string Url { get; set; }
     }
