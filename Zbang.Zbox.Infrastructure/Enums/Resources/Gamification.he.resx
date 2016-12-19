@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BadgeCreateQuizzes" xml:space="preserve">
-    <value>רב פתרן</value>
+    <value>בר מוח</value>
   </data>
   <data name="BadgeLikes" xml:space="preserve">
     <value>נשיקה מלנה</value>
@@ -139,7 +139,7 @@
     <value>חזק</value>
   </data>
   <data name="Level4" xml:space="preserve">
-    <value>חם</value>
+    <value>תותח</value>
   </data>
   <data name="Level5" xml:space="preserve">
     <value>אגדה</value>

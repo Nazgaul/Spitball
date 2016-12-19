@@ -356,17 +356,6 @@ md-menu-item > a.md-button {
 .box-nav-bar ~ div {
   margin: 0 -8px;
 }
-.box-nav-bar .md-tab .flashcard-title {
-  padding: 5px 15px;
-}
-.box-nav-bar .md-tab:not(.md-active) .flashcard-title {
-  border-radius: 5px;
-  background: #ebbc18;
-}
-.box-nav-bar .md-tab:not(.md-active):hover .flashcard-title {
-  background: #ffdc61;
-  color: #0d3a52;
-}
 .invite-btn {
   border-radius: 4px;
   text-transform: uppercase;
