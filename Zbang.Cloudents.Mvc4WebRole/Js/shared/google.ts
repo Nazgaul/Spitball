@@ -198,11 +198,11 @@ module app {
                     for (var i = 0, l = data[window["google"].picker.Response.DOCUMENTS].length; i < l; i++) {
 
                         doc = data[window["google"].picker.Response.DOCUMENTS][i];
-                       // if (doc.type === window["google"].picker.Type.DOCUMENT) {
+                        if (doc.type === window["google"].picker.Type.DOCUMENT) {
                             url = doc[window["google"].picker.Document.URL];
-                        //} else {
-                         //   url = 'https://drive.google.com/uc?id=' + doc.id;
-                        //}
+                        } else {
+                            url = 'https://drive.google.com/uc?id=' + doc.id;
+                        }
 
 
                         name = doc.name;

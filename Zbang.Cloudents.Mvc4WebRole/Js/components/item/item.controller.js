@@ -44,17 +44,17 @@ var app;
             this.itemService.followbox();
         };
         Item.prototype.getPreview = function () {
-            var _this = this;
-            this.loader = true;
-            return this.itemService.getPreview(this.details.blob, this.index, this.$stateParams.itemId, this.$stateParams.boxId).then(function (data) {
+            var self = this;
+            self.loader = true;
+            return self.itemService.getPreview(self.details.blob, self.index, self.$stateParams.itemId, self.$stateParams.boxId).then(function (data) {
                 data = data || {};
-                _this.loader = false;
+                self.loader = false;
                 if (data.template) {
-                    _this.view = "preview-" + data.template.toLowerCase() + ".html";
+                    self.view = "preview-" + data.template.toLowerCase() + ".html";
                     if (data.content) {
-                        _this.documents = _this.documents.concat(data.content);
+                        self.documents = self.documents.concat(data.content);
                         if (data.content > 3) {
-                            _this.needLoadMore = true;
+                            self.needLoadMore = true;
                         }
                     }
                     return;
@@ -64,13 +64,13 @@ var app;
                     if (preview.indexOf('iframe') > 0
                         || preview.indexOf('audio') > 0
                         || preview.indexOf('video') > 0) {
-                        _this.preview = _this.$sce.trustAsHtml(preview);
+                        self.preview = self.$sce.trustAsHtml(preview);
                     }
                     else {
-                        _this.view = "preview-" + preview.toLowerCase() + ".html";
-                        _this.documents = _this.documents.concat(data.content);
+                        self.view = "preview-" + preview.toLowerCase() + ".html";
+                        self.documents = self.documents.concat(data.content);
                         if (data.content > 15) {
-                            _this.needLoadMore = true;
+                            self.needLoadMore = true;
                         }
                     }
                 }
