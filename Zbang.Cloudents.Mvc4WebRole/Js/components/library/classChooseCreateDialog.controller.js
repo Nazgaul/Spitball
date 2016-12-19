@@ -59,7 +59,6 @@ var app;
                 };
                 department.boxes = department.boxes || [];
                 var z = angular.extend({}, box, { selected: true });
-                department.boxes.push(z);
                 angular.forEach(createObj, function (value, key) {
                     _this.create[key] = '';
                 });
