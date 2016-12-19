@@ -57,8 +57,8 @@ from quiz,item,answers,question,rate,invite,share
         {
             var sqlQuery = UnitOfWork.CurrentSession.CreateSQLQuery(@"declare @userid bigint = :userId, 
 @itemLikePoints int = :itemLikePoints,
-@itemView float = :itemView, 
-@itemDownload float = :itemDownload, 
+@itemView real = :itemView, 
+@itemDownload real = :itemDownload, 
 @quizView int = :quizView, 
 @quizSolve int = :quizSolve, 
 @quizLike int = :quizLike ,
@@ -118,8 +118,8 @@ select i.score + q.score +f.score + c.score + r.score + b.score
             sqlQuery.SetInt32("badge4", ReputationConst.BadgeUploadFiles);
             sqlQuery.SetInt32("badge5", ReputationConst.BadgeLikes);
 
-            var retVal = sqlQuery.UniqueResult<int>();
-            return retVal;
+            var retVal = sqlQuery.UniqueResult<float>();
+            return (int)retVal;
         }
 
 
