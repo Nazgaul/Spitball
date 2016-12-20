@@ -119,6 +119,7 @@
     <property name="NoOfItems" not-null="false"/>
     <property name="NoOfQuizzes" not-null="false"/>
     <property name="NoOfUsers" not-null="false"/>
+    <property name="NoOfFlashcards" not-null="false"/>
 
     <property name="FacebookUniId" />
     <property name="TextPopupUpper" not-null="false" length="8000"/>

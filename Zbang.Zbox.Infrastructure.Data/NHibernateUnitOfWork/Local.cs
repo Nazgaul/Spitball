@@ -3,6 +3,7 @@ using System.Collections;
 using System.Runtime.Remoting.Messaging;
 using System.Threading;
 using System.Web;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.UnitsOfWork;
 
 namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
@@ -23,29 +24,29 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 
                 get
                 {
-                    //if (!RunningInWeb)
-                    //{
-                    //    throw new NullReferenceException("You don't suppose to use this method in here since");
-                    //    if (_localData == null)
-                    //    {
-                    //        _localData = new Hashtable();
-                    //    }
-                    //    return _localData;
-                    //}
                     if (!RunningInWeb)
                     {
                         SemaphoreSlim.Wait();
                         //throw new NullReferenceException("You don't suppose to use this method in here since");
                         if (_localData != null)
                         {
-
+                            TraceLog.WriteInfo("_localData is not null setting logical set");
                             CallContext.LogicalSetData("LocalData_hash", _localData);
                             SemaphoreSlim.Release();
                             return _localData;
                         }
                         var hashTable = CallContext.LogicalGetData("LocalData_hash") as Hashtable;
-                        _localData = hashTable ?? new Hashtable();
-                        CallContext.LogicalSetData("LocalData_hash", _localData);
+                        if (hashTable == null)
+                        {
+                            _localData = new Hashtable();
+                            TraceLog.WriteInfo("creating new Hashtable");
+                            CallContext.LogicalSetData("LocalData_hash", _localData);
+                        }
+                        else
+                        {
+                            _localData = hashTable;
+                            TraceLog.WriteInfo("getting Hashtable from logicalGet");
+                        }
                         SemaphoreSlim.Release();
                         return _localData;
                     }

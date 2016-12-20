@@ -52,6 +52,7 @@ namespace Zbang.Zbox.Domain
         public virtual int NoOfItems { get; set; }
         public virtual int NoOfQuizzes { get; set; }
         public virtual int NoOfUsers { get; set; }
+        public virtual int NoOfFlashcards { get; set; }
 
         public virtual ICollection<Library> Libraries { get; protected set; }
 

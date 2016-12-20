@@ -213,15 +213,15 @@ namespace Testing
             //    Task.WaitAll(list.ToArray());
             //    index++;
             //} while (users.Any());
-            do
-            {
-                users = ReadService.GetUserReputationUpdate(index);
+            //do
+            //{
+            //    users = ReadService.GetUserReputationUpdate(index);
 
-                var list = new List<Task>();
-                list.Add(m_QueueRepository.InsertMessageToTranactionAsync(new ReputationData(users)));
-                Task.WaitAll(list.ToArray());
-                index++;
-            } while (users.Any());
+            //    var list = new List<Task>();
+            //    list.Add(m_QueueRepository.InsertMessageToTranactionAsync(new ReputationData(users)));
+            //    Task.WaitAll(list.ToArray());
+            //    index++;
+            //} while (users.Any());
             //var t1 = m_QueueRepository.InsertMessageToTranactionAsync(new ReputationData(tusers.Result));
             //var t2 = m_QueueRepository.InsertMessageToTranactionAsync(new FollowClassBadgeData(1));
             //var t3 = m_QueueRepository.InsertMessageToTranactionAsync(new CreateQuizzesBadgeData(1));
@@ -229,8 +229,10 @@ namespace Testing
             //var t5 = m_QueueRepository.InsertMessageToTranactionAsync(new LikesBadgeData(1));
 
             //Task.WaitAll(t1, t2, t3, t4, t5);
+           
+            var service = iocFactory.Resolve<IZboxWorkerRoleService>();
+            service.UpdateUniversityStats(DateTime.UtcNow.AddYears(-1));
             return;
-            //var service = iocFactory.Resolve<IZboxWorkerRoleService>();
             //service.OneTimeDbi();
             //var t = service.CheckEmailValidateAsync("exn5038@psu.edu");
             //var t = service.SendSpanGunEmailAsync("ariel@cloudents.com", "1",
