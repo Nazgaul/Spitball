@@ -26,11 +26,7 @@
 
                     Adsense.isAlreadyLoaded = true;
                 }
-                $scope.$on("$stateChangeStart",
-                    function () {
-                        console.log("here");
-                        $(".ads").remove();
-                    });
+               
                 /**
                  * We need to wrap the call the AdSense in a $apply to update the bindings.
                  * Otherwise, we get a 400 error because AdSense gets literal strings from the directive
