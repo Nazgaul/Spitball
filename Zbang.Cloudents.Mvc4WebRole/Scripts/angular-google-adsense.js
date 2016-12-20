@@ -26,6 +26,13 @@
 
                     Adsense.isAlreadyLoaded = true;
                 }
+                $scope.$on('$stateChangeStart', function () {
+                    Object.keys($window).filter(function (k) { return k.indexOf('google') >= 0 }).forEach(
+                      function (key) {
+                          delete ($window[key]);
+                      }
+                    );
+                });
                
                 /**
                  * We need to wrap the call the AdSense in a $apply to update the bindings.
