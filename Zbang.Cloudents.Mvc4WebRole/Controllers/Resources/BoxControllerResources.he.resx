@@ -135,4 +135,7 @@
   <data name="LinkNotFound" xml:space="preserve">
     <value>הקישור לא נמצא</value>
   </data>
+  <data name="GoogleShare" xml:space="preserve">
+    <value>הקישור שהעלת מוגדר לצפייה פרטית בלבד</value>
+  </data>
 </root>

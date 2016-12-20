@@ -18,7 +18,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
         public long BoxId { get; private set; }
         public override string ProcessResolver => nameof(BoxProcessData);
     }
-
+    [ProtoContract]
     public class BoxDeleteData : FileProcess
     {
         protected BoxDeleteData()

@@ -124,7 +124,7 @@
     <value>There seems to be an issue creating this new study group</value>
   </data>
   <data name="GoogleShare" xml:space="preserve">
-    <value>Please upload pulic link</value>
+    <value>Please upload public link</value>
   </data>
   <data name="LinkExists" xml:space="preserve">
     <value>One of your classmates has already posted this link</value>

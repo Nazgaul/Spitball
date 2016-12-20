@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please upload pulic link.
+        ///   Looks up a localized string similar to Please upload public link.
         /// </summary>
         internal static string GoogleShare {
             get {
