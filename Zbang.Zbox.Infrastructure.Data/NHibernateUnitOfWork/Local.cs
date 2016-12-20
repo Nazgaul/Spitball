@@ -71,7 +71,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                 {
                     if (key == null) throw new ArgumentNullException(nameof(key));
                     LocalHashtable[key] = value;
-                   
+
                 }
             }
 
@@ -82,6 +82,10 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             public void Clear()
             {
                 LocalHashtable.Clear();
+                if (!RunningInWeb)
+                {
+                    CallContext.LogicalSetData("LocalData_hash", null);
+                }
             }
         }
     }
