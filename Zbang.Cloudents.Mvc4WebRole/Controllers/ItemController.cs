@@ -386,7 +386,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [AsyncTimeout(TimeConst.Minute * 3 * 1000)]
         [JsonHandleError(HttpStatus = HttpStatusCode.BadRequest, ExceptionType = typeof(ArgumentException))]
         public async Task<JsonResult> PreviewAsync(string blobName, int index, long id,
-            long boxId, CancellationToken cancellationToken, int width = 0, int height = 0)
+            long boxId, CancellationToken cancellationToken)
         {
             Uri uri;
             if (!Uri.TryCreate(blobName, UriKind.Absolute, out uri))
@@ -407,7 +407,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             try
             {
-                var retVal = await processor.ConvertFileToWebsitePreviewAsync(uri, index * 3, cancellationToken);
+                var retVal = await processor.ConvertFileToWebsitePreviewAsync(uri, index, cancellationToken);
                 if (retVal.Content == null)
                 {
                     return JsonOk(new

@@ -56,16 +56,17 @@
             this.itemService.followbox();
         }
         getPreview() {
+            const amount = 15;
             var self = this;
             self.loader = true;
-            return self.itemService.getPreview(self.details.blob, self.index, self.$stateParams.itemId, self.$stateParams.boxId).then(data => {
+            return self.itemService.getPreview(self.details.blob, self.index * amount, self.$stateParams.itemId, self.$stateParams.boxId).then(data => {
                 data = data || {};
                 self.loader = false;
                 if (data.template) {
                     self.view = "preview-" + data.template.toLowerCase() + ".html";
                     if (data.content) {
                         self.documents = self.documents.concat(data.content);
-                        if (data.content > 3) {
+                        if (data.content.length >= amount) {
                             self.needLoadMore = true;
                         }
                     }
@@ -80,10 +81,10 @@
                         //self.document.push(self.$sce.trustAsHtml(preview));
                         self.preview = self.$sce.trustAsHtml(preview);
                     } else {
-
+                        // TODO: check why
                         self.view = "preview-" + preview.toLowerCase() + ".html";
                         self.documents = self.documents.concat(data.content);
-                        if (data.content > 15) {
+                        if (data.content.length > 15) {
                             self.needLoadMore = true;
                         }
 
@@ -168,9 +169,9 @@
             });
 
         }
-}
+    }
 
-angular.module('app.item').controller('ItemController', Item);
+    angular.module('app.item').controller('ItemController', Item);
 
 }
 

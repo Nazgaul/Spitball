@@ -49,16 +49,17 @@ var app;
             this.itemService.followbox();
         };
         Item.prototype.getPreview = function () {
+            var amount = 15;
             var self = this;
             self.loader = true;
-            return self.itemService.getPreview(self.details.blob, self.index, self.$stateParams.itemId, self.$stateParams.boxId).then(function (data) {
+            return self.itemService.getPreview(self.details.blob, self.index * amount, self.$stateParams.itemId, self.$stateParams.boxId).then(function (data) {
                 data = data || {};
                 self.loader = false;
                 if (data.template) {
                     self.view = "preview-" + data.template.toLowerCase() + ".html";
                     if (data.content) {
                         self.documents = self.documents.concat(data.content);
-                        if (data.content > 3) {
+                        if (data.content.length >= amount) {
                             self.needLoadMore = true;
                         }
                     }
@@ -74,7 +75,7 @@ var app;
                     else {
                         self.view = "preview-" + preview.toLowerCase() + ".html";
                         self.documents = self.documents.concat(data.content);
-                        if (data.content > 15) {
+                        if (data.content.length > 15) {
                             self.needLoadMore = true;
                         }
                     }
