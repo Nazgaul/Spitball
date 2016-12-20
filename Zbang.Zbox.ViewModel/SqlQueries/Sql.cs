@@ -47,7 +47,7 @@ where uWrap.Id = @UniversityId";
         /// <summary>
         /// Mobile api - bring user comment and reply activity in user screen
         /// </summary>
-        public const string UserQuestionAndAnswersActivityMobileApi = @"select t.BoxId as BoxId, t.Text as Content, t.BoxName as boxName, t.QuestionId as Id,t.CreationTime,  t.Type, t.PostId, t.Url,t.LibraryId from (
+        public const string UserQuestionAndAnswersActivityMobileApi = @"select t.BoxId as BoxId, t.Text as Content, t.BoxName as boxName, t.QuestionId as Id,t.CreationTime,  t.Type, t.PostId, t.Url,t.LibraryId as DepartmentId  from (
 	select b.boxid, q.Text, b.BoxName,q.QuestionId,'comment' as Type, q.CreationTime, null as PostId, b.Url,b.LibraryId
                           from zbox.Question q
                          join zbox.box b on b.BoxId = q.BoxId and b.IsDeleted = 0
