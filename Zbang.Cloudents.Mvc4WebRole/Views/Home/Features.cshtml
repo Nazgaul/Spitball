@@ -25,7 +25,7 @@
                 <a href="@Url.RouteUrl("Courses")" class="lowercase">@GeneralResources.Courses</a>
                 @StaticPagesResources.FeaturesSectionText5E
             </div>
-            <img src="@Url.CdnContent("https://zboxstorage.blob.core.windows.net/zboxhelp/uni_" + System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName + ".png")" alt="Spitball's Schools" />
+            <img src="@string.Format("https://zboxstorage.blob.core.windows.net/zboxhelp/uni_{0}.png",System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName)" alt="Spitball's Schools" />
         </section>
         <section id="courses">
             <h3>@GeneralResources.Courses</h3>
