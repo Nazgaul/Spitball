@@ -44,7 +44,7 @@
             this.getPreview();
             this.document = itemData.fileContent;
             if (!this.details.like && user.id) {
-                promise = $timeout(() => { this.showLikeToaster() }, 2000);
+                promise = $timeout(() => { this.showLikeToaster() }, 10000);
             }
             this.$scope.$on('$destroy', () => {
                 $timeout.cancel(promise);

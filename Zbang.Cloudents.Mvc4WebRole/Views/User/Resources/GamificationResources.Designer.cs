@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For a whopping 1500 points, like 50 posts or docs that you think are of great value.
+        ///   Looks up a localized string similar to For a whopping 1500 points, like 50 posts or docs that you think are of great value..
         /// </summary>
         public static string BadgeLikesDescription {
             get {
