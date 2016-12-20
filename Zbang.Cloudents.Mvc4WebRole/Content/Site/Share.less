@@ -396,26 +396,33 @@
         }
     }*/
     &.upload {
-        .portlet-title {
-            color: @textColorWhite;
-        }
+        .title {
+            .displayFlex();
+            .align-items(center);
+            .justifyContet(space-between);
 
-        button.close {
-            background: transparent;
-            top: 0;
-            position: absolute;
-            right: 0;
-            padding: 8px 15px;
-            margin: 0 auto;
-
-            &:active:hover {
-                background: transparent;
+            .caption {
+                color: @textColorWhite;
+                font-size: 18px;
             }
 
-            svg {
-                fill: @textColorWhite;
-                width: 15px;
-                height: 15px;
+            button.close {
+                background: transparent;
+                margin: 0 auto;
+
+                &:active:hover {
+                    background: transparent;
+                }
+
+                svg {
+                    fill: @textColorWhite;
+                    width: 15px;
+                    height: 15px;
+                }
+            }
+
+            .caption, button.close {
+                padding: 8px 15px;
             }
         }
     }

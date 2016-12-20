@@ -13,7 +13,7 @@
             <div class="top">
                 <div class="name" color-parent="{{::e.departmentId}}">
                     <span class="box-letters background child-color" ng-bind="::e.boxName.substr(0,2) | lowercase"></span>
-                    <span class="post-headline child-color" ng-bind="::e.boxName"></span>
+                    <span class="post-headline child-color ellipsis" ng-bind="::e.boxName"></span>
                 </div>
                 <time-ago class="time-ago" from-time="{{::e.creationTime }}" format="mediumDate"></time-ago>
             </div>

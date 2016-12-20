@@ -1,9 +1,12 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
 <div id="upload" class="portlet invite box upload" ng-controller="Upload as u">
-    <div class="portlet-title">
+    <div class="title">
         <div class="caption">
             @IndexResources.UploadFiles
+        </div>
+        <div>
+            <button type="button" class="close" ng-click="u.closeUpload()"><md-icon md-svg-icon="t:close"></md-icon>@*@Html.Svg("~/images/site/icons.svg", "close")*@</button>
         </div>
     </div>
     <div class="portlet-body form" id="uploadSection">
@@ -103,7 +106,6 @@
                         </form>
                     </div>
                 </div>
-                <button type="button" class="close" ng-click="u.closeUpload()"><md-icon md-svg-icon="t:close"></md-icon>@*@Html.Svg("~/images/site/icons.svg", "close")*@</button>
             </div>
         </div>
     </div>

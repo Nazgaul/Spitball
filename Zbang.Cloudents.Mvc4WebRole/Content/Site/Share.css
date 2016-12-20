@@ -384,24 +384,34 @@
 .invite.light {
   margin: 0;
 }
-.invite.upload .portlet-title {
-  color: #ffffff;
+.invite.upload .title {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
 }
-.invite.upload button.close {
+.invite.upload .title .caption {
+  color: #ffffff;
+  font-size: 18px;
+}
+.invite.upload .title button.close {
   background: transparent;
-  top: 0;
-  position: absolute;
-  right: 0;
-  padding: 8px 15px;
   margin: 0 auto;
 }
-.invite.upload button.close:active:hover {
+.invite.upload .title button.close:active:hover {
   background: transparent;
 }
-.invite.upload button.close svg {
+.invite.upload .title button.close svg {
   fill: #ffffff;
   width: 15px;
   height: 15px;
+}
+.invite.upload .title .caption,
+.invite.upload .title button.close {
+  padding: 8px 15px;
 }
 .invite .tab-content .buttons {
   margin-top: 15px;

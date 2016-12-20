@@ -665,6 +665,7 @@
 }
 .userPage .post-data > div {
   width: 100%;
+  overflow: hidden;
 }
 .userPage .post-data .top {
   display: -webkit-flex;
@@ -684,6 +685,7 @@
   align-items: center;
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
+  min-width: 0;
 }
 .userPage .post-data .top .name .box-letters {
   color: #ffffff;
@@ -694,6 +696,7 @@
   text-transform: capitalize;
   text-align: center;
   margin-left: 10px;
+  flex-shrink: 0;
 }
 .userPage .post-data .top .name .post-headline {
   text-transform: capitalize;
@@ -708,6 +711,7 @@
 .userPage .post-data .time-ago {
   font-size: 11px;
   color: #888b8e;
+  flex-shrink: 0;
 }
 .userPage .profile-content {
   max-width: 1040px;

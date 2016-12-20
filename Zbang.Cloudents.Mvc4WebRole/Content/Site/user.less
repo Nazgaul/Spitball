@@ -675,6 +675,7 @@
 
         > div {
             width: 100%;
+            overflow: hidden;
         }
 
         .top {
@@ -687,6 +688,7 @@
                 .displayFlex();
                 .align-items(center);
                 .justifyContet(flex-start);
+                min-width: 0;
 
                 .box-letters {
                     color: @textColorWhite;
@@ -697,6 +699,7 @@
                     text-transform: capitalize;
                     text-align: center;
                     margin-right: 10px;
+                    flex-shrink: 0;
                 }
 
                 .post-headline {
@@ -717,6 +720,7 @@
         .time-ago {
             font-size: 11px;
             color: @textColorGrey;
+            flex-shrink: 0;
         }
     }
 
