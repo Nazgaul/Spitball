@@ -415,6 +415,8 @@
             //postId = post;
             externalUploadProvider.google(boxId, null, true).then(function (response2) {
                 externalUploadComplete(response2, post);
+            }, function (response) {
+                self.showToasterService.showToaster(response, 'uploadSection');
             });
         }
         function dropbox(post) {

@@ -164,7 +164,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 s.Content,
                 s.CreationTime,
                 s.BoxName,
-                s.Url
+                s.Url,
+                s.DepartmentId
             }));
         }
 
