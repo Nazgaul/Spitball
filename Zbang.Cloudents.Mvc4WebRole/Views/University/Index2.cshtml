@@ -58,8 +58,8 @@
             <div class="status" layout="row" layout-align="space-between center">
                 <div class="status-title">
                     <ng-pluralize count="dep.noBoxes"
-                                  when="{'one': '@GeneralResources.SingleCourse',
-                                          'other': '{{::dep.noBoxes}} @GeneralResources.Courses'}">
+                                  when="{'one': '{} @GeneralResources.SingleCourse',
+                                          'other': '{} @GeneralResources.Courses'}">
                     </ng-pluralize>
                 </div>
                 <div ng-if="::dep.state === 'closed'">

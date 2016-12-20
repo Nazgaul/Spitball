@@ -65,13 +65,19 @@ var app;
             var _this = this;
             return this.userService.leaderboard(this.$state.params["userId"], this.leaderboardPage)
                 .then(function (response) {
+                var highScore = response[0].score;
+                if (_this.leaderboard.length) {
+                    highScore = _this.leaderboard[0].score;
+                }
                 for (var i = 0; i < response.length; i++) {
                     var elem = response[i];
                     if (i === 0) {
-                        elem.progress = _this.leaderboard[_this.leaderboard.length - 1] || 100;
-                        continue;
+                        if (!_this.leaderboard.length) {
+                            elem.progress = 100;
+                            continue;
+                        }
                     }
-                    elem.progress = elem.score / response[0].score * 100;
+                    elem.progress = elem.score / highScore * 100;
                 }
                 if (_this.leaderboardPage) {
                     _this.leaderboard = _this.leaderboard.concat(response);

@@ -10,6 +10,7 @@ namespace Zbang.Zbox.Domain.DataAccess
         public int BoxesCount { get; set; }
         public int ItemsCount { get; set; }
         public int QuizzesCount { get; set; }
+        public int FlashcardCount { get; set; }
 
 
     }
@@ -23,9 +24,9 @@ namespace Zbang.Zbox.Domain.DataAccess
                             .RowCount();
         }
 
-        
 
-       
+
+
 
         public UniversityStats GetStats(long universityId)
         {
@@ -35,7 +36,7 @@ namespace Zbang.Zbox.Domain.DataAccess
                  .Select(Projections.RowCount())
                  .FutureValue<int>();
 
-            
+
 
             var countFuture = UnitOfWork.CurrentSession.QueryOver<AcademicBox>()
                 .Where(w => w.University.Id == universityId)
@@ -43,7 +44,7 @@ namespace Zbang.Zbox.Domain.DataAccess
                 .SelectList(list => list
                     .SelectSum(s => s.QuizCount)
                     .SelectSum(s => s.ItemCount)
-                    .SelectSum(s=> s.FlashcardCount)
+                    .SelectSum(s => s.FlashcardCount)
                     .Select(Projections.RowCount())
                 ).FutureValue<object[]>();
 
@@ -51,9 +52,10 @@ namespace Zbang.Zbox.Domain.DataAccess
             var boxStats = countFuture.Value;
             return new UniversityStats
             {
-                BoxesCount = (int?) boxStats[2] ?? 0,
-                ItemsCount = (int?) boxStats[1] ?? 0,
-                QuizzesCount = (int?) boxStats[0] ?? 0,
+                FlashcardCount = (int?)boxStats[2] ?? 0,
+                ItemsCount = (int?)boxStats[1] ?? 0,
+                QuizzesCount = (int?)boxStats[0] ?? 0,
+                BoxesCount = (int?)boxStats[3] ?? 0,
                 UsersCount = usersCount
             };
 

@@ -31,7 +31,7 @@ uWrap.LargeImage as Logo,
 uWrap.BackgroundImage as Cover,
 uWrap.NoOfBoxes as Boxes,
 uWrap.NoOfUsers as Users,
-uWrap.NoOfItems + uWrap.NoOfQuizzes as Items,
+uWrap.NoOfItems + uWrap.NoOfQuizzes + coalesce(uWrap.NoOfFlashcards,0) as Items,
 uWrap.VideoBackgroundColor as BtnColor,
 uWrap.VideoFontColor as BtnFontColor,
 uWrap.HeaderBackgroundColor as StripColor

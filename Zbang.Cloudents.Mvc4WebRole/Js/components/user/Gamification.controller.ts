@@ -9,12 +9,12 @@
         leaderboard: Array<any> = [];
         //leaderboardMyself = true;
         leaderboardPage = 0;
-       
+
         constructor(private $state: angular.ui.IStateService,
             private $scope: angular.IScope,
             private userService: IUserService
-             
-            ) {
+
+        ) {
             $scope["$state"] = this.$state;
             if (!$state.params["type"]) {
                 this.$state.go($state.current.name, { type: "level" });
@@ -33,7 +33,7 @@
                 });
 
             //const user = this.userDetailsFactory.get();
-            
+
         }
         isActive(state) {
             return this.$state.params["type"] === state;
@@ -75,13 +75,24 @@
         private communityTab() {
             return this.userService.leaderboard(this.$state.params["userId"], this.leaderboardPage)
                 .then((response: Array<any>) => {
+                    //var progress = 100;
+                    //if (this.leaderboard.length) {
+                    //    progress = this.leaderboard[this.leaderboard.length - 1].progress;
+                    //}
+                    var highScore = response[0].score;
+                    if (this.leaderboard.length) {
+                        highScore = this.leaderboard[0].score;
+                    }
                     for (let i = 0; i < response.length; i++) {
                         const elem = response[i];
                         if (i === 0) {
-                            elem.progress = this.leaderboard[this.leaderboard.length - 1] || 100;
-                            continue;
+                            if (!this.leaderboard.length) {
+                                elem.progress = 100;
+                                continue;
+                            }
+                           // elem.progress = this.leaderboard[this.leaderboard.length - 1].progress || 100;
                         }
-                        elem.progress = elem.score / response[0].score * 100;
+                        elem.progress = elem.score / highScore * 100;
                     }
                     if (this.leaderboardPage) {
                         this.leaderboard = this.leaderboard.concat(response);
