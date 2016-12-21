@@ -17,6 +17,7 @@ select
  ,b.OwnerId as OwnerId
  ,b.Discriminator as BoxType
  ,b.CreationTime as Date
+ ,b.LibraryId as DepartmentId
  ,(CASE 
       WHEN b.Discriminator is null THEN (select username from zbox.Users where userid = b.ownerid)
       Else (select universityname from zbox.university where id = b.university) 

@@ -33,6 +33,7 @@ namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
 
         public BoxType BoxType { get; set; }//new
 
+        public Guid? DepartmentId { get; set; }
         //public string ShortUrl { get; set; }
 
        
