@@ -5,7 +5,7 @@ var app;
             this.ajaxService2 = ajaxService2;
         }
         Flashcard.prototype.create = function (model, boxId) {
-            return this.ajaxService2.post("/flashcard/", { model: model, boxId: boxId });
+            return this.ajaxService2.post("/flashcard/", { model: model, boxId: boxId }, "boxData");
         };
         Flashcard.prototype.get = function (id, boxId) {
             return this.ajaxService2.get("/flashcard/data/", { id: id, boxId: boxId });

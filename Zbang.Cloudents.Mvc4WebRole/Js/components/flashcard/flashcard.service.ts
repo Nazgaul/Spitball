@@ -21,7 +21,7 @@
         
         }
         create(model, boxId: number) {
-            return this.ajaxService2.post("/flashcard/", { model: model, boxId: boxId });
+            return this.ajaxService2.post("/flashcard/", { model: model, boxId: boxId }, "boxData");
         }
         get(id: number, boxId: number) {
             return this.ajaxService2.get("/flashcard/data/", { id: id, boxId:boxId});

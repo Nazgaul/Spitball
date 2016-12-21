@@ -104,11 +104,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     await ProcessIntercomAsync(cancellationToken);
                     sw.Stop();
                     mailContent.AppendLine($"process intercom finish and took {sw.ElapsedMilliseconds}");
-                    //sw.Restart();
-                    //var counter = m_ZboxWorkerRoleService.DeleteOldUpdates();
-                    //sw.Stop();
-
-                    //mailContent.AppendLine($"delete old updates number: {counter} and took {sw.ElapsedMilliseconds}");
                     await RenewLeaseAsync(cancellationToken);
                     sw.Restart();
                     m_ZboxWorkerRoleService.UpdateUniversityStats(m_DateTime);
@@ -168,6 +163,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             return m_Blob.RenewLeaseAsync(new AccessCondition { LeaseId = m_LeaseId }, cancellationToken);
         }
+        
 
         private async Task<CloudBlockBlob> ReadBlobDataAsync(CancellationToken cancellationToken)
         {
@@ -176,7 +172,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var blob = m_CloudBlockProvider.GetFile("sendGridApiQuery", "zboxidgenerator");
             if (!await blob.ExistsAsync(cancellationToken))
             {
-
                 await blob.UploadTextAsync(m_DateTime.ToFileTimeUtc().ToString(), cancellationToken);
             }
             else

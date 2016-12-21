@@ -5,12 +5,12 @@
         'itemThumbnailService',
         'user', 'userUpdatesService', '$mdDialog', '$scope', '$rootScope',
         'resManager', 'routerHelper', '$filter', 'feedData',
-        'updates', "$q", "$window", "likes", "$state"];
+        'updates', "$q", "$window", "likes", "$state", "showToasterService"];
 
     function feed(boxService, $stateParams, $timeout, externalUploadProvider,
         itemThumbnailService, user, userUpdatesService,
         $mdDialog, $scope, $rootScope, resManager, routerHelper,
-        $filter, feedData, updates, $q, $window, likes, $state) {
+        $filter, feedData, updates, $q, $window, likes, $state,showToasterService) {
         var self = this, boxId = parseInt($stateParams.boxId, 10), top = 30;
 
         self.add = {
@@ -416,7 +416,7 @@
             externalUploadProvider.google(boxId, null, true).then(function (response2) {
                 externalUploadComplete(response2, post);
             }, function (response) {
-                self.showToasterService.showToaster(response, 'uploadSection');
+                showToasterService.showToaster(response, 'uploadSection');
             });
         }
         function dropbox(post) {

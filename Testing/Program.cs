@@ -145,7 +145,7 @@ namespace Testing
             .InstancePerLifetimeScope();
 
             unity.Build();
-
+           
             //var x = new Zbang.Zbox.Infrastructure.IdGenerator.IdGenerator();
             //var y = x.GetId();
             //var x = TestMediaServices();
@@ -173,7 +173,11 @@ namespace Testing
             //log4net.Config.XmlConfigurator.Configure();
 
             var iocFactory = IocFactory.IocWrapper;
-            var ReadService = iocFactory.Resolve<IZboxReadServiceWorkerRole>();
+            var push = iocFactory.Resolve<ISendPush>();
+           var t =  push.GetRegisteredUsersAsync();
+            t.Wait();
+            return;
+           var ReadService = iocFactory.Resolve<IZboxReadServiceWorkerRole>();
             var m_QueueRepository = iocFactory.Resolve<IQueueProvider>();
             var index = 0;
             IEnumerable<long> users;
@@ -230,8 +234,8 @@ namespace Testing
 
             //Task.WaitAll(t1, t2, t3, t4, t5);
            
-            var service = iocFactory.Resolve<IZboxWorkerRoleService>();
-            service.UpdateUniversityStats(DateTime.UtcNow.AddYears(-1));
+            //var service = iocFactory.Resolve<IZboxWorkerRoleService>();
+            //service.UpdateUniversityStats(DateTime.UtcNow.AddYears(-1));
             return;
             //service.OneTimeDbi();
             //var t = service.CheckEmailValidateAsync("exn5038@psu.edu");

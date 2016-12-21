@@ -102,7 +102,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     Name = result2.File.Name,
                     OwnerId = result2.File.User.Id,
                     Source = result2.File.ItemContentUrl,
-                    Owner = result2.File.User.Name,
+                    //Owner = result2.File.User.Name,
                     Date = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc),
 
                 };
@@ -320,7 +320,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     Name = result2.Link.Name,
                     OwnerId = result2.Link.User.Id,
                     Source = result2.Link.ItemContentUrl,
-                    Owner = result2.Link.User.Name,
+                    //Owner = result2.Link.User.Name,
                     Date = DateTime.UtcNow,
                     //Url = result2.Link.Url,
                     //DownloadUrl =
@@ -398,7 +398,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     Name = result2.Link.Name,
                     OwnerId = result2.Link.User.Id,
                     Source = result2.Link.ItemContentUrl,
-                    Owner = result2.Link.User.Name,
+                    //Owner = result2.Link.User.Name,
                     Date = DateTime.UtcNow,
                 };
 
@@ -456,7 +456,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 Name = result2.File.Name,
                 OwnerId = result2.File.User.Id,
                 Source = result2.File.ItemContentUrl,
-                Owner = result2.File.User.Name,
+                //Owner = result2.File.User.Name,
                 Date = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc),
             };
             if (model.TabId.HasValue)

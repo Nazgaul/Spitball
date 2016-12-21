@@ -113,6 +113,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }
             NotificationHubClient hub = NotificationHubClient.CreateClientFromConnectionString(ConfigFetcher.Fetch("MS_NotificationHubConnectionString"), ConfigFetcher.Fetch("MS_NotificationHubName"));
 
+
             var registrations = await hub.GetRegistrationsByTagAsync(User.GetUserId().ToString(), 10);
             var tasks = new List<Task>();
             foreach (var registration in registrations)

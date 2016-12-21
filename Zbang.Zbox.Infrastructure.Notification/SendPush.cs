@@ -230,6 +230,13 @@ namespace Zbang.Zbox.Infrastructure.Notifications
         }
 
 
-       
+        public async Task GetRegisteredUsersAsync()
+        {
+            var data = await m_Hub.GetAllRegistrationsAsync(50);
+            foreach (var registrationDescription in data)
+            {
+                
+            }
+        }
     }
 }
