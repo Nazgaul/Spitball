@@ -30,5 +30,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         Task SendChatMessageNotificationAsync(string userNameOfAction,
             string text, Guid conversationId,
             IList<long> userIds);
+
+        Task GetRegisteredUsersAsync();
     }
 }

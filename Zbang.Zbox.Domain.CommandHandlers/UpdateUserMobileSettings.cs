@@ -21,8 +21,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             user.MobileDevice = message.OperatingSystem;
             user.LastAccessTime = DateTime.UtcNow;
             m_UserRepository.Save(user);
-            //m_UserRepository.RegisterUserNotification(message.UserId, message.OperatingSystem);
-
         }
     }
 }
