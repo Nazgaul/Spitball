@@ -10,7 +10,7 @@
     }
 
     class Leaderboard {
-        static $inject = ["boxService", "$stateParams", "$mdDialog", "userDetailsFactory"];
+        static $inject = ["boxService", "$stateParams", "$mdDialog", "userDetailsFactory", "$scope"];
         leaderboard;
         leaderboardUser: IUserGamification;
         //leaderboardMyself = true;
@@ -18,8 +18,13 @@
             private boxService: IBoxService,
             private $stateParams: spitaball.ISpitballStateParamsService,
             private $mdDialog: angular.material.IDialogService,
-            private userDetailsFactory: IUserDetailsFactory) {
+            private userDetailsFactory: IUserDetailsFactory,
+            private $scope: angular.IScope) {
             this.leaderBoard();
+
+            $scope.$on("$destroy", () => {
+                this.close();
+            });
         }
         private leaderBoard() {
             const user = this.userDetailsFactory.get();
