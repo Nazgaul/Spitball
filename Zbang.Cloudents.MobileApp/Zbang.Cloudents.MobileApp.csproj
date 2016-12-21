@@ -283,6 +283,7 @@
     <Compile Include="Controllers\CustomRegistrationController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
+    <Compile Include="Controllers\FlashcardController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\QuizController.cs" />

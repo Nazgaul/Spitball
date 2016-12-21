@@ -45,7 +45,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         {
             try
             {
-
                 var query = new GetBoxQuery(id);
                 var tResult = m_ZboxReadService.GetBoxMetaWithMembersAsync(query, numberOfPeople);
                 var tUserType = m_ZboxReadSecurityService.GetUserStatusToBoxAsync(id, User.GetUserId());
@@ -77,7 +76,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 return Request.CreateNotFoundResponse();
             }
-
         }
 
         [HttpPost]
@@ -103,7 +101,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                     result.Id,
                     shortUrl = UrlConst.BuildShortBoxUrl(new Base62(result.Id).ToString())
                 });
-
             }
             catch (BoxNameAlreadyExistsException)
             {
@@ -174,7 +171,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         }
 
         [HttpGet]
-        [Route("api/box/{id:long}/quizzes"), ActionName("Quizzes")]
+        [Route("api/box/{id:long}/quizzes")]
         public async Task<HttpResponseMessage> QuizzesAsync(long id, int page, int sizePerPage = 20)
         {
             var query = new GetBoxQuizesPagedQuery(id, page, sizePerPage);
@@ -184,7 +181,37 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 s.Name,
                 s.Id
             }));
+        }
+        [HttpGet]
+        [Route("api/box/{id:long}/flashcards")]
+        public async Task<HttpResponseMessage> FlashcardAsync(long id, int page, int sizePerPage = 20)
+        {
+            var query = new GetFlashCardsQuery(id);
+            var result = await m_ZboxReadService.GetBoxFlashcardsAsync(query);
+            return Request.CreateResponse(result.Where(w => w.Publish).Select(s => new
+            {
+                s.Name,
+                s.Id
+            }));
+            //var userid = User.GetUserId(false);
+            //var data = result.Where(w => w.Publish || w.OwnerId == userid).Select(s => new
+            //{
+            //    s.Id,
+            //    s.Name,
+            //    s.NumOfViews,
+            //    s.Publish,
+            //    s.OwnerId,
+            //    s.Likes
+            //});
 
+            //return JsonOk(data);
+            //var query = new GetBoxQuizesPagedQuery(id, page, sizePerPage);
+            //var result = await m_ZboxReadService.GetBoxQuizesAsync(query);
+            //return Request.CreateResponse(result.Where(w => w.Publish).Select(s => new
+            //{
+            //    s.Name,
+            //    s.Id
+            //}));
         }
 
         [HttpGet, Route("api/box/{id:long}/members"), ActionName("Members")]
