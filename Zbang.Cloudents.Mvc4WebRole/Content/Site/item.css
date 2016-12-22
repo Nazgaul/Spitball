@@ -215,7 +215,8 @@ md-menu-item.blue svg {
 .itemPage .fileName .flag-form {
   max-width: 430px;
 }
-.itemPage .fileName .flag-form .title {
+.itemPage .fileName .flag-form .title,
+.itemPage .fileName .flag-form input {
   color: #212325;
 }
 .itemPage .fileName .rename-form {
