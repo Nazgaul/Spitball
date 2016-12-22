@@ -269,7 +269,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     result.Quizes,
                     result.UserType
                     
-                };
+                });
             }
             catch (BoxAccessDeniedException)
             {

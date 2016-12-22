@@ -231,14 +231,16 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         }
         [HttpGet]
         [Route("api/box/{id:long}/flashcards")]
-        public async Task<HttpResponseMessage> FlashcardAsync(long id, int page, int sizePerPage = 20)
+        public async Task<HttpResponseMessage> FlashcardsAsync(long id, int page, int sizePerPage = 20)
         {
             var query = new GetFlashCardsQuery(id);
             var result = await m_ZboxReadService.GetBoxFlashcardsAsync(query);
             return Request.CreateResponse(result.Where(w => w.Publish).Select(s => new
             {
                 s.Name,
-                s.Id
+                s.Id,
+                s.Likes,
+                s.NumOfViews
             }));
             //var userid = User.GetUserId(false);
             //var data = result.Where(w => w.Publish || w.OwnerId == userid).Select(s => new

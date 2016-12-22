@@ -77,6 +77,7 @@
                     if (preview.indexOf('iframe') > 0
                         || preview.indexOf('audio') > 0
                         || preview.indexOf('video') > 0
+                        || preview.indexOf('a') > 0
                         /*|| preview.indexOf('previewFailed') > 0*/) {
                         //self.document.push(self.$sce.trustAsHtml(preview));
                         self.preview = self.$sce.trustAsHtml(preview);

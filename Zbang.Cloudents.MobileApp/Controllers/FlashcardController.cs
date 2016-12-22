@@ -58,7 +58,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 values.Cards,
                 values.Name,
-                values.UserId,
+                //values.UserId,
                 tUserValues.Result.Pins,
                 tUserValues.Result.Like,
                 tUserValues.Result.OwnerName
