@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
 using Zbang.Cloudents.MobileApp.DataObjects;
+using Zbang.Cloudents.MobileApp.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
@@ -40,12 +41,13 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         //[VersionedRoute("api/box", 2)]
         [HttpGet]
-        [Route("api/box"), ActionName("GetBox")]
+        [VersionedRoute("api/box", 1)]
         public async Task<HttpResponseMessage> GetBoxAsync(long id, int numberOfPeople = 6)
         {
             try
             {
                 var query = new GetBoxQuery(id);
+                //TODO we can remove this.
                 var tResult = m_ZboxReadService.GetBoxMetaWithMembersAsync(query, numberOfPeople);
                 var tUserType = m_ZboxReadSecurityService.GetUserStatusToBoxAsync(id, User.GetUserId());
                 await Task.WhenAll(tResult, tUserType);
@@ -63,6 +65,51 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                     result.Members,
                     result.Items,
                     result.People
+
+                });
+            }
+            catch (BoxAccessDeniedException)
+            {
+
+                TraceLog.WriteInfo($"userid: {User.GetUserId()} request box {id}");
+                return Request.CreateUnauthorizedResponse();
+            }
+            catch (BoxDoesntExistException)
+            {
+                return Request.CreateNotFoundResponse();
+            }
+        }
+
+        [VersionedRoute("api/box", 2)]
+        [HttpGet]
+        public async Task<HttpResponseMessage> GetBoxAsync(long id)
+        {
+            try
+            {
+                //var query = new GetBoxQuery(id);
+                var query = new GetBoxQuery(id);
+                var tResult = m_ZboxReadService.GetBox2Async(query);
+
+
+                //TODO we can remove this.
+                //var tResult = m_ZboxReadService.GetBoxMetaWithMembersAsync(query, numberOfPeople);
+                var tUserType = m_ZboxReadSecurityService.GetUserStatusToBoxAsync(id, User.GetUserId());
+                await Task.WhenAll(tResult, tUserType);
+                var result = tResult.Result;
+                result.UserType = tUserType.Result;
+
+                return Request.CreateResponse(new
+                {
+                    result.Name,
+                    result.BoxType,
+                    result.UserType,
+                    Professor = result.ProfessorName,
+                    CourseCode = result.CourseId,
+                    ShortUrl = UrlConst.BuildShortBoxUrl(new Base62(id).ToString()),
+                    result.Members,
+                    result.Items,
+                    result.DepartmentId
+                    //result.People
 
                 });
             }

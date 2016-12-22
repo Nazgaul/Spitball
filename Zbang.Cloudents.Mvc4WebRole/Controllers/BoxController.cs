@@ -234,8 +234,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var query = new GetBoxQuery(id);
                 var result = await ZboxReadService.GetBox2Async(query);
                 result.UserType = ViewBag.UserType;
-                //result.ShortUrl = UrlConst.BuildShortBoxUrl(new Base62(id).ToString());
-
                 if (IsCrawler())
                 {
                     return JsonOk(new
@@ -250,12 +248,28 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         result.OwnerId,
                         result.PrivacySetting,
                         result.Quizes,
-                        //result.ShortUrl,
                         result.UserType
                     });
                 }
 
-                return JsonOk(result);
+                //TODO: check what we can remove
+                return JsonOk(new
+                {
+                    result.BoxType,
+                    result.CourseId,
+                    result.Date,
+                    result.Feeds,
+                    result.Items,
+                    result.Members,
+                    result.Name,
+                    result.OwnerId,
+                    result.OwnerName,
+                    result.PrivacySetting,
+                    result.ProfessorName,
+                    result.Quizes,
+                    result.UserType
+                    
+                };
             }
             catch (BoxAccessDeniedException)
             {
