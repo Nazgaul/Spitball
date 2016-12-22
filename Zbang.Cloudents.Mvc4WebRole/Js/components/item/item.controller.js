@@ -70,7 +70,7 @@ var app;
                     if (preview.indexOf('iframe') > 0
                         || preview.indexOf('audio') > 0
                         || preview.indexOf('video') > 0
-                        || preview.indexOf('a') > 0) {
+                        || preview.indexOf('<a') >= 0) {
                         self.preview = self.$sce.trustAsHtml(preview);
                     }
                     else {

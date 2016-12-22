@@ -13,6 +13,7 @@ using Zbang.Zbox.ViewModel.Queries;
 namespace Zbang.Cloudents.MobileApp.Controllers
 {
     [MobileAppController]
+    [Authorize]
     public class FlashcardController : ApiController
     {
         private readonly IQueueProvider m_QueueProvider;
@@ -29,7 +30,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         }
 
         // GET api/Flashcard
-        public async Task<HttpResponseMessage> Get(long id, long boxId)
+        public async Task<HttpResponseMessage> Get(long id)
         {
             var userId = User.GetUserId(false);
             var tTransAction = m_QueueProvider.InsertMessageToTranactionAsync(
