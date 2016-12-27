@@ -614,6 +614,7 @@ OPTION (TABLE HINT(s, INDEX ([students_shouldsend2])),Recompile);";
             {
                 return conn.Query<long>(
                     @"select distinct u.userid from zbox.Users u join zbox.UserBoxRel ub on u.UserId = ub.UserId
+except select userid from zbox.badge where name = 2 and progress = 100
  order by u.userid
  offset @page*100 ROWS
     FETCH NEXT 100 ROWS ONLY;", new { page });
@@ -626,6 +627,7 @@ OPTION (TABLE HINT(s, INDEX ([students_shouldsend2])),Recompile);";
             {
                 return conn.Query<long>(
                     @"select distinct u.userid from zbox.Users u join zbox.Quiz q on u.UserId = q.UserId and q.IsDeleted = 0 and q.Publish = 1
+except select userid from zbox.badge where name = 3 and progress = 100
  order by u.userid
  offset @page*100 ROWS
     FETCH NEXT 100 ROWS ONLY;", new { page });
@@ -637,6 +639,7 @@ OPTION (TABLE HINT(s, INDEX ([students_shouldsend2])),Recompile);";
             {
                 return conn.Query<long>(
                     @"select distinct u.userid from zbox.Users u join zbox.Item q on u.UserId = q.UserId and q.IsDeleted = 0 
+except select userid from zbox.badge where name = 4 and progress = 100
  order by u.userid
  offset @page*100 ROWS
     FETCH NEXT 100 ROWS ONLY;", new { page });
@@ -655,7 +658,8 @@ select OwnerId from zbox.ItemRate
 union
 select UserId from zbox.FlashcardLike
 union 
-select userid from zbox.quizlike2) t
+select userid from zbox.quizlike2
+except select userid from zbox.badge where name = 5 and progress = 100) t
 order by OwnerId
 offset @page*100 ROWS
     FETCH NEXT 100 ROWS ONLY;", new { page });

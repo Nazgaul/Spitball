@@ -309,6 +309,7 @@
     <Compile Include="DataObjects\ItemRenameRequest.cs" />
     <Compile Include="DataObjects\LogInRequest.cs" />
     <Compile Include="DataObjects\PasswordUpdateRequest.cs" />
+    <Compile Include="DataObjects\PinRequest.cs" />
     <Compile Include="DataObjects\Register.cs" />
     <Compile Include="DataObjects\RegisterDeviceRequest.cs" />
     <Compile Include="DataObjects\ResetPasswordRequest.cs" />

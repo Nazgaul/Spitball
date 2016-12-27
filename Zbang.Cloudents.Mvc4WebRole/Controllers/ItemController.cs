@@ -36,12 +36,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly IQueueProvider m_QueueProvider;
         private readonly Lazy<IGuidIdGenerator> m_GuidGenerator;
         private readonly Lazy<IItemReadSearchProvider2> m_ItemSearchProvider;
-        private readonly IBlobProvider2<FilesContainerName> m_BlobProviderFiles;
+        private readonly Lazy<IBlobProvider2<FilesContainerName>> m_BlobProviderFiles;
 
 
         public ItemController(
             IFileProcessorFactory fileProcessorFactory,
-            IQueueProvider queueProvider, Lazy<IGuidIdGenerator> guidGenerator, Lazy<IItemReadSearchProvider2> itemSearchProvider, IBlobProvider2<FilesContainerName> blobProviderFiles)
+            IQueueProvider queueProvider, Lazy<IGuidIdGenerator> guidGenerator, 
+            Lazy<IItemReadSearchProvider2> itemSearchProvider, 
+            Lazy<IBlobProvider2<FilesContainerName>> blobProviderFiles)
         {
             m_FileProcessorFactory = fileProcessorFactory;
             m_QueueProvider = queueProvider;
@@ -249,7 +251,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var nameToDownload = Path.GetFileNameWithoutExtension(item.Name);
             var extension = Path.GetExtension(item.Source);
-            var url = m_BlobProviderFiles.GenerateSharedAccressReadPermission(item.Source, 30,
+            var url = m_BlobProviderFiles.Value.GenerateSharedAccressReadPermission(item.Source, 30,
                  ContentDispositionUtil.GetHeaderValue(nameToDownload + extension));
             return Redirect(url);
         }
@@ -322,7 +324,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Redirect(item.Source);
             }
 
-            var uri = m_BlobProviderFiles.GetBlobUrl(item.Source);
+            var uri = m_BlobProviderFiles.Value.GetBlobUrl(item.Source);
             IEnumerable<string> retVal = null;
             var processor = m_FileProcessorFactory.GetProcessor(uri);
             if (processor != null)
@@ -391,7 +393,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             Uri uri;
             if (!Uri.TryCreate(blobName, UriKind.Absolute, out uri))
             {
-                uri = m_BlobProviderFiles.GetBlobUrl(blobName);
+                uri = m_BlobProviderFiles.Value.GetBlobUrl(blobName);
             }
             var processor = m_FileProcessorFactory.GetProcessor(uri);
             if (processor == null)

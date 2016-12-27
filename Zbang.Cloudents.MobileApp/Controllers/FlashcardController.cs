@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
+using Zbang.Cloudents.MobileApp.DataObjects;
+using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -20,13 +24,14 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         private readonly IZboxCacheReadService m_ZboxReadService;
         private readonly IDocumentDbReadService m_DocumentDbReadService;
         //private readonly IZboxReadSecurityReadService m_ZboxReadSecurityService;
-        //private readonly IZboxWriteService m_ZboxWriteService;
+        private readonly IZboxWriteService m_ZboxWriteService;
 
-        public FlashcardController(IQueueProvider queueProvider, IZboxCacheReadService zboxReadService, IDocumentDbReadService documentDbReadService)
+        public FlashcardController(IQueueProvider queueProvider, IZboxCacheReadService zboxReadService, IDocumentDbReadService documentDbReadService, IZboxWriteService zboxWriteService)
         {
             m_QueueProvider = queueProvider;
             m_ZboxReadService = zboxReadService;
             m_DocumentDbReadService = documentDbReadService;
+            m_ZboxWriteService = zboxWriteService;
         }
 
         // GET api/Flashcard
@@ -62,11 +67,50 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 //values.UserId,
                 tUserValues.Result.Pins,
                 tUserValues.Result.Like,
-                tUserValues.Result.OwnerName
+                //tUserValues.Result.OwnerName
                 //tUserValues.Result.UniversityData
 
             });
             //return "Hello from custom controller!";
+        }
+
+        [HttpPost, Route("api/flashcard/{id:long}/pin")]
+        public HttpResponseMessage Pin([FromUri] long id, [FromBody] PinRequest model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            var command = new AddFlashcardPinCommand(User.GetUserId(), id, model.Index);
+            m_ZboxWriteService.AddPinFlashcard(command);
+            return Request.CreateResponse(new { id, model });
+        }
+
+        [HttpDelete, Route("api/flashcard/{id:long}/pin")]
+        public HttpResponseMessage DeletePin(long id, int index)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            var command = new DeleteFlashcardPinCommand(User.GetUserId(), id, index);
+            m_ZboxWriteService.DeletePinFlashcard(command);
+            return Request.CreateResponse(HttpStatusCode.OK, string.Empty);
+        }
+
+        [HttpPost, Route("api/flashcard/{id:long}/like")]
+        public async Task<HttpResponseMessage> AddLikeAsync(long id)
+        {
+            var command = new AddFlashcardLikeCommand(User.GetUserId(), id);
+            await m_ZboxWriteService.AddFlashcardLikeAsync(command);
+            return Request.CreateResponse(HttpStatusCode.OK, command.Id);
+        }
+        [HttpDelete, Route("api/flashcard/{id:long}/like")]
+        public async Task<HttpResponseMessage> DeleteLikeAsync(long id, Guid likeId)
+        {
+            var command = new DeleteFlashcardLikeCommand(User.GetUserId(), likeId);
+            await m_ZboxWriteService.DeleteFlashcardLikeAsync(command);
+            return Request.CreateResponse(HttpStatusCode.OK, string.Empty);
         }
     }
 }
