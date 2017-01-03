@@ -56,10 +56,9 @@ offset (@pageNumber)*@rowsperpage ROWS
 FETCH NEXT @rowsperpage ROWS ONLY";
 
         public const string GetItemSeoByPage = @"with boxSeo as (
- select BoxId, url from zbox.box b 
-where University in (select v.id from zbox.University v where needcode = 0)
+ select BoxId, BoxName,u.UniversityName from zbox.box b join zbox.University u on u.id = b.University and needcode = 0
 and Discriminator = 2
-and IsDeleted = 0
+and b.IsDeleted = 0
 )
 select b.*,i.ItemId as id,i.Name
 from zbox.item i join boxSeo b on i.BoxId = b.BoxId

@@ -152,7 +152,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         {
                             TraceLog.WriteError("Run", ex);
                         }
-                        TraceLog.WriteInfo("sleeping on run task");
                         System.Threading.Thread.Sleep(TimeSpan.FromSeconds(10));
                     }
                 });

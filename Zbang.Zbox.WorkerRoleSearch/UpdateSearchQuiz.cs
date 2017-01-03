@@ -49,8 +49,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
             const int top = 100;
             var updates = await m_ZboxReadService.GetQuizzesDirtyUpdatesAsync(instanceId, instanceCount, top);
             if (!updates.QuizzesToUpdate.Any() && !updates.QuizzesToDelete.Any()) return TimeToSleep.Increase;
-            TraceLog.WriteInfo(PrefixLog,
-                $"quiz updating {updates.QuizzesToUpdate.Count()} deleting {updates.QuizzesToDelete.Count()}");
+            //TraceLog.WriteInfo(PrefixLog,
+                //$"quiz updating {updates.QuizzesToUpdate.Count()} deleting {updates.QuizzesToDelete.Count()}");
 
             var isSuccess =
                 await m_QuizSearchProvider.UpdateDataAsync(updates.QuizzesToUpdate, updates.QuizzesToDelete);

@@ -62,7 +62,8 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                // shortUrl = UrlConst.BuildShortItemUrl(new Base62(s.Id).ToString()),
                 s.Type,
                 s.ItemCount,
-                s.MembersCount
+                s.MembersCount,
+                s.DepartmentId
             }));
 
         }

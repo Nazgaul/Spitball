@@ -25,7 +25,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
 #if DEBUG
             log4net.Config.XmlConfigurator.Configure();
 #endif
-            TraceLog.WriteInfo("starting app");
             DisplayConfig.RegisterDisplays();
             ViewConfig.RegisterEngineAndViews();
             BundleRegistration.RegisterBundles();

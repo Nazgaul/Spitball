@@ -27,7 +27,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 m_IndexName = m_IndexName + "-dev";
             }
-            TraceLog.WriteInfo("index name " + m_IndexName);
+            //TraceLog.WriteInfo("index name " + m_IndexName);
             m_IndexClient = connection.SearchClient.Indexes.GetClient(m_IndexName);
         }
 
@@ -126,7 +126,6 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             try
             {
-                TraceLog.WriteInfo("Updating box index");
                 await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetBoxIndex());
             }
             catch (Exception ex)

@@ -53,6 +53,7 @@ namespace Zbang.Zbox.Infrastructure.File
             input = eightOrNineDigitsId.Replace(input, string.Empty);
             input = input.Replace("\0", string.Empty);
             input = input.Replace("בס\"ד", string.Empty);
+            input = input.Replace("find more resources at oneclass.com", string.Empty);
             return input;
         }
 

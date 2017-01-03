@@ -186,7 +186,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (OperationCanceledException)
             {
-                TraceLog.WriteInfo("search university - abort");
                 return JsonOk();
             }
             catch (Exception ex)

@@ -31,8 +31,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
             const int top = 100;
             var updates = await m_ZboxReadService.GetFlashcardsDirtyUpdatesAsync(instanceId, instanceCount, top, cancellationToken);
             if (!updates.Updates.Any() && !updates.Deletes.Any()) return TimeToSleep.Increase;
-            TraceLog.WriteInfo(GetPrefix(),
-                $"updating {updates.Updates.Count()} deleting {updates.Deletes.Count()}");
+            //TraceLog.WriteInfo(GetPrefix(),
+            //    $"updating {updates.Updates.Count()} deleting {updates.Deletes.Count()}");
             var toUpdates = updates.Updates.ToList();
             for (int i = toUpdates.Count - 1; i >= 0; i--)
             {

@@ -25,7 +25,7 @@ var app;
             this.items = [];
             this.uploadShow = true;
             this.buildItem = function (value) {
-                value.url = _this.$state.href("item", {
+                value.url = value.url || _this.$state.href("item", {
                     universityType: _this.$stateParams["universityType"],
                     boxId: _this.$stateParams["boxId"],
                     boxName: _this.$stateParams["boxName"],

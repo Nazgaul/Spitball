@@ -64,7 +64,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 s.Name,
                 s.Id,
-                s.ItemCount,
+                s.ItemCount, 
                 s.MembersCount,
                 s.BoxType,
                 s.UserType,

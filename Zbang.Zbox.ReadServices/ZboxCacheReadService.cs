@@ -232,9 +232,9 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUserCommentActivityAsync(query);
         }
 
-        public Task<IEnumerable<SeoDto>> GetSeoItemsAsync(SeoType type, int page)
+        public Task<IEnumerable<SeoDto>> GetSeoItemsAsync(SeoType type, int page, CancellationToken token)
         {
-            return m_ReadService.GetSeoItemsAsync(type,page);
+            return m_ReadService.GetSeoItemsAsync(type, page, token);
         }
 
         public Task<IEnumerable<SitemapDto>> GetSeoItemCountAsync()

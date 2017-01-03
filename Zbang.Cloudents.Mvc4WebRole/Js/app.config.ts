@@ -74,7 +74,10 @@
             // allow same origin resource loads.
             "self",
             // allow loading from our assets domain.  Notice the difference between * and **.
-            `${window["cdnPath"]}/**`
+            `${window["cdnPath"]}/**`,
+            //for preview of items
+            "http://127.0.0.1:10000/devstoreaccount1/**",
+            "https://zboxstorage.blob.core.windows.net/**"
         ]);
 
         $mdIconProvider

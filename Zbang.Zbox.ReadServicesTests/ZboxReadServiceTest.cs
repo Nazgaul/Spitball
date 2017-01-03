@@ -158,7 +158,7 @@ namespace Zbang.Zbox.ReadServicesTests
                 Assert.Fail("Expected no exception, but got: " + ex.Message);
             }
         }
-        
+
         [TestMethod]
         public async Task GetBoxQuizes_Query_ReturnResult()
         {
@@ -246,7 +246,7 @@ namespace Zbang.Zbox.ReadServicesTests
         {
             try
             {
-                var x = m_ZboxReadService.GetSeoItemsAsync(SeoType.Course,1).Result;
+                var x = m_ZboxReadService.GetSeoItemsAsync(SeoType.Course, 1, default(CancellationToken)).Result;
             }
             catch (Exception ex)
             {
@@ -315,7 +315,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetBoxQuery(1);
             try
             {
-               await m_ZboxReadService.GetUserBoxNotificationSettingsAsync(query, 1);
+                await m_ZboxReadService.GetUserBoxNotificationSettingsAsync(query, 1);
             }
             catch (Exception ex)
             {
@@ -379,7 +379,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public async Task GetBoxItemsPaged2_Query_ReturnResult()
         {
-            var query = new GetBoxItemsPagedQuery(3732,null);
+            var query = new GetBoxItemsPagedQuery(3732, null);
             try
             {
                 var x = await m_ZboxReadService.GetBoxItemsPagedAsync(query);
@@ -428,7 +428,7 @@ namespace Zbang.Zbox.ReadServicesTests
         //        Assert.Fail("Expected no exception, but got: " + ex.Message);
         //    }
         //}
-      
+
         [TestMethod]
         public async Task GetUserAccountDetails_Query_ReturnResult()
         {

@@ -30,7 +30,6 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                         //throw new NullReferenceException("You don't suppose to use this method in here since");
                         if (_localData != null)
                         {
-                            TraceLog.WriteInfo("_localData is not null setting logical set");
                             CallContext.LogicalSetData("LocalData_hash", _localData);
                             SemaphoreSlim.Release();
                             return _localData;
@@ -39,13 +38,11 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                         if (hashTable == null)
                         {
                             _localData = new Hashtable();
-                            TraceLog.WriteInfo("creating new Hashtable");
                             CallContext.LogicalSetData("LocalData_hash", _localData);
                         }
                         else
                         {
                             _localData = hashTable;
-                            TraceLog.WriteInfo("getting Hashtable from logicalGet");
                         }
                         SemaphoreSlim.Release();
                         return _localData;

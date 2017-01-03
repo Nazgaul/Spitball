@@ -587,7 +587,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 model.TimeOfExpire = DateTime.UtcNow.AddHours(3);
                 m_CookieHelper.InjectCookie(SessionKey, model);
 
-                TraceLog.WriteInfo("Sending change email with code" + model);
                 await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ChangeEmailData(generatedCode.ToString(CultureInfo.InvariantCulture),
                      model.Email, Thread.CurrentThread.CurrentCulture.Name));
                 return JsonOk(new { code = true });
@@ -768,15 +767,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     }
                     if (systemUser.FacebookId.HasValue)
                     {
-                        TraceLog.WriteInfo("facebook user " + model);
                         return JsonError(AccountControllerResources.FbRegisterError);
                     }
                     if (!string.IsNullOrEmpty(systemUser.GoogleId))
                     {
-                        TraceLog.WriteInfo("google user " + model);
                         return JsonError(AccountControllerResources.GoogleForgotPasswordError);
                     }
-                    TraceLog.WriteInfo("Email not exists " + model);
                     return JsonError(AccountControllerResources.EmailDoesNotExists);
                 }
             }

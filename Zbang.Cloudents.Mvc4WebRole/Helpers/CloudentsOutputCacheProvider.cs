@@ -18,7 +18,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             try
             {
-                TraceLog.WriteInfo("version in output cache is: " + m_CachePrefix);
                 m_Cache.Initialize(name, config);
                 base.Initialize(name, config);
             }

@@ -106,7 +106,7 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<FlashcardDto>> GetUserFlashcardActivityAsync(GetUserWithFriendQuery query);
         Task<UserWithStats> GetUserProfileWithStatsAsync(GetUserWithFriendQuery query);
 
-        Task<IEnumerable<SeoDto>> GetSeoItemsAsync(SeoType type, int page);
+        Task<IEnumerable<SeoDto>> GetSeoItemsAsync(SeoType type, int page, CancellationToken token);
         Task<IEnumerable<SitemapDto>> GetSeoItemCountAsync();
 
 

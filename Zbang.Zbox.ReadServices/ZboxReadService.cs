@@ -896,7 +896,7 @@ where ownerid = @UserId and boxid = @BoxId;";
         #endregion
 
         #region Seo
-        public async Task<IEnumerable<SeoDto>> GetSeoItemsAsync(SeoType type, int page)
+        public async Task<IEnumerable<SeoDto>> GetSeoItemsAsync(SeoType type, int page, CancellationToken token)
         {
             const int pageSize = 49950;
             string sql;
@@ -925,7 +925,9 @@ where ownerid = @UserId and boxid = @BoxId;";
             //}
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<SeoDto>(sql, new {rowsperpage = pageSize, pageNumber = page});
+                return await conn.QueryAsync<SeoDto>(new CommandDefinition(sql,
+                    new {rowsperpage = pageSize, pageNumber = page},
+                    commandTimeout: 360, cancellationToken: token));
             }
         }
 
@@ -995,11 +997,12 @@ where ownerid = @UserId and boxid = @BoxId;";
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var sql = $"{Sql.Quiz.TopUsers} {Sql.Quiz.NumberOfQuizSolved}";
-                using (var grid = await conn.QueryMultipleAsync(sql, new {query.QuizId, topusers = query.NumberOfUsers}))
+                using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId, topusers = query.NumberOfUsers }))
                 {
                     var retVal = new Item.QuizSolversWithCountDto
                     {
-                        Users = await grid.ReadAsync<Item.QuizBestUser>(), SolversCount = await grid.ReadFirstOrDefaultAsync<int>()
+                        Users = await grid.ReadAsync<Item.QuizBestUser>(),
+                        SolversCount = await grid.ReadFirstOrDefaultAsync<int>()
                     };
 
                     return retVal;
@@ -1039,8 +1042,8 @@ where ownerid = @UserId and boxid = @BoxId;";
             {
                 const string sql = Sql.Quiz.QuizQuery + Sql.Quiz.Question + Sql.Quiz.Answer + Sql.Quiz.UserQuiz
                                    + Sql.Quiz.UserLike +
-                                   Sql.Quiz.UserAnswer  + Sql.Quiz.TopUsers;
-                using (var grid = await conn.QueryMultipleAsync(sql, new {query.QuizId, query.BoxId, query.UserId, topusers = 3}))
+                                   Sql.Quiz.UserAnswer + Sql.Quiz.TopUsers;
+                using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId, query.BoxId, query.UserId, topusers = 3 }))
                 {
                     retVal.Quiz = await grid.ReadFirstAsync<Item.QuizWithDetailDto>();
                     retVal.Quiz.Questions = await grid.ReadAsync<Item.QuestionWithDetailDto>();
@@ -1126,7 +1129,7 @@ b.boxid as Id,b.BoxName as Name, b.CourseCode as CourseId,b.ProfessorName as Pro
                                 b.MembersCount as Members
 from zbox.library l join zbox.box b on l.libraryid = b.libraryid where university = @UniversityId and isdeleted = 0 and Discriminator = 2;";
                 const string sql2 = "select l.Name,l.LibraryId as id,l.Settings as type from zbox.library l where id = @UniversityId and settings = 1 and ParentId is null";
-                using (var grid = await conn.QueryMultipleAsync(sql + sql2, new {UniversityId = universityId}))
+                using (var grid = await conn.QueryMultipleAsync(sql + sql2, new { UniversityId = universityId }))
                 {
                     var dic = new Dictionary<Guid, SmallNodeDto>();
                     grid.Read<SmallNodeDto, Box.SmallBoxDto, Guid>((node, box) =>
@@ -1135,7 +1138,7 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
                             dic[node.Id].Boxes.Add(box);
                         else
                         {
-                            node.Boxes = new List<Box.SmallBoxDto> {box};
+                            node.Boxes = new List<Box.SmallBoxDto> { box };
                             dic.Add(node.Id, node);
                         }
                         return node.Id;
@@ -1153,19 +1156,21 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
                 const string sql = "SELECT position FROM [Zbox].[FlashcardPin] where flashcardid = @FlashcardId and userid = @UserId;";
                 const string sqlLike = "SELECT  [Id] FROM[Zbox].[FlashcardLike] where flashcardid = @FlashcardId and userid = @UserId;";
                 const string sqlOwnerName = "select username from zbox.users u join zbox.Flashcard f on f.UserId = u.UserId where id = @FlashcardId";
-//                const string universityFlashcardPromo = @"
-//select u.universityname as UniversityName,u.VideoBackgroundColor as BtnColor,
-//u.VideoFontColor as BtnFontColor
-//from zbox.flashcard f
-//join zbox.box b on f.boxid = b.boxid
-//join zbox.university u on u.id = b.university and u.id in (173408, 171885, 172566)
-//where f.id = @FlashcardId
-//and f.isdeleted = 0";
-                using (var grid = await conn.QueryMultipleAsync(sql + sqlLike + sqlOwnerName , query))
+                //                const string universityFlashcardPromo = @"
+                //select u.universityname as UniversityName,u.VideoBackgroundColor as BtnColor,
+                //u.VideoFontColor as BtnFontColor
+                //from zbox.flashcard f
+                //join zbox.box b on f.boxid = b.boxid
+                //join zbox.university u on u.id = b.university and u.id in (173408, 171885, 172566)
+                //where f.id = @FlashcardId
+                //and f.isdeleted = 0";
+                using (var grid = await conn.QueryMultipleAsync(sql + sqlLike + sqlOwnerName, query))
                 {
                     var result = new FlashcardUserDto
                     {
-                        Pins = await grid.ReadAsync<int>(), Like = await grid.ReadFirstOrDefaultAsync<Guid?>(), OwnerName = await grid.ReadFirstAsync<string>()
+                        Pins = await grid.ReadAsync<int>(),
+                        Like = await grid.ReadFirstOrDefaultAsync<Guid?>(),
+                        OwnerName = await grid.ReadFirstAsync<string>()
                     };
                     return result;
                 }
@@ -1202,7 +1207,7 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-               // var sql = query.Myself ? Sql.User.LeaderBoardMySelf : Sql.User.LeaderBoardAll;
+                // var sql = query.Myself ? Sql.User.LeaderBoardMySelf : Sql.User.LeaderBoardAll;
                 return await conn.QueryAsync<LeaderBoardDto>(Sql.User.LeaderBoardAll, query);
             }
         }

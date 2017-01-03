@@ -71,7 +71,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             catch (BoxAccessDeniedException)
             {
 
-                TraceLog.WriteInfo($"userid: {User.GetUserId()} request box {id}");
+                TraceLog.WriteError($"BoxAccessDeniedException userid: {User.GetUserId()} request box {id}");
                 return Request.CreateUnauthorizedResponse();
             }
             catch (BoxDoesntExistException)
@@ -116,7 +116,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             catch (BoxAccessDeniedException)
             {
 
-                TraceLog.WriteInfo($"userid: {User.GetUserId()} request box {id}");
+                TraceLog.WriteError($"BoxAccessDeniedException userid: {User.GetUserId()} request box {id}");
                 return Request.CreateUnauthorizedResponse();
             }
             catch (BoxDoesntExistException)

@@ -52,7 +52,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         {
             try
             {
-                TraceLog.WriteInfo($"feed async boxid {boxId} page {page}");
                 var query = GetBoxQuestionsQuery.GetBoxQueryOldVersion(boxId, page, sizePerPage);
                 var retVal =
                   await m_ZboxReadService.GetCommentsAsync(query);

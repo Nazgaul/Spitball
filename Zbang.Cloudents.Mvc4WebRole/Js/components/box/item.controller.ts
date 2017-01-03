@@ -133,12 +133,7 @@
         followBox() {
             this.$scope.$emit('follow-box');
         }
-        //i.filter = filter;
-        //i.openUpload = openUpload;
-        //i.deleteItem = deleteItem;
-        //i.addItemToTab = addItemToTab;
-        //i.downloadItem = followBox;
-        //i.removeItemFromTab = removeItemFromTab;
+        
 
         removeItemFromTab(item) {
             this.boxService.addItemToTab(this.$stateParams.boxId, null, item.id);
@@ -213,8 +208,9 @@
             });
 
         }
-        private buildItem = (value) => {
-            value.url = this.$state.href("item",
+        private buildItem = (value) => { 
+            //in search we bring url
+            value.url = value.url || this.$state.href("item",
                 {
                     universityType: this.$stateParams["universityType"],
                     boxId: this.$stateParams["boxId"],

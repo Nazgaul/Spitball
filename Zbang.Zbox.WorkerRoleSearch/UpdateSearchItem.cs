@@ -226,7 +226,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 return null;
             }
-            TraceLog.WriteInfo(PrefixLog, "search processing " + elem);
+            //TraceLog.WriteInfo(PrefixLog, "search processing " + elem);
             try
             {
                 var wait = new ManualResetEvent(false);

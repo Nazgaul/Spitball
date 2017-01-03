@@ -33,7 +33,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var itemId = message.ItemId;
             if (itemId.ItemId == 0)
             {
-                TraceLog.WriteInfo("itemId is 0 " + itemId);
                 return t;
             }
 
@@ -80,7 +79,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var item = m_ItemRepository.Get(itemId.ItemId); // we use get because we need to cast to File and get proxy
             if (item == null)
             {
-                TraceLog.WriteInfo("itemId is null " + itemId);
                 return t;
             }
 

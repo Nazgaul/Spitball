@@ -107,7 +107,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (OperationCanceledException)
             {
-                TraceLog.WriteInfo("search - abort");
                 return JsonOk();
             }
         }
@@ -147,7 +146,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (OperationCanceledException)
             {
-                TraceLog.WriteInfo("items in box - abort");
                 return JsonOk();
             }
         }

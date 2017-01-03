@@ -58,7 +58,6 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 }
                 var db = Connection.GetDatabase();
 
-                TraceLog.WriteInfo($"cache add region {region} key {cacheKey}");
                 var t1 = db.StringAppendAsync(region, cacheKey + ";", CommandFlags.FireAndForget);
                 var t2 = db.SetAsync(cacheKey, value, expiration);
                 return Task.WhenAll(t1, t2);
@@ -102,17 +101,14 @@ namespace Zbang.Zbox.Infrastructure.Cache
             
             if (keys == null)
             {
-                TraceLog.WriteInfo($"cache deleteing key {region}");
                 await db.KeyDeleteAsync(region, CommandFlags.FireAndForget);
                 return;
             }
             var taskList = new List<Task>();
             foreach (var key in keys.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries))
             {
-                TraceLog.WriteInfo($"cache deleteing key {key}");
                 taskList.Add(db.KeyDeleteAsync(key, CommandFlags.FireAndForget));
             }
-            TraceLog.WriteInfo($"cache deleteing key {region}");
             taskList.Add(db.KeyDeleteAsync(region, CommandFlags.FireAndForget));
             await Task.WhenAll(taskList);
 

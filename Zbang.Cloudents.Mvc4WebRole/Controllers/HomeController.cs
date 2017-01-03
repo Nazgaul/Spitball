@@ -1,12 +1,9 @@
 ﻿using System.Threading;
-using System.Web.UI;
 using DevTrends.MvcDonutCaching;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Xml.Linq;
@@ -18,7 +15,6 @@ using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account;
 using Zbang.Cloudents.Mvc4WebRole.Models.FAQ;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -190,12 +186,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var data = XDocument.Load(stream);
                 var model = from category in data.Descendants("category")
                             let faqs = category.Descendants("content")
-                            orderby int.Parse(category.Attribute("order").Value)
+                            orderby int.Parse(category.Attribute("order")?.Value)
                             select new Category
                             {
                                 Language = category.Attribute("lang")?.Value,
                                 Name = category.Attribute("name")?.Value,
-                                Order = int.Parse(category.Attribute("order").Value),
+                                Order = int.Parse(category.Attribute("order")?.Value),
                                 QuestionNAnswers = faqs.Select(s =>
                                     new QnA
                                     {
@@ -320,26 +316,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
-        //[Route("promotion", Name = "Promotion")]
-        //public async Task<ActionResult> PromotionAsync()
-        //{
-        //    var value = m_CookieHelper.ReadCookie<UniversityCookie>(UniversityCookie.CookieName);
-        //    if (value == null)
-        //    {
-        //        return RedirectToRoute("homePage");
-        //    }
-        //    if (!FlashcardUniversities.Contains(value.UniversityId))
-        //    {
-        //        return RedirectToRoute("homePage");
-        //    }
-        //    m_CookieHelper.InjectCookie(UniversityFlashcardPromo.CookieName,
-        //        new UniversityFlashcardPromo());
-        //    var query = new GetHomePageQuery(value.UniversityId);
-        //    var homeStats = await ZboxReadService.GetHomePageDataAsync(query);
-        //    ViewBag.promoEnable = true;
-        //    //homeStats.FlashcardPromo = true;
-        //    return View("Promotion", homeStats);
-        //}
+
 
         [Route("classnotes", Name = "classnotes")]
         [Route("classnotes/{lang:regex(^(en|he))}", Name = "classnotes2")]
@@ -411,8 +388,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [AllowAnonymous]
         [HttpGet]
         [NoAsyncTimeout, ActionName("SiteMap")]
-        [OutputCache(Duration = 2 * TimeConst.Day, VaryByParam = "type;index", Location = OutputCacheLocation.Any)]
-        public async Task<ActionResult> SiteMapAsync(SeoType? type, int? index)
+        //[OutputCache(Duration = 2 * TimeConst.Day, VaryByParam = "type;index", Location = OutputCacheLocation.Any)]
+        public async Task<ActionResult> SiteMapAsync(SeoType? type, int? index, CancellationToken token)
         {
             if (!index.HasValue)
             {
@@ -423,8 +400,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Content("");
             }
-            var content = await GetSitemapXmlAsync(type.Value, index.Value);
-            return Content(content?.Trim(), "application/xml");
+            using (var cancellationToken = CreateCancellationToken(token))
+            {
+                var content = await GetSitemapXmlAsync(type.Value, index.Value, cancellationToken.Token);
+                return Content(content?.Trim(), "application/xml");
+            }
         }
 
         private async Task<string> GetSitemapIndexAsync()
@@ -454,25 +434,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 }
             }
-
-            //using (var ms = new MemoryStream())
-            //{
-            //    using (var writer = new StreamWriter(ms))
-            //    {
-            //        root.T
-            //        root.Save(writer);
-            //    }
-
-            //    return Encoding.Unicode.GetString(ms.ToArray());
-            //}
-            XDocument document = new XDocument(new XDeclaration("1.0", "utf-8", "yes"), root);
+            var document = new XDocument(new XDeclaration("1.0", "utf-8", "yes"), root);
             return document.ToString();
 
 
         }
 
         [NonAction]
-        private async Task<string> GetSitemapXmlAsync(SeoType type, int index)
+        private async Task<string> GetSitemapXmlAsync(SeoType type, int index, CancellationToken cancellationToken)
         {
             XNamespace xmlns = "http://www.sitemaps.org/schemas/sitemap/0.9";
             XNamespace xhtml = "http://www.w3.org/1999/xhtml";
@@ -484,7 +453,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             else
             {
-                nodes = await GetSitemapNodesAsync(type, index);
+                nodes = await GetSitemapNodesAsync(type, index, cancellationToken);
             }
 
             var root = new XElement(xmlns + "urlset",
@@ -492,6 +461,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             foreach (var node in nodes)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 var locContent = new XElement(xmlns + "loc", node.Url);
                 var priorityContent = node.Priority == null
                         ? null
@@ -624,11 +594,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [NonAction]
-        private async Task<IEnumerable<SitemapNode>> GetSitemapNodesAsync(SeoType type, int index)
+        private async Task<IEnumerable<SitemapNode>> GetSitemapNodesAsync(SeoType type, int index, CancellationToken cancellationToken)
         {
             var requestContext = ControllerContext.RequestContext;
 
-            var seoItems = await ZboxReadService.GetSeoItemsAsync(type, index);
+            var seoItems = await ZboxReadService.GetSeoItemsAsync(type, index, cancellationToken);
             if (type == SeoType.Course)
             {
                 return seoItems.Select(s => new SitemapNode(requestContext, "CourseBoxWithSub", new

@@ -49,7 +49,9 @@ var app;
         $mdAriaProvider.disableWarnings();
         $sceDelegateProvider.resourceUrlWhitelist([
             "self",
-            (window["cdnPath"] + "/**")
+            (window["cdnPath"] + "/**"),
+            "http://127.0.0.1:10000/devstoreaccount1/**",
+            "https://zboxstorage.blob.core.windows.net/**"
         ]);
         $mdIconProvider
             .iconSet("t", append("/images/site/icons.svg"))
