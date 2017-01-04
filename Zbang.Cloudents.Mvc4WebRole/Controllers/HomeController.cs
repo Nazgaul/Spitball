@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.UI;
 using System.Xml.Linq;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
@@ -15,6 +16,7 @@ using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account;
 using Zbang.Cloudents.Mvc4WebRole.Models.FAQ;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -388,7 +390,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [AllowAnonymous]
         [HttpGet]
         [NoAsyncTimeout, ActionName("SiteMap")]
-        //[OutputCache(Duration = 2 * TimeConst.Day, VaryByParam = "type;index", Location = OutputCacheLocation.Any)]
+        [OutputCache(Duration = 2 * TimeConst.Day, VaryByParam = "type;index", Location = OutputCacheLocation.Any)]
         public async Task<ActionResult> SiteMapAsync(SeoType? type, int? index, CancellationToken token)
         {
             if (!index.HasValue)

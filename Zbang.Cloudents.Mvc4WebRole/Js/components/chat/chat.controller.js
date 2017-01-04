@@ -54,9 +54,9 @@ var app;
         ChatController.prototype.backFromChat = function () {
             this.state = States.UserList;
         };
-        ChatController.$inject = ["$scope", "$timeout", "$stateParams", "realtimeFactory"];
         return ChatController;
     }());
+    ChatController.$inject = ["$scope", "$timeout", "$stateParams", "realtimeFactory"];
     angular.module("app.chat").controller("ChatController", ChatController);
 })(app || (app = {}));
 //# sourceMappingURL=chat.controller.js.map

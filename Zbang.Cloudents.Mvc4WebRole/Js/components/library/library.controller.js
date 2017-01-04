@@ -239,11 +239,11 @@ var app;
                 _this.createClassShow = _this.departments.length === 0 && _this.$stateParams["id"] != null;
             });
         };
-        Library.$inject = ["$anchorScroll", "$stateParams", "nodeData",
-            "universityData", "itemThumbnailService", "$mdMedia", "$mdDialog", "resManager",
-            "libraryService", "showToasterService", "$location", "ajaxService2", "$timeout", "user", "$state"];
         return Library;
     }());
+    Library.$inject = ["$anchorScroll", "$stateParams", "nodeData",
+        "universityData", "itemThumbnailService", "$mdMedia", "$mdDialog", "resManager",
+        "libraryService", "showToasterService", "$location", "ajaxService2", "$timeout", "user", "$state"];
     angular.module("app.library").controller("Library", Library);
 })(app || (app = {}));
 //# sourceMappingURL=library.controller.js.map

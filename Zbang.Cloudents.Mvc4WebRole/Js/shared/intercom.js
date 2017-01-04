@@ -51,9 +51,9 @@ var app;
             factory["$inject"] = ['userDetailsFactory', '$rootScope', '$mdMenu'];
             return factory;
         };
-        IntercomComponent.$inject = ['userDetailsFactory', '$rootScope', '$mdMenu'];
         return IntercomComponent;
     }());
+    IntercomComponent.$inject = ['userDetailsFactory', '$rootScope', '$mdMenu'];
     angular.module("app").run(IntercomComponent.factory());
 })(app || (app = {}));
 //# sourceMappingURL=intercom.js.map

@@ -58,9 +58,9 @@ var app;
                 id: nodeId
             });
         };
-        Library.$inject = ["ajaxService2"];
         return Library;
     }());
+    Library.$inject = ["ajaxService2"];
     angular.module("app.library").service("libraryService", Library);
 })(app || (app = {}));
 //# sourceMappingURL=library.service.js.map

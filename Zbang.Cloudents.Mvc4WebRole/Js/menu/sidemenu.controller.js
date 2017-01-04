@@ -112,9 +112,9 @@ var app;
                 arr.splice(index, 1);
             }
         };
-        SideMenu.$inject = ["user", "dashboardService", "$location", "$scope", "$mdSidenav", "$state"];
         return SideMenu;
     }());
+    SideMenu.$inject = ["user", "dashboardService", "$location", "$scope", "$mdSidenav", "$state"];
     angular.module("app").controller("SideMenu", SideMenu);
 })(app || (app = {}));
 //# sourceMappingURL=sidemenu.controller.js.map

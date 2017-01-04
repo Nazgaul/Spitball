@@ -97,9 +97,9 @@ var app;
             }
             return this.deferDetails.promise;
         };
-        UserDetails.$inject = ["$rootScope", "$q", "ajaxService2", "Analytics", "$timeout", "$interval"];
         return UserDetails;
     }());
+    UserDetails.$inject = ["$rootScope", "$q", "ajaxService2", "Analytics", "$timeout", "$interval"];
     angular.module("app").service("userDetailsFactory", UserDetails);
 })(app || (app = {}));
 //# sourceMappingURL=userDetails.js.map

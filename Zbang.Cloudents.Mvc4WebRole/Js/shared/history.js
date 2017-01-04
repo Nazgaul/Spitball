@@ -41,9 +41,9 @@ var app;
                 _this.skipState = true;
             });
         }
-        SbHistory.$inject = ["$rootScope", "$window"];
         return SbHistory;
     }());
+    SbHistory.$inject = ["$rootScope", "$window"];
     angular.module('app').service('sbHistory', SbHistory);
 })(app || (app = {}));
 //# sourceMappingURL=history.js.map

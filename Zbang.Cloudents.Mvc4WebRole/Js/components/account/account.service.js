@@ -77,9 +77,9 @@ var app;
                 userId: userId
             });
         };
-        AaccountService.$inject = ["ajaxService2"];
         return AaccountService;
     }());
+    AaccountService.$inject = ["ajaxService2"];
     angular.module("app.account").service("accountService", AaccountService);
 })(app || (app = {}));
 //# sourceMappingURL=account.service.js.map

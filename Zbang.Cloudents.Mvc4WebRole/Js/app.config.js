@@ -49,7 +49,7 @@ var app;
         $mdAriaProvider.disableWarnings();
         $sceDelegateProvider.resourceUrlWhitelist([
             "self",
-            (window["cdnPath"] + "/**"),
+            window["cdnPath"] + "/**",
             "http://127.0.0.1:10000/devstoreaccount1/**",
             "https://zboxstorage.blob.core.windows.net/**"
         ]);
@@ -154,7 +154,6 @@ var app;
     }
     ;
 })();
-var app;
 (function (app) {
     "use strict";
     var Config = (function () {

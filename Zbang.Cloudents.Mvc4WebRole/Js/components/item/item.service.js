@@ -102,9 +102,9 @@ var app;
                 itemId: itemId
             });
         };
-        ItemService.$inject = ['ajaxService2'];
         return ItemService;
     }());
+    ItemService.$inject = ['ajaxService2'];
     angular.module('app.item').service('itemService', ItemService);
 })(app || (app = {}));
 //# sourceMappingURL=item.service.js.map

@@ -23,9 +23,9 @@ var app;
                 this.$state.go(searchStateName, { q: this.term, t: this.$state.params["t"] });
             }
         };
-        SearchTriggerController.$inject = ["$scope", "$state"];
         return SearchTriggerController;
     }());
+    SearchTriggerController.$inject = ["$scope", "$state"];
     angular.module("app.search").controller("SearchTriggerController", SearchTriggerController);
 })(app || (app = {}));
 //# sourceMappingURL=searchTrigger.controller.js.map

@@ -42,9 +42,9 @@ var app;
         Leaderboard.prototype.close = function () {
             this.$mdDialog.hide();
         };
-        Leaderboard.$inject = ["boxService", "$stateParams", "$mdDialog", "userDetailsFactory", "$scope"];
         return Leaderboard;
     }());
+    Leaderboard.$inject = ["boxService", "$stateParams", "$mdDialog", "userDetailsFactory", "$scope"];
     angular.module("app.box").controller("BoxLeaderboard", Leaderboard);
 })(app || (app = {}));
 //# sourceMappingURL=leaderboard.controller.js.map

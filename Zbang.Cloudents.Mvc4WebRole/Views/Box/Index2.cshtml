@@ -2,12 +2,10 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<div class="ad">
+@*<div class="ad">
     <adsense ad-client="ca-pub-1215688692145777" ad-slot="4261002151" inline-style="display:block;" ad-format="auto"></adsense>
-</div>
-@*<div class="ad" data-ng-dfp-ad-container>
-        <div data-ng-dfp-ad="div-gpt-ad-1461243129238-3" data-ng-dfp-ad-hide-when-empty></div>
-    </div>*@
+</div>*@
+
 <div uib-collapse="!b.inviteOpen" compile-html="b.html" expanding="b.inviteExpand()" class="collapsible indent-content"></div>
 <div class="page-head indent-content">
     <div layout="row" layout-align="start start" ng-hide="b.settingsOpen" class="page-title box-title" ng-class="{'need-follow' : b.needFollow}">
@@ -36,15 +34,3 @@
     </md-tabs>
 </div>
 <div ui-view></div>
-@*<script defer type="text/ng-template" id="shareBoxTemplate.html">
-        <div class="share-section">
-            <div class="share-options">
-                <button type="button" class="share-btn share-fb" aria-label="share" ga-track-event="['box-feed', 'share']">
-                    <md-icon class="fb" md-svg-icon="b:facebook-colored"></md-icon>
-                </button>
-                <a class="share-btn share-whatsapp" aria-label="share" target="_blank" href="" ga-track-event="['box-feed', 'share']">
-                    <md-icon class="whatsapp" md-svg-icon="b:whatsapp"></md-icon>
-                </a>
-            </div>
-        </div>
-    </script>*@

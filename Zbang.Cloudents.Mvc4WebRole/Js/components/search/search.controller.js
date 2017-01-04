@@ -165,10 +165,10 @@ var app;
                 page++;
             });
         };
-        SearchController.$inject = ["$scope", "dashboardService", "$location",
-            "$state", "$stateParams", "Analytics", "searchService", "itemThumbnailService", "$q"];
         return SearchController;
     }());
+    SearchController.$inject = ["$scope", "dashboardService", "$location",
+        "$state", "$stateParams", "Analytics", "searchService", "itemThumbnailService", "$q"];
     angular.module("app.search").controller("SearchController", SearchController);
 })(app || (app = {}));
 //# sourceMappingURL=search.controller.js.map

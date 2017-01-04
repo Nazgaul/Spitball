@@ -19,12 +19,12 @@ var app;
             }
             return window.btoa(binary);
             function guidToBytes(guid) {
-                var bytes = [];
+                var z = [];
                 guid.split('-').map(function (number, index) {
                     var bytesInChar = index < 3 ? number.match(/.{1,2}/g).reverse() : number.match(/.{1,2}/g);
-                    bytesInChar.map(function (byte) { bytes.push(parseInt(byte, 16)); });
+                    bytesInChar.map(function (byte) { z.push(parseInt(byte, 16)); });
                 });
-                return bytes;
+                return z;
             }
         };
         Guid.fromBase64 = function (base64) {
@@ -201,9 +201,9 @@ var app;
             }
         };
         ;
-        RealTimeFactory.$inject = ["Hub", "$rootScope", "ajaxService2", "userDetailsFactory"];
         return RealTimeFactory;
     }());
+    RealTimeFactory.$inject = ["Hub", "$rootScope", "ajaxService2", "userDetailsFactory"];
     angular.module('app.chat').service('realtimeFactory', RealTimeFactory);
 })(app || (app = {}));
 //# sourceMappingURL=hubFactory.js.map

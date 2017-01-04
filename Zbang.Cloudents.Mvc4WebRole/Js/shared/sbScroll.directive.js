@@ -36,7 +36,6 @@ var app;
         .module("app")
         .directive("sbScroll", SbScroll.factory());
 })(app || (app = {}));
-var app;
 (function (app) {
     "use strict";
     var ChatScrollButtom = (function () {

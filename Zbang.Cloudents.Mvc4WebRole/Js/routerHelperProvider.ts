@@ -1,5 +1,5 @@
 ﻿/// <reference path="../scripts/typings/angularjs/angular.d.ts" />
-/// <reference path="../scripts/typings/angular-ui-router/angular-ui-router.d.ts" />
+/// <reference path="../scripts/typings/angular-ui-router/index.d.ts" />
 /// <reference path="shared/ajaxservice2.ts" />
 'use strict';
 

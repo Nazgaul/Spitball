@@ -71,9 +71,9 @@ var app;
         QuizService.prototype.likeDelete = function (id) {
             return this.ajaxService.delete("/quiz/like/", { id: id });
         };
-        QuizService.$inject = ["ajaxService2"];
         return QuizService;
     }());
+    QuizService.$inject = ["ajaxService2"];
     angular.module("app.quiz").service('quizService', QuizService);
 })(app || (app = {}));
 //# sourceMappingURL=quiz.service.js.map

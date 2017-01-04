@@ -25,9 +25,9 @@ var app;
                 }
             });
         };
-        Quiz.$inject = ["profileData", "userService"];
         return Quiz;
     }());
+    Quiz.$inject = ["profileData", "userService"];
     angular.module("app.user").controller("quiz", Quiz);
 })(app || (app = {}));
 //# sourceMappingURL=quizzes.controller.js.map

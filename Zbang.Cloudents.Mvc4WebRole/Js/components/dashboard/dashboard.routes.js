@@ -18,7 +18,8 @@ var app;
                             }
                         },
                         templateUrl: "/dashboard/indexpartial/"
-                    }];
+                    }
+                ];
             }
         }
         AppRun.factory = function () {

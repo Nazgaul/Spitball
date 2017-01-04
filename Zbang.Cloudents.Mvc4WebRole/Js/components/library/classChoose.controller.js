@@ -35,7 +35,7 @@ var app;
             this.selectedCoursesView = this.selectedCourses.slice();
             angular.forEach(nodeData, function (v) {
                 if (v.boxes) {
-                    var _loop_1 = function(i) {
+                    var _loop_1 = function (i) {
                         var box = v.boxes[i];
                         if (ids.indexOf(box.id) !== -1) {
                             v.boxes.splice(i, 1);
@@ -177,10 +177,10 @@ var app;
                     .ok(_this.resManager.get('dialogOk')));
             });
         };
-        ClassChoose.$inject = ["searchService", "libraryService", "$mdDialog", "$filter",
-            "nodeData", "boxService", "boxes", "resManager", "$scope", "$anchorScroll"];
         return ClassChoose;
     }());
+    ClassChoose.$inject = ["searchService", "libraryService", "$mdDialog", "$filter",
+        "nodeData", "boxService", "boxes", "resManager", "$scope", "$anchorScroll"];
     angular.module("app.library").controller("ClassChoose", ClassChoose);
 })(app || (app = {}));
 //# sourceMappingURL=classChoose.controller.js.map

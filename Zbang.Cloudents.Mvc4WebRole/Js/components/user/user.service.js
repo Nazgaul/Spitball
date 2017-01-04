@@ -44,9 +44,9 @@ var app;
                 page: page
             });
         };
-        UserService.$inject = ['ajaxService2'];
         return UserService;
     }());
+    UserService.$inject = ['ajaxService2'];
     angular.module("app.user").service("userService", UserService);
 })(app || (app = {}));
 //# sourceMappingURL=user.service.js.map

@@ -29,6 +29,7 @@ using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.Infrastructure.Storage;
 using System.Threading;
+using Microsoft.Azure;
 using Zbang.Zbox.Infrastructure.Azure.Entities;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Enums;

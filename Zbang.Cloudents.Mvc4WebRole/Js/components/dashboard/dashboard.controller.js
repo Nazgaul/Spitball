@@ -55,10 +55,10 @@ var app;
                 });
             });
         };
-        Dashboard.$inject = ["dashboardService", "boxes", "$scope", "$mdDialog", "boxService",
-            "$rootScope", "resManager", "ajaxService2"];
         return Dashboard;
     }());
+    Dashboard.$inject = ["dashboardService", "boxes", "$scope", "$mdDialog", "boxService",
+        "$rootScope", "resManager", "ajaxService2"];
     angular.module("app.dashboard").controller("Dashboard", Dashboard);
 })(app || (app = {}));
 //# sourceMappingURL=dashboard.controller.js.map

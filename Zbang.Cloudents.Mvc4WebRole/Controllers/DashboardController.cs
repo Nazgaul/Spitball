@@ -83,7 +83,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #region CreateBox
 
         [HttpPost, ActionName("Create")]
-        // [ValidateAntiForgeryToken]
         public async Task<JsonResult> CreateAsync(CreateBox model)
         {
             if (!ModelState.IsValid)

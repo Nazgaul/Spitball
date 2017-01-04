@@ -22,7 +22,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         private bool m_CheckIndexExists;
 #pragma warning restore CS0169 // The field 'ItemSearchProvider3.m_CheckIndexExists' is never used
         private readonly ISearchConnection m_Connection;
-        private readonly SearchIndexClient m_IndexClient;
+        private readonly ISearchIndexClient m_IndexClient;
         private readonly ISearchFilterProvider m_FilterProvider;
 
         private object lockObj;

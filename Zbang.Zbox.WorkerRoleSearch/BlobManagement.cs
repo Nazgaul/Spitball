@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Azure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Zbang.Zbox.Infrastructure.Azure.Blob;
@@ -18,7 +19,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             var cloudStorageAccount = CloudStorageAccount.Parse(
 
-                   Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("StorageConnectionString"));
+                   CloudConfigurationManager.GetSetting("StorageConnectionString"));
 
             m_BlobClient = cloudStorageAccount.CreateCloudBlobClient();
         }

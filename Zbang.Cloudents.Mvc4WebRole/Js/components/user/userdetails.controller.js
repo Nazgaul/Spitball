@@ -43,9 +43,9 @@ var app;
                 return '';
             return decodeURIComponent(results[2].replace(/\+/g, " "));
         };
-        UserDetailsController.$inject = ['accountService', '$scope', 'userDetailsFactory'];
         return UserDetailsController;
     }());
+    UserDetailsController.$inject = ['accountService', '$scope', 'userDetailsFactory'];
     angular.module('app.user.details').controller('UserDetailsController', UserDetailsController);
 })(app || (app = {}));
 //# sourceMappingURL=userdetails.controller.js.map

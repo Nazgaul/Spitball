@@ -18,7 +18,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         private readonly string m_IndexName = "universities2";
         private bool m_CheckIndexExists;
         private readonly ISearchConnection m_Connection;
-        private readonly SearchIndexClient m_IndexClient;
+        private readonly ISearchIndexClient m_IndexClient;
 
         public UniversitySearchProvider(ISearchConnection connection)
         {

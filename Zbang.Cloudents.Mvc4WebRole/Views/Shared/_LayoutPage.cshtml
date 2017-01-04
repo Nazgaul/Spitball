@@ -40,15 +40,12 @@
         <div class="logo-search" layout="row" layout-align="start center">
             <button hide-gt-sm type="button" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" hide-chat-on-mobile="click" ga-track-event="['header', 'open menu']">
                 <md-icon md-svg-icon="t:headerMenu" class="headerMenu"></md-icon>
-                @*@Html.Svg(svgUrl, "headerMenu", new {@class = "headerMenu"})*@
             </button>
             <div class="logo">
                 <div class="page-logo">
                     <a tabindex="-1" href="@logoLink" @shouldPostBack ga-track-event="['header', 'logo']" hide-chat-on-mobile="click">
                         <md-icon md-svg-icon="t:logo" class="logo-default" hide-xs></md-icon>
                         <md-icon md-svg-icon="t:smallLogo" class="logo-small" hide show-xs></md-icon>
-                        @*@Html.Svg(svgUrl, "logo", new {@class = "logo-default", hide_xs = ""})
-                        @Html.Svg(svgUrl, "smallLogo", new {@class = "logo-small", hide = "", show_xs = ""})*@
                     </a>
                 </div>
             </div>
@@ -57,8 +54,6 @@
         </div>
         <div ui-view="user-profile"></div>
     </header>
-
-    @*'hidden-chat' : app.chatDisplayState === 0,*@
     <div class="page-body">
         @RenderBody()
     </div>
@@ -80,7 +75,7 @@
                        type="search" class="text"
                        user-not-register-popup="focus" placeholder="@GeneralResources.Search" placeholder-mobile="@GeneralResources.SearchMobile" />
                 <button type="submit" class="search-btn" ng-disabled="!st.term.length">
-                    <span><md-icon md-svg-icon="t:searchIcon" class="searchIcon"></md-icon>@*@Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon" })*@</span>
+                    <span><md-icon md-svg-icon="t:searchIcon" class="searchIcon"></md-icon></span>
                 </button>
             </div>
         </form>

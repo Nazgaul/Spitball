@@ -142,21 +142,21 @@ var app;
                     form.$setPristine();
                     if (!_this.saveInProgress) {
                         submitQuizName();
-                        function finishSaveName() {
-                            self.finishUpdate();
-                            if (!form.$submitted) {
-                                submitQuizName();
-                            }
+                    }
+                    function finishSaveName() {
+                        self.finishUpdate();
+                        if (!form.$submitted) {
+                            submitQuizName();
                         }
-                        function submitQuizName() {
-                            form.$setSubmitted();
-                            self.saveInProgress = true;
-                            if (self.quizId) {
-                                self.quizService.updateQuiz(self.quizId, newVal).finally(finishSaveName);
-                            }
-                            else {
-                                self.createQuiz(newVal).finally(finishSaveName);
-                            }
+                    }
+                    function submitQuizName() {
+                        form.$setSubmitted();
+                        self.saveInProgress = true;
+                        if (self.quizId) {
+                            self.quizService.updateQuiz(self.quizId, newVal).finally(finishSaveName);
+                        }
+                        else {
+                            self.createQuiz(newVal).finally(finishSaveName);
                         }
                     }
                 });
@@ -387,10 +387,10 @@ var app;
                     .catch(function () { });
             });
         };
-        QuizCreateController.$inject = ["$mdDialog", "$state", "$stateParams", "$scope",
-            "quizService", "quizData", "resManager", "$q", "$window"];
         return QuizCreateController;
     }());
+    QuizCreateController.$inject = ["$mdDialog", "$state", "$stateParams", "$scope",
+        "quizService", "quizData", "resManager", "$q", "$window"];
     angular.module('app.quiz.create').controller('QuizCreateController', QuizCreateController);
 })(app || (app = {}));
 //# sourceMappingURL=quizCreate2.controller.js.map

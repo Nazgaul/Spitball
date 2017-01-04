@@ -21,7 +21,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         private readonly ISearchFilterProvider m_FilterProvider;
         private readonly ISearchConnection m_Connection;
         private bool m_CheckIndexExists;
-        private readonly SearchIndexClient m_IndexClient;
+        private readonly ISearchIndexClient m_IndexClient;
 
         public QuizSearchProvider2(ISearchFilterProvider filterProvider, ISearchConnection connection)
         {

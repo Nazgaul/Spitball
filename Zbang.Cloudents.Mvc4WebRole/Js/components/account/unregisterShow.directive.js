@@ -32,7 +32,6 @@ var app;
         .module("app")
         .directive("unregisterShow", unregShow.factory());
 })(app || (app = {}));
-var app;
 (function (app) {
     "use strict";
     var unregisterScroll = (function () {
@@ -80,7 +79,6 @@ var app;
         .module("app")
         .directive("unregisterScroll", unregisterScroll.factory());
 })(app || (app = {}));
-var app;
 (function (app) {
     "use strict";
     var unregShow = (function () {
@@ -121,7 +119,6 @@ var app;
         .module("app")
         .directive("userNotRegisterClick", unregShow.factory());
 })(app || (app = {}));
-var app;
 (function (app) {
     "use strict";
     var unregShow = (function () {

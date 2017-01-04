@@ -155,7 +155,7 @@
             } else {
                 this.quizData = new QuizData();
             }
-
+            
             $window.onbeforeunload = () => {
                 for (let i = 0; i < this.quizData.questions.length; i++) {
                     const question = this.quizData.questions[i];
@@ -212,22 +212,23 @@
                     if (!this.saveInProgress) {
                         submitQuizName();
 
-                        function finishSaveName() {
-                            self.finishUpdate();
-                            if (!form.$submitted) {
-                                submitQuizName();
-                            }
+                        
+                    }
+                    function finishSaveName() {
+                        self.finishUpdate();
+                        if (!form.$submitted) {
+                            submitQuizName();
                         }
+                    }
 
-                        function submitQuizName() {
-                            form.$setSubmitted();
+                    function submitQuizName() {
+                        form.$setSubmitted();
 
-                            self.saveInProgress = true;
-                            if (self.quizId) {
-                                self.quizService.updateQuiz(self.quizId, newVal).finally(finishSaveName);
-                            } else {
-                                self.createQuiz(newVal).finally(finishSaveName);
-                            }
+                        self.saveInProgress = true;
+                        if (self.quizId) {
+                            self.quizService.updateQuiz(self.quizId, newVal).finally(finishSaveName);
+                        } else {
+                            self.createQuiz(newVal).finally(finishSaveName);
                         }
                     }
 

@@ -27,9 +27,9 @@ var app;
         UploadWrapper.prototype.uploadCollapsed = function () {
             this.$scope.$broadcast("uploadCollapsed");
         };
-        UploadWrapper.$inject = ["ajaxService2", "$scope", "$rootScope"];
         return UploadWrapper;
     }());
+    UploadWrapper.$inject = ["ajaxService2", "$scope", "$rootScope"];
     angular.module("app").controller("UploadWrapper", UploadWrapper);
 })(app || (app = {}));
 (function () {

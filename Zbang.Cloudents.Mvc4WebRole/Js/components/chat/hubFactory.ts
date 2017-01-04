@@ -1,4 +1,5 @@
-﻿module app {
+﻿
+module app {
     "use scrict";
     declare var dChat: any;
 
@@ -20,13 +21,14 @@
             }
             return window.btoa(binary);
 
-            function guidToBytes(guid) {
-                var bytes = [];
+            function guidToBytes(guid): ArrayLike<number> {
+                var z: Array<number> = [];
+
                 guid.split('-').map((number, index) => {
                     var bytesInChar = index < 3 ? number.match(/.{1,2}/g).reverse() : number.match(/.{1,2}/g);
-                    bytesInChar.map((byte) => { bytes.push(parseInt(byte, 16)); });
+                    bytesInChar.map((byte) => { z.push(parseInt(byte, 16)); });
                 });
-                return bytes;
+                return (z as ArrayLike<number>);
             }
         }
         static fromBase64(base64: string): string {
@@ -78,16 +80,12 @@
         isConnected(): boolean;
     }
 
-    //interface ISbHub extends ngSignalr.Hub {
-    //    sendMsg(userId: number, message: string, conversationId: Guid, blob: string): void;
-    //}
-
     class RealTimeFactory implements IRealtimeFactory {
-        static $inject = ["Hub", "$rootScope", "ajaxService2","userDetailsFactory"];
+        static $inject = ["Hub", "$rootScope", "ajaxService2", "userDetailsFactory"];
         private commands: Array<Function> = [];
         private canSend: boolean;
         private hub: ngSignalr.Hub;
-        constructor(private Hub: ngSignalr.HubFactory, 
+        constructor(private Hub: ngSignalr.HubFactory,
             private $rootScope: angular.IRootScopeService,
             private ajaxService: IAjaxService2,
             private userDetailsFactory: IUserDetailsFactory) {
@@ -126,7 +124,7 @@
                     badge(badge) {
                         userDetailsFactory.updateBadge();
                     },
-                    score(score) {
+                    score(score: number) {
                         userDetailsFactory.updateScore(score);
                     }
                 },

@@ -1,4 +1,5 @@
-﻿module app {
+﻿
+module app {
     "use strict";
 
     angular.module("app").config(config);

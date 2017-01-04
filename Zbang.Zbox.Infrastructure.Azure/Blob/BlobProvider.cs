@@ -139,8 +139,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         internal async Task UploadFileAsync(string blobName, string filePath, string mimeType)
         {
             var blob = GetFile(blobName);
-            await blob.UploadFromFileAsync(filePath, FileMode.Open);
-            //await blob.UploadFromFileAsync(filePath);
+            await blob.UploadFromFileAsync(filePath);
             blob.Properties.ContentType = mimeType;
             await blob.SetPropertiesAsync();
         }

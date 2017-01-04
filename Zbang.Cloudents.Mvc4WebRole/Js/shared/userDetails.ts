@@ -1,5 +1,5 @@
 ﻿/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
-/// <reference path="../../scripts/typings/angular-google-analytics/angular-google-analytics.d.ts" />
+/// <reference path="../../scripts/typings/angular-google-analytics/index.d.ts" />
 /// <reference path="ajaxservice2.ts" />
 // ReSharper disable once InconsistentNaming
 declare var __insp: any;

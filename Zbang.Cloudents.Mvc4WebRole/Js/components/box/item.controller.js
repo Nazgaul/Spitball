@@ -226,11 +226,11 @@ var app;
                 });
             }
         };
-        ItemsController.$inject = ['boxService', '$stateParams', '$rootScope',
-            'itemThumbnailService', '$mdDialog',
-            '$scope', 'user', '$q', 'resManager', '$state', "$window", "$timeout"];
         return ItemsController;
     }());
+    ItemsController.$inject = ['boxService', '$stateParams', '$rootScope',
+        'itemThumbnailService', '$mdDialog',
+        '$scope', 'user', '$q', 'resManager', '$state', "$window", "$timeout"];
     angular.module('app.box.items').controller('ItemsController', ItemsController);
 })(app || (app = {}));
 //# sourceMappingURL=item.controller.js.map

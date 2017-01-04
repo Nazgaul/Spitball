@@ -8,7 +8,5 @@
         AcademicClosed = 3,
         Abstract = -1
     }
-
-    
 }
    

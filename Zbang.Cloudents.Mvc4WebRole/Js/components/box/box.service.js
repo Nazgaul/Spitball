@@ -160,9 +160,9 @@ var app;
                 id: boxId
             });
         };
-        BoxService.$inject = ["ajaxService2"];
         return BoxService;
     }());
+    BoxService.$inject = ["ajaxService2"];
     angular.module("app.box").service("boxService", BoxService);
 })(app || (app = {}));
 //# sourceMappingURL=box.service.js.map

@@ -3,6 +3,7 @@
 // Definitions by: Adam Santaniello <https://github.com/AdamSantaniello>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+//import * as angular from 'angular';
 /// <reference path='../angularjs/angular.d.ts' />
 /// <reference path='../signalr/signalr.d.ts' />
 
@@ -77,3 +78,5 @@ declare namespace ngSignalr {
         stateChanged?: (state: SignalR.StateChanged) => void;
     }
 }
+
+

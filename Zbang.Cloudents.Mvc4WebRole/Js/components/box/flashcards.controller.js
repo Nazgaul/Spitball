@@ -54,10 +54,10 @@ var app;
         Flashcards.prototype.canEdit = function (flashcard) {
             return this.user.id === flashcard.ownerId && flashcard.publish;
         };
-        Flashcards.$inject = ["$stateParams", "flashcards", "$state",
-            "$mdDialog", "resManager", "flashcardService", "user", "shareService", "$scope"];
         return Flashcards;
     }());
+    Flashcards.$inject = ["$stateParams", "flashcards", "$state",
+        "$mdDialog", "resManager", "flashcardService", "user", "shareService", "$scope"];
     angular.module('app.box.flashcards').controller('FlashcardsController', Flashcards);
 })(app || (app = {}));
 //# sourceMappingURL=flashcards.controller.js.map

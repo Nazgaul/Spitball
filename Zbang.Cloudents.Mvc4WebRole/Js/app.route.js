@@ -134,7 +134,17 @@
                             reloadOnSearch: false
                         },
                         templateUrl: '/search/indexpartial/'
-                    }
+                    },
+                     {
+                         state: 'start',
+                         config: {
+                             url: '/start/',
+                            // controller: 'SearchController as s',
+                             data: { animateClass: 'start' },
+                            // reloadOnSearch: false
+                         },
+                         templateUrl: '/start/indexpartial/'
+                     }
             ];
         }
     }

@@ -146,10 +146,10 @@ var app;
                 }
             });
         };
-        Item.$inject = ["itemData", "$state", "$stateParams", "$timeout",
-            "itemService", "$mdToast", "$sce", "$location", "user", "showToasterService", "resManager", "$scope"];
         return Item;
     }());
+    Item.$inject = ["itemData", "$state", "$stateParams", "$timeout",
+        "itemService", "$mdToast", "$sce", "$location", "user", "showToasterService", "resManager", "$scope"];
     angular.module('app.item').controller('ItemController', Item);
 })(app || (app = {}));
 //# sourceMappingURL=item.controller.js.map
