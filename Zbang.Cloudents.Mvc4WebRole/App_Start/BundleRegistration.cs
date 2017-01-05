@@ -364,6 +364,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/chat/previewController.js"),
                         new JsFileWithCdn("~/js/components/chat/toggleChat.directive.js"),
                         new JsFileWithCdn("~/js/components/chat/hideChatOnMobile.directive.js"),
+
+                        new JsFileWithCdn("~/js/components/start/start.controller.js"),
+                        new JsFileWithCdn("~/js/components/start/start.service.js"),
                          new JsFileWithCdn("~/js/initAngular.js")
                     }
 

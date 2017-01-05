@@ -32,7 +32,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 Zbox.Infrastructure.File.RegisterIoc.Register();
                 Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
                 Zbox.Infrastructure.Mail.RegisterIoc.Register();
-
+                Zbox.Infrastructure.Ai.RegisterIoc.Register();
                 builder.RegisterType<SeachConnection>()
                     .As<ISearchConnection>()
                     .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))

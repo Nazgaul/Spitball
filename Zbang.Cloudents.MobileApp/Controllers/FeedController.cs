@@ -62,7 +62,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                     
                     s.Content,
                     s.CreationTime,
-                    Files = s.Files.Select(v => new
+                    Files = s.Files.Where(w=>w.Type != "flashcard").Select(v => new
                     {
                         v.Id,
                         v.Name,
@@ -94,7 +94,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 x.Content,
                 x.CreationTime,
-                Files = x.Files.Select(z => new
+                Files = x.Files.Where(w => w.Type != "flashcard").Select(z => new
                 {
                     z.Id,
                     z.Name,

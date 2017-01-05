@@ -168,4 +168,12 @@
   <data name="CannotView" xml:space="preserve">
     <value>Item cannot be viewed</value>
   </data>
+  <data name="LanguageEnglishUs" xml:space="preserve">
+    <value>English</value>
+    <comment>Do not translate</comment>
+  </data>
+  <data name="LanguageHebrew" xml:space="preserve">
+    <value>עברית</value>
+    <comment>Do not translate</comment>
+  </data>
 </root>

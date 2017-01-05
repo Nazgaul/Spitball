@@ -124,6 +124,24 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        internal static string LanguageEnglishUs {
+            get {
+                return ResourceManager.GetString("LanguageEnglishUs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to עברית.
+        /// </summary>
+        internal static string LanguageHebrew {
+            get {
+                return ResourceManager.GetString("LanguageHebrew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Post.
         /// </summary>
         internal static string LikeTypeComment {

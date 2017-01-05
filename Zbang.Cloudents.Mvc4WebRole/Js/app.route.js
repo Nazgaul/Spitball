@@ -139,9 +139,9 @@
                          state: 'start',
                          config: {
                              url: '/start/',
-                            // controller: 'SearchController as s',
+                             controller: 'StartController as s',
                              data: { animateClass: 'start' },
-                            // reloadOnSearch: false
+                             reloadOnSearch: false
                          },
                          templateUrl: '/start/indexpartial/'
                      }

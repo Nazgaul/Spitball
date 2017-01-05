@@ -3,18 +3,28 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using Zbang.Zbox.Infrastructure.Enums.Resources;
+using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Zbox.Infrastructure.Culture
 {
+    public enum Language
+    {
+        None,
+        [ResourceDescription(typeof(EnumResources), "LanguageEnglishUs")]
+        EnglishUs,
+        [ResourceDescription(typeof(EnumResources), "LanguageHebrew")]
+        Hebrew
+    }
     public static class Languages
     {
-        public const string EnglishUsName = "English";
-        public const string HebrewName = "עברית";
+        //public const string EnglishUsName = "English";
+        //public const string HebrewName = "עברית";
 
 
         public static readonly ReadOnlyCollection<LanguagesDetail> SupportedCultures = new List<LanguagesDetail> {
-            new LanguagesDetail(EnglishUsName,new [] {"en" ,"en-US"}),
-            new LanguagesDetail(HebrewName, new [] {"he","he-IL" }),
+            new LanguagesDetail(Language.EnglishUs,new [] {"en" ,"en-US"}),
+            new LanguagesDetail(Language.Hebrew, new [] {"he","he-IL" }),
         }.AsReadOnly();
 
         /// <summary>
@@ -22,17 +32,17 @@ namespace Zbang.Zbox.Infrastructure.Culture
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public static LanguagesDetail GetLanguageDetailByName(string name)
-        {
+        //public static LanguagesDetail GetLanguageDetailByName(string name)
+        //{
 
-            var result = SupportedCultures.FirstOrDefault(f => f.Name == name);
-            if (result == null)
-            {
-                Trace.TraceLog.WriteError("GetLanguageDetailByName name" + name);
-                return DefaultSystemCulture;
-            }
-            return result;
-        }
+        //    var result = SupportedCultures.FirstOrDefault(f => f.Name == name);
+        //    if (result == null)
+        //    {
+        //        Trace.TraceLog.WriteError("GetLanguageDetailByName name" + name);
+        //        return DefaultSystemCulture;
+        //    }
+        //    return result;
+        //}
 
         public static CultureInfo GetCultureBaseOnCountry(string countryPrefix)
         {
@@ -44,10 +54,6 @@ namespace Zbang.Zbox.Infrastructure.Culture
             {
                 case "il":
                     return new CultureInfo("he-IL");
-                //case "ru":
-                //    return new CultureInfo("ru-RU");
-                //case "gb":
-                //    return new CultureInfo("en-GB");
                 default:
                     return new CultureInfo("en-US");
             }
@@ -61,9 +67,7 @@ namespace Zbang.Zbox.Infrastructure.Culture
             {
                 return false;
             }
-            return SupportedCultures.Any(a => a.Culture.Any(a1 => String.Equals(a1, culture, StringComparison.CurrentCultureIgnoreCase)));
-            //return SupportedCultures.Any(s => 
-            //    String.Equals(s.Culture, culture, StringComparison.CurrentCultureIgnoreCase));
+            return SupportedCultures.Any(a => a.Culture.Any(a1 => string.Equals(a1, culture, StringComparison.CurrentCultureIgnoreCase)));
         }
 
         public static string GetCultureBaseOnCulture(string culture)
@@ -86,12 +90,12 @@ namespace Zbang.Zbox.Infrastructure.Culture
     }
     public class LanguagesDetail
     {
-        public LanguagesDetail(string name, string[] culture)
+        public LanguagesDetail(Language name, string[] culture)
         {
             Name = name;
             Culture = culture;
         }
-        public string Name { get; set; }
+        public Language Name { get; set; }
         public string[] Culture { get; set; }
     }
 }

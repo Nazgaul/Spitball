@@ -1,1 +1,15 @@
-﻿<div>hi</div>
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+<md-input-container>
+    <form novalidate name="startForm" ng-submit="s.intent()">
+        <label>What do you want to do</label>
+        <input type="text" autocomplete="off" name="name" ng-model="s.term" required md-no-asterisk/>
+        <div ng-messages="startForm.name.$error" ng-show="startForm.name.$dirty">
+            <div ng-message="required">@GeneralResources.RequiredField</div>
+        </div>
+        <button type="submit" class="md-button">Submit</button>
+    </form>
+    <div>{{s.lang}}</div>
+    <div>{{s.xintent}}</div>
+    <div>{{s.data}}</div>
+    
+</md-input-container>
