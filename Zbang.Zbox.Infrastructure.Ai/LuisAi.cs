@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Cognitive.LUIS;
 
@@ -24,6 +21,10 @@ namespace Zbang.Zbox.Infrastructure.Ai
             var predict = await m_Luisclient.Predict(sentence);
             var intent = predict.TopScoringIntent.Name;
             var intentObject = Ioc.IocFactory.IocWrapper.TryResolve<IIntent>(intent);
+            if (intentObject == null)
+            {
+                return null;
+            }
             var entities = predict.GetAllEntities();
             foreach (var prop in intentObject.GetType().GetProperties())
             {

@@ -98,7 +98,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     "jsHomePage", new[]
                     {
-                        new JsFileWithCdn("~/scripts/jquery-3.1.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"),
+                        new JsFileWithCdn("~/scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/jquery.validate.js"),
                         new JsFileWithCdn("~/js/signin/login-soft.js"),
                         new JsFileWithCdn("~/scripts/svg4everybody.js"),
@@ -113,7 +113,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     "staticPage", new[]
                     {
-                        new JsFileWithCdn("~/Scripts/jquery-3.1.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"),
+                        new JsFileWithCdn("~/Scripts/jquery-2.2.4.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/jquery.bxslider.js"),
                         new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
                         new JsFileWithCdn("~/js/shared/languageHandler.js"),
@@ -130,7 +130,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     {
 
 
-                        new JsFileWithCdn("~/Scripts/jquery-3.1.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"),
+                        new JsFileWithCdn("~/Scripts/jquery-2.2.4.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"),
                         new JsFileWithCdn("~/Scripts/jquery.validate.js"),
                         new JsFileWithCdn("~/js/signin/login-soft.js"),
                         new JsFileWithCdn("~/scripts/svg4everybody.js"),
@@ -142,7 +142,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     "jsSite4", new[]
                     {
 
-                        new JsFileWithCdn("~/scripts/jquery-3.1.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"),
+                        new JsFileWithCdn("~/scripts/jquery-2.2.4.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/Modernizr.js"),
                         new JsFileWithCdn("~/scripts/angular.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.5.9/angular.min.js"),
                         new JsFileWithCdn("~/scripts/angular-ui-router.js"),

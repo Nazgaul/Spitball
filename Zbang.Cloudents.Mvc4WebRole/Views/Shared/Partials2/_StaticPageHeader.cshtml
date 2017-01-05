@@ -52,11 +52,11 @@
                     @if (!User.Identity.IsAuthenticated)
                     {
                         <input type="checkbox" id="language-menu" autocomplete="off"/>
-                        <label class="language-toggle" for="language-menu"><span>@Languages.EnglishUsName</span><span class="arrow"></span></label>
+                        <label class="language-toggle" for="language-menu"><span>@Language.EnglishUs.GetEnumDescription()</span><span class="arrow"></span></label>
                         <label class="language-close" for="language-menu"></label>
                         <ul class="dropdown-menu dropdown-menu-left ">
-                            <li class="menu-item"> <button data-cookie="en-US">@Languages.EnglishUsName</button> </li>
-                            <li class="menu-item"> <button data-cookie="he-il">@Languages.HebrewName</button> </li>
+                            <li class="menu-item"> <button data-cookie="en-US">@Language.EnglishUs.GetEnumDescription()</button> </li>
+                            <li class="menu-item"> <button data-cookie="he-il">@Language.Hebrew.GetEnumDescription()</button> </li>
                         </ul>
                     }
                 </li>
