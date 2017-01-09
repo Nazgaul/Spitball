@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.Cognitive.LUIS;
 
 namespace Zbang.Zbox.Infrastructure.Ai
 {
-    public interface ILuisAi
+    public interface IAi
     {
         Task<IIntent> GetUserIntentAsync(string sentence);
+    }
+    public interface ILuisAi: IAi
+    {
+        
     }
 
     public class LuisAi : ILuisAi, IDisposable
@@ -18,6 +23,8 @@ namespace Zbang.Zbox.Infrastructure.Ai
 
         public async Task<IIntent> GetUserIntentAsync(string sentence)
         {
+            var sw = new Stopwatch();
+            sw.Start();
             var predict = await m_Luisclient.Predict(sentence);
             var intent = predict.TopScoringIntent.Name;
             var intentObject = Ioc.IocFactory.IocWrapper.TryResolve<IIntent>(intent);
@@ -34,6 +41,9 @@ namespace Zbang.Zbox.Infrastructure.Ai
                     prop.SetValue(intentObject, entity.Value);
                 }
             }
+            sw.Stop();
+            intentObject.Time = sw.ElapsedMilliseconds;
+            
             return intentObject;
 
         }
@@ -46,13 +56,7 @@ namespace Zbang.Zbox.Infrastructure.Ai
 
     public interface IIntent
     {
-        
-    }
-    public class HomeWorkIntent : IIntent
-    {
-        public string UniversityName { get; set; }
-        public string CourseName { get; set; }
-
-        public string SearchQuery { get; set; }
+        string SearchQuery { get; set; }
+        long Time { get; set; }
     }
 }

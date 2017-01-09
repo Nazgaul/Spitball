@@ -1,15 +1,81 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-<md-input-container>
-    <form novalidate name="startForm" ng-submit="s.intent()">
-        <label>What do you want to do</label>
-        <input type="text" autocomplete="off" name="name" ng-model="s.term" required md-no-asterisk/>
-        <div ng-messages="startForm.name.$error" ng-show="startForm.name.$dirty">
-            <div ng-message="required">@GeneralResources.RequiredField</div>
+<form novalidate name="startForm" ng-submit="s.intent()">
+    <md-input-container layout="row">
+        <div flex="50">
+            <input type="text" placeholder="What do you want to do" autocomplete="off" name="name" ng-model="s.term" required md-no-asterisk />
         </div>
-        <button type="submit" class="md-button">Submit</button>
-    </form>
+        <button flex="none" type="submit" class="md-button">
+            <md-icon style="width: 22px; height: 22px; fill: #000;" md-svg-icon="t:searchIcon" class="searchIcon"></md-icon>
+        </button>
+
+        @*<button type="submit" class="md-button">Submit</button>*@
+
+    </md-input-container>
+    <div ng-messages="startForm.name.$error" ng-show="startForm.name.$dirty">
+        <div ng-message="required">@GeneralResources.RequiredField</div>
+    </div>
+</form>
     <div>{{s.lang}}</div>
-    <div>{{s.xintent}}</div>
-    <div>{{s.data}}</div>
-    
-</md-input-container>
+    <style>
+        table, th, td {
+    border: 1px solid black;
+}
+    </style>
+    <div layout="row">
+        <div flex="50">
+            <h2>luis</h2>
+            <table>
+                <tr>
+                    <td>intent</td>
+                    <td>{{s.luis.intent}}</td>
+                </tr>
+                <tr>
+                    <td>search query</td>
+                    <td>{{s.luis.data.searchQuery}}</td>
+                </tr>
+                <tr>
+                    <td>university Name</td>
+                    <td>{{s.luis.data.universityName}}</td>
+                </tr>
+                <tr>
+                    <td>course Name</td>
+                    <td>{{s.luis.data.courseName}}</td>
+                </tr>
+                <tr>
+                    <td>time</td>
+                    <td>{{s.luis.data.time}}</td>
+                </tr>
+
+            </table>
+        </div>
+        <div flex="50">
+            <h2>wit</h2>
+            <table>
+                <tr>
+                    <td>intent</td>
+                    <td>{{s.wit.intent}}</td>
+                </tr>
+                <tr>
+                    <td>search query</td>
+                    <td>{{s.wit.data.searchQuery}}</td>
+                </tr>
+                <tr>
+                    <td>university Name</td>
+                    <td>{{s.wit.data.universityName}}</td>
+                </tr>
+                <tr>
+                    <td>course Name</td>
+                    <td>{{s.wit.data.courseName}}</td>
+                </tr>
+                <tr>
+                    <td>time</td>
+                    <td>{{s.wit.data.time}}</td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+
+
+

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -14,11 +15,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     {
         private readonly IDetectLanguage m_DetectLanguage;
         private readonly ILuisAi m_LuisAi;
+        private readonly IWitAi m_WitAi;
 
-        public StartController(IDetectLanguage detectLanguage, ILuisAi luisAi)
+        public StartController(IDetectLanguage detectLanguage, ILuisAi luisAi, IWitAi witAi)
         {
             m_DetectLanguage = detectLanguage;
             m_LuisAi = luisAi;
+            m_WitAi = witAi;
         }
 
         [AllowAnonymous]
@@ -44,6 +47,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, ActionName("Intent")]
         public async Task<JsonResult> IntentAsync(string term)
         {
+            
+
             if (string.IsNullOrEmpty(term))
             {
                 return JsonError();
@@ -51,13 +56,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var lang = m_DetectLanguage.DoWork(term);
             // if (lang == Zbox.Infrastructure.Culture.Language.EnglishUs)
             // {
-            var data = await m_LuisAi.GetUserIntentAsync(term);
+            var tLuisData = m_LuisAi.GetUserIntentAsync(term);
+            var tWitData = m_WitAi.GetUserIntentAsync(term);
+
+            await Task.WhenAll(tLuisData, tWitData);
             // }
             return JsonOk(new
             {
                 lang,
-                data,
-                intent = data?.GetType().Name
+                luis = tLuisData.Result,
+                wit = tWitData.Result,
+                luisIntent = tLuisData.Result?.GetType().Name,
+                witIntent = tWitData.Result?.GetType().Name
             });
         }
     }

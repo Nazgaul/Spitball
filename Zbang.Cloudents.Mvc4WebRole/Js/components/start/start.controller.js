@@ -10,8 +10,12 @@ var app;
             var _this = this;
             this.startService.intent(this.term).then(function (response) {
                 _this.lang = response.lang;
-                _this.data = JSON.stringify(response.data);
-                _this.xintent = response.intent;
+                _this.luis = {};
+                _this.wit = {};
+                _this.luis.data = response.luis;
+                _this.luis.intent = response.luisIntent;
+                _this.wit.data = response.wit;
+                _this.wit.intent = response.witIntent;
             });
         };
         return StartController;

@@ -13,23 +13,11 @@ namespace Zbang.Zbox.Infrastructure.Ai
         {
             var ioc = IocFactory.IocWrapper;
             ioc.RegisterType<ILuisAi, LuisAi>(LifeTimeManager.Singleton);
-
+            ioc.RegisterType<IWitAi, WitAi>(LifeTimeManager.Singleton);
             ioc.RegisterType<IIntent, HomeWorkIntent>("Homework");
-            //ioc.RegisterType<IFileProcessorFactory, FileProcessorFactory>(LifeTimeManager.Singleton);
-
-            //ioc.RegisterType<IContentProcessor, WordProcessor>();
-            //ioc.RegisterType<IContentProcessor, ExcelProcessor>();
-            //ioc.RegisterType<IContentProcessor, ImageProcessor>();
-            //ioc.RegisterType<IContentProcessor, PdfProcessor>();
-            //ioc.RegisterType<IContentProcessor, PowerPoint2007Processor>();
-            //ioc.RegisterType<IContentProcessor, TiffProcessor>();
-            //ioc.RegisterType<IContentProcessor, YoutubeProcessor>();
-            //ioc.RegisterType<IContentProcessor, GoogleDriveProcessor>();
-            //ioc.RegisterType<IContentProcessor, VideoProcessor>();
-            //ioc.RegisterType<IContentProcessor, TextProcessor>();
-            //ioc.RegisterType<IContentProcessor, AudioProcessor>();
-            //ioc.RegisterType<IContentProcessor, LinkProcessor>();
-            //ioc.RegisterType<IProfileProcessor, ImageProcessor>();
+            ioc.RegisterType<IIntent, StudyExamIntent>("StudyForExam");
+            ioc.RegisterType<IIntent, ResearchIntent>("Research");
+            ioc.RegisterType<IIntent, JoinGroupIntent>("JoinGroup");
         }
     }
 }
