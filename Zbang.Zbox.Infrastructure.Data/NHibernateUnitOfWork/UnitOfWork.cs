@@ -51,9 +51,9 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
         {
             if (CurrentUnitOfWork != null)
             {
-                TraceLog.WriteWarning("using the same unit of work");
-                return CurrentUnitOfWork;
-                //throw new InvalidOperationException("You cannot start more than one unit of work at the same time.");
+                //TraceLog.WriteWarning("using the same unit of work");
+                //return CurrentUnitOfWork;
+                throw new InvalidOperationException("You cannot start more than one unit of work at the same time.");
             }
             var unitOfWork = UnitOfWorkFactory.Create();
             CurrentUnitOfWork = unitOfWork;

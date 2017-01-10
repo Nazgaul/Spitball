@@ -17,7 +17,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             [ThreadStatic]
             private static Hashtable _localData;
             private static readonly object LocalDataHashtableKey = new object();
-            private static readonly SemaphoreSlim SemaphoreSlim = new SemaphoreSlim(1);
+            //private static readonly SemaphoreSlim SemaphoreSlim = new SemaphoreSlim(1);
 
             private static Hashtable LocalHashtable
             {
@@ -26,12 +26,12 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                 {
                     if (!RunningInWeb)
                     {
-                        SemaphoreSlim.Wait();
+                        //SemaphoreSlim.Wait();
                         //throw new NullReferenceException("You don't suppose to use this method in here since");
                         if (_localData != null)
                         {
                             CallContext.LogicalSetData("LocalData_hash", _localData);
-                            SemaphoreSlim.Release();
+                            //SemaphoreSlim.Release();
                             return _localData;
                         }
                         var hashTable = CallContext.LogicalGetData("LocalData_hash") as Hashtable;
@@ -44,7 +44,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                         {
                             _localData = hashTable;
                         }
-                        SemaphoreSlim.Release();
+                        //SemaphoreSlim.Release();
                         return _localData;
                     }
                     var webHashtable = HttpContext.Current.Items[LocalDataHashtableKey] as Hashtable;
@@ -67,6 +67,17 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                 set
                 {
                     if (key == null) throw new ArgumentNullException(nameof(key));
+                    if (RunningInWeb)
+                    {
+                        LocalHashtable[key] = value;
+                        return;
+                    }
+
+                    if (LocalHashtable[key] != null)
+                    {
+                        LocalHashtable.Clear();
+                        //Do something
+                    }
                     LocalHashtable[key] = value;
 
                 }

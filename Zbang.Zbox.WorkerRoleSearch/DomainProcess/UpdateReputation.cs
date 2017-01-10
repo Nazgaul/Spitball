@@ -23,8 +23,8 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             if (parameters == null) return true;
             try
             {
-                var userIds = string.Join(",", parameters.UserIds);
-                TraceLog.WriteInfo($"processing reputation for user {userIds}");
+                //var userIds = string.Join(",", parameters.UserIds);
+                //TraceLog.WriteInfo($"processing reputation for user {userIds}");
                 var proxy = await SignalrClient.GetProxyAsync();
                 foreach (var userId in parameters.UserIds)
                 {

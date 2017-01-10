@@ -72,7 +72,14 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                 m_Configuration.AddAssembly("Zbang.Zbox.Domain");
                 m_Configuration.AddAssembly("Zbang.Zbox.ViewModel");
 
-
+                //if (HttpContext.Current != null)
+                //{
+                //    m_Configuration.CurrentSessionContext<NHibernate.Context.WebSessionContext>();
+                //}
+                //else
+                //{
+                //    m_Configuration.CurrentSessionContext<NHibernate.Context.CallSessionContext>();
+                //}
 
                 SaveConfiguration();
             }
