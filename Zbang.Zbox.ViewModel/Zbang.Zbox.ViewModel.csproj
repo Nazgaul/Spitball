@@ -124,6 +124,7 @@
     <Compile Include="Dto\SeoDto.cs" />
     <Compile Include="Dto\TabDto.cs" />
     <Compile Include="Dto\BoxDto.cs" />
+    <Compile Include="Dto\UniversityEntityDto.cs" />
     <Compile Include="Dto\UpdatesDto.cs" />
     <Compile Include="Dto\UserDtos\ActivityDto.cs" />
     <Compile Include="Dto\UserDtos\ChatUserDto.cs" />

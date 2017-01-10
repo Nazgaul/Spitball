@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
+using Zbang.Zbox.ViewModel.Dto;
 
 namespace Zbang.Zbox.Infrastructure.Ai
 {
-    public interface IWitAi : IAi
-    {
-
-    }
     public class WitAi : IWitAi
     {
 
@@ -52,6 +50,30 @@ namespace Zbang.Zbox.Infrastructure.Ai
             sw.Stop();
             intentObject.Time = sw.ElapsedMilliseconds;
             return intentObject;
+        }
+
+
+        public Task UpdateCourseEntityAsync(IEnumerable<string> courses)
+        {
+            var tasks = new List<Task>();
+            foreach (var course in courses)
+            {
+                tasks.Add(m_Client.UpdateEntityValuesAsync("CourseName", course, null, null));
+            }
+            return Task.WhenAll(tasks);
+        }
+        public Task UpdateUniversityEntityAsync(IEnumerable<UniversityEntityDto> universities)
+        {
+            if (universities == null)
+            {
+                return Extensions.TaskExtensions.CompletedTask;
+            }
+            var tasks = new List<Task>();
+            foreach (var university in universities)
+            {
+                tasks.Add(m_Client.UpdateEntityValuesAsync("UniversityName", university.Name, university.Extra.ToList(), university.Id.ToString()));
+            }
+            return Task.WhenAll(tasks);
         }
     }
 }

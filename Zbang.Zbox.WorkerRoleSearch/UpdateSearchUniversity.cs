@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Ai;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
+using Zbang.Zbox.ViewModel.Dto;
 using Zbang.Zbox.WorkerRoleSearch.DomainProcess;
 
 namespace Zbang.Zbox.WorkerRoleSearch
@@ -17,19 +19,21 @@ namespace Zbang.Zbox.WorkerRoleSearch
     {
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IUniversityWriteSearchProvider2 m_UniversitySearchProvider;
+        private readonly IWitAi m_WithAiProvider;
 
 
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
         private const string PrefixLog = "Search university";
 
-        public UpdateSearchUniversity(IZboxReadServiceWorkerRole zboxReadService, IUniversityWriteSearchProvider2 universitySearchProvider, IZboxWorkerRoleService zboxWriteService)
+        public UpdateSearchUniversity(IZboxReadServiceWorkerRole zboxReadService, IUniversityWriteSearchProvider2 universitySearchProvider, IZboxWorkerRoleService zboxWriteService, IWitAi withAiProvider)
         {
             m_ZboxReadService = zboxReadService;
             m_UniversitySearchProvider = universitySearchProvider;
             m_ZboxWriteService = zboxWriteService;
+            m_WithAiProvider = withAiProvider;
             MaxInterval = TimeSpan.FromMinutes(10).TotalSeconds; //Remove once production is up
         }
-        
+
 
         public async Task RunAsync(CancellationToken cancellationToken)
         {
@@ -41,7 +45,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 try
                 {
                     await DoProcessAsync(cancellationToken, index, count);
-                    
+
                 }
                 catch (Exception ex)
                 {
@@ -57,9 +61,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
             const int updatesPerCycle = 10;
             var updates = await m_ZboxReadService.GetUniversitiesDirtyUpdatesAsync(instanceId, instanceCount, updatesPerCycle);
             if (!updates.UniversitiesToDelete.Any() && !updates.UniversitiesToUpdate.Any()) return TimeToSleep.Increase;
-            
-            //TraceLog.WriteInfo(PrefixLog,
-            //    $"university updating {updates.UniversitiesToUpdate.Count()} deleting {updates.UniversitiesToDelete.Count()}");
+            await
+                m_WithAiProvider.UpdateUniversityEntityAsync(
+                    updates.UniversitiesToUpdate.Select(s => new UniversityEntityDto
+                    {
+                        Id = s.Id,
+                        Name = s.Name,
+                        Extra = s.Extra.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
+                    }));
             var isSuccess =
                 await m_UniversitySearchProvider.UpdateDataAsync(updates.UniversitiesToUpdate, updates.UniversitiesToDelete);
             if (isSuccess)
@@ -92,7 +101,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             if (isSuccess)
             {
                 await m_ZboxWriteService.UpdateSearchUniversityDirtyToRegularAsync(
-                    new UpdateDirtyToRegularCommand(new[] {parameters.UniversityId}));
+                    new UpdateDirtyToRegularCommand(new[] { parameters.UniversityId }));
 
             }
             return true;

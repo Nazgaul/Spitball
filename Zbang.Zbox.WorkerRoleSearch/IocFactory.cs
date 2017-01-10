@@ -38,6 +38,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
              .InstancePerLifetimeScope();
             Infrastructure.Search.RegisterIoc.Register();
+            Infrastructure.Ai.RegisterIoc.Register();
             Domain.Services.RegisterIoc.Register();
             ReadServices.RegisterIoc.Register();
             Domain.CommandHandlers.Ioc.RegisterIoc.Register();
