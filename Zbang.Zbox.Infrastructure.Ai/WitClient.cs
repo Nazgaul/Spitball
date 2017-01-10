@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using RestSharp;
 using RestSharp.Deserializers;
-using Zbang.Zbox.ViewModel.Dto;
 
 namespace Zbang.Zbox.Infrastructure.Ai
 {
@@ -51,22 +50,18 @@ namespace Zbang.Zbox.Infrastructure.Ai
         }
 
 
-        internal Task UpdateEntityValuesAsync(string entityName, string value, IList<string> expressions,
+        internal Task UpdateEntityValuesAsync(string entityName, string value, IEnumerable<string> expressions,
             string metadata)
         {
             var request = new RestRequest($"entities/{entityName}/values", Method.POST);
             AddDefaultParametes(request);
             request.RequestFormat = DataFormat.Json;
-            if (expressions == null)
-            {
-                expressions = new List<string>();
-            }
-            expressions.Add(value);
-
+            var expressionList = expressions?.ToList() ?? new List<string>();
+            expressionList.Add(value);
             request.AddBody(new
             {
                 value,
-                expressions,
+                expressions = expressionList,
                 metadata
             });
             return m_Client.ExecuteTaskAsync(request);

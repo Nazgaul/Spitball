@@ -67,7 +67,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     {
                         Id = s.Id,
                         Name = s.Name,
-                        Extra = s.Extra.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
+                        Extra = s.Extra?.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
                     }));
             var isSuccess =
                 await m_UniversitySearchProvider.UpdateDataAsync(updates.UniversitiesToUpdate, updates.UniversitiesToDelete);

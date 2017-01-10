@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Ai;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
@@ -18,18 +19,20 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IBoxWriteSearchProvider2 m_BoxSearchProvider;
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
+        private readonly IWitAi m_WithAiProvider;
 
-       // private const string PrefixLog = "Search Box";
-        public UpdateSearchBox(IZboxReadServiceWorkerRole zboxReadService, 
-            IBoxWriteSearchProvider2 boxSearchProvider, 
-            IZboxWorkerRoleService zboxWriteService)
+        // private const string PrefixLog = "Search Box";
+        public UpdateSearchBox(IZboxReadServiceWorkerRole zboxReadService,
+            IBoxWriteSearchProvider2 boxSearchProvider,
+            IZboxWorkerRoleService zboxWriteService, IWitAi withAiProvider)
         {
             m_ZboxReadService = zboxReadService;
             m_BoxSearchProvider = boxSearchProvider;
             m_ZboxWriteService = zboxWriteService;
+            m_WithAiProvider = withAiProvider;
         }
 
-       
+
 
 
         public async Task RunAsync(CancellationToken cancellationToken)
@@ -52,9 +55,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
             TraceLog.WriteError("On finish run");
         }
 
-        
 
-     
+
+
 
         //int m_Interval = MinInterval;
         //private const int MinInterval = 30;
@@ -76,6 +79,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var updates = await m_ZboxReadService.GetBoxesDirtyUpdatesAsync(instanceId, instanceCount, top, cancellationToken);
             if (!updates.BoxesToUpdate.Any() && !updates.BoxesToDelete.Any()) return TimeToSleep.Increase;
 
+            await m_WithAiProvider.UpdateCourseEntityAsync(
+                 updates.BoxesToUpdate.Where(w => w.Type == Infrastructure.Enums.BoxType.Academic).Select(s => s.Name));
             var isSuccess = await m_BoxSearchProvider.UpdateDataAsync(updates.BoxesToUpdate, updates.BoxesToDelete);
             if (isSuccess)
             {

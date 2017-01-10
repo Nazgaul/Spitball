@@ -71,7 +71,7 @@ namespace Zbang.Zbox.Infrastructure.Ai
             var tasks = new List<Task>();
             foreach (var university in universities)
             {
-                tasks.Add(m_Client.UpdateEntityValuesAsync("UniversityName", university.Name, university.Extra.ToList(), university.Id.ToString()));
+                tasks.Add(m_Client.UpdateEntityValuesAsync("UniversityName", university.Name, university.Extra, university.Id.ToString()));
             }
             return Task.WhenAll(tasks);
         }
