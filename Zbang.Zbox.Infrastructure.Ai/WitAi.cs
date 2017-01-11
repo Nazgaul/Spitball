@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.ViewModel.Dto;
 
@@ -10,12 +11,11 @@ namespace Zbang.Zbox.Infrastructure.Ai
     {
 
         private readonly WitClient m_Client = new WitClient("B7CTPD5LNYKZNWZ7UFZMZ4BPV6B4SZW4");
-        public async Task<IIntent> GetUserIntentAsync(string sentence)
+        public async Task<IIntent> GetUserIntentAsync(string sentence, CancellationToken token)
         {
             var sw = new Stopwatch();
             sw.Start();
-            //var client = new WitClient("B7CTPD5LNYKZNWZ7UFZMZ4BPV6B4SZW4");
-            var predict = await m_Client.GetMessageAsync(sentence);
+            var predict = await m_Client.GetMessageAsync(sentence, token);
 
             var intent = predict.Intent;
             if (intent == null)
@@ -53,16 +53,17 @@ namespace Zbang.Zbox.Infrastructure.Ai
         }
 
 
-        public Task UpdateCourseEntityAsync(IEnumerable<string> courses)
+        public Task AddCoursesEntityAsync(IEnumerable<string> courses,CancellationToken token)
         {
             var tasks = new List<Task>();
             foreach (var course in courses)
             {
-                tasks.Add(m_Client.UpdateEntityValuesAsync("CourseName", course, null, null));
+                token.ThrowIfCancellationRequested();
+                tasks.Add(m_Client.AddEntityValueAsync("CourseName", course, null, null, token));
             }
             return Task.WhenAll(tasks);
         }
-        public Task UpdateUniversityEntityAsync(IEnumerable<UniversityEntityDto> universities)
+        public Task AddUniversitiesEntityAsync(IEnumerable<UniversityEntityDto> universities, CancellationToken token)
         {
             if (universities == null)
             {
@@ -71,7 +72,8 @@ namespace Zbang.Zbox.Infrastructure.Ai
             var tasks = new List<Task>();
             foreach (var university in universities)
             {
-                tasks.Add(m_Client.UpdateEntityValuesAsync("UniversityName", university.Name, university.Extra, university.Id.ToString()));
+                token.ThrowIfCancellationRequested();
+                tasks.Add(m_Client.AddEntityValueAsync("UniversityName", university.Name, university.Extra, university.Id.ToString(), token));
             }
             return Task.WhenAll(tasks);
         }

@@ -19,6 +19,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         }
         public override string GenerateMail()
         {
+            if (m_Parameters == null) throw new ArgumentNullException(nameof(m_Parameters));
             var html = LoadMailTempate.LoadMailFromContent(m_Parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.ReplyToCommentMailTemplate");
             html = html.Replace("{name}", m_Parameters.UserName);
             html = html.Replace("{UserWhoMadeActionName}", m_Parameters.UserWhoMadeActionName);

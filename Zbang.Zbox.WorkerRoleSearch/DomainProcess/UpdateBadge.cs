@@ -72,7 +72,6 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
         private async Task DoUpdateAsync(long userId, BadgeType badge, CancellationToken token)
         {
             token.ThrowIfCancellationRequested();
-            TraceLog.WriteInfo($"processing badge {badge.GetEnumDescription()} for user {userId}");
             var command = new UpdateBadgesCommand(userId, badge);
             m_ZboxWriteService.UpdateBadges(command);
             if (command.Progress == 100)
@@ -91,9 +90,6 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             
                 await m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(userId), token);
             }
-
-
-            //return Infrastructure.Extensions.TaskExtensions.CompletedTask;
         }
     }
 }

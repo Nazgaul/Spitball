@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Cognitive.LUIS;
 
@@ -7,7 +8,7 @@ namespace Zbang.Zbox.Infrastructure.Ai
 {
     public interface IAi
     {
-        Task<IIntent> GetUserIntentAsync(string sentence);
+        Task<IIntent> GetUserIntentAsync(string sentence, CancellationToken token);
     }
     public interface ILuisAi: IAi
     {
@@ -21,7 +22,7 @@ namespace Zbang.Zbox.Infrastructure.Ai
                     "6effb3962e284a9ba73dfb57fa1cfe40");
 
 
-        public async Task<IIntent> GetUserIntentAsync(string sentence)
+        public async Task<IIntent> GetUserIntentAsync(string sentence, CancellationToken token)
         {
             var sw = new Stopwatch();
             sw.Start();

@@ -78,7 +78,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         }
 
 
-        private async Task BuildIndex()
+        private async Task BuildIndexAsync()
         {
             try
             {
@@ -182,7 +182,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                             Id = s.Id.ToString(CultureInfo.InvariantCulture),
                             Name = s.Name.Trim(),
                             Name2 = s.Name.Trim(),
-                            Extra1 = s.Extra,
+                            Extra1 = s.Extra?.Replace(","," "),
                             Extra2 = string.Join(
                                 " ",
                                 s.Name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
@@ -218,29 +218,11 @@ namespace Zbang.Zbox.Infrastructure.Search
                 var batch = IndexBatch.Delete(deleteBatch);
                 if (batch.Actions.Any())
                     await m_IndexClient.Documents.IndexAsync(batch);
-                //listOfCommands.AddRange(universityToDelete.Select(s =>
-                //   new IndexAction<UniversitySearch>(IndexActionType.Delete, new UniversitySearch
-                //   {
-                //       Id = s.ToString(CultureInfo.InvariantCulture)
-                //   })));
+                
 
             }
             return true;
-            //var commands = listOfCommands.ToArray();
-            //if (commands.Length <= 0) return true;
-            //try
-            //{
-            //    await m_IndexClient.Documents.IndexAsync(IndexBatch.Create(listOfCommands.ToArray()));
-            //}
-            //catch (IndexBatchException ex)
-            //{
-            //    TraceLog.WriteError("Failed to index some of the documents: " +
-            //                        String.Join(", ",
-            //                            ex.IndexResponse.Results.Where(r => !r.Succeeded).Select(r => r.Key)));
-            //    return false;
-            //}
-
-            //return true;
+            
         }
 
 

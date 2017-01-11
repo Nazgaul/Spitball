@@ -599,7 +599,6 @@ OPTION (TABLE HINT(s, INDEX ([students_shouldsend2])),Recompile);";
                             sql1 + sql2, new { UniId = universityId }, cancellationToken: token)))
                     {
                         var result = await grid.ReadAsync<GreekPartnerDto>();
-                        //result.Union(await grid.ReadAsync<GreekPartnerDto>());
                         return result.Union(await grid.ReadAsync<SpamGunDto>()); ;
                     }
                 }, token);

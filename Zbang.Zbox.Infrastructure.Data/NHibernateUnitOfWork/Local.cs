@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Runtime.Remoting.Messaging;
-using System.Threading;
 using System.Web;
-using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.UnitsOfWork;
 
 namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
@@ -57,28 +55,33 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                 }
             }
 
-            public object this[object key]
+            public object this[string key]
             {
                 get
                 {
                     if (key == null) throw new ArgumentNullException(nameof(key));
-                    return LocalHashtable[key];
+                    if (RunningInWeb)
+                    {
+                        return HttpContext.Current.Items[key];
+                    }
+                    return CallContext.LogicalGetData(key);
+                    //return LocalHashtable[key];
                 }
                 set
                 {
                     if (key == null) throw new ArgumentNullException(nameof(key));
                     if (RunningInWeb)
                     {
-                        LocalHashtable[key] = value;
+                        HttpContext.Current.Items[key] = value;
                         return;
                     }
-
-                    if (LocalHashtable[key] != null)
-                    {
-                        LocalHashtable.Clear();
-                        //Do something
-                    }
-                    LocalHashtable[key] = value;
+                    CallContext.LogicalSetData(key, value);
+                    //if (LocalHashtable[key] != null)
+                    //{
+                    //    LocalHashtable.Clear();
+                    //    //Do something
+                    //}
+                    //LocalHashtable[key] = value;
 
                 }
             }
@@ -92,7 +95,9 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                 LocalHashtable.Clear();
                 if (!RunningInWeb)
                 {
-                    CallContext.LogicalSetData("LocalData_hash", null);
+                    CallContext.LogicalSetData(UnitOfWork.CurrentUnitOfWorkKey, null);
+                    CallContext.LogicalSetData(UnitOfWorkFactory.CurrentSessionKey, null);
+                    //CallContext.LogicalSetData("LocalData_hash", null);
                 }
             }
         }

@@ -1,6 +1,5 @@
 ﻿using System;
 using NHibernate;
-using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.UnitsOfWork;
 
 namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
