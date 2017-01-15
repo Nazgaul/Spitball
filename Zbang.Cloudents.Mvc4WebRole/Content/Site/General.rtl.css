@@ -766,3 +766,9 @@ md-toast .md-toast-content span {
 .mainAd.hide-Ad {
   display: none !important;
 }
+@media (min-width: 960px) {
+  .mainAd.fullPage {
+    margin-right: -240px;
+    width: calc(100% + 260px);
+  }
+}

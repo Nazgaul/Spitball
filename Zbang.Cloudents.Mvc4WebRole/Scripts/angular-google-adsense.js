@@ -28,18 +28,24 @@
                     Adsense.isAlreadyLoaded = true;
                 }
 
-                var classToHide = "hide-Ad";
+               
                 var selector = ".mainAd";
-                var statesToHide = ["item", "quiz", "quizCreate", "universityChoose", "settings"];
+                var statesFullPage = ["flashcard"];
+                var statesToHide = ["item", "quiz", "quizCreate", "universityChoose", "settings", "flashcardCreate"];
                 $scope.$on("$stateChangeSuccess",
                 function (event, toState) {
-
-                    if (statesToHide.indexOf(toState.name) > -1 || statesToHide.indexOf(toState.parent) > -1) {
-                        $(selector).addClass(classToHide);
-                    } else {
-                        $(selector).removeClass(classToHide);
+                    stateToggle(statesToHide, "hide-Ad");
+                    stateToggle(statesFullPage, "fullPage");
+                    function stateToggle(arr, classToToggle) {
+                        if (arr.indexOf(toState.name) > -1 || arr.indexOf(toState.parent) > -1) {
+                            $(selector).addClass(classToToggle);
+                        } else {
+                            $(selector).removeClass(classToToggle);
+                        }
                     }
                 });
+
+                
                 /**
                  * We need to wrap the call the AdSense in a $apply to update the bindings.
                  * Otherwise, we get a 400 error because AdSense gets literal strings from the directive
