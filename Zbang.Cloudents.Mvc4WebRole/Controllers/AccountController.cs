@@ -877,10 +877,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             try
             {
+                var retVal = await ZboxReadService.GetUserDataAsync(new QueryBaseUserId(User.GetUserId()));
+
                 //TODO : merge that
                 var command = new AddUserLocationActivityCommand(User.GetUserId(), HttpContext.Request.UserAgent);
                 await ZboxWriteService.AddUserLocationActivityAsync(command);
-                var retVal = await ZboxReadService.GetUserDataAsync(new QueryBaseUserId(User.GetUserId()));
 
                 var level = GamificationLevels.GetLevel(retVal.Score);
                 retVal.LevelName = level.Name;
