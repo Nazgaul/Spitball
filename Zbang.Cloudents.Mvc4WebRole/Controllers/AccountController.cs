@@ -877,6 +877,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             try
             {
+                var retVal = await ZboxReadService.GetUserDataAsync(new QueryBaseUserId(User.GetUserId()));
+
                 //TODO : merge that
                 var retVal = await ZboxReadService.GetUserDataAsync(new QueryBaseUserId(User.GetUserId()));
                 var command = new AddUserLocationActivityCommand(User.GetUserId(), HttpContext.Request.UserAgent);
