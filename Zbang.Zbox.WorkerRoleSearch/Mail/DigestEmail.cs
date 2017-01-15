@@ -80,7 +80,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                             if (!m_EmailHash.Add(email))
                             {
                                 TraceLog.WriteError($"{email} is already sent");
-                                await SendEmailStatusAsync($"{email} error digest email already sent");
+                                //await SendEmailStatusAsync($"{email} error digest email already sent");
                                 continue;
                             }
                             var culture = string.IsNullOrEmpty(user.Culture)
