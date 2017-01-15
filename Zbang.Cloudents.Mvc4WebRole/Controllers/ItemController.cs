@@ -32,7 +32,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [NoUniversity]
     public class ItemController : BaseController
     {
-        private readonly IFileProcessorFactory m_FileProcessorFactory;
+        private readonly Lazy<IFileProcessorFactory> m_FileProcessorFactory;
         private readonly IQueueProvider m_QueueProvider;
         private readonly Lazy<IGuidIdGenerator> m_GuidGenerator;
         private readonly Lazy<IItemReadSearchProvider> m_ItemSearchProvider;
@@ -40,9 +40,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         public ItemController(
-            IFileProcessorFactory fileProcessorFactory,
-            IQueueProvider queueProvider, Lazy<IGuidIdGenerator> guidGenerator, 
-            Lazy<IItemReadSearchProvider> itemSearchProvider, 
+            Lazy<IFileProcessorFactory> fileProcessorFactory,
+            IQueueProvider queueProvider, Lazy<IGuidIdGenerator> guidGenerator,
+            Lazy<IItemReadSearchProvider> itemSearchProvider,
             Lazy<IBlobProvider2<FilesContainerName>> blobProviderFiles)
         {
             m_FileProcessorFactory = fileProcessorFactory;
@@ -326,7 +326,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var uri = m_BlobProviderFiles.Value.GetBlobUrl(item.Source);
             IEnumerable<string> retVal = null;
-            var processor = m_FileProcessorFactory.GetProcessor(uri);
+            var processor = m_FileProcessorFactory.Value.GetProcessor(uri);
             if (processor != null)
             {
                 var result = await processor.ConvertFileToWebsitePreviewAsync(uri, 0);
@@ -395,20 +395,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 uri = m_BlobProviderFiles.Value.GetBlobUrl(blobName);
             }
-            var processor = m_FileProcessorFactory.GetProcessor(uri);
-            if (processor == null)
-                return
-                    JsonOk(
-                        new
-                        {
-                            template = "failed"
-                            //preview =
-                            //    RenderRazorViewToString("_PreviewFailed",
-                            //        Url.RouteUrl("ItemDownload2", new { boxId, itemId = id }))
-                        });
-
             try
             {
+                var processor = m_FileProcessorFactory.Value.GetProcessor(uri);
+                if (processor == null)
+                    return
+                        JsonOk(
+                            new
+                            {
+                                template = "failed"
+                        });
+
+
                 var retVal = await processor.ConvertFileToWebsitePreviewAsync(uri, index, cancellationToken);
                 if (retVal.Content == null)
                 {
