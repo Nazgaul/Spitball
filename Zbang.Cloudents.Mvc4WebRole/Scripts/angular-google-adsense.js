@@ -14,9 +14,9 @@
                 adSlot: '@',
                 inlineStyle: '@',
                 adFormat: '@',
-                region: '@'
+                adClass: '@'
             },
-            template: '<div class="ads"><ins class="adsbygoogle" data-ad-client="{{adClient}}" data-ad-slot="{{adSlot}}" style="{{inlineStyle}}" data-ad-format="{{adFormat}}"  data-ad-region="{{region}}"></ins></div>',
+            template: '<div class="ads"><ins class="adsbygoogle {{adClass}}" data-ad-client="{{adClient}}" data-ad-slot="{{adSlot}}" style="{{inlineStyle}}" data-ad-format="{{adFormat}}"></ins></div>',
             controller: ['Adsense', '$timeout', '$scope', function (Adsense, $timeout, $scope) {
                 if (!Adsense.isAlreadyLoaded) {
                     var s = document.createElement('script');
@@ -27,8 +27,19 @@
 
                     Adsense.isAlreadyLoaded = true;
                 }
-                $scope.region = "region" + Math.random();
-               
+
+                var classToHide = "hide-Ad";
+                var selector = ".mainAd";
+                var statesToHide = ["item", "quiz", "quizCreate", "universityChoose", "settings"];
+                $scope.$on("$stateChangeSuccess",
+                function (event, toState) {
+
+                    if (statesToHide.indexOf(toState.name) > -1 || statesToHide.indexOf(toState.parent) > -1) {
+                        $(selector).addClass(classToHide);
+                    } else {
+                        $(selector).removeClass(classToHide);
+                    }
+                });
                 /**
                  * We need to wrap the call the AdSense in a $apply to update the bindings.
                  * Otherwise, we get a 400 error because AdSense gets literal strings from the directive
