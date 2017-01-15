@@ -10,11 +10,9 @@ namespace Zbang.Zbox.Infrastructure.Ai
     public class WitAi : IWitAi
     {
 
-        private readonly WitClient m_Client = new WitClient("B7CTPD5LNYKZNWZ7UFZMZ4BPV6B4SZW4");
+        private readonly WitClient m_Client = new WitClient("LRSR7XQUEU5UB7TQNBB64B7BHZDC7UNH");
         public async Task<IIntent> GetUserIntentAsync(string sentence, CancellationToken token)
         {
-            var sw = new Stopwatch();
-            sw.Start();
             var predict = await m_Client.GetMessageAsync(sentence, token);
 
             var intent = predict.Intent;
@@ -27,28 +25,23 @@ namespace Zbang.Zbox.Infrastructure.Ai
             {
                 return null;
             }
-            List<Entity> entity;
-            //var entities = predict.GetAllEntities();
             foreach (var prop in intentObject.GetType().GetProperties())
             {
-                
+                List<Entity> entity;
                 if (predict.Entities.TryGetValue(prop.Name, out entity))
                 {
                     prop.SetValue(intentObject, entity[0].Value);
                 }
-                //var entity = entities.Find(f => f.Name == prop.Name);
-                //if (entity != null)
-                //{
-                    
-                //}
+                if (prop.Name == "SearchQuery" && predict.Entities.TryGetValue("search_query", out entity))
+                {
+                    prop.SetValue(intentObject, entity[0].Value);
+                }
             }
-            if (predict.Entities.TryGetValue("search_query", out entity))
-            {
-                intentObject.SearchQuery = entity[0].Value;
+            //if (predict.Entities.TryGetValue("search_query", out entity))
+            //{
+            //    intentObject.SearchQuery = entity[0].Value;
 
-            }
-            sw.Stop();
-            intentObject.Time = sw.ElapsedMilliseconds;
+            //}
             return intentObject;
         }
 

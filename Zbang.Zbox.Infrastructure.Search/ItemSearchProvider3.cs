@@ -15,7 +15,7 @@ using Zbang.Zbox.ViewModel.Dto.Search;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
-    public class ItemSearchProvider3 : IItemReadSearchProvider2, IItemWriteSearchProvider3
+    public class ItemSearchProvider3 : IItemReadSearchProvider, IItemWriteSearchProvider
     {
         private readonly string m_IndexName = "item3";
 #pragma warning disable CS0169 // The field 'ItemSearchProvider3.m_CheckIndexExists' is never used
@@ -100,14 +100,13 @@ namespace Zbang.Zbox.Infrastructure.Search
             m_CheckIndexExists = true;
         }
 
-        public async Task UpdateDataAsync(ItemSearchDto itemToUpload, IEnumerable<long> itemToDelete)
+        public async Task UpdateDataAsync(ItemSearchDto itemToUpload, IEnumerable<long> itemToDelete, CancellationToken token)
         {
             if (!m_CheckIndexExists)
             {
                 await BuildIndexAsync();
 
             }
-            //var listOfCommands = new List<IndexAction<ItemSearch>>();
             if (itemToUpload != null)
             {
                 var uploadBatch = new ItemSearch
@@ -127,9 +126,9 @@ namespace Zbang.Zbox.Infrastructure.Search
                     UserId = itemToUpload.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture)).ToArray(),
                     BlobName = itemToUpload.BlobName
                 };
-                var batch = IndexBatch.Upload(new[] { uploadBatch });
+                var batch = IndexBatch.MergeOrUpload(new[] { uploadBatch });
                 if (batch.Actions.Any())
-                    await m_IndexClient.Documents.IndexAsync(batch);
+                    await m_IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
             }
             if (itemToDelete != null)
             {
@@ -140,7 +139,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                      });
                 var batch = IndexBatch.Delete(deleteBatch);
                 if (batch.Actions.Any())
-                    await m_IndexClient.Documents.IndexAsync(batch);
+                    await m_IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
             }
 
 

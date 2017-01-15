@@ -68,9 +68,9 @@ namespace Zbang.Zbox.Infrastructure.Ai
             var result = await m_Client.ExecuteTaskAsync(request, token);
             if (result.StatusCode == System.Net.HttpStatusCode.Conflict)
             {
-
-               await RemoveEntityValueAsync(entityName, value, token);
-               await AddEntityValueAsync(entityName, value, expressionList, metadata, token);
+                await UpdateEntityValueAsync(entityName, value, expressionList, token);
+                //await RemoveEntityValueAsync(entityName, value, token);
+                //await AddEntityValueAsync(entityName, value, expressionList, metadata, token);
             }
         }
 
@@ -81,23 +81,23 @@ namespace Zbang.Zbox.Infrastructure.Ai
             return m_Client.ExecuteTaskAsync(request, token);
         }
 
-        //internal Task UpdateEntityValueAsync(string entityName, string value, IEnumerable<string> expressions, CancellationToken token)
-        //{
-        //    var request = new RestRequest($"entities/{entityName}/values/{value}/expressions", Method.POST);
-        //    AddDefaultParametes(request);
-        //    request.RequestFormat = DataFormat.Json;
-        //    foreach (var expression in expressions)
-        //    {
-                
-        //    }
-        //    request.AddBody(new
-        //    {
-                
-        //       expressions,
-                
-        //    });
-        //    return m_Client.ExecuteTaskAsync(request, token);
-        //}
+        internal Task UpdateEntityValueAsync(string entityName, string value, IEnumerable<string> expressions, CancellationToken token)
+        {
+            var tasks = new List<Task>();
+            foreach (var expression in expressions.Distinct())
+            {
+                var request = new RestRequest($"entities/{entityName}/values/{value}/expressions", Method.POST);
+                AddDefaultParametes(request);
+                request.RequestFormat = DataFormat.Json;
+                request.AddJsonBody(new
+                {
+                    expression
+                });
+                tasks.Add(m_Client.ExecuteTaskAsync(request, token));
+            }
+            return Task.WhenAll(tasks);
+
+        }
 
 
     }

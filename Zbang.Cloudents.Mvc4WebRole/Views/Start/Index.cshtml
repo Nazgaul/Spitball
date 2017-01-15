@@ -11,70 +11,12 @@
         @*<button type="submit" class="md-button">Submit</button>*@
 
     </md-input-container>
-    <div ng-messages="startForm.name.$error" ng-show="startForm.name.$dirty">
+    @*<div ng-messages="startForm.name.$error" ng-show="startForm.name.$dirty">
         <div ng-message="required">@GeneralResources.RequiredField</div>
-    </div>
+    </div>*@
 </form>
-    <div>{{s.lang}}</div>
-    <style>
-        table, th, td {
-    border: 1px solid black;
-}
-    </style>
-    <div layout="row">
-        <div flex="50">
-            <h2>luis</h2>
-            <table>
-                <tr>
-                    <td>intent</td>
-                    <td>{{s.luis.intent}}</td>
-                </tr>
-                <tr>
-                    <td>search query</td>
-                    <td>{{s.luis.data.searchQuery}}</td>
-                </tr>
-                <tr>
-                    <td>university Name</td>
-                    <td>{{s.luis.data.universityName}}</td>
-                </tr>
-                <tr>
-                    <td>course Name</td>
-                    <td>{{s.luis.data.courseName}}</td>
-                </tr>
-                <tr>
-                    <td>time</td>
-                    <td>{{s.luis.data.time}}</td>
-                </tr>
-
-            </table>
-        </div>
-        <div flex="50">
-            <h2>wit</h2>
-            <table>
-                <tr>
-                    <td>intent</td>
-                    <td>{{s.wit.intent}}</td>
-                </tr>
-                <tr>
-                    <td>search query</td>
-                    <td>{{s.wit.data.searchQuery}}</td>
-                </tr>
-                <tr>
-                    <td>university Name</td>
-                    <td>{{s.wit.data.universityName}}</td>
-                </tr>
-                <tr>
-                    <td>course Name</td>
-                    <td>{{s.wit.data.courseName}}</td>
-                </tr>
-                <tr>
-                    <td>time</td>
-                    <td>{{s.wit.data.time}}</td>
-                </tr>
-
-            </table>
-        </div>
-    </div>
+<md-progress-linear md-mode="query" ng-disabled="!s.loading"></md-progress-linear>
+<div ng-hide="s.loading">{{s.sentence}}</div>
 
 
 

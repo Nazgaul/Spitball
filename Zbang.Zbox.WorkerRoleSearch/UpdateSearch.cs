@@ -38,7 +38,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     break;
                 case TimeToSleep.Min:
                     Interval = MinInterval;
-                    //TraceLog.WriteInfo($"{GetPrefix()} not going to sleep inteval change {Interval}");
+                    TraceLog.WriteInfo($"{GetPrefix()} not going to sleep inteval change {Interval}");
                     break;
                 case TimeToSleep.Same:
                     TraceLog.WriteInfo($"{GetPrefix()} going to sleep inteval {Interval}");

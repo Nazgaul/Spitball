@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -13,14 +14,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
     public class StartController : BaseController
     {
-        private readonly IDetectLanguage m_DetectLanguage;
-        private readonly ILuisAi m_LuisAi;
         private readonly IWitAi m_WitAi;
 
-        public StartController(IDetectLanguage detectLanguage, ILuisAi luisAi, IWitAi witAi)
+        public StartController(IWitAi witAi)
         {
-            m_DetectLanguage = detectLanguage;
-            m_LuisAi = luisAi;
             m_WitAi = witAi;
         }
 
@@ -45,30 +42,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, ActionName("Intent")]
-        public async Task<JsonResult> IntentAsync(string term)
+        public async Task<JsonResult> IntentAsync(string term, CancellationToken cancellationToken)
         {
-            
-
             if (string.IsNullOrEmpty(term))
             {
                 return JsonError();
             }
-            var lang = m_DetectLanguage.DoWork(term);
-            // if (lang == Zbox.Infrastructure.Culture.Language.EnglishUs)
-            // {
-            var tLuisData = m_LuisAi.GetUserIntentAsync(term);
-            var tWitData = m_WitAi.GetUserIntentAsync(term);
-
-            await Task.WhenAll(tLuisData, tWitData);
-            // }
-            return JsonOk(new
+            using (var token = base.CreateCancellationToken(cancellationToken))
             {
-                lang,
-                luis = tLuisData.Result,
-                wit = tWitData.Result,
-                luisIntent = tLuisData.Result?.GetType().Name,
-                witIntent = tWitData.Result?.GetType().Name
-            });
+                var data = await m_WitAi.GetUserIntentAsync(term, token.Token);
+                return JsonOk(new
+                {
+                    data,
+                    sentence = data?.ToString()
+                });
+            }
         }
     }
 }

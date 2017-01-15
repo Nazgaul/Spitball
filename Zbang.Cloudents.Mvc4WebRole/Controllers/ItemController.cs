@@ -35,14 +35,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private readonly IQueueProvider m_QueueProvider;
         private readonly Lazy<IGuidIdGenerator> m_GuidGenerator;
-        private readonly Lazy<IItemReadSearchProvider2> m_ItemSearchProvider;
+        private readonly Lazy<IItemReadSearchProvider> m_ItemSearchProvider;
         private readonly Lazy<IBlobProvider2<FilesContainerName>> m_BlobProviderFiles;
 
 
         public ItemController(
             IFileProcessorFactory fileProcessorFactory,
             IQueueProvider queueProvider, Lazy<IGuidIdGenerator> guidGenerator, 
-            Lazy<IItemReadSearchProvider2> itemSearchProvider, 
+            Lazy<IItemReadSearchProvider> itemSearchProvider, 
             Lazy<IBlobProvider2<FilesContainerName>> blobProviderFiles)
         {
             m_FileProcessorFactory = fileProcessorFactory;

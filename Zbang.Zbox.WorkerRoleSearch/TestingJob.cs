@@ -36,7 +36,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public async Task RunAsync(CancellationToken cancellationToken)
         {
-           // await m_MailComponent.SendSpanGunEmailAsync("ram@cloudents.com", "ip1");
+            // await m_MailComponent.SendSpanGunEmailAsync("ram@cloudents.com", "ip1");
             //var tasks = new List<Task>();
             //for (int i = 0; i < SpamGun.SpanGunNumberOfQueues; i++)
             //{
@@ -76,18 +76,18 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             //});
 
-            //var y = Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IDomainProcess>(Infrastructure.Transport.DomainProcess.UpdateResolver);
-            //await y.ExecuteAsync(new UpdateData(878781, 136460, questionId: Guid.Parse("32978dbe-d31c-4ac3-92d0-a5cb00e8549a")), cancellationToken);
+            var y = Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IFileProcess>(nameof(BoxFileProcessData));
+            await y.ExecuteAsync(new BoxFileProcessData(606384), cancellationToken);
 
             //await y.GetUnsubscribersAsync(1, cancellationToken);
 
             //var x = new List<Task<bool>>();
 
-            var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<ISchedulerProcess>("digestOnceADay_3");
-            if (process != null)
-            {
-                await process.ExecuteAsync(0, p => Task.FromResult(true), cancellationToken);
-            }
+            //var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<ISchedulerProcess>("digestOnceADay_3");
+            //if (process != null)
+            //{
+            //    await process.ExecuteAsync(0, p => Task.FromResult(true), cancellationToken);
+            //}
 
             //process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("likesReport");
             //if (process != null)

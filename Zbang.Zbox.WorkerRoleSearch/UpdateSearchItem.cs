@@ -24,7 +24,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
-        private readonly IItemWriteSearchProvider3 m_ItemSearchProvider3;
+        private readonly IItemWriteSearchProvider m_ItemSearchProvider3;
         private readonly IBlobProvider2<FilesContainerName> m_BlobProvider;
         private readonly IMailComponent m_MailComponent;
         private readonly IBlobProvider2<PreviewContainerName> m_BlobPreviewContainerProvider;
@@ -36,7 +36,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             IZboxWorkerRoleService zboxWriteService,
             IFileProcessorFactory fileProcessorFactory,
             IBlobProvider2<FilesContainerName> blobProvider,
-            IItemWriteSearchProvider3 itemSearchProvider3, IMailComponent mailComponent, IBlobProvider2<PreviewContainerName> blobPreviewContainerProvider)
+            IItemWriteSearchProvider itemSearchProvider3, IMailComponent mailComponent, IBlobProvider2<PreviewContainerName> blobPreviewContainerProvider)
         {
             m_ZboxReadService = zboxReadService;
             m_ZboxWriteService = zboxWriteService;
@@ -88,10 +88,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
             foreach (var elem in updates.ItemsToUpdate)
             {
 
-                tasks.Add(ProcessFileAsync(elem));
+                tasks.Add(ProcessFileAsync(elem, cancellationToken));
             }
 
-            tasks.Add(m_ItemSearchProvider3.UpdateDataAsync(null, updates.ItemsToDelete));
+            tasks.Add(m_ItemSearchProvider3.UpdateDataAsync(null, updates.ItemsToDelete, cancellationToken));
             await Task.WhenAll(tasks);
             await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
                 new UpdateDirtyToRegularCommand(
@@ -104,16 +104,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return TimeToSleep.Same;
         }
 
-        private async Task ProcessFileAsync(ItemSearchDto elem)
+        private async Task ProcessFileAsync(ItemSearchDto elem, CancellationToken token)
         {
-            elem.Content = ExtractContentToUploadToSearch(elem);
+            elem.Content = ExtractContentToUploadToSearch(elem, token);
             PreProcessFile(elem);
 
             if (elem.Type.ToLower() == "file")
             {
                 try
                 {
-                    await m_ItemSearchProvider3.UpdateDataAsync(elem, null);
+                    await m_ItemSearchProvider3.UpdateDataAsync(elem, null, token);
                 }
                 catch (Exception ex)
                 {
@@ -220,7 +220,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         }
 
         private readonly TimeSpan m_TimeToWait = TimeSpan.FromMinutes(3);
-        private string ExtractContentToUploadToSearch(ItemSearchDto elem)
+        private string ExtractContentToUploadToSearch(ItemSearchDto elem, CancellationToken token)
         {
             if (elem.Type.ToLower() != "file")
             {
@@ -235,49 +235,53 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 //var blob = m_BlobProvider.GetFile(elem.BlobName);
                 var processor = m_FileProcessorFactory.GetProcessor(uri);
                 if (processor == null) return null;
-                var tokenSource = new CancellationTokenSource();
-                tokenSource.CancelAfter(m_TimeToWait);
-
                 string str = null;
+                var tokenSource =
+                    CancellationTokenSource.CreateLinkedTokenSource(new CancellationTokenSource(m_TimeToWait).Token,
+                        token);
+
+                //tokenSource.CancelAfter(m_TimeToWait);
+
+
 
                 var work = new Thread(async () =>
-                {
-                    try
                     {
+                        try
+                        {
 
-                        str = await processor.ExtractContentAsync(uri, tokenSource.Token);
-                        if (string.IsNullOrEmpty(str))
-                        {
+                            str = await processor.ExtractContentAsync(uri, tokenSource.Token);
+                            if (string.IsNullOrEmpty(str))
+                            {
+                                wait.Set();
+                                return;
+                            }
+                            var sb = new StringBuilder();
+                            var byteCount = 0;
+                            var buffer = new char[1];
+                            foreach (var ch in str)
+                            {
+                                if (char.IsSurrogate(ch))
+                                {
+                                    continue;
+                                }
+                                buffer[0] = ch;
+                                byteCount += Encoding.UTF8.GetByteCount(buffer);
+                                if (byteCount > 15000000)
+                                {
+                                    // Couldn't add this character. Return its index
+                                    break;
+                                }
+                                sb.Append(ch);
+                            }
+                            str = sb.ToString();
                             wait.Set();
-                            return;
                         }
-                        var sb = new StringBuilder();
-                        var byteCount = 0;
-                        var buffer = new char[1];
-                        foreach (var ch in str)
+                        catch (Exception ex)
                         {
-                            if (char.IsSurrogate(ch))
-                            {
-                                continue;
-                            }
-                            buffer[0] = ch;
-                            byteCount += Encoding.UTF8.GetByteCount(buffer);
-                            if (byteCount > 15000000)
-                            {
-                                // Couldn't add this character. Return its index
-                                break;
-                            }
-                            sb.Append(ch);
+                            TraceLog.WriteError("on elem " + elem, ex);
+                            wait.Set();
                         }
-                        str = sb.ToString();
-                        wait.Set();
-                    }
-                    catch (Exception ex)
-                    {
-                        TraceLog.WriteError("on elem " + elem, ex);
-                        wait.Set();
-                    }
-                });
+                    });
                 work.Start();
                 var signal = wait.WaitOne(m_TimeToWait);
                 if (!signal)
@@ -302,7 +306,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             if (parameters == null) return true;
 
             var elem = await m_ZboxReadService.GetItemDirtyUpdatesAsync(parameters.ItemId);
-            await ProcessFileAsync(elem);
+            await ProcessFileAsync(elem, token);
             await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
                 new UpdateDirtyToRegularCommand(new[] { elem.Id }));
             return true;

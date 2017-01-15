@@ -4,18 +4,19 @@ var app;
     var StartController = (function () {
         function StartController(startService) {
             this.startService = startService;
-            console.log("jere");
+            this.loading = false;
         }
         StartController.prototype.intent = function () {
             var _this = this;
+            this.loading = true;
             this.startService.intent(this.term).then(function (response) {
-                _this.lang = response.lang;
-                _this.luis = {};
-                _this.wit = {};
-                _this.luis.data = response.luis;
-                _this.luis.intent = response.luisIntent;
-                _this.wit.data = response.wit;
-                _this.wit.intent = response.witIntent;
+                _this.loading = false;
+                if (!response.data) {
+                    _this.sentence = "I don't understand what you want";
+                    return;
+                }
+                _this.sentence = response.sentence;
+                _this.term = "";
             });
         };
         return StartController;

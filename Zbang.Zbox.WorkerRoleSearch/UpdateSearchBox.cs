@@ -79,10 +79,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var updates = await m_ZboxReadService.GetBoxesDirtyUpdatesAsync(instanceId, instanceCount, top, cancellationToken);
             if (!updates.BoxesToUpdate.Any() && !updates.BoxesToDelete.Any()) return TimeToSleep.Increase;
 
-            await m_WithAiProvider.AddCoursesEntityAsync(
-                 updates.BoxesToUpdate.Where(
-                     w => w.Type == Infrastructure.Enums.BoxType.Academic && w.Name.Length > 2
-                     ).Select(s => s.Name), cancellationToken);
+            //await m_WithAiProvider.AddCoursesEntityAsync(
+            //     updates.BoxesToUpdate.Where(
+            //         w => w.Type == Infrastructure.Enums.BoxType.Academic && w.Name.Length > 2
+            //         ).Select(s => s.Name), cancellationToken);
             var isSuccess = await m_BoxSearchProvider.UpdateDataAsync(updates.BoxesToUpdate, updates.BoxesToDelete);
             if (isSuccess)
             {
@@ -106,11 +106,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             if (parameters == null) return true;
 
             var elem = await m_ZboxReadService.GetBoxDirtyUpdatesAsync(parameters.BoxId, token);
-            if (elem.Type == Infrastructure.Enums.BoxType.Academic && elem.Name.Length > 2)
-                await m_WithAiProvider.AddCoursesEntityAsync(new[]
-                {
-                    elem.Name
-                }, token);
+            //if (elem.Type == Infrastructure.Enums.BoxType.Academic && elem.Name.Length > 2)
+            //    await m_WithAiProvider.AddCoursesEntityAsync(new[]
+            //    {
+            //        elem.Name
+            //    }, token);
                  
 
             var isSuccess =

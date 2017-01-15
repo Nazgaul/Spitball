@@ -3,26 +3,36 @@
 
     class StartController {
         term;
-        lang;
-        luis;
         wit;
+        loading = false;
+        sentence;
         //xintent;
         //data;
         static $inject = ["startService"];
         constructor(private startService: IStartService) {
-            console.log("jere");
         }
 
         intent() {
+            this.loading = true;
             this.startService.intent(this.term).then(response => {
-                this.lang = response.lang;
-                this.luis = {};
-                this.wit = {};
-                this.luis.data = response.luis;
-                this.luis.intent = response.luisIntent;
+                this.loading = false;
+                
+                if (!response.data) {
+                    this.sentence = "I don't understand what you want";
+                    return;
+                }
 
-                this.wit.data = response.wit; 
-                this.wit.intent = response.witIntent;
+                this.sentence = response.sentence;
+                this.term = "";
+
+                //this.lang = response.lang;
+                //this.luis = {};
+                //this.wit = {};
+                //this.luis.data = response.luis;
+                //this.luis.intent = response.luisIntent;
+
+                //this.wit.data = response.wit; 
+                //this.wit.intent = response.witIntent;
             });
         }
     }

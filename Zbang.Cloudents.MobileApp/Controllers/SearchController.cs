@@ -23,12 +23,12 @@ namespace Zbang.Cloudents.MobileApp.Controllers
     public class SearchController : ApiController
     {
         private readonly IBoxReadSearchProvider2 m_BoxSearchService2;
-        private readonly IItemReadSearchProvider2 m_ItemSearchService2;
+        private readonly IItemReadSearchProvider m_ItemSearchService2;
         private readonly IUniversityReadSearchProvider m_UniversitySearch;
         private readonly IZboxCacheReadService m_ZboxReadService;
         private readonly TelemetryClient m_TelemetryClient = new TelemetryClient();
 
-        public SearchController(IBoxReadSearchProvider2 boxSearchService2, IItemReadSearchProvider2 itemSearchService2, IUniversityReadSearchProvider universitySearch, IZboxCacheReadService zboxReadService)
+        public SearchController(IBoxReadSearchProvider2 boxSearchService2, IItemReadSearchProvider itemSearchService2, IUniversityReadSearchProvider universitySearch, IZboxCacheReadService zboxReadService)
         {
             m_BoxSearchService2 = boxSearchService2;
             m_ItemSearchService2 = itemSearchService2;

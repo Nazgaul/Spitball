@@ -18,8 +18,8 @@ namespace Zbang.Zbox.Infrastructure.Search
             ioc.RegisterType<IBoxWriteSearchProvider2, BoxSearchProvider>(LifeTimeManager.Singleton);
             ioc.RegisterType<IBoxReadSearchProvider2, BoxSearchProvider>(LifeTimeManager.Singleton);
 
-            ioc.RegisterType<IItemWriteSearchProvider3, ItemSearchProvider3>(LifeTimeManager.Singleton);
-            ioc.RegisterType<IItemReadSearchProvider2, ItemSearchProvider3>(LifeTimeManager.Singleton);
+            ioc.RegisterType<IItemWriteSearchProvider, ItemSearchProvider3>(LifeTimeManager.Singleton);
+            ioc.RegisterType<IItemReadSearchProvider, ItemSearchProvider3>(LifeTimeManager.Singleton);
 
 
             ioc.RegisterType<IQuizWriteSearchProvider2, QuizSearchProvider2>(LifeTimeManager.Singleton);

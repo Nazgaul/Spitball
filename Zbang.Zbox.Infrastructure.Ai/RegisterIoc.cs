@@ -12,7 +12,7 @@ namespace Zbang.Zbox.Infrastructure.Ai
         public static void Register()
         {
             var ioc = IocFactory.IocWrapper;
-            ioc.RegisterType<ILuisAi, LuisAi>(LifeTimeManager.Singleton);
+            //ioc.RegisterType<ILuisAi, LuisAi>(LifeTimeManager.Singleton);
             ioc.RegisterType<IWitAi, WitAi>(LifeTimeManager.Singleton);
             ioc.RegisterType<IIntent, HomeWorkIntent>("Homework");
             ioc.RegisterType<IIntent, StudyExamIntent>("StudyForExam");

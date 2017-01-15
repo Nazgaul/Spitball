@@ -40,7 +40,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
                     From = new MailAddress(parameters.SenderEmail, parameters.SenderName)
                 };
 
-                sendGridMail.AddTo(ConfigFetcher.IsEmulated ? "ram@cloudents.com" : recipient);
+                sendGridMail.AddTo(/*ConfigFetcher.IsEmulated ? "ram@cloudents.com" :*/ recipient);
 
                 var mail = m_Container.Resolve<IMailBuilder>(parameters.MailResover, new IocParameterOverride("parameters", parameters));
                 sendGridMail.Html = mail.GenerateMail();
@@ -56,6 +56,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 }
                 sendGridMail.EnableClickTracking();
                 sendGridMail.EnableOpenTracking();
+
                 await SendAsync(sendGridMail, new Credentials());
             }
             catch (FormatException ex)
@@ -64,7 +65,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("recipient: " + recipient + " on trying to send mail", ex);
+                
+                TraceLog.WriteError("recipient: " + recipient + " on trying to send mail " + "resolve:" + parameters.MailResover + "type: " + parameters.GetType().Name, ex);
             }
 
         }
