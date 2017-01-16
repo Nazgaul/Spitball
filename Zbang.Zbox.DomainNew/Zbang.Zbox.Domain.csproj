@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Zbang.Zbox.Domain</RootNamespace>
     <AssemblyName>Zbang.Zbox.Domain</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -78,11 +78,6 @@
     <Compile Include="FlashcardPin.cs" />
     <Compile Include="FlashcardSolve.cs" />
     <Compile Include="QuizLike.cs" />
-    <Compile Include="Resources\DomainResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DomainResource.resx</DependentUpon>
-    </Compile>
     <Compile Include="EqualityAndHashCodeProvider.cs" />
     <Compile Include="File.cs" />
     <Compile Include="InviteToBox.cs" />
@@ -109,6 +104,11 @@
     <Compile Include="Question.cs" />
     <Compile Include="Quiz.cs" />
     <Compile Include="Quota.cs" />
+    <Compile Include="Resources\DomainResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DomainResource.resx</DependentUpon>
+    </Compile>
     <Compile Include="SolvedQuestion.cs" />
     <Compile Include="SolvedQuiz.cs" />
     <Compile Include="Student.cs" />

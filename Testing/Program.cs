@@ -28,6 +28,8 @@ using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Url;
 using File = System.IO.File;
 using System.Collections.Generic;
+using AlchemyAPIClient;
+using AlchemyAPIClient.Requests;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
 
@@ -102,13 +104,34 @@ namespace Testing
             }
         }
 
+        static async Task DoAlchemyAsync()
+        {
+            AlchemyClient client =
+                new AlchemyClient("785ea0b610cc18cf9cb3815552d2bbd979133a5b"
+                   // "https://gateway-a.watsonplatform.net/calls"
+                    );
+            var text =
+                @"would anybody be interested in helping me come up with questions for a practice exam before the midterm?
+";
+            var request = new AlchemyTextConceptsRequest(text, client)
+            {
+                KnowledgeGraph = true,
+                LinkedData = true,
+                ShowSourceText = true,
+                MaxRetrieve = 30
+            };
+            var z = await request.GetResponse();
+            
+        }
+
 
 
 
 
         static void Main(string[] args)
         {
-
+            var t1 = DoAlchemyAsync();
+            t1.Wait();
             //var z = GuidEncoder.Encode("0114F1D3-85E3-40D6-B6FA-A5D7000465CA");
             //var v =  GuidEncoder.Decode(z);
             var unity = IocFactory.IocWrapper;
@@ -145,7 +168,7 @@ namespace Testing
             .InstancePerLifetimeScope();
 
             unity.Build();
-           
+
             //var x = new Zbang.Zbox.Infrastructure.IdGenerator.IdGenerator();
             //var y = x.GetId();
             //var x = TestMediaServices();
@@ -174,10 +197,10 @@ namespace Testing
 
             var iocFactory = IocFactory.IocWrapper;
             var push = iocFactory.Resolve<ISendPush>();
-           var t =  push.GetRegisteredUsersAsync();
+            var t = push.GetRegisteredUsersAsync();
             t.Wait();
             return;
-           var ReadService = iocFactory.Resolve<IZboxReadServiceWorkerRole>();
+            var ReadService = iocFactory.Resolve<IZboxReadServiceWorkerRole>();
             var m_QueueRepository = iocFactory.Resolve<IQueueProvider>();
             var index = 0;
             IEnumerable<long> users;
@@ -233,7 +256,7 @@ namespace Testing
             //var t5 = m_QueueRepository.InsertMessageToTranactionAsync(new LikesBadgeData(1));
 
             //Task.WaitAll(t1, t2, t3, t4, t5);
-           
+
             //var service = iocFactory.Resolve<IZboxWorkerRoleService>();
             //service.UpdateUniversityStats(DateTime.UtcNow.AddYears(-1));
             return;

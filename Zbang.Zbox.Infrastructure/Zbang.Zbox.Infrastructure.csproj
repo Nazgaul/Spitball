@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Zbang.Zbox.Infrastructure</RootNamespace>
     <AssemblyName>Zbang.Zbox.Infrastructure</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -132,9 +132,9 @@
       <DependentUpon>Gamification.resx</DependentUpon>
     </Compile>
     <Compile Include="Enums\Resources\QuestionResource.Designer.cs">
-      <DependentUpon>QuestionResource.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>QuestionResource.resx</DependentUpon>
     </Compile>
     <Compile Include="Enums\Sex.cs" />
     <Compile Include="Enums\StatisticsAction.cs" />
@@ -228,8 +228,8 @@
     <EmbeddedResource Include="Enums\Resources\EnumResources.he.resx" />
     <EmbeddedResource Include="Enums\Resources\EnumResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>EnumResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>EnumResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -278,14 +278,14 @@
     <EmbeddedResource Include="Enums\Resources\QuestionResource.he.resx" />
     <EmbeddedResource Include="Enums\Resources\QuestionResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>QuestionResource.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>QuestionResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Security\Resources\Validation.he.resx" />
     <EmbeddedResource Include="Security\Resources\Validation.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Validation.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Validation.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

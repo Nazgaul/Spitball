@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using System.Web;
-using System.Linq;
-
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
+//using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Helpers
@@ -21,7 +18,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             if (httpContext == null)
             {
-                throw new ArgumentNullException("httpContext");
+                throw new ArgumentNullException(nameof(httpContext));
             }
             m_HttpContext = httpContext;
             m_Compress = new Compress();
@@ -31,21 +28,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         protected virtual IDictionary<string, object> LoadTempData(ControllerContext controllerContext)
         {
             HttpCookie cookie = m_HttpContext.Request.Cookies[TempDataCookieKey];
-            if (cookie != null && !String.IsNullOrEmpty(cookie.Value))
+            if (!string.IsNullOrEmpty(cookie?.Value))
             {
                 IDictionary<string, object> deserializedDictionary = Base64StringToDictionary2(cookie.Value);
 
                 cookie.Expires = DateTime.MinValue;
-                cookie.Value = String.Empty;
+                cookie.Value = string.Empty;
 
-                if (m_HttpContext.Response != null && m_HttpContext.Response.Cookies != null)
+                HttpCookie responseCookie = m_HttpContext.Response?.Cookies?[TempDataCookieKey];
+                if (responseCookie != null)
                 {
-                    HttpCookie responseCookie = m_HttpContext.Response.Cookies[TempDataCookieKey];
-                    if (responseCookie != null)
-                    {
-                        responseCookie.Expires = DateTime.MinValue;
-                        responseCookie.Value = String.Empty;
-                    }
+                    responseCookie.Expires = DateTime.MinValue;
+                    responseCookie.Value = string.Empty;
                 }
 
                 return deserializedDictionary;
@@ -127,9 +121,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             try
             {
-                var s = new JavaScriptSerializer();
-                var dataAsString = s.Serialize(values);
-                var bytes = GetBytes(dataAsString);
+                // var s = new JavaScriptSerializer();
+                string json = JsonConvert.SerializeObject(values);
+                //var dataAsString = s.Serialize(values);
+                var bytes = GetBytes(json);
                 var compressBytes = m_Compress.CompressToGzip(bytes);
                 var z = HttpServerUtility.UrlTokenEncode(compressBytes);
                 return z;
@@ -148,8 +143,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                 var bytes = HttpServerUtility.UrlTokenDecode(base64EncodedSerializedTempData);
                 var decompressBytes = m_Compress.DecompressFromGzip(bytes);
                 var dataAsString = GetString(decompressBytes);
-                var s = new JavaScriptSerializer();
-                return s.Deserialize<IDictionary<string, object>>(dataAsString);
+                // var s = new JavaScriptSerializer();
+                return JsonConvert.DeserializeObject<IDictionary<string, object>>(dataAsString);
+                // return s.Deserialize<IDictionary<string, object>>(dataAsString);
             }
             catch
             {

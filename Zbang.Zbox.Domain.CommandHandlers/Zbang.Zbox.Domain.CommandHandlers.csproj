@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Zbang.Zbox.Domain.CommandHandlers</RootNamespace>
     <AssemblyName>Zbang.Zbox.Domain.CommandHandlers</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -117,16 +117,16 @@
     <Compile Include="RateItemCommandHandler.cs" />
     <Compile Include="RemoveOldConnectionCommandHandler.cs" />
     <Compile Include="RequestAccessLibraryNodeCommandHandler.cs" />
-    <Compile Include="SaveUserFlashcardCommandHandler.cs" />
-    <Compile Include="UnsubscribeUsersFromEmailCommandHandler.cs" />
-    <Compile Include="UpdateBadgesCommandHandler.cs" />
-    <Compile Include="UpdateFlashcardCommandHandler.cs" />
-    <Compile Include="UpdateNodeSettingsCommandHandler.cs" />
     <Compile Include="Resources\CommandHandlerResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CommandHandlerResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SaveUserFlashcardCommandHandler.cs" />
+    <Compile Include="UnsubscribeUsersFromEmailCommandHandler.cs" />
+    <Compile Include="UpdateBadgesCommandHandler.cs" />
+    <Compile Include="UpdateFlashcardCommandHandler.cs" />
+    <Compile Include="UpdateNodeSettingsCommandHandler.cs" />
     <Compile Include="SubscribeToSharedBoxCommandHandler.cs" />
     <Compile Include="ShareBoxCommandHandler.cs" />
     <Compile Include="DeleteItemCommandHandler.cs" />

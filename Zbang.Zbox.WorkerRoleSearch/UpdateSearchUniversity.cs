@@ -63,14 +63,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
             if (!updates.UniversitiesToDelete.Any() && !updates.UniversitiesToUpdate.Any()) return TimeToSleep.Increase;
 
             
-            await
-                m_WithAiProvider.AddUniversitiesEntityAsync(
-                    updates.UniversitiesToUpdate.Select(s => new UniversityEntityDto
-                    {
-                        Id = s.Id,
-                        Name = s.Name,
-                        Extra = s.Extra?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
-                    }), cancellationToken);
+            //await
+            //    m_WithAiProvider.AddUniversitiesEntityAsync(
+            //        updates.UniversitiesToUpdate.Select(s => new UniversityEntityDto
+            //        {
+            //            Id = s.Id,
+            //            Name = s.Name,
+            //            Extra = s.Extra?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+            //        }), cancellationToken);
             var isSuccess =
                 await m_UniversitySearchProvider.UpdateDataAsync(updates.UniversitiesToUpdate, updates.UniversitiesToDelete);
             if (isSuccess)
@@ -98,22 +98,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             var elem = await m_ZboxReadService.GetUniversityDirtyUpdatesAsync(parameters.UniversityId);
 
-            await
-                m_WithAiProvider.AddUniversitiesEntityAsync(new[]
-                {
-                    new UniversityEntityDto
-                    {
-                        Id = elem.Id,
-                        Name = elem.Name,
-                        Extra = elem.Extra?.Split(new[] {","}, StringSplitOptions.RemoveEmptyEntries)
-                    }
-                }, token);
-                   //updates.UniversitiesToUpdate.Select(s => new UniversityEntityDto
-                   //{
-                   //    Id = s.Id,
-                   //    Name = s.Name,
-                   //    Extra = s.Extra?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
-                   //}), cancellationToken);
+            //await
+            //    m_WithAiProvider.AddUniversitiesEntityAsync(new[]
+            //    {
+            //        new UniversityEntityDto
+            //        {
+            //            Id = elem.Id,
+            //            Name = elem.Name,
+            //            Extra = elem.Extra?.Split(new[] {","}, StringSplitOptions.RemoveEmptyEntries)
+            //        }
+            //    }, token);
             var isSuccess =
                 await m_UniversitySearchProvider.UpdateDataAsync(new[] { elem }, null);
             if (isSuccess)
