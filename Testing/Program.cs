@@ -130,8 +130,8 @@ namespace Testing
 
         static void Main(string[] args)
         {
-            var t1 = DoAlchemyAsync();
-            t1.Wait();
+            //var t1 = DoAlchemyAsync();
+            //t1.Wait();
             //var z = GuidEncoder.Encode("0114F1D3-85E3-40D6-B6FA-A5D7000465CA");
             //var v =  GuidEncoder.Decode(z);
             var unity = IocFactory.IocWrapper;
@@ -196,9 +196,9 @@ namespace Testing
             //log4net.Config.XmlConfigurator.Configure();
 
             var iocFactory = IocFactory.IocWrapper;
-            var push = iocFactory.Resolve<ISendPush>();
-            var t = push.GetRegisteredUsersAsync();
-            t.Wait();
+            //var push = iocFactory.Resolve<ISendPush>();
+            //var t = push.GetRegisteredUsersAsync();
+            //t.Wait();
             return;
             var ReadService = iocFactory.Resolve<IZboxReadServiceWorkerRole>();
             var m_QueueRepository = iocFactory.Resolve<IQueueProvider>();

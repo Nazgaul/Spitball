@@ -3,6 +3,7 @@ using System.Threading;
 using Aspose.Pdf;
 using Aspose.Pdf.Devices;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,8 +16,7 @@ namespace Zbang.Zbox.Infrastructure.File
 {
     public class PdfProcessor : DocumentProcessor
     {
-
-        const string CacheVersion = CacheVersionPrefix + "4";
+        private const string CacheVersion = CacheVersionPrefix + "4";
 
         public PdfProcessor(
             IBlobProvider blobProvider,
@@ -106,7 +106,7 @@ namespace Zbang.Zbox.Infrastructure.File
                          jpegDevice.Process(pdfDocument.Pages[1], ms);
                          return ms;
 
-                     }, 
+                     },
                      () => pdfDocument.Pages.Count, CacheVersion, cancelToken);
 
                 }
@@ -126,15 +126,15 @@ namespace Zbang.Zbox.Infrastructure.File
 
         private string ExtractPdfText(Document doc)
         {
-            var builder = new StringBuilder();
+            //var builder = new StringBuilder();
+            var pageTexts = new List<string>();
             try
             {
-                
+
                 //string to hold extracted text
-                for (int i = 1; i <= Math.Min(doc.Pages.Count, 20); i++)
+                for (var i = 1; i <= Math.Min(doc.Pages.Count, 20); i++)
                 {
                     var pdfPage = doc.Pages[i];
-                    string extractedText;
                     using (var textStream = new MemoryStream())
                     {
                         //create text device
@@ -152,17 +152,27 @@ namespace Zbang.Zbox.Infrastructure.File
                         textStream.Close();
 
                         //get text from memory stream
-                        extractedText = Encoding.Unicode.GetString(textStream.ToArray());
+                        var extractedText = Encoding.Unicode.GetString(textStream.ToArray());
+                        if (string.IsNullOrWhiteSpace(extractedText))
+                        {
+                            continue;
+                        }
                         extractedText = StripUnwantedChars(extractedText);
+
+                        if (pageTexts.Contains(extractedText))
+                        {
+                            continue;
+                        }
+                        pageTexts.Add(extractedText);
                     }
-                    builder.Append(extractedText);
+                    //builder.Append(extractedText);
                 }
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("trying to extract pdf text", ex);
             }
-            var str = StripUnwantedChars(builder.ToString());
+            var str = StripUnwantedChars(string.Join(" ", pageTexts));
             return str;
         }
 

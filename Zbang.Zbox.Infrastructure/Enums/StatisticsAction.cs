@@ -1,5 +1,7 @@
 ﻿
 
+using System;
+
 namespace Zbang.Zbox.Infrastructure.Enums
 {
     public enum StatisticsAction
