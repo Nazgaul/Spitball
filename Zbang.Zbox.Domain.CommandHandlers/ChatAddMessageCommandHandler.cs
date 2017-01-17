@@ -35,7 +35,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var userAction = m_UserRepository.Load(message.UserId);
             var chatMessage = new ChatMessage(chatRoom, userAction, message.Message, message.BlobName);
 
-            var t = Infrastructure.Extensions.TaskExtensions.CompletedTask;
+            var t = Task.CompletedTask;
             foreach (var user in chatRoom.Users)
             {
                 if (!user.User.Online)

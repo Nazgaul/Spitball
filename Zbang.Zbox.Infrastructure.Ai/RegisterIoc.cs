@@ -14,10 +14,10 @@ namespace Zbang.Zbox.Infrastructure.Ai
             var ioc = IocFactory.IocWrapper;
             //ioc.RegisterType<ILuisAi, LuisAi>(LifeTimeManager.Singleton);
             ioc.RegisterType<IWitAi, WitAi>(LifeTimeManager.Singleton);
-            ioc.RegisterType<IIntent, HomeWorkIntent>("Homework");
-            ioc.RegisterType<IIntent, StudyExamIntent>("StudyForExam");
-            ioc.RegisterType<IIntent, ResearchIntent>("Research");
-            ioc.RegisterType<IIntent, JoinGroupIntent>("JoinGroup");
+            ioc.RegisterType<IIntent, QuestionIntent>("AskQuestion");
+            ioc.RegisterType<IIntent, SearchIntent>("SearchContent");
+            //ioc.RegisterType<IIntent, ResearchIntent>("Research");
+            //ioc.RegisterType<IIntent, JoinGroupIntent>("JoinGroup");
         }
     }
 }

@@ -44,7 +44,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             answer.Question.ReplyCount--;
             m_UpdatesRepository.DeleteReplyUpdates(answer.Id);
             m_ReplyRepository.Delete(answer);
-            var task = Infrastructure.Extensions.TaskExtensions.CompletedTask;
+            var task = Task.CompletedTask;
             if (answer.LikeCount > 0)
             {
                 task = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(answer.User.Id));

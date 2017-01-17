@@ -25,7 +25,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             {
                 throw new NullReferenceException("parameters");
             }
-            var t1 = Infrastructure.Extensions.TaskExtensions.CompletedTask;
+            var t1 = Task.CompletedTask;
             if (!string.IsNullOrEmpty(parameters.Referrel))
             {
                t1 =  m_IntercomManager.UpdateUserRefAsync(parameters.UserId, parameters.EmailAddress, parameters.Referrel, token);

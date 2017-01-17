@@ -86,18 +86,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (!quizId.HasValue)
             {
-                return Infrastructure.Extensions.TaskExtensions.CompletedTask;
+                return Task.CompletedTask;
             }
             var quiz = m_QuizRepository.Load(quizId.Value);
             DoUpdateLoop(userIds, u => new Updates(u, box, quiz));
-            return Infrastructure.Extensions.TaskExtensions.CompletedTask;
+            return Task.CompletedTask;
         }
 
         private Task UpdateItemAsync(long? itemId, IList<long> userIds, Box box)
         {
             if (!itemId.HasValue)
             {
-                return Infrastructure.Extensions.TaskExtensions.CompletedTask;
+                return Task.CompletedTask;
             }
             var item = m_ItemRepository.Load(itemId.Value);
             DoUpdateLoop(userIds, u => new Updates(u, box, item));
@@ -110,12 +110,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (!replyId.HasValue)
             {
-                return Infrastructure.Extensions.TaskExtensions.CompletedTask;
+                return Task.CompletedTask;
             }
             var reply = m_ReplyRepository.Load(replyId.Value);
             DoUpdateLoop(userIds, u => new Updates(u, box, reply));
 
-            var t1 = Infrastructure.Extensions.TaskExtensions.CompletedTask;
+            var t1 = Task.CompletedTask;
             var commentUser = reply.Question.User;
             if (commentUser.Id != reply.User.Id && commentUser.EmailSendSettings == Infrastructure.Enums.EmailSend.CanSend)
             {
@@ -136,13 +136,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (!commentId.HasValue)
             {
-                return Infrastructure.Extensions.TaskExtensions.CompletedTask;
+                return Task.CompletedTask;
             }
             var comment = m_CommentRepository.Load(commentId.Value);
             DoUpdateLoop(userIds, u => new Updates(u, box, comment));
             if (string.IsNullOrEmpty(comment.Text))
             {
-                return Infrastructure.Extensions.TaskExtensions.CompletedTask;
+                return Task.CompletedTask;
             }
             try
             {
@@ -150,7 +150,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 var textToPush = removeHtmlRegex.Replace(comment.Text, string.Empty);
                 if (string.IsNullOrEmpty(textToPush))
                 {
-                    return Infrastructure.Extensions.TaskExtensions.CompletedTask;
+                    return Task.CompletedTask;
                 }
 
                 return m_SendPush.SendAddPostNotificationAsync(comment.User.Name, textToPush, box.Name, box.Id, userIds);
@@ -166,24 +166,24 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (!itemDiscussionId.HasValue)
             {
-                return Infrastructure.Extensions.TaskExtensions.CompletedTask;
+                return Task.CompletedTask;
             }
             var itemDiscussion = m_ItemCommentRepository.Load(itemDiscussionId.Value);
             DoUpdateLoop(userIds, u => Updates.UpdateItemDiscussion(u, box, itemDiscussion));
-            return Infrastructure.Extensions.TaskExtensions.CompletedTask;
+            return Task.CompletedTask;
         }
         private Task UpdateItemReplyDiscussionAsync(long? itemReplyDiscussionId, IEnumerable<long> userIds, Box box)
         {
             if (!itemReplyDiscussionId.HasValue)
             {
-                return Infrastructure.Extensions.TaskExtensions.CompletedTask;
+                return Task.CompletedTask;
             }
             var itemReplyDiscussion = m_ItemCommentReplyRepository.Load(itemReplyDiscussionId.Value);
             DoUpdateLoop(userIds, u => Updates.UpdateItemDiscussionReply(u, box, itemReplyDiscussion));
             var userDiscussion = itemReplyDiscussion.Parent.Author;
             if (userDiscussion.Id == itemReplyDiscussion.Author.Id || userDiscussion.EmailSendSettings != Infrastructure.Enums.EmailSend.CanSend)
             {
-                return Infrastructure.Extensions.TaskExtensions.CompletedTask;
+                return Task.CompletedTask;
             }
             return m_QueueProvider.InsertMessageToMailNewAsync(new ReplyToCommentData(userDiscussion.Email,
                     userDiscussion.Culture,
@@ -196,11 +196,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (!quizDiscussionId.HasValue)
             {
-                return Infrastructure.Extensions.TaskExtensions.CompletedTask;
+                return Task.CompletedTask;
             }
             var quizDiscussion = m_QuizDiscussionRepository.Load(quizDiscussionId.Value);
             DoUpdateLoop(userIds, u => Updates.UpdateQuizDiscussion(u, box, quizDiscussion));
-            return Infrastructure.Extensions.TaskExtensions.CompletedTask;
+            return Task.CompletedTask;
         }
 
     }

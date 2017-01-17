@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.ViewModel.Dto;
@@ -25,28 +23,28 @@ namespace Zbang.Zbox.Infrastructure.Ai
             {
                 return null;
             }
+
+
             foreach (var prop in intentObject.GetType().GetProperties())
             {
                 List<Entity> entity;
-                if (predict.Entities.TryGetValue(prop.Name, out entity))
+                var attribute = prop.GetCustomAttributes(typeof(WitApiName), false);
+                
+                var attr = attribute[0] as WitApiName;
+                if (attr == null)
                 {
-                    prop.SetValue(intentObject, entity[0].Value);
+                    continue;
                 }
-                if (prop.Name == "SearchQuery" && predict.Entities.TryGetValue("search_query", out entity))
+                if (predict.Entities.TryGetValue(attr.Name, out entity))
                 {
                     prop.SetValue(intentObject, entity[0].Value);
                 }
             }
-            //if (predict.Entities.TryGetValue("search_query", out entity))
-            //{
-            //    intentObject.SearchQuery = entity[0].Value;
-
-            //}
             return intentObject;
         }
 
 
-        public Task AddCoursesEntityAsync(IEnumerable<string> courses,CancellationToken token)
+        public Task AddCoursesEntityAsync(IEnumerable<string> courses, CancellationToken token)
         {
             var tasks = new List<Task>();
             foreach (var course in courses)
@@ -60,7 +58,7 @@ namespace Zbang.Zbox.Infrastructure.Ai
         {
             if (universities == null)
             {
-                return Extensions.TaskExtensions.CompletedTask;
+                return Task.CompletedTask;
             }
             var tasks = new List<Task>();
             foreach (var university in universities)

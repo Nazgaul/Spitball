@@ -70,6 +70,8 @@
     <Compile Include="FlashcardSearch.cs" />
     <Compile Include="FlashcardSearchProvider.cs" />
     <Compile Include="IBoxSearchProvider.cs" />
+    <Compile Include="IFlashcardReadSearchProvider.cs" />
+    <Compile Include="IFlashcardWriteSearchProvider.cs" />
     <Compile Include="IItemReadSearchProvider.cs" />
     <Compile Include="IItemWriteSearchProvider.cs" />
     <Compile Include="ISearchConnection.cs" />

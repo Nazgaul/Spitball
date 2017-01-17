@@ -97,8 +97,8 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 await BuildIndexAsync();
             }
-            var t1 = Extensions.TaskExtensions.CompletedTask;
-            var t2 = Extensions.TaskExtensions.CompletedTask;
+            var t1 = Task.CompletedTask;
+            var t2 = Task.CompletedTask;
             if (flashcardToUpload != null)
             {
 
@@ -185,15 +185,5 @@ namespace Zbang.Zbox.Infrastructure.Search
 
 
       
-    }
-    public interface IFlashcardWriteSearchProvider
-    {
-        Task<bool> UpdateDataAsync(IEnumerable<FlashcardSearchDto> flashcardToUpload, IEnumerable<long> flashcardToDelete, CancellationToken token);
-    }
-
-
-    public interface IFlashcardReadSearchProvider
-    {
-        Task<IEnumerable<SearchFlashcard>> SearchFlashcardAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken);
     }
 }

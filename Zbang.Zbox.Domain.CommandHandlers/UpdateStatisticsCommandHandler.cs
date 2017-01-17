@@ -28,7 +28,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public Task HandleAsync(UpdateStatisticsCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
-            var t = Infrastructure.Extensions.TaskExtensions.CompletedTask;
+            var t = Task.CompletedTask;
             if (message.ItemId == null) return t;
             var itemId = message.ItemId;
             if (itemId.ItemId == 0)

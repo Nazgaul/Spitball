@@ -78,8 +78,8 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 await BuildIndexAsync();
             }
-            var t1 = Extensions.TaskExtensions.CompletedTask;
-            var t2 = Extensions.TaskExtensions.CompletedTask;
+            var t1 = Task.CompletedTask;
+            var t2 = Task.CompletedTask;
             if (boxToUpload != null)
             {
                 var uploadBatch = boxToUpload.Select(s => new BoxSearch

@@ -235,7 +235,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var t2 = ZboxReadService.GetItemDetailApiAsync(query);
 
             var userType = ViewBag.UserType as UserRelationshipType?;
-            var t3 = Zbox.Infrastructure.Extensions.TaskExtensions.CompletedTask;
+            var t3 = Task.CompletedTask;
             if (!userType.HasValue || (int)userType.Value < 2)
             {
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(userId, boxId);

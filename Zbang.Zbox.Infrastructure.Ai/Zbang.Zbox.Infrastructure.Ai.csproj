@@ -53,16 +53,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HomeWorkIntent.cs" />
+    <Compile Include="BaseIntent.cs" />
     <Compile Include="IAi.cs" />
     <Compile Include="IIntent.cs" />
     <Compile Include="IWitAi.cs" />
-    <Compile Include="JoinGroupIntent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuestionIntent.cs" />
     <Compile Include="RegisterIoc.cs" />
-    <Compile Include="ResearchIntent.cs" />
-    <Compile Include="StudyExamIntent.cs" />
+    <Compile Include="SearchIntent.cs" />
     <Compile Include="WitAi.cs" />
+    <Compile Include="WitApiName.cs" />
     <Compile Include="WitClient.cs" />
     <Compile Include="WitResponse.cs" />
   </ItemGroup>

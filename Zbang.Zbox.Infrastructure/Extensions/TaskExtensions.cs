@@ -11,6 +11,6 @@ namespace Zbang.Zbox.Infrastructure.Extensions
         public static readonly Task<bool> CompletedTaskFalse = Task.FromResult(false);
         public static readonly Task<string> CompletedTaskString = Task.FromResult<string>(null);
 
-        public static Task CompletedTask => CompletedTaskFalse;
+        //public static Task CompletedTask => CompletedTaskFalse;
     }
 }
