@@ -1086,6 +1086,9 @@
   max-width: 100%;
   display: block;
 }
+.flashcardPage .card-player .card-template.both .card-content .side .text-container p {
+  padding: 0;
+}
 .flashcardPage .card-player .card-template.both {
   background-color: #ffffff;
   border-radius: 10px;
@@ -1200,6 +1203,7 @@
 .flashcardPage .card-player .card-template .card-content .side .img-container,
 .flashcardPage .card-player .card-template .card-content .side .text-container {
   height: 100%;
+  overflow: hidden;
   width: 50%;
   flex-grow: 1;
 }
@@ -1207,6 +1211,7 @@
   .flashcardPage .card-player .card-template .card-content .side .img-container,
   .flashcardPage .card-player .card-template .card-content .side .text-container {
     width: 100%;
+    height: 50%;
   }
 }
 .flashcardPage .card-player .card-template .card-content .side .img-container img,
