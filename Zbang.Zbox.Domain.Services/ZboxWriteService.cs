@@ -10,7 +10,7 @@ using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 
 namespace Zbang.Zbox.Domain.Services
 {
-    public class ZboxWriteService : IZboxWriteService, IZboxServiceBootStrapper
+    public class ZboxWriteService : IZboxWriteService, IZboxServiceBootStrapper, Autofac.IStartable
     {
         private readonly ICommandBus m_CommandBus;
         private readonly IWithCache m_Cache;
@@ -20,11 +20,15 @@ namespace Zbang.Zbox.Domain.Services
             m_CommandBus = commandBus;
             m_Cache = cache;
         }
-
-        public void BootStrapper()
+        public void Start()
         {
             using (UnitOfWork.Start())
             { }
+        }
+
+        public void BootStrapper()
+        {
+           
         }
 
 
@@ -810,5 +814,6 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
+       
     }
 }

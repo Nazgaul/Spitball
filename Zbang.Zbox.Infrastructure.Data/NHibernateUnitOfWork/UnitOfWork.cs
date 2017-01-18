@@ -14,11 +14,6 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             UnitOfWorkFactory = new UnitOfWorkFactory();
         }
 
-        //public static Configuration Configuration
-        //{
-        //    get { return UnitOfWorkFactory.Configuration; }
-        //}
-
         private static IUnitOfWork CurrentUnitOfWork
         {
             get { return Local.Data[CurrentUnitOfWorkKey] as IUnitOfWork; }
@@ -50,8 +45,6 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
         {
             if (CurrentUnitOfWork != null)
             {
-                //TraceLog.WriteWarning("using the same unit of work");
-                //return CurrentUnitOfWork;
                 throw new InvalidOperationException("You cannot start more than one unit of work at the same time.");
             }
             var unitOfWork = UnitOfWorkFactory.Create();

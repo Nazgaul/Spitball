@@ -1,4 +1,7 @@
 ﻿using Autofac;
+using Zbang.Zbox.Domain.Services;
+using Zbang.Zbox.Infrastructure.Ai;
+using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Notifications;
@@ -28,7 +31,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
             RegisterIoc.Register();
             Infrastructure.Data.RegisterIoc.Register();
             Infrastructure.File.RegisterIoc.Register();
-            Infrastructure.Azure.Ioc.RegisterIoc.Register();
+            Ioc.ContainerBuilder.RegisterModule<StorageModule>();
+            //Infrastructure.Azure.Ioc.RegisterIoc.Register();
             Infrastructure.Mail.RegisterIoc.Register();
             
             Ioc.ContainerBuilder.RegisterType<SeachConnection>()
@@ -38,12 +42,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
              .InstancePerLifetimeScope();
             Infrastructure.Search.RegisterIoc.Register();
-            Infrastructure.Ai.RegisterIoc.Register();
-            Domain.Services.RegisterIoc.Register();
+            Ioc.ContainerBuilder.RegisterModule<WriteServiceModule>();
+            //Domain.Services.RegisterIoc.Register();
             ReadServices.RegisterIoc.Register();
             Domain.CommandHandlers.Ioc.RegisterIoc.Register();
 
-            //Store.RegisterIoc.Register();
+            Ioc.ContainerBuilder.RegisterModule<AiModule>();
             Ioc.ContainerBuilder.RegisterType<SendPush>()
             .As<ISendPush>()
             .WithParameter("connectionString", ConfigFetcher.Fetch("ServiceBusConnectionString"))
@@ -53,7 +57,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //Unity = new UnityContainer();
             RegisterTypes();
             Ioc.Build();
-            Ioc.Resolve<IBlobProvider>();
+           // Ioc.Resolve<IBlobProvider>();
         }
 
         private void RegisterTypes()

@@ -10,6 +10,8 @@ using Microsoft.Owin;
 using Microsoft.Owin.Cors;
 using Owin;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Domain.Services;
+using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Storage;
 
@@ -39,8 +41,10 @@ namespace Zbang.Cloudents.Connect
             builder.RegisterHubs(Assembly.GetExecutingAssembly());
             Zbox.Infrastructure.RegisterIoc.Register();
             Zbox.Infrastructure.Data.RegisterIoc.Register();
-            Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
-            Zbox.Domain.Services.RegisterIoc.Register();
+            builder.RegisterModule<StorageModule>();
+            builder.RegisterModule<WriteServiceModule>();
+            //Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
+            //Zbox.Domain.Services.RegisterIoc.Register();
             Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
             // Set the dependency resolver to be Autofac.
             var container = IocFactory.IocWrapper.Build();
@@ -77,6 +81,7 @@ namespace Zbang.Cloudents.Connect
             var heartBeat = GlobalHost.DependencyResolver.Resolve<ITransportHeartbeat>();
             var writeService = GlobalHost.DependencyResolver.Resolve<IZboxWriteService>();
 
+            //TODO: wire to autofac
             var monitor = new PresenceMonitor(heartBeat, writeService);
             monitor.StartMonitoring();
             app.MapSignalR("/s", config);

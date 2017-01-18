@@ -21,6 +21,8 @@ using Zbang.Cloudents.MobileApp.Controllers;
 using Zbang.Cloudents.MobileApp.Extensions;
 using Zbang.Cloudents.MobileApp.Filters;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Domain.Services;
+using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Cloudents.MobileApp
@@ -125,10 +127,12 @@ namespace Zbang.Cloudents.MobileApp
                c => HttpContext.Current.GetOwinContext().Authentication);
 
             Zbox.Infrastructure.Data.RegisterIoc.Register();
-            Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
+            builder.RegisterModule<StorageModule>();
+           // Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
             Zbox.Infrastructure.Mail.RegisterIoc.Register();
             //Zbox.Infrastructure.File.RegisterIoc.Register();
-            Zbox.Domain.Services.RegisterIoc.Register();
+            builder.RegisterModule<WriteServiceModule>();
+            //Zbox.Domain.Services.RegisterIoc.Register();
             Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
 
             Zbox.ReadServices.RegisterIoc.Register();

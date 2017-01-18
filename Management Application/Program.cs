@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Autofac;
+using Zbang.Zbox.Domain.Services;
+using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Notifications;
@@ -25,12 +27,14 @@ namespace Management_Application
             var unity = IocFactory.IocWrapper;
             Zbang.Zbox.Infrastructure.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Data.RegisterIoc.Register();
-            Zbang.Zbox.Domain.Services.RegisterIoc.Register();
+            unity.ContainerBuilder.RegisterModule<WriteServiceModule>();
+            //Zbang.Zbox.Domain.Services.RegisterIoc.Register();
 
             Zbang.Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Mail.RegisterIoc.Register();
             //Zbang.Zbox.Infrastructure.File.RegisterIoc.Register();
-            Zbang.Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
+            unity.ContainerBuilder.RegisterModule<StorageModule>();
+            //Zbang.Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
             //Zbang.Zbox.Infrastructure.Search.RegisterIoc.Register();
 
             //unity.ContainerBuilder.RegisterType<SendPush>()
