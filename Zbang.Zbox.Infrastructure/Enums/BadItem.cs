@@ -20,4 +20,12 @@ namespace Zbang.Zbox.Infrastructure.Enums
         [ResourceDescription(typeof(EnumResources), "CannotView")]
         CannotView
     }
+
+    public enum DirtyState
+    {
+        None = 0,
+        New = 1,
+        Delete = 2,
+        Update = 3
+    }
 }

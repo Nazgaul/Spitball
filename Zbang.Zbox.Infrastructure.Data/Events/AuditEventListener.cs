@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Diagnostics;
 using NHibernate.Event;
 using NHibernate.Persister.Entity;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Data.Events
 {
     [Serializable]
-    class AuditEventListener : IPreUpdateEventListener, IPreInsertEventListener
+    internal class AuditEventListener : IPreUpdateEventListener, IPreInsertEventListener
     {
         public bool OnPreInsert(PreInsertEvent @event)
         {
@@ -16,12 +16,12 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
             if (dirty == null) return false;
             if (dirty.ShouldMakeDirty == null)
             {
-                MakeDirty(@event, @event.State, dirty);
+                MakeDirty(@event, @event.State, dirty, DirtyState.New);
                 return false;
             }
             if (dirty.ShouldMakeDirty())
             {
-                MakeDirty(@event, @event.State, dirty);
+                MakeDirty(@event, @event.State, dirty, DirtyState.New);
             }
             return false;
         }
@@ -32,23 +32,23 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
             if (dirty == null) return false;
             if (dirty.ShouldMakeDirty == null)
             {
-                MakeDirty(@event, @event.State, dirty);
+                MakeDirty(@event, @event.State, dirty, DirtyState.Update);
                 return false;
             }
             if (dirty.ShouldMakeDirty())
             {
-                MakeDirty(@event, @event.State, dirty);
+                MakeDirty(@event, @event.State, dirty,DirtyState.Update);
             }
 
 
             return false;
         }
 
-        private void MakeDirty(IPreDatabaseOperationEventArgs @event, object[] state, IDirty dirty)
+        private void MakeDirty(IPreDatabaseOperationEventArgs @event, object[] state, IDirty dirty, DirtyState dirtyState)
         {
-            dirty.IsDirty = true;
+            dirty.IsDirty = dirtyState;
             TraceLog.WriteInfo($"making dirty {Environment.StackTrace}");
-            Set(@event.Persister, state, "IsDirty", true);
+            Set(@event.Persister, state, "IsDirty", dirtyState);
         }
 
         private void Set(IEntityPersister persister, object[] state, string propertyName, object value)

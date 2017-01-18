@@ -6,7 +6,7 @@ using Zbang.Zbox.Infrastructure.Repositories;
 namespace Zbang.Zbox.Infrastructure.Data.Events
 {
     [Serializable]
-    class ZboxDeleteEventListener : DefaultDeleteEventListener
+    internal class ZboxDeleteEventListener : DefaultDeleteEventListener
     {
         protected override void DeleteEntity(NHibernate.Event.IEventSource session, object entity,
             NHibernate.Engine.EntityEntry entityEntry,
@@ -19,11 +19,11 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
             {
                 if (dirty.ShouldMakeDirty == null)
                 {
-                    dirty.IsDirty = true;
+                    dirty.IsDirty = Enums.DirtyState.Delete;
                 }
                 else if (dirty.ShouldMakeDirty())
                 {
-                    dirty.IsDirty = true;
+                    dirty.IsDirty = Enums.DirtyState.Delete;
                 }
             }
             var deletable = entity as ISoftDelete;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
@@ -44,7 +45,7 @@ namespace Zbang.Zbox.Domain
         }
 
 
-        public virtual bool IsDirty { get; set; }
+        public virtual DirtyState IsDirty { get; set; }
         public virtual Func<bool> ShouldMakeDirty { get; set; }
 
         public virtual UserTimeDetails DateTimeUser { get; private set; }

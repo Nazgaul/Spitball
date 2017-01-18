@@ -206,35 +206,7 @@ namespace Zbang.Zbox.Domain
 
         #endregion
 
-        // #region Nhibernate
-        // public override bool Equals(object obj)
-        // {
-        //     if (this == obj) return true;
-        //
-        //     var box = obj as Box;
-        //     if (box == null) return false;
-        //
-        //     if (Name != box.Name) return false;
-        //     if (UserTime.CreationTime != box.UserTime.CreationTime) return false;
-        //     if (UserTime.CreatedUser != box.UserTime.CreatedUser) return false;
-        //     if (IsDeleted != box.IsDeleted) return false;
-        //
-        //
-        //     return true;
-        // }
-        //
-        // public override int GetHashCode()
-        // {
-        //     unchecked
-        //     {
-        //         int result = 13 * Name.GetHashCode();
-        //         result += 11 * UserTime.CreationTime.GetHashCode();
-        //         result += 19 * UserTime.CreatedUser.GetHashCode();
-        //         result += 17 * IsDeleted.GetHashCode();
-        //         return result;
-        //     }
-        // }
-        // #endregion
+        
 
 
 
@@ -279,7 +251,7 @@ namespace Zbang.Zbox.Domain
             CalculateMembers();
         }
 
-        public bool IsDirty { get; set; }
+        public DirtyState IsDirty { get; set; }
 
 
         public virtual Func<bool> ShouldMakeDirty { get; set; }

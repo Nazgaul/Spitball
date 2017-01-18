@@ -24,11 +24,13 @@ namespace Zbang.Zbox.Domain
            }
            foreach (var item in Items)
            {
-               item.IsDirty = true;
+                item.ShouldMakeDirty = () => true;
+               //item.IsDirty = true;
            }
            foreach (var quiz in Quizzes)
            {
-               quiz.IsDirty = true;
+                quiz.ShouldMakeDirty = () => true;
+                //quiz.IsDirty = true;
            }
        }
     }

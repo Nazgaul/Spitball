@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
 
@@ -105,7 +106,7 @@ namespace Zbang.Zbox.Domain
             return library;
         }
 
-        public bool IsDirty { get; set; }
+        public DirtyState IsDirty { get; set; }
 
         public bool IsDeleted { get; set; }
 

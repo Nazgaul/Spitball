@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
@@ -67,7 +68,8 @@ namespace Zbang.Zbox.Domain
             }
             var universityName = Box.GetUniversityName() ?? "my";
             Url = UrlConst.BuildItemUrl(Box.Id, Box.Name, Id, Name, universityName);
-            IsDirty = true;
+            ShouldMakeDirty = () => true;
+            //IsDirty = true;
         }
 
         public virtual int LikeCount { get; set; }
@@ -101,7 +103,7 @@ namespace Zbang.Zbox.Domain
             ItemReplies.Clear();
         }
 
-        public bool IsDirty { get; set; }
+        public DirtyState IsDirty { get; set; }
 
 
         public virtual Func<bool> ShouldMakeDirty { get; set; }
