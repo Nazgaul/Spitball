@@ -64,8 +64,28 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 s.Name,
                 s.Id,
-                s.ItemCount, 
+                s.ItemCount,
                 s.MembersCount,
+                s.BoxType,
+                s.UserType,
+                s.Professor,
+                s.CourseCode,
+                s.DepartmentId
+            }));
+        }
+        [ZboxAuthorize]
+        [VersionedRoute("api/boxes", 4, Order = 3)]
+        public async Task<HttpResponseMessage> GetBoxesWithMembersCount2Async(int page, int sizePerPage = 15)
+        {
+            var userid = User.GetUserId();
+            var query = new GetBoxesQuery(userid, page, sizePerPage);
+            var data = await m_ZboxReadService.GetUserBoxesAsync(query);
+            return Request.CreateResponse(data.Select(s => new
+            {
+                s.Name,
+                s.Id,
+                Items = s.ItemCount,
+                Members = s.MembersCount,
                 s.BoxType,
                 s.UserType,
                 s.Professor,

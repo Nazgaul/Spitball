@@ -77,7 +77,7 @@
                 <span ng-if="f.step==2">!</span>
             </div>
             <div class="action-buttons">
-                <button type="button" class="action-btn" @*user-not-register-popup="click"*@ ng-click="f.start()">
+                <button type="button" class="action-btn" user-not-register-popup="click" ng-click="f.start()">
                     <span>@FlashcardResources.Start</span><span ng-if="f.step==2">&nbsp;@FlashcardResources.Over</span>
                 </button>
                 <button type="button" class="action-btn pinned-cards" user-not-register-popup="click" ng-if="f.pinCount" ng-click="f.startPin()">

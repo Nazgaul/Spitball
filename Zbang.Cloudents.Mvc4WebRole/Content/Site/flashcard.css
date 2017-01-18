@@ -1086,6 +1086,9 @@
   max-width: 100%;
   display: block;
 }
+.flashcardPage .card-player .card-template.both .card-content .side .text-container p {
+  padding: 0;
+}
 .flashcardPage .card-player .card-template.both {
   background-color: #ffffff;
   border-radius: 10px;
@@ -1184,7 +1187,7 @@
 }
 .flashcardPage .card-player .card-template .card-content .side .text-container p {
   font-size: 48px;
-  overflow: scroll;
+  overflow: auto;
   height: 100%;
   margin: 0 auto;
 }
@@ -1200,6 +1203,7 @@
 .flashcardPage .card-player .card-template .card-content .side .img-container,
 .flashcardPage .card-player .card-template .card-content .side .text-container {
   height: 100%;
+  overflow: hidden;
   width: 50%;
   flex-grow: 1;
 }
