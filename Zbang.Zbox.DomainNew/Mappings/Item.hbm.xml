@@ -10,7 +10,7 @@
     <discriminator column="Discriminator" not-null="true" type="System.String" />
     <property name="Name" length="4000"/>
     <property name="IsDeleted" index="iBoxIsDeleted"/>
-    <property name="IsDirty" />
+    <property name="IsDirty" column="IsDirty2" />
     
     <property name="Size"/>
     <property name="NumberOfViews"/>

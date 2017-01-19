@@ -30,7 +30,7 @@
     </bag>
    
     <property name="IsDeleted"/>
-    <property name="IsDirty" />
+    <property name="IsDirty" column="IsDirty2" />
   </class>
   
   <class name="FlashcardPin" table="FlashcardPin">

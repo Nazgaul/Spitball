@@ -126,7 +126,7 @@
     <property name="TextPopupLower" not-null="false" length="8000"/>
 
     <property name="IsDeleted" />
-    <property name="IsDirty" />
+    <property name="IsDirty" column="IsDirty2" />
     <property name="Extra" />
 
     <property name="HeaderBackgroundColor" length="30"/>
