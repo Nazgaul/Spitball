@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Commands;
 using Zbang.Zbox.Infrastructure.Query;
@@ -9,7 +8,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
 {
     public class WithCache : IWithCache
     {
-        readonly ICache m_Cache;
+        private readonly ICache m_Cache;
         public WithCache(ICache cache)
         {
             m_Cache = cache;
@@ -19,7 +18,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             where TD : class
             where TQ : IQueryCache
         {
-            string cacheKey = queryParam.CacheKey;
+            var cacheKey = queryParam.CacheKey;
 
             var item = await m_Cache.GetFromCacheAsync<TD>(queryParam.CacheRegion,cacheKey);
 

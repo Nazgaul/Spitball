@@ -32,6 +32,7 @@ using AlchemyAPIClient;
 using AlchemyAPIClient.Requests;
 using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure.Azure;
+using Zbang.Zbox.Infrastructure.Data;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
 
@@ -147,9 +148,9 @@ namespace Testing
             //k.Wait();
 
             //return;
-            Zbang.Zbox.Infrastructure.RegisterIoc.Register();
-            Zbang.Zbox.Infrastructure.Data.RegisterIoc.Register();
+            //Zbang.Zbox.Infrastructure.RegisterIoc.Register();
             unity.ContainerBuilder.RegisterModule<WriteServiceModule>();
+            unity.ContainerBuilder.RegisterModule<DataModule>();
             //Zbang.Zbox.Domain.Services.RegisterIoc.Register();
 
             Zbang.Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
@@ -158,12 +159,16 @@ namespace Testing
             unity.ContainerBuilder.RegisterModule<StorageModule>();
             // Zbang.Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
             Zbang.Zbox.ReadServices.RegisterIoc.Register();
-            unity.ContainerBuilder.RegisterType<SeachConnection>()
-                    .As<ISearchConnection>()
-                    .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))
-                    .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey"))
-                    .InstancePerLifetimeScope();
-            Zbang.Zbox.Infrastructure.Search.RegisterIoc.Register();
+            unity.ContainerBuilder.RegisterModule<InfrastructureModule>();
+            //unity.ContainerBuilder.RegisterType<SeachConnection>()
+            //        .As<ISearchConnection>()
+            //        .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))
+            //        .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey"))
+            //        .InstancePerLifetimeScope();
+
+            unity.ContainerBuilder.RegisterModule<SearchModule>();
+
+           
 
             unity.ContainerBuilder.RegisterType<SendPush>()
             .As<ISendPush>()

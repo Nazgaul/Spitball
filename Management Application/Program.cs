@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Autofac;
 using Zbang.Zbox.Domain.Services;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Azure;
+using Zbang.Zbox.Infrastructure.Data;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Notifications;
@@ -24,16 +26,18 @@ namespace Management_Application
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            var unity = IocFactory.IocWrapper;
-            Zbang.Zbox.Infrastructure.RegisterIoc.Register();
-            Zbang.Zbox.Infrastructure.Data.RegisterIoc.Register();
-            unity.ContainerBuilder.RegisterModule<WriteServiceModule>();
+            var builder = IocFactory.IocWrapper;
+
+            builder.ContainerBuilder.RegisterModule<InfrastructureModule>();
+            builder.ContainerBuilder.RegisterModule<DataModule>();
+           // Zbang.Zbox.Infrastructure.Data.RegisterIoc.Register();
+            builder.ContainerBuilder.RegisterModule<WriteServiceModule>();
             //Zbang.Zbox.Domain.Services.RegisterIoc.Register();
 
             Zbang.Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Mail.RegisterIoc.Register();
             //Zbang.Zbox.Infrastructure.File.RegisterIoc.Register();
-            unity.ContainerBuilder.RegisterModule<StorageModule>();
+            builder.ContainerBuilder.RegisterModule<StorageModule>();
             //Zbang.Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
             //Zbang.Zbox.Infrastructure.Search.RegisterIoc.Register();
 
@@ -43,7 +47,7 @@ namespace Management_Application
             //.WithParameter("hubName", ConfigFetcher.Fetch("ServiceBusHubName"))
             //.InstancePerLifetimeScope();
 
-            unity.Build();
+            builder.Build();
 
             Application.Run(new Form1());
         }

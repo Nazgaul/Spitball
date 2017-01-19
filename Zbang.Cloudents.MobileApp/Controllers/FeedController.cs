@@ -59,10 +59,10 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 {
                     s.Id,
                     Answers = LastReply(s),
-                    
+
                     s.Content,
                     s.CreationTime,
-                    Files = s.Files.Where(w=>w.Type != "flashcard").Select(v => new
+                    Files = s.Files.Where(w => !string.Equals(w.Type, "flashcard", StringComparison.InvariantCultureIgnoreCase)).Select(v => new
                     {
                         v.Id,
                         v.Name,
@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                         v.Type,
                         v.Source,
                         Thumbnail = string.IsNullOrEmpty(v.Source) ? null : "https://az779114.vo.msecnd.net/preview/" + HttpUtility.UrlPathEncode(v.Source) +
-                              ".jpg?width=148&height=187&mode=crop"
+                                 ".jpg?width=148&height=187&mode=crop"
                     }),
                     s.RepliesCount,
                     s.UserId,
@@ -113,7 +113,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 return null;
             }
-            return new[] {lastReply};
+            return new[] { lastReply };
         }
 
         [HttpGet, Route("api/box/{boxId:long}/feed/{feedId:guid}")]

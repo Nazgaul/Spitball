@@ -8,18 +8,15 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 {
     public class UnitOfWorkImplementor : IUnitOfWorkImplementor
     {
-        private readonly IUnitOfWorkFactory m_Factory;
-        private readonly ISession m_Session;
-
         public UnitOfWorkImplementor(IUnitOfWorkFactory factory, ISession session)
         {
-            m_Factory = factory;
-            m_Session = session;
+            Factory = factory;
+            Session = session;
         }
         public void Dispose()
         {
-            m_Factory.DisposeUnitOfWork(this);
-            m_Session.Dispose();
+            Factory.DisposeUnitOfWork(this);
+            Session.Dispose();
         }
         public void IncrementUsages()
         {
@@ -27,35 +24,23 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
         }
         public void Flush()
         {
-            m_Session.Flush();
+            Session.Flush();
         }
 
-        public bool IsInActiveTransaction
-        {
-            get { return m_Session.Transaction.IsActive; }
-        }
+        public bool IsInActiveTransaction => Session.Transaction.IsActive;
 
-        public IUnitOfWorkFactory Factory
-        {
-            get { return m_Factory; }
-        }
+        public IUnitOfWorkFactory Factory { get; }
 
-        public ISession Session
-        {
-            get
-            {
-                return m_Session;
-            }
-        }
+        public ISession Session { get; }
 
         public IGenericTransaction BeginTransaction()
         {
-            return new GenericTransaction(m_Session.BeginTransaction());
+            return new GenericTransaction(Session.BeginTransaction());
         }
 
         public IGenericTransaction BeginTransaction(IsolationLevel isolationLevel)
         {
-            return new GenericTransaction(m_Session.BeginTransaction(isolationLevel));
+            return new GenericTransaction(Session.BeginTransaction(isolationLevel));
         }
 
         public void TransactionalFlush()

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Autofac;
 using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Azure.Queue;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -13,10 +14,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public class MailQueueProcess : IJob
     {
         private readonly IQueueProviderExtract m_QueueProviderExtract;
+        private readonly IComponentContext m_ComponentContent;
         private const string Prefix = "MailProcess";
-        public MailQueueProcess(IQueueProviderExtract queueProviderExtract)
+        public MailQueueProcess(IQueueProviderExtract queueProviderExtract, IComponentContext componentContent)
         {
             m_QueueProviderExtract = queueProviderExtract;
+            m_ComponentContent = componentContent;
         }
 
         public async Task RunAsync(CancellationToken cancellationToken)
@@ -34,7 +37,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             TraceLog.WriteError($" {Prefix} run - msg cannot transfer to DomainProcess");
                             return true;
                         }
-                        var process = Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IMail2>(msgData.MailResover);
+                        var process = m_ComponentContent.ResolveOptionalNamed<IMail2>(msgData.MailResover);
+                        //var process = Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IMail2>(msgData.MailResover);
                         if (process == null)
                         {
                             TraceLog.WriteError($"{Prefix} run - process is null msgData.ProcessResolver:" + msgData.MailResover);

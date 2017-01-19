@@ -1,7 +1,9 @@
 ﻿using Autofac;
 using Zbang.Zbox.Domain.Services;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Ai;
 using Zbang.Zbox.Infrastructure.Azure;
+using Zbang.Zbox.Infrastructure.Data;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Notifications;
@@ -10,7 +12,7 @@ using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.WorkerRoleSearch.DomainProcess;
 using Zbang.Zbox.WorkerRoleSearch.Mail;
-using RegisterIoc = Zbang.Zbox.Infrastructure.RegisterIoc;
+
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
@@ -27,21 +29,22 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             Ioc = Infrastructure.Ioc.IocFactory.IocWrapper;
 
-
-            RegisterIoc.Register();
-            Infrastructure.Data.RegisterIoc.Register();
+            Ioc.ContainerBuilder.RegisterModule<InfrastructureModule>();
+            //Infrastructure.Data.RegisterIoc.Register();
+            Ioc.ContainerBuilder.RegisterModule<DataModule>();
             Infrastructure.File.RegisterIoc.Register();
             Ioc.ContainerBuilder.RegisterModule<StorageModule>();
             //Infrastructure.Azure.Ioc.RegisterIoc.Register();
             Infrastructure.Mail.RegisterIoc.Register();
-            
-            Ioc.ContainerBuilder.RegisterType<SeachConnection>()
-             .As<ISearchConnection>()
-             .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))
-             .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey"))
 
-             .InstancePerLifetimeScope();
-            Infrastructure.Search.RegisterIoc.Register();
+            //Ioc.ContainerBuilder.RegisterType<SeachConnection>()
+            // .As<ISearchConnection>()
+            // .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))
+            // .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey"))
+
+            //.InstancePerLifetimeScope();
+            Ioc.ContainerBuilder.RegisterModule<SearchModule>();
+            
             Ioc.ContainerBuilder.RegisterModule<WriteServiceModule>();
             //Domain.Services.RegisterIoc.Register();
             ReadServices.RegisterIoc.Register();

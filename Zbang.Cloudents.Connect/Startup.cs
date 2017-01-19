@@ -1,6 +1,4 @@
-﻿using System;
-using System.Reflection;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 using Autofac;
 using Autofac.Integration.SignalR;
 using Microsoft.AspNet.SignalR;
@@ -11,9 +9,10 @@ using Microsoft.Owin.Cors;
 using Owin;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.Services;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Azure;
+using Zbang.Zbox.Infrastructure.Data;
 using Zbang.Zbox.Infrastructure.Ioc;
-using Zbang.Zbox.Infrastructure.Storage;
 
 [assembly: OwinStartup(typeof(Zbang.Cloudents.Connect.Startup))]
 
@@ -39,8 +38,11 @@ namespace Zbang.Cloudents.Connect
             var builder = IocFactory.IocWrapper.ContainerBuilder;
 
             builder.RegisterHubs(Assembly.GetExecutingAssembly());
-            Zbox.Infrastructure.RegisterIoc.Register();
-            Zbox.Infrastructure.Data.RegisterIoc.Register();
+            builder.RegisterModule<InfrastructureModule>();
+
+            //Zbox.Infrastructure.Data.RegisterIoc.Register();
+            builder.RegisterModule<DataModule>();
+
             builder.RegisterModule<StorageModule>();
             builder.RegisterModule<WriteServiceModule>();
             //Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
@@ -53,8 +55,6 @@ namespace Zbang.Cloudents.Connect
             
 
 
-            //builder.Register(c => new MimifyProxy()).As<IJavaScriptMinifier>();
-            //builder.RegisterType<CookieHelper>().As<IJavaScriptMinifier>();
             GlobalHost.DependencyResolver = config.Resolver;
             GlobalHost.DependencyResolver.Register(typeof(IJavaScriptMinifier), () => new MimifyProxy());
             GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => new UserIdProvider());
@@ -64,16 +64,7 @@ namespace Zbang.Cloudents.Connect
                     "Endpoint=sb://cloudentsmsg-ns.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=oePM1T/GBe2ZlaDhik3MLHNXstsM4lhnCTyRTBi0bmQ=",
                     "signalr");
             }
-            //app.Map("", map =>
-            //{
-            //    map.UseCors(CorsOptions.AllowAll);
-            //    map.RunSignalR(new HubConfiguration
-            //    {
-            //        EnableDetailedErrors = true,
-            //        EnableJSONP = true
-
-            //    });
-            //});
+            
             app.UseCors(CorsOptions.AllowAll);
             app.UseAutofacMiddleware(container);
             Zbox.Infrastructure.Security.Startup.ConfigureAuth(app, true);
@@ -85,9 +76,6 @@ namespace Zbang.Cloudents.Connect
             var monitor = new PresenceMonitor(heartBeat, writeService);
             monitor.StartMonitoring();
             app.MapSignalR("/s", config);
-
-           // GlobalHost.HubPipeline.RequireAuthentication();
-            // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=316888
         }
     }
 }

@@ -26,6 +26,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IMailComponent m_MailComponent;
         private readonly IQueueProviderExtract m_QueueProvider;
 
+
         public TestingJob(IZboxWorkerRoleService zboxWorkerRoleService, IMailComponent mailComponent, IQueueProviderExtract queueProvider, IZboxReadServiceWorkerRole zboxReadService)
         {
             m_ZboxWorkerRoleService = zboxWorkerRoleService;

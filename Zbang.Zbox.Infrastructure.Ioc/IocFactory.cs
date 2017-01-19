@@ -36,10 +36,10 @@ namespace Zbang.Zbox.Infrastructure.Ioc
             RegisterType(typeof(TFrom), typeof(TTo));
         }
 
-        public void RegisterGeneric(Type from, Type to)
-        {
-            ContainerBuilder.RegisterGeneric(to).As(from);
-        }
+        //public void RegisterGeneric(Type from, Type to)
+        //{
+        //    ContainerBuilder.RegisterGeneric(to).As(from);
+        //}
 
         public IocFactory RegisterType(Type from, Type to)
         {
@@ -47,10 +47,10 @@ namespace Zbang.Zbox.Infrastructure.Ioc
             return this;
         }
 
-        public void RegisterType<T>()
-        {
-            ContainerBuilder.RegisterType<T>().AsSelf().InstancePerLifetimeScope();
-        }
+        //public void RegisterType<T>()
+        //{
+        //    ContainerBuilder.RegisterType<T>().AsSelf().InstancePerLifetimeScope();
+        //}
 
         public void RegisterType<TFrom, TTo>(string name) where TTo : TFrom
         {

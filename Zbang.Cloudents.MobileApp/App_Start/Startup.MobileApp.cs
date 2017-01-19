@@ -18,12 +18,12 @@ using Microsoft.AspNet.SignalR.Transports;
 using Microsoft.Azure.Mobile.Server.Tables.Config;
 using Zbang.Cloudents.Connect;
 using Zbang.Cloudents.MobileApp.Controllers;
-using Zbang.Cloudents.MobileApp.Extensions;
 using Zbang.Cloudents.MobileApp.Filters;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.Services;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Azure;
-using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Data;
 
 namespace Zbang.Cloudents.MobileApp
 {
@@ -105,16 +105,18 @@ namespace Zbang.Cloudents.MobileApp
         {
             var builder = IocFactory.IocWrapper.ContainerBuilder;
             //IocFactory.IocWrapper.ContainerBuilder = builder;
-            Zbox.Infrastructure.RegisterIoc.Register();
+            builder.RegisterModule<InfrastructureModule>();
+            //Zbox.Infrastructure.RegisterIoc.Register();
             Zbox.Infrastructure.File.RegisterIoc.Register();
 
-            builder.RegisterType<SeachConnection>()
-                .As<ISearchConnection>()
-                .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))
-                .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey"))
-                .InstancePerLifetimeScope();
+            //builder.RegisterType<SeachConnection>()
+            //    .As<ISearchConnection>()
+            //    .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))
+            //    .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey"))
+            //    .InstancePerLifetimeScope();
 
-            RegisterIoc.Register();
+            builder.RegisterModule<SearchModule>();
+            //RegisterIoc.Register();
 
             var x = new ApplicationDbContext("Zbox");
             builder.Register(c => x).AsSelf().InstancePerLifetimeScope();
@@ -126,7 +128,8 @@ namespace Zbang.Cloudents.MobileApp
             IocFactory.IocWrapper.ContainerBuilder.Register(
                c => HttpContext.Current.GetOwinContext().Authentication);
 
-            Zbox.Infrastructure.Data.RegisterIoc.Register();
+            builder.RegisterModule<DataModule>();
+            //Zbox.Infrastructure.Data.RegisterIoc.Register();
             builder.RegisterModule<StorageModule>();
            // Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
             Zbox.Infrastructure.Mail.RegisterIoc.Register();

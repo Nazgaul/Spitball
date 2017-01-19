@@ -7,8 +7,10 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Owin;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Domain.Services;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Ai;
 using Zbang.Zbox.Infrastructure.Azure;
+using Zbang.Zbox.Infrastructure.Data;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Search;
@@ -29,8 +31,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
             {
                 var builder = IocFactory.IocWrapper.ContainerBuilder;
 
-                Zbox.Infrastructure.RegisterIoc.Register();
-                Zbox.Infrastructure.Data.RegisterIoc.Register();
+                builder.RegisterModule<InfrastructureModule>();
+
+                //Zbox.Infrastructure.RegisterIoc.Register();
+                builder.RegisterModule<DataModule>();
+                //Zbox.Infrastructure.Data.RegisterIoc.Register();
                 Zbox.Infrastructure.File.RegisterIoc.Register();
                 builder.RegisterModule<StorageModule>();
                 //Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
@@ -39,14 +44,14 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
                 //Zbox.Infrastructure.Ai.RegisterIoc.Register();
-                builder.RegisterType<SeachConnection>()
-                    .As<ISearchConnection>()
-                    .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))
-                    .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey"))
-                    .InstancePerLifetimeScope();
+                //builder.RegisterType<SeachConnection>()
+                //    .As<ISearchConnection>()
+                //    .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))
+                //    .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey"))
+                //    .InstancePerLifetimeScope();
+                builder.RegisterModule<SearchModule>();
+                //RegisterIoc.Register();
 
-                RegisterIoc.Register();
-                
                 var x = new ApplicationDbContext(ConfigFetcher.Fetch("Zbox"));
                 builder.Register(c => x).AsSelf().InstancePerRequest();
                 builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest().As<IAccountService>().InstancePerRequest();
