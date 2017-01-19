@@ -46,6 +46,10 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
 
         private void MakeDirty(IPreDatabaseOperationEventArgs @event, object[] state, IDirty dirty, DirtyState dirtyState)
         {
+            if (dirty.IsDirty == DirtyState.New)
+            {
+                return;
+            }
             dirty.IsDirty = dirtyState;
             TraceLog.WriteInfo($"making dirty {Environment.StackTrace}");
             Set(@event.Persister, state, "IsDirty", dirtyState);

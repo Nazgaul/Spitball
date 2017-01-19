@@ -79,7 +79,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
             box.UserTime.UpdateUserTime(user.Id);
-
+           
             m_BoxRepository.Save(box);
 
             AddItemToTab(command.TabId, item);

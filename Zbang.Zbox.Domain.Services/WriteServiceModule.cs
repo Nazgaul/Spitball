@@ -1,5 +1,6 @@
 ﻿
 using Autofac;
+using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.Ioc;
 
 namespace Zbang.Zbox.Domain.Services
@@ -25,6 +26,7 @@ namespace Zbang.Zbox.Domain.Services
             builder.RegisterType<ZboxWriteService>().As<Common.IZboxWriteService>()
                 .As<Common.IZboxServiceBootStrapper>().AutoActivate().OnActivated(e => e.Instance.BootStrapper());
             builder.RegisterType<ZboxWorkerRoleService>().As<Common.IZboxWorkerRoleService>();
+            builder.RegisterModule<RepositoryModule>();
         }
     }
 }

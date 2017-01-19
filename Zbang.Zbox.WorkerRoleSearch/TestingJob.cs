@@ -1,21 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Azure.Queue;
 using Zbang.Zbox.Infrastructure.Mail;
-using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.WorkerRoleSearch.DomainProcess;
-using Zbang.Zbox.WorkerRoleSearch.Mail;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {

@@ -17,19 +17,19 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
             var dirty = entity as IDirty;
             if (dirty != null)
             {
-                if (dirty.ShouldMakeDirty == null)
-                {
-                    dirty.IsDirty = Enums.DirtyState.Delete;
-                }
-                else if (dirty.ShouldMakeDirty())
-                {
-                    dirty.IsDirty = Enums.DirtyState.Delete;
-                }
+                //if (dirty.ShouldMakeDirty == null)
+                //{
+                dirty.IsDirty = Enums.DirtyState.Delete;
+                //}
+                //else if (dirty.ShouldMakeDirty())
+                //{
+                dirty.IsDirty = Enums.DirtyState.Delete;
+                //}
             }
             var deletable = entity as ISoftDelete;
             if (deletable != null)
             {
-              
+
                 deletable.DeleteAssociation();
                 deletable.IsDeleted = true;
 

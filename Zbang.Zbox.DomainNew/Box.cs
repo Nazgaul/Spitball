@@ -188,12 +188,14 @@ namespace Zbang.Zbox.Domain
 
         public virtual void UpdateItemCount()
         {
+            ShouldMakeDirty = () => true;
             ItemCount = Items.Count(file => !file.IsDeleted);
             QuizCount = Quizzes.Count(quiz => quiz.Publish && !quiz.IsDeleted);
         }
 
         public virtual void UpdateFlashcardCount()
         {
+            ShouldMakeDirty = () => true;
             FlashcardCount = Flashcards.Count(f => f.Publish && !f.IsDeleted);
         }
         #endregion
