@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.Domain"
+                   namespace="Zbang.Zbox.Domain">
+  <class name="CourseTag" table="CourseTag">
+    <id name="Id" type="guid">
+      <generator class="assigned"></generator>
+    </id>
+    <property name="Name" not-null="true" length="120" unique-key="CourseTagNameCodeProfessor"/>
+    <property name="IsDeleted"/>
+    
+    <property name="Code" length="120" unique-key="CourseTagNameCodeProfessor"/>
+    <property name="Professor" length="120" unique-key="CourseTagNameCodeProfessor"/>
+    <property name="Create" not-null="true">
+      <column name="CreateTime" not-null="true" sql-type="datetime2(2)"/>
+    </property>
+    <bag name="Items" inverse="true" lazy="true">
+      <key column="Id"/>
+      <one-to-many class="Item"/>
+    </bag>
+    <bag name="Quizzes" inverse="true" lazy="true">
+      <key column="Id"/>
+      <one-to-many class="Quiz"/>
+    </bag>
+    <bag name="Flashcards" inverse="true" lazy="true">
+      <key column="Id"/>
+      <one-to-many class="FlashcardMeta"/>
+    </bag>
+    <bag name="Comments"  inverse="true" lazy="true">
+      <key column="Id" />
+      <one-to-many class="Comment"/>
+    </bag>
+    <property name="IsDirty" column="IsDirty2" />
+  </class>
+</hibernate-mapping>

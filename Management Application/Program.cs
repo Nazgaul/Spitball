@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Autofac;
+using Zbang.Zbox.Domain.CommandHandlers;
 using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Azure;
@@ -32,21 +33,11 @@ namespace Management_Application
             builder.ContainerBuilder.RegisterModule<DataModule>();
            // Zbang.Zbox.Infrastructure.Data.RegisterIoc.Register();
             builder.ContainerBuilder.RegisterModule<WriteServiceModule>();
-            //Zbang.Zbox.Domain.Services.RegisterIoc.Register();
 
+            builder.ContainerBuilder.RegisterModule<CommandsModule>();
             Zbang.Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Mail.RegisterIoc.Register();
-            //Zbang.Zbox.Infrastructure.File.RegisterIoc.Register();
             builder.ContainerBuilder.RegisterModule<StorageModule>();
-            //Zbang.Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
-            //Zbang.Zbox.Infrastructure.Search.RegisterIoc.Register();
-
-            //unity.ContainerBuilder.RegisterType<SendPush>()
-            //.As<ISendPush>()
-            //.WithParameter("connectionString", ConfigFetcher.Fetch("ServiceBusConnectionString"))
-            //.WithParameter("hubName", ConfigFetcher.Fetch("ServiceBusHubName"))
-            //.InstancePerLifetimeScope();
-
             builder.Build();
 
             Application.Run(new Form1());

@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Zbang.Zbox.Domain.CommandHandlers;
 using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Ai;
@@ -48,7 +49,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Ioc.ContainerBuilder.RegisterModule<WriteServiceModule>();
             //Domain.Services.RegisterIoc.Register();
             ReadServices.RegisterIoc.Register();
-            Domain.CommandHandlers.Ioc.RegisterIoc.Register();
+            Zbang.Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
+            Ioc.ContainerBuilder.RegisterModule<CommandsModule>();
 
             Ioc.ContainerBuilder.RegisterModule<AiModule>();
             Ioc.ContainerBuilder.RegisterType<SendPush>()

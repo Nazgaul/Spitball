@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace Zbang.Zbox.Infrastructure.Repositories
 {
@@ -19,17 +15,9 @@ namespace Zbang.Zbox.Infrastructure.Repositories
 
         void Delete(TEntity item, bool flush = false);
 
-        IQueryable<TEntity> GetQueryable();
-        
-    }
+        IQueryable<TEntity> Query();
 
-    public interface IDocumentDbRepository<T>
-    {
-        Task<T> GetItemAsync(string id);
-        Task<IEnumerable<T>> GetItemsAsync(Expression<Func<T, bool>> predicate);
-        Task CreateItemAsync(T item);
-        Task UpdateItemAsync(string id, T item);
-        Task DeleteItemAsync(string id);
+
     }
 
     [AttributeUsage(AttributeTargets.Class)]

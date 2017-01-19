@@ -35,7 +35,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             var user = m_UserRepository.Load(message.UserId);
             // ReSharper disable once ReplaceWithSingleCallToFirstOrDefault Nhibernate doesnt support
-            var university = m_UniversityRepository.GetQueryable()
+            var university = m_UniversityRepository.Query()
                  .Where(w => w.UniversityName == message.Name)
                  .FirstOrDefault();
             var t1 = Task.CompletedTask;

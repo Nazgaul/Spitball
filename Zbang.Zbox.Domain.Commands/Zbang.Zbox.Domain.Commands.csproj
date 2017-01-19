@@ -84,6 +84,7 @@
     <Compile Include="ChatAddMessageCommand.cs" />
     <Compile Include="ChatMarkAsReadCommand.cs" />
     <Compile Include="CreateAcademicBoxCommand.cs" />
+    <Compile Include="CreateCourseTagCommand.cs" />
     <Compile Include="CreateFacebookUserCommand.cs" />
     <Compile Include="CreateFacebookUserCommandResult.cs" />
     <Compile Include="CreateGoogleUserCommand.cs" />

@@ -7,6 +7,7 @@ using Microsoft.AspNet.SignalR.Transports;
 using Microsoft.Owin;
 using Microsoft.Owin.Cors;
 using Owin;
+using Zbang.Zbox.Domain.CommandHandlers;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure;
@@ -46,8 +47,9 @@ namespace Zbang.Cloudents.Connect
             builder.RegisterModule<StorageModule>();
             builder.RegisterModule<WriteServiceModule>();
             //Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
-            //Zbox.Domain.Services.RegisterIoc.Register();
-            Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
+            Zbang.Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
+            builder.RegisterModule<CommandsModule>();
+            //Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
             // Set the dependency resolver to be Autofac.
             var container = IocFactory.IocWrapper.Build();
             config.Resolver = new AutofacDependencyResolver(container);

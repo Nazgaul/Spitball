@@ -69,10 +69,15 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
             }
         }
 
-        public IQueryable<T> GetQueryable()
+        public IQueryable<T> Query()
         {
             return Session.Query<T>();
         }
+
+        //public IQueryable<T> ToList()
+        //{
+        //    return (from entity in Session.Linq<T>() select entity);
+        //}
 
 
         public void Save(System.Collections.Generic.IEnumerable<T> items)

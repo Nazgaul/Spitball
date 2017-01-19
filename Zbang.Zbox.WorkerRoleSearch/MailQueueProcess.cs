@@ -6,7 +6,6 @@ using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Azure.Queue;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.WorkerRoleSearch.DomainProcess;
 using Zbang.Zbox.WorkerRoleSearch.Mail;
 
 namespace Zbang.Zbox.WorkerRoleSearch
@@ -14,9 +13,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public class MailQueueProcess : IJob
     {
         private readonly IQueueProviderExtract m_QueueProviderExtract;
-        private readonly IComponentContext m_ComponentContent;
+        private readonly ILifetimeScope m_ComponentContent;
         private const string Prefix = "MailProcess";
-        public MailQueueProcess(IQueueProviderExtract queueProviderExtract, IComponentContext componentContent)
+        public MailQueueProcess(IQueueProviderExtract queueProviderExtract, ILifetimeScope componentContent)
         {
             m_QueueProviderExtract = queueProviderExtract;
             m_ComponentContent = componentContent;

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -27,16 +26,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IItemWriteSearchProvider m_ItemSearchProvider3;
         private readonly IBlobProvider2<FilesContainerName> m_BlobProvider;
         private readonly IMailComponent m_MailComponent;
-        private readonly IBlobProvider2<PreviewContainerName> m_BlobPreviewContainerProvider;
 
-        //private readonly Microsoft.WindowsAzure.Storage.Blob.CloudBlobClient m_BlobClient;
         private const string PrefixLog = "Search Item";
 
         public UpdateSearchItem(IZboxReadServiceWorkerRole zboxReadService,
             IZboxWorkerRoleService zboxWriteService,
             IFileProcessorFactory fileProcessorFactory,
             IBlobProvider2<FilesContainerName> blobProvider,
-            IItemWriteSearchProvider itemSearchProvider3, IMailComponent mailComponent, IBlobProvider2<PreviewContainerName> blobPreviewContainerProvider)
+            IItemWriteSearchProvider itemSearchProvider3, IMailComponent mailComponent)
         {
             m_ZboxReadService = zboxReadService;
             m_ZboxWriteService = zboxWriteService;
@@ -44,7 +41,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_BlobProvider = blobProvider;
             m_ItemSearchProvider3 = itemSearchProvider3;
             m_MailComponent = mailComponent;
-            m_BlobPreviewContainerProvider = blobPreviewContainerProvider;
         }
 
 
@@ -113,6 +109,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 try
                 {
+                    elem.BoxName = null;
                     await m_ItemSearchProvider3.UpdateDataAsync(elem, null, token);
                 }
                 catch (Exception ex)
@@ -163,15 +160,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             var processor = GetProcessor(msgData);
             if (processor.ContentProcessor == null) return;
-            //var previewBlobName = WebUtility.UrlEncode(msgData.BlobName + ".jpg");
-            //if (previewBlobName != null && previewBlobName.Length > 260) //The fully qualified file name must be less than 260 characters, and the directory name must be less than 248 characters.
-            //{
-            //    return;
-            //}
-            //if (await m_BlobPreviewContainerProvider.ExistsAsync(previewBlobName))
-            //{
-            //    return;
-            //}
             //taken from : http://blogs.msdn.com/b/nikhil_agarwal/archive/2014/04/02/10511934.aspx
             var wait = new ManualResetEvent(false);
             var work = new Thread(async () =>
@@ -192,11 +180,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     {
                         TraceLog.WriteError("on signalr UpdateThumbnail", ex);
                     }
-                    //if (retVal == null)
-                    //{
-                    //    wait.Set();
-                    //    return;
-                    //}
                     var command = new UpdateThumbnailCommand(msgData.Id, retVal?.BlobName,
                         msgData.Content, await m_BlobProvider.Md5Async(msgData.BlobName));
                     m_ZboxWriteService.UpdateThumbnailPicture(command);

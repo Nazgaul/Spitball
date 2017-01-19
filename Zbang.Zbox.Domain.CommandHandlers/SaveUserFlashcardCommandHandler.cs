@@ -25,7 +25,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public void Handle(SaveUserFlashcardCommand message)
         {
             var solve =
-                m_FlashcardSolveRepository.GetQueryable()
+                m_FlashcardSolveRepository.Query()
                     .FirstOrDefault(f => f.User.Id == message.UserId && f.Flashcard.Id == message.FlashcardId);
             if (solve == null)
             {

@@ -172,6 +172,7 @@
     <Compile Include="Range.cs" />
     <Compile Include="RegisterIoc.cs" />
     <Compile Include="Repositories\IDirty.cs" />
+    <Compile Include="Repositories\IDocumentDbRepository.cs" />
     <Compile Include="Repositories\ISoftDelete.cs" />
     <Compile Include="Security\FacebookAuthenticationService.cs" />
     <Compile Include="Security\FacebookUserData.cs" />

@@ -6,6 +6,7 @@ using Autofac.Integration.Mvc;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Owin;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
+using Zbang.Zbox.Domain.CommandHandlers;
 using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Ai;
@@ -41,14 +42,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 //Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
                 Zbox.Infrastructure.Mail.RegisterIoc.Register();
 
-
-
-                //Zbox.Infrastructure.Ai.RegisterIoc.Register();
-                //builder.RegisterType<SeachConnection>()
-                //    .As<ISearchConnection>()
-                //    .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))
-                //    .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey"))
-                //    .InstancePerLifetimeScope();
                 builder.RegisterModule<SearchModule>();
                 //RegisterIoc.Register();
 
@@ -73,7 +66,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 //Zbox.Domain.Services.RegisterIoc.Register();
 
                 Zbox.ReadServices.RegisterIoc.Register();
-                Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
+                Zbang.Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
+                builder.RegisterModule<CommandsModule>();
 
                 builder.RegisterControllers(typeof (MvcApplication).Assembly).PropertiesAutowired();
                 builder.RegisterFilterProvider();
@@ -81,7 +75,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                 builder.RegisterModule<AiModule>();
                 builder.RegisterModule<AutofacWebTypesModule>();
-                //builder.RegisterModule<AutofacWebTypesModule>();
 
                 builder.RegisterType<CookieHelper>().As<ICookieHelper>();
                 builder.RegisterType<LanguageCookieHelper>().As<ILanguageCookieHelper>();

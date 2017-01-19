@@ -30,7 +30,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var studentId = message.StudentId ?? user.StudentId;
 
             // ReSharper disable once PossibleUnintendedReferenceComparison NHibernate doesn't support equals
-            var studentsIdsInUniversity = m_StudentRepository.GetQueryable().Where(w => w.University == university);
+            var studentsIdsInUniversity = m_StudentRepository.Query().Where(w => w.University == university);
             bool needId = studentsIdsInUniversity.Any();
             if (needId && string.IsNullOrEmpty(studentId))
             {

@@ -30,6 +30,7 @@ using File = System.IO.File;
 using System.Collections.Generic;
 using AlchemyAPIClient;
 using AlchemyAPIClient.Requests;
+using Zbang.Zbox.Domain.CommandHandlers;
 using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Data;
@@ -151,9 +152,9 @@ namespace Testing
             //Zbang.Zbox.Infrastructure.RegisterIoc.Register();
             unity.ContainerBuilder.RegisterModule<WriteServiceModule>();
             unity.ContainerBuilder.RegisterModule<DataModule>();
-            //Zbang.Zbox.Domain.Services.RegisterIoc.Register();
-
             Zbang.Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
+            unity.ContainerBuilder.RegisterModule<CommandsModule>();
+
             Zbang.Zbox.Infrastructure.Mail.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.File.RegisterIoc.Register();
             unity.ContainerBuilder.RegisterModule<StorageModule>();

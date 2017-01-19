@@ -46,7 +46,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             var quiz = m_QuizRepository.Load(message.QuizId);
 
 
-            var answerSheet = m_SolvedQuizRepository.GetQueryable().FirstOrDefault(w =>
+            var answerSheet = m_SolvedQuizRepository.Query().FirstOrDefault(w =>
                 // ReSharper disable once PossibleUnintendedReferenceComparison nHibernate doesn't support equals
                 w.User == user && w.Quiz == quiz);
             if (answerSheet != null)

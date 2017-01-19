@@ -104,7 +104,6 @@ select Name,boxid from c;";
             @" select top (@top)
   i.ItemId as id,
   i.Name as name,
-  i.Content as content,
   i.blobName as blobName,
   i.Url as url,
   i.discriminator as type,

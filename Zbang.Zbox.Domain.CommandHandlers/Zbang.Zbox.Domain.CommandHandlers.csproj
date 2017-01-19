@@ -51,6 +51,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.2.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.4.2.1\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
@@ -77,7 +81,9 @@
     <Compile Include="ChangeUserOnlineStatusCommandHandler.cs" />
     <Compile Include="ChatAddMessageCommandHandler.cs" />
     <Compile Include="ChatMarkAsReadCommandHandler.cs" />
+    <Compile Include="CommandsModule.cs" />
     <Compile Include="CreateAcademicBoxCommandHandler.cs" />
+    <Compile Include="CreateCourseTagCommandHandler.cs" />
     <Compile Include="CreateFacebookUserCommandHandler.cs" />
     <Compile Include="CreateGoogleUserCommandHandler.cs" />
     <Compile Include="CreateItemTabCommandHandler.cs" />

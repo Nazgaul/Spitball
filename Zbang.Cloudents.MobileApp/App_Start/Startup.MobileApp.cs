@@ -19,6 +19,7 @@ using Microsoft.Azure.Mobile.Server.Tables.Config;
 using Zbang.Cloudents.Connect;
 using Zbang.Cloudents.MobileApp.Controllers;
 using Zbang.Cloudents.MobileApp.Filters;
+using Zbang.Zbox.Domain.CommandHandlers;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure;
@@ -136,7 +137,8 @@ namespace Zbang.Cloudents.MobileApp
             //Zbox.Infrastructure.File.RegisterIoc.Register();
             builder.RegisterModule<WriteServiceModule>();
             //Zbox.Domain.Services.RegisterIoc.Register();
-            Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
+            builder.RegisterModule<CommandsModule>();
+            Zbang.Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
 
             Zbox.ReadServices.RegisterIoc.Register();
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
