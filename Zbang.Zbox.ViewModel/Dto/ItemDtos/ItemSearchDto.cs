@@ -13,6 +13,8 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public string Url { get; set; }
         public string UniversityName { get; set; }
         public string BoxName { get; set; }
+        public string BoxCode { get; set; }
+        public string BoxProfessor { get; set; }
 
         public string Type { get; set; }
 

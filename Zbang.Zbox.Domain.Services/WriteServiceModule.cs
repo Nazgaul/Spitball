@@ -24,7 +24,8 @@ namespace Zbang.Zbox.Domain.Services
         {
             //TODO: add unit of work to autofac
             builder.RegisterType<ZboxWriteService>().As<Common.IZboxWriteService>()
-                .As<Common.IZboxServiceBootStrapper>().AutoActivate().OnActivated(e => e.Instance.BootStrapper());
+                .As<Common.IZboxServiceBootStrapper>().AutoActivate();
+                //.OnActivated(e => e.Instance.BootStrapper());
             builder.RegisterType<ZboxWorkerRoleService>().As<Common.IZboxWorkerRoleService>();
             builder.RegisterModule<RepositoryModule>();
         }

@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -25,7 +24,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private readonly IItemWriteSearchProvider m_ItemSearchProvider3;
         private readonly IBlobProvider2<FilesContainerName> m_BlobProvider;
-        private readonly IMailComponent m_MailComponent;
+        private readonly IZboxWriteService m_WriteService;
+        private readonly IWatsonExtract m_WatsonExtractProvider;
 
         private const string PrefixLog = "Search Item";
 
@@ -33,14 +33,15 @@ namespace Zbang.Zbox.WorkerRoleSearch
             IZboxWorkerRoleService zboxWriteService,
             IFileProcessorFactory fileProcessorFactory,
             IBlobProvider2<FilesContainerName> blobProvider,
-            IItemWriteSearchProvider itemSearchProvider3, IMailComponent mailComponent)
+            IItemWriteSearchProvider itemSearchProvider3, IZboxWriteService writeService, IWatsonExtract watsonExtractProvider)
         {
             m_ZboxReadService = zboxReadService;
             m_ZboxWriteService = zboxWriteService;
             m_FileProcessorFactory = fileProcessorFactory;
             m_BlobProvider = blobProvider;
             m_ItemSearchProvider3 = itemSearchProvider3;
-            m_MailComponent = mailComponent;
+            m_WriteService = writeService;
+            m_WatsonExtractProvider = watsonExtractProvider;
         }
 
 
@@ -74,7 +75,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
         }
 
 
-
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
         {
             const int top = 10;
@@ -83,8 +83,15 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var tasks = new List<Task>();
             foreach (var elem in updates.ItemsToUpdate)
             {
+                elem.Content = ExtractContentToUploadToSearch(elem, cancellationToken);
 
-                tasks.Add(ProcessFileAsync(elem, cancellationToken));
+                if (elem.UniversityId == JaredUniversityIdPilot)
+                {
+
+                    tasks.Add(JaredPilotAsync(elem, cancellationToken));
+                }
+                PreProcessFile(elem);
+                tasks.Add(UploadToAzureSearchAsync(elem, cancellationToken));
             }
 
             tasks.Add(m_ItemSearchProvider3.UpdateDataAsync(null, updates.ItemsToDelete, cancellationToken));
@@ -100,22 +107,30 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return TimeToSleep.Same;
         }
 
-        private async Task ProcessFileAsync(ItemSearchDto elem, CancellationToken token)
+        private async Task JaredPilotAsync(ItemSearchDto elem, CancellationToken token)
         {
-            elem.Content = ExtractContentToUploadToSearch(elem, token);
-            PreProcessFile(elem);
+            var result = await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token);
+
+            var z = new AssignTagsToItemCommand(elem.Id, result);
+            m_WriteService.AddItemTag(z);
+
+            var command = new UpdateItemCourseTagCommand(elem.Id, elem.BoxName, elem.BoxCode, elem.BoxProfessor);
+            m_WriteService.UpdateItemCourseTag(command);
+        }
+
+        private async Task UploadToAzureSearchAsync(ItemSearchDto elem, CancellationToken token)
+        {
+
 
             if (elem.Type.ToLower() == "file")
             {
                 try
                 {
-                    elem.BoxName = null;
                     await m_ItemSearchProvider3.UpdateDataAsync(elem, null, token);
                 }
                 catch (Exception ex)
                 {
-                    TraceLog.WriteInfo($"{GetPrefix()} going to sleep inteval {Interval}");
-                    await m_MailComponent.GenerateSystemEmailAsync(GetPrefix(), $"error in update item: {elem.Id}, {ex}");
+                    TraceLog.WriteError($"Error update Item {ex}");
                 }
             }
         }
@@ -155,6 +170,22 @@ namespace Zbang.Zbox.WorkerRoleSearch
             public IContentProcessor ContentProcessor { get; set; }
             public Uri Uri { get; set; }
         }
+
+        //private void CancelSynchronousProcess(ItemSearchDto msgData, CancellationToken token, Func<  Task> action)
+        //{
+        //    var wait = new ManualResetEvent(false);
+        //    var work = new Thread(async () =>
+        //    {
+        //        await action();
+        //    });
+        //    work.Start();
+        //    var signal = wait.WaitOne(TimeSpan.FromMinutes(10));
+        //    if (!signal)
+        //    {
+        //        work.Abort();
+        //        TraceLog.WriteError("blob url aborting process" + msgData.BlobName);
+        //    }
+        //}
 
         private void PreProcessFile(ItemSearchDto msgData)
         {
@@ -205,6 +236,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly TimeSpan m_TimeToWait = TimeSpan.FromMinutes(3);
         private string ExtractContentToUploadToSearch(ItemSearchDto elem, CancellationToken token)
         {
+
             if (elem.Type.ToLower() != "file")
             {
                 return null;
@@ -222,11 +254,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 var tokenSource =
                     CancellationTokenSource.CreateLinkedTokenSource(new CancellationTokenSource(m_TimeToWait).Token,
                         token);
-
-                //tokenSource.CancelAfter(m_TimeToWait);
-
-
-
                 var work = new Thread(async () =>
                     {
                         try
@@ -289,7 +316,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             if (parameters == null) return true;
 
             var elem = await m_ZboxReadService.GetItemDirtyUpdatesAsync(parameters.ItemId);
-            await ProcessFileAsync(elem, token);
+            await UploadToAzureSearchAsync(elem, token);
             await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
                 new UpdateDirtyToRegularCommand(new[] { elem.Id }));
             return true;

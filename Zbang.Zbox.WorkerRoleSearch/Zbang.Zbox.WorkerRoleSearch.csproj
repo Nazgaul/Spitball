@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AlchemyAPIClient, Version=1.4.0.0, Culture=neutral, PublicKeyToken=2e85acc812ed0c7b, processorArchitecture=MSIL">
+      <HintPath>..\packages\AlchemyAPIClient.1.5.1608.252\lib\net45\AlchemyAPIClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Autofac, Version=4.2.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.2.1\lib\net45\Autofac.dll</HintPath>
       <Private>True</Private>
@@ -208,6 +212,7 @@
     <Compile Include="UpdateSearchQuiz.cs" />
     <Compile Include="UpdateSearchUniversity.cs" />
     <Compile Include="UpdateUnsubscribeList.cs" />
+    <Compile Include="WatsonExtract.cs" />
     <Compile Include="WorkerRole.cs" />
   </ItemGroup>
   <ItemGroup>

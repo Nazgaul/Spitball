@@ -132,6 +132,7 @@
     <Compile Include="UnsubscribeUsersFromEmailCommandHandler.cs" />
     <Compile Include="UpdateBadgesCommandHandler.cs" />
     <Compile Include="UpdateFlashcardCommandHandler.cs" />
+    <Compile Include="UpdateItemCourseTagCommandHandler.cs" />
     <Compile Include="UpdateNodeSettingsCommandHandler.cs" />
     <Compile Include="SubscribeToSharedBoxCommandHandler.cs" />
     <Compile Include="ShareBoxCommandHandler.cs" />

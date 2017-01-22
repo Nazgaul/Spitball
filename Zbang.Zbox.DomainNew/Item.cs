@@ -42,6 +42,8 @@ namespace Zbang.Zbox.Domain
         public virtual long UploaderId { get; set; }
         public virtual long Size { get; set; }
         public virtual Box Box { get; set; }
+
+        public virtual CourseTag CourseTag { get; set; }
         public virtual long BoxId { get; set; }
         public virtual int NumberOfViews { get; private set; }
 
@@ -54,6 +56,9 @@ namespace Zbang.Zbox.Domain
         protected virtual ICollection<Updates> Updates { get; set; }
         protected virtual ICollection<ItemComment> ItemComments { get; set; }
         protected virtual ICollection<ItemCommentReply> ItemReplies { get; set; }
+
+        public virtual ISet<ItemTag> ItemTags { get; set; }
+
         public virtual ItemTab Tab { get; protected set; }
 
 
@@ -81,6 +86,8 @@ namespace Zbang.Zbox.Domain
             NumberOfViews++;
         }
 
+
+
         //public virtual void IncreaseNumberOfComments()
         //{
         //    NumberOfComments++;
@@ -103,7 +110,7 @@ namespace Zbang.Zbox.Domain
             ItemReplies.Clear();
         }
 
-        public DirtyState IsDirty { get; set; }
+        public bool IsDirty { get; set; }
 
 
         public virtual Func<bool> ShouldMakeDirty { get; set; }

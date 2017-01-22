@@ -7,6 +7,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public abstract class UpdateSearch
     {
+        public const long JaredUniversityIdPilot = 173408;
         protected async Task SleepAsync(CancellationToken cancellationToken)
         {
             await Task.Delay(TimeSpan.FromSeconds(Interval), cancellationToken);

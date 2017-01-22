@@ -107,12 +107,9 @@ select Name,boxid from c;";
   i.blobName as blobName,
   i.Url as url,
   i.discriminator as type,
-  case b.Discriminator
-   when 2 then
-       b.University
-	   else null
-	   end
-   as universityid,
+  b.University as universityid,
+  b.ProfessorName as BoxProfessor,
+  b.CourseCode as BoxCode,
   b.BoxName as boxname,
   u.UniversityName as universityName,
   b.BoxId as boxid

@@ -134,5 +134,14 @@ namespace Zbang.Zbox.Domain.Common
         void SolveFlashcard(SaveUserFlashcardCommand command);
 
         #endregion
+
+
+        #region Jared
+
+        //void AddCourseTag(CreateCourseTagCommand command);
+        void UpdateItemCourseTag(UpdateItemCourseTagCommand command);
+        void AddItemTag(AssignTagsToItemCommand command);
+
+        #endregion
     }
 }

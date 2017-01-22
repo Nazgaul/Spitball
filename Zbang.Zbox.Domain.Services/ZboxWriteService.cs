@@ -22,13 +22,14 @@ namespace Zbang.Zbox.Domain.Services
         }
         public void Start()
         {
-            using (UnitOfWork.Start())
-            { }
+            //using (UnitOfWork.Start())
+            //{ }
         }
 
         public void BootStrapper()
         {
-           
+            //using (UnitOfWork.Start())
+            //{ }
         }
 
 
@@ -814,6 +815,34 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-       
+
+        #region Jared
+
+        //public void AddCourseTag(CreateCourseTagCommand command)
+        //{
+        //    using (UnitOfWork.Start())
+        //    {
+        //        m_CommandBus.Send(command);
+        //        UnitOfWork.Current.TransactionalFlush();
+        //    }
+        //}
+        public void UpdateItemCourseTag(UpdateItemCourseTagCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+
+        public void AddItemTag(AssignTagsToItemCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+        #endregion
     }
 }

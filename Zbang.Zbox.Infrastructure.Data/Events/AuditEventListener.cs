@@ -1,7 +1,6 @@
 ﻿using System;
 using NHibernate.Event;
 using NHibernate.Persister.Entity;
-using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Trace;
 
@@ -16,12 +15,12 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
             if (dirty == null) return false;
             if (dirty.ShouldMakeDirty == null)
             {
-                MakeDirty(@event, @event.State, dirty, DirtyState.New);
+                MakeDirty(@event, @event.State, dirty);
                 return false;
             }
             if (dirty.ShouldMakeDirty())
             {
-                MakeDirty(@event, @event.State, dirty, DirtyState.New);
+                MakeDirty(@event, @event.State, dirty);
             }
             return false;
         }
@@ -32,27 +31,23 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
             if (dirty == null) return false;
             if (dirty.ShouldMakeDirty == null)
             {
-                MakeDirty(@event, @event.State, dirty, DirtyState.Update);
+                MakeDirty(@event, @event.State, dirty);
                 return false;
             }
             if (dirty.ShouldMakeDirty())
             {
-                MakeDirty(@event, @event.State, dirty,DirtyState.Update);
+                MakeDirty(@event, @event.State, dirty);
             }
 
 
             return false;
         }
 
-        private void MakeDirty(IPreDatabaseOperationEventArgs @event, object[] state, IDirty dirty, DirtyState dirtyState)
+        private void MakeDirty(IPreDatabaseOperationEventArgs @event, object[] state, IDirty dirty)
         {
-            if (dirty.IsDirty == DirtyState.New)
-            {
-                return;
-            }
-            dirty.IsDirty = dirtyState;
+            dirty.IsDirty = true;
             TraceLog.WriteInfo($"making dirty {Environment.StackTrace}");
-            Set(@event.Persister, state, "IsDirty", dirtyState);
+            Set(@event.Persister, state, "IsDirty", true);
         }
 
         private void Set(IEntityPersister persister, object[] state, string propertyName, object value)

@@ -23,8 +23,6 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
     public class UnitOfWorkFactory : IUnitOfWorkFactory
     {
         //private static ISession _currentSession;
-        private ISessionFactory m_SessionFactory;
-        private Configuration m_Configuration;
 
         private const string SerializationFile = "nHibernateConfig";
 
@@ -38,13 +36,13 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 
         private void ConfigureNHibernate()
         {
-            m_Configuration = LoadConfigurationFromFile();
+            Configuration = LoadConfigurationFromFile();
 
-            if (m_Configuration == null)
+            if (Configuration == null)
             {
-                m_Configuration = new Configuration();
+                Configuration = new Configuration();
 
-                m_Configuration.DataBaseIntegration(dbi =>
+                Configuration.DataBaseIntegration(dbi =>
                 {
                     dbi.ConnectionProvider<DriverConnectionProvider>();
 
@@ -58,19 +56,19 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                     dbi.LogFormattedSql = true;
 #endif
                 });
-                m_Configuration.SetListener(ListenerType.Delete, new ZboxDeleteEventListener());
+                Configuration.SetListener(ListenerType.Delete, new ZboxDeleteEventListener());
                 //m_Configuration.SetListener(ListenerType.Save, new ZboxUpdateEventListener());
 
-                m_Configuration.SetListener(ListenerType.PreInsert, new AuditEventListener());
-                m_Configuration.SetListener(ListenerType.PreUpdate, new AuditEventListener());
+                Configuration.SetListener(ListenerType.PreInsert, new AuditEventListener());
+                Configuration.SetListener(ListenerType.PreUpdate, new AuditEventListener());
 
                 //m_Configuration.SetProperty(Environment.ConnectionDriver, typeof(MiniProfiler.NHibernate.MiniProfilerSql2008ClientDriver).AssemblyQualifiedName)
-                m_Configuration.SetProperty(Environment.ConnectionProvider, "NHibernate.Connection.DriverConnectionProvider");
-                m_Configuration.SetProperty(Environment.UseProxyValidator, bool.FalseString);
-                m_Configuration.SetProperty(Environment.DefaultSchema, "Zbox");
+                Configuration.SetProperty(Environment.ConnectionProvider, "NHibernate.Connection.DriverConnectionProvider");
+                Configuration.SetProperty(Environment.UseProxyValidator, bool.FalseString);
+                Configuration.SetProperty(Environment.DefaultSchema, "Zbox");
 
-                m_Configuration.AddAssembly("Zbang.Zbox.Domain");
-                m_Configuration.AddAssembly("Zbang.Zbox.ViewModel");
+                Configuration.AddAssembly("Zbang.Zbox.Domain");
+                Configuration.AddAssembly("Zbang.Zbox.ViewModel");
 
                 //if (HttpContext.Current != null)
                 //{
@@ -84,7 +82,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                 SaveConfiguration();
             }
 
-            m_SessionFactory = m_Configuration.BuildSessionFactory();
+            SessionFactory = Configuration.BuildSessionFactory();
 
         }
         private void SaveConfiguration()
@@ -92,18 +90,12 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             try
             {
                 var storage = IocFactory.IocWrapper.Resolve<ICache>();
-                //storage.AddToCacheAsync("nhibernate", GetConfigurationFileName(), m_Configuration,
-                //    TimeSpan.FromDays(90)).Wait();
-
-                //var storage = IocFactory.IocWrapper.Resolve<ILocalStorageProvider>();
-
                 using (var ms = new MemoryStream())
                 {
                     IFormatter bf = new BinaryFormatter();
-                    bf.Serialize(ms, m_Configuration);
+                    bf.Serialize(ms, Configuration);
                     storage.AddToCacheAsync("nhibernate", GetConfigurationFileName(), ms.ToArray(),
                         TimeSpan.FromDays(90)).Wait();
-                    //    storage.SaveFileToStorage(ms, GetConfigurationFileName());
                 }
             }
             catch (Exception ex)
@@ -157,9 +149,9 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             return new UnitOfWorkImplementor(this, session);
         }
 
-        public Configuration Configuration => m_Configuration;
+        public Configuration Configuration { get; private set; }
 
-        public ISessionFactory SessionFactory => m_SessionFactory;
+        public ISessionFactory SessionFactory { get; private set; }
 
         public ISession CurrentSession
         {

@@ -12,8 +12,14 @@ namespace Zbang.Zbox.Domain.Commands
         public CreateCourseTagCommand(string name, string code, string professor)
         {
             Name = name;
-            Code = code;
-            Professor = professor;
+            if (!string.IsNullOrWhiteSpace(code))
+            {
+                Code = code;
+            }
+            if (!string.IsNullOrWhiteSpace(professor))
+            {
+                Professor = professor;
+            }
         }
 
         public string Name { get; private set; }

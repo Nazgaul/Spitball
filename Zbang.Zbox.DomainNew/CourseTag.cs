@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
@@ -12,22 +13,23 @@ namespace Zbang.Zbox.Domain
     {
         protected CourseTag()
         {
-            
+
         }
 
         public CourseTag(Guid id, string name, string code, string professor)
         {
             Id = id;
             Name = name;
-            Code = code;
-            Professor = professor;
+            Code = code.NullIfWhiteSpace();
+            Professor = professor.NullIfWhiteSpace();
+
             Create = DateTime.UtcNow;
         }
 
         public virtual Guid Id { get; set; }
-        public virtual string Name { get; set; }
-        public virtual string Code { get; set; }
-        public virtual string Professor { get; set; }
+        public virtual string Name { get; protected set; }
+        public virtual string Code { get; protected set; }
+        public virtual string Professor { get; protected set; }
 
         public ICollection<Item> Items { get; set; }
         public ICollection<Quiz> Quizzes { get; set; }
@@ -40,9 +42,36 @@ namespace Zbang.Zbox.Domain
             //throw new NotImplementedException();
         }
 
-        public virtual DirtyState IsDirty { get; set; }
+        public virtual bool IsDirty { get; set; }
 
         public DateTime Create { get; set; }
         public virtual Func<bool> ShouldMakeDirty { get; }
+
+        //public override bool Equals(object obj)
+        //{
+        //    var item = obj as CourseTag;
+        //    if (item == null)
+        //    {
+        //        return false;
+        //    }
+        //    string code = null;
+        //    if (!string.IsNullOrWhiteSpace(item.Code))
+        //    {
+        //        code = item.Code;
+        //    }
+        //    string professor = null;
+        //    if (!string.IsNullOrWhiteSpace(item.Professor))
+        //    {
+        //        professor = item.Professor;
+        //    }
+        //    return this.Name.Equals(item.Name) &&
+        //           this.Code.Equals(code) &&
+        //           this.Professor.Equals(professor);
+        //}
+
+        //public override int GetHashCode()
+        //{
+        //    return this.Name.GetHashCode() + 3 * this.Code.GetHashCode() + 5 * this.Professor.GetHashCode();
+        //}
     }
 }

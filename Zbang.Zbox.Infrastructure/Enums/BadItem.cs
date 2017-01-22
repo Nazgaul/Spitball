@@ -21,11 +21,11 @@ namespace Zbang.Zbox.Infrastructure.Enums
         CannotView
     }
 
-    public enum DirtyState
-    {
-        None = 0,
-        New = 1,
-        Delete = 2,
-        Update = 3
-    }
+    //public enum DirtyState
+    //{
+    //    None = 0,
+    //    New = 1,
+    //    Delete = 2,
+    //    Update = 3
+    //}
 }

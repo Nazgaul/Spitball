@@ -43,7 +43,7 @@
       <one-to-many class="QuizLike"/>
     </bag>
     <property name="IsDeleted"/>
-    <property name="IsDirty" column="IsDirty2" />
+    <property name="IsDirty"/>
 
   </class>
 

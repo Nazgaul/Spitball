@@ -106,7 +106,7 @@ namespace Zbang.Zbox.Domain
             return library;
         }
 
-        public DirtyState IsDirty { get; set; }
+        public bool IsDirty { get; set; }
 
         public bool IsDeleted { get; set; }
 

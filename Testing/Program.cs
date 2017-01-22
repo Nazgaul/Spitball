@@ -31,6 +31,7 @@ using System.Collections.Generic;
 using AlchemyAPIClient;
 using AlchemyAPIClient.Requests;
 using Zbang.Zbox.Domain.CommandHandlers;
+using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Data;
@@ -206,10 +207,13 @@ namespace Testing
             //log4net.Config.XmlConfigurator.Configure();
 
             var iocFactory = IocFactory.IocWrapper;
+            var m_WriteService = iocFactory.Resolve<IZboxWriteService>();
+            var z = new AssignTagsToItemCommand(565902, new[] { "1234", "Moment of inertia" });
+            m_WriteService.AddItemTag(z);
+            return;
             //var push = iocFactory.Resolve<ISendPush>();
             //var t = push.GetRegisteredUsersAsync();
             //t.Wait();
-            return;
             var ReadService = iocFactory.Resolve<IZboxReadServiceWorkerRole>();
             var m_QueueRepository = iocFactory.Resolve<IQueueProvider>();
             var index = 0;

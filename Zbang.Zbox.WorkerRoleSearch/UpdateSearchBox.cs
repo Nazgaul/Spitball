@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
+using Zbang.Zbox.ViewModel.Dto.BoxDtos;
 using Zbang.Zbox.WorkerRoleSearch.DomainProcess;
 
 namespace Zbang.Zbox.WorkerRoleSearch
@@ -20,16 +22,18 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IBoxWriteSearchProvider2 m_BoxSearchProvider;
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
         private readonly IWitAi m_WithAiProvider;
+        private readonly IZboxWriteService m_WriteService;
 
         // private const string PrefixLog = "Search Box";
         public UpdateSearchBox(IZboxReadServiceWorkerRole zboxReadService,
             IBoxWriteSearchProvider2 boxSearchProvider,
-            IZboxWorkerRoleService zboxWriteService, IWitAi withAiProvider)
+            IZboxWorkerRoleService zboxWriteService, IWitAi withAiProvider, IZboxWriteService writeService)
         {
             m_ZboxReadService = zboxReadService;
             m_BoxSearchProvider = boxSearchProvider;
             m_ZboxWriteService = zboxWriteService;
             m_WithAiProvider = withAiProvider;
+            m_WriteService = writeService;
         }
 
 
@@ -56,28 +60,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
         }
 
 
-
-
-
-        //int m_Interval = MinInterval;
-        //private const int MinInterval = 30;
-        // private const int MaxInterval = 240;
-        //private async Task SleepAndIncreaseIntervalAsync(CancellationToken cancellationToken)
-        //{
-        //    await SleepAsync(cancellationToken);
-        //    m_Interval = m_Interval*2;
-        //}
-
-        //private async Task SleepAsync(CancellationToken cancellationToken)
-        //{
-        //    await Task.Delay(TimeSpan.FromSeconds(m_Interval), cancellationToken);
-        //}
-
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
         {
             const int top = 100;
             var updates = await m_ZboxReadService.GetBoxesDirtyUpdatesAsync(instanceId, instanceCount, top, cancellationToken);
             if (!updates.BoxesToUpdate.Any() && !updates.BoxesToDelete.Any()) return TimeToSleep.Increase;
+
+           // await JaredPilotAsync(updates.BoxesToUpdate.Where(w => w.UniversityId == JaredUniversityIdPilot));
 
             //await m_WithAiProvider.AddCoursesEntityAsync(
             //     updates.BoxesToUpdate.Where(
@@ -95,6 +84,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return TimeToSleep.Same;
         }
 
+        //private Task JaredPilotAsync(IEnumerable<BoxSearchDto> courses)
+        //{
+        //    foreach (var course in courses)
+        //    {
+        //        var command = new CreateCourseTagCommand(course.Name, course.CourseCode, course.Professor);
+        //        m_WriteService.AddCourseTag(command);
+        //    }
+        //    return Task.CompletedTask;
+        //}
+
         protected override string GetPrefix()
         {
             return "Search Box";
@@ -111,7 +110,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //    {
             //        elem.Name
             //    }, token);
-                 
+
 
             var isSuccess =
                 await m_BoxSearchProvider.UpdateDataAsync(new[] { elem }, null);

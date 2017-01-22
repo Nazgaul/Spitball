@@ -19,6 +19,15 @@ namespace Zbang.Zbox.Infrastructure.Extensions
             // Return char and concat substring.
             return char.ToUpperInvariant(str[0]) + str.Substring(1).ToLowerInvariant();
         }
+
+        public static string NullIfWhiteSpace(this string str)
+        {
+            if (string.IsNullOrWhiteSpace(str))
+            {
+                return null;
+            }
+            return str;
+        }
         
     }
 }

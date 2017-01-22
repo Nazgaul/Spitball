@@ -253,7 +253,7 @@ namespace Zbang.Zbox.Domain
             CalculateMembers();
         }
 
-        public DirtyState IsDirty { get; set; }
+        public bool IsDirty { get; set; }
 
 
         public virtual Func<bool> ShouldMakeDirty { get; set; }

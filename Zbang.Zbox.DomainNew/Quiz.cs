@@ -86,7 +86,7 @@ namespace Zbang.Zbox.Domain
 
        
 
-        public DirtyState IsDirty {get;set;}
+        public bool IsDirty {get;set;}
 
         public virtual Func<bool> ShouldMakeDirty
         {
