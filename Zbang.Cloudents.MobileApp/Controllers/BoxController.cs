@@ -125,6 +125,52 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }
         }
 
+        [VersionedRoute("api/box", 3)]
+        [HttpGet]
+        public async Task<HttpResponseMessage> GetBoxAsync3(long id)
+        {
+            try
+            {
+                //var query = new GetBoxQuery(id);
+                var query = new GetBoxQuery(id);
+                var tResult = m_ZboxReadService.GetBox2Async(query);
+
+
+                //TODO we can remove this.
+                //var tResult = m_ZboxReadService.GetBoxMetaWithMembersAsync(query, numberOfPeople);
+                var tUserType = m_ZboxReadSecurityService.GetUserStatusToBoxAsync(id, User.GetUserId());
+                await Task.WhenAll(tResult, tUserType);
+                var result = tResult.Result;
+                result.UserType = tUserType.Result;
+
+                return Request.CreateResponse(new
+                {
+                    result.Name,
+                    result.BoxType,
+                    result.UserType,
+                    Professor = result.ProfessorName,
+                    CourseCode = result.CourseId,
+                    ShortUrl = UrlConst.BuildShortBoxUrl(new Base62(id).ToString()),
+                    MembersCount = result.Members,
+                    ItemCount = result.Items,
+                    result.DepartmentId
+                    //result.People
+
+                });
+            }
+            catch (BoxAccessDeniedException)
+            {
+
+                TraceLog.WriteError($"BoxAccessDeniedException userid: {User.GetUserId()} request box {id}");
+                return Request.CreateUnauthorizedResponse();
+            }
+            catch (BoxDoesntExistException)
+            {
+                return Request.CreateNotFoundResponse();
+            }
+        }
+
+
         [HttpPost]
         [Route("api/box")]
         public async Task<HttpResponseMessage> PostAsync(CreateBoxRequest model)
