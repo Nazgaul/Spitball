@@ -247,7 +247,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 var wait = new ManualResetEvent(false);
 
                 var uri = m_BlobProvider.GetBlobUrl(elem.BlobName);
-                //var blob = m_BlobProvider.GetFile(elem.BlobName);
                 var processor = m_FileProcessorFactory.GetProcessor(uri);
                 if (processor == null) return null;
                 string str = null;

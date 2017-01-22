@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using SimMetricsMetricUtilities;
 using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
-    
+
     public abstract class FileProcessor : ContentProcessor, IContentProcessor
     {
 
@@ -20,7 +21,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
 
         protected readonly IBlobProvider BlobProvider;
-        
+
 
         protected FileProcessor(IBlobProvider blobProvider)
         {
@@ -28,7 +29,7 @@ namespace Zbang.Zbox.Infrastructure.File
         }
 
 
-        
+
         protected string GetBlobNameFromUri(Uri blobUri)
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
@@ -47,14 +48,48 @@ namespace Zbang.Zbox.Infrastructure.File
             {
                 return input;
             }
-           // var spaceReg = new Regex(@"\s+", RegexOptions.Compiled);
+            var paragraphs = input.Split(new[] {"\r\n\r\n"}, StringSplitOptions.RemoveEmptyEntries);
+            var sentenceRegex = new Regex("[^.!?;]*[^.?!;]*[.?!;]", RegexOptions.Compiled);
+            var pageTexts = new List<string>();
+           
+            foreach (var paragraph in paragraphs)
+            {
+               
+                var d = sentenceRegex.Matches(paragraph);
+                if (d.Count == 0)
+                {
+                    AddSentenceToList(paragraph.Trim(), pageTexts);
+                }
+               
+                foreach (Match t in d)
+                {
+                    AddSentenceToList(t.Value.Trim(), pageTexts);
+                }
+            }
+
+            var result = string.Join(" ", pageTexts);
             var eightOrNineDigitsId = new Regex(@"\b\d{8,9}\b", RegexOptions.Compiled);
-            input = TextManipulation.SpaceReg.Replace(input, " ");
-            input = eightOrNineDigitsId.Replace(input, string.Empty);
-            input = input.Replace("\0", string.Empty);
-            input = input.Replace("בס\"ד", string.Empty);
-            input = input.Replace("find more resources at oneclass.com", string.Empty);
-            return input;
+            result = TextManipulation.SpaceReg.Replace(result, " ");
+            result = eightOrNineDigitsId.Replace(result, string.Empty);
+            result = result.Replace("\0", string.Empty);
+            result = result.Replace("בס\"ד", string.Empty);
+            result = result.Replace("find more resources at oneclass.com", string.Empty);
+            return result;
+        }
+
+        private void AddSentenceToList(string t, List<string> pageTexts)
+        {
+            var jaroWinkler = new JaroWinkler();
+            var z = TextManipulation.SpaceReg.Split(t);
+            if (!z.Any(a => a.Length > 1)) return;
+            //var txt = StripUnwantedChars(lineBreakText);
+
+            var result = jaroWinkler.BatchCompareSet(pageTexts.ToArray(), t);
+            if (result.Any(w => w > 0.95))
+            {
+                return;
+            }
+            pageTexts.Add(t);
         }
 
         protected async Task UploadMetaDataAsync(
@@ -94,6 +129,6 @@ namespace Zbang.Zbox.Infrastructure.File
             return metaTags;
         }
 
-        
+
     }
 }

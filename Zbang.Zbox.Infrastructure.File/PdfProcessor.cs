@@ -136,106 +136,37 @@ namespace Zbang.Zbox.Infrastructure.File
 
             //doc.Pages.Accept(textAbsorber);
             var text = textAbsorber.Text;
-            var pageTexts = new List<string>();
-            var lineBreakTexts = text.Split(new[] { "\r\n", "." }, StringSplitOptions.RemoveEmptyEntries)
-                            .GroupBy(m => m)
-                            .Where(m => m.Count() == 1 && m.Key != string.Empty)
-                            .Select(s => s.Key);
-
-            foreach (var lineBreakText in lineBreakTexts)
-            {
-                var z = TextManipulation.SpaceReg.Split(lineBreakText);
-                if (!z.Any(a => a.Length > 1)) continue;
-                var txt = StripUnwantedChars(lineBreakText);
-
-
-                //if (pageTexts.Contains(txt))
-                //{
-                //    continue;
-                //}
-                SimMetricsMetricUtilities.JaroWinkler x = new SimMetricsMetricUtilities.JaroWinkler();
-
-                var result = x.BatchCompareSet(pageTexts.ToArray(), txt);
-                if (result.Any(w => w > 0.95))
-                {
-                    continue;
-                }
-
-                //var d = z.GetSimilarity(pageTexts.LastOrDefault(), text);
-                //var d = LevenshteinDistance.Compute(pageTexts.LastOrDefault(), txt);
-                //if (d < 5)
-                //{
-                //    TraceLog.WriteInfo(
-                //        $"LevenshteinDistance less then 10 between {pageTexts.LastOrDefault()} and  {lineBreakText}");
-                //    continue;
-                //}
-                pageTexts.Add(txt);
-            }
-
-            //var builder = new StringBuilder();
             //var pageTexts = new List<string>();
-            //try
-            //{
-
-            //    //string to hold extracted text
-            //    for (var i = 1; i <= Math.Min(doc.Pages.Count, 20); i++)
-            //    {
-            //        var pdfPage = doc.Pages[i];
-            //        using (var textStream = new MemoryStream())
-            //        {
-            //            //create text device
-            //            var textDevice = new TextDevice();
-
-            //            //set text extraction options - set text extraction mode (Raw or Pure)
-            //            var textExtOptions = new
-            //            TextExtractionOptions(TextExtractionOptions.TextFormattingMode.Pure);
-            //            textDevice.ExtractionOptions = textExtOptions;
-
-            //            //convert a particular page and save text to the stream
-            //            if (pdfPage != null) textDevice.Process(pdfPage, textStream);
-
-            //            //close memory stream
-            //            textStream.Close();
-
-            //            //get text from memory stream
-            //            var extractedText = Encoding.Unicode.GetString(textStream.ToArray());
-            //            if (string.IsNullOrWhiteSpace(extractedText))
-            //            {
-            //                continue;
-            //            }
-            //            var lineBreakTexts = extractedText.Split(new[] { "\r\n" , "." }, StringSplitOptions.RemoveEmptyEntries)
+            //var lineBreakTexts = text.Split(new[] { "\r\n", "." }, StringSplitOptions.RemoveEmptyEntries)
             //                .GroupBy(m => m)
             //                .Where(m => m.Count() == 1 && m.Key != string.Empty)
             //                .Select(s => s.Key);
 
-            //            foreach (var lineBreakText in lineBreakTexts)
-            //            {
-            //                var txt = StripUnwantedChars(lineBreakText);
-
-            //                if (pageTexts.Contains(txt))
-            //                {
-            //                    continue;
-            //                }
-            //                var d = LevenshteinDistance.Compute(pageTexts.LastOrDefault(), txt);
-            //                if (d < 5)
-            //                {
-            //                    TraceLog.WriteInfo(
-            //                        $"LevenshteinDistance less then 10 between {pageTexts.LastOrDefault()} and  {extractedText}");
-            //                    continue;
-            //                }
-            //                pageTexts.Add(txt);
-            //            }
-
-
-            //        }
-            //        //builder.Append(extractedText);
-            //    }
-            //}
-            //catch (Exception ex)
+            //foreach (var lineBreakText in lineBreakTexts)
             //{
-            //    TraceLog.WriteError("trying to extract pdf text", ex);
+            //    var z = TextManipulation.SpaceReg.Split(lineBreakText);
+            //    if (!z.Any(a => a.Length > 1)) continue;
+            //    var txt = StripUnwantedChars(lineBreakText);
+            //    SimMetricsMetricUtilities.JaroWinkler x = new SimMetricsMetricUtilities.JaroWinkler();
+            //    var result = x.BatchCompareSet(pageTexts.ToArray(), txt);
+            //    if (result.Any(w => w > 0.95))
+            //    {
+            //        continue;
+            //    }
+
+            //    //var d = z.GetSimilarity(pageTexts.LastOrDefault(), text);
+            //    //var d = LevenshteinDistance.Compute(pageTexts.LastOrDefault(), txt);
+            //    //if (d < 5)
+            //    //{
+            //    //    TraceLog.WriteInfo(
+            //    //        $"LevenshteinDistance less then 10 between {pageTexts.LastOrDefault()} and  {lineBreakText}");
+            //    //    continue;
+            //    //}
+            //    pageTexts.Add(txt);
             //}
-            var str = StripUnwantedChars(string.Join(" ", pageTexts));
+
+            
+            var str = StripUnwantedChars(text);
             return str;
         }
 

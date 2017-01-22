@@ -113,7 +113,7 @@ namespace Testing
         {
             AlchemyClient client =
                 new AlchemyClient("785ea0b610cc18cf9cb3815552d2bbd979133a5b"
-                   // "https://gateway-a.watsonplatform.net/calls"
+                    // "https://gateway-a.watsonplatform.net/calls"
                     );
             var text =
                 @"would anybody be interested in helping me come up with questions for a practice exam before the midterm?
@@ -126,7 +126,7 @@ namespace Testing
                 MaxRetrieve = 30
             };
             var z = await request.GetResponse();
-            
+
         }
 
 
@@ -170,7 +170,7 @@ namespace Testing
 
             unity.ContainerBuilder.RegisterModule<SearchModule>();
 
-           
+
 
             unity.ContainerBuilder.RegisterType<SendPush>()
             .As<ISendPush>()
@@ -179,6 +179,8 @@ namespace Testing
             .InstancePerLifetimeScope();
 
             unity.Build();
+
+
 
             //var x = new Zbang.Zbox.Infrastructure.IdGenerator.IdGenerator();
             //var y = x.GetId();
@@ -207,9 +209,15 @@ namespace Testing
             //log4net.Config.XmlConfigurator.Configure();
 
             var iocFactory = IocFactory.IocWrapper;
-            var m_WriteService = iocFactory.Resolve<IZboxWriteService>();
-            var z = new AssignTagsToItemCommand(565902, new[] { "1234", "Moment of inertia" });
-            m_WriteService.AddItemTag(z);
+            var m_BlobProvider = iocFactory.Resolve<IBlobProvider2<FilesContainerName>>();
+            var m_FileProcessorFactory = iocFactory.Resolve<IFileProcessorFactory>();
+            var uri = m_BlobProvider.GetBlobUrl("bd95f040-0b5f-4d4c-ac05-6becc43964fb.pdf");
+            var processor = m_FileProcessorFactory.GetProcessor(uri);
+            var t = processor.ExtractContentAsync(uri);
+            t.Wait();
+
+            // var z = new AssignTagsToItemCommand(565902, new[] { "1234", "Moment of inertia" });
+            // m_WriteService.AddItemTag(z);
             return;
             //var push = iocFactory.Resolve<ISendPush>();
             //var t = push.GetRegisteredUsersAsync();
