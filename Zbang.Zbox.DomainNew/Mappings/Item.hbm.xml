@@ -11,7 +11,7 @@
     <property name="Name" length="4000"/>
     <property name="IsDeleted" index="iBoxIsDeleted"/>
     <property name="IsDirty" />
-    
+
     <property name="Size"/>
     <property name="NumberOfViews"/>
     <component name="DateTimeUser" class="UserTimeDetails">
@@ -39,7 +39,11 @@
 
     <property name="LikeCount"/>
     <property name="Url" length="4000"/>
-
+    <property name="Language"/>
+    <set name="ItemTags" inverse="true" lazy="true">
+      <key column="ItemId" foreign-key="fTagItemItem"/>
+      <one-to-many class="ItemTag"/>
+    </set>
     <bag name="ItemRates"  cascade="all-delete-orphan" inverse="true" lazy="true">
       <key column="ItemId"/>
       <one-to-many class="ItemRate"/>
@@ -48,7 +52,7 @@
       <key column="ItemId" foreign-key="NewUpdatesItem"/>
       <one-to-many class="Updates"/>
     </bag>
-    
+
     <bag name="ItemComments" inverse="true" lazy="true" cascade="delete-orphan" >
       <key column="ItemId" foreign-key="itemIdItemComment"/>
       <one-to-many class="ItemComment"/>
@@ -58,11 +62,8 @@
       <one-to-many class="ItemCommentReply"/>
     </bag>
 
-    <set name="ItemTags" inverse="true" lazy="true">
-      <key column="ItemId" foreign-key="fTagItemItem"/>
-      <one-to-many class="ItemTag"/>
-    </set>
-    
+
+
     <subclass name="Link" discriminator-value="Link">
     </subclass>
     <subclass name="File" discriminator-value="File">
@@ -70,6 +71,9 @@
       <property name="Md5"/>
       <property name="PreviewFailed"/>
       <property name="Content" type="string" length="500" />
+     
+
+
     </subclass>
   </class>
   <!--<query name="ItemWithNoSize">

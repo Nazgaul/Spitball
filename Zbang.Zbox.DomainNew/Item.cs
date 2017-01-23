@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
 
@@ -57,10 +58,13 @@ namespace Zbang.Zbox.Domain
         protected virtual ICollection<ItemComment> ItemComments { get; set; }
         protected virtual ICollection<ItemCommentReply> ItemReplies { get; set; }
 
-        public virtual ISet<ItemTag> ItemTags { get; set; }
+       
 
         public virtual ItemTab Tab { get; protected set; }
+        public virtual Language Language { get; set; }
 
+
+        public virtual ISet<ItemTag> ItemTags { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         public virtual string ItemContentUrl { get; set; }
@@ -112,6 +116,7 @@ namespace Zbang.Zbox.Domain
 
         public bool IsDirty { get; set; }
 
+       
 
         public virtual Func<bool> ShouldMakeDirty { get; set; }
     }

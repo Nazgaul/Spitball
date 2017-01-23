@@ -36,13 +36,13 @@ namespace Zbang.Zbox.Infrastructure
             var languages = m_Identifier.Identify(text);
             var mostCertainLanguage = languages.FirstOrDefault();
 
-            if (mostCertainLanguage?.Item1.Iso639_3 == "simple")
-                return Language.EnglishUs;
+            //if (mostCertainLanguage?.Item1.Iso639_3 == "simple")
+            //    return Language.EnglishUs;
             if (mostCertainLanguage?.Item1.Iso639_3 == "en")
                 return Language.EnglishUs;
             if (mostCertainLanguage?.Item1.Iso639_3 == "he")
                 return Language.Hebrew;
-            return Language.None;
+            return Language.Undefined;
         }
     }
 }

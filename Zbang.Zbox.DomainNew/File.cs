@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using Zbang.Zbox.Infrastructure.Culture;
 
 namespace Zbang.Zbox.Domain
 {
@@ -17,7 +19,7 @@ namespace Zbang.Zbox.Domain
 
         public virtual bool PreviewFailed { get; set; }
 
-
+       
 
         public File(string itemName, User uploaderUser, long sized, string blobName,
              Box box)

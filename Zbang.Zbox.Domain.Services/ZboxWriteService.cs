@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Commands.Quiz;
@@ -757,7 +758,7 @@ namespace Zbang.Zbox.Domain.Services
             using (UnitOfWork.Start())
             {
                 var t4 = m_Cache.RemoveAsync(command);
-                var t1 =  m_CommandBus.SendAsync(command);
+                var t1 = m_CommandBus.SendAsync(command);
                 await Task.WhenAll(t1, t4);
                 UnitOfWork.Current.TransactionalFlush();
             }
@@ -840,6 +841,23 @@ namespace Zbang.Zbox.Domain.Services
             using (UnitOfWork.Start())
             {
                 m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+        public void AddItemLanguage(AddLanguageToDocumentCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+        public void AddItemExtraData(AssignTagsToItemCommand command1, UpdateItemCourseTagCommand command2)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command1);
+                m_CommandBus.Send(command2);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }

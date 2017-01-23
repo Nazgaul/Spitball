@@ -34,6 +34,7 @@ using Zbang.Zbox.Domain.CommandHandlers;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure.Azure;
+using Zbang.Zbox.Infrastructure.Commands;
 using Zbang.Zbox.Infrastructure.Data;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
@@ -109,15 +110,12 @@ namespace Testing
             }
         }
 
-        static async Task DoAlchemyAsync()
+        static async Task DoAlchemyAsync(string text)
         {
             AlchemyClient client =
                 new AlchemyClient("785ea0b610cc18cf9cb3815552d2bbd979133a5b"
                     // "https://gateway-a.watsonplatform.net/calls"
                     );
-            var text =
-                @"would anybody be interested in helping me come up with questions for a practice exam before the midterm?
-";
             var request = new AlchemyTextConceptsRequest(text, client)
             {
                 KnowledgeGraph = true,
@@ -211,10 +209,26 @@ namespace Testing
             var iocFactory = IocFactory.IocWrapper;
             var m_BlobProvider = iocFactory.Resolve<IBlobProvider2<FilesContainerName>>();
             var m_FileProcessorFactory = iocFactory.Resolve<IFileProcessorFactory>();
+            var languageDetection = iocFactory.Resolve<IDetectLanguage>();
+            var write = iocFactory.Resolve<IZboxWriteService>();
+            var commands = new List<ICommand>
+            {
+                new AssignTagsToItemCommand(1, null, Zbang.Zbox.Infrastructure.Culture.Language.Undefined),
+                new UpdateItemCourseTagCommand(1, "1", null, null)
+            };
+            //var z = new AssignTagsToItemCommand(elem.Id, result, language);
+            write.DoWork(new AssignTagsToItemCommand(1, null, Zbang.Zbox.Infrastructure.Culture.Language.Undefined), new UpdateItemCourseTagCommand(1, "1", null, null));
+            var readService = iocFactory.Resolve<IZboxReadServiceWorkerRole>();
+            var x =  languageDetection.DoWork(
+                "הדעות לגבי התוכן של לורם איפסום חלוקות, בעוד שרבים חושבים כי מדובר בטקסט רנדומלי חסר כל משמעות בכוונה תחילה שתוכנן כך בקפידה כדי שדעתו של הקורא לא תוסח בזמן הרפרוף בו, אחרים* יטענו בתוקף כי יש לו שורשים בספרות הלטינית הקלאסית משנת 45 לפני הספירה. במידה והדבר יתברר כנכון, משמעות הדבר היא כי זהו אחד הטקסטים הקדומים ביותר הידועים לאנושות.");
+
             var uri = m_BlobProvider.GetBlobUrl("bd95f040-0b5f-4d4c-ac05-6becc43964fb.pdf");
             var processor = m_FileProcessorFactory.GetProcessor(uri);
             var t = processor.ExtractContentAsync(uri);
             t.Wait();
+            var cxz = languageDetection.DoWork(t.Result);
+            var z = DoAlchemyAsync(t.Result);
+            z.Wait();
 
             // var z = new AssignTagsToItemCommand(565902, new[] { "1234", "Moment of inertia" });
             // m_WriteService.AddItemTag(z);
@@ -222,7 +236,7 @@ namespace Testing
             //var push = iocFactory.Resolve<ISendPush>();
             //var t = push.GetRegisteredUsersAsync();
             //t.Wait();
-            var ReadService = iocFactory.Resolve<IZboxReadServiceWorkerRole>();
+           
             var m_QueueRepository = iocFactory.Resolve<IQueueProvider>();
             var index = 0;
             IEnumerable<long> users;

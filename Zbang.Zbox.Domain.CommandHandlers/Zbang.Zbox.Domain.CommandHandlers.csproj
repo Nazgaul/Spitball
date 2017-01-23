@@ -73,6 +73,7 @@
     <Compile Include="AddStudentCommandHandler.cs" />
     <Compile Include="AddUserLocationActivityCommandHandler.cs" />
     <Compile Include="AssignItemToTabCommandHandler.cs" />
+    <Compile Include="AssignTagsToItemCommandHandler.cs" />
     <Compile Include="ChangeBoxInfoCommandHandler.cs" />
     <Compile Include="ChangeBoxLibraryCommandHandler.cs" />
     <Compile Include="ChangeFileNameCommandHandler.cs" />
@@ -83,7 +84,6 @@
     <Compile Include="ChatMarkAsReadCommandHandler.cs" />
     <Compile Include="CommandsModule.cs" />
     <Compile Include="CreateAcademicBoxCommandHandler.cs" />
-    <Compile Include="CreateCourseTagCommandHandler.cs" />
     <Compile Include="CreateFacebookUserCommandHandler.cs" />
     <Compile Include="CreateGoogleUserCommandHandler.cs" />
     <Compile Include="CreateItemTabCommandHandler.cs" />

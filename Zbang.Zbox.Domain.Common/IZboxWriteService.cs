@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Commands.Quiz;
+using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Common
 {
@@ -141,6 +143,12 @@ namespace Zbang.Zbox.Domain.Common
         //void AddCourseTag(CreateCourseTagCommand command);
         void UpdateItemCourseTag(UpdateItemCourseTagCommand command);
         void AddItemTag(AssignTagsToItemCommand command);
+        void AddItemLanguage(AddLanguageToDocumentCommand command);
+        //void DoWork(params ICommand[] commands);
+
+        void AddItemExtraData(
+            AssignTagsToItemCommand command1,
+            UpdateItemCourseTagCommand command2);
 
         #endregion
     }

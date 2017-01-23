@@ -100,8 +100,64 @@ select Name,boxid from c;";
         select top 10 itemid as id from zbox.item
         where isdirty = 1 and isdeleted = 1 and itemid % @count  = @index;";
 
-        public const string GetItemsToUploadToSearch =
-            @" select top (@top)
+
+        public const string GetItemsToUploadToSearch2 = @"
+select 
+  i.ItemId as Id,
+  i.Name as name,
+  i.blobName as blobName,
+  i.Url as url,
+  i.discriminator as type,
+  b.University as universityid,
+  b.ProfessorName as BoxProfessor,
+  b.CourseCode as BoxCode,
+  b.BoxName as boxname,
+  u.UniversityName as universityName,
+  b.BoxId as boxid,
+  it.ItemTabName,
+  ub.UserId as UserIds_Id,
+  i.language,
+  t.Name as Tags_Name
+    from zbox.item i 
+    join zbox.box b on i.BoxId = b.BoxId
+	left join zbox.UserBoxRel ub on b.BoxId = ub.BoxId
+    left join zbox.University u on b.University = u.id
+	left join zbox.ItemTab it on i.ItemTabId = it.ItemTabId
+	left join zbox.ItemTag itag on itag.ItemId = i.ItemId join zbox.Tag t on itag.TagId = t.Id
+	where i.ItemId in (
+	select top (@top) itemid from zbox.Item 
+    where isdirty = 1 
+    and IsDeleted = 0
+    and creationtime < DATEADD(minute, -1, getutcdate())
+    and itemid % @count  = @index
+    order by ItemId desc);
+";
+
+  //      public const string GetItemsToUploadToSearch =
+  //          @" select top (@top)
+  //i.ItemId as id,
+  //i.Name as name,
+  //i.blobName as blobName,
+  //i.Url as url,
+  //i.discriminator as type,
+  //b.University as universityid,
+  //b.ProfessorName as BoxProfessor,
+  //b.CourseCode as BoxCode,
+  //b.BoxName as boxname,
+  //u.UniversityName as universityName,
+  //b.BoxId as boxid
+  //  from zbox.item i 
+  //  join zbox.box b on i.BoxId = b.BoxId
+  //  left join zbox.University u on b.University = u.id
+  //  where i.isdirty = 1 
+  //  and i.IsDeleted = 0
+  //  and i.creationtime < DATEADD(minute, -1, getutcdate())
+  //  and b.isdeleted = 0 -- performance
+  //  and i.itemid % @count  = @index
+  //  order by i.ItemId desc";
+
+        public const string GetItemToUploadToSearch =
+            @"select 
   i.ItemId as id,
   i.Name as name,
   i.blobName as blobName,
@@ -112,53 +168,33 @@ select Name,boxid from c;";
   b.CourseCode as BoxCode,
   b.BoxName as boxname,
   u.UniversityName as universityName,
-  b.BoxId as boxid
+  b.BoxId as boxid,
+  it.ItemTabName,
+  ub.UserId as UserIds_Id,
+  i.language,
+  t.Name as Tags_Name
     from zbox.item i 
     join zbox.box b on i.BoxId = b.BoxId
+	left join zbox.UserBoxRel ub on b.BoxId = ub.BoxId
     left join zbox.University u on b.University = u.id
-    where i.isdirty = 1 
-    and i.IsDeleted = 0
-    and i.creationtime < DATEADD(minute, -1, getutcdate())
-    and b.isdeleted = 0 -- performance
-    and i.itemid % @count  = @index
-    order by i.ItemId desc";
+	left join zbox.ItemTab it on i.ItemTabId = it.ItemTabId
+	left join zbox.ItemTag itag on itag.ItemId = i.ItemId join zbox.Tag t on itag.TagId = t.Id
+	where i.ItemId = @itemId;";
 
-        public const string GetItemToUploadToSearch =
-            @"select
-  i.ItemId as id,
-  i.Name as name,
-  i.Content as content,
-  i.blobName as blobName,
-  i.Url as url,
-  i.discriminator as type,
-  case b.Discriminator
-   when 2 then
-       b.University
-	   else null
-	   end
-   as universityid,
-  b.BoxName as boxname,
-  u.UniversityName as universityName,
-  b.BoxId as boxid
-    from zbox.item i 
-    join zbox.box b on i.BoxId = b.BoxId
-    left join zbox.University u on b.University = u.id
-    where i.itemid = @itemId";
+//        public const string GetItemUsersToUploadToSearch = @"
+// select UserId from zbox.UserBoxRel where boxId in (
+//select boxid  from zbox.item i  
+//  where   i.itemid = @itemId
+// )";
 
-        public const string GetItemUsersToUploadToSearch = @"
- select UserId from zbox.UserBoxRel where boxId in (
-select boxid  from zbox.item i  
-  where   i.itemid = @itemId
- )";
-
-        public const string GetItemsUsersToUploadToSearch =
-            @"  select UserId,BoxId from zbox.UserBoxRel where boxId in (
-select top (@top) i.boxid  from zbox.item i  
-  where  i.isdirty = 1 
-  and i.isdeleted = 0 
-  and i.creationtime < DATEADD(minute, -1, getutcdate())
-   and i.itemid % @count  = @index
-  order by i.ItemId desc)";
+//        public const string GetItemsUsersToUploadToSearch =
+//            @"  select UserId,BoxId from zbox.UserBoxRel where boxId in (
+//select top (@top) i.boxid  from zbox.item i  
+//  where  i.isdirty = 1 
+//  and i.isdeleted = 0 
+//  and i.creationtime < DATEADD(minute, -1, getutcdate())
+//   and i.itemid % @count  = @index
+//  order by i.ItemId desc)";
 
         public const string GetQuizzesUsersToUploadToSearch =
             @"  select UserId,BoxId from zbox.UserBoxRel where boxId in (

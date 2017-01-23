@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -26,6 +27,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IBlobProvider2<FilesContainerName> m_BlobProvider;
         private readonly IZboxWriteService m_WriteService;
         private readonly IWatsonExtract m_WatsonExtractProvider;
+        private readonly IDetectLanguage m_LanguageDetect;
 
         private const string PrefixLog = "Search Item";
 
@@ -33,7 +35,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             IZboxWorkerRoleService zboxWriteService,
             IFileProcessorFactory fileProcessorFactory,
             IBlobProvider2<FilesContainerName> blobProvider,
-            IItemWriteSearchProvider itemSearchProvider3, IZboxWriteService writeService, IWatsonExtract watsonExtractProvider)
+            IItemWriteSearchProvider itemSearchProvider3, IZboxWriteService writeService, IWatsonExtract watsonExtractProvider, IDetectLanguage languageDetect)
         {
             m_ZboxReadService = zboxReadService;
             m_ZboxWriteService = zboxWriteService;
@@ -42,6 +44,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_ItemSearchProvider3 = itemSearchProvider3;
             m_WriteService = writeService;
             m_WatsonExtractProvider = watsonExtractProvider;
+            m_LanguageDetect = languageDetect;
         }
 
 
@@ -109,13 +112,27 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task JaredPilotAsync(ItemSearchDto elem, CancellationToken token)
         {
-            var result = await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token);
+            if (!elem.Language.HasValue)
+            {
+                elem.Language = m_LanguageDetect.DoWork(elem.Content);
+                var commandLang = new AddLanguageToDocumentCommand(elem.Id, elem.Language.Value);
+                m_WriteService.AddItemLanguage(commandLang);
+            }
 
-            var z = new AssignTagsToItemCommand(elem.Id, result);
-            m_WriteService.AddItemTag(z);
+            if (elem.Language == Infrastructure.Culture.Language.EnglishUs && !elem.Tags.Any())
+            {
+                var result = (await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token)).ToList();
+                elem.Tags = result.Select(s => new ItemSearchTag { Name = s });
+                var z = new AssignTagsToItemCommand(elem.Id, result);
+                m_WriteService.AddItemTag(z);
+            }
 
             var command = new UpdateItemCourseTagCommand(elem.Id, elem.BoxName, elem.BoxCode, elem.BoxProfessor);
             m_WriteService.UpdateItemCourseTag(command);
+
+            
+
+
         }
 
         private async Task UploadToAzureSearchAsync(ItemSearchDto elem, CancellationToken token)
@@ -171,21 +188,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             public Uri Uri { get; set; }
         }
 
-        //private void CancelSynchronousProcess(ItemSearchDto msgData, CancellationToken token, Func<  Task> action)
-        //{
-        //    var wait = new ManualResetEvent(false);
-        //    var work = new Thread(async () =>
-        //    {
-        //        await action();
-        //    });
-        //    work.Start();
-        //    var signal = wait.WaitOne(TimeSpan.FromMinutes(10));
-        //    if (!signal)
-        //    {
-        //        work.Abort();
-        //        TraceLog.WriteError("blob url aborting process" + msgData.BlobName);
-        //    }
-        //}
+
 
         private void PreProcessFile(ItemSearchDto msgData)
         {

@@ -123,7 +123,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     UniversityId = itemToUpload.UniversityId.HasValue ? itemToUpload.UniversityId.ToString() : "-1",
                     UniversityName = itemToUpload.UniversityName,
                     Url = itemToUpload.Url,
-                    UserId = itemToUpload.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture)).ToArray(),
+                    UserId = itemToUpload.UserIds.Select(s1 => s1.Id.ToString(CultureInfo.InvariantCulture)).ToArray(),
                     BlobName = itemToUpload.BlobName
                 };
                 var batch = IndexBatch.MergeOrUpload(new[] { uploadBatch });

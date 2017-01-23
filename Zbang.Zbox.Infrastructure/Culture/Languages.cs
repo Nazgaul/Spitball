@@ -10,7 +10,7 @@ namespace Zbang.Zbox.Infrastructure.Culture
 {
     public enum Language
     {
-        None,
+        Undefined,
         [ResourceDescription(typeof(EnumResources), "LanguageEnglishUs")]
         EnglishUs,
         [ResourceDescription(typeof(EnumResources), "LanguageHebrew")]
@@ -86,7 +86,7 @@ namespace Zbang.Zbox.Infrastructure.Culture
 
 
         public static LanguagesDetail DefaultSystemCulture => SupportedCultures[0];
-       
+
     }
     public class LanguagesDetail
     {

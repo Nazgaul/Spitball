@@ -10,7 +10,7 @@ using AlchemyAPIClient.Requests;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
-    public class WatsonExtract: IWatsonExtract
+    public class WatsonExtract : IWatsonExtract
     {
         readonly AlchemyClient m_Client =
               new AlchemyClient("785ea0b610cc18cf9cb3815552d2bbd979133a5b");
@@ -25,9 +25,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 MaxRetrieve = 30
             };
             var result = await request.GetResponse(token);
-            return result.Concepts.Take(5).Select(s => s.Text);
+            return result.Concepts.Where(w => w.Relevance > 0.75).Select(s => s.Text);
         }
-        
+
     }
 
     public interface IWatsonExtract

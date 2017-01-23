@@ -58,6 +58,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http" />
@@ -70,6 +71,8 @@
   <ItemGroup>
     <Compile Include="BoxSearch.cs" />
     <Compile Include="BoxSearchProvider.cs" />
+    <Compile Include="Content.cs" />
+    <Compile Include="ContentSearchProvider.cs" />
     <Compile Include="FilterProvider.cs" />
     <Compile Include="FlashcardSearch.cs" />
     <Compile Include="FlashcardSearchProvider.cs" />
