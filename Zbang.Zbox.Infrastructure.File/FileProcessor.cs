@@ -48,25 +48,47 @@ namespace Zbang.Zbox.Infrastructure.File
             {
                 return input;
             }
-            var paragraphs = input.Split(new[] {"\r\n\r\n"}, StringSplitOptions.RemoveEmptyEntries);
+
             var sentenceRegex = new Regex("[^.!?;]*[^.?!;]*[.?!;]", RegexOptions.Compiled);
+           // var pageTexts = new List<string>();
+
+            //var paragraphs = SplitSentence(input);
+            //foreach (var paragraph in paragraphs)
+            //{
+               
+            //    var d = sentenceRegex.Matches(paragraph);
+            //    if (d.Count == 0)
+            //    {
+            //        AddSentenceToList(paragraph.Trim(), pageTexts);
+            //    }
+               
+            //    foreach (Match t in d)
+            //    {
+            //        AddSentenceToList(t.Value.Trim(), pageTexts);
+            //    }
+            //}
+           // sw.Stop();
+           // var t1 = sw.Elapsed;
+           // sw.Restart();
+            
             var pageTexts = new List<string>();
-           
-            foreach (var paragraph in paragraphs)
+            var d = sentenceRegex.Matches(input);
+            if (d.Count == 0)
             {
-               
-                var d = sentenceRegex.Matches(paragraph);
-                if (d.Count == 0)
+                foreach (var sentence in SplitSentence(input))
                 {
-                    AddSentenceToList(paragraph.Trim(), pageTexts);
-                }
-               
-                foreach (Match t in d)
-                {
-                    AddSentenceToList(t.Value.Trim(), pageTexts);
+                    AddSentenceToList(sentence, pageTexts);
                 }
             }
+            foreach (Match match in d)
+            {
+                var x = SplitSentence(match.Value);
 
+                foreach (var t in x)
+                {
+                    AddSentenceToList(t, pageTexts);
+                }
+            }
             var result = string.Join(" ", pageTexts);
             var eightOrNineDigitsId = new Regex(@"\b\d{8,9}\b", RegexOptions.Compiled);
             result = TextManipulation.SpaceReg.Replace(result, " ");
@@ -77,7 +99,12 @@ namespace Zbang.Zbox.Infrastructure.File
             return result;
         }
 
-        private void AddSentenceToList(string t, List<string> pageTexts)
+        private static IEnumerable<string> SplitSentence(string input)
+        {
+            return input.Split(new[] { "\r\n\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+        }
+
+        private static void AddSentenceToList(string t, List<string> pageTexts)
         {
             var jaroWinkler = new JaroWinkler();
             var z = TextManipulation.SpaceReg.Split(t);

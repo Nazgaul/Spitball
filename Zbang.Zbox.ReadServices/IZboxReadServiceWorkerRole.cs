@@ -41,7 +41,7 @@ namespace Zbang.Zbox.ReadServices
         Task<FlashcardToUpdateSearchDto> GetFlashcardsDirtyUpdatesAsync(int index, int total, int top,
             CancellationToken token);
 
-        Task<ItemSearchDto> GetItemDirtyUpdatesAsync(long itemId);
+        Task<DocumentSearchDto> GetItemDirtyUpdatesAsync(long itemId);
 
         Task<IEnumerable<MarketingDto>> GetUsersWithoutUniversityAsync(MarketingQuery query,
             CancellationToken token);

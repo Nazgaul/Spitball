@@ -34,7 +34,7 @@ namespace Zbang.Zbox.InfrastructureTests
         {
             var detect = new DetectLanguage();
             var lang = detect.DoWork("Wie geht's dir/ Ihnen?");
-            Assert.AreEqual(lang, Infrastructure.Culture.Language.None);
+            Assert.AreEqual(lang, Infrastructure.Culture.Language.Undefined);
         }
         //
     }

@@ -339,7 +339,7 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<ItemToUpdateSearchDto> GetItemsDirtyUpdatesAsync(int index, int total, int top)
         {
-            Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchDto), new List<string> { "Id" });
+            Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(DocumentSearchDto), new List<string> { "Id" });
             Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchUsers), new List<string> { "Id" });
             Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchTag), new List<string> { "Name" });
 
@@ -348,15 +348,14 @@ namespace Zbang.Zbox.ReadServices
             {
                 using (var grid = await conn.QueryMultipleAsync
                     (Search.GetItemsToUploadToSearch2 +
-                     //Search.GetItemsUsersToUploadToSearch +
                      Search.GetItemToDeleteToSearch, new { index, count = total, top }
                     ))
                 {
                     var dynamic = await grid.ReadAsync();
                     var retVal = new ItemToUpdateSearchDto
                     {
-                        ItemsToUpdate = Slapper.AutoMapper.MapDynamic<ItemSearchDto>(dynamic),
-                        ItemsToDelete = await grid.ReadAsync<long>()
+                        ItemsToUpdate = Slapper.AutoMapper.MapDynamic<DocumentSearchDto>(dynamic),
+                        ItemsToDelete = await grid.ReadAsync<DocumentToDeleteSearchDto>()
                     };
                     //var usersInItems = grid.Read<UsersInBoxSearchDto>().ToList();
 
@@ -372,7 +371,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<ItemSearchDto> GetItemDirtyUpdatesAsync(long itemId)
+        public async Task<DocumentSearchDto> GetItemDirtyUpdatesAsync(long itemId)
         {
             Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchDto), new List<string> { "Id" });
             Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchUsers), new List<string> { "Id" });
@@ -381,7 +380,7 @@ namespace Zbang.Zbox.ReadServices
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var dynamic = conn.QueryAsync(Search.GetItemToUploadToSearch);
-                return Slapper.AutoMapper.MapDynamic<ItemSearchDto>(dynamic);
+                return Slapper.AutoMapper.MapDynamic<DocumentSearchDto>(dynamic);
                 //using (var grid = await conn.QueryMultipleAsync
                 //    (Search.GetItemToUploadToSearch +
                 //     Search.GetItemUsersToUploadToSearch, new { itemId }

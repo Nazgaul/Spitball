@@ -100,7 +100,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             m_CheckIndexExists = true;
         }
 
-        public async Task UpdateDataAsync(ItemSearchDto itemToUpload, IEnumerable<long> itemToDelete, CancellationToken token)
+        public async Task UpdateDataAsync(DocumentSearchDto itemToUpload, IEnumerable<long> itemToDelete, CancellationToken token)
         {
             if (!m_CheckIndexExists)
             {
@@ -169,7 +169,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Content = HighLightInField(s, ContentField, s.Document.MetaContent),
                 Id = long.Parse(s.Document.Id),
                 Name = HighLightInField(s, NameField, s.Document.Name),
-                BoxId = s.Document.BoxId.Value,
+                BoxId = s.Document.BoxId.GetValueOrDefault(),
                 Extension = s.Document.Extension,
                 Source = s.Document.BlobName
             }).ToList();

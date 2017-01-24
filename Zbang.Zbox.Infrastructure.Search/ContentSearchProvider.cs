@@ -1,28 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using Zbang.Zbox.Infrastructure.Culture;
-using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
-    class ContentSearchProvider
+    public class ContentSearchProvider : IContentWriteSearchProvider
     {
         private readonly ISearchConnection m_Connection;
         private readonly ISearchIndexClient m_IndexClient;
         private readonly string m_IndexName = "items";
         private bool m_CheckIndexExists;
 
-        public ContentSearchProvider(ISearchConnection connection, ISearchIndexClient indexClient)
+
+        internal const string ContentEnglishField = "content_en";
+        internal const string ContentHebrewField = "content_he";
+
+        public ContentSearchProvider(ISearchConnection connection)
         {
             m_Connection = connection;
             if (m_Connection.IsDevelop)
@@ -32,7 +33,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             m_IndexClient = connection.SearchClient.Indexes.GetClient(m_IndexName);
         }
 
-        public async Task UpdateDataAsync(ItemSearchDto itemToUpload, IEnumerable<long> itemToDelete, CancellationToken token)
+        public async Task UpdateDataAsync(ItemSearchDto itemToUpload, IEnumerable<ItemToDeleteSearchDto> itemToDelete, CancellationToken token)
         {
             if (!m_CheckIndexExists)
             {
@@ -43,12 +44,14 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 var uploadBatch = new Item
                 {
-                    Id = itemToUpload.Id.ToString(),
+                    Id = itemToUpload.SearchContentId,
                     Name = Path.GetFileNameWithoutExtension(itemToUpload.Name),
                     Course = itemToUpload.BoxName,
                     Professor = itemToUpload.BoxProfessor,
                     Code = itemToUpload.BoxCode,
-
+                    University = itemToUpload.UniversityName,
+                    Type = (int)itemToUpload.Type,
+                    Tags = itemToUpload.Tags?.Select(s => s.Name).ToArray()
                 };
                 switch (itemToUpload.Language)
                 {
@@ -61,10 +64,13 @@ namespace Zbang.Zbox.Infrastructure.Search
                     case Language.Hebrew:
                         uploadBatch.ContentHe = itemToUpload.Content;
                         break;
+                    case null:
+                        uploadBatch.Content = itemToUpload.Content;
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-                var batch = IndexBatch.MergeOrUpload(new[] {uploadBatch});
+                var batch = IndexBatch.MergeOrUpload(new[] { uploadBatch });
                 if (batch.Actions.Any())
                     await m_IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
             }
@@ -72,7 +78,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 var deleteBatch = itemToDelete.Select(s => new ItemSearch
                 {
-                    Id = s.ToString(CultureInfo.InvariantCulture)
+                    Id = s.SearchContentId
                 });
                 var batch = IndexBatch.Delete(deleteBatch);
                 if (batch.Actions.Any())
@@ -97,33 +103,55 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             var definition = new Index
             {
-                Name = "items", Fields = FieldBuilder.BuildForType<Item>(), Suggesters = new List<Suggester>
+                Name = m_IndexName,
+                Fields = FieldBuilder.BuildForType<Item>(),
+                Suggesters = new List<Suggester>
                 {
                     new Suggester
                     {
                         Name = "sg", SourceFields = new List<string>
                         {
-                            nameof(Item.Course), nameof(Item.Code), nameof(Item.Professor)
+                            nameof(Item.Course).ToLower(),
+                            nameof(Item.Code).ToLower(),
+                            nameof(Item.Professor).ToLower(),
+                            nameof(Item.University).ToLower(),
+                            nameof(Item.Tags).ToLower()
                         }
                     }
                 }
             };
 
             var weightProfile = new ScoringProfile("weight");
+
             var d = new Dictionary<string, double>
             {
-                {nameof(Item.Tags), 10}, {nameof(Item.Content), 2}, {nameof(Item.ContentEn), 4}, {nameof(Item.ContentHe), 4},
+                {nameof(Item.Tags).ToLower(), 8}, {nameof(Item.Content).ToLower(), 2}, {ContentEnglishField, 4}, {ContentHebrewField, 4},
             };
-            var tagProfile = new ScoringProfile("tag");
+            weightProfile.TextWeights = new TextWeights(d);
+
+
             var tagFunction = new TagScoringFunction
             {
                 Boost = 10,
-                FieldName = nameof(Item.Tags)
+                FieldName = nameof(Item.Tags).ToLower(),
+                Parameters = new TagScoringParameters("tag")
             };
-            tagProfile.Functions = new List<ScoringFunction> {tagFunction};
+            var tagFunction2 = new TagScoringFunction
+            {
+                Boost = 10,
+                FieldName = nameof(Item.Course).ToLower(),
+                Parameters = new TagScoringParameters("course")
+            };
+            var tagFunction3 = new TagScoringFunction
+            {
+                Boost = 6,
+                FieldName = nameof(Item.University).ToLower(),
+                Parameters = new TagScoringParameters("university")
+            };
+            weightProfile.Functions = new List<ScoringFunction> { tagFunction, tagFunction2, tagFunction3 };
 
-            weightProfile.TextWeights = new TextWeights(d);
-            definition.ScoringProfiles = new List<ScoringProfile> {weightProfile, tagProfile };
+
+            definition.ScoringProfiles = new List<ScoringProfile> { weightProfile };
 
 
             return definition;

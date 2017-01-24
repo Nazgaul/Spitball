@@ -28,6 +28,7 @@ using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Url;
 using File = System.IO.File;
 using System.Collections.Generic;
+using System.Threading;
 using AlchemyAPIClient;
 using AlchemyAPIClient.Requests;
 using Zbang.Zbox.Domain.CommandHandlers;
@@ -210,14 +211,10 @@ namespace Testing
             var m_BlobProvider = iocFactory.Resolve<IBlobProvider2<FilesContainerName>>();
             var m_FileProcessorFactory = iocFactory.Resolve<IFileProcessorFactory>();
             var languageDetection = iocFactory.Resolve<IDetectLanguage>();
-            var write = iocFactory.Resolve<IZboxWriteService>();
-            var commands = new List<ICommand>
-            {
-                new AssignTagsToItemCommand(1, null, Zbang.Zbox.Infrastructure.Culture.Language.Undefined),
-                new UpdateItemCourseTagCommand(1, "1", null, null)
-            };
+            //var write = iocFactory.Resolve<IContentWriteSearchProvider>();
+            //var zzzzzz = write.UpdateDataAsync(null, null, default(CancellationToken));
+            //zzzzzz.Wait();
             //var z = new AssignTagsToItemCommand(elem.Id, result, language);
-            write.DoWork(new AssignTagsToItemCommand(1, null, Zbang.Zbox.Infrastructure.Culture.Language.Undefined), new UpdateItemCourseTagCommand(1, "1", null, null));
             var readService = iocFactory.Resolve<IZboxReadServiceWorkerRole>();
             var x =  languageDetection.DoWork(
                 "הדעות לגבי התוכן של לורם איפסום חלוקות, בעוד שרבים חושבים כי מדובר בטקסט רנדומלי חסר כל משמעות בכוונה תחילה שתוכנן כך בקפידה כדי שדעתו של הקורא לא תוסח בזמן הרפרוף בו, אחרים* יטענו בתוקף כי יש לו שורשים בספרות הלטינית הקלאסית משנת 45 לפני הספירה. במידה והדבר יתברר כנכון, משמעות הדבר היא כי זהו אחד הטקסטים הקדומים ביותר הידועים לאנושות.");

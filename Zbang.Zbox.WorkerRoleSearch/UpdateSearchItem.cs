@@ -8,6 +8,7 @@ using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -28,6 +29,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IZboxWriteService m_WriteService;
         private readonly IWatsonExtract m_WatsonExtractProvider;
         private readonly IDetectLanguage m_LanguageDetect;
+        private readonly IContentWriteSearchProvider m_ContentSearchProvider;
 
         private const string PrefixLog = "Search Item";
 
@@ -35,7 +37,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             IZboxWorkerRoleService zboxWriteService,
             IFileProcessorFactory fileProcessorFactory,
             IBlobProvider2<FilesContainerName> blobProvider,
-            IItemWriteSearchProvider itemSearchProvider3, IZboxWriteService writeService, IWatsonExtract watsonExtractProvider, IDetectLanguage languageDetect)
+            IItemWriteSearchProvider itemSearchProvider3, IZboxWriteService writeService, IWatsonExtract watsonExtractProvider, IDetectLanguage languageDetect, IContentWriteSearchProvider contentSearchProvider)
         {
             m_ZboxReadService = zboxReadService;
             m_ZboxWriteService = zboxWriteService;
@@ -45,6 +47,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_WriteService = writeService;
             m_WatsonExtractProvider = watsonExtractProvider;
             m_LanguageDetect = languageDetect;
+            m_ContentSearchProvider = contentSearchProvider;
         }
 
 
@@ -97,11 +100,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 tasks.Add(UploadToAzureSearchAsync(elem, cancellationToken));
             }
 
-            tasks.Add(m_ItemSearchProvider3.UpdateDataAsync(null, updates.ItemsToDelete, cancellationToken));
+            tasks.Add(m_ItemSearchProvider3.UpdateDataAsync(null, updates.ItemsToDelete.Select(s => s.Id), cancellationToken));
+            tasks.Add(m_ContentSearchProvider.UpdateDataAsync(null, updates.ItemsToDelete, cancellationToken));
             await Task.WhenAll(tasks);
             await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
                 new UpdateDirtyToRegularCommand(
-                    updates.ItemsToDelete.Union(updates.ItemsToUpdate.Select(s => s.Id))));
+                    updates.ItemsToDelete.Select(s => s.Id).Union(updates.ItemsToUpdate.Select(s => s.Id))));
 
             if (updates.ItemsToUpdate.Count() == top)
             {
@@ -112,34 +116,38 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task JaredPilotAsync(ItemSearchDto elem, CancellationToken token)
         {
-            if (!elem.Language.HasValue)
+            if (elem.Type.HasFlag(ItemType.Document))
             {
-                elem.Language = m_LanguageDetect.DoWork(elem.Content);
-                var commandLang = new AddLanguageToDocumentCommand(elem.Id, elem.Language.Value);
-                m_WriteService.AddItemLanguage(commandLang);
+                if (!elem.Language.HasValue)
+                {
+                    elem.Language = m_LanguageDetect.DoWork(elem.Content);
+                    var commandLang = new AddLanguageToDocumentCommand(elem.Id, elem.Language.Value);
+                    m_WriteService.AddItemLanguage(commandLang);
+                }
+
+                if (elem.Language == Infrastructure.Culture.Language.EnglishUs && !elem.Tags.Any())
+                {
+                    var result = (await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token)).ToList();
+                    elem.Tags = result.Select(s => new ItemSearchTag {Name = s});
+                    var z = new AssignTagsToItemCommand(elem.Id, result);
+                    m_WriteService.AddItemTag(z);
+                }
+
+                var command = new UpdateItemCourseTagCommand(elem.Id, elem.BoxName, elem.BoxCode, elem.BoxProfessor);
+                m_WriteService.UpdateItemCourseTag(command);
+
+                await m_ContentSearchProvider.UpdateDataAsync(elem, null, token);
             }
 
-            if (elem.Language == Infrastructure.Culture.Language.EnglishUs && !elem.Tags.Any())
-            {
-                var result = (await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token)).ToList();
-                elem.Tags = result.Select(s => new ItemSearchTag { Name = s });
-                var z = new AssignTagsToItemCommand(elem.Id, result);
-                m_WriteService.AddItemTag(z);
-            }
-
-            var command = new UpdateItemCourseTagCommand(elem.Id, elem.BoxName, elem.BoxCode, elem.BoxProfessor);
-            m_WriteService.UpdateItemCourseTag(command);
-
-            
 
 
         }
 
-        private async Task UploadToAzureSearchAsync(ItemSearchDto elem, CancellationToken token)
+        private async Task UploadToAzureSearchAsync(DocumentSearchDto elem, CancellationToken token)
         {
 
 
-            if (elem.Type.ToLower() == "file")
+            if (elem.Type.HasFlag(ItemType.Document)) //(elem.TypeDocument.ToLower() == "file")
             {
                 try
                 {
@@ -157,10 +165,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return PrefixLog;
         }
 
-        private Processor GetProcessor(ItemSearchDto msgData)
+        private Processor GetProcessor(DocumentSearchDto msgData)
         {
             Uri uri;
-            if (msgData.Type.ToLower() != "file")
+            if (msgData.Type.HasFlag(ItemType.Document))// msgData.TypeDocument.ToLower() != "file")
             {
 
                 if (Uri.TryCreate(msgData.BlobName, UriKind.Absolute, out uri))
@@ -190,7 +198,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
 
 
-        private void PreProcessFile(ItemSearchDto msgData)
+        private void PreProcessFile(DocumentSearchDto msgData)
         {
             var processor = GetProcessor(msgData);
             if (processor.ContentProcessor == null) return;
@@ -237,10 +245,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
         }
 
         private readonly TimeSpan m_TimeToWait = TimeSpan.FromMinutes(3);
-        private string ExtractContentToUploadToSearch(ItemSearchDto elem, CancellationToken token)
+        private string ExtractContentToUploadToSearch(DocumentSearchDto elem, CancellationToken token)
         {
 
-            if (elem.Type.ToLower() != "file")
+            if (elem.Type.HasFlag(ItemType.Document)) //(elem.TypeDocument.ToLower() != "file")
             {
                 return null;
             }

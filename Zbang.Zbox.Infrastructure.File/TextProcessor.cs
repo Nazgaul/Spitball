@@ -11,7 +11,7 @@ namespace Zbang.Zbox.Infrastructure.File
 {
     public class TextProcessor : FileProcessor
     {
-        const string CacheVersion = CacheVersionPrefix + "1";
+        private const string CacheVersion = CacheVersionPrefix + "1";
 
         private readonly IBlobProvider2<ICacheContainer> m_BlobProviderCache;
         public TextProcessor(IBlobProvider blobProvider, IBlobProvider2<ICacheContainer> blobProviderCache)
@@ -81,10 +81,10 @@ namespace Zbang.Zbox.Infrastructure.File
             //return cacheName;
         }
 
-        private bool IsFileExistsInCache(string cacheBlobNameWithSharedAccessSignature)
-        {
-            return !string.IsNullOrEmpty(cacheBlobNameWithSharedAccessSignature);
-        }
+        //private bool IsFileExistsInCache(string cacheBlobNameWithSharedAccessSignature)
+        //{
+        //    return !string.IsNullOrEmpty(cacheBlobNameWithSharedAccessSignature);
+        //}
 
         private string CreateCacheFileName(string blobName)
         {

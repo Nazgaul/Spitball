@@ -22,11 +22,11 @@ namespace Zbang.Zbox.Infrastructure.Search
         public string Content { get; set; }
 
         [IsSearchable, Analyzer(AnalyzerName.AsString.EnMicrosoft)]
-        [JsonProperty("content_en")]
+        [JsonProperty(ContentSearchProvider.ContentEnglishField)]
         public string ContentEn { get; set; }
 
         [IsSearchable, Analyzer(AnalyzerName.AsString.HeMicrosoft)]
-        [JsonProperty("content_en")]
+        [JsonProperty(ContentSearchProvider.ContentHebrewField)]
         public string ContentHe { get; set; }
 
         [IsFacetable,IsFilterable]
@@ -41,8 +41,8 @@ namespace Zbang.Zbox.Infrastructure.Search
         [IsFacetable, IsFilterable]
         public string Code { get; set; }
 
-        [IsFacetable, IsFilterable, IsSortable]
-        public string Type { get; set; }
+        [IsFacetable, IsFilterable]
+        public int Type { get; set; }
 
         [IsSearchable, IsFacetable, IsFilterable]
         public string[] Tags { get; set; }
