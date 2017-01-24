@@ -9,10 +9,12 @@ using Microsoft.Azure.Search.Models;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
+using Zbang.Zbox.ViewModel.Dto.Search;
+using Zbang.Zbox.ViewModel.Queries.Search;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
-    public class ContentSearchProvider : IContentWriteSearchProvider
+    public class ContentSearchProvider : IContentWriteSearchProvider, IContentReadSearchProvider
     {
         private readonly ISearchConnection m_Connection;
         private readonly ISearchIndexClient m_IndexClient;
@@ -70,7 +72,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-                var batch = IndexBatch.MergeOrUpload(new[] { uploadBatch });
+                var batch = IndexBatch.Upload(new[] { uploadBatch });
                 if (batch.Actions.Any())
                     await m_IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
             }
@@ -99,6 +101,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             m_CheckIndexExists = true;
         }
 
+        private const string ScoringProfile = "weight";
         private Index GetIndexStructure()
         {
             var definition = new Index
@@ -121,7 +124,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 }
             };
 
-            var weightProfile = new ScoringProfile("weight");
+            var weightProfile = new ScoringProfile(ScoringProfile);
 
             var d = new Dictionary<string, double>
             {
@@ -155,6 +158,17 @@ namespace Zbang.Zbox.Infrastructure.Search
 
 
             return definition;
+        }
+
+        public async Task<IEnumerable<SearchItems>> SearchAsync(SearchContent query, CancellationToken cancelToken)
+        {
+            var result = await m_IndexClient.Documents.SearchAsync<Item>(query.Term, new SearchParameters()
+            {
+                Top = 5,
+                
+                ScoringProfile = ScoringProfile
+            }, cancellationToken: cancelToken);
+            throw new NotImplementedException();
         }
     }
 }

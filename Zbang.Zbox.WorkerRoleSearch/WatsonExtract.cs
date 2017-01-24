@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AlchemyAPIClient;
 using AlchemyAPIClient.Requests;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
@@ -24,8 +25,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 ShowSourceText = true,
                 MaxRetrieve = 30
             };
-            var result = await request.GetResponse(token);
-            return result.Concepts.Where(w => w.Relevance > 0.75).Select(s => s.Text);
+            try
+            {
+                var result = await request.GetResponse(token);
+                return result.Concepts.Where(w => w.Relevance > 0.75).Select(s => s.Text);
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("watson concept error" + text, ex);
+                return new List<string>();
+            }
         }
 
     }

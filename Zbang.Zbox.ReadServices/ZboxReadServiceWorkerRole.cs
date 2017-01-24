@@ -381,15 +381,6 @@ namespace Zbang.Zbox.ReadServices
             {
                 var dynamic = conn.QueryAsync(Search.GetItemToUploadToSearch);
                 return Slapper.AutoMapper.MapDynamic<DocumentSearchDto>(dynamic);
-                //using (var grid = await conn.QueryMultipleAsync
-                //    (Search.GetItemToUploadToSearch +
-                //     Search.GetItemUsersToUploadToSearch, new { itemId }
-                //    ))
-                //{
-                //    var retVal = await grid.ReadFirstAsync<ItemSearchDto>();
-                //    retVal.UserIds = await grid.ReadAsync<long>();
-                //    return retVal;
-                //}
             }
         }
 
@@ -405,7 +396,7 @@ namespace Zbang.Zbox.ReadServices
                 {
                     var retVal = new FlashcardToUpdateSearchDto
                     {
-                        Deletes = await grid.ReadAsync<long>(),
+                        Deletes = await grid.ReadAsync<FlashcardToDeleteSearchDto>(),
                         Updates = await grid.ReadAsync<FlashcardSearchDto>()
                     };
                     var users = grid.Read<UsersInBoxSearchDto>().ToList();

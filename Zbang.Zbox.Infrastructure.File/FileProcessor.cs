@@ -50,27 +50,27 @@ namespace Zbang.Zbox.Infrastructure.File
             }
 
             var sentenceRegex = new Regex("[^.!?;]*[^.?!;]*[.?!;]", RegexOptions.Compiled);
-           // var pageTexts = new List<string>();
+            // var pageTexts = new List<string>();
 
             //var paragraphs = SplitSentence(input);
             //foreach (var paragraph in paragraphs)
             //{
-               
+
             //    var d = sentenceRegex.Matches(paragraph);
             //    if (d.Count == 0)
             //    {
             //        AddSentenceToList(paragraph.Trim(), pageTexts);
             //    }
-               
+
             //    foreach (Match t in d)
             //    {
             //        AddSentenceToList(t.Value.Trim(), pageTexts);
             //    }
             //}
-           // sw.Stop();
-           // var t1 = sw.Elapsed;
-           // sw.Restart();
-            
+            // sw.Stop();
+            // var t1 = sw.Elapsed;
+            // sw.Restart();
+
             var pageTexts = new List<string>();
             var d = sentenceRegex.Matches(input);
             if (d.Count == 0)
@@ -93,7 +93,8 @@ namespace Zbang.Zbox.Infrastructure.File
             var eightOrNineDigitsId = new Regex(@"\b\d{8,9}\b", RegexOptions.Compiled);
             result = TextManipulation.SpaceReg.Replace(result, " ");
             result = eightOrNineDigitsId.Replace(result, string.Empty);
-            result = result.Replace("\0", string.Empty);
+            result = new string(result.Where(w => char.IsLetterOrDigit(w) || char.IsWhiteSpace(w)).ToArray());
+            //result = result.Replace("\0", string.Empty);
             result = result.Replace("בס\"ד", string.Empty);
             result = result.Replace("find more resources at oneclass.com", string.Empty);
             return result;

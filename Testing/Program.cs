@@ -216,10 +216,9 @@ namespace Testing
             //zzzzzz.Wait();
             //var z = new AssignTagsToItemCommand(elem.Id, result, language);
             var readService = iocFactory.Resolve<IZboxReadServiceWorkerRole>();
-            var x =  languageDetection.DoWork(
-                "הדעות לגבי התוכן של לורם איפסום חלוקות, בעוד שרבים חושבים כי מדובר בטקסט רנדומלי חסר כל משמעות בכוונה תחילה שתוכנן כך בקפידה כדי שדעתו של הקורא לא תוסח בזמן הרפרוף בו, אחרים* יטענו בתוקף כי יש לו שורשים בספרות הלטינית הקלאסית משנת 45 לפני הספירה. במידה והדבר יתברר כנכון, משמעות הדבר היא כי זהו אחד הטקסטים הקדומים ביותר הידועים לאנושות.");
-
-            var uri = m_BlobProvider.GetBlobUrl("bd95f040-0b5f-4d4c-ac05-6becc43964fb.pdf");
+            
+  
+            var uri = m_BlobProvider.GetBlobUrl("e3562f39-3e3b-41d2-9b82-5a17ae51a47d.pdf");
             var processor = m_FileProcessorFactory.GetProcessor(uri);
             var t = processor.ExtractContentAsync(uri);
             t.Wait();

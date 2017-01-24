@@ -33,6 +33,10 @@ namespace Zbang.Zbox.Infrastructure
 
         public Language DoWork(string text)
         {
+            if (string.IsNullOrEmpty(text))
+            {
+                return Language.Undefined;
+            }
             var languages = m_Identifier.Identify(text);
             var mostCertainLanguage = languages.FirstOrDefault();
 

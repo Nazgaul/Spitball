@@ -9,15 +9,9 @@
         {
         }
 
-        public override string CacheKey
-        {
-            get { return GetUniversityId(); }
-        }
+        public override string CacheKey => GetUniversityId();
 
-        public override string CacheRegion
-        {
-            get { return "searchMobile"; }
-        }
+        public override string CacheRegion => "searchMobile";
     }
 
     public class SearchItemInBox
@@ -36,5 +30,11 @@
 
         public int RowsPerPage { get; private set; }
         public long BoxId { get; private set; }
+    }
+
+    public class SearchContent
+    {
+        public string Term { get; set; }
+
     }
 }

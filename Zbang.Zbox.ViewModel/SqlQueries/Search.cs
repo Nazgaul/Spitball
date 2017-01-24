@@ -123,7 +123,7 @@ select
 	left join zbox.UserBoxRel ub on b.BoxId = ub.BoxId
     left join zbox.University u on b.University = u.id
 	left join zbox.ItemTab it on i.ItemTabId = it.ItemTabId
-	left join zbox.ItemTag itag on itag.ItemId = i.ItemId join zbox.Tag t on itag.TagId = t.Id
+	left join zbox.ItemTag itag on itag.ItemId = i.ItemId left join zbox.Tag t on itag.TagId = t.Id
 	where i.ItemId in (
 	select top (@top) itemid from zbox.Item 
     where isdirty = 1 

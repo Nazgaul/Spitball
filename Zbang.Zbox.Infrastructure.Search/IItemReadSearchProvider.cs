@@ -18,4 +18,10 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         Task<string> ItemContentAsync(long itemId, CancellationToken cancelToken);
     }
+
+    public interface IContentReadSearchProvider
+    {
+        Task<IEnumerable<SearchItems>> SearchAsync(ViewModel.Queries.Search.SearchContent query,
+            CancellationToken cancelToken);
+    }
 }

@@ -8,6 +8,7 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
+using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
@@ -17,13 +18,15 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IDocumentDbReadService m_DocumentDbService;
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
+        private readonly IContentWriteSearchProvider m_ContentSearchProvider;
 
-        public UpdateSearchFlashcard(IFlashcardWriteSearchProvider flashcardSearchProvider, IZboxReadServiceWorkerRole zboxReadService, IZboxWorkerRoleService zboxWriteService, IDocumentDbReadService documentDbService)
+        public UpdateSearchFlashcard(IFlashcardWriteSearchProvider flashcardSearchProvider, IZboxReadServiceWorkerRole zboxReadService, IZboxWorkerRoleService zboxWriteService, IDocumentDbReadService documentDbService, IContentWriteSearchProvider contentSearchProvider)
         {
             m_FlashcardSearchProvider = flashcardSearchProvider;
             m_ZboxReadService = zboxReadService;
             m_ZboxWriteService = zboxWriteService;
             m_DocumentDbService = documentDbService;
+            m_ContentSearchProvider = contentSearchProvider;
         }
 
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
@@ -36,8 +39,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var toUpdates = updates.Updates.ToList();
             for (int i = toUpdates.Count - 1; i >= 0; i--)
             {
-                // some code
-                // safePendingList.RemoveAt(i);
                 var update = toUpdates[i];
                 var flashcard = await m_DocumentDbService.FlashcardAsync(update.Id);
                 if (flashcard == null)
@@ -52,27 +53,32 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 update.BackCards = flashcard.Cards.Select(s => s.Cover).Where(w => !string.IsNullOrEmpty(w.Text)).Select(s => s.Text);
                 update.FrontCards = flashcard.Cards.Select(s => s.Front).Where(w => !string.IsNullOrEmpty(w.Text)).Select(s => s.Text);
+                if (update.UniversityId == JaredUniversityIdPilot)
+                {
+
+                    await JaredPilotAsync(update, cancellationToken);
+                }
             }
-            //foreach (var update in updates.Updates)
-            //{
-            //    var flashcard = await m_DocumentDbService.FlashcardAsync(update.Id);
-            //    update.BackCards = flashcard.Cards?.Select(s => s.Cover).Where(w=>!string.IsNullOrEmpty(w.Text)).Select(s => s.Text);
-            //    update.FrontCards = flashcard.Cards?.Select(s => s.Front).Where(w => !string.IsNullOrEmpty(w.Text)).Select(s => s.Text);
-            //}
 
             var isSuccess =
-                await m_FlashcardSearchProvider.UpdateDataAsync(toUpdates, updates.Deletes, cancellationToken);
+                await m_FlashcardSearchProvider.UpdateDataAsync(toUpdates, updates.Deletes.Select(s => s.Id), cancellationToken);
+            await m_ContentSearchProvider.UpdateDataAsync(null, updates.Deletes, cancellationToken);
             if (isSuccess)
             {
                 await m_ZboxWriteService.UpdateSearchFlashcardDirtyToRegularAsync(
                     new UpdateDirtyToRegularCommand(
-                        updates.Deletes.Union(updates.Updates.Select(s => s.Id))));
+                        updates.Deletes.Select(s => s.Id).Union(updates.Updates.Select(s => s.Id))));
             }
             if (updates.Updates.Count() == top)
             {
                 return TimeToSleep.Min;
             }
             return TimeToSleep.Same;
+        }
+
+        private async Task JaredPilotAsync(FlashcardSearchDto elem, CancellationToken token)
+        {
+            await m_ContentSearchProvider.UpdateDataAsync(elem, null, token);
         }
 
         protected override string GetPrefix()

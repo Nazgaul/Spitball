@@ -38,7 +38,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 m_CourseTagRepository.Save(courseTag);
             }
             item.CourseTag = courseTag;
-
+            item.ShouldMakeDirty = () => false;
             m_ItemRepository.Save(item);
         }
     }

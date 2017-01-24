@@ -62,6 +62,7 @@
     <Compile Include="AddFlashcardCommandHandler.cs" />
     <Compile Include="AddFlashcardPinCommandHandler.cs" />
     <Compile Include="AddItemCommentCommandHandler.cs" />
+    <Compile Include="AddLanguageToDocumentCommandHandler.cs" />
     <Compile Include="AddQuizLikeCommandHandler.cs" />
     <Compile Include="AddReplyToCommentCommandHandler.cs" />
     <Compile Include="AddFileToBoxCommandHandler.cs" />

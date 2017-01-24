@@ -89,7 +89,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var tasks = new List<Task>();
             foreach (var elem in updates.ItemsToUpdate)
             {
-                elem.Content = ExtractContentToUploadToSearch(elem, cancellationToken);
+                elem.DocumentContent = ExtractContentToUploadToSearch(elem, cancellationToken);
 
                 if (elem.UniversityId == JaredUniversityIdPilot)
                 {
@@ -248,7 +248,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private string ExtractContentToUploadToSearch(DocumentSearchDto elem, CancellationToken token)
         {
 
-            if (elem.Type.HasFlag(ItemType.Document)) //(elem.TypeDocument.ToLower() != "file")
+            if (!elem.Type.HasFlag(ItemType.Document)) //(elem.TypeDocument.ToLower() != "file")
             {
                 return null;
             }
@@ -280,13 +280,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             var buffer = new char[1];
                             foreach (var ch in str)
                             {
-                                if (char.IsSurrogate(ch))
-                                {
-                                    continue;
-                                }
                                 buffer[0] = ch;
                                 byteCount += Encoding.UTF8.GetByteCount(buffer);
-                                if (byteCount > 15000000)
+                                if (byteCount > 1.55e+7) //limit to azure search
                                 {
                                     // Couldn't add this character. Return its index
                                     break;
