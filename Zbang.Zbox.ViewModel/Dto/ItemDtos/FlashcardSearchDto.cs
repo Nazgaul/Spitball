@@ -11,7 +11,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
         public IEnumerable<string> FrontCards { get; set; }
         public IEnumerable<string> BackCards { get; set; }
-        public IEnumerable<long> UserIds { get; set; }
+        public IEnumerable<ItemSearchUsers> UserIds { get; set; }
 
         public long BoxId { get; set; }
         public long? UniversityId { get; set; }

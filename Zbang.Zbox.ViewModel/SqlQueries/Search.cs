@@ -133,28 +133,6 @@ select
     order by ItemId desc);
 ";
 
-  //      public const string GetItemsToUploadToSearch =
-  //          @" select top (@top)
-  //i.ItemId as id,
-  //i.Name as name,
-  //i.blobName as blobName,
-  //i.Url as url,
-  //i.discriminator as type,
-  //b.University as universityid,
-  //b.ProfessorName as BoxProfessor,
-  //b.CourseCode as BoxCode,
-  //b.BoxName as boxname,
-  //u.UniversityName as universityName,
-  //b.BoxId as boxid
-  //  from zbox.item i 
-  //  join zbox.box b on i.BoxId = b.BoxId
-  //  left join zbox.University u on b.University = u.id
-  //  where i.isdirty = 1 
-  //  and i.IsDeleted = 0
-  //  and i.creationtime < DATEADD(minute, -1, getutcdate())
-  //  and b.isdeleted = 0 -- performance
-  //  and i.itemid % @count  = @index
-  //  order by i.ItemId desc";
 
         public const string GetItemToUploadToSearch =
             @"select 
@@ -181,20 +159,7 @@ select
 	left join zbox.ItemTag itag on itag.ItemId = i.ItemId join zbox.Tag t on itag.TagId = t.Id
 	where i.ItemId = @itemId;";
 
-//        public const string GetItemUsersToUploadToSearch = @"
-// select UserId from zbox.UserBoxRel where boxId in (
-//select boxid  from zbox.item i  
-//  where   i.itemid = @itemId
-// )";
 
-//        public const string GetItemsUsersToUploadToSearch =
-//            @"  select UserId,BoxId from zbox.UserBoxRel where boxId in (
-//select top (@top) i.boxid  from zbox.item i  
-//  where  i.isdirty = 1 
-//  and i.isdeleted = 0 
-//  and i.creationtime < DATEADD(minute, -1, getutcdate())
-//   and i.itemid % @count  = @index
-//  order by i.ItemId desc)";
 
         public const string GetQuizzesUsersToUploadToSearch =
             @"  select UserId,BoxId from zbox.UserBoxRel where boxId in (
@@ -206,30 +171,33 @@ select
     and q.id % @count  = @index
 	order by Id);";
 
-        public const string GetFlashcardUsersToUploadToSearch =
-            @" select UserId,BoxId from zbox.UserBoxRel where boxId in (
-	select top 100 f.BoxId
-	from zbox.Flashcard f 
-	where publish = 1
-	and f.isdeleted = 0
-	and f.isdirty = 1
-    and f.id % @count  = @index
-	order by Id);";
+ //       public const string GetFlashcardUsersToUploadToSearch =
+ //           @" select UserId,BoxId from zbox.UserBoxRel where boxId in (
+	//select top 100 f.BoxId
+	//from zbox.Flashcard f 
+	//where publish = 1
+	//and f.isdeleted = 0
+	//and f.isdirty = 1
+ //   and f.id % @count  = @index
+	//order by Id);";
 
-        public const string GetFlashcardToUploadToSearch = @"select top (@top) f.Id,
+        public const string GetFlashcardToUploadToSearch = @"select f.Id,
 f.Name,
  b.BoxName,
  f.BoxId,
+ f.language,
+ ub.UserId as UserIds_Id,
  u.UniversityName as universityName,
        b.University
     from zbox.Flashcard f
 join zbox.Box b on f.BoxId = b.BoxId
 left join zbox.University u on b.University = u.id
-where publish = 1
-and f.isdeleted = 0
-and f.isdirty = 1
-and f.id % @count  = @index
-order by f.Id;";
+left join zbox.UserBoxRel ub on b.BoxId = ub.BoxId
+where f.id in (select top (@top) Id from zbox.Flashcard x where x.publish = 1
+and x.isdeleted = 0
+and x.isdirty = 1
+and x.id % @count  = @index
+order by x.Id desc);";
 
         public const string GetQuizzesToUploadToSearch = @"select top (@top) q.Id,
 q.Name,

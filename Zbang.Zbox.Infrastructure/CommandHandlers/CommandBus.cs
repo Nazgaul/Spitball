@@ -46,6 +46,15 @@ namespace Zbang.Zbox.Infrastructure.CommandHandlers
             m_Container.Resolve<ICommandHandler<TCommand>>().Handle(command);
         }
 
+        //public void SendGeneric(Commands.ICommand command)
+        //{
+        //    var z = typeof(ICommandHandler<>).MakeGenericType(command.GetType());
+        //    var type = m_Container.Resolve<ICommandHandler<Commands.ICommand>>(z);
+        //    type.Handle(command);
+
+        //    //m_Container.Resolve<ICommandHandler<TCommand>>().Handle(command);
+        //}
+
         public Task SendAsync<TCommand>(TCommand command) where TCommand : Commands.ICommandAsync
         {
             return m_Container.Resolve<ICommandHandlerAsync<TCommand>>().HandleAsync(command);

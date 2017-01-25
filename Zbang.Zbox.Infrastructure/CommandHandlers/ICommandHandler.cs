@@ -22,6 +22,7 @@ namespace Zbang.Zbox.Infrastructure.CommandHandlers
     {
         void Handle(TCommand message);
     }
+   
 
     public interface ICommandHandlerAsync<in TCommand> where TCommand : ICommandAsync
     {

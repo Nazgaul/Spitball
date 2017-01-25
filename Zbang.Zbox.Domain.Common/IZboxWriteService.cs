@@ -143,7 +143,7 @@ namespace Zbang.Zbox.Domain.Common
         //void AddCourseTag(CreateCourseTagCommand command);
         void UpdateItemCourseTag(UpdateItemCourseTagCommand command);
         void AddItemTag(AssignTagsToItemCommand command);
-        void AddItemLanguage(AddLanguageToDocumentCommand command);
+        void AddItemLanguage<T>(T command) where T : AddLanguageToItemCommand;
         //void DoWork(params ICommand[] commands);
 
         void AddItemExtraData(

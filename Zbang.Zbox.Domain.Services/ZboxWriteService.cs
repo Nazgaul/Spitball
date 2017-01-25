@@ -844,10 +844,11 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-        public void AddItemLanguage(AddLanguageToDocumentCommand command)
+        public void AddItemLanguage<T>(T command) where T : AddLanguageToItemCommand
         {
             using (UnitOfWork.Start())
             {
+                //m_CommandBus.SendGSeneric(command);
                 m_CommandBus.Send(command);
                 UnitOfWork.Current.TransactionalFlush();
             }

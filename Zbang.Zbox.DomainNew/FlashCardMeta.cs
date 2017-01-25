@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
-    public class FlashcardMeta : IDirty
+    public class FlashcardMeta : IItem, IDirty
     {
         protected FlashcardMeta()
         {
@@ -21,6 +22,7 @@ namespace Zbang.Zbox.Domain
             DateTimeUser = new UserTimeDetails(user.Id);
         }
         public virtual long Id { get; set; }
+        public Language Language { get; set; }
         public virtual string Name { get; set; }
         public virtual bool Publish { get; set; }
 

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
@@ -19,14 +20,20 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
         private readonly IContentWriteSearchProvider m_ContentSearchProvider;
+        private readonly IZboxWriteService m_WriteService;
+        private readonly IWatsonExtract m_WatsonExtractProvider;
+        private readonly IDetectLanguage m_LanguageDetect;
 
-        public UpdateSearchFlashcard(IFlashcardWriteSearchProvider flashcardSearchProvider, IZboxReadServiceWorkerRole zboxReadService, IZboxWorkerRoleService zboxWriteService, IDocumentDbReadService documentDbService, IContentWriteSearchProvider contentSearchProvider)
+        public UpdateSearchFlashcard(IFlashcardWriteSearchProvider flashcardSearchProvider, IZboxReadServiceWorkerRole zboxReadService, IZboxWorkerRoleService zboxWriteService, IDocumentDbReadService documentDbService, IContentWriteSearchProvider contentSearchProvider, IZboxWriteService writeService, IWatsonExtract watsonExtractProvider, IDetectLanguage languageDetect)
         {
             m_FlashcardSearchProvider = flashcardSearchProvider;
             m_ZboxReadService = zboxReadService;
             m_ZboxWriteService = zboxWriteService;
             m_DocumentDbService = documentDbService;
             m_ContentSearchProvider = contentSearchProvider;
+            m_WriteService = writeService;
+            m_WatsonExtractProvider = watsonExtractProvider;
+            m_LanguageDetect = languageDetect;
         }
 
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
@@ -78,6 +85,24 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task JaredPilotAsync(FlashcardSearchDto elem, CancellationToken token)
         {
+            if (!elem.Language.HasValue)
+            {
+                elem.Language = m_LanguageDetect.DoWork(elem.Content);
+                var commandLang = new AddLanguageToFlashcardCommand(elem.Id, elem.Language.Value);
+                m_WriteService.AddItemLanguage(commandLang);
+            }
+
+            //if (elem.Language == Infrastructure.Culture.Language.EnglishUs && !elem.Tags.Any())
+            //{
+            //    var result = (await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token)).ToList();
+            //    elem.Tags = result.Select(s => new ItemSearchTag { Name = s });
+            //    var z = new AssignTagsToItemCommand(elem.Id, result);
+            //    m_WriteService.AddItemTag(z);
+            //}
+
+            //var command = new UpdateItemCourseTagCommand(elem.Id, elem.BoxName, elem.BoxCode, elem.BoxProfessor);
+            //m_WriteService.UpdateItemCourseTag(command);
+
             await m_ContentSearchProvider.UpdateDataAsync(elem, null, token);
         }
 

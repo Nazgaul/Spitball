@@ -11,9 +11,8 @@
     <property name="LikeCount" not-null="true"></property>
     <property name="CardCount" not-null="true"></property>
     <property name="NumberOfViews" not-null="true"></property>
-    <!--<property name="Url" not-null="false" length="8000"></property>-->
-    <!--<property name="Banner" length="8000"></property>-->
-
+    <property name="Language"/>
+    
     <many-to-one name="User" class="User" column="UserId" not-null="true" foreign-key="userIdFlashcard"/>
     <many-to-one name="Box" class="Box" column="BoxId" not-null="true" foreign-key="boxIdFlashcard"/>
     <many-to-one column="QuestionId" class="Comment" name="Comment" />

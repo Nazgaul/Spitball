@@ -90,9 +90,9 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
         }
 
 
-        public void Load(object id, T entity)
-        {
-            Session.Load(typeof(T), id, LockMode.Upgrade);
-        }
+        //public void Load(object id, T entity)
+        //{
+        //    Session.Load(typeof(T), id, LockMode.Upgrade);
+        //}
     }
 }

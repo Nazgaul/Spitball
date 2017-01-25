@@ -30,7 +30,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         }
         public override void Run()
         {
-           
+
             Trace.TraceInformation("Zbang.Zbox.WorkerRoleSearch is running");
             try
             {
@@ -139,12 +139,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 return new List<IJob>
                 {
                     //m_Unity.Resolve<IJob>(nameof(MailQueueProcess))
-                    m_Unity.Resolve<IJob>(IocFactory.UpdateSearchItem),
+                    //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchItem),
                    // m_Unity.Resolve<IJob>(nameof(BlobManagement)),
                    // m_Unity.Resolve<IJob>(IocFactory.UpdateSearchBox),
                     //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchQuiz),
                    // m_Unity.Resolve<IJob>(IocFactory.UpdateSearchUniversity),
-                   // m_Unity.Resolve<IJob>(IocFactory.UpdateSearchFlashcard),
+                   m_Unity.Resolve<IJob>(IocFactory.UpdateSearchFlashcard),
                     //m_Unity.Resolve<IJob>(nameof(SchedulerListener))
                     //m_Unity.Resolve<IJob>(nameof(UpdateUnsubscribeList))
                    // m_Unity.Resolve<IJob>(nameof(TestingJob)),

@@ -33,9 +33,12 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         private static readonly string[] StudyGuides = { "Study Guides", "study guide", "review", "templates", "summary" };
         private static readonly string[] Exams = { "Tests & Exams", "exam", "tests", "midterms", "finals", "examination" };
 
-        private static bool ClassifyType(string[] words, string tab, string content)
+        private static bool ClassifyType(string[] words, string name, string tab, string content)
         {
-            return words.Any(c => tab?.IndexOf(c, StringComparison.InvariantCultureIgnoreCase) >= 0)
+            return
+                words.Any(c => name?.IndexOf(c, StringComparison.InvariantCultureIgnoreCase) >= 0)
+                    ||
+                words.Any(c => tab?.IndexOf(c, StringComparison.InvariantCultureIgnoreCase) >= 0)
                    ||
                    words.Any(c => content?.IndexOf(" " + c + " ", StringComparison.InvariantCultureIgnoreCase) >= 0);
         }
@@ -43,7 +46,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         private ItemType m_Type;
         public string Image { get; set; }
 
-       // public override string Content { get; set; }
+        // public override string Content { get; set; }
         public string DocumentContent { get; set; }
         public override string Content => DocumentContent;
 
@@ -66,7 +69,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
                 }
                 if (string.IsNullOrEmpty(TabName) && string.IsNullOrEmpty(Content))
                 {
-                   
+
                     return type;
                 }
 
@@ -74,31 +77,31 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
                 //{
                 //    return type | ItemType.ClassNote;
                 //}
-                if (ClassifyType(ClassNotes, TabName, Content))
+                if (ClassifyType(ClassNotes,Name, TabName, Content))
                 //if (TabName.Equals("Class Notes", StringComparison.InvariantCultureIgnoreCase))
                 {
                     m_Type = type | ItemType.ClassNote;
                     return m_Type;
                 }
-                if (ClassifyType(Homework, TabName, Content))
+                if (ClassifyType(Homework, Name, TabName, Content))
                 //if (TabName.Equals("Homework", StringComparison.InvariantCultureIgnoreCase))
                 {
                     m_Type = type | ItemType.Homework;
                     return m_Type;
                 }
-                if (ClassifyType(StudyGuides, TabName, Content))
+                if (ClassifyType(StudyGuides, Name, TabName, Content))
                 //if (TabName.Equals("Study Guides", StringComparison.InvariantCultureIgnoreCase))
                 {
                     m_Type = type | ItemType.StudyGuide;
                     return m_Type;
                 }
-                if (ClassifyType(Exams, TabName, Content))
+                if (ClassifyType(Exams, Name, TabName, Content))
                 //if (TabName.Equals("Tests & Exams", StringComparison.InvariantCultureIgnoreCase))
                 {
                     m_Type = type | ItemType.Exam;
                     return m_Type;
                 }
-                if (ClassifyType(Lectures, TabName, Content))
+                if (ClassifyType(Lectures, Name, TabName, Content))
                 //if (TabName.Equals("Lectures", StringComparison.InvariantCultureIgnoreCase))
                 {
                     m_Type = type | ItemType.Lecture;

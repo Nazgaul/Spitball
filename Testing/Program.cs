@@ -31,6 +31,8 @@ using System.Collections.Generic;
 using System.Threading;
 using AlchemyAPIClient;
 using AlchemyAPIClient.Requests;
+using Autofac.Features.ResolveAnything;
+using Autofac.Features.Variance;
 using Zbang.Zbox.Domain.CommandHandlers;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Services;
@@ -176,7 +178,7 @@ namespace Testing
             .WithParameter("connectionString", ConfigFetcher.Fetch("ServiceBusConnectionString"))
             .WithParameter("hubName", ConfigFetcher.Fetch("ServiceBusHubName"))
             .InstancePerLifetimeScope();
-
+            unity.ContainerBuilder.RegisterSource(new ContravariantRegistrationSource());
             unity.Build();
 
 
@@ -211,6 +213,10 @@ namespace Testing
             var m_BlobProvider = iocFactory.Resolve<IBlobProvider2<FilesContainerName>>();
             var m_FileProcessorFactory = iocFactory.Resolve<IFileProcessorFactory>();
             var languageDetection = iocFactory.Resolve<IDetectLanguage>();
+            var writeService = iocFactory.Resolve<IZboxWriteService>();
+
+            writeService.AddItemLanguage(new AddLanguageToDocumentCommand(565278,
+                Zbang.Zbox.Infrastructure.Culture.Language.Undefined));
             //var write = iocFactory.Resolve<IContentWriteSearchProvider>();
             //var zzzzzz = write.UpdateDataAsync(null, null, default(CancellationToken));
             //zzzzzz.Wait();
