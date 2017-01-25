@@ -36,4 +36,11 @@ namespace Zbang.Zbox.Domain.Commands
         {
         }
     }
+
+    public class UpdateQuizCourseTagCommand : UpdateItemCourseTagCommand
+    {
+        public UpdateQuizCourseTagCommand(long itemId, string boxName, string boxCode, string boxProfessor) : base(itemId, boxName, boxCode, boxProfessor)
+        {
+        }
+    }
 }

@@ -45,6 +45,15 @@
     <property name="IsDeleted"/>
     <property name="IsDirty"/>
 
+
+    <property name="Language"/>
+    <set name="ItemTags" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key column="QuizId" foreign-key="fTagItemQuiz"/>
+      <one-to-many class="ItemTag"/>
+    </set>
+    <many-to-one column="CourseTag" class="CourseTag" name="CourseTag" foreign-key="iCourseTag"/>
+    
+
   </class>
 
   <class name="Question" table="QuizQuestion">

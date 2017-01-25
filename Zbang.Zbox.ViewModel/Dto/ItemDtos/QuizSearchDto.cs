@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using Zbang.Zbox.Infrastructure;
+using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 {
-    public class QuizSearchDto
+    public class QuizSearchDto : ItemSearchDto
     {
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public string BoxName { get; set; }
+        public override ItemType Type => ItemType.Quiz;
+        public override string SearchContentId => "quiz_" + Id;
 
         public IEnumerable<string> Questions { get; set; }
         public IEnumerable<string> Answers { get; set; }
@@ -16,7 +17,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public long BoxId { get; set; }
         public long? UniversityId { get; set; }
         public string Url { get; set; }
-        public string UniversityName { get; set; }
+        public override string Content => TextManipulation.RemoveHtmlTags.Replace(string.Join(" ", Questions) + string.Join(" ", Answers), string.Empty);
 
     }
 
@@ -31,6 +32,11 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
     {
         public IEnumerable<QuizSearchDto> QuizzesToUpdate { get; set; }
 
-        public IEnumerable<long> QuizzesToDelete { get; set; }
+        public IEnumerable<QuizToDeleteSearchDto> QuizzesToDelete { get; set; }
+    }
+
+    public class QuizToDeleteSearchDto : ItemToDeleteSearchDto
+    {
+        public override string SearchContentId => "quiz_" + Id;
     }
 }

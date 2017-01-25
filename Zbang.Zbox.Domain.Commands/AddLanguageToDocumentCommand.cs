@@ -17,6 +17,13 @@ namespace Zbang.Zbox.Domain.Commands
         {
         }
     }
+    public class AddLanguageToQuizCommand : AddLanguageToItemCommand
+    {
+        public AddLanguageToQuizCommand(long itemId, Language language)
+            : base(itemId, language)
+        {
+        }
+    }
 
     public abstract class AddLanguageToItemCommand : ICommand
     {

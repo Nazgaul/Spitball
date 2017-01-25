@@ -41,6 +41,7 @@
     <many-to-one name="Tag" column="TagId" foreign-key="fTagItemTag" not-null="true" />
     <many-to-one name="Item"  column="ItemId" foreign-key="fTagItemItem" />
     <many-to-one name="Flashcard"  column="FlashcardId" foreign-key="fTagItemFlashcard" />
+    <many-to-one name="Quiz"  column="QuizId" foreign-key="fTagItemQuiz" />
   </class>
   
   <class name="Tag">

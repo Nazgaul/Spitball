@@ -375,34 +375,20 @@ namespace Zbang.Zbox.ReadServices
         {
             Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(FlashcardSearchDto), new List<string> { "Id" });
             Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchUsers), new List<string> { "Id" });
-            //Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchTag), new List<string> { "Name" });
 
             using (var conn = await DapperConnection.OpenConnectionAsync(token))
             {
                 using (var grid = await conn.QueryMultipleAsync(
                     Search.GetFlashcardToDeleteFromSearch +
                     Search.GetFlashcardToUploadToSearch
-                    //Search.GetFlashcardUsersToUploadToSearch
                     , new { index, count = total, top }))
                 {
                     var retVal = new FlashcardToUpdateSearchDto
                     {
                         Deletes = await grid.ReadAsync<FlashcardToDeleteSearchDto>(),
-                        //Updates = await grid.ReadAsync<FlashcardSearchDto>()
                     };
                     var dynamic = await grid.ReadAsync();
                     retVal.Updates = Slapper.AutoMapper.MapDynamic<FlashcardSearchDto>(dynamic);
-                    //var retVal = new ItemToUpdateSearchDto
-                    //{
-                    //    ItemsToUpdate = Slapper.AutoMapper.MapDynamic<DocumentSearchDto>(dynamic),
-                    //    ItemsToDelete = await grid.ReadAsync<DocumentToDeleteSearchDto>()
-                    //};
-                    ////var users = grid.Read<UsersInBoxSearchDto>().ToList();
-                    //foreach (var flashcards in retVal.Updates)
-                    //{
-                    //    var boxId = flashcards.BoxId;
-                    //    flashcards.UserIds = users.Where(w => w.BoxId == boxId).Select(s => s.UserId);
-                    //}
                     return retVal;
                 }
             }
@@ -410,6 +396,7 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<QuizToUpdateSearchDto> GetQuizzesDirtyUpdatesAsync(int index, int total, int top)
         {
+            //find join all to use Slapper is performance hit
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 using (var grid = await conn.QueryMultipleAsync
@@ -437,7 +424,7 @@ namespace Zbang.Zbox.ReadServices
                         quiz.Answers = answers.Where(w => w.QuizId == quizId).Select(s => s.Text);
                         quiz.UserIds = usersInQuizzes.Where(w => w.BoxId == boxId).Select(s => s.UserId);
                     }
-                    retVal.QuizzesToDelete = await grid.ReadAsync<long>();
+                    retVal.QuizzesToDelete = await grid.ReadAsync<QuizToDeleteSearchDto>();
                     return retVal;
                 }
             }

@@ -44,10 +44,18 @@ namespace Zbang.Zbox.Domain
             Tag = tag;
             Flashcard = item;
         }
+        public ItemTag(Tag tag, Quiz item) : this()
+        {
+
+            Tag = tag;
+            Quiz = item;
+        }
         public virtual Guid Id { get; set; }
 
         public virtual Tag Tag { get; set; }
         public virtual Item Item { get; set; }
+
+        public virtual Quiz Quiz { get; set; }
 
         public virtual FlashcardMeta Flashcard { get; set; }
 
@@ -59,15 +67,16 @@ namespace Zbang.Zbox.Domain
             {
                 return false;
             }
-            return Tag.Equals(item.Tag) && Item.Equals(item.Item);
+            return Tag.Equals(item.Tag) && Item.Equals(item.Item) && Flashcard.Equals(item.Flashcard) && Quiz.Equals(item.Quiz);
         }
 
         public override int GetHashCode()
         {
-            return 
-                11 * Tag.GetHashCode() 
+            return
+                11 * Tag.GetHashCode()
                 + 13 * Item?.GetHashCode() ?? 0
-                + 17 * Flashcard?.GetHashCode() ?? 0;
+                + 17 * Flashcard?.GetHashCode() ?? 0
+            + 19 * Quiz?.GetHashCode() ?? 0;
         }
     }
 }

@@ -171,15 +171,7 @@ select
     and q.id % @count  = @index
 	order by Id);";
 
- //       public const string GetFlashcardUsersToUploadToSearch =
- //           @" select UserId,BoxId from zbox.UserBoxRel where boxId in (
-	//select top 100 f.BoxId
-	//from zbox.Flashcard f 
-	//where publish = 1
-	//and f.isdeleted = 0
-	//and f.isdirty = 1
- //   and f.id % @count  = @index
-	//order by Id);";
+
 
         public const string GetFlashcardToUploadToSearch = @"select f.Id,
 f.Name,
@@ -188,11 +180,14 @@ f.Name,
  f.language,
  ub.UserId as UserIds_Id,
  u.UniversityName as universityName,
-       b.University as UniversityId
+       b.University as UniversityId,
+ t.Name as Tags_Name
     from zbox.Flashcard f
 join zbox.Box b on f.BoxId = b.BoxId
 left join zbox.University u on b.University = u.id
 left join zbox.UserBoxRel ub on b.BoxId = ub.BoxId
+left join zbox.ItemTab it on i.ItemTabId = it.ItemTabId
+left join zbox.ItemTag itag on itag.ItemId = i.ItemId join zbox.Tag t on itag.TagId = t.Id
 where f.id in (select top (@top) Id from zbox.Flashcard x where x.publish = 1
 and x.isdeleted = 0
 and x.isdirty = 1

@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
     [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Local")]
-    public class Quiz : IDirty
+    public class Quiz : IDirty , IItem
     {
         protected Quiz()
         {
@@ -30,6 +32,7 @@ namespace Zbang.Zbox.Domain
             DateTimeUser = new UserTimeDetails(owner.Id);
         }
         public virtual long Id { get; private set; }
+        public virtual Language Language { get; set; }
         public virtual string Name { get; private set; }
 
         public virtual bool Publish { get; set; }
@@ -93,6 +96,19 @@ namespace Zbang.Zbox.Domain
             get;
             set;
         }
+
+        public virtual ISet<ItemTag> ItemTags { get; set; }
+
+        public virtual void AddTag(Tag tag)
+        {
+            var newExists = ItemTags.FirstOrDefault(w => w.Tag.Id == tag.Id);
+            if (newExists != null) return;
+            newExists = new ItemTag(tag, this);
+            ItemTags.Add(newExists);
+            tag.ItemTags.Add(newExists);
+        }
+
+        public virtual CourseTag CourseTag { get; set; }
 
 
         public bool IsDeleted {get;set;}
