@@ -110,7 +110,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     Front = s.FrontCards.ToArray(),
                     MetaContent = string.Join(" ", s.FrontCards) + " " + string.Join(" ", s.BackCards).RemoveEndOfString(SeachConnection.DescriptionLength),
                     Back = s.BackCards.ToArray(),
-                    UserId = s.UserIds.Select(v => v.ToString(CultureInfo.InvariantCulture)).ToArray(),
+                    UserId = s.UserIds.Select(v => v.Id.ToString(CultureInfo.InvariantCulture)).ToArray(),
                     UniversityName = s.UniversityName,
                     UniversityId = s.UniversityId.HasValue ? s.UniversityId.ToString() : "-1",
                     BoxId = s.BoxId,

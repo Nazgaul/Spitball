@@ -92,16 +92,17 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 m_WriteService.AddItemLanguage(commandLang);
             }
 
-            //if (elem.Language == Infrastructure.Culture.Language.EnglishUs && !elem.Tags.Any())
-            //{
-            //    var result = (await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token)).ToList();
-            //    elem.Tags = result.Select(s => new ItemSearchTag { Name = s });
-            //    var z = new AssignTagsToItemCommand(elem.Id, result);
-            //    m_WriteService.AddItemTag(z);
-            //}
+            if (elem.Language == Infrastructure.Culture.Language.EnglishUs && (elem.Tags == null || !elem.Tags.Any()))
+            {
 
-            //var command = new UpdateItemCourseTagCommand(elem.Id, elem.BoxName, elem.BoxCode, elem.BoxProfessor);
-            //m_WriteService.UpdateItemCourseTag(command);
+                var result = (await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token)).ToList();
+                elem.Tags = result.Select(s => new ItemSearchTag { Name = s });
+                var z = new AssignTagsToFlashcardCommand(elem.Id, result);
+                m_WriteService.AddItemTag(z);
+            }
+
+            var command = new UpdateFlashcardCourseTagCommand(elem.Id, elem.BoxName, elem.BoxCode, elem.BoxProfessor);
+            m_WriteService.UpdateItemCourseTag(command);
 
             await m_ContentSearchProvider.UpdateDataAsync(elem, null, token);
         }

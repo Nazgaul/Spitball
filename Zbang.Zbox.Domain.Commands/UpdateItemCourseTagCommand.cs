@@ -7,9 +7,9 @@ using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class UpdateItemCourseTagCommand : ICommand
+    public abstract class UpdateItemCourseTagCommand : ICommand
     {
-        public UpdateItemCourseTagCommand(long itemId, string boxName, string boxCode, string boxProfessor)
+        protected UpdateItemCourseTagCommand(long itemId, string boxName, string boxCode, string boxProfessor)
         {
             ItemId = itemId;
             BoxName = boxName;
@@ -21,5 +21,19 @@ namespace Zbang.Zbox.Domain.Commands
         public string BoxName { get; private set; }
         public string BoxCode { get; private set; }
         public string BoxProfessor { get; private set; }
+    }
+
+    public class UpdateDocumentCourseTagCommand : UpdateItemCourseTagCommand
+    {
+        public UpdateDocumentCourseTagCommand(long itemId, string boxName, string boxCode, string boxProfessor) : base(itemId, boxName, boxCode, boxProfessor)
+        {
+        }
+    }
+
+    public class UpdateFlashcardCourseTagCommand : UpdateItemCourseTagCommand
+    {
+        public UpdateFlashcardCourseTagCommand(long itemId, string boxName, string boxCode, string boxProfessor) : base(itemId, boxName, boxCode, boxProfessor)
+        {
+        }
     }
 }

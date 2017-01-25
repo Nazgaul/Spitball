@@ -188,7 +188,7 @@ f.Name,
  f.language,
  ub.UserId as UserIds_Id,
  u.UniversityName as universityName,
-       b.University
+       b.University as UniversityId
     from zbox.Flashcard f
 join zbox.Box b on f.BoxId = b.BoxId
 left join zbox.University u on b.University = u.id

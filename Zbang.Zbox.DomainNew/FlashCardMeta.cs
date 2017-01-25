@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
@@ -22,7 +23,7 @@ namespace Zbang.Zbox.Domain
             DateTimeUser = new UserTimeDetails(user.Id);
         }
         public virtual long Id { get; set; }
-        public Language Language { get; set; }
+        public virtual Language Language { get; set; }
         public virtual string Name { get; set; }
         public virtual bool Publish { get; set; }
 
@@ -49,6 +50,18 @@ namespace Zbang.Zbox.Domain
 
         public virtual bool IsDirty { get; set; }
         public virtual Func<bool> ShouldMakeDirty { get; set; }
+        public virtual ISet<ItemTag> ItemTags { get; set; }
+
+        public virtual void AddTag(Tag tag)
+        {
+            var newExists = ItemTags.FirstOrDefault(w => w.Tag.Id == tag.Id);
+            if (newExists != null) return;
+            newExists = new ItemTag(tag, this);
+            ItemTags.Add(newExists);
+            tag.ItemTags.Add(newExists);
+        }
+
+        public virtual CourseTag CourseTag { get; set; }
 
         public virtual UserTimeDetails DateTimeUser { get; private set; }
 

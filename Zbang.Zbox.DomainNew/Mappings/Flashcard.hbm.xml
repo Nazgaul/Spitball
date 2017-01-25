@@ -11,7 +11,7 @@
     <property name="LikeCount" not-null="true"></property>
     <property name="CardCount" not-null="true"></property>
     <property name="NumberOfViews" not-null="true"></property>
-    <property name="Language"/>
+   
     
     <many-to-one name="User" class="User" column="UserId" not-null="true" foreign-key="userIdFlashcard"/>
     <many-to-one name="Box" class="Box" column="BoxId" not-null="true" foreign-key="boxIdFlashcard"/>
@@ -30,6 +30,15 @@
    
     <property name="IsDeleted"/>
     <property name="IsDirty" />
+
+    <property name="Language"/>
+    <set name="ItemTags" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key column="FlashcardId" foreign-key="fTagItemFlashcard"/>
+      <one-to-many class="ItemTag"/>
+    </set>
+    <many-to-one column="CourseTag" class="CourseTag" name="CourseTag" foreign-key="iCourseTag"/>
+
+
   </class>
   
   <class name="FlashcardPin" table="FlashcardPin">

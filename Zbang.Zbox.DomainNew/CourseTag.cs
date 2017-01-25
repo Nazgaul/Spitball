@@ -31,10 +31,10 @@ namespace Zbang.Zbox.Domain
         public virtual string Code { get; protected set; }
         public virtual string Professor { get; protected set; }
 
-        public ICollection<Item> Items { get; set; }
-        public ICollection<Quiz> Quizzes { get; set; }
-        public ICollection<FlashcardMeta> Flashcards { get; set; }
-        public ICollection<Comment> Comments { get; set; }
+        //public ICollection<Item> Items { get; set; }
+        //public ICollection<Quiz> Quizzes { get; set; }
+        //public ICollection<FlashcardMeta> Flashcards { get; set; }
+        //public ICollection<Comment> Comments { get; set; }
 
         public virtual bool IsDeleted { get; set; }
         public virtual void DeleteAssociation()

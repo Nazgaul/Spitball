@@ -40,7 +40,7 @@
     <property name="LikeCount"/>
     <property name="Url" length="4000"/>
     <property name="Language"/>
-    <set name="ItemTags" inverse="true" lazy="true">
+    <set name="ItemTags" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key column="ItemId" foreign-key="fTagItemItem"/>
       <one-to-many class="ItemTag"/>
     </set>
@@ -71,9 +71,6 @@
       <property name="Md5"/>
       <property name="PreviewFailed"/>
       <property name="Content" type="string" length="500" />
-     
-
-
     </subclass>
   </class>
   <!--<query name="ItemWithNoSize">

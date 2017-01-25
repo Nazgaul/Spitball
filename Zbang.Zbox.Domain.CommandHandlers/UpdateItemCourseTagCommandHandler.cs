@@ -7,13 +7,14 @@ using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class UpdateItemCourseTagCommandHandler:ICommandHandler<UpdateItemCourseTagCommand>
+    public class UpdateItemCourseTagCommandHandler<T>:ICommandHandler<UpdateItemCourseTagCommand> where T : IItem
     {
         private readonly IRepository<CourseTag> m_CourseTagRepository;
-        private readonly IRepository<Item> m_ItemRepository;
+        private readonly IRepository<T> m_ItemRepository;
         private readonly IGuidIdGenerator m_GuidIdGenerator;
 
-        public UpdateItemCourseTagCommandHandler(IRepository<CourseTag> courseTagRepository, IRepository<Item> itemRepository, IGuidIdGenerator guidIdGenerator)
+        public UpdateItemCourseTagCommandHandler(IRepository<CourseTag> courseTagRepository,
+            IRepository<T> itemRepository, IGuidIdGenerator guidIdGenerator)
         {
             m_CourseTagRepository = courseTagRepository;
             m_ItemRepository = itemRepository;

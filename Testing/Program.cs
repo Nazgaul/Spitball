@@ -215,15 +215,15 @@ namespace Testing
             var languageDetection = iocFactory.Resolve<IDetectLanguage>();
             var writeService = iocFactory.Resolve<IZboxWriteService>();
 
-            writeService.AddItemLanguage(new AddLanguageToDocumentCommand(565278,
-                Zbang.Zbox.Infrastructure.Culture.Language.Undefined));
+           
             //var write = iocFactory.Resolve<IContentWriteSearchProvider>();
             //var zzzzzz = write.UpdateDataAsync(null, null, default(CancellationToken));
             //zzzzzz.Wait();
             //var z = new AssignTagsToItemCommand(elem.Id, result, language);
             var readService = iocFactory.Resolve<IZboxReadServiceWorkerRole>();
-            
-  
+           var z3 =  readService.GetFlashcardsDirtyUpdatesAsync(0, 1, 100, default(CancellationToken));
+            z3.Wait();
+
             var uri = m_BlobProvider.GetBlobUrl("e3562f39-3e3b-41d2-9b82-5a17ae51a47d.pdf");
             var processor = m_FileProcessorFactory.GetProcessor(uri);
             var t = processor.ExtractContentAsync(uri);

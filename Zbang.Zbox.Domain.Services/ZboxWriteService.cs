@@ -827,7 +827,7 @@ namespace Zbang.Zbox.Domain.Services
         //        UnitOfWork.Current.TransactionalFlush();
         //    }
         //}
-        public void UpdateItemCourseTag(UpdateItemCourseTagCommand command)
+        public void UpdateItemCourseTag<T>(T command) where T : UpdateItemCourseTagCommand
         {
             using (UnitOfWork.Start())
             {
@@ -836,7 +836,7 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public void AddItemTag(AssignTagsToItemCommand command)
+        public void AddItemTag<T>(T command) where T : AssignTagsToItemCommand
         {
             using (UnitOfWork.Start())
             {
@@ -853,15 +853,15 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-        public void AddItemExtraData(AssignTagsToItemCommand command1, UpdateItemCourseTagCommand command2)
-        {
-            using (UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command1);
-                m_CommandBus.Send(command2);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
+        //public void AddItemExtraData(AssignTagsToItemCommand command1, UpdateItemCourseTagCommand command2)
+        //{
+        //    using (UnitOfWork.Start())
+        //    {
+        //        m_CommandBus.Send(command1);
+        //        m_CommandBus.Send(command2);
+        //        UnitOfWork.Current.TransactionalFlush();
+        //    }
+        //}
         #endregion
     }
 }

@@ -129,11 +129,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 {
                     var result = (await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token)).ToList();
                     elem.Tags = result.Select(s => new ItemSearchTag {Name = s});
-                    var z = new AssignTagsToItemCommand(elem.Id, result);
+                    var z = new AssignTagsToDocumentCommand(elem.Id, result);
                     m_WriteService.AddItemTag(z);
                 }
 
-                var command = new UpdateItemCourseTagCommand(elem.Id, elem.BoxName, elem.BoxCode, elem.BoxProfessor);
+                var command = new UpdateDocumentCourseTagCommand(elem.Id, elem.BoxName, elem.BoxCode, elem.BoxProfessor);
                 m_WriteService.UpdateItemCourseTag(command);
 
                 await m_ContentSearchProvider.UpdateDataAsync(elem, null, token);

@@ -10,7 +10,7 @@ namespace Zbang.Zbox.Domain
     {
         protected Tag()
         {
-
+            ItemTags = new HashSet<ItemTag>();
         }
         public Tag(string name) : this()
         {
@@ -21,9 +21,9 @@ namespace Zbang.Zbox.Domain
             Name = name;
         }
 
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public ISet<ItemTag> ItemTags { get; set; }
+        public virtual Guid Id { get; set; }
+        public virtual string Name { get; set; }
+        public virtual ISet<ItemTag> ItemTags { get; set; }
     }
 
     public class ItemTag
@@ -37,13 +37,20 @@ namespace Zbang.Zbox.Domain
 
             Tag = tag;
             Item = item;
-
-
         }
-        public Guid Id { get; set; }
+        public ItemTag(Tag tag, FlashcardMeta item) : this()
+        {
 
-        public Tag Tag { get; set; }
-        public Item Item { get; set; }
+            Tag = tag;
+            Flashcard = item;
+        }
+        public virtual Guid Id { get; set; }
+
+        public virtual Tag Tag { get; set; }
+        public virtual Item Item { get; set; }
+
+        public virtual FlashcardMeta Flashcard { get; set; }
+
 
         public override bool Equals(object obj)
         {
@@ -57,7 +64,10 @@ namespace Zbang.Zbox.Domain
 
         public override int GetHashCode()
         {
-            return 11 * Tag.GetHashCode() + 13 * Item.GetHashCode();
+            return 
+                11 * Tag.GetHashCode() 
+                + 13 * Item?.GetHashCode() ?? 0
+                + 17 * Flashcard?.GetHashCode() ?? 0;
         }
     }
 }
