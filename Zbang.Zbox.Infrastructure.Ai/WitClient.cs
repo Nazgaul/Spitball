@@ -2,24 +2,15 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using RestSharp;
 using RestSharp.Deserializers;
 
 namespace Zbang.Zbox.Infrastructure.Ai
 {
-    public class Entity
-    {
-        //public string metadata { get; set; }
-
-        public string Value { get; set; }
-
-        public double Confidence { get; set; }
-    }
-
-
     public class WitClient
     {
-        const string DefaultApiVersion = "20160516";
+        private const string DefaultApiVersion = "20160516";
         private readonly string m_Token;
         private readonly RestClient m_Client;
 
@@ -28,20 +19,19 @@ namespace Zbang.Zbox.Infrastructure.Ai
             m_Token = token;
             m_Client = new RestClient("https://api.wit.ai");
             m_Client.AddHandler("*", new JsonDeserializer());
+            
         }
-        public async Task<WitResponse> GetMessageAsync(string q, CancellationToken token)
+        public async Task<BaseIntent> GetMessageAsync(string q, CancellationToken token)
         {
-            //var client = new RestClient("https://api.wit.ai");
-
             var request = new RestRequest("message", Method.GET);
-
             request.AddQueryParameter("q", q);
-
-            //client.AddHandler("*", new JsonDeserializer());
             AddDefaultParametes(request);
-
-            var data = await m_Client.ExecuteTaskAsync<WitResponse>(request, token);
-            return data.Data;
+            var json = await m_Client.ExecuteTaskAsync(request,token);
+            var t = JsonConvert.DeserializeObject<BaseIntent>(json.Content);
+            
+            //var data = await m_Client.ExecuteTaskAsync<WitResponse>(request, token);
+            //var data2 = await m_Client.ExecuteTaskAsync<BaseIntent>(request, token);
+            return t;
         }
 
         private void AddDefaultParametes(RestRequest request)

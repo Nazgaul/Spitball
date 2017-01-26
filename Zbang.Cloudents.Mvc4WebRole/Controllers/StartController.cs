@@ -9,16 +9,19 @@ using System.Web.Mvc;
 using DevTrends.MvcDonutCaching;
 using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Ai;
+using Zbang.Zbox.Infrastructure.Search;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
     public class StartController : BaseController
     {
         private readonly IWitAi m_WitAi;
+        private readonly IContentReadSearchProvider m_SearchProvider;
 
-        public StartController(IWitAi witAi)
+        public StartController(IWitAi witAi, IContentReadSearchProvider searchProvider)
         {
             m_WitAi = witAi;
+            m_SearchProvider = searchProvider;
         }
 
         [AllowAnonymous]
@@ -48,13 +51,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return JsonError();
             }
-            using (var token = base.CreateCancellationToken(cancellationToken))
+            using (var token = CreateCancellationToken(cancellationToken))
             {
                 var data = await m_WitAi.GetUserIntentAsync(term, token.Token);
-                return JsonOk(new
+                var result = await m_SearchProvider.SearchAsync(data, token.Token);
+                return JsonOk(
+                new
                 {
-                    data,
-                    sentence = data?.ToString()
+                    result
                 });
             }
         }

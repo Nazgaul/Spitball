@@ -145,7 +145,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         }
 
-        public async Task<IEnumerable<SearchItems>> SearchItemAsync(
+        public async Task<IEnumerable<SearchDocument>> SearchItemAsync(
             ViewModel.Queries.Search.SearchQueryMobile query, CancellationToken cancelToken)
         {
             if (query == null) throw new ArgumentNullException(nameof(query));
@@ -164,7 +164,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 HighlightFields = new[] { ContentField, NameField },
             }, cancellationToken: cancelToken);
 
-            return result.Results.Select(s => new SearchItems
+            return result.Results.Select(s => new SearchDocument
             {
                 Content = HighLightInField(s, ContentField, s.Document.MetaContent),
                 Id = long.Parse(s.Document.Id),
@@ -175,7 +175,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             }).ToList();
         }
 
-        public async Task<IEnumerable<SearchItems>> SearchItemAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
+        public async Task<IEnumerable<SearchDocument>> SearchItemAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
             if (query == null) throw new ArgumentNullException(nameof(query));
             var term = query.Term;
@@ -199,7 +199,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 HighlightFields = new[] { ContentField, NameField }
             }, cancellationToken: cancelToken);
 
-            return result.Results.Select(s => new SearchItems
+            return result.Results.Select(s => new SearchDocument
             {
                 Boxname = s.Document.BoxName,
                 Content = HighLightInField(s, ContentField, s.Document.MetaContent),
@@ -214,7 +214,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             });
         }
 
-        public async Task<IEnumerable<SearchItems>> SearchItemAsync(ViewModel.Queries.Search.SearchItemInBox query, CancellationToken cancelToken)
+        public async Task<IEnumerable<SearchDocument>> SearchItemAsync(ViewModel.Queries.Search.SearchItemInBox query, CancellationToken cancelToken)
         {
             if (query == null) throw new ArgumentNullException(nameof(query));
             var term = query.Term;
@@ -231,7 +231,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Select = new[] { BoxNameField, SmallContentField, IdField, ImageField, NameField, UniversityNameField, UrlField, BlobNameField },
             }, cancellationToken: cancelToken);
 
-            return result.Results.Select(s => new SearchItems
+            return result.Results.Select(s => new SearchDocument
             {
                 Boxname = s.Document.BoxName,
                 Id = long.Parse(s.Document.Id),

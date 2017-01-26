@@ -375,6 +375,7 @@ namespace Zbang.Zbox.ReadServices
         {
             Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(FlashcardSearchDto), new List<string> { "Id" });
             Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchUsers), new List<string> { "Id" });
+            Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchTag), new List<string> { "Name" });
 
             using (var conn = await DapperConnection.OpenConnectionAsync(token))
             {

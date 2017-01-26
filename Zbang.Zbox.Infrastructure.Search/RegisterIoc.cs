@@ -21,7 +21,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             builder.RegisterType<ItemSearchProvider3>().As<IItemWriteSearchProvider>().As<IItemReadSearchProvider>().SingleInstance();
             builder.RegisterType<QuizSearchProvider2>().As<IQuizWriteSearchProvider2>().As<IQuizReadSearchProvider2>().SingleInstance();
             builder.RegisterType<FlashcardSearchProvider>().As<IFlashcardWriteSearchProvider>().As<IFlashcardReadSearchProvider>().SingleInstance();
-            builder.RegisterType<ContentSearchProvider>().As<IContentWriteSearchProvider>().SingleInstance();
+            builder.RegisterType<ContentSearchProvider>().As<IContentWriteSearchProvider>().As<IContentReadSearchProvider>().SingleInstance();
         }
     }
 }

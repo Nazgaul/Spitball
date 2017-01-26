@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
+using Zbang.Zbox.Infrastructure.Ai;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
@@ -160,15 +161,64 @@ namespace Zbang.Zbox.Infrastructure.Search
             return definition;
         }
 
-        public async Task<IEnumerable<SearchItems>> SearchAsync(SearchContent query, CancellationToken cancelToken)
+        public async Task<IEnumerable<SearchItem>> SearchAsync(SearchAllDocuments query, CancellationToken cancelToken)
         {
             var result = await m_IndexClient.Documents.SearchAsync<Item>(query.Term, new SearchParameters()
             {
                 Top = 5,
-                
+                IncludeTotalResultCount = true,
+                ScoringParameters = new[] { new ScoringParameter("tag", new string[] { string.Empty }), new ScoringParameter("course", new string[] { string.Empty }), new ScoringParameter("university", new string[] { string.Empty }) },
                 ScoringProfile = ScoringProfile
             }, cancellationToken: cancelToken);
-            throw new NotImplementedException();
+
+            return result.Results.Select(s => new SearchItem
+            {
+                Id = s.Document.Id,
+                Code = s.Document.Code,
+                Content = s.Document.Content,
+                ContentEn = s.Document.ContentEn,
+                ContentHe = s.Document.ContentHe,
+                Course = s.Document.Course,
+                Name = s.Document.Name,
+                Professor = s.Document.Professor,
+                Tags = s.Document.Tags,
+                Type = s.Document.Type,
+                University = s.Document.University
+            });
+
         }
+
+        public async Task<IEnumerable<SearchItem>> SearchAsync(BaseIntent query, CancellationToken cancelToken)
+        {
+
+            var result = await m_IndexClient.Documents.SearchAsync<Item>(query.Term, new SearchParameters()
+            {
+                Top = 5,
+                IncludeTotalResultCount = true,
+                ScoringParameters = new[] { new ScoringParameter("tags", new string[] { string.Empty }), new ScoringParameter("course", new string[] { string.Empty }), new ScoringParameter("university", new string[] { string.Empty }) },
+                ScoringProfile = ScoringProfile
+            }, cancellationToken: cancelToken);
+
+            return result.Results.Select(s => new SearchItem
+            {
+                Id = s.Document.Id,
+                Code = s.Document.Code,
+                Content = s.Document.Content,
+                ContentEn = s.Document.ContentEn,
+                ContentHe = s.Document.ContentHe,
+                Course = s.Document.Course,
+                Name = s.Document.Name,
+                Professor = s.Document.Professor,
+                Tags = s.Document.Tags,
+                Type = s.Document.Type,
+                University = s.Document.University
+            });
+        }
+
+
+        //public Task<IEnumerable<SearchItem>> SearchAsync<T>(T query, CancellationToken cancelToken) where T : IIntent
+        //{
+        //    return null;
+        //}
     }
 }

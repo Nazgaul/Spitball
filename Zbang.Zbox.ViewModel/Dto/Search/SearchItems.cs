@@ -3,14 +3,8 @@
 namespace Zbang.Zbox.ViewModel.Dto.Search
 {
     [Serializable]
-    public class SearchItems
+    public class SearchDocument
     {
-      
-
-        //[Obsolete]
-       // public string Image { get; set; }
-
-
         public string Name { get; set; }
         public long Id { get; set; }
         public string Content { get; set; }
@@ -23,6 +17,30 @@ namespace Zbang.Zbox.ViewModel.Dto.Search
 
         public long? BoxId { get; set; }
         public string Extension { get; set; }
+    }
+
+    public class SearchItem
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+
+        public string Content { get; set; }
+
+        public string ContentEn { get; set; }
+
+        public string ContentHe { get; set; }
+
+        public string University { get; set; }
+
+        public string Course { get; set; }
+
+        public string Professor { get; set; }
+
+        public string Code { get; set; }
+
+        public int Type { get; set; }
+
+        public string[] Tags { get; set; }
     }
 
 

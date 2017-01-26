@@ -35,4 +35,7 @@ namespace Zbang.Zbox.Infrastructure.Enums
         Exam = 128,
         ClassNote = 256
     }
+
+  
+
 }

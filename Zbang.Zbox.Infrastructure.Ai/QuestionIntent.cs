@@ -2,6 +2,10 @@ using System.Collections.Generic;
 
 namespace Zbang.Zbox.Infrastructure.Ai
 {
+    public class DontUnderstandIntent : BaseIntent
+    {
+        
+    }
     public class QuestionIntent : BaseIntent
     {
         public override string ToString()

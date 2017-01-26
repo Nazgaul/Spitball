@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Microsoft.ApplicationInsights;
 using Microsoft.Azure.Mobile.Server.Config;
 using Zbang.Cloudents.MobileApp.Extensions;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Search;
-using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Dto.Search;
 using Zbang.Zbox.ViewModel.Queries.Search;
@@ -26,8 +22,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         private readonly IItemReadSearchProvider m_ItemSearchService2;
         private readonly IUniversityReadSearchProvider m_UniversitySearch;
         private readonly IZboxCacheReadService m_ZboxReadService;
-        private readonly TelemetryClient m_TelemetryClient = new TelemetryClient();
-
+       
         public SearchController(IBoxReadSearchProvider2 boxSearchService2, IItemReadSearchProvider itemSearchService2, IUniversityReadSearchProvider universitySearch, IZboxCacheReadService zboxReadService)
         {
             m_BoxSearchService2 = boxSearchService2;
@@ -80,7 +75,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             var cancelToken = Request.GetCancellationToken();
             var query = new SearchQueryMobile(term, User.GetUserId(), universityId.Value, page, sizePerPage);
             // Services.Log.Info(String.Format("search items query: {0}", query));
-            var retVal = await m_ItemSearchService2.SearchItemAsync(query, cancelToken) ?? new List<SearchItems>();
+            var retVal = await m_ItemSearchService2.SearchItemAsync(query, cancelToken) ?? new List<SearchDocument>();
             return Request.CreateResponse(retVal.Select(s => new
             {
                 s.Name,

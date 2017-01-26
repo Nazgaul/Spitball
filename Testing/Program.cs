@@ -36,6 +36,7 @@ using Autofac.Features.Variance;
 using Zbang.Zbox.Domain.CommandHandlers;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Services;
+using Zbang.Zbox.Infrastructure.Ai;
 using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Commands;
 using Zbang.Zbox.Infrastructure.Data;
@@ -170,6 +171,7 @@ namespace Testing
             //        .InstancePerLifetimeScope();
 
             unity.ContainerBuilder.RegisterModule<SearchModule>();
+            unity.ContainerBuilder.RegisterModule<AiModule>();
 
 
 
@@ -214,23 +216,28 @@ namespace Testing
             var m_FileProcessorFactory = iocFactory.Resolve<IFileProcessorFactory>();
             var languageDetection = iocFactory.Resolve<IDetectLanguage>();
             var writeService = iocFactory.Resolve<IZboxWriteService>();
-
-           
+            var search = iocFactory.Resolve<IContentReadSearchProvider>();
+            var tSearch = search.SearchAsync(new SearchAllDocuments {Term = "Socrates"}, default(CancellationToken));
+            tSearch.Wait();
+            
+            //var ai = iocFactory.Resolve<IWitAi>();
+            //var tAi = ai.GetUserIntentAsync("Give me all material on Socrates", default(CancellationToken));
+            //tAi.Wait();
             //var write = iocFactory.Resolve<IContentWriteSearchProvider>();
             //var zzzzzz = write.UpdateDataAsync(null, null, default(CancellationToken));
             //zzzzzz.Wait();
             //var z = new AssignTagsToItemCommand(elem.Id, result, language);
-            var readService = iocFactory.Resolve<IZboxReadServiceWorkerRole>();
-           var z3 =  readService.GetFlashcardsDirtyUpdatesAsync(0, 1, 100, default(CancellationToken));
-            z3.Wait();
+           // var readService = iocFactory.Resolve<IZboxReadServiceWorkerRole>();
+           //var z3 =  readService.GetFlashcardsDirtyUpdatesAsync(0, 1, 100, default(CancellationToken));
+           // z3.Wait();
 
-            var uri = m_BlobProvider.GetBlobUrl("e3562f39-3e3b-41d2-9b82-5a17ae51a47d.pdf");
-            var processor = m_FileProcessorFactory.GetProcessor(uri);
-            var t = processor.ExtractContentAsync(uri);
-            t.Wait();
-            var cxz = languageDetection.DoWork(t.Result);
-            var z = DoAlchemyAsync(t.Result);
-            z.Wait();
+           // var uri = m_BlobProvider.GetBlobUrl("e3562f39-3e3b-41d2-9b82-5a17ae51a47d.pdf");
+           // var processor = m_FileProcessorFactory.GetProcessor(uri);
+           // var t = processor.ExtractContentAsync(uri);
+           // t.Wait();
+           // var cxz = languageDetection.DoWork(t.Result);
+           // var z = DoAlchemyAsync(t.Result);
+           // z.Wait();
 
             // var z = new AssignTagsToItemCommand(565902, new[] { "1234", "Moment of inertia" });
             // m_WriteService.AddItemTag(z);
@@ -242,80 +249,7 @@ namespace Testing
             var m_QueueRepository = iocFactory.Resolve<IQueueProvider>();
             var index = 0;
             IEnumerable<long> users;
-            //do
-            //{
-            //    users = ReadService.GetUsersBadgeFollow(index);
-
-            //    var list = new List<Task>();
-            //    list.Add(m_QueueRepository.InsertMessageToTranactionAsync(new FollowClassBadgeData(users)));
-            //    Task.WaitAll(list.ToArray());
-            //    index++;
-            //} while (users.Any());
-            //do
-            //{
-            //    users = ReadService.GetUsersBadgeItem(index);
-
-            //    var list = new List<Task>();
-            //    list.Add(m_QueueRepository.InsertMessageToTranactionAsync(new UploadItemsBadgeData(users)));
-            //    Task.WaitAll(list.ToArray());
-            //    index++;
-            //} while (users.Any());
-            //do
-            //{
-            //    users = ReadService.GetUsersBadgeQuiz(index);
-
-            //    var list = new List<Task>();
-            //    list.Add(m_QueueRepository.InsertMessageToTranactionAsync(new CreateQuizzesBadgeData(users)));
-            //    Task.WaitAll(list.ToArray());
-            //    index++;
-            //} while (users.Any());
-            //do
-            //{
-            //    users = ReadService.GetUsersBadgeLike(index);
-
-            //    var list = new List<Task>();
-            //    list.Add(m_QueueRepository.InsertMessageToTranactionAsync(new LikesBadgeData(users)));
-            //    Task.WaitAll(list.ToArray());
-            //    index++;
-            //} while (users.Any());
-            //do
-            //{
-            //    users = ReadService.GetUserReputationUpdate(index);
-
-            //    var list = new List<Task>();
-            //    list.Add(m_QueueRepository.InsertMessageToTranactionAsync(new ReputationData(users)));
-            //    Task.WaitAll(list.ToArray());
-            //    index++;
-            //} while (users.Any());
-            //var t1 = m_QueueRepository.InsertMessageToTranactionAsync(new ReputationData(tusers.Result));
-            //var t2 = m_QueueRepository.InsertMessageToTranactionAsync(new FollowClassBadgeData(1));
-            //var t3 = m_QueueRepository.InsertMessageToTranactionAsync(new CreateQuizzesBadgeData(1));
-            //var t4 = m_QueueRepository.InsertMessageToTranactionAsync(new UploadItemsBadgeData(1));
-            //var t5 = m_QueueRepository.InsertMessageToTranactionAsync(new LikesBadgeData(1));
-
-            //Task.WaitAll(t1, t2, t3, t4, t5);
-
-            //var service = iocFactory.Resolve<IZboxWorkerRoleService>();
-            //service.UpdateUniversityStats(DateTime.UtcNow.AddYears(-1));
-            return;
-            //service.OneTimeDbi();
-            //var t = service.CheckEmailValidateAsync("exn5038@psu.edu");
-            //var t = service.SendSpanGunEmailAsync("ariel@cloudents.com", "1",
-            //    "Spitball, the free social studying app, has over 250,000 students across the world using our product to access class documents (including past exams, study guides, lecture notes, etc).You can also chat with your classmates, create quizzes, and more, all for free!    We’re live at Auburn this semester, and we have over 1,900 documents exclusively for Auburn students!    Sign up for free today, it takes less than a minute. Check us out!",
-            //    "Spitball has launched at Auburn!", "Cecily", "auburn_6272_s1", "https://www.spitball.co/auburn/");
-            //t.Wait();
-            //foreach (var email in emails())
-            //{
-            //    var result = service.VerifyEmail(email);
-            //    Console.WriteLine($"{email} : {result}");
-            //}
-
-            //var clusterflunkFilesCopy = new ClusterflunkFilesCopy(iocFactory);
-            //var t1 = clusterflunkFilesCopy.BuildBoxesAsync();
-            //t1.Wait();
-            //var t = clusterflunkFilesCopy.BuildFilesAsync();
-            //t.Wait();
-            //Application.Run(new Form1());
+           
             Console.WriteLine("Finish");
             Console.ReadLine();
 

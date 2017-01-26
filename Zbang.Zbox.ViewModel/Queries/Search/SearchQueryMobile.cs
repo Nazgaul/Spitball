@@ -32,9 +32,9 @@
         public long BoxId { get; private set; }
     }
 
-    public class SearchContent
-    {
-        public string Term { get; set; }
+    //public class SearchContent
+    //{
+    //    public string Term { get; set; }
 
-    }
+    //}
 }
