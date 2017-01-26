@@ -3,12 +3,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Ai;
 using Zbang.Zbox.ViewModel.Dto.Search;
+using Zbang.Zbox.ViewModel.Queries.Search;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
-  
 
-    public interface IItemReadSearchProvider 
+
+    public interface IItemReadSearchProvider
     {
         Task<IEnumerable<SearchDocument>> SearchItemAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken);
         Task<IEnumerable<SearchDocument>> SearchItemAsync(ViewModel.Queries.Search.SearchQueryMobile query, CancellationToken cancelToken);
@@ -20,11 +21,16 @@ namespace Zbang.Zbox.Infrastructure.Search
         Task<string> ItemContentAsync(long itemId, CancellationToken cancelToken);
     }
 
-    public interface IContentReadSearchProvider
+    public interface IContentReadSearchProvider : ISearchReadProvider
     {
-        // Task<IEnumerable<SearchItem>> SearchAsync<T>(T query, CancellationToken cancelToken) where T : IIntent;
 
-        Task<IEnumerable<SearchItem>> SearchAsync(BaseIntent query, CancellationToken cancelToken);
-        Task<IEnumerable<SearchItem>> SearchAsync(SearchAllDocuments query, CancellationToken cancelToken);
     }
+
+    public interface ISearchReadProvider
+    {
+
+        Task<SearchJaredDto> SearchAsync(KnownIntent query, SearchJared extra, CancellationToken cancelToken);
+    }
+
+
 }

@@ -36,6 +36,14 @@ namespace Zbang.Zbox.Infrastructure.Enums
         ClassNote = 256
     }
 
-  
+    public enum SearchType
+    {
+        None,
+        Document,
+        Member,
+        Feed
+    }
+
+   
 
 }

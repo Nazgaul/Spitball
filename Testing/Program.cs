@@ -217,8 +217,8 @@ namespace Testing
             var languageDetection = iocFactory.Resolve<IDetectLanguage>();
             var writeService = iocFactory.Resolve<IZboxWriteService>();
             var search = iocFactory.Resolve<IContentReadSearchProvider>();
-            var tSearch = search.SearchAsync(new SearchAllDocuments {Term = "Socrates"}, default(CancellationToken));
-            tSearch.Wait();
+            //var tSearch = search.SearchAsync(new SearchAllDocuments {Term = "Socrates"}, default(CancellationToken));
+            //tSearch.Wait();
             
             //var ai = iocFactory.Resolve<IWitAi>();
             //var tAi = ai.GetUserIntentAsync("Give me all material on Socrates", default(CancellationToken));

@@ -8,10 +8,12 @@ using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using Zbang.Zbox.Infrastructure.Ai;
 using Zbang.Zbox.Infrastructure.Culture;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Dto.Search;
 using Zbang.Zbox.ViewModel.Queries.Search;
+using FacetResult = Zbang.Zbox.ViewModel.Dto.Search.FacetResult;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
@@ -129,7 +131,10 @@ namespace Zbang.Zbox.Infrastructure.Search
 
             var d = new Dictionary<string, double>
             {
-                {nameof(Item.Tags).ToLower(), 8}, {nameof(Item.Content).ToLower(), 2}, {ContentEnglishField, 4}, {ContentHebrewField, 4},
+                {nameof(Item.Tags).ToLower(), 8},
+                { nameof(Item.Name).ToLower(), 4},
+                { ContentEnglishField, 2},
+                { ContentHebrewField, 2},
             };
             weightProfile.TextWeights = new TextWeights(d);
 
@@ -153,72 +158,115 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Parameters = new TagScoringParameters("university")
             };
             weightProfile.Functions = new List<ScoringFunction> { tagFunction, tagFunction2, tagFunction3 };
-
-
             definition.ScoringProfiles = new List<ScoringProfile> { weightProfile };
-
 
             return definition;
         }
 
-        public async Task<IEnumerable<SearchItem>> SearchAsync(SearchAllDocuments query, CancellationToken cancelToken)
+        public async Task<SearchJaredDto> SearchAsync(KnownIntent query, SearchJared extra, CancellationToken cancelToken)
         {
-            var result = await m_IndexClient.Documents.SearchAsync<Item>(query.Term, new SearchParameters()
+            if (extra == null) throw new ArgumentNullException(nameof(extra));
+            var queryDocument = query as SearchDocumentIntent;
+            if (queryDocument == null)
+            {
+                throw new ArgumentNullException("queryDocument is null");
+            }
+            if (string.IsNullOrEmpty(queryDocument.Term))
+            {
+                queryDocument.Term = "*";
+            }
+            var searchFiled = new List<string>()
+            {
+                nameof(Item.Name).ToLower(),
+                nameof(Item.Tags).ToLower(),
+            };
+            switch (extra.Language)
+            {
+                case Language.Undefined:
+                    searchFiled.Add(ContentEnglishField);
+                    searchFiled.Add(nameof(Item.Content).ToLower());
+                    break;
+                case Language.EnglishUs:
+                    searchFiled.Add(ContentEnglishField);
+                    break;
+                case Language.Hebrew:
+                    searchFiled.Add(ContentHebrewField);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            var searchResult = await m_IndexClient.Documents.SearchAsync<Item>(queryDocument.Term, new SearchParameters()
             {
                 Top = 5,
+                Filter = BuildFilter(queryDocument.Course, queryDocument.TypeToSearch, query.University),
                 IncludeTotalResultCount = true,
-                ScoringParameters = new[] { new ScoringParameter("tag", new string[] { string.Empty }), new ScoringParameter("course", new string[] { string.Empty }), new ScoringParameter("university", new string[] { string.Empty }) },
-                ScoringProfile = ScoringProfile
+                Facets = BuildFacet(queryDocument.Course, query.University),
+                ScoringParameters = new[] {new ScoringParameter("tag", extra.Tags ?? new[] {string.Empty}),
+                    new ScoringParameter("course", extra.Courses ?? new[] {string.Empty}), new ScoringParameter("university", new[] {extra.University ?? string.Empty})},
+                ScoringProfile = ScoringProfile,
+                SearchFields = searchFiled
             }, cancellationToken: cancelToken);
 
-            return result.Results.Select(s => new SearchItem
-            {
-                Id = s.Document.Id,
-                Code = s.Document.Code,
-                Content = s.Document.Content,
-                ContentEn = s.Document.ContentEn,
-                ContentHe = s.Document.ContentHe,
-                Course = s.Document.Course,
-                Name = s.Document.Name,
-                Professor = s.Document.Professor,
-                Tags = s.Document.Tags,
-                Type = s.Document.Type,
-                University = s.Document.University
-            });
 
+            var retVal = new SearchItemResult
+            {
+                Result = searchResult.Results.Select(s => new SearchItem
+                {
+                    Id = s.Document.Id,
+                    Code = s.Document.Code,
+                    //Content = s.Document.Content,
+                    //ContentEn = s.Document.ContentEn,
+                    //ContentHe = s.Document.ContentHe,
+                    Course = s.Document.Course,
+                    Name = s.Document.Name,
+                    Professor = s.Document.Professor,
+                    Tags = s.Document.Tags,
+                    Type = s.Document.Type,
+                    University = s.Document.University
+                }),
+                Facet = new Dictionary<string, IEnumerable<FacetResult>>(),
+            };
+            foreach (var facetResult in searchResult.Facets)
+            {
+                retVal.Facet[facetResult.Key] = facetResult.Value.Select(s => new ViewModel.Dto.Search.FacetResult
+                {
+                    Name = s.Value.ToString(), Value = s.Count.GetValueOrDefault()
+                });
+            }
+            return retVal;
         }
 
-        public async Task<IEnumerable<SearchItem>> SearchAsync(BaseIntent query, CancellationToken cancelToken)
+        private IList<string> BuildFacet(string course, string university)
         {
-
-            var result = await m_IndexClient.Documents.SearchAsync<Item>(query.Term, new SearchParameters()
+            var expressions = new List<string>();
+            if (string.IsNullOrEmpty(course))
             {
-                Top = 5,
-                IncludeTotalResultCount = true,
-                ScoringParameters = new[] { new ScoringParameter("tags", new string[] { string.Empty }), new ScoringParameter("course", new string[] { string.Empty }), new ScoringParameter("university", new string[] { string.Empty }) },
-                ScoringProfile = ScoringProfile
-            }, cancellationToken: cancelToken);
-
-            return result.Results.Select(s => new SearchItem
+                expressions.Add(nameof(Item.Course).ToLower());
+            }
+            if (string.IsNullOrEmpty(university))
             {
-                Id = s.Document.Id,
-                Code = s.Document.Code,
-                Content = s.Document.Content,
-                ContentEn = s.Document.ContentEn,
-                ContentHe = s.Document.ContentHe,
-                Course = s.Document.Course,
-                Name = s.Document.Name,
-                Professor = s.Document.Professor,
-                Tags = s.Document.Tags,
-                Type = s.Document.Type,
-                University = s.Document.University
-            });
+                expressions.Add(nameof(Item.University).ToLower());
+            }
+            return expressions;
         }
 
-
-        //public Task<IEnumerable<SearchItem>> SearchAsync<T>(T query, CancellationToken cancelToken) where T : IIntent
-        //{
-        //    return null;
-        //}
+        private string BuildFilter(string course, ItemType? typeToSearch, string university)
+        {
+            var expressions = new List<string>();
+            if (!string.IsNullOrEmpty(course))
+            {
+                expressions.Add($"{nameof(Item.Course).ToLower()} eq '{course}'");
+            }
+            if (!string.IsNullOrEmpty(university))
+            {
+                expressions.Add($"{nameof(Item.University).ToLower()} eq '{university}'");
+            }
+            if (typeToSearch.HasValue)
+            {
+                expressions.Add($"{nameof(Item.Type).ToLower()} eq {(int) typeToSearch}");
+            }
+            return string.Join(" and ", expressions);
+        }
     }
 }

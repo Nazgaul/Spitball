@@ -1,12 +1,9 @@
 using System.Collections.Generic;
+using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.Infrastructure.Ai
 {
-    public class DontUnderstandIntent : BaseIntent
-    {
-        
-    }
-    public class QuestionIntent : BaseIntent
+    public class QuestionIntent : KnownIntent
     {
         public override string ToString()
         {
@@ -39,6 +36,8 @@ namespace Zbang.Zbox.Infrastructure.Ai
             }
             return string.Join(". ", listOfStr);
         }
+
+        public override SearchType SearchType => SearchType.Feed;
     }
 
 }

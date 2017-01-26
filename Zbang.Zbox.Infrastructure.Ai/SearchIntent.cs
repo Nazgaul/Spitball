@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.Infrastructure.Ai
 {
     [JsonConverter(typeof(MyCustomConverter))]
-    public class SearchIntent : BaseIntent
+    public class SearchIntent : KnownIntent
     {
+
+
         private class MyCustomConverter : JsonCreationConverter<SearchIntent>
         {
             protected override SearchIntent Create(Type objectType,
@@ -17,15 +16,16 @@ namespace Zbang.Zbox.Infrastructure.Ai
             {
                 if (jObject == null) throw new ArgumentNullException(nameof(jObject));
                 //TODO: read the raw JSON object through jObject to identify the type
-                //e.g. here I'm reading a 'typename' property:
                 var intent = jObject["entities"]["SearchType"];
-                var intentValue = intent.First["metadata"].ToObject<int>();
+                var intentValue = intent?.First["metadata"]?.ToObject<int?>();
                 if (intentValue == 7)
                 {
-                    return new SearchAllDocuments();
+                    return jObject.ToObject<SearchDocumentIntent>();
+                    
                 }
-                return new SearchHomework();
-               
+                return new SearchIntent();
+                //return jObject.ToObject<SearchDocumentIntent>();
+
             }
         }
 
@@ -68,15 +68,5 @@ namespace Zbang.Zbox.Infrastructure.Ai
         //     }
         //     return string.Join(". ", listOfStr);
         // }
-    }
-
-    public class SearchAllDocuments : SearchIntent
-    {
-        
-    }
-
-    public class SearchHomework : SearchIntent
-    {
-        
     }
 }

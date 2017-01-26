@@ -1,4 +1,7 @@
-﻿namespace Zbang.Zbox.ViewModel.Queries.Search
+﻿using System.Collections.Generic;
+using Zbang.Zbox.Infrastructure.Culture;
+
+namespace Zbang.Zbox.ViewModel.Queries.Search
 {
     public class SearchItemsQuery : SearchQuery
     {
@@ -8,5 +11,19 @@
         }
 
         public override string CacheKey => "items " + GetUniversityId();
+    }
+
+    public class SearchJared
+    {
+        public SearchJared(Language language)
+        {
+            Language = language;
+        }
+
+        public IEnumerable<string> Tags { get; set; }
+        public IEnumerable<string> Courses { get; set; }
+        public string University { get; set; }
+
+        public Language Language { get; private set; }
     }
 }

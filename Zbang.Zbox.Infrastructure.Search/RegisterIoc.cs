@@ -1,6 +1,6 @@
 ﻿using Autofac;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
-using Zbang.Zbox.Infrastructure.Ioc;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
@@ -21,7 +21,9 @@ namespace Zbang.Zbox.Infrastructure.Search
             builder.RegisterType<ItemSearchProvider3>().As<IItemWriteSearchProvider>().As<IItemReadSearchProvider>().SingleInstance();
             builder.RegisterType<QuizSearchProvider2>().As<IQuizWriteSearchProvider2>().As<IQuizReadSearchProvider2>().SingleInstance();
             builder.RegisterType<FlashcardSearchProvider>().As<IFlashcardWriteSearchProvider>().As<IFlashcardReadSearchProvider>().SingleInstance();
-            builder.RegisterType<ContentSearchProvider>().As<IContentWriteSearchProvider>().As<IContentReadSearchProvider>().SingleInstance();
+            builder.RegisterType<ContentSearchProvider>().As<IContentWriteSearchProvider>().SingleInstance();
+
+            builder.RegisterType<ContentSearchProvider>().Keyed<ISearchReadProvider>(SearchType.Document);
         }
     }
 }

@@ -11,12 +11,7 @@ var app;
             this.loading = true;
             this.startService.intent(this.term).then(function (response) {
                 _this.loading = false;
-                if (!response.data) {
-                    _this.sentence = "I don't understand what you want";
-                    return;
-                }
-                _this.sentence = response.sentence;
-                _this.term = "";
+                _this.sentence = JSON.stringify(response, null, "\t");
             });
         };
         return StartController;

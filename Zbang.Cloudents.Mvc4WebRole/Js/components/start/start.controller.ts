@@ -16,23 +16,16 @@
             this.loading = true;
             this.startService.intent(this.term).then(response => {
                 this.loading = false;
-                
-                if (!response.data) {
-                    this.sentence = "I don't understand what you want";
-                    return;
-                }
 
-                this.sentence = response.sentence;
-                this.term = "";
+                //if (!response.data) {
+                //    this.sentence = "I don't understand what you want";
+                //    return;
+                //}
 
-                //this.lang = response.lang;
-                //this.luis = {};
-                //this.wit = {};
-                //this.luis.data = response.luis;
-                //this.luis.intent = response.luisIntent;
+                //this.sentence = response.sentence;
+                //this.term = "";
+                this.sentence = JSON.stringify(response, null, "\t");
 
-                //this.wit.data = response.wit; 
-                //this.wit.intent = response.witIntent;
             });
         }
     }

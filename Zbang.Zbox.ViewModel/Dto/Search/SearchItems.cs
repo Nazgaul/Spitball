@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Zbang.Zbox.ViewModel.Dto.Search
 {
@@ -19,7 +20,25 @@ namespace Zbang.Zbox.ViewModel.Dto.Search
         public string Extension { get; set; }
     }
 
-    public class SearchItem
+    public abstract class SearchJaredDto
+    {
+        
+    }
+
+    public class SearchItemResult : SearchJaredDto
+    {
+        public IEnumerable<SearchItem> Result { get; set; }
+        public Dictionary<string, IEnumerable<FacetResult>> Facet { get; set; }
+
+    }
+
+    public class FacetResult
+    {
+        public string Name { get; set; }
+        public long Value { get; set; }
+    }
+
+    public class SearchItem 
     {
         public string Id { get; set; }
         public string Name { get; set; }
