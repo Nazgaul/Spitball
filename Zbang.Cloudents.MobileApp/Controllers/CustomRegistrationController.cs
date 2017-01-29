@@ -15,6 +15,8 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Cloudents.MobileApp.Controllers
@@ -54,8 +56,13 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                     model.Culture, Sex.NotKnown, null);
                 var result = await m_ZboxWriteService.CreateUserAsync(command);
 
-                var identity = await user.GenerateUserIdentityAsync(m_UserManager, result.User.Id, result.UniversityId,
-                     result.UniversityData);
+
+                var identity = new ClaimsIdentity();
+                identity.AddClaim(new Claim(ClaimConst.UserIdClaim, result.User.Id.ToString()/* User.GetUserId().ToString(CultureInfo.InvariantCulture)*/));
+              
+
+                //var identity = await user.GenerateUserIdentityAsync(m_UserManager, result.User.Id, result.UniversityId,
+                //     result.UniversityData);
 
 
                 var claims = identity.Claims.ToList();

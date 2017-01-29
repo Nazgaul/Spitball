@@ -177,10 +177,10 @@ namespace Testing
            var t =  push.GetRegisteredUsersAsync();
             t.Wait();
             return;
-           var ReadService = iocFactory.Resolve<IZboxReadServiceWorkerRole>();
-            var m_QueueRepository = iocFactory.Resolve<IQueueProvider>();
-            var index = 0;
-            IEnumerable<long> users;
+           //var ReadService = iocFactory.Resolve<IZboxReadServiceWorkerRole>();
+           // var m_QueueRepository = iocFactory.Resolve<IQueueProvider>();
+           // var index = 0;
+            //IEnumerable<long> users;
             //do
             //{
             //    users = ReadService.GetUsersBadgeFollow(index);
