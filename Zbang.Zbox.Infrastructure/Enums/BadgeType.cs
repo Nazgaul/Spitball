@@ -21,19 +21,18 @@ namespace Zbang.Zbox.Infrastructure.Enums
         Likes
     }
 
-    [Flags]
     public enum ItemType : int
     {
         Undefined = 0,
         Flashcard = 1,
         Quiz = 2,
-        Document = 4,
-        Link = 8,
-        Homework = 16,
-        Lecture = 32,
-        StudyGuide = 64,
-        Exam = 128,
-        ClassNote = 256
+        Document, // not useed
+        Link, // not used
+        Homework = 5,
+        Lecture = 6,
+        StudyGuide = 7,
+        Exam,
+        ClassNote
     }
 
     public enum SearchType
@@ -44,6 +43,6 @@ namespace Zbang.Zbox.Infrastructure.Enums
         Feed
     }
 
-   
+
 
 }

@@ -38,7 +38,11 @@ namespace Zbang.Zbox.Infrastructure.File
             {
                 using (var msPreview = previewStream())
                 {
-
+                    if (msPreview == null)
+                    {
+                        await t2;
+                        return null;
+                    }
                     var t3 = BlobProviderPreview.UploadStreamAsync(blobName, msPreview, "image/jpeg", token);
                     await Task.WhenAll(t2, t3);
                     return null;

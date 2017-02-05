@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Zbang.Zbox.ViewModel.Dto.Search
@@ -57,7 +58,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Search
 
         public string Code { get; set; }
 
-        public int Type { get; set; }
+        public IEnumerable<int> Type { get; set; }
 
         public string[] Tags { get; set; }
     }

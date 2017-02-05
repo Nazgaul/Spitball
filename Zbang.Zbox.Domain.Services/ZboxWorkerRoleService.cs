@@ -559,31 +559,31 @@ and isdeleted = 0").List();
             }
         }
 
-        private void DeleteOldLibrary()
-        {
-            using (var con = DapperConnection.OpenConnection())
-            {
-                var guids = con.Query<Guid>("select libraryid from zbox.library where name like '%~%'");
-                var i = 0;
-                foreach (var guid in guids)
-                {
-                    Console.WriteLine(guid);
-                    try
-                    {
-                        i += con.Execute("delete from zbox.library where parentid = @id", new { id = guid });
-                        i += con.Execute("delete from zbox.library where libraryid = @id", new {id = guid});
+        //private void DeleteOldLibrary()
+        //{
+        //    using (var con = DapperConnection.OpenConnection())
+        //    {
+        //        var guids = con.Query<Guid>("select libraryid from zbox.library where name like '%~%'");
+        //        var i = 0;
+        //        foreach (var guid in guids)
+        //        {
+        //            Console.WriteLine(guid);
+        //            try
+        //            {
+        //                i += con.Execute("delete from zbox.library where parentid = @id", new { id = guid });
+        //                i += con.Execute("delete from zbox.library where libraryid = @id", new {id = guid});
                         
 
-                    }
-                    catch (Exception ex)
-                    {
+        //            }
+        //            catch (Exception ex)
+        //            {
                         
-                    }
-                }
-                Console.WriteLine(i);
+        //            }
+        //        }
+        //        Console.WriteLine(i);
                 
-            }
-        }
+        //    }
+        //}
 
         private void UpdateNumberOfBoxesInDepartmentNode()
         {

@@ -57,6 +57,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         public Task UploadStreamAsync(string blobName, Stream content, string mimeType, CancellationToken token)
         {
+            if (blobName == null) throw new ArgumentNullException(nameof(blobName));
+            if (content == null) throw new ArgumentNullException(nameof(content));
             if (content.CanSeek)
             {
                 content.Seek(0, SeekOrigin.Begin);

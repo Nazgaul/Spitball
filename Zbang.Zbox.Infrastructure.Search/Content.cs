@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using Newtonsoft.Json;
@@ -42,9 +38,18 @@ namespace Zbang.Zbox.Infrastructure.Search
         public string Code { get; set; }
 
         [IsFacetable, IsFilterable]
-        public int Type { get; set; }
+        public string[] Type { get; set; }
 
         [IsSearchable, IsFacetable, IsFilterable]
         public string[] Tags { get; set; }
+
+        [IsFilterable,IsFacetable]
+        public DateTime Date { get; set; }
+
+        public string BlobName { get; set; }
+
+        public string MetaContent { get; set; }
+
+
     }
 }

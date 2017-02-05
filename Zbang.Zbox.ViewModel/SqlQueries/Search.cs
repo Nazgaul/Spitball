@@ -106,15 +106,16 @@ select
   i.ItemId as Id,
   i.Name as name,
   i.blobName as blobName,
-  i.Url as url,
+  i.Url as url, --old
   i.discriminator as typeDocument,
-  b.University as universityid,
+  b.University as universityid, -- old
   b.ProfessorName as BoxProfessor,
   b.CourseCode as BoxCode,
   b.BoxName as boxname,
   u.UniversityName as universityName,
   b.BoxId as boxid,
   it.ItemTabName as TabName,
+  i.CreationTime as Date,
   ub.UserId as UserIds_Id,
   i.language,
   t.Name as Tags_Name
@@ -148,6 +149,7 @@ select
   u.UniversityName as universityName,
   b.BoxId as boxid,
   it.ItemTabName,
+  i.CreationTime as Date,
   ub.UserId as UserIds_Id,
   i.language,
   t.Name as Tags_Name

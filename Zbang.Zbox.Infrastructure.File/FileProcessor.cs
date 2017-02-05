@@ -49,47 +49,36 @@ namespace Zbang.Zbox.Infrastructure.File
                 return input;
             }
 
-            var sentenceRegex = new Regex("[^.!?;]*[^.?!;]*[.?!;]", RegexOptions.Compiled);
-            // var pageTexts = new List<string>();
-
-            //var paragraphs = SplitSentence(input);
-            //foreach (var paragraph in paragraphs)
-            //{
-
-            //    var d = sentenceRegex.Matches(paragraph);
-            //    if (d.Count == 0)
-            //    {
-            //        AddSentenceToList(paragraph.Trim(), pageTexts);
-            //    }
-
-            //    foreach (Match t in d)
-            //    {
-            //        AddSentenceToList(t.Value.Trim(), pageTexts);
-            //    }
-            //}
-            // sw.Stop();
-            // var t1 = sw.Elapsed;
-            // sw.Restart();
-
+            var sentenceRegex = new Regex("[^.!?;]*[^.?!;]*[.?!;]", RegexOptions.Compiled, TimeSpan.FromSeconds(10));
             var pageTexts = new List<string>();
-            var d = sentenceRegex.Matches(input);
-            if (d.Count == 0)
+            string result = null;
+            try
             {
-                foreach (var sentence in SplitSentence(input))
+               
+                var d = sentenceRegex.Matches(input);
+                if (d.Count == 0)
                 {
-                    AddSentenceToList(sentence, pageTexts);
+                    foreach (var sentence in SplitSentence(input))
+                    {
+                        AddSentenceToList(sentence, pageTexts);
+                    }
                 }
-            }
-            foreach (Match match in d)
-            {
-                var x = SplitSentence(match.Value);
+                foreach (Match match in d)
+                {
+                    var x = SplitSentence(match.Value);
 
-                foreach (var t in x)
-                {
-                    AddSentenceToList(t, pageTexts);
+                    foreach (var t in x)
+                    {
+                        AddSentenceToList(t, pageTexts);
+                    }
                 }
+                result = string.Join(" ", pageTexts);
             }
-            var result = string.Join(" ", pageTexts);
+            catch (RegexMatchTimeoutException)
+            {
+                result = input;
+            }
+            
             var eightOrNineDigitsId = new Regex(@"\b\d{8,9}\b", RegexOptions.Compiled);
             result = TextManipulation.SpaceReg.Replace(result, " ");
             result = eightOrNineDigitsId.Replace(result, string.Empty);
@@ -110,8 +99,6 @@ namespace Zbang.Zbox.Infrastructure.File
             var jaroWinkler = new JaroWinkler();
             var z = TextManipulation.SpaceReg.Split(t);
             if (!z.Any(a => a.Length > 1)) return;
-            //var txt = StripUnwantedChars(lineBreakText);
-
             var result = jaroWinkler.BatchCompareSet(pageTexts.ToArray(), t);
             if (result.Any(w => w > 0.95))
             {

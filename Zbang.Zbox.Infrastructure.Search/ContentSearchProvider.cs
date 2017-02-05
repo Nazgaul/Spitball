@@ -9,6 +9,7 @@ using Microsoft.Azure.Search.Models;
 using Zbang.Zbox.Infrastructure.Ai;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Dto.Search;
@@ -50,30 +51,36 @@ namespace Zbang.Zbox.Infrastructure.Search
                 var uploadBatch = new Item
                 {
                     Id = itemToUpload.SearchContentId,
-                    Name = Path.GetFileNameWithoutExtension(itemToUpload.Name),
-                    Course = itemToUpload.BoxName,
-                    Professor = itemToUpload.BoxProfessor,
-                    Code = itemToUpload.BoxCode,
-                    University = itemToUpload.UniversityName,
-                    Type = (int)itemToUpload.Type,
-                    Tags = itemToUpload.Tags?.Select(s => s.Name).ToArray()
+                    Name = Path.GetFileNameWithoutExtension(itemToUpload.Name)?.ToLowerInvariant(),
+                    Course = itemToUpload.BoxName.ToLowerInvariant(),
+                    Professor = itemToUpload.BoxProfessor?.ToLowerInvariant(),
+                    Code = itemToUpload.BoxCode?.ToLowerInvariant(),
+                    University = itemToUpload.UniversityName.ToLowerInvariant(),
+                    Type = itemToUpload.Type.Select(s => ((int)s).ToString()).ToArray(),
+                    Tags = itemToUpload.Tags?.Select(s => s.Name.ToLowerInvariant()).Distinct().ToArray(),
+                    Date = itemToUpload.Date,
+                    MetaContent = itemToUpload.Content.RemoveEndOfString(SeachConnection.DescriptionLength),
+                    BlobName = itemToUpload.BlobName
                 };
-                switch (itemToUpload.Language)
+                if (!string.IsNullOrEmpty(itemToUpload.Content))
                 {
-                    case Language.Undefined:
-                        uploadBatch.Content = itemToUpload.Content;
-                        break;
-                    case Language.EnglishUs:
-                        uploadBatch.ContentEn = itemToUpload.Content;
-                        break;
-                    case Language.Hebrew:
-                        uploadBatch.ContentHe = itemToUpload.Content;
-                        break;
-                    case null:
-                        uploadBatch.Content = itemToUpload.Content;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                    switch (itemToUpload.Language)
+                    {
+                        case Language.Undefined:
+                            uploadBatch.Content = itemToUpload.Content;
+                            break;
+                        case Language.EnglishUs:
+                            uploadBatch.ContentEn = itemToUpload.Content;
+                            break;
+                        case Language.Hebrew:
+                            uploadBatch.ContentHe = itemToUpload.Content;
+                            break;
+                        case null:
+                            uploadBatch.Content = itemToUpload.Content;
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
                 }
                 var batch = IndexBatch.Upload(new[] { uploadBatch });
                 if (batch.Actions.Any())
@@ -104,7 +111,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             m_CheckIndexExists = true;
         }
 
-        private const string ScoringProfile = "weight";
+        private const string ScoringProfile = "score";
         private Index GetIndexStructure()
         {
             var definition = new Index
@@ -131,7 +138,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
             var d = new Dictionary<string, double>
             {
-                {nameof(Item.Tags).ToLower(), 8},
+                { nameof(Item.Tags).ToLower(), 8},
                 { nameof(Item.Name).ToLower(), 4},
                 { ContentEnglishField, 2},
                 { ContentHebrewField, 2},
@@ -157,7 +164,13 @@ namespace Zbang.Zbox.Infrastructure.Search
                 FieldName = nameof(Item.University).ToLower(),
                 Parameters = new TagScoringParameters("university")
             };
-            weightProfile.Functions = new List<ScoringFunction> { tagFunction, tagFunction2, tagFunction3 };
+            var freshNessFunction = new FreshnessScoringFunction()
+            {
+                Boost = 5,
+                FieldName = nameof(Item.Date).ToLower(),
+                Parameters = new FreshnessScoringParameters(TimeSpan.FromDays(90))
+            };
+            weightProfile.Functions = new List<ScoringFunction> { tagFunction, tagFunction2, tagFunction3 , freshNessFunction };
             definition.ScoringProfiles = new List<ScoringProfile> { weightProfile };
 
             return definition;
@@ -169,7 +182,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             var queryDocument = query as SearchDocumentIntent;
             if (queryDocument == null)
             {
-                throw new ArgumentNullException("queryDocument is null");
+                throw new NullReferenceException("queryDocument is null");
             }
             if (string.IsNullOrEmpty(queryDocument.Term))
             {
@@ -215,23 +228,21 @@ namespace Zbang.Zbox.Infrastructure.Search
                 {
                     Id = s.Document.Id,
                     Code = s.Document.Code,
-                    //Content = s.Document.Content,
-                    //ContentEn = s.Document.ContentEn,
-                    //ContentHe = s.Document.ContentHe,
                     Course = s.Document.Course,
                     Name = s.Document.Name,
                     Professor = s.Document.Professor,
                     Tags = s.Document.Tags,
-                    Type = s.Document.Type,
+                    Type = s.Document.Type.Select(int.Parse),
                     University = s.Document.University
                 }),
                 Facet = new Dictionary<string, IEnumerable<FacetResult>>(),
             };
             foreach (var facetResult in searchResult.Facets)
             {
-                retVal.Facet[facetResult.Key] = facetResult.Value.Select(s => new ViewModel.Dto.Search.FacetResult
+                retVal.Facet[facetResult.Key] = facetResult.Value.Select(s => new FacetResult
                 {
-                    Name = s.Value.ToString(), Value = s.Count.GetValueOrDefault()
+                    Name = s.Value.ToString(),
+                    Value = s.Count.GetValueOrDefault()
                 });
             }
             return retVal;
@@ -264,7 +275,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
             if (typeToSearch.HasValue)
             {
-                expressions.Add($"{nameof(Item.Type).ToLower()} eq {(int) typeToSearch}");
+                expressions.Add($"{nameof(Item.Type).ToLower()} eq '{(int)typeToSearch}'");
             }
             return string.Join(" and ", expressions);
         }

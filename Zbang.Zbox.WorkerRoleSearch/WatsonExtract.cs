@@ -14,10 +14,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public class WatsonExtract : IWatsonExtract
     {
         readonly AlchemyClient m_Client =
-              new AlchemyClient("785ea0b610cc18cf9cb3815552d2bbd979133a5b");
+              new AlchemyClient("e05317b0a67d8a3d0bf82f5b0e0b58012b717779");
 
         public async Task<IEnumerable<string>> GetConceptAsync(string text, CancellationToken token)
         {
+            if (string.IsNullOrEmpty(text))
+            {
+                return null;
+            }
             var request = new AlchemyTextConceptsRequest(text, m_Client)
             {
                 KnowledgeGraph = true,
@@ -33,7 +37,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             catch (Exception ex)
             {
                 TraceLog.WriteError("watson concept error" + text, ex);
-                return new List<string>();
+                return null;
             }
         }
 

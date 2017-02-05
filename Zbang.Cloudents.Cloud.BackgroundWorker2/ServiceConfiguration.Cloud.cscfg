@@ -23,6 +23,8 @@
       <Setting name="SearchProduction" value="true" />
       <Setting name="APPINSIGHTS_INSTRUMENTATIONKEY" value="bceed25d-fdd9-4581-b477-068120221ebd" />
       <Setting name="documentDbProduction" value="true" />
+      <Setting name="CacheUse" value="false" />
+      <Setting name="TimeToExtractText" value="3" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="D504F00C3E35AB536CD6EC83FF8EBA9FD8E3BA4D" thumbprintAlgorithm="sha1" />

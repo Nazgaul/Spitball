@@ -5,7 +5,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 {
     public class FlashcardSearchDto : ItemSearchDto
     {
-        public override ItemType Type => ItemType.Flashcard;
+        public override IEnumerable<ItemType> Type => new[] { ItemType.Flashcard };
         public override string SearchContentId => "flashcard_" + Id;
 
 
@@ -26,7 +26,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public IEnumerable<FlashcardToDeleteSearchDto> Deletes { get; set; }
     }
 
-    public class FlashcardToDeleteSearchDto: ItemToDeleteSearchDto
+    public class FlashcardToDeleteSearchDto : ItemToDeleteSearchDto
     {
         public override string SearchContentId => "flashcard_" + Id;
     }

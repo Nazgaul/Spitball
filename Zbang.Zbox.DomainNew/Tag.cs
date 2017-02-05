@@ -67,7 +67,32 @@ namespace Zbang.Zbox.Domain
             {
                 return false;
             }
-            return Tag.Equals(item.Tag) && Item.Equals(item.Item) && Flashcard.Equals(item.Flashcard) && Quiz.Equals(item.Quiz);
+            //bool equals = false;
+            return CheckEqualsWithNull(Tag, item.Tag)
+                   && CheckEqualsWithNull(Item, item.Item)
+                   && CheckEqualsWithNull(Item, item.Item)
+                   && CheckEqualsWithNull(Flashcard, item.Flashcard)
+                   && CheckEqualsWithNull(Quiz, item.Quiz);
+            //return  Tag.Equals(item.Tag) && Item.Equals(item.Item) 
+            // && Flashcard.Equals(item.Flashcard) && Quiz.Equals(item.Quiz);
+        }
+
+        private bool CheckEqualsWithNull(object a, object b)
+        {
+            if (a == null && b == null)
+            {
+                return true;
+            }
+            if (a != null && b == null)
+            {
+                return false;
+            }
+            if (a == null)
+            {
+                return false;
+            }
+            return a.Equals(b);
+
         }
 
         public override int GetHashCode()

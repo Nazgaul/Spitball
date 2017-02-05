@@ -7,7 +7,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 {
     public class QuizSearchDto : ItemSearchDto
     {
-        public override ItemType Type => ItemType.Quiz;
+        public override IEnumerable<ItemType> Type => new[] { ItemType.Quiz };
         public override string SearchContentId => "quiz_" + Id;
 
         public IEnumerable<string> Questions { get; set; }

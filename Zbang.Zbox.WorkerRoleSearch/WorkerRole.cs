@@ -132,7 +132,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
         }
 
-        private IList<IJob> GetJob()
+        private IEnumerable<IJob> GetJob()
         {
             if (RoleEnvironment.IsEmulated)
             {

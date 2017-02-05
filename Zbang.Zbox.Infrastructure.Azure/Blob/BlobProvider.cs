@@ -242,7 +242,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         }
 
-
+        public Task<Stream> OpenBlobStreamAsync(Uri blobUri, CancellationToken cancelToken)
+        {
+            var blob = GetBlob(blobUri);
+            return blob.OpenReadAsync(cancelToken);
+        }
         public async Task<string> DownloadToLocalDiskAsync(Uri blobUri, CancellationToken cancelToken)
         {
             var blob = GetBlob(blobUri);

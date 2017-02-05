@@ -9,6 +9,7 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -116,7 +117,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task JaredPilotAsync(ItemSearchDto elem, CancellationToken token)
         {
-            if (elem.Type.HasFlag(ItemType.Document))
+
+            if (elem.Type.Any(s => s == ItemType.Document))
             {
                 if (!elem.Language.HasValue)
                 {
@@ -125,12 +127,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     m_WriteService.AddItemLanguage(commandLang);
                 }
 
-                if (elem.Language == Infrastructure.Culture.Language.EnglishUs && !elem.Tags.Any())
+                if (elem.Language == Infrastructure.Culture.Language.EnglishUs /*&& !elem.Tags.Any()*/)
                 {
-                    var result = (await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token)).ToList();
-                    elem.Tags = result.Select(s => new ItemSearchTag {Name = s});
-                    var z = new AssignTagsToDocumentCommand(elem.Id, result);
-                    m_WriteService.AddItemTag(z);
+                    var result = await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token);
+                    if (result != null)
+                    {
+                        var resultList = result.ToList();
+                        elem.Tags.AddRange(resultList.Select(s => new ItemSearchTag {Name = s}));
+                        var z = new AssignTagsToDocumentCommand(elem.Id, resultList);
+                        m_WriteService.AddItemTag(z);
+                    }
                 }
 
                 var command = new UpdateDocumentCourseTagCommand(elem.Id, elem.BoxName, elem.BoxCode, elem.BoxProfessor);
@@ -147,7 +153,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
 
 
-            if (elem.Type.HasFlag(ItemType.Document)) //(elem.TypeDocument.ToLower() == "file")
+            if (elem.Type.Any(s => s == ItemType.Document)) //(elem.TypeDocument.ToLower() == "file")
             {
                 try
                 {
@@ -165,10 +171,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return PrefixLog;
         }
 
-        private Processor GetProcessor(DocumentSearchDto msgData)
+        private Processor GetProcessor(ItemSearchDto msgData)
         {
             Uri uri;
-            if (msgData.Type.HasFlag(ItemType.Document))// msgData.TypeDocument.ToLower() != "file")
+            if (msgData.Type.Any(s => s == ItemType.Document))// msgData.TypeDocument.ToLower() != "file")
             {
 
                 if (Uri.TryCreate(msgData.BlobName, UriKind.Absolute, out uri))
@@ -182,7 +188,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
             }
             uri = m_BlobProvider.GetBlobUrl(msgData.BlobName);
-            // var blob = m_BlobProvider.GetFile(msgData.BlobName);
             return new Processor
             {
                 ContentProcessor = m_FileProcessorFactory.GetProcessor(uri),
@@ -222,9 +227,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     {
                         TraceLog.WriteError("on signalr UpdateThumbnail", ex);
                     }
-                    var command = new UpdateThumbnailCommand(msgData.Id, retVal?.BlobName,
-                        msgData.Content, await m_BlobProvider.Md5Async(msgData.BlobName));
-                    m_ZboxWriteService.UpdateThumbnailPicture(command);
+                    if (msgData.Type.Any(a => a == ItemType.Document))
+                    {
+                        var command = new UpdateThumbnailCommand(msgData.Id, retVal?.BlobName,
+                            msgData.Content, await m_BlobProvider.Md5Async(msgData.BlobName));
+                        m_ZboxWriteService.UpdateThumbnailPicture(command);
+                    }
                     wait.Set();
                 }
                 catch (Exception ex)
@@ -244,11 +252,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         }
 
-        private readonly TimeSpan m_TimeToWait = TimeSpan.FromMinutes(3);
+        private readonly TimeSpan m_TimeToWait = TimeSpan.FromMinutes(double.Parse(ConfigFetcher.Fetch("TimeToExtractText")));
         private string ExtractContentToUploadToSearch(DocumentSearchDto elem, CancellationToken token)
         {
 
-            if (!elem.Type.HasFlag(ItemType.Document)) //(elem.TypeDocument.ToLower() != "file")
+            if (elem.Type.All(s => s != ItemType.Document)) //(elem.TypeDocument.ToLower() != "file")
             {
                 return null;
             }
