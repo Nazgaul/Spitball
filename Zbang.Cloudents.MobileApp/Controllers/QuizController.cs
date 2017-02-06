@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
@@ -51,7 +52,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                     User.GetUserId(), model.QuizId, TimeSpan.FromSeconds(model.NumberOfSeconds), model.BoxId);
             await m_ZboxWriteService.SaveUserAnswersAsync(command);
 
-            return Request.CreateResponse();
+            return Request.CreateResponse(string.Empty);
         }
 
         public async Task<HttpResponseMessage> Get(long boxId, long quizId)
@@ -142,7 +143,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         {
             var command = new DeleteDiscussionCommand(id, User.GetUserId());
             m_ZboxWriteService.DeleteItemInDiscussion(command);
-            return Request.CreateResponse();
+            return Request.CreateResponse(string.Empty);
         }
     }
 }
