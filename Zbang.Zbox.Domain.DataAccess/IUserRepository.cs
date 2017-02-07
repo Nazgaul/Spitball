@@ -19,7 +19,7 @@ namespace Zbang.Zbox.Domain.DataAccess
         long GetItemsByUser(long userId);
 
         bool IsNotUsedCode(string code, long userId);
-        void UpdateUserReputation(int reputation, long userid);
+        //void UpdateUserReputation(int reputation, long userid);
         void UpdateScore(int score, long userid);
         void UnsubscribeUserFromMail(IEnumerable<string> emails, EmailSend type);
         int LikesCount(long userId);

@@ -111,7 +111,7 @@ namespace Zbang.Zbox.Domain
         public virtual string StudentId { get; set; }
         public virtual DateTime? LastAccessTime { get; set; }
 
-        public virtual int Reputation { get; set; }
+       // public virtual int Reputation { get; set; }
         public virtual int Score { get; set; }
 
         public virtual ICollection<Badge> Badges { get; protected set; }
@@ -197,7 +197,7 @@ namespace Zbang.Zbox.Domain
         public virtual bool IsAdmin()
         {
             return UserType == UserType.TooHighScore ||
-                   Reputation >= University.AdminScore;
+                   Score >= University.AdminScore;
         }
 
         public virtual void UpdateEmail(string email)

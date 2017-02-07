@@ -57,7 +57,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
             await commandHandler.HandleAsync(command);
 
-            Assert.AreEqual(5, item.User.Reputation);
+            Assert.AreEqual(5, item.User.Score);
         }
 
         [TestMethod]
@@ -71,7 +71,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
             var user = new User("some email", "some largeImage", "some first name", "some last name", "en-US", Sex.NotApplicable);
             user.GetType().GetProperty("Id").SetValue(user, userid);
-            user.Reputation = 5;
+            user.Score = 5;
             var item = new Link("some name", user, 1, new PrivateBox("some box", user, BoxPrivacySetting.MembersOnly, Guid.NewGuid()), "some url");
 
             m_StubItemRepository.Stub(x => x.Load(itemid)).Return(item);
@@ -84,7 +84,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
             await commandHandler.HandleAsync(command);
 
-            Assert.AreEqual(20, item.User.Reputation);
+            Assert.AreEqual(20, item.User.Score);
         }
     }
 }

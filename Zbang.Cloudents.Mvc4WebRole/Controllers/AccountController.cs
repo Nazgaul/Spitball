@@ -118,7 +118,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             Name = googleUserData.Name,
                             UniversityId = commandResult.UniversityId,
                             UniversityData = commandResult.UniversityData,
-                            Score = commandResult.User.Reputation
+                            Score = commandResult.User.Score
                         };
                     }
                     catch (UserRegisterFacebookException)
@@ -251,7 +251,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         Name = facebookUserData.Name,
                         UniversityId = commandResult.UniversityId,
                         UniversityData = commandResult.UniversityData,
-                        Score = commandResult.User.Reputation
+                        Score = commandResult.User.Score
                     };
                 }
                 m_LanguageCookie.InjectCookie(user.Culture);

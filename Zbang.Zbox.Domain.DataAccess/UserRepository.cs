@@ -68,13 +68,13 @@ namespace Zbang.Zbox.Domain.DataAccess
             return user == null;
         }
 
-        public void UpdateUserReputation(int reputation, long userid)
-        {
-            UnitOfWork.CurrentSession.GetNamedQuery("UpdateUserReputation")//.Get.CreateQuery(hqlUpdate)
-                .SetInt64("reputation", reputation)
-                .SetInt64("userid", userid)
-                .ExecuteUpdate();
-        }
+        //public void UpdateUserReputation(int reputation, long userid)
+        //{
+        //    UnitOfWork.CurrentSession.GetNamedQuery("UpdateUserReputation")//.Get.CreateQuery(hqlUpdate)
+        //        .SetInt64("reputation", reputation)
+        //        .SetInt64("userid", userid)
+        //        .ExecuteUpdate();
+        //}
 
         public void UpdateScore(int score, long userid)
         {

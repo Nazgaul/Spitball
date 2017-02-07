@@ -146,7 +146,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                         Name = facebookUserData.Name,
                         UniversityId = commandResult.UniversityId,
                         UniversityData = commandResult.UniversityData,
-                        Score = commandResult.User.Reputation
+                        Score = commandResult.User.Score
                     };
                 }
 
@@ -219,7 +219,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                         Name = googleUserData.Name,
                         UniversityId = commandResult.UniversityId,
                         UniversityData = commandResult.UniversityData,
-                        Score = commandResult.User.Reputation
+                        Score = commandResult.User.Score
                     };
                 }
 
