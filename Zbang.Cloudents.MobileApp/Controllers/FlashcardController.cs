@@ -1,14 +1,18 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
 using Zbang.Cloudents.MobileApp.DataObjects;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
+using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
@@ -23,15 +27,21 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         private readonly IQueueProvider m_QueueProvider;
         private readonly IZboxCacheReadService m_ZboxReadService;
         private readonly IDocumentDbReadService m_DocumentDbReadService;
+        private readonly IIdGenerator m_IdGenerator;
         //private readonly IZboxReadSecurityReadService m_ZboxReadSecurityService;
         private readonly IZboxWriteService m_ZboxWriteService;
+        private readonly Lazy<IBlobProvider> m_BlobProvider;
+        private readonly IBlobProvider2<FlashcardContainerName> m_FlashcardBlob;
 
-        public FlashcardController(IQueueProvider queueProvider, IZboxCacheReadService zboxReadService, IDocumentDbReadService documentDbReadService, IZboxWriteService zboxWriteService)
+        public FlashcardController(IQueueProvider queueProvider, IZboxCacheReadService zboxReadService, IDocumentDbReadService documentDbReadService, IZboxWriteService zboxWriteService, IBlobProvider2<FlashcardContainerName> flashcardBlob, IIdGenerator idGenerator, Lazy<IBlobProvider> blobProvider)
         {
             m_QueueProvider = queueProvider;
             m_ZboxReadService = zboxReadService;
             m_DocumentDbReadService = documentDbReadService;
             m_ZboxWriteService = zboxWriteService;
+            m_FlashcardBlob = flashcardBlob;
+            m_IdGenerator = idGenerator;
+            m_BlobProvider = blobProvider;
         }
 
         // GET api/Flashcard
@@ -111,6 +121,91 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             var command = new DeleteFlashcardLikeCommand(User.GetUserId(), likeId);
             await m_ZboxWriteService.DeleteFlashcardLikeAsync(command);
             return Request.CreateResponse(HttpStatusCode.OK, string.Empty);
+        }
+
+
+        [HttpGet]
+        [Route("api/flashcard/image")]
+        public string UploadImage(string blob, string mimeType)
+        {
+            return m_FlashcardBlob.GenerateSharedAccessWritePermission(blob, mimeType);
+        }
+
+
+        [HttpDelete, Route("api/flashcard/image")]
+        public async Task<HttpResponseMessage> FlashcardImageRemoveAsync(Uri image, CancellationToken cancellationToken)
+        {
+
+            //var values = await m_DocumentDbReadService.FlashcardAsync(id);
+            //if (values.Publish)
+            //{
+            //    throw new ArgumentException("Flashcard is published");
+            //}
+            //if (values.UserId != User.GetUserId())
+            //{
+            //    throw new ArgumentException("This is not the owner");
+            //}
+            var blobName = m_BlobProvider.Value.GetBlobNameFromUri(image);
+            await m_FlashcardBlob.RemoveBlobAsync(blobName, cancellationToken);
+            return Request.CreateResponse(string.Empty);
+
+        }
+
+        [HttpPost, Route("api/flashcard/publish")]
+        public async Task<HttpResponseMessage> PublishAsync(
+            FlashcardRequest model, long boxId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            if (model.Cards != null)
+            {
+                for (var i = model.Cards.Count - 1; i >= 0; --i)
+                {
+                    if (model.Cards[i].IsEmpty())
+                    {
+                        model.Cards.RemoveAt(i);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+            var id = m_IdGenerator.GetId(IdContainer.FlashcardScope);
+            var flashCard = new Zbox.Domain.Flashcard(id)
+            {
+                BoxId = boxId,
+                UserId = User.GetUserId(),
+                Name = model.Name,
+                Publish = true,
+                DateTime = DateTime.UtcNow,
+                Cards = model.Cards?.Select(s => new Zbox.Domain.Card
+                {
+                    Cover = new Zbox.Domain.CardSlide
+                    {
+                        Text = s?.Cover?.Text,
+                        Image = s?.Cover?.Image
+                    },
+                    Front = new Zbox.Domain.CardSlide
+                    {
+                        Image = s?.Front?.Image,
+                        Text = s?.Front?.Text
+                    }
+                })
+            };
+            try
+            {
+                var command = new PublishFlashcardCommand(flashCard, boxId);
+                await m_ZboxWriteService.PublishFlashcardAsync(command);
+                return Request.CreateResponse(id);
+            }
+            catch (ArgumentException)
+            {
+                return Request.CreateResponse(HttpStatusCode.Conflict);
+                //return JsonError("flashcard with the same name already exists");
+            }
         }
     }
 }
