@@ -13,6 +13,7 @@ using Zbang.Zbox.ViewModel.Dto.Emails;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Queries.Emails;
+using Zbang.Zbox.ViewModel.Queries.Search;
 using Zbang.Zbox.ViewModel.SqlQueries;
 
 namespace Zbang.Zbox.ReadServices
@@ -324,18 +325,17 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<ItemToUpdateSearchDto> GetItemsDirtyUpdatesAsync(int index, int total, int top)
+        public async Task<ItemToUpdateSearchDto> GetItemsDirtyUpdatesAsync(SearchItemDirtyQuery query)
         {
             Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(DocumentSearchDto), new List<string> { "Id" });
             Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchUsers), new List<string> { "Id" });
             Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchTag), new List<string> { "Name" });
-
-
+            
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 using (var grid = await conn.QueryMultipleAsync
                     (Search.GetItemsToUploadToSearch2 +
-                     Search.GetItemToDeleteToSearch, new { index, count = total, top }
+                     Search.GetItemToDeleteToSearch, new { query.Index, count = query.Total, query.Top, query.ItemId }
                     ))
                 {
                     var dynamic = await grid.ReadAsync();
@@ -344,32 +344,23 @@ namespace Zbang.Zbox.ReadServices
                         ItemsToUpdate = Slapper.AutoMapper.MapDynamic<DocumentSearchDto>(dynamic),
                         ItemsToDelete = await grid.ReadAsync<DocumentToDeleteSearchDto>()
                     };
-                    //var usersInItems = grid.Read<UsersInBoxSearchDto>().ToList();
-
-
-                    //foreach (var item in retVal.ItemsToUpdate)
-                    //{
-                    //    var boxid = item.BoxId;
-                    //    item.UserIds = usersInItems.Where(w => w.BoxId == boxid).Select(s => s.UserId);
-                    //}
-
                     return retVal;
                 }
             }
         }
 
-        public async Task<DocumentSearchDto> GetItemDirtyUpdatesAsync(long itemId)
-        {
-            Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchDto), new List<string> { "Id" });
-            Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchUsers), new List<string> { "Id" });
-            Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchTag), new List<string> { "Name" });
+        //public async Task<DocumentSearchDto> GetItemDirtyUpdatesAsync(long itemId)
+        //{
+        //    Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchDto), new List<string> { "Id" });
+        //    Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchUsers), new List<string> { "Id" });
+        //    Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchTag), new List<string> { "Name" });
 
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                var dynamic = conn.QueryAsync(Search.GetItemToUploadToSearch);
-                return Slapper.AutoMapper.MapDynamic<DocumentSearchDto>(dynamic);
-            }
-        }
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        var dynamic = conn.QueryAsync(Search.GetItemToUploadToSearch);
+        //        return Slapper.AutoMapper.MapDynamic<DocumentSearchDto>(dynamic);
+        //    }
+        //}
 
         public async Task<FlashcardToUpdateSearchDto> GetFlashcardsDirtyUpdatesAsync(int index, int total, int top, CancellationToken token)
         {

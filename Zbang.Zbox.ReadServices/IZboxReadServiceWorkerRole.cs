@@ -6,6 +6,7 @@ using Zbang.Zbox.ViewModel.Dto.Emails;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Queries.Emails;
+using Zbang.Zbox.ViewModel.Queries.Search;
 
 namespace Zbang.Zbox.ReadServices
 {
@@ -35,13 +36,13 @@ namespace Zbang.Zbox.ReadServices
             CancellationToken token);
         Task<BoxToUpdateSearchDto> GetBoxesDirtyUpdatesAsync(int index, int total, int top, CancellationToken token);
 
-        Task<ItemToUpdateSearchDto> GetItemsDirtyUpdatesAsync(int index, int total, int top);
+        Task<ItemToUpdateSearchDto> GetItemsDirtyUpdatesAsync(SearchItemDirtyQuery query);
         Task<QuizToUpdateSearchDto> GetQuizzesDirtyUpdatesAsync(int index, int total, int top);
 
         Task<FlashcardToUpdateSearchDto> GetFlashcardsDirtyUpdatesAsync(int index, int total, int top,
             CancellationToken token);
 
-        Task<DocumentSearchDto> GetItemDirtyUpdatesAsync(long itemId);
+       // Task<DocumentSearchDto> GetItemDirtyUpdatesAsync(long itemId);
 
         Task<IEnumerable<MarketingDto>> GetUsersWithoutUniversityAsync(MarketingQuery query,
             CancellationToken token);

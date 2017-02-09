@@ -118,48 +118,50 @@ select
   i.CreationTime as Date,
   ub.UserId as UserIds_Id,
   i.language,
-  t.Name as Tags_Name
+  t.Name as Tags_Name,
+  itag.Type as Tags_Type
     from zbox.item i 
     join zbox.box b on i.BoxId = b.BoxId
 	left join zbox.UserBoxRel ub on b.BoxId = ub.BoxId
     left join zbox.University u on b.University = u.id
 	left join zbox.ItemTab it on i.ItemTabId = it.ItemTabId
 	left join zbox.ItemTag itag on itag.ItemId = i.ItemId left join zbox.Tag t on itag.TagId = t.Id
-	where i.ItemId in (
+	where (@top is null or (i.ItemId in (
 	select top (@top) itemid from zbox.Item 
     where isdirty = 1 
     and IsDeleted = 0
     and creationtime < DATEADD(minute, -1, getutcdate())
     and itemid % @count  = @index
-    order by ItemId desc);
+    order by ItemId desc)))
+	and (@itemId is null or (i.ItemId = @itemId));
 ";
 
 
-        public const string GetItemToUploadToSearch =
-            @"select 
-  i.ItemId as id,
-  i.Name as name,
-  i.blobName as blobName,
-  i.Url as url,
-  i.discriminator as type,
-  b.University as universityid,
-  b.ProfessorName as BoxProfessor,
-  b.CourseCode as BoxCode,
-  b.BoxName as boxname,
-  u.UniversityName as universityName,
-  b.BoxId as boxid,
-  it.ItemTabName,
-  i.CreationTime as Date,
-  ub.UserId as UserIds_Id,
-  i.language,
-  t.Name as Tags_Name
-    from zbox.item i 
-    join zbox.box b on i.BoxId = b.BoxId
-	left join zbox.UserBoxRel ub on b.BoxId = ub.BoxId
-    left join zbox.University u on b.University = u.id
-	left join zbox.ItemTab it on i.ItemTabId = it.ItemTabId
-	left join zbox.ItemTag itag on itag.ItemId = i.ItemId join zbox.Tag t on itag.TagId = t.Id
-	where i.ItemId = @itemId;";
+ //       public const string GetItemToUploadToSearch =
+ //           @"select 
+ // i.ItemId as id,
+ // i.Name as name,
+ // i.blobName as blobName,
+ // i.Url as url,
+ // i.discriminator as type,
+ // b.University as universityid,
+ // b.ProfessorName as BoxProfessor,
+ // b.CourseCode as BoxCode,
+ // b.BoxName as boxname,
+ // u.UniversityName as universityName,
+ // b.BoxId as boxid,
+ // it.ItemTabName,
+ // i.CreationTime as Date,
+ // ub.UserId as UserIds_Id,
+ // i.language,
+ // t.Name as Tags_Name
+ //   from zbox.item i 
+ //   join zbox.box b on i.BoxId = b.BoxId
+	//left join zbox.UserBoxRel ub on b.BoxId = ub.BoxId
+ //   left join zbox.University u on b.University = u.id
+	//left join zbox.ItemTab it on i.ItemTabId = it.ItemTabId
+	//left join zbox.ItemTag itag on itag.ItemId = i.ItemId join zbox.Tag t on itag.TagId = t.Id
+	//where i.ItemId = @itemId;";
 
 
 

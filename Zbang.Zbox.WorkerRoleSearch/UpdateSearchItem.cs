@@ -85,7 +85,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
         {
             const int top = 10;
-            var updates = await m_ZboxReadService.GetItemsDirtyUpdatesAsync(instanceId, instanceCount, top);
+            var updates = await m_ZboxReadService.GetItemsDirtyUpdatesAsync(new ViewModel.Queries.Search.SearchItemDirtyQuery(instanceId, instanceCount, top));
             if (!updates.ItemsToUpdate.Any() && !updates.ItemsToDelete.Any()) return TimeToSleep.Increase;
             var tasks = new List<Task>();
             foreach (var elem in updates.ItemsToUpdate)
@@ -127,7 +127,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     m_WriteService.AddItemLanguage(commandLang);
                 }
 
-                if (elem.Language == Infrastructure.Culture.Language.EnglishUs /*&& !elem.Tags.Any()*/)
+                if (elem.Language == Infrastructure.Culture.Language.EnglishUs  && elem.Tags.All(a => a.Type != TagType.Watson))
                 {
                     var result = await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token);
                     if (result != null)
@@ -329,10 +329,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var parameters = data as BoxFileProcessData;
             if (parameters == null) return true;
 
-            var elem = await m_ZboxReadService.GetItemDirtyUpdatesAsync(parameters.ItemId);
-            await UploadToAzureSearchAsync(elem, token);
+            var elem = await m_ZboxReadService.GetItemsDirtyUpdatesAsync(new ViewModel.Queries.Search.SearchItemDirtyQuery(parameters.ItemId));
+
+            await UploadToAzureSearchAsync(elem.ItemsToUpdate.FirstOrDefault(), token);
             await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
-                new UpdateDirtyToRegularCommand(new[] { elem.Id }));
+                new UpdateDirtyToRegularCommand(new[] { parameters.ItemId}));
             return true;
         }
     }

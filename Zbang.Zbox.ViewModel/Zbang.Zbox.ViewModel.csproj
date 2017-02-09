@@ -187,6 +187,7 @@
     <Compile Include="Queries\Boxes\GetBoxesQuery.cs" />
     <Compile Include="Queries\RecommendedCoursesQuery.cs" />
     <Compile Include="Queries\Search\SearchBoxesQuery.cs" />
+    <Compile Include="Queries\Search\SearchItemDirtyQuery.cs" />
     <Compile Include="Queries\Search\SearchItemsQuery.cs" />
     <Compile Include="Queries\Search\SearchQuery.cs" />
     <Compile Include="Queries\Search\SearchQueryMobile.cs" />
