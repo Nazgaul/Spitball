@@ -153,7 +153,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         [HttpPost, Route("api/flashcard/publish")]
         public async Task<HttpResponseMessage> PublishAsync(
-            FlashcardRequest model, long boxId)
+            FlashcardRequest model, [FromUri]long boxId)
         {
             if (!ModelState.IsValid)
             {
