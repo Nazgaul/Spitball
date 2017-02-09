@@ -197,7 +197,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             };
             try
             {
-                var command = new PublishFlashcardCommand(flashCard, boxId);
+                var command = new PublishFlashcardCommand(flashCard, model.BoxId);
                 await m_ZboxWriteService.PublishFlashcardAsync(command);
                 return Request.CreateResponse(id);
             }
