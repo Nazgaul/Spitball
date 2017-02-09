@@ -153,7 +153,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         [HttpPost, Route("api/flashcard/publish")]
         public async Task<HttpResponseMessage> PublishAsync(
-            FlashcardRequest model, [FromUri]long boxId)
+            FlashcardRequest model)
         {
             if (!ModelState.IsValid)
             {
@@ -176,7 +176,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             var id = m_IdGenerator.GetId(IdContainer.FlashcardScope);
             var flashCard = new Zbox.Domain.Flashcard(id)
             {
-                BoxId = boxId,
+                BoxId = model.BoxId,
                 UserId = User.GetUserId(),
                 Name = model.Name,
                 Publish = true,
