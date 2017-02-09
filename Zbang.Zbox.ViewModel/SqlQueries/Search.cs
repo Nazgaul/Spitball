@@ -185,7 +185,8 @@ f.Name,
  ub.UserId as UserIds_Id,
  u.UniversityName as universityName,
        b.University as UniversityId,
- t.Name as Tags_Name
+ t.Name as Tags_Name,
+ itag.Type as Tags_Type
     from zbox.Flashcard f
 join zbox.Box b on f.BoxId = b.BoxId
 left join zbox.University u on b.University = u.id

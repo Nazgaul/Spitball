@@ -7,7 +7,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 {
     public abstract class ItemSearchDto
     {
-        public ItemSearchDto()
+        protected ItemSearchDto()
         {
             Tags = new List<ItemSearchTag>();
         }

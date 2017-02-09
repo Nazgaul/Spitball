@@ -42,10 +42,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
             const int top = 100;
             var updates = await m_ZboxReadService.GetFlashcardsDirtyUpdatesAsync(instanceId, instanceCount, top, cancellationToken);
             if (!updates.Updates.Any() && !updates.Deletes.Any()) return TimeToSleep.Increase;
-            //TraceLog.WriteInfo(GetPrefix(),
-            //    $"updating {updates.Updates.Count()} deleting {updates.Deletes.Count()}");
             var toUpdates = updates.Updates.ToList();
-            for (int i = toUpdates.Count - 1; i >= 0; i--)
+            for (var i = toUpdates.Count - 1; i >= 0; i--)
             {
                 var update = toUpdates[i];
                 var flashcard = await m_DocumentDbService.FlashcardAsync(update.Id);
@@ -84,7 +82,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return TimeToSleep.Same;
         }
 
-        private async Task JaredPilotAsync(FlashcardSearchDto elem, CancellationToken token)
+        private async Task JaredPilotAsync(ItemSearchDto elem, CancellationToken token)
         {
             if (!elem.Language.HasValue)
             {
@@ -93,7 +91,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 m_WriteService.AddItemLanguage(commandLang);
             }
 
-            if (elem.Language == Infrastructure.Culture.Language.EnglishUs/* && (elem.Tags == null || !elem.Tags.Any())*/)
+            if (elem.Language == Infrastructure.Culture.Language.EnglishUs && elem.Tags.All(a=>a.Type != TagType.Watson))
             {
 
                 var result = (await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token)).ToList();

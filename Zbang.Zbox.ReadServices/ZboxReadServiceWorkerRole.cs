@@ -396,7 +396,8 @@ namespace Zbang.Zbox.ReadServices
                      Search.GetQuizzesQuestionToUploadToSearch +
                      Search.GetQuizzesAnswersToUploadToSearch +
                      Search.GetQuizzesUsersToUploadToSearch +
-                     Search.GetQuizzesToDeleteFromSearch, new { index, count = total, top }
+                     Search.GetQuizzesToDeleteFromSearch,
+                     new { index, count = total, top }
                     ))
                 {
                     var retVal = new QuizToUpdateSearchDto
@@ -409,7 +410,7 @@ namespace Zbang.Zbox.ReadServices
 
                     foreach (var quiz in retVal.QuizzesToUpdate)
                     {
-                        long quizId = quiz.Id;
+                        var quizId = quiz.Id;
                         var boxId = quiz.BoxId;
 
                         quiz.Questions = questions.Where(w => w.QuizId == quizId).Select(s => s.Text);
