@@ -179,7 +179,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 BoxId = model.BoxId,
                 UserId = User.GetUserId(),
                 Name = model.Name,
-                Publish = true,
+                Publish = false,
                 DateTime = DateTime.UtcNow,
                 Cards = model.Cards?.Select(s => new Zbox.Domain.Card
                 {
@@ -197,6 +197,11 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             };
             try
             {
+                var commandCreate = new AddFlashcardCommand(flashCard);
+                await m_ZboxWriteService.AddFlashcardAsync(commandCreate);
+
+                flashCard.Publish = true;
+
                 var command = new PublishFlashcardCommand(flashCard, model.BoxId);
                 await m_ZboxWriteService.PublishFlashcardAsync(command);
                 return Request.CreateResponse(id);
