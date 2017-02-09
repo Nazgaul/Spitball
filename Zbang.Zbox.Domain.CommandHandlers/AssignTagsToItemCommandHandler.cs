@@ -7,7 +7,7 @@ using Zbang.Zbox.Infrastructure.Repositories;
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class AssignTagsToItemCommandHandler<T> :
-        ICommandHandler<AssignTagsToItemCommand> where T :  IItem
+        ICommandHandler<AssignTagsToItemCommand> where T : IItem
     {
         private readonly IRepository<T> m_ItemRepository;
         private readonly IRepository<Tag> m_TagRepository;
@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             m_ItemRepository = itemRepository;
             m_TagRepository = tagRepository;
-           // m_ItemTagRepository = itemTagRepository;
+            // m_ItemTagRepository = itemTagRepository;
         }
 
         public void Handle(AssignTagsToItemCommand message)
@@ -39,7 +39,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     m_TagRepository.Save(tag);
                 }
 
-                item.AddTag(tag);
+                item.AddTag(tag, message.Type);
                 //var itemTag = AssignItemToTag(tag, item);// new ItemTag(tag, item);
                 //if (item.ItemTags.Contains(itemTag))
                 //{

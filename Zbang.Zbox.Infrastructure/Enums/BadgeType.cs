@@ -43,6 +43,14 @@ namespace Zbang.Zbox.Infrastructure.Enums
         Feed
     }
 
+    public enum TagType
+    {
+        None,
+        Watson,
+        User,
+        Backoffice
+    }
+
 
 
 }

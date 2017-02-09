@@ -6,6 +6,7 @@ using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
@@ -97,7 +98,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
                 var result = (await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token)).ToList();
                 elem.Tags.AddRange(result.Select(s => new ItemSearchTag { Name = s }));
-                var z = new AssignTagsToFlashcardCommand(elem.Id, result);
+                var z = new AssignTagsToFlashcardCommand(elem.Id, result, TagType.Watson);
                 m_WriteService.AddItemTag(z);
             }
 

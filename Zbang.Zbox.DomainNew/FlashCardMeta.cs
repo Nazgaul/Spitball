@@ -52,11 +52,11 @@ namespace Zbang.Zbox.Domain
         public virtual Func<bool> ShouldMakeDirty { get; set; }
         public virtual ISet<ItemTag> ItemTags { get; set; }
 
-        public virtual void AddTag(Tag tag)
+        public virtual void AddTag(Tag tag, TagType type)
         {
             var newExists = ItemTags.FirstOrDefault(w => w.Tag.Id == tag.Id);
             if (newExists != null) return;
-            newExists = new ItemTag(tag, this);
+            newExists = new ItemTag(tag, this, type);
             ItemTags.Add(newExists);
             tag.ItemTags.Add(newExists);
         }

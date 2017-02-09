@@ -10,7 +10,7 @@ using Zbang.Zbox.Infrastructure.Repositories;
 namespace Zbang.Zbox.Domain
 {
     [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Local")]
-    public class Quiz : IDirty , IItem
+    public class Quiz : IDirty, IItem
     {
         protected Quiz()
         {
@@ -78,7 +78,7 @@ namespace Zbang.Zbox.Domain
         // ReSharper restore UnusedAutoPropertyAccessor.Local
         public virtual void UpdateText(string newText)
         {
-            Name = newText?.Trim(); 
+            Name = newText?.Trim();
             DateTimeUser.UpdateTime = DateTime.UtcNow;
         }
 
@@ -87,9 +87,9 @@ namespace Zbang.Zbox.Domain
             NumberOfViews++;
         }
 
-       
 
-        public bool IsDirty {get;set;}
+
+        public bool IsDirty { get; set; }
 
         public virtual Func<bool> ShouldMakeDirty
         {
@@ -99,11 +99,11 @@ namespace Zbang.Zbox.Domain
 
         public virtual ISet<ItemTag> ItemTags { get; set; }
 
-        public virtual void AddTag(Tag tag)
+        public virtual void AddTag(Tag tag, TagType type)
         {
             var newExists = ItemTags.FirstOrDefault(w => w.Tag.Id == tag.Id);
             if (newExists != null) return;
-            newExists = new ItemTag(tag, this);
+            newExists = new ItemTag(tag, this, type);
             ItemTags.Add(newExists);
             tag.ItemTags.Add(newExists);
         }
@@ -111,7 +111,7 @@ namespace Zbang.Zbox.Domain
         public virtual CourseTag CourseTag { get; set; }
 
 
-        public bool IsDeleted {get;set;}
+        public bool IsDeleted { get; set; }
 
         public void DeleteAssociation()
         {

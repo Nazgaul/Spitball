@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.Domain
 {
@@ -32,25 +33,32 @@ namespace Zbang.Zbox.Domain
         {
 
         }
-        public ItemTag(Tag tag, Item item) : this()
+
+        protected ItemTag(TagType type) : this()
+        {
+            Type = type;
+        }
+        public ItemTag(Tag tag, Item item, TagType type) : this(type)
         {
 
             Tag = tag;
             Item = item;
         }
-        public ItemTag(Tag tag, FlashcardMeta item) : this()
+        public ItemTag(Tag tag, FlashcardMeta item, TagType type) : this(type)
         {
 
             Tag = tag;
             Flashcard = item;
         }
-        public ItemTag(Tag tag, Quiz item) : this()
+        public ItemTag(Tag tag, Quiz item, TagType type) : this(type)
         {
 
             Tag = tag;
             Quiz = item;
         }
         public virtual Guid Id { get; set; }
+
+        public virtual TagType Type { get; set; }
 
         public virtual Tag Tag { get; set; }
         public virtual Item Item { get; set; }
@@ -71,10 +79,9 @@ namespace Zbang.Zbox.Domain
             return CheckEqualsWithNull(Tag, item.Tag)
                    && CheckEqualsWithNull(Item, item.Item)
                    && CheckEqualsWithNull(Item, item.Item)
-                   && CheckEqualsWithNull(Flashcard, item.Flashcard)
-                   && CheckEqualsWithNull(Quiz, item.Quiz);
-            //return  Tag.Equals(item.Tag) && Item.Equals(item.Item) 
-            // && Flashcard.Equals(item.Flashcard) && Quiz.Equals(item.Quiz);
+            && CheckEqualsWithNull(Flashcard, item.Flashcard)
+            && CheckEqualsWithNull(Quiz, item.Quiz);
+            
         }
 
         private bool CheckEqualsWithNull(object a, object b)
@@ -100,7 +107,7 @@ namespace Zbang.Zbox.Domain
             return
                 11 * Tag.GetHashCode()
                 + 13 * Item?.GetHashCode() ?? 0
-                + 17 * Flashcard?.GetHashCode() ?? 0
+            + 17 * Flashcard?.GetHashCode() ?? 0
             + 19 * Quiz?.GetHashCode() ?? 0;
         }
     }

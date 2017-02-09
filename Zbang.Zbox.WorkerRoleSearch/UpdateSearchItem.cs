@@ -133,8 +133,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     if (result != null)
                     {
                         var resultList = result.ToList();
-                        elem.Tags.AddRange(resultList.Select(s => new ItemSearchTag {Name = s}));
-                        var z = new AssignTagsToDocumentCommand(elem.Id, resultList);
+                        elem.Tags.AddRange(resultList.Select(s => new ItemSearchTag { Name = s }));
+                        var z = new AssignTagsToDocumentCommand(elem.Id, resultList, TagType.Watson);
                         m_WriteService.AddItemTag(z);
                     }
                 }

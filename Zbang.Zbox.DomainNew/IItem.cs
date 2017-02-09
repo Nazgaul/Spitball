@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Zbang.Zbox.Infrastructure.Culture;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
@@ -12,7 +13,7 @@ namespace Zbang.Zbox.Domain
         Func<bool> ShouldMakeDirty { get; set; }
         //ISet<ItemTag> ItemTags { get; }
 
-        void AddTag(Tag tag);
+        void AddTag(Tag tag, TagType type);
 
         CourseTag CourseTag { get; set; }
     }
