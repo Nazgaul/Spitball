@@ -153,7 +153,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         [HttpPost, Route("api/flashcard/publish")]
         public async Task<HttpResponseMessage> PublishAsync(
-            FlashcardRequest model, long boxId)
+            FlashcardRequest model)
         {
             if (!ModelState.IsValid)
             {
@@ -176,10 +176,10 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             var id = m_IdGenerator.GetId(IdContainer.FlashcardScope);
             var flashCard = new Zbox.Domain.Flashcard(id)
             {
-                BoxId = boxId,
+                BoxId = model.BoxId,
                 UserId = User.GetUserId(),
                 Name = model.Name,
-                Publish = true,
+                Publish = false,
                 DateTime = DateTime.UtcNow,
                 Cards = model.Cards?.Select(s => new Zbox.Domain.Card
                 {
@@ -197,7 +197,12 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             };
             try
             {
-                var command = new PublishFlashcardCommand(flashCard, boxId);
+                var commandCreate = new AddFlashcardCommand(flashCard);
+                await m_ZboxWriteService.AddFlashcardAsync(commandCreate);
+
+                flashCard.Publish = true;
+
+                var command = new PublishFlashcardCommand(flashCard, model.BoxId);
                 await m_ZboxWriteService.PublishFlashcardAsync(command);
                 return Request.CreateResponse(id);
             }

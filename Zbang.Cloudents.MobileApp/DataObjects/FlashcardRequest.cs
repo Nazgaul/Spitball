@@ -15,6 +15,8 @@ namespace Zbang.Cloudents.MobileApp.DataObjects
         public string Name { get; set; }
 
         public IList<Card> Cards { get; set; }
+
+        public long BoxId { get; set; }
     }
 
     public class Card
