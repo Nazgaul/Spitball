@@ -79,6 +79,7 @@
     <Compile Include="FlashcardPin.cs" />
     <Compile Include="FlashcardSolve.cs" />
     <Compile Include="IItem.cs" />
+    <Compile Include="ItemTag.cs" />
     <Compile Include="QuizLike.cs" />
     <Compile Include="EqualityAndHashCodeProvider.cs" />
     <Compile Include="File.cs" />
