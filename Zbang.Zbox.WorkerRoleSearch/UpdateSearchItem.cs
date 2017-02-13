@@ -38,7 +38,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             IZboxWorkerRoleService zboxWriteService,
             IFileProcessorFactory fileProcessorFactory,
             IBlobProvider2<FilesContainerName> blobProvider,
-            IItemWriteSearchProvider itemSearchProvider3, IZboxWriteService writeService, IWatsonExtract watsonExtractProvider, IDetectLanguage languageDetect, IContentWriteSearchProvider contentSearchProvider)
+            IItemWriteSearchProvider itemSearchProvider3,
+            IZboxWriteService writeService, 
+            IWatsonExtract watsonExtractProvider,
+            IDetectLanguage languageDetect,
+            IContentWriteSearchProvider contentSearchProvider)
         {
             m_ZboxReadService = zboxReadService;
             m_ZboxWriteService = zboxWriteService;
@@ -144,15 +148,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
                 await m_ContentSearchProvider.UpdateDataAsync(elem, null, token);
             }
-
-
-
         }
 
         private async Task UploadToAzureSearchAsync(DocumentSearchDto elem, CancellationToken token)
         {
-
-
             if (elem.Type.Any(s => s == ItemType.Document)) //(elem.TypeDocument.ToLower() == "file")
             {
                 try

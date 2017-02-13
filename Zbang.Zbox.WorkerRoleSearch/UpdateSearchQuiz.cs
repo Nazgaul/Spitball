@@ -62,10 +62,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var updates = await m_ZboxReadService.GetQuizzesDirtyUpdatesAsync(instanceId, instanceCount, top);
             if (!updates.QuizzesToUpdate.Any() && !updates.QuizzesToDelete.Any()) return TimeToSleep.Increase;
 
-            foreach (var quiz in updates.QuizzesToUpdate.Where(w=>w.UniversityId == JaredUniversityIdPilot))
-            {
-                await JaredPilotAsync(quiz, cancellationToken);
-            }
+            //foreach (var quiz in updates.QuizzesToUpdate.Where(w=>w.UniversityId == JaredUniversityIdPilot))
+            //{
+            //    await JaredPilotAsync(quiz, cancellationToken);
+            //}
 
             var isSuccess =
                 await m_QuizSearchProvider.UpdateDataAsync(updates.QuizzesToUpdate, updates.QuizzesToDelete.Select(s=>s.Id));
