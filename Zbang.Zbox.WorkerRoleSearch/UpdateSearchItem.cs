@@ -94,23 +94,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var tasks = new List<Task>();
             foreach (var elem in updates.ItemsToUpdate)
             {
-                if (string.IsNullOrEmpty(elem.DocumentContent))
-                {
-                    elem.DocumentContent = ExtractContentToUploadToSearch(elem, cancellationToken);
-                    PreProcessFile(elem);
-                }
-                else
-                {
-                    elem.DocumentContent = null;
-                }
-
-                if (elem.UniversityId == JaredUniversityIdPilot)
-                {
-                    
-                    tasks.Add(JaredPilotAsync(elem, cancellationToken));
-                }
-                
-                tasks.Add(UploadToAzureSearchAsync(elem, cancellationToken));
+                tasks.Add(ProcessDocumentAsync(cancellationToken, elem));
             }
 
             tasks.Add(m_ItemSearchProvider3.UpdateDataAsync(null, updates.ItemsToDelete.Select(s => s.Id), cancellationToken));
@@ -125,6 +109,27 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 return TimeToSleep.Min;
             }
             return TimeToSleep.Same;
+        }
+
+        private Task ProcessDocumentAsync(CancellationToken cancellationToken, DocumentSearchDto elem)
+        {
+            if (string.IsNullOrEmpty(elem.DocumentContent))
+            {
+                elem.DocumentContent = ExtractContentToUploadToSearch(elem, cancellationToken);
+                PreProcessFile(elem);
+            }
+            else
+            {
+                elem.DocumentContent = null;
+            }
+            var t1 = Task.CompletedTask;
+            if (elem.UniversityId == JaredUniversityIdPilot)
+            {
+                t1 = JaredPilotAsync(elem, cancellationToken);
+            }
+
+            var t2 = UploadToAzureSearchAsync(elem, cancellationToken);
+            return Task.WhenAll(t1, t2);
         }
 
         private void ExtractText(DocumentSearchDto elem, CancellationToken token)
@@ -347,7 +352,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             var elem = await m_ZboxReadService.GetItemsDirtyUpdatesAsync(new ViewModel.Queries.Search.SearchItemDirtyQuery(parameters.ItemId), token);
 
-            await UploadToAzureSearchAsync(elem.ItemsToUpdate.FirstOrDefault(), token);
+            await ProcessDocumentAsync(token, elem.ItemsToUpdate.FirstOrDefault());
+            //await UploadToAzureSearchAsync(elem.ItemsToUpdate.FirstOrDefault(), token);
             await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
                 new UpdateDirtyToRegularCommand(new[] { parameters.ItemId }));
             return true;

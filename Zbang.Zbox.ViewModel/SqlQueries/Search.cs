@@ -361,9 +361,9 @@ where t.rowid < 6";
 	left join zbox.ItemTab it on i.ItemTabId = it.ItemTabId
     where i.isdirty = 1 
     and i.IsDeleted = 0
-    and i.creationtime < DATEADD(minute, -1, getutcdate())
     and b.isdeleted = 0 -- performance
-    and i.itemid % @count  = @index
+    and (@itemId is not null or (i.creationtime < DATEADD(minute, -1, getutcdate())))
+    and (@itemId is not null or (i.itemid % @count  = @index))
 	and (@itemId is null or (i.ItemId = @itemId))
     order by i.ItemId desc;";
 
@@ -371,9 +371,9 @@ where t.rowid < 6";
 select top (@top) i.boxid  from zbox.item i  
   where  i.isdirty = 1 
   and i.isdeleted = 0 
-  and i.creationtime < DATEADD(minute, -1, getutcdate())
-   and i.itemid % @count  = @index
-   and (@itemId is null or (i.ItemId = @itemId))
+  and (@itemId is not null or (i.creationtime < DATEADD(minute, -1, getutcdate())))
+    and (@itemId is not null or (i.itemid % @count  = @index))
+	and (@itemId is null or (i.ItemId = @itemId))
   order by i.ItemId desc);";
 
         public const string SearchItemTags =
@@ -381,9 +381,9 @@ select top (@top) i.boxid  from zbox.item i
   select top (@top) i.ItemId  from zbox.item i  
   where  i.isdirty = 1 
   and i.isdeleted = 0 
-  and i.creationtime < DATEADD(minute, -1, getutcdate())
-   and i.itemid % @count  = @index
-   and (@itemId is null or (i.ItemId = @itemId))
+ and (@itemId is not null or (i.creationtime < DATEADD(minute, -1, getutcdate())))
+    and (@itemId is not null or (i.itemid % @count  = @index))
+	and (@itemId is null or (i.ItemId = @itemId))
   order by i.ItemId desc);";
 
         #endregion
