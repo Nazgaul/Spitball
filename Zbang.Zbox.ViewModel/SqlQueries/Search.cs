@@ -176,6 +176,30 @@ select
 	order by Id);";
 
 
+        public const string GetFlashcardUsersToUploadToSearch =
+            @" select UserId,BoxId from zbox.UserBoxRel where boxId in (
+        select top 100 f.BoxId
+        from zbox.Flashcard f 
+        where publish = 1
+        and f.isdeleted = 0
+        and f.isdirty = 1
+           and f.id % @count  = @index
+        order by Id);";
+
+        public const string GetFlashcardToUploadToSearchOld = @"select top (@top) f.Id,
+f.Name,
+ b.BoxName,
+ f.BoxId,
+ u.UniversityName as universityName,
+       b.University
+    from zbox.Flashcard f
+join zbox.Box b on f.BoxId = b.BoxId
+left join zbox.University u on b.University = u.id
+where publish = 1
+and f.isdeleted = 0
+and f.isdirty = 1
+and f.id % @count  = @index
+order by f.Id;";
 
         public const string GetFlashcardToUploadToSearch = @"select f.Id,
 f.Name,

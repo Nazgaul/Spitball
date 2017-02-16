@@ -21,18 +21,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IBoxWriteSearchProvider2 m_BoxSearchProvider;
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
-        private readonly IWitAi m_WithAiProvider;
         private readonly IZboxWriteService m_WriteService;
 
         // private const string PrefixLog = "Search Box";
         public UpdateSearchBox(IZboxReadServiceWorkerRole zboxReadService,
             IBoxWriteSearchProvider2 boxSearchProvider,
-            IZboxWorkerRoleService zboxWriteService, IWitAi withAiProvider, IZboxWriteService writeService)
+            IZboxWorkerRoleService zboxWriteService,  IZboxWriteService writeService)
         {
             m_ZboxReadService = zboxReadService;
             m_BoxSearchProvider = boxSearchProvider;
             m_ZboxWriteService = zboxWriteService;
-            m_WithAiProvider = withAiProvider;
             m_WriteService = writeService;
         }
 

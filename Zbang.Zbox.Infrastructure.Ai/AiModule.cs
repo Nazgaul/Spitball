@@ -7,7 +7,7 @@ namespace Zbang.Zbox.Infrastructure.Ai
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<WitAi>().As<IWitAi>().SingleInstance();
+            //builder.RegisterType<WitAi>().As<IWitAi>().SingleInstance();
             //builder.RegisterType<QuestionIntent>().Named<IIntent>("AskQuestion");
             //builder.RegisterType<SearchIntent>().Named<IIntent>("SearchContent");
         }

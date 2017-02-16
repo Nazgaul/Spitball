@@ -19,18 +19,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
     {
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IUniversityWriteSearchProvider2 m_UniversitySearchProvider;
-        private readonly IWitAi m_WithAiProvider;
 
 
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
         private const string PrefixLog = "Search university";
 
-        public UpdateSearchUniversity(IZboxReadServiceWorkerRole zboxReadService, IUniversityWriteSearchProvider2 universitySearchProvider, IZboxWorkerRoleService zboxWriteService, IWitAi withAiProvider)
+        public UpdateSearchUniversity(IZboxReadServiceWorkerRole zboxReadService, IUniversityWriteSearchProvider2 universitySearchProvider, IZboxWorkerRoleService zboxWriteService)
         {
             m_ZboxReadService = zboxReadService;
             m_UniversitySearchProvider = universitySearchProvider;
             m_ZboxWriteService = zboxWriteService;
-            m_WithAiProvider = withAiProvider;
             MaxInterval = TimeSpan.FromMinutes(10).TotalSeconds; //Remove once production is up
         }
 

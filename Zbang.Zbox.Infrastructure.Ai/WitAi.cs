@@ -6,7 +6,7 @@ using Zbang.Zbox.ViewModel.Dto;
 
 namespace Zbang.Zbox.Infrastructure.Ai
 {
-    public class WitAi : IWitAi
+    public class WitAi //: IWitAi
     {
 
         private readonly WitClient m_Client = new WitClient("LRSR7XQUEU5UB7TQNBB64B7BHZDC7UNH");

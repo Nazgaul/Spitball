@@ -18,6 +18,7 @@ namespace Zbang.Zbox.ViewModel.Queries.Search
 
         public SearchItemDirtyQuery(long itemId)
         {
+            Top = 1;
             ItemId = itemId;
         }
 
