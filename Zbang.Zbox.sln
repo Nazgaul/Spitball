@@ -103,6 +103,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Management Application", "M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Zbox.Infrastructure.Ai", "Zbang.Zbox.Infrastructure.Ai\Zbang.Zbox.Infrastructure.Ai.csproj", "{E0ACFFFC-ED65-4B5B-863C-9F9DE16CFAF9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Cloudents.Jared", "Zbang.Cloudents.Jared\Zbang.Cloudents.Jared.csproj", "{C8347269-DC11-4382-9E62-5BDE4D6B2279}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU
@@ -1044,6 +1046,36 @@ Global
 		{E0ACFFFC-ED65-4B5B-863C-9F9DE16CFAF9}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
 		{E0ACFFFC-ED65-4B5B-863C-9F9DE16CFAF9}.SingleImage|x86.ActiveCfg = Release|Any CPU
 		{E0ACFFFC-ED65-4B5B-863C-9F9DE16CFAF9}.SingleImage|x86.Build.0 = Release|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.CD_ROM|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.CD_ROM|Mixed Platforms.Build.0 = Release|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.CD_ROM|x86.ActiveCfg = Release|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.CD_ROM|x86.Build.0 = Release|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.Debug|x86.Build.0 = Debug|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.DVD-5|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.DVD-5|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.DVD-5|x86.ActiveCfg = Debug|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.DVD-5|x86.Build.0 = Debug|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.Release|x86.ActiveCfg = Release|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.Release|x86.Build.0 = Release|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.SingleImage|x86.ActiveCfg = Release|Any CPU
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.SingleImage|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1089,6 +1121,7 @@ Global
 		{2337BD52-AA31-4A80-8075-2CFA68DFC684} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
 		{8E505C7F-EF4B-43D1-9906-34823932AAED} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
 		{E0ACFFFC-ED65-4B5B-863C-9F9DE16CFAF9} = {F7B23167-AD4A-4FF4-ABDE-ACB6E2746F4E}
+		{C8347269-DC11-4382-9E62-5BDE4D6B2279} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45

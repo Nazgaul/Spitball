@@ -50,11 +50,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
                 if (string.IsNullOrEmpty(connectionString))
                 {
                     ZboxCloudStorage = CloudStorageAccount.DevelopmentStorageAccount;
-                    CreateStorage();
+                    //CreateStorage();
                     return;
                 }
                 ZboxCloudStorage = CloudStorageAccount.Parse(connectionString);
-                CreateStorage();
+               // CreateStorage();
             }
             catch (ArgumentNullException ex)
             {

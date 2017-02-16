@@ -39,7 +39,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Domain.CommandHandlers.Ioc.RegisterIoc.Register();
 
             Ioc.ContainerBuilder.RegisterModule<CommandsModule>();
-            Ioc.ContainerBuilder.RegisterModule<AiModule>();
+            //Ioc.ContainerBuilder.RegisterModule<AiModule>();
 
             Ioc.ContainerBuilder.RegisterType<SendPush>()
             .As<ISendPush>()
@@ -50,7 +50,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //Unity = new UnityContainer();
             Ioc.ContainerBuilder.RegisterModule<WorkerRoleModule>();
             Ioc.Build();
-            // Ioc.Resolve<IBlobProvider>();
+
+            Ioc.Resolve<Domain.Common.IZboxServiceBootStrapper>().BootStrapper();
+            
         }
 
         public T Resolve<T>(string name)

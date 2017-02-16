@@ -24,6 +24,12 @@ namespace Zbang.Zbox.Infrastructure.Cache
             return cache.StringSetAsync(key, Serialize(value), expiry, flags: CommandFlags.FireAndForget);
         }
 
+        public static bool Set<T>(this IDatabase cache, string key, T value, TimeSpan? expiry = null) where T : class
+        {
+            if (cache == null) throw new ArgumentNullException(nameof(cache));
+            return cache.StringSet(key, Serialize(value), expiry, flags: CommandFlags.FireAndForget);
+        }
+
         private static string Serialize<T>(T o) where T : class
         {
             if (o == null)

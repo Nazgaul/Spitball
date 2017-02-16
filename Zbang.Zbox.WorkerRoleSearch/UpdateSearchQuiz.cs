@@ -101,9 +101,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 m_WriteService.AddItemTag(z);
             }
 
-            var command = new UpdateQuizCourseTagCommand(elem.Id, elem.BoxName, elem.BoxCode, elem.BoxProfessor);
-            m_WriteService.UpdateItemCourseTag(command);
-
             await m_ContentSearchProvider.UpdateDataAsync(elem, null, token);
         }
 

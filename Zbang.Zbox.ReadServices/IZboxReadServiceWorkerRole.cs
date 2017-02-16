@@ -36,13 +36,13 @@ namespace Zbang.Zbox.ReadServices
             CancellationToken token);
         Task<BoxToUpdateSearchDto> GetBoxesDirtyUpdatesAsync(int index, int total, int top, CancellationToken token);
 
-        Task<ItemToUpdateSearchDto> GetItemsDirtyUpdatesAsync(SearchItemDirtyQuery query);
+        Task<ItemToUpdateSearchDto> GetItemsDirtyUpdatesAsync(SearchItemDirtyQuery query, CancellationToken token);
         Task<QuizToUpdateSearchDto> GetQuizzesDirtyUpdatesAsync(int index, int total, int top);
 
         Task<FlashcardToUpdateSearchDto> GetFlashcardsDirtyUpdatesAsync(int index, int total, int top,
             CancellationToken token);
 
-       // Task<DocumentSearchDto> GetItemDirtyUpdatesAsync(long itemId);
+        // Task<DocumentSearchDto> GetItemDirtyUpdatesAsync(long itemId);
 
         Task<IEnumerable<MarketingDto>> GetUsersWithoutUniversityAsync(MarketingQuery query,
             CancellationToken token);
@@ -71,7 +71,7 @@ namespace Zbang.Zbox.ReadServices
         IEnumerable<long> GetUsersBadgeItem(int page);
         IEnumerable<long> GetUsersBadgeLike(int page);
         IEnumerable<long> GetUserReputationUpdate(int page);
-        
+
 
     }
 }

@@ -45,7 +45,7 @@ namespace Zbang.Zbox.Domain
         public virtual long Size { get; set; }
         public virtual Box Box { get; set; }
 
-        public virtual CourseTag CourseTag { get; set; }
+        //public virtual CourseTag CourseTag { get; set; }
         public virtual long BoxId { get; set; }
         public virtual int NumberOfViews { get; private set; }
 

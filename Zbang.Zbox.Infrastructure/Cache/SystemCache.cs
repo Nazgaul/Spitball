@@ -41,6 +41,8 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 $"m_IsRedisCacheAvailable {m_IsRedisCacheAvailable} m_IsHttpCacheAvailable {m_IsHttpCacheAvailable}");
         }
 
+        
+
         public Task AddToCacheAsync<T>(string region, string key, T value, TimeSpan expiration) where T : class
         {
             try
@@ -66,6 +68,32 @@ namespace Zbang.Zbox.Infrastructure.Cache
             {
                 Trace.TraceLog.WriteError($"AddToCacheAsync key {key}", ex);
                 return Task.FromResult(false);
+            }
+        }
+
+        public void AddToCache<T>(string region, string key, T value, TimeSpan expiration) where T : class
+        {
+            try
+            {
+                if (!m_CacheExists)
+                {
+                    return;
+                }
+                var cacheKey = BuildCacheKey(region, key);
+                if (!m_IsRedisCacheAvailable && m_IsHttpCacheAvailable)
+                {
+                    HttpContext.Current.Cache.Insert(cacheKey, value, null, System.Web.Caching.Cache.NoAbsoluteExpiration,
+                        expiration);
+                    return;
+                }
+                var db = Connection.GetDatabase();
+
+                db.StringAppend(region, cacheKey + ";", CommandFlags.FireAndForget);
+                db.Set(cacheKey, value, expiration);
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceLog.WriteError($"AddToCacheAsync key {key}", ex);
             }
         }
 

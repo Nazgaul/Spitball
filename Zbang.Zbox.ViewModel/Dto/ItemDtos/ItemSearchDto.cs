@@ -29,12 +29,17 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
         public string BlobName { get; set; }
 
+        public int Views { get; set; }
+        public int Likes { get; set; }
+
         public abstract string SearchContentId { get; }// => "item_" + Id;
     }
 
     public class ItemSearchUsers
     {
-        public long Id { get; set; }
+        public long BoxId { get; set; }
+
+        public long UserId { get; set; }
     }
 
     public class ItemSearchTag
@@ -42,5 +47,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public string Name { get; set; }
 
         public TagType Type { get; set; }
+
+        public long ItemId { get; set; }
     }
 }

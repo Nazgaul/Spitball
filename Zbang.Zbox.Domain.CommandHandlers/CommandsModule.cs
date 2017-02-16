@@ -27,21 +27,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                .As<ICommandHandler<AssignTagsToQuizCommand>>();
             //AssignTagsToQuizCommand
 
-            builder.RegisterType(typeof(UpdateItemCourseTagCommandHandler<Item>))
-               .As<ICommandHandler<UpdateDocumentCourseTagCommand>>();
-            builder.RegisterType(typeof(UpdateItemCourseTagCommandHandler<FlashcardMeta>))
-                .As<ICommandHandler<UpdateFlashcardCourseTagCommand>>();
-            builder.RegisterType(typeof(UpdateItemCourseTagCommandHandler<Domain.Quiz>))
-                .As<ICommandHandler<UpdateQuizCourseTagCommand>>();
+            //builder.RegisterType(typeof(UpdateItemCourseTagCommandHandler<Item>))
+            //   .As<ICommandHandler<UpdateDocumentCourseTagCommand>>();
+            //builder.RegisterType(typeof(UpdateItemCourseTagCommandHandler<FlashcardMeta>))
+            //    .As<ICommandHandler<UpdateFlashcardCourseTagCommand>>();
+            //builder.RegisterType(typeof(UpdateItemCourseTagCommandHandler<Domain.Quiz>))
+            //    .As<ICommandHandler<UpdateQuizCourseTagCommand>>();
 
-            //builder.RegisterType<AssignTagsToDocumentCommandHandler>()
-            //    .As<ICommandHandler<AssignTagsToDocumentCommand>>();
-
-            //builder.RegisterType<AssignTagsToFlashcardCommandHandler>()
-            //    .As<ICommandHandler<AssignTagsToFlashcardCommand>>();
-
-            //builder.RegisterType<AssignTagsToDocumentCommandHandler>()
-            //    .As<ICommandHandler<AssignTagsToQuizCommand>>();
+            
 
             builder.RegisterAssemblyTypes(ThisAssembly).AsClosedTypesOf(typeof(ICommandHandler<>));
 

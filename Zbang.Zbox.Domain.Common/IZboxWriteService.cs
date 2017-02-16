@@ -141,7 +141,7 @@ namespace Zbang.Zbox.Domain.Common
         #region Jared
 
         //void AddCourseTag(CreateCourseTagCommand command);
-        void UpdateItemCourseTag<T>(T command) where T : UpdateItemCourseTagCommand;
+        //void UpdateItemCourseTag<T>(T command) where T : UpdateItemCourseTagCommand;
         void AddItemTag<T>(T command) where T : AssignTagsToItemCommand;
         void AddItemLanguage<T>(T command) where T : AddLanguageToItemCommand;
         //void DoWork(params ICommand[] commands);

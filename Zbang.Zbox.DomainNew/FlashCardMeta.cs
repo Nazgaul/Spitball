@@ -61,7 +61,7 @@ namespace Zbang.Zbox.Domain
             tag.ItemTags.Add(newExists);
         }
 
-        public virtual CourseTag CourseTag { get; set; }
+       // public virtual CourseTag CourseTag { get; set; }
 
         public virtual UserTimeDetails DateTimeUser { get; private set; }
 

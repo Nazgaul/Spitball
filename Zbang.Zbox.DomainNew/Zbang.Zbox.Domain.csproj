@@ -72,7 +72,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Connection.cs" />
-    <Compile Include="CourseTag.cs" />
     <Compile Include="Flashcard.cs" />
     <Compile Include="FlashcardLike.cs" />
     <Compile Include="FlashcardMeta.cs" />

@@ -60,7 +60,9 @@ namespace Zbang.Zbox.Infrastructure.Search
                     Tags = itemToUpload.Tags?.Select(s => s.Name.ToLowerInvariant()).Distinct().ToArray(),
                     Date = itemToUpload.Date,
                     MetaContent = itemToUpload.Content.RemoveEndOfString(SeachConnection.DescriptionLength),
-                    BlobName = itemToUpload.BlobName
+                    BlobName = itemToUpload.BlobName,
+                    Views = itemToUpload.Views,
+                    Likes = itemToUpload.Likes
                 };
                 if (!string.IsNullOrEmpty(itemToUpload.Content))
                 {
@@ -82,7 +84,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                             throw new ArgumentOutOfRangeException();
                     }
                 }
-                var batch = IndexBatch.Upload(new[] { uploadBatch });
+                var batch = IndexBatch.MergeOrUpload(new[] { uploadBatch });
                 if (batch.Actions.Any())
                     await m_IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
             }

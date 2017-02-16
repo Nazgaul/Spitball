@@ -134,7 +134,6 @@
     <Compile Include="UnsubscribeUsersFromEmailCommand.cs" />
     <Compile Include="UpdateBadgesCommand.cs" />
     <Compile Include="UpdateFlashcardCommand.cs" />
-    <Compile Include="UpdateItemCourseTagCommand.cs" />
     <Compile Include="UpdateNodeSettingsCommand.cs" />
     <Compile Include="UnFollowBoxCommand.cs" />
     <Compile Include="UpdateDirtyToRegularCommand.cs" />

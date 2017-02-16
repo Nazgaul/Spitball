@@ -94,8 +94,10 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                 {
                     IFormatter bf = new BinaryFormatter();
                     bf.Serialize(ms, Configuration);
-                    storage.AddToCacheAsync("nhibernate", GetConfigurationFileName(), ms.ToArray(),
-                        TimeSpan.FromDays(90)).Wait();
+
+
+                    storage.AddToCache("nhibernate", GetConfigurationFileName(), ms.ToArray(),
+                        TimeSpan.FromDays(90));
                 }
             }
             catch (Exception ex)

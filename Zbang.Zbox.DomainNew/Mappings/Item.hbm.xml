@@ -25,7 +25,7 @@
       <property name="UpdatedUser"  not-null="true" insert="true" />
     </component>
     <many-to-one column="BoxId" class="Box" name="Box" index="iBoxIsDeleted"/>
-    <many-to-one column="CourseTag" class="CourseTag" name="CourseTag" foreign-key="iCourseTag"/>
+    <!--<many-to-one column="CourseTag" class="CourseTag" name="CourseTag" foreign-key="iCourseTag"/>-->
     <property  name="BoxId" column="BoxId" insert="false" update="false" />
 
     <many-to-one name="User" class="User" column="UserId" not-null="true"/>

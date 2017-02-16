@@ -23,7 +23,7 @@
       <Setting name="SearchProduction" value="true" />
       <Setting name="APPINSIGHTS_INSTRUMENTATIONKEY" value="bceed25d-fdd9-4581-b477-068120221ebd" />
       <Setting name="documentDbProduction" value="true" />
-      <Setting name="CacheUse" value="false" />
+      <Setting name="CacheUse" value="true" />
       <Setting name="TimeToExtractText" value="3" />
     </ConfigurationSettings>
     <Certificates>

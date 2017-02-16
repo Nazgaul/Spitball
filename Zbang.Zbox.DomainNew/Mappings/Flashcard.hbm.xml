@@ -36,7 +36,7 @@
       <key column="FlashcardId" foreign-key="fTagItemFlashcard"/>
       <one-to-many class="ItemTag"/>
     </set>
-    <many-to-one column="CourseTag" class="CourseTag" name="CourseTag" foreign-key="iCourseTag"/>
+    <!--<many-to-one column="CourseTag" class="CourseTag" name="CourseTag" foreign-key="iCourseTag"/>-->
 
 
   </class>

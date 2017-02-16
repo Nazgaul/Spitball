@@ -50,6 +50,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public string MetaContent { get; set; }
 
-
+        public int Views { get; set; }
+        public int Likes { get; set; }
     }
 }

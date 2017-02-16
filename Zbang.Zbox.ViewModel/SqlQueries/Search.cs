@@ -137,31 +137,31 @@ select
 ";
 
 
- //       public const string GetItemToUploadToSearch =
- //           @"select 
- // i.ItemId as id,
- // i.Name as name,
- // i.blobName as blobName,
- // i.Url as url,
- // i.discriminator as type,
- // b.University as universityid,
- // b.ProfessorName as BoxProfessor,
- // b.CourseCode as BoxCode,
- // b.BoxName as boxname,
- // u.UniversityName as universityName,
- // b.BoxId as boxid,
- // it.ItemTabName,
- // i.CreationTime as Date,
- // ub.UserId as UserIds_Id,
- // i.language,
- // t.Name as Tags_Name
- //   from zbox.item i 
- //   join zbox.box b on i.BoxId = b.BoxId
-	//left join zbox.UserBoxRel ub on b.BoxId = ub.BoxId
- //   left join zbox.University u on b.University = u.id
-	//left join zbox.ItemTab it on i.ItemTabId = it.ItemTabId
-	//left join zbox.ItemTag itag on itag.ItemId = i.ItemId join zbox.Tag t on itag.TagId = t.Id
-	//where i.ItemId = @itemId;";
+        //       public const string GetItemToUploadToSearch =
+        //           @"select 
+        // i.ItemId as id,
+        // i.Name as name,
+        // i.blobName as blobName,
+        // i.Url as url,
+        // i.discriminator as type,
+        // b.University as universityid,
+        // b.ProfessorName as BoxProfessor,
+        // b.CourseCode as BoxCode,
+        // b.BoxName as boxname,
+        // u.UniversityName as universityName,
+        // b.BoxId as boxid,
+        // it.ItemTabName,
+        // i.CreationTime as Date,
+        // ub.UserId as UserIds_Id,
+        // i.language,
+        // t.Name as Tags_Name
+        //   from zbox.item i 
+        //   join zbox.box b on i.BoxId = b.BoxId
+        //left join zbox.UserBoxRel ub on b.BoxId = ub.BoxId
+        //   left join zbox.University u on b.University = u.id
+        //left join zbox.ItemTab it on i.ItemTabId = it.ItemTabId
+        //left join zbox.ItemTag itag on itag.ItemId = i.ItemId join zbox.Tag t on itag.TagId = t.Id
+        //where i.ItemId = @itemId;";
 
 
 
@@ -263,7 +263,7 @@ offset @pageNumber*@rowsperpage ROWS
 FETCH NEXT @rowsperpage ROWS ONLY;";
 
         public const string GetUsersInBoxByTerm =
-           
+
             @"select u.userid as Id, username as Name,UserImageLarge as Image 
 from zbox.users u 
 where username like  @Term + '%'
@@ -302,9 +302,66 @@ where t.rowid < 6";
 
         public const string GetUniversitiesToDeleteFromSearch = @"select top 500 id from zbox.University
                     where isdirty = 1 and isdeleted = 1 and id % @count  = @index;";
+
+
+
+
+        #region Document
+
+        public const string SearchItemNew = @"select top (@top)
+  i.ItemId as id,
+  i.Name as name,
+  i.Content as documentcontent,
+  i.blobName as blobName,
+  i.Url as url, --old
+  i.discriminator as typeDocument,
+  b.ProfessorName as BoxProfessor,
+  b.CourseCode as BoxCode,
+  case b.Discriminator
+   when 2 then
+       b.University
+	   else null
+	   end
+   as universityid,
+  b.BoxName as boxname, -- old
+  u.UniversityName as universityName,
+  b.BoxId as boxid,
+  i.CreationTime as Date,
+  i.language,
+  i.LikeCount as likes,
+  i.NumberOfViews as views,
+  it.ItemTabName as TabName
+    from zbox.item i 
+    join zbox.box b on i.BoxId = b.BoxId
+    left join zbox.University u on b.University = u.id
+	left join zbox.ItemTab it on i.ItemTabId = it.ItemTabId
+    where i.isdirty = 1 
+    and i.IsDeleted = 0
+    and i.creationtime < DATEADD(minute, -1, getutcdate())
+    and b.isdeleted = 0 -- performance
+    and i.itemid % @count  = @index
+	and (@itemId is null or (i.ItemId = @itemId))
+    order by i.ItemId desc;";
+
+        public const string SearchItemUserBoxRel = @"select UserId,BoxId from zbox.UserBoxRel where boxId in (
+select top (@top) i.boxid  from zbox.item i  
+  where  i.isdirty = 1 
+  and i.isdeleted = 0 
+  and i.creationtime < DATEADD(minute, -1, getutcdate())
+   and i.itemid % @count  = @index
+   and (@itemId is null or (i.ItemId = @itemId))
+  order by i.ItemId desc);";
+
+        public const string SearchItemTags =
+            @"select it.ItemId, t.Name, it.Type from zbox.ItemTag it join zbox.Tag t on it.TagId = t.Id where it.ItemId in (
+  select top (@top) i.ItemId  from zbox.item i  
+  where  i.isdirty = 1 
+  and i.isdeleted = 0 
+  and i.creationtime < DATEADD(minute, -1, getutcdate())
+   and i.itemid % @count  = @index
+   and (@itemId is null or (i.ItemId = @itemId))
+  order by i.ItemId desc);";
+
+        #endregion
     }
-
-
-
-
 }

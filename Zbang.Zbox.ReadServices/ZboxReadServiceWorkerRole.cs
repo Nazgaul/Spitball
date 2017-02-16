@@ -325,28 +325,43 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<ItemToUpdateSearchDto> GetItemsDirtyUpdatesAsync(SearchItemDirtyQuery query)
+        public async Task<ItemToUpdateSearchDto> GetItemsDirtyUpdatesAsync(SearchItemDirtyQuery query, CancellationToken token)
         {
-            Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(DocumentSearchDto), new List<string> { "Id" });
-            Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchUsers), new List<string> { "Id" });
-            Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchTag), new List<string> { "Name" });
-            
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            //Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(DocumentSearchDto), new List<string> { "Id" });
+            //Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchUsers), new List<string> { "Id" });
+            //Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchTag), new List<string> { "Name" });
+
+            using (var conn = await DapperConnection.OpenConnectionAsync(token))
             {
-                using (var grid = await conn.QueryMultipleAsync
-                    (Search.GetItemsToUploadToSearch2 +
-                     Search.GetItemToDeleteToSearch, new { query.Index, count = query.Total, query.Top, query.ItemId }
-                    ))
+                using (var grid = await conn.QueryMultipleAsync(
+                    new CommandDefinition(Search.SearchItemNew + Search.SearchItemUserBoxRel +
+                    Search.SearchItemTags + Search.GetItemToDeleteToSearch,
+                        new { query.Index, count = query.Total, query.Top, query.ItemId }, cancellationToken: token)))
                 {
-                    var dynamic = await grid.ReadAsync();
-                    var retVal = new ItemToUpdateSearchDto
+                    var retVal = new ItemToUpdateSearchDto {ItemsToUpdate = await grid.ReadAsync<DocumentSearchDto>()};
+                    var users = (await grid.ReadAsync<ItemSearchUsers>()).ToList();
+                    var tags = (await grid.ReadAsync<ItemSearchTag>()).ToList();
+                    retVal.ItemsToDelete = await grid.ReadAsync<DocumentToDeleteSearchDto>();
+                    var cacheUsers = new Dictionary<long, IEnumerable<long>>();
+                    foreach (var p in retVal.ItemsToUpdate)
                     {
-                        ItemsToUpdate = Slapper.AutoMapper.MapDynamic<DocumentSearchDto>(dynamic),
-                        ItemsToDelete = await grid.ReadAsync<DocumentToDeleteSearchDto>()
-                    };
+                        IEnumerable<long> usersIds;
+                        if (cacheUsers.TryGetValue(p.BoxId, out usersIds))
+                        {
+                            p.UserIds = usersIds;
+                        }
+                        else
+                        {
+                            p.UserIds = cacheUsers[p.BoxId] = users.Where(w => w.BoxId == p.BoxId).Select(s => s.UserId);
+                        }
+
+                        p.Tags = tags.Where(w => w.ItemId == p.Id).ToList();
+                    }
                     return retVal;
                 }
             }
+
+ 
         }
 
         //public async Task<DocumentSearchDto> GetItemDirtyUpdatesAsync(long itemId)

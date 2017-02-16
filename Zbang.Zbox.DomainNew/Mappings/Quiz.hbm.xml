@@ -51,7 +51,7 @@
       <key column="QuizId" foreign-key="fTagItemQuiz"/>
       <one-to-many class="ItemTag"/>
     </set>
-    <many-to-one column="CourseTag" class="CourseTag" name="CourseTag" foreign-key="iCourseTag"/>
+    <!--<many-to-one column="CourseTag" class="CourseTag" name="CourseTag" foreign-key="iCourseTag"/>-->
     
 
   </class>

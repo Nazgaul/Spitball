@@ -29,8 +29,8 @@ namespace Zbang.Zbox.Domain.Services
 
         public void BootStrapper()
         {
-            //using (UnitOfWork.Start())
-            //{ }
+            using (UnitOfWork.Start())
+            { }
         }
 
 
@@ -819,7 +819,8 @@ namespace Zbang.Zbox.Domain.Services
 
         #region Jared
 
-        //public void AddCourseTag(CreateCourseTagCommand command)
+        
+        //public void UpdateItemCourseTag<T>(T command) where T : UpdateItemCourseTagCommand
         //{
         //    using (UnitOfWork.Start())
         //    {
@@ -827,14 +828,6 @@ namespace Zbang.Zbox.Domain.Services
         //        UnitOfWork.Current.TransactionalFlush();
         //    }
         //}
-        public void UpdateItemCourseTag<T>(T command) where T : UpdateItemCourseTagCommand
-        {
-            using (UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
 
         public void AddItemTag<T>(T command) where T : AssignTagsToItemCommand
         {

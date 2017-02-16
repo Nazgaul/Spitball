@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
-using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
@@ -15,6 +13,6 @@ namespace Zbang.Zbox.Domain
 
         void AddTag(Tag tag, TagType type);
 
-        CourseTag CourseTag { get; set; }
+        //CourseTag CourseTag { get; set; }
     }
 }

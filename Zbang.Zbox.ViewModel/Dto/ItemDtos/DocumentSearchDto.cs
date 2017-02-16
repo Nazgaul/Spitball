@@ -41,43 +41,30 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
                 var type = new List<ItemType>
                 {
                     TypeDocument.ToLowerInvariant() == "file" ? ItemType.Document : ItemType.Link
-                }; //  ItemType.Undefined;
+                }; 
                 if (string.IsNullOrEmpty(TabName) && string.IsNullOrEmpty(Content))
                 {
                     return type;
                 }
                 if (ClassifyType(ClassNotes,Name, TabName, Content))
                 {
-
                     type.Add(ItemType.ClassNote);
-                    //return m_Type;
                 }
                 if (ClassifyType(Homework, Name, TabName, Content))
                 {
                     type.Add(ItemType.Homework);
-                    //m_Type = type | ItemType.Homework;
-                    //return m_Type;
                 }
                 if (ClassifyType(StudyGuides, Name, TabName, Content))
-                    //if (TabName.Equals("Study Guides", StringComparison.InvariantCultureIgnoreCase))
                 {
                     type.Add(ItemType.StudyGuide);
-                    //m_Type = type | ItemType.StudyGuide;
-                    //return m_Type;
                 }
                 if (ClassifyType(Exams, Name, TabName, Content))
-                    //if (TabName.Equals("Tests & Exams", StringComparison.InvariantCultureIgnoreCase))
                 {
                     type.Add(ItemType.Exam);
-                    //m_Type = type | ItemType.Exam;
-                    //return m_Type;
                 }
                 if (ClassifyType(Lectures, Name, TabName, Content))
-                    //if (TabName.Equals("Lectures", StringComparison.InvariantCultureIgnoreCase))
                 {
                     type.Add(ItemType.Lecture);
-                    //m_Type = type | ItemType.Lecture;
-                    //return m_Type;
                 }
                 m_Type = type;
                 return m_Type;
@@ -99,7 +86,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
         public string TypeDocument { get; set; }
 
-        public IEnumerable<ItemSearchUsers> UserIds { get; set; }
+        public IEnumerable<long> UserIds { get; set; }
 
         public override string ToString()
         {
