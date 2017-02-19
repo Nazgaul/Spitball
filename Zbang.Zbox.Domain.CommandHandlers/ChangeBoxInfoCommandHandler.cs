@@ -10,19 +10,17 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class ChangeBoxInfoCommandHandler : ICommandHandler<ChangeBoxInfoCommand>
     {
-        private readonly IRepository<Box> m_BoxRepository;
+        private readonly IBoxRepository m_BoxRepository;
         private readonly IRepository<AcademicBox> m_AcademicBoxRepository;
         private readonly IUserRepository m_UserRepository;
         private readonly IUserBoxRelRepository m_UserboxRelationshipRepository;
-        private readonly IRepository<Item> m_ItemRepository;
-        public ChangeBoxInfoCommandHandler(IRepository<Box> boxRepository, IRepository<AcademicBox> academicBoxRepository,
+        public ChangeBoxInfoCommandHandler(IBoxRepository boxRepository, IRepository<AcademicBox> academicBoxRepository,
             IUserRepository userRepository,
-            IUserBoxRelRepository userBoxRelRepository, IRepository<Item> itemRepository)
+            IUserBoxRelRepository userBoxRelRepository)
         {
             m_BoxRepository = boxRepository;
             m_UserRepository = userRepository;
             m_UserboxRelationshipRepository = userBoxRelRepository;
-            m_ItemRepository = itemRepository;
             m_AcademicBoxRepository = academicBoxRepository;
         }
         public void Handle(ChangeBoxInfoCommand command)
@@ -49,10 +47,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new ArgumentException("box with that name already exists");
 
             box.ChangeBoxName(command.BoxName, user);
-            foreach (var item in box.Items)
+            m_BoxRepository.UpdateItemsToDirty(box.Id);
+            //foreach (var item in box.Items)
+            //{
+            //    item.ShouldMakeDirty = () => true;
+            //    m_ItemRepository.Save(item);
+            //}
+            foreach (var flashcard in box.Flashcards)
             {
-                item.ShouldMakeDirty = () => true;
-                m_ItemRepository.Save(item);
+                flashcard.ShouldMakeDirty = () => true;
+
             }
             if (command.Privacy.HasValue)
             {

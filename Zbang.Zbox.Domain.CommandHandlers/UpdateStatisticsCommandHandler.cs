@@ -46,7 +46,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                         return t;
                     }
                     flashcard.UpdateNumberOfViews();
-                   // flashcard.ShouldMakeDirty = () => false;
                     m_FlashcardRepository.Save(flashcard);
                     return UpdateReputationAsync(flashcard.User.Id);
                 }
@@ -65,7 +64,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                         return t;
                     }
                     quiz.UpdateNumberOfViews();
-                  //  quiz.ShouldMakeDirty = () => false;
                     m_QuizRepository.Save(quiz);
                     return UpdateReputationAsync(quiz.User.Id);
                 }

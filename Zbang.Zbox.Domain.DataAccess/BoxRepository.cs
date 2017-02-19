@@ -17,11 +17,25 @@ namespace Zbang.Zbox.Domain.DataAccess
             return query.SingleOrDefault<Box>();
         }
 
-        public int QnACount(long id)
+        public void UpdateItemsToDirty(long boxId)
         {
-            var questionNumber = UnitOfWork.CurrentSession.Query<Comment>().Count(w => w.Box.Id == id);
-            return questionNumber;
+            var query1 = UnitOfWork.CurrentSession.GetNamedQuery("UpdateItemToDirty");
+            query1.SetInt64("boxId", boxId);
+            
+            query1.ExecuteUpdate();
+            var query2 = UnitOfWork.CurrentSession.GetNamedQuery("UpdateFlashcardToDirty");
+            query2.SetInt64("boxId", boxId);
+            query2.ExecuteUpdate();
+            var query3 = UnitOfWork.CurrentSession.GetNamedQuery("UpdateQuizToDirty");
+            query3.SetInt64("boxId", boxId);
+            query3.ExecuteUpdate();
         }
+
+        //public int QnACount(long id)
+        //{
+        //    var questionNumber = UnitOfWork.CurrentSession.Query<Comment>().Count(w => w.Box.Id == id);
+        //    return questionNumber;
+        //}
       
     }
 }

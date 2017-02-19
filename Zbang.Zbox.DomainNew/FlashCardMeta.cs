@@ -11,7 +11,7 @@ namespace Zbang.Zbox.Domain
     {
         protected FlashcardMeta()
         {
-            ShouldMakeDirty = () => true;
+            ShouldMakeDirty = () => false;
         }
 
         public FlashcardMeta(long id, string name, User user, Box box) : this()
@@ -45,6 +45,7 @@ namespace Zbang.Zbox.Domain
         public virtual void UpdateNumberOfViews()
         {
             NumberOfViews++;
+            ShouldMakeDirty = () => true;
         }
 
 
@@ -61,7 +62,7 @@ namespace Zbang.Zbox.Domain
             tag.ItemTags.Add(newExists);
         }
 
-       // public virtual CourseTag CourseTag { get; set; }
+        // public virtual CourseTag CourseTag { get; set; }
 
         public virtual UserTimeDetails DateTimeUser { get; private set; }
 

@@ -101,4 +101,19 @@
 
     
   </class>
+  <query name="UpdateItemToDirty">
+    <![CDATA[
+    update Item i set IsDirty = 1 where i.Box = :boxId and i.IsDeleted = 0
+    ]]>
+  </query>
+  <query name="UpdateFlashcardToDirty">
+    <![CDATA[
+    update FlashcardMeta i set IsDirty = 1 where i.Box = :boxId and i.IsDeleted = 0
+    ]]>
+  </query>
+  <query name="UpdateQuizToDirty">
+    <![CDATA[
+    update Quiz i set IsDirty = 1 where i.Box = :boxId and i.IsDeleted = 0
+    ]]>
+  </query>
 </hibernate-mapping>

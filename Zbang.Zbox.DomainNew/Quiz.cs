@@ -14,7 +14,7 @@ namespace Zbang.Zbox.Domain
     {
         protected Quiz()
         {
-            ShouldMakeDirty = () => true;
+            ShouldMakeDirty = () => false;
         }
         public Quiz(string name, long id, Box box, User owner)
             : this()
@@ -85,17 +85,14 @@ namespace Zbang.Zbox.Domain
         public virtual void UpdateNumberOfViews()
         {
             NumberOfViews++;
+            ShouldMakeDirty = () => true;
         }
 
 
 
         public bool IsDirty { get; set; }
 
-        public virtual Func<bool> ShouldMakeDirty
-        {
-            get;
-            set;
-        }
+        public virtual Func<bool> ShouldMakeDirty { get; set; }
 
         public virtual ISet<ItemTag> ItemTags { get; set; }
 
@@ -108,7 +105,7 @@ namespace Zbang.Zbox.Domain
             tag.ItemTags.Add(newExists);
         }
 
-       // public virtual CourseTag CourseTag { get; set; }
+        // public virtual CourseTag CourseTag { get; set; }
 
 
         public bool IsDeleted { get; set; }
