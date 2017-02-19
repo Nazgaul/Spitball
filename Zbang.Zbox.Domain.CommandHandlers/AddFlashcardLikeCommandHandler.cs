@@ -31,6 +31,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var user = m_UserRepository.Load(message.UserId);
             var flashcard = m_FlashcardRepository.Load(message.FlashcardId);
             flashcard.LikeCount++;
+            flashcard.ShouldMakeDirty = () => true;
             var like = new FlashcardLike(m_GuidGenerator.GetId(), user, flashcard);
             m_FlashcardLikeRepository.Save(like);
             m_FlashcardRepository.Save(flashcard);

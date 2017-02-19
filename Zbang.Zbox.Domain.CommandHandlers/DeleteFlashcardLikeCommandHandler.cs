@@ -29,7 +29,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new UnauthorizedAccessException();
             }
             like.Flashcard.LikeCount--;
-
+            like.Flashcard.ShouldMakeDirty = () => true;
             m_FlashcardLikeRepository.Delete(like);
             m_FlashcardRepository.Save(like.Flashcard);
             var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(like.Flashcard.User.Id));

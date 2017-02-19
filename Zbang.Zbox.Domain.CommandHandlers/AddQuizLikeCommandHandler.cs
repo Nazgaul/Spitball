@@ -33,6 +33,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             quiz.LikeCount = quiz.Likes.Count + 1;
             var like = new QuizLike(m_GuidGenerator.GetId(), user, quiz);
             m_QuizLikeRepository.Save(like);
+            quiz.ShouldMakeDirty = () => true;
             m_QuizRepository.Save(quiz);
             message.Id = like.Id;
             var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(quiz.User.Id));

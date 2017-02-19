@@ -31,6 +31,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             like.Quiz.LikeCount = like.Quiz.Likes.Count - 1;
             m_QuizLikeRepository.Delete(like);
+            like.Quiz.ShouldMakeDirty = () => true;
             m_QuizRepository.Save(like.Quiz);
             var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(like.Quiz.User.Id));
             var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new LikesBadgeData(message.UserId));
