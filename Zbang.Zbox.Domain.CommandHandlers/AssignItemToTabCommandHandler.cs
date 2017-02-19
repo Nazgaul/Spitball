@@ -25,6 +25,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             var item = m_ItemRepository.Load(message.ItemId);
             ItemTab itemTab;
+            item.ShouldMakeDirty = () => true;
             if (!message.TabId.HasValue)
             {
                 itemTab = item.Tab;
@@ -36,6 +37,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 itemTab = m_ItemTabRepository.Load(message.TabId.Value);
                 itemTab.AddItemToTab(item);
             }
+            m_ItemRepository.Save(item);
             m_ItemTabRepository.Save(itemTab);
         }
     }

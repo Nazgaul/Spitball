@@ -37,7 +37,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new UnauthorizedAccessException("User is unauthorized to delete annotation");
             }
-            itemComment.Item.ShouldMakeDirty = () => false;
             m_ItemRepository.Save(itemComment.Item);
             m_ItemCommentRepository.Delete(itemComment);
            

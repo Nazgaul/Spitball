@@ -20,7 +20,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (command == null) throw new ArgumentNullException(nameof(command));
 
             var file = m_ItemRepository.Load(command.ItemId);
-            file.ShouldMakeDirty = () => false;
             if (!string.IsNullOrWhiteSpace(command.BlobName))
             {
                 file.ItemContentUrl = command.BlobName;

@@ -23,7 +23,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var item = m_ItemRepository.Load(command.FileId);
             var fileName = GetUniqueFileNameToBox(command.NewFileName, item.BoxId);
             var newName = item.ChangeName(fileName);
-
+            
             item.DateTimeUser.UpdateUserTime(user.Id);
             m_ItemRepository.Save(item);
 

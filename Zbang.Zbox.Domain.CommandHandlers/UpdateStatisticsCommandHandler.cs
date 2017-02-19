@@ -46,7 +46,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                         return t;
                     }
                     flashcard.UpdateNumberOfViews();
-                    flashcard.ShouldMakeDirty = () => false;
+                   // flashcard.ShouldMakeDirty = () => false;
                     m_FlashcardRepository.Save(flashcard);
                     return UpdateReputationAsync(flashcard.User.Id);
                 }
@@ -65,7 +65,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                         return t;
                     }
                     quiz.UpdateNumberOfViews();
-                    quiz.ShouldMakeDirty = () => false;
+                  //  quiz.ShouldMakeDirty = () => false;
                     m_QuizRepository.Save(quiz);
                     return UpdateReputationAsync(quiz.User.Id);
                 }
@@ -87,8 +87,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 return t;
             }
 
-            item.ShouldMakeDirty = () => false;
-
+           // item.ShouldMakeDirty = () => false;
+           item.ShouldMakeDirty = () => true;
             if (itemId.Action == Infrastructure.Enums.StatisticsAction.View)
             {
                 item.IncreaseNumberOfViews();

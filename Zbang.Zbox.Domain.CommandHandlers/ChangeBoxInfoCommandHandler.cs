@@ -8,26 +8,28 @@ using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    class ChangeBoxInfoCommandHandler : ICommandHandler<ChangeBoxInfoCommand>
+    public class ChangeBoxInfoCommandHandler : ICommandHandler<ChangeBoxInfoCommand>
     {
         private readonly IRepository<Box> m_BoxRepository;
         private readonly IRepository<AcademicBox> m_AcademicBoxRepository;
         private readonly IUserRepository m_UserRepository;
         private readonly IUserBoxRelRepository m_UserboxRelationshipRepository;
+        private readonly IRepository<Item> m_ItemRepository;
         public ChangeBoxInfoCommandHandler(IRepository<Box> boxRepository, IRepository<AcademicBox> academicBoxRepository,
             IUserRepository userRepository,
-            IUserBoxRelRepository userBoxRelRepository)
+            IUserBoxRelRepository userBoxRelRepository, IRepository<Item> itemRepository)
         {
             m_BoxRepository = boxRepository;
             m_UserRepository = userRepository;
             m_UserboxRelationshipRepository = userBoxRelRepository;
+            m_ItemRepository = itemRepository;
             m_AcademicBoxRepository = academicBoxRepository;
         }
         public void Handle(ChangeBoxInfoCommand command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
 
-            var box = m_BoxRepository.Load(command.BoxId); 
+            var box = m_BoxRepository.Load(command.BoxId);
             var user = m_UserRepository.Load(command.UserId);
             if (command.BoxName.Length > Box.NameLength)
             {
@@ -37,21 +39,27 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (academicBox != null)
             {
                 academicBox.UpdateBoxInfo(command.CourseCode, command.ProfessorName);
+
                 m_AcademicBoxRepository.Save(academicBox);
             }
-            
-           
+
+
             var boxNameExists = box.Owner.GetUserOwnedBoxes().FirstOrDefault(w => w.Name == command.BoxName.Trim() && w.Id != box.Id);
             if (boxNameExists != null)
                 throw new ArgumentException("box with that name already exists");
-            
-            box.ChangeBoxName(command.BoxName,user);
+
+            box.ChangeBoxName(command.BoxName, user);
+            foreach (var item in box.Items)
+            {
+                item.ShouldMakeDirty = () => true;
+                m_ItemRepository.Save(item);
+            }
             if (command.Privacy.HasValue)
             {
                 box.ChangePrivacySettings(command.Privacy.Value, user);
             }
             ChangeNotificationSettings(command.UserId, command.BoxId, command.Notification);
-          
+
             m_BoxRepository.Save(box);
         }
 

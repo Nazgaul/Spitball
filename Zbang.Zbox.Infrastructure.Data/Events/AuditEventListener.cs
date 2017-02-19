@@ -13,40 +13,37 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
         {
             var dirty = @event.Entity as IDirty;
             if (dirty == null) return false;
-            if (dirty.ShouldMakeDirty == null)
-            {
+            //if (dirty.ShouldMakeDirty == null)
+            //{
+            //    MakeDirty(@event, @event.State, dirty);
+            //    return false;
+            //}
+            //if (dirty.ShouldMakeDirty())
+            //{
                 MakeDirty(@event, @event.State, dirty);
-                return false;
-            }
-            if (dirty.ShouldMakeDirty())
-            {
-                MakeDirty(@event, @event.State, dirty);
-            }
+            //}
             return false;
         }
 
         public bool OnPreUpdate(PreUpdateEvent @event)
         {
             var dirty = @event.Entity as IDirty;
-            if (dirty == null) return false;
-            if (dirty.ShouldMakeDirty == null)
+            if (dirty?.ShouldMakeDirty == null)
             {
-                MakeDirty(@event, @event.State, dirty);
+                //MakeDirty(@event, @event.State, dirty);
                 return false;
             }
             if (dirty.ShouldMakeDirty())
             {
                 MakeDirty(@event, @event.State, dirty);
             }
-
-
             return false;
         }
 
         private void MakeDirty(IPreDatabaseOperationEventArgs @event, object[] state, IDirty dirty)
         {
             dirty.IsDirty = true;
-            TraceLog.WriteInfo($"making dirty {Environment.StackTrace}");
+            //TraceLog.WriteInfo($"making dirty count {state.Length} trace: {Environment.StackTrace}");
             Set(@event.Persister, state, "IsDirty", true);
         }
 

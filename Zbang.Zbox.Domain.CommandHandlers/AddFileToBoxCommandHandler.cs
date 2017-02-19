@@ -65,6 +65,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 user,
                 command.Length,
                 command.BlobAddressName);
+            
 
             m_ItemRepository.Save(item, true);
             item.GenerateUrl();

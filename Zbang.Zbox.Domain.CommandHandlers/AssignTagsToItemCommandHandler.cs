@@ -40,14 +40,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 }
 
                 item.AddTag(tag, message.Type);
-                //var itemTag = AssignItemToTag(tag, item);// new ItemTag(tag, item);
-                //if (item.ItemTags.Contains(itemTag))
-                //{
-                //    continue;
-                //}
-                //m_ItemTagRepository.Save(itemTag);
             }
-            item.ShouldMakeDirty = () => false;
             m_ItemRepository.Save(item);
         }
 

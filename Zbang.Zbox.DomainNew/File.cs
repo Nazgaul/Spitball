@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using Zbang.Zbox.Infrastructure.Culture;
+﻿using System.IO;
 
 namespace Zbang.Zbox.Domain
 {
@@ -8,8 +6,12 @@ namespace Zbang.Zbox.Domain
     {
         protected File()
         {
-            ShouldMakeDirty = () => true;
+           
         }
+        public File(string itemName, User uploaderUser, long sized, string blobName,
+            Box box)
+           : base(itemName, uploaderUser, sized, box, blobName)
+        { }
 
         public virtual int NumberOfDownloads { get; private set; }
 
@@ -21,10 +23,7 @@ namespace Zbang.Zbox.Domain
 
        
 
-        public File(string itemName, User uploaderUser, long sized, string blobName,
-             Box box)
-            : base(itemName, uploaderUser, sized, box, blobName)
-        { }
+       
 
         public void IncreaseNumberOfDownloads()
         {
@@ -47,6 +46,7 @@ namespace Zbang.Zbox.Domain
 
 
             Name = newName;
+            ShouldMakeDirty = () => true;
             GenerateUrl();
             return Name;
         }

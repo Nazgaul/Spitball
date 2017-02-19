@@ -124,8 +124,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                      reply.User.Name,
                      reply.Box.Name,
                      reply.Box.Url));
-                //t1 = m_MailComponent.GenerateAndSendEmailAsync(reply.Question.User.Email,
-                //new ReplyToCommentMailParams(new CultureInfo(reply.Question.User.Culture), reply.Question.User.Name, reply.User.Name, box.Name, box.Url));
             }
             var t2 = m_SendPush.SendAddReplyNotificationAsync(reply.User.Name, reply.Text, box.Name, box.Id, reply.Question.Id, userIds);
             return Task.WhenAll(t1, t2);

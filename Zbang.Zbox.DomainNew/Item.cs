@@ -16,6 +16,7 @@ namespace Zbang.Zbox.Domain
 
             // ReSharper disable once DoNotCallOverridableMethodsInConstructor
             IsDeleted = false;
+            ShouldMakeDirty = () => false;
         }
         protected Item(string itemName, User uploader,
             long iSized, Box box, string itemContentUrl)
@@ -31,6 +32,7 @@ namespace Zbang.Zbox.Domain
             Size = iSized;
             Box = box;
             ItemContentUrl = itemContentUrl;
+            //ShouldMakeDirty = () => true;
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
 
         }
@@ -99,16 +101,7 @@ namespace Zbang.Zbox.Domain
             NumberOfViews++;
         }
 
-
-
-        //public virtual void IncreaseNumberOfComments()
-        //{
-        //    NumberOfComments++;
-        //}
-        //public virtual void DecreaseNumberOfComments()
-        //{
-        //    NumberOfComments--;
-        //}
+       
 
         public abstract string ChangeName(string newName);
 

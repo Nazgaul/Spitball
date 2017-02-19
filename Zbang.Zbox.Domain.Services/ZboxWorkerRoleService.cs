@@ -552,7 +552,6 @@ and isdeleted = 0").List();
                 {
                     var item = UnitOfWork.CurrentSession.Load<Item>(itemId);
                     item.GenerateUrl();
-                    item.ShouldMakeDirty = () => true;
                     UnitOfWork.CurrentSession.Save(item);
                 }
                 unitOfWork.TransactionalFlush();

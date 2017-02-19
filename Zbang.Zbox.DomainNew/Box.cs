@@ -105,6 +105,7 @@ namespace Zbang.Zbox.Domain
 
             Name = newBoxName.Trim();
             UserTime.UpdateUserTime(user.Id);
+            
             GenerateUrl();
         }
 

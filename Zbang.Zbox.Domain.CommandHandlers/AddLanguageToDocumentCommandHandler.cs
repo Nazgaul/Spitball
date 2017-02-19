@@ -18,7 +18,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             var item = m_ItemRepository.Load(message.ItemId);
             item.Language = message.Language;
-            item.ShouldMakeDirty = () => false;
             m_ItemRepository.Save(item);
         }
     }
