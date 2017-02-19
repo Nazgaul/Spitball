@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.ViewModel.Dto.ItemDtos

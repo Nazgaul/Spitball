@@ -407,7 +407,6 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<QuizToUpdateSearchDto> GetQuizzesDirtyUpdatesAsync(int index, int total, int top)
         {
-            //find join all to use Slapper is performance hit
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 using (var grid = await conn.QueryMultipleAsync
@@ -415,6 +414,7 @@ namespace Zbang.Zbox.ReadServices
                      Search.GetQuizzesQuestionToUploadToSearch +
                      Search.GetQuizzesAnswersToUploadToSearch +
                      Search.GetQuizzesUsersToUploadToSearch +
+                     Search.GetQuizzesTags +
                      Search.GetQuizzesToDeleteFromSearch,
                      new { index, count = total, top }
                     ))
@@ -425,16 +425,25 @@ namespace Zbang.Zbox.ReadServices
                     };
                     var questions = grid.Read<QuizQuestionAndAnswersSearchDto>().ToList();
                     var answers = grid.Read<QuizQuestionAndAnswersSearchDto>().ToList();
-                    var usersInQuizzes = grid.Read<UsersInBoxSearchDto>().ToList();
-
+                    var users = grid.Read<UsersInBoxSearchDto>().ToList();
+                    var tags = grid.Read<ItemSearchTag>().ToList();
+                    var cacheUsers = new Dictionary<long, IEnumerable<long>>();
                     foreach (var quiz in retVal.QuizzesToUpdate)
                     {
                         var quizId = quiz.Id;
-                        var boxId = quiz.BoxId;
+                        IEnumerable<long> usersIds;
+                        if (cacheUsers.TryGetValue(quiz.BoxId, out usersIds))
+                        {
+                            quiz.UserIds = usersIds;
+                        }
+                        else
+                        {
+                            quiz.UserIds = cacheUsers[quiz.BoxId] = users.Where(w => w.BoxId == quiz.BoxId).Select(s => s.UserId);
+                        }
 
                         quiz.Questions = questions.Where(w => w.QuizId == quizId).Select(s => s.Text);
                         quiz.Answers = answers.Where(w => w.QuizId == quizId).Select(s => s.Text);
-                        quiz.UserIds = usersInQuizzes.Where(w => w.BoxId == boxId).Select(s => s.UserId);
+                        quiz.Tags = tags.Where(w => w.Id == quiz.Id).ToList();
                     }
                     retVal.QuizzesToDelete = await grid.ReadAsync<QuizToDeleteSearchDto>();
                     return retVal;

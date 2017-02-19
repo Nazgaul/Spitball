@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Enums;
 
@@ -18,8 +19,8 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public long BoxId { get; set; }
         public long? UniversityId { get; set; }
         public string Url { get; set; }
-        public override string Content => TextManipulation.RemoveHtmlTags.Replace(string.Join(" ", Questions) + string.Join(" ", Answers), string.Empty);
-        public override string[] MetaContent => new[] { Questions.FirstOrDefault(), Answers.FirstOrDefault() };
+        public override string Content => TextManipulation.RemoveHtmlTags.Replace(WebUtility.HtmlDecode(string.Join(" ", Questions)), string.Empty) + string.Join(" ", Answers);
+        public override string[] MetaContent => new[] { TextManipulation.RemoveHtmlTags.Replace(WebUtility.HtmlDecode(Questions.FirstOrDefault() ?? string.Empty), string.Empty), Answers.FirstOrDefault() ?? string.Empty };
         public override int? ContentCount => Questions.Count();
     }
 

@@ -101,111 +101,27 @@ select Name,boxid from c;";
         where isdirty = 1 and isdeleted = 1 and itemid % @count  = @index;";
 
 
-        public const string GetItemsToUploadToSearch2 = @"
-select 
-  i.ItemId as Id,
-  i.Name as name,
-  i.blobName as blobName,
-  i.Url as url, --old
-  i.discriminator as typeDocument,
-  b.University as universityid, -- old
-  b.ProfessorName as BoxProfessor,
-  b.CourseCode as BoxCode,
-  b.BoxName as boxname,
-  u.UniversityName as universityName,
-  b.BoxId as boxid,
-  it.ItemTabName as TabName,
-  i.CreationTime as Date,
-  ub.UserId as UserIds_Id,
-  i.language,
-  t.Name as Tags_Name,
-  itag.Type as Tags_Type
-    from zbox.item i 
-    join zbox.box b on i.BoxId = b.BoxId
-	left join zbox.UserBoxRel ub on b.BoxId = ub.BoxId
-    left join zbox.University u on b.University = u.id
-	left join zbox.ItemTab it on i.ItemTabId = it.ItemTabId
-	left join zbox.ItemTag itag on itag.ItemId = i.ItemId left join zbox.Tag t on itag.TagId = t.Id
-	where (@top is null or (i.ItemId in (
-	select top (@top) itemid from zbox.Item 
-    where isdirty = 1 
-    and IsDeleted = 0
-    and creationtime < DATEADD(minute, -1, getutcdate())
-    and itemid % @count  = @index
-    order by ItemId desc)))
-	and (@itemId is null or (i.ItemId = @itemId));
-";
-
-
-        //       public const string GetItemToUploadToSearch =
-        //           @"select 
-        // i.ItemId as id,
-        // i.Name as name,
-        // i.blobName as blobName,
-        // i.Url as url,
-        // i.discriminator as type,
-        // b.University as universityid,
-        // b.ProfessorName as BoxProfessor,
-        // b.CourseCode as BoxCode,
-        // b.BoxName as boxname,
-        // u.UniversityName as universityName,
-        // b.BoxId as boxid,
-        // it.ItemTabName,
-        // i.CreationTime as Date,
-        // ub.UserId as UserIds_Id,
-        // i.language,
-        // t.Name as Tags_Name
-        //   from zbox.item i 
-        //   join zbox.box b on i.BoxId = b.BoxId
-        //left join zbox.UserBoxRel ub on b.BoxId = ub.BoxId
-        //   left join zbox.University u on b.University = u.id
-        //left join zbox.ItemTab it on i.ItemTabId = it.ItemTabId
-        //left join zbox.ItemTag itag on itag.ItemId = i.ItemId join zbox.Tag t on itag.TagId = t.Id
-        //where i.ItemId = @itemId;";
+      
+        
 
 
 
-        public const string GetQuizzesUsersToUploadToSearch =
-            @"  select UserId,BoxId from zbox.UserBoxRel where boxId in (
-	select top 100 q.BoxId
-	from zbox.quiz q 
-	where publish = 1
-	and q.isdeleted = 0
-	and q.isdirty = 1
-    and q.id % @count  = @index
-	order by Id);";
+      
 
 
-       
 
-     
 
-//        public const string GetFlashcardToUploadToSearchOld = @"select f.Id,
-//f.Name,
-// b.BoxName,
-// f.BoxId,
-// f.language,
-// ub.UserId as UserIds_Id,
-// u.UniversityName as universityName,
-//       b.University as UniversityId,
-// t.Name as Tags_Name,
-// itag.Type as Tags_Type
-//    from zbox.Flashcard f
-//join zbox.Box b on f.BoxId = b.BoxId
-//left join zbox.University u on b.University = u.id
-//left join zbox.UserBoxRel ub on b.BoxId = ub.BoxId
-//left join zbox.ItemTab it on i.ItemTabId = it.ItemTabId
-//left join zbox.ItemTag itag on itag.ItemId = i.ItemId join zbox.Tag t on itag.TagId = t.Id
-//where f.id in (select top (@top) Id from zbox.Flashcard x where x.publish = 1
-//and x.isdeleted = 0
-//and x.isdirty = 1
-//and x.id % @count  = @index
-//order by x.Id desc);";
 
-        public const string GetQuizzesToUploadToSearch = @"select top (@top) q.Id,
+
+        
+
+        #region Quiz
+          public const string GetQuizzesToUploadToSearch = @"select top (@top) q.Id,
 q.Name,
  b.BoxName,
  q.BoxId,
+ q.Language,
+ q.CreationTime as Date,
  q.Url,
  u.UniversityName as universityName,
   case b.Discriminator
@@ -221,7 +137,7 @@ where publish = 1
 and q.isdeleted = 0
 and q.isdirty = 1
 and q.id % @count  = @index
-order by Id;";
+order by Id desc;";
 
 
         public const string GetQuizzesQuestionToUploadToSearch =
@@ -232,28 +148,56 @@ where publish = 1
 and q.isdeleted = 0
 and q.isdirty = 1
 and q.id % @count  = @index
-order by Id)
+order by Id desc)
 order by Id;";
 
-
         public const string GetQuizzesAnswersToUploadToSearch =
-            @"select text,QuizId, questionid from zbox.QuizAnswer where QuizId in (
+          @"select text,QuizId, questionid from zbox.QuizAnswer where QuizId in (
 select top (@top) q.Id
 from zbox.quiz q 
 where publish = 1
 and q.isdeleted = 0
 and q.isdirty = 1
 and q.id % @count  = @index
-order by Id)
+order by Id  desc)
 order by QuestionId,Id;";
+
+        public const string GetQuizzesUsersToUploadToSearch =
+          @"  select UserId,BoxId from zbox.UserBoxRel where boxId in (
+	select top 100 q.BoxId
+	from zbox.quiz q 
+	where publish = 1
+	and q.isdeleted = 0
+	and q.isdirty = 1
+    and q.id % @count  = @index
+	order by Id  desc);";
+
+        public const string GetQuizzesTags = @"select it.QuizId as Id, t.Name, it.Type 
+from zbox.ItemTag it 
+join zbox.Tag t on it.TagId = t.Id 
+where it.QuizId in (
+  select top (@top) f.Id  from zbox.quiz f
+   where f.publish = 1
+        and f.isdeleted = 0
+        and f.isdirty = 1
+           and f.id % @count  = @index
+        order by Id desc);";
 
         public const string GetQuizzesToDeleteFromSearch = @"
         select top (@top) id as id from zbox.Quiz
         where isdirty = 1 and isdeleted = 1 and id % @count  = @index;";
+        #endregion
 
 
-        public const string GetFlashcardToDeleteFromSearch = @" select top (@top) id as id from zbox.flashcard
-        where isdirty = 1 and isdeleted = 1 and id % @count  = @index;";
+
+
+
+
+
+
+
+
+      
 
 
         public const string GetUsersInBox = @"
@@ -348,6 +292,9 @@ where it.FlashcardId in (
         and f.isdirty = 1
            and f.id % @count  = @index
         order by Id desc);";
+
+        public const string GetFlashcardToDeleteFromSearch = @" select top (@top) id as id from zbox.flashcard
+        where isdirty = 1 and isdeleted = 1 and id % @count  = @index;";
         #endregion
         #region Document
 

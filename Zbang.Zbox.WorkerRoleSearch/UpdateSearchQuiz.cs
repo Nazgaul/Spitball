@@ -62,10 +62,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var updates = await m_ZboxReadService.GetQuizzesDirtyUpdatesAsync(instanceId, instanceCount, top);
             if (!updates.QuizzesToUpdate.Any() && !updates.QuizzesToDelete.Any()) return TimeToSleep.Increase;
 
-            //foreach (var quiz in updates.QuizzesToUpdate.Where(w=>w.UniversityId == JaredUniversityIdPilot))
-            //{
-            //    await JaredPilotAsync(quiz, cancellationToken);
-            //}
+            foreach (var quiz in updates.QuizzesToUpdate.Where(w => w.UniversityId == JaredUniversityIdPilot))
+            {
+                await JaredPilotAsync(quiz, cancellationToken);
+            }
 
             var isSuccess =
                 await m_QuizSearchProvider.UpdateDataAsync(updates.QuizzesToUpdate, updates.QuizzesToDelete.Select(s=>s.Id));
@@ -92,7 +92,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 m_WriteService.AddItemLanguage(commandLang);
             }
 
-            if (elem.Language == Infrastructure.Culture.Language.EnglishUs/* && (elem.Tags == null || !elem.Tags.Any())*/)
+            if (elem.Language == Infrastructure.Culture.Language.EnglishUs && elem.Tags.All(a => a.Type != TagType.Watson))
             {
 
                 var result = (await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token)).ToList();
