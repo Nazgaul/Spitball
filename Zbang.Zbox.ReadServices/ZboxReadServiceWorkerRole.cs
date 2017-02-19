@@ -355,7 +355,7 @@ namespace Zbang.Zbox.ReadServices
                             p.UserIds = cacheUsers[p.BoxId] = users.Where(w => w.BoxId == p.BoxId).Select(s => s.UserId);
                         }
 
-                        p.Tags = tags.Where(w => w.ItemId == p.Id).ToList();
+                        p.Tags = tags.Where(w => w.Id == p.Id).ToList();
                     }
                     return retVal;
                 }
@@ -364,18 +364,7 @@ namespace Zbang.Zbox.ReadServices
  
         }
 
-        //public async Task<DocumentSearchDto> GetItemDirtyUpdatesAsync(long itemId)
-        //{
-        //    Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchDto), new List<string> { "Id" });
-        //    Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchUsers), new List<string> { "Id" });
-        //    Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchTag), new List<string> { "Name" });
-
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        var dynamic = conn.QueryAsync(Search.GetItemToUploadToSearch);
-        //        return Slapper.AutoMapper.MapDynamic<DocumentSearchDto>(dynamic);
-        //    }
-        //}
+       
 
         public async Task<FlashcardToUpdateSearchDto> GetFlashcardsDirtyUpdatesAsync(int index, int total, int top, CancellationToken token)
         {
@@ -383,8 +372,9 @@ namespace Zbang.Zbox.ReadServices
             {
                 using (var grid = await conn.QueryMultipleAsync(
                     Search.GetFlashcardToDeleteFromSearch +
-                    Search.GetFlashcardToUploadToSearchOld +
-                    Search.GetFlashcardUsersToUploadToSearch
+                    Search.GetFlashcardToUploadToSearch +
+                    Search.GetFlashcardUsersToUploadToSearch +
+                    Search.GetFlashcardTagsToUploadToSearch
                     , new { index, count = total, top }))
                 {
                     var retVal = new FlashcardToUpdateSearchDto
@@ -393,34 +383,26 @@ namespace Zbang.Zbox.ReadServices
                         Updates = await grid.ReadAsync<FlashcardSearchDto>()
                     };
                     var users = grid.Read<UsersInBoxSearchDto>().ToList();
+                    var tags = (await grid.ReadAsync<ItemSearchTag>()).ToList();
+                    var cacheUsers = new Dictionary<long, IEnumerable<long>>();
                     foreach (var flashcards in retVal.Updates)
                     {
-                        var boxId = flashcards.BoxId;
-                        flashcards.UserIds = users.Where(w => w.BoxId == boxId).Select(s => s.UserId);
+                        IEnumerable<long> usersIds;
+                        if (cacheUsers.TryGetValue(flashcards.BoxId, out usersIds))
+                        {
+                            flashcards.UserIds = usersIds;
+                        }
+                        else
+                        {
+                            flashcards.UserIds = cacheUsers[flashcards.BoxId] = users.Where(w => w.BoxId == flashcards.BoxId).Select(s => s.UserId);
+                        }
+
+                        flashcards.Tags = tags.Where(w => w.Id == flashcards.Id).ToList();
                     }
                     return retVal;
                 }
             }
-            //Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(FlashcardSearchDto), new List<string> { "Id" });
-            //Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchUsers), new List<string> { "Id" });
-            //Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchTag), new List<string> { "Name" });
-
-            //using (var conn = await DapperConnection.OpenConnectionAsync(token))
-            //{
-            //    using (var grid = await conn.QueryMultipleAsync(
-            //        Search.GetFlashcardToDeleteFromSearch +
-            //        Search.GetFlashcardToUploadToSearch
-            //        , new { index, count = total, top }))
-            //    {
-            //        var retVal = new FlashcardToUpdateSearchDto
-            //        {
-            //            Deletes = await grid.ReadAsync<FlashcardToDeleteSearchDto>(),
-            //        };
-            //        var dynamic = await grid.ReadAsync();
-            //        retVal.Updates = Slapper.AutoMapper.MapDynamic<FlashcardSearchDto>(dynamic);
-            //        return retVal;
-            //    }
-            //}
+            
         }
 
         public async Task<QuizToUpdateSearchDto> GetQuizzesDirtyUpdatesAsync(int index, int total, int top)
@@ -616,7 +598,7 @@ OPTION (TABLE HINT(s, INDEX ([students_shouldsend2])),Recompile);";
                             sql1 + sql2, new { UniId = universityId }, cancellationToken: token)))
                     {
                         var result = await grid.ReadAsync<GreekPartnerDto>();
-                        return result.Union(await grid.ReadAsync<SpamGunDto>()); ;
+                        return result.Union(await grid.ReadAsync<SpamGunDto>());
                     }
                 }, token);
             }

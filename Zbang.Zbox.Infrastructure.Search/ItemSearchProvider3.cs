@@ -25,7 +25,6 @@ namespace Zbang.Zbox.Infrastructure.Search
         private readonly ISearchIndexClient m_IndexClient;
         private readonly ISearchFilterProvider m_FilterProvider;
 
-        private object lockObj;
         public ItemSearchProvider3(ISearchFilterProvider filterProvider, ISearchConnection connection)
         {
             m_FilterProvider = filterProvider;

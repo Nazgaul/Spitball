@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 {
@@ -41,12 +42,12 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
                 var type = new List<ItemType>
                 {
                     TypeDocument.ToLowerInvariant() == "file" ? ItemType.Document : ItemType.Link
-                }; 
+                };
                 if (string.IsNullOrEmpty(TabName) && string.IsNullOrEmpty(Content))
                 {
                     return type;
                 }
-                if (ClassifyType(ClassNotes,Name, TabName, Content))
+                if (ClassifyType(ClassNotes, Name, TabName, Content))
                 {
                     type.Add(ItemType.ClassNote);
                 }
@@ -78,7 +79,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
         public long? UniversityId { get; set; }
 
-       // public string BlobName { get; set; }
+        // public string BlobName { get; set; }
 
         public long BoxId { get; set; }
 
@@ -92,5 +93,20 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         {
             return $"id : {Id} blobName: {BlobName}";
         }
+
+        public override string[] MetaContent
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Content))
+                {
+                    return null;
+                }
+                return new[] { Content.RemoveEndOfString(200) };
+            }
+        }
+
+        
+        public override int? ContentCount => null;
     }
 }

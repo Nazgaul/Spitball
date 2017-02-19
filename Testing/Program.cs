@@ -217,9 +217,16 @@ namespace Testing
             var languageDetection = iocFactory.Resolve<IDetectLanguage>();
             var writeService = iocFactory.Resolve<IZboxWriteService>();
             var search = iocFactory.Resolve<IContentReadSearchProvider>();
+
+
+            //var updateDate = new UpdateData(1028091, 8417, itemId: 606505);
+            //var y = iocFactory.Resolve<IDomainProcess>(updateDate.ProcessResolver);
+            //await y.ExecuteAsync(updateDate, cancellationToken);
+
+
             //var tSearch = search.SearchAsync(new SearchAllDocuments {Term = "Socrates"}, default(CancellationToken));
             //tSearch.Wait();
-            
+
             //var ai = iocFactory.Resolve<IWitAi>();
             //var tAi = ai.GetUserIntentAsync("Give me all material on Socrates", default(CancellationToken));
             //tAi.Wait();
@@ -227,17 +234,17 @@ namespace Testing
             //var zzzzzz = write.UpdateDataAsync(null, null, default(CancellationToken));
             //zzzzzz.Wait();
             //var z = new AssignTagsToItemCommand(elem.Id, result, language);
-           // var readService = iocFactory.Resolve<IZboxReadServiceWorkerRole>();
-           //var z3 =  readService.GetFlashcardsDirtyUpdatesAsync(0, 1, 100, default(CancellationToken));
-           // z3.Wait();
+            // var readService = iocFactory.Resolve<IZboxReadServiceWorkerRole>();
+            //var z3 =  readService.GetFlashcardsDirtyUpdatesAsync(0, 1, 100, default(CancellationToken));
+            // z3.Wait();
 
-           // var uri = m_BlobProvider.GetBlobUrl("e3562f39-3e3b-41d2-9b82-5a17ae51a47d.pdf");
-           // var processor = m_FileProcessorFactory.GetProcessor(uri);
-           // var t = processor.ExtractContentAsync(uri);
-           // t.Wait();
-           // var cxz = languageDetection.DoWork(t.Result);
-           // var z = DoAlchemyAsync(t.Result);
-           // z.Wait();
+            // var uri = m_BlobProvider.GetBlobUrl("e3562f39-3e3b-41d2-9b82-5a17ae51a47d.pdf");
+            // var processor = m_FileProcessorFactory.GetProcessor(uri);
+            // var t = processor.ExtractContentAsync(uri);
+            // t.Wait();
+            // var cxz = languageDetection.DoWork(t.Result);
+            // var z = DoAlchemyAsync(t.Result);
+            // z.Wait();
 
             // var z = new AssignTagsToItemCommand(565902, new[] { "1234", "Moment of inertia" });
             // m_WriteService.AddItemTag(z);

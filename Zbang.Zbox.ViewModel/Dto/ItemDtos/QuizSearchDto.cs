@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Enums;
 
@@ -18,7 +19,8 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public long? UniversityId { get; set; }
         public string Url { get; set; }
         public override string Content => TextManipulation.RemoveHtmlTags.Replace(string.Join(" ", Questions) + string.Join(" ", Answers), string.Empty);
-
+        public override string[] MetaContent => new[] { Questions.FirstOrDefault(), Answers.FirstOrDefault() };
+        public override int? ContentCount => Questions.Count();
     }
 
     public class QuizQuestionAndAnswersSearchDto

@@ -48,9 +48,11 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public string BlobName { get; set; }
 
-        public string MetaContent { get; set; }
+        public string[] MetaContent { get; set; }
 
-        public int Views { get; set; }
-        public int Likes { get; set; }
+        public int? Views { get; set; }
+        public int? Likes { get; set; }
+
+        public int? ContentCount { get; set; }
     }
 }

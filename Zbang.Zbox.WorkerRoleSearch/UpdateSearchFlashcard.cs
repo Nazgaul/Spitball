@@ -59,6 +59,17 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 update.BackCards = flashcard.Cards.Select(s => s.Cover).Where(w => !string.IsNullOrEmpty(w.Text)).Select(s => s.Text);
                 update.FrontCards = flashcard.Cards.Select(s => s.Front).Where(w => !string.IsNullOrEmpty(w.Text)).Select(s => s.Text);
+
+                var firstCard = flashcard.Cards.First();
+                update.FrontText = firstCard.Front.Text;
+                update.FrontImage = firstCard.Front.Image;
+                update.CoverText = firstCard.Cover.Text;
+                update.CoverImage = firstCard.Cover.Image;
+
+                if (update.UniversityId == JaredUniversityIdPilot)
+                {
+                    await JaredPilotAsync(update, cancellationToken);
+                }
             }
 
             var isSuccess =

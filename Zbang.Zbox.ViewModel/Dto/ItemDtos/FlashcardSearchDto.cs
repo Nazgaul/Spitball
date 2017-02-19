@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
@@ -16,18 +17,25 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public long BoxId { get; set; }
         public long? UniversityId { get; set; }
 
+        public int CardsCount { get; set; }
+
         public override string Content => string.Join(" ", FrontCards) + string.Join(" ", BackCards);
-    }
 
-    public class FlashcardToUpdateSearchDto
-    {
-        public IEnumerable<FlashcardSearchDto> Updates { get; set; }
+        public string CoverText { get; set; }
+        public string CoverImage { get; set; }
 
-        public IEnumerable<FlashcardToDeleteSearchDto> Deletes { get; set; }
-    }
+        public string FrontText { get; set; }
+        public string FrontImage { get; set; }
 
-    public class FlashcardToDeleteSearchDto : ItemToDeleteSearchDto
-    {
-        public override string SearchContentId => "flashcard_" + Id;
+        public override string[] MetaContent => new[]
+        {
+            FrontText ?? string.Empty,
+            FrontImage ?? string.Empty,
+            CoverText ?? string.Empty,
+            CoverImage ?? string.Empty
+        };
+
+
+        public override int? ContentCount => CardsCount;
     }
 }

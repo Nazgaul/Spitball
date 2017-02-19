@@ -11,7 +11,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class WatsonExtract : IWatsonExtract
     {
-        readonly AlchemyClient m_Client =
+        private readonly AlchemyClient m_Client =
               new AlchemyClient("e05317b0a67d8a3d0bf82f5b0e0b58012b717779");
 
         public async Task<IEnumerable<string>> GetConceptAsync(string text, CancellationToken token)

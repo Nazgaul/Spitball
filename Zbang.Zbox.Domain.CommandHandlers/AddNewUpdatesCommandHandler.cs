@@ -58,7 +58,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (message == null) throw new ArgumentNullException(nameof(message));
             var box = m_BoxRepository.Load(message.BoxId);
             //there was an issue with commit with detach elements
-            //var usersToUpdate = m_UserBoxRelRepository.GetUserIdsConnectedToBox(message.BoxId).Where(w => w != message.UserId).ToList();
             var usersToUpdate = box.UserBoxRelationship.Where(w => w.User.Id != message.UserId).Select(s => s.UserId).ToList();
 
             var tQuiz = UpdateQuizAsync(message.QuizId, usersToUpdate, box);

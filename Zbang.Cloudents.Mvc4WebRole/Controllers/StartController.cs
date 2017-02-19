@@ -46,14 +46,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, ActionName("Intent")]
-        public async Task<JsonResult> IntentAsync(string term, CancellationToken cancellationToken)
+        public JsonResult IntentAsync(string term, CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(term))
             {
                 return JsonError();
             }
-            using (var token = CreateCancellationToken(cancellationToken))
-            {
+            //using (var token = CreateCancellationToken(cancellationToken))
+            //{
                 //var data = await m_WitAi.GetUserIntentAsync(term, token.Token);
                 //var knownData = data as KnownIntent;
                 //if (knownData != null)
@@ -72,7 +72,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return JsonOk("I dont know what you talking about");
                 //}
 
-            }
+            //}
         }
     }
 }

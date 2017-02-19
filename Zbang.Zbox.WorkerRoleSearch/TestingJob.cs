@@ -66,9 +66,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //{
 
             //});
-
-            var y = Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IFileProcess>(nameof(BoxFileProcessData));
-            await y.ExecuteAsync(new BoxFileProcessData(562340), cancellationToken);
+            var updateDate = new UpdateData(1028091, 8417, itemId: 606505);
+            var y = Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IDomainProcess>(updateDate.ProcessResolver);
+            await y.ExecuteAsync(updateDate, cancellationToken);
 
             //await y.GetUnsubscribersAsync(1, cancellationToken);
 

@@ -89,11 +89,15 @@
     <Compile Include="Dto\ItemDtos\FileWithDetailDto.cs" />
     <Compile Include="Dto\ItemDtos\FlashcardDto.cs" />
     <Compile Include="Dto\ItemDtos\FlashcardSearchDto.cs" />
+    <Compile Include="Dto\ItemDtos\FlashcardToDeleteSearchDto.cs" />
+    <Compile Include="Dto\ItemDtos\FlashcardToUpdateSearchDto.cs" />
     <Compile Include="Dto\ItemDtos\ItemDetailDto.cs" />
     <Compile Include="Dto\ItemDtos\ItemDto.cs" />
     <Compile Include="Dto\ItemDtos\FileSeo.cs" />
     <Compile Include="Dto\ItemDtos\ItemMobileDto.cs" />
     <Compile Include="Dto\ItemDtos\ItemSearchDto.cs" />
+    <Compile Include="Dto\ItemDtos\ItemSearchTag.cs" />
+    <Compile Include="Dto\ItemDtos\ItemSearchUsers.cs" />
     <Compile Include="Dto\ItemDtos\ItemToFriendDto.cs" />
     <Compile Include="Dto\ItemDtos\ItemToUpdateSearchDto.cs" />
     <Compile Include="Dto\ItemDtos\ItemWithDetailDto.cs" />

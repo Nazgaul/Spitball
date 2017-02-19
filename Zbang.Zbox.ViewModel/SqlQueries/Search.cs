@@ -176,52 +176,31 @@ select
 	order by Id);";
 
 
-        public const string GetFlashcardUsersToUploadToSearch =
-            @" select UserId,BoxId from zbox.UserBoxRel where boxId in (
-        select top 100 f.BoxId
-        from zbox.Flashcard f 
-        where publish = 1
-        and f.isdeleted = 0
-        and f.isdirty = 1
-           and f.id % @count  = @index
-        order by Id);";
+       
 
-        public const string GetFlashcardToUploadToSearchOld = @"select top (@top) f.Id,
-f.Name,
- b.BoxName,
- f.BoxId,
- u.UniversityName as universityName,
-       b.University
-    from zbox.Flashcard f
-join zbox.Box b on f.BoxId = b.BoxId
-left join zbox.University u on b.University = u.id
-where publish = 1
-and f.isdeleted = 0
-and f.isdirty = 1
-and f.id % @count  = @index
-order by f.Id;";
+     
 
-        public const string GetFlashcardToUploadToSearch = @"select f.Id,
-f.Name,
- b.BoxName,
- f.BoxId,
- f.language,
- ub.UserId as UserIds_Id,
- u.UniversityName as universityName,
-       b.University as UniversityId,
- t.Name as Tags_Name,
- itag.Type as Tags_Type
-    from zbox.Flashcard f
-join zbox.Box b on f.BoxId = b.BoxId
-left join zbox.University u on b.University = u.id
-left join zbox.UserBoxRel ub on b.BoxId = ub.BoxId
-left join zbox.ItemTab it on i.ItemTabId = it.ItemTabId
-left join zbox.ItemTag itag on itag.ItemId = i.ItemId join zbox.Tag t on itag.TagId = t.Id
-where f.id in (select top (@top) Id from zbox.Flashcard x where x.publish = 1
-and x.isdeleted = 0
-and x.isdirty = 1
-and x.id % @count  = @index
-order by x.Id desc);";
+//        public const string GetFlashcardToUploadToSearchOld = @"select f.Id,
+//f.Name,
+// b.BoxName,
+// f.BoxId,
+// f.language,
+// ub.UserId as UserIds_Id,
+// u.UniversityName as universityName,
+//       b.University as UniversityId,
+// t.Name as Tags_Name,
+// itag.Type as Tags_Type
+//    from zbox.Flashcard f
+//join zbox.Box b on f.BoxId = b.BoxId
+//left join zbox.University u on b.University = u.id
+//left join zbox.UserBoxRel ub on b.BoxId = ub.BoxId
+//left join zbox.ItemTab it on i.ItemTabId = it.ItemTabId
+//left join zbox.ItemTag itag on itag.ItemId = i.ItemId join zbox.Tag t on itag.TagId = t.Id
+//where f.id in (select top (@top) Id from zbox.Flashcard x where x.publish = 1
+//and x.isdeleted = 0
+//and x.isdirty = 1
+//and x.id % @count  = @index
+//order by x.Id desc);";
 
         public const string GetQuizzesToUploadToSearch = @"select top (@top) q.Id,
 q.Name,
@@ -329,7 +308,47 @@ where t.rowid < 6";
 
 
 
+        #region Flashcard
+        public const string GetFlashcardToUploadToSearch = @"select top (@top) f.Id,
+f.Name,
+ b.BoxName,
+ f.BoxId,
+ f.language,
+ u.UniversityName as universityName,
+ b.University as UniversityId,
+ f.CreationTime as Date,
+	   f.CardCount as CardsCount
+    from zbox.Flashcard f
+join zbox.Box b on f.BoxId = b.BoxId
+left join zbox.University u on b.University = u.id
+where publish = 1
+and f.isdeleted = 0
+and f.isdirty = 1
+and f.id % @count  = @index
+order by f.Id desc;";
 
+        public const string GetFlashcardUsersToUploadToSearch =
+           @" select UserId,BoxId from zbox.UserBoxRel where boxId in (
+        select top (@top) f.BoxId
+        from zbox.Flashcard f 
+        where publish = 1
+        and f.isdeleted = 0
+        and f.isdirty = 1
+           and f.id % @count  = @index
+        order by Id desc);";
+
+        public const string GetFlashcardTagsToUploadToSearch =
+            @"select it.FlashcardId as Id, t.Name, it.Type 
+from zbox.ItemTag it 
+join zbox.Tag t on it.TagId = t.Id 
+where it.FlashcardId in (
+  select top (@top) f.Id  from zbox.Flashcard f
+   where publish = 1
+        and f.isdeleted = 0
+        and f.isdirty = 1
+           and f.id % @count  = @index
+        order by Id desc);";
+        #endregion
         #region Document
 
         public const string SearchItemNew = @"select top (@top)
@@ -377,7 +396,7 @@ select top (@top) i.boxid  from zbox.item i
   order by i.ItemId desc);";
 
         public const string SearchItemTags =
-            @"select it.ItemId, t.Name, it.Type from zbox.ItemTag it join zbox.Tag t on it.TagId = t.Id where it.ItemId in (
+            @"select it.ItemId as Id, t.Name, it.Type from zbox.ItemTag it join zbox.Tag t on it.TagId = t.Id where it.ItemId in (
   select top (@top) i.ItemId  from zbox.item i  
   where  i.isdirty = 1 
   and i.isdeleted = 0 

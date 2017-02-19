@@ -32,22 +32,10 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public int Views { get; set; }
         public int Likes { get; set; }
 
+        public abstract string[] MetaContent { get; }
+
+        public abstract int? ContentCount { get; }
+
         public abstract string SearchContentId { get; }// => "item_" + Id;
-    }
-
-    public class ItemSearchUsers
-    {
-        public long BoxId { get; set; }
-
-        public long UserId { get; set; }
-    }
-
-    public class ItemSearchTag
-    {
-        public string Name { get; set; }
-
-        public TagType Type { get; set; }
-
-        public long ItemId { get; set; }
     }
 }
