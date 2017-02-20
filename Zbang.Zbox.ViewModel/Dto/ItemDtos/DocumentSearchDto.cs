@@ -8,20 +8,20 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 {
     public class DocumentSearchDto : ItemSearchDto
     {
-        private static readonly string[] ClassNotes = { "Classnotes", "Class Notes", "summary" };
-        private static readonly string[] Homework = { "Homework", "assignment", "home work", "essay", "handout", "thesis" };
-        private static readonly string[] Lectures = { "Lectures", "slides", "class discussion", "speech", "talk", "handouts" };
-        private static readonly string[] StudyGuides = { "Study Guides", "study guide", "review", "templates", "summary" };
-        private static readonly string[] Exams = { "Tests & Exams", "exam", "tests", "midterms", "finals", "examination" };
+        private static readonly string[] ClassNotes = { "Classnotes", "class note", "note","notes" };
+        private static readonly string[] Homework = { "Homework", "hw", "home work", "assignments", "assignment" };
+        private static readonly string[] Lectures = { "Lectures", "lecture" };
+        private static readonly string[] StudyGuides = { "Study Guides", "study guide", "review", "guide", "reviews", "guides" };
+        private static readonly string[] Exams = { "Tests & Exams", "exam", "test", "midterm", "final" };
 
         private static bool ClassifyType(string[] words, string name, string tab, string content)
         {
             return
-                words.Any(c => name?.IndexOf(c, StringComparison.InvariantCultureIgnoreCase) >= 0)
-                ||
                 words.Any(c => tab?.IndexOf(c, StringComparison.InvariantCultureIgnoreCase) >= 0)
                 ||
-                words.Any(c => content?.IndexOf(" " + c + " ", StringComparison.InvariantCultureIgnoreCase) >= 0);
+                words.Any(c => name?.IndexOf(c, StringComparison.InvariantCultureIgnoreCase) >= 0);
+            //||
+            //words.Any(c => content?.IndexOf(" " + c + " ", StringComparison.InvariantCultureIgnoreCase) >= 0);
         }
 
         private IEnumerable<ItemType> m_Type;
