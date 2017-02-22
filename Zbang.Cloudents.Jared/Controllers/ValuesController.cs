@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
+using WebApi.OutputCache.V2;
+using Zbang.Zbox.Infrastructure.Consts;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
@@ -12,16 +13,21 @@ namespace Zbang.Cloudents.Jared.Controllers
     public class ValuesController : ApiController
     {
         // GET api/values
+        [CacheOutput(ClientTimeSpan = TimeConst.Day, ServerTimeSpan = TimeConst.Day)]
         public HttpResponseMessage Get()
         {
-            var documents = new Dictionary<string, IEnumerable<string>>();
-            documents.Add("exams", new[] {"exam", "test", "midterm", "final", "tests", "midterms", "finals"});
-            documents.Add("quizzes",
-                new[] {"quiz", "flashcard", "set", "quizlet", "flashcards", "flash cards", "quizlets", "sets"});
-            documents.Add("study guides", new[] {"study guide", "review", "guide", "reviews", "guides"});
-            documents.Add("homework", new[] {"hw", "assignments", "assignment"});
-            documents.Add("lectures", new[] { "lecture" });
-            documents.Add("class notes", new[] {"class note", "note", "notes"});
+            var documents = new Dictionary<string, IEnumerable<string>>
+            {
+                {"exams", new[] {"exam", "test", "midterm", "final", "tests", "midterms", "finals"}},
+                {
+                    "quizzes",
+                    new[] {"quiz", "flashcard", "set", "quizlet", "flashcards", "flash cards", "quizlets", "sets"}
+                },
+                {"study guides", new[] {"study guide", "review", "guide", "reviews", "guides"}},
+                {"homework", new[] {"hw", "assignments", "assignment"}},
+                {"lectures", new[] {"lecture"}},
+                {"class notes", new[] {"class note", "note", "notes"}}
+            };
 
             return Request.CreateResponse(documents);
         }

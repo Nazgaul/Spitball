@@ -20,7 +20,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public long? UniversityId { get; set; }
         public string Url { get; set; }
         public override string Content => TextManipulation.RemoveHtmlTags.Replace(WebUtility.HtmlDecode(string.Join(" ", Questions)), string.Empty) + string.Join(" ", Answers);
-        public override string[] MetaContent => new[] { TextManipulation.RemoveHtmlTags.Replace(WebUtility.HtmlDecode(Questions.FirstOrDefault() ?? string.Empty), string.Empty), Answers.FirstOrDefault() ?? string.Empty };
+        public override string[] MetaContent => new[] { TextManipulation.RemoveHtmlTags.Replace(WebUtility.HtmlDecode(Questions.FirstOrDefault() ?? string.Empty), string.Empty) };
         public override int? ContentCount => Questions.Count();
     }
 
