@@ -61,8 +61,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 var user = await m_UserManager.FindByEmailAsync(loginRequest.Email);
                 var systemUser = await  m_ZboxReadService.GetUserDetailsByEmail(query);
                 var logIn = await m_UserManager.CheckPasswordAsync(user, loginRequest.Password);
-                //await Task.WhenAll(tSystemData, tLogIn);
-                //var systemUser = tSystemData.Result;
                 if (systemUser == null)
                 {
                     return Request.CreateBadRequestResponse();
@@ -96,8 +94,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError($"LogOn model : {loginRequest} ", ex);
-
-                //ModelState.AddModelError(string.Empty, AccountControllerResources.LogonError);
             }
             return Request.CreateBadRequestResponse();
 

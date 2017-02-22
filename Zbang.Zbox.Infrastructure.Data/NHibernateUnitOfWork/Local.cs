@@ -54,7 +54,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                     return webHashtable;
                 }
             }
-
+          
             public object this[string key]
             {
                 get
@@ -100,6 +100,8 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                     //CallContext.LogicalSetData("LocalData_hash", null);
                 }
             }
+
+            
         }
     }
 }
