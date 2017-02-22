@@ -85,7 +85,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                     })
                 }
                 ),
-                Answers = tModel.Result.Sheet.Questions,
+                Answers = tModel.Result.Sheet?.Questions,
                 tModel.Result.Sheet,
                 tModel.Result.Like
             });
