@@ -17,5 +17,10 @@ namespace Zbang.Zbox.Infrastructure.Transport
         [ProtoMember(1)]
         public long ItemId { get; private set; }
         public override string ProcessResolver => nameof(BoxFileProcessData);
+
+        public override string ToString()
+        {
+            return "itemid " + ItemId;
+        }
     }
 }

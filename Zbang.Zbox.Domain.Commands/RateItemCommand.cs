@@ -12,12 +12,19 @@ namespace Zbang.Zbox.Domain.Commands
             UserId = userId;
             Id = id;
         }
+
+        public RateItemCommand(long itemId, long userId, Guid id)
+        {
+            ItemId = itemId;
+            UserId = userId;
+            Id = id;
+        }
         public long ItemId { get; private set; }
         public long UserId { get; private set; }
 
 
         public Guid Id { get; private set; }
 
-        public long BoxId { get; private set; }
+        public long? BoxId { get; private set; }
     }
 }

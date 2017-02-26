@@ -129,7 +129,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                                             , s.UserId));
 
                                 var quizUpdate =
-                                    updatesData.Quizzes.Where(w => w.BoxId == box.BoxId)
+                                    updatesData.Quizzes.Where(w => w.BoxId == box.BoxId && !string.IsNullOrEmpty(w.Url))
                                         .Take(4)
                                         .Select(s => new UpdateMailParams.ItemUpdate(s.Name,
                                             s.Picture

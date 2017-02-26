@@ -90,6 +90,7 @@
     <Compile Include="CreateFacebookUserCommandResult.cs" />
     <Compile Include="CreateGoogleUserCommand.cs" />
     <Compile Include="CreateItemTabCommand.cs" />
+    <Compile Include="CreateJaredUserCommand.cs" />
     <Compile Include="CreateMembershipUserCommand.cs" />
     <Compile Include="CreateMembershipUserCommandResult.cs" />
     <Compile Include="CreateUniversityCommand.cs" />

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Commands.Quiz;
@@ -56,6 +55,16 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
                 return result;
                 //}
+            }
+        }
+
+        public CreateJaredUserCommandResult CreateUserJared(CreateJaredUserCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                var result = m_CommandBus.Dispatch<CreateJaredUserCommand, CreateJaredUserCommandResult>(command);
+                UnitOfWork.Current.TransactionalFlush();
+                return result;
             }
         }
 
@@ -174,8 +183,12 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (UnitOfWork.Start())
             {
-                var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
-                var t1 = m_CommandBus.SendAsync(autoFollowCommand);
+                var t1 = Task.CompletedTask;
+                if (command.BoxId.HasValue)
+                {
+                    var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId.Value);
+                    t1 = m_CommandBus.SendAsync(autoFollowCommand);
+                }
                 var t2 = m_CommandBus.SendAsync(command);
                 await Task.WhenAll(t1, t2);
 
@@ -502,18 +515,6 @@ namespace Zbang.Zbox.Domain.Services
 
         #endregion
 
-
-        //public async Task AddReputationAsync(AddReputationCommand command)
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        await m_CommandBus.SendAsync(command);
-        //        UnitOfWork.Current.TransactionalFlush();
-        //    }
-        //}
-
-
-
         public void DeleteUpdates(DeleteUpdatesCommand command)
         {
             using (UnitOfWork.Start())
@@ -819,7 +820,7 @@ namespace Zbang.Zbox.Domain.Services
 
         #region Jared
 
-        
+
         //public void UpdateItemCourseTag<T>(T command) where T : UpdateItemCourseTagCommand
         //{
         //    using (UnitOfWork.Start())

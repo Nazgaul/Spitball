@@ -18,21 +18,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IQueueProvider m_QueueRepository;
         private readonly IRepository<University> m_UniversityRepository;
         private readonly IInviteRepository m_InviteToCloudentsRepository;
-        //private readonly IRepository<Reputation> m_ReputationRepository;
         private readonly IRepository<Box> m_BoxRepository;
 
         protected CreateUserCommandHandler(IUserRepository userRepository,
             IQueueProvider queueRepository,
             IRepository<University> universityRepository,
             IInviteRepository inviteToCloudentsRepository,
-            //IRepository<Reputation> reputationRepository, 
             IRepository<Box> boxRepository)
         {
             UserRepository = userRepository;
             m_QueueRepository = queueRepository;
             m_UniversityRepository = universityRepository;
             m_InviteToCloudentsRepository = inviteToCloudentsRepository;
-            // m_ReputationRepository = reputationRepository;
             m_BoxRepository = boxRepository;
         }
 

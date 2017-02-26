@@ -16,9 +16,7 @@ namespace Zbang.Zbox.Domain.Commands
         }
 
         public Guid MembershipUserId { get; private set; }
-
-        //public string UniversityName  { get; private set; }           
-
+        
         public override string CommandResolveName => ResolveName;
     }
 }

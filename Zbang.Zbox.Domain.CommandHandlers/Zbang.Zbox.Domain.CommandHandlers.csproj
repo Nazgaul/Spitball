@@ -88,6 +88,7 @@
     <Compile Include="CreateFacebookUserCommandHandler.cs" />
     <Compile Include="CreateGoogleUserCommandHandler.cs" />
     <Compile Include="CreateItemTabCommandHandler.cs" />
+    <Compile Include="CreateJaredUserCommandHandler.cs" />
     <Compile Include="CreateMembershipUserCommandHandler.cs" />
     <Compile Include="CreateUniversityCommandHandler.cs" />
     <Compile Include="DeleteBoxCommandHandler.cs" />

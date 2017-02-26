@@ -342,7 +342,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }
 
         }
-        // ReSharper disable once ConsiderUsingAsyncSuffix - api call
         [Route("api/item/like")]
         [HttpPost]
         public async Task<HttpResponseMessage> Like(ItemLikeRequest model)
@@ -356,7 +355,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             await m_ZboxWriteService.RateItemAsync(command);
 
             return Request.CreateResponse();
-
         }
 
         // ReSharper disable once ConsiderUsingAsyncSuffix - api call

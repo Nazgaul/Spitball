@@ -20,11 +20,6 @@ namespace Zbang.Zbox.Domain.Commands
             InviteId = inviteId;
             Culture = culture;
             Email = emailId;
-            //if (universityId.HasValue && universityId.Value == 19878)
-            //{
-            //    universityId = null;
-
-            //}
             UniversityId = universityId;
             FirstName = firstName;
             LastName = lastName;

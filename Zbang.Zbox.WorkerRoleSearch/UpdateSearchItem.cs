@@ -349,14 +349,25 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             var parameters = data as BoxFileProcessData;
             if (parameters == null) return true;
+            try
+            {
+                var elem =
+                    await m_ZboxReadService.GetItemsDirtyUpdatesAsync(
+                        new ViewModel.Queries.Search.SearchItemDirtyQuery(parameters.ItemId), token);
 
-            var elem = await m_ZboxReadService.GetItemsDirtyUpdatesAsync(new ViewModel.Queries.Search.SearchItemDirtyQuery(parameters.ItemId), token);
+                await ProcessDocumentAsync(token, elem.ItemsToUpdate.FirstOrDefault());
+                //await UploadToAzureSearchAsync(elem.ItemsToUpdate.FirstOrDefault(), token);
+                await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
+                    new UpdateDirtyToRegularCommand(new[] {parameters.ItemId}));
 
-            await ProcessDocumentAsync(token, elem.ItemsToUpdate.FirstOrDefault());
-            //await UploadToAzureSearchAsync(elem.ItemsToUpdate.FirstOrDefault(), token);
-            await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
-                new UpdateDirtyToRegularCommand(new[] { parameters.ItemId }));
-            return true;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("error update search item" + parameters, ex);
+                return false;    
+            }
+
         }
     }
 }

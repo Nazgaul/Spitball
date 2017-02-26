@@ -70,7 +70,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 catch (ApplicationException ex)
                 {
                     TraceLog.WriteError("On update quiz views itemid:" + itemId.ItemId, ex);
-                    
+
                 }
                 return t;
             }
@@ -84,9 +84,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 return t;
             }
-
-           // item.ShouldMakeDirty = () => false;
-           item.ShouldMakeDirty = () => true;
+            item.ShouldMakeDirty = () => true;
             if (itemId.Action == Infrastructure.Enums.StatisticsAction.View)
             {
                 item.IncreaseNumberOfViews();

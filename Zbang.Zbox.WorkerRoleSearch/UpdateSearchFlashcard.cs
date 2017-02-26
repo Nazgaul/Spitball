@@ -57,6 +57,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     toUpdates.RemoveAt(i);
                     continue;
                 }
+                if (!flashcard.Cards.Any())
+                {
+                    toUpdates.RemoveAt(i);
+                    continue;
+                }
                 update.BackCards = flashcard.Cards.Select(s => s.Cover).Where(w => !string.IsNullOrEmpty(w.Text)).Select(s => s.Text);
                 update.FrontCards = flashcard.Cards.Select(s => s.Front).Where(w => !string.IsNullOrEmpty(w.Text)).Select(s => s.Text);
 

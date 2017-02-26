@@ -9,6 +9,10 @@ using Microsoft.Azure.Mobile.Server;
 using Microsoft.Azure.Mobile.Server.Authentication;
 using Microsoft.Azure.Mobile.Server.Config;
 using Owin;
+using Zbang.Zbox.Domain.CommandHandlers;
+using Zbang.Zbox.Domain.DataAccess;
+using Zbang.Zbox.Domain.Services;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Azure;
 
 namespace Zbang.Cloudents.Jared
@@ -21,7 +25,7 @@ namespace Zbang.Cloudents.Jared
 
             HttpConfiguration config = new HttpConfiguration();
 
-          
+            config.MapHttpAttributeRoutes();
 
             new MobileAppConfiguration()
         .AddMobileAppHomeController()             // from the Home package
@@ -48,7 +52,12 @@ namespace Zbang.Cloudents.Jared
 
 
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+            builder.RegisterModule<InfrastructureModule>();
             builder.RegisterModule<StorageModule>();
+            builder.RegisterModule<RepositoryModule>();
+            builder.RegisterModule<CommandsModule>();
+            builder.RegisterModule<WriteServiceModule>();
+            
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 

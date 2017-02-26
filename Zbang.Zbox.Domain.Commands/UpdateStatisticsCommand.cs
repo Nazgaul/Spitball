@@ -10,11 +10,9 @@ namespace Zbang.Zbox.Domain.Commands
         {
             ItemId = itemId;
             UserId = userId;
-            // StatTime = statTime;
         }
         public StatisticItemData ItemId { get; private set; }
         public long UserId { get; private set; }
-       // public DateTime StatTime { get; private set; }
 
 
        

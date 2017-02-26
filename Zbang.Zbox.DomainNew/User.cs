@@ -16,7 +16,6 @@ namespace Zbang.Zbox.Domain
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
             UserBoxRel = new HashSet<UserBoxRel>();
             UserLibraryRel = new HashSet<UserLibraryRel>();
-            //Invites = new HashSet<Invite>();
             Quota = new Quota();
             UserTime = new UserTimeDetails(0);
             UserType = UserType.Regular;
@@ -43,7 +42,6 @@ namespace Zbang.Zbox.Domain
             Sex = sex;
             BadgeCount = 1;
             Score = ReputationConst.BadgeRegister;
-            //AddReputation(ReputationAction.Register);
         }
         // ReSharper restore DoNotCallOverridableMethodsInConstructor
         public void CreateName()
@@ -84,10 +82,8 @@ namespace Zbang.Zbox.Domain
         public virtual UserType UserType { get; set; }
         public virtual bool IsRegisterUser { get; set; }
         public virtual string Name { get; protected set; }
-       // public virtual Theme Theme { get; set; }
 
         public virtual string FirstName { get; set; }
-        //public virtual string MiddleName { get; set; }
         public virtual string LastName { get; set; }
 
         public virtual Sex Sex { get; set; }
@@ -111,17 +107,10 @@ namespace Zbang.Zbox.Domain
         public virtual string StudentId { get; set; }
         public virtual DateTime? LastAccessTime { get; set; }
 
-       // public virtual int Reputation { get; set; }
         public virtual int Score { get; set; }
 
         public virtual ICollection<Badge> Badges { get; protected set; }
         public virtual int BadgeCount { get; set; }
-
-        //public virtual RussianDepartment RussianDepartment { get; set; }
-
-
-        //public virtual string GroupNumber { get; set; }
-        //public virtual string RegisterNumber { get; set; }
 
         public virtual bool Online { get; set; }
 
@@ -132,15 +121,6 @@ namespace Zbang.Zbox.Domain
         public virtual MobileOperatingSystem MobileDevice { get; set; }
         public virtual PushNotificationSettings PushNotificationSetting { get; set; }
 
-        
-
-        //public Reputation AddReputation(ReputationAction action)
-        //{
-        //    var reputation = new Reputation(GuidIdGenerator.GetGuid(), this, action);
-
-        //    Reputation += reputation.Score;
-        //    return reputation;
-        //}
 
         public virtual void AddConnection(string connectionId)
         {
@@ -204,26 +184,6 @@ namespace Zbang.Zbox.Domain
         {
             Email = email;
         }
-
-       
-
-        //#region Nhibernate
-        //public override bool Equals(object other)
-        //{
-        //    if (this == other) return true;
-        //
-        //    var user = other as User;
-        //    if (user == null) return false;
-        //
-        //    return string.Equals(Email.Trim(), user.Email.Trim(), StringComparison.CurrentCultureIgnoreCase);
-        //}
-        //
-        //public override int GetHashCode()
-        //{
-        //    var result = Email.GetHashCode();
-        //    return result;
-        //}
-        //#endregion
 
     }
 

@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Commands.Quiz;
-using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Common
 {
     public interface IZboxWriteService
     {
         Task<CreateUserCommandResult> CreateUserAsync(CreateUserCommand command);
+        CreateJaredUserCommandResult CreateUserJared(CreateJaredUserCommand command);
         Task<UpdateUserCommandResult> UpdateUserPasswordAsync(UpdateUserPasswordCommand command);
 
         Task UpdateUserEmailAsync(UpdateUserEmailCommand command);
