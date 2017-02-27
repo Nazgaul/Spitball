@@ -25,18 +25,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 .As<ICommandHandler<AssignTagsToFlashcardCommand>>();
             builder.RegisterType(typeof(AssignTagsToItemCommandHandler<Domain.Quiz>))
                .As<ICommandHandler<AssignTagsToQuizCommand>>();
-            //AssignTagsToQuizCommand
 
-            //builder.RegisterType(typeof(UpdateItemCourseTagCommandHandler<Item>))
-            //   .As<ICommandHandler<UpdateDocumentCourseTagCommand>>();
-            //builder.RegisterType(typeof(UpdateItemCourseTagCommandHandler<FlashcardMeta>))
-            //    .As<ICommandHandler<UpdateFlashcardCourseTagCommand>>();
-            //builder.RegisterType(typeof(UpdateItemCourseTagCommandHandler<Domain.Quiz>))
-            //    .As<ICommandHandler<UpdateQuizCourseTagCommand>>();
-
-            
-
-            builder.RegisterAssemblyTypes(ThisAssembly).AsClosedTypesOf(typeof(ICommandHandler<>));
+            //builder.RegisterAssemblyTypes(ThisAssembly).AsClosedTypesOf(typeof(ICommandHandler<>));
+            builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces();
 
             #endregion
         }

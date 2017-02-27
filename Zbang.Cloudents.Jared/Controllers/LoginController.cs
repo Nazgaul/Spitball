@@ -35,14 +35,14 @@ namespace Zbang.Cloudents.Jared.Controllers
             var uniqueId = assertion["hash"].ToObject<Guid>();
 
             var command = new CreateJaredUserCommand(uniqueId);
-            var userId = m_ZboxWriteService.CreateUserJared(command);
+            var userIdResult = m_ZboxWriteService.CreateUserJared(command);
             //if (isValidAssertion(assertion)) // user-defined function, checks against a database
             //{
             var token = AppServiceLoginHandler.CreateToken(
                 new[]
                 {
-                    new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
-                    new Claim(ClaimConst.UserIdClaim,userId.ToString())
+                    new Claim(JwtRegisteredClaimNames.Sub, userIdResult.UserId.ToString()),
+                    new Claim(ClaimConst.UserIdClaim,userIdResult.UserId.ToString())
                 },
                 m_SigningKey,
                 m_Audience,
@@ -51,7 +51,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             return Ok(new LoginResult
             {
                 AuthenticationToken = token.RawData,
-                User = new LoginResultUser { UserId = userId.ToString() }
+                User = new LoginResultUser { UserId = userIdResult.UserId.ToString() }
             });
         }
     }

@@ -172,10 +172,12 @@
     <Compile Include="App_Start\Startup.MobileApp.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\RefreshController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Filters\VersionConstraint.cs" />
     <Compile Include="Filters\VersionedRoute.cs" />
     <Compile Include="Models\ItemLikeRequest.cs" />
+    <Compile Include="Models\ItemTagRequest.cs" />
     <Compile Include="Models\LoginResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -224,6 +226,10 @@
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Azure\Zbang.Zbox.Infrastructure.Azure.csproj">
       <Project>{9a210d03-f7a2-4cf6-b311-742a2a1949d4}</Project>
       <Name>Zbang.Zbox.Infrastructure.Azure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Data\Zbang.Zbox.Infrastructure.Data.csproj">
+      <Project>{A29AAA7A-E472-4661-A503-EB00FD43D2C3}</Project>
+      <Name>Zbang.Zbox.Infrastructure.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Transport\Zbang.Zbox.Infrastructure.Transport.csproj">
       <Project>{4F5EDC5B-31FA-4904-BD11-2CF1790AE234}</Project>

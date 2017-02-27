@@ -50,7 +50,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         }
 
 
-        [Route("api/item/like")]
+        [Route("api/document/like")]
         [HttpPost]
         [Authorize]
         public async Task<HttpResponseMessage> Like(ItemLikeRequest model)
@@ -62,6 +62,21 @@ namespace Zbang.Cloudents.Jared.Controllers
             var id = m_GuidGenerator.GetId();
             var command = new RateItemCommand(model.Id, User.GetUserId(), id);
             await m_ZboxWriteService.RateItemAsync(command);
+            return Request.CreateResponse();
+        }
+
+        [Route("api/document/tag")]
+        [HttpPut]
+        [Authorize]
+        public HttpResponseMessage AddTag(ItemTagRequest model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+
+            var z = new AssignTagsToDocumentCommand(model.ItemId, model.Tags, TagType.User);
+            m_ZboxWriteService.AddItemTag(z);
             return Request.CreateResponse();
         }
 

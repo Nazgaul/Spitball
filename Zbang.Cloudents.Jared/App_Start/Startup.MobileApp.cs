@@ -14,6 +14,7 @@ using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Azure;
+using Zbang.Zbox.Infrastructure.Data;
 
 namespace Zbang.Cloudents.Jared
 {
@@ -57,6 +58,8 @@ namespace Zbang.Cloudents.Jared
             builder.RegisterModule<RepositoryModule>();
             builder.RegisterModule<CommandsModule>();
             builder.RegisterModule<WriteServiceModule>();
+            builder.RegisterModule<DataModule>();
+            
             
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);

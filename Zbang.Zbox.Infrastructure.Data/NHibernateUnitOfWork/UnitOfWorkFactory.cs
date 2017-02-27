@@ -89,7 +89,13 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
         {
             try
             {
-                var storage = IocFactory.IocWrapper.Resolve<ICache>();
+                //TODO: this is for now - Jared is not using IOC factory
+                var wrapper = IocFactory.IocWrapper;
+                if (wrapper == null)
+                {
+                    return;
+                }
+                var storage = wrapper.Resolve<ICache>();
                 using (var ms = new MemoryStream())
                 {
                     IFormatter bf = new BinaryFormatter();
@@ -124,7 +130,12 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 
             try
             {
-                var storage = IocFactory.IocWrapper.Resolve<ICache>();
+                var wrapper = IocFactory.IocWrapper;
+                if (wrapper == null)
+                {
+                    return null;
+                }
+                var storage = wrapper.Resolve<ICache>();
                 var file = storage.GetFromCache<byte[]>("nhibernate", GetConfigurationFileName());
                 if (file == null)
                 {

@@ -216,8 +216,8 @@ namespace Testing
             var m_FileProcessorFactory = iocFactory.Resolve<IFileProcessorFactory>();
             var languageDetection = iocFactory.Resolve<IDetectLanguage>();
             var writeService = iocFactory.Resolve<IZboxWriteService>();
-            var search = iocFactory.Resolve<IContentReadSearchProvider>();
-
+            //var search = iocFactory.Resolve<IContentReadSearchProvider>();
+            writeService.CreateUserJared(new CreateJaredUserCommand(Guid.NewGuid()));
 
             //var updateDate = new UpdateData(1028091, 8417, itemId: 606505);
             //var y = iocFactory.Resolve<IDomainProcess>(updateDate.ProcessResolver);
