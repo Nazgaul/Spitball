@@ -104,7 +104,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> DataAsync(long boxId, long quizId)
         {
             var userId = User.GetUserId(false);
-            var query = new GetQuizQuery(quizId, userId, boxId);
+            var query = new GetQuizQuery(quizId, userId);
             var tModel = ZboxReadService.GetQuizAsync(query);
 
             var tTransaction = m_QueueProvider.InsertMessageToTranactionAsync(

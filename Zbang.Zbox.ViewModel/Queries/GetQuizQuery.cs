@@ -2,14 +2,14 @@
 {
     public class GetQuizQuery : QueryBase
     {
-        public GetQuizQuery(long quizId, long userId, long boxId)
+        public GetQuizQuery(long quizId, long userId)
             : base(userId)
         {
             QuizId = quizId;
-            BoxId = boxId;
+           // BoxId = boxId;
         }
         public long QuizId { get; private set; }
-        public long BoxId { get; private set; }
+        //public long BoxId { get; private set; }
 
     }
 

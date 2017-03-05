@@ -24,10 +24,10 @@ namespace Zbang.Cloudents.Jared.Controllers
         }
 
         // GET api/Quiz
-        public async Task<HttpResponseMessage> Get(long boxId, long quizId)
+        public async Task<HttpResponseMessage> Get(long quizId)
         {
-            var userId = User.GetUserId();
-            var query = new GetQuizQuery(quizId, userId, boxId);
+            var userId = User.GetUserId(false);
+            var query = new GetQuizQuery(quizId, userId);
             var tModel = m_ZboxReadService.GetQuizAsync(query);
             var tTransaction = m_QueueProvider.InsertMessageToTranactionAsync(
                  new StatisticsData4(

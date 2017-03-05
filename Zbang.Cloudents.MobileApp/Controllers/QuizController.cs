@@ -59,7 +59,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         public async Task<HttpResponseMessage> Get(long boxId, long quizId)
         {
             var userId = User.GetUserId();
-            var query = new GetQuizQuery(quizId, userId, boxId);
+            var query = new GetQuizQuery(quizId, userId);
             var tModel = m_ZboxReadService.GetQuizAsync(query);
             var tTransaction = m_QueueProvider.InsertMessageToTranactionAsync(
                  new StatisticsData4(

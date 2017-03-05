@@ -347,7 +347,7 @@ namespace Zbang.Zbox.ReadServices
                 using (var grid = await conn.QueryMultipleAsync($"{Sql.Item.ItemComments} {Sql.Item.ItemCommentReply}",
                     query))
                 {
-                    var retVal = await grid.ReadAsync<Activity.AnnotationDto>();
+                    var retVal = (await grid.ReadAsync<Activity.AnnotationDto>()).ToList();
 
                     IEnumerable<Activity.AnnotationReplyDto> replies =
                         grid.Read<Activity.AnnotationReplyDto>().ToList();
@@ -500,7 +500,7 @@ where ownerid = @UserId and boxid = @BoxId;";
                     $"{Sql.Feed.GetReplies} {Sql.Feed.GetItemsInReply}",
                     new { query.BoxId, query.PageNumber, query.RowsPerPage, query.CommentId, AnswerId = query.BelowReplyId }))
                 {
-                    var replies = grid.Read<Qna.ReplyDto>();
+                    var replies = (await grid.ReadAsync<Qna.ReplyDto>()).ToList();
                     var items = grid.Read<Qna.ItemDto>().ToLookup(c => c.AnswerId);
 
                     foreach (var reply in replies)
@@ -926,7 +926,7 @@ where ownerid = @UserId and boxid = @BoxId;";
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 return await conn.QueryAsync<SeoDto>(new CommandDefinition(sql,
-                    new {rowsperpage = pageSize, pageNumber = page},
+                    new { rowsperpage = pageSize, pageNumber = page },
                     commandTimeout: 360, cancellationToken: token));
             }
         }
@@ -1043,15 +1043,16 @@ where ownerid = @UserId and boxid = @BoxId;";
                 const string sql = Sql.Quiz.QuizQuery + Sql.Quiz.Question + Sql.Quiz.Answer + Sql.Quiz.UserQuiz
                                    + Sql.Quiz.UserLike +
                                    Sql.Quiz.UserAnswer + Sql.Quiz.TopUsers;
-                using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId, query.BoxId, query.UserId, topusers = 3 }))
+                using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId, query.UserId, topusers = 3 }))
                 {
                     retVal.Quiz = await grid.ReadFirstAsync<Item.QuizWithDetailDto>();
                     retVal.Quiz.Questions = await grid.ReadAsync<Item.QuestionWithDetailDto>();
-                    var answers = grid.Read<Item.AnswerWithDetailDto>().ToList();
+                    var answers = grid.Read<Item.AnswerWithDetailDto>().ToLookup(c => c.QuestionId);
 
                     foreach (var question in retVal.Quiz.Questions)
                     {
-                        question.Answers.AddRange(answers.Where(w => w.QuestionId == question.Id));
+                        question.Answers.AddRange(answers[question.Id]);
+                        //question.Answers.AddRange(answers.Where(w => w.QuestionId == question.Id));
                     }
                     retVal.Sheet = await grid.ReadFirstOrDefaultAsync<Item.SolveSheet>();
                     retVal.Like = await grid.ReadFirstOrDefaultAsync<Guid?>();

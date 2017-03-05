@@ -183,6 +183,9 @@ select questionid from Zbox.Question where boxid in (
 	select top(3)  boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
 ) 
 )option (maxdop 1)",
+                        @"delete from zbox.commentlike where boxid in (
+select top (3) boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0 order by boxid)",
+
                         @"delete from Zbox.Question where boxid in (
 	select top(3)  boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
 ) option (maxdop 1)",

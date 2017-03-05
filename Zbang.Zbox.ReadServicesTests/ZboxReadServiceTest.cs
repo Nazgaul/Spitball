@@ -325,7 +325,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetQuiz_Query_ReturnResult()
         {
-            var query = new GetQuizQuery(1, 1, 1);
+            var query = new GetQuizQuery(1, 1);
             try
             {
                 var x = m_ZboxReadService.GetQuizAsync(query);

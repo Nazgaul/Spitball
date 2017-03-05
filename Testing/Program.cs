@@ -161,8 +161,9 @@ namespace Testing
             Zbang.Zbox.Infrastructure.Mail.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.File.RegisterIoc.Register();
             unity.ContainerBuilder.RegisterModule<StorageModule>();
+            unity.ContainerBuilder.RegisterModule<ReadServiceModule>();
             // Zbang.Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
-            Zbang.Zbox.ReadServices.RegisterIoc.Register();
+            //Zbang.Zbox.ReadServices.RegisterIoc.Register();
             unity.ContainerBuilder.RegisterModule<InfrastructureModule>();
             //unity.ContainerBuilder.RegisterType<SeachConnection>()
             //        .As<ISearchConnection>()

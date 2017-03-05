@@ -14,21 +14,17 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class SpamGun : ISchedulerProcess
     {
-        //private readonly IQueueProviderExtract m_QueueProvider;
         private readonly IMailComponent m_MailComponent;
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
 
 
         public readonly int NumberOfEmailPerSession = int.Parse(ConfigFetcher.Fetch("NumberOfSpamGunEmailBatch"));
-        //public readonly TimeSpan NumberOfTimeToSleep = TimeSpan.FromSeconds(2500);
-        //public readonly TimeSpan NumberOfTimeToSleep = TimeSpan.FromHours(1);
 
         public const int SpanGunNumberOfQueues = 13;
         private const int NumberOfIps = 4;
         private readonly Queue<SpamGunDto>[] m_Queues = new Queue<SpamGunDto>[SpanGunNumberOfQueues];
 
-        //20,28,39,55,77,108,151,211,295,413,579,810,1000,1587,2222,3111,4356,6098,8583,11953,16734,23427,32798,45917,64284,89998,125997,176395,246953,345735,484029,677640,948696,1328175,1859444,2603222,3644511,5102316,7143242,10000539,14000754,19601056
         private readonly int m_LimitPerIp = int.Parse(ConfigFetcher.Fetch("NumberOfEmailsPerHour"));
         private const string ServiceName = "SpamGunService";
 
@@ -40,28 +36,28 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_ZboxWriteService = zboxWriteService;
         }
 
-        private static bool NeedToProcess()
-        {
-            if (DateTime.UtcNow.DayOfWeek == DayOfWeek.Saturday)
-            {
-                return false;
-            }
-            if (DateTime.UtcNow.DayOfWeek == DayOfWeek.Friday)
-            {
-                if (DateTime.UtcNow.Hour > 22)
-                {
-                    return false;
-                }
-            }
-            if (DateTime.UtcNow.DayOfWeek == DayOfWeek.Sunday)
-            {
-                if (DateTime.UtcNow.Hour < 13)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
+        //private static bool NeedToProcess()
+        //{
+        //    if (DateTime.UtcNow.DayOfWeek == DayOfWeek.Saturday)
+        //    {
+        //        return false;
+        //    }
+        //    if (DateTime.UtcNow.DayOfWeek == DayOfWeek.Friday)
+        //    {
+        //        if (DateTime.UtcNow.Hour > 22)
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    if (DateTime.UtcNow.DayOfWeek == DayOfWeek.Sunday)
+        //    {
+        //        if (DateTime.UtcNow.Hour < 13)
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    return true;
+        //}
 
         public async Task<bool> ExecuteAsync(int index, Func<int, Task> progressAsync, CancellationToken token)
         {
@@ -88,7 +84,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             // reachHourLimit = true;
                             break;
                         }
-
+                        if (j == 3 && i == 12) //umich detect ip number 3
+                        {
+                            TraceLog.WriteInfo($"{ServiceName} bypass umich with ip3");
+                            continue;
+                        }
                         await BuildQueueDataAsync(m_Queues[i], i, token);
                         var emailsTask = new List<Task>();
                         for (var k = 0; k < NumberOfEmailPerSession; k++)
