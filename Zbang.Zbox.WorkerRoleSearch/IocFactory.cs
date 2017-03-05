@@ -2,13 +2,13 @@
 using Zbang.Zbox.Domain.CommandHandlers;
 using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure;
-using Zbang.Zbox.Infrastructure.Ai;
 using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Data;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Notifications;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.ReadServices;
 
 
 namespace Zbang.Zbox.WorkerRoleSearch
@@ -35,7 +35,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Ioc.ContainerBuilder.RegisterModule<SearchModule>();
 
             Ioc.ContainerBuilder.RegisterModule<WriteServiceModule>();
-            ReadServices.RegisterIoc.Register();
+            Ioc.ContainerBuilder.RegisterModule<ReadServiceModule>();
             Domain.CommandHandlers.Ioc.RegisterIoc.Register();
 
             Ioc.ContainerBuilder.RegisterModule<CommandsModule>();

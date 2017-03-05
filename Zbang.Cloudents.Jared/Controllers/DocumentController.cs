@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -32,11 +33,11 @@ namespace Zbang.Cloudents.Jared.Controllers
         }
 
         // GET api/Document
-        public async Task<string> Get(long itemId, string blob, CancellationToken cancellationToken)
+        public async Task<HttpResponseMessage> Get(long itemId, string blob, CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(blob))
             {
-                return "hello world";
+                return Request.CreateBadRequestResponse();
             }
             await m_QueueProvider.InsertMessageToTranactionAsync(
                     new StatisticsData4(
@@ -46,7 +47,8 @@ namespace Zbang.Cloudents.Jared.Controllers
                           Action = (int)StatisticsAction.View
                       }
                   , -1), cancellationToken);
-            return m_BlobProviderFiles.GenerateSharedAccessReadPermission(blob, 20);
+            var blobUrl = m_BlobProviderFiles.GenerateSharedAccessReadPermission(blob, 20);
+            return Request.CreateResponse(blobUrl);
         }
 
 
@@ -62,23 +64,30 @@ namespace Zbang.Cloudents.Jared.Controllers
             var id = m_GuidGenerator.GetId();
             var command = new RateItemCommand(model.Id, User.GetUserId(), id);
             await m_ZboxWriteService.RateItemAsync(command);
-            return Request.CreateResponse();
-        }
 
-        [Route("api/document/tag")]
-        [HttpPut]
-        [Authorize]
-        public HttpResponseMessage AddTag(ItemTagRequest model)
-        {
-            if (!ModelState.IsValid)
+            if (model.Tags.Any())
             {
-                return Request.CreateBadRequestResponse();
+                var z = new AssignTagsToDocumentCommand(model.Id, model.Tags, TagType.User);
+                m_ZboxWriteService.AddItemTag(z);
             }
 
-            var z = new AssignTagsToDocumentCommand(model.ItemId, model.Tags, TagType.User);
-            m_ZboxWriteService.AddItemTag(z);
             return Request.CreateResponse();
         }
+
+        //[Route("api/document/tag")]
+        //[HttpPut]
+        //[Authorize]
+        //public HttpResponseMessage AddTag(ItemTagRequest model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Request.CreateBadRequestResponse();
+        //    }
+
+        //    var z = new AssignTagsToDocumentCommand(model.ItemId, model.Tags, TagType.User);
+        //    m_ZboxWriteService.AddItemTag(z);
+        //    return Request.CreateResponse();
+        //}
 
     }
 }

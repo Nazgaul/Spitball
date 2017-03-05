@@ -42,7 +42,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     TraceLog.WriteInfo($"{GetPrefix()} not going to sleep inteval change {Interval}");
                     break;
                 case TimeToSleep.Same:
-                    TraceLog.WriteInfo($"{GetPrefix()} going to sleep inteval {Interval}");
+                    //TraceLog.WriteInfo($"{GetPrefix()} going to sleep inteval {Interval}");
                     await SleepAsync(cancellationToken);
                     break;
                 default:

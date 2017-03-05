@@ -25,8 +25,7 @@ q.CreationTime as Date, q.NumberOfViews, q.Publish
 from zbox.quiz q 
 join zbox.Users u on q.UserId = u.UserId
  where q.id = @QuizId
- and q.isdeleted = 0;
-";
+ and q.isdeleted = 0;";
 
 
 
@@ -37,22 +36,16 @@ join zbox.Users u on q.UserId = u.UserId
 
 
 
-        public const string UserQuiz = @"
-select q.TimeTaken,q.Score 
-from zbox.SolvedQuiz q 
-where q.QuizId = @QuizId and q.UserId = @UserId;";
+        public const string UserQuiz = @"select q.TimeTaken,q.Score from zbox.SolvedQuiz q where q.QuizId = @QuizId and q.UserId = @UserId;";
 
-        public const string UserLike = @"
-select q2.id from zbox.quizlike2 q2  where q2.QuizId = @QuizId and q2.UserId = @UserId;
-";
+        public const string UserLike = @"select q2.id from zbox.quizlike2 q2  where q2.QuizId = @QuizId and q2.UserId = @UserId;";
 
         public const string UserAnswer = @"select q.AnswerId,q.QuestionId from zbox.SolvedQuestion q where QuizId = @QuizId and UserId = @UserId;";
 
 
 
 
-        public const string TopUsers = @"select username as Name, UserImageLarge as Image 
-  from zbox.users where userid in (
+        public const string TopUsers = @"select username as Name, UserImageLarge as Image from zbox.users where userid in (
   select top(@topusers) userid from zbox.[SolvedQuiz] where quizid = @QuizId order by score desc)";
 
         public const string Discussion = @"select qd.Id,

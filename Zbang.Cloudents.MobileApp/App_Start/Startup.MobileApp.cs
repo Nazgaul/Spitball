@@ -25,6 +25,7 @@ using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Data;
+using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Cloudents.MobileApp
 {
@@ -138,9 +139,9 @@ namespace Zbang.Cloudents.MobileApp
             builder.RegisterModule<WriteServiceModule>();
             //Zbox.Domain.Services.RegisterIoc.Register();
             builder.RegisterModule<CommandsModule>();
-            Zbang.Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
+            Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
 
-            Zbox.ReadServices.RegisterIoc.Register();
+            builder.RegisterModule<ReadServiceModule>();
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
            

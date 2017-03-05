@@ -17,6 +17,7 @@ using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Cloudents.Mvc4WebRole
 {
@@ -63,9 +64,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     c => HttpContext.Current.GetOwinContext().Authentication);
 
                 builder.RegisterModule<WriteServiceModule>();
-                //Zbox.Domain.Services.RegisterIoc.Register();
-
-                Zbox.ReadServices.RegisterIoc.Register();
+                builder.RegisterModule<ReadServiceModule>();
+                
                 Zbang.Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
                 builder.RegisterModule<CommandsModule>();
 
