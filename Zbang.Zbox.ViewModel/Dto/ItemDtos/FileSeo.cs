@@ -16,6 +16,9 @@
 
         public string DepartmentName { get; set; }
 
+        public long BoxId { get; set; }
+        public string UniversityName { get; set; }
+
     }
 
     public class FlashcardSeoDto

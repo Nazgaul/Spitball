@@ -108,6 +108,8 @@ and IsDeleted = 0";
 ,i.Url
 ,u.Country
 ,b.BoxName
+,u.universityname
+,b.boxid
 ,i.Discriminator
 ,i.blobname as ImageUrl
 ,l.name as departmentName

@@ -98,7 +98,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     "jsHomePage", new[]
                     {
-                        new JsFileWithCdn("~/scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"),
+                        new JsFileWithCdn("~/scripts/jquery-2.2.4.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/jquery.validate.js"),
                         new JsFileWithCdn("~/js/signin/login-soft.js"),
                         new JsFileWithCdn("~/scripts/svg4everybody.js"),

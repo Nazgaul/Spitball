@@ -20,7 +20,7 @@ namespace Zbang.Cloudents.MobileApp.DataObjects
         {
             var sb = new StringBuilder();
             sb.AppendLine("quizId: " + QuizId);
-            if (Answers != null) sb.AppendLine("answers: " + String.Join("\n", Answers));
+            if (Answers != null) sb.AppendLine("answers: " + string.Join("\n", Answers));
 
             return sb.ToString();
         }
@@ -35,7 +35,7 @@ namespace Zbang.Cloudents.MobileApp.DataObjects
 
         public override string ToString()
         {
-            return string.Format("QuestionId: {0} AnswerId: {1}", QuestionId, AnswerId);
+            return $"QuestionId: {QuestionId} AnswerId: {AnswerId}";
         }
     }
 }

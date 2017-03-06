@@ -11,6 +11,7 @@ using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
+using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Consts;
@@ -119,7 +120,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return RedirectToAction("NotFound", "Error");
             }
-            return RedirectPermanent(model.Url);
+            return RedirectToRoutePermanent("Item", new
+            {
+                UniversityName = UrlBuilder.NameToQueryString(model.UniversityName),
+                model.BoxId,
+                BoxName = UrlBuilder.NameToQueryString(model.BoxName),
+                itemid = base62.Value,
+                itemName = UrlBuilder.NameToQueryString(model.Name)
+            });
+            
+           // return RedirectPermanent(model.Url);
         }
 
         /// <summary>

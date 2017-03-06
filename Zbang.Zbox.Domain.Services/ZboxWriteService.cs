@@ -597,12 +597,7 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (UnitOfWork.Start())
             {
-                //var reputationCommand = new AddReputationCommand(command.UserId,
-                //     Infrastructure.Enums.ReputationAction.AddQuiz);
-
-                //var t1 = m_CommandBus.SendAsync(reputationCommand);
                 var result = await m_CommandBus.DispatchAsync<SaveQuizCommand, SaveQuizCommandResult>(command);
-                //await Task.WhenAll(t1, t2);
                 UnitOfWork.Current.TransactionalFlush();
                 return result;
             }

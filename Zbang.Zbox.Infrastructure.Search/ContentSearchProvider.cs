@@ -9,6 +9,7 @@ using Microsoft.Azure.Search.Models;
 using Zbang.Zbox.Infrastructure.Ai;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Dto.Search;
@@ -57,7 +58,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     University = itemToUpload.UniversityName.ToLowerInvariant(),
                     Type = itemToUpload.Type.Select(s => ((int)s).ToString()).ToArray(),
                     Tags = itemToUpload.Tags?.Select(s => s.Name.ToLowerInvariant()).Distinct().ToArray(),
-                    Date = itemToUpload.Date,
+                    Date = itemToUpload.Date.Truncate(TimeSpan.FromSeconds(1)),
                     //MetaContent = itemToUpload.Content.RemoveEndOfString(SeachConnection.DescriptionLength),
                     MetaContent = itemToUpload.MetaContent,
                     BlobName = itemToUpload.BlobName,
