@@ -89,7 +89,7 @@ var app;
             return this.ajaxService2.post('/item/like', {
                 itemId: id,
                 boxId: boxId
-            }, "boxData");
+            }, ["boxData", "boxItems"]);
         };
         ;
         ItemService.prototype.followbox = function () {

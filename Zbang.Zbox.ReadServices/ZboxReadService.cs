@@ -1156,23 +1156,13 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
             {
                 const string sql = "SELECT position FROM [Zbox].[FlashcardPin] where flashcardid = @FlashcardId and userid = @UserId;";
                 const string sqlLike = "SELECT  [Id] FROM[Zbox].[FlashcardLike] where flashcardid = @FlashcardId and userid = @UserId;";
-                const string sqlOwnerName = "select username from zbox.users u join zbox.Flashcard f on f.UserId = u.UserId where id = @FlashcardId";
-                //                const string universityFlashcardPromo = @"
-                //select u.universityname as UniversityName,u.VideoBackgroundColor as BtnColor,
-                //u.VideoFontColor as BtnFontColor
-                //from zbox.flashcard f
-                //join zbox.box b on f.boxid = b.boxid
-                //join zbox.university u on u.id = b.university and u.id in (173408, 171885, 172566)
-                //where f.id = @FlashcardId
-                //and f.isdeleted = 0";
-                using (var grid = await conn.QueryMultipleAsync(sql + sqlLike + sqlOwnerName, query))
+                const string sqlOwnerName = "select username as OwnerName, f.publish from zbox.users u join zbox.Flashcard f on f.UserId = u.UserId where id = @FlashcardId;";
+
+                using (var grid = await conn.QueryMultipleAsync(sqlOwnerName + sql + sqlLike, query))
                 {
-                    var result = new FlashcardUserDto
-                    {
-                        Pins = await grid.ReadAsync<int>(),
-                        Like = await grid.ReadFirstOrDefaultAsync<Guid?>(),
-                        OwnerName = await grid.ReadFirstAsync<string>()
-                    };
+                    var result = await grid.ReadFirstAsync<FlashcardUserDto>();
+                    result.Pins = await grid.ReadAsync<int>();
+                    result.Like = await grid.ReadFirstOrDefaultAsync<Guid?>();
                     return result;
                 }
             }

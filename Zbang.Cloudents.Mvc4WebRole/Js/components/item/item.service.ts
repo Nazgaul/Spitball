@@ -130,7 +130,7 @@
                 {
                     itemId: id,
                     boxId: boxId
-                }, "boxData");
+                }, ["boxData","boxItems"]);
         };
         followbox() {
             this.ajaxService2.deleteCacheCategory("boxData");

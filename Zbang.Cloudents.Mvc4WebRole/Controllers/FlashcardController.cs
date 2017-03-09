@@ -145,7 +145,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var tValues = m_DocumentDbReadService.FlashcardAsync(id);
             await Task.WhenAll(tTransAction, tValues, tUserValues);
             var values = tValues.Result;
-            if (!values.Publish)
+            if (!tUserValues.Result.Publish)
             {
                 throw new ArgumentException("Flashcard is not published");
             }

@@ -10,6 +10,8 @@ namespace Zbang.Zbox.ViewModel.Dto
 
         public string OwnerName { get; set; }
 
+        public bool Publish { get; set; }
+
         //public UniversityData UniversityData { get; set; }
 
         

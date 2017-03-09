@@ -353,7 +353,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ShareControllerResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\StartController.cs" />
     <Compile Include="Controllers\UniversityController.cs" />
     <Compile Include="Controllers\QnAController.cs" />
     <Compile Include="Controllers\QuizController.cs" />

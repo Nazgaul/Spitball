@@ -44,8 +44,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToRoute("start");
-                //return RedirectToAction("Index", "Dashboard");
+                //return RedirectToRoute("start");
+                return RedirectToAction("Index", "Dashboard");
             }
             ViewBag.title = SeoResources.HomePageTitle;
             ViewBag.metaDescription = SeoResources.HomePageMeta;
