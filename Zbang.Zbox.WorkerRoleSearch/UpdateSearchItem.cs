@@ -351,12 +351,15 @@ namespace Zbang.Zbox.WorkerRoleSearch
             if (parameters == null) return true;
             try
             {
-                var elem =
+                var elements =
                     await m_ZboxReadService.GetItemsDirtyUpdatesAsync(
                         new ViewModel.Queries.Search.SearchItemDirtyQuery(parameters.ItemId), token);
-
-                await ProcessDocumentAsync(token, elem.ItemsToUpdate.FirstOrDefault());
-                //await UploadToAzureSearchAsync(elem.ItemsToUpdate.FirstOrDefault(), token);
+                var elem = elements.ItemsToUpdate.FirstOrDefault();
+                if (elem == null)
+                {
+                    return true;
+                }
+                await ProcessDocumentAsync(token, elem);
                 await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
                     new UpdateDirtyToRegularCommand(new[] {parameters.ItemId}));
 

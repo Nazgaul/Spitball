@@ -30,7 +30,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
             try
             {
                 var result = await request.GetResponse(token);
-                return result.Concepts.Where(w => w.Relevance > 0.75).Select(s => s.Text);
+                int dummy;
+                return result.Concepts.Where(w => w.Relevance > 0.75).Select(s => s.Text).Where(w => !int.TryParse(w, out dummy));
             }
             catch (Exception ex)
             {

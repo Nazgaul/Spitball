@@ -327,10 +327,6 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<ItemToUpdateSearchDto> GetItemsDirtyUpdatesAsync(SearchItemDirtyQuery query, CancellationToken token)
         {
-            //Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(DocumentSearchDto), new List<string> { "Id" });
-            //Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchUsers), new List<string> { "Id" });
-            //Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ItemSearchTag), new List<string> { "Name" });
-
             using (var conn = await DapperConnection.OpenConnectionAsync(token))
             {
                 using (var grid = await conn.QueryMultipleAsync(

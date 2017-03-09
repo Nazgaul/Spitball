@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Autofac;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Azure.Queue;
 using Zbang.Zbox.Infrastructure.Mail;
@@ -15,14 +16,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IMailComponent m_MailComponent;
         private readonly IQueueProviderExtract m_QueueProvider;
+        private readonly ILifetimeScope m_LifetimeScope;
 
 
-        public TestingJob(IZboxWorkerRoleService zboxWorkerRoleService, IMailComponent mailComponent, IQueueProviderExtract queueProvider, IZboxReadServiceWorkerRole zboxReadService)
+        public TestingJob(IZboxWorkerRoleService zboxWorkerRoleService, IMailComponent mailComponent, IQueueProviderExtract queueProvider, IZboxReadServiceWorkerRole zboxReadService, ILifetimeScope lifetimeScope)
         {
             m_ZboxWorkerRoleService = zboxWorkerRoleService;
             m_MailComponent = mailComponent;
             m_QueueProvider = queueProvider;
             m_ZboxReadService = zboxReadService;
+            m_LifetimeScope = lifetimeScope;
         }
 
         public async Task RunAsync(CancellationToken cancellationToken)
@@ -66,9 +69,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //{
 
             //});
-            var updateDate = new UpdateData(1028091, 8417, itemId: 606505);
-            var y = Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IDomainProcess>(updateDate.ProcessResolver);
-            await y.ExecuteAsync(updateDate, cancellationToken);
+            var fileProcess = new BoxFileProcessData(564474);
+            var y = m_LifetimeScope.ResolveNamed<IFileProcess>(fileProcess.ProcessResolver);
+            await y.ExecuteAsync(fileProcess, cancellationToken);
+
+
+            //var updateDate = new UpdateData(1028091, 8417, itemId: 606505);
+            //var y2 = m_LifetimeScope.Resolve<IDomainProcess>(updateDate.ProcessResolver);
+            //await y.ExecuteAsync(updateDate, cancellationToken);
 
             //await y.GetUnsubscribersAsync(1, cancellationToken);
 
