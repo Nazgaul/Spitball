@@ -47,6 +47,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         DoDeleteAsync(cancellationToken, "deleteOldItems",
                             m_ZboxWorkerRoleService.DeleteOldItemAsync);
                 TraceLog.WriteInfo("delete stuff -finish delete items");
+
+                var result6 =
+                   await
+                       DoDeleteAsync(cancellationToken, "DeleteOldFlashcard",
+                           m_ZboxWorkerRoleService.DeleteOldFlashcardAsync);
+                TraceLog.WriteInfo("delete stuff -finish delete flashcard");
                 var result4 =
                     await
                         DoDeleteAsync(cancellationToken, "deleteOldQuiz",
@@ -63,7 +69,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             m_ZboxWorkerRoleService.DeleteOldUniversityAsync);
                 TraceLog.WriteInfo("delete stuff -finish delete university");
                 await
-                    m_MailComponent.GenerateSystemEmailAsync("delete old stuff", result + result2 + result4 + result3 + result5);
+                    m_MailComponent.GenerateSystemEmailAsync("delete old stuff", result + result2 + result4 + result3 + result5 + result6);
 
                 TraceLog.WriteInfo("delete stuff going to sleep");
 

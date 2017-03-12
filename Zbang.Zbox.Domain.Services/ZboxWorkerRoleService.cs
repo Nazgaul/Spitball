@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -51,7 +50,7 @@ namespace Zbang.Zbox.Domain.Services
 
         public void OneTimeDbi()
         {
-           // DeleteOldLibrary();
+            // DeleteOldLibrary();
             //UpdateNumberOfBoxesInDepartmentNode();
             UpdateItemUrl();
             //RemoveHtmlTags();
@@ -125,6 +124,21 @@ set isdirty = 1, isdeleted = 1, updatetime = getutcdate()-121
                     }, token);
             return counter;
         }
+
+        public async Task<int> DeleteOldFlashcardAsync(CancellationToken token)
+        {
+            var counter = 0;
+            counter +=
+                await ExecuteSqlLoopAsync(
+                    new[] {
+                        @"delete from zbox.ItemTag where flashcardid in (
+	select top (10) id  from zbox.flashcard where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+    )option(maxdop 1)",
+                        "delete top (10)  from zbox.flashcard where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0 option (maxdop 1)"
+                    }, token);
+            return counter;
+        }
+
         public async Task<int> DeleteOldItemAsync(CancellationToken token)
         {
             var counter = 0;
@@ -585,57 +599,57 @@ and isdeleted = 0").List();
         //            {
         //                i += con.Execute("delete from zbox.library where parentid = @id", new { id = guid });
         //                i += con.Execute("delete from zbox.library where libraryid = @id", new {id = guid});
-                        
+
 
         //            }
         //            catch (Exception ex)
         //            {
-                        
+
         //            }
         //        }
         //        Console.WriteLine(i);
-                
+
         //    }
         //}
 
-        private void UpdateNumberOfBoxesInDepartmentNode()
-        {
-            var i = 0;
-            using (var unitOfWork = UnitOfWork.Start())
-            {
-                while (true)
-                {
-                    var libs = UnitOfWork.CurrentSession.Connection.Query<Guid>(
-                        @"select LibraryId from zbox.Library l 
-        where l.LibraryId not in ( select l.ParentId from zbox.Library)
-        order by LibraryId
-        offset @pageNumber*50 ROWS
-            FETCH NEXT 50 ROWS ONLY", new { pageNumber = i });
-                    var libraryIds = libs as IList<Guid> ?? libs.ToList();
-                    if (libraryIds.Count == 0)
-                    {
-                        break;
-                    }
-                    foreach (var libraryId in libraryIds)
-                    {
-                        var library = UnitOfWork.CurrentSession.Load<Library>(libraryId);
-                        var libBoxes = library.UpdateNumberOfBoxes();
-                        var libNodes = library.UpdateNumberOfNodes();
-                        UnitOfWork.CurrentSession.Save(library);
-                        foreach (var libBox in libBoxes)
-                        {
-                            UnitOfWork.CurrentSession.Save(libBox);
-                        }
-                        foreach (var libBox in libNodes)
-                        {
-                            UnitOfWork.CurrentSession.Save(libBox);
-                        }
-                    }
-                    unitOfWork.TransactionalFlush();
-                    i++;
-                }
-            }
-        }
+        //private void UpdateNumberOfBoxesInDepartmentNode()
+        //{
+        //    var i = 0;
+        //    using (var unitOfWork = UnitOfWork.Start())
+        //    {
+        //        while (true)
+        //        {
+        //            var libs = UnitOfWork.CurrentSession.Connection.Query<Guid>(
+        //                @"select LibraryId from zbox.Library l 
+        //where l.LibraryId not in ( select l.ParentId from zbox.Library)
+        //order by LibraryId
+        //offset @pageNumber*50 ROWS
+        //    FETCH NEXT 50 ROWS ONLY", new { pageNumber = i });
+        //            var libraryIds = libs as IList<Guid> ?? libs.ToList();
+        //            if (libraryIds.Count == 0)
+        //            {
+        //                break;
+        //            }
+        //            foreach (var libraryId in libraryIds)
+        //            {
+        //                var library = UnitOfWork.CurrentSession.Load<Library>(libraryId);
+        //                var libBoxes = library.UpdateNumberOfBoxes();
+        //                var libNodes = library.UpdateNumberOfNodes();
+        //                UnitOfWork.CurrentSession.Save(library);
+        //                foreach (var libBox in libBoxes)
+        //                {
+        //                    UnitOfWork.CurrentSession.Save(libBox);
+        //                }
+        //                foreach (var libBox in libNodes)
+        //                {
+        //                    UnitOfWork.CurrentSession.Save(libBox);
+        //                }
+        //            }
+        //            unitOfWork.TransactionalFlush();
+        //            i++;
+        //        }
+        //    }
+        //}
 
 
 

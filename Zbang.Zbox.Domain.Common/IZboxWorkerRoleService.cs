@@ -18,6 +18,7 @@ namespace Zbang.Zbox.Domain.Common
         Task<int> DeleteOldItemAsync(CancellationToken token);
         Task<int> DeleteOldBoxAsync(CancellationToken token);
         Task<int> DeleteOldQuizAsync(CancellationToken token);
+        Task<int> DeleteOldFlashcardAsync(CancellationToken token);
         Task<int> DeleteOldUniversityAsync(CancellationToken token);
         Task<int> DoDirtyUpdateAsync(CancellationToken token);
 
