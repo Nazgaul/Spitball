@@ -8,7 +8,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 {
     public class CloudentsOutputCacheProvider : System.Web.Caching.OutputCacheProvider
     {
-        readonly RedisOutputCacheProvider m_Cache
+        private readonly RedisOutputCacheProvider m_Cache
             = new RedisOutputCacheProvider();
 
         private readonly string m_CachePrefix = Assembly.GetExecutingAssembly().GetName().Version

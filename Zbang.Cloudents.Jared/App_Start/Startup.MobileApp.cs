@@ -32,8 +32,8 @@ namespace Zbang.Cloudents.Jared
             new MobileAppConfiguration()
         .AddMobileAppHomeController()             // from the Home package
         .MapApiControllers()
-
-        .AddPushNotifications()                   // from the Notifications package
+       
+      //  .AddPushNotifications()                   // from the Notifications package
         .ApplyTo(config);
 
 

@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
 using WebApi.OutputCache.V2;
 using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
@@ -13,10 +16,18 @@ namespace Zbang.Cloudents.Jared.Controllers
     //[Authorize]
     public class ValuesController : ApiController
     {
+        private readonly IZboxReadService m_ZboxReadService;
+
+        public ValuesController(IZboxReadService zboxReadService)
+        {
+            m_ZboxReadService = zboxReadService;
+        }
+
         // GET api/values
         [CacheOutput(ClientTimeSpan = TimeConst.Day, ServerTimeSpan = TimeConst.Day)]
-        public HttpResponseMessage Get()
+        public async Task<HttpResponseMessage> Get(CancellationToken token)
         {
+           var result = await m_ZboxReadService.GetJaredStartupValuesAsync(token);
             var documents = new Dictionary<string, IEnumerable<string>>
             {
                 {"exams", new[] {"exam", "test", "midterm", "final", "tests", "midterms", "finals"}},
@@ -29,14 +40,16 @@ namespace Zbang.Cloudents.Jared.Controllers
                 {"lectures", new[] {"lecture"}},
                 {"class notes", new[] {"class note", "note", "notes"}}
             };
+            result.Terms = documents;
 
-            return Request.CreateResponse(documents);
+
+            return Request.CreateResponse(result);
         }
 
-        // POST api/values
-        public string Post()
-        {
-            return "Hello World!";
-        }
+        //// POST api/values
+        //public string Post()
+        //{
+        //    return "Hello World!";
+        //}
     }
 }

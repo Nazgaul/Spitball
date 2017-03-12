@@ -109,6 +109,7 @@
     <Compile Include="Dto\ItemDtos\SolveSheet.cs" />
     <Compile Include="Dto\ItemDtos\ItemNavigationDto.cs" />
     <Compile Include="Dto\ItemRateDto.cs" />
+    <Compile Include="Dto\JaredDto.cs" />
     <Compile Include="Dto\LeaderBoardDto.cs" />
     <Compile Include="Dto\Library\ClosedNodeDto.cs" />
     <Compile Include="Dto\Library\NodeDetails.cs" />

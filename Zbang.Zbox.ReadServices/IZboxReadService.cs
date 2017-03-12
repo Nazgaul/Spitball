@@ -157,7 +157,11 @@ namespace Zbang.Zbox.ReadServices
         #endregion
 
 
+        #region Jared
 
+        Task<JaredDto> GetJaredStartupValuesAsync(CancellationToken token);
+
+        #endregion
 
     }
 }

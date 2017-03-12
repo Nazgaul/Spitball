@@ -412,5 +412,10 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetMembersClosedDepartmendAsync(query);
         }
+
+        public Task<JaredDto> GetJaredStartupValuesAsync(CancellationToken token)
+        {
+            return m_ReadService.GetJaredStartupValuesAsync(token);
+        }
     }
 }

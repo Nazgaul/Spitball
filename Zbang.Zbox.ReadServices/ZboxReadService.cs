@@ -387,16 +387,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        //public async Task<IEnumerable<Box.RecommendBoxDto>> GetBoxRecommendedCoursesAsync(GetBoxSideBarQuery query, CancellationToken token)
-        //{
-        //    using (var con = await DapperConnection.OpenConnectionAsync(token))
-        //    {
-        //        return await con.QueryAsync<Box.RecommendBoxDto>(
-        //            new CommandDefinition(Sql.Box.RecommendedCourses, query, commandTimeout: 5, cancellationToken: token)
-        //        );
 
-        //    }
-        //}
         public async Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetBoxLeaderboardQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
@@ -569,21 +560,7 @@ where ownerid = @UserId and boxid = @BoxId;";
             }
         }
 
-        /// <summary>
-        /// Get The country the user is in based on the ip address
-        /// </summary>
-        /// <returns></returns>
-        //    public async Task<string> GetLocationByIpAsync(GetCountryByIpQuery query)
-        //    {
-        //        using (var conn = await DapperConnection.OpenConnectionAsync())
-        //        {
-        //            const string sql = @" select country_code2  from zbox.ip_range 
-        //where ip_from <= @IP and @IP <= ip_to";
-        //            var retVal = await conn.QueryFirstOrDefaultAsync<string>(sql, new { IP = query.IpAddress });
-        //            return retVal;
-        //        }
-
-        //    }
+       
 
         public async Task<IEnumerable<UniversityByPrefixDto>> GetUniversityByIpAddressAsync(UniversityByIpQuery query)
         {
@@ -623,22 +600,7 @@ where ownerid = @UserId and boxid = @BoxId;";
             }
         }
 
-        //public async Task<IEnumerable<User.ChatUserDto>> GetUsersByTermAsync(UserSearchQuery query)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        return await conn.QueryAsync<User.ChatUserDto>(Sql.Search.GetUsersByTerm,
-        //             new
-        //             {
-        //                 query.Term,
-        //                 query.PageNumber,
-        //                 query.RowsPerPage,
-        //                 query.UniversityId,
-        //                 query.UserId
-
-        //             });
-        //    }
-        //}
+        
 
         public async Task<IEnumerable<User.ChatUserDto>> GetUsersConversationAndFriendsAsync(GetUserConversationAndFriends query)
         {
@@ -1203,6 +1165,24 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
             }
         }
 
+        #endregion
+
+        #region Jared
+
+        public async Task<JaredDto> GetJaredStartupValuesAsync(CancellationToken token)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync(token))
+            {
+               var universities = await conn.QueryAsync<UniversityDto>(
+                    new CommandDefinition(
+                        "select id,url as short,universityname as name from zbox.university where url is not null",
+                        cancellationToken: token));
+                return new JaredDto
+                {
+                    Universities = universities
+                };
+            }
+        }
         #endregion
     }
 }
