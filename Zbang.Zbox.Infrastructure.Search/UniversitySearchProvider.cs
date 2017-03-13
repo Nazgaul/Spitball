@@ -6,7 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
-using Microsoft.Spatial;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Queries.Search;
@@ -31,48 +30,57 @@ namespace Zbang.Zbox.Infrastructure.Search
         }
 
         private const string IdField = "id";
-        private const string NameField = "name";
-        private const string NameField2 = "name2";
-        private const string ExtraOneField = "extra1";
-        private const string ExtraTwoField = "extra2";
+        //private const string NameField = "name";
+        //private const string NameField2 = "name2";
+        private const string NameField3 = "name3";
+        //private const string ExtraOneField = "extra1";
+        //private const string ExtraTwoField = "extra2";
         private const string ImageField = "imageField";
 
-        private const string CountryField = "coutry";
+        internal const string CountryField = "coutry";
         private const string MembersCountField = "membersCount";
         private const string MembersImagesField = "membersImages";
 
         private const string CountryScoringProfile = "countryTag";
 
-        private const string NameSuggest = "nameSuggest";
+        //private const string NameSuggest = "nameSuggest";
 
         private Index GetUniversityIndex()
         {
-            var index = new Index(m_IndexName, new[]
-            {
-                new Field(IdField, DataType.String) {IsKey = true, IsRetrievable = true},
-                new Field(NameField, DataType.String) {IsRetrievable = true, IsSearchable = true},
-                new Field(NameField2, DataType.String) {IsRetrievable = true, IsSearchable = true},
-                new Field(ExtraOneField, DataType.String) {IsSearchable = true, IsRetrievable = false},
-                new Field(ExtraTwoField, DataType.String) {IsSearchable = true, IsRetrievable = false},
-                new Field(ImageField, DataType.String) {IsRetrievable = true},
-                new Field(CountryField, DataType.String) {IsRetrievable = true, IsFilterable = true},
-                new Field(MembersCountField, DataType.Int32) {IsRetrievable = true},
-                new Field(MembersImagesField, DataType.Collection(DataType.String)) {IsRetrievable = true}
+            //var index = new Index(m_IndexName, new[]
+            //{
+            //    new Field(IdField, DataType.String) {IsKey = true, IsRetrievable = true},
+            //    new Field(NameField, DataType.String) {IsRetrievable = true, IsSearchable = true},
+            //    new Field(NameField2, DataType.String) {IsRetrievable = true, IsSearchable = true},
+            //    new Field(ExtraOneField, DataType.String) {IsSearchable = true, IsRetrievable = false},
+            //    new Field(ExtraTwoField, DataType.String) {IsSearchable = true, IsRetrievable = false},
+            //    new Field(ImageField, DataType.String) {IsRetrievable = true},
+            //    new Field(CountryField, DataType.String) {IsRetrievable = true, IsFilterable = true},
+            //    new Field(MembersCountField, DataType.Int32) {IsRetrievable = true},
+            //    new Field(MembersImagesField, DataType.Collection(DataType.String)) {IsRetrievable = true}
 
-            });
-            var scoringFunction = new TagScoringFunction("country", 3, CountryField);
-            //var scoringFunction = new TagScoringFunction(new TagScoringParameters("country"),
-            //   CountryField, 3);
-            var scoringProfile = new ScoringProfile(CountryScoringProfile)
-            {
-                FunctionAggregation = ScoringFunctionAggregation.Sum,
+            //});
+            var scoringFunction = new TagScoringFunction(CountryField, 3, new TagScoringParameters("country"));
 
+            var scoringProfile = new ScoringProfile(CountryScoringProfile,
+                functions: new ScoringFunction[] { scoringFunction }, functionAggregation: ScoringFunctionAggregation.Sum);
+
+            var suggester = new Suggester("sg", SuggesterSearchMode.AnalyzingInfixMatching, NameField3, nameof(UniversitySearch.Extra3).ToLowerInvariant());
+
+            var index = new Index
+            {
+                Name = m_IndexName,
+                Fields = FieldBuilder.BuildForType<UniversitySearch>(),
+                ScoringProfiles = new[] { scoringProfile },
+                Suggesters = new[] { suggester }
             };
-            scoringProfile.Functions.Add(scoringFunction);
-            index.ScoringProfiles.Add(scoringProfile);
 
-            var suggester = new Suggester(NameSuggest, SuggesterSearchMode.AnalyzingInfixMatching, NameField2);
-            index.Suggesters.Add(suggester);
+            //scoringProfile.Functions.Add(scoringFunction);
+            //index.ScoringProfiles.Add(scoringProfile);
+
+            //var suggester = new Suggester(NameSuggest, SuggesterSearchMode.AnalyzingInfixMatching, NameField2);
+            // index.Suggesters.Add(suggester2);
+            //index.Suggesters.Add(suggester2);
             return index;
 
         }
@@ -82,7 +90,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             try
             {
-                await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetUniversityIndex());
+                await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetUniversityIndex()).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -106,7 +114,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             //{
             //    return null;
             //}
-            var listOfSelectParams = new[] { IdField, NameField2, ImageField, MembersCountField, MembersImagesField };
+            var listOfSelectParams = new[] { IdField, NameField3, ImageField, MembersCountField, MembersImagesField };
             var searchParametes = new SearchParameters
             {
                 Top = query.RowsPerPage,
@@ -129,13 +137,13 @@ namespace Zbang.Zbox.Infrastructure.Search
             var tSuggest = CompletedTask;
             if (!string.IsNullOrEmpty(query.Term) && query.Term.Length >= 3 && query.PageNumber == 0)
             {
-                tSuggest = m_IndexClient.Documents.SuggestAsync<UniversitySearch>(query.Term, NameSuggest, new SuggestParameters
+                tSuggest = m_IndexClient.Documents.SuggestAsync<UniversitySearch>(query.Term, "sg", new SuggestParameters
                 {
                     UseFuzzyMatching = true,
                     Select = listOfSelectParams
                 }, cancellationToken: cancelToken);
             }
-            await Task.WhenAll(tResult, tSuggest);
+            await Task.WhenAll(tResult, tSuggest).ConfigureAwait(false);
 
 
             var result = tResult.Result.Results.Select(
@@ -143,7 +151,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     {
                         Id = long.Parse(s.Document.Id),
                         Image = s.Document.Image,
-                        Name = s.Document.Name2,
+                        Name = s.Document.Name3,
                         NumOfUsers = s.Document.MembersCount ?? 0,
                         UserImages = s.Document.MembersImages
                     });
@@ -154,7 +162,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                       {
                           Id = long.Parse(s.Document.Id),
                           Image = s.Document.Image,
-                          Name = s.Document.Name2,
+                          Name = s.Document.Name3,
                           NumOfUsers = s.Document.MembersCount ?? 0,
                           UserImages = s.Document.MembersImages
                       }));
@@ -169,7 +177,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             if (!m_CheckIndexExists)
             {
-                // await BuildIndex();
+                await BuildIndexAsync().ConfigureAwait(false);
             }
 
             //var listOfCommands = new List<IndexAction<UniversitySearch>>();
@@ -177,22 +185,28 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 //listOfCommands.AddRange(
                 var uploadBatch = universityToUpload.Select(s =>
+
                         new UniversitySearch
                         {
                             Id = s.Id.ToString(CultureInfo.InvariantCulture),
+#pragma warning disable 618 // we need to populate this field
                             Name = s.Name.Trim(),
                             Name2 = s.Name.Trim(),
-                            Extra1 = s.Extra?.Replace(","," "),
-                            Extra2 = string.Join(
-                                " ",
-                                s.Name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
-                                    .Where(w => w.StartsWith("ה") || w.StartsWith("ל"))
-                                    .Select(s1 => s1.Remove(0, 1))
-                                    .Union(s.Name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
-                                        .Where(w => w.Contains('"'))
+#pragma warning restore 618
+                            Name3 = s.Name.Trim(),
+                            //Extra1 = s.Extra?.Replace(",", " "),
+                            //Extra2 = string.Join(
+                            //    " ",
+                            //    s.Name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
+                            //        .Where(w => w.StartsWith("ה") || w.StartsWith("ל"))
+                            //        .Select(s1 => s1.Remove(0, 1))
+                            //        .Union(s.Name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
+                            //            .Where(w => w.Contains('"'))
 
-                                        .Select(s2 => s2.Replace("\"", string.Empty)))),
-                            Image = string.IsNullOrEmpty(s.Image) ? null : s.Image.Trim(),
+                            //            .Select(s2 => s2.Replace("\"", string.Empty)))),
+
+                            Extra3 = s.Extra?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
+                            Image = s.Image?.Trim(),
                             Country = s.Country,
                             MembersCount = s.NoOfUsers,
 
@@ -204,7 +218,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
                 var batch = IndexBatch.Upload(uploadBatch);
                 if (batch.Actions.Any())
-                    await m_IndexClient.Documents.IndexAsync(batch);
+                    await m_IndexClient.Documents.IndexAsync(batch).ConfigureAwait(false);
 
 
             }
@@ -217,12 +231,12 @@ namespace Zbang.Zbox.Infrastructure.Search
                 });
                 var batch = IndexBatch.Delete(deleteBatch);
                 if (batch.Actions.Any())
-                    await m_IndexClient.Documents.IndexAsync(batch);
-                
+                    await m_IndexClient.Documents.IndexAsync(batch).ConfigureAwait(false);
+
 
             }
             return true;
-            
+
         }
 
 

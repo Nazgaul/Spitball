@@ -52,24 +52,53 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         private Index GetBoxIndex()
         {
-            return new Index(m_IndexName, new[]
+            var index = new Index(m_IndexName, new[]
             {
-                new Field(IdField,DataType.String) { IsKey = true, IsRetrievable = true},
-                new Field(NameField,DataType.String) {IsRetrievable = true, IsSearchable = true},
-                new Field(ProfessorField, DataType.String) { IsRetrievable = true, IsSearchable = true},
-                new Field(CourseField, DataType.String) { IsRetrievable = true, IsSearchable = true},
-                new Field(UrlField, DataType.String) { IsRetrievable = true},
-                new Field(UniversityIdField, DataType.Int64) { IsFilterable = true, IsRetrievable = true },
-                new Field(UserIdsField, DataType.Collection(DataType.String)) { IsFilterable = true, IsRetrievable = true },
-                new Field(DepartmentField, DataType.Collection(DataType.String)) { IsSearchable = true, IsRetrievable = true},
-                new Field(TypeFiled, DataType.Int32) { IsRetrievable = true},
-                new Field(FeedField, DataType.Collection(DataType.String)) { IsSearchable = true, IsRetrievable = true},
-                new Field("parentDepartment", DataType.String) { IsRetrievable = true ,IsSortable = true, IsSearchable = true},
-                new Field(DepartmentIdField, DataType.String) { IsFilterable = true, IsRetrievable = true },
-
-                new Field(MembersField, DataType.Int32) {  IsRetrievable = true },
-                new Field(ItemsField, DataType.Int32) {  IsRetrievable = true }
+                new Field(IdField, DataType.String) {IsKey = true, IsRetrievable = true},
+                new Field(NameField, DataType.String) {IsRetrievable = true, IsSearchable = true},
+                new Field(ProfessorField, DataType.String) {IsRetrievable = true, IsSearchable = true},
+                new Field(CourseField, DataType.String) {IsRetrievable = true, IsSearchable = true},
+                new Field(UrlField, DataType.String) {IsRetrievable = true},
+                new Field(UniversityIdField, DataType.Int64) {IsFilterable = true, IsRetrievable = true},
+                new Field(UserIdsField, DataType.Collection(DataType.String))
+                {
+                    IsFilterable = true,
+                    IsRetrievable = true
+                },
+                new Field(DepartmentField, DataType.Collection(DataType.String))
+                {
+                    IsSearchable = true,
+                    IsRetrievable = true
+                },
+                new Field(TypeFiled, DataType.Int32) {IsRetrievable = true},
+                new Field(FeedField, DataType.Collection(DataType.String)) {IsSearchable = true, IsRetrievable = true},
+                new Field("parentDepartment", DataType.String)
+                {
+                    IsRetrievable = true,
+                    IsSortable = true,
+                    IsSearchable = true
+                },
+                new Field(DepartmentIdField, DataType.String) {IsFilterable = true, IsRetrievable = true},
+                new Field(MembersField, DataType.Int32) {IsRetrievable = true},
+                new Field(ItemsField, DataType.Int32) {IsRetrievable = true}
             });
+            //{
+            //    Suggesters = new List<Suggester>
+            //    {
+            //        new Suggester
+            //        {
+            //            Name = "sg",
+            //            SourceFields = new List<string>
+            //            {
+            //                NameField
+            //            }
+            //        }
+            //    }
+            //};
+
+
+
+            return index;
         }
 
         public async Task<bool> UpdateDataAsync(IEnumerable<BoxSearchDto> boxToUpload, IEnumerable<long> boxToDelete)

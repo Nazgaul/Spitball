@@ -10,7 +10,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public const long JaredUniversityIdPilot = 173408;
         protected async Task SleepAsync(CancellationToken cancellationToken)
         {
-            await Task.Delay(TimeSpan.FromSeconds(Interval), cancellationToken);
+            await Task.Delay(TimeSpan.FromSeconds(Interval), cancellationToken).ConfigureAwait(false);
         }
 
         protected abstract Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken);
@@ -23,27 +23,26 @@ namespace Zbang.Zbox.WorkerRoleSearch
         protected async Task SleepAndIncreaseIntervalAsync(CancellationToken cancellationToken)
         {
 
-            await SleepAsync(cancellationToken);
+            await SleepAsync(cancellationToken).ConfigureAwait(false);
             Interval = Math.Min(Interval * 2, MaxInterval);
         }
 
         protected async Task DoProcessAsync(CancellationToken cancellationToken, int index, int count)
         {
-            var retVal = await UpdateAsync(index, count, cancellationToken);
+            var retVal = await UpdateAsync(index, count, cancellationToken).ConfigureAwait(false);
 
             switch (retVal)
             {
                 case TimeToSleep.Increase:
                     TraceLog.WriteInfo($"{GetPrefix()} going to sleep and increase {Interval}");
-                    await SleepAndIncreaseIntervalAsync(cancellationToken);
+                    await SleepAndIncreaseIntervalAsync(cancellationToken).ConfigureAwait(false);
                     break;
                 case TimeToSleep.Min:
                     Interval = MinInterval;
                     TraceLog.WriteInfo($"{GetPrefix()} not going to sleep inteval change {Interval}");
                     break;
                 case TimeToSleep.Same:
-                    //TraceLog.WriteInfo($"{GetPrefix()} going to sleep inteval {Interval}");
-                    await SleepAsync(cancellationToken);
+                    await SleepAsync(cancellationToken).ConfigureAwait(false);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

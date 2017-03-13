@@ -299,17 +299,17 @@ namespace Testing
 
             // var z = new AssignTagsToItemCommand(565902, new[] { "1234", "Moment of inertia" });
             // m_WriteService.AddItemTag(z);
-            return;
+            //return;
             //var push = iocFactory.Resolve<ISendPush>();
             //var t = push.GetRegisteredUsersAsync();
             //t.Wait();
            
-            var m_QueueRepository = iocFactory.Resolve<IQueueProvider>();
-            var index = 0;
-            IEnumerable<long> users;
+            //var m_QueueRepository = iocFactory.Resolve<IQueueProvider>();
+            //var index = 0;
+            //IEnumerable<long> users;
            
-            Console.WriteLine("Finish");
-            Console.ReadLine();
+            //Console.WriteLine("Finish");
+            //Console.ReadLine();
 
         }
 

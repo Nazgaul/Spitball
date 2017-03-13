@@ -41,14 +41,14 @@ namespace Management_Application
     public partial class Form1 : Form
     {
         private const string QuizUrl = "https://api.quizlet.com/2.0/sets/";
-        DataTable m_GlobalUserTable;
-        DataTable m_GlobalTable;
-        string m_Id;
-        string m_NoOfStudents;
-        readonly string m_ConnectionString;
-        long m_UserId;
-        FlagItem m_GlobalFlaggedItem;
-        FlagCommentOrReply m_GlobalFlaggedPost;
+        //DataTable m_GlobalUserTable;
+        //DataTable m_GlobalTable;
+        private string m_Id;
+        private string m_NoOfStudents;
+        private readonly string m_ConnectionString;
+        private long m_UserId;
+        private FlagItem m_GlobalFlaggedItem;
+        private FlagCommentOrReply m_GlobalFlaggedPost;
         //private readonly IIdGenerator m_IdGenerator;
 
         public Form1()
@@ -116,7 +116,7 @@ namespace Management_Application
                 var dataAdapter = new SqlDataAdapter(select, m_ConnectionString);
                 var dataTable = new DataTable();
                 dataAdapter.Fill(dataTable);
-                m_GlobalTable = dataTable;
+                //m_GlobalTable = dataTable;
                 uniListBox.DisplayMember = "UniversityName";
                 uniListBox.ValueMember = "Id";
                 uniListBox.DataSource = dataTable;
@@ -131,7 +131,7 @@ namespace Management_Application
                 //dataAdapter.ToString();
                 var dataTable = new DataTable();
                 dataAdapter.Fill(dataTable);
-                m_GlobalTable = dataTable;
+                //m_GlobalTable = dataTable;
                 uniListBox.DisplayMember = "UniversityName";
                 uniListBox.ValueMember = "Id";
                 uniListBox.DataSource = dataTable;
@@ -149,7 +149,7 @@ namespace Management_Application
 
                 var dataTable = new DataTable();
                 dataAdapter.Fill(dataTable);
-                m_GlobalTable = dataTable;
+                //m_GlobalTable = dataTable;
                 uniListBox.DisplayMember = "UniversityName";
                 uniListBox.ValueMember = "id";
                 uniListBox.DataSource = dataTable;

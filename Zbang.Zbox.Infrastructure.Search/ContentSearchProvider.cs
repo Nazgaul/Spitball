@@ -43,7 +43,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             if (!m_CheckIndexExists)
             {
-                await BuildIndexAsync();
+                await BuildIndexAsync().ConfigureAwait(false);
 
             }
             if (itemToUpload != null)
@@ -106,7 +106,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             try
             {
-                await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure());
+                await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure()).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
