@@ -38,50 +38,53 @@ namespace Zbang.Zbox.Infrastructure.Search
         private const string UrlField = "url";
         private const string UniversityIdField = "universityId";
         private const string UserIdsField = "userId";
-        private const string DepartmentField = "department";
         private const string TypeFiled = "type";
-        private const string FeedField = "feed";
 
         private const string MembersField = "membersCount";
         private const string ItemsField = "itemsCount";
         private const string DepartmentIdField = "departmentId";
 
-
-
-        //private const string ParentDepartmentField = "parentDepartment";
-
         private Index GetBoxIndex()
         {
-            var index = new Index(m_IndexName, new[]
+            var suggester = new Suggester("sg", SuggesterSearchMode.AnalyzingInfixMatching,
+                nameof(BoxSearch.Name2).ToLowerInvariant(), nameof(BoxSearch.Professor2).ToLowerInvariant(), nameof(BoxSearch.Course2).ToLowerInvariant());
+            var index = new Index
             {
-                new Field(IdField, DataType.String) {IsKey = true, IsRetrievable = true},
-                new Field(NameField, DataType.String) {IsRetrievable = true, IsSearchable = true},
-                new Field(ProfessorField, DataType.String) {IsRetrievable = true, IsSearchable = true},
-                new Field(CourseField, DataType.String) {IsRetrievable = true, IsSearchable = true},
-                new Field(UrlField, DataType.String) {IsRetrievable = true},
-                new Field(UniversityIdField, DataType.Int64) {IsFilterable = true, IsRetrievable = true},
-                new Field(UserIdsField, DataType.Collection(DataType.String))
-                {
-                    IsFilterable = true,
-                    IsRetrievable = true
-                },
-                new Field(DepartmentField, DataType.Collection(DataType.String))
-                {
-                    IsSearchable = true,
-                    IsRetrievable = true
-                },
-                new Field(TypeFiled, DataType.Int32) {IsRetrievable = true},
-                new Field(FeedField, DataType.Collection(DataType.String)) {IsSearchable = true, IsRetrievable = true},
-                new Field("parentDepartment", DataType.String)
-                {
-                    IsRetrievable = true,
-                    IsSortable = true,
-                    IsSearchable = true
-                },
-                new Field(DepartmentIdField, DataType.String) {IsFilterable = true, IsRetrievable = true},
-                new Field(MembersField, DataType.Int32) {IsRetrievable = true},
-                new Field(ItemsField, DataType.Int32) {IsRetrievable = true}
-            });
+                Name = m_IndexName,
+                Fields = FieldBuilder.BuildForType<BoxSearch>(),
+                Suggesters = new[] {suggester}
+            };
+            return index;
+            //var index = new Index(m_IndexName, new[]
+            //{
+            //   // new Field(IdField, DataType.String) {IsKey = true, IsRetrievable = true},
+            //    //new Field(NameField, DataType.String) {IsRetrievable = true, IsSearchable = true},
+            //    //new Field(ProfessorField, DataType.String) {IsRetrievable = true, IsSearchable = true},
+            //   // new Field(CourseField, DataType.String) {IsRetrievable = true, IsSearchable = true},
+            //   // new Field(UrlField, DataType.String) {IsRetrievable = true},
+            //   // new Field(UniversityIdField, DataType.Int64) {IsFilterable = true, IsRetrievable = true},
+            //    //new Field(UserIdsField, DataType.Collection(DataType.String))
+            //    //{
+            //    //    IsFilterable = true,
+            //    //    IsRetrievable = true
+            //    //},
+            //    //new Field(DepartmentField, DataType.Collection(DataType.String))
+            //    //{
+            //    //    IsSearchable = true,
+            //    //    IsRetrievable = true
+            //    //},
+            //   // new Field(TypeFiled, DataType.Int32) {IsRetrievable = true},
+            //   // new Field(FeedField, DataType.Collection(DataType.String)) {IsSearchable = true, IsRetrievable = true},
+            //    //new Field("parentDepartment", DataType.String)
+            //    //{
+            //    //    IsRetrievable = true,
+            //    //    IsSortable = true,
+            //    //    IsSearchable = true
+            //    //},
+            //    //new Field(DepartmentIdField, DataType.String) {IsFilterable = true, IsRetrievable = true},
+            //    //new Field(MembersField, DataType.Int32) {IsRetrievable = true},
+            //    //new Field(ItemsField, DataType.Int32) {IsRetrievable = true}
+            //});
             //{
             //    Suggesters = new List<Suggester>
             //    {
@@ -98,14 +101,13 @@ namespace Zbang.Zbox.Infrastructure.Search
 
 
 
-            return index;
         }
 
         public async Task<bool> UpdateDataAsync(IEnumerable<BoxSearchDto> boxToUpload, IEnumerable<long> boxToDelete)
         {
             if (!m_CheckIndexExists)
             {
-                await BuildIndexAsync();
+                await BuildIndexAsync().ConfigureAwait(false);
             }
             var t1 = Task.CompletedTask;
             var t2 = Task.CompletedTask;
@@ -113,13 +115,21 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 var uploadBatch = boxToUpload.Select(s => new BoxSearch
                 {
+#pragma warning disable 618 // we need to popluate this
                     Course = s.CourseCode,
+
+                    Name = s.Name,
+                    Professor = s.Professor,
+#pragma warning restore 618
+                    Course2 = s.CourseCode,
+                    Name2 = s.Name,
+                    Professor2 = s.Professor,
+
                     Department = s.Department.ToArray(),
                     Feed = s.Feed.ToArray(),
                     DepartmentId = s.DepartmentId?.ToString(),
                     Id = s.Id.ToString(CultureInfo.InvariantCulture),
-                    Name = s.Name,
-                    Professor = s.Professor,
+                   
                     Type = (int)s.Type,
                     UniversityId = s.UniversityId,
                     Url = s.Url,
@@ -147,7 +157,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     t2 = m_IndexClient.Documents.IndexAsync(batch);
                 }
             }
-            await Task.WhenAll(t1, t2);
+            await Task.WhenAll(t1, t2).ConfigureAwait(false);
             return true;
         }
 
@@ -155,7 +165,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             try
             {
-                await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetBoxIndex());
+                await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetBoxIndex()).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -175,12 +185,12 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
                 Select = new[] { IdField, NameField, ProfessorField, CourseField, UrlField, TypeFiled,DepartmentIdField , MembersField ,ItemsField},
-            }, cancellationToken: cancelToken);
+            }, cancellationToken: cancelToken).ConfigureAwait(false);
             return result.Results.Select(s => new SearchBoxes(
                 SeachConnection.ConvertToType<long>(s.Document.Id),
-                s.Document.Name,
-                s.Document.Professor,
-                s.Document.Course,
+                s.Document.Name2,
+                s.Document.Professor2,
+                s.Document.Course2,
                 s.Document.Url,
                 s.Document.DepartmentId,
                 s.Document.ItemsCount.GetValueOrDefault(),

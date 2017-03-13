@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure.Ai;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
-using Zbang.Zbox.ViewModel.Dto.BoxDtos;
 using Zbang.Zbox.WorkerRoleSearch.DomainProcess;
 
 namespace Zbang.Zbox.WorkerRoleSearch
@@ -21,17 +18,17 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IBoxWriteSearchProvider2 m_BoxSearchProvider;
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
-        private readonly IZboxWriteService m_WriteService;
+       // private readonly IZboxWriteService m_WriteService;
 
         // private const string PrefixLog = "Search Box";
         public UpdateSearchBox(IZboxReadServiceWorkerRole zboxReadService,
             IBoxWriteSearchProvider2 boxSearchProvider,
-            IZboxWorkerRoleService zboxWriteService,  IZboxWriteService writeService)
+            IZboxWorkerRoleService zboxWriteService/*,  IZboxWriteService writeService*/)
         {
             m_ZboxReadService = zboxReadService;
             m_BoxSearchProvider = boxSearchProvider;
             m_ZboxWriteService = zboxWriteService;
-            m_WriteService = writeService;
+            //m_WriteService = writeService;
         }
 
 
@@ -47,7 +44,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
                 try
                 {
-                    await DoProcessAsync(cancellationToken, index, count);
+                    await DoProcessAsync(cancellationToken, index, count).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
@@ -61,7 +58,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
         {
             const int top = 100;
-            var updates = await m_ZboxReadService.GetBoxesDirtyUpdatesAsync(instanceId, instanceCount, top, cancellationToken);
+            var updates = await m_ZboxReadService.GetBoxesDirtyUpdatesAsync(instanceId, instanceCount, top, cancellationToken).ConfigureAwait(false);
             if (!updates.BoxesToUpdate.Any() && !updates.BoxesToDelete.Any()) return TimeToSleep.Increase;
 
            // await JaredPilotAsync(updates.BoxesToUpdate.Where(w => w.UniversityId == JaredUniversityIdPilot));
@@ -70,10 +67,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //     updates.BoxesToUpdate.Where(
             //         w => w.Type == Infrastructure.Enums.BoxType.Academic && w.Name.Length > 2
             //         ).Select(s => s.Name), cancellationToken);
-            var isSuccess = await m_BoxSearchProvider.UpdateDataAsync(updates.BoxesToUpdate, updates.BoxesToDelete);
+            var isSuccess = await m_BoxSearchProvider.UpdateDataAsync(updates.BoxesToUpdate, updates.BoxesToDelete).ConfigureAwait(false);
             if (isSuccess)
             {
-                await m_ZboxWriteService.UpdateSearchBoxDirtyToRegularAsync(new UpdateDirtyToRegularCommand(updates.BoxesToDelete.Union(updates.BoxesToUpdate.Select(s => s.Id))));
+                await m_ZboxWriteService.UpdateSearchBoxDirtyToRegularAsync(new UpdateDirtyToRegularCommand(updates.BoxesToDelete.Union(updates.BoxesToUpdate.Select(s => s.Id)))).ConfigureAwait(false);
             }
             if (updates.BoxesToUpdate.Count() == top)
             {
@@ -82,15 +79,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return TimeToSleep.Same;
         }
 
-        //private Task JaredPilotAsync(IEnumerable<BoxSearchDto> courses)
-        //{
-        //    foreach (var course in courses)
-        //    {
-        //        var command = new CreateCourseTagCommand(course.Name, course.CourseCode, course.Professor);
-        //        m_WriteService.AddCourseTag(command);
-        //    }
-        //    return Task.CompletedTask;
-        //}
+
 
         protected override string GetPrefix()
         {
@@ -102,20 +91,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var parameters = data as BoxProcessData;
             if (parameters == null) return true;
 
-            var elem = await m_ZboxReadService.GetBoxDirtyUpdatesAsync(parameters.BoxId, token);
-            //if (elem.Type == Infrastructure.Enums.BoxType.Academic && elem.Name.Length > 2)
-            //    await m_WithAiProvider.AddCoursesEntityAsync(new[]
-            //    {
-            //        elem.Name
-            //    }, token);
-
-
+            var elem = await m_ZboxReadService.GetBoxDirtyUpdatesAsync(parameters.BoxId, token).ConfigureAwait(false);
             var isSuccess =
-                await m_BoxSearchProvider.UpdateDataAsync(new[] { elem }, null);
+                await m_BoxSearchProvider.UpdateDataAsync(new[] { elem }, null).ConfigureAwait(false);
             if (isSuccess)
             {
                 await m_ZboxWriteService.UpdateSearchUniversityDirtyToRegularAsync(
-                    new UpdateDirtyToRegularCommand(new[] { parameters.BoxId }));
+                    new UpdateDirtyToRegularCommand(new[] { parameters.BoxId })).ConfigureAwait(false);
 
             }
             return true;

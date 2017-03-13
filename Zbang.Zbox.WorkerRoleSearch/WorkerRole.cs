@@ -97,7 +97,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             foreach (var job in m_Jobs)
             {
-                var t = Task.Factory.StartNew(async () => await job.RunAsync(cancellationToken), cancellationToken);
+                var t = Task.Factory.StartNew(async () => await job.RunAsync(cancellationToken).ConfigureAwait(false), cancellationToken);
                 m_Tasks.Add(t);
             }
             while (!cancellationToken.IsCancellationRequested)
@@ -119,9 +119,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         }
 
                         var jobToRestart = m_Jobs.ElementAt(i);
-                        m_Tasks[i] = Task.Factory.StartNew(async () => await jobToRestart.RunAsync(cancellationToken), cancellationToken);
+                        m_Tasks[i] = Task.Factory.StartNew(async () => await jobToRestart.RunAsync(cancellationToken).ConfigureAwait(false), cancellationToken);
                     }
-                    await Task.Delay(TimeSpan.FromSeconds(30), cancellationToken);
+                    await Task.Delay(TimeSpan.FromSeconds(30), cancellationToken).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
@@ -139,9 +139,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     //m_Unity.Resolve<IJob>(nameof(MailQueueProcess))
                    // m_Unity.Resolve<IJob>(IocFactory.UpdateSearchItem),
                    // m_Unity.Resolve<IJob>(nameof(BlobManagement)),
-                   // m_Unity.Resolve<IJob>(IocFactory.UpdateSearchBox),
+                    m_Unity.Resolve<IJob>(IocFactory.UpdateSearchBox),
                    // m_Unity.Resolve<IJob>(IocFactory.UpdateSearchQuiz),
-                    m_Unity.Resolve<IJob>(IocFactory.UpdateSearchUniversity),
+                   // m_Unity.Resolve<IJob>(IocFactory.UpdateSearchUniversity),
                   // m_Unity.Resolve<IJob>(IocFactory.UpdateSearchFlashcard),
                     //m_Unity.Resolve<IJob>(nameof(SchedulerListener))
                     //m_Unity.Resolve<IJob>(nameof(UpdateUnsubscribeList))
