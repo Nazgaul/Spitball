@@ -15,7 +15,6 @@ namespace Zbang.Zbox.Domain.Commands
             Text = text;
             Id = id;
             FilesIds = filesIds;
-            //ShouldEncode = true;
         }
         public long UserId { get; private set; }
 
