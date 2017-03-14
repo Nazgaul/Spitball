@@ -1,0 +1,33 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>index</title>
+</head>
+<body>
+    <div class="forms">
+        <form class="login" action="" method="post">
+            <div class="form-group">
+                <input class="form-control" required type="email" placeholder="email" name="email" value="yifatbij@gmail.com" />
+            </div>
+            <div class="form-group">
+                <input class="form-control" required type="password" placeholder="password" name="password" value="123123"/>
+            </div>
+            <div id="login_alert_text" class="alert alert-danger">
+                <span></span>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="action-btn">
+                    Log IN
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

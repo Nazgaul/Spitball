@@ -1,0 +1,54 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>index</title>
+</head>
+<body>
+    <div class="form-group">
+            <form ng-submit="st.search()" name="searchTrigger"
+              novalidate>
+                <md-content md-theme="docs-dark" >
+                    <div class="form">
+                  
+                            <input name="university" ng-model="st.formData.university">
+     
+                    
+                            <input name="department" ng-model="st.formData.department">
+   
+                   
+                        
+                            <input name="class" ng-model="st.formData.box">
+                            <input name="boxId" ng-model="st.formData.boxId">
+                    
+                    </div>
+                </md-content>
+                <div class="form-group">
+                    <input class="form-control"  placeholder="Item Name" name="name" ng-model="st.formData.name"/>
+                </div>
+                              
+                <div class="form-actions">
+                    <button type="submit" class="md-raised md-primary md-button md-ink-ripple">
+                        Search
+                    </button>
+                </div>
+                <div class="form-group row">
+                        <div class="form-check mb-2 mr-sm-2 mb-sm-0">
+                            <label class="form-check-label">
+                                <input ng-class="form-check-input" type="checkbox" name="isReviewed" ng-model="st.formData.isReviewed"> Was Reviewd
+                            </label>
+                        </div>
+                        <div class="form-check mb-2 mr-sm-2 mb-sm-0">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" ng-model="st.formData.isSearchType" name="isSearchType"> No search Type
+                            </label>
+                        </div>
+               </div>
+            </form>
+        </div>
+</body>
+</html>
+ 
