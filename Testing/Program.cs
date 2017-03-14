@@ -608,6 +608,10 @@ namespace Testing
 
 
             var mail = new MailManager2();
+            var e = mail.GenerateAndSendEmailAsync("irena@cloudents.com",
+               new SpamGunMailParams("hey this is <b>bold</b>", "irenaUniUrl", "Irena","bold text test","category"));
+            e.Wait();
+            return;
             var x = mail.GetUnsubscribesAsync(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc), 0);
             x.Wait();
 
