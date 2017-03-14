@@ -1,18 +1,94 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    width:1336px;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
-    padding-right: 15px;
+    padding-right: 15px;    
+    background: #003b78;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
-    max-width: 280px;
+  
+}
+
+input{     
+    border: none; 
+    margin-top:19px; 
+    text-indent: 19px;  
+    font-size:14px;  
+}
+
+input[name="university"] {
+    border: none;   
+    border-radius: 8px;  
+    margin-left: 35px;
+    width:300px;
+    height:32px;
+}
+
+
+input[name="department"] {
+    border: none;   
+    border-radius: 8px;  
+    margin-left: 18.7px;
+    width:300px;
+    height:32px;
+}
+
+
+input[name="class"] {
+    border: none;   
+    border-radius: 8px;   
+    margin-left: 19px;
+    width:320px;
+    height:32px;
+}
+input[name="boxId"] {
+    border: none;   
+    border-radius: 8px;  
+    margin-right: 35px; 
+    margin-left: 18.7px;
+    width:240px;
+    height:32px;
+}
+
+input[name="item name"] {
+    border: none;   
+    border-radius: 8px;  
+    margin-right: 20px; 
+    margin-left: 35px;
+    margin-top:15px;
+    width:1087px;
+    height:33px;
+    float:left;
+}
+
+button[name="search_btn"] {
+    border: none;   
+    margin-right: 36.4px;    
+    margin-top:15px;
+    color:white;
+    width: 119.6px;
+    height: 32px;
+    border-radius: 8px;
+    background-color: #3293f6;
+}
+
+
+label { 
+    color: white;
+
+}
+
+div1{
+    background-color:dimgray;
+    margin-top:20px;
 }
 
