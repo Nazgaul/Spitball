@@ -25,7 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>2.1</TypeScriptToolsVersion>
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -168,10 +168,13 @@
     <Content Include="Content\angular-material.layouts.ie_fixes.css" />
     <Content Include="Content\angular-material.layouts.min.css" />
     <Content Include="Content\angular-material.min.css" />
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Js\app.js" />
     <Content Include="Js\login.js" />
@@ -186,6 +189,8 @@
     <Content Include="Scripts\angular\angular.min.js" />
     <Content Include="Scripts\angular-aria\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate\angular-animate.min.js.map" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />
     <Content Include="Scripts\i18n\angular-locale_af-za.js" />
     <Content Include="Scripts\i18n\angular-locale_af.js" />
@@ -915,6 +920,12 @@
     <Content Include="Scripts\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
@@ -959,9 +970,6 @@
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Views\Home\page.cshtml" />
     <Content Include="Views\Shared\_layoutPage.cshtml" />
     <None Include="Web.Debug.config">
