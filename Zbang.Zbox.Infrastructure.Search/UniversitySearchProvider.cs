@@ -129,7 +129,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             var tSuggest = CompletedTask;
             if (!string.IsNullOrEmpty(query.Term) && query.Term.Length >= 3 && query.PageNumber == 0)
             {
-                tSuggest = m_IndexClient.Documents.SuggestAsync<UniversitySearch>(query.Term, NameSuggest, new SuggestParameters
+                tSuggest = m_IndexClient.Documents.SuggestAsync<UniversitySearch>(query.Term, "sg", new SuggestParameters
                 {
                     UseFuzzyMatching = true,
                     Select = listOfSelectParams
