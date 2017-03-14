@@ -20,9 +20,9 @@ var app;
                 console.log(this.searchService.searchItems(JSON.stringify(this.formData), 0));
             }
         };
-        AppController.$inject = ["$scope", "searchService"];
         return AppController;
     }());
+    AppController.$inject = ["$scope", "searchService"];
     angular.module("app").controller("AppController", AppController);
 })(app || (app = {}));
 //# sourceMappingURL=app.controller.js.map
