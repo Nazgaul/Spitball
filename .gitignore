@@ -118,3 +118,4 @@ UpgradeLog*.XML
 
 Zbang.Cloudents.MobileApp2/Properties/PublishProfiles/mobile-cloudents.pubxml
 
+.vs/config/applicationhost.config
