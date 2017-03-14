@@ -14,7 +14,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         private static readonly string[] StudyGuides = { "Study Guides", "study guide", "review", "guide", "reviews", "guides" };
         private static readonly string[] Exams = { "Tests & Exams", "exam", "test", "midterm", "final" };
 
-        private static bool ClassifyType(string[] words, string name, string tab, string content)
+        private static bool ClassifyType(string[] words, string name, string tab)
         {
             return
                 words.Any(c => tab?.IndexOf(c, StringComparison.InvariantCultureIgnoreCase) >= 0)
@@ -47,23 +47,23 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
                 {
                     return type;
                 }
-                if (ClassifyType(ClassNotes, Name, TabName, Content))
+                if (ClassifyType(ClassNotes, Name, TabName))
                 {
                     type.Add(ItemType.ClassNote);
                 }
-                if (ClassifyType(Homework, Name, TabName, Content))
+                if (ClassifyType(Homework, Name, TabName))
                 {
                     type.Add(ItemType.Homework);
                 }
-                if (ClassifyType(StudyGuides, Name, TabName, Content))
+                if (ClassifyType(StudyGuides, Name, TabName))
                 {
                     type.Add(ItemType.StudyGuide);
                 }
-                if (ClassifyType(Exams, Name, TabName, Content))
+                if (ClassifyType(Exams, Name, TabName))
                 {
                     type.Add(ItemType.Exam);
                 }
-                if (ClassifyType(Lectures, Name, TabName, Content))
+                if (ClassifyType(Lectures, Name, TabName))
                 {
                     type.Add(ItemType.Lecture);
                 }
@@ -78,10 +78,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public string Url { get; set; }
 
         public long? UniversityId { get; set; }
-
-        // public string BlobName { get; set; }
-
-        public long BoxId { get; set; }
 
         public string TabName { get; set; }
 

@@ -16,19 +16,4 @@
         public int PageNumber { get; }
         public int RowsPerPage { get; }
     }
-
-
-
-
-    //public class FlashcardLeaderboardQuery
-    //{
-    //    public FlashcardLeaderboardQuery(long userId, long universityId)
-    //    {
-    //        UserId = userId;
-    //        UniversityId = universityId;
-    //    }
-
-    //    public long UserId { get; private set; }
-    //    public long UniversityId { get; private set; }
-    //}
 }

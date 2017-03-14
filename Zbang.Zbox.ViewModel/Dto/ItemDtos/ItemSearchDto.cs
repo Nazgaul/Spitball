@@ -19,6 +19,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public string BoxName { get; set; }
         public string BoxCode { get; set; }
         public string BoxProfessor { get; set; }
+        public long BoxId { get; set; }
 
         public abstract IEnumerable<ItemType> Type { get; }
         public Language? Language { get; set; }

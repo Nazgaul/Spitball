@@ -157,7 +157,7 @@
     <Compile Include="Queries\Emails\GetUserByNotificationQuery.cs" />
     <Compile Include="Queries\Emails\MarketingQuery.cs" />
     <Compile Include="Queries\GetBoxQuizesPagedQuery.cs" />
-    <Compile Include="Queries\GetBoxSeoQuery.cs" />
+    <Compile Include="Queries\GetBoxIdQuery.cs" />
     <Compile Include="Queries\GetBoxSideBarQuery.cs" />
     <Compile Include="Queries\GetChatRoomMessagesQuery.cs" />
     <Compile Include="Queries\GetHomeBoxesUniversityQuery.cs" />

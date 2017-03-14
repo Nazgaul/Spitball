@@ -940,7 +940,7 @@ where ownerid = @UserId and boxid = @BoxId;";
             }
         }
 
-        public async Task<Box.BoxSeoDto> GetBoxSeoAsync(GetBoxSeoQuery query)
+        public async Task<Box.BoxSeoDto> GetBoxSeoAsync(GetBoxIdQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {

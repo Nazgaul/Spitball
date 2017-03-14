@@ -262,7 +262,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<BoxSeoDto> GetBoxSeoAsync(GetBoxSeoQuery query)
+        public Task<BoxSeoDto> GetBoxSeoAsync(GetBoxIdQuery query)
         {
             return m_ReadService.GetBoxSeoAsync(query);
         }
