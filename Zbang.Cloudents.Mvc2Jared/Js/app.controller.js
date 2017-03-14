@@ -17,7 +17,7 @@ var app;
                 if (!Object.keys(this.formData).length)
                     console.log("empty");
                 console.log(this.formData);
-                console.log(this.searchService.searchItems(JSON.stringify(this.formData), 0));
+                console.log(this.searchService.searchItems(this.formData));
             }
         };
         return AppController;

@@ -6,8 +6,8 @@ var app;
         SearchService.prototype.testService = function () {
             return "yifat";
         };
-        SearchService.prototype.searchItems = function (term, page) {
-            $.get('/home/items', { term: term, page: 0 }).done(function (data) {
+        SearchService.prototype.searchItems = function (term) {
+            $.post('/home/items', { model: term }).done(function (data) {
                 console.log(data);
             });
             //this.ajaxService.get("/home/items/", { q: term, page: page }).then(response => {

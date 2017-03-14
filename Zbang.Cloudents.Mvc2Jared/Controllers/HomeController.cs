@@ -18,6 +18,7 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class HomeController : BaseController
     {
+       // private readonly IZboxReadService m;
         //private readonly IItemReadSearchProvider m_ItemSearchService;
         private readonly Lazy<ApplicationUserManager> m_UserManager;
         // GET: Home
@@ -29,13 +30,16 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
         {
             return View();
         }
-        [HttpGet, ActionName("Items")]
-        public async Task<JsonResult> ItemsAsync(string term, int page, CancellationToken cancellationToken)
+        [HttpPost, ActionName("Items")]
+        public async Task<JsonResult> ItemsAsync(SearchItemWatson model, CancellationToken cancellationToken)
         {
             int a;
-            SearchItemWatson search = JsonConvert.DeserializeObject<SearchItemWatson>(term);
+           // var retVal = await m.
+            //SearchItemWatson search = JsonConvert.DeserializeObject<SearchItemWatson>(term);
             a = 5;
-            return JsonOk();
+            //return Json(retVal);
+            return Json("");
+            //return JsonOk();
             //return await SearchAllQueryAsync(cancellationToken,search);
         }
         //public async Task<IEnumerable<SearchDocument>> SearchItemAsync(SearchItemWatson query, CancellationToken cancelToken)
