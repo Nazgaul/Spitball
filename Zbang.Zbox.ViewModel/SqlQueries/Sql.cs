@@ -22,18 +22,6 @@
     offset @pageNumber*@rowsperpage ROWS
     FETCH NEXT @rowsperpage ROWS ONLY;";
 
-        public const string ItemInfo = @"select
-top 10 i.name ItemName,
-b.boxname BoxName,
-d.name Department,
-i.blobname Blob,
-bt.itemtabname DocType
-from zbox.item i 
-join zbox.itemtaB bt ON i.itemtabid = bt.itemtabid
-join zbox.box b ON i.boxid=b.boxid 
-join zbox.library d ON b.libraryid=d.libraryId 
-where i.boxid in (select boxid from zbox.box where university = 173408);";
-
         public const string UniversityInfo = @"select 
 uWrap.id as id,
 uWrap.universityName as Name,

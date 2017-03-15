@@ -1135,28 +1135,20 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
         #region JaredSearch
         public async Task<IEnumerable<ItemTagsDto>> GetItemsWithTagsAsync(JaredSearchQuery query)
         {
-            int a;
-            a = 5;
-            const string itemData = "select top 10 i.name ItemName,b.boxname BoxName, d.name Department,i.blobname Blob" +
-"from zbox.item i join zbox.box b ON i.boxid = b.boxid join zbox.library d ON b.libraryid = d.libraryId where i.boxid in (select boxid from zbox.box where university = 173408);";
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<ItemTagsDto>(Sql.Sql.ItemInfo,
-                    query);
-                return retVal;
+                using (var grid = await conn.QueryMultipleAsync(Sql.Jared.ItemInfo + Sql.Jared.ItemTags, query))
+                {
+                    var retVal = await grid.ReadAsync<ItemTagsDto>();
+                    var tags= await grid.ReadAsync<ItemTagDto>();
+                    foreach (var item in retVal)
+                    {
+                        item.Tags = tags.Where(w => w.ItemId == item.ItemId).Select(s=>s.Tag);
+                    }
+
+                    return retVal;
+                }
             }
-            //using (var conn = await DapperConnection.OpenConnectionAsync(token))
-            //{
-            //    var universities = await conn.QueryAsync<UniversityDto>(
-            //         new CommandDefinition(
-            //             "select id,url as short,universityname as name from zbox.university where url is not null",
-            //             cancellationToken: token));
-            //    return new JaredDto
-            //    {
-            //        Universities = universities
-            //    };
-            //}
-            //throw new NotImplementedException();
         }
         #endregion
 
