@@ -56,60 +56,70 @@
                 
                
             </form>
+    <div style="width:100%">
 
-    <div1>
-        <button id="saveB" name="img_btn">
-            img           
-        </button>
+        <div class="form" style="background-color: #f2f2f2">
+            <button id="saveB" name="img_btn">  </button>
 
-        <label name="save_btn">
-            Save
-        </label>
-
-
-        <button name="back_btn">
-            back_arrow
-        </button>
-
-
-        <label class="form-check-label">
-            Results number: 0/2000
-        </label>
-
-        <button name="next_btn" type="submit" class="md-raised md-primary md-button md-ink-ripple">
-            next_arrow
-        </button>
-
-    </div1>
-
-
-    <div2 class="form-group">
-
-            <h3> Document info </h3>
-        <div>
-            <label class="form-check-label">
-                Name: {{st.document.name}}
+            <label name="save_btn">
+                Save
             </label>
-        </div>
-        <div>
-            <label class="form-check-label">
-                Box name:
+
+
+            <button name="back_btn"></button>
+
+
+            <label name="results_num" class="form-check-label">
+                Results number: 0/2000
             </label>
-        </div>
-        <div>
-            <label class="form-check-label">
-                Department:
-            </label>
+
+            <button name="next_btn" type="submit" class="md-raised md-primary md-button md-ink-ripple"></button>
+
         </div>
 
+    </div>
+
+
+
+
+
+    <div style="margin-left:35px;">
         <h3> Document info </h3>
+        <div>
+            <label class="form-check-label"  style="margin-top:17px;">
+                Name: {{st.doc.itemName}}
+            </label>
+        </div>
+     
+      
+        <div  style="margin-top:26px;">
+            <label class="form-check-label">
+                Box name:{{st.doc.boxName}}
+            </label>
+        </div>
+
+        <div  style="margin-top:20px;">
+            <label class="form-check-label">
+                Department:{{st.doc.department}}
+            </label>
+        </div>
+
+        <h3> Document Type </h3>
+        <select>
+            <option value="" disabled selected>Search type</option>
+            <option value="hurr">Durr</option>
+            <option value= "bla">>{{st.doc.docType}}</option>
+           
+        </select>
+
 
 
 
 
         <h3> Document Tag </h3>
+        {{st.doc.tags[0]}}
+        </div>
 
-</div2>
         
 </body>
 </html>

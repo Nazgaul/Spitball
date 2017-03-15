@@ -1,6 +1,14 @@
 var app;
 (function (app) {
     "use strict";
+    var Document1 = (function () {
+        function Document1() {
+            this.itemName = "my document name";
+            this.boxName = "my document box_name";
+            this.department = "my document department";
+        }
+        return Document1;
+    }());
     var AppController = (function () {
         function AppController($scope, searchService) {
             this.$scope = $scope;
@@ -18,12 +26,16 @@ var app;
                     console.log("empty");
                 console.log(this.formData);
                 var promise = this.searchService.searchItems(this.formData);
-                promise.then(function (response) { return _this.result = response; });
+                promise.then(function (response) {
+                    _this.result = response;
+                    _this.doc = _this.result[0];
+                    _this.doc["tags"] = ["aaa", "bb"];
+                });
             }
         };
         return AppController;
     }());
     AppController.$inject = ["$scope", "searchService"];
+    app.AppController = AppController;
     angular.module("app").controller("AppController", AppController);
 })(app || (app = {}));
-//# sourceMappingURL=app.controller.js.map

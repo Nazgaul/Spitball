@@ -1,12 +1,15 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    padding-top: 0px;
+    padding-bottom: 0px; 
+    margin: 0px;
+    min-height: 100%;
+    width: 100%;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px; 
+    padding-left: 0px;
+    padding-right: 0px; 
 }
 
 
@@ -29,7 +32,7 @@ input[name="university"] {
     border: none;   
     border-radius: 8px;  
     margin-left: 35px;
-    width:300px;
+    width:301px;
     height:32px;
 }
 
@@ -38,7 +41,7 @@ input[name="department"] {
     border: none;   
     border-radius: 8px;  
     margin-left: 18.7px;
-    width:300px;
+    width:301px;
     height:32px;
 }
 
@@ -55,28 +58,27 @@ input[name="boxId"] {
     border-radius: 8px;  
     margin-right: 35px; 
     margin-left: 18.7px;
-    width:240px;
+    width:280px;
     height:32px;
 }
 
 input[name="item name"] {
     border: none;   
     border-radius: 8px;  
-    margin-right: 20px; 
+    margin-right: 20px;  
     margin-left: 35px;
     margin-top:15px;
-    width:1087px;
+    width:1120.1px;
     height:33px;
     float:left;
 }
 
 button[name="search_btn"] {
-    border: none;   
-    margin-right: 36.4px;    
+    border: none;     
     margin-top:15px;
     margin-bottom:5px;
     color:white;
-    width: 127px;
+    width: 128px;
     height: 32px;
     border-radius: 8px;
     background-color: #3293f6;
@@ -92,7 +94,8 @@ div0 {
 }
 
 input[name="isReviewed"]{
-    margin-left: 35px;
+    margin-left: 37px;
+    margin-bottom:15px;
 }
 input[name="isSearchType"]{
     margin-left: 25px;
@@ -101,16 +104,12 @@ input[name="isSearchType"]{
 
 
 
-div1{      
-    height:40px;
-    width:1336px;
-    background-color: #f2f2f2;
-}
 
 button[name="img_btn"] {
     margin-left: 35px;
-  height: 23px;
-    background-image: url('../images1/combined-shape@3x.png');
+    height: 25px;
+    width:27px;
+    background: url('../images1/combined-shape.png') no-repeat;
 }
 
 label[name="save_btn"] {
@@ -131,24 +130,35 @@ label[name="save_btn"] {
 
 button[name="back_btn"] {
     margin-left: 541px;
-    margin-right: 150px; 
-    width:24px;
-    height:24px;
+    margin-right: 150px;
+    margin-bottom:5px;
+    margin-top:5px;
+    width: 24px;
+    height: 24px;
+    background: url('../images1/triangle-2@3x.png') center no-repeat;
+    background-size: 100% 100%;
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+    border: none;
+}
+label[name="results_num"] {
 }
 
 
 button[name="next_btn"] {
-    margin-right: 20px; 
-    margin-left:150px;
-    width:24px;
-    height:24px;
+    margin-right: 20px;
+    margin-left: 150px;
+    width: 24px;
+    height: 24px; 
+    background: url('../images1/triangle-2@3x.png') center no-repeat; 
+    background-size: 100% 100%; 
+border: none;
 }
 
 
-div2{    
-    margin-left:35px;
-    height:1024px;
-    width: 1300px;
-    background-color: white;
+
+select{
+    height:30px;
+    width: 150px;
 }
 
