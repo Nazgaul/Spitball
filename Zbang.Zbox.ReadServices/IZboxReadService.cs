@@ -8,12 +8,14 @@ using Zbang.Zbox.ViewModel.Dto.ActivityDtos;
 using Zbang.Zbox.ViewModel.Dto.BoxDtos;
 using Zbang.Zbox.ViewModel.Dto.Dashboard;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
+using Zbang.Zbox.ViewModel.Dto.JaredDtos;
 using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Dto.Qna;
 using Zbang.Zbox.ViewModel.Dto.UserDtos;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 using Zbang.Zbox.ViewModel.Queries.Dashboard;
+using Zbang.Zbox.ViewModel.Queries.Jared;
 using Zbang.Zbox.ViewModel.Queries.Library;
 using Zbang.Zbox.ViewModel.Queries.QnA;
 using Zbang.Zbox.ViewModel.Queries.Search;
@@ -27,11 +29,9 @@ namespace Zbang.Zbox.ReadServices
         Task<HomePageDataDto> GetHomePageDataAsync(GetHomePageQuery query);
         Task<IEnumerable<RecommendBoxDto>> GetUniversityBoxesAsync(GetHomeBoxesUniversityQuery query);
         long? GetUniversityIdByUrl(string url);
-
-
-
         Task<IEnumerable<RecommendBoxDto>> GetCoursesPageDataAsync();
         Task<IEnumerable<BoxDto>> GetUserBoxesAsync(GetBoxesQuery query);
+        Task<IEnumerable<ItemTagsDto>> GetItemsWithTagsAsync(JaredSearchQuery query);
 
         //Task<IEnumerable<LeaderBoardDto>> GetDashboardLeaderBoardAsync(LeaderBoardQuery query);
 
@@ -46,7 +46,6 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<QuizDto>> GetBoxQuizesAsync(GetBoxQuizesPagedQuery query);
 
         Task<IEnumerable<FlashcardDto>> GetBoxFlashcardsAsync(GetFlashCardsQuery query);
-
         Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetBoxLeaderboardQuery query);
 
         //Task<IEnumerable<RecommendBoxDto>> GetBoxRecommendedCoursesAsync(GetBoxSideBarQuery query,

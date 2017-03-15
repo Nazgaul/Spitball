@@ -1,7 +1,7 @@
 ﻿module app {
     export interface IHelpService {
         testService(): string;
-        searchItems(term: any): string;
+        searchItems(term: any);
         //searchBox(term: string, page: number): angular.IPromise<any>;
         //searchItems(term: string, page: number): angular.IPromise<any>;
         //searchQuizzes(term: string, page: number): angular.IPromise<any>;
@@ -16,13 +16,8 @@
             return "yifat";
         }
         searchItems(term) {
-          
-            $.post('/home/items', {model:term}).done(function (data) {
-                console.log(data);})
-            //this.ajaxService.get("/home/items/", { q: term, page: page }).then(response => {
-            //    console.log(response);
-            //});
-            return "Hello";
+            var aa;
+            return $.post('/home/items', { model: term })
         }
         //    private ajaxService2: IAjaxService2) {
         //}

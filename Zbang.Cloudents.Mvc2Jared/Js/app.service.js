@@ -7,13 +7,8 @@ var app;
             return "yifat";
         };
         SearchService.prototype.searchItems = function (term) {
-            $.post('/home/items', { model: term }).done(function (data) {
-                console.log(data);
-            });
-            //this.ajaxService.get("/home/items/", { q: term, page: page }).then(response => {
-            //    console.log(response);
-            //});
-            return "Hello";
+            var aa;
+            return $.post('/home/items', { model: term });
         };
         return SearchService;
     }());
