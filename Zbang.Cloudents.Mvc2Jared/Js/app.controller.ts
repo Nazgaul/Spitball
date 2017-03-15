@@ -16,7 +16,8 @@ module app {
                 Object.keys(this.formData).forEach(k => (!this.formData[k] && this.formData[k] !== undefined) && delete this.formData[k]);
                 if (!Object.keys(this.formData).length) console.log("empty");
                 console.log(this.formData);
-                console.log(this.searchService.searchItems(JSON.stringify(this.formData), 0));
+                var promise = this.searchService.searchItems(this.formData);
+                promise.then(response => this.result = response);
             }
         }
     }

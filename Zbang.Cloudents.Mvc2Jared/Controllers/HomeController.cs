@@ -1,25 +1,23 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Microsoft.Owin.Security;
-using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Cloudents.Mvc2Jared.Models;
 using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.ViewModel.Queries;
+using Zbang.Zbox.ViewModel.Queries.Jared;
 using System.Threading;
-using Zbang.Zbox.Infrastructure.Search;
-using Newtonsoft.Json;
-using Zbang.Zbox.ViewModel.Queries.Search;
-using Zbang.Zbox.ViewModel.Dto.Search;
-using System.Collections.Generic;
+using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Cloudents.Mvc2Jared.Controllers
 {
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class HomeController : BaseController
     {
-        //private readonly IItemReadSearchProvider m_ItemSearchService;
-        private readonly Lazy<ApplicationUserManager> m_UserManager;
+        IZboxReadService m_readService;
+        public HomeController(IZboxReadService readService)
+        {
+            m_readService = readService;
+        }
+        // private readonly Lazy<ApplicationUserManager> m_UserManager;
         // GET: Home
         public ActionResult Index()
         {
@@ -29,67 +27,20 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
         {
             return View();
         }
-        [HttpGet, ActionName("Items")]
-        public async Task<JsonResult> ItemsAsync(string term, int page, CancellationToken cancellationToken)
+     
+        [HttpPost, ActionName("Items")]
+        public async Task<JsonResult> ItemsAsync(JaredSearchQuery model, CancellationToken cancellationToken)
         {
             int a;
-            SearchItemWatson search = JsonConvert.DeserializeObject<SearchItemWatson>(term);
             a = 5;
-            return JsonOk();
+           var retVal = await m_readService.GetItemsWithTagsAsync(model);
+            a = 5;
+            //return Json(retVal);
+            return Json(retVal);
+            //return JsonOk();
             //return await SearchAllQueryAsync(cancellationToken,search);
         }
-        //public async Task<IEnumerable<SearchDocument>> SearchItemAsync(SearchItemWatson query, CancellationToken cancelToken)
-        //{
-            //if (query == null) throw new ArgumentNullException(nameof(query));
-          //  var term = query.Term;
-            //if we put asterisk highlight is not working
-            //http://stackoverflow.com/questions/35769442/azure-search-highlights-not-returned-for-every-result/35778095
-            //if (!query.Term.Contains(" "))
-            //{
-            //    term += "*";
-            //}
-            //var filter = await m_FilterProvider.BuildFilterExpressionAsync(
-            //   query.UniversityId, UniversityidField, UserIdsField, query.UserId);
 
-            //var result = await m_IndexClient.Documents.SearchAsync<ItemSearch>(term, new SearchParameters
-            //{
-            //    Filter = filter,
-            //    Top = query.RowsPerPage,
-            //    Skip = query.RowsPerPage * query.PageNumber,
-            //    ScoringProfile = ScoringProfileName,
-            //    ScoringParameters = new[] { new ScoringParameter("university", new[] { query.UniversityId.ToString() }) },
-            //    Select = new[] { BoxNameField, SmallContentField, IdField, ImageField, NameField, UniversityNameField, UrlField, BlobNameField },
-            //    HighlightFields = new[] { ContentField, NameField }
-            //}, cancellationToken: cancelToken);
-
-            //return result.Results.Select(s => new SearchDocument
-            //{
-            //    Boxname = s.Document.BoxName,
-            //    Content = HighLightInField(s, ContentField, s.Document.MetaContent),
-            //    Id = long.Parse(s.Document.Id),
-            //    //Image = s.Document.Image,
-            //    Name = HighLightInField(s, NameField, s.Document.Name),
-            //    UniName = s.Document.UniversityName,
-            //    Url = s.Document.Url,
-            //    Source = s.Document.BlobName
-            //});
-        //}
-        private async Task<JsonResult> SearchAllQueryAsync(CancellationToken cancellationToken,
-          SearchItemWatson query)
-        {
-            try
-            {
-                using (var source = CreateCancellationToken(cancellationToken))
-                {
-                    //var retVal = await SearchItemAsync(query, source.Token);
-                    return JsonOk();
-                }
-            }
-            catch (OperationCanceledException)
-            {
-                return JsonOk();
-            }
-        }
         [HttpPost]
         [ActionName("Login")]
         public async Task<JsonResult> LogInAsync(LogOn model)

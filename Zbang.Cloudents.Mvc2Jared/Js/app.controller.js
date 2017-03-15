@@ -17,7 +17,8 @@ var app;
                 if (!Object.keys(this.formData).length)
                     console.log("empty");
                 console.log(this.formData);
-                console.log(this.searchService.searchItems(JSON.stringify(this.formData), 0));
+                var promise = this.searchService.searchItems(this.formData);
+                promise.then(function (response) { return _this.result = response; });
             }
         };
         return AppController;
