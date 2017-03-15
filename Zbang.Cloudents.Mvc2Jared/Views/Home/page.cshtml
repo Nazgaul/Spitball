@@ -8,7 +8,7 @@
     <title>index</title>
 </head>
 <body>
-    <div class="form-group">
+    
             <form ng-submit="st.search()" name="searchTrigger"
               novalidate>
                 <md-content md-theme="docs-dark" >
@@ -41,30 +41,76 @@
                 </div>
 
 
-                <div1 class="form-group row">
-                    <div class="form-check mb-2 mr-sm-2 mb-sm-0">
-                        <label1 class="form-check-label">
+                    <div0 class="form-check mb-2 mr-sm-2 mb-sm-0">
+                        <label class="form-check-label">
                             <input ng-class="form-check-input" type="checkbox"
                                    name="isReviewed" ng-model="st.formData.isReviewed"> Was Reviewd
-                        </label1>
-                    </div>
+                        </label>
 
-
-                    <div class="form-check mb-2 mr-sm-2 mb-sm-0">
                         <label class="form-check-label">
                             <input class="form-check-input" type="checkbox" ng-model="st.formData.isSearchType"
                                    name="isSearchType"> No search Type
                         </label>
-                    </div>
-                </div1>
+                    </div0>
 
                 
-                     
-
-
                
             </form>
+
+    <div1>
+        <button id="saveB" name="img_btn">
+            img           
+        </button>
+
+        <label name="save_btn">
+            Save
+        </label>
+
+
+        <button name="back_btn">
+            back_arrow
+        </button>
+
+
+        <label class="form-check-label">
+            Results number: 0/2000
+        </label>
+
+        <button name="next_btn" type="submit" class="md-raised md-primary md-button md-ink-ripple">
+            next_arrow
+        </button>
+
+    </div1>
+
+
+    <div2 class="form-group">
+
+            <h3> Document info </h3>
+        <div>
+            <label class="form-check-label">
+                Name: {{st.document.name}}
+            </label>
         </div>
+        <div>
+            <label class="form-check-label">
+                Box name:
+            </label>
+        </div>
+        <div>
+            <label class="form-check-label">
+                Department:
+            </label>
+        </div>
+
+        <h3> Document info </h3>
+
+
+
+
+        <h3> Document Tag </h3>
+
+</div2>
+        
 </body>
 </html>
  
