@@ -12,6 +12,8 @@ module app {
     export class AppController {
         static $inject = ["$scope","searchService"];
         tab: string;
+        resNum: number = 0;
+        counter: number = 0;
         noResults = false;
         result = [];
 
@@ -22,7 +24,8 @@ module app {
         doc: any;
         class: string = "this is Class";
         yifat: number = 5;
-        search() {
+        search()
+        {
             if (this.formData) {
                 Object.keys(this.formData).forEach(k => (!this.formData[k] && this.formData[k] !== undefined) && delete this.formData[k]);
                 if (!Object.keys(this.formData).length) console.log("empty");
@@ -32,9 +35,20 @@ module app {
                 this.result = response;
                 this.doc = this.result[0];
                 this.doc["tags"] = ["aaa", "bb"];
+                this.resNum = this.result.length;
                 });
             }
         }
+        nextPage() {
+            this.counter++;
+            //change doc
+            this.doc = this.result[this.counter];
+        }
+        prevPage() {
+            this.counter--;
+            this.doc = this.result[this.counter];
+        }
+
 
     }
 

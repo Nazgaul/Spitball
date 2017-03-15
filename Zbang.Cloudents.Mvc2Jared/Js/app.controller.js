@@ -13,6 +13,8 @@ var app;
         function AppController($scope, searchService) {
             this.$scope = $scope;
             this.searchService = searchService;
+            this.resNum = 0;
+            this.counter = 0;
             this.noResults = false;
             this.result = [];
             this.class = "this is Class";
@@ -30,8 +32,18 @@ var app;
                     _this.result = response;
                     _this.doc = _this.result[0];
                     _this.doc["tags"] = ["aaa", "bb"];
+                    _this.resNum = _this.result.length;
                 });
             }
+        };
+        AppController.prototype.nextPage = function () {
+            this.counter++;
+            //change doc
+            this.doc = this.result[this.counter];
+        };
+        AppController.prototype.prevPage = function () {
+            this.counter--;
+            this.doc = this.result[this.counter];
         };
         return AppController;
     }());

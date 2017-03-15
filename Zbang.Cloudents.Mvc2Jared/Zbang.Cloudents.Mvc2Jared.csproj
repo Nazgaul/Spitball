@@ -197,10 +197,13 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="images1\1.jpg" />
+    <Content Include="images1\341083.jpg" />
     <Content Include="images1\combined-shape%403x.png" />
     <Content Include="images1\combined-shape.png" />
     <Content Include="images1\triangle-2%403x.png" />
     <Content Include="images1\triangle-2.png" />
+    <Content Include="images1\vertical_sight.jpg" />
     <Content Include="Js\app.js" />
     <Content Include="Js\login.js" />
     <Content Include="Scripts\angular-animate\angular-animate.js" />
