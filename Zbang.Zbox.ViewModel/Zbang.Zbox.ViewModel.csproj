@@ -210,6 +210,7 @@
     <Compile Include="SqlQueries\Feed.cs" />
     <Compile Include="SqlQueries\HomePage.cs" />
     <Compile Include="SqlQueries\Item.cs" />
+    <Compile Include="SqlQueries\Jared.cs" />
     <Compile Include="SqlQueries\Library.cs" />
     <Compile Include="SqlQueries\LibraryChoose.cs" />
     <Compile Include="SqlQueries\Quiz.cs" />
