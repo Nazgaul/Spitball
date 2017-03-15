@@ -2,11 +2,12 @@
 module app {
     "use strict";
     class Document1 {
-        itemName: string = "my document name";
-        boxName: string = "my document box_name";
-        department: string = "my document department";
-        docType: string;
-
+        ItemName: string = "my document name";
+        BoxName: string = "my document box_name";
+        Department: string = "my document department";
+        DocType: string;
+        ItemId: number;
+        Tags: any;
     }
 
     export class AppController {
@@ -32,9 +33,9 @@ module app {
                 console.log(this.formData);
                 var promise = this.searchService.searchItems(this.formData);
                 promise.then(response => {
-                this.result = response;
+                    this.result = response;
+                    this.counter = 0;
                 this.doc = this.result[0];
-                this.doc["tags"] = ["aaa", "bb"];
                 this.resNum = this.result.length;
                 });
             }

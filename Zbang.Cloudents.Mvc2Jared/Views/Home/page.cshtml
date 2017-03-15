@@ -11,7 +11,7 @@
 	   * { margin: 0; padding: 0; }
 	   p { padding: 10px; }
 	   #left { position: absolute; left: 0; width: 50%; }
-	   #right { position: absolute; right: 0;  width: 50%; margin-right:27px;margin-left:27px;margin-top:36px; }
+	   #right { position: absolute; right: 0;  width: 50%;  }
 		</style>
 
 </head>
@@ -76,83 +76,89 @@
             </label>
 
 
-            <button ng-click="st.prevPage()" name="back_btn"></button>
+            <button ng-disabled="st.counter==0" ng-click="st.prevPage()" name="back_btn"></button>
 
 
             <label name="results_num" class="form-check-label">
                 Results number: {{st.counter}}/{{st.resNum}}
             </label>
 
-            <button ng-click="st.nextPage()" name="next_btn" type="submit" class="md-raised md-primary md-button md-ink-ripple"></button>
+            <button ng-disabled="st.counter==st.resNum" 
+                    ng-click="st.nextPage()" name="next_btn" 
+                    type="submit" class="md-raised md-primary md-button md-ink-ripple">
+            </button>
 
         </div1>
 
 
 
-  
-
-    <div id="left">
-    
-
-        <h3> Document info </h3>
+    <div width="100%">
 
 
-        <div >
-            <label class="form-check-label" style="margin-top:17px;">
-                Name:    {{st.doc.itemName}}
-            </label>
-        </div>
+        <div id="left">
 
 
-        <div style="margin-top:26px;">
-            <label class="form-check-label">
-                Box name:   {{st.doc.boxName}}
-            </label>
-        </div>
-
-        <div style="margin-top:20px;">
-            <label class="form-check-label">
-                Department:   {{st.doc.department}}
-            </label>
-        </div>
+            <h3> Document info </h3>
 
 
-        <svg height="40" width="460px">
-            <line x1="0" y1="15" x2="200" y2="15" style="stroke:rgb(0, 0, 0);stroke-width:2" />
-        </svg>
+            <div style="margin-left:40px;  margin-top:20px;">
+                <label class="form-check-label" style="margin-top:17px;">
+                    Name:    {{st.doc.ItemName}}
+                </label>
+            </div>
 
-        <div>
-            <h3> Document Type </h3>
-            
-            
-            <select ng-model="st.doc.docType">
-                <option value="" disabled selected>Search type</option>               
-                <option value="1">Class Notes</option>
-                <option value="2">Homework</option>
-                <option value="3">Lectures</option>
-                <option value="4">Study Guides</option> 
-                <option value="0">Tests & Exams</option>
-            </select>
 
-            <br>
-            <svg height="40" width="460px">
+            <div style="margin-left:40px;  margin-top:20px;">
+                <label class="form-check-label">
+                    Box name:   {{st.doc.BoxName}}
+                </label>
+            </div>
+
+            <div style="margin-left:40px;  margin-top:20px;">
+                <label class="form-check-label">
+                    Department:   {{st.doc.Department}}
+                </label>
+            </div>
+
+
+            <svg height="40" width="460px" style="margin-left:40px;  margin-top:20px;">
                 <line x1="0" y1="15" x2="200" y2="15" style="stroke:rgb(0, 0, 0);stroke-width:2" />
             </svg>
 
+            <div>
+                <h3> Document Type </h3>
 
-            <h3> Document Tag </h3>
-            {{st.doc.tags[0]}}
+
+                <select ng-model="st.doc.docType" style="margin-left:40px;  margin-top:20px;">
+                    <option value="" disabled selected>Search type</option>
+                    <option value="1">Class Notes</option>
+                    <option value="2">Homework</option>
+                    <option value="3">Lectures</option>
+                    <option value="4">Study Guides</option>
+                    <option value="0">Tests & Exams</option>
+                </select>
+
+                <br>
+                <svg height="40" width="460px" style="margin-left:40px;  margin-top:20px;">
+                    <line x1="0" y1="15" x2="200" y2="15" style="stroke:rgb(0, 0, 0);stroke-width:2" />
+                </svg>
+
+
+                <h3> Document Tag </h3>
+                {{st.doc.tags[0]}}
+            </div>
+
         </div>
-            
+
+        <div id="right">
+            <img src="/images1/1.jpg" style="width:760px;height:826px; margin-right:50px">
+        </div>
+
+
+
+
+
     </div>
-
-    <div id="right">    
-        <img src="/images1/1.jpg" style="width:760px;height:826px;">    
-    </div>
-
-
-
-
 
 
 

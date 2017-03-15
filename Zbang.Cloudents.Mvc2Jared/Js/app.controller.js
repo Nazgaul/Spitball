@@ -3,9 +3,9 @@ var app;
     "use strict";
     var Document1 = (function () {
         function Document1() {
-            this.itemName = "my document name";
-            this.boxName = "my document box_name";
-            this.department = "my document department";
+            this.ItemName = "my document name";
+            this.BoxName = "my document box_name";
+            this.Department = "my document department";
         }
         return Document1;
     }());
@@ -30,8 +30,8 @@ var app;
                 var promise = this.searchService.searchItems(this.formData);
                 promise.then(function (response) {
                     _this.result = response;
+                    _this.counter = 0;
                     _this.doc = _this.result[0];
-                    _this.doc["tags"] = ["aaa", "bb"];
                     _this.resNum = _this.result.length;
                 });
             }
@@ -51,3 +51,4 @@ var app;
     app.AppController = AppController;
     angular.module("app").controller("AppController", AppController);
 })(app || (app = {}));
+//# sourceMappingURL=app.controller.js.map

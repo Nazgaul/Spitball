@@ -156,7 +156,13 @@ button[name="next_btn"] {
 border: none;
 }
 
+    button[name="next_btn"]:disabled {
+        background: url('../images1/triangle-2-copy@3x.png');
+    }
 
+    button[name="back_btn"]:disabled {
+        background: url('../images1/triangle-2-copy@3x.png');
+    }
 
 select{
     height:30px;
@@ -181,6 +187,8 @@ h3{
   line-height: normal;
   letter-spacing: -0.3px;
   color: #07305a;
+  margin-left:40px;
+  margin-top:30px;
 }
 
 
