@@ -4,17 +4,12 @@ var app;
         function SearchService($http) {
             this.$http = $http;
         }
-        SearchService.prototype.searchItems = function (term) {
-            return $.post('/home/items', { model: term });
+        SearchService.prototype.testService = function () {
+            return "yifat";
         };
-        SearchService.prototype.saveItem = function (itemId, newName, newType, newTags, removedTags) {
-            return $.post('/home/save', {
-                itemId: itemId,
-                name: newName,
-                docType: newType,
-                newTags: newTags,
-                removeTags: removedTags
-            });
+        SearchService.prototype.searchItems = function (term) {
+            var aa;
+            return $.post('/home/items', { model: term });
         };
         SearchService.prototype.getPreview = function (blobName, itemId) {
             return $.get('/home/preview/', {
@@ -22,12 +17,8 @@ var app;
                 id: itemId
             });
         };
-        SearchService.prototype.getTabs = function (boxId) {
-            return $.get('/home/tabs/', {
-                id: boxId
-            });
-        };
         return SearchService;
     }());
+    SearchService.$inject = ["$http"];
     angular.module("app").service("searchService", SearchService);
 })(app || (app = {}));

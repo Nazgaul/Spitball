@@ -19,6 +19,7 @@ var app;
             this.result = [];
             this.ChangedName = "";
             this.removedTags = "";
+            this.newTag = "";
             this.documents = [];
         }
         AppController.prototype.search = function () {
@@ -84,10 +85,12 @@ var app;
         AppController.prototype.deleteTag = function (i) {
             //this.doc.ItemName = "deleted" + i;
             this.removedTags += this.doc.Tags[i];
-            this.doc.Tags[i].hide();
+            // this.doc.Tags[i].hide();
+            this.doc.Tags.splice(i, 1);
         };
         AppController.prototype.AddNewTag = function () {
-            this.doc.ItemName = "deleted";
+            this.doc.Tags.push(this.newTag);
+            this.newTag = "";
         };
         return AppController;
     }());

@@ -142,13 +142,13 @@
                 <h3> Document Type </h3>
 
 
-                <select id="mySelect" ng-model="st.doc.DocType" style="margin-left:40px;  margin-top:20px;">
+                <select id="mySelect" ng-model="st.doc.TypeId" style="margin-left:40px;  margin-top:20px;">
                     <option value="" disabled selected>Search type</option>
-                    <option value="Class Notes">Class Notes</option>
-                    <option value="Homework">Homework</option>
+                    <option ng-repeat="option in st.optionalTabs" value="{{option.id}}">{{option.name}}</option>
+                    @*<option value="Homework">Homework</option>
                     <option value="Lectures">Lectures</option>
                     <option value="Study Guides">Study Guides</option>
-                    <option value="Tests & Exams">Tests & Exams</option>
+                    <option value="Tests & Exams">Tests & Exams</option>*@
                 </select>
 
                 <br>
@@ -166,8 +166,11 @@
 
                     <button id="delete_btn" ng-click="st.deleteTag($index)"></button>
                 </div>
-                <input style="margin-top:10px; margin-right:25px; margin-left:25px; border:double;"
-                       name="ttt111" placeholder="" ng-text-change="AddNewTag()">
+                <form >
+                    <input ng-model="st.newTag" ng-keyup="$event.keyCode == 13 && st.AddNewTag()" style="margin-top:10px; margin-right:25px; margin-left:25px; border:double;"
+                           name="ttt111" placeholder="" type="text">
+                </form>
+                
 
             </div>
 

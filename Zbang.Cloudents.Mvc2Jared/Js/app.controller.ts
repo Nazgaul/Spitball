@@ -20,6 +20,7 @@ module app {
         ChangedName: string = "";
         originalName: string;
         removedTags: string = "";
+        newTag: string = "";
 
         constructor(private $scope: angular.IScope, private searchService: IHelpService) {
 
@@ -93,10 +94,14 @@ module app {
         deleteTag(i) {
             //this.doc.ItemName = "deleted" + i;
             this.removedTags += this.doc.Tags[i];
-            this.doc.Tags[i].hide();
+           // this.doc.Tags[i].hide();
+            this.doc.Tags.splice(i,1);
+
+
         }
         AddNewTag() {
-            this.doc.ItemName = "deleted";
+            this.doc.Tags.push(this.newTag);
+            this.newTag = "";
             }
 
 
