@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using MelissaData;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure
 {
@@ -15,14 +16,21 @@ namespace Zbang.Zbox.Infrastructure
                 )
             { Credentials = new NetworkCredential("accountKey", "Pjc3UHKP+iG3WO1n8GFmtqDpUgJiIFSOM2ludra9pxc=") };
 
-
-            var marketData = client.SuggestIPAddresses(
-                ipAddress,
-                1,
-                0.7
+            try
+            {
+                var marketData = client.SuggestIPAddresses(
+                    ipAddress,
+                    1,
+                    0.7
                 );
-            var result = await Task.Factory.FromAsync(marketData.BeginExecute, marketData.EndExecute, null);
-            return result?.FirstOrDefault();
+                var result = await Task.Factory.FromAsync(marketData.BeginExecute, marketData.EndExecute, null);
+                return result?.FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError($"Location provider with ip address {ipAddress}", ex);
+                return null;
+            }
         }
     }
 
