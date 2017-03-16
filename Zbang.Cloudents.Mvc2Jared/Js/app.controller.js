@@ -17,8 +17,7 @@ var app;
             this.counter = 0;
             this.noResults = false;
             this.result = [];
-            this.class = "this is Class";
-            this.yifat = 5;
+            this.documents = [];
         }
         AppController.prototype.search = function () {
             var _this = this;
@@ -42,12 +41,9 @@ var app;
             var self = this;
             return self.searchService.getPreview(self.doc.Blob, amount, self.doc.ItemId).then(function (data) {
                 data = data || {};
-                if (data.template) {
-                    console.log(data.content);
-                    //self.view = "preview-" + data.template.toLowerCase() + ".html";
-                    //if (data.content) {
-                    //    self.documents = self.documents.concat(data.content);
-                    //}
+                if (data.Content) {
+                    self.documents = data.Content;
+                    console.log(data.Content);
                     return;
                 }
             });

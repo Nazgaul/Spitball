@@ -23,8 +23,7 @@ module app {
         }
         formData: Object;
         doc: any;
-        class: string = "this is Class";
-        yifat: number = 5;
+        documents = [];
         search()
         {
             if (this.formData) {
@@ -47,12 +46,9 @@ module app {
             var self = this; 
             return self.searchService.getPreview(self.doc.Blob, amount,self.doc.ItemId).then(data => {
                 data = data || {};
-                if (data.template) {
-                    console.log(data.content);
-                    //self.view = "preview-" + data.template.toLowerCase() + ".html";
-                    //if (data.content) {
-                    //    self.documents = self.documents.concat(data.content);
-                    //}
+                if (data.Content) {
+                    self.documents = data.Content;
+                    console.log(data.Content);
                     return;
                 }
             });

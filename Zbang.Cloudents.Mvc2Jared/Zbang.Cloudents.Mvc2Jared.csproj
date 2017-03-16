@@ -989,6 +989,7 @@
     <Compile Include="Helpers\CookieTempDataProvider.cs" />
     <Compile Include="Helpers\JsonResponse.cs" />
     <Compile Include="App_Start\IocConfig.cs" />
+    <Compile Include="Models\ItemPreview.cs" />
     <Compile Include="Models\LogOn.cs" />
     <Compile Include="Models\LogOnResources.Designer.cs">
       <DependentUpon>LogOnResources.resx</DependentUpon>
@@ -1009,6 +1010,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\page.cshtml" />
     <Content Include="Views\Shared\_layoutPage.cshtml" />
+    <Content Include="Views\Home\_PreviewImage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
