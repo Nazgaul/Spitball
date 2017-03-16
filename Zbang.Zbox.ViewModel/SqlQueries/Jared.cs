@@ -8,7 +8,9 @@ i.name itemName,
 b.boxname boxName,
 d.name department,
 i.blobname blob,
-bt.itemtabname docType
+b.boxid boxId,
+bt.itemtabname docType,
+bt.itemtabid typeId
 from zbox.item i 
 left join zbox.itemtaB bt ON i.itemtabid = bt.itemtabid
 join zbox.box b ON i.boxid=b.boxid 
@@ -19,7 +21,7 @@ and (@university is null or (b.university in (select u.id from zbox.university u
 and (@IsSearchType=0 or (i.itemtabid is not null))
 and (@box is null or (b.boxname like +'%' + @box + '%'))
 and (@department is null or (d.name like +'%' + @department + '%'))
-and (@boxid is null or (b.coursecode=@boxid));";
+and (@boxid is null or (b.boxid=@boxid));";
         private const string ItemWhere = @"zbox.item i 
 left join zbox.itemtaB bt ON i.itemtabid = bt.itemtabid
 join zbox.box b ON i.boxid=b.boxid 
@@ -30,7 +32,7 @@ and (@university is null or (b.university in (select u.id from zbox.university u
 and (@IsSearchType=0 or (i.itemtabid is not null))
 and (@box is null or (b.boxname like +'%' + @box + '%'))
 and (@department is null or (d.name like +'%' + @department + '%'))
-and (@boxid is null or (b.coursecode=@boxid))";
+and (@boxid is null or (b.boxid=@boxid))";
 
         public const string ItemTags = @"select item.itemid itemId,
                                         t.name tag

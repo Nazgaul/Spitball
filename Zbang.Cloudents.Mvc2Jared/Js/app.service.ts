@@ -1,19 +1,16 @@
 ﻿module app {
     export interface IHelpService {
-        testService(): string;
         searchItems(term: any);
         getPreview(blobName: string, itemId: number);
+        getTabs(boxId: number);
         saveItem(itemId:number,newName:string,newType:string,newTags,removedTags)
     }
 
     class SearchService implements IHelpService {
 
         constructor(private $http: angular.IHttpService) { }
-        testService() {
-            return "yifat";
-        }
+
         searchItems(term) {
-            var aa;
             return $.post('/home/items', { model: term })
         }
         saveItem(itemId, newName, newType, newTags, removedTags) {
@@ -32,6 +29,12 @@
                     blobName: blobName,
                     id: itemId
                 });
+        }
+        getTabs(boxId) {
+            return $.get('/home/tabs/',
+                {
+                    id: boxId
+                }); 
         }
         //    private ajaxService2: IAjaxService2) {
         //}
