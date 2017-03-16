@@ -68,13 +68,14 @@ module app {
             this.getPreview();
         }
         Save() {
-          
+
+            
                 if(this.doc.ItemName != this.originalName)
             {
                     this.ChangedName = this.doc.ItemName;
             }
 
-            //  saveItem(itemId, newName, newType, newTags, removedTags)
+            //  saveItem(this.doc.ItemId, ChangedName, newType, newTags, removedTags)
         }
         deleteTag(i) {
             //this.doc.ItemName = "deleted" + i;
