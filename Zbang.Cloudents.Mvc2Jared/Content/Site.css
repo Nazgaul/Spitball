@@ -10,6 +10,7 @@
 .body-content {
     padding-left: 0px;
     padding-right: 0px; 
+    width: 100%!important;
 }
 
 
@@ -177,7 +178,6 @@ div1{
 }
 
 h3{
-  width: 165px;
   height: 10px;
   font-family: SFNSText;
   font-size: 14px;
