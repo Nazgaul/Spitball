@@ -8,14 +8,14 @@
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 0px;
-    padding-right: 0px; 
+    padding-left: 0px!important;
+    padding-right: 0px!important; 
     width: 100%!important;
 }
 
 
 form{
-       
+    width: 100%!important;
     background: #003b78;
 }
 
@@ -31,9 +31,7 @@ input{
 
 input[name="university"] {
     border: none;   
-    border-radius: 8px;  
-    margin-left: 40px;
-    width:301px;
+    border-radius: 8px; 
     height:32px;
 }
 
@@ -41,37 +39,28 @@ input[name="university"] {
 input[name="department"] {
     border: none;   
     border-radius: 8px;  
-    margin-left: 18.7px;
-    width:301px;
     height:32px;
 }
 
 
 input[name="class"] {
     border: none;   
-    border-radius: 8px;   
-    margin-left: 19px;
-    width:320px;
+    border-radius: 8px;
     height:32px;
 }
 input[name="boxId"] {
     border: none;   
     border-radius: 8px;  
-    margin-right: 35px; 
-    margin-left: 18.7px;
-    width:280px;
     height:32px;
 }
 
 input[name="item name"] {
     border: none;   
-    border-radius: 8px;  
-    margin-right: 20px;  
-    margin-left: 40px;
+    border-radius: 8px; 
     margin-top:15px;
-    width:1120.1px;
     height:33px;
     float:left;
+    margin-left:10px;
 }
 
 button[name="search_btn"] {
@@ -79,11 +68,12 @@ button[name="search_btn"] {
     margin-top:15px;
     margin-bottom:5px;
     color:white;
-    width: 128px;
     height: 32px;
     border-radius: 8px;
     background-color: #3293f6;
 }
+
+
 div0 {
     color:white;
     font-family: .SFNSText;

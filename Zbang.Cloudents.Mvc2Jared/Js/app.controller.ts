@@ -19,10 +19,9 @@ module app {
         result = [];
 
         constructor(private $scope: angular.IScope, private searchService: IHelpService) {
-
         }
         formData: Object;
-        doc: any;
+        doc: any;    
         class: string = "this is Class";
         yifat: number = 5;
         search()
