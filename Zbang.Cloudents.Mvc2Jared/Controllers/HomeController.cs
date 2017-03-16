@@ -43,10 +43,8 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
         }
         #region Preview
         [HttpGet, ActionName("Preview")]
-        [AsyncTimeout(TimeConst.Minute * 3 * 1000)]
-        public async Task<JsonResult> PreviewAsync(string blobName, long id,CancellationToken cancellationToken)
+        public async Task<JsonResult> PreviewAsync(string blobName,int index, long id,CancellationToken cancellationToken)
         {
-            int index = 5;
             Uri uri;
             if (!Uri.TryCreate(blobName, UriKind.Absolute, out uri))
             {
@@ -89,7 +87,11 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
                     template = retVal.ViewName,
                     retVal.Content
                 };
-                return Json(res);
+                return Json(new
+                {
+                    template = retVal.ViewName,
+                    retVal.Content
+                }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception ex)

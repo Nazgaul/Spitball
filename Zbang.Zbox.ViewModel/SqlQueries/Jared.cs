@@ -16,7 +16,7 @@ join zbox.library d ON b.libraryid=d.libraryId
 where b.discriminator = 2 and i.isdeleted=0
 and (@name is null or (i.name like +'%' + @name + '%'))
 and (@university is null or (b.university in (select u.id from zbox.university u where u.universityname like +'%' + @university + '%')))
-and (@IsSearchType=0 or (i.itemtabid is null))
+and (@IsSearchType=0 or (i.itemtabid is not null))
 and (@box is null or (b.boxname like +'%' + @box + '%'))
 and (@department is null or (d.name like +'%' + @department + '%'))
 and (@boxid is null or (b.coursecode=@boxid));";
@@ -27,7 +27,7 @@ join zbox.library d ON b.libraryid=d.libraryId
 where b.discriminator = 2 and i.isdeleted=0
 and (@name is null or (i.name like +'%' + @name + '%'))
 and (@university is null or (b.university in (select u.id from zbox.university u where u.universityname like +'%' + @university + '%')))
-and (@IsSearchType=0 or (i.itemtabid is null))
+and (@IsSearchType=0 or (i.itemtabid is not null))
 and (@box is null or (b.boxname like +'%' + @box + '%'))
 and (@department is null or (d.name like +'%' + @department + '%'))
 and (@boxid is null or (b.coursecode=@boxid))";

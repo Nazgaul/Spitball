@@ -2,7 +2,7 @@
     export interface IHelpService {
         testService(): string;
         searchItems(term: any);
-        getPreview(blobName: string, itemId: number);
+        getPreview(blobName: string, index:number,itemId: number);
         //searchBox(term: string, page: number): angular.IPromise<any>;
         //searchItems(term: string, page: number): angular.IPromise<any>;
         //searchQuizzes(term: string, page: number): angular.IPromise<any>;
@@ -20,9 +20,10 @@
             var aa;
             return $.post('/home/items', { model: term })
         }
-        getPreview(blobName, itemId) {
+        getPreview(blobName,index, itemId) {
             return $.get('/home/preview/',
                 {
+                    index:index,
                     blobName: blobName,
                     id: itemId
                 });
