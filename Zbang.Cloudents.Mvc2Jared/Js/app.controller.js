@@ -24,17 +24,33 @@ var app;
             var _this = this;
             if (this.formData) {
                 Object.keys(this.formData).forEach(function (k) { return (!_this.formData[k] && _this.formData[k] !== undefined) && delete _this.formData[k]; });
-                if (!Object.keys(this.formData).length)
-                    console.log("empty");
-                console.log(this.formData);
-                var promise = this.searchService.searchItems(this.formData);
-                promise.then(function (response) {
-                    _this.result = response;
-                    _this.counter = 0;
-                    _this.doc = _this.result[0];
-                    _this.resNum = _this.result.length;
-                });
+                if (Object.keys(this.formData).length) {
+                    console.log(this.formData);
+                    var promise = this.searchService.searchItems(this.formData);
+                    promise.then(function (response) {
+                        _this.result = response;
+                        _this.counter = 0;
+                        _this.doc = _this.result[0];
+                        _this.getPreview();
+                        _this.resNum = _this.result.length;
+                    });
+                }
             }
+        };
+        AppController.prototype.getPreview = function () {
+            var amount = 15;
+            var self = this;
+            return self.searchService.getPreview(self.doc.Blob, self.doc.ItemId).then(function (data) {
+                data = data || {};
+                if (data.template) {
+                    console.log(data.content);
+                    //self.view = "preview-" + data.template.toLowerCase() + ".html";
+                    //if (data.content) {
+                    //    self.documents = self.documents.concat(data.content);
+                    //}
+                    return;
+                }
+            });
         };
         AppController.prototype.nextPage = function () {
             this.counter++;
