@@ -299,7 +299,7 @@ namespace Zbang.Zbox.ReadServicesTests
         {
             try
             {
-                var query = new GetBoxSeoQuery(4);
+                var query = new GetBoxIdQuery(4);
                 var x = await m_ZboxReadService.GetBoxSeoAsync(query);
             }
             catch (Exception ex)

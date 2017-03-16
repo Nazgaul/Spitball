@@ -584,12 +584,12 @@ where ownerid = @UserId and boxid = @BoxId;";
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<User.UserWithImageNameDto>> GetUsersInBoxByTermAsync(UserInBoxSearchQuery query)
+        public async Task<IEnumerable<User.UserImageNameDto>> GetUsersInBoxByTermAsync(UserInBoxSearchQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var sql = string.IsNullOrEmpty(query.Term) ? Sql.Search.GetUsersInBox : Sql.Search.GetUsersInBoxByTerm;
-                return await conn.QueryAsync<User.UserWithImageNameDto>(sql,
+                return await conn.QueryAsync<User.UserImageNameDto>(sql,
                      new
                      {
                          query.Term,
@@ -942,7 +942,7 @@ where ownerid = @UserId and boxid = @BoxId;";
             }
         }
 
-        public async Task<Box.BoxSeoDto> GetBoxSeoAsync(GetBoxSeoQuery query)
+        public async Task<Box.BoxSeoDto> GetBoxSeoAsync(GetBoxIdQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -1194,16 +1194,30 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
 
         public async Task<JaredDto> GetJaredStartupValuesAsync(CancellationToken token)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync(token))
+            using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
             {
                var universities = await conn.QueryAsync<UniversityDto>(
-                    new CommandDefinition(
-                        "select id,url as short,universityname as name from zbox.university where url is not null",
-                        cancellationToken: token));
+                   new CommandDefinition(
+                       "select id,url as short,universityname as name from zbox.university where url is not null",
+                       cancellationToken: token)).ConfigureAwait(false);
                 return new JaredDto
                 {
                     Universities = universities
                 };
+            }
+        }
+
+        public async Task<IEnumerable<User.UserImageNameDto>>  OnlineUsersByClassAsync(GetBoxIdQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
+            {
+                return await conn.QueryAsync<User.UserImageNameDto>(
+                    new CommandDefinition(
+                        @"select u.userid as id,u.userImageLarge as image, u.username as name from zbox.users u join zbox.userboxrel ub on u.userid = ub.userid
+where   ub.boxid = @BoxId",
+                        //online = 1 and
+                        new { query.BoxId})).ConfigureAwait(false);
+                
             }
         }
         #endregion

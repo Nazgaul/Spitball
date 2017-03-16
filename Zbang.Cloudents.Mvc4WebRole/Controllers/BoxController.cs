@@ -91,7 +91,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             try
             {
-                var query = new GetBoxSeoQuery(boxId);
+                var query = new GetBoxIdQuery(boxId);
                 var model = await ZboxReadService.GetBoxSeoAsync(query);
                 if (model == null)
                 {
@@ -150,7 +150,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> ShortUrlAsync(string box62Id)
         {
             var base62 = new Base62(box62Id);
-            var query = new GetBoxSeoQuery(base62.Value);
+            var query = new GetBoxIdQuery(base62.Value);
             try
             {
                 var model = await ZboxReadService.GetBoxSeoAsync(query);

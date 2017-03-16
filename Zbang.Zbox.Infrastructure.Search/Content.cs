@@ -31,6 +31,8 @@ namespace Zbang.Zbox.Infrastructure.Search
         [IsFacetable, IsFilterable]
         public string Course { get; set; }
 
+        public long CourseId { get; set; }
+
         [IsFacetable, IsFilterable]
         public string Professor { get; set; }
 

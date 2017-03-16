@@ -183,14 +183,11 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (UnitOfWork.Start())
             {
-                var t1 = Task.CompletedTask;
-                if (command.BoxId.HasValue)
-                {
-                    var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId.Value);
-                    t1 = m_CommandBus.SendAsync(autoFollowCommand);
-                }
+                var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
+                var t1 = m_CommandBus.SendAsync(autoFollowCommand);
+
                 var t2 = m_CommandBus.SendAsync(command);
-                await Task.WhenAll(t1, t2);
+                await Task.WhenAll(t1, t2).ConfigureAwait(true);
 
                 UnitOfWork.Current.TransactionalFlush();
             }
@@ -558,14 +555,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-        //public void UpdateQuestion(UpdateQuestionCommand command)
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send(command);
-        //        UnitOfWork.Current.TransactionalFlush();
-        //    }
-        //}
+
         public void DeleteQuestion(DeleteQuestionCommand command)
         {
             using (UnitOfWork.Start())
@@ -578,7 +568,7 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (UnitOfWork.Start())
             {
-                await m_CommandBus.SendAsync(command);
+                await m_CommandBus.SendAsync(command).ConfigureAwait(true);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }

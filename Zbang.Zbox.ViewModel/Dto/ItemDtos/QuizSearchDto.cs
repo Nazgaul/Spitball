@@ -16,7 +16,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public IEnumerable<string> Answers { get; set; }
         public IEnumerable<long> UserIds { get; set; }
 
-        public long BoxId { get; set; }
         public long? UniversityId { get; set; }
         public string Url { get; set; }
         public override string Content => TextManipulation.RemoveHtmlTags.Replace(WebUtility.HtmlDecode(string.Join(" ", Questions)), string.Empty) + string.Join(" ", Answers);

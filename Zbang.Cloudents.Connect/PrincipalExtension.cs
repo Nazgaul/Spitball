@@ -7,27 +7,27 @@ namespace Zbang.Cloudents.Connect
 {
     public static class PrincipalExtension
     {
-        public static long GetUserId(this IPrincipal user, bool isAuthorize = true)
-        {
-            long userId = -1;
+        //public static long GetUserId(this IPrincipal user, bool isAuthorize = true)
+        //{
+        //    long userId = -1;
 
-            if (isAuthorize && !user.Identity.IsAuthenticated)
-            {
-                throw new UnauthorizedAccessException();
-            }
-            var userIdClaim = ExtractValueFromClaim(user, ClaimConst.UserIdClaim);
-            if (string.IsNullOrEmpty(userIdClaim))
-            {
-                if (isAuthorize)
-                {
-                    throw new UnauthorizedAccessException();
-                }
-                return userId;
-            }
-            long.TryParse(userIdClaim, out userId);
+        //    if (isAuthorize && !user.Identity.IsAuthenticated)
+        //    {
+        //        throw new UnauthorizedAccessException();
+        //    }
+        //    var userIdClaim = ExtractValueFromClaim(user, ClaimConst.UserIdClaim);
+        //    if (string.IsNullOrEmpty(userIdClaim))
+        //    {
+        //        if (isAuthorize)
+        //        {
+        //            throw new UnauthorizedAccessException();
+        //        }
+        //        return userId;
+        //    }
+        //    long.TryParse(userIdClaim, out userId);
 
-            return userId;
-        }
+        //    return userId;
+        //}
 
         private static string ExtractValueFromClaim(IPrincipal user, string claimType)
         {

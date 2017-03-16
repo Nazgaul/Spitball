@@ -64,7 +64,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                     BlobName = itemToUpload.BlobName,
                     Views = itemToUpload.Views,
                     Likes = itemToUpload.Likes,
-                    ContentCount = itemToUpload.ContentCount
+                    ContentCount = itemToUpload.ContentCount,
+                    CourseId = itemToUpload.BoxId
                 };
                 if (!string.IsNullOrEmpty(itemToUpload.Content))
                 {
@@ -88,7 +89,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 }
                 var batch = IndexBatch.MergeOrUpload(new[] { uploadBatch });
                 if (batch.Actions.Any())
-                    await m_IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
+                    await m_IndexClient.Documents.IndexAsync(batch, cancellationToken: token).ConfigureAwait(false);
             }
             if (itemToDelete != null)
             {
@@ -98,7 +99,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 });
                 var batch = IndexBatch.Delete(deleteBatch);
                 if (batch.Actions.Any())
-                    await m_IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
+                    await m_IndexClient.Documents.IndexAsync(batch, cancellationToken: token).ConfigureAwait(false);
             }
         }
 
@@ -223,7 +224,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     new ScoringParameter("course", extra.Courses ?? new[] {string.Empty}), new ScoringParameter("university", new[] {extra.University ?? string.Empty})},
                 ScoringProfile = ScoringProfile,
                 SearchFields = searchFiled
-            }, cancellationToken: cancelToken);
+            }, cancellationToken: cancelToken).ConfigureAwait(false);
 
 
             var retVal = new SearchItemResult

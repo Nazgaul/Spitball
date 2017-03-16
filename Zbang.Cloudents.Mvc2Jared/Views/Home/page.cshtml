@@ -10,8 +10,8 @@
 	   
 	   * { margin: 0; padding: 0; }
 	   p { padding: 10px; }
-	   #left { position: absolute; left: 0; width: 50%; }
-	   #right { position: absolute; right: 0;  width: 50%;  }
+	   #left { position: absolute; left: 0; width: 40%; }
+	   #right { position: absolute; right: 0;  width: 60%;  }
 		</style>
 
 </head>
@@ -129,13 +129,13 @@
                 <h3> Document Type </h3>
 
 
-                <select ng-model="st.doc.docType" style="margin-left:40px;  margin-top:20px;">
+                <select id="mySelect" ng-model="st.doc.DocType" style="margin-left:40px;  margin-top:20px;">
                     <option value="" disabled selected>Search type</option>
-                    <option value="1">Class Notes</option>
-                    <option value="2">Homework</option>
-                    <option value="3">Lectures</option>
-                    <option value="4">Study Guides</option>
-                    <option value="0">Tests & Exams</option>
+                    <option value="Class Notes">Class Notes</option>
+                    <option value="Homework">Homework</option>
+                    <option value="Lectures">Lectures</option>
+                    <option value="Study Guides">Study Guides</option>
+                    <option value="Tests & Exams">Tests & Exams</option>
                 </select>
 
                 <br>
@@ -151,7 +151,7 @@
         </div>
 
         <div id="right">
-            <img src="/images1/1.jpg" style="width:760px;height:826px; margin-right:50px">
+            <img src="/images1/1.jpg" width="760" style="margin-top:36px">
         </div>
 
 

@@ -7,7 +7,6 @@ using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
 using Zbang.Cloudents.Jared.Models;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
@@ -47,7 +46,7 @@ namespace Zbang.Cloudents.Jared.Controllers
                         }
                     , userId));
 
-            await Task.WhenAll(tModel, tTransaction);
+            await Task.WhenAll(tModel, tTransaction).ConfigureAwait(false);
             if (tModel.Result == null)
             {
                 return Request.CreateNotFoundResponse();
@@ -65,8 +64,6 @@ namespace Zbang.Cloudents.Jared.Controllers
                         v.Text
                     })
                 }),
-                //Answers = tModel.Result.Sheet.Questions,
-                //tModel.Result.Sheet,
                 tModel.Result.Like
             });
         }
@@ -75,7 +72,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> DiscussionAsync(long id)
         {
             var query = new GetDisscussionQuery(id);
-            var model = await m_ZboxReadService.GetDiscussionAsync(query);
+            var model = await m_ZboxReadService.GetDiscussionAsync(query).ConfigureAwait(false);
             return Request.CreateResponse(model.Select(s => new
             {
                 s.QuestionId,
@@ -93,7 +90,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> AddLikeAsync(ItemLikeRequest model)
         {
             var command = new AddQuizLikeCommand(User.GetUserId(), model.Id);
-            await m_ZboxWriteService.AddQuizLikeAsync(command);
+            await m_ZboxWriteService.AddQuizLikeAsync(command).ConfigureAwait(false);
 
             if (model.Tags.Any())
             {
@@ -108,7 +105,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> DeleteLikeAsync(Guid likeId)
         {
             var command = new DeleteQuizLikeCommand(User.GetUserId(), likeId);
-            await m_ZboxWriteService.DeleteQuizLikeAsync(command);
+            await m_ZboxWriteService.DeleteQuizLikeAsync(command).ConfigureAwait(false);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 

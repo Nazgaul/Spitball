@@ -24,7 +24,7 @@ namespace Zbang.Zbox.ViewModel.Queries.Search
 
         public override string ToString()
         {
-            return string.Format("term = {0}, rowsperPage = {1} page = {2} country = {3}", Term, RowsPerPage, PageNumber, Country);
+            return $"term = {Term}, rowsperPage = {RowsPerPage} page = {PageNumber} country = {Country}";
 
         }
     }

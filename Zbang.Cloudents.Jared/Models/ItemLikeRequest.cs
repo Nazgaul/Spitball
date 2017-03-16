@@ -11,6 +11,9 @@ namespace Zbang.Cloudents.Jared.Models
 
         [Required]
         public IEnumerable<string> Tags { get; set; }
+
+        [Required]
+        public long BoxId { get; set; }
       
     }
 }
