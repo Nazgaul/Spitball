@@ -37,9 +37,8 @@ var app;
             }
         };
         AppController.prototype.getPreview = function () {
-            var amount = 15;
             var self = this;
-            return self.searchService.getPreview(self.doc.Blob, amount, self.doc.ItemId).then(function (data) {
+            return self.searchService.getPreview(self.doc.Blob, self.doc.ItemId).then(function (data) {
                 data = data || {};
                 if (data.Content) {
                     self.documents = data.Content;

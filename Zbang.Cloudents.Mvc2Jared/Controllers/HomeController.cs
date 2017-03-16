@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Zbang.Cloudents.Mvc2Jared.Models;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Queries.Jared;
 using System.Threading;
 using Zbang.Zbox.ReadServices;
 using System.Linq;
-using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Infrastructure.Consts;
-using Aspose.Cells;
-using System.Net;
 using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Cloudents.Mvc2Jared.Controllers
@@ -43,8 +38,9 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
         }
         #region Preview
         [HttpGet, ActionName("Preview")]
-        public async Task<JsonResult> PreviewAsync(string blobName,int index, long id,CancellationToken cancellationToken)
+        public async Task<JsonResult> PreviewAsync(string blobName, long id,CancellationToken cancellationToken)
         {
+            int index = 5;
             Uri uri;
             if (!Uri.TryCreate(blobName, UriKind.Absolute, out uri))
             {
