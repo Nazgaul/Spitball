@@ -18,8 +18,10 @@ var app;
             this.noResults = false;
             this.result = [];
             this.ChangedName = "";
-            this.removedTags = "";
+            this.removedTags = [];
+            this.newTags = [];
             this.newTag = "";
+            this.ChangedType = "";
             this.documents = [];
         }
         AppController.prototype.search = function () {
@@ -38,10 +40,13 @@ var app;
                             _this.optionalTabs[0].id = _this.doc.TypeId;
                             _this.optionalTabs[0].name = _this.doc.DocType;
                         }
+                        _this.removedTags = [];
+                        _this.newTags = [];
                         _this.getPreview();
                         _this.getTabs();
                         _this.resNum = _this.result.length;
                         _this.originalName = _this.doc.ItemName;
+                        _this.originalType = _this.doc.DocType;
                     });
                 }
             }
@@ -80,15 +85,19 @@ var app;
             if (this.doc.ItemName != this.originalName) {
                 this.ChangedName = this.doc.ItemName;
             }
-            //  saveItem(this.doc.ItemId, ChangedName, newType, newTags, removedTags)
+            if (this.doc.TypeId != this.originalType) {
+                this.ChangedType = this.doc.TypeId;
+            }
+            this.searchService.saveItem(this.doc.ItemId, this.doc.BoxId, this.ChangedName, this.ChangedType, this.newTags, this.removedTags);
         };
         AppController.prototype.deleteTag = function (i) {
             //this.doc.ItemName = "deleted" + i;
-            this.removedTags += this.doc.Tags[i];
+            this.removedTags.push(this.doc.Tags[i]);
             // this.doc.Tags[i].hide();
             this.doc.Tags.splice(i, 1);
         };
         AppController.prototype.AddNewTag = function () {
+            this.newTags.push(this.newTag);
             this.doc.Tags.push(this.newTag);
             this.newTag = "";
         };
