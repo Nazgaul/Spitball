@@ -20,6 +20,7 @@ module app {
         ChangedName: string = "";
         originalName: string;
         removedTags: string = "";
+        newTag: string = "";
 
         constructor(private $scope: angular.IScope, private searchService: IHelpService) {
 
@@ -81,21 +82,26 @@ module app {
             this.getPreview();
         }
         Save() {
-          
+
+            
                 if(this.doc.ItemName != this.originalName)
             {
                     this.ChangedName = this.doc.ItemName;
             }
 
-            //  saveItem(itemId, newName, newType, newTags, removedTags)
+            //  saveItem(this.doc.ItemId, ChangedName, newType, newTags, removedTags)
         }
         deleteTag(i) {
             //this.doc.ItemName = "deleted" + i;
             this.removedTags += this.doc.Tags[i];
-            this.doc.Tags[i].hide();
+           // this.doc.Tags[i].hide();
+            this.doc.Tags.splice(i,1);
+
+
         }
         AddNewTag() {
-            this.doc.ItemName = "deleted";
+            this.doc.Tags.push(this.newTag);
+            this.newTag = "";
             }
 
 
