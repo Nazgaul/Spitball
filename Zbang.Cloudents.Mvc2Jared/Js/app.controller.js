@@ -64,6 +64,9 @@ var app;
             if (this.doc.ItemName != this.originalName) {
                 this.ChangedName = this.doc.ItemName;
             }
+            //  saveItem(itemId, newName, newType, newTags, removedTags)
+        };
+        AppController.prototype.deleteTag = function () {
         };
         return AppController;
     }());

@@ -72,6 +72,11 @@ module app {
             {
                     this.ChangedName = this.doc.ItemName;
             }
+
+            //  saveItem(itemId, newName, newType, newTags, removedTags)
+        }
+        deleteTag() {
+
         }
 
 
