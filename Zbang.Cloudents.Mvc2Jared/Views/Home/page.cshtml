@@ -9,44 +9,55 @@
     <style type="text/css">
 	   
 	   * { margin: 0; padding: 0; }
-	   p { padding: 10px; }
+	   p { padding: 0px; }
 	   #left { position: absolute; left: 0; width: 40%; }
 	   #right { position: absolute; right: 0;  width: 60%;  }
 		</style>
 
 </head>
 <body>
+
+
     
-            <form ng-submit="st.search()" name="searchTrigger"
-              novalidate>
-                <md-content md-theme="docs-dark" >
+
+    
+            <form ng-submit="st.search()" name="searchTrigger" novalidate>
+                
                     <div class="form">
                   
-                            <input name="university" placeholder="University" ng-model="st.formData.university"> 
-     
-                    
-                            <input name="department" placeholder="Department" ng-model="st.formData.department">
-                      
-                        
-                            <input name="class" placeholder="Class" ng-model="st.formData.box">
+                        <div>
+                            <div class="row" >
+                                    <input class="col"   style="margin-top:10px; margin-right:25px; margin-left:25px" 
+                                           name="university" placeholder="University" ng-model="st.formData.university">
+                                
+                                
+                                    <input  class="col" style="margin-top:10px; margin-right:25px" 
+                                            name="department" placeholder="Department" ng-model="st.formData.department">
+                                
+                                
+                                   <input class="col" style="margin-top:10px; margin-right:25px" 
+                                           name="class" placeholder="Class" ng-model="st.formData.box">
+                                
+                               
+                                    <input class="col" style="margin-top:10px; margin-right:25px" 
+                                            name="boxId" placeholder="BoxID" ng-model="st.formData.boxId">
 
+                            </div>
+                        </div>
 
-                            <input name="boxId" placeholder="BoxID" ng-model="st.formData.boxId">
-                    
                     </div>
-                </md-content>
 
 
 
-                <div class="form-group">
-                    <input class="form-control"  placeholder="Item Name" name="item name" ng-model="st.formData.name"/>
-                </div>
-                              
-                <div class="form-actions">
-                    <button name="search_btn" type="submit" class="md-raised md-primary md-button md-ink-ripple">
-                        Search
-                    </button>
-                </div>
+                <div class="row">
+                        <input class="col-10" placeholder="Item Name" name="item name"
+                               ng-model="st.formData.name" />   
+                        <button class="col-2" name="search_btn" type="submit">
+                            Search
+                        </button>
+                   
+                </div>   
+                
 
 
                     <div0 class="form-check mb-2 mr-sm-2 mb-sm-0">
@@ -145,7 +156,10 @@
 
 
                 <h3> Document Tag </h3>
-                {{st.doc.tags[0]}}
+                <div ng-repeat="t in st.doc.Tags">
+                    {{t}}
+                </div>
+                {{st.doc.Tags[0]}}
             </div>
 
         </div>

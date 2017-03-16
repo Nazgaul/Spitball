@@ -22,7 +22,7 @@ module app {
 
         }
         formData: Object;
-        doc: any;
+        doc: any;    
         documents = [];
         search()
         {

@@ -23,4 +23,3 @@ var app;
     SearchService.$inject = ["$http"];
     angular.module("app").service("searchService", SearchService);
 })(app || (app = {}));
-//# sourceMappingURL=app.service.js.map
