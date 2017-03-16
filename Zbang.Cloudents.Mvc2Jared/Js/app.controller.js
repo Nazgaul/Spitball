@@ -1,10 +1,20 @@
 var app;
 (function (app) {
     "use strict";
+    var Document1 = (function () {
+        function Document1() {
+            this.ItemName = "my document name";
+            this.BoxName = "my document box_name";
+            this.Department = "my document department";
+        }
+        return Document1;
+    }());
     var AppController = (function () {
         function AppController($scope, searchService) {
             this.$scope = $scope;
             this.searchService = searchService;
+            this.resNum = 0;
+            this.counter = 0;
             this.noResults = false;
             this.result = [];
             this.class = "this is Class";
@@ -17,12 +27,28 @@ var app;
                 if (!Object.keys(this.formData).length)
                     console.log("empty");
                 console.log(this.formData);
-                console.log(this.searchService.searchItems(JSON.stringify(this.formData), 0));
+                var promise = this.searchService.searchItems(this.formData);
+                promise.then(function (response) {
+                    _this.result = response;
+                    _this.counter = 0;
+                    _this.doc = _this.result[0];
+                    _this.resNum = _this.result.length;
+                });
             }
+        };
+        AppController.prototype.nextPage = function () {
+            this.counter++;
+            //change doc
+            this.doc = this.result[this.counter];
+        };
+        AppController.prototype.prevPage = function () {
+            this.counter--;
+            this.doc = this.result[this.counter];
         };
         return AppController;
     }());
     AppController.$inject = ["$scope", "searchService"];
+    app.AppController = AppController;
     angular.module("app").controller("AppController", AppController);
 })(app || (app = {}));
 //# sourceMappingURL=app.controller.js.map

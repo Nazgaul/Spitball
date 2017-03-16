@@ -1,24 +1,56 @@
 ﻿
 module app {
     "use strict";
-    class AppController {
+    class Document1 {
+        ItemName: string = "my document name";
+        BoxName: string = "my document box_name";
+        Department: string = "my document department";
+        DocType: string;
+        ItemId: number;
+        Tags: any;
+    }
+
+    export class AppController {
         static $inject = ["$scope","searchService"];
         tab: string;
+        resNum: number = 0;
+        counter: number = 0;
         noResults = false;
         result = [];
+
         constructor(private $scope: angular.IScope, private searchService: IHelpService) {
+
         }
         formData: Object;
+        doc: any;
         class: string = "this is Class";
         yifat: number = 5;
-        search() {
+        search()
+        {
             if (this.formData) {
                 Object.keys(this.formData).forEach(k => (!this.formData[k] && this.formData[k] !== undefined) && delete this.formData[k]);
                 if (!Object.keys(this.formData).length) console.log("empty");
                 console.log(this.formData);
-                console.log(this.searchService.searchItems(JSON.stringify(this.formData), 0));
+                var promise = this.searchService.searchItems(this.formData);
+                promise.then(response => {
+                    this.result = response;
+                    this.counter = 0;
+                this.doc = this.result[0];
+                this.resNum = this.result.length;
+                });
             }
         }
+        nextPage() {
+            this.counter++;
+            //change doc
+            this.doc = this.result[this.counter];
+        }
+        prevPage() {
+            this.counter--;
+            this.doc = this.result[this.counter];
+        }
+
+
     }
 
     angular.module("app").controller("AppController", AppController);

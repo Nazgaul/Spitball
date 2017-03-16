@@ -135,4 +135,3 @@
 //    }
 //    angular.module("app").service("ajaxService", AjaxService);
 //}
-//# sourceMappingURL=ajaxService.js.map

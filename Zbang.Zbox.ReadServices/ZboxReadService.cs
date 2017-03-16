@@ -25,6 +25,8 @@ using Item = Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Qna = Zbang.Zbox.ViewModel.Dto.Qna;
 using User = Zbang.Zbox.ViewModel.Dto.UserDtos;
 using Sql = Zbang.Zbox.ViewModel.SqlQueries;
+using Zbang.Zbox.ViewModel.Dto.JaredDtos;
+using Zbang.Zbox.ViewModel.Queries.Jared;
 
 namespace Zbang.Zbox.ReadServices
 {
@@ -1129,6 +1131,27 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
                 }
             }
         }
+
+        #region JaredSearch
+        public async Task<IEnumerable<ItemTagsDto>> GetItemsWithTagsAsync(JaredSearchQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                using (var grid = await conn.QueryMultipleAsync(Sql.Jared.ItemInfo + Sql.Jared.ItemTags, query))
+                {
+                    var retVal = await grid.ReadAsync<ItemTagsDto>();
+                    var tags= await grid.ReadAsync<ItemTagDto>();
+                    foreach (var item in retVal)
+                    {
+                        item.Tags = tags.Where(w => w.ItemId == item.ItemId).Select(s=>s.Tag);
+                    }
+
+                    return retVal;
+                }
+            }
+        }
+        #endregion
+
 
         #region Gamification
 

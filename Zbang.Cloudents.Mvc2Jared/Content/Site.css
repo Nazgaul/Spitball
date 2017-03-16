@@ -1,18 +1,205 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    padding-top: 0px;
+    padding-bottom: 0px; 
+    margin: 0px;
+    min-height: 100%;
+    width: 100%;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 0px;
+    padding-right: 0px; 
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+
+form{
+       
+    background: #003b78;
 }
 
+
+
+
+input{     
+    border: none; 
+    margin-top:19px; 
+    text-indent: 19px;  
+    font-size:14px;  
+}
+
+input[name="university"] {
+    border: none;   
+    border-radius: 8px;  
+    margin-left: 40px;
+    width:301px;
+    height:32px;
+}
+
+
+input[name="department"] {
+    border: none;   
+    border-radius: 8px;  
+    margin-left: 18.7px;
+    width:301px;
+    height:32px;
+}
+
+
+input[name="class"] {
+    border: none;   
+    border-radius: 8px;   
+    margin-left: 19px;
+    width:320px;
+    height:32px;
+}
+input[name="boxId"] {
+    border: none;   
+    border-radius: 8px;  
+    margin-right: 35px; 
+    margin-left: 18.7px;
+    width:280px;
+    height:32px;
+}
+
+input[name="item name"] {
+    border: none;   
+    border-radius: 8px;  
+    margin-right: 20px;  
+    margin-left: 40px;
+    margin-top:15px;
+    width:1120.1px;
+    height:33px;
+    float:left;
+}
+
+button[name="search_btn"] {
+    border: none;     
+    margin-top:15px;
+    margin-bottom:5px;
+    color:white;
+    width: 128px;
+    height: 32px;
+    border-radius: 8px;
+    background-color: #3293f6;
+}
+div0 {
+    color:white;
+    font-family: .SFNSText;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+}
+
+input[name="isReviewed"]{
+    margin-left: 40px;
+    margin-bottom:15px;
+}
+input[name="isSearchType"]{
+    margin-left: 25px;
+}
+
+
+
+
+
+button[name="img_btn"] {
+    margin-left: 40px;
+    height: 22.2px;
+    width:24px;
+    background: url('../images1/combined-shape.png') no-repeat;
+    border: none;
+}
+
+label[name="save_btn"] {
+    margin-left: 16px;
+    width: 47px;
+    height: 23px;
+    font-family: .SFNSText;
+    font-size: 20px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    color: #3293f6;
+}
+
+
+
+button[name="back_btn"] {
+    margin-left: 541px;
+    margin-right: 150px;
+    margin-bottom:5px;
+    margin-top:5px;
+    width: 24px;
+    height: 24px;
+    background: url('../images1/triangle-2@3x.png') center no-repeat;
+    background-size: 100% 100%;
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+    border: none;
+}
+label[name="results_num"] {
+}
+
+
+button[name="next_btn"] {
+    margin-right: 20px;
+    margin-left: 150px;
+    width: 24px;
+    height: 24px; 
+    background: url('../images1/triangle-2@3x.png') center no-repeat; 
+    background-size: 100% 100%; 
+border: none;
+}
+
+    button[name="next_btn"]:disabled {
+        background: url('../images1/triangle-2-copy@3x.png');
+    }
+
+    button[name="back_btn"]:disabled {
+        background: url('../images1/triangle-2-copy@3x.png');
+    }
+
+select{
+    height:30px;
+    width: 150px;
+}
+
+div1{
+  display: table;
+  width: 100%;
+  height: 40px;
+  align-content: center;
+}
+
+h3{
+  width: 165px;
+  height: 10px;
+  font-family: SFNSText;
+  font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: -0.3px;
+  color: #07305a;
+  margin-left:40px;
+  margin-top:30px;
+}
+
+
+
+        section {
+        float: left;
+        margin: 0 1.5%;
+        width: 63%;
+        }
+        aside {
+        float: right;
+        margin: 0 1.5%;
+        width: 30%;
+        }

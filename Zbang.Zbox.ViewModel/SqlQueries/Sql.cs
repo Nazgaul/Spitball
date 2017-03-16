@@ -22,8 +22,6 @@
     offset @pageNumber*@rowsperpage ROWS
     FETCH NEXT @rowsperpage ROWS ONLY;";
 
-
-
         public const string UniversityInfo = @"select 
 uWrap.id as id,
 uWrap.universityName as Name,

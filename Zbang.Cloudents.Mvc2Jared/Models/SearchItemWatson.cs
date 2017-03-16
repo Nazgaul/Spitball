@@ -6,13 +6,13 @@ using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Mvc2Jared.Models
 {
-    public class SearchItemWatson : IPagedQuery
+    public class SearchItemWatson //: IPagedQuery
     {
-        public SearchItemWatson(int pageNumber = 0, int rowsPerPage = 50)
-        {
-            RowsPerPage = rowsPerPage;
-            PageNumber = pageNumber;
-        }
+        //public SearchItemWatson(int pageNumber = 0, int rowsPerPage = 50)
+        //{
+        //    RowsPerPage = rowsPerPage;
+        //    PageNumber = pageNumber;
+        //}
         public string Name { get; set; }
 
         public string University { get; set; }
@@ -21,7 +21,7 @@ namespace Zbang.Cloudents.Mvc2Jared.Models
         public string BoxId { get; set; }
         public bool isReviewed { get; set; }
         public bool isSearchType { get; set; }
-        public int RowsPerPage { get;  }
-        public int PageNumber { get; }
+       // public int RowsPerPage { get;  }
+        //public int PageNumber { get; }
     }
 }

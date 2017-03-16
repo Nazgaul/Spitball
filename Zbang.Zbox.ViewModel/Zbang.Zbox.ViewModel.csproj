@@ -110,6 +110,7 @@
     <Compile Include="Dto\ItemDtos\ItemNavigationDto.cs" />
     <Compile Include="Dto\ItemRateDto.cs" />
     <Compile Include="Dto\JaredDto.cs" />
+    <Compile Include="Dto\JaredDtos\ItemTagsDto.cs" />
     <Compile Include="Dto\LeaderBoardDto.cs" />
     <Compile Include="Dto\Library\ClosedNodeDto.cs" />
     <Compile Include="Dto\Library\NodeDetails.cs" />
@@ -179,6 +180,7 @@
     <Compile Include="Queries\IPagedQuery.cs" />
     <Compile Include="Queries\ItemCommentQuery.cs" />
     <Compile Include="Queries\IUserQuery.cs" />
+    <Compile Include="Queries\Jared\JaredSearchQuery.cs" />
     <Compile Include="Queries\Library\GetClosedNodeMembersQuery.cs" />
     <Compile Include="Queries\Library\GetLibraryNodeQuery.cs" />
     <Compile Include="Queries\QnA\GetBoxQuestionsQuery.cs" />
@@ -209,6 +211,7 @@
     <Compile Include="SqlQueries\Feed.cs" />
     <Compile Include="SqlQueries\HomePage.cs" />
     <Compile Include="SqlQueries\Item.cs" />
+    <Compile Include="SqlQueries\Jared.cs" />
     <Compile Include="SqlQueries\Library.cs" />
     <Compile Include="SqlQueries\LibraryChoose.cs" />
     <Compile Include="SqlQueries\Quiz.cs" />

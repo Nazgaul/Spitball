@@ -9,12 +9,14 @@ using Zbang.Zbox.ViewModel.Dto.ActivityDtos;
 using Zbang.Zbox.ViewModel.Dto.BoxDtos;
 using Zbang.Zbox.ViewModel.Dto.Dashboard;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
+using Zbang.Zbox.ViewModel.Dto.JaredDtos;
 using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Dto.Qna;
 using Zbang.Zbox.ViewModel.Dto.UserDtos;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 using Zbang.Zbox.ViewModel.Queries.Dashboard;
+using Zbang.Zbox.ViewModel.Queries.Jared;
 using Zbang.Zbox.ViewModel.Queries.Library;
 using Zbang.Zbox.ViewModel.Queries.QnA;
 using Zbang.Zbox.ViewModel.Queries.Search;
@@ -419,8 +421,10 @@ namespace Zbang.Zbox.ReadServices
         }
 
         public Task<IEnumerable<UserImageNameDto>> OnlineUsersByClassAsync(GetBoxIdQuery query)
+        public Task<IEnumerable<ItemTagsDto>> GetItemsWithTagsAsync(JaredSearchQuery query)
         {
             return m_ReadService.OnlineUsersByClassAsync(query);
+            return m_ReadService.GetItemsWithTagsAsync(query);
         }
     }
 }
