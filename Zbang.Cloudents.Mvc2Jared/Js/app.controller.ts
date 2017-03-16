@@ -44,7 +44,7 @@ module app {
         getPreview() {
             const amount = 15;
             var self = this; 
-            return self.searchService.getPreview(self.doc.Blob, self.doc.ItemId).then(data => {
+            return self.searchService.getPreview(self.doc.Blob, amount,self.doc.ItemId).then(data => {
                 data = data || {};
                 if (data.template) {
                     console.log(data.content);

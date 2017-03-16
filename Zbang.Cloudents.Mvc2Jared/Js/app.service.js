@@ -11,8 +11,9 @@ var app;
             var aa;
             return $.post('/home/items', { model: term });
         };
-        SearchService.prototype.getPreview = function (blobName, itemId) {
+        SearchService.prototype.getPreview = function (blobName, index, itemId) {
             return $.get('/home/preview/', {
+                index: index,
                 blobName: blobName,
                 id: itemId
             });
