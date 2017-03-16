@@ -2,6 +2,7 @@
     export interface IHelpService {
         testService(): string;
         searchItems(term: any);
+        getPreview(blobName: string, itemId: number);
         //searchBox(term: string, page: number): angular.IPromise<any>;
         //searchItems(term: string, page: number): angular.IPromise<any>;
         //searchQuizzes(term: string, page: number): angular.IPromise<any>;
@@ -9,15 +10,22 @@
     }
 
     class SearchService implements IHelpService {
-      
+        static $inject = ["$http"];
 
-        constructor() { }
+        constructor(private $http: angular.IHttpService) { }
         testService() {
             return "yifat";
         }
         searchItems(term) {
             var aa;
             return $.post('/home/items', { model: term })
+        }
+        getPreview(blobName, itemId) {
+            return $.get('/home/preview/',
+                {
+                    blobName: blobName,
+                    id: itemId
+                });
         }
         //    private ajaxService2: IAjaxService2) {
         //}

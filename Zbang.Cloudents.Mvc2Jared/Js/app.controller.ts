@@ -29,16 +29,33 @@ module app {
         {
             if (this.formData) {
                 Object.keys(this.formData).forEach(k => (!this.formData[k] && this.formData[k] !== undefined) && delete this.formData[k]);
-                if (!Object.keys(this.formData).length) console.log("empty");
-                console.log(this.formData);
-                var promise = this.searchService.searchItems(this.formData);
-                promise.then(response => {
-                    this.result = response;
-                    this.counter = 0;
-                this.doc = this.result[0];
-                this.resNum = this.result.length;
-                });
+                if (Object.keys(this.formData).length) {
+                    console.log(this.formData);
+                    var promise = this.searchService.searchItems(this.formData);
+                    promise.then(response => {
+                        this.result = response;
+                        this.counter = 0;
+                        this.doc = this.result[0];
+                        this.getPreview();
+                        this.resNum = this.result.length;
+                    });
+                }
             }
+        }
+        getPreview() {
+            const amount = 15;
+            var self = this; 
+            return self.searchService.getPreview(self.doc.Blob, self.doc.ItemId).then(data => {
+                data = data || {};
+                if (data.template) {
+                    console.log(data.content);
+                    //self.view = "preview-" + data.template.toLowerCase() + ".html";
+                    //if (data.content) {
+                    //    self.documents = self.documents.concat(data.content);
+                    //}
+                    return;
+                }
+            });
         }
         nextPage() {
             this.counter++;
