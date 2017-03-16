@@ -18,6 +18,7 @@ var app;
             this.noResults = false;
             this.result = [];
             this.ChangedName = "";
+            this.removedTags = "";
             this.documents = [];
         }
         AppController.prototype.search = function () {
@@ -29,8 +30,8 @@ var app;
                     var promise = this.searchService.searchItems(this.formData);
                     promise.then(function (response) {
                         _this.result = response;
-                        _this.counter = 0;
-                        _this.doc = _this.result[0];
+                        _this.counter = 1;
+                        _this.doc = _this.result[_this.counter];
                         _this.getPreview();
                         _this.resNum = _this.result.length;
                         _this.originalName = _this.doc.ItemName;
@@ -66,7 +67,13 @@ var app;
             }
             //  saveItem(itemId, newName, newType, newTags, removedTags)
         };
-        AppController.prototype.deleteTag = function () {
+        AppController.prototype.deleteTag = function (i) {
+            //this.doc.ItemName = "deleted" + i;
+            this.removedTags += this.doc.Tags[i];
+            this.doc.Tags[i].hide();
+        };
+        AppController.prototype.AddNewTag = function () {
+            this.doc.ItemName = "deleted";
         };
         return AppController;
     }());
@@ -74,4 +81,3 @@ var app;
     app.AppController = AppController;
     angular.module("app").controller("AppController", AppController);
 })(app || (app = {}));
-//# sourceMappingURL=app.controller.js.map

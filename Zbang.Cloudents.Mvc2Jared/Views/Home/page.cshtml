@@ -21,7 +21,7 @@
     
 
     
-            <form ng-submit="st.search()" name="searchTrigger" novalidate>
+            <form name="searchTrigger" novalidate>
                 
                     <div class="form">
                   
@@ -109,7 +109,7 @@
         <div id="left">
 
 
-            <h3> Document info </h3>
+            <label id="docIn"> Document info </label>
 
 
             <div  style="margin-left:60px;  margin-top:20px;">
@@ -158,15 +158,16 @@
 
 
                 <h3> Document Tag </h3>
+                <br>
                 <div ng-repeat="t in st.doc.Tags">
                   
                     <input style="margin-top:10px; margin-right:25px; margin-left:25px; border:double;"
                            name="ttt" placeholder={{t}}>
 
-                    <button name="delete_btn" ng-click="st.deleteTag()"></button>
+                    <button id="delete_btn" ng-click="st.deleteTag($index)"></button>
                 </div>
-                <input style="margin-top:10px; margin-right:25px; margin-left:25px"
-                       name="ttt111" placeholder="">
+                <input style="margin-top:10px; margin-right:25px; margin-left:25px; border:double;"
+                       name="ttt111" placeholder="" ng-text-change="AddNewTag()">
 
             </div>
 
@@ -175,7 +176,7 @@
         <div id="right">
             <div class="preview preview-page">
                 <div class="preview-image" ng-repeat="s in st.documents">
-                    <img class="imageContent" src="{{s}}" alt="" />
+                  <img class="imageContent" src="{{s}}" />
                 </div>
             </div>
         </div>
