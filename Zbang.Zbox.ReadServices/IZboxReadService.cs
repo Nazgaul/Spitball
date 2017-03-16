@@ -133,7 +133,7 @@ namespace Zbang.Zbox.ReadServices
         //Task<IEnumerable<RecommendBoxDto>> GetRecommendedCoursesAsync(RecommendedCoursesQuery query);
 
         Task<IEnumerable<UniversityByPrefixDto>> GetUniversityByIpAddressAsync(UniversityByIpQuery query);
-        Task<IEnumerable<UserWithImageNameDto>> GetUsersInBoxByTermAsync(UserInBoxSearchQuery query);
+        Task<IEnumerable<UserImageNameDto>> GetUsersInBoxByTermAsync(UserInBoxSearchQuery query);
 
         #region chat
         Task<IEnumerable<ChatUserDto>> GetUsersConversationAndFriendsAsync(GetUserConversationAndFriends query);
@@ -160,6 +160,7 @@ namespace Zbang.Zbox.ReadServices
         #region Jared
 
         Task<JaredDto> GetJaredStartupValuesAsync(CancellationToken token);
+        Task<IEnumerable<UserImageNameDto>> OnlineUsersByClassAsync(GetBoxIdQuery query);
 
         #endregion
 

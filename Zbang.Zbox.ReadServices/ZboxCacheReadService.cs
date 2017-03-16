@@ -313,7 +313,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<UserWithImageNameDto>> GetUsersInBoxByTermAsync(UserInBoxSearchQuery query)
+        public Task<IEnumerable<UserImageNameDto>> GetUsersInBoxByTermAsync(UserInBoxSearchQuery query)
         {
             return m_ReadService.GetUsersInBoxByTermAsync(query);
         }
@@ -416,6 +416,11 @@ namespace Zbang.Zbox.ReadServices
         public Task<JaredDto> GetJaredStartupValuesAsync(CancellationToken token)
         {
             return m_ReadService.GetJaredStartupValuesAsync(token);
+        }
+
+        public Task<IEnumerable<UserImageNameDto>> OnlineUsersByClassAsync(GetBoxIdQuery query)
+        {
+            return m_ReadService.OnlineUsersByClassAsync(query);
         }
     }
 }

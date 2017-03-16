@@ -142,6 +142,7 @@
     <Compile Include="Dto\UserDtos\UserAccountDto.cs" />
     <Compile Include="Dto\UserDtos\UserMemberDto.cs" />
     <Compile Include="Dto\UserDtos\UserNotification.cs" />
+    <Compile Include="Dto\UserDtos\UserImageNameDto.cs" />
     <Compile Include="Dto\UserDtos\UserWithStats.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

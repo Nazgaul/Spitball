@@ -7,7 +7,6 @@ using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
 using Zbang.Cloudents.Jared.Models;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
@@ -47,7 +46,7 @@ namespace Zbang.Cloudents.Jared.Controllers
                         }
                     , userId));
 
-            await Task.WhenAll(tModel, tTransaction);
+            await Task.WhenAll(tModel, tTransaction).ConfigureAwait(false);
             if (tModel.Result == null)
             {
                 return Request.CreateNotFoundResponse();
