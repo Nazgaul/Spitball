@@ -136,6 +136,21 @@ button[name="back_btn"] {
     border: none;
 }
 
+#docIn {
+    margin-top:28px;
+    margin-left:50px;
+     font-family: SFNSText;
+  font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: -0.3px;
+  color: #07305a;
+}
+
+
+
 
 button[name="next_btn"] {
     margin-right: 20px;
@@ -179,7 +194,7 @@ h3{
   color: #07305a;
   margin-left:40px;
   margin-top:36px;
-  margin-bottom:15px;
+  margin-bottom:25px;
 }
 
 
@@ -194,6 +209,10 @@ h3{
         margin: 0 1.5%;
         width: 30%;
         }
-button[name="delete_btn"] {
-    background-image: url('../images1/shape.png');
+#delete_btn {
+    background: url('../images1/shape.png') no-repeat;
+    width: 13px;
+    height: 13px;
+    border:none;
+    margin-top:25px;
 }

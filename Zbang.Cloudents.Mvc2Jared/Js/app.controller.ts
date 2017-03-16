@@ -19,6 +19,7 @@ module app {
         result = [];
         ChangedName: string = "";
         originalName: string;
+        removedTags: string = "";
 
         constructor(private $scope: angular.IScope, private searchService: IHelpService) {
 
@@ -35,8 +36,8 @@ module app {
                     var promise = this.searchService.searchItems(this.formData);
                     promise.then(response => {
                         this.result = response;
-                        this.counter = 0;
-                        this.doc = this.result[0];
+                        this.counter = 1;
+                        this.doc = this.result[this.counter];
                         this.getPreview();
                         this.resNum = this.result.length;
                         this.originalName = this.doc.ItemName;
@@ -75,9 +76,14 @@ module app {
 
             //  saveItem(itemId, newName, newType, newTags, removedTags)
         }
-        deleteTag() {
-
+        deleteTag(i) {
+            //this.doc.ItemName = "deleted" + i;
+            this.removedTags += this.doc.Tags[i];
+            this.doc.Tags[i].hide();
         }
+        AddNewTag() {
+            this.doc.ItemName = "deleted";
+            }
 
 
         
