@@ -44,12 +44,16 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
            return Json(retVal);
         }
         [HttpPost,ActionName("Save")]
-        public async Task<JsonResult> SaveAsync(long itemId,string name,string docType, IEnumerable<string> newTags, IEnumerable<string> removeTags)
+        public async Task<JsonResult> SaveAsync(long itemId,long boxId,string name, Guid? tabId, IEnumerable<string> newTags, IEnumerable<string> removeTags)
         {
-            int a;
-            a = 5;
-            if (name.Length > 0) Rename(itemId, name);
-            if (docType.Length > 0) a = 7;
+            if (name.Length>0) Rename(itemId, name);
+            if (tabId.HasValue) { var ab = await AddItemToTabAsync(itemId, tabId, boxId); }
+            return Json("");
+        }
+        public async Task<JsonResult> AddItemToTabAsync(long itemId, Guid? tabId,long boxId)
+        {
+            var command = new AssignItemToTabCommand(itemId, tabId, boxId, 1);
+            await m_writeService.AssignBoxItemToTabAsync(command);
             return Json("");
         }
         private JsonResult Rename(long id, string name)
