@@ -1042,6 +1042,10 @@
       <Project>{b4b7f91c-9412-4d6b-93e2-f3b7c4bd9b90}</Project>
       <Name>Zbang.Zbox.Domain.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Domain.Services\Zbang.Zbox.Domain.Services.csproj">
+      <Project>{F1AC4D4D-0633-4343-A657-DA275D33466D}</Project>
+      <Name>Zbang.Zbox.Domain.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.DomainNew\Zbang.Zbox.Domain.csproj">
       <Project>{35dc2a36-5e24-4e09-8967-838c6edca465}</Project>
       <Name>Zbang.Zbox.Domain</Name>

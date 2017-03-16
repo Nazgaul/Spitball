@@ -2,6 +2,7 @@
 using Autofac.Integration.Mvc;
 using Owin;
 using System.Web.Mvc;
+using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Ioc;
@@ -18,6 +19,7 @@ namespace Zbang.Cloudents.Mvc2Jared
             builder.RegisterModule<InfrastructureModule>();
             Zbox.Infrastructure.File.RegisterIoc.Register();
             builder.RegisterModule<StorageModule>();
+            builder.RegisterModule<WriteServiceModule>();
             builder.RegisterModule<ReadServiceModule>();
 
 
