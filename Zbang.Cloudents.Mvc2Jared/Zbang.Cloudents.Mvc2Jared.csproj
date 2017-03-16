@@ -1009,7 +1009,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\page.cshtml" />
     <Content Include="Views\Shared\_layoutPage.cshtml" />
-    <Content Include="Views\Home\_PreviewImage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

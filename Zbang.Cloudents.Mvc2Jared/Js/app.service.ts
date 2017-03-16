@@ -3,14 +3,10 @@
         testService(): string;
         searchItems(term: any);
         getPreview(blobName: string, itemId: number);
-        //searchBox(term: string, page: number): angular.IPromise<any>;
-        //searchItems(term: string, page: number): angular.IPromise<any>;
-        //searchQuizzes(term: string, page: number): angular.IPromise<any>;
-        //searchFlashcards(term: string, page: number): angular.IPromise<any>;
+        saveItem(itemId:number,newName:string,newType:string,newTags,removedTags)
     }
 
     class SearchService implements IHelpService {
-        static $inject = ["$http"];
 
         constructor(private $http: angular.IHttpService) { }
         testService() {
@@ -20,6 +16,16 @@
             var aa;
             return $.post('/home/items', { model: term })
         }
+        saveItem(itemId, newName, newType, newTags, removedTags) {
+            return $.post('/home/save', {
+                itemId: itemId,
+                name: newName,
+                docType: newType,
+                newTags: newTags,
+                removeTags: removedTags
+            });
+        }
+
         getPreview(blobName, itemId) {
             return $.get('/home/preview/',
                 {
