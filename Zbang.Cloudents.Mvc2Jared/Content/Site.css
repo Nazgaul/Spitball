@@ -76,7 +76,7 @@ button[name="search_btn"] {
 
 div0 {
     color:white;
-    font-family: .SFNSText;
+    font-family: SFNSText;
   font-size: 12px;
   font-weight: normal;
   font-style: normal;
@@ -108,7 +108,7 @@ label[name="save_btn"] {
     margin-left: 16px;
     width: 47px;
     height: 23px;
-    font-family: .SFNSText;
+    font-family: SFNSText;
     font-size: 20px;
     font-weight: bold;
     font-style: normal;
@@ -132,8 +132,6 @@ button[name="back_btn"] {
     -webkit-transform: rotate(180deg);
     transform: rotate(180deg);
     border: none;
-}
-label[name="results_num"] {
 }
 
 
@@ -179,6 +177,7 @@ h3{
   color: #07305a;
   margin-left:40px;
   margin-top:36px;
+  margin-bottom:15px;
 }
 
 

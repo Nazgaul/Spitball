@@ -80,7 +80,7 @@
 
 
         <div1 class="form" style="background-color: #f2f2f2">
-            <button id="saveB" name="img_btn">  </button>
+            <button id="saveB" name="img_btn" ng-click="st.Save()">  </button>
 
             <label name="save_btn">
                 Save
@@ -103,7 +103,7 @@
 
 
 
-    <div width="100%">
+    
 
 
         <div id="left">
@@ -112,20 +112,22 @@
             <h3> Document info </h3>
 
 
-            <div style="margin-left:40px;  margin-top:20px;">
-                <label class="form-check-label" style="margin-top:17px;">
-                    Name:    {{st.doc.ItemName}}
-                </label>
+            <div  style="margin-left:60px;  margin-top:20px;">
+                Name:   <input id="myItemName" class="form-check-label" 
+                               style="margin-top:17px;"  type="text"
+                        value={{st.doc.ItemName}}>
+                   
+                
             </div>
 
 
-            <div style="margin-left:40px;  margin-top:20px;">
+            <div style="margin-left:40px;  margin-top:20px">
                 <label class="form-check-label">
                     Box name:   {{st.doc.BoxName}}
                 </label>
             </div>
 
-            <div style="margin-left:40px;  margin-top:20px;">
+            <div style="margin-left:40px;  margin-top:20px">
                 <label class="form-check-label">
                     Department:   {{st.doc.Department}}
                 </label>
@@ -157,9 +159,12 @@
 
                 <h3> Document Tag </h3>
                 <div ng-repeat="t in st.doc.Tags">
-                    {{t}}
+                  
+                    <input style="margin-top:10px; margin-right:25px; margin-left:25px; border:double;"
+                           name="ttt" placeholder={{t}}>
                 </div>
-                {{st.doc.Tags[0]}}
+                <input style="margin-top:10px; margin-right:25px; margin-left:25px"
+                       name="ttt111" placeholder="Add new Tag">
             </div>
 
         </div>

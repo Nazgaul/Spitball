@@ -17,6 +17,7 @@ var app;
             this.counter = 0;
             this.noResults = false;
             this.result = [];
+            this.ChangedName = "";
             this.documents = [];
         }
         AppController.prototype.search = function () {
@@ -32,6 +33,7 @@ var app;
                         _this.doc = _this.result[0];
                         _this.getPreview();
                         _this.resNum = _this.result.length;
+                        _this.originalName = _this.doc.ItemName;
                     });
                 }
             }
@@ -51,10 +53,17 @@ var app;
             this.counter++;
             //change doc
             this.doc = this.result[this.counter];
+            this.getPreview();
         };
         AppController.prototype.prevPage = function () {
             this.counter--;
             this.doc = this.result[this.counter];
+            this.getPreview();
+        };
+        AppController.prototype.Save = function () {
+            if (this.doc.ItemName != this.originalName) {
+                this.ChangedName = this.doc.ItemName;
+            }
         };
         return AppController;
     }());

@@ -989,7 +989,6 @@
     <Compile Include="Helpers\CookieTempDataProvider.cs" />
     <Compile Include="Helpers\JsonResponse.cs" />
     <Compile Include="App_Start\IocConfig.cs" />
-    <Compile Include="Models\ItemPreview.cs" />
     <Compile Include="Models\LogOn.cs" />
     <Compile Include="Models\LogOnResources.Designer.cs">
       <DependentUpon>LogOnResources.resx</DependentUpon>

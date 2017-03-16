@@ -17,6 +17,8 @@ module app {
         counter: number = 0;
         noResults = false;
         result = [];
+        ChangedName: string = "";
+        originalName: string;
 
         constructor(private $scope: angular.IScope, private searchService: IHelpService) {
 
@@ -37,6 +39,7 @@ module app {
                         this.doc = this.result[0];
                         this.getPreview();
                         this.resNum = this.result.length;
+                        this.originalName = this.doc.ItemName;
                     });
                 }
             }
@@ -56,12 +59,23 @@ module app {
             this.counter++;
             //change doc
             this.doc = this.result[this.counter];
+            this.getPreview();
         }
         prevPage() {
             this.counter--;
             this.doc = this.result[this.counter];
+            this.getPreview();
+        }
+        Save() {
+          
+                if(this.doc.ItemName != this.originalName)
+            {
+                    this.ChangedName = this.doc.ItemName;
+            }
         }
 
+
+        
 
     }
 
