@@ -421,9 +421,11 @@ namespace Zbang.Zbox.ReadServices
         }
 
         public Task<IEnumerable<UserImageNameDto>> OnlineUsersByClassAsync(GetBoxIdQuery query)
-        public Task<IEnumerable<ItemTagsDto>> GetItemsWithTagsAsync(JaredSearchQuery query)
         {
             return m_ReadService.OnlineUsersByClassAsync(query);
+        }
+        public Task<IEnumerable<ItemTagsDto>> GetItemsWithTagsAsync(JaredSearchQuery query)
+        {
             return m_ReadService.GetItemsWithTagsAsync(query);
         }
     }
