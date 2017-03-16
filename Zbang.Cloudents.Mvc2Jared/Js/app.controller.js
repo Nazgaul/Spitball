@@ -23,6 +23,7 @@ var app;
         }
         AppController.prototype.search = function () {
             var _this = this;
+            console.log("search");
             if (this.formData) {
                 Object.keys(this.formData).forEach(function (k) { return (!_this.formData[k] && _this.formData[k] !== undefined) && delete _this.formData[k]; });
                 if (Object.keys(this.formData).length) {
@@ -30,14 +31,27 @@ var app;
                     var promise = this.searchService.searchItems(this.formData);
                     promise.then(function (response) {
                         _this.result = response;
-                        _this.counter = 1;
-                        _this.doc = _this.result[_this.counter];
+                        _this.counter = 0;
+                        _this.doc = _this.result[0];
+                        if (_this.doc.DocType) {
+                            _this.optionalTabs[0].id = _this.doc.TypeId;
+                            _this.optionalTabs[0].name = _this.doc.DocType;
+                        }
                         _this.getPreview();
+                        _this.getTabs();
                         _this.resNum = _this.result.length;
                         _this.originalName = _this.doc.ItemName;
                     });
                 }
             }
+        };
+        AppController.prototype.getTabs = function () {
+            var _this = this;
+            console.log(this.doc.BoxId);
+            this.searchService.getTabs(this.doc.BoxId).then(function (response) {
+                _this.optionalTabs = response;
+                console.log(_this.optionalTabs);
+            });
         };
         AppController.prototype.getPreview = function () {
             var self = this;

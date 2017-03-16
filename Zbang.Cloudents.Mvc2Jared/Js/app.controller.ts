@@ -25,10 +25,11 @@ module app {
 
         }
         formData: Object;
-        doc: any;    
+        doc: any;
+        optionalTabs: any;
         documents = [];
-        search()
-        {
+        search() {
+            console.log("search");
             if (this.formData) {
                 Object.keys(this.formData).forEach(k => (!this.formData[k] && this.formData[k] !== undefined) && delete this.formData[k]);
                 if (Object.keys(this.formData).length) {
@@ -36,14 +37,26 @@ module app {
                     var promise = this.searchService.searchItems(this.formData);
                     promise.then(response => {
                         this.result = response;
-                        this.counter = 1;
-                        this.doc = this.result[this.counter];
+                        this.counter = 0;
+                        this.doc = this.result[0];
+                        if (this.doc.DocType) {
+                            this.optionalTabs[0].id = this.doc.TypeId;
+                            this.optionalTabs[0].name = this.doc.DocType;
+                        }
                         this.getPreview();
+                        this.getTabs();
                         this.resNum = this.result.length;
                         this.originalName = this.doc.ItemName;
                     });
                 }
             }
+        }
+        getTabs() {
+            console.log(this.doc.BoxId);
+            this.searchService.getTabs(this.doc.BoxId).then(response => {
+                this.optionalTabs = response;
+                console.log(this.optionalTabs);
+            });
         }
         getPreview() {
             var self = this; 
