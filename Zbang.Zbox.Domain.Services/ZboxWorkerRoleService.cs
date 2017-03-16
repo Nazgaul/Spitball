@@ -224,6 +224,15 @@ and boxid in (
 --delete from zbox.box where boxid in (
 select top (3) boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0 order by boxid
 )  and isdeleted = 1 and isdirty = 0 option(maxdop 1)",
+                        @"update zbox.item
+set itemtabid = null , isdirty = 1
+where itemtabid in (
+select itemtabid from zbox.itemtab where boxid in (
+select top (3) boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0 order by boxid
+))",
+                        @"delete from zbox.itemtab where boxid in (
+select top (3) boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0 order by boxid
+) option(maxdop 1)",
                         @"delete from zbox.box where boxid in (
 select top (3) boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0 order by boxid
 ) option(maxdop 1)"

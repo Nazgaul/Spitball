@@ -13,16 +13,6 @@ namespace Zbang.Zbox.ViewModel.Queries.Emails
 
         private NotificationSetting NotificationSettings { get; }
 
-        public int MinutesPerNotificationSettings
-        {
-            get
-            {
-                //if (NotificationSettings == NotificationSettings.OnEveryChange)
-                //{
-                //    return (int)TimeSpan.FromMinutes(OnEveryChangeTimeToQueryInMinutes).TotalMinutes;
-                //}
-                return (int)NotificationSettings * (int)TimeSpan.FromHours(1).TotalMinutes;
-            }
-        }
+        public int MinutesPerNotificationSettings => (int)NotificationSettings * (int)TimeSpan.FromHours(1).TotalMinutes;
     }
 }

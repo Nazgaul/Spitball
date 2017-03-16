@@ -40,13 +40,13 @@ namespace Zbang.Cloudents.Jared.Controllers
                 return Request.CreateBadRequestResponse();
             }
             await m_QueueProvider.InsertMessageToTranactionAsync(
-                    new StatisticsData4(
-                      new StatisticsData4.StatisticItemData
-                      {
-                          Id = itemId,
-                          Action = (int)StatisticsAction.View
-                      }
-                  , -1), cancellationToken);
+                new StatisticsData4(
+                    new StatisticsData4.StatisticItemData
+                    {
+                        Id = itemId,
+                        Action = (int)StatisticsAction.View
+                    }
+                    , -1), cancellationToken).ConfigureAwait(false);
             var blobUrl = m_BlobProviderFiles.GenerateSharedAccessReadPermission(blob, 20);
             return Request.CreateResponse(blobUrl);
         }
@@ -55,15 +55,15 @@ namespace Zbang.Cloudents.Jared.Controllers
         [Route("api/document/like")]
         [HttpPost]
         [Authorize]
-        public async Task<HttpResponseMessage> Like(ItemLikeRequest model)
+        public async Task<HttpResponseMessage> LikeAsync(ItemLikeRequest model)
         {
             if (!ModelState.IsValid)
             {
                 return Request.CreateBadRequestResponse();
             }
             var id = m_GuidGenerator.GetId();
-            var command = new RateItemCommand(model.Id, User.GetUserId(), id);
-            await m_ZboxWriteService.RateItemAsync(command);
+            var command = new RateItemCommand(model.Id, User.GetUserId(), id, model.BoxId);
+            await m_ZboxWriteService.RateItemAsync(command).ConfigureAwait(false);
 
             if (model.Tags.Any())
             {
