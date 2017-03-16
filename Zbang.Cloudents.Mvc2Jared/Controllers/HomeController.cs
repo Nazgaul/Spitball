@@ -7,6 +7,8 @@ using System.Threading;
 using Zbang.Zbox.ReadServices;
 using System.Linq;
 using Zbang.Zbox.Infrastructure.Storage;
+using System.Collections.Generic;
+using Zbang.Zbox.Domain.Commands;
 
 namespace Zbang.Cloudents.Mvc2Jared.Controllers
 {
@@ -36,6 +38,42 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
            var retVal = await m_readService.GetItemsWithTagsAsync(model);
            return Json(retVal);
         }
+        [HttpPost,ActionName("Save")]
+        public async Task<JsonResult> SaveAsync(long itemId,string name,string docType, IEnumerable<string> newTags, IEnumerable<string> removeTags)
+        {
+            int a;
+            a = 5;
+            return Json("");
+        }
+        //public JsonResult Rename(long id,string name)
+        //{
+        //    try
+        //    {
+        //        var command = new ChangeFileNameCommand(id,name);
+        //        var result = ZboxWriteService.ChangeFileName(command);
+        //        return JsonOk(new
+        //        {
+        //            name = result.Name,
+        //            url = result.Url
+        //        });
+        //    }
+
+        //    catch (UnauthorizedAccessException)
+        //    {
+        //        return JsonError("You need to follow this box in order to change file name");
+        //    }
+        //    catch (ArgumentException ex)
+        //    {
+        //        return JsonError(ex.Message);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError($"ChangeFileName newFileName {model.NewName} ItemUid {model.Id} userId {userId}", ex);
+        //        return JsonError("Error");
+        //    }
+
+
+        //}
         #region Preview
         [HttpGet, ActionName("Preview")]
         public async Task<JsonResult> PreviewAsync(string blobName, long id,CancellationToken cancellationToken)
@@ -64,8 +102,6 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
                     return Json(new
                     {
                         template = "failed"
-                        //preview = RenderRazorViewToString("_PreviewFailed",
-                        //    Url.RouteUrl("ItemDownload2", new { boxId, itemId = id }))
                     });
 
                 }
@@ -93,16 +129,6 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError($"GeneratePreview filename: {blobName}", ex);
-                //ZboxWriteService.UpdatePreviewFailed(new PreviewFailedCommand(id));
-                //if (index == 0)
-                //{
-                //    return Json(new
-                //    {
-                //        template = "failed"
-                //        //preview = RenderRazorViewToString("_PreviewFailed",
-                //        //    Url.RouteUrl("ItemDownload2", new { boxId, itemId = id }))
-                //    });
-                //}
                 return Json("");
             }
         }
