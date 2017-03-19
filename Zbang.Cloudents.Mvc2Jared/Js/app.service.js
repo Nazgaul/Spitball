@@ -24,11 +24,6 @@ var app;
                 id: itemId
             });
         };
-        SearchService.prototype.getTabs = function (boxId) {
-            return $.get('/home/tabs/', {
-                id: boxId
-            });
-        };
         return SearchService;
     }());
     angular.module("app").service("searchService", SearchService);

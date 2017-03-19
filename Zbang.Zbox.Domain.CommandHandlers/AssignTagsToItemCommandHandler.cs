@@ -30,6 +30,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 return;
             }
             var item = m_ItemRepository.Load(message.ItemId);
+            
             foreach (var tagName in message.Tags)
             {
                 var tag = m_TagRepository.Query().FirstOrDefault(f => f.Name == tagName);

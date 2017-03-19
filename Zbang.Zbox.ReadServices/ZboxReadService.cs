@@ -1137,13 +1137,18 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                using (var grid = await conn.QueryMultipleAsync(Sql.Jared.ItemInfo + Sql.Jared.ItemTags, query))
+                using (var grid = await conn.QueryMultipleAsync(Sql.Jared.ItemInfo +Sql.Jared.ItemTabs+ Sql.Jared.ItemTags, query))
                 {
                     var retVal = await grid.ReadAsync<ItemTagsDto>();
+                    var tabs = await grid.ReadAsync<ItemTabDto>();
                     var tags= await grid.ReadAsync<ItemTagDto>();
                     foreach (var item in retVal)
                     {
                         item.Tags = tags.Where(w => w.ItemId == item.ItemId).Select(s=>s.Tag);
+                        item.Tabs = tabs.Where(w => w.ItemId == item.ItemId).Select(s => new Tab() {
+                            Id = s.Id,
+                            Name = s.Name
+                        });
                     }
 
                     return retVal;

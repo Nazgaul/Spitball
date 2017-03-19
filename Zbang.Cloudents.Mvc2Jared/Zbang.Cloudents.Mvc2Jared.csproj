@@ -1035,6 +1035,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Zbang.Zbox.Domain.CommandHandlers\Zbang.Zbox.Domain.CommandHandlers.csproj">
+      <Project>{9ED04567-B2D0-4040-88A6-1AD752A3D83F}</Project>
+      <Name>Zbang.Zbox.Domain.CommandHandlers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Domain.Commands\Zbang.Zbox.Domain.Commands.csproj">
       <Project>{0CAEE4F2-421B-4FA3-9A13-1402EA6FCDA8}</Project>
       <Name>Zbang.Zbox.Domain.Commands</Name>
@@ -1042,6 +1046,10 @@
     <ProjectReference Include="..\Zbang.Zbox.Domain.Common\Zbang.Zbox.Domain.Common.csproj">
       <Project>{b4b7f91c-9412-4d6b-93e2-f3b7c4bd9b90}</Project>
       <Name>Zbang.Zbox.Domain.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Domain.DataAccess\Zbang.Zbox.Domain.DataAccess.csproj">
+      <Project>{c2010ff2-7020-4be7-8cb8-d43c7f9c4363}</Project>
+      <Name>Zbang.Zbox.Domain.DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Domain.Services\Zbang.Zbox.Domain.Services.csproj">
       <Project>{F1AC4D4D-0633-4343-A657-DA275D33466D}</Project>
@@ -1054,6 +1062,10 @@
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Azure\Zbang.Zbox.Infrastructure.Azure.csproj">
       <Project>{9A210D03-F7A2-4CF6-B311-742A2A1949D4}</Project>
       <Name>Zbang.Zbox.Infrastructure.Azure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Data\Zbang.Zbox.Infrastructure.Data.csproj">
+      <Project>{A29AAA7A-E472-4661-A503-EB00FD43D2C3}</Project>
+      <Name>Zbang.Zbox.Infrastructure.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.File\Zbang.Zbox.Infrastructure.File.csproj">
       <Project>{9ba4df6c-b4da-40d4-8a33-795f0bed2622}</Project>

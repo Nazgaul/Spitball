@@ -104,11 +104,19 @@ namespace Zbang.Zbox.Domain
             ItemTags.Add(newExists);
             tag.ItemTags.Add(newExists);
         }
+        public virtual void RemoveTag(string tag)
+        {
+            var tagToRemove = ItemTags.FirstOrDefault(w => w.Tag.Name == tag);
+            if (tagToRemove == null) return;
+            ItemTags.Remove(tagToRemove);
+        }
 
         // public virtual CourseTag CourseTag { get; set; }
 
 
         public bool IsDeleted { get; set; }
+
+        public virtual bool IsReviewed { get; set; }
 
         public void DeleteAssociation()
         {

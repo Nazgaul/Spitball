@@ -2,7 +2,6 @@
     export interface IHelpService {
         searchItems(term: any);
         getPreview(blobName: string, itemId: number);
-        getTabs(boxId: number);
         saveItem(itemId:number,boxId:number,newName:string,newType,newTags,removedTags)
     }
 
@@ -31,12 +30,6 @@
                     blobName: blobName,
                     id: itemId
                 });
-        }
-        getTabs(boxId) {
-            return $.get('/home/tabs/',
-                {
-                    id: boxId
-                }); 
         }
     }
     angular.module("app").service("searchService", SearchService);
