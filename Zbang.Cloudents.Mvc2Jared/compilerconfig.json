@@ -1,9 +1,5 @@
 ﻿[
   {
-    "outputFile": "Content/siteStylesheet.css",
-    "inputFile": "Content/siteStylesheet.less"
-  },
-  {
     "outputFile": "Content/Site.css",
     "inputFile": "Content/Site.less"
   }
