@@ -37,22 +37,6 @@
                     id: boxId
                 }); 
         }
-        //    private ajaxService2: IAjaxService2) {
-        //}
-        //searchBox(term: string, page: number) {
-        //    return this.ajaxService2.get("/search/boxes/", { q: term, page: page }, "searchBox", "search");
-        //}
-
-        //searchItems(term: string, page: number) {
-        //    return this.ajaxService2.get("/search/items/", { q: term, page: page }, "searchItem", "search");
-        //}
-        //searchQuizzes(term: string, page: number) {
-        //    return this.ajaxService2.get("/search/quizzes/", { q: term, page: page }, "searchQuiz", "search");
-        //}
-        //searchFlashcards(term: string, page: number) {
-        //    return this.ajaxService2.get("/search/flashcards/", { q: term, page: page });
-        //}
-
     }
     angular.module("app").service("searchService", SearchService);
 }
