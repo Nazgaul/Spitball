@@ -50,7 +50,7 @@
     </div>
     <div class="result-data row">
         <div class="info col-5">
-            <section>
+            <section class="general-info">
                 <h1>Document info</h1>
                 <label class="detail">
                     Name:
@@ -59,30 +59,27 @@
                 <div class="detail">Box name: {{st.doc.BoxName}}</div>
                 <div class="detail">Department: {{st.doc.Department}}</div>
             </section>
-            <section>
+            <section class="doc-type">
                 <h1>Document Type</h1>
                 <select id="mySelect" ng-model="st.doc.TypeId">
                     <option value="" disabled selected>Search type</option>
                     <option ng-repeat="option in st.optionalTabs" value="{{option.Id}}">{{option.Name}}</option>
                 </select>
             </section>
-            <section>
+            <section class="tags">
                 <h1>Document Tag</h1>
-                <div ng-repeat="t in st.doc.Tags">
-                    <input name="ttt" placeholder={{t}}>
-                    <button id="delete_btn" ng-click="st.deleteTag($index)"></button>
+                <div ng-repeat="t in st.doc.Tags" class="tag">
+                    <div class="name">{{t}}</div>
+                    <button class="delete-tag" ng-click="st.deleteTag($index)"></button>
                 </div>
                 <form>
-                    <input ng-model="st.newTag" ng-keyup="$event.keyCode == 13 && st.AddNewTag()" style="margin-top:10px; margin-right:25px; margin-left:25px; border:double;"
-                           name="ttt111" placeholder="" type="text">
+                    <input ng-model="st.newTag" ng-keyup="$event.keyCode == 13 && st.AddNewTag()" name="ttt111" placeholder="+ Add Tag" type="text">
                 </form>
             </section>
         </div>
         <div class="preview col-7">
-            <div class="preview preview-page">
-                <div class="preview-image" ng-repeat="s in st.documents">
-                    <img class="imageContent" src="{{s}}" />
-                </div>
+            <div class="preview-image" ng-repeat="s in st.documents">
+                <img class="imageContent" src="{{s}}" />
             </div>
         </div>
     </div>

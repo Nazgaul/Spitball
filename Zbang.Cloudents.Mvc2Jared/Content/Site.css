@@ -87,17 +87,59 @@
   margin: 0;
   padding: 10px;
 }
-.body-content .result-data section {
+.body-content .result-data .info section {
   padding: 20px 0;
 }
-.body-content .result-data section:not(:last-child) {
+.body-content .result-data .info section:not(:last-child) {
   border-bottom: 3px solid black;
 }
-.body-content .result-data h1 {
+.body-content .result-data .info section.doc-type select {
+  min-width: 220px;
+  height: 38px;
+  margin: 10px 0;
+  border-radius: 8px;
+  padding: 0 10px;
+}
+.body-content .result-data .info section.tags .tag .name {
+  border: 1px solid #979797;
+  color: #003b78;
+}
+.body-content .result-data .info section.tags input {
+  border: 1px dashed #979797;
+  background: #f2f2f2;
+  color: #9b9b9b;
+}
+.body-content .result-data .info section.tags input,
+.body-content .result-data .info section.tags .tag .name {
+  line-height: 32px;
+  width: 100%;
+  padding: 0 8px;
+  border-radius: 8px;
+}
+.body-content .result-data .info section.tags .tag {
+  position: relative;
+  margin-bottom: 5px;
+}
+.body-content .result-data .info section.tags .tag .delete-tag {
+  cursor: pointer;
+  position: absolute;
+  right: -20px;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  background: url(../images1/shape.png) no-repeat;
+  background-position: 50% 50%;
+  border: none;
+}
+.body-content .result-data .info h1 {
   color: #003b78;
   font-size: 14px;
+  margin-bottom: 20px;
 }
-.body-content .result-data .detail {
-  margin: 10px 0;
+.body-content .result-data .info .detail {
+  margin-bottom: 20px;
   height: 28px;
+}
+.body-content .result-data .preview .preview-image img {
+  max-width: 100%;
 }
