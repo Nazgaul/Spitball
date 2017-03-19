@@ -1,218 +1,103 @@
-﻿body {
-    padding-top: 0px;
-    padding-bottom: 0px; 
-    margin: 0px;
-    min-height: 100%;
-    width: 100%;
+﻿.body-content {
+  font-size: 14px;
 }
-
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 0px!important;
-    padding-right: 0px!important; 
-    width: 100%!important;
+.body-content .search-form {
+  background: #003b78;
 }
-
-
-form{
-    width: 100%!important;
-    background: #003b78;
+.body-content .search-form .row {
+  margin: 0;
 }
-
-
-
-
-input{     
-    border: none; 
-    margin-top:19px; 
-    text-indent: 19px;  
-    font-size:14px;  
+.body-content .search-form .field,
+.body-content .search-form button {
+  margin: 8px 10px;
+  border-radius: 8px;
 }
-
-input[name="university"] {
-    border: none;   
-    border-radius: 8px; 
-    height:32px;
+.body-content .search-form .field {
+  border: none;
+  min-height: 32px;
 }
-
-
-input[name="department"] {
-    border: none;   
-    border-radius: 8px;  
-    height:32px;
+.body-content .search-form button {
+  width: 120px;
+  background: #3293f6;
+  color: white;
+  border: none;
 }
-
-
-input[name="class"] {
-    border: none;   
-    border-radius: 8px;
-    height:32px;
+.body-content .search-form .checkboxes {
+  color: white;
 }
-input[name="boxId"] {
-    border: none;   
-    border-radius: 8px;  
-    height:32px;
-}
-
-input[name="item name"] {
-    border: none;   
-    border-radius: 8px; 
-    margin-top:15px;
-    height:33px;
-    float:left;
-    margin-left:25px;
-    margin-right:15px;
-}
-
-button[name="search_btn"] {
-    border: none;     
-    margin-top:15px;
-    margin-bottom:5px;
-    color:white;
-    height: 32px;
-    border-radius: 8px;
-    background-color: #3293f6;
-    margin-right:25px;
-}
-
-
-div0 {
-    color:white;
-    font-family: SFNSText;
+.body-content .search-form .checkboxes label {
+  display: flex;
+  align-items: center;
   font-size: 12px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
+  max-width: 150px;
 }
-
-input[name="isReviewed"]{
-    margin-left: 40px;
-    margin-bottom:15px;
+.body-content .search-form .checkboxes label span {
+  margin-left: 10px;
 }
-input[name="isSearchType"]{
-    margin-left: 25px;
+.body-content .results-header {
+  background: #f2f2f2;
 }
-
-
-
-
-
-button[name="img_btn"] {
-    margin-left: 40px;
-    height: 22.2px;
-    width:24px;
-    background: url('../images1/combined-shape.png') no-repeat;
-    border: none;
-}
-
-label[name="save_btn"] {
-    margin-left: 16px;
-    width: 47px;
-    height: 23px;
-    font-family: SFNSText;
-    font-size: 20px;
-    font-weight: bold;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: normal;
-    letter-spacing: -0.5px;
-    color: #3293f6;
-}
-
-
-
-button[name="back_btn"] {
-    margin-left: 541px;
-    margin-right: 150px;
-    margin-bottom:5px;
-    margin-top:5px;
-    width: 24px;
-    height: 24px;
-    background: url('../images1/triangle-2@3x.png') center no-repeat;
-    background-size: 100% 100%;
-    -webkit-transform: rotate(180deg);
-    transform: rotate(180deg);
-    border: none;
-}
-
-#docIn {
-    margin-top:28px;
-    margin-left:50px;
-     font-family: SFNSText;
-  font-size: 14px;
+.body-content .results-header .save {
+  margin-left: 10px;
+  background: url(../images1/combined-shape.png) no-repeat;
+  background-position: 0 50%;
+  background-size: 24px;
+  padding-left: 40px;
+  border: none;
+  color: #3293f6;
+  font-size: 20px;
   font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: -0.3px;
-  color: #07305a;
 }
-
-
-
-
-button[name="next_btn"] {
-    margin-right: 20px;
-    margin-left: 150px;
-    width: 24px;
-    height: 24px; 
-    background: url('../images1/triangle-2@3x.png') center no-repeat; 
-    background-size: 100% 100%; 
-border: none;
+.body-content .results-header .results-nav {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
-    button[name="next_btn"]:disabled {
-        background: url('../images1/triangle-2-copy@3x.png');
-    }
-
-    button[name="back_btn"]:disabled {
-        background: url('../images1/triangle-2-copy@3x.png');
-    }
-
-select{
-    height:30px;
-    width: 150px;
+.body-content .results-header .results-nav .counter {
+  padding: 0 20px;
+  width: calc(70% - 50px);
+  /*font-size: 14px;*/
 }
-
-div1{
-  display: table;
-  width: 100%;
-  height: 40px;
-  align-content: center;
+.body-content .results-header .results-nav button {
+  width: 0;
+  height: 0;
+  background: none;
+  border-style: solid;
 }
-
-h3{
-  height: 10px;
-  font-family: SFNSText;
+.body-content .results-header .results-nav button[name="next_btn"] {
+  border-width: 12px 0 12px 24px;
+  border-color: transparent transparent transparent #3293f6;
+}
+.body-content .results-header .results-nav button[name="next_btn"]:disabled {
+  border-color: transparent transparent transparent #d8d8d8;
+}
+.body-content .results-header .results-nav button[name="back_btn"] {
+  border-width: 12px 24px 12px 0;
+  border-color: transparent #3293f6 transparent transparent;
+}
+.body-content .results-header .results-nav button[name="back_btn"]:disabled {
+  border-color: transparent #d8d8d8 transparent transparent;
+}
+.body-content .search-form,
+.body-content .results-header {
+  padding: 8px 16px;
+}
+.body-content .result-data {
+  margin: 0;
+  padding: 10px;
+}
+.body-content .result-data section {
+  padding: 20px 0;
+}
+.body-content .result-data section:not(:last-child) {
+  border-bottom: 3px solid black;
+}
+.body-content .result-data h1 {
+  color: #003b78;
   font-size: 14px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: -0.3px;
-  color: #07305a;
-  margin-left:40px;
-  margin-top:36px;
-  margin-bottom:25px;
 }
-
-
-
-        section {
-        float: left;
-        margin: 0 1.5%;
-        width: 63%;
-        }
-        aside {
-        float: right;
-        margin: 0 1.5%;
-        width: 30%;
-        }
-#delete_btn {
-    background: url('../images1/shape.png') no-repeat;
-    width: 13px;
-    height: 13px;
-    border:none;
-    margin-top:25px;
+.body-content .result-data .detail {
+  margin: 10px 0;
+  height: 28px;
 }

@@ -1,0 +1,130 @@
+﻿@darkBlue: #003b78;
+@lightBlue: #3293f6;
+@grey: #f2f2f2;
+
+.body-content {
+    font-size: 14px;
+
+
+    .search-form {
+        background: @darkBlue;
+
+        .row {
+            margin: 0;
+        }
+
+        .field, button {
+            margin: 8px 10px;
+            border-radius: 8px;
+        }
+
+        .field {
+            border: none;
+            min-height: 32px;
+        }
+
+        button {
+            width: 120px;
+            background: @lightBlue;
+            color: white;
+            border: none;
+        }
+
+        .checkboxes {
+            color: white;
+
+            label {
+                display: flex;
+                align-items: center;
+                font-size: 12px;
+                max-width: 150px;
+
+                span {
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+
+    .results-header {
+        background: @grey;
+
+        .save {
+            margin-left: 10px;
+            background: url(../images1/combined-shape.png) no-repeat;
+            background-position: 0 50%;
+            background-size: 24px;
+            padding-left: 40px;
+            border: none;
+            color: @lightBlue;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .results-nav {
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .counter {
+                padding: 0 20px;
+                width: ~"calc(70% - 50px)";
+                /*font-size: 14px;*/
+            }
+
+            button {
+                width: 0;
+                height: 0;
+                background: none;
+                border-style: solid;
+
+                &[name="next_btn"] {
+                    border-width: 12px 0 12px 24px;
+                    border-color: transparent transparent transparent @lightBlue;
+
+                    &:disabled {
+                        border-color: transparent transparent transparent #d8d8d8;
+                    }
+                }
+
+
+                &[name="back_btn"] {
+                    border-width: 12px 24px 12px 0;
+                    border-color: transparent @lightBlue transparent transparent;
+
+                    &:disabled {
+                        border-color: transparent #d8d8d8 transparent transparent;
+                    }
+                }
+            }
+        }
+    }
+
+    .search-form, .results-header {
+        padding: 8px 16px;
+    }
+
+    .result-data {
+        margin: 0;
+        padding: 10px;
+
+        section {
+            padding: 20px 0;
+        }
+
+        section:not(:last-child) {
+            border-bottom: 3px solid black;
+        }
+
+        h1 {
+            color: @darkBlue;
+            font-size: 14px;
+        }
+
+        .detail {
+            margin: 10px 0;
+            height: 28px;
+        }
+    }
+}
