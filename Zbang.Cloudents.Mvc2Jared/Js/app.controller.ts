@@ -19,8 +19,11 @@ module app {
         result = [];
         ChangedName: string = "";
         originalName: string;
-        removedTags: string = "";
+        removedTags=[];
+        newTags = [];
         newTag: string = "";
+        originalType: string;
+        ChangedType: string = "";
 
         constructor(private $scope: angular.IScope, private searchService: IHelpService) {
 
@@ -44,10 +47,13 @@ module app {
                             this.optionalTabs[0].id = this.doc.TypeId;
                             this.optionalTabs[0].name = this.doc.DocType;
                         }
+                        this.removedTags = [];
+                        this.newTags = [];
                         this.getPreview();
                         this.getTabs();
                         this.resNum = this.result.length;
                         this.originalName = this.doc.ItemName;
+                        this.originalType = this.doc.DocType;
                     });
                 }
             }
@@ -89,17 +95,23 @@ module app {
                     this.ChangedName = this.doc.ItemName;
             }
 
-            //  saveItem(this.doc.ItemId, ChangedName, newType, newTags, removedTags)
+                if (this.doc.TypeId != this.originalType) {
+                    this.ChangedType = this.doc.TypeId;
+                }
+
+                this.searchService.saveItem(this.doc.ItemId, this.doc.BoxId, this.ChangedName, this.ChangedType,
+                    this.newTags, this.removedTags)
         }
         deleteTag(i) {
             //this.doc.ItemName = "deleted" + i;
-            this.removedTags += this.doc.Tags[i];
+            this.removedTags.push(this.doc.Tags[i]);
            // this.doc.Tags[i].hide();
             this.doc.Tags.splice(i,1);
 
 
         }
         AddNewTag() {
+            this.newTags.push(this.newTag);
             this.doc.Tags.push(this.newTag);
             this.newTag = "";
             }
