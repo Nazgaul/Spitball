@@ -2,9 +2,11 @@
 using Autofac.Integration.Mvc;
 using Owin;
 using System.Web.Mvc;
+using Zbang.Zbox.Domain.CommandHandlers;
 using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Azure;
+using Zbang.Zbox.Infrastructure.Data;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.ReadServices;
 
@@ -17,19 +19,22 @@ namespace Zbang.Cloudents.Mvc2Jared
 
                 var builder = IocFactory.IocWrapper.ContainerBuilder;
             builder.RegisterModule<InfrastructureModule>();
+            builder.RegisterModule<DataModule>();
             Zbox.Infrastructure.File.RegisterIoc.Register();
             builder.RegisterModule<StorageModule>();
             builder.RegisterModule<WriteServiceModule>();
             builder.RegisterModule<ReadServiceModule>();
+            Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
+            builder.RegisterModule<CommandsModule>();
 
 
-                builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
+            builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
                 builder.RegisterFilterProvider();
 
 
                 var container = IocFactory.IocWrapper.Build();
                 DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
-
+                DependencyResolver.Current.GetService<Zbox.Domain.Common.IZboxServiceBootStrapper>().BootStrapper();
                 app.UseAutofacMiddleware(container);
                 app.UseAutofacMvc();
         }

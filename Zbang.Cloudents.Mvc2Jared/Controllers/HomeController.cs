@@ -11,6 +11,9 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Cloudents.Mvc2Jared.Models;
+using Zbang.Zbox.Infrastructure.Enums;
+using System.Collections.Generic;
+using Zbang.Zbox.Domain;
 
 namespace Zbang.Cloudents.Mvc2Jared.Controllers
 {
@@ -46,15 +49,27 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
         [HttpPost,ActionName("Save")]
         public async Task<JsonResult> SaveAsync(SaveItemTags model)
         {
-            bool a = (String.IsNullOrEmpty(model.ItemName));
-            bool b = (model.TabId.HasValue);
-            bool c = ( model.NewTags == null|| !model.NewTags.Any());
-            bool d = ( model.RemoveTags == null|| !model.RemoveTags.Any());
-            //if (name.Length>0) Rename(itemId, name);
-            //if (tabId.HasValue) { var ab = await AddItemToTabAsync(itemId, tabId, boxId); }
+            bool rename = (!String.IsNullOrEmpty(model.ItemName));
+            bool tabChanged = (model.TabId.HasValue);
+            bool isAddTags = ( model.NewTags != null&& model.NewTags.Any());
+            bool isRemoveTags = ( model.RemoveTags != null&&model.RemoveTags.Any());
+            if (rename) Rename(model.ItemId, model.ItemName);
+            if (tabChanged)  await AddItemToTabAsync(model.ItemId, model.TabId, model.BoxId);
+            if (isAddTags)addTagsToDoc(model.ItemId, model.NewTags);
+            if (isRemoveTags) {
+                var command = new RemoveTagsFromDocumentCommand(model.ItemId, model.RemoveTags);
+                m_writeService.RemoveItemTag(command);
+            }
+            var save = new SetReviewedDocumentCommand(model.ItemId);
+            m_writeService.SetReviewed(save);
             return Json("");
         }
-        public async Task<JsonResult> AddItemToTabAsync(long itemId, Guid? tabId,long boxId)
+        private void addTagsToDoc(long itemId,IEnumerable<string> newTags)
+        {
+            var z = new AssignTagsToDocumentCommand(itemId, newTags, TagType.Backoffice);
+            m_writeService.AddItemTag(z);
+        }
+        private async Task<JsonResult> AddItemToTabAsync(long itemId, Guid? tabId,long boxId)
         {
             var command = new AssignItemToTabCommand(itemId, tabId, boxId, 1);
             await m_writeService.AssignBoxItemToTabAsync(command);
@@ -89,25 +104,11 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
 
 
         }
-        [HttpGet,ActionName("Tabs")]
-        public async Task<JsonResult> TabsAsync(long id)
-        {
-            try
-            {
-                var query = new GetBoxQuery(id);
-                var result = await m_readService.GetBoxTabsAsync(query);
-                return Json(result,JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError($"Box Tabs id {id}", ex);
-                return Json("error");
-            }
-        }
         #region Preview
         [HttpGet, ActionName("Preview")]
         public async Task<JsonResult> PreviewAsync(string blobName, long id,CancellationToken cancellationToken)
         {
+           // await getTabsAndPreview(blobName, id, cancellationToken);
             int index = 5;
             Uri uri;
             if (!Uri.TryCreate(blobName, UriKind.Absolute, out uri))

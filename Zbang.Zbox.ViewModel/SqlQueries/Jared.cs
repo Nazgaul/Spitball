@@ -11,17 +11,7 @@ i.blobname blob,
 b.boxid boxId,
 bt.itemtabname docType,
 bt.itemtabid typeId
-from zbox.item i 
-left join zbox.itemtaB bt ON i.itemtabid = bt.itemtabid
-join zbox.box b ON i.boxid=b.boxid 
-join zbox.library d ON b.libraryid=d.libraryId 
-where b.discriminator = 2 and i.isdeleted=0
-and (@name is null or (i.name like +'%' + @name + '%'))
-and (@university is null or (b.university in (select u.id from zbox.university u where u.universityname like +'%' + @university + '%')))
-and (@IsSearchType=0 or (i.itemtabid is not null))
-and (@box is null or (b.boxname like +'%' + @box + '%'))
-and (@department is null or (d.name like +'%' + @department + '%'))
-and (@boxid is null or (b.boxid=@boxid));";
+from "+ItemWhere+";";
         private const string ItemWhere = @"zbox.item i 
 left join zbox.itemtaB bt ON i.itemtabid = bt.itemtabid
 join zbox.box b ON i.boxid=b.boxid 
@@ -30,9 +20,19 @@ where b.discriminator = 2 and i.isdeleted=0
 and (@name is null or (i.name like +'%' + @name + '%'))
 and (@university is null or (b.university in (select u.id from zbox.university u where u.universityname like +'%' + @university + '%')))
 and (@IsSearchType=0 or (i.itemtabid is not null))
+and (@IsReviewed=0 or (i.isreviewed=1))
 and (@box is null or (b.boxname like +'%' + @box + '%'))
 and (@department is null or (d.name like +'%' + @department + '%'))
 and (@boxid is null or (b.boxid=@boxid))";
+
+        public const string ItemTabs = @"select 
+tab.ItemTabId as id,
+item.itemid as itemId,
+itemtabname as name
+ from zbox.ItemTab tab 
+join zbox.box box ON tab.boxid=box.boxid
+join zbox.item item ON box.boxid=item.boxid 
+where item.itemid in (select top 10 i.itemid from " + ItemWhere + ");";
 
         public const string ItemTags = @"select item.itemid itemId,
                                         t.name tag

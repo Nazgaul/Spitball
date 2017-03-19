@@ -1,14 +1,6 @@
 ﻿
 module app {
     "use strict";
-    class Document1 {
-        ItemName: string = "my document name";
-        BoxName: string = "my document box_name";
-        Department: string = "my document department";
-        DocType: string;
-        ItemId: number;
-        Tags: any;
-    }
 
     export class AppController {
         static $inject = ["$scope","searchService"];
@@ -32,7 +24,6 @@ module app {
 
         }
         search() {
-            console.log("search");
             if (this.formData) {
                 Object.keys(this.formData).forEach(k => (!this.formData[k] && this.formData[k] !== undefined) && delete this.formData[k]);
                 if (Object.keys(this.formData).length) {
@@ -41,28 +32,20 @@ module app {
                     promise.then(response => {
                         this.result = response;
                         this.counter = 0;
-                        this.doc = this.result[0];
-                        if (this.doc.DocType) {
-                            this.optionalTabs[0].id = this.doc.TypeId;
-                            this.optionalTabs[0].name = this.doc.DocType;
+                        if (this.result.length > 0) {
+                            this.doc = this.result[0];
+                            this.optionalTabs = this.doc.Tabs;
+                            this.originalName = this.doc.ItemName;
+                            this.originalType = this.doc.TypeId;
                         }
+                     
                         this.removedTags = [];
                         this.newTags = [];
                         this.getPreview();
-                        this.getTabs();
                         this.resNum = this.result.length;
-                        this.originalName = this.doc.ItemName;
-                        this.originalType = this.doc.TypeId;
                     });
                 }
             }
-        }
-        getTabs() {
-            console.log(this.doc.BoxId);
-            this.searchService.getTabs(this.doc.BoxId).then(response => {
-                this.optionalTabs = response;
-                console.log(this.optionalTabs);
-            });
         }
         getPreview() {
             var self = this; 
@@ -118,10 +101,6 @@ module app {
             this.doc.Tags.push(this.newTag);
             this.newTag = "";
             }
-
-
-        
-
     }
 
     angular.module("app").controller("AppController", AppController);

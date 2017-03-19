@@ -1,14 +1,6 @@
 var app;
 (function (app) {
     "use strict";
-    var Document1 = (function () {
-        function Document1() {
-            this.ItemName = "my document name";
-            this.BoxName = "my document box_name";
-            this.Department = "my document department";
-        }
-        return Document1;
-    }());
     var AppController = (function () {
         function AppController($scope, searchService) {
             this.$scope = $scope;
@@ -27,7 +19,6 @@ var app;
         }
         AppController.prototype.search = function () {
             var _this = this;
-            console.log("search");
             if (this.formData) {
                 Object.keys(this.formData).forEach(function (k) { return (!_this.formData[k] && _this.formData[k] !== undefined) && delete _this.formData[k]; });
                 if (Object.keys(this.formData).length) {
@@ -36,29 +27,19 @@ var app;
                     promise.then(function (response) {
                         _this.result = response;
                         _this.counter = 0;
-                        _this.doc = _this.result[0];
-                        if (_this.doc.DocType) {
-                            _this.optionalTabs[0].id = _this.doc.TypeId;
-                            _this.optionalTabs[0].name = _this.doc.DocType;
+                        if (_this.result.length > 0) {
+                            _this.doc = _this.result[0];
+                            _this.optionalTabs = _this.doc.Tabs;
+                            _this.originalName = _this.doc.ItemName;
+                            _this.originalType = _this.doc.TypeId;
                         }
                         _this.removedTags = [];
                         _this.newTags = [];
                         _this.getPreview();
-                        _this.getTabs();
                         _this.resNum = _this.result.length;
-                        _this.originalName = _this.doc.ItemName;
-                        _this.originalType = _this.doc.TypeId;
                     });
                 }
             }
-        };
-        AppController.prototype.getTabs = function () {
-            var _this = this;
-            console.log(this.doc.BoxId);
-            this.searchService.getTabs(this.doc.BoxId).then(function (response) {
-                _this.optionalTabs = response;
-                console.log(_this.optionalTabs);
-            });
         };
         AppController.prototype.getPreview = function () {
             var self = this;

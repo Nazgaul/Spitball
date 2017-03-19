@@ -2411,7 +2411,7 @@
       <DependentUpon>CDNFallback.js</DependentUpon>
     </Content>
     <Content Include="Js\Web.config" />
-    <Content Include="cdn\gzip\Web.config" />
+    <Content Include="Helpers\cdn\gzip\Web.config" />
     <Content Include="Content\signin\components-md.less" />
     <Content Include="Content\signin\custom.less" />
     <Content Include="Content\signin\default.less" />
@@ -2985,7 +2985,7 @@
     <Content Include="Views\Error\MembersOnly.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="cdn\Web.config" />
+    <Content Include="Helpers\cdn\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Js\shared\intercom.ts" />
