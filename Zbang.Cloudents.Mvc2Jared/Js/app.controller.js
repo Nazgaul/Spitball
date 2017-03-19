@@ -22,6 +22,7 @@ var app;
             this.newTags = [];
             this.newTag = "";
             this.ChangedType = "";
+            this.optionalTabs = [];
             this.documents = [];
         }
         AppController.prototype.search = function () {
@@ -46,7 +47,7 @@ var app;
                         _this.getTabs();
                         _this.resNum = _this.result.length;
                         _this.originalName = _this.doc.ItemName;
-                        _this.originalType = _this.doc.DocType;
+                        _this.originalType = _this.doc.TypeId;
                     });
                 }
             }
@@ -74,11 +75,15 @@ var app;
             this.counter++;
             //change doc
             this.doc = this.result[this.counter];
+            this.originalName = this.doc.ItemName;
+            this.originalType = this.doc.DocType;
             this.getPreview();
         };
         AppController.prototype.prevPage = function () {
             this.counter--;
             this.doc = this.result[this.counter];
+            this.originalName = this.doc.ItemName;
+            this.originalType = this.doc.DocType;
             this.getPreview();
         };
         AppController.prototype.Save = function () {
@@ -107,3 +112,4 @@ var app;
     app.AppController = AppController;
     angular.module("app").controller("AppController", AppController);
 })(app || (app = {}));
+//# sourceMappingURL=app.controller.js.map

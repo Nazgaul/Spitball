@@ -3,7 +3,7 @@
         searchItems(term: any);
         getPreview(blobName: string, itemId: number);
         getTabs(boxId: number);
-        saveItem(itemId:number,boxId:number,newName:string,newType:string,newTags,removedTags)
+        saveItem(itemId:number,boxId:number,newName:string,newType,newTags,removedTags)
     }
 
     class SearchService implements IHelpService {
@@ -13,15 +13,16 @@
         searchItems(term) {
             return $.post('/home/items', { model: term })
         }
-        saveItem(itemId, boxId,newName, newType, newTags, removedTags) {
-            return $.post('/home/save', {
+        saveItem(itemId, boxId, newName, newType, newTags, removedTags) {
+            var model = {
                 itemId: itemId,
                 boxId: boxId,
-                name: newName,
-                docType: newType,
+                itemName: newName,
+                tabId: newType,
                 newTags: newTags,
                 removeTags: removedTags
-            });
+            };
+            return $.post('/home/save', {model:model});
         }
 
         getPreview(blobName, itemId) {

@@ -7,10 +7,10 @@ using System.Threading;
 using Zbang.Zbox.ReadServices;
 using System.Linq;
 using Zbang.Zbox.Infrastructure.Storage;
-using System.Collections.Generic;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.ViewModel.Queries;
+using Zbang.Cloudents.Mvc2Jared.Models;
 
 namespace Zbang.Cloudents.Mvc2Jared.Controllers
 {
@@ -44,10 +44,14 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
            return Json(retVal);
         }
         [HttpPost,ActionName("Save")]
-        public async Task<JsonResult> SaveAsync(long itemId,long boxId,string name, Guid? tabId, IEnumerable<string> newTags, IEnumerable<string> removeTags)
+        public async Task<JsonResult> SaveAsync(SaveItemTags model)
         {
-            if (name.Length>0) Rename(itemId, name);
-            if (tabId.HasValue) { var ab = await AddItemToTabAsync(itemId, tabId, boxId); }
+            bool a = (String.IsNullOrEmpty(model.ItemName));
+            bool b = (model.TabId.HasValue);
+            bool c = ( model.NewTags == null|| !model.NewTags.Any());
+            bool d = ( model.RemoveTags == null|| !model.RemoveTags.Any());
+            //if (name.Length>0) Rename(itemId, name);
+            //if (tabId.HasValue) { var ab = await AddItemToTabAsync(itemId, tabId, boxId); }
             return Json("");
         }
         public async Task<JsonResult> AddItemToTabAsync(long itemId, Guid? tabId,long boxId)

@@ -24,14 +24,13 @@ module app {
         newTag: string = "";
         originalType: string;
         ChangedType: string = "";
-
+        formData: Object;
+        doc: any;
+        optionalTabs = [];
+        documents = [];
         constructor(private $scope: angular.IScope, private searchService: IHelpService) {
 
         }
-        formData: Object;
-        doc: any;
-        optionalTabs: any;
-        documents = [];
         search() {
             console.log("search");
             if (this.formData) {
@@ -53,7 +52,7 @@ module app {
                         this.getTabs();
                         this.resNum = this.result.length;
                         this.originalName = this.doc.ItemName;
-                        this.originalType = this.doc.DocType;
+                        this.originalType = this.doc.TypeId;
                     });
                 }
             }
@@ -80,11 +79,15 @@ module app {
             this.counter++;
             //change doc
             this.doc = this.result[this.counter];
+            this.originalName = this.doc.ItemName;
+            this.originalType = this.doc.DocType;
             this.getPreview();
         }
         prevPage() {
             this.counter--;
             this.doc = this.result[this.counter];
+            this.originalName = this.doc.ItemName;
+            this.originalType = this.doc.DocType;
             this.getPreview();
         }
         Save() {

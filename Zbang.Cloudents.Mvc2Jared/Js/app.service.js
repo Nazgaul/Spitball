@@ -8,14 +8,15 @@ var app;
             return $.post('/home/items', { model: term });
         };
         SearchService.prototype.saveItem = function (itemId, boxId, newName, newType, newTags, removedTags) {
-            return $.post('/home/save', {
+            var model = {
                 itemId: itemId,
                 boxId: boxId,
-                name: newName,
-                docType: newType,
+                itemName: newName,
+                tabId: newType,
                 newTags: newTags,
                 removeTags: removedTags
-            });
+            };
+            return $.post('/home/save', { model: model });
         };
         SearchService.prototype.getPreview = function (blobName, itemId) {
             return $.get('/home/preview/', {
@@ -32,3 +33,4 @@ var app;
     }());
     angular.module("app").service("searchService", SearchService);
 })(app || (app = {}));
+//# sourceMappingURL=app.service.js.map
