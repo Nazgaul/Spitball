@@ -36,6 +36,7 @@ var app;
                             _this.originalName = _this.doc.ItemName;
                             _this.originalType = _this.doc.TypeId;
                             _this.getPreview();
+                            _this.noResults = false;
                         }
                         else {
                             _this.noResults = true;
@@ -69,6 +70,7 @@ var app;
             this.doc = this.result[this.counter];
             this.originalName = this.doc.ItemName;
             this.originalType = this.doc.DocType;
+            this.optionalTabs = this.doc.Tabs;
             this.getPreview();
         };
         AppController.prototype.prevPage = function () {
@@ -76,6 +78,7 @@ var app;
             this.doc = this.result[this.counter];
             this.originalName = this.doc.ItemName;
             this.originalType = this.doc.DocType;
+            this.optionalTabs = this.doc.Tabs;
             this.getPreview();
         };
         AppController.prototype.Save = function () {
