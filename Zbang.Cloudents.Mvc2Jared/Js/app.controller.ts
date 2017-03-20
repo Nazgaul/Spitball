@@ -34,6 +34,7 @@ module app {
                         this.result = response;
                         this.counter = 0;
                         if (this.result.length > 0) {
+                            this.noResults = false
                             this.doc = this.result[0];
                             this.optionalTabs = this.doc.Tabs;
                             this.originalName = this.doc.ItemName;

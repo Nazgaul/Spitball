@@ -31,6 +31,7 @@ var app;
                         _this.result = response;
                         _this.counter = 0;
                         if (_this.result.length > 0) {
+                            _this.noResults = false;
                             _this.doc = _this.result[0];
                             _this.optionalTabs = _this.doc.Tabs;
                             _this.originalName = _this.doc.ItemName;

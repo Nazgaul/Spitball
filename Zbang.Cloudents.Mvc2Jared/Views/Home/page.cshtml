@@ -38,7 +38,7 @@
         <div class="message" ng-if="st.noResults">No data found</div>
         <div class="saved" ng-if="st.changesSaved">Your changes were saved</div>
     </div>
-    <div class="results-header row" ng-if="st.doc !== null">
+    <div class="results-header row" ng-if="st.doc !== null && !st.noResults">
         <div class="col-5">
             <button class="save" name="img_btn" ng-click="st.Save()">Save</button>
         </div>
@@ -52,7 +52,7 @@
                     type="submit" class="md-raised md-primary md-button md-ink-ripple"></button>
         </div>
     </div>
-    <div class="result-data row" ng-if="st.doc !== null">
+    <div class="result-data row" ng-if="st.doc !== null && !st.noResults">
         <div class="info col-5">
             <section class="general-info">
                 <h1>Document info</h1>
