@@ -9,11 +9,9 @@ using System.Linq;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Cloudents.Mvc2Jared.Models;
 using Zbang.Zbox.Infrastructure.Enums;
 using System.Collections.Generic;
-using Zbang.Zbox.Domain;
 
 namespace Zbang.Cloudents.Mvc2Jared.Controllers
 {
@@ -108,7 +106,6 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
         [HttpGet, ActionName("Preview")]
         public async Task<JsonResult> PreviewAsync(string blobName, long id,CancellationToken cancellationToken)
         {
-           // await getTabsAndPreview(blobName, id, cancellationToken);
             int index = 5;
             Uri uri;
             if (!Uri.TryCreate(blobName, UriKind.Absolute, out uri))
@@ -138,7 +135,7 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
                 }
                 if (!retVal.Content.Any())
                 {
-                    return Json("", JsonRequestBehavior.AllowGet);
+                    return Json("no Data", JsonRequestBehavior.AllowGet);
                 }
                 if (string.IsNullOrEmpty(retVal.ViewName))
                 {
@@ -160,7 +157,7 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError($"GeneratePreview filename: {blobName}", ex);
-                return Json("", JsonRequestBehavior.AllowGet);
+                return Json("exception occuried", JsonRequestBehavior.AllowGet);
             }
         }
         #endregion
