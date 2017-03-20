@@ -1,6 +1,10 @@
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 [Bb]in/
 [Oo]bj/
+
+.vs/
+
+
 **/cdn/Images/
 **/cdn/Content/
 *.min.css
@@ -118,6 +122,4 @@ UpgradeLog*.XML
 
 Zbang.Cloudents.MobileApp2/Properties/PublishProfiles/mobile-cloudents.pubxml
 
-.vs/config/applicationhost.config
-.vs/config/applicationhost.config
 .vs/config/applicationhost.config
