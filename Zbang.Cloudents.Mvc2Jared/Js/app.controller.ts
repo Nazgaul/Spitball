@@ -73,6 +73,7 @@ module app {
             this.doc = this.result[this.counter];
             this.originalName = this.doc.ItemName;
             this.originalType = this.doc.DocType;
+            this.optionalTabs = this.doc.Tabs;
             this.getPreview();
         }
         prevPage() {
@@ -80,6 +81,7 @@ module app {
             this.doc = this.result[this.counter];
             this.originalName = this.doc.ItemName;
             this.originalType = this.doc.DocType;
+            this.optionalTabs = this.doc.Tabs;
             this.getPreview();
         }
         Save() {

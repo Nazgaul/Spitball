@@ -70,6 +70,7 @@ var app;
             this.doc = this.result[this.counter];
             this.originalName = this.doc.ItemName;
             this.originalType = this.doc.DocType;
+            this.optionalTabs = this.doc.Tabs;
             this.getPreview();
         };
         AppController.prototype.prevPage = function () {
@@ -77,6 +78,7 @@ var app;
             this.doc = this.result[this.counter];
             this.originalName = this.doc.ItemName;
             this.originalType = this.doc.DocType;
+            this.optionalTabs = this.doc.Tabs;
             this.getPreview();
         };
         AppController.prototype.Save = function () {
@@ -113,4 +115,3 @@ var app;
     app.AppController = AppController;
     angular.module("app").controller("AppController", AppController);
 })(app || (app = {}));
-//# sourceMappingURL=app.controller.js.map
