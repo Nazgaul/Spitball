@@ -16,7 +16,7 @@ module app {
         newTag: string = "";
         originalType: string;
         ChangedType: string = "";
-        formData: Object;
+        formData: Object = {isSearchType: true};
         doc: any = null;
         optionalTabs = [];
         documents = [];
@@ -34,6 +34,7 @@ module app {
                         this.result = response;
                         this.counter = 0;
                         if (this.result.length > 0) {
+                            this.noResults = false
                             this.doc = this.result[0];
                             this.optionalTabs = this.doc.Tabs;
                             this.originalName = this.doc.ItemName;
@@ -116,7 +117,10 @@ module app {
             this.newTags.push(this.newTag);
             this.doc.Tags.push(this.newTag);
             this.newTag = "";
-            }
+        }
+        deleteDoc() {
+            this.searchService.deleteDoc(this.doc.ItemId)
+        }
     }
 
     angular.module("app").controller("AppController", AppController);

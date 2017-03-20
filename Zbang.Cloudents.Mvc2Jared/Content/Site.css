@@ -1,8 +1,13 @@
 ﻿.body-content {
   font-size: 14px;
 }
+.body-content button {
+  cursor: pointer;
+}
 .body-content .search-form {
   background: #003b78;
+  padding: 8px 16px;
+  margin: 0;
 }
 .body-content .search-form .row {
   margin: 0;
@@ -11,6 +16,7 @@
 .body-content .search-form button {
   margin: 8px 10px;
   border-radius: 8px;
+  outline: none;
 }
 .body-content .search-form .field {
   border: none;
@@ -36,16 +42,24 @@
 }
 .body-content .results-header {
   background: #f2f2f2;
+  padding: 4px 16px;
+  margin: 0;
 }
 .body-content .results-header .save {
   background: url(../images1/combined-shape.png) no-repeat;
-  background-position: 0 50%;
+  background-position: 10px 50%;
   background-size: 24px;
-  padding-left: 40px;
+  padding: 4px 10px 4px 50px;
   border: none;
   color: #3293f6;
   font-size: 20px;
   font-weight: bold;
+  outline: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.body-content .results-header .save:hover {
+  background-color: #d8d8d8;
 }
 .body-content .results-header .results-nav {
   text-align: center;
@@ -64,6 +78,9 @@
   background: none;
   border-style: solid;
 }
+.body-content .results-header .results-nav button:disabled {
+  cursor: default;
+}
 .body-content .results-header .results-nav button[name="next_btn"] {
   border-width: 12px 0 12px 24px;
   border-color: transparent transparent transparent #3293f6;
@@ -77,11 +94,6 @@
 }
 .body-content .results-header .results-nav button[name="back_btn"]:disabled {
   border-color: transparent #d8d8d8 transparent transparent;
-}
-.body-content .search-form,
-.body-content .results-header {
-  padding: 8px 16px;
-  margin: 0;
 }
 .body-content .messages {
   position: relative;
@@ -124,6 +136,7 @@
   margin: 10px 0;
   border-radius: 8px;
   padding: 0 10px;
+  outline: none;
 }
 .body-content .result-data .info section.tags .tag .name {
   border: 1px solid #979797;
@@ -149,7 +162,6 @@
   margin-bottom: 5px;
 }
 .body-content .result-data .info section.tags .tag .delete-tag {
-  cursor: pointer;
   position: absolute;
   right: -20px;
   top: 0;
@@ -180,6 +192,16 @@
 }
 .body-content .result-data .info .detail input:focus {
   border-bottom: 1px solid #003b78;
+  outline: none;
+}
+.body-content .result-data .info .delete-doc {
+  color: #ff0000;
+  font-weight: bold;
+  position: absolute;
+  top: 16px;
+  right: 0;
+  background: none;
+  border: none;
   outline: none;
 }
 .body-content .result-data .preview {

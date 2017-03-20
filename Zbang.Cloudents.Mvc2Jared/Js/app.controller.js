@@ -15,6 +15,7 @@ var app;
             this.newTags = [];
             this.newTag = "";
             this.ChangedType = "";
+            this.formData = { isSearchType: true };
             this.doc = null;
             this.optionalTabs = [];
             this.documents = [];
@@ -31,6 +32,7 @@ var app;
                         _this.result = response;
                         _this.counter = 0;
                         if (_this.result.length > 0) {
+                            _this.noResults = false;
                             _this.doc = _this.result[0];
                             _this.optionalTabs = _this.doc.Tabs;
                             _this.originalName = _this.doc.ItemName;
@@ -108,6 +110,9 @@ var app;
             this.newTags.push(this.newTag);
             this.doc.Tags.push(this.newTag);
             this.newTag = "";
+        };
+        AppController.prototype.deleteDoc = function () {
+            this.searchService.deleteDoc(this.doc.ItemId);
         };
         return AppController;
     }());
