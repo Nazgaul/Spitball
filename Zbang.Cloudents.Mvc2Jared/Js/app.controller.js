@@ -20,6 +20,7 @@ var app;
             this.optionalTabs = [];
             this.documents = [];
             this.changesSaved = false;
+            this.showLoader = false;
         }
         AppController.prototype.search = function () {
             var _this = this;
@@ -85,6 +86,7 @@ var app;
         };
         AppController.prototype.Save = function () {
             var _this = this;
+            this.showLoader = true;
             if (this.doc.ItemName != this.originalName) {
                 this.ChangedName = this.doc.ItemName;
             }
@@ -93,6 +95,7 @@ var app;
             }
             var promise = this.searchService.saveItem(this.doc.ItemId, this.doc.BoxId, this.ChangedName, this.ChangedType, this.newTags, this.removedTags);
             promise.then(function (response) {
+                _this.showLoader = false;
                 _this.changesSaved = true;
                 _this.$interval(function () {
                     _this.changesSaved = false;
@@ -112,7 +115,9 @@ var app;
             this.newTag = "";
         };
         AppController.prototype.deleteDoc = function () {
-            this.searchService.deleteDoc(this.doc.ItemId);
+            this.searchService.deleteDoc(this.doc.ItemId).then(function () {
+                console.log("doneeee");
+            });
         };
         return AppController;
     }());

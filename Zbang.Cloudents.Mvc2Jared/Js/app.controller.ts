@@ -21,6 +21,7 @@ module app {
         optionalTabs = [];
         documents = [];
         changesSaved = false
+        showLoader = false
         constructor(private $scope: angular.IScope, private searchService: IHelpService, private $interval: angular.IIntervalService) {
 
         }
@@ -86,6 +87,7 @@ module app {
             this.getPreview();
         }
         Save() {
+            this.showLoader = true
                 if(this.doc.ItemName != this.originalName)
             {
                     this.ChangedName = this.doc.ItemName;
@@ -94,10 +96,11 @@ module app {
                 if (this.doc.TypeId != this.originalType) {
                     this.ChangedType = this.doc.TypeId;
                 }
-
+                
                 var promise = this.searchService.saveItem(this.doc.ItemId, this.doc.BoxId, this.ChangedName, this.ChangedType,
                     this.newTags, this.removedTags)
-                promise.then(response =>{
+                promise.then(response => {
+                    this.showLoader = false
                     this.changesSaved = true
                     this.$interval(() => {
                         this.changesSaved = false
@@ -119,7 +122,9 @@ module app {
             this.newTag = "";
         }
         deleteDoc() {
-            this.searchService.deleteDoc(this.doc.ItemId)
+            this.searchService.deleteDoc(this.doc.ItemId).then(() => {
+                console.log("doneeee")
+            })
         }
     }
 

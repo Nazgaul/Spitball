@@ -34,6 +34,9 @@
             </label>
         </div>
     </form>
+    <div class="loader-wrapper" ng-if="st.showLoader">
+        <div class="loader"></div>
+    </div>
     <div class="messages">
         <div class="message" ng-if="st.noResults">No data found</div>
         <div class="saved" ng-if="st.changesSaved">Your changes were saved</div>

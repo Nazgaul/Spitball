@@ -26,7 +26,7 @@ var app;
         };
         SearchService.prototype.deleteDoc = function (itemId) {
             return $.post('/home/delete/', {
-                id: itemId
+                itemId: itemId
             });
         };
         return SearchService;
