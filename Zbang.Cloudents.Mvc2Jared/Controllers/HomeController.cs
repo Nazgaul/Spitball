@@ -124,7 +124,7 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
                             new
                             {
                                 template = "failed"
-                            });
+                            }, JsonRequestBehavior.AllowGet);
 
 
                 var retVal = await processor.ConvertFileToWebsitePreviewAsync(uri, index, cancellationToken);
@@ -133,16 +133,16 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
                     return Json(new
                     {
                         template = "failed"
-                    });
+                    }, JsonRequestBehavior.AllowGet);
 
                 }
                 if (!retVal.Content.Any())
                 {
-                    return Json("");
+                    return Json("", JsonRequestBehavior.AllowGet);
                 }
                 if (string.IsNullOrEmpty(retVal.ViewName))
                 {
-                    return Json(new { preview = retVal.Content.First() });
+                    return Json(new { preview = retVal.Content.First() }, JsonRequestBehavior.AllowGet);
                 }
 
                 var res = new
@@ -160,7 +160,7 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError($"GeneratePreview filename: {blobName}", ex);
-                return Json("");
+                return Json("", JsonRequestBehavior.AllowGet);
             }
         }
         #endregion
