@@ -16,7 +16,7 @@ module app {
         newTag: string = "";
         originalType: string;
         ChangedType: string = "";
-        formData: Object;
+        formData: Object = {isSearchType: true};
         doc: any = null;
         optionalTabs = [];
         documents = [];
@@ -117,7 +117,10 @@ module app {
             this.newTags.push(this.newTag);
             this.doc.Tags.push(this.newTag);
             this.newTag = "";
-            }
+        }
+        deleteDoc() {
+            this.searchService.deleteDoc(this.doc.ItemId)
+        }
     }
 
     angular.module("app").controller("AppController", AppController);

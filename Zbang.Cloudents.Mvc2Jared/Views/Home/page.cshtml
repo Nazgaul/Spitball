@@ -28,7 +28,7 @@
                 <span>Was Reviewd</span>
             </label>
             <label class="col">
-                <input type="checkbox" ng-model="st.formData.isSearchType"
+                <input type="checkbox" ng-checked="st.formData.isSearchType" ng-model="st.formData.isSearchType"
                        name="isSearchType">
                 <span>No search Type</span>
             </label>
@@ -62,6 +62,8 @@
                 </label>
                 <div class="detail">Box name: {{st.doc.BoxName}}</div>
                 <div class="detail">Department: {{st.doc.Department}}</div>
+                <div class="detail">University: {{st.doc.University}}</div>
+                <button type="button" class="delete-doc" ng-click="st.deleteDoc()">Delete document</button>
             </section>
             <section class="doc-type">
                 <h1>Document Type</h1>

@@ -24,6 +24,11 @@ var app;
                 id: itemId
             });
         };
+        SearchService.prototype.deleteDoc = function (itemId) {
+            return $.post('/home/delete/', {
+                id: itemId
+            });
+        };
         return SearchService;
     }());
     angular.module("app").service("searchService", SearchService);

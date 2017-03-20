@@ -2,7 +2,8 @@
     export interface IHelpService {
         searchItems(term: any);
         getPreview(blobName: string, itemId: number);
-        saveItem(itemId:number,boxId:number,newName:string,newType,newTags,removedTags)
+        saveItem(itemId: number, boxId: number, newName: string, newType, newTags, removedTags)
+        deleteDoc(itemId)
     }
 
     class SearchService implements IHelpService {
@@ -21,13 +22,20 @@
                 newTags: newTags,
                 removeTags: removedTags
             };
-            return $.post('/home/save', {model:model});
+            return $.post('/home/save', { model: model });
         }
 
         getPreview(blobName, itemId) {
             return $.get('/home/preview/',
                 {
                     blobName: blobName,
+                    id: itemId
+                });
+        }
+        
+        deleteDoc(itemId) {
+            return $.post('/home/delete/',
+                {
                     id: itemId
                 });
         }

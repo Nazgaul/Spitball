@@ -15,6 +15,7 @@ var app;
             this.newTags = [];
             this.newTag = "";
             this.ChangedType = "";
+            this.formData = { isSearchType: true };
             this.doc = null;
             this.optionalTabs = [];
             this.documents = [];
@@ -109,6 +110,9 @@ var app;
             this.newTags.push(this.newTag);
             this.doc.Tags.push(this.newTag);
             this.newTag = "";
+        };
+        AppController.prototype.deleteDoc = function () {
+            this.searchService.deleteDoc(this.doc.ItemId);
         };
         return AppController;
     }());
