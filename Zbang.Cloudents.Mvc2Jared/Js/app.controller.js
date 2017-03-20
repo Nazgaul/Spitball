@@ -115,8 +115,10 @@ var app;
             this.newTag = "";
         };
         AppController.prototype.deleteDoc = function () {
+            var _this = this;
+            this.showLoader = true;
             this.searchService.deleteDoc(this.doc.ItemId).then(function () {
-                console.log("doneeee");
+                _this.showLoader = false;
             });
         };
         return AppController;

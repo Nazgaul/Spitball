@@ -122,8 +122,9 @@ module app {
             this.newTag = "";
         }
         deleteDoc() {
+            this.showLoader = true
             this.searchService.deleteDoc(this.doc.ItemId).then(() => {
-                console.log("doneeee")
+                this.showLoader = false
             })
         }
     }
