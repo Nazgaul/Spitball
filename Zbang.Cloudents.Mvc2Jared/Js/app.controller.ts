@@ -43,6 +43,7 @@ module app {
                         this.newTags = [];
                         this.getPreview();
                         this.resNum = this.result.length;
+                        this.$scope.$apply()
                     });
                 }
             }
@@ -54,8 +55,11 @@ module app {
                 if (data.Content) {
                     self.documents = data.Content;
                     console.log(data.Content);
-                    return;
                 }
+                else {
+                    self.documents = ["/images1/1.jpg"]
+                }
+                this.$scope.$apply()
             });
         }
         nextPage() {

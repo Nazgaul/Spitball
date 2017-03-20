@@ -50,7 +50,6 @@
         background: @grey;
 
         .save {
-            margin-left: 10px;
             background: url(../images1/combined-shape.png) no-repeat;
             background-position: 0 50%;
             background-size: 24px;
@@ -103,6 +102,7 @@
 
     .search-form, .results-header {
         padding: 8px 16px;
+        margin: 0
     }
 
     .result-data {
@@ -126,16 +126,22 @@
                 }
 
                 &.tags {
-                    .tag .name{
+                    .tag .name {
                         border: 1px solid #979797;
-                        color: @darkBlue
+                        color: @darkBlue;
                     }
+
                     input {
                         border: 1px dashed #979797;
                         background: @grey;
                         color: #9b9b9b;
+
+                        &:focus {
+                            outline: none;
+                        }
                     }
-                    input, .tag .name{
+
+                    input, .tag .name {
                         line-height: 32px;
                         width: 100%;
                         padding: 0 8px;
@@ -173,9 +179,13 @@
             }
         }
 
-        .preview{
-            .preview-image img{
-                max-width: 100%;
+        .preview {
+            .preview-image {
+                text-align: center;
+
+                img {
+                    max-width: 100%;
+                }
             }
         }
     }

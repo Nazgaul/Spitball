@@ -37,19 +37,24 @@ var app;
                         _this.newTags = [];
                         _this.getPreview();
                         _this.resNum = _this.result.length;
+                        _this.$scope.$apply();
                     });
                 }
             }
         };
         AppController.prototype.getPreview = function () {
+            var _this = this;
             var self = this;
             return self.searchService.getPreview(self.doc.Blob, self.doc.ItemId).then(function (data) {
                 data = data || {};
                 if (data.Content) {
                     self.documents = data.Content;
                     console.log(data.Content);
-                    return;
                 }
+                else {
+                    self.documents = ["/images1/1.jpg"];
+                }
+                _this.$scope.$apply();
             });
         };
         AppController.prototype.nextPage = function () {
@@ -93,4 +98,3 @@ var app;
     app.AppController = AppController;
     angular.module("app").controller("AppController", AppController);
 })(app || (app = {}));
-//# sourceMappingURL=app.controller.js.map

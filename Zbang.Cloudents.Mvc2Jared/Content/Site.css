@@ -38,7 +38,6 @@
   background: #f2f2f2;
 }
 .body-content .results-header .save {
-  margin-left: 10px;
   background: url(../images1/combined-shape.png) no-repeat;
   background-position: 0 50%;
   background-size: 24px;
@@ -82,6 +81,7 @@
 .body-content .search-form,
 .body-content .results-header {
   padding: 8px 16px;
+  margin: 0;
 }
 .body-content .result-data {
   margin: 0;
@@ -108,6 +108,9 @@
   border: 1px dashed #979797;
   background: #f2f2f2;
   color: #9b9b9b;
+}
+.body-content .result-data .info section.tags input:focus {
+  outline: none;
 }
 .body-content .result-data .info section.tags input,
 .body-content .result-data .info section.tags .tag .name {
@@ -139,6 +142,9 @@
 .body-content .result-data .info .detail {
   margin-bottom: 20px;
   height: 28px;
+}
+.body-content .result-data .preview .preview-image {
+  text-align: center;
 }
 .body-content .result-data .preview .preview-image img {
   max-width: 100%;

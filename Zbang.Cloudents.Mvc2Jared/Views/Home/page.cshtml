@@ -38,12 +38,12 @@
         <div class="col-5">
             <button class="save" name="img_btn" ng-click="st.Save()">Save</button>
         </div>
-        <div class="results-nav col-7">
+        <div ng-show="st.resNum !== 0" class="results-nav col-7">
             <button ng-disabled="st.counter==0" ng-click="st.prevPage()" name="back_btn"></button>
             <span name="results_num" class="counter">
-                Results number: {{st.counter}}/{{st.resNum}}
+                Results number: {{st.counter + 1}}/{{st.resNum}}
             </span>
-            <button ng-disabled="st.counter==st.resNum"
+            <button ng-disabled="st.counter==st.resNum-1"
                     ng-click="st.nextPage()" name="next_btn"
                     type="submit" class="md-raised md-primary md-button md-ink-ripple"></button>
         </div>
@@ -73,7 +73,7 @@
                     <button class="delete-tag" ng-click="st.deleteTag($index)"></button>
                 </div>
                 <form>
-                    <input ng-model="st.newTag" ng-keyup="$event.keyCode == 13 && st.AddNewTag()" name="ttt111" placeholder="+ Add Tag" type="text">
+                    <input ng-model="st.newTag" autocomplete="off" ng-keyup="$event.keyCode == 13 && st.AddNewTag()" name="ttt111" placeholder="+ Add Tag" type="text">
                 </form>
             </section>
         </div>
