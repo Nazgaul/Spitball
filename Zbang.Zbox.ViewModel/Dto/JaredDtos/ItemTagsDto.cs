@@ -13,6 +13,7 @@ namespace Zbang.Zbox.ViewModel.Dto.JaredDtos
         public string Department { get; set; }
         public string Blob { get; set; }
         public string DocType { get; set; }
+        public string University { get; set; }
         public Guid? TypeId { get; set; }
         //public string DocType
         public IEnumerable<string> Tags { get; set; }

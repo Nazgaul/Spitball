@@ -174,7 +174,7 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError($"DeleteItem user: 1  itemId {itemId}", ex);
-                return Json("Error");
+                return Json(ex);
             }
         }
     }
