@@ -36,7 +36,7 @@
         deleteDoc(itemId) {
             return $.post('/home/delete/',
                 {
-                    id: itemId
+                    itemId: itemId
                 });
         }
     }
