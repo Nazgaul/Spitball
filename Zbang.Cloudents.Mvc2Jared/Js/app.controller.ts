@@ -39,9 +39,10 @@ module app {
                             this.originalName = this.doc.ItemName;
                             this.originalType = this.doc.TypeId;
                             this.getPreview();
+                            this.noResults = false;
                         }
                         else {
-                            this.noResults = true
+                            this.noResults = true;
                         }
                      
                         this.removedTags = [];

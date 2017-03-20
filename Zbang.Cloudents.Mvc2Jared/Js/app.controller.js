@@ -36,6 +36,7 @@ var app;
                             _this.originalName = _this.doc.ItemName;
                             _this.originalType = _this.doc.TypeId;
                             _this.getPreview();
+                            _this.noResults = false;
                         }
                         else {
                             _this.noResults = true;
