@@ -3,7 +3,7 @@ module app {
     "use strict";
 
     export class AppController {
-        static $inject = ["$scope","searchService"];
+        static $inject = ["$scope", "searchService", "$interval"];
         tab: string;
         resNum: number = 0;
         counter: number = 0;
@@ -17,10 +17,11 @@ module app {
         originalType: string;
         ChangedType: string = "";
         formData: Object;
-        doc: any;
+        doc: any = null;
         optionalTabs = [];
         documents = [];
-        constructor(private $scope: angular.IScope, private searchService: IHelpService) {
+        changesSaved = false
+        constructor(private $scope: angular.IScope, private searchService: IHelpService, private $interval: angular.IIntervalService) {
 
         }
         search() {
@@ -37,11 +38,14 @@ module app {
                             this.optionalTabs = this.doc.Tabs;
                             this.originalName = this.doc.ItemName;
                             this.originalType = this.doc.TypeId;
+                            this.getPreview();
+                        }
+                        else {
+                            this.noResults = true
                         }
                      
                         this.removedTags = [];
                         this.newTags = [];
-                        this.getPreview();
                         this.resNum = this.result.length;
                         this.$scope.$apply()
                     });
@@ -78,8 +82,6 @@ module app {
             this.getPreview();
         }
         Save() {
-
-            
                 if(this.doc.ItemName != this.originalName)
             {
                     this.ChangedName = this.doc.ItemName;
@@ -89,8 +91,15 @@ module app {
                     this.ChangedType = this.doc.TypeId;
                 }
 
-                this.searchService.saveItem(this.doc.ItemId, this.doc.BoxId, this.ChangedName, this.ChangedType,
+                var promise = this.searchService.saveItem(this.doc.ItemId, this.doc.BoxId, this.ChangedName, this.ChangedType,
                     this.newTags, this.removedTags)
+                promise.then(response =>{
+                    this.changesSaved = true
+                    this.$interval(() => {
+                        this.changesSaved = false
+                    }, 1500)
+                    this.$scope.$apply()
+                })
         }
         deleteTag(i) {
             //this.doc.ItemName = "deleted" + i;

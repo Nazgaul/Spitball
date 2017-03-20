@@ -34,11 +34,15 @@
             </label>
         </div>
     </form>
-    <div class="results-header row">
+    <div class="messages">
+        <div class="message" ng-if="st.noResults">No data found</div>
+        <div class="saved" ng-if="st.changesSaved">Your changes were saved</div>
+    </div>
+    <div class="results-header row" ng-if="st.doc !== null">
         <div class="col-5">
             <button class="save" name="img_btn" ng-click="st.Save()">Save</button>
         </div>
-        <div ng-show="st.resNum !== 0" class="results-nav col-7">
+        <div ng-if="st.resNum !== 0" class="results-nav col-7">
             <button ng-disabled="st.counter==0" ng-click="st.prevPage()" name="back_btn"></button>
             <span name="results_num" class="counter">
                 Results number: {{st.counter + 1}}/{{st.resNum}}
@@ -48,7 +52,7 @@
                     type="submit" class="md-raised md-primary md-button md-ink-ripple"></button>
         </div>
     </div>
-    <div class="result-data row">
+    <div class="result-data row" ng-if="st.doc !== null">
         <div class="info col-5">
             <section class="general-info">
                 <h1>Document info</h1>

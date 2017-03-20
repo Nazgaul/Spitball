@@ -2,6 +2,8 @@
 @lightBlue: #3293f6;
 @grey: #f2f2f2;
 
+@headerHeight: 186px;
+
 .body-content {
     font-size: 14px;
 
@@ -102,12 +104,40 @@
 
     .search-form, .results-header {
         padding: 8px 16px;
-        margin: 0
+        margin: 0;
+    }
+
+    .messages {
+        position: relative;
+
+        .message {
+            padding-top: 50px;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .saved {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: @lightBlue;
+            height: 50px;
+            z-index: 999;
+            font-size: 22px;
+            line-height: 50px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 0 4px black;
+        }
     }
 
     .result-data {
         margin: 0;
-        padding: 10px;
+        position: absolute;
+        top: @headerHeight;
+        right: 0;
+        left: 0;
 
         .info {
             section {
@@ -176,11 +206,31 @@
             .detail {
                 margin-bottom: 20px;
                 height: 28px;
+                display: flex;
+                align-items: baseline;
+
+                input {
+                    padding: 0;
+                    cursor: auto;
+                    border: none;
+                    flex-grow: 1;
+                    margin-left: 4px;
+                    text-overflow: ellipsis;
+
+                    &:focus {
+                        border-bottom: 1px solid @darkBlue;
+                        outline: none;
+                    }
+                }
             }
         }
 
         .preview {
+            height: ~"calc(100vh - @{headerHeight} - 10px)";
+            overflow-y: scroll;
+
             .preview-image {
+                width: 100%;
                 text-align: center;
 
                 img {

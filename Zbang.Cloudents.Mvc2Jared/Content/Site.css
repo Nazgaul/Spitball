@@ -83,9 +83,34 @@
   padding: 8px 16px;
   margin: 0;
 }
+.body-content .messages {
+  position: relative;
+}
+.body-content .messages .message {
+  padding-top: 50px;
+  font-size: 30px;
+  text-align: center;
+}
+.body-content .messages .saved {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #3293f6;
+  height: 50px;
+  z-index: 999;
+  font-size: 22px;
+  line-height: 50px;
+  color: white;
+  text-align: center;
+  box-shadow: 0 0 4px black;
+}
 .body-content .result-data {
   margin: 0;
-  padding: 10px;
+  position: absolute;
+  top: 186px;
+  right: 0;
+  left: 0;
 }
 .body-content .result-data .info section {
   padding: 20px 0;
@@ -142,8 +167,27 @@
 .body-content .result-data .info .detail {
   margin-bottom: 20px;
   height: 28px;
+  display: flex;
+  align-items: baseline;
+}
+.body-content .result-data .info .detail input {
+  padding: 0;
+  cursor: auto;
+  border: none;
+  flex-grow: 1;
+  margin-left: 4px;
+  text-overflow: ellipsis;
+}
+.body-content .result-data .info .detail input:focus {
+  border-bottom: 1px solid #003b78;
+  outline: none;
+}
+.body-content .result-data .preview {
+  height: calc(100vh - 186px - 10px);
+  overflow-y: scroll;
 }
 .body-content .result-data .preview .preview-image {
+  width: 100%;
   text-align: center;
 }
 .body-content .result-data .preview .preview-image img {

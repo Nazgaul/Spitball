@@ -2,9 +2,10 @@ var app;
 (function (app) {
     "use strict";
     var AppController = (function () {
-        function AppController($scope, searchService) {
+        function AppController($scope, searchService, $interval) {
             this.$scope = $scope;
             this.searchService = searchService;
+            this.$interval = $interval;
             this.resNum = 0;
             this.counter = 0;
             this.noResults = false;
@@ -14,8 +15,10 @@ var app;
             this.newTags = [];
             this.newTag = "";
             this.ChangedType = "";
+            this.doc = null;
             this.optionalTabs = [];
             this.documents = [];
+            this.changesSaved = false;
         }
         AppController.prototype.search = function () {
             var _this = this;
@@ -32,10 +35,13 @@ var app;
                             _this.optionalTabs = _this.doc.Tabs;
                             _this.originalName = _this.doc.ItemName;
                             _this.originalType = _this.doc.TypeId;
+                            _this.getPreview();
+                        }
+                        else {
+                            _this.noResults = true;
                         }
                         _this.removedTags = [];
                         _this.newTags = [];
-                        _this.getPreview();
                         _this.resNum = _this.result.length;
                         _this.$scope.$apply();
                     });
@@ -73,13 +79,21 @@ var app;
             this.getPreview();
         };
         AppController.prototype.Save = function () {
+            var _this = this;
             if (this.doc.ItemName != this.originalName) {
                 this.ChangedName = this.doc.ItemName;
             }
             if (this.doc.TypeId != this.originalType) {
                 this.ChangedType = this.doc.TypeId;
             }
-            this.searchService.saveItem(this.doc.ItemId, this.doc.BoxId, this.ChangedName, this.ChangedType, this.newTags, this.removedTags);
+            var promise = this.searchService.saveItem(this.doc.ItemId, this.doc.BoxId, this.ChangedName, this.ChangedType, this.newTags, this.removedTags);
+            promise.then(function (response) {
+                _this.changesSaved = true;
+                _this.$interval(function () {
+                    _this.changesSaved = false;
+                }, 1500);
+                _this.$scope.$apply();
+            });
         };
         AppController.prototype.deleteTag = function (i) {
             //this.doc.ItemName = "deleted" + i;
@@ -94,7 +108,7 @@ var app;
         };
         return AppController;
     }());
-    AppController.$inject = ["$scope", "searchService"];
+    AppController.$inject = ["$scope", "searchService", "$interval"];
     app.AppController = AppController;
     angular.module("app").controller("AppController", AppController);
 })(app || (app = {}));
