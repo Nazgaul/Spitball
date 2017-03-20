@@ -124,6 +124,7 @@
     <Compile Include="Quiz\UpdateQuizCommandHandler.cs" />
     <Compile Include="RateItemCommandHandler.cs" />
     <Compile Include="RemoveOldConnectionCommandHandler.cs" />
+    <Compile Include="RemoveTagsFromItemCommandHandler.cs" />
     <Compile Include="RequestAccessLibraryNodeCommandHandler.cs" />
     <Compile Include="Resources\CommandHandlerResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -131,6 +132,7 @@
       <DependentUpon>CommandHandlerResources.resx</DependentUpon>
     </Compile>
     <Compile Include="SaveUserFlashcardCommandHandler.cs" />
+    <Compile Include="SetReviewedCommandHandler.cs" />
     <Compile Include="UnsubscribeUsersFromEmailCommandHandler.cs" />
     <Compile Include="UpdateBadgesCommandHandler.cs" />
     <Compile Include="UpdateFlashcardCommandHandler.cs" />

@@ -76,6 +76,12 @@ namespace Zbang.Zbox.Domain
             ItemTags.Add(newExists);
             tag.ItemTags.Add(newExists);
         }
+        public virtual void RemoveTag(string tag)
+        {
+            var tagToRemove = ItemTags.FirstOrDefault(w => w.Tag.Name == tag);
+            if (tagToRemove == null) return;
+            ItemTags.Remove(tagToRemove);
+        }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         public virtual string ItemContentUrl { get; set; }
@@ -118,7 +124,7 @@ namespace Zbang.Zbox.Domain
 
         public bool IsDirty { get; set; }
 
-
+        public virtual bool IsReviewed { get; set; }
 
         public virtual Func<bool> ShouldMakeDirty { get; set; }
     }

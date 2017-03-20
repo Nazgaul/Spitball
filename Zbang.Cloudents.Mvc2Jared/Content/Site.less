@@ -1,0 +1,192 @@
+﻿@darkBlue: #003b78;
+@lightBlue: #3293f6;
+@grey: #f2f2f2;
+
+.body-content {
+    font-size: 14px;
+
+
+    .search-form {
+        background: @darkBlue;
+
+        .row {
+            margin: 0;
+        }
+
+        .field, button {
+            margin: 8px 10px;
+            border-radius: 8px;
+        }
+
+        .field {
+            border: none;
+            min-height: 32px;
+        }
+
+        button {
+            width: 120px;
+            background: @lightBlue;
+            color: white;
+            border: none;
+        }
+
+        .checkboxes {
+            color: white;
+
+            label {
+                display: flex;
+                align-items: center;
+                font-size: 12px;
+                max-width: 150px;
+
+                span {
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+
+    .results-header {
+        background: @grey;
+
+        .save {
+            background: url(../images1/combined-shape.png) no-repeat;
+            background-position: 0 50%;
+            background-size: 24px;
+            padding-left: 40px;
+            border: none;
+            color: @lightBlue;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .results-nav {
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .counter {
+                padding: 0 20px;
+                width: ~"calc(70% - 50px)";
+                /*font-size: 14px;*/
+            }
+
+            button {
+                width: 0;
+                height: 0;
+                background: none;
+                border-style: solid;
+
+                &[name="next_btn"] {
+                    border-width: 12px 0 12px 24px;
+                    border-color: transparent transparent transparent @lightBlue;
+
+                    &:disabled {
+                        border-color: transparent transparent transparent #d8d8d8;
+                    }
+                }
+
+
+                &[name="back_btn"] {
+                    border-width: 12px 24px 12px 0;
+                    border-color: transparent @lightBlue transparent transparent;
+
+                    &:disabled {
+                        border-color: transparent #d8d8d8 transparent transparent;
+                    }
+                }
+            }
+        }
+    }
+
+    .search-form, .results-header {
+        padding: 8px 16px;
+        margin: 0
+    }
+
+    .result-data {
+        margin: 0;
+        padding: 10px;
+
+        .info {
+            section {
+                padding: 20px 0;
+
+                &:not(:last-child) {
+                    border-bottom: 3px solid black;
+                }
+
+                &.doc-type select {
+                    min-width: 220px;
+                    height: 38px;
+                    margin: 10px 0;
+                    border-radius: 8px;
+                    padding: 0 10px;
+                }
+
+                &.tags {
+                    .tag .name {
+                        border: 1px solid #979797;
+                        color: @darkBlue;
+                    }
+
+                    input {
+                        border: 1px dashed #979797;
+                        background: @grey;
+                        color: #9b9b9b;
+
+                        &:focus {
+                            outline: none;
+                        }
+                    }
+
+                    input, .tag .name {
+                        line-height: 32px;
+                        width: 100%;
+                        padding: 0 8px;
+                        border-radius: 8px;
+                    }
+
+                    .tag {
+                        position: relative;
+                        margin-bottom: 5px;
+
+                        .delete-tag {
+                            cursor: pointer;
+                            position: absolute;
+                            right: -20px;
+                            top: 0;
+                            bottom: 0;
+                            width: 20px;
+                            background: url(../images1/shape.png) no-repeat;
+                            background-position: 50% 50%;
+                            border: none;
+                        }
+                    }
+                }
+            }
+
+            h1 {
+                color: @darkBlue;
+                font-size: 14px;
+                margin-bottom: 20px;
+            }
+
+            .detail {
+                margin-bottom: 20px;
+                height: 28px;
+            }
+        }
+
+        .preview {
+            .preview-image {
+                text-align: center;
+
+                img {
+                    max-width: 100%;
+                }
+            }
+        }
+    }
+}

@@ -60,7 +60,7 @@
             var self = this;
             self.loader = true;
             return self.itemService.getPreview(self.details.blob, self.index * amount, self.$stateParams.itemId, self.$stateParams.boxId).then(data => {
-                data = data || {};
+                data = data || {}; 
                 self.loader = false;
                 if (data.template) {
                     self.view = "preview-" + data.template.toLowerCase() + ".html";

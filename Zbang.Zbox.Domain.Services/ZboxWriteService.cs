@@ -820,6 +820,22 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+        public void RemoveItemTag<T>(T command) where T : RemoveTagsFromItemCommand
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+        public void SetReviewed<T>(T command) where T : SetReviewedCommand
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
         public void AddItemLanguage<T>(T command) where T : AddLanguageToItemCommand
         {
             using (UnitOfWork.Start())

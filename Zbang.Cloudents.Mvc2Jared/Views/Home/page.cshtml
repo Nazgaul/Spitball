@@ -1,169 +1,87 @@
-﻿
-@{
+﻿@{
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>index</title>
-    <style type="text/css">
-	   
-	   * { margin: 0; padding: 0; }
-	   p { padding: 10px; }
-	   #left { position: absolute; left: 0; width: 50%; }
-	   #right { position: absolute; right: 0;  width: 50%;  }
-		</style>
-
 </head>
 <body>
-    
-            <form ng-submit="st.search()" name="searchTrigger"
-              novalidate>
-                <md-content md-theme="docs-dark" >
-                    <div class="form">
-                  
-                            <input name="university" placeholder="University" ng-model="st.formData.university"> 
-     
-                    
-                            <input name="department" placeholder="Department" ng-model="st.formData.department">
-                      
-                        
-                            <input name="class" placeholder="Class" ng-model="st.formData.box">
-
-
-                            <input name="boxId" placeholder="BoxID" ng-model="st.formData.boxId">
-                    
-                    </div>
-                </md-content>
-
-
-
-                <div class="form-group">
-                    <input class="form-control"  placeholder="Item Name" name="item name" ng-model="st.formData.name"/>
-                </div>
-                              
-                <div class="form-actions">
-                    <button name="search_btn" type="submit" class="md-raised md-primary md-button md-ink-ripple">
-                        Search
-                    </button>
-                </div>
-
-
-                    <div0 class="form-check mb-2 mr-sm-2 mb-sm-0">
-                        <label class="form-check-label">
-                            <input ng-class="form-check-input" type="checkbox"
-                                   name="isReviewed" ng-model="st.formData.isReviewed"> Was Reviewd
-                        </label>
-
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox" ng-model="st.formData.isSearchType"
-                                   name="isSearchType"> No search Type
-                        </label>
-                    </div0>
-
-                
-               
-            </form>
-
-
-
-
-        <div1 class="form" style="background-color: #f2f2f2">
-            <button id="saveB" name="img_btn">  </button>
-
-            <label name="save_btn">
-                Save
-            </label>
-
-
-            <button ng-disabled="st.counter==0" ng-click="st.prevPage()" name="back_btn"></button>
-
-
-            <label name="results_num" class="form-check-label">
-                Results number: {{st.counter}}/{{st.resNum}}
-            </label>
-
-            <button ng-disabled="st.counter==st.resNum" 
-                    ng-click="st.nextPage()" name="next_btn" 
-                    type="submit" class="md-raised md-primary md-button md-ink-ripple">
+    <form class="search-form" name="searchTrigger" novalidate>
+        <div class="row">
+            <input class="field col" name="university" placeholder="University" ng-model="st.formData.university">
+            <input class="field col" name="department" placeholder="Department" ng-model="st.formData.department">
+            <input class="field col" name="class" placeholder="Class" ng-model="st.formData.box">
+            <input class="field col" name="boxId" placeholder="BoxID" ng-model="st.formData.boxId">
+        </div>
+        <div class="row">
+            <input class="field col" placeholder="Item Name" name="item name"
+                   ng-model="st.formData.name" />
+            <button name="search_btn" ng-click="st.search()">
+                Search
             </button>
-
-        </div1>
-
-
-
-    <div width="100%">
-
-
-        <div id="left">
-
-
-            <h3> Document info </h3>
-
-
-            <div style="margin-left:40px;  margin-top:20px;">
-                <label class="form-check-label" style="margin-top:17px;">
-                    Name:    {{st.doc.ItemName}}
-                </label>
-            </div>
-
-
-            <div style="margin-left:40px;  margin-top:20px;">
-                <label class="form-check-label">
-                    Box name:   {{st.doc.BoxName}}
-                </label>
-            </div>
-
-            <div style="margin-left:40px;  margin-top:20px;">
-                <label class="form-check-label">
-                    Department:   {{st.doc.Department}}
-                </label>
-            </div>
-
-
-            <svg height="40" width="460px" style="margin-left:40px;  margin-top:20px;">
-                <line x1="0" y1="15" x2="200" y2="15" style="stroke:rgb(0, 0, 0);stroke-width:2" />
-            </svg>
-
-            <div>
-                <h3> Document Type </h3>
-
-
-                <select ng-model="st.doc.docType" style="margin-left:40px;  margin-top:20px;">
-                    <option value="" disabled selected>Search type</option>
-                    <option value="1">Class Notes</option>
-                    <option value="2">Homework</option>
-                    <option value="3">Lectures</option>
-                    <option value="4">Study Guides</option>
-                    <option value="0">Tests & Exams</option>
-                </select>
-
-                <br>
-                <svg height="40" width="460px" style="margin-left:40px;  margin-top:20px;">
-                    <line x1="0" y1="15" x2="200" y2="15" style="stroke:rgb(0, 0, 0);stroke-width:2" />
-                </svg>
-
-
-                <h3> Document Tag </h3>
-                {{st.doc.tags[0]}}
-            </div>
-
         </div>
-
-        <div id="right">
-            <img src="/images1/1.jpg" style="width:760px;height:826px; margin-right:50px">
+        <div class="row checkboxes">
+            <label class="col">
+                <input type="checkbox"
+                       name="isReviewed" ng-model="st.formData.isReviewed">
+                <span>Was Reviewd</span>
+            </label>
+            <label class="col">
+                <input type="checkbox" ng-model="st.formData.isSearchType"
+                       name="isSearchType">
+                <span>No search Type</span>
+            </label>
         </div>
-
-
-
-
-
+    </form>
+    <div class="results-header row">
+        <div class="col-5">
+            <button class="save" name="img_btn" ng-click="st.Save()">Save</button>
+        </div>
+        <div ng-show="st.resNum !== 0" class="results-nav col-7">
+            <button ng-disabled="st.counter==0" ng-click="st.prevPage()" name="back_btn"></button>
+            <span name="results_num" class="counter">
+                Results number: {{st.counter + 1}}/{{st.resNum}}
+            </span>
+            <button ng-disabled="st.counter==st.resNum-1"
+                    ng-click="st.nextPage()" name="next_btn"
+                    type="submit" class="md-raised md-primary md-button md-ink-ripple"></button>
+        </div>
     </div>
-
-
-
-
-
+    <div class="result-data row">
+        <div class="info col-5">
+            <section class="general-info">
+                <h1>Document info</h1>
+                <label class="detail">
+                    Name:
+                    <input id="myItemName" class="form-check-label" type="text" ng-model="st.doc.ItemName" value={{st.doc.ItemName}}>
+                </label>
+                <div class="detail">Box name: {{st.doc.BoxName}}</div>
+                <div class="detail">Department: {{st.doc.Department}}</div>
+            </section>
+            <section class="doc-type">
+                <h1>Document Type</h1>
+                <select id="mySelect" ng-model="st.doc.TypeId">
+                    <option value="" disabled selected>Search type</option>
+                    <option ng-repeat="option in st.optionalTabs" value="{{option.Id}}">{{option.Name}}</option>
+                </select>
+            </section>
+            <section class="tags">
+                <h1>Document Tag</h1>
+                <div ng-repeat="t in st.doc.Tags" class="tag">
+                    <div class="name">{{t}}</div>
+                    <button class="delete-tag" ng-click="st.deleteTag($index)"></button>
+                </div>
+                <form>
+                    <input ng-model="st.newTag" autocomplete="off" ng-keyup="$event.keyCode == 13 && st.AddNewTag()" name="ttt111" placeholder="+ Add Tag" type="text">
+                </form>
+            </section>
+        </div>
+        <div class="preview col-7">
+            <div class="preview-image" ng-repeat="s in st.documents">
+                <img class="imageContent" src="{{s}}" />
+            </div>
+        </div>
+    </div>
 </body>
 </html>
- 

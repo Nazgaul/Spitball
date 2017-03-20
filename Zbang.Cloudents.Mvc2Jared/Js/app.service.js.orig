@@ -4,20 +4,26 @@ var app;
         function SearchService($http) {
             this.$http = $http;
         }
+        SearchService.prototype.testService = function () {
+            return "yifat";
+        };
         SearchService.prototype.searchItems = function (term) {
+            var aa;
             return $.post('/home/items', { model: term });
         };
+<<<<<<< HEAD
         SearchService.prototype.saveItem = function (itemId, boxId, newName, newType, newTags, removedTags) {
-            var model = {
+            return $.post('/home/save', {
                 itemId: itemId,
                 boxId: boxId,
-                itemName: newName,
-                tabId: newType,
+                name: newName,
+                docType: newType,
                 newTags: newTags,
                 removeTags: removedTags
-            };
-            return $.post('/home/save', { model: model });
+            });
         };
+=======
+>>>>>>> 52efc692e4df6f4dfd2a5fab89c45bae9acb5d82
         SearchService.prototype.getPreview = function (blobName, itemId) {
             return $.get('/home/preview/', {
                 blobName: blobName,
@@ -26,6 +32,6 @@ var app;
         };
         return SearchService;
     }());
+    SearchService.$inject = ["$http"];
     angular.module("app").service("searchService", SearchService);
 })(app || (app = {}));
-//# sourceMappingURL=app.service.js.map

@@ -1,40 +1,36 @@
 ﻿module app {
     export interface IHelpService {
-        testService(): string;
         searchItems(term: any);
-        //searchBox(term: string, page: number): angular.IPromise<any>;
-        //searchItems(term: string, page: number): angular.IPromise<any>;
-        //searchQuizzes(term: string, page: number): angular.IPromise<any>;
-        //searchFlashcards(term: string, page: number): angular.IPromise<any>;
+        getPreview(blobName: string, itemId: number);
+        saveItem(itemId:number,boxId:number,newName:string,newType,newTags,removedTags)
     }
 
     class SearchService implements IHelpService {
-      
 
-        constructor() { }
-        testService() {
-            return "yifat";
-        }
+        constructor(private $http: angular.IHttpService) { }
+
         searchItems(term) {
-            var aa;
             return $.post('/home/items', { model: term })
         }
-        //    private ajaxService2: IAjaxService2) {
-        //}
-        //searchBox(term: string, page: number) {
-        //    return this.ajaxService2.get("/search/boxes/", { q: term, page: page }, "searchBox", "search");
-        //}
+        saveItem(itemId, boxId, newName, newType, newTags, removedTags) {
+            var model = {
+                itemId: itemId,
+                boxId: boxId,
+                itemName: newName,
+                tabId: newType,
+                newTags: newTags,
+                removeTags: removedTags
+            };
+            return $.post('/home/save', {model:model});
+        }
 
-        //searchItems(term: string, page: number) {
-        //    return this.ajaxService2.get("/search/items/", { q: term, page: page }, "searchItem", "search");
-        //}
-        //searchQuizzes(term: string, page: number) {
-        //    return this.ajaxService2.get("/search/quizzes/", { q: term, page: page }, "searchQuiz", "search");
-        //}
-        //searchFlashcards(term: string, page: number) {
-        //    return this.ajaxService2.get("/search/flashcards/", { q: term, page: page });
-        //}
-
+        getPreview(blobName, itemId) {
+            return $.get('/home/preview/',
+                {
+                    blobName: blobName,
+                    id: itemId
+                });
+        }
     }
     angular.module("app").service("searchService", SearchService);
 }
