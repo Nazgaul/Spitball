@@ -162,5 +162,20 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
             }
         }
         #endregion
+        [HttpPost, ActionName("Delete")]
+        public async Task<JsonResult> DeleteAsync(long itemId)
+        {
+            try
+            {
+                var command = new DeleteItemCommand(itemId, 1);
+                await m_writeService.DeleteItemAsync(command);
+                return Json(itemId);
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError($"DeleteItem user: 1  itemId {itemId}", ex);
+                return Json("Error");
+            }
+        }
     }
 }
