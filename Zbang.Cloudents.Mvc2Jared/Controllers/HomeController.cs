@@ -12,6 +12,7 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Cloudents.Mvc2Jared.Models;
 using Zbang.Zbox.Infrastructure.Enums;
 using System.Collections.Generic;
+using Zbang.Zbox.Infrastructure.Consts;
 
 namespace Zbang.Cloudents.Mvc2Jared.Controllers
 {
@@ -104,9 +105,9 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
         }
         #region Preview
         [HttpGet, ActionName("Preview")]
+        [AsyncTimeout(TimeConst.Minute * 3 * 1000)]
         public async Task<JsonResult> PreviewAsync(string blobName, long id,CancellationToken cancellationToken)
         {
-            int index = 5;
             Uri uri;
             if (!Uri.TryCreate(blobName, UriKind.Absolute, out uri))
             {
@@ -124,7 +125,7 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
                             }, JsonRequestBehavior.AllowGet);
 
 
-                var retVal = await processor.ConvertFileToWebsitePreviewAsync(uri, index, cancellationToken);
+                var retVal = await processor.ConvertFileToWebsitePreviewAsync(uri, 0, cancellationToken);
                 if (retVal.Content == null)
                 {
                     return Json(new
