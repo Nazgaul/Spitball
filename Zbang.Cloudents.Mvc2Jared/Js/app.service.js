@@ -39,8 +39,8 @@ var app;
                 term: term
             });
         };
-        SearchService.prototype.autoTab = function (term) {
-            return $.get('/home/tab/', {
+        SearchService.prototype.autoTag = function (term) {
+            return $.get('/home/tag/', {
                 term: term
             });
         };
@@ -48,4 +48,3 @@ var app;
     }());
     angular.module("app").service("searchService", SearchService);
 })(app || (app = {}));
-//# sourceMappingURL=app.service.js.map

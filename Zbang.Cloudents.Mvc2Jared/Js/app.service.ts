@@ -6,7 +6,7 @@
         deleteDoc(itemId)
         autoUni(term: string);
         autoDepartment(term: string);
-        autoTab(term: string);
+        autoTag(term: string);
     }
 
     class SearchService implements IHelpService {
@@ -54,8 +54,8 @@
                     term: term
                 });
         }
-        autoTab(term) {
-            return $.get('/home/tab/',
+        autoTag(term) {
+            return $.get('/home/tag/',
                 {
                     term: term
                 });

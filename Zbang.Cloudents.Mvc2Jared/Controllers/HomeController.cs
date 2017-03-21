@@ -57,7 +57,7 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
             var retVal = await m_readService.GetDepartmentAsync(new SearchTermQuery(term));
             return Json(retVal, JsonRequestBehavior.AllowGet);
         }
-        [HttpGet, ActionName("Tab")]
+        [HttpGet, ActionName("Tag")]
         public async Task<JsonResult> TabAsync(string term, CancellationToken cancellationToken)
         {
             var retVal = await m_readService.GetTagAsync(new SearchTermQuery(term));
