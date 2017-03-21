@@ -120,6 +120,7 @@ namespace Zbang.Zbox.Domain
             Updates.Clear();
             ItemComments.Clear();
             ItemReplies.Clear();
+            ItemTags.Clear();
         }
 
         public bool IsDirty { get; set; }

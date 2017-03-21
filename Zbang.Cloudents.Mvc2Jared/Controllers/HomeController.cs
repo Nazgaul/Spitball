@@ -45,6 +45,18 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
            var retVal = await m_readService.GetItemsWithTagsAsync(model);
            return Json(retVal);
         }
+        [HttpGet, ActionName("University")]
+        public async Task<JsonResult> UniAsync(string term, CancellationToken cancellationToken)
+        {
+            var retVal = await m_readService.GetUniAsync(term);
+            return Json(retVal,JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet, ActionName("Department")]
+        public async Task<JsonResult> DepartmentAsync(string term, CancellationToken cancellationToken)
+        {
+            var retVal = await m_readService.GetDepartmentAsync(term);
+            return Json(retVal, JsonRequestBehavior.AllowGet);
+        }
         [HttpPost,ActionName("Save")]
         public async Task<JsonResult> SaveAsync(SaveItemTags model)
         {

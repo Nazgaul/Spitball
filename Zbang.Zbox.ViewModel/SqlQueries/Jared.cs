@@ -1,6 +1,6 @@
 ﻿namespace Zbang.Zbox.ViewModel.SqlQueries
 {
-   public static class Jared
+    public static class Jared
     {
         public const string ItemInfo = @"select
 top 10 i.itemid itemId,
@@ -12,7 +12,7 @@ b.boxid boxId,
 bt.itemtabname docType,
 bt.itemtabid typeId,
 u.universityname university 
-from " + ItemWhere+";";
+from " + ItemWhere + ";";
         private const string ItemWhere = @"zbox.item i 
 left join zbox.itemtaB bt ON i.itemtabid = bt.itemtabid
 join zbox.box b ON i.boxid=b.boxid 
@@ -26,7 +26,20 @@ and (@IsReviewed=0 or (i.isreviewed=1))
 and (@IsReviewed=1 or (i.isreviewed is null or i.isreviewed=0)) 
 and (@box is null or (b.boxname like +'%' + @box + '%')) 
 and (@department is null or (d.name like +'%' + @department + '%')) 
-and (@boxid is null or (b.boxid=@boxid))";
+and (@boxid is null or (b.boxid=@boxid))
+and (b.boxid in (
+                    select boxix.boxid
+                    from zbox.box boxix 
+                    left join zbox.itemtaB tob ON tob.boxid = boxix.boxid
+                    where boxix.university=173408 and boxix.boxid in(
+                    select bb.boxid
+                    from zbox.box bb join zbox.item ii on bb.boxid=ii.boxid
+                    left join zbox.itemtaB btt ON ii.itemtabid = btt.itemtabid
+                    group by bb.boxid,btt.itemtabname,btt.itemtabid) 
+                    group by boxix.boxid,boxix.boxname
+                    having count(*)>2
+                    )
+)";
 
         public const string ItemTabs = @"select 
 tab.ItemTabId as id,
@@ -40,5 +53,11 @@ where item.itemid in (select top 10 i.itemid from " + ItemWhere + ");";
                                         t.name tag
 from zbox.item item join zbox.itemtag it on item.itemid=it.itemid join zbox.tag t on it.tagid=t.id
 where it.itemid in (select top 10 i.itemid from " + ItemWhere + ");";
+
+        public const string autoUni = @"SELECT TOP 5 u.id id, u.universityname name
+        FROM [Zbox].[University] u where u.universityname like +'%'+@term+'%';";
+
+        public const string autoDepartment = @"SELECT TOP 5 d.libraryid id, d.name name
+        FROM [Zbox].[library] d where d.name like +'%'+@term+'%';";
     }
 }

@@ -29,6 +29,16 @@ var app;
                 itemId: itemId
             });
         };
+        SearchService.prototype.autoUni = function (term) {
+            return $.get('/home/university/', {
+                term: term
+            });
+        };
+        SearchService.prototype.autoDepartment = function (term) {
+            return $.get('/home/department/', {
+                term: term
+            });
+        };
         return SearchService;
     }());
     angular.module("app").service("searchService", SearchService);
