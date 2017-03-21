@@ -1155,6 +1155,19 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
                 }
             }
         }
+        public async Task<IEnumerable<SearchAutoDto>> GetUniAsync(string term) {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return await conn.QueryAsync<SearchAutoDto>(Sql.Jared.autoUni,term);
+            }
+        }
+        public async Task<IEnumerable<SearchAutoDto>> GetDepartmentAsync(string term)
+        {
+                using (var conn = await DapperConnection.OpenConnectionAsync())
+                {
+                    return await conn.QueryAsync<SearchAutoDto>(Sql.Jared.autoDepartment,term);
+                }
+        }
         #endregion
 
 

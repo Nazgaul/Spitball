@@ -1,6 +1,6 @@
 ﻿namespace Zbang.Zbox.ViewModel.SqlQueries
 {
-   public static class Jared
+    public static class Jared
     {
         public const string ItemInfo = @"select
 top 10 i.itemid itemId,
@@ -12,7 +12,7 @@ b.boxid boxId,
 bt.itemtabname docType,
 bt.itemtabid typeId,
 u.universityname university 
-from " + ItemWhere+";";
+from " + ItemWhere + ";";
         private const string ItemWhere = @"zbox.item i 
 left join zbox.itemtaB bt ON i.itemtabid = bt.itemtabid
 join zbox.box b ON i.boxid=b.boxid 
@@ -53,5 +53,11 @@ where item.itemid in (select top 10 i.itemid from " + ItemWhere + ");";
                                         t.name tag
 from zbox.item item join zbox.itemtag it on item.itemid=it.itemid join zbox.tag t on it.tagid=t.id
 where it.itemid in (select top 10 i.itemid from " + ItemWhere + ");";
+
+        public const string autoUni = @"SELECT TOP 5 u.id id, u.universityname name
+        FROM [Zbox].[University] u where u.universityname like +'%'+@term+'%';";
+
+        public const string autoDepartment = @"SELECT TOP 5 d.libraryid id, d.name name
+        FROM [Zbox].[library] d where d.name like +'%'+@term+'%';";
     }
 }

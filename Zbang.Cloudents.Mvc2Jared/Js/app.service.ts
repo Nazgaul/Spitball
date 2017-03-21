@@ -4,6 +4,8 @@
         getPreview(blobName: string, itemId: number);
         saveItem(itemId: number, boxId: number, newName: string, newType, newTags, removedTags)
         deleteDoc(itemId)
+        autoUni(term: string);
+        autoDepartment(term: string);
     }
 
     class SearchService implements IHelpService {
@@ -37,6 +39,18 @@
             return $.post('/home/delete/',
                 {
                     itemId: itemId
+                });
+        }
+        autoUni(term) {
+            return $.get('/home/university/',
+                {
+                    term: term
+                });
+        }
+        autoDepartment(term) {
+            return $.get('/home/department/',
+                {
+                    term: term
                 });
         }
     }
