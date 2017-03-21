@@ -190,6 +190,7 @@
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
+    <Compile Include="Controllers\FlashcardController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\QuizController.cs" />
     <Compile Include="Controllers\RefreshController.cs" />
@@ -243,6 +244,10 @@
     <ProjectReference Include="..\Zbang.Zbox.Domain.Services\Zbang.Zbox.Domain.Services.csproj">
       <Project>{F1AC4D4D-0633-4343-A657-DA275D33466D}</Project>
       <Name>Zbang.Zbox.Domain.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.DomainNew\Zbang.Zbox.Domain.csproj">
+      <Project>{35DC2A36-5E24-4E09-8967-838C6EDCA465}</Project>
+      <Name>Zbang.Zbox.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Azure\Zbang.Zbox.Infrastructure.Azure.csproj">
       <Project>{9a210d03-f7a2-4cf6-b311-742a2a1949d4}</Project>

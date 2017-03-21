@@ -122,28 +122,28 @@ namespace Zbang.Zbox.Infrastructure.Search
             var definition = new Index
             {
                 Name = m_IndexName,
-                Fields = FieldBuilder.BuildForType<Item>(),
-                Suggesters = new List<Suggester>
-                {
-                    new Suggester
-                    {
-                        Name = "sg", SourceFields = new List<string>
-                        {
-                            nameof(Item.Course).ToLower(),
-                            nameof(Item.Code).ToLower(),
-                            nameof(Item.Professor).ToLower(),
-                            nameof(Item.University).ToLower(),
-                            nameof(Item.Tags).ToLower()
-                        }
-                    }
-                }
+                Fields = FieldBuilder.BuildForType<Item>()
+                //Suggesters = new List<Suggester>
+                //{
+                //    new Suggester
+                //    {
+                //        Name = "sg", SourceFields = new List<string>
+                //        {
+                //            nameof(Item.Course).ToLower(),
+                //            nameof(Item.Code).ToLower(),
+                //            nameof(Item.Professor).ToLower(),
+                //            nameof(Item.University).ToLower(),
+                //            nameof(Item.Tags).ToLower()
+                //        }
+                //    }
+                //}
             };
 
             var weightProfile = new ScoringProfile(ScoringProfile);
 
             var d = new Dictionary<string, double>
             {
-                { nameof(Item.Tags).ToLower(), 8},
+                { nameof(Item.Tags).ToLower(), 3},
                 { nameof(Item.Name).ToLower(), 4},
                 { ContentEnglishField, 2},
                 { ContentHebrewField, 2},
@@ -153,7 +153,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
             var tagFunction = new TagScoringFunction
             {
-                Boost = 10,
+                Boost = 8,
                 FieldName = nameof(Item.Tags).ToLower(),
                 Parameters = new TagScoringParameters("tag")
             };
@@ -165,17 +165,40 @@ namespace Zbang.Zbox.Infrastructure.Search
             };
             var tagFunction3 = new TagScoringFunction
             {
-                Boost = 6,
+                Boost = 5,
                 FieldName = nameof(Item.University).ToLower(),
                 Parameters = new TagScoringParameters("university")
             };
-            var freshNessFunction = new FreshnessScoringFunction()
+            var freshnessFunction = new FreshnessScoringFunction()
             {
                 Boost = 5,
                 FieldName = nameof(Item.Date).ToLower(),
-                Parameters = new FreshnessScoringParameters(TimeSpan.FromDays(90))
+                Interpolation = ScoringFunctionInterpolation.Quadratic,
+                Parameters = new FreshnessScoringParameters(TimeSpan.FromDays(100))
             };
-            weightProfile.Functions = new List<ScoringFunction> { tagFunction, tagFunction2, tagFunction3 , freshNessFunction };
+            var likesScore = new MagnitudeScoringFunction()
+            {
+                Boost = 4,
+                FieldName = nameof(Item.Likes).ToLower(),
+                Parameters = new MagnitudeScoringParameters
+                {
+                    BoostingRangeStart = 1,
+                    BoostingRangeEnd = int.MaxValue,
+                    ShouldBoostBeyondRangeByConstant = false
+                }
+            };
+            var viewsScore = new MagnitudeScoringFunction()
+            {
+                Boost = 5,
+                FieldName = nameof(Item.Likes).ToLower(),
+                Parameters = new MagnitudeScoringParameters
+                {
+                    BoostingRangeStart = 1,
+                    BoostingRangeEnd = int.MaxValue,
+                    ShouldBoostBeyondRangeByConstant = false
+                }
+            };
+            weightProfile.Functions = new List<ScoringFunction> { tagFunction, tagFunction2, tagFunction3 , freshnessFunction, likesScore, viewsScore };
             definition.ScoringProfiles = new List<ScoringProfile> { weightProfile };
 
             return definition;
