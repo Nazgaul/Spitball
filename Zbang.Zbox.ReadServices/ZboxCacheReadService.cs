@@ -428,10 +428,10 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetItemsWithTagsAsync(query);
         }
-        public Task<IEnumerable<SearchAutoDto>> GetUniAsync(SearchTermQuery term) {
+        public Task<IEnumerable<SearchUniAutoDto>> GetUniAsync(SearchTermQuery term) {
             return m_ReadService.GetUniAsync(term);
         }
-        public Task<IEnumerable<SearchAutoDto>> GetDepartmentAsync(SearchTermQuery term) {
+        public Task<IEnumerable<SearchDepartmentAutoDto>> GetDepartmentAsync(SearchTermQuery term) {
             return m_ReadService.GetDepartmentAsync(term);
         }
     }

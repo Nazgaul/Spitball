@@ -55,9 +55,8 @@ from zbox.item item join zbox.itemtag it on item.itemid=it.itemid join zbox.tag 
 where it.itemid in (select top 10 i.itemid from " + ItemWhere + ");";
 
         public const string autoUni = @"SELECT TOP 5 u.id id, u.universityname name
-        FROM [Zbox].[University] u where u.universityname like +'%'+@term+'%';";
+        from [Zbox].[University] u where u.universityname like +'%'+@term+'%';";
 
-        public const string autoDepartment = @"SELECT TOP 5 d.libraryid id, d.name name
-        FROM [Zbox].[library] d where d.name like +'%'+@term+'%';";
+        public const string autoDepartment = @"SELECT TOP 5 d.libraryid id, d.name name from zbox.library d where d.name like +'%'+@term+'%';";
     }
 }

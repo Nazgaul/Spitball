@@ -46,15 +46,15 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
            return Json(retVal);
         }
         [HttpGet, ActionName("University")]
-        public async Task<JsonResult> UniAsync(SearchTermQuery term, CancellationToken cancellationToken)
+        public async Task<JsonResult> UniAsync(string term, CancellationToken cancellationToken)
         {
-            var retVal = await m_readService.GetUniAsync(term);
+            var retVal = await m_readService.GetUniAsync(new SearchTermQuery(term));
             return Json(retVal,JsonRequestBehavior.AllowGet);
         }
         [HttpGet, ActionName("Department")]
-        public async Task<JsonResult> DepartmentAsync(SearchTermQuery term, CancellationToken cancellationToken)
+        public async Task<JsonResult> DepartmentAsync(string term, CancellationToken cancellationToken)
         {
-            var retVal = await m_readService.GetDepartmentAsync(term);
+            var retVal = await m_readService.GetDepartmentAsync(new SearchTermQuery(term));
             return Json(retVal, JsonRequestBehavior.AllowGet);
         }
         [HttpPost,ActionName("Save")]
