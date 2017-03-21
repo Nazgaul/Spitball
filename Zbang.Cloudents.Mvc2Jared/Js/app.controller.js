@@ -21,6 +21,7 @@ var app;
             this.documents = [];
             this.changesSaved = false;
             this.showLoader = false;
+            this.statusText = "";
         }
         AppController.prototype.search = function () {
             var _this = this;
@@ -96,10 +97,7 @@ var app;
             var promise = this.searchService.saveItem(this.doc.ItemId, this.doc.BoxId, this.ChangedName, this.ChangedType, this.newTags, this.removedTags);
             promise.then(function (response) {
                 _this.showLoader = false;
-                _this.changesSaved = true;
-                _this.$interval(function () {
-                    _this.changesSaved = false;
-                }, 1500);
+                _this.showStatus("Your changes were saved");
                 _this.$scope.$apply();
             });
         };
@@ -119,7 +117,38 @@ var app;
             this.showLoader = true;
             this.searchService.deleteDoc(this.doc.ItemId).then(function () {
                 _this.showLoader = false;
+                var docIndex = _this.counter;
+                var docName = _this.doc.ItemName;
+                _this.result.splice(docIndex, 1);
+                _this.resNum = _this.result.length;
+                if (_this.counter == _this.result.length) {
+                    if (_this.result.length == 0) {
+                        _this.doc = null;
+                        _this.noResults = false;
+                    }
+                    else {
+                        _this.counter--;
+                        _this.refreshDocData();
+                    }
+                }
+                else {
+                    _this.refreshDocData();
+                }
+                _this.showStatus(_this.statusText = docName + " was deleted");
+                _this.$scope.$apply();
             });
+        };
+        AppController.prototype.refreshDocData = function () {
+            this.doc = this.result[this.counter];
+            this.getPreview();
+        };
+        AppController.prototype.showStatus = function (message) {
+            var _this = this;
+            this.statusText = message;
+            this.changesSaved = true;
+            this.$interval(function () {
+                _this.changesSaved = false;
+            }, 1500);
         };
         return AppController;
     }());
@@ -127,4 +156,3 @@ var app;
     app.AppController = AppController;
     angular.module("app").controller("AppController", AppController);
 })(app || (app = {}));
-//# sourceMappingURL=app.controller.js.map

@@ -11,17 +11,18 @@ module app {
         result = [];
         ChangedName: string = "";
         originalName: string;
-        removedTags=[];
+        removedTags = [];
         newTags = [];
         newTag: string = "";
         originalType: string;
         ChangedType: string = "";
-        formData: Object = {isSearchType: true};
+        formData: Object = { isSearchType: true };
         doc: any = null;
         optionalTabs = [];
         documents = [];
         changesSaved = false
         showLoader = false
+        statusText = ""
         constructor(private $scope: angular.IScope, private searchService: IHelpService, private $interval: angular.IIntervalService) {
 
         }
@@ -46,7 +47,7 @@ module app {
                         else {
                             this.noResults = true;
                         }
-                     
+
                         this.removedTags = [];
                         this.newTags = [];
                         this.resNum = this.result.length;
@@ -56,7 +57,7 @@ module app {
             }
         }
         getPreview() {
-            var self = this; 
+            var self = this;
             return self.searchService.getPreview(self.doc.Blob, self.doc.ItemId).then(data => {
                 data = data || {};
                 if (data.Content) {
@@ -88,31 +89,27 @@ module app {
         }
         Save() {
             this.showLoader = true
-                if(this.doc.ItemName != this.originalName)
-            {
-                    this.ChangedName = this.doc.ItemName;
+            if (this.doc.ItemName != this.originalName) {
+                this.ChangedName = this.doc.ItemName;
             }
 
-                if (this.doc.TypeId != this.originalType) {
-                    this.ChangedType = this.doc.TypeId;
-                }
-                
-                var promise = this.searchService.saveItem(this.doc.ItemId, this.doc.BoxId, this.ChangedName, this.ChangedType,
-                    this.newTags, this.removedTags)
-                promise.then(response => {
-                    this.showLoader = false
-                    this.changesSaved = true
-                    this.$interval(() => {
-                        this.changesSaved = false
-                    }, 1500)
-                    this.$scope.$apply()
-                })
+            if (this.doc.TypeId != this.originalType) {
+                this.ChangedType = this.doc.TypeId;
+            }
+
+            var promise = this.searchService.saveItem(this.doc.ItemId, this.doc.BoxId, this.ChangedName, this.ChangedType,
+                this.newTags, this.removedTags)
+            promise.then(response => {
+                this.showLoader = false
+                this.showStatus("Your changes were saved")
+                this.$scope.$apply()
+            })
         }
         deleteTag(i) {
             //this.doc.ItemName = "deleted" + i;
             this.removedTags.push(this.doc.Tags[i]);
-           // this.doc.Tags[i].hide();
-            this.doc.Tags.splice(i,1);
+            // this.doc.Tags[i].hide();
+            this.doc.Tags.splice(i, 1);
 
 
         }
@@ -125,8 +122,39 @@ module app {
             this.showLoader = true
             this.searchService.deleteDoc(this.doc.ItemId).then(() => {
                 this.showLoader = false
+                var docIndex = this.counter
+                var docName = this.doc.ItemName
+                this.result.splice(docIndex, 1)
+                this.resNum = this.result.length
+                if (this.counter == this.result.length) {
+                    if (this.result.length == 0) {
+                        this.doc = null
+                        this.noResults = false;
+                    }
+                    else {
+                        this.counter--
+                        this.refreshDocData()
+                    }
+                }
+                else {
+                    this.refreshDocData()
+                }
+                this.showStatus(this.statusText = docName + " was deleted")
+                this.$scope.$apply()
             })
         }
+        refreshDocData() {
+            this.doc = this.result[this.counter]
+            this.getPreview();
+        }
+        showStatus(message) {
+            this.statusText = message
+            this.changesSaved = true
+            this.$interval(() => {
+                this.changesSaved = false
+            }, 1500)
+        }
+
     }
 
     angular.module("app").controller("AppController", AppController);

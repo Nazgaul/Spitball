@@ -39,7 +39,7 @@
     </div>
     <div class="messages">
         <div class="message" ng-if="st.noResults">No data found</div>
-        <div class="saved" ng-if="st.changesSaved">Your changes were saved</div>
+        <div class="status" ng-if="st.changesSaved">{{st.statusText}}</div>
     </div>
     <div class="results-header row" ng-if="st.doc !== null && !st.noResults">
         <div class="col-5">

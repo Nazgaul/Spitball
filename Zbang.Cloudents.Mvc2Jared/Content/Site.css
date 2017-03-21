@@ -97,6 +97,7 @@
   height: 0;
   background: none;
   border-style: solid;
+  outline: none;
 }
 .body-content .results-header .results-nav button:disabled {
   cursor: default;
@@ -123,7 +124,7 @@
   font-size: 30px;
   text-align: center;
 }
-.body-content .messages .saved {
+.body-content .messages .status {
   position: absolute;
   top: 0;
   left: 0;
@@ -149,6 +150,9 @@
 }
 .body-content .result-data .info section:not(:last-child) {
   border-bottom: 3px solid black;
+}
+.body-content .result-data .info section.general-info {
+  position: relative;
 }
 .body-content .result-data .info section.doc-type select {
   min-width: 220px;
