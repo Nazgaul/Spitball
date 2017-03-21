@@ -6,6 +6,7 @@
         deleteDoc(itemId)
         autoUni(term: string);
         autoDepartment(term: string);
+        autoTag(term: string);
     }
 
     class SearchService implements IHelpService {
@@ -49,6 +50,12 @@
         }
         autoDepartment(term) {
             return $.get('/home/department/',
+                {
+                    term: term
+                });
+        }
+        autoTag(term) {
+            return $.get('/home/tag/',
                 {
                     term: term
                 });

@@ -39,8 +39,12 @@ var app;
                 term: term
             });
         };
+        SearchService.prototype.autoTag = function (term) {
+            return $.get('/home/tag/', {
+                term: term
+            });
+        };
         return SearchService;
     }());
     angular.module("app").service("searchService", SearchService);
 })(app || (app = {}));
-//# sourceMappingURL=app.service.js.map
