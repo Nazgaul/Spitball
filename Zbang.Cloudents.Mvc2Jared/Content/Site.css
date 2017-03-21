@@ -1,4 +1,9 @@
-﻿.body-content {
+﻿[ng\:cloak],
+[ng-cloak],
+.ng-cloak {
+  display: none !important;
+}
+.body-content {
   font-size: 14px;
 }
 .body-content button {
@@ -55,7 +60,7 @@
   display: flex;
   align-items: center;
   font-size: 12px;
-  max-width: 150px;
+  max-width: 160px;
 }
 .body-content .search-form .checkboxes label span {
   margin-left: 10px;

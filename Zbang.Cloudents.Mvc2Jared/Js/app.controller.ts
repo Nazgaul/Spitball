@@ -162,9 +162,6 @@ module app {
         }
 
         autocomplete(field) {
-            //var autoComleteModel;
-            //var autoCompleteServiceFunc;
-            //var autoCompleteList;
             var self = this;
             switch (field) {
                 case "department":

@@ -158,9 +158,6 @@ var app;
         };
         AppController.prototype.autocomplete = function (field) {
             var _this = this;
-            //var autoComleteModel;
-            //var autoCompleteServiceFunc;
-            //var autoCompleteList;
             var self = this;
             switch (field) {
                 case "department":
@@ -189,3 +186,4 @@ var app;
     app.AppController = AppController;
     angular.module("app").controller("AppController", AppController);
 })(app || (app = {}));
+//# sourceMappingURL=app.controller.js.map
