@@ -15,13 +15,17 @@ var app;
             this.newTags = [];
             this.newTag = "";
             this.ChangedType = "";
-            this.formData = { isSearchType: true };
+            this.formData = {
+                department: "",
+                isSearchType: true
+            };
             this.doc = null;
             this.optionalTabs = [];
             this.documents = [];
             this.changesSaved = false;
             this.showLoader = false;
             this.statusText = "";
+            this.departmentsAutoComplete = [];
         }
         AppController.prototype.search = function () {
             var _this = this;
@@ -149,6 +153,17 @@ var app;
             this.$interval(function () {
                 _this.changesSaved = false;
             }, 1500);
+        };
+        AppController.prototype.autocomplete = function () {
+            var _this = this;
+            if (this.formData["department"] != "") {
+                var self = this;
+                this.searchService.autoDepartment(this.formData["department"]).then(function (data) {
+                    self.departmentsAutoComplete = data;
+                    _this.$scope.$apply();
+                });
+            }
+            console.log(this.formData["department"]);
         };
         return AppController;
     }());

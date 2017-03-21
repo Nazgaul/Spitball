@@ -16,13 +16,17 @@ module app {
         newTag: string = "";
         originalType: string;
         ChangedType: string = "";
-        formData: Object = { isSearchType: true };
+        formData: Object = {
+            department: "",
+            isSearchType: true
+        };
         doc: any = null;
         optionalTabs = [];
         documents = [];
         changesSaved = false
         showLoader = false
         statusText = ""
+        departmentsAutoComplete = []
         constructor(private $scope: angular.IScope, private searchService: IHelpService, private $interval: angular.IIntervalService) {
 
         }
@@ -154,7 +158,16 @@ module app {
                 this.changesSaved = false
             }, 1500)
         }
-
+        autocomplete() {
+            if (this.formData["department"] != "") {
+                var self = this;
+                this.searchService.autoDepartment(this.formData["department"]).then(data => {
+                    self.departmentsAutoComplete = data
+                    this.$scope.$apply()
+                })
+            }
+            console.log(this.formData["department"])
+        }
     }
 
     angular.module("app").controller("AppController", AppController);
