@@ -9,7 +9,10 @@
 <body>
     <form class="search-form" name="searchTrigger" novalidate>
         <div class="row">
-            <input class="field col" name="university" placeholder="University" ng-model="st.formData.university">
+            <input class="field col" list="university" name="university" placeholder="University" ng-model-options="{ debounce: 500 }" ng-model="st.formData.university" ng-change="st.autocomplete('university')">
+            <datalist id="university">
+                <option ng-repeat="university in st.universityAutoComplete" value="{{university}}">
+            </datalist>
             <input class="field col" list="departments" name="department" placeholder="Department" ng-model-options="{ debounce: 500 }" ng-model="st.formData.department" ng-change="st.autocomplete('department')">
             <datalist id="departments">
                 <option ng-repeat="department in st.departmentsAutoComplete" value="{{department}}">
@@ -85,7 +88,10 @@
                     <button class="delete-tag" ng-click="st.deleteTag($index)"></button>
                 </div>
                 <form>
-                    <input ng-model="st.newTag" autocomplete="off" ng-keyup="$event.keyCode == 13 && st.AddNewTag()" name="ttt111" placeholder="+ Add Tag" type="text">
+                    <input ng-model="st.newTag" list="tag" autocomplete="off" ng-keyup="$event.keyCode == 13 && st.AddNewTag()" ng-model-options="{ debounce: 500 }" name="ttt111" placeholder="+ Add Tag" type="text" ng-change="st.autocomplete('tag')">
+                    <datalist id="tag">
+                        <option ng-repeat="tag in st.tagAutoComplete" value="{{tag}}">
+                    </datalist>
                 </form>
             </section>
         </div>

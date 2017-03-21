@@ -26,7 +26,7 @@ var app;
             this.showLoader = false;
             this.statusText = "";
             this.departmentsAutoComplete = [];
-            this.uniAutoComplete = [];
+            this.universityAutoComplete = [];
             this.tagAutoComplete = [];
         }
         AppController.prototype.search = function () {
@@ -171,12 +171,12 @@ var app;
                     break;
                 case "university":
                     this.searchService.autoUni(this.formData["university"]).then(function (data) {
-                        self.uniAutoComplete = data;
+                        self.universityAutoComplete = data;
                         _this.$scope.$apply();
                     });
                     break;
                 case "tag":
-                    this.searchService.autoUni(this.newTag).then(function (data) {
+                    this.searchService.autoTag(this.newTag).then(function (data) {
                         self.tagAutoComplete = data;
                         _this.$scope.$apply();
                     });

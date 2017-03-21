@@ -27,7 +27,7 @@ module app {
         showLoader = false
         statusText = ""
         departmentsAutoComplete = []
-        uniAutoComplete = []
+        universityAutoComplete = []
         tagAutoComplete = []
         constructor(private $scope: angular.IScope, private searchService: IHelpService, private $interval: angular.IIntervalService) {
 
@@ -175,12 +175,12 @@ module app {
                     break;
                 case "university":
                     this.searchService.autoUni(this.formData["university"]).then(data => {
-                        self.uniAutoComplete = data
+                        self.universityAutoComplete = data
                         this.$scope.$apply()
                     })
                     break;
                 case "tag":
-                    this.searchService.autoUni(this.newTag).then(data => {
+                    this.searchService.autoTag(this.newTag).then(data => {
                         self.tagAutoComplete = data
                         this.$scope.$apply()
                     })
