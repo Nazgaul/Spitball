@@ -16,4 +16,8 @@ namespace Zbang.Zbox.ViewModel.Queries.Jared
         public bool IsReviewed { get; set; }
         public bool IsSearchType { get; set; }
     }
+    public class SearchTermQuery
+    {
+        public string Term { get; set; }
+    }
 }
