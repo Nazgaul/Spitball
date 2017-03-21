@@ -27,6 +27,8 @@ module app {
         showLoader = false
         statusText = ""
         departmentsAutoComplete = []
+        uniAutoComplete = []
+        tagAutoComplete = []
         constructor(private $scope: angular.IScope, private searchService: IHelpService, private $interval: angular.IIntervalService) {
 
         }
@@ -158,15 +160,32 @@ module app {
                 this.changesSaved = false
             }, 1500)
         }
-        autocomplete() {
-            if (this.formData["department"] != "") {
-                var self = this;
-                this.searchService.autoDepartment(this.formData["department"]).then(data => {
-                    self.departmentsAutoComplete = data
-                    this.$scope.$apply()
-                })
+
+        autocomplete(field) {
+            //var autoComleteModel;
+            //var autoCompleteServiceFunc;
+            //var autoCompleteList;
+            var self = this;
+            switch (field) {
+                case "department":
+                    this.searchService.autoDepartment(this.formData["department"]).then(data => {
+                        self.departmentsAutoComplete = data
+                        this.$scope.$apply()
+                    })
+                    break;
+                case "university":
+                    this.searchService.autoUni(this.formData["university"]).then(data => {
+                        self.uniAutoComplete = data
+                        this.$scope.$apply()
+                    })
+                    break;
+                case "tag":
+                    this.searchService.autoUni(this.newTag).then(data => {
+                        self.tagAutoComplete = data
+                        this.$scope.$apply()
+                    })
+                    break;
             }
-            console.log(this.formData["department"])
         }
     }
 

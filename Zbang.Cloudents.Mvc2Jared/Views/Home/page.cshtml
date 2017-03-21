@@ -10,7 +10,7 @@
     <form class="search-form" name="searchTrigger" novalidate>
         <div class="row">
             <input class="field col" name="university" placeholder="University" ng-model="st.formData.university">
-            <input class="field col" list="departments" name="department" placeholder="Department" ng-model-options="{ debounce: 500 }" ng-model="st.formData.department" ng-change="st.autocomplete()">
+            <input class="field col" list="departments" name="department" placeholder="Department" ng-model-options="{ debounce: 500 }" ng-model="st.formData.department" ng-change="st.autocomplete('department')">
             <datalist id="departments">
                 <option ng-repeat="department in st.departmentsAutoComplete" value="{{department}}">
             </datalist>

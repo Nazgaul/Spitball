@@ -26,6 +26,8 @@ var app;
             this.showLoader = false;
             this.statusText = "";
             this.departmentsAutoComplete = [];
+            this.uniAutoComplete = [];
+            this.tagAutoComplete = [];
         }
         AppController.prototype.search = function () {
             var _this = this;
@@ -154,16 +156,32 @@ var app;
                 _this.changesSaved = false;
             }, 1500);
         };
-        AppController.prototype.autocomplete = function () {
+        AppController.prototype.autocomplete = function (field) {
             var _this = this;
-            if (this.formData["department"] != "") {
-                var self = this;
-                this.searchService.autoDepartment(this.formData["department"]).then(function (data) {
-                    self.departmentsAutoComplete = data;
-                    _this.$scope.$apply();
-                });
+            //var autoComleteModel;
+            //var autoCompleteServiceFunc;
+            //var autoCompleteList;
+            var self = this;
+            switch (field) {
+                case "department":
+                    this.searchService.autoDepartment(this.formData["department"]).then(function (data) {
+                        self.departmentsAutoComplete = data;
+                        _this.$scope.$apply();
+                    });
+                    break;
+                case "university":
+                    this.searchService.autoUni(this.formData["university"]).then(function (data) {
+                        self.uniAutoComplete = data;
+                        _this.$scope.$apply();
+                    });
+                    break;
+                case "tag":
+                    this.searchService.autoUni(this.newTag).then(function (data) {
+                        self.tagAutoComplete = data;
+                        _this.$scope.$apply();
+                    });
+                    break;
             }
-            console.log(this.formData["department"]);
         };
         return AppController;
     }());
@@ -171,4 +189,3 @@ var app;
     app.AppController = AppController;
     angular.module("app").controller("AppController", AppController);
 })(app || (app = {}));
-//# sourceMappingURL=app.controller.js.map
