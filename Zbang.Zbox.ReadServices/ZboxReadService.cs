@@ -1168,6 +1168,13 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
                     return await conn.QueryAsync<string>(Sql.Jared.autoDepartment,term);
                 }
         }
+        public async Task<IEnumerable<string>> GetTagAsync(SearchTermQuery term)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return await conn.QueryAsync<string>(Sql.Jared.autoTag, term);
+            }
+        }
         #endregion
 
 

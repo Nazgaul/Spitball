@@ -434,5 +434,9 @@ namespace Zbang.Zbox.ReadServices
         public Task<IEnumerable<string>> GetDepartmentAsync(SearchTermQuery term) {
             return m_ReadService.GetDepartmentAsync(term);
         }
+        public Task<IEnumerable<string>> GetTagAsync(SearchTermQuery term)
+        {
+            return m_ReadService.GetTagAsync(term);
+        }
     }
 }

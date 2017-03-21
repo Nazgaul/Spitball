@@ -39,6 +39,11 @@ var app;
                 term: term
             });
         };
+        SearchService.prototype.autoTab = function (term) {
+            return $.get('/home/tab/', {
+                term: term
+            });
+        };
         return SearchService;
     }());
     angular.module("app").service("searchService", SearchService);
