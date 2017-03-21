@@ -32,8 +32,8 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<RecommendBoxDto>> GetCoursesPageDataAsync();
         Task<IEnumerable<BoxDto>> GetUserBoxesAsync(GetBoxesQuery query);
         Task<IEnumerable<ItemTagsDto>> GetItemsWithTagsAsync(JaredSearchQuery query);
-        Task<IEnumerable<SearchUniAutoDto>> GetUniAsync(SearchTermQuery term);
-        Task<IEnumerable<SearchDepartmentAutoDto>> GetDepartmentAsync(SearchTermQuery term);
+        Task<IEnumerable<string>> GetUniAsync(SearchTermQuery term);
+        Task<IEnumerable<string>> GetDepartmentAsync(SearchTermQuery term);
 
         //Task<IEnumerable<LeaderBoardDto>> GetDashboardLeaderBoardAsync(LeaderBoardQuery query);
 
