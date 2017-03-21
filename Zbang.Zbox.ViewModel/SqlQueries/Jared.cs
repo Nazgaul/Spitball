@@ -58,6 +58,6 @@ where it.itemid in (select top 10 i.itemid from " + ItemWhere + ");";
         from [Zbox].[University] u where u.universityname like +'%'+@term+'%';";
 
         public const string autoDepartment = @"SELECT TOP 5 d.name from zbox.library d where d.name like +'%'+@term+'%';";
-        public const string autoTag = @"SELECT TOP 5 t.name from zbox.tab t where t.name like +'%'+@term+'%';";
+        public const string autoTag = @"SELECT TOP 5 t.name from zbox.tag t where t.name like +'%'+@term+'%';";
     }
 }
