@@ -16,6 +16,7 @@ using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
+using Zbang.Zbox.ViewModel.Queries.Search;
 using Zbang.Zbox.WorkerRoleSearch.DomainProcess;
 
 namespace Zbang.Zbox.WorkerRoleSearch
@@ -66,7 +67,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 try
                 {
-                    await DoProcessAsync(cancellationToken, index, count);
+                    await DoProcessAsync(cancellationToken, index, count).ConfigureAwait(false);
 
                 }
                 catch (TaskCanceledException)
@@ -89,7 +90,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
         {
             const int top = 10;
-            var updates = await m_ZboxReadService.GetItemsDirtyUpdatesAsync(new ViewModel.Queries.Search.SearchItemDirtyQuery(instanceId, instanceCount, top), cancellationToken);
+            var updates = await m_ZboxReadService.GetItemsDirtyUpdatesAsync(new SearchItemDirtyQuery(instanceId, instanceCount, top), cancellationToken).ConfigureAwait(false);
             if (!updates.ItemsToUpdate.Any() && !updates.ItemsToDelete.Any()) return TimeToSleep.Increase;
             var tasks = new List<Task>();
             foreach (var elem in updates.ItemsToUpdate)
@@ -99,10 +100,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             tasks.Add(m_ItemSearchProvider3.UpdateDataAsync(null, updates.ItemsToDelete.Select(s => s.Id), cancellationToken));
             tasks.Add(m_ContentSearchProvider.UpdateDataAsync(null, updates.ItemsToDelete, cancellationToken));
-            await Task.WhenAll(tasks);
+            await Task.WhenAll(tasks).ConfigureAwait(false);
             await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
                 new UpdateDirtyToRegularCommand(
-                    updates.ItemsToDelete.Select(s => s.Id).Union(updates.ItemsToUpdate.Select(s => s.Id))));
+                    updates.ItemsToDelete.Select(s => s.Id).Union(updates.ItemsToUpdate.Select(s => s.Id)))).ConfigureAwait(false);
 
             if (updates.ItemsToUpdate.Count() == top)
             {
@@ -156,7 +157,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 if (elem.Language == Infrastructure.Culture.Language.EnglishUs && elem.Tags.All(a => a.Type != TagType.Watson))
                 {
                     ExtractText(elem, token);
-                    var result = await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token);
+                    var result = await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token).ConfigureAwait(false);
                     if (result != null)
                     {
                         var resultList = result.ToList();
@@ -168,7 +169,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 //var command = new UpdateDocumentCourseTagCommand(elem.Id, elem.BoxName, elem.BoxCode, elem.BoxProfessor);
                 //m_WriteService.UpdateItemCourseTag(command);
 
-                await m_ContentSearchProvider.UpdateDataAsync(elem, null, token);
+                await m_ContentSearchProvider.UpdateDataAsync(elem, null, token).ConfigureAwait(false);
             }
         }
 
@@ -178,7 +179,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 try
                 {
-                    await m_ItemSearchProvider3.UpdateDataAsync(elem, null, token);
+                    await m_ItemSearchProvider3.UpdateDataAsync(elem, null, token).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
@@ -238,11 +239,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     tokenSource.CancelAfter(TimeSpan.FromMinutes(10));
                     //some long running method requiring synchronization
                     var retVal =
-                    await processor.ContentProcessor.PreProcessFileAsync(processor.Uri, tokenSource.Token);
+                    await processor.ContentProcessor.PreProcessFileAsync(processor.Uri, tokenSource.Token).ConfigureAwait(false);
                     try
                     {
-                        var proxy = await SignalrClient.GetProxyAsync();
-                        await proxy.Invoke("UpdateThumbnail", msgData.Id, msgData.BoxId);
+                        var proxy = await SignalrClient.GetProxyAsync().ConfigureAwait(false);
+                        await proxy.Invoke("UpdateThumbnail", msgData.Id, msgData.BoxId).ConfigureAwait(false);
                     }
                     catch (Exception ex)
                     {
@@ -251,7 +252,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     if (msgData.Type.Any(a => a == ItemType.Document))
                     {
                         var command = new UpdateThumbnailCommand(msgData.Id, retVal?.BlobName,
-                            msgData.Content, await m_BlobProvider.Md5Async(msgData.BlobName));
+                            msgData.Content, await m_BlobProvider.Md5Async(msgData.BlobName).ConfigureAwait(false));
                         m_ZboxWriteService.UpdateThumbnailPicture(command);
                     }
                     wait.Set();
@@ -298,7 +299,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         try
                         {
 
-                            str = await processor.ExtractContentAsync(uri, tokenSource.Token);
+                            str = await processor.ExtractContentAsync(uri, tokenSource.Token).ConfigureAwait(false);
                             if (string.IsNullOrEmpty(str))
                             {
                                 wait.Set();
@@ -353,15 +354,15 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 var elements =
                     await m_ZboxReadService.GetItemsDirtyUpdatesAsync(
-                        new ViewModel.Queries.Search.SearchItemDirtyQuery(parameters.ItemId), token);
+                        new SearchItemDirtyQuery(parameters.ItemId), token).ConfigureAwait(false);
                 var elem = elements.ItemsToUpdate.FirstOrDefault();
                 if (elem == null)
                 {
                     return true;
                 }
-                await ProcessDocumentAsync(token, elem);
+                await ProcessDocumentAsync(token, elem).ConfigureAwait(false);
                 await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
-                    new UpdateDirtyToRegularCommand(new[] {parameters.ItemId}));
+                    new UpdateDirtyToRegularCommand(new[] {parameters.ItemId})).ConfigureAwait(false);
 
                 return true;
             }

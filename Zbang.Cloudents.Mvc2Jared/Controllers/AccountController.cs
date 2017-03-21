@@ -18,7 +18,7 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
 
         [HttpPost]
         [ActionName("Login")]
-        public async Task<JsonResult> LogInAsync(LogOn model)
+        public JsonResult LogIn(LogOn model)
         {
             if (!ModelState.IsValid)
             {

@@ -32,6 +32,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         }
 
         // GET api/Quiz
+        // ReSharper disable once ConsiderUsingAsyncSuffix
         public async Task<HttpResponseMessage> Get(long quizId)
         {
             var userId = User.GetUserId(false);
@@ -92,11 +93,11 @@ namespace Zbang.Cloudents.Jared.Controllers
             var command = new AddQuizLikeCommand(User.GetUserId(), model.Id);
             await m_ZboxWriteService.AddQuizLikeAsync(command).ConfigureAwait(false);
 
-            if (model.Tags.Any())
-            {
-                var z = new AssignTagsToQuizCommand(model.Id, model.Tags, TagType.User);
-                m_ZboxWriteService.AddItemTag(z);
-            }
+            //if (model.Tags.Any())
+            //{
+            //    var z = new AssignTagsToQuizCommand(model.Id, model.Tags, TagType.User);
+            //    m_ZboxWriteService.AddItemTag(z);
+            //}
 
             return Request.CreateResponse(HttpStatusCode.OK, command.Id);
         }
@@ -107,6 +108,21 @@ namespace Zbang.Cloudents.Jared.Controllers
             var command = new DeleteQuizLikeCommand(User.GetUserId(), likeId);
             await m_ZboxWriteService.DeleteQuizLikeAsync(command).ConfigureAwait(false);
             return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
+        [Route("api/quiz/tag")]
+        [HttpPost]
+        //[Authorize]
+        public HttpResponseMessage AddTag(ItemTagRequest model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+
+            var z = new AssignTagsToQuizCommand(model.Id, model.Tags, TagType.User);
+            m_ZboxWriteService.AddItemTag(z);
+            return Request.CreateResponse();
         }
 
 

@@ -9,7 +9,7 @@ namespace Zbang.Cloudents.Jared.Models
     public class ItemTagRequest
     {
         [Required]
-        public long ItemId { get; set; }
+        public long Id { get; set; }
         [Required]
         public IEnumerable<string> Tags { get; set; }
     }
