@@ -27,19 +27,8 @@ and (@IsReviewed=1 or (i.isreviewed is null or i.isreviewed=0))
 and (@box is null or (b.boxname like +'%' + @box + '%')) 
 and (@department is null or (d.name like +'%' + @department + '%')) 
 and (@boxid is null or (b.boxid=@boxid))
-and (b.boxid in (
-                    select boxix.boxid
-                    from zbox.box boxix 
-                    left join zbox.itemtaB tob ON tob.boxid = boxix.boxid
-                    where boxix.university=173408 and boxix.boxid in(
-                    select bb.boxid
-                    from zbox.box bb join zbox.item ii on bb.boxid=ii.boxid
-                    left join zbox.itemtaB btt ON ii.itemtabid = btt.itemtabid
-                    group by bb.boxid,btt.itemtabname,btt.itemtabid) 
-                    group by boxix.boxid,boxix.boxname
-                    having count(*)>2
-                    )
-)";
+and (b.boxid in (select boxid from zbox.itemtab  
+                  group by boxid having count(*)>=5))";
 
         public const string ItemTabs = @"select 
 tab.ItemTabId as id,
