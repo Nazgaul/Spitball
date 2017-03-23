@@ -91,7 +91,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> AddLikeAsync(ItemLikeRequest model)
         {
             var command = new AddQuizLikeCommand(User.GetUserId(), model.Id);
-            await m_ZboxWriteService.AddQuizLikeAsync(command).ConfigureAwait(false);
+            await m_ZboxWriteService.AddQuizLikeAsync(command).ConfigureAwait(true);
 
             //if (model.Tags.Any())
             //{
@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> DeleteLikeAsync(Guid likeId)
         {
             var command = new DeleteQuizLikeCommand(User.GetUserId(), likeId);
-            await m_ZboxWriteService.DeleteQuizLikeAsync(command).ConfigureAwait(false);
+            await m_ZboxWriteService.DeleteQuizLikeAsync(command).ConfigureAwait(true);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 

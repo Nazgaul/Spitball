@@ -46,7 +46,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 try
                 {
-                    await DoProcessAsync(cancellationToken, index, count);
+                    await DoProcessAsync(cancellationToken, index, count).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
@@ -59,22 +59,22 @@ namespace Zbang.Zbox.WorkerRoleSearch
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
         {
             const int top = 100;
-            var updates = await m_ZboxReadService.GetQuizzesDirtyUpdatesAsync(instanceId, instanceCount, top);
+            var updates = await m_ZboxReadService.GetQuizzesDirtyUpdatesAsync(instanceId, instanceCount, top).ConfigureAwait(false);
             if (!updates.QuizzesToUpdate.Any() && !updates.QuizzesToDelete.Any()) return TimeToSleep.Increase;
 
             foreach (var quiz in updates.QuizzesToUpdate.Where(w => w.UniversityId == JaredUniversityIdPilot))
             {
-                await JaredPilotAsync(quiz, cancellationToken);
+                await JaredPilotAsync(quiz, cancellationToken).ConfigureAwait(false);
             }
 
             var isSuccess =
-                await m_QuizSearchProvider.UpdateDataAsync(updates.QuizzesToUpdate, updates.QuizzesToDelete.Select(s=>s.Id));
-            await m_ContentSearchProvider.UpdateDataAsync(null, updates.QuizzesToDelete, cancellationToken);
+                await m_QuizSearchProvider.UpdateDataAsync(updates.QuizzesToUpdate, updates.QuizzesToDelete.Select(s=>s.Id)).ConfigureAwait(false);
+            await m_ContentSearchProvider.UpdateDataAsync(null, updates.QuizzesToDelete, cancellationToken).ConfigureAwait(false);
             if (isSuccess)
             {
                 await m_ZboxWriteService.UpdateSearchQuizDirtyToRegularAsync(
                     new UpdateDirtyToRegularCommand(
-                        updates.QuizzesToDelete.Select(s => s.Id).Union(updates.QuizzesToUpdate.Select(s => s.Id))));
+                        updates.QuizzesToDelete.Select(s => s.Id).Union(updates.QuizzesToUpdate.Select(s => s.Id)))).ConfigureAwait(false);
             }
             if (updates.QuizzesToUpdate.Count() == top)
             {
@@ -95,13 +95,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
             if (elem.Language == Infrastructure.Culture.Language.EnglishUs && elem.Tags.All(a => a.Type != TagType.Watson))
             {
 
-                var result = (await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token)).ToList();
+                var result = (await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token).ConfigureAwait(false)).ToList();
                 elem.Tags.AddRange(result.Select(s => new ItemSearchTag { Name = s }));
                 var z = new AssignTagsToQuizCommand(elem.Id, result, TagType.Watson);
                 m_WriteService.AddItemTag(z);
             }
 
-            await m_ContentSearchProvider.UpdateDataAsync(elem, null, token);
+            await m_ContentSearchProvider.UpdateDataAsync(elem, null, token).ConfigureAwait(false);
         }
 
         protected override string GetPrefix()

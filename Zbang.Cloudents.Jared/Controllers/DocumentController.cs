@@ -63,7 +63,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             }
             var id = m_GuidGenerator.GetId();
             var command = new RateItemCommand(model.Id, User.GetUserId(), id, model.BoxId);
-            await m_ZboxWriteService.RateItemAsync(command).ConfigureAwait(false);
+            await m_ZboxWriteService.RateItemAsync(command).ConfigureAwait(true);
             
             return Request.CreateResponse();
         }
