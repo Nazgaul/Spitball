@@ -24,8 +24,7 @@ and (@IsReviewed=0 or (i.isreviewed=1))
 and (@IsReviewed=1 or (i.isreviewed is null or i.isreviewed=0)) 
 and (@box is null or (b.boxname like +'%' + @box + '%')) 
 and (@department is null or (d.name like +'%' + @department + '%')) 
-and (@boxid is null or (b.boxid=@boxid))
-and (b.boxid in (select boxid from zbox.itemtab";
+and (@boxid is null or (b.boxid=@boxid))";
 
         public const string ItemTags = @"select item.itemid itemId,
                                         t.name tag
