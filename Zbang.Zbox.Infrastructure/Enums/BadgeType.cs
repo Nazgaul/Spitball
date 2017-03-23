@@ -31,8 +31,9 @@ namespace Zbang.Zbox.Infrastructure.Enums
         Homework = 5,
         Lecture = 6,
         StudyGuide = 7,
-        Exam,
-        ClassNote
+        Exam=8,
+        ClassNote=9,
+        Syllabus=10
     }
 
     public enum SearchType

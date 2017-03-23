@@ -20,7 +20,6 @@ var app;
                 isSearchType: true
             };
             this.doc = null;
-            this.optionalTabs = [];
             this.documents = [];
             this.changesSaved = false;
             this.showLoader = false;
@@ -42,9 +41,11 @@ var app;
                         if (_this.result.length > 0) {
                             _this.noResults = false;
                             _this.doc = _this.result[0];
-                            _this.optionalTabs = _this.doc.Tabs;
+                            _this.doc.TypeId = null;
+                            if (_this.doc.DocType > 0)
+                                _this.doc.TypeId = _this.doc.DocType.toString();
                             _this.originalName = _this.doc.ItemName;
-                            _this.originalType = _this.doc.TypeId;
+                            _this.originalType = _this.doc.DocType;
                             _this.getPreview();
                             _this.noResults = false;
                         }
@@ -78,17 +79,21 @@ var app;
             this.counter++;
             //change doc
             this.doc = this.result[this.counter];
+            this.doc.TypeId = null;
+            if (this.doc.DocType > 0)
+                this.doc.TypeId = this.doc.DocType.toString();
             this.originalName = this.doc.ItemName;
             this.originalType = this.doc.DocType;
-            this.optionalTabs = this.doc.Tabs;
             this.getPreview();
         };
         AppController.prototype.prevPage = function () {
             this.counter--;
             this.doc = this.result[this.counter];
+            this.doc.TypeId = null;
+            if (this.doc.DocType > 0)
+                this.doc.TypeId = this.doc.DocType.toString();
             this.originalName = this.doc.ItemName;
             this.originalType = this.doc.DocType;
-            this.optionalTabs = this.doc.Tabs;
             this.getPreview();
         };
         AppController.prototype.Save = function () {
@@ -97,8 +102,9 @@ var app;
             if (this.doc.ItemName != this.originalName) {
                 this.ChangedName = this.doc.ItemName;
             }
-            if (this.doc.TypeId != this.originalType) {
-                this.ChangedType = this.doc.TypeId;
+            this.doc.DocType = parseInt(this.doc.TypeId, 10);
+            if (this.doc.DocType != this.originalType) {
+                this.ChangedType = this.doc.DocType;
             }
             var promise = this.searchService.saveItem(this.doc.ItemId, this.doc.BoxId, this.ChangedName, this.ChangedType, this.newTags, this.removedTags);
             promise.then(function (response) {

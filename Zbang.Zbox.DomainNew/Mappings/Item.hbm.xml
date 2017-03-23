@@ -12,7 +12,7 @@
     <property name="IsDeleted" index="iBoxIsDeleted"/>
     <property name="IsDirty" />
     <property name="IsReviewed" />
-
+    <property name="DocType"/>
     <property name="Size"/>
     <property name="NumberOfViews"/>
     <component name="DateTimeUser" class="UserTimeDetails">

@@ -78,6 +78,7 @@
     <Compile Include="ChangeBoxInfoCommandHandler.cs" />
     <Compile Include="ChangeBoxLibraryCommandHandler.cs" />
     <Compile Include="ChangeFileNameCommandHandler.cs" />
+    <Compile Include="ChangeItemDocTypeCommandHandler.cs" />
     <Compile Include="ChangeItemTabNameCommandHandler.cs" />
     <Compile Include="ChangeNotificationSettingsCommandHandler.cs" />
     <Compile Include="ChangeUserOnlineStatusCommandHandler.cs" />

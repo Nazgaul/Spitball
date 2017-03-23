@@ -144,6 +144,7 @@ namespace Zbang.Zbox.Domain.Common
         void AddItemTag<T>(T command) where T : AssignTagsToItemCommand;
         void RemoveItemTag<T>(T command) where T : RemoveTagsFromItemCommand;
         void SetReviewed<T>(T command) where T : SetReviewedCommand;
+        void ChangeItemDocType(ChangeItemDocTypeCommand command);
         void AddItemLanguage<T>(T command) where T : AddLanguageToItemCommand;
         //void DoWork(params ICommand[] commands);
 

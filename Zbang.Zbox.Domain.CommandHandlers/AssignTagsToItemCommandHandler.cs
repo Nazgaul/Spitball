@@ -42,6 +42,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
                 item.AddTag(tag, message.Type);
             }
+            item.ShouldMakeDirty = () => true;
             m_ItemRepository.Save(item);
         }
 

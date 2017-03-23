@@ -80,6 +80,7 @@
     <Compile Include="ChangeBoxLibraryCommand.cs" />
     <Compile Include="ChangeFileNameCommand.cs" />
     <Compile Include="ChangeFileNameCommandResult.cs" />
+    <Compile Include="ChangeItemDocTypeCommand.cs" />
     <Compile Include="ChangeItemTabNameCommand.cs" />
     <Compile Include="ChangeNotificationSettingsCommand.cs" />
     <Compile Include="ChangeUserOnlineStatusCommand.cs" />

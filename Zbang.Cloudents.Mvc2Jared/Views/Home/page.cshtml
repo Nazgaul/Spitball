@@ -76,9 +76,13 @@
             </section>
             <section class="doc-type">
                 <h1>Document Type</h1>
-                <select id="mySelect" ng-model="st.doc.TypeId">
+                <select id="mySelect" ng-model="st.doc.TypeId" >
                     <option value="" disabled selected>Search type</option>
-                    <option ng-repeat="option in st.optionalTabs" value="{{option.Id}}">{{option.Name}}</option>
+                    <option value="8">Exam</option>
+                     <option value="7">Study Guide</option>
+                    <option value="9">Class Notes</option>
+                    <option value="5">Homework</option>
+                    <option value="10">Syllabus</option>
                 </select>
             </section>
             <section class="tags">

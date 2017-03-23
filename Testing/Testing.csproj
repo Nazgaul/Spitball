@@ -43,6 +43,18 @@
       <HintPath>..\packages\AlchemyAPIClient.1.5.1608.252\lib\net45\AlchemyAPIClient.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="asprise-ocr-api, Version=15.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\asprise-ocr-api.15.3.1.0\lib\net40\asprise-ocr-api.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="asprise-ocr-dll-bundle-32, Version=15.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\asprise-ocr-dll-bundle-32.15.3.1.0\lib\net40\asprise-ocr-dll-bundle-32.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="asprise-ocr-dll-bundle-64, Version=15.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\asprise-ocr-dll-bundle-64.15.3.1.0\lib\net40\asprise-ocr-dll-bundle-64.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Autofac, Version=4.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.4.0\lib\net45\Autofac.dll</HintPath>
       <Private>True</Private>
@@ -115,6 +127,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImageToTextClass.cs" />
+    <Compile Include="OcrSampleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OcrSampleForm.Designer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -195,6 +212,12 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ReadMe-AspriseOCR.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="OcrSampleForm.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

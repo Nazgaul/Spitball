@@ -836,6 +836,14 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+        public void ChangeItemDocType(ChangeItemDocTypeCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
         public void AddItemLanguage<T>(T command) where T : AddLanguageToItemCommand
         {
             using (UnitOfWork.Start())

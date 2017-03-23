@@ -12,7 +12,7 @@ var app;
                 itemId: itemId,
                 boxId: boxId,
                 itemName: newName,
-                tabId: newType,
+                docType: newType,
                 newTags: newTags,
                 removeTags: removedTags
             };
@@ -48,3 +48,4 @@ var app;
     }());
     angular.module("app").service("searchService", SearchService);
 })(app || (app = {}));
+//# sourceMappingURL=app.service.js.map

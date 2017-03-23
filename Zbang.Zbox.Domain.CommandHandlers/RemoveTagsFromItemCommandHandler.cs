@@ -30,6 +30,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 item.RemoveTag(tagName);
             }
+            item.ShouldMakeDirty = () => true;
             m_ItemRepository.Save(item);
         }
 

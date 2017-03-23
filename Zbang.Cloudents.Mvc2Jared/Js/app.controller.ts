@@ -21,7 +21,6 @@ module app {
             isSearchType: true
         };
         doc: any = null;
-        optionalTabs = [];
         documents = [];
         changesSaved = false
         showLoader = false
@@ -44,9 +43,10 @@ module app {
                         if (this.result.length > 0) {
                             this.noResults = false
                             this.doc = this.result[0];
-                            this.optionalTabs = this.doc.Tabs;
+                            this.doc.TypeId = null;
+                            if (this.doc.DocType > 0) this.doc.TypeId = this.doc.DocType.toString();
                             this.originalName = this.doc.ItemName;
-                            this.originalType = this.doc.TypeId;
+                            this.originalType = this.doc.DocType;
                             this.getPreview();
                             this.noResults = false;
                         }
@@ -80,17 +80,19 @@ module app {
             this.counter++;
             //change doc
             this.doc = this.result[this.counter];
+            this.doc.TypeId = null;
+            if (this.doc.DocType > 0) this.doc.TypeId = this.doc.DocType.toString();
             this.originalName = this.doc.ItemName;
             this.originalType = this.doc.DocType;
-            this.optionalTabs = this.doc.Tabs;
             this.getPreview();
         }
         prevPage() {
             this.counter--;
             this.doc = this.result[this.counter];
+            this.doc.TypeId = null;
+            if (this.doc.DocType > 0) this.doc.TypeId = this.doc.DocType.toString();
             this.originalName = this.doc.ItemName;
             this.originalType = this.doc.DocType;
-            this.optionalTabs = this.doc.Tabs;
             this.getPreview();
         }
         Save() {
@@ -98,9 +100,9 @@ module app {
             if (this.doc.ItemName != this.originalName) {
                 this.ChangedName = this.doc.ItemName;
             }
-
-            if (this.doc.TypeId != this.originalType) {
-                this.ChangedType = this.doc.TypeId;
+            this.doc.DocType = parseInt(this.doc.TypeId, 10);
+            if (this.doc.DocType != this.originalType) {
+                this.ChangedType = this.doc.DocType;
             }
 
             var promise = this.searchService.saveItem(this.doc.ItemId, this.doc.BoxId, this.ChangedName, this.ChangedType,

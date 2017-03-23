@@ -43,6 +43,7 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
         public async Task<JsonResult> ItemsAsync(JaredSearchQuery model, CancellationToken cancellationToken)
         {
            var retVal = await m_readService.GetItemsWithTagsAsync(model);
+          
            return Json(retVal);
         }
         [HttpGet, ActionName("University")]
@@ -64,18 +65,20 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
             return Json(retVal, JsonRequestBehavior.AllowGet);
         }
         [HttpPost,ActionName("Save")]
-        public async Task<JsonResult> SaveAsync(SaveItemTags model)
+        public  JsonResult SaveAsync(SaveItemTags model)
         {
             bool rename = (!String.IsNullOrEmpty(model.ItemName));
-            bool tabChanged = (model.TabId.HasValue);
             bool isAddTags = ( model.NewTags != null&& model.NewTags.Any());
             bool isRemoveTags = ( model.RemoveTags != null&&model.RemoveTags.Any());
             if (rename) Rename(model.ItemId, model.ItemName);
-            if (tabChanged)  await AddItemToTabAsync(model.ItemId, model.TabId, model.BoxId);
             if (isAddTags)addTagsToDoc(model.ItemId, model.NewTags);
             if (isRemoveTags) {
                 var command = new RemoveTagsFromDocumentCommand(model.ItemId, model.RemoveTags);
                 m_writeService.RemoveItemTag(command);
+            }
+            if (model.DocType > 0) {
+                var d = new ChangeItemDocTypeCommand(model.ItemId,(ItemType)model.DocType);
+                m_writeService.ChangeItemDocType(d);
             }
             var save = new SetReviewedDocumentCommand(model.ItemId);
             m_writeService.SetReviewed(save);

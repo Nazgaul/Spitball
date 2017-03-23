@@ -21,7 +21,7 @@
                 itemId: itemId,
                 boxId: boxId,
                 itemName: newName,
-                tabId: newType,
+                docType: newType,
                 newTags: newTags,
                 removeTags: removedTags
             };
