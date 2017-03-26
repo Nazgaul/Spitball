@@ -26,10 +26,10 @@ namespace Zbang.Zbox.Infrastructure.Ai
                 {
                     return new SearchHomework();
                 }
-                if (intentValue == 32)
-                {
-                    return new SearchLecture();
-                }
+                //if (intentValue == 32)
+                //{
+                //    return new SearchLecture();
+                //}
 
                 if (intentValue == 64)
                 {

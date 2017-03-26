@@ -29,7 +29,6 @@ namespace Zbang.Zbox.Infrastructure.Enums
         Document, // not useed
         Link, // not used
         Homework = 5,
-        Lecture = 6,
         StudyGuide = 7,
         Exam=8,
         ClassNote=9,

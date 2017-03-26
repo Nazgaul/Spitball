@@ -7,10 +7,10 @@ namespace Zbang.Zbox.Infrastructure.Ai
         public override ItemType? TypeToSearch => ItemType.Homework | ItemType.Document;
     }
 
-    public class SearchLecture : SearchDocumentIntent
-    {
-        public override ItemType? TypeToSearch => ItemType.Lecture | ItemType.Document;
-    }
+    //public class SearchLecture : SearchDocumentIntent
+    //{
+    //    public override ItemType? TypeToSearch => ItemType.Lecture | ItemType.Document;
+    //}
     public class SearchStudyGuide : SearchDocumentIntent
     {
         public override ItemType? TypeToSearch => ItemType.StudyGuide | ItemType.Document;

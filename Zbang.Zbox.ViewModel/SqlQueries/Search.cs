@@ -320,11 +320,10 @@ where it.FlashcardId in (
   i.language,
   i.LikeCount as likes,
   i.NumberOfViews as views,
-  it.ItemTabName as TabName
+  i.doctype as docType
     from zbox.item i 
     join zbox.box b on i.BoxId = b.BoxId
     left join zbox.University u on b.University = u.id
-	left join zbox.ItemTab it on i.ItemTabId = it.ItemTabId
     where i.isdirty = 1 
     and i.IsDeleted = 0
     and b.isdeleted = 0 -- performance

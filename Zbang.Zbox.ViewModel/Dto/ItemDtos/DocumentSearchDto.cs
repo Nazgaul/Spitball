@@ -43,30 +43,12 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
                 {
                     TypeDocument.ToLowerInvariant() == "file" ? ItemType.Document : ItemType.Link
                 };
-                if (string.IsNullOrEmpty(TabName) && string.IsNullOrEmpty(Content))
+              
+                if (DocType.Equals(ItemType.Undefined) && string.IsNullOrEmpty(Content))
                 {
                     return type;
-                }
-                if (ClassifyType(ClassNotes, Name, TabName))
-                {
-                    type.Add(ItemType.ClassNote);
-                }
-                if (ClassifyType(Homework, Name, TabName))
-                {
-                    type.Add(ItemType.Homework);
-                }
-                if (ClassifyType(StudyGuides, Name, TabName))
-                {
-                    type.Add(ItemType.StudyGuide);
-                }
-                if (ClassifyType(Exams, Name, TabName))
-                {
-                    type.Add(ItemType.Exam);
-                }
-                if (ClassifyType(Lectures, Name, TabName))
-                {
-                    type.Add(ItemType.Lecture);
-                }
+                }            
+                type.Add(DocType);
                 m_Type = type;
                 return m_Type;
             }
@@ -79,7 +61,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
         public long? UniversityId { get; set; }
 
-        public string TabName { get; set; }
+        public ItemType DocType { get; set; }
 
         public string TypeDocument { get; set; }
 
