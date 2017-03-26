@@ -20,6 +20,7 @@ where b.discriminator = 2 and i.isdeleted=0 and b.university=173408
 and (@name is null or (i.name like +'%' + @name + '%'))
 and (@university is null or (u.universityname like +'%' + @university + '%'))
 and (@IsSearchType=0 or (i.doctype is null)) 
+and (@IsSearchType=1 or (i.doctype is not null)) 
 and (@IsReviewed=0 or (i.isreviewed=1)) 
 and (@IsReviewed=1 or (i.isreviewed is null or i.isreviewed=0)) 
 and (@box is null or (b.boxname like +'%' + @box + '%')) 
