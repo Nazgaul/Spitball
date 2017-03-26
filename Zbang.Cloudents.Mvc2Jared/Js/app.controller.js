@@ -14,7 +14,7 @@ var app;
             this.removedTags = [];
             this.newTags = [];
             this.newTag = "";
-            this.ChangedType = "";
+            this.ChangedType = -1;
             this.formData = {
                 department: "",
                 isSearchType: true
@@ -42,8 +42,9 @@ var app;
                             _this.noResults = false;
                             _this.doc = _this.result[0];
                             _this.doc.TypeId = null;
-                            if (_this.doc.DocType > 0)
+                            if (!_this.formData.isSearchType) {
                                 _this.doc.TypeId = _this.doc.DocType.toString();
+                            }
                             _this.originalName = _this.doc.ItemName;
                             _this.originalType = _this.doc.DocType;
                             _this.getPreview();
@@ -80,8 +81,9 @@ var app;
             //change doc
             this.doc = this.result[this.counter];
             this.doc.TypeId = null;
-            if (this.doc.DocType > 0)
+            if (!this.formData.isSearchType) {
                 this.doc.TypeId = this.doc.DocType.toString();
+            }
             this.originalName = this.doc.ItemName;
             this.originalType = this.doc.DocType;
             this.getPreview();
@@ -90,8 +92,9 @@ var app;
             this.counter--;
             this.doc = this.result[this.counter];
             this.doc.TypeId = null;
-            if (this.doc.DocType > 0)
+            if (!this.formData.isSearchType) {
                 this.doc.TypeId = this.doc.DocType.toString();
+            }
             this.originalName = this.doc.ItemName;
             this.originalType = this.doc.DocType;
             this.getPreview();
@@ -99,12 +102,16 @@ var app;
         AppController.prototype.Save = function () {
             var _this = this;
             this.showLoader = true;
+            this.ChangedName = "";
+            this.ChangedType = -1;
             if (this.doc.ItemName != this.originalName) {
                 this.ChangedName = this.doc.ItemName;
             }
-            this.doc.DocType = parseInt(this.doc.TypeId, 10);
-            if (this.doc.DocType != this.originalType) {
-                this.ChangedType = this.doc.DocType;
+            if (this.doc.TypeId != null) {
+                this.doc.DocType = parseInt(this.doc.TypeId, 10);
+                if (this.doc.DocType != this.originalType) {
+                    this.ChangedType = this.doc.DocType;
+                }
             }
             var promise = this.searchService.saveItem(this.doc.ItemId, this.doc.BoxId, this.ChangedName, this.ChangedType, this.newTags, this.removedTags);
             promise.then(function (response) {
@@ -192,4 +199,3 @@ var app;
     app.AppController = AppController;
     angular.module("app").controller("AppController", AppController);
 })(app || (app = {}));
-//# sourceMappingURL=app.controller.js.map
