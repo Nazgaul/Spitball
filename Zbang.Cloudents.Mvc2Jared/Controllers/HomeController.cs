@@ -76,7 +76,7 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
                 var command = new RemoveTagsFromDocumentCommand(model.ItemId, model.RemoveTags);
                 m_writeService.RemoveItemTag(command);
             }
-            if (model.DocType > 0) {
+            if (model.DocType>-1) {
                 var d = new ChangeItemDocTypeCommand(model.ItemId,(ItemType)model.DocType);
                 m_writeService.ChangeItemDocType(d);
             }

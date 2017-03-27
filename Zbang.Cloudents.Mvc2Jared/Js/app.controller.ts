@@ -15,8 +15,8 @@ module app {
         newTags = [];
         newTag: string = "";
         originalType: string;
-        ChangedType: string = "";
-        formData: Object = {
+        ChangedType: number = -1;
+        formData: any = {
             department: "",
             isSearchType: true
         };
@@ -44,7 +44,9 @@ module app {
                             this.noResults = false
                             this.doc = this.result[0];
                             this.doc.TypeId = null;
-                            if (this.doc.DocType > 0) this.doc.TypeId = this.doc.DocType.toString();
+                            if (!this.formData.isSearchType) {
+                                this.doc.TypeId = this.doc.DocType.toString();
+                            }
                             this.originalName = this.doc.ItemName;
                             this.originalType = this.doc.DocType;
                             this.getPreview();
@@ -81,7 +83,9 @@ module app {
             //change doc
             this.doc = this.result[this.counter];
             this.doc.TypeId = null;
-            if (this.doc.DocType > 0) this.doc.TypeId = this.doc.DocType.toString();
+            if (!this.formData.isSearchType) {
+                this.doc.TypeId = this.doc.DocType.toString();
+            }
             this.originalName = this.doc.ItemName;
             this.originalType = this.doc.DocType;
             this.getPreview();
@@ -90,19 +94,25 @@ module app {
             this.counter--;
             this.doc = this.result[this.counter];
             this.doc.TypeId = null;
-            if (this.doc.DocType > 0) this.doc.TypeId = this.doc.DocType.toString();
+            if (!this.formData.isSearchType) {
+                this.doc.TypeId = this.doc.DocType.toString();
+            }
             this.originalName = this.doc.ItemName;
             this.originalType = this.doc.DocType;
             this.getPreview();
         }
         Save() {
             this.showLoader = true
+            this.ChangedName = "";
+            this.ChangedType = -1;
             if (this.doc.ItemName != this.originalName) {
                 this.ChangedName = this.doc.ItemName;
             }
-            this.doc.DocType = parseInt(this.doc.TypeId, 10);
-            if (this.doc.DocType != this.originalType) {
-                this.ChangedType = this.doc.DocType;
+            if (this.doc.TypeId != null) {
+                this.doc.DocType = parseInt(this.doc.TypeId, 10);
+                if (this.doc.DocType != this.originalType) {
+                    this.ChangedType = this.doc.DocType;
+                }
             }
 
             var promise = this.searchService.saveItem(this.doc.ItemId, this.doc.BoxId, this.ChangedName, this.ChangedType,
