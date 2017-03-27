@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<Item> m_ItemRepository;
         private readonly IQueueProvider m_QueueProvider;
 
-        private const long AnonymousUserId = 22886;
+        //private const long AnonymousUserId = 22886;
 
         public AddCommentCommandHandler(IUserRepository userRepository,
             IBoxRepository boxRepository,
@@ -39,10 +39,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (command == null) throw new ArgumentNullException(nameof(command));
 
             var userId = command.UserId;
-            if (command.PostAnonymously)
-            {
-                userId = AnonymousUserId;
-            }
+            //if (command.PostAnonymously)
+            //{
+            //    userId = AnonymousUserId;
+            //}
 
             var user = m_UserRepository.Load(userId);
             var box = m_BoxRepository.Load(command.BoxId);
@@ -59,13 +59,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 file.User = user;
                 m_ItemRepository.Save(file);
             }
-            var comment = box.AddComment(user, command.Text, command.Id, files, FeedType.None);
+            var comment = box.AddComment(user, command.Text, command.Id, files, FeedType.None, command.PostAnonymously);
             m_CommentRepository.Save(comment);
             m_BoxRepository.Save(box);
             var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, questionId: comment.Id));
             var t2 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
 
-            await Task.WhenAll(t1, t2);
+            await Task.WhenAll(t1, t2).ConfigureAwait(true);
 
             return new AddCommentCommandResult(command.Id, user.Name, user.ImageLarge, user.Id);
         }

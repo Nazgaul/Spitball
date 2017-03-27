@@ -24,8 +24,6 @@ namespace Zbang.Zbox.Domain.Commands
         public string Text { get; private set; }
         public Guid Id { get; private set; }
 
-        //public bool ShouldEncode { get; private set; }
-
         public bool PostAnonymously { get; private set; }
         public string CacheRegion => CacheRegions.BuildFeedRegion(BoxId);
     }

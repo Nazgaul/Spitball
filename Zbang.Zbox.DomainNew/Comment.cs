@@ -11,7 +11,7 @@ namespace Zbang.Zbox.Domain
         protected Comment()
         {
         }
-        public Comment(User user, string text, Box box, Guid id, IList<Item> items, FeedType feedType)
+        public Comment(User user, string text, Box box, Guid id, IList<Item> items, FeedType feedType, bool anonymous)
         {
             if (user == null)
             {
@@ -37,6 +37,7 @@ namespace Zbang.Zbox.Domain
             DateTimeUser = new UserTimeDetails(user.Id);
             Box.UserTime.UpdateUserTime(user.Id);
             FeedType = feedType;
+            Anonymous = anonymous;
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
 
@@ -61,8 +62,9 @@ namespace Zbang.Zbox.Domain
         protected virtual ICollection<Updates> Updates { get; set; }
         protected virtual ICollection<CommentLike> Likes { get; set; }
         public ICollection<CommentReply> RepliesReadOnly => Replies.ToList().AsReadOnly();
-        public ICollection<Item> ItemsReadOnly => Items.ToList().AsReadOnly();
+        //public ICollection<Item> ItemsReadOnly => Items.ToList().AsReadOnly();
 
+        public virtual bool Anonymous { get; set; }
 
         public virtual FeedType? FeedType { get; set; }
 

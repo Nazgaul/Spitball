@@ -364,22 +364,22 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<FlashcardToUpdateSearchDto> GetFlashcardsDirtyUpdatesAsync(int index, int total, int top, CancellationToken token)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync(token))
+            using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
             {
                 using (var grid = await conn.QueryMultipleAsync(
                     Search.GetFlashcardToDeleteFromSearch +
                     Search.GetFlashcardToUploadToSearch +
                     Search.GetFlashcardUsersToUploadToSearch +
                     Search.GetFlashcardTagsToUploadToSearch
-                    , new { index, count = total, top }))
+                    , new { index, count = total, top }).ConfigureAwait(false))
                 {
                     var retVal = new FlashcardToUpdateSearchDto
                     {
-                        Deletes = await grid.ReadAsync<FlashcardToDeleteSearchDto>(),
-                        Updates = await grid.ReadAsync<FlashcardSearchDto>()
+                        Deletes = await grid.ReadAsync<FlashcardToDeleteSearchDto>().ConfigureAwait(false),
+                        Updates = await grid.ReadAsync<FlashcardSearchDto>().ConfigureAwait(false)
                     };
                     var users = grid.Read<UsersInBoxSearchDto>().ToList();
-                    var tags = (await grid.ReadAsync<ItemSearchTag>()).ToList();
+                    var tags = (await grid.ReadAsync<ItemSearchTag>().ConfigureAwait(false)).ToList();
                     var cacheUsers = new Dictionary<long, IEnumerable<long>>();
                     foreach (var flashcards in retVal.Updates)
                     {
@@ -403,21 +403,21 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<QuizToUpdateSearchDto> GetQuizzesDirtyUpdatesAsync(int index, int total, int top)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 using (var grid = await conn.QueryMultipleAsync
-                    (Search.GetQuizzesToUploadToSearch +
-                     Search.GetQuizzesQuestionToUploadToSearch +
-                     Search.GetQuizzesAnswersToUploadToSearch +
-                     Search.GetQuizzesUsersToUploadToSearch +
-                     Search.GetQuizzesTags +
-                     Search.GetQuizzesToDeleteFromSearch,
-                     new { index, count = total, top }
-                    ))
+                (Search.GetQuizzesToUploadToSearch +
+                 Search.GetQuizzesQuestionToUploadToSearch +
+                 Search.GetQuizzesAnswersToUploadToSearch +
+                 Search.GetQuizzesUsersToUploadToSearch +
+                 Search.GetQuizzesTags +
+                 Search.GetQuizzesToDeleteFromSearch,
+                    new { index, count = total, top }
+                ).ConfigureAwait(false))
                 {
                     var retVal = new QuizToUpdateSearchDto
                     {
-                        QuizzesToUpdate = await grid.ReadAsync<QuizSearchDto>()
+                        QuizzesToUpdate = await grid.ReadAsync<QuizSearchDto>().ConfigureAwait(false)
                     };
                     var questions = grid.Read<QuizQuestionAndAnswersSearchDto>().ToList();
                     var answers = grid.Read<QuizQuestionAndAnswersSearchDto>().ToList();
@@ -441,7 +441,7 @@ namespace Zbang.Zbox.ReadServices
                         quiz.Answers = answers.Where(w => w.QuizId == quizId).Select(s => s.Text);
                         quiz.Tags = tags.Where(w => w.Id == quiz.Id).ToList();
                     }
-                    retVal.QuizzesToDelete = await grid.ReadAsync<QuizToDeleteSearchDto>();
+                    retVal.QuizzesToDelete = await grid.ReadAsync<QuizToDeleteSearchDto>().ConfigureAwait(false);
                     return retVal;
                 }
             }

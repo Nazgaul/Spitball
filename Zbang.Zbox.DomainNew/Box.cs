@@ -155,9 +155,10 @@ namespace Zbang.Zbox.Domain
             return item;
         }
 
-        public virtual Comment AddComment(User user, string text, Guid id, IList<Item> items, FeedType feedType)
+        public virtual Comment AddComment(User user, string text, Guid id,
+            IList<Item> items, FeedType feedType, bool anonymous)
         {
-            var comment = new Comment(user, text, this, id, items, feedType);
+            var comment = new Comment(user, text, this, id, items, feedType, anonymous);
             Comments.Add(comment);
             UpdateCommentsCount();
             UserTime.UpdateUserTime(user.Id);

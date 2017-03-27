@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Zbang.Cloudents.Jared.Models
 {
@@ -6,5 +7,11 @@ namespace Zbang.Cloudents.Jared.Models
     {
         [Required]
         public string Content { get; set; }
+
+        [Required]
+        public bool Anonymous { get; set; }
+
+        public IEnumerable<long> FilesIds { get; set; }
+
     }
 }

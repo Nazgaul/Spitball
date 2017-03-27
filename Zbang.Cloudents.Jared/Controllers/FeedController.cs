@@ -36,7 +36,7 @@ namespace Zbang.Cloudents.Jared.Controllers
 
             var questionId = m_GuidGenerator.GetId();
             var command = new AddCommentCommand(User.GetUserId(),
-                boxId, model.Content, questionId, null, false);
+                boxId, model.Content, questionId, model.FilesIds, model.Anonymous);
             await m_ZboxWriteService.AddCommentAsync(command).ConfigureAwait(false);
             return Request.CreateResponse(HttpStatusCode.OK);
         }

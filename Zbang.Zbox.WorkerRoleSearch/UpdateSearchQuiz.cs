@@ -58,29 +58,43 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
         {
-            const int top = 100;
-            var updates = await m_ZboxReadService.GetQuizzesDirtyUpdatesAsync(instanceId, instanceCount, top).ConfigureAwait(false);
-            if (!updates.QuizzesToUpdate.Any() && !updates.QuizzesToDelete.Any()) return TimeToSleep.Increase;
+            try
+            {
+                const int top = 100;
+                var updates =
+                    await m_ZboxReadService.GetQuizzesDirtyUpdatesAsync(instanceId, instanceCount, top)
+                        .ConfigureAwait(false);
+                if (!updates.QuizzesToUpdate.Any() && !updates.QuizzesToDelete.Any()) return TimeToSleep.Increase;
 
-            foreach (var quiz in updates.QuizzesToUpdate.Where(w => w.UniversityId == JaredUniversityIdPilot))
-            {
-                await JaredPilotAsync(quiz, cancellationToken).ConfigureAwait(false);
-            }
+                foreach (var quiz in updates.QuizzesToUpdate.Where(w => w.UniversityId == JaredUniversityIdPilot))
+                {
+                    await JaredPilotAsync(quiz, cancellationToken).ConfigureAwait(false);
+                }
 
-            var isSuccess =
-                await m_QuizSearchProvider.UpdateDataAsync(updates.QuizzesToUpdate, updates.QuizzesToDelete.Select(s=>s.Id)).ConfigureAwait(false);
-            await m_ContentSearchProvider.UpdateDataAsync(null, updates.QuizzesToDelete, cancellationToken).ConfigureAwait(false);
-            if (isSuccess)
-            {
-                await m_ZboxWriteService.UpdateSearchQuizDirtyToRegularAsync(
-                    new UpdateDirtyToRegularCommand(
-                        updates.QuizzesToDelete.Select(s => s.Id).Union(updates.QuizzesToUpdate.Select(s => s.Id)))).ConfigureAwait(false);
+                var isSuccess =
+                    await m_QuizSearchProvider.UpdateDataAsync(updates.QuizzesToUpdate,
+                        updates.QuizzesToDelete.Select(s => s.Id)).ConfigureAwait(false);
+                await m_ContentSearchProvider.UpdateDataAsync(null, updates.QuizzesToDelete, cancellationToken)
+                    .ConfigureAwait(false);
+                if (isSuccess)
+                {
+                    await m_ZboxWriteService.UpdateSearchQuizDirtyToRegularAsync(
+                            new UpdateDirtyToRegularCommand(
+                                updates.QuizzesToDelete.Select(s => s.Id)
+                                    .Union(updates.QuizzesToUpdate.Select(s => s.Id))))
+                        .ConfigureAwait(false);
+                }
+                if (updates.QuizzesToUpdate.Count() == top)
+                {
+                    return TimeToSleep.Min;
+                }
+                return TimeToSleep.Same;
             }
-            if (updates.QuizzesToUpdate.Count() == top)
+            catch (Exception ex)
             {
-                return TimeToSleep.Min;
+                TraceLog.WriteError(GetPrefix(), ex);
+                return TimeToSleep.Increase;
             }
-            return TimeToSleep.Same;
         }
 
         private async Task JaredPilotAsync(QuizSearchDto elem, CancellationToken token)
