@@ -25,7 +25,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         }
 
         [HttpPost]
-       
+        [Authorize]
         [Route("api/course/{boxId:long}/feed")]
         public async Task<HttpResponseMessage> PostCommentAsync(long boxId, AddCommentRequest model)
         {

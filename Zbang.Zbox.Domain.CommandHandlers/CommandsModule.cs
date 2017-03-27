@@ -44,6 +44,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             //builder.RegisterAssemblyTypes(ThisAssembly).AsClosedTypesOf(typeof(ICommandHandler<>));
             builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces();
 
+            builder.RegisterType(typeof(AddFileToBoxCommandHandler)).Named <
+                ICommandHandlerAsync<AddItemToBoxCommand, AddItemToBoxCommandResult>>(AddItemToBoxCommand.FileResolver);
+               
             #endregion
         }
     }

@@ -29,7 +29,7 @@ namespace Zbang.Zbox.Domain
             : this(boxName, user, privacySetting)
         {
             Comments.Add(new Comment(user, null,
-               this, newCommentId, null, FeedType.CreatedBox));
+               this, newCommentId, null, FeedType.CreatedBox,false));
             CommentCount = 1;
         }
 

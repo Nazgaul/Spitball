@@ -21,7 +21,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
         private readonly IItemRepository m_ItemRepository;
         private readonly IGuidIdGenerator m_IdGenerator;
         private readonly IRepository<Comment> m_CommentRepository;
-       // private readonly IUserRepository m_UserRepository;
+        // private readonly IUserRepository m_UserRepository;
 
 
 
@@ -93,7 +93,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             m_QuizRepository.Save(quiz);
 
             var comment = m_ItemRepository.GetPreviousCommentId(quiz.Box.Id, quiz.User.Id) ??
-                         new Comment(quiz.User, null, quiz.Box, m_IdGenerator.GetId(), null, FeedType.AddedItems);
+                         new Comment(quiz.User, null, quiz.Box, m_IdGenerator.GetId(), null, FeedType.AddedItems, false);
             comment.AddQuiz(quiz);
             m_CommentRepository.Save(comment);
 
@@ -103,7 +103,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new CreateQuizzesBadgeData(quiz.User.Id));
             var t5 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(quiz.Box.Id));
 
-            await Task.WhenAll(t1, t2, t5);
+            await Task.WhenAll(t1, t2, t5).ConfigureAwait(true);
             return new SaveQuizCommandResult(quiz.Url);
         }
     }

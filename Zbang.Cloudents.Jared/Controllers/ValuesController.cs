@@ -27,7 +27,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         [CacheOutput(ClientTimeSpan = TimeConst.Day, ServerTimeSpan = TimeConst.Day)]
         public async Task<HttpResponseMessage> Get(CancellationToken token)
         {
-           var result = await m_ZboxReadService.GetJaredStartupValuesAsync(token);
+           var result = await m_ZboxReadService.GetJaredStartupValuesAsync(token).ConfigureAwait(false);
             var documents = new Dictionary<string, IEnumerable<string>>
             {
                 {"exams", new[] {"exam", "test", "midterm", "final", "tests", "midterms", "finals"}},

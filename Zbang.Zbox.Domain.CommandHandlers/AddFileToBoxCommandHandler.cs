@@ -65,7 +65,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 user,
                 command.Length,
                 command.BlobAddressName);
-            
+
 
             m_ItemRepository.Save(item, true);
             item.GenerateUrl();
@@ -74,13 +74,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (!command.IsQuestion)
             {
                 var comment = m_ItemRepository.GetPreviousCommentId(box.Id, user.Id) ??
-                            box.AddComment(user, null, m_IdGenerator.GetId(), null, FeedType.AddedItems);
+                            box.AddComment(user, null, m_IdGenerator.GetId(), null, FeedType.AddedItems, false);
                 comment.AddItem(item);
                 m_CommentRepository.Save(comment);
             }
 
             box.UserTime.UpdateUserTime(user.Id);
-           
+
             m_BoxRepository.Save(box);
 
             AddItemToTab(command.TabId, item);

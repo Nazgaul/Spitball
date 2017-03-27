@@ -149,7 +149,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         public string UploadLink(string blob, string mimeType)
         {
             return m_BlobProviderFiles.GenerateSharedAccessWritePermission(blob, mimeType);
-            //return m_BlobUpload.GenerateWriteAccessPermissionToBlob(blob, mimeType);
+            
         }
         // ReSharper disable once ConsiderUsingAsyncSuffix - api call
         [HttpPost]

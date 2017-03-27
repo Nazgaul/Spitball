@@ -48,3 +48,4 @@ var app;
     }());
     angular.module("app").service("searchService", SearchService);
 })(app || (app = {}));
+//# sourceMappingURL=app.service.js.map

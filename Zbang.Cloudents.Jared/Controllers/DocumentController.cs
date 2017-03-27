@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,6 +12,7 @@ using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
+using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
@@ -83,5 +84,56 @@ namespace Zbang.Cloudents.Jared.Controllers
             return Request.CreateResponse();
         }
 
+
+        [HttpGet]
+        [Route("api/document/upload")]
+        public string UploadLink(string blob, string mimeType)
+        {
+            return m_BlobProviderFiles.GenerateSharedAccessWritePermission(blob, mimeType);
+
+        }
+
+        [Route("api/item/upload/commit")]
+        [HttpPost]
+        [Authorize]
+        public async Task<HttpResponseMessage> CommitFileAsync(FileUploadRequest model)
+        {
+            if (model == null)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            long boxId;
+            if (!long.TryParse(model.BoxId, out boxId))
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            
+            var size = await m_BlobProviderFiles.SizeAsync(model.BlobName).ConfigureAwait(false);
+            var command = new AddFileToBoxCommand(User.GetUserId(),
+                boxId, model.BlobName,
+                   model.FileName,
+                    size, null, model.Question);
+            var result = await m_ZboxWriteService.AddItemToBoxAsync(command).ConfigureAwait(false);
+
+            var result2 = result as AddFileToBoxCommandResult;
+            if (result2 == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "result is null");
+            }
+
+            var fileDto = new ItemDto
+            {
+                Id = result2.File.Id
+                //Name = result2.File.Name
+
+            };
+
+            return Request.CreateResponse(fileDto);
+
+        }
     }
 }

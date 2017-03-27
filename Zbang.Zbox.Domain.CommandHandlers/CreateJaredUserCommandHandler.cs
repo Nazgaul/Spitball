@@ -25,6 +25,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 UserType = Infrastructure.Enums.UserType.Jared
             };
+            user.Quota.AllocateStorage();
             m_UserRepository.Save(user, true);
             return new CreateJaredUserCommandResult(user.Id);
         }
