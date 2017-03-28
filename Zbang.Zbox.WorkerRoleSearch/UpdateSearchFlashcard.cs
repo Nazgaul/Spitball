@@ -40,13 +40,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
         {
             const int top = 100;
-            var updates = await m_ZboxReadService.GetFlashcardsDirtyUpdatesAsync(instanceId, instanceCount, top, cancellationToken);
+            var updates = await m_ZboxReadService.GetFlashcardsDirtyUpdatesAsync(instanceId, instanceCount, top, cancellationToken).ConfigureAwait(false);
             if (!updates.Updates.Any() && !updates.Deletes.Any()) return TimeToSleep.Increase;
             var toUpdates = updates.Updates.ToList();
             for (var i = toUpdates.Count - 1; i >= 0; i--)
             {
                 var update = toUpdates[i];
-                var flashcard = await m_DocumentDbService.FlashcardAsync(update.Id);
+                var flashcard = await m_DocumentDbService.FlashcardAsync(update.Id).ConfigureAwait(false);
                 if (flashcard == null)
                 {
                     toUpdates.RemoveAt(i);
@@ -64,7 +64,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 update.BackCards = flashcard.Cards.Select(s => s.Cover).Where(w => !string.IsNullOrEmpty(w.Text)).Select(s => s.Text);
                 update.FrontCards = flashcard.Cards.Select(s => s.Front).Where(w => !string.IsNullOrEmpty(w.Text)).Select(s => s.Text);
-
+                
                 var firstCard = flashcard.Cards.First();
                 update.FrontText = firstCard.Front.Text;
                 update.FrontImage = firstCard.Front.Image;
@@ -73,18 +73,18 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
                 if (update.UniversityId == JaredUniversityIdPilot)
                 {
-                    await JaredPilotAsync(update, cancellationToken);
+                    await JaredPilotAsync(update, cancellationToken).ConfigureAwait(false);
                 }
             }
 
             var isSuccess =
-                await m_FlashcardSearchProvider.UpdateDataAsync(toUpdates, updates.Deletes.Select(s => s.Id), cancellationToken);
-            await m_ContentSearchProvider.UpdateDataAsync(null, updates.Deletes, cancellationToken);
+                await m_FlashcardSearchProvider.UpdateDataAsync(toUpdates, updates.Deletes.Select(s => s.Id), cancellationToken).ConfigureAwait(false);
+            await m_ContentSearchProvider.UpdateDataAsync(null, updates.Deletes, cancellationToken).ConfigureAwait(false);
             if (isSuccess)
             {
                 await m_ZboxWriteService.UpdateSearchFlashcardDirtyToRegularAsync(
                     new UpdateDirtyToRegularCommand(
-                        updates.Deletes.Select(s => s.Id).Union(updates.Updates.Select(s => s.Id))));
+                        updates.Deletes.Select(s => s.Id).Union(updates.Updates.Select(s => s.Id)))).ConfigureAwait(false);
             }
             if (updates.Updates.Count() == top)
             {
@@ -105,7 +105,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             if (elem.Language == Infrastructure.Culture.Language.EnglishUs && elem.Tags.All(a=>a.Type != TagType.Watson))
             {
 
-                var result = (await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token)).ToList();
+                var result = (await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token).ConfigureAwait(false)).ToList();
                 elem.Tags.AddRange(result.Select(s => new ItemSearchTag { Name = s }));
                 var z = new AssignTagsToFlashcardCommand(elem.Id, result, TagType.Watson);
                 m_WriteService.AddItemTag(z);
@@ -114,7 +114,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //var command = new UpdateFlashcardCourseTagCommand(elem.Id, elem.BoxName, elem.BoxCode, elem.BoxProfessor);
             //m_WriteService.UpdateItemCourseTag(command);
 
-            await m_ContentSearchProvider.UpdateDataAsync(elem, null, token);
+            await m_ContentSearchProvider.UpdateDataAsync(elem, null, token).ConfigureAwait(false);
         }
 
         protected override string GetPrefix()
@@ -131,7 +131,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 try
                 {
-                    await DoProcessAsync(cancellationToken, index, count);
+                    await DoProcessAsync(cancellationToken, index, count).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {

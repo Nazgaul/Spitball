@@ -26,7 +26,7 @@ namespace Zbang.Cloudents.Jared
             var builder = new ContainerBuilder();
 
             HttpConfiguration config = new HttpConfiguration();
-
+            config.EnableSystemDiagnosticsTracing();
             config.MapHttpAttributeRoutes();
 
             new MobileAppConfiguration()

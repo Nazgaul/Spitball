@@ -19,6 +19,7 @@
     </component>
     <property name="ReplyCount"/>
     <property name="LikeCount"/>
+    <property name="Anonymous"/>
     <!--<property name="LastReplyId"/>-->
     <bag name="Items" inverse="false" lazy="true" cascade="none" >
       <key column="QuestionId" foreign-key="questionIdItems" />

@@ -7,7 +7,7 @@ namespace Zbang.Zbox.Domain
     public class AcademicBox : Box
     {
         public AcademicBox(string boxName, Library department,
-            string courseCode, string professor,  User creator, Guid newCommentId)
+            string courseCode, string professor, User creator, Guid newCommentId)
             :
             base(boxName, creator, BoxPrivacySetting.AnyoneWithUrl)
         {
@@ -17,7 +17,7 @@ namespace Zbang.Zbox.Domain
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
             Professor = professor;
             Comments.Add(new Comment(creator, null,
-                this, newCommentId, null, FeedType.CreatedCourse));
+                this, newCommentId, null, FeedType.CreatedCourse, false));
             CommentCount = 1;
 
             Department = department;
@@ -55,7 +55,7 @@ namespace Zbang.Zbox.Domain
             Url = UrlConst.BuildBoxUrl(Id, Name, University.UniversityName);
         }
 
-        public override  string GetUniversityName()
+        public override string GetUniversityName()
         {
             return University.UniversityName;
         }

@@ -161,7 +161,7 @@ namespace Zbang.Zbox.Domain.Services
                 var t2 = m_CommandBus.DispatchAsync<AddItemToBoxCommand, AddItemToBoxCommandResult>(command, command.ResolverName);
                 // var t1 = m_CommandBus.SendAsync(reputationCommand);
 
-                await Task.WhenAll(t1, t2, t4);
+                await Task.WhenAll(t1, t2, t4).ConfigureAwait(true);
                 unitOfWork.TransactionalFlush();
 
                 return t2.Result;

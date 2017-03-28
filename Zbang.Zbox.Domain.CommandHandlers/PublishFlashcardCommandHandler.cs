@@ -57,7 +57,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
 
-            
+
 
             flashcard.Name = message.Flashcard.Name;
             if (message.Flashcard.Cards != null)
@@ -73,7 +73,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (flashcard.Comment == null) //if edit flashcard already have comment
             {
                 var comment = m_ItemRepository.GetPreviousCommentId(box.Id, user.Id) ??
-                              new Comment(user, null, box, m_IdGenerator.GetId(), null, FeedType.AddedItems);
+                              new Comment(user, null, box, m_IdGenerator.GetId(), null, FeedType.AddedItems, false);
                 comment.AddFlashcard(flashcard);
                 m_CommentRepository.Save(comment);
             }
@@ -83,7 +83,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_BoxRepository.Save(box);
             var t5 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
 
-            var t1 =  m_FlashcardRepository.UpdateItemAsync(message.Flashcard.id, message.Flashcard);
+            var t1 = m_FlashcardRepository.UpdateItemAsync(message.Flashcard.id, message.Flashcard);
             await Task.WhenAll(t1, t5);
         }
     }

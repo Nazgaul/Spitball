@@ -261,7 +261,9 @@ f.Name,
  u.UniversityName as universityName,
  b.University as UniversityId,
  f.CreationTime as Date,
-	   f.CardCount as CardsCount
+	   f.CardCount as CardsCount,
+	   f.likecount as likes,
+	   f.numberofviews as views
     from zbox.Flashcard f
 join zbox.Box b on f.BoxId = b.BoxId
 left join zbox.University u on b.University = u.id
