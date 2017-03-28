@@ -14,7 +14,7 @@ using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Trace;
-
+using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.Services
 {
@@ -23,11 +23,13 @@ namespace Zbang.Zbox.Domain.Services
     {
         private readonly ICommandBus m_CommandBus;
         private readonly IWithCache m_Cache;
+        private readonly IDocumentDbRepository<Flashcard> m_FlashcardRepository;
 
-        public ZboxWorkerRoleService(ICommandBus commandBus, IWithCache cache)
+        public ZboxWorkerRoleService(ICommandBus commandBus, IWithCache cache, IDocumentDbRepository<Flashcard> flashRep)
         {
             m_CommandBus = commandBus;
             m_Cache = cache;
+            m_FlashcardRepository = flashRep;
         }
 
         public void UpdateThumbnailPicture(UpdateThumbnailCommand command)
@@ -52,11 +54,33 @@ namespace Zbang.Zbox.Domain.Services
         {
             // DeleteOldLibrary();
             //UpdateNumberOfBoxesInDepartmentNode();
-            UpdateItemUrl();
+          //  UpdateItemUrl();
+            UpdateFlashcardCardCount();
             //RemoveHtmlTags();
 
         }
 
+        private async void UpdateFlashcardCardCount()
+        {
+            using (var unitOfWork = UnitOfWork.Start())
+            {
+                var items2 = UnitOfWork.CurrentSession.CreateSQLQuery(@"select id from zbox.flashcard where publish=1 and isdeleted=0 and cardcount=0 or cardcount is null").List();
+                foreach (var itemId in items2)
+                {
+                    
+                    var item = UnitOfWork.CurrentSession.Load<FlashcardMeta>((long)itemId);              
+                    var flashcard =  await m_FlashcardRepository.GetItemAsync(itemId.ToString());
+                    if (flashcard!=null&&flashcard.Cards != null)
+                    {
+                        item.IsDirty = true;
+                        item.CardCount = flashcard.Cards.Count();
+                        UnitOfWork.CurrentSession.Save(item);
+                    }
+                    //var flash=m_FlashcardRepository.GetItemAsync(item.id);                    
+                }
+                unitOfWork.TransactionalFlush();
+            }
+        }
         public Task<int> DoDirtyUpdateAsync(CancellationToken token)
         {
             return ExecuteSqlLoopAsync(new[]
