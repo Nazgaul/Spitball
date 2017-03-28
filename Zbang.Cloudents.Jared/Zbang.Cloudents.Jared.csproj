@@ -202,6 +202,7 @@
     <Compile Include="Filters\VersionConstraint.cs" />
     <Compile Include="Filters\VersionedRoute.cs" />
     <Compile Include="Models\AddCommentRequest.cs" />
+    <Compile Include="Models\DropboxUploadRequest.cs" />
     <Compile Include="Models\FileUploadRequest.cs" />
     <Compile Include="Models\ItemLikeRequest.cs" />
     <Compile Include="Models\ItemTagRequest.cs" />

@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using System;
+using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -93,7 +95,7 @@ namespace Zbang.Cloudents.Jared.Controllers
 
         }
 
-        [Route("api/item/upload/commit")]
+        [Route("api/document/upload/commit")]
         [HttpPost]
         [Authorize]
         public async Task<HttpResponseMessage> CommitFileAsync(FileUploadRequest model)
@@ -134,6 +136,57 @@ namespace Zbang.Cloudents.Jared.Controllers
 
             return Request.CreateResponse(fileDto);
 
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("api/document/upload/dropbox")]
+        public async Task<HttpResponseMessage> DropBoxAsync(DropboxUploadRequest model)
+        {
+            if (model == null)
+            {
+                return Request.CreateBadRequestResponse();
+
+            }
+            if (!ModelState.IsValid)
+            {
+
+                return Request.CreateBadRequestResponse();
+            }
+            var userId = User.GetUserId();
+            var extension = Path.GetExtension(model.Name);
+            if (extension == null)
+            {
+                return Request.CreateBadRequestResponse("Can't upload file without extension");
+            }
+            var blobAddressUri = Guid.NewGuid().ToString().ToLower() + extension.ToLower();
+
+            var size = 0L;
+
+            try
+            {
+                await m_BlobProviderFiles.UploadFromLinkAsync(model.Url, blobAddressUri).ConfigureAwait(false);
+                size = await m_BlobProviderFiles.SizeAsync(blobAddressUri).ConfigureAwait(false);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Request.CreateUnauthorizedResponse("can't access dropbox api");
+            }
+
+            var command = new AddFileToBoxCommand(userId, model.BoxId, blobAddressUri,
+               model.Name, size, null, model.Question);
+            var result = await m_ZboxWriteService.AddItemToBoxAsync(command).ConfigureAwait(false);
+            var result2 = result as AddFileToBoxCommandResult;
+            if (result2 == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "result is null");
+            }
+            var fileDto = new ItemDto
+            {
+                Id = result2.File.Id
+                //Name = result2.File.Name,
+            };
+            return Request.CreateResponse(fileDto);
         }
     }
 }
