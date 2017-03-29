@@ -19,8 +19,8 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class HomeController : Controller
     {
-        private readonly IZboxCacheReadService m_readService;
-        private readonly IZboxWriteService m_writeService;
+        private readonly IZboxCacheReadService m_ReadService;
+        private readonly IZboxWriteService m_WriteService;
         private readonly Lazy<IFileProcessorFactory> m_FileProcessorFactory;
         private readonly Lazy<IBlobProvider2<FilesContainerName>> m_BlobProviderFiles;
         public HomeController(IZboxCacheReadService readService,
@@ -28,10 +28,15 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
             Lazy<IBlobProvider2<FilesContainerName>> blobProviderFiles,
             Lazy<IFileProcessorFactory> fileProcessorFactory)
         {
-            m_readService = readService;
-            m_writeService = writeService;
+            m_ReadService = readService;
+            m_WriteService = writeService;
             m_BlobProviderFiles = blobProviderFiles;
             m_FileProcessorFactory = fileProcessorFactory;
+        }
+
+        public ActionResult Index()
+        {
+            return View();
         }
 
         public ActionResult Page()
@@ -42,26 +47,26 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
         [HttpPost, ActionName("Items")]
         public async Task<JsonResult> ItemsAsync(JaredSearchQuery model, CancellationToken cancellationToken)
         {
-           var retVal = await m_readService.GetItemsWithTagsAsync(model);
+           var retVal = await m_ReadService.GetItemsWithTagsAsync(model);
           
            return Json(retVal);
         }
         [HttpGet, ActionName("University")]
         public async Task<JsonResult> UniAsync(string term, CancellationToken cancellationToken)
         {
-            var retVal = await m_readService.GetUniAsync(new SearchTermQuery(term));
+            var retVal = await m_ReadService.GetUniAsync(new SearchTermQuery(term));
             return Json(retVal,JsonRequestBehavior.AllowGet);
         }
         [HttpGet, ActionName("Department")]
         public async Task<JsonResult> DepartmentAsync(string term, CancellationToken cancellationToken)
         {
-            var retVal = await m_readService.GetDepartmentAsync(new SearchTermQuery(term));
+            var retVal = await m_ReadService.GetDepartmentAsync(new SearchTermQuery(term));
             return Json(retVal, JsonRequestBehavior.AllowGet);
         }
         [HttpGet, ActionName("Tag")]
         public async Task<JsonResult> TabAsync(string term, CancellationToken cancellationToken)
         {
-            var retVal = await m_readService.GetTagAsync(new SearchTermQuery(term));
+            var retVal = await m_ReadService.GetTagAsync(new SearchTermQuery(term));
             return Json(retVal, JsonRequestBehavior.AllowGet);
         }
         [HttpPost,ActionName("Save")]
@@ -71,56 +76,56 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
             bool isAddTags = ( model.NewTags != null&& model.NewTags.Any());
             bool isRemoveTags = ( model.RemoveTags != null&&model.RemoveTags.Any());
             if (rename) Rename(model.ItemId, model.ItemName);
-            if (isAddTags)addTagsToDoc(model.ItemId, model.NewTags);
+            if (isAddTags)AddTagsToDoc(model.ItemId, model.NewTags);
             if (isRemoveTags) {
                 var command = new RemoveTagsFromDocumentCommand(model.ItemId, model.RemoveTags);
-                m_writeService.RemoveItemTag(command);
+                m_WriteService.RemoveItemTag(command);
             }
             if (model.DocType>-1) {
                 var d = new ChangeItemDocTypeCommand(model.ItemId,(ItemType)model.DocType);
-                m_writeService.ChangeItemDocType(d);
+                m_WriteService.ChangeItemDocType(d);
             }
             var save = new SetReviewedDocumentCommand(model.ItemId);
-            m_writeService.SetReviewed(save);
+            m_WriteService.SetReviewed(save);
             return Json("");
         }
-        private void addTagsToDoc(long itemId,IEnumerable<string> newTags)
+        private void AddTagsToDoc(long itemId,IEnumerable<string> newTags)
         {
             var z = new AssignTagsToDocumentCommand(itemId, newTags, TagType.Backoffice);
-            m_writeService.AddItemTag(z);
+            m_WriteService.AddItemTag(z);
         }
-        private async Task<JsonResult> AddItemToTabAsync(long itemId, Guid? tabId,long boxId)
+        //private async Task<JsonResult> AddItemToTabAsync(long itemId, Guid? tabId,long boxId)
+        //{
+        //    var command = new AssignItemToTabCommand(itemId, tabId, boxId, 1);
+        //    await m_writeService.AssignBoxItemToTabAsync(command);
+        //    return Json("");
+        //}
+        private void Rename(long id, string name)
         {
-            var command = new AssignItemToTabCommand(itemId, tabId, boxId, 1);
-            await m_writeService.AssignBoxItemToTabAsync(command);
-            return Json("");
-        }
-        private JsonResult Rename(long id, string name)
-        {
-            try
-            {
+            //try
+            //{
                 var command = new ChangeFileNameCommand(id, name,1);
-                var result = m_writeService.ChangeFileName(command);
-                return Json(new
-                {
-                    name = result.Name,
-                    url = result.Url
-                });
-            }
+                 m_WriteService.ChangeFileName(command);
+                //return Json(new
+                //{
+                //    name = result.Name,
+                //    url = result.Url
+                //});
+            //}
 
-            catch (UnauthorizedAccessException)
-            {
-                return Json("You need to follow this box in order to change file name");
-            }
-            catch (ArgumentException ex)
-            {
-                return Json(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError($"ChangeFileName newFileName {name} ItemUid {id} userId 1", ex);
-                return Json("Error");
-            }
+            //catch (UnauthorizedAccessException)
+            //{
+            //    return Json("You need to follow this box in order to change file name");
+            //}
+            //catch (ArgumentException ex)
+            //{
+            //    return Json(ex.Message);
+            //}
+            //catch (Exception ex)
+            //{
+            //    TraceLog.WriteError($"ChangeFileName newFileName {name} ItemUid {id} userId 1", ex);
+            //    return Json("Error");
+            //}
 
 
         }
@@ -164,11 +169,6 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
                     return Json(new { preview = retVal.Content.First() }, JsonRequestBehavior.AllowGet);
                 }
 
-                var res = new
-                {
-                    template = retVal.ViewName,
-                    retVal.Content
-                };
                 return Json(new
                 {
                     template = retVal.ViewName,
@@ -189,7 +189,7 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
             try
             {
                 var command = new DeleteItemCommand(itemId, 1);
-                await m_writeService.DeleteItemAsync(command);
+                await m_WriteService.DeleteItemAsync(command);
                 return Json(itemId);
             }
             catch (Exception ex)

@@ -39,7 +39,7 @@ namespace Zbang.Cloudents.Connect
                 var usersToSend = new[] { userId.ToString(), Context.User.GetUserId().ToString() };
                 var messageCommand = new ChatAddMessageCommand(chatId, Context.User.GetUserId(), message,
                     new[] { Context.User.GetUserId(), userId }, blob);
-                await m_WriteService.AddChatMessageAsync(messageCommand);
+                await m_WriteService.AddChatMessageAsync(messageCommand).ConfigureAwait(false);
                 Clients.Users(usersToSend).chat(messageCommand.Message, messageCommand.ChatRoomId, userId, blob);
             }
             catch (Exception ex)

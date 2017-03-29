@@ -4,12 +4,17 @@ using System.Configuration;
 using System.Reflection;
 using System.Web.Http;
 using Autofac;
+using Autofac.Integration.SignalR;
 using Autofac.Integration.WebApi;
+using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Transports;
 using Microsoft.Azure.Mobile.Server;
 using Microsoft.Azure.Mobile.Server.Authentication;
 using Microsoft.Azure.Mobile.Server.Config;
 using Owin;
+using Zbang.Cloudents.Connect;
 using Zbang.Zbox.Domain.CommandHandlers;
+using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure;
@@ -32,8 +37,8 @@ namespace Zbang.Cloudents.Jared
             new MobileAppConfiguration()
         .AddMobileAppHomeController()             // from the Home package
         .MapApiControllers()
-       
-      //  .AddPushNotifications()                   // from the Notifications package
+
+        //  .AddPushNotifications()                   // from the Notifications package
         .ApplyTo(config);
 
 
@@ -61,15 +66,40 @@ namespace Zbang.Cloudents.Jared
             builder.RegisterModule<WriteServiceModule>();
             builder.RegisterModule<DataModule>();
             builder.RegisterModule<ReadServiceModule>();
+            builder.RegisterHubs(Assembly.GetExecutingAssembly());
 
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
-
+            ConfigureSignalR(app, container);
             app.UseAutofacMiddleware(container);
             app.UseAutofacWebApi(config);
 
             app.UseWebApi(config);
 
+        }
+
+        private static void ConfigureSignalR(IAppBuilder app, IContainer container)
+        {
+            var config = new HubConfiguration
+            {
+                EnableDetailedErrors = false
+               // Resolver = new AutofacDependencyResolver(container)
+            };
+
+
+
+            GlobalHost.DependencyResolver = new AutofacDependencyResolver(container);// config.Resolver;
+            GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => new UserIdProvider());
+
+            GlobalHost.DependencyResolver.UseServiceBus(
+                ConfigurationManager.AppSettings["Microsoft.ServiceBus.ConnectionString"], "signalr");
+            //app.UseAutofacMiddleware(container);
+            //var heartBeat = GlobalHost.DependencyResolver.Resolve<ITransportHeartbeat>();
+            //var writeService = GlobalHost.DependencyResolver.Resolve<IZboxWriteService>();
+
+            //var monitor = new PresenceMonitor(heartBeat, writeService);
+            //monitor.StartMonitoring();
+            app.MapSignalR(config);
         }
     }
 
