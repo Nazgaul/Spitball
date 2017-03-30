@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using Owin;
+using System.Web;
 using System.Web.Mvc;
 using Zbang.Zbox.Domain.CommandHandlers;
 using Zbang.Zbox.Domain.Services;
@@ -22,6 +23,8 @@ namespace Zbang.Cloudents.Mvc2Jared
             builder.RegisterModule<DataModule>();
             Zbox.Infrastructure.File.RegisterIoc.Register();
             builder.RegisterModule<StorageModule>();
+            IocFactory.IocWrapper.ContainerBuilder.Register(
+                    c => HttpContext.Current.GetOwinContext().Authentication);
             builder.RegisterModule<WriteServiceModule>();
             builder.RegisterModule<ReadServiceModule>();
             Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
