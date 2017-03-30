@@ -1,6 +1,4 @@
-﻿
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 
 namespace Zbang.Cloudents.MobileApp.DataObjects
@@ -17,14 +15,5 @@ namespace Zbang.Cloudents.MobileApp.DataObjects
         public string Size { get; set; }
 
         public bool Question { get; set; }
-    }
-
-    public class ChatFileUploadRequest
-    {
-        [Required]
-        public string BlobName { get; set; }
-        [Required]
-        public IList<long> Users { get; set; }
-
     }
 }

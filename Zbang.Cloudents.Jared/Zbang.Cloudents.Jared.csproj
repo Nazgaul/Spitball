@@ -224,11 +224,13 @@
     <Compile Include="Filters\VersionConstraint.cs" />
     <Compile Include="Filters\VersionedRoute.cs" />
     <Compile Include="Models\AddCommentRequest.cs" />
+    <Compile Include="Models\ChatFileUploadRequest.cs" />
     <Compile Include="Models\DropboxUploadRequest.cs" />
     <Compile Include="Models\FileUploadRequest.cs" />
     <Compile Include="Models\ItemLikeRequest.cs" />
     <Compile Include="Models\ItemTagRequest.cs" />
     <Compile Include="Models\LoginResult.cs" />
+    <Compile Include="Models\MarkReadRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

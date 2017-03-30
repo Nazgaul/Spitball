@@ -293,6 +293,7 @@
     <Compile Include="DataObjects\AddCommentRequest.cs" />
     <Compile Include="DataObjects\AddLinkRequest.cs" />
     <Compile Include="DataObjects\BoxRenameRequest.cs" />
+    <Compile Include="DataObjects\ChatFileUploadRequest.cs" />
     <Compile Include="DataObjects\FlashcardRequest.cs" />
     <Compile Include="DataObjects\MarkReadRequest.cs" />
     <Compile Include="DataObjects\CreateAcademicBoxRequest.cs" />
