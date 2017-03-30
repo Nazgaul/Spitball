@@ -324,7 +324,7 @@ select top(3) id from zbox.university where isdeleted = 1 and updatetime < getut
 
         public Task<int> DeleteOldUpdatesAsync(CancellationToken token)
         {
-            return ExecuteSqlLoopAsync(new[] { "delete top (100)  from zbox.newUpdates where CreationTime < getutcdate() - 90 option (maxdop 1)" }, token);
+            return ExecuteSqlLoopAsync(new[] { "delete top (100)  from zbox.newUpdates where CreationTime < getutcdate() - 60 option (maxdop 1)" }, token);
         }
 
 
