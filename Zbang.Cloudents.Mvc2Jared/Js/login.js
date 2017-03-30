@@ -51,11 +51,11 @@
         disableState(submitBtn);
         var values = $(form).serialize();
         
-        $.post('/home/login', values).done(function (data) {
+        $.post('/account/login', values).done(function (data) {
             if (!data.success) {
                 var text;
                 try {
-                    text = data.payload.error;
+                    text = data.payload;
                 } catch (e) {
                     text = 'Unspecified error';
                 }

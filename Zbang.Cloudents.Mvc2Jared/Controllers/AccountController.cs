@@ -26,18 +26,18 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
             }
             try
             {
-                if (model.Email == "yifatbij@gmail.com" && model.Password == "123123")
+                if (model.Email == "elton@cloudents.com" && model.Password == "eltonjon")
                 {
-                    return Json(Url.Action("Page", "home"));
+                    return Json(new { success = true, payload= Url.Action("Page", "home") });
                 }
-                return Json("invalid password Or user name");
+                return Json(new {success=false,payload="invalid password Or user name" });
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError($"LogOn model : {model} ", ex);
                 ModelState.AddModelError(string.Empty, "Logon Error");
             }
-            return Json("error");
+            return Json(new {success=false,payload= "error" });
             // return Json(GetErrorFromModelState());
         }
         protected string GetErrorFromModelState()

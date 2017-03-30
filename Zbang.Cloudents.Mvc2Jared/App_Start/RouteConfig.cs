@@ -16,7 +16,7 @@ namespace Zbang.Cloudents.Mvc2Jared
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Page", id = UrlParameter.Optional }
+                defaults: new { controller = "Account", action = "index", id = UrlParameter.Optional }
             );
         }
     }
