@@ -16,6 +16,7 @@ using Zbang.Zbox.Infrastructure.Consts;
 
 namespace Zbang.Cloudents.Mvc2Jared.Controllers
 {
+    [Authorize]
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class HomeController : Controller
     {
