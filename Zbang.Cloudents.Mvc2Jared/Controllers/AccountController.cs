@@ -3,14 +3,22 @@
 using System.Linq;
 using System.Web.Mvc;
 using Zbang.Zbox.Infrastructure.Trace;
-using System.Threading.Tasks;
 using Zbang.Cloudents.Mvc2Jared.Models;
+using System.Web;
+using Microsoft.Owin.Security;
+using System.Security.Claims;
+using Microsoft.AspNet.Identity;
 
 namespace Zbang.Cloudents.Mvc2Jared.Controllers
 {
 
     public class AccountController : Controller
     {
+        private readonly IAuthenticationManager m_AuthenticationManager;
+        public AccountController(IAuthenticationManager authenticationManager)
+        {
+            m_AuthenticationManager = authenticationManager;
+        }
         public ActionResult Index()
         {
             return View();
@@ -20,6 +28,7 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
         [ActionName("Login")]
         public JsonResult LogIn(LogOn model)
         {
+            var authentication = HttpContext.GetOwinContext().Authentication;
             if (!ModelState.IsValid)
             {
                 return Json(GetErrorFromModelState());
@@ -28,6 +37,12 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
             {
                 if (model.Email == "elton@cloudents.com" && model.Password == "eltonjon")
                 {
+                    m_AuthenticationManager.SignIn(
+                    new AuthenticationProperties { IsPersistent = true },
+                    new ClaimsIdentity(new[] { new Claim(
+                       ClaimsIdentity.DefaultNameClaimType, model.Email)
+                    },
+                       DefaultAuthenticationTypes.ApplicationCookie));
                     return Json(new { success = true, payload= Url.Action("Page", "home") });
                 }
                 return Json(new {success=false,payload="invalid password Or user name" });
