@@ -2,7 +2,7 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources
 <ul layout="row" layout-padding layout-wrap layout-align="start stretch" class="list-unstyled quizzes-list flashcards-list">
     <li user-not-register-click  flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" hide-xs class="add-button i-q-wrapper">
-        <a class="content" user-not-register-click  ui-sref="flashcardCreate({boxtype: f.params.boxtype, universityType:f.params.universityType, boxId: f.params.boxId, boxName:f.params.boxName})" ga-track-event="['box-flashcards', 'addFlashcard']">
+        <a class="content" user-not-register-click  ui-sref="flashcardCreate({boxtype: f.params.boxtype, universityType:f.params.universityType, boxId: f.params.boxId, boxName:f.params.boxName})" ga-track-event="['box-flashcard', 'add-flashcard']">
             <div class="quizCreate">
                 <md-icon md-svg-icon="t:add"></md-icon>
                 <div class="text">
@@ -16,17 +16,17 @@
         class="i-q-wrapper flashcards" ng-repeat="e in f.flashcards track by e.id">
         <div ng-include="'flashcard-template.html'"></div>
         <md-menu ng-if="::b.canDelete(e.ownerId)" class="quiz-menu">
-            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-flashcard', 'delete']">
+            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-flashcard', 'open-flashcard-menu']">
                 <md-icon md-svg-icon="t:ThreeDots" class="dots-3 quiz-dots"></md-icon>
             </md-button>
             <md-menu-content width="1">
                 <md-menu-item ng-if="::f.canEdit(e)">
-                    <md-button class="capitalize" ui-sref="flashcardCreate({boxtype: f.params.boxtype, universityType:f.params.universityType, boxId: f.params.boxId, boxName:f.params.boxName, id:e.id})" ga-track-event="['box-flashcard', 'didEdit']">
+                    <md-button class="capitalize" ui-sref="flashcardCreate({boxtype: f.params.boxtype, universityType:f.params.universityType, boxId: f.params.boxId, boxName:f.params.boxName, id:e.id})" ga-track-event="['box-flashcard', 'edit']">
                         @FlashcardResources.Edit
                     </md-button>
                 </md-menu-item>
                 <md-menu-item>
-                    <md-button ng-click="f.deleteFlashcard($event,e)" ga-track-event="['box-flashcard', 'didDelete']">
+                    <md-button ng-click="f.deleteFlashcard($event,e)" ga-track-event="['box-flashcard', 'delete']">
                         @GeneralResources.Delete
                     </md-button>
                 </md-menu-item>

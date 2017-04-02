@@ -8,6 +8,17 @@ var app;
             this.$window = $window;
             this.analytics = analytics;
             this.what = data.what;
+            switch (this.what) {
+                case 'f':
+                    this.socialAction = 'share-flashcard';
+                    break;
+                case 'b':
+                    this.socialAction = 'share-box';
+                    break;
+                default:
+                    this.socialAction = 'share';
+            }
+            this.socialAction = this.what == 'f' ? 'share-flashcard' : 'share-box';
             this.url = location.origin + "/" + data.what + "/" + encodeBase64(data.id);
             this.whatappLink = "whatsapp://send?text=" + encodeURIComponent(this.url);
             function encodeBase64(integer) {
@@ -28,19 +39,20 @@ var app;
             this.$mdDialog.cancel();
         };
         ShareDialog.prototype.facebook = function () {
-            this.analytics["send"]('social', "facebook", "share", this.url);
+            this.analytics["send"]('social', "facebook", this.socialAction, this.url);
             var shareFb = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(this.url);
             this.$window.open(shareFb, "pop", "width=600, height=400, scrollbars=no");
         };
         ShareDialog.prototype.whatsapp = function () {
-            this.analytics["send"]('social', "whatsApp", "share", this.url);
+            this.analytics["send"]('social', "whatsApp", this.socialAction, this.url);
         };
         ShareDialog.prototype.twitter = function () {
-            this.analytics["send"]('social', "twitter", "share", this.url);
+            this.analytics["send"]('social', "twitter", this.socialAction, this.url);
             var shareTwiiter = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(this.url);
             this.$window.open(shareTwiiter, "pop", "width=600, height=400, scrollbars=no");
         };
         ShareDialog.prototype.onSuccess = function () {
+            this.analytics["send"]('social', "copied-link", this.socialAction, this.url);
         };
         return ShareDialog;
     }());
