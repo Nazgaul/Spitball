@@ -9,7 +9,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
     {
         protected FeedSearchDto()
         {
-            Tags = new List<ItemSearchTag>();
+            Tags = new List<FeedSearchTag>();
         }
         public Guid Id { get; set; }
         public string Text { get; set; }
@@ -32,7 +32,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
         public string Content => Text + string.Join(" ", Replies);
 
         public Language? Language { get; set; }
-        public List<ItemSearchTag> Tags { get; set; }
+        public List<FeedSearchTag> Tags { get; set; }
     }
 
     public class RepliesSearchDto

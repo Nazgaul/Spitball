@@ -79,6 +79,8 @@ namespace Zbang.Zbox.ReadServices
         Task<FeedToUpdateSearchDto> GetFeedDirtyUpdatesAsync(long? version, int page, int size,
             CancellationToken token);
 
+        Task<long> GetTrackingCurrentVersionAsync();
+
         #endregion
 
 

@@ -13,7 +13,7 @@ namespace Zbang.Zbox.Infrastructure.Data
             builder.RegisterGeneric(typeof(NHibernateRepository<>)).As(typeof(IRepository<>));
             builder.RegisterGeneric(typeof(DocumentDbRepository<>)).As(typeof(IDocumentDbRepository<>));
 
-            builder.RegisterType<UnitOfWork>().AsSelf().As<IStartable>().SingleInstance().AutoActivate();
+           // builder.RegisterType<UnitOfWork>().AsSelf().As<IStartable>().SingleInstance().AutoActivate();
         }
     }
 }

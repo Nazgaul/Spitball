@@ -52,9 +52,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 {
                     if (page == 0)
                     {
+                        var currentVersionDb = await m_ZboxReadService.GetTrackingCurrentVersionAsync().ConfigureAwait(false);
+                        if (currentVersionDb != version)
+                        {
+                            await WriteVersionAsync(currentVersionDb, cancellationToken).ConfigureAwait(false);
+                        }
                         return TimeToSleep.Increase;
                     }
-                    return TimeToSleep.Min;
+                    
                 }
                 var tasks = new List<Task>();
                 foreach (var feed in updates.Updates.Where(w => w.UniversityId == JaredUniversityIdPilot))
@@ -68,8 +73,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 version = Math.Max(version.GetValueOrDefault(), updates.NextVersion);
             } while (updates.Updates.Count() == size);
 
-            await WriteVersionAsync(updates.NextVersion, cancellationToken).ConfigureAwait(false);
-            return TimeToSleep.Same;
+            var newVersion = version.Value;
+            await WriteVersionAsync(newVersion, cancellationToken).ConfigureAwait(false);
+            if (page == 1)
+            {
+                return TimeToSleep.Same;
+            }
+            return TimeToSleep.Min;
         }
 
         private async Task<Task> JaredPilotAsync(FeedSearchDto elem, CancellationToken cancellationToken)
@@ -85,7 +95,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
 
                 var result = (await m_WatsonExtractProvider.GetKeywordAsync(elem.Content, cancellationToken).ConfigureAwait(false)).ToList();
-                elem.Tags.AddRange(result.Select(s => new ItemSearchTag { Name = s }));
+                elem.Tags.AddRange(result.Select(s => new FeedSearchTag { Name = s }));
                 var z = new AssignTagsToFeedCommand(elem.Id, result, TagType.Watson);
                 m_WriteService.AddItemTag(z);
             }

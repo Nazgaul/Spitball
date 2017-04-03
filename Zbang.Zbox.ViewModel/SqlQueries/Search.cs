@@ -311,8 +311,10 @@ select top 0 questionid, ct.sys_change_version as version from  CHANGETABLE(CHAN
 
         public const string GetFeedAnswers = @"select questionid, text from zbox.answer where questionid in @questionids;";
 
+        public const string GetFeedTags =
+            @"select it.CommentId as Id, t.Name, it.Type from zbox.commentTag it join zbox.Tag t on it.TagId = t.Id where it.CommentId in @questionids;";
         public const string GetFeedToSearch = @"
-IF (@version > CHANGE_TRACKING_MIN_VALID_VERSION(  
+IF (@version >= CHANGE_TRACKING_MIN_VALID_VERSION(  
                                    OBJECT_ID('zbox.question')))
 SELECT
  p.questionid as id,
@@ -364,7 +366,7 @@ OFFSET @PageSize * (@PageNumber) ROWS
   FETCH NEXT @PageSize ROWS ONLY;";
 
         #endregion
-        //public const string NextVersionChanges = @"select CHANGE_TRACKING_CURRENT_VERSION();";
+        public const string NextVersionChanges = @"select CHANGE_TRACKING_CURRENT_VERSION();";
 
         #region Document
 

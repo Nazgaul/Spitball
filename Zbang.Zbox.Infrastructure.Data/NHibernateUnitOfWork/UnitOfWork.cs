@@ -1,19 +1,18 @@
 ﻿using System;
-using Autofac;
 using NHibernate;
 using Zbang.Zbox.Infrastructure.UnitsOfWork;
 
 namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 {
-    public class UnitOfWork : Autofac.IStartable
+    public static class UnitOfWork
     {
-        private IUnitOfWorkFactory UnitOfWorkFactory;
+        private static readonly IUnitOfWorkFactory UnitOfWorkFactory;
         public const string CurrentUnitOfWorkKey = "CurrentUnitOfWork.Key";
 
-        //UnitOfWork()
-        //{
-        //    UnitOfWorkFactory = new UnitOfWorkFactory();
-        //}
+        static UnitOfWork()
+        {
+            UnitOfWorkFactory = new UnitOfWorkFactory();
+        }
 
         private static IUnitOfWork CurrentUnitOfWork
         {
@@ -36,16 +35,13 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 
         public static bool IsStarted => CurrentUnitOfWork != null;
 
-        public ISession CurrentSession
+        public static ISession CurrentSession
         {
             get { return UnitOfWorkFactory.CurrentSession; }
             internal set { UnitOfWorkFactory.CurrentSession = value; }
         }
-        void IStartable.Start()
-        {
-            UnitOfWorkFactory = new UnitOfWorkFactory();
-        }
-        public IUnitOfWork Start()
+
+        public static IUnitOfWork Start()
         {
             if (CurrentUnitOfWork != null)
             {

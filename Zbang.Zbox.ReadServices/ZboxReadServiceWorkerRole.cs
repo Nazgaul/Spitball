@@ -377,21 +377,31 @@ namespace Zbang.Zbox.ReadServices
                         Deletes = await grid.ReadAsync<FeedSearchDeleteDto>().ConfigureAwait(false),
                         Updates = await grid.ReadAsync<FeedSearchDto>().ConfigureAwait(false)
                     };
-                    //var answers = (await grid.ReadAsync<RepliesSearchDto>().ConfigureAwait(false)).ToList();
-                    //foreach (var update in retVal.Updates)
-                    //{
-                    //    update.Replies = answers.Where(w => w.QuestionId == update.Id).Select(s => s.Text);
-                    //}
-
-                    var answers = (await conn.QueryAsync<RepliesSearchDto>(Search.GetFeedAnswers,
-                        new { questionids = retVal.Updates.Select(s => s.Id) }).ConfigureAwait(false)).ToList();
-                    foreach (var update in retVal.Updates)
+                    using (var subGrid = await conn.QueryMultipleAsync($"{Search.GetFeedAnswers}{Search.GetFeedTags}", new { questionids = retVal.Updates.Select(s => s.Id) }).ConfigureAwait(false))
                     {
-                        update.Replies = answers.Where(w => w.QuestionId == update.Id).Select(s => s.Text);
+                        var answers = (await subGrid.ReadAsync<RepliesSearchDto>().ConfigureAwait(false)).ToList();
+                        var tags = (await subGrid.ReadAsync<FeedSearchTag>().ConfigureAwait(false)).ToList();
+                        if (answers.Count <= 0 && tags.Count <= 0) return retVal;
+                        foreach (var update in retVal.Updates)
+                        {
+                            update.Replies = answers.Where(w => w.QuestionId == update.Id).Select(s => s.Text);
+                            update.Tags = tags.Where(w => w.Id == update.Id).ToList();
+                        }
                     }
+
                     return retVal;
                 }
 
+            }
+        }
+
+
+        public async Task<long> GetTrackingCurrentVersionAsync()
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
+            {
+               return await conn.QueryFirstAsync<long>(Search.NextVersionChanges).ConfigureAwait(false);
+                //NextVersionChanges
             }
         }
 
