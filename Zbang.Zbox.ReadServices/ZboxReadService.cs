@@ -405,11 +405,11 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<IEnumerable<Qna.CommentDto>> GetCommentsAsync(GetBoxQuestionsQuery query)
         {
-            using (var con = await DapperConnection.OpenConnectionAsync())
+            using (var con = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 using (var grid = await con.QueryMultipleAsync(
                     $"{Sql.Feed.Comments} {Sql.Feed.RepliesInComments} {Sql.Feed.GetItemsInCommentsAndReplies} {Sql.Feed.GetQuizzesForComments} {Sql.Feed.GetFlashcardFromComments}",
-                    new { query.BoxId, query.Top, query.Skip, rtop = GetBoxQuestionsQuery.TopOfReplies }))
+                    new { query.BoxId, query.Top, query.Skip, rtop = GetBoxQuestionsQuery.TopOfReplies }).ConfigureAwait(false))
                 {
                     var comments = grid.Read<Qna.CommentDto>();//.ToList();
                     var replies = grid.Read<Qna.ReplyDto>();//.ToDictionary(x => x.QuestionId);
