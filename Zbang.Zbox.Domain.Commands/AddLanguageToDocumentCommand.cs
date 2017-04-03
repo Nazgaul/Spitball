@@ -1,4 +1,5 @@
-﻿using Zbang.Zbox.Infrastructure.Commands;
+﻿using System;
+using Zbang.Zbox.Infrastructure.Commands;
 using Zbang.Zbox.Infrastructure.Culture;
 
 namespace Zbang.Zbox.Domain.Commands
@@ -25,15 +26,23 @@ namespace Zbang.Zbox.Domain.Commands
         }
     }
 
+    public class AddLanguageToFeedCommand : AddLanguageToItemCommand
+    {
+        public AddLanguageToFeedCommand(Guid itemId, Language language)
+            : base(itemId, language)
+        {
+        }
+    }
+
     public abstract class AddLanguageToItemCommand : ICommand
     {
-        protected AddLanguageToItemCommand(long itemId, Language language)
+        protected AddLanguageToItemCommand(object itemId, Language language)
         {
             ItemId = itemId;
             Language = language;
         }
 
-        public long ItemId { get; private set; }
+        public object ItemId { get; private set; }
         public Language Language { get; private set; }
     }
 }

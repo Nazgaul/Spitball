@@ -11,9 +11,16 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
     public class NHibernateRepository<T> : IRepository<T> where T : class
     {
 
-        protected ISession Session => UnitOfWork.CurrentSession;
+        private readonly UnitOfWork m_UnitOfWork;
 
-        protected virtual ISessionFactory SessionFactory => UnitOfWork.CurrentSession.GetSessionImplementation().Factory;
+        public NHibernateRepository(UnitOfWork unitOfWork)
+        {
+            this.m_UnitOfWork = unitOfWork;
+        }
+
+        protected ISession Session => m_UnitOfWork.CurrentSession;
+
+        protected virtual ISessionFactory SessionFactory => m_UnitOfWork.CurrentSession.GetSessionImplementation().Factory;
 
         protected ICriteria CreateCriteria()
         {

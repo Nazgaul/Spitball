@@ -8,7 +8,7 @@ using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
-    public abstract class Item : IDirty, IItem
+    public abstract class Item : IDirty, ITag, ILanguage
     {
         public const int NameLength = 120;
         protected Item()
@@ -76,12 +76,17 @@ namespace Zbang.Zbox.Domain
             newExists = new ItemTag(tag, this, type);
             ItemTags.Add(newExists);
             tag.ItemTags.Add(newExists);
+            if (type != TagType.Watson)
+            {
+                ShouldMakeDirty = () => true;
+            }
         }
         public virtual void RemoveTag(string tag)
         {
             var tagToRemove = ItemTags.FirstOrDefault(w => w.Tag.Name == tag);
             if (tagToRemove == null) return;
             ItemTags.Remove(tagToRemove);
+            ShouldMakeDirty = () => true;
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
@@ -108,7 +113,7 @@ namespace Zbang.Zbox.Domain
             NumberOfViews++;
         }
 
-       
+
 
         public abstract string ChangeName(string newName);
 

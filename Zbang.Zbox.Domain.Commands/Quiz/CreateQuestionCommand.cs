@@ -14,10 +14,8 @@ namespace Zbang.Zbox.Domain.Commands.Quiz
         }
 
         public Question Question { get; private set; }
-        //public string Text { get; private set; }
         public long QuizId { get; private set; }
         public long UserId { get; private set; }
-        //public Guid QuestionId { get; private set; }
 
     }
 

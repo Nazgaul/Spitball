@@ -298,6 +298,74 @@ where it.FlashcardId in (
         public const string GetFlashcardToDeleteFromSearch = @" select top (@top) id as id from zbox.flashcard
         where isdirty = 1 and isdeleted = 1 and id % @count  = @index;";
         #endregion
+
+        #region Feed
+
+        public const string GetFeedToDeleteFromSearch = @"IF (@version > CHANGE_TRACKING_MIN_VALID_VERSION(  
+                                   OBJECT_ID('zbox.question')))
+select questionid, ct.sys_change_version as version from  CHANGETABLE(CHANGES zbox.question, @version) AS CT
+where sys_change_operation = 'D';
+else 
+select top 0 questionid, ct.sys_change_version as version from  CHANGETABLE(CHANGES zbox.question, @version) AS CT
+";
+
+        public const string GetFeedAnswers = @"select questionid, text from zbox.answer where questionid in @questionids;";
+
+        public const string GetFeedToSearch = @"
+IF (@version > CHANGE_TRACKING_MIN_VALID_VERSION(  
+                                   OBJECT_ID('zbox.question')))
+SELECT
+ p.questionid as id,
+ text,
+ u.id as universityId,
+ u.UniversityName,
+ b.boxid,
+ b.boxname,
+ b.ProfessorName as professor,
+ b.coursecode as code,
+ p.CreationTime as date,
+ p.LikeCount,
+ p.ReplyCount,
+ ct.sys_change_version as version
+FROM
+    zbox.question AS P
+RIGHT OUTER JOIN CHANGETABLE(CHANGES zbox.question, @version) AS CT ON  p.questionid = CT.questionid
+join zbox.box b on p.boxid = b.boxid
+join zbox.university u on b.university = u.id
+where sys_change_operation in ('I','U')
+and isSystemgenerated = 0
+and text is not null
+order by p.QuestionId
+OFFSET @PageSize * (@PageNumber) ROWS
+  FETCH NEXT @PageSize ROWS ONLY;;
+else 
+SELECT
+ p.questionid as id,
+ text,
+ u.id as universityId,
+ u.UniversityName,
+ b.boxid,
+ b.boxname,
+ b.ProfessorName as professor,
+ b.coursecode as code,
+ p.CreationTime as date,
+ p.LikeCount,
+ p.ReplyCount,
+ CHANGE_TRACKING_MIN_VALID_VERSION(  
+                                   OBJECT_ID('zbox.question')) as version
+FROM
+    zbox.question AS P
+join zbox.box b on p.boxid = b.boxid
+join zbox.university u on b.university = u.id
+and isSystemgenerated = 0
+and text is not null
+order by p.QuestionId
+OFFSET @PageSize * (@PageNumber) ROWS
+  FETCH NEXT @PageSize ROWS ONLY;";
+
+        #endregion
+        //public const string NextVersionChanges = @"select CHANGE_TRACKING_CURRENT_VERSION();";
+
         #region Document
 
         public const string SearchItemNew = @"select top (@top)
