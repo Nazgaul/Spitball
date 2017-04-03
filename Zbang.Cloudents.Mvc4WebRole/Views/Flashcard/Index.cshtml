@@ -77,7 +77,7 @@
                 <span ng-if="f.step==2">!</span>
             </div>
             <div class="action-buttons">
-                <button ng-if="f.step!=2" type="button" class="action-btn" user-not-register-popup="click" ng-click="f.start()">
+                <button ng-if="f.step!=2" type="button" class="action-btn" user-not-register-popup="click" ng-click="f.start()" ga-track-event="['flashcard', 'start']">
                     <span>@FlashcardResources.Start</span>
                 </button>
                 <button ng-if="f.step==2" type="button" class="action-btn" user-not-register-popup="click" ng-click="f.start()" ga-track-event="['flashcard', 'start-over']">
