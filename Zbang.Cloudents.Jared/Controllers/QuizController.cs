@@ -111,20 +111,20 @@ namespace Zbang.Cloudents.Jared.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        [Route("api/quiz/tag")]
-        [HttpPost]
-        //[Authorize]
-        public HttpResponseMessage AddTag(ItemTagRequest model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Request.CreateBadRequestResponse();
-            }
+        //[Route("api/quiz/tag")]
+        //[HttpPost]
+        ////[Authorize]
+        //public HttpResponseMessage AddTag(ItemTagRequest model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Request.CreateBadRequestResponse();
+        //    }
 
-            var z = new AssignTagsToQuizCommand(model.Id, model.Tags, TagType.User);
-            m_ZboxWriteService.AddItemTag(z);
-            return Request.CreateResponse();
-        }
+        //    var z = new AssignTagsToQuizCommand(model.Id, model.Tags, TagType.User);
+        //    m_ZboxWriteService.AddItemTag(z);
+        //    return Request.CreateResponse();
+        //}
 
 
     }

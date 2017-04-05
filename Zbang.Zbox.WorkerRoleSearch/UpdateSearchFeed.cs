@@ -61,6 +61,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     }
                     
                 }
+                TraceLog.WriteInfo("Going to process" + updates.NextVersion);
                 var tasks = new List<Task>();
                 foreach (var feed in updates.Updates.Where(w => w.UniversityId == JaredUniversityIdPilot))
                 {
