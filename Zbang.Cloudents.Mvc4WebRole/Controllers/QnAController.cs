@@ -35,7 +35,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var query = new GetBoxQuestionsQuery(id, top, skip);
                 var retVal =
-                  await ZboxReadService.GetCommentsAsync(query);
+                  await ZboxReadService.GetCommentsAsync(query).ConfigureAwait(false);
                 //removing user name
                 if (IsCrawler())
                 {
@@ -161,7 +161,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var questionId = m_IdGenerator.GetId();
             var command = new AddCommentCommand(User.GetUserId(), model.BoxId, model.Content, questionId, model.Files, model.Anonymously);
-            var details = await ZboxWriteService.AddCommentAsync(command);
+            var details = await ZboxWriteService.AddCommentAsync(command).ConfigureAwait(false);
             return JsonOk(details);
         }
 

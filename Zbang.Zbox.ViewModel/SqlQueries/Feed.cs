@@ -12,7 +12,9 @@
     ,q.CreationTime as creationTime
 	,q.ReplyCount as RepliesCount
 	,q.LikeCount as LikesCount
-	FROM [Zbox].[Question] q join zbox.users u on u.userid = q.userid
+	FROM [Zbox].[Question] q 
+    --join zbox.users u on u.userid = q.userid
+    join zbox.users u on (q.Anonymous = 1 and u.userid = 22886) or (coalesce( q.Anonymous, 0) = 0 and u.UserId = q.userid)
     where q.BoxId = @BoxId
     order by q.[updatetime] desc
     offset @skip ROWS

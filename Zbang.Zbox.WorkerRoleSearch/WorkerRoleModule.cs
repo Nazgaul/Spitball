@@ -16,6 +16,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             builder.RegisterType<UpdateSearchQuiz>().Named<IJob>(IocFactory.UpdateSearchQuiz);
             builder.RegisterType<UpdateSearchFlashcard>().Named<IJob>(IocFactory.UpdateSearchFlashcard);
             builder.RegisterType<UpdateSearchUniversity>().Named<IJob>(IocFactory.UpdateSearchUniversity);
+            builder.RegisterType<UpdateSearchFeed>().Named<IJob>(nameof(UpdateSearchFeed));
 
             builder.RegisterType<SchedulerListener>().Named<IJob>(nameof(SchedulerListener));
             builder.RegisterType<UpdateUnsubscribeList>().Named<IJob>(nameof(UpdateUnsubscribeList));

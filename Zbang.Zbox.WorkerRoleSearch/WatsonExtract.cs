@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AlchemyAPIClient;
 using AlchemyAPIClient.Requests;
+using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.WorkerRoleSearch
@@ -29,7 +30,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             };
             try
             {
-                var result = await request.GetResponse(token);
+                var result = await request.GetResponse(token).ConfigureAwait(false);
                 int dummy;
                 return result.Concepts.Where(w => w.Relevance > 0.75).Select(s => s.Text).Where(w => !int.TryParse(w, out dummy));
             }
@@ -40,10 +41,74 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
         }
 
+        public async Task<IEnumerable<string>> GetKeywordAsync(string text, CancellationToken token)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return null;
+            }
+            
+            
+            var request = new AlchemyTextKeywordsRequest(text, m_Client)
+            {
+                KnowledgeGraph = true,
+                ShowSourceText = true,
+                Sentiment = false,
+                MaxRetrieve = 30
+            };
+
+            try
+            {
+                var result = await request.GetResponse(token).ConfigureAwait(false);
+                int dummy;
+                
+                return result.Keywords.Where(w => w.Relevance > 0.75).Select(s => s.Text).Where(w => !int.TryParse(w, out dummy));
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("watson keyword error" + text, ex);
+                return null;
+            }
+        }
+
+        public async Task<Language> GetLanguageAsync(string text, CancellationToken token)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return Language.Undefined;
+            }
+
+
+            var request = new AlchemyTextLanguageRequest(text, m_Client);
+            
+
+            try
+            {
+                var result = await request.GetResponse(token).ConfigureAwait(false);
+                if (result.Iso_639_3 == "eng")
+                {
+                    return Language.EnglishUs;
+                }
+                if (result.Iso_639_3 == "heb")
+                {
+                    return Language.Hebrew;
+                }
+                return Language.Undefined;
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("watson text error" + text, ex);
+               
+            }
+            return Language.Undefined;
+        }
+
     }
 
     public interface IWatsonExtract
     {
         Task<IEnumerable<string>> GetConceptAsync(string text, CancellationToken token);
+        Task<IEnumerable<string>> GetKeywordAsync(string text, CancellationToken token);
+        Task<Language> GetLanguageAsync(string text, CancellationToken token);
     }
 }

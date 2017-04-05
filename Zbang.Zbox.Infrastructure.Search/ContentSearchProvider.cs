@@ -18,7 +18,7 @@ using FacetResult = Zbang.Zbox.ViewModel.Dto.Search.FacetResult;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
-    public class ContentSearchProvider : IContentWriteSearchProvider, IContentReadSearchProvider
+    public class ContentSearchProvider : IContentWriteSearchProvider
     {
         private readonly ISearchConnection m_Connection;
         private readonly ISearchIndexClient m_IndexClient;
@@ -190,7 +190,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             var viewsScore = new MagnitudeScoringFunction()
             {
                 Boost = 5,
-                FieldName = nameof(Item.Likes).ToLower(),
+                FieldName = nameof(Item.Views).ToLower(),
                 Parameters = new MagnitudeScoringParameters
                 {
                     BoostingRangeStart = 1,

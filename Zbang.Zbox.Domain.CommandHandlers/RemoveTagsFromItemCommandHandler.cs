@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Repositories;
@@ -10,7 +6,7 @@ using Zbang.Zbox.Infrastructure.Repositories;
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class RemoveTagsFromItemCommandHandler<T> :
-        ICommandHandler<RemoveTagsFromItemCommand> where T : IItem
+        ICommandHandler<RemoveTagsFromItemCommand> where T : ITag
     {
         private readonly IRepository<T> m_ItemRepository;
         public RemoveTagsFromItemCommandHandler(IRepository<T> itemRepository)
@@ -30,10 +26,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 item.RemoveTag(tagName);
             }
-            item.ShouldMakeDirty = () => true;
             m_ItemRepository.Save(item);
         }
-
-        //protected abstract ItemTag AssignItemToTag(Tag tag, IItem item);
     }
 }

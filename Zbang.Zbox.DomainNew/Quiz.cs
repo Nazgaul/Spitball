@@ -10,7 +10,7 @@ using Zbang.Zbox.Infrastructure.Repositories;
 namespace Zbang.Zbox.Domain
 {
     [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Local")]
-    public class Quiz : IDirty, IItem
+    public class Quiz : IDirty, ITag, ILanguage
     {
         protected Quiz()
         {
@@ -103,12 +103,17 @@ namespace Zbang.Zbox.Domain
             newExists = new ItemTag(tag, this, type);
             ItemTags.Add(newExists);
             tag.ItemTags.Add(newExists);
+            if (type != TagType.Watson)
+            {
+                ShouldMakeDirty = () => true;
+            }
         }
         public virtual void RemoveTag(string tag)
         {
             var tagToRemove = ItemTags.FirstOrDefault(w => w.Tag.Name == tag);
             if (tagToRemove == null) return;
             ItemTags.Remove(tagToRemove);
+            ShouldMakeDirty = () => true;
         }
 
         // public virtual CourseTag CourseTag { get; set; }

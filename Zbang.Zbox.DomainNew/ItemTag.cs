@@ -87,4 +87,65 @@ namespace Zbang.Zbox.Domain
                 + 19 * Quiz?.GetHashCode() ?? 0;
         }
     }
+
+
+    public class CommentTag
+    {
+        protected CommentTag()
+        {
+
+        }
+        public CommentTag(Tag tag, Comment comment, TagType type) : this()
+        {
+
+            Tag = tag;
+            Comment = comment;
+            Type = type;
+        }
+        
+        public virtual Guid Id { get; set; }
+
+        public virtual TagType Type { get; set; }
+
+        public virtual Tag Tag { get; set; }
+        public virtual Comment Comment { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var item = obj as CommentTag;
+            if (item == null)
+            {
+                return false;
+            }
+            //bool equals = false;
+            return CheckEqualsWithNull(Tag, item.Tag)
+                   && CheckEqualsWithNull(Comment, item.Comment);
+
+        }
+
+        private static bool CheckEqualsWithNull(object a, object b)
+        {
+            if (a == null && b == null)
+            {
+                return true;
+            }
+            if (a != null && b == null)
+            {
+                return false;
+            }
+            if (a == null)
+            {
+                return false;
+            }
+            return a.Equals(b);
+
+        }
+
+        public override int GetHashCode()
+        {
+            return
+                11 * Tag.GetHashCode()
+                + 13 * Comment?.GetHashCode() ?? 0;
+        }
+    }
 }

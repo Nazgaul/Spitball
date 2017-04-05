@@ -8,6 +8,7 @@ namespace Zbang.Zbox.Domain
         protected Tag()
         {
             ItemTags = new HashSet<ItemTag>();
+            CommentTags = new HashSet<CommentTag>();
         }
         public Tag(string name) : this()
         {
@@ -21,5 +22,6 @@ namespace Zbang.Zbox.Domain
         public virtual Guid Id { get; set; }
         public virtual string Name { get; set; }
         public virtual ISet<ItemTag> ItemTags { get; set; }
+        public virtual ISet<CommentTag> CommentTags { get; set; }
     }
 }

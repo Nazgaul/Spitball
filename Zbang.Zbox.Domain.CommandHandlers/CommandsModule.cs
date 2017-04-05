@@ -25,6 +25,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 .As<ICommandHandler<AssignTagsToFlashcardCommand>>();
             builder.RegisterType(typeof(AssignTagsToItemCommandHandler<Domain.Quiz>))
                .As<ICommandHandler<AssignTagsToQuizCommand>>();
+            builder.RegisterType(typeof(AssignTagsToItemCommandHandler<Comment>))
+               .As<ICommandHandler<AssignTagsToFeedCommand>>();
 
             builder.RegisterType(typeof(RemoveTagsFromItemCommandHandler<Item>))
             .As<ICommandHandler<RemoveTagsFromDocumentCommand>>();
@@ -34,14 +36,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                .As<ICommandHandler<RemoveTagsFromQuizCommand>>();
 
 
-            builder.RegisterType(typeof(SetReviewedCommandHandler<Item>))
-            .As<ICommandHandler<SetReviewedDocumentCommand>>();
-            builder.RegisterType(typeof(SetReviewedCommandHandler<FlashcardMeta>))
-                .As<ICommandHandler<SetReviewedFlashcardCommand>>();
-            builder.RegisterType(typeof(SetReviewedCommandHandler<Domain.Quiz>))
-               .As<ICommandHandler<SetReviewedQuizCommand>>();
+            //builder.RegisterType(typeof(SetReviewedCommandHandler<Item>))
+            //.As<ICommandHandler<SetReviewedDocumentCommand>>();
+            //builder.RegisterType(typeof(SetReviewedCommandHandler<FlashcardMeta>))
+            //    .As<ICommandHandler<SetReviewedFlashcardCommand>>();
+            //builder.RegisterType(typeof(SetReviewedCommandHandler<Domain.Quiz>))
+            //   .As<ICommandHandler<SetReviewedQuizCommand>>();
 
-            //builder.RegisterAssemblyTypes(ThisAssembly).AsClosedTypesOf(typeof(ICommandHandler<>));
             builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces();
 
             builder.RegisterType(typeof(AddFileToBoxCommandHandler)).Named <

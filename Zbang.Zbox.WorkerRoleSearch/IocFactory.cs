@@ -39,20 +39,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Domain.CommandHandlers.Ioc.RegisterIoc.Register();
 
             Ioc.ContainerBuilder.RegisterModule<CommandsModule>();
-            //Ioc.ContainerBuilder.RegisterModule<AiModule>();
-
             Ioc.ContainerBuilder.RegisterType<SendPush>()
             .As<ISendPush>()
             .WithParameter("connectionString", ConfigFetcher.Fetch("ServiceBusConnectionString"))
             .WithParameter("hubName", ConfigFetcher.Fetch("ServiceBusHubName"))
             .InstancePerLifetimeScope();
 
-            //Unity = new UnityContainer();
             Ioc.ContainerBuilder.RegisterModule<WorkerRoleModule>();
             Ioc.Build();
 
             Ioc.Resolve<Domain.Common.IZboxServiceBootStrapper>().BootStrapper();
-            
         }
 
         public T Resolve<T>(string name)

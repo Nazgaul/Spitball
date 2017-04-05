@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using System;
+using Dapper;
 using NHibernate;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ using Zbang.Zbox.ViewModel.Dto.BoxDtos;
 using Zbang.Zbox.ViewModel.Dto.Emails;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Dto.Library;
+using Zbang.Zbox.ViewModel.Dto.Qna;
 using Zbang.Zbox.ViewModel.Queries.Emails;
 using Zbang.Zbox.ViewModel.Queries.Search;
 using Zbang.Zbox.ViewModel.SqlQueries;
@@ -327,17 +329,17 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<ItemToUpdateSearchDto> GetItemsDirtyUpdatesAsync(SearchItemDirtyQuery query, CancellationToken token)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync(token))
+            using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
             {
                 using (var grid = await conn.QueryMultipleAsync(
                     new CommandDefinition(Search.SearchItemNew + Search.SearchItemUserBoxRel +
-                    Search.SearchItemTags + Search.GetItemToDeleteToSearch,
-                        new { query.Index, count = query.Total, query.Top, query.ItemId }, cancellationToken: token)))
+                                          Search.SearchItemTags + Search.GetItemToDeleteToSearch,
+                        new { query.Index, count = query.Total, query.Top, query.ItemId }, cancellationToken: token)).ConfigureAwait(false))
                 {
-                    var retVal = new ItemToUpdateSearchDto {ItemsToUpdate = await grid.ReadAsync<DocumentSearchDto>()};
-                    var users = (await grid.ReadAsync<ItemSearchUsers>()).ToList();
-                    var tags = (await grid.ReadAsync<ItemSearchTag>()).ToList();
-                    retVal.ItemsToDelete = await grid.ReadAsync<DocumentToDeleteSearchDto>();
+                    var retVal = new ItemToUpdateSearchDto { ItemsToUpdate = await grid.ReadAsync<DocumentSearchDto>().ConfigureAwait(false) };
+                    var users = (await grid.ReadAsync<ItemSearchUsers>().ConfigureAwait(false)).ToList();
+                    var tags = (await grid.ReadAsync<ItemSearchTag>().ConfigureAwait(false)).ToList();
+                    retVal.ItemsToDelete = await grid.ReadAsync<DocumentToDeleteSearchDto>().ConfigureAwait(false);
                     var cacheUsers = new Dictionary<long, IEnumerable<long>>();
                     foreach (var p in retVal.ItemsToUpdate)
                     {
@@ -357,10 +359,52 @@ namespace Zbang.Zbox.ReadServices
                 }
             }
 
- 
+
         }
 
-       
+        public async Task<FeedToUpdateSearchDto> GetFeedDirtyUpdatesAsync(long? version, int page, int size,
+            CancellationToken token)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
+            {
+
+                using (var grid = await conn.QueryMultipleAsync(
+                    $"{Search.GetFeedToDeleteFromSearch} {Search.GetFeedToSearch}"
+                    , new { version, PageSize = size, PageNumber = page }).ConfigureAwait(false))
+                {
+                    var retVal = new FeedToUpdateSearchDto
+                    {
+                        Deletes = await grid.ReadAsync<FeedSearchDeleteDto>().ConfigureAwait(false),
+                        Updates = await grid.ReadAsync<FeedSearchDto>().ConfigureAwait(false)
+                    };
+                    using (var subGrid = await conn.QueryMultipleAsync($"{Search.GetFeedAnswers}{Search.GetFeedTags}", new { questionids = retVal.Updates.Select(s => s.Id) }).ConfigureAwait(false))
+                    {
+                        var answers = (await subGrid.ReadAsync<RepliesSearchDto>().ConfigureAwait(false)).ToList();
+                        var tags = (await subGrid.ReadAsync<FeedSearchTag>().ConfigureAwait(false)).ToList();
+                        if (answers.Count <= 0 && tags.Count <= 0) return retVal;
+                        foreach (var update in retVal.Updates)
+                        {
+                            update.Replies = answers.Where(w => w.QuestionId == update.Id).Select(s => s.Text);
+                            update.Tags = tags.Where(w => w.Id == update.Id).ToList();
+                        }
+                    }
+
+                    return retVal;
+                }
+
+            }
+        }
+
+
+        public async Task<long> GetTrackingCurrentVersionAsync()
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
+            {
+               return await conn.QueryFirstAsync<long>(Search.NextVersionChanges).ConfigureAwait(false);
+                //NextVersionChanges
+            }
+        }
+
 
         public async Task<FlashcardToUpdateSearchDto> GetFlashcardsDirtyUpdatesAsync(int index, int total, int top, CancellationToken token)
         {
@@ -398,7 +442,7 @@ namespace Zbang.Zbox.ReadServices
                     return retVal;
                 }
             }
-            
+
         }
 
         public async Task<QuizToUpdateSearchDto> GetQuizzesDirtyUpdatesAsync(int index, int total, int top)
