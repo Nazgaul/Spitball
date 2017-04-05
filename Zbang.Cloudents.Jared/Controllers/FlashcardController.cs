@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -77,11 +78,11 @@ namespace Zbang.Cloudents.Jared.Controllers
             var command = new AddFlashcardLikeCommand(User.GetUserId(), model.Id);
             await m_ZboxWriteService.AddFlashcardLikeAsync(command).ConfigureAwait(false);
 
-            //if (model.Tags.Any())
-            //{
-            //    var z = new AssignTagsToQuizCommand(model.Id, model.Tags, TagType.User);
-            //    m_ZboxWriteService.AddItemTag(z);
-            //}
+            if (model.Tags.Any())
+            {
+                var z = new AssignTagsToQuizCommand(model.Id, model.Tags, TagType.User);
+                m_ZboxWriteService.AddItemTag(z);
+            }
 
             return Request.CreateResponse(HttpStatusCode.OK, command.Id);
         }
