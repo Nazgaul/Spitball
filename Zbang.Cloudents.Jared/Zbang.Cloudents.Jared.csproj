@@ -254,6 +254,7 @@
     <Content Include="Performance\Microsoft.ServiceBus.MessagingPerformanceCounters.man" />
     <None Include="Properties\PublishProfiles\jared-spitball - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\jared-spitball - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\jared-us - Web Deploy.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Zbang.Zbox.Domain.CommandHandlers\Zbang.Zbox.Domain.CommandHandlers.csproj">
