@@ -12,7 +12,6 @@ namespace Zbang.Cloudents.Jared.Controllers
         // GET api/<controller>
         public IEnumerable<Tutor> Get()
         {
-            dynamic array;
             string json;
             List<Tutor> tutors;
             using (StreamReader r = new StreamReader(System.AppContext.BaseDirectory + @"/DataObjects/tutor.json"))

@@ -220,6 +220,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\QuizController.cs" />
     <Compile Include="Controllers\RefreshController.cs" />
+    <Compile Include="Controllers\TutorController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Filters\VersionConstraint.cs" />
     <Compile Include="Filters\VersionedRoute.cs" />
@@ -245,16 +246,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="DataObjects\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Performance\Microsoft.ServiceBus.MessagingPerformanceCounters.man" />
+    <Content Include="DataObjects\tutor.json" />
     <None Include="Properties\PublishProfiles\jared-spitball - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\jared-spitball - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\jared-us - Web Deploy.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Zbang.Zbox.Domain.CommandHandlers\Zbang.Zbox.Domain.CommandHandlers.csproj">
