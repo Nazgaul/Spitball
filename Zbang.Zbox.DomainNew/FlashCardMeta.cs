@@ -7,7 +7,7 @@ using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
-    public class FlashcardMeta : IItem, IDirty
+    public class FlashcardMeta : IDirty, ITag, ILanguage
     {
         protected FlashcardMeta()
         {
@@ -60,12 +60,18 @@ namespace Zbang.Zbox.Domain
             newExists = new ItemTag(tag, this, type);
             ItemTags.Add(newExists);
             tag.ItemTags.Add(newExists);
+            ShouldMakeDirty = () => true;
+            if (type != TagType.Watson)
+            {
+                ShouldMakeDirty = () => true;
+            }
         }
         public virtual void RemoveTag(string tag)
         {
             var tagToRemove = ItemTags.FirstOrDefault(w => w.Tag.Name == tag);
             if (tagToRemove == null) return;
             ItemTags.Remove(tagToRemove);
+            ShouldMakeDirty = () => true;
         }
 
         // public virtual CourseTag CourseTag { get; set; }
@@ -73,7 +79,6 @@ namespace Zbang.Zbox.Domain
         public virtual UserTimeDetails DateTimeUser { get; private set; }
 
         public virtual Box Box { get; set; }
-        public virtual bool IsReviewed { get; set; }
 
         public ICollection<FlashcardPin> Pins { get; set; }
 

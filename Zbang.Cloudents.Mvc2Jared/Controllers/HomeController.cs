@@ -73,7 +73,7 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
         [HttpPost,ActionName("Save")]
         public  JsonResult SaveAsync(SaveItemTags model)
         {
-            bool rename = (!String.IsNullOrEmpty(model.ItemName));
+            bool rename = (!string.IsNullOrEmpty(model.ItemName));
             bool isAddTags = ( model.NewTags != null&& model.NewTags.Any());
             bool isRemoveTags = ( model.RemoveTags != null&&model.RemoveTags.Any());
             if (rename) Rename(model.ItemId, model.ItemName);
@@ -86,7 +86,7 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
                 var d = new ChangeItemDocTypeCommand(model.ItemId,(ItemType)model.DocType);
                 m_WriteService.ChangeItemDocType(d);
             }
-            var save = new SetReviewedDocumentCommand(model.ItemId);
+            var save = new SetReviewedCommand(model.ItemId);
             m_WriteService.SetReviewed(save);
             return Json("");
         }

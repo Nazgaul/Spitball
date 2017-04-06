@@ -77,8 +77,11 @@
                 <span ng-if="f.step==2">!</span>
             </div>
             <div class="action-buttons">
-                <button type="button" class="action-btn" user-not-register-popup="click" ng-click="f.start()">
-                    <span>@FlashcardResources.Start</span><span ng-if="f.step==2">&nbsp;@FlashcardResources.Over</span>
+                <button ng-if="f.step!=2" type="button" class="action-btn" user-not-register-popup="click" ng-click="f.start()" ga-track-event="['flashcard', 'start']">
+                    <span>@FlashcardResources.Start</span>
+                </button>
+                <button ng-if="f.step==2" type="button" class="action-btn" user-not-register-popup="click" ng-click="f.start()" ga-track-event="['flashcard', 'start-over']">
+                    <span>@FlashcardResources.Start @FlashcardResources.Over</span>
                 </button>
                 <button type="button" class="action-btn pinned-cards" user-not-register-popup="click" ng-if="f.pinCount" ng-click="f.startPin()">
                     <span>@FlashcardResources.Study&nbsp;</span><ng-pluralize count="f.pinCount"
@@ -89,7 +92,7 @@
                       }"></ng-pluralize>
                 </button>
             </div>
-            <div class="shuffle" user-not-register-popup="click">
+            <div class="shuffle" user-not-register-popup="click" ga-track-event="['flashcard', 'shuffel']">
                 <md-icon md-svg-icon="b:shuffle"></md-icon>
                 <md-switch ng-model="f.shuffle" keyboard-action="83">
                     @FlashcardResources.Shuffle&nbsp;@FlashcardResources.Cards
@@ -97,7 +100,7 @@
             </div>
             <div ng-if="f.step==2" class="like-wrapper">
                 <span>@FlashcardResources.LikeLabel</span>&nbsp;
-                <button ng-click="f.like()" ng-class="{liked:f.flashcard.like}">
+                <button ng-click="f.like()" ng-class="{liked:f.flashcard.like}" ga-track-event="['flashcard', 'like']">
                     <div>
                         <md-icon md-svg-icon="b:like"></md-icon>@GeneralResources.Like
                     </div>

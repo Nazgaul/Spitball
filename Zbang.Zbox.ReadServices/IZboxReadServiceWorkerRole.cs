@@ -5,6 +5,7 @@ using Zbang.Zbox.ViewModel.Dto.BoxDtos;
 using Zbang.Zbox.ViewModel.Dto.Emails;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Dto.Library;
+using Zbang.Zbox.ViewModel.Dto.Qna;
 using Zbang.Zbox.ViewModel.Queries.Emails;
 using Zbang.Zbox.ViewModel.Queries.Search;
 
@@ -71,6 +72,16 @@ namespace Zbang.Zbox.ReadServices
         IEnumerable<long> GetUsersBadgeItem(int page);
         IEnumerable<long> GetUsersBadgeLike(int page);
         IEnumerable<long> GetUserReputationUpdate(int page);
+
+
+        #region feedUpdateSearch
+
+        Task<FeedToUpdateSearchDto> GetFeedDirtyUpdatesAsync(long? version, int page, int size,
+            CancellationToken token);
+
+        Task<long> GetTrackingCurrentVersionAsync();
+
+        #endregion
 
 
     }

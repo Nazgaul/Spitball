@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
-    public class Comment //: ISoftDeletable
+    public class Comment : ITag
     {
         protected Comment()
         {
@@ -28,9 +29,6 @@ namespace Zbang.Zbox.Domain
             {
                 item.CommentReply = null;
             }
-
-
-
             User = user;
             Box = box;
             Text = ExtractCommentText(feedType, text, user);
@@ -62,7 +60,6 @@ namespace Zbang.Zbox.Domain
         protected virtual ICollection<Updates> Updates { get; set; }
         protected virtual ICollection<CommentLike> Likes { get; set; }
         public ICollection<CommentReply> RepliesReadOnly => Replies.ToList().AsReadOnly();
-        //public ICollection<Item> ItemsReadOnly => Items.ToList().AsReadOnly();
 
         public virtual bool Anonymous { get; set; }
 
@@ -72,7 +69,6 @@ namespace Zbang.Zbox.Domain
 
         public virtual int LikeCount { get; set; }
 
-        //public virtual Guid? LastReplyId { get; set; }
 
         public virtual UserTimeDetails DateTimeUser { get; set; }
 
@@ -122,6 +118,32 @@ namespace Zbang.Zbox.Domain
         {
             Quizes.Remove(quiz);
             return NeedToRemoveComment();
+        }
+
+        public virtual ISet<CommentTag> CommentTags { get; set; }
+
+
+        public void AddTag(Tag tag, TagType type)
+        {
+            var newExists = CommentTags.FirstOrDefault(w => w.Tag.Id == tag.Id);
+            if (newExists != null) return;
+            newExists = new CommentTag(tag, this, type);
+            CommentTags.Add(newExists);
+            tag.CommentTags.Add(newExists);
+            if (type != TagType.Watson)
+            {
+                //TODO: think about this
+                DateTimeUser.UpdateTime = DateTime.UtcNow;
+            }
+        }
+
+        public void RemoveTag(string tag)
+        {
+            var tagToRemove = CommentTags.FirstOrDefault(w => w.Tag.Name == tag);
+            if (tagToRemove == null) return;
+            CommentTags.Remove(tagToRemove);
+            //TODO: think about this
+            DateTimeUser.UpdateTime = DateTime.UtcNow;
         }
     }
 }

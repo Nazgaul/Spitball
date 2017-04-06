@@ -36,9 +36,6 @@ namespace Zbang.Cloudents.Jared.Controllers
 
             var command = new CreateJaredUserCommand(uniqueId);
             var userIdResult = m_ZboxWriteService.CreateUserJared(command);
-            //if (isValidAssertion(assertion)) // user-defined function, checks against a database
-            //{
-
             
             var token = AppServiceLoginHandler.CreateToken(
                 new[]

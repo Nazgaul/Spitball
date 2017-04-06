@@ -1,20 +1,17 @@
-﻿using System;
-using Zbang.Zbox.Infrastructure.Culture;
+﻿using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
-    public interface IItem 
+    public interface ITag //: IDirty
     {
-        long Id { get; }
-        bool IsReviewed { get; set; }
-        Language Language { get; set; }
-        Func<bool> ShouldMakeDirty { get; set; }
-        //ISet<ItemTag> ItemTags { get; }
-
         void AddTag(Tag tag, TagType type);
         void RemoveTag(string tag);
+    }
 
-        //CourseTag CourseTag { get; set; }
+    public interface ILanguage
+    {
+        Language Language { get; set; }
     }
 }

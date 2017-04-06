@@ -2,22 +2,6 @@
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
                    assembly="Zbang.Zbox.Domain"
                    namespace="Zbang.Zbox.Domain">
-  <!--<class name="CourseTag" table="CourseTag">
-    <id name="Id" type="guid">
-      <generator class="assigned"></generator>
-    </id>
-    <property name="Name" not-null="true" length="120" unique-key="CourseTagNameCodeProfessor"/>
-    <property name="IsDeleted"/>
-
-    <property name="Code" length="120" unique-key="CourseTagNameCodeProfessor"/>
-    <property name="Professor" length="120" unique-key="CourseTagNameCodeProfessor"/>
-    <property name="Create" not-null="true">
-      <column name="CreateTime" not-null="true" sql-type="datetime2(2)"/>
-    </property>
-    <property name="IsDirty"/>
-  </class>-->
-
-
   <class name="ItemTag">
     <id name="Id" type="guid">
       <generator class="guid.comb"></generator>
@@ -26,6 +10,15 @@
     <many-to-one name="Item"  column="ItemId" foreign-key="fTagItemItem" />
     <many-to-one name="Flashcard"  column="FlashcardId" foreign-key="fTagItemFlashcard" />
     <many-to-one name="Quiz"  column="QuizId" foreign-key="fTagItemQuiz" />
+    <property name="Type" not-null="true"/>
+  </class>
+
+  <class name="CommentTag">
+    <id name="Id" type="guid">
+      <generator class="guid.comb"></generator>
+    </id>
+    <many-to-one name="Tag" column="TagId" foreign-key="fTagCommentTag" not-null="true" />
+    <many-to-one name="Comment"  column="CommentId" foreign-key="fTagCommentComment" />
     <property name="Type" not-null="true"/>
   </class>
   
@@ -37,6 +30,10 @@
     <set name="ItemTags" inverse="true" lazy="true">
       <key column="TagId" foreign-key="fTagItemTag"/>
       <one-to-many class="ItemTag"/>
+    </set>
+    <set name="CommentTags" inverse="true" lazy="true">
+      <key column="TagId" foreign-key="fTagCommentTag"/>
+      <one-to-many class="CommentTag"/>
     </set>
   </class>
 

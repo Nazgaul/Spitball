@@ -17,7 +17,7 @@ using Zbang.Zbox.ViewModel.Queries;
 namespace Zbang.Cloudents.Jared.Controllers
 {
     [MobileAppController]
-    [Authorize]
+   
     public class ChatController : ApiController
     {
         private readonly IZboxCacheReadService m_ZboxReadService;
@@ -60,6 +60,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         //}
 
         [Route("api/chat/message")]
+        [Authorize]
         [HttpGet]
         public async Task<HttpResponseMessage> MessagesAsync(Guid? chatRoom, [FromUri] IEnumerable<long> userIds, DateTime? fromId, int top)
         {
@@ -79,6 +80,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("api/chat/markread")]
         public HttpResponseMessage MarkRead(MarkReadRequest request)
         {
@@ -89,6 +91,7 @@ namespace Zbang.Cloudents.Jared.Controllers
 
 
         [HttpGet]
+        [Authorize]
         [Route("api/chat/upload")]
         public string UploadLink(string blob, string mimeType)
         {
@@ -97,6 +100,7 @@ namespace Zbang.Cloudents.Jared.Controllers
 
         [Route("api/chat/upload/commit")]
         [HttpPost]
+        [Authorize]
         public async Task<HttpResponseMessage> CommitFileAsync(ChatFileUploadRequest model)
         {
             if (model == null)

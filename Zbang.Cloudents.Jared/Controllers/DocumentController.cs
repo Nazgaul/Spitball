@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -67,24 +68,28 @@ namespace Zbang.Cloudents.Jared.Controllers
             var id = m_GuidGenerator.GetId();
             var command = new RateItemCommand(model.Id, User.GetUserId(), id, model.BoxId);
             await m_ZboxWriteService.RateItemAsync(command).ConfigureAwait(true);
-            
-            return Request.CreateResponse();
-        }
 
-        [Route("api/document/tag")]
-        [HttpPost]
-        //[Authorize]
-        public HttpResponseMessage AddTag(ItemTagRequest model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Request.CreateBadRequestResponse();
-            }
-
+            if (!model.Tags.Any()) return Request.CreateResponse();
             var z = new AssignTagsToDocumentCommand(model.Id, model.Tags, TagType.User);
             m_ZboxWriteService.AddItemTag(z);
+
             return Request.CreateResponse();
         }
+
+        //[Route("api/document/tag")]
+        //[HttpPost]
+        ////[Authorize]
+        //public HttpResponseMessage AddTag(ItemTagRequest model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Request.CreateBadRequestResponse();
+        //    }
+
+        //    var z = new AssignTagsToDocumentCommand(model.Id, model.Tags, TagType.User);
+        //    m_ZboxWriteService.AddItemTag(z);
+        //    return Request.CreateResponse();
+        //}
 
 
         [HttpGet]

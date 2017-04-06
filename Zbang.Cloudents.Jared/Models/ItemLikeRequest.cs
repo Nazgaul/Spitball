@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Zbang.Cloudents.Jared.Models
 {
@@ -9,6 +10,9 @@ namespace Zbang.Cloudents.Jared.Models
 
         [Required]
         public long BoxId { get; set; }
-      
+
+        [Required]
+        public IEnumerable<string> Tags { get; set; }
+
     }
 }

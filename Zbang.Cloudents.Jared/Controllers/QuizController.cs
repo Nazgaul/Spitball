@@ -94,11 +94,11 @@ namespace Zbang.Cloudents.Jared.Controllers
             var command = new AddQuizLikeCommand(User.GetUserId(), model.Id);
             await m_ZboxWriteService.AddQuizLikeAsync(command).ConfigureAwait(true);
 
-            //if (model.Tags.Any())
-            //{
-            //    var z = new AssignTagsToQuizCommand(model.Id, model.Tags, TagType.User);
-            //    m_ZboxWriteService.AddItemTag(z);
-            //}
+            if (model.Tags.Any())
+            {
+                var z = new AssignTagsToQuizCommand(model.Id, model.Tags, TagType.User);
+                m_ZboxWriteService.AddItemTag(z);
+            }
 
             return Request.CreateResponse(HttpStatusCode.OK, command.Id);
         }
@@ -111,20 +111,20 @@ namespace Zbang.Cloudents.Jared.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        [Route("api/quiz/tag")]
-        [HttpPost]
-        //[Authorize]
-        public HttpResponseMessage AddTag(ItemTagRequest model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Request.CreateBadRequestResponse();
-            }
+        //[Route("api/quiz/tag")]
+        //[HttpPost]
+        ////[Authorize]
+        //public HttpResponseMessage AddTag(ItemTagRequest model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Request.CreateBadRequestResponse();
+        //    }
 
-            var z = new AssignTagsToQuizCommand(model.Id, model.Tags, TagType.User);
-            m_ZboxWriteService.AddItemTag(z);
-            return Request.CreateResponse();
-        }
+        //    var z = new AssignTagsToQuizCommand(model.Id, model.Tags, TagType.User);
+        //    m_ZboxWriteService.AddItemTag(z);
+        //    return Request.CreateResponse();
+        //}
 
 
     }
