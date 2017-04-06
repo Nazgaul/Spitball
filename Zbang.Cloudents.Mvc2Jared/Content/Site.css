@@ -241,6 +241,10 @@
   width: 100%;
   text-align: center;
 }
+.body-content .result-data .preview .preview-image .iframeContent {
+  width: 100%;
+  height: 100vh;
+}
 .body-content .result-data .preview .preview-image img {
   max-width: 100%;
 }

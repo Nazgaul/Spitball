@@ -39,13 +39,14 @@ namespace Zbang.Zbox.Domain
         public override string ChangeName(string newName)
         {
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(newName);
+            var ext=Path.GetExtension(Name);
             if (fileNameWithoutExtension == Path.GetFileNameWithoutExtension(Name))
             {
                 return Name;
             }
 
 
-            Name = newName;
+            Name = fileNameWithoutExtension + ext;
             ShouldMakeDirty = () => true;
             GenerateUrl();
             return Name;
