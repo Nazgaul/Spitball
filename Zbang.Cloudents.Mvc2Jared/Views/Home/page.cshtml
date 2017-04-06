@@ -101,8 +101,11 @@
             </section>
         </div>
         <div class="preview col-7">
-            <div class="preview-image" ng-repeat="s in st.documents">
+            <div class="preview-image" ng-repeat="s in st.documents" ng-show="!st.file">               
                 <img class="imageContent" src="{{s}}" />
+            </div>
+            <div class="preview-image">
+                <iframe class="iframeContent" ng-show="st.file" ng-src="{{st.file}}"></iframe>
             </div>
         </div>
     </div>

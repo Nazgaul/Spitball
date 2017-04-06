@@ -2,8 +2,9 @@ var app;
 (function (app) {
     "use strict";
     var AppController = (function () {
-        function AppController($scope, searchService, $interval) {
+        function AppController($scope, $sce, searchService, $interval) {
             this.$scope = $scope;
+            this.$sce = $sce;
             this.searchService = searchService;
             this.$interval = $interval;
             this.resNum = 0;
@@ -68,6 +69,10 @@ var app;
                 data = data || {};
                 if (data.Content) {
                     self.documents = data.Content;
+                    self.file = "";
+                    if (data.template == "Text") {
+                        self.file = _this.$sce.trustAsResourceUrl(data.Content[0]);
+                    }
                     console.log(data.Content);
                 }
                 else {
@@ -195,8 +200,7 @@ var app;
         };
         return AppController;
     }());
-    AppController.$inject = ["$scope", "searchService", "$interval"];
+    AppController.$inject = ["$scope", "$sce", "searchService", "$interval"];
     app.AppController = AppController;
     angular.module("app").controller("AppController", AppController);
 })(app || (app = {}));
-//# sourceMappingURL=app.controller.js.map

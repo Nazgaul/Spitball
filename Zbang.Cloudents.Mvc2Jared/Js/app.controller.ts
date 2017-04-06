@@ -3,12 +3,13 @@ module app {
     "use strict";
 
     export class AppController {
-        static $inject = ["$scope", "searchService", "$interval"];
+        static $inject = ["$scope","$sce", "searchService", "$interval"];
         tab: string;
         resNum: number = 0;
         counter: number = 0;
         noResults = false;
         result = [];
+        file: string;
         ChangedName: string = "";
         originalName: string;
         removedTags = [];
@@ -28,7 +29,7 @@ module app {
         departmentsAutoComplete = []
         universityAutoComplete = []
         tagAutoComplete = []
-        constructor(private $scope: angular.IScope, private searchService: IHelpService, private $interval: angular.IIntervalService) {
+        constructor(private $scope: angular.IScope, private $sce: angular.ISCEService, private searchService: IHelpService, private $interval: angular.IIntervalService) {
 
         }
         search() {
@@ -70,6 +71,10 @@ module app {
                 data = data || {};
                 if (data.Content) {
                     self.documents = data.Content;
+                    self.file = "";
+                    if (data.template == "Text") {
+                        self.file = this.$sce.trustAsResourceUrl(data.Content[0]);
+                    }
                     console.log(data.Content);
                 }
                 else {
