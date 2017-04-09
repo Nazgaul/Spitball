@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Http;
+using Microsoft.Azure.Mobile.Server.Config;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
+    [MobileAppController]
     public class TutorController : ApiController
     {
         // GET api/<controller>
