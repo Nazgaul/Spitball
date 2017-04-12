@@ -27,6 +27,7 @@ p{
 }
 
 table {
+    width: 100%;
     margin-top: 80px;
 }
 
@@ -67,4 +68,17 @@ input[type="submit"]{
     margin: 0 auto;
     align-items: stretch;
     justify-content: center;
+}
+
+h2.error{
+    text-align: center;
+    color: #ff5722;
+}
+
+#loader{
+    text-align: center;
+    margin-top: 100px;
+    font-size: 26px;
+    color: black;
+    font-weight: bolder;
 }

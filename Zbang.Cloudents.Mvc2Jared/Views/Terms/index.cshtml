@@ -13,14 +13,15 @@
 <body>
     <div>
         <div class="top">
-            <h1> Terms compare google and wiki</h1>
+            <h1>Enter Terms to Compare Google Knowledge with Wikipedia Results</h1>
             <div class="search">
                 <input type="text" name="term" id="term" value="" />
                 <input type="submit" id="submit" value="search" onclick="hello()" />
             </div>
         </div>
-        <table>
-            <thead hidden>
+        <h2 hidden id="loader">Loading...</h2>
+        <table hidden>
+            <thead>
                 <tr>
                     <th>Google knowledge</th>
                     <th>WikiPedia</th>
@@ -73,7 +74,10 @@
             return xhr;
         }
         //$(document).ready(funcion(){
-            function hello() {
+        function hello() {
+
+            document.getElementsByTagName("table")[0].hidden = true
+            document.getElementById("loader").hidden = false
             //document.getElementsByName("term")
                 var service_url = 'https://kgsearch.googleapis.com/v1/entities:search';
                 var wiki_url = 'https://en.wikipedia.org/w/api.php';
@@ -95,13 +99,21 @@
                 return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
             }
                 javascript: function JSONstringify(json) { if (typeof json != 'string') { json = JSON.stringify(json, undefined, '\t'); } var arr = [], _string = 'color:green', _number = 'color:darkorange', _boolean = 'color:blue', _null = 'color:magenta', _key = 'color:red'; json = json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) { var style = _number; if (/^"/.test(match)) { if (/:$/.test(match)) { style = _key; } else { style = _string; } } else if (/true|false/.test(match)) { style = _boolean; } else if (/null/.test(match)) { style = _null; } arr.push(style); arr.push(''); return '%c' + match + '%c'; }); arr.unshift(json); console.log.apply(console, arr); }; void (0);
-            $.getJSON(service_url + '?callback=?', params, function (response) {
-                var s="<h2>Title:</h2><p>" + response.itemListElement[0].result.name+"</p>"+
-                    "<h2>Description:</h2><p>" + response.itemListElement[0].result.detailedDescription.articleBody + "</p>" +
-                    "<h2>Image</h2>:<img src='" + response.itemListElement[0].result.image.contentUrl + "'/>"
+                $.getJSON(service_url + '?callback=?', params, function (response) {
+                    var itemList = response.itemListElement;
+                    var s;
+                    if (itemList.length === 0) {
+                        s = "<h2 class='error'>No google knowledge results found</h2>"
+                    }
+                    else {
+                        s = "<h2>Title:</h2><p>" + response.itemListElement[0].result.name + "</p>" +
+                            "<h2>Description:</h2><p>" + response.itemListElement[0].result.detailedDescription.articleBody + "</p>" +
+                            "<h2>Image</h2>:<img src='" + response.itemListElement[0].result.image.contentUrl + "'/>"
+                    }
 
                 document.getElementById("googleResult").innerHTML = "<p>" + s + "</p>";
-                document.getElementsByTagName("thead")[0].hidden=false
+                document.getElementsByTagName("table")[0].hidden = false
+                document.getElementById("loader").hidden = true
                     //JSON.stringify(JSON.parse(response), null, "\t");
             });
                 
@@ -120,11 +132,22 @@
                 },
                 dataType: "jsonp",
                 success: function (data, textStatus, jqXHR) {
-                    var s = "<h2>Title:</h2><p>" + data.query.pages[Object.keys(data.query.pages)[0]].title + "</p>" +
-                    "<h2>Description:</h2><p>" + data.query.pages[Object.keys(data.query.pages)[0]].terms.description[0] + "</p>"
-                    + "<h2>Extract:</h2><p>" + data.query.pages[Object.keys(data.query.pages)[0]].extract +
-                    "</p>" + "<h2>Image:</h2><img src='" + data.query.pages[Object.keys(data.query.pages)[0]].original.source + "'/>"
-                    document.getElementById("wikiResult").innerHTML = "<p>"+s+"</p>";
+                    console.log("data: " + data.query.pages[Object.keys(data.query.pages)[0]])
+                    var terms = data.query.pages[Object.keys(data.query.pages)[0]].terms
+                    var s;
+                    if (typeof (terms) == 'undefined') {
+                        s = "<h2 class='error'>No wikipedia results found</h2>"
+                    }
+                    else {
+                        s = "<h2>Title:</h2><p>" + data.query.pages[Object.keys(data.query.pages)[0]].title + "</p>" +
+                        "<h2>Description:</h2><p>" + terms.description[0] + "</p>"
+                        + "<h2>Extract:</h2><p>" + data.query.pages[Object.keys(data.query.pages)[0]].extract +
+                        "</p>" + "<h2>Image:</h2><img src='" + data.query.pages[Object.keys(data.query.pages)[0]].original.source + "'/>"
+
+                    }
+                    document.getElementById("wikiResult").innerHTML = "<p>" + s + "</p>";
+                    document.getElementsByTagName("table")[0].hidden = false
+                    document.getElementById("loader").hidden = true
                 },
                 error: function (errorMessage) {
                 }
