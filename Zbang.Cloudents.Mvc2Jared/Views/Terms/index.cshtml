@@ -1,0 +1,149 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Terms</title>
+    <link rel="stylesheet" type="text/css" href="/Content/termSearch.css"/>
+</head>
+<body>
+    <div>
+        <div class="top">
+            <h1> Terms compare google and wiki</h1>
+            <div class="search">
+                <input type="text" name="term" id="term" value="" />
+                <input type="submit" id="submit" value="search" onclick="hello()" />
+            </div>
+        </div>
+        <table>
+            <thead hidden>
+                <tr>
+                    <th>Google knowledge</th>
+                    <th>WikiPedia</th>
+                </tr>
+            </thead>
+            <tr>
+                <td id="googleResult"></td>
+                <td id="wikiResult"></td>
+            </tr>
+        </table>
+        @*<div style="width:50%;word-break: break-word;">
+            <h6>Google Knowladge</h6>
+            <div id="googleResult"></div>
+        </div>
+        <div style="width:50%;word-break: break-word;">
+            <h6>Wiki</h6>
+            <div id="wikiResult"></div>
+        </div>*@
+    </div>
+    <script src="~/Scripts/jquery-2.2.4.min.js"></script>
+    <script>
+        document.getElementById('term').addEventListener('keypress', function (event) {
+            if (event.keyCode == 13) {
+                event.preventDefault();
+                document.getElementById('submit').click()
+            }
+        });
+
+        function createCORSRequest(method, url) {
+            var xhr = new XMLHttpRequest();
+            if ("withCredentials" in xhr) {
+
+                // Check if the XMLHttpRequest object has a "withCredentials" property.
+                // "withCredentials" only exists on XMLHTTPRequest2 objects.
+                xhr.open(method, url, true);
+
+            } else if (typeof XDomainRequest != "undefined") {
+
+                // Otherwise, check if XDomainRequest.
+                // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+                xhr = new XDomainRequest();
+                xhr.open(method, url);
+
+            } else {
+
+                // Otherwise, CORS is not supported by the browser.
+                xhr = null;
+
+            }
+            return xhr;
+        }
+        //$(document).ready(funcion(){
+            function hello() {
+            //document.getElementsByName("term")
+                var service_url = 'https://kgsearch.googleapis.com/v1/entities:search';
+                var wiki_url = 'https://en.wikipedia.org/w/api.php';
+                var query = document.getElementById("term").value;
+              
+            var params = {
+                'query': query,
+                'limit': 1,
+                'indent': true,
+                'key': 'AIzaSyASDp6MLs6mqoppPkkKUN_yoiE8WZjesow'
+            };
+            var paramsWiki = {
+                'search': query,
+                'limit': 1,
+                'action': 'query',
+                'prop': 'extract',
+            };
+            function capitalize_Words(str) {
+                return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+            }
+                javascript: function JSONstringify(json) { if (typeof json != 'string') { json = JSON.stringify(json, undefined, '\t'); } var arr = [], _string = 'color:green', _number = 'color:darkorange', _boolean = 'color:blue', _null = 'color:magenta', _key = 'color:red'; json = json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) { var style = _number; if (/^"/.test(match)) { if (/:$/.test(match)) { style = _key; } else { style = _string; } } else if (/true|false/.test(match)) { style = _boolean; } else if (/null/.test(match)) { style = _null; } arr.push(style); arr.push(''); return '%c' + match + '%c'; }); arr.unshift(json); console.log.apply(console, arr); }; void (0);
+            $.getJSON(service_url + '?callback=?', params, function (response) {
+                var s="<h2>Title:</h2><p>" + response.itemListElement[0].result.name+"</p>"+
+                    "<h2>Description:</h2><p>" + response.itemListElement[0].result.detailedDescription.articleBody + "</p>" +
+                    "<h2>Image</h2>:<img src='" + response.itemListElement[0].result.image.contentUrl + "'/>"
+
+                document.getElementById("googleResult").innerHTML = "<p>" + s + "</p>";
+                document.getElementsByTagName("thead")[0].hidden=false
+                    //JSON.stringify(JSON.parse(response), null, "\t");
+            });
+                
+            String.prototype.capitalize = function() {
+                   this.split(' ').map(word => word.capitalize()).join(' ')  //break down phrase to words then  recursive calls until capitalizing all words
+                   this.charAt(0).toUpperCase() + this.slice(1); // if allWords is undefined , capitalize only the first word , mean the first char of the whole string
+            }
+            var lowerCase = query.replace(" ", "+");
+            lowerCase = lowerCase[0].toUpperCase() + lowerCase.substring(1);
+            var capital = capitalize_Words(query).replace(" ", "+");
+            $.ajax({
+                type: "GET",
+                url: "http://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts%7Cpageimages%7Cpageprops%7Cpageterms&meta=&exchars=350&piprop=original&titles=" + lowerCase,
+                xhrFields: {
+                    withCredentials: false
+                },
+                dataType: "jsonp",
+                success: function (data, textStatus, jqXHR) {
+                    var s = "<h2>Title:</h2><p>" + data.query.pages[Object.keys(data.query.pages)[0]].title + "</p>" +
+                    "<h2>Description:</h2><p>" + data.query.pages[Object.keys(data.query.pages)[0]].terms.description[0] + "</p>"
+                    + "<h2>Extract:</h2><p>" + data.query.pages[Object.keys(data.query.pages)[0]].extract +
+                    "</p>" + "<h2>Image:</h2><img src='" + data.query.pages[Object.keys(data.query.pages)[0]].original.source + "'/>"
+                    document.getElementById("wikiResult").innerHTML = "<p>"+s+"</p>";
+                },
+                error: function (errorMessage) {
+                }
+            });
+            //$.ajax({
+            //    url: wiki_url,
+            //    data: paramsWiki,
+            //    dataType: 'jsonfm',
+            //    type: 'GET',
+            //    success: function (data) {
+            //        // do something with data
+            //        document.getElementById("wikiResult").innerHTML = JSON.stringify(data, null, 2);
+            //    }
+            //});
+            return false;
+            }
+        //})
+        //    document.getElementById("submit").click(hello);
+        //)
+    </script>
+</body>
+</html>

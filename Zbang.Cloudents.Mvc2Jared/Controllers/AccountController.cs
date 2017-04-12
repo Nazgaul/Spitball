@@ -45,6 +45,16 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
                        DefaultAuthenticationTypes.ApplicationCookie));
                     return Json(new { success = true, payload= Url.Action("Page", "home") });
                 }
+                if (model.Email == "eidan@cloudents.com" && model.Password == "eidan555")
+                {
+                    m_AuthenticationManager.SignIn(
+                    new AuthenticationProperties { IsPersistent = true },
+                    new ClaimsIdentity(new[] { new Claim(
+                       ClaimsIdentity.DefaultNameClaimType, model.Email)
+                    },
+                       DefaultAuthenticationTypes.ApplicationCookie));
+                    return Json(new { success = true, payload = Url.Action("Index", "terms") });
+                }
                 return Json(new {success=false,payload="invalid password Or user name" });
             }
             catch (Exception ex)

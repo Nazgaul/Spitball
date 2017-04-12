@@ -210,6 +210,7 @@
     <Content Include="Content\Site.min.css">
       <DependentUpon>Site.css</DependentUpon>
     </Content>
+    <Content Include="Content\termSearch.css" />
     <Content Include="Global.asax" />
     <Content Include="images1\1.jpg" />
     <Content Include="images1\341083.jpg" />
@@ -1000,6 +1001,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TermsController.cs" />
     <Compile Include="Extensions\JsonNetResult.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1028,6 +1030,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\page.cshtml" />
     <Content Include="Views\Shared\_layoutPage.cshtml" />
+    <Content Include="Views\Terms\index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
