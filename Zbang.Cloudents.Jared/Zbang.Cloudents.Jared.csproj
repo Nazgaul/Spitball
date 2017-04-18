@@ -232,6 +232,7 @@
     <Compile Include="Models\ItemTagRequest.cs" />
     <Compile Include="Models\LoginResult.cs" />
     <Compile Include="Models\MarkReadRequest.cs" />
+    <Compile Include="Models\Tutor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
