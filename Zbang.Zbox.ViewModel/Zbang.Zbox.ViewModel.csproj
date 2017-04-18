@@ -86,6 +86,7 @@
     <Compile Include="Dto\Emails\UserDigestDto.cs" />
     <Compile Include="Dto\ItemDtos\DiscussionDto.cs" />
     <Compile Include="Dto\ItemDtos\DocumentSearchDto.cs" />
+    <Compile Include="Dto\JaredDtos\JaredTextDto.cs" />
     <Compile Include="Dto\Qna\FeedToUpdateSearchDto.cs" />
     <Compile Include="Dto\ItemDtos\FileWithDetailDto.cs" />
     <Compile Include="Dto\ItemDtos\FlashcardDto.cs" />

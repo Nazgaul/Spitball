@@ -54,6 +54,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -79,6 +80,7 @@
     <Compile Include="FlashcardSolve.cs" />
     <Compile Include="IItem.cs" />
     <Compile Include="ItemTag.cs" />
+    <Compile Include="JaredText.cs" />
     <Compile Include="QuizLike.cs" />
     <Compile Include="EqualityAndHashCodeProvider.cs" />
     <Compile Include="File.cs" />
@@ -217,7 +219,14 @@
     <EmbeddedResource Include="Mappings\Gamification.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mappings\Jared.hbm.xml" />
+    <EmbeddedResource Include="Mappings\Jared.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\JaredText.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.Domain"
+                   namespace="Zbang.Zbox.Domain">
+  <class name="JaredText">
+    <id name="Id">
+      <generator class="assigned"></generator>
+    </id>
+    <property name="Type" not-null="true"/>
+    <property name="Text" not-null="true"/>
+  </class>
+</hibernate-mapping>
