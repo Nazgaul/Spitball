@@ -53,6 +53,9 @@ namespace Zbang.Zbox.Infrastructure.Search
         [IsFilterable]
         public int? ItemCount { get; set; }
 
+        public string UserName { get; set; }
+        public string UserImage { get; set; }
+
         
     }
 }

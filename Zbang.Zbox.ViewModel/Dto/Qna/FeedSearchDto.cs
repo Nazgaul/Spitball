@@ -35,6 +35,9 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
         public List<FeedSearchTag> Tags { get; set; }
 
         public int ItemCount { get; set; }
+
+        public string UserName { get; set; }
+        public string UserImage { get; set; }
     }
 
     public class RepliesSearchDto

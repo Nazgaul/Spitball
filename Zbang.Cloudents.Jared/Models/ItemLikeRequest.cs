@@ -5,10 +5,10 @@ namespace Zbang.Cloudents.Jared.Models
 {
     public class ItemLikeRequest
     {
-        [Required]
+        [Required, Range(1, long.MaxValue)]
         public long Id { get; set; }
 
-        [Required]
+        [Required,Range(1,long.MaxValue)]
         public long BoxId { get; set; }
 
         [Required]

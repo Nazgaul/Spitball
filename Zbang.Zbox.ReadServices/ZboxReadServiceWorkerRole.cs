@@ -247,14 +247,14 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<UniversitySearchDto> GetUniversityDirtyUpdatesAsync(long id)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 using (var grid = await conn.QueryMultipleAsync(Search.GetUniversityToUploadToSearch +
                                                                 Search.GetUniversityPeopleToUploadToSearch
-                    , new { id }))
+                    , new { id }).ConfigureAwait(false))
                 {
-                    var retVal = await grid.ReadSingleAsync<UniversitySearchDto>();
-                    retVal.UsersImages = (await grid.ReadAsync<UserImagesForUniversitySearchDto>()).Select(s => s.Image);
+                    var retVal = await grid.ReadSingleAsync<UniversitySearchDto>().ConfigureAwait(false);
+                    retVal.UsersImages = (await grid.ReadAsync<UserImagesForUniversitySearchDto>().ConfigureAwait(false)).Select(s => s.Image);
                     return retVal;
 
                 }

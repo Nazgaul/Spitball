@@ -231,7 +231,7 @@ and id % @count  = @index;";
             @"select id as Id,UniversityName as Name,LargeImage as Image,
 extra as Extra, Country, NoOfUsers
 from zbox.University
-where id = @id";
+where id = @id;";
 
 
         public const string GetUniversitiesPeopleToUploadToSearch = @"select universityId, UserImageLarge as Image from (
@@ -245,7 +245,7 @@ where t.rowid < 6";
 select userid, universityid, UserImageLarge, rowid = ROW_NUMBER() over (partition by UniversityId order by UserImageLarge desc)
 from zbox.Users u where UniversityId = @id
 ) t
-where t.rowid < 6";
+where t.rowid < 6;";
 
         public const string GetUniversitiesToDeleteFromSearch = @"select top 500 id from zbox.University
                     where isdirty = 1 and isdeleted = 1 and id % @count  = @index;";
@@ -329,15 +329,19 @@ SELECT
  p.LikeCount,
  p.ReplyCount,
  (select count(*) from zbox.item i where i.isdeleted = 0 and i.questionid = p.questionid and i.boxid = b.boxid) as ItemCount,
+ uu.username as userName,
+ uu.UserImageLarge as userImage,
  ct.sys_change_version as version
 FROM
     zbox.question AS P
 RIGHT OUTER JOIN CHANGETABLE(CHANGES zbox.question, @version) AS CT ON  p.questionid = CT.questionid
 join zbox.box b on p.boxid = b.boxid
 join zbox.university u on b.university = u.id
+join zbox.users uu on p.userid = uu.userid
 where sys_change_operation in ('I','U')
 and isSystemgenerated = 0
 and text is not null
+and u.id = 173408
 order by p.QuestionId
 OFFSET @PageSize * (@PageNumber) ROWS
   FETCH NEXT @PageSize ROWS ONLY;;
@@ -355,17 +359,22 @@ SELECT
  p.LikeCount,
  p.ReplyCount,
  (select count(*) from zbox.item i where i.isdeleted = 0 and i.questionid = p.questionid  and i.boxid = b.boxid) as ItemCount,
+ uu.username as userName,
+ uu.UserImageLarge as userImage,
  CHANGE_TRACKING_MIN_VALID_VERSION(  
                                    OBJECT_ID('zbox.question')) as version
 FROM
     zbox.question AS P
 join zbox.box b on p.boxid = b.boxid
 join zbox.university u on b.university = u.id
+join zbox.users uu on p.userid = uu.userid
 and isSystemgenerated = 0
 and text is not null
+and u.id = 173408
 order by p.QuestionId
 OFFSET @PageSize * (@PageNumber) ROWS
-  FETCH NEXT @PageSize ROWS ONLY;";
+  FETCH NEXT @PageSize ROWS ONLY;
+";
 
         #endregion
         public const string NextVersionChanges = @"select CHANGE_TRACKING_CURRENT_VERSION();";
