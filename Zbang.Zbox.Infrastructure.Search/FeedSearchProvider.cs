@@ -53,7 +53,9 @@ namespace Zbang.Zbox.Infrastructure.Search
                     Likes = itemToUpload.LikeCount,
                     ReplyCount = itemToUpload.ReplyCount,
                     ItemCount = itemToUpload.ItemCount,
-                    Comment = itemToUpload.Text
+                    Comment = itemToUpload.Text,
+                    UserName = itemToUpload.UserName,
+                    UserImage = itemToUpload.UserImage
                 };
                 if (!string.IsNullOrEmpty(itemToUpload.Content))
                 {

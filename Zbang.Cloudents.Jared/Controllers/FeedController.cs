@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -6,6 +7,7 @@ using Microsoft.Azure.Mobile.Server.Config;
 using Zbang.Cloudents.Jared.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 
@@ -37,7 +39,13 @@ namespace Zbang.Cloudents.Jared.Controllers
             var questionId = m_GuidGenerator.GetId();
             var command = new AddCommentCommand(User.GetUserId(),
                 boxId, model.Content, questionId, model.FilesIds, model.Anonymous);
-            await m_ZboxWriteService.AddCommentAsync(command).ConfigureAwait(false);
+            var result = await m_ZboxWriteService.AddCommentAsync(command).ConfigureAwait(false);
+
+            if (model.Tags.Any())
+            {
+                var z = new AssignTagsToFeedCommand(result.CommentId, model.Tags, TagType.User);
+                m_ZboxWriteService.AddItemTag(z);
+            }
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
