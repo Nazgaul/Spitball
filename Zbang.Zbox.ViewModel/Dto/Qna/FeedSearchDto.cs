@@ -33,6 +33,8 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
 
         public Language? Language { get; set; }
         public List<FeedSearchTag> Tags { get; set; }
+
+        public int ItemCount { get; set; }
     }
 
     public class RepliesSearchDto

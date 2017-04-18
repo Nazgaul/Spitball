@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure.Search;
@@ -9,7 +8,6 @@ using Microsoft.Azure.Search.Models;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Dto.Qna;
 
 namespace Zbang.Zbox.Infrastructure.Search
@@ -53,7 +51,9 @@ namespace Zbang.Zbox.Infrastructure.Search
                     Tags = itemToUpload.Tags?.Select(s => s.Name.ToLowerInvariant()).Distinct().ToArray(),
                     Date = itemToUpload.Date.Truncate(TimeSpan.FromSeconds(1)),
                     Likes = itemToUpload.LikeCount,
-                    ReplyCount = itemToUpload.ReplyCount
+                    ReplyCount = itemToUpload.ReplyCount,
+                    ItemCount = itemToUpload.ItemCount,
+                    Comment = itemToUpload.Text
                 };
                 if (!string.IsNullOrEmpty(itemToUpload.Content))
                 {

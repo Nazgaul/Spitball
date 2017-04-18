@@ -328,6 +328,7 @@ SELECT
  p.CreationTime as date,
  p.LikeCount,
  p.ReplyCount,
+ (select count(*) from zbox.item i where i.isdeleted = 0 and i.questionid = p.questionid and i.boxid = b.boxid) as ItemCount,
  ct.sys_change_version as version
 FROM
     zbox.question AS P
@@ -353,6 +354,7 @@ SELECT
  p.CreationTime as date,
  p.LikeCount,
  p.ReplyCount,
+ (select count(*) from zbox.item i where i.isdeleted = 0 and i.questionid = p.questionid  and i.boxid = b.boxid) as ItemCount,
  CHANGE_TRACKING_MIN_VALID_VERSION(  
                                    OBJECT_ID('zbox.question')) as version
 FROM

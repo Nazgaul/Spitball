@@ -61,7 +61,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         [Authorize]
         public async Task<HttpResponseMessage> LikeAsync(ItemLikeRequest model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState != null && !ModelState.IsValid)
             {
                 return Request.CreateBadRequestResponse();
             }

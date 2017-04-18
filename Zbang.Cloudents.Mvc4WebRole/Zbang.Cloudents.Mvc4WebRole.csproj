@@ -979,6 +979,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="App_Code\Helpers.cshtml" />
+    <Content Include="cdn\gzip\Web.config" />
+    <Content Include="cdn\Web.config" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
