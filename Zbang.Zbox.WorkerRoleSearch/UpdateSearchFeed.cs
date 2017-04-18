@@ -39,7 +39,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
         {
             const int size = 100;
-            int page = 0;
+            var page = 0;
             
             var version = await ReadVersionBlobDataAsync(cancellationToken).ConfigureAwait(false);
             FeedToUpdateSearchDto updates;
@@ -52,35 +52,40 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 {
                     if (page == 0)
                     {
-                        var currentVersionDb = await m_ZboxReadService.GetTrackingCurrentVersionAsync().ConfigureAwait(false);
-                        if (currentVersionDb != version)
-                        {
-                            await WriteVersionAsync(currentVersionDb, cancellationToken).ConfigureAwait(false);
-                        }
+                        await WriteNextVersionAsync(cancellationToken, version).ConfigureAwait(false);
                         return TimeToSleep.Increase;
                     }
                     
                 }
                 TraceLog.WriteInfo("Going to process" + updates.NextVersion);
-                var tasks = new List<Task>();
+                //var tasks = new List<Task>();
                 foreach (var feed in updates.Updates.Where(w => w.UniversityId == JaredUniversityIdPilot))
                 {
-                    tasks.Add(JaredPilotAsync(feed, cancellationToken));
+                    await JaredPilotAsync(feed, cancellationToken).ConfigureAwait(false); // otherwise we got race condition
                 }
 
-                tasks.Add(m_SearchProvider.UpdateDataAsync(null, updates.Deletes, cancellationToken));
-                await Task.WhenAll(tasks).ConfigureAwait(false);
+                await m_SearchProvider.UpdateDataAsync(null, updates.Deletes, cancellationToken).ConfigureAwait(false);
+                //await Task.WhenAll(tasks).ConfigureAwait(false);
                 page++;
-                version = Math.Max(version.GetValueOrDefault(), updates.NextVersion);
+                //version = Math.Max(version.GetValueOrDefault(), updates.NextVersion);
             } while (updates.Updates.Count() == size);
 
-            var newVersion = version.Value;
-            await WriteVersionAsync(newVersion, cancellationToken).ConfigureAwait(false);
+            //var newVersion = version.Value;
+            await WriteNextVersionAsync(cancellationToken, version).ConfigureAwait(false);
             if (page == 1)
             {
                 return TimeToSleep.Same;
             }
             return TimeToSleep.Min;
+        }
+
+        private async Task WriteNextVersionAsync(CancellationToken cancellationToken, long? version)
+        {
+            var currentVersionDb = await m_ZboxReadService.GetTrackingCurrentVersionAsync().ConfigureAwait(false);
+            if (currentVersionDb != version)
+            {
+                await WriteVersionAsync(currentVersionDb, cancellationToken).ConfigureAwait(false);
+            }
         }
 
         private async Task<Task> JaredPilotAsync(FeedSearchDto elem, CancellationToken cancellationToken)

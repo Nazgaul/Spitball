@@ -24,6 +24,13 @@ namespace Zbang.Cloudents.Jared.Controllers
 
             return tutors;
         }
+        [Route("api/tutor/tutorbykeyword"), HttpGet]
+        public IEnumerable<Tutor> GetTutorByKeyWords(string keywords)
+        {
+            var list = Get().OrderBy(t => -(t.KeyWords.IndexOf(keywords)+t.Subject.IndexOf(keywords)));
+            return list;
+        }
+
 
         public class Tutor
         {

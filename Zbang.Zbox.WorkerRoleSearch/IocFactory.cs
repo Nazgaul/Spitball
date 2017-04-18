@@ -48,7 +48,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Ioc.ContainerBuilder.RegisterModule<WorkerRoleModule>();
             Ioc.Build();
 
-            Ioc.Resolve<Domain.Common.IZboxServiceBootStrapper>().BootStrapper();
+            //Ioc.Resolve<Domain.Common.IZboxServiceBootStrapper>().BootStrapper();
         }
 
         public T Resolve<T>(string name)

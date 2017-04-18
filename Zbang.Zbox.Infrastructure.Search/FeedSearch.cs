@@ -23,6 +23,8 @@ namespace Zbang.Zbox.Infrastructure.Search
         [JsonProperty(FeedSearchProvider.ContentHebrewField)]
         public string TextHe { get; set; }
 
+        public string Comment { get; set; }
+
         [IsFilterable]
         public string University { get; set; }
 
@@ -47,5 +49,10 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         [IsFilterable]
         public int? ReplyCount { get; set; }
+
+        [IsFilterable]
+        public int? ItemCount { get; set; }
+
+        
     }
 }
