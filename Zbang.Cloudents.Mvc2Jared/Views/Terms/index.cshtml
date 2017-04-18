@@ -1,14 +1,14 @@
+﻿
 ﻿@{
     Layout = null;
 }
-
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Terms</title>
-    <link rel="stylesheet" type="text/css" href="/Content/termSearch.css"/>
+    <link rel="stylesheet" type="text/css" href="/Content/termSearch.css" />
 </head>
 <body>
     <div>
@@ -32,16 +32,9 @@
                 <td id="wikiResult"></td>
             </tr>
         </table>
-        @*<div style="width:50%;word-break: break-word;">
-            <h6>Google Knowladge</h6>
-            <div id="googleResult"></div>
-        </div>
-        <div style="width:50%;word-break: break-word;">
-            <h6>Wiki</h6>
-            <div id="wikiResult"></div>
-        </div>*@
+
     </div>
-    <script src="~/Scripts/jquery-2.2.4.min.js"></script>
+    <script src="/Scripts/jquery-2.2.4.min.js"></script>
     <script>
         document.getElementById('term').addEventListener('keypress', function (event) {
             if (event.keyCode == 13) {
@@ -82,7 +75,7 @@
                 var service_url = 'https://kgsearch.googleapis.com/v1/entities:search';
                 var wiki_url = 'https://en.wikipedia.org/w/api.php';
                 var query = document.getElementById("term").value;
-              
+
             var params = {
                 'query': query,
                 'limit': 1,
@@ -95,10 +88,6 @@
                 'action': 'query',
                 'prop': 'extract',
             };
-            function capitalize_Words(str) {
-                return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
-            }
-                javascript: function JSONstringify(json) { if (typeof json != 'string') { json = JSON.stringify(json, undefined, '\t'); } var arr = [], _string = 'color:green', _number = 'color:darkorange', _boolean = 'color:blue', _null = 'color:magenta', _key = 'color:red'; json = json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) { var style = _number; if (/^"/.test(match)) { if (/:$/.test(match)) { style = _key; } else { style = _string; } } else if (/true|false/.test(match)) { style = _boolean; } else if (/null/.test(match)) { style = _null; } arr.push(style); arr.push(''); return '%c' + match + '%c'; }); arr.unshift(json); console.log.apply(console, arr); }; void (0);
                 $.getJSON(service_url + '?callback=?', params, function (response) {
                     var itemList = response.itemListElement;
                     var s;
@@ -106,9 +95,13 @@
                         s = "<h2 class='error'>No google knowledge results found</h2>"
                     }
                     else {
-                        s = "<h2>Title:</h2><p>" + response.itemListElement[0].result.name + "</p>" +
-                            "<h2>Description:</h2><p>" + response.itemListElement[0].result.detailedDescription.articleBody + "</p>" +
-                            "<h2>Image</h2>:<img src='" + response.itemListElement[0].result.image.contentUrl + "'/>"
+                        s = "<h2>Title:</h2><p>" + response.itemListElement[0].result.name + "</p>";
+                        if (response.itemListElement[0].result.detailedDescription){
+                           s+= "<h2>Description:</h2><p>" + response.itemListElement[0].result.detailedDescription.articleBody + "</p>"
+                        }
+                        if (response.itemListElement[0].result.image) {
+                            s+="<h2>Image</h2>:<img src='" + response.itemListElement[0].result.image.contentUrl + "'/>"
+                        }
                     }
 
                 document.getElementById("googleResult").innerHTML = "<p>" + s + "</p>";
@@ -116,41 +109,61 @@
                 document.getElementById("loader").hidden = true
                     //JSON.stringify(JSON.parse(response), null, "\t");
             });
-                
-            String.prototype.capitalize = function() {
-                   this.split(' ').map(word => word.capitalize()).join(' ')  //break down phrase to words then  recursive calls until capitalizing all words
-                   this.charAt(0).toUpperCase() + this.slice(1); // if allWords is undefined , capitalize only the first word , mean the first char of the whole string
-            }
-            var lowerCase = query.replace(" ", "+");
-            lowerCase = lowerCase[0].toUpperCase() + lowerCase.substring(1);
-            var capital = capitalize_Words(query).replace(" ", "+");
+
+            //preSearch
+                var preSearch = "http://en.wikipedia.org/w/api.php?action=query&format=json&list=search&meta=&srsearch=" + query;
+            var accurateTerm;
             $.ajax({
+                url: preSearch,
                 type: "GET",
-                url: "http://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts%7Cpageimages%7Cpageprops%7Cpageterms&meta=&exchars=350&piprop=original&titles=" + lowerCase,
+                dataType: "jsonp",
                 xhrFields: {
                     withCredentials: false
                 },
-                dataType: "jsonp",
                 success: function (data, textStatus, jqXHR) {
-                    console.log("data: " + data.query.pages[Object.keys(data.query.pages)[0]])
-                    var terms = data.query.pages[Object.keys(data.query.pages)[0]].terms
-                    var s;
-                    if (typeof (terms) == 'undefined') {
-                        s = "<h2 class='error'>No wikipedia results found</h2>"
+                    if (data.query.search.length) {
+                        accurateTerm = data.query.search[0].title;
                     }
-                    else {
-                        s = "<h2>Title:</h2><p>" + data.query.pages[Object.keys(data.query.pages)[0]].title + "</p>" +
-                        "<h2>Description:</h2><p>" + terms.description[0] + "</p>"
-                        + "<h2>Extract:</h2><p>" + data.query.pages[Object.keys(data.query.pages)[0]].extract +
-                        "</p>" + "<h2>Image:</h2><img src='" + data.query.pages[Object.keys(data.query.pages)[0]].original.source + "'/>"
-
+                    else if (data.query.searchinfo.suggestion) {
+                        accurateTerm = data.query.searchinfo.suggestion;
                     }
-                    document.getElementById("wikiResult").innerHTML = "<p>" + s + "</p>";
-                    document.getElementsByTagName("table")[0].hidden = false
-                    document.getElementById("loader").hidden = true
-                },
-                error: function (errorMessage) {
                 }
+            }).done(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "http://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts%7Cpageimages%7Cpageprops%7Cpageterms&meta=&exsentences=2&pilicense=any&piprop=original&titles=" + accurateTerm,
+                    xhrFields: {
+                        withCredentials: false
+                    },
+                    dataType: "jsonp",
+                    success: function (data, textStatus, jqXHR) {
+                        console.log("data: " + data.query.pages[Object.keys(data.query.pages)[0]])
+                        var terms = data.query.pages[Object.keys(data.query.pages)[0]].terms
+                        var title = data.query.pages[Object.keys(data.query.pages)[0]].title
+                        var s;
+                        if (typeof (terms) == 'undefined'||title=='Undefined') {
+                            s = "<h2 class='error'>No wikipedia results found</h2>"
+                        }
+                        else {
+                            var source;
+                            if (data.query.pages[Object.keys(data.query.pages)[0]].original) source = data.query.pages[Object.keys(data.query.pages)[0]].original.source;
+                            s = "<h2>Title:</h2><p>" + data.query.pages[Object.keys(data.query.pages)[0]].title + "</p>";
+                            if (terms.description&&terms.description.length) {
+                                s += "<h2>Description:</h2><p>" + terms.description[0] + "</p>";
+                            }
+                            
+                            s+="<h2>Extract:</h2><p>" + data.query.pages[Object.keys(data.query.pages)[0]].extract;
+                            if (source) {
+                               s+= "</p>" + "<h2>Image:</h2><img src='" + source + "'/>"
+                            }
+                        }
+                        document.getElementById("wikiResult").innerHTML = "<p>" + s + "</p>";
+                        document.getElementsByTagName("table")[0].hidden = false
+                        document.getElementById("loader").hidden = true
+                    },
+                    error: function (errorMessage) {
+                    }
+                });
             });
             //$.ajax({
             //    url: wiki_url,
