@@ -30,6 +30,8 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         [IsFilterable]
         public string Course { get; set; }
+        public long CourseId { get; set; }
+
 
         [IsFilterable]
         public string Professor { get; set; }
@@ -56,6 +58,6 @@ namespace Zbang.Zbox.Infrastructure.Search
         public string UserName { get; set; }
         public string UserImage { get; set; }
 
-        
+
     }
 }

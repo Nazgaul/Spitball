@@ -55,7 +55,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                     ItemCount = itemToUpload.ItemCount,
                     Comment = itemToUpload.Text,
                     UserName = itemToUpload.UserName,
-                    UserImage = itemToUpload.UserImage
+                    UserImage = itemToUpload.UserImage,
+                    CourseId = itemToUpload.BoxId
                 };
                 if (!string.IsNullOrEmpty(itemToUpload.Content))
                 {
