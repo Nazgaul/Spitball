@@ -6,7 +6,7 @@
       <Setting name="StorageConnectionString" value="DefaultEndpointsProtocol=https;AccountName=zboxstorage;AccountKey=HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw==" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="ramy" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBlQYJKoZIhvcNAQcDoIIBhjCCAYICAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEH92ozwsRmGEQwPgT/lSloUwDQYJKoZIhvcNAQEBBQAEggEATsW4KVcE6YThOgd4Yvqc8Cp12W4dMW7LwC3HrRrCECr9chucqj1GjJAgsC2/9gq+0ZMenTjAqnoQdLPDBziFCmUGyeUGuHzqv7M0/DafwzpM9fEFlqwu0nCDfwqNzkQTfsEroHGxQMVYCWVwOdrgeUX7dryViz68C4+x6VFVbXvw0sLJT3ez8ZtO6/n9lMFccEgRaH+0TSWPBqbhq+PCtLB8jRw4m+GUNdpxsX2LFwvQfCrw5y+Kr6gr1bZfQSPGggt90Lesg7iy/MxNk7rGgyO0s/H6+NTnw29zJzwbFchIpgVcFmrf31UxozcBhPPKjcZjBqxNRGn7HYhlhKr9TjArBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECKhoo7ZAog8fgAi0zimSt8jVkw==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBlQYJKoZIhvcNAQcDoIIBhjCCAYICAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEDWopinyPPuMTIVHSauEbuowDQYJKoZIhvcNAQEBBQAEggEATz+kVxS1Znumy5fGcCeChWsnX+OOXb0516h582O7bnqPyomfN1K4MwIqihXnNwvZjosHG9Qpeplgo6FZKeUcsma1rqm6Jxup63o7xZ+lBRaYXGgpVPoYf8ZzvnApSlQJIoa/ZPGbFLOqkOEP9wtDxTxrqvwpCXXlfdPguPooh49hL11POI9q+p3zSut4z70kngLglfHotbcyuDA7C4mXL7rPP8URBXZk3OFDakTVvL7Lq4Qlc7iU+wxwvraCv7A+KmZ23j+CUtigSPuTtZpSeCngfFpt/pxpgRwkkGZnWBqAQXfM2p9WWxog6CO2BPEsJ9HxEZeMkFWrJb6nWVM1aTArBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECMNCJKXjkOB5gAhrFt0R40ErDA==" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2018-02-26T23:59:59.0000000+02:00" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
       <Setting name="CdnEndpoint" value="https://az414807.vo.msecnd.net" />
@@ -20,7 +20,7 @@
       <Setting name="APPINSIGHTS_INSTRUMENTATIONKEY" value="7f8df0c1-018b-4f0c-95bc-0441481acf0a" />
     </ConfigurationSettings>
     <Certificates>
-      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="82AF1259FAF65569650641B957B64BCD595BF552" thumbprintAlgorithm="sha1" />
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="AA020428DCDB3DE79FD0A0A0BDB9B4049692079C" thumbprintAlgorithm="sha1" />
       <Certificate name="Spitball" thumbprint="3B84ACD05F4A202290DFAEF6EF823EA3BCA16D5C" thumbprintAlgorithm="sha1" />
     </Certificates>
   </Role>

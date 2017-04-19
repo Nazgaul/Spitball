@@ -6,11 +6,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
     public class CommentDto
     {
         private DateTime m_Date;
-        public CommentDto()
-        {
-            //Replies = new List<ReplyDto>();
-            //Files = new List<ItemDto>();
-        }
+       
         public Guid Id { get; set; }
 
         public string UserImage { get; set; }

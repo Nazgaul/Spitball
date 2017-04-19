@@ -426,15 +426,12 @@ namespace Zbang.Zbox.Domain.Services
             using (UnitOfWork.Start())
             {
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
-                //var reputationCommand = new AddReputationCommand(command.UserId,
-                //     Infrastructure.Enums.ReputationAction.AddReply);
                 var t4 = m_Cache.RemoveAsync(command);
-                //var t3 = m_CommandBus.SendAsync(reputationCommand);
                 var t2 = m_CommandBus.SendAsync(autoFollowCommand);
                 var t1 = m_CommandBus.SendAsync(command);
 
 
-                await Task.WhenAll(t1, t2, t4);
+                await Task.WhenAll(t1, t2, t4).ConfigureAwait(true);
                 UnitOfWork.Current.TransactionalFlush();
 
             }
@@ -469,8 +466,8 @@ namespace Zbang.Zbox.Domain.Services
                 var t2 = m_Cache.RemoveAsync(command);
                 var t1 = m_CommandBus.SendAsync(autoFollowCommand);
 
-                await Task.WhenAll(t2, t1);
-                var result = await m_CommandBus.DispatchAsync<LikeCommentCommand, LikeCommentCommandResult>(command);
+                await Task.WhenAll(t2, t1).ConfigureAwait(true);
+                var result = await m_CommandBus.DispatchAsync<LikeCommentCommand, LikeCommentCommandResult>(command).ConfigureAwait(true);
 
                 UnitOfWork.Current.TransactionalFlush();
                 return result;

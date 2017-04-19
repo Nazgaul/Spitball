@@ -434,14 +434,14 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<Qna.CommentDto> GetCommentAsync(GetQuestionQuery query)
         {
-            using (var con = await DapperConnection.OpenConnectionAsync())
+            using (var con = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 using (var grid = await con.QueryMultipleAsync(
                     $"{Sql.Box.GetCommentForMobile} {Sql.Box.GetCommentFileForMobile}",
-                    query))
+                    query).ConfigureAwait(false))
                 {
-                    var comment = await grid.ReadFirstAsync<Qna.CommentDto>();
-                    comment.Files = await grid.ReadAsync<Qna.ItemDto>();
+                    var comment = await grid.ReadFirstAsync<Qna.CommentDto>().ConfigureAwait(false);
+                    comment.Files = await grid.ReadAsync<Qna.ItemDto>().ConfigureAwait(false);
                     return comment;
 
                 }
@@ -487,13 +487,13 @@ where ownerid = @UserId and boxid = @BoxId;";
 
         public async Task<IEnumerable<Qna.ReplyDto>> GetRepliesAsync(GetCommentRepliesQuery query)
         {
-            using (var con = await DapperConnection.OpenConnectionAsync())
+            using (var con = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 using (var grid = await con.QueryMultipleAsync(
                     $"{Sql.Feed.GetReplies} {Sql.Feed.GetItemsInReply}",
-                    new { query.BoxId, query.PageNumber, query.RowsPerPage, query.CommentId, AnswerId = query.BelowReplyId }))
+                    new { query.BoxId, query.PageNumber, query.RowsPerPage, query.CommentId, AnswerId = query.BelowReplyId }).ConfigureAwait(false))
                 {
-                    var replies = (await grid.ReadAsync<Qna.ReplyDto>()).ToList();
+                    var replies = (await grid.ReadAsync<Qna.ReplyDto>().ConfigureAwait(false)).ToList();
                     var items = grid.Read<Qna.ItemDto>().ToLookup(c => c.AnswerId);
 
                     foreach (var reply in replies)
