@@ -31,7 +31,6 @@ namespace Zbang.Zbox.ReadServices
         long? GetUniversityIdByUrl(string url);
         Task<IEnumerable<RecommendBoxDto>> GetCoursesPageDataAsync();
         Task<IEnumerable<BoxDto>> GetUserBoxesAsync(GetBoxesQuery query);
-        Task<IEnumerable<ItemTagsDto>> GetItemsWithTagsAsync(JaredSearchQuery query);
         Task<IEnumerable<string>> GetUniAsync(SearchTermQuery term);
         Task<IEnumerable<string>> GetDepartmentAsync(SearchTermQuery term);
         Task<IEnumerable<string>> GetTagAsync(SearchTermQuery term);
@@ -163,7 +162,8 @@ namespace Zbang.Zbox.ReadServices
 
         Task<JaredDto> GetJaredStartupValuesAsync(CancellationToken token);
         Task<IEnumerable<UserImageNameDto>> OnlineUsersByClassAsync(GetBoxIdQuery query);
-
+        Task<IEnumerable<ItemTagsDto>> GetItemsWithTagsAsync(JaredSearchQuery query);
+        Task<IEnumerable<JaredTextDto>> GetJaredText();
         #endregion
 
     }

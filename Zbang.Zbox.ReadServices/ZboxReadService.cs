@@ -1244,6 +1244,14 @@ where   ub.boxid = @BoxId";
                 
             }
         }
+
+        public async Task<IEnumerable<JaredTextDto>> GetJaredText()
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return await conn.QueryAsync<JaredTextDto>("select type as action,text from zbox.jaredtext");
+            }
+        }
         #endregion
     }
 }

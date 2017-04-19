@@ -9,6 +9,8 @@ using Microsoft.Azure.Mobile.Server.Config;
 using WebApi.OutputCache.V2;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.ReadServices;
+using Zbang.Zbox.Infrastructure.Enums;
+using System;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
@@ -46,6 +48,18 @@ namespace Zbang.Cloudents.Jared.Controllers
 
 
             return Request.CreateResponse(result);
+        }
+
+        public async Task<Dictionary<CategoryTextType,string>> getCategoriesText()
+        {
+            var dict = new Dictionary<CategoryTextType, string>();
+            var vals = await m_ZboxReadService.GetJaredText();
+            
+            foreach (CategoryTextType item in Enum.GetValues(typeof(CategoryTextType)))
+            {
+                dict.Add(item, "hello"); 
+            }
+            return dict;
         }
 
         //// POST api/values
