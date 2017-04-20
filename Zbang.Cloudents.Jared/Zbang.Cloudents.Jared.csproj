@@ -228,6 +228,7 @@
     <Compile Include="Filters\VersionedRoute.cs" />
     <Compile Include="Models\AddCommentRequest.cs" />
     <Compile Include="Models\ChatFileUploadRequest.cs" />
+    <Compile Include="Models\CreateUniversityRequest.cs" />
     <Compile Include="Models\DropboxUploadRequest.cs" />
     <Compile Include="Models\FileUploadRequest.cs" />
     <Compile Include="Models\ItemLikeRequest.cs" />
