@@ -1216,14 +1216,27 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
         {
             using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
             {
-               var universities = await conn.QueryAsync<UniversityDto>(
-                   new CommandDefinition(
-                       "select id,url as short,universityname as name from zbox.university where url is not null",
-                       cancellationToken: token)).ConfigureAwait(false);
-                return new JaredDto
+                var dict = new Dictionary<CategoryTextType, string>();
+                const string actionsText = @"select action,text from zbox.jaredtext;";
+                //const string universitiesSql = "select id,url as short,universityname as name from zbox.university where url is not null;";
+                var command = new CommandDefinition(actionsText,
+                       cancellationToken: token);
+                using (var grid = await conn.QueryMultipleAsync(command).ConfigureAwait(false))
                 {
-                    Universities = universities
-                };
+                    //var universities = await grid.ReadAsync<UniversityDto>();
+                    var textList= await grid.ReadAsync<JaredTextDto>();
+                    foreach (CategoryTextType item in Enum.GetValues(typeof(CategoryTextType)))
+                    {
+                        var textOptions = textList.Where(w => w.Action.Equals(item)).Select(s => s.Text);
+                        Random rnd = new Random();
+                        dict.Add(item, textOptions.ElementAt(rnd.Next(textOptions.Count())));
+                    }
+                    return new JaredDto
+                    {
+                        //Universities = universities,
+                        ActionsText = dict
+                    };
+                }
             }
         }
 
@@ -1246,13 +1259,16 @@ from zbox.users u where online = 1 order by u.userid;";
             }
         }
 
-        public async Task<IEnumerable<JaredTextDto>> GetJaredText()
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                return await conn.QueryAsync<JaredTextDto>("select type as action,text from zbox.jaredtext");
-            }
-        }
+        //public async Task<IEnumerable<JaredTextDto>> GetJaredText()
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        var dic = new List<JaredTextDto>();
+        //        const string sql = @"select action,text from zbox.jaredtext;";
+        //        var list= await conn.QueryAsync<JaredTextDto>(sql);
+        //        return list;
+        //    }
+        //}
         #endregion
     }
 }

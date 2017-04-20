@@ -256,7 +256,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Performance\Microsoft.ServiceBus.MessagingPerformanceCounters.man" />
-    <Content Include="DataObjects\tutor.json" />
+    <EmbeddedResource Include="DataObjects\tutor.json" />
     <None Include="Properties\PublishProfiles\jared-spitball - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\jared-spitball - Web Deploy.pubxml" />
   </ItemGroup>
