@@ -50,17 +50,17 @@ namespace Zbang.Cloudents.Jared.Controllers
             return Request.CreateResponse(result);
         }
 
-        public async Task<Dictionary<CategoryTextType,string>> getCategoriesText()
-        {
-            var dict = new Dictionary<CategoryTextType, string>();
-            var vals = await m_ZboxReadService.GetJaredText();
+        //private async Task<Dictionary<CategoryTextType,string>> getCategoriesText()
+        //{
+        //    var dict = new Dictionary<CategoryTextType, string>();
+        //    var vals = await m_ZboxReadService.GetJaredText();
             
-            foreach (CategoryTextType item in Enum.GetValues(typeof(CategoryTextType)))
-            {
-                dict.Add(item, "hello"); 
-            }
-            return dict;
-        }
+        //    foreach (CategoryTextType item in Enum.GetValues(typeof(CategoryTextType)))
+        //    {
+        //        dict.Add(item, "hello"); 
+        //    }
+        //    return dict;
+        //}
 
         //// POST api/values
         //public string Post()

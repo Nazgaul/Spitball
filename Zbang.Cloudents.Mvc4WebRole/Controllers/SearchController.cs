@@ -5,7 +5,6 @@ using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Search;
-using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Queries.Search;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
@@ -57,7 +56,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (!universityDataId.HasValue) return JsonError();
             var query = new SearchBoxesQuery(q, User.GetUserId(), universityDataId.Value, page,
                 ResultSizeRegularState);
-            return await SearchQueryAsync(q, cancellationToken, query, m_BoxSearchService.SearchBoxAsync);
+            return await SearchQueryAsync(q, cancellationToken, query, m_BoxSearchService.SearchBoxAsync).ConfigureAwait(false);
         }
         [HttpGet, ActionName("Flashcards")]
         public async Task<JsonResult> FlashcardsAsync(string q, int page, CancellationToken cancellationToken)
@@ -66,7 +65,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (!universityDataId.HasValue) return JsonError();
             var query = new SearchFlashcardQuery(q, User.GetUserId(), universityDataId.Value, page,
                 ResultSizeRegularState);
-            return await SearchQueryAsync(q, cancellationToken, query, m_FlashcardSearchService.SearchFlashcardAsync);
+            return await SearchQueryAsync(q, cancellationToken, query, m_FlashcardSearchService.SearchFlashcardAsync).ConfigureAwait(false);
         }
         [HttpGet,ActionName("Items")]
         public async Task<JsonResult> ItemsAsync(string q, int page, CancellationToken cancellationToken)
@@ -75,7 +74,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (!universityDataId.HasValue) return JsonError();
             var query = new SearchItemsQuery(q, User.GetUserId(), universityDataId.Value, page,
                 ResultSizeRegularState);
-            return await SearchQueryAsync(q, cancellationToken, query, m_ItemSearchService.SearchItemAsync);
+            return await SearchQueryAsync(q, cancellationToken, query, m_ItemSearchService.SearchItemAsync).ConfigureAwait(false);
         }
         [HttpGet,ActionName("Quizzes")]
         public async Task<JsonResult> QuizzesAsync(string q, int page, CancellationToken cancellationToken)
@@ -84,7 +83,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (!universityDataId.HasValue) return JsonError();
             var query = new SearchQuizesQuery(q, User.GetUserId(), universityDataId.Value, page,
                 ResultSizeRegularState);
-            return await SearchQueryAsync(q, cancellationToken, query, m_QuizSearchService.SearchQuizAsync);
+            return await SearchQueryAsync(q, cancellationToken, query, m_QuizSearchService.SearchQuizAsync).ConfigureAwait(false);
         }
 
         private async Task<JsonResult> SearchQueryAsync<TD>(string q, CancellationToken cancellationToken,
@@ -102,7 +101,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 using (var source = CreateCancellationToken(cancellationToken))
                 {
-                    var retVal = await func(query, source.Token);
+                    var retVal = await func(query, source.Token).ConfigureAwait(false);
                     return JsonOk(retVal);
                 }
             }
@@ -123,7 +122,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (!universityId.HasValue)
                 return JsonError("need university");
             var query = new UserInBoxSearchQuery(term, universityId.Value, boxId, page, sizePerPage);
-            var retVal = await ZboxReadService.GetUsersInBoxByTermAsync(query);
+            var retVal = await ZboxReadService.GetUsersInBoxByTermAsync(query).ConfigureAwait(false);
             return JsonOk(retVal);
         }
 
@@ -141,7 +140,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var query = new SearchItemInBox(term, boxId, page, sizePerPage);
                 using (var source = CreateCancellationToken(cancellationToken))
                 {
-                    var retVal = await m_ItemSearchService.SearchItemAsync(query, source.Token);
+                    var retVal = await m_ItemSearchService.SearchItemAsync(query, source.Token).ConfigureAwait(false);
                     return JsonOk(retVal);
                 }
             }

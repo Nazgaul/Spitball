@@ -213,6 +213,7 @@
       <Link>Extensions\UserIdProvider.cs</Link>
     </Compile>
     <Compile Include="App_Start\Startup.MobileApp.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
@@ -232,6 +233,7 @@
     <Compile Include="Models\ItemTagRequest.cs" />
     <Compile Include="Models\LoginResult.cs" />
     <Compile Include="Models\MarkReadRequest.cs" />
+    <Compile Include="Models\ProfileRequest.cs" />
     <Compile Include="Models\Tutor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

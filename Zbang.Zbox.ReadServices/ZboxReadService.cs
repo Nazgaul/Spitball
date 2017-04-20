@@ -607,21 +607,21 @@ where ownerid = @UserId and boxid = @BoxId;";
         public async Task<IEnumerable<User.ChatUserDto>> GetUsersConversationAndFriendsAsync(GetUserConversationAndFriends query)
         {
 
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 var sqlQuery = string.IsNullOrEmpty(query.Term)
                     ? Sql.Chat.GetUsersConversationAndFriendsWithoutTerm
                     : Sql.Chat.GetUsersConversationAndFriends;
                 var result = await conn.QueryAsync<User.ChatUserDto>(sqlQuery,
-                     new
-                     {
-                         query.UserId,
-                         query.UniversityId,
-                         query.Term,
-                         query.PageNumber,
-                         query.RowsPerPage
+                    new
+                    {
+                        query.UserId,
+                        query.UniversityId,
+                        query.Term,
+                        query.PageNumber,
+                        query.RowsPerPage
 
-                     });
+                    }).ConfigureAwait(false);
                 return result.Distinct(new User.ChatUserDtoComparer());
             }
         }
@@ -1227,21 +1227,22 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
             }
         }
 
-        public async Task<IEnumerable<User.UserImageNameDto>>  OnlineUsersByClassAsync(GetBoxIdQuery query)
+        public async Task<IEnumerable<User.ChatUserDto>> OnlineUsersByClassAsync(GetBoxIdQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                const string sql =
-                    @"select u.userid as id,u.userImageLarge as image, u.username as name from zbox.users u join zbox.userboxrel ub on u.userid = ub.userid
-where   ub.boxid = @BoxId";
+//                const string sql =
+//                    @"select u.userid as id,u.userImageLarge as image, u.username as name, online,LastAccessTime as LastSeen from zbox.users u join zbox.userboxrel ub on u.userid = ub.userid
+//where   ub.boxid = @BoxId";
                 const string sql2 =
-                    "select u.userid as id,u.userImageLarge as image, u.username as name from zbox.users u where online = 1;";
-                return await conn.QueryAsync<User.UserImageNameDto>(
+                    @"select top 50 u.userid as id,u.userImageLarge as image, u.username as name, online, LastAccessTime as LastSeen
+from zbox.users u where online = 1 order by u.userid;";
+                return await conn.QueryAsync<User.ChatUserDto>(
                     new CommandDefinition(sql2
                        ,
                         //online = 1 and
-                        new { query.BoxId})).ConfigureAwait(false);
-                
+                        new { query.BoxId })).ConfigureAwait(false);
+
             }
         }
 
