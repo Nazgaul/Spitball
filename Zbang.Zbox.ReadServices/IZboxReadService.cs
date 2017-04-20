@@ -163,7 +163,6 @@ namespace Zbang.Zbox.ReadServices
         Task<JaredDto> GetJaredStartupValuesAsync(CancellationToken token);
         Task<IEnumerable<UserImageNameDto>> OnlineUsersByClassAsync(GetBoxIdQuery query);
         Task<IEnumerable<ItemTagsDto>> GetItemsWithTagsAsync(JaredSearchQuery query);
-        Task<IEnumerable<JaredTextDto>> GetJaredText();
         #endregion
 
     }

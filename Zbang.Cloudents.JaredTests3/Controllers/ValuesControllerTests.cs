@@ -5,6 +5,7 @@ using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.ReadServices;
 using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Ioc;
 
 namespace Zbang.Cloudents.Jared.Controllers.Tests
 {
@@ -15,16 +16,25 @@ namespace Zbang.Cloudents.Jared.Controllers.Tests
         [TestInitialize]
         public void Setup()
         {
-            m_ZboxReadService = MockRepository.GenerateStub<IZboxReadService>();
-        }
-        [TestMethod()]
-        public void getCategoriesTextTest()
-        {
-            var b=new ValuesController(m_ZboxReadService).getCategoriesText();
-            Task.WaitAll(b);
-            var c=5;
-            c = 7;
+            var localStorageProvider = MockRepository.GenerateStub<ILocalStorageProvider>();
 
+            IocFactory.IocWrapper.RegisterInstance(localStorageProvider);
+
+            m_ZboxReadService = new ZboxReadService();
         }
+
+        //[TestMethod]
+        //public async Task getCategoriesTextTest()
+        //{
+        //    int numOfDiff = 0;
+        //    var b=await new ValuesController(m_ZboxReadService).getCategoriesText();
+        //    var c = await new ValuesController(m_ZboxReadService).getCategoriesText();
+        //    foreach (var item in b.Keys)
+        //    {
+        //        if (!b[item].Equals(c[item])) numOfDiff++;
+        //    }
+        //    var a = 5;
+        //    var k = 6;
+        //}
     }
 }

@@ -427,10 +427,6 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetItemsWithTagsAsync(query);
         }
-        public Task<IEnumerable<JaredTextDto>> GetJaredText()
-        {
-            return m_ReadService.GetJaredText();
-        }
         public Task<IEnumerable<string>> GetUniAsync(SearchTermQuery term) {
             return m_ReadService.GetUniAsync(term);
         }

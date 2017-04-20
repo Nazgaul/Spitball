@@ -58,6 +58,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Controllers\TutorControllerTests.cs" />
     <Compile Include="Controllers\ValuesControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -65,6 +66,10 @@
     <ProjectReference Include="..\Zbang.Cloudents.Jared\Zbang.Cloudents.Jared.csproj">
       <Project>{C8347269-DC11-4382-9E62-5BDE4D6B2279}</Project>
       <Name>Zbang.Cloudents.Jared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Ioc\Zbang.Zbox.Infrastructure.Ioc.csproj">
+      <Project>{872878FA-A84A-4CD3-856A-4EE9018819C5}</Project>
+      <Name>Zbang.Zbox.Infrastructure.Ioc</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure\Zbang.Zbox.Infrastructure.csproj">
       <Project>{3e0f1fbf-60d1-40b2-b649-933142c27cb7}</Project>
@@ -74,6 +79,9 @@
       <Project>{091BCB44-6764-41CA-A255-C6DA6157092B}</Project>
       <Name>Zbang.Zbox.ReadServices</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

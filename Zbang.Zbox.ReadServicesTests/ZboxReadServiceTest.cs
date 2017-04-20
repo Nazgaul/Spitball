@@ -30,6 +30,27 @@ namespace Zbang.Zbox.ReadServicesTests
             m_ZboxReadService = new ZboxReadService();
         }
 
+        [TestMethod()]
+        public async Task GetJaredStartupValuesAsyncTest()
+        {
+            try
+            {
+                var a = await m_ZboxReadService.GetJaredStartupValuesAsync(new CancellationToken());
+                var b = await m_ZboxReadService.GetJaredStartupValuesAsync(new CancellationToken());
+                var aa = a.ActionsText;
+                var bb = b.ActionsText;
+                int numOfDiff = 0;
+                foreach (var item in bb.Keys)
+                {
+                    if (!bb[item].Equals(aa[item])) numOfDiff++;
+                }
+                var helo = 7;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
 
         [TestMethod]
         public async Task GetUserBoxes_Query_ReturnResult()

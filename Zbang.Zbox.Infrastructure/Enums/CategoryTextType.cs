@@ -9,8 +9,8 @@ namespace Zbang.Zbox.Infrastructure.Enums
     public enum CategoryTextType : int
     {
         FIRST_SCREEN = 1,
-        B = 2,
-        C = 3,
-        D = 4
+        INPUT_FIELD = 2,
+        MIC_USING = 3,
+        THINKING = 4
     }
 }

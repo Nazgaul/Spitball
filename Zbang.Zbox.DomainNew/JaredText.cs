@@ -8,11 +8,14 @@ using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.Domain
 {
-    class JaredText
+    public class JaredText
     {
-        public int Id { get; set; }
+        public JaredText()
+        {
+        }
+        public int JaredTextId { get; set; }
         [Required]
-        public CategoryTextType Type { get; set; }
+        public CategoryTextType Action { get; set; }
         [Required]
         public string Text { get; set; }
     }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
 using Zbang.Cloudents.Jared.Models;
+using System.Reflection;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
@@ -15,9 +16,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         // GET api/<controller>
         public IEnumerable<Tutor> Get(string q)
         {
-            //string json;
-            //List<Tutor> tutors;
-            using (StreamReader r = new StreamReader(System.AppContext.BaseDirectory + @"/DataObjects/tutor.json"))
+            using (StreamReader r= new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("Zbang.Cloudents.Jared.DataObjects.tutor.json")))
             {
                 var json = r.ReadToEnd();
                 var tutors = JsonConvert.DeserializeObject<List<Tutor>>(json);
