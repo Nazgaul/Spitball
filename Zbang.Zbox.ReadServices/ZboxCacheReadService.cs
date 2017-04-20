@@ -419,7 +419,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetJaredStartupValuesAsync(token);
         }
 
-        public Task<IEnumerable<UserImageNameDto>> OnlineUsersByClassAsync(GetBoxIdQuery query)
+        public Task<IEnumerable<ChatUserDto>> OnlineUsersByClassAsync(GetBoxIdQuery query)
         {
             return m_ReadService.OnlineUsersByClassAsync(query);
         }

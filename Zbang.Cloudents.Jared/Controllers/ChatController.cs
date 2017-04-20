@@ -38,8 +38,20 @@ namespace Zbang.Cloudents.Jared.Controllers
         [Route("api/chat/online")]
         public async Task<HttpResponseMessage> OnlineUsersAsync(long boxId)
         {
-           var retVal = await m_ZboxReadService.OnlineUsersByClassAsync(new GetBoxIdQuery(boxId)).ConfigureAwait(false);
+            var retVal = await m_ZboxReadService.OnlineUsersByClassAsync(new GetBoxIdQuery(boxId)).ConfigureAwait(false);
             return Request.CreateResponse(retVal);
+
+            //var model = await m_ZboxReadService.GetUsersConversationAndFriendsAsync(new GetUserConversationAndFriends(User.GetUserId(), universityId, q, page, sizePerPage)).ConfigureAwait(false);
+            //return Request.CreateResponse(model.Select(s => new
+            //{
+            //    s.Conversation,
+            //    s.Id,
+            //    s.Image,
+            //    s.LastSeen,
+            //    s.Name,
+            //    s.Online,
+            //    s.Unread
+            //}));
         }
 
         //[Route("api/chat")]
@@ -64,10 +76,6 @@ namespace Zbang.Cloudents.Jared.Controllers
         [HttpGet]
         public async Task<HttpResponseMessage> MessagesAsync(Guid? chatRoom, [FromUri] IEnumerable<long> userIds, DateTime? fromId, int top)
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return Request.CreateUnauthorizedResponse();
-            }
             if (!chatRoom.HasValue && userIds == null)
             {
                 return Request.CreateBadRequestResponse();

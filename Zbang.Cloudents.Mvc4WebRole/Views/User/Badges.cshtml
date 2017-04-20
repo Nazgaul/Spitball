@@ -78,44 +78,7 @@
                             }
             </ul>
         </div>
-        @*<div ng-switch-when="badge" class="tab badges">
-                <div class="badges-container" ng-if="!g.badgeInfo">
-                    <div class="wrapper" ng-repeat="badge in ::g.badges">
-                        <div class="badge-container" ng-click="g.showBadge(badge)">
-                            <md-icon md-svg-icon="p:checkmark" ng-if="badge.progress === 100"></md-icon>
-                            <img class="image" ng-if="badge.progress === 100" ng-src="{{::badge.image}}" alt="{{badge.name}}" />
-                            <img class="image" ng-if="badge.progress !== 100" ng-src="{{::badge.imageHidden}}" alt="{{badge.name}}" />
-                            <div class="text" ng-bind="::badge.name"></div>
-                            <div class="progress">
-                                <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{::badge.progress}}"></md-progress-linear>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div ng-if="g.badgeInfo" class="expanded">
-                    <div class="prev">
-                        <md-icon ng-class="{disabled: !g.badgeInfo.prev}" ng-click="g.showBadge(g.badgeInfo.prev)" md-svg-icon="p:arrow-right"></md-icon>
-                    </div>
-                    <div class="badge-container">
-
-                        <md-icon md-svg-icon="p:checkmark" ng-if="g.badgeInfo.data.progress === 100"></md-icon>
-                        <img class="image" ng-if="g.badgeInfo.data.progress === 100" ng-src="{{g.badgeInfo.data.image}}" alt="{{g.badgeInfo.data.name}}" />
-                        <img class="image" ng-if="g.badgeInfo.data.progress !== 100" ng-src="{{g.badgeInfo.data.imageHidden}}" alt="{{g.badgeInfo.data.name}}" />
-                        <div class="text" ng-bind="g.badgeInfo.data.name"></div>
-                        <div class="progress">
-                            <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="{{g.badgeInfo.data.progress}}"></md-progress-linear>
-                        </div>
-                        <div class="details">
-                            <div class="condition" ng-bind="g.badgeInfo.data.details"></div>
-                            <div class="points">+{{g.badgeInfo.data.points}} pts</div>
-                        </div>
-                    </div>
-                    <div class="next">
-                        <md-icon ng-class="{disabled: !g.badgeInfo.next}" ng-click="g.showBadge(g.badgeInfo.next)" md-svg-icon="p:arrow-right"></md-icon>
-                    </div>
-                    <md-icon class="close" md-svg-icon="t:close" ng-click="g.badgeInfo=false"></md-icon>
-                </div>
-            </div>*@
+       
         <div ng-switch-when="community" class="tab community" srph-infinite-scroll="g.loadMoreLeaderboard()">
             @{
                 // ReSharper disable once Mvc.PartialViewNotResolved

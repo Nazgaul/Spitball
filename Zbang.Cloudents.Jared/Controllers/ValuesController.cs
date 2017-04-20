@@ -11,7 +11,6 @@ using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.Infrastructure.Enums;
 using System;
-using System.Linq;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
@@ -46,8 +45,21 @@ namespace Zbang.Cloudents.Jared.Controllers
                 {"class notes", new[] {"class note", "note", "notes"}}
             };
             result.Terms = documents;
+
+
             return Request.CreateResponse(result);
         }
+        //private async Task<Dictionary<CategoryTextType,string>> getCategoriesText()
+        //{
+        //    var dict = new Dictionary<CategoryTextType, string>();
+        //    var vals = await m_ZboxReadService.GetJaredText();
+            
+        //    foreach (CategoryTextType item in Enum.GetValues(typeof(CategoryTextType)))
+        //    {
+        //        dict.Add(item, "hello"); 
+        //    }
+        //    return dict;
+        //}
 
         //// POST api/values
         //public string Post()
