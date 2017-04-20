@@ -222,6 +222,7 @@
     <Compile Include="Controllers\QuizController.cs" />
     <Compile Include="Controllers\RefreshController.cs" />
     <Compile Include="Controllers\TutorController.cs" />
+    <Compile Include="Controllers\UniversityController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Filters\VersionConstraint.cs" />
     <Compile Include="Filters\VersionedRoute.cs" />

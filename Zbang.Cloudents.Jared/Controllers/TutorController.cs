@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.IO;
@@ -25,10 +26,7 @@ namespace Zbang.Cloudents.Jared.Controllers
                 {
                     return tutors;
                 }
-                else
-                {
-                    return tutors.Where(w => w.Name.Contains(q));
-                }
+                return tutors.OrderBy(t => -(t.KeyWords.IndexOf(q, StringComparison.Ordinal) + t.Subject.IndexOf(q, StringComparison.Ordinal)));
             }
 
             //return tutors;
