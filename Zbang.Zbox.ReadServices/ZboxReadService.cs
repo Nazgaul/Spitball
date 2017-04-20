@@ -1224,13 +1224,22 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
                 using (var grid = await conn.QueryMultipleAsync(command).ConfigureAwait(false))
                 {
                     //var universities = await grid.ReadAsync<UniversityDto>();
-                    var textList= await grid.ReadAsync<JaredTextDto>();
-                    foreach (CategoryTextType item in Enum.GetValues(typeof(CategoryTextType)))
+                    
+                    var textList = (await grid.ReadAsync<JaredTextDto>().ConfigureAwait(false)).ToLookup(t=>t.Action);
+                    
+                    var rnd = new Random();
+                    foreach (var text in textList)
                     {
-                        var textOptions = textList.Where(w => w.Action.Equals(item)).Select(s => s.Text);
-                        Random rnd = new Random();
-                        dict.Add(item, textOptions.ElementAt(rnd.Next(textOptions.Count())));
+                        var textOptions = textList[text.Key].Select(s => s.Text).ToList();
+                        dict.Add(text.Key, textOptions.ElementAt(rnd.Next(textOptions.Count)));
                     }
+
+                    //foreach (CategoryTextType item in Enum.GetValues(typeof(CategoryTextType)))
+                    //{
+                    //    var textOptions = (textList.Where(w => w.Action.Equals(item)).Select(s => s.Text)).ToList();
+                    //    var rnd = new Random();
+                    //    dict.Add(item, textOptions.ElementAt(rnd.Next(textOptions.Count())));
+                    //}
                     return new JaredDto
                     {
                         //Universities = universities,

@@ -497,7 +497,7 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (UnitOfWork.Start())
             {
-                await m_CommandBus.SendAsync(command);
+                await m_CommandBus.SendAsync(command).ConfigureAwait(true);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
