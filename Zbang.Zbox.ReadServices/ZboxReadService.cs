@@ -917,9 +917,9 @@ where ownerid = @UserId and boxid = @BoxId;";
 
         public async Task<Item.QuizSeo> GetQuizSeoAsync(GetQuizSeoQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                var retVal = await conn.QueryFirstAsync<Item.QuizSeo>(Sql.Quiz.QuizSeoQuery, query);
+                var retVal = await conn.QueryFirstAsync<Item.QuizSeo>(Sql.Quiz.QuizSeoQuery, query).ConfigureAwait(false);
                 return retVal;
             }
         }

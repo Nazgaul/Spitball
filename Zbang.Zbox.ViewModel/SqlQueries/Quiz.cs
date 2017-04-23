@@ -6,7 +6,7 @@
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Seo")]
         public const string QuizSeoQuery = @"
 select u.country as Country
-,b.boxname as BoxName, u.universityname as UniversityName, q.Name,
+,b.boxname as BoxName,b.boxid as boxId, u.universityname as UniversityName, q.Name,
 		(select top(1) qq.Text from zbox.QuizQuestion qq where QuizId = q.id) as FirstQuestion,
 		q.Url
 		,l.name as departmentName
