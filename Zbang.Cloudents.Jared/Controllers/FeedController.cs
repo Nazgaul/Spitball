@@ -77,10 +77,13 @@ namespace Zbang.Cloudents.Jared.Controllers
         }
 
         [HttpGet, Route("api/box/{boxId:long}/feed/{feedId:guid}/replies")]
-        public async Task<HttpResponseMessage> GetRepliesAsync(long boxId, Guid feedId, Guid? belowReplyId, int page, int sizePerPage = 20)
+        public async Task<HttpResponseMessage> GetRepliesAsync(long boxId, Guid feedId, string belowReplyId, int page, int sizePerPage = 20)
         {
+            var replyId = Guid.Parse("FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF");
 
-            var replyId = belowReplyId ?? Guid.Parse("FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF");
+            Guid.TryParse(belowReplyId, out replyId);
+
+            //var replyId = belowReplyId ?? Guid.Parse("FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF");
             var retVal =
                  await m_ZboxReadService.GetRepliesAsync(new GetCommentRepliesQuery(boxId, feedId, replyId, page, sizePerPage)).ConfigureAwait(false);
             return Request.CreateResponse(retVal.Select(s => new
@@ -88,7 +91,6 @@ namespace Zbang.Cloudents.Jared.Controllers
                 s.Id,
                 s.UserImage,
                 s.UserName,
-                //s.UserId,
                 s.Content,
                 s.CreationTime,
 
@@ -96,11 +98,8 @@ namespace Zbang.Cloudents.Jared.Controllers
                 {
                     d.Id,
                     d.Name,
-                    //d.OwnerId,
                     d.Type,
-                    d.Source,
-                    //Thumbnail = "https://az779114.vo.msecnd.net/preview/" + HttpUtility.UrlPathEncode(d.Source) +
-                    //           ".jpg?width=148&height=187&mode=crop"
+                    d.Source
                 })
 
 

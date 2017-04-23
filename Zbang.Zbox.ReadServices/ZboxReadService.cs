@@ -1253,14 +1253,15 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
         {
             using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-//                const string sql =
-//                    @"select u.userid as id,u.userImageLarge as image, u.username as name, online,LastAccessTime as LastSeen from zbox.users u join zbox.userboxrel ub on u.userid = ub.userid
-//where   ub.boxid = @BoxId";
-                const string sql2 =
-                    @"select top 50 u.userid as id,u.userImageLarge as image, u.username as name, online, LastAccessTime as LastSeen
-from zbox.users u where online = 1 order by u.userid;";
+                const string sql =
+                                    @"select u.userid as id,u.userImageLarge as image, u.username as name, online, LastAccessTime as LastSeen
+                from zbox.users u join zbox.userboxrel ub on u.userid = ub.userid
+               where ub.boxid = @BoxId";
+//                const string sql2 =
+//                    @"select top 50 u.userid as id,u.userImageLarge as image, u.username as name, online, LastAccessTime as LastSeen
+//from zbox.users u where online = 1 order by u.userid;";
                 return await conn.QueryAsync<User.ChatUserDto>(
-                    new CommandDefinition(sql2
+                    new CommandDefinition(sql
                        ,
                         //online = 1 and
                         new { query.BoxId })).ConfigureAwait(false);
