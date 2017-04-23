@@ -131,7 +131,7 @@
             }).done(function () {
                 $.ajax({
                     type: "GET",
-                    url: "http://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts%7Cpageimages%7Cpageprops%7Cpageterms&meta=&exchars=350&pilicense=any&piprop=original&titles=" + accurateTerm,
+                    url: "http://en.wikipedia.org/w/api.php?action=query&format=json&prop=images%7Cextracts%7Cpageimages%7Cpageprops%7Cpageterms&meta=&exchars=350&pilicense=any&piprop=original&titles=" + accurateTerm,
                     xhrFields: {
                         withCredentials: false
                     },
@@ -151,11 +151,37 @@
                             if (terms.description&&terms.description.length) {
                                 s += "<h2>Description:</h2><p>" + terms.description[0] + "</p>";
                             }
-                            
-                            s+="<h2>Extract:</h2><p>" + data.query.pages[Object.keys(data.query.pages)[0]].extract;
-                            if (source) {
-                               s+= "</p>" + "<h2>Image:</h2><img src='" + source + "'/>"
-                            }
+                            var page = data.query.pages[Object.keys(data.query.pages)[0]];
+                            s += "<h2>Extract:</h2><p>" + data.query.pages[Object.keys(data.query.pages)[0]].extract;
+                            console.log(page);
+                            //if image og svg type find next not svg and show it
+                            if ((!source || source.endsWith('.svg')) && page.images.length) {
+                                var isFound = false;
+                                var title;
+                                var service_url = "http://en.wikipedia.org/w/api.php?action=query&format=json&prop=imageinfo&iiprop=url";
+                                // Go over the images and get the title of first not svg image
+                                for (var i = 0; i < page.images.length && !isFound; i++) {
+                                    if (!page.images[i].title.endsWith('.svg')) {
+                                        title = page.images[i].title;
+                                        isFound = true;
+                                        }     
+                                }
+                                //get image url of founded image(not svg)
+                                $.getJSON(service_url + '&callback=?', { 'titles': title }, function (response) {
+                                    console.log(response);
+                                    source = response.query.pages[Object.keys(response.query.pages)[0]].imageinfo[0].url;                                  
+                                }).done(function () {
+                                    var header = document.createElement("H2");
+                                    header.innerText = "Image:";
+                                    var img = document.createElement("img");
+                                    img.src = source;
+                                    document.getElementById("wikiResult").appendChild(header);
+                                    document.getElementById("wikiResult").appendChild(img);
+                                   // s += "</p>" + "<h2>Image:</h2><img src='" + source + "'/>";
+                                })
+                            } else {
+                                s += "</p>" + "<h2>Image:</h2><img src='" + source + "'/>"
+                            }                         
                         }
                         document.getElementById("wikiResult").innerHTML = "<p>" + s + "</p>";
                         document.getElementsByTagName("table")[0].hidden = false
@@ -165,21 +191,9 @@
                     }
                 });
             });
-            //$.ajax({
-            //    url: wiki_url,
-            //    data: paramsWiki,
-            //    dataType: 'jsonfm',
-            //    type: 'GET',
-            //    success: function (data) {
-            //        // do something with data
-            //        document.getElementById("wikiResult").innerHTML = JSON.stringify(data, null, 2);
-            //    }
-            //});
             return false;
             }
-        //})
-        //    document.getElementById("submit").click(hello);
-        //)
+
     </script>
 </body>
 </html>
