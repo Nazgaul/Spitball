@@ -131,7 +131,7 @@
             }).done(function () {
                 $.ajax({
                     type: "GET",
-                    url: "http://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts%7Cpageimages%7Cpageprops%7Cpageterms&meta=&exsentences=2&pilicense=any&piprop=original&titles=" + accurateTerm,
+                    url: "http://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts%7Cpageimages%7Cpageprops%7Cpageterms&meta=&exchars=350&pilicense=any&piprop=original&titles=" + accurateTerm,
                     xhrFields: {
                         withCredentials: false
                     },

@@ -215,6 +215,7 @@
     <Compile Include="App_Start\Startup.MobileApp.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
+    <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Controllers\FlashcardController.cs" />
@@ -224,6 +225,7 @@
     <Compile Include="Controllers\TutorController.cs" />
     <Compile Include="Controllers\UniversityController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DataObjects\FollowRequest.cs" />
     <Compile Include="Filters\VersionConstraint.cs" />
     <Compile Include="Filters\VersionedRoute.cs" />
     <Compile Include="Models\AddCommentRequest.cs" />
