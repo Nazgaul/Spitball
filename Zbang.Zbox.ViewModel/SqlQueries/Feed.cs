@@ -3,18 +3,18 @@
     public static class Feed
     {
         public const string Comments = @"SELECT q.[QuestionId] as id
-    ,u.[UserName] as UserName
-	,u.UserImageLarge as UserImage
-	,u.userid as UserId
-    ,u.BadgeCount as Badges
-	,u.Score as Score
+    ,coalesce(u1.[UserName],u2.[UserName]) as UserName
+	,coalesce(u1.UserImageLarge,u2.UserImageLarge) as UserImage
+	,coalesce(u1.userid,u2.userid) as UserId
+    ,coalesce(u1.BadgeCount,u2.BadgeCount) as Badges
+	,coalesce(u1.Score,u2.Score) as Score
     ,[Text] as Content
     ,q.CreationTime as creationTime
 	,q.ReplyCount as RepliesCount
 	,q.LikeCount as LikesCount
 	FROM [Zbox].[Question] q 
-    --join zbox.users u on u.userid = q.userid
-    join zbox.users u on (q.Anonymous = 1 and u.userid = 22886) or (coalesce( q.Anonymous, 0) = 0 and u.UserId = q.userid)
+    left join zbox.users u1 on u1.userid = q.userid and coalesce( q.Anonymous, 0) = 0
+	left join zbox.users u2 on q.Anonymous = 1 and u2.userid = 22886
     where q.BoxId = @BoxId
     order by q.[updatetime] desc
     offset @skip ROWS
@@ -93,7 +93,7 @@ select questionid from zbox.question
                 
 	            order by updatetime desc
 	            offset @skip ROWS
-	FETCH NEXT @top ROWS ONLY)";
+	FETCH NEXT @top ROWS ONLY);";
 
         public const string GetFlashcardFromComments = @"select
     i.Id as Id,
@@ -109,7 +109,7 @@ select questionid from zbox.question
                 
 	            order by updatetime desc
 	            offset @skip ROWS
-	FETCH NEXT @top ROWS ONLY)";
+	FETCH NEXT @top ROWS ONLY);";
 
 
         public const string GetReplies = @" SELECT  a.[AnswerId] as id
