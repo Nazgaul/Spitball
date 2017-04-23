@@ -169,6 +169,11 @@
     update User c set c.EmailSendSettings = :emailSettings, c.UserTime.UpdateTime = :dateTime where c.Email in (:userEmail) and c.EmailSendSettings = 0
     ]]>
   </query>
+  <query name="UpdateUserFeed">
+    <![CDATA[
+    update Comment set UpdateTime = DATEADD(ss,1,UpdateTime) where User = :userid
+    ]]>
+  </query>
   <query name="UniversityData">
     <![CDATA[
        select u.id from University u 

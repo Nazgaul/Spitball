@@ -146,5 +146,12 @@ namespace Zbang.Zbox.Domain.DataAccess
                .SingleOrDefault<int>();
 
         }
+
+        public void UpdateUserFeedDetails(long userId)
+        {
+            var query = UnitOfWork.CurrentSession.GetNamedQuery("UpdateUserFeed");
+            query.SetInt64("userid", userId);
+            query.ExecuteUpdate();
+        }
     }
 }

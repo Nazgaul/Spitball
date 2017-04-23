@@ -25,5 +25,6 @@ namespace Zbang.Zbox.Domain.DataAccess
         int LikesCount(long userId);
         int ItemCount(long userId);
         int QuizCount(long userId);
+        void UpdateUserFeedDetails(long userId);
     }
 }

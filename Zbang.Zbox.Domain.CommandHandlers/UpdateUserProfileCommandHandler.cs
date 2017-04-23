@@ -19,6 +19,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (command == null) throw new ArgumentNullException(nameof(command));
             var user = m_UserRepository.Load(command.Id);
             user.UpdateUserProfile(command.FirstName, command.LastName);
+            m_UserRepository.UpdateUserFeedDetails(user.Id);
             m_UserRepository.Save(user);
         }
     }
