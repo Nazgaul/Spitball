@@ -129,6 +129,7 @@
                     }
                 }
             }).done(function () {
+                //prop images has been added to the url query
                 $.ajax({
                     type: "GET",
                     url: "http://en.wikipedia.org/w/api.php?action=query&format=json&prop=images%7Cextracts%7Cpageimages%7Cpageprops%7Cpageterms&meta=&exchars=350&pilicense=any&piprop=original&titles=" + accurateTerm,
