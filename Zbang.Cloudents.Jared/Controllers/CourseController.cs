@@ -6,6 +6,10 @@ using Zbang.Cloudents.Jared.DataObjects;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Extensions;
+using Zbang.Zbox.Infrastructure.Exceptions;
+using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Url;
+using System.Net;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
@@ -39,6 +43,47 @@ namespace Zbang.Cloudents.Jared.Controllers
             var command = new SubscribeToSharedBoxCommand(User.GetUserId(), model.BoxId);
             await m_ZboxWriteService.SubscribeToSharedBoxAsync(command);
             return Request.CreateResponse();
+        }
+        [Route("api/course/create")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> CreateAcademicBoxAsync(CreateAcademicCourseRequest model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            
+            var universityId = User.GetUniversityId();
+
+            if (!universityId.HasValue)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            //TODO: generate default department(current name general noOfBox=0)
+            var guid = GuidEncoder.TryParseNullableGuid("E89425A5-9C50-4C2E-BBEE-A66D0097FFF5");
+            //if (!guid.HasValue)
+            //{
+            //    return Request.CreateBadRequestResponse();
+            //}
+            try
+            {
+                var userId = User.GetUserId();
+
+                var command = new CreateAcademicBoxCommand(userId, model.CourseName,
+                                                           model.CourseId, model.Professor, guid.Value, universityId.Value);
+                var result = await m_ZboxWriteService.CreateBoxAsync(command);
+                return Request.CreateResponse(new
+                {
+                    result.Url,
+                    result.Id,
+                    shortUrl = UrlConst.BuildShortBoxUrl(new Base62(result.Id).ToString())
+                });
+            }
+            catch (BoxNameAlreadyExistsException)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, "box already exists");
+
+            }
         }
     }
 }

@@ -62,7 +62,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="App_Start\IocConfig.cs" />
     <Compile Include="Controllers\CourseControllerTests.cs" />
     <Compile Include="Controllers\TutorControllerTests.cs" />
     <Compile Include="Controllers\ValuesControllerTests.cs" />
@@ -112,6 +111,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Start\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
