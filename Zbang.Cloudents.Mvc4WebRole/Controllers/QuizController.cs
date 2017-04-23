@@ -12,6 +12,7 @@ using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ViewModel.Queries;
 using System.Threading.Tasks;
+using System.Web.Routing;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Culture;
@@ -19,6 +20,7 @@ using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using System.Web.UI;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Extensions;
+using Zbang.Zbox.Infrastructure.Url;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -50,7 +52,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var query = new GetQuizSeoQuery(quizId);
 
-                var model = await ZboxReadService.GetQuizSeoAsync(query);
+                var model = await ZboxReadService.GetQuizSeoAsync(query).ConfigureAwait(false);
 
                 if (model == null)
                 {
@@ -79,6 +81,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 TraceLog.WriteError("quiz ", ex);
                 return RedirectToAction("index", "error");
             }
+        }
+
+        [Route(UrlConst.ShortQuiz, Name = "shortQuiz"), NoUrlLowercase]
+        public async Task<ActionResult> ShortUrlAsync(string flashcard62Id)
+        {
+            var base62 = new Base62(flashcard62Id);
+            var query = new GetQuizSeoQuery(base62.Value);
+            var model = await ZboxReadService.GetQuizSeoAsync(query).ConfigureAwait(false);
+            if (model == null)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+
+            //quiz/{universityName}/{boxId:long}/{boxName}/{quizId:long}/{quizName}
+            var route = new RouteValueDictionary
+            {
+                ["universityName"] = UrlConst.NameToQueryString(model.UniversityName ?? "my"),
+                ["boxId"] = model.BoxId,
+                ["boxName"] = UrlConst.NameToQueryString(model.BoxName),
+                ["flashcardId"] = base62.Value,
+                ["flashcardName"] = UrlConst.NameToQueryString(model.Name)
+            };
+            if (Request.IsAjaxRequest())
+            {
+                return JsonOk(Url.RouteUrl("Quiz", route));
+            }
+            return RedirectToRoutePermanent("Quiz", route);
         }
 
 

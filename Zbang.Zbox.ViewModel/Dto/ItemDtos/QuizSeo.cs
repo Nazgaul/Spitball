@@ -8,6 +8,8 @@
 
         public string BoxUrl { get; set; }
 
+        public long BoxId { get; set; }
+
         public string Name { get; set; }
 
         public string FirstQuestion { get; set; }
