@@ -18,6 +18,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (message == null) throw new ArgumentNullException(nameof(message));
             var user = m_UserRepository.Load(message.UserId);
             user.ImageLarge = message.ImageUrl;
+            m_UserRepository.UpdateUserFeedDetails(user.Id);
             m_UserRepository.Save(user);
         }
     }

@@ -59,6 +59,7 @@
     <Compile Include="DeleteItemCommandHandlerTests.cs" />
     <Compile Include="SubscribeToSharedBoxCommandHandlerTests.cs" />
     <Compile Include="RateItemCommandHandlerTests.cs" />
+    <Compile Include="UpdateUserProfileCommandHandlerTests.cs" />
     <Compile Include="UpdateUserUniversityCommandHandlerTests.cs" />
     <Compile Include="UpdateThumbnailCommandHandlerTests.cs" />
   </ItemGroup>

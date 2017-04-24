@@ -19,6 +19,9 @@ using System.Security.Claims;
 using System;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Domain;
+using Zbang.Zbox.Infrastructure.Extensions;
+using Zbang.Cloudents.Jared.DataObjects;
+using System.Collections.Generic;
 
 namespace Zbang.Cloudents.Jared.Controllers.Tests
 {
@@ -47,6 +50,49 @@ namespace Zbang.Cloudents.Jared.Controllers.Tests
         public async Task FollowAsyncTest()
         {
             var x = await controller.FollowAsync(null);
+        }
+
+        [TestMethod()]
+        public async Task CreateAcademicBoxAsyncTestTooLongName()
+        {
+            controller.ModelState.Clear();
+            
+            var model = new CreateAcademicCourseRequest()
+            {
+                Professor = "hello",
+                CourseName = new string('*', 5000)
+            };
+            controller.Validate(model);
+            var result = await controller.CreateAcademicBoxAsync(model);
+            Assert.IsTrue(result.ReasonPhrase == "Bad Request");
+        }
+        [TestMethod()]
+        public async Task CreateAcademicBoxAsyncTestNoName()
+        {
+            controller.ModelState.Clear();
+
+            var model = new CreateAcademicCourseRequest()
+            {
+                Professor = "hello",
+            };
+            controller.Validate(model);
+            var result = await controller.CreateAcademicBoxAsync(model);
+            Assert.IsTrue(result.ReasonPhrase == "Bad Request");
+        }
+        [TestMethod()]
+        public async Task CreateAcademicBoxAsyncTestNoUniversity()
+        {
+            Thread.CurrentPrincipal = new ClaimsPrincipal();
+            controller.ModelState.Clear();
+
+            var model = new CreateAcademicCourseRequest()
+            {
+                Professor = "hello",
+                CourseName="Name"          
+            };
+            controller.Validate(model);
+            var result = await controller.CreateAcademicBoxAsync(model);
+            Assert.IsTrue(result.ReasonPhrase == "Bad Request");
         }
     }
 }
