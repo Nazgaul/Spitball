@@ -55,7 +55,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         }
 
 
-        [HttpGet, Route("api/box/{boxId:long}/feed/{feedId:guid}")]
+        [HttpGet, Route("api/course/{boxId:long}/feed/{feedId:guid}")]
         public async Task<HttpResponseMessage> GetFeedAsync(long boxId, Guid feedId)
         {
             var retVal =
@@ -63,25 +63,32 @@ namespace Zbang.Cloudents.Jared.Controllers
 
             return Request.CreateResponse(new
             {
-                retVal.Files,
-                //retVal.Id,
-                //retVal.RepliesCount,
-                //retVal.UserId,
+                Files = retVal.Files.Select(s => new
+                {
+                    s.Type,
+                    s.Source,
+                    s.Id,
+                    s.Name
+
+                }),
                 retVal.UserImage,
                 retVal.UserName,
                 retVal.Content,
                 retVal.CreationTime,
-                retVal.LikesCount
-
+                retVal.LikesCount,
+                retVal.Id
             });
         }
 
-        [HttpGet, Route("api/box/{boxId:long}/feed/{feedId:guid}/replies")]
+        [HttpGet, Route("api/course/{boxId:long}/feed/{feedId:guid}/replies")]
         public async Task<HttpResponseMessage> GetRepliesAsync(long boxId, Guid feedId, string belowReplyId, int page, int sizePerPage = 20)
         {
-            var replyId = Guid.Parse("FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF");
+            Guid replyId;
 
-            Guid.TryParse(belowReplyId, out replyId);
+            if (!Guid.TryParse(belowReplyId, out replyId))
+            {
+                replyId = Guid.Parse("FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF");
+            }
 
             //var replyId = belowReplyId ?? Guid.Parse("FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF");
             var retVal =
@@ -90,10 +97,10 @@ namespace Zbang.Cloudents.Jared.Controllers
             {
                 s.Id,
                 s.UserImage,
-                s.UserName,
+                s.UserName, 
                 s.Content,
                 s.CreationTime,
-
+                s.LikesCount,
                 Files = s.Files.Select(d => new
                 {
                     d.Id,
@@ -106,7 +113,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             }));
         }
 
-        [Authorize, HttpPost, Route("api/box/{boxId:long}/feed/{commentId:guid}/like")]
+        [Authorize, HttpPost, Route("api/course/{boxId:long}/feed/{commentId:guid}/like")]
         public async Task<HttpResponseMessage> LikeCommentAsync(Guid commentId, long boxId)
         {
             var command = new LikeCommentCommand(commentId, User.GetUserId(), boxId);
@@ -115,7 +122,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             //return JsonOk(retVal.Liked);
         }
 
-        [Authorize, HttpPost, Route("api/box/{boxId:long}/feed/{replyId:guid}/like")]
+        [Authorize, HttpPost, Route("api/course/{boxId:long}/feed/{commentId:guid}/reply/{replyId:guid}/like")]
         public async Task<HttpResponseMessage> LikeReplyAsync(Guid replyId, long boxId)
         {
             var command = new LikeReplyCommand(replyId, User.GetUserId(), boxId);
@@ -124,8 +131,8 @@ namespace Zbang.Cloudents.Jared.Controllers
         }
 
 
-        [Authorize,HttpPost]
-        [Route("api/box/{boxId:long}/feed/{feedId:guid}/reply")]
+        [Authorize, HttpPost]
+        [Route("api/course/{boxId:long}/feed/{feedId:guid}/reply")]
         public async Task<HttpResponseMessage> PostReplyAsync(long boxId, Guid feedId, AddCommentRequest model)
         {
             //if (string.IsNullOrEmpty(model.Content))
