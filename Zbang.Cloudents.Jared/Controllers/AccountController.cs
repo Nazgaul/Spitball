@@ -10,6 +10,15 @@ using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries;
+using Zbang.Cloudents.Jared.DataObjects;
+using System;
+using System.Security.Claims;
+using Zbang.Zbox.Infrastructure.Consts;
+using System.Globalization;
+using System.IdentityModel.Tokens;
+using System.Linq;
+using Microsoft.Azure.Mobile.Server.Login;
+using System.Configuration;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
@@ -54,6 +63,39 @@ namespace Zbang.Cloudents.Jared.Controllers
             m_ZboxWriteService.UpdateUserProfile(command);
             return Request.CreateResponse(HttpStatusCode.OK);
 
+        }
+        [HttpPost]
+        //[VersionedRoute("api/account/university", 2)]
+        [Route("api/account/university")]
+        public HttpResponseMessage UpdateUniversityAsync(UpdateUniversityRequest model)
+        {
+            if (model == null)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+
+            var id = User.GetUserId();
+            var command = new UpdateUserUniversityCommand(model.UniversityId, id, string.Empty);
+            try
+            {
+                m_ZboxWriteService.UpdateUserUniversity(command);
+            }
+            catch (ArgumentException ex)
+            {
+                return Request.CreateBadRequestResponse(ex.Message);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, new
+            {
+                User = new
+                {
+                    UserId = User.GetUserId().ToString(CultureInfo.InvariantCulture)
+                }
+            });
         }
     }
 }

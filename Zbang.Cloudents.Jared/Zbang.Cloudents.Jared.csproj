@@ -227,6 +227,7 @@
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DataObjects\CreateAcademicCourseRequest.cs" />
     <Compile Include="DataObjects\FollowRequest.cs" />
+    <Compile Include="DataObjects\UpdateUniversityRequest.cs" />
     <Compile Include="Filters\VersionConstraint.cs" />
     <Compile Include="Filters\VersionedRoute.cs" />
     <Compile Include="Models\AddCommentRequest.cs" />
