@@ -10,7 +10,7 @@ using Zbang.Zbox.Infrastructure.Extensions;
 namespace Zbang.Cloudents.Jared.Controllers
 {
 
-    [MobileAppController]
+    [MobileAppController,Authorize]
     public class UniversityController : ApiController
     {
         private readonly IZboxWriteService m_ZboxWriteService;

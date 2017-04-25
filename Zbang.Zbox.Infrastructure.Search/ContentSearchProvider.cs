@@ -22,7 +22,7 @@ namespace Zbang.Zbox.Infrastructure.Search
     {
         private readonly ISearchConnection m_Connection;
         private readonly ISearchIndexClient m_IndexClient;
-        private readonly string m_IndexName = "items";
+        private readonly string m_IndexName = "items2";
         private bool m_CheckIndexExists;
 
 
@@ -59,7 +59,6 @@ namespace Zbang.Zbox.Infrastructure.Search
                     Type = itemToUpload.Type.Select(s => ((int)s).ToString()).ToArray(),
                     Tags = itemToUpload.Tags?.Select(s => s.Name.ToLowerInvariant()).Distinct().ToArray(),
                     Date = itemToUpload.Date.Truncate(TimeSpan.FromSeconds(1)),
-                    //MetaContent = itemToUpload.Content.RemoveEndOfString(SeachConnection.DescriptionLength),
                     MetaContent = itemToUpload.MetaContent,
                     BlobName = itemToUpload.BlobName,
                     Views = itemToUpload.Views,
