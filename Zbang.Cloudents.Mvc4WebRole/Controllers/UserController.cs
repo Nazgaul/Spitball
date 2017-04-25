@@ -67,8 +67,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 model.Badges.Add(new Badge(value.GetEnumDescription(),
                     resourceManger.GetString($"Badge{value}Description"),
                     value.ToString()
-                    //"/Images/Gamification/badge_" + value.GetEnumDescription() + ".png",
-                    //"/Images/Gamification/badge_" + value.GetEnumDescription() + "_hidden.png"
                     ));
                 index++;
             }

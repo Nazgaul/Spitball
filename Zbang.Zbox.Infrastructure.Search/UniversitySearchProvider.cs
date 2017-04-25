@@ -207,7 +207,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
                             Extra3 = s.Extra?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
                             Image = s.Image?.Trim(),
-                            Country = s.Country,
+                            Country = s.Country.ToLowerInvariant(),
                             MembersCount = s.NoOfUsers,
 
                             MembersImages = s.UsersImages.Where(w => w != null).ToArray()
