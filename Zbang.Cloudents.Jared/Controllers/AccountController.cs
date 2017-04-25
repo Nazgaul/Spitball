@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             }
 
             var id = User.GetUserId();
-            var command = new UpdateUserUniversityCommand(model.UniversityId, id, string.Empty);
+            var command = new UpdateUserUniversityCommand(model.UniversityId, id, null);
             try
             {
                 m_ZboxWriteService.UpdateUserUniversity(command);

@@ -24,6 +24,7 @@ using Zbang.Zbox.Domain;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Cloudents.Jared.DataObjects;
 using System.Collections.Generic;
+using Zbang.Zbox.Domain.Commands;
 
 namespace Zbang.Cloudents.Jared.Controllers.Tests
 {
@@ -52,6 +53,8 @@ namespace Zbang.Cloudents.Jared.Controllers.Tests
             controller.ModelState.Clear();
             var model = new UpdateUniversityRequest() { UniversityId=long.Parse(18.ToString())};
             controller.Validate(model);
+            var command = new UpdateUserUniversityCommand(model.UniversityId, 4, null);
+            var c = command.StudentId ?? "678";
             var result = controller.UpdateUniversityAsync(null);
             Assert.IsTrue(result.ReasonPhrase == "Bad Request");
         }
