@@ -36,6 +36,7 @@
     </div>
     <script src="/Scripts/jquery-2.2.4.min.js"></script>
     <script>
+        var blacklist = ["homework","market"];
         document.getElementById('term').addEventListener('keypress', function (event) {
             if (event.keyCode == 13) {
                 event.preventDefault();
@@ -72,9 +73,9 @@
             document.getElementsByTagName("table")[0].hidden = true
             document.getElementById("loader").hidden = false
             //document.getElementsByName("term")
-                var service_url = 'https://kgsearch.googleapis.com/v1/entities:search';
-                var wiki_url = 'https://en.wikipedia.org/w/api.php';
-                var query = document.getElementById("term").value;
+            var service_url = 'https://kgsearch.googleapis.com/v1/entities:search';
+            var wiki_url = 'https://en.wikipedia.org/w/api.php';
+            var query = document.getElementById("term").value;
 
             var params = {
                 'query': query,
@@ -88,112 +89,117 @@
                 'action': 'query',
                 'prop': 'extract',
             };
-                $.getJSON(service_url + '?callback=?', params, function (response) {
-                    var itemList = response.itemListElement;
-                    var s;
-                    if (itemList.length === 0) {
-                        s = "<h2 class='error'>No google knowledge results found</h2>"
+            $.getJSON(service_url + '?callback=?', params, function (response) {
+                var itemList = response.itemListElement;
+                var s;
+                if (itemList.length === 0) {
+                    s = "<h2 class='error'>No google knowledge results found</h2>"
+                }
+                else {
+                    s = "<h2>Title:</h2><p>" + response.itemListElement[0].result.name + "</p>";
+                    if (response.itemListElement[0].result.detailedDescription) {
+                        s += "<h2>Description:</h2><p>" + response.itemListElement[0].result.detailedDescription.articleBody + "</p>"
                     }
-                    else {
-                        s = "<h2>Title:</h2><p>" + response.itemListElement[0].result.name + "</p>";
-                        if (response.itemListElement[0].result.detailedDescription){
-                           s+= "<h2>Description:</h2><p>" + response.itemListElement[0].result.detailedDescription.articleBody + "</p>"
-                        }
-                        if (response.itemListElement[0].result.image) {
-                            s+="<h2>Image</h2>:<img src='" + response.itemListElement[0].result.image.contentUrl + "'/>"
-                        }
+                    if (response.itemListElement[0].result.image) {
+                        s += "<h2>Image</h2>:<img src='" + response.itemListElement[0].result.image.contentUrl + "'/>"
                     }
+                }
 
                 document.getElementById("googleResult").innerHTML = "<p>" + s + "</p>";
                 document.getElementsByTagName("table")[0].hidden = false
                 document.getElementById("loader").hidden = true
-                    //JSON.stringify(JSON.parse(response), null, "\t");
+                //JSON.stringify(JSON.parse(response), null, "\t");
             });
 
             //preSearch
-                var preSearch = "http://en.wikipedia.org/w/api.php?action=query&format=json&list=search&meta=&srsearch=" + query;
+            var preSearch = "http://en.wikipedia.org/w/api.php?action=query&format=json&list=search&meta=&srqiprofile=classic&srsearch=" + query;
             var accurateTerm;
-            $.ajax({
-                url: preSearch,
-                type: "GET",
-                dataType: "jsonp",
-                xhrFields: {
-                    withCredentials: false
-                },
-                success: function (data, textStatus, jqXHR) {
-                    if (data.query.search.length) {
-                        accurateTerm = data.query.search[0].title;
-                    }
-                    else if (data.query.searchinfo.suggestion) {
-                        accurateTerm = data.query.searchinfo.suggestion;
-                    }
-                }
-            }).done(function () {
-                //prop images has been added to the url query
+            if (blacklist.indexOf(query.toLowerCase()) > -1) {
+                document.getElementById("wikiResult").innerHTML = "<p><h2 class='error'>This is black list term</h2></p>";
+            } else {
                 $.ajax({
+                    url: preSearch,
                     type: "GET",
-                    url: "http://en.wikipedia.org/w/api.php?action=query&format=json&prop=images%7Cextracts%7Cpageimages%7Cpageprops%7Cpageterms&meta=&exchars=350&pilicense=any&piprop=original&titles=" + accurateTerm,
+                    dataType: "jsonp",
                     xhrFields: {
                         withCredentials: false
                     },
-                    dataType: "jsonp",
                     success: function (data, textStatus, jqXHR) {
-                        console.log("data: " + data.query.pages[Object.keys(data.query.pages)[0]])
-                        var terms = data.query.pages[Object.keys(data.query.pages)[0]].terms
-                        var title = data.query.pages[Object.keys(data.query.pages)[0]].title
-                        var s;
-                        if (typeof (terms) == 'undefined'||title=='Undefined') {
-                            s = "<h2 class='error'>No wikipedia results found</h2>"
+                        if (data.query.search.length) {
+                            accurateTerm = data.query.search[0].title;
                         }
-                        else {
-                            var source;
-                            if (data.query.pages[Object.keys(data.query.pages)[0]].original) source = data.query.pages[Object.keys(data.query.pages)[0]].original.source;
-                            s = "<h2>Title:</h2><p>" + data.query.pages[Object.keys(data.query.pages)[0]].title + "</p>";
-                            if (terms.description&&terms.description.length) {
-                                s += "<h2>Description:</h2><p>" + terms.description[0] + "</p>";
-                            }
-                            var page = data.query.pages[Object.keys(data.query.pages)[0]];
-                            s += "<h2>Extract:</h2><p>" + data.query.pages[Object.keys(data.query.pages)[0]].extract;
-                            console.log(page);
-                            //if image og svg type find next not svg and show it
-                            if ((!source || source.endsWith('.svg')) && page.images.length) {
-                                var isFound = false;
-                                var title;
-                                var service_url = "http://en.wikipedia.org/w/api.php?action=query&format=json&prop=imageinfo&iiprop=url";
-                                // Go over the images and get the title of first not svg image
-                                for (var i = 0; i < page.images.length && !isFound; i++) {
-                                    if (!page.images[i].title.endsWith('.svg')) {
-                                        title = page.images[i].title;
-                                        isFound = true;
-                                        }     
-                                }
-                                //get image url of founded image(not svg)
-                                $.getJSON(service_url + '&callback=?', { 'titles': title }, function (response) {
-                                    console.log(response);
-                                    source = response.query.pages[Object.keys(response.query.pages)[0]].imageinfo[0].url;                                  
-                                }).done(function () {
-                                    var header = document.createElement("H2");
-                                    header.innerText = "Image:";
-                                    var img = document.createElement("img");
-                                    img.src = source;
-                                    document.getElementById("wikiResult").appendChild(header);
-                                    document.getElementById("wikiResult").appendChild(img);
-                                   // s += "</p>" + "<h2>Image:</h2><img src='" + source + "'/>";
-                                })
-                            } else {
-                                s += "</p>" + "<h2>Image:</h2><img src='" + source + "'/>"
-                            }                         
+                        else if (data.query.searchinfo.suggestion) {
+                            accurateTerm = data.query.searchinfo.suggestion;
                         }
-                        document.getElementById("wikiResult").innerHTML = "<p>" + s + "</p>";
-                        document.getElementsByTagName("table")[0].hidden = false
-                        document.getElementById("loader").hidden = true
-                    },
-                    error: function (errorMessage) {
                     }
+                }).done(function () {
+                    //prop images has been added to the url query
+                    $.ajax({
+                        type: "GET",
+                        url: "http://en.wikipedia.org/w/api.php?action=query&format=json&prop=images%7Cextracts%7Cpageimages%7Cpageprops%7Cpageterms&meta=&exchars=350&pilicense=any&piprop=original&titles=" + accurateTerm,
+                        xhrFields: {
+                            withCredentials: false
+                        },
+                        dataType: "jsonp",
+                        success: function (data, textStatus, jqXHR) {
+                            console.log("data: " + data.query.pages[Object.keys(data.query.pages)[0]])
+                            var terms = data.query.pages[Object.keys(data.query.pages)[0]].terms
+                            var title = data.query.pages[Object.keys(data.query.pages)[0]].title
+                            var s;
+                            if (typeof (terms) == 'undefined' || title == 'Undefined') {
+                                s = "<h2 class='error'>No wikipedia results found</h2>"
+                            }
+                            else {
+                                var source;
+                                if (data.query.pages[Object.keys(data.query.pages)[0]].original) source = data.query.pages[Object.keys(data.query.pages)[0]].original.source;
+                                s = "<h2>Title:</h2><p>" + data.query.pages[Object.keys(data.query.pages)[0]].title + "</p>";
+                                if (terms.description && terms.description.length) {
+                                    s += "<h2>Description:</h2><p>" + terms.description[0] + "</p>";
+                                }
+                                var page = data.query.pages[Object.keys(data.query.pages)[0]];
+                                s += "<h2>Extract:</h2><p>" + data.query.pages[Object.keys(data.query.pages)[0]].extract;
+                                console.log(page);
+                                //if image og svg type find next not svg and show it
+                                if ((!source || source.endsWith('.svg')) && page.images.length) {
+                                    var isFound = false;
+                                    var title;
+                                    var service_url = "http://en.wikipedia.org/w/api.php?action=query&format=json&prop=imageinfo&iiprop=url";
+                                    // Go over the images and get the title of first not svg image
+                                    for (var i = 0; i < page.images.length && !isFound; i++) {
+                                        if (!page.images[i].title.endsWith('.svg')) {
+                                            title = page.images[i].title;
+                                            isFound = true;
+                                        }
+                                    }
+                                    //get image url of founded image(not svg)
+                                    $.getJSON(service_url + '&callback=?', { 'titles': title }, function (response) {
+                                        console.log(response);
+                                        source = response.query.pages[Object.keys(response.query.pages)[0]].imageinfo[0].url;
+                                    }).done(function () {
+                                        var header = document.createElement("H2");
+                                        header.innerText = "Image:";
+                                        var img = document.createElement("img");
+                                        img.src = source;
+                                        document.getElementById("wikiResult").appendChild(header);
+                                        document.getElementById("wikiResult").appendChild(img);
+                                        // s += "</p>" + "<h2>Image:</h2><img src='" + source + "'/>";
+                                    })
+                                } else {
+                                    s += "</p>" + "<h2>Image:</h2><img src='" + source + "'/>"
+                                }
+                            }
+                            document.getElementById("wikiResult").innerHTML = "<p>" + s + "</p>";
+                            document.getElementsByTagName("table")[0].hidden = false
+                            document.getElementById("loader").hidden = true
+                        },
+                        error: function (errorMessage) {
+                        }
+                    });
                 });
-            });
-            return false;
             }
+                return false;
+            }
+        
 
     </script>
 </body>
