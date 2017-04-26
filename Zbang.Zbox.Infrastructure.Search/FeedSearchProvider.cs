@@ -18,7 +18,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         internal const string ContentHebrewField = "text_he";
         private readonly ISearchConnection m_Connection;
         private readonly ISearchIndexClient m_IndexClient;
-        private readonly string m_IndexName = "feed";
+        private readonly string m_IndexName = "feed2";
         //private bool m_CheckIndexExists;
         private const string ScoringProfile = "score";
 

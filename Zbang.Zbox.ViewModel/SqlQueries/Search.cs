@@ -123,6 +123,8 @@ q.Name,
  q.Language,
  q.CreationTime as Date,
  q.Url,
+ q.LikeCount as Likes,
+ q.NumberOfViews as Views,
  u.UniversityName as universityName,
   case b.Discriminator
    when 2 then

@@ -89,13 +89,7 @@ namespace Zbang.Cloudents.Jared.Controllers
                 return Request.CreateBadRequestResponse(ex.Message);
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK, new
-            {
-                User = new
-                {
-                    UserId = User.GetUserId().ToString(CultureInfo.InvariantCulture)
-                }
-            });
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }
