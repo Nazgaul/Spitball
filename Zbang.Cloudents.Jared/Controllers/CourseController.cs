@@ -55,7 +55,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             }
             
 
-            var commandGeneral = new GetGeneralDepartmentCommand() { UserId = User.GetUserId(), UniversityId = model.UniversityId };
+            var commandGeneral = new GetGeneralDepartmentCommand(User.GetUserId(), model.UniversityId);
             var res = m_ZboxWriteService.GetGeneralDepartmentForUniversity(commandGeneral);
            
             try

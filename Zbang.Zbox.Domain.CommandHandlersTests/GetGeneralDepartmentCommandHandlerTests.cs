@@ -37,16 +37,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Tests
         [TestMethod()]
         public void ExecuteAsyncTest()
         {
-            var command = new GetGeneralDepartmentCommand() { UserId=877616,UniversityId=173408};
             var commandHandler = new GetGeneralDepartmentCommandHandler(m_department,m_university,m_user,m_IdGenerator);
             try
             {
-                var res = commandHandler.Execute(command);
+                var res = commandHandler.Execute(null);
             }
             catch (Exception ex)
             {
-
-
                 var a = 5;
                 a = 7;
             }
