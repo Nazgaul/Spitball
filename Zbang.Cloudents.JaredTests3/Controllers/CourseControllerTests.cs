@@ -29,15 +29,11 @@ namespace Zbang.Cloudents.Jared.Controllers.Tests
     public class CourseControllerTests
     {
         private IZboxWriteService m_ZboxWriteService;
-        private readonly ICommandBus m_CommandBus;
-        private readonly IWithCache m_Cache;
         private CourseController controller;
         [TestInitialize]
         public void Setup()
         {
             var localStorageProvider = MockRepository.GenerateStub<ILocalStorageProvider>();
-            var m_CommandBus = MockRepository.GenerateMock<ICommandBus>();
-            var m_Cache = MockRepository.GenerateMock<IWithCache>();
             IocFactory.IocWrapper.RegisterInstance(localStorageProvider);
 
             m_ZboxWriteService = MockRepository.GenerateStub<IZboxWriteService>();

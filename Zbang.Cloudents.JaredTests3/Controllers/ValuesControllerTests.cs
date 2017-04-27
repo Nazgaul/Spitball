@@ -43,6 +43,7 @@ namespace Zbang.Cloudents.Jared.Controllers.Tests
             //    if (!b[item].Equals(c[item])) numOfDiff++;
             //}
             var a = 5;
+            a = 7;
             var k = 6;
         }
     }

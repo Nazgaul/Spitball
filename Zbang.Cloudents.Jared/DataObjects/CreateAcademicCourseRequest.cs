@@ -13,7 +13,9 @@ namespace Zbang.Cloudents.Jared.DataObjects
         public string CourseName { get; set; }
 
         public string CourseId { get; set; }
+        
         [Required]
+        [Range(1, long.MaxValue)]
         public long UniversityId { get; set; }
 
         public string Professor { get; set; }
@@ -25,7 +27,7 @@ namespace Zbang.Cloudents.Jared.DataObjects
         public override string ToString()
         {
             var baseString = base.ToString();
-            return string.Format("{0} CourseName {1} CourseId {2} Professor {3} DepartmentId {4}", baseString, CourseName, CourseId, Professor);
+            return string.Format("{0} CourseName {1} CourseId {2} Professor {3}", baseString, CourseName, CourseId, Professor);
 
         }
     }

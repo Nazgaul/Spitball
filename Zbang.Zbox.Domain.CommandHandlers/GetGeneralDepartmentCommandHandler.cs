@@ -38,7 +38,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 m_Department.Save(dep);
                 departmentId = newId;
             }
-            return new GetGeneralDepartmentCommandResult(departmentId, command.UniversityId);
+            return new GetGeneralDepartmentCommandResult(departmentId);
         }
     }
 }

@@ -9,11 +9,11 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class GetGeneralDepartmentCommandResult : ICommandResult
     {
-        public Guid departmentId { get; set; }
+        public Guid DepartmentId { get; set; }
 
         public GetGeneralDepartmentCommandResult(Guid departmentId)
         {
-            this.departmentId = departmentId;
+            this.DepartmentId = departmentId;
         }
     }
 }

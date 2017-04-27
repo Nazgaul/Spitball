@@ -56,14 +56,14 @@ namespace Zbang.Cloudents.Jared.Controllers
             
 
             var commandGeneral = new GetGeneralDepartmentCommand() { UserId = User.GetUserId(), UniversityId = model.UniversityId };
-            var res = m_ZboxWriteService.GetGeneralDepartmentForUni(commandGeneral);
+            var res = m_ZboxWriteService.GetGeneralDepartmentForUniversity(commandGeneral);
            
             try
             {
                 var userId = User.GetUserId();
 
                 var command = new CreateAcademicBoxCommand(userId, model.CourseName,
-                                                           model.CourseId, model.Professor, res.departmentId.Value, model.UniversityId);
+                                                           model.CourseId, model.Professor, res.DepartmentId, model.UniversityId);
                 var result = await m_ZboxWriteService.CreateBoxAsync(command);
                 return Request.CreateResponse(new
                 {

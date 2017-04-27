@@ -851,7 +851,7 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public GetGeneralDepartmentCommandResult GetGeneralDepartmentForUni(GetGeneralDepartmentCommand command)
+        public GetGeneralDepartmentCommandResult GetGeneralDepartmentForUniversity(GetGeneralDepartmentCommand command)
         {
             using (UnitOfWork.Start())
             {
