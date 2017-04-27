@@ -17,7 +17,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         // GET api/<controller>
         public IEnumerable<Tutor> Get(string q)
         {
-            using (StreamReader r= new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("Zbang.Cloudents.Jared.DataObjects.tutor.json")))
+            using (var r= new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("Zbang.Cloudents.Jared.DataObjects.tutor.json")))
             {
                 var json = r.ReadToEnd();
                 var tutors = JsonConvert.DeserializeObject<List<Tutor>>(json);
@@ -25,7 +25,12 @@ namespace Zbang.Cloudents.Jared.Controllers
                 {
                     return tutors;
                 }
-                return tutors.OrderBy(t => -(t.KeyWords.IndexOf(q, StringComparison.Ordinal) + t.Subject.IndexOf(q, StringComparison.Ordinal)));
+                var matches = tutors.FindAll(t => t.KeyWords.IndexOf(q, StringComparison.OrdinalIgnoreCase)>=0 || t.Subject.IndexOf(q, StringComparison.OrdinalIgnoreCase)>=0);
+                var another = tutors.Except(matches).ToList();
+                var rnd = new Random();
+                var resNum = rnd.Next(20, 41);
+                var listToTake=another.OrderBy(x => rnd.Next()).Take(resNum);
+                return matches.Concat(listToTake);
             }
 
             //return tutors;

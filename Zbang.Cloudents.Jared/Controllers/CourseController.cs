@@ -11,7 +11,7 @@ using System.Net;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
-    [MobileAppController,Authorize]
+    [MobileAppController,Authorize] 
     public class CourseController : ApiController
     {
         private readonly IZboxWriteService m_ZboxWriteService;
