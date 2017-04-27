@@ -56,7 +56,7 @@ namespace Zbang.Cloudents.Jared.Controllers.Tests
         public async Task CreateAcademicBoxAsyncTestTooLongName()
         {
             controller.ModelState.Clear();
-            
+
             var model = new CreateAcademicCourseRequest()
             {
                 Professor = "hello",
@@ -82,13 +82,10 @@ namespace Zbang.Cloudents.Jared.Controllers.Tests
         [TestMethod()]
         public async Task CreateAcademicBoxAsyncTestNoUniversity()
         {
-            Thread.CurrentPrincipal = new ClaimsPrincipal();
-            controller.ModelState.Clear();
-
             var model = new CreateAcademicCourseRequest()
             {
                 Professor = "hello",
-                CourseName="Name"          
+                CourseName = "Name"
             };
             controller.Validate(model);
             var result = await controller.CreateAcademicBoxAsync(model);
