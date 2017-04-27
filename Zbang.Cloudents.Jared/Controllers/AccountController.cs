@@ -67,6 +67,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         [HttpPost]
         //[VersionedRoute("api/account/university", 2)]
         [Route("api/account/university")]
+
         public HttpResponseMessage UpdateUniversityAsync(UpdateUniversityRequest model)
         {
             if (model == null)

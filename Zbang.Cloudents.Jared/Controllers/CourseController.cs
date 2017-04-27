@@ -10,6 +10,7 @@ using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Url;
 using System.Net;
+using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
@@ -59,18 +60,15 @@ namespace Zbang.Cloudents.Jared.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-            //TODO: generate default department(current name general noOfBox=0)
-            var guid = GuidEncoder.TryParseNullableGuid("E89425A5-9C50-4C2E-BBEE-A66D0097FFF5");
-            //if (!guid.HasValue)
-            //{
-            //    return Request.CreateBadRequestResponse();
-            //}
+            var commandGeneral = new GetGeneralDepartmentCommand() { UserId = User.GetUserId(), UniversityId = (long)universityId };
+            var res = m_ZboxWriteService.GetGeneralDepartmentForUni(commandGeneral);
+           
             try
             {
                 var userId = User.GetUserId();
 
                 var command = new CreateAcademicBoxCommand(userId, model.CourseName,
-                                                           model.CourseId, model.Professor, guid.Value, universityId.Value);
+                                                           model.CourseId, model.Professor, res.departmentId.Value, universityId.Value);
                 var result = await m_ZboxWriteService.CreateBoxAsync(command);
                 return Request.CreateResponse(new
                 {

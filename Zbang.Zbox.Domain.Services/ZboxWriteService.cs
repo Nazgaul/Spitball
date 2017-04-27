@@ -850,6 +850,16 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
+        public GetGeneralDepartmentCommandResult GetGeneralDepartmentForUni(GetGeneralDepartmentCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                var result = m_CommandBus.Dispatch<GetGeneralDepartmentCommand, GetGeneralDepartmentCommandResult>(command);
+                UnitOfWork.Current.TransactionalFlush();
+                return result;
+            }
+        }
         //public void AddItemExtraData(AssignTagsToItemCommand command1, UpdateItemCourseTagCommand command2)
         //{
         //    using (UnitOfWork.Start())

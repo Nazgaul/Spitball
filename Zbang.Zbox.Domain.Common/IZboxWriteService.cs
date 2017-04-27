@@ -146,6 +146,7 @@ namespace Zbang.Zbox.Domain.Common
         void SetReviewed<T>(T command) where T : SetReviewedCommand;
         void ChangeItemDocType(ChangeItemDocTypeCommand command);
         void AddItemLanguage<T>(T command) where T : AddLanguageToItemCommand;
+        GetGeneralDepartmentCommandResult GetGeneralDepartmentForUni(GetGeneralDepartmentCommand command);
         //void DoWork(params ICommand[] commands);
 
         //void AddItemExtraData(

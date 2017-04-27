@@ -108,6 +108,8 @@
     <Compile Include="DeleteUpdatesCommand.cs" />
     <Compile Include="DeleteUpdatesItemCommand.cs" />
     <Compile Include="DeleteUserFromBoxCommand.cs" />
+    <Compile Include="GetGeneralDepartmentCommand.cs" />
+    <Compile Include="GetGeneralDepartmentCommandResult.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="InviteToSystemCommand.cs" />
     <Compile Include="LibraryNodeApproveAccessCommand.cs" />
