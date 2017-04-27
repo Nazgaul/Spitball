@@ -112,9 +112,9 @@ namespace Zbang.Zbox.Domain.Services
                 var commandCache = command as ICommandCache;
                 if (commandCache != null)
                 {
-                    await m_Cache.RemoveAsync(commandCache);
+                    await m_Cache.RemoveAsync(commandCache).ConfigureAwait(true);
                 }
-                var result = await m_CommandBus.DispatchAsync<CreateBoxCommand, CreateBoxCommandResult>(command, command.GetType().Name);
+                var result = await m_CommandBus.DispatchAsync<CreateBoxCommand, CreateBoxCommandResult>(command, command.GetType().Name).ConfigureAwait(true);
                 UnitOfWork.Current.TransactionalFlush();
                 return result;
             }
@@ -239,7 +239,7 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (UnitOfWork.Start())
             {
-                await m_CommandBus.SendAsync(command);
+                await m_CommandBus.SendAsync(command).ConfigureAwait(true);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }

@@ -7,10 +7,7 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Exceptions;
-using Zbang.Zbox.Infrastructure.Consts;
-using Zbang.Zbox.Infrastructure.Url;
 using System.Net;
-using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
@@ -42,7 +39,7 @@ namespace Zbang.Cloudents.Jared.Controllers
                 return Request.CreateBadRequestResponse();
             }
             var command = new SubscribeToSharedBoxCommand(User.GetUserId(), model.BoxId);
-            await m_ZboxWriteService.SubscribeToSharedBoxAsync(command);
+            await m_ZboxWriteService.SubscribeToSharedBoxAsync(command).ConfigureAwait(false);
             return Request.CreateResponse();
         }
         [Route("api/course/create")]
@@ -64,12 +61,10 @@ namespace Zbang.Cloudents.Jared.Controllers
 
                 var command = new CreateAcademicBoxCommand(userId, model.CourseName,
                                                            model.CourseId, model.Professor, res.DepartmentId, model.UniversityId);
-                var result = await m_ZboxWriteService.CreateBoxAsync(command);
+                var result = await m_ZboxWriteService.CreateBoxAsync(command).ConfigureAwait(false);
                 return Request.CreateResponse(new
                 {
-                    result.Url,
-                    result.Id,
-                    shortUrl = UrlConst.BuildShortBoxUrl(new Base62(result.Id).ToString())
+                    result.Id
                 });
             }
             catch (BoxNameAlreadyExistsException)

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.IdGenerator;
@@ -10,7 +7,7 @@ using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class GetGeneralDepartmentCommandHandler : ICommandHandler<GetGeneralDepartmentCommand,GetGeneralDepartmentCommandResult>
+    public class GetGeneralDepartmentCommandHandler : ICommandHandler<GetGeneralDepartmentCommand, GetGeneralDepartmentCommandResult>
     {
         private readonly IRepository<Library> m_Department;
         private readonly IRepository<University> m_University;
@@ -24,21 +21,27 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_IdGenerator = idGenerator;
             m_User = user;
         }
-        public GetGeneralDepartmentCommandResult Execute(GetGeneralDepartmentCommand itemCommand)
+        public GetGeneralDepartmentCommandResult Execute(GetGeneralDepartmentCommand command)
         {
-            if (itemCommand == null) throw new ArgumentNullException(nameof(itemCommand));
-            var command = itemCommand as GetGeneralDepartmentCommand;
-            if (command == null) throw new NullReferenceException("command");
-            var university = m_University.Load(itemCommand.UniversityId);
-            var user = m_User.Load(itemCommand.UserId);
-            var departmentId=m_Department.Query().Where(w => (w.University == university)&&(w.Name!=null&&w.Name.Equals("general", StringComparison.InvariantCultureIgnoreCase))).Select(s => s.Id).FirstOrDefault();
+            if (command == null) throw new ArgumentNullException(nameof(command));
+            var university = m_University.Load(command.UniversityId);
+            var user = m_User.Load(command.UserId);
+            // ReSharper disable once ReplaceWithSingleCallToFirstOrDefault Nhibernate doesnt support
+            var departmentId = m_Department.Query()
+                .Where(
+                    w =>
+                        w.University == university && w.Name != null &&
+                        w.Name.Equals("general", StringComparison.InvariantCultureIgnoreCase))
+                .FirstOrDefault()?.Id;
+                
             var newId = m_IdGenerator.GetId();
-            if (departmentId==Guid.Empty) {
+            if (departmentId == null)
+            {
                 var dep = new Library(newId, "General", university, user);
                 m_Department.Save(dep);
                 departmentId = newId;
             }
-            return new GetGeneralDepartmentCommandResult(departmentId);
+            return new GetGeneralDepartmentCommandResult(departmentId.Value);
         }
     }
 }
