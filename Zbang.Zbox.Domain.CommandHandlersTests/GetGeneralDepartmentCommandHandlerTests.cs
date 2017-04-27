@@ -39,9 +39,17 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Tests
         {
             var command = new GetGeneralDepartmentCommand() { UserId=877616,UniversityId=173408};
             var commandHandler = new GetGeneralDepartmentCommandHandler(m_department,m_university,m_user,m_IdGenerator);
-            //var res= commandHandler.Execute(command);
-            var a = 5;
-            a = 7;
+            try
+            {
+                var res = commandHandler.Execute(command);
+            }
+            catch (Exception ex)
+            {
+
+
+                var a = 5;
+                a = 7;
+            }
             Assert.IsTrue(true);
         }
     }

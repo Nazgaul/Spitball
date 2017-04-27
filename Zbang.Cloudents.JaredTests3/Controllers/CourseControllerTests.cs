@@ -40,7 +40,7 @@ namespace Zbang.Cloudents.Jared.Controllers.Tests
             var m_Cache = MockRepository.GenerateMock<IWithCache>();
             IocFactory.IocWrapper.RegisterInstance(localStorageProvider);
 
-            m_ZboxWriteService = new ZboxWriteService(m_CommandBus, m_Cache);
+            m_ZboxWriteService = MockRepository.GenerateStub<IZboxWriteService>();
             controller = new CourseController(m_ZboxWriteService);
             controller.Request = new HttpRequestMessage();
             controller.Request.SetConfiguration(new HttpConfiguration());
