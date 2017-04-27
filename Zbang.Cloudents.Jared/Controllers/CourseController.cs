@@ -11,7 +11,7 @@ using System.Net;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
-    [MobileAppController]
+    [MobileAppController,Authorize]
     public class CourseController : ApiController
     {
         private readonly IZboxWriteService m_ZboxWriteService;
@@ -20,11 +20,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             m_ZboxWriteService = zboxWriteService;
         }
         
-        // GET api/Course
-        public string Get()
-        {
-            return "Hello from custom controller!";
-        }
+        
 
         [Route("api/course/follow")]
         [HttpPost]
@@ -40,7 +36,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             }
             var command = new SubscribeToSharedBoxCommand(User.GetUserId(), model.BoxId);
             await m_ZboxWriteService.SubscribeToSharedBoxAsync(command).ConfigureAwait(false);
-            return Request.CreateResponse();
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
         [Route("api/course/create")]
         [HttpPost]
@@ -62,10 +58,7 @@ namespace Zbang.Cloudents.Jared.Controllers
                 var command = new CreateAcademicBoxCommand(userId, model.CourseName,
                                                            model.CourseId, model.Professor, res.DepartmentId, model.UniversityId);
                 var result = await m_ZboxWriteService.CreateBoxAsync(command).ConfigureAwait(false);
-                return Request.CreateResponse(new
-                {
-                    result.Id
-                });
+                return Request.CreateResponse(result.Id);
             }
             catch (BoxNameAlreadyExistsException)
             {

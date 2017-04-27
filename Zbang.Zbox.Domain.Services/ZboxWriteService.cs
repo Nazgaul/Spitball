@@ -109,12 +109,14 @@ namespace Zbang.Zbox.Domain.Services
             if (command == null) throw new ArgumentNullException(nameof(command));
             using (UnitOfWork.Start())
             {
+                
+                var result = await m_CommandBus.DispatchAsync<CreateBoxCommand, CreateBoxCommandResult>(command, command.GetType().Name).ConfigureAwait(true);
                 var commandCache = command as ICommandCache;
                 if (commandCache != null)
                 {
                     await m_Cache.RemoveAsync(commandCache).ConfigureAwait(true);
                 }
-                var result = await m_CommandBus.DispatchAsync<CreateBoxCommand, CreateBoxCommandResult>(command, command.GetType().Name).ConfigureAwait(true);
+
                 UnitOfWork.Current.TransactionalFlush();
                 return result;
             }

@@ -6,19 +6,11 @@ using Microsoft.Azure.Mobile.Server.Config;
 using Zbang.Cloudents.Jared.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Cloudents.Jared.DataObjects;
 using System;
-using System.Security.Claims;
-using Zbang.Zbox.Infrastructure.Consts;
-using System.Globalization;
-using System.IdentityModel.Tokens;
-using System.Linq;
-using Microsoft.Azure.Mobile.Server.Login;
-using System.Configuration;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {

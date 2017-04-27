@@ -27,7 +27,7 @@ namespace Zbang.Cloudents.Jared.DataObjects
         public override string ToString()
         {
             var baseString = base.ToString();
-            return string.Format("{0} CourseName {1} CourseId {2} Professor {3}", baseString, CourseName, CourseId, Professor);
+            return $"{baseString} CourseName {CourseName} CourseId {CourseId} Professor {Professor}";
 
         }
     }
