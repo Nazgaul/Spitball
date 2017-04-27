@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Zbang.Cloudents.Jared.Models
 {
@@ -11,7 +7,7 @@ namespace Zbang.Cloudents.Jared.Models
         [Required]
         public string FirstName { get; set; }
 
-        [Required]
+        [Required(AllowEmptyStrings = true)]
         public string LastName { get; set; }
     }
 }

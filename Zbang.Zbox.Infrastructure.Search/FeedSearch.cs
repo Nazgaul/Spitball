@@ -28,18 +28,18 @@ namespace Zbang.Zbox.Infrastructure.Search
         [IsFilterable]
         public string University { get; set; }
 
-        [IsFilterable]
+        [IsFilterable, IsSearchable]
         public string Course { get; set; }
         public long CourseId { get; set; }
 
 
-        [IsFilterable]
+        [IsFilterable, IsSearchable]
         public string Professor { get; set; }
 
         [IsFilterable]
         public string Code { get; set; }
 
-        
+
         [IsSearchable, IsFilterable]
         public string[] Tags { get; set; }
 

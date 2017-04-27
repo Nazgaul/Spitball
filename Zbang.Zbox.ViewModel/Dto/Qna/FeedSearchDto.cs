@@ -29,7 +29,18 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
 
         public long Version { get; set; }
 
-        public string Content => Text + string.Join(" ", Replies);
+        public string Content
+        {
+
+            get
+            {
+                if (Replies != null)
+                {
+                    return Text + string.Join(" ", Replies);
+                }
+                return Text;
+            }
+        }
 
         public Language? Language { get; set; }
         public List<FeedSearchTag> Tags { get; set; }

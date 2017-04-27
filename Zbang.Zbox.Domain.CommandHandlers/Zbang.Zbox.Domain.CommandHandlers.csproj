@@ -105,7 +105,6 @@
     <Compile Include="DeleteCommentCommandHandler.cs" />
     <Compile Include="DeleteUpdatesCommandHandler.cs" />
     <Compile Include="DeleteUserFromBoxCommandHandler.cs" />
-    <Compile Include="GetGeneralDepartmentCommandHandler.cs" />
     <Compile Include="InviteToSystemCommandHandler.cs" />
     <Compile Include="Ioc\RegisterIoc.cs" />
     <Compile Include="LibraryNodeApproveAccessCommandHandler.cs" />
