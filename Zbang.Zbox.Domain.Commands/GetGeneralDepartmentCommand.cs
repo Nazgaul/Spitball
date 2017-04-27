@@ -4,13 +4,12 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class GetGeneralDepartmentCommand: ICommand
     {
-        public GetGeneralDepartmentCommand(long userId, long universityId)
+
+        public GetGeneralDepartmentCommand(long userId)
         {
             UserId = userId;
-            UniversityId = universityId;
         }
 
-        public long UniversityId { get; private set; }
         public long UserId { get; private set; }
     }
 }

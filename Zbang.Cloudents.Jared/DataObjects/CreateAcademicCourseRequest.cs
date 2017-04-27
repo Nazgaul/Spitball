@@ -13,10 +13,6 @@ namespace Zbang.Cloudents.Jared.DataObjects
         public string CourseName { get; set; }
 
         public string CourseId { get; set; }
-        
-        [Required]
-        [Range(1, long.MaxValue)]
-        public long UniversityId { get; set; }
 
         public string Professor { get; set; }
 

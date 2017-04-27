@@ -48,7 +48,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             }
             
 
-            var commandGeneral = new GetGeneralDepartmentCommand(User.GetUserId(), model.UniversityId);
+            var commandGeneral = new GetGeneralDepartmentCommand(User.GetUserId());
             var res = m_ZboxWriteService.GetGeneralDepartmentForUniversity(commandGeneral);
            
             try
@@ -56,7 +56,7 @@ namespace Zbang.Cloudents.Jared.Controllers
                 var userId = User.GetUserId();
 
                 var command = new CreateAcademicBoxCommand(userId, model.CourseName,
-                                                           model.CourseId, model.Professor, res.DepartmentId, model.UniversityId);
+                                                           model.CourseId, model.Professor, res.DepartmentId);
                 var result = await m_ZboxWriteService.CreateBoxAsync(command).ConfigureAwait(false);
                 return Request.CreateResponse(result.Id);
             }

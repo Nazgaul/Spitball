@@ -386,7 +386,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var userId = User.GetUserId();
                 var command = new CreateAcademicBoxCommand(userId, model.CourseName,
-                                                           model.CourseId, model.Professor, guid.Value, universityId.Value);
+                                                           model.CourseId, model.Professor, guid.Value);
                 var result = await ZboxWriteService.CreateBoxAsync(command);
                 return JsonOk(new { result.Url, result.Id });
             }
