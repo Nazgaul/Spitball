@@ -27,6 +27,7 @@ using User = Zbang.Zbox.ViewModel.Dto.UserDtos;
 using Sql = Zbang.Zbox.ViewModel.SqlQueries;
 using Zbang.Zbox.ViewModel.Dto.JaredDtos;
 using Zbang.Zbox.ViewModel.Queries.Jared;
+using System.Collections;
 
 namespace Zbang.Zbox.ReadServices
 {
@@ -1103,7 +1104,11 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
                             dic[node.Id].Boxes.Add(box);
                         else
                         {
-                            node.Boxes = new List<Box.SmallBoxDto> { box };
+                            node.Boxes = new List<Box.SmallBoxDto>
+                            {
+                                box
+                                
+                            };
                             dic.Add(node.Id, node);
                         }
                         return node.Id;
@@ -1218,15 +1223,15 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
             {
                 var dict = new Dictionary<CategoryTextType, string>();
                 const string actionsText = @"select action,text from zbox.jaredtext;";
-                //const string universitiesSql = "select id,url as short,universityname as name from zbox.university where url is not null;";
+               
                 var command = new CommandDefinition(actionsText,
                        cancellationToken: token);
                 using (var grid = await conn.QueryMultipleAsync(command).ConfigureAwait(false))
                 {
-                    //var universities = await grid.ReadAsync<UniversityDto>();
-                    
+                    IEnumerable<BoxDto> userBoxs=null;
+                    UniversityEntityDto university=null;
                     var textList = (await grid.ReadAsync<JaredTextDto>().ConfigureAwait(false)).ToLookup(t=>t.Action);
-                    
+
                     var rnd = new Random();
                     foreach (var text in textList)
                     {
@@ -1234,15 +1239,47 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
                         dict.Add(text.Key, textOptions.ElementAt(rnd.Next(textOptions.Count)));
                     }
 
-                    //foreach (CategoryTextType item in Enum.GetValues(typeof(CategoryTextType)))
-                    //{
-                    //    var textOptions = (textList.Where(w => w.Action.Equals(item)).Select(s => s.Text)).ToList();
-                    //    var rnd = new Random();
-                    //    dict.Add(item, textOptions.ElementAt(rnd.Next(textOptions.Count())));
-                    //}
-                    return new JaredDto
+                    return new JaredDto()
                     {
-                        //Universities = universities,
+                        ActionsText = dict
+                    };
+                }
+            }
+        }
+        public async Task<JaredDto> GetJaredStartupValuesAsync(CancellationToken token, QueryBaseUserId baseQuery)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
+            {
+                var dict = new Dictionary<CategoryTextType, string>();
+                const string actionsText = @"select action,text from zbox.jaredtext;";
+                var command = new CommandDefinition(actionsText + Sql.Dashboard.UserBoxes + Sql.Sql.UserAuthenticationDetail, new GetBoxesQuery(baseQuery.UserId),
+                    cancellationToken: token);
+                using (var grid = await conn.QueryMultipleAsync(command).ConfigureAwait(false))
+                {
+                    var textList = (await grid.ReadAsync<JaredTextDto>().ConfigureAwait(false)).ToLookup(t => t.Action);
+
+                        var userBoxList = (await grid.ReadAsync<BoxDto>().ConfigureAwait(false));
+                        var userBoxs = userBoxList.Select(ub =>
+                        {
+                            ub.Id = ub.Id;
+                            ub.Name = ub.Name;
+                            return ub;
+                        });
+                        var uni = (await grid.ReadAsync<User.UserDetailDto>().ConfigureAwait(false)).First();
+                        var university =
+                            new UniversityEntityDto() { Id = (long)uni.UniversityId, Name = uni.UniversityName };
+
+                    var rnd = new Random();
+                    foreach (var text in textList)
+                    {
+                        var textOptions = textList[text.Key].Select(s => s.Text).ToList();
+                        dict.Add(text.Key, textOptions.ElementAt(rnd.Next(textOptions.Count)));
+                    }
+
+                    return new JaredDto()
+                    {
+                        University = university,
+                        UserBoxes = userBoxs,
                         ActionsText = dict
                     };
                 }

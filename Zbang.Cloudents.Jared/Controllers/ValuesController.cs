@@ -12,6 +12,9 @@ using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.Infrastructure.Enums;
 using System;
 using System.Linq;
+using Zbang.Zbox.Infrastructure.Extensions;
+using Zbang.Zbox.ViewModel.Dto;
+using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
@@ -32,7 +35,18 @@ namespace Zbang.Cloudents.Jared.Controllers
         [CacheOutput(ClientTimeSpan = TimeConst.Day, ServerTimeSpan = TimeConst.Day)]
         public async Task<HttpResponseMessage> Get(CancellationToken token)
         {
-           var result = await m_ZboxReadService.GetJaredStartupValuesAsync(token).ConfigureAwait(false);
+            JaredDto result=null;
+            //bool isAuthorized = User.Identity.IsAuthenticated;
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    result = await m_ZboxReadService
+            //        .GetJaredStartupValuesAsync(token, new QueryBaseUserId(User.GetUserId()))
+            //        .ConfigureAwait(false);
+            //}
+            //else
+            //{
+                result = await m_ZboxReadService.GetJaredStartupValuesAsync(token).ConfigureAwait(false);
+            //}
             var documents = new Dictionary<string, IEnumerable<string>>
             {
                 {"exams", new[] {"exam", "test", "midterm", "final", "tests", "midterms", "finals"}},

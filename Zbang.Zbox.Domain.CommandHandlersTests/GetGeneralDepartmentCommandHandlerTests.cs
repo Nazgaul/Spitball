@@ -37,7 +37,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Tests
         [TestMethod()]
         public void ExecuteAsyncTest()
         {
-            var commandHandler = new GetGeneralDepartmentCommandHandler(m_department,m_university,m_user,m_IdGenerator);
+            var commandHandler = new GetGeneralDepartmentCommandHandler(m_department,m_user,m_IdGenerator);
             try
             {
                 var res = commandHandler.Execute(null);

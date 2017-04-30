@@ -44,7 +44,24 @@ namespace Zbang.Zbox.ReadServicesTests
                 {
                     if (!bb[item].Equals(aa[item])) numOfDiff++;
                 }
-                var helo = 7;
+                Assert.IsTrue(numOfDiff>0);
+                Assert.IsNull(a.UserBoxes);
+                Assert.IsNull(a.University);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+        [TestMethod()]
+        public async Task GetJaredStartupValuesAsyncTestAuthorised()
+        {
+            var query = new QueryBaseUserId(1);
+            try
+            {
+                var a = await m_ZboxReadService.GetJaredStartupValuesAsync(new CancellationToken(), query);
+                Assert.IsTrue(a.UserBoxes.Count()>0);
+                Assert.IsNotNull(a.University);
             }
             catch (Exception ex)
             {
