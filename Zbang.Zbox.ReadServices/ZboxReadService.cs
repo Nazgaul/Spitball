@@ -182,7 +182,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<IEnumerable<ClosedNodeUsersDto>> GetMembersClosedDepartmendAsync(GetClosedNodeMembersQuery query)
+        public async Task<IEnumerable<ClosedNodeUsersDto>> GetMembersClosedDepartmentAsync(GetClosedNodeMembersQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -310,7 +310,7 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        public async Task<IEnumerable<Item.QuizDto>> GetBoxQuizesAsync(GetBoxQuizesPagedQuery query)
+        public async Task<IEnumerable<Item.QuizDto>> GetBoxQuizzesAsync(GetBoxQuizesPagedQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -563,7 +563,7 @@ where ownerid = @UserId and boxid = @BoxId;";
             }
         }
 
-       
+
 
         public async Task<IEnumerable<UniversityByPrefixDto>> GetUniversityByIpAddressAsync(UniversityByIpQuery query)
         {
@@ -603,7 +603,7 @@ where ownerid = @UserId and boxid = @BoxId;";
             }
         }
 
-        
+
 
         public async Task<IEnumerable<User.ChatUserDto>> GetUsersConversationAndFriendsAsync(GetUserConversationAndFriends query)
         {
@@ -685,9 +685,9 @@ where ownerid = @UserId and boxid = @BoxId;";
         public async Task<User.UserDetailDto> GetUserDataAsync(QueryBaseUserId query)
         {
 
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                var user = await conn.QueryFirstOrDefaultAsync<User.UserDetailDto>(Sql.Sql.UserAuthenticationDetail, query);
+                var user = await conn.QueryFirstOrDefaultAsync<User.UserDetailDto>(Sql.Sql.UserAuthenticationDetail, query).ConfigureAwait(false);
                 if (user == null)
                 {
                     throw new UserNotFoundException("user is null");
@@ -696,6 +696,8 @@ where ownerid = @UserId and boxid = @BoxId;";
 
             }
         }
+
+
 
 
 
@@ -1107,7 +1109,7 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
                             node.Boxes = new List<Box.SmallBoxDto>
                             {
                                 box
-                                
+
                             };
                             dic.Add(node.Id, node);
                         }
@@ -1140,33 +1142,34 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
         #region JaredSearch
         public async Task<IEnumerable<ItemTagsDto>> GetItemsWithTagsAsync(JaredSearchQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                using (var grid = await conn.QueryMultipleAsync(Sql.Jared.ItemInfo + Sql.Jared.ItemTags, query))
+                using (var grid = await conn.QueryMultipleAsync(Sql.Jared.ItemInfo + Sql.Jared.ItemTags, query).ConfigureAwait(false))
                 {
-                    var retVal = await grid.ReadAsync<ItemTagsDto>();
-                    var tags= await grid.ReadAsync<ItemTagDto>();
+                    var retVal = (await grid.ReadAsync<ItemTagsDto>().ConfigureAwait(false)).ToList();
+                    var tags = (await grid.ReadAsync<ItemTagDto>().ConfigureAwait(false)).ToList();
                     foreach (var item in retVal)
                     {
-                        item.Tags = tags.Where(w => w.ItemId == item.ItemId).Select(s=>s.Tag);
+                        item.Tags = tags.Where(w => w.ItemId == item.ItemId).Select(s => s.Tag);
                     }
 
                     return retVal;
                 }
             }
         }
-        public async Task<IEnumerable<string>> GetUniAsync(SearchTermQuery term) {
+        public async Task<IEnumerable<string>> GetUniAsync(SearchTermQuery term)
+        {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<string>(Sql.Jared.autoUni,term);
+                return await conn.QueryAsync<string>(Sql.Jared.autoUni, term);
             }
         }
         public async Task<IEnumerable<string>> GetDepartmentAsync(SearchTermQuery term)
         {
-                using (var conn = await DapperConnection.OpenConnectionAsync())
-                {
-                    return await conn.QueryAsync<string>(Sql.Jared.autoDepartment,term);
-                }
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return await conn.QueryAsync<string>(Sql.Jared.autoDepartment, term);
+            }
         }
         public async Task<IEnumerable<string>> GetTagAsync(SearchTermQuery term)
         {
@@ -1204,7 +1207,7 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
             }
         }
 
-        public async Task<IEnumerable<LeaderBoardDto>> UserLeaderboardAsync(LeaderboardQuery query)
+        public async Task<IEnumerable<LeaderBoardDto>> UserLeaderBoardAsync(LeaderboardQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -1223,14 +1226,12 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
             {
                 var dict = new Dictionary<CategoryTextType, string>();
                 const string actionsText = @"select action,text from zbox.jaredtext;";
-               
+
                 var command = new CommandDefinition(actionsText,
                        cancellationToken: token);
                 using (var grid = await conn.QueryMultipleAsync(command).ConfigureAwait(false))
                 {
-                    IEnumerable<BoxDto> userBoxs=null;
-                    UniversityEntityDto university=null;
-                    var textList = (await grid.ReadAsync<JaredTextDto>().ConfigureAwait(false)).ToLookup(t=>t.Action);
+                    var textList = (await grid.ReadAsync<JaredTextDto>().ConfigureAwait(false)).ToLookup(t => t.Action);
 
                     var rnd = new Random();
                     foreach (var text in textList)
@@ -1239,52 +1240,76 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
                         dict.Add(text.Key, textOptions.ElementAt(rnd.Next(textOptions.Count)));
                     }
 
-                    return new JaredDto()
+                    return new JaredDto
                     {
                         ActionsText = dict
                     };
                 }
             }
         }
-        public async Task<JaredDto> GetJaredStartupValuesAsync(CancellationToken token, QueryBaseUserId baseQuery)
+
+        public async Task<Tuple<User.UserDetailDto, IEnumerable<BoxDto>>> GetJaredUserDataAsync(
+            QueryBaseUserId query, CancellationToken token)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
             {
-                var dict = new Dictionary<CategoryTextType, string>();
-                const string actionsText = @"select action,text from zbox.jaredtext;";
-                var command = new CommandDefinition(actionsText + Sql.Dashboard.UserBoxes + Sql.Sql.UserAuthenticationDetail, new GetBoxesQuery(baseQuery.UserId),
-                    cancellationToken: token);
-                using (var grid = await conn.QueryMultipleAsync(command).ConfigureAwait(false))
+                using (var grid = await conn.QueryMultipleAsync(
+                    new CommandDefinition(Sql.Sql.UserAuthenticationDetail + Sql.Dashboard.UserBoxes
+                    , new
+                    {
+                        query.UserId,
+                        pageNumber = 0,
+                        rowsperpage = int.MaxValue
+                    }, cancellationToken: token)).ConfigureAwait(false))
                 {
-                    var textList = (await grid.ReadAsync<JaredTextDto>().ConfigureAwait(false)).ToLookup(t => t.Action);
-
-                        var userBoxList = (await grid.ReadAsync<BoxDto>().ConfigureAwait(false));
-                        var userBoxs = userBoxList.Select(ub =>
-                        {
-                            ub.Id = ub.Id;
-                            ub.Name = ub.Name;
-                            return ub;
-                        });
-                        var uni = (await grid.ReadAsync<User.UserDetailDto>().ConfigureAwait(false)).First();
-                        var university =
-                            new UniversityEntityDto() { Id = (long)uni.UniversityId, Name = uni.UniversityName };
-
-                    var rnd = new Random();
-                    foreach (var text in textList)
-                    {
-                        var textOptions = textList[text.Key].Select(s => s.Text).ToList();
-                        dict.Add(text.Key, textOptions.ElementAt(rnd.Next(textOptions.Count)));
-                    }
-
-                    return new JaredDto()
-                    {
-                        University = university,
-                        UserBoxes = userBoxs,
-                        ActionsText = dict
-                    };
+                    var user = await grid.ReadFirstAsync<User.UserDetailDto>().ConfigureAwait(false);
+                    var boxes = await grid.ReadAsync<BoxDto>().ConfigureAwait(false);
+                    return new Tuple<User.UserDetailDto, IEnumerable<BoxDto>>(user, boxes);
                 }
+                //var user = await conn.QueryFirstOrDefaultAsync<User.UserDetailDto>(Sql.Sql.UserAuthenticationDetail, query).ConfigureAwait(false);
             }
         }
+        //public async Task<JaredDto> GetJaredStartupValuesAsync(CancellationToken token, QueryBaseUserId baseQuery)
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
+        //    {
+        //        var dict = new Dictionary<CategoryTextType, string>();
+        //        const string actionsText = @"select action,text from zbox.jaredtext;";
+        //        var command = new CommandDefinition(actionsText + 
+        //            Sql.Dashboard.UserBoxes + 
+        //            Sql.Sql.GetUserById, new {  baseQuery.UserId, pageNumber = 0, rowsperpage = int.MaxValue },
+        //            cancellationToken: token);
+        //        using (var grid = await conn.QueryMultipleAsync(command).ConfigureAwait(false))
+        //        {
+        //            var textList = (await grid.ReadAsync<JaredTextDto>().ConfigureAwait(false)).ToLookup(t => t.Action);
+
+        //            var userBoxList = await grid.ReadAsync<BoxDto>().ConfigureAwait(false);
+        //            //var userBoxs = userBoxList.Select(ub =>
+        //            //{
+        //            //    ub.Id = ub.Id;
+        //            //    ub.Name = ub.Name;
+        //            //    return ub;
+        //            //});
+        //            var uni = await grid.ReadFirstOrDefaultAsync<User.LogInUserDto>().ConfigureAwait(false);
+        //            //var university =
+        //            //    new UniversityDto { Id = uni.UniversityId.GetValueOrDefault(), Name = uni.UniversityName };
+
+        //            var rnd = new Random();
+        //            foreach (var text in textList)
+        //            {
+        //                var textOptions = textList[text.Key].Select(s => s.Text).ToList();
+        //                dict.Add(text.Key, textOptions.ElementAt(rnd.Next(textOptions.Count)));
+        //            }
+
+        //            return new JaredDto
+        //            {
+        //                University = uni,
+        //                UserBoxes = userBoxList,
+        //                ActionsText = dict
+        //            };
+        //        }
+        //    }
+        //}
 
         public async Task<IEnumerable<User.ChatUserDto>> OnlineUsersByClassAsync(GetBoxIdQuery query)
         {
@@ -1294,9 +1319,9 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
                                     @"select u.userid as id,u.userImageLarge as image, u.username as name, online, LastAccessTime as LastSeen
                 from zbox.users u join zbox.userboxrel ub on u.userid = ub.userid
                where ub.boxid = @BoxId";
-//                const string sql2 =
-//                    @"select top 50 u.userid as id,u.userImageLarge as image, u.username as name, online, LastAccessTime as LastSeen
-//from zbox.users u where online = 1 order by u.userid;";
+                //                const string sql2 =
+                //                    @"select top 50 u.userid as id,u.userImageLarge as image, u.username as name, online, LastAccessTime as LastSeen
+                //from zbox.users u where online = 1 order by u.userid;";
                 return await conn.QueryAsync<User.ChatUserDto>(
                     new CommandDefinition(sql
                        ,

@@ -439,7 +439,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<JsonResult> ClosedDepartmentMembersAsync(Guid id)
         {
             var query = new GetClosedNodeMembersQuery(User.GetUserId(), id);
-            var retVal = await ZboxReadService.GetMembersClosedDepartmendAsync(query);
+            var retVal = await ZboxReadService.GetMembersClosedDepartmentAsync(query);
             return JsonOk(retVal);
         }
 

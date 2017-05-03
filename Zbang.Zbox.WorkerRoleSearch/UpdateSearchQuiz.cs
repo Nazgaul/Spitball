@@ -66,7 +66,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         .ConfigureAwait(false);
                 if (!updates.QuizzesToUpdate.Any() && !updates.QuizzesToDelete.Any()) return TimeToSleep.Increase;
 
-                foreach (var quiz in updates.QuizzesToUpdate.Where(w => w.UniversityId == JaredUniversityIdPilot))
+                foreach (var quiz in updates.QuizzesToUpdate.Where( w => JaredUniversityIdPilot.Contains(w.UniversityId.GetValueOrDefault())))
                 {
                     await JaredPilotAsync(quiz, cancellationToken).ConfigureAwait(false);
                 }

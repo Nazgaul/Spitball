@@ -41,17 +41,15 @@ namespace Zbang.Zbox.ReadServices
 
         Task<NodeBoxesDto> GetLibraryNodeAsync(GetLibraryNodeQuery query);
         Task<IEnumerable<ClosedNodeDto>> GetUserClosedDepartmentAsync(QueryBase query);
-        Task<IEnumerable<ClosedNodeUsersDto>> GetMembersClosedDepartmendAsync(GetClosedNodeMembersQuery query);
+        Task<IEnumerable<ClosedNodeUsersDto>> GetMembersClosedDepartmentAsync(GetClosedNodeMembersQuery query);
 
         Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetBoxItemsPagedAsync(GetBoxItemsPagedQuery query);
         Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetWebServiceBoxItemsPagedAsync(GetBoxItemsPagedQuery query);
-        Task<IEnumerable<QuizDto>> GetBoxQuizesAsync(GetBoxQuizesPagedQuery query);
+        Task<IEnumerable<QuizDto>> GetBoxQuizzesAsync(GetBoxQuizesPagedQuery query);
 
         Task<IEnumerable<FlashcardDto>> GetBoxFlashcardsAsync(GetFlashCardsQuery query);
         Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetBoxLeaderboardQuery query);
 
-        //Task<IEnumerable<RecommendBoxDto>> GetBoxRecommendedCoursesAsync(GetBoxSideBarQuery query,
-        //    CancellationToken token);
 
         Task<ItemDetailDto> GetItem2Async(GetItemQuery query);
         Task<IEnumerable<AnnotationDto>> GetItemCommentsAsync(ItemCommentQuery query);
@@ -60,7 +58,6 @@ namespace Zbang.Zbox.ReadServices
         Task<FlashcardSeoDto> GetFlashcardUrlAsync(GetFlashcardSeoQuery query);
         Task<BoxSeoDto> GetBoxSeoAsync(GetBoxIdQuery query);
 
-        //Task<LeaderboardFlashcardDto> GetDashboardFlashcardStatusAsync(FlashcardLeaderboardQuery query);
 
         Task<BoxDto2> GetBox2Async(GetBoxQuery query);
 
@@ -71,7 +68,6 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<UserDto>> GetUserFriendsAsync(GetUserFriendsQuery query);
 
         Task<UserDetailDto> GetUserDataAsync(QueryBaseUserId query);
-        //Theme GetUserTheme(GetUserDetailsQuery query);
 
         Task<UserAccountDto> GetUserAccountDetailsAsync(QueryBaseUserId query);
         Task<UserNotification> GetUserBoxesNotificationAsync(QueryBaseUserId query);
@@ -153,15 +149,18 @@ namespace Zbang.Zbox.ReadServices
         Task<LevelDto> UserLevelsAsync(QueryBaseUserId query);
 
         Task<IEnumerable<BadgeDto>> UserBadgesAsync(QueryBaseUserId query);
-        Task<IEnumerable<LeaderBoardDto>> UserLeaderboardAsync(LeaderboardQuery query);
+        Task<IEnumerable<LeaderBoardDto>> UserLeaderBoardAsync(LeaderboardQuery query);
 
         #endregion
 
 
         #region Jared
 
-        Task<JaredDto> GetJaredStartupValuesAsync(CancellationToken token,QueryBaseUserId query);
+        //Task<JaredDto> GetJaredStartupValuesAsync(CancellationToken token,QueryBaseUserId query);
         Task<JaredDto> GetJaredStartupValuesAsync(CancellationToken token);
+
+        Task<Tuple<UserDetailDto, IEnumerable<BoxDto>>> GetJaredUserDataAsync(
+            QueryBaseUserId query, CancellationToken token);
         Task<IEnumerable<ChatUserDto>> OnlineUsersByClassAsync(GetBoxIdQuery query);
         Task<IEnumerable<ItemTagsDto>> GetItemsWithTagsAsync(JaredSearchQuery query);
         #endregion

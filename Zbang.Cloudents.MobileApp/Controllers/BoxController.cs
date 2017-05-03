@@ -268,7 +268,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         public async Task<HttpResponseMessage> QuizzesAsync(long id, int page, int sizePerPage = 20)
         {
             var query = new GetBoxQuizesPagedQuery(id, page, sizePerPage);
-            var result = await m_ZboxReadService.GetBoxQuizesAsync(query);
+            var result = await m_ZboxReadService.GetBoxQuizzesAsync(query);
             return Request.CreateResponse(result.Where(w => w.Publish).Select(s => new
             {
                 s.Name,
@@ -301,7 +301,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
             //return JsonOk(data);
             //var query = new GetBoxQuizesPagedQuery(id, page, sizePerPage);
-            //var result = await m_ZboxReadService.GetBoxQuizesAsync(query);
+            //var result = await m_ZboxReadService.GetBoxQuizzesAsync(query);
             //return Request.CreateResponse(result.Where(w => w.Publish).Select(s => new
             //{
             //    s.Name,

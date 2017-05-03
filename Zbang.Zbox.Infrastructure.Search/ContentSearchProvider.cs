@@ -6,15 +6,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
-using Zbang.Zbox.Infrastructure.Ai;
 using Zbang.Zbox.Infrastructure.Culture;
-using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
-using Zbang.Zbox.ViewModel.Dto.Search;
-using Zbang.Zbox.ViewModel.Queries.Search;
-using FacetResult = Zbang.Zbox.ViewModel.Dto.Search.FacetResult;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
@@ -122,20 +117,6 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 Name = m_IndexName,
                 Fields = FieldBuilder.BuildForType<Item>()
-                //Suggesters = new List<Suggester>
-                //{
-                //    new Suggester
-                //    {
-                //        Name = "sg", SourceFields = new List<string>
-                //        {
-                //            nameof(Item.Course).ToLower(),
-                //            nameof(Item.Code).ToLower(),
-                //            nameof(Item.Professor).ToLower(),
-                //            nameof(Item.University).ToLower(),
-                //            nameof(Item.Tags).ToLower()
-                //        }
-                //    }
-                //}
             };
 
             var weightProfile = new ScoringProfile(ScoringProfile);
@@ -203,108 +184,108 @@ namespace Zbang.Zbox.Infrastructure.Search
             return definition;
         }
 
-        public async Task<SearchJaredDto> SearchAsync(KnownIntent query, SearchJared extra, CancellationToken cancelToken)
-        {
-            if (extra == null) throw new ArgumentNullException(nameof(extra));
-            var queryDocument = query as SearchDocumentIntent;
-            if (queryDocument == null)
-            {
-                throw new NullReferenceException("queryDocument is null");
-            }
-            if (string.IsNullOrEmpty(queryDocument.Term))
-            {
-                queryDocument.Term = "*";
-            }
-            var searchFiled = new List<string>()
-            {
-                nameof(Item.Name).ToLower(),
-                nameof(Item.Tags).ToLower(),
-            };
-            switch (extra.Language)
-            {
-                case Language.Undefined:
-                    searchFiled.Add(ContentEnglishField);
-                    searchFiled.Add(nameof(Item.Content).ToLower());
-                    break;
-                case Language.EnglishUs:
-                    searchFiled.Add(ContentEnglishField);
-                    break;
-                case Language.Hebrew:
-                    searchFiled.Add(ContentHebrewField);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+        //public async Task<SearchJaredDto> SearchAsync(KnownIntent query, SearchJared extra, CancellationToken cancelToken)
+        //{
+        //    if (extra == null) throw new ArgumentNullException(nameof(extra));
+        //    var queryDocument = query as SearchDocumentIntent;
+        //    if (queryDocument == null)
+        //    {
+        //        throw new NullReferenceException("queryDocument is null");
+        //    }
+        //    if (string.IsNullOrEmpty(queryDocument.Term))
+        //    {
+        //        queryDocument.Term = "*";
+        //    }
+        //    var searchFiled = new List<string>()
+        //    {
+        //        nameof(Item.Name).ToLower(),
+        //        nameof(Item.Tags).ToLower(),
+        //    };
+        //    switch (extra.Language)
+        //    {
+        //        case Language.Undefined:
+        //            searchFiled.Add(ContentEnglishField);
+        //            searchFiled.Add(nameof(Item.Content).ToLower());
+        //            break;
+        //        case Language.EnglishUs:
+        //            searchFiled.Add(ContentEnglishField);
+        //            break;
+        //        case Language.Hebrew:
+        //            searchFiled.Add(ContentHebrewField);
+        //            break;
+        //        default:
+        //            throw new ArgumentOutOfRangeException();
+        //    }
 
-            var searchResult = await m_IndexClient.Documents.SearchAsync<Item>(queryDocument.Term, new SearchParameters()
-            {
-                Top = 5,
-                Filter = BuildFilter(queryDocument.Course, queryDocument.TypeToSearch, query.University),
-                IncludeTotalResultCount = true,
-                Facets = BuildFacet(queryDocument.Course, query.University),
-                ScoringParameters = new[] {new ScoringParameter("tag", extra.Tags ?? new[] {string.Empty}),
-                    new ScoringParameter("course", extra.Courses ?? new[] {string.Empty}), new ScoringParameter("university", new[] {extra.University ?? string.Empty})},
-                ScoringProfile = ScoringProfile,
-                SearchFields = searchFiled
-            }, cancellationToken: cancelToken).ConfigureAwait(false);
+        //    var searchResult = await m_IndexClient.Documents.SearchAsync<Item>(queryDocument.Term, new SearchParameters()
+        //    {
+        //        Top = 5,
+        //        Filter = BuildFilter(queryDocument.Course, queryDocument.TypeToSearch, query.University),
+        //        IncludeTotalResultCount = true,
+        //        Facets = BuildFacet(queryDocument.Course, query.University),
+        //        ScoringParameters = new[] {new ScoringParameter("tag", extra.Tags ?? new[] {string.Empty}),
+        //            new ScoringParameter("course", extra.Courses ?? new[] {string.Empty}), new ScoringParameter("university", new[] {extra.University ?? string.Empty})},
+        //        ScoringProfile = ScoringProfile,
+        //        SearchFields = searchFiled
+        //    }, cancellationToken: cancelToken).ConfigureAwait(false);
 
 
-            var retVal = new SearchItemResult
-            {
-                Result = searchResult.Results.Select(s => new SearchItem
-                {
-                    Id = s.Document.Id,
-                    Code = s.Document.Code,
-                    Course = s.Document.Course,
-                    Name = s.Document.Name,
-                    Professor = s.Document.Professor,
-                    Tags = s.Document.Tags,
-                    Type = s.Document.Type.Select(int.Parse),
-                    University = s.Document.University
-                }),
-                Facet = new Dictionary<string, IEnumerable<FacetResult>>(),
-            };
-            foreach (var facetResult in searchResult.Facets)
-            {
-                retVal.Facet[facetResult.Key] = facetResult.Value.Select(s => new FacetResult
-                {
-                    Name = s.Value.ToString(),
-                    Value = s.Count.GetValueOrDefault()
-                });
-            }
-            return retVal;
-        }
+        //    var retVal = new SearchItemResult
+        //    {
+        //        Result = searchResult.Results.Select(s => new SearchItem
+        //        {
+        //            Id = s.Document.Id,
+        //            Code = s.Document.Code,
+        //            Course = s.Document.Course,
+        //            Name = s.Document.Name,
+        //            Professor = s.Document.Professor,
+        //            Tags = s.Document.Tags,
+        //            Type = s.Document.Type.Select(int.Parse),
+        //            University = s.Document.University
+        //        }),
+        //        Facet = new Dictionary<string, IEnumerable<FacetResult>>(),
+        //    };
+        //    foreach (var facetResult in searchResult.Facets)
+        //    {
+        //        retVal.Facet[facetResult.Key] = facetResult.Value.Select(s => new FacetResult
+        //        {
+        //            Name = s.Value.ToString(),
+        //            Value = s.Count.GetValueOrDefault()
+        //        });
+        //    }
+        //    return retVal;
+        //}
 
-        private IList<string> BuildFacet(string course, string university)
-        {
-            var expressions = new List<string>();
-            if (string.IsNullOrEmpty(course))
-            {
-                expressions.Add(nameof(Item.Course).ToLower());
-            }
-            if (string.IsNullOrEmpty(university))
-            {
-                expressions.Add(nameof(Item.University).ToLower());
-            }
-            return expressions;
-        }
+        //private IList<string> BuildFacet(string course, string university)
+        //{
+        //    var expressions = new List<string>();
+        //    if (string.IsNullOrEmpty(course))
+        //    {
+        //        expressions.Add(nameof(Item.Course).ToLower());
+        //    }
+        //    if (string.IsNullOrEmpty(university))
+        //    {
+        //        expressions.Add(nameof(Item.University).ToLower());
+        //    }
+        //    return expressions;
+        //}
 
-        private string BuildFilter(string course, ItemType? typeToSearch, string university)
-        {
-            var expressions = new List<string>();
-            if (!string.IsNullOrEmpty(course))
-            {
-                expressions.Add($"{nameof(Item.Course).ToLower()} eq '{course}'");
-            }
-            if (!string.IsNullOrEmpty(university))
-            {
-                expressions.Add($"{nameof(Item.University).ToLower()} eq '{university}'");
-            }
-            if (typeToSearch.HasValue)
-            {
-                expressions.Add($"{nameof(Item.Type).ToLower()} eq '{(int)typeToSearch}'");
-            }
-            return string.Join(" and ", expressions);
-        }
+        //private string BuildFilter(string course, ItemType? typeToSearch, string university)
+        //{
+        //    var expressions = new List<string>();
+        //    if (!string.IsNullOrEmpty(course))
+        //    {
+        //        expressions.Add($"{nameof(Item.Course).ToLower()} eq '{course}'");
+        //    }
+        //    if (!string.IsNullOrEmpty(university))
+        //    {
+        //        expressions.Add($"{nameof(Item.University).ToLower()} eq '{university}'");
+        //    }
+        //    if (typeToSearch.HasValue)
+        //    {
+        //        expressions.Add($"{nameof(Item.Type).ToLower()} eq '{(int)typeToSearch}'");
+        //    }
+        //    return string.Join(" and ", expressions);
+        //}
     }
 }

@@ -9,7 +9,6 @@ using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Domain.CommandHandlers;
 using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure;
-using Zbang.Zbox.Infrastructure.Ai;
 using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Data;
 using Zbang.Zbox.Infrastructure.Extensions;
@@ -73,7 +72,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 builder.RegisterFilterProvider();
 
 
-                builder.RegisterModule<AiModule>();
+                //builder.RegisterModule<AiModule>();
                 builder.RegisterModule<AutofacWebTypesModule>();
 
                 builder.RegisterType<CookieHelper>().As<ICookieHelper>();

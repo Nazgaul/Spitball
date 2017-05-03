@@ -306,7 +306,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
 
             var query = new LeaderboardQuery(userid, page.GetValueOrDefault());
-            var model = await ZboxReadService.UserLeaderboardAsync(query);
+            var model = await ZboxReadService.UserLeaderBoardAsync(query);
 
             model = model.Select(s => 
             {

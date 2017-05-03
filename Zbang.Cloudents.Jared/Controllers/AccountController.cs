@@ -11,6 +11,8 @@ using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Cloudents.Jared.DataObjects;
 using System;
+using System.Linq;
+using System.Threading;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
@@ -27,15 +29,28 @@ namespace Zbang.Cloudents.Jared.Controllers
         }
 
         // GET api/Account
-        public async Task<HttpResponseMessage> Get()
+        public async Task<HttpResponseMessage> Get(CancellationToken token)
         {
-           var result = await m_ZboxReadService.GetUserDataAsync(new QueryBaseUserId(User.GetUserId())).ConfigureAwait(false);
+            var result = await m_ZboxReadService.GetJaredUserDataAsync(new QueryBaseUserId(User.GetUserId()), token).ConfigureAwait(false);
             return Request.CreateResponse(new
             {
-                result.UniversityId,
-                result.UniversityName
-                
+                university = new
+                {
+                    result.Item1.UniversityId,
+                    result.Item1.UniversityName
+                },
+                courses = result.Item2.Select(s => new
+                {
+                    s.Id,
+                    s.Name
+                })
             });
+            //return Request.CreateResponse(new
+            //{
+            //    result.UniversityId,
+            //    result.UniversityName
+
+            //});
             //return "Hello from custom controller!";
         }
 
@@ -57,7 +72,6 @@ namespace Zbang.Cloudents.Jared.Controllers
 
         }
         [HttpPost]
-        //[VersionedRoute("api/account/university", 2)]
         [Route("api/account/university")]
 
         public HttpResponseMessage UpdateUniversityAsync(UpdateUniversityRequest model)

@@ -137,10 +137,6 @@
       <Project>{35DC2A36-5E24-4E09-8967-838C6EDCA465}</Project>
       <Name>Zbang.Zbox.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Ai\Zbang.Zbox.Infrastructure.Ai.csproj">
-      <Project>{e0acfffc-ed65-4b5b-863c-9f9de16cfaf9}</Project>
-      <Name>Zbang.Zbox.Infrastructure.Ai</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Azure\Zbang.Zbox.Infrastructure.Azure.csproj">
       <Project>{9a210d03-f7a2-4cf6-b311-742a2a1949d4}</Project>
       <Name>Zbang.Zbox.Infrastructure.Azure</Name>

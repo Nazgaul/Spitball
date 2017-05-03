@@ -1,6 +1,4 @@
-﻿
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,12 +7,6 @@ using Microsoft.Azure.Mobile.Server.Config;
 using WebApi.OutputCache.V2;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.ReadServices;
-using Zbang.Zbox.Infrastructure.Enums;
-using System;
-using System.Linq;
-using Zbang.Zbox.Infrastructure.Extensions;
-using Zbang.Zbox.ViewModel.Dto;
-using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
@@ -35,7 +27,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         [CacheOutput(ClientTimeSpan = TimeConst.Day, ServerTimeSpan = TimeConst.Day)]
         public async Task<HttpResponseMessage> Get(CancellationToken token)
         {
-            JaredDto result=null;
+            //JaredDto result=null;
             //bool isAuthorized = User.Identity.IsAuthenticated;
             //if (User.Identity.IsAuthenticated)
             //{
@@ -45,7 +37,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             //}
             //else
             //{
-                result = await m_ZboxReadService.GetJaredStartupValuesAsync(token).ConfigureAwait(false);
+            var result = await m_ZboxReadService.GetJaredStartupValuesAsync(token).ConfigureAwait(false);
             //}
             var documents = new Dictionary<string, IEnumerable<string>>
             {
@@ -59,14 +51,14 @@ namespace Zbang.Cloudents.Jared.Controllers
                 {"lectures", new[] {"lecture"}},
                 {"class notes", new[] {"class note", "note", "notes"}}
             };
-            result.Terms = documents;
-            return Request.CreateResponse(result);
+            //result.Terms = documents;
+            return Request.CreateResponse(new
+            {
+                text = result,
+                terms = documents
+            });
         }
 
-        //// POST api/values
-        //public string Post()
-        //{
-        //    return "Hello World!";
-        //}
+       
     }
 }

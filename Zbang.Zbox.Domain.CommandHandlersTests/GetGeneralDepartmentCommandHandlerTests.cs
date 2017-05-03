@@ -34,20 +34,20 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Tests
             m_user = MockRepository.GenerateMock<IRepository<User>>();
             m_IdGenerator = MockRepository.GenerateMock<IGuidIdGenerator>();
         }
-        [TestMethod()]
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void ExecuteAsyncTest()
         {
             var commandHandler = new GetGeneralDepartmentCommandHandler(m_department,m_user,m_IdGenerator);
-            try
-            {
-                var res = commandHandler.Execute(null);
-            }
-            catch (Exception ex)
-            {
-                var a = 5;
-                a = 7;
-            }
-            Assert.IsTrue(true);
+            
+            var res = commandHandler.Execute(null);
+            //}
+            //catch (Exception ex)
+            //{
+            //    var a = 5;
+            //    a = 7;
+            //}
+            //Assert.IsTrue(true);
         }
     }
 }

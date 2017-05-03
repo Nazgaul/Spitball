@@ -83,7 +83,7 @@ u.Email as Email,
 u.CreationTime as DateTime
 from zbox.Users u 
 left join zbox.University uu on u.UniversityId = uu.Id
-where u.userid = @UserId";
+where u.userid = @UserId;";
 
 
    

@@ -188,7 +188,8 @@ namespace Zbang.Cloudents.Jared.Controllers
             }
             var fileDto = new ItemDto
             {
-                Id = result2.File.Id
+                Id = result2.File.Id,
+                Source = blobAddressUri
                 //Name = result2.File.Name,
             };
             return Request.CreateResponse(fileDto);

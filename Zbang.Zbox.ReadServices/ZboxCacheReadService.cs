@@ -61,9 +61,9 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetWebServiceBoxItemsPagedAsync(query);
         }
-        public Task<IEnumerable<QuizDto>> GetBoxQuizesAsync(GetBoxQuizesPagedQuery query)
+        public Task<IEnumerable<QuizDto>> GetBoxQuizzesAsync(GetBoxQuizesPagedQuery query)
         {
-            return m_ReadService.GetBoxQuizesAsync(query);
+            return m_ReadService.GetBoxQuizzesAsync(query);
         }
 
         public Task<IEnumerable<FlashcardDto>> GetBoxFlashcardsAsync(GetFlashCardsQuery query)
@@ -358,9 +358,9 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.UserBadgesAsync(query);
         }
 
-        public Task<IEnumerable<LeaderBoardDto>> UserLeaderboardAsync(LeaderboardQuery query)
+        public Task<IEnumerable<LeaderBoardDto>> UserLeaderBoardAsync(LeaderboardQuery query)
         {
-            return m_ReadService.UserLeaderboardAsync(query);
+            return m_ReadService.UserLeaderBoardAsync(query);
         }
 
         public Task<QuizSolversWithCountDto> GetQuizSolversAsync(GetQuizBestSolvers query)
@@ -409,14 +409,15 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUserClosedDepartmentAsync(query);
         }
 
-        public Task<IEnumerable<ClosedNodeUsersDto>> GetMembersClosedDepartmendAsync(GetClosedNodeMembersQuery query)
+        public Task<IEnumerable<ClosedNodeUsersDto>> GetMembersClosedDepartmentAsync(GetClosedNodeMembersQuery query)
         {
-            return m_ReadService.GetMembersClosedDepartmendAsync(query);
+            return m_ReadService.GetMembersClosedDepartmentAsync(query);
         }
 
-        public Task<JaredDto> GetJaredStartupValuesAsync(CancellationToken token, QueryBaseUserId query)
+        public Task<Tuple<UserDetailDto, IEnumerable<BoxDto>>> GetJaredUserDataAsync(
+            QueryBaseUserId query, CancellationToken token)
         {
-            return m_ReadService.GetJaredStartupValuesAsync(token, query);
+            return m_ReadService.GetJaredUserDataAsync(query, token);
         }
         public Task<JaredDto> GetJaredStartupValuesAsync(CancellationToken token)
         {

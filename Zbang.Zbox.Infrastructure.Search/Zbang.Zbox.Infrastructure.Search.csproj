@@ -98,10 +98,6 @@
     <Compile Include="UniversitySearchProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Ai\Zbang.Zbox.Infrastructure.Ai.csproj">
-      <Project>{E0ACFFFC-ED65-4B5B-863C-9F9DE16CFAF9}</Project>
-      <Name>Zbang.Zbox.Infrastructure.Ai</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Ioc\Zbang.Zbox.Infrastructure.Ioc.csproj">
       <Project>{872878fa-a84a-4cd3-856a-4ee9018819c5}</Project>
       <Name>Zbang.Zbox.Infrastructure.Ioc</Name>
