@@ -23,7 +23,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             user = new User(message.UserIdToken.ToString(), null, "John", "Doe", null,
                 Infrastructure.Enums.Sex.NotKnown)
             {
-                UserType = Infrastructure.Enums.UserType.Jared
+                UserType = Infrastructure.Enums.UserType.Jared,
+                IsRegisterUser = true
             };
             user.Quota.AllocateStorage();
             m_UserRepository.Save(user, true);
