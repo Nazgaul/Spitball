@@ -49,12 +49,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
             switch (retVal)
             {
                 case TimeToSleep.Increase:
-                    TraceLog.WriteInfo($"{GetPrefix()} going to sleep and increase {Interval}");
+                    //TraceLog.WriteInfo($"{GetPrefix()} going to sleep and increase {Interval}");
                     await SleepAndIncreaseIntervalAsync(cancellationToken).ConfigureAwait(false);
                     break;
                 case TimeToSleep.Min:
                     Interval = MinInterval;
-                    TraceLog.WriteInfo($"{GetPrefix()} not going to sleep inteval change {Interval}");
+                    //TraceLog.WriteInfo($"{GetPrefix()} not going to sleep interval change {Interval}");
                     break;
                 case TimeToSleep.Same:
                     await SleepAsync(cancellationToken).ConfigureAwait(false);
