@@ -17,7 +17,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Tests
     [TestClass()]
     public class GetGeneralDepartmentCommandHandlerTests
     {
-        private IRepository<University> m_university;
         private IRepository<Library> m_department;
         private IRepository<User> m_user;
         private IGuidIdGenerator m_IdGenerator;
@@ -30,7 +29,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Tests
 
             IocFactory.IocWrapper.RegisterInstance(localStorageProvider);
             m_department = MockRepository.GenerateMock<IRepository<Library>>();
-            m_university = MockRepository.GenerateMock<IRepository<University>>();
             m_user = MockRepository.GenerateMock<IRepository<User>>();
             m_IdGenerator = MockRepository.GenerateMock<IGuidIdGenerator>();
         }
@@ -41,13 +39,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Tests
             var commandHandler = new GetGeneralDepartmentCommandHandler(m_department,m_user,m_IdGenerator);
             
             var res = commandHandler.Execute(null);
-            //}
-            //catch (Exception ex)
-            //{
-            //    var a = 5;
-            //    a = 7;
-            //}
-            //Assert.IsTrue(true);
         }
     }
 }

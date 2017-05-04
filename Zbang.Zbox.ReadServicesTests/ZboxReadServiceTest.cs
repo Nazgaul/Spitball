@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rhino.Mocks;
 using System;
@@ -11,7 +10,6 @@ using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 using Zbang.Zbox.ViewModel.Queries.Library;
-using Zbang.Zbox.ViewModel.Queries.QnA;
 
 namespace Zbang.Zbox.ReadServicesTests
 {
@@ -31,20 +29,12 @@ namespace Zbang.Zbox.ReadServicesTests
         }
 
         [TestMethod]
-        public async Task GetJaredStartupValuesAsyncTest()
+        public async Task GetJaredStartupValuesAsync_returnList()
         {
             try
             {
-                var a = await m_ZboxReadService.GetJaredStartupValuesAsync(new CancellationToken()).ConfigureAwait(false);
-                var b = await m_ZboxReadService.GetJaredStartupValuesAsync(new CancellationToken()).ConfigureAwait(false);
-                var aa = a.ActionsText;
-                var bb = b.ActionsText;
-                int numOfDiff = 0;
-                foreach (var item in bb.Keys)
-                {
-                    if (!bb[item].Equals(aa[item])) numOfDiff++;
-                }
-                Assert.IsTrue(numOfDiff>0);
+                var result = await m_ZboxReadService.GetJaredStartupValuesAsync(new CancellationToken()).ConfigureAwait(false);
+                Assert.IsTrue(result.ActionsText.Count>0);
                 //Assert.IsNull(a.UserBoxes);
                 //Assert.IsNull(a.University);
             }

@@ -8,7 +8,7 @@ namespace Zbang.Zbox.ViewModel.Dto
     {
         //public IEnumerable<UniversityDto> Universities { get; set; }
        // public Dictionary<string, IEnumerable<string>> Terms { get; set; }
-        public Dictionary<CategoryTextType, string> ActionsText { get; set; }
+        public Dictionary<CategoryTextType, IEnumerable<string>> ActionsText { get; set; }
         //public IEnumerable<BoxDto> UserBoxes { get; set; }
         //public LogInUserDto University { get; set; }
     }
