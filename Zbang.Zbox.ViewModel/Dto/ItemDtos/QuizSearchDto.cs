@@ -18,6 +18,10 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
         public long? UniversityId { get; set; }
         public string Url { get; set; }
+        public override string Name => QuizName;
+
+        public string QuizName { get; set; }
+
         public override string Content => TextManipulation.RemoveHtmlTags.Replace(WebUtility.HtmlDecode(string.Join(" ", Questions)), string.Empty) + string.Join(" ", Answers);
         public override string[] MetaContent => new[] { TextManipulation.RemoveHtmlTags.Replace(WebUtility.HtmlDecode(Questions.FirstOrDefault() ?? string.Empty), string.Empty) };
         public override int? ContentCount => Questions.Count();
@@ -27,7 +31,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
     {
         public string Text { get; set; }
         public long QuizId { get; set; }
-        public Guid Questionid { get; set; }
+        public Guid QuestionId { get; set; }
     }
 
     public class QuizToUpdateSearchDto

@@ -27,7 +27,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var item = m_ItemRepository.Load(message.ItemId);
             
-            foreach (var tagName in message.Tags)
+            foreach (var tagName in message.Tags.Distinct())
             {
                 var tag = m_TagRepository.Query().FirstOrDefault(f => f.Name == tagName);
                 if (tag == null)

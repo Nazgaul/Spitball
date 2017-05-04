@@ -117,7 +117,7 @@ select Name,boxid from c;";
 
         #region Quiz
           public const string GetQuizzesToUploadToSearch = @"select top (@top) q.Id,
-q.Name,
+q.Name as QuizName,
  b.BoxName,
  q.BoxId,
  q.Language,
@@ -143,7 +143,7 @@ order by Id desc;";
 
 
         public const string GetQuizzesQuestionToUploadToSearch =
-            @"select text, QuizId, Id as questionid  from zbox.QuizQuestion where QuizId in (
+            @"select text, QuizId, Id as questionId  from zbox.QuizQuestion where QuizId in (
 select top (@top) q.Id
 from zbox.quiz q 
 where publish = 1
@@ -256,7 +256,7 @@ where t.rowid < 6;";
 
         #region Flashcard
         public const string GetFlashcardToUploadToSearch = @"select top (@top) f.Id,
-f.Name,
+f.Name as FlashcardName,
  b.BoxName,
  f.BoxId,
  f.language,
@@ -385,7 +385,7 @@ OFFSET @PageSize * (@PageNumber) ROWS
 
         public const string SearchItemNew = @"select top (@top)
   i.ItemId as id,
-  i.Name as name,
+  i.Name as fileName,
   i.Content as documentcontent,
   i.blobName as blobName,
   i.Url as url, --old

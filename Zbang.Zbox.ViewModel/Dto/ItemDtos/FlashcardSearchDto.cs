@@ -17,6 +17,9 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
         public int CardsCount { get; set; }
 
+        public override string Name => FlashcardName;
+        public string FlashcardName { get; set; }
+
         public override string Content => string.Join(" ", FrontCards) + string.Join(" ", BackCards);
 
         public string CoverText { get; set; }

@@ -12,7 +12,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
             Tags = new List<ItemSearchTag>();
         }
         public long Id { get; set; }
-        public string Name { get; set; }
+        public abstract string Name { get; }
 
         public abstract string Content { get; }
         public string UniversityName { get; set; }

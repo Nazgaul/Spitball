@@ -32,7 +32,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 var result = await request.GetResponse(token).ConfigureAwait(false);
                 int dummy;
-                return result.Concepts.Where(w => w.Relevance > 0.75).Select(s => s.Text).Where(w => !int.TryParse(w, out dummy));
+                return result.Concepts.Where(w => w.Relevance > 0.75).Select(s => s.Text).Where(w => !int.TryParse(w, out dummy)).Distinct();
             }
             catch (Exception ex)
             {

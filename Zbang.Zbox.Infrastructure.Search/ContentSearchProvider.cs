@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -46,7 +45,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 var uploadBatch = new Item
                 {
                     Id = itemToUpload.SearchContentId,
-                    Name = Path.GetFileNameWithoutExtension(itemToUpload.Name)?.ToLowerInvariant(),
+                    Name =  itemToUpload.Name?.ToLowerInvariant(),
                     Course = itemToUpload.BoxName.ToLowerInvariant(),
                     Professor = itemToUpload.BoxProfessor?.ToLowerInvariant(),
                     Code = itemToUpload.BoxCode?.ToLowerInvariant(),
