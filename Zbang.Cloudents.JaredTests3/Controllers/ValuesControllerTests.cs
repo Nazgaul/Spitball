@@ -1,7 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Zbang.Cloudents.Jared.Controllers;
 using Rhino.Mocks;
-using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.ReadServices;
 using System.Threading.Tasks;
@@ -12,9 +10,6 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.Controllers;
-using Zbang.Zbox.Infrastructure.Extensions;
-using System;
 using System.Collections.Generic;
 
 namespace Zbang.Cloudents.Jared.Controllers.Tests
@@ -98,17 +93,15 @@ namespace Zbang.Cloudents.Jared.Controllers.Tests
         }
 
         [TestMethod]
-        public async Task getCategoriesTextTest()
+        public async Task getCategoriesTextTest_returnOK()
         {
             var user = new User(false);
             // user.Stub(x => x.GetUserId()).Return(1);
             //controller.User.Identity.Stub(x=>x.IsAuthenticated).Return(false);
             controller.User = user;
-            int numOfDiff = 0;
             CancellationToken token = new CancellationToken();
             var b = await controller.Get(token);
-            var c = await controller.Get(token);
-           
+            Assert.IsTrue(b.IsSuccessStatusCode);
         }
         //[TestMethod]
         //public async Task getCategoriesTextTestHaveAuth()

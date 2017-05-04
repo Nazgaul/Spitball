@@ -1224,25 +1224,16 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
         {
             using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
             {
-                var dict = new Dictionary<CategoryTextType, string>();
-                const string actionsText = @"select action,text from zbox.jaredtext;";
 
+                const string actionsText = @"select action,text from zbox.jaredtext;";
                 var command = new CommandDefinition(actionsText,
                        cancellationToken: token);
                 using (var grid = await conn.QueryMultipleAsync(command).ConfigureAwait(false))
                 {
-                    var textList = (await grid.ReadAsync<JaredTextDto>().ConfigureAwait(false)).ToLookup(t => t.Action);
-
-                    var rnd = new Random();
-                    foreach (var text in textList)
-                    {
-                        var textOptions = textList[text.Key].Select(s => s.Text).ToList();
-                        dict.Add(text.Key, textOptions.ElementAt(rnd.Next(textOptions.Count)));
-                    }
-
+                    var dictiona= (await grid.ReadAsync<JaredTextDto>().ConfigureAwait(false)).GroupBy(x => x.Action, x => x.Text);
                     return new JaredDto
                     {
-                        ActionsText = dict
+                        ActionsText = dictiona.ToDictionary(x=>x.Key,x=>x.AsEnumerable())
                     };
                 }
             }
