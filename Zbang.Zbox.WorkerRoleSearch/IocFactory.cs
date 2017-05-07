@@ -49,7 +49,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Ioc.ContainerBuilder.RegisterType<JaredSendPush>()
                 .As<IJaredPushNotification>()
                 .WithParameter("connectionString", "Endpoint=sb://spitball.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=1+AAf2FSzauWHpYhHaoweYT9576paNgmicNSv6jAvKk=")
-                .WithParameter("hubName", "spitball")
+                .WithParameter("hubName", "jared-spitball")
                 .InstancePerLifetimeScope();
 
             Ioc.ContainerBuilder.RegisterModule<WorkerRoleModule>();

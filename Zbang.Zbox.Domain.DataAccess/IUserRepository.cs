@@ -20,11 +20,13 @@ namespace Zbang.Zbox.Domain.DataAccess
 
         bool IsNotUsedCode(string code, long userId);
         //void UpdateUserReputation(int reputation, long userid);
-        void UpdateScore(int score, long userid);
+        void UpdateScore(int score, long userId);
         void UnsubscribeUserFromMail(IEnumerable<string> emails, EmailSend type);
         int LikesCount(long userId);
         int ItemCount(long userId);
         int QuizCount(long userId);
         void UpdateUserFeedDetails(long userId);
+
+        IEnumerable<long> GetUsersToUpdate(long boxId, long notIncludeUserId);
     }
 }

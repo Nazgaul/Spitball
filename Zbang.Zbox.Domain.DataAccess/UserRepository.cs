@@ -68,19 +68,31 @@ namespace Zbang.Zbox.Domain.DataAccess
             return user == null;
         }
 
-        //public void UpdateUserReputation(int reputation, long userid)
-        //{
-        //    UnitOfWork.CurrentSession.GetNamedQuery("UpdateUserReputation")//.Get.CreateQuery(hqlUpdate)
-        //        .SetInt64("reputation", reputation)
-        //        .SetInt64("userid", userid)
-        //        .ExecuteUpdate();
-        //}
+        public IEnumerable<long> GetUsersToUpdate(long boxId, long notIncludeUserId)
+        {
+            QueryOver< UserBoxRel> userIds = QueryOver.Of<UserBoxRel>().Where(w => w.BoxId == boxId).Select(s => s.UserId);
+            
 
-        public void UpdateScore(int score, long userid)
+            return UnitOfWork.CurrentSession.QueryOver<User>()
+                .Where(w => w.IsRegisterUser)
+                .And(w => w.UserType != UserType.Jared)
+                .And(w => w.Id != notIncludeUserId)
+                .WithSubquery.WhereProperty(x=>x.Id).In(userIds)
+                //.WithSubquery.WhereSome(
+                //u => u.Id == QueryOver.Of<UserBoxRel>()
+                //.Where(w => w.BoxId == boxId)
+
+                //.Select(s=>s.UserId).As<long>()
+                .Select(s => s.Id).List<long>();
+
+        }
+        
+
+        public void UpdateScore(int score, long userId)
         {
             UnitOfWork.CurrentSession.GetNamedQuery("UpdateUserScore")//.Get.CreateQuery(hqlUpdate)
                 .SetInt64("Score", score)
-                .SetInt64("userid", userid)
+                .SetInt64("userid", userId)
                 .ExecuteUpdate();
         }
 

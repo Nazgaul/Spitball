@@ -58,13 +58,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public Task HandleAsync(AddNewUpdatesCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
+
+            var usersToUpdate = m_UserRepository.GetUsersToUpdate(message.BoxId, message.UserId).ToList();
             var box = m_BoxRepository.Load(message.BoxId);
             //there was an issue with commit with detach elements
-            var usersToUpdate = box.UserBoxRelationship.Where(
-                w => w.User.Id != message.UserId
-            && w.User.UserType != Infrastructure.Enums.UserType.Jared
-            && w.User.IsRegisterUser
-            ).Select(s => s.UserId).ToList();
+            //var usersToUpdate = box.UserBoxRelationship.Where(
+            //    w => w.User.Id != message.UserId
+            //&& w.User.UserType != Infrastructure.Enums.UserType.Jared
+            //&& w.User.IsRegisterUser
+            //).Select(s => s.UserId).ToList();
 
             var tQuiz = UpdateQuizAsync(message.QuizId, usersToUpdate, box);
             var tItem = UpdateItemAsync(message.ItemId, usersToUpdate, box);

@@ -546,7 +546,7 @@ select top(3) id from zbox.university where isdeleted = 1 and updatetime < getut
 
             using (var unitOfWork = UnitOfWork.Start())
             {
-                await m_CommandBus.SendAsync(command);
+                await m_CommandBus.SendAsync(command).ConfigureAwait(true);
                 unitOfWork.TransactionalFlush();
             }
         }

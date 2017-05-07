@@ -16,6 +16,8 @@ namespace Zbang.Zbox.Infrastructure.Notifications
                 return;
             }
             m_Hub = NotificationHubClient.CreateClientFromConnectionString(connectionString, hubName);
+            //m_Hub.SendAppleNativeNotificationAsync("{\"aps\":{\"alert\":\"Notification Hub test notification\"}}",
+            //    "_UserId:1159872");
         }
 
         public Task SendChatMessagePushAsync(string userName, string text, Guid conversationId, long userId)
@@ -87,8 +89,7 @@ namespace Zbang.Zbox.Infrastructure.Notifications
             {
                 return Task.FromResult(false);
             }
-            var hub = NotificationHubClient.CreateClientFromConnectionString("Endpoint=sb://spitball.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=1+AAf2FSzauWHpYhHaoweYT9576paNgmicNSv6jAvKk=", "spitball");
-            return hub.SendNotificationAsync(message, tag);
+            return m_Hub.SendNotificationAsync(message, tag);
         }
        
     }

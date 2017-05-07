@@ -39,11 +39,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             TraceLog.WriteError($"{Prefix} run - process is null msgData.ProcessResolver:" + msgData.ProcessResolver);
                             return true;
                         }
-                        return await process.ExecuteAsync(msgData, cancellationToken);
-                    }, TimeSpan.FromMinutes(1), 5, cancellationToken);
+                        return await process.ExecuteAsync(msgData, cancellationToken).ConfigureAwait(false);
+                    }, TimeSpan.FromMinutes(1), 5, cancellationToken).ConfigureAwait(false);
                     if (!result)
                     {
-                        await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+                        await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken).ConfigureAwait(false);
                     }
                 }
                 catch (TaskCanceledException)

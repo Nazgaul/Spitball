@@ -127,11 +127,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ImageToTextClass.cs" />
-    <Compile Include="OcrSampleForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="OcrSampleForm.Designer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -215,9 +210,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ReadMe-AspriseOCR.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="OcrSampleForm.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
