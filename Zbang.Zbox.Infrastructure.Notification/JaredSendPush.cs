@@ -24,7 +24,7 @@ namespace Zbang.Zbox.Infrastructure.Notifications
         {
             var applePushMessage = new ApplePushMessage();
             applePushMessage.Aps.AlertProperties.Title = "Chat message";
-            applePushMessage.Aps.AlertProperties.Body = $"{userName} send  you a {text ?? "file"} ";
+            applePushMessage.Aps.AlertProperties.Body = $"{userName} send you a {text ?? "file"} ";
             applePushMessage.Add("action", PushAction.ChatMessage);
             applePushMessage.Add("conversationId", conversationId);
             return SendNotificationAsync(new AppleNotification(applePushMessage.ToString()), $"_UserId:{userId}");
@@ -34,7 +34,7 @@ namespace Zbang.Zbox.Infrastructure.Notifications
         {
             var applePushMessage = new ApplePushMessage();
             applePushMessage.Aps.AlertProperties.Title = "Chat message";
-            applePushMessage.Aps.AlertProperties.Body = $"{userName} send  you a file";
+            applePushMessage.Aps.AlertProperties.Body = $"{userName} send you a file";
             applePushMessage.Add("action", PushAction.ChatFile);
             applePushMessage.Add("conversationId", conversationId);
             return SendNotificationAsync(new AppleNotification(applePushMessage.ToString()), $"_UserId:{userId}");
@@ -89,7 +89,7 @@ namespace Zbang.Zbox.Infrastructure.Notifications
             {
                 return Task.FromResult(false);
             }
-            return m_Hub.SendNotificationAsync(message, tag);
+            return m_Hub.SendNotificationAsync(message, tag.Replace(" ","_"));
         }
        
     }

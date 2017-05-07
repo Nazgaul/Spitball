@@ -61,7 +61,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
         private Task DoJaredPushAsync(MessageMailData parameters)
         {
             Task t2;
-            if (string.IsNullOrEmpty(parameters.Message))
+            if (!string.IsNullOrEmpty(parameters.Message))
             {
                 t2 = m_JaredPush.SendChatMessagePushAsync(parameters.SenderUserName, parameters.Message,
                     parameters.ConversationId, parameters.UserId);
