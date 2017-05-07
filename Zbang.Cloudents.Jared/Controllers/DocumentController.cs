@@ -71,7 +71,7 @@ namespace Zbang.Cloudents.Jared.Controllers
 
             if (!model.Tags.Any()) return Request.CreateResponse();
             var z = new AssignTagsToDocumentCommand(model.Id, model.Tags, TagType.User);
-            m_ZboxWriteService.AddItemTag(z);
+            await m_ZboxWriteService.AddItemTagAsync(z).ConfigureAwait(false);
 
             return Request.CreateResponse();
         }

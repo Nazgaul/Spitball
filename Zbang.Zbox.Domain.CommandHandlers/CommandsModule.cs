@@ -20,13 +20,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 .As<ICommandHandler<AddLanguageToQuizCommand>>();
 
             builder.RegisterType(typeof(AssignTagsToItemCommandHandler<Item>))
-               .As<ICommandHandler<AssignTagsToDocumentCommand>>();
+               .As<ICommandHandlerAsync<AssignTagsToDocumentCommand>>();
             builder.RegisterType(typeof(AssignTagsToItemCommandHandler<FlashcardMeta>))
-                .As<ICommandHandler<AssignTagsToFlashcardCommand>>();
+                .As<ICommandHandlerAsync<AssignTagsToFlashcardCommand>>();
             builder.RegisterType(typeof(AssignTagsToItemCommandHandler<Domain.Quiz>))
-               .As<ICommandHandler<AssignTagsToQuizCommand>>();
+               .As<ICommandHandlerAsync<AssignTagsToQuizCommand>>();
             builder.RegisterType(typeof(AssignTagsToItemCommandHandler<Comment>))
-               .As<ICommandHandler<AssignTagsToFeedCommand>>();
+               .As<ICommandHandlerAsync<AssignTagsToFeedCommand>>();
 
             builder.RegisterType(typeof(RemoveTagsFromItemCommandHandler<Item>))
             .As<ICommandHandler<RemoveTagsFromDocumentCommand>>();

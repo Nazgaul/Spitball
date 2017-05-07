@@ -13,7 +13,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         Task<Stream> DownloadFileAsync(Uri blobUrl, CancellationToken cancelToken);
         Task<string> DownloadToLocalDiskAsync(Uri blobUrl, CancellationToken cancelToken);
         Task<Stream> OpenBlobStreamAsync(Uri blobUri, CancellationToken cancelToken);
-         Task<IDictionary<string, string>> FetchBlobmetaDataAsync(Uri blobUri, CancellationToken token);
+         Task<IDictionary<string, string>> FetchBlobMetaDataAsync(Uri blobUri, CancellationToken token);
         Task SaveMetaDataToBlobAsync(Uri blobUri, IDictionary<string, string> metadata, CancellationToken token);
 
         string GenerateSharedAccessReadPermissionInStorage(Uri blobUri, double expirationTimeInMinutes);
