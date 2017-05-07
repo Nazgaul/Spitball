@@ -47,7 +47,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             builder.RegisterType(typeof(AddFileToBoxCommandHandler)).Named <
                 ICommandHandlerAsync<AddItemToBoxCommand, AddItemToBoxCommandResult>>(AddItemToBoxCommand.FileResolver);
-               
+
+            builder.RegisterType(typeof(CreateAcademicBoxCommandHandler) ).Named<
+                ICommandHandlerAsync<CreateBoxCommand, CreateBoxCommandResult>>("CreateAcademicBoxCommand");
             #endregion
         }
     }

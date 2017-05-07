@@ -29,8 +29,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var departmentId = m_Department.Query()
                 .Where(
                     w =>
-                        w.University == university && w.Name != null &&
-                        w.Name.Equals("general", StringComparison.InvariantCultureIgnoreCase))
+                        w.University == university && w.Name == "General" && w.Parent == null)
                 .FirstOrDefault()?.Id;
                 
             var newId = m_IdGenerator.GetId();

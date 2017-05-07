@@ -73,7 +73,7 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             try
             {
-                var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken);
+                var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken).ConfigureAwait(false);
                 SetLicense();
                 var word = new Document(path);
 
@@ -90,7 +90,7 @@ namespace Zbang.Zbox.Infrastructure.File
                     ms.Seek(0, SeekOrigin.Begin);
                     return ms;
 
-                }, () => word.PageCount, CacheVersion, cancelToken);
+                }, () => word.PageCount, CacheVersion, cancelToken).ConfigureAwait(false);
 
             }
             catch (Exception ex)
