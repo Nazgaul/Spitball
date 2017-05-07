@@ -45,10 +45,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
             .WithParameter("hubName", ConfigFetcher.Fetch("ServiceBusHubName"))
             .InstancePerLifetimeScope();
 
+
+            Ioc.ContainerBuilder.RegisterType<JaredSendPush>()
+                .As<IJaredPushNotification>()
+                .WithParameter("connectionString", "Endpoint=sb://spitball.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=1+AAf2FSzauWHpYhHaoweYT9576paNgmicNSv6jAvKk=")
+                .WithParameter("hubName", "spitball")
+                .InstancePerLifetimeScope();
+
             Ioc.ContainerBuilder.RegisterModule<WorkerRoleModule>();
             Ioc.Build();
 
-            //Ioc.Resolve<Domain.Common.IZboxServiceBootStrapper>().BootStrapper();
         }
 
         public T Resolve<T>(string name)

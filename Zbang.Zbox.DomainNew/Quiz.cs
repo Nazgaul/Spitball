@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Domain
 {
@@ -55,7 +57,7 @@ namespace Zbang.Zbox.Domain
         public virtual UserTimeDetails DateTimeUser { get; private set; }
         public virtual ICollection<Question> Questions { get; protected set; }
 
-        public virtual ICollection<SolvedQuiz> SolvedQuizes { get; protected set; }
+        public virtual ICollection<SolvedQuiz> SolvedQuizzes { get; protected set; }
         public virtual ICollection<QuizLike> Likes { get; protected set; }
 
         public virtual string Url { get; set; }
@@ -96,10 +98,10 @@ namespace Zbang.Zbox.Domain
 
         public virtual ISet<ItemTag> ItemTags { get; set; }
 
-        public virtual void AddTag(Tag tag, TagType type)
+        public virtual Task AddTagAsync(Tag tag, TagType type, IJaredPushNotification jaredPush)
         {
             var newExists = ItemTags.FirstOrDefault(w => w.Tag.Id == tag.Id);
-            if (newExists != null) return;
+            if (newExists != null) return Task.CompletedTask;
             newExists = new ItemTag(tag, this, type);
             ItemTags.Add(newExists);
             tag.ItemTags.Add(newExists);
@@ -107,6 +109,11 @@ namespace Zbang.Zbox.Domain
             {
                 ShouldMakeDirty = () => true;
             }
+            if (DateTimeUser.CreationTime.AddDays(1) > DateTime.UtcNow)
+            {
+                return jaredPush.SendItemPushAsync(User.Name, Box.Id, Id, tag.Name);
+            }
+            return Task.CompletedTask;
         }
         public virtual void RemoveTag(string tag)
         {
@@ -126,7 +133,7 @@ namespace Zbang.Zbox.Domain
         public void DeleteAssociation()
         {
             Questions.Clear();
-            SolvedQuizes.Clear();
+            SolvedQuizzes.Clear();
             Likes.Clear();
         }
     }

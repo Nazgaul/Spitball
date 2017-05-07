@@ -29,6 +29,6 @@ namespace Zbang.Zbox.Infrastructure.Transport
         [ProtoMember(4)]
         public string Url { get; private set; }
 
-        public override string MailResover => InviteToCloudentsResolver;
+        public override string MailResolver => InviteToCloudentsResolver;
     }
 }

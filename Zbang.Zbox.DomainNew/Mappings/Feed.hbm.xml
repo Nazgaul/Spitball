@@ -23,7 +23,7 @@
       <key column="QuestionId" foreign-key="questionIdItems" />
       <one-to-many class="Item"/>
     </bag>
-    <bag name="Quizes" inverse="false" lazy="true" cascade="none" >
+    <bag name="Quizzes" inverse="false" lazy="true" cascade="none" >
       <key column="QuestionId" foreign-key="questionIdQuizes" />
       <one-to-many class="Quiz"/>
     </bag>

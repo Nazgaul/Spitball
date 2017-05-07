@@ -11,11 +11,11 @@ namespace Zbang.Zbox.Infrastructure.Notifications
     [Serializable]
     class AlertProperties : Dictionary<string, object>
     {
-        private const string BodyKey = "body";
-        private const string ActionLocKeyKey = "action-loc-key";
-        private const string LocKeyKey = "loc-key";
-        private const string LocArgsKey = "loc-args";
-        private const string LaunchImageKey = "launch-image";
+        //private const string BodyKey = "body";
+        //private const string ActionLocKeyKey = "action-loc-key";
+        //private const string LocKeyKey = "loc-key";
+        //private const string LocArgsKey = "loc-args";
+        //private const string LaunchImageKey = "launch-image";
         /// <summary>
         /// The text of the alert message.
         /// </summary>
@@ -28,6 +28,18 @@ namespace Zbang.Zbox.Infrastructure.Notifications
             set
             {
                 this.SetOrClearValue("body", value);
+            }
+        }
+
+        public string Title
+        {
+            get
+            {
+                return this.GetValueOrDefault<string>("title");
+            }
+            set
+            {
+                this.SetOrClearValue("title", value);
             }
         }
         /// <summary>

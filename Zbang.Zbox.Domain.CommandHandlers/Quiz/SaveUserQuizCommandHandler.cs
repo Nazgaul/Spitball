@@ -72,7 +72,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             solvedQuiz.Score = (int)Math.Round(score * 100);
             // TODO: check how can remove this 
             m_SolvedQuizRepository.Save(solvedQuiz, true);
-            quiz.SolveCount = quiz.SolvedQuizes.Count;
+            quiz.SolveCount = quiz.SolvedQuizzes.Count;
             
             m_QuizRepository.Save(quiz);
             return m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(quiz.User.Id));

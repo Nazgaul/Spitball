@@ -38,6 +38,8 @@ namespace Zbang.Zbox.Infrastructure.Transport
         [ProtoMember(6)]
         public Guid ConversationId { get; private set; }
 
-        public override string MailResover => MessageResolver;
+
+
+        public override string MailResolver => MessageResolver;
     }
 }

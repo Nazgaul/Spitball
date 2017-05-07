@@ -5,22 +5,21 @@ using Zbang.Zbox.Infrastructure.CommandHandlers;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    class ChangeNotificationSettingsCommandHandler : ICommandHandler<ChangeNotificationSettingsCommand>
+    public class ChangeNotificationSettingsCommandHandler : ICommandHandler<ChangeNotificationSettingsCommand>
     {
+        private readonly IUserBoxRelRepository m_UserBoxRelationshipRepository;
 
-        readonly IUserBoxRelRepository m_UserboxRelationshipRepository;
 
-
-        public ChangeNotificationSettingsCommandHandler(IUserBoxRelRepository userboxRelationshipRepository)
+        public ChangeNotificationSettingsCommandHandler(IUserBoxRelRepository userBoxRelationshipRepository)
         {
 
-            m_UserboxRelationshipRepository = userboxRelationshipRepository;
+            m_UserBoxRelationshipRepository = userBoxRelationshipRepository;
         }
 
         public void Handle(ChangeNotificationSettingsCommand command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
-            var userBoxRel = m_UserboxRelationshipRepository.GetUserBoxRelationship(command.UserId, command.BoxId);
+            var userBoxRel = m_UserBoxRelationshipRepository.GetUserBoxRelationship(command.UserId, command.BoxId);
             userBoxRel.NotificationSettings = command.NewNotificationSettings;
         }
     }

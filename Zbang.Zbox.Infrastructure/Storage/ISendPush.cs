@@ -33,4 +33,28 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
         Task GetRegisteredUsersAsync();
     }
+
+    public interface IJaredPushNotification
+    {
+        Task SendChatMessagePushAsync(string userName,
+            string text, Guid conversationId,
+            long userId);
+
+        Task SendChatFilePushAsync(string userName, Guid conversationId,
+            long userId);
+
+        Task SendAddReplyPushAsync(string userName,
+            string text,
+            long boxId, Guid commentId,
+            long userId);
+
+        Task SendItemPushAsync(string userName,
+            long boxId,long itemId,
+            string tag);
+
+        Task SendAddPostNotificationAsync(string userName,
+            string text,
+            long boxId, Guid feedId,
+            string tag);
+    }
 }

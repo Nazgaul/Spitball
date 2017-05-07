@@ -36,11 +36,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             TraceLog.WriteError($" {Prefix} run - msg cannot transfer to DomainProcess");
                             return true;
                         }
-                        var process = m_ComponentContent.ResolveOptionalNamed<IMail2>(msgData.MailResover);
+                        var process = m_ComponentContent.ResolveOptionalNamed<IMail2>(msgData.MailResolver);
                         //var process = Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IMail2>(msgData.MailResover);
                         if (process == null)
                         {
-                            TraceLog.WriteError($"{Prefix} run - process is null msgData.ProcessResolver:" + msgData.MailResover);
+                            TraceLog.WriteError($"{Prefix} run - process is null msgData.ProcessResolver:" + msgData.MailResolver);
                             return true;
                         }
                         return await process.ExecuteAsync(msgData, cancellationToken);

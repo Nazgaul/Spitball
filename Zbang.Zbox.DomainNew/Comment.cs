@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Domain
 {
@@ -53,7 +55,7 @@ namespace Zbang.Zbox.Domain
 
 
 
-        protected virtual ICollection<Quiz> Quizes { get; set; }
+        protected virtual ICollection<Quiz> Quizzes { get; set; }
         protected virtual ICollection<FlashcardMeta> Flashcards { get; set; }
 
         protected virtual ICollection<CommentReply> Replies { get; set; }
@@ -84,11 +86,11 @@ namespace Zbang.Zbox.Domain
 
         public virtual void AddQuiz(Quiz quiz)
         {
-            if (Quizes == null)
+            if (Quizzes == null)
             {
-                Quizes = new List<Quiz>();
+                Quizzes = new List<Quiz>();
             }
-            Quizes.Add(quiz);
+            Quizzes.Add(quiz);
         }
         public virtual void AddFlashcard(FlashcardMeta flashcard)
         {
@@ -109,24 +111,24 @@ namespace Zbang.Zbox.Domain
 
         private bool NeedToRemoveComment()
         {
-            return Items.Count == 0 && Quizes.Count == 0
+            return Items.Count == 0 && Quizzes.Count == 0
                 && (string.IsNullOrEmpty(Text)
                 || FeedType == Infrastructure.Enums.FeedType.AddedItems);
         }
 
         public bool RemoveQuiz(Quiz quiz)
         {
-            Quizes.Remove(quiz);
+            Quizzes.Remove(quiz);
             return NeedToRemoveComment();
         }
 
         public virtual ISet<CommentTag> CommentTags { get; set; }
 
 
-        public void AddTag(Tag tag, TagType type)
+        public virtual  Task AddTagAsync(Tag tag, TagType type, IJaredPushNotification jaredPush)
         {
             var newExists = CommentTags.FirstOrDefault(w => w.Tag.Id == tag.Id);
-            if (newExists != null) return;
+            if (newExists != null) return Task.CompletedTask;
             newExists = new CommentTag(tag, this, type);
             CommentTags.Add(newExists);
             tag.CommentTags.Add(newExists);
@@ -135,6 +137,11 @@ namespace Zbang.Zbox.Domain
                 //TODO: think about this
                 DateTimeUser.UpdateTime = DateTime.UtcNow;
             }
+            if (DateTimeUser.CreationTime.AddDays(1) > DateTime.UtcNow)
+            {
+                return jaredPush.SendAddPostNotificationAsync(User.Name, Text, Box.Id, Id, tag.Name);
+            }
+            return Task.CompletedTask;
         }
 
         public void RemoveTag(string tag)

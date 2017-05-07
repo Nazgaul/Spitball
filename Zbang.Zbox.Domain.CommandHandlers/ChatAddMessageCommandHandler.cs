@@ -40,6 +40,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 if (!user.User.Online)
                 {
+
                     t = m_QueueRepository.InsertMessageToMailNewAsync(new MessageMailData(
                         message.Message,
                         user.User.Email,

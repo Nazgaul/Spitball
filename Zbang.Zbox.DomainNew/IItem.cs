@@ -1,12 +1,14 @@
-﻿using Zbang.Zbox.Infrastructure.Culture;
+﻿using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Domain
 {
     public interface ITag //: IDirty
     {
-        void AddTag(Tag tag, TagType type);
+        Task AddTagAsync(Tag tag, TagType type, IJaredPushNotification jaredPush);
         void RemoveTag(string tag);
     }
 
