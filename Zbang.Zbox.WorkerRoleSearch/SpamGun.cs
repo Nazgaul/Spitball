@@ -80,22 +80,22 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     {
                         if (counter >= m_LimitPerIp)
                         {
-                            TraceLog.WriteInfo($"{ServiceName} ip {j} reach hour peak");
+                            //TraceLog.WriteInfo($"{ServiceName} ip {j} reach hour peak");
                             // reachHourLimit = true;
                             break;
                         }
                         if (j == 3 && i == 12) //umich detect ip number 3
                         {
-                            TraceLog.WriteInfo($"{ServiceName} bypass umich with ip3");
+                            //TraceLog.WriteInfo($"{ServiceName} bypass umich with ip3");
                             continue;
                         }
-                        await BuildQueueDataAsync(m_Queues[i], i, token);
+                        await BuildQueueDataAsync(m_Queues[i], i, token).ConfigureAwait(false);
                         var emailsTask = new List<Task>();
                         for (var k = 0; k < NumberOfEmailPerSession; k++)
                         {
                             if (counter >= m_LimitPerIp)
                             {
-                                TraceLog.WriteInfo($"{ServiceName} ip {j} reach hour peak");
+                               // TraceLog.WriteInfo($"{ServiceName} ip {j} reach hour peak");
                                 break;
                             }
                             if (m_Queues[i].Count == 0)
@@ -125,20 +125,20 @@ namespace Zbang.Zbox.WorkerRoleSearch
                                        message.MailCategory, greekMessage.School, greekMessage.Chapter),
                                        k, token);
                             }
-                            await m_ZboxWriteService.UpdateSpamGunSendAsync(message.Id, token);
+                            await m_ZboxWriteService.UpdateSpamGunSendAsync(message.Id, token).ConfigureAwait(false);
                             counter++;
                             emailsTask.Add(t1);
                         }
-                        await Task.WhenAll(emailsTask);
+                        await Task.WhenAll(emailsTask).ConfigureAwait(false);
                     }
                     totalCount += counter;
-                    TraceLog.WriteInfo($"{ServiceName} send via ip {counter}");
+                   // TraceLog.WriteInfo($"{ServiceName} send via ip {counter}");
                 }
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("spam gun error", ex);
-                await m_MailComponent.GenerateSystemEmailAsync("spam gun error", $"error {ex}");
+                await m_MailComponent.GenerateSystemEmailAsync("spam gun error", $"error {ex}").ConfigureAwait(false);
             }
             if (totalCount > 0)
             {
@@ -153,7 +153,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private async Task BuildQueueDataAsync(Queue<SpamGunDto> queue, int queueUniversityId, CancellationToken token)
         {
             queue.Clear();
-            var data = await m_ZboxReadService.GetSpamGunDataAsync(++queueUniversityId, token);
+            var data = await m_ZboxReadService.GetSpamGunDataAsync(++queueUniversityId, token).ConfigureAwait(false);
             foreach (var val in data)
             {
                 queue.Enqueue(val);
@@ -171,15 +171,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return i.ToString();
         }
 
-        //public static string BuidQueueName(int i)
-        //{
-        //    return $"{SpanGunQueuePrefix}{i}";
-        //}
-
-        //public void Stop()
-        //{
-
-        //}
+       
 
     }
 }

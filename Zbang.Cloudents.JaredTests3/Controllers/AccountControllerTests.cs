@@ -22,8 +22,8 @@ using System;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Domain;
 using Zbang.Zbox.Infrastructure.Extensions;
-using Zbang.Cloudents.Jared.DataObjects;
 using System.Collections.Generic;
+using Zbang.Cloudents.Jared.Models;
 using Zbang.Zbox.Domain.Commands;
 
 namespace Zbang.Cloudents.Jared.Controllers.Tests

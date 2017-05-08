@@ -27,9 +27,9 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             if (parameters == null) return true;
 
             Guid temp;
+            //TODO: This is Jared user - need to figure out better system
             if (Guid.TryParse(parameters.EmailAddress, out temp))
             {
-                //This is Jared user
                 await DoJaredPushAsync(parameters).ConfigureAwait(false);
                 return true;
             }
@@ -60,17 +60,20 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 
         private Task DoJaredPushAsync(MessageMailData parameters)
         {
-            Task t2;
-            if (!string.IsNullOrEmpty(parameters.Message))
+            if (!parameters.SenderUserId.HasValue)
             {
-                t2 = m_JaredPush.SendChatMessagePushAsync(parameters.SenderUserName, parameters.Message,
-                    parameters.ConversationId, parameters.UserId);
+                return Task.CompletedTask;
             }
-            else
-            {
-                t2 = m_JaredPush.SendChatFilePushAsync(parameters.SenderUserName, parameters.ConversationId,
-                    parameters.UserId);
-            }
+            //if (!string.IsNullOrEmpty(parameters.Message))
+            //{
+            var t2 = m_JaredPush.SendChatMessagePushAsync(parameters.SenderUserName, parameters.Message,
+                parameters.ConversationId, parameters.SenderUserId.Value, parameters.UserId);
+            //}
+            //else
+            //{
+            //    t2 = m_JaredPush.SendChatFilePushAsync(parameters.SenderUserName, parameters.ConversationId, parameters.SenderUserId.Value,
+            //        parameters.UserId);
+            //}
             return t2;
         }
     }

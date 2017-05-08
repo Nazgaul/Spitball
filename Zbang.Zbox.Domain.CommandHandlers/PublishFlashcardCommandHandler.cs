@@ -84,7 +84,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var t5 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
 
             var t1 = m_FlashcardRepository.UpdateItemAsync(message.Flashcard.id, message.Flashcard);
-            await Task.WhenAll(t1, t5);
+            await Task.WhenAll(t1, t5).ConfigureAwait(true);
         }
     }
 }

@@ -151,7 +151,7 @@ namespace Zbang.Cloudents.Connect
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("onconnected", ex);
+                TraceLog.WriteError("onConnected", ex);
             }
 
             return base.OnConnected();
@@ -161,6 +161,7 @@ namespace Zbang.Cloudents.Connect
 
         public override Task OnDisconnected(bool stopCalled)
         {
+            TraceLog.WriteInfo("on Disconnected");
             if (!Context.User.Identity.IsAuthenticated)
             {
                 return base.OnDisconnected(stopCalled);

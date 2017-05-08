@@ -9,7 +9,6 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries;
-using Zbang.Cloudents.Jared.DataObjects;
 using System;
 using System.Linq;
 using System.Threading;

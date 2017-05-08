@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Zbang.Cloudents.Jared.DataObjects
+namespace Zbang.Cloudents.Jared.Models
 {
-    public class UpdateUniversityRequest
+    public class UpdateTagsRequest
     {
         [Required]
-        public long UniversityId { get; set; }
+        public string[] Tags { get; set; }  
     }
 }

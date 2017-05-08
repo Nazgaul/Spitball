@@ -38,9 +38,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var t = Task.CompletedTask;
             foreach (var user in chatRoom.Users)
             {
-                if (!user.User.Online)
+                if (message.UserId != user.User.Id && !user.User.Online)
                 {
-
                     t = m_QueueRepository.InsertMessageToMailNewAsync(new MessageMailData(
                         message.Message,
                         user.User.Email,
@@ -49,7 +48,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                         userAction.Email,
                         user.User.Culture,
                         user.User.Id,
-                        chatRoom.Id));
+                        chatRoom.Id, userAction.Id));
                 }
                 if (user.User.Id == message.UserId)
                 {

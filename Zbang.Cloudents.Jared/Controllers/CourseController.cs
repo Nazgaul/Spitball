@@ -2,12 +2,12 @@
 using Microsoft.Azure.Mobile.Server.Config;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Zbang.Cloudents.Jared.DataObjects;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using System.Net;
+using Zbang.Cloudents.Jared.Models;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {

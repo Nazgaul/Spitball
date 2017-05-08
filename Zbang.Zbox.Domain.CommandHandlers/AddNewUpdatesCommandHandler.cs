@@ -38,8 +38,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IRepository<Comment> commentRepository,
             IRepository<Updates> updatesRepository,
             IRepository<Domain.Quiz> quizRepository, ISendPush sendPush,
-            IUserRepository userRepository, IRepository<ItemComment> itemCommentRepository,
-            IRepository<ItemCommentReply> itemCommentReplyRepository, IRepository<QuizDiscussion> quizDiscussionRepository, IQueueProvider queueProvider, IJaredPushNotification jaredPush)
+            IUserRepository userRepository,
+            IRepository<ItemComment> itemCommentRepository,
+            IRepository<ItemCommentReply> itemCommentReplyRepository,
+            IRepository<QuizDiscussion> quizDiscussionRepository,
+            IQueueProvider queueProvider,
+            IJaredPushNotification jaredPush)
         {
             m_BoxRepository = boxRepository;
             m_ItemRepository = itemRepository;
@@ -97,7 +101,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var quiz = m_QuizRepository.Load(quizId.Value);
             DoUpdateLoop(userIds, u => new Updates(u, box, quiz));
-            return Task.CompletedTask;
+            return m_JaredPush.SendItemPushAsync(quiz.User.Name, quiz.Box.Id, quiz.Id, BuildBoxTag(quiz.Box.Id),
+                Infrastructure.Enums.ItemType.Quiz);
+           
         }
 
         private Task UpdateItemAsync(long? itemId, IList<long> userIds, Box box)
@@ -108,7 +114,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var item = m_ItemRepository.Load(itemId.Value);
             DoUpdateLoop(userIds, u => new Updates(u, box, item));
-            return m_SendPush.SendAddItemNotificationAsync(item.User.Name, box.Name, box.Id, userIds);
+            var t1 = m_JaredPush.SendItemPushAsync(item.User.Name, item.BoxId, item.Id, BuildBoxTag(item.BoxId),
+                Infrastructure.Enums.ItemType.Document);
+            var t2 = m_SendPush.SendAddItemNotificationAsync(item.User.Name, box.Name, box.Id, userIds);
+            return Task.WhenAll(t1, t2);
         }
 
 
@@ -166,7 +175,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 {
                     return Task.CompletedTask;
                 }
-                m_JaredPush.SendAddPostNotificationAsync(comment.User.Name, textToPush, box.Id, comment.Id, $"_BoxId:{box.Id}");
+                m_JaredPush.SendAddPostNotificationAsync(comment.User.Name, textToPush, box.Id, comment.Id, BuildBoxTag(box.Id));
                 return m_SendPush.SendAddPostNotificationAsync(comment.User.Name, textToPush, box.Name, box.Id, userIds);
             }
             catch (ArgumentNullException ex)
@@ -217,5 +226,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             return Task.CompletedTask;
         }
 
+
+        private string BuildBoxTag(long id)
+        {
+            return $"_BoxId:{id}";
+        }
     }
 }

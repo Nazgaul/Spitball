@@ -9,6 +9,7 @@ using Microsoft.Azure.Mobile.Server.Config;
 using Microsoft.Azure.NotificationHubs;
 using Microsoft.Azure.NotificationHubs.Messaging;
 using Newtonsoft.Json.Linq;
+using Zbang.Cloudents.Jared.Models;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
@@ -38,23 +39,20 @@ namespace Zbang.Cloudents.Jared.Controllers
         }
         // GET api/UpdateTags
         [HttpGet]
-        public async Task<List<string>> GetTagsByInstallationId(string id)
+        public async Task<List<string>> Get(string id)
         {
-           // try
-            //{
-                // Return the installation for the specific ID.
-                var installation = await m_HubClient.GetInstallationAsync(id).ConfigureAwait(false);
-                return installation.Tags as List<string>;
-           // }
-           // catch (MessagingException ex)
-           // {
-           //     throw;
-           // }
+            // Return the installation for the specific ID.
+            var installation = await m_HubClient.GetInstallationAsync(id).ConfigureAwait(false);
+            return installation.Tags as List<string>;
         }
 
-
+        [HttpDelete]
+        public string Delete(string id)
+        {
+            return id;
+        }
         [HttpPost]
-        public async Task<HttpResponseMessage> AddTagsToInstallation(string id)
+        public async Task<HttpResponseMessage> Post(string id)
         {
             // Get the tags to update from the body of the request.
             var message = await Request.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -80,14 +78,11 @@ namespace Zbang.Cloudents.Jared.Controllers
                     Value = tags.ToString()
                 }
             };
-
             // Add a update operation for the tag.
-
             try
             {
                 // Add the requested tag to the installation.
                 await m_HubClient.PatchInstallationAsync(id, updates).ConfigureAwait(false);
-
                 // Return success status.
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }

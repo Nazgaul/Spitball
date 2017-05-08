@@ -84,7 +84,7 @@ namespace Zbang.Zbox.Domain
             }
             if (DateTimeUser.CreationTime.AddDays(1) > DateTime.UtcNow)
             {
-                return jaredPush.SendItemPushAsync(User.Name, Box.Id, Id, tag.Name);
+                return jaredPush.SendItemPushAsync(User.Name, Box.Id, Id, tag.Name, ItemType.Document);
             }
             return Task.CompletedTask;
         }

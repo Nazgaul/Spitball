@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.ServiceBus.Notifications;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 
@@ -20,25 +21,28 @@ namespace Zbang.Zbox.Infrastructure.Notifications
             //    "_UserId:1159872");
         }
 
-        public Task SendChatMessagePushAsync(string userName, string text, Guid conversationId, long userId)
+        public Task SendChatMessagePushAsync(string userName, string text, Guid conversationId, long conversationUser, long userToSendId)
         {
             var applePushMessage = new ApplePushMessage();
             applePushMessage.Aps.AlertProperties.Title = "Chat message";
             applePushMessage.Aps.AlertProperties.Body = $"{userName} send you a {text ?? "file"} ";
             applePushMessage.Add("action", PushAction.ChatMessage);
             applePushMessage.Add("conversationId", conversationId);
-            return SendNotificationAsync(new AppleNotification(applePushMessage.ToString()), $"_UserId:{userId}");
+            applePushMessage.Add("userId", conversationUser);
+            applePushMessage.Add("userName", userName);
+            return SendNotificationAsync(new AppleNotification(applePushMessage.ToString()), $"_UserId:{userToSendId}");
         }
 
-        public Task SendChatFilePushAsync(string userName, Guid conversationId, long userId)
-        {
-            var applePushMessage = new ApplePushMessage();
-            applePushMessage.Aps.AlertProperties.Title = "Chat message";
-            applePushMessage.Aps.AlertProperties.Body = $"{userName} send you a file";
-            applePushMessage.Add("action", PushAction.ChatFile);
-            applePushMessage.Add("conversationId", conversationId);
-            return SendNotificationAsync(new AppleNotification(applePushMessage.ToString()), $"_UserId:{userId}");
-        }
+        //public Task SendChatFilePushAsync(string userName, Guid conversationId,long conversationUser, long userToSendId)
+        //{
+        //    var applePushMessage = new ApplePushMessage();
+        //    applePushMessage.Aps.AlertProperties.Title = "Chat message";
+        //    applePushMessage.Aps.AlertProperties.Body = $"{userName} send you a file";
+        //    applePushMessage.Add("action", PushAction.ChatFile);
+        //    applePushMessage.Add("conversationId", conversationId);
+        //    applePushMessage.Add("user", conversationUser);
+        //    return SendNotificationAsync(new AppleNotification(applePushMessage.ToString()), $"_UserId:{userToSendId}");
+        //}
 
         public Task SendAddReplyPushAsync(string userName, string text, long boxId, Guid commentId, long userId)
         {
@@ -51,7 +55,7 @@ namespace Zbang.Zbox.Infrastructure.Notifications
             return SendNotificationAsync(new AppleNotification(applePushMessage.ToString()), $"_UserId:{userId}");
         }
 
-        public Task SendItemPushAsync(string userName, long boxId, long itemId, string tag)
+        public Task SendItemPushAsync(string userName, long boxId, long itemId, string tag, ItemType type)
         {
             var applePushMessage = new ApplePushMessage();
             applePushMessage.Aps.AlertProperties.Title = "File";
@@ -59,6 +63,7 @@ namespace Zbang.Zbox.Infrastructure.Notifications
             applePushMessage.Add("action", PushAction.AddItem);
             applePushMessage.Add("boxId", boxId);
             applePushMessage.Add("itemId", itemId);
+            applePushMessage.Add("type", type);
 
             return SendNotificationAsync(new AppleNotification(applePushMessage.ToString()), tag);
         }
@@ -71,7 +76,7 @@ namespace Zbang.Zbox.Infrastructure.Notifications
 
             applePushMessage.Add("action", PushAction.PostComment);
             applePushMessage.Add("boxId", boxId);
-            applePushMessage.Add("feedId", feedId);
+            applePushMessage.Add("commentId", feedId);
             return SendNotificationAsync(new AppleNotification(applePushMessage.ToString()), tag);
         }
 

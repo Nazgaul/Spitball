@@ -4,7 +4,7 @@ using System.Web.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rhino.Mocks;
 using Zbang.Cloudents.Jared.Controllers;
-using Zbang.Cloudents.Jared.DataObjects;
+using Zbang.Cloudents.Jared.Models;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Storage;

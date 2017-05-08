@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Zbang.Cloudents.Jared.DataObjects
+namespace Zbang.Cloudents.Jared.Models
 {
     public class FollowRequest
     {

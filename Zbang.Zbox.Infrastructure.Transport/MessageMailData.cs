@@ -13,7 +13,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
 
         public MessageMailData(string message, string emailAddress, string senderUserName,
             string senderImage,string senderEmail,
-            string culture, long userId, Guid conversationId)
+            string culture, long userId, Guid conversationId, long senderUserId)
             : base(emailAddress, culture)
         {
             SenderUserName = senderUserName;
@@ -22,6 +22,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
             SenderUserEmail = senderEmail;
             UserId = userId;
             ConversationId = conversationId;
+            SenderUserId = senderUserId;
         }
         [ProtoMember(1)]
         public string Message { get; private set; }
@@ -31,6 +32,9 @@ namespace Zbang.Zbox.Infrastructure.Transport
         public string SenderUserImage { get; private set; }
         [ProtoMember(4)]
         public string SenderUserEmail { get; private set; }
+
+        [ProtoMember(7)]
+        public long? SenderUserId { get; private set; }
 
         [ProtoMember(5)]
         public long UserId { get; private set; }
