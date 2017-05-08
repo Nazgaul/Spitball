@@ -49,20 +49,20 @@ namespace Zbang.Cloudents.Jared.Controllers.Tests
                 this.claim = claim;
             }
 
-            private IIdentity _identityImplementation;
+            //private IIdentity _identityImplementation;
             private Claim claim;
 
-            public string Name
-            {
-                get { return _identityImplementation.Name; }
-            }
+            //public override string Name
+            //{
+            //    get { return _identityImplementation.Name; }
+            //}
 
-            public string AuthenticationType
-            {
-                get { return _identityImplementation.AuthenticationType; }
-            }
+            //public override string AuthenticationType
+            //{
+            //    get { return _identityImplementation.AuthenticationType; }
+            //}
 
-            public bool IsAuthenticated
+            public new bool IsAuthenticated
             {
                 get;
                 private set;
@@ -79,17 +79,17 @@ namespace Zbang.Cloudents.Jared.Controllers.Tests
                 Claims=new List<Claim>() { new Claim("userId","1")};
             }
 
-            public  IEnumerable<Claim> Claims { get; private set; }
-            private IPrincipal _principalImplementation;
-            public  string Name { get; }
-            public  string AuthenticationType { get; }
+            public new  IEnumerable<Claim> Claims { get; private set; }
+            //private IPrincipal _principalImplementation;
+            //public  string Name { get; }
+            //public  string AuthenticationType { get; }
 
-            public bool IsInRole(string role)
+            public new bool IsInRole(string role)
             {
                 return true;
             }
 
-            public IIdentity Identity { get; set; }
+            public new IIdentity Identity { get; set; }
         }
 
         [TestMethod]
@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Jared.Controllers.Tests
         //[TestMethod]
         //public async Task getCategoriesTextTestHaveAuth()
         //{
-          
+
         //    int numOfDiff = 0;
         //    CancellationToken token = new CancellationToken();
         //    controller.User = new User(true);

@@ -15,6 +15,8 @@ using System.Threading;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
+
+
     [MobileAppController, Authorize]
     public class AccountController : ApiController
     {
