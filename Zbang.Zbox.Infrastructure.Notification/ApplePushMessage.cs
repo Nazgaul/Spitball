@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace Zbang.Zbox.Infrastructure.Notifications
@@ -11,18 +8,13 @@ namespace Zbang.Zbox.Infrastructure.Notifications
     [Serializable]
     class ApplePushMessage : Dictionary<string, object>, IPushMessage
     {
-        private const string ApsKey = "aps";
+        //private const string ApsKey = "aps";
         private static readonly JsonSerializerSettings SerializerSettings;
         /// <summary>
         /// Gets the <see cref="T:Microsoft.WindowsAzure.Mobile.Service.ApsProperties" /> for this <see cref="T:Microsoft.WindowsAzure.Mobile.Service.ApplePushMessage" />.
         /// </summary>
-        public ApsProperties Aps
-        {
-            get
-            {
-                return this.GetValueOrDefault<ApsProperties>("aps");
-            }
-        }
+        public ApsProperties Aps => this.GetValueOrDefault<ApsProperties>("aps");
+
         /// <summary>
         /// Sets or gets the lifetime of the notification. At the end of the lifetime, the notification is no 
         /// longer valid and can be discarded. If this value is non-null, APNs stores the notification and tries 
@@ -68,17 +60,17 @@ namespace Zbang.Zbox.Infrastructure.Notifications
         {
             if (alert == null)
             {
-                throw new ArgumentNullException("alert");
+                throw new ArgumentNullException(nameof(alert));
             }
             if (expiration.HasValue)
             {
                 if (expiration.Value <= TimeSpan.Zero)
                 {
-                    throw new ArgumentOutOfRangeException("expiration");
+                    throw new ArgumentOutOfRangeException(nameof(expiration));
                 }
-                this.Expiration = new DateTimeOffset?(DateTimeOffset.UtcNow + expiration.Value);
+                Expiration = DateTimeOffset.UtcNow + expiration.Value;
             }
-            this.Aps.Alert = alert;
+            Aps.Alert = alert;
         }
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Microsoft.WindowsAzure.Mobile.Service.ApplePushMessage" /> class with the specified serialization information and streaming context.
@@ -95,18 +87,18 @@ namespace Zbang.Zbox.Infrastructure.Notifications
         /// <returns>A JSON encoded string.</returns>
         public override string ToString()
         {
-            if (this.JsonPayload != null)
+            if (JsonPayload != null)
             {
-                return this.JsonPayload;
+                return JsonPayload;
             }
-            return JsonConvert.SerializeObject(this, ApplePushMessage.SerializerSettings);
+            return JsonConvert.SerializeObject(this, SerializerSettings);
         }
         static ApplePushMessage()
         {
             // Note: this type is marked as 'beforefieldinit'.
             JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings();
             //jsonSerializerSettings.set_Formatting(1);
-            ApplePushMessage.SerializerSettings = jsonSerializerSettings;
+            SerializerSettings = jsonSerializerSettings;
         }
     }
 }

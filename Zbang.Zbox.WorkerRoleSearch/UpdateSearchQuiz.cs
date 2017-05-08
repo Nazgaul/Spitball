@@ -112,7 +112,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 var result = (await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token).ConfigureAwait(false)).ToList();
                 elem.Tags.AddRange(result.Select(s => new ItemSearchTag { Name = s }));
                 var z = new AssignTagsToQuizCommand(elem.Id, result, TagType.Watson);
-                m_WriteService.AddItemTag(z);
+                await m_WriteService.AddItemTagAsync(z).ConfigureAwait(false);
             }
 
             await m_ContentSearchProvider.UpdateDataAsync(elem, null, token).ConfigureAwait(false);

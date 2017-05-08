@@ -32,7 +32,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             .RegisterType(typeof(ICommandHandler<UpdateUserProfileCommand>), typeof(UpdateUserProfileCommandHandler))
              .RegisterType(typeof(ICommandHandler<UpdateUserProfileImageCommand>), typeof(UpdateUserProfileImageCommandHandler))
             .RegisterType<ICommandHandlerAsync<CreateBoxCommand, CreateBoxCommandResult>, CreateBoxCommandHandler>("CreateBoxCommand");
-            ioc.RegisterType<ICommandHandlerAsync<CreateBoxCommand, CreateBoxCommandResult>, CreateAcademicBoxCommandHandler>("CreateAcademicBoxCommand");
+            //ioc.RegisterType<ICommandHandlerAsync<CreateBoxCommand, CreateBoxCommandResult>, CreateAcademicBoxCommandHandler>("CreateAcademicBoxCommand");
             ioc.RegisterType(typeof(ICommandHandler<ChangeBoxInfoCommand>), typeof(ChangeBoxInfoCommandHandler))
             .RegisterType(typeof(ICommandHandler<ChangeNotificationSettingsCommand>), typeof(ChangeNotificationSettingsCommandHandler))
             .RegisterType(typeof(ICommandHandler<RegisterMobileDeviceCommand>), typeof(UpdateUserMobileSettings));
@@ -41,10 +41,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandlerAsync<DeleteBoxCommand>), typeof(DeleteBoxCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<ChangeBoxLibraryCommand>), typeof(ChangeBoxLibraryCommandHandler));
 
-            ioc
-                .RegisterType
-                <ICommandHandlerAsync<AddItemToBoxCommand, AddItemToBoxCommandResult>, AddFileToBoxCommandHandler>(
-                    AddItemToBoxCommand.FileResolver);
+            //ioc
+            //    .RegisterType
+            //    <ICommandHandlerAsync<AddItemToBoxCommand, AddItemToBoxCommandResult>, AddFileToBoxCommandHandler>(
+            //        AddItemToBoxCommand.FileResolver);
             ioc
                 .RegisterType
                 <ICommandHandlerAsync<AddItemToBoxCommand, AddItemToBoxCommandResult>, AddLinkToBoxCommandHandler>(

@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Zbang.Zbox.Infrastructure.Notifications
 {
     [Serializable]
     class ApsProperties : Dictionary<string, object>
     {
-        private const string AlertKey = "alert";
-        private const string BadgeKey = "badge";
-        private const string SoundKey = "sound";
-        private const string ContentAvailableKey = "content-available";
+        //private const string AlertKey = "alert";
+        //private const string BadgeKey = "badge";
+        //private const string SoundKey = "sound";
+        //private const string ContentAvailableKey = "content-available";
         /// <summary>
         /// The alert message as a single string. For more complex alert message options, please use <see cref="M:AlertProperties" />.
         /// </summary>

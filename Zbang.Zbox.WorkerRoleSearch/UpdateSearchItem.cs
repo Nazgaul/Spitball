@@ -163,7 +163,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         var resultList = result.ToList();
                         elem.Tags.AddRange(resultList.Select(s => new ItemSearchTag { Name = s }));
                         var z = new AssignTagsToDocumentCommand(elem.Id, resultList, TagType.Watson);
-                        m_WriteService.AddItemTag(z);
+                        await m_WriteService.AddItemTagAsync(z).ConfigureAwait(false);
                     }
                 }
                 //var command = new UpdateDocumentCourseTagCommand(elem.Id, elem.BoxName, elem.BoxCode, elem.BoxProfessor);

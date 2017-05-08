@@ -17,6 +17,6 @@ namespace Zbang.Zbox.Infrastructure.Transport
         [ProtoMember(1)]
         public string DepName { get; private set; }
 
-        public override string MailResover => AccessApprovedResolver;
+        public override string MailResolver => AccessApprovedResolver;
     }
 }

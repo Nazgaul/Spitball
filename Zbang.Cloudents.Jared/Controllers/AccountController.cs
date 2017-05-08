@@ -38,8 +38,8 @@ namespace Zbang.Cloudents.Jared.Controllers
             {
                 university = new
                 {
-                    result.Item1.UniversityId,
-                    result.Item1.UniversityName
+                   Id =  result.Item1.UniversityId,
+                   Name = result.Item1.UniversityName
                 },
                 courses = result.Item2.Select(s => new
                 {

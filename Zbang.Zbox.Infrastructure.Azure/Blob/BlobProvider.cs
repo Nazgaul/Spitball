@@ -90,10 +90,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return container.GetBlockBlobReference(blobName);
         }
 
-        public async Task<IDictionary<string, string>> FetchBlobmetaDataAsync(Uri blobUri, CancellationToken token)
+        public async Task<IDictionary<string, string>> FetchBlobMetaDataAsync(Uri blobUri, CancellationToken token)
         {
             var blob = GetBlob(blobUri);// GetFile(blobName);
-            await blob.FetchAttributesAsync(token);
+            await blob.FetchAttributesAsync(token).ConfigureAwait(false);
             return blob.Metadata;
 
         }
@@ -139,9 +139,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         internal async Task UploadFileAsync(string blobName, string filePath, string mimeType)
         {
             var blob = GetFile(blobName);
-            await blob.UploadFromFileAsync(filePath);
+            await blob.UploadFromFileAsync(filePath).ConfigureAwait(false);
             blob.Properties.ContentType = mimeType;
-            await blob.SetPropertiesAsync();
+            await blob.SetPropertiesAsync().ConfigureAwait(false);
         }
 
 
@@ -163,7 +163,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             if (blobName == null) throw new ArgumentNullException(nameof(blobName));
             if (fileContent == null) throw new ArgumentNullException(nameof(fileContent));
             var blob = ProfilePictureFile(blobName);
-            if (await blob.ExistsAsync())
+            if (await blob.ExistsAsync().ConfigureAwait(false))
             {
                 if (blob.Properties.Length == fileContent.Length)
                 {
@@ -175,7 +175,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             fileContent.Seek(0, SeekOrigin.Begin);
             blob.Properties.ContentType = "image/jpeg";
             blob.Properties.CacheControl = "public, max-age=" + TimeConst.Year;
-            await blob.UploadFromStreamAsync(fileContent);
+            await blob.UploadFromStreamAsync(fileContent).ConfigureAwait(false);
             //}
             return blob.Uri;
         }
@@ -201,7 +201,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             blob.Properties.ContentType = mimeType;
             blob.Properties.CacheControl = "public, max-age=" + TimeConst.Year;
 
-            await blob.UploadFromStreamAsync(content);
+            await blob.UploadFromStreamAsync(content).ConfigureAwait(false);
 
             return TransferToCdnEndpoint(blob.Uri);
 
@@ -236,7 +236,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         {
             var blob = GetBlob(blobUrl);
             var ms = new MemoryStream();
-            await blob.DownloadToStreamAsync(ms, cancelToken);
+            await blob.DownloadToStreamAsync(ms, cancelToken).ConfigureAwait(false);
             ms.Seek(0, SeekOrigin.Begin);
             return ms;
 
@@ -259,7 +259,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             try
             {
                 await blob.DownloadToFileAsync(fileSystemLocation,
-                    FileMode.Create, cancelToken);
+                    FileMode.Create, cancelToken).ConfigureAwait(false);
                 return fileSystemLocation;
             }
             catch (IOException)
@@ -267,7 +267,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
                 m_LocalStorageProvider.Value.DeleteOldFiles();
             }
             await blob.DownloadToFileAsync(fileSystemLocation,
-                    FileMode.Create, cancelToken);
+                FileMode.Create, cancelToken).ConfigureAwait(false);
             return fileSystemLocation;
 
         }
@@ -282,7 +282,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             try
             {
                 var blob = m_BlobClient.GetContainerReference(AzureFaqContainer).GetBlockBlobReference("help.xml");
-                return await blob.OpenReadAsync(); // we need async in here 
+                return await blob.OpenReadAsync().ConfigureAwait(false); // we need async in here 
             }
             catch (StorageException)
             {
@@ -294,7 +294,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             try
             {
                 var blob = m_BlobClient.GetContainerReference(AzureFaqContainer).GetBlockBlobReference("jobs2.xml");
-                return await blob.OpenReadAsync(); // we need async in here
+                return await blob.OpenReadAsync().ConfigureAwait(false); // we need async in here
             }
             catch (StorageException)
             {

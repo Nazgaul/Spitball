@@ -232,6 +232,15 @@ namespace Testing
             .WithParameter("hubName", ConfigFetcher.Fetch("ServiceBusHubName"))
             .InstancePerLifetimeScope();
             unity.ContainerBuilder.RegisterSource(new ContravariantRegistrationSource());
+
+            unity.ContainerBuilder.RegisterType<JaredSendPush>()
+                .As<IJaredPushNotification>()
+                .WithParameter("connectionString", "Endpoint=sb://spitball.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=1+AAf2FSzauWHpYhHaoweYT9576paNgmicNSv6jAvKk=")
+                .WithParameter("hubName", "jared-spitball")
+                .InstancePerLifetimeScope();
+            unity.ContainerBuilder.RegisterSource(new ContravariantRegistrationSource());
+
+
             unity.Build();
 
 
@@ -263,12 +272,15 @@ namespace Testing
             //log4net.Config.XmlConfigurator.Configure();
 
             var iocFactory = IocFactory.IocWrapper;
-            var m_BlobProvider = iocFactory.Resolve<IBlobProvider2<FilesContainerName>>();
-            var m_FileProcessorFactory = iocFactory.Resolve<IFileProcessorFactory>();
-            var languageDetection = iocFactory.Resolve<IDetectLanguage>();
-            var writeService = iocFactory.Resolve<IZboxWriteService>();
+            //var m_BlobProvider = iocFactory.Resolve<IBlobProvider2<FilesContainerName>>();
+            //var m_FileProcessorFactory = iocFactory.Resolve<IFileProcessorFactory>();
+            //var languageDetection = iocFactory.Resolve<IDetectLanguage>();
+            var writeService = iocFactory.Resolve<IZboxWorkerRoleService>();
+            var pushService = iocFactory.Resolve<IJaredPushNotification>();
+            pushService.SendAddPostNotificationAsync("ram", "text", 1, Guid.NewGuid(), "text").Wait();
             //var search = iocFactory.Resolve<IContentReadSearchProvider>();
-            writeService.CreateUserJared(new CreateJaredUserCommand(Guid.NewGuid()));
+            var command = new AddNewUpdatesCommand(21433, 734687,null,null, 614670L,null,null,null,null);
+            writeService.AddNewUpdateAsync(command).Wait();
 
             //var updateDate = new UpdateData(1028091, 8417, itemId: 606505);
             //var y = iocFactory.Resolve<IDomainProcess>(updateDate.ProcessResolver);
@@ -303,11 +315,11 @@ namespace Testing
             //var push = iocFactory.Resolve<ISendPush>();
             //var t = push.GetRegisteredUsersAsync();
             //t.Wait();
-           
+
             //var m_QueueRepository = iocFactory.Resolve<IQueueProvider>();
             //var index = 0;
             //IEnumerable<long> users;
-           
+
             //Console.WriteLine("Finish");
             //Console.ReadLine();
 

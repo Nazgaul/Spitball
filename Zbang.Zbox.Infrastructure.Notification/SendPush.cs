@@ -35,18 +35,17 @@ namespace Zbang.Zbox.Infrastructure.Notifications
             }
             if (m_Hub == null)
             {
-                return Task.FromResult(false);
+                return Task.CompletedTask;
+                //return Task.FromResult(false);
             }
 
             if (ConfigFetcher.IsEmulated)
             {
-                return Task.FromResult(false);
+                return Task.CompletedTask;
+                //return Task.FromResult(false);
             }
             return m_Hub.SendNotificationAsync(message, tags.Select(s => s.ToString(CultureInfo.InvariantCulture)));
         }
-
-
-
 
         private Task SendNotificationAsync(GooglePushMessage googleMessage, ApplePushMessage appleMessage, ICollection<long> tags)
         {

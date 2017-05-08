@@ -5,7 +5,7 @@ using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public abstract class AssignTagsToItemCommand : ICommand
+    public abstract class AssignTagsToItemCommand : ICommandAsync
     {
         protected AssignTagsToItemCommand(object itemId, IEnumerable<string> tags, TagType type)
         {

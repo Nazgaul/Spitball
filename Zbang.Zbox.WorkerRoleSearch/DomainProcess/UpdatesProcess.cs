@@ -25,16 +25,16 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             try
             {
                await m_ZboxWriteService.AddNewUpdateAsync(new AddNewUpdatesCommand(
-                    parameters.BoxId,
-                    parameters.UserWhoMadeActionId,
-                    parameters.QuestionId,
-                    parameters.AnswerId,
-                    parameters.ItemId,
-                    parameters.QuizId,
-                    parameters.ItemDiscussionId,
-                    parameters.ItemDiscussionReplyId,
-                    parameters.QuizDiscussionId)
-                    );
+                   parameters.BoxId,
+                   parameters.UserWhoMadeActionId,
+                   parameters.QuestionId,
+                   parameters.AnswerId,
+                   parameters.ItemId,
+                   parameters.QuizId,
+                   parameters.ItemDiscussionId,
+                   parameters.ItemDiscussionReplyId,
+                   parameters.QuizDiscussionId)
+               ).ConfigureAwait(false);
             }
             catch (Exception ex)
             {

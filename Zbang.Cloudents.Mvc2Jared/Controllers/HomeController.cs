@@ -71,13 +71,16 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
             return Json(retVal, JsonRequestBehavior.AllowGet);
         }
         [HttpPost,ActionName("Save")]
-        public  JsonResult SaveAsync(SaveItemTags model)
+        public async Task<JsonResult> SaveAsync(SaveItemTags model)
         {
             bool rename = (!string.IsNullOrEmpty(model.ItemName));
             bool isAddTags = ( model.NewTags != null&& model.NewTags.Any());
             bool isRemoveTags = ( model.RemoveTags != null&&model.RemoveTags.Any());
             if (rename) Rename(model.ItemId, model.ItemName);
-            if (isAddTags)AddTagsToDoc(model.ItemId, model.NewTags);
+            if (isAddTags)
+            {
+               await AddTagsToDocAsync(model.ItemId, model.NewTags).ConfigureAwait(false);
+            }
             if (isRemoveTags) {
                 var command = new RemoveTagsFromDocumentCommand(model.ItemId, model.RemoveTags);
                 m_WriteService.RemoveItemTag(command);
@@ -90,10 +93,10 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
             m_WriteService.SetReviewed(save);
             return Json("");
         }
-        private void AddTagsToDoc(long itemId,IEnumerable<string> newTags)
+        private Task AddTagsToDocAsync(long itemId,IEnumerable<string> newTags)
         {
             var z = new AssignTagsToDocumentCommand(itemId, newTags, TagType.Backoffice);
-            m_WriteService.AddItemTag(z);
+            return m_WriteService.AddItemTagAsync(z);
         }
         //private async Task<JsonResult> AddItemToTabAsync(long itemId, Guid? tabId,long boxId)
         //{

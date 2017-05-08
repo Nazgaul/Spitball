@@ -22,10 +22,10 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 throw new NullReferenceException("parameters");
             }
 
-
+            
            await m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
-                new WelcomeMailParams(parameters.UserName,
-                    new CultureInfo(parameters.Culture)), token);
+               new WelcomeMailParams(parameters.UserName,
+                   new CultureInfo(parameters.Culture)), token).ConfigureAwait(false);
 
             return true;
 

@@ -24,7 +24,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 Infrastructure.Enums.Sex.NotKnown)
             {
                 UserType = Infrastructure.Enums.UserType.Jared,
-                IsRegisterUser = true
+                IsRegisterUser = true,
+                EmailSendSettings = Infrastructure.Enums.EmailSend.Invalid
             };
             user.Quota.AllocateStorage();
             m_UserRepository.Save(user, true);

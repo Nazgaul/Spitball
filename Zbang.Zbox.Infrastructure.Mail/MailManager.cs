@@ -57,7 +57,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 sendGridMail.EnableClickTracking();
                 sendGridMail.EnableOpenTracking();
 
-                await SendAsync(sendGridMail, new Credentials());
+                await SendAsync(sendGridMail, new Credentials()).ConfigureAwait(false);
             }
             catch (FormatException ex)
             {
@@ -65,7 +65,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
             }
             catch (Exception ex)
             {
-                
                 TraceLog.WriteError("recipient: " + recipient + " on trying to send mail " + "resolve:" + parameters.MailResover + "type: " + parameters.GetType().Name, ex);
             }
 

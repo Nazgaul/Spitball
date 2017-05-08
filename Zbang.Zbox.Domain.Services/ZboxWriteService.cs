@@ -802,20 +802,13 @@ namespace Zbang.Zbox.Domain.Services
         #region Jared
 
 
-        //public void UpdateItemCourseTag<T>(T command) where T : UpdateItemCourseTagCommand
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send(command);
-        //        UnitOfWork.Current.TransactionalFlush();
-        //    }
-        //}
+       
 
-        public void AddItemTag<T>(T command) where T : AssignTagsToItemCommand
+        public async Task AddItemTagAsync<T>(T command) where T : AssignTagsToItemCommand
         {
             using (UnitOfWork.Start())
             {
-                m_CommandBus.Send(command);
+                await m_CommandBus.SendAsync(command).ConfigureAwait(true);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }

@@ -141,7 +141,7 @@ namespace Zbang.Zbox.Domain.Common
 
         //void AddCourseTag(CreateCourseTagCommand command);
         //void UpdateItemCourseTag<T>(T command) where T : UpdateItemCourseTagCommand;
-        void AddItemTag<T>(T command) where T : AssignTagsToItemCommand;
+        Task AddItemTagAsync<T>(T command) where T : AssignTagsToItemCommand;
         void RemoveItemTag<T>(T command) where T : RemoveTagsFromItemCommand;
         void SetReviewed<T>(T command) where T : SetReviewedCommand;
         void ChangeItemDocType(ChangeItemDocTypeCommand command);

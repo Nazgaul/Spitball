@@ -28,10 +28,6 @@ namespace Zbang.Cloudents.Connect
         {
             try
             {
-                //if (!Context.User.Identity.IsAuthenticated) // We don't use authorize because there is a problem with first time registration connection via android device
-                //{
-                //    return;
-                //}
                 if (userId == Context.User.GetUserId())
                 {
                     return;

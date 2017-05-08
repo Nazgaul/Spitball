@@ -26,6 +26,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<ItemCommentReply> m_ItemCommentReplyRepository;
         private readonly IRepository<QuizDiscussion> m_QuizDiscussionRepository;
         private readonly ISendPush m_SendPush;
+        private readonly IJaredPushNotification m_JaredPush;
         private readonly IQueueProvider m_QueueProvider;
 
         //private readonly IMailComponent m_MailComponent;
@@ -38,7 +39,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IRepository<Updates> updatesRepository,
             IRepository<Domain.Quiz> quizRepository, ISendPush sendPush,
             IUserRepository userRepository, IRepository<ItemComment> itemCommentRepository,
-            IRepository<ItemCommentReply> itemCommentReplyRepository, IRepository<QuizDiscussion> quizDiscussionRepository, IQueueProvider queueProvider)
+            IRepository<ItemCommentReply> itemCommentReplyRepository, IRepository<QuizDiscussion> quizDiscussionRepository, IQueueProvider queueProvider, IJaredPushNotification jaredPush)
         {
             m_BoxRepository = boxRepository;
             m_ItemRepository = itemRepository;
@@ -52,17 +53,20 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ItemCommentReplyRepository = itemCommentReplyRepository;
             m_QuizDiscussionRepository = quizDiscussionRepository;
             m_QueueProvider = queueProvider;
+            m_JaredPush = jaredPush;
         }
         public Task HandleAsync(AddNewUpdatesCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
+
+            var usersToUpdate = m_UserRepository.GetUsersToUpdate(message.BoxId, message.UserId).ToList();
             var box = m_BoxRepository.Load(message.BoxId);
             //there was an issue with commit with detach elements
-            var usersToUpdate = box.UserBoxRelationship.Where(
-                w => w.User.Id != message.UserId
+            //var usersToUpdate = box.UserBoxRelationship.Where(
+            //    w => w.User.Id != message.UserId
             //&& w.User.UserType != Infrastructure.Enums.UserType.Jared
-            && w.User.IsRegisterUser
-            ).Select(s => s.UserId).ToList();
+            //&& w.User.IsRegisterUser
+            //).Select(s => s.UserId).ToList();
 
             var tQuiz = UpdateQuizAsync(message.QuizId, usersToUpdate, box);
             var tItem = UpdateItemAsync(message.ItemId, usersToUpdate, box);
@@ -119,18 +123,27 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             DoUpdateLoop(userIds, u => new Updates(u, box, reply));
 
             var t1 = Task.CompletedTask;
+            var t3 = Task.CompletedTask;
             var commentUser = reply.Question.User;
-            if (commentUser.Id != reply.User.Id && commentUser.EmailSendSettings == Infrastructure.Enums.EmailSend.CanSend)
+            if (commentUser.Id != reply.User.Id)
             {
-                t1 = m_QueueProvider.InsertMessageToMailNewAsync(new ReplyToCommentData(commentUser.Email,
-                     commentUser.Culture,
-                     commentUser.Name,
-                     reply.User.Name,
-                     reply.Box.Name,
-                     reply.Box.Url));
+                if (commentUser.EmailSendSettings == Infrastructure.Enums.EmailSend.CanSend)
+                {
+                    t1 = m_QueueProvider.InsertMessageToMailNewAsync(new ReplyToCommentData(commentUser.Email,
+                        commentUser.Culture,
+                        commentUser.Name,
+                        reply.User.Name,
+                        reply.Box.Name,
+                        reply.Box.Url));
+                }
+                if (commentUser.UserType == Infrastructure.Enums.UserType.Jared)
+                {
+                    t3 = m_JaredPush.SendAddReplyPushAsync(reply.User.Name, reply.Text, reply.Box.Id, reply.Question.Id,
+                        commentUser.Id);
+                }
             }
             var t2 = m_SendPush.SendAddReplyNotificationAsync(reply.User.Name, reply.Text, box.Name, box.Id, reply.Question.Id, userIds);
-            return Task.WhenAll(t1, t2);
+            return Task.WhenAll(t1, t2,t3);
         }
 
         private Task UpdateCommentAsync(Guid? commentId, IList<long> userIds, Box box)
@@ -153,7 +166,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 {
                     return Task.CompletedTask;
                 }
-
+                m_JaredPush.SendAddPostNotificationAsync(comment.User.Name, textToPush, box.Id, comment.Id, $"_BoxId:{box.Id}");
                 return m_SendPush.SendAddPostNotificationAsync(comment.User.Name, textToPush, box.Name, box.Id, userIds);
             }
             catch (ArgumentNullException ex)

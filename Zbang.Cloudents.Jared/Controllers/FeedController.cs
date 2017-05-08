@@ -49,7 +49,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             if (model.Tags.Any())
             {
                 var z = new AssignTagsToFeedCommand(result.CommentId, model.Tags, TagType.User);
-                m_ZboxWriteService.AddItemTag(z);
+                await m_ZboxWriteService.AddItemTagAsync(z).ConfigureAwait(false);
             }
             return Request.CreateResponse(HttpStatusCode.OK);
         }

@@ -57,7 +57,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     }
                     
                 }
-                TraceLog.WriteInfo("Going to process" + updates.NextVersion);
+                TraceLog.WriteInfo("Feed search Going to process " + updates.NextVersion);
                 //var tasks = new List<Task>();
                 foreach (var feed in updates.Updates.Where(w => JaredUniversityIdPilot.Contains(w.UniversityId)))
                 {
@@ -103,7 +103,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 var result = (await m_WatsonExtractProvider.GetKeywordAsync(elem.Content, cancellationToken).ConfigureAwait(false)).ToList();
                 elem.Tags.AddRange(result.Select(s => new FeedSearchTag { Name = s }));
                 var z = new AssignTagsToFeedCommand(elem.Id, result, TagType.Watson);
-                m_WriteService.AddItemTag(z);
+                await m_WriteService.AddItemTagAsync(z).ConfigureAwait(false);
             }
             return m_SearchProvider.UpdateDataAsync(elem, null, cancellationToken);
         }

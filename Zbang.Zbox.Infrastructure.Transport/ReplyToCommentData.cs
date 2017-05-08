@@ -25,7 +25,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
         public string BoxOrItemName { get; private set; }
         [ProtoMember(4)]
         public string BoxOrItemUrl { get; private set; }
-        public override string MailResover => nameof(ReplyToCommentData);
+        public override string MailResolver => nameof(ReplyToCommentData);
 
         public override string ToString()
         {

@@ -17,6 +17,6 @@ namespace Zbang.Zbox.Infrastructure.Transport
         [ProtoMember(1)]
         public string Code { get; private set; }
 
-        public override string MailResover => ChangeEmailResolver;
+        public override string MailResolver => ChangeEmailResolver;
     }
 }

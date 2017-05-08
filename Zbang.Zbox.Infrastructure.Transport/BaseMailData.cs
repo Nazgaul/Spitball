@@ -41,7 +41,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
         [ProtoMember(2)]
         public string EmailAddress { get; private set; }
 
-        public abstract string MailResover { get; }
+        public abstract string MailResolver { get; }
 
         public override string ToString()
         {

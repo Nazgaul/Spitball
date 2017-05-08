@@ -27,7 +27,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             {
                 await m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
                     new ReplyToCommentMailParams(new CultureInfo(parameters.Culture), parameters.UserName,
-                        parameters.UserWhoMadeAction, parameters.BoxOrItemName, parameters.BoxOrItemUrl), token);
+                        parameters.UserWhoMadeAction, parameters.BoxOrItemName, parameters.BoxOrItemUrl), token).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
