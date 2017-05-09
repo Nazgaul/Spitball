@@ -51,7 +51,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 }
                 catch (ApplicationException ex)
                 {
-                    TraceLog.WriteError("On update quiz views itemid:" + itemId.ItemId, ex);
+                    TraceLog.WriteError("On update quiz views itemId:" + itemId.ItemId, ex);
                 }
             }
             if (itemId.Action == Infrastructure.Enums.StatisticsAction.Quiz)
@@ -69,7 +69,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 }
                 catch (ApplicationException ex)
                 {
-                    TraceLog.WriteError("On update quiz views itemid:" + itemId.ItemId, ex);
+                    TraceLog.WriteError("On update quiz views itemId:" + itemId.ItemId, ex);
 
                 }
                 return t;

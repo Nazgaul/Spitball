@@ -25,6 +25,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<ItemComment> m_ItemCommentRepository;
         private readonly IRepository<ItemCommentReply> m_ItemCommentReplyRepository;
         private readonly IRepository<QuizDiscussion> m_QuizDiscussionRepository;
+        private readonly IRepository<FlashcardMeta> m_FlashcardRepository;
         private readonly ISendPush m_SendPush;
         private readonly IJaredPushNotification m_JaredPush;
         private readonly IQueueProvider m_QueueProvider;
@@ -43,7 +44,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IRepository<ItemCommentReply> itemCommentReplyRepository,
             IRepository<QuizDiscussion> quizDiscussionRepository,
             IQueueProvider queueProvider,
-            IJaredPushNotification jaredPush)
+            IJaredPushNotification jaredPush, IRepository<FlashcardMeta> flashcardRepository)
         {
             m_BoxRepository = boxRepository;
             m_ItemRepository = itemRepository;
@@ -58,6 +59,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_QuizDiscussionRepository = quizDiscussionRepository;
             m_QueueProvider = queueProvider;
             m_JaredPush = jaredPush;
+            m_FlashcardRepository = flashcardRepository;
         }
         public Task HandleAsync(AddNewUpdatesCommand message)
         {
@@ -65,12 +67,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             var usersToUpdate = m_UserRepository.GetUsersToUpdate(message.BoxId, message.UserId).ToList();
             var box = m_BoxRepository.Load(message.BoxId);
-            //there was an issue with commit with detach elements
-            //var usersToUpdate = box.UserBoxRelationship.Where(
-            //    w => w.User.Id != message.UserId
-            //&& w.User.UserType != Infrastructure.Enums.UserType.Jared
-            //&& w.User.IsRegisterUser
-            //).Select(s => s.UserId).ToList();
+           
 
             var tQuiz = UpdateQuizAsync(message.QuizId, usersToUpdate, box);
             var tItem = UpdateItemAsync(message.ItemId, usersToUpdate, box);
@@ -79,9 +76,22 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var tItemDiscussion = UpdateItemDiscussionAsync(message.ItemDiscussionId, usersToUpdate, box);
             var tItemDiscussionReply = UpdateItemReplyDiscussionAsync(message.ItemDiscussionReplyId, usersToUpdate, box);
             var tQuizDiscussion = UpdateQuizDiscussionAsync(message.QuizDiscussionId, usersToUpdate, box);
+            var tFlashcard = UpdateFlashcardAsync(message.FlashcardId,  box);
 
 
-            return Task.WhenAll(tQuiz, tItem, tComment, tReply, tItemDiscussion, tItemDiscussionReply, tQuizDiscussion);
+            return Task.WhenAll(tQuiz, tItem, tComment, tReply, tItemDiscussion, tItemDiscussionReply, tQuizDiscussion, tFlashcard);
+        }
+
+        private Task UpdateFlashcardAsync(long? flashcardId,  Box box)
+        {
+            if (!flashcardId.HasValue)
+            {
+                return Task.CompletedTask;
+            }
+            var flashcard = m_FlashcardRepository.Load(flashcardId.Value);
+            //DoUpdateLoop(userIds, u => new Updates(u, box, flashcard));
+            return m_JaredPush.SendItemPushAsync(flashcard.User.Name, box.Id, flashcard.Id, BuildBoxTag(box.Id),
+                Infrastructure.Enums.ItemType.Flashcard);
         }
 
         private void DoUpdateLoop(IEnumerable<long> userIds, Func<User, Updates> update)
@@ -101,7 +111,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var quiz = m_QuizRepository.Load(quizId.Value);
             DoUpdateLoop(userIds, u => new Updates(u, box, quiz));
-            return m_JaredPush.SendItemPushAsync(quiz.User.Name, quiz.Box.Id, quiz.Id, BuildBoxTag(quiz.Box.Id),
+            return m_JaredPush.SendItemPushAsync(quiz.User.Name, box.Id, quiz.Id, BuildBoxTag(box.Id),
                 Infrastructure.Enums.ItemType.Quiz);
            
         }

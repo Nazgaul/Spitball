@@ -12,18 +12,19 @@ namespace Zbang.Zbox.Infrastructure.Transport
            
         }
 
-        public UpdateData(long userid, long boxid,
+        public UpdateData(long userId, long boxId,
             long? itemDiscussionId = null,
             long? itemDiscussionReplyId = null,
             Guid? quizDiscussionId = null,
             long? itemId = null,
             Guid? questionId = null,
             Guid? answerId = null,
-            long? quizId = null
+            long? quizId = null,
+            long? flashcardId = null
             )
         {
-            UserWhoMadeActionId = userid;
-            BoxId = boxid;
+            UserWhoMadeActionId = userId;
+            BoxId = boxId;
             ItemDiscussionId = itemDiscussionId;
             ItemDiscussionReplyId = itemDiscussionReplyId;
             QuizDiscussionId = quizDiscussionId;
@@ -31,6 +32,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
             QuestionId = questionId;
             AnswerId = answerId;
             QuizId = quizId;
+            FlashcardId = flashcardId;
         }
         public override string ProcessResolver => UpdateResolver;
 
@@ -54,6 +56,9 @@ namespace Zbang.Zbox.Infrastructure.Transport
         [ProtoMember(9)]
         public Guid? QuizDiscussionId { get; private set; }
 
+        [ProtoMember(10)]
+        public long? FlashcardId { get; private set; }
+
         public override string ToString()
         {
             var sb = new StringBuilder();
@@ -66,6 +71,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
             sb.AppendLine($"ItemDiscussionId: {ItemDiscussionId}");
             sb.AppendLine($"ItemDiscussionReplyId: {ItemDiscussionReplyId}");
             sb.AppendLine($"QuizDiscussionId: {QuizDiscussionId}");
+            sb.AppendLine($"FlashcardId: {FlashcardId}");
             return sb.ToString();
         }
     }

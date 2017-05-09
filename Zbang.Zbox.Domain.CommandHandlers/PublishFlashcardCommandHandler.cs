@@ -82,9 +82,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             box.UpdateFlashcardCount();
             m_BoxRepository.Save(box);
             var t5 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
+            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(flashcard.User.Id, box.Id, flashcardId: flashcard.Id));
 
             var t1 = m_FlashcardRepository.UpdateItemAsync(message.Flashcard.id, message.Flashcard);
-            await Task.WhenAll(t1, t5).ConfigureAwait(true);
+            await Task.WhenAll(t1, t5, t2).ConfigureAwait(true);
         }
     }
 }

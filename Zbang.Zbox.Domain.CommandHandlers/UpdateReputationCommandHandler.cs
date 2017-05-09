@@ -20,8 +20,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
             var userId = message.UserId;
-            //var reputation = m_ReputationRepository.GetUserReputation(userId);
-            //m_UserRepository.UpdateUserReputation(reputation, userId);
 
             var user = m_UserRepository.Load(userId);
             var score = m_ReputationRepository.CalculateReputation(userId);

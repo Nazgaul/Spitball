@@ -33,7 +33,8 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
                    parameters.QuizId,
                    parameters.ItemDiscussionId,
                    parameters.ItemDiscussionReplyId,
-                   parameters.QuizDiscussionId)
+                   parameters.QuizDiscussionId,
+                   parameters.FlashcardId)
                ).ConfigureAwait(false);
             }
             catch (Exception ex)

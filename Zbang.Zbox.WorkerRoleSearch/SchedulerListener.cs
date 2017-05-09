@@ -13,6 +13,7 @@ using Zbang.Zbox.Infrastructure.Azure.Queue;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.WorkerRoleSearch.Mail;
+using TaskExtensions = Zbang.Zbox.Infrastructure.Extensions.TaskExtensions;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
@@ -38,11 +39,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     var queueName = new SchedulerQueueName();
                     await m_QueueProviderExtract.RunQueueAsync(queueName, async msg =>
                     {
-                        TraceLog.WriteInfo($"schduler lister message  {msg.AsString}");
+                        TraceLog.WriteInfo($"scheduler lister message  {msg.AsString}");
                         StorageQueueMessage message;
-                        using (var xmlstream = new MemoryStream(Encoding.Unicode.GetBytes(msg.AsString)))
+                        using (var xmlStream = new MemoryStream(Encoding.Unicode.GetBytes(msg.AsString)))
                         {
-                            message = (StorageQueueMessage)m_Dcs.Deserialize(xmlstream);
+                            message = (StorageQueueMessage)m_Dcs.Deserialize(xmlStream);
                         }
                         var messageContent = JObject.Parse(message.Message);
                         var properties = messageContent.Properties();
@@ -61,12 +62,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
                                     using (var memoryStream = new MemoryStream())
                                     {
                                        
-                                        await m_CriticalCode.WaitAsync(cancellationToken);
+                                        await m_CriticalCode.WaitAsync(cancellationToken).ConfigureAwait(false);
                                         try
                                         {
                                             m_Dcs.Serialize(memoryStream, message);
                                             msg.SetMessageContent(memoryStream.ToArray());
-                                            await m_QueueProviderExtract.UpdateMessageAsync(queueName, msg, cancellationToken);
+                                            await m_QueueProviderExtract.UpdateMessageAsync(queueName, msg, cancellationToken).ConfigureAwait(false);
                                             //TraceLog.WriteInfo($"SchedulerListener - updating queue {message}");
                                         }
                                         catch (Exception ex)
@@ -83,17 +84,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             }
                             else
                             {
-                                list.Add(Infrastructure.Extensions.TaskExtensions.CompletedTaskFalse);
+                                list.Add(TaskExtensions.CompletedTaskFalse);
                                 TraceLog.WriteWarning($"cant resolve {property.Name}");
                             }
 
                         }
-                        await Task.WhenAll(list);
+                        await Task.WhenAll(list).ConfigureAwait(false);
                         var result = list.All(a => a.Result);
-                        TraceLog.WriteInfo($"schduler lister delete message: {result}");
                         return result;
 
-                    }, TimeSpan.FromMinutes(15), 3, cancellationToken);
+                    }, TimeSpan.FromMinutes(15), 3, cancellationToken).ConfigureAwait(false);
                 }
                 catch (TaskCanceledException)
                 {
@@ -107,7 +107,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     TraceLog.WriteError("on SchedulerListener", ex);
                 }
                 //TraceLog.WriteInfo("Scheduler Listener going to sleep");
-                await Task.Delay(TimeSpan.FromMinutes(2), cancellationToken);
+                await Task.Delay(TimeSpan.FromMinutes(2), cancellationToken).ConfigureAwait(false);
 
             }
 

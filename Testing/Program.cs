@@ -279,8 +279,8 @@ namespace Testing
             var pushService = iocFactory.Resolve<IJaredPushNotification>();
             pushService.SendAddPostNotificationAsync("ram", "text", 1, Guid.NewGuid(), "text").Wait();
             //var search = iocFactory.Resolve<IContentReadSearchProvider>();
-            var command = new AddNewUpdatesCommand(21433, 734687,null,null, 614670L,null,null,null,null);
-            writeService.AddNewUpdateAsync(command).Wait();
+            //var command = new AddNewUpdatesCommand(21433, 734687,null,null, 614670L,null,null,null,null);
+            //writeService.AddNewUpdateAsync(command).Wait();
 
             //var updateDate = new UpdateData(1028091, 8417, itemId: 606505);
             //var y = iocFactory.Resolve<IDomainProcess>(updateDate.ProcessResolver);

@@ -4,7 +4,6 @@ using Aspose.Words.Saving;
 using System;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -36,7 +35,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var word = new AsyncLazy<Document>(async () =>
             {
                 SetLicense();
-                using (var sr = await BlobProvider.DownloadFileAsync(blobUri, cancelToken))
+                using (var sr = await BlobProvider.DownloadFileAsync(blobUri, cancelToken).ConfigureAwait(false))
                 {
                     return new Document(sr);
                 }
@@ -44,16 +43,16 @@ namespace Zbang.Zbox.Infrastructure.File
 
             var svgOptions = new SvgSaveOptions { ShowPageBorder = false, FitToViewPort = true, JpegQuality = 85, ExportEmbeddedImages = true, PageCount = 1 };
             var retVal = await UploadPreviewCacheToAzureAsync(blobUri, indexNum,
-                 i => CreateCacheFileName(blobName, i),
-                 async z =>
-                 {
-                     svgOptions.PageIndex = z;
-                     var ms = new MemoryStream();
-                     var w = await word;
-                     w.Save(ms, svgOptions);
-                     return ms;
-                 }, CacheVersion, "image/svg+xml", cancelToken
-             );
+                i => CreateCacheFileName(blobName, i),
+                async z =>
+                {
+                    svgOptions.PageIndex = z;
+                    var ms = new MemoryStream();
+                    var w = await word;
+                    w.Save(ms, svgOptions);
+                    return ms;
+                }, CacheVersion, "image/svg+xml", cancelToken
+            ).ConfigureAwait(false);
 
             return new PreviewResult { Content = retVal, ViewName = "Svg" };
         }
@@ -104,16 +103,6 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             try
             {
-                //int sectionInt = 0;
-                //var sb = new StringBuilder();
-                //do
-                //{
-                //    var section = doc.Sections[sectionInt];
-                //    sb.AppendLine(section.ToString(SaveFormat.Text));
-                //    sectionInt++;
-                //}while (sb.Length < 5000);
-
-               
                 var str = doc.ToString(SaveFormat.Text);
                 str = StripUnwantedChars(str);
                 return str;
@@ -129,13 +118,18 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override async Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
-            //var blobName = GetBlobNameFromUri(blobUri);
-           // var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken);
             SetLicense();
-            using (var stream = await BlobProvider.OpenBlobStreamAsync(blobUri, cancelToken))
+            using (var stream = await BlobProvider.OpenBlobStreamAsync(blobUri, cancelToken).ConfigureAwait(false))
             {
-                var word = new Document(stream);
-                return ExtractDocumentText(word);
+                try
+                {
+                    var word = new Document(stream);
+                    return ExtractDocumentText(word);
+                }
+                catch (UnsupportedFileFormatException)
+                {
+                    return null;
+                }
             }
             
         }
