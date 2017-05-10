@@ -1138,7 +1138,7 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
             }
         }
 
-      
+
 
 
         #region Gamification
@@ -1220,19 +1220,26 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
             }
         }
 
-        public async Task<Tuple<IEnumerable<JaredFavoriteDocumentDto>,IEnumerable<JaredFavoriteQuiz>>> JaredFavoritesAsync(JaredFavoritesQuery query)
+        public async Task<JaredFavoriteDto> JaredFavoritesAsync(JaredFavoritesQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                using (var grid = await conn.QueryMultipleAsync(Sql.Jared.DocumentFavorites + Sql.Jared.QuizFavorites, new {query.DocumentIds, query.QuizIds }).ConfigureAwait(false))
+                using (var grid = await conn.QueryMultipleAsync(Sql.Jared.DocumentFavorites
+                    + Sql.Jared.QuizFavorites + Sql.Jared.FlashcardFavorite + Sql.Jared.CommentFavorite,
+                    new { query.DocumentIds,query.FlashcardIds,query.QuizIds,query.QuestionIds }).ConfigureAwait(false))
                 {
-                    var documents = await grid.ReadAsync<JaredFavoriteDocumentDto>().ConfigureAwait(false);
-                    var quizzes = await grid.ReadAsync<JaredFavoriteQuiz>().ConfigureAwait(false);
-                    return Tuple.Create(documents, quizzes);
+                    var retVal = new JaredFavoriteDto
+                    {
+                        Documents = await grid.ReadAsync<JaredFavoriteDocumentDto>().ConfigureAwait(false),
+                        Quizzes = await grid.ReadAsync<JaredFavoriteQuiz>().ConfigureAwait(false),
+                        Flashcards = await grid.ReadAsync<JaredFavoriteFlashcardDto>().ConfigureAwait(false),
+                        Comments = await grid.ReadAsync<JaredFavoriteCommentDto>().ConfigureAwait(false)
+                    };
+                    return retVal;
                 }
             }
         }
-       
+
 
         public async Task<IEnumerable<User.ChatUserDto>> OnlineUsersByClassAsync(GetBoxIdQuery query)
         {

@@ -84,9 +84,11 @@ namespace Zbang.Cloudents.Jared.Controllers
             var command = new RateItemCommand(model.Id, User.GetUserId(), id);
             await m_ZboxWriteService.RateItemAsync(command).ConfigureAwait(true);
 
-            if (!model.Tags.Any()) return Request.CreateResponse();
-            var z = new AssignTagsToDocumentCommand(model.Id, model.Tags, TagType.User);
-            await m_ZboxWriteService.AddItemTagAsync(z).ConfigureAwait(false);
+            if (model.Tags != null && model.Tags.Any())
+            {
+                var z = new AssignTagsToDocumentCommand(model.Id, model.Tags, TagType.User);
+                await m_ZboxWriteService.AddItemTagAsync(z).ConfigureAwait(false);
+            }
 
             return Request.CreateResponse();
         }

@@ -23,7 +23,7 @@ namespace Zbang.Zbox.Infrastructure.File
             ioc.RegisterType<IContentProcessor, TextProcessor>();
             ioc.RegisterType<IContentProcessor, AudioProcessor>();
             ioc.RegisterType<IContentProcessor, LinkProcessor>();
-            ioc.RegisterType<IProfileProcessor, ImageProcessor>();
+            //ioc.RegisterType<IProfileProcessor, ImageProcessor>();
         }
     }                                                     
 }                                                         

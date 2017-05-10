@@ -21,6 +21,8 @@ using Zbang.Zbox.ViewModel.Queries.QnA;
 using Zbang.Zbox.ViewModel.Queries.Search;
 using BoxDto = Zbang.Zbox.ViewModel.Dto.BoxDto;
 
+
+
 namespace Zbang.Zbox.ReadServices
 {
     public interface IZboxReadService : IBaseReadService
@@ -164,7 +166,7 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<ChatUserDto>> OnlineUsersByClassAsync(GetBoxIdQuery query);
         Task<IEnumerable<ItemTagsDto>> GetItemsWithTagsAsync(JaredSearchQuery query);
 
-        Task<Tuple<IEnumerable<JaredFavoriteDocumentDto>, IEnumerable<JaredFavoriteQuiz>>> JaredFavoritesAsync(JaredFavoritesQuery query);
+        Task<JaredFavoriteDto> JaredFavoritesAsync(JaredFavoritesQuery query);
 
         #endregion
 

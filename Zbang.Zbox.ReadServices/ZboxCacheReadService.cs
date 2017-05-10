@@ -433,7 +433,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetItemsWithTagsAsync(query);
         }
 
-        public Task<Tuple<IEnumerable<JaredFavoriteDocumentDto>, IEnumerable<JaredFavoriteQuiz>>> JaredFavoritesAsync(JaredFavoritesQuery query)
+        public Task<JaredFavoriteDto> JaredFavoritesAsync(JaredFavoritesQuery query)
         {
             return m_ReadService.JaredFavoritesAsync(query);
         }

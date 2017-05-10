@@ -14,7 +14,7 @@ using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
-    public class ImageProcessor : FileProcessor, IProfileProcessor
+    public class ImageProcessor : FileProcessor
     {
         private readonly IBlobProvider2<IPreviewContainer> m_BlobProviderPreview;
 
@@ -52,44 +52,7 @@ namespace Zbang.Zbox.Infrastructure.File
             return Task.FromResult(new PreviewResult { ViewName = "Image", Content = blobsNamesInCache });
         }
 
-        public async Task<Stream> ProcessFileAsync(Stream stream, int width, int height)
-        {
-            var client = new HttpClient();
-
-            // Request headers - replace this example key with your valid subscription key.
-            client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", "b044cd956e0f4af481cdc7e4c5077aeb");
-
-            // Request parameters and URI.
-            string requestParameters = "width=200&height=150&smartCropping=true";
-            string uri = "https://westus.api.cognitive.microsoft.com/vision/v1.0/generateThumbnail?" + requestParameters;
-
-            // Request body. Try this sample with a locally stored JPEG image.
-            byte[] byteData = stream.ConvertToByteArray(); // GetImageAsByteArray(imageFilePath);
-
-            using (var content = new ByteArrayContent(byteData))
-            {
-                // This example uses content type "application/octet-stream".
-                // The other content types you can use are "application/json" and "multipart/form-data".
-                content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-                var response = await client.PostAsync(uri, content).ConfigureAwait(false);
-                return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
-            }
-            //stream.Seek(0, SeekOrigin.Begin);
-
-            //var settings = new ResizeSettings
-            //{
-
-            //    Mode = FitMode.Crop,
-            //    Width = width,
-            //    Height = height,
-            //    Quality = 80,
-            //    Format = "jpg"
-            //};
-
-            //var ms = new MemoryStream();
-            //ImageBuilder.Current.Build(stream, ms, settings);
-            //return ms;
-        }
+        
 
 
         public static readonly string[] ImageExtensions = { ".jpg", ".gif", ".png", ".jpeg", ".bmp" };

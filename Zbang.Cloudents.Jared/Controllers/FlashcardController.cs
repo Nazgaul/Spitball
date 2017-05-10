@@ -78,7 +78,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             var command = new AddFlashcardLikeCommand(User.GetUserId(), model.Id);
             await m_ZboxWriteService.AddFlashcardLikeAsync(command).ConfigureAwait(false);
 
-            if (model.Tags.Any())
+            if (model.Tags != null && model.Tags.Any())
             {
                 var z = new AssignTagsToQuizCommand(model.Id, model.Tags, TagType.User);
                 await m_ZboxWriteService.AddItemTagAsync(z).ConfigureAwait(false);

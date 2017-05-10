@@ -60,5 +60,24 @@ q.LikeCount as likes,
 (select count(*) from zbox.quizquestion where quizid = q.id) as numOfQuestion
  from zbox.quiz q
 where id in @quizIds;";
+
+        //Merge with document db
+        public const string FlashcardFavorite = @"select 
+id as id,
+f.LikeCount as likes,
+  f.NumberOfViews as views
+ from zbox.flashcard f
+where id in @flashcardIds;";
+
+        public const string CommentFavorite = @"select 
+q.questionid as id,
+u.userimagelarge as image,
+u.username as name,
+q.text,
+q.creationtime as date,
+q.replycount as replies,
+(select count(*) from zbox.item  i where i.questionid = q.questionid and i.isdeleted = 0) as items
+ from zbox.question q join zbox.users u on q.userid = u.userid
+where questionid in @commentIds;";
     }
 }

@@ -165,7 +165,6 @@
     <Compile Include="LocationProvider.cs" />
     <Compile Include="MediaServices\IMediaServicesProvider.cs" />
     <Compile Include="Profile\IProfilePictureProvider.cs" />
-    <Compile Include="Profile\IProfileProcessor.cs" />
     <Compile Include="Profile\ProfileImages.cs" />
     <Compile Include="Profile\ProfilePictureProvider.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />

@@ -25,6 +25,7 @@ using Zbang.Zbox.Infrastructure.Extensions;
 using System.Collections.Generic;
 using Zbang.Cloudents.Jared.Models;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Infrastructure.Profile;
 
 namespace Zbang.Cloudents.Jared.Controllers.Tests
 {
@@ -34,6 +35,7 @@ namespace Zbang.Cloudents.Jared.Controllers.Tests
         private AccountController controller;
         private IZboxWriteService m_ZboxWriteService;
         private IZboxReadService m_read;
+        private IProfilePictureProvider m_ProfilePicture;
         [TestInitialize]
         public void Setup()
         {
@@ -42,8 +44,9 @@ namespace Zbang.Cloudents.Jared.Controllers.Tests
             m_read = MockRepository.GenerateMock<IZboxReadService>();
             var m_CommandBus = MockRepository.GenerateMock<ICommandBus>();
             var m_Cache = MockRepository.GenerateMock<IWithCache>();
+            var profile = MockRepository.GenerateMock<IProfilePictureProvider>();
             m_ZboxWriteService = new ZboxWriteService(m_CommandBus, m_Cache);
-            controller = new AccountController(m_ZboxWriteService,m_read);
+            controller = new AccountController(m_ZboxWriteService,m_read, profile);
             controller.Request = new HttpRequestMessage();
             controller.Request.SetConfiguration(new HttpConfiguration());
         }
