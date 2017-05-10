@@ -22,7 +22,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 
         protected abstract Task<IEnumerable<MarketingDto>> GetDataAsync(MarketingQuery query, CancellationToken token);
 
-        protected abstract MarketingMailParams BuildMarkertingMail(string name, CultureInfo info);
+        protected abstract MarketingMailParams BuildMarketingMail(string name, CultureInfo info);
 
         protected abstract string ServiceName
         {
@@ -47,7 +47,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     }
 
                     var query = new MarketingQuery(page, pageSize);
-                    var result = await GetDataAsync(query, token);
+                    var result = await GetDataAsync(query, token).ConfigureAwait(false);
 
                     foreach (var user in result)
                     {
@@ -61,12 +61,12 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                         var culture = string.IsNullOrEmpty(user.Culture)
                             ? new CultureInfo("en-US")
                             : new CultureInfo(user.Culture);
-                        var markertingMail = BuildMarkertingMail(user.Name, culture);
+                        var marketingMail = BuildMarketingMail(user.Name, culture);
                         list.Add(m_MailComponent.GenerateAndSendEmailAsync(email,
-                            markertingMail, token));
+                            marketingMail, token));
 
                     }
-                    await Task.WhenAll(list);
+                    await Task.WhenAll(list).ConfigureAwait(false);
                     list.Clear();
                     if (RoleIndexProcessor.IsEmulated)
                     {
@@ -78,10 +78,10 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     TraceLog.WriteError($"{ServiceName} {ex}");
                 }
                 page++;
-                await progressAsync(page);
+                await progressAsync(page).ConfigureAwait(false);
 
             }
-            await m_MailComponent.GenerateSystemEmailAsync(ServiceName, $"finish to run  with page {page}");
+            await m_MailComponent.GenerateSystemEmailAsync(ServiceName, $"finish to run  with page {page}").ConfigureAwait(false);
             TraceLog.WriteInfo($"{ServiceName} finish running  mail page {page}");
             return true;
 

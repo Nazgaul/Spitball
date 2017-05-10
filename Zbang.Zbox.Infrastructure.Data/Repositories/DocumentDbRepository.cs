@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -24,12 +21,12 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
         {
             try
             {
-                Document document = await DocumentDbUnitOfWork.Client.ReadDocumentAsync(DocumentDbUnitOfWork.BuildDocumentUri(GetCollectionId(), id));
+                Document document = await DocumentDbUnitOfWork.Client.ReadDocumentAsync(DocumentDbUnitOfWork.BuildDocumentUri(GetCollectionId(), id)).ConfigureAwait(false);
                 return (T)(dynamic)document;
             }
             catch (DocumentClientException e)
             {
-                if (e.StatusCode == System.Net.HttpStatusCode.NotFound)
+                if (e.StatusCode == HttpStatusCode.NotFound)
                 {
                     return null;
                 }
@@ -55,7 +52,6 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
         {
             IDocumentQuery<T> query = DocumentDbUnitOfWork.Client.CreateDocumentQuery<T>(
                 DocumentDbUnitOfWork.BuildCollectionUri(GetCollectionId()),
-                //UriFactory.CreateDocumentCollectionUri(DatabaseId, CollectionId),
                 new FeedOptions { MaxItemCount = -1 })
                 .Where(predicate)
                 .AsDocumentQuery();
@@ -63,7 +59,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
             List<T> results = new List<T>();
             while (query.HasMoreResults)
             {
-                results.AddRange(await query.ExecuteNextAsync<T>());
+                results.AddRange(await query.ExecuteNextAsync<T>().ConfigureAwait(false));
             }
 
             return results;
@@ -103,26 +99,20 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
         //    return results;
         //}
 
-        //public async Task<IEnumerable<T>> GetItemsAsync(string sql)
-        //{
+        public async Task<IEnumerable<T>> GetItemsAsync(string sql)
+        {
 
-        //    var query =
-        //        DocumentDbUnitOfWork.Client.CreateDocumentQuery<T>(
-        //            DocumentDbUnitOfWork.BuildCollectionUri(typeof (T).Name), sql).AsDocumentQuery();
-
-        //    //return query.ToList();
-        //    //IDocumentQuery<T> query = DocumentDbUnitOfWork.Client.CreateDocumentQuery<T>(
-        //    //    DocumentDbUnitOfWork.BuildCollectionUri(typeof(T).Name))
-        //    //    .Where(predicate)
-        //    //    .AsDocumentQuery();
-        //    List<T> results = new List<T>();
-        //    while (query.HasMoreResults)
-        //    {
-        //        results.AddRange(await query.ExecuteNextAsync<T>());
-        //    }
-        //    //
-        //    return results;
-        //}
+            var query =
+                DocumentDbUnitOfWork.Client.CreateDocumentQuery<T>(
+                    DocumentDbUnitOfWork.BuildCollectionUri(GetCollectionId()), sql).AsDocumentQuery();
+            List<T> results = new List<T>();
+            while (query.HasMoreResults)
+            {
+                results.AddRange(await query.ExecuteNextAsync<T>().ConfigureAwait(false));
+            }
+            //
+            return results;
+        }
 
         //public Task CreateItemAsync(T item)
         //{

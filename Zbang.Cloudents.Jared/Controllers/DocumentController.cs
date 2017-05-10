@@ -81,7 +81,7 @@ namespace Zbang.Cloudents.Jared.Controllers
                 return Request.CreateBadRequestResponse();
             }
             var id = m_GuidGenerator.GetId();
-            var command = new RateItemCommand(model.Id, User.GetUserId(), id, model.BoxId);
+            var command = new RateItemCommand(model.Id, User.GetUserId(), id);
             await m_ZboxWriteService.RateItemAsync(command).ConfigureAwait(true);
 
             if (!model.Tags.Any()) return Request.CreateResponse();
@@ -90,21 +90,6 @@ namespace Zbang.Cloudents.Jared.Controllers
 
             return Request.CreateResponse();
         }
-
-        //[Route("api/document/tag")]
-        //[HttpPost]
-        ////[Authorize]
-        //public HttpResponseMessage AddTag(ItemTagRequest model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return Request.CreateBadRequestResponse();
-        //    }
-
-        //    var z = new AssignTagsToDocumentCommand(model.Id, model.Tags, TagType.User);
-        //    m_ZboxWriteService.AddItemTag(z);
-        //    return Request.CreateResponse();
-        //}
 
 
         [HttpGet]

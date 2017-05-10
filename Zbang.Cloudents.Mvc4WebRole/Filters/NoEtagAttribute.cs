@@ -5,13 +5,13 @@ using System.Web;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Filters
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class NoEtagAttribute : Attribute
     {
     }
 
 
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class NoUrlLowercaseAttribute : Attribute
     {
     }

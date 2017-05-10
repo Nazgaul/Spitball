@@ -8,7 +8,5 @@ namespace Zbang.Zbox.Infrastructure.Profile
     public interface IProfilePictureProvider
     {
         Task<ProfileImages> UploadProfilePicturesAsync(Stream profileImage);
-        //ProfileImages GetDefaultProfileImage();
-        //ProfileImages GetDefaultProfileImage();
     }
 }

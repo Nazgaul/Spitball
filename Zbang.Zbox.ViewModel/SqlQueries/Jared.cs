@@ -32,10 +32,33 @@ and (@boxid is null or (b.boxid=@boxid))";
 from zbox.item item join zbox.itemtag it on item.itemid=it.itemid join zbox.tag t on it.tagid=t.id
 where it.itemid in (select top 10 i.itemid from " + ItemWhere + ");";
 
-        public const string autoUni = @"SELECT TOP 5 u.universityname 
+        public const string AutoUni = @"SELECT TOP 5 u.universityname 
         from [Zbox].[University] u where u.universityname like +'%'+@term+'%';";
 
-        public const string autoDepartment = @"SELECT TOP 5 d.name from zbox.library d where d.name like +'%'+@term+'%';";
-        public const string autoTag = @"SELECT TOP 5 t.name from zbox.tag t where t.name like +'%'+@term+'%';";
+        public const string AutoDepartment = @"SELECT TOP 5 d.name from zbox.library d where d.name like +'%'+@term+'%';";
+        public const string AutoTag = @"SELECT TOP 5 t.name from zbox.tag t where t.name like +'%'+@term+'%';";
+
+
+        public const string DocumentFavorites = @"select 
+itemid as id,
+i.Name as name,
+BlobName as source,
+content as meta,
+i.LikeCount as likes,
+i.NumberOfViews as views,
+i.CreationTime as date
+ from zbox.item i
+where itemid in @documentIds;";
+
+        public const string QuizFavorites = @"select 
+id as id,
+q.Name as name,
+q.LikeCount as likes,
+  q.NumberOfViews as views,
+   q.CreationTime as date,
+(select top 1 text from zbox.QuizQuestion where quizid = q.id order by id)  as source,
+(select count(*) from zbox.quizquestion where quizid = q.id) as numOfQuestion
+ from zbox.quiz q
+where id in @quizIds;";
     }
 }

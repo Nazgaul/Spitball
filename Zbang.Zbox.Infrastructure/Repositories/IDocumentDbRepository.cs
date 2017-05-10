@@ -12,5 +12,7 @@ namespace Zbang.Zbox.Infrastructure.Repositories
         Task CreateItemAsync(T item);
         Task UpdateItemAsync(string id, T item);
         Task DeleteItemAsync(string id);
+
+        Task<IEnumerable<T>> GetItemsAsync(string sql);
     }
 }

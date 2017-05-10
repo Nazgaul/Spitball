@@ -163,6 +163,9 @@ namespace Zbang.Zbox.ReadServices
             QueryBaseUserId query, CancellationToken token);
         Task<IEnumerable<ChatUserDto>> OnlineUsersByClassAsync(GetBoxIdQuery query);
         Task<IEnumerable<ItemTagsDto>> GetItemsWithTagsAsync(JaredSearchQuery query);
+
+        Task<Tuple<IEnumerable<JaredFavoriteDocumentDto>, IEnumerable<JaredFavoriteQuiz>>> JaredFavoritesAsync(JaredFavoritesQuery query);
+
         #endregion
 
     }

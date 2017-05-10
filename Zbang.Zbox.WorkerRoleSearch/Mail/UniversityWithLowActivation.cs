@@ -22,7 +22,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             return m_ZboxReadService.GetUsersWithLowActivityUniversitiesAsync(query, token);
         }
 
-        protected override MarketingMailParams BuildMarkertingMail(string name, CultureInfo info)
+        protected override MarketingMailParams BuildMarketingMail(string name, CultureInfo info)
         {
             return new UniversityLowActivityMailParams(name, info);
         }

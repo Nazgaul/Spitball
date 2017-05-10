@@ -217,6 +217,7 @@
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
+    <Compile Include="Controllers\FavoriteController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Controllers\FlashcardController.cs" />
     <Compile Include="Controllers\LoginController.cs" />

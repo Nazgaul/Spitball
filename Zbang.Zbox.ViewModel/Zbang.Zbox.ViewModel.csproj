@@ -87,6 +87,7 @@
     <Compile Include="Dto\ItemDtos\DiscussionDto.cs" />
     <Compile Include="Dto\ItemDtos\DocumentSearchDto.cs" />
     <Compile Include="Dto\ItemDtos\FlashcardSeoDto.cs" />
+    <Compile Include="Dto\JaredDtos\JaredFavoriteDocumentDto.cs" />
     <Compile Include="Dto\JaredDtos\JaredTextDto.cs" />
     <Compile Include="Dto\Qna\FeedToUpdateSearchDto.cs" />
     <Compile Include="Dto\ItemDtos\FileWithDetailDto.cs" />
@@ -183,6 +184,7 @@
     <Compile Include="Queries\IPagedQuery.cs" />
     <Compile Include="Queries\ItemCommentQuery.cs" />
     <Compile Include="Queries\IUserQuery.cs" />
+    <Compile Include="Queries\Jared\JaredFavoritesQuery.cs" />
     <Compile Include="Queries\Jared\JaredSearchQuery.cs" />
     <Compile Include="Queries\Library\GetClosedNodeMembersQuery.cs" />
     <Compile Include="Queries\Library\GetLibraryNodeQuery.cs" />

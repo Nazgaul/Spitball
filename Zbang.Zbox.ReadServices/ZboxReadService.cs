@@ -338,7 +338,7 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                return await conn.QueryFirstOrDefaultAsync<Item.ItemMobileDto>(Sql.Item.ItemDetailApi, new { ItemId  = itemId }).ConfigureAwait(false);
+                return await conn.QueryFirstOrDefaultAsync<Item.ItemMobileDto>(Sql.Item.ItemDetailApi, new { ItemId = itemId }).ConfigureAwait(false);
             }
         }
 
@@ -1138,46 +1138,7 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
             }
         }
 
-        #region JaredSearch
-        public async Task<IEnumerable<ItemTagsDto>> GetItemsWithTagsAsync(JaredSearchQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
-            {
-                using (var grid = await conn.QueryMultipleAsync(Sql.Jared.ItemInfo + Sql.Jared.ItemTags, query).ConfigureAwait(false))
-                {
-                    var retVal = (await grid.ReadAsync<ItemTagsDto>().ConfigureAwait(false)).ToList();
-                    var tags = (await grid.ReadAsync<ItemTagDto>().ConfigureAwait(false)).ToList();
-                    foreach (var item in retVal)
-                    {
-                        item.Tags = tags.Where(w => w.ItemId == item.ItemId).Select(s => s.Tag);
-                    }
-
-                    return retVal;
-                }
-            }
-        }
-        public async Task<IEnumerable<string>> GetUniAsync(SearchTermQuery term)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                return await conn.QueryAsync<string>(Sql.Jared.autoUni, term);
-            }
-        }
-        public async Task<IEnumerable<string>> GetDepartmentAsync(SearchTermQuery term)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                return await conn.QueryAsync<string>(Sql.Jared.autoDepartment, term);
-            }
-        }
-        public async Task<IEnumerable<string>> GetTagAsync(SearchTermQuery term)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                return await conn.QueryAsync<string>(Sql.Jared.autoTag, term);
-            }
-        }
-        #endregion
+      
 
 
         #region Gamification
@@ -1224,15 +1185,15 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
             using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
             {
 
-                const string actionsText = @"select action,text from zbox.jaredtext;";
+                const string actionsText = @"select action,text from zbox.jaredText;";
                 var command = new CommandDefinition(actionsText,
                        cancellationToken: token);
                 using (var grid = await conn.QueryMultipleAsync(command).ConfigureAwait(false))
                 {
-                    var dictiona= (await grid.ReadAsync<JaredTextDto>().ConfigureAwait(false)).GroupBy(x => x.Action, x => x.Text);
+                    var groupResult = (await grid.ReadAsync<JaredTextDto>().ConfigureAwait(false)).GroupBy(x => x.Action, x => x.Text);
                     return new JaredDto
                     {
-                        ActionsText = dictiona.ToDictionary(x=>x.Key,x=>x.AsEnumerable())
+                        ActionsText = groupResult.ToDictionary(x => x.Key, x => x.AsEnumerable())
                     };
                 }
             }
@@ -1256,81 +1217,80 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
                     var boxes = await grid.ReadAsync<BoxDto>().ConfigureAwait(false);
                     return new Tuple<User.UserDetailDto, IEnumerable<BoxDto>>(user, boxes);
                 }
-                //var user = await conn.QueryFirstOrDefaultAsync<User.UserDetailDto>(Sql.Sql.UserAuthenticationDetail, query).ConfigureAwait(false);
             }
         }
-        //public async Task<JaredDto> GetJaredStartupValuesAsync(CancellationToken token, QueryBaseUserId baseQuery)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
-        //    {
-        //        var dict = new Dictionary<CategoryTextType, string>();
-        //        const string actionsText = @"select action,text from zbox.jaredtext;";
-        //        var command = new CommandDefinition(actionsText + 
-        //            Sql.Dashboard.UserBoxes + 
-        //            Sql.Sql.GetUserById, new {  baseQuery.UserId, pageNumber = 0, rowsperpage = int.MaxValue },
-        //            cancellationToken: token);
-        //        using (var grid = await conn.QueryMultipleAsync(command).ConfigureAwait(false))
-        //        {
-        //            var textList = (await grid.ReadAsync<JaredTextDto>().ConfigureAwait(false)).ToLookup(t => t.Action);
 
-        //            var userBoxList = await grid.ReadAsync<BoxDto>().ConfigureAwait(false);
-        //            //var userBoxs = userBoxList.Select(ub =>
-        //            //{
-        //            //    ub.Id = ub.Id;
-        //            //    ub.Name = ub.Name;
-        //            //    return ub;
-        //            //});
-        //            var uni = await grid.ReadFirstOrDefaultAsync<User.LogInUserDto>().ConfigureAwait(false);
-        //            //var university =
-        //            //    new UniversityDto { Id = uni.UniversityId.GetValueOrDefault(), Name = uni.UniversityName };
-
-        //            var rnd = new Random();
-        //            foreach (var text in textList)
-        //            {
-        //                var textOptions = textList[text.Key].Select(s => s.Text).ToList();
-        //                dict.Add(text.Key, textOptions.ElementAt(rnd.Next(textOptions.Count)));
-        //            }
-
-        //            return new JaredDto
-        //            {
-        //                University = uni,
-        //                UserBoxes = userBoxList,
-        //                ActionsText = dict
-        //            };
-        //        }
-        //    }
-        //}
+        public async Task<Tuple<IEnumerable<JaredFavoriteDocumentDto>,IEnumerable<JaredFavoriteQuiz>>> JaredFavoritesAsync(JaredFavoritesQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
+            {
+                using (var grid = await conn.QueryMultipleAsync(Sql.Jared.DocumentFavorites + Sql.Jared.QuizFavorites, new {query.DocumentIds, query.QuizIds }).ConfigureAwait(false))
+                {
+                    var documents = await grid.ReadAsync<JaredFavoriteDocumentDto>().ConfigureAwait(false);
+                    var quizzes = await grid.ReadAsync<JaredFavoriteQuiz>().ConfigureAwait(false);
+                    return Tuple.Create(documents, quizzes);
+                }
+            }
+        }
+       
 
         public async Task<IEnumerable<User.ChatUserDto>> OnlineUsersByClassAsync(GetBoxIdQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 const string sql =
-                                    @"select u.userid as id,u.userImageLarge as image, u.username as name, online, LastAccessTime as LastSeen
-                from zbox.users u join zbox.userboxrel ub on u.userid = ub.userid
-               where ub.boxid = @BoxId";
-                //                const string sql2 =
-                //                    @"select top 50 u.userid as id,u.userImageLarge as image, u.username as name, online, LastAccessTime as LastSeen
-                //from zbox.users u where online = 1 order by u.userid;";
+                                    @"select u.userId as id,u.userImageLarge as image, u.username as name, online, LastAccessTime as LastSeen
+                from zbox.users u join zbox.userBoxRel ub on u.userId = ub.userId
+               where ub.boxId = @BoxId";
                 return await conn.QueryAsync<User.ChatUserDto>(
                     new CommandDefinition(sql
-                       ,
-                        //online = 1 and
-                        new { query.BoxId })).ConfigureAwait(false);
+                       , new { query.BoxId })).ConfigureAwait(false);
 
             }
         }
 
-        //public async Task<IEnumerable<JaredTextDto>> GetJaredText()
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        var dic = new List<JaredTextDto>();
-        //        const string sql = @"select action,text from zbox.jaredtext;";
-        //        var list= await conn.QueryAsync<JaredTextDto>(sql);
-        //        return list;
-        //    }
-        //}
+
+        #endregion
+
+        #region JaredSearch
+        public async Task<IEnumerable<ItemTagsDto>> GetItemsWithTagsAsync(JaredSearchQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
+            {
+                using (var grid = await conn.QueryMultipleAsync(Sql.Jared.ItemInfo + Sql.Jared.ItemTags, query).ConfigureAwait(false))
+                {
+                    var retVal = (await grid.ReadAsync<ItemTagsDto>().ConfigureAwait(false)).ToList();
+                    var tags = (await grid.ReadAsync<ItemTagDto>().ConfigureAwait(false)).ToList();
+                    foreach (var item in retVal)
+                    {
+                        item.Tags = tags.Where(w => w.ItemId == item.ItemId).Select(s => s.Tag);
+                    }
+
+                    return retVal;
+                }
+            }
+        }
+        public async Task<IEnumerable<string>> GetUniAsync(SearchTermQuery term)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
+            {
+                return await conn.QueryAsync<string>(Sql.Jared.AutoUni, term).ConfigureAwait(false);
+            }
+        }
+        public async Task<IEnumerable<string>> GetDepartmentAsync(SearchTermQuery term)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
+            {
+                return await conn.QueryAsync<string>(Sql.Jared.AutoDepartment, term).ConfigureAwait(false);
+            }
+        }
+        public async Task<IEnumerable<string>> GetTagAsync(SearchTermQuery term)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
+            {
+                return await conn.QueryAsync<string>(Sql.Jared.AutoTag, term).ConfigureAwait(false);
+            }
+        }
         #endregion
     }
 }

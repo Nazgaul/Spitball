@@ -5,7 +5,7 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class RateItemCommand : ICommandAsync
     {
-        public RateItemCommand(long itemId, long userId, Guid id, long boxId)
+        public RateItemCommand(long itemId, long userId, Guid id, long? boxId = null)
         {
             BoxId = boxId;
             ItemId = itemId;
@@ -20,6 +20,6 @@ namespace Zbang.Zbox.Domain.Commands
 
         public Guid Id { get; private set; }
 
-        public long BoxId { get; private set; }
+        public long? BoxId { get; private set; }
     }
 }

@@ -10,10 +10,6 @@ namespace Zbang.Zbox.Infrastructure.Security
 {
     public class SqlPasswordHasher : PasswordHasher
     {
-        public override string HashPassword(string password)
-        {
-            return base.HashPassword(password);
-        }
 
         public override PasswordVerificationResult VerifyHashedPassword(string hashedPassword, string providedPassword)
         {

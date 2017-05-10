@@ -199,7 +199,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return JsonError("no image found");
                 }
-                var result = await m_ProfilePicture.UploadProfilePicturesAsync(httpPostedFileBase.InputStream);
+                var result = await m_ProfilePicture.UploadProfilePicturesAsync(httpPostedFileBase.InputStream).ConfigureAwait(false);
                 var command = new UpdateUserProfileImageCommand(User.GetUserId(), result.Image.AbsoluteUri);
                 ZboxWriteService.UpdateUserImage(command);
                 return JsonOk(result.Image.AbsoluteUri);
