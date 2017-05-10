@@ -40,6 +40,7 @@ using Zbang.Zbox.Infrastructure.Ai;
 using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Commands;
 using Zbang.Zbox.Infrastructure.Data;
+using Zbang.Zbox.Infrastructure.Profile;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
 
@@ -277,6 +278,12 @@ namespace Testing
             //var languageDetection = iocFactory.Resolve<IDetectLanguage>();
             var writeService = iocFactory.Resolve<IZboxWorkerRoleService>();
             var pushService = iocFactory.Resolve<IJaredPushNotification>();
+            var profileService = iocFactory.Resolve<IProfilePictureProvider>();
+
+            var bytes = File.ReadAllBytes(@"C:\Users\Ram\Downloads\Abstract Wallpaper Galaxy Free High Resolution.jpg");
+            var ms = new MemoryStream(bytes);
+            var t = profileService.UploadProfilePicturesAsync(ms);
+            t.Wait();
             pushService.SendAddPostNotificationAsync("ram", "text", 1, Guid.NewGuid(), "text").Wait();
             //var search = iocFactory.Resolve<IContentReadSearchProvider>();
             //var command = new AddNewUpdatesCommand(21433, 734687,null,null, 614670L,null,null,null,null);

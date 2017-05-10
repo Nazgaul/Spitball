@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -546,7 +547,15 @@ select top(3) id from zbox.university where isdeleted = 1 and updatetime < getut
 
             using (var unitOfWork = UnitOfWork.Start())
             {
-                await m_CommandBus.SendAsync(command).ConfigureAwait(true);
+                try
+                {
+                    await m_CommandBus.SendAsync(command).ConfigureAwait(true);
+                }
+                catch (Exception ex)
+                {
+                    //this can only happen from the await
+                    TraceLog.WriteError("error on Add new updates continue", ex);
+                }
                 unitOfWork.TransactionalFlush();
             }
         }

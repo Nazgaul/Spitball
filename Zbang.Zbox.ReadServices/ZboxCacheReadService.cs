@@ -48,7 +48,7 @@ namespace Zbang.Zbox.ReadServices
 
         public Task<NodeBoxesDto> GetLibraryNodeAsync(GetLibraryNodeQuery query)
         {
-            //cant do cache due to userid pass.
+            //cant do cache due to userId pass.
             //return m_Cache.QueryAsync(m_ReadService.GetLibraryNodeAsync, query);
             return m_ReadService.GetLibraryNodeAsync(query);
         }
@@ -281,7 +281,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<ItemMobileDto> GetItemDetailApiAsync(GetItemQuery query)
+        public Task<ItemMobileDto> GetItemDetailApiAsync(long query)
         {
             return m_ReadService.GetItemDetailApiAsync(query);
         }

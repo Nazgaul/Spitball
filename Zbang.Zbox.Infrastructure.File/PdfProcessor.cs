@@ -1,9 +1,7 @@
-﻿using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using Aspose.Pdf;
 using Aspose.Pdf.Devices;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -49,7 +47,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var pdf = new AsyncLazy<Document>(async () =>
             {
                 SetLicense();
-                blobSr = await BlobProvider.DownloadFileAsync(blobUri, cancelToken);
+                blobSr = await BlobProvider.DownloadFileAsync(blobUri, cancelToken).ConfigureAwait(false);
                 return new Document(blobSr);
             });
 
@@ -62,7 +60,7 @@ namespace Zbang.Zbox.Infrastructure.File
                     var p = await pdf;
                     jpegDevice.Process(p.Pages[z + 1], ms);
                     return ms;
-                }, CacheVersion, "image/jpg", cancelToken);
+                }, CacheVersion, "image/jpg", cancelToken).ConfigureAwait(false);
 
             if (pdf.IsValueCreated && blobSr != null)
             {
@@ -96,19 +94,21 @@ namespace Zbang.Zbox.Infrastructure.File
             try
             {
                 SetLicense();
-                var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken);
+                var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken).ConfigureAwait(false);
 
                 using (var pdfDocument = new Document(path))
                 {
                     return await ProcessFileAsync(blobUri, () =>
-                     {
-                         var jpegDevice = new JpegDevice(new Resolution(150), 80);
-                         var ms = new MemoryStream();
-                         jpegDevice.Process(pdfDocument.Pages[1], ms);
-                         return ms;
+                        {
+                            var jpegDevice = new JpegDevice(new Resolution(150), 80);
+                            var ms = new MemoryStream();
+                            // ReSharper disable once AccessToDisposedClosure
+                            jpegDevice.Process(pdfDocument.Pages[1], ms);
+                            return ms;
 
-                     },
-                     () => pdfDocument.Pages.Count, CacheVersion, cancelToken);
+                        },
+                        // ReSharper disable once AccessToDisposedClosure
+                        () => pdfDocument.Pages.Count, CacheVersion, cancelToken).ConfigureAwait(false);
 
                 }
 
@@ -127,45 +127,15 @@ namespace Zbang.Zbox.Infrastructure.File
 
         private string ExtractPdfText(Document doc)
         {
-            var textAbsorber = new TextAbsorber();
-            textAbsorber.ExtractionOptions = new TextExtractionOptions(TextExtractionOptions.TextFormattingMode.Pure);
+            var textAbsorber = new TextAbsorber
+            {
+                ExtractionOptions = new TextExtractionOptions(TextExtractionOptions.TextFormattingMode.Pure)
+            };
             for (var i = 1; i <= Math.Min(doc.Pages.Count, 20); i++)
             {
                 doc.Pages[i].Accept(textAbsorber);
             }
-
-            //doc.Pages.Accept(textAbsorber);
             var text = textAbsorber.Text;
-            //var pageTexts = new List<string>();
-            //var lineBreakTexts = text.Split(new[] { "\r\n", "." }, StringSplitOptions.RemoveEmptyEntries)
-            //                .GroupBy(m => m)
-            //                .Where(m => m.Count() == 1 && m.Key != string.Empty)
-            //                .Select(s => s.Key);
-
-            //foreach (var lineBreakText in lineBreakTexts)
-            //{
-            //    var z = TextManipulation.SpaceReg.Split(lineBreakText);
-            //    if (!z.Any(a => a.Length > 1)) continue;
-            //    var txt = StripUnwantedChars(lineBreakText);
-            //    SimMetricsMetricUtilities.JaroWinkler x = new SimMetricsMetricUtilities.JaroWinkler();
-            //    var result = x.BatchCompareSet(pageTexts.ToArray(), txt);
-            //    if (result.Any(w => w > 0.95))
-            //    {
-            //        continue;
-            //    }
-
-            //    //var d = z.GetSimilarity(pageTexts.LastOrDefault(), text);
-            //    //var d = LevenshteinDistance.Compute(pageTexts.LastOrDefault(), txt);
-            //    //if (d < 5)
-            //    //{
-            //    //    TraceLog.WriteInfo(
-            //    //        $"LevenshteinDistance less then 10 between {pageTexts.LastOrDefault()} and  {lineBreakText}");
-            //    //    continue;
-            //    //}
-            //    pageTexts.Add(txt);
-            //}
-
-            
             var str = StripUnwantedChars(text);
             return str;
         }
@@ -176,7 +146,7 @@ namespace Zbang.Zbox.Infrastructure.File
         public override async Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             SetLicense();
-            var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken);
+            var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken).ConfigureAwait(false);
             using (var pdfDocument = new Document(path))
             {
                 return ExtractPdfText(pdfDocument);
@@ -186,128 +156,4 @@ namespace Zbang.Zbox.Infrastructure.File
 
 
     }
-
-    //static class LevenshteinDistance
-    //{
-    //    /// <summary>
-    //    /// Computes the Damerau-Levenshtein Distance between two strings, represented as arrays of
-    //    /// integers, where each integer represents the code point of a character in the source string.
-    //    /// Includes an optional threshhold which can be used to indicate the maximum allowable distance.
-    //    /// </summary>
-    //    /// <param name="source">An array of the code points of the first string</param>
-    //    /// <param name="target">An array of the code points of the second string</param>
-    //    /// <param name="threshold">Maximum allowable distance</param>
-    //    /// <returns>Int.MaxValue if threshhold exceeded; otherwise the Damerau-Leveshteim distance between the strings</returns>
-    //    public static int DamerauLevenshteinDistance(string source, string target, int threshold)
-    //    {
-
-    //        int length1 = source.Length;
-    //        int length2 = target.Length;
-
-    //        // Return trivial case - difference in string lengths exceeds threshhold
-    //        if (Math.Abs(length1 - length2) > threshold) { return int.MaxValue; }
-
-    //        // Ensure arrays [i] / length1 use shorter length 
-    //        if (length1 > length2)
-    //        {
-    //            Swap(ref target, ref source);
-    //            Swap(ref length1, ref length2);
-    //        }
-
-    //        int maxi = length1;
-    //        int maxj = length2;
-
-    //        int[] dCurrent = new int[maxi + 1];
-    //        int[] dMinus1 = new int[maxi + 1];
-    //        int[] dMinus2 = new int[maxi + 1];
-    //        int[] dSwap;
-
-    //        for (int i = 0; i <= maxi; i++) { dCurrent[i] = i; }
-
-    //        int jm1 = 0, im1 = 0, im2 = -1;
-
-    //        for (int j = 1; j <= maxj; j++)
-    //        {
-
-    //            // Rotate
-    //            dSwap = dMinus2;
-    //            dMinus2 = dMinus1;
-    //            dMinus1 = dCurrent;
-    //            dCurrent = dSwap;
-
-    //            // Initialize
-    //            int minDistance = int.MaxValue;
-    //            dCurrent[0] = j;
-    //            im1 = 0;
-    //            im2 = -1;
-
-    //            for (int i = 1; i <= maxi; i++)
-    //            {
-
-    //                int cost = source[im1] == target[jm1] ? 0 : 1;
-
-    //                int del = dCurrent[im1] + 1;
-    //                int ins = dMinus1[i] + 1;
-    //                int sub = dMinus1[im1] + cost;
-
-    //                //Fastest execution for min value of 3 integers
-    //                int min = (del > ins) ? (ins > sub ? sub : ins) : (del > sub ? sub : del);
-
-    //                if (i > 1 && j > 1 && source[im2] == target[jm1] && source[im1] == target[j - 2])
-    //                    min = Math.Min(min, dMinus2[im2] + cost);
-
-    //                dCurrent[i] = min;
-    //                if (min < minDistance) { minDistance = min; }
-    //                im1++;
-    //                im2++;
-    //            }
-    //            jm1++;
-    //            if (minDistance > threshold) { return int.MaxValue; }
-    //        }
-
-    //        int result = dCurrent[maxi];
-    //        return (result > threshold) ? int.MaxValue : result;
-    //    }
-    //    static void Swap<T>(ref T arg1, ref T arg2)
-    //    {
-    //        T temp = arg1;
-    //        arg1 = arg2;
-    //        arg2 = temp;
-    //    }
-    //    public static int Compute(string s, string t)
-    //    {
-    //        if (string.IsNullOrEmpty(s))
-    //        {
-    //            if (string.IsNullOrEmpty(t))
-    //                return 0;
-    //            return t.Length;
-    //        }
-
-    //        if (string.IsNullOrEmpty(t))
-    //        {
-    //            return s.Length;
-    //        }
-
-    //        int n = s.Length;
-    //        int m = t.Length;
-    //        int[,] d = new int[n + 1, m + 1];
-
-    //        // initialize the top and right of the table to 0, 1, 2, ...
-    //        for (int i = 0; i <= n; d[i, 0] = i++) ;
-    //        for (int j = 1; j <= m; d[0, j] = j++) ;
-
-    //        for (int i = 1; i <= n; i++)
-    //        {
-    //            for (int j = 1; j <= m; j++)
-    //            {
-    //                int cost = (t[j - 1] == s[i - 1]) ? 0 : 1;
-    //                int min1 = d[i - 1, j] + 1;
-    //                int min2 = d[i, j - 1] + 1;
-    //                int min3 = d[i - 1, j - 1] + cost;
-    //                d[i, j] = Math.Min(Math.Min(min1, min2), min3);
-    //            }
-    //        }
-    //        return d[n, m];
-    //    }
-    //}
 }

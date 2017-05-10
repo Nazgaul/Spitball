@@ -334,12 +334,11 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        public async Task<Item.ItemMobileDto> GetItemDetailApiAsync(GetItemQuery query)
+        public async Task<Item.ItemMobileDto> GetItemDetailApiAsync(long itemId)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                var retVal = await conn.QueryAsync<Item.ItemMobileDto>(Sql.Item.ItemDetailApi, query);
-                return retVal.SingleOrDefault();
+                return await conn.QueryFirstOrDefaultAsync<Item.ItemMobileDto>(Sql.Item.ItemDetailApi, new { ItemId  = itemId }).ConfigureAwait(false);
             }
         }
 

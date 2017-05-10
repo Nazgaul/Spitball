@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Infrastructure.Profile
@@ -15,29 +14,32 @@ namespace Zbang.Zbox.Infrastructure.Profile
         {
             m_BlobProvider = blobProvider;
             m_ProfileImageProcessor = profileImageProcessor;
-           
+
         }
-      
+
 
         public async Task<ProfileImages> UploadProfilePicturesAsync(Stream profileImage)
         {
             var imageName = Guid.NewGuid().ToString();
 
             using (
-                var ms = m_ProfileImageProcessor.ProcessFile(profileImage, (int)ImageSize.S100X100,
-                    (int)ImageSize.S100X100))
+                var ms = await m_ProfileImageProcessor.ProcessFileAsync(profileImage, 300, 300).ConfigureAwait(false))
             {
-                var uri = await m_BlobProvider.UploadProfilePictureAsync(CreateBlobFileNameWithFolder(imageName, ImageSize.S100X100), ms);
+                var uri = await m_BlobProvider.UploadProfilePictureAsync(CreateBlobFileNameWithFolder(imageName), ms).ConfigureAwait(false);
                 return new ProfileImages(uri);
             }
 
         }
 
 
-        private static string CreateBlobFileNameWithFolder(string fileName, ImageSize imageSize)
+        private static string CreateBlobFileNameWithFolder(string fileName)
         {
             fileName = Path.ChangeExtension(fileName, ".jpg");
-            return Path.Combine(imageSize.ToString("G"), fileName).Replace("\\", "/");
+            if (fileName == null)
+            {
+                throw new ArgumentNullException(nameof(fileName));
+            }
+            return Path.Combine("S100X100", fileName).Replace("\\", "/");
         }
     }
 }

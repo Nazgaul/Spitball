@@ -15,6 +15,7 @@ using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
+using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 
 namespace Zbang.Cloudents.Jared.Controllers
@@ -25,15 +26,29 @@ namespace Zbang.Cloudents.Jared.Controllers
         private readonly IBlobProvider2<FilesContainerName> m_BlobProviderFiles;
         private readonly IQueueProvider m_QueueProvider;
         private readonly IZboxWriteService m_ZboxWriteService;
+        private readonly IZboxReadService m_ZboxReadService;
         private readonly IGuidIdGenerator m_GuidGenerator;
 
 
-        public DocumentController(IBlobProvider2<FilesContainerName> blobProviderFiles, IQueueProvider queueProvider, IZboxWriteService zboxWriteService, IGuidIdGenerator guidGenerator)
+        public DocumentController(IBlobProvider2<FilesContainerName> blobProviderFiles, IQueueProvider queueProvider, IZboxWriteService zboxWriteService, IGuidIdGenerator guidGenerator, IZboxReadService zboxReadService)
         {
             m_BlobProviderFiles = blobProviderFiles;
             m_QueueProvider = queueProvider;
             m_ZboxWriteService = zboxWriteService;
             m_GuidGenerator = guidGenerator;
+            m_ZboxReadService = zboxReadService;
+        }
+
+        [Route("api/document/{id}")]
+        public async Task<HttpResponseMessage> GetDataAsync(long id)
+        {
+            var retVal = await m_ZboxReadService.GetItemDetailApiAsync(id).ConfigureAwait(false);
+
+            return Request.CreateResponse(new
+            {
+                retVal.Name,
+                retVal.Source,
+            });
         }
 
         // GET api/Document

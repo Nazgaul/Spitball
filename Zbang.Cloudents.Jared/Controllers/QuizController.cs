@@ -55,6 +55,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             }
             return Request.CreateResponse(new
             {
+                tModel.Result.Quiz.Name,
                 Questions = tModel.Result.Quiz.Questions.Select(s => new
                 {
                     s.Id,

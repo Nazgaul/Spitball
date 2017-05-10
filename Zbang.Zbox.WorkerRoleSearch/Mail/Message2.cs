@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.WorkerRoleSearch.Mail
@@ -34,6 +35,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 return true;
             }
 
+            
             var userImage = parameters.SenderUserImage ?? "https://az32006.vo.msecnd.net/zboxprofilepic/DefaultEmailImage.jpg";
             var t1 = m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
                   new MessageMailParams(parameters.Message, parameters.SenderUserName,
@@ -52,7 +54,15 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 t2 = m_SendPush.SendChatMessageNotificationAsync(parameters.SenderUserName,
                     parameters.Message, parameters.ConversationId, new[] { parameters.UserId });
             }
-            await Task.WhenAll(t1, t2).ConfigureAwait(false);
+            try
+            {
+                await Task.WhenAll(t1, t2).ConfigureAwait(false);
+            }
+            catch (AggregateException ae)
+            {
+                TraceLog.WriteError("on message", ae.Flatten());
+                return t1.IsCompleted || t2.IsCompleted;
+            }
             return true;
 
         }

@@ -233,7 +233,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             //const string defaultMimeType = "application/octet-stream";
             var userId = User.GetUserId();
 
-            var query = new GetItemQuery(userId, itemId, boxId);
             var t1 = m_QueueProvider.InsertMessageToTranactionAsync(
                    new StatisticsData4(
                         new StatisticsData4.StatisticItemData
@@ -242,7 +241,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             Action = (int)StatisticsAction.Download
                         }
                     , userId));
-            var t2 = ZboxReadService.GetItemDetailApiAsync(query);
+            var t2 = ZboxReadService.GetItemDetailApiAsync(itemId);
 
             var userType = ViewBag.UserType as UserRelationshipType?;
             var t3 = Task.CompletedTask;
@@ -322,12 +321,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> PrintAsync(long boxId, long itemId)
         {
             var userId = User.GetUserId();
-            var query = new GetItemQuery(User.GetUserId(false), itemId, boxId);
 
-            var t1 = ZboxReadService.GetItemDetailApiAsync(query);
+            var t1 = ZboxReadService.GetItemDetailApiAsync(itemId);
             var autoFollowCommand = new SubscribeToSharedBoxCommand(userId, boxId);
             var t2 = ZboxWriteService.SubscribeToSharedBoxAsync(autoFollowCommand);
-            await Task.WhenAll(t1, t2);
+            await Task.WhenAll(t1, t2).ConfigureAwait(false);
             var item = t1.Result;
             if (item.Type == "Link")
             {
@@ -339,7 +337,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var processor = m_FileProcessorFactory.Value.GetProcessor(uri);
             if (processor != null)
             {
-                var result = await processor.ConvertFileToWebsitePreviewAsync(uri, 0);
+                var result = await processor.ConvertFileToWebsitePreviewAsync(uri, 0).ConfigureAwait(false);
                 retVal = result.Content;
             }
             return View(retVal);

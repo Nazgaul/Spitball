@@ -53,7 +53,7 @@ namespace Zbang.Zbox.ReadServices
 
         Task<ItemDetailDto> GetItem2Async(GetItemQuery query);
         Task<IEnumerable<AnnotationDto>> GetItemCommentsAsync(ItemCommentQuery query);
-        Task<ItemMobileDto> GetItemDetailApiAsync(GetItemQuery query);
+        Task<ItemMobileDto> GetItemDetailApiAsync(long itemId);
         Task<FileSeo> GetItemSeoAsync(GetFileSeoQuery query);
         Task<FlashcardSeoDto> GetFlashcardUrlAsync(GetFlashcardSeoQuery query);
         Task<BoxSeoDto> GetBoxSeoAsync(GetBoxIdQuery query);

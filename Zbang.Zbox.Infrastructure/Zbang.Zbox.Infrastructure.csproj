@@ -116,7 +116,6 @@
     <Compile Include="Enums\CategoryTextType.cs" />
     <Compile Include="Enums\EmailSend.cs" />
     <Compile Include="Enums\FeedType.cs" />
-    <Compile Include="Enums\ImageSize.cs" />
     <Compile Include="Enums\LibraryNodeSetting.cs" />
     <Compile Include="Enums\LikeType.cs" />
     <Compile Include="Enums\MessageType.cs" />
@@ -146,6 +145,7 @@
     <Compile Include="Exceptions\BoxNameAlreadyExistsException.cs" />
     <Compile Include="Exceptions\FileQuotaExceedException.cs" />
     <Compile Include="Exceptions\ItemNotFoundException.cs" />
+    <Compile Include="Exceptions\PushFailedException.cs" />
     <Compile Include="Exceptions\UserRegisterFacebookException.cs" />
     <Compile Include="Extensions\AsyncLazy.cs" />
     <Compile Include="Extensions\ConfigFetcher.cs">

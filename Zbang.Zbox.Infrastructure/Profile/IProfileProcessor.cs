@@ -1,9 +1,10 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 
 namespace Zbang.Zbox.Infrastructure.Profile
 {
     public interface IProfileProcessor
     {
-        Stream ProcessFile(Stream stream, int width, int height);
+        Task<Stream> ProcessFileAsync(Stream stream, int width, int height);
     }
 }

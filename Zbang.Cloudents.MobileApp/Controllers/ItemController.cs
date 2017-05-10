@@ -50,8 +50,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         public async Task<HttpResponseMessage> GetAsync(long id)
         {
             var userId = User.GetUserId();
-            var query = new GetItemQuery(userId, id, 0);
-            var tItem = m_ZboxReadService.GetItemDetailApiAsync(query);
+            var tItem = m_ZboxReadService.GetItemDetailApiAsync(id);
 
             var tTransAction = m_QueueProvider.InsertMessageToTranactionAsync(
                   new StatisticsData4(
@@ -62,7 +61,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                         }
                     , userId));
 
-            await Task.WhenAll(tItem, tTransAction);
+            await Task.WhenAll(tItem, tTransAction).ConfigureAwait(false);
             var retVal = tItem.Result;
             retVal.ShortUrl = UrlConst.BuildShortItemUrl(new Base62(id).ToString());
 
@@ -98,10 +97,9 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             //const string defaultMimeType = "application/octet-stream";
             var userId = User.GetUserId();
 
-            var query = new GetItemQuery(userId, id, boxId);
 
             //var item = ZboxReadService.GetItem(query);
-            var t2 = m_ZboxReadService.GetItemDetailApiAsync(query);
+            var t2 = m_ZboxReadService.GetItemDetailApiAsync(id);
 
 
             var autoFollowCommand = new SubscribeToSharedBoxCommand(userId, boxId);
@@ -116,7 +114,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                         }
                     , userId));
 
-            await Task.WhenAll(t1, t2, t3);
+            await Task.WhenAll(t1, t2, t3).ConfigureAwait(false);
             var item = t2.Result;
             if (item.Type == "Link")
             {
