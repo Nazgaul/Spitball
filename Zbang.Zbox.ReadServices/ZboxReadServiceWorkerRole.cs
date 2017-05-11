@@ -498,7 +498,7 @@ namespace Zbang.Zbox.ReadServices
             const string sql = @"select email,Culture,UserName as Name from zbox.Users
 where UniversityId is null
 and EmailSendSettings = 0
-and (creationtime>'2015' or [LastAccessTime] >'2015')
+and (creationtime>getdate()-180 or [LastAccessTime] >getdate()-180)
 and (membershipUserid is not null or facebookUserid is not null or googleUserid is not null)
 and creationtime < dateadd(HOUR,-2,GETUTCDATE())
 order by userid
@@ -508,24 +508,24 @@ FETCH NEXT @RowsPerPage ROWS ONLY";
 
         }
 
-        public Task<IEnumerable<MarketingDto>> GetLowContributersUsersAsync(MarketingQuery query,
-            CancellationToken token)
-        {
-            const string sql = @"select email,Culture,UserName as Name
-from zbox.users u 
-where u.score < 600
-and UniversityId is not null
-and exists (select userid from zbox.userboxrel ub where ub.userid = u.userid)
-and u.UniversityId in (	select Id from zbox.University u where u.NoOfBoxes >= 5 and isdeleted = 0)
-and EmailSendSettings = 0
-and (creationtime>'2015' or [LastAccessTime] >'2015')
-and (membershipuserid is not null or facebookuserid is not null or googleuserid is not null)
-and creationtime < dateadd(HOUR,-2,GETUTCDATE())
-order by userid
-offset @PageNumber*@RowsPerPage ROWS
-FETCH NEXT @RowsPerPage ROWS ONLY";
-            return GetMarketingDataAsync(query, sql, token);
-        }
+//        public Task<IEnumerable<MarketingDto>> GetLowContributersUsersAsync(MarketingQuery query,
+//            CancellationToken token)
+//        {
+//            const string sql = @"select email,Culture,UserName as Name
+//from zbox.users u 
+//where u.score < 600
+//and UniversityId is not null
+//and exists (select userid from zbox.userboxrel ub where ub.userid = u.userid)
+//and u.UniversityId in (	select Id from zbox.University u where u.NoOfBoxes >= 5 and isdeleted = 0)
+//and EmailSendSettings = 0
+//and (creationtime>'2015' or [LastAccessTime] >'2015')
+//and (membershipuserid is not null or facebookuserid is not null or googleuserid is not null)
+//and creationtime < dateadd(HOUR,-2,GETUTCDATE())
+//order by userid
+//offset @PageNumber*@RowsPerPage ROWS
+//FETCH NEXT @RowsPerPage ROWS ONLY";
+//            return GetMarketingDataAsync(query, sql, token);
+//        }
 
         public Task<IEnumerable<MarketingDto>> GetUsersWithUniversityWithoutSubscribedBoxesAsync(MarketingQuery query,
             CancellationToken token)
@@ -536,7 +536,7 @@ and uu.Country != 'us'
 and not exists (select userid from zbox.userboxrel ub where ub.userid = u.userid)
 and EmailSendSettings = 0
 and (membershipuserid is not null or facebookuserid is not null or googleuserid is not null)
-and (u.creationtime>'2015' or [LastAccessTime] >'2015') 
+and (u.creationtime>getdate()-180 or [LastAccessTime] >getdate()-180) 
 and u.creationtime < dateadd(HOUR,-2,GETUTCDATE())
 order by userid
 offset @PageNumber*@RowsPerPage ROWS
@@ -551,13 +551,14 @@ FETCH NEXT @RowsPerPage ROWS ONLY";
 from zbox.Users u2 where u2.UniversityId in (
 select Id from zbox.University u where u.NoOfBoxes < 5 and isdeleted = 0 and u.Country != 'us')
 and EmailSendSettings = 0
-and (creationtime>'2015' or [LastAccessTime] >'2015')
+and (creationtime>getdate()-180 or [LastAccessTime]>getdate()-180)
 and exists (select userid from zbox.userboxrel ub where ub.userid = u2.userid)
 and (membershipuserid is not null or facebookuserid is not null or googleuserid is not null)
 and creationtime < dateadd(HOUR,-2,GETUTCDATE())
 order by userid
 offset @PageNumber*@RowsPerPage ROWS
-FETCH NEXT @RowsPerPage ROWS ONLY";
+FETCH NEXT @RowsPerPage ROWS ONLY
+";
             return GetMarketingDataAsync(query, sql, token);
         }
 
@@ -580,7 +581,7 @@ select distinct ub.userid from zbox.UserBoxRel ub join zbox.UserBoxRel ub2 on ub
 where ub.boxid in (select boxid from boxWithLowUpdate)
 and ub2.boxid not in (select boxid from boxWithLowUpdate))
 and EmailSendSettings = 0
-and (creationtime>'2015' or [LastAccessTime] >'2015')
+and (creationtime>getdate()-180 or [LastAccessTime] >getdate()-180)
 and (membershipuserid is not null or facebookuserid is not null or googleuserid is not null)
 and creationtime < dateadd(HOUR,-2,GETUTCDATE())
 order by UserId

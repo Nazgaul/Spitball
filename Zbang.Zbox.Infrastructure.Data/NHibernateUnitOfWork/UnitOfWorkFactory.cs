@@ -50,7 +50,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                     dbi.Driver<ZboxDriver>();
                     dbi.ConnectionString = ConfigFetcher.Fetch(DapperConnection.ConnectionStringKey);
                     dbi.SchemaAction = SchemaAutoAction.Validate;
-                    dbi.BatchSize = 250;
+                    dbi.BatchSize = 100;
 #if DEBUG
                     dbi.LogSqlInConsole = true;
                     dbi.LogFormattedSql = true;

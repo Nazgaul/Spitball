@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Zbang.Zbox.ViewModel.Queries.Jared
 {
@@ -10,7 +11,7 @@ namespace Zbang.Zbox.ViewModel.Queries.Jared
             DocumentIds = documentIds;
             QuizIds = quizIds;
             FlashcardIds = flashcardIds;
-            QuestionIds = questionIds;
+            CommentIds = questionIds;
         }
 
         public IEnumerable<long> DocumentIds { get; private set; }
@@ -19,6 +20,6 @@ namespace Zbang.Zbox.ViewModel.Queries.Jared
 
         public IEnumerable<long> FlashcardIds { get; private set; }
 
-        public IEnumerable<Guid> QuestionIds { get; private set; }
+        public IEnumerable<Guid> CommentIds { get; private set; }
     }
 }

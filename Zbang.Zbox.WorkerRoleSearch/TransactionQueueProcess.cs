@@ -40,7 +40,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             return true;
                         }
                         return await process.ExecuteAsync(msgData, cancellationToken).ConfigureAwait(false);
-                    }, TimeSpan.FromMinutes(1), 5, cancellationToken).ConfigureAwait(false);
+                    }, TimeSpan.FromMinutes(45), 3, cancellationToken).ConfigureAwait(false);
                     if (!result)
                     {
                         await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken).ConfigureAwait(false);

@@ -1226,7 +1226,7 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
             {
                 using (var grid = await conn.QueryMultipleAsync(Sql.Jared.DocumentFavorites
                     + Sql.Jared.QuizFavorites + Sql.Jared.FlashcardFavorite + Sql.Jared.CommentFavorite,
-                    new { query.DocumentIds,query.FlashcardIds,query.QuizIds,query.QuestionIds }).ConfigureAwait(false))
+                    new { query.DocumentIds,query.FlashcardIds,query.QuizIds, query.CommentIds }).ConfigureAwait(false))
                 {
                     var retVal = new JaredFavoriteDto
                     {
