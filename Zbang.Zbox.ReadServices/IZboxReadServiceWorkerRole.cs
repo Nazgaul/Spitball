@@ -57,8 +57,8 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<MarketingDto>> GetUsersFollowingCoursesNoActivityAsync(MarketingQuery query,
             CancellationToken token);
 
-        Task<IEnumerable<MarketingDto>> GetLowContributersUsersAsync(MarketingQuery query,
-            CancellationToken token);
+        //Task<IEnumerable<MarketingDto>> GetLowContributersUsersAsync(MarketingQuery query,
+        //    CancellationToken token);
 
         Task<IEnumerable<LikesDto>> GetLikesDataAsync(CancellationToken token);
 

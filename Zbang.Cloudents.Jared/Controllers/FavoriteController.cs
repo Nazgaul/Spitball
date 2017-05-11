@@ -29,7 +29,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         //one digit params to short query string
         public async Task<HttpResponseMessage> Get([FromUri]IEnumerable<long> d,
             [FromUri]IEnumerable<long> q,
-            [FromUri]IEnumerable<long> f, [FromUri] IEnumerable<Guid> c)
+            [FromUri]IEnumerable<long> f, [FromUri] IEnumerable<string> c)
         {
 
 
@@ -39,7 +39,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             {
                 t2 = m_DocumentDbReadService.FavoriteFlashcardsAsync(flashcardIdList);
             }
-            var query = new JaredFavoritesQuery(d, q, flashcardIdList, c);
+            var query = new JaredFavoritesQuery(d, q, flashcardIdList, c.Select(Guid.Parse));
             var t1 = m_ZboxReadService.JaredFavoritesAsync(query);
             await Task.WhenAll(t1, t2).ConfigureAwait(false);
             var retVal = t1.Result;
