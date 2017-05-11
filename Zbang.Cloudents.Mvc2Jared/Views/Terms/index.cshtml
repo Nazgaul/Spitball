@@ -74,12 +74,13 @@
             document.getElementById("loader").hidden = false
             //document.getElementsByName("term")
             var service_url = 'https://kgsearch.googleapis.com/v1/entities:search';
-            var wiki_url = 'https://en.wikipedia.org/w/api.php';
+            var globalSearch = 'https://www.googleapis.com/customsearch/v1';
             var query = document.getElementById("term").value;
 
             var params = {
-                'query': query,
+                'q': query,
                 'limit': 1,
+                'cx':'002093729491806322168:pa3awdjz4z0',
                 'indent': true,
                 'key': 'AIzaSyASDp6MLs6mqoppPkkKUN_yoiE8WZjesow'
             };
@@ -89,19 +90,19 @@
                 'action': 'query',
                 'prop': 'extract',
             };
-            $.getJSON(service_url + '?callback=?', params, function (response) {
-                var itemList = response.itemListElement;
+            $.getJSON(globalSearch + '?callback=?', params, function (response) {
+                var itemList = response.items;
                 var s;
                 if (itemList.length === 0) {
                     s = "<h2 class='error'>No google knowledge results found</h2>"
                 }
                 else {
-                    s = "<h2>Title:</h2><p>" + response.itemListElement[0].result.name + "</p>";
-                    if (response.itemListElement[0].result.detailedDescription) {
-                        s += "<h2>Description:</h2><p>" + response.itemListElement[0].result.detailedDescription.articleBody + "</p>"
+                    s = "<h2>Title:</h2><p>" + itemList[0].title + "</p>";
+                    if (itemList[0].snippet) {
+                        s += "<h2>Description:</h2><p>" + itemList[0].htmlSnippet + "</p>"
                     }
-                    if (response.itemListElement[0].result.image) {
-                        s += "<h2>Image</h2>:<img src='" + response.itemListElement[0].result.image.contentUrl + "'/>"
+                    if (itemList[0].pagemap) {
+                        s += "<h2>Image</h2>:<img src='" + itemList[0].pagemap.cse_image[0].src + "'/>"
                     }
                 }
 
