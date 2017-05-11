@@ -71,6 +71,7 @@ where id in @flashcardIds;";
 
         public const string CommentFavorite = @"select 
 q.questionid as id,
+q.boxid as courseId,
 u.userimagelarge as image,
 u.username as name,
 q.text,
