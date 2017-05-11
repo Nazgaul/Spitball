@@ -7,9 +7,9 @@
     <title>index</title>
 </head>
 <body ng-cloak>
-    <form class="search-form" name="searchTrigger" novalidate>
+    <form class="search-form" name="searchTrigger" validate>
         <div class="row">
-            <input class="field col" list="university" name="university" placeholder="University" ng-model-options="{ debounce: 500 }" ng-model="st.formData.university" ng-change="st.autocomplete('university')">
+            <input class="field col" list="university" name="university" placeholder="University" required="required" ng-model-options="{ debounce: 500 }" ng-model="st.formData.university" ng-change="st.autocomplete('university')">
             <datalist id="university">
                 <option ng-repeat="university in st.universityAutoComplete" value="{{university}}">
             </datalist>

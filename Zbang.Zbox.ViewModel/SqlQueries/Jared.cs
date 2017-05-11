@@ -16,7 +16,7 @@ from " + ItemWhere + ";";
 join zbox.box b ON i.boxid=b.boxid 
 join zbox.library d ON b.libraryid=d.libraryId 
 join zbox.university u ON b.university=u.id 
-where b.discriminator = 2 and i.isdeleted=0 and b.university=173408 
+where b.discriminator = 2 and i.isdeleted=0 and b.university in(173408,166100,171885,172566) 
 and (@name is null or (i.name like +'%' + @name + '%'))
 and (@university is null or (u.universityname like +'%' + @university + '%'))
 and (@IsSearchType=0 or (i.doctype is null)) 
