@@ -9,6 +9,8 @@ using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Data;
 using Zbang.Zbox.Infrastructure.Ioc;
+using Zbang.Zbox.Infrastructure.Notifications;
+using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Cloudents.Mvc2Jared
@@ -33,9 +35,13 @@ namespace Zbang.Cloudents.Mvc2Jared
 
             builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
                 builder.RegisterFilterProvider();
+            builder.RegisterType<JaredSendPush>()
+                .As<IJaredPushNotification>()
+                .WithParameter("connectionString", "Endpoint=sb://spitball.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=1+AAf2FSzauWHpYhHaoweYT9576paNgmicNSv6jAvKk=")
+                .WithParameter("hubName", "jared-spitball")
+                .InstancePerLifetimeScope();
 
-
-                var container = IocFactory.IocWrapper.Build();
+            var container = IocFactory.IocWrapper.Build();
                 DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
                 DependencyResolver.Current.GetService<Zbox.Domain.Common.IZboxServiceBootStrapper>().BootStrapper();
                 app.UseAutofacMiddleware(container);

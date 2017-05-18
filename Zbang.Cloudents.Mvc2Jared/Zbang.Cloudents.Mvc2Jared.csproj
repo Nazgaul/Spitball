@@ -1093,6 +1093,10 @@
       <Project>{872878fa-a84a-4cd3-856a-4ee9018819c5}</Project>
       <Name>Zbang.Zbox.Infrastructure.Ioc</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Notification\Zbang.Zbox.Infrastructure.Notifications.csproj">
+      <Project>{20d10149-03bf-4c32-abe4-d278a46cad7f}</Project>
+      <Name>Zbang.Zbox.Infrastructure.Notifications</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Search\Zbang.Zbox.Infrastructure.Search.csproj">
       <Project>{D79B5CEC-09DE-4337-873F-0C65B58D86D3}</Project>
       <Name>Zbang.Zbox.Infrastructure.Search</Name>
