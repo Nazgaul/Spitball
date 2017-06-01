@@ -142,7 +142,7 @@ module app {
             this.newTag = "";
         }
         deleteDoc() {
-            this.showLoader = true
+            this.showLoader = true;
             this.searchService.deleteDoc(this.doc.ItemId).then(() => {
                 this.showLoader = false
                 var docIndex = this.counter
