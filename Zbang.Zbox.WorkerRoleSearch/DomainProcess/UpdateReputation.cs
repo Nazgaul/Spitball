@@ -25,22 +25,23 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             {
                 //var userIds = string.Join(",", parameters.UserIds);
                 //TraceLog.WriteInfo($"processing reputation for user {userIds}");
-                var proxy = await SignalrClient.GetProxyAsync();
-                foreach (var userId in parameters.UserIds)
-                {
-                    token.ThrowIfCancellationRequested();
-                    var command = new UpdateReputationCommand(userId);
-                    m_ZboxWriteService.UpdateReputation(command);
-                    try
-                    {
-                        await proxy.Invoke("Score", command.Score, userId);
+                var proxy = await SignalrClient.GetProxyAsync().ConfigureAwait(false);
 
-                    }
-                    catch (Exception ex)
+                if (parameters.UserIds != null)
+                    foreach (var userId in parameters.UserIds)
                     {
-                        TraceLog.WriteError("on signalr reputation", ex);
+                        token.ThrowIfCancellationRequested();
+                        var command = new UpdateReputationCommand(userId);
+                        m_ZboxWriteService.UpdateReputation(command);
+                        try
+                        {
+                            await proxy.Invoke("Score", command.Score, userId).ConfigureAwait(false);
+                        }
+                        catch (Exception ex)
+                        {
+                            TraceLog.WriteError("on signalr reputation", ex);
+                        }
                     }
-                }
             }
             catch (Exception ex)
             {
