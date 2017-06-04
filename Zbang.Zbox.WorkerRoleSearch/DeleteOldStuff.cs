@@ -36,49 +36,40 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 TraceLog.WriteInfo("delete stuff starting to work");
                 await m_ZboxWorkerRoleService.DoDirtyUpdateAsync(cancellationToken).ConfigureAwait(false);
-                TraceLog.WriteInfo("update stuff -update dirty stuff");
                 var result =
                     await
                         DoDeleteAsync(cancellationToken, "deleteOldUpdates",
                             m_ZboxWorkerRoleService.DeleteOldUpdatesAsync).ConfigureAwait(false);
-                TraceLog.WriteInfo("delete stuff -finish delete old updates");
                 var result2 =
                     await
                         DoDeleteAsync(cancellationToken, "deleteOldItems",
                             m_ZboxWorkerRoleService.DeleteOldItemAsync).ConfigureAwait(false);
-                TraceLog.WriteInfo("delete stuff -finish delete items");
 
                 var result6 =
                    await
                        DoDeleteAsync(cancellationToken, "DeleteOldFlashcard",
                            m_ZboxWorkerRoleService.DeleteOldFlashcardAsync).ConfigureAwait(false);
-                TraceLog.WriteInfo("delete stuff -finish delete flashcard");
                 var result4 =
                     await
                         DoDeleteAsync(cancellationToken, "deleteOldQuiz",
                             m_ZboxWorkerRoleService.DeleteOldQuizAsync).ConfigureAwait(false);
-                TraceLog.WriteInfo("delete stuff -finish delete quizzes");
                 var result3 =
                     await
                         DoDeleteAsync(cancellationToken, "deleteOldBoxes",
                             m_ZboxWorkerRoleService.DeleteOldBoxAsync).ConfigureAwait(false);
-                TraceLog.WriteInfo("delete stuff -finish delete boxes");
                 var result5 =
                     await
                         DoDeleteAsync(cancellationToken, "deleteOldUniversity",
                             m_ZboxWorkerRoleService.DeleteOldUniversityAsync).ConfigureAwait(false);
-                TraceLog.WriteInfo("delete stuff -finish delete university");
                 await
                     m_MailComponent.GenerateSystemEmailAsync("delete old stuff", result + result2 + result4 + result3 + result5 + result6).ConfigureAwait(false);
-
-                TraceLog.WriteInfo("delete stuff going to sleep");
 
                 await Task.Delay(TimeSpan.FromDays(1), cancellationToken).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(ex);
-                await Task.Delay(TimeSpan.FromHours(2), cancellationToken).ConfigureAwait(false);
+                await Task.Delay(TimeSpan.FromHours(4), cancellationToken).ConfigureAwait(false);
             }
         }
 

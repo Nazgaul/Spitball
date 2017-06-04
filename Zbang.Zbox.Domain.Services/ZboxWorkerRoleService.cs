@@ -133,20 +133,20 @@ set isDirty = 1, isDeleted = 1, updateTime = getUtcDate()-121
             counter +=
                 await ExecuteSqlLoopAsync(
                     new[] {
-                        @"delete from Zbox.SolvedQuestion where quizid in (
+                        @"delete from Zbox.SolvedQuestion where quizId in (
 	select top(10) id from zbox.quiz where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 
-)option (maxdop 1)",
-                        @"delete from Zbox.QuizQuestion where quizid in (
+)option (maxDop 1)",
+                        @"delete from Zbox.QuizQuestion where quizId in (
 	select top(10) id from zbox.quiz where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 
-)option (maxdop 1)",
-                        @"delete from Zbox.QuizAnswer where quizid in (
+)option (maxDop 1)",
+                        @"delete from Zbox.QuizAnswer where quizId in (
 	select top(10) id from zbox.quiz where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 
-)option (maxdop 1)",
-                        @"delete from Zbox.SolvedQuiz where quizid in (
+)option (maxDop 1)",
+                        @"delete from Zbox.SolvedQuiz where quizId in (
 	select top(10) id from zbox.quiz where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 
-)option (maxdop 1)",
-                        "delete top (10) from zbox.quiz where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 option (maxdop 1)"
-                    }, token);
+)option (maxDop 1)",
+                        "delete top (10) from zbox.quiz where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 option (maxDop 1)"
+                    }, token).ConfigureAwait(false);
             return counter;
         }
 
@@ -156,11 +156,11 @@ set isDirty = 1, isDeleted = 1, updateTime = getUtcDate()-121
             counter +=
                 await ExecuteSqlLoopAsync(
                     new[] {
-                        @"delete from zbox.ItemTag where flashcardid in (
+                        @"delete from zbox.ItemTag where flashcardId in (
 	select top (10) id  from zbox.flashcard where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
-    )option(maxdop 1)",
-                        "delete top (10)  from zbox.flashcard where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 option (maxdop 1)"
-                    }, token);
+    )option(maxDop 1)",
+                        "delete top (10)  from zbox.flashcard where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 option (maxDop 1)"
+                    }, token).ConfigureAwait(false);
             return counter;
         }
 
@@ -170,20 +170,23 @@ set isDirty = 1, isDeleted = 1, updateTime = getUtcDate()-121
             counter +=
                 await ExecuteSqlLoopAsync(
                     new[] {
-                        @"delete from zbox.ItemCommentReply where itemid in (
+                        @"delete from zbox.ItemCommentReply where itemId in (
 
-    select top (100) itemid from zbox.item where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
-) option(maxdop 1)",
-                        @"delete from zbox.itemcomment where itemid in (
-	select  top (100) itemid from zbox.item where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
-) option (maxdop 1)",
-                        @"delete from Zbox.NewUpdates where itemid in (
-	select top (100) itemid from zbox.item where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
-) option (maxdop 1)",
-                        @"delete from Zbox.itemrate where itemid in (
-	select top (100) itemid from zbox.item where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
-) option (maxdop 1)",
-                        "delete top (100) from zbox.item where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 option (maxdop 1)"
+    select top (100) itemId from zbox.item where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
+) option(maxDop 1)",
+                        @"delete from zbox.itemComment where itemId in (
+	select  top (100) itemId from zbox.item where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
+) option (maxDop 1)",
+                        @"delete from Zbox.NewUpdates where itemId in (
+	select top (100) itemId from zbox.item where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
+) option (maxDop 1)",
+                        @"delete from Zbox.itemRate where itemId in (
+	select top (100) itemId from zbox.item where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
+) option (maxDop 1)",
+                        @"delete from Zbox.ItemTag where itemId in (
+	select top (100) itemId from zbox.item where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
+) option (maxDop 1)",
+                        "delete top (100) from zbox.item where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 option (maxDop 1)"
                     }, token).ConfigureAwait(false);
             return counter;
 
@@ -196,71 +199,71 @@ set isDirty = 1, isDeleted = 1, updateTime = getUtcDate()-121
                     {
                         @"delete from Zbox.NewUpdates where boxId in (
 	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
-) option (maxdop 1)",
+) option (maxDop 1)",
                         @"delete from Zbox.Invite where boxId in (
 	select top (3) boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
-) option (maxdop 1)",
+) option (maxDop 1)",
                         @"delete from Zbox.UserBoxRel where boxId in (
 	select top (3) boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
-) option (maxdop 1)",
+) option (maxDop 1)",
                         @"delete from Zbox.Message where boxId in (
 	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
-) option (maxdop 1)",
+) option (maxDop 1)",
                         @"delete from zbox.replylike where replyid in (
 select answerid from zbox.answer where boxId in (
 	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
-)) option (maxdop 1)",
+)) option (maxDop 1)",
                         @"delete from zbox.answer where boxId in (
 	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
-) option (maxdop 1)",
+) option (maxDop 1)",
                         @"delete from zbox.answer where questionid in (
 select questionid from Zbox.Question where boxId in (
 	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
-)) option (maxdop 1)",
+)) option (maxDop 1)",
                         @"delete from Zbox.CommentLike where commentid in (
 select questionid from Zbox.Question where boxId in (
 	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
 ) 
-)option (maxdop 1)",
+)option (maxDop 1)",
                         @"delete from zbox.commentlike where boxId in (
 select top (3) boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 order by boxId)",
 
                         @"delete from Zbox.Question where boxId in (
 	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
-) option (maxdop 1)",
-                        @"delete from Zbox.ItemTab where boxId in (
+) option (maxDop 1)",
+                        @"delete from Zbox.itemTab where boxId in (
 	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
-) option (maxdop 1)",
-                        @"delete  from Zbox.QuizQuestion where quizid in (
+) option (maxDop 1)",
+                        @"delete  from Zbox.QuizQuestion where quizId in (
 	select id  from Zbox.quiz where publish = 0
 and boxId in (
 	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
 ) 
-) option (maxdop 1)",
+) option (maxDop 1)",
                         @"delete  from Zbox.quiz where publish = 0
 and boxId in (
 	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
-) option (maxdop 1)",
+) option (maxDop 1)",
                         @"delete  from Zbox.item where isDeleted = 1 and isDirty = 0
 and boxId in (
 	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
-) option (maxdop 1)",
+) option (maxDop 1)",
                         @"delete from zbox.flashcard where boxId in (
 --delete from zbox.box where boxId in (
 select top (3) boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 order by boxId
-)  and isDeleted = 1 and isDirty = 0 option(maxdop 1)",
+)  and isDeleted = 1 and isDirty = 0 option(maxDop 1)",
                         @"update zbox.item
-set itemtabid = null , isDirty = 1
-where itemtabid in (
-select itemtabid from zbox.itemtab where boxId in (
+set itemTabId = null , isDirty = 1
+where itemTabId in (
+select itemTabId from zbox.itemTab where boxId in (
 select top (3) boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 order by boxId
 ))",
-                        @"delete from zbox.itemtab where boxId in (
+                        @"delete from zbox.itemTab where boxId in (
 select top (3) boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 order by boxId
-) option(maxdop 1)",
+) option(maxDop 1)",
                         @"delete from zbox.box where boxId in (
 select top (3) boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 order by boxId
-) option(maxdop 1)"
+) option(maxDop 1)"
                     }, token);
 
         }
@@ -273,16 +276,16 @@ select top (3) boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcD
     @"delete from zbox.userlibraryrel where libraryid in (
 select libraryid from Zbox.Library where id in (
 select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
-)) option (maxdop 1)",
+)) option (maxDop 1)",
                     @"delete from Zbox.Library where id in (
 select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
-) option (maxdop 1)",
-                    @"update zbox.users set universityid = null
-where universityid in (
+) option (maxDop 1)",
+                    @"update zbox.users set universityId = null
+where universityId in (
 select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
 )
 ",
-                    @"delete top(3) from zbox.university where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 option (maxdop 1)"
+                    @"delete top(3) from zbox.university where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 option (maxDop 1)"
                 }, token);
         }
 
@@ -323,7 +326,7 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
 
         public Task<int> DeleteOldUpdatesAsync(CancellationToken token)
         {
-            return ExecuteSqlLoopAsync(new[] { "delete top (100)  from zbox.newUpdates where CreationTime < getUtcDate() - 45 option (maxdop 1)" }, token);
+            return ExecuteSqlLoopAsync(new[] { "delete top (100)  from zbox.newUpdates where CreationTime < getUtcDate() - 45 option (maxDop 1)" }, token);
         }
 
 
@@ -493,7 +496,7 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                const string sql = "update zbox.Item set isDirty = 0 where itemid in @Ids";
+                const string sql = "update zbox.Item set isDirty = 0 where itemId in @Ids";
                 await conn.ExecuteAsync(sql, new { command.Ids }, commandType: CommandType.Text);
             }
         }
@@ -613,7 +616,7 @@ where id = @id";
                 //}
                 //unitOfWork.TransactionalFlush();
 
-                var items2 = UnitOfWork.CurrentSession.CreateSQLQuery(@"select itemid from zbox.item
+                var items2 = UnitOfWork.CurrentSession.CreateSQLQuery(@"select itemId from zbox.item
 where  CHARINDEX(CAST(boxId as varchar(max)), URL) = 0
 and isDeleted = 0").List();
                 foreach (var itemId in items2)
