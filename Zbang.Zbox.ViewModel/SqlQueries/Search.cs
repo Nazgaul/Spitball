@@ -100,38 +100,21 @@ select Name,boxid from c;";
         select top 10 itemid as id from zbox.item
         where isdirty = 1 and isdeleted = 1 and itemid % @count  = @index;";
 
-
-      
-        
-
-
-
-      
-
-
-
-
-
-
-        
-
         #region Quiz
-          public const string GetQuizzesToUploadToSearch = @"select top (@top) q.Id,
+          public const string GetQuizzesToUploadToSearch = @"select top (@top) 
+q.Id,
 q.Name as QuizName,
- b.BoxName,
- q.BoxId,
  q.Language,
  q.CreationTime as Date,
  q.Url,
  q.LikeCount as Likes,
  q.NumberOfViews as Views,
- u.UniversityName as universityName,
-  case b.Discriminator
-   when 2 then
-       b.University
-	   else null
-	   end
-   as universityid
+ q.BoxId as id,
+b.BoxName as name,
+ b.ProfessorName as Professor,
+  b.CourseCode as Code,
+   b.University as id ,
+ u.UniversityName as name
 from zbox.quiz q 
 join zbox.Box b on q.BoxId = b.BoxId
 left join zbox.University u on b.University = u.id
@@ -139,7 +122,7 @@ where publish = 1
 and q.isdeleted = 0
 and q.isdirty = 1
 and q.id % @count  = @index
-order by Id desc;";
+order by q.Id desc;";
 
 
         public const string GetQuizzesQuestionToUploadToSearch =
@@ -255,17 +238,21 @@ where t.rowid < 6;";
 
 
         #region Flashcard
-        public const string GetFlashcardToUploadToSearch = @"select top (@top) f.Id,
+        public const string GetFlashcardToUploadToSearch = @"select top (@top) 
+f.Id,
 f.Name as FlashcardName,
- b.BoxName,
- f.BoxId,
- f.language,
- u.UniversityName as universityName,
- b.University as UniversityId,
+f.language,
+
  f.CreationTime as Date,
 	   f.CardCount as CardsCount,
 	   f.likecount as likes,
-	   f.numberofviews as views
+	   f.numberofviews as views,
+  b.BoxId as id,
+  b.ProfessorName as Professor,
+  b.CourseCode as Code,
+  b.BoxName as name, 
+  b.University as Id,
+  u.UniversityName as Name
     from zbox.Flashcard f
 join zbox.Box b on f.BoxId = b.BoxId
 left join zbox.University u on b.University = u.id
@@ -319,21 +306,21 @@ select top 0 questionid, ct.sys_change_version as version from  CHANGETABLE(CHAN
 IF (@version >= CHANGE_TRACKING_MIN_VALID_VERSION(  
                                    OBJECT_ID('zbox.question')))
 SELECT
- p.questionid as id,
+  p.questionid as id,
  text,
- u.id as universityId,
- u.UniversityName,
- b.boxid,
- b.boxname,
- b.ProfessorName as professor,
- b.coursecode as code,
  p.CreationTime as date,
  p.LikeCount,
  p.ReplyCount,
  (select count(*) from zbox.item i where i.isdeleted = 0 and i.questionid = p.questionid and i.boxid = b.boxid) as ItemCount,
  uu.username as userName,
  uu.UserImageLarge as userImage,
- ct.sys_change_version as version
+ ct.sys_change_version as version,
+ b.boxid as id,
+ b.boxname as  name,
+ b.ProfessorName as professor,
+ b.coursecode as code,
+ u.id as id,
+ u.UniversityName as name
 FROM
     zbox.question AS P
 RIGHT OUTER JOIN CHANGETABLE(CHANGES zbox.question, @version) AS CT ON  p.questionid = CT.questionid
@@ -351,20 +338,20 @@ else
 SELECT
  p.questionid as id,
  text,
- u.id as universityId,
- u.UniversityName,
- b.boxid,
- b.boxname,
- b.ProfessorName as professor,
- b.coursecode as code,
  p.CreationTime as date,
  p.LikeCount,
  p.ReplyCount,
- (select count(*) from zbox.item i where i.isdeleted = 0 and i.questionid = p.questionid  and i.boxid = b.boxid) as ItemCount,
+ (select count(*) from zbox.item i where i.isdeleted = 0 and i.questionid = p.questionid and i.boxid = b.boxid) as ItemCount,
  uu.username as userName,
  uu.UserImageLarge as userImage,
  CHANGE_TRACKING_MIN_VALID_VERSION(  
-                                   OBJECT_ID('zbox.question')) as version
+                                   OBJECT_ID('zbox.question')) as version,
+ b.boxid as id,
+ b.boxname as  name,
+ b.ProfessorName as professor,
+ b.coursecode as code,
+ u.id as id,
+ u.UniversityName as name
 FROM
     zbox.question AS P
 join zbox.box b on p.boxid = b.boxid
@@ -390,22 +377,17 @@ OFFSET @PageSize * (@PageNumber) ROWS
   i.blobName as blobName,
   i.Url as url, --old
   i.discriminator as typeDocument,
-  b.ProfessorName as BoxProfessor,
-  b.CourseCode as BoxCode,
-  case b.Discriminator
-   when 2 then
-       b.University
-	   else null
-	   end
-   as universityid,
-  b.BoxName as boxname, -- old
-  u.UniversityName as universityName,
-  b.BoxId as boxid,
   i.CreationTime as Date,
   i.language,
   i.LikeCount as likes,
   i.NumberOfViews as views,
-  i.doctype as docType
+  i.doctype as docType,
+  b.BoxId as id,
+  b.ProfessorName as Professor,
+  b.CourseCode as Code,
+  b.BoxName as name, 
+  b.University as id,
+  u.UniversityName as name
     from zbox.item i 
     join zbox.box b on i.BoxId = b.BoxId
     left join zbox.University u on b.University = u.id

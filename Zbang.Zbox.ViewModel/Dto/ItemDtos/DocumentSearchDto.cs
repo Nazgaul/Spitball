@@ -47,7 +47,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
         public string Url { get; set; }
 
-        public long? UniversityId { get; set; }
+        //public long? UniversityId { get; set; }
 
         public ItemType DocType { get; set; }
 

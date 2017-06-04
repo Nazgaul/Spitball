@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
+using Newtonsoft.Json;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -18,8 +19,8 @@ namespace Zbang.Zbox.Infrastructure.Search
         internal const string ContentHebrewField = "text_he";
         private readonly ISearchConnection m_Connection;
         private readonly ISearchIndexClient m_IndexClient;
-        private readonly string m_IndexName = "feed2";
-        //private bool m_CheckIndexExists;
+        private readonly string m_IndexName = "feed";
+        private bool m_CheckIndexExists;
         private const string ScoringProfile = "score";
 
         public FeedSearchProvider(ISearchConnection connection)
@@ -34,20 +35,21 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public async Task UpdateDataAsync(FeedSearchDto itemToUpload, IEnumerable<FeedSearchDeleteDto> itemToDelete, CancellationToken token)
         {
-            //if (!m_CheckIndexExists)
-            //{
-            //    await BuildIndexAsync().ConfigureAwait(false);
+            if (!m_CheckIndexExists)
+            {
+                await BuildIndexAsync().ConfigureAwait(false);
 
-            //}
+            }
             if (itemToUpload != null)
             {
                 var uploadBatch = new FeedSearch
                 {
                     Id = itemToUpload.Id.ToString(),
-                    Course = itemToUpload.BoxName.ToLowerInvariant(),
-                    Professor = itemToUpload.Professor?.ToLowerInvariant(),
-                    Code = itemToUpload.Code?.ToLowerInvariant(),
-                    University = itemToUpload.UniversityName.ToLowerInvariant(),
+                    Course = JsonConvert.SerializeObject(itemToUpload.Course).ToLowerInvariant(),
+                    CourseSearch = itemToUpload.Course.ToString(),
+                    CourseId = itemToUpload.Course.Id.ToString(),
+                    UniversityId = itemToUpload.University.Id.ToString(),
+                    University = JsonConvert.SerializeObject(itemToUpload.University).ToLowerInvariant(),
                     Tags = itemToUpload.Tags?.Select(s => s.Name.ToLowerInvariant()).Distinct().ToArray(),
                     Date = itemToUpload.Date.Truncate(TimeSpan.FromSeconds(1)),
                     Likes = itemToUpload.LikeCount,
@@ -56,7 +58,6 @@ namespace Zbang.Zbox.Infrastructure.Search
                     Comment = itemToUpload.Text,
                     UserName = itemToUpload.UserName,
                     UserImage = itemToUpload.UserImage,
-                    CourseId = itemToUpload.BoxId
                 };
                 if (!string.IsNullOrEmpty(itemToUpload.Content))
                 {
@@ -96,19 +97,19 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
         }
 
-        //private async Task BuildIndexAsync()
-        //{
-        //    try
-        //    {
-        //        m_Connection.SearchClient.Indexes.CreateOrUpdate(GetIndexStructure());
-        //        //await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure()).ConfigureAwait(false);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("on item build index", ex);
-        //    }
-        //    m_CheckIndexExists = true;
-        //}
+        private async Task BuildIndexAsync()
+        {
+            try
+            {
+                //m_Connection.SearchClient.Indexes.CreateOrUpdate(GetIndexStructure());
+                await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure()).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("on item build index", ex);
+            }
+            m_CheckIndexExists = true;
+        }
 
         private Index GetIndexStructure()
         {
@@ -147,14 +148,14 @@ namespace Zbang.Zbox.Infrastructure.Search
                 FieldName = nameof(FeedSearch.University).ToLower(),
                 Parameters = new TagScoringParameters("university")
             };
-            var freshnessFunction = new FreshnessScoringFunction()
+            var freshnessFunction = new FreshnessScoringFunction
             {
                 Boost = 5,
                 FieldName = nameof(FeedSearch.Date).ToLower(),
                 Interpolation = ScoringFunctionInterpolation.Quadratic,
                 Parameters = new FreshnessScoringParameters(TimeSpan.FromDays(100))
             };
-            var likesScore = new MagnitudeScoringFunction()
+            var likesScore = new MagnitudeScoringFunction
             {
                 Boost = 4,
                 FieldName = nameof(FeedSearch.Likes).ToLower(),
@@ -165,7 +166,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     ShouldBoostBeyondRangeByConstant = false
                 }
             };
-            var viewsScore = new MagnitudeScoringFunction()
+            var viewsScore = new MagnitudeScoringFunction
             {
                 Boost = 5,
                 FieldName = nameof(FeedSearch.Likes).ToLower(),

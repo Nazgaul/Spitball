@@ -110,17 +110,17 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 var uploadBatch = new ItemSearch
                 {
-                    BoxId = itemToUpload.BoxId,
-                    BoxId2 = itemToUpload.BoxId,
-                    BoxName = itemToUpload.BoxName,
+                    BoxId = itemToUpload.Course.Id,
+                    BoxId2 = itemToUpload.Course.Id,
+                    BoxName = itemToUpload.Course.Name,
                     Content = itemToUpload.Content,
                     Extension = Path.GetExtension(itemToUpload.FileName),
                     Id = itemToUpload.Id.ToString(CultureInfo.InvariantCulture),
                     Image = itemToUpload.Image,
                     MetaContent = itemToUpload.Content.RemoveEndOfString(SeachConnection.DescriptionLength),
                     Name = Path.GetFileNameWithoutExtension(itemToUpload.FileName),
-                    UniversityId = itemToUpload.UniversityId.HasValue ? itemToUpload.UniversityId.ToString() : "-1",
-                    UniversityName = itemToUpload.UniversityName,
+                    UniversityId = itemToUpload.University.Id.ToString(), //.HasValue ? itemToUpload.UniversityId.ToString() : "-1",
+                    UniversityName = itemToUpload.University.Name,
                     Url = itemToUpload.Url,
                     UserId = itemToUpload.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture)).ToArray(),
                     BlobName = itemToUpload.BlobName

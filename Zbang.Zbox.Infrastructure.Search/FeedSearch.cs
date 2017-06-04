@@ -25,19 +25,27 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public string Comment { get; set; }
 
-        [IsFilterable]
+        [IsFilterable, IsFacetable]
         public string University { get; set; }
 
-        [IsFilterable, IsSearchable]
+        [IsFilterable, IsFacetable]
         public string Course { get; set; }
-        public long CourseId { get; set; }
-
-
-        [IsFilterable, IsSearchable]
-        public string Professor { get; set; }
 
         [IsFilterable]
-        public string Code { get; set; }
+        public string CourseId { get; set; }
+
+        [IsSearchable]
+        public string CourseSearch { get; set; }
+
+        [IsFilterable]
+        public string UniversityId { get; set; }
+
+
+        //[IsFilterable, IsSearchable]
+        //public string Professor { get; set; }
+
+        //[IsFilterable]
+        //public string Code { get; set; }
 
 
         [IsSearchable, IsFilterable]

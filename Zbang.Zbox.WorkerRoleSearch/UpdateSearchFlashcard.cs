@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -6,6 +7,7 @@ using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure;
+using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -71,7 +73,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 update.CoverText = firstCard.Cover.Text;
                 update.CoverImage = firstCard.Cover.Image;
 
-                if (JaredUniversityIdPilot.Contains(update.UniversityId.GetValueOrDefault()))
+                if (JaredUniversityIdPilot.Contains(update.University.Id))
                 {
                     await JaredPilotAsync(update, cancellationToken).ConfigureAwait(false);
                 }
@@ -95,20 +97,24 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task JaredPilotAsync(ItemSearchDto elem, CancellationToken token)
         {
-            if (!elem.Language.HasValue)
+            if (elem.Language.GetValueOrDefault(Language.Undefined) == Language.Undefined)
             {
                 elem.Language = m_LanguageDetect.DoWork(elem.Content);
                 var commandLang = new AddLanguageToFlashcardCommand(elem.Id, elem.Language.Value);
                 m_WriteService.AddItemLanguage(commandLang);
             }
 
-            if (elem.Language == Infrastructure.Culture.Language.EnglishUs && elem.Tags.All(a=>a.Type != TagType.Watson))
+            if (elem.Language == Language.EnglishUs && elem.Tags.All(a=>a.Type != TagType.Watson))
             {
 
-                var result = (await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token).ConfigureAwait(false)).ToList();
-                elem.Tags.AddRange(result.Select(s => new ItemSearchTag { Name = s }));
-                var z = new AssignTagsToFlashcardCommand(elem.Id, result, TagType.Watson);
-                await m_WriteService.AddItemTagAsync(z).ConfigureAwait(false);
+                var result = await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token).ConfigureAwait(false);
+                if (result != null)
+                {
+                    var tags = result as IList<string> ?? result.ToList();
+                    elem.Tags.AddRange(tags.Select(s => new ItemSearchTag { Name = s }));
+                    var z = new AssignTagsToFlashcardCommand(elem.Id, tags, TagType.Watson);
+                    await m_WriteService.AddItemTagAsync(z).ConfigureAwait(false);
+                }
             }
 
             //var command = new UpdateFlashcardCourseTagCommand(elem.Id, elem.BoxName, elem.BoxCode, elem.BoxProfessor);

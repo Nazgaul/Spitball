@@ -45,8 +45,8 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         private const string UrlField = "url";
         private const string UniversityNameField = "universityName";
-        private const string UniversityidField = "universityId";
-        private const string UseridsField = "userId";
+        private const string UniversityIdField = "universityId";
+        private const string UserIdsField = "userId";
         private const string BoxIdField = "boxId";
 
         private const string ScoringProfileName = "university";
@@ -60,16 +60,15 @@ namespace Zbang.Zbox.Infrastructure.Search
                 new Field(BoxNameField, DataType.String) { IsRetrievable = true},
                 new Field(UrlField, DataType.String) { IsRetrievable = true},
                 new Field(UniversityNameField, DataType.String) { IsRetrievable = true},
-                new Field(UniversityidField, DataType.String) { IsRetrievable = true, IsFilterable = true},
-                new Field(UseridsField, DataType.Collection(DataType.String)) { IsFilterable = true, IsRetrievable = true} ,
+                new Field(UniversityIdField, DataType.String) { IsRetrievable = true, IsFilterable = true},
+                new Field(UserIdsField, DataType.Collection(DataType.String)) { IsFilterable = true, IsRetrievable = true} ,
                 new Field(QuestionsField, DataType.Collection(DataType.String)) { IsSearchable = true, IsRetrievable = true},
                 new Field(AnswersField, DataType.Collection(DataType.String)) { IsSearchable = true, IsRetrievable = true},
                 new Field(ContentField, DataType.String) { IsRetrievable = true},
                 new Field(BoxIdField, DataType.Int64) { IsRetrievable = true}
 
             });
-            var scoringFunction = new TagScoringFunction(UniversityidField, 2, ScoringProfileName);
-            //UniversityidField, 2);
+            var scoringFunction = new TagScoringFunction(UniversityIdField, 2, ScoringProfileName);
             var scoringProfile = new ScoringProfile("universityTag")
             {
                 FunctionAggregation = ScoringFunctionAggregation.Sum,
@@ -88,7 +87,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             try
             {
                 // m_Connection.SearchClient.Indexes.Delete(m_IndexName);
-                await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure());
+                await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure()).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -101,7 +100,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             if (!m_CheckIndexExists)
             {
-                await BuildIndexAsync();
+                await BuildIndexAsync().ConfigureAwait(false);
             }
             //var listOfCommands = new List<IndexAction<QuizSearch>>();
 
@@ -111,21 +110,21 @@ namespace Zbang.Zbox.Infrastructure.Search
                 var uploadBatch = quizToUpload.Select(s => new QuizSearch
                 {
                     Answers = s.Answers.ToArray(),
-                    BoxId = s.BoxId,
-                    BoxName = s.BoxName,
+                    BoxId = s.Course.Id,
+                    BoxName = s.Course.Name,
                     Id = s.Id.ToString(CultureInfo.InvariantCulture),
                     MetaContent = TextManipulation.RemoveHtmlTags.Replace(string.Join(" ", s.Questions), string.Empty).RemoveEndOfString(SeachConnection.DescriptionLength),
                     Name = s.Name,
                     Questions = s.Questions.ToArray(),
-                    UniversityId = s.UniversityId.HasValue ? s.UniversityId.ToString() : "-1",
-                    UniversityName = s.UniversityName,
+                    UniversityId = s.University.Id.ToString(), //.HasValue ? s.UniversityId.ToString() : "-1",
+                    UniversityName = s.University.Name,
                     Url = s.Url,
                     UserId = s.UserIds.Select(v => v.ToString(CultureInfo.InvariantCulture)).ToArray()
                 });
                 var batch = IndexBatch.Upload(uploadBatch);
                 if (batch.Actions.Any())
                 {
-                    await m_IndexClient.Documents.IndexAsync(batch);
+                    await m_IndexClient.Documents.IndexAsync(batch).ConfigureAwait(false);
                 }
             }
             if (quizToDelete != null)
@@ -137,7 +136,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                      });
                 var batch = IndexBatch.Delete(deleteBatch);
                 if (batch.Actions.Any())
-                    await m_IndexClient.Documents.IndexAsync(batch);
+                    await m_IndexClient.Documents.IndexAsync(batch).ConfigureAwait(false);
             }
             return true;
 
@@ -147,7 +146,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             if (query == null) throw new ArgumentNullException(nameof(query));
             var filter = await m_FilterProvider.BuildFilterExpressionAsync(
-              query.UniversityId, UniversityidField, UseridsField, query.UserId);
+                query.UniversityId, UniversityIdField, UserIdsField, query.UserId).ConfigureAwait(false);
 
             //if we put asterisk highlight is not working
             var result = await m_IndexClient.Documents.SearchAsync<QuizSearch>(query.Term, new SearchParameters
@@ -159,7 +158,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 ScoringParameters = new[] { new ScoringParameter("university", new[] { query.UniversityId.ToString() }) },
                 HighlightFields = new[] { QuestionsField, AnswersField, NameField },
                 Select = new[] { NameField, IdField, BoxNameField, UniversityNameField, UrlField, ContentField }
-            }, cancellationToken: cancelToken);
+            }, cancellationToken: cancelToken).ConfigureAwait(false);
 
             return result.Results.Select(s => new SearchQuizzes
             {

@@ -124,7 +124,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 elem.DocumentContent = null;
             }
             var t1 = Task.CompletedTask;
-            if (JaredUniversityIdPilot.Contains(elem.UniversityId.GetValueOrDefault()))
+            if (JaredUniversityIdPilot.Contains(elem.University.Id))
             {
                 t1 = JaredPilotAsync(elem, cancellationToken);
             }
@@ -243,7 +243,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     try
                     {
                         var proxy = await SignalrClient.GetProxyAsync().ConfigureAwait(false);
-                        await proxy.Invoke("UpdateThumbnail", msgData.Id, msgData.BoxId).ConfigureAwait(false);
+                        await proxy.Invoke("UpdateThumbnail", msgData.Id, msgData.Course.Id).ConfigureAwait(false);
                     }
                     catch (Exception ex)
                     {
@@ -259,7 +259,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    TraceLog.WriteError("on itemid: " + msgData.Id, ex);
+                    TraceLog.WriteError("on itemId: " + msgData.Id, ex);
                     wait.Set();
                 }
             });

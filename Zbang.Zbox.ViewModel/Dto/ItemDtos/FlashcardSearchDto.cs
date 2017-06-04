@@ -13,7 +13,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public IEnumerable<string> BackCards { get; set; }
         public IEnumerable<long> UserIds { get; set; }
 
-        public long? UniversityId { get; set; }
 
         public int CardsCount { get; set; }
 

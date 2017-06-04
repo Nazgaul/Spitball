@@ -13,13 +13,8 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
         }
         public Guid Id { get; set; }
         public string Text { get; set; }
-        public long UniversityId { get; set; }
-        public string UniversityName { get; set; }
-        public long BoxId { get; set; }
-        public string BoxName { get; set; }
-        public string Professor { get; set; }
-        public string Code { get; set; }
-
+        public ItemUniversitySearchDto University { get; set; }
+        public ItemCourseSearchDto Course { get; set; }
         public DateTime Date { get; set; }
 
         public int LikeCount { get; set; }

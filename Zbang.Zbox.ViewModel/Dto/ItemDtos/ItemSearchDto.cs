@@ -15,11 +15,11 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public abstract string Name { get; }
 
         public abstract string Content { get; }
-        public string UniversityName { get; set; }
-        public string BoxName { get; set; }
-        public string BoxCode { get; set; }
-        public string BoxProfessor { get; set; }
-        public long BoxId { get; set; }
+        public ItemUniversitySearchDto University { get; set; }
+        public ItemCourseSearchDto Course { get; set; }
+       // public string BoxCode { get; set; }
+        //public string BoxProfessor { get; set; }
+        //public long BoxId { get; set; }
 
         public abstract IEnumerable<ItemType> Type { get; }
         public Language? Language { get; set; }
@@ -38,5 +38,30 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public abstract int? ContentCount { get; }
 
         public abstract string SearchContentId { get; }// => "item_" + Id;
+    }
+
+    public class ItemCourseSearchDto
+    {
+        public long Id { get; set; }
+
+        public string Name { get; set; }
+        public string Code { get; set; }
+        public string Professor { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Name} {Code} {Professor}";
+        }
+    }
+
+    public class ItemUniversitySearchDto
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Name}";
+        }
     }
 }

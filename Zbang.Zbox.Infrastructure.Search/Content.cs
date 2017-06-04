@@ -25,19 +25,26 @@ namespace Zbang.Zbox.Infrastructure.Search
         [JsonProperty(ContentSearchProvider.ContentHebrewField)]
         public string ContentHe { get; set; }
 
-        [IsFilterable]
+        [IsFilterable, IsFacetable]
         public string University { get; set; }
 
-        [IsFilterable,IsSearchable]
+        [IsFilterable, IsFacetable]
         public string Course { get; set; }
 
-        public long CourseId { get; set; }
+        [IsFilterable]
+        public string CourseId { get; set; }
 
-        [IsFilterable, IsSearchable]
-        public string Professor { get; set; }
+        [IsSearchable]
+        public string CourseSearch { get; set; }
 
         [IsFilterable]
-        public string Code { get; set; }
+        public string UniversityId { get; set; }
+
+        //[IsFilterable, IsSearchable]
+        // public string Professor { get; set; }
+
+        //[IsFilterable]
+        //public string Code { get; set; }
 
         [IsFacetable, IsFilterable]
         public string[] Type { get; set; }

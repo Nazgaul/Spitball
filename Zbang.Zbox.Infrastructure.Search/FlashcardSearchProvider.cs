@@ -41,8 +41,8 @@ namespace Zbang.Zbox.Infrastructure.Search
         private const string UniversityNameField = "universityName";
         private const string BoxIdField = "boxId";
         private const string BoxNameField = "boxName";
-        private const string UniversityidField = "universityId";
-        private const string UseridsField = "userId";
+        private const string UniversityIdField = "universityId";
+        private const string UserIdsField = "userId";
         private const string ScoringProfileName = "university";
 
         private Index GetIndexStructure()
@@ -58,13 +58,13 @@ namespace Zbang.Zbox.Infrastructure.Search
 
 
                 new Field(UniversityNameField, DataType.String) { IsRetrievable = true},
-                new Field(UniversityidField, DataType.String) { IsRetrievable = true, IsFilterable = true},
-                new Field(UseridsField, DataType.Collection(DataType.String)) { IsFilterable = true, IsRetrievable = true} ,
+                new Field(UniversityIdField, DataType.String) { IsRetrievable = true, IsFilterable = true},
+                new Field(UserIdsField, DataType.Collection(DataType.String)) { IsFilterable = true, IsRetrievable = true} ,
                 new Field(ContentField, DataType.String) { IsRetrievable = true},
                 new Field(BoxIdField, DataType.Int64) { IsRetrievable = true}
 
             });
-            var scoringFunction = new TagScoringFunction(UniversityidField, 2, ScoringProfileName);
+            var scoringFunction = new TagScoringFunction(UniversityIdField, 2, ScoringProfileName);
             var scoringProfile = new ScoringProfile("universityTag")
             {
                 FunctionAggregation = ScoringFunctionAggregation.Sum,
@@ -81,7 +81,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             try
             {
-                await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure());
+                await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure()).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -95,7 +95,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             if (!m_CheckIndexExists)
             {
-                await BuildIndexAsync();
+                await BuildIndexAsync().ConfigureAwait(false);
             }
             var t1 = Task.CompletedTask;
             var t2 = Task.CompletedTask;
@@ -106,14 +106,14 @@ namespace Zbang.Zbox.Infrastructure.Search
                 {
                     Id = s.Id.ToString(CultureInfo.InvariantCulture),
                     Name = s.Name,
-                    BoxName = s.BoxName,
+                    BoxName = s.Course.Name,
                     Front = s.FrontCards.ToArray(),
                     MetaContent = string.Join(" ", s.FrontCards) + " " + string.Join(" ", s.BackCards).RemoveEndOfString(SeachConnection.DescriptionLength),
                     Back = s.BackCards.ToArray(),
                     UserId = s.UserIds.Select(v => v.ToString(CultureInfo.InvariantCulture)).ToArray(),
-                    UniversityName = s.UniversityName,
-                    UniversityId = s.UniversityId.HasValue ? s.UniversityId.ToString() : "-1",
-                    BoxId = s.BoxId,
+                    UniversityName = s.University.Name,
+                    UniversityId = s.University.Id.ToString(), //.HasValue ? s.UniversityId.ToString() : "-1",
+                    BoxId = s.Course.Id,
                 });
                 var batch = IndexBatch.Upload(uploadBatch);
                 if (batch.Actions.Any())
@@ -132,7 +132,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 if (batch.Actions.Any())
                     t2 = m_IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
             }
-            await Task.WhenAll(t1, t2);
+            await Task.WhenAll(t1, t2).ConfigureAwait(false);
             return true;
 
         }
@@ -141,7 +141,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             if (query == null) throw new ArgumentNullException(nameof(query));
             var filter = await m_FilterProvider.BuildFilterExpressionAsync(
-              query.UniversityId, UniversityidField, UseridsField, query.UserId);
+                query.UniversityId, UniversityIdField, UserIdsField, query.UserId).ConfigureAwait(false);
 
             //if we put asterisk highlight is not working
             var result = await m_IndexClient.Documents.SearchAsync<FlashcardSearch>(query.Term, new SearchParameters
@@ -153,7 +153,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 ScoringParameters = new[] { new ScoringParameter("university", new[] { query.UniversityId.ToString() }) },
                 HighlightFields = new[] { FrontCardsField, BackCardsField, NameField },
                 Select = new[] { NameField, IdField, BoxNameField, UniversityNameField, BoxIdField, ContentField }
-            }, cancellationToken: cancelToken);
+            }, cancellationToken: cancelToken).ConfigureAwait(false);
 
             return result.Results.Select(s => new SearchFlashcard
             {

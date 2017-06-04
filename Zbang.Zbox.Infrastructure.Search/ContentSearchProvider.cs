@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
+using Newtonsoft.Json;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -16,7 +17,7 @@ namespace Zbang.Zbox.Infrastructure.Search
     {
         private readonly ISearchConnection m_Connection;
         private readonly ISearchIndexClient m_IndexClient;
-        private readonly string m_IndexName = "items2";
+        private readonly string m_IndexName = "items";
         private bool m_CheckIndexExists;
 
 
@@ -46,10 +47,13 @@ namespace Zbang.Zbox.Infrastructure.Search
                 {
                     Id = itemToUpload.SearchContentId,
                     Name =  itemToUpload.Name?.ToLowerInvariant(),
-                    Course = itemToUpload.BoxName.ToLowerInvariant(),
-                    Professor = itemToUpload.BoxProfessor?.ToLowerInvariant(),
-                    Code = itemToUpload.BoxCode?.ToLowerInvariant(),
-                    University = itemToUpload.UniversityName.ToLowerInvariant(),
+                    Course = JsonConvert.SerializeObject(itemToUpload.Course).ToLowerInvariant(),
+                    CourseSearch =  itemToUpload.Course.ToString(),
+                    CourseId = itemToUpload.Course.Id.ToString(),
+                    UniversityId = itemToUpload.University.Id.ToString(),
+                    //Professor = itemToUpload.BoxProfessor?.ToLowerInvariant(),
+                    //Code = itemToUpload.BoxCode?.ToLowerInvariant(),
+                    University = JsonConvert.SerializeObject(itemToUpload.University).ToLowerInvariant(),
                     Type = itemToUpload.Type.Select(s => ((int)s).ToString()).ToArray(),
                     Tags = itemToUpload.Tags?.Select(s => s.Name.ToLowerInvariant()).Distinct().ToArray(),
                     Date = itemToUpload.Date.Truncate(TimeSpan.FromSeconds(1)),
@@ -58,7 +62,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     Views = itemToUpload.Views,
                     Likes = itemToUpload.Likes,
                     ContentCount = itemToUpload.ContentCount,
-                    CourseId = itemToUpload.BoxId
+                    //CourseId = itemToUpload.BoxId
                 };
                 if (!string.IsNullOrEmpty(itemToUpload.Content))
                 {
@@ -139,23 +143,23 @@ namespace Zbang.Zbox.Infrastructure.Search
             var tagFunction2 = new TagScoringFunction
             {
                 Boost = 10,
-                FieldName = nameof(Item.Course).ToLower(),
+                FieldName = "courseId",
                 Parameters = new TagScoringParameters("course")
             };
             var tagFunction3 = new TagScoringFunction
             {
                 Boost = 5,
-                FieldName = nameof(Item.University).ToLower(),
+                FieldName = "universityId",
                 Parameters = new TagScoringParameters("university")
             };
-            var freshnessFunction = new FreshnessScoringFunction()
+            var freshnessFunction = new FreshnessScoringFunction
             {
                 Boost = 5,
                 FieldName = nameof(Item.Date).ToLower(),
                 Interpolation = ScoringFunctionInterpolation.Quadratic,
                 Parameters = new FreshnessScoringParameters(TimeSpan.FromDays(100))
             };
-            var likesScore = new MagnitudeScoringFunction()
+            var likesScore = new MagnitudeScoringFunction
             {
                 Boost = 4,
                 FieldName = nameof(Item.Likes).ToLower(),
@@ -166,7 +170,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     ShouldBoostBeyondRangeByConstant = false
                 }
             };
-            var viewsScore = new MagnitudeScoringFunction()
+            var viewsScore = new MagnitudeScoringFunction
             {
                 Boost = 5,
                 FieldName = nameof(Item.Views).ToLower(),
@@ -183,108 +187,6 @@ namespace Zbang.Zbox.Infrastructure.Search
             return definition;
         }
 
-        //public async Task<SearchJaredDto> SearchAsync(KnownIntent query, SearchJared extra, CancellationToken cancelToken)
-        //{
-        //    if (extra == null) throw new ArgumentNullException(nameof(extra));
-        //    var queryDocument = query as SearchDocumentIntent;
-        //    if (queryDocument == null)
-        //    {
-        //        throw new NullReferenceException("queryDocument is null");
-        //    }
-        //    if (string.IsNullOrEmpty(queryDocument.Term))
-        //    {
-        //        queryDocument.Term = "*";
-        //    }
-        //    var searchFiled = new List<string>()
-        //    {
-        //        nameof(Item.Name).ToLower(),
-        //        nameof(Item.Tags).ToLower(),
-        //    };
-        //    switch (extra.Language)
-        //    {
-        //        case Language.Undefined:
-        //            searchFiled.Add(ContentEnglishField);
-        //            searchFiled.Add(nameof(Item.Content).ToLower());
-        //            break;
-        //        case Language.EnglishUs:
-        //            searchFiled.Add(ContentEnglishField);
-        //            break;
-        //        case Language.Hebrew:
-        //            searchFiled.Add(ContentHebrewField);
-        //            break;
-        //        default:
-        //            throw new ArgumentOutOfRangeException();
-        //    }
-
-        //    var searchResult = await m_IndexClient.Documents.SearchAsync<Item>(queryDocument.Term, new SearchParameters()
-        //    {
-        //        Top = 5,
-        //        Filter = BuildFilter(queryDocument.Course, queryDocument.TypeToSearch, query.University),
-        //        IncludeTotalResultCount = true,
-        //        Facets = BuildFacet(queryDocument.Course, query.University),
-        //        ScoringParameters = new[] {new ScoringParameter("tag", extra.Tags ?? new[] {string.Empty}),
-        //            new ScoringParameter("course", extra.Courses ?? new[] {string.Empty}), new ScoringParameter("university", new[] {extra.University ?? string.Empty})},
-        //        ScoringProfile = ScoringProfile,
-        //        SearchFields = searchFiled
-        //    }, cancellationToken: cancelToken).ConfigureAwait(false);
-
-
-        //    var retVal = new SearchItemResult
-        //    {
-        //        Result = searchResult.Results.Select(s => new SearchItem
-        //        {
-        //            Id = s.Document.Id,
-        //            Code = s.Document.Code,
-        //            Course = s.Document.Course,
-        //            Name = s.Document.Name,
-        //            Professor = s.Document.Professor,
-        //            Tags = s.Document.Tags,
-        //            Type = s.Document.Type.Select(int.Parse),
-        //            University = s.Document.University
-        //        }),
-        //        Facet = new Dictionary<string, IEnumerable<FacetResult>>(),
-        //    };
-        //    foreach (var facetResult in searchResult.Facets)
-        //    {
-        //        retVal.Facet[facetResult.Key] = facetResult.Value.Select(s => new FacetResult
-        //        {
-        //            Name = s.Value.ToString(),
-        //            Value = s.Count.GetValueOrDefault()
-        //        });
-        //    }
-        //    return retVal;
-        //}
-
-        //private IList<string> BuildFacet(string course, string university)
-        //{
-        //    var expressions = new List<string>();
-        //    if (string.IsNullOrEmpty(course))
-        //    {
-        //        expressions.Add(nameof(Item.Course).ToLower());
-        //    }
-        //    if (string.IsNullOrEmpty(university))
-        //    {
-        //        expressions.Add(nameof(Item.University).ToLower());
-        //    }
-        //    return expressions;
-        //}
-
-        //private string BuildFilter(string course, ItemType? typeToSearch, string university)
-        //{
-        //    var expressions = new List<string>();
-        //    if (!string.IsNullOrEmpty(course))
-        //    {
-        //        expressions.Add($"{nameof(Item.Course).ToLower()} eq '{course}'");
-        //    }
-        //    if (!string.IsNullOrEmpty(university))
-        //    {
-        //        expressions.Add($"{nameof(Item.University).ToLower()} eq '{university}'");
-        //    }
-        //    if (typeToSearch.HasValue)
-        //    {
-        //        expressions.Add($"{nameof(Item.Type).ToLower()} eq '{(int)typeToSearch}'");
-        //    }
-        //    return string.Join(" and ", expressions);
-        //}
+        
     }
 }

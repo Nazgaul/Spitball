@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -66,7 +67,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         .ConfigureAwait(false);
                 if (!updates.QuizzesToUpdate.Any() && !updates.QuizzesToDelete.Any()) return TimeToSleep.Increase;
 
-                foreach (var quiz in updates.QuizzesToUpdate.Where( w => JaredUniversityIdPilot.Contains(w.UniversityId.GetValueOrDefault())))
+                foreach (var quiz in updates.QuizzesToUpdate.Where( w => JaredUniversityIdPilot.Contains(w.University.Id)))
                 {
                     await JaredPilotAsync(quiz, cancellationToken).ConfigureAwait(false);
                 }
@@ -109,10 +110,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
             if (elem.Language == Infrastructure.Culture.Language.EnglishUs && elem.Tags.All(a => a.Type != TagType.Watson))
             {
 
-                var result = (await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token).ConfigureAwait(false)).ToList();
-                elem.Tags.AddRange(result.Select(s => new ItemSearchTag { Name = s }));
-                var z = new AssignTagsToQuizCommand(elem.Id, result, TagType.Watson);
-                await m_WriteService.AddItemTagAsync(z).ConfigureAwait(false);
+                var result = await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token).ConfigureAwait(false);
+                if (result != null)
+                {
+                    var tags = result as IList<string> ?? result.ToList();
+                    elem.Tags.AddRange(tags.Select(s => new ItemSearchTag { Name = s }));
+                    var z = new AssignTagsToQuizCommand(elem.Id, tags, TagType.Watson);
+                    await m_WriteService.AddItemTagAsync(z).ConfigureAwait(false);
+                }
             }
 
             await m_ContentSearchProvider.UpdateDataAsync(elem, null, token).ConfigureAwait(false);

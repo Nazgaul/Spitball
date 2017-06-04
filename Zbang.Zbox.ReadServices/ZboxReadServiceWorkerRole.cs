@@ -314,10 +314,10 @@ namespace Zbang.Zbox.ReadServices
                         var feedOfBoxes = grid.Read<FeedOfBoxSearchDto>().ToList();
                         foreach (var box in retVal.BoxesToUpdate)
                         {
-                            var boxid = box.Id;
-                            box.UserIds = usersInBoxes.Where(w => w.BoxId == boxid).Select(s => s.UserId);
-                            box.Department = departmentsOfBoxes.Where(w => w.BoxId == boxid).Select(s => s.Name);
-                            box.Feed = feedOfBoxes.Where(w => w.BoxId == boxid).Select(s => s.Text);
+                            var boxId = box.Id;
+                            box.UserIds = usersInBoxes.Where(w => w.BoxId == boxId).Select(s => s.UserId);
+                            box.Department = departmentsOfBoxes.Where(w => w.BoxId == boxId).Select(s => s.Name);
+                            box.Feed = feedOfBoxes.Where(w => w.BoxId == boxId).Select(s => s.Text);
                         }
                         retVal.BoxesToDelete = await grid.ReadAsync<long>();
                         return retVal;
@@ -336,7 +336,19 @@ namespace Zbang.Zbox.ReadServices
                                           Search.SearchItemTags + Search.GetItemToDeleteToSearch,
                         new { query.Index, count = query.Total, query.Top, query.ItemId }, cancellationToken: token)).ConfigureAwait(false))
                 {
-                    var retVal = new ItemToUpdateSearchDto { ItemsToUpdate = await grid.ReadAsync<DocumentSearchDto>().ConfigureAwait(false) };
+                    var retVal = new ItemToUpdateSearchDto
+                    {
+                        ItemsToUpdate = grid.Read< DocumentSearchDto,ItemCourseSearchDto,
+                        ItemUniversitySearchDto,
+                        DocumentSearchDto>((doc,course, university) =>
+                        {
+                            doc.Course = course;
+                            doc.University = university;
+                            
+                            return doc;
+                        })
+                        //ItemsToUpdate = await grid.ReadAsync<DocumentSearchDto>().ConfigureAwait(false)
+                    };
                     var users = (await grid.ReadAsync<ItemSearchUsers>().ConfigureAwait(false)).ToList();
                     var tags = (await grid.ReadAsync<ItemSearchTag>().ConfigureAwait(false)).ToList();
                     retVal.ItemsToDelete = await grid.ReadAsync<DocumentToDeleteSearchDto>().ConfigureAwait(false);
@@ -344,13 +356,13 @@ namespace Zbang.Zbox.ReadServices
                     foreach (var p in retVal.ItemsToUpdate)
                     {
                         IEnumerable<long> usersIds;
-                        if (cacheUsers.TryGetValue(p.BoxId, out usersIds))
+                        if (cacheUsers.TryGetValue(p.Course.Id, out usersIds))
                         {
                             p.UserIds = usersIds;
                         }
                         else
                         {
-                            p.UserIds = cacheUsers[p.BoxId] = users.Where(w => w.BoxId == p.BoxId).Select(s => s.UserId);
+                            p.UserIds = cacheUsers[p.Course.Id] = users.Where(w => w.BoxId == p.Course.Id).Select(s => s.UserId);
                         }
 
                         p.Tags = tags.Where(w => w.Id == p.Id).ToList();
@@ -375,7 +387,16 @@ namespace Zbang.Zbox.ReadServices
                     var retVal = new FeedToUpdateSearchDto
                     {
                         Deletes = await grid.ReadAsync<FeedSearchDeleteDto>().ConfigureAwait(false),
-                        Updates = await grid.ReadAsync<FeedSearchDto>().ConfigureAwait(false)
+                        Updates = grid.Read<FeedSearchDto, ItemCourseSearchDto,
+                            ItemUniversitySearchDto,
+                            FeedSearchDto>((doc, course, university) =>
+                        {
+                            doc.Course = course;
+                            doc.University = university;
+
+                            return doc;
+                        })
+                        //Updates = await grid.ReadAsync<FeedSearchDto>().ConfigureAwait(false)
                     };
                     using (var subGrid = await conn.QueryMultipleAsync($"{Search.GetFeedAnswers}{Search.GetFeedTags}", new { questionids = retVal.Updates.Select(s => s.Id) }).ConfigureAwait(false))
                     {
@@ -420,7 +441,15 @@ namespace Zbang.Zbox.ReadServices
                     var retVal = new FlashcardToUpdateSearchDto
                     {
                         Deletes = await grid.ReadAsync<FlashcardToDeleteSearchDto>().ConfigureAwait(false),
-                        Updates = await grid.ReadAsync<FlashcardSearchDto>().ConfigureAwait(false)
+                        Updates = grid.Read<FlashcardSearchDto, ItemCourseSearchDto,
+                        ItemUniversitySearchDto,
+                            FlashcardSearchDto>((doc,course, university) =>
+                        {
+                            doc.Course = course;
+                            doc.University = university;
+                            
+                            return doc;
+                        })
                     };
                     var users = grid.Read<UsersInBoxSearchDto>().ToList();
                     var tags = (await grid.ReadAsync<ItemSearchTag>().ConfigureAwait(false)).ToList();
@@ -428,13 +457,13 @@ namespace Zbang.Zbox.ReadServices
                     foreach (var flashcards in retVal.Updates)
                     {
                         IEnumerable<long> usersIds;
-                        if (cacheUsers.TryGetValue(flashcards.BoxId, out usersIds))
+                        if (cacheUsers.TryGetValue(flashcards.Course.Id, out usersIds))
                         {
                             flashcards.UserIds = usersIds;
                         }
                         else
                         {
-                            flashcards.UserIds = cacheUsers[flashcards.BoxId] = users.Where(w => w.BoxId == flashcards.BoxId).Select(s => s.UserId);
+                            flashcards.UserIds = cacheUsers[flashcards.Course.Id] = users.Where(w => w.BoxId == flashcards.Course.Id).Select(s => s.UserId);
                         }
 
                         flashcards.Tags = tags.Where(w => w.Id == flashcards.Id).ToList();
@@ -461,7 +490,17 @@ namespace Zbang.Zbox.ReadServices
                 {
                     var retVal = new QuizToUpdateSearchDto
                     {
-                        QuizzesToUpdate = await grid.ReadAsync<QuizSearchDto>().ConfigureAwait(false)
+                        //QuizzesToUpdate = await grid.ReadAsync<QuizSearchDto>().ConfigureAwait(false)
+
+                        QuizzesToUpdate = grid.Read<QuizSearchDto, ItemCourseSearchDto,
+                        ItemUniversitySearchDto,
+                        QuizSearchDto>((doc, course, university) =>
+                        {
+                            doc.Course = course;
+                            doc.University = university;
+
+                            return doc;
+                        })
                     };
                     var questions = grid.Read<QuizQuestionAndAnswersSearchDto>().ToList();
                     var answers = grid.Read<QuizQuestionAndAnswersSearchDto>().ToList();
@@ -472,13 +511,13 @@ namespace Zbang.Zbox.ReadServices
                     {
                         var quizId = quiz.Id;
                         IEnumerable<long> usersIds;
-                        if (cacheUsers.TryGetValue(quiz.BoxId, out usersIds))
+                        if (cacheUsers.TryGetValue(quiz.Course.Id, out usersIds))
                         {
                             quiz.UserIds = usersIds;
                         }
                         else
                         {
-                            quiz.UserIds = cacheUsers[quiz.BoxId] = users.Where(w => w.BoxId == quiz.BoxId).Select(s => s.UserId);
+                            quiz.UserIds = cacheUsers[quiz.Course.Id] = users.Where(w => w.BoxId == quiz.Course.Id).Select(s => s.UserId);
                         }
 
                         quiz.Questions = questions.Where(w => w.QuizId == quizId).Select(s => s.Text);

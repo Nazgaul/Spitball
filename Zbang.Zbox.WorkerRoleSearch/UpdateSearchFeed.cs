@@ -90,20 +90,23 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task<Task> JaredPilotAsync(FeedSearchDto elem, CancellationToken cancellationToken)
         {
-            if (!elem.Language.HasValue)
+            if (elem.Language.GetValueOrDefault(Infrastructure.Culture.Language.Undefined) == Infrastructure.Culture.Language.Undefined)
             {
                 elem.Language = await m_WatsonExtractProvider.GetLanguageAsync(elem.Content,cancellationToken).ConfigureAwait(false);
-               // var commandLang = new AddLanguageToFeedCommand(elem.Id, elem.Language.GetValueOrDefault());
-                //m_WriteService.AddItemLanguage(commandLang);
+              
             }
 
             if (elem.Language == Infrastructure.Culture.Language.EnglishUs && elem.Tags.All(a => a.Type != TagType.Watson))
             {
 
-                var result = (await m_WatsonExtractProvider.GetKeywordAsync(elem.Content, cancellationToken).ConfigureAwait(false)).ToList();
-                elem.Tags.AddRange(result.Select(s => new FeedSearchTag { Name = s }));
-                var z = new AssignTagsToFeedCommand(elem.Id, result, TagType.Watson);
-                await m_WriteService.AddItemTagAsync(z).ConfigureAwait(false);
+                var result = await m_WatsonExtractProvider.GetKeywordAsync(elem.Content, cancellationToken).ConfigureAwait(false);
+                if (result != null)
+                {
+                    var tags = result as IList<string> ?? result.ToList();
+                    elem.Tags.AddRange(tags.Select(s => new FeedSearchTag { Name = s }));
+                    var z = new AssignTagsToFeedCommand(elem.Id, tags, TagType.Watson);
+                    await m_WriteService.AddItemTagAsync(z).ConfigureAwait(false);
+                }
             }
             return m_SearchProvider.UpdateDataAsync(elem, null, cancellationToken);
         }
