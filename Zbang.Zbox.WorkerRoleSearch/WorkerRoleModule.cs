@@ -78,6 +78,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             builder.RegisterType<UpdateSearchItem>().Named<IFileProcess>(nameof(BoxFileProcessData));
             builder.RegisterType<UpdateSearchUniversity>().Named<IFileProcess>(nameof(UniversityProcessData));
             builder.RegisterType<UpdateSearchBox>().Named<IFileProcess>(nameof(BoxProcessData));
+           
 
 
             base.Load(builder);

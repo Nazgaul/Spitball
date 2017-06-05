@@ -73,7 +73,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 update.CoverText = firstCard.Cover.Text;
                 update.CoverImage = firstCard.Cover.Image;
 
-                if (JaredUniversityIdPilot.Contains(update.University.Id))
+                if (update.University != null && JaredUniversityIdPilot.Contains(update.University.Id))
                 {
                     await JaredPilotAsync(update, cancellationToken).ConfigureAwait(false);
                 }

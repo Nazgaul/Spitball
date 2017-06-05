@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Azure.Blob;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Search;
@@ -59,7 +57,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 TraceLog.WriteInfo("Feed search Going to process " + updates.NextVersion);
                 //var tasks = new List<Task>();
-                foreach (var feed in updates.Updates.Where(w => JaredUniversityIdPilot.Contains(w.UniversityId)))
+                foreach (var feed in updates.Updates.Where(w => w.University != null && JaredUniversityIdPilot.Contains(w.University.Id)))
                 {
                     await JaredPilotAsync(feed, cancellationToken).ConfigureAwait(false); // otherwise we got race condition
                 }

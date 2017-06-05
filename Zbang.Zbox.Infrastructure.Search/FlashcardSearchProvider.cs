@@ -111,8 +111,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                     MetaContent = string.Join(" ", s.FrontCards) + " " + string.Join(" ", s.BackCards).RemoveEndOfString(SeachConnection.DescriptionLength),
                     Back = s.BackCards.ToArray(),
                     UserId = s.UserIds.Select(v => v.ToString(CultureInfo.InvariantCulture)).ToArray(),
-                    UniversityName = s.University.Name,
-                    UniversityId = s.University.Id.ToString(), //.HasValue ? s.UniversityId.ToString() : "-1",
+                    UniversityName = s.University?.Name,
+                    UniversityId = s.University?.Id.ToString() ?? "-1", //.HasValue ? s.UniversityId.ToString() : "-1",
                     BoxId = s.Course.Id,
                 });
                 var batch = IndexBatch.Upload(uploadBatch);

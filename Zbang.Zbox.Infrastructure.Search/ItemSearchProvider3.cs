@@ -119,8 +119,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                     Image = itemToUpload.Image,
                     MetaContent = itemToUpload.Content.RemoveEndOfString(SeachConnection.DescriptionLength),
                     Name = Path.GetFileNameWithoutExtension(itemToUpload.FileName),
-                    UniversityId = itemToUpload.University.Id.ToString(), //.HasValue ? itemToUpload.UniversityId.ToString() : "-1",
-                    UniversityName = itemToUpload.University.Name,
+                    UniversityId = itemToUpload.University?.Id.ToString() ?? "-1", //.HasValue ? itemToUpload.UniversityId.ToString() : "-1",
+                    UniversityName = itemToUpload.University?.Name,
                     Url = itemToUpload.Url,
                     UserId = itemToUpload.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture)).ToArray(),
                     BlobName = itemToUpload.BlobName

@@ -124,7 +124,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 elem.DocumentContent = null;
             }
             var t1 = Task.CompletedTask;
-            if (JaredUniversityIdPilot.Contains(elem.University.Id))
+            if (elem.University != null && JaredUniversityIdPilot.Contains(elem.University.Id))
             {
                 t1 = JaredPilotAsync(elem, cancellationToken);
             }

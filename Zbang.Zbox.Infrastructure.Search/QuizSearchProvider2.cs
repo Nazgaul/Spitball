@@ -116,8 +116,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                     MetaContent = TextManipulation.RemoveHtmlTags.Replace(string.Join(" ", s.Questions), string.Empty).RemoveEndOfString(SeachConnection.DescriptionLength),
                     Name = s.Name,
                     Questions = s.Questions.ToArray(),
-                    UniversityId = s.University.Id.ToString(), //.HasValue ? s.UniversityId.ToString() : "-1",
-                    UniversityName = s.University.Name,
+                    UniversityId = s.University?.Id.ToString(), //.HasValue ? s.UniversityId.ToString() : "-1",
+                    UniversityName = s.University?.Name,
                     Url = s.Url,
                     UserId = s.UserIds.Select(v => v.ToString(CultureInfo.InvariantCulture)).ToArray()
                 });
