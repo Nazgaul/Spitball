@@ -20,6 +20,8 @@ using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Data;
+using Zbang.Zbox.Infrastructure.Notifications;
+using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Cloudents.Jared
@@ -65,6 +67,12 @@ namespace Zbang.Cloudents.Jared
             builder.RegisterModule<WriteServiceModule>();
             builder.RegisterModule<DataModule>();
             builder.RegisterModule<ReadServiceModule>();
+
+            builder.RegisterType<JaredSendPush>()
+                .As<IJaredPushNotification>()
+                .WithParameter("connectionString", "Endpoint=sb://spitball.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=1+AAf2FSzauWHpYhHaoweYT9576paNgmicNSv6jAvKk=")
+                .WithParameter("hubName", "jared-spitball")
+                .InstancePerLifetimeScope();
             builder.RegisterHubs(Assembly.GetExecutingAssembly());
 
             var container = builder.Build();

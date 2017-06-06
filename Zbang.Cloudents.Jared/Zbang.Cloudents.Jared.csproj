@@ -301,6 +301,10 @@
       <Project>{A29AAA7A-E472-4661-A503-EB00FD43D2C3}</Project>
       <Name>Zbang.Zbox.Infrastructure.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Notification\Zbang.Zbox.Infrastructure.Notifications.csproj">
+      <Project>{20D10149-03BF-4C32-ABE4-D278A46CAD7F}</Project>
+      <Name>Zbang.Zbox.Infrastructure.Notifications</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Transport\Zbang.Zbox.Infrastructure.Transport.csproj">
       <Project>{4F5EDC5B-31FA-4904-BD11-2CF1790AE234}</Project>
       <Name>Zbang.Zbox.Infrastructure.Transport</Name>
