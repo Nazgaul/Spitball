@@ -49,9 +49,9 @@ namespace Zbang.Zbox.Infrastructure.File
                 return input;
             }
 
-            var sentenceRegex = new Regex("[^.!?;]*[^.?!;]*[.?!;]", RegexOptions.Compiled, TimeSpan.FromSeconds(10));
+            var sentenceRegex = new Regex("[^.!?;]*[^.?!;]*[.?!;]", RegexOptions.Compiled, TimeSpan.FromSeconds(15));
             var pageTexts = new List<string>();
-            string result = null;
+            string result;
             try
             {
                
@@ -91,6 +91,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         private static IEnumerable<string> SplitSentence(string input)
         {
+            //TODO: Check environment newline
             return input.Split(new[] { "\r\n\r\n" }, StringSplitOptions.RemoveEmptyEntries);
         }
 
@@ -113,31 +114,31 @@ namespace Zbang.Zbox.Infrastructure.File
             string getCacheVersionPrefix, CancellationToken token
             )
         {
-            var metaData = await BlobProvider.FetchBlobMetaDataAsync(blobUri, token) ?? new Dictionary<string, string>();
+            var metaData = await BlobProvider.FetchBlobMetaDataAsync(blobUri, token).ConfigureAwait(false) ?? new Dictionary<string, string>();
             metaData = RemoveOldMetaTags(metaData, getCacheVersionPrefix);
             metaData[PagesInDocsMetaKey] = pageCount.ToString();
-            await BlobProvider.SaveMetaDataToBlobAsync(blobUri, metaData, token);
+            await BlobProvider.SaveMetaDataToBlobAsync(blobUri, metaData, token).ConfigureAwait(false);
         }
 
-        protected IDictionary<string, string> RemoveOldMetaTags(IDictionary<string, string> metaTags, string cacheVersionPrfix)
+        protected IDictionary<string, string> RemoveOldMetaTags(IDictionary<string, string> metaTags, string cacheVersionPrefix)
         {
             var oldElements = metaTags.Where(w =>
-                Regex.IsMatch(w.Key, @"\d") && !w.Key.StartsWith(cacheVersionPrfix)).Select(s => s.Key).ToList();
+                Regex.IsMatch(w.Key, @"\d") && !w.Key.StartsWith(cacheVersionPrefix)).Select(s => s.Key).ToList();
 
             foreach (var oldElement in oldElements)
             {
                 metaTags.Remove(oldElement);
             }
 
-            var z = metaTags.Select(s => s.Key).Where(w => w.StartsWith(cacheVersionPrfix)).Select(s =>
+            var z = metaTags.Select(s => s.Key).Where(w => w.StartsWith(cacheVersionPrefix)).Select(s =>
             {
-                var number = s.Remove(0, cacheVersionPrfix.Length);
+                var number = s.Remove(0, cacheVersionPrefix.Length);
                 return Convert.ToInt32(number);
             }).Where(p => p >= 15).ToList();
 
             foreach (int i in z)
             {
-                metaTags.Remove(cacheVersionPrfix + i);
+                metaTags.Remove(cacheVersionPrefix + i);
             }
 
 

@@ -13,8 +13,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using System.Web;
-using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure.Profile;
 
 namespace Zbang.Cloudents.Jared.Controllers
@@ -49,7 +47,8 @@ namespace Zbang.Cloudents.Jared.Controllers
                 courses = result.Item2.Select(s => new
                 {
                     s.Id,
-                    s.Name
+                    s.Name,
+                    code = s.CourseCode
                 })
             });
             //return Request.CreateResponse(new
