@@ -26,7 +26,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 KnowledgeGraph = true,
                 LinkedData = true,
                 ShowSourceText = true,
-                MaxRetrieve = 30
+                MaxRetrieve = 10
             };
             try
             {
