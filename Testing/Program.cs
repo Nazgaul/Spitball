@@ -49,137 +49,12 @@ namespace Testing
     class Program
     {
 
-        static void Measure()
-        {
-            List<double> meansFailedTryParse = new List<double>();
-            List<double> meansFailedRegEx = new List<double>();
-            List<double> meansSuccessTryParse = new List<double>();
-            List<double> meansSuccessRegEx = new List<double>();
+        
+       
 
+        
 
-            for (int i = 0; i < 1000; i++)
-            {
-
-
-                string input = "123abc";
-
-                int res;
-                bool res2;
-                var sw = Stopwatch.StartNew();
-                res2 = Int32.TryParse(input, out res);
-                sw.Stop();
-                meansFailedTryParse.Add(sw.Elapsed.TotalMilliseconds);
-                //Console.WriteLine("Result of " + res2 + " try parse :" + sw.Elapsed.TotalMilliseconds);
-
-                sw = Stopwatch.StartNew();
-                res2 = Regex.IsMatch(input, @"^[0-9]*$");
-                sw.Stop();
-                meansFailedRegEx.Add(sw.Elapsed.TotalMilliseconds);
-                //Console.WriteLine("Result of " + res2 + "  Regex.IsMatch :" + sw.Elapsed.TotalMilliseconds);
-
-                input = "123";
-                sw = Stopwatch.StartNew();
-                res2 = Int32.TryParse(input, out res);
-                sw.Stop();
-                meansSuccessTryParse.Add(sw.Elapsed.TotalMilliseconds);
-                //Console.WriteLine("Result of " + res2 + " try parse :" + sw.Elapsed.TotalMilliseconds);
-
-
-                sw = Stopwatch.StartNew();
-                res2 = Regex.IsMatch(input, @"^[0-9]*$");
-                sw.Stop();
-                meansSuccessRegEx.Add(sw.Elapsed.TotalMilliseconds);
-                //Console.WriteLine("Result of " + res2 + "  Regex.IsMatch :" + sw.Elapsed.TotalMilliseconds);
-            }
-
-            Console.WriteLine("Failed TryParse mean execution time     " + meansFailedTryParse.Average());
-            Console.WriteLine("Failed Regex mean execution time        " + meansFailedRegEx.Average());
-
-            Console.WriteLine("successful TryParse mean execution time " + meansSuccessTryParse.Average());
-            Console.WriteLine("successful Regex mean execution time    " + meansSuccessRegEx.Average());
-        }
-        static void GetXml()
-        {
-            using (var sr = File.Open(@"C:\Users\Ram\Desktop\jobs.xml", FileMode.Open))
-            {
-                var doc = XDocument.Load(sr);
-                var y = doc.Descendants("job").Select(s =>
-                {
-                    var offer = string.Empty;
-                    var offerElement = s.Element("offer");
-                    if (offerElement != null)
-                    {
-                        offer = offerElement.Value;
-                    }
-                    return new
-                    {
-                        name = s.Attribute("name").Value,
-                        location = s.Attribute("location").Value,
-                        description = s.Element("description").Value,
-                        offer
-                    };
-                });
-            }
-        }
-
-
-        static async Task<string> GetTitle(string url)
-        {
-
-            using (var client = new HttpClient { Timeout = TimeSpan.FromSeconds(5) })
-            {
-
-                var uri = new UriBuilder(url).Uri;
-                var response = await client.GetAsync(uri);
-                var str = await response.Content.ReadAsStringAsync();
-                var html = string.Empty;
-
-                var x = Regex.Match(str, "<meta.*?charset=([^\"']+)");
-                var charset = x.Groups[1];
-                if (string.IsNullOrEmpty(charset.Value))
-                {
-                    //var start = str.IndexOf("charset=");
-                    //if (start == -1)
-                    //{
-                    html = await response.Content.ReadAsStringAsync();
-                }
-                else
-                {
-                    // var end = str.IndexOf('"', start);
-
-                    //var encoding = str.Substring(start, end - start).Remove(0, 8);
-
-                    //HtmlAgilityPack.HtmlWeb x = new HtmlAgilityPack.HtmlWeb();
-                    //var v = x.Load(url);
-
-                    //var html = await client.GetStringAsync(uri);
-
-                    //var bytes = await client.GetByteArrayAsync(uri);
-                    html = Encoding.GetEncoding(charset.Value).GetString(await response.Content.ReadAsByteArrayAsync());
-                }
-                //return responseString;
-
-                string title = Regex.Match(html, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
-                return title;
-            }
-        }
-
-        static async Task DoAlchemyAsync(string text)
-        {
-            AlchemyClient client =
-                new AlchemyClient("785ea0b610cc18cf9cb3815552d2bbd979133a5b"
-                    // "https://gateway-a.watsonplatform.net/calls"
-                    );
-            var request = new AlchemyTextConceptsRequest(text, client)
-            {
-                KnowledgeGraph = true,
-                LinkedData = true,
-                ShowSourceText = true,
-                MaxRetrieve = 30
-            };
-            var z = await request.GetResponse();
-
-        }
+       
 
 
 
@@ -187,7 +62,7 @@ namespace Testing
 
         static void Main(string[] args)
         {
-            Measure();
+           
             //var t1 = DoAlchemyAsync();
             //t1.Wait();
             //var z = GuidEncoder.Encode("0114F1D3-85E3-40D6-B6FA-A5D7000465CA");
@@ -280,11 +155,7 @@ namespace Testing
             var pushService = iocFactory.Resolve<IJaredPushNotification>();
             var profileService = iocFactory.Resolve<IProfilePictureProvider>();
 
-            var bytes = File.ReadAllBytes(@"C:\Users\Ram\Downloads\Abstract Wallpaper Galaxy Free High Resolution.jpg");
-            var ms = new MemoryStream(bytes);
-            var t = profileService.UploadProfilePicturesAsync(ms);
-            t.Wait();
-            pushService.SendAddPostNotificationAsync("ram", "text", 1, Guid.NewGuid(), "text").Wait();
+            writeService.OneTimeDbi();
             //var search = iocFactory.Resolve<IContentReadSearchProvider>();
             //var command = new AddNewUpdatesCommand(21433, 734687,null,null, 614670L,null,null,null,null);
             //writeService.AddNewUpdateAsync(command).Wait();

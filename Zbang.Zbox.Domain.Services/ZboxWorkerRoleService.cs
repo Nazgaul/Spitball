@@ -15,7 +15,6 @@ using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.Services
 {
@@ -24,13 +23,13 @@ namespace Zbang.Zbox.Domain.Services
     {
         private readonly ICommandBus m_CommandBus;
         private readonly IWithCache m_Cache;
-        private readonly IDocumentDbRepository<Flashcard> m_FlashcardRepository;
+       // private readonly IDocumentDbRepository<Flashcard> m_FlashcardRepository;
 
-        public ZboxWorkerRoleService(ICommandBus commandBus, IWithCache cache, IDocumentDbRepository<Flashcard> flashRep)
+        public ZboxWorkerRoleService(ICommandBus commandBus, IWithCache cache/*, IDocumentDbRepository<Flashcard> flashRep*/)
         {
             m_CommandBus = commandBus;
             m_Cache = cache;
-            m_FlashcardRepository = flashRep;
+           // m_FlashcardRepository = flashRep;
         }
 
         public void UpdateThumbnailPicture(UpdateThumbnailCommand command)
@@ -56,32 +55,33 @@ namespace Zbang.Zbox.Domain.Services
             // DeleteOldLibrary();
             //UpdateNumberOfBoxesInDepartmentNode();
             //  UpdateItemUrl();
-            UpdateFlashcardCardCount();
+            UpdateBoxUrl();
+            //UpdateFlashcardCardCount();
             //RemoveHtmlTags();
 
         }
 
-        private async void UpdateFlashcardCardCount()
-        {
-            using (var unitOfWork = UnitOfWork.Start())
-            {
-                var items2 = UnitOfWork.CurrentSession.CreateSQLQuery(@"select id from zbox.flashcard where publish=1 and isDeleted=0 and cardcount=0 or cardcount is null").List();
-                foreach (var itemId in items2)
-                {
+        //private async void UpdateFlashcardCardCount()
+        //{
+        //    using (var unitOfWork = UnitOfWork.Start())
+        //    {
+        //        var items2 = UnitOfWork.CurrentSession.CreateSQLQuery(@"select id from zbox.flashcard where publish=1 and isDeleted=0 and cardCount=0 or cardCount is null").List();
+        //        foreach (var itemId in items2)
+        //        {
 
-                    var item = UnitOfWork.CurrentSession.Load<FlashcardMeta>((long)itemId);
-                    var flashcard = await m_FlashcardRepository.GetItemAsync(itemId.ToString());
-                    if (flashcard != null && flashcard.Cards != null)
-                    {
-                        item.IsDirty = true;
-                        item.CardCount = flashcard.Cards.Count();
-                        UnitOfWork.CurrentSession.Save(item);
-                    }
-                    //var flash=m_FlashcardRepository.GetItemAsync(item.id);                    
-                }
-                unitOfWork.TransactionalFlush();
-            }
-        }
+        //            var item = UnitOfWork.CurrentSession.Load<FlashcardMeta>((long)itemId);
+        //            var flashcard = await m_FlashcardRepository.GetItemAsync(itemId.ToString());
+        //            if (flashcard != null && flashcard.Cards != null)
+        //            {
+        //                item.IsDirty = true;
+        //                item.CardCount = flashcard.Cards.Count();
+        //                UnitOfWork.CurrentSession.Save(item);
+        //            }
+        //            //var flash=m_FlashcardRepository.GetItemAsync(item.id);                    
+        //        }
+        //        unitOfWork.TransactionalFlush();
+        //    }
+        //}
         public Task<int> DoDirtyUpdateAsync(CancellationToken token)
         {
             return ExecuteSqlLoopAsync(new[]
@@ -94,8 +94,8 @@ select  id from zbox.university where isDeleted = 1 and updateTime < getUtcDate(
 and updateTime > getUtcDate() - 120",
                 @"update zbox.box
 set isDirty = 1, isDeleted = 1 from zbox.box 
-where libraryid in (
-select libraryid from Zbox.Library where id in (
+where libraryId in (
+select libraryId from Zbox.Library where id in (
 select id from zbox.university where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 
 )) and isDeleted = 0",
                 @"update Zbox.item
@@ -278,8 +278,8 @@ select top (3) boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcD
             return ExecuteSqlLoopAsync(
                 new[]
                 {
-    @"delete from zbox.userlibraryrel where libraryid in (
-select libraryid from Zbox.Library where id in (
+    @"delete from zbox.userLibraryRel where libraryId in (
+select libraryId from Zbox.Library where id in (
 select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
 )) option (maxDop 1)",
                     @"delete from Zbox.Library where id in (
@@ -482,27 +482,27 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
 
         public async Task UpdateSearchUniversityDirtyToRegularAsync(UpdateDirtyToRegularCommand command)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 const string sql = "update zbox.University set isDirty = 0 where id in @Ids";
-                await conn.ExecuteAsync(sql, new { command.Ids }, commandType: CommandType.Text);
+                await conn.ExecuteAsync(sql, new { command.Ids }, commandType: CommandType.Text).ConfigureAwait(false);
             }
         }
 
         public async Task UpdateSearchBoxDirtyToRegularAsync(UpdateDirtyToRegularCommand command)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 const string sql = "update zbox.Box set isDirty = 0 where boxId in @Ids";
-                await conn.ExecuteAsync(sql, new { command.Ids }, commandType: CommandType.Text);
+                await conn.ExecuteAsync(sql, new { command.Ids }, commandType: CommandType.Text).ConfigureAwait(false);
             }
         }
         public async Task UpdateSearchItemDirtyToRegularAsync(UpdateDirtyToRegularCommand command)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 const string sql = "update zbox.Item set isDirty = 0 where itemId in @Ids";
-                await conn.ExecuteAsync(sql, new { command.Ids }, commandType: CommandType.Text);
+                await conn.ExecuteAsync(sql, new { command.Ids }, commandType: CommandType.Text).ConfigureAwait(false);
             }
         }
 
@@ -517,10 +517,10 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
 
         public async Task UpdateSearchFlashcardDirtyToRegularAsync(UpdateDirtyToRegularCommand command)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 const string sql = "update zbox.Flashcard set isDirty = 0 where id in @Ids";
-                await conn.ExecuteAsync(sql, new { command.Ids }, commandType: CommandType.Text);
+                await conn.ExecuteAsync(sql, new { command.Ids }, commandType: CommandType.Text).ConfigureAwait(false);
             }
         }
 
@@ -608,6 +608,29 @@ where id = @id";
             }
         }
 
+        public void UpdateBoxUrl()
+        {
+
+            using (var unitOfWork = UnitOfWork.Start())
+            {
+
+                var items = UnitOfWork.CurrentSession.QueryOver<Box>().Where(w => w.Url == null && !w.IsDeleted).Take(100).List();
+                do
+                {
+                    foreach (var item in items)
+                    {
+                        item.GenerateUrl();
+                        UnitOfWork.CurrentSession.Save(item);
+                    }
+                    unitOfWork.TransactionalFlush();
+                    items = UnitOfWork.CurrentSession.QueryOver<Box>().Where(w => w.Url == null && !w.IsDeleted)
+                        .Take(100).List();
+                } while (items.Count > 0);
+
+
+
+            }
+        }
         public void UpdateItemUrl()
         {
             using (var unitOfWork = UnitOfWork.Start())
@@ -638,7 +661,7 @@ and isDeleted = 0").List();
         //{
         //    using (var con = DapperConnection.OpenConnection())
         //    {
-        //        var guids = con.Query<Guid>("select libraryid from zbox.library where name like '%~%'");
+        //        var guids = con.Query<Guid>("select libraryId from zbox.library where name like '%~%'");
         //        var i = 0;
         //        foreach (var guid in guids)
         //        {
@@ -646,7 +669,7 @@ and isDeleted = 0").List();
         //            try
         //            {
         //                i += con.Execute("delete from zbox.library where parentid = @id", new { id = guid });
-        //                i += con.Execute("delete from zbox.library where libraryid = @id", new {id = guid});
+        //                i += con.Execute("delete from zbox.library where libraryId = @id", new {id = guid});
 
 
         //            }
@@ -668,9 +691,9 @@ and isDeleted = 0").List();
         //        while (true)
         //        {
         //            var libs = UnitOfWork.CurrentSession.Connection.Query<Guid>(
-        //                @"select LibraryId from zbox.Library l 
-        //where l.LibraryId not in ( select l.ParentId from zbox.Library)
-        //order by LibraryId
+        //                @"select libraryId from zbox.Library l 
+        //where l.libraryId not in ( select l.ParentId from zbox.Library)
+        //order by libraryId
         //offset @pageNumber*50 ROWS
         //    FETCH NEXT 50 ROWS ONLY", new { pageNumber = i });
         //            var libraryIds = libs as IList<Guid> ?? libs.ToList();
