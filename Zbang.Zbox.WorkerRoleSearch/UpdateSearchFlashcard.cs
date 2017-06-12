@@ -99,8 +99,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             if (elem.Language.GetValueOrDefault(Language.Undefined) == Language.Undefined)
             {
-                elem.Language = m_LanguageDetect.DoWork(elem.Content);
-                var commandLang = new AddLanguageToFlashcardCommand(elem.Id, elem.Language.Value);
+                var result = await m_WatsonExtractProvider.GetLanguageAsync(elem.Content, token).ConfigureAwait(false);
+                elem.Language = result;
+                var commandLang = new AddLanguageToFlashcardCommand(elem.Id, result);
                 m_WriteService.AddItemLanguage(commandLang);
             }
 

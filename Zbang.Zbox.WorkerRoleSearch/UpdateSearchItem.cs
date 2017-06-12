@@ -8,6 +8,7 @@ using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure;
+using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Search;
@@ -146,11 +147,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             if (elem.Type.Any(s => s == ItemType.Document))
             {
-                if (!elem.Language.HasValue)
+                if (elem.Language.GetValueOrDefault(Language.Undefined) == Language.Undefined)
                 {
                     ExtractText(elem, token);
-                    elem.Language = m_LanguageDetect.DoWork(elem.Content);
-                    var commandLang = new AddLanguageToDocumentCommand(elem.Id, elem.Language.Value);
+                    var result = await m_WatsonExtractProvider.GetLanguageAsync(elem.Content, token).ConfigureAwait(false);
+                    elem.Language = result;
+                    var commandLang = new AddLanguageToDocumentCommand(elem.Id, result);
                     m_WriteService.AddItemLanguage(commandLang);
                 }
 
@@ -362,14 +364,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 await ProcessDocumentAsync(token, elem).ConfigureAwait(false);
                 await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
-                    new UpdateDirtyToRegularCommand(new[] {parameters.ItemId})).ConfigureAwait(false);
+                    new UpdateDirtyToRegularCommand(new[] { parameters.ItemId })).ConfigureAwait(false);
 
                 return true;
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("error update search item" + parameters, ex);
-                return false;    
+                return false;
             }
 
         }

@@ -7,6 +7,7 @@ using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure;
+using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -100,14 +101,15 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task JaredPilotAsync(QuizSearchDto elem, CancellationToken token)
         {
-            if (!elem.Language.HasValue)
+            if (elem.Language.GetValueOrDefault(Language.Undefined) == Language.Undefined)
             {
-                elem.Language = m_LanguageDetect.DoWork(elem.Content);
-                var commandLang = new AddLanguageToQuizCommand(elem.Id, elem.Language.Value);
+                var result = await m_WatsonExtractProvider.GetLanguageAsync(elem.Content,token).ConfigureAwait(false);
+                elem.Language = result;
+                var commandLang = new AddLanguageToQuizCommand(elem.Id, result);
                 m_WriteService.AddItemLanguage(commandLang);
             }
 
-            if (elem.Language == Infrastructure.Culture.Language.EnglishUs && elem.Tags.All(a => a.Type != TagType.Watson))
+            if (elem.Language == Language.EnglishUs && elem.Tags.All(a => a.Type != TagType.Watson))
             {
 
                 var result = await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token).ConfigureAwait(false);
