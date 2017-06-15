@@ -8,8 +8,8 @@
 </head>
 <body ng-cloak>
     <form class="search-form" name="searchTrigger" validate>
-        <div class="row">
-            <input class="field col" list="university" name="university" placeholder="University" required="required" ng-model-options="{ debounce: 500 }" ng-model="st.formData.university" ng-change="st.autocomplete('university')">
+        <div class="row" ng-hide="true">
+            <input class="field col" list="university" name="university" placeholder="University" ng-model-options="{ debounce: 500 }" ng-model="st.formData.university" ng-change="st.autocomplete('university')">
             <datalist id="university">
                 <option ng-repeat="university in st.universityAutoComplete" value="{{university}}">
             </datalist>
@@ -59,6 +59,9 @@
             <button ng-disabled="st.counter==st.resNum-1"
                     ng-click="st.nextPage()" name="next_btn"
                     type="submit" class="md-raised md-primary md-button md-ink-ripple"></button>
+            <button ng-disabled="st.counter<st.resNum-1"
+                    ng-click="st.moreResult()" name="more_result" value="More"
+                    type="button" class="btn btn-info">More Result</button>
         </div>
     </div>
     <div class="result-data row" ng-if="st.doc !== null && !st.noResults">

@@ -5,6 +5,7 @@ module app {
     export class AppController {
         static $inject = ["$scope","$sce", "searchService", "$interval"];
         tab: string;
+        index: number = 0;
         resNum: number = 0;
         counter: number = 0;
         noResults = false;
@@ -18,8 +19,8 @@ module app {
         originalType: string;
         ChangedType: number = -1;
         formData: any = {
-            department: "",
-            isSearchType: true
+            isSearchType: true,
+            pageNumber:0
         };
         doc: any = null;
         documents = [];
@@ -36,32 +37,12 @@ module app {
             if (this.formData) {
                 Object.keys(this.formData).forEach(k => (!this.formData[k] && this.formData[k] !== undefined) && delete this.formData[k]);
                 if (Object.keys(this.formData).length) {
+                    this.formData.pageNumber = 0;
                     console.log(this.formData);
-                    var promise = this.searchService.searchItems(this.formData);
-                    promise.then(response => {
-                        this.result = response;
-                        this.counter = 0;
-                        if (this.result.length > 0) {
-                            this.noResults = false
-                            this.doc = this.result[0];
-                            this.doc.TypeId = null;
-                            if (!this.formData.isSearchType) {
-                                this.doc.TypeId = this.doc.DocType.toString();
-                            }
-                            this.originalName = this.doc.ItemName;
-                            this.originalType = this.doc.DocType;
-                            this.getPreview();
-                            this.noResults = false;
-                        }
-                        else {
-                            this.noResults = true;
-                        }
-
-                        this.removedTags = [];
-                        this.newTags = [];
-                        this.resNum = this.result.length;
-                        this.$scope.$apply()
-                    });
+                    this.result = [];
+                    this.counter = 0;
+                    this.index = 0;
+                    this.callQuesry();
                 }
             }
         }
@@ -126,7 +107,45 @@ module app {
                 this.showLoader = false
                 this.showStatus("Your changes were saved")
                 this.$scope.$apply()
+                if (this.counter == this.resNum - 1) this.moreResult()
+                else this.nextPage()
             })
+        }
+        callQuesry() {
+            this.showLoader = true
+            var promise = this.searchService.searchItems(this.formData);
+            promise.then(response => {
+                //this.result = response;                        
+                if (response.length > 0) {
+                    Array.prototype.push.apply(this.result, response);
+                    this.noResults = false
+                    this.doc = this.result[this.counter];
+                    this.doc.TypeId = null;
+                    if (!this.formData.isSearchType) {
+                        this.doc.TypeId = this.doc.DocType.toString();
+                    }
+                    this.originalName = this.doc.ItemName;
+                    this.originalType = this.doc.DocType;
+                    this.getPreview();
+                    this.noResults = false;
+                }
+                else {
+                    this.noResults = true;
+                }
+                this.showLoader = false
+                this.removedTags = [];
+                this.newTags = [];
+                this.resNum = this.result.length;
+                this.$scope.$apply()
+            });
+        }
+        moreResult() {
+            console.log("moreResult");
+            this.index++;
+            this.formData.pageNumber = this.index;
+            this.counter++;
+            this.callQuesry();
+
         }
         deleteTag(i) {
             //this.doc.ItemName = "deleted" + i;

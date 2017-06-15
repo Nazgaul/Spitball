@@ -3,10 +3,7 @@
     public class JaredSearchQuery
     {
         public string Name { get; set; }
-        public string University { get; set; }
-        public string Department { get; set; }
-        public string Box { get; set; }
-        public string BoxId { get; set; }
+        public int PageNumber { get; set; }
         public bool IsReviewed { get; set; }
         public bool IsSearchType { get; set; }
     }
