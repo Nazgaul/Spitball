@@ -7,6 +7,7 @@ var app;
             this.$sce = $sce;
             this.searchService = searchService;
             this.$interval = $interval;
+            this.index = 0;
             this.resNum = 0;
             this.counter = 0;
             this.noResults = false;
@@ -17,8 +18,8 @@ var app;
             this.newTag = "";
             this.ChangedType = -1;
             this.formData = {
-                department: "",
-                isSearchType: true
+                isSearchType: true,
+                pageNumber: 0
             };
             this.doc = null;
             this.documents = [];
@@ -34,31 +35,12 @@ var app;
             if (this.formData) {
                 Object.keys(this.formData).forEach(function (k) { return (!_this.formData[k] && _this.formData[k] !== undefined) && delete _this.formData[k]; });
                 if (Object.keys(this.formData).length) {
+                    this.formData.pageNumber = 0;
                     console.log(this.formData);
-                    var promise = this.searchService.searchItems(this.formData);
-                    promise.then(function (response) {
-                        _this.result = response;
-                        _this.counter = 0;
-                        if (_this.result.length > 0) {
-                            _this.noResults = false;
-                            _this.doc = _this.result[0];
-                            _this.doc.TypeId = null;
-                            if (!_this.formData.isSearchType) {
-                                _this.doc.TypeId = _this.doc.DocType.toString();
-                            }
-                            _this.originalName = _this.doc.ItemName;
-                            _this.originalType = _this.doc.DocType;
-                            _this.getPreview();
-                            _this.noResults = false;
-                        }
-                        else {
-                            _this.noResults = true;
-                        }
-                        _this.removedTags = [];
-                        _this.newTags = [];
-                        _this.resNum = _this.result.length;
-                        _this.$scope.$apply();
-                    });
+                    this.result = [];
+                    this.counter = 0;
+                    this.index = 0;
+                    this.callQuesry();
                 }
             }
         };
@@ -123,7 +105,47 @@ var app;
                 _this.showLoader = false;
                 _this.showStatus("Your changes were saved");
                 _this.$scope.$apply();
+                if (_this.counter == _this.resNum - 1)
+                    _this.moreResult();
+                else
+                    _this.nextPage();
             });
+        };
+        AppController.prototype.callQuesry = function () {
+            var _this = this;
+            this.showLoader = true;
+            var promise = this.searchService.searchItems(this.formData);
+            promise.then(function (response) {
+                //this.result = response;                        
+                if (response.length > 0) {
+                    Array.prototype.push.apply(_this.result, response);
+                    _this.noResults = false;
+                    _this.doc = _this.result[_this.counter];
+                    _this.doc.TypeId = null;
+                    if (!_this.formData.isSearchType) {
+                        _this.doc.TypeId = _this.doc.DocType.toString();
+                    }
+                    _this.originalName = _this.doc.ItemName;
+                    _this.originalType = _this.doc.DocType;
+                    _this.getPreview();
+                    _this.noResults = false;
+                }
+                else {
+                    _this.noResults = true;
+                }
+                _this.showLoader = false;
+                _this.removedTags = [];
+                _this.newTags = [];
+                _this.resNum = _this.result.length;
+                _this.$scope.$apply();
+            });
+        };
+        AppController.prototype.moreResult = function () {
+            console.log("moreResult");
+            this.index++;
+            this.formData.pageNumber = this.index;
+            this.counter++;
+            this.callQuesry();
         };
         AppController.prototype.deleteTag = function (i) {
             //this.doc.ItemName = "deleted" + i;
@@ -204,4 +226,3 @@ var app;
     app.AppController = AppController;
     angular.module("app").controller("AppController", AppController);
 })(app || (app = {}));
-//# sourceMappingURL=app.controller.js.map
