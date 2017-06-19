@@ -80,7 +80,7 @@ namespace Zbang.Cloudents.Jared.Controllers
 
             if (model.Tags != null && model.Tags.Any())
             {
-                var z = new AssignTagsToQuizCommand(model.Id, model.Tags, TagType.User);
+                var z = new AssignTagsToFlashcardCommand(model.Id, model.Tags, TagType.User);
                 await m_ZboxWriteService.AddItemTagAsync(z).ConfigureAwait(false);
             }
 

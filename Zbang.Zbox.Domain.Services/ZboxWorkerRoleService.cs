@@ -54,8 +54,8 @@ namespace Zbang.Zbox.Domain.Services
         {
             // DeleteOldLibrary();
             //UpdateNumberOfBoxesInDepartmentNode();
-            //  UpdateItemUrl();
-            UpdateBoxUrl();
+            UpdateItemUrl();
+            //UpdateBoxUrl();
             //UpdateFlashcardCardCount();
             //RemoveHtmlTags();
 
@@ -636,24 +636,24 @@ where id = @id";
             using (var unitOfWork = UnitOfWork.Start())
             {
 
-                //var items = UnitOfWork.CurrentSession.QueryOver<Item>().Where(w => w.Url == null && !w.isDeleted).List();
-                //foreach (var item in items)
-                //{
-                //    item.GenerateUrl();
-                //    UnitOfWork.CurrentSession.Save(item);
-                //}
-                //unitOfWork.TransactionalFlush();
-
-                var items2 = UnitOfWork.CurrentSession.CreateSQLQuery(@"select itemId from zbox.item
-where  CHARINDEX(CAST(boxId as varchar(max)), URL) = 0
-and isDeleted = 0").List();
-                foreach (var itemId in items2)
+                var items = UnitOfWork.CurrentSession.QueryOver<Item>().Where(w => w.Url == null && !w.IsDeleted).List();
+                foreach (var item in items)
                 {
-                    var item = UnitOfWork.CurrentSession.Load<Item>(itemId);
                     item.GenerateUrl();
                     UnitOfWork.CurrentSession.Save(item);
                 }
                 unitOfWork.TransactionalFlush();
+
+//                var items2 = UnitOfWork.CurrentSession.CreateSQLQuery(@"select itemId from zbox.item
+//where  CHARINDEX(CAST(boxId as varchar(max)), URL) = 0
+//and isDeleted = 0").List();
+//                foreach (var itemId in items2)
+//                {
+//                    var item = UnitOfWork.CurrentSession.Load<Item>(itemId);
+//                    item.GenerateUrl();
+//                    UnitOfWork.CurrentSession.Save(item);
+//                }
+//                unitOfWork.TransactionalFlush();
             }
         }
 

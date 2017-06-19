@@ -51,13 +51,6 @@ namespace Zbang.Cloudents.Jared.Controllers
                     code = s.CourseCode
                 })
             });
-            //return Request.CreateResponse(new
-            //{
-            //    result.UniversityId,
-            //    result.UniversityName
-
-            //});
-            //return "Hello from custom controller!";
         }
 
 

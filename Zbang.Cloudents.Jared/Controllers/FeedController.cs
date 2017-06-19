@@ -135,10 +135,6 @@ namespace Zbang.Cloudents.Jared.Controllers
         [Route("api/course/{boxId:long}/feed/{feedId:guid}/reply")]
         public async Task<HttpResponseMessage> PostReplyAsync(long boxId, Guid feedId, AddCommentRequest model)
         {
-            //if (string.IsNullOrEmpty(model.Content))
-            //{
-            //    ModelState.AddModelError(string.Empty, "You need to write something or post files");
-            //}
             if (!ModelState.IsValid)
             {
                 return Request.CreateBadRequestResponse();
