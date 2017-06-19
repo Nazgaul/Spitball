@@ -86,6 +86,13 @@
 .body-content .results-header .save:hover {
   background-color: #d8d8d8;
 }
+.body-content .results-header .delete-doc {
+  color: #ff0000;
+  font-weight: bold;
+  background: none;
+  border: none;
+  outline: none;
+}
 .body-content .results-header .results-nav {
   text-align: center;
   display: flex;
@@ -224,16 +231,6 @@
 }
 .body-content .result-data .info .detail input:focus {
   border-bottom: 1px solid #003b78;
-  outline: none;
-}
-.body-content .result-data .info .delete-doc {
-  color: #ff0000;
-  font-weight: bold;
-  position: absolute;
-  top: 16px;
-  right: 0;
-  background: none;
-  border: none;
   outline: none;
 }
 .body-content .result-data .preview {

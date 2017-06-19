@@ -18,7 +18,6 @@ var app;
             this.newTag = "";
             this.ChangedType = -1;
             this.formData = {
-                isSearchType: true,
                 pageNumber: 0
             };
             this.doc = null;
@@ -31,18 +30,12 @@ var app;
             this.tagAutoComplete = [];
         }
         AppController.prototype.search = function () {
-            var _this = this;
-            if (this.formData) {
-                Object.keys(this.formData).forEach(function (k) { return (!_this.formData[k] && _this.formData[k] !== undefined) && delete _this.formData[k]; });
-                if (Object.keys(this.formData).length) {
-                    this.formData.pageNumber = 0;
-                    console.log(this.formData);
-                    this.result = [];
-                    this.counter = 0;
-                    this.index = 0;
-                    this.callQuesry();
-                }
-            }
+            this.formData.pageNumber = 0;
+            console.log(this.formData);
+            this.result = [];
+            this.counter = 0;
+            this.index = 0;
+            this.callQuesry();
         };
         AppController.prototype.getPreview = function () {
             var _this = this;
@@ -68,9 +61,9 @@ var app;
             //change doc
             this.doc = this.result[this.counter];
             this.doc.TypeId = null;
-            if (!this.formData.isSearchType) {
-                this.doc.TypeId = this.doc.DocType.toString();
-            }
+            //if (!this.formData.isSearchType) {
+            this.doc.TypeId = this.doc.DocType.toString();
+            //}
             this.originalName = this.doc.ItemName;
             this.originalType = this.doc.DocType;
             this.getPreview();
@@ -79,9 +72,9 @@ var app;
             this.counter--;
             this.doc = this.result[this.counter];
             this.doc.TypeId = null;
-            if (!this.formData.isSearchType) {
-                this.doc.TypeId = this.doc.DocType.toString();
-            }
+            //if (!this.formData.isSearchType) {
+            this.doc.TypeId = this.doc.DocType.toString();
+            //}
             this.originalName = this.doc.ItemName;
             this.originalType = this.doc.DocType;
             this.getPreview();
@@ -226,3 +219,4 @@ var app;
     app.AppController = AppController;
     angular.module("app").controller("AppController", AppController);
 })(app || (app = {}));
+//# sourceMappingURL=app.controller.js.map

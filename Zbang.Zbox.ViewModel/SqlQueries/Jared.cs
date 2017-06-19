@@ -13,12 +13,12 @@ i.doctype docType,
 (select universityname from zbox.university where id=b.university) university 
 from " + ItemWhere + ";";
         private const string ItemWhere = @"zbox.item i join zbox.box b on i.boxid=b.boxid 
-where b.discriminator = 2 and i.isdeleted=0 and b.university in (173408,166100,171885,172566) 
-and (@IsSearchType=0 or (i.doctype is null)) 
-and (@IsSearchType=1 or (i.doctype is not null)) 
+where i.discriminator='File' and b.discriminator = 2 and i.isdeleted=0 and b.university in (173408,166100,171885,172566) 
 and (@IsReviewed=0 or (i.isreviewed=1)) 
 and (@IsReviewed=1 or (i.isreviewed is null or i.isreviewed=0)) 
-and i.itemid=(select distinct(itemid) from zbox.itemtag tt where tt.itemid=i.itemid) and (@name is null or (i.name like +'%' + @name + '%')) order by i.itemid offset @PageNumber*5 ROWS
+and (@IsTag=1 or i.itemid=(select distinct(tt.itemid) from zbox.itemtag tt where tt.itemid=i.itemid))
+and (@IsTag=0 or NOT EXISTS (select tt.itemid from zbox.itemtag tt where tt.itemid=i.itemid))
+and (@name is null or (i.name like +'%' + @name + '%')) order by i.itemid offset @PageNumber*5 ROWS
 FETCH NEXT 5 ROWS ONLY";
 
         public const string ItemTags = @"select item.itemid itemId,

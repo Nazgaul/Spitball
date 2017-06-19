@@ -19,7 +19,6 @@ module app {
         originalType: string;
         ChangedType: number = -1;
         formData: any = {
-            isSearchType: true,
             pageNumber:0
         };
         doc: any = null;
@@ -34,17 +33,13 @@ module app {
 
         }
         search() {
-            if (this.formData) {
-                Object.keys(this.formData).forEach(k => (!this.formData[k] && this.formData[k] !== undefined) && delete this.formData[k]);
-                if (Object.keys(this.formData).length) {
+
                     this.formData.pageNumber = 0;
                     console.log(this.formData);
                     this.result = [];
                     this.counter = 0;
                     this.index = 0;
                     this.callQuesry();
-                }
-            }
         }
         getPreview() {
             var self = this;
@@ -69,9 +64,9 @@ module app {
             //change doc
             this.doc = this.result[this.counter];
             this.doc.TypeId = null;
-            if (!this.formData.isSearchType) {
+            //if (!this.formData.isSearchType) {
                 this.doc.TypeId = this.doc.DocType.toString();
-            }
+            //}
             this.originalName = this.doc.ItemName;
             this.originalType = this.doc.DocType;
             this.getPreview();
@@ -80,9 +75,9 @@ module app {
             this.counter--;
             this.doc = this.result[this.counter];
             this.doc.TypeId = null;
-            if (!this.formData.isSearchType) {
+            //if (!this.formData.isSearchType) {
                 this.doc.TypeId = this.doc.DocType.toString();
-            }
+            //}
             this.originalName = this.doc.ItemName;
             this.originalType = this.doc.DocType;
             this.getPreview();
