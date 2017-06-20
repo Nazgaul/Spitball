@@ -7,6 +7,8 @@ using Microsoft.Azure.Mobile.Server.Config;
 using WebApi.OutputCache.V2;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.ReadServices;
+using System.Net;
+using Zbang.Cloudents.Jared.DataObjects;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
@@ -56,6 +58,15 @@ namespace Zbang.Cloudents.Jared.Controllers
             });
         }
 
-       
+        [HttpPost]
+        [Route("api/mail")]
+        public async Task<HttpResponseMessage> SendMail(MailRequest model)
+        {
+            var text = "mail has been sent to " + model.Mail;
+            return Request.CreateResponse(new
+            {
+                text
+            });
+        }
     }
 }

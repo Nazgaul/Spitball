@@ -227,6 +227,7 @@
     <Compile Include="Controllers\UniversityController.cs" />
     <Compile Include="Controllers\UpdateTagsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DataObjects\MailRequest.cs" />
     <Compile Include="Models\CreateAcademicCourseRequest.cs" />
     <Compile Include="Models\FollowRequest.cs" />
     <Compile Include="Models\UpdateTagsRequest.cs" />
