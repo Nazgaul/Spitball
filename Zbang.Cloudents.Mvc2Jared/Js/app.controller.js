@@ -95,13 +95,20 @@ var app;
             }
             var promise = this.searchService.saveItem(this.doc.ItemId, this.doc.BoxId, this.ChangedName, this.ChangedType, this.newTags, this.removedTags);
             promise.then(function (response) {
-                _this.showLoader = false;
                 _this.showStatus("Your changes were saved");
+                _this.showLoader = false;
+                _this.removedTags = [];
+                _this.newTags = [];
                 _this.$scope.$apply();
                 if (_this.counter == _this.resNum - 1)
                     _this.moreResult();
                 else
                     _this.nextPage();
+            }, function (error) {
+                _this.showLoader = false;
+                _this.removedTags = [];
+                _this.newTags = [];
+                _this.$scope.$apply();
             });
         };
         AppController.prototype.callQuesry = function () {
@@ -126,6 +133,12 @@ var app;
                 else {
                     _this.noResults = true;
                 }
+                _this.showLoader = false;
+                _this.removedTags = [];
+                _this.newTags = [];
+                _this.resNum = _this.result.length;
+                _this.$scope.$apply();
+            }, function (error) {
                 _this.showLoader = false;
                 _this.removedTags = [];
                 _this.newTags = [];

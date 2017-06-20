@@ -99,12 +99,18 @@ module app {
             var promise = this.searchService.saveItem(this.doc.ItemId, this.doc.BoxId, this.ChangedName, this.ChangedType,
                 this.newTags, this.removedTags)
             promise.then(response => {
-                this.showLoader = false
-                this.showStatus("Your changes were saved")
-                this.$scope.$apply()
+                this.showStatus("Your changes were saved");
+                this.showLoader = false;
+                this.removedTags = [];
+                this.newTags = [];
+                this.$scope.$apply();
                 if (this.counter == this.resNum - 1) this.moreResult()
                 else this.nextPage()
-            })
+            }, error => {
+            this.showLoader = false;
+                this.removedTags = [];
+                this.newTags = [];
+                this.$scope.$apply();})
         }
         callQuesry() {
             this.showLoader = true
@@ -132,7 +138,12 @@ module app {
                 this.newTags = [];
                 this.resNum = this.result.length;
                 this.$scope.$apply()
-            });
+            }, error => {
+                this.showLoader = false
+                this.removedTags = [];
+                this.newTags = [];
+                this.resNum = this.result.length;
+                this.$scope.$apply()})
         }
         moreResult() {
             console.log("moreResult");
