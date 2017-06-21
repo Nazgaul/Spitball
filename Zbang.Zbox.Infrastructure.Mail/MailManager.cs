@@ -123,7 +123,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             }
         }
 
-        public async Task GenerateSystemEmailAsync(string subject, string text)
+        public async Task GenerateSystemEmailAsync(string subject, string text, string to = "ram@cloudents.com")
         {
             var sendGridMail = new SendGridMessage
             {
@@ -131,7 +131,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 Text = text,
                 Subject = $"{subject} {DateTime.UtcNow.ToShortDateString()}"
             };
-            sendGridMail.AddTo("ram@cloudents.com");
+            sendGridMail.AddTo(to);
             await SendAsync(sendGridMail, new Credentials()).ConfigureAwait(false);
         }
 

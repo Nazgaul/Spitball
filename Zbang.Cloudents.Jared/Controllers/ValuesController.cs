@@ -8,7 +8,7 @@ using WebApi.OutputCache.V2;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.ReadServices;
 using System.Net;
-using Zbang.Cloudents.Jared.DataObjects;
+using Zbang.Cloudents.Jared.Models;
 using Zbang.Zbox.Infrastructure.Mail;
 
 namespace Zbang.Cloudents.Jared.Controllers
@@ -63,9 +63,13 @@ namespace Zbang.Cloudents.Jared.Controllers
 
         [HttpPost]
         [Route("api/feedback")]
-        public async Task<HttpResponseMessage> FeedbackAsync(string content)
+        public async Task<HttpResponseMessage> FeedbackAsync(MailRequest model)
         {
-            await m_MailComponent.GenerateSystemEmailAsync("Jared feedback", content).ConfigureAwait(false);
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            await m_MailComponent.GenerateSystemEmailAsync("Jared feedback", model.Body, "support@cloudents.com").ConfigureAwait(false);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }

@@ -13,4 +13,10 @@ namespace Zbang.Cloudents.Jared.Models
         public IEnumerable<string> Tags { get; set; }
 
     }
+
+    public class TagsRequest
+    {
+        public IEnumerable<string> Tags { get; set; }
+
+    }
 }

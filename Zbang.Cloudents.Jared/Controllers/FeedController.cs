@@ -113,11 +113,18 @@ namespace Zbang.Cloudents.Jared.Controllers
             }));
         }
 
-        [Authorize, HttpPost, Route("api/course/{boxId:long}/feed/{commentId:guid}/like")]
-        public async Task<HttpResponseMessage> LikeCommentAsync(Guid commentId, long boxId)
+        [Authorize, HttpPost, Route("api/course/{boxId:long}/feed/{id:guid}/like")]
+        public async Task<HttpResponseMessage> LikeCommentAsync(Guid id, long boxId, [FromBody] TagsRequest model)
         {
-            var command = new LikeCommentCommand(commentId, User.GetUserId(), boxId);
+            var command = new LikeCommentCommand(id, User.GetUserId(), boxId);
             await m_ZboxWriteService.LikeCommentAsync(command).ConfigureAwait(false);
+
+            if (model?.Tags != null && model.Tags.Any())
+            {
+                var z = new AssignTagsToFeedCommand(id, model.Tags, TagType.User);
+                await m_ZboxWriteService.AddItemTagAsync(z).ConfigureAwait(false);
+            }
+
             return Request.CreateResponse(HttpStatusCode.OK);
             //return JsonOk(retVal.Liked);
         }
