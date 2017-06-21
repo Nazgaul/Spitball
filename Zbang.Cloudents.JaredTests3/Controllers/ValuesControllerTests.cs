@@ -11,6 +11,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Http;
 using System.Collections.Generic;
+using Zbang.Zbox.Infrastructure.Mail;
 
 namespace Zbang.Cloudents.Jared.Controllers.Tests
 {
@@ -18,12 +19,12 @@ namespace Zbang.Cloudents.Jared.Controllers.Tests
     public class ValuesControllerTests
     {
         private IZboxReadService m_ZboxReadService;
-        private ValuesController controller;
+        private ValuesController m_Controller;
         [TestInitialize]
         public void Setup()
         {
             var localStorageProvider = MockRepository.GenerateStub<ILocalStorageProvider>();
-
+            var mail = MockRepository.GenerateStub<IMailComponent>();
             IocFactory.IocWrapper.RegisterInstance(localStorageProvider);
             var fakeHttpContext = MockRepository.GenerateStub<HttpContextBase>();
             var fakeIdentity = new GenericIdentity("User");
@@ -31,11 +32,10 @@ namespace Zbang.Cloudents.Jared.Controllers.Tests
 
                 
             m_ZboxReadService = new ZboxReadService();
-            controller = new ValuesController(m_ZboxReadService);
-            controller.Request = new HttpRequestMessage();
+            m_Controller = new ValuesController(m_ZboxReadService, mail) {Request = new HttpRequestMessage()};
             //controller.User.Stub(x => x.GetUserId()).Return(1);
             //controller.User.Stub(x => x.Identity).Return(new IdentityTest());
-            controller.Request.SetConfiguration(new HttpConfiguration());
+            m_Controller.Request.SetConfiguration(new HttpConfiguration());
         }
         class Ide: ClaimsIdentity,IIdentity
         {
@@ -98,9 +98,9 @@ namespace Zbang.Cloudents.Jared.Controllers.Tests
             var user = new User(false);
             // user.Stub(x => x.GetUserId()).Return(1);
             //controller.User.Identity.Stub(x=>x.IsAuthenticated).Return(false);
-            controller.User = user;
+            m_Controller.User = user;
             CancellationToken token = new CancellationToken();
-            var b = await controller.Get(token);
+            var b = await m_Controller.Get(token);
             Assert.IsTrue(b.IsSuccessStatusCode);
         }
         //[TestMethod]

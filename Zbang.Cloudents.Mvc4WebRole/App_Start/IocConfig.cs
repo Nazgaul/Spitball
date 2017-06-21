@@ -13,6 +13,7 @@ using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Data;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
+using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -40,7 +41,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 Zbox.Infrastructure.File.RegisterIoc.Register();
                 builder.RegisterModule<StorageModule>();
                 //Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
-                Zbox.Infrastructure.Mail.RegisterIoc.Register();
+                builder.RegisterModule<MailModule>();
+                
 
                 builder.RegisterModule<SearchModule>();
                 //RegisterIoc.Register();

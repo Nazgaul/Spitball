@@ -98,7 +98,7 @@ where libraryId in (
 select libraryId from Zbox.Library where id in (
 select id from zbox.university where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 
 )) and isDeleted = 0",
-                @"update Zbox.item
+                @"update top(10) Zbox.item
 set isDirty = 1, isDeleted = 1, updateTime = getUtcDate()-121
  where  boxId in (
 	select  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
@@ -228,30 +228,30 @@ select questionId from Zbox.Question where boxId in (
                         @"delete from zbox.commentLike where boxId in (
 select top (3) boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 order by boxId)",
 
-                        @"delete from Zbox.Question where boxId in (
-	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
+                        @"delete top(3) from Zbox.Question where boxId in (
+	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0  order by boxId
 ) option (maxDop 1)",
                         @"delete from Zbox.itemTab where boxId in (
-	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
+	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0  order by boxId
 ) option (maxDop 1)",
                         @"delete  from Zbox.QuizQuestion where quizId in (
 	select id  from Zbox.quiz where publish = 0
 and boxId in (
-	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
+	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0  order by boxId
 ) 
 ) option (maxDop 1)",
                         @"delete from zbox.quizAnswer where quizId in 
 (select id  from Zbox.quiz where publish = 0
 and boxId in (
-	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
+	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0  order by boxId
 )) option (maxDop 1)",
                         @"delete  from Zbox.quiz where publish = 0
 and boxId in (
-	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
+	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0  order by boxId
 ) option (maxDop 1)",
                         @"delete  from Zbox.item where isDeleted = 1 and isDirty = 0
 and boxId in (
-	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
+	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0  order by boxId
 ) option (maxDop 1)",
                         @"delete from zbox.flashcard where boxId in (
 --delete from zbox.box where boxId in (

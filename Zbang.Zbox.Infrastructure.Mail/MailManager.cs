@@ -6,20 +6,25 @@ using System.Net;
 using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
+using Autofac;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using RestSharp.Authenticators;
 using SendGrid;
 using Zbang.Zbox.Infrastructure.Extensions;
-using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Mail
 {
     public class MailManager2 : IMailComponent
     {
+        private readonly ILifetimeScope m_ComponentContent;
 
-        private readonly IocFactory m_Container = IocFactory.IocWrapper;
+        public MailManager2(ILifetimeScope componentContent)
+        {
+            m_ComponentContent = componentContent;
+        }
+
 
         private static Task SendAsync(ISendGrid message, ICredentials credentials)
         {
@@ -42,7 +47,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
                 sendGridMail.AddTo(/*ConfigFetcher.IsEmulated ? "ram@cloudents.com" :*/ recipient);
 
-                var mail = m_Container.Resolve<IMailBuilder>(parameters.MailResover, new IocParameterOverride("parameters", parameters));
+                var mail = m_ComponentContent.ResolveNamed<IMailBuilder>(parameters.MailResover, new NamedParameter("parameters", parameters));
+                //var mail = m_Container.Resolve<IMailBuilder>(parameters.MailResover, new IocParameterOverride("parameters", parameters));
                 sendGridMail.Html = mail.GenerateMail();
                 sendGridMail.Subject = mail.AddSubject();
                 sendGridMail.SetCategory(mail.AddCategory());
@@ -97,8 +103,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
             var unixDateTime = (long)(startTime.ToUniversalTime() - epoch).TotalSeconds;
 
             var client = new Client(ApiKey);
-            var result = await client.Get($"{requestUrl}?limit={500}&offset={500 * page}&start_time={unixDateTime}");
-            var data = await result.Content.ReadAsStringAsync();
+            var result = await client.Get($"{requestUrl}?limit={500}&offset={500 * page}&start_time={unixDateTime}").ConfigureAwait(false);
+            var data = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
             var emailArray = JArray.Parse(data);
             return emailArray.Select(s => s["email"].ToString());
         }
@@ -109,7 +115,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             try
             {
                 var client = new Client(ApiKey);
-                await client.GlobalSuppressions.Delete(email);
+                await client.GlobalSuppressions.Delete(email).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -126,7 +132,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 Subject = $"{subject} {DateTime.UtcNow.ToShortDateString()}"
             };
             sendGridMail.AddTo("ram@cloudents.com");
-            await SendAsync(sendGridMail, new Credentials());
+            await SendAsync(sendGridMail, new Credentials()).ConfigureAwait(false);
         }
 
 
@@ -139,7 +145,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
             CancellationToken cancellationToken)
         {
 
-            var mail = m_Container.Resolve<IMailBuilder>(parameters.MailResover, new IocParameterOverride("parameters", parameters));
+            var mail = m_ComponentContent.ResolveNamed<IMailBuilder>(parameters.MailResover, new NamedParameter("parameters", parameters));
+            
 
             var client = new RestClient
             {
@@ -157,7 +164,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
             request.AddParameter("from", parameters.SenderName);
             request.AddParameter("to", ConfigFetcher.IsEmulated ? "ram@cloudents.com" : recipient);
-            //request.AddParameter("bcc", "sbtester82.5@gmail.com");
             request.AddParameter("subject", mail.AddSubject());
             request.AddParameter("html", mail.GenerateMail().Replace("{email}", recipient));
             request.AddParameter("o:tag", mail.AddCategory());

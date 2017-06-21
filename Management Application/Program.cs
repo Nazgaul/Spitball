@@ -11,6 +11,7 @@ using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Data;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
+using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Notifications;
 using Zbang.Zbox.Infrastructure.Storage;
 
@@ -36,7 +37,7 @@ namespace Management_Application
 
             builder.ContainerBuilder.RegisterModule<CommandsModule>();
             Zbang.Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
-            Zbang.Zbox.Infrastructure.Mail.RegisterIoc.Register();
+            builder.ContainerBuilder.RegisterModule<MailModule>();
             builder.ContainerBuilder.RegisterModule<StorageModule>();
             builder.Build();
 

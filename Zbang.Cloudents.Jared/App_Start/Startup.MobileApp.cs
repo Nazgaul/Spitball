@@ -20,6 +20,7 @@ using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Data;
+using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Notifications;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.ReadServices;
@@ -67,6 +68,7 @@ namespace Zbang.Cloudents.Jared
             builder.RegisterModule<WriteServiceModule>();
             builder.RegisterModule<DataModule>();
             builder.RegisterModule<ReadServiceModule>();
+            builder.RegisterModule<MailModule>();
 
             builder.RegisterType<JaredSendPush>()
                 .As<IJaredPushNotification>()

@@ -78,11 +78,6 @@ namespace Zbang.Zbox.Domain.DataAccess
                 .And(w => w.UserType != UserType.Jared)
                 .And(w => w.Id != notIncludeUserId)
                 .WithSubquery.WhereProperty(x=>x.Id).In(userIds)
-                //.WithSubquery.WhereSome(
-                //u => u.Id == QueryOver.Of<UserBoxRel>()
-                //.Where(w => w.BoxId == boxId)
-
-                //.Select(s=>s.UserId).As<long>()
                 .Select(s => s.Id).List<long>();
 
         }

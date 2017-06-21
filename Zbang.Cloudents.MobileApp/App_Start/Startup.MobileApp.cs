@@ -25,6 +25,7 @@ using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Data;
+using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Cloudents.MobileApp
@@ -133,8 +134,8 @@ namespace Zbang.Cloudents.MobileApp
             builder.RegisterModule<DataModule>();
             //Zbox.Infrastructure.Data.RegisterIoc.Register();
             builder.RegisterModule<StorageModule>();
-           // Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
-            Zbox.Infrastructure.Mail.RegisterIoc.Register();
+            // Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
+            builder.RegisterModule<MailModule>();
             //Zbox.Infrastructure.File.RegisterIoc.Register();
             builder.RegisterModule<WriteServiceModule>();
             //Zbox.Domain.Services.RegisterIoc.Register();

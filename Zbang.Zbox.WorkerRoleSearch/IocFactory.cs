@@ -5,6 +5,7 @@ using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Data;
 using Zbang.Zbox.Infrastructure.Extensions;
+using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Notifications;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -30,7 +31,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Ioc.ContainerBuilder.RegisterModule<DataModule>();
             Infrastructure.File.RegisterIoc.Register();
             Ioc.ContainerBuilder.RegisterModule<StorageModule>();
-            Infrastructure.Mail.RegisterIoc.Register();
+            Ioc.ContainerBuilder.RegisterModule<MailModule>();
 
             Ioc.ContainerBuilder.RegisterModule<SearchModule>();
 

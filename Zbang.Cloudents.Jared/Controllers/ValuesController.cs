@@ -9,6 +9,7 @@ using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.ReadServices;
 using System.Net;
 using Zbang.Cloudents.Jared.DataObjects;
+using Zbang.Zbox.Infrastructure.Mail;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
@@ -16,10 +17,12 @@ namespace Zbang.Cloudents.Jared.Controllers
     public class ValuesController : ApiController
     {
         private readonly IZboxReadService m_ZboxReadService;
+        private readonly IMailComponent m_MailComponent;
 
-        public ValuesController(IZboxReadService zboxReadService)
+        public ValuesController(IZboxReadService zboxReadService, IMailComponent mailComponent)
         {
             m_ZboxReadService = zboxReadService;
+            m_MailComponent = mailComponent;
         }
 
         // GET api/values
@@ -59,14 +62,11 @@ namespace Zbang.Cloudents.Jared.Controllers
         }
 
         [HttpPost]
-        [Route("api/mail")]
-        public async Task<HttpResponseMessage> SendMail(MailRequest model)
+        [Route("api/feedback")]
+        public async Task<HttpResponseMessage> FeedbackAsync(string content)
         {
-            var text = "mail has been sent to " + model.Mail;
-            return Request.CreateResponse(new
-            {
-                text
-            });
+            await m_MailComponent.GenerateSystemEmailAsync("Jared feedback", content).ConfigureAwait(false);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }

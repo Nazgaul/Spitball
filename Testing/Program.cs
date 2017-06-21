@@ -83,8 +83,8 @@ namespace Testing
             unity.ContainerBuilder.RegisterModule<DataModule>();
             Zbang.Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
             unity.ContainerBuilder.RegisterModule<CommandsModule>();
-
-            Zbang.Zbox.Infrastructure.Mail.RegisterIoc.Register();
+            unity.ContainerBuilder.RegisterModule<MailModule>();
+            
             Zbang.Zbox.Infrastructure.File.RegisterIoc.Register();
             unity.ContainerBuilder.RegisterModule<StorageModule>();
             unity.ContainerBuilder.RegisterModule<ReadServiceModule>();
@@ -492,44 +492,44 @@ namespace Testing
         //        }
         //    }
         //}
-        private static void Emails()
-        {
+        //private static void Emails()
+        //{
 
 
 
-            var mail = new MailManager2();
-            var e = mail.GenerateAndSendEmailAsync("irena@cloudents.com",
-               new SpamGunMailParams("hey this is <b>bold</b>", "irenaUniUrl", "Irena","bold text test","category"));
-            e.Wait();
-            return;
-            var x = mail.GetUnsubscribesAsync(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc), 0);
-            x.Wait();
+        //    var mail = new MailManager2();
+        //    var e = mail.GenerateAndSendEmailAsync("irena@cloudents.com",
+        //       new SpamGunMailParams("hey this is <b>bold</b>", "irenaUniUrl", "Irena","bold text test","category"));
+        //    e.Wait();
+        //    return;
+        //    var x = mail.GetUnsubscribesAsync(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc), 0);
+        //    x.Wait();
 
-            var z = new[] { new LikeData
-                {
-                    OnLikeText = "טקסט",
-                    UserName = "שם משתמש",
-                    Type = Zbang.Zbox.Infrastructure.Enums.LikeType.Comment
-                } };
-            var t = mail.GenerateAndSendEmailAsync("ariel@cloudents.com",
-                new LikesMailParams(new CultureInfo("he"), "אריאל", z));
-            t.Wait();
+        //    var z = new[] { new LikeData
+        //        {
+        //            OnLikeText = "טקסט",
+        //            UserName = "שם משתמש",
+        //            Type = Zbang.Zbox.Infrastructure.Enums.LikeType.Comment
+        //        } };
+        //    var t = mail.GenerateAndSendEmailAsync("ariel@cloudents.com",
+        //        new LikesMailParams(new CultureInfo("he"), "אריאל", z));
+        //    t.Wait();
 
-            t = mail.GenerateAndSendEmailAsync("ariel@cloudents.com",
-               new ReplyToCommentMailParams(new CultureInfo("he"), "אריאל", "משתמש מסויים", "שם הקופסא", "/"));
-            t.Wait();
+        //    t = mail.GenerateAndSendEmailAsync("ariel@cloudents.com",
+        //       new ReplyToCommentMailParams(new CultureInfo("he"), "אריאל", "משתמש מסויים", "שם הקופסא", "/"));
+        //    t.Wait();
 
-            mail.GenerateAndSendEmailAsync("yaari.ram@gmail.com",
-                new FlagItemMailParams("דגכחלדיג", "חדיגחלכדיכ", "גלחכךדגחכך", "asdas", "asda")).Wait();
-            //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new StoreOrder("ram y", "הליכון משגע", 12341234));
+        //    mail.GenerateAndSendEmailAsync("yaari.ram@gmail.com",
+        //        new FlagItemMailParams("דגכחלדיג", "חדיגחלכדיכ", "גלחכךדגחכך", "asdas", "asda")).Wait();
+        //    //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new StoreOrder("ram y", "הליכון משגע", 12341234));
 
 
-            mail.GenerateAndSendEmailAsync("yaari.ram@gmail.com", new InvitationToCloudentsMailParams("Eidan",
-                "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/401fe59e-1005-42a9-a97b-dc72f20abed4.jpg",
-                new CultureInfo("en-Us"), "yaari.ram@gmail.com"
-                , "https://develop.cloudents.com/account/")).Wait();
+        //    mail.GenerateAndSendEmailAsync("yaari.ram@gmail.com", new InvitationToCloudentsMailParams("Eidan",
+        //        "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/401fe59e-1005-42a9-a97b-dc72f20abed4.jpg",
+        //        new CultureInfo("en-Us"), "yaari.ram@gmail.com"
+        //        , "https://develop.cloudents.com/account/")).Wait();
 
-        }
+        //}
 
         private static void CastingPerformance()
         {
