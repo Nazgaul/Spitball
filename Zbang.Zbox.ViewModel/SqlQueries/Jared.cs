@@ -16,7 +16,7 @@ from " + ItemWhere + ";";
 where i.discriminator='File' and b.discriminator = 2 and i.isdeleted=0 and b.university in (173408,166100,171885,172566) 
 and (@IsReviewed=0 or (i.isreviewed=1)) 
 and (@IsReviewed=1 or (i.isreviewed is null or i.isreviewed=0)) 
-and (@IsTag=1 or i.itemid=(select distinct(tt.itemid) from zbox.itemtag tt where tt.itemid=i.itemid))
+and (@IsTag=1 or EXISTS (select distinct(tt.itemid) from zbox.itemtag tt where tt.itemid=i.itemid))
 and (@IsTag=0 or NOT EXISTS (select tt.itemid from zbox.itemtag tt where tt.itemid=i.itemid))
 and (@name is null or (i.name like +'%' + @name + '%')) order by i.itemid offset @PageNumber*5 ROWS
 FETCH NEXT 5 ROWS ONLY";
@@ -24,7 +24,7 @@ FETCH NEXT 5 ROWS ONLY";
         public const string ItemTags = @"select item.itemid itemId,
                                         t.name tag
 from zbox.item item join zbox.itemtag it on item.itemid=it.itemid join zbox.tag t on it.tagid=t.id
-where it.itemid in (select i.itemid from " + ItemWhere + ");";
+where item.itemid in (select i.itemid from " + ItemWhere + ");";
 
         public const string AutoUni = @"SELECT TOP 5 u.universityname 
         from [Zbox].[University] u where u.universityname like +'%'+@term+'%';";
