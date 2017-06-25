@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -23,13 +22,13 @@ namespace Zbang.Zbox.Domain.Services
     {
         private readonly ICommandBus m_CommandBus;
         private readonly IWithCache m_Cache;
-       // private readonly IDocumentDbRepository<Flashcard> m_FlashcardRepository;
+        // private readonly IDocumentDbRepository<Flashcard> m_FlashcardRepository;
 
         public ZboxWorkerRoleService(ICommandBus commandBus, IWithCache cache/*, IDocumentDbRepository<Flashcard> flashRep*/)
         {
             m_CommandBus = commandBus;
             m_Cache = cache;
-           // m_FlashcardRepository = flashRep;
+            // m_FlashcardRepository = flashRep;
         }
 
         public void UpdateThumbnailPicture(UpdateThumbnailCommand command)
@@ -302,28 +301,30 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
             {
                 using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
                 {
-                    try
+
+                    var i = 0;
+                    foreach (var sql in sqls)
                     {
-                        var i = 0;
-                        foreach (var sql in sqls)
+                        try
                         {
                             i += await conn.ExecuteAsync(new CommandDefinition(sql, cancellationToken: token)).ConfigureAwait(false);
-                            await Task.Delay(TimeSpan.FromSeconds(1), token).ConfigureAwait(false);
                         }
-                        needToLoop = i > 0;
-                        counter += i;
-                    }
-                    catch (SqlException ex)
-                    {
-                        if (ex.Number == -2) //timeout
+                        catch (SqlException ex)
                         {
-                            TraceLog.WriteError("ExecuteSqlLoop number -2 timeout", ex);
+                            if (ex.Number == -2) //timeout
+                            {
+                                TraceLog.WriteError("ExecuteSqlLoop timeout sql:" + sql, ex);
+                            }
+                            else
+                            {
+                                throw;
+                            }
                         }
-                        else
-                        {
-                            throw;
-                        }
+                        await Task.Delay(TimeSpan.FromSeconds(1), token).ConfigureAwait(false);
                     }
+                    needToLoop = i > 0;
+                    counter += i;
+
                 }
             }
             return counter;
@@ -508,10 +509,10 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
 
         public async Task UpdateSearchQuizDirtyToRegularAsync(UpdateDirtyToRegularCommand command)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 const string sql = "update zbox.Quiz set isDirty = 0 where id in @Ids";
-                await conn.ExecuteAsync(sql, new { command.Ids }, commandType: CommandType.Text);
+                await conn.ExecuteAsync(sql, new { command.Ids }, commandType: CommandType.Text).ConfigureAwait(false);
             }
         }
 
@@ -644,16 +645,16 @@ where id = @id";
                 }
                 unitOfWork.TransactionalFlush();
 
-//                var items2 = UnitOfWork.CurrentSession.CreateSQLQuery(@"select itemId from zbox.item
-//where  CHARINDEX(CAST(boxId as varchar(max)), URL) = 0
-//and isDeleted = 0").List();
-//                foreach (var itemId in items2)
-//                {
-//                    var item = UnitOfWork.CurrentSession.Load<Item>(itemId);
-//                    item.GenerateUrl();
-//                    UnitOfWork.CurrentSession.Save(item);
-//                }
-//                unitOfWork.TransactionalFlush();
+                //                var items2 = UnitOfWork.CurrentSession.CreateSQLQuery(@"select itemId from zbox.item
+                //where  CHARINDEX(CAST(boxId as varchar(max)), URL) = 0
+                //and isDeleted = 0").List();
+                //                foreach (var itemId in items2)
+                //                {
+                //                    var item = UnitOfWork.CurrentSession.Load<Item>(itemId);
+                //                    item.GenerateUrl();
+                //                    UnitOfWork.CurrentSession.Save(item);
+                //                }
+                //                unitOfWork.TransactionalFlush();
             }
         }
 

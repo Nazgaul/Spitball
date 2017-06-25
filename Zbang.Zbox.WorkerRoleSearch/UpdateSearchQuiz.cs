@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Search;
@@ -24,10 +23,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IContentWriteSearchProvider m_ContentSearchProvider;
         private readonly IZboxWriteService m_WriteService;
         private readonly IWatsonExtract m_WatsonExtractProvider;
-        private readonly IDetectLanguage m_LanguageDetect;
 
         private const string PrefixLog = "Search Quiz";
-        public UpdateSearchQuiz(IQuizWriteSearchProvider2 quizSearchProvider, IZboxReadServiceWorkerRole zboxReadService, IZboxWorkerRoleService zboxWriteService, IContentWriteSearchProvider contentSearchProvider, IZboxWriteService writeService, IWatsonExtract watsonExtractProvider, IDetectLanguage languageDetect)
+        public UpdateSearchQuiz(IQuizWriteSearchProvider2 quizSearchProvider, IZboxReadServiceWorkerRole zboxReadService,
+            IZboxWorkerRoleService zboxWriteService, IContentWriteSearchProvider contentSearchProvider,
+            IZboxWriteService writeService, IWatsonExtract watsonExtractProvider)
         {
             m_QuizSearchProvider = quizSearchProvider;
             m_ZboxReadService = zboxReadService;
@@ -35,7 +35,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_ContentSearchProvider = contentSearchProvider;
             m_WriteService = writeService;
             m_WatsonExtractProvider = watsonExtractProvider;
-            m_LanguageDetect = languageDetect;
         }
         
 

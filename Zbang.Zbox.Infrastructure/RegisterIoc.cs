@@ -15,7 +15,6 @@ namespace Zbang.Zbox.Infrastructure
             builder.RegisterType<Security.FacebookAuthenticationService>().As<Security.IFacebookService>();
             builder.RegisterType<Security.GoogleAuthenticationService>().As<Security.IGoogleService>();
             builder.RegisterType<IdGenerator.GuidIdGenerator>().As<IdGenerator.IGuidIdGenerator>();
-            builder.RegisterType<DetectLanguage>().As<IDetectLanguage>().SingleInstance();
             builder.RegisterType<LocationProvider>().As<ILocationProvider>();
         }
     }

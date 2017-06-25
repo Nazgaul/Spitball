@@ -31,7 +31,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IBlobProvider2<FilesContainerName> m_BlobProvider;
         private readonly IZboxWriteService m_WriteService;
         private readonly IWatsonExtract m_WatsonExtractProvider;
-        private readonly IDetectLanguage m_LanguageDetect;
         private readonly IContentWriteSearchProvider m_ContentSearchProvider;
 
         private const string PrefixLog = "Search Item";
@@ -43,7 +42,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             IItemWriteSearchProvider itemSearchProvider3,
             IZboxWriteService writeService,
             IWatsonExtract watsonExtractProvider,
-            IDetectLanguage languageDetect,
             IContentWriteSearchProvider contentSearchProvider)
         {
             m_ZboxReadService = zboxReadService;
@@ -53,7 +51,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_ItemSearchProvider3 = itemSearchProvider3;
             m_WriteService = writeService;
             m_WatsonExtractProvider = watsonExtractProvider;
-            m_LanguageDetect = languageDetect;
             m_ContentSearchProvider = contentSearchProvider;
         }
 

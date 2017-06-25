@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Search;
@@ -25,9 +24,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IContentWriteSearchProvider m_ContentSearchProvider;
         private readonly IZboxWriteService m_WriteService;
         private readonly IWatsonExtract m_WatsonExtractProvider;
-        private readonly IDetectLanguage m_LanguageDetect;
 
-        public UpdateSearchFlashcard(IFlashcardWriteSearchProvider flashcardSearchProvider, IZboxReadServiceWorkerRole zboxReadService, IZboxWorkerRoleService zboxWriteService, IDocumentDbReadService documentDbService, IContentWriteSearchProvider contentSearchProvider, IZboxWriteService writeService, IWatsonExtract watsonExtractProvider, IDetectLanguage languageDetect)
+        public UpdateSearchFlashcard(IFlashcardWriteSearchProvider flashcardSearchProvider, IZboxReadServiceWorkerRole zboxReadService, IZboxWorkerRoleService zboxWriteService, IDocumentDbReadService documentDbService, IContentWriteSearchProvider contentSearchProvider, IZboxWriteService writeService, IWatsonExtract watsonExtractProvider)
         {
             m_FlashcardSearchProvider = flashcardSearchProvider;
             m_ZboxReadService = zboxReadService;
@@ -36,7 +34,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_ContentSearchProvider = contentSearchProvider;
             m_WriteService = writeService;
             m_WatsonExtractProvider = watsonExtractProvider;
-            m_LanguageDetect = languageDetect;
         }
 
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
