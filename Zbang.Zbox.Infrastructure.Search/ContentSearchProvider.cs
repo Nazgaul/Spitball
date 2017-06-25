@@ -51,8 +51,6 @@ namespace Zbang.Zbox.Infrastructure.Search
                     CourseSearch =  itemToUpload.Course.ToString(),
                     CourseId = itemToUpload.Course.Id.ToString(),
                     UniversityId = itemToUpload.University.Id.ToString(),
-                    //Professor = itemToUpload.BoxProfessor?.ToLowerInvariant(),
-                    //Code = itemToUpload.BoxCode?.ToLowerInvariant(),
                     University = JsonConvert.SerializeObject(itemToUpload.University).ToLowerInvariant(),
                     Type = itemToUpload.Type.Select(s => ((int)s).ToString()).ToArray(),
                     Tags = itemToUpload.Tags?.Select(s => s.Name.ToLowerInvariant()).Distinct().ToArray(),
@@ -61,24 +59,24 @@ namespace Zbang.Zbox.Infrastructure.Search
                     BlobName = itemToUpload.BlobName,
                     Views = itemToUpload.Views,
                     Likes = itemToUpload.Likes,
-                    ContentCount = itemToUpload.ContentCount,
-                    //CourseId = itemToUpload.BoxId
+                    ContentCount = itemToUpload.ContentCount
                 };
                 if (!string.IsNullOrEmpty(itemToUpload.Content))
                 {
+                    var content = itemToUpload.Content.Trim();
                     switch (itemToUpload.Language)
                     {
                         case Language.Undefined:
-                            uploadBatch.Content = itemToUpload.Content;
+                            uploadBatch.Content = content;
                             break;
                         case Language.EnglishUs:
-                            uploadBatch.ContentEn = itemToUpload.Content;
+                            uploadBatch.ContentEn = content;
                             break;
                         case Language.Hebrew:
-                            uploadBatch.ContentHe = itemToUpload.Content;
+                            uploadBatch.ContentHe = content;
                             break;
                         case null:
-                            uploadBatch.Content = itemToUpload.Content;
+                            uploadBatch.Content = content;
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();
