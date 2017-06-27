@@ -29,8 +29,6 @@ namespace Zbang.Zbox.Infrastructure.Storage
                 using (var gz = new GZipStream(ms, CompressionMode.Compress))
                 {
                     stream.CopyTo(gz);
-                    //gz.Write(stream, 0, stream.Length);
-                    //stream.CopyTo(gz);
 
                 }
 

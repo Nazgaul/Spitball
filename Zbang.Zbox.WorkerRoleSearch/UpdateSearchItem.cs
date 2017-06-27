@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
@@ -153,7 +152,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     m_WriteService.AddItemLanguage(commandLang);
                 }
 
-                if (elem.Language == Infrastructure.Culture.Language.EnglishUs && elem.Tags.All(a => a.Type != TagType.Watson))
+                if (elem.Language == Language.EnglishUs && elem.Tags.All(a => a.Type != TagType.Watson))
                 {
                     ExtractText(elem, token);
                     var result = await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token).ConfigureAwait(false);
@@ -165,8 +164,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         await m_WriteService.AddItemTagAsync(z).ConfigureAwait(false);
                     }
                 }
-                //var command = new UpdateDocumentCourseTagCommand(elem.Id, elem.BoxName, elem.BoxCode, elem.BoxProfessor);
-                //m_WriteService.UpdateItemCourseTag(command);
+                
 
                 await m_ContentSearchProvider.UpdateDataAsync(elem, null, token).ConfigureAwait(false);
             }
@@ -236,7 +234,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 {
                     var tokenSource = new CancellationTokenSource();
                     tokenSource.CancelAfter(TimeSpan.FromMinutes(10));
-                    //some long running method requiring synchronization
                     var retVal =
                     await processor.ContentProcessor.PreProcessFileAsync(processor.Uri, tokenSource.Token).ConfigureAwait(false);
                     try

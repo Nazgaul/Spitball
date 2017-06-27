@@ -121,6 +121,24 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         {
             var blob = GetBlob(blobName);
             await blob.FetchAttributesAsync().ConfigureAwait(false);
+            if (string.IsNullOrEmpty(blob.Properties.ContentMD5))
+            {
+                byte[] buffer = new byte[16 * 1024];
+                var md5Object = System.Security.Cryptography.MD5.Create();
+                using (var stream = await blob.OpenReadAsync().ConfigureAwait(false))
+                {
+                    var bytesReceived = 0;
+                   
+                    while ((bytesReceived = await stream.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false)) > 0)
+                    {
+                        md5Object.TransformBlock(buffer, 0, bytesReceived, null, 0);
+                    }
+                    md5Object.TransformFinalBlock(new byte[0], 0, 0);
+                    blob.Properties.ContentMD5 = Convert.ToBase64String(md5Object.Hash);
+                    await blob.SetPropertiesAsync().ConfigureAwait(false);
+
+                }
+            }
             return blob.Properties.ContentMD5;
         }
 
@@ -192,7 +210,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return url.AbsoluteUri;
         }
 
-        public string GenerateSharedAccressReadPermission(string blobName, double expirationTimeInMinutes, string contentDisposition)
+        public string GenerateSharedAccessReadPermission(string blobName, double expirationTimeInMinutes, string contentDisposition)
         {
             var blob = GetBlob(blobName);
 

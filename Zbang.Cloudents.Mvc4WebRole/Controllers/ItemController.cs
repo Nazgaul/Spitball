@@ -260,7 +260,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var nameToDownload = Path.GetFileNameWithoutExtension(item.Name);
             var extension = Path.GetExtension(item.Source);
-            var url = m_BlobProviderFiles.Value.GenerateSharedAccressReadPermission(item.Source, 30,
+            var url = m_BlobProviderFiles.Value.GenerateSharedAccessReadPermission(item.Source, 30,
                  ContentDispositionUtil.GetHeaderValue(nameToDownload + extension));
             return Redirect(url);
         }

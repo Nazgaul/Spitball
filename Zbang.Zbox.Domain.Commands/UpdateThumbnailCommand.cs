@@ -12,12 +12,12 @@ namespace Zbang.Zbox.Domain.Commands
             Md5 = md5;
         }
 
-        public long ItemId { get; private set; }
-        public string BlobName { get;private set; }
+        public long ItemId { get; }
+        public string BlobName { get; }
 
 
-        public string FileContent { get; private set; }
+        public string FileContent { get; }
 
-        public string Md5 { get; private set; }
+        public string Md5 { get; }
     }
 }

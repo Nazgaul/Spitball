@@ -219,14 +219,14 @@ order by ItemCount desc ;";
                                 order by b.[UpdateTime];";
 
 
-        public const string MarketingEmailQuery = @"select email from zbox.users u join zbox.university uu on u.universityid = uu.id
-and uu.country = 'IL'
-and u.emailsendsettings = 0
-and (u.creationtime>'2015' or u.[LastAccessTime] >'2015')
-and right(userid,1)<>1
-order by u.userid
-offset @pageNumber*50 ROWS
-FETCH NEXT 50 ROWS ONLY;";
+//        public const string MarketingEmailQuery = @"select email from zbox.users u join zbox.university uu on u.universityid = uu.id
+//and uu.country = 'IL'
+//and u.emailsendsettings = 0
+//and (u.creationtime>'2015' or u.[LastAccessTime] >'2015')
+//and right(userid,1)<>1
+//order by u.userid
+//offset @pageNumber*50 ROWS
+//FETCH NEXT 50 ROWS ONLY;";
 
     }
 }

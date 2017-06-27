@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
+using Microsoft.Spatial;
 using Newtonsoft.Json;
 
 namespace Zbang.Zbox.Infrastructure.Search
@@ -43,7 +44,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         public int? MembersCount { get; set; }
         [JsonProperty("membersImages")]
         public string[] MembersImages { get; set; }
-
-
+        [IsSortable,IsFilterable]
+        public GeographyPoint GeographyPoint { get; set; }
     }
 }

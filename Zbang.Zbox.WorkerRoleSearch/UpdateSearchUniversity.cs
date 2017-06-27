@@ -57,16 +57,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             const int updatesPerCycle = 10;
             var updates = await m_ZboxReadService.GetUniversitiesDirtyUpdatesAsync(instanceId, instanceCount, updatesPerCycle).ConfigureAwait(false);
             if (!updates.UniversitiesToDelete.Any() && !updates.UniversitiesToUpdate.Any()) return TimeToSleep.Increase;
-
-            
-            //await
-            //    m_WithAiProvider.AddUniversitiesEntityAsync(
-            //        updates.UniversitiesToUpdate.Select(s => new UniversityEntityDto
-            //        {
-            //            Id = s.Id,
-            //            Name = s.Name,
-            //            Extra = s.Extra?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
-            //        }), cancellationToken);
             var isSuccess =
                 await m_UniversitySearchProvider.UpdateDataAsync(updates.UniversitiesToUpdate, updates.UniversitiesToDelete).ConfigureAwait(false);
             if (isSuccess)

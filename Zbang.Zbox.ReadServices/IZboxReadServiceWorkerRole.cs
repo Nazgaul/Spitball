@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.ViewModel.Dto.BoxDtos;
@@ -25,7 +26,7 @@ namespace Zbang.Zbox.ReadServices
 
         BadItemDto GetFlagItemUserDetail(GetBadItemFlagQuery query);
 
-        Task<IEnumerable<dynamic>> GetMissingThumbnailBlobsAsync(int index, long start);
+        //Task<IEnumerable<dynamic>> GetMissingThumbnailBlobsAsync(int index, long start);
 
 
         //Task<IEnumerable<UniversitySearchDto>> GetUniversityDetailAsync();
@@ -62,7 +63,8 @@ namespace Zbang.Zbox.ReadServices
 
         Task<IEnumerable<LikesDto>> GetLikesDataAsync(CancellationToken token);
 
-        Task<IEnumerable<string>> GetEmailsAsync(int page);
+        Task<IEnumerable<Tuple<long, string>>> GetDocumentsWithoutMd5Async();
+        //Task<IEnumerable<string>> GetEmailsAsync(int page);
 
 
         Task<IEnumerable<SpamGunDto>> GetSpamGunDataAsync(int universityId, CancellationToken token);

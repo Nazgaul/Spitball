@@ -206,15 +206,16 @@ offset @pageNumber*@rowsperpage ROWS
 FETCH NEXT @rowsperpage ROWS ONLY; ";
 
 
-        public const string GetUniversitiesToUploadToSearch = @"select top (@top) id as Id,UniversityName as Name,LargeImage as Image,
-extra as Extra, Country, NoOfUsers
+        public const string GetUniversitiesToUploadToSearch = @"
+select top (@top) id as Id,UniversityName as Name,LargeImage as Image,
+extra as Extra, Country, NoOfUsers, Latitude as Latitude, Longitude as Longitude
 from zbox.University
 where isdirty = 1 and isdeleted = 0 
 and id % @count  = @index;";
 
         public const string GetUniversityToUploadToSearch =
             @"select id as Id,UniversityName as Name,LargeImage as Image,
-extra as Extra, Country, NoOfUsers
+extra as Extra, Country, NoOfUsers, Latitude as Latitude, Longitude as Longitude
 from zbox.University
 where id = @id;";
 

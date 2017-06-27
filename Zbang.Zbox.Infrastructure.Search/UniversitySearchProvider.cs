@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
+using Microsoft.Spatial;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Queries.Search;
@@ -30,11 +31,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         }
 
         private const string IdField = "id";
-        //private const string NameField = "name";
-        //private const string NameField2 = "name2";
         private const string NameField3 = "name3";
-        //private const string ExtraOneField = "extra1";
-        //private const string ExtraTwoField = "extra2";
         private const string ImageField = "imageField";
 
         internal const string CountryField = "coutry";
@@ -43,25 +40,9 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         private const string CountryScoringProfile = "countryTag";
 
-        //private const string NameSuggest = "nameSuggest";
-
         private Index GetUniversityIndex()
         {
-            //var index = new Index(m_IndexName, new[]
-            //{
-            //    new Field(IdField, DataType.String) {IsKey = true, IsRetrievable = true},
-            //    new Field(NameField, DataType.String) {IsRetrievable = true, IsSearchable = true},
-            //    new Field(NameField2, DataType.String) {IsRetrievable = true, IsSearchable = true},
-            //    new Field(ExtraOneField, DataType.String) {IsSearchable = true, IsRetrievable = false},
-            //    new Field(ExtraTwoField, DataType.String) {IsSearchable = true, IsRetrievable = false},
-            //    new Field(ImageField, DataType.String) {IsRetrievable = true},
-            //    new Field(CountryField, DataType.String) {IsRetrievable = true, IsFilterable = true},
-            //    new Field(MembersCountField, DataType.Int32) {IsRetrievable = true},
-            //    new Field(MembersImagesField, DataType.Collection(DataType.String)) {IsRetrievable = true}
-
-            //});
             var scoringFunction = new TagScoringFunction(CountryField, 3, new TagScoringParameters("country"));
-
             var scoringProfile = new ScoringProfile(CountryScoringProfile,
                 functions: new ScoringFunction[] { scoringFunction }, functionAggregation: ScoringFunctionAggregation.Sum);
 
@@ -74,13 +55,6 @@ namespace Zbang.Zbox.Infrastructure.Search
                 ScoringProfiles = new[] { scoringProfile },
                 Suggesters = new[] { suggester }
             };
-
-            //scoringProfile.Functions.Add(scoringFunction);
-            //index.ScoringProfiles.Add(scoringProfile);
-
-            //var suggester = new Suggester(NameSuggest, SuggesterSearchMode.AnalyzingInfixMatching, NameField2);
-            // index.Suggesters.Add(suggester2);
-            //index.Suggesters.Add(suggester2);
             return index;
 
         }
@@ -99,10 +73,6 @@ namespace Zbang.Zbox.Infrastructure.Search
             m_CheckIndexExists = true;
         }
 
-
-
-
-
         public async Task<IEnumerable<UniversityByPrefixDto>> SearchUniversityAsync(UniversitySearchQuery query, CancellationToken cancelToken)
         {
             if (query == null) throw new ArgumentNullException(nameof(query));
@@ -115,7 +85,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             //    return null;
             //}
             var listOfSelectParams = new[] { IdField, NameField3, ImageField, MembersCountField, MembersImagesField };
-            var searchParametes = new SearchParameters
+            var searchParameter = new SearchParameters
             {
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
@@ -124,15 +94,15 @@ namespace Zbang.Zbox.Infrastructure.Search
             var term = query.Term;
             if (string.IsNullOrEmpty(term))//obsolete
             {
-                searchParametes.ScoringProfile = CountryScoringProfile;
-                searchParametes.ScoringParameters = new[] { new ScoringParameter("country", new[] { query.Country }) };
+                searchParameter.ScoringProfile = CountryScoringProfile;
+                searchParameter.ScoringParameters = new[] { new ScoringParameter("country", new[] { query.Country }) };
             }
             else
             {
                 term = query.Term.Replace("\"", string.Empty);
             }
 
-            var tResult = m_IndexClient.Documents.SearchAsync<UniversitySearch>(term + "*", searchParametes, cancellationToken: cancelToken);
+            var tResult = m_IndexClient.Documents.SearchAsync<UniversitySearch>(term + "*", searchParameter, cancellationToken: cancelToken);
 
             var tSuggest = CompletedTask;
             if (!string.IsNullOrEmpty(query.Term) && query.Term.Length >= 3 && query.PageNumber == 0)
@@ -194,23 +164,14 @@ namespace Zbang.Zbox.Infrastructure.Search
                             Name2 = s.Name.Trim(),
 #pragma warning restore 618
                             Name3 = s.Name.Trim(),
-                            //Extra1 = s.Extra?.Replace(",", " "),
-                            //Extra2 = string.Join(
-                            //    " ",
-                            //    s.Name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
-                            //        .Where(w => w.StartsWith("ה") || w.StartsWith("ל"))
-                            //        .Select(s1 => s1.Remove(0, 1))
-                            //        .Union(s.Name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
-                            //            .Where(w => w.Contains('"'))
-
-                            //            .Select(s2 => s2.Replace("\"", string.Empty)))),
-
+                           
                             Extra3 = s.Extra?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
                             Image = s.Image?.Trim(),
                             Country = s.Country.ToLowerInvariant(),
                             MembersCount = s.NoOfUsers,
-
+                            GeographyPoint = s.Latitude.HasValue && s.Longitude.HasValue ? GeographyPoint.Create(s.Latitude.Value,s.Longitude.Value) : null,
                             MembersImages = s.UsersImages.Where(w => w != null).ToArray()
+                           
                         }
                             );
 

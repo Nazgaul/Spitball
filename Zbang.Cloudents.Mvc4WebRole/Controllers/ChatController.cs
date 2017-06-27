@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public ActionResult Download(string blobName)
         {
-            var str = m_BlobProviderChat.GenerateSharedAccressReadPermission(blobName, 30, ContentDispositionUtil.GetHeaderValue(blobName));
+            var str = m_BlobProviderChat.GenerateSharedAccessReadPermission(blobName, 30, ContentDispositionUtil.GetHeaderValue(blobName));
             return Redirect(str);
         }
 

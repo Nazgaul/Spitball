@@ -253,7 +253,6 @@ and boxId in (
 	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0  order by boxId
 ) option (maxDop 1)",
                         @"delete from zbox.flashcard where boxId in (
---delete from zbox.box where boxId in (
 select top (3) boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 order by boxId
 )  and isDeleted = 1 and isDirty = 0 option(maxDop 1)",
                         @"update zbox.item
@@ -301,30 +300,28 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
             {
                 using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
                 {
-
-                    var i = 0;
-                    foreach (var sql in sqls)
+                    try
                     {
-                        try
+                        var i = 0;
+                        foreach (var sql in sqls)
                         {
                             i += await conn.ExecuteAsync(new CommandDefinition(sql, cancellationToken: token)).ConfigureAwait(false);
+                            await Task.Delay(TimeSpan.FromSeconds(1), token).ConfigureAwait(false);
                         }
-                        catch (SqlException ex)
-                        {
-                            if (ex.Number == -2) //timeout
-                            {
-                                TraceLog.WriteError("ExecuteSqlLoop timeout sql:" + sql, ex);
-                            }
-                            else
-                            {
-                                throw;
-                            }
-                        }
-                        await Task.Delay(TimeSpan.FromSeconds(1), token).ConfigureAwait(false);
+                        needToLoop = i > 0;
+                        counter += i;
                     }
-                    needToLoop = i > 0;
-                    counter += i;
-
+                    catch (SqlException ex)
+                    {
+                        if (ex.Number == -2) //timeout
+                        {
+                            TraceLog.WriteError("ExecuteSqlLoop number -2 timeout", ex);
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
                 }
             }
             return counter;
