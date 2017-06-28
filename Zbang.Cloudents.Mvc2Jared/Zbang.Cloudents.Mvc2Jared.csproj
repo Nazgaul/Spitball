@@ -46,16 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxMin, Version=5.14.5506.26196, Culture=neutral, PublicKeyToken=21ef50ce11b5d80f, processorArchitecture=MSIL">
-      <HintPath>..\packages\AjaxMin.5.14.5506.26202\lib\net40\AjaxMin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="Aspose.Cells">
-      <HintPath>..\Zbang.Cloudents.Mvc4WebRole\Bin\Aspose.Cells.dll</HintPath>
     </Reference>
     <Reference Include="Autofac, Version=4.6.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
@@ -1051,17 +1044,9 @@
       <Project>{b4b7f91c-9412-4d6b-93e2-f3b7c4bd9b90}</Project>
       <Name>Zbang.Zbox.Domain.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.Domain.DataAccess\Zbang.Zbox.Domain.DataAccess.csproj">
-      <Project>{c2010ff2-7020-4be7-8cb8-d43c7f9c4363}</Project>
-      <Name>Zbang.Zbox.Domain.DataAccess</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Domain.Services\Zbang.Zbox.Domain.Services.csproj">
       <Project>{F1AC4D4D-0633-4343-A657-DA275D33466D}</Project>
       <Name>Zbang.Zbox.Domain.Services</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.DomainNew\Zbang.Zbox.Domain.csproj">
-      <Project>{35dc2a36-5e24-4e09-8967-838c6edca465}</Project>
-      <Name>Zbang.Zbox.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Azure\Zbang.Zbox.Infrastructure.Azure.csproj">
       <Project>{9A210D03-F7A2-4CF6-B311-742A2A1949D4}</Project>
@@ -1082,10 +1067,6 @@
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Notification\Zbang.Zbox.Infrastructure.Notifications.csproj">
       <Project>{20d10149-03bf-4c32-abe4-d278a46cad7f}</Project>
       <Name>Zbang.Zbox.Infrastructure.Notifications</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Search\Zbang.Zbox.Infrastructure.Search.csproj">
-      <Project>{D79B5CEC-09DE-4337-873F-0C65B58D86D3}</Project>
-      <Name>Zbang.Zbox.Infrastructure.Search</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Security\Zbang.Zbox.Infrastructure.Security.csproj">
       <Project>{bfbd0e92-dabf-4179-9586-c344b9315529}</Project>

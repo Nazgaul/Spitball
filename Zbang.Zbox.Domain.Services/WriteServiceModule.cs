@@ -1,7 +1,6 @@
 ﻿
 using Autofac;
 using Zbang.Zbox.Domain.DataAccess;
-using Zbang.Zbox.Infrastructure.Ioc;
 
 namespace Zbang.Zbox.Domain.Services
 {

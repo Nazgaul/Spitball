@@ -53,9 +53,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -72,10 +70,6 @@
     <ProjectReference Include="..\Zbang.Zbox.Domain.Commands\Zbang.Zbox.Domain.Commands.csproj">
       <Project>{0CAEE4F2-421B-4FA3-9A13-1402EA6FCDA8}</Project>
       <Name>Zbang.Zbox.Domain.Commands</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.DomainNew\Zbang.Zbox.Domain.csproj">
-      <Project>{35DC2A36-5E24-4E09-8967-838C6EDCA465}</Project>
-      <Name>Zbang.Zbox.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure\Zbang.Zbox.Infrastructure.csproj">
       <Project>{3E0F1FBF-60D1-40B2-B649-933142C27CB7}</Project>

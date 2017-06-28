@@ -4,7 +4,6 @@ using Zbang.Zbox.Infrastructure.Azure.MediaServices;
 using Zbang.Zbox.Infrastructure.Azure.Queue;
 using Zbang.Zbox.Infrastructure.Azure.Storage;
 using Zbang.Zbox.Infrastructure.Azure.Table;
-using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.MediaServices;
 using Zbang.Zbox.Infrastructure.Storage;
 

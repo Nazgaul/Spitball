@@ -67,7 +67,6 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -120,10 +119,6 @@
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Data\Zbang.Zbox.Infrastructure.Data.csproj">
       <Project>{A29AAA7A-E472-4661-A503-EB00FD43D2C3}</Project>
       <Name>Zbang.Zbox.Infrastructure.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Ioc\Zbang.Zbox.Infrastructure.Ioc.csproj">
-      <Project>{872878fa-a84a-4cd3-856a-4ee9018819c5}</Project>
-      <Name>Zbang.Zbox.Infrastructure.Ioc</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure\Zbang.Zbox.Infrastructure.csproj">
       <Project>{3E0F1FBF-60D1-40B2-B649-933142C27CB7}</Project>

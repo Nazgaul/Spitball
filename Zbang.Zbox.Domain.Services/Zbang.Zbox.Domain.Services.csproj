@@ -70,10 +70,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -85,10 +83,6 @@
     <Compile Include="ZboxWorkerRoleService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Zbang.Zbox.Domain.CommandHandlers\Zbang.Zbox.Domain.CommandHandlers.csproj">
-      <Project>{9ED04567-B2D0-4040-88A6-1AD752A3D83F}</Project>
-      <Name>Zbang.Zbox.Domain.CommandHandlers</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Domain.Commands\Zbang.Zbox.Domain.Commands.csproj">
       <Project>{0CAEE4F2-421B-4FA3-9A13-1402EA6FCDA8}</Project>
       <Name>Zbang.Zbox.Domain.Commands</Name>
@@ -104,14 +98,6 @@
     <ProjectReference Include="..\Zbang.Zbox.DomainNew\Zbang.Zbox.Domain.csproj">
       <Project>{35DC2A36-5E24-4E09-8967-838C6EDCA465}</Project>
       <Name>Zbang.Zbox.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Ioc\Zbang.Zbox.Infrastructure.Ioc.csproj">
-      <Project>{872878fa-a84a-4cd3-856a-4ee9018819c5}</Project>
-      <Name>Zbang.Zbox.Infrastructure.Ioc</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.ViewModel\Zbang.Zbox.ViewModel.csproj">
-      <Project>{BC85A7BD-262D-43E0-8D9D-EE76C602BFAF}</Project>
-      <Name>Zbang.Zbox.ViewModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Data\Zbang.Zbox.Infrastructure.Data.csproj">
       <Project>{A29AAA7A-E472-4661-A503-EB00FD43D2C3}</Project>

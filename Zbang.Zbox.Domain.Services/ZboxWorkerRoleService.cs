@@ -400,55 +400,55 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
         //        //.Where(Restrictions.On<CommentReply>(x => x.Text).IsLike("%quot;%")).Take(100);
         //    }
         //}
-        public void RemoveHtmlTags()
-        {
-            using (var unitOfWork = UnitOfWork.Start())
-            {
-                //var i = 0;
-                //var query = UnitOfWork.CurrentSession.QueryOver<Question>()
-                //    //.Where(w => w.Quiz.Id == 13970)
-                //    .Where(w => w.Text.IsLike("%<%"));
+        //public void RemoveHtmlTags()
+        //{
+        //    using (var unitOfWork = UnitOfWork.Start())
+        //    {
+        //        //var i = 0;
+        //        //var query = UnitOfWork.CurrentSession.QueryOver<Question>()
+        //        //    //.Where(w => w.Quiz.Id == 13970)
+        //        //    .Where(w => w.Text.IsLike("%<%"));
 
 
-                //var questions = query.Skip(i * 100).Take(100).List();
-                //do
-                //{
-                //    foreach (var question in questions)
-                //    {
-                //        var textBefore = question.Text;
-                //        //question.Text = TextManipulation.EncodeText(question.Text, Question.AllowedHtmlTag);
+        //        //var questions = query.Skip(i * 100).Take(100).List();
+        //        //do
+        //        //{
+        //        //    foreach (var question in questions)
+        //        //    {
+        //        //        var textBefore = question.Text;
+        //        //        //question.Text = TextManipulation.EncodeText(question.Text, Question.AllowedHtmlTag);
 
-                //        if (textBefore != question.Text)
-                //        {
-                //            UnitOfWork.CurrentSession.Save(question);
-                //        }
-                //    }
-                //    unitOfWork.TransactionalFlush();
-                //    i++;
-                //    questions = query.Skip(i * 100).Take(100).List();
-                //} while (questions.Count > 0);
+        //        //        if (textBefore != question.Text)
+        //        //        {
+        //        //            UnitOfWork.CurrentSession.Save(question);
+        //        //        }
+        //        //    }
+        //        //    unitOfWork.TransactionalFlush();
+        //        //    i++;
+        //        //    questions = query.Skip(i * 100).Take(100).List();
+        //        //} while (questions.Count > 0);
 
-                var query =
-                    UnitOfWork.CurrentSession.QueryOver<Comment>()
-                        .Where(Restrictions.On<CommentReply>(x => x.Text).IsLike("%quot;%")).Take(100);
+        //        var query =
+        //            UnitOfWork.CurrentSession.QueryOver<Comment>()
+        //                .Where(Restrictions.On<CommentReply>(x => x.Text).IsLike("%quot;%")).Take(100);
 
-                var comments = query.List();
-                do
-                {
-                    foreach (var comment in comments)
-                    {
-                        //comment.Text = Infrastructure.TextManipulation.RemoveHtmlTags.Replace(comment.Text, string.Empty);
-                        comment.Text = WebUtility.HtmlDecode(comment.Text);
+        //        var comments = query.List();
+        //        do
+        //        {
+        //            foreach (var comment in comments)
+        //            {
+        //                //comment.Text = Infrastructure.TextManipulation.RemoveHtmlTags.Replace(comment.Text, string.Empty);
+        //                comment.Text = WebUtility.HtmlDecode(comment.Text);
 
-                        UnitOfWork.CurrentSession.Save(comment);
+        //                UnitOfWork.CurrentSession.Save(comment);
 
-                    }
-                    unitOfWork.TransactionalFlush();
-                    comments = query.List();
-                } while (comments.Count > 0);
+        //            }
+        //            unitOfWork.TransactionalFlush();
+        //            comments = query.List();
+        //        } while (comments.Count > 0);
 
-            }
-        }
+        //    }
+        //}
 
         //public async Task<long> UpdateFileSizesAsync(Action callback)
         //{
@@ -622,29 +622,29 @@ where id = @id";
             }
         }
 
-        public void UpdateBoxUrl()
-        {
+        //public void UpdateBoxUrl()
+        //{
 
-            using (var unitOfWork = UnitOfWork.Start())
-            {
+        //    using (var unitOfWork = UnitOfWork.Start())
+        //    {
 
-                var items = UnitOfWork.CurrentSession.QueryOver<Box>().Where(w => w.Url == null && !w.IsDeleted).Take(100).List();
-                do
-                {
-                    foreach (var item in items)
-                    {
-                        item.GenerateUrl();
-                        UnitOfWork.CurrentSession.Save(item);
-                    }
-                    unitOfWork.TransactionalFlush();
-                    items = UnitOfWork.CurrentSession.QueryOver<Box>().Where(w => w.Url == null && !w.IsDeleted)
-                        .Take(100).List();
-                } while (items.Count > 0);
+        //        var items = UnitOfWork.CurrentSession.QueryOver<Box>().Where(w => w.Url == null && !w.IsDeleted).Take(100).List();
+        //        do
+        //        {
+        //            foreach (var item in items)
+        //            {
+        //                item.GenerateUrl();
+        //                UnitOfWork.CurrentSession.Save(item);
+        //            }
+        //            unitOfWork.TransactionalFlush();
+        //            items = UnitOfWork.CurrentSession.QueryOver<Box>().Where(w => w.Url == null && !w.IsDeleted)
+        //                .Take(100).List();
+        //        } while (items.Count > 0);
 
 
 
-            }
-        }
+        //    }
+        //}
         public void UpdateItemUrl()
         {
             using (var unitOfWork = UnitOfWork.Start())

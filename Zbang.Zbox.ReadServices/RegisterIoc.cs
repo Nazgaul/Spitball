@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Query;
 
 namespace Zbang.Zbox.ReadServices

@@ -23,12 +23,12 @@ namespace Zbang.Cloudents.Jared.Controllers
             base.Initialize(controllerContext);
 
             // Get the Mobile App settings.
-            MobileAppSettingsDictionary settings =
+            var settings =
                 Configuration.GetMobileAppSettingsProvider().GetMobileAppSettings();
 
             // Get the Notification Hubs credentials for the Mobile App.
-            string notificationHubName = settings.NotificationHubName;
-            string notificationHubConnection = settings
+            var notificationHubName = settings.NotificationHubName;
+            var notificationHubConnection = settings
                 .Connections[MobileAppSettingsKeys.NotificationHubConnectionString]
                 .ConnectionString;
 
@@ -46,11 +46,11 @@ namespace Zbang.Cloudents.Jared.Controllers
             return installation.Tags as List<string>;
         }
 
-        [HttpDelete]
-        public string Delete(string id)
-        {
-            return id;
-        }
+        //[HttpDelete]
+        //public string Delete(string id)
+        //{
+        //    return id;
+        //}
         [HttpPost]
         public async Task<HttpResponseMessage> Post(string id)
         {
