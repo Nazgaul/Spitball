@@ -1,13 +1,14 @@
-﻿using System.Threading.Tasks;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Web;
 using StackExchange.Redis;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
+using TaskExtensions = Zbang.Zbox.Infrastructure.Extensions.TaskExtensions;
 
 namespace Zbang.Zbox.Infrastructure.Cache
 {
@@ -25,8 +26,6 @@ namespace Zbang.Zbox.Infrastructure.Cache
         private readonly bool m_CacheExists;
 
 
-        //private readonly System.Web.Caching.Cache m_Cache;
-        // private readonly bool m_IsCacheAvailable;
         public SystemCache()
         {
             //try
@@ -49,14 +48,14 @@ namespace Zbang.Zbox.Infrastructure.Cache
             {
                 if (!m_CacheExists)
                 {
-                    return Extensions.TaskExtensions.CompletedTaskFalse;
+                    return TaskExtensions.CompletedTaskFalse;
                 }
                 var cacheKey = BuildCacheKey(region, key);
                 if (!m_IsRedisCacheAvailable && m_IsHttpCacheAvailable)
                 {
                     HttpContext.Current.Cache.Insert(cacheKey, value, null, System.Web.Caching.Cache.NoAbsoluteExpiration,
                         expiration);
-                    return Extensions.TaskExtensions.CompletedTaskTrue;
+                    return TaskExtensions.CompletedTaskTrue;
                 }
                 var db = Connection.GetDatabase();
 
@@ -66,7 +65,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             }
             catch (Exception ex)
             {
-                Trace.TraceLog.WriteError($"AddToCacheAsync key {key}", ex);
+                TraceLog.WriteError($"AddToCacheAsync key {key}", ex);
                 return Task.FromResult(false);
             }
         }
@@ -93,7 +92,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             }
             catch (Exception ex)
             {
-                Trace.TraceLog.WriteError($"AddToCacheAsync key {key}", ex);
+                TraceLog.WriteError($"AddToCacheAsync key {key}", ex);
             }
         }
 
@@ -174,8 +173,6 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
                 if (t != default(T))
                 {
-                    TraceLog.WriteInfo($"cache is not empty. cache append to region {region} key {cacheKey}");
-
                     await cache.StringAppendAsync(region, cacheKey + ";", CommandFlags.FireAndForget);
                 }
 
@@ -183,7 +180,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             }
             catch (Exception ex)
             {
-                Trace.TraceLog.WriteError($"GetFromCacheAsync key {key}", ex);
+                TraceLog.WriteError($"GetFromCacheAsync key {key}", ex);
                 return null;
             }
 
@@ -214,7 +211,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             }
             catch (Exception ex)
             {
-                Trace.TraceLog.WriteError($"GetFromCacheAsync key {key}", ex);
+                TraceLog.WriteError($"GetFromCacheAsync key {key}", ex);
                 return null;
             }
 
