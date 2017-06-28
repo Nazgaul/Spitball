@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.ServiceBus.Notifications;
+using Microsoft.Azure.NotificationHubs;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 
@@ -229,13 +229,13 @@ namespace Zbang.Zbox.Infrastructure.Notifications
         }
 
 
-        public async Task GetRegisteredUsersAsync()
-        {
-            var data = await m_Hub.GetAllRegistrationsAsync(50);
-            foreach (var registrationDescription in data)
-            {
+        //public async Task GetRegisteredUsersAsync()
+        //{
+        //    var data = await m_Hub.GetAllRegistrationsAsync(50);
+        //    foreach (var registrationDescription in data)
+        //    {
                 
-            }
-        }
+        //    }
+        //}
     }
 }

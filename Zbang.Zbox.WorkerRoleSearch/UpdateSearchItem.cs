@@ -164,7 +164,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         await m_WriteService.AddItemTagAsync(z).ConfigureAwait(false);
                     }
                 }
-                
+
 
                 await m_ContentSearchProvider.UpdateDataAsync(elem, null, token).ConfigureAwait(false);
             }
@@ -266,16 +266,19 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 work.Abort();
                 TraceLog.WriteError("blob url aborting process" + msgData.BlobName);
             }
-
-
         }
 
         private readonly TimeSpan m_TimeToWait = TimeSpan.FromMinutes(double.Parse(ConfigFetcher.Fetch("TimeToExtractText")));
-        private string ExtractContentToUploadToSearch(ItemSearchDto elem, CancellationToken token)
+        private string ExtractContentToUploadToSearch(DocumentSearchDto elem, CancellationToken token)
         {
 
             if (elem.Type.All(s => s != ItemType.Document)) //(elem.TypeDocument.ToLower() != "file")
             {
+                return null;
+            }
+            if (elem.PreviewFailed)
+            {
+                TraceLog.WriteInfo($"{GetPrefix()} skipping extract content due to preview failed ");
                 return null;
             }
             //TraceLog.WriteInfo(PrefixLog, "search processing " + elem);
@@ -287,52 +290,55 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 var processor = m_FileProcessorFactory.GetProcessor(uri);
                 if (processor == null) return null;
                 string str = null;
-                var tokenSource =
-                    CancellationTokenSource.CreateLinkedTokenSource(new CancellationTokenSource(m_TimeToWait).Token,
-                        token);
-                var work = new Thread(async () =>
-                    {
-                        try
-                        {
-
-                            str = await processor.ExtractContentAsync(uri, tokenSource.Token).ConfigureAwait(false);
-                            if (string.IsNullOrEmpty(str))
-                            {
-                                wait.Set();
-                                return;
-                            }
-                            var sb = new StringBuilder();
-                            var byteCount = 0;
-                            var buffer = new char[1];
-                            foreach (var ch in str)
-                            {
-                                buffer[0] = ch;
-                                byteCount += Encoding.UTF8.GetByteCount(buffer);
-                                if (byteCount > 1.55e+7) //limit to azure search
-                                {
-                                    // Couldn't add this character. Return its index
-                                    break;
-                                }
-                                sb.Append(ch);
-                            }
-                            str = sb.ToString();
-                            wait.Set();
-                        }
-                        catch (Exception ex)
-                        {
-                            TraceLog.WriteError("on elem " + elem, ex);
-                            wait.Set();
-                        }
-                    });
-                work.Start();
-                var signal = wait.WaitOne(m_TimeToWait);
-                if (!signal)
+                using (var cancellationTokenSource = new CancellationTokenSource(m_TimeToWait))
                 {
-                    work.Abort();
-                    TraceLog.WriteError("aborting returning null on elem " + elem);
-                    return null;
+                    var tokenSource =
+CancellationTokenSource.CreateLinkedTokenSource(cancellationTokenSource.Token,
+token);
+                    var work = new Thread(async () =>
+                        {
+                            try
+                            {
+
+                                str = await processor.ExtractContentAsync(uri, tokenSource.Token).ConfigureAwait(false);
+                                if (string.IsNullOrEmpty(str))
+                                {
+                                    wait.Set();
+                                    return;
+                                }
+                                var sb = new StringBuilder();
+                                var byteCount = 0;
+                                var buffer = new char[1];
+                                foreach (var ch in str)
+                                {
+                                    buffer[0] = ch;
+                                    byteCount += Encoding.UTF8.GetByteCount(buffer);
+                                    if (byteCount > 1.55e+7) //limit to azure search
+                                    {
+                                        // Couldn't add this character. Return its index
+                                        break;
+                                    }
+                                    sb.Append(ch);
+                                }
+                                str = sb.ToString();
+                                wait.Set();
+                            }
+                            catch (Exception ex)
+                            {
+                                TraceLog.WriteError("on elem " + elem, ex);
+                                wait.Set();
+                            }
+                        });
+                    work.Start();
+                    var signal = wait.WaitOne(m_TimeToWait);
+                    if (!signal)
+                    {
+                        work.Abort();
+                        TraceLog.WriteError("aborting returning null on elem " + elem);
+                        return null;
+                    }
+                    return str;
                 }
-                return str;
             }
             catch (Exception ex)
             {

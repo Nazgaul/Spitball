@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.ServiceBus.Notifications;
+using Microsoft.Azure.NotificationHubs;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -23,6 +23,7 @@ namespace Zbang.Zbox.Infrastructure.Notifications
 
         public Task SendChatMessagePushAsync(string userName, string text, Guid conversationId, long conversationUser, long userToSendId)
         {
+            
             var applePushMessage = new ApplePushMessage();
             applePushMessage.Aps.AlertProperties.Title = "Chat message";
             applePushMessage.Aps.AlertProperties.Body = $"{userName} send you a {text ?? "file"} ";

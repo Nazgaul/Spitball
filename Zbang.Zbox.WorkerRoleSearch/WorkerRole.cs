@@ -145,11 +145,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
                   // m_Unity.Resolve<IJob>(IocFactory.UpdateSearchFlashcard),
                     //m_Unity.Resolve<IJob>(nameof(SchedulerListener))
                     //m_Unity.Resolve<IJob>(nameof(UpdateUnsubscribeList))
-                    m_Unity.Resolve<IJob>(nameof(TestingJob)),
+                    //m_Unity.Resolve<IJob>(nameof(TestingJob)),
                     // m_Unity.Resolve<IJob>(nameof(ThumbnailQueueProcess)),
                     // m_Unity.Resolve<IJob>(nameof(DeleteOldConnections)),
                     //m_Unity.Resolve<IJob>(nameof(TransactionQueueProcess))
-                    // m_Unity.Resolve<IJob>(nameof(DeleteOldStuff))
+                     m_Unity.Resolve<IJob>(nameof(DeleteOldStuff))
                    //m_Unity.Resolve<IJob>(nameof(UpdateSearchFeed))
 
                 };

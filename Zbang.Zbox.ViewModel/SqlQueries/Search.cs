@@ -388,7 +388,8 @@ OFFSET @PageSize * (@PageNumber) ROWS
   b.CourseCode as Code,
   b.BoxName as name, 
   b.University as id,
-  u.UniversityName as name
+  u.UniversityName as name,
+  i.previewFailed
     from zbox.item i 
     join zbox.box b on i.BoxId = b.BoxId
     left join zbox.University u on b.University = u.id

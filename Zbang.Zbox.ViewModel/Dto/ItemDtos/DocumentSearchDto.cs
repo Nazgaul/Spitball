@@ -18,6 +18,8 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public override string Name => Path.GetFileNameWithoutExtension(FileName);
         public override string Content => DocumentContent;
 
+        public bool PreviewFailed { get; set; }
+
         public string FileName { get; set; }
         public override IEnumerable<ItemType> Type
         {
