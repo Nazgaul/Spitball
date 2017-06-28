@@ -81,9 +81,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 try
                 {
-                    var counter = await func(cancellationToken).ConfigureAwait(false);
-                    needLoop = false;
-                    mailContent.AppendLine($"{prefix} number: {counter}");
+                    if (func != null)
+                    {
+                        var counter = await func(cancellationToken).ConfigureAwait(false);
+                        needLoop = false;
+                        mailContent.AppendLine($"{prefix} number: {counter}");
+                    }
                 }
                 
                 catch (Exception ex)

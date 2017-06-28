@@ -138,10 +138,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return null;
         }
 
-        private async Task WriteVersionAsync(long version, CancellationToken token)
+        private Task WriteVersionAsync(long version, CancellationToken token)
         {
             var blob = GetBlobVersion();
-            await blob.UploadTextAsync(version.ToString(), token).ConfigureAwait(false);
+            return blob.UploadTextAsync(version.ToString(), token);
         }
 
         private CloudBlockBlob GetBlobVersion()

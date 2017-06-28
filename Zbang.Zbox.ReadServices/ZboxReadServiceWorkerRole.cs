@@ -759,7 +759,7 @@ offset @page*100 ROWS
             {
                 return await
                     conn.QueryAsync<long, string, Tuple<long, string>>(
-                        "select top 100  itemId,blobName from zbox.item where md5 is null and isDeleted = 0 and itemid >= @id order by itemid",
+                        "select top 100  itemId,blobName from zbox.item where md5 is null and discriminator = 'file' and isDeleted = 0 and itemid >= @id order by itemid",
                         Tuple.Create, splitOn: "*",param: new { id }).ConfigureAwait(false);
             }
         }

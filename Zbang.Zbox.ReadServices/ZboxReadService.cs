@@ -399,10 +399,15 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-
-
-
-
+        /// <summary>
+        /// Get the comment in box
+        /// </summary>
+        /// <param name="query">
+        /// The query.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>. result
+        /// </returns>
         public async Task<IEnumerable<Qna.CommentDto>> GetCommentsAsync(GetBoxQuestionsQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
@@ -411,9 +416,11 @@ namespace Zbang.Zbox.ReadServices
                     $"{Sql.Feed.Comments} {Sql.Feed.RepliesInComments} {Sql.Feed.GetItemsInCommentsAndReplies} {Sql.Feed.GetQuizzesForComments} {Sql.Feed.GetFlashcardFromComments}",
                     new { query.BoxId, query.Top, query.Skip, rtop = GetBoxQuestionsQuery.TopOfReplies }).ConfigureAwait(false))
                 {
-                    var comments = grid.Read<Qna.CommentDto>();//.ToList();
-                    var replies = grid.Read<Qna.ReplyDto>();//.ToDictionary(x => x.QuestionId);
-                    var items = grid.Read<Qna.ItemDto>().Union(grid.Read<Qna.ItemDto>()).Union(grid.Read<Qna.ItemDto>());//.ToLookup(c => c.QuestionId ?? c.AnswerId);
+                    var comments = await grid.ReadAsync<Qna.CommentDto>().ConfigureAwait(false);//.ToList();
+                    var replies = await grid.ReadAsync<Qna.ReplyDto>().ConfigureAwait(false);//.ToDictionary(x => x.QuestionId);
+                    var items = (await grid.ReadAsync<Qna.ItemDto>().ConfigureAwait(false))
+                        .Union(await grid.ReadAsync<Qna.ItemDto>().ConfigureAwait(false))
+                        .Union(await grid.ReadAsync<Qna.ItemDto>().ConfigureAwait(false));//.ToLookup(c => c.QuestionId ?? c.AnswerId);
 
 
                     replies = replies.Select(s =>
@@ -1171,7 +1178,6 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                // var sql = query.Myself ? Sql.User.LeaderBoardMySelf : Sql.User.LeaderBoardAll;
                 return await conn.QueryAsync<LeaderBoardDto>(Sql.User.LeaderBoardAll, query);
             }
         }

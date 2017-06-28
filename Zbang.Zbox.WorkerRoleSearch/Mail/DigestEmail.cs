@@ -38,9 +38,9 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             return $"{ServiceName} {m_DigestEmailHourBack}";
         }
 
-        private async Task SendEmailStatusAsync(string message)
+        private Task SendEmailStatusAsync(string message)
         {
-            await m_MailComponent.GenerateSystemEmailAsync(GetServiceName(), message);
+            return m_MailComponent.GenerateSystemEmailAsync(GetServiceName(), message);
         }
 
         public async Task<bool> ExecuteAsync(int index, Func<int, Task> progressAsync, CancellationToken token)
@@ -59,13 +59,13 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     {
                         pageSize = 10;
                     }
-                    var usersquery = new GetUserByNotificationQuery(m_DigestEmailHourBack, page, pageSize, m_UtcTimeOffset);
+                    var usersQuery = new GetUserByNotificationQuery(m_DigestEmailHourBack, page, pageSize, m_UtcTimeOffset);
                     var users =
                         (await
                             m_ZboxReadService.GetUsersByNotificationSettingsAsync(
-                                usersquery, token)).ToList();
+                                usersQuery, token).ConfigureAwait(false)).ToList();
 
-                    TraceLog.WriteInfo($"{GetServiceName()} query: {usersquery} going to send emails to {string.Join("\n", users)}");
+                    TraceLog.WriteInfo($"{GetServiceName()} query: {usersQuery} going to send emails to {string.Join("\n", users)}");
                     foreach (var user in users)
                     {
                         try
@@ -89,7 +89,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                             var updates =
                                 await
                                     m_ZboxReadService.GetUserUpdatesAsync(
-                                        new GetBoxesLastUpdateQuery(m_DigestEmailHourBack, user.UserId), token);
+                                        new GetBoxesLastUpdateQuery(m_DigestEmailHourBack, user.UserId), token).ConfigureAwait(false);
 
                             var updatesList = updates.ToList();
                             var query = new GetUpdatesQuery(
@@ -104,7 +104,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                                 updatesList.GroupBy(g => g.AnswerId).Where(s => s.Key != null).Select(s => s.Key),
                                 updatesList.GroupBy(g => g.QuizDiscussionId).Where(s => s.Key != null).Select(s => s.Key));
 
-                            var updatesData = await m_ZboxReadService.GetUpdatesAsync(query, token);
+                            var updatesData = await m_ZboxReadService.GetUpdatesAsync(query, token).ConfigureAwait(false);
 
 
                             var updatesEmail = new List<UpdateMailParams.BoxUpdate>();
@@ -174,14 +174,14 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                                             UrlConst.AppendCloudentsUrl(s.Url),
                                             s.UserId);
                                     });
-                                var boxupdates = new List<UpdateMailParams.BoxUpdateDetails>();
-                                boxupdates.AddRange(itemsUpdates);
-                                boxupdates.AddRange(questionUpdate);
-                                boxupdates.AddRange(answersUpdate);
-                                boxupdates.AddRange(quizUpdate);
-                                boxupdates.AddRange(discussionUpdate);
+                                var boxUpdates = new List<UpdateMailParams.BoxUpdateDetails>();
+                                boxUpdates.AddRange(itemsUpdates);
+                                boxUpdates.AddRange(questionUpdate);
+                                boxUpdates.AddRange(answersUpdate);
+                                boxUpdates.AddRange(quizUpdate);
+                                boxUpdates.AddRange(discussionUpdate);
 
-                                updatesEmail.Add(new UpdateMailParams.BoxUpdate(box.BoxName, boxupdates.Take(4),
+                                updatesEmail.Add(new UpdateMailParams.BoxUpdate(box.BoxName, boxUpdates.Take(4),
                                     UrlConst.AppendCloudentsUrl(box.Url),
                                     updatesList.Count(g => g.BoxId == box.BoxId) - 4));
                             }
@@ -199,30 +199,30 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                         }
                         catch (Exception ex)
                         {
-                            await SendEmailStatusAsync($"error digest email {ex}");
+                            await SendEmailStatusAsync($"error digest email {ex}").ConfigureAwait(false);
                             TraceLog.WriteError($"{GetServiceName()} error digest email {ex}");
 
                         }
                     }
-                    await Task.WhenAll(list);
+                    await Task.WhenAll(list).ConfigureAwait(false);
                     list.Clear();
                     page++;
                     if (RoleIndexProcessor.IsEmulated)
                     {
                         needToContinueRun = false;
                     }
-                    await progressAsync(page);
+                    await progressAsync(page).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
                     page++;
-                    await progressAsync(page);
-                    await SendEmailStatusAsync($"error digest email {ex}");
+                    await progressAsync(page).ConfigureAwait(false);
+                    await SendEmailStatusAsync($"error digest email {ex}").ConfigureAwait(false);
                     TraceLog.WriteError($"{GetServiceName()} error digest email {ex}");
                     //return false;
                 }
             }
-            await SendEmailStatusAsync($"finish to run  with page {page} utc {m_UtcTimeOffset} total: {m_EmailHash.Count}");
+            await SendEmailStatusAsync($"finish to run  with page {page} utc {m_UtcTimeOffset} total: {m_EmailHash.Count}").ConfigureAwait(false);
             TraceLog.WriteInfo($"{GetServiceName()} finish running  mail page {page}");
             return true;
         }

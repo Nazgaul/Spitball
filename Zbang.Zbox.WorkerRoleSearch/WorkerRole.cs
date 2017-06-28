@@ -97,7 +97,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             foreach (var job in m_Jobs)
             {
-                var t = Task.Factory.StartNew(async () => await job.RunAsync(cancellationToken).ConfigureAwait(false), cancellationToken);
+                var t = Task.Factory.StartNew(() => job.RunAsync(cancellationToken), cancellationToken);
                 m_Tasks.Add(t);
             }
             while (!cancellationToken.IsCancellationRequested)
@@ -119,7 +119,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         }
 
                         var jobToRestart = m_Jobs.ElementAt(i);
-                        m_Tasks[i] = Task.Factory.StartNew(async () => await jobToRestart.RunAsync(cancellationToken).ConfigureAwait(false), cancellationToken);
+                        m_Tasks[i] = Task.Factory.StartNew(() => jobToRestart.RunAsync(cancellationToken), cancellationToken);
                     }
                     await Task.Delay(TimeSpan.FromSeconds(30), cancellationToken).ConfigureAwait(false);
                 }

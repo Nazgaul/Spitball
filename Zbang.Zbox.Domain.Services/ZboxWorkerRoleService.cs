@@ -263,10 +263,8 @@ select top (3) boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcD
 ))",
                         @"delete from zbox.itemTab where boxId in (
 select top (3) boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 order by boxId
-) option(maxDop 1)",
-                        @"delete from zbox.box where boxId in (
-select top (3) boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 order by boxId
 ) option(maxDop 1)"
+                       
                     }, token);
 
         }
