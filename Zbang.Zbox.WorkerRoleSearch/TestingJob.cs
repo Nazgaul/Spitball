@@ -42,7 +42,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //while ((bytesReceived = await stream.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false)) > 0)
             IEnumerable<Tuple<long, string>> documents;
             var lastId = 0L;
-            while ((documents = (await m_ZboxReadService.GetDocumentsWithoutMd5Async().ConfigureAwait(false)).ToList()).Any())
+            while ((documents = (await m_ZboxReadService.GetDocumentsWithoutMd5Async(lastId).ConfigureAwait(false)).ToList()).Any())
             {
                 if (documents.Any(a => a.Item1 == lastId))
                 {
@@ -56,6 +56,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 foreach (var document in documents)
                 {
+                    TraceLog.WriteInfo($"one time job process id: {document.Item1}");
                     lastId = document.Item1;
                     var md5 = await m_BlobProvider.Md5Async(document.Item2).ConfigureAwait(false);
                     var command = new UpdateThumbnailCommand(document.Item1, null,

@@ -753,14 +753,14 @@ offset @page*100 ROWS
             }
         }
 
-        public async Task<IEnumerable<Tuple<long, string>>> GetDocumentsWithoutMd5Async()
+        public async Task<IEnumerable<Tuple<long, string>>> GetDocumentsWithoutMd5Async(long id)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 return await
                     conn.QueryAsync<long, string, Tuple<long, string>>(
-                        "select top 100  itemId,blobName from zbox.item where md5 is null and isDeleted = 0",
-                        Tuple.Create, splitOn: "*").ConfigureAwait(false);
+                        "select top 100  itemId,blobName from zbox.item where md5 is null and isDeleted = 0 and itemid >= @id order by itemid",
+                        Tuple.Create, splitOn: "*",param: new { id }).ConfigureAwait(false);
             }
         }
 

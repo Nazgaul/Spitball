@@ -30,7 +30,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             await _hub.Start();
             _hub.Closed += () =>
             {
-                TraceLog.WriteInfo("need to reconnect");
                 _hub.Start();
             };
         }

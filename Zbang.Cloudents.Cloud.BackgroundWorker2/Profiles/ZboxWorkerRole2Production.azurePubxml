@@ -19,5 +19,6 @@
     <AzureStorageAccountName>zboxstorage</AzureStorageAccountName>
     <AzureAppendTimestampToDeploymentLabel>True</AzureAppendTimestampToDeploymentLabel>
     <AzureHostedServiceResourceGroup />
+    <EnableApplicationInsights>True</EnableApplicationInsights>
   </PropertyGroup>
 </Project>

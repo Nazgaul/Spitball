@@ -61,6 +61,10 @@ namespace Zbang.Zbox.Infrastructure.Mail
         private static string AggregateUpdates(int numOfUpdates)
         {
             var str = AggregateWithString(numOfUpdates, EmailResource.Update, EmailResource.Updates);
+            if (string.IsNullOrEmpty(str))
+            {
+                return str;
+            }
             return str.Remove(str.Length - 1, 1);
         }
         private static string AggregateAnswers(int numOfAnswers)

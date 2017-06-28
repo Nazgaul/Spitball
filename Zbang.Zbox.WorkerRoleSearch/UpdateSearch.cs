@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
@@ -23,9 +22,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
             173845L,
             173945L
         };
-        protected async Task SleepAsync(CancellationToken cancellationToken)
+        protected Task SleepAsync(CancellationToken cancellationToken)
         {
-            await Task.Delay(TimeSpan.FromSeconds(Interval), cancellationToken).ConfigureAwait(false);
+            return Task.Delay(TimeSpan.FromSeconds(Interval), cancellationToken);
         }
 
         protected abstract Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken);
@@ -37,7 +36,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         protected async Task SleepAndIncreaseIntervalAsync(CancellationToken cancellationToken)
         {
-
             await SleepAsync(cancellationToken).ConfigureAwait(false);
             Interval = Math.Min(Interval * 2, MaxInterval);
         }

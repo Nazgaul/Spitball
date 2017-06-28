@@ -1,5 +1,5 @@
 ﻿
-declare var Notification: any;
+//declare var Notification: any;
 module app {
     "use strict";
 
@@ -33,7 +33,7 @@ module app {
                 return;
             }
             image = image || '/Images/3rdParty/logo_120_4_google.png';
-            if (Notification.permission === "granted") {
+            if ((Notification as any).permission === "granted") {
                 var notification = new Notification(title, {
                     body: message || '', icon: image
                 });
