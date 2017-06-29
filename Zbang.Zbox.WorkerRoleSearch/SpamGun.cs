@@ -26,7 +26,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly Queue<SpamGunDto>[] m_Queues = new Queue<SpamGunDto>[SpanGunNumberOfQueues];
 
         private readonly int m_LimitPerIp = int.Parse(ConfigFetcher.Fetch("NumberOfEmailsPerHour"));
-        private const string ServiceName = "SpamGunService";
+        //private const string ServiceName = "SpamGunService";
 
 
         public SpamGun(IMailComponent mailComponent, IZboxReadServiceWorkerRole zboxReadService, IZboxWorkerRoleService zboxWriteService)
@@ -80,13 +80,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     {
                         if (counter >= m_LimitPerIp)
                         {
-                            //TraceLog.WriteInfo($"{ServiceName} ip {j} reach hour peak");
-                            // reachHourLimit = true;
                             break;
                         }
                         if (j == 3 && i == 12) //umich detect ip number 3
                         {
-                            //TraceLog.WriteInfo($"{ServiceName} bypass umich with ip3");
                             continue;
                         }
                         await BuildQueueDataAsync(m_Queues[i], i, token).ConfigureAwait(false);
@@ -95,7 +92,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         {
                             if (counter >= m_LimitPerIp)
                             {
-                               // TraceLog.WriteInfo($"{ServiceName} ip {j} reach hour peak");
                                 break;
                             }
                             if (m_Queues[i].Count == 0)
@@ -132,7 +128,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         await Task.WhenAll(emailsTask).ConfigureAwait(false);
                     }
                     totalCount += counter;
-                   // TraceLog.WriteInfo($"{ServiceName} send via ip {counter}");
                 }
             }
             catch (Exception ex)
@@ -146,7 +141,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 //await m_MailComponent.GenerateSystemEmailAsync("spam gun", $"send {totalCount} emails");
             }
 
-            TraceLog.WriteInfo($"{ServiceName} going not running.");
             return true;
         }
 

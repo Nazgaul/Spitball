@@ -117,7 +117,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         }
                         else
                         {
-                            TraceLog.WriteInfo("Job Failed and no exception thrown.");
+                            TraceLog.WriteWarning("Job Failed and no exception thrown.");
                         }
 
                         var jobToRestart = m_Jobs.ElementAt(i);
