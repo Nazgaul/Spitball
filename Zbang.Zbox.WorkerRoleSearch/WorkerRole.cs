@@ -54,7 +54,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public override bool OnStart()
         {
-            TelemetryConfiguration.Active.InstrumentationKey = "bceed25d-fdd9-4581-b477-068120221ebd";
+            
+            TelemetryConfiguration.Active.InstrumentationKey = RoleEnvironment.GetConfigurationSettingValue("APPINSIGHTS_INSTRUMENTATIONKEY");
+            //TelemetryConfiguration.Active.TelemetryInitializers.Add(new ItemCorrelationTelemetryInitializer());
             // Set the maximum number of concurrent connections
             ServicePointManager.DefaultConnectionLimit = 12;
 

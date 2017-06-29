@@ -22,13 +22,13 @@
  from zbox.University where IsDeleted = 0";
 
 
-        public const string UniversityBoxes = @"select top 6 Name,ItemCount,CourseCode,ProfessorName,Url from (
+        public const string UniversityBoxes = @"select top 6 Name,ItemCount,CourseCode,ProfessorName,BoxId from (
 select 
+b.BoxId,
     b.BoxName as Name,
 	b.quizcount + b.itemcount + COALESCE(b.FlashcardCount,0) as ItemCount,
 	b.CourseCode as CourseCode,
 	b.ProfessorName,
-	b.Url as Url,
 	Rank() over (partition BY libraryid order by b.ItemCount + b.QuizCount + b.CommentCount + COALESCE(b.FlashcardCount,0) desc,b.updatetime desc) as x
 	from zbox.box b join zbox.university u on b.university=u.id
 	where Discriminator = 2

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
+using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
@@ -33,7 +34,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class BoxController : BaseController
     {
         [Route("box/my/{boxId:long}/{boxName}", Name = "PrivateBox")]
-        public ActionResult RedirectToNewRoute(long boxId, string boxName, string invId, string universityName)
+        public ActionResult RedirectToNewRoute(long boxId, string boxName, string invId)
         {
             return RedirectToRoutePermanent("CourseBox", new RouteValueDictionary
             {
@@ -86,20 +87,27 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DonutOutputCache(CacheProfile = "BoxPage")]
         [BoxPermission("boxId", Order = 3), ActionName("Index")]
         [Route("course/{universityName}/{boxId:long}/{boxName}/{part:regex(^(feed|items|quizzes|members|flashcards))}", Name = "CourseBoxWithSub")]
-        public async Task<ActionResult> IndexAsync(long boxId, string boxName, string invId, string part)
+        public async Task<ActionResult> IndexAsync(long boxId,string universityName, string boxName, string invId, string part)
         {
 
             try
             {
                 var query = new GetBoxIdQuery(boxId);
-                var model = await ZboxReadService.GetBoxSeoAsync(query);
+                var model = await ZboxReadService.GetBoxSeoAsync(query).ConfigureAwait(false);
                 if (model == null)
                 {
                     throw new BoxDoesntExistException("model is null");
                 }
                 if (UrlConst.NameToQueryString(model.Name) != boxName)
                 {
-                    return Redirect(model.Url);
+                    return Redirect(Url.RouteUrlCache("CourseBoxWithSub", new RouteValueDictionary
+                    {
+                        ["boxId"] = boxId,
+                        ["universityName"] = universityName,
+                        ["boxName"] = UrlConst.NameToQueryString(model.Name),
+                        ["part"] = part
+                    }));
+                    //return Redirect(model.Url);
                 }
                 SeoBaseUniversityResources.Culture = Languages.GetCultureBaseOnCountry(model.Country);
                 if (model.BoxType == BoxType.Box)
@@ -153,12 +161,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var query = new GetBoxIdQuery(base62.Value);
             try
             {
-                var model = await ZboxReadService.GetBoxSeoAsync(query);
+                var model = await ZboxReadService.GetBoxSeoAsync(query).ConfigureAwait(false);
+                // [Route("course/{universityName}/{boxId:long}/{boxName}/{part:regex(^(feed|items|quizzes|members|flashcards))}", Name = "CourseBoxWithSub")]
+                var url = Url.RouteUrlCache("CourseBoxWithSub", new RouteValueDictionary
+                {
+                    ["boxId"] = base62.Value,
+                    ["universityName"] = UrlConst.NameToQueryString(model.UniversityName ?? "my"),
+                    ["boxName"] = UrlConst.NameToQueryString(model.Name),
+                    ["part"] = "feed"
+                });
                 if (Request.IsAjaxRequest())
                 {
-                    return JsonOk(model.Url);
+                    return JsonOk(url);
                 }
-                return RedirectPermanent(model.Url);
+                return RedirectPermanent(url);
             }
             catch (BoxDoesntExistException ex)
             {

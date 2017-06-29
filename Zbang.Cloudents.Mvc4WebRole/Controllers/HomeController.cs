@@ -55,21 +55,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             if (university != null && string.IsNullOrEmpty(universityName))
             {
-
                 return RedirectToRoute("UniversityLink", new { invId, universityName = university.UniversityName, step });
             }
-            //if (university != null && FlashcardUniversities.Contains(university.UniversityId))
-            //{
-            //    var flashcardPromo = m_CookieHelper.ReadCookie<UniversityFlashcardPromo>(UniversityFlashcardPromo.CookieName);
-
-            //    if (flashcardPromo == null)
-            //    {
-            //        return RedirectToRoute("Promotion");
-            //    }
-            //    ViewBag.promoEnable = true;
-
-
-            //}
             if (!string.IsNullOrEmpty(universityName) && university == null)
             {
                 return RedirectToRoute("homePage", new { invId });
@@ -84,7 +71,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
             }
             var query = new GetHomePageQuery(university?.UniversityId);
-            var homeStats = await ZboxReadService.GetHomePageDataAsync(query);
+            var homeStats = await ZboxReadService.GetHomePageDataAsync(query).ConfigureAwait(false);
 
             return View("Index", homeStats);
         }
@@ -107,8 +94,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 country = "IL";
             }
             var result =
-                await ZboxReadService.GetUniversityBoxesAsync(new GetHomeBoxesUniversityQuery(universityId, country));
-            return JsonOk(result);
+                await ZboxReadService.GetUniversityBoxesAsync(new GetHomeBoxesUniversityQuery(universityId, country)).ConfigureAwait(false);
+            var resultWithUrl = result.Select(s =>
+            {
+                s.Url = UrlConst.BuildShortBoxUrl(new Base62(s.BoxId).ToString());
+                return s;
+            });
+            return JsonOk(resultWithUrl);
 
         }
 
@@ -355,8 +347,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             ViewBag.title = SeoResources.CoursesTitle;
             ViewBag.metaDescription = SeoResources.CoursesMeta;
-            var courses = await ZboxReadService.GetCoursesPageDataAsync();
-            return View("Courses", courses);
+            var courses = await ZboxReadService.GetCoursesPageDataAsync().ConfigureAwait(false);
+            return View("Courses", courses.Select(s =>
+            {
+                s.Url = UrlConst.BuildShortBoxUrl(new Base62(s.BoxId).ToString());
+                return s;
+            }));
         }
         [Route("home/help")]
         public ActionResult HelpOld()

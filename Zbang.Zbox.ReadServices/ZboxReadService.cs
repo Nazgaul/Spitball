@@ -68,18 +68,18 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<IEnumerable<Box.RecommendBoxDto>> GetUniversityBoxesAsync(GetHomeBoxesUniversityQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 return
                     await
                         conn.QueryAsync<Box.RecommendBoxDto>(Sql.HomePage.UniversityBoxes,
-                            query);
+                            query).ConfigureAwait(false);
             }
         }
 
         public async Task<IEnumerable<Box.RecommendBoxDto>> GetCoursesPageDataAsync()
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 var fieldInfo = typeof(Sql.Sql).GetFields(BindingFlags.Public | BindingFlags.Static |
                                             BindingFlags.FlattenHierarchy)
@@ -90,7 +90,7 @@ namespace Zbang.Zbox.ReadServices
                 {
                     coursesQuery = fieldInfo.GetValue(null).ToString();
                 }
-                return await conn.QueryAsync<Box.RecommendBoxDto>(coursesQuery);
+                return await conn.QueryAsync<Box.RecommendBoxDto>(coursesQuery).ConfigureAwait(false);
             }
 
         }
@@ -953,9 +953,9 @@ where ownerid = @UserId and boxid = @BoxId;";
 
         public async Task<Box.BoxSeoDto> GetBoxSeoAsync(GetBoxIdQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                var retVal = await conn.QueryFirstOrDefaultAsync<Box.BoxSeoDto>(Sql.Seo.BoxSeo, query);
+                var retVal = await conn.QueryFirstOrDefaultAsync<Box.BoxSeoDto>(Sql.Seo.BoxSeo, query).ConfigureAwait(false);
                 var box = retVal;
                 if (box == null)
                 {

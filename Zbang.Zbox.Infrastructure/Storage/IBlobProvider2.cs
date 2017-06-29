@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         Task<long> SizeAsync(string blobName);
         Task<string> Md5Async(string blobName);
 
+        Task SaveMetaDataToBlobAsync(Uri blobUri, IDictionary<string, string> metadata, CancellationToken token);
         string RelativePath();
 
         Task UploadByteArrayAsync(string blobName, byte[] fileContent, string mimeType, bool fileGziped, int cacheControlMinutes);

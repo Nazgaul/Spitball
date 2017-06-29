@@ -396,7 +396,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             //if (Session != null)
             //Session.Abandon(); // remove the session cookie from user computer. wont continue session if user log in with a diffrent id.            
             m_CookieHelper.RemoveCookie(UploadController.ChatCookieName);
-            m_CookieHelper.RemoveCookie(UploadController.UploadcookieName);
+            m_CookieHelper.RemoveCookie(UploadController.UploadCookieName);
             m_CookieHelper.RemoveCookie(BoxPermissionAttribute.Permission.CookieName);
             m_AuthenticationManager.SignOut();
             return RedirectToRoute("homePage");

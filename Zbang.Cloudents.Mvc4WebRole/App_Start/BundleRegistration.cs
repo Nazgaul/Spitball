@@ -165,7 +165,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/scripts/angular-srph-infinite-scroll.js"),
 
-                        new JsFileWithCdn("~/scripts/jquery.signalR-2.2.1.js"),
+                        new JsFileWithCdn("~/scripts/jquery.signalR-2.2.2.js"),
                         new JsFileWithCdn("~/scripts/angular-signalr-hub.js"),
 
                         //TODO: move to oclazy in box

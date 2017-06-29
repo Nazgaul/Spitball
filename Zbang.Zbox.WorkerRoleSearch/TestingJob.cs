@@ -53,7 +53,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 {
                     try
                     {
-                        TraceLog.WriteInfo($"one time job process id: {document.Item1}");
                         lastId = document.Item1;
                         var md5 = await m_BlobProvider.Md5Async(document.Item2).ConfigureAwait(false);
                         var command = new UpdateThumbnailCommand(document.Item1, null,

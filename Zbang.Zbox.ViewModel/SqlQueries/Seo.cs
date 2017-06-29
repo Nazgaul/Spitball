@@ -128,7 +128,6 @@ where f.id = @FlashcardId
 and f.isdeleted = 0";
 
         public const string BoxSeo = @"select b.BoxName as name 
-,b.url
 ,b.Discriminator as boxType
 ,u.Country
 ,u.UniversityName

@@ -101,8 +101,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         private static string GetAbsoluteUrl(RequestContext request, string relativeUrl)
         {
             var baseUrl = request.HttpContext.Request.Url;
-            return request.HttpContext != null &&
-                   (request.HttpContext.Request != null && baseUrl != null)
+            return request.HttpContext?.Request != null && baseUrl != null
                        ? new Uri(baseUrl, relativeUrl).AbsoluteUri
                        : null;
         }

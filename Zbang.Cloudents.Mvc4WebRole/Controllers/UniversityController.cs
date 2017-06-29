@@ -190,7 +190,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("SeachUniversity term:  " + term, ex);
+                TraceLog.WriteError("SearchUniversity term:  " + term, ex);
                 return JsonError();
             }
         }

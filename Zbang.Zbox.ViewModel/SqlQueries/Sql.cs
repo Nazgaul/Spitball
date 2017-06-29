@@ -172,13 +172,13 @@ u.GoogleUserId as GoogleId
     from zbox.Users u left join zbox.University v on u.UniversityId = v.Id
     where u.userId = @UserId";
 
-        public const string GetCoursesPageBoxes_en = @"select top 16 b.boxid as id,
+        public const string GetCoursesPageBoxes_en = @"select top 16 b.boxid,
                                 b.BoxName as Name,
                                 b.ItemCount,
                                 b.MembersCount as MembersCount,
                                 b.CourseCode,
-                                b.ProfessorName,
-                                b.Url as Url
+                                b.ProfessorName
+                                
                                 from (
 								select 
 								b.boxid,
@@ -187,7 +187,7 @@ u.GoogleUserId as GoogleId
 	b.CourseCode as CourseCode,
 	b.MembersCount as MembersCount,
 	b.ProfessorName,
-	b.Url as Url,
+	
 	Rank() over (partition BY libraryid order by  b.MembersCount + (b.ItemCount + COALESCE(b.FlashcardCount,0) + b.QuizCount + b.CommentCount) / 4 desc,b.updatetime desc) as x
 	from zbox.box b join zbox.university u on b.university=u.id
 	where Discriminator = 2
@@ -200,13 +200,13 @@ u.GoogleUserId as GoogleId
 order by ItemCount desc ;";
 
 
-        public const string GetCoursesPageBoxes_he = @"select top 16 b.boxid as id,
+        public const string GetCoursesPageBoxes_he = @"select top 16 b.boxid,
                                 b.BoxName as Name,
                                 b.quizcount + b.itemcount as ItemCount,
                                 b.MembersCount as MembersCount,
                                 b.CourseCode,
-                                b.ProfessorName,
-                                b.Url as Url
+                                b.ProfessorName
+                                
                                 from zbox.box b join zbox.university u on b.university=u.id
                                 where  MembersCount >20
                                 and b.[UpdateTime]> getdate()-30 

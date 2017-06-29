@@ -23,21 +23,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             return urlHelper.Content(cdnUrl);
         }
 
-        //public static string ActionHash(this UrlHelper urlHelper, string action, object routeValues, string hash)
-        //{
-        //    return $"{urlHelper.Action(action, routeValues)}#{hash}";
-        //}
-        //public static string ActionHash(this UrlHelper urlHelper, string action, string controller, string hash)
-        //{
-        //    return $"{urlHelper.Action(action, controller)}#{hash}";
-        //}
-
-        //public static string GenerateUrl(this UrlHelper urlHelper, string actionName, string controllerName)
-        //{
-
-        //    var urlHelperWithNewContext = new UrlHelper(new RequestContext(urlHelper.RequestContext.HttpContext, new RouteData()), urlHelper.RouteCollection);
-        //    return urlHelperWithNewContext.Action(actionName, controllerName);
-        //}
+        
 
         public static string RouteUrlCache(this UrlHelper urlHelper, string routeName,
             RouteValueDictionary routeValues)

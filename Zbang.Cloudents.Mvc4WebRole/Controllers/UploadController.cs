@@ -42,7 +42,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_BlobProvider = blobProvider;
             m_QueueProvider = queueProvider;
         }
-        internal const string UploadcookieName = "upload";
+        internal const string UploadCookieName = "upload";
 
         [HttpPost]
         [ZboxAuthorize]
@@ -65,25 +65,25 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return JsonError(BoxControllerResources.NoFilesReceived);
                 }
-                var uploadedfile = HttpContext.Request.Files[0];
-                if (uploadedfile == null) throw new NullReferenceException("uploadedfile");
+                var uploadedFile = HttpContext.Request.Files[0];
+                if (uploadedFile == null) throw new NullReferenceException("uploadedFile");
 
 
-                var fileUploadedDetails = GetCookieUpload(UploadcookieName, model.FileSize, model.FileName, uploadedfile);
+                var fileUploadedDetails = GetCookieUpload(UploadCookieName, model.FileSize, model.FileName, uploadedFile);
 
 
-                string blobAddressUri = fileUploadedDetails.BlobGuid.ToString().ToLower() + Path.GetExtension(fileUploadedDetails.FileName)?.ToLower();
+                var blobAddressUri = fileUploadedDetails.BlobGuid.ToString().ToLower() + Path.GetExtension(fileUploadedDetails.FileName)?.ToLower();
 
 
-                fileUploadedDetails.CurrentIndex = await m_BlobProviderFiles.UploadFileBlockAsync(blobAddressUri, uploadedfile.InputStream, fileUploadedDetails.CurrentIndex);
-                m_CookieHelper.InjectCookie(UploadcookieName, fileUploadedDetails);
+                fileUploadedDetails.CurrentIndex = await m_BlobProviderFiles.UploadFileBlockAsync(blobAddressUri, uploadedFile.InputStream, fileUploadedDetails.CurrentIndex).ConfigureAwait(false);
+                m_CookieHelper.InjectCookie(UploadCookieName, fileUploadedDetails);
 
                 if (!FileFinishToUpload(fileUploadedDetails))
                 {
                     return JsonOk();
                 }
-                await m_BlobProviderFiles.CommitBlockListAsync(blobAddressUri, fileUploadedDetails.CurrentIndex, fileUploadedDetails.MimeType);
-                var size = await m_BlobProviderFiles.SizeAsync(blobAddressUri);
+                await m_BlobProviderFiles.CommitBlockListAsync(blobAddressUri, fileUploadedDetails.CurrentIndex, fileUploadedDetails.MimeType).ConfigureAwait(false);
+                var size = await m_BlobProviderFiles.SizeAsync(blobAddressUri).ConfigureAwait(false);
                 var command = new AddFileToBoxCommand(userId, model.BoxId, blobAddressUri,
                     fileUploadedDetails.FileName,
                      size, model.TabId, model.Comment);
@@ -92,10 +92,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var result2 = result as AddFileToBoxCommandResult;
                 if (result2 == null)
                 {
-                    throw new NullReferenceException("result2");
+                    throw new NullReferenceException(nameof(result2));
                 }
 
-
+                
                 var fileDto = new ItemDto
                 {
                     Id = result2.File.Id,
