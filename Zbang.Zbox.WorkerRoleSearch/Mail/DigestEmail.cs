@@ -45,6 +45,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 
         public async Task<bool> ExecuteAsync(int index, Func<int, Task> progressAsync, CancellationToken token)
         {
+            if (progressAsync == null) throw new ArgumentNullException(nameof(progressAsync));
             var page = index;
             var needToContinueRun = true;
             var list = new List<Task>();
@@ -52,7 +53,6 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             {
                 try
                 {
-                    TraceLog.WriteInfo($"{GetServiceName()} running  mail page {page}");
                     needToContinueRun = false;
                     var pageSize = 100;
                     if (RoleIndexProcessor.IsEmulated)

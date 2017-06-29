@@ -36,7 +36,6 @@ using Autofac.Features.Variance;
 using Zbang.Zbox.Domain.CommandHandlers;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Services;
-using Zbang.Zbox.Infrastructure.Ai;
 using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Commands;
 using Zbang.Zbox.Infrastructure.Data;
@@ -98,7 +97,6 @@ namespace Testing
             //        .InstancePerLifetimeScope();
 
             unity.ContainerBuilder.RegisterModule<SearchModule>();
-            unity.ContainerBuilder.RegisterModule<AiModule>();
 
 
 
