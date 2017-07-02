@@ -17,7 +17,7 @@ using TaskExtensions = Zbang.Zbox.Infrastructure.Extensions.TaskExtensions;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
-    public class SchedulerListener : IJob
+    public class SchedulerListener : IJob , IDisposable
     {
         private readonly IQueueProviderExtract m_QueueProviderExtract;
         private readonly XmlSerializer m_Dcs = new XmlSerializer(typeof(StorageQueueMessage));
@@ -29,6 +29,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         }
 
 
+        public string Name => nameof(SchedulerListener);
 
         public async Task RunAsync(CancellationToken cancellationToken)
         {
@@ -61,7 +62,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                                     message.Message = JsonConvert.SerializeObject(messageContent);
                                     using (var memoryStream = new MemoryStream())
                                     {
-                                       
                                         await m_CriticalCode.WaitAsync(cancellationToken).ConfigureAwait(false);
                                         try
                                         {
@@ -113,8 +113,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         }
 
-        public void Stop()
+
+
+        public void Dispose()
         {
+            m_CriticalCode?.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

@@ -36,6 +36,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_WatsonExtractProvider = watsonExtractProvider;
         }
 
+        public string Name => nameof(UpdateSearchFlashcard);
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
         {
             const int top = 100;
@@ -63,7 +64,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 update.BackCards = flashcard.Cards.Select(s => s.Cover).Where(w => !string.IsNullOrEmpty(w.Text)).Select(s => s.Text);
                 update.FrontCards = flashcard.Cards.Select(s => s.Front).Where(w => !string.IsNullOrEmpty(w.Text)).Select(s => s.Text);
-                
                 var firstCard = flashcard.Cards.First();
                 update.FrontText = firstCard.Front.Text;
                 update.FrontImage = firstCard.Front.Image;
@@ -121,10 +121,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             await m_ContentSearchProvider.UpdateDataAsync(elem, null, token).ConfigureAwait(false);
         }
 
-        protected override string GetPrefix()
-        {
-            return "Search Flashcard";
-        }
 
         public async Task RunAsync(CancellationToken cancellationToken)
         {

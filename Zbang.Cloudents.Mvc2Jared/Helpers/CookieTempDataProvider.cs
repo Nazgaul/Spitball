@@ -83,7 +83,7 @@ namespace Zbang.Cloudents.Mvc2Jared.Helper
             try
             {
                 var bytes = HttpServerUtility.UrlTokenDecode(base64EncodedSerializedTempData);
-                var decompressBytes = m_Compress.DecompressFromGzip(bytes);
+                var decompressBytes = Compress.DecompressFromGzip(bytes);
                 var dataAsString = GetString(decompressBytes);
                 return JsonConvert.DeserializeObject<IDictionary<string, object>>(dataAsString);
             }

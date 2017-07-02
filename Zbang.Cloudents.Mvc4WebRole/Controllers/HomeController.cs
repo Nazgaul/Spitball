@@ -477,7 +477,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
                 var url = new XElement(xmlns + "url", locContent, priorityContent, lastmodContent, frequencyContent);
-                //var langLink = new List<XElement>();
                 if (node.SitemapLangNodes != null)
                 {
                     foreach (var lang in node.SitemapLangNodes)
@@ -496,17 +495,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 root.Add(url);
 
             }
-            XDocument document = new XDocument(new XDeclaration("1.0", "utf-8", "yes"), root);
+            var document = new XDocument(new XDeclaration("1.0", "utf-8", "yes"), root);
             return document.ToString();
-            //using (var ms = new MemoryStream())
-            //{
-            //    using (var writer = new StreamWriter(ms, Encoding.Unicode))
-            //    {
-            //        root.Save(writer);
-            //    }
-
-            //    return Encoding.Unicode.GetString(ms.ToArray());
-            //}
         }
 
         [NonAction]

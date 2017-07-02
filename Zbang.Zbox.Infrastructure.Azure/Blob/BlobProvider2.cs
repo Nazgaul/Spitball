@@ -123,7 +123,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             await blob.FetchAttributesAsync().ConfigureAwait(false);
             if (string.IsNullOrEmpty(blob.Properties.ContentMD5))
             {
-                byte[] buffer = new byte[16 * 1024];
+                var buffer = new byte[16 * 1024];
                 var md5Object = System.Security.Cryptography.MD5.Create();
                 using (var stream = await blob.OpenReadAsync().ConfigureAwait(false))
                 {

@@ -88,8 +88,7 @@ namespace Zbang.Zbox.Infrastructure.File
                             jpgImage.SavePixels(activeTiff.Bounds, pixels);
                             jpgImage.Save();
                         }
-                        var compressor = new Compress();
-                        var gzipSr = compressor.CompressToGzip(ms);
+                        var gzipSr = Compress.CompressToGzip(ms);
                         parallelTask.Add(m_BlobProviderCache.UploadByteArrayAsync(cacheblobName, gzipSr, "image/jpg", true, 30));
                         blobsNamesInCache.Add(m_BlobProviderCache.GenerateSharedAccessReadPermission(cacheblobName, 30));
                         //parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, gzipSr, "image/jpg", true));

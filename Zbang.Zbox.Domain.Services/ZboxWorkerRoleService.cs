@@ -2,11 +2,9 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
-using NHibernate.Criterion;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Cache;
@@ -22,7 +20,6 @@ namespace Zbang.Zbox.Domain.Services
     {
         private readonly ICommandBus m_CommandBus;
         private readonly IWithCache m_Cache;
-        // private readonly IDocumentDbRepository<Flashcard> m_FlashcardRepository;
 
         public ZboxWorkerRoleService(ICommandBus commandBus, IWithCache cache/*, IDocumentDbRepository<Flashcard> flashRep*/)
         {

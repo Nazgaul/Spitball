@@ -46,7 +46,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             });
         }
         [Route("box/my/{boxId:long}/{boxName}/{part:regex(^(feed|items|quizzes|members|flashcards))}", Name = "PrivateBoxWithSub")]
-        public ActionResult RedirectToNewRoute2(long boxId, string boxName, string invId, string universityName, string part)
+        public ActionResult RedirectToNewRoute2(long boxId, string boxName, string invId, string part)
         {
             return RedirectToRoutePermanent("CourseBox", new RouteValueDictionary
             {

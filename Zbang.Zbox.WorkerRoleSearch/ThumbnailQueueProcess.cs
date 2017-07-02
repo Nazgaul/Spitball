@@ -15,12 +15,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
     {
         private readonly IQueueProviderExtract m_QueueProviderExtract;
         private readonly ILifetimeScope m_ComponentContent;
-        private const string Prefix = "ThumbnailProcess";
         public ThumbnailQueueProcess(IQueueProviderExtract queueProviderExtract, ILifetimeScope componentContent)
         {
             m_QueueProviderExtract = queueProviderExtract;
             m_ComponentContent = componentContent;
         }
+
+        public string Name => nameof(ThumbnailQueueProcess);
 
         public async Task RunAsync(CancellationToken cancellationToken)
         {
@@ -36,13 +37,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         var msgData = msg.FromMessageProto<FileProcess>();
                         if (msgData == null)
                         {
-                            TraceLog.WriteError($"{Prefix} run - msg cannot transfer to FileProcess");
+                            TraceLog.WriteError($"{Name} run - msg cannot transfer to FileProcess");
                             return true;
                         }
                         var process = m_ComponentContent.ResolveOptionalNamed<IFileProcess>(msgData.ProcessResolver);
                         
                         if (process != null) return await process.ExecuteAsync(msgData, cancellationToken).ConfigureAwait(false);
-                        TraceLog.WriteError($"{Prefix} run - process is null msgData.ProcessResolver:" + msgData.ProcessResolver);
+                        TraceLog.WriteError($"{Name} run - process is null msgData.ProcessResolver:" + msgData.ProcessResolver);
                         return true;
                     }, TimeSpan.FromMinutes(1), 5, cancellationToken).ConfigureAwait(false);
                     if (!result)

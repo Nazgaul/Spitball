@@ -24,7 +24,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IZboxWriteService m_WriteService;
         private readonly IWatsonExtract m_WatsonExtractProvider;
 
-        private const string PrefixLog = "Search Quiz";
         public UpdateSearchQuiz(IQuizWriteSearchProvider2 quizSearchProvider, IZboxReadServiceWorkerRole zboxReadService,
             IZboxWorkerRoleService zboxWriteService, IContentWriteSearchProvider contentSearchProvider,
             IZboxWriteService writeService, IWatsonExtract watsonExtractProvider)
@@ -36,8 +35,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_WriteService = writeService;
             m_WatsonExtractProvider = watsonExtractProvider;
         }
-        
 
+        public string Name => nameof(UpdateSearchQuiz);
         public async Task RunAsync(CancellationToken cancellationToken)
         {
             var index = RoleIndexProcessor.GetIndex();
@@ -93,7 +92,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(GetPrefix(), ex);
+                TraceLog.WriteError(Name, ex);
                 return TimeToSleep.Increase;
             }
         }
@@ -124,9 +123,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
             await m_ContentSearchProvider.UpdateDataAsync(elem, null, token).ConfigureAwait(false);
         }
 
-        protected override string GetPrefix()
-        {
-            return PrefixLog;
-        }
+        //protected override string GetPrefix()
+        //{
+        //    return PrefixLog;
+        //}
     }
 }

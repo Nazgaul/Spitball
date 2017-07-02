@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling;
-using Microsoft.Practices.EnterpriseLibrary.WindowsAzure.TransientFaultHandling.SqlAzure;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
 
@@ -26,18 +25,17 @@ namespace Zbang.Zbox.Infrastructure.Data.Dapper
             RetryManager.SetDefault(manager);
         }
         internal const string ConnectionStringKey = "Zbox";
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
-        public static async Task<IDbConnection> OpenConnectionAsync()
-        {
-            var connection = new SqlConnection(ConfigFetcher.Fetch(ConnectionStringKey));
-            await connection.OpenAsync();
-            return connection;
-        }
+        //public static async Task<IDbConnection> OpenConnectionAsync()
+        //{
+        //    var connection = new SqlConnection(ConfigFetcher.Fetch(ConnectionStringKey));
+        //    await connection.OpenAsync();
+        //    return connection;
+        //}
 
-        public static async Task<IDbConnection> OpenConnectionAsync(CancellationToken cancellationToken, string connectionStringName = "Zbox")
+        public static async Task<IDbConnection> OpenConnectionAsync(CancellationToken cancellationToken = default(CancellationToken), string connectionStringName = "Zbox")
         {
             var connection = new SqlConnection(ConfigFetcher.Fetch(connectionStringName));
-            await connection.OpenAsync(cancellationToken);
+            await connection.OpenAsync(cancellationToken).ConfigureAwait(false);
             return connection;
         }
 
@@ -50,7 +48,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Dapper
 
         }
 
-        public static Task<IDbConnection> OpenReliableConnectionAsync(CancellationToken cancellationToken, string connectionStringName = "Zbox")
+        public static Task<IDbConnection> OpenReliableConnectionAsync(CancellationToken cancellationToken, string connectionStringName = ConnectionStringKey)
         {
             var retryPolicy = RetryManager.Instance.GetDefaultSqlConnectionRetryPolicy();
             retryPolicy.Retrying += (sender, args) =>

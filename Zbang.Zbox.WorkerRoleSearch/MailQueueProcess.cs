@@ -15,13 +15,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
     {
         private readonly IQueueProviderExtract m_QueueProviderExtract;
         private readonly ILifetimeScope m_ComponentContent;
-        private const string Prefix = "MailProcess";
         public MailQueueProcess(IQueueProviderExtract queueProviderExtract, ILifetimeScope componentContent)
         {
             m_QueueProviderExtract = queueProviderExtract;
             m_ComponentContent = componentContent;
         }
-
+        public string Name => nameof(MailQueueProcess);
         public async Task RunAsync(CancellationToken cancellationToken)
         {
             while (!cancellationToken.IsCancellationRequested)
@@ -34,13 +33,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         var msgData = msg.FromMessageProto<BaseMailData>();
                         if (msgData == null)
                         {
-                            TraceLog.WriteError($" {Prefix} run - msg cannot transfer to DomainProcess");
+                            TraceLog.WriteError($"{Name} run - msg cannot transfer to DomainProcess");
                             return true;
                         }
                         var process = m_ComponentContent.ResolveOptionalNamed<IMail2>(msgData.MailResolver);
                         if (process == null)
                         {
-                            TraceLog.WriteError($"{Prefix} run - process is null msgData.ProcessResolver:" + msgData.MailResolver);
+                            TraceLog.WriteError($"{Name} run - process is null msgData.ProcessResolver:" + msgData.MailResolver);
                             return true;
                         }
                         return await process.ExecuteAsync(msgData, cancellationToken).ConfigureAwait(false);
@@ -59,13 +58,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    TraceLog.WriteError($" {Prefix}", ex);
+                    TraceLog.WriteError($"{Name}", ex);
                 }
             }
         }
 
-        public void Stop()
-        {
-        }
+      
     }
 }

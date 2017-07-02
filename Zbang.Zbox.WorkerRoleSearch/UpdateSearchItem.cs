@@ -32,7 +32,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IWatsonExtract m_WatsonExtractProvider;
         private readonly IContentWriteSearchProvider m_ContentSearchProvider;
 
-        private const string PrefixLog = "Search Item";
 
         public UpdateSearchItem(IZboxReadServiceWorkerRole zboxReadService,
             IZboxWorkerRoleService zboxWriteService,
@@ -53,7 +52,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_ContentSearchProvider = contentSearchProvider;
         }
 
-
+        public string Name => nameof(UpdateSearchItem);
         public async Task RunAsync(CancellationToken cancellationToken)
         {
             var index = RoleIndexProcessor.GetIndex();
@@ -185,10 +184,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
         }
 
-        protected override string GetPrefix()
-        {
-            return PrefixLog;
-        }
+        //protected override string GetPrefix()
+        //{
+        //    return PrefixLog;
+        //}
 
         private Processor GetProcessor(ItemSearchDto msgData)
         {
@@ -278,7 +277,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             if (elem.PreviewFailed)
             {
-                TraceLog.WriteInfo($"{GetPrefix()} skipping extract content due to preview failed ");
+                TraceLog.WriteInfo($"{Name} skipping extract content due to preview failed ");
                 return null;
             }
             //TraceLog.WriteInfo(PrefixLog, "search processing " + elem);

@@ -141,7 +141,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             {
                 //byte[] bytes = Convert.FromBase64String(base64EncodedSerializedTempData);
                 var bytes = HttpServerUtility.UrlTokenDecode(base64EncodedSerializedTempData);
-                var decompressBytes = m_Compress.DecompressFromGzip(bytes);
+                var decompressBytes = Compress.DecompressFromGzip(bytes);
                 var dataAsString = GetString(decompressBytes);
                 // var s = new JavaScriptSerializer();
                 return JsonConvert.DeserializeObject<IDictionary<string, object>>(dataAsString);

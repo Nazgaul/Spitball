@@ -31,8 +31,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             try
             {
                 var result = await request.GetResponse(token).ConfigureAwait(false);
-                int dummy;
-                return result.Concepts.Where(w => w.Relevance > 0.75).Select(s => s.Text).Where(w => !int.TryParse(w, out dummy)).Distinct();
+                return result.Concepts.Where(w => w.Relevance > 0.75).Select(s => s.Text).Where(w => !int.TryParse(w, out int _)).Distinct();
             }
             catch (Exception ex)
             {
@@ -47,8 +46,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 return null;
             }
-            
-            
             var request = new AlchemyTextKeywordsRequest(text, m_Client)
             {
                 KnowledgeGraph = true,
@@ -60,9 +57,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             try
             {
                 var result = await request.GetResponse(token).ConfigureAwait(false);
-                int dummy;
-                
-                return result.Keywords.Where(w => w.Relevance > 0.75).Select(s => s.Text).Where(w => !int.TryParse(w, out dummy));
+                return result.Keywords.Where(w => w.Relevance > 0.75).Select(s => s.Text).Where(w => !int.TryParse(w, out int _));
             }
             catch (Exception ex)
             {
@@ -77,11 +72,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 return Language.Undefined;
             }
+            if (text.Length < 15)
+            {
+                return Language.Undefined;
+            }
 
 
             var request = new AlchemyTextLanguageRequest(text, m_Client);
-            
-
             try
             {
                 var result = await request.GetResponse(token).ConfigureAwait(false);
@@ -98,17 +95,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
             catch (Exception ex)
             {
                 TraceLog.WriteError("watson text error" + text, ex);
-               
             }
             return Language.Undefined;
         }
 
-    }
-
-    public interface IWatsonExtract
-    {
-        Task<IEnumerable<string>> GetConceptAsync(string text, CancellationToken token);
-        Task<IEnumerable<string>> GetKeywordAsync(string text, CancellationToken token);
-        Task<Language> GetLanguageAsync(string text, CancellationToken token);
     }
 }

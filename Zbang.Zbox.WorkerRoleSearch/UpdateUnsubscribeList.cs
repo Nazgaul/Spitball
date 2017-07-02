@@ -24,13 +24,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private DateTime m_DateTime;
         private string m_LeaseId = string.Empty;
         private readonly TimeSpan m_SleepTime = TimeSpan.FromMinutes(30);
-        private const string Prefix = "SendGridApi";
         private readonly IMailComponent m_MailComponent;
 
         private CloudBlockBlob m_Blob;
 
         private readonly IEnumerable<JobPerApi> m_Jobs;
 
+        public string Name => nameof(UpdateUnsubscribeList);
         public UpdateUnsubscribeList(IMailComponent mailComponent, IZboxWorkerRoleService zboxWorkerRoleService, ICloudBlockProvider cloudBlockProvider, IIntercomApiManager intercomManager)
         {
             m_ZboxWorkerRoleService = zboxWorkerRoleService;
@@ -78,7 +78,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     }
 
                     //var needToContinueRun = true;
-                    TraceLog.WriteInfo($"{Prefix} update unsubscribe list data {m_DateTime}");
+                    TraceLog.WriteInfo($"{Name} update unsubscribe list data {m_DateTime}");
                     var mailContent = new StringBuilder();
                     foreach (var job in m_Jobs)
                     {
@@ -129,7 +129,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    await m_MailComponent.GenerateSystemEmailAsync("sendgrid api", $"{Prefix} with errors {ex}").ConfigureAwait(false);
+                    await m_MailComponent.GenerateSystemEmailAsync("sendgrid api", $"{Name} with errors {ex}").ConfigureAwait(false);
                     TraceLog.WriteError("unsubscribe list ", ex);
                 }
 

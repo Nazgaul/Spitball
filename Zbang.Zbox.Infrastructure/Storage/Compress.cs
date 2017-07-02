@@ -1,13 +1,14 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Zbang.Zbox.Infrastructure.Storage
 {
-    public class Compress
+    public static class Compress
     {
-        public byte[] CompressToGzip(byte[] stream)
+        public static byte[] CompressToGzip(byte[] stream)
         {
             if (stream == null) throw new ArgumentNullException(nameof(stream));
             using (var ms = new MemoryStream())
@@ -20,7 +21,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
             }
         }
 
-        public byte[] CompressToGzip(Stream stream)
+        public static byte[] CompressToGzip(Stream stream)
         {
             if (stream == null) throw new ArgumentNullException(nameof(stream));
             stream.Seek(0, SeekOrigin.Begin);
@@ -36,7 +37,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
             }
         }
 
-        public byte[] DecompressFromGzip(byte[] byteArray)
+        public static byte[] DecompressFromGzip(byte[] byteArray)
         {
             using (var input = new MemoryStream(byteArray))
             {
@@ -53,13 +54,13 @@ namespace Zbang.Zbox.Infrastructure.Storage
             }
         }
 
-        public async Task<byte[]> CompressToGzipAsync(Stream stream)
+        public static async Task<byte[]> CompressToGzipAsync(Stream stream, CancellationToken token = default(CancellationToken))
         {
             stream.Seek(0, SeekOrigin.Begin);
             var ms = new MemoryStream();
             using (var gz = new GZipStream(ms, CompressionMode.Compress))
             {
-                await stream.CopyToAsync(gz);
+                await stream.CopyToAsync(gz, 81920, token).ConfigureAwait(false);
             }
             return ms.ToArray();
         }

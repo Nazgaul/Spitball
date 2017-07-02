@@ -1,6 +1,5 @@
 ﻿using System;
 using Dapper;
-using NHibernate;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -169,12 +168,12 @@ namespace Zbang.Zbox.ReadServices
         {
             using (UnitOfWork.Start())
             {
-                IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBadItemUserDetail");
+                var dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBadItemUserDetail");
                 dbQuery.SetInt64("userId", query.UserId);
                 dbQuery.SetResultTransformer(NHibernate.Transform.Transformers.AliasToBean<BadItemDto>());
 
 
-                IQuery itemQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBadItemDetail");
+                var itemQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBadItemDetail");
                 itemQuery.SetInt64("ItemId", query.ItemId);
                 itemQuery.SetResultTransformer(NHibernate.Transform.Transformers.AliasToBean<BadItemDto>());
 
@@ -188,31 +187,6 @@ namespace Zbang.Zbox.ReadServices
                 return retVal;
             }
         }
-
-        //public async Task<IEnumerable<dynamic>> GetMissingThumbnailBlobsAsync(int index, long start)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-
-
-        //        return await conn.QueryAsync(@"select itemid, blobname, Discriminator from zbox.item 
-        //        where  Discriminator = 'Link'
-        //        and isdeleted = 0
-        //        and itemid >=  @start
-        //        order by itemid
-        //        OFFSET @Offset ROWS
-        //        FETCH NEXT @RowSize ROWS ONLY", new { Offset = index * 100, RowSize = 100, start });
-
-        //    }
-        //}
-
-        //public async Task<IEnumerable<string>> GetEmailsAsync(int page)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        return await conn.QueryAsync<string>(Sql.MarketingEmailQuery, new { pageNumber = page });
-        //    }
-        //}
 
         public async Task<UniversityToUpdateSearchDto> GetUniversitiesDirtyUpdatesAsync(int index, int total, int top)
         {
@@ -232,9 +206,8 @@ namespace Zbang.Zbox.ReadServices
                                                             images.ToArray();
                     foreach (var university in retVal.UniversitiesToUpdate)
                     {
-                        UniversitySearchDto university1 = university;
                         university.UsersImages =
-                            userImagesForUniversitySearchDtos.Where(w => w.UniversityId == university1.Id)
+                            userImagesForUniversitySearchDtos.Where(w => w.UniversityId == university.Id)
                                 .Select(s => s.Image);
                     }
                     retVal.UniversitiesToDelete = await grid.ReadAsync<long>().ConfigureAwait(false);
@@ -309,9 +282,9 @@ namespace Zbang.Zbox.ReadServices
                         {
                             BoxesToUpdate = await grid.ReadAsync<BoxSearchDto>().ConfigureAwait(false)
                         };
-                        var usersInBoxes = grid.Read<UsersInBoxSearchDto>().ToList();
-                        var departmentsOfBoxes = grid.Read<DepartmentOfBoxSearchDto>().ToList();
-                        var feedOfBoxes = grid.Read<FeedOfBoxSearchDto>().ToList();
+                        var usersInBoxes = (await grid.ReadAsync<UsersInBoxSearchDto>().ConfigureAwait(false)).ToList();
+                        var departmentsOfBoxes = (await grid.ReadAsync<DepartmentOfBoxSearchDto>().ConfigureAwait(false)).ToList();
+                        var feedOfBoxes = (await grid.ReadAsync<FeedOfBoxSearchDto>().ConfigureAwait(false)).ToList();
                         foreach (var box in retVal.BoxesToUpdate)
                         {
                             var boxId = box.Id;
@@ -344,10 +317,8 @@ namespace Zbang.Zbox.ReadServices
                         {
                             doc.Course = course;
                             doc.University = university;
-                            
                             return doc;
                         })
-                        //ItemsToUpdate = await grid.ReadAsync<DocumentSearchDto>().ConfigureAwait(false)
                     };
                     var users = (await grid.ReadAsync<ItemSearchUsers>().ConfigureAwait(false)).ToList();
                     var tags = (await grid.ReadAsync<ItemSearchTag>().ConfigureAwait(false)).ToList();
@@ -355,8 +326,7 @@ namespace Zbang.Zbox.ReadServices
                     var cacheUsers = new Dictionary<long, IEnumerable<long>>();
                     foreach (var p in retVal.ItemsToUpdate)
                     {
-                        IEnumerable<long> usersIds;
-                        if (cacheUsers.TryGetValue(p.Course.Id, out usersIds))
+                        if (cacheUsers.TryGetValue(p.Course.Id, out IEnumerable<long> usersIds))
                         {
                             p.UserIds = usersIds;
                         }
@@ -447,17 +417,15 @@ namespace Zbang.Zbox.ReadServices
                         {
                             doc.Course = course;
                             doc.University = university;
-                            
                             return doc;
                         })
                     };
-                    var users = grid.Read<UsersInBoxSearchDto>().ToList();
+                    var users = (await grid.ReadAsync<UsersInBoxSearchDto>().ConfigureAwait(false)).ToList();
                     var tags = (await grid.ReadAsync<ItemSearchTag>().ConfigureAwait(false)).ToList();
                     var cacheUsers = new Dictionary<long, IEnumerable<long>>();
                     foreach (var flashcards in retVal.Updates)
                     {
-                        IEnumerable<long> usersIds;
-                        if (cacheUsers.TryGetValue(flashcards.Course.Id, out usersIds))
+                        if (cacheUsers.TryGetValue(flashcards.Course.Id, out IEnumerable<long> usersIds))
                         {
                             flashcards.UserIds = usersIds;
                         }
@@ -502,16 +470,15 @@ namespace Zbang.Zbox.ReadServices
                             return doc;
                         })
                     };
-                    var questions = grid.Read<QuizQuestionAndAnswersSearchDto>().ToList();
-                    var answers = grid.Read<QuizQuestionAndAnswersSearchDto>().ToList();
-                    var users = grid.Read<UsersInBoxSearchDto>().ToList();
-                    var tags = grid.Read<ItemSearchTag>().ToList();
+                    var questions = (await grid.ReadAsync<QuizQuestionAndAnswersSearchDto>().ConfigureAwait(false)).ToList();
+                    var answers = (await grid.ReadAsync<QuizQuestionAndAnswersSearchDto>().ConfigureAwait(false)).ToList();
+                    var users = (await grid.ReadAsync<UsersInBoxSearchDto>().ConfigureAwait(false)).ToList();
+                    var tags = (await grid.ReadAsync<ItemSearchTag>().ConfigureAwait(false)).ToList();
                     var cacheUsers = new Dictionary<long, IEnumerable<long>>();
                     foreach (var quiz in retVal.QuizzesToUpdate)
                     {
                         var quizId = quiz.Id;
-                        IEnumerable<long> usersIds;
-                        if (cacheUsers.TryGetValue(quiz.Course.Id, out usersIds))
+                        if (cacheUsers.TryGetValue(quiz.Course.Id, out IEnumerable<long> usersIds))
                         {
                             quiz.UserIds = usersIds;
                         }
@@ -547,24 +514,7 @@ FETCH NEXT @RowsPerPage ROWS ONLY";
 
         }
 
-//        public Task<IEnumerable<MarketingDto>> GetLowContributersUsersAsync(MarketingQuery query,
-//            CancellationToken token)
-//        {
-//            const string sql = @"select email,Culture,UserName as Name
-//from zbox.users u 
-//where u.score < 600
-//and UniversityId is not null
-//and exists (select userId from zbox.userboxrel ub where ub.userId = u.userId)
-//and u.UniversityId in (	select Id from zbox.University u where u.NoOfBoxes >= 5 and isdeleted = 0)
-//and EmailSendSettings = 0
-//and (creationtime>'2015' or [LastAccessTime] >'2015')
-//and (membershipUserId is not null or facebookUserId is not null or googleuserId is not null)
-//and creationtime < dateadd(HOUR,-2,GETUTCDATE())
-//order by userId
-//offset @PageNumber*@RowsPerPage ROWS
-//FETCH NEXT @RowsPerPage ROWS ONLY";
-//            return GetMarketingDataAsync(query, sql, token);
-//        }
+
 
         public Task<IEnumerable<MarketingDto>> GetUsersWithUniversityWithoutSubscribedBoxesAsync(MarketingQuery query,
             CancellationToken token)
@@ -574,9 +524,9 @@ from zbox.users u join zbox.University uu on u.UniversityId = uu.Id
 and uu.Country != 'us'
 and not exists (select userId from zbox.userboxrel ub where ub.userId = u.userId)
 and EmailSendSettings = 0
-and (membershipUserId is not null or facebookUserId is not null or googleuserId is not null)
-and (u.creationtime>getdate()-180 or [LastAccessTime] >getdate()-180) 
-and u.creationtime < dateadd(HOUR,-2,GETUTCDATE())
+and (membershipUserId is not null or facebookUserId is not null or googleUserId is not null)
+and (u.creationTime>getdate()-180 or [LastAccessTime] >getdate()-180) 
+and u.creationTime < dateadd(HOUR,-2,GETUTCDATE())
 order by userId
 offset @PageNumber*@RowsPerPage ROWS
 FETCH NEXT @RowsPerPage ROWS ONLY";
@@ -590,10 +540,10 @@ FETCH NEXT @RowsPerPage ROWS ONLY";
 from zbox.Users u2 where u2.UniversityId in (
 select Id from zbox.University u where u.NoOfBoxes < 5 and isdeleted = 0 and u.Country != 'us')
 and EmailSendSettings = 0
-and (creationtime>getdate()-180 or [LastAccessTime]>getdate()-180)
+and (creationTime>getdate()-180 or [LastAccessTime]>getdate()-180)
 and exists (select userId from zbox.userboxrel ub where ub.userId = u2.userId)
-and (membershipUserId is not null or facebookUserId is not null or googleuserId is not null)
-and creationtime < dateadd(HOUR,-2,GETUTCDATE())
+and (membershipUserId is not null or facebookUserId is not null or googleUserId is not null)
+and creationTime < dateadd(HOUR,-2,GETUTCDATE())
 order by userId
 offset @PageNumber*@RowsPerPage ROWS
 FETCH NEXT @RowsPerPage ROWS ONLY
@@ -620,21 +570,21 @@ select distinct ub.userId from zbox.UserBoxRel ub join zbox.UserBoxRel ub2 on ub
 where ub.boxId in (select boxId from boxWithLowUpdate)
 and ub2.boxId not in (select boxId from boxWithLowUpdate))
 and EmailSendSettings = 0
-and (creationtime>getdate()-180 or [LastAccessTime] >getdate()-180)
-and (membershipUserId is not null or facebookUserId is not null or googleuserId is not null)
-and creationtime < dateadd(HOUR,-2,GETUTCDATE())
+and (creationTime>getdate()-180 or [LastAccessTime] >getdate()-180)
+and (membershipUserId is not null or facebookUserId is not null or googleUserId is not null)
+and creationTime < dateadd(HOUR,-2,GETUTCDATE())
 order by userId
 offset @PageNumber*@RowsPerPage ROWS
 FETCH NEXT @RowsPerPage ROWS ONLY";
             return GetMarketingDataAsync(query, sql, token);
         }
 
-        private async Task<IEnumerable<MarketingDto>> GetMarketingDataAsync(MarketingQuery query, string sql,
+        private static async Task<IEnumerable<MarketingDto>> GetMarketingDataAsync(MarketingQuery query, string sql,
             CancellationToken token)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync(token))
+            using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
             {
-                return await conn.QueryAsync<MarketingDto>(sql, new { query.RowsPerPage, query.PageNumber });
+                return await conn.QueryAsync<MarketingDto>(sql, new { query.RowsPerPage, query.PageNumber }).ConfigureAwait(false);
             }
         }
 
@@ -662,7 +612,7 @@ FETCH NEXT @RowsPerPage ROWS ONLY";
         {
             using (var conn = await DapperConnection.OpenReliableConnectionAsync(token, "SpamGun").ConfigureAwait(false))
             {
-                const string sql1 = @"select top 500 s.id, FirstName, Email,mailbody as MailBody,s.chapter,
+                const string sql1 = @"select top 500 s.id, FirstName, Email,mailBody as MailBody,s.chapter,
 mailsubject as MailSubject, mailcategory as MailCategory,u.url as UniversityUrl, u.name as school 
 from students s join universities u on s.uniid = u.id
 where uniid = @UniId
@@ -670,7 +620,7 @@ and shouldSend = 1
 and chapter is not null
 order by s.id
 OPTION (TABLE HINT(s, INDEX ([students_shouldsend2])),Recompile);";
-                const string sql2 = @"select top 500 s.id, FirstName, LastName, Email,mailbody as MailBody,
+                const string sql2 = @"select top 500 s.id, FirstName, LastName, Email,mailBody as MailBody,
 mailsubject as MailSubject, mailcategory as MailCategory,u.url as UniversityUrl 
 from students s join universities u on s.uniid = u.id
 where uniid = @UniId

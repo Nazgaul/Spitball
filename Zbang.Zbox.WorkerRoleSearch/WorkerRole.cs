@@ -42,7 +42,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
         }
 
-        void RoleEnvironment_StatusCheck(object sender, RoleInstanceStatusCheckEventArgs e)
+        static void RoleEnvironment_StatusCheck(object sender, RoleInstanceStatusCheckEventArgs e)
         {
             if (e.Status == RoleInstanceStatus.Busy)
             {
@@ -54,16 +54,15 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public override bool OnStart()
         {
-            
+
             TelemetryConfiguration.Active.InstrumentationKey = RoleEnvironment.GetConfigurationSettingValue("APPINSIGHTS_INSTRUMENTATIONKEY");
-            //TelemetryConfiguration.Active.TelemetryInitializers.Add(new ItemCorrelationTelemetryInitializer());
             // Set the maximum number of concurrent connections
             ServicePointManager.DefaultConnectionLimit = 12;
 
             // For information on handling configuration changes
             // see the MSDN topic at http://go.microsoft.com/fwlink/?LinkId=166357.
 
-            bool result = base.OnStart();
+            var result = base.OnStart();
 
             RoleEnvironment.Changing += RoleEnvironmentChanging;
             RoleEnvironment.StatusCheck += RoleEnvironment_StatusCheck;
@@ -72,7 +71,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return result;
         }
 
-        private void RoleEnvironmentChanging(object sender, RoleEnvironmentChangingEventArgs e)
+        private static void RoleEnvironmentChanging(object sender, RoleEnvironmentChangingEventArgs e)
         {
             TraceLog.WriteWarning("change role Environment");
             RoleEnvironment.RequestRecycle();
@@ -99,7 +98,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             foreach (var job in m_Jobs)
             {
-                var t = Task.Factory.StartNew(() => job.RunAsync(cancellationToken), cancellationToken);
+                //var t = job.RunAsync(cancellationToken);
+                var t =  Task.Run(() => job.RunAsync(cancellationToken));
+                //var t = Task.Factory.StartNew(async () => await job.RunAsync(cancellationToken).ConfigureAwait(false), cancellationToken);
                 m_Tasks.Add(t);
             }
             while (!cancellationToken.IsCancellationRequested)
@@ -109,19 +110,28 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     for (int i = 0; i < m_Tasks.Count; i++)
                     {
                         var task = m_Tasks[i];
-                        if (!task.IsFaulted) continue;
-                        // Observe unhandled exception
-                        if (task.Exception != null)
+                        if (task.IsFaulted)
                         {
-                            TraceLog.WriteError("Job threw an exception: ", task.Exception.InnerException);
-                        }
-                        else
-                        {
-                            TraceLog.WriteWarning("Job Failed and no exception thrown.");
-                        }
 
-                        var jobToRestart = m_Jobs.ElementAt(i);
-                        m_Tasks[i] = Task.Factory.StartNew(() => jobToRestart.RunAsync(cancellationToken), cancellationToken);
+                            // Observe unhandled exception
+                            if (task.Exception != null)
+                            {
+                                TraceLog.WriteError("Job threw an exception: ", task.Exception.InnerException);
+                            }
+                            else
+                            {
+                                TraceLog.WriteWarning("Job Failed and no exception thrown.");
+                            }
+
+                            var jobToRestart = m_Jobs.ElementAt(i);
+                            m_Tasks[i] = Task.Factory.StartNew(() => jobToRestart.RunAsync(cancellationToken),
+                                cancellationToken).Unwrap();
+                        }
+                        if (task.IsCompleted)
+                        {
+                            TraceLog.WriteWarning($"Job finished index: {i}");
+
+                        }
                     }
                     await Task.Delay(TimeSpan.FromSeconds(30), cancellationToken).ConfigureAwait(false);
                 }
@@ -138,21 +148,20 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 return new List<IJob>
                 {
-                   // m_Unity.Resolve<IJob>(nameof(MailQueueProcess)),
-                   // m_Unity.Resolve<IJob>(IocFactory.UpdateSearchItem),
-                   // m_Unity.Resolve<IJob>(nameof(BlobManagement)),
+                    //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchItem),
                     //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchBox),
                     //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchQuiz),
                     //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchUniversity),
-                  // m_Unity.Resolve<IJob>(IocFactory.UpdateSearchFlashcard),
-                    //m_Unity.Resolve<IJob>(nameof(SchedulerListener))
-                    //m_Unity.Resolve<IJob>(nameof(UpdateUnsubscribeList))
-                    m_Unity.Resolve<IJob>(nameof(TestingJob)),
-                    // m_Unity.Resolve<IJob>(nameof(ThumbnailQueueProcess)),
-                    // m_Unity.Resolve<IJob>(nameof(DeleteOldConnections)),
-                    //m_Unity.Resolve<IJob>(nameof(TransactionQueueProcess))
-                   //  m_Unity.Resolve<IJob>(nameof(DeleteOldStuff))
-                   //m_Unity.Resolve<IJob>(nameof(UpdateSearchFeed))
+                    //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchFlashcard),
+                    //m_Unity.Resolve<IJob>(nameof(UpdateUnsubscribeList)),
+                    //m_Unity.Resolve<IJob>(nameof(SchedulerListener)),
+                    //m_Unity.Resolve<IJob>(nameof(MailQueueProcess)),
+                    //m_Unity.Resolve<IJob>(nameof(TransactionQueueProcess)),
+                    //m_Unity.Resolve<IJob>(nameof(ThumbnailQueueProcess)),
+                    //m_Unity.Resolve<IJob>(nameof(DeleteOldConnections)),
+                    //m_Unity.Resolve<IJob>(nameof(DeleteOldStuff)),
+                    //m_Unity.Resolve<IJob>(nameof(UpdateSearchFeed)),
+                    m_Unity.Resolve<IJob>(nameof(TestingJob))
 
                 };
             }

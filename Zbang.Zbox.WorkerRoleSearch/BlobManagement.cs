@@ -28,6 +28,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var container = m_BlobClient.GetContainerReference(StorageContainerName.AzureBlobContainer);
             return ListBlobsSegmentedInFlatListingAsync(container);
         }
+
+        public string Name => nameof(BlobManagement);
+
         public async Task ListBlobsSegmentedInFlatListingAsync(CloudBlobContainer container)
         {
             BlobContinuationToken continuationToken = null;

@@ -154,6 +154,7 @@
     <Compile Include="DomainProcess\DeleteBox.cs" />
     <Compile Include="DomainProcess\FlagBadItem.cs" />
     <Compile Include="DomainProcess\IDomainProcess.cs" />
+    <Compile Include="DomainProcess\IFileProcess.cs" />
     <Compile Include="DomainProcess\NewUserProcess.cs" />
     <Compile Include="DomainProcess\PreProcessFile.cs" />
     <Compile Include="DomainProcess\Statistics.cs" />
@@ -164,6 +165,7 @@
     <Compile Include="IJob.cs" />
     <Compile Include="IntercomApiManager.cs" />
     <Compile Include="IntercomUsers.cs" />
+    <Compile Include="IWatsonExtract.cs" />
     <Compile Include="Mail\BaseMarketingMailProcess.cs" />
     <Compile Include="Mail\ChangeEmail.cs" />
     <Compile Include="Mail\DigestEmail.cs" />

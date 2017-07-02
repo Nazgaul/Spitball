@@ -1,39 +1,7 @@
 ﻿namespace Zbang.Zbox.ViewModel.SqlQueries
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Seo")]
     public static class Seo
     {
-
-
-//        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Seo")]
-//        public const string GetSeoItemsByPage = @"with boxSeo as (
-// select BoxId, url from zbox.box b 
-//where University in (select v.id from zbox.University v where needcode = 0)
-//and Discriminator = 2
-//and IsDeleted = 0
-//)
-//select b.boxid, b.Url +'feed/' as url 
-//from boxseo b
-//union all
-//select b.boxid, b.Url +'items/' as url 
-//from boxseo b
-//union all
-//select b.boxid, b.Url +'quizzes/' as url 
-//from boxseo b
-//union all
-//select b.boxid,i.url as url
-//from zbox.item i join boxSeo b on i.BoxId = b.BoxId
-//where i.IsDeleted = 0
-//and i.content is not null
-//and i.Discriminator = 'FILE'
-//union all
-//select b.boxid,q.url as Url
-//from zbox.quiz q join boxSeo b on q.BoxId = b.BoxId
-//where q.IsDeleted = 0
-//and q.publish = 1
-//order by 1
-//offset (@pageNumber-1)*@rowsperpage ROWS
-//FETCH NEXT @rowsperpage ROWS ONLY;";
 
         public const string GetBoxSeoByPage = @"with boxSeo as (
  select BoxId, BoxName,u.UniversityName from zbox.box b join zbox.University u on u.id = b.University and needcode = 0

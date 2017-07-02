@@ -75,7 +75,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
             {
                 throw new ArgumentNullException(nameof(name));
             }
-            string relativeUrl = VirtualPathUtility.AppendTrailingSlash(string.IsNullOrEmpty(universityName) ? string.Format(BoxUrl, id, NameToQueryString(name)) : string.Format(CourseUrl, id, NameToQueryString(name), NameToQueryString(universityName)));
+            var relativeUrl = VirtualPathUtility.AppendTrailingSlash(string.IsNullOrEmpty(universityName) ? string.Format(BoxUrl, id, NameToQueryString(name)) : string.Format(CourseUrl, id, NameToQueryString(name), NameToQueryString(universityName)));
             if (fullUrl)
             {
                 return SystemUrl + relativeUrl;
@@ -137,7 +137,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
             {
                 return name;
             }
-            char previousChar = '\0';
+            var previousChar = '\0';
             var sb = new StringBuilder();
             // name = name.Replace(Convert.ToChar(160), ' ');
             //name = name.Replace("\n", string.Empty);

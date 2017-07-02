@@ -122,7 +122,6 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 }
                 return;
             }
-            //var server = Connection.GetServer(Connection.GetEndPoints().FirstOrDefault());
             var db = Connection.GetDatabase();
             string keys = await db.StringGetAsync(region);
             

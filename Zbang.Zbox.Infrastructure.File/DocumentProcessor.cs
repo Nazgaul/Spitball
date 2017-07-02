@@ -32,6 +32,8 @@ namespace Zbang.Zbox.Infrastructure.File
             string getCacheVersionPrefix,
             CancellationToken token)
         {
+            if (previewStream == null) throw new ArgumentNullException(nameof(previewStream));
+            if (getPageCount == null) throw new ArgumentNullException(nameof(getPageCount));
             var t2 = UploadMetaDataAsync(blobUri, getPageCount(), getCacheVersionPrefix, token);
             var blobName = GetBlobNameFromUri(blobUri) + ".jpg";
             if (!await BlobProviderPreview.ExistsAsync(blobName).ConfigureAwait(false))
@@ -60,14 +62,15 @@ namespace Zbang.Zbox.Infrastructure.File
             string mimeType, CancellationToken token
             )
         {
+            if (pageCacheBlobName == null) throw new ArgumentNullException(nameof(pageCacheBlobName));
+            if (convertPageToPreview == null) throw new ArgumentNullException(nameof(convertPageToPreview));
             var blobsNamesInCache = new List<string>();
             var parallelTask = new List<Task>();
 
             var meta = await BlobProvider.FetchBlobMetaDataAsync(blobName, token).ConfigureAwait(false);
             meta = RemoveOldMetaTags(meta, cacheVersion);
-            string sPageCount;
             var pageCount = int.MaxValue;
-            if (meta.TryGetValue(PagesInDocsMetaKey, out sPageCount))
+            if (meta.TryGetValue(PagesInDocsMetaKey, out string sPageCount))
             {
                 int.TryParse(sPageCount, out pageCount);
             }
@@ -83,8 +86,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 {
                     using (var ms = await convertPageToPreview(pageIndex).ConfigureAwait(false))
                     {
-                        var compressor = new Compress();
-                        var sr = compressor.CompressToGzip(ms);
+                        var sr = await Compress.CompressToGzipAsync(ms).ConfigureAwait(false);
                         parallelTask.Add(BlobProviderCache.UploadByteArrayAsync(cacheBlobName, sr, mimeType, true, 30));
                         blobsNamesInCache.Add(BlobProviderCache.GenerateSharedAccessReadPermission(cacheBlobName, 30));
                         meta[metaDataKey] = DateTime.UtcNow.ToString(DatePattern);
@@ -119,8 +121,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 blobsNamesInCache.Add(BlobProviderCache.GenerateSharedAccessReadPermission(cacheBlobName, 20));
                 return true;
             }
-            string value;
-            if (!meta.TryGetValue(metaDataKey, out value)) return false;
+            if (!meta.TryGetValue(metaDataKey, out string _)) return false;
             blobsNamesInCache.Add(BlobProviderCache.GenerateSharedAccessReadPermission(cacheBlobName, 20));
             meta[metaDataKey] = DateTime.UtcNow.ToString(DatePattern);
             return true;

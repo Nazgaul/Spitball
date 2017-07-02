@@ -12,11 +12,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public class TransactionQueueProcess : IJob
     {
         private readonly IQueueProviderExtract m_QueueProviderExtract;
-        private const string Prefix = "TransactionProcess";
         public TransactionQueueProcess(IQueueProviderExtract queueProviderExtract)
         {
             m_QueueProviderExtract = queueProviderExtract;
         }
+
+        public string Name => nameof(TransactionQueueProcess);
 
         public async Task RunAsync(CancellationToken cancellationToken)
         {
@@ -30,13 +31,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         var msgData = msg.FromMessageProto<Infrastructure.Transport.DomainProcess>();
                         if (msgData == null)
                         {
-                            TraceLog.WriteError($"{Prefix} run - msg cannot transfer to DomainProcess");
+                            TraceLog.WriteError($"{Name} run - msg cannot transfer to DomainProcess");
                             return true;
                         }
                         var process = Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IDomainProcess>(msgData.ProcessResolver);
                         if (process == null)
                         {
-                            TraceLog.WriteError($"{Prefix} run - process is null msgData.ProcessResolver:" + msgData.ProcessResolver);
+                            TraceLog.WriteError($"{Name} run - process is null msgData.ProcessResolver:" + msgData.ProcessResolver);
                             return true;
                         }
                         return await process.ExecuteAsync(msgData, cancellationToken).ConfigureAwait(false);

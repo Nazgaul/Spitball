@@ -19,6 +19,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_MailComponent = mailComponent;
         }
 
+        public string Name => nameof(DeleteOldStuff);
         public async Task RunAsync(CancellationToken cancellationToken)
         {
             while (!cancellationToken.IsCancellationRequested)

@@ -31,7 +31,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
 
 
-
+        public string Name => nameof(UpdateSearchBox);
         public async Task RunAsync(CancellationToken cancellationToken)
         {
             var index = RoleIndexProcessor.GetIndex();
@@ -78,11 +78,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         }
 
 
-
-        protected override string GetPrefix()
-        {
-            return "Search Box";
-        }
+        
 
         public async Task<bool> ExecuteAsync(FileProcess data, CancellationToken token)
         {

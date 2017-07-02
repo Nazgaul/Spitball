@@ -19,6 +19,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_ZboxWriteService = zboxWriteService;
             m_MailComponent = mailComponent;
         }
+        public string Name => nameof(DeleteOldConnections);
 
         public async Task RunAsync(CancellationToken cancellationToken)
         {
@@ -39,25 +40,21 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     
                     try
                     {
-                        var proxy = await SignalrClient.GetProxyAsync();
+                        var proxy = await SignalrClient.GetProxyAsync().ConfigureAwait(false);
                         foreach (var userId in command.UserIds)
                         {
-                            await proxy.Invoke("Offline", userId);
+                            await proxy.Invoke("Offline", userId).ConfigureAwait(false);
                         }
                     }
                     catch (Exception ex)
                     {
-                        await m_MailComponent.GenerateSystemEmailAsync("signalR error", ex.Message);
+                        await m_MailComponent.GenerateSystemEmailAsync("signalR error", ex.Message).ConfigureAwait(false);
                         TraceLog.WriteError("on signalr disconnect process", ex);
                     }
                 }
-                await Task.Delay(TimeSpan.FromSeconds(30), cancellationToken);
+                await Task.Delay(TimeSpan.FromSeconds(30), cancellationToken).ConfigureAwait(false);
             }
         }
 
-        public void Stop()
-        {
-           // throw new NotImplementedException();
-        }
     }
 }

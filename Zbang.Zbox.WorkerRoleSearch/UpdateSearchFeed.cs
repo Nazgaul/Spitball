@@ -34,6 +34,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_WriteService = writeService;
         }
 
+        public string Name => nameof(UpdateSearchFeed);
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
         {
             const int size = 100;
@@ -56,7 +57,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     
                 }
                 TraceLog.WriteInfo("Feed search Going to process " + updates.NextVersion);
-                //var tasks = new List<Task>();
                 foreach (var feed in updates.Updates.Where(w => w.University != null && JaredUniversityIdPilot.Contains(w.University.Id)))
                 {
                     await JaredPilotAsync(feed, cancellationToken).ConfigureAwait(false); // otherwise we got race condition
@@ -68,7 +68,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 //version = Math.Max(version.GetValueOrDefault(), updates.NextVersion);
             } while (updates.Updates.Count() == size);
 
-            //var newVersion = version.Value;
             await WriteNextVersionAsync(cancellationToken, version).ConfigureAwait(false);
             if (page == 1)
             {
@@ -91,7 +90,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             if (elem.Language.GetValueOrDefault(Infrastructure.Culture.Language.Undefined) == Infrastructure.Culture.Language.Undefined)
             {
                 elem.Language = await m_WatsonExtractProvider.GetLanguageAsync(elem.Content,cancellationToken).ConfigureAwait(false);
-              
             }
 
             if (elem.Language == Infrastructure.Culture.Language.EnglishUs && elem.Tags.All(a => a.Type != TagType.Watson))
@@ -109,10 +107,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return m_SearchProvider.UpdateDataAsync(elem, null, cancellationToken);
         }
 
-        protected override string GetPrefix()
-        {
-            return "Feed";
-        }
+       
 
         private async Task<long?> ReadVersionBlobDataAsync(CancellationToken cancellationToken)
         {

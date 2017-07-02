@@ -909,7 +909,7 @@ where ownerid = @UserId and boxid = @BoxId;";
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var data = await conn.QueryFirstOrDefaultAsync(new CommandDefinition(Sql.Seo.GetSeoItemsCount));
-                var list = new List<SitemapDto>()
+                var list = new List<SitemapDto>
                 {
                     new SitemapDto(SeoType.Course, data.boxcount), new SitemapDto(SeoType.Item, data.itemCount), new SitemapDto(SeoType.Quiz, data.quizCount), new SitemapDto(SeoType.Flashcard, data.flashcardCount),
                 };

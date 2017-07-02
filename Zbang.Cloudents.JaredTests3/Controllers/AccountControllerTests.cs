@@ -29,36 +29,35 @@ using Zbang.Zbox.Infrastructure.Profile;
 
 namespace Zbang.Cloudents.Jared.Controllers.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class AccountControllerTests
     {
-        private AccountController controller;
+        private AccountController m_Controller;
         private IZboxWriteService m_ZboxWriteService;
-        private IZboxReadService m_read;
-        private IProfilePictureProvider m_ProfilePicture;
+        private IZboxReadService m_Read;
         [TestInitialize]
         public void Setup()
         {
             var localStorageProvider = MockRepository.GenerateStub<ILocalStorageProvider>();
             IocFactory.IocWrapper.RegisterInstance(localStorageProvider);
-            m_read = MockRepository.GenerateMock<IZboxReadService>();
+            m_Read = MockRepository.GenerateMock<IZboxReadService>();
             var m_CommandBus = MockRepository.GenerateMock<ICommandBus>();
             var m_Cache = MockRepository.GenerateMock<IWithCache>();
             var profile = MockRepository.GenerateMock<IProfilePictureProvider>();
             m_ZboxWriteService = new ZboxWriteService(m_CommandBus, m_Cache);
-            controller = new AccountController(m_ZboxWriteService,m_read, profile);
-            controller.Request = new HttpRequestMessage();
-            controller.Request.SetConfiguration(new HttpConfiguration());
+            m_Controller = new AccountController(m_ZboxWriteService,m_Read, profile);
+            m_Controller.Request = new HttpRequestMessage();
+            m_Controller.Request.SetConfiguration(new HttpConfiguration());
         }
         [TestMethod()]
         public void UpdateUniversityAsyncTest()
         {
-            controller.ModelState.Clear();
-            var model = new UpdateUniversityRequest() { UniversityId=long.Parse(18.ToString())};
-            controller.Validate(model);
+            m_Controller.ModelState.Clear();
+            var model = new UpdateUniversityRequest { UniversityId=long.Parse(18.ToString())};
+            m_Controller.Validate(model);
             var command = new UpdateUserUniversityCommand(model.UniversityId, 4, null);
             var c = command.StudentId ?? "678";
-            var result = controller.UpdateUniversityAsync(null);
+            var result = m_Controller.UpdateUniversityAsync(null);
             Assert.IsTrue(result.ReasonPhrase == "Bad Request");
         }
     }

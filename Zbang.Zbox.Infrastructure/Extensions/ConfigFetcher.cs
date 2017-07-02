@@ -12,6 +12,7 @@ namespace Zbang.Zbox.Infrastructure.Extensions
         public static readonly bool IsRunningOnCloud;
         public static readonly bool IsEmulated;
         private static readonly Dictionary<string, string> ConfigurationValues;
+        private static readonly object LockObj = new object();
 
         static ConfigFetcher()
         {
@@ -34,19 +35,21 @@ namespace Zbang.Zbox.Infrastructure.Extensions
                 TraceLog.WriteError(ex);
                 IsRunningOnCloud = false;
             }
-            
         }
 
         public static string Fetch(string name)
         {
-            string retVal;
-            if (ConfigurationValues.TryGetValue(name, out retVal))
+            lock (LockObj)
             {
+                if (ConfigurationValues.TryGetValue(name, out string retVal))
+                {
+                    return retVal;
+                }
+                retVal = IsRunningOnCloud ? FromAzure(name) : FromConfig(name);
+
+                ConfigurationValues.Add(name, retVal);
                 return retVal;
             }
-            retVal = IsRunningOnCloud ? FromAzure(name) : FromConfig(name);
-            ConfigurationValues.Add(name, retVal);
-            return retVal;
         }
 
         private static string FromAzure(string name)
@@ -57,7 +60,7 @@ namespace Zbang.Zbox.Infrastructure.Extensions
 
                 return connStr;
             }
-            catch
+            catch(RoleEnvironmentException)
             {
                 return FromConfig(name);
             }

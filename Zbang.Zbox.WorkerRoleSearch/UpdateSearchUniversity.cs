@@ -20,7 +20,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
 
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
-        private const string PrefixLog = "Search university";
 
         public UpdateSearchUniversity(IZboxReadServiceWorkerRole zboxReadService, IUniversityWriteSearchProvider2 universitySearchProvider, IZboxWorkerRoleService zboxWriteService)
         {
@@ -30,7 +29,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             MaxInterval = TimeSpan.FromMinutes(10).TotalSeconds; //Remove once production is up
         }
 
-
+        public string Name => nameof(UpdateSearchUniversity);
         public async Task RunAsync(CancellationToken cancellationToken)
         {
             var index = RoleIndexProcessor.GetIndex();
@@ -72,10 +71,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return TimeToSleep.Same;
         }
 
-        protected override string GetPrefix()
-        {
-            return PrefixLog;
-        }
+        
 
         public async Task<bool> ExecuteAsync(FileProcess data, CancellationToken token)
         {

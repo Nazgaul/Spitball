@@ -22,7 +22,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
-            await UploadMetaDataAsync(blobUri, 1, CacheVersion, cancelToken);
+            await UploadMetaDataAsync(blobUri, 1, CacheVersion, cancelToken).ConfigureAwait(false);
             return null;
         }
 
@@ -43,7 +43,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
             //var cacheBlobNameWithSharedAccessSignature = BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheFileName, 20);
 
-            if (await m_BlobProviderCache.ExistsAsync(cacheFileName))
+            if (await m_BlobProviderCache.ExistsAsync(cacheFileName).ConfigureAwait(false))
             {
                 blobsNamesInCache.Add(m_BlobProviderCache.GenerateSharedAccessReadPermission(cacheFileName, 30));
                 return new PreviewResult { ViewName = "Text", Content = blobsNamesInCache };
@@ -54,12 +54,12 @@ namespace Zbang.Zbox.Infrastructure.File
             //    return new PreviewResult { ViewName = "Text", Content = blobsNamesInCache };
             //}
 
-            using (var stream = new StreamReader(await BlobProvider.DownloadFileAsync(blobUri, cancelToken)))
+            using (var stream = new StreamReader(await BlobProvider.DownloadFileAsync(blobUri, cancelToken).ConfigureAwait(false)))
             {
-                var content = await stream.ReadToEndAsync();
+                var content = await stream.ReadToEndAsync().ConfigureAwait(false);
                 using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(content)))
                 {
-                    blobsNamesInCache.Add(await UploadFileToCacheAsync(ms, cacheFileName));
+                    blobsNamesInCache.Add(await UploadFileToCacheAsync(ms, cacheFileName).ConfigureAwait(false));
                 }
             }
             return new PreviewResult { Content = blobsNamesInCache, ViewName = "Text" };
@@ -73,9 +73,8 @@ namespace Zbang.Zbox.Infrastructure.File
             {
                 throw new ArgumentException("Stream is 0");
             }
-            var compressor = new Compress();
-            var sr = compressor.CompressToGzip(stream);
-            await m_BlobProviderCache.UploadByteArrayAsync(cacheFileName, sr, "text/plain", true, 30);
+            var sr = await Compress.CompressToGzipAsync(stream).ConfigureAwait(false);
+            await m_BlobProviderCache.UploadByteArrayAsync(cacheFileName, sr, "text/plain", true, 30).ConfigureAwait(false);
             return m_BlobProviderCache.GenerateSharedAccessReadPermission(cacheFileName, 30);
             //var cacheName = await BlobProvider.UploadFileToCacheAsync(cacheFileName, sr, "text/plain", true);
             //return cacheName;
@@ -86,7 +85,7 @@ namespace Zbang.Zbox.Infrastructure.File
         //    return !string.IsNullOrEmpty(cacheBlobNameWithSharedAccessSignature);
         //}
 
-        private string CreateCacheFileName(string blobName)
+        private static string CreateCacheFileName(string blobName)
         {
             return $"{Path.GetFileNameWithoutExtension(blobName)}V3_{Path.GetExtension(blobName)}.html";
         }
@@ -100,9 +99,9 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override async Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
-            using (var stream = new StreamReader(await BlobProvider.DownloadFileAsync(blobUri, cancelToken)))
+            using (var stream = new StreamReader(await BlobProvider.DownloadFileAsync(blobUri, cancelToken).ConfigureAwait(false)))
             {
-                return stream.ReadToEnd();
+                return await stream.ReadToEndAsync().ConfigureAwait(false);
             }
         }
     }

@@ -37,10 +37,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_BlobProvider = blobProvider;
         }
 
+        public string Name => nameof(TestingJob);
         public async Task RunAsync(CancellationToken cancellationToken)
         {
             IEnumerable<Tuple<long, string>> documents;
             var lastId = 0L;
+            return;
             while ((documents = (await m_ZboxReadService.GetDocumentsWithoutMd5Async(lastId).ConfigureAwait(false)).ToList()).Any())
             {
                 TraceLog.WriteInfo($"one time job process batch {string.Join( ",", documents.Select(s=>s.Item1))}");
@@ -71,11 +73,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
             }
             TraceLog.WriteInfo("one time job stop to work");
-        }
-
-        public void Stop()
-        {
-            // throw new NotImplementedException();
         }
     }
 }
