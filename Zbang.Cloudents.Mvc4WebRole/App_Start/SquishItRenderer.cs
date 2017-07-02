@@ -20,6 +20,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 Directory.CreateDirectory(dir);
             }
             File.WriteAllBytes(outputPath, bytes);
+
         }
     }
 }
