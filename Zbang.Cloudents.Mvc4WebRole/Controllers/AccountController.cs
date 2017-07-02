@@ -708,19 +708,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk();
         }
 
-        //[HttpPost]
-        //public JsonResult ChangeTheme(Theme theme)
-        //{
-        //    if (User.Identity.IsAuthenticated)
-        //    {
-        //        var id = User.GetUserId();
-        //        var command = new UpdateUserThemeCommand(id, theme);
-        //        ZboxWriteService.UpdateUserTheme(command);
-        //    }
-        //    //m_ThemeCookieHelper.InjectCookie(theme);
-        //    return JsonOk();
-        //}
-
 
 
         #region passwordReset
@@ -864,13 +851,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, ActionName("Details")]
         public async Task<ActionResult> DetailsAsync()
         {
-            //string cookieToken, formToken;
-            //AntiForgery.GetTokens(null, out cookieToken, out formToken);
-            //var token = formToken;
-
-            //var cookieHelper = new CookieHelper(HttpContext);
-            //cookieHelper.InjectCookie(AntiForgeryConfig.CookieName, cookieToken);
-
+            
             if (!User.Identity.IsAuthenticated)
             {
                 return JsonOk(new { /*token,*/ Culture = CultureInfo.CurrentCulture.Name });
@@ -930,7 +911,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ActionName("Updates")]
         public async Task<ActionResult> UpdatesAsync()
         {
-            var model = await ZboxReadService.GetUpdatesAsync(new QueryBase(User.GetUserId()));
+            var model = await ZboxReadService.GetUpdatesAsync(new QueryBase(User.GetUserId())).ConfigureAwait(false);
             return JsonOk(model.Select(s => new
             {
                 s.AnswerId,

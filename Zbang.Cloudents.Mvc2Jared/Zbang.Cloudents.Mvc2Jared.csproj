@@ -985,7 +985,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\CookieTempDataProvider.cs" />
     <Compile Include="Helpers\JsonResponse.cs" />
     <Compile Include="App_Start\IocConfig.cs" />
     <Compile Include="Models\LogOn.cs" />

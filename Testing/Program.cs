@@ -382,7 +382,7 @@ namespace Testing
             using (var sw = new StreamWriter(@"C:\Users\USER\Desktop\InvalidLinksList.csv"))
             {
                 foreach (var obj in invalidLinks)
-                    sw.WriteLine(String.Format("{0},{1},{2}", obj.BlobName, string.Join(" ", obj.ItemIds), obj.Code));
+                    sw.WriteLine($"{obj.BlobName},{string.Join(" ", obj.ItemIds)},{obj.Code}");
             }
             return true;
         }

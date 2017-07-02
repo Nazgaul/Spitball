@@ -42,7 +42,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var tiff = new AsyncLazy<TiffImage>(async () =>
            {
                SetLicense();
-               blobStr = await BlobProvider.DownloadFileAsync(blobUri, cancelToken);
+               blobStr = await BlobProvider.DownloadFileAsync(blobUri, cancelToken).ConfigureAwait(false);
 
                var tiffImage = (TiffImage)Image.Load(blobStr);
                return tiffImage;
@@ -56,23 +56,17 @@ namespace Zbang.Zbox.Infrastructure.File
 
             for (var pageIndex = indexNum; pageIndex < indexNum + 15; pageIndex++)
             {
-                var cacheblobName = CreateCacheFileName(blobName, pageIndex);
+                var cacheBlobName = CreateCacheFileName(blobName, pageIndex);
 
-                if (await m_BlobProviderCache.ExistsAsync(cacheblobName))
+                if (await m_BlobProviderCache.ExistsAsync(cacheBlobName).ConfigureAwait(false))
                 {
-                    blobsNamesInCache.Add(m_BlobProviderCache.GenerateSharedAccessReadPermission(cacheblobName, 30));
+                    blobsNamesInCache.Add(m_BlobProviderCache.GenerateSharedAccessReadPermission(cacheBlobName, 30));
                     continue;
                 }
-                //var cacheBlobNameWithSharedAccessSignature = BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheblobName, 20);
-                //if (!string.IsNullOrEmpty(cacheBlobNameWithSharedAccessSignature))
-                //{
-                //    blobsNamesInCache.Add(cacheBlobNameWithSharedAccessSignature);
-                //    continue;
-                //}
                 try
                 {
 
-                    var activeTiff = await tiff.Value;
+                    var activeTiff = await tiff.Value.ConfigureAwait(false);
                     activeTiff.ActiveFrame = activeTiff.Frames[pageIndex];// tiffFrame;
                     //Load Pixels of TiffFrame into an array of Colors
                     var pixels = activeTiff.LoadPixels(activeTiff.Bounds);
@@ -88,10 +82,9 @@ namespace Zbang.Zbox.Infrastructure.File
                             jpgImage.SavePixels(activeTiff.Bounds, pixels);
                             jpgImage.Save();
                         }
-                        var gzipSr = Compress.CompressToGzip(ms);
-                        parallelTask.Add(m_BlobProviderCache.UploadByteArrayAsync(cacheblobName, gzipSr, "image/jpg", true, 30));
-                        blobsNamesInCache.Add(m_BlobProviderCache.GenerateSharedAccessReadPermission(cacheblobName, 30));
-                        //parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, gzipSr, "image/jpg", true));
+                        var gzipSr = await Compress.CompressToGzipAsync(ms, cancelToken).ConfigureAwait(false);
+                        parallelTask.Add(m_BlobProviderCache.UploadByteArrayAsync(cacheBlobName, gzipSr, "image/jpg", true, 30));
+                        blobsNamesInCache.Add(m_BlobProviderCache.GenerateSharedAccessReadPermission(cacheBlobName, 30));
                     }
                 }
                 catch (IndexOutOfRangeException)
@@ -100,8 +93,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 }
 
             }
-            await Task.WhenAll(parallelTask);
-            //blobsNamesInCache.AddRange(parallelTask.Select(s => s.Result));
+            await Task.WhenAll(parallelTask).ConfigureAwait(false);
             if (tiff.IsValueCreated)
             {
                 tiff.Value.Dispose();
@@ -110,9 +102,9 @@ namespace Zbang.Zbox.Infrastructure.File
             return new PreviewResult { Content = blobsNamesInCache, ViewName = "Image" };
         }
 
-        protected string CreateCacheFileName(string blobName, int index)
+        protected static string CreateCacheFileName(string blobName, int index)
         {
-            return string.Format("{0}V4_{2}_{1}.jpg", Path.GetFileNameWithoutExtension(blobName), Path.GetExtension(blobName), index);
+            return $"{Path.GetFileNameWithoutExtension(blobName)}V4_{index}_{Path.GetExtension(blobName)}.jpg";
         }
 
 
@@ -133,13 +125,13 @@ namespace Zbang.Zbox.Infrastructure.File
             try
             {
                 var blobName = GetBlobNameFromUri(blobUri);
-                if (await m_BlobProviderPreview.ExistsAsync(blobName + ".jpg"))
+                if (await m_BlobProviderPreview.ExistsAsync(blobName + ".jpg").ConfigureAwait(false))
                 {
                     return null;
                 }
 
 
-                using (var stream = await BlobProvider.DownloadFileAsync(blobUri, cancelToken))
+                using (var stream = await BlobProvider.DownloadFileAsync(blobUri, cancelToken).ConfigureAwait(false))
                 {
                     using (var ms = new MemoryStream())
                     {
@@ -149,7 +141,7 @@ namespace Zbang.Zbox.Infrastructure.File
                         };
                         ImageBuilder.Current.Build(stream, ms, settings2, false);
 
-                        await m_BlobProviderPreview.UploadStreamAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
+                        await m_BlobProviderPreview.UploadStreamAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken).ConfigureAwait(false);
                     }
                 }
 

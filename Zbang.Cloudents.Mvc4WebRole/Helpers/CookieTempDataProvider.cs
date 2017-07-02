@@ -12,30 +12,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
     {
         private const string TempDataCookieKey = "_temp";
         private readonly HttpContextBase m_HttpContext;
-        private readonly Compress m_Compress;
 
         public CookieTempDataProvider(HttpContextBase httpContext)
         {
-            if (httpContext == null)
-            {
-                throw new ArgumentNullException(nameof(httpContext));
-            }
-            m_HttpContext = httpContext;
-            m_Compress = new Compress();
+            m_HttpContext = httpContext ?? throw new ArgumentNullException(nameof(httpContext));
         }
 
 
         protected virtual IDictionary<string, object> LoadTempData(ControllerContext controllerContext)
         {
-            HttpCookie cookie = m_HttpContext.Request.Cookies[TempDataCookieKey];
+            var cookie = m_HttpContext.Request.Cookies[TempDataCookieKey];
             if (!string.IsNullOrEmpty(cookie?.Value))
             {
-                IDictionary<string, object> deserializedDictionary = Base64StringToDictionary2(cookie.Value);
+                var deserializedDictionary = Base64StringToDictionary2(cookie.Value);
 
                 cookie.Expires = DateTime.MinValue;
                 cookie.Value = string.Empty;
 
-                HttpCookie responseCookie = m_HttpContext.Response?.Cookies?[TempDataCookieKey];
+                var responseCookie = m_HttpContext.Response?.Cookies?[TempDataCookieKey];
                 if (responseCookie != null)
                 {
                     responseCookie.Expires = DateTime.MinValue;
@@ -54,78 +48,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             {
                 return;
             }
-            string cookieValue = DictionaryToBase64String2(values);
-
-            //for (int i = 0; i < m_HttpContext.Request.Cookies.Count; i++)
-            //{
-            //    if (m_HttpContext.Request.Cookies.GetKey(i) == TempDataCookieKey)
-            //    {
-            //        var oldCookie = m_HttpContext.Request.Cookies.Get(i);
-            //        if (oldCookie != null)
-            //        {
-            //            oldCookie.Expires = DateTime.MinValue;
-            //            oldCookie.Value = String.Empty;
-            //            m_HttpContext.Response.Cookies.Add(oldCookie);
-            //        }
-            //    }
-            //}
-            //foreach (string oldCookieName in cookiesName)
-            //{
-            //    var oldCookie = m_HttpContext.Request.Cookies.Get(oldCookieName);
-            //    //if (oldCookieName == TempDataCookieKey)
-            //    //{
-            //    //    var oldCookie = m_HttpContext.Request.Cookies.Re
-            //    if (oldCookie != null)
-            //    {
-            //        oldCookie.Expires = DateTime.MinValue;
-            //        oldCookie.Value = String.Empty;
-            //    }
-            //    m_HttpContext.Request.Cookies.Remove(oldCookieName);
-            //    //}
-            //}
+            var cookieValue = DictionaryToBase64String2(values);
 
             var cookie = new HttpCookie(TempDataCookieKey) { HttpOnly = true, Value = cookieValue };
 
             m_HttpContext.Response.Cookies.Add(cookie);
         }
-
-        //public IDictionary<string, object> Base64StringToDictionary(string base64EncodedSerializedTempData)
-        //{
-
-        //    byte[] bytes = Convert.FromBase64String(base64EncodedSerializedTempData);
-        //    var decompressBytes = m_Compress.DecompressFromGzip(bytes);
-        //    using (var memStream = new MemoryStream(decompressBytes))
-        //    {
-        //        var binFormatter = new BinaryFormatter();
-        //        return binFormatter.Deserialize(memStream, null) as IDictionary<string, object>;
-        //    }
-        //}
-
-        //public string DictionaryToBase64String(IDictionary<string, object> values)
-        //{
-        //    using (var memStream = new MemoryStream())
-        //    {
-        //        memStream.Seek(0, SeekOrigin.Begin);
-        //        var binFormatter = new BinaryFormatter();
-        //        binFormatter.Serialize(memStream, values);
-        //        memStream.Seek(0, SeekOrigin.Begin);
-        //        byte[] bytes = memStream.ToArray();
-        //        var compressBytes = m_Compress.CompressToGzip(bytes);
-
-        //        var y = Convert.ToBase64String(compressBytes);
-        //        return y;
-        //    }
-        //}
+        
 
         public string DictionaryToBase64String2(IDictionary<string, object> values)
         {
             try
             {
-                // var s = new JavaScriptSerializer();
-                string json = JsonConvert.SerializeObject(values);
-                //var dataAsString = s.Serialize(values);
+                var json = JsonConvert.SerializeObject(values);
                 var bytes = GetBytes(json);
-                var compressBytes = m_Compress.CompressToGzip(bytes);
+                var compressBytes = Compress.CompressToGzip(bytes);
                 var z = HttpServerUtility.UrlTokenEncode(compressBytes);
                 return z;
             }
@@ -139,89 +76,31 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             try
             {
-                //byte[] bytes = Convert.FromBase64String(base64EncodedSerializedTempData);
                 var bytes = HttpServerUtility.UrlTokenDecode(base64EncodedSerializedTempData);
                 var decompressBytes = Compress.DecompressFromGzip(bytes);
                 var dataAsString = GetString(decompressBytes);
-                // var s = new JavaScriptSerializer();
                 return JsonConvert.DeserializeObject<IDictionary<string, object>>(dataAsString);
-                // return s.Deserialize<IDictionary<string, object>>(dataAsString);
             }
             catch
             {
                 return null;
             }
         }
-        /*
-                /// <summary>
-                /// Converts the byte array to a string.
-                /// </summary>
-                public string Bytes2String(byte[] bytes)
-                {
-                    var ms = new MemoryStream(bytes.Length);
 
-                    foreach (byte t in bytes)
-                    {
-        // if it is a zero, or if it would make a surrogate double byte, then escape it with an extra zero
-                        if (t == 0 || (0xd8 <= t && t <= 0xdf && ms.Length % 2 == 1))
-                            ms.WriteByte(0);
-                        ms.WriteByte(t);
-                    }
 
-                    // make sure the length is even
-                    if (ms.Length % 2 == 1)
-                        ms.WriteByte(0);
-
-                    // UTF-16 LE decoding
-                    return Encoding.Unicode.GetString(ms.ToArray());
-                }
-        */
-
-        byte[] GetBytes(string str)
+        static byte[] GetBytes(string str)
         {
             var bytes = new byte[str.Length * sizeof(char)];
             Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
             return bytes;
         }
 
-        string GetString(byte[] bytes)
+        static string GetString(byte[] bytes)
         {
             var chars = new char[bytes.Length / sizeof(char)];
             Buffer.BlockCopy(bytes, 0, chars, 0, bytes.Length);
             return new string(chars);
         }
-
-        /*
-                /// <summary>
-                /// Converts the string to a byte array.
-                /// </summary>
-                public  byte[] String2Bytes(string s)
-                {
-                    // UTF-16 LE encoding
-                    var bytes = Encoding.Unicode.GetBytes(s);
-
-                    var ms = new MemoryStream(bytes.Length);
-
-                    var escaped = false;
-                    foreach (byte t in bytes)
-                    {
-        // if it is a non-escaped zero, then treat it as an escape byte (may be the last byte as well)
-                        if (t == 0 && !escaped)
-                        {
-                            escaped = true;
-                        }
-                        else
-                        {
-                            escaped = false;
-                            ms.WriteByte(t);
-                        }
-                    }
-
-                    return ms.ToArray();
-                }
-        */
-
-
 
         IDictionary<string, object> ITempDataProvider.LoadTempData(ControllerContext controllerContext)
         {

@@ -37,7 +37,6 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<string>> GetDepartmentAsync(SearchTermQuery term);
         Task<IEnumerable<string>> GetTagAsync(SearchTermQuery term);
 
-        //Task<IEnumerable<LeaderBoardDto>> GetDashboardLeaderBoardAsync(LeaderBoardQuery query);
 
         Task<UniversityDashboardInfoDto> GetUniversityInfoAsync(UniversityQuery query);
 
@@ -77,14 +76,11 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        // BoxSettingsDto GetBoxSetting(GetBoxQuery query, long userId);
 
         Task<IEnumerable<UserMemberDto>> GetBoxMembersAsync(GetBoxQuery query);
-        //Task<IEnumerable<long>> GetBoxUsersIdAsync(GetBoxWithUserQuery query);
 
         Task<UserMinProfile> GetUserMinProfileAsync(GetUserMinProfileQuery query);
 
-        //Task<string> GetLocationByIpAsync(GetCountryByIpQuery query);
         Task<IEnumerable<CommentDto>> GetCommentsAsync(GetBoxQuestionsQuery query);
         Task<IEnumerable<ReplyDto>> GetRepliesAsync(GetCommentRepliesQuery query);
 
@@ -129,7 +125,6 @@ namespace Zbang.Zbox.ReadServices
         Task<QuizQuestionWithSolvedAnswersDto> GetQuizQuestionWithAnswersAsync(GetQuizQuery query);
 
 
-        //Task<IEnumerable<RecommendBoxDto>> GetRecommendedCoursesAsync(RecommendedCoursesQuery query);
 
         Task<IEnumerable<UniversityByPrefixDto>> GetUniversityByIpAddressAsync(UniversityByIpQuery query);
         Task<IEnumerable<UserImageNameDto>> GetUsersInBoxByTermAsync(UserInBoxSearchQuery query);

@@ -452,7 +452,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             else
             {
-                nodes = await GetSitemapNodesAsync(type, index, cancellationToken);
+                nodes = await GetSitemapNodesAsync(type, index, cancellationToken).ConfigureAwait(false);
             }
 
             var root = new XElement(xmlns + "urlset",
@@ -487,7 +487,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         new XAttribute("href", lang.Url));
 
                         url.Add(langNode);
-                        //        langLink.Add(langNode);
                     }
                 }
 

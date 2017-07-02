@@ -31,6 +31,5 @@ namespace Zbang.Zbox.Infrastructure.Storage
             string text, Guid conversationId,
             IList<long> userIds);
 
-        //Task GetRegisteredUsersAsync();
     }
 }

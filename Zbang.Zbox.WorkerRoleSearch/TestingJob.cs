@@ -42,7 +42,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             IEnumerable<Tuple<long, string>> documents;
             var lastId = 0L;
-            return;
             while ((documents = (await m_ZboxReadService.GetDocumentsWithoutMd5Async(lastId).ConfigureAwait(false)).ToList()).Any())
             {
                 TraceLog.WriteInfo($"one time job process batch {string.Join( ",", documents.Select(s=>s.Item1))}");

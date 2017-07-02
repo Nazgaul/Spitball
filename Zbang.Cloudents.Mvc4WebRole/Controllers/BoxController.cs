@@ -125,13 +125,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 if (part == "items")
                 {
-                    ViewBag.title = string.Format("{3} - {0} - {1} | {2}", model.Name, model.DepartmentName,
-                        SeoBaseUniversityResources.Cloudents, SeoBaseUniversityResources.BoxTitleItems);
+                    ViewBag.title =
+                        $"{SeoBaseUniversityResources.BoxTitleItems} - {model.Name} - {model.DepartmentName} | {SeoBaseUniversityResources.Cloudents}";
                 }
                 if (part == "quizzes")
                 {
-                    ViewBag.title = string.Format("{3} - {0} - {1} | {2}", model.Name, model.DepartmentName,
-                        SeoBaseUniversityResources.Cloudents, SeoBaseUniversityResources.BoxTitleQuizzes);
+                    ViewBag.title =
+                        $"{SeoBaseUniversityResources.BoxTitleQuizzes} - {model.Name} - {model.DepartmentName} | {SeoBaseUniversityResources.Cloudents}";
                 }
                 return View("Empty");
             }

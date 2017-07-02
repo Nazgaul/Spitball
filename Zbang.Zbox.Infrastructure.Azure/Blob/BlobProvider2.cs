@@ -12,8 +12,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 {
     public class BlobProvider2<T> : BlobProvider, IBlobProvider2<T> where T : IStorageContainerName, new()
     {
-        //private CloudBlobClient m_BlobClient;
-        // private readonly ILocalStorageProvider m_LocalStorageProvider;
         private readonly T m_Container = new T();
 
         //There is some race condition with initialize until the localstorage provider is actually initialized
@@ -41,17 +39,17 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return ++currentIndex;
         }
 
-        public async Task CommitBlockListAsync(string blobName, int currentIndex, string contentType)
+        public Task CommitBlockListAsync(string blobName, int currentIndex, string contentType)
         {
             var blockList = Enumerable.Range(0, currentIndex).Select(ToBase64);
             var blob = GetBlob(blobName);
             blob.Properties.ContentType = contentType;
             blob.Properties.CacheControl = "private max-age=" + TimeConst.Week;
-            await blob.PutBlockListAsync(blockList, null, new BlobRequestOptions
+            return blob.PutBlockListAsync(blockList, null, new BlobRequestOptions
             {
                 StoreBlobContentMD5 = true
 
-            }, null).ConfigureAwait(false);
+            }, null);
 
         }
 
@@ -127,8 +125,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
                 var md5Object = System.Security.Cryptography.MD5.Create();
                 using (var stream = await blob.OpenReadAsync().ConfigureAwait(false))
                 {
-                    var bytesReceived = 0;
-                   
+                    int bytesReceived;
                     while ((bytesReceived = await stream.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false)) > 0)
                     {
                         md5Object.TransformBlock(buffer, 0, bytesReceived, null, 0);
@@ -162,7 +159,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
                 {
                     if (!sr.IsSuccessStatusCode)
                     {
-                        throw new UnauthorizedAccessException("Cannot access dropbox");
+                        throw new UnauthorizedAccessException("Cannot access dropBox");
                     }
                     ////sr.Content.Headers.ContentType.
                     var blob = GetFile(fileName);
@@ -179,7 +176,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         }
 
 
-        public async Task UploadByteArrayAsync(string blobName, byte[] fileContent,
+        public Task UploadByteArrayAsync(string blobName, byte[] fileContent,
             string mimeType, bool fileGziped, int cacheControlMinutes)
         {
             var blob = GetBlob(blobName);
@@ -193,7 +190,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
             blob.Properties.CacheControl = "private, max-age=" + TimeConst.Minute * cacheControlMinutes;
             // blob.Metadata.Add(LastAccessTimeMetaDataKey, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture));
-            await blob.UploadFromByteArrayAsync(fileContent, 0, fileContent.Length).ConfigureAwait(false);
+            return blob.UploadFromByteArrayAsync(fileContent, 0, fileContent.Length);
         }
 
         public string GenerateSharedAccessReadPermission(string blobName, double expirationTimeInMinutes)

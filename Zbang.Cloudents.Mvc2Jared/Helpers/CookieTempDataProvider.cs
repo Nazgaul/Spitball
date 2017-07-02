@@ -11,7 +11,6 @@ namespace Zbang.Cloudents.Mvc2Jared.Helper
     {
         private const string TempDataCookieKey = "_temp";
         private readonly HttpContextBase m_HttpContext;
-        private readonly Compress m_Compress;
 
         public CookieTempDataProvider(HttpContextBase httpContext)
         {

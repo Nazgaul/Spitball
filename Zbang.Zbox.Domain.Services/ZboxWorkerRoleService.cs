@@ -57,27 +57,7 @@ namespace Zbang.Zbox.Domain.Services
 
         }
 
-        //private async void UpdateFlashcardCardCount()
-        //{
-        //    using (var unitOfWork = UnitOfWork.Start())
-        //    {
-        //        var items2 = UnitOfWork.CurrentSession.CreateSQLQuery(@"select id from zbox.flashcard where publish=1 and isDeleted=0 and cardCount=0 or cardCount is null").List();
-        //        foreach (var itemId in items2)
-        //        {
 
-        //            var item = UnitOfWork.CurrentSession.Load<FlashcardMeta>((long)itemId);
-        //            var flashcard = await m_FlashcardRepository.GetItemAsync(itemId.ToString());
-        //            if (flashcard != null && flashcard.Cards != null)
-        //            {
-        //                item.IsDirty = true;
-        //                item.CardCount = flashcard.Cards.Count();
-        //                UnitOfWork.CurrentSession.Save(item);
-        //            }
-        //            //var flash=m_FlashcardRepository.GetItemAsync(item.id);                    
-        //        }
-        //        unitOfWork.TransactionalFlush();
-        //    }
-        //}
         public Task<int> DoDirtyUpdateAsync(CancellationToken token)
         {
             return ExecuteSqlLoopAsync(new[]
@@ -372,112 +352,7 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
             }
         }
 
-        //public void AddParentIdToBox()
-        //{
-        //    using (var unitOfWork = UnitOfWork.Start())
-        //    {
-        //        var query =
-        //            UnitOfWork.CurrentSession.QueryOver<AcademicBox>()
-        //                .Where(w => w.ParentDepartment == null).Take(100);
-        //        var m_DepartmentRepository = IocFactory.IocWrapper.Resolve<ILibraryRepository>();
-        //        var list = query.List();
-        //        do
-        //        {
-        //            //var list = query.List();
-        //            foreach (var academicBox in list)
-        //            {
-        //                var topDepartmentId = m_DepartmentRepository.GetTopTreeNode(academicBox.Department.Id);
-        //                var topDepartment = m_DepartmentRepository.Load(topDepartmentId);
-        //                academicBox.ParentDepartment = topDepartment;
-        //                UnitOfWork.CurrentSession.Save(academicBox);
-        //                unitOfWork.TransactionalFlush();
-        //            }
-        //            list = query.List();
-        //        } while (list.Count > 0);
-        //        //.Where(Restrictions.On<CommentReply>(x => x.Text).IsLike("%quot;%")).Take(100);
-        //    }
-        //}
-        //public void RemoveHtmlTags()
-        //{
-        //    using (var unitOfWork = UnitOfWork.Start())
-        //    {
-        //        //var i = 0;
-        //        //var query = UnitOfWork.CurrentSession.QueryOver<Question>()
-        //        //    //.Where(w => w.Quiz.Id == 13970)
-        //        //    .Where(w => w.Text.IsLike("%<%"));
-
-
-        //        //var questions = query.Skip(i * 100).Take(100).List();
-        //        //do
-        //        //{
-        //        //    foreach (var question in questions)
-        //        //    {
-        //        //        var textBefore = question.Text;
-        //        //        //question.Text = TextManipulation.EncodeText(question.Text, Question.AllowedHtmlTag);
-
-        //        //        if (textBefore != question.Text)
-        //        //        {
-        //        //            UnitOfWork.CurrentSession.Save(question);
-        //        //        }
-        //        //    }
-        //        //    unitOfWork.TransactionalFlush();
-        //        //    i++;
-        //        //    questions = query.Skip(i * 100).Take(100).List();
-        //        //} while (questions.Count > 0);
-
-        //        var query =
-        //            UnitOfWork.CurrentSession.QueryOver<Comment>()
-        //                .Where(Restrictions.On<CommentReply>(x => x.Text).IsLike("%quot;%")).Take(100);
-
-        //        var comments = query.List();
-        //        do
-        //        {
-        //            foreach (var comment in comments)
-        //            {
-        //                //comment.Text = Infrastructure.TextManipulation.RemoveHtmlTags.Replace(comment.Text, string.Empty);
-        //                comment.Text = WebUtility.HtmlDecode(comment.Text);
-
-        //                UnitOfWork.CurrentSession.Save(comment);
-
-        //            }
-        //            unitOfWork.TransactionalFlush();
-        //            comments = query.List();
-        //        } while (comments.Count > 0);
-
-        //    }
-        //}
-
-        //public async Task<long> UpdateFileSizesAsync(Action callback)
-        //{
-        //    var count = 0;
-        //    using (var unitOfWork = UnitOfWork.Start())
-        //    {
-        //        var query = UnitOfWork.CurrentSession.GetNamedQuery("ItemWithNoSize");
-        //        query.SetMaxResults(100);
-        //        var itemIds = query.List<long>();
-
-        //        do
-        //        {
-        //            count += itemIds.Count;
-        //            try
-        //            {
-        //                var command = new UpdateItemWithNoSizeCommand(itemIds);
-        //                await m_CommandBus.SendAsync(command);
-        //                unitOfWork.TransactionalFlush();
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                TraceLog.WriteError(ex);
-        //            }
-        //            callback();
-        //            query = UnitOfWork.CurrentSession.GetNamedQuery("ItemWithNoSize");
-        //            query.SetMaxResults(100);
-        //            itemIds = query.List<long>();
-        //        } while (itemIds.Any());
-
-        //    }
-        //    return count;
-        //}
+       
 
 
 
@@ -647,95 +522,16 @@ where id = @id";
             using (var unitOfWork = UnitOfWork.Start())
             {
 
-                var items = UnitOfWork.CurrentSession.QueryOver<Item>().Where(w => w.Url == null && !w.IsDeleted).List();
+                var items = UnitOfWork.CurrentSession.QueryOver<Item>().Where(w => w.Url == null && !w.IsDeleted)
+                    .List();
                 foreach (var item in items)
                 {
                     item.GenerateUrl();
                     UnitOfWork.CurrentSession.Save(item);
                 }
                 unitOfWork.TransactionalFlush();
-
-                //                var items2 = UnitOfWork.CurrentSession.CreateSQLQuery(@"select itemId from zbox.item
-                //where  CHARINDEX(CAST(boxId as varchar(max)), URL) = 0
-                //and isDeleted = 0").List();
-                //                foreach (var itemId in items2)
-                //                {
-                //                    var item = UnitOfWork.CurrentSession.Load<Item>(itemId);
-                //                    item.GenerateUrl();
-                //                    UnitOfWork.CurrentSession.Save(item);
-                //                }
-                //                unitOfWork.TransactionalFlush();
             }
         }
-
-        //private void DeleteOldLibrary()
-        //{
-        //    using (var con = DapperConnection.OpenConnection())
-        //    {
-        //        var guids = con.Query<Guid>("select libraryId from zbox.library where name like '%~%'");
-        //        var i = 0;
-        //        foreach (var guid in guids)
-        //        {
-        //            Console.WriteLine(guid);
-        //            try
-        //            {
-        //                i += con.Execute("delete from zbox.library where parentid = @id", new { id = guid });
-        //                i += con.Execute("delete from zbox.library where libraryId = @id", new {id = guid});
-
-
-        //            }
-        //            catch (Exception ex)
-        //            {
-
-        //            }
-        //        }
-        //        Console.WriteLine(i);
-
-        //    }
-        //}
-
-        //private void UpdateNumberOfBoxesInDepartmentNode()
-        //{
-        //    var i = 0;
-        //    using (var unitOfWork = UnitOfWork.Start())
-        //    {
-        //        while (true)
-        //        {
-        //            var libs = UnitOfWork.CurrentSession.Connection.Query<Guid>(
-        //                @"select libraryId from zbox.Library l 
-        //where l.libraryId not in ( select l.ParentId from zbox.Library)
-        //order by libraryId
-        //offset @pageNumber*50 ROWS
-        //    FETCH NEXT 50 ROWS ONLY", new { pageNumber = i });
-        //            var libraryIds = libs as IList<Guid> ?? libs.ToList();
-        //            if (libraryIds.Count == 0)
-        //            {
-        //                break;
-        //            }
-        //            foreach (var libraryId in libraryIds)
-        //            {
-        //                var library = UnitOfWork.CurrentSession.Load<Library>(libraryId);
-        //                var libBoxes = library.UpdateNumberOfBoxes();
-        //                var libNodes = library.UpdateNumberOfNodes();
-        //                UnitOfWork.CurrentSession.Save(library);
-        //                foreach (var libBox in libBoxes)
-        //                {
-        //                    UnitOfWork.CurrentSession.Save(libBox);
-        //                }
-        //                foreach (var libBox in libNodes)
-        //                {
-        //                    UnitOfWork.CurrentSession.Save(libBox);
-        //                }
-        //            }
-        //            unitOfWork.TransactionalFlush();
-        //            i++;
-        //        }
-        //    }
-        //}
-
-
-
-
 
     }
 }

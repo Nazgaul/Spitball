@@ -10,9 +10,6 @@ namespace Zbang.Zbox.Infrastructure.Storage
             string text, Guid conversationId,
             long conversationUser, long userToSendId);
 
-        //Task SendChatFilePushAsync(string userName, Guid conversationId,
-        //    long conversationUser, long userToSendId);
-
         Task SendAddReplyPushAsync(string userName,
             string text,
             long boxId, Guid commentId,

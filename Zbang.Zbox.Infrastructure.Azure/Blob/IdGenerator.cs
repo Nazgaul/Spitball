@@ -7,14 +7,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 {
     public class IdGenerator : IIdGenerator
     {
-
-        // private readonly SnowMaker.BlobOptimisticDataStore m_DataStorage;
         private readonly UniqueIdGenerator m_Generator;
         public IdGenerator()
         {
             //TODO temp
             var storageConnectionString = ConfigFetcher.Fetch("StorageConnectionString");
-            CloudStorageAccount cloudStorageAccount = string.IsNullOrEmpty(storageConnectionString) ? CloudStorageAccount.DevelopmentStorageAccount : CloudStorageAccount.Parse(storageConnectionString);
+            var cloudStorageAccount = string.IsNullOrEmpty(storageConnectionString) ? CloudStorageAccount.DevelopmentStorageAccount : CloudStorageAccount.Parse(storageConnectionString);
             var dataStorage = new BlobOptimisticDataStore(
                  cloudStorageAccount,
                  "zboxIdGenerator"
@@ -27,11 +25,5 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return m_Generator.NextId(scopeName);
 
         }
-
-
-
-
-
-       
     }
 }

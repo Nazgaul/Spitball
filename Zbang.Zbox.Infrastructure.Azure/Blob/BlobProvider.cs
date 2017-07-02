@@ -48,9 +48,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         public string StorageContainerUrl { get; private set; }
 
-        //public string CdnContainerUrl => string.IsNullOrEmpty(StorageCdnEndpoint) ? StorageContainerUrl : StorageCdnEndpoint;
-
-
         private CloudBlobClient m_BlobClient;
 
         internal CloudBlobClient BlobClient
@@ -102,7 +99,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         {
             if (metadata == null) throw new ArgumentNullException(nameof(metadata));
             var blob = GetBlob(blobUri);
-            //var blob = GetFile(blobName);
             foreach (var item in metadata)
             {
                 blob.Metadata[item.Key] = item.Value;
@@ -112,7 +108,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
 
 
-        
         public string GenerateSharedAccessReadPermissionInStorage(Uri blobUri, double expirationTimeInMinutes)
         {
             var blob = GetBlob(blobUri);
@@ -134,7 +129,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         }
 
         #region UploadFile
-        
 
         internal async Task UploadFileAsync(string blobName, string filePath, string mimeType)
         {
@@ -145,13 +139,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         }
 
 
-        protected string ToBase64(int blockIndex)
+        protected static string ToBase64(int blockIndex)
         {
             var blockId = blockIndex.ToString("D10");
             return Convert.ToBase64String(Encoding.UTF8.GetBytes(blockId));
         }
-        
-        
 
 
         #endregion
@@ -224,11 +216,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return VirtualPathUtility.AppendTrailingSlash(StorageCdnEndpoint) + path;
         }
 
-       
 
         #region files
 
-        private CloudBlockBlob GetBlob(Uri blobUrl)
+        private static CloudBlockBlob GetBlob(Uri blobUrl)
         {
            return new CloudBlockBlob(blobUrl, StorageProvider.ZboxCloudStorage.Credentials);
         }
@@ -255,7 +246,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             {
                 return fileSystemLocation;
             }
-           
             try
             {
                 await blob.DownloadToFileAsync(fileSystemLocation,
@@ -282,7 +272,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             try
             {
                 var blob = m_BlobClient.GetContainerReference(AzureFaqContainer).GetBlockBlobReference("help.xml");
-                return await blob.OpenReadAsync().ConfigureAwait(false); // we need async in here 
+                return await blob.OpenReadAsync().ConfigureAwait(false); // we need async in here
             }
             catch (StorageException)
             {
@@ -303,44 +293,5 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         }
 
         #endregion
-
-
-
-
-
-
-
-
-
-        //public string GenerateWriteAccessPermissionToBlob(string blobName, string mimeType)
-        //{
-        //    var blob = GetFile(blobName);
-        //    var queryString = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
-        //    {
-        //        Permissions = SharedAccessBlobPermissions.Write,
-        //        SharedAccessExpiryTime = DateTime.Now.AddHours(2)
-        //    }, new SharedAccessBlobHeaders
-        //    {
-        //        ContentType = mimeType,
-        //        CacheControl = "private max-age=604800"
-        //    });
-        //    return blob.Uri + queryString;
-        //}
-
-        //public string GenerateReadAccessPermissionToBlob(string blobName)
-        //{
-        //    var blob = GetFile(blobName);
-        //    var queryString = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
-        //    {
-        //        Permissions = SharedAccessBlobPermissions.Read,
-        //        SharedAccessStartTime = DateTime.Now.AddMinutes(-2),
-        //        SharedAccessExpiryTime = DateTime.Now.AddHours(2)
-        //    });
-        //    return blob.Uri + queryString;
-        //}
-
-
-
-
     }
 }

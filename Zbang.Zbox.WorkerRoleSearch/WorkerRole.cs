@@ -98,9 +98,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             foreach (var job in m_Jobs)
             {
-                //var t = job.RunAsync(cancellationToken);
                 var t =  Task.Run(() => job.RunAsync(cancellationToken));
-                //var t = Task.Factory.StartNew(async () => await job.RunAsync(cancellationToken).ConfigureAwait(false), cancellationToken);
                 m_Tasks.Add(t);
             }
             while (!cancellationToken.IsCancellationRequested)

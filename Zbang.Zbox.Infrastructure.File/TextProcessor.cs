@@ -41,18 +41,12 @@ namespace Zbang.Zbox.Infrastructure.File
             var cacheFileName = CreateCacheFileName(blobName);
 
 
-            //var cacheBlobNameWithSharedAccessSignature = BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheFileName, 20);
 
             if (await m_BlobProviderCache.ExistsAsync(cacheFileName).ConfigureAwait(false))
             {
                 blobsNamesInCache.Add(m_BlobProviderCache.GenerateSharedAccessReadPermission(cacheFileName, 30));
                 return new PreviewResult { ViewName = "Text", Content = blobsNamesInCache };
             }
-            //if (IsFileExistsInCache(cacheBlobNameWithSharedAccessSignature))
-            //{
-            //    blobsNamesInCache.Add(cacheBlobNameWithSharedAccessSignature);
-            //    return new PreviewResult { ViewName = "Text", Content = blobsNamesInCache };
-            //}
 
             using (var stream = new StreamReader(await BlobProvider.DownloadFileAsync(blobUri, cancelToken).ConfigureAwait(false)))
             {
@@ -76,14 +70,8 @@ namespace Zbang.Zbox.Infrastructure.File
             var sr = await Compress.CompressToGzipAsync(stream).ConfigureAwait(false);
             await m_BlobProviderCache.UploadByteArrayAsync(cacheFileName, sr, "text/plain", true, 30).ConfigureAwait(false);
             return m_BlobProviderCache.GenerateSharedAccessReadPermission(cacheFileName, 30);
-            //var cacheName = await BlobProvider.UploadFileToCacheAsync(cacheFileName, sr, "text/plain", true);
-            //return cacheName;
         }
 
-        //private bool IsFileExistsInCache(string cacheBlobNameWithSharedAccessSignature)
-        //{
-        //    return !string.IsNullOrEmpty(cacheBlobNameWithSharedAccessSignature);
-        //}
 
         private static string CreateCacheFileName(string blobName)
         {

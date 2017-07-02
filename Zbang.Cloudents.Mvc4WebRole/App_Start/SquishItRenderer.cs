@@ -9,8 +9,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
     {
         public void Render(string content, string outputPath)
         {
-            var compress = new Compress();
-            var bytes = compress.CompressToGzip(Encoding.UTF8.GetBytes(content));
+            var bytes = Compress.CompressToGzip(Encoding.UTF8.GetBytes(content));
             var dir = Path.GetDirectoryName(outputPath);
             if (dir == null)
             {
