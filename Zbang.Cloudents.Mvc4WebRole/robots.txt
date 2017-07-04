@@ -8,8 +8,6 @@ disallow: /account/settings/
 disallow: */print/$
 disallow: */members/$
 disallow: */download/$
-disallow: /b/
-disallow: /i/
 disallow: /d/
 disallow: /promotion/
 

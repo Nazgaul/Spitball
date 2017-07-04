@@ -13,7 +13,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public SeachConnection(string serviceName, string serviceKey)
         {
-            m_SearchServiceClient = new SearchServiceClient(serviceName, new SearchCredentials(serviceKey));
+           m_SearchServiceClient = new SearchServiceClient(serviceName, new SearchCredentials(serviceKey));
            IsDevelop = !IsProductionEnvironment();
         }
 

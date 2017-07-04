@@ -59,21 +59,6 @@ order by name;";
 ";
 
 
-//        public const string RecommendedCourses =
-//            @"select top 3 b.boxid, b.BoxName as Name,b.CourseCode,b.ProfessorName as professor,
-//b.MembersCount,b.ItemCount , b.url,count(*)  as x
-//from zbox.userboxrel ub join zbox.box b on ub.boxid = b.boxid and b.isdeleted = 0 and b.discriminator = 2
-//where userid in (
-//select userid from zbox.userboxrel where boxid = @BoxId)
-//and b.boxid <> @BoxId
-//and b.discriminator = 2
-//and b.university = (select university from zbox.box where boxid = @BoxId)
-//and @UserId not in (select ub2.userid from zbox.UserBoxRel ub2 where ub2.BoxId = b.BoxId)
-//group by b.boxid, b.BoxName ,b.CourseCode,b.ProfessorName ,
-//b.MembersCount,b.ItemCount , b.url
-//order by x desc;
-//";
-
         public const string LeaderBoard = @"
 with leaderboard as (
 select u.userid as id,username as name,score,UserImageLarge as image,
@@ -85,39 +70,7 @@ ROW_NUMBER () over (partition BY boxid order by score desc) as location
 FROM leaderboard
 where location < 11 or id = @UserId";
 
-//        public const string LeaderboardMyself = @"with leaderboard as (
-//select u.userid as id,username as name,score,UserImageLarge as image, BadgeCount as badges,
-//ROW_NUMBER () over (partition BY boxid order by score desc) as location
-// from zbox.Users  u 
-// join zbox.UserBoxRel ub on u.UserId = ub.UserId and ub.boxid = @BoxId
-// )
-// SELECT *
-//FROM leaderboard
-//WHERE location IN (SELECT location+i
-//             FROM leaderboard
-//             CROSS JOIN (
-//			 SELECT -1 AS i 
-//			 UNION ALL SELECT -2
-//			 UNION ALL SELECT -3
-//			 UNION ALL SELECT -4 
-//			 UNION ALL SELECT -5
-//			 UNION ALL SELECT 0 
-//			 UNION ALL SELECT 1
-//			 UNION ALL SELECT 2
-//			 UNION ALL SELECT 3
-//			 UNION ALL SELECT 4
-//			 UNION ALL SELECT 5
-//			 ) n
-//             WHERE id = @UserId
-//			 );";
 
-
-//--union 
-//--	  select null as Id , m.UserName as Name,m.Image as Image , 1 as userStatus , null as Url, m.email
-//--	  from zbox.invite m
-//--	  where m.BoxId = @BoxId
-//--     and m.userboxrelid is null
-//--       and m.isused = 0
         public const string BoxMembers =
             @"select u.UserId as Id , u.UserName as Name,u.UserImageLarge as Image , ub.UserType as userStatus, u.BadgeCount as badges, u.Score as score
     from zbox.UserBoxRel ub 

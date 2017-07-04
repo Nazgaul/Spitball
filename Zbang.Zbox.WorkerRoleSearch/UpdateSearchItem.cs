@@ -184,11 +184,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
         }
 
-        //protected override string GetPrefix()
-        //{
-        //    return PrefixLog;
-        //}
-
         private Processor GetProcessor(ItemSearchDto msgData)
         {
             Uri uri;
@@ -226,44 +221,49 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var processor = GetProcessor(msgData);
             if (processor.ContentProcessor == null) return;
             //taken from : http://blogs.msdn.com/b/nikhil_agarwal/archive/2014/04/02/10511934.aspx
-            var wait = new ManualResetEvent(false);
-            var work = new Thread(async () =>
+            using (var wait = new ManualResetEvent(false))
             {
-                try
+                var work = new Thread(async () =>
                 {
-                    var tokenSource = new CancellationTokenSource();
-                    tokenSource.CancelAfter(TimeSpan.FromMinutes(10));
-                    var retVal =
-                    await processor.ContentProcessor.PreProcessFileAsync(processor.Uri, tokenSource.Token).ConfigureAwait(false);
                     try
                     {
-                        var proxy = await SignalrClient.GetProxyAsync().ConfigureAwait(false);
-                        await proxy.Invoke("UpdateThumbnail", msgData.Id, msgData.Course.Id).ConfigureAwait(false);
+                        var tokenSource = new CancellationTokenSource();
+                        tokenSource.CancelAfter(TimeSpan.FromMinutes(10));
+                        var retVal =
+                            await processor.ContentProcessor.PreProcessFileAsync(processor.Uri, tokenSource.Token)
+                                .ConfigureAwait(false);
+                        try
+                        {
+                            var proxy = await SignalrClient.GetProxyAsync().ConfigureAwait(false);
+                            await proxy.Invoke("UpdateThumbnail", msgData.Id, msgData.Course.Id).ConfigureAwait(false);
+                        }
+                        catch (Exception ex)
+                        {
+                            TraceLog.WriteError("on signalr UpdateThumbnail", ex);
+                        }
+                        if (msgData.Type.Any(a => a == ItemType.Document))
+                        {
+                            var command = new UpdateThumbnailCommand(msgData.Id, retVal?.BlobName,
+                                msgData.Content, await m_BlobProvider.Md5Async(msgData.BlobName).ConfigureAwait(false));
+                            m_ZboxWriteService.UpdateThumbnailPicture(command);
+                        }
+                        // ReSharper disable once AccessToDisposedClosure
+                        wait.Set();
                     }
                     catch (Exception ex)
                     {
-                        TraceLog.WriteError("on signalr UpdateThumbnail", ex);
+                        TraceLog.WriteError("on itemId: " + msgData.Id, ex);
+                        // ReSharper disable once AccessToDisposedClosure
+                        wait.Set();
                     }
-                    if (msgData.Type.Any(a => a == ItemType.Document))
-                    {
-                        var command = new UpdateThumbnailCommand(msgData.Id, retVal?.BlobName,
-                            msgData.Content, await m_BlobProvider.Md5Async(msgData.BlobName).ConfigureAwait(false));
-                        m_ZboxWriteService.UpdateThumbnailPicture(command);
-                    }
-                    wait.Set();
-                }
-                catch (Exception ex)
+                });
+                work.Start();
+                var signal = wait.WaitOne(TimeSpan.FromMinutes(10));
+                if (!signal)
                 {
-                    TraceLog.WriteError("on itemId: " + msgData.Id, ex);
-                    wait.Set();
+                    work.Abort();
+                    TraceLog.WriteError("blob url aborting process" + msgData.BlobName);
                 }
-            });
-            work.Start();
-            var signal = wait.WaitOne(TimeSpan.FromMinutes(10));
-            if (!signal)
-            {
-                work.Abort();
-                TraceLog.WriteError("blob url aborting process" + msgData.BlobName);
             }
         }
 

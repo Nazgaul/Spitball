@@ -19,7 +19,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IocFactory m_Unity;
 
 
-        private readonly IEnumerable<IJob> m_Jobs;
+        private readonly IList<IJob> m_Jobs;
         private readonly List<Task> m_Tasks = new List<Task>();
 
         public WorkerRole()
@@ -80,13 +80,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public override void OnStop()
         {
             Trace.TraceInformation("Zbang.Zbox.WorkerRoleSearch is stopping");
-
             m_CancellationTokenSource.Cancel();
-            //var jobs = GetJob();
-            //foreach (var job in jobs)
-            //{
-            //    job.Stop();
-            //}
             m_RunCompleteEvent.WaitOne();
 
             base.OnStop();
@@ -98,7 +92,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             foreach (var job in m_Jobs)
             {
-                var t =  Task.Run(() => job.RunAsync(cancellationToken));
+                var t =  Task.Run(() => job.RunAsync(cancellationToken), cancellationToken);
                 m_Tasks.Add(t);
             }
             while (!cancellationToken.IsCancellationRequested)
@@ -122,12 +116,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             }
 
                             var jobToRestart = m_Jobs.ElementAt(i);
-                            m_Tasks[i] = Task.Factory.StartNew(() => jobToRestart.RunAsync(cancellationToken),
-                                cancellationToken).Unwrap();
+                            //m_Tasks[i] = Task.Factory.StartNew(() => jobToRestart.RunAsync(cancellationToken),
+                            //    cancellationToken).Unwrap();
+
+                            m_Tasks[i] = Task.Run(() => jobToRestart.RunAsync(cancellationToken), cancellationToken);
                         }
                         if (task.IsCompleted)
                         {
                             TraceLog.WriteWarning($"Job finished index: {i}");
+                           // m_Jobs.RemoveAt(i);
+                            
 
                         }
                     }
@@ -140,7 +138,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
         }
 
-        private IEnumerable<IJob> GetJob()
+        private IList<IJob> GetJob()
         {
             if (RoleEnvironment.IsEmulated)
             {
@@ -165,20 +163,20 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             return new List<IJob>
             {
-                m_Unity.Resolve<IJob>(IocFactory.UpdateSearchItem),
-                m_Unity.Resolve<IJob>(IocFactory.UpdateSearchBox),
-                m_Unity.Resolve<IJob>(IocFactory.UpdateSearchQuiz),
-                m_Unity.Resolve<IJob>(IocFactory.UpdateSearchUniversity),
-                m_Unity.Resolve<IJob>(IocFactory.UpdateSearchFlashcard),
-                m_Unity.Resolve<IJob>(nameof(UpdateUnsubscribeList)),
-                m_Unity.Resolve<IJob>(nameof(SchedulerListener)),
-                m_Unity.Resolve<IJob>(nameof(MailQueueProcess)),
-                m_Unity.Resolve<IJob>(nameof(TransactionQueueProcess)),
-                m_Unity.Resolve<IJob>(nameof(ThumbnailQueueProcess)),
-                m_Unity.Resolve<IJob>(nameof(DeleteOldConnections)),
-                m_Unity.Resolve<IJob>(nameof(DeleteOldStuff)),
-                m_Unity.Resolve<IJob>(nameof(UpdateSearchFeed)),
-                m_Unity.Resolve<IJob>(nameof(TestingJob)) //Temp one time job
+                m_Unity.Resolve<IJob>(IocFactory.UpdateSearchItem), //0
+                m_Unity.Resolve<IJob>(IocFactory.UpdateSearchBox), //1
+                m_Unity.Resolve<IJob>(IocFactory.UpdateSearchQuiz), //2
+                m_Unity.Resolve<IJob>(IocFactory.UpdateSearchUniversity), //3
+                m_Unity.Resolve<IJob>(IocFactory.UpdateSearchFlashcard), //4
+                m_Unity.Resolve<IJob>(nameof(UpdateUnsubscribeList)), //5
+                m_Unity.Resolve<IJob>(nameof(SchedulerListener)), //6
+                m_Unity.Resolve<IJob>(nameof(MailQueueProcess)), //7
+                m_Unity.Resolve<IJob>(nameof(TransactionQueueProcess)), //8
+                m_Unity.Resolve<IJob>(nameof(ThumbnailQueueProcess)), //9
+                m_Unity.Resolve<IJob>(nameof(DeleteOldConnections)), //10
+                m_Unity.Resolve<IJob>(nameof(DeleteOldStuff)), //11
+                m_Unity.Resolve<IJob>(nameof(UpdateSearchFeed)), //12
+                m_Unity.Resolve<IJob>(nameof(TestingJob)) //13 //Temp one time job
 
             };
         }

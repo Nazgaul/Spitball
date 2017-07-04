@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NHibernate.Linq;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Data.Repositories;
 using Zbang.Zbox.Infrastructure.Repositories;
@@ -14,8 +10,8 @@ namespace Zbang.Zbox.Domain.DataAccess
     {
         public IList<Connection> GetZombies()
         {
-            DateTimeOffset someTime = DateTimeOffset.UtcNow;
-            var sqlString = " DATEDIFF( ss, [LastActivity], ? ) >= 90 ";
+            var someTime = DateTimeOffset.UtcNow;
+            const string sqlString = " DATEDIFF( ss, [LastActivity], ? ) >= 90 ";
             var sql = NHibernate.Criterion.Expression.Sql(sqlString
                           , someTime
                           , NHibernate.NHibernateUtil.DateTimeOffset);

@@ -109,10 +109,8 @@ namespace Zbang.Zbox.Domain.Services
             if (command == null) throw new ArgumentNullException(nameof(command));
             using (UnitOfWork.Start())
             {
-                
                 var result = await m_CommandBus.DispatchAsync<CreateBoxCommand, CreateBoxCommandResult>(command, command.GetType().Name).ConfigureAwait(true);
-                var commandCache = command as ICommandCache;
-                if (commandCache != null)
+                if (command is ICommandCache commandCache)
                 {
                     await m_Cache.RemoveAsync(commandCache).ConfigureAwait(true);
                 }
@@ -155,13 +153,10 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (var unitOfWork = UnitOfWork.Start())
             {
-                //var reputationCommand = new AddReputationCommand(command.UserId,
-                //     Infrastructure.Enums.ReputationAction.AddItem);
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
                 var t4 = m_Cache.RemoveAsync(command);
                 var t1 = m_CommandBus.SendAsync(autoFollowCommand);
                 var t2 = m_CommandBus.DispatchAsync<AddItemToBoxCommand, AddItemToBoxCommandResult>(command, command.ResolverName);
-                // var t1 = m_CommandBus.SendAsync(reputationCommand);
 
                 await Task.WhenAll(t1, t2, t4).ConfigureAwait(true);
                 unitOfWork.TransactionalFlush();
@@ -176,7 +171,7 @@ namespace Zbang.Zbox.Domain.Services
             {
                 var t1 = m_CommandBus.SendAsync(command);
                 var t2 = m_Cache.RemoveAsync(command);
-                await Task.WhenAll(t1, t2);
+                await Task.WhenAll(t1, t2).ConfigureAwait(true);
                 unitOfWork.TransactionalFlush();
             }
         }
@@ -211,14 +206,6 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        //public async Task SendMessageAsync(SendMessageCommand command)
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        await m_CommandBus.SendAsync(command);
-        //        UnitOfWork.Current.TransactionalFlush();
-        //    }
-        //}
 
         public async Task ShareBoxAsync(ShareBoxCommand command)
         {
@@ -258,7 +245,7 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (UnitOfWork.Start())
             {
-                ChangeFileNameCommandResult result = m_CommandBus.Dispatch<ChangeFileNameCommand, ChangeFileNameCommandResult>(command);
+                var result = m_CommandBus.Dispatch<ChangeFileNameCommand, ChangeFileNameCommandResult>(command);
                 UnitOfWork.Current.TransactionalFlush();
                 return result;
             }

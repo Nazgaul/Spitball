@@ -48,7 +48,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 sendGridMail.AddTo(/*ConfigFetcher.IsEmulated ? "ram@cloudents.com" :*/ recipient);
 
                 var mail = m_ComponentContent.ResolveNamed<IMailBuilder>(parameters.MailResover, new NamedParameter("parameters", parameters));
-                //var mail = m_Container.Resolve<IMailBuilder>(parameters.MailResover, new IocParameterOverride("parameters", parameters));
                 sendGridMail.Html = mail.GenerateMail();
                 sendGridMail.Subject = mail.AddSubject();
                 sendGridMail.SetCategory(mail.AddCategory());
@@ -94,7 +93,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
         }
 
         private const string ApiKey = "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";
-        //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
         private static async Task<IEnumerable<string>> GetEmailListFromApiCallAsync(string requestUrl, DateTime startTime, int page,
             CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -123,7 +121,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             }
         }
 
-        public async Task GenerateSystemEmailAsync(string subject, string text, string to = "ram@cloudents.com")
+        public Task GenerateSystemEmailAsync(string subject, string text, string to = "ram@cloudents.com")
         {
             var sendGridMail = new SendGridMessage
             {
@@ -132,7 +130,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 Subject = $"{subject} {DateTime.UtcNow.ToShortDateString()}"
             };
             sendGridMail.AddTo(to);
-            await SendAsync(sendGridMail, new Credentials()).ConfigureAwait(false);
+            return SendAsync(sendGridMail, new Credentials());
         }
 
 
@@ -146,7 +144,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
         {
 
             var mail = m_ComponentContent.ResolveNamed<IMailBuilder>(parameters.MailResover, new NamedParameter("parameters", parameters));
-            
 
             var client = new RestClient
             {

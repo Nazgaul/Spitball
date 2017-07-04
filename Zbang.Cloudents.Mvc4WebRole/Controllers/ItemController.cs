@@ -63,14 +63,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [BoxPermission("boxId", Order = 1), ActionName("Index")]
         [DonutOutputCache(CacheProfile = "ItemPage", Order = 2)]
-        [Route("item/{universityName}/{boxId:long}/{boxName}/{itemid:long}/{itemName}", Name = "Item")]
-        public async Task<ActionResult> IndexAsync(long boxId, long itemid, string itemName, string universityName, string boxName)
+        [Route("item/{universityName}/{boxId:long}/{boxName}/{itemId:long}/{itemName}", Name = "Item")]
+        public async Task<ActionResult> IndexAsync(long boxId, long itemId, string itemName)
         {
 
             try
             {
-                var query = new GetFileSeoQuery(itemid);
-                var model = await ZboxReadService.GetItemSeoAsync(query);
+                var query = new GetFileSeoQuery(itemId);
+                var model = await ZboxReadService.GetItemSeoAsync(query).ConfigureAwait(false);
                 if (model == null)
                 {
                     throw new ItemNotFoundException();
@@ -105,7 +105,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("On item load boxid = " + boxId + " ,itemid = " + itemid, ex);
+                TraceLog.WriteError("On item load boxId = " + boxId + " ,itemId = " + itemId, ex);
                 return RedirectToAction("Index", "Error");
             }
         }
@@ -115,7 +115,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var base62 = new Base62(item62Id);
             var query = new GetFileSeoQuery(base62.Value);
-            var model = await ZboxReadService.GetItemSeoAsync(query);
+            var model = await ZboxReadService.GetItemSeoAsync(query).ConfigureAwait(false);
             if (model == null)
             {
                 return RedirectToAction("NotFound", "Error");
@@ -128,8 +128,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 itemid = base62.Value,
                 itemName = UrlBuilder.NameToQueryString(model.Name)
             });
-            
-           // return RedirectPermanent(model.Url);
         }
 
         /// <summary>
@@ -164,13 +162,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var tContent = Zbox.Infrastructure.Extensions.TaskExtensions.CompletedTaskString;
                 if (firstTime.HasValue && firstTime.Value)
                 {
-                    using (var token = CreateCancellationToken(cancellationToken))
-                    {
-                        tContent = m_ItemSearchProvider.Value.ItemContentAsync(itemId, token.Token);
-
-                    }
+                    var token = CreateCancellationToken(cancellationToken);
+                    tContent = m_ItemSearchProvider.Value.ItemContentAsync(itemId, token.Token);
                 }
-                await Task.WhenAll(tItem, tTransAction, tContent);
+                await Task.WhenAll(tItem, tTransAction, tContent).ConfigureAwait(false);
                 var retVal = tItem.Result;
 
                 return JsonOk(new
@@ -200,7 +195,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("On item load boxid = " + boxId + " ,itemid = " + itemId, ex);
+                TraceLog.WriteError("On item load boxId = " + boxId + " ,itemId = " + itemId, ex);
                 return JsonError();
             }
 
@@ -209,10 +204,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [HttpGet, ActionName("Comment")]
         [BoxPermission("boxId")]
-        public async Task<ActionResult> CommentsAsync(long itemId, long boxId, CancellationToken cancellationToken)
+        public async Task<ActionResult> CommentsAsync(long itemId)
         {
-            //var userId = User.GetUserId(false);
-            var result = await ZboxReadService.GetItemCommentsAsync(new ItemCommentQuery(itemId));
+            var result = await ZboxReadService.GetItemCommentsAsync(new ItemCommentQuery(itemId)).ConfigureAwait(false);
             return JsonOk(result);
         }
 
@@ -230,7 +224,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [RemoveBoxCookie]
         public async Task<ActionResult> DownloadAsync(long boxId, long itemId)
         {
-            //const string defaultMimeType = "application/octet-stream";
             var userId = User.GetUserId();
 
             var t1 = m_QueueProvider.InsertMessageToTranactionAsync(
@@ -251,7 +244,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 t3 = ZboxWriteService.SubscribeToSharedBoxAsync(autoFollowCommand);
             }
 
-            await Task.WhenAll(t1, t2, t3);
+            await Task.WhenAll(t1, t2, t3).ConfigureAwait(false);
             var item = t2.Result;
             if (item.Type == "Link")
             {
@@ -352,7 +345,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var command = new DeleteItemCommand(itemId, User.GetUserId());
-                await ZboxWriteService.DeleteItemAsync(command);
+                await ZboxWriteService.DeleteItemAsync(command).ConfigureAwait(false);
                 return JsonOk(itemId);
             }
             catch (Exception ex)
@@ -375,7 +368,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var id = m_GuidGenerator.Value.GetId();
                 var command = new RateItemCommand(model.ItemId, User.GetUserId(), id, model.BoxId);
-                await ZboxWriteService.RateItemAsync(command);
+                await ZboxWriteService.RateItemAsync(command).ConfigureAwait(false);
 
                 return JsonOk();
             }
@@ -415,7 +408,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         });
 
 
-                var retVal = await processor.ConvertFileToWebsitePreviewAsync(uri, index, cancellationToken);
+                var retVal = await processor.ConvertFileToWebsitePreviewAsync(uri, index, cancellationToken).ConfigureAwait(false);
                 if (retVal.Content == null)
                 {
                     return JsonOk(new
@@ -479,7 +472,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError(GetErrorFromModelState());
             }
 
-            await m_QueueProvider.InsertMessageToTranactionAsync(new BadItemData(model.BadItem.GetEnumDescription(), model.Other, User.GetUserId(), model.ItemId));
+            await m_QueueProvider.InsertMessageToTranactionAsync(new BadItemData(model.BadItem.GetEnumDescription(), model.Other, User.GetUserId(), model.ItemId)).ConfigureAwait(false);
             return JsonOk();
         }
 
@@ -494,7 +487,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var command = new AddItemCommentCommand(model.Comment, model.ItemId, User.GetUserId(), model.BoxId);
-                await ZboxWriteService.AddAnnotationAsync(command);
+                await ZboxWriteService.AddAnnotationAsync(command).ConfigureAwait(false);
                 return JsonOk(command.CommentId);
             }
             catch (UnauthorizedAccessException)
@@ -511,7 +504,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError(GetErrorFromModelState());
             }
             var command = new DeleteItemCommentCommand(model.CommentId, User.GetUserId(), model.ItemId);
-            await ZboxWriteService.DeleteAnnotationAsync(command);
+            await ZboxWriteService.DeleteAnnotationAsync(command).ConfigureAwait(false);
             return JsonOk();
         }
         [HttpPost]
@@ -524,7 +517,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             }
             var command = new AddItemReplyToCommentCommand(User.GetUserId(), model.ItemId, model.Comment, model.CommentId, model.BoxId);
-            await ZboxWriteService.AddReplyAnnotationAsync(command);
+            await ZboxWriteService.AddReplyAnnotationAsync(command).ConfigureAwait(false);
             return JsonOk(command.ReplyId);
         }
 
@@ -536,7 +529,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError(GetErrorFromModelState());
             }
             var command = new DeleteItemCommentReplyCommand(User.GetUserId(), model.ReplyId, model.ItemId);
-            await ZboxWriteService.DeleteItemCommentReplyAsync(command);
+            await ZboxWriteService.DeleteItemCommentReplyAsync(command).ConfigureAwait(false);
             return JsonOk();
         }
 
