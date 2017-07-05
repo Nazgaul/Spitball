@@ -8,6 +8,7 @@ using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Data;
+using Zbang.Zbox.Infrastructure.File;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Notifications;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -23,13 +24,12 @@ namespace Zbang.Cloudents.Mvc2Jared
                 var builder = IocFactory.IocWrapper.ContainerBuilder;
             builder.RegisterModule<InfrastructureModule>();
             builder.RegisterModule<DataModule>();
-            Zbox.Infrastructure.File.RegisterIoc.Register();
+            builder.RegisterModule<FileModule>();
             builder.RegisterModule<StorageModule>();
             IocFactory.IocWrapper.ContainerBuilder.Register(
                     c => HttpContext.Current.GetOwinContext().Authentication);
             builder.RegisterModule<WriteServiceModule>();
             builder.RegisterModule<ReadServiceModule>();
-            Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
             builder.RegisterModule<CommandsModule>();
 
 

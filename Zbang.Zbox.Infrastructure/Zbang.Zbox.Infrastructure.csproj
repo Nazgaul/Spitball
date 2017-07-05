@@ -133,6 +133,7 @@
     <Compile Include="Exceptions\PushFailedException.cs" />
     <Compile Include="Exceptions\UserRegisterFacebookException.cs" />
     <Compile Include="Extensions\AsyncLazy.cs" />
+    <Compile Include="Extensions\AutofacContainerBuilderExtenstions.cs" />
     <Compile Include="Extensions\ConfigFetcher.cs">
       <SubType>Code</SubType>
     </Compile>

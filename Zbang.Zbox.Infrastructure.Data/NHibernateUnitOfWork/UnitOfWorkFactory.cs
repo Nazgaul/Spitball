@@ -22,8 +22,6 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 {
     public class UnitOfWorkFactory : IUnitOfWorkFactory
     {
-        //private static ISession _currentSession;
-
         private const string SerializationFile = "nHibernateConfig";
 
         public const string CurrentSessionKey = "CurrentSession.Key";
@@ -57,12 +55,10 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 #endif
                 });
                 Configuration.SetListener(ListenerType.Delete, new ZboxDeleteEventListener());
-                //m_Configuration.SetListener(ListenerType.Save, new ZboxUpdateEventListener());
 
                 Configuration.SetListener(ListenerType.PreInsert, new AuditEventListener());
                 Configuration.SetListener(ListenerType.PreUpdate, new AuditEventListener());
 
-                //m_Configuration.SetProperty(Environment.ConnectionDriver, typeof(MiniProfiler.NHibernate.MiniProfilerSql2008ClientDriver).AssemblyQualifiedName)
                 Configuration.SetProperty(Environment.ConnectionProvider, "NHibernate.Connection.DriverConnectionProvider");
                 Configuration.SetProperty(Environment.UseProxyValidator, bool.FalseString);
                 Configuration.SetProperty(Environment.DefaultSchema, "Zbox");

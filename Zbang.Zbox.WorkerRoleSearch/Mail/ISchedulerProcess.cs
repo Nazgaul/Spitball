@@ -6,6 +6,6 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 {
     public interface ISchedulerProcess
     {
-        Task<bool> ExecuteAsync(int index, Func<int,Task> progressAsync, CancellationToken token);
+        Task<bool> ExecuteAsync(int index, Func<int, TimeSpan,Task> progressAsync, CancellationToken token);
     }
 }

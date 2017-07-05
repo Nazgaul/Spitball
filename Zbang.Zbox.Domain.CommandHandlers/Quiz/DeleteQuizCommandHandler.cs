@@ -60,7 +60,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
                     m_CommentRepository.Save(quiz.Comment);
                 }
             }
-            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(quiz.User.Id));
+            var t1 = m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(quiz.User.Id));
             var t5 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(quiz.Box.Id));
 
             m_UpdatesRepository.DeleteQuizUpdates(quiz.Id);

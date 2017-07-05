@@ -52,7 +52,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_BoxRepository.Save(box);
             var t2 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
 
-            var t1 =  m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(userIds.Union(new[] { user.Id })));
+            var t1 =  m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(userIds.Union(new[] { user.Id })));
             return Task.WhenAll(t1, t2);
         }
     }

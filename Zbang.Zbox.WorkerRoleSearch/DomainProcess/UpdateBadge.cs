@@ -88,7 +88,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
                     TraceLog.WriteError("on signalr update image", ex);
                 }
             
-                await m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(userId), token);
+                await m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(userId), token);
             }
         }
     }

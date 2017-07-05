@@ -23,7 +23,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             if (parameters == null) return true;
             try
             {
-                await m_ZboxWriteService.DeleteBoxAsync(new DeleteBoxCommand(parameters.BoxId));
+                await m_ZboxWriteService.DeleteBoxAsync(new DeleteBoxCommand(parameters.BoxId)).ConfigureAwait(false);
             }
             catch (Exception ex)
             {

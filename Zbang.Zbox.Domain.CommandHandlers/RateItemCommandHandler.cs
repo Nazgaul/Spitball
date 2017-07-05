@@ -53,8 +53,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private Task ReturnValueAsync(long userId, long userWhoMadeAction)
         {
-            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new LikesBadgeData(userWhoMadeAction));
-            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(userId));
+            var t2 = m_QueueProvider.InsertMessageToTransactionAsync(new LikesBadgeData(userWhoMadeAction));
+            var t1 = m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(userId));
             return Task.WhenAll(t1, t2);
         }
 

@@ -49,7 +49,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             discussion.Quiz.Box.UserTime.UpdateUserTime(user.Id);
             discussion.Quiz.Box.ShouldMakeDirty = () => false;
             m_DiscussionRepository.Save(discussion);
-            return m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, question.Quiz.Box.Id, quizDiscussionId: discussion.Id));
+            return m_QueueProvider.InsertMessageToTransactionAsync(new UpdateData(user.Id, question.Quiz.Box.Id, quizDiscussionId: discussion.Id));
         }
     }
 }

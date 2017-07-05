@@ -39,6 +39,7 @@ using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Commands;
 using Zbang.Zbox.Infrastructure.Data;
+using Zbang.Zbox.Infrastructure.File;
 using Zbang.Zbox.Infrastructure.Profile;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
@@ -76,25 +77,15 @@ namespace Testing
             //Console.WriteLine("ended ");
             //k.Wait();
 
-            //return;
-            //Zbang.Zbox.Infrastructure.RegisterIoc.Register();
             unity.ContainerBuilder.RegisterModule<WriteServiceModule>();
             unity.ContainerBuilder.RegisterModule<DataModule>();
-            Zbang.Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
             unity.ContainerBuilder.RegisterModule<CommandsModule>();
             unity.ContainerBuilder.RegisterModule<MailModule>();
-            
-            Zbang.Zbox.Infrastructure.File.RegisterIoc.Register();
+
+            unity.ContainerBuilder.RegisterModule<FileModule>();
             unity.ContainerBuilder.RegisterModule<StorageModule>();
             unity.ContainerBuilder.RegisterModule<ReadServiceModule>();
-            // Zbang.Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
-            //Zbang.Zbox.ReadServices.RegisterIoc.Register();
             unity.ContainerBuilder.RegisterModule<InfrastructureModule>();
-            //unity.ContainerBuilder.RegisterType<SeachConnection>()
-            //        .As<ISearchConnection>()
-            //        .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))
-            //        .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey"))
-            //        .InstancePerLifetimeScope();
 
             unity.ContainerBuilder.RegisterModule<SearchModule>();
 

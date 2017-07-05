@@ -84,9 +84,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_BoxRepository.Save(box);
 
             AddItemToTab(command.TabId, item);
-            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, itemId: item.Id));
-            var t4 = m_QueueProvider.InsertMessageToTranactionAsync(new UploadItemsBadgeData(user.Id));
-            var t3 = m_QueueProvider.InsertMessageToTranactionAsync(new QuotaData(user.Id));
+            var t2 = m_QueueProvider.InsertMessageToTransactionAsync(new UpdateData(user.Id, box.Id, itemId: item.Id));
+            var t4 = m_QueueProvider.InsertMessageToTransactionAsync(new UploadItemsBadgeData(user.Id));
+            var t3 = m_QueueProvider.InsertMessageToTransactionAsync(new QuotaData(user.Id));
             var t1 = m_QueueProvider.InsertFileMessageAsync(new BoxFileProcessData(item.Id));
             var t5 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(item.Box.Id));
 

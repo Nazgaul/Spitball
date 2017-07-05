@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Autofac;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Azure;
@@ -12,9 +13,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public class TransactionQueueProcess : IJob
     {
         private readonly IQueueProviderExtract m_QueueProviderExtract;
-        public TransactionQueueProcess(IQueueProviderExtract queueProviderExtract)
+        private readonly ILifetimeScope m_LifetimeScope;
+
+        public TransactionQueueProcess(IQueueProviderExtract queueProviderExtract, ILifetimeScope lifetimeScope)
         {
             m_QueueProviderExtract = queueProviderExtract;
+            m_LifetimeScope = lifetimeScope;
         }
 
         public string Name => nameof(TransactionQueueProcess);
@@ -34,7 +38,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             TraceLog.WriteError($"{Name} run - msg cannot transfer to DomainProcess");
                             return true;
                         }
-                        var process = Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IDomainProcess>(msgData.ProcessResolver);
+                        var process = m_LifetimeScope.ResolveNamed<IDomainProcess>(msgData.ProcessResolver);
                         if (process == null)
                         {
                             TraceLog.WriteError($"{Name} run - process is null msgData.ProcessResolver:" + msgData.ProcessResolver);

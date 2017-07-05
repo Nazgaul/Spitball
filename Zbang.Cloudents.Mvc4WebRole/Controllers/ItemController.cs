@@ -150,7 +150,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var query = new GetItemQuery(userId, itemId, boxId);
                 var tItem = ZboxReadService.GetItem2Async(query);
 
-                var tTransAction = m_QueueProvider.InsertMessageToTranactionAsync(
+                var tTransAction = m_QueueProvider.InsertMessageToTransactionAsync(
                       new StatisticsData4(
                         new StatisticsData4.StatisticItemData
                         {
@@ -226,7 +226,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var userId = User.GetUserId();
 
-            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(
+            var t1 = m_QueueProvider.InsertMessageToTransactionAsync(
                    new StatisticsData4(
                         new StatisticsData4.StatisticItemData
                         {
@@ -472,7 +472,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError(GetErrorFromModelState());
             }
 
-            await m_QueueProvider.InsertMessageToTranactionAsync(new BadItemData(model.BadItem.GetEnumDescription(), model.Other, User.GetUserId(), model.ItemId)).ConfigureAwait(false);
+            await m_QueueProvider.InsertMessageToTransactionAsync(new BadItemData(model.BadItem.GetEnumDescription(), model.Other, User.GetUserId(), model.ItemId)).ConfigureAwait(false);
             return JsonOk();
         }
 

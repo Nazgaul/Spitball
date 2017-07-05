@@ -36,7 +36,6 @@ namespace Management_Application
             builder.ContainerBuilder.RegisterModule<WriteServiceModule>();
 
             builder.ContainerBuilder.RegisterModule<CommandsModule>();
-            Zbang.Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
             builder.ContainerBuilder.RegisterModule<MailModule>();
             builder.ContainerBuilder.RegisterModule<StorageModule>();
             builder.Build();

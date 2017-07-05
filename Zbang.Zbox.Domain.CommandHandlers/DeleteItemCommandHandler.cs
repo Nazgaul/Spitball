@@ -78,9 +78,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 item.Tab.DeleteItemFromTab(item);
                 m_ItemTabRepository.Save(item.Tab);
             }
-            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(item.UploaderId));
-            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new QuotaData(item.UploaderId));
-            var t4 = m_QueueProvider.InsertMessageToTranactionAsync(new UploadItemsBadgeData(item.UploaderId));
+            var t1 = m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(item.UploaderId));
+            var t2 = m_QueueProvider.InsertMessageToTransactionAsync(new QuotaData(item.UploaderId));
+            var t4 = m_QueueProvider.InsertMessageToTransactionAsync(new UploadItemsBadgeData(item.UploaderId));
             var t5 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
 
 

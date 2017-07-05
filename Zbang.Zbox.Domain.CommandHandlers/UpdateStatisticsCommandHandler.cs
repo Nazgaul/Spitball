@@ -107,7 +107,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private Task UpdateReputationAsync(long userId)
         {
-            return m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(userId));
+            return m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(userId));
         }
     }
 }

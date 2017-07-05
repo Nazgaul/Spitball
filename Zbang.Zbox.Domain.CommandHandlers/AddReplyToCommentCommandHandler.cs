@@ -54,7 +54,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             question.ReplyCount++;
             question.DateTimeUser.UpdateUserTime(user.Id);
             box.UserTime.UpdateUserTime(user.Id);
-            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, answerId: answer.Id));
+            var t1 = m_QueueProvider.InsertMessageToTransactionAsync(new UpdateData(user.Id, box.Id, answerId: answer.Id));
             var t2 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
             m_QuestionRepository.Save(question);
             m_BoxRepository.Save(box);

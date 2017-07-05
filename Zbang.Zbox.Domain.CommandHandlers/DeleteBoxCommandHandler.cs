@@ -31,11 +31,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             var box = m_BoxRepository.Load(message.BoxId);
 
-            var academicBox = box.Actual as AcademicBox;
-            //var users = box.UserBoxRelationship.Select(s => s.User.Id).ToList();
 
-
-            if (academicBox != null)
+            if (box.Actual is AcademicBox academicBox)
             {
                 message.UniversityId = academicBox.University.Id;
                 var university = academicBox.University;
@@ -55,15 +52,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var reputationFlashcardUsers = box.Flashcards.Where(w => !w.IsDeleted).Select(s => s.User.Id);
             var reputationCommentUsers = box.Comments.Where(w => w.LikeCount > 0).Select(s => s.User.Id);
             var reputationReplyUsers = box.Replies.Where(w => w.LikeCount > 0).Select(s => s.User.Id);
-            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new QuotaData(box.Items.Select(s => s.UploaderId)));
-            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(
+            var t1 = m_QueueProvider.InsertMessageToTransactionAsync(new QuotaData(box.Items.Select(s => s.UploaderId)));
+            var t2 = m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(
                 reputationItemUsers.Union(reputationQuizUsers)
                 .Union(reputationFlashcardUsers)
                 .Union(reputationCommentUsers)
                 .Union(reputationReplyUsers)
                 ));
-            var t3 = m_QueueProvider.InsertFileMessageAsync(new BoxDeleteData(box.Id));
-            return Task.WhenAll(t1, t2, t3);
+           // var t3 = m_QueueProvider.InsertFileMessageAsync(new BoxDeleteData(box.Id));
+            return Task.WhenAll(t1, t2);
         }
     }
 }

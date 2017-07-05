@@ -22,22 +22,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
         private CloudQueueClient QueueClient => m_QueueClient ?? (m_QueueClient = StorageProvider.ZboxCloudStorage.CreateCloudQueueClient());
 
 
-        private CloudQueue GetMailQueueNew()
-        {
-            return GetQueue(QueueName.NewMailQueueName.ToLower());
-        }
-        //private CloudQueue GetDownloadContentFromUrlQueue()
-        //{
-        //    return GetQueue(QueueName.DownloadContentFromUrl.ToLower());
-        //}
-
-        private CloudQueue GetThumbnailQueue()
-        {
-            return GetQueue(QueueName.ThumbnailQueueName.ToLower());
-        }
-
-
-
         private CloudQueue GetTransactionQueue()
         {
             return GetQueue(QueueName.UpdateDomainQueueName.ToLower());
@@ -45,28 +29,25 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
 
         public Task InsertMessageToMailNewAsync(BaseMailData message)
         {
-            return GetMailQueueNew().InsertToQueueProtoAsync(message);
+            var queue = GetQueue(QueueName.NewMailQueueName.ToLower());
+            return queue.InsertToQueueProtoAsync(message);
         }
 
 
-        public Task InsertMessageToTranactionAsync(DomainProcess message)
+        public Task InsertMessageToTransactionAsync(DomainProcess message)
         {
             return GetTransactionQueue().InsertToQueueProtoAsync(message);
         }
-        public Task InsertMessageToTranactionAsync(DomainProcess message, CancellationToken token)
+        public Task InsertMessageToTransactionAsync(DomainProcess message, CancellationToken token)
         {
             return GetTransactionQueue().InsertToQueueProtoAsync(message, token);
         }
 
         public Task InsertFileMessageAsync(FileProcess message)
         {
-            return GetThumbnailQueue().InsertToQueueProtoAsync(message);
+            var queue = GetQueue(QueueName.ThumbnailQueueName.ToLower());
+            return queue.InsertToQueueProtoAsync(message);
         }
-
-        //public async Task InsertMessageToDownloadAsync(UrlToDownloadData message)
-        //{
-        //    await GetDownloadContentFromUrlQueue().InsertToQueueProtoAsync(message);
-        //}
 
         public CloudQueue GetQueue(string queueName)
         {
@@ -75,12 +56,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
         }
 
         public async Task<bool> RunQueueAsync(QueueName queueName, Func<CloudQueueMessage, Task<bool>> func,
-           TimeSpan invisibleTimeinQueue, int deQueueCount, CancellationToken token)
+           TimeSpan invisibleTime, int deQueueCount, CancellationToken token)
         {
             if (queueName == null) throw new ArgumentNullException(nameof(queueName));
             if (func == null) throw new ArgumentNullException(nameof(func));
             var queue = QueueClient.GetQueueReference(queueName.Name.ToLower());
-            var messages = await queue.GetMessagesAsync(MaxQueuePopLimit, invisibleTimeinQueue, new QueueRequestOptions(), new OperationContext(), token);
+            var messages = await queue.GetMessagesAsync(MaxQueuePopLimit, invisibleTime, new QueueRequestOptions(), new OperationContext(), token).ConfigureAwait(false);
             if (messages == null)
             {
                 return false;
@@ -93,7 +74,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
                 {
                     if (msg.DequeueCount < deQueueCount)
                     {
-                        if (await func.Invoke(msg))
+                        if (await func.Invoke(msg).ConfigureAwait(false))
                         {
                             listToWait.Add(queue.DeleteMessageAsync(msg, token));
                         }
@@ -112,15 +93,15 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
                     TraceLog.WriteError("Queue: " + queue.Name + " run " + msg.Id + " DeQueue count: " + msg.DequeueCount, ex);
                 }
             }
-            await Task.WhenAll(listToWait);
+            await Task.WhenAll(listToWait).ConfigureAwait(false);
             return cloudQueueMessages.Any();
         }
 
 
-        public Task UpdateMessageAsync(QueueName queueName, CloudQueueMessage msg, CancellationToken token)
+        public Task UpdateMessageAsync(QueueName queueName, CloudQueueMessage msg, TimeSpan visibilityTimeout, CancellationToken token)
         {
             var queue = QueueClient.GetQueueReference(queueName.Name.ToLower());
-            return queue.UpdateMessageAsync(msg, TimeSpan.FromMinutes(15),
+            return queue.UpdateMessageAsync(msg, visibilityTimeout,
                 MessageUpdateFields.Content | MessageUpdateFields.Visibility, token);
         }
 
@@ -148,12 +129,5 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
         //    return cloudQueueMessages.Any();
         //}
 
-
-
-
     }
-
-
-
-
 }

@@ -25,6 +25,7 @@ using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Data;
+using Zbang.Zbox.Infrastructure.File;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.ReadServices;
 
@@ -107,19 +108,11 @@ namespace Zbang.Cloudents.MobileApp
         private static IContainer ConfigureDependencies(/*IAppBuilder app, HttpConfiguration config*/)
         {
             var builder = IocFactory.IocWrapper.ContainerBuilder;
-            //IocFactory.IocWrapper.ContainerBuilder = builder;
             builder.RegisterModule<InfrastructureModule>();
-            //Zbox.Infrastructure.RegisterIoc.Register();
-            Zbox.Infrastructure.File.RegisterIoc.Register();
+            builder.RegisterModule<FileModule>();
 
-            //builder.RegisterType<SeachConnection>()
-            //    .As<ISearchConnection>()
-            //    .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))
-            //    .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey"))
-            //    .InstancePerLifetimeScope();
 
             builder.RegisterModule<SearchModule>();
-            //RegisterIoc.Register();
 
             var x = new ApplicationDbContext("Zbox");
             builder.Register(c => x).AsSelf().InstancePerLifetimeScope();
@@ -132,15 +125,10 @@ namespace Zbang.Cloudents.MobileApp
                c => HttpContext.Current.GetOwinContext().Authentication);
 
             builder.RegisterModule<DataModule>();
-            //Zbox.Infrastructure.Data.RegisterIoc.Register();
             builder.RegisterModule<StorageModule>();
-            // Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
             builder.RegisterModule<MailModule>();
-            //Zbox.Infrastructure.File.RegisterIoc.Register();
             builder.RegisterModule<WriteServiceModule>();
-            //Zbox.Domain.Services.RegisterIoc.Register();
             builder.RegisterModule<CommandsModule>();
-            Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
 
             builder.RegisterModule<ReadServiceModule>();
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());

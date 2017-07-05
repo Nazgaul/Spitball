@@ -47,7 +47,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var task = Task.CompletedTask;
             if (answer.LikeCount > 0)
             {
-                task = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(answer.User.Id));
+                task = m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(answer.User.Id));
             }
             var t2 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
 

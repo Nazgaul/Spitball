@@ -144,7 +144,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 return new List<IJob>
                 {
-                    //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchItem),
+                    m_Unity.Resolve<IJob>(IocFactory.UpdateSearchItem),
                     //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchBox),
                     //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchQuiz),
                     //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchUniversity),
@@ -157,7 +157,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     //m_Unity.Resolve<IJob>(nameof(DeleteOldConnections)),
                     //m_Unity.Resolve<IJob>(nameof(DeleteOldStuff)),
                     //m_Unity.Resolve<IJob>(nameof(UpdateSearchFeed)),
-                    m_Unity.Resolve<IJob>(nameof(TestingJob))
+                    //m_Unity.Resolve<IJob>(nameof(TestingJob))
 
                 };
             }
@@ -176,7 +176,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 m_Unity.Resolve<IJob>(nameof(DeleteOldConnections)), //10
                 m_Unity.Resolve<IJob>(nameof(DeleteOldStuff)), //11
                 m_Unity.Resolve<IJob>(nameof(UpdateSearchFeed)), //12
-                m_Unity.Resolve<IJob>(nameof(TestingJob)) //13 //Temp one time job
 
             };
         }

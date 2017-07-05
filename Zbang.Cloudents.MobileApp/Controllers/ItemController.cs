@@ -52,7 +52,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             var userId = User.GetUserId();
             var tItem = m_ZboxReadService.GetItemDetailApiAsync(id);
 
-            var tTransAction = m_QueueProvider.InsertMessageToTranactionAsync(
+            var tTransAction = m_QueueProvider.InsertMessageToTransactionAsync(
                   new StatisticsData4(
                         new StatisticsData4.StatisticItemData
                         {
@@ -105,7 +105,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             var autoFollowCommand = new SubscribeToSharedBoxCommand(userId, boxId);
             var t3 = m_ZboxWriteService.SubscribeToSharedBoxAsync(autoFollowCommand);
 
-            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(
+            var t1 = m_QueueProvider.InsertMessageToTransactionAsync(
                    new StatisticsData4(
                         new StatisticsData4.StatisticItemData
                         {
@@ -368,7 +368,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-            await m_QueueProvider.InsertMessageToTranactionAsync(new BadItemData("From iOS app", string.Empty, User.GetUserId(), model.ItemId));
+            await m_QueueProvider.InsertMessageToTransactionAsync(new BadItemData("From iOS app", string.Empty, User.GetUserId(), model.ItemId));
             return Request.CreateResponse();
         }
     }

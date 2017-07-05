@@ -25,7 +25,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             builder.RegisterType<MailQueueProcess>().Named<IJob>(nameof(MailQueueProcess));
             builder.RegisterType<TestingJob>().Named<IJob>(nameof(TestingJob));
             builder.RegisterType<BlobManagement>().Named<IJob>(nameof(BlobManagement));
-            builder.RegisterType<DeleteOldStuff>().Named<IJob>(nameof(DeleteOldStuff));
             builder.RegisterType<DeleteOldConnections>().Named<IJob>(nameof(DeleteOldConnections));
 
             builder.RegisterType<NoUniversityMailProcess>().Named<ISchedulerProcess>("universityNotSelected");
@@ -34,8 +33,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
             builder.RegisterType<FollowLowActivityCourses>().Named<ISchedulerProcess>("followLowActivity");
             builder.RegisterType<LikesMailProcess>().Named<ISchedulerProcess>("likesReport");
 
-            var arrayOfUtcOfset = new[] { 0, 3, -5, -4, -6 };
-            foreach (var i in arrayOfUtcOfset)
+            builder.RegisterType<DeleteOldStuff>().Named<ISchedulerProcess>("deleteOld");
+
+            var arrayOfUtcOffset = new[] { 0, 3, -5, -4, -6 };
+            foreach (var i in arrayOfUtcOffset)
             {
                 builder.RegisterType<DigestEmail>()
                     .Named<ISchedulerProcess>($"digestOnceADay_{i}")
@@ -78,7 +79,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             builder.RegisterType<UpdateSearchItem>().Named<IFileProcess>(nameof(BoxFileProcessData));
             builder.RegisterType<UpdateSearchUniversity>().Named<IFileProcess>(nameof(UniversityProcessData));
             builder.RegisterType<UpdateSearchBox>().Named<IFileProcess>(nameof(BoxProcessData));
-           
 
 
             base.Load(builder);

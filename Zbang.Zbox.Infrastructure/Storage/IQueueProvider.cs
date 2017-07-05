@@ -11,8 +11,8 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
         Task InsertMessageToMailNewAsync(BaseMailData message);
 
-        Task InsertMessageToTranactionAsync(DomainProcess message);
-        Task InsertMessageToTranactionAsync(DomainProcess message, CancellationToken token);
+        Task InsertMessageToTransactionAsync(DomainProcess message);
+        Task InsertMessageToTransactionAsync(DomainProcess message, CancellationToken token);
 
         Task InsertFileMessageAsync(FileProcess message);
     }

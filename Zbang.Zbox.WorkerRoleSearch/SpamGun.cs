@@ -59,7 +59,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         //    return true;
         //}
 
-        public async Task<bool> ExecuteAsync(int index, Func<int, Task> progressAsync, CancellationToken token)
+        public async Task<bool> ExecuteAsync(int index, Func<int, TimeSpan, Task> progressAsync, CancellationToken token)
         {
             //if (!NeedToProcess())
             //{
@@ -69,7 +69,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 m_Queues[i] = new Queue<SpamGunDto>();
             }
-            //var reachHourLimit = false;
             var totalCount = 0;
             try
             {
@@ -165,7 +164,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return i.ToString();
         }
 
-       
+
 
     }
 }

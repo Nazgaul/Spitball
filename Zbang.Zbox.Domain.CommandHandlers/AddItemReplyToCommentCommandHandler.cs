@@ -52,7 +52,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ItemCommentReplyRepository.Save(comment);
             message.ReplyId = comment.Id;
             var t2 =
-                m_QueueRepository.InsertMessageToTranactionAsync(new UpdateData(user.Id, item.Box.Id,
+                m_QueueRepository.InsertMessageToTransactionAsync(new UpdateData(user.Id, item.Box.Id,
                     itemDiscussionReplyId: comment.Id));
 
             return Task.WhenAll(t2);

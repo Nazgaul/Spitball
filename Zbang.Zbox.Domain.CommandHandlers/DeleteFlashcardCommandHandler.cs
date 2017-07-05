@@ -55,7 +55,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_BoxRepository.Save(flashcardMeta.Box);
             var t1 = m_FlashcardRepository.UpdateItemAsync(message.Id.ToString(), flashcard);
             m_FlashcardMetaRepository.Delete(flashcardMeta);
-            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(flashcardMeta.User.Id));
+            var t2 = m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(flashcardMeta.User.Id));
             var t5 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(flashcardMeta.Box.Id));
 
             await Task.WhenAll(t1, t2, t5);

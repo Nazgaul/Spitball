@@ -5,6 +5,7 @@ using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Data;
 using Zbang.Zbox.Infrastructure.Extensions;
+using Zbang.Zbox.Infrastructure.File;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Notifications;
 using Zbang.Zbox.Infrastructure.Search;
@@ -22,45 +23,45 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public const string UpdateSearchFlashcard = "UpdateSearchFlashcard";
         public const string UpdateSearchUniversity = "UpdateSearchUniversity";
 
-        public Infrastructure.Ioc.IocFactory Ioc { get; }
+        private IContainer Container { get; }
+
         public IocFactory()
         {
-            Ioc = Infrastructure.Ioc.IocFactory.IocWrapper;
+            var builder = new ContainerBuilder();
 
-            Ioc.ContainerBuilder.RegisterModule<InfrastructureModule>();
-            Ioc.ContainerBuilder.RegisterModule<DataModule>();
-            Infrastructure.File.RegisterIoc.Register();
-            Ioc.ContainerBuilder.RegisterModule<StorageModule>();
-            Ioc.ContainerBuilder.RegisterModule<MailModule>();
+            builder.RegisterModule<InfrastructureModule>();
+            builder.RegisterModule<DataModule>();
+            builder.RegisterModule<FileModule>();
+            builder.RegisterModule<StorageModule>();
+            builder.RegisterModule<MailModule>();
 
-            Ioc.ContainerBuilder.RegisterModule<SearchModule>();
+            builder.RegisterModule<SearchModule>();
 
-            Ioc.ContainerBuilder.RegisterModule<WriteServiceModule>();
-            Ioc.ContainerBuilder.RegisterModule<ReadServiceModule>();
-            Domain.CommandHandlers.Ioc.RegisterIoc.Register();
-
-            Ioc.ContainerBuilder.RegisterModule<CommandsModule>();
-            Ioc.ContainerBuilder.RegisterType<SendPush>()
+            builder.RegisterModule<WriteServiceModule>();
+            builder.RegisterModule<ReadServiceModule>();
+            builder.RegisterModule<CommandsModule>();
+            builder.RegisterType<SendPush>()
             .As<ISendPush>()
             .WithParameter("connectionString", ConfigFetcher.Fetch("ServiceBusConnectionString"))
             .WithParameter("hubName", ConfigFetcher.Fetch("ServiceBusHubName"))
             .InstancePerLifetimeScope();
 
 
-            Ioc.ContainerBuilder.RegisterType<JaredSendPush>()
+            builder.RegisterType<JaredSendPush>()
                 .As<IJaredPushNotification>()
                 .WithParameter("connectionString", "Endpoint=sb://spitball.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=1+AAf2FSzauWHpYhHaoweYT9576paNgmicNSv6jAvKk=")
                 .WithParameter("hubName", "jared-spitball")
                 .InstancePerLifetimeScope();
 
-            Ioc.ContainerBuilder.RegisterModule<WorkerRoleModule>();
-            Ioc.Build();
+            builder.RegisterModule<WorkerRoleModule>();
+            Container = builder.Build();
+
 
         }
 
         public T Resolve<T>(string name)
         {
-            return Ioc.Resolve<T>(name);
+            return Container.ResolveNamed<T>(name);
         }
     }
 }

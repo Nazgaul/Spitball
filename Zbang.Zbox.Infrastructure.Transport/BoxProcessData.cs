@@ -18,22 +18,22 @@ namespace Zbang.Zbox.Infrastructure.Transport
         public long BoxId { get; private set; }
         public override string ProcessResolver => nameof(BoxProcessData);
     }
-    [ProtoContract]
-    public class BoxDeleteData : FileProcess
-    {
-        protected BoxDeleteData()
-        {
-        }
+    //[ProtoContract]
+    //public class BoxDeleteData : FileProcess
+    //{
+    //    protected BoxDeleteData()
+    //    {
+    //    }
 
-        public BoxDeleteData(long boxId)
-        {
-            BoxId = boxId;
-        }
+    //    public BoxDeleteData(long boxId)
+    //    {
+    //        BoxId = boxId;
+    //    }
 
-        [ProtoMember(1)]
-        public long BoxId { get; private set; }
-        public override string ProcessResolver => nameof(BoxDeleteData);
-    }
+    //    [ProtoMember(1)]
+    //    public long BoxId { get; private set; }
+    //    public override string ProcessResolver => nameof(BoxDeleteData);
+    //}
 
 
 }

@@ -58,7 +58,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 m_BoxRepository.Save(box);
                 var t5 = m_QueueRepository.InsertFileMessageAsync(new BoxProcessData(box.Id));
 
-                var t1 =  m_QueueRepository.InsertMessageToTranactionAsync(new FollowClassBadgeData(user.Id));
+                var t1 =  m_QueueRepository.InsertMessageToTransactionAsync(new FollowClassBadgeData(user.Id));
                 await Task.WhenAll(t1, t5).ConfigureAwait(true);
             }
         }

@@ -136,7 +136,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var query = new GetQuizQuery(quizId, userId);
             var tModel = ZboxReadService.GetQuizAsync(query);
 
-            var tTransaction = m_QueueProvider.InsertMessageToTranactionAsync(
+            var tTransaction = m_QueueProvider.InsertMessageToTransactionAsync(
                  new StatisticsData4(
                         new StatisticsData4.StatisticItemData
                         {

@@ -29,8 +29,9 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             get;
         }
 
-        public async Task<bool> ExecuteAsync(int index, Func<int, Task> progressAsync, CancellationToken token)
+        public async Task<bool> ExecuteAsync(int index, Func<int, TimeSpan, Task> progressAsync, CancellationToken token)
         {
+            if (progressAsync == null) throw new ArgumentNullException(nameof(progressAsync));
             var page = index;
             var needToContinueRun = true;
             var list = new List<Task>();
@@ -78,7 +79,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     TraceLog.WriteError($"{ServiceName} {ex}");
                 }
                 page++;
-                await progressAsync(page).ConfigureAwait(false);
+                await progressAsync(page, TimeSpan.FromMinutes(15)).ConfigureAwait(false);
 
             }
             await m_MailComponent.GenerateSystemEmailAsync(ServiceName, $"finish to run  with page {page}").ConfigureAwait(false);

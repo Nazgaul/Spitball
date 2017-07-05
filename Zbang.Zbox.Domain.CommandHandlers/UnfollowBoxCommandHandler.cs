@@ -59,7 +59,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             box.UserTime.UpdateUserTime(user.Id);
             box.IsDeleted = true;
             m_BoxRepository.Save(box);
-            return m_QueueProvider.InsertMessageToTranactionAsync(new DeleteBoxData(box.Id));
+            return m_QueueProvider.InsertMessageToTransactionAsync(new DeleteBoxData(box.Id));
         }
         private Task UnFollowBoxAsync(Box box, long userId)
         {

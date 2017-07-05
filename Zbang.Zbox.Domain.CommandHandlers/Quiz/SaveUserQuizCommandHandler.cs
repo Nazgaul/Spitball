@@ -75,7 +75,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             quiz.SolveCount = quiz.SolvedQuizzes.Count;
             
             m_QuizRepository.Save(quiz);
-            return m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(quiz.User.Id));
+            return m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(quiz.User.Id));
 
 
         }

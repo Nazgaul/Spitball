@@ -131,7 +131,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> DataAsync(long id, long boxId)
         {
             var userId = User.GetUserId(false);
-            var tTransAction = m_QueueProvider.InsertMessageToTranactionAsync(
+            var tTransAction = m_QueueProvider.InsertMessageToTransactionAsync(
                       new StatisticsData4(
                         new StatisticsData4.StatisticItemData
                         {

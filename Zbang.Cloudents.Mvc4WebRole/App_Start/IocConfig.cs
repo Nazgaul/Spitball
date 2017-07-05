@@ -12,6 +12,7 @@ using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Data;
 using Zbang.Zbox.Infrastructure.Extensions;
+using Zbang.Zbox.Infrastructure.File;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Search;
@@ -35,12 +36,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                 builder.RegisterModule<InfrastructureModule>();
 
-                //Zbox.Infrastructure.RegisterIoc.Register();
                 builder.RegisterModule<DataModule>();
-                //Zbox.Infrastructure.Data.RegisterIoc.Register();
-                Zbox.Infrastructure.File.RegisterIoc.Register();
+                builder.RegisterModule<FileModule>();
+                //Zbox.Infrastructure.File.RegisterIoc.Register();
                 builder.RegisterModule<StorageModule>();
-                //Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
                 builder.RegisterModule<MailModule>();
                 
 
@@ -67,7 +66,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 builder.RegisterModule<WriteServiceModule>();
                 builder.RegisterModule<ReadServiceModule>();
                 
-                Zbang.Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
                 builder.RegisterModule<CommandsModule>();
 
                 builder.RegisterControllers(typeof (MvcApplication).Assembly).PropertiesAutowired();

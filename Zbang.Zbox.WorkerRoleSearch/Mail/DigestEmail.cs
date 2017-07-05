@@ -43,7 +43,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             return m_MailComponent.GenerateSystemEmailAsync(GetServiceName(), message);
         }
 
-        public async Task<bool> ExecuteAsync(int index, Func<int, Task> progressAsync, CancellationToken token)
+        public async Task<bool> ExecuteAsync(int index, Func<int, TimeSpan, Task> progressAsync, CancellationToken token)
         {
             if (progressAsync == null) throw new ArgumentNullException(nameof(progressAsync));
             var page = index;
@@ -211,12 +211,12 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     {
                         needToContinueRun = false;
                     }
-                    await progressAsync(page).ConfigureAwait(false);
+                    await progressAsync(page, TimeSpan.FromMinutes(15)).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
                     page++;
-                    await progressAsync(page).ConfigureAwait(false);
+                    await progressAsync(page, TimeSpan.FromMinutes(5)).ConfigureAwait(false);
                     await SendEmailStatusAsync($"error digest email {ex}").ConfigureAwait(false);
                     TraceLog.WriteError($"{GetServiceName()} error digest email {ex}");
                     //return false;

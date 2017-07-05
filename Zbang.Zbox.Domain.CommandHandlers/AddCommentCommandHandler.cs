@@ -62,7 +62,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var comment = box.AddComment(user, command.Text, command.Id, files, FeedType.None, command.PostAnonymously);
             m_CommentRepository.Save(comment);
             m_BoxRepository.Save(box);
-            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, questionId: comment.Id));
+            var t1 = m_QueueProvider.InsertMessageToTransactionAsync(new UpdateData(user.Id, box.Id, questionId: comment.Id));
             var t2 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
 
             await Task.WhenAll(t1, t2).ConfigureAwait(true);

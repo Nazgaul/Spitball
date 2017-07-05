@@ -16,8 +16,8 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 
         private static IUnitOfWork CurrentUnitOfWork
         {
-            get { return Local.Data[CurrentUnitOfWorkKey] as IUnitOfWork; }
-            set { Local.Data[CurrentUnitOfWorkKey] = value; }
+            get => Local.Data[CurrentUnitOfWorkKey] as IUnitOfWork;
+            set => Local.Data[CurrentUnitOfWorkKey] = value;
         }
 
         public static IUnitOfWork Current
@@ -37,8 +37,8 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 
         public static ISession CurrentSession
         {
-            get { return UnitOfWorkFactory.CurrentSession; }
-            internal set { UnitOfWorkFactory.CurrentSession = value; }
+            get => UnitOfWorkFactory.CurrentSession;
+            internal set => UnitOfWorkFactory.CurrentSession = value;
         }
 
         public static IUnitOfWork Start()

@@ -246,7 +246,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-            await m_QueueProvider.InsertMessageToTranactionAsync(new BadPostData(User.GetUserId(), model.PostId));
+            await m_QueueProvider.InsertMessageToTransactionAsync(new BadPostData(User.GetUserId(), model.PostId));
             return Request.CreateResponse();
         }
 

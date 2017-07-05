@@ -39,7 +39,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             var userId = User.GetUserId();
             var query = new GetQuizQuery(quizId, userId);
             var tModel = m_ZboxReadService.GetQuizAsync(query);
-            var tTransaction = m_QueueProvider.InsertMessageToTranactionAsync(
+            var tTransaction = m_QueueProvider.InsertMessageToTransactionAsync(
                  new StatisticsData4(
                         new StatisticsData4.StatisticItemData
                         {

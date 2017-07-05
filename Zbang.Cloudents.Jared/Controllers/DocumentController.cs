@@ -58,7 +58,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-            await m_QueueProvider.InsertMessageToTranactionAsync(
+            await m_QueueProvider.InsertMessageToTransactionAsync(
                 new StatisticsData4(
                     new StatisticsData4.StatisticItemData
                     {

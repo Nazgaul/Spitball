@@ -106,7 +106,6 @@
     <Compile Include="DeleteUserFromBoxCommandHandler.cs" />
     <Compile Include="GetGeneralDepartmentCommandHandler.cs" />
     <Compile Include="InviteToSystemCommandHandler.cs" />
-    <Compile Include="Ioc\RegisterIoc.cs" />
     <Compile Include="LibraryNodeApproveAccessCommandHandler.cs" />
     <Compile Include="LikeCommentCommandHandler.cs" />
     <Compile Include="AddFlashcardLikeCommandHandler.cs" />

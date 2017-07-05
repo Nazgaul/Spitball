@@ -53,15 +53,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             await CreateQueuesDataAsync(message.UserId, comment.User.Id).ConfigureAwait(true);
 
 
-           await m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(comment.User.Id)).ConfigureAwait(true);
+           await m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(comment.User.Id)).ConfigureAwait(true);
             return new LikeCommentCommandResult(false);
 
         }
 
         private async Task CreateQueuesDataAsync(long userWhoMadeAction, long commentUser)
         {
-            var t1 =  m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(commentUser));
-            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new LikesBadgeData(userWhoMadeAction));
+            var t1 =  m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(commentUser));
+            var t2 = m_QueueProvider.InsertMessageToTransactionAsync(new LikesBadgeData(userWhoMadeAction));
             await Task.WhenAll(t1, t2).ConfigureAwait(true);
         }
     }

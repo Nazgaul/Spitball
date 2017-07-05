@@ -33,8 +33,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_QuizLikeRepository.Delete(like);
             like.Quiz.ShouldMakeDirty = () => true;
             m_QuizRepository.Save(like.Quiz);
-            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(like.Quiz.User.Id));
-            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new LikesBadgeData(message.UserId));
+            var t1 = m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(like.Quiz.User.Id));
+            var t2 = m_QueueProvider.InsertMessageToTransactionAsync(new LikesBadgeData(message.UserId));
             return Task.WhenAll(t1, t2);
 
         }

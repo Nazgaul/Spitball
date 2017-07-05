@@ -40,7 +40,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> Get(long id)
         {
             var userId = User.GetUserId();
-            var tTransAction = m_QueueProvider.InsertMessageToTranactionAsync(
+            var tTransAction = m_QueueProvider.InsertMessageToTransactionAsync(
                       new StatisticsData4(
                         new StatisticsData4.StatisticItemData
                         {
