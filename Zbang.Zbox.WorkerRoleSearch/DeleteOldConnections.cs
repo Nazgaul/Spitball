@@ -39,7 +39,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         var proxy = await SignalrClient.GetProxyAsync().ConfigureAwait(false);
                         foreach (var userId in command.UserIds)
                         {
-                            await proxy.Invoke("Offline", userId).ConfigureAwait(false);
+                            if (proxy != null) await proxy.Invoke("Offline", userId).ConfigureAwait(false);
                         }
                     }
                     catch (Exception ex)

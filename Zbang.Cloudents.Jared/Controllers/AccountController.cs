@@ -36,21 +36,29 @@ namespace Zbang.Cloudents.Jared.Controllers
         // GET api/Account
         public async Task<HttpResponseMessage> Get(CancellationToken token)
         {
-            var result = await m_ZboxReadService.GetJaredUserDataAsync(new QueryBaseUserId(User.GetUserId()), token).ConfigureAwait(false);
-            return Request.CreateResponse(new
+            try
             {
-                university = new
+                var result = await m_ZboxReadService.GetJaredUserDataAsync(new QueryBaseUserId(User.GetUserId()), token)
+                    .ConfigureAwait(false);
+                return Request.CreateResponse(new
                 {
-                    Id = result.Item1.UniversityId,
-                    Name = result.Item1.UniversityName
-                },
-                courses = result.Item2.Select(s => new
-                {
-                    s.Id,
-                    s.Name,
-                    code = s.CourseCode
-                })
-            });
+                    university = new
+                    {
+                        Id = result.Item1.UniversityId,
+                        Name = result.Item1.UniversityName
+                    },
+                    courses = result.Item2.Select(s => new
+                    {
+                        s.Id,
+                        s.Name,
+                        code = s.CourseCode
+                    })
+                });
+            }
+            catch (InvalidOperationException)
+            {
+                return Request.CreateNotFoundResponse();
+            }
         }
 
 
@@ -88,7 +96,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         [HttpPost]
         [Route("api/account/university")]
 
-        public HttpResponseMessage UpdateUniversityAsync(UpdateUniversityRequest model)
+        public HttpResponseMessage UpdateUniversity(UpdateUniversityRequest model)
         {
             if (model == null)
             {

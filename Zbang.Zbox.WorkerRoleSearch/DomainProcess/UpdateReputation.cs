@@ -35,7 +35,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
                         m_ZboxWriteService.UpdateReputation(command);
                         try
                         {
-                            await proxy.Invoke("Score", command.Score, userId).ConfigureAwait(false);
+                            if (proxy != null) await proxy.Invoke("Score", command.Score, userId).ConfigureAwait(false);
                         }
                         catch (Exception ex)
                         {

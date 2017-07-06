@@ -83,29 +83,29 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
         }
         private void SaveConfiguration()
         {
-            try
-            {
-                //TODO: this is for now - Jared is not using IOC factory
-                var wrapper = IocFactory.IocWrapper;
-                if (wrapper == null)
-                {
-                    return;
-                }
-                var storage = wrapper.Resolve<ICache>();
-                using (var ms = new MemoryStream())
-                {
-                    IFormatter bf = new BinaryFormatter();
-                    bf.Serialize(ms, Configuration);
+            //try
+            //{
+            //    //TODO: this is for now - Jared is not using IOC factory
+            //    var wrapper = IocFactory.IocWrapper;
+            //    if (wrapper == null)
+            //    {
+            //        return;
+            //    }
+            //    var storage = wrapper.Resolve<ICache>();
+            //    using (var ms = new MemoryStream())
+            //    {
+            //        IFormatter bf = new BinaryFormatter();
+            //        bf.Serialize(ms, Configuration);
 
 
-                    storage.AddToCache("nhibernate", GetConfigurationFileName(), ms.ToArray(),
-                        TimeSpan.FromDays(90));
-                }
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("nhibernate SaveConfiguration", ex);
-            }
+            //        storage.AddToCache("nhibernate", GetConfigurationFileName(), ms.ToArray(),
+            //            TimeSpan.FromDays(90));
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    TraceLog.WriteError("nhibernate SaveConfiguration", ex);
+            //}
         }
 
 
@@ -123,28 +123,29 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 
         private static Configuration LoadConfigurationFromFile()
         {
+            return null;
 
-            try
-            {
-                var wrapper = IocFactory.IocWrapper;
-                if (wrapper == null)
-                {
-                    return null;
-                }
-                var storage = wrapper.Resolve<ICache>();
-                var file = storage.GetFromCache<byte[]>("nhibernate", GetConfigurationFileName());
-                if (file == null)
-                {
-                    return null;
-                }
-                using (var ms = new MemoryStream(file))
-                {
-                    var bf = new BinaryFormatter();
-                    return (Configuration)bf.Deserialize(ms);
-                }
+            //try
+            //{
+            //    var wrapper = IocFactory.IocWrapper;
+            //    if (wrapper == null)
+            //    {
+            //        return null;
+            //    }
+            //    var storage = wrapper.Resolve<ICache>();
+            //    var file = storage.GetFromCache<byte[]>("nhibernate", GetConfigurationFileName());
+            //    if (file == null)
+            //    {
+            //        return null;
+            //    }
+            //    using (var ms = new MemoryStream(file))
+            //    {
+            //        var bf = new BinaryFormatter();
+            //        return (Configuration)bf.Deserialize(ms);
+            //    }
 
-            }
-            catch (Exception) { return null; }
+            //}
+            //catch (Exception) { return null; }
         }
 
 
@@ -187,6 +188,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
         public void DisposeUnitOfWork(IUnitOfWorkImplementor adapter)
         {
             CurrentSession = null;
+            Local.Data.Clear();
             UnitOfWork.DisposeUnitOfWork(adapter);
         }
 

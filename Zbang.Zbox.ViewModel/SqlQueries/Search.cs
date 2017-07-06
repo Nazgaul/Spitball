@@ -393,9 +393,8 @@ OFFSET @PageSize * (@PageNumber) ROWS
     from zbox.item i 
     join zbox.box b on i.BoxId = b.BoxId
     left join zbox.University u on b.University = u.id
-    where i.isdirty = 1 
+    where i.isdirty = 0 
     and i.IsDeleted = 0
-    and b.isdeleted = 0 -- performance
     and (@itemId is not null or (i.creationtime < DATEADD(minute, -1, getutcdate())))
     and (@itemId is not null or (i.itemid % @count  = @index))
 	and (@itemId is null or (i.ItemId = @itemId))

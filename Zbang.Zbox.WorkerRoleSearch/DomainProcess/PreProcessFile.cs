@@ -41,12 +41,12 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
 
             try
             {
-                var proxy = await SignalrClient.GetProxyAsync();
+                var proxy = await SignalrClient.GetProxyAsync().ConfigureAwait(false);
                 
                 var blobName = parameters.BlobUri.Segments[parameters.BlobUri.Segments.Length - 1];
                 if (parameters.Users != null)
                 {
-                    await proxy.Invoke("UpdateImage", blobName, parameters.Users);
+                    await proxy.Invoke("UpdateImage", blobName, parameters.Users).ConfigureAwait(false);
                 }
                 else
                 {
@@ -55,7 +55,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             }
             catch (Exception ex)
             {
-                await m_MailComponent.GenerateSystemEmailAsync("signalR error", ex.Message);
+                await m_MailComponent.GenerateSystemEmailAsync("signalR error", ex.Message).ConfigureAwait(false);
                 TraceLog.WriteError("on signalr update image", ex);
             }
 
@@ -76,7 +76,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
                     var tokenSource = new CancellationTokenSource();
                     tokenSource.CancelAfter(TimeSpan.FromMinutes(10));
                     //some long running method requiring synchronization
-                    var retVal = await processor.PreProcessFileAsync(parameters.BlobUri, tokenSource.Token);
+                    var retVal = await processor.PreProcessFileAsync(parameters.BlobUri, tokenSource.Token).ConfigureAwait(false);
                     if (retVal == null)
                     {
                         wait.Set();

@@ -36,8 +36,6 @@ namespace Zbang.Zbox.Infrastructure.Cache
             var viewModelBuildVersion = viewModel.GetName().Version.Revision;
             m_CachePrefix = $"{domainBuildVersion}_{viewModelBuildVersion}_{ConfigurationManager.AppSettings[AppKey]}";
             m_CacheExists = m_IsRedisCacheAvailable || m_IsHttpCacheAvailable;
-            TraceLog.WriteInfo(
-                $"m_IsRedisCacheAvailable {m_IsRedisCacheAvailable} m_IsHttpCacheAvailable {m_IsHttpCacheAvailable}");
         }
 
         
@@ -123,11 +121,10 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 return;
             }
             var db = Connection.GetDatabase();
-            string keys = await db.StringGetAsync(region);
-            
+            string keys = await db.StringGetAsync(region).ConfigureAwait(false);
             if (keys == null)
             {
-                await db.KeyDeleteAsync(region, CommandFlags.FireAndForget);
+                await db.KeyDeleteAsync(region, CommandFlags.FireAndForget).ConfigureAwait(false);
                 return;
             }
             var taskList = new List<Task>();
@@ -136,11 +133,11 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 taskList.Add(db.KeyDeleteAsync(key, CommandFlags.FireAndForget));
             }
             taskList.Add(db.KeyDeleteAsync(region, CommandFlags.FireAndForget));
-            await Task.WhenAll(taskList);
+            await Task.WhenAll(taskList).ConfigureAwait(false);
 
         }
 
-        public async Task RemoveFromCacheAsyncSlowAsync(string region)
+        public Task RemoveFromCacheAsyncSlowAsync(string region)
         {
             var server = Connection.GetServer(Connection.GetEndPoints().FirstOrDefault());
             var keys = server.Keys(0, region + "*");
@@ -150,7 +147,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             {
                 taskList.Add(db.KeyDeleteAsync(key, CommandFlags.FireAndForget));
             }
-            await Task.WhenAll(taskList);
+            return Task.WhenAll(taskList);
         }
 
         public async Task<T> GetFromCacheAsync<T>(string region, string key) where T : class
@@ -168,11 +165,11 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
                 var cache = Connection.GetDatabase();
 
-                var t = await cache.GetAsync<T>(cacheKey);
+                var t = await cache.GetAsync<T>(cacheKey).ConfigureAwait(false);
 
                 if (t != default(T))
                 {
-                    await cache.StringAppendAsync(region, cacheKey + ";", CommandFlags.FireAndForget);
+                    await cache.StringAppendAsync(region, cacheKey + ";", CommandFlags.FireAndForget).ConfigureAwait(false);
                 }
 
                 return t;

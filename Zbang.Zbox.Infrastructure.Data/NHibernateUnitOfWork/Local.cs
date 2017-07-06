@@ -65,7 +65,6 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                         return HttpContext.Current.Items[key];
                     }
                     return CallContext.LogicalGetData(key);
-                    //return LocalHashtable[key];
                 }
                 set
                 {

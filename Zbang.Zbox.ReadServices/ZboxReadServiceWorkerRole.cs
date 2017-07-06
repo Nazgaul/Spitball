@@ -169,7 +169,7 @@ namespace Zbang.Zbox.ReadServices
             using (UnitOfWork.Start())
             {
                 var dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBadItemUserDetail");
-                dbQuery.SetInt64("userId", query.UserId);
+                dbQuery.SetInt64("UserId", query.UserId);
                 dbQuery.SetResultTransformer(NHibernate.Transform.Transformers.AliasToBean<BadItemDto>());
 
 
@@ -711,6 +711,23 @@ offset @page*100 ROWS
                     conn.QueryAsync<long, string, Tuple<long, string>>(
                         "select top 100  itemId,blobName from zbox.item where md5 is null and discriminator = 'file' and isDeleted = 0 and itemId >= @id order by itemId",
                         Tuple.Create, splitOn: "*",param: new { id }).ConfigureAwait(false);
+            }
+        }
+
+
+        public async Task<IEnumerable<Tuple<long, decimal>>> GetDuplicateDocumentsAsync()
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
+            {
+                return await
+                    conn.QueryAsync<long, decimal, Tuple<long, decimal>>(
+                        @"select itemId, likeCount *15 + numberOfViews *0.1 + numberOfDownloads *0.2 as score from zbox.item where md5 in (
+select top(1) md5 from zbox.item
+where isDeleted = 0
+group by md5
+having count(*) > 1
+) order by score desc",
+                        Tuple.Create, splitOn: "*").ConfigureAwait(false);
             }
         }
 

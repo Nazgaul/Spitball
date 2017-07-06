@@ -34,8 +34,6 @@ namespace Zbang.Zbox.Domain
             Size = iSized;
             Box = box;
             ItemContentUrl = itemContentUrl;
-            //ShouldMakeDirty = () => true;
-            // ReSharper restore DoNotCallOverridableMethodsInConstructor
 
         }
         public virtual long Id { get; protected set; }
@@ -112,8 +110,6 @@ namespace Zbang.Zbox.Domain
         }
 
         public virtual int LikeCount { get; set; }
-        //public virtual bool Sponsored { get; set; }
-        //public virtual int NumberOfComments { get; private set; }
 
         public void IncreaseNumberOfViews()
         {

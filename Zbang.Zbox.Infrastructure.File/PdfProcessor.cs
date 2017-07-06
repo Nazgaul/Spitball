@@ -4,12 +4,14 @@ using Aspose.Pdf.Devices;
 using System;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Aspose.Pdf.Text;
 using Aspose.Pdf.Text.TextOptions;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
+using Path = System.IO.Path;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
@@ -134,7 +136,15 @@ namespace Zbang.Zbox.Infrastructure.File
             };
             for (var i = 1; i <= Math.Min(doc.Pages.Count, 20); i++)
             {
-                doc.Pages[i].Accept(textAbsorber);
+                try
+                {
+                    doc.Pages[i].Accept(textAbsorber);
+                }
+                catch(ArgumentException ex)
+                {
+                    TraceLog.WriteWarning("on text extraction pdf " + ex);
+                        
+                }
             }
             var text = textAbsorber.Text;
             var str = StripUnwantedChars(text);
@@ -148,10 +158,13 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             SetLicense();
             var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken).ConfigureAwait(false);
+
             using (var pdfDocument = new Document(path))
             {
                 return ExtractPdfText(pdfDocument);
             }
+
+
         }
 
 

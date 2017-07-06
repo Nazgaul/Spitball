@@ -57,7 +57,7 @@ namespace Zbang.Cloudents.Jared.Controllers.Tests
             m_Controller.Validate(model);
             var command = new UpdateUserUniversityCommand(model.UniversityId, 4, null);
             var c = command.StudentId ?? "678";
-            var result = m_Controller.UpdateUniversityAsync(null);
+            var result = m_Controller.UpdateUniversity(null);
             Assert.IsTrue(result.ReasonPhrase == "Bad Request");
         }
     }

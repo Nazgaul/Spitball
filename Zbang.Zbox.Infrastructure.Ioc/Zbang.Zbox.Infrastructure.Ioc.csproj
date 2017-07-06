@@ -45,8 +45,6 @@
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IocFactory.cs" />
-    <Compile Include="IocParameterOverride.cs" />
-    <Compile Include="LifeTimeManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

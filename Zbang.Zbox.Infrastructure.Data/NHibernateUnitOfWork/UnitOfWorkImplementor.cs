@@ -50,9 +50,6 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 
         public void TransactionalFlush(IsolationLevel isolationLevel)
         {
-            // $$$$$$$$$$$$$$$$ gns: take this, when making thread safe! $$$$$$$$$$$$$$
-            //IGenericTransaction tx = UnitOfWork.Current.BeginTransaction(isolationLevel);   
-
             var tx = BeginTransaction(isolationLevel);
 
             try

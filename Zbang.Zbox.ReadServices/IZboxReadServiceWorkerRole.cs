@@ -64,6 +64,8 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<LikesDto>> GetLikesDataAsync(CancellationToken token);
 
         Task<IEnumerable<Tuple<long, string>>> GetDocumentsWithoutMd5Async(long id);
+
+        Task<IEnumerable<Tuple<long, decimal>>> GetDuplicateDocumentsAsync();
         //Task<IEnumerable<string>> GetEmailsAsync(int page);
 
 

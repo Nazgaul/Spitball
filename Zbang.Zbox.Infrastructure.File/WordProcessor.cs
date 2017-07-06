@@ -93,6 +93,10 @@ namespace Zbang.Zbox.Infrastructure.File
                 }, () => word.PageCount, CacheVersion, cancelToken).ConfigureAwait(false);
 
             }
+            catch (UnsupportedFileFormatException)
+            {
+                return null;
+            }
             catch (Exception ex)
             {
                 TraceLog.WriteError("PreProcessFile word", ex);

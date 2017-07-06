@@ -27,7 +27,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             var parameters = data as BadgeData;
             if (parameters == null)
             {
-                throw new NullReferenceException("parameters");
+                throw new NullReferenceException(nameof(parameters));
             }
             //TODO change that
             var badge = BadgeType.None;
@@ -65,7 +65,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             {
                 tasks.Add(DoUpdateAsync(parameters.UserId, badge, token));
             }
-            await Task.WhenAll(tasks);
+            await Task.WhenAll(tasks).ConfigureAwait(false);
             return true;
         }
 
@@ -80,15 +80,15 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
                 try
                 {
                     //TODO: culture
-                    var proxy = await SignalrClient.GetProxyAsync();
-                    await proxy.Invoke("Badge", badge, userId);
+                    var proxy = await SignalrClient.GetProxyAsync().ConfigureAwait(false);
+                    if (proxy != null) await proxy.Invoke("Badge", badge, userId).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
                     TraceLog.WriteError("on signalr update image", ex);
                 }
             
-                await m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(userId), token);
+                await m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(userId), token).ConfigureAwait(false);
             }
         }
     }

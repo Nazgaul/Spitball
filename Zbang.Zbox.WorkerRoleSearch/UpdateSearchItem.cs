@@ -190,22 +190,24 @@ namespace Zbang.Zbox.WorkerRoleSearch
             if (msgData.Type.Any(s => s == ItemType.Document))// msgData.TypeDocument.ToLower() != "file")
             {
 
-                if (Uri.TryCreate(msgData.BlobName, UriKind.Absolute, out uri))
+                uri = m_BlobProvider.GetBlobUrl(msgData.BlobName);
+                return new Processor
                 {
-                    return new Processor
-                    {
-                        ContentProcessor = m_FileProcessorFactory.GetProcessor(uri),
-                        Uri = uri
-                    };
-
-                }
+                    ContentProcessor = m_FileProcessorFactory.GetProcessor(uri),
+                    Uri = uri
+                };
+                
             }
-            uri = m_BlobProvider.GetBlobUrl(msgData.BlobName);
-            return new Processor
+            if (Uri.TryCreate(msgData.BlobName, UriKind.Absolute, out uri))
             {
-                ContentProcessor = m_FileProcessorFactory.GetProcessor(uri),
-                Uri = uri
-            };
+                return new Processor
+                {
+                    ContentProcessor = m_FileProcessorFactory.GetProcessor(uri),
+                    Uri = uri
+                };
+
+            }
+            return null;
         }
 
         private class Processor
@@ -219,22 +221,27 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private void PreProcessFile(DocumentSearchDto msgData)
         {
             var processor = GetProcessor(msgData);
-            if (processor.ContentProcessor == null) return;
+            
+            if (processor?.ContentProcessor == null) return;
+            var timeSpanToWait = TimeSpan.FromMinutes(10);
             //taken from : http://blogs.msdn.com/b/nikhil_agarwal/archive/2014/04/02/10511934.aspx
+#pragma warning disable CC0022 // Should dispose object we close the event at the end
             var wait = new ManualResetEvent(false);
+#pragma warning restore CC0022 // Should dispose object
             var work = new Thread(async () =>
             {
                 try
                 {
                     var tokenSource = new CancellationTokenSource();
-                    tokenSource.CancelAfter(TimeSpan.FromMinutes(10));
+                    tokenSource.CancelAfter(timeSpanToWait);
                     var retVal =
                         await processor.ContentProcessor.PreProcessFileAsync(processor.Uri, tokenSource.Token)
                             .ConfigureAwait(false);
                     try
                     {
                         var proxy = await SignalrClient.GetProxyAsync().ConfigureAwait(false);
-                        await proxy.Invoke("UpdateThumbnail", msgData.Id, msgData.Course.Id).ConfigureAwait(false);
+                        if (proxy != null)
+                            await proxy.Invoke("UpdateThumbnail", msgData.Id, msgData.Course.Id).ConfigureAwait(false);
                     }
                     catch (Exception ex)
                     {
@@ -257,11 +264,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
             });
             work.Start();
-            var signal = wait.WaitOne(TimeSpan.FromMinutes(10));
+            var signal = wait.WaitOne(timeSpanToWait);
             if (!signal)
             {
                 work.Abort();
-                TraceLog.WriteError("blob url aborting process" + msgData.BlobName);
+                TraceLog.WriteError("blob url aborting process " + msgData.BlobName);
             }
             wait.Close();
 

@@ -2,6 +2,7 @@
 using Aspose.Slides;
 using Aspose.Slides.Util;
 using System;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace Zbang.Zbox.Infrastructure.File
     public class PowerPoint2007Processor : DocumentProcessor
     {
         const string CacheVersion = CacheVersionPrefix + "4";
-        public PowerPoint2007Processor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview,  IBlobProvider2<ICacheContainer> blobProviderCache)
+        public PowerPoint2007Processor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview, IBlobProvider2<ICacheContainer> blobProviderCache)
             : base(blobProvider, blobProviderPreview, blobProviderCache)
         {
 
@@ -35,7 +36,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var ppt = new AsyncLazy<Presentation>(async () =>
             {
                 SetLicense();
-                using (var sr = await BlobProvider.DownloadFileAsync(blobUri, cancelToken))
+                using (var sr = await BlobProvider.DownloadFileAsync(blobUri, cancelToken).ConfigureAwait(false))
                 {
                     return new Presentation(sr);
                 }
@@ -43,17 +44,17 @@ namespace Zbang.Zbox.Infrastructure.File
 
             var retVal = await UploadPreviewCacheToAzureAsync(blobUri, indexNum,
                 i => CreateCacheFileName(blobName, i),
-               async z =>
-               {
-                   var p = await ppt;
+                async z =>
+                {
+                    var p = await ppt;
 
-                   var thumbnail = p.Slides[z].GetThumbnail(1f, 1f);
-                   var ms = new MemoryStream();
+                    var thumbnail = p.Slides[z].GetThumbnail(1f, 1f);
+                    var ms = new MemoryStream();
 
-                   thumbnail.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                   return ms;
-               }, CacheVersion, "image/jpg", cancelToken
-            );
+                    thumbnail.Save(ms, ImageFormat.Jpeg);
+                    return ms;
+                }, CacheVersion, "image/jpg", cancelToken
+            ).ConfigureAwait(false);
             if (ppt.IsValueCreated)
             {
                 ppt.Value.Dispose();
@@ -86,21 +87,21 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             try
             {
-                var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken);
+                var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken).ConfigureAwait(false);
                 SetLicense();
                 using (var pptx = new Presentation(path))
                 {
                     return await ProcessFileAsync(blobUri, () =>
-                    {
-                        using (var img = pptx.Slides[0].GetThumbnail(1, 1))
                         {
-                            var ms = new MemoryStream();
-                            img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                            return ms;
-                        }
+                            using (var img = pptx.Slides[0].GetThumbnail(1, 1))
+                            {
+                                var ms = new MemoryStream();
+                                img.Save(ms, ImageFormat.Jpeg);
+                                return ms;
+                            }
 
-                    }
-                    , () => pptx.Slides.Count, CacheVersion, cancelToken);
+                        }
+                        , () => pptx.Slides.Count, CacheVersion, cancelToken).ConfigureAwait(false);
                 }
             }
             catch (Exception ex)
@@ -140,13 +141,21 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override async Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
-            var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken);
+            var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken).ConfigureAwait(false);
             SetLicense();
-            using (var pptx = new Presentation(path))
+            try
             {
-                return ExtractStringFromPpt(pptx);
+                using (var pptx = new Presentation(path))
+                {
+                    return ExtractStringFromPpt(pptx);
+                }
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("failed to initialize ppt on blob: " + blobUri, ex);
+                return null;
             }
         }
-        
+
     }
 }

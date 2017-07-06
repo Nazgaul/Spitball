@@ -4,7 +4,11 @@ using Zbang.Zbox.Infrastructure.UnitsOfWork;
 
 namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 {
-    public static class UnitOfWork
+    //public interface IUnitOfWork
+    //{
+        
+    //}
+    public class UnitOfWork 
     {
         private static readonly IUnitOfWorkFactory UnitOfWorkFactory;
         public const string CurrentUnitOfWorkKey = "CurrentUnitOfWork.Key";
@@ -33,7 +37,6 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             }
         }
 
-        public static bool IsStarted => CurrentUnitOfWork != null;
 
         public static ISession CurrentSession
         {
@@ -55,7 +58,6 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
         public static void DisposeUnitOfWork(IUnitOfWorkImplementor unitOfWork)
         {
             CurrentUnitOfWork = null;
-            Local.Data.Clear();
         }
     }
 }

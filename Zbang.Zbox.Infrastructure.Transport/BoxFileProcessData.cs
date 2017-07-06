@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
 
         public override string ToString()
         {
-            return "itemid " + ItemId;
+            return "itemId " + ItemId;
         }
     }
 }

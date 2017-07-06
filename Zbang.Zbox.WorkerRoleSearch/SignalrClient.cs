@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR.Client;
 using Zbang.Zbox.Infrastructure.Extensions;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
@@ -13,20 +14,25 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             if (Proxy == null)
             {
-                await InitConnectionAsync();
+                await InitConnectionAsync().ConfigureAwait(false);
             }
             if (_hub.State == ConnectionState.Disconnected)
             {
-                await InitConnectionAsync();
+                await InitConnectionAsync().ConfigureAwait(false);
             }
-            return Proxy;
+            if (_hub.State == ConnectionState.Connected)
+            {
+                return Proxy;
+            }
+            TraceLog.WriteWarning($"SignalR is in state {_hub.State}");
+            return null;
         }
 
         private static async Task InitConnectionAsync()
         {
             _hub = new HubConnection(ConfigFetcher.Fetch("signalR") + "/s");
             Proxy = _hub.CreateHubProxy("SpitballHub");
-            await _hub.Start();
+            await _hub.Start().ConfigureAwait(false);
             _hub.Closed += () =>
             {
                 _hub.Start();

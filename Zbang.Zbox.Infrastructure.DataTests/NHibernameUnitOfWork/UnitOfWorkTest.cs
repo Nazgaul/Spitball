@@ -141,14 +141,7 @@ namespace Zbang.Zbox.Infrastructure.DataTests.NHibernameUnitOfWork
             { }
         }
 
-        [TestMethod]
-        public void Can_test_if_UnitOfWork_Is_Started()
-        {
-            Assert.IsFalse(UnitOfWork.IsStarted);
-
-            IUnitOfWork uow = UnitOfWork.Start();
-            Assert.IsTrue(UnitOfWork.IsStarted);
-        }
+        
 
         [TestMethod]
         public void Can_get_valid_current_session_if_UoW_is_started()
