@@ -44,16 +44,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, ActionName("BoxList")]
         public async Task<JsonResult> BoxListAsync()
         {
-            var userid = User.GetUserId();
+            var userId = User.GetUserId();
             try
             {
-                var query = new GetBoxesQuery(userid);
-                var data = await ZboxReadService.GetUserBoxesAsync(query);
+                var query = new GetBoxesQuery(userId);
+                var data = await ZboxReadService.GetUserBoxesAsync(query).ConfigureAwait(false);
                 return JsonOk(data);
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError($"BoxList user: {userid}", ex);
+                TraceLog.WriteError($"BoxList user: {userId}", ex);
                 return JsonError();
             }
         }
@@ -67,7 +67,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
             var query = new UniversityQuery(universityWrapper);
-            var model = await ZboxReadService.GetUniversityInfoAsync(query);
+            var model = await ZboxReadService.GetUniversityInfoAsync(query).ConfigureAwait(false);
 
             model.Url = Url.RouteUrlCache("universityLibrary", new RouteValueDictionary
             {
@@ -78,7 +78,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-       
 
         #region CreateBox
 
@@ -93,7 +92,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var userId = User.GetUserId();
                 var command = new CreateBoxCommand(userId, model.BoxName);
-                var result = await ZboxWriteService.CreateBoxAsync(command);
+                var result = await ZboxWriteService.CreateBoxAsync(command).ConfigureAwait(false);
                 return JsonOk(new { result.Url });
 
             }
@@ -109,6 +108,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         #endregion
-       
     }
 }

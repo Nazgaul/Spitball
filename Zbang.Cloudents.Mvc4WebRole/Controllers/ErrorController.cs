@@ -51,7 +51,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         public JsonResult JsLog(JavaScriptError log)
         {
-            Trace.TraceWarning($"userid: {User.GetUserId(false)} js error: {log}");
+            Trace.TraceWarning($"userId: {User.GetUserId(false)} js error: {log}");
             return Json(true);
         }
     }

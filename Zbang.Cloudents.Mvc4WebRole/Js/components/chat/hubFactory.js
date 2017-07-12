@@ -162,7 +162,6 @@ var app;
                             break;
                         case $.signalR.connectionState.reconnecting:
                             _this.canSend = false;
-                            ajaxService.logError('signalr', 'reconnecting');
                             _this.changeStatus(false);
                             break;
                         case $.signalR.connectionState.disconnected:

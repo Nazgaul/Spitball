@@ -28,6 +28,7 @@
     <NuGetPackageImportStamp>dabbfb79</NuGetPackageImportStamp>
     <UseGlobalApplicationHostFile />
     <TypeScriptToolsVersion>2.2</TypeScriptToolsVersion>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourceGroups/Default-ApplicationInsights-CentralUS/providers/microsoft.insights/components/spitball</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

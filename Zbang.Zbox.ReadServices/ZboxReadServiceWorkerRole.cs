@@ -621,7 +621,7 @@ and chapter is not null
 order by s.id
 OPTION (TABLE HINT(s, INDEX ([students_shouldsend2])),Recompile);";
                 const string sql2 = @"select top 500 s.id, FirstName, LastName, Email,mailBody as MailBody,
-mailsubject as MailSubject, mailcategory as MailCategory,u.url as UniversityUrl 
+mailSubject as MailSubject, mailCategory as MailCategory,u.url as UniversityUrl 
 from students s join universities u on s.uniid = u.id
 where uniid = @UniId
 and shouldSend = 1
@@ -724,6 +724,7 @@ offset @page*100 ROWS
                         @"select itemId, likeCount *15 + numberOfViews *0.1 + numberOfDownloads *0.2 as score from zbox.item where md5 in (
 select top(1) md5 from zbox.item
 where isDeleted = 0
+and md5 is not null
 group by md5
 having count(*) > 1
 ) order by score desc",

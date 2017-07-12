@@ -374,9 +374,9 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetQuizQuestionWithAnswersAsync(query);
         }
 
-        public Task<UserWithStats> GetUserProfileWithStatsAsync(GetUserWithFriendQuery query)
+        public Task<UserWithStats> GetUserProfileWithStatsAsync(GetUserStatsQuery query)
         {
-            return m_ReadService.GetUserProfileWithStatsAsync(query);
+            return m_Cache.QueryAsync(m_ReadService.GetUserProfileWithStatsAsync, query);
         }
 
         public Task<ForgotPasswordDto> GetForgotPasswordByEmailAsync(GetUserByEmailQuery query, CancellationToken token)

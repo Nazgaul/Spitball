@@ -46,8 +46,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var model = new Gamification();
             var resourceManger = new System.Resources.ResourceManager(typeof(GamificationResources));
-            int index = 0,
-                score = 0;
+            var index = 0;
+            var score = 0;
             while (score != int.MaxValue)
             {
                 var level = GamificationLevels.GetLevel(score + 1);
@@ -104,11 +104,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, ActionName("ProfileStats")]
         public async Task<ActionResult> ProfileStatsAsync(long id)
         {
-            var query = new GetUserWithFriendQuery(id);
-            var model = await ZboxReadService.GetUserProfileWithStatsAsync(query);
+            var query = new GetUserStatsQuery(id);
+            var model = await ZboxReadService.GetUserProfileWithStatsAsync(query).ConfigureAwait(false);
             var level = GamificationLevels.GetLevel(model.Score);
             model.LevelName = level.Name;
             model.NextLevel = level.NextLevel;
+
             return JsonOk(model);
         }
 
@@ -120,13 +121,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var friendQuery = new GetUserFriendsQuery(id, page, 60);
-                var friendData = await ZboxReadService.GetUserFriendsAsync(friendQuery);
+                var friendData = await ZboxReadService.GetUserFriendsAsync(friendQuery).ConfigureAwait(false);
 
                 return JsonOk(friendData);
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError($"GetUserFriends userid: {id}", ex);
+                TraceLog.WriteError($"GetUserFriends userId: {id}", ex);
                 return JsonError("Problem with get user friends");
             }
         }
@@ -139,7 +140,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var query = new GetUserWithFriendQuery(id, page, 20);
-                var model = await ZboxReadService.GetUserBoxesActivityAsync(query);
+                var model = await ZboxReadService.GetUserBoxesActivityAsync(query).ConfigureAwait(false);
                 return JsonOk(model);
             }
             catch (Exception ex)
@@ -154,7 +155,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> CommentAsync(long id, int page)
         {
             var query = new GetUserWithFriendQuery(id, page, 20);
-            var model = await ZboxReadService.GetUserCommentActivityAsync(query);
+            var model = await ZboxReadService.GetUserCommentActivityAsync(query).ConfigureAwait(false);
 
             return JsonOk(model.Select(s =>
             new
@@ -171,7 +172,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> ItemsAsync(long id, int page)
         {
             var query = new GetUserWithFriendQuery(id, page, 50);
-            var result = await ZboxReadService.GetUserItemsActivityAsync(query);
+            var result = await ZboxReadService.GetUserItemsActivityAsync(query).ConfigureAwait(false);
             return JsonOk(result);
         }
 
@@ -179,14 +180,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> QuizAsync(long id, int page)
         {
             var query = new GetUserWithFriendQuery(id, page, 20);
-            var result = await ZboxReadService.GetUserQuizActivityAsync(query);
+            var result = await ZboxReadService.GetUserQuizActivityAsync(query).ConfigureAwait(false);
             return JsonOk(result);
         }
         [HttpGet, ActionName("Flashcard")]
         public async Task<ActionResult> FlashcardAsync(long id, int page)
         {
             var query = new GetUserWithFriendQuery(id, page, 20);
-            var result = await ZboxReadService.GetUserFlashcardActivityAsync(query);
+            var result = await ZboxReadService.GetUserFlashcardActivityAsync(query).ConfigureAwait(false);
             return JsonOk(result);
         }
 
@@ -208,7 +209,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36");
                     var result =
                         await
-                            httpClient.GetStringAsync(url);
+                            httpClient.GetStringAsync(url).ConfigureAwait(false);
                     //return Content(result, "text/json");
                     return JsonOk(result);
                 }
@@ -229,9 +230,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, ZboxAuthorize, ActionName("Notification")]
         public async Task<JsonResult> NotificationAsync()
         {
-            var userid = User.GetUserId();
-            var query = new QueryBaseUserId(userid);
-            var result = await ZboxReadService.GetUserBoxesNotificationAsync(query);
+            var userId = User.GetUserId();
+            var query = new QueryBaseUserId(userId);
+            var result = await ZboxReadService.GetUserBoxesNotificationAsync(query).ConfigureAwait(false);
             return JsonOk(result);
         }
 
@@ -240,7 +241,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ActionName("Updates")]
         public async Task<ActionResult> UpdatesAsync()
         {
-            var model = await ZboxReadService.GetUpdatesAsync(new QueryBase(User.GetUserId()));
+            var model = await ZboxReadService.GetUpdatesAsync(new QueryBase(User.GetUserId())).ConfigureAwait(false);
             return JsonOk(model.Select(s => new
             {
                 s.AnswerId,
@@ -256,7 +257,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<JsonResult> GamificationBoardAsync()
         {
             var query = new QueryBaseUserId(User.GetUserId());
-            var result = await ZboxReadService.GamificationBoardAsync(query);
+            var result = await ZboxReadService.GamificationBoardAsync(query).ConfigureAwait(false);
             result.BadgeCount = Enum.GetNames(typeof(BadgeType)).Length - 1;
             return JsonOk(result);
         }
@@ -267,7 +268,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var id = userId ?? User.GetUserId();
 
             var query = new QueryBaseUserId(id);
-            var result = await ZboxReadService.UserLevelsAsync(query);
+            var result = await ZboxReadService.UserLevelsAsync(query).ConfigureAwait(false);
             var level = GamificationLevels.GetLevel(result.Score);
             result.NextLevel = level.NextLevel;
             result.Number = level.Level;
@@ -280,33 +281,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var id = userId ?? User.GetUserId();
 
             var query = new QueryBaseUserId(id);
-            var model = await ZboxReadService.UserBadgesAsync(query);
-            //var badges = new List<Badge>();
-            //var resourceManger = new System.Resources.ResourceManager(typeof(GamificationResources));
-            //foreach (var value in Enum.GetValues(typeof(BadgeType)).Cast<BadgeType>())
-            //{
-            //    if (value == BadgeType.None)
-            //    {
-            //        continue;
-            //    }
-            //    badges.Add(new Badge(value.GetEnumDescription(), 
-            //        resourceManger.GetString($"Badge{value}Description"),
-            //        ReputationConst.GetBadgeScore(value),
-            //        "/Images/Gamification/badge_" + value.GetEnumDescription() + ".png",
-            //        "/Images/Gamification/badge_" + value.GetEnumDescription() + "_hidden.png"));
-            //}
-
+            var model = await ZboxReadService.UserBadgesAsync(query).ConfigureAwait(false);
             return JsonOk(
                 model
                 );
         }
 
         [HttpGet, ActionName("leaderboard")]
-        public async Task<JsonResult> LeaderboardAsync(long userid, int? page)
+        public async Task<JsonResult> LeaderBoardAsync(long userid, int? page)
         {
 
             var query = new LeaderboardQuery(userid, page.GetValueOrDefault());
-            var model = await ZboxReadService.UserLeaderBoardAsync(query);
+            var model = await ZboxReadService.UserLeaderBoardAsync(query).ConfigureAwait(false);
 
             model = model.Select(s => 
             {

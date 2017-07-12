@@ -1,11 +1,13 @@
-﻿namespace Zbang.Zbox.ViewModel.Queries.Boxes
+﻿
+using System;
+using Zbang.Zbox.Infrastructure.Query;
+
+namespace Zbang.Zbox.ViewModel.Queries.Boxes
 {
-    public class GetUserWithFriendQuery :  IPagedQuery
+    public class GetUserWithFriendQuery : IPagedQuery
     {
         public GetUserWithFriendQuery(long friendId, int pageNumber = 0, int rowsPerPage = int.MaxValue)
         {
-            RowsPerPage = rowsPerPage;
-            PageNumber = pageNumber;
             FriendId = friendId;
 
         }
@@ -14,10 +16,32 @@
 
         public int PageNumber
         {
-            get; }
+            get;
+        }
 
         public int RowsPerPage
         {
-            get; }
+            get;
+        }
+
+
+
+    }
+
+
+    public class GetUserStatsQuery : IQueryCache
+    {
+        public GetUserStatsQuery(long friendId)
+        {
+            FriendId = friendId;
+
+        }
+        public long FriendId { get; private set; }
+
+
+
+        public string CacheKey => $"friendId{FriendId}";
+        public string CacheRegion => "profileStats";
+        public TimeSpan Expiration => TimeSpan.FromDays(1);
     }
 }

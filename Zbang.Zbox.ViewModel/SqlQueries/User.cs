@@ -7,7 +7,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
         public const string UserProfileWithStats = @"
 		with leaderboard as (
 select userid as id,username as name,score,UserImageLarge as image,
-ROW_NUMBER () over (partition BY universityid order by score desc) as location
+ROW_NUMBER () over (order by score desc) as location
  from zbox.Users  u
  where universityid = (select UniversityId from zbox.Users where userid = @Myfriend)
  )

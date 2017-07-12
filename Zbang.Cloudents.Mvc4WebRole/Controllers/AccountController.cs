@@ -851,7 +851,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, ActionName("Details")]
         public async Task<ActionResult> DetailsAsync()
         {
-            
+
             if (!User.Identity.IsAuthenticated)
             {
                 return JsonOk(new { /*token,*/ Culture = CultureInfo.CurrentCulture.Name });
@@ -860,10 +860,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
 
                 //TODO : merge that
-                var retVal = await ZboxReadService.GetUserDataAsync(new QueryBaseUserId(User.GetUserId()));
+                var t1 = ZboxReadService.GetUserDataAsync(new QueryBaseUserId(User.GetUserId()));
                 var command = new AddUserLocationActivityCommand(User.GetUserId(), HttpContext.Request.UserAgent);
-                await ZboxWriteService.AddUserLocationActivityAsync(command);
 
+                var t2 = ZboxWriteService.AddUserLocationActivityAsync(command);
+                await Task.WhenAll(t1, t2).ConfigureAwait(false);
+
+                var retVal = t1.Result;
                 var level = GamificationLevels.GetLevel(retVal.Score);
                 retVal.LevelName = level.Name;
                 retVal.NextLevel = level.NextLevel;

@@ -58,7 +58,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 TraceLog.WriteInfo($"md5 duplicates {string.Join(",", documents)}");
                 foreach (var document in documents.Skip(1))
                 {
-                    
                     var deleteItemCommand = new DeleteItemCommand(document.Item1, 1);
                     await m_ZboxWriteService.DeleteItemAsync(deleteItemCommand).ConfigureAwait(false);
                 }

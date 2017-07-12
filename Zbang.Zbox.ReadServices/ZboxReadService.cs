@@ -102,10 +102,10 @@ namespace Zbang.Zbox.ReadServices
         /// <returns></returns>
         public async Task<IEnumerable<BoxDto>> GetUserBoxesAsync(GetBoxesQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 return await conn.QueryAsync<BoxDto>(Sql.Dashboard.UserBoxes,
-                    query);
+                    query).ConfigureAwait(false);
             }
 
         }
@@ -546,24 +546,22 @@ where ownerid = @UserId and boxid = @BoxId;";
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<User.UserWithStats> GetUserProfileWithStatsAsync(GetUserWithFriendQuery query)
+        public async Task<User.UserWithStats> GetUserProfileWithStatsAsync(GetUserStatsQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 using (var grid = await conn.QueryMultipleAsync(Sql.User.UserProfileWithStats, new
                 {
                     Myfriend = query.FriendId,
-                }))
+                }).ConfigureAwait(false))
                 {
-                    var retVal = await grid.ReadFirstOrDefaultAsync<User.UserWithStats>();
+                    var retVal = await grid.ReadFirstOrDefaultAsync<User.UserWithStats>().ConfigureAwait(false);
                     if (retVal == null) return null;
-                    //retVal.NumClass = await grid.ReadFirstOrDefaultAsync<int>();
-                    retVal.NumItem = await grid.ReadFirstOrDefaultAsync<int>();
-                    retVal.NumFeed = await grid.ReadFirstOrDefaultAsync<int>() + await grid.ReadFirstOrDefaultAsync<int>();
-                    retVal.NumQuiz = await grid.ReadFirstOrDefaultAsync<int>();
-                    retVal.NumFriend = await grid.ReadFirstOrDefaultAsync<int>();
-                    retVal.NumFlashcard = await grid.ReadFirstOrDefaultAsync<int>();
-                    //retVal.NumBadge = await grid.ReadFirstOrDefaultAsync<int>();
+                    retVal.NumItem = await grid.ReadFirstOrDefaultAsync<int>().ConfigureAwait(false);
+                    retVal.NumFeed = await grid.ReadFirstOrDefaultAsync<int>().ConfigureAwait(false) + await grid.ReadFirstOrDefaultAsync<int>().ConfigureAwait(false);
+                    retVal.NumQuiz = await grid.ReadFirstOrDefaultAsync<int>().ConfigureAwait(false);
+                    retVal.NumFriend = await grid.ReadFirstOrDefaultAsync<int>().ConfigureAwait(false);
+                    retVal.NumFlashcard = await grid.ReadFirstOrDefaultAsync<int>().ConfigureAwait(false);
                     return retVal;
                 }
             }

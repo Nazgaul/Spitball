@@ -99,7 +99,7 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<ActivityDto>> GetUserCommentActivityAsync(GetUserWithFriendQuery query);
         Task<IEnumerable<QuizDto>> GetUserQuizActivityAsync(GetUserWithFriendQuery query);
         Task<IEnumerable<FlashcardDto>> GetUserFlashcardActivityAsync(GetUserWithFriendQuery query);
-        Task<UserWithStats> GetUserProfileWithStatsAsync(GetUserWithFriendQuery query);
+        Task<UserWithStats> GetUserProfileWithStatsAsync(GetUserStatsQuery query);
 
         Task<IEnumerable<SeoDto>> GetSeoItemsAsync(SeoType type, int page, CancellationToken token);
         Task<IEnumerable<SitemapDto>> GetSeoItemCountAsync();
