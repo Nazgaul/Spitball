@@ -2,19 +2,15 @@
 <DiagnosticsConfiguration xmlns="http://schemas.microsoft.com/ServiceHosting/2010/10/DiagnosticsConfiguration">
   <PublicConfig xmlns="http://schemas.microsoft.com/ServiceHosting/2010/10/DiagnosticsConfiguration">
     <WadCfg>
-      <DiagnosticMonitorConfiguration overallQuotaInMB="4096" sinks="applicationInsights.errors">
-        <CrashDumps>
-          <CrashDumpConfiguration processName="WaIISHost.exe" />
-          <CrashDumpConfiguration processName="WaWorkerHost.exe" />
-          <CrashDumpConfiguration processName="w3wp.exe" />
-        </CrashDumps>
-        <Logs scheduledTransferPeriod="PT1M" />
+      <DiagnosticMonitorConfiguration overallQuotaInMB="4096" sinks="applicationInsights.all">
+        <Logs scheduledTransferPeriod="PT1M" sinks="applicationInsights.all" scheduledTransferLogLevelFilter="Verbose" />
       </DiagnosticMonitorConfiguration>
       <SinksConfig>
         <Sink name="applicationInsights">
           <ApplicationInsights>bceed25d-fdd9-4581-b477-068120221ebd</ApplicationInsights>
           <Channels>
             <Channel logLevel="Error" name="errors" />
+            <Channel logLevel="Verbose" name="all" />
           </Channels>
         </Sink>
       </SinksConfig>

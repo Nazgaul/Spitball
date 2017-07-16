@@ -14,6 +14,7 @@ using Zbang.Zbox.ReadServices;
 using Autofac;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.WorkerRoleSearch.DomainProcess;
+using Zbang.Zbox.WorkerRoleSearch.Mail;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
@@ -39,11 +40,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public string Name => nameof(TestingJob);
         public async Task RunAsync(CancellationToken cancellationToken)
         {
+
+            var process = m_LifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("crawl");
+            await process.ExecuteAsync(0, null, cancellationToken).ConfigureAwait(false);
             //var msgData = new BoxFileProcessData(70197);
             //var process = m_LifetimeScope.ResolveOptionalNamed<IFileProcess>(msgData.ProcessResolver);
             //var t =  await process.ExecuteAsync(msgData, cancellationToken).ConfigureAwait(false);
 
-            await RemoveDuplicatesFilesAsync().ConfigureAwait(false);
+            //await RemoveDuplicatesFilesAsync().ConfigureAwait(false);
            // await Md5ProcessAsync(cancellationToken).ConfigureAwait(false);
 
             TraceLog.WriteInfo("one time job stop to work");

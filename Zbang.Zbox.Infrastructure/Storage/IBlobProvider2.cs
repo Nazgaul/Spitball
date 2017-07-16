@@ -33,5 +33,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
             string contentDisposition);
 
         Task UploadFromLinkAsync(string url, string fileName);
+
+        void UploadText(string blobName, string content);
     }
 }

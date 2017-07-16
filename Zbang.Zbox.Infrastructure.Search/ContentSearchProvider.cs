@@ -71,6 +71,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                             break;
                         case Language.EnglishUs:
                             uploadBatch.ContentEn = content;
+                            uploadBatch.Content = string.Empty;
                             break;
                         case Language.Hebrew:
                             uploadBatch.ContentHe = content;

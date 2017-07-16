@@ -67,6 +67,15 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return blob.UploadFromStreamAsync(content, token);
         }
 
+
+        public void UploadText(string blobName, string content)
+        {
+            if (blobName == null) throw new ArgumentNullException(nameof(blobName));
+            if (content == null) throw new ArgumentNullException(nameof(content));
+            var blob = GetBlob(blobName);
+            blob.UploadText(content);
+        }
+
         public Task RemoveBlobAsync(string blobName, CancellationToken token)
         {
             var blob = GetBlob(blobName);

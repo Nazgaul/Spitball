@@ -59,6 +59,14 @@ namespace Zbang.Zbox.Infrastructure.Storage
         public override string Name => AzureBlobContainer;
         public override string RelativePath => "";
     }
+
+
+    public class CrawlContainerName : StorageContainerName
+    {
+        public override string Name => "crawl";
+        public override string RelativePath => "";
+    }
+
     public class PreviewContainerName : StorageContainerName, IPreviewContainer
     {
         public override string Name => AzurePreviewContainer;

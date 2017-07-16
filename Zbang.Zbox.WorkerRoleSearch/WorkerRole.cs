@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using log4net.Config;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -56,6 +57,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
 
             TelemetryConfiguration.Active.InstrumentationKey = RoleEnvironment.GetConfigurationSettingValue("APPINSIGHTS_INSTRUMENTATIONKEY");
+            
             // Set the maximum number of concurrent connections
             ServicePointManager.DefaultConnectionLimit = 12;
 
@@ -63,7 +65,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             // see the MSDN topic at http://go.microsoft.com/fwlink/?LinkId=166357.
 
             var result = base.OnStart();
-
+            XmlConfigurator.Configure();
             RoleEnvironment.Changing += RoleEnvironmentChanging;
             RoleEnvironment.StatusCheck += RoleEnvironment_StatusCheck;
             Trace.TraceInformation("Zbang.Zbox.WorkerRoleSearch has been started");
@@ -116,16 +118,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             }
 
                             var jobToRestart = m_Jobs.ElementAt(i);
-                            //m_Tasks[i] = Task.Factory.StartNew(() => jobToRestart.RunAsync(cancellationToken),
-                            //    cancellationToken).Unwrap();
-
                             m_Tasks[i] = Task.Run(() => jobToRestart.RunAsync(cancellationToken), cancellationToken);
                         }
                         if (task.IsCompleted)
                         {
                             TraceLog.WriteWarning($"Job finished index: {i}");
                            // m_Jobs.RemoveAt(i);
-                            
 
                         }
                     }
@@ -156,7 +154,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     //m_Unity.Resolve<IJob>(nameof(ThumbnailQueueProcess)),
                     //m_Unity.Resolve<IJob>(nameof(DeleteOldConnections)),
                     //m_Unity.Resolve<IJob>(nameof(UpdateSearchFeed)),
-                    m_Unity.Resolve<IJob>(nameof(TestingJob))
+                    //m_Unity.Resolve<IJob>(nameof(TestingJob))
+                    m_Unity.Resolve<IJob>(nameof(Crawler))
 
                 };
             }
@@ -174,6 +173,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 m_Unity.Resolve<IJob>(nameof(ThumbnailQueueProcess)), //9
                 m_Unity.Resolve<IJob>(nameof(DeleteOldConnections)), //10
                 m_Unity.Resolve<IJob>(nameof(UpdateSearchFeed)), //11
+                m_Unity.Resolve<IJob>(nameof(Crawler)) //12
                // m_Unity.Resolve<IJob>(nameof(TestingJob)) //13
             };
         }

@@ -17,6 +17,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
             builder.RegisterType<UpdateSearchFlashcard>().Named<IJob>(IocFactory.UpdateSearchFlashcard);
             builder.RegisterType<UpdateSearchUniversity>().Named<IJob>(IocFactory.UpdateSearchUniversity);
             builder.RegisterType<UpdateSearchFeed>().Named<IJob>(nameof(UpdateSearchFeed));
+            builder.RegisterType<Crawler>().Named<IJob>(nameof(Crawler));
+
+
 
             builder.RegisterType<SchedulerListener>().Named<IJob>(nameof(SchedulerListener));
             builder.RegisterType<UpdateUnsubscribeList>().Named<IJob>(nameof(UpdateUnsubscribeList));
@@ -34,6 +37,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             builder.RegisterType<LikesMailProcess>().Named<ISchedulerProcess>("likesReport");
 
             builder.RegisterType<DeleteOldStuff>().Named<ISchedulerProcess>("deleteOld");
+            builder.RegisterType<Crawler>().Named<ISchedulerProcess>("crawl");
 
             var arrayOfUtcOffset = new[] { 0, 3, -5, -4, -6 };
             foreach (var i in arrayOfUtcOffset)
