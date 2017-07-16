@@ -17,7 +17,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         Uri GetBlobUrl(string blobName);
         Uri GetBlobUrl(string blobName , bool useCdn);
 
-        Task<bool> ExistsAsync(string blobName);
+        Task<bool> ExistsAsync(string blobName, CancellationToken token);
         bool Exists(string blobName);
         Task<long> SizeAsync(string blobName);
         Task<string> Md5Async(string blobName);

@@ -942,9 +942,9 @@ where ownerid = @UserId and boxid = @BoxId;";
 
         public async Task<Item.FlashcardSeoDto> GetFlashcardUrlAsync(GetFlashcardSeoQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                var retVal = await conn.QueryFirstOrDefaultAsync<Item.FlashcardSeoDto>(Sql.Seo.FlashcardSeo, query);
+                var retVal = await conn.QueryFirstOrDefaultAsync<Item.FlashcardSeoDto>(Sql.Seo.FlashcardSeo, query).ConfigureAwait(false);
                 return retVal;
             }
         }

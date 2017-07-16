@@ -23,7 +23,7 @@ namespace Zbang.Zbox.Infrastructure
                     1,
                     0.7
                 );
-                var result = await Task.Factory.FromAsync(marketData.BeginExecute, marketData.EndExecute, null);
+                var result = await Task.Factory.FromAsync(marketData.BeginExecute, marketData.EndExecute, null).ConfigureAwait(false);
                 return result?.FirstOrDefault();
             }
             catch (Exception ex)

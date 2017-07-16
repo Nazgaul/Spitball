@@ -45,18 +45,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [Route("flashcard/{universityName}/{boxId:long}/{boxName}/{flashcardId:long}/{flashcardName}", Name = "Flashcard")]
-        public async Task<ViewResult> IndexAsync(long flashcardId)
+        public async Task<ActionResult> IndexAsync(long flashcardId)
         {
             ViewBag.fbImage = ViewBag.imageSrc = Url.CdnContent("/images/3rdParty/fbFlashcard.png");
             var query = new GetFlashcardSeoQuery(flashcardId);
-            var model = await ZboxReadService.GetFlashcardUrlAsync(query);
+            var model = await ZboxReadService.GetFlashcardUrlAsync(query).ConfigureAwait(false);
+
+            if (model == null)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
 
             if (string.IsNullOrEmpty(model.Country)) return View("Empty");
             SeoBaseUniversityResources.Culture = Languages.GetCultureBaseOnCountry(model.Country);
             ViewBag.title =
                 $"{SeoBaseUniversityResources.FlashcardTitle} - {model.Name} - {model.BoxName} | {SeoBaseUniversityResources.Cloudents}";
-
-            //ViewBag.metaDescription = string.Format(SeoBaseUniversityResources.QuizMetaDescription, model.BoxName, model.Name);
 
             ViewBag.metaDescription = string.Format(SeoBaseUniversityResources.FlashcardMetaDescription, model.Name, model.BoxName);
 

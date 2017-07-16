@@ -14,7 +14,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
     {
         private readonly T m_Container = new T();
 
-        //There is some race condition with initialize until the localstorage provider is actually initialized
+        //There is some race condition with initialize until the localStorage provider is actually initialized
         public BlobProvider2(Lazy<ILocalStorageProvider> localStorageProvider)
             : base(localStorageProvider)
         {
@@ -97,10 +97,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         }
 
-        public Task<bool> ExistsAsync(string blobName)
+        public Task<bool> ExistsAsync(string blobName, CancellationToken token)
         {
             var blob = GetBlob(blobName);
-            return blob.ExistsAsync();
+            return blob.ExistsAsync(token);
         }
         public bool Exists(string blobName)
         {

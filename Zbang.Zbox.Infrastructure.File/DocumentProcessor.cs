@@ -36,7 +36,7 @@ namespace Zbang.Zbox.Infrastructure.File
             if (getPageCount == null) throw new ArgumentNullException(nameof(getPageCount));
             var t2 = UploadMetaDataAsync(blobUri, getPageCount(), getCacheVersionPrefix, token);
             var blobName = GetBlobNameFromUri(blobUri) + ".jpg";
-            if (!await BlobProviderPreview.ExistsAsync(blobName).ConfigureAwait(false))
+            if (!await BlobProviderPreview.ExistsAsync(blobName, token).ConfigureAwait(false))
             {
                 using (var msPreview = previewStream())
                 {

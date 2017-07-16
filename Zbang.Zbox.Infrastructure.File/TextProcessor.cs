@@ -42,7 +42,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
 
 
-            if (await m_BlobProviderCache.ExistsAsync(cacheFileName).ConfigureAwait(false))
+            if (await m_BlobProviderCache.ExistsAsync(cacheFileName, cancelToken).ConfigureAwait(false))
             {
                 blobsNamesInCache.Add(m_BlobProviderCache.GenerateSharedAccessReadPermission(cacheFileName, 30));
                 return new PreviewResult { ViewName = "Text", Content = blobsNamesInCache };

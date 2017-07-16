@@ -143,12 +143,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (BoxDoesntExistException)
             {
-                return RedirectToAction("Index", "Error");
+                return RedirectToAction("NotFound", "Error");
             }
             catch (Exception ex)
             {
                 var userId = User.GetUserId(false);
-                TraceLog.WriteError($"Box Index boxId {boxId} userid {userId}", ex);
+                TraceLog.WriteError($"Box Index boxId {boxId} userId {userId}", ex);
                 return RedirectToAction("Index", "Error");
             }
         }

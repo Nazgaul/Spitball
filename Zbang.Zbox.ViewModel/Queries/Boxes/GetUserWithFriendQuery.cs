@@ -9,7 +9,8 @@ namespace Zbang.Zbox.ViewModel.Queries.Boxes
         public GetUserWithFriendQuery(long friendId, int pageNumber = 0, int rowsPerPage = int.MaxValue)
         {
             FriendId = friendId;
-
+            PageNumber = pageNumber;
+            RowsPerPage = rowsPerPage;
         }
         public long FriendId { get; private set; }
 

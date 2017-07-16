@@ -31,11 +31,14 @@ namespace Zbang.Zbox.Infrastructure.File
             }
             var previewLink = "https://az779114.vo.msecnd.net/preview/" + WebUtility.UrlEncode(blobUri.AbsoluteUri) +
                               $".jpg?width={800}&height={768}";
-            return Task.FromResult(new PreviewResult { Content = new List<string>
+            return Task.FromResult(new PreviewResult
+            {
+                Content = new List<string>
             {
                 string.Format(ContentFormat, blobUri.AbsoluteUri,previewLink)
-            } });
-           
+            }
+            });
+
         }
 
 
@@ -56,29 +59,29 @@ namespace Zbang.Zbox.Infrastructure.File
             {
                 return null;
             }
-            if (await BlobProviderPreview.ExistsAsync(url + ".jpg"))
+            if (await BlobProviderPreview.ExistsAsync(url + ".jpg", cancelToken).ConfigureAwait(false))
             {
                 return null;
             }
-            var getstring = "url=" + url;
+            var getString = "url=" + url;
 
-            var securityHashUrl2Png = Md5HashPhpCompliant(url2PngPrivateKey + "+" + getstring).ToLower();
+            var securityHashUrl2Png = Md5HashPhpCompliant(url2PngPrivateKey + "+" + getString).ToLower();
 
-            var url2PngLink = "http://api.url2png.com/v6/" + url2PngApiKey + "/" + securityHashUrl2Png + "/" + "png/?" + getstring;
+            var url2PngLink = "http://api.url2png.com/v6/" + url2PngApiKey + "/" + securityHashUrl2Png + "/" + "png/?" + getString;
 
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync(url2PngLink, cancelToken))
+                using (var response = await httpClient.GetAsync(url2PngLink, cancelToken).ConfigureAwait(false))
                 {
                     if (!response.IsSuccessStatusCode)
                     {
                         TraceLog.WriteError("cannot generate link preview " + blobUri.AbsoluteUri);
                     }
 
-                    var bytes = await response.Content.ReadAsByteArrayAsync();
+                    var bytes = await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
                     using (var stream = new MemoryStream(bytes))
                     {
-                        await BlobProviderPreview.UploadStreamAsync(url + ".jpg", stream, "image/jpeg", cancelToken);
+                        await BlobProviderPreview.UploadStreamAsync(url + ".jpg", stream, "image/jpeg", cancelToken).ConfigureAwait(false);
                     }
                 }
             }
@@ -92,7 +95,7 @@ namespace Zbang.Zbox.Infrastructure.File
             using (var md5 = new System.Security.Cryptography.MD5CryptoServiceProvider())
             {
 
-                byte[] dataMd5 = md5.ComputeHash(Encoding.UTF8.GetBytes(pass));
+                var dataMd5 = md5.ComputeHash(Encoding.UTF8.GetBytes(pass));
                 var sb = new StringBuilder();
 
                 for (int i = 0; i <= dataMd5.Length - 1; i++)
@@ -105,13 +108,13 @@ namespace Zbang.Zbox.Infrastructure.File
 
         }
 
-        
+
 
 
         public Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             return Extensions.TaskExtensions.CompletedTaskString;
         }
-        
+
     }
 }

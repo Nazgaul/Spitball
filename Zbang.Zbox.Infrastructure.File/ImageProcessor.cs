@@ -4,11 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Extensions;
-using Zbang.Zbox.Infrastructure.Profile;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 
@@ -70,11 +66,11 @@ namespace Zbang.Zbox.Infrastructure.File
             {
                 var blobName = GetBlobNameFromUri(blobUri);
                 var previewBlobName = blobName + ".jpg";
-                if (await m_BlobProviderPreview.ExistsAsync(previewBlobName))
+                if (await m_BlobProviderPreview.ExistsAsync(previewBlobName, cancelToken).ConfigureAwait(false))
                 {
                     return null;
                 }
-                using (var stream = await BlobProvider.DownloadFileAsync(blobUri, cancelToken))
+                using (var stream = await BlobProvider.DownloadFileAsync(blobUri, cancelToken).ConfigureAwait(false))
                 {
                     if (stream.Length == 0)
                     {
@@ -90,7 +86,7 @@ namespace Zbang.Zbox.Infrastructure.File
                         };
                         ImageBuilder.Current.Build(stream, ms, settings2, false);
                         
-                        await m_BlobProviderPreview.UploadStreamAsync(previewBlobName, ms, "image/jpeg", cancelToken);
+                        await m_BlobProviderPreview.UploadStreamAsync(previewBlobName, ms, "image/jpeg", cancelToken).ConfigureAwait(false);
                     }
 
                 }

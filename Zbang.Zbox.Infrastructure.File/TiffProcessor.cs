@@ -58,7 +58,7 @@ namespace Zbang.Zbox.Infrastructure.File
             {
                 var cacheBlobName = CreateCacheFileName(blobName, pageIndex);
 
-                if (await m_BlobProviderCache.ExistsAsync(cacheBlobName).ConfigureAwait(false))
+                if (await m_BlobProviderCache.ExistsAsync(cacheBlobName, cancelToken).ConfigureAwait(false))
                 {
                     blobsNamesInCache.Add(m_BlobProviderCache.GenerateSharedAccessReadPermission(cacheBlobName, 30));
                     continue;
@@ -125,7 +125,7 @@ namespace Zbang.Zbox.Infrastructure.File
             try
             {
                 var blobName = GetBlobNameFromUri(blobUri);
-                if (await m_BlobProviderPreview.ExistsAsync(blobName + ".jpg").ConfigureAwait(false))
+                if (await m_BlobProviderPreview.ExistsAsync(blobName + ".jpg", cancelToken).ConfigureAwait(false))
                 {
                     return null;
                 }
