@@ -29,9 +29,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 try
                 {
+                   
                     var queueName = new UpdateDomainQueueName();
                     var result = await m_QueueProviderExtract.RunQueueAsync(queueName, async msg =>
                     {
+                        TraceLog.WriteInfo($"{Name} is doing process");
                         var msgData = msg.FromMessageProto<Infrastructure.Transport.DomainProcess>();
                         if (msgData == null)
                         {
@@ -48,7 +50,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     }, TimeSpan.FromMinutes(45), 3, cancellationToken).ConfigureAwait(false);
                     if (!result)
                     {
-                        await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken).ConfigureAwait(false);
+                        await Task.Delay(TimeSpan.FromSeconds(2), cancellationToken).ConfigureAwait(false);
                     }
                 }
                 catch (TaskCanceledException)

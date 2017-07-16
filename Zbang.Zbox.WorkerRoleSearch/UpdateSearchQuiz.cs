@@ -65,7 +65,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     await m_ZboxReadService.GetQuizzesDirtyUpdatesAsync(instanceId, instanceCount, top)
                         .ConfigureAwait(false);
                 if (!updates.QuizzesToUpdate.Any() && !updates.QuizzesToDelete.Any()) return TimeToSleep.Increase;
-
+                TraceLog.WriteInfo($"{Name} is doing process");
                 foreach (var quiz in updates.QuizzesToUpdate.Where( w => w.University !=null && JaredUniversityIdPilot.Contains(w.University.Id)))
                 {
                     await JaredPilotAsync(quiz, cancellationToken).ConfigureAwait(false);

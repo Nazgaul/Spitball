@@ -388,7 +388,7 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
             using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 const string sql = "update zbox.Item set isDirty = 0 where itemId in @Ids";
-                await conn.ExecuteAsync(sql, new { command.Ids }, commandType: CommandType.Text).ConfigureAwait(false);
+                var t = await conn.ExecuteAsync(sql, new { command.Ids }, commandType: CommandType.Text).ConfigureAwait(false);
             }
         }
 

@@ -88,6 +88,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             const int top = 10;
             var updates = await m_ZboxReadService.GetItemsDirtyUpdatesAsync(new SearchItemDirtyQuery(instanceId, instanceCount, top), cancellationToken).ConfigureAwait(false);
             if (!updates.ItemsToUpdate.Any() && !updates.ItemsToDelete.Any()) return TimeToSleep.Increase;
+            TraceLog.WriteInfo($"{Name} is doing process");
             var tasks = new List<Task>();
             foreach (var elem in updates.ItemsToUpdate)
             {

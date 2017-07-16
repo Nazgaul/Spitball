@@ -44,6 +44,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
                     await m_QueueProviderExtract.RunQueueAsync(queueName, async msg =>
                     {
+                        TraceLog.WriteInfo($"{Name} is doing process");
                         StorageQueueMessage message;
                         using (var xmlStream = new MemoryStream(Encoding.Unicode.GetBytes(msg.AsString)))
                         {
@@ -108,7 +109,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 {
                     TraceLog.WriteError("on SchedulerListener", ex);
                 }
-                //TraceLog.WriteInfo("Scheduler Listener going to sleep");
                 await Task.Delay(TimeSpan.FromMinutes(2), cancellationToken).ConfigureAwait(false);
 
             }

@@ -29,10 +29,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 try
                 {
+                    
                     var queueName = new ThumbnailQueueName();
                     var result = await m_QueueProviderExtract.RunQueueAsync(queueName, async msg =>
                     {
-
+                        TraceLog.WriteInfo($"{Name} is doing process");
                         //m_FileProcessorFactory.GetProcessor(msg.AsString)
                         var msgData = msg.FromMessageProto<FileProcess>();
                         if (msgData == null)
@@ -48,7 +49,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     }, TimeSpan.FromMinutes(1), 5, cancellationToken).ConfigureAwait(false);
                     if (!result)
                     {
-                        await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken).ConfigureAwait(false);
+                        await Task.Delay(TimeSpan.FromSeconds(2), cancellationToken).ConfigureAwait(false);
                     }
                 }
                 catch (TaskCanceledException)
@@ -63,10 +64,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     TraceLog.WriteError("Update UpdateDomainProcess", ex);
                 }
             }
-        }
-
-        public void Stop()
-        {
         }
     }
 }

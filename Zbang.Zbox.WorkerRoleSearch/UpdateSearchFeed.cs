@@ -39,7 +39,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             const int size = 100;
             var page = 0;
-            
             var version = await ReadVersionBlobDataAsync(cancellationToken).ConfigureAwait(false);
             FeedToUpdateSearchDto updates;
             do
@@ -59,7 +58,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 TraceLog.WriteInfo("Feed search Going to process " + updates.NextVersion);
                 foreach (var feed in updates.Updates.Where(w => w.University != null && JaredUniversityIdPilot.Contains(w.University.Id)))
                 {
-                    await JaredPilotAsync(feed, cancellationToken).ConfigureAwait(false); // otherwise we got race condition
+                    await JaredPilotAsync(feed, cancellationToken).Unwrap().ConfigureAwait(false); // otherwise we got race condition
                 }
 
                 await m_SearchProvider.UpdateDataAsync(null, updates.Deletes, cancellationToken).ConfigureAwait(false);

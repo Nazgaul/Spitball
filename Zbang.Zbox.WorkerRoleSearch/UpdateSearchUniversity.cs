@@ -55,6 +55,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             const int updatesPerCycle = 10;
             var updates = await m_ZboxReadService.GetUniversitiesDirtyUpdatesAsync(instanceId, instanceCount, updatesPerCycle).ConfigureAwait(false);
+            TraceLog.WriteInfo($"{Name} is doing process");
             if (!updates.UniversitiesToDelete.Any() && !updates.UniversitiesToUpdate.Any()) return TimeToSleep.Increase;
             var isSuccess =
                 await m_UniversitySearchProvider.UpdateDataAsync(updates.UniversitiesToUpdate, updates.UniversitiesToDelete).ConfigureAwait(false);

@@ -59,7 +59,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     //TraceLog.WriteInfo($"{Prefix} running unsubscribe process");
                     if (DateTime.UtcNow.AddDays(-1) < m_DateTime.AddHours(6))
                     {
-                        //TraceLog.WriteInfo($"{Prefix} running unsubscribe ran recently going to sleep {DateTime.UtcNow.AddDays(-1)} < {m_DateTime.AddHours(6)}");
+                        //TraceLog.WriteInfo($"{Name} running unsubscribe ran recently going to sleep {DateTime.UtcNow.AddDays(-1)} < {m_DateTime.AddHours(6)}");
                         await Task.Delay(m_SleepTime, cancellationToken).ConfigureAwait(false);
                         continue;
                     }
@@ -77,7 +77,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         }
                     }
 
-                    //var needToContinueRun = true;
+                    
                     TraceLog.WriteInfo($"{Name} update unsubscribe list data {m_DateTime}");
                     var mailContent = new StringBuilder();
                     foreach (var job in m_Jobs)

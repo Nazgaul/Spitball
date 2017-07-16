@@ -60,7 +60,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
         {
             if (queueName == null) throw new ArgumentNullException(nameof(queueName));
             if (func == null) throw new ArgumentNullException(nameof(func));
-            var queue = QueueClient.GetQueueReference(queueName.Name.ToLower());
+            var queue = QueueClient.GetQueueReference(queueName.Name.ToLowerInvariant());
             var messages = await queue.GetMessagesAsync(MaxQueuePopLimit, invisibleTime, new QueueRequestOptions(), new OperationContext(), token).ConfigureAwait(false);
             if (messages == null)
             {

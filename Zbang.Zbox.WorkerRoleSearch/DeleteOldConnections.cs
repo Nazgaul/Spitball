@@ -22,6 +22,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             while (!cancellationToken.IsCancellationRequested)
             {
+                TraceLog.WriteInfo($"{Name} is doing process");
                 var command = new RemoveOldConnectionCommand();
                 try
                 {
