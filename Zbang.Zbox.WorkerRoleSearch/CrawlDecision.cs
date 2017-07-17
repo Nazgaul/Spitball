@@ -9,15 +9,21 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public class CrawlDecisionSpitball : CrawlDecisionMakerX
     {
 
-        public CrawlDecisionSpitball(CrawlConfigurationX config) :base (config)
+        public CrawlDecisionSpitball(CrawlConfigurationX config) : base(config)
         {
-            
+
         }
 
         public override CrawlDecision ShouldCrawlPage(PageToCrawl pageToCrawl, CrawlContext crawlContext)
         {
-
-            if (pageToCrawl.Uri.Authority.Equals("spitball.co",System.StringComparison.InvariantCultureIgnoreCase))
+            if (pageToCrawl.Uri.PathAndQuery.ToLowerInvariant().Contains("xml"))
+            {
+                return new CrawlDecision
+                {
+                    Allow = true
+                };
+            }
+            if (pageToCrawl.Uri.Authority.Equals("spitball.co", System.StringComparison.InvariantCultureIgnoreCase))
             {
                 if (pageToCrawl.Uri.PathAndQuery.Contains("returnUrl"))
                 {
@@ -27,15 +33,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             if (pageToCrawl.Uri.Authority.Equals("studysoup.com", System.StringComparison.InvariantCultureIgnoreCase))
             {
-                if (pageToCrawl.Uri.PathAndQuery.ToLowerInvariant().Contains("xml"))
-                {
-                    return new CrawlDecision
-                    {
-                        Allow = true
-                    };
-                }
+
                 var segments = pageToCrawl.Uri.Segments;
-                
+
                 if (segments.Length < 2)
                 {
                     return new CrawlDecision { Allow = false, Reason = "Not Part of studysoup white list" };

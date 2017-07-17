@@ -63,8 +63,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
         }
         public void Dispose()
         {
-            m_Table.DeleteIfExists();
-            m_Queue.Clear();
+            //m_Table.DeleteIfExists();
+            //m_Queue.Clear();
         }
 
         public void Add(PageToCrawl page)
@@ -134,7 +134,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             m_Count = 0;
             m_Queue.Clear();
-            m_Table.DeleteIfExists();
+            //m_Table.DeleteIfExists();
         }
 
         public void AddKnownUri(Uri uri)

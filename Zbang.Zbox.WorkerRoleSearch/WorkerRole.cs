@@ -162,7 +162,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     //m_Unity.Resolve<IJob>(nameof(ThumbnailQueueProcess)), //9
                     //m_Unity.Resolve<IJob>(nameof(DeleteOldConnections)), //10
                     //m_Unity.Resolve<IJob>(nameof(UpdateSearchFeed)), //11
-                    m_Unity.Resolve<IJob>(nameof(Crawler)) //12
+                    //m_Unity.Resolve<IJob>(nameof(Crawler)) //12
+                    m_Unity.Resolve<IJob>(nameof(TestingJob))
 
                 };
             }

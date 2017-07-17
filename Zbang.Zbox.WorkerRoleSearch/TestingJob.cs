@@ -41,7 +41,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public async Task RunAsync(CancellationToken cancellationToken)
         {
 
-            var process = m_LifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("crawl");
+            var process = m_LifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("deleteOld");
             await process.ExecuteAsync(0, null, cancellationToken).ConfigureAwait(false);
             //var msgData = new BoxFileProcessData(70197);
             //var process = m_LifetimeScope.ResolveOptionalNamed<IFileProcess>(msgData.ProcessResolver);
