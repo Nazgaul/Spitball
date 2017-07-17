@@ -29,11 +29,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 try
                 {
-                    
                     var queueName = new ThumbnailQueueName();
                     var result = await m_QueueProviderExtract.RunQueueAsync(queueName, async msg =>
                     {
-                        TraceLog.WriteInfo($"{Name} is doing process");
                         //m_FileProcessorFactory.GetProcessor(msg.AsString)
                         var msgData = msg.FromMessageProto<FileProcess>();
                         if (msgData == null)
@@ -42,7 +40,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             return true;
                         }
                         var process = m_ComponentContent.ResolveOptionalNamed<IFileProcess>(msgData.ProcessResolver);
-                        
                         if (process != null) return await process.ExecuteAsync(msgData, cancellationToken).ConfigureAwait(false);
                         TraceLog.WriteError($"{Name} run - process is null msgData.ProcessResolver:" + msgData.ProcessResolver);
                         return true;

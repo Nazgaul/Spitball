@@ -13,6 +13,7 @@ using AbotX.Poco;
 using AngleSharp.Dom.Html;
 using AngleSharp.Extensions;
 using Newtonsoft.Json;
+using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -25,12 +26,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly CrawlerX m_Crawler;
         private readonly IBlobProvider2<CrawlContainerName> m_BlobProvider;
         private readonly IDocumentDbRepository<CrawlModel> m_DocumentDbRepository;
+        private readonly IMailComponent m_MailManager;
 
 
-        public Crawler(IBlobProvider2<CrawlContainerName> blobProvider, IDocumentDbRepository<CrawlModel> documentDbRepository)
+        public Crawler(IBlobProvider2<CrawlContainerName> blobProvider, IDocumentDbRepository<CrawlModel> documentDbRepository, IMailComponent mailManager)
         {
             m_BlobProvider = blobProvider;
             m_DocumentDbRepository = documentDbRepository;
+            m_MailManager = mailManager;
             var finder = new CrawlSiteMapFinder();
             var config = AbotXConfigurationSectionHandler.LoadFromXml().Convert();
 
@@ -113,15 +116,26 @@ namespace Zbang.Zbox.WorkerRoleSearch
             await t.ConfigureAwait(false);
             var result = t.Result;
             if (result.ErrorOccurred)
-                TraceLog.WriteError($"Crawl of {result.RootUri.AbsoluteUri} completed with error: {result.ErrorException.Message}");
+            {
+                await m_MailManager.GenerateSystemEmailAsync("crawler",
+                    $"Crawl of {result.RootUri.AbsoluteUri} completed with error: {result.ErrorException.Message}").ConfigureAwait(false);
+                TraceLog.WriteError(
+                    $"Crawl of {result.RootUri.AbsoluteUri} completed with error: {result.ErrorException.Message}");
+            }
             else
+            {
+                await m_MailManager.GenerateSystemEmailAsync("crawler",
+                    $"Crawl of {result.RootUri.AbsoluteUri} completed without error.").ConfigureAwait(false);
                 TraceLog.WriteInfo($"Crawl of {result.RootUri.AbsoluteUri} completed without error.");
+
+            }
+
         }
 
         public string Name => nameof(Crawler);
 
 
-        private CrawlModel CreateStudySoupNote(CrawledPage page)
+        private static CrawlModel CreateStudySoupNote(CrawledPage page)
         {
             var angleSharpHtmlDocument = page.AngleSharpHtmlDocument;
             int? views = null;
@@ -219,6 +233,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public void Dispose()
         {
             m_Crawler?.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         public async Task<bool> ExecuteAsync(int index, Func<int, TimeSpan, Task> progressAsync, CancellationToken token)

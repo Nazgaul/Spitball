@@ -36,7 +36,7 @@ namespace Zbang.Zbox.Infrastructure.Azure
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<MediaSevicesProvider>().As<IMediaServicesProvider>().SingleInstance();
+            builder.RegisterType<MediaServicesProvider>().As<IMediaServicesProvider>().SingleInstance();
             builder.RegisterType<BlobProvider>().As<IBlobProvider>().As<ICloudBlockProvider>().InstancePerLifetimeScope().AutoActivate();
             builder.RegisterType<TableProvider>().As<ITableProvider>();
             builder.RegisterType<QueueProvider>().As<IQueueProvider>().As<IQueueProviderExtract>();

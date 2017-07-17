@@ -62,9 +62,10 @@ namespace Zbang.Zbox.Infrastructure.File
             return new PreviewResult { Content = retVal, ViewName = "Image" };
         }
 
-        protected string CreateCacheFileName(string blobName, int index)
+        protected static string CreateCacheFileName(string blobName, int index)
         {
-            return string.Format("{0}{3}_{2}_{1}.jpg", Path.GetFileNameWithoutExtension(blobName), Path.GetExtension(blobName), index, CacheVersion);
+            return
+                $"{Path.GetFileNameWithoutExtension(blobName)}{CacheVersion}_{index}_{Path.GetExtension(blobName)}.jpg";
         }
 
 

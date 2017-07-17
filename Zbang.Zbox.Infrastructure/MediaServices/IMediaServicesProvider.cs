@@ -8,7 +8,7 @@ namespace Zbang.Zbox.Infrastructure.MediaServices
     {
 
         Task<Uri> EncodeVideoAsync(Uri blobUrl, CancellationToken cancelToken);
-        //string EncodeToHtml5(string encodeAssetId);
-        //string GetSmoothStreaming(string streamingAssetId);
+
+        Task DeleteOldAssetsAsync();
     }
 }

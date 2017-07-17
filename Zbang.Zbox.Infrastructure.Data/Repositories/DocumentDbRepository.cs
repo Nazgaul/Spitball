@@ -50,13 +50,13 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
 
         public async Task<IEnumerable<T>> GetItemsAsync(Expression<Func<T, bool>> predicate)
         {
-            IDocumentQuery<T> query = DocumentDbUnitOfWork.Client.CreateDocumentQuery<T>(
+            var query = DocumentDbUnitOfWork.Client.CreateDocumentQuery<T>(
                 DocumentDbUnitOfWork.BuildCollectionUri(GetCollectionId()),
                 new FeedOptions { MaxItemCount = -1 })
                 .Where(predicate)
                 .AsDocumentQuery();
 
-            List<T> results = new List<T>();
+            var results = new List<T>();
             while (query.HasMoreResults)
             {
                 results.AddRange(await query.ExecuteNextAsync<T>().ConfigureAwait(false));
@@ -95,7 +95,6 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
         //    {
         //        results.AddRange(await query.ExecuteNextAsync<T>());
         //    }
-        //    //
         //    return results;
         //}
 
@@ -105,7 +104,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
             var query =
                 DocumentDbUnitOfWork.Client.CreateDocumentQuery<T>(
                     DocumentDbUnitOfWork.BuildCollectionUri(GetCollectionId()), sql).AsDocumentQuery();
-            List<T> results = new List<T>();
+            var results = new List<T>();
             while (query.HasMoreResults)
             {
                 results.AddRange(await query.ExecuteNextAsync<T>().ConfigureAwait(false));

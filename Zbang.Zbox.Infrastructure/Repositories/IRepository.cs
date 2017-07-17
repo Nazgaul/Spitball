@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Zbang.Zbox.Infrastructure.Repositories
@@ -9,7 +8,6 @@ namespace Zbang.Zbox.Infrastructure.Repositories
         TEntity Get(object id);
         TEntity Load(object id);
 
-        //void Load(object id, TEntity entity);
         void Save(TEntity item, bool flush = false);
         void Save(IEnumerable<TEntity> items);
 
@@ -19,17 +17,4 @@ namespace Zbang.Zbox.Infrastructure.Repositories
 
 
     }
-
-    [AttributeUsage(AttributeTargets.Class)]
-    public class DocumentDbModelAttribute : Attribute
-    {
-        public DocumentDbModelAttribute(string collectionId)
-        {
-            CollectionId = collectionId;
-        }
-        public string CollectionId { get; private set; }
-    }
-   
-    
- 
 }

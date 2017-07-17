@@ -197,7 +197,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     ContentProcessor = m_FileProcessorFactory.GetProcessor(uri),
                     Uri = uri
                 };
-                
             }
             if (Uri.TryCreate(msgData.BlobName, UriKind.Absolute, out uri))
             {

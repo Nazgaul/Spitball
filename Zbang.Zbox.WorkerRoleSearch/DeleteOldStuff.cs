@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Mail;
+using Zbang.Zbox.Infrastructure.MediaServices;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.WorkerRoleSearch.Mail;
 
@@ -13,11 +14,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
     {
         private readonly IZboxWorkerRoleService m_ZboxWorkerRoleService;
         private readonly IMailComponent m_MailComponent;
+        private readonly IMediaServicesProvider m_MediaService;
 
-        public DeleteOldStuff(IZboxWorkerRoleService zboxWorkerRoleService, IMailComponent mailComponent)
+        public DeleteOldStuff(IZboxWorkerRoleService zboxWorkerRoleService, IMailComponent mailComponent, IMediaServicesProvider mediaService)
         {
             m_ZboxWorkerRoleService = zboxWorkerRoleService;
             m_MailComponent = mailComponent;
+            m_MediaService = mediaService;
         }
 
 
@@ -96,6 +99,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             try
             {
+                await m_MediaService.DeleteOldAssetsAsync().ConfigureAwait(false);
                 TraceLog.WriteInfo("delete stuff starting to work");
                 await m_ZboxWorkerRoleService.DoDirtyUpdateAsync(token).ConfigureAwait(false);
                 var result =
