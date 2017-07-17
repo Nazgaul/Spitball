@@ -12,35 +12,35 @@ using AbotX.Crawler;
 using AbotX.Poco;
 using AngleSharp.Dom.Html;
 using AngleSharp.Extensions;
-using ConsoleAppCrawler;
 using Newtonsoft.Json;
+using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.WorkerRoleSearch.Mail;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
-    class Crawler : ISchedulerProcess, IJob, IDisposable
+    public class Crawler : ISchedulerProcess, IJob, IDisposable
     {
         private readonly CrawlerX m_Crawler;
         private readonly IBlobProvider2<CrawlContainerName> m_BlobProvider;
+        private readonly IDocumentDbRepository<CrawlModel> m_DocumentDbRepository;
 
 
-        public Crawler(IBlobProvider2<CrawlContainerName> blobProvider)
+        public Crawler(IBlobProvider2<CrawlContainerName> blobProvider, IDocumentDbRepository<CrawlModel> documentDbRepository)
         {
             m_BlobProvider = blobProvider;
-            var finder = new SiteMapFinder();
+            m_DocumentDbRepository = documentDbRepository;
+            var finder = new CrawlSiteMapFinder();
             var config = AbotXConfigurationSectionHandler.LoadFromXml().Convert();
-
-
-
 
 
             var implementation = new ImplementationOverride(config, new ImplementationContainer
             {
                 HyperlinkParser = finder,
-                CrawlDecisionMakerX = new CrawlDecisionSpitball(),
-                CrawlDecisionMaker = new CrawlDecisionSpitball()
+                Scheduler = new CrawlScheduler2(config.IsUriRecrawlingEnabled),
+                CrawlDecisionMakerX = new CrawlDecisionSpitball(config),
+                CrawlDecisionMaker = new CrawlDecisionSpitball(config)
             });
             m_Crawler = new CrawlerX(config, implementation);
             m_Crawler.PageCrawlCompletedAsync += CrawlCompleted;
@@ -71,9 +71,17 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             if (crawledPage.Uri.Authority.Equals("studysoup.com"))
             {
-                var model = CreateStudySoupNote(crawledPage);
-                var str = JsonConvert.SerializeObject(model);
-                m_BlobProvider.UploadText(model.Id, str);
+                try
+                {
+                    var model = CreateStudySoupNote(crawledPage);
+                    var str = JsonConvert.SerializeObject(model);
+                    m_BlobProvider.UploadText(model.Id, str);
+                    m_DocumentDbRepository.CreateItemAsync(model).Wait();
+                }
+                catch (Exception ex)
+                {
+                    TraceLog.WriteError($"on parsing study soup web {crawledPage}", ex);
+                }
             }
         }
 
@@ -82,7 +90,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var studySoupSiteMap = new Uri("https://studysoup.com/sitemap.xml.gz");
             var t = m_Crawler.CrawlAsync(studySoupSiteMap);
 
-            while (!cancellationToken.IsCancellationRequested)
+            while (!cancellationToken.IsCancellationRequested && !t.IsCompleted)
             {
                 try
                 {
@@ -183,13 +191,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 //    content = allContent.Substring(backIndex + "Back".Length).Trim();
                 //}
             }
-            return new CrawlModel(page.Uri.AbsolutePath, angleSharpHtmlDocument.Title, content, university, course,
-                tags, createDate, views, metaDescription, metaImage, metaKeyword, page.Uri.Host, CalculateMd5Hash(page.Uri.AbsolutePath));
+            return new CrawlModel(page.Uri.AbsoluteUri, angleSharpHtmlDocument.Title, content, university, course,
+                tags, createDate, views, metaDescription, metaImage, metaKeyword, page.Uri.Host, CalculateMd5Hash(page.Uri.AbsoluteUri));
 
         }
 
 
-        private static string CalculateMd5Hash(string input)
+        public static string CalculateMd5Hash(string input)
 
         {
             // step 1, calculate MD5 hash from input

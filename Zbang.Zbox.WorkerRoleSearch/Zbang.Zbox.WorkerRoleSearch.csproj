@@ -42,7 +42,7 @@
       <HintPath>..\packages\Abot.1.5.1.69\lib\net40\Abot.dll</HintPath>
     </Reference>
     <Reference Include="AbotX, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AbotX.1.2.126\lib\net40\AbotX.dll</HintPath>
+      <HintPath>..\packages\AbotX.1.2.130\lib\net40\AbotX.dll</HintPath>
     </Reference>
     <Reference Include="AlchemyAPIClient, Version=1.4.0.0, Culture=neutral, PublicKeyToken=2e85acc812ed0c7b, processorArchitecture=MSIL">
       <HintPath>..\packages\AlchemyAPIClient.1.5.1608.252\lib\net45\AlchemyAPIClient.dll</HintPath>
@@ -64,8 +64,8 @@
       <HintPath>..\packages\Hyak.Common.1.0.2\lib\net45\Hyak.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="MathNet.Numerics, Version=3.16.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Numerics.3.16.0\lib\net40\MathNet.Numerics.dll</HintPath>
@@ -191,6 +191,7 @@
     <Compile Include="CrawlDecision.cs" />
     <Compile Include="Crawler.cs" />
     <Compile Include="CrawlModel.cs" />
+    <Compile Include="CrawlScheduler.cs" />
     <Compile Include="DeleteOldConnections.cs" />
     <Compile Include="DeleteOldStuff.cs" />
     <Compile Include="DomainProcess\DeleteBox.cs" />
@@ -231,7 +232,7 @@
     <Compile Include="IocFactory.cs" />
     <Compile Include="RoleIndexProcessor.cs" />
     <Compile Include="SignalrClient.cs" />
-    <Compile Include="SiteMapFinder.cs" />
+    <Compile Include="CrawlSiteMapFinder.cs" />
     <Compile Include="SpamGun.cs" />
     <Compile Include="TestingJob.cs" />
     <Compile Include="MailQueueProcess.cs" />

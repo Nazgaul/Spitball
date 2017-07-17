@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Zbang.Zbox.Infrastructure.Repositories;
 
-namespace ConsoleAppCrawler
+namespace Zbang.Zbox.WorkerRoleSearch
 {
     //[SerializePropertyNamesAsCamelCase]
+    [DocumentDbModel("Crawl-Url")]
     public class CrawlModel
     {
         protected CrawlModel()
@@ -73,20 +71,9 @@ namespace ConsoleAppCrawler
 
        // [ProtoMember(13)]
         [JsonProperty(PropertyName = "id")]
-        public string Id { get; set; }
+        public string Id { get ; set; }
 
     }
 
-    public class WebPage
-    {
-        [JsonProperty(PropertyName = "id")]
-        public string Id { get; set; }
-
-        //public string Name { get; set; }
-
-        //public string Content { get; set; }
-
-        //public string University { get; set; }
-
-    }
+    
 }
