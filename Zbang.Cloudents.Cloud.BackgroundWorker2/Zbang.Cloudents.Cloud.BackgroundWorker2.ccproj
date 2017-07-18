@@ -45,7 +45,7 @@
       <Private>True</Private>
       <RoleType>Worker</RoleType>
       <RoleName>Zbang.Zbox.WorkerRoleSearch</RoleName>
-      <UpdateDiagnosticsConnectionStringOnPublish>False</UpdateDiagnosticsConnectionStringOnPublish>
+      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

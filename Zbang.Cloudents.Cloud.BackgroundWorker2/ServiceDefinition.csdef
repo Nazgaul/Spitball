@@ -7,7 +7,6 @@
       <Setting name="ZBox" />
       <Setting name="AzureSearchKey" />
       <Setting name="AzureSeachServiceName" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
       <Setting name="ServiceBusConnectionString" />
       <Setting name="ServiceBusHubName" />
       <Setting name="platform" />
@@ -19,6 +18,7 @@
       <Setting name="documentDbProduction" />
       <Setting name="CacheUse" />
       <Setting name="TimeToExtractText" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
     </ConfigurationSettings>
     <LocalResources>
       <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="false" sizeInMB="50000" />

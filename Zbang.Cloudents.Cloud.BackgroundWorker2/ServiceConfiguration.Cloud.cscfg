@@ -8,7 +8,6 @@
       <Setting name="StorageCdnEndpoint" value="https://az32006.vo.msecnd.net" />
       <Setting name="AzureSearchKey" value="5B0433BFBBE625C9D60F7330CFF103F0" />
       <Setting name="AzureSeachServiceName" value="cloudents" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=zboxdiagnostic;AccountKey=JragZe0lJsCWYvgdFNzgjit+YPpJUGhpJGNEE3CDFeZ++g2OaBVvAIyP0hIBcZbBUFt4fbzRwPPbeC7TGPNtpg==" />
       <Setting name="ServiceBusConnectionString" value="Endpoint=sb://cloudentshub-ns.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=uHDvPiccRsCMde/zUJCiskd21qKxoiS1WlruAe4TMJU=" />
       <Setting name="ServiceBusHubName" value="cloudentshub" />
       <Setting name="platform" value="workerRole" />
@@ -20,6 +19,7 @@
       <Setting name="documentDbProduction" value="true" />
       <Setting name="CacheUse" value="true" />
       <Setting name="TimeToExtractText" value="10" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>

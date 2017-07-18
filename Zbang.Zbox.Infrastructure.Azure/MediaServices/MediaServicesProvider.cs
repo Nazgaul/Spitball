@@ -61,6 +61,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
 
             var deletedAssets = m_Context.Assets.Where(s => s.Created < DateTime.UtcNow.AddDays(-3));
 
+            foreach (var asset in m_Context.Assets)
+            {
+                
+            }
             foreach (var deletedAsset in deletedAssets)
             {
                 await DeleteLocatorsForAssetAsync(deletedAsset).ConfigureAwait(false);

@@ -8,7 +8,6 @@
       <Setting name="StorageCdnEndpoint" value="" />
       <Setting name="AzureSearchKey" value="5B0433BFBBE625C9D60F7330CFF103F0" />
       <Setting name="AzureSeachServiceName" value="cloudents" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
       <Setting name="ServiceBusConnectionString" value="" />
       <Setting name="ServiceBusHubName" value="" />
       <Setting name="platform" value="workerRole" />
@@ -20,6 +19,7 @@
       <Setting name="documentDbProduction" value="true" />
       <Setting name="CacheUse" value="true" />
       <Setting name="TimeToExtractText" value="3" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>
