@@ -227,6 +227,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
         public void Dispose()
         {
             Connection.Dispose();
+            GC.SuppressFinalize(this);
             //if (m_DataCacheFactory != null)
             //{
             //    m_DataCacheFactory.Dispose();

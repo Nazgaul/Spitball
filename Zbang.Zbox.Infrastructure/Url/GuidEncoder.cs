@@ -10,9 +10,9 @@ namespace Zbang.Zbox.Infrastructure.Url
             return Encode(guid);
         }
 
-        public static string Encode(Guid guid)
+        public static string Encode(Guid value)
         {
-            var enc = Convert.ToBase64String(guid.ToByteArray());
+            var enc = Convert.ToBase64String(value.ToByteArray());
             enc = enc.Replace("/", "_");
             enc = enc.Replace("+", "-");
             return enc.Substring(0, 22);

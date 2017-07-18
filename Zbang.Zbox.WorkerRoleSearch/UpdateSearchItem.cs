@@ -250,7 +250,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     if (msgData.Type.Any(a => a == ItemType.Document))
                     {
                         var command = new UpdateThumbnailCommand(msgData.Id, retVal?.BlobName,
-                            msgData.Content, await m_BlobProvider.Md5Async(msgData.BlobName).ConfigureAwait(false));
+                            msgData.Content, await m_BlobProvider.MD5Async(msgData.BlobName).ConfigureAwait(false));
                         m_ZboxWriteService.UpdateThumbnailPicture(command);
                     }
                         // ReSharper disable once AccessToDisposedClosure

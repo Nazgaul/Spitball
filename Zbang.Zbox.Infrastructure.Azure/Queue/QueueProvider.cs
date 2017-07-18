@@ -29,7 +29,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
 
         public Task InsertMessageToMailNewAsync(BaseMailData message)
         {
-            var queue = GetQueue(QueueName.NewMailQueueName.ToLower());
+            var queue = GetQueue(QueueName.MailQueueName.ToLower());
             return queue.InsertToQueueProtoAsync(message);
         }
 

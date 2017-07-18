@@ -86,7 +86,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     try
                     {
                         lastId = document.Item1;
-                        var md5 = await m_BlobProvider.Md5Async(document.Item2).ConfigureAwait(false);
+                        var md5 = await m_BlobProvider.MD5Async(document.Item2).ConfigureAwait(false);
                         var command = new UpdateThumbnailCommand(document.Item1, null,
                             null, md5);
                         m_ZboxWorkerRoleService.UpdateThumbnailPicture(command);

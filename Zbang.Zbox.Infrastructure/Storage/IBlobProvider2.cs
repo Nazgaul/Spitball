@@ -20,7 +20,8 @@ namespace Zbang.Zbox.Infrastructure.Storage
         Task<bool> ExistsAsync(string blobName, CancellationToken token);
         bool Exists(string blobName);
         Task<long> SizeAsync(string blobName);
-        Task<string> Md5Async(string blobName);
+        // ReSharper disable once InconsistentNaming
+        Task<string> MD5Async(string blobName);
 
         Task SaveMetaDataToBlobAsync(Uri blobUri, IDictionary<string, string> metadata, CancellationToken token);
         string RelativePath();

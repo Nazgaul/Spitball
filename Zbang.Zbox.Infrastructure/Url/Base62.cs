@@ -14,13 +14,13 @@ namespace Zbang.Zbox.Infrastructure.Url
         public Base62(string value)
         {
             m_Value = 0;
-            int count = 0;
+            var count = 0;
 
-            for (int i = value.Length - 1; i >= 0; i--)
+            for (var i = value.Length - 1; i >= 0; i--)
             {
-                int pos = (int)Math.Pow(62, count++);
-                int part = 0;
-                char c = value[i];
+                var pos = (int)Math.Pow(62, count++);
+                var part = 0;
+                var c = value[i];
 
                 if (c >= 48 && c <= 57)
                 {
@@ -56,7 +56,7 @@ namespace Zbang.Zbox.Infrastructure.Url
 
         private string ConvertToString(long value)
         {
-            long mod = value % 62;
+            var mod = value % 62;
             char val;
 
             if (mod >= 0 && mod <= 9)

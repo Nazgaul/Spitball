@@ -127,13 +127,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             TraceLog.WriteWarning($"Job finished index: {i}");
 
                         }
-
-                        //Process p = Process.GetCurrentProcess(); // getting current running process of the app
-                        //foreach (ProcessThread pt in p.Threads)
-                        //{
-                            
-                        //    // use pt.Id / pt.TotalProcessorTime / pt.UserProcessorTime / pt.PrivilegedProcessorTime
-                        //}
                     }
                     await Task.Delay(TimeSpan.FromSeconds(30), cancellationToken).ConfigureAwait(false);
                 }

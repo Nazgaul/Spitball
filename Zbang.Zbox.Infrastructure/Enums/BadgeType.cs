@@ -35,13 +35,7 @@ namespace Zbang.Zbox.Infrastructure.Enums
         Syllabus=10
     }
 
-    //public enum SearchType
-    //{
-    //    None,
-    //    Document,
-    //    Member,
-    //    Feed
-    //}
+ 
 
     public enum TagType : int
     {

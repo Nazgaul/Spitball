@@ -28,7 +28,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 try
                 {
                     
-                    var queueName = new MailQueueNameNew();
+                    var queueName = new MailQueueName();
                     var result = await m_QueueProviderExtract.RunQueueAsync(queueName, async msg =>
                     {
                         TraceLog.WriteInfo($"{Name} is doing process");

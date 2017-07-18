@@ -9,12 +9,10 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
     public interface IPreviewContainer : IStorageContainerName
     {
-        
     }
 
     public interface ICacheContainer : IStorageContainerName
     {
-        
     }
 
     public abstract  class StorageContainerName : IStorageContainerName
@@ -24,7 +22,8 @@ namespace Zbang.Zbox.Infrastructure.Storage
         public const string AzureProductContainer = "zboxProductImages";
         public const string AzureProfilePicContainer = "zboxprofilepic";
         public const string AzurePreviewContainer = "preview";
-        public const string AzureFaqContainer = "zboxhelp";
+        // ReSharper disable once InconsistentNaming
+        public const string AzureFAQContainer = "zboxhelp";
         public const string AzureQuizContainer = "zboxquestion";
         public const string AzureChatContainer = "zboxchat";
 

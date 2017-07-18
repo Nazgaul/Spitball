@@ -124,7 +124,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return blob.Properties.Length;
         }
 
-        public async Task<string> Md5Async(string blobName)
+        public async Task<string> MD5Async(string blobName)
         {
             var blob = GetBlob(blobName);
             await blob.FetchAttributesAsync().ConfigureAwait(false);

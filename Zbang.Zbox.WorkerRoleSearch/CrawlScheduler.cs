@@ -16,22 +16,6 @@ using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
-    
-
-    class CrawlerUrlEntity : TableEntity
-    {
-        public CrawlerUrlEntity(string domain, string url)
-        {
-            this.PartitionKey = Crawler.CalculateMd5Hash(domain);
-            this.RowKey = Crawler.CalculateMd5Hash(url);
-        }
-
-        public CrawlerUrlEntity() { }
-
-
-
-    }
-
     public class CrawlScheduler2 : IScheduler
     {
         private readonly CloudTable m_Table;

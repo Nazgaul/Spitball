@@ -35,7 +35,6 @@
   <!-- Items for the project -->
   <ItemGroup>
     <ServiceDefinition Include="ServiceDefinition.csdef" />
-    <ServiceConfiguration Include="ServiceConfiguration.Jared.cscfg" />
     <ServiceConfiguration Include="ServiceConfiguration.Local.cscfg" />
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>

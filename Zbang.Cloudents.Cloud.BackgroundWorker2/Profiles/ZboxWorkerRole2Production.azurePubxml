@@ -6,12 +6,12 @@
     <AzureDeploymentLabel>Zbang.Cloudents.Cloud.BackgroundWorker2</AzureDeploymentLabel>
     <AzureDeploymentReplacementMethod>BlastUpgrade</AzureDeploymentReplacementMethod>
     <AzureSlot>Production</AzureSlot>
-    <AzureEnableRemoteDesktop>True</AzureEnableRemoteDesktop>
+    <AzureEnableRemoteDesktop>False</AzureEnableRemoteDesktop>
     <AzureEnableWebDeploy>False</AzureEnableWebDeploy>
     <AzureFallbackToDeleteAndRecreateIfUpgradeFails>False</AzureFallbackToDeleteAndRecreateIfUpgradeFails>
     <AzureHostedServiceLabel>ZboxWorkerRole2</AzureHostedServiceLabel>
     <AzureHostedServiceName>zboxworkerrole2</AzureHostedServiceName>
-    <AzureEnableIntelliTrace>True</AzureEnableIntelliTrace>
+    <AzureEnableIntelliTrace>False</AzureEnableIntelliTrace>
     <AzureEnableProfiling>False</AzureEnableProfiling>
     <AzureServiceConfiguration>Cloud</AzureServiceConfiguration>
     <AzureSolutionConfiguration>Release</AzureSolutionConfiguration>

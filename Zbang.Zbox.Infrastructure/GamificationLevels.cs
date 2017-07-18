@@ -18,40 +18,10 @@ namespace Zbang.Zbox.Infrastructure
         [ResourceDescription(typeof(Gamification), "Level5")]
         private static readonly Range<int> Level5 = new Range<int>(Level4.Maximum + 1, int.MaxValue);
 
-        //public static IEnumerable<LevelDescription> GetLevels()
-        //{
-        //    var levels = new List<LevelDescription>();
-        //    int index = 0;
-        //    foreach (
-        //        var property in
-        //            typeof(GamificationLevels).GetFields(System.Reflection.BindingFlags.Static |
-        //                                                 System.Reflection.BindingFlags.NonPublic))
-        //    {
-        //        var val = property.GetValue(null) as Range<int>;
-        //        if (val == null)
-        //        {
-
-        //            continue;
-        //        }
-        //        var attribute = property.GetCustomAttributes(typeof(ResourceDescriptionAttribute), false);
-        //        if (attribute.Length == 0)
-        //        {
-        //            return null;
-        //        }
-        //        var att = attribute[0] as ResourceDescriptionAttribute;
-
-        //        if (att?.ResourceType == null) levels.Add(new LevelDescription(att?.Description, val.Maximum, index));
-        //        var levelName = new System.Resources.ResourceManager(att.ResourceType);
-        //        index++;
-        //        levels.Add(new LevelDescription(levelName.GetString(att.ResourceName, CultureInfo.CurrentCulture), val.Maximum, index));
-
-        //    }
-        //    return levels;
-        //}
 
         public static LevelDescription GetLevel(int score)
         {
-            int index = 0;
+            var index = 0;
             foreach (var property in typeof(GamificationLevels).GetFields(System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic))
             {
                 var val = property.GetValue(null) as Range<int>;
