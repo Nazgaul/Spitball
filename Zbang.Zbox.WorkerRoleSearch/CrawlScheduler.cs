@@ -64,24 +64,29 @@ namespace Zbang.Zbox.WorkerRoleSearch
             if (page == null)
                 throw new ArgumentNullException(nameof(page));
 
-            if (page.Uri.PathAndQuery.ToLowerInvariant().Contains("xml"))
-            {
-                InsertToQueue();
-                return;
-            }
+            
             if (m_AllowUriRecrawling || page.IsRetry)
             {
                 InsertToQueue();
             }
             else
             {
+                //var t = m_TempTable.ContainsKey(uri.AbsoluteUri);
+                if (page.Uri.PathAndQuery.ToLowerInvariant().Contains("xml"))
+                {
+                    m_TempTable.TryAdd(page.Uri.AbsoluteUri, 0);
+                    InsertToQueue();
+                    return;
+                }
                 try
                 {
+                    
                     var entity = new CrawlerUrlEntity(GetHostMd5(page.Uri), page.Uri.AbsoluteUri)
                     {
                         Url = page.Uri.AbsoluteUri,
                     };
                     m_Table.Execute(TableOperation.Insert(entity));
+                    m_TempTable.TryAdd(page.Uri.AbsoluteUri, 0);
                     InsertToQueue();
                 }
                 catch (StorageException ex) when (ex.RequestInformation.HttpStatusCode == (int)HttpStatusCode.Conflict)
@@ -131,6 +136,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             try
             {
+                m_TempTable.TryAdd(uri.AbsoluteUri, 0);
                 var entity = new CrawlerUrlEntity(GetHostMd5(uri), uri.AbsoluteUri);
                 m_Table.Execute(TableOperation.Insert(entity));
                 m_TempTable.TryAdd(uri.AbsoluteUri, 0);
@@ -142,16 +148,17 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public bool IsUriKnown(Uri uri)
         {
-            if (uri.AbsoluteUri.ToLowerInvariant().Contains("xml"))
-            {
-                return false;
-            }
-
-
             var t = m_TempTable.ContainsKey(uri.AbsoluteUri);
             if (t)
             {
                 return true;
+            }
+            if (uri.AbsoluteUri.ToLowerInvariant().Contains("xml"))
+            {
+                //We want at least one time xml pass per machine. if it doesn't work we take this down 
+                TraceLog.WriteInfo($"{uri} is not known uri");
+                m_TempTable.TryAdd(uri.AbsoluteUri, 0);
+                return false;
             }
             var operation = TableOperation.Retrieve<CrawlerUrlEntity>(GetHostMd5(uri), Crawler.CalculateMd5Hash(uri.AbsoluteUri));
             var result = m_Table.Execute(operation);

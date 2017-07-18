@@ -414,8 +414,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return JsonOk(new
                     {
                         template = "failed"
-                        //preview = RenderRazorViewToString("_PreviewFailed",
-                        //    Url.RouteUrl("ItemDownload2", new { boxId, itemId = id }))
                     });
 
                 }
