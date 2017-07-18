@@ -21,7 +21,7 @@
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
     </ConfigurationSettings>
     <LocalResources>
-      <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="false" sizeInMB="50000" />
+      <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="false" sizeInMB="222000" />
     </LocalResources>
   </WorkerRole>
 </ServiceDefinition>

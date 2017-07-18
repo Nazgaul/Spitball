@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
 using System.Security.Cryptography;
@@ -12,6 +13,7 @@ using AbotX.Crawler;
 using AbotX.Poco;
 using AngleSharp.Dom.Html;
 using AngleSharp.Extensions;
+using Microsoft.ApplicationInsights;
 using Newtonsoft.Json;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Repositories;
@@ -27,7 +29,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IBlobProvider2<CrawlContainerName> m_BlobProvider;
         private readonly IDocumentDbRepository<CrawlModel> m_DocumentDbRepository;
         private readonly IMailComponent m_MailManager;
-
+        TelemetryClient telemetry = new TelemetryClient();
 
         public Crawler(IBlobProvider2<CrawlContainerName> blobProvider, IDocumentDbRepository<CrawlModel> documentDbRepository, IMailComponent mailManager)
         {
@@ -76,6 +78,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 try
                 {
+                    
                     var model = CreateStudySoupNote(crawledPage);
                     var str = JsonConvert.SerializeObject(model);
                     m_BlobProvider.UploadText(model.Id, str);
@@ -83,6 +86,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
+                    telemetry.TrackException(ex, new Dictionary<string, string> {{"page", crawledPage.ToString()}});
                     TraceLog.WriteError($"on parsing study soup web {crawledPage}", ex);
                 }
             }
@@ -91,6 +95,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public async Task RunAsync(CancellationToken cancellationToken)
         {
             var studySoupSiteMap = new Uri("https://studysoup.com/sitemap.xml.gz");
+            //var tempUrl =
+            //    new Uri("https://studysoup.com/note/17394/ui-econ-1100-0aaa-week-10-spring-2015-kelsy-lartius");
             var t = m_Crawler.CrawlAsync(studySoupSiteMap);
 
             while (!cancellationToken.IsCancellationRequested && !t.IsCompleted)
@@ -110,8 +116,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         m_Crawler.Stop();
                     }
                 }
-
-
             }
             await t.ConfigureAwait(false);
             var result = t.Result;

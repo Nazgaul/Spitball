@@ -221,7 +221,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private void PreProcessFile(DocumentSearchDto msgData)
         {
             var processor = GetProcessor(msgData);
-            
             if (processor?.ContentProcessor == null) return;
             var timeSpanToWait = TimeSpan.FromMinutes(10);
             //taken from : http://blogs.msdn.com/b/nikhil_agarwal/archive/2014/04/02/10511934.aspx

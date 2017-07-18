@@ -19,7 +19,7 @@
       <Setting name="documentDbProduction" value="true" />
       <Setting name="CacheUse" value="true" />
       <Setting name="TimeToExtractText" value="10" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=zboxstorage;AccountKey=$(_zboxstorage.key_)" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>

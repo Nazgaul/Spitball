@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using Abot.Core;
 using Abot.Poco;
 using Microsoft.Azure;
@@ -18,11 +15,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class CrawlScheduler2 : IScheduler
     {
-        private readonly CloudTable m_Table;
 
+        private readonly CloudTable m_Table;
         private readonly CloudQueue m_Queue;
-        private int? m_Count = null;
-        bool _allowUriRecrawling;
+        private int? m_Count;
+        readonly bool m_AllowUriRecrawling;
+
+        readonly ConcurrentDictionary<string, byte> m_TempTable = new ConcurrentDictionary<string, byte>();
+        private readonly ConcurrentDictionary<string, string> m_HostMd5 = new ConcurrentDictionary<string, string>();
 
         readonly JsonSerializerSettings m_Settings = new JsonSerializerSettings
         {
@@ -43,7 +43,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             var queueClient = storageAccount.CreateCloudQueueClient();
             m_Queue = queueClient.GetQueueReference("crawler-urls");
-            _allowUriRecrawling = allowUriRecrawling;
+            m_AllowUriRecrawling = allowUriRecrawling;
         }
         public void Dispose()
         {
@@ -69,7 +69,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 InsertToQueue();
                 return;
             }
-            if (_allowUriRecrawling || page.IsRetry)
+            if (m_AllowUriRecrawling || page.IsRetry)
             {
                 InsertToQueue();
             }
@@ -77,15 +77,17 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 try
                 {
-                    var entity = new CrawlerUrlEntity(page.Uri.Host, page.Uri.AbsoluteUri);
+                    var entity = new CrawlerUrlEntity(GetHostMd5(page.Uri), page.Uri.AbsoluteUri)
+                    {
+                        Url = page.Uri.AbsoluteUri,
+                    };
                     m_Table.Execute(TableOperation.Insert(entity));
                     InsertToQueue();
                 }
-                catch (StorageException ex) when (ex.RequestInformation.HttpStatusCode == (int) HttpStatusCode.Conflict)
+                catch (StorageException ex) when (ex.RequestInformation.HttpStatusCode == (int)HttpStatusCode.Conflict)
                 {
-                    TraceLog.WriteError($"site crawl Scheduler add {page}", ex);
                 }
-              
+
 
             }
         }
@@ -123,22 +125,42 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public void AddKnownUri(Uri uri)
         {
+            if (m_TempTable.ContainsKey(uri.AbsoluteUri))
+            {
+                return;
+            }
             try
             {
-                var entity = new CrawlerUrlEntity(uri.Host, uri.AbsoluteUri);
+                var entity = new CrawlerUrlEntity(GetHostMd5(uri), uri.AbsoluteUri);
                 m_Table.Execute(TableOperation.Insert(entity));
+                m_TempTable.TryAdd(uri.AbsoluteUri, 0);
             }
             catch (StorageException ex) when (ex.RequestInformation.HttpStatusCode == (int)HttpStatusCode.Conflict)
             {
-                TraceLog.WriteError($"site crawl Scheduler AddKnownUri {uri}", ex);
             }
         }
 
         public bool IsUriKnown(Uri uri)
         {
-            var operation = TableOperation.Retrieve<CrawlerUrlEntity>(Crawler.CalculateMd5Hash(uri.Host), Crawler.CalculateMd5Hash(uri.AbsoluteUri));
+            if (uri.AbsoluteUri.ToLowerInvariant().Contains("xml"))
+            {
+                return false;
+            }
+
+
+            var t = m_TempTable.ContainsKey(uri.AbsoluteUri);
+            if (t)
+            {
+                return true;
+            }
+            var operation = TableOperation.Retrieve<CrawlerUrlEntity>(GetHostMd5(uri), Crawler.CalculateMd5Hash(uri.AbsoluteUri));
             var result = m_Table.Execute(operation);
-            return result.Result != null;
+            var isUriKnown = result.Result != null;
+            if (isUriKnown)
+            {
+                m_TempTable.TryAdd(uri.AbsoluteUri, 0);
+            }
+            return isUriKnown;
         }
 
         public int Count
@@ -154,123 +176,19 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 return m_Count ?? 0;
             }
         }
+
+
+        private string GetHostMd5(Uri uri)
+        {
+            if (m_HostMd5.TryGetValue(uri.Host, out string md5Value))
+            {
+                return md5Value;
+            }
+            md5Value = Crawler.CalculateMd5Hash(uri.Host);
+            m_HostMd5.TryAdd(uri.Host, md5Value);
+            return md5Value;
+        }
     }
 
-    //public class CrawlScheduler : Scheduler
-    //{
-    //    public CrawlScheduler(bool allowUriRecrawling) : base(
-    //        allowUriRecrawling, new CompactCrawledUrlRepository(), new PageToCrawlRepository())
-    //    {
 
-    //    }
-    //}
-
-    
-    //public class CrawledUrlRepository : ICrawledUrlRepository
-    //{
-    //    private readonly CloudTable m_Table;
-    //    public CrawledUrlRepository()
-    //    {
-    //        var storageAccount = CloudStorageAccount.Parse(
-    //            CloudConfigurationManager.GetSetting("StorageConnectionString"));
-    //        var tableClient = storageAccount.CreateCloudTableClient();
-    //        m_Table = tableClient.GetTableReference("crawler-urls");
-    //        m_Table.CreateIfNotExists();
-    //    }
-    //    public void Dispose()
-    //    {
-            
-    //    }
-
-    //    public bool Contains(Uri uri)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-
-    //    public bool AddIfNew(Uri uri)
-    //    {
-    //        var retrieveOperation = TableOperation.Retrieve<CrawlerUrlEntity>(uri.Host, uri.AbsoluteUri);
-    //        TableResult retrievedResult = m_Table.Execute(retrieveOperation);
-
-    //        // Print the phone number of the result.
-    //        if (retrievedResult.Result != null)
-    //        {
-    //            Console.WriteLine(((CustomerEntity)retrievedResult.Result).PhoneNumber);
-    //        }
-    //        else
-    //        {
-    //            Console.WriteLine("The phone number could not be retrieved.");
-    //        }
-
-    //        var entity = new CrawlerUrlEntity(uri.Host, uri.AbsoluteUri);
-    //        throw new NotImplementedException();
-    //    }
-    //}
-
-    //public class PageToCrawlRepository : IPagesToCrawlRepository
-    //{
-    //    private readonly CloudQueue m_Queue;
-    //    private int? m_Count = null;
-
-    //    readonly JsonSerializerSettings m_Settings = new JsonSerializerSettings
-    //    {
-    //        TypeNameHandling = TypeNameHandling.All,
-    //        NullValueHandling = NullValueHandling.Ignore,
-    //        Formatting = Formatting.None
-
-    //    };
-
-    //    public PageToCrawlRepository()
-    //    {
-    //        var storageAccount = CloudStorageAccount.Parse(
-    //            CloudConfigurationManager.GetSetting("StorageConnectionString"));
-    //        var queueClient = storageAccount.CreateCloudQueueClient();
-    //        m_Queue = queueClient.GetQueueReference("crawler-urls");
-    //    }
-    //    public void Dispose()
-    //    {
-
-    //    }
-
-    //    public void Add(PageToCrawl page)
-    //    {
-            
-    //        var json = JsonConvert.SerializeObject(page, m_Settings);
-    //        var message = new CloudQueueMessage(json);
-    //        m_Queue.AddMessage(message);
-    //        m_Count = null;
-    //    }
-
-    //    public PageToCrawl GetNext()
-    //    {
-    //        var message = m_Queue.GetMessage();
-
-    //        if (message == null)
-    //        {
-    //            m_Count = 0;
-    //            return null;
-    //        }
-    //        m_Queue.DeleteMessage(message);
-            
-    //        var m = JsonConvert.DeserializeObject<PageToCrawl>(message.AsString, m_Settings);
-    //        return m;
-    //    }
-
-    //    public void Clear()
-    //    {
-    //        m_Count = 0;
-    //        m_Queue.Clear();
-    //    }
-
-    //    public int Count()
-    //    {
-    //        if (m_Count.HasValue)
-    //        {
-    //            return m_Count.Value;
-    //        }
-    //        m_Queue.FetchAttributes();
-    //        m_Count = m_Queue.ApproximateMessageCount;
-    //        return m_Count ?? 0;
-    //    }
-    //}
 }

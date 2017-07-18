@@ -5,9 +5,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     class CrawlerUrlEntity : TableEntity
     {
-        public CrawlerUrlEntity(string domain, string url)
+        public CrawlerUrlEntity(string domainMd5, string url)
         {
-            this.PartitionKey = Crawler.CalculateMd5Hash(domain);
+            this.PartitionKey = domainMd5;
             this.RowKey = Crawler.CalculateMd5Hash(url);
         }
 
@@ -16,7 +16,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public string Url { get; set; }
 
-        public DateTime CrawlDate { get; set; }
 
     }
 }
