@@ -155,9 +155,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             if (uri.AbsoluteUri.ToLowerInvariant().Contains("xml"))
             {
-                //We want at least one time xml pass per machine. if it doesn't work we take this down 
-                TraceLog.WriteInfo($"{uri} is not known uri");
-                m_TempTable.TryAdd(uri.AbsoluteUri, 0);
+                //We want at least one time xml pass per machine. if it doesn't work we take this down
+                //TraceLog.WriteInfo($"{uri} is not known uri");
+                //m_TempTable.TryAdd(uri.AbsoluteUri, 0);
                 return false;
             }
             var operation = TableOperation.Retrieve<CrawlerUrlEntity>(GetHostMd5(uri), Crawler.CalculateMd5Hash(uri.AbsoluteUri));

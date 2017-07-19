@@ -185,6 +185,8 @@
     <Compile Include="Storage\QueueName.cs" />
     <Compile Include="Storage\StorageContainerName.cs" />
     <Compile Include="TextManipulation.cs" />
+    <Compile Include="Trace\ILogger.cs" />
+    <Compile Include="Trace\Logger.cs" />
     <Compile Include="Url\Base62.cs" />
     <Compile Include="Url\EncryptObject.cs" />
     <Compile Include="Url\GuidEncoder.cs" />

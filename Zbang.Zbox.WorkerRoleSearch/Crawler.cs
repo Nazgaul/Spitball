@@ -13,7 +13,6 @@ using AbotX.Crawler;
 using AbotX.Poco;
 using AngleSharp.Dom.Html;
 using AngleSharp.Extensions;
-using Microsoft.ApplicationInsights;
 using Newtonsoft.Json;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Repositories;
@@ -29,13 +28,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IBlobProvider2<CrawlContainerName> m_BlobProvider;
         private readonly IDocumentDbRepository<CrawlModel> m_DocumentDbRepository;
         private readonly IMailComponent m_MailManager;
-        TelemetryClient telemetry = new TelemetryClient();
+        private readonly ILogger m_Logger;
 
-        public Crawler(IBlobProvider2<CrawlContainerName> blobProvider, IDocumentDbRepository<CrawlModel> documentDbRepository, IMailComponent mailManager)
+        public Crawler(IBlobProvider2<CrawlContainerName> blobProvider, IDocumentDbRepository<CrawlModel> documentDbRepository, IMailComponent mailManager, ILogger logger)
         {
             m_BlobProvider = blobProvider;
             m_DocumentDbRepository = documentDbRepository;
             m_MailManager = mailManager;
+            m_Logger = logger;
             var finder = new CrawlSiteMapFinder();
             var config = AbotXConfigurationSectionHandler.LoadFromXml().Convert();
 
@@ -58,20 +58,22 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             if (crawledPage.WebException != null || crawledPage.HttpWebResponse.StatusCode != HttpStatusCode.OK)
             {
-                TraceLog.WriteWarning($"Crawl of page failed {crawledPage.Uri.AbsoluteUri} , exception {crawledPage.WebException}");
+                m_Logger.Warning(
+                    $"Crawl of page failed {crawledPage.Uri.AbsoluteUri} , exception {crawledPage.WebException}");
                 return;
             }
 
             if (!crawledPage.HttpWebResponse.ContentType.Contains("text/html"))
             {
-                TraceLog.WriteWarning($"Crawl of page {crawledPage.Uri.AbsoluteUri} of type {crawledPage.HttpWebResponse.ContentType}");
+                m_Logger.Warning(
+                    $"Crawl of page {crawledPage.Uri.AbsoluteUri} of type {crawledPage.HttpWebResponse.ContentType}");
                 return;
 
             }
 
             if (string.IsNullOrEmpty(crawledPage.Content.Text))
             {
-                TraceLog.WriteWarning($"Page had no content {crawledPage.Uri.AbsoluteUri}");
+                m_Logger.Warning($"Page had no content {crawledPage.Uri.AbsoluteUri}");
                 return;
             }
             if (crawledPage.Uri.Authority.Equals("studysoup.com"))
@@ -86,14 +88,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    telemetry.TrackException(ex, new Dictionary<string, string> {{"page", crawledPage.ToString()}});
-                    TraceLog.WriteError($"on parsing study soup web {crawledPage}", ex);
+                    m_Logger.Exception(ex, new Dictionary<string, string> {{"page", crawledPage.ToString()}});
                 }
             }
         }
 
         public async Task RunAsync(CancellationToken cancellationToken)
         {
+            m_Logger.Info("starting to log");
             var studySoupSiteMap = new Uri("https://studysoup.com/sitemap.xml.gz");
             //var tempUrl =
             //    new Uri("https://studysoup.com/note/17394/ui-econ-1100-0aaa-week-10-spring-2015-kelsy-lartius");
@@ -123,14 +125,15 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 await m_MailManager.GenerateSystemEmailAsync("crawler",
                     $"Crawl of {result.RootUri.AbsoluteUri} completed with error: {result.ErrorException.Message}").ConfigureAwait(false);
-                TraceLog.WriteError(
+                m_Logger.Error(
                     $"Crawl of {result.RootUri.AbsoluteUri} completed with error: {result.ErrorException.Message}");
+
             }
             else
             {
                 await m_MailManager.GenerateSystemEmailAsync("crawler",
                     $"Crawl of {result.RootUri.AbsoluteUri} completed without error.").ConfigureAwait(false);
-                TraceLog.WriteInfo($"Crawl of {result.RootUri.AbsoluteUri} completed without error.");
+                m_Logger.Info($"Crawl of {result.RootUri.AbsoluteUri} completed without error.");
 
             }
 
@@ -225,9 +228,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 var hash = md5.ComputeHash(inputBytes);
                 // step 2, convert byte array to hex string
                 var sb = new StringBuilder();
-                for (int i = 0; i < hash.Length; i++)
+                foreach (byte t in hash)
                 {
-                    sb.Append(hash[i].ToString("X2"));
+                    sb.Append(t.ToString("X2"));
                 }
                 return sb.ToString();
             }
@@ -242,6 +245,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public async Task<bool> ExecuteAsync(int index, Func<int, TimeSpan, Task> progressAsync, CancellationToken token)
         {
+            m_Logger.Info("starting to log");
             var studySoupSiteMap = new Uri("https://studysoup.com/sitemap.xml.gz");
             var t = m_Crawler.CrawlAsync(studySoupSiteMap);
 

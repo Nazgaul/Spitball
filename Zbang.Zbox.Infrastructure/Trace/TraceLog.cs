@@ -11,11 +11,7 @@ namespace Zbang.Zbox.Infrastructure.Trace
             t.Trace.TraceError(ex.ToString());
         }
 
-        public static void WriteInfo(Exception ex)
-        {
-            if (ex == null) throw new ArgumentNullException(nameof(ex));
-            t.Trace.TraceInformation(ex.ToString());
-        }
+        
 
         public static void WriteInfo(string info)
         {
@@ -25,10 +21,10 @@ namespace Zbang.Zbox.Infrastructure.Trace
             t.Trace.TraceInformation(info);
         }
 
-        public static void WriteInfo(string prefix, string info)
-        {
-            WriteInfo(prefix + " " + info);
-        }
+        //public static void WriteInfo(string prefix, string info)
+        //{
+        //    WriteInfo(prefix + " " + info);
+        //}
 
         public static void WriteError(string info, Exception ex)
         {

@@ -236,6 +236,7 @@
     <Compile Include="SignalrClient.cs" />
     <Compile Include="CrawlSiteMapFinder.cs" />
     <Compile Include="SpamGun.cs" />
+    <Compile Include="TelemetryLogger.cs" />
     <Compile Include="TestingJob.cs" />
     <Compile Include="MailQueueProcess.cs" />
     <Compile Include="ThumbnailQueueProcess.cs" />
