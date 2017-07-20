@@ -294,7 +294,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var query = new LeaderboardQuery(userid, page.GetValueOrDefault());
             var model = await ZboxReadService.UserLeaderBoardAsync(query).ConfigureAwait(false);
 
-            model = model.Select(s => 
+            model = model.Select(s =>
             {
                 s.LevelName = GamificationLevels.GetLevel(s.Score).Name;
                 return s;

@@ -26,7 +26,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
         {
             var builder = new StringBuilder("attachment; filename*=UTF-8''");
 
-            byte[] filenameBytes = Encoding.UTF8.GetBytes(filename);
+            var filenameBytes = Encoding.UTF8.GetBytes(filename);
             foreach (byte b in filenameBytes)
             {
                 if (IsByteValidHeaderValueCharacter(b))
@@ -58,7 +58,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             // In .Net 4.5, ContentDisposition.ToString() no longer throws FormatException
             // if it contains Unicode, and it will not encode Unicode as we require here.
             // The Unicode test above is identical to the 4.0 FormatException test,
-            // allowing this helper to give the same results in 4.0 and 4.5.         
+            // allowing this helper to give the same results in 4.0 and 4.5.
             var disposition = new ContentDisposition { FileName = fileName };
             return disposition.ToString();
         }

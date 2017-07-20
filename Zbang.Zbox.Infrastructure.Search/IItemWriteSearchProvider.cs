@@ -13,6 +13,8 @@ namespace Zbang.Zbox.Infrastructure.Search
     public interface IContentWriteSearchProvider
     {
         Task UpdateDataAsync(ItemSearchDto itemToUpload, IEnumerable<ItemToDeleteSearchDto> itemToDelete, CancellationToken token);
+
+        Task UpdateDataAsync(Document itemToUpload, CancellationToken token);
     }
 
 

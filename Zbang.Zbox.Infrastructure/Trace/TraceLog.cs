@@ -3,6 +3,7 @@ using t = System.Diagnostics;
 
 namespace Zbang.Zbox.Infrastructure.Trace
 {
+    [Obsolete("use ILogger")]
     public static class TraceLog
     {
         public static void WriteError(Exception ex)

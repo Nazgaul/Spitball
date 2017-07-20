@@ -95,7 +95,7 @@ namespace Zbang.Cloudents.Mvc2Jared.Controllers
         }
         private Task AddTagsToDocAsync(long itemId,IEnumerable<string> newTags)
         {
-            var z = new AssignTagsToDocumentCommand(itemId, newTags, TagType.Backoffice);
+            var z = new AssignTagsToDocumentCommand(itemId, newTags, TagType.BackOffice);
             return m_WriteService.AddItemTagAsync(z);
         }
         //private async Task<JsonResult> AddItemToTabAsync(long itemId, Guid? tabId,long boxId)

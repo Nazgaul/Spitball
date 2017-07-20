@@ -284,7 +284,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     result.ProfessorName,
                     result.Quizes,
                     result.UserType
-                    
+
                 });
             }
             catch (BoxAccessDeniedException)

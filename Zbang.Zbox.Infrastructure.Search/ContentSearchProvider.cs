@@ -10,6 +10,7 @@ using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
+using Zbang.Zbox.ViewModel.SqlQueries;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
@@ -17,7 +18,7 @@ namespace Zbang.Zbox.Infrastructure.Search
     {
         private readonly ISearchConnection m_Connection;
         private readonly ISearchIndexClient m_IndexClient;
-        private readonly string m_IndexName = "items";
+        private readonly string m_IndexName = "items3";
         private bool m_CheckIndexExists;
 
 
@@ -34,6 +35,13 @@ namespace Zbang.Zbox.Infrastructure.Search
             m_IndexClient = connection.SearchClient.Indexes.GetClient(m_IndexName);
         }
 
+        public Task UpdateDataAsync(Document itemToUpload, CancellationToken token)
+        {
+            if (itemToUpload == null) throw new ArgumentNullException(nameof(itemToUpload));
+            var batch = IndexBatch.MergeOrUpload(new[] { itemToUpload });
+            return m_IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
+        }
+
         public async Task UpdateDataAsync(ItemSearchDto itemToUpload, IEnumerable<ItemToDeleteSearchDto> itemToDelete, CancellationToken token)
         {
             if (!m_CheckIndexExists)
@@ -43,23 +51,19 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
             if (itemToUpload != null)
             {
-                var uploadBatch = new Item
+                var uploadBatch = new Document
                 {
                     Id = itemToUpload.SearchContentId,
-                    Name =  itemToUpload.Name?.ToLowerInvariant(),
-                    Course = JsonConvert.SerializeObject(itemToUpload.Course).ToLowerInvariant(),
-                    CourseSearch =  itemToUpload.Course.ToString(),
-                    CourseId = itemToUpload.Course.Id.ToString(),
+                    Name = itemToUpload.Name?.ToLowerInvariant(),
+                    Course = itemToUpload.Course.ToString(),
                     UniversityId = itemToUpload.University.Id.ToString(),
-                    University = JsonConvert.SerializeObject(itemToUpload.University).ToLowerInvariant(),
-                    Type = itemToUpload.Type.Select(s => ((int)s).ToString()).ToArray(),
+                    University = itemToUpload.University.Name, //  JsonConvert.SerializeObject(itemToUpload.University).ToLowerInvariant(),
                     Tags = itemToUpload.Tags?.Select(s => s.Name.ToLowerInvariant()).Distinct().ToArray(),
                     Date = itemToUpload.Date.Truncate(TimeSpan.FromSeconds(1)),
                     MetaContent = itemToUpload.MetaContent,
-                    BlobName = itemToUpload.BlobName,
+                    Source = itemToUpload.BlobName,
                     Views = itemToUpload.Views,
                     Likes = itemToUpload.Likes,
-                    ContentCount = itemToUpload.ContentCount
                 };
                 if (!string.IsNullOrEmpty(itemToUpload.Content))
                 {
@@ -99,17 +103,13 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
         }
 
+
+
         private async Task BuildIndexAsync()
         {
-            try
-            {
-                await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure()).ConfigureAwait(false);
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("on item build index", ex);
-            }
+            await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure()).ConfigureAwait(false);
             m_CheckIndexExists = true;
+
         }
 
         private const string ScoringProfile = "score";
@@ -118,15 +118,15 @@ namespace Zbang.Zbox.Infrastructure.Search
             var definition = new Index
             {
                 Name = m_IndexName,
-                Fields = FieldBuilder.BuildForType<Item>()
+                Fields = FieldBuilder.BuildForType<Document>()
             };
 
             var weightProfile = new ScoringProfile(ScoringProfile);
 
             var d = new Dictionary<string, double>
             {
-                { nameof(Item.Tags).ToLower(), 3},
-                { nameof(Item.Name).ToLower(), 4},
+                { nameof(Document.Tags).ToLower(), 3},
+                { nameof(Document.Name).ToLower(), 4},
                 { ContentEnglishField, 2},
                 { ContentHebrewField, 2},
             };
@@ -136,7 +136,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             var tagFunction = new TagScoringFunction
             {
                 Boost = 8,
-                FieldName = nameof(Item.Tags).ToLower(),
+                FieldName = nameof(Document.Tags).ToLower(),
                 Parameters = new TagScoringParameters("tag")
             };
             var tagFunction2 = new TagScoringFunction
@@ -154,14 +154,14 @@ namespace Zbang.Zbox.Infrastructure.Search
             var freshnessFunction = new FreshnessScoringFunction
             {
                 Boost = 5,
-                FieldName = nameof(Item.Date).ToLower(),
+                FieldName = nameof(Document.Date).ToLower(),
                 Interpolation = ScoringFunctionInterpolation.Quadratic,
                 Parameters = new FreshnessScoringParameters(TimeSpan.FromDays(100))
             };
             var likesScore = new MagnitudeScoringFunction
             {
                 Boost = 4,
-                FieldName = nameof(Item.Likes).ToLower(),
+                FieldName = nameof(Document.Likes).ToLower(),
                 Parameters = new MagnitudeScoringParameters
                 {
                     BoostingRangeStart = 1,
@@ -172,7 +172,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             var viewsScore = new MagnitudeScoringFunction
             {
                 Boost = 5,
-                FieldName = nameof(Item.Views).ToLower(),
+                FieldName = nameof(Document.Views).ToLower(),
                 Parameters = new MagnitudeScoringParameters
                 {
                     BoostingRangeStart = 1,
@@ -180,12 +180,12 @@ namespace Zbang.Zbox.Infrastructure.Search
                     ShouldBoostBeyondRangeByConstant = false
                 }
             };
-            weightProfile.Functions = new List<ScoringFunction> { tagFunction, tagFunction2, tagFunction3 , freshnessFunction, likesScore, viewsScore };
+            weightProfile.Functions = new List<ScoringFunction> { tagFunction, tagFunction2, tagFunction3, freshnessFunction, likesScore, viewsScore };
             definition.ScoringProfiles = new List<ScoringProfile> { weightProfile };
 
             return definition;
         }
 
-        
+
     }
 }

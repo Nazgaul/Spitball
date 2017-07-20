@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.WorkerRoleSearch
@@ -31,45 +32,34 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Id = id;
         }
 
-       // [ProtoMember(1)]
         public string Url { get; set; }
 
-       // [ProtoMember(2)]
         public string Name { get; set; }
 
-       // [ProtoMember(3)]
         public string Content { get; set; }
 
 
-       // [ProtoMember(4)]
         public string University { get; set; }
 
-       // [ProtoMember(5)]
         public string Course { get; set; }
 
 
-       // [ProtoMember(6)]
         public string[] Tags { get; set; }
 
-       // [ProtoMember(7)]
         public DateTime? UrlDate { get; set; }
 
-       // [ProtoMember(8)]
         public int? Views { get; set; }
 
-       // [ProtoMember(9)]
         public string MetaDescription { get; set; }
 
-       // [ProtoMember(10)]
         public string Image { get; set; }
 
-       // [ProtoMember(11)]
         public string[] MetaKeywords { get; set; }
 
-        //[ProtoMember(12)]
         public string Domain { get; set; }
 
-       // [ProtoMember(13)]
+        public ItemType Type { get; set; }
+
         [JsonProperty(PropertyName = "id")]
         public string Id { get ; set; }
 

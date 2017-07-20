@@ -1,5 +1,4 @@
-﻿using System;
-using Zbang.Zbox.Infrastructure.Enums.Resources;
+﻿using Zbang.Zbox.Infrastructure.Enums.Resources;
 using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Zbox.Infrastructure.Enums
@@ -9,7 +8,6 @@ namespace Zbang.Zbox.Infrastructure.Enums
     {
         None,
         [ResourceDescription(typeof(Gamification), "BadgeRegister")]
-
         Register,
         [ResourceDescription(typeof(Gamification), "BadgeFollowClass")]
         FollowClass,
@@ -20,31 +18,4 @@ namespace Zbang.Zbox.Infrastructure.Enums
         [ResourceDescription(typeof(Gamification), "BadgeLikes")]
         Likes
     }
-
-    public enum ItemType : int
-    {
-        Undefined = 0,
-        Flashcard = 1,
-        Quiz = 2,
-        Document, // not useed
-        Link, // not used
-        Homework = 5,
-        StudyGuide = 7,
-        Exam=8,
-        ClassNote=9,
-        Syllabus=10
-    }
-
- 
-
-    public enum TagType : int
-    {
-        None,
-        Watson,
-        User,
-        Backoffice
-    }
-
-
-
 }

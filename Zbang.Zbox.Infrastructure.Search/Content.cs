@@ -7,7 +7,18 @@ using Newtonsoft.Json;
 namespace Zbang.Zbox.Infrastructure.Search
 {
     [SerializePropertyNamesAsCamelCase]
-    public class Item
+    public class Course
+    {
+        [Key]
+        public string Id { get; set; }
+
+        [IsSearchable]
+
+        public string Name { get; set; }
+    }
+
+    [SerializePropertyNamesAsCamelCase]
+    public class Document
     {
         [Key]
         public string Id { get; set; }
@@ -25,29 +36,14 @@ namespace Zbang.Zbox.Infrastructure.Search
         [JsonProperty(ContentSearchProvider.ContentHebrewField)]
         public string ContentHe { get; set; }
 
-        [IsFilterable, IsFacetable]
+       // [IsFilterable]
         public string University { get; set; }
 
-        [IsFilterable, IsFacetable]
+        [IsSearchable]
         public string Course { get; set; }
 
         [IsFilterable]
-        public string CourseId { get; set; }
-
-        [IsSearchable]
-        public string CourseSearch { get; set; }
-
-        [IsFilterable]
-        public string UniversityId { get; set; }
-
-        //[IsFilterable, IsSearchable]
-        // public string Professor { get; set; }
-
-        //[IsFilterable]
-        //public string Code { get; set; }
-
-        [IsFacetable, IsFilterable]
-        public string[] Type { get; set; }
+        public string UniversityId { get; set; } // because of tag
 
         [IsSearchable, IsFilterable]
         public string[] Tags { get; set; }
@@ -55,7 +51,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         [IsFilterable]
         public DateTime Date { get; set; }
 
-        public string BlobName { get; set; }
+        public string Source { get; set; }
 
         public string[] MetaContent { get; set; }
 
@@ -63,7 +59,12 @@ namespace Zbang.Zbox.Infrastructure.Search
         public int? Views { get; set; }
         [IsFilterable]
         public int? Likes { get; set; }
-        public int? ContentCount { get; set; }
+
+        [IsFilterable]
+        public string Domain { get; set; }
+
+        [IsFilterable]
+        public DateTime CrawlDate { get; set; }
     }
 
 

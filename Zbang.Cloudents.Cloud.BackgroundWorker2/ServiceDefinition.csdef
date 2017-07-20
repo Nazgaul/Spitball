@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ServiceDefinition name="Zbang.Cloudents.Cloud.BackgroundWorker2" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition" schemaVersion="2015-04.2.6">
-  <WorkerRole name="Zbang.Zbox.WorkerRoleSearch" vmsize="Medium">
+  <WorkerRole name="Zbang.Zbox.WorkerRoleSearch" vmsize="Small">
     <ConfigurationSettings>
       <Setting name="StorageConnectionString" />
       <Setting name="StorageCdnEndpoint" />

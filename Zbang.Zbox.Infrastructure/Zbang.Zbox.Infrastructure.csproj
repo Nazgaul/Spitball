@@ -101,9 +101,9 @@
     <Compile Include="Enums\CategoryTextType.cs" />
     <Compile Include="Enums\EmailSend.cs" />
     <Compile Include="Enums\FeedType.cs" />
+    <Compile Include="Enums\ItemType.cs" />
     <Compile Include="Enums\LibraryNodeSetting.cs" />
     <Compile Include="Enums\LikeType.cs" />
-    <Compile Include="Enums\MessageType.cs" />
     <Compile Include="Enums\MobileOperatingSystem.cs" />
     <Compile Include="Enums\PushNotificationSettings.cs" />
     <Compile Include="Enums\Resources\EnumResources.Designer.cs">
@@ -123,6 +123,7 @@
     </Compile>
     <Compile Include="Enums\Sex.cs" />
     <Compile Include="Enums\StatisticsAction.cs" />
+    <Compile Include="Enums\TagType.cs" />
     <Compile Include="Enums\UserLibraryRelationType.cs" />
     <Compile Include="Enums\UserType.cs" />
     <Compile Include="Exceptions\BoxAccessDeniedException.cs" />

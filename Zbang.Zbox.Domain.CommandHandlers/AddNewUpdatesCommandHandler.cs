@@ -29,8 +29,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly ISendPush m_SendPush;
         private readonly IJaredPushNotification m_JaredPush;
         private readonly IQueueProvider m_QueueProvider;
-
-        //private readonly IMailComponent m_MailComponent;
+        private readonly ILogger m_Logger;
 
         public AddNewUpdatesCommandHandler(
             IBoxRepository boxRepository,
@@ -44,7 +43,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IRepository<ItemCommentReply> itemCommentReplyRepository,
             IRepository<QuizDiscussion> quizDiscussionRepository,
             IQueueProvider queueProvider,
-            IJaredPushNotification jaredPush, IRepository<FlashcardMeta> flashcardRepository)
+            IJaredPushNotification jaredPush, IRepository<FlashcardMeta> flashcardRepository, ILogger logger)
         {
             m_BoxRepository = boxRepository;
             m_ItemRepository = itemRepository;
@@ -60,6 +59,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_QueueProvider = queueProvider;
             m_JaredPush = jaredPush;
             m_FlashcardRepository = flashcardRepository;
+            m_Logger = logger;
         }
         public Task HandleAsync(AddNewUpdatesCommand message)
         {
@@ -67,7 +67,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             var usersToUpdate = m_UserRepository.GetUsersToUpdate(message.BoxId, message.UserId).ToList();
             var box = m_BoxRepository.Load(message.BoxId);
-           
+
 
             var tQuiz = UpdateQuizAsync(message.QuizId, usersToUpdate, box);
             var tItem = UpdateItemAsync(message.ItemId, usersToUpdate, box);
@@ -96,6 +96,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private void DoUpdateLoop(IEnumerable<long> userIds, Func<User, Updates> update)
         {
+            if (update == null) throw new ArgumentNullException(nameof(update));
             foreach (var userId in userIds)
             {
                 var newUpdate = update(m_UserRepository.Load(userId));
@@ -113,7 +114,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             DoUpdateLoop(userIds, u => new Updates(u, box, quiz));
             return m_JaredPush.SendItemPushAsync(quiz.User.Name, box.Id, quiz.Id, BuildBoxTag(box.Id),
                 Infrastructure.Enums.ItemType.Quiz);
-           
+
         }
 
         private Task UpdateItemAsync(long? itemId, IList<long> userIds, Box box)
@@ -190,7 +191,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             catch (ArgumentNullException ex)
             {
-                TraceLog.WriteError("regex error text: " + comment.Text, ex);
+                m_Logger.Exception(ex, new Dictionary<string, string>
+                {
+                    {"source", "addNewUpdates"},
+                    {"text regex", comment.Text}
+                });
                 throw;
             }
         }
@@ -237,7 +242,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
 
 
-        private string BuildBoxTag(long id)
+        private static string BuildBoxTag(long id)
         {
             return $"_BoxId:{id}";
         }
