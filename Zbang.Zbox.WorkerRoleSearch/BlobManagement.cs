@@ -12,6 +12,8 @@ using Zbang.Zbox.Infrastructure.Azure.Blob;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.ViewModel.Dto.Library;
+using Zbang.Zbox.ViewModel.Queries.Search;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
@@ -20,10 +22,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly CloudBlobClient m_BlobClient;
         private readonly IContentWriteSearchProvider m_SearchProvider;
         private readonly IWatsonExtract m_WatsonExtractProvider;
-        public BlobManagement(IContentWriteSearchProvider searchProvider, IWatsonExtract watsonExtractProvider)
+        private readonly IUniversityReadSearchProvider m_UniversitySearchProvider;
+        public BlobManagement(IContentWriteSearchProvider searchProvider, IWatsonExtract watsonExtractProvider, IUniversityReadSearchProvider universitySearchProvider)
         {
             m_SearchProvider = searchProvider;
             m_WatsonExtractProvider = watsonExtractProvider;
+            m_UniversitySearchProvider = universitySearchProvider;
             var cloudStorageAccount = CloudStorageAccount.Parse(
 
                    CloudConfigurationManager.GetSetting("StorageConnectionString"));
@@ -61,13 +65,21 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     {
                         continue;
                     }
+                    UniversityByPrefixDto university = null;
                     if (!string.IsNullOrEmpty(model.University))
                     {
-                        continue;
+                        var query = new UniversitySearchQuery(model.University, 1);
+                        var result = await m_UniversitySearchProvider.SearchUniversityAsync(query, cancellationToken).ConfigureAwait(false);
+                        university = result.FirstOrDefault();
+                        if (university == null)
+                        {
+                            continue;
+                        }
+                       
                     }
 
                     model.Content = model.Content?.Remove(0, 22).Trim();
-                   
+
                     var language = await m_WatsonExtractProvider.GetLanguageAsync(model.Content, cancellationToken).ConfigureAwait(false);
                     var tags = model.Tags?.Length > 0 ? model.Tags : model.MetaKeywords;
 
@@ -83,7 +95,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         Source = model.Url,
                         Tags = tags,
                         Views = model.Views,
-                        Image = model.Image
+                        Image = model.Image,
+                        University = university?.Name,
+                        UniversityId = university?.Id.ToString()
                     };
                     switch (language)
                     {

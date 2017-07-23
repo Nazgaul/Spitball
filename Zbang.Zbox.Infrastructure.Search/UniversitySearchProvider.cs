@@ -81,9 +81,6 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 throw new ArgumentNullException(nameof(query));
             }
-            //{
-            //    return null;
-            //}
             var listOfSelectParams = new[] { IdField, NameField3, ImageField, MembersCountField, MembersImagesField };
             var searchParameter = new SearchParameters
             {
