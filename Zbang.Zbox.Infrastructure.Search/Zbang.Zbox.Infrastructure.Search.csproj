@@ -87,7 +87,7 @@
     <Compile Include="QuizSearchProvider2.cs" />
     <Compile Include="SearchModule.cs" />
     <Compile Include="SeachConnection.cs" />
-    <Compile Include="SearchIndex.cs" />
+    <Compile Include="SearchServiceWrite.cs" />
     <Compile Include="UniversitySearch.cs" />
     <Compile Include="UniversitySearchProvider.cs" />
   </ItemGroup>

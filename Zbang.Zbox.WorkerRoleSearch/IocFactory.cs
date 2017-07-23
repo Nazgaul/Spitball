@@ -63,5 +63,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             return Container.ResolveNamed<T>(name);
         }
+
+        public T Resolve<T>()
+        {
+            return Container.Resolve<T>();
+        }
     }
 }

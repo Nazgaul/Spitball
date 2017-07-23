@@ -6,6 +6,7 @@ using Rhino.Mocks;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries.Emails;
 
@@ -20,8 +21,9 @@ namespace Zbang.Zbox.ReadServicesTests
         public void Setup()
         {
             var m_LocalStorageProvider = MockRepository.GenerateStub<ILocalStorageProvider>();
+            var m_Logger = MockRepository.GenerateStub<ILogger>();
             IocFactory.IocWrapper.RegisterInstance(m_LocalStorageProvider);
-            m_ZboxReadService = new ZboxReadServiceWorkerRole();
+            m_ZboxReadService = new ZboxReadServiceWorkerRole(m_Logger);
         }
 
         [TestMethod]

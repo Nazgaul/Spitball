@@ -22,11 +22,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private readonly IList<IJob> m_Jobs;
         private readonly List<Task> m_Tasks = new List<Task>();
+        private readonly ILogger m_Logger;
 
         public WorkerRole()
         {
             m_Unity = new IocFactory();
             m_Jobs = GetJob();
+            m_Logger = m_Unity.Resolve<ILogger>();
 
         }
         public override void Run()
@@ -43,11 +45,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
         }
 
-        static void RoleEnvironment_StatusCheck(object sender, RoleInstanceStatusCheckEventArgs e)
+        void RoleEnvironment_StatusCheck(object sender, RoleInstanceStatusCheckEventArgs e)
         {
             if (e.Status == RoleInstanceStatus.Busy)
             {
-                TraceLog.WriteError("Status is busy");
+                m_Logger.Error("Status is busy");
             }
 
         }
@@ -73,9 +75,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return result;
         }
 
-        private static void RoleEnvironmentChanging(object sender, RoleEnvironmentChangingEventArgs e)
+        private void RoleEnvironmentChanging(object sender, RoleEnvironmentChangingEventArgs e)
         {
-            TraceLog.WriteWarning("change role Environment");
+            m_Logger.Warning("change role Environment");
             RoleEnvironment.RequestRecycle();
         }
 
@@ -110,11 +112,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             // Observe unhandled exception
                             if (task.Exception != null)
                             {
-                                TraceLog.WriteError("Job threw an exception: ", task.Exception.InnerException);
+                                m_Logger.Exception(task.Exception.InnerException,
+                                    new Dictionary<string, string> {{"job", i.ToString()}});
                             }
                             else
                             {
-                                TraceLog.WriteWarning("Job Failed and no exception thrown.");
+                                m_Logger.Error("Job Failed and no exception thrown.");
                             }
 
                             var jobToRestart = m_Jobs.ElementAt(i);
@@ -123,9 +126,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         }
                         if (task.IsCompleted)
                         {
-                            
-                            TraceLog.WriteWarning($"Job finished index: {i}");
-
+                            m_Logger.Warning($"Job finished index: {i}");
+                            m_Tasks.RemoveAt(i);
                         }
                     }
                     await Task.Delay(TimeSpan.FromSeconds(30), cancellationToken).ConfigureAwait(false);
@@ -176,6 +178,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 m_Unity.Resolve<IJob>(nameof(ThumbnailQueueProcess)), //9
                 m_Unity.Resolve<IJob>(nameof(DeleteOldConnections)), //10
                 m_Unity.Resolve<IJob>(nameof(UpdateSearchFeed)), //11
+                m_Unity.Resolve<IJob>(nameof(BlobManagement))
                 //m_Unity.Resolve<IJob>(nameof(Crawler)) //12
                // m_Unity.Resolve<IJob>(nameof(TestingJob)) //13
             };

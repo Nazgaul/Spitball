@@ -93,6 +93,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var updates = result.result;
             if (!updates.ItemsToUpdate.Any() && !updates.ItemsToDelete.Any()) return TimeToSleep.Increase;
             m_Logger.TrackMetric(Name, result.count);
+            m_Logger.Info($"{Name} going to process {string.Join(",", updates.ItemsToUpdate)}");
             var tasks = new List<Task>();
             foreach (var elem in updates.ItemsToUpdate)
             {

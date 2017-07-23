@@ -23,5 +23,8 @@
     <LocalResources>
       <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="false" sizeInMB="222000" />
     </LocalResources>
+    <Endpoints>
+      <InternalEndpoint name="Endpoint1" protocol="tcp" port="8999" />
+    </Endpoints>
   </WorkerRole>
 </ServiceDefinition>

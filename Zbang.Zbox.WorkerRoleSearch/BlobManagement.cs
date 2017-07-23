@@ -12,6 +12,7 @@ using Zbang.Zbox.Infrastructure.Azure.Blob;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Queries.Search;
 
@@ -23,11 +24,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IContentWriteSearchProvider m_SearchProvider;
         private readonly IWatsonExtract m_WatsonExtractProvider;
         private readonly IUniversityReadSearchProvider m_UniversitySearchProvider;
-        public BlobManagement(IContentWriteSearchProvider searchProvider, IWatsonExtract watsonExtractProvider, IUniversityReadSearchProvider universitySearchProvider)
+        private readonly ILogger m_Logger;
+
+        public BlobManagement(IContentWriteSearchProvider searchProvider, IWatsonExtract watsonExtractProvider, IUniversityReadSearchProvider universitySearchProvider, ILogger logger)
         {
             m_SearchProvider = searchProvider;
             m_WatsonExtractProvider = watsonExtractProvider;
             m_UniversitySearchProvider = universitySearchProvider;
+            m_Logger = logger;
             var cloudStorageAccount = CloudStorageAccount.Parse(
 
                    CloudConfigurationManager.GetSetting("StorageConnectionString"));
@@ -37,101 +41,129 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public async Task RunAsync(CancellationToken cancellationToken)
         {
             var container = m_BlobClient.GetContainerReference("crawl");
-
+            var index = RoleIndexProcessor.GetIndex();
+            if (index != 0)
+            {
+                return;
+            }
             var directoryOk = container.GetDirectoryReference("ok");
-            //var directoryNoUniversity = container.GetDirectoryReference("mapping-university");
-            //await DeleteStuffAsync(directoryOk, cancellationToken).ConfigureAwait(false);
+            var directoryMappingUniversity = container.GetDirectoryReference("mapping-university");
+            // await DeleteStuffAsync(directoryOk, cancellationToken).ConfigureAwait(false);
 
             BlobContinuationToken continuationToken = null;
             //Call ListBlobsSegmentedAsync and enumerate the result segment returned, while the continuation token is non-null.
             //When the continuation token is null, the last page has been returned and execution can exit the loop.
             do
             {
-                //This overload allows control of the page size. You can return all remaining results by passing null for the maxResults parameter,
-                //or by calling a different overload.
-                var resultSegment = await container.ListBlobsSegmentedAsync("", false, BlobListingDetails.Metadata, 100, continuationToken, null, null, cancellationToken).ConfigureAwait(false);
+
+                var resultSegment = await container
+                    .ListBlobsSegmentedAsync("", false, BlobListingDetails.None, 100, continuationToken, null, null,
+                        cancellationToken).ConfigureAwait(false);
                 foreach (var blobItem in resultSegment.Results)
                 {
-                    var blockBlob = blobItem as CloudBlockBlob;
-                    if (blockBlob == null)
+                    try
                     {
-                        continue;
-                    }
-                    var txt = await blockBlob.DownloadTextAsync(cancellationToken).ConfigureAwait(false);
-                    var model = JsonConvert.DeserializeObject<CrawlModel>(txt);
-
-                    var endPoint = new Uri(model.Url);
-                    if (endPoint.AbsolutePath.StartsWith("/flashcard"))
-                    {
-                        continue;
-                    }
-                    UniversityByPrefixDto university = null;
-                    if (!string.IsNullOrEmpty(model.University))
-                    {
-                        var query = new UniversitySearchQuery(model.University, 1);
-                        var result = await m_UniversitySearchProvider.SearchUniversityAsync(query, cancellationToken).ConfigureAwait(false);
-                        university = result.FirstOrDefault();
-                        if (university == null)
+                        var blockBlob = blobItem as CloudBlockBlob;
+                        if (blockBlob == null)
                         {
                             continue;
                         }
-                       
+                        var txt = await blockBlob.DownloadTextAsync(cancellationToken).ConfigureAwait(false);
+                        var model = JsonConvert.DeserializeObject<CrawlModel>(txt);
+                        m_Logger.Info($"{Name} processing {model}");
+                        var endPoint = new Uri(model.Url);
+                        if (endPoint.AbsolutePath.StartsWith("/flashcard"))
+                        {
+                            continue;
+                        }
+                        UniversityByPrefixDto university = null;
+                        if (!string.IsNullOrEmpty(model.University))
+                        {
+                            var query = new UniversitySearchQuery(model.University, 1);
+                            var result = await m_UniversitySearchProvider
+                                .SearchUniversityAsync(query, cancellationToken).ConfigureAwait(false);
+                            university = result.FirstOrDefault();
+
+                            if (university == null)
+                            {
+                                await CopyBlobAsync(cancellationToken, directoryMappingUniversity, model.Id, blockBlob)
+                                    .ConfigureAwait(false);
+                                continue;
+                            }
+                            if (!model.University.Equals(university.Name, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                await CopyBlobAsync(cancellationToken, directoryMappingUniversity, model.Id, blockBlob)
+                                    .ConfigureAwait(false);
+                                continue;
+                            }
+
+                        }
+
+                        model.Content = model.Content?.Remove(0, 22).Trim();
+
+                        var language = await m_WatsonExtractProvider.GetLanguageAsync(model.Content, cancellationToken)
+                            .ConfigureAwait(false);
+                        var tags = model.Tags?.Length > 0 ? model.Tags : model.MetaKeywords;
+
+                        var document = new Document
+                        {
+                            Id = model.Id,
+                            Course = model.Course,
+                            CrawlDate = DateTime.UtcNow,
+                            Date = model.UrlDate,
+                            Domain = model.Domain,
+                            MetaContent = model.MetaDescription,
+                            Name = model.Name,
+                            Source = model.Url,
+                            Tags = tags,
+                            Views = model.Views,
+                            Image = model.Image,
+                            University = university?.Name,
+                            UniversityId = university?.Id.ToString()
+                        };
+                        switch (language)
+                        {
+                            case Language.Undefined:
+                                document.Content = model.Content;
+                                break;
+                            case Language.EnglishUs:
+                                document.ContentEn = model.Content;
+                                break;
+                            case Language.Hebrew:
+                                document.ContentHe = model.Content;
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+                        await m_SearchProvider.UpdateDataAsync(document, cancellationToken).ConfigureAwait(false);
+
+                        await CopyBlobAsync(cancellationToken, directoryOk, model.Id, blockBlob).ConfigureAwait(false);
+
                     }
-
-                    model.Content = model.Content?.Remove(0, 22).Trim();
-
-                    var language = await m_WatsonExtractProvider.GetLanguageAsync(model.Content, cancellationToken).ConfigureAwait(false);
-                    var tags = model.Tags?.Length > 0 ? model.Tags : model.MetaKeywords;
-
-                    var document = new Document
+                    catch (Exception ex)
                     {
-                        Id = model.Id,
-                        Course = model.Course,
-                        CrawlDate = DateTime.UtcNow,
-                        Date = model.UrlDate,
-                        Domain = model.Domain,
-                        MetaContent = model.MetaDescription,
-                        Name = model.Name,
-                        Source = model.Url,
-                        Tags = tags,
-                        Views = model.Views,
-                        Image = model.Image,
-                        University = university?.Name,
-                        UniversityId = university?.Id.ToString()
-                    };
-                    switch (language)
-                    {
-                        case Language.Undefined:
-                            document.Content = model.Content;
-                            break;
-                        case Language.EnglishUs:
-                            document.ContentEn = model.Content;
-                            break;
-                        case Language.Hebrew:
-                            document.ContentHe = model.Content;
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
+                        m_Logger.Exception(ex, new Dictionary<string, string> { { "Name", Name } });
                     }
-                    await m_SearchProvider.UpdateDataAsync(document, cancellationToken).ConfigureAwait(false);
-
-                    var source = directoryOk.GetBlockBlobReference(model.Id + ".txt");
-                    await source.StartCopyAsync(blockBlob, cancellationToken).ConfigureAwait(false);
-                    while (source.CopyState.Status != CopyStatus.Success)
-                    {
-                        await Task.Delay(TimeSpan.FromMilliseconds(500), cancellationToken).ConfigureAwait(false);
-                    }
-                    await blockBlob.DeleteAsync(cancellationToken).ConfigureAwait(false);
-
-
-
                 }
+
 
                 //Get the continuation token.
                 continuationToken = resultSegment.ContinuationToken;
             }
             while (continuationToken != null);
 
+        }
+
+        private static async Task CopyBlobAsync(CancellationToken cancellationToken, CloudBlobDirectory directory, string id,
+            CloudBlockBlob blockBlob)
+        {
+            var source = directory.GetBlockBlobReference(id + ".txt");
+            await source.StartCopyAsync(blockBlob, cancellationToken).ConfigureAwait(false);
+            while (source.CopyState.Status != CopyStatus.Success)
+            {
+                await Task.Delay(TimeSpan.FromMilliseconds(500), cancellationToken).ConfigureAwait(false);
+            }
+            await blockBlob.DeleteAsync(cancellationToken).ConfigureAwait(false);
         }
 
         public string Name => nameof(BlobManagement);
@@ -142,7 +174,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             BlobContinuationToken continuationToken = null;
             do
             {
-                var resultSegment = await directory.ListBlobsSegmentedAsync(continuationToken, cancellationToken).ConfigureAwait(false);
+                var resultSegment = await directory.ListBlobsSegmentedAsync(true, BlobListingDetails.None, 100, continuationToken, new BlobRequestOptions(), new OperationContext(), cancellationToken).ConfigureAwait(false);
 
                 var list = new List<string>();
                 foreach (var blobItem in resultSegment.Results)
@@ -154,7 +186,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     }
                     var txt = await blockBlob.DownloadTextAsync(cancellationToken).ConfigureAwait(false);
                     var model = JsonConvert.DeserializeObject<CrawlModel>(txt);
-                    list.Add(model.Id);
+                    if (model != null)
+                    {
+                        list.Add(model.Id);
+                    }
 
                 }
                 await m_SearchProvider.DeleteDataAsync(list, cancellationToken).ConfigureAwait(false);

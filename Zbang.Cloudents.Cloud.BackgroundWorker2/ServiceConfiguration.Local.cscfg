@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ServiceConfiguration serviceName="Zbang.Cloudents.Cloud.BackgroundWorker2" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="5" osVersion="*" schemaVersion="2015-04.2.6">
   <Role name="Zbang.Zbox.WorkerRoleSearch">
-    <Instances count="1" />
+    <Instances count="10" />
     <ConfigurationSettings>
       <Setting name="StorageConnectionString" value="UseDevelopmentStorage=true" />
       <Setting name="ZBox" value="Data Source=.\SQLEXPRESS;Initial Catalog=ZBox;Integrated Security=SSPI;" />
