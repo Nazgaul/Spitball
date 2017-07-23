@@ -40,6 +40,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         public string University { get; set; }
 
         [IsSearchable]
+        [IsFilterable]
         public string Course { get; set; }
 
         [IsFilterable]
@@ -49,11 +50,11 @@ namespace Zbang.Zbox.Infrastructure.Search
         public string[] Tags { get; set; }
 
         [IsFilterable]
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
 
         public string Source { get; set; }
 
-        public string[] MetaContent { get; set; }
+        public string MetaContent { get; set; }
 
         [IsFilterable]
         public int? Views { get; set; }
@@ -65,6 +66,8 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         [IsFilterable]
         public DateTime CrawlDate { get; set; }
+
+        public string Image { get; set; }
     }
 
 

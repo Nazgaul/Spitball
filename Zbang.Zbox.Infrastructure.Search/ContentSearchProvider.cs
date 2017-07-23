@@ -5,12 +5,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
-using Newtonsoft.Json;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Extensions;
-using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
-using Zbang.Zbox.ViewModel.SqlQueries;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
@@ -18,7 +15,7 @@ namespace Zbang.Zbox.Infrastructure.Search
     {
         private readonly ISearchConnection m_Connection;
         private readonly ISearchIndexClient m_IndexClient;
-        private readonly string m_IndexName = "items3";
+        private readonly string m_IndexName = "document";
         private bool m_CheckIndexExists;
 
 
@@ -35,14 +32,29 @@ namespace Zbang.Zbox.Infrastructure.Search
             m_IndexClient = connection.SearchClient.Indexes.GetClient(m_IndexName);
         }
 
-        public Task UpdateDataAsync(Document itemToUpload, CancellationToken token)
+        public async Task UpdateDataAsync(Document itemToUpload, CancellationToken token)
         {
+            if (!m_CheckIndexExists)
+            {
+                await BuildIndexAsync().ConfigureAwait(false);
+
+            }
             if (itemToUpload == null) throw new ArgumentNullException(nameof(itemToUpload));
             var batch = IndexBatch.MergeOrUpload(new[] { itemToUpload });
+            await m_IndexClient.Documents.IndexAsync(batch, cancellationToken: token).ConfigureAwait(false);
+        }
+
+        public Task DeleteDataAsync(IEnumerable<string> ids, CancellationToken token)
+        {
+            if (ids == null) throw new ArgumentNullException(nameof(ids));
+            var batch = IndexBatch.Delete<Document>(ids.Select(s => new Document
+            {
+                Id = s
+            }));
             return m_IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
         }
 
-        public async Task UpdateDataAsync(ItemSearchDto itemToUpload, IEnumerable<ItemToDeleteSearchDto> itemToDelete, CancellationToken token)
+        public async Task UpdateDataAsync(DocumentSearchDto itemToUpload, IEnumerable<ItemToDeleteSearchDto> itemToDelete, CancellationToken token)
         {
             if (!m_CheckIndexExists)
             {
@@ -53,7 +65,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 var uploadBatch = new Document
                 {
-                    Id = itemToUpload.SearchContentId,
+                    Id = itemToUpload.Id.ToString(),
                     Name = itemToUpload.Name?.ToLowerInvariant(),
                     Course = itemToUpload.Course.ToString(),
                     UniversityId = itemToUpload.University.Id.ToString(),
@@ -142,7 +154,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             var tagFunction2 = new TagScoringFunction
             {
                 Boost = 10,
-                FieldName = "courseId",
+                FieldName = nameof(Document.Course).ToLowerInvariant(),
                 Parameters = new TagScoringParameters("course")
             };
             var tagFunction3 = new TagScoringFunction

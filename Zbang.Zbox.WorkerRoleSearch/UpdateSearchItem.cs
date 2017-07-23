@@ -31,6 +31,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IZboxWriteService m_WriteService;
         private readonly IWatsonExtract m_WatsonExtractProvider;
         private readonly IContentWriteSearchProvider m_ContentSearchProvider;
+        private readonly ILogger m_Logger;
 
 
         public UpdateSearchItem(IZboxReadServiceWorkerRole zboxReadService,
@@ -40,7 +41,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             IItemWriteSearchProvider itemSearchProvider3,
             IZboxWriteService writeService,
             IWatsonExtract watsonExtractProvider,
-            IContentWriteSearchProvider contentSearchProvider)
+            IContentWriteSearchProvider contentSearchProvider, ILogger logger)
         {
             m_ZboxReadService = zboxReadService;
             m_ZboxWriteService = zboxWriteService;
@@ -50,6 +51,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_WriteService = writeService;
             m_WatsonExtractProvider = watsonExtractProvider;
             m_ContentSearchProvider = contentSearchProvider;
+            m_Logger = logger;
         }
 
         public string Name => nameof(UpdateSearchItem);
@@ -57,7 +59,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             var index = RoleIndexProcessor.GetIndex();
             var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
-            TraceLog.WriteWarning("item index " + index + " count " + count);
+            m_Logger.Warning("item index " + index + " count " + count);
+            //TraceLog.WriteWarning("item index " + index + " count " + count);
 
             while (!cancellationToken.IsCancellationRequested)
             {
@@ -76,19 +79,20 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    TraceLog.WriteError(ex);
+                    m_Logger.Exception(ex);
                 }
             }
-            TraceLog.WriteError("On finish run");
+            m_Logger.Error($"{Name} On finish run");
         }
 
 
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
         {
             const int top = 10;
-            var updates = await m_ZboxReadService.GetItemsDirtyUpdatesAsync(new SearchItemDirtyQuery(instanceId, instanceCount, top), cancellationToken).ConfigureAwait(false);
+            var result = await m_ZboxReadService.GetItemsDirtyUpdatesAsync(new SearchItemDirtyQuery(instanceId, instanceCount, top), cancellationToken).ConfigureAwait(false);
+            var updates = result.result;
             if (!updates.ItemsToUpdate.Any() && !updates.ItemsToDelete.Any()) return TimeToSleep.Increase;
-            TraceLog.WriteInfo($"{Name} is doing process");
+            m_Logger.TrackMetric(Name, result.count);
             var tasks = new List<Task>();
             foreach (var elem in updates.ItemsToUpdate)
             {
@@ -97,7 +101,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             tasks.Add(m_ItemSearchProvider3.UpdateDataAsync(null, updates.ItemsToDelete.Select(s => s.Id), cancellationToken));
             tasks.Add(m_ContentSearchProvider.UpdateDataAsync(null, updates.ItemsToDelete, cancellationToken));
-            await Task.WhenAll(tasks).ConfigureAwait(false);
+            await Task.WhenAll(tasks).ConfigureAwait(true);
             await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
                 new UpdateDirtyToRegularCommand(
                     updates.ItemsToDelete.Select(s => s.Id).Union(updates.ItemsToUpdate.Select(s => s.Id)))).ConfigureAwait(false);
@@ -138,41 +142,43 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
         }
 
-        private  Task JaredPilotAsync(DocumentSearchDto elem, CancellationToken token)
+        private async Task JaredPilotAsync(DocumentSearchDto elem, CancellationToken token)
         {
-            return Task.CompletedTask;
-            //if (elem.Type.Any(s => s == ItemType.Document))
-            //{
-            //    if (elem.Language.GetValueOrDefault(Language.Undefined) == Language.Undefined)
-            //    {
-            //        ExtractText(elem, token);
-            //        var result = await m_WatsonExtractProvider.GetLanguageAsync(elem.Content, token).ConfigureAwait(false);
-            //        elem.Language = result;
-            //        var commandLang = new AddLanguageToDocumentCommand(elem.Id, result);
-            //        m_WriteService.AddItemLanguage(commandLang);
-            //    }
+            if (elem.Type == ItemType.Document)
+            {
+                if (elem.Language.GetValueOrDefault(Language.Undefined) == Language.Undefined)
+                {
+                    ExtractText(elem, token);
+                    var result = await m_WatsonExtractProvider.GetLanguageAsync(elem.Content, token).ConfigureAwait(false);
+                    elem.Language = result;
+                    if (result != Language.Undefined)
+                    {
+                        var commandLang = new AddLanguageToDocumentCommand(elem.Id, result);
+                        m_WriteService.AddItemLanguage(commandLang);
+                    }
+                }
 
-            //    if (elem.Language == Language.EnglishUs && elem.Tags.All(a => a.Type != TagType.Watson))
-            //    {
-            //        ExtractText(elem, token);
-            //        var result = await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token).ConfigureAwait(false);
-            //        if (result != null)
-            //        {
-            //            var resultList = result.ToList();
-            //            elem.Tags.AddRange(resultList.Select(s => new ItemSearchTag { Name = s }));
-            //            var z = new AssignTagsToDocumentCommand(elem.Id, resultList, TagType.Watson);
-            //            await m_WriteService.AddItemTagAsync(z).ConfigureAwait(false);
-            //        }
-            //    }
+                if (elem.Language == Language.EnglishUs && elem.Tags.All(a => a.Type != TagType.Watson))
+                {
+                    ExtractText(elem, token);
+                    var result = await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token).ConfigureAwait(false);
+                    if (result != null)
+                    {
+                        var resultList = result.ToList();
+                        elem.Tags.AddRange(resultList.Select(s => new ItemSearchTag { Name = s }));
+                        var z = new AssignTagsToDocumentCommand(elem.Id, resultList, TagType.Watson);
+                        await m_WriteService.AddItemTagAsync(z).ConfigureAwait(false);
+                    }
+                }
 
 
-            //    await m_ContentSearchProvider.UpdateDataAsync(elem, null, token).ConfigureAwait(false);
-            //}
+                await m_ContentSearchProvider.UpdateDataAsync(elem, null, token).ConfigureAwait(false);
+            }
         }
 
         private async Task UploadToAzureSearchAsync(DocumentSearchDto elem, CancellationToken token)
         {
-            if (elem.Type.Any(s => s == ItemType.Document)) //(elem.TypeDocument.ToLower() == "file")
+            if (elem.Type == ItemType.Document) //(elem.TypeDocument.ToLower() == "file")
             {
                 try
                 {
@@ -180,15 +186,15 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    TraceLog.WriteError($"Error update Item {ex}");
+                    m_Logger.Exception(ex, new Dictionary<string, string> { { Name, "update item" } });
                 }
             }
         }
 
-        private Processor GetProcessor(ItemSearchDto msgData)
+        private Processor GetProcessor(DocumentSearchDto msgData)
         {
             Uri uri;
-            if (msgData.Type.Any(s => s == ItemType.Document))// msgData.TypeDocument.ToLower() != "file")
+            if (msgData.Type == ItemType.Document)
             {
 
                 uri = m_BlobProvider.GetBlobUrl(msgData.BlobName);
@@ -244,22 +250,23 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     }
                     catch (Exception ex)
                     {
-                        TraceLog.WriteError("on signalr UpdateThumbnail", ex);
+                        m_Logger.Exception(ex, new Dictionary<string, string> { { "ItemId", msgData.Id.ToString() }, { Name, "signalr" } });
                     }
-                    if (msgData.Type.Any(a => a == ItemType.Document))
+                    if (msgData.Type == ItemType.Document)
                     {
                         var command = new UpdateThumbnailCommand(msgData.Id, retVal?.BlobName,
                             msgData.Content, await m_BlobProvider.MD5Async(msgData.BlobName).ConfigureAwait(false));
                         m_ZboxWriteService.UpdateThumbnailPicture(command);
                     }
-                        // ReSharper disable once AccessToDisposedClosure
-                        wait.Set();
+                    // ReSharper disable once AccessToDisposedClosure
+                    wait.Set();
                 }
                 catch (Exception ex)
                 {
-                    TraceLog.WriteError("on itemId: " + msgData.Id, ex);
-                        // ReSharper disable once AccessToDisposedClosure
-                        wait.Set();
+                    m_Logger.Exception(ex, new Dictionary<string, string> { { "ItemId", msgData.Id.ToString() } });
+
+                    // ReSharper disable once AccessToDisposedClosure
+                    wait.Set();
                 }
             });
             work.Start();
@@ -267,7 +274,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             if (!signal)
             {
                 work.Abort();
-                TraceLog.WriteError("blob url aborting process " + msgData.BlobName);
+                m_Logger.Error("blob url aborting process " + msgData.BlobName);
             }
             wait.Close();
 
@@ -277,13 +284,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private string ExtractContentToUploadToSearch(DocumentSearchDto elem, CancellationToken token)
         {
 
-            if (elem.Type.All(s => s != ItemType.Document)) //(elem.TypeDocument.ToLower() != "file")
+            if (elem.Type != ItemType.Document)
             {
                 return null;
             }
             if (elem.PreviewFailed)
             {
-                TraceLog.WriteInfo($"{Name} skipping extract content due to preview failed ");
+                m_Logger.Info($"{Name} skipping extract content due to preview failed ");
                 return null;
             }
             //TraceLog.WriteInfo(PrefixLog, "search processing " + elem);
@@ -330,7 +337,7 @@ token);
                             }
                             catch (Exception ex)
                             {
-                                TraceLog.WriteError("on elem " + elem, ex);
+                                m_Logger.Exception(ex, new Dictionary<string, string> { { "element", elem.ToString() } });
                                 wait.Set();
                             }
                         });
@@ -339,7 +346,7 @@ token);
                     if (!signal)
                     {
                         work.Abort();
-                        TraceLog.WriteError("aborting returning null on elem " + elem);
+                        m_Logger.Error("aborting returning null on elem " + elem);
                         return null;
                     }
                     return str;
@@ -347,7 +354,7 @@ token);
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("on elem " + elem, ex);
+                m_Logger.Exception(ex, new Dictionary<string, string> { { "element", elem.ToString() } });
                 return null;
             }
         }
@@ -362,7 +369,7 @@ token);
                 var elements =
                     await m_ZboxReadService.GetItemsDirtyUpdatesAsync(
                         new SearchItemDirtyQuery(parameters.ItemId), token).ConfigureAwait(false);
-                var elem = elements.ItemsToUpdate.FirstOrDefault();
+                var elem = elements.result.ItemsToUpdate.FirstOrDefault();
                 if (elem == null)
                 {
                     return true;
@@ -375,7 +382,7 @@ token);
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("error update search item" + parameters, ex);
+                m_Logger.Exception(ex, new Dictionary<string, string> { { nameof(parameters), parameters.ToString() } });
                 return false;
             }
 

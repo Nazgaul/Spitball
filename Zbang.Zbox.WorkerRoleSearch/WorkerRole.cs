@@ -143,7 +143,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 return new List<IJob>
                 {
-                    //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchItem), //0
+                   // m_Unity.Resolve<IJob>(IocFactory.UpdateSearchItem), //0
                     //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchBox), //1
                     //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchQuiz), //2
                     //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchUniversity), //3

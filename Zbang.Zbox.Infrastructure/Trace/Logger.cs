@@ -34,6 +34,11 @@ namespace Zbang.Zbox.Infrastructure.Trace
             System.Diagnostics.Trace.TraceError(error);
         }
 
+        public void TrackMetric(string name, double value)
+        {
+            Info($"{name} metric value {value}");
+        }
+
         public void Exception(string info, Exception ex)
         {
             if (ex == null) throw new ArgumentNullException(nameof(ex));

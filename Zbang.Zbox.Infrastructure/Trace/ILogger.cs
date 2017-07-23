@@ -13,6 +13,8 @@ namespace Zbang.Zbox.Infrastructure.Trace
 
         void Error(string error);
 
+        void TrackMetric(string name, double value);
+
         //void Error(string info);
         //  void Exception(string info, Exception ex);
 

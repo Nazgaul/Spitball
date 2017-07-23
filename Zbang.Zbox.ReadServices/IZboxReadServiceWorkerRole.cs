@@ -38,7 +38,7 @@ namespace Zbang.Zbox.ReadServices
             CancellationToken token);
         Task<BoxToUpdateSearchDto> GetBoxesDirtyUpdatesAsync(int index, int total, int top, CancellationToken token);
 
-        Task<ItemToUpdateSearchDto> GetItemsDirtyUpdatesAsync(SearchItemDirtyQuery query, CancellationToken token);
+        Task<(ItemToUpdateSearchDto result, int count)> GetItemsDirtyUpdatesAsync(SearchItemDirtyQuery query, CancellationToken token);
         Task<QuizToUpdateSearchDto> GetQuizzesDirtyUpdatesAsync(int index, int total, int top);
 
         Task<FlashcardToUpdateSearchDto> GetFlashcardsDirtyUpdatesAsync(int index, int total, int top,

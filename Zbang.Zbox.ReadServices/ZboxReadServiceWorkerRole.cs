@@ -21,14 +21,19 @@ namespace Zbang.Zbox.ReadServices
 {
     public class ZboxReadServiceWorkerRole : IZboxReadServiceWorkerRole
     {
-        private static RetryPolicy GetRetryPolicy()
+        private readonly ILogger m_Logger;
+        public ZboxReadServiceWorkerRole(ILogger logger)
+        {
+            m_Logger = logger;
+        }
+        private RetryPolicy GetRetryPolicy()
         {
             var retryPolicy = RetryManager.Instance.GetDefaultSqlCommandRetryPolicy();
             retryPolicy.Retrying += (sender, args) =>
             {
                 // Log details of the retry.
                 var msg = $"Retry - Count:{args.CurrentRetryCount}, Delay:{args.Delay}, Exception:{args.LastException}";
-                TraceLog.WriteWarning(msg);
+                m_Logger.Warning(msg);
             };
             return retryPolicy;
         }
@@ -300,20 +305,25 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<ItemToUpdateSearchDto> GetItemsDirtyUpdatesAsync(SearchItemDirtyQuery query, CancellationToken token)
+        public async Task<(ItemToUpdateSearchDto result, int count)> GetItemsDirtyUpdatesAsync(SearchItemDirtyQuery query, CancellationToken token)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
             {
+                var sql = Search.SearchItemNew + Search.SearchItemUserBoxRel +
+                          Search.SearchItemTags + Search.GetItemToDeleteToSearch;
+                if (!query.ItemId.HasValue)
+                {
+                    sql += "select count(*) from zbox.item where isDirty = 1 and isDeleted = 0";
+                }
                 using (var grid = await conn.QueryMultipleAsync(
-                    new CommandDefinition(Search.SearchItemNew + Search.SearchItemUserBoxRel +
-                                          Search.SearchItemTags + Search.GetItemToDeleteToSearch,
+                    new CommandDefinition(sql,
                         new { query.Index, count = query.Total, query.Top, query.ItemId }, cancellationToken: token)).ConfigureAwait(false))
                 {
                     var retVal = new ItemToUpdateSearchDto
                     {
-                        ItemsToUpdate = grid.Read< DocumentSearchDto,ItemCourseSearchDto,
+                        ItemsToUpdate = grid.Read<DocumentSearchDto, ItemCourseSearchDto,
                         ItemUniversitySearchDto,
-                        DocumentSearchDto>((doc,course, university) =>
+                        DocumentSearchDto>((doc, course, university) =>
                         {
                             doc.Course = course;
                             doc.University = university;
@@ -337,7 +347,12 @@ namespace Zbang.Zbox.ReadServices
 
                         p.Tags = tags.Where(w => w.Id == p.Id).ToList();
                     }
-                    return retVal;
+                    var count = 0;
+                    if (!grid.IsConsumed)
+                    {
+                        count = await grid.ReadFirstOrDefaultAsync<int>().ConfigureAwait(false);
+                    }
+                    return (retVal, count);
                 }
             }
 
@@ -391,7 +406,7 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-               return await conn.QueryFirstAsync<long>(Search.NextVersionChanges).ConfigureAwait(false);
+                return await conn.QueryFirstAsync<long>(Search.NextVersionChanges).ConfigureAwait(false);
                 //NextVersionChanges
             }
         }
@@ -413,7 +428,7 @@ namespace Zbang.Zbox.ReadServices
                         Deletes = await grid.ReadAsync<FlashcardToDeleteSearchDto>().ConfigureAwait(false),
                         Updates = grid.Read<FlashcardSearchDto, ItemCourseSearchDto,
                         ItemUniversitySearchDto,
-                            FlashcardSearchDto>((doc,course, university) =>
+                            FlashcardSearchDto>((doc, course, university) =>
                         {
                             doc.Course = course;
                             doc.University = university;
@@ -710,7 +725,7 @@ offset @page*100 ROWS
                 return await
                     conn.QueryAsync<long, string, Tuple<long, string>>(
                         "select top 100  itemId,blobName from zbox.item where md5 is null and discriminator = 'file' and isDeleted = 0 and itemId >= @id order by itemId",
-                        Tuple.Create, splitOn: "*",param: new { id }).ConfigureAwait(false);
+                        Tuple.Create, splitOn: "*", param: new { id }).ConfigureAwait(false);
             }
         }
 

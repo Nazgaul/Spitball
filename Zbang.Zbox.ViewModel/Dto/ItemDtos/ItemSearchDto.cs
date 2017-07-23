@@ -47,7 +47,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
         public override string ToString()
         {
-            return $"{Name} {Code} {Professor}";
+            return $"{Code} {Name}";
         }
     }
 

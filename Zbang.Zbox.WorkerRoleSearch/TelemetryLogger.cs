@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.DataContracts;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.WorkerRoleSearch
@@ -20,18 +18,28 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public void Info(string info)
         {
-            m_Telemetry.TrackTrace(info, Microsoft.ApplicationInsights.DataContracts.SeverityLevel.Information);
+            m_Telemetry.TrackTrace(info, SeverityLevel.Information);
         }
 
         public void Warning(string warning)
         {
-            m_Telemetry.TrackTrace(warning, Microsoft.ApplicationInsights.DataContracts.SeverityLevel.Warning);
+            m_Telemetry.TrackTrace(warning, SeverityLevel.Warning);
         }
 
         public void Error(string error)
         {
-            m_Telemetry.TrackTrace(error, Microsoft.ApplicationInsights.DataContracts.SeverityLevel.Error);
+            m_Telemetry.TrackTrace(error, SeverityLevel.Error);
 
+        }
+
+        public void TrackMetric(string name, double value)
+        {
+            var sample = new MetricTelemetry
+            {
+                Name = name,
+                Sum = value
+            };
+            m_Telemetry.TrackMetric(sample);
         }
     }
 }
