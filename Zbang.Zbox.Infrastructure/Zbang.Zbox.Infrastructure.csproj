@@ -104,6 +104,7 @@
     <Compile Include="Enums\ItemType.cs" />
     <Compile Include="Enums\LibraryNodeSetting.cs" />
     <Compile Include="Enums\LikeType.cs" />
+    <Compile Include="Enums\MessageType.cs" />
     <Compile Include="Enums\MobileOperatingSystem.cs" />
     <Compile Include="Enums\PushNotificationSettings.cs" />
     <Compile Include="Enums\Resources\EnumResources.Designer.cs">

@@ -91,6 +91,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (StorageException ex) when (ex.RequestInformation.HttpStatusCode == (int)HttpStatusCode.Conflict)
                 {
+                    
                 }
 
 

@@ -97,30 +97,31 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
         }
 
-        private async Task JaredPilotAsync(QuizSearchDto elem, CancellationToken token)
+        private  Task JaredPilotAsync(QuizSearchDto elem, CancellationToken token)
         {
-            if (elem.Language.GetValueOrDefault(Language.Undefined) == Language.Undefined)
-            {
-                var result = await m_WatsonExtractProvider.GetLanguageAsync(elem.Content,token).ConfigureAwait(false);
-                elem.Language = result;
-                var commandLang = new AddLanguageToQuizCommand(elem.Id, result);
-                m_WriteService.AddItemLanguage(commandLang);
-            }
+            return Task.CompletedTask;
+            //if (elem.Language.GetValueOrDefault(Language.Undefined) == Language.Undefined)
+            //{
+            //    var result = await m_WatsonExtractProvider.GetLanguageAsync(elem.Content,token).ConfigureAwait(false);
+            //    elem.Language = result;
+            //    var commandLang = new AddLanguageToQuizCommand(elem.Id, result);
+            //    m_WriteService.AddItemLanguage(commandLang);
+            //}
 
-            if (elem.Language == Language.EnglishUs && elem.Tags.All(a => a.Type != TagType.Watson))
-            {
+            //if (elem.Language == Language.EnglishUs && elem.Tags.All(a => a.Type != TagType.Watson))
+            //{
 
-                var result = await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token).ConfigureAwait(false);
-                if (result != null)
-                {
-                    var tags = result as IList<string> ?? result.ToList();
-                    elem.Tags.AddRange(tags.Select(s => new ItemSearchTag { Name = s }));
-                    var z = new AssignTagsToQuizCommand(elem.Id, tags, TagType.Watson);
-                    await m_WriteService.AddItemTagAsync(z).ConfigureAwait(false);
-                }
-            }
+            //    var result = await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token).ConfigureAwait(false);
+            //    if (result != null)
+            //    {
+            //        var tags = result as IList<string> ?? result.ToList();
+            //        elem.Tags.AddRange(tags.Select(s => new ItemSearchTag { Name = s }));
+            //        var z = new AssignTagsToQuizCommand(elem.Id, tags, TagType.Watson);
+            //        await m_WriteService.AddItemTagAsync(z).ConfigureAwait(false);
+            //    }
+            //}
 
-            await m_ContentSearchProvider.UpdateDataAsync(elem, null, token).ConfigureAwait(false);
+            //await m_ContentSearchProvider.UpdateDataAsync(elem, null, token).ConfigureAwait(false);
         }
 
         //protected override string GetPrefix()

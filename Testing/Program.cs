@@ -141,8 +141,8 @@ namespace Testing
             //var m_FileProcessorFactory = iocFactory.Resolve<IFileProcessorFactory>();
             //var languageDetection = iocFactory.Resolve<IDetectLanguage>();
             var writeService = iocFactory.Resolve<IZboxWorkerRoleService>();
-            var pushService = iocFactory.Resolve<IJaredPushNotification>();
-            var profileService = iocFactory.Resolve<IProfilePictureProvider>();
+            //var pushService = iocFactory.Resolve<IJaredPushNotification>();
+            //var profileService = iocFactory.Resolve<IProfilePictureProvider>();
 
             writeService.OneTimeDbi();
             //var search = iocFactory.Resolve<IContentReadSearchProvider>();

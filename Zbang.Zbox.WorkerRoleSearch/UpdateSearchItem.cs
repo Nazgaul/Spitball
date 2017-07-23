@@ -138,36 +138,36 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
         }
 
-        private async Task JaredPilotAsync(DocumentSearchDto elem, CancellationToken token)
+        private  Task JaredPilotAsync(DocumentSearchDto elem, CancellationToken token)
         {
+            return Task.CompletedTask;
+            //if (elem.Type.Any(s => s == ItemType.Document))
+            //{
+            //    if (elem.Language.GetValueOrDefault(Language.Undefined) == Language.Undefined)
+            //    {
+            //        ExtractText(elem, token);
+            //        var result = await m_WatsonExtractProvider.GetLanguageAsync(elem.Content, token).ConfigureAwait(false);
+            //        elem.Language = result;
+            //        var commandLang = new AddLanguageToDocumentCommand(elem.Id, result);
+            //        m_WriteService.AddItemLanguage(commandLang);
+            //    }
 
-            if (elem.Type.Any(s => s == ItemType.Document))
-            {
-                if (elem.Language.GetValueOrDefault(Language.Undefined) == Language.Undefined)
-                {
-                    ExtractText(elem, token);
-                    var result = await m_WatsonExtractProvider.GetLanguageAsync(elem.Content, token).ConfigureAwait(false);
-                    elem.Language = result;
-                    var commandLang = new AddLanguageToDocumentCommand(elem.Id, result);
-                    m_WriteService.AddItemLanguage(commandLang);
-                }
-
-                if (elem.Language == Language.EnglishUs && elem.Tags.All(a => a.Type != TagType.Watson))
-                {
-                    ExtractText(elem, token);
-                    var result = await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token).ConfigureAwait(false);
-                    if (result != null)
-                    {
-                        var resultList = result.ToList();
-                        elem.Tags.AddRange(resultList.Select(s => new ItemSearchTag { Name = s }));
-                        var z = new AssignTagsToDocumentCommand(elem.Id, resultList, TagType.Watson);
-                        await m_WriteService.AddItemTagAsync(z).ConfigureAwait(false);
-                    }
-                }
+            //    if (elem.Language == Language.EnglishUs && elem.Tags.All(a => a.Type != TagType.Watson))
+            //    {
+            //        ExtractText(elem, token);
+            //        var result = await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token).ConfigureAwait(false);
+            //        if (result != null)
+            //        {
+            //            var resultList = result.ToList();
+            //            elem.Tags.AddRange(resultList.Select(s => new ItemSearchTag { Name = s }));
+            //            var z = new AssignTagsToDocumentCommand(elem.Id, resultList, TagType.Watson);
+            //            await m_WriteService.AddItemTagAsync(z).ConfigureAwait(false);
+            //        }
+            //    }
 
 
-                await m_ContentSearchProvider.UpdateDataAsync(elem, null, token).ConfigureAwait(false);
-            }
+            //    await m_ContentSearchProvider.UpdateDataAsync(elem, null, token).ConfigureAwait(false);
+            //}
         }
 
         private async Task UploadToAzureSearchAsync(DocumentSearchDto elem, CancellationToken token)

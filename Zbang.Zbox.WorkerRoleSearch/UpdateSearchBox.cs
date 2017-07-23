@@ -18,14 +18,17 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IBoxWriteSearchProvider2 m_BoxSearchProvider;
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
+        private readonly ILogger m_Logger;
 
         public UpdateSearchBox(IZboxReadServiceWorkerRole zboxReadService,
             IBoxWriteSearchProvider2 boxSearchProvider,
-            IZboxWorkerRoleService zboxWriteService/*,  IZboxWriteService writeService*/)
+            IZboxWorkerRoleService zboxWriteService, ILogger logger
+/*,  IZboxWriteService writeService*/)
         {
             m_ZboxReadService = zboxReadService;
             m_BoxSearchProvider = boxSearchProvider;
             m_ZboxWriteService = zboxWriteService;
+            m_Logger = logger;
             //m_WriteService = writeService;
         }
 
@@ -36,7 +39,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             var index = RoleIndexProcessor.GetIndex();
             var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
-            TraceLog.WriteWarning("box index " + index + " count " + count);
+            m_Logger.Warning("box index " + index + " count " + count);
             while (!cancellationToken.IsCancellationRequested)
             {
 
@@ -46,10 +49,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    TraceLog.WriteError(ex);
+                    m_Logger.Exception(ex);
                 }
             }
-            TraceLog.WriteError("On finish run");
+            m_Logger.Error($"{Name} On finish run");
         }
 
 
@@ -58,7 +61,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             const int top = 100;
             var updates = await m_ZboxReadService.GetBoxesDirtyUpdatesAsync(instanceId, instanceCount, top, cancellationToken).ConfigureAwait(false);
             if (!updates.BoxesToUpdate.Any() && !updates.BoxesToDelete.Any()) return TimeToSleep.Increase;
-            TraceLog.WriteInfo($"{Name} is doing process");
+            m_Logger.Info($"{Name} is doing process");
             // await JaredPilotAsync(updates.BoxesToUpdate.Where(w => w.UniversityId == JaredUniversityIdPilot));
 
             //await m_WithAiProvider.AddCoursesEntityAsync(
