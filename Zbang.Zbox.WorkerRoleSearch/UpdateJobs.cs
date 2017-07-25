@@ -42,6 +42,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public async Task<bool> ExecuteAsync(int index, Func<int, TimeSpan, Task> progressAsync,
             CancellationToken token)
         {
+            m_Logger.Info("Update jobs starting to work");
             var handler = new HttpClientHandler
             {
                 Credentials = new NetworkCredential("cqSCcVaGdfHVTefIBGCTdLqmYPeboa", "LAGhyQrQdfLumRjMrXVVVISAnrbTZn")
@@ -111,7 +112,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 await m_JobSearchService.UpdateDataAsync(list, token).ConfigureAwait(false);
             }
-
+            m_Logger.Info("Update jobs finish to work");
             return true;
         }
 

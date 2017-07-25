@@ -82,6 +82,7 @@
     <Compile Include="ItemSearchProvider3.cs" />
     <Compile Include="IUniversityReadSearchProvider.cs" />
     <Compile Include="IUniversityWriteSearchProvider.cs" />
+    <Compile Include="Job.cs" />
     <Compile Include="JobsProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuizSearch.cs" />
