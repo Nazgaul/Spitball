@@ -14,6 +14,7 @@ using AbotX.Poco;
 using AngleSharp.Dom.Html;
 using AngleSharp.Extensions;
 using Newtonsoft.Json;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -213,29 +214,29 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 //}
             }
             return new CrawlModel(page.Uri.AbsoluteUri, angleSharpHtmlDocument.Title, content, university, course,
-                tags, createDate, views, metaDescription, metaImage, metaKeyword, page.Uri.Host, CalculateMd5Hash(page.Uri.AbsoluteUri));
+                tags, createDate, views, metaDescription, metaImage, metaKeyword, page.Uri.Host, Md5HashGenerator.GenerateKey(page.Uri.AbsoluteUri));
 
         }
 
 
-        public static string CalculateMd5Hash(string input)
+        //public static string CalculateMd5Hash(string input)
 
-        {
-            // step 1, calculate MD5 hash from input
-            using (var md5 = MD5.Create())
-            {
-                var inputBytes = Encoding.ASCII.GetBytes(input);
-                var hash = md5.ComputeHash(inputBytes);
-                // step 2, convert byte array to hex string
-                var sb = new StringBuilder();
-                foreach (byte t in hash)
-                {
-                    sb.Append(t.ToString("X2"));
-                }
-                return sb.ToString();
-            }
+        //{
+        //    // step 1, calculate MD5 hash from input
+        //    using (var md5 = MD5.Create())
+        //    {
+        //        var inputBytes = Encoding.ASCII.GetBytes(input);
+        //        var hash = md5.ComputeHash(inputBytes);
+        //        // step 2, convert byte array to hex string
+        //        var sb = new StringBuilder();
+        //        foreach (var t in hash)
+        //        {
+        //            sb.Append(t.ToString("X2"));
+        //        }
+        //        return sb.ToString();
+        //    }
 
-        }
+        //}
 
         public void Dispose()
         {

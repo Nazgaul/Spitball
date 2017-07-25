@@ -145,7 +145,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Select = new[] { IdField, nameof(BoxSearch.Course2).ToLower(), nameof(BoxSearch.Professor2).ToLower(), nameof(BoxSearch.Name2).ToLower(), UrlField, TypeFiled,DepartmentIdField , MembersField ,ItemsField},
             }, cancellationToken: cancelToken).ConfigureAwait(false);
             return result.Results.Select(s => new SearchBoxes(
-                SeachConnection.ConvertToType<long>(s.Document.Id),
+                SearchConnection.ConvertToType<long>(s.Document.Id),
                 s.Document.Name2,
                 s.Document.Professor2,
                 s.Document.Course2,

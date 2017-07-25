@@ -10,7 +10,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         protected override void Load(ContainerBuilder builder)
         {
 
-            builder.RegisterType<SeachConnection>()
+            builder.RegisterType<SearchConnection>()
                 .As<ISearchConnection>()
                 .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))
                 .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey")).SingleInstance();
@@ -23,6 +23,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             builder.RegisterType<FlashcardSearchProvider>().As<IFlashcardWriteSearchProvider>().As<IFlashcardReadSearchProvider>().SingleInstance();
             builder.RegisterType<ContentSearchProvider>().As<IContentWriteSearchProvider>().SingleInstance();
             builder.RegisterType<FeedSearchProvider>().As<IFeedWriteSearchProvider>().As<IStartable>().SingleInstance().AutoActivate();
+            builder.RegisterType<JobsProvider>().As<ISearchServiceWrite<Job>>().As<IStartable>().SingleInstance().AutoActivate();
             //builder.RegisterType<ContentSearchProvider>().Keyed<ISearchReadProvider>(SearchType.Document);
 
         }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Zbang.Zbox.Infrastructure
 {
@@ -7,9 +6,9 @@ namespace Zbang.Zbox.Infrastructure
     /// <typeparam name="T">Generic parameter.</typeparam>
     public class Range<T> where T : IComparable<T>
     {
-        public Range(T minimun, T maximum)
+        public Range(T minimum, T maximum)
         {
-            Minimum = minimun;
+            Minimum = minimum;
             Maximum = maximum;
         }
         /// <summary>Minimum value of the range.</summary>

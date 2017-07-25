@@ -3,7 +3,6 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Infrastructure.Profile
@@ -40,20 +39,27 @@ namespace Zbang.Zbox.Infrastructure.Profile
             client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", "b044cd956e0f4af481cdc7e4c5077aeb");
 
             // Request parameters and URI.
-            string requestParameters = "width=200&height=150&smartCropping=true";
+            string requestParameters = $"width={width}&height={height}&smartCropping=true";
             string uri = "https://westus.api.cognitive.microsoft.com/vision/v1.0/generateThumbnail?" + requestParameters;
 
             // Request body. Try this sample with a locally stored JPEG image.
-            byte[] byteData = stream.ConvertToByteArray(); // GetImageAsByteArray(imageFilePath);
+            //byte[] byteData = stream.ConvertToByteArray(); // GetImageAsByteArray(imageFilePath);
 
-            using (var content = new ByteArrayContent(byteData))
+            using (var content = new StreamContent(stream))
             {
-                // This example uses content type "application/octet-stream".
-                // The other content types you can use are "application/json" and "multipart/form-data".
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
                 var response = await client.PostAsync(uri, content).ConfigureAwait(false);
                 return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
             }
+
+            //using (var content = new ByteArrayContent(byteData))
+            //{
+            //    // This example uses content type "application/octet-stream".
+            //    // The other content types you can use are "application/json" and "multipart/form-data".
+            //    content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+            //    var response = await client.PostAsync(uri, content).ConfigureAwait(false);
+            //    return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+            //}
             
         }
 

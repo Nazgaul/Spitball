@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure;
+using Microsoft.WindowsAzure.ServiceRuntime;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Newtonsoft.Json;
@@ -26,6 +27,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IUniversityReadSearchProvider m_UniversitySearchProvider;
         private readonly ILogger m_Logger;
 
+
+        private readonly string[] m_Prefix;
+
         public BlobManagement(IContentWriteSearchProvider searchProvider, IWatsonExtract watsonExtractProvider, IUniversityReadSearchProvider universitySearchProvider, ILogger logger)
         {
             m_SearchProvider = searchProvider;
@@ -37,121 +41,145 @@ namespace Zbang.Zbox.WorkerRoleSearch
                    CloudConfigurationManager.GetSetting("StorageConnectionString"));
 
             m_BlobClient = cloudStorageAccount.CreateCloudBlobClient();
+            m_Prefix = Enumerable.Range(0, 16).Select(s=> s.ToString("X")).ToArray();
+
         }
         public async Task RunAsync(CancellationToken cancellationToken)
         {
             var container = m_BlobClient.GetContainerReference("crawl");
             var index = RoleIndexProcessor.GetIndex();
-            if (index != 0)
-            {
-                return;
-            }
+            var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
+            var position = index % count;
+
             var directoryOk = container.GetDirectoryReference("ok");
             var directoryMappingUniversity = container.GetDirectoryReference("mapping-university");
+            var flashcards = container.GetDirectoryReference("flashcard");
             // await DeleteStuffAsync(directoryOk, cancellationToken).ConfigureAwait(false);
 
             BlobContinuationToken continuationToken = null;
-            //Call ListBlobsSegmentedAsync and enumerate the result segment returned, while the continuation token is non-null.
-            //When the continuation token is null, the last page has been returned and execution can exit the loop.
-            do
+            while (!cancellationToken.IsCancellationRequested)
             {
-
-                var resultSegment = await container
-                    .ListBlobsSegmentedAsync("", false, BlobListingDetails.None, 100, continuationToken, null, null,
-                        cancellationToken).ConfigureAwait(false);
-                foreach (var blobItem in resultSegment.Results)
+                var prefix = m_Prefix[position % m_Prefix.Length];
+                position += count;
+                m_Logger.Warning($"{Name} prefix {prefix}");
+                //Call ListBlobsSegmentedAsync and enumerate the result segment returned, while the continuation token is non-null.
+                //When the continuation token is null, the last page has been returned and execution can exit the loop.
+                do
                 {
-                    try
-                    {
-                        var blockBlob = blobItem as CloudBlockBlob;
-                        if (blockBlob == null)
-                        {
-                            continue;
-                        }
-                        var txt = await blockBlob.DownloadTextAsync(cancellationToken).ConfigureAwait(false);
-                        var model = JsonConvert.DeserializeObject<CrawlModel>(txt);
-                        m_Logger.Info($"{Name} processing {model}");
-                        var endPoint = new Uri(model.Url);
-                        if (endPoint.AbsolutePath.StartsWith("/flashcard"))
-                        {
-                            continue;
-                        }
-                        UniversityByPrefixDto university = null;
-                        if (!string.IsNullOrEmpty(model.University))
-                        {
-                            var query = new UniversitySearchQuery(model.University, 1);
-                            var result = await m_UniversitySearchProvider
-                                .SearchUniversityAsync(query, cancellationToken).ConfigureAwait(false);
-                            university = result.FirstOrDefault();
 
-                            if (university == null)
+                    var resultSegment = await container
+                        .ListBlobsSegmentedAsync(prefix, false, BlobListingDetails.None, 100, continuationToken, null,
+                            null,
+                            cancellationToken).ConfigureAwait(false);
+                    foreach (var blobItem in resultSegment.Results)
+                    {
+
+                        try
+                        {
+                            var blockBlob = blobItem as CloudBlockBlob;
+                            if (blockBlob == null)
                             {
-                                await CopyBlobAsync(cancellationToken, directoryMappingUniversity, model.Id, blockBlob)
-                                    .ConfigureAwait(false);
                                 continue;
                             }
-                            if (!model.University.Equals(university.Name, StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                await CopyBlobAsync(cancellationToken, directoryMappingUniversity, model.Id, blockBlob)
-                                    .ConfigureAwait(false);
-                                continue;
-                            }
-
+                            await ProcessBlobAsync(cancellationToken, blockBlob, flashcards, directoryMappingUniversity,
+                                directoryOk).ConfigureAwait(false);
                         }
-
-                        model.Content = model.Content?.Remove(0, 22).Trim();
-
-                        var language = await m_WatsonExtractProvider.GetLanguageAsync(model.Content, cancellationToken)
-                            .ConfigureAwait(false);
-                        var tags = model.Tags?.Length > 0 ? model.Tags : model.MetaKeywords;
-
-                        var document = new Document
+                        catch (Exception ex)
                         {
-                            Id = model.Id,
-                            Course = model.Course,
-                            CrawlDate = DateTime.UtcNow,
-                            Date = model.UrlDate,
-                            Domain = model.Domain,
-                            MetaContent = model.MetaDescription,
-                            Name = model.Name,
-                            Source = model.Url,
-                            Tags = tags,
-                            Views = model.Views,
-                            Image = model.Image,
-                            University = university?.Name,
-                            UniversityId = university?.Id.ToString()
-                        };
-                        switch (language)
-                        {
-                            case Language.Undefined:
-                                document.Content = model.Content;
-                                break;
-                            case Language.EnglishUs:
-                                document.ContentEn = model.Content;
-                                break;
-                            case Language.Hebrew:
-                                document.ContentHe = model.Content;
-                                break;
-                            default:
-                                throw new ArgumentOutOfRangeException();
+                            m_Logger.Exception(ex, new Dictionary<string, string> {{"Name", Name}});
                         }
-                        await m_SearchProvider.UpdateDataAsync(document, cancellationToken).ConfigureAwait(false);
-
-                        await CopyBlobAsync(cancellationToken, directoryOk, model.Id, blockBlob).ConfigureAwait(false);
-
                     }
-                    catch (Exception ex)
+
+                    if (cancellationToken.IsCancellationRequested)
                     {
-                        m_Logger.Exception(ex, new Dictionary<string, string> { { "Name", Name } });
+                        break;
+
                     }
-                }
 
-
-                //Get the continuation token.
-                continuationToken = resultSegment.ContinuationToken;
+                    //Get the continuation token.
+                    continuationToken = resultSegment.ContinuationToken;
+                } while (continuationToken != null);
             }
-            while (continuationToken != null);
+        }
 
+        private async Task ProcessBlobAsync(CancellationToken cancellationToken, CloudBlockBlob blockBlob,
+            CloudBlobDirectory flashcards, CloudBlobDirectory directoryMappingUniversity, CloudBlobDirectory directoryOk)
+        {
+            var txt = await blockBlob.DownloadTextAsync(cancellationToken).ConfigureAwait(false);
+            var model = JsonConvert.DeserializeObject<CrawlModel>(txt);
+            var endPoint = new Uri(model.Url);
+            if (endPoint.AbsolutePath.StartsWith("/flashcard"))
+            {
+                await CopyBlobAsync(cancellationToken, flashcards, model.Id, blockBlob)
+                    .ConfigureAwait(false);
+                return;
+            }
+            UniversityByPrefixDto university = null;
+            if (!string.IsNullOrEmpty(model.University))
+            {
+                var query = new UniversitySearchQuery(model.University, 1);
+                var result = await m_UniversitySearchProvider
+                    .SearchUniversityAsync(query, cancellationToken).ConfigureAwait(false);
+                university = result.FirstOrDefault();
+
+                if (university == null)
+                {
+                    await CopyBlobAsync(cancellationToken, directoryMappingUniversity, model.Id,
+                            blockBlob)
+                        .ConfigureAwait(false);
+                    return;
+                }
+                if (!model.University.Equals(university.Name,
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    await CopyBlobAsync(cancellationToken, directoryMappingUniversity, model.Id,
+                            blockBlob)
+                        .ConfigureAwait(false);
+                    return;
+                }
+            }
+
+            model.Content = model.Content?.Remove(0, 22).Trim();
+
+            var language = await m_WatsonExtractProvider
+                .GetLanguageAsync(model.Content, cancellationToken)
+                .ConfigureAwait(false);
+            var tags = model.Tags?.Length > 0 ? model.Tags : model.MetaKeywords;
+
+            var document = new Document
+            {
+                Id = model.Id,
+                Course = model.Course,
+                CrawlDate = DateTime.UtcNow,
+                Date = model.UrlDate,
+                Domain = model.Domain,
+                MetaContent = model.MetaDescription,
+                Name = model.Name,
+                Source = model.Url,
+                Tags = tags,
+                Views = model.Views,
+                Image = model.Image,
+                University = university?.Name,
+                UniversityId = university?.Id.ToString()
+            };
+            switch (language)
+            {
+                case Language.Undefined:
+                    document.Content = model.Content;
+                    break;
+                case Language.EnglishUs:
+                    document.ContentEn = model.Content;
+                    break;
+                case Language.Hebrew:
+                    document.ContentHe = model.Content;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            await m_SearchProvider.UpdateDataAsync(document, cancellationToken).ConfigureAwait(false);
+
+            await CopyBlobAsync(cancellationToken, directoryOk, model.Id, blockBlob)
+                .ConfigureAwait(false);
         }
 
         private static async Task CopyBlobAsync(CancellationToken cancellationToken, CloudBlobDirectory directory, string id,

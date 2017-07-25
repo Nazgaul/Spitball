@@ -13,10 +13,13 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
     {
         private readonly string m_LocalResourceLocation;
         private readonly long m_LocalResourceSize;
+
+        private readonly ILogger m_Logger;
         //private long m_DirectorySize;
 
-        public LocalStorageProvider()
+        public LocalStorageProvider(ILogger logger)
         {
+            m_Logger = logger;
             m_LocalResourceLocation = StorageProvider.LocalResource.LocalResourcePath;
             m_LocalResourceSize = StorageProvider.LocalResource.LocalResourceSizeInMegaBytes * 1024 * 1024;
         }
@@ -24,44 +27,55 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
         public string LocalStorageLocation => m_LocalResourceLocation;
 
 
-        public string SaveFileToStorage(Stream streamArray, string fileName)
+        public async Task<string> SaveFileToStorageAsync(Stream streamSource, string fileName, bool shouldOverride)
         {
-            if (streamArray == null) throw new ArgumentNullException(nameof(streamArray));
+            if (streamSource == null) throw new ArgumentNullException(nameof(streamSource));
             var fileNameWithPath = CombineDirectoryWithFileName(fileName);
 
-            if (File.Exists(fileNameWithPath))
+            if (!shouldOverride)
             {
-                var file = new FileInfo(fileNameWithPath);
-                if (file.Length == streamArray.Length)
+                if (File.Exists(fileNameWithPath))
                 {
-                    return fileNameWithPath;
+                    var file = new FileInfo(fileNameWithPath);
+                    if (file.Length == streamSource.Length)
+                    {
+                        return fileNameWithPath;
+                    }
                 }
             }
             try
             {
-                File.WriteAllBytes(fileNameWithPath, streamArray.ConvertToByteArray());
+                using (var stream = File.Open(fileNameWithPath, FileMode.Create))
+                {
+                    await streamSource.CopyToAsync(stream).ConfigureAwait(false);
+                }
+                return fileNameWithPath;
+                //File.WriteAllBytes(fileNameWithPath, streamSource.ConvertToByteArray());
             }
             catch (IOException ex)
             {
                 DeleteOldFiles();
-                TraceLog.WriteError("on writing in storage" + ex);
+                m_Logger.Exception(ex, new Dictionary<string, string> { { "service", "localStorage" } });
             }
-            File.WriteAllBytes(fileNameWithPath, streamArray.ConvertToByteArray());
+            using (var stream = File.Open(fileNameWithPath, FileMode.Create))
+            {
+                await streamSource.CopyToAsync(stream).ConfigureAwait(false);
+            }
             return fileNameWithPath;
         }
 
-        public byte[] ReadFileFromStorage(string fileName)
-        {
-            var fileNameWithPath = CombineDirectoryWithFileName(fileName);
-            if (!File.Exists(fileNameWithPath)) return null;
-            File.SetLastAccessTime(fileNameWithPath, DateTime.UtcNow);
-            return File.ReadAllBytes(fileNameWithPath);
-        }
+        //public byte[] ReadFileFromStorage(string fileName)
+        //{
+        //    var fileNameWithPath = CombineDirectoryWithFileName(fileName);
+        //    if (!File.Exists(fileNameWithPath)) return null;
+        //    File.SetLastAccessTime(fileNameWithPath, DateTime.UtcNow);
+        //    return File.ReadAllBytes(fileNameWithPath);
+        //}
 
 
-       
 
-        
+
+
 
 
         private string CombineDirectoryWithFileName(string fileName)

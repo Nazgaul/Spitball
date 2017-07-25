@@ -24,11 +24,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly ILifetimeScope m_LifetimeScope;
         private readonly XmlSerializer m_Dcs = new XmlSerializer(typeof(StorageQueueMessage));
         private readonly SemaphoreSlim m_CriticalCode = new SemaphoreSlim(1);
+        private readonly ILogger m_Logger;
 
-        public SchedulerListener(IQueueProviderExtract queueProviderExtract, ILifetimeScope lifetimeScope)
+        public SchedulerListener(IQueueProviderExtract queueProviderExtract, ILifetimeScope lifetimeScope, ILogger logger)
         {
             m_QueueProviderExtract = queueProviderExtract;
             m_LifetimeScope = lifetimeScope;
+            m_Logger = logger;
         }
 
 
@@ -44,7 +46,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
                     await m_QueueProviderExtract.RunQueueAsync(queueName, async msg =>
                     {
-                        TraceLog.WriteInfo($"{Name} is doing process");
                         StorageQueueMessage message;
                         using (var xmlStream = new MemoryStream(Encoding.Unicode.GetBytes(msg.AsString)))
                         {
@@ -75,7 +76,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                                         }
                                         catch (Exception ex)
                                         {
-                                            TraceLog.WriteError("SchedulerListener - trying to update queue", ex);
+                                            m_Logger.Exception(ex, new Dictionary<string, string> {{"service", Name}});
                                         }
                                         finally
                                         {
@@ -88,7 +89,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             else
                             {
                                 list.Add(TaskExtensions.CompletedTaskFalse);
-                                TraceLog.WriteWarning($"cant resolve {property.Name}");
+                                m_Logger.Warning($"cant resolve {property.Name}");
                             }
 
                         }
@@ -107,7 +108,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    TraceLog.WriteError("on SchedulerListener", ex);
+                    m_Logger.Exception(ex, new Dictionary<string, string> { { "service", Name } });
                 }
                 await Task.Delay(TimeSpan.FromMinutes(2), cancellationToken).ConfigureAwait(false);
 

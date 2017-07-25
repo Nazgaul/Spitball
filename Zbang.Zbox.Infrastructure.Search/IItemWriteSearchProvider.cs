@@ -21,22 +21,20 @@ namespace Zbang.Zbox.Infrastructure.Search
         Task DeleteDataAsync(IEnumerable<string> ids, CancellationToken token);
     }
 
-    public interface ISearchServiceWrite<in T> where T: ISearchObject
+    public interface ISearchServiceWrite<in T> where T : class, ISearchObject, new()
     {
-        Task UpdateDataAsync(T items, CancellationToken token);
+        Task UpdateDataAsync(IEnumerable<T> items, CancellationToken token);
 
 
-        Task DeleteDataAsync(T items, CancellationToken token);
+        Task DeleteDataAsync(IEnumerable<string> ids, CancellationToken token);
 
-        Task UpdateDataAsync(T items, string itemsToDelete, CancellationToken token);
+        Task UpdateDataAsync(IEnumerable<T> items, IEnumerable<string> ids, CancellationToken token);
     }
 
 
     public interface ISearchObject
     {
-        Index GetIndexStructure();
-
-        string IndexName { get; }
+        string Id { get; set; }
     }
 
 

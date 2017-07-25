@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 
 namespace Zbang.Zbox.Infrastructure.Storage
 {
@@ -9,9 +10,9 @@ namespace Zbang.Zbox.Infrastructure.Storage
         /// </summary>
         /// <param name="streamArray"></param>
         /// <param name="fileName"></param>
+        /// <param name="shouldOverride"></param>
         /// <returns>The path to that file</returns>
-        string SaveFileToStorage(Stream streamArray, string fileName);
-        byte[] ReadFileFromStorage(string fileName);
+        Task<string> SaveFileToStorageAsync(Stream streamArray, string fileName, bool shouldOverride);
 
 
         string LocalStorageLocation { get; }

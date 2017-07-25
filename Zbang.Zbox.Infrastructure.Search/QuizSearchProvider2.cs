@@ -113,7 +113,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     BoxId = s.Course.Id,
                     BoxName = s.Course.Name,
                     Id = s.Id.ToString(CultureInfo.InvariantCulture),
-                    MetaContent = TextManipulation.RemoveHtmlTags.Replace(string.Join(" ", s.Questions), string.Empty).RemoveEndOfString(SeachConnection.DescriptionLength),
+                    MetaContent = TextManipulation.RemoveHtmlTags.Replace(string.Join(" ", s.Questions), string.Empty).RemoveEndOfString(SearchConnection.DescriptionLength),
                     Name = s.Name,
                     Questions = s.Questions.ToArray(),
                     UniversityId = s.University?.Id.ToString(), //.HasValue ? s.UniversityId.ToString() : "-1",

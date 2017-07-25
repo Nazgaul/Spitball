@@ -82,11 +82,12 @@
     <Compile Include="ItemSearchProvider3.cs" />
     <Compile Include="IUniversityReadSearchProvider.cs" />
     <Compile Include="IUniversityWriteSearchProvider.cs" />
+    <Compile Include="JobsProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuizSearch.cs" />
     <Compile Include="QuizSearchProvider2.cs" />
     <Compile Include="SearchModule.cs" />
-    <Compile Include="SeachConnection.cs" />
+    <Compile Include="SearchConnection.cs" />
     <Compile Include="SearchServiceWrite.cs" />
     <Compile Include="UniversitySearch.cs" />
     <Compile Include="UniversitySearchProvider.cs" />

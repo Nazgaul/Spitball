@@ -119,6 +119,9 @@
     <Reference Include="Microsoft.Data.Services.Client, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Data.Services.Client.5.8.2\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Spatial, Version=7.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Spatial.7.2.0\lib\portable-net45+win8+wpa81\Microsoft.Spatial.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
       <Private>True</Private>
@@ -245,6 +248,7 @@
     <Compile Include="MailQueueProcess.cs" />
     <Compile Include="ThumbnailQueueProcess.cs" />
     <Compile Include="TransactionQueueProcess.cs" />
+    <Compile Include="UpdateJobs.cs" />
     <Compile Include="UpdateSearch.cs" />
     <Compile Include="UpdateSearchFeed.cs" />
     <Compile Include="UpdateSearchFlashcard.cs" />
@@ -254,6 +258,7 @@
     <Compile Include="UpdateSearchUniversity.cs" />
     <Compile Include="UpdateUnsubscribeList.cs" />
     <Compile Include="WatsonExtract.cs" />
+    <Compile Include="WayUpJob.cs" />
     <Compile Include="WorkerRole.cs" />
     <Compile Include="WorkerRoleModule.cs" />
   </ItemGroup>

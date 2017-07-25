@@ -1,5 +1,6 @@
 using System;
 using Microsoft.WindowsAzure.Storage.Table;
+using Zbang.Zbox.Infrastructure;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
@@ -8,7 +9,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public CrawlerUrlEntity(string domainMd5, string url)
         {
             this.PartitionKey = domainMd5;
-            this.RowKey = Crawler.CalculateMd5Hash(url);
+            this.RowKey = Md5HashGenerator.GenerateKey(url);
         }
 
         public CrawlerUrlEntity() { }

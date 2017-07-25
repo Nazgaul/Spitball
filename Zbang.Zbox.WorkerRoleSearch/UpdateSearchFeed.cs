@@ -24,14 +24,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IFeedWriteSearchProvider m_SearchProvider;
         private readonly IWatsonExtract m_WatsonExtractProvider;
         private readonly IZboxWriteService m_WriteService;
+        private readonly ILogger m_Logger;
 
-        public UpdateSearchFeed(ICloudBlockProvider cloudBlockProvider, IZboxReadServiceWorkerRole zboxReadService, IFeedWriteSearchProvider searchProvider, IWatsonExtract watsonExtractProvider, IZboxWriteService writeService)
+        public UpdateSearchFeed(ICloudBlockProvider cloudBlockProvider, IZboxReadServiceWorkerRole zboxReadService, IFeedWriteSearchProvider searchProvider, IWatsonExtract watsonExtractProvider, IZboxWriteService writeService, ILogger logger)
         {
             m_CloudBlockProvider = cloudBlockProvider;
             m_ZboxReadService = zboxReadService;
             m_SearchProvider = searchProvider;
             m_WatsonExtractProvider = watsonExtractProvider;
             m_WriteService = writeService;
+            m_Logger = logger;
         }
 
         public string Name => nameof(UpdateSearchFeed);
@@ -53,9 +55,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         await WriteNextVersionAsync(cancellationToken, version).ConfigureAwait(false);
                         return TimeToSleep.Increase;
                     }
-                    
+
                 }
-                TraceLog.WriteInfo("Feed search Going to process " + updates.NextVersion);
+                m_Logger.Info("Feed search Going to process " + updates.NextVersion);
                 foreach (var feed in updates.Updates.Where(w => w.University != null && JaredUniversityIdPilot.Contains(w.University.Id)))
                 {
                     await JaredPilotAsync(feed, cancellationToken).Unwrap().ConfigureAwait(false); // otherwise we got race condition
@@ -106,7 +108,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return m_SearchProvider.UpdateDataAsync(elem, null, cancellationToken);
         }
 
-       
+
 
         private async Task<long?> ReadVersionBlobDataAsync(CancellationToken cancellationToken)
         {
@@ -119,8 +121,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 {
                     return null;
                 }
-                long num;
-                if (long.TryParse(txt, out num))
+                if (long.TryParse(txt, out long num))
                 {
                     return num;
                 }
@@ -148,7 +149,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             var index = RoleIndexProcessor.GetIndex();
             var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
-            TraceLog.WriteWarning("box index " + index + " count " + count);
+            m_Logger.Warning($"{Name} index {index} count {count}");
             while (!cancellationToken.IsCancellationRequested)
             {
 
@@ -158,10 +159,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    TraceLog.WriteError(ex);
+                    m_Logger.Exception(ex);
                 }
             }
-            TraceLog.WriteError("On finish run");
+            m_Logger.Error($"{Name} on finish run");
         }
 
 

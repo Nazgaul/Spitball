@@ -61,10 +61,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
 
             var deletedAssets = m_Context.Assets.Where(s => s.Created < DateTime.UtcNow.AddDays(-3));
 
-            foreach (var asset in m_Context.Assets)
-            {
-                
-            }
             foreach (var deletedAsset in deletedAssets)
             {
                 await DeleteLocatorsForAssetAsync(deletedAsset).ConfigureAwait(false);
@@ -100,17 +96,13 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
         {
             //_context.DefaultStorageAccount.Name
             var blobName = blobUrl.Segments[blobUrl.Segments.Length - 1];
-            // Create a .NET console app
-            // Set the project properties to use the full .NET Framework (not Client Profile)
-            // With NuGet Package Manager, install windowsazure.mediaservices
-            // add: using Microsoft.WindowsAzure.MediaServices.Client;
             if (blobUrl.Host != "127.0.0.1")
             {
                 var uploadAssetAzure = await CreateAssetFromExistingBlobsAsync(blobUrl).ConfigureAwait(false);
                 return uploadAssetAzure.Id;
             }
             var stream = await m_BlobProvider.DownloadFileAsync(blobUrl, cancelToken).ConfigureAwait(false);
-            var uploadFilePath = m_LocalProvider.SaveFileToStorage(stream, blobName);
+            var uploadFilePath = await m_LocalProvider.SaveFileToStorageAsync(stream, blobName, false).ConfigureAwait(false);
 
             var uploadAsset = m_Context.Assets.Create(Path.GetFileNameWithoutExtension(blobName), AssetCreationOptions.None);
             var assetFile = uploadAsset.AssetFiles.Create(Path.GetFileName(blobName));
@@ -172,7 +164,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
             string locationToSave;
             using (var ms = new MemoryStream())
             {
-                locationToSave = m_LocalProvider.SaveFileToStorage(ms, blobName);
+                locationToSave = await m_LocalProvider.SaveFileToStorageAsync(ms, blobName, false).ConfigureAwait(false);
 
             }
             // ReSharper disable once ReplaceWithSingleCallToFirstOrDefault -azure media services doesn't support first or default
@@ -201,7 +193,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
         {
 
             const string encodingPreset = "H264 Broadband 720p";
-            // ReSharper disable once ReplaceWithSingleCallToFirstOrDefault - media services doesnt support first or default
+            // ReSharper disable once ReplaceWithSingleCallToFirstOrDefault - media services doesn't support first or default
             var assetToEncode = m_Context.Assets.Where(a => a.Id == encodeAssetId).FirstOrDefault();
             if (assetToEncode == null)
             {
@@ -225,7 +217,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
 
         IAsset GetAsset(string assetId)
         {
-            // Use a LINQ Select query to get an asset.
             var assetInstance =
                 from a in m_Context.Assets
                 where a.Id == assetId

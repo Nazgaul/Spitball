@@ -38,7 +38,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             builder.RegisterType<LikesMailProcess>().Named<ISchedulerProcess>("likesReport");
 
             builder.RegisterType<DeleteOldStuff>().Named<ISchedulerProcess>("deleteOld");
-            builder.RegisterType<Crawler>().Named<ISchedulerProcess>("crawl");
+            builder.RegisterType<UpdateJobs>().Named<ISchedulerProcess>("downloadXml");
 
             var arrayOfUtcOffset = new[] { 0, 3, -5, -4, -6 };
             foreach (var i in arrayOfUtcOffset)

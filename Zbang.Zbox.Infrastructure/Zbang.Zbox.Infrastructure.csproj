@@ -139,6 +139,7 @@
     <Compile Include="Extensions\ConfigFetcher.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\ResourceDescriptionAttribute.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\PrincipalExtension.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="IdGenerator\IIdGenerator.cs" />
     <Compile Include="IPCheckContainer.cs" />
     <Compile Include="LocationProvider.cs" />
+    <Compile Include="Md5HashGenerator.cs" />
     <Compile Include="MediaServices\IMediaServicesProvider.cs" />
     <Compile Include="Profile\IProfilePictureProvider.cs" />
     <Compile Include="Profile\ProfileImages.cs" />

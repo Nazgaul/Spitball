@@ -117,7 +117,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     Extension = Path.GetExtension(itemToUpload.FileName),
                     Id = itemToUpload.Id.ToString(CultureInfo.InvariantCulture),
                     Image = itemToUpload.Image,
-                    MetaContent = itemToUpload.Content.RemoveEndOfString(SeachConnection.DescriptionLength),
+                    MetaContent = itemToUpload.Content.RemoveEndOfString(SearchConnection.DescriptionLength),
                     Name = Path.GetFileNameWithoutExtension(itemToUpload.FileName),
                     UniversityId = itemToUpload.University?.Id.ToString() ?? "-1", //.HasValue ? itemToUpload.UniversityId.ToString() : "-1",
                     UniversityName = itemToUpload.University?.Name,

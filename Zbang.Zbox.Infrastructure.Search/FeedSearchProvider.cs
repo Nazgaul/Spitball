@@ -19,13 +19,15 @@ namespace Zbang.Zbox.Infrastructure.Search
         internal const string ContentHebrewField = "text_he";
         private readonly ISearchConnection m_Connection;
         private readonly ISearchIndexClient m_IndexClient;
+        private readonly ILogger m_Logger;
         private readonly string m_IndexName = "feed";
-        private bool m_CheckIndexExists;
+        //private bool m_CheckIndexExists;
         private const string ScoringProfile = "score";
 
-        public FeedSearchProvider(ISearchConnection connection)
+        public FeedSearchProvider(ISearchConnection connection, ILogger logger)
         {
             m_Connection = connection;
+            m_Logger = logger;
             if (m_Connection.IsDevelop)
             {
                 m_IndexName = m_IndexName + "-dev";
@@ -35,11 +37,11 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public async Task UpdateDataAsync(FeedSearchDto itemToUpload, IEnumerable<FeedSearchDeleteDto> itemToDelete, CancellationToken token)
         {
-            if (!m_CheckIndexExists)
-            {
-                await BuildIndexAsync().ConfigureAwait(false);
+            //if (!m_CheckIndexExists)
+            //{
+            //    await BuildIndexAsync().ConfigureAwait(false);
 
-            }
+            //}
             if (itemToUpload != null)
             {
                 var uploadBatch = new FeedSearch
@@ -97,19 +99,19 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
         }
 
-        private async Task BuildIndexAsync()
-        {
-            try
-            {
-                //m_Connection.SearchClient.Indexes.CreateOrUpdate(GetIndexStructure());
-                await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure()).ConfigureAwait(false);
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("on item build index", ex);
-            }
-            m_CheckIndexExists = true;
-        }
+        //private async Task BuildIndexAsync()
+        //{
+        //    try
+        //    {
+        //        //m_Connection.SearchClient.Indexes.CreateOrUpdate(GetIndexStructure());
+        //        await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure()).ConfigureAwait(false);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("on item build index", ex);
+        //    }
+        //    m_CheckIndexExists = true;
+        //}
 
         private Index GetIndexStructure()
         {
@@ -191,7 +193,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("on item build index", ex);
+                m_Logger.Exception(ex);
             }
 }
     }

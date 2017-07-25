@@ -108,7 +108,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     Name = s.Name,
                     BoxName = s.Course.Name,
                     Front = s.FrontCards.ToArray(),
-                    MetaContent = string.Join(" ", s.FrontCards) + " " + string.Join(" ", s.BackCards).RemoveEndOfString(SeachConnection.DescriptionLength),
+                    MetaContent = string.Join(" ", s.FrontCards) + " " + string.Join(" ", s.BackCards).RemoveEndOfString(SearchConnection.DescriptionLength),
                     Back = s.BackCards.ToArray(),
                     UserId = s.UserIds.Select(v => v.ToString(CultureInfo.InvariantCulture)).ToArray(),
                     UniversityName = s.University?.Name,
