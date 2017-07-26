@@ -22,7 +22,7 @@
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="AA020428DCDB3DE79FD0A0A0BDB9B4049692079C" thumbprintAlgorithm="sha1" />
-      <Certificate name="Spitball" thumbprint="3B84ACD05F4A202290DFAEF6EF823EA3BCA16D5C" thumbprintAlgorithm="sha1" />
+      <Certificate name="Spitball" thumbprint="F5DB8DA43AD6FE4C3DB3A9D30E55D900FA93FCFF" thumbprintAlgorithm="sha1" />
     </Certificates>
   </Role>
 </ServiceConfiguration>

@@ -13,7 +13,7 @@
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
     </ConfigurationSettings>
     <Certificates>
-      <Certificate name="SB" thumbprint="3B84ACD05F4A202290DFAEF6EF823EA3BCA16D5C" thumbprintAlgorithm="sha1" />
+      <Certificate name="SB" thumbprint="F5DB8DA43AD6FE4C3DB3A9D30E55D900FA93FCFF" thumbprintAlgorithm="sha1" />
       <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="3A669DBBAB8584EB39DC6414BBA7D068AA4918AC" thumbprintAlgorithm="sha1" />
     </Certificates>
   </Role>
