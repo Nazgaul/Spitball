@@ -42,7 +42,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
 
             var process = m_LifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("downloadXml");
-            await process.ExecuteAsync(0, null, cancellationToken).ConfigureAwait(false);
+            await process.ExecuteAsync(0, (a, b) =>
+            {
+                return Task.CompletedTask;
+
+            }, cancellationToken).ConfigureAwait(false);
             //var msgData = new BoxFileProcessData(70197);
             //var process = m_LifetimeScope.ResolveOptionalNamed<IFileProcess>(msgData.ProcessResolver);
             //var t =  await process.ExecuteAsync(msgData, cancellationToken).ConfigureAwait(false);

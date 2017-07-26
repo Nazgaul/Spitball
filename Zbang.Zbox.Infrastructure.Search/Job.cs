@@ -31,6 +31,6 @@ namespace Zbang.Zbox.Infrastructure.Search
         public GeographyPoint Location { get; set; }
 
         [IsFilterable]
-        public DateTime InsertDate { get; set; }
+        public DateTime? InsertDate { get; set; }
     }
 }

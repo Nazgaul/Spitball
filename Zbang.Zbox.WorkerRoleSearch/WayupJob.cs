@@ -14,6 +14,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
     [XmlRoot("job", Namespace = "", IsNullable = false)]
    public  class WayUpJob
     {
+
+        public string Id { get; set; }
+
         [XmlElement("title")]
         public string Title { get; set; }
 

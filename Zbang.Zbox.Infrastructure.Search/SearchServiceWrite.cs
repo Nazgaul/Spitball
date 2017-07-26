@@ -13,7 +13,7 @@ namespace Zbang.Zbox.Infrastructure.Search
     {
 
         private readonly ISearchConnection m_Connection;
-        private readonly ISearchIndexClient m_IndexClient;
+        protected readonly ISearchIndexClient m_IndexClient;
         private readonly string m_IndexName;
 
         protected SearchServiceWrite(ISearchConnection connection, string indexName)
@@ -73,7 +73,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         }
 
-       
+
 
         public abstract Index GetIndexStructure(string indexName);
         public void Start()

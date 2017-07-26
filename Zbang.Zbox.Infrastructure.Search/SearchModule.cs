@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Zbox.Infrastructure.Search
@@ -23,9 +22,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             builder.RegisterType<FlashcardSearchProvider>().As<IFlashcardWriteSearchProvider>().As<IFlashcardReadSearchProvider>().SingleInstance();
             builder.RegisterType<ContentSearchProvider>().As<IContentWriteSearchProvider>().SingleInstance();
             builder.RegisterType<FeedSearchProvider>().As<IFeedWriteSearchProvider>().As<IStartable>().SingleInstance().AutoActivate();
-            builder.RegisterType<JobsProvider>().As<ISearchServiceWrite<Job>>().As<IStartable>().SingleInstance().AutoActivate();
-            //builder.RegisterType<ContentSearchProvider>().Keyed<ISearchReadProvider>(SearchType.Document);
-
+            builder.RegisterType<JobsProvider>().AsSelf().As<ISearchServiceWrite<Job>>().As<IJobsProviderReadService>().As<IStartable>().SingleInstance().AutoActivate();
         }
     }
 }

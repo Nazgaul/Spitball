@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
@@ -25,12 +21,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class UpdateJobs : ISchedulerProcess
     {
-        private readonly ISearchServiceWrite<Job> m_JobSearchService;
+        //private readonly ISearchServiceWrite<Job> m_JobSearchService;
+        private readonly JobsProvider m_JobSearchService;
         private readonly Dictionary<string, GeographyPoint> m_ZipToLocationCache = new Dictionary<string, GeographyPoint>();
         private readonly ILogger m_Logger;
         private readonly ILocalStorageProvider m_LocalStorage;
 
-        public UpdateJobs(ISearchServiceWrite<Job> jobSearchService, ILogger logger, ILocalStorageProvider localStorage)
+        public UpdateJobs(JobsProvider jobSearchService, ILogger logger, ILocalStorageProvider localStorage)
         {
             m_JobSearchService = jobSearchService;
             m_Logger = logger;
@@ -42,6 +39,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public async Task<bool> ExecuteAsync(int index, Func<int, TimeSpan, Task> progressAsync,
             CancellationToken token)
         {
+            if (progressAsync == null) throw new ArgumentNullException(nameof(progressAsync));
             m_Logger.Info("Update jobs starting to work");
             var handler = new HttpClientHandler
             {
@@ -59,41 +57,31 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
                 using (var stream = await result.Content.ReadAsStreamAsync().ConfigureAwait(false))
                 {
-                    locationToSave = await m_LocalStorage.SaveFileToStorageAsync(stream, "jobs.xml", true)
+                    locationToSave = await m_LocalStorage.SaveFileToStorageAsync(stream, "jobs.xml", false)
                         .ConfigureAwait(false);
                 }
             }
             var list = new List<Job>();
             foreach (var job in GetJobs(locationToSave))
             {
-                var dateTimeStr = job.PostedDate.Replace("UTC", string.Empty).Trim();
+                var jobObject = await m_JobSearchService.GetByIdAsync(job.Id, token).ConfigureAwait(false);
 
-                DateTime? dateTime = null;
-                if (DateTimeOffset.TryParse(dateTimeStr, out DateTimeOffset p))
+                if (jobObject == null)
                 {
-                    dateTime = p.DateTime;
+                    jobObject = await CreateJobObjectAsync(job).ConfigureAwait(false);
+
                 }
-
-
-                var location = await GetLocationViaZipAsync(job.Zip).ConfigureAwait(false);
-                var searchJobObject = new Job()
+                else if (jobObject.Location == null && !string.IsNullOrEmpty(job.Zip))
                 {
-                    City = job.City,
-                    CompensationType = job.CompType,
-                    DateTime = dateTime,
-                    Id = Md5HashGenerator.GenerateKey(job),
-                    JobType = job.JobType,
-                    Location = location,
-                    Responsibilities = job.Responsibilities,
-                    State = job.State,
-                    Title = job.Title,
-                    InsertDate = DateTime.UtcNow
-                    
-                };
-                list.Add(searchJobObject);
-
-
-                if (list.Count >= 100)
+                    jobObject = await CreateJobObjectAsync(job).ConfigureAwait(false);
+                }
+                if (jobObject.InsertDate > DateTime.UtcNow.AddDays(-1))
+                {
+                    continue;
+                }
+                jobObject.InsertDate = DateTime.UtcNow;
+                list.Add(jobObject);
+                if (list.Count > 200)
                 {
                     var t1 = m_JobSearchService.UpdateDataAsync(list, token);
 
@@ -116,6 +104,33 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return true;
         }
 
+        private async Task<Job> CreateJobObjectAsync(WayUpJob job)
+        {
+            var dateTimeStr = job.PostedDate.Replace("UTC", string.Empty).Trim();
+
+            DateTime? dateTime = null;
+            if (DateTimeOffset.TryParse(dateTimeStr, out DateTimeOffset p))
+            {
+                dateTime = p.DateTime;
+            }
+
+
+            var location = await GetLocationViaZipAsync(job.Zip).ConfigureAwait(false);
+            var searchJobObject = new Job
+            {
+                City = job.City,
+                CompensationType = job.CompType,
+                DateTime = dateTime,
+                Id = job.Id,
+                JobType = job.JobType,
+                Location = location,
+                Responsibilities = job.Responsibilities,
+                State = job.State,
+                Title = job.Title,
+                InsertDate = DateTime.UtcNow
+            };
+            return searchJobObject;
+        }
 
 
         private async Task<GeographyPoint> GetLocationViaZipAsync(string zip)
@@ -179,6 +194,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                                 var str = el.ToString();
                                 var stringReader = new StringReader(str);
                                 var job = (WayUpJob)serializer.Deserialize(stringReader);
+                                job.Id = Md5HashGenerator.GenerateKey(str);
                                 yield return job;
                             }
                         }
