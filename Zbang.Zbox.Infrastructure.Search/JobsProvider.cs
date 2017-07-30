@@ -57,5 +57,5 @@ namespace Zbang.Zbox.Infrastructure.Search
     {
         Task<Job> GetByIdAsync(string id, CancellationToken token);
     }
-         
+
 }

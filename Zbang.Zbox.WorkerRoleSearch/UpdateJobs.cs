@@ -57,7 +57,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
                 using (var stream = await result.Content.ReadAsStreamAsync().ConfigureAwait(false))
                 {
-                    locationToSave = await m_LocalStorage.SaveFileToStorageAsync(stream, "jobs.xml", false)
+                    locationToSave = await m_LocalStorage.SaveFileToStorageAsync(stream, "jobs.xml", true)
                         .ConfigureAwait(false);
                 }
             }
@@ -75,7 +75,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 {
                     jobObject = await CreateJobObjectAsync(job).ConfigureAwait(false);
                 }
-                if (jobObject.InsertDate > DateTime.UtcNow.AddDays(-1))
+                else if (jobObject.InsertDate > DateTime.UtcNow.AddDays(-1))
                 {
                     continue;
                 }
@@ -184,21 +184,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 reader.MoveToContent();
                 while (reader.Read())
                 {
-                    if (reader.NodeType == XmlNodeType.Element)
-                    {
-                        if (reader.Name == "job")
-                        {
-                            var el = XNode.ReadFrom(reader) as XElement;
-                            if (el != null)
-                            {
-                                var str = el.ToString();
-                                var stringReader = new StringReader(str);
-                                var job = (WayUpJob)serializer.Deserialize(stringReader);
-                                job.Id = Md5HashGenerator.GenerateKey(str);
-                                yield return job;
-                            }
-                        }
-                    }
+                    if (reader.NodeType != XmlNodeType.Element) continue;
+                    if (reader.Name != "job") continue;
+                    if (!(XNode.ReadFrom(reader) is XElement el)) continue;
+                    var str = el.ToString();
+                    var stringReader = new StringReader(str);
+                    var job = (WayUpJob)serializer.Deserialize(stringReader);
+                    job.Id = Md5HashGenerator.GenerateKey(str);
+                    yield return job;
                 }
             }
         }

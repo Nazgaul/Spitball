@@ -65,14 +65,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
             if (page == null)
                 throw new ArgumentNullException(nameof(page));
 
-            
+
             if (m_AllowUriRecrawling || page.IsRetry)
             {
                 InsertToQueue();
             }
             else
             {
-                //var t = m_TempTable.ContainsKey(uri.AbsoluteUri);
                 if (page.Uri.PathAndQuery.ToLowerInvariant().Contains("xml"))
                 {
                     m_TempTable.TryAdd(page.Uri.AbsoluteUri, 0);
@@ -81,7 +80,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 try
                 {
-                    
+
                     var entity = new CrawlerUrlEntity(GetHostMd5(page.Uri), page.Uri.AbsoluteUri)
                     {
                         Url = page.Uri.AbsoluteUri,
@@ -92,7 +91,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (StorageException ex) when (ex.RequestInformation.HttpStatusCode == (int)HttpStatusCode.Conflict)
                 {
-                    
+
                 }
 
 

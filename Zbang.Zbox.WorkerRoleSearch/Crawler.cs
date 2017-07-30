@@ -81,7 +81,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 try
                 {
-                    
+
                     var model = CreateStudySoupNote(crawledPage);
                     var str = JsonConvert.SerializeObject(model);
                     m_BlobProvider.UploadText(model.Id, str);

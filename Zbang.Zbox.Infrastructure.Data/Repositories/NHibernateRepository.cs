@@ -10,9 +10,6 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
 {
     public class NHibernateRepository<T> : IRepository<T> where T : class
     {
-
-
-
         protected ISession Session => UnitOfWork.CurrentSession;
 
         protected virtual ISessionFactory SessionFactory => UnitOfWork.CurrentSession.GetSessionImplementation().Factory;
@@ -76,11 +73,6 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
             return Session.Query<T>();
         }
 
-        //public IQueryable<T> ToList()
-        //{
-        //    return (from entity in Session.Linq<T>() select entity);
-        //}
-
 
         public void Save(System.Collections.Generic.IEnumerable<T> items)
         {
@@ -88,13 +80,8 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
             {
                 Session.Save(item);
             }
-            
         }
 
 
-        //public void Load(object id, T entity)
-        //{
-        //    Session.Load(typeof(T), id, LockMode.Upgrade);
-        //}
     }
 }

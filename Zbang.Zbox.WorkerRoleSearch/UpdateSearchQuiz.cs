@@ -23,10 +23,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IContentWriteSearchProvider m_ContentSearchProvider;
         private readonly IZboxWriteService m_WriteService;
         private readonly IWatsonExtract m_WatsonExtractProvider;
+        private readonly ILogger m_Logger;
 
         public UpdateSearchQuiz(IQuizWriteSearchProvider2 quizSearchProvider, IZboxReadServiceWorkerRole zboxReadService,
             IZboxWorkerRoleService zboxWriteService, IContentWriteSearchProvider contentSearchProvider,
-            IZboxWriteService writeService, IWatsonExtract watsonExtractProvider)
+            IZboxWriteService writeService, IWatsonExtract watsonExtractProvider, ILogger logger)
         {
             m_QuizSearchProvider = quizSearchProvider;
             m_ZboxReadService = zboxReadService;
@@ -34,6 +35,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_ContentSearchProvider = contentSearchProvider;
             m_WriteService = writeService;
             m_WatsonExtractProvider = watsonExtractProvider;
+            m_Logger = logger;
         }
 
         public string Name => nameof(UpdateSearchQuiz);
@@ -41,7 +43,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             var index = RoleIndexProcessor.GetIndex();
             var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
-            TraceLog.WriteWarning("quiz index " + index + " count " + count);
+            m_Logger.Warning("item index " + index + " count " + count);
             while (!cancellationToken.IsCancellationRequested)
             {
                 try
@@ -50,10 +52,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    TraceLog.WriteError(ex);
+                    m_Logger.Exception(ex);
                 }
             }
-            TraceLog.WriteError("On finish run");
+            m_Logger.Error($"{Name} On finish run");
         }
 
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
@@ -65,7 +67,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     await m_ZboxReadService.GetQuizzesDirtyUpdatesAsync(instanceId, instanceCount, top)
                         .ConfigureAwait(false);
                 if (!updates.QuizzesToUpdate.Any() && !updates.QuizzesToDelete.Any()) return TimeToSleep.Increase;
-                TraceLog.WriteInfo($"{Name} is doing process");
                 foreach (var quiz in updates.QuizzesToUpdate.Where( w => w.University !=null && JaredUniversityIdPilot.Contains(w.University.Id)))
                 {
                     await JaredPilotAsync(quiz, cancellationToken).ConfigureAwait(false);
@@ -92,7 +93,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(Name, ex);
+                m_Logger.Exception(ex);
                 return TimeToSleep.Increase;
             }
         }

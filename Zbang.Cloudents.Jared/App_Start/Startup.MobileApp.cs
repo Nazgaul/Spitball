@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Reflection;
 using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
 using Autofac;
 using Autofac.Integration.SignalR;
 using Autofac.Integration.WebApi;
 using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Transports;
 using Microsoft.Azure.Mobile.Server;
 using Microsoft.Azure.Mobile.Server.Authentication;
 using Microsoft.Azure.Mobile.Server.Config;
 using Owin;
 using Zbang.Cloudents.Connect;
 using Zbang.Zbox.Domain.CommandHandlers;
-using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure;
@@ -43,7 +40,7 @@ namespace Zbang.Cloudents.Jared
        //   .AddPushNotifications()                   // from the Notifications package
         .ApplyTo(config);
 
-
+            config.Services.Add(typeof(IExceptionLogger), new AiExceptionLogger());
             MobileAppSettingsDictionary settings = config.GetMobileAppSettingsProvider().GetMobileAppSettings();
 
             if (string.IsNullOrEmpty(settings.HostName))

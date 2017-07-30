@@ -81,7 +81,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         }
 
 
-        
+
 
         public async Task<bool> ExecuteAsync(FileProcess data, CancellationToken token)
         {

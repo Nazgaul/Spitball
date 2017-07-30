@@ -197,35 +197,35 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public string Name => nameof(BlobManagement);
 
 
-        private async Task DeleteStuffAsync(CloudBlobDirectory directory, CancellationToken cancellationToken)
-        {
-            BlobContinuationToken continuationToken = null;
-            do
-            {
-                var resultSegment = await directory.ListBlobsSegmentedAsync(true, BlobListingDetails.None, 100, continuationToken, new BlobRequestOptions(), new OperationContext(), cancellationToken).ConfigureAwait(false);
+        //private async Task DeleteStuffAsync(CloudBlobDirectory directory, CancellationToken cancellationToken)
+        //{
+        //    BlobContinuationToken continuationToken = null;
+        //    do
+        //    {
+        //        var resultSegment = await directory.ListBlobsSegmentedAsync(true, BlobListingDetails.None, 100, continuationToken, new BlobRequestOptions(), new OperationContext(), cancellationToken).ConfigureAwait(false);
 
-                var list = new List<string>();
-                foreach (var blobItem in resultSegment.Results)
-                {
-                    var blockBlob = blobItem as CloudBlockBlob;
-                    if (blockBlob == null)
-                    {
-                        continue;
-                    }
-                    var txt = await blockBlob.DownloadTextAsync(cancellationToken).ConfigureAwait(false);
-                    var model = JsonConvert.DeserializeObject<CrawlModel>(txt);
-                    if (model != null)
-                    {
-                        list.Add(model.Id);
-                    }
+        //        var list = new List<string>();
+        //        foreach (var blobItem in resultSegment.Results)
+        //        {
+        //            var blockBlob = blobItem as CloudBlockBlob;
+        //            if (blockBlob == null)
+        //            {
+        //                continue;
+        //            }
+        //            var txt = await blockBlob.DownloadTextAsync(cancellationToken).ConfigureAwait(false);
+        //            var model = JsonConvert.DeserializeObject<CrawlModel>(txt);
+        //            if (model != null)
+        //            {
+        //                list.Add(model.Id);
+        //            }
 
-                }
-                await m_SearchProvider.DeleteDataAsync(list, cancellationToken).ConfigureAwait(false);
+        //        }
+        //        await m_SearchProvider.DeleteDataAsync(list, cancellationToken).ConfigureAwait(false);
 
-                continuationToken = resultSegment.ContinuationToken;
-            } while (continuationToken != null);
+        //        continuationToken = resultSegment.ContinuationToken;
+        //    } while (continuationToken != null);
 
-        }
+        //}
 
     }
 }

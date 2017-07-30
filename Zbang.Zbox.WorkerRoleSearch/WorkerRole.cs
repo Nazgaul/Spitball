@@ -59,7 +59,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
 
             TelemetryConfiguration.Active.InstrumentationKey = RoleEnvironment.GetConfigurationSettingValue("APPINSIGHTS_INSTRUMENTATIONKEY");
-            
             // Set the maximum number of concurrent connections
             ServicePointManager.DefaultConnectionLimit = 12;
 
@@ -121,7 +120,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             }
 
                             var jobToRestart = m_Jobs.ElementAt(i);
-                            
                             m_Tasks[i] = Task.Run(() => jobToRestart.RunAsync(cancellationToken), cancellationToken);
                         }
                         if (task.IsCompleted)
