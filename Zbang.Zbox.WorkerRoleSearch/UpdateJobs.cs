@@ -57,13 +57,19 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
                 using (var stream = await result.Content.ReadAsStreamAsync().ConfigureAwait(false))
                 {
-                    locationToSave = await m_LocalStorage.SaveFileToStorageAsync(stream, "jobs.xml", true)
+                    locationToSave = await m_LocalStorage.SaveFileToStorageAsync(stream, "jobs.xml", index == 0)
                         .ConfigureAwait(false);
                 }
             }
             var list = new List<Job>();
+            var i = 0;
             foreach (var job in GetJobs(locationToSave))
             {
+                i++;
+                if (i < index)
+                {
+                    continue;
+                }
                 var jobObject = await m_JobSearchService.GetByIdAsync(job.Id, token).ConfigureAwait(false);
 
                 if (jobObject == null)
@@ -84,18 +90,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 if (list.Count > 200)
                 {
                     var t1 = m_JobSearchService.UpdateDataAsync(list, token);
-
-                    var t2 = progressAsync.Invoke(0, TimeSpan.FromMinutes(10));
+                    var t2 = progressAsync.Invoke(i, TimeSpan.FromMinutes(10));
+                    m_Logger.Info("Update jobs finish processing " + i);
 
                     await Task.WhenAll(t1, t2).ConfigureAwait(false);
+                    token.ThrowIfCancellationRequested();
                     list.Clear();
                 }
 
 
             }
-
-
-
             if (list.Count > 0)
             {
                 await m_JobSearchService.UpdateDataAsync(list, token).ConfigureAwait(false);

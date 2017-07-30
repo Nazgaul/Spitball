@@ -15,7 +15,13 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
     public class QueueProvider : IQueueProvider, IQueueProviderExtract
     {
 
+        private readonly ILogger m_Logger;
         private CloudQueueClient m_QueueClient;
+
+        public QueueProvider(ILogger logger)
+        {
+            m_Logger = logger;
+        }
 
         private const int MaxQueuePopLimit = 32;
 
@@ -86,11 +92,21 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
                 }
                 catch (StorageException ex)
                 {
-                    TraceLog.WriteError("Queue: " + queue.Name + " run " + msg.Id + " DeQueue count: " + msg.DequeueCount, ex);
+                    m_Logger.Exception(ex, new Dictionary<string, string>
+                    {
+                        {"Queue", queue.Name},
+                        {"MessageId", msg.Id},
+                        {"DeQueue", msg.DequeueCount.ToString()}
+                    });
                 }
                 catch (Exception ex)
                 {
-                    TraceLog.WriteError("Queue: " + queue.Name + " run " + msg.Id + " DeQueue count: " + msg.DequeueCount, ex);
+                    m_Logger.Exception(ex, new Dictionary<string, string>
+                    {
+                        {"Queue", queue.Name},
+                        {"MessageId", msg.Id},
+                        {"DeQueue", msg.DequeueCount.ToString()}
+                    });
                 }
             }
             await Task.WhenAll(listToWait).ConfigureAwait(false);
