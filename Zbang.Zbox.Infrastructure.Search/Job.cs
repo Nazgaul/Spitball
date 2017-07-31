@@ -32,5 +32,12 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         [IsFilterable]
         public DateTime? InsertDate { get; set; }
+
+        public string Url { get; set; }
+
+        public string Company { get; set; }
+
+        [IsFilterable]
+        public string LocationType { get; set; }
     }
 }

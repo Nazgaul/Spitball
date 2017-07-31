@@ -34,7 +34,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             try
             {
-                var t = await m_IndexClient.Documents.GetAsync<Job>(id, cancellationToken: token).ConfigureAwait(false);
+                var t = await IndexClient.Documents.GetAsync<Job>(id, cancellationToken: token).ConfigureAwait(false);
                 return t;
             }
             catch (CloudException ex) when (ex.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -50,6 +50,17 @@ namespace Zbang.Zbox.Infrastructure.Search
                 });
                 return null;
             }
+        }
+
+        public async Task<IEnumerable<string>> GetOldJobsAsync(CancellationToken token)
+        {
+            var parameters = new SearchParameters()
+            {
+                Filter = $"insertDate lt {DateTime.UtcNow.AddDays(-2):yyyy-MM-dd'T'hh:mm:ss'Z'}",
+                Select = new[] { "id" }
+            };
+            var result = await IndexClient.Documents.SearchAsync<Job>("*", parameters, cancellationToken: token).ConfigureAwait(false);
+            return result.Results.Select(s => s.Document.Id);
         }
     }
 

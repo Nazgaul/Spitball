@@ -9,11 +9,11 @@ using Microsoft.Azure.Search.Models;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
-    public abstract class SearchServiceWrite<T> :  IStartable, ISearchServiceWrite<T> where T : class, ISearchObject, new()
+    public abstract class SearchServiceWrite<T> : IDisposable,  IStartable, ISearchServiceWrite<T> where T : class, ISearchObject, new()
     {
 
         private readonly ISearchConnection m_Connection;
-        protected readonly ISearchIndexClient m_IndexClient;
+        protected readonly ISearchIndexClient IndexClient;
         private readonly string m_IndexName;
 
         protected SearchServiceWrite(ISearchConnection connection, string indexName)
@@ -28,38 +28,46 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 m_IndexName = indexName;
             }
-            m_IndexClient = connection.SearchClient.Indexes.GetClient(m_IndexName);
+            IndexClient = connection.SearchClient.Indexes.GetClient(m_IndexName);
         }
 
         public Task UpdateDataAsync(IEnumerable<T> items, CancellationToken token)
         {
             if (items == null) throw new ArgumentNullException(nameof(items));
-            var batch = IndexBatch.MergeOrUpload(items);
-            return m_IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
+            var docs = items as IList<T> ?? items.ToList();
+            if (!docs.Any())
+            {
+                return Task.CompletedTask;
+            }
+            var batch = IndexBatch.MergeOrUpload(docs);
+            return IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
         }
 
         public Task DeleteDataAsync(IEnumerable<string> items, CancellationToken token)
         {
             if (items == null) throw new ArgumentNullException(nameof(items));
-            var batch = IndexBatch.Delete(items.Select(s => new T
+            var docs = items as IList<string> ?? items.ToList();
+            if (!docs.Any())
+            {
+                return Task.CompletedTask;
+            }
+            var batch = IndexBatch.Delete(docs.Select(s => new T
             {
                 Id = s
             }));
-            return m_IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
+            return IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
         }
 
-        public async Task UpdateDataAsync(IEnumerable<T> items, IEnumerable<string> itemsToDelete, CancellationToken token)
+        public Task UpdateDataAsync(IEnumerable<T> items, IEnumerable<string> itemsToDelete, CancellationToken token)
         {
             if (items == null && itemsToDelete == null) throw new ArgumentNullException();
             if (itemsToDelete == null)
             {
-                await UpdateDataAsync(items, token).ConfigureAwait(false);
-                return;
+                return UpdateDataAsync(items, token);
             }
             if (items == null)
             {
-                await DeleteDataAsync(itemsToDelete, token).ConfigureAwait(false);
-                return;
+                return DeleteDataAsync(itemsToDelete, token);
             }
 
             var actions = items.Select(IndexAction.MergeOrUpload).ToList();
@@ -68,8 +76,12 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Id = s
             }));
             actions.AddRange(actionDelete);
-            var batch = IndexBatch.New(actions);
-            await m_IndexClient.Documents.IndexAsync(batch, cancellationToken: token).ConfigureAwait(false);
+            if (actions.Count > 0)
+            {
+                var batch = IndexBatch.New(actions);
+                return IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
+            }
+            return Task.CompletedTask;
 
         }
 
@@ -79,6 +91,11 @@ namespace Zbang.Zbox.Infrastructure.Search
         public void Start()
         {
             m_Connection.SearchClient.Indexes.CreateOrUpdate(GetIndexStructure(m_IndexName));
+        }
+
+        public void Dispose()
+        {
+            IndexClient?.Dispose();
         }
     }
 }

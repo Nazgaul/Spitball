@@ -65,11 +65,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var i = 0;
             foreach (var job in GetJobs(locationToSave))
             {
-                i++;
                 if (i < index)
                 {
                     continue;
                 }
+                i++;
                 var jobObject = await m_JobSearchService.GetByIdAsync(job.Id, token).ConfigureAwait(false);
 
                 if (jobObject == null)
@@ -87,7 +87,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 jobObject.InsertDate = DateTime.UtcNow;
                 list.Add(jobObject);
-                if (list.Count > 200)
+                if (list.Count > 100)
                 {
                     var t1 = m_JobSearchService.UpdateDataAsync(list, token);
                     var t2 = progressAsync.Invoke(i, TimeSpan.FromMinutes(10));
@@ -104,6 +104,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 await m_JobSearchService.UpdateDataAsync(list, token).ConfigureAwait(false);
             }
+            m_Logger.Info("Update jobs Going To delete old jobs");
+            var oldJobs = await m_JobSearchService.GetOldJobsAsync(token).ConfigureAwait(false);
+
+            await m_JobSearchService.DeleteDataAsync(oldJobs, token).ConfigureAwait(false);
             m_Logger.Info("Update jobs finish to work");
             return true;
         }
@@ -131,7 +135,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 Responsibilities = job.Responsibilities,
                 State = job.State,
                 Title = job.Title,
-                InsertDate = DateTime.UtcNow
+                InsertDate = DateTime.UtcNow,
+                Url = job.Url,
+                Company = job.Company,
+                LocationType = job.LocationType
             };
             return searchJobObject;
         }
