@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -77,12 +76,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 m_Logger.Warning($"Page had no content {crawledPage.Uri.AbsoluteUri}");
                 return;
             }
-            if (crawledPage.Uri.Authority.Equals("studysoup.com"))
+            //Create dictionary of Authority and related create model function
+            var validAuth = new Dictionary<string,string>() { { "studysoup.com", "CreateStudySoupNote"},
+                { "www.khanacademy.org", "CreateKhananNote"} };
+            if (validAuth.TryGetValue(crawledPage.Uri.Authority,out string modelFunction))
             {
                 try
-                {
-
-                    var model = CreateStudySoupNote(crawledPage);
+                {                   
+                    CrawlModel model = (CrawlModel)GetType().GetMethod(modelFunction,System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic).Invoke(null, new[] { crawledPage });
                     var str = JsonConvert.SerializeObject(model);
                     m_BlobProvider.UploadText(model.Id, str);
                     m_DocumentDbRepository.CreateItemAsync(model).Wait();
@@ -142,6 +143,31 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public string Name => nameof(Crawler);
 
+        //Khanan Academy crawler
+        private static CrawlModel CreateKhananNote(CrawledPage page)
+        {
+            var invalidCdnUrl = "https://cdn.kastatic.org/googleusercontent/K5bzbA067FpSFjs7VuTCAEosuCGLm4NfxQbq_tYtpMHIyB5j-nirP_Pdy8XXrmoARE3_2TBnGafYaRTsSiFt4iw";
+            var doc = page.AngleSharpHtmlDocument;
+            var metaDescription = doc.QuerySelector<IHtmlMetaElement>("meta[name=description]")?.Content?.Trim();
+            var metaImage = doc.QuerySelector("[rel=image_src]")?.GetAttribute("href") ??
+                doc.QuerySelector<IHtmlMetaElement>("meta[name=thumbnail]")?.Content?.Trim() ??
+                doc.QuerySelector("[role=tabpanel] .fixed-to-responsive img")?.GetAttribute("src") ??
+                doc.QuerySelector<IHtmlMetaElement>("meta[property='og:image']")?.Content?.Trim();
+            var metaKeyword = doc.QuerySelector<IHtmlMetaElement>("meta[name=keywords]")?.Content?.Trim().Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
+            var tags = doc.QuerySelector<IHtmlMetaElement>("meta[name='sailthru.tags']")?.Content?.Trim().Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
+            //Check if the image is cdn not exist change to default
+            if (!string.IsNullOrEmpty(metaImage) && metaImage.Equals(invalidCdnUrl))
+            {
+                metaImage = doc.QuerySelector<IHtmlMetaElement>("meta[property='og:image']")?.Content?.Trim();
+            }
+            var content = doc.QuerySelector(".perseus-renderer")?.Text()?.Trim() ?? doc.QuerySelector(".task-container:not([itemtype*=Video]),[class^=tabContent]")?.Text()?.Trim() ??
+                doc.QuerySelector("[class^=description],[class^=module]")?.TextContent?.Trim();
+            //split in case lowerCase close to UpperCase
+            if (!string.IsNullOrEmpty(content)) content = Regex.Replace(content, @"([a-z])([A-Z])", "$1 $2");
+
+            return new CrawlModel(page.Uri.AbsoluteUri, doc.Title, content, null, null,
+               tags, null, null, metaDescription, metaImage, metaKeyword, page.Uri.Host, Md5HashGenerator.GenerateKey(page.Uri.AbsoluteUri), Infrastructure.Enums.ItemType.Document);
+        }
 
         private static CrawlModel CreateStudySoupNote(CrawledPage page)
         {
@@ -164,6 +190,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var metaImage = angleSharpHtmlDocument.QuerySelector<IHtmlMetaElement>("meta[property='og:image']")?.Content?.Trim();
             string university = null, course = null, content = null;
             string[] tags = { };
+            var type = Infrastructure.Enums.ItemType.Document;
             var allHeaders = angleSharpHtmlDocument.QuerySelectorAll(".small-padding-bottom.detail-box h5");
             DateTime? createDate = null;
             //Init the extra data details according what exist
@@ -186,10 +213,20 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             if (!page.Uri.AbsolutePath.StartsWith("/flashcard"))
             {
-                content = angleSharpHtmlDocument.QuerySelector("#material_text")?.Text()?.Trim();
+                var contentSplit = angleSharpHtmlDocument.QuerySelector("#material_text")?.TextContent?.Split('\n');
+                content = contentSplit.Length>3? contentSplit[2]?.Trim(): contentSplit[0]?.Trim();
+
+                //Improve default image if possible
+                var firstPageImg = angleSharpHtmlDocument.QuerySelector(".page_number_1");
+                if (firstPageImg != null)
+                {
+                    var index = firstPageImg.GetAttribute("style").IndexOf("url(");
+                    metaImage = firstPageImg.OuterHtml.Substring(index + "url(".Length).Split(')')[0];
+                }
             }
             else
             {
+                type = Infrastructure.Enums.ItemType.Flashcard;
                 var spaceReg = new Regex(@"\s+", RegexOptions.Compiled);
                 //Remove the cards front back headers from the text
                 var slides = angleSharpHtmlDocument.QuerySelectorAll<IHtmlDivElement>("#preview>div:first-child .row");
@@ -214,29 +251,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 //}
             }
             return new CrawlModel(page.Uri.AbsoluteUri, angleSharpHtmlDocument.Title, content, university, course,
-                tags, createDate, views, metaDescription, metaImage, metaKeyword, page.Uri.Host, Md5HashGenerator.GenerateKey(page.Uri.AbsoluteUri));
+                tags, createDate, views, metaDescription, metaImage, metaKeyword, page.Uri.Host, Md5HashGenerator.GenerateKey(page.Uri.AbsoluteUri),type);
 
         }
-
-
-        //public static string CalculateMd5Hash(string input)
-
-        //{
-        //    // step 1, calculate MD5 hash from input
-        //    using (var md5 = MD5.Create())
-        //    {
-        //        var inputBytes = Encoding.ASCII.GetBytes(input);
-        //        var hash = md5.ComputeHash(inputBytes);
-        //        // step 2, convert byte array to hex string
-        //        var sb = new StringBuilder();
-        //        foreach (var t in hash)
-        //        {
-        //            sb.Append(t.ToString("X2"));
-        //        }
-        //        return sb.ToString();
-        //    }
-
-        //}
 
         public void Dispose()
         {

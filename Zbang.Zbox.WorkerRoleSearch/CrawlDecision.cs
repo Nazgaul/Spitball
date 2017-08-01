@@ -50,6 +50,29 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 return new CrawlDecision { Allow = false, Reason = "Not Part of studysoup white list" };
             }
+            else if (pageToCrawl.Uri.Authority.Equals("www.khanacademy.org"))
+            {
+                var segments = pageToCrawl.Uri.Segments;
+
+                if (segments.Length < 4)
+                {
+                    return new CrawlDecision { Allow = false, Reason = "Not Part of Khanan academy white list" };
+                }
+                var absPath = segments[1].ToLowerInvariant().Replace("/", string.Empty);
+                var secondSeg = segments[2].ToLowerInvariant();
+                //Ignore math of high-school class
+                var mathSchool = secondSeg.StartsWith("cc-") || secondSeg.Contains("-grade") || secondSeg.Contains("engageny") || secondSeg.Contains("-engage-");
+                var whiteList = new[] { "math", "science", "computing", "humanities", "economics-finance-domain" };
+                //Validate whitelist and math sub units is not regarding school
+                if (whiteList.Contains(absPath) && (!absPath.Equals("math") || !mathSchool))
+                {
+                    return base.ShouldCrawlPage(pageToCrawl, crawlContext);
+                }
+                else
+                {
+                    return new CrawlDecision { Allow = false, Reason = "Not Part of Khanan white list" };
+                }
+            }
             return base.ShouldCrawlPage(pageToCrawl, crawlContext);
         }
 
