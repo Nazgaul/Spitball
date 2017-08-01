@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Text;
+using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Query;
 
 namespace Zbang.Zbox.ViewModel.Queries.Search
@@ -50,7 +51,7 @@ namespace Zbang.Zbox.ViewModel.Queries.Search
             return UniversityId.ToString(CultureInfo.InvariantCulture);
         }
 
-        public virtual string CacheRegion => "search";
+        public virtual CacheRegions CacheRegion => CacheRegions.Search;
 
         public System.TimeSpan Expiration => System.TimeSpan.FromMinutes(20);
     }

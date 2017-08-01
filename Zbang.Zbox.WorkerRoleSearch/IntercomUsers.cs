@@ -33,7 +33,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
                     throw new JsonReaderException($"Expected integer, got {reader.Value}");
                 }
-                throw new JsonReaderException($"Unexcepted token {reader.TokenType}");
+                throw new JsonReaderException($"UnExcepted token {reader.TokenType}");
             }
 
             public override bool CanConvert(Type objectType)

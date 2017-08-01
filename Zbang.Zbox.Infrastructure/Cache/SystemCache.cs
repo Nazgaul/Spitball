@@ -25,9 +25,11 @@ namespace Zbang.Zbox.Infrastructure.Cache
         private readonly bool m_IsHttpCacheAvailable = HttpContext.Current != null;
         private readonly bool m_CacheExists;
 
+        private readonly ILogger m_Logger;
 
-        public SystemCache()
+        public SystemCache(ILogger logger)
         {
+            m_Logger = logger;
             //try
             //{
             var domain = Assembly.Load("Zbang.Zbox.Domain");
@@ -38,9 +40,8 @@ namespace Zbang.Zbox.Infrastructure.Cache
             m_CacheExists = m_IsRedisCacheAvailable || m_IsHttpCacheAvailable;
         }
 
-        
 
-        public Task AddToCacheAsync<T>(string region, string key, T value, TimeSpan expiration) where T : class
+        public Task AddToCacheAsync<T>(CacheRegions region, string key, T value, TimeSpan expiration) where T : class
         {
             try
             {
@@ -57,18 +58,18 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 }
                 var db = Connection.GetDatabase();
 
-                var t1 = db.StringAppendAsync(region, cacheKey + ";", CommandFlags.FireAndForget);
+                var t1 = db.StringAppendAsync(region.Region, cacheKey + ";", CommandFlags.FireAndForget);
                 var t2 = db.SetAsync(cacheKey, value, expiration);
                 return Task.WhenAll(t1, t2);
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError($"AddToCacheAsync key {key}", ex);
+                m_Logger.Exception(ex);
                 return Task.FromResult(false);
             }
         }
 
-        public void AddToCache<T>(string region, string key, T value, TimeSpan expiration) where T : class
+        public void AddToCache<T>(CacheRegions region, string key, T value, TimeSpan expiration) where T : class
         {
             try
             {
@@ -85,26 +86,30 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 }
                 var db = Connection.GetDatabase();
 
-                db.StringAppend(region, cacheKey + ";", CommandFlags.FireAndForget);
+                db.StringAppend(region.Region, cacheKey + ";", CommandFlags.FireAndForget);
                 db.Set(cacheKey, value, expiration);
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError($"AddToCacheAsync key {key}", ex);
+                m_Logger.Exception(ex);
             }
         }
 
 
 
-        private string BuildCacheKey(string region, string key)
+        private string BuildCacheKey(CacheRegions region, string key)
         {
-            var newKey = $"{region}_{m_CachePrefix}_{key}";
+            if (region.SuppressVersion)
+            {
+                return $"{region.Region}_{key}";
+            }
+            var newKey = $"{region.Region}_{m_CachePrefix}_{key}";
             return newKey;
         }
 
 
 
-        public async Task RemoveFromCacheAsync(string region)
+        public async Task RemoveFromCacheAsync(CacheRegions region)
         {
             if (!m_CacheExists)
             {
@@ -121,10 +126,10 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 return;
             }
             var db = Connection.GetDatabase();
-            string keys = await db.StringGetAsync(region).ConfigureAwait(false);
+            string keys = await db.StringGetAsync(region.Region).ConfigureAwait(false);
             if (keys == null)
             {
-                await db.KeyDeleteAsync(region, CommandFlags.FireAndForget).ConfigureAwait(false);
+                await db.KeyDeleteAsync(region.Region, CommandFlags.FireAndForget).ConfigureAwait(false);
                 return;
             }
             var taskList = new List<Task>();
@@ -132,12 +137,12 @@ namespace Zbang.Zbox.Infrastructure.Cache
             {
                 taskList.Add(db.KeyDeleteAsync(key, CommandFlags.FireAndForget));
             }
-            taskList.Add(db.KeyDeleteAsync(region, CommandFlags.FireAndForget));
+            taskList.Add(db.KeyDeleteAsync(region.Region, CommandFlags.FireAndForget));
             await Task.WhenAll(taskList).ConfigureAwait(false);
 
         }
 
-        public Task RemoveFromCacheAsyncSlowAsync(string region)
+        public Task RemoveFromCacheAsyncSlowAsync(CacheRegions region)
         {
             var server = Connection.GetServer(Connection.GetEndPoints().FirstOrDefault());
             var keys = server.Keys(0, region + "*");
@@ -150,7 +155,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             return Task.WhenAll(taskList);
         }
 
-        public async Task<T> GetFromCacheAsync<T>(string region, string key) where T : class
+        public async Task<T> GetFromCacheAsync<T>(CacheRegions region, string key) where T : class
         {
             if (!m_CacheExists)
             {
@@ -164,26 +169,26 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
 
                 var cache = Connection.GetDatabase();
-
+                
                 var t = await cache.GetAsync<T>(cacheKey).ConfigureAwait(false);
 
                 if (t != default(T))
                 {
-                    await cache.StringAppendAsync(region, cacheKey + ";", CommandFlags.FireAndForget).ConfigureAwait(false);
+                    await cache.StringAppendAsync(region.Region, cacheKey + ";", CommandFlags.FireAndForget).ConfigureAwait(false);
                 }
 
                 return t;
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError($"GetFromCacheAsync key {key}", ex);
+                m_Logger.Exception(ex);
                 return null;
             }
 
         }
 
 
-        public T GetFromCache<T>(string region, string key) where T : class
+        public T GetFromCache<T>(CacheRegions region, string key) where T : class
         {
             if (!m_CacheExists)
             {
@@ -201,13 +206,13 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 var t = cache.Get<T>(cacheKey);
                 if (t != default(T))
                 {
-                    cache.StringAppend(region, cacheKey + ";", CommandFlags.FireAndForget);
+                    cache.StringAppend(region.Region, cacheKey + ";", CommandFlags.FireAndForget);
                 }
                 return t;
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError($"GetFromCacheAsync key {key}", ex);
+                m_Logger.Exception(ex);
                 return null;
             }
 

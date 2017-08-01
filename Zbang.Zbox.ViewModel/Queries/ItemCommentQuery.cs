@@ -13,7 +13,7 @@ namespace Zbang.Zbox.ViewModel.Queries
 
         public long ItemId { get; }
         public string CacheKey => "x";
-        public string CacheRegion => CacheRegions.BuildItemCommentRegion(ItemId);
+        public CacheRegions CacheRegion => CacheRegions.BuildItemCommentRegion(ItemId);
         public TimeSpan Expiration => TimeSpan.FromDays(1);
     }
 }

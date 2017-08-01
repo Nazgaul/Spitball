@@ -4,34 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Autofac;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
-using Microsoft.Rest.Azure;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
-    public class JobsProvider : SearchServiceWrite<Job>, IJobsProviderReadService
+   public  class TutorProvider : SearchServiceWrite<Tutor>
     {
-        public JobsProvider(ISearchConnection connection, ILogger logger)
-            : base(connection, "jobs", logger)
+        public TutorProvider(ISearchConnection connection, ILogger logger) : base(connection,"tutors", logger)
         {
             
         }
-        
 
         public override Index GetIndexStructure(string indexName)
         {
             var definition = new Index
             {
                 Name = indexName,
-                Fields = FieldBuilder.BuildForType<Job>()
+                Fields = FieldBuilder.BuildForType<Tutor>()
             };
             return definition;
         }
 
-        public async Task<IEnumerable<string>> GetOldJobsAsync(CancellationToken token)
+        public async Task<IEnumerable<string>> GetOldTutorsAsync(CancellationToken token)
         {
             var parameters = new SearchParameters()
             {
@@ -42,10 +38,4 @@ namespace Zbang.Zbox.Infrastructure.Search
             return result.Results.Select(s => s.Document.Id);
         }
     }
-
-    public interface IJobsProviderReadService
-    {
-        Task<Job> GetByIdAsync(string id, CancellationToken token);
-    }
-
 }

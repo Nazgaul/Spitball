@@ -13,7 +13,7 @@ namespace Zbang.Zbox.ViewModel.Queries.Dashboard
 
         public string CacheKey => UniversityId.ToString();
 
-        public string CacheRegion => CacheRegions.UniversityRegion;
+        public CacheRegions CacheRegion => CacheRegions.University;
 
         public System.TimeSpan Expiration => System.TimeSpan.FromHours(6);
     }

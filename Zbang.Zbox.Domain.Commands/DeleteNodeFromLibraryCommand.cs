@@ -14,6 +14,6 @@ namespace Zbang.Zbox.Domain.Commands
 
         public Guid NodeId { get; private set; }
         public long UniversityId { get; }
-        public string CacheRegion => CacheRegions.BuildNodesRegion(UniversityId);
+        public CacheRegions CacheRegion => CacheRegions.BuildNodesRegion(UniversityId);
     }
 }

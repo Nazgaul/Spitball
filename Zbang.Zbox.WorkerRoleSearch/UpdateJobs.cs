@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -9,8 +8,6 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using Microsoft.Spatial;
-using Newtonsoft.Json.Linq;
 using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -23,15 +20,17 @@ namespace Zbang.Zbox.WorkerRoleSearch
     {
         //private readonly ISearchServiceWrite<Job> m_JobSearchService;
         private readonly JobsProvider m_JobSearchService;
-        private readonly Dictionary<string, GeographyPoint> m_ZipToLocationCache = new Dictionary<string, GeographyPoint>();
         private readonly ILogger m_Logger;
         private readonly ILocalStorageProvider m_LocalStorage;
+        private readonly IZipToLocationProvider m_ZipToLocation;
 
-        public UpdateJobs(JobsProvider jobSearchService, ILogger logger, ILocalStorageProvider localStorage)
+        public UpdateJobs(JobsProvider jobSearchService, ILogger logger,
+            ILocalStorageProvider localStorage, IZipToLocationProvider zipToLocation)
         {
             m_JobSearchService = jobSearchService;
             m_Logger = logger;
             m_LocalStorage = localStorage;
+            m_ZipToLocation = zipToLocation;
         }
 
 
@@ -123,7 +122,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
 
 
-            var location = await GetLocationViaZipAsync(job.Zip).ConfigureAwait(false);
+            var location = await m_ZipToLocation.GetLocationViaZipAsync(job.Zip).ConfigureAwait(false);
             var searchJobObject = new Job
             {
                 City = job.City,
@@ -144,47 +143,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         }
 
 
-        private async Task<GeographyPoint> GetLocationViaZipAsync(string zip)
-        {
-            if (string.IsNullOrEmpty(zip))
-            {
-                return null;
-            }
-            if (m_ZipToLocationCache.TryGetValue(zip, out GeographyPoint point))
-            {
-                return point;
-            }
-            using (var client = new HttpClient())
-            {
-                try
-                {
-                    var str = await client.GetStringAsync(
-                        "https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyC7lF3qKA4N8Ej6ycTEIB08h8rWUlKqPKY&components=postal_code:" +
-                        zip).ConfigureAwait(false);
-                    var jsonObject = JObject.Parse(str);
-                    if (jsonObject["status"].Value<string>() != "OK")
-                    {
-                        return null;
-                    }
-                    var location = jsonObject["results"].ToArray()[0]["geometry"]["location"];
-                    var lat = location["lat"].Value<double>();
-                    var lng = location["lng"].Value<double>();
-                    point = GeographyPoint.Create(lat, lng);
-                    m_ZipToLocationCache[zip] = point;
-                    return point;
-                }
-                catch (Exception ex)
-                {
-                    m_Logger.Exception(ex, new Dictionary<string, string>
-                    {
-                        {"service", "Jobs"},
-                        {"zip", zip}
-                    });
-                    return null;
-                }
-
-            }
-        }
+       
 
         private IEnumerable<WayUpJob> GetJobs(string location)
         {
