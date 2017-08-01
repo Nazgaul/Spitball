@@ -139,8 +139,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
             }
 
-            model.Content = model.Content?.Remove(0, 22).Trim();
-
             var language = await m_WatsonExtractProvider
                 .GetLanguageAsync(model.Content, cancellationToken)
                 .ConfigureAwait(false);
