@@ -16,6 +16,6 @@ namespace Zbang.Zbox.Domain.Commands
         public long UserId { get; set; }
 
         public long ItemId { get; private set; }
-        public string CacheRegion => CacheRegions.BuildItemCommentRegion(ItemId);
+        public CacheRegions CacheRegion => CacheRegions.BuildItemCommentRegion(ItemId);
     }
 }

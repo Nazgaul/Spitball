@@ -14,11 +14,13 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
         private readonly IMailComponent m_MailComponent;
         private readonly ISendPush m_SendPush;
         private readonly IJaredPushNotification m_JaredPush;
-        public Message2(IMailComponent mailComponent, ISendPush sendPush, IJaredPushNotification jaredPush)
+        private readonly ILogger m_Logger;
+        public Message2(IMailComponent mailComponent, ISendPush sendPush, IJaredPushNotification jaredPush, ILogger logger)
         {
             m_MailComponent = mailComponent;
             m_SendPush = sendPush;
             m_JaredPush = jaredPush;
+            m_Logger = logger;
         }
 
         public async Task<bool> ExecuteAsync(BaseMailData data, CancellationToken token)
@@ -60,7 +62,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             }
             catch (AggregateException ae)
             {
-                TraceLog.WriteError("on message", ae.Flatten());
+                m_Logger.Exception(ae.Flatten());
                 return t1.IsCompleted || t2.IsCompleted;
             }
             return true;

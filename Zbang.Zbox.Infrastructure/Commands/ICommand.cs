@@ -1,4 +1,6 @@
 ﻿
+using Zbang.Zbox.Infrastructure.Cache;
+
 namespace Zbang.Zbox.Infrastructure.Commands
 {
     public interface ICommand
@@ -7,13 +9,13 @@ namespace Zbang.Zbox.Infrastructure.Commands
 
     public interface ICommandCache
     {
-        string CacheRegion { get; }
+        CacheRegions CacheRegion { get; }
     }
 
-    public interface ICommandShare
-    {
-        bool NeedShare { get; }
-    }
+    //public interface ICommandShare
+    //{
+    //    bool NeedShare { get; }
+    //}
 
     public interface ICommandAsync : ICommand 
     { }

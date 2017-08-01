@@ -9,9 +9,8 @@ namespace Zbang.Zbox.Domain.Commands
         public AddNodeToLibraryCommand(string name, long universityId , Guid? parentId, long userId)
         {
             UserId = userId;
-            if (name == null) throw new ArgumentNullException(nameof(name));
 
-            Name = name;
+            Name = name ?? throw new ArgumentNullException(nameof(name));
             UniversityId = universityId;
             ParentId = parentId;
         }
@@ -22,6 +21,6 @@ namespace Zbang.Zbox.Domain.Commands
 
 
         public Guid Id { get; set; }
-        public string CacheRegion => CacheRegions.BuildNodesRegion(UniversityId);
+        public CacheRegions CacheRegion => CacheRegions.BuildNodesRegion(UniversityId);
     }
 }

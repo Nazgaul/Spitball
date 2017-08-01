@@ -1,4 +1,6 @@
-﻿namespace Zbang.Zbox.ViewModel.Queries.Search
+﻿using Zbang.Zbox.Infrastructure.Cache;
+
+namespace Zbang.Zbox.ViewModel.Queries.Search
 {
     public class SearchQueryMobile : SearchQuery
     {
@@ -11,7 +13,7 @@
 
         public override string CacheKey => GetUniversityId();
 
-        public override string CacheRegion => "searchMobile";
+        public override CacheRegions CacheRegion => CacheRegions.SearchMobile;
     }
 
     public class SearchItemInBox

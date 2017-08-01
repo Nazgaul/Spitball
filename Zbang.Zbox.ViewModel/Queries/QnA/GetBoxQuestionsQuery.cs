@@ -28,7 +28,7 @@ namespace Zbang.Zbox.ViewModel.Queries.QnA
 
         public const int TopOfReplies = 4;
         public string CacheKey => $"{Top}_{Skip}";
-        public string CacheRegion => CacheRegions.BuildFeedRegion(BoxId);
+        public CacheRegions CacheRegion => CacheRegions.BuildFeedRegion(BoxId);
         public TimeSpan Expiration => TimeSpan.FromMinutes(30);
     }
 }

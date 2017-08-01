@@ -41,7 +41,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public async Task RunAsync(CancellationToken cancellationToken)
         {
 
-            var process = m_LifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("downloadXml");
+            var process = m_LifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("downloadTutor");
             await process.ExecuteAsync(0, (a, b) =>
             {
                 return Task.CompletedTask;
@@ -54,7 +54,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //await RemoveDuplicatesFilesAsync().ConfigureAwait(false);
            // await Md5ProcessAsync(cancellationToken).ConfigureAwait(false);
 
-            TraceLog.WriteInfo("one time job stop to work");
         }
 
         private async Task RemoveDuplicatesFilesAsync()
@@ -63,7 +62,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             while ((documents = (await m_ZboxReadService.GetDuplicateDocumentsAsync().ConfigureAwait(false)).ToList())
                 .Any())
             {
-                TraceLog.WriteInfo($"md5 duplicates {string.Join(",", documents)}");
                 foreach (var document in documents.Skip(1))
                 {
                     var deleteItemCommand = new DeleteItemCommand(document.Item1, 1);
@@ -79,7 +77,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             while ((documents = (await m_ZboxReadService.GetDocumentsWithoutMd5Async(lastId).ConfigureAwait(false)).ToList())
                 .Any())
             {
-                TraceLog.WriteInfo($"one time job process batch {string.Join(",", documents.Select(s => s.Item1))}");
                 if (cancellationToken.IsCancellationRequested)
                 {
                     break;
@@ -110,7 +107,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             {{"section", "md5"}, {"itemId", document.Item1.ToString()}};
 
                         telemetry.TrackException(ex, properties);
-                        TraceLog.WriteError($"error md5 item Id : {document.Item1}", ex);
                     }
                 }
             }

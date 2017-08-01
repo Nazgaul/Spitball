@@ -1,4 +1,5 @@
 ﻿using System;
+using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Query;
 
 namespace Zbang.Zbox.ViewModel.Queries
@@ -19,7 +20,7 @@ namespace Zbang.Zbox.ViewModel.Queries
         public string Country { get; }
 
         public string CacheKey => $"uni{UniversityId.GetValueOrDefault(-1)}country{Country}";
-        public string CacheRegion => "boxesHomePage";
+        public CacheRegions CacheRegion => CacheRegions.HomePage;
         public TimeSpan Expiration => TimeSpan.FromDays(1);
     }
 }

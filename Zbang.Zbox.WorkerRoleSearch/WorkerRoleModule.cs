@@ -39,6 +39,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             builder.RegisterType<DeleteOldStuff>().Named<ISchedulerProcess>("deleteOld");
             builder.RegisterType<UpdateJobs>().Named<ISchedulerProcess>("downloadXml");
+            builder.RegisterType<UpdateTutors>().Named<ISchedulerProcess>("downloadTutor");
 
             var arrayOfUtcOffset = new[] { 0, 3, -5, -4, -6 };
             foreach (var i in arrayOfUtcOffset)
@@ -86,6 +87,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             builder.RegisterType<UpdateSearchBox>().Named<IFileProcess>(nameof(BoxProcessData));
 
             builder.RegisterType<TelemetryLogger>().As<ILogger>();
+            builder.RegisterType<ZipToLocationProvider>().As<IZipToLocationProvider>().SingleInstance();
             base.Load(builder);
         }
     }

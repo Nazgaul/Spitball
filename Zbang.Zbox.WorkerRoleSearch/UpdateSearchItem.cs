@@ -60,7 +60,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var index = RoleIndexProcessor.GetIndex();
             var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
             m_Logger.Warning("item index " + index + " count " + count);
-            //TraceLog.WriteWarning("item index " + index + " count " + count);
 
             while (!cancellationToken.IsCancellationRequested)
             {

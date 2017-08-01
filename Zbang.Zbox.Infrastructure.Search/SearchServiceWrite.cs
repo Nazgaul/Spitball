@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Autofac;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
+using Microsoft.Rest.Azure;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
@@ -15,19 +17,13 @@ namespace Zbang.Zbox.Infrastructure.Search
         private readonly ISearchConnection m_Connection;
         protected readonly ISearchIndexClient IndexClient;
         private readonly string m_IndexName;
+        protected readonly ILogger Logger;
 
-        protected SearchServiceWrite(ISearchConnection connection, string indexName)
+        protected SearchServiceWrite(ISearchConnection connection, string indexName, ILogger logger)
         {
             m_Connection = connection;
-            if (m_Connection.IsDevelop)
-            {
-
-                m_IndexName = indexName + "-dev";
-            }
-            else
-            {
-                m_IndexName = indexName;
-            }
+            Logger = logger;
+            m_IndexName = m_Connection.IsDevelop ? indexName + "-dev" : indexName;
             IndexClient = connection.SearchClient.Indexes.GetClient(m_IndexName);
         }
 
@@ -85,7 +81,27 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         }
 
-
+        public async Task<T> GetByIdAsync(string id, CancellationToken token)
+        {
+            try
+            {
+                var t = await IndexClient.Documents.GetAsync<T>(id, cancellationToken: token).ConfigureAwait(false);
+                return t;
+            }
+            catch (CloudException ex) when (ex.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(ex, new Dictionary<string, string>
+                {
+                    {"service", nameof(JobsProvider)},
+                    {"id", id}
+                });
+                return null;
+            }
+        }
 
         public abstract Index GetIndexStructure(string indexName);
         public void Start()

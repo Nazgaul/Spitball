@@ -40,36 +40,8 @@ namespace Zbang.Cloudents.Jared.Controllers
         {
             var retVal = await m_ZboxReadService.OnlineUsersByClassAsync(new GetBoxIdQuery(boxId)).ConfigureAwait(false);
             return Request.CreateResponse(retVal);
-
-            //var model = await m_ZboxReadService.GetUsersConversationAndFriendsAsync(new GetUserConversationAndFriends(User.GetUserId(), universityId, q, page, sizePerPage)).ConfigureAwait(false);
-            //return Request.CreateResponse(model.Select(s => new
-            //{
-            //    s.Conversation,
-            //    s.Id,
-            //    s.Image,
-            //    s.LastSeen,
-            //    s.Name,
-            //    s.Online,
-            //    s.Unread
-            //}));
         }
 
-        //[Route("api/chat")]
-        //[HttpGet]
-        //public async Task<HttpResponseMessage> ChatRoomAsync(string q, int page = 0, int sizePerPage = 30)
-        //{
-        //    var model = await m_ZboxReadService.GetUsersConversationAndFriendsAsync(new GetUserConversationAndFriends(User.GetUserId(), User.GetUniversityId().Value, q, page, sizePerPage));
-        //    return Request.CreateResponse(model.Select(s => new
-        //    {
-        //        s.Conversation,
-        //        s.Id,
-        //        s.Image,
-        //        s.LastSeen,
-        //        s.Name,
-        //        s.Online,
-        //        s.Unread
-        //    }));
-        //}
 
         [Route("api/chat/message")]
         [Authorize]
@@ -89,7 +61,7 @@ namespace Zbang.Cloudents.Jared.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route("api/chat/markread")]
+        [Route("api/chat/markRead")]
         public HttpResponseMessage MarkRead(MarkReadRequest request)
         {
             var command = new ChatMarkAsReadCommand(User.GetUserId(), request.ChatRoom);

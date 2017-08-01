@@ -26,6 +26,6 @@ namespace Zbang.Zbox.Domain.Commands
 
         public Guid QuestionId { get; private set; }
         public IEnumerable<long> FilesIds { get; private set; }
-        public string CacheRegion => CacheRegions.BuildFeedRegion(BoxId);
+        public CacheRegions CacheRegion => CacheRegions.BuildFeedRegion(BoxId);
     }
 }

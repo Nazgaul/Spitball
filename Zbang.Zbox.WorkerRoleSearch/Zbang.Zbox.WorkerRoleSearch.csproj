@@ -256,11 +256,14 @@
     <Compile Include="UpdateSearchBox.cs" />
     <Compile Include="UpdateSearchQuiz.cs" />
     <Compile Include="UpdateSearchUniversity.cs" />
+    <Compile Include="UpdateTutors.cs" />
     <Compile Include="UpdateUnsubscribeList.cs" />
     <Compile Include="WatsonExtract.cs" />
     <Compile Include="WayUpJob.cs" />
     <Compile Include="WorkerRole.cs" />
     <Compile Include="WorkerRoleModule.cs" />
+    <Compile Include="WyzantTutor.cs" />
+    <Compile Include="ZipToLocationProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AbotX.lic">

@@ -90,6 +90,8 @@
     <Compile Include="SearchModule.cs" />
     <Compile Include="SearchConnection.cs" />
     <Compile Include="SearchServiceWrite.cs" />
+    <Compile Include="Tutor.cs" />
+    <Compile Include="TutorProvider.cs" />
     <Compile Include="UniversitySearch.cs" />
     <Compile Include="UniversitySearchProvider.cs" />
   </ItemGroup>

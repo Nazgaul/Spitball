@@ -25,6 +25,6 @@ namespace Zbang.Zbox.Domain.Commands
         public Guid Id { get; private set; }
 
         public bool PostAnonymously { get; private set; }
-        public string CacheRegion => CacheRegions.BuildFeedRegion(BoxId);
+        public CacheRegions CacheRegion => CacheRegions.BuildFeedRegion(BoxId);
     }
 }

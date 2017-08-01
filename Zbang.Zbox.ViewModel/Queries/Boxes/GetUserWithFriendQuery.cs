@@ -1,5 +1,6 @@
 ﻿
 using System;
+using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Query;
 
 namespace Zbang.Zbox.ViewModel.Queries.Boxes
@@ -42,7 +43,7 @@ namespace Zbang.Zbox.ViewModel.Queries.Boxes
 
 
         public string CacheKey => $"friendId{FriendId}";
-        public string CacheRegion => "profileStats";
+        public CacheRegions CacheRegion => CacheRegions.Profile;
         public TimeSpan Expiration => TimeSpan.FromDays(1);
     }
 }

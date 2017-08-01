@@ -26,6 +26,6 @@ namespace Zbang.Zbox.Domain.Commands
         public long ReplyId { get; set; }
 
         public long BoxId { get; private set; }
-        public string CacheRegion => CacheRegions.BuildItemCommentRegion(ItemId);
+        public CacheRegions CacheRegion => CacheRegions.BuildItemCommentRegion(ItemId);
     }
 }
