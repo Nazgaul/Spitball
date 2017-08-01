@@ -79,7 +79,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 {
                     var t1 = m_TutorProvider.UpdateDataAsync(list, token);
                     var t2 = progressAsync.Invoke(i, TimeSpan.FromMinutes(10));
-                    m_Logger.Info("Update jobs finish processing " + i);
+                    m_Logger.Info("Update tutor finish processing " + i);
 
                     await Task.WhenAll(t1, t2).ConfigureAwait(false);
                     token.ThrowIfCancellationRequested();
@@ -92,11 +92,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 await m_TutorProvider.UpdateDataAsync(list, token).ConfigureAwait(false);
             }
-            m_Logger.Info("Update jobs Going To delete old jobs");
+            m_Logger.Info("Update tutor Going To delete old jobs");
             var oldJobs = await m_TutorProvider.GetOldTutorsAsync(token).ConfigureAwait(false);
 
             await m_TutorProvider.DeleteDataAsync(oldJobs, token).ConfigureAwait(false);
-            m_Logger.Info("Update jobs finish to work");
+            m_Logger.Info("Update tutor finish to work");
             return true;
 
         }
@@ -132,7 +132,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 while (reader.Read())
                 {
-                    // deserialize only when there's "{" character in the stream
+                    // deSerialize only when there's "{" character in the stream
                     if (reader.TokenType == JsonToken.StartObject)
                     {
                         var o = serializer.Deserialize<WyzantTutor>(reader);

@@ -2,9 +2,9 @@
 using Aspose.Pdf;
 using Aspose.Pdf.Devices;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Aspose.Pdf.Text;
 using Aspose.Pdf.Text.TextOptions;
@@ -18,13 +18,15 @@ namespace Zbang.Zbox.Infrastructure.File
     public class PdfProcessor : DocumentProcessor
     {
         private const string CacheVersion = CacheVersionPrefix + "4";
+        private readonly ILogger m_Logger;
 
         public PdfProcessor(
             IBlobProvider blobProvider,
             IBlobProvider2<IPreviewContainer> blobProviderPreview,
-            IBlobProvider2<ICacheContainer> blobProviderCache)
+            IBlobProvider2<ICacheContainer> blobProviderCache, ILogger logger)
             : base(blobProvider, blobProviderPreview, blobProviderCache)
         {
+            m_Logger = logger;
             SetLicense();
         }
 
@@ -118,7 +120,10 @@ namespace Zbang.Zbox.Infrastructure.File
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("PreProcessFile pdf", ex);
+                m_Logger.Exception(ex, new Dictionary<string,string> {
+                {
+                    "service" , nameof(PdfProcessor)
+                }});
                 return null;
             }
         }
@@ -140,10 +145,18 @@ namespace Zbang.Zbox.Infrastructure.File
                 {
                     doc.Pages[i].Accept(textAbsorber);
                 }
-                catch(ArgumentException ex)
+                catch (ArgumentException ex)
                 {
-                    TraceLog.WriteWarning("on text extraction pdf " + ex);
-                        
+                    m_Logger.Exception(ex, new Dictionary<string, string> {
+                    {
+                        "service" , nameof(PdfProcessor)
+                    }});
+                    
+
+                }
+                catch (EndOfStreamException)
+                {
+                    break;
                 }
             }
             var text = textAbsorber.Text;
