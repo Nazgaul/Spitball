@@ -14,16 +14,17 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public override CrawlDecision ShouldCrawlPage(PageToCrawl pageToCrawl, CrawlContext crawlContext)
         {
+            var pageAuth = pageToCrawl.Uri.Authority;
             if (pageToCrawl.Uri.PathAndQuery.ToLowerInvariant().Contains("xml"))
                 return new CrawlDecision
                 {
                     Allow = true
                 };
-            if (pageToCrawl.Uri.Authority.Equals("spitball.co", StringComparison.InvariantCultureIgnoreCase))
+            if (pageAuth.Equals("spitball.co", StringComparison.InvariantCultureIgnoreCase))
                 if (pageToCrawl.Uri.PathAndQuery.Contains("returnUrl"))
                     return new CrawlDecision {Allow = false, Reason = "This is redirect Url"};
 
-            if (pageToCrawl.Uri.Authority.Equals("studysoup.com", StringComparison.InvariantCultureIgnoreCase))
+            if (pageAuth.Equals("studysoup.com", StringComparison.InvariantCultureIgnoreCase))
             {
                 var segments = pageToCrawl.Uri.Segments;
 
@@ -36,19 +37,19 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     return base.ShouldCrawlPage(pageToCrawl, crawlContext);
                 return new CrawlDecision {Allow = false, Reason = "Not Part of studysoup white list"};
             }
-            else if (pageToCrawl.Uri.Authority.Equals("quizlet.com"))
+            else if (pageAuth.Equals("quizlet.com"))
             {
                 var segments = pageToCrawl.Uri.Segments;
                 var blackList = new[] { "flashcards", "learn", "spell", "match", "test", "gravity" };
                 if (segments.Length >= 3 && blackList.Contains(segments[2].ToLowerInvariant().Replace("/", string.Empty)))
-                    return new CrawlDecision { Allow = false, Reason = "Not neef in mapping" };
+                    return new CrawlDecision { Allow = false, Reason = "Not needed in mapping" };
                 //TODO: uncomment when using sitemap
                 //var absPath = pageToCrawl.Uri.Segments[1].ToLowerInvariant().Replace("/", string.Empty);
                 //if (int.TryParse(absPath,out int quizNum))
                 //    return base.ShouldCrawlPage(pageToCrawl, crawlContext);
                 //return new CrawlDecision { Allow = false, Reason = "Not Part of Quizlet white list" };
             }
-            else if (pageToCrawl.Uri.Authority.Equals("www.khanacademy.org"))
+            else if (pageAuth.Equals("www.khanacademy.org"))
             {
                 var segments = pageToCrawl.Uri.Segments;
 
@@ -66,6 +67,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 if (whiteList.Contains(absPath) && (!absPath.Equals("math") || !mathSchool))
                     return base.ShouldCrawlPage(pageToCrawl, crawlContext);
                 return new CrawlDecision {Allow = false, Reason = "Not Part of Khanan white list"};
+            }
+            else if (pageAuth.Equals("www.studyblue.com"))
+            {
+                var segments = pageToCrawl.Uri.Segments;
+                var blackList = new[] { "about", "hello" };
+                if (segments.Length >= 2 && blackList.Contains(segments[1].ToLowerInvariant().Replace("/", string.Empty)))
+                    return new CrawlDecision { Allow = false, Reason = "Not needed in mapping" };
             }
             return base.ShouldCrawlPage(pageToCrawl, crawlContext);
         }

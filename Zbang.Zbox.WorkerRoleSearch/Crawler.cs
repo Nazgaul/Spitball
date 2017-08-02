@@ -85,7 +85,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 {"studysoup.com", "CreateStudySoupNote"},
                 {"www.khanacademy.org", "CreateKhananNote"},
-                {"quizlet.com", "CreateQuizletFlashcard"}
+                {"quizlet.com", "CreateQuizletFlashcard"},
+                { "www.studyblue.com","CreateStudyBlueFlashcard"}
             };
             //Use reflection to decide which mapping to run
             if (validAuth.TryGetValue(crawledPage.Uri.Authority, out string modelFunction))
@@ -195,6 +196,27 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return new CrawlModel(page.Uri.AbsoluteUri, page.Uri.Host, doc.Title, content, metaDescription, image,
                 Md5HashGenerator.GenerateKey(page.Uri.AbsoluteUri));
         }
+        private static CrawlModel CreateStudyBlueFlashcard(CrawledPage page)
+        {
+            var doc = page.AngleSharpHtmlDocument;
+            var metaDescription = doc.QuerySelector<IHtmlMetaElement>("meta[name=description]")?.Content?.Trim();
+            var allCards = doc.QuerySelectorAll("[id^=card].card").Select(s => string.IsNullOrEmpty(s?.TextContent)
+                ? string.Empty
+                : s?.TextContent?.Trim());
+            //Validate that have value(no sitemap)
+            var enumerable = allCards as string[] ?? allCards.ToArray();
+            if (!enumerable.Any())
+                return null;
+            var list = enumerable?.ToList();
+            var metaImg = doc.QuerySelector<IHtmlMetaElement>("meta[property='og:image']")?.Content?.Trim();
+            list.RemoveAll(string.IsNullOrWhiteSpace);
+            //Remove extra spaces 
+            var spaceReg = new Regex(@"\s+", RegexOptions.Compiled);
+            var content = list.Count > 0 ? spaceReg.Replace(list.Aggregate((a, b) => a + ", " + b), " ") : null;
+            return new CrawlModel(page.Uri.AbsoluteUri, page.Uri.Host, doc.Title, content, metaDescription, metaImg,
+                Md5HashGenerator.GenerateKey(page.Uri.AbsoluteUri));
+        }
+
 
         private static CrawlModel CreateStudySoupNote(CrawledPage page)
         {
@@ -204,9 +226,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             if (!string.IsNullOrEmpty(viewsText))
                 if (int.TryParse(Regex.Match(viewsText, @"\d+").Value, out int realViews))
                     views = realViews;
-            //var contentCountText = angleSharpHtmlDocument.QuerySelector("span.document-metrics")?.Text()?.Trim();
-            //int.TryParse(Regex.Match(contentCountText ?? "", @"\d+").Value, out int contentCount);
-            //var title = angleSharpHtmlDocument.QuerySelector("span.current")?.Text()?.Trim() ?? angleSharpHtmlDocument.QuerySelector("title")?.Text()?.Trim();
 
             var metaDescription = angleSharpHtmlDocument.QuerySelector<IHtmlMetaElement>("meta[name=description]")
                 ?.Content?.Trim();
