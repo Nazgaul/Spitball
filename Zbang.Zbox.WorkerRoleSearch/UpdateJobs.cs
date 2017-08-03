@@ -18,7 +18,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class UpdateJobs : ISchedulerProcess
     {
-        //private readonly ISearchServiceWrite<Job> m_JobSearchService;
         private readonly JobsProvider m_JobSearchService;
         private readonly ILogger m_Logger;
         private readonly ILocalStorageProvider m_LocalStorage;
@@ -52,8 +51,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     HttpCompletionOption.ResponseHeadersRead, token).ConfigureAwait(false);
                 result.EnsureSuccessStatusCode();
 
-
-
                 using (var stream = await result.Content.ReadAsStreamAsync().ConfigureAwait(false))
                 {
                     locationToSave = await m_LocalStorage.SaveFileToStorageAsync(stream, "jobs.xml", index == 0)
@@ -69,22 +66,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     continue;
                 }
                 i++;
-                var jobObject = await m_JobSearchService.GetByIdAsync(job.Id, token).ConfigureAwait(false);
-
-                if (jobObject == null)
-                {
-                    jobObject = await CreateJobObjectAsync(job).ConfigureAwait(false);
-
-                }
-                else if (jobObject.Location == null && !string.IsNullOrEmpty(job.Zip))
-                {
-                    jobObject = await CreateJobObjectAsync(job).ConfigureAwait(false);
-                }
-                else if (jobObject.InsertDate > DateTime.UtcNow.AddDays(-1))
-                {
-                    continue;
-                }
-                jobObject.InsertDate = DateTime.UtcNow;
+                var jobObject = await CreateJobObjectAsync(job).ConfigureAwait(false);
                 list.Add(jobObject);
                 if (list.Count > 100)
                 {
@@ -137,7 +119,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 InsertDate = DateTime.UtcNow,
                 Url = job.Url,
                 Company = job.Company,
-                LocationType = job.LocationType
             };
             return searchJobObject;
         }
@@ -164,6 +145,33 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     yield return job;
                 }
             }
+        }
+
+
+        private IEnumerable<T> GetJobs<T>(string location) where T : ISearchObject
+        {
+
+            var serializer = new XmlSerializer(typeof(T));
+            using (var reader = XmlReader.Create(location))
+            {
+                reader.MoveToContent();
+                while (reader.Read())
+                {
+                    if (reader.NodeType != XmlNodeType.Element) continue;
+                    if (reader.Name != "job") continue;
+                    if (!(XNode.ReadFrom(reader) is XElement el)) continue;
+                    var str = el.ToString();
+                    var stringReader = new StringReader(str);
+                    var job = (T)serializer.Deserialize(stringReader);
+                    job.Id = Md5HashGenerator.GenerateKey(str);
+                    yield return job;
+                }
+            }
+        }
+
+        private string JobTypeConversion(string jobType)
+        {
+            return jobType.Replace("_", " ").Replace("-", " ").ToLowerInvariant();
         }
     }
 }

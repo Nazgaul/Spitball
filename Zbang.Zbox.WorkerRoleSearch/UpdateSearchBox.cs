@@ -61,7 +61,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             const int top = 100;
             var updates = await m_ZboxReadService.GetBoxesDirtyUpdatesAsync(instanceId, instanceCount, top, cancellationToken).ConfigureAwait(false);
             if (!updates.BoxesToUpdate.Any() && !updates.BoxesToDelete.Any()) return TimeToSleep.Increase;
-            m_Logger.Info($"{Name} is doing process");
             // await JaredPilotAsync(updates.BoxesToUpdate.Where(w => w.UniversityId == JaredUniversityIdPilot));
 
             //await m_WithAiProvider.AddCoursesEntityAsync(

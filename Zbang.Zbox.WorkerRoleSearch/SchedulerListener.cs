@@ -51,6 +51,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         {
                             message = (StorageQueueMessage)m_Dcs.Deserialize(xmlStream);
                         }
+                        m_Logger.Info($"{Name} found message {msg.AsString}");
                         var messageContent = JObject.Parse(message.Message);
                         var properties = messageContent.Properties();
                         var list = new List<Task<bool>>();
@@ -121,6 +122,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public void Dispose()
         {
             m_CriticalCode?.Dispose();
+            m_LifetimeScope?.Dispose();
             GC.SuppressFinalize(this);
         }
     }

@@ -45,7 +45,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
     public interface IJobsProviderReadService
     {
-        Task<Job> GetByIdAsync(string id, CancellationToken token);
+        //Task<Job> GetByIdAsync(string id, CancellationToken token);
     }
 
 }

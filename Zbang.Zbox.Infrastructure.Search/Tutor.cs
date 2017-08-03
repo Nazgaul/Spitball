@@ -19,7 +19,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public string State { get; set; }
 
-        [IsSortable]
+        [IsSortable, IsFilterable]
         public GeographyPoint Location { get; set; }
         [IsSortable]
         public double Fee { get; set; }
@@ -29,7 +29,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         [IsFilterable]
         public bool InPerson { get; set; }
-
+        [IsSearchable]
         public string[] Subjects { get; set; }
 
 

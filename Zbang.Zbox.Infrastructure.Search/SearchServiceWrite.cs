@@ -81,27 +81,27 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         }
 
-        public async Task<T> GetByIdAsync(string id, CancellationToken token)
-        {
-            try
-            {
-                var t = await IndexClient.Documents.GetAsync<T>(id, cancellationToken: token).ConfigureAwait(false);
-                return t;
-            }
-            catch (CloudException ex) when (ex.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
-            {
-                return null;
-            }
-            catch (Exception ex)
-            {
-                Logger.Exception(ex, new Dictionary<string, string>
-                {
-                    {"service", nameof(JobsProvider)},
-                    {"id", id}
-                });
-                return null;
-            }
-        }
+        //public async Task<T> GetByIdAsync(string id, CancellationToken token)
+        //{
+        //    try
+        //    {
+        //        var t = await IndexClient.Documents.GetAsync<T>(id, cancellationToken: token).ConfigureAwait(false);
+        //        return t;
+        //    }
+        //    catch (CloudException ex) when (ex.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
+        //    {
+        //        return null;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger.Exception(ex, new Dictionary<string, string>
+        //        {
+        //            {"service", nameof(JobsProvider)},
+        //            {"id", id}
+        //        });
+        //        return null;
+        //    }
+        //}
 
         public abstract Index GetIndexStructure(string indexName);
         public void Start()

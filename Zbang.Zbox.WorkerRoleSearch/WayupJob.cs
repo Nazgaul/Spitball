@@ -4,6 +4,8 @@ using System.Xml.Serialization;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
+
+
     [Serializable]
     [DesignerCategory("code")]
     [XmlType(AnonymousType = true)]

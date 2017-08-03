@@ -196,6 +196,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BlobManagement.cs" />
+    <Compile Include="CareerBuilderJobs.cs" />
     <Compile Include="CrawlDecision.cs" />
     <Compile Include="Crawler.cs" />
     <Compile Include="CrawlerUrlEntity.cs" />
@@ -248,6 +249,7 @@
     <Compile Include="MailQueueProcess.cs" />
     <Compile Include="ThumbnailQueueProcess.cs" />
     <Compile Include="TransactionQueueProcess.cs" />
+    <Compile Include="UpdateAffiliate.cs" />
     <Compile Include="UpdateJobs.cs" />
     <Compile Include="UpdateSearch.cs" />
     <Compile Include="UpdateSearchFeed.cs" />

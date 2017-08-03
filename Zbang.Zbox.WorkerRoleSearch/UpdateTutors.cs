@@ -58,22 +58,22 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     continue;
                 }
                 i++;
-                var jobObject = await m_TutorProvider.GetByIdAsync(tutor.TutorID.ToString(), token).ConfigureAwait(false);
+                //var jobObject = await m_TutorProvider.GetByIdAsync(tutor.TutorID.ToString(), token).ConfigureAwait(false);
 
-                if (jobObject == null)
-                {
-                    jobObject = await CreateTutorObjectAsync(tutor).ConfigureAwait(false);
+                //if (jobObject == null)
+                //{
+                var jobObject = await CreateTutorObjectAsync(tutor).ConfigureAwait(false);
 
-                }
-                else if (jobObject.Location == null && !string.IsNullOrEmpty(tutor.Zip))
-                {
-                    jobObject = await CreateTutorObjectAsync(tutor).ConfigureAwait(false);
-                }
-                else if (jobObject.InsertDate > DateTime.UtcNow.AddDays(-1))
-                {
-                    continue;
-                }
-                jobObject.InsertDate = DateTime.UtcNow;
+                //}
+                //else if (jobObject.Location == null && !string.IsNullOrEmpty(tutor.Zip))
+                //{
+                //    jobObject = await CreateTutorObjectAsync(tutor).ConfigureAwait(false);
+                //}
+                //else if (jobObject.InsertDate > DateTime.UtcNow.AddDays(-1))
+                //{
+                //    continue;
+                //}
+                //jobObject.InsertDate = DateTime.UtcNow;
                 list.Add(jobObject);
                 if (list.Count > 100)
                 {
@@ -117,7 +117,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 Online = tutor.OffersOnlineLessons,
                 Rank = tutor.TutorRank,
                 State = tutor.State,
-                Subjects = tutor.Subjects?.Select(s=>s.Name).ToArray(),
+                Subjects = tutor.Subjects?.Select(s => s.Name).ToArray(),
                 Url = tutor.ProfileLink
             };
             return searchJobObject;

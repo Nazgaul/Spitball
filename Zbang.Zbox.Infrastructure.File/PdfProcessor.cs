@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Aspose.Pdf.Exceptions;
 using Aspose.Pdf.Text;
 using Aspose.Pdf.Text.TextOptions;
 using Zbang.Zbox.Infrastructure.Extensions;
@@ -79,8 +80,6 @@ namespace Zbang.Zbox.Infrastructure.File
                 $"{Path.GetFileNameWithoutExtension(blobName)}{CacheVersion}_{index}_{Path.GetExtension(blobName)}.jpg";
         }
 
-
-
         public static readonly string[] PdfExtensions = { ".pdf" };
 
         public override bool CanProcessFile(Uri blobName)
@@ -120,18 +119,13 @@ namespace Zbang.Zbox.Infrastructure.File
             }
             catch (Exception ex)
             {
-                m_Logger.Exception(ex, new Dictionary<string,string> {
+                m_Logger.Exception(ex, new Dictionary<string, string> {
                 {
                     "service" , nameof(PdfProcessor)
                 }});
                 return null;
             }
         }
-
-
-
-
-
 
         private string ExtractPdfText(Document doc)
         {
@@ -151,7 +145,7 @@ namespace Zbang.Zbox.Infrastructure.File
                     {
                         "service" , nameof(PdfProcessor)
                     }});
-                    
+
 
                 }
                 catch (EndOfStreamException)
@@ -164,17 +158,21 @@ namespace Zbang.Zbox.Infrastructure.File
             return str;
         }
 
-
-
-
         public override async Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             SetLicense();
             var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken).ConfigureAwait(false);
-
-            using (var pdfDocument = new Document(path))
+            try
             {
-                return ExtractPdfText(pdfDocument);
+                using (var pdfDocument = new Document(path))
+                {
+                    return ExtractPdfText(pdfDocument);
+                }
+            }
+            catch (InvalidPdfFileFormatException)
+            {
+                m_Logger.Warning($"{nameof(PdfProcessor)} {blobUri} is invalid pdf");
+                return null;
             }
 
 

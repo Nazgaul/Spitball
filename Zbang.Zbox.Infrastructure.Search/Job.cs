@@ -15,13 +15,14 @@ namespace Zbang.Zbox.Infrastructure.Search
         [IsSearchable]
         public string Title { get; set; }
 
+        [IsSortable]
         public DateTime? DateTime { get; set; }
 
         public string Responsibilities { get; set; }
 
         public string City { get; set; }
         public string State { get; set; }
-        [IsFilterable]
+        [IsFilterable, IsFacetable]
         public string JobType { get; set; }
 
         [IsFilterable]
@@ -37,7 +38,6 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public string Company { get; set; }
 
-        [IsFilterable]
-        public string LocationType { get; set; }
+        //public string LocationType { get; set; }
     }
 }
