@@ -13,9 +13,20 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
 
         }
+        public CrawlModel(string url, string domain, string name, string content, string metaDescription, string image, string id)
+        {
+            Url = url;
+            Name = name;
+            Content = content;
+            MetaDescription = metaDescription;
+            Domain = domain;
+            Id = id;
+            Image = image;
+            Type = ItemType.Flashcard;
+        }
         public CrawlModel(string url, string name, string content, string university,
             string course, string[] tags, DateTime? urlDate, int? views,
-            string metaDescription, string image, string[] metaKeywords, string domain, string id)
+            string metaDescription, string image, string[] metaKeywords, string domain, string id,ItemType type=ItemType.Undefined)
         {
             Url = url;
             Name = name;
@@ -30,6 +41,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             MetaKeywords = metaKeywords;
             Domain = domain;
             Id = id;
+            Type = type;
         }
 
         public string Url { get; set; }
