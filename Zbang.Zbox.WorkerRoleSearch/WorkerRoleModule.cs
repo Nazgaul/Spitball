@@ -40,6 +40,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             builder.RegisterType<DeleteOldStuff>().Named<ISchedulerProcess>("deleteOld");
             builder.RegisterType<UpdateJobs>().Named<ISchedulerProcess>("downloadXml");
             builder.RegisterType<UpdateTutors>().Named<ISchedulerProcess>("downloadTutor");
+            builder.RegisterType<UpdateCareerBuilderAffiliate>().Named<ISchedulerProcess>("careerBuilder");
 
             var arrayOfUtcOffset = new[] { 0, 3, -5, -4, -6 };
             foreach (var i in arrayOfUtcOffset)

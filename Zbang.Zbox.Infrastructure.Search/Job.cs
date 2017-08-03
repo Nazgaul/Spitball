@@ -38,6 +38,8 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public string Company { get; set; }
 
+        [IsSearchable]
+        public string[] Extra { get; set; }
         //public string LocationType { get; set; }
     }
 }

@@ -1,13 +1,15 @@
-﻿namespace Zbang.Zbox.WorkerRoleSearch
+﻿using System.Xml.Serialization;
+
+namespace Zbang.Zbox.WorkerRoleSearch
 {
 
 
 
     /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    [System.Xml.Serialization.XmlRootAttribute("job", Namespace = "", IsNullable = false)]
+    [System.Serializable]
+    [System.ComponentModel.DesignerCategory("code")]
+    [System.Xml.Serialization.XmlType(AnonymousType = true)]
+    [System.Xml.Serialization.XmlRoot("job", Namespace = "", IsNullable = false)]
     public class CareerBuilderJobs
     {
 
@@ -70,16 +72,10 @@
         }
 
         /// <remarks/>
-        public string city
+         [XmlElement("city")]
+        public string City
         {
-            get
-            {
-                return this.cityField;
-            }
-            set
-            {
-                this.cityField = value;
-            }
+            get;set;
         }
 
         /// <remarks/>
@@ -96,16 +92,10 @@
         }
 
         /// <remarks/>
-        public ushort zip
+        [XmlElement("zip")]
+        public string Zip
         {
-            get
-            {
-                return this.zipField;
-            }
-            set
-            {
-                this.zipField = value;
-            }
+            get; set;
         }
 
         /// <remarks/>

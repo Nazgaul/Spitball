@@ -38,5 +38,8 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         [IsFilterable]
         public DateTime? InsertDate { get; set; }
+
+        [IsSearchable]
+        public string[] Extra { get; set; }
     }
 }

@@ -27,17 +27,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         protected abstract string Service { get; }
 
-        protected HttpClientHandler HttpHandler()
+        protected virtual HttpClientHandler HttpHandler()
         {
             return new HttpClientHandler();
         }
 
-        protected abstract IEnumerable<T> GetJobs(string location);
-        protected abstract Task<TU> ParseObjectAsync(T obj, CancellationToken token);
-        protected abstract Task<TU> UpdateSearchAsync(IEnumerable<TU> list, CancellationToken token);
-        protected abstract Task<TU> DeleteOldItemsAsync(CancellationToken token);
+        protected abstract IEnumerable<T> GetT(string location);
+        protected abstract Task<TU> ParseTAsync(T obj, CancellationToken token);
+        protected abstract Task UpdateSearchAsync(IEnumerable<TU> list, CancellationToken token);
+        protected abstract Task DeleteOldItemsAsync(CancellationToken token);
 
-        //protected abstract IEnumerable<T> GetJobs(string location);
 
 
 
@@ -61,14 +60,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             var list = new List<TU>();
             var i = 0;
-            foreach (var job in GetJobs(locationToSave))
+            foreach (var job in GetT(locationToSave))
             {
                 if (i < index)
                 {
                     continue;
                 }
                 i++;
-                var obj = await ParseObjectAsync(job, token).ConfigureAwait(false);
+                var obj = await ParseTAsync(job, token).ConfigureAwait(false);
                 list.Add(obj);
                 if (list.Count > 100)
                 {

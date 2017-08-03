@@ -4,7 +4,7 @@ namespace Zbang.Zbox.Infrastructure
 {
     public static class TextManipulation
     {
-        public static readonly Regex RemoveHtmlTags = new Regex("<.*?>", RegexOptions.Compiled);
+        public static readonly Regex RemoveHtmlTags = new Regex("<.*?>|&nbsp;|&zwnj;|&raquo;|&laquo;", RegexOptions.Compiled);
         public static readonly Regex SpaceReg = new Regex(@"\s+", RegexOptions.Compiled);
         public static readonly Regex RemoveUnwantedUrlChars = new Regex(@"[""!~<>^*&`#'()%$:/;?@=+,{}|^[\]\\\u00A0]", RegexOptions.Compiled);
         public static readonly Regex UrlSpace = new Regex(@"\s+|[-_]", RegexOptions.Compiled);

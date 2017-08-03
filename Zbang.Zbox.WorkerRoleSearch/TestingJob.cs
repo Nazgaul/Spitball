@@ -9,11 +9,8 @@ using Microsoft.WindowsAzure.Storage;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
 using Autofac;
-using Zbang.Zbox.Infrastructure.Transport;
-using Zbang.Zbox.WorkerRoleSearch.DomainProcess;
 using Zbang.Zbox.WorkerRoleSearch.Mail;
 
 namespace Zbang.Zbox.WorkerRoleSearch
