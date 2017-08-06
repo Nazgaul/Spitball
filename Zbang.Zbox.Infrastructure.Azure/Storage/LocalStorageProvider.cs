@@ -27,20 +27,17 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
         public string LocalStorageLocation => m_LocalResourceLocation;
 
 
-        public async Task<string> SaveFileToStorageAsync(Stream streamSource, string fileName, bool shouldOverride)
+        public async Task<string> SaveFileToStorageAsync(Stream streamSource, string fileName)
         {
             if (streamSource == null) throw new ArgumentNullException(nameof(streamSource));
             var fileNameWithPath = CombineDirectoryWithFileName(fileName);
 
-            if (!shouldOverride)
+            if (File.Exists(fileNameWithPath))
             {
-                if (File.Exists(fileNameWithPath))
+                var file = new FileInfo(fileNameWithPath);
+                if (file.Length == streamSource.Length)
                 {
-                    var file = new FileInfo(fileNameWithPath);
-                    if (file.Length == streamSource.Length)
-                    {
-                        return fileNameWithPath;
-                    }
+                    return fileNameWithPath;
                 }
             }
             try
@@ -50,7 +47,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
                     await streamSource.CopyToAsync(stream).ConfigureAwait(false);
                 }
                 return fileNameWithPath;
-                //File.WriteAllBytes(fileNameWithPath, streamSource.ConvertToByteArray());
             }
             catch (IOException ex)
             {
@@ -63,22 +59,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             }
             return fileNameWithPath;
         }
-
-        //public byte[] ReadFileFromStorage(string fileName)
-        //{
-        //    var fileNameWithPath = CombineDirectoryWithFileName(fileName);
-        //    if (!File.Exists(fileNameWithPath)) return null;
-        //    File.SetLastAccessTime(fileNameWithPath, DateTime.UtcNow);
-        //    return File.ReadAllBytes(fileNameWithPath);
-        //}
-
-
-
-
-
-
-
-        private string CombineDirectoryWithFileName(string fileName)
+        public string CombineDirectoryWithFileName(string fileName)
         {
             return Path.Combine(m_LocalResourceLocation, fileName);
         }
@@ -87,7 +68,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
         {
             DateTime[] timesOfFileDeleting = { DateTime.UtcNow.AddMonths(-1), DateTime.UtcNow.AddDays(-7), DateTime.UtcNow.AddDays(-1), DateTime.UtcNow.AddHours(-12), DateTime.UtcNow.AddHours(-1), DateTime.UtcNow };
 
-            int i = 0;
+            var i = 0;
             while (CalculateInitSize() > m_LocalResourceSize * 0.6)
             {
                 var oldFiles = GetOldFiles(timesOfFileDeleting[i++]);

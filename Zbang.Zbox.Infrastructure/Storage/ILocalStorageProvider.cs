@@ -10,14 +10,12 @@ namespace Zbang.Zbox.Infrastructure.Storage
         /// </summary>
         /// <param name="streamArray"></param>
         /// <param name="fileName"></param>
-        /// <param name="shouldOverride"></param>
         /// <returns>The path to that file</returns>
-        Task<string> SaveFileToStorageAsync(Stream streamArray, string fileName, bool shouldOverride);
+        Task<string> SaveFileToStorageAsync(Stream streamArray, string fileName);
 
-
+        string CombineDirectoryWithFileName(string fileName);
         string LocalStorageLocation { get; }
         void DeleteOldFiles();
 
-        //DateTime GetFileLastModified(string fileName);
     }
 }

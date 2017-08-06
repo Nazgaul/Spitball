@@ -102,7 +102,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
                 return uploadAssetAzure.Id;
             }
             var stream = await m_BlobProvider.DownloadFileAsync(blobUrl, cancelToken).ConfigureAwait(false);
-            var uploadFilePath = await m_LocalProvider.SaveFileToStorageAsync(stream, blobName, false).ConfigureAwait(false);
+            var uploadFilePath = await m_LocalProvider.SaveFileToStorageAsync(stream, blobName).ConfigureAwait(false);
 
             var uploadAsset = m_Context.Assets.Create(Path.GetFileNameWithoutExtension(blobName), AssetCreationOptions.None);
             var assetFile = uploadAsset.AssetFiles.Create(Path.GetFileName(blobName));
@@ -164,7 +164,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
             string locationToSave;
             using (var ms = new MemoryStream())
             {
-                locationToSave = await m_LocalProvider.SaveFileToStorageAsync(ms, blobName, false).ConfigureAwait(false);
+                locationToSave = await m_LocalProvider.SaveFileToStorageAsync(ms, blobName).ConfigureAwait(false);
 
             }
             // ReSharper disable once ReplaceWithSingleCallToFirstOrDefault -azure media services doesn't support first or default

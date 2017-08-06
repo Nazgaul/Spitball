@@ -117,6 +117,11 @@ namespace Zbang.Zbox.Infrastructure.File
                 }
 
             }
+            catch (InvalidPdfFileFormatException)
+            {
+                m_Logger.Warning($"{nameof(PdfProcessor)} {blobUri} is invalid pdf");
+                return null;
+            }
             catch (Exception ex)
             {
                 m_Logger.Exception(ex, new Dictionary<string, string> {
@@ -141,11 +146,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 }
                 catch (ArgumentException ex)
                 {
-                    m_Logger.Exception(ex, new Dictionary<string, string> {
-                    {
-                        "service" , nameof(PdfProcessor)
-                    }});
-
+                    m_Logger.Warning($"{nameof(PdfProcessor)} {ex}");
 
                 }
                 catch (EndOfStreamException)

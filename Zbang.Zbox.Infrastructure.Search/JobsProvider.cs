@@ -35,7 +35,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             var parameters = new SearchParameters()
             {
-                Filter = $"insertDate lt {DateTime.UtcNow.AddDays(-2):yyyy-MM-dd'T'hh:mm:ss'Z'}",
+                Filter = $"insertDate lt {DateTime.UtcNow.AddDays(-4):yyyy-MM-dd'T'hh:mm:ss'Z'}",
                 Select = new[] { "id" }
             };
             var result = await IndexClient.Documents.SearchAsync<Job>("*", parameters, cancellationToken: token).ConfigureAwait(false);
