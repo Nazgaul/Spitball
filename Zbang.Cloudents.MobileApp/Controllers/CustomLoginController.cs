@@ -59,7 +59,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 var query = new GetUserByEmailQuery(loginRequest.Email);
                 var user = await m_UserManager.FindByEmailAsync(loginRequest.Email);
-                var systemUser = await  m_ZboxReadService.GetUserDetailsByEmail(query);
+                var systemUser = await  m_ZboxReadService.GetUserDetailsByEmailAsync(query);
                 var logIn = await m_UserManager.CheckPasswordAsync(user, loginRequest.Password);
                 if (systemUser == null)
                 {
@@ -125,7 +125,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             try
             {
                 var query = new GetUserByFacebookQuery(facebookUserData.Id);
-                var user = await m_ZboxReadService.GetUserDetailsByFacebookId(query);
+                var user = await m_ZboxReadService.GetUserDetailsByFacebookIdAsync(query);
                 if (user == null)
                 {
                     var command = new CreateFacebookUserCommand(facebookUserData.Id, facebookUserData.Email,
@@ -196,7 +196,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             try
             {
                 var query = new GetUserByEmailQuery(googleUserData.Email);
-                var user = await m_ZboxReadService.GetUserDetailsByEmail(query);
+                var user = await m_ZboxReadService.GetUserDetailsByEmailAsync(query);
                 if (user == null)
                 {
                     var command = new CreateGoogleUserCommand(googleUserData.Email,

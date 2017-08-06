@@ -169,23 +169,23 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        public Task<LogInUserDto> GetUserDetailsByMembershipId(GetUserByMembershipQuery query)
+        public Task<LogInUserDto> GetUserDetailsByMembershipIdAsync(GetUserByMembershipQuery query)
         {
-            return m_ReadService.GetUserDetailsByMembershipId(query);
+            return m_ReadService.GetUserDetailsByMembershipIdAsync(query);
         }
 
-        public Task<LogInUserDto> GetUserDetailsByFacebookId(GetUserByFacebookQuery query)
+        public Task<LogInUserDto> GetUserDetailsByFacebookIdAsync(GetUserByFacebookQuery query)
         {
-            return m_ReadService.GetUserDetailsByFacebookId(query);
+            return m_ReadService.GetUserDetailsByFacebookIdAsync(query);
         }
         public Task<LogInUserDto> GetUserDetailsByGoogleIdAsync(GetUserByGoogleQuery query, CancellationToken cancellationToken)
         {
             return m_ReadService.GetUserDetailsByGoogleIdAsync(query, cancellationToken);
         }
 
-        public Task<LogInUserDto> GetUserDetailsByEmail(GetUserByEmailQuery query)
+        public Task<LogInUserDto> GetUserDetailsByEmailAsync(GetUserByEmailQuery query)
         {
-            return m_ReadService.GetUserDetailsByEmail(query);
+            return m_ReadService.GetUserDetailsByEmailAsync(query);
         }
 
         public Task<IEnumerable<BoxDto>> GetUserBoxesActivityAsync(GetUserWithFriendQuery query)
@@ -287,9 +287,9 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<LogInUserDto> GetUserDetailsById(GetUserByIdQuery query)
+        public Task<LogInUserDto> GetUserDetailsByIdAsync(GetUserByIdQuery query)
         {
-            return m_ReadService.GetUserDetailsById(query);
+            return m_ReadService.GetUserDetailsByIdAsync(query);
         }
 
 
@@ -397,6 +397,11 @@ namespace Zbang.Zbox.ReadServices
         public long? GetUniversityIdByUrl(string url)
         {
             return m_ReadService.GetUniversityIdByUrl(url);
+        }
+
+        public Task<string> GetUniversitySynonymAsync(long id)
+        {
+            return m_ReadService.GetUniversitySynonymAsync(id);
         }
 
         public Task<IEnumerable<RecommendBoxDto>> GetCoursesPageDataAsync()

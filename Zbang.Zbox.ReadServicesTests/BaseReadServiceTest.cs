@@ -32,7 +32,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetUserByFacebookQuery(1);
             try
             {
-                var x = await m_ZboxReadService.GetUserDetailsByFacebookId(query);
+                var x = await m_ZboxReadService.GetUserDetailsByFacebookIdAsync(query);
             }
             catch (UserNotFoundException)
             {
@@ -50,7 +50,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetUserByMembershipQuery(Guid.NewGuid());
             try
             {
-                var x = await m_ZboxReadService.GetUserDetailsByMembershipId(query);
+                var x = await m_ZboxReadService.GetUserDetailsByMembershipIdAsync(query);
             }
             catch (UserNotFoundException)
             {
@@ -68,7 +68,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetUserByEmailQuery("yaari.ram@gmail.com");
             try
             {
-                var x = m_ZboxReadService.GetUserDetailsByEmail(query).Result;
+                var x = m_ZboxReadService.GetUserDetailsByEmailAsync(query).Result;
             }
             //catch (UserNotFoundException)
             //{

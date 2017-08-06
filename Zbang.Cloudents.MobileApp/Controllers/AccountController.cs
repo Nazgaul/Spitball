@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         public async Task<HttpResponseMessage> RefreshAsync()
         {
 
-            var systemData = await m_ZboxReadService.GetUserDetailsById(new GetUserByIdQuery(User.GetUserId()));
+            var systemData = await m_ZboxReadService.GetUserDetailsByIdAsync(new GetUserByIdQuery(User.GetUserId()));
 
             if (!systemData.UniversityId.HasValue)
             {
@@ -239,7 +239,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }
             var query = new GetUserByEmailQuery(model.Email);
             var tUser = m_UserManager.FindByEmailAsync(model.Email);
-            var tResult = m_ZboxReadService.GetUserDetailsByEmail(query);
+            var tResult = m_ZboxReadService.GetUserDetailsByEmailAsync(query);
 
             await Task.WhenAll(tUser, tResult);
             if (tUser.Result == null && tResult.Result != null)
@@ -282,7 +282,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError,
                     new HttpError("something went wrong, try again later"));
             var query = new GetUserByMembershipQuery(Guid.Parse(model.UserId));
-            var tSystemUser = m_ZboxReadService.GetUserDetailsByMembershipId(query);
+            var tSystemUser = m_ZboxReadService.GetUserDetailsByMembershipIdAsync(query);
 
             var tUser = m_UserManager.FindByIdAsync(model.UserId);
             await Task.WhenAll(tSystemUser, tUser);

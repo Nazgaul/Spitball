@@ -225,7 +225,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return JsonError(new { error = AccountControllerResources.FacebookGetDataError });
                 }
                 var query = new GetUserByFacebookQuery(facebookUserData.Id);
-                var user = await ZboxReadService.GetUserDetailsByFacebookId(query);
+                var user = await ZboxReadService.GetUserDetailsByFacebookIdAsync(query);
                 if (user == null)
                 {
 
@@ -326,7 +326,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var query = new GetUserByEmailQuery(model.Email);
-                var tSystemData = ZboxReadService.GetUserDetailsByEmail(query);
+                var tSystemData = ZboxReadService.GetUserDetailsByEmailAsync(query);
                 var tUserIdentity = m_UserManager.Value.FindByEmailAsync(model.Email);
 
                 await Task.WhenAll(tSystemData, tUserIdentity);
@@ -813,7 +813,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (result.Succeeded)
             {
                 var query = new GetUserByMembershipQuery(data.MembershipUserId);
-                var tSystemUser = ZboxReadService.GetUserDetailsByMembershipId(query);
+                var tSystemUser = ZboxReadService.GetUserDetailsByMembershipIdAsync(query);
 
                 var tUser = m_UserManager.Value.FindByIdAsync(data.MembershipUserId.ToString());
 

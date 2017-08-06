@@ -9,12 +9,12 @@ namespace Zbang.Zbox.ReadServices
     {
         #region UserBasedData
 
-        Task<LogInUserDto> GetUserDetailsByMembershipId(GetUserByMembershipQuery query);
-        Task<LogInUserDto> GetUserDetailsByFacebookId(GetUserByFacebookQuery query);
+        Task<LogInUserDto> GetUserDetailsByMembershipIdAsync(GetUserByMembershipQuery query);
+        Task<LogInUserDto> GetUserDetailsByFacebookIdAsync(GetUserByFacebookQuery query);
         Task<LogInUserDto> GetUserDetailsByGoogleIdAsync(GetUserByGoogleQuery query, CancellationToken cancellationToken);
-        Task<LogInUserDto> GetUserDetailsByEmail(GetUserByEmailQuery query);
+        Task<LogInUserDto> GetUserDetailsByEmailAsync(GetUserByEmailQuery query);
 
-        Task<LogInUserDto> GetUserDetailsById(GetUserByIdQuery query);
+        Task<LogInUserDto> GetUserDetailsByIdAsync(GetUserByIdQuery query);
 
 
         Task<ForgotPasswordDto> GetForgotPasswordByEmailAsync(GetUserByEmailQuery query, CancellationToken token);

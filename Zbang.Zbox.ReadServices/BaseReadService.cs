@@ -17,7 +17,7 @@ namespace Zbang.Zbox.ReadServices
     {
 
         #region login
-        public async Task<LogInUserDto> GetUserDetailsByFacebookId(GetUserByFacebookQuery query)
+        public async Task<LogInUserDto> GetUserDetailsByFacebookIdAsync(GetUserByFacebookQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
@@ -37,7 +37,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<LogInUserDto> GetUserDetailsById(GetUserByIdQuery query)
+        public async Task<LogInUserDto> GetUserDetailsByIdAsync(GetUserByIdQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
@@ -48,7 +48,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<LogInUserDto> GetUserDetailsByMembershipId(GetUserByMembershipQuery query)
+        public async Task<LogInUserDto> GetUserDetailsByMembershipIdAsync(GetUserByMembershipQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
@@ -63,7 +63,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<LogInUserDto> GetUserDetailsByEmail(GetUserByEmailQuery query)
+        public async Task<LogInUserDto> GetUserDetailsByEmailAsync(GetUserByEmailQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {

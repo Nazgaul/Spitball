@@ -8,12 +8,20 @@ using Google.Apis.Services;
 using Microsoft.Azure.Mobile.Server.Config;
 using Zbang.Cloudents.Jared.Models;
 using Zbang.Zbox.Infrastructure;
+using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
     [MobileAppController]
     public class SearchController : ApiController
     {
+        private readonly IZboxReadService m_ZboxReadService;
+
+        public SearchController(IZboxReadService zboxReadService)
+        {
+            m_ZboxReadService = zboxReadService;
+        }
+
         [Route("api/search/documents"), HttpGet]
         public async Task<HttpResponseMessage> SearchDocumentAsync([FromUri]SearchRequest model)
         {
@@ -22,30 +30,39 @@ namespace Zbang.Cloudents.Jared.Controllers
         }
 
         [Route("api/search/flashcards"), HttpGet]
-        public async Task<HttpResponseMessage> SearchFlashcardAsync(string query, int page,
-            string university, string course)
+        public async Task<HttpResponseMessage> SearchFlashcardAsync([FromUri]SearchRequest model)
         {
-            var result = await DoSearchAsync(query, page, university, course, CustomApiKey.Flashcard).ConfigureAwait(false);
+            var result = await DoSearchAsync(model.Query, model.Page ?? 0, model.University, model.Course, CustomApiKey.Documents).ConfigureAwait(false);
             return Request.CreateResponse(result);
         }
 
         [Route("api/search/qna"), HttpGet]
-        public async Task<HttpResponseMessage> SearchQuestionAsync(string query, int page,
-            string university, string course)
+        public async Task<HttpResponseMessage> SearchQuestionAsync([FromUri]SearchRequest model)
         {
-            var result = await DoSearchAsync(query, page, university, course, CustomApiKey.AskQuestion).ConfigureAwait(false);
+            var result = await DoSearchAsync(model.Query, model.Page ?? 0, model.University, model.Course, CustomApiKey.Documents).ConfigureAwait(false);
             return Request.CreateResponse(result);
         }
 
 
-        private static async Task<IEnumerable<SearchResult>> DoSearchAsync(string query, int page,
-            string university, string course, CustomApiKey key)
+        private async Task<IEnumerable<SearchResult>> DoSearchAsync(string[] query, int page,
+            long? university, string course, CustomApiKey key)
         {
             var initializer = new BaseClientService.Initializer
             {
                 ApiKey = "AIzaSyCZEbkX9Of6pZQ47OD0VA9a8fd1A6IvW6E",
 
             };
+            var term = new List<string>()
+            {
+               string.Join("+", query.Select(s=> '"' + s +'"')),
+                course.Replace(" ", "+")
+            };
+            if (university.HasValue)
+            {
+
+                var universitySynonym = await m_ZboxReadService.GetUniversitySynonymAsync(university.Value).ConfigureAwait(false);
+                term.Add(universitySynonym);
+            }
             var p = new CustomsearchService(initializer);
 
             int? realPage = null;
@@ -53,20 +70,24 @@ namespace Zbang.Cloudents.Jared.Controllers
             {
                 realPage = page;
             }
-
-            var request = new CseResource.ListRequest(p, query)
+            //if (string.IsNullOrEmpty(query))
+            //{
+            //    query = "*";
+            //}
+            var request = new CseResource.ListRequest(p, string.Join(" ",term))
             {
                 //ETagAction = Google.Apis.ETagAction.IfMatch,
                 Start = realPage,
 
-                ExactTerms = $"{university} {course}".Trim(),
+                //ExactTerms = $"{university} {course}".Trim(),
                 Cx = key.Key,
                 Fields = "items(title,link,snippet,pagemap/cse_image)"
             };
 
 
             var result = await request.ExecuteAsync().ConfigureAwait(false);
-            var items = result.Items.Select(s =>
+
+            var items = result.Items?.Select(s =>
             {
                 string image = null;
                 if (s.Pagemap != null && s.Pagemap.TryGetValue("cse_image", out var value))

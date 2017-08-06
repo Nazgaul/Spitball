@@ -27,7 +27,6 @@ using User = Zbang.Zbox.ViewModel.Dto.UserDtos;
 using Sql = Zbang.Zbox.ViewModel.SqlQueries;
 using Zbang.Zbox.ViewModel.Dto.JaredDtos;
 using Zbang.Zbox.ViewModel.Queries.Jared;
-using System.Collections;
 
 namespace Zbang.Zbox.ReadServices
 {
@@ -36,7 +35,7 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<HomePageDataDto> GetHomePageDataAsync(GetHomePageQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 var sql = Sql.HomePage.Stats;
                 if (query.UniversityId.HasValue)
@@ -44,14 +43,14 @@ namespace Zbang.Zbox.ReadServices
                     sql += Sql.HomePage.UniversityColors;
                 }
                 using (var grid = await conn.QueryMultipleAsync(sql
-                    , query))
+                    , query).ConfigureAwait(false))
                 {
                     var retVal = new HomePageDataDto
                     {
-                        HomePageStats = await grid.ReadFirstAsync<HomePageStats>()
+                        HomePageStats = await grid.ReadFirstAsync<HomePageStats>().ConfigureAwait(false)
                     };
                     if (grid.IsConsumed) return retVal;
-                    retVal.HomePageUniversityData = await grid.ReadFirstAsync<HomePageUniversityData>();
+                    retVal.HomePageUniversityData = await grid.ReadFirstAsync<HomePageUniversityData>().ConfigureAwait(false);
                     return retVal;
 
                 }
@@ -63,6 +62,15 @@ namespace Zbang.Zbox.ReadServices
             using (var conn = DapperConnection.OpenConnection())
             {
                 return conn.QuerySingleOrDefault<long?>("select id from zbox.university where url=@url", new { url });
+            }
+        }
+
+
+        public async Task<string> GetUniversitySynonymAsync(long id)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
+            {
+                return await conn.QuerySingleOrDefaultAsync<string>("select coalesce( url, UniversityName) from zbox.university where id=@id", new { id }).ConfigureAwait(false);
             }
         }
 
