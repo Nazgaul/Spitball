@@ -32,14 +32,14 @@ namespace Zbang.Cloudents.Jared.Controllers
         [Route("api/search/flashcards"), HttpGet]
         public async Task<HttpResponseMessage> SearchFlashcardAsync([FromUri]SearchRequest model)
         {
-            var result = await DoSearchAsync(model.Query, model.Page ?? 0, model.University, model.Course, CustomApiKey.Documents).ConfigureAwait(false);
+            var result = await DoSearchAsync(model.Query, model.Page ?? 0, model.University, model.Course, CustomApiKey.Flashcard).ConfigureAwait(false);
             return Request.CreateResponse(result);
         }
 
         [Route("api/search/qna"), HttpGet]
         public async Task<HttpResponseMessage> SearchQuestionAsync([FromUri]SearchRequest model)
         {
-            var result = await DoSearchAsync(model.Query, model.Page ?? 0, model.University, model.Course, CustomApiKey.Documents).ConfigureAwait(false);
+            var result = await DoSearchAsync(model.Query, model.Page ?? 0, model.University, model.Course, CustomApiKey.AskQuestion).ConfigureAwait(false);
             return Request.CreateResponse(result);
         }
 
@@ -54,9 +54,13 @@ namespace Zbang.Cloudents.Jared.Controllers
             };
             var term = new List<string>()
             {
-               string.Join("+", query.Select(s=> '"' + s +'"')),
-                course.Replace(" ", "+")
+
+                course?.Replace(" ", "+")
             };
+            if (query != null)
+            {
+                term.Add(string.Join("+", query.Select(s => '"' + s + '"')));
+            }
             if (university.HasValue)
             {
 
@@ -74,14 +78,14 @@ namespace Zbang.Cloudents.Jared.Controllers
             //{
             //    query = "*";
             //}
-            var request = new CseResource.ListRequest(p, string.Join(" ",term))
+            var request = new CseResource.ListRequest(p, string.Join(" ", term))
             {
                 //ETagAction = Google.Apis.ETagAction.IfMatch,
                 Start = realPage,
 
                 //ExactTerms = $"{university} {course}".Trim(),
                 Cx = key.Key,
-                Fields = "items(title,link,snippet,pagemap/cse_image)"
+                Fields = "items(title,link,snippet,pagemap/cse_image,displayLink)"
             };
 
 
@@ -104,7 +108,8 @@ namespace Zbang.Cloudents.Jared.Controllers
                     Url = s.Link,
                     Title = s.Title,
                     Snippet = s.Snippet,
-                    Image = image
+                    Image = image,
+                    Source = s.DisplayLink
 
                 };
             });
