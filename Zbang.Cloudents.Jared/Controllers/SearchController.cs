@@ -26,14 +26,22 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> SearchDocumentAsync([FromUri]SearchRequest model)
         {
             var result = await DoSearchAsync(model, CustomApiKey.Documents).ConfigureAwait(false);
-            return Request.CreateResponse(result);
+            return Request.CreateResponse(new
+            {
+                documents = result,
+                facet = new[] {"www.coursehero.com"}
+            });
         }
 
         [Route("api/search/flashcards"), HttpGet]
         public async Task<HttpResponseMessage> SearchFlashcardAsync([FromUri]SearchRequest model)
         {
             var result = await DoSearchAsync(model, CustomApiKey.Flashcard).ConfigureAwait(false);
-            return Request.CreateResponse(result);
+            return Request.CreateResponse(new
+            {
+                documents = result,
+                facet = new[] { "www.quizlet.com" }
+            });
         }
 
         [Route("api/search/qna"), HttpGet]

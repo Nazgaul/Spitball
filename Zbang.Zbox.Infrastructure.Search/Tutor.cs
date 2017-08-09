@@ -15,8 +15,11 @@ namespace Zbang.Zbox.Infrastructure.Search
         public string Name { get; set; }
         public string Image { get; set; }
         public string Url { get; set; }
+
+        [IsSearchable]
         public string City { get; set; }
 
+        [IsSearchable]
         public string State { get; set; }
 
         [IsSortable, IsFilterable]

@@ -19,8 +19,9 @@ namespace Zbang.Zbox.Infrastructure.Search
         public DateTime? DateTime { get; set; }
 
         public string Responsibilities { get; set; }
-
+        [IsSearchable]
         public string City { get; set; }
+        [IsSearchable]
         public string State { get; set; }
         [IsFilterable, IsFacetable]
         public string JobType { get; set; }
@@ -36,6 +37,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public string Url { get; set; }
 
+        [IsSearchable]
         public string Company { get; set; }
 
         [IsSearchable]
