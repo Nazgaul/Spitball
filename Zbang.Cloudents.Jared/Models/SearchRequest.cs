@@ -7,5 +7,7 @@
 
         public long? University { get; set; }
         public string Course { get; set; }
+
+        public string Source { get; set; }
     }
 }

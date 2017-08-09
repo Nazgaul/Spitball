@@ -25,27 +25,26 @@ namespace Zbang.Cloudents.Jared.Controllers
         [Route("api/search/documents"), HttpGet]
         public async Task<HttpResponseMessage> SearchDocumentAsync([FromUri]SearchRequest model)
         {
-            var result = await DoSearchAsync(model.Query, model.Page ?? 0, model.University, model.Course, CustomApiKey.Documents).ConfigureAwait(false);
+            var result = await DoSearchAsync(model, CustomApiKey.Documents).ConfigureAwait(false);
             return Request.CreateResponse(result);
         }
 
         [Route("api/search/flashcards"), HttpGet]
         public async Task<HttpResponseMessage> SearchFlashcardAsync([FromUri]SearchRequest model)
         {
-            var result = await DoSearchAsync(model.Query, model.Page ?? 0, model.University, model.Course, CustomApiKey.Flashcard).ConfigureAwait(false);
+            var result = await DoSearchAsync(model, CustomApiKey.Flashcard).ConfigureAwait(false);
             return Request.CreateResponse(result);
         }
 
         [Route("api/search/qna"), HttpGet]
         public async Task<HttpResponseMessage> SearchQuestionAsync([FromUri]SearchRequest model)
         {
-            var result = await DoSearchAsync(model.Query, model.Page ?? 0, model.University, model.Course, CustomApiKey.AskQuestion).ConfigureAwait(false);
+            var result = await DoSearchAsync(model, CustomApiKey.AskQuestion).ConfigureAwait(false);
             return Request.CreateResponse(result);
         }
 
 
-        private async Task<IEnumerable<SearchResult>> DoSearchAsync(string[] query, int page,
-            long? university, string course, CustomApiKey key)
+        private async Task<IEnumerable<SearchResult>> DoSearchAsync(SearchRequest query, CustomApiKey key)
         {
             var initializer = new BaseClientService.Initializer
             {
@@ -55,35 +54,29 @@ namespace Zbang.Cloudents.Jared.Controllers
             var term = new List<string>()
             {
 
-                course?.Replace(" ", "+")
+                query.Course?.Replace(" ", "+")
             };
-            if (query != null)
+            if (query.Query != null)
             {
-                term.Add(string.Join("+", query.Select(s => '"' + s + '"')));
+                term.Add(string.Join("+", query.Query.Select(s => '"' + s + '"')));
             }
-            if (university.HasValue)
+            if (query.University.HasValue)
             {
 
-                var universitySynonym = await m_ZboxReadService.GetUniversitySynonymAsync(university.Value).ConfigureAwait(false);
+                var universitySynonym = await m_ZboxReadService.GetUniversitySynonymAsync(query.University.Value).ConfigureAwait(false);
                 term.Add(universitySynonym);
             }
             var p = new CustomsearchService(initializer);
 
             int? realPage = null;
-            if (page > 0)
+            if (query.Page > 0)
             {
-                realPage = page;
+                realPage = query.Page;
             }
-            //if (string.IsNullOrEmpty(query))
-            //{
-            //    query = "*";
-            //}
             var request = new CseResource.ListRequest(p, string.Join(" ", term))
             {
-                //ETagAction = Google.Apis.ETagAction.IfMatch,
                 Start = realPage,
-
-                //ExactTerms = $"{university} {course}".Trim(),
+                SiteSearch = query.Source,
                 Cx = key.Key,
                 Fields = "items(title,link,snippet,pagemap/cse_image,displayLink)"
             };
