@@ -23,6 +23,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
              new { controller = "Home", action = "Index" }
              );
 
+            routes.MapRoute("Alex",
+             "alex",
+             new { controller = "Alex", action = "Index" }
+             );
             routes.MapRoute("universityLibrary",
                 "university/{universityId}/{universityName}",
                 new {controller = "University", action = "Index" },

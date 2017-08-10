@@ -301,6 +301,7 @@
     <Compile Include="App_Start\IocConfig.cs" />
     <Compile Include="App_Start\ViewConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AlexController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BoxController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
@@ -815,6 +816,8 @@
     <Content Include="bower_components\textAngular\dist\textAngular.rtl.css">
       <DependentUpon>textAngular.css</DependentUpon>
     </Content>
+    <Content Include="Content\Alex\home.css" />
+    <Content Include="Content\Alex\jquery.fullPage.css" />
     <Content Include="Content\angular-material.css" />
     <Content Include="Content\angular-material.layout-attributes.css" />
     <Content Include="Content\angular-material.layouts.css" />
@@ -1232,6 +1235,34 @@
     <Content Include="Images\aboutUs\matan.png" />
     <Content Include="Images\aboutUs\ram.png" />
     <Content Include="Images\aboutUs\shlomi.png" />
+    <Content Include="Images\Alex\appIcon%402x.png" />
+    <Content Include="Images\Alex\appIcon%403x.png" />
+    <Content Include="Images\Alex\appIcon.png" />
+    <Content Include="Images\Alex\apple.png" />
+    <Content Include="Images\Alex\coffee2small.png" />
+    <Content Include="Images\Alex\coffee_small.png" />
+    <Content Include="Images\Alex\downArrow.svg" />
+    <Content Include="Images\Alex\headphone.png" />
+    <Content Include="Images\Alex\iphone.png" />
+    <Content Include="Images\Alex\logo-spitball-copy.svg" />
+    <Content Include="Images\Alex\slide1.png" />
+    <Content Include="Images\Alex\book_small.png" />
+    <Content Include="Images\Alex\calculator.png" />
+    <Content Include="Images\Alex\coffe.png" />
+    <Content Include="Images\Alex\doc_small.png" />
+    <Content Include="Images\Alex\logo-spitball-copy%402x.png" />
+    <Content Include="Images\Alex\logo-spitball-copy%403x.png" />
+    <Content Include="Images\Alex\logo-spitball-copy.png" />
+    <Content Include="Images\Alex\mac_small.png" />
+    <Content Include="Images\Alex\slidedown%402x.png" />
+    <Content Include="Images\Alex\slidedown%403x.png" />
+    <Content Include="Images\Alex\slidedown.png" />
+    <Content Include="Images\Alex\sp_notebook.png" />
+    <Content Include="Images\Alex\pizza_small.png" />
+    <Content Include="Images\Alex\red_folder.png" />
+    <Content Include="Images\Alex\section_bg.png" />
+    <Content Include="Images\Alex\spinner_small.png" />
+    <Content Include="Images\Alex\sun_glasses_small.png" />
     <Content Include="Images\bx_loader.gif" />
     <Content Include="Images\ClassNotes\items\en\1.png" />
     <Content Include="Images\ClassNotes\items\en\10.png" />
@@ -1444,6 +1475,9 @@
     <Content Include="Images\Site\user_4.png" />
     <Content Include="Images\textEditor.svg" />
     <Content Include="Images\user.svg" />
+    <Content Include="Js\Alex\jquery.fullPage.min.js" />
+    <Content Include="Js\Alex\velocity.min.js" />
+    <Content Include="Js\Alex\normal.js" />
     <Content Include="Js\app.js" />
     <Content Include="Js\app.route.js" />
     <Content Include="Js\CDNFallbackWithoutAngular.js" />
@@ -1481,6 +1515,7 @@
     <Content Include="Js\signin\itemGallery.js" />
     <Content Include="Js\signin\layout.js" />
     <Content Include="Js\signin\staticPages.js" />
+    <Content Include="Js\Alex\helpers.js" />
     <TypeScriptCompile Include="Js\app.config.ts" />
     <TypeScriptCompile Include="Js\components\account\account.service.ts" />
     <TypeScriptCompile Include="Js\components\account\unregisterShow.directive.ts" />
@@ -2607,6 +2642,7 @@
     <Content Include="Service References\Application Insights\ConnectedService.json" />
     <Content Include="Views\Home\Promotion.cshtml" />
     <Content Include="Views\Start\Index.cshtml" />
+    <Content Include="Views\Alex\Index.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2638,6 +2674,7 @@
     <Folder Include="Images\Promotion\" />
     <Folder Include="Js\homePage\" />
     <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Views\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
