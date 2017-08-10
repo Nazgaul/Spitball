@@ -9,12 +9,12 @@ namespace Zbang.Zbox.Infrastructure.Security
         public ApplicationDbContext(string connectionString)
             : base(connectionString)
         {
-            var sw = new Stopwatch();
-            sw.Start();
+            //var sw = new Stopwatch();
+            //sw.Start();
             
-            Database.Initialize(false);
-            sw.Stop();
-            TraceLog.WriteInfo("time to initialize entity framework " + sw.ElapsedMilliseconds);
+            //Database.Initialize(false);
+            //sw.Stop();
+            //TraceLog.WriteInfo("time to initialize entity framework " + sw.ElapsedMilliseconds);
         }
 
     }

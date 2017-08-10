@@ -86,7 +86,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         public abstract Index GetIndexStructure(string indexName);
         public void Start()
         {
-            m_Connection.SearchClient.Indexes.CreateOrUpdate(GetIndexStructure(m_IndexName));
+           // m_Connection.SearchClient.Indexes.CreateOrUpdate(GetIndexStructure(m_IndexName));
         }
 
         public void Dispose()
