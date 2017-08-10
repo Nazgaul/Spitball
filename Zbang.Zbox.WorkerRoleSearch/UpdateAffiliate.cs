@@ -43,7 +43,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             if (progressAsync == null) throw new ArgumentNullException(nameof(progressAsync));
             m_Logger.Info($"{Service} starting to work");
-            string locationToSave = m_LocalStorage.CombineDirectoryWithFileName(FileLocation);
+            var locationToSave = m_LocalStorage.CombineDirectoryWithFileName(FileLocation);
             if (!File.Exists(locationToSave) || index == 0)
             {
                 using (var client = new HttpClient(HttpHandler()))

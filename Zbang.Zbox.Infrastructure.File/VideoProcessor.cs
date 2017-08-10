@@ -22,11 +22,11 @@ namespace Zbang.Zbox.Infrastructure.File
             m_MediaServiceProvider = mediaServiceProvider;
         }
 
-        public override async Task<PreviewResult> ConvertFileToWebsitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public override async Task<PreviewResult> ConvertFileToWebsitePreviewAsync(Uri blobUri, int indexNum,
+            CancellationToken cancelToken = default(CancellationToken))
         {
-            var metaData = await BlobProvider.FetchBlobMetaDataAsync(blobUri, cancelToken);
-            string value;
-            if (!metaData.TryGetValue(MetadataConst.VideoStatus, out value))
+            var metaData = await BlobProvider.FetchBlobMetaDataAsync(blobUri, cancelToken).ConfigureAwait(false);
+            if (!metaData.TryGetValue(MetadataConst.VideoStatus, out string _))
             {
                 return new PreviewResult { ViewName = "MediaLoading" };
                 //return new PreviewResult(ContentNotReady);
@@ -36,43 +36,41 @@ namespace Zbang.Zbox.Infrastructure.File
 
         }
 
-        public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri,
+            CancellationToken cancelToken = default(CancellationToken))
         {
-            var currentMetaData = await BlobProvider.FetchBlobMetaDataAsync(blobUri, cancelToken);
-            string value;
-            if (currentMetaData.TryGetValue(MetadataConst.VideoStatus, out value))
+            var currentMetaData = await BlobProvider.FetchBlobMetaDataAsync(blobUri, cancelToken).ConfigureAwait(false);
+            if (currentMetaData.TryGetValue(MetadataConst.VideoStatus, out string _))
             {
                 return null;
             }
-            var newBlobName = await m_MediaServiceProvider.Value.EncodeVideoAsync(blobUri, cancelToken);
-            var metaData = new Dictionary<string, string> { { MetadataConst.VideoStatus, "done" } };
-            await BlobProvider.SaveMetaDataToBlobAsync(newBlobName, metaData, cancelToken);
-            return new PreProcessFileResult { BlobName = GetBlobNameFromUri(newBlobName) };
+            var newBlobName = await m_MediaServiceProvider.Value.EncodeVideoAsync(blobUri, cancelToken)
+                .ConfigureAwait(false);
+            if (newBlobName == null) throw new ArgumentNullException(nameof(newBlobName));
+            var metaData = new Dictionary<string, string> {{MetadataConst.VideoStatus, "done"}};
+            await BlobProvider.SaveMetaDataToBlobAsync(newBlobName, metaData, cancelToken).ConfigureAwait(false);
+            return new PreProcessFileResult {BlobName = GetBlobNameFromUri(newBlobName)};
 
 
         }
 
-        public static readonly string[] VideoExtensions = { ".3gp", ".3g2", ".3gp2", ".asf", ".mts", ".m2ts", ".mod", ".dv", ".ts", ".vob", ".xesc", ".mp4", ".mpeg", ".mpg", ".m2v", ".ismv", ".wmv" };
+        public static readonly string[] VideoExtensions =
+        {
+            ".3gp", ".3g2", ".3gp2", ".asf", ".mts", ".m2ts", ".mod", ".dv", ".ts", ".vob", ".xesc", ".mp4", ".mpeg",
+            ".mpg", ".m2v", ".ismv", ".wmv"
+        };
 
 
         public override bool CanProcessFile(Uri blobName)
         {
-            return blobName.AbsoluteUri.StartsWith(BlobProvider.StorageContainerUrl) && VideoExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
+            return blobName.AbsoluteUri.StartsWith(BlobProvider.StorageContainerUrl) &&
+                   VideoExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
         }
 
-        //public override string GetDefaultThumbnailPicture()
-        //{
-        //    return DefaultPicture.VideoFileTypePicture;
-        //}
-
-        public override Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        public override Task<string> ExtractContentAsync(Uri blobUri,
+            CancellationToken cancelToken = default(CancellationToken))
         {
             return Task.FromResult<string>(null);
         }
-
-        //public override Task GenerateImagePreviewAsync(Uri blobUri, CancellationToken cancelToken)
-        //{
-        //    return Extensions.TaskExtensions.CompletedTask;
-        //}
     }
 }

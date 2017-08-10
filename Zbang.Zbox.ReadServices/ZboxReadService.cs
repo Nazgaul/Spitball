@@ -352,15 +352,15 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<IEnumerable<Activity.AnnotationDto>> GetItemCommentsAsync(ItemCommentQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 using (var grid = await conn.QueryMultipleAsync($"{Sql.Item.ItemComments} {Sql.Item.ItemCommentReply}",
-                    query))
+                    query).ConfigureAwait(false))
                 {
-                    var retVal = (await grid.ReadAsync<Activity.AnnotationDto>()).ToList();
+                    var retVal = (await grid.ReadAsync<Activity.AnnotationDto>().ConfigureAwait(false)).ToList();
 
                     IEnumerable<Activity.AnnotationReplyDto> replies =
-                        grid.Read<Activity.AnnotationReplyDto>().ToList();
+                        (await grid.ReadAsync<Activity.AnnotationReplyDto>().ConfigureAwait(false)).ToList();
 
                     foreach (var comment in retVal)
                     {
@@ -509,7 +509,7 @@ where ownerid = @UserId and boxid = @BoxId;";
                     new { query.BoxId, query.PageNumber, query.RowsPerPage, query.CommentId, AnswerId = query.BelowReplyId }).ConfigureAwait(false))
                 {
                     var replies = (await grid.ReadAsync<Qna.ReplyDto>().ConfigureAwait(false)).ToList();
-                    var items = grid.Read<Qna.ItemDto>().ToLookup(c => c.AnswerId);
+                    var items = (await grid.ReadAsync<Qna.ItemDto>().ConfigureAwait(false)).ToLookup(c => c.AnswerId);
 
                     foreach (var reply in replies)
                     {
@@ -991,17 +991,17 @@ where ownerid = @UserId and boxid = @BoxId;";
 
         public async Task<Item.QuizQuestionWithSolvedAnswersDto> GetQuizQuestionWithAnswersAsync(GetQuizQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 var sql = $"{Sql.Quiz.Question} {Sql.Quiz.Answer} {Sql.Quiz.UserAnswer} {Sql.Quiz.UserQuiz}";
-                using (var grid = await conn.QueryMultipleAsync(sql, query))
+                using (var grid = await conn.QueryMultipleAsync(sql, query).ConfigureAwait(false))
                 {
                     var retVal = new Item.QuizQuestionWithSolvedAnswersDto
                     {
-                        Questions = await grid.ReadAsync<Item.QuestionWithDetailDto>()
+                        Questions = await grid.ReadAsync<Item.QuestionWithDetailDto>().ConfigureAwait(false)
                     };
-                    var answers = grid.Read<Item.AnswerWithDetailDto>().ToList();
-                    var solvedQuestion = await grid.ReadAsync<Item.SolveQuestion>();
+                    var answers = (await grid.ReadAsync<Item.AnswerWithDetailDto>().ConfigureAwait(false)).ToList();
+                    var solvedQuestion = await grid.ReadAsync<Item.SolveQuestion>().ConfigureAwait(false);
 
                     foreach (var question in retVal.Questions)
                     {
@@ -1017,30 +1017,30 @@ where ownerid = @UserId and boxid = @BoxId;";
         public async Task<Item.QuizWithDetailSolvedDto> GetQuizAsync(GetQuizQuery query)
         {
             var retVal = new Item.QuizWithDetailSolvedDto();
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 const string sql = Sql.Quiz.QuizQuery + Sql.Quiz.Question + Sql.Quiz.Answer + Sql.Quiz.UserQuiz
                                    + Sql.Quiz.UserLike +
                                    Sql.Quiz.UserAnswer + Sql.Quiz.TopUsers;
-                using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId, query.UserId, topusers = 3 }))
+                using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId, query.UserId, topusers = 3 }).ConfigureAwait(false))
                 {
-                    retVal.Quiz = await grid.ReadFirstAsync<Item.QuizWithDetailDto>();
-                    retVal.Quiz.Questions = await grid.ReadAsync<Item.QuestionWithDetailDto>();
-                    var answers = grid.Read<Item.AnswerWithDetailDto>().ToLookup(c => c.QuestionId);
+                    retVal.Quiz = await grid.ReadFirstAsync<Item.QuizWithDetailDto>().ConfigureAwait(false);
+                    retVal.Quiz.Questions = await grid.ReadAsync<Item.QuestionWithDetailDto>().ConfigureAwait(false);
+                    var answers = (await grid.ReadAsync<Item.AnswerWithDetailDto>().ConfigureAwait(false)).ToLookup(c => c.QuestionId);
 
                     foreach (var question in retVal.Quiz.Questions)
                     {
                         question.Answers.AddRange(answers[question.Id]);
                         //question.Answers.AddRange(answers.Where(w => w.QuestionId == question.Id));
                     }
-                    retVal.Sheet = await grid.ReadFirstOrDefaultAsync<Item.SolveSheet>();
-                    retVal.Like = await grid.ReadFirstOrDefaultAsync<Guid?>();
-                    var solvedQuestion = await grid.ReadAsync<Item.SolveQuestion>();
+                    retVal.Sheet = await grid.ReadFirstOrDefaultAsync<Item.SolveSheet>().ConfigureAwait(false);
+                    retVal.Like = await grid.ReadFirstOrDefaultAsync<Guid?>().ConfigureAwait(false);
+                    var solvedQuestion = await grid.ReadAsync<Item.SolveQuestion>().ConfigureAwait(false);
                     if (retVal.Sheet != null)
                     {
                         retVal.Sheet.Questions = solvedQuestion;
                     }
-                    retVal.Quiz.TopUsers = await grid.ReadAsync<Item.QuizBestUser>();
+                    retVal.Quiz.TopUsers = await grid.ReadAsync<Item.QuizBestUser>().ConfigureAwait(false);
                     return retVal;
                 }
             }
@@ -1057,14 +1057,14 @@ where ownerid = @UserId and boxid = @BoxId;";
 
         public async Task<Item.QuizWithDetailDto> GetDraftQuizAsync(GetQuizDraftQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                using (var grid = await conn.QueryMultipleAsync($"{Sql.Quiz.QuizQuery} {Sql.Quiz.Question} {Sql.Quiz.Answer}", query))
+                using (var grid = await conn.QueryMultipleAsync($"{Sql.Quiz.QuizQuery} {Sql.Quiz.Question} {Sql.Quiz.Answer}", query).ConfigureAwait(false))
                 {
-                    var retVal = await grid.ReadFirstAsync<Item.QuizWithDetailDto>();
-                    retVal.Questions = grid.Read<Item.QuestionWithDetailDto>();
+                    var retVal = await grid.ReadFirstAsync<Item.QuizWithDetailDto>().ConfigureAwait(false);
+                    retVal.Questions = await grid.ReadAsync<Item.QuestionWithDetailDto>().ConfigureAwait(false);
 
-                    var answers = grid.Read<Item.AnswerWithDetailDto>().ToList();
+                    var answers = (await grid.ReadAsync<Item.AnswerWithDetailDto>().ConfigureAwait(false)).ToList();
 
                     foreach (var question in retVal.Questions)
                     {

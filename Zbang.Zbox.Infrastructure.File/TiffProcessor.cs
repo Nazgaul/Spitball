@@ -21,12 +21,14 @@ namespace Zbang.Zbox.Infrastructure.File
     {
         private readonly IBlobProvider2<IPreviewContainer> m_BlobProviderPreview;
         private readonly IBlobProvider2<ICacheContainer> m_BlobProviderCache;
+        private readonly ILogger m_Logger;
 
-        public TiffProcessor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview, IBlobProvider2<ICacheContainer> blobProviderCache)
+        public TiffProcessor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview, IBlobProvider2<ICacheContainer> blobProviderCache, ILogger logger)
             : base(blobProvider)
         {
             m_BlobProviderPreview = blobProviderPreview;
             m_BlobProviderCache = blobProviderCache;
+            m_Logger = logger;
         }
 
         private static void SetLicense()
@@ -37,7 +39,6 @@ namespace Zbang.Zbox.Infrastructure.File
         public override async Task<PreviewResult> ConvertFileToWebsitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
-            // var indexOfPageGenerate = CalculateTillWhenToDrawPictures(indexNum);
             Stream blobStr = null;
             var tiff = new AsyncLazy<TiffImage>(async () =>
            {
@@ -149,24 +150,16 @@ namespace Zbang.Zbox.Infrastructure.File
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("PreProcessFile tiff", ex);
+                m_Logger.Exception(ex);
             }
             return null;
         }
 
-        //public override string GetDefaultThumbnailPicture()
-        //{
-        //    return DefaultPicture.ImageFileTypePicture;
-        //}
 
         public override Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             return Task.FromResult<string>(null);
         }
 
-        //public override async Task GenerateImagePreviewAsync(Uri blobUri, CancellationToken cancelToken)
-        //{
-
-        //}
     }
 }

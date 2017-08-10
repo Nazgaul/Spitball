@@ -13,11 +13,13 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
     public abstract class BaseMarketingMailProcess : ISchedulerProcess
     {
         private readonly IMailComponent m_MailComponent;
+        private readonly ILogger m_Logger;
 
 
-        protected BaseMarketingMailProcess(IMailComponent mailComponent)
+        protected BaseMarketingMailProcess(IMailComponent mailComponent, ILogger logger)
         {
             m_MailComponent = mailComponent;
+            m_Logger = logger;
         }
 
         protected abstract Task<IEnumerable<MarketingDto>> GetDataAsync(MarketingQuery query, CancellationToken token);
@@ -39,7 +41,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             {
                 try
                 {
-                    TraceLog.WriteInfo($"{ServiceName} running  mail page {page}");
+                    m_Logger.Info($"{ServiceName} running  mail page {page}");
                     needToContinueRun = false;
                     var pageSize = 100;
                     if (RoleIndexProcessor.IsEmulated)
@@ -76,14 +78,14 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 }
                 catch (Exception ex)
                 {
-                    TraceLog.WriteError($"{ServiceName} {ex}");
+                    m_Logger.Exception(ex);
                 }
                 page++;
                 await progressAsync(page, TimeSpan.FromMinutes(15)).ConfigureAwait(false);
 
             }
-            await m_MailComponent.GenerateSystemEmailAsync(ServiceName, $"finish to run  with page {page}").ConfigureAwait(false);
-            TraceLog.WriteInfo($"{ServiceName} finish running  mail page {page}");
+            //await m_MailComponent.GenerateSystemEmailAsync(ServiceName, $"finish to run  with page {page}").ConfigureAwait(false);
+            m_Logger.Info($"{ServiceName} finish running  mail page {page}");
             return true;
 
         }

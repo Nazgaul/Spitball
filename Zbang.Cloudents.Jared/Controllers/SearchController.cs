@@ -59,7 +59,7 @@ namespace Zbang.Cloudents.Jared.Controllers
                 ApiKey = "AIzaSyCZEbkX9Of6pZQ47OD0VA9a8fd1A6IvW6E",
 
             };
-            var term = new List<string>()
+            var term = new List<string>
             {
 
                 query.Course?.Replace(" ", "+")

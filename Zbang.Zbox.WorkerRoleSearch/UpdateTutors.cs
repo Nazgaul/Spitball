@@ -32,7 +32,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         protected override IEnumerable<WyzantTutor> GetT(string location)
         {
-            JsonSerializer serializer = new JsonSerializer();
+            var serializer = new JsonSerializer();
             using (FileStream s = File.Open(location, FileMode.Open))
             using (StreamReader sr = new StreamReader(s))
             using (JsonReader reader = new JsonTextReader(sr))

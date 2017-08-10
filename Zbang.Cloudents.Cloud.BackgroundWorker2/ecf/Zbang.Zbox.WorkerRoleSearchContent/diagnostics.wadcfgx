@@ -7,7 +7,7 @@
       </DiagnosticMonitorConfiguration>
       <SinksConfig>
         <Sink name="applicationInsights">
-          <ApplicationInsights>bceed25d-fdd9-4581-b477-068120221ebd</ApplicationInsights>
+          <ApplicationInsights>883a1d58-225d-497e-98e2-8e8f33ff19d9</ApplicationInsights>
           <Channels>
             <Channel logLevel="Error" name="errors" />
             <Channel logLevel="Verbose" name="all" />

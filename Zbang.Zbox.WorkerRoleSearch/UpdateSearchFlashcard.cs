@@ -24,8 +24,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IContentWriteSearchProvider m_ContentSearchProvider;
         private readonly IZboxWriteService m_WriteService;
         private readonly IWatsonExtract m_WatsonExtractProvider;
+        private readonly ILogger m_Logger;
 
-        public UpdateSearchFlashcard(IFlashcardWriteSearchProvider flashcardSearchProvider, IZboxReadServiceWorkerRole zboxReadService, IZboxWorkerRoleService zboxWriteService, IDocumentDbReadService documentDbService, IContentWriteSearchProvider contentSearchProvider, IZboxWriteService writeService, IWatsonExtract watsonExtractProvider)
+        public UpdateSearchFlashcard(IFlashcardWriteSearchProvider flashcardSearchProvider, IZboxReadServiceWorkerRole zboxReadService, IZboxWorkerRoleService zboxWriteService, IDocumentDbReadService documentDbService, IContentWriteSearchProvider contentSearchProvider, IZboxWriteService writeService, IWatsonExtract watsonExtractProvider, ILogger logger)
         {
             m_FlashcardSearchProvider = flashcardSearchProvider;
             m_ZboxReadService = zboxReadService;
@@ -34,6 +35,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_ContentSearchProvider = contentSearchProvider;
             m_WriteService = writeService;
             m_WatsonExtractProvider = watsonExtractProvider;
+            m_Logger = logger;
         }
 
         public string Name => nameof(UpdateSearchFlashcard);
@@ -42,7 +44,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             const int top = 100;
             var updates = await m_ZboxReadService.GetFlashcardsDirtyUpdatesAsync(instanceId, instanceCount, top, cancellationToken).ConfigureAwait(false);
             if (!updates.Updates.Any() && !updates.Deletes.Any()) return TimeToSleep.Increase;
-            TraceLog.WriteInfo($"{Name} is doing process");
             var toUpdates = updates.Updates.ToList();
             for (var i = toUpdates.Count - 1; i >= 0; i--)
             {
@@ -126,7 +127,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             var index = RoleIndexProcessor.GetIndex();
             var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
-            TraceLog.WriteWarning("flashcard index " + index + " count " + count);
+            m_Logger.Warning("item index " + index + " count " + count);
             while (!cancellationToken.IsCancellationRequested)
             {
                 try
@@ -135,10 +136,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    TraceLog.WriteError(ex);
+                    m_Logger.Exception(ex);
                 }
             }
-            TraceLog.WriteError("On finish run");
+            m_Logger.Error($"{Name} On finish run");
         }
     }
 }

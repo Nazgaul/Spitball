@@ -33,7 +33,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public async Task<IEnumerable<string>> GetOldJobsAsync(CancellationToken token)
         {
-            var parameters = new SearchParameters()
+            var parameters = new SearchParameters
             {
                 Filter = $"insertDate lt {DateTime.UtcNow.AddDays(-4):yyyy-MM-dd'T'hh:mm:ss'Z'}",
                 Select = new[] { "id" }

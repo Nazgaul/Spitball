@@ -35,7 +35,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             if (File.Exists(fileNameWithPath))
             {
                 var file = new FileInfo(fileNameWithPath);
-                if (file.Length == streamSource.Length)
+                if (streamSource.CanSeek && file.Length == streamSource.Length)
                 {
                     return fileNameWithPath;
                 }

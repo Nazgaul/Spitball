@@ -15,11 +15,12 @@ namespace Zbang.Zbox.Infrastructure.File
 {
     public class PowerPoint2007Processor : DocumentProcessor
     {
-        const string CacheVersion = CacheVersionPrefix + "4";
-        public PowerPoint2007Processor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview, IBlobProvider2<ICacheContainer> blobProviderCache)
+        private const string CacheVersion = CacheVersionPrefix + "4";
+        private readonly ILogger m_Logger;
+        public PowerPoint2007Processor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview, IBlobProvider2<ICacheContainer> blobProviderCache, ILogger logger)
             : base(blobProvider, blobProviderPreview, blobProviderCache)
         {
-
+            m_Logger = logger;
         }
 
         private static void SetLicense()
@@ -107,7 +108,7 @@ namespace Zbang.Zbox.Infrastructure.File
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("PreProcessFile powerpoint2007", ex);
+                m_Logger.Exception(ex);
                 return null;
             }
         }
@@ -134,7 +135,7 @@ namespace Zbang.Zbox.Infrastructure.File
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("Filed to extract text", ex);
+                m_Logger.Exception(ex);
                 return string.Empty;
             }
         }
@@ -153,7 +154,7 @@ namespace Zbang.Zbox.Infrastructure.File
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("failed to initialize ppt on blob: " + blobUri, ex);
+                m_Logger.Exception(ex);
                 return null;
             }
         }

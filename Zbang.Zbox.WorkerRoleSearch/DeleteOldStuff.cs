@@ -15,12 +15,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IZboxWorkerRoleService m_ZboxWorkerRoleService;
         private readonly IMailComponent m_MailComponent;
         private readonly IMediaServicesProvider m_MediaService;
+        private readonly ILogger m_Logger;
 
-        public DeleteOldStuff(IZboxWorkerRoleService zboxWorkerRoleService, IMailComponent mailComponent, IMediaServicesProvider mediaService)
+        public DeleteOldStuff(IZboxWorkerRoleService zboxWorkerRoleService, IMailComponent mailComponent, IMediaServicesProvider mediaService, ILogger logger)
         {
             m_ZboxWorkerRoleService = zboxWorkerRoleService;
             m_MailComponent = mailComponent;
             m_MediaService = mediaService;
+            m_Logger = logger;
         }
 
         private async Task<string> DoDeleteAsync(CancellationToken cancellationToken, string prefix, Func<CancellationToken, Task<int>> func)
@@ -38,10 +40,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         mailContent.AppendLine($"{prefix} number: {counter}");
                     }
                 }
-                
                 catch (Exception ex)
                 {
-                    TraceLog.WriteError("delete old updates", ex);
+                    m_Logger.Exception(ex);
                     await m_MailComponent.GenerateSystemEmailAsync("delete old stuff", ex.ToString()).ConfigureAwait(false);
                     mailContent.AppendLine($"{prefix} exception: {ex}");
                     break;
@@ -56,7 +57,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             try
             {
                 await m_MediaService.DeleteOldAssetsAsync().ConfigureAwait(false);
-                TraceLog.WriteInfo("delete stuff starting to work");
+                m_Logger.Info("delete stuff starting to work");
                 await m_ZboxWorkerRoleService.DoDirtyUpdateAsync(token).ConfigureAwait(false);
                 var result =
                     await
@@ -90,7 +91,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(ex);
+                m_Logger.Exception(ex);
                 await progressAsync.Invoke(0, TimeSpan.FromHours(1)).ConfigureAwait(false);
                 return false;
             }

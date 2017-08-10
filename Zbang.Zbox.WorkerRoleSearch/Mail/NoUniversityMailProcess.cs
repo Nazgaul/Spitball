@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Mail;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Dto.Emails;
 using Zbang.Zbox.ViewModel.Queries.Emails;
@@ -13,8 +14,8 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
     {
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
 
-        public NoUniversityMailProcess(IZboxReadServiceWorkerRole zboxReadService, IMailComponent mailComponent)
-            :base (mailComponent)
+        public NoUniversityMailProcess(ILogger logger, IZboxReadServiceWorkerRole zboxReadService, IMailComponent mailComponent)
+            : base(mailComponent, logger)
         {
             m_ZboxReadService = zboxReadService;
         }

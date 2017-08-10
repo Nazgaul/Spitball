@@ -192,30 +192,30 @@ namespace Testing
 
         }
 
-        private static void emailsVerify()
-        {
-            LicensingManager.SetLicenseKey("FHbrz2C/8XTEPkmsVzPzPuYvZ2XNoMDfMEdJKJdvGlwPpkAgNwQMVT+Ae1ZSY8QbQpm+7g==");
-            var verifier = new VerificationEngine();
-            var settings = new VerificationSettings
-            {
-                AllowDomainLiterals = false,
-                AllowComments = true,
-                AllowQuotedStrings = true,
-                LocalHostFqdn = "mg.spitball.co",
-                LocalSenderAddress = "michael@spitball.co",
-                LocalEndPoint = new IPEndPoint(IPAddress.Parse("184.173.153.166"), 25)
-            };
+        //private static void emailsVerify()
+        //{
+        //    LicensingManager.SetLicenseKey("FHbrz2C/8XTEPkmsVzPzPuYvZ2XNoMDfMEdJKJdvGlwPpkAgNwQMVT+Ae1ZSY8QbQpm+7g==");
+        //    var verifier = new VerificationEngine();
+        //    var settings = new VerificationSettings
+        //    {
+        //        AllowDomainLiterals = false,
+        //        AllowComments = true,
+        //        AllowQuotedStrings = true,
+        //        LocalHostFqdn = "mg.spitball.co",
+        //        LocalSenderAddress = "michael@spitball.co",
+        //        LocalEndPoint = new IPEndPoint(IPAddress.Parse("184.173.153.166"), 25)
+        //    };
 
-            // The component will use just the provided DNS server for its lookups
+        //    // The component will use just the provided DNS server for its lookups
 
-            settings.DnsServers.Clear();
-            settings.DnsServers.Add(IPAddress.Parse("8.8.8.8"));
-            // settings.SmtpConnectionTimeout = TimeSpan.FromMinutes(5);
-            var x = verifier.Run("MHW0008@auburn.edu", VerificationLevel.CatchAll, settings).Result;
-            var result = verifier.Run("LEW0019@auburn.edu", VerificationLevel.CatchAll, settings).Result;
+        //    settings.DnsServers.Clear();
+        //    settings.DnsServers.Add(IPAddress.Parse("8.8.8.8"));
+        //    // settings.SmtpConnectionTimeout = TimeSpan.FromMinutes(5);
+        //    var x = verifier.Run("MHW0008@auburn.edu", VerificationLevel.CatchAll, settings).Result;
+        //    var result = verifier.Run("LEW0019@auburn.edu", VerificationLevel.CatchAll, settings).Result;
 
 
-        }
+        //}
         //private static string[] emails()
         //{
         //    return new[]
@@ -386,68 +386,70 @@ namespace Testing
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var VALID_STATUS = HttpStatusCode.OK.ToString();
-                var httpClient = new HttpClient();
-                var list = conn.Query(@"select itemid, blobname from zbox.Item 
+                using (var httpClient = new HttpClient())
+                {
+                    var list = conn.Query(@"select itemid, blobname from zbox.Item 
                 where  Discriminator = 'Link'
                 and isdeleted = 0
                 order by itemid
                 OFFSET @Offset ROWS
                 FETCH NEXT @RowSize ROWS ONLY"
-                , new { Offset = index * 100, RowSize });
+, new { Offset = index * 100, RowSize });
 
-                Console.WriteLine($"Start index {index}");
-                //Run on the Query result rows
-                foreach (var singleRow in list)
-                {
-                    var currentUrl = singleRow.blobname;
-                    //Check if currentUrl exist in one of the given lists(valid or invalid)
-                    var dictVal = invalidLinks.Find(r => r.BlobName == currentUrl);
-                    //CurrentUrl is already known as valid
-                    if (validLinks.IndexOf(currentUrl) > -1) { continue; }
-                    //CurrentUrl known as invalid
-                    if (dictVal != null)
+                    Console.WriteLine($"Start index {index}");
+                    //Run on the Query result rows
+                    foreach (var singleRow in list)
                     {
-                        //Add the current id to the invalidItem ids list
-                        var idsList = dictVal.ItemIds.AsList();
-                        idsList.Add(singleRow.itemid);
-                        dictVal.ItemIds = idsList.ToArray();
-                        Console.WriteLine(string.Format("id :{0} val {1}", singleRow.itemid, dictVal.Code));
-                    }
-                    else
-                    {
-                        var status = "";
-                        try
+                        var currentUrl = singleRow.blobname;
+                        //Check if currentUrl exist in one of the given lists(valid or invalid)
+                        var dictVal = invalidLinks.Find(r => r.BlobName == currentUrl);
+                        //CurrentUrl is already known as valid
+                        if (validLinks.IndexOf(currentUrl) > -1) { continue; }
+                        //CurrentUrl known as invalid
+                        if (dictVal != null)
                         {
-                            //Start http process
-                            using (var sr = await httpClient.GetAsync(singleRow.blobname))
+                            //Add the current id to the invalidItem ids list
+                            var idsList = dictVal.ItemIds.AsList();
+                            idsList.Add(singleRow.itemid);
+                            dictVal.ItemIds = idsList.ToArray();
+                            Console.WriteLine(string.Format("id :{0} val {1}", singleRow.itemid, dictVal.Code));
+                        }
+                        else
+                        {
+                            var status = "";
+                            try
                             {
-                                //The response Ok add the item to the valid List and update the Status
-                                if (sr.IsSuccessStatusCode)
+                                //Start http process
+                                using (var sr = await httpClient.GetAsync(singleRow.blobname))
                                 {
-                                    validLinks.Add(currentUrl);
-                                    status = VALID_STATUS;
-                                }
-                                else
-                                {
-                                    status = ($"{((HttpResponseMessage)sr).StatusCode}({((int)((HttpResponseMessage)sr).StatusCode)})");
+                                    //The response Ok add the item to the valid List and update the Status
+                                    if (sr.IsSuccessStatusCode)
+                                    {
+                                        validLinks.Add(currentUrl);
+                                        status = VALID_STATUS;
+                                    }
+                                    else
+                                    {
+                                        status = ($"{((HttpResponseMessage)sr).StatusCode}({((int)((HttpResponseMessage)sr).StatusCode)})");
+                                    }
                                 }
                             }
-                        }
-                        catch (Exception e)
-                        {
-                            status = e.Message;
-                            Console.WriteLine(string.Format("issue id :{0} val {1} error:{2}", singleRow.itemid, singleRow.blobname, e.Message));
-                        }
-                        finally
-                        {
-                            if (status != VALID_STATUS)
-                                invalidLinks.Add(new LinkItemStatus(singleRow.blobname, singleRow.itemid, status));
-                        }
+                            catch (Exception e)
+                            {
+                                status = e.Message;
+                                Console.WriteLine(string.Format("issue id :{0} val {1} error:{2}", singleRow.itemid, singleRow.blobname, e.Message));
+                            }
+                            finally
+                            {
+                                if (status != VALID_STATUS)
+                                    invalidLinks.Add(new LinkItemStatus(singleRow.blobname, singleRow.itemid, status));
+                            }
 
 
+                        }
                     }
+                    Console.WriteLine($"end index {index}");
                 }
-                Console.WriteLine($"end index {index}");
             }
         }
         /**
@@ -520,18 +522,6 @@ namespace Testing
 
         //}
 
-        private static void CastingPerformance()
-        {
-            object x = "xxx";
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            string s = (string)x;
-            sw.Stop();
-            Console.WriteLine(sw.ElapsedTicks);
-            sw.Start();
-            string v = x as string;
-            sw.Stop();
-            Console.WriteLine(sw.ElapsedTicks);
-        }
+        
     }
 }
