@@ -240,7 +240,7 @@ will produce an inaccurate conversion value. The same issue exists with the cx/c
 				numSlides = Alex.ui.$textSlides.length,
 				textInterval;
 
-			// Alex.loadMobileImages();
+			//Alex.loadMobileImages();
 			Alex.ui.$imageSlides
 				.eq(0)
 				.velocity('finish')
@@ -251,7 +251,162 @@ will produce an inaccurate conversion value. The same issue exists with the cx/c
 					duration: 300,
 					visibility: 'visible'
 				});
+			// Init Fullpage JS.
+			Alex.ui.$scrollContainer.fullpage({
+				sectionSelector: '.scroll-section',
+				fitToSection: false,
+				verticalCentered: false,
+				scrollingSpeed: 1500,
+				loopBottom: false,
+				loopTop: false,
+				easing: 'easeInOutCubic',
+				afterRender: function () {
+					var $downArrow = $('.down-arrow');
 
+					Alex.meta.fullPageInterval = setInterval(function () {
+						$downArrow.velocity('finish').velocity({
+							translateY: '15px'
+						}, {
+							duration: 800,
+							easing: Alex.meta.easingInValue,
+							complete: function () {
+								$downArrow.velocity('finish').velocity({
+									translateY: '0'
+								}, {
+									duration: 500,
+									easing: Alex.meta.easingOutValue
+								});
+							}
+						});
+
+					}, Alex.meta.fullPageWaitTime);
+				},
+				onLeave: function (index, nextIndex, direction) {
+					clearTimeout(Alex.meta.fullPageInterval);
+					// var $currentSection;
+					Alex.meta.currentSection = 'Section' + nextIndex;
+					//ga('send', 'event', Alex.meta.currentSection, 'View', '');
+
+					if (direction === 'down') {
+						Alex.ui.$textSlides.eq(index - 1)
+							.find('.js-animate-this')
+							.velocity({
+								opacity: 0.0,
+								translateZ: 0,
+								translateY: '-30px'
+							}, {
+								duration: 500,
+								easing: Alex.meta.easingInValue,
+								complete: function () {
+									Alex.ui.$textSlides.eq(index - 1).removeClass('active');
+								}
+							});
+
+						Alex.ui.$textSlides.eq(nextIndex - 1)
+							.find('.js-animate-this')
+							.each(function (index) {
+								var $this = $(this);
+
+								$this
+									.velocity({
+										opacity: 1.0,
+										translateZ: 0,
+										translateY: ['0', '30px']
+									}, {
+										delay: (index + 1) * 250,
+										duration: 500,
+										easing: Alex.meta.easingInValue,
+										complete: function () {
+											Alex.ui.$textSlides.eq(nextIndex - 1).addClass('active');
+										}
+									});
+							});
+
+						Alex.ui.$imageSlides
+							.eq(nextIndex - 1)
+							.velocity('finish')
+							.velocity({
+								translateY: ['0', '100%'],
+								translateZ: 0
+							}, {
+								duration: 600,
+								delay: 800,
+								easing: Alex.meta.easingInValue,
+								visibility: 'visible'
+							});
+
+						Alex.ui.$imageSlides
+							.eq(index - 1)
+							.velocity({
+								translateZ: 0
+							}, {
+								delay: 1450,
+								duration: 0,
+								visibility: 'hidden'
+							});
+
+					} else {
+						Alex.ui.$textSlides.eq(index - 1)
+							.find('.js-animate-this')
+							.velocity({
+								opacity: 0.0,
+								translateY: '30px',
+								translateZ: 0
+							}, {
+								duration: 500,
+								easing: Alex.meta.easingInValue,
+								complete: function () {
+									Alex.ui.$textSlides.eq(index - 1).removeClass('active');
+								}
+							});
+
+						Alex.ui.$textSlides.eq(nextIndex - 1)
+							.find('.js-animate-this')
+							.each(function (index) {
+								var $this = $(this);
+
+								$this
+									.velocity('finish')
+									.velocity({
+										opacity: 1.0,
+										translateY: ['0', '-10%'],
+										translateZ: 0
+									}, {
+										delay: (index + 1) * 250,
+										easing: Alex.meta.easingInValue,
+										duration: 500,
+										complete: function () {
+											Alex.ui.$textSlides.eq(nextIndex - 1).addClass('active');
+										}
+									});
+							});
+
+						Alex.ui.$imageSlides
+							.eq(index - 1)
+							.velocity('finish')
+							.velocity({
+								translateY: '100%',
+								translateZ: 0
+							}, {
+								duration: 600,
+								delay: 600,
+								easing: Alex.meta.easingOutValue,
+								visibility: 'hidden'
+							});
+
+						Alex.ui.$imageSlides
+							.eq(nextIndex - 1)
+							.velocity('finish')
+							.velocity({
+								translateZ: 0
+							}, {
+								duration: 0,
+								delay: 0,
+								visibility: 'visible'
+							});
+					}
+				}
+			});
 			if (Alex.meta.wWidth >= 768 && !Alex.meta.isMobile) {
 				Alex.loadLazyImages();
 				Alex.initFaderNav();
@@ -276,163 +431,6 @@ will produce an inaccurate conversion value. The same issue exists with the cx/c
 				// Send View of Section 1
 				//ga('send', 'event', Alex.meta.currentSection, 'View', '');
 
-				// Init Fullpage JS.
-				Alex.ui.$scrollContainer.fullpage({
-					sectionSelector: '.scroll-section',
-					fitToSection: false,
-					verticalCentered: false,
-					scrollingSpeed: 1500,
-					loopBottom: false,
-					loopTop: false,
-					easing: 'easeInOutCubic',
-					afterRender: function () {
-						var $downArrow = $('.down-arrow');
-
-						Alex.meta.fullPageInterval = setInterval(function () {
-							$downArrow.velocity('finish').velocity({
-								translateY: '15px'
-							}, {
-								duration: 800,
-								easing: Alex.meta.easingInValue,
-								complete: function() {
-									$downArrow.velocity('finish').velocity({
-										translateY: '0'
-									}, {
-										duration: 500,
-										easing: Alex.meta.easingOutValue
-									});
-								} 
-							});
-
-						}, Alex.meta.fullPageWaitTime);            
-					},
-					onLeave: function(index, nextIndex, direction){
-						clearTimeout(Alex.meta.fullPageInterval);
-						// var $currentSection;
-						Alex.meta.currentSection = 'Section' + nextIndex;
-						//ga('send', 'event', Alex.meta.currentSection, 'View', '');
-
-						if (direction === 'down') {
-							Alex.ui.$textSlides.eq(index-1)
-								.find('.js-animate-this')
-								.velocity({
-									opacity: 0.0,
-									translateZ: 0,
-									translateY: '-30px'
-								}, {
-									duration: 500, 
-									easing: Alex.meta.easingInValue,
-									complete: function() {
-										Alex.ui.$textSlides.eq(index-1).removeClass('active');
-									}
-								});
-
-							Alex.ui.$textSlides.eq(nextIndex-1)
-								.find('.js-animate-this')
-								.each(function(index) {
-									var $this = $(this);
-
-									$this
-										.velocity({
-											opacity: 1.0,
-											translateZ: 0,
-											translateY: ['0', '30px']
-										}, {
-											delay: (index + 1) * 250,
-											duration: 500,
-											easing: Alex.meta.easingInValue,
-											complete: function() {
-												Alex.ui.$textSlides.eq(nextIndex-1).addClass('active');
-											}
-										});
-								});
-
-							Alex.ui.$imageSlides
-								.eq(nextIndex-1)
-								.velocity('finish')
-								.velocity({
-									translateY: ['0', '100%'],
-									translateZ: 0
-								}, {
-									duration: 600,
-									delay: 800,
-									easing: Alex.meta.easingInValue,
-									visibility: 'visible'
-								});
-
-							Alex.ui.$imageSlides
-								.eq(index-1)
-								.velocity({
-									translateZ: 0
-								}, {
-									delay: 1450,
-									duration: 0,
-									visibility: 'hidden'
-								});
-
-						} else {
-							Alex.ui.$textSlides.eq(index-1)
-								.find('.js-animate-this')
-								.velocity({
-									opacity: 0.0,
-									translateY: '30px',
-									translateZ: 0
-								}, {
-									duration: 500,
-									easing: Alex.meta.easingInValue,
-									complete: function() {
-										Alex.ui.$textSlides.eq(index-1).removeClass('active');
-									}
-								});
-
-							Alex.ui.$textSlides.eq(nextIndex-1)
-								.find('.js-animate-this')
-								.each(function(index) {
-									var $this = $(this);
-
-									$this
-										.velocity('finish')
-										.velocity({
-											opacity: 1.0,
-											translateY: ['0', '-10%'],
-											translateZ: 0
-										}, {
-											delay: (index + 1) * 250,
-											easing: Alex.meta.easingInValue,
-											duration: 500,
-											complete: function() {
-												Alex.ui.$textSlides.eq(nextIndex-1).addClass('active');
-											}
-										});
-								});
-
-							Alex.ui.$imageSlides
-								.eq(index-1)
-								.velocity('finish')
-								.velocity({
-									translateY: '100%',
-									translateZ: 0
-								}, {
-									duration: 600,
-									delay: 600,
-									easing: Alex.meta.easingOutValue,
-									visibility: 'hidden'
-								});
-
-							Alex.ui.$imageSlides
-								.eq(nextIndex-1)
-								.velocity('finish')
-								.velocity({
-									translateZ: 0
-								}, {
-									duration: 0,
-									delay: 0,
-									visibility: 'visible'
-								}); 
-						}
-					}
-				});
-
 				$('.down-arrow').on('click', function(e) {
 					e.preventDefault();
 
@@ -442,7 +440,7 @@ will produce an inaccurate conversion value. The same issue exists with the cx/c
 
 			} else if (Alex.meta.wWidth >= 768 && Alex.meta.isMobile) {
 				Alex.meta.currentSection = 'MobileView';
-
+				Alex.loadLazyImages();
 				Alex.initFaderNav();
 				Alex.handleHash();
 
@@ -463,58 +461,6 @@ will produce an inaccurate conversion value. The same issue exists with the cx/c
 								easing: Alex.meta.easingInValue
 							});
 					});   
-
-				textInterval = setInterval(function() {
-					Alex.ui.$textSlides.removeClass('active');
-					Alex.ui.$textSlides.eq(textIndex).addClass('active');     
-
-					Alex.ui.$textSlides
-						.eq(textIndex)
-						.find('.js-animate-this')
-						.velocity({
-							opacity: 0.0,
-							translateY: '-30px',
-							translateZ: 0
-						}, {
-							duration: 500,
-							easing: Alex.meta.easingInValue,
-							complete: function() {
-								Alex.ui.$textSlides.removeClass('active');
-							}
-						});
-
-					if (textIndex < numSlides-1) {
-						textIndex++;                    
-					} else {
-						textIndex = 0;
-					}
-
-					Alex.ui.$textSlides
-						.eq(textIndex)
-						.find('.js-animate-this')
-						.each(function(index) {
-							var $this = $(this);
-
-							$this
-								.velocity('finish')
-								.velocity({
-									opacity: 1.0,
-									translateY: ['0', '10%'],
-									translateZ: 0
-								}, {
-									delay: (index + 1) * 250,
-									easing: Alex.meta.easingInValue,
-									duration: 500,
-									visibility: 'visible',
-									complete: function() {
-										Alex.ui.$textSlides.eq(textIndex).addClass('active');            
-									}
-								});
-						});
-
-					Alex.animateSlideText(textIndex);
-          
-				}, 5000);
 			} else {
 				Alex.meta.currentSection = 'MobileView';
         
@@ -534,59 +480,7 @@ will produce an inaccurate conversion value. The same issue exists with the cx/c
 							delay: index * 150,
 							easing: Alex.meta.easingInValue
 						});
-					});
-        
-				textInterval = setInterval(function() {
-					Alex.ui.$textSlides.removeClass('active');
-					Alex.ui.$textSlides.eq(textIndex).addClass('active');     
-
-					Alex.ui.$textSlides
-						.eq(textIndex)
-						.find('.js-animate-this')
-						.velocity({
-							opacity: 0.0,
-							translateY: '-30px',
-							translateZ: 0
-						}, {
-							duration: 500,
-							easing: Alex.meta.easingInValue,
-							complete: function() {
-								Alex.ui.$textSlides.removeClass('active');
-							}
-						});
-
-					if (textIndex < numSlides-1) {
-						textIndex++;                    
-					} else {
-						textIndex = 0;
-					}
-
-					Alex.ui.$textSlides
-						.eq(textIndex)
-						.find('.js-animate-this')
-						.each(function(index) {
-							var $this = $(this);
-
-							$this
-								.velocity('finish')
-								.velocity({
-									opacity: 1.0,
-									translateY: ['0', '10%'],
-									translateZ: 0
-								}, {
-									delay: (index + 1) * 250,
-									easing: Alex.meta.easingInValue,
-									duration: 500,
-									visibility: 'visible',
-									complete: function() {
-										Alex.ui.$textSlides.eq(textIndex).addClass('active');            
-									}
-								});
-						});
-
-					Alex.animateSlideText(textIndex);
-          
-				}, 5000);         
+					});   
 			}
 		},
 		animateSlideText: function(idx) {
