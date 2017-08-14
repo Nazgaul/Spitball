@@ -564,11 +564,13 @@ body {
 	transform: rotate(10deg);
 }
 .pizza {
-	top: 50%;
-	left: -280px;
-	width: 700px;
-	transform: rotate(-15deg);
+	top: 46%;
+	left: -105px;
+	-ms-transform: rotate(-33deg);
+	-webkit-transform: rotate(-33deg);
+	transform: rotate(-33deg);
 }
+
 .folder {
 	top: 45%;
 	width: 850px;

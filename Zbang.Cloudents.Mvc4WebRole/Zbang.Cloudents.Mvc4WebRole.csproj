@@ -1262,6 +1262,7 @@
     <Content Include="Images\Alex\mac_small_900px.png" />
     <Content Include="Images\Alex\notebook_pencil_small_750px.png" />
     <Content Include="Images\Alex\pizza_small_700px.png" />
+    <Content Include="Images\Alex\pizza_small_700px_crop.png" />
     <Content Include="Images\Alex\red_folder_850px.png" />
     <Content Include="Images\Alex\red_folder_new.png" />
     <Content Include="Images\Alex\slide1.png" />
