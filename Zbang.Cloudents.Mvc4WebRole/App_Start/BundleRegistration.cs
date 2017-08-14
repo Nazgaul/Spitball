@@ -26,7 +26,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new CssWithRtl("~/content/jquery.bxslider.css","~/content/jquery.bxslider.rtl.css")
                     },
 
-
+                ["alex"] = new[]
+                    {
+                        new CssWithRtl("~/content/alex/home.css","~/content/alex/home.css")
+                    },
                 ["staticPage"] = new[]
                     {
                         new CssWithRtl("~/content/site/GeneralWithStatic.css"),
@@ -108,6 +111,14 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/languageHandler.js"),
                         new JsFileWithCdn("~/js/HomePage.js"),
                         new JsFileWithCdn("~/js/signin/backgroundimage.js")
+                    }
+                },
+                {
+                    "alex",new[]
+                    {
+                        new JsFileWithCdn("~/scripts/jquery-2.2.4.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"),
+                        new JsFileWithCdn("~/js/alex/helpers.js"),
+                        new JsFileWithCdn("~/js/alex/normal.js")
                     }
                 },
                 {

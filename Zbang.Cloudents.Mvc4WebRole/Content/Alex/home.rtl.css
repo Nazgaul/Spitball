@@ -309,7 +309,7 @@ input[type="submit"] {
 
 /**
  * Re-set default cursor for disabled elements.
- */ 
+ */
 button[disabled],
 html input[disabled] {
 	cursor: default;
@@ -522,17 +522,16 @@ body {
  * Images composition
  */
 .headphones {
-	top: 56%;
-	left: 4%;
+	top: 45%;
+	left: 0;
 	-ms-transform: rotate(16deg)!important;
 	-webkit-transform: rotate(16deg)!important;
 	transform: rotate(16deg)!important;
-	width:600px;
+	width: 620px;
 }
 
 .apple {
 	left:20px;
-	width:450px;
 }
 .spinner {
 	top: 26%;
@@ -543,8 +542,8 @@ body {
 	width:350px;
 }
 .sp-note {
-	top: 50%;
-	left: -160px;
+	top: 65%;
+	left: -126px;
 	-ms-transform: rotate(20deg);
 	-webkit-transform: rotate(20deg);
 	transform: rotate(20deg);
@@ -571,9 +570,9 @@ body {
 	transform: rotate(-15deg);
 }
 .folder {
-	top: 50%;
+	top: 45%;
 	width: 850px;
-	right: -400px;
+	right: -460px;
 	transform: rotate(15deg);
 }
 
@@ -584,18 +583,17 @@ body {
 	transform: rotate(-15deg);
 }
 .calc {
-	width: 380px;
+	width: 190px;
 	top: 85%;
-	left: 2%;
+	left: 7%;
 	-ms-transform: rotate(-10deg);
 	-webkit-transform: rotate(-10deg);
 	transform: rotate(-10deg);
 }
 
 .mac {
-	width: 900px;
-	right: -610px;
-	top: 1%;
+	right: -276px;
+	top: -15%;
 	-ms-transform: rotate(29deg);
 	-webkit-transform: rotate(29deg);
 	transform: rotate(29deg);
@@ -666,7 +664,7 @@ h6 {
 }
 
 .header .menu,
-.primer-logo {
+.spitball-logo {
 	text-indent: 500%;
 	white-space: nowrap;
 	overflow: hidden;
@@ -927,7 +925,7 @@ h6 {
 @media only screen and (min-width: 769px) and (max-width: 1140px) {
 	.fixed-content .device-frame .image-slides {
 		display: block;
-		position: absolute;		
+		position: absolute;
 		z-index: 10;
 		overflow: hidden;
 		top: 68px;
@@ -950,15 +948,12 @@ h6 {
 	.fixed-content .device-frame .image-slide-static {
 		width: 188px;
 	}
-	               
-div.js-animate-this {
-	font-size:20px;
-}
 }
 
 @media only screen and (min-width: 1141px) {
 	div.js-animate-this {
 		font-size:20px;
+		width:236px;
 	}
 	.content-text {
 		top:90px;
@@ -1029,9 +1024,12 @@ div.js-animate-this {
 
 
 @media only screen and (max-width: 768px) {
-	.scroll-container {
-		display: none;
-	}
+	.scroll-container { display: none; }
+
+	/*.fixed-content .device-frame { padding-top: 320px; }
+
+	.fixed-content .device-frame .image-slides { top: 392px !important; }*/
+	/*div.js-animate-this { font-size:16px;}*/
 }
 
 .scroll-section {
@@ -1127,9 +1125,9 @@ div.js-animate-this {
 		-webkit-transform: scale(0.7)  translateZ(0);
 		transform: scale(0.7)  translateZ(0);
 	}
-	.apple {
+	/*.apple {
 		top:-80px;
-	}
+	}*/
 	.headphones {
 		top: 66%;
 		left: -54px;
@@ -1524,6 +1522,19 @@ div.js-animate-this {
 	.text-slide:not(:first-child) {
 		top: 70px!important;
 	}
+	.fixed-content .device-frame {
+		position: absolute;
+		float: none;
+		padding-top: 320px;
+	}
+
+		.fixed-content .device-frame .image-slides {
+			top: 392px;
+		}
+
+	div.js-animate-this {
+		font-size: 20px;
+	}
 }
 
 @media only screen and (max-width: 430px) {
@@ -1601,7 +1612,7 @@ div.js-animate-this {
 	}
 }
 
-.primer-logo-footer {
+.spitball-logo-footer {
 	position: absolute;
 	top: -14px;
 	left: 0;
@@ -1652,7 +1663,7 @@ div.js-animate-this {
 }
 
 @media only screen and (max-width: 768px) {
-	.home-page .primer-logo {
+	.home-page .spitball-logo {
 		background-position: bottom center;
 	}
 
@@ -1880,7 +1891,7 @@ div.js-animate-this {
 	text-decoration: none;
 }
 
-.primer-logo {
+.spitball-logo {
 	background: url(/Images/Alex/logo-spitball-copy.svg) no-repeat top center;
 	width: 165px;
 	display: inline-block;
@@ -1889,7 +1900,7 @@ div.js-animate-this {
 }
 
 @media only screen and (max-width: 768px) {
-	.primer-logo {
+	.spitball-logo {
 		-ms-transform: scale(0.7) translateX(10px);
 		transform: scale(0.7) translateX(10px);
 		-webkit-transform: scale(0.7) translateX(10px);
@@ -2243,13 +2254,13 @@ div.js-animate-this {
 	color: #ffffff;
 }
 
-.overlay-is-active .primer-logo,
-.internal-page .primer-logo {
+.overlay-is-active .spitball-logo,
+.internal-page .spitball-logo {
 	background-position: bottom center;
 }
 
-.overlay-is-active .primer-logo:hover,
-.internal-page .primer-logo:hover {
+.overlay-is-active .spitball-logo:hover,
+.internal-page .spitball-logo:hover {
 	opacity: 0.75;
 }
 
