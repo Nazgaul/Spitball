@@ -236,9 +236,7 @@ will produce an inaccurate conversion value. The same issue exists with the cx/c
 			});
 		},
 		initHomePage: function() {
-			var textIndex = 0,
-				numSlides = Alex.ui.$textSlides.length,
-				textInterval;
+			var textIndex = 0;
 
 			//Alex.loadMobileImages();
 			Alex.ui.$imageSlides
@@ -440,7 +438,6 @@ will produce an inaccurate conversion value. The same issue exists with the cx/c
 
 			} else if (Alex.meta.wWidth >= 768 && Alex.meta.isMobile) {
 				Alex.meta.currentSection = 'MobileView';
-				Alex.loadLazyImages();
 				Alex.initFaderNav();
 				Alex.handleHash();
 

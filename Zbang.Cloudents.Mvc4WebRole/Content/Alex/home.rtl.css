@@ -572,9 +572,8 @@ body {
 }
 
 .folder {
-	top: 45%;
-	width: 850px;
-	right: -460px;
+	top: 50%;
+	right: -355px;
 	transform: rotate(15deg);
 }
 
