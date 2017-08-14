@@ -5,22 +5,22 @@
     <AzureDeleteDeploymentOnFailure>False</AzureDeleteDeploymentOnFailure>
     <AzureDeploymentLabel>Zbang.Cloudents.Cloud.Web</AzureDeploymentLabel>
     <AzureDeploymentReplacementMethod>BlastUpgrade</AzureDeploymentReplacementMethod>
-    <AzureSlot>Staging</AzureSlot>
+    <AzureSlot>Production</AzureSlot>
     <AzureEnableRemoteDesktop>True</AzureEnableRemoteDesktop>
     <AzureEnableWebDeploy>False</AzureEnableWebDeploy>
     <AzureFallbackToDeleteAndRecreateIfUpgradeFails>True</AzureFallbackToDeleteAndRecreateIfUpgradeFails>
-    <AzureHostedServiceLabel>spitball</AzureHostedServiceLabel>
-    <AzureHostedServiceName>spitball</AzureHostedServiceName>
+    <AzureHostedServiceLabel>zboxtest</AzureHostedServiceLabel>
+    <AzureHostedServiceName>zboxtest</AzureHostedServiceName>
     <AzureEnableIntelliTrace>False</AzureEnableIntelliTrace>
     <AzureEnableProfiling>False</AzureEnableProfiling>
-    <AzureServiceConfiguration>CloudProduction</AzureServiceConfiguration>
+    <AzureServiceConfiguration>Cloud</AzureServiceConfiguration>
     <AzureSolutionConfiguration>Release</AzureSolutionConfiguration>
     <AzureStorageAccountLabel>zboxstorage</AzureStorageAccountLabel>
     <AzureStorageAccountName>zboxstorage</AzureStorageAccountName>
     <AzureAppendTimestampToDeploymentLabel>True</AzureAppendTimestampToDeploymentLabel>
     <EnableRemoteDebugger>True</EnableRemoteDebugger>
     <RemoteDebuggerConnectorCertificateThumbprint>BDC320AD0114A49CE4B7DFF909D4ECE31667863B</RemoteDebuggerConnectorCertificateThumbprint>
-    <AzureHostedServiceResourceGroup>zbox</AzureHostedServiceResourceGroup>
+    <AzureHostedServiceResourceGroup>zboxtest</AzureHostedServiceResourceGroup>
     <EnableApplicationInsights>True</EnableApplicationInsights>
   </PropertyGroup>
 </Project>

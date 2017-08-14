@@ -1,8 +1,3 @@
-// Code here will be linted with JSHint.
-/* jshint ignore:start */
-(function(angular){
-// Code here will be ignored by JSHint.
-/* jshint ignore:end */
 /// <reference path="typings/angularjs/angular.d.ts" />
 var Tools = (function () {
     function Tools(angular) {
@@ -15,6 +10,7 @@ var Tools = (function () {
             Tools.toJson = angular.toJson,
             Tools.fromJson = angular.fromJson,
             Tools.forEach = angular.forEach,
+            Tools.copy = angular.copy,
             Tools.noop = angular.noop; // jshint ignore:line
     }
     Tools.isNullOrUndefined = function (val) {
@@ -24,18 +20,14 @@ var Tools = (function () {
         return !isNaN(parseFloat(n)) && isFinite(n);
     };
     Tools.generateGuid = function () {
-        var value = [];
-        var digits = "0123456789abcdef";
-        for (var i = 0; i < 36; i++) {
-            value[i] = digits.substr(Math.floor(Math.random() * 0x10), 1);
-        }
-        value[8] = value[13] = value[18] = value[23] = "-";
-        value[14] = "4";
-        value[19] = digits.substr((value[19] & 0x3) | 0x8, 1);
-        return value.join("");
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.
+            replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
     };
     return Tools;
-})();
+}());
 /// <reference path="./Tools.ts" />
 /*
 * Storage is heavily based on the angular storage module by Gregory Pike (https://github.com/grevory/angular-local-storage)
@@ -279,19 +271,19 @@ var AppInsightsStorage = (function () {
         }
     };
     return AppInsightsStorage;
-})();
+}());
 /// <reference path="typings/angularjs/angular.d.ts" />
 /// <reference path="./Tools.ts" />
 var TelemetryRequest = (function () {
     function TelemetryRequest() {
     }
     return TelemetryRequest;
-})();
+}());
 var TelemetryRequestHeaders = (function () {
     function TelemetryRequestHeaders() {
     }
     return TelemetryRequestHeaders;
-})();
+}());
 /// <reference path="./Tools.ts" />
 /*
 * Stack parsing by the stacktracejs project @ https://github.com/stacktracejs/error-stack-parser
@@ -348,10 +340,10 @@ var StackFrame = (function () {
     StackFrame.prototype.setLineNumber = function (v) {
         if (!Tools.isNumber(v)) {
 
-            this.lineNumber = undefined;
+            this.line = undefined;
             return;
         }
-        this.lineNumber = Number(v);
+        this.line = Number(v);
     };
     //private getColumnNumber() {
     //    return this.columnNumber;
@@ -373,12 +365,12 @@ var StackFrame = (function () {
         var functionName = this.method || '{anonymous}';
         var args = '(' + (this.args || []).join(',') + ')';
         var fileName = this.fileName ? ('@' + this.fileName) : '';
-        var lineNumber = Tools.isNumber(this.lineNumber) ? (':' + this.lineNumber) : '';
+        var lineNumber = Tools.isNumber(this.line) ? (':' + this.line) : '';
         var columnNumber = Tools.isNumber(this.columnNumber) ? (':' + this.columnNumber) : '';
         return functionName + args + fileName + lineNumber + columnNumber;
     };
     return StackFrame;
-})();
+}());
 /// <reference path="./Tools.ts" />
 /// <reference path="./StackFrame.ts" />
 var StackParser = (function () {
@@ -511,7 +503,7 @@ var StackParser = (function () {
     StackParser.firefoxSafariStackRegexp = /\S+\:\d+/;
     StackParser.chromeIeStackRegexp = /\s+at /;
     return StackParser;
-})();
+}());
 ///<reference path="./Tools.ts" />
 // $log interceptor .. will send log data to application insights, once app insights is 
 // registered. $provide is only available in the config phase, so we need to setup
@@ -530,11 +522,11 @@ var LogInterceptor = (function () {
                 _this._warnFn = $delegate.warn;
                 _this._errorFn = $delegate.error;
                 _this._logFn = $delegate.log;
-                $delegate.debug = _this.delegator(_this._debugFn, 'debug');
-                $delegate.info = _this.delegator(_this._infoFn, 'info');
-                $delegate.warn = _this.delegator(_this._warnFn, 'warn');
-                $delegate.error = _this.delegator(_this._errorFn, 'error');
-                $delegate.log = _this.delegator(_this._logFn, 'log');
+                $delegate.debug = angular.extend(_this.delegator(_this._debugFn, 'debug'), _this._debugFn);
+                $delegate.info = angular.extend(_this.delegator(_this._infoFn, 'info'), _this._infoFn);
+                $delegate.warn = angular.extend(_this.delegator(_this._warnFn, 'warn'), _this._warnFn);
+                $delegate.error = angular.extend(_this.delegator(_this._errorFn, 'error'), _this._errorFn);
+                $delegate.log = angular.extend(_this.delegator(_this._logFn, 'log'), _this._logFn);
                 return $delegate;
             }
         ]);
@@ -551,17 +543,22 @@ var LogInterceptor = (function () {
             log: Tools.isNullOrUndefined(this._logFn) ? Tools.noop : this._logFn
         };
     };
-    LogInterceptor.prototype.delegator = function (orignalFn, level) {
-        return function () {
+    LogInterceptor.prototype.delegator = function (originalFn, level) {
+        var interceptingFn = function () {
             var args = [].slice.call(arguments);
             // track the call
-            LogInterceptor.interceptFuntion(args[0], level);
+            var message = args.join(' ');
+            LogInterceptor.interceptFuntion(message, level);
             // Call the original 
-            orignalFn.apply(null, args);
+            originalFn.apply(null, args);
         };
+        for (var n in originalFn) {
+            interceptingFn[n] = originalFn[n];
+        }
+        return interceptingFn;
     };
     return LogInterceptor;
-})();
+}());
 /// <reference path="./Tools.ts" />
 // Exception interceptor
 // Intercepts calls to the $exceptionHandler and sends them to Application insights as exception telemetry.
@@ -573,14 +570,14 @@ var ExceptionInterceptor = (function () {
         $provide.decorator('$exceptionHandler', [
             '$delegate', function ($delegate) {
                 _this._origExceptionHandler = $delegate;
-                return function (exception, cause) {
+                return function (exception) {
                     // track the call 
                     // ... only if there is no active issues/errors sending data over http, in order to prevent an infinite loop.
                     if (!ExceptionInterceptor.errorOnHttpCall) {
-                        _this._interceptFunction(exception, cause);
+                        _this._interceptFunction(exception);
                     }
                     // Call the original 
-                    _this._origExceptionHandler(exception, cause);
+                    _this._origExceptionHandler(exception);
                 };
             }
         ]);
@@ -592,18 +589,21 @@ var ExceptionInterceptor = (function () {
         return Tools.isNullOrUndefined(this._origExceptionHandler) ? Tools.noop : this._origExceptionHandler;
     };
     return ExceptionInterceptor;
-})();
+}());
 var Options = (function () {
     function Options() {
         this.applicationName = '';
         this.autoPageViewTracking = true;
+        this.autoStateChangeTracking = false;
         this.autoLogTracking = true;
         this.autoExceptionTracking = true;
         this.sessionInactivityTimeout = 1800000;
         this.instrumentationKey = '';
+        this.developerMode = false;
+        this.properties = {};
     }
     return Options;
-})();
+}());
 var HttpRequest = (function () {
     function HttpRequest() {
     }
@@ -628,12 +628,12 @@ var HttpRequest = (function () {
         request.send(JSON.stringify(options.data));
     };
     return HttpRequest;
-})();
+}());
 var HttpRequestOptions = (function () {
     function HttpRequestOptions() {
     }
     return HttpRequestOptions;
-})();
+}());
 /// <reference path="typings/angularjs/angular.d.ts" />
 /// <reference path="./Tools.ts" />
 /// <reference path="./Storage.ts" />
@@ -647,7 +647,10 @@ var ApplicationInsights = (function () {
     function ApplicationInsights(localStorage, $locale, $window, $location, logInterceptor, exceptionInterceptor, httpRequestFactory, options) {
         var _this = this;
         this._sessionKey = "$$appInsights__session";
-        this._version = "angular:0.2.8";
+        this._userKey = "$$appInsights__uuid";
+        this._deviceKey = "$$appInsights__device";
+        this._deviceTypeKey = "$$appInsights__device__type";
+        this._version = "angular:0.3.0";
         this._analyticsServiceUrl = "https://dc.services.visualstudio.com/v2/track";
         this._contentType = "application/json";
         this._localStorage = localStorage;
@@ -665,23 +668,58 @@ var ApplicationInsights = (function () {
             this._logInterceptor.setInterceptFunction(function (message, level, properties) { return _this.trackTraceMessage(message, level, properties); });
         }
         if (this.options.autoExceptionTracking) {
-            this._exceptionInterceptor.setInterceptFunction(function (exception, cause) { return _this.trackException(exception, cause); });
+            this._exceptionInterceptor.setInterceptFunction(function (exception, exceptionProperties) { return _this.trackException(exception, exceptionProperties); });
         }
     }
-    ApplicationInsights.prototype.getUniqueId = function () {
-        var uuidKey = "$$appInsights__uuid";
+    ApplicationInsights.prototype.getUserId = function () {
         // see if there is already an id stored locally, if not generate a new value
-        var uuid = this._localStorage.get(uuidKey);
+        var uuid = this._localStorage.get(this._userKey);
         if (Tools.isNullOrUndefined(uuid)) {
             uuid = Tools.generateGuid();
-            this._localStorage.set(uuidKey, uuid);
+            this._localStorage.set(this._userKey, uuid);
         }
         return uuid;
     };
-    ApplicationInsights.prototype.makeNewSession = function () {
+    ApplicationInsights.prototype.setUserId = function (userId) {
+        this._localStorage.set(this._userKey, userId);
+    };
+    ApplicationInsights.prototype.getDeviceId = function () {
+        var id = this._localStorage.get(this._deviceKey);
+        if (Tools.isNullOrUndefined(id)) {
+            id = Tools.generateGuid();
+            this._localStorage.set(this._deviceKey, id);
+        }
+        return id;
+    };
+    ApplicationInsights.prototype.getDeviceType = function () {
+        var type = this._localStorage.get(this._deviceTypeKey);
+        if (Tools.isNullOrUndefined(type)) {
+            type = "Browser";
+        }
+        return type;
+    };
+    ApplicationInsights.prototype.setDeviceInfo = function (id, type) {
+        this._localStorage.set(this._deviceKey, id);
+        this._localStorage.set(this._deviceTypeKey, type);
+    };
+    ApplicationInsights.prototype.getOperationId = function () {
+        var uuidKey = "$$appInsights__operationid";
+        var uuid = Tools.generateGuid();
+        this._localStorage.set(uuidKey, uuid);
+        return uuid;
+    };
+    ApplicationInsights.prototype.getStoredOperationId = function () {
+        var uuidKey = "$$appInsights__operationid";
+        var uuid = this._localStorage.get(uuidKey);
+        if (Tools.isNullOrUndefined(uuid)) {
+            uuid = this.getOperationId();
+        }
+        return uuid;
+    };
+    ApplicationInsights.prototype.makeNewSession = function (sessionId) {
         // no existing session data
         var sessionData = {
-            id: Tools.generateGuid(),
+            id: sessionId || Tools.generateGuid(),
             accessed: new Date().getTime()
         };
         this._localStorage.set(this._sessionKey, sessionData);
@@ -691,14 +729,14 @@ var ApplicationInsights = (function () {
         var sessionData = this._localStorage.get(this._sessionKey);
         if (Tools.isNullOrUndefined(sessionData)) {
             // no existing session data
-            sessionData = this.makeNewSession();
+            sessionData = this.makeNewSession(null);
         }
         else {
             var lastAccessed = Tools.isNullOrUndefined(sessionData.accessed) ? 0 : sessionData.accessed;
             var now = new Date().getTime();
             if ((now - lastAccessed > this.options.sessionInactivityTimeout)) {
                 // this session is expired, make a new one
-                sessionData = this.makeNewSession();
+                sessionData = this.makeNewSession(null);
             }
             else {
                 // valid session, update the last access timestamp
@@ -747,6 +785,16 @@ var ApplicationInsights = (function () {
         }
         return validateProperties;
     };
+    ApplicationInsights.prototype.validateDuration = function (duration) {
+        if (Tools.isNullOrUndefined(duration)) {
+            return null;
+        }
+        if (!Tools.isNumber(duration) || duration < 0) {
+            this._log.warn("The value of the durations parameter must be a positive number");
+            return null;
+        }
+        return duration;
+    };
     ApplicationInsights.prototype.validateSeverityLevel = function (level) {
         // https://github.com/Microsoft/ApplicationInsights-JS/blob/7bbf8b7a3b4e3610cefb31e9d61765a2897dcb3b/JavaScript/JavaScriptSDK/Contracts/Generated/SeverityLevel.ts
         /*
@@ -771,6 +819,10 @@ var ApplicationInsights = (function () {
         return levelEnum > -1 ? levelEnum : 0;
     };
     ApplicationInsights.prototype.sendData = function (data) {
+        if (this.options.developerMode) {
+            console.log(data);
+            return;
+        }
         var request = this._httpRequestFactory();
         var headers = {};
         headers["Accept"] = this._contentType; // jshint ignore:line
@@ -795,14 +847,14 @@ var ApplicationInsights = (function () {
         catch (e) {
         }
     };
-    ApplicationInsights.prototype.trackPageView = function (pageName, pageUrl, properties, measurements) {
-        // TODO: consider possible overloads (no name or url but properties and measurements)
+    ApplicationInsights.prototype.trackPageView = function (pageName, pageUrl, properties, measurements, duration) {
         var data = this.generateAppInsightsData(ApplicationInsights.names.pageViews, ApplicationInsights.types.pageViews, {
             ver: 1,
             url: Tools.isNullOrUndefined(pageUrl) ? this._location.absUrl() : pageUrl,
             name: Tools.isNullOrUndefined(pageName) ? this._location.path() : pageName,
             properties: this.validateProperties(properties),
-            measurements: this.validateMeasurements(measurements)
+            measurements: this.validateMeasurements(measurements),
+            duration: this.validateDuration(duration)
         });
         this.sendData(data);
     };
@@ -819,6 +871,10 @@ var ApplicationInsights = (function () {
         if (Tools.isNullOrUndefined(message) || !Tools.isString(message)) {
             return;
         }
+        if (this.options.properties) {
+            properties = properties || {};
+            Tools.extend(properties, this.options.properties);
+        }
         var data = this.generateAppInsightsData(ApplicationInsights.names.traceMessage, ApplicationInsights.types.traceMessage, {
             ver: 1,
             message: message,
@@ -828,6 +884,10 @@ var ApplicationInsights = (function () {
         this.sendData(data);
     };
     ApplicationInsights.prototype.trackMetric = function (name, value, properties) {
+        if (this.options.properties) {
+            properties = properties || {};
+            Tools.extend(properties, this.options.properties);
+        }
         var data = this.generateAppInsightsData(ApplicationInsights.names.metrics, ApplicationInsights.types.metrics, {
             ver: 1,
             metrics: [{ name: name, value: value }],
@@ -835,26 +895,42 @@ var ApplicationInsights = (function () {
         });
         this.sendData(data);
     };
-    ApplicationInsights.prototype.trackException = function (exception, cause) {
+    ApplicationInsights.prototype.trackException = function (exception, exceptionProperties) {
         if (Tools.isNullOrUndefined(exception)) {
             return;
         }
         // parse the stack
         var parsedStack = StackParser.parse(exception);
+        var properties = {};
+        Tools.copy(this.options.properties, properties);
+        if (exceptionProperties) {
+            exceptionProperties = exceptionProperties || {};
+            Tools.extend(properties, exceptionProperties);
+        }
         var data = this.generateAppInsightsData(ApplicationInsights.names.exception, ApplicationInsights.types.exception, {
             ver: 1,
             handledAt: "Unhandled",
             exceptions: [
                 {
-                    typeName: exception.name,
-                    message: exception.message,
-                    stack: exception.stack,
+                    typeName: exception.name || "Unhandled",
+                    message: exception.message || "Unhandled",
+                    stack: exception.stack || "Unhandled",
                     parsedStack: parsedStack,
                     hasFullStack: !Tools.isNullOrUndefined(parsedStack)
                 }
-            ]
+            ],
+            properties: properties
         });
         this.sendData(data);
+    };
+    ApplicationInsights.prototype.defineUser = function (userId) {
+        this.setUserId(userId);
+    };
+    ApplicationInsights.prototype.defineSession = function (sessionId) {
+        this.makeNewSession(sessionId);
+    };
+    ApplicationInsights.prototype.defineDevice = function (id, type) {
+        this.setDeviceInfo(id, type);
     };
     ApplicationInsights.prototype.generateAppInsightsData = function (payloadName, payloadDataType, payloadData) {
         if (this._commonProperties) {
@@ -867,20 +943,20 @@ var ApplicationInsights = (function () {
             ver: 1,
             iKey: this.options.instrumentationKey,
             user: {
-                id: this.getUniqueId(),
+                id: this.getUserId(),
                 type: "User"
             },
             session: {
                 id: this.getSessionId()
             },
             operation: {
-                id: Tools.generateGuid()
+                id: payloadName === ApplicationInsights.names.pageViews ? this.getOperationId() : this.getStoredOperationId()
             },
             device: {
-                id: "browser",
+                id: this.getDeviceId(),
                 locale: this._locale.id,
                 resolution: this._window.screen.availWidth + "x" + this._window.screen.availHeight,
-                type: "Browser"
+                type: this.getDeviceType()
             },
             internal: {
                 sdkVersion: this._version
@@ -912,7 +988,7 @@ var ApplicationInsights = (function () {
         exception: ApplicationInsights.namespace + "ExceptionData"
     };
     return ApplicationInsights;
-})();
+}());
 /// <reference path="./ApplicationInsights.ts" />
 var httpRequestService = angular.module("$$ApplicationInsights-HttpRequestModule", []);
 httpRequestService.factory("$$applicationInsightsHttpRequestService", function () {
@@ -925,22 +1001,65 @@ var exceptionInterceptor;
 var tools = new Tools(angular);
 // setup some features that can only be done during the configure pass
 angularAppInsights.config([
-    "$provide", function ($provide) {
+    "$provide", "$httpProvider",
+    function ($provide, $httpProvider) {
         logInterceptor = new LogInterceptor($provide, angular);
         exceptionInterceptor = new ExceptionInterceptor($provide);
+        if ($httpProvider && $httpProvider.interceptors) {
+            $httpProvider.interceptors.push('ApplicationInsightsInterceptor');
+        }
     }
 ]);
 angularAppInsights.provider("applicationInsightsService", function () { return new AppInsightsProvider(); });
 // the run block sets up automatic page view tracking
 angularAppInsights.run([
-    "$rootScope", "$location", "applicationInsightsService", function ($rootScope, $location, applicationInsightsService) {
-        $rootScope.$on("$locationChangeSuccess", function () {
-            if (applicationInsightsService.options.autoPageViewTracking) {
-                applicationInsightsService.trackPageView(applicationInsightsService.options.applicationName + $location.path());
+    "$rootScope", "$location", "applicationInsightsService",
+    function ($rootScope, $location, applicationInsightsService) {
+        var locationChangeStartOn;
+        var stateChangeStartOn;
+        $rootScope.$on("$locationChangeStart", function () {
+            if (applicationInsightsService.options.autoPageViewTracking && !applicationInsightsService.options.autoStateChangeTracking) {
+                locationChangeStartOn = (new Date()).getTime();
+            }
+        });
+        $rootScope.$on("$locationChangeSuccess", function (e, view) {
+            if (applicationInsightsService.options.autoPageViewTracking && !applicationInsightsService.options.autoStateChangeTracking) {
+                var duration = (new Date()).getTime() - locationChangeStartOn;
+                var name = applicationInsightsService.options.applicationName + $location.path();
+                var properties = applicationInsightsService.options.properties;
+                if (view) {
+                    name += "#" + view;
+                }
+                applicationInsightsService.trackPageView(name, null, properties, null, duration);
+            }
+        });
+        $rootScope.$on("$stateChangeStart", function () {
+            if (applicationInsightsService.options.autoPageViewTracking && applicationInsightsService.options.autoStateChangeTracking) {
+                stateChangeStartOn = (new Date()).getTime();
+            }
+        });
+        $rootScope.$on("$stateChangeSuccess", function () {
+            if (applicationInsightsService.options.autoPageViewTracking && applicationInsightsService.options.autoStateChangeTracking) {
+                var duration = (new Date()).getTime() - stateChangeStartOn;
+                var name = applicationInsightsService.options.applicationName + $location.path();
+                var properties = applicationInsightsService.options.properties;
+                applicationInsightsService.trackPageView(name, null, properties, null, duration);
             }
         });
     }
 ]);
+angularAppInsights.factory('ApplicationInsightsInterceptor', ['applicationInsightsService', '$q', function (applicationInsightsService, $q) {
+        return {
+            request: function (config) {
+                if (config) {
+                    config.headers = config.headers || {};
+                    config.headers['x-ms-request-root-id'] = applicationInsightsService.getStoredOperationId();
+                    config.headers['x-ms-request-id'] = applicationInsightsService.getUserId();
+                    return config;
+                }
+            }
+        };
+    }]);
 var AppInsightsProvider = (function () {
     function AppInsightsProvider() {
         var _this = this;
@@ -958,22 +1077,10 @@ var AppInsightsProvider = (function () {
             }
         ];
     }
-    AppInsightsProvider.prototype.configure = function (instrumentationKey, applicationName, enableAutoPageViewTracking) {
-        if (Tools.isString(applicationName)) {
-            this._options.instrumentationKey = instrumentationKey;
-            this._options.applicationName = applicationName;
-            this._options.autoPageViewTracking = Tools.isNullOrUndefined(enableAutoPageViewTracking) ? true : enableAutoPageViewTracking;
-        }
-        else {
-            Tools.extend(this._options, applicationName);
-            this._options.instrumentationKey = instrumentationKey;
-        }
+    AppInsightsProvider.prototype.configure = function (instrumentationKey, options) {
+        Tools.extend(this._options, options);
+        this._options.instrumentationKey = instrumentationKey;
     }; // invoked when the provider is run
     return AppInsightsProvider;
-})();
+}());
 //# sourceMappingURL=angular-applicationinsights.js.map
-// Code here will be linted with JSHint.
-/* jshint ignore:start */
-})(window.angular);
-// Code here will be ignored by JSHint.
-/* jshint ignore:end */

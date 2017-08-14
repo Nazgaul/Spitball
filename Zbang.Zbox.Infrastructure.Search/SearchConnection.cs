@@ -23,8 +23,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 return true;
             }
-            bool shouldUseCacheFromConfig = true;
-            bool.TryParse(ConfigFetcher.Fetch("SearchProduction"), out shouldUseCacheFromConfig);
+            bool.TryParse(ConfigFetcher.Fetch("SearchProduction"), out bool shouldUseCacheFromConfig);
             return shouldUseCacheFromConfig;
            
         }

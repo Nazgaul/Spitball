@@ -16,10 +16,12 @@ namespace Zbang.Cloudents.Connect
     public class SpitballHub : Hub
     {
         private readonly IZboxWriteService m_WriteService;
+        private readonly ILogger m_Logger;
 
-        public SpitballHub(IZboxWriteService writeService)
+        public SpitballHub(IZboxWriteService writeService, ILogger logger)
         {
             m_WriteService = writeService;
+            m_Logger = logger;
         }
 
         [HubMethodName("Send")]
@@ -40,7 +42,7 @@ namespace Zbang.Cloudents.Connect
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(ex);
+                m_Logger.Exception(ex);
             }
         }
 
@@ -128,7 +130,7 @@ namespace Zbang.Cloudents.Connect
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("OnDisconnected", ex);
+                m_Logger.Exception(ex);
             }
         }
 
@@ -151,7 +153,7 @@ namespace Zbang.Cloudents.Connect
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("onConnected", ex);
+                m_Logger.Exception(ex);
             }
 
             return base.OnConnected();
@@ -173,7 +175,7 @@ namespace Zbang.Cloudents.Connect
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("On Disconnected", ex);
+                m_Logger.Exception(ex);
             }
             if (Context.User.GetUniversityId().HasValue)
             {

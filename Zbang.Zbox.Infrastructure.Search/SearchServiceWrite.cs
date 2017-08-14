@@ -11,7 +11,7 @@ using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
-    public abstract class SearchServiceWrite<T> : IDisposable,  IStartable, ISearchServiceWrite<T> where T : class, ISearchObject, new()
+    public abstract class SearchServiceWrite<T> : IDisposable, IStartable, ISearchServiceWrite<T> where T : class, ISearchObject, new()
     {
 
         private readonly ISearchConnection m_Connection;
@@ -81,12 +81,12 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         }
 
-        
+
 
         public abstract Index GetIndexStructure(string indexName);
         public void Start()
         {
-           // m_Connection.SearchClient.Indexes.CreateOrUpdate(GetIndexStructure(m_IndexName));
+            //m_Connection.SearchClient.Indexes.CreateOrUpdate(GetIndexStructure(m_IndexName));
         }
 
         public void Dispose()

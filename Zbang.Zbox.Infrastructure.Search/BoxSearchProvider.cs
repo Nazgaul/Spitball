@@ -19,10 +19,12 @@ namespace Zbang.Zbox.Infrastructure.Search
         private bool m_CheckIndexExists;
         private readonly ISearchConnection m_Connection;
         private readonly ISearchIndexClient m_IndexClient;
+        private readonly ILogger m_Logger;
 
-        public BoxSearchProvider(ISearchConnection connection)
+        public BoxSearchProvider(ISearchConnection connection, ILogger logger)
         {
             m_Connection = connection;
+            m_Logger = logger;
             if (connection.IsDevelop)
             {
                 m_IndexName = m_IndexName + "-dev";
@@ -32,9 +34,9 @@ namespace Zbang.Zbox.Infrastructure.Search
         }
 
         private const string IdField = "id";
-        private const string NameField = "name";
-        private const string ProfessorField = "professor";
-        private const string CourseField = "course";
+       // private const string NameField = "name";
+//        private const string ProfessorField = "professor";
+        //private const string CourseField = "course";
         private const string UrlField = "url";
         private const string UniversityIdField = "universityId";
         private const string UserIdsField = "userId";
@@ -55,10 +57,6 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Suggesters = new[] {suggester}
             };
             return index;
-            
-
-
-
         }
 
         public async Task<bool> UpdateDataAsync(IEnumerable<BoxSearchDto> boxToUpload, IEnumerable<long> boxToDelete)
@@ -87,7 +85,6 @@ namespace Zbang.Zbox.Infrastructure.Search
                     Feed = s.Feed.ToArray(),
                     DepartmentId = s.DepartmentId?.ToString(),
                     Id = s.Id.ToString(CultureInfo.InvariantCulture),
-                   
                     Type = (int)s.Type,
                     UniversityId = s.UniversityId,
                     Url = s.Url,
@@ -127,7 +124,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("on box build index", ex);
+                m_Logger.Exception(ex);
             }
             m_CheckIndexExists = true;
         }
@@ -138,8 +135,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             var result = await m_IndexClient.Documents.SearchAsync<BoxSearch>(query.Term + "*", new SearchParameters
             {
                 Filter =
-                    string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')", UniversityIdField, UserIdsField,
-                        query.UniversityId, query.UserId),
+                    $"{UniversityIdField} eq {query.UniversityId} or {UserIdsField}/any(t: t eq '{query.UserId}')",
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
                 Select = new[] { IdField, nameof(BoxSearch.Course2).ToLower(), nameof(BoxSearch.Professor2).ToLower(), nameof(BoxSearch.Name2).ToLower(), UrlField, TypeFiled,DepartmentIdField , MembersField ,ItemsField},

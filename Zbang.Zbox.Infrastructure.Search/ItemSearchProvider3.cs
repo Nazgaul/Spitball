@@ -266,8 +266,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 return defaultValue;
             }
-            IList<string> highLight;
-            if (record.Highlights.TryGetValue(field, out highLight))
+            if (record.Highlights.TryGetValue(field, out IList<string> highLight))
             {
                 return String.Join("...", highLight);
             }

@@ -1058,10 +1058,10 @@ Datatables Plugin(in v1.3)
   height: 14px;
 }
 .dataTable .row-details.row-details-close {
-  background: url("../img/datatable-row-openclose.png") no-repeat 100% 0;
+  background: url("../img/datatable-row-openclose.png") no-repeat 0 0;
 }
 .dataTable .row-details.row-details-open {
-  background: url("../img/datatable-row-openclose.png") no-repeat 100% -23px;
+  background: url("../img/datatable-row-openclose.png") no-repeat 0 -23px;
 }
 .dataTable .details {
   background-color: #eee;
