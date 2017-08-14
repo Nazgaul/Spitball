@@ -175,10 +175,6 @@
       <Project>{35DC2A36-5E24-4E09-8967-838C6EDCA465}</Project>
       <Name>Zbang.Zbox.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Ioc\Zbang.Zbox.Infrastructure.Ioc.csproj">
-      <Project>{872878fa-a84a-4cd3-856a-4ee9018819c5}</Project>
-      <Name>Zbang.Zbox.Infrastructure.Ioc</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Mail\Zbang.Zbox.Infrastructure.Mail.csproj">
       <Project>{F5E270CF-6B83-4879-9B04-773B87F80B0E}</Project>
       <Name>Zbang.Zbox.Infrastructure.Mail</Name>

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Google.Apis.Customsearch.v1;
@@ -23,20 +24,31 @@ namespace Zbang.Cloudents.Jared.Controllers
         }
 
         [Route("api/search/documents"), HttpGet]
-        public async Task<HttpResponseMessage> SearchDocumentAsync([FromUri]SearchRequest model)
+        public async Task<HttpResponseMessage> SearchDocumentAsync([FromUri]SearchRequest model, CancellationToken token)
         {
-            var result = await DoSearchAsync(model, CustomApiKey.Documents).ConfigureAwait(false);
+            string universitySynonym = null;
+            if (model.University.HasValue)
+            {
+                universitySynonym = await m_ZboxReadService.GetUniversitySynonymAsync(model.University.Value).ConfigureAwait(false);
+            }
+
+            var result = await DoSearchAsync(model, universitySynonym, CustomApiKey.Documents, token).ConfigureAwait(false);
             return Request.CreateResponse(new
             {
                 documents = result,
-                facet = new[] {"www.coursehero.com"}
+                facet = new[] { "www.coursehero.com" }
             });
         }
 
         [Route("api/search/flashcards"), HttpGet]
-        public async Task<HttpResponseMessage> SearchFlashcardAsync([FromUri]SearchRequest model)
+        public async Task<HttpResponseMessage> SearchFlashcardAsync([FromUri]SearchRequest model, CancellationToken token)
         {
-            var result = await DoSearchAsync(model, CustomApiKey.Flashcard).ConfigureAwait(false);
+            string universitySynonym = null;
+            if (model.University.HasValue)
+            {
+                universitySynonym = await m_ZboxReadService.GetUniversitySynonymAsync(model.University.Value).ConfigureAwait(false);
+            }
+            var result = await DoSearchAsync(model, universitySynonym, CustomApiKey.Flashcard, token).ConfigureAwait(false);
             return Request.CreateResponse(new
             {
                 documents = result,
@@ -45,35 +57,42 @@ namespace Zbang.Cloudents.Jared.Controllers
         }
 
         [Route("api/search/qna"), HttpGet]
-        public async Task<HttpResponseMessage> SearchQuestionAsync([FromUri]SearchRequest model)
+        public async Task<HttpResponseMessage> SearchQuestionAsync([FromUri]SearchRequest model, CancellationToken token)
         {
-            var result = await DoSearchAsync(model, CustomApiKey.AskQuestion).ConfigureAwait(false);
+            string universitySynonym = null;
+            if (model.University.HasValue && !string.IsNullOrEmpty(model.Course))
+            {
+                universitySynonym = await m_ZboxReadService.GetUniversitySynonymAsync(model.University.Value).ConfigureAwait(false);
+            }
+
+            var result = await DoSearchAsync(model, universitySynonym, CustomApiKey.AskQuestion, token).ConfigureAwait(false);
             return Request.CreateResponse(result);
         }
 
 
-        private async Task<IEnumerable<SearchResult>> DoSearchAsync(SearchRequest query, CustomApiKey key)
+        private static async Task<IEnumerable<SearchResult>> DoSearchAsync(SearchRequest query, string universitySynonym,
+            CustomApiKey key, CancellationToken token)
         {
             var initializer = new BaseClientService.Initializer
             {
                 ApiKey = "AIzaSyCZEbkX9Of6pZQ47OD0VA9a8fd1A6IvW6E",
 
             };
-            var term = new List<string>
+            var term = new List<string>();
+            if (!string.IsNullOrEmpty(query.Course))
             {
-
-                query.Course?.Replace(" ", "+")
-            };
+                term.Add('"' + query.Course + '"');
+            }
             if (query.Query != null)
             {
                 term.Add(string.Join("+", query.Query.Select(s => '"' + s + '"')));
             }
-            if (query.University.HasValue)
-            {
-
-                var universitySynonym = await m_ZboxReadService.GetUniversitySynonymAsync(query.University.Value).ConfigureAwait(false);
-                term.Add(universitySynonym);
-            }
+            term.Add(universitySynonym);
+            //if (query.University.HasValue)
+            //{
+            //    var universitySynonym = await m_ZboxReadService.GetUniversitySynonymAsync(query.University.Value).ConfigureAwait(false);
+            //    term.Add(universitySynonym);
+            //}
             var p = new CustomsearchService(initializer);
 
             int? realPage = null;
@@ -86,11 +105,12 @@ namespace Zbang.Cloudents.Jared.Controllers
                 Start = realPage,
                 SiteSearch = query.Source,
                 Cx = key.Key,
-                Fields = "items(title,link,snippet,pagemap/cse_image,displayLink)"
+                Fields = "items(title,link,snippet,pagemap/cse_image,displayLink)",
+                Sort = query.Sort == SearchRequestSort.Date ? "date" : string.Empty
             };
 
 
-            var result = await request.ExecuteAsync().ConfigureAwait(false);
+            var result = await request.ExecuteAsync(token).ConfigureAwait(false);
 
             var items = result.Items?.Select(s =>
             {

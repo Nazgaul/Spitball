@@ -22,11 +22,13 @@ namespace Zbang.Zbox.Infrastructure.Search
         private readonly ISearchConnection m_Connection;
         private bool m_CheckIndexExists;
         private readonly ISearchIndexClient m_IndexClient;
+        private readonly ILogger m_Logger;
 
-        public QuizSearchProvider2(ISearchFilterProvider filterProvider, ISearchConnection connection)
+        public QuizSearchProvider2(ISearchFilterProvider filterProvider, ISearchConnection connection, ILogger logger)
         {
             m_FilterProvider = filterProvider;
             m_Connection = connection;
+            m_Logger = logger;
             if (m_Connection.IsDevelop)
             {
                 m_IndexName = m_IndexName + "-dev";
@@ -91,7 +93,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("on quiz build index", ex);
+                m_Logger.Exception(ex);
             }
             m_CheckIndexExists = true;
         }
@@ -102,7 +104,6 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 await BuildIndexAsync().ConfigureAwait(false);
             }
-            //var listOfCommands = new List<IndexAction<QuizSearch>>();
 
             if (quizToUpload != null)
             {
@@ -179,8 +180,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
             foreach (var field in fields)
             {
-                IList<string> highLight;
-                if (record.Highlights.TryGetValue(field, out highLight))
+                if (record.Highlights.TryGetValue(field, out IList<string> highLight))
                 {
                     return string.Join("...", highLight);
                 }

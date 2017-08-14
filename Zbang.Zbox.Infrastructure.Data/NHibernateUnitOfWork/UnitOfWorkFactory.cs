@@ -13,7 +13,6 @@ using Zbang.Zbox.Infrastructure.Data.Dialect;
 using Zbang.Zbox.Infrastructure.Data.Driver;
 using Zbang.Zbox.Infrastructure.Data.Events;
 using Zbang.Zbox.Infrastructure.Extensions;
-using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.UnitsOfWork;
 using Environment = NHibernate.Cfg.Environment;
