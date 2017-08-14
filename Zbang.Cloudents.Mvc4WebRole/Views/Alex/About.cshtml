@@ -1,0 +1,32 @@
+﻿@{
+	Layout = null;
+}
+<!doctype html>
+<html class="no-js">
+<head>
+	@Html.Css2("alex")
+	<meta charset="utf-8">
+	<title>Alex</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+</head>
+<body class="internal-page about-page" style="background: blueviolet;">
+
+<div class="page-overlay-wrapper">
+	<div class="fade-gradient_NOPE"></div>
+
+</div>
+
+<div class="header-wrapper-static">
+	<header class="header fluid-width mobile-full-width">
+		<a class="fader-link close-overlay" href="@Url.RouteUrl("Alex")">
+			<h1 class="spitball-logo float-left">spitball</h1>
+		</a>
+		<div class="header-nav-links">
+			<a class="header-nav-link js-ga-track fader-link about-link" href="@Url.RouteUrl("Alex_ABOUT")">About</a>
+			<a class="header-nav-link js-ga-track fader-link faq-link" href="@Url.RouteUrl("Alex_FAQ")">FAQ</a>
+		</div>
+	</header>
+</div>
+</body>
+</html>

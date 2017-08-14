@@ -19,12 +19,12 @@
 
 <div class="header-wrapper">
 	<header class="header fluid-width mobile-full-width">
-		<a class="fader-link close-overlay" href="#">
+		<a class="fader-link close-overlay" href="@Url.RouteUrl("Alex")">
 			<h1 class="spitball-logo float-left">spitball</h1>
 		</a>
 		<div class="header-nav-links">
-			<a class="header-nav-link hover-color about-link about-header-link" href="#">About</a>
-			<a class="header-nav-link hover-color faq-link faq-header-link" href="#">FAQ</a>
+			<a class="header-nav-link hover-color about-link about-header-link" href="@Url.RouteUrl("Alex_ABOUT")">About</a>
+			<a class="header-nav-link hover-color faq-link faq-header-link" href="@Url.RouteUrl("Alex_FAQ")">FAQ</a>
 		</div>
 		<a class="menu" href="">Menu</a>
 	</header>
@@ -118,11 +118,12 @@
 	</section>
 	<section class="scroll-section scroll-section-three" data-from-time="2.83" data-to-time="4.00" data-reverse-from-time="5.40" data-reverse-to-time="6.57">
 		<div class="scroll-section-content">
-			<picture>
+			<img class="layer-object folder js-load-async" data-image-src="@Url.CdnContent("~/Images/Alex/red_folder_850px.png")"/>
+			@*<picture>
 				<source class="layer-object folder js-load-async" srcset="@Url.CdnContent("~/Images/Alex/appIcon.png")" media="(min-device-width: 1024px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 1.5)"/>
 				<source class="layer-object folder js-load-async" srcset="@Url.CdnContent("~/Images/Alex/red_folder_850px.png")" media="(min-width: 769px)">
 				<img class="layer-object folder js-load-async" src="@Url.CdnContent("~/Images/Alex/appIcon.png")"/>
-			</picture>
+			</picture>*@
 			<picture>
 				<source class="layer-object coffee js-load-async" srcset="@Url.CdnContent("~/Images/Alex/appIcon.png")" media="(min-device-width: 1024px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 1.5)"/>
 				<source class="layer-object sun-glasses js-load-async" srcset="@Url.CdnContent("~/Images/Alex/sun_glasses_small_350px.png")" media="(min-width: 769px)"/>

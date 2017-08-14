@@ -43,7 +43,7 @@
 .plupload_logo {
 	width: 40px;
 	height: 40px;
-	background: url('../img/plupload.png') no-repeat 0 0;
+	background: url('../img/plupload.png') no-repeat 100% 0;
 	position: absolute;
 	top: 8px;
 	right: 8px;

@@ -564,11 +564,11 @@ body {
 	transform: rotate(10deg);
 }
 .pizza {
-	top: 46%;
+	top: 55%;
 	left: -105px;
-	-ms-transform: rotate(-33deg);
-	-webkit-transform: rotate(-33deg);
-	transform: rotate(-33deg);
+	-ms-transform: rotate(-10deg);
+	-webkit-transform: rotate(-10deg);
+	transform: rotate(-10deg);
 }
 
 .folder {
@@ -2244,7 +2244,7 @@ h6 {
 
 .overlay-is-active .header-nav-link,
 .internal-page .header-nav-link {
-	color: #586971;
+	color: black;
 	background: none;
 }
 

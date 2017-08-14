@@ -2662,6 +2662,8 @@
     <Content Include="Views\Home\Promotion.cshtml" />
     <Content Include="Views\Start\Index.cshtml" />
     <Content Include="Views\Alex\Index.cshtml" />
+    <Content Include="Views\Alex\About.cshtml" />
+    <Content Include="Views\Alex\Faq.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
