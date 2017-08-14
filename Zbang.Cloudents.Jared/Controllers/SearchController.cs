@@ -36,7 +36,16 @@ namespace Zbang.Cloudents.Jared.Controllers
             return Request.CreateResponse(new
             {
                 documents = result,
-                facet = new[] { "www.coursehero.com" }
+                facet = new[] {
+                    "www.uloop.com",
+                    "www.spitball.co",
+                    "www.studysoup.com",
+                    "www.coursehero.com",
+                    "www.cliffsnotes.com",
+                    "www.oneclass.com",
+                    "www.koofers.com",
+                    "www.studylib.net"
+                }
             });
         }
 
@@ -52,7 +61,15 @@ namespace Zbang.Cloudents.Jared.Controllers
             return Request.CreateResponse(new
             {
                 documents = result,
-                facet = new[] { "www.quizlet.com" }
+                facet = new[]
+                {
+                    "www.quizlet.com",
+                    "www.cram.com",
+                    "www.koofers.com",
+                    "www.coursehero.com",
+                    "www.studysoup.com",
+                    "www.spitball.co"
+                }
             });
         }
 
