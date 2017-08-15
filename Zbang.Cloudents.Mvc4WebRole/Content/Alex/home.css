@@ -616,7 +616,7 @@ body {
 }
 
 body.internal-page {
-	overflow: hidden;
+	overflow: auto;
 	background: radial-gradient(circle at 50% 50%, #666666, #403f3f);
 }
 
@@ -1682,7 +1682,7 @@ h6 {
 }
 
 .internal-page .main {
-	padding: 90px 0;
+	padding: 185px 0;
 }
 
 @media only screen and (max-width: 768px) {
@@ -1691,16 +1691,13 @@ h6 {
 	}
 }
 
-.internal-page .main p {
+.internal-page .main p, .internal-page .main div {
 	font-size: 18px;
 	line-height: 25px;
 	color: #586971;
 }
-
-.home-page .global-footer {
-	display: none;
-	position: relative;
-	margin-top: -150px;
+.internal-page.about-page .main div {
+	color: white;
 }
 
 @media only screen and (max-width: 768px) {
@@ -1877,11 +1874,11 @@ h6 {
 	background: none;
 }
 
-.header .header-nav-link:hover,
-.header .header-nav-link.active {
-	background: #ffffff;
-	color: #586971;
-}
+	.header .header-nav-link:hover,
+	.header .header-nav-link.active {
+		background: #3293f6;
+		color: #ffffff;
+	}
 
 .header .menu {
 	width: 24px;
@@ -3089,19 +3086,18 @@ html.fp-enabled,
 .slick-arrow.slick-hidden {
 	display: none;
 }
-@media (min-width: 600px) {
-	.internal-page .page-content { min-height: 1000px; }
-}
+
 .internal-page .page-content {
-	max-width: 800px;
+	max-width: 650px;
 	margin: 15px auto 0 auto;
 	padding: 5px 5px 25px 5px;
+	font-family: sans-serif;
 }
 .internal-page h1 {
 	line-height: inherit;
 }
 #contentLevel input:checked ~ section {
-	padding: 10px;
+	padding: 20px!important;
 }
 #main-accordion .category-wrapper {
 	background: transparent;
@@ -3118,19 +3114,22 @@ html.fp-enabled,
 	background: white;
 	display: block;
 	font-size: 20px;
+	padding-left:20px;
 	border-radius: 10px;
 	margin-bottom: 0;
 	height: 46px;
 	line-height: 26px;
+	font-weight: normal;
 }
-#main-accordion input[type="checkbox"]:checked + label {
+#main-accordion input:checked + label {
 	color: white;
+	padding-left:20px;
 }
 #main-accordion input[type="checkbox"] {
 	position: absolute;
 	opacity: 0;
 }
-	#main-accordion input[type="checkbox"]:checked + label {
+	#main-accordion input:checked + label {
 		background-color: #4190b9;
 	}
 #main-accordion .category-wrapper:not(:last-child) {
@@ -3163,16 +3162,23 @@ input:checked ~ .tab-content {
 	color: white;
 }
 .about-page .sp-note {
-	bottom: -59px;
-	right: -400px;
-	top:auto;
+	bottom: -250px;
+	right: -169px;
+	top: auto;
 	-ms-transform: rotate(-20deg) scale(0.8);
 	-webkit-transform: rotate(-20deg) scale(0.8);
 	transform: rotate(-20deg) scale(0.8);
 	position: absolute;
 }
+.about-page .page-content {
+	position: absolute;
+	left: 33%;
+	max-width: 550px;
+}
 .about-page h1 {
 	margin-bottom:14px;
+	font-size:24px;
+	font-weight: bold;
 }
 .about-page article:not(:first-of-type) {
 	padding-top: 40px;

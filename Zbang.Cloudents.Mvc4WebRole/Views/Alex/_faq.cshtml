@@ -1,9 +1,9 @@
 ﻿
 
 <div class="category-wrapper">
-	<input id="toggle-@Model.i@Model.j" class="toggle-level-2" type="checkbox" name="toggle-inner"  />
+	<input id="toggle-@Model.i@Model.j" class="toggle-level-2" type="radio" name="toggle-inner"  />
 	<label for="toggle-@Model.i@Model.j">@Model.question</label>
 	<section id="content-@Model.i@Model.j" class="content-level-2 tab-content">
-		<p><span>@Html.Raw(@Model.answer)</span></p>
+		<div><span>@Html.Raw(@Model.answer)</span></div>
 	</section>
 </div>
