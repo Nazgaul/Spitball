@@ -616,7 +616,7 @@ body {
 }
 
 body.internal-page {
-	overflow: auto;
+	overflow: hidden;
 	background: radial-gradient(circle at 50% 50%, #666666, #403f3f);
 }
 
@@ -1868,7 +1868,7 @@ h6 {
 .header .header-nav-link {
 	color: #ffffff;
 	display: inline-block;
-	font-size: 16px;
+	font-size: 20px;
 	line-height: 16px;
 	text-decoration: none;
 	padding: 8px 20px 10px;
@@ -3163,8 +3163,9 @@ input:checked ~ .tab-content {
 	color: white;
 }
 .about-page .sp-note {
-	bottom: -150px;
-	right: -265px;
+	bottom: -59px;
+	right: -400px;
+	top:auto;
 	-ms-transform: rotate(-20deg) scale(0.8);
 	-webkit-transform: rotate(-20deg) scale(0.8);
 	transform: rotate(-20deg) scale(0.8);
