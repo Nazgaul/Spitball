@@ -2664,6 +2664,9 @@
     <Content Include="Views\Alex\Index.cshtml" />
     <Content Include="Views\Alex\About.cshtml" />
     <Content Include="Views\Alex\Faq.cshtml" />
+    <Content Include="Views\Alex\_LayoutStatic.cshtml" />
+    <Content Include="Views\Alex\_StaticPageHeader.cshtml" />
+    <Content Include="Views\Alex\_faq.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

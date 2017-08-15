@@ -7,10 +7,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     {
         [Route("alex", Name = "Alex")]
         public ActionResult Index() => View();
+
         [Route("alex/faq", Name = "Alex_FAQ")]
-        public ActionResult Faq() => View();
+        public ActionResult Faq()
+        {
+            ViewBag.page = "faq";
+            return View();
+        }
+
         [Route("alex/about", Name = "Alex_ABOUT")]
-        public ActionResult About() => View();
+        public ActionResult About()
+        {
+            ViewBag.page = "about";
+            return View();
+        }
 
     }
 }

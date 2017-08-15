@@ -1,33 +1,39 @@
 ﻿@{
-	Layout = null;
+	Layout ="~/Views/Alex/_LayoutStatic.cshtml";
 }
-<!doctype html>
+@*<!doctype html>
 <html class="no-js">
 <head>
-	@Html.Css2("alex")
 	<meta charset="utf-8">
 	<title>Alex</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-</head>
-<body class="internal-page faq-page" style="background: blueviolet;">
+</head>*@
+<img class="coffee" src="@Url.CdnContent("~/Images/Alex/coffee2_500px.png")" />
+<section class="main">
+	<div class="static-body">
+		@* ReSharper disable once Mvc.PartialViewNotResolved *@
+		<div class="page-content">
+			<div class="panel-group" id="main-accordion" role="tablist" aria-multiselectable="true">
+				<div class="category-wrapper">
+					<input id="toggle-1" class="toggle-level-1" type="radio" name="toggle" checked/>
+					<section id="contentLevel" class="content-level-1">
+						@{Html.RenderPartial("_faq", new {i = 1, j = 1, question = "Why isn’t my school on Spitball?", answer = "We haven’t launched at every school yet. If you want to see your school on Spitball, email us at <a href='mailto:molly@spitball.co'>molly@spitball.co</a>. "});}
+						@{Html.RenderPartial("_faq", new {i = 1, j = 2, question = "Why doesn’t my class have files?", answer = "Your class could be new, or none of your classmates have posted documents online. Be the first to upload! Share syllabi, old exams, study guides, and more. You'll be the class hero."});}
+						@{Html.RenderPartial("_faq", new {i = 1, j = 3, question = "How do I add content?", answer = "On the home screen, scroll to the dark grey icon and click upload content. Choose the course it belongs to, enter your name, and attach the document or photo to the post."});}
+						@{Html.RenderPartial("_faq", new {i = 1, j = 4, question = "How do I make flashcards", answer = "Click on the hamburger icon in the top left corner of the screen and select “Create Flashcard.”"});}
+						@{Html.RenderPartial("_faq", new {i = 1, j = 5, question = "How do I share content with friends?", answer = "When you’re on a page or document you want to share, just click the icon on the bottom left of the screen, and the option to share will pop up."});}
+						@{Html.RenderPartial("_faq", new {i = 1, j = 6, question = "How do I report abusive content?", answer = "If you encounter an abusive, offensive or inappropriate item, please contact us via the feedback page or email <a href='mailto:molly@spitball.co'>molly@spitball.co</a>, and we will have it removed."});}
+						@{Html.RenderPartial("_faq", new {i = 1, j = 7, question = "How do I contact Spitball?", answer = "You can provide feedback through the app by going to your settings and selecting “feedback”. Alternatively, shoot us an email at <a href='mailto:molly@spitball.co'>molly@spitball.co</a>"});}
+						@{Html.RenderPartial("_faq", new {i = 1, j = 8, question = "How do I edit my profile?", answer = "From your settings page, select “My Profile” to change your name, university, or notification preferences"});}
+						@{Html.RenderPartial("_faq", new {i = 1, j = 9, question = "What’s Spitball’s policy regarding academic integrity?", answer = "Spitball was created as a community for collaborative learning. Students are already sharing knowledge, and our objective is to make students’ lives easier by creating one unified platform to meet all of their academic needs. We are founded on the principle of transparency and are firmly opposed to plagiarism, cheating, and any form of academic misconduct. As such, we grant professors and administrators the authority to monitor class content to ensure that it is consistent with teaching standards and honor codes. "});}
+					</section>
+				</div>
 
-	<div class="page-overlay-wrapper">
-		<div class="fade-gradient_NOPE"></div>
 
-	</div>
 
-	<div class="header-wrapper-static">
-		<header class="header fluid-width mobile-full-width">
-			<a class="fader-link close-overlay" href="@Url.RouteUrl("Alex")">
-				<h1 class="spitball-logo float-left">spitball</h1>
-			</a>
-			<div class="header-nav-links">
-				<a class="header-nav-link js-ga-track fader-link about-link" href="@Url.RouteUrl("Alex_ABOUT")">About</a>
-				<a class="header-nav-link js-ga-track fader-link faq-link" href="@Url.RouteUrl("Alex_FAQ")">FAQ</a>
+
 			</div>
-		</header>
+		</div>
 	</div>
-	@Html.Script2("alex")
-</body>
-</html>
+</section>

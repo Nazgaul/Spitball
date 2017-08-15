@@ -1,32 +1,20 @@
 ﻿@{
-	Layout = null;
+	Layout = "~/Views/Alex/_LayoutStatic.cshtml";
 }
-<!doctype html>
-<html class="no-js">
-<head>
-	@Html.Css2("alex")
-	<meta charset="utf-8">
-	<title>Alex</title>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-</head>
-<body class="internal-page about-page" style="background: blueviolet;">
-
-<div class="page-overlay-wrapper">
-	<div class="fade-gradient_NOPE"></div>
-
-</div>
-
-<div class="header-wrapper-static">
-	<header class="header fluid-width mobile-full-width">
-		<a class="fader-link close-overlay" href="@Url.RouteUrl("Alex")">
-			<h1 class="spitball-logo float-left">spitball</h1>
-		</a>
-		<div class="header-nav-links">
-			<a class="header-nav-link js-ga-track fader-link about-link" href="@Url.RouteUrl("Alex_ABOUT")">About</a>
-			<a class="header-nav-link js-ga-track fader-link faq-link" href="@Url.RouteUrl("Alex_FAQ")">FAQ</a>
+<img class="sp-note" src="@Url.CdnContent("~/Images/Alex/notebook_pencil_small_750px.png")" />
+<section class="main">
+	<div class="page-content">
+		<article>
+			<h1>Spitball: Company and Mission</h1>
+			<p>Welcome to Spitball, an online and mobile application aimed to make college students’ lives easier. College can be a stressful place, and we hope to lighten the load for students by connecting them to the content, people, and information they need to succeed in all areas of college.</p>
+		</article>
+		<article>
+			<h1>What We Do</h1>
+			<p>Spitball curates the most relevant college resources into one place and eliminates the frustrating and time-consuming search process. We include only the most trusted sources to ensure high-quality and accurate results. In addition to over 315,000 student-uploaded documents, we provide content from websites such as Quizlet, Chegg, StudyBlue, CourseHero, and many more! Whether it’s study material, flashcards, tutors, textbooks, internships, or finding local restaurants & bars, Spitball has you covered! Students simply enter any school-related question, and Spitball provides customized results based on their university, classes, location, and preferences.</p>
+		</article>
+	<article>
+		<h1>Our Vision</h1>
+		<p>There should be no learning curve for college life, and every student should have equal access to resources available in their college community. Simply put: we want to democratize intelligence. Our artificial intelligence personal assistant aggregates various academic and lifestyle resources into one app to ensure that all students have easy access to every tool they need.</p>
+	</article>
 		</div>
-	</header>
-</div>
-</body>
-</html>
+</section>

@@ -523,7 +523,7 @@ body {
  */
 .headphones {
 	top: 45%;
-	left: 0;
+	left: -150px;
 	-ms-transform: rotate(16deg)!important;
 	-webkit-transform: rotate(16deg)!important;
 	transform: rotate(16deg)!important;
@@ -617,6 +617,7 @@ body {
 
 body.internal-page {
 	overflow: auto;
+	background: radial-gradient(circle at 50% 50%, #666666, #403f3f);
 }
 
 h1,
@@ -1117,6 +1118,14 @@ h6 {
 		position: absolute;
 		z-index: 1;
 	}
+	.scroll-section .layer-object.dohnut {
+		top: 500px;
+		left: -100px;
+	}
+	.scroll-section .layer-object.napkin {
+		top: 275px;
+		right: -100px;
+	}
 }
 
 
@@ -1181,7 +1190,7 @@ h6 {
 		/*top: 95%;
 		right: -280px;
 		width: 700px;*/
-		left: -330px;
+		left: -150px;
 		top: 55%;
 		transform: rotate(-15deg) scale(0.7) !important;
 	}
@@ -1261,12 +1270,6 @@ h6 {
 	}
 }
 
-@media only screen and (min-width: 768px) {
-	.scroll-section .layer-object.dohnut {
-		top: 500px;
-		left: -100px;
-	}
-}
 
 @media only screen and (min-width: 768px) and (min-width: 769px) and (max-width: 1140px) {
 	.scroll-section .layer-object.dohnut {
@@ -1287,19 +1290,60 @@ h6 {
 	}
 }
 
-@media only screen and (min-width: 768px) {
-	.scroll-section .layer-object.napkin {
-		top: 275px;
-		right: -100px;
-	}
-}
-
 @media only screen and (min-width: 768px) and (min-width: 769px) and (max-width: 1140px) {
 	.scroll-section .layer-object.napkin {
 		right: -150px;
 	}
 }
-
+@media only screen and (max-height: 670px) {
+	.fixed-content .device-frame .device {
+		width: 245px;
+		top:-12px;
+	}
+	.fixed-content .device-frame .image-slide {
+		width: 199px;
+		height: 352px;
+	}
+	.fixed-content .device-frame .image-slides {
+		display: block;
+		position: absolute;
+		z-index: 10;
+		overflow: hidden;
+		top: 50px;
+		right: 23px;
+		left: 0;
+		width: 199px;
+		height: 352px;
+	}
+	.apple {
+		transform: scale(0.6);
+		left: -60px;
+	}
+	.folder {
+		right: -395px;
+		top: 34%;
+		-ms-transform: rotate(15deg) scale(0.7) !important;
+		-webkit-transform: rotate(15deg) scale(0.7) !important;
+		transform: rotate(15deg) scale(0.6) !important;
+	}
+	.pizza {
+		left: -150px;
+		top: 40%;
+		transform: rotate(-15deg) scale(0.6) !important;
+	}
+	.sp-note {
+		transform: rotate(20deg) scale(0.6) !important;
+		top: 45%;
+		left: -220px;
+	}
+	.headphones {
+		top: 38%;
+		left: -160px;
+		-ms-transform: rotate(16deg)!important;
+		-webkit-transform: rotate(16deg)!important;
+		transform: rotate(10deg) scale(0.6)!important;
+	}
+}
 @media only screen and (min-width: 768px) {
 	.scroll-section .layer-object.sushi {
 		top: 150px;
@@ -1630,10 +1674,6 @@ h6 {
 }
 
 
-.internal-page {
-	background: #ffffff;
-}
-
 .internal-page .page-sub-title {
 	font-size: 24px;
 	line-height: 24px;
@@ -1831,7 +1871,7 @@ h6 {
 	font-size: 16px;
 	line-height: 16px;
 	text-decoration: none;
-	padding: 8px 10px 10px;
+	padding: 8px 20px 10px;
 	border-radius: 4px;
 	margin-right: 5px;
 	background: none;
@@ -2243,17 +2283,17 @@ h6 {
 
 .overlay-is-active .header-nav-link,
 .internal-page .header-nav-link {
-	color: black;
+	color: white;
 	background: none;
 }
 
-.overlay-is-active .header-nav-link:hover,
-.overlay-is-active .header-nav-link.active,
-.internal-page .header-nav-link:hover,
-.internal-page .header-nav-link.active {
-	background: #4fd0ea;
-	color: #ffffff;
-}
+	.overlay-is-active .header-nav-link:hover,
+	.overlay-is-active .header-nav-link.active,
+	.internal-page .header-nav-link:hover,
+	.internal-page .header-nav-link.active {
+		background: #3293f6;
+		color: #ffffff;
+	}
 
 .overlay-is-active .spitball-logo,
 .internal-page .spitball-logo {
@@ -2324,7 +2364,7 @@ h6 {
 
 .about-section .header-nav-link.about-link,
 .about-page .header-nav-link.about-link {
-	background: #4fd0ea;
+	background: #3293f6;
 	color: #ffffff;
 }
 
@@ -2332,25 +2372,25 @@ h6 {
 .about-section .mobile-nav-link:hover,
 .about-page .mobile-nav-link.about-link,
 .about-page .mobile-nav-link:hover {
-	color: #4fd0ea;
+	color: #3293f6;
 }
 
 .about-section .hover-color:hover,
 .about-page .hover-color:hover {
-	color: #4fd0ea;
+	color: #3293f6;
 }
 
 .about-section .hover-fill:hover path,
 .about-section .hover-fill:hover polygon,
 .about-page .hover-fill:hover path,
 .about-page .hover-fill:hover polygon {
-	fill: #4fd0ea;
+	fill: #3293f6;
 }
 
 .about-section .download-links,
 .about-page .download-links {
 	border-radius: 4px;
-	background: #4fd0ea;
+	background: #3293f6;
 	color: #ffffff;
 	font-size: 16px;
 	line-height: 28px;
@@ -2376,10 +2416,10 @@ h6 {
 	-webkit-transition: all 0.1s;
 }
 
-.about-section .download-link-button:hover path,
-.about-page .download-link-button:hover path {
-	fill: #008ecc;
-}
+	.about-section .download-link-button:hover path,
+	.about-page .download-link-button:hover path {
+		fill: #3293f6;
+	}
 
 .about-section .page-title,
 .about-page .page-title {
@@ -2473,7 +2513,7 @@ h6 {
 
 .faq-section .header-nav-link.faq-link,
 .faq-page .header-nav-link.faq-link {
-	background: #4fd0ea;
+	background: #3293f6;
 	color: #ffffff;
 }
 
@@ -3048,4 +3088,91 @@ html.fp-enabled,
 
 .slick-arrow.slick-hidden {
 	display: none;
+}
+@media (min-width: 600px) {
+	.internal-page .page-content { min-height: 1000px; }
+}
+.internal-page .page-content {
+	max-width: 800px;
+	margin: 15px auto 0 auto;
+	padding: 5px 5px 25px 5px;
+}
+.internal-page h1 {
+	line-height: inherit;
+}
+#contentLevel input:checked ~ section {
+	padding: 10px;
+}
+#main-accordion .category-wrapper {
+	background: transparent;
+	border-radius: 0;
+	border: none;
+}
+#contentLevel section {
+	background-color: white;
+	position: relative;
+}
+#main-accordion .category-wrapper label {
+	color: #3293f6;
+	padding: 10px;
+	background: white;
+	display: block;
+	font-size: 20px;
+	border-radius: 10px;
+	margin-bottom: 0;
+	height: 46px;
+	line-height: 26px;
+}
+#main-accordion input[type="checkbox"]:checked + label {
+	color: white;
+}
+#main-accordion input[type="checkbox"] {
+	position: absolute;
+	opacity: 0;
+}
+	#main-accordion input[type="checkbox"]:checked + label {
+		background-color: #4190b9;
+	}
+#main-accordion .category-wrapper:not(:last-child) {
+	margin-bottom: 14px;
+}
+.tab-content {
+	max-height: 0;
+	overflow: hidden;
+	background:white;
+	-webkit-transition: max-height .35s;
+	-o-transition: max-height .35s;
+	transition: max-height .35s;
+}
+input:checked ~ .tab-content {
+	max-height: 50em;
+}
+.internal-page .coffee {
+	left: -105px;
+	top: -120px;
+	position: absolute;
+	transform: rotate(20deg);
+}
+.internal-page .header .header-nav-link{
+	font-size:20px;
+}
+.about-page {
+	color: white;
+}
+.internal-page.about-page .main p {
+	color: white;
+}
+.about-page .sp-note {
+	bottom: -150px;
+	left: -265px;
+	-ms-transform: rotate(20deg) scale(0.8);
+	-webkit-transform: rotate(20deg) scale(0.8);
+	transform: rotate(20deg) scale(0.8);
+	position: absolute;
+}
+.about-page h1 {
+	margin-bottom:14px;
+}
+.about-page article:not(:first-of-type) {
+	padding-top: 40px;
 }
