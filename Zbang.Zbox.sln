@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{5DE8FAF5-ED0F-4681-9C50-159B781380D4}"
 EndProject
@@ -17,6 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReadModel", "ReadModel", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8F56843E-1C10-461C-A727-BDF17F07F531}"
 	ProjectSection(SolutionItems) = preProject
+		CerPass.txt = CerPass.txt
+		..\..\cloudents2017.pfx = ..\..\cloudents2017.pfx
+		..\..\cloudents2017b.pfx = ..\..\cloudents2017b.pfx
 		Local.testsettings = Local.testsettings
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 		WebEssentials-Settings.json = WebEssentials-Settings.json
@@ -104,6 +107,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Cloudents.Jared", "Zbang.Cloudents.Jared\Zbang.Cloudents.Jared.csproj", "{C8347269-DC11-4382-9E62-5BDE4D6B2279}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Cloudents.JaredTests3", "Zbang.Cloudents.JaredTests3\Zbang.Cloudents.JaredTests3.csproj", "{7E831FFB-4DE9-4EEF-938C-6C0D224FEBE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloudents.Spitball", "Cloudents.Spitball\Cloudents.Spitball.csproj", "{F2B7C550-5975-4F4E-BB00-2F0129798ED5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1076,6 +1081,36 @@ Global
 		{7E831FFB-4DE9-4EEF-938C-6C0D224FEBE6}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
 		{7E831FFB-4DE9-4EEF-938C-6C0D224FEBE6}.SingleImage|x86.ActiveCfg = Release|Any CPU
 		{7E831FFB-4DE9-4EEF-938C-6C0D224FEBE6}.SingleImage|x86.Build.0 = Release|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.CD_ROM|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.CD_ROM|Mixed Platforms.Build.0 = Release|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.CD_ROM|x86.ActiveCfg = Release|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.CD_ROM|x86.Build.0 = Release|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.Debug|x86.Build.0 = Debug|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.DVD-5|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.DVD-5|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.DVD-5|x86.ActiveCfg = Debug|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.DVD-5|x86.Build.0 = Debug|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.Release|x86.ActiveCfg = Release|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.Release|x86.Build.0 = Release|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.SingleImage|x86.ActiveCfg = Release|Any CPU
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5}.SingleImage|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1122,10 +1157,12 @@ Global
 		{8E505C7F-EF4B-43D1-9906-34823932AAED} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
 		{C8347269-DC11-4382-9E62-5BDE4D6B2279} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
 		{7E831FFB-4DE9-4EEF-938C-6C0D224FEBE6} = {BB7A281A-6674-4136-BF60-23048EA796FA}
+		{F2B7C550-5975-4F4E-BB00-2F0129798ED5} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.2.1.505.2\lib\NET35;packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45
+		SolutionGuid = {6A41ACFB-B3D1-4E6A-941F-516155ACC34A}
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
