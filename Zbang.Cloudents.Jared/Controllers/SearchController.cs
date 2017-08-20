@@ -29,7 +29,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             var term = new List<string>();
             if (model.University.HasValue)
             {
-               var universitySynonym = await m_ZboxReadService.GetUniversitySynonymAsync(model.University.Value).ConfigureAwait(false);
+                var universitySynonym = await m_ZboxReadService.GetUniversitySynonymAsync(model.University.Value).ConfigureAwait(false);
                 term.Add(universitySynonym);
 
             }
@@ -54,16 +54,16 @@ namespace Zbang.Cloudents.Jared.Controllers
             //var result = await DoSearchAsync(model, universitySynonym, CustomApiKey.Documents, token).ConfigureAwait(false);
             return Request.CreateResponse(new
             {
-                documents = result.SelectMany(s => s.Result),
+                documents = result.Where(s => s.Result != null).SelectMany(s => s.Result),
                 facet = new[] {
-                    "www.uloop.com",
-                    "www.spitball.co",
-                    "www.studysoup.com",
-                    "www.coursehero.com",
-                    "www.cliffsnotes.com",
-                    "www.oneclass.com",
-                    "www.koofers.com",
-                    "www.studylib.net"
+                    "uloop.com",
+                    "spitball.co",
+                    "studysoup.com",
+                    "coursehero.com",
+                    "cliffsnotes.com",
+                    "oneclass.com",
+                    "koofers.com",
+                    "studylib.net"
                 }
             });
         }
@@ -71,7 +71,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         [Route("api/search/flashcards"), HttpGet]
         public async Task<HttpResponseMessage> SearchFlashcardAsync([FromUri]SearchRequest model, CancellationToken token)
         {
-            
+
             var term = new List<string>();
             if (model.University.HasValue)
             {
@@ -96,15 +96,15 @@ namespace Zbang.Cloudents.Jared.Controllers
             //var result = await DoSearchAsync(model, universitySynonym, CustomApiKey.Flashcard, token).ConfigureAwait(false);
             return Request.CreateResponse(new
             {
-                documents = result.SelectMany(s => s.Result),
+                documents = result.Where(s => s.Result != null).SelectMany(s => s.Result),
                 facet = new[]
                 {
-                    "www.quizlet.com",
-                    "www.cram.com",
-                    "www.koofers.com",
-                    "www.coursehero.com",
-                    "www.studysoup.com",
-                    "www.spitball.co"
+                    "quizlet.com",
+                    "cram.com",
+                    "koofers.com",
+                    "coursehero.com",
+                    "studysoup.com",
+                    "spitball.co"
                 }
             });
         }
@@ -132,7 +132,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             await Task.WhenAll(result).ConfigureAwait(false);
 
             //var result = await DoSearchAsync(model, universitySynonym, CustomApiKey.AskQuestion, token).ConfigureAwait(false);
-            return Request.CreateResponse(result.SelectMany(s => s.Result));
+            return Request.CreateResponse(result.Where(s => s.Result != null).SelectMany(s => s.Result));
         }
 
 
