@@ -24,6 +24,7 @@
     <TargetFrameworkProfile />
     <ApplicationInsightsResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zboxmobile/providers/microsoft.insights/components/Spitball-Mobile</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourceGroups/zboxmobile/providers/microsoft.insights/components/Spitball-Mobile</ApplicationInsightsAnnotationResourceId>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -243,6 +244,9 @@
     </Compile>
     <Compile Include="..\Zbang.Cloudents.Connect\UserIdProvider.cs">
       <Link>Extensions\UserIdProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Zbang.Zbox.WorkerRoleSearch\TelemetryLogger.cs">
+      <Link>TelemetryLogger.cs</Link>
     </Compile>
     <Compile Include="App_Start\Startup.MobileApp.cs" />
     <Compile Include="Controllers\AccountController.cs" />

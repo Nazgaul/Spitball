@@ -20,7 +20,9 @@ using Zbang.Zbox.Infrastructure.Data;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Notifications;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
+using Zbang.Zbox.WorkerRoleSearch;
 
 namespace Zbang.Cloudents.Jared
 {
@@ -73,7 +75,7 @@ namespace Zbang.Cloudents.Jared
                 .WithParameter("hubName", "jared-spitball")
                 .InstancePerLifetimeScope();
             builder.RegisterHubs(Assembly.GetExecutingAssembly());
-
+            builder.RegisterType<TelemetryLogger>().As<ILogger>();
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
             ConfigureSignalR(app, container);

@@ -26,25 +26,44 @@ namespace Zbang.Cloudents.Jared.Controllers
         [Route("api/search/documents"), HttpGet]
         public async Task<HttpResponseMessage> SearchDocumentAsync([FromUri]SearchRequest model, CancellationToken token)
         {
-            string universitySynonym = null;
+            var term = new List<string>();
             if (model.University.HasValue)
             {
-                universitySynonym = await m_ZboxReadService.GetUniversitySynonymAsync(model.University.Value).ConfigureAwait(false);
+                var universitySynonym = await m_ZboxReadService.GetUniversitySynonymAsync(model.University.Value).ConfigureAwait(false);
+                term.Add(universitySynonym);
+
             }
 
-            var result = await DoSearchAsync(model, universitySynonym, CustomApiKey.Documents, token).ConfigureAwait(false);
+            if (!string.IsNullOrEmpty(model.Course))
+            {
+                term.Add('"' + model.Course + '"');
+            }
+            if (model.Query != null)
+            {
+                term.Add(string.Join(" ", model.Query.Select(s => '"' + s + '"')));
+            }
+
+
+            var result = Enumerable.Range(model.Page * 3, 3).Select(s => DoSearchAsync(string.Join(" ", term), model.Source, s, model.Sort, CustomApiKey.Documents, token)).ToList();
+            await Task.WhenAll(result).ConfigureAwait(false);
+
+            //result.Select(s=>s.Result)
+
+
+            //var t1 = DoSearchAsync(model, universitySynonym, CustomApiKey.Documents, token)
+            //var result = await DoSearchAsync(model, universitySynonym, CustomApiKey.Documents, token).ConfigureAwait(false);
             return Request.CreateResponse(new
             {
-                documents = result,
+                documents = result.Where(s => s.Result != null).SelectMany(s => s.Result),
                 facet = new[] {
-                    "www.uloop.com",
-                    "www.spitball.co",
-                    "www.studysoup.com",
-                    "www.coursehero.com",
-                    "www.cliffsnotes.com",
-                    "www.oneclass.com",
-                    "www.koofers.com",
-                    "www.studylib.net"
+                    "uloop.com",
+                    "spitball.co",
+                    "studysoup.com",
+                    "coursehero.com",
+                    "cliffsnotes.com",
+                    "oneclass.com",
+                    "koofers.com",
+                    "studylib.net"
                 }
             });
         }
@@ -52,23 +71,40 @@ namespace Zbang.Cloudents.Jared.Controllers
         [Route("api/search/flashcards"), HttpGet]
         public async Task<HttpResponseMessage> SearchFlashcardAsync([FromUri]SearchRequest model, CancellationToken token)
         {
-            string universitySynonym = null;
+
+            var term = new List<string>();
             if (model.University.HasValue)
             {
-                universitySynonym = await m_ZboxReadService.GetUniversitySynonymAsync(model.University.Value).ConfigureAwait(false);
+                var universitySynonym = await m_ZboxReadService.GetUniversitySynonymAsync(model.University.Value).ConfigureAwait(false);
+                term.Add(universitySynonym);
             }
-            var result = await DoSearchAsync(model, universitySynonym, CustomApiKey.Flashcard, token).ConfigureAwait(false);
+
+            if (!string.IsNullOrEmpty(model.Course))
+            {
+                term.Add('"' + model.Course + '"');
+            }
+            if (model.Query != null)
+            {
+                term.Add(string.Join(" ", model.Query.Select(s => '"' + s + '"')));
+            }
+
+
+            var result = Enumerable.Range(model.Page * 3, 3).Select(s => DoSearchAsync(string.Join(" ", term), model.Source, s, model.Sort, CustomApiKey.Documents, token)).ToList();
+            await Task.WhenAll(result).ConfigureAwait(false);
+
+
+            //var result = await DoSearchAsync(model, universitySynonym, CustomApiKey.Flashcard, token).ConfigureAwait(false);
             return Request.CreateResponse(new
             {
-                documents = result,
+                documents = result.Where(s => s.Result != null).SelectMany(s => s.Result),
                 facet = new[]
                 {
-                    "www.quizlet.com",
-                    "www.cram.com",
-                    "www.koofers.com",
-                    "www.coursehero.com",
-                    "www.studysoup.com",
-                    "www.spitball.co"
+                    "quizlet.com",
+                    "cram.com",
+                    "koofers.com",
+                    "coursehero.com",
+                    "studysoup.com",
+                    "spitball.co"
                 }
             });
         }
@@ -76,35 +112,45 @@ namespace Zbang.Cloudents.Jared.Controllers
         [Route("api/search/qna"), HttpGet]
         public async Task<HttpResponseMessage> SearchQuestionAsync([FromUri]SearchRequest model, CancellationToken token)
         {
-            string universitySynonym = null;
-            if (model.University.HasValue && !string.IsNullOrEmpty(model.Course))
+            var term = new List<string>();
+            if (model.University.HasValue)
             {
-                universitySynonym = await m_ZboxReadService.GetUniversitySynonymAsync(model.University.Value).ConfigureAwait(false);
+                var universitySynonym = await m_ZboxReadService.GetUniversitySynonymAsync(model.University.Value).ConfigureAwait(false);
+                term.Add(universitySynonym);
             }
 
-            var result = await DoSearchAsync(model, universitySynonym, CustomApiKey.AskQuestion, token).ConfigureAwait(false);
-            return Request.CreateResponse(result);
+            if (!string.IsNullOrEmpty(model.Course))
+            {
+                term.Add('"' + model.Course + '"');
+            }
+            if (model.Query != null)
+            {
+                term.Add(string.Join(" ", model.Query));
+            }
+
+            var result = Enumerable.Range(model.Page * 3, 3).Select(s => DoSearchAsync(string.Join(" ", term), model.Source, s, model.Sort, CustomApiKey.Documents, token)).ToList();
+            await Task.WhenAll(result).ConfigureAwait(false);
+
+            //var result = await DoSearchAsync(model, universitySynonym, CustomApiKey.AskQuestion, token).ConfigureAwait(false);
+            return Request.CreateResponse(result.Where(s => s.Result != null).SelectMany(s => s.Result));
         }
 
 
-        private static async Task<IEnumerable<SearchResult>> DoSearchAsync(SearchRequest query, string universitySynonym,
-            CustomApiKey key, CancellationToken token)
+        private static async Task<IEnumerable<SearchResult>> DoSearchAsync(
+            string query,
+            string source,
+            int page,
+            // string universitySynonym,
+            SearchRequestSort sort,
+            CustomApiKey key,
+            CancellationToken token)
         {
             var initializer = new BaseClientService.Initializer
             {
                 ApiKey = "AIzaSyCZEbkX9Of6pZQ47OD0VA9a8fd1A6IvW6E",
 
             };
-            var term = new List<string>();
-            if (!string.IsNullOrEmpty(query.Course))
-            {
-                term.Add('"' + query.Course + '"');
-            }
-            if (query.Query != null)
-            {
-                term.Add(string.Join("+", query.Query.Select(s => '"' + s + '"')));
-            }
-            term.Add(universitySynonym);
+
             //if (query.University.HasValue)
             //{
             //    var universitySynonym = await m_ZboxReadService.GetUniversitySynonymAsync(query.University.Value).ConfigureAwait(false);
@@ -112,18 +158,18 @@ namespace Zbang.Cloudents.Jared.Controllers
             //}
             var p = new CustomsearchService(initializer);
 
-            int? realPage = null;
-            if (query.Page > 0)
+            //int? realPage = null;
+            //if (query.Page > 0)
+            //{
+            //    realPage = query.Page;
+            //}
+            var request = new CseResource.ListRequest(p, string.Join(" ", query))
             {
-                realPage = query.Page;
-            }
-            var request = new CseResource.ListRequest(p, string.Join(" ", term))
-            {
-                Start = realPage,
-                SiteSearch = query.Source,
+                Start = ++page,
+                SiteSearch = source,
                 Cx = key.Key,
                 Fields = "items(title,link,snippet,pagemap/cse_image,displayLink)",
-                Sort = query.Sort == SearchRequestSort.Date ? "date" : string.Empty
+                Sort = sort == SearchRequestSort.Date ? "date" : string.Empty
             };
 
 
