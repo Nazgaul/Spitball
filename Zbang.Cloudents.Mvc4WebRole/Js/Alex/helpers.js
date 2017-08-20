@@ -13,7 +13,7 @@
  */
 
 (function () {
-	
+
 
 	/**
 	 * Class for managing events.
@@ -562,7 +562,7 @@
  * MIT License
  */
 
-( function( window, factory ) { 
+( function( window, factory ) {
 	// universal module definition
 
 	/*global define: false, module: false, require: false */
@@ -2105,6 +2105,7 @@
 					//because it will be checked later inside a setTimeout and the value might change
 					localIsResizing: isResizing
 				};
+				console.log(v);
 
 				//quiting when destination scroll is the same as the current one
 				if((v.activeSection.is(element) && !isResizing) || (options.scrollBar && $window.scrollTop() === v.dtop && !element.hasClass(AUTO_HEIGHT) )){ return; }
@@ -2147,6 +2148,7 @@
 
 				//avoid firing it twice (as it does also on scroll)
 				activateMenuAndNav(v.anchorLink, v.sectionIndex);
+				console.log("bo");
 			});
 		}
 
@@ -5636,7 +5638,7 @@
 							}
 
 							/* Iterate through the calls targeted by the stop command. */
-							$.each(elements, function(l, element) {                                
+							$.each(elements, function(l, element) {
 								/* Check that this call was applied to the target element. */
 								if (element === activeElement) {
 									/* Optionally clear the remaining queued calls. */
@@ -6919,7 +6921,7 @@
 								tween.currentValue = currentValue;
 
 								/* If we're tweening a fake 'tween' property in order to log transition values, update the one-per-call variable so that
-								   it can be passed into the progress callback. */ 
+								   it can be passed into the progress callback. */
 								if (property === "tween") {
 									tweenDummyValue = currentValue;
 								} else {

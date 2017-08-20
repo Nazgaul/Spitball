@@ -822,8 +822,6 @@
     <Content Include="Content\angular-material.layout-attributes.css" />
     <Content Include="Content\angular-material.layouts.css" />
     <Content Include="Content\angular-material.layouts.ie_fixes.css" />
-    <Content Include="Content\angular-material.layouts.min.css" />
-    <Content Include="Content\angular-material.min.css" />
     <Content Include="Content\Bootstrap\bootstrap.css" />
     <Content Include="Content\Bootstrap\bootstrap.rtl.css">
       <DependentUpon>bootstrap.css</DependentUpon>
@@ -1049,15 +1047,9 @@
     <Content Include="Content\Site\flashcard.css">
       <DependentUpon>flashcard.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\flashcard.min.css">
-      <DependentUpon>flashcard.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\flashcard.rtl.css" />
     <Content Include="Content\Site\flashcardCreate.css">
       <DependentUpon>flashcardCreate.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\flashcardCreate.min.css">
-      <DependentUpon>flashcardCreate.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\flashcardCreate.rtl.css" />
     <Content Include="Content\Site\General.css">
@@ -1088,9 +1080,6 @@
     </Content>
     <Content Include="Content\Site\leaderboard.css">
       <DependentUpon>leaderboard.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\leaderboard.min.css">
-      <DependentUpon>leaderboard.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\leaderboard.rtl.css">
       <DependentUpon>leaderboard.css</DependentUpon>
@@ -1163,9 +1152,6 @@
     </Content>
     <Content Include="Content\Site\selectClass.css">
       <DependentUpon>selectClass.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\selectClass.min.css">
-      <DependentUpon>selectClass.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\selectClass.rtl.css">
       <DependentUpon>selectClass.css</DependentUpon>
@@ -1246,13 +1232,21 @@
     <Content Include="Images\Alex\coffee2small.png" />
     <Content Include="Images\Alex\coffee2_500px.png" />
     <Content Include="Images\Alex\coffee_small.png" />
-    <Content Include="Images\Alex\Docs.png" />
-    <Content Include="Images\Alex\Docs_240px.png" />
+    <Content Include="Images\Alex\content_240px.png" />
+    <Content Include="Images\Alex\content_241.png" />
+    <Content Include="Images\Alex\Docs_241px.png" />
     <Content Include="Images\Alex\Doc_small_45px.png" />
     <Content Include="Images\Alex\doc_small_new.png" />
+    <Content Include="Images\Alex\group-3.svg" />
+    <Content Include="Images\Alex\group-5.svg" />
+    <Content Include="Images\Alex\group-6.svg" />
+    <Content Include="Images\Alex\group-7.svg" />
+    <Content Include="Images\Alex\group-8.svg" />
+    <Content Include="Images\Alex\group.svg" />
+    <Content Include="Images\Alex\menu_icon.svg" />
     <Content Include="Images\Alex\downArrow.svg" />
     <Content Include="Images\Alex\FC.png" />
-    <Content Include="Images\Alex\FC_240px.png" />
+    <Content Include="Images\Alex\FC_241px.png" />
     <Content Include="Images\Alex\headphone.png" />
     <Content Include="Images\Alex\headphone_620px.png" />
     <Content Include="Images\Alex\iphone.png" />
@@ -1261,8 +1255,7 @@
     <Content Include="Images\Alex\mac_small_790.png" />
     <Content Include="Images\Alex\mac_small_900px.png" />
     <Content Include="Images\Alex\notebook_pencil_small_750px.png" />
-    <Content Include="Images\Alex\pizza_small_700px.png" />
-    <Content Include="Images\Alex\pizza_small_700px_crop.png" />
+    <Content Include="Images\Alex\pizza_crop.png" />
     <Content Include="Images\Alex\red_folder_850px.png" />
     <Content Include="Images\Alex\red_folder_new.png" />
     <Content Include="Images\Alex\slide1.png" />
@@ -1287,9 +1280,9 @@
     <Content Include="Images\Alex\sun_glasses_small.png" />
     <Content Include="Images\Alex\sun_glasses_small_350px.png" />
     <Content Include="Images\Alex\tutor.png" />
-    <Content Include="Images\Alex\tutor_240px.png" />
+    <Content Include="Images\Alex\tutor_241px.png" />
     <Content Include="Images\Alex\unnamed.png" />
-    <Content Include="Images\Alex\unnamed_240px.png" />
+    <Content Include="Images\Alex\unnamed_241px.png" />
     <Content Include="Images\bx_loader.gif" />
     <Content Include="Images\ClassNotes\items\en\1.png" />
     <Content Include="Images\ClassNotes\items\en\10.png" />
@@ -1640,8 +1633,6 @@
     <Content Include="Content\HomePage\homePage2.less" />
     <Content Include="Content\Site\angularMaterialOverride.less" />
     <Content Include="Content\Site\GeneralWithStatic.less" />
-    <Content Include="Scripts\angular-aria\angular-aria.min.js.map" />
-    <Content Include="Scripts\angular-animate\angular-animate.min.js.map" />
     <Content Include="Content\Site\selectClass.less" />
     <Content Include="Content\Site\flashcardCreate.less" />
     <Content Include="Content\Site\flashcard.less" />
@@ -1660,7 +1651,6 @@
     <Content Include="Scripts\angular\angular.min.js" />
     <Content Include="Scripts\flipclock.js" />
     <Content Include="Scripts\flipclock.min.js" />
-    <Content Include="Scripts\angular-messages.min.js.map" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />
     <Content Include="Scripts\i18n\angular-locale_af-za.js" />
@@ -2667,6 +2657,8 @@
     <Content Include="Views\Alex\_LayoutStatic.cshtml" />
     <Content Include="Views\Alex\_StaticPageHeader.cshtml" />
     <Content Include="Views\Alex\_faq.cshtml" />
+    <Content Include="Views\Alex\Terms.cshtml" />
+    <Content Include="Views\Alex\Privacy.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

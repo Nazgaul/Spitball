@@ -21,6 +21,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ViewBag.page = "about";
             return View();
         }
+        [Route("alex/tos", Name = "Alex_TOS")]
+        public ActionResult Terms()
+        {
+            ViewBag.page = "tos";
+            return View();
+        }
+        [Route("alex/privacy", Name = "Alex_PRIVACY")]
+        public ActionResult Privacy()
+        {
+            ViewBag.page = "privacy";
+            return View();
+        }
 
     }
 }

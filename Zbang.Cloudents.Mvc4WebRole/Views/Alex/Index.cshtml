@@ -23,19 +23,61 @@
 			<h1 class="spitball-logo float-left">spitball</h1>
 		</a>
 		<div class="header-nav-links">
-			<a class="header-nav-link hover-color about-link about-header-link" href="@Url.RouteUrl("Alex_ABOUT")">About us</a>
+			<a class="header-nav-link hover-color about-link about-header-link" href="@Url.RouteUrl("Alex_ABOUT")">About Us</a>
 			<a class="header-nav-link hover-color faq-link faq-header-link" href="@Url.RouteUrl("Alex_FAQ")">FAQ</a>
+			<a class="header-nav-link hover-color tos-link tos-header-link" href="@Url.RouteUrl("Alex_TOS")">Terms</a>
+			<a class="header-nav-link hover-color privacy-link privacy-header-link" href="@Url.RouteUrl("Alex_PRIVACY")">Privacy</a>
 		</div>
-		<a class="menu" href="">Menu</a>
+		<a class="menu">menu</a>
 	</header>
+	<nav class="mobile-nav">
+		<a class="mobile-nav-link js-ga-track about-link" data-ga-label="About" href="@Url.RouteUrl("Alex_ABOUT")">About Us</a>
+		<a class="mobile-nav-link js-ga-track faq-link" data-ga-label="FAQ" href="@Url.RouteUrl("Alex_FAQ")">FAQ</a>
+		<a class="mobile-nav-link js-ga-track tos-link" data-ga-label="TOS" href="@Url.RouteUrl("Alex_TOS")">Terms</a>
+		<a class="mobile-nav-link js-ga-track privacy-link" data-ga-label="PRIVACY" href="@Url.RouteUrl("Alex_PRIVACY")">Privacy</a>
+	</nav>
 </div>
 
 <section class="fixed-content fluid-width">
 	<div class="content">
-		<div class="constrain">
-
+		<div class="constrain" id="slide-menu">
+			<header class="no-mobile title" data-slide="0">
+				<h1>Your All-in-One College Assistant</h1>
+				<a href="https://itunes.apple.com/us/app/id990911114?utm_source=website&utm_medium=homepage">
+					<img src="@Url.CdnContent("~/Images/Alex/appIcon.png")" />
+				</a>
+			</header>
+			<section class="active no-mobile" data-slide="0" style="float: right;">
+				<article class="textbook menu-anchor" data-section="2">
+					<h2 class="js-animate-this">Textbooks</h2>
+					<div class="js-animate-this">
+						Rent, buy, or sell textbooks at the best prices
+					</div>
+				</article>
+				<article class="tutor menu-anchor" data-section="4">
+					<h2 class="js-animate-this">Tutors</h2>
+					<div class="js-animate-this">
+						Online and in-person tutors 24/7
+					</div>
+				</article>
+				<article class="local-business menu-anchor">
+					<h2 class="js-animate-this">Local Businesses</h2>
+					<div class="js-animate-this">
+						Find the best places to eat, drink, and hang out by campus
+					</div>
+				</article>
+			</section>
 			<div class="content-text">
-				<div class="text-slide active" data-slide="0">
+				<div class="text-slide active mobile" data-slide="0">
+					<h2 class="js-animate-this">Your All-in-One College Assistant</h2>
+					<div class="js-animate-this">
+						Class Material, Flashcards, Jobs, Textbooks, Tutors, Local Businesses
+					</div>
+					<a href="https://itunes.apple.com/us/app/id990911114?utm_source=website&utm_medium=homepage">
+						<img src="@Url.CdnContent("~/Images/Alex/appIcon.png")"/>
+					</a>
+				</div>
+				<div class="text-slide active" data-slide="1">
 					<h2 class="js-animate-this">Class Materials</h2>
 					<div class="js-animate-this">
 						Tests, study guides, notes, homeworks and more!
@@ -44,59 +86,102 @@
 						<img src="@Url.CdnContent("~/Images/Alex/appIcon.png")"/>
 					</a>
 				</div>
-				<div class="text-slide" data-slide="1">
+				<div class="text-slide" data-slide="2">
 					<h2 class="js-animate-this">Textbooks</h2>
 					<div class="js-animate-this">
 						Rent, buy or sell textbooks at the best prices
 					</div>
-
+					<a href="https://itunes.apple.com/us/app/id990911114?utm_source=website&utm_medium=homepage">
+						<img src="@Url.CdnContent("~/Images/Alex/appIcon.png")"/>
+					</a>
 				</div>
-				<div class="text-slide" data-slide="2">
+				<div class="text-slide" data-slide="3">
 					<h2 class="js-animate-this">Flashcards</h2>
 					<div class="js-animate-this">
 						Test yourself with our student-made flashcards
 					</div>
+					<a href="https://itunes.apple.com/us/app/id990911114?utm_source=website&utm_medium=homepage">
+						<img src="@Url.CdnContent("~/Images/Alex/appIcon.png")"/>
+					</a>
 				</div>
-				<div class="text-slide" data-slide="3">
+				<div class="text-slide" data-slide="4">
 					<h2 class="js-animate-this">Tutors</h2>
 					<div class="js-animate-this">
 						24/7 help from in-person or online experts
 					</div>
+					<a href="https://itunes.apple.com/us/app/id990911114?utm_source=website&utm_medium=homepage">
+						<img src="@Url.CdnContent("~/Images/Alex/appIcon.png")"/>
+					</a>
 				</div>
 
 			</div>
-			<div class="device-frame">
-				<div class="image-slides">
-					<img class="image-slide init-image" alt="Docs - How Remarketing Keeps Customers Coming Back" src="@Url.CdnContent("~/Images/Alex/Docs_240px.png")"/>
-					<img class="image-slide init-image" alt="Content - Get Customers Interested by Telling a Great Story" src="@Url.CdnContent("~/Images/Alex/unnamed_240px.png")"/>
-					<img class="image-slide init-image" alt="Flashcard- How Remarketing Keeps Customers Coming Back" src="@Url.CdnContent("~/Images/Alex/FC_240px.png")"/>
-					<img class="image-slide init-image" alt="Tutor - Advertising Content Measurement Strategy" src="@Url.CdnContent("~/Images/Alex/tutor_240px.png")"/>
+				<div class="device-frame">
+					<div class="image-slides mobile">
+						<img id="screen0" class="image-slide init-image" alt="Content - Welcome to our sude" src="@Url.CdnContent("~/Images/Alex/content_241.png")" />
+						<img id="screen1" class="image-slide init-image" alt="Docs - How Remarketing Keeps Customers Coming Back" src="@Url.CdnContent("~/Images/Alex/Docs_241px.png")" />
+						<img id="screen2" class="image-slide init-image" alt="Content - Get Customers Interested by Telling a Great Story" src="@Url.CdnContent("~/Images/Alex/unnamed_241px.png")" />
+						<img id="screen3" class="image-slide init-image" alt="Flashcard- How Remarketing Keeps Customers Coming Back" src="@Url.CdnContent("~/Images/Alex/FC_241px.png")" />
+						<img id="screen4" class="image-slide init-image" alt="Tutor - Advertising Content Measurement Strategy" src="@Url.CdnContent("~/Images/Alex/tutor_241px.png")" />
+					</div>
+					<img class="init-image device mobile" src="@Url.CdnContent("~/Images/Alex/iphone_300px.png")" />
+					<section class="active no-mobile" data-slide="0" style="float: left">
+						<article class="class-material menu-anchor" data-section="1">
+								<h2 class="js-animate-this">Class Materials</h2>
+								<div class="js-animate-this">
+									Tests, study guides, notes, homeworks and more!
+								</div>
+						</article>
+						<article class="flashcard menu-anchor" data-section="3">
+							<h2 class="js-animate-this">Flashcards</h2>
+							<div class="js-animate-this">
+								Test yourself using
+								student-made flashcards
+							</div>
+						</article>
+						<article class="jobs menu-anchor">
+							<h2 class="js-animate-this">Jobs and Internships</h2>
+							<div class="js-animate-this">
+								Summer internships, part-time jobs, and more at your fingertips
+							</div>
+						</article>
+					</section>
+					<div  class="no-mobile iphone">
+						<div class="image-slides">
+							<img id="screen0" class="image-slide init-image" alt="Content - Welcome to our sude" src="@Url.CdnContent("~/Images/Alex/content_240px.png")" />
+							<img id="screen1" class="image-slide init-image" alt="Docs - How Remarketing Keeps Customers Coming Back" src="@Url.CdnContent("~/Images/Alex/Docs_241px.png")" />
+							<img id="screen2" class="image-slide init-image" alt="Content - Get Customers Interested by Telling a Great Story" src="@Url.CdnContent("~/Images/Alex/unnamed_241px.png")" />
+							<img id="screen3" class="image-slide init-image" alt="Flashcard- How Remarketing Keeps Customers Coming Back" src="@Url.CdnContent("~/Images/Alex/FC_241px.png")" />
+							<img id="screen4" class="image-slide init-image" alt="Tutor - Advertising Content Measurement Strategy" src="@Url.CdnContent("~/Images/Alex/tutor_241px.png")" />
+						</div>
+						<img class="init-image device" src="@Url.CdnContent("~/Images/Alex/iphone_300px.png")" />
+					</div>
 				</div>
-				<img class="init-image device" src="@Url.CdnContent("~/Images/Alex/iphone_300px.png")"/>
 			</div>
-		</div>
 	</div>
 
 </section>
 <section class="scroll-container">
+	<section class="scroll-section scroll-section-zero"  data-from-time="0.01" data-to-time="1.33" data-reverse-from-time="" data-reverse-to-time="">
+		<div class="scroll-section-content">
+		</div>
+	</section>
 	<section class="scroll-section scroll-section-one" data-from-time="0.01" data-to-time="1.33" data-reverse-from-time="" data-reverse-to-time="">
 		<div class="scroll-section-content">
 			<picture>
 				<source class="layer-object apple js-load-async init-image" srcset="@Url.CdnContent("~/Images/Alex/apple_360px.png")" media="(min-width: 769px)">
-				<img class="layer-object apple js-load-async init-image" />
+				<img class="layer-object apple js-load-async init-image" src="@Url.CdnContent("~/Images/Alex/appIcon.png")"/>
 			</picture>
 			<picture>
 				<source class="layer-object headphones js-load-async init-image" srcset="@Url.CdnContent("~/Images/Alex/headphone_620px.png")" media="(min-width: 769px)">
-				<img class="layer-object headphones js-load-async init-image" />
+				<img class="layer-object headphones js-load-async init-image" src="@Url.CdnContent("~/Images/Alex/appIcon.png")"/>
 			</picture>
 			<picture>
 				<source class="layer-object spinner js-load-async init-image" srcset="@Url.CdnContent("~/Images/Alex/spinner_small_350.png")" media="(min-width: 769px)">
-				<img class="layer-object spinner js-load-async init-image" />
+				<img class="layer-object spinner js-load-async init-image" src="@Url.CdnContent("~/Images/Alex/appIcon.png")"/>
 			</picture>
 		</div>
-
 	</section>
-	<section class="scroll-section scroll-section-two" data-from-time="1.50" data-to-time="2.67" data-reverse-from-time="6.73" data-reverse-to-time="8.07">
+	<section class="scroll-section scroll-section-two"  data-from-time="1.50" data-to-time="2.67" data-reverse-from-time="6.73" data-reverse-to-time="8.07">
 		<div class="scroll-section-content">
 			<img class="layer-object book js-load-async" data-image-src="@Url.CdnContent("~/Images/Alex/Book_small_550px.png")"/>
 			<img class="layer-object coffee js-load-async" data-image-src="@Url.CdnContent("~/Images/Alex/coffee2_500px.png")"/>
@@ -104,15 +189,15 @@
 		</div>
 
 	</section>
-	<section class="scroll-section scroll-section-three" data-from-time="2.83" data-to-time="4.00" data-reverse-from-time="5.40" data-reverse-to-time="6.57">
+	<section class="scroll-section scroll-section-three"  data-from-time="2.83" data-to-time="4.00" data-reverse-from-time="5.40" data-reverse-to-time="6.57">
 		<div class="scroll-section-content">
 			<img class="layer-object folder js-load-async" data-image-src="@Url.CdnContent("~/Images/Alex/red_folder_850px.png")"/>
 			<img class="layer-object sun-glasses js-load-async" data-image-src="@Url.CdnContent("~/Images/Alex/sun_glasses_small_350px.png")"/>
-			<img class="layer-object pizza js-load-async" data-image-src="@Url.CdnContent("~/Images/Alex/pizza_small_700px_crop.png")"/>
+			<img class="layer-object pizza js-load-async" data-image-src="@Url.CdnContent("~/Images/Alex/pizza_crop.png")"/>
 		</div>
 
 	</section>
-	<section class="scroll-section scroll-section-four" data-from-time="" data-to-time="" data-reverse-from-time="4.06" data-reverse-to-time="5.23">
+	<section class="scroll-section scroll-section-four"  data-from-time="" data-to-time="" data-reverse-from-time="4.06" data-reverse-to-time="5.23">
 		<div class="scroll-section-content">
 			<img class="layer-object doc js-load-async" data-image-src="@Url.CdnContent("~/Images/Alex/Doc_small_45px.png")"/>
 			<img class="layer-object coffee js-load-async" data-image-src="@Url.CdnContent("~/Images/Alex/coffee2_500px.png")"/>
