@@ -31,11 +31,17 @@ namespace Zbang.Cloudents.Jared.Controllers
             {
                 universitySynonym = await m_ZboxReadService.GetUniversitySynonymAsync(model.University.Value).ConfigureAwait(false);
             }
+            var result = Enumerable.Range(model.Page * 3, 3).Select(s => DoSearchAsync(model, s, universitySynonym, CustomApiKey.Documents, token)).ToList();
+            await Task.WhenAll(result).ConfigureAwait(false);
 
-            var result = await DoSearchAsync(model, universitySynonym, CustomApiKey.Documents, token).ConfigureAwait(false);
+            //result.Select(s=>s.Result)
+
+
+            //var t1 = DoSearchAsync(model, universitySynonym, CustomApiKey.Documents, token)
+            //var result = await DoSearchAsync(model, universitySynonym, CustomApiKey.Documents, token).ConfigureAwait(false);
             return Request.CreateResponse(new
             {
-                documents = result,
+                documents = result.SelectMany(s => s.Result),
                 facet = new[] {
                     "www.uloop.com",
                     "www.spitball.co",
@@ -57,10 +63,15 @@ namespace Zbang.Cloudents.Jared.Controllers
             {
                 universitySynonym = await m_ZboxReadService.GetUniversitySynonymAsync(model.University.Value).ConfigureAwait(false);
             }
-            var result = await DoSearchAsync(model, universitySynonym, CustomApiKey.Flashcard, token).ConfigureAwait(false);
+
+            var result = Enumerable.Range(model.Page * 3, 3).Select(s => DoSearchAsync(model, s, universitySynonym, CustomApiKey.Documents, token)).ToList();
+            await Task.WhenAll(result).ConfigureAwait(false);
+
+
+            //var result = await DoSearchAsync(model, universitySynonym, CustomApiKey.Flashcard, token).ConfigureAwait(false);
             return Request.CreateResponse(new
             {
-                documents = result,
+                documents = result.SelectMany(s => s.Result),
                 facet = new[]
                 {
                     "www.quizlet.com",
@@ -81,13 +92,15 @@ namespace Zbang.Cloudents.Jared.Controllers
             {
                 universitySynonym = await m_ZboxReadService.GetUniversitySynonymAsync(model.University.Value).ConfigureAwait(false);
             }
+            var result = Enumerable.Range(model.Page * 3, 3).Select(s => DoSearchAsync(model, s, universitySynonym, CustomApiKey.Documents, token)).ToList();
+            await Task.WhenAll(result).ConfigureAwait(false);
 
-            var result = await DoSearchAsync(model, universitySynonym, CustomApiKey.AskQuestion, token).ConfigureAwait(false);
-            return Request.CreateResponse(result);
+            //var result = await DoSearchAsync(model, universitySynonym, CustomApiKey.AskQuestion, token).ConfigureAwait(false);
+            return Request.CreateResponse(result.SelectMany(s => s.Result));
         }
 
 
-        private static async Task<IEnumerable<SearchResult>> DoSearchAsync(SearchRequest query, string universitySynonym,
+        private static async Task<IEnumerable<SearchResult>> DoSearchAsync(SearchRequest query, int page, string universitySynonym,
             CustomApiKey key, CancellationToken token)
         {
             var initializer = new BaseClientService.Initializer
@@ -112,14 +125,14 @@ namespace Zbang.Cloudents.Jared.Controllers
             //}
             var p = new CustomsearchService(initializer);
 
-            int? realPage = null;
-            if (query.Page > 0)
-            {
-                realPage = query.Page;
-            }
+            //int? realPage = null;
+            //if (query.Page > 0)
+            //{
+            //    realPage = query.Page;
+            //}
             var request = new CseResource.ListRequest(p, string.Join(" ", term))
             {
-                Start = realPage,
+                Start = ++page,
                 SiteSearch = query.Source,
                 Cx = key.Key,
                 Fields = "items(title,link,snippet,pagemap/cse_image,displayLink)",
