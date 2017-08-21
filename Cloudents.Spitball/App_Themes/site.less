@@ -1,0 +1,155 @@
+﻿@gap: 10fr;
+@light_blue:#3293f6;
+@dark_blue: #0455a8;
+@result_color: #07305a;
+@sub_filter_color: #1e59a8;
+@circle_size:38px;
+@purple: #320161;
+@red: #f14d4d;
+@green: #52ab15;
+@bg_gray: #eeeeee;
+.displayInlineFlex() {
+	display: -webkit-inline-box;
+	display: -ms-inline-flexbox;
+	display: inline-flex;
+}
+.displayGrid(@gap) {
+	display: -ms-grid;
+	display: grid;
+	-ms-column-gap: @gap;
+	column-gap: @gap;
+	grid-gap: @gap;
+	-ms-grid-gap: @gap;
+	grid-row-gap: @gap;
+	-ms-grid-row-gap: @gap;
+}
+.circle() {
+	width: 38px;
+	height: 38px;
+	border-radius:50%;
+	position:relative;
+}
+.inlineGrid() {
+	display:inline-grid;
+	display: -ms-inline-grid;
+	display: -moz-inline-grid;
+	-ms-grid-column-gap: @gap;
+	grid-column-gap: @gap;
+	grid-gap:@gap;
+}
+body {
+	background: @bg_gray;
+	margin: 0;
+
+	header {
+		width: 100%;
+		height: 2em;
+		background: @light_blue;
+
+		#search {
+			background: @dark_blue;
+			border-radius: 6px;
+			height: 37px;
+		}
+	}
+
+	.upper {
+		text-transform: uppercase;
+	}
+
+	aside {
+
+		label {
+			width: 59px;
+			height: 14px;
+			font-family: OpenSans;
+			font-size: 10px;
+			letter-spacing: -0.2px;
+			text-align: left;
+			color: #90949c;
+		}
+
+		ul {
+			padding: 0;
+			.displayGrid(0.5em);
+
+			li {
+				display: flex;
+				list-style: none;
+				list-style-type: none;
+				text-transform: capitalize;
+
+				span {
+					margin-left: 1em;
+					line-height: @circle_size;
+				}
+
+				img {
+					top: 25%;
+					left: 20%;
+					position: absolute;
+				}
+
+				&:last-of-type {
+					/*margin-bottom: 0.8em;*/
+				}
+
+				.ask {
+					.circle();
+					background: @dark_blue;
+				}
+
+				.note {
+					.circle();
+
+					img {
+						left: 30%;
+					}
+
+					background: @purple;
+				}
+
+				.flashcard {
+					.circle();
+					background: @red;
+				}
+
+				.tutor {
+					.circle();
+					background: @green;
+				}
+			}
+		}
+	}
+
+	.grid {
+		.inlineGrid();
+		background: white;
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-auto-rows: minmax(100px, auto);
+		-ms-grid-template-columns: 1fr 1fr 1fr;
+		-ms-grid-auto-rows: minmax(100px, auto);
+
+		div {
+			background: green;
+		}
+	}
+
+	.sub-filter {
+		.displayInlineFlex();
+
+		.item {
+			flex: 1 0 auto;
+		}
+	}
+	/*.speech-input {
+		width: 440px;
+		max-width: 100%;
+		font-size: 2em;
+		padding: 0.4em;
+		box-sizing: border-box;
+	}
+	.speech-icon{
+
+	}*/
+}
