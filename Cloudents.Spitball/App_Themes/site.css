@@ -1,0 +1,120 @@
+﻿body {
+  background: #eeeeee;
+  margin: 0;
+  /*.speech-input {
+		width: 440px;
+		max-width: 100%;
+		font-size: 2em;
+		padding: 0.4em;
+		box-sizing: border-box;
+	}
+	.speech-icon{
+
+	}*/
+}
+body header {
+  width: 100%;
+  height: 2em;
+  background: #3293f6;
+}
+body header #search {
+  background: #0455a8;
+  border-radius: 6px;
+  height: 37px;
+}
+body .upper {
+  text-transform: uppercase;
+}
+body aside label {
+  width: 59px;
+  height: 14px;
+  font-family: OpenSans;
+  font-size: 10px;
+  letter-spacing: -0.2px;
+  text-align: left;
+  color: #90949c;
+}
+body aside ul {
+  padding: 0;
+  display: -ms-grid;
+  display: grid;
+  -ms-column-gap: 0.5em;
+  column-gap: 0.5em;
+  grid-gap: 0.5em;
+  -ms-grid-gap: 0.5em;
+  grid-row-gap: 0.5em;
+  -ms-grid-row-gap: 0.5em;
+}
+body aside ul li {
+  display: flex;
+  list-style: none;
+  list-style-type: none;
+  text-transform: capitalize;
+}
+body aside ul li span {
+  margin-left: 1em;
+  line-height: 38px;
+}
+body aside ul li img {
+  top: 25%;
+  left: 20%;
+  position: absolute;
+}
+body aside ul li:last-of-type {
+  /*margin-bottom: 0.8em;*/
+}
+body aside ul li .ask {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  position: relative;
+  background: #0455a8;
+}
+body aside ul li .note {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  position: relative;
+  background: #320161;
+}
+body aside ul li .note img {
+  left: 30%;
+}
+body aside ul li .flashcard {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  position: relative;
+  background: #f14d4d;
+}
+body aside ul li .tutor {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  position: relative;
+  background: #52ab15;
+}
+body .grid {
+  display: inline-grid;
+  display: -ms-inline-grid;
+  display: -moz-inline-grid;
+  -ms-grid-column-gap: 10fr;
+  grid-column-gap: 10fr;
+  grid-gap: 10fr;
+  background: white;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-rows: minmax(100px, auto);
+  -ms-grid-template-columns: 1fr 1fr 1fr;
+  -ms-grid-auto-rows: minmax(100px, auto);
+}
+body .grid div {
+  background: green;
+}
+body .sub-filter {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+body .sub-filter .item {
+  flex: 1 0 auto;
+}
