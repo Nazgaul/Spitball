@@ -51,6 +51,5 @@ namespace Zbang.Zbox.Infrastructure.Search
         [Obsolete]
         [IsSearchable,IsSortable]
         public string ParentDepartment { get; set; }
-
     }
 }

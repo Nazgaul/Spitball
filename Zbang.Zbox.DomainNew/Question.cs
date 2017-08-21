@@ -10,6 +10,7 @@ namespace Zbang.Zbox.Domain
         {
 
         }
+
         public Question(Guid id, Quiz quiz, string text)
         {
             if (quiz == null) throw new ArgumentNullException(nameof(quiz));
@@ -22,6 +23,7 @@ namespace Zbang.Zbox.Domain
             Quiz = quiz;
             DateTimeUser = new UserTimeDetails(quiz.User.Id);
         }
+
         public virtual Guid Id { get; private set; }
         public virtual Quiz Quiz { get; private set; }
         public virtual string Text { get; private set; }
@@ -45,9 +47,6 @@ namespace Zbang.Zbox.Domain
             newText = newText?.Trim();
             Text = newText;
             DateTimeUser.UpdateTime = DateTime.UtcNow;
-
         }
     }
-
-
 }

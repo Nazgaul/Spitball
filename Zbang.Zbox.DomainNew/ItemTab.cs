@@ -10,6 +10,7 @@ namespace Zbang.Zbox.Domain
         {
             Items = new List<Item>();
         }
+
         public ItemTab(Guid id, string name, Box box)
             : this()
         {
@@ -17,6 +18,7 @@ namespace Zbang.Zbox.Domain
             Name = name;
             Box = box;
         }
+
         public Guid Id { get; private set; }
         public string Name { get; private set; }
         public virtual Box Box { get; private set; }
@@ -65,6 +67,7 @@ namespace Zbang.Zbox.Domain
 
             return true;
         }
+
         public override int GetHashCode()
         {
             unchecked

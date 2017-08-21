@@ -9,12 +9,9 @@ namespace Zbang.Zbox.Infrastructure.Exceptions
 
     public class DuplicateDepartmentNameException : Exception
     {
-
-       
     }
 
     public class BoxesInDepartmentNodeException : Exception
     {
-        
     }
 }

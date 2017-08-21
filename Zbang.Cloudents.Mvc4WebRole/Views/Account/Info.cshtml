@@ -1,6 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources;
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Zbox.Infrastructure
 
 <div class="tab-pane active" id="info">
     <div class="section text-capitalize" layout="row" layout-wrap id="section-1">
@@ -26,7 +27,7 @@
             <md-input-container>
                 <label>@AccountResource.Lang</label>
                 <md-select name="notification" md-on-close="i.changeLanguage()" ng-model="i.data.language" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}" ga-track-event="['settings', 'change language']">
-                    @foreach (var lang in Zbang.Zbox.Infrastructure.Culture.Languages.SupportedCultures)
+                    @foreach (var lang in Languages.SupportedCultures)
                     {
                         <md-option value="@lang.Culture.First()">@lang.Name.GetEnumDescription()</md-option>
                     }

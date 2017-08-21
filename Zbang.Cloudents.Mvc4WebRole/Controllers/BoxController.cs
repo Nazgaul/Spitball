@@ -15,7 +15,6 @@ using Zbang.Cloudents.Mvc4WebRole.Models.Tabs;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Consts;
-using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Extensions;

@@ -4,8 +4,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.Owin;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.ReadServices;
-using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.ViewModel.Queries;
 

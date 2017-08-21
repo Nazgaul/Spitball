@@ -31,9 +31,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 sb.Append(GenerateBoxCube(boxUpdate, m_Parameters.UserCulture, cube));
             }
 
-
             //message.Text = textBody;
-
 
             html = html.Replace("{UPDATES}", sb.ToString());
             html = html.Replace("{USERNAME}", m_Parameters.UserName);
@@ -55,7 +53,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
         public override string AddCategory()
         {
             return Category;
-
         }
 
         private static string AggregateUpdates(int numOfUpdates)
@@ -101,7 +98,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
             foreach (var update in boxUpdate.Updates)
             {
 
-
                 sb.Append(update.BuildMailLine(culture));
             }
             if (boxUpdate.ExtraUpdatesCount > 0)
@@ -114,7 +110,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
             cube = cube.Replace("{BOX_UPDATES}", sb.ToString());
             return cube;
         }
-
 
 
     }

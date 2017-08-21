@@ -15,7 +15,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         public override string GenerateMail()
         {
-
             var html = LoadMailTempate.LoadMailFromContent(m_Parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.InviteCourse");
             html = html.Replace("{INVITOR}", m_Parameters.Invitor);
             html = html.Replace("{BOXNAME}", m_Parameters.BoxName);

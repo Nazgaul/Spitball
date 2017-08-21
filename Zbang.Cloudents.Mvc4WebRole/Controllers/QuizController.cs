@@ -15,10 +15,10 @@ using System.Threading.Tasks;
 using System.Web.Routing;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using System.Web.UI;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Url;
 

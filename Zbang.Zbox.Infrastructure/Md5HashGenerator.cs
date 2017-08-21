@@ -24,8 +24,7 @@ namespace Zbang.Zbox.Infrastructure
             try
             {
                 //Now we begin to do the real work.
-                var hashString = ComputeHash(ObjectToByteArray(sourceObject));
-                return hashString;
+                return ComputeHash(ObjectToByteArray(sourceObject));
             }
             catch (AmbiguousMatchException ame)
             {

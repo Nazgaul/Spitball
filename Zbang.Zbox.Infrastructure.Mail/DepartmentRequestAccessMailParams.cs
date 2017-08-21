@@ -20,6 +20,5 @@ namespace Zbang.Zbox.Infrastructure.Mail
         {
             get { return DepartmentRequestAccessResolver; }
         }
-
     }
 }

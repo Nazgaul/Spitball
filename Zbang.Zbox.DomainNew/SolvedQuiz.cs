@@ -10,6 +10,7 @@ namespace Zbang.Zbox.Domain
 // ReSharper disable DoNotCallOverridableMethodsInConstructor
             SolvedQuestions = new List<SolvedQuestion>();
         }
+
         public SolvedQuiz(Guid id, Quiz quiz, User user, TimeSpan timeTaken)
             : this()
         {

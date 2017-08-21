@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AlchemyAPIClient;
 using AlchemyAPIClient.Requests;
-using Zbang.Zbox.Infrastructure.Culture;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.WorkerRoleSearch

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Consts;
-using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -18,6 +18,7 @@ namespace Zbang.Zbox.Domain
         {
             ShouldMakeDirty = () => false;
         }
+
         public Quiz(string name, long id, Box box, User owner)
             : this()
         {
@@ -33,6 +34,7 @@ namespace Zbang.Zbox.Domain
 
             DateTimeUser = new UserTimeDetails(owner.Id);
         }
+
         public virtual long Id { get; private set; }
         public virtual Language Language { get; set; }
         public virtual string Name { get; private set; }
@@ -115,6 +117,7 @@ namespace Zbang.Zbox.Domain
             }
             return Task.CompletedTask;
         }
+
         public virtual void RemoveTag(string tag)
         {
             var tagToRemove = ItemTags.FirstOrDefault(w => w.Tag.Name == tag);

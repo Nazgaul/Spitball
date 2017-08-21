@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
-using Zbang.Zbox.Infrastructure.Culture;
 using System.Text;
 using Zbang.Zbox.Infrastructure;
 
@@ -19,12 +18,8 @@ namespace Zbang.Zbox.Domain
             Quota = new Quota();
             UserTime = new UserTimeDetails(0);
             UserType = UserType.Regular;
-            
         }
 
-
-
-       
         public User(string email, string image,
             string firstName, string lastName, string culture, Sex sex
             )
@@ -59,7 +54,7 @@ namespace Zbang.Zbox.Domain
                 LastName = TextManipulation.SpaceReg.Replace(LastName, " ");
                 sb.Append(LastName.Trim());
             }
-           
+
             Name = sb.ToString().Trim();
             Name = TextManipulation.SpaceReg.Replace(Name, " ");
             GenerateUrl();
@@ -102,7 +97,6 @@ namespace Zbang.Zbox.Domain
 
         public virtual string ImageLarge { get; set; }
 
-
         public virtual University University { get; protected set; }
         public virtual string StudentId { get; set; }
         public virtual DateTime? LastAccessTime { get; set; }
@@ -114,13 +108,10 @@ namespace Zbang.Zbox.Domain
 
         public virtual bool Online { get; set; }
 
-
         public virtual EmailSend EmailSendSettings { get; set; }
-        
 
         public virtual MobileOperatingSystem MobileDevice { get; set; }
         public virtual PushNotificationSettings PushNotificationSetting { get; set; }
-
 
         public virtual void AddConnection(string connectionId)
         {
@@ -140,17 +131,11 @@ namespace Zbang.Zbox.Domain
             userType.UserTime.UpdateUserTime(Id);
         }
 
-       
-
-
-
         public IEnumerable<Box> GetUserOwnedBoxes()
         {
             return UserBoxRel.Where(w => w.UserRelationshipType == UserRelationshipType.Owner)
                 .Select(s => s.Box).Where(w => w.IsDeleted == false);
         }
-
-
 
         public void UpdateUserProfile(string firstName, string lastName)
         {
@@ -184,8 +169,5 @@ namespace Zbang.Zbox.Domain
         {
             Email = email;
         }
-
     }
-
-
 }

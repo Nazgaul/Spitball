@@ -6,7 +6,7 @@ namespace Zbang.Zbox.Infrastructure.UnitsOfWork
     public interface IUnitOfWork : IDisposable
     {
         void Flush();
-        bool IsInActiveTransaction { get; }
+        bool IsInactiveTransaction { get; }
 
         IGenericTransaction BeginTransaction();
         IGenericTransaction BeginTransaction(IsolationLevel isolationLevel);

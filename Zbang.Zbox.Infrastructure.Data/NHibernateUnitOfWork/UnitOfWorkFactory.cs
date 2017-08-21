@@ -149,7 +149,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             var session = CreateSession();
             session.FlushMode = FlushMode.Commit;
             CurrentSession = session;
-            return new UnitOfWorkImplementor(this, session);
+            return new UnitOfWorkImplementer(this, session);
         }
 
         public Configuration Configuration { get; private set; }
@@ -176,7 +176,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             }
         }
 
-        public void DisposeUnitOfWork(IUnitOfWorkImplementor adapter)
+        public void DisposeUnitOfWork(IUnitOfWorkImplementer adapter)
         {
             CurrentSession = null;
             Local.Data.Clear();

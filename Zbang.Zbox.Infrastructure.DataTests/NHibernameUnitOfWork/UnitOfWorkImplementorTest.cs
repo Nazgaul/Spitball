@@ -14,7 +14,7 @@ namespace Zbang.Zbox.Infrastructure.DataTests.NHibernameUnitOfWork
         private readonly MockRepository _mocks = new MockRepository();
         private IUnitOfWorkFactory _factory;
         private ISession _session;
-        private IUnitOfWorkImplementor _uow;
+        private IUnitOfWorkImplementer _uow;
 
         [TestInitialize]
         public void SetupContext()
@@ -32,9 +32,9 @@ namespace Zbang.Zbox.Infrastructure.DataTests.NHibernameUnitOfWork
             }
             using (_mocks.Playback())
             {
-                _uow = new UnitOfWorkImplementor(_factory, _session);
-                Assert.AreSame(_factory, ((UnitOfWorkImplementor)_uow).Factory);
-                Assert.AreSame(_session, ((UnitOfWorkImplementor)_uow).Session);
+                _uow = new UnitOfWorkImplementer(_factory, _session);
+                Assert.AreSame(_factory, ((UnitOfWorkImplementer)_uow).Factory);
+                Assert.AreSame(_session, ((UnitOfWorkImplementer)_uow).Session);
             }
         }
 
@@ -48,7 +48,7 @@ namespace Zbang.Zbox.Infrastructure.DataTests.NHibernameUnitOfWork
             }
             using (_mocks.Playback())
             {
-                _uow = new UnitOfWorkImplementor(_factory, _session);
+                _uow = new UnitOfWorkImplementer(_factory, _session);
                 _uow.Dispose();
             }
         }
@@ -62,7 +62,7 @@ namespace Zbang.Zbox.Infrastructure.DataTests.NHibernameUnitOfWork
             }
             using (_mocks.Playback())
             {
-                _uow = new UnitOfWorkImplementor(_factory, _session);
+                _uow = new UnitOfWorkImplementer(_factory, _session);
                 _uow.Flush();
             }
         }
@@ -76,7 +76,7 @@ namespace Zbang.Zbox.Infrastructure.DataTests.NHibernameUnitOfWork
             }
             using (_mocks.Playback())
             {
-                _uow = new UnitOfWorkImplementor(_factory, _session);
+                _uow = new UnitOfWorkImplementer(_factory, _session);
                 var transaction = _uow.BeginTransaction();
                 Assert.IsNotNull(transaction);
             }
@@ -92,7 +92,7 @@ namespace Zbang.Zbox.Infrastructure.DataTests.NHibernameUnitOfWork
             }
             using (_mocks.Playback())
             {
-                _uow = new UnitOfWorkImplementor(_factory, _session);
+                _uow = new UnitOfWorkImplementer(_factory, _session);
                 var transaction = _uow.BeginTransaction(isolationLevel);
                 Assert.IsNotNull(transaction);
             }
@@ -105,7 +105,7 @@ namespace Zbang.Zbox.Infrastructure.DataTests.NHibernameUnitOfWork
             var session = _mocks.DynamicMock<ISession>();
             SetupResult.For(session.BeginTransaction(IsolationLevel.ReadCommitted)).Return(tx);
 
-            _uow = _mocks.PartialMock<UnitOfWorkImplementor>(_factory, _session);
+            _uow = _mocks.PartialMock<UnitOfWorkImplementer>(_factory, _session);
 
             using (_mocks.Record())
             {
@@ -114,7 +114,7 @@ namespace Zbang.Zbox.Infrastructure.DataTests.NHibernameUnitOfWork
             }
             using (_mocks.Playback())
             {
-                _uow = new UnitOfWorkImplementor(_factory, session);
+                _uow = new UnitOfWorkImplementer(_factory, session);
                 _uow.TransactionalFlush();
             }
         }
@@ -127,7 +127,7 @@ namespace Zbang.Zbox.Infrastructure.DataTests.NHibernameUnitOfWork
             var session = _mocks.DynamicMock<ISession>();
             SetupResult.For(session.BeginTransaction(IsolationLevel.Serializable)).Return(tx);
 
-            _uow = _mocks.PartialMock<UnitOfWorkImplementor>(_factory, session);
+            _uow = _mocks.PartialMock<UnitOfWorkImplementer>(_factory, session);
 
             using (_mocks.Record())
             {

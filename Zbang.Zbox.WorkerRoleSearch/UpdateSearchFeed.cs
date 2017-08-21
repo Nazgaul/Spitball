@@ -7,6 +7,7 @@ using Microsoft.WindowsAzure.ServiceRuntime;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Azure.Blob;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Search;
@@ -86,12 +87,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task<Task> JaredPilotAsync(FeedSearchDto elem, CancellationToken cancellationToken)
         {
-            if (elem.Language.GetValueOrDefault(Infrastructure.Culture.Language.Undefined) == Infrastructure.Culture.Language.Undefined)
+            if (elem.Language.GetValueOrDefault(Language.Undefined) == Language.Undefined)
             {
                 elem.Language = await m_WatsonExtractProvider.GetLanguageAsync(elem.Content,cancellationToken).ConfigureAwait(false);
             }
 
-            if (elem.Language == Infrastructure.Culture.Language.EnglishUs && elem.Tags.All(a => a.Type != TagType.Watson))
+            if (elem.Language == Language.EnglishUs && elem.Tags.All(a => a.Type != TagType.Watson))
             {
                 var result = await m_WatsonExtractProvider.GetKeywordAsync(elem.Content, cancellationToken).ConfigureAwait(false);
                 if (result != null)

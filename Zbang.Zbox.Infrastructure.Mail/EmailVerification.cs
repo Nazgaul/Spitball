@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -14,13 +15,16 @@ namespace Zbang.Zbox.Infrastructure.Mail
         private readonly VerificationEngine m_Engine;
         private readonly VerificationLevel m_VerificationLevel = VerificationLevel.Dns;
         private const string EmailRegex2 = @"^([\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+\.)*[\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+@((((([a-z0-9]{1}[a-z0-9\-]{0,62}[a-z0-9]{1})|[a-z])\.)+[a-z]{2,6})|(\d{1,3}\.){3}\d{1,3}(\:\d{1,5})?)$";
+        private readonly ILogger m_Logger;
 
         private class MailGunValidationResponse
         {
             public bool Is_Valid { get; set; }
         }
-        public EmailVerification()
+
+        public EmailVerification(ILogger logger)
         {
+            m_Logger = logger;
             try
             {
                 //FHbrz2C/8XTEPkmsVzPzPuYvZ2XNoMDfMEdJKJdvGlwPpkAgNwQMVT+Ae1ZSY8QbQpm+7g==
@@ -32,7 +36,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("On check email ctor", ex);
+                m_Logger.Exception(ex);
             }
         }
 
@@ -49,18 +53,16 @@ namespace Zbang.Zbox.Infrastructure.Mail
             try
             {
                 var verificationEmail = new Verification(email);
-                await m_Engine.RunAsync(verificationEmail, m_VerificationLevel);
+                await m_Engine.RunAsync(verificationEmail, m_VerificationLevel).ConfigureAwait(false);
                 if (verificationEmail.State.Result.LastStatus == VerificationStatus.UnhandledException)
                 {
-                    return await MailGunValidateEmailAsync(email);
-                   
+                    return await MailGunValidateEmailAsync(email).ConfigureAwait(false);
                 }
                 return verificationEmail.State.Result.LastStatus == VerificationStatus.Success;
             }
             catch (Exception ex)
             {
-
-                TraceLog.WriteError("On check email email : " + email, ex);
+                m_Logger.Exception(ex);
                 return true;
             }
         }
@@ -84,20 +86,17 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         private static bool MailGunValidateEmail(string email)
         {
-            RestRequest request;
-            var client = BuildRestClient(email, out request);
+            var client = BuildRestClient(email, out RestRequest request);
             var data = client.Execute<MailGunValidationResponse>(request);
             return data.Data.Is_Valid;
         }
 
         private static async Task<bool> MailGunValidateEmailAsync(string email)
         {
-            RestRequest request;
-            var client = BuildRestClient(email, out request);
-            var data = await client.ExecuteTaskAsync<MailGunValidationResponse>(request);
+            var client = BuildRestClient(email, out RestRequest request);
+            var data = await client.ExecuteTaskAsync<MailGunValidationResponse>(request).ConfigureAwait(false);
             return data.Data.Is_Valid;
         }
-
 
         public bool VerifyEmail(string email)
         {
@@ -121,12 +120,10 @@ namespace Zbang.Zbox.Infrastructure.Mail
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("On check email email : " + email, ex);
+                m_Logger.Exception(ex, new Dictionary<string, string> {["email"] = email});
                 return true;
             }
         }
-
-
 
         public void Dispose()
         {

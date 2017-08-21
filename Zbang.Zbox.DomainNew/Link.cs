@@ -6,6 +6,7 @@
         {
             ShouldMakeDirty = () => false;
         }
+
         public Link(string itemName, User uploaderUser, long sized, Box box,
             string linkTitle)
             : base(linkTitle, uploaderUser, sized, box, itemName)

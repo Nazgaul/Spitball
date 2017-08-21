@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Zbang.Zbox.Infrastructure.Culture;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 
 namespace Zbang.Zbox.ViewModel.Dto.Qna

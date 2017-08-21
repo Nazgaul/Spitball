@@ -9,6 +9,7 @@ namespace Zbang.Zbox.Domain
         {
 
         }
+
         public Answer(Guid id, string text, Question question)
         {
             if (question == null)
@@ -28,6 +29,7 @@ namespace Zbang.Zbox.Domain
             // ReSharper disable once DoNotCallOverridableMethodsInConstructor Resharper
             DateTimeUser = new UserTimeDetails(Quiz.User.Id);
         }
+
         public virtual Guid Id { get; private set; }
         public virtual Quiz Quiz { get; private set; }
         public virtual string Text { get; private set; }

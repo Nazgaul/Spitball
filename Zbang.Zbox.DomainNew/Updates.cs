@@ -17,6 +17,7 @@ namespace Zbang.Zbox.Domain
             Box = box;
             CreationTime = DateTime.UtcNow;
         }
+
         public Updates(User user, Box box, Comment comment) : this(user, box)
         {
             Comment = comment;
@@ -27,6 +28,7 @@ namespace Zbang.Zbox.Domain
         {
             Quiz = quiz;
         }
+
         public Updates(User user, Box box, Item item)
             : this(user, box, item.Comment)
         {
@@ -42,6 +44,7 @@ namespace Zbang.Zbox.Domain
         {
             ItemComment = itemComment;
         }
+
         private Updates(User user, Box box, ItemCommentReply itemCommentReply) : this(user, box, itemCommentReply.Item)
         {
             ItemCommentReply = itemCommentReply;
@@ -56,6 +59,7 @@ namespace Zbang.Zbox.Domain
         {
             return new Updates(user, box, itemComment);
         }
+
         public static Updates UpdateItemDiscussionReply(User user, Box box, ItemCommentReply itemReply)
         {
             return new Updates(user, box, itemReply);

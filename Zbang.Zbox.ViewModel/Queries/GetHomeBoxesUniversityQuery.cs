@@ -20,7 +20,7 @@ namespace Zbang.Zbox.ViewModel.Queries
         public string Country { get; }
 
         public string CacheKey => $"uni{UniversityId.GetValueOrDefault(-1)}country{Country}";
-        public CacheRegions CacheRegion => CacheRegions.HomePage;
+        public CacheRegions CacheRegion => CacheRegions.Homepage;
         public TimeSpan Expiration => TimeSpan.FromDays(1);
     }
 }

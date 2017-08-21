@@ -20,7 +20,6 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         }
 
-
         public override Index GetIndexStructure(string indexName)
         {
             var definition = new Index

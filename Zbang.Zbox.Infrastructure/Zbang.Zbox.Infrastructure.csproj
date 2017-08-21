@@ -97,7 +97,7 @@
     <Compile Include="Consts\ReputationConsts.cs" />
     <Compile Include="Consts\TimeConsts.cs" />
     <Compile Include="Consts\UrlConsts.cs" />
-    <Compile Include="Culture\Languages.cs" />
+    <Compile Include="Languages.cs" />
     <Compile Include="Enums\BadgeType.cs" />
     <Compile Include="Enums\BadItem.cs" />
     <Compile Include="Enums\BoxType.cs" />
@@ -149,7 +149,6 @@
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\TaskExtensions.cs" />
     <Compile Include="GamificationLevels.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IdGenerator\GuidIdGenerator.cs" />
     <Compile Include="IdGenerator\IIdGenerator.cs" />
     <Compile Include="IPCheckContainer.cs" />
@@ -217,7 +216,7 @@
     <Compile Include="UnitsOfWork\ILocalData.cs" />
     <Compile Include="UnitsOfWork\IUnitOfWork.cs" />
     <Compile Include="UnitsOfWork\IUnitOfWorkFactory.cs" />
-    <Compile Include="UnitsOfWork\IUnitOfWorkImplementor.cs" />
+    <Compile Include="UnitsOfWork\IUnitOfWorkImplementer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IRepository.cs" />
   </ItemGroup>

@@ -41,6 +41,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
         public Task AddToCacheAsync<T>(CacheRegions region, string key, T value, TimeSpan expiration) where T : class
         {
+            if (region == null) throw new ArgumentNullException(nameof(region));
             try
             {
                 if (!m_CacheExists)
@@ -161,7 +162,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
                     return HttpContext.Current.Cache[cacheKey] as T;
 
                 var cache = Connection.GetDatabase();
-                
+
                 var t = await cache.GetAsync<T>(cacheKey).ConfigureAwait(false);
 
                 if (t != default(T))
@@ -208,9 +209,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
         private static bool IsAppFabricCache()
         {
-            bool shouldUseCacheFromConfig;
-
-            bool.TryParse(ConfigFetcher.Fetch("CacheUse"), out shouldUseCacheFromConfig);
+            bool.TryParse(ConfigFetcher.Fetch("CacheUse"), out bool shouldUseCacheFromConfig);
             return shouldUseCacheFromConfig /*&& ConfigFetcher.IsRunningOnCloud*/;
         }
 

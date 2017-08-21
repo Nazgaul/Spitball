@@ -17,6 +17,7 @@ namespace Zbang.Zbox.Domain
             New = true;
             Read = false;
         }
+
         public virtual Box Box { get; protected set; }
 
        
@@ -38,6 +39,7 @@ namespace Zbang.Zbox.Domain
         {
             Read = true;
         }
+
         public void UpdateMessageAsOld()
         {
             New = false;

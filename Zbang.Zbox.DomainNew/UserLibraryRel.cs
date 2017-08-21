@@ -7,15 +7,15 @@ namespace Zbang.Zbox.Domain
     {
         protected UserLibraryRel()
         {
-            
+
         }
+
         public UserLibraryRel(Guid id, User user, Library library, UserLibraryRelationType userType)
         {
             User = user;
             Library = library;
             UserType = userType;
             Id = id;
-
         }
 
         public virtual Guid Id { get; protected set; }
@@ -23,7 +23,5 @@ namespace Zbang.Zbox.Domain
 
         public virtual User User { get; set; }
         public virtual Library Library { get; set; }
-
     }
-
 }

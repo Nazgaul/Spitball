@@ -34,5 +34,4 @@ namespace Zbang.Zbox.Infrastructure.Search
         string Id { get; set; }
     }
 
-
 }

@@ -9,6 +9,7 @@ namespace Zbang.Zbox.Domain
         {
 
         }
+
         public QuizDiscussion(Guid id, User owner, string text, Question question)
         {
             if (owner == null) throw new ArgumentNullException(nameof(owner));
@@ -26,6 +27,7 @@ namespace Zbang.Zbox.Domain
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
 
         }
+
         public virtual Guid Id { get; set; }
         public virtual User Owner { get; set; }
         public virtual string Text { get; set; }

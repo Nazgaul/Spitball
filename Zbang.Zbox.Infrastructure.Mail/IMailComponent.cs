@@ -11,7 +11,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
             CancellationToken cancellationToken = default(CancellationToken), string category = null);
         //Task GenerateAndSendEmailAsync(IEnumerable<string> recipients, MailParameters parameters);
 
-
         Task DeleteUnsubscribeAsync(string email);
 
         Task<IEnumerable<string>> GetUnsubscribesAsync(DateTime startTime, int page, CancellationToken cancellationToken = default(CancellationToken));
@@ -30,7 +29,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
             int interVal,
             CancellationToken cancellationToken
             );
-
 
 
 

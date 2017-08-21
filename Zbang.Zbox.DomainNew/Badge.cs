@@ -19,6 +19,7 @@ namespace Zbang.Zbox.Domain
             Progress = progress;
             //User.BadgeCount++;
         }
+
         public Guid Id { get; set; }
         public virtual User User { get; set; }
         public BadgeType Name { get; set; }

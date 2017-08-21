@@ -54,14 +54,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         protected void Application_BeginRequest()
         {
-
-
         }
 
         protected void Application_EndRequest()
         {
         }
-
 
         public override string GetVaryByCustomString(HttpContext context, string custom)
         {
@@ -182,7 +179,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
         //{
         //    HttpContext.Current.Response.Headers.Remove("Server");
         //}
-        protected void Application_PreSendRequestHeaders(Object source, EventArgs e)
+        protected void Application_PreSendRequestHeaders(object source, EventArgs e)
         {
             if (HttpContext.Current != null)
             {

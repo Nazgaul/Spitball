@@ -10,7 +10,7 @@ using Microsoft.WindowsAzure.ServiceRuntime;
 using SquishIt.Framework.JavaScript;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
-using Zbang.Zbox.Infrastructure.Culture;
+using Zbang.Zbox.Infrastructure;
 
 namespace Zbang.Cloudents.Mvc4WebRole
 {

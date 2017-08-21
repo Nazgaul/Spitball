@@ -100,6 +100,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
             }
             return relativeUrl;
         }
+
         public static string BuildQuizUrl(long boxId, string boxName, long quizId, string quizName, string universityName, bool fullUrl = false)
         {
             if (string.IsNullOrEmpty(quizName))

@@ -17,6 +17,7 @@ namespace Zbang.Zbox.Domain
 
             DateTime = DateTime.UtcNow;
         }
+
         public Guid Id { get; set; }
 
         public virtual User User { get; set; }
@@ -24,6 +25,5 @@ namespace Zbang.Zbox.Domain
         public virtual FlashcardMeta Flashcard { get; set; }
 
         public DateTime DateTime { get; set; }
-
     }
 }

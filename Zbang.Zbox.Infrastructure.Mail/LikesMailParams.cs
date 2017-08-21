@@ -15,7 +15,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         public string Name { get; private set; }
 
-
         public IEnumerable<LikeData> LikeData { get; private set; }
 
         public override string MailResover => nameof(LikesMailParams);

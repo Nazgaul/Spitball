@@ -31,7 +31,6 @@ namespace Zbang.Zbox.Domain
 
         }
 
-
         public virtual string CourseCode { get; private set; }
         public virtual string Professor { get; private set; }
 
@@ -44,7 +43,6 @@ namespace Zbang.Zbox.Domain
             CourseCode = courseCode;
             Professor = professorName;
         }
-
 
         public override void GenerateUrl()
         {
@@ -59,6 +57,7 @@ namespace Zbang.Zbox.Domain
         {
             return University.UniversityName;
         }
+
         public override void DeleteAssociation()
         {
             Department = null;

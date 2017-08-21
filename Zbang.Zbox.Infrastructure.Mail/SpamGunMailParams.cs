@@ -1,6 +1,5 @@
 ﻿namespace Zbang.Zbox.Infrastructure.Mail
 {
-
     public class SpamGunMailParams : MailParameters
     {
         public SpamGunMailParams(
@@ -24,7 +23,6 @@
         public string Category { get; private set; }
         public override string MailResover => nameof(SpamGunMailParams);
     }
-
 
     public class GreekPartnerMailParams : MailParameters
     {

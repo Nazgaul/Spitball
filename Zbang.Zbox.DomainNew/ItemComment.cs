@@ -10,6 +10,7 @@ namespace Zbang.Zbox.Domain
         {
 
         }
+
         public ItemComment(User author, Item item, string comment, long id)
         {
             if (author == null)
@@ -24,8 +25,6 @@ namespace Zbang.Zbox.Domain
             {
                 throw new ArgumentNullException(nameof(comment));
             }
-
-
 
 // ReSharper disable DoNotCallOverridableMethodsInConstructor
             Id = id;
@@ -43,7 +42,5 @@ namespace Zbang.Zbox.Domain
         {
             return Replies.Select(s => s.Author.Id);
         }
-
-
     }
 }

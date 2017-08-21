@@ -8,6 +8,7 @@ namespace Zbang.Zbox.Domain
         {
             
         }
+
         public UserLocationActivity(Guid id, User user, string domain, double? latitude, double? longitude, string zipCode, string region, string isp, string city, string country, string countryAbbreviation, string browserUserAgent)
         {
             Id = id;

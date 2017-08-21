@@ -55,7 +55,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             return unitOfWork;
         }
 
-        public static void DisposeUnitOfWork(IUnitOfWorkImplementor unitOfWork)
+        public static void DisposeUnitOfWork(IUnitOfWorkImplementer unitOfWork)
         {
             CurrentUnitOfWork = null;
         }

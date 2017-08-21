@@ -28,11 +28,11 @@ namespace Zbang.Zbox.Infrastructure.Extensions
             {
                 IsRunningOnCloud = false;
             }
-            catch(Exception ex)
-            {
-                TraceLog.WriteError(ex);
-                IsRunningOnCloud = false;
-            }
+            //catch(Exception ex)
+            //{
+            //    //TraceLog.WriteError(ex);
+            //    IsRunningOnCloud = false;
+            //}
         }
 
         public static string Fetch(string name)

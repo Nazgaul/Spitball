@@ -13,6 +13,7 @@ namespace Zbang.Zbox.Domain
         public JaredText()
         {
         }
+
         public int JaredTextId { get; set; }
         [Required]
         public CategoryTextType Action { get; set; }

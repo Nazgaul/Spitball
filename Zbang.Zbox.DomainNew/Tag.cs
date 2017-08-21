@@ -10,6 +10,7 @@ namespace Zbang.Zbox.Domain
             ItemTags = new HashSet<ItemTag>();
             CommentTags = new HashSet<CommentTag>();
         }
+
         public Tag(string name) : this()
         {
             if (string.IsNullOrWhiteSpace(name))
