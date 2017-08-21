@@ -1,4 +1,5 @@
-﻿
+﻿@using System.Web.Optimization
+
 @{
     Layout = null;
 }
@@ -8,8 +9,8 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width" />
-	<title>Index</title>
-<link href="~/App_Themes/site.css" rel="stylesheet"/>
+    <title>Index</title>
+    @Styles.Render("~/My/Less");
     <script type = 'text/javascript' >
         var appInsights=window.appInsights||function(config)
         {
@@ -40,43 +41,44 @@
 	<div>item 3</div>
 </div>*@
 <aside>
-	<label class="upper">search type</label>
-	<ul>
-		<li>
-			<div class="ask"><img src="~/App_Themes/Images/ask-copy.svg">
-			</div><span>ask</span></li>
-		<li>
-			<div class="note"><img src="~/App_Themes/Images/note.svg">
-			</div><span>notes</span></li>
-		<li>
-			<div class="flashcard"><img src="~/App_Themes/Images/flashcard.svg">
-			</div><span>flashcards</span></li>
-		<li>
-			<div class="tutor"><img src="~/App_Themes/Images/tutor-copy.svg">
-			</div><span>tutor</span></li>
-	</ul>
-	<label class="upper">contribute</label>
-	<ul>
-		<li>
-			<div class="ask"><img src="~/App_Themes/Images/ask-copy.svg">
-			</div><span>upload</span></li>
-		<li>
-			<div class="note"><img src="~/App_Themes/Images/note.svg">
-			</div><span>post</span></li>
-	</ul>
-	<label class="upper">class talk</label>
-	<ul>
-		<li>
-			<div class="ask"><img src="~/App_Themes/Images/ask-copy.svg">
-			</div><span>chat</span></li>
-	</ul>
-	<label class="upper">personal info</label>
-	<ul>
-		<li>
-			<div class="ask"><img src="~/App_Themes/Images/ask-copy.svg">
-			</div><span>settings</span></li>
-	</ul>
+    <label class="upper">search type</label>
+    <ul>
+        <li>
+            <div class="ask"><img src="~/App_Themes/Images/ask-copy.svg">
+            </div><span>ask</span></li>
+        <li>
+            <div class="note"><img src="~/App_Themes/Images/note.svg">
+            </div><span>notes</span></li>
+        <li>
+            <div class="flashcard"><img src="~/App_Themes/Images/flashcard.svg">
+            </div><span>flashcards</span></li>
+        <li>
+            <div class="tutor"><img src="~/App_Themes/Images/tutor-copy.svg">
+            </div><span>tutor</span></li>
+    </ul>
+    <label class="upper">contribute</label>
+    <ul>
+        <li>
+            <div class="ask"><img src="~/App_Themes/Images/ask-copy.svg">
+            </div><span>upload</span></li>
+        <li>
+            <div class="note"><img src="~/App_Themes/Images/note.svg">
+            </div><span>post</span></li>
+    </ul>
+    <label class="upper">class talk</label>
+    <ul>
+        <li>
+            <div class="ask"><img src="~/App_Themes/Images/ask-copy.svg">
+            </div><span>chat</span></li>
+    </ul>
+    <label class="upper">personal info</label>
+    <ul>
+        <li>
+            <div class="ask"><img src="~/App_Themes/Images/ask-copy.svg">
+            </div><span>settings</span></li>
+    </ul>
 </aside>
+@Scripts.Render("~/bundles/angularjs")
 <script>
 	function startDictation() {
 
