@@ -16,13 +16,13 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
         private readonly ITableProvider m_TableProvider;
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
 
-
         public FlagBadItem(IMailComponent mailComponent, ITableProvider tableProvider, IZboxReadServiceWorkerRole zboxReadService)
         {
             m_MailComponent = mailComponent;
             m_TableProvider = tableProvider;
             m_ZboxReadService = zboxReadService;
         }
+
         public Task<bool> ExecuteAsync(Infrastructure.Transport.DomainProcess data, CancellationToken token)
         {
             var parameters = data as BadItemData;
@@ -32,12 +32,10 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
                 if (parameters2 == null)
                 {
                     throw new ArgumentNullException(nameof(data));
-
                 }
                 return FlagPostAsync(parameters2);
             }
             return FlagItemAsync(parameters);
-
         }
 
         private async Task<bool> FlagItemAsync(BadItemData parameters)
@@ -61,7 +59,6 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
         {
             await m_TableProvider.InsertUserRequestAsync(
                  new FlagCommentOrReply(parameters.PostId, parameters.UserId));
-
 
             await m_MailComponent.GenerateAndSendEmailAsync("eidan@cloudents.com",
                  new FlagItemMailParams("post or reply", " from ios app", "don't know", "don't know", string.Empty));

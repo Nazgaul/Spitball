@@ -15,10 +15,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             m_CookieHelper.InjectCookie(CookieName, value.Name, false);
         }
+
         public void InjectCookie(string value)
         {
             m_CookieHelper.InjectCookie(CookieName, value, false);
         }
+
         public string ReadCookie()
         {
             return m_CookieHelper.ReadCookie<string>(CookieName);

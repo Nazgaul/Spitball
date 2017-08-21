@@ -5,14 +5,12 @@ namespace Zbang.Zbox.Infrastructure.Url
 {
     public class EncryptObject : IEncryptObject
     {
-
         public string EncryptElement<T>(T obj, params string[] purposes) where T : class
         {
             var formatter = new Transport.ProtobufSerializer<T>();
             var serializedObj = formatter.SerializeData(obj);
             var bData = MachineKey.Protect(serializedObj, purposes);
             return HttpServerUtility.UrlTokenEncode(bData);
-
         }
 
         public T DecryptElement<T>(string hash, params string[] purposes) where T : class
@@ -31,7 +29,6 @@ namespace Zbang.Zbox.Infrastructure.Url
             var formatter = new Transport.ProtobufSerializer<T>();
             return formatter.DeSerializeData(serializedObj);
         }
-
     }
 
     public interface IEncryptObject 

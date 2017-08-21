@@ -12,7 +12,6 @@ namespace Zbang.Cloudents.Jared.Models
 
         public string Professor { get; set; }
 
-
         //[Required]
         //public string DepartmentId { get; set; }
 
@@ -20,7 +19,6 @@ namespace Zbang.Cloudents.Jared.Models
         {
             var baseString = base.ToString();
             return $"{baseString} CourseName {CourseName} CourseId {CourseId} Professor {Professor}";
-
         }
     }
 }

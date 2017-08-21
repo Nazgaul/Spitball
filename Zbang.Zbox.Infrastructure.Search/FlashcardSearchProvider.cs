@@ -58,7 +58,6 @@ namespace Zbang.Zbox.Infrastructure.Search
                 new Field(FrontCardsField, DataType.Collection(DataType.String)) { IsSearchable = true, IsRetrievable = true},
                 new Field(BackCardsField, DataType.Collection(DataType.String)) { IsSearchable = true, IsRetrievable = true},
 
-
                 new Field(UniversityNameField, DataType.String) { IsRetrievable = true},
                 new Field(UniversityIdField, DataType.String) { IsRetrievable = true, IsFilterable = true},
                 new Field(UserIdsField, DataType.Collection(DataType.String)) { IsFilterable = true, IsRetrievable = true} ,
@@ -92,7 +91,6 @@ namespace Zbang.Zbox.Infrastructure.Search
             m_CheckIndexExists = true;
         }
 
-
         public async Task<bool> UpdateDataAsync(IEnumerable<FlashcardSearchDto> flashcardToUpload, IEnumerable<long> flashcardToDelete, CancellationToken token)
         {
             if (!m_CheckIndexExists)
@@ -103,7 +101,6 @@ namespace Zbang.Zbox.Infrastructure.Search
             var t2 = Task.CompletedTask;
             if (flashcardToUpload != null)
             {
-
                 var uploadBatch = flashcardToUpload.Select(s => new FlashcardSearch
                 {
                     Id = s.Id.ToString(CultureInfo.InvariantCulture),
@@ -136,7 +133,6 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
             await Task.WhenAll(t1, t2).ConfigureAwait(false);
             return true;
-
         }
 
         public async Task<IEnumerable<SearchFlashcard>> SearchFlashcardAsync(SearchQuery query, CancellationToken cancelToken)
@@ -166,8 +162,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                 UniName = s.Document.UniversityName,
                 BoxId = s.Document.BoxId.GetValueOrDefault()
             });
-
         }
+
         private static string HighLightInField(SearchResult<FlashcardSearch> record, IEnumerable<string> fields, string defaultValue)
         {
             if (record.Highlights == null)

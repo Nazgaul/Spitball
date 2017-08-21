@@ -17,11 +17,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             m_LinkParser = new AngleSharpHyperlinkParser();
         }
-       
 
         public IEnumerable<Uri> GetLinks(CrawledPage crawledPage)
         {
-
             //var xmlContentTypes = new[] {
             //    "text/xml","application/xml", "application/xml; charset=utf-8"
             //};
@@ -62,7 +60,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     }
                     if (xmlElement != null) yield return new Uri(xmlElement.InnerText);
                 }
-
             }
             var htmlLinks = m_LinkParser.GetLinks(crawledPage);
 
@@ -70,7 +67,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 yield return htmlLink;
             }
-
         }
     }
 }

@@ -8,15 +8,12 @@ namespace Zbang.Cloudents.Jared.Models
         [Required, Range(1, long.MaxValue)]
         public long Id { get; set; }
 
-
         [Required]
         public IEnumerable<string> Tags { get; set; }
-
     }
 
     public class TagsRequest
     {
         public IEnumerable<string> Tags { get; set; }
-
     }
 }

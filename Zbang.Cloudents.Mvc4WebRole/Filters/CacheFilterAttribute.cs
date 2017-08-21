@@ -4,7 +4,6 @@ using System.Web.Mvc;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Filters
 {
-
     public class CacheFilterAttribute : ActionFilterAttribute
     {
         /// <summary>
@@ -22,11 +21,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             Duration = 0;
         }
 
-
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             var cache = filterContext.HttpContext.Response.Cache;
-            
+
             if (Duration <= 0)
             {
                 cache.SetCacheability(HttpCacheability.NoCache);

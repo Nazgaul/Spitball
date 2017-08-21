@@ -20,7 +20,6 @@ namespace Zbang.Cloudents.Jared.Controllers
 
         private readonly IZboxWriteService m_ZboxWriteService;
 
-
         public LoginController(IZboxWriteService zboxWriteService)
         {
             m_ZboxWriteService = zboxWriteService;
@@ -54,5 +53,4 @@ namespace Zbang.Cloudents.Jared.Controllers
             });
         }
     }
-
 }

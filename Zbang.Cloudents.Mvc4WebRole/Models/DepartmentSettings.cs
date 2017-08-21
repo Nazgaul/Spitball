@@ -13,7 +13,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
 
         public LibraryNodeSetting? Settings { get; set; }
 
-
         public override string ToString()
         {
             return string.Format("id: {0} name: {1} settings {2}", Id, Name, Settings);

@@ -104,7 +104,6 @@ namespace Zbang.Zbox.Infrastructure.Search
             if (!m_CheckIndexExists)
             {
                 await BuildIndexAsync().ConfigureAwait(false);
-
             }
             if (itemToUpload != null)
             {
@@ -140,8 +139,6 @@ namespace Zbang.Zbox.Infrastructure.Search
                 if (batch.Actions.Any())
                     await m_IndexClient.Documents.IndexAsync(batch, cancellationToken: token).ConfigureAwait(false);
             }
-
-
         }
 
         public async Task<IEnumerable<SearchDocument>> SearchItemAsync(
@@ -209,7 +206,6 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Url = s.Document.Url,
                 Source = s.Document.BlobName
 
-
             });
         }
 
@@ -238,7 +234,6 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Url = s.Document.Url,
                 Source = s.Document.BlobName
 
-
             });
         }
 
@@ -259,7 +254,6 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
         }
 
-
         private static string HighLightInField(SearchResult<ItemSearch> record, string field, string defaultValue)
         {
             if (record.Highlights == null)
@@ -272,7 +266,5 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
             return defaultValue;
         }
-
-
     }
 }

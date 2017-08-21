@@ -43,7 +43,6 @@ namespace Zbang.Zbox.Infrastructure.Trace
         public static void WriteError(string error)
         {
             t.Trace.TraceError(error);
-
         }
 
         public static void WriteWarning(string warning)
@@ -53,6 +52,5 @@ namespace Zbang.Zbox.Infrastructure.Trace
 #endif
             t.Trace.TraceWarning(warning);
         }
-
     }
 }

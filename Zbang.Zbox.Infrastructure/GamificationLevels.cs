@@ -6,7 +6,6 @@ namespace Zbang.Zbox.Infrastructure
 {
     public static class GamificationLevels
     {
-
         [ResourceDescription(typeof(Gamification), "Level1")]
         private static readonly Range<int> Level1 = new Range<int>(0, 1000);
         [ResourceDescription(typeof(Gamification), "Level2")]
@@ -17,7 +16,6 @@ namespace Zbang.Zbox.Infrastructure
         private static readonly Range<int> Level4 = new Range<int>(Level3.Maximum + 1, 10000);
         [ResourceDescription(typeof(Gamification), "Level5")]
         private static readonly Range<int> Level5 = new Range<int>(Level4.Maximum + 1, int.MaxValue);
-
 
         public static LevelDescription GetLevel(int score)
         {
@@ -44,7 +42,6 @@ namespace Zbang.Zbox.Infrastructure
                 if (att?.ResourceType == null) return new LevelDescription(att?.Description, val.Maximum, index);
                 var levelName = new System.Resources.ResourceManager(att.ResourceType);
                 return new LevelDescription(levelName.GetString(att.ResourceName, CultureInfo.CurrentCulture), val.Maximum, index);
-
             }
             return null;
         }

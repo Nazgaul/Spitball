@@ -14,7 +14,7 @@ namespace Zbang.Zbox.Infrastructure.Security
            {
                using (
                    var googleStream =
-                       await client.GetStreamAsync("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" + token))
+                       await client.GetStreamAsync("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" + token).ConfigureAwait(false))
                {
                    using (var sr = new StreamReader(googleStream))
                    {

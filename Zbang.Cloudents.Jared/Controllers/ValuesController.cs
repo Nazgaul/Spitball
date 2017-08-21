@@ -7,8 +7,6 @@ using Microsoft.Azure.Mobile.Server.Config;
 using WebApi.OutputCache.V2;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.ReadServices;
-using System.Net;
-using Zbang.Cloudents.Jared.Models;
 using Zbang.Zbox.Infrastructure.Mail;
 
 namespace Zbang.Cloudents.Jared.Controllers
@@ -17,12 +15,10 @@ namespace Zbang.Cloudents.Jared.Controllers
     public class ValuesController : ApiController
     {
         private readonly IZboxReadService m_ZboxReadService;
-        private readonly IMailComponent m_MailComponent;
 
-        public ValuesController(IZboxReadService zboxReadService, IMailComponent mailComponent)
+        public ValuesController(IZboxReadService zboxReadService)
         {
             m_ZboxReadService = zboxReadService;
-            m_MailComponent = mailComponent;
         }
 
         // GET api/values
@@ -43,15 +39,14 @@ namespace Zbang.Cloudents.Jared.Controllers
             //}
             var documents = new Dictionary<string, IEnumerable<string>>
             {
-                {"exams", new[] {"exam", "test", "midterm", "final", "tests", "midterms", "finals"}},
-                {
-                    "quizzes",
-                    new[] {"quiz", "flashcard", "set", "quizlet", "flashcards", "flash cards", "quizlets", "sets"}
-                },
-                {"study guides", new[] {"study guide", "review", "guide", "reviews", "guides"}},
-                {"homework", new[] {"hw", "assignments", "assignment"}},
-                {"lectures", new[] {"lecture"}},
-                {"class notes", new[] {"class note", "note", "notes"}}
+                ["exams"] = new[] { "exam", "test", "midterm", "final", "tests", "midterms", "finals" },
+                [
+                    "quizzes"] =
+                    new[] { "quiz", "flashcard", "set", "quizlet", "flashcards", "flash cards", "quizlets", "sets" },
+                ["study guides"] = new[] { "study guide", "review", "guide", "reviews", "guides" },
+                ["homework"] = new[] { "hw", "assignments", "assignment" },
+                ["lectures"] = new[] { "lecture" },
+                ["class notes"] = new[] { "class note", "note", "notes" }
             };
             //result.Terms = documents;
             return Request.CreateResponse(new
@@ -59,18 +54,6 @@ namespace Zbang.Cloudents.Jared.Controllers
                 text = result,
                 terms = documents
             });
-        }
-
-        [HttpPost]
-        [Route("api/feedback")]
-        public async Task<HttpResponseMessage> FeedbackAsync(MailRequest model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Request.CreateBadRequestResponse();
-            }
-            await m_MailComponent.GenerateSystemEmailAsync("Jared feedback", model.Body, "support@cloudents.com").ConfigureAwait(false);
-            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }

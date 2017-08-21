@@ -11,7 +11,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         [Required]
         public long BoxId { get; set; }
 
-
         public bool Question { get; set; }
 
         public string Name { get; set; }

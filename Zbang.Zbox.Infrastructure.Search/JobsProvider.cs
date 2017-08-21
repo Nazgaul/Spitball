@@ -17,9 +17,9 @@ namespace Zbang.Zbox.Infrastructure.Search
         public JobsProvider(ISearchConnection connection, ILogger logger)
             : base(connection, "jobs", logger)
         {
-            
+
         }
-        
+
 
         public override Index GetIndexStructure(string indexName)
         {
@@ -47,5 +47,4 @@ namespace Zbang.Zbox.Infrastructure.Search
     {
         //Task<Job> GetByIdAsync(string id, CancellationToken token);
     }
-
 }

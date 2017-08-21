@@ -35,6 +35,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             };
             m_HttpContext.Response.Cookies.Add(cookie);
         }
+
         public T ReadCookie<T>(string cookieName) where T : class
         {
             var cookie = m_HttpContext.Request.Cookies[cookieName];
@@ -70,7 +71,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 
             var bData = pFormatter.SerializeData(data);
             return HttpServerUtility.UrlTokenEncode(bData);
-
         }
 
         private static object DeSerialize<T>(string data) where T : class
@@ -90,7 +90,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                 TraceLog.WriteError("On deSerialize data is " + data, ex);
                 return null;
             }
-
         }
     }
 }

@@ -45,9 +45,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
                 return relativeUrl;
             }
             return HttpUtility.UrlPathEncode(SystemUrl + relativeUrl);
-
         }
-
 
         public static string BuildInviteCloudentsUrl(string inviteId)
         {
@@ -83,10 +81,6 @@ namespace Zbang.Zbox.Infrastructure.Consts
             return relativeUrl;
         }
 
-
-
-
-
         public static string BuildItemUrl(long boxId, string boxName, long itemId, string itemName, string universityName, bool fullUrl = false)
         {
             if (string.IsNullOrEmpty(itemName))
@@ -97,7 +91,6 @@ namespace Zbang.Zbox.Infrastructure.Consts
             {
                 throw new ArgumentNullException(nameof(boxName));
             }
-
 
             var relativeUrl = VirtualPathUtility.AppendTrailingSlash(string.Format(ItemUrl,
                 NameToQueryString(universityName), boxId, NameToQueryString(boxName), itemId, NameToQueryString(itemName)));
@@ -117,7 +110,6 @@ namespace Zbang.Zbox.Infrastructure.Consts
             {
                 throw new ArgumentNullException(nameof(boxName));
             }
-
 
             var relativeUrl = VirtualPathUtility.AppendTrailingSlash(string.Format(CultureInfo.InvariantCulture, QuizUrl, NameToQueryString(universityName), boxId, NameToQueryString(boxName), quizId, NameToQueryString(quizName)));
             if (fullUrl)
@@ -144,7 +136,6 @@ namespace Zbang.Zbox.Infrastructure.Consts
 
             foreach (var character in name)
             {
-
                 if (!char.IsLetterOrDigit(character) && !char.IsWhiteSpace(character) && !char.IsPunctuation(character))
                     continue;
                 switch (character)
@@ -198,7 +189,6 @@ namespace Zbang.Zbox.Infrastructure.Consts
                 }
             }
             return sb.ToString().ToLowerInvariant();
-
         }
     }
 

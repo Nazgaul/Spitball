@@ -33,7 +33,6 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     parameters.ReceiverId.Value);
             }
 
-
             var inviteeEmail = parameters.InviterEmail;
             if (inviteeEmail.Contains("yahoo"))
             {
@@ -46,9 +45,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                  userImage,
                 new CultureInfo(parameters.Culture), inviteeEmail), token);
 
-
             return true;
-
         }
     }
 }

@@ -15,7 +15,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             var cssDictionary = new Dictionary<string, IEnumerable<CssWithRtl>>
             {
 
-
                 ["homePage"] = new[]
                     {
                         new CssWithRtl("~/content/site/GeneralWithStatic.css","~/content/site/GeneralWithStatic.rtl.css"),
@@ -97,7 +96,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             var jsDictionary = new Dictionary<string, IEnumerable<JsFileWithCdn>>
             {
 
-
                 {
                     "jsHomePage", new[]
                     {
@@ -132,14 +130,12 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/signin/itemGallery.js"),
                         new JsFileWithCdn("~/js/signin/backgroundimage.js")
 
-
                     }
                 },
                  {
                     //TODO: maybe we can remove this??? // passwordUpdate uses it - this page will be modified in v4.
                     "signin", new[]
                     {
-
 
                         new JsFileWithCdn("~/Scripts/jquery-2.2.4.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"),
                         new JsFileWithCdn("~/Scripts/jquery.validate.js"),
@@ -205,13 +201,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/routerHelperProvider.js"),
                         new JsFileWithCdn("~/js/app.route.js"),
 
-
                         new JsFileWithCdn("~/js/components/quiz/stopwatch.module.js"),
                         new JsFileWithCdn("~/js/components/userdetails/userdetails.module.js"),
                         new JsFileWithCdn("~/js/components/quiz/popup/quiz.challenge.module.js"),
                         new JsFileWithCdn("~/js/components/quiz/popup/quiz.score.module.js"),
                         //new JsFileWithCdn("~/js/components/box/box.module.js"),
-
 
                         new JsFileWithCdn("~/js/components/quiz/stopwatch.filter.js"),
                         new JsFileWithCdn("~/js/components/quiz/stopwatch.directive.js"),
@@ -231,7 +225,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/user/user.service.js"),
                         new JsFileWithCdn("~/js/components/user/updates.service.js"),
                         new JsFileWithCdn("~/js/components/user/flashcards.controller.js"),
-                        
+
                         new JsFileWithCdn("~/js/components/dashboard/dashboard.service.js"),
                         new JsFileWithCdn("~/js/components/dashboard/dashboard.controller.js"),
                         new JsFileWithCdn("~/js/components/dashboard/dashboard.routes.js"),
@@ -241,10 +235,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         //new JsFileWithCdn("~/js/components/dashboard/leaderboard.controller.js"),
                         new JsFileWithCdn("~/js/components/dashboard/gamificationBoard.controller.js"),
 
-
                         new JsFileWithCdn("~/js/menu/menulink.directive.js"),
                         new JsFileWithCdn("~/js/menu/sidemenu.controller.js"),
-
 
                     new JsFileWithCdn("~/js/components/box/box.module.js"),
                      new JsFileWithCdn("~/js/components/box/box.controller.js"),
@@ -263,9 +255,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                      new JsFileWithCdn("~/js/components/box/leaderboard.controller.js"),
                         new JsFileWithCdn("~/js/components/box/box.routes.js"),
 
-
-
-
                         new JsFileWithCdn("~/js/components/account/account.controller.js"),
 
                         new JsFileWithCdn("~/js/components/account/notification.controller.js"),
@@ -280,7 +269,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/search/search.controller.js"),
                         new JsFileWithCdn("~/js/components/search/searchTrigger.controller.js"),
                         new JsFileWithCdn("~/js/components/search/search.service.js"),
-
 
                         new JsFileWithCdn("~/js/components/box/leaderboard.controller.js"),
 
@@ -319,7 +307,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/flashcard/fitText.directive.js"),
                         new JsFileWithCdn("~/js/components/flashcard/cardScroll.directive.js"),
                         new JsFileWithCdn("~/js/components/flashcard/cardAnimation.directive.js"),
-
 
                         new JsFileWithCdn("~/js/components/app.controller.js"),
                         new JsFileWithCdn("~/js/shared/ajaxService.js"),
@@ -363,8 +350,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/showToaster.service.js"),
                         new JsFileWithCdn("~/js/shared/openMenu.directive.js"),
 
-
-
                         new JsFileWithCdn("~/js/components/chat/chat.controller.js"),
                         new JsFileWithCdn("~/js/components/chat/conversation.controller.js"),
                         new JsFileWithCdn("~/js/components/chat/chatUsers.controller.js"),
@@ -384,10 +369,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 }
             };
 
-
-
             return jsDictionary;
         }
-
     }
 }

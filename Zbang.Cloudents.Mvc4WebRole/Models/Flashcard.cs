@@ -31,7 +31,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
                 return false;
             }
             return true;
-
         }
     }
 

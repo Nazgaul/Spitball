@@ -14,9 +14,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public CrawlerUrlEntity() { }
 
-
         public string Url { get; set; }
-
-
     }
 }

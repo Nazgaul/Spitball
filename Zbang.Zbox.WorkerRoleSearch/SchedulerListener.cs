@@ -33,7 +33,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_Logger = logger;
         }
 
-
         public string Name => nameof(SchedulerListener);
 
         public async Task RunAsync(CancellationToken cancellationToken)
@@ -57,7 +56,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         var list = new List<Task<bool>>();
                         foreach (var property in properties)
                         {
-
                             var t = (int?)property;
                             var process = m_LifetimeScope.ResolveOptionalNamed<ISchedulerProcess>(property.Name);
                             if (process != null)
@@ -84,7 +82,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                                             m_CriticalCode.Release();
                                         }
                                     }
-
                                 }, cancellationToken));
                             }
                             else
@@ -92,12 +89,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
                                 list.Add(TaskExtensions.CompletedTaskFalse);
                                 m_Logger.Warning($"cant resolve {property.Name}");
                             }
-
                         }
                         await Task.WhenAll(list).ConfigureAwait(false);
                         var result = list.All(a => a.Result);
                         return result;
-
                     }, TimeSpan.FromMinutes(15), 3, cancellationToken).ConfigureAwait(false);
                 }
                 catch (TaskCanceledException)
@@ -112,12 +107,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     m_Logger.Exception(ex, new Dictionary<string, string> { { "service", Name } });
                 }
                 await Task.Delay(TimeSpan.FromMinutes(2), cancellationToken).ConfigureAwait(false);
-
             }
-
         }
-
-
 
         public void Dispose()
         {

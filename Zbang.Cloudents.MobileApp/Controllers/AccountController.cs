@@ -42,7 +42,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         //public IServiceTokenHandler Handler { get; set; }
 
-
         // GET api/Account
         [HttpGet]
         [Route("api/account/details")]
@@ -78,7 +77,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/account/tokenrefresh")]
         public async Task<HttpResponseMessage> RefreshAsync()
         {
-
             var systemData = await m_ZboxReadService.GetUserDetailsByIdAsync(new GetUserByIdQuery(User.GetUserId()));
 
             if (!systemData.UniversityId.HasValue)
@@ -88,7 +86,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
             var identity = new ClaimsIdentity();
             identity.AddClaim(new Claim(ClaimConst.UserIdClaim, User.GetUserId().ToString(CultureInfo.InvariantCulture)));
-
 
             identity.AddClaim(new Claim(ClaimConst.UniversityIdClaim,
                     systemData.UniversityId.Value.ToString(CultureInfo.InvariantCulture)));
@@ -113,7 +110,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 AuthenticationToken = token.RawData
             });
         }
-
 
         [HttpPost, Route("api/account/university/create")]
         public async Task<HttpResponseMessage> CreateUniversityAsync(CreateUniversityRequest model)
@@ -153,19 +149,13 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 },
                 AuthenticationToken = token.RawData
             });
-
-
-
         }
-
-
 
         [HttpPost]
         //[VersionedRoute("api/account/university", 2)]
         [Route("api/account/university")]
         public async Task<HttpResponseMessage> UpdateUniversityAsync(UpdateUniversityRequest model)
         {
-
             if (model == null)
             {
                 return Request.CreateBadRequestResponse();
@@ -193,7 +183,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 return Request.CreateBadRequestResponse(ex.Message);
             }
 
-
             var identity = new ClaimsIdentity();
             identity.AddClaim(new Claim(ClaimConst.UserIdClaim, User.GetUserId().ToString(CultureInfo.InvariantCulture)));
             identity.AddClaim(new Claim(ClaimConst.UniversityIdClaim,
@@ -218,11 +207,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 },
                 AuthenticationToken = token.RawData
             });
-
-
-
         }
-
 
         [HttpPost]
         [Route("api/account/resetPassword")]
@@ -306,8 +291,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 },
                 AuthenticationToken = token.RawData
             });
-
-
         }
 
         [HttpPost]
@@ -316,9 +299,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         {
             return Request.CreateResponse();
         }
-
-
-
 
         private static string RandomString(int size)
         {
@@ -329,6 +309,5 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             return new string(chars.ToArray());
             //return "12345";
         }
-
     }
 }

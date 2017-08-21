@@ -74,32 +74,36 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             //var model = GamificationLevels.GetLevels();
             return PartialView("Badges", model);
         }
+
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult Uploads()
         {
             return PartialView("Items");
         }
+
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult Posts()
         {
             return PartialView("Feed");
         }
+
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult Quizzes()
         {
             return PartialView("Quizzes");
         }
+
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult Flashcards()
         {
             return PartialView("Flashcards");
         }
+
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult Classmates()
         {
             return PartialView("Members");
         }
-
 
         [HttpGet, ActionName("ProfileStats")]
         public async Task<ActionResult> ProfileStatsAsync(long id)
@@ -112,8 +116,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             return JsonOk(model);
         }
-
-
 
         [HttpGet, ActionName("Friends")]
         public async Task<ActionResult> FriendsAsync(long id, int page)
@@ -132,8 +134,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-
-
         [HttpGet, ActionName("Boxes")]
         public async Task<ActionResult> BoxesAsync(long id, int page)
         {
@@ -149,7 +149,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError();
             }
         }
-
 
         [HttpGet, ActionName("Comment")]
         public async Task<ActionResult> CommentAsync(long id, int page)
@@ -183,6 +182,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var result = await ZboxReadService.GetUserQuizActivityAsync(query).ConfigureAwait(false);
             return JsonOk(result);
         }
+
         [HttpGet, ActionName("Flashcard")]
         public async Task<ActionResult> FlashcardAsync(long id, int page)
         {
@@ -219,8 +219,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 TraceLog.WriteError("on google contact token" + token, ex);
                 return JsonError();
             }
-
-
         }
 
         /// <summary>
@@ -236,7 +234,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(result);
         }
 
-
         [HttpGet, ZboxAuthorize]
         [ActionName("Updates")]
         public async Task<ActionResult> UpdatesAsync()
@@ -249,9 +246,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 s.QuestionId
             }));
         }
-
-
-
 
         [HttpGet, ZboxAuthorize, ActionName("GamificationBoard")]
         public async Task<JsonResult> GamificationBoardAsync()
@@ -290,7 +284,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, ActionName("leaderboard")]
         public async Task<JsonResult> LeaderBoardAsync(long userid, int? page)
         {
-
             var query = new LeaderboardQuery(userid, page.GetValueOrDefault());
             var model = await ZboxReadService.UserLeaderBoardAsync(query).ConfigureAwait(false);
 
@@ -301,8 +294,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             });
             return JsonOk(model);
         }
-
-
 
     }
 }

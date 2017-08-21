@@ -2,7 +2,6 @@
 {
     public sealed class CacheRegions
     {
-
         public string Region { get; }
         public bool SuppressVersion { get;  }
 
@@ -40,7 +39,6 @@
         public static readonly CacheRegions HomePage = new CacheRegions("boxesHomePage", false);
         public static readonly CacheRegions Profile = new CacheRegions("profileStats", false);
         public static readonly CacheRegions SearchMobile = new CacheRegions("searchMobile", false);
-
 
         public override string ToString()
         {

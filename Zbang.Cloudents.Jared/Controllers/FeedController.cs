@@ -54,7 +54,6 @@ namespace Zbang.Cloudents.Jared.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-
         [HttpGet, Route("api/course/{boxId:long}/feed/{feedId:guid}")]
         public async Task<HttpResponseMessage> GetFeedAsync(long boxId, Guid feedId)
         {
@@ -109,7 +108,6 @@ namespace Zbang.Cloudents.Jared.Controllers
                     d.Source
                 })
 
-
             }));
         }
 
@@ -136,7 +134,6 @@ namespace Zbang.Cloudents.Jared.Controllers
             await m_ZboxWriteService.LikeReplyAsync(command).ConfigureAwait(false);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
-
 
         [Authorize, HttpPost]
         [Route("api/course/{boxId:long}/feed/{feedId:guid}/reply")]

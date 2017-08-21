@@ -27,7 +27,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             base.SetProperty(controllerContext, bindingContext,
                 propertyDescriptor, value);
         }
-
     }
 
     public class ArrayAsShouldModelBinder : DefaultModelBinder
@@ -36,10 +35,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             base.BindProperty(controllerContext, bindingContext, propertyDescriptor);
         }
+
         protected override void SetProperty(ControllerContext controllerContext, ModelBindingContext bindingContext, PropertyDescriptor propertyDescriptor, object value)
         {
             base.SetProperty(controllerContext, bindingContext, propertyDescriptor, value);
         }
+
         protected override object CreateModel(ControllerContext controllerContext, ModelBindingContext bindingContext, Type modelType)
         {
             var model = base.CreateModel(controllerContext, bindingContext, modelType);

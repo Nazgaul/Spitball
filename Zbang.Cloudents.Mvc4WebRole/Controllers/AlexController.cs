@@ -21,6 +21,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ViewBag.page = "about";
             return View();
         }
-
     }
 }

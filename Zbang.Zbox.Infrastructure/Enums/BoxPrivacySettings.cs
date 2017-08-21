@@ -11,6 +11,4 @@ namespace Zbang.Zbox.Infrastructure.Enums
         AnyoneWithUrl = 3,
         PrivateUniversity = 4
     }
-
-
 }

@@ -45,7 +45,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             FeedToUpdateSearchDto updates;
             do
             {
-
                 updates = await m_ZboxReadService.GetFeedDirtyUpdatesAsync(version, page, size, cancellationToken)
                     .ConfigureAwait(false);
                 if (!updates.Updates.Any() && !updates.Deletes.Any())
@@ -55,7 +54,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         await WriteNextVersionAsync(cancellationToken, version).ConfigureAwait(false);
                         return TimeToSleep.Increase;
                     }
-
                 }
                 m_Logger.Info("Feed search Going to process " + updates.NextVersion);
                 foreach (var feed in updates.Updates.Where(w => w.University != null && JaredUniversityIdPilot.Contains(w.University.Id)))
@@ -95,7 +93,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             if (elem.Language == Infrastructure.Culture.Language.EnglishUs && elem.Tags.All(a => a.Type != TagType.Watson))
             {
-
                 var result = await m_WatsonExtractProvider.GetKeywordAsync(elem.Content, cancellationToken).ConfigureAwait(false);
                 if (result != null)
                 {
@@ -108,11 +105,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return m_SearchProvider.UpdateDataAsync(elem, null, cancellationToken);
         }
 
-
-
         private async Task<long?> ReadVersionBlobDataAsync(CancellationToken cancellationToken)
         {
-
             var blob = GetBlobVersion();
             try
             {
@@ -152,7 +146,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_Logger.Warning($"{Name} index {index} count {count}");
             while (!cancellationToken.IsCancellationRequested)
             {
-
                 try
                 {
                     await DoProcessAsync(cancellationToken, index, count).ConfigureAwait(false);
@@ -164,7 +157,5 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             m_Logger.Error($"{Name} on finish run");
         }
-
-
     }
 }

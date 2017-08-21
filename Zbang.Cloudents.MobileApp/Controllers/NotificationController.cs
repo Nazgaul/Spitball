@@ -89,7 +89,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/push/apple")]
         public async Task<HttpResponseMessage> AppleAsync([FromBody]RegisterDeviceRequest model)
         {
-
             if (!ModelState.IsValid)
             {
                 return Request.CreateBadRequestResponse();
@@ -128,7 +127,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 return Request.CreateUnauthorizedResponse();
             }
             NotificationHubClient hub = NotificationHubClient.CreateClientFromConnectionString(ConfigFetcher.Fetch("MS_NotificationHubConnectionString"), ConfigFetcher.Fetch("MS_NotificationHubName"));
-
 
             var registrations = await hub.GetRegistrationsByTagAsync(User.GetUserId().ToString(), 10);
             var tasks = new List<Task>();

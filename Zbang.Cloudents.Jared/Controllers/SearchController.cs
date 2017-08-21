@@ -31,7 +31,6 @@ namespace Zbang.Cloudents.Jared.Controllers
             {
                 var universitySynonym = await m_ZboxReadService.GetUniversitySynonymAsync(model.University.Value).ConfigureAwait(false);
                 term.Add(universitySynonym);
-
             }
 
             if (!string.IsNullOrEmpty(model.Course))
@@ -43,12 +42,10 @@ namespace Zbang.Cloudents.Jared.Controllers
                 term.Add(string.Join(" ", model.Query.Select(s => '"' + s + '"')));
             }
 
-
             var result = Enumerable.Range(model.Page * 3, 3).Select(s => DoSearchAsync(string.Join(" ", term), model.Source, s, model.Sort, CustomApiKey.Documents, token)).ToList();
             await Task.WhenAll(result).ConfigureAwait(false);
 
             //result.Select(s=>s.Result)
-
 
             //var t1 = DoSearchAsync(model, universitySynonym, CustomApiKey.Documents, token)
             //var result = await DoSearchAsync(model, universitySynonym, CustomApiKey.Documents, token).ConfigureAwait(false);
@@ -71,7 +68,6 @@ namespace Zbang.Cloudents.Jared.Controllers
         [Route("api/search/flashcards"), HttpGet]
         public async Task<HttpResponseMessage> SearchFlashcardAsync([FromUri]SearchRequest model, CancellationToken token)
         {
-
             var term = new List<string>();
             if (model.University.HasValue)
             {
@@ -88,10 +84,8 @@ namespace Zbang.Cloudents.Jared.Controllers
                 term.Add(string.Join(" ", model.Query.Select(s => '"' + s + '"')));
             }
 
-
             var result = Enumerable.Range(model.Page * 3, 3).Select(s => DoSearchAsync(string.Join(" ", term), model.Source, s, model.Sort, CustomApiKey.Documents, token)).ToList();
             await Task.WhenAll(result).ConfigureAwait(false);
-
 
             //var result = await DoSearchAsync(model, universitySynonym, CustomApiKey.Flashcard, token).ConfigureAwait(false);
             return Request.CreateResponse(new
@@ -135,7 +129,6 @@ namespace Zbang.Cloudents.Jared.Controllers
             return Request.CreateResponse(result.Where(s => s.Result != null).SelectMany(s => s.Result));
         }
 
-
         private static async Task<IEnumerable<SearchResult>> DoSearchAsync(
             string query,
             string source,
@@ -171,7 +164,6 @@ namespace Zbang.Cloudents.Jared.Controllers
                 Fields = "items(title,link,snippet,pagemap/cse_image,displayLink)",
                 Sort = sort == SearchRequestSort.Date ? "date" : string.Empty
             };
-
 
             var result = await request.ExecuteAsync(token).ConfigureAwait(false);
 

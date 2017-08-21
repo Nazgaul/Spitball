@@ -21,7 +21,6 @@ namespace Zbang.Zbox.Infrastructure.Culture
         //public const string EnglishUsName = "English";
         //public const string HebrewName = "עברית";
 
-
         public static readonly ReadOnlyCollection<LanguagesDetail> SupportedCultures = new List<LanguagesDetail> {
             new LanguagesDetail(Language.EnglishUs,new [] {"en" ,"en-US"}),
             new LanguagesDetail(Language.Hebrew, new [] {"he","he-IL" }),
@@ -57,9 +56,7 @@ namespace Zbang.Zbox.Infrastructure.Culture
                 default:
                     return new CultureInfo("en-US");
             }
-
         }
-
 
         public static bool CheckIfLanguageIsSupported(string culture)
         {
@@ -84,9 +81,7 @@ namespace Zbang.Zbox.Infrastructure.Culture
             return supportCulture.Culture.First();
         }
 
-
         public static LanguagesDetail DefaultSystemCulture => SupportedCultures[0];
-
     }
     public class LanguagesDetail
     {

@@ -42,7 +42,6 @@ namespace Zbang.Zbox.Infrastructure.Url
                 return guid;
             }
             return Decode(str);
-
         }
     }
 }

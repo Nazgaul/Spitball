@@ -6,7 +6,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         public JsonResponse(bool success)
         {
             Success = success;
-
         }
 
         public JsonResponse(bool success, object payload)
@@ -14,7 +13,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             Payload = payload;
         }
-       
+
 
         public bool Success { get; private set; }
         public object Payload { get; set; }

@@ -19,7 +19,6 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 
             private static Hashtable LocalHashtable
             {
-
                 get
                 {
                     if (!RunningInWeb)
@@ -99,8 +98,6 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                     //CallContext.LogicalSetData("LocalData_hash", null);
                 }
             }
-
-            
         }
     }
 }

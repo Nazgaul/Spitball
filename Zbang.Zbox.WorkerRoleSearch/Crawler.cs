@@ -196,6 +196,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return new CrawlModel(page.Uri.AbsoluteUri, page.Uri.Host, doc.Title, content, metaDescription, image,
                 Md5HashGenerator.GenerateKey(page.Uri.AbsoluteUri));
         }
+
         private static CrawlModel CreateStudyBlueFlashcard(CrawledPage page)
         {
             var doc = page.AngleSharpHtmlDocument;

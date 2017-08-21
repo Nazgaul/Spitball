@@ -9,7 +9,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
 
         [Required]
         public long CommentId { get; set; }
-
-        
     }
 }

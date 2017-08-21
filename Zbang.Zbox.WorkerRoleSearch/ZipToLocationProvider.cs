@@ -22,11 +22,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             m_Logger = logger;
             m_Cache = cache;
-
         }
-
-
-
 
         public async Task<GeographyPoint> GetLocationViaZipAsync(string zip)
         {
@@ -69,7 +65,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     });
                     return null;
                 }
-
             }
         }
     }

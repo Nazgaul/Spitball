@@ -32,12 +32,10 @@ namespace Zbang.Zbox.Infrastructure.CommandHandlers
             return m_Container.ResolveNamed<ICommandHandlerAsync<TCommand, TCommandResult>>(name).ExecuteAsync(command);
         }
 
-
         public TCommandResult Dispatch<TCommand, TCommandResult>(TCommand command, string name)
             where TCommand : Commands.ICommand
             where TCommandResult : Commands.ICommandResult
         {
-
             return m_Container.ResolveNamed<ICommandHandler<TCommand, TCommandResult>>(name).Execute(command);
         }
 
@@ -59,8 +57,6 @@ namespace Zbang.Zbox.Infrastructure.CommandHandlers
         {
             return m_Container.Resolve<ICommandHandlerAsync<TCommand>>().HandleAsync(command);
         }
-
-
        
     }
 }

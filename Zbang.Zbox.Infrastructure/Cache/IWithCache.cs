@@ -13,6 +13,5 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
         Task RemoveAsync<TC>(TC command)
             where TC : ICommandCache;
-
     }
 }

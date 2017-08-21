@@ -1,6 +1,5 @@
 ﻿namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 {
-
     public class CustomCacheKeys
     {
         public const string Auth = "Auth";

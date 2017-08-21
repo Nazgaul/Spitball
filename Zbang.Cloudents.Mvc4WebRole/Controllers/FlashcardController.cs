@@ -25,7 +25,6 @@ using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
-
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
 
     public class FlashcardController : BaseController
@@ -127,6 +126,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             });
         }
+
         [ActionName("Data")]
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
@@ -259,6 +259,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 //return JsonError("flashcard with the same name already exists");
             }
         }
+
         [HttpPut, ZboxAuthorize, ActionName("Index")]
         public async Task<JsonResult> UpdateAsync(long id, Flashcard model, long boxId)
         {
@@ -312,6 +313,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonOk();
             }
         }
+
         [HttpDelete, ZboxAuthorize, ActionName("Index")]
         public async Task<JsonResult> DeleteAsync(long id)
         {
@@ -356,7 +358,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var url = m_FlashcardBlob.GetBlobUrl(fileName, true);
                 return JsonOk(url);
             }
-
         }
 
         [HttpPost, ZboxAuthorize]
@@ -390,6 +391,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             await ZboxWriteService.AddFlashcardLikeAsync(command);
             return JsonOk(command.Id);
         }
+
         [HttpDelete, ZboxAuthorize, ActionName("unlike")]
         public async Task<JsonResult> DeleteLikeAsync(Guid id)
         {

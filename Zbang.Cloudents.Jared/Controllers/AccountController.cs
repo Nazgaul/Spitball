@@ -17,8 +17,6 @@ using Zbang.Zbox.Infrastructure.Profile;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
-
-
     [MobileAppController, Authorize]
     public class AccountController : ApiController
     {
@@ -61,7 +59,6 @@ namespace Zbang.Cloudents.Jared.Controllers
             }
         }
 
-
         [HttpPost]
         [Route("api/Account/profile")]
         public HttpResponseMessage ChangeProfile(ProfileRequest model)
@@ -76,9 +73,7 @@ namespace Zbang.Cloudents.Jared.Controllers
                 model.LastName);
             m_ZboxWriteService.UpdateUserProfile(command);
             return Request.CreateResponse(HttpStatusCode.OK);
-
         }
-
 
         [HttpPost, Route("api/account/image")]
         public async Task<string> ProfilePictureAsync()

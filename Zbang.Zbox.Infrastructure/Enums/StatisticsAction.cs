@@ -1,5 +1,4 @@
 ﻿
-
 using System;
 
 namespace Zbang.Zbox.Infrastructure.Enums

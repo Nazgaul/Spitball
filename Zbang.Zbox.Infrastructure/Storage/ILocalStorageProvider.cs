@@ -16,6 +16,5 @@ namespace Zbang.Zbox.Infrastructure.Storage
         string CombineDirectoryWithFileName(string fileName);
         string LocalStorageLocation { get; }
         void DeleteOldFiles();
-
     }
 }

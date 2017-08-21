@@ -83,7 +83,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 return Language.Undefined;
             }
 
-
             var request = new AlchemyTextLanguageRequest(text, m_Client);
             try
             {
@@ -104,6 +103,5 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             return Language.Undefined;
         }
-
     }
 }

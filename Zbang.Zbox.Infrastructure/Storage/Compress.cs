@@ -30,7 +30,6 @@ namespace Zbang.Zbox.Infrastructure.Storage
                 using (var gz = new GZipStream(ms, CompressionMode.Compress))
                 {
                     stream.CopyTo(gz);
-
                 }
 
                 return ms.ToArray();

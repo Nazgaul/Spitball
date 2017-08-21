@@ -16,7 +16,6 @@ namespace Zbang.Cloudents.MobileApp.DataObjects
 
         public string Professor { get; set; }
 
-
         [Required]
         public string DepartmentId { get; set; }
 
@@ -24,7 +23,6 @@ namespace Zbang.Cloudents.MobileApp.DataObjects
         {
             var baseString = base.ToString();
             return string.Format("{0} CourseName {1} CourseId {2} Professor {3} DepartmentId {4}", baseString, CourseName, CourseId, Professor, DepartmentId);
-
         }
     }
 }

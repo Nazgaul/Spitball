@@ -9,10 +9,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
             Levels = new List<Level>();
             Badges = new List<Badge>();
         }
+
         public IList<Level> Levels { get; set; }
         public IList<Badge> Badges { get; set; }
     }
-
 
     public class Badge
     {
@@ -40,6 +40,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         public string Name { get;private set; }
         public string Description { get;private set; }
         public int Index { get; private set; }
-
     }
 }

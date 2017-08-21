@@ -19,6 +19,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_ZboxWriteService = zboxWriteService;
             m_Logger = logger;
         }
+
         public string Name => nameof(DeleteOldConnections);
 
         public async Task RunAsync(CancellationToken cancellationToken)
@@ -33,7 +34,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 var command = new RemoveOldConnectionCommand();
                 try
                 {
-
                     m_ZboxWriteService.RemoveOldConnections(command);
                 }
                 catch (Exception ex)
@@ -58,6 +58,5 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 await Task.Delay(TimeSpan.FromSeconds(30), cancellationToken).ConfigureAwait(false);
             }
         }
-
     }
 }

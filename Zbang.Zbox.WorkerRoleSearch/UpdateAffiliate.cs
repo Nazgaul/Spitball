@@ -36,9 +36,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
         protected abstract Task UpdateSearchAsync(IEnumerable<TU> list, CancellationToken token);
         protected abstract Task DeleteOldItemsAsync(CancellationToken token);
 
-
-
-
         public async Task<bool> ExecuteAsync(int index, Func<int, TimeSpan, Task> progressAsync, CancellationToken token)
         {
             if (progressAsync == null) throw new ArgumentNullException(nameof(progressAsync));
@@ -82,8 +79,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     token.ThrowIfCancellationRequested();
                     list.Clear();
                 }
-
-
             }
             if (list.Count > 0)
             {

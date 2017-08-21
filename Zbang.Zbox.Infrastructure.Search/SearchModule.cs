@@ -5,10 +5,8 @@ namespace Zbang.Zbox.Infrastructure.Search
 {
     public class SearchModule : Module
     {
-
         protected override void Load(ContainerBuilder builder)
         {
-
             builder.RegisterType<SearchConnection>()
                 .As<ISearchConnection>()
                 .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))

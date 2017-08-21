@@ -37,7 +37,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             m_QueueProvider = queueProvider;
         }
 
-
         /// <summary>
         /// created on 17/9/15 added quizzes to feed
         /// </summary>
@@ -138,7 +137,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [HttpGet, Route("api/box/{boxId:long}/feed/{feedId:guid}/reply")]
         public async Task<HttpResponseMessage> GetRepliesAsync(long boxId, Guid feedId, /*Guid? belowReplyId,*/ int page, int sizePerPage = 20)
         {
-
             var replyId = /*belowReplyId ??*/ Guid.Parse("FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF");
             var retVal =
                  await m_ZboxReadService.GetRepliesAsync(new GetCommentRepliesQuery(boxId, feedId, replyId, page, sizePerPage));
@@ -162,11 +160,8 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                                ".jpg?width=148&height=187&mode=crop"
                 })
 
-
             }));
         }
-
-
 
         [HttpPost]
         // [VersionedRoute("api/box/{boxId:long}/feed", 2)]
@@ -214,7 +209,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             return Request.CreateResponse(answerId);
         }
 
-
         [HttpDelete]
         [Route("api/box/{boxId:long}/feed/{feedId:guid}")]
         public async Task<HttpResponseMessage> DeleteCommentAsync(long boxId, Guid feedId)
@@ -233,7 +227,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             return Request.CreateResponse();
         }
 
-
         [Route("api/feed/flag")]
         [HttpPost]
         public async Task<HttpResponseMessage> FlagAsync(FlagPostReplyRequest model)
@@ -249,6 +242,5 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             await m_QueueProvider.InsertMessageToTransactionAsync(new BadPostData(User.GetUserId(), model.PostId));
             return Request.CreateResponse();
         }
-
     }
 }

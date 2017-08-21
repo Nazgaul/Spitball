@@ -10,7 +10,6 @@ namespace Zbang.Zbox.Infrastructure.Search
     [SerializePropertyNamesAsCamelCase]
     internal class UniversitySearch
     {
-      
         [Key]
         public string Id { get; set; }
         [IsSearchable]

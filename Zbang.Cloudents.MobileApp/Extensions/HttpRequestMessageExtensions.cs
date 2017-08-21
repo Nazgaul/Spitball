@@ -36,7 +36,6 @@ namespace Zbang.Cloudents.MobileApp.Extensions
             return null;
         }
 
-
         public static CancellationToken GetCancellationToken(this HttpRequestMessage request)
         {
             return HttpContext.Current.Response.ClientDisconnectedToken;

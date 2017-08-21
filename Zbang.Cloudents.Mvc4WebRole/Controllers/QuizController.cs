@@ -73,7 +73,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (ItemNotFoundException)
             {
-
                 return RedirectToAction("index", "error");
             }
             catch (Exception ex)
@@ -110,14 +109,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return RedirectToRoutePermanent("Quiz", route);
         }
 
-
-
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult IndexPartial()
         {
             return PartialView("Index2");
-
         }
 
         [ZboxAuthorize]
@@ -168,7 +164,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             })));
         }
 
-
         [HttpGet, ActionName("NumberOfSolvers")]
         public async Task<ActionResult> NumberOfSolversAsync(long quizId)
         {
@@ -188,7 +183,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false));
             }
         }
-
 
         [HttpGet]
         [ZboxAuthorize]
@@ -280,6 +274,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ZboxWriteService.UpdateQuiz(command);
             return JsonOk();
         }
+
         [HttpPost]
         [ZboxAuthorize, ActionName("Delete")]
         public async Task<JsonResult> DeleteAsync(long id)
@@ -322,6 +317,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             await ZboxWriteService.AddQuizLikeAsync(command);
             return JsonOk(command.Id);
         }
+
         [HttpDelete, ZboxAuthorize, ActionName("like")]
         public async Task<JsonResult> DeleteLikeAsync(Guid id)
         {
@@ -339,7 +335,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (!quizId.HasValue)
             {
                 ModelState.AddModelError(string.Empty, BaseControllerResources.QuizController_CreateQuestion_Quiz_id_cannot_be_0);
-
             }
             if (model.Id.HasValue)
             {
@@ -386,8 +381,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         #endregion
 
-
-
         #region Discussion
         [HttpPost, ZboxAuthorize, ActionName("CreateDiscussion")]
         public async Task<JsonResult> CreateDiscussionAsync(Discussion model)
@@ -408,7 +401,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var command = new DeleteDiscussionCommand(id, User.GetUserId());
             ZboxWriteService.DeleteItemInDiscussion(command);
             return JsonOk(id);
-
         }
 
         #endregion

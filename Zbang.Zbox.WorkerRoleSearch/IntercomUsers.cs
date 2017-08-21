@@ -18,7 +18,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
             {
-
                 if (reader.TokenType == JsonToken.Null)
                     throw new JsonReaderException($"Expected integer, got {reader.Value}");
                 if (reader.TokenType == JsonToken.Integer)
@@ -42,6 +41,4 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
         }
     }
-
-    
 }

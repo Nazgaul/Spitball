@@ -23,7 +23,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IBlobProvider2<FilesContainerName> m_BlobProvider;
         private readonly ILifetimeScope m_LifetimeScope;
 
-
         public TestingJob(IZboxWorkerRoleService zboxWorkerRoleService,
             IZboxReadServiceWorkerRole zboxReadService, IBlobProvider2<FilesContainerName> blobProvider, IZboxWriteService zboxWriteService, ILifetimeScope lifetimeScope)
         {
@@ -37,13 +36,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public string Name => nameof(TestingJob);
         public async Task RunAsync(CancellationToken cancellationToken)
         {
-
             var process = m_LifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("downloadTutor");
-            await process.ExecuteAsync(0, (a, b) =>
-            {
-                return Task.CompletedTask;
-
-            }, cancellationToken).ConfigureAwait(false);
+            await process.ExecuteAsync(0, (a, b) => Task.CompletedTask, cancellationToken).ConfigureAwait(false);
             //var msgData = new BoxFileProcessData(70197);
             //var process = m_LifetimeScope.ResolveOptionalNamed<IFileProcess>(msgData.ProcessResolver);
             //var t =  await process.ExecuteAsync(msgData, cancellationToken).ConfigureAwait(false);
@@ -101,7 +95,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     {
                         var telemetry = new TelemetryClient();
                         var properties = new Dictionary<string, string>
-                            {{"section", "md5"}, {"itemId", document.Item1.ToString()}};
+                        {["section"] = "md5",["itemId"] = document.Item1.ToString() };
 
                         telemetry.TrackException(ex, properties);
                     }

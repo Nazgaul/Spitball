@@ -46,7 +46,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             TelemetryConfiguration.Active.InstrumentationKey = ConfigFetcher.Fetch("APPINSIGHTS_INSTRUMENTATIONKEY");
         }
 
-       
 
         protected void Application_End()
         {
@@ -55,20 +54,19 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         protected void Application_BeginRequest()
         {
-            
 
-            
+
         }
+
         protected void Application_EndRequest()
         {
         }
-       
+
 
         public override string GetVaryByCustomString(HttpContext context, string custom)
         {
             try
             {
-
                 var keys = custom.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
                 Array.Sort(keys);
                 var value = string.Empty;
@@ -87,12 +85,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     }
                     if (key == CustomCacheKeys.University)
                     {
-                        
                         value += context.Request.Cookies[UniversityCookie.CookieName]?.Value;
                     }
                     if (key == CustomCacheKeys.Promo)
                     {
-
                         value += context.Request.Cookies[UniversityFlashcardPromo.CookieName]?.Value;
                     }
                     //if (key == CustomCacheKeys.Url)
@@ -115,7 +111,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             var parameters = HttpContext.Current.Request.Params.ToString().Replace("&", "\n");
             var url = HttpContext.Current.Request.Url.AbsolutePath;
             TraceLog.WriteError("Application error - url: " + url + "\n - params: " + parameters, err);
-
 
             var httpContext = ((MvcApplication)sender).Context;
             var currentController = " ";
@@ -170,7 +165,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             }
             //var uriBuilder = new UriBuilder(HttpContext.Current.Request.Url) {Path = "/error"};
 
-
             controller.ViewData.Model = new HandleErrorInfo(ex, currentController, currentAction);
             try
             {
@@ -195,7 +189,5 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 HttpContext.Current.Items[HTTPItemConsts.HeaderSend] = true;
             }
         }
-
-
     }
 }

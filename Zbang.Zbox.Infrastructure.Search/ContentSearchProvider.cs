@@ -18,7 +18,6 @@ namespace Zbang.Zbox.Infrastructure.Search
         private readonly string m_IndexName = "document";
         private bool m_CheckIndexExists;
 
-
         internal const string ContentEnglishField = "content_en";
         internal const string ContentHebrewField = "content_he";
 
@@ -27,7 +26,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             m_Connection = connection;
             if (m_Connection.IsDevelop)
             {
-                m_IndexName = m_IndexName + "-dev";
+                m_IndexName += "-dev";
             }
             m_IndexClient = connection.SearchClient.Indexes.GetClient(m_IndexName);
         }
@@ -37,7 +36,6 @@ namespace Zbang.Zbox.Infrastructure.Search
             if (!m_CheckIndexExists)
             {
                 await BuildIndexAsync().ConfigureAwait(false);
-
             }
             if (itemToUpload == null) throw new ArgumentNullException(nameof(itemToUpload));
             var batch = IndexBatch.MergeOrUpload(new[] { itemToUpload });
@@ -47,7 +45,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         public Task DeleteDataAsync(IEnumerable<string> ids, CancellationToken token)
         {
             if (ids == null) throw new ArgumentNullException(nameof(ids));
-            var batch = IndexBatch.Delete<Document>(ids.Select(s => new Document
+            var batch = IndexBatch.Delete(ids.Select(s => new Document
             {
                 Id = s
             }));
@@ -59,7 +57,6 @@ namespace Zbang.Zbox.Infrastructure.Search
             if (!m_CheckIndexExists)
             {
                 await BuildIndexAsync().ConfigureAwait(false);
-
             }
             if (itemToUpload != null)
             {
@@ -115,13 +112,10 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
         }
 
-
-
         private async Task BuildIndexAsync()
         {
             await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure()).ConfigureAwait(false);
             m_CheckIndexExists = true;
-
         }
 
         private const string ScoringProfile = "score";
@@ -137,13 +131,12 @@ namespace Zbang.Zbox.Infrastructure.Search
 
             var d = new Dictionary<string, double>
             {
-                { nameof(Document.Tags).ToLower(), 3},
-                { nameof(Document.Name).ToLower(), 4},
-                { ContentEnglishField, 2},
-                { ContentHebrewField, 2},
+                [nameof(Document.Tags).ToLower()] = 3,
+                [nameof(Document.Name).ToLower()] = 4,
+                [ContentEnglishField] = 2,
+                [ContentHebrewField] = 2,
             };
             weightProfile.TextWeights = new TextWeights(d);
-
 
             var tagFunction = new TagScoringFunction
             {
@@ -197,7 +190,5 @@ namespace Zbang.Zbox.Infrastructure.Search
 
             return definition;
         }
-
-
     }
 }

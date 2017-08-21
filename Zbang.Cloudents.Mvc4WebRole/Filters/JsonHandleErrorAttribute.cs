@@ -52,8 +52,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             filterContext.HttpContext.Response.StatusDescription = HttpDescription;
 
             filterContext.HttpContext.Response.TrySkipIisCustomErrors = true;
-            
-
         }
     }
 }

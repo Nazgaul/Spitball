@@ -13,11 +13,13 @@ namespace Zbang.Cloudents.MobileApp.Models
         {
             AllowedVersion = allowedVersion;
         }
+
         public int AllowedVersion
         {
             get;
             private set;
         }
+
         public override IDictionary<string, object> Constraints
         {
             get

@@ -24,15 +24,13 @@ namespace Zbang.Cloudents.Jared.Controllers.Tests
         public void Setup()
         {
             var localStorageProvider = MockRepository.GenerateStub<ILocalStorageProvider>();
-            var mail = MockRepository.GenerateStub<IMailComponent>();
             IocFactory.IocWrapper.RegisterInstance(localStorageProvider);
             var fakeHttpContext = MockRepository.GenerateStub<HttpContextBase>();
             var fakeIdentity = new GenericIdentity("User");
             var principal = new GenericPrincipal(fakeIdentity, null);
 
-                
             m_ZboxReadService = new ZboxReadService();
-            m_Controller = new ValuesController(m_ZboxReadService, mail) {Request = new HttpRequestMessage()};
+            m_Controller = new ValuesController(m_ZboxReadService) {Request = new HttpRequestMessage()};
             //controller.User.Stub(x => x.GetUserId()).Return(1);
             //controller.User.Stub(x => x.Identity).Return(new IdentityTest());
             m_Controller.Request.SetConfiguration(new HttpConfiguration());
@@ -67,7 +65,6 @@ namespace Zbang.Cloudents.Jared.Controllers.Tests
                 get;
                 private set;
             }
-          
         }
 
         public class User : ClaimsPrincipal,IPrincipal
@@ -75,7 +72,7 @@ namespace Zbang.Cloudents.Jared.Controllers.Tests
             public User(bool auth)
             {
                 Identity=new Ide(auth, new Claim("userId", "1"));
-               
+
                 Claims=new List<Claim>() { new Claim("userId","1")};
             }
 
@@ -100,7 +97,7 @@ namespace Zbang.Cloudents.Jared.Controllers.Tests
             //controller.User.Identity.Stub(x=>x.IsAuthenticated).Return(false);
             m_Controller.User = user;
             CancellationToken token = new CancellationToken();
-            var b = await m_Controller.Get(token);
+            var b = await m_Controller.Get(token).ConfigureAwait(false);
             Assert.IsTrue(b.IsSuccessStatusCode);
         }
         //[TestMethod]
@@ -111,7 +108,6 @@ namespace Zbang.Cloudents.Jared.Controllers.Tests
         //    CancellationToken token = new CancellationToken();
         //    controller.User = new User(true);
         //    var b = await controller.Get(token);
-
 
         //    //foreach (var item in b.Content.)
         //    //{

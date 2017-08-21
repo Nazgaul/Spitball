@@ -14,7 +14,6 @@ namespace Zbang.Zbox.Infrastructure.Cache
 {
     public class SystemCache : ICache, IDisposable
     {
-
         private static readonly Lazy<ConnectionMultiplexer> LazyConnection = new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect("zboxcache.redis.cache.windows.net,abortConnect=false,allowAdmin=true,ssl=true,password=CxHKyXDx40vIS5EEYT0UfnVIR1OJQSPrNnXFFdi3UGI="));
 
         public static ConnectionMultiplexer Connection => LazyConnection.Value;
@@ -39,7 +38,6 @@ namespace Zbang.Zbox.Infrastructure.Cache
             m_CachePrefix = $"{domainBuildVersion}_{viewModelBuildVersion}_{ConfigurationManager.AppSettings[AppKey]}";
             m_CacheExists = m_IsRedisCacheAvailable || m_IsHttpCacheAvailable;
         }
-
 
         public Task AddToCacheAsync<T>(CacheRegions region, string key, T value, TimeSpan expiration) where T : class
         {
@@ -95,8 +93,6 @@ namespace Zbang.Zbox.Infrastructure.Cache
             }
         }
 
-
-
         private string BuildCacheKey(CacheRegions region, string key)
         {
             if (region.SuppressVersion)
@@ -106,8 +102,6 @@ namespace Zbang.Zbox.Infrastructure.Cache
             var newKey = $"{region.Region}_{m_CachePrefix}_{key}";
             return newKey;
         }
-
-
 
         public async Task RemoveFromCacheAsync(CacheRegions region)
         {
@@ -139,7 +133,6 @@ namespace Zbang.Zbox.Infrastructure.Cache
             }
             taskList.Add(db.KeyDeleteAsync(region.Region, CommandFlags.FireAndForget));
             await Task.WhenAll(taskList).ConfigureAwait(false);
-
         }
 
         public Task RemoveFromCacheAsyncSlowAsync(CacheRegions region)
@@ -167,7 +160,6 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 if (!m_IsRedisCacheAvailable && m_IsHttpCacheAvailable)
                     return HttpContext.Current.Cache[cacheKey] as T;
 
-
                 var cache = Connection.GetDatabase();
                 
                 var t = await cache.GetAsync<T>(cacheKey).ConfigureAwait(false);
@@ -184,9 +176,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 m_Logger.Exception(ex);
                 return null;
             }
-
         }
-
 
         public T GetFromCache<T>(CacheRegions region, string key) where T : class
         {
@@ -199,7 +189,6 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 var cacheKey = BuildCacheKey(region, key);
                 if (!m_IsRedisCacheAvailable && m_IsHttpCacheAvailable)
                     return HttpContext.Current.Cache[cacheKey] as T;
-
 
                 var cache = Connection.GetDatabase();
 
@@ -215,10 +204,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 m_Logger.Exception(ex);
                 return null;
             }
-
         }
-
-
 
         private static bool IsAppFabricCache()
         {
@@ -227,7 +213,6 @@ namespace Zbang.Zbox.Infrastructure.Cache
             bool.TryParse(ConfigFetcher.Fetch("CacheUse"), out shouldUseCacheFromConfig);
             return shouldUseCacheFromConfig /*&& ConfigFetcher.IsRunningOnCloud*/;
         }
-
 
         public void Dispose()
         {

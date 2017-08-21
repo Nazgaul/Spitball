@@ -13,5 +13,4 @@ namespace Zbang.Zbox.Infrastructure.Exceptions
           System.Runtime.Serialization.StreamingContext context)
             : base(info, context) { }
     }
-    
 }

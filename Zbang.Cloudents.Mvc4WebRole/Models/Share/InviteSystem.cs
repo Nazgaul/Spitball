@@ -8,7 +8,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Share
         //[Display(ResourceType = typeof(InvitationResources), Name = "To")]
         public string[] Recipients { get; set; }
 
-
         public override string ToString()
         {
             var sb = new StringBuilder();
@@ -19,6 +18,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Share
             }
             return sb.ToString();
         }
-
     }
 }

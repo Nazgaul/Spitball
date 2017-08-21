@@ -7,13 +7,10 @@ namespace Zbang.Zbox.Infrastructure.IdGenerator
         long GetId(string scopeName);
     }
 
-
     public interface IGuidIdGenerator
     {
         Guid GetId();
     }
-
-   
 
     
 }

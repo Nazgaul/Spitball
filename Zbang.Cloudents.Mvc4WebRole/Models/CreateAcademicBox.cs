@@ -3,9 +3,8 @@ using Zbang.Cloudents.Mvc4WebRole.Models.Resources;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Models
 {
-    public class CreateAcademicBox 
+    public class CreateAcademicBox
     {
-
         [Required(ErrorMessageResourceType = typeof(CreateBoxResources), ErrorMessageResourceName = "FieldRequired")]
         [StringLength(Zbox.Domain.Box.NameLength, ErrorMessageResourceType = typeof(CreateBoxResources), ErrorMessageResourceName = "BoxNameUpTo")]
         public string CourseName { get; set; }
@@ -21,7 +20,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         {
             var baseString = base.ToString();
             return string.Format("{0} CourseName {1} CourseId {2} Professor {3} DepartmentId {4}", baseString, CourseName, CourseId, Professor, DepartmentId);
-
         }
     }
 }

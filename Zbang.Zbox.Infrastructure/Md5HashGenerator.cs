@@ -20,7 +20,6 @@ namespace Zbang.Zbox.Infrastructure
                 return ComputeHash(Encoding.ASCII.GetBytes(stringObject));
             }
 
-
             //We determine if the passed object is really serializable.
             try
             {
@@ -33,14 +32,12 @@ namespace Zbang.Zbox.Infrastructure
                 throw new ApplicationException("Could not definitely decide if object is serializable.Message:" +
                                                ame.Message);
             }
-
         }
 
         private static string ComputeHash(byte[] objectAsBytes)
         {
             using (var md5 = MD5.Create())
             {
-
                 try
                 {
                     var hash = md5.ComputeHash(objectAsBytes);

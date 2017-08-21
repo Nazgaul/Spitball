@@ -2,7 +2,6 @@
 
 namespace Zbang.Zbox.Infrastructure.Security
 {
-
     #region Validation
 
     public static class AccountValidation
@@ -12,7 +11,6 @@ namespace Zbang.Zbox.Infrastructure.Security
             InvalidPassword,
             InvalidEmail
         }
-
 
         public static string ErrorCodeToString(AccountError createStatus)
         {
@@ -51,7 +49,6 @@ namespace Zbang.Zbox.Infrastructure.Security
             }
         }
 
-
         public static string Localize(string error, string userName)
         {
             if ($"Name {userName} is already taken." == error)
@@ -61,7 +58,6 @@ namespace Zbang.Zbox.Infrastructure.Security
             return error;
         }
     }
-
 
     #endregion
 }

@@ -4,7 +4,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
 {
     public class Statistics
     {
-
         public StatisticItem[] Items { get; set; }
 
         public override string ToString()
@@ -19,9 +18,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
                 sb.AppendLine(item.ToString());
             }
             return sb.ToString();
-
         }
     }
+
     public class StatisticItem
     {
         public long Uid { get; set; }

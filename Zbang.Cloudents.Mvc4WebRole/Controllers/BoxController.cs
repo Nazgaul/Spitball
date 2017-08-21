@@ -45,6 +45,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 //["part"] = "feed"
             });
         }
+
         [Route("box/my/{boxId:long}/{boxName}/{part:regex(^(feed|items|quizzes|members|flashcards))}", Name = "PrivateBoxWithSub")]
         public ActionResult RedirectToNewRoute2(long boxId, string boxName, string invId, string part)
         {
@@ -58,7 +59,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 //["part"] = "feed"
             });
         }
-
 
         [Route("course/{universityName}/{boxId:long}/{boxName}", Name = "CourseBox")]
         public ActionResult RedirectToFeed(long boxId, string boxName, string invId, string universityName)
@@ -89,7 +89,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("course/{universityName}/{boxId:long}/{boxName}/{part:regex(^(feed|items|quizzes|members|flashcards))}", Name = "CourseBoxWithSub")]
         public async Task<ActionResult> IndexAsync(long boxId,string universityName, string boxName, string invId, string part)
         {
-
             try
             {
                 var query = new GetBoxIdQuery(boxId);
@@ -115,7 +114,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     ViewBag.title = $"{model.Name} | {SeoBaseUniversityResources.Cloudents}";
                     return View("Empty");
                 }
-
 
                 ViewBag.metaDescription = string.Format(SeoBaseUniversityResources.BoxMetaDescription, model.Name);
 
@@ -153,7 +151,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-
         [Route(UrlConst.ShortBox, Name = "shortBox"), NoUrlLowercase]
         public async Task<ActionResult> ShortUrlAsync(string box62Id)
         {
@@ -181,8 +178,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 TraceLog.WriteError($"base 62: {box62Id} id: {base62.Value}", ex);
                 return RedirectToAction("NotFound", "Error");
             }
-
-
         }
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
@@ -205,12 +200,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return PartialView("_Items");
         }
+
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public PartialViewResult QuizPartial()
         {
             return PartialView("_Quizzes2");
         }
+
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public PartialViewResult MembersPartial()
@@ -238,7 +235,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return PartialView("LeaderboardPartial");
         }
-
 
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
@@ -301,7 +297,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError();
             }
         }
-
 
         //[HttpGet]
         //[ZboxAuthorize(IsAuthenticationRequired = false)]
@@ -383,7 +378,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("id"), ActionName("Items")]
@@ -461,14 +455,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-
-
-
-
-
-
-
-
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [HttpGet]
         [BoxPermission("boxId"), ActionName("Members")]
@@ -478,9 +464,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var result = await ZboxReadService.GetBoxMembersAsync(new GetBoxQuery(boxId));
             return JsonOk(result);
         }
-
-
-
 
         [HttpPost]
         [ZboxAuthorize]
@@ -532,14 +515,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var command = new ChangeNotificationSettingsCommand(boxId, userId, notification);
             ZboxWriteService.ChangeNotificationSettings(command);
             return JsonOk();
-
         }
 
-
-
-
         #region DeleteBox
-
 
         [HttpPost]
         [ZboxAuthorize]
@@ -552,15 +530,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk();
         }
 
-
-
         #endregion
 
-
-
-
         #region Tab
-
 
         [HttpPost, ZboxAuthorize, ActionName("CreateTab")]
         public async Task<JsonResult> CreateTabAsync(CreateBoxItemTab model)
@@ -582,7 +554,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return JsonError(ex.Message);
             }
-
         }
 
         [HttpPost, ZboxAuthorize, ActionName("AddItemToTab")]
@@ -617,6 +588,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError(ex.Message);
             }
         }
+
         [HttpPost, ZboxAuthorize]
         public JsonResult DeleteTab(DeleteBoxItemTab model)
         {
@@ -630,7 +602,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ZboxWriteService.DeleteBoxItemTab(command);
             return JsonOk();
         }
-
 
         #endregion
 
@@ -658,6 +629,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return PartialView();
         }
-
     }
 }

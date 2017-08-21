@@ -19,7 +19,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IUniversityWriteSearchProvider2 m_UniversitySearchProvider;
         private readonly ILogger m_Logger;
 
-
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
 
         public UpdateSearchUniversity(IZboxReadServiceWorkerRole zboxReadService, IUniversityWriteSearchProvider2 universitySearchProvider, IZboxWorkerRoleService zboxWriteService, ILogger logger)
@@ -42,7 +41,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 try
                 {
                     await DoProcessAsync(cancellationToken, index, count).ConfigureAwait(false);
-
                 }
                 catch (Exception ex)
                 {
@@ -72,8 +70,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return TimeToSleep.Same;
         }
 
-
-
         public async Task<bool> ExecuteAsync(FileProcess data, CancellationToken token)
         {
             var parameters = data as UniversityProcessData;
@@ -97,7 +93,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 await m_ZboxWriteService.UpdateSearchUniversityDirtyToRegularAsync(
                     new UpdateDirtyToRegularCommand(new[] { parameters.UniversityId })).ConfigureAwait(false);
-
             }
             return true;
         }

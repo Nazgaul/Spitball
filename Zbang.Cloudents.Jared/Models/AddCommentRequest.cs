@@ -13,6 +13,5 @@ namespace Zbang.Cloudents.Jared.Models
         public IEnumerable<long> FilesIds { get; set; }
 
         public IEnumerable<string> Tags { get; set; }
-
     }
 }

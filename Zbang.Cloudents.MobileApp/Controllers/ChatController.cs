@@ -80,7 +80,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             return Request.CreateResponse();
         }
 
-
         [HttpGet]
         [Route("api/chat/upload")]
         public string UploadLink(string blob, string mimeType)
@@ -120,8 +119,5 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             var uri = m_ChatBlobProvider.GenerateSharedAccessReadPermission(blobName, 30);
             return Request.CreateResponse(uri);
         }
-
-
-
     }
 }

@@ -51,8 +51,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public async Task RunAsync(CancellationToken cancellationToken)
         {
-
-
             while (!cancellationToken.IsCancellationRequested)
             {
                 m_Blob = await ReadBlobDataAsync(cancellationToken).ConfigureAwait(false);
@@ -86,12 +84,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         var page = 0;
                         while (true)
                         {
-
                             var result = await job.Func(m_DateTime, page++, cancellationToken).ConfigureAwait(false);
                             var resultList = result.ToList();
                             if (resultList.Count == 0)
                             {
-                                mailContent.AppendLine($"{job.Type} got to page {page}");
+                                mailContent.Append(job.Type).Append(" got to page ").AppendLine(page.ToString());
                                 break;
                             }
                             m_ZboxWorkerRoleService.UpdateUserFromUnsubscribe(
@@ -127,11 +124,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    await m_MailComponent.GenerateSystemEmailAsync("sendgrid api", $"{Name} with errors {ex}").ConfigureAwait(false);
+                    await m_MailComponent.GenerateSystemEmailAsync("sendGrid api", $"{Name} with errors {ex}").ConfigureAwait(false);
                     m_Logger.Exception(ex);
                 }
-
-
             }
         }
 
@@ -146,7 +141,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     break;
                 }
                 var list = result.ToList();
-                if (!list.Any())
+                if (list.Count == 0)
                 {
                     break;
                 }
@@ -191,14 +186,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_LeaseId = string.Empty;
         }
 
-
         public class JobPerApi
         {
             public Func<DateTime, int, CancellationToken, Task<IEnumerable<string>>> Func { get; set; }
             public EmailSend Type { get; set; }
         }
-
-
-
     }
 }

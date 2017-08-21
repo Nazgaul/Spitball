@@ -6,12 +6,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
     {
         [Required(AllowEmptyStrings=false)]
         public string Comment { get; set; }
-       
+
         [Required]
         public long ItemId { get; set; }
 
         [Required]
         public long BoxId { get; set; }
-      
     }
 }

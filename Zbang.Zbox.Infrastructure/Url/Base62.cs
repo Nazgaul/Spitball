@@ -52,8 +52,6 @@ namespace Zbang.Zbox.Infrastructure.Url
             m_StringValue = null;
         }
 
-
-
         private string ConvertToString(long value)
         {
             var mod = value % 62;

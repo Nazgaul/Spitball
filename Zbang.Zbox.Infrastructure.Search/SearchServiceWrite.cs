@@ -13,7 +13,6 @@ namespace Zbang.Zbox.Infrastructure.Search
 {
     public abstract class SearchServiceWrite<T> : IDisposable, IStartable, ISearchServiceWrite<T> where T : class, ISearchObject, new()
     {
-
         private readonly ISearchConnection m_Connection;
         protected readonly ISearchIndexClient IndexClient;
         private readonly string m_IndexName;
@@ -31,7 +30,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             if (items == null) throw new ArgumentNullException(nameof(items));
             var docs = items as IList<T> ?? items.ToList();
-            if (!docs.Any())
+            if (docs.Count == 0)
             {
                 return Task.CompletedTask;
             }
@@ -39,11 +38,11 @@ namespace Zbang.Zbox.Infrastructure.Search
             return IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
         }
 
-        public Task DeleteDataAsync(IEnumerable<string> items, CancellationToken token)
+        public Task DeleteDataAsync(IEnumerable<string> ids, CancellationToken token)
         {
-            if (items == null) throw new ArgumentNullException(nameof(items));
-            var docs = items as IList<string> ?? items.ToList();
-            if (!docs.Any())
+            if (ids == null) throw new ArgumentNullException(nameof(ids));
+            var docs = ids as IList<string> ?? ids.ToList();
+            if (docs.Count == 0)
             {
                 return Task.CompletedTask;
             }
@@ -54,20 +53,20 @@ namespace Zbang.Zbox.Infrastructure.Search
             return IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
         }
 
-        public Task UpdateDataAsync(IEnumerable<T> items, IEnumerable<string> itemsToDelete, CancellationToken token)
+        public Task UpdateDataAsync(IEnumerable<T> items, IEnumerable<string> ids, CancellationToken token)
         {
-            if (items == null && itemsToDelete == null) throw new ArgumentNullException();
-            if (itemsToDelete == null)
+            if (items == null && ids == null) throw new ArgumentNullException();
+            if (ids == null)
             {
                 return UpdateDataAsync(items, token);
             }
             if (items == null)
             {
-                return DeleteDataAsync(itemsToDelete, token);
+                return DeleteDataAsync(ids, token);
             }
 
             var actions = items.Select(IndexAction.MergeOrUpload).ToList();
-            var actionDelete = itemsToDelete.Select(s => IndexAction.Delete(new T
+            var actionDelete = ids.Select(s => IndexAction.Delete(new T
             {
                 Id = s
             }));
@@ -78,15 +77,12 @@ namespace Zbang.Zbox.Infrastructure.Search
                 return IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
             }
             return Task.CompletedTask;
-
         }
-
-
 
         public abstract Index GetIndexStructure(string indexName);
         public void Start()
         {
-            //m_Connection.SearchClient.Indexes.CreateOrUpdate(GetIndexStructure(m_IndexName));
+            m_Connection.SearchClient.Indexes.CreateOrUpdate(GetIndexStructure(m_IndexName));
         }
 
         public void Dispose()

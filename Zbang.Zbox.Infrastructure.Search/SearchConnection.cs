@@ -1,20 +1,28 @@
 ﻿using System;
 using Microsoft.Azure.Search;
+using Microsoft.Azure.Search.Models;
 using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
     public class SearchConnection : ISearchConnection, IDisposable
     {
-        private readonly SearchServiceClient m_SearchServiceClient;
+        public const string TutorSynonymMap = "tutor-synonym-map";
 
         public bool IsDevelop { get; }
 
-
         public SearchConnection(string serviceName, string serviceKey)
         {
-           m_SearchServiceClient = new SearchServiceClient(serviceName, new SearchCredentials(serviceKey));
-           IsDevelop = !IsProductionEnvironment();
+            SearchClient = new SearchServiceClient(serviceName, new SearchCredentials(serviceKey));
+            var map = new SynonymMap
+            {
+                Name = TutorSynonymMap,
+                Format = SynonymMapFormat.Solr,
+                Synonyms = "bio => biology"
+            };
+            SearchClient.SynonymMaps.CreateOrUpdate(map);
+
+            IsDevelop = !IsProductionEnvironment();
         }
 
         private static bool IsProductionEnvironment()
@@ -25,20 +33,17 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
             bool.TryParse(ConfigFetcher.Fetch("SearchProduction"), out bool shouldUseCacheFromConfig);
             return shouldUseCacheFromConfig;
-           
         }
-
 
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
-
         }
 
         private void Dispose(bool p)
         {
-            m_SearchServiceClient?.Dispose();
+            SearchClient?.Dispose();
         }
 
         internal static T ConvertToType<T>(object b)
@@ -54,7 +59,6 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public const int DescriptionLength = 250;
 
-
-        public SearchServiceClient SearchClient => m_SearchServiceClient;
+        public SearchServiceClient SearchClient { get; }
     }
 }

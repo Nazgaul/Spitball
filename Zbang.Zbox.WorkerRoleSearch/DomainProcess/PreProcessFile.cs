@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNet.SignalR.Client;
-using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -17,12 +12,13 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
     {
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private readonly IMailComponent m_MailComponent;
+        private readonly ILogger m_Logger;
 
-
-        public PreProcessFile(IFileProcessorFactory fileProcessorFactory, IMailComponent mailComponent)
+        public PreProcessFile(IFileProcessorFactory fileProcessorFactory, IMailComponent mailComponent, ILogger logger)
         {
             m_FileProcessorFactory = fileProcessorFactory;
             m_MailComponent = mailComponent;
+            m_Logger = logger;
         }
 
         public async Task<bool> ExecuteAsync(FileProcess data, CancellationToken token)
@@ -38,11 +34,10 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             //}
             ProcessBlob(processor, parameters);
 
-
             try
             {
                 var proxy = await SignalrClient.GetProxyAsync().ConfigureAwait(false);
-                
+
                 var blobName = parameters.BlobUri.Segments[parameters.BlobUri.Segments.Length - 1];
                 if (parameters.Users != null)
                 {
@@ -50,19 +45,17 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
                 }
                 else
                 {
-                    TraceLog.WriteError($"users is null on {blobName}");
+                    m_Logger.Error($"users is null on {blobName}");
                 }
             }
             catch (Exception ex)
             {
                 await m_MailComponent.GenerateSystemEmailAsync("signalR error", ex.Message).ConfigureAwait(false);
-                TraceLog.WriteError("on signalr update image", ex);
+                m_Logger.Exception(ex);
             }
 
-            return true; 
+            return true;
         }
-
-
 
         private void ProcessBlob(IContentProcessor processor, ChatFileProcessData parameters)
         {
@@ -87,7 +80,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
                 }
                 catch (Exception ex)
                 {
-                    TraceLog.WriteError($"on blob uri: {parameters.BlobUri}", ex);
+                    m_Logger.Exception(ex);
                     wait.Set();
                 }
             });
@@ -96,7 +89,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             if (!signal)
             {
                 work.Abort();
-                TraceLog.WriteError($"blob url aborting process {parameters.BlobUri}");
+                m_Logger.Error($"blob url aborting process {parameters.BlobUri}");
             }
         }
     }

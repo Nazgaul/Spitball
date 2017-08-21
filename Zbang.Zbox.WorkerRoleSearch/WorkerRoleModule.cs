@@ -9,7 +9,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class WorkerRoleModule : Module
     {
-
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<UpdateSearchItem>().Named<IJob>(IocFactory.UpdateSearchItem);
@@ -19,8 +18,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             builder.RegisterType<UpdateSearchUniversity>().Named<IJob>(IocFactory.UpdateSearchUniversity);
             builder.RegisterType<UpdateSearchFeed>().Named<IJob>(nameof(UpdateSearchFeed));
             builder.RegisterType<Crawler>().Named<IJob>(nameof(Crawler));
-
-
 
             builder.RegisterType<SchedulerListener>().Named<IJob>(nameof(SchedulerListener));
             builder.RegisterType<UpdateUnsubscribeList>().Named<IJob>(nameof(UpdateUnsubscribeList));
@@ -71,7 +68,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             builder.RegisterType<LibraryAccessApproved>().Named<IMail2>(BaseMailData.AccessApprovedResolver);
             builder.RegisterType<ReplyToComment>().Named<IMail2>(nameof(ReplyToCommentData));
 
-
             builder.RegisterType<Statistics>().Named<IDomainProcess>(Infrastructure.Transport.DomainProcess.StatisticsResolver);
             builder.RegisterType<FlagBadItem>().Named<IDomainProcess>(Infrastructure.Transport.DomainProcess.BadItemResolver);
             builder.RegisterType<UpdatesProcess>().Named<IDomainProcess>(Infrastructure.Transport.DomainProcess.UpdateResolver);
@@ -80,7 +76,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             builder.RegisterType<UpdateQuota>().Named<IDomainProcess>(Infrastructure.Transport.DomainProcess.QuotaResolver);
             builder.RegisterType<DeleteBox>().Named<IDomainProcess>(Infrastructure.Transport.DomainProcess.DeleteBoxResolver);
             builder.RegisterType<NewUserProcess>().Named<IDomainProcess>(Infrastructure.Transport.DomainProcess.UserResolver);
-
 
             builder.RegisterType<PreProcessFile>().Named<IFileProcess>(nameof(ChatFileProcessData));
             builder.RegisterType<UpdateSearchItem>().Named<IFileProcess>(nameof(BoxFileProcessData));

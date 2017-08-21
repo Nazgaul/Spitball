@@ -15,7 +15,6 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
         private readonly IMailComponent m_MailComponent;
         private readonly ILogger m_Logger;
 
-
         protected BaseMarketingMailProcess(IMailComponent mailComponent, ILogger logger)
         {
             m_MailComponent = mailComponent;
@@ -67,7 +66,6 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                         var marketingMail = BuildMarketingMail(user.Name, culture);
                         list.Add(m_MailComponent.GenerateAndSendEmailAsync(email,
                             marketingMail, token));
-
                     }
                     await Task.WhenAll(list).ConfigureAwait(false);
                     list.Clear();
@@ -82,12 +80,9 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 }
                 page++;
                 await progressAsync(page, TimeSpan.FromMinutes(15)).ConfigureAwait(false);
-
             }
-            //await m_MailComponent.GenerateSystemEmailAsync(ServiceName, $"finish to run  with page {page}").ConfigureAwait(false);
             m_Logger.Info($"{ServiceName} finish running  mail page {page}");
             return true;
-
         }
     }
 }

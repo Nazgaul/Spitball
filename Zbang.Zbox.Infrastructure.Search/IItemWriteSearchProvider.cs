@@ -17,7 +17,6 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         Task UpdateDataAsync(Document itemToUpload, CancellationToken token);
 
-
         Task DeleteDataAsync(IEnumerable<string> ids, CancellationToken token);
     }
 
@@ -25,19 +24,15 @@ namespace Zbang.Zbox.Infrastructure.Search
     {
         Task UpdateDataAsync(IEnumerable<T> items, CancellationToken token);
 
-
         Task DeleteDataAsync(IEnumerable<string> ids, CancellationToken token);
 
         Task UpdateDataAsync(IEnumerable<T> items, IEnumerable<string> ids, CancellationToken token);
     }
 
-
     public interface ISearchObject
     {
         string Id { get; set; }
     }
-
-
 
 
 }

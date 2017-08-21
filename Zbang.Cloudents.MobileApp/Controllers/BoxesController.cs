@@ -28,9 +28,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             m_ZboxReadService = zboxReadService;
         }
 
-
-
-
         [ZboxAuthorize]
         [VersionedRoute("api/boxes", 1, Order = 3)]
         [VersionedRoute("api/boxes", 2, Order = 3)]
@@ -53,6 +50,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 shortUrl = UrlConst.BuildShortBoxUrl(new Base62(s.Id).ToString())
             }));
         }
+
         [ZboxAuthorize]
         [VersionedRoute("api/boxes", 3, Order = 3)]
         public async Task<HttpResponseMessage> GetBoxesWithMembersCountAsync(int page, int sizePerPage = 15)
@@ -105,7 +103,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             //}));
         }
 
-
         // ReSharper disable once ConsiderUsingAsyncSuffix - api call
         [HttpPost, Route("api/invite")]
         public async Task<HttpResponseMessage> Invite(InviteToSystemRequest model)
@@ -128,8 +125,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             await m_ZboxWriteService.InviteSystemAsync(inviteCommand);
 
             return Request.CreateResponse();
-
-
         }
     }
 }

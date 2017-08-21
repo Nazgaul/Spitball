@@ -50,8 +50,6 @@ namespace Zbang.Zbox.Infrastructure.Extensions
                 return value;
             }
             return null;
-
-
         }
         public static long? GetUniversityDataId(this IPrincipal user)
         {
@@ -67,7 +65,5 @@ namespace Zbang.Zbox.Infrastructure.Extensions
             }
             return null;
         }
-
-
     }
 }

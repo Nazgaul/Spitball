@@ -12,7 +12,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         public Guid? TabId { get; set; }
 
         public bool Comment { get; set; }
-
     }
 
     public class UploadChatFile

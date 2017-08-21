@@ -4,15 +4,12 @@ using System.Xml.Serialization;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
-
-
     [Serializable]
     [DesignerCategory("code")]
     [XmlType(AnonymousType = true)]
     [XmlRoot("job", Namespace = "", IsNullable = false)]
    public  class WayUpJob
     {
-
         public string Id { get; set; }
 
         [XmlElement("title")]
@@ -94,7 +91,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
     [XmlType(AnonymousType = true)]
     public class jobClickcastid
     {
-
         /// <remarks/>
         [XmlAttribute("type")]
         public string Type { get; set; }

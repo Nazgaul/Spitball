@@ -154,6 +154,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             await m_ZboxWriteService.AddQuizLikeAsync(command);
             return Request.CreateResponse(HttpStatusCode.OK, command.Id);
         }
+
         [HttpDelete, Route("api/quiz/{id:long}/like")]
         public async Task<HttpResponseMessage> DeleteLikeAsync(Guid likeId)
         {

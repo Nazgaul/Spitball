@@ -37,7 +37,6 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 return true;
             }
 
-            
             var userImage = parameters.SenderUserImage ?? "https://az32006.vo.msecnd.net/zboxprofilepic/DefaultEmailImage.jpg";
             var t1 = m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
                   new MessageMailParams(parameters.Message, parameters.SenderUserName,
@@ -52,7 +51,6 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             }
             else
             {
-
                 t2 = m_SendPush.SendChatMessageNotificationAsync(parameters.SenderUserName,
                     parameters.Message, parameters.ConversationId, new[] { parameters.UserId });
             }
@@ -66,9 +64,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 return t1.IsCompleted || t2.IsCompleted;
             }
             return true;
-
         }
-
 
         private Task DoJaredPushAsync(MessageMailData parameters)
         {

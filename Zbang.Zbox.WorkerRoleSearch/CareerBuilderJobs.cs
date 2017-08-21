@@ -2,9 +2,6 @@
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
-
-
-
     /// <remarks/>
     [System.Serializable]
     [System.ComponentModel.DesignerCategory("code")]
@@ -12,7 +9,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
     [System.Xml.Serialization.XmlRoot("job", Namespace = "", IsNullable = false)]
     public class CareerBuilderJobs
     {
-
         private string locationField;
 
         private string titleField;
@@ -242,6 +238,4 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
         }
     }
-
-
 }

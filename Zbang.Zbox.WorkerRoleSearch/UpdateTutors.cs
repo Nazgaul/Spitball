@@ -82,6 +82,5 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             await m_TutorProvider.DeleteDataAsync(oldJobs, token).ConfigureAwait(false);
         }
-
     }
 }

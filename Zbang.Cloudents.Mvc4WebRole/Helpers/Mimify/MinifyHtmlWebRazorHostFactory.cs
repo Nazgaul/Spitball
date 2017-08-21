@@ -23,6 +23,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers.Mimify
                 : base(virtualPath, physicalPath)
             {
             }
+
             public override RazorCodeGenerator DecorateCodeGenerator(RazorCodeGenerator incomingCodeGenerator)
             {
                 if (incomingCodeGenerator is CSharpRazorCodeGenerator)

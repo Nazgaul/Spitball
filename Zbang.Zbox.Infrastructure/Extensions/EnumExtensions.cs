@@ -3,7 +3,6 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using Zbang.Zbox.Infrastructure.Extensions;
 
-
 // ReSharper disable once CheckNamespace - this is an extension
 public static class EnumExtension
 {
@@ -35,7 +34,6 @@ public static class EnumExtension
         return GetStringValue(value.ToString("G"));
     }
 
-
     public static string GetStringValueLowercase(this Enum value)
     {
         if (value == null) throw new ArgumentNullException(nameof(value));
@@ -59,7 +57,5 @@ public static class EnumExtension
         var x = new System.Resources.ResourceManager(att.ResourceType);
         return x.GetString(att.ResourceName, culture);
     }
-
-
 }
 

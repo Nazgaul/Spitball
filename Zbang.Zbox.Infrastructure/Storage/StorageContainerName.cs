@@ -33,7 +33,6 @@ namespace Zbang.Zbox.Infrastructure.Storage
         }
 
         public abstract string RelativePath { get; }
-       
     }
 
     public class CacheContainerName : StorageContainerName, ICacheContainer
@@ -59,7 +58,6 @@ namespace Zbang.Zbox.Infrastructure.Storage
         public override string RelativePath => "";
     }
 
-
     public class CrawlContainerName : StorageContainerName
     {
         public override string Name => "crawl";
@@ -83,5 +81,4 @@ namespace Zbang.Zbox.Infrastructure.Storage
         public override string Name => AzureQuizContainer;
         public override string RelativePath => "flashcard";
     }
-
 }

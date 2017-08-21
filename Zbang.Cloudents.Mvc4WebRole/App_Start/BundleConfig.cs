@@ -53,7 +53,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         //        var styleRight = new YUIStyleBundle("~/bundles/" + cssBundle.Key + Rtl2, string.Format(cdnUrl, "bundles/" + cssBundle.Key + Rtl2))
         //            .IncludeFallback("~/" + cssBundle.Key + Rtl2, "cssCheck", "absolute", "-2000px");
-                
+
         //        foreach (var bundle in cssBundle.Value)
         //        {
         //            styleLeft.Include(bundle.LeftCssFile);
@@ -148,6 +148,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             return retVal;
         }
+
         public static string JsLink(string key)
         {
             string value;
@@ -158,11 +159,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             return value;
         }
 
-
-
-
-
-
         public static string CdnEndpointUrl => CdnLocation;
 
         public static void RegisterBundle(
@@ -170,14 +166,12 @@ namespace Zbang.Cloudents.Mvc4WebRole
             IEnumerable<KeyValuePair<string, IEnumerable<JsFileWithCdn>>> registeredJsBundles
             )
         {
-
             if (registeredCssBundles != null)
             {
                 foreach (var registeredCssBundle in registeredCssBundles)
                 {
                     RegisterCss(registeredCssBundle.Key, registeredCssBundle.Value.Select(s => s.LeftCssFile));
                     RegisterCss(registeredCssBundle.Key + Rtl, registeredCssBundle.Value.Select(s => s.RightCssFile));
-
                 }
             }
             if (registeredJsBundles != null)
@@ -221,7 +215,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             CopyFilesToCdn("/Content/Fonts", "*.*");
             CopyFilesToCdn("/Images", "*.*");
             CopyFilesToCdn("/gzip/", "*.*", options: SearchOption.TopDirectoryOnly);
-
         }
 
         private static void CreateLazyLoadScript(string configFile, string bundleName, string outFile)
@@ -240,8 +233,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             File.WriteAllText(HttpContext.Current.Server.MapPath(outFile),
                 quizCreateScript);
         }
-
-
 
         private static string RelativePathContent(string relativePath)
         {
@@ -277,10 +268,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             {
                 CssBundles.Add(key, cssBundle.Render("~/cdn/gzip/c#.css"));
             }
-
         }
-
-
 
         private static void RegisterLocaleJs(string angularPath, string jsResourceString, string culture)
         {
@@ -321,7 +309,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //jsBundle.WithDeferredLoad();
             foreach (var jsFile in jsFiles)
             {
-
                 if (string.IsNullOrWhiteSpace(jsFile.CdnFile))
                 {
                     if (jsFile.LocalFile.Contains("min"))
@@ -358,16 +345,13 @@ namespace Zbang.Cloudents.Mvc4WebRole
             }
             try
             {
-
                 return RoleEnvironment.GetConfigurationSettingValue("CdnEndpoint");
             }
             catch (Exception)
             {
                 return string.Empty;
             }
-
         }
-
 
         private static void CopyFilesToCdn(string directoryRelativePath, string fileSearchOption, string cdnRelativePath = null, SearchOption options = SearchOption.AllDirectories)
         {
@@ -411,8 +395,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 }
             }
         }
-
-
 
     }
 }

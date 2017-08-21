@@ -14,7 +14,6 @@ namespace Zbang.Cloudents.Jared
             {//or reuse instance (recommended!). see note above
                 var ai = new TelemetryClient();
                 ai.TrackException(context.Exception);
-
             }
             base.Log(context);
         }
@@ -25,7 +24,6 @@ namespace Zbang.Cloudents.Jared
                 var ai = new TelemetryClient();
                 var str = await context.Request.Content.ReadAsStringAsync().ConfigureAwait(false);
                 ai.TrackException(context.Exception, new Dictionary<string, string> { { "content", str } });
-
             }
             await base.LogAsync(context, cancellationToken).ConfigureAwait(false);
         }

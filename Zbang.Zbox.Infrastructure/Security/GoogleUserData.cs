@@ -18,7 +18,5 @@ namespace Zbang.Zbox.Infrastructure.Security
         [JsonProperty(PropertyName = "family_name")]
         public string LastName { get; set; }
 
-
-
     }
 }

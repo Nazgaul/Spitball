@@ -46,9 +46,6 @@ namespace Zbang.Cloudents.MobileApp.Filters
             {
                 formatter.DateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
             }
-            
-
-            
         }
     }
 }

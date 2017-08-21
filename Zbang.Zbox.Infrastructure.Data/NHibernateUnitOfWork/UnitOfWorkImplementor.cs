@@ -13,15 +13,18 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             Factory = factory;
             Session = session;
         }
+
         public void Dispose()
         {
             Factory.DisposeUnitOfWork(this);
             Session.Dispose();
         }
+
         public void IncrementUsages()
         {
             throw new NotImplementedException();
         }
+
         public void Flush()
         {
             Session.Flush();

@@ -58,7 +58,6 @@ namespace Zbang.Cloudents.Jared
                 });
             }
 
-
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
             builder.RegisterModule<InfrastructureModule>();
             builder.RegisterModule<StorageModule>();
@@ -83,7 +82,6 @@ namespace Zbang.Cloudents.Jared
             app.UseAutofacWebApi(config);
 
             app.UseWebApi(config);
-
         }
 
         private static void ConfigureSignalR(IAppBuilder app, IContainer container)
@@ -93,8 +91,6 @@ namespace Zbang.Cloudents.Jared
                 EnableDetailedErrors = false
                // Resolver = new AutofacDependencyResolver(container)
             };
-
-
 
             GlobalHost.DependencyResolver = new AutofacDependencyResolver(container);// config.Resolver;
             GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => new UserIdProvider());
@@ -110,7 +106,5 @@ namespace Zbang.Cloudents.Jared
             app.MapSignalR(config);
         }
     }
-
-
 }
 

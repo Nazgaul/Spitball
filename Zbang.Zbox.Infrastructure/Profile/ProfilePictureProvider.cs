@@ -14,9 +14,7 @@ namespace Zbang.Zbox.Infrastructure.Profile
         public ProfilePictureProvider(IBlobProvider blobProvider)
         {
             m_BlobProvider = blobProvider;
-
         }
-
 
         public async Task<ProfileImages> UploadProfilePicturesAsync(Stream profileImage)
         {
@@ -28,7 +26,6 @@ namespace Zbang.Zbox.Infrastructure.Profile
                 var uri = await m_BlobProvider.UploadProfilePictureAsync(CreateBlobFileNameWithFolder(imageName), ms).ConfigureAwait(false);
                 return new ProfileImages(uri);
             }
-
         }
 
         private async Task<Stream> ProcessFileAsync(Stream stream, int width, int height)
@@ -62,7 +59,6 @@ namespace Zbang.Zbox.Infrastructure.Profile
             //}
             
         }
-
 
         private static string CreateBlobFileNameWithFolder(string fileName)
         {

@@ -17,8 +17,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         private readonly HttpContextBase m_ContextBase;
         private readonly ILanguageCookieHelper m_LanguageCookie;
 
-        public LanguageMiddleware(OwinMiddleware next, IZboxReadService zboxReadService, 
-            HttpContextBase contextBase, 
+        public LanguageMiddleware(OwinMiddleware next, IZboxReadService zboxReadService,
+            HttpContextBase contextBase,
             ILanguageCookieHelper languageCookie)
             : base(next)
         {
@@ -39,7 +39,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             var lang = m_LanguageCookie.ReadCookie();
             if (lang == null)
             {
-
                 if (m_ContextBase.User != null && m_ContextBase.User.Identity.IsAuthenticated)
                 {
                     var userData = await m_ZboxReadService.GetUserDataAsync(new QueryBaseUserId(m_ContextBase.User.GetUserId()));
@@ -64,7 +63,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             }
             ChangeThreadLanguage(lang);
             await Next.Invoke(context);
-
         }
 
         public static string ChangeThreadLanguage(string language)

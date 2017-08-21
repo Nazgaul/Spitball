@@ -13,7 +13,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public void Exception(Exception ex, IDictionary<string, string> properties = null)
         {
             m_Telemetry.TrackException(ex, properties);
-            
         }
 
         public void Info(string info)
@@ -29,7 +28,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public void Error(string error)
         {
             m_Telemetry.TrackTrace(error, SeverityLevel.Error);
-
         }
 
         public void TrackMetric(string name, double value)

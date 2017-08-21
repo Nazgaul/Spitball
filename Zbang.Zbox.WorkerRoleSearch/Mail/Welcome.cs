@@ -14,6 +14,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
         {
             m_MailComponent = mailComponent;
         }
+
         public async Task<bool> ExecuteAsync(BaseMailData data, CancellationToken token)
         {
             var parameters = data as WelcomeMailData;
@@ -22,13 +23,11 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 throw new NullReferenceException("parameters");
             }
 
-            
            await m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
                new WelcomeMailParams(parameters.UserName,
                    new CultureInfo(parameters.Culture)), token).ConfigureAwait(false);
 
             return true;
-
         }
     }
 }

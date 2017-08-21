@@ -39,7 +39,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly Lazy<IItemReadSearchProvider> m_ItemSearchProvider;
         private readonly Lazy<IBlobProvider2<FilesContainerName>> m_BlobProviderFiles;
 
-
         public ItemController(
             Lazy<IFileProcessorFactory> fileProcessorFactory,
             IQueueProvider queueProvider, Lazy<IGuidIdGenerator> guidGenerator,
@@ -53,7 +52,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_BlobProviderFiles = blobProviderFiles;
         }
 
-
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public PartialViewResult IndexPartial()
@@ -66,7 +64,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("item/{universityName}/{boxId:long}/{boxName}/{itemId:long}/{itemName}", Name = "Item")]
         public async Task<ActionResult> IndexAsync(long boxId, long itemId, string itemName)
         {
-
             try
             {
                 var query = new GetFileSeoQuery(itemId);
@@ -198,7 +195,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 TraceLog.WriteError("On item load boxId = " + boxId + " ,itemId = " + itemId, ex);
                 return JsonError();
             }
-
         }
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
@@ -258,8 +254,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Redirect(url);
         }
 
-
-
         /// <summary>
         /// Used to rename file name - item name cannot be changed
         /// </summary>
@@ -284,7 +278,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     url = result.Url
                 });
             }
-
             catch (UnauthorizedAccessException)
             {
                 return JsonError("You need to follow this box in order to change file name");
@@ -298,8 +291,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 TraceLog.WriteError($"ChangeFileName newFileName {model.NewName} ItemUid {model.Id} userId {userId}", ex);
                 return JsonError("Error");
             }
-
-
         }
 
         /// <summary>
@@ -334,9 +325,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 retVal = result.Content;
             }
             return View(retVal);
-
         }
-
 
         [ZboxAuthorize]
         [HttpPost, ActionName("Delete")]
@@ -354,8 +343,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError();
             }
         }
-
-
 
         [ZboxAuthorize, HttpPost, RemoveBoxCookie, ActionName("Like")]
         public async Task<JsonResult> LikeAsync(RateModel model)
@@ -378,9 +365,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError();
             }
         }
-
-
-
 
         #region Preview
         [HttpGet, ActionName("Preview")]
@@ -407,7 +391,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                                 template = "failed"
                         });
 
-
                 var retVal = await processor.ConvertFileToWebsitePreviewAsync(uri, index, cancellationToken).ConfigureAwait(false);
                 if (retVal.Content == null)
                 {
@@ -415,7 +398,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     {
                         template = "failed"
                     });
-
                 }
                 if (!retVal.Content.Any())
                 {
@@ -425,7 +407,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return JsonOk(new { preview = retVal.Content.First() });
                 }
-
 
                 return JsonOk(new
                 {
@@ -437,7 +418,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     //       index,
                     //       User.Identity.IsAuthenticated))
                 });
-
             }
             catch (Exception ex)
             {
@@ -457,14 +437,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         #endregion
 
-
-
-
         [HttpPost]
         [ZboxAuthorize, ActionName("FlagRequest")]
         public async Task<JsonResult> FlagRequestAsync(FlagBadItem model)
         {
-
             if (!ModelState.IsValid)
             {
                 return JsonError(GetErrorFromModelState());
@@ -473,7 +449,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             await m_QueueProvider.InsertMessageToTransactionAsync(new BadItemData(model.BadItem.GetEnumDescription(), model.Other, User.GetUserId(), model.ItemId)).ConfigureAwait(false);
             return JsonOk();
         }
-
 
         [HttpPost, ZboxAuthorize, ActionName("AddComment")]
         public async Task<JsonResult> AddCommentAsync(NewAnnotation model)
@@ -493,6 +468,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError();
             }
         }
+
         [HttpPost]
         [ZboxAuthorize, ActionName("DeleteComment")]
         public async Task<JsonResult> DeleteCommentAsync(DeleteItemComment model)
@@ -505,6 +481,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             await ZboxWriteService.DeleteAnnotationAsync(command).ConfigureAwait(false);
             return JsonOk();
         }
+
         [HttpPost]
         [ZboxAuthorize, ActionName("ReplyComment")]
         public async Task<JsonResult> ReplyCommentAsync(ReplyItemComment model)
@@ -512,7 +489,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (!ModelState.IsValid)
             {
                 return JsonError(GetErrorFromModelState());
-
             }
             var command = new AddItemReplyToCommentCommand(User.GetUserId(), model.ItemId, model.Comment, model.CommentId, model.BoxId);
             await ZboxWriteService.AddReplyAnnotationAsync(command).ConfigureAwait(false);
@@ -537,7 +513,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return PartialView();
         }
-
-
     }
 }

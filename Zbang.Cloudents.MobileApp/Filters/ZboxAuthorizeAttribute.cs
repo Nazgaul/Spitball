@@ -18,11 +18,13 @@ namespace Zbang.Cloudents.MobileApp.Filters
         {
             
         }
+
         protected override bool IsAuthorized(HttpActionContext actionContext)
         {
             var userId = actionContext.RequestContext.Principal.GetUserId();
             return userId != -1;
         }
+
         protected override void HandleUnauthorizedRequest(HttpActionContext actionContext)
         {
             HttpContext.Current.Response.AddHeader("AuthenticationStatus", "NotAuthorized");
@@ -35,10 +37,12 @@ namespace Zbang.Cloudents.MobileApp.Filters
         {
             base.OnAuthorization(actionContext);
         }
+
         public override Task OnAuthorizationAsync(HttpActionContext actionContext, CancellationToken cancellationToken)
         {
             return base.OnAuthorizationAsync(actionContext, cancellationToken);
         }
+
         public override bool AllowMultiple
         {
             get

@@ -34,7 +34,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         private readonly IGoogleService m_GoogleService;
         private readonly ApplicationUserManager m_UserManager;
 
-
         public CustomLoginController(IZboxReadService zboxReadService, IZboxWriteService zboxWriteService, IFacebookService facebookService, IGoogleService googleService, ApplicationUserManager userManager)
         {
             m_ZboxReadService = zboxReadService;
@@ -67,7 +66,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 }
                 if (logIn)
                 {
-
                     var identity = await user.GenerateUserIdentityAsync(m_UserManager, systemUser.Id, systemUser.UniversityId,
                          systemUser.UniversityData);
                     var claims = identity.Claims.ToList();
@@ -86,28 +84,22 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                         },
                         AuthenticationToken = token.RawData
                     });
-
                 }
-
-
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError($"LogOn model : {loginRequest} ", ex);
             }
             return Request.CreateBadRequestResponse();
-
         }
 
         public static string GetEnvironmentVariableAuth()
         {
-
             return Environment.GetEnvironmentVariable("WEBSITE_AUTH_SIGNING_KEY") ??
                    Convert.ToBase64String(
                        System.Text.Encoding.UTF8.GetBytes(
                            "947726dd6318753268f3bfbe5e87ae2afe220db399c26e119c181a59227b0c60"));
         }
-
 
         [HttpPost]
         [Route("api/facebookLogin")]
@@ -164,8 +156,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                     },
                     AuthenticationToken = token.RawData
                 });
-
-
             }
             catch (Exception ex)
             {
@@ -174,7 +164,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
-
 
         [HttpPost]
         [Route("api/googleLogin"), ActionName("GoogleLogin")]
@@ -237,8 +226,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                     },
                     AuthenticationToken = token.RawData
                 });
-
-
             }
             catch (Exception ex)
             {
@@ -246,6 +233,5 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
-
     }
 }

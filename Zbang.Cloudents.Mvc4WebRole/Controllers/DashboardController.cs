@@ -65,7 +65,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
             var universityWrapper = universityId ?? User.GetUniversityId().Value;
 
-
             var query = new UniversityQuery(universityWrapper);
             var model = await ZboxReadService.GetUniversityInfoAsync(query).ConfigureAwait(false);
 
@@ -75,9 +74,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 ["universityName"] = UrlConst.NameToQueryString(model.Name)
             });
             return JsonOk(model);
-
         }
-
 
         #region CreateBox
 
@@ -94,7 +91,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command = new CreateBoxCommand(userId, model.BoxName);
                 var result = await ZboxWriteService.CreateBoxAsync(command).ConfigureAwait(false);
                 return JsonOk(new { result.Url });
-
             }
             catch (BoxNameAlreadyExistsException)
             {

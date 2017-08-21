@@ -48,7 +48,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         private Index GetBoxIndex()
         {
-            var suggester = new Suggester("sg", SuggesterSearchMode.AnalyzingInfixMatching,
+            var suggester = new Suggester("sg",
                 nameof(BoxSearch.Name2).ToLowerInvariant(), nameof(BoxSearch.Professor2).ToLowerInvariant(), nameof(BoxSearch.Course2).ToLowerInvariant());
             var index = new Index
             {
@@ -153,11 +153,10 @@ namespace Zbang.Zbox.Infrastructure.Search
                 )
             ).ToList();
         }
+
         public void Dispose()
         {
             m_IndexClient.Dispose();
         }
     }
-
-
 }

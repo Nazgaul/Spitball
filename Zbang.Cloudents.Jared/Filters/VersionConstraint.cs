@@ -17,7 +17,6 @@ namespace Zbang.Cloudents.Jared.Filters
         }
     }
 
-
     public class VersionConstraint : IHttpRouteConstraint
     {
         public const string VersionHeaderName = "s-version";
