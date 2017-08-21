@@ -1,17 +1,58 @@
-﻿@gap: 10fr;
-@light_blue:#3293f6;
-@dark_blue: #0455a8;
-@result_color: #07305a;
-@sub_filter_color: #1e59a8;
+﻿@import "icons.less";
+@gap: 10fr;
+@white-two: #ffffff;
+@white: #eeeeee;
+@charcoal-grey: #4a4a4a;
+@white-three: #dddddd;
+@ocean-blue: #0455a8;
+@marine: #07305a;
+@dodger-blue: #3293f6;
+@vermillion: #f61c0d;
+@royal-purple: #320161;
+@black: #000000;
+@red: #c30000;
+@white-four: #f0f0f0;
+@squash: #f49c20;
+@dark: #1d2129;
+@greyish-brown: #414141;
+@cool-grey: #90949c;
+@baby-blue: #9ccdff;
+@tealish: #2cbfa5;
+@purply: #8c3fbf;
+@light-grey-blue: #94b7cb;
+@sap-green: #52ab15;
+@coral: #f14d4d;
+@pinkish-grey: #bbbbbb;
+@purpley-grey: #9b9b9b;
 @circle_size:38px;
-@purple: #320161;
-@red: #f14d4d;
-@green: #52ab15;
-@bg_gray: #eeeeee;
+
+
+/* Text styles */
+
+.Text-Style {
+	font-family: OpenSans;
+	font-size: 20px;
+	letter-spacing: -0.4px;
+	text-align: left;
+	color: @marine;
+}
+
+.Text-Style-2 {
+	font-family: OpenSans;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 1.14;
+	letter-spacing: -0.3px;
+	text-align: left;
+	color: @ocean-blue;
+}
 .displayInlineFlex() {
 	display: -webkit-inline-box;
 	display: -ms-inline-flexbox;
 	display: inline-flex;
+}
+.pageMargin(){
+	margin:1em 10em;
 }
 .displayGrid(@gap) {
 	display: -ms-grid;
@@ -38,18 +79,34 @@
 	grid-gap:@gap;
 }
 body {
-	background: @bg_gray;
+	background: @white;
 	margin: 0;
 
 	header {
 		width: 100%;
-		height: 2em;
-		background: @light_blue;
+		height: 3em;
+		display: flex;
+		align-items: center;
+		background: @dodger-blue;
+
+		div {
+			.displayInlineFlex;
+			.pageMargin();
+		}
+
+		.logo {
+			margin-top: 5px;
+		}
 
 		#search {
-			background: @dark_blue;
+			background: @ocean-blue;
 			border-radius: 6px;
-			height: 37px;
+			color: white;
+			border: none;
+
+			@media(max-width:1365px) {
+				span{display:none;}
+			}
 		}
 	}
 
@@ -57,7 +114,13 @@ body {
 		text-transform: uppercase;
 	}
 
+	section {
+		.pageMargin();
+	}
+
 	aside {
+		position: fixed;
+		width: 150px;
 
 		label {
 			width: 59px;
@@ -84,7 +147,7 @@ body {
 					line-height: @circle_size;
 				}
 
-				img {
+				svg {
 					top: 25%;
 					left: 20%;
 					position: absolute;
@@ -96,17 +159,12 @@ body {
 
 				.ask {
 					.circle();
-					background: @dark_blue;
+					background: @ocean-blue;
 				}
 
 				.note {
 					.circle();
-
-					img {
-						left: 30%;
-					}
-
-					background: @purple;
+					background: @royal-purple;
 				}
 
 				.flashcard {
@@ -116,7 +174,7 @@ body {
 
 				.tutor {
 					.circle();
-					background: @green;
+					background: @sap-green;
 				}
 			}
 		}

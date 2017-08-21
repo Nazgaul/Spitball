@@ -89,23 +89,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Images\ask-copy.svg" />
+    <Content Include="App_Themes\Images\icons.svg" />
     <Content Include="App_Themes\Images\normal-logo.svg" />
     <Content Include="App_Themes\Images\small-logo.svg" />
-    <Content Include="App_Themes\Images\group.svg" />
-    <Content Include="App_Themes\Images\group_2.svg" />
-    <Content Include="App_Themes\Images\mic.svg" />
-    <Content Include="App_Themes\Images\path-copy-2.svg" />
-    <Content Include="App_Themes\Images\path.svg" />
-    <Content Include="App_Themes\Images\search-icon.svg" />
-    <Content Include="App_Themes\Images\shape-copy-2.svg" />
-    <Content Include="App_Themes\Images\shape-copy-4.svg" />
-    <Content Include="App_Themes\Images\note.svg" />
-    <Content Include="App_Themes\Images\flashcard.svg" />
-    <Content Include="App_Themes\Images\shape-copy-7.svg" />
-    <Content Include="App_Themes\Images\shape-copy.svg" />
-    <Content Include="App_Themes\Images\shape.svg" />
-    <Content Include="App_Themes\Images\tutor-copy.svg" />
     <Content Include="App_Themes\site.css">
       <DependentUpon>site.less</DependentUpon>
     </Content>
@@ -126,6 +112,8 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="App_Themes\site.less" />
+    <Content Include="App_Themes\icons.less" />
+    <Content Include="App_Themes\OpenSans-Regular-webfont.woff" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
