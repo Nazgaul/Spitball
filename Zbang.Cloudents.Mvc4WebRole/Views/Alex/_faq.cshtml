@@ -1,9 +1,9 @@
 ﻿
 
 <div class="category-wrapper">
-	<input id="toggle-@Model.i@Model.j" class="toggle-level-2" type="checkbox" name="toggle-inner"  />
-	<label for="toggle-@Model.i@Model.j">@Model.question</label>
-	<section id="content-@Model.i@Model.j" class="content-level-2 tab-content">
-		<p><span>@Html.Raw(@Model.answer)</span></p>
+	<input id="toggleK-@Model.J" class="toggle-level-2" type="radio" name="toggle-inner"  />
+	<label for="toggleK-@Model.J">@Model.Question</label>
+	<section id="content-@Model.J" class="content-level-2 tab-content">
+		<div><span>@Html.Raw(@Model.Answer)</span></div>
 	</section>
 </div>

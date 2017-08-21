@@ -1,15 +1,7 @@
 ﻿@{
 	Layout ="~/Views/Alex/_LayoutStatic.cshtml";
 }
-@*<!doctype html>
-<html class="no-js">
-<head>
-	<meta charset="utf-8">
-	<title>Alex</title>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-</head>*@
-<img class="coffee" src="@Url.CdnContent("~/Images/Alex/coffee2_500px.png")" />
+@*<img class="coffee" src="@Url.CdnContent("~/Images/Alex/coffee2_500px.png")" />*@
 <section class="main">
 	<div class="static-body">
 		@* ReSharper disable once Mvc.PartialViewNotResolved *@
@@ -18,22 +10,84 @@
 				<div class="category-wrapper">
 					<input id="toggle-1" class="toggle-level-1" type="radio" name="toggle" checked/>
 					<section id="contentLevel" class="content-level-1">
-						@{Html.RenderPartial("_faq", new {i = 1, j = 1, question = "Why isn’t my school on Spitball?", answer = "We haven’t launched at every school yet. If you want to see your school on Spitball, email us at <a href='mailto:molly@spitball.co'>molly@spitball.co</a>. "});}
-						@{Html.RenderPartial("_faq", new {i = 1, j = 2, question = "Why doesn’t my class have files?", answer = "Your class could be new, or none of your classmates have posted documents online. Be the first to upload! Share syllabi, old exams, study guides, and more. You'll be the class hero."});}
-						@{Html.RenderPartial("_faq", new {i = 1, j = 3, question = "How do I add content?", answer = "On the home screen, scroll to the dark grey icon and click upload content. Choose the course it belongs to, enter your name, and attach the document or photo to the post."});}
-						@{Html.RenderPartial("_faq", new {i = 1, j = 4, question = "How do I make flashcards", answer = "Click on the hamburger icon in the top left corner of the screen and select “Create Flashcard.”"});}
-						@{Html.RenderPartial("_faq", new {i = 1, j = 5, question = "How do I share content with friends?", answer = "When you’re on a page or document you want to share, just click the icon on the bottom left of the screen, and the option to share will pop up."});}
-						@{Html.RenderPartial("_faq", new {i = 1, j = 6, question = "How do I report abusive content?", answer = "If you encounter an abusive, offensive or inappropriate item, please contact us via the feedback page or email <a href='mailto:molly@spitball.co'>molly@spitball.co</a>, and we will have it removed."});}
-						@{Html.RenderPartial("_faq", new {i = 1, j = 7, question = "How do I contact Spitball?", answer = "You can provide feedback through the app by going to your settings and selecting “feedback”. Alternatively, shoot us an email at <a href='mailto:molly@spitball.co'>molly@spitball.co</a>"});}
-						@{Html.RenderPartial("_faq", new {i = 1, j = 8, question = "How do I edit my profile?", answer = "From your settings page, select “My Profile” to change your name, university, or notification preferences"});}
-						@{Html.RenderPartial("_faq", new {i = 1, j = 9, question = "What’s Spitball’s policy regarding academic integrity?", answer = "Spitball was created as a community for collaborative learning. Students are already sharing knowledge, and our objective is to make students’ lives easier by creating one unified platform to meet all of their academic needs. We are founded on the principle of transparency and are firmly opposed to plagiarism, cheating, and any form of academic misconduct. As such, we grant professors and administrators the authority to monitor class content to ensure that it is consistent with teaching standards and honor codes. "});}
+						<div class="category-wrapper">
+							<input id="toggleK-1" class="toggle-level-2" type="radio" name="toggle-inner"  />
+							<label for="toggleK-1">Why isn’t my school on Spitball?</label>
+							<section id="content-1" class="content-level-2 tab-content">
+								<div><span>We haven’t launched at every school yet. If you want to see your school on Spitball, email us at <a href="mailto:molly@spitball.co">molly@spitball.co</a>. </span></div>
+							</section>
+						</div>
+						<div class="category-wrapper">
+							<input id="toggleK-2" class="toggle-level-2" type="radio" name="toggle-inner"  />
+							<label for="toggleK-2">Why doesn’t my class have files?</label>
+							<section id="content-2" class="content-level-2 tab-content">
+								<div><span>Your class could be new, or none of your classmates have posted documents online. Be the first to upload! Share syllabi, old exams, study guides, and more. You'll be the class hero.</span></div>
+							</section>
+						</div>
+						<div class="category-wrapper">
+							<input id="toggleK-3" class="toggle-level-2" type="radio" name="toggle-inner"  />
+							<label for="toggleK-3">How do I add content?</label>
+							<section id="content-3" class="content-level-2 tab-content">
+								<div><span>On the home screen, scroll to the dark grey icon and click upload content. Choose the course it belongs to, enter your name, and attach the document or photo to the post. </span></div>
+							</section>
+						</div>
+						<div class="category-wrapper">
+							<input id="toggleK-4" class="toggle-level-2" type="radio" name="toggle-inner"  />
+							<label for="toggleK-4">How do I make flashcards?</label>
+							<section id="content-4" class="content-level-2 tab-content">
+								<div><span>Click on the hamburger icon in the top left corner of the screen and select “Create Flashcards.”</span></div>
+							</section>
+						</div>
+						<div class="category-wrapper">
+							<input id="toggleK-5" class="toggle-level-2" type="radio" name="toggle-inner"  />
+							<label for="toggleK-5">How do I share content with friends?</label>
+							<section id="content-5" class="content-level-2 tab-content">
+								<div><span>When you’re on a page or document you want to share, just click the icon on the bottom left of the screen, and the option to share will pop up.</span></div>
+							</section>
+						</div>
+						<div class="category-wrapper">
+							<input id="toggleK-6" class="toggle-level-2" type="radio" name="toggle-inner"  />
+							<label for="toggleK-6">How do I report abusive content?</label>
+							<section id="content-6" class="content-level-2 tab-content">
+								<div><span>If you encounter an abusive, offensive or inappropriate item, please contact us via the feedback page or email <a href="mailto:molly@spitball.co">molly@spitball.co</a>, and we will have it removed.</span></div>
+							</section>
+						</div>
+						<div class="category-wrapper">
+							<input id="toggleK-7" class="toggle-level-2" type="radio" name="toggle-inner"  />
+							<label for="toggleK-7">How do I contact Spitball?</label>
+							<section id="content-7" class="content-level-2 tab-content">
+								<div><span>You can provide feedback through the app by going to your settings and selecting “feedback”. Alternatively, shoot us an email at molly@spitball.co</span></div>
+							</section>
+						</div>
+						<div class="category-wrapper">
+							<input id="toggleK-8" class="toggle-level-2" type="radio" name="toggle-inner"  />
+							<label for="toggleK-8">How do I edit my profile?</label>
+							<section id="content-8" class="content-level-2 tab-content">
+								<div><span>From your settings page, select “My Profile” to change your name, university, or notification preferences</span></div>
+							</section>
+						</div>
+						<div class="category-wrapper">
+							<input id="toggleK-9" class="toggle-level-2" type="radio" name="toggle-inner"  />
+							<label for="toggleK-9">What’s Spitball’s policy regarding academic integrity?</label>
+							<section id="content-9" class="content-level-2 tab-content">
+								<div><span>Spitball was created as a community for collaborative learning. Students are already sharing knowledge, and our objective is to make students’ lives easier by creating one unified platform to meet all of their academic needs. We are founded on the principle of transparency and are firmly opposed to plagiarism, cheating, and any form of academic misconduct. As such, we grant professors and administrators the authority to monitor class content to ensure that it is consistent with teaching standards and honor codes. </span></div>
+							</section>
+						</div>
+						@*@{Html.RenderPartial("_faq", new {J = 1, Question = "Why isn’t my school on Spitball?", Answer = "We haven’t launched at every school yet. If you want to see your school on Spitball, email us at <a href='mailto:molly@spitball.co'>molly@spitball.co</a>. "});}
+						@{Html.RenderPartial("_faq", new {J = 2, Question = "Why doesn’t my class have files?", Answer = "Your class could be new, or none of your classmates have posted documents online. Be the first to upload! Share syllabi, old exams, study guides, and more. You'll be the class hero."});}
+						@{Html.RenderPartial("_faq", new {J = 3, Question = "How do I add content?", Answer = "On the home screen, scroll to the dark grey icon and click upload content. Choose the course it belongs to, enter your name, and attach the document or photo to the post."});}
+						@{Html.RenderPartial("_faq", new {J = 4, Question = "How do I make flashcards", Answer = "Click on the hamburger icon in the top left corner of the screen and select “Create Flashcard.”"});}
+						@{Html.RenderPartial("_faq", new {J = 5, Question = "How do I share content with friends?", Answer = "When you’re on a page or document you want to share, just click the icon on the bottom left of the screen, and the option to share will pop up."});}
+						@{Html.RenderPartial("_faq", new {J = 6, Question = "How do I report abusive content?", Answer = "If you encounter an abusive, offensive or inappropriate item, please contact us via the feedback page or email <a href='mailto:molly@spitball.co'>molly@spitball.co</a>, and we will have it removed."});}
+						@{Html.RenderPartial("_faq", new {J = 7, Question = "How do I contact Spitball?", Answer = "You can provide feedback through the app by going to your settings and selecting “feedback”. Alternatively, shoot us an email at <a href='mailto:molly@spitball.co'>molly@spitball.co</a>"});}
+						@{Html.RenderPartial("_faq", new {J = 8, Question = "How do I edit my profile?", Answer = "From your settings page, select “My Profile” to change your name, university, or notification preferences"});}
+						@{Html.RenderPartial("_faq", new {J = 9, Question = "What’s Spitball’s policy regarding academic integrity?", Answer = "Spitball was created as a community for collaborative learning. Students are already sharing knowledge, and our objective is to make students’ lives easier by creating one unified platform to meet all of their academic needs. We are founded on the principle of transparency and are firmly opposed to plagiarism, cheating, and any form of academic misconduct. As such, we grant professors and administrators the authority to monitor class content to ensure that it is consistent with teaching standards and honor codes. "});}*@
 					</section>
 				</div>
-
-
-
-
 			</div>
 		</div>
 	</div>
 </section>
+<script>
+	document.getElementById("toggleK-1").checked = true;
+</script>
