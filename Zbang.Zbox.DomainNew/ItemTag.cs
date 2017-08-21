@@ -14,24 +14,25 @@ namespace Zbang.Zbox.Domain
         {
             Type = type;
         }
+
         public ItemTag(Tag tag, Item item, TagType type) : this(type)
         {
-
             Tag = tag;
             Item = item;
         }
+
         public ItemTag(Tag tag, FlashcardMeta item, TagType type) : this(type)
         {
-
             Tag = tag;
             Flashcard = item;
         }
+
         public ItemTag(Tag tag, Quiz item, TagType type) : this(type)
         {
-
             Tag = tag;
             Quiz = item;
         }
+
         public virtual Guid Id { get; set; }
 
         public virtual TagType Type { get; set; }
@@ -42,7 +43,6 @@ namespace Zbang.Zbox.Domain
         public virtual Quiz Quiz { get; set; }
 
         public virtual FlashcardMeta Flashcard { get; set; }
-
 
         public override bool Equals(object obj)
         {
@@ -57,7 +57,6 @@ namespace Zbang.Zbox.Domain
                    && CheckEqualsWithNull(Item, item.Item)
                    && CheckEqualsWithNull(Flashcard, item.Flashcard)
                    && CheckEqualsWithNull(Quiz, item.Quiz);
-            
         }
 
         private static bool CheckEqualsWithNull(object a, object b)
@@ -75,7 +74,6 @@ namespace Zbang.Zbox.Domain
                 return false;
             }
             return a.Equals(b);
-
         }
 
         public override int GetHashCode()
@@ -88,21 +86,20 @@ namespace Zbang.Zbox.Domain
         }
     }
 
-
     public class CommentTag
     {
         protected CommentTag()
         {
 
         }
+
         public CommentTag(Tag tag, Comment comment, TagType type) : this()
         {
-
             Tag = tag;
             Comment = comment;
             Type = type;
         }
-        
+
         public virtual Guid Id { get; set; }
 
         public virtual TagType Type { get; set; }
@@ -120,7 +117,6 @@ namespace Zbang.Zbox.Domain
             //bool equals = false;
             return CheckEqualsWithNull(Tag, item.Tag)
                    && CheckEqualsWithNull(Comment, item.Comment);
-
         }
 
         private static bool CheckEqualsWithNull(object a, object b)
@@ -138,7 +134,6 @@ namespace Zbang.Zbox.Domain
                 return false;
             }
             return a.Equals(b);
-
         }
 
         public override int GetHashCode()

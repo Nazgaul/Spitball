@@ -57,7 +57,6 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             {
                 foreach (var userId in parameters.UserIds)
                 {
-
                     tasks.Add(DoUpdateAsync(userId, badge, token));
                 }
             }
@@ -76,7 +75,6 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             m_ZboxWriteService.UpdateBadges(command);
             if (command.Progress == 100)
             {
-
                 try
                 {
                     //TODO: culture
@@ -87,7 +85,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
                 {
                     TraceLog.WriteError("on signalr update image", ex);
                 }
-            
+
                 await m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(userId), token).ConfigureAwait(false);
             }
         }

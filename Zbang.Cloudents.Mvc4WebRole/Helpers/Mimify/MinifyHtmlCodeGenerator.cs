@@ -13,6 +13,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers.Mimify
             : base(className, rootNamespaceName, sourceFileName, host)
         {
         }
+
         public override void VisitSpan(Span span)
         {
             //System.Web.Razor.Parser.SyntaxTree.
@@ -34,6 +35,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers.Mimify
             //span.Content = content;
             base.VisitSpan(span);
         }
+
         private string Minify(string content)
         {
             if (string.IsNullOrWhiteSpace(content))
@@ -92,5 +94,4 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers.Mimify
         private static readonly char[] WhiteSpaceSeparators = { '\n', '\r' };
         private static readonly string[] CommentsMarkers = { "{", "}", "function", "var", "[if", "ko" };
     }
-
 }

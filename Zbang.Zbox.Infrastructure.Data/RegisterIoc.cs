@@ -7,7 +7,6 @@ namespace Zbang.Zbox.Infrastructure.Data
 {
     public class DataModule : Module
     {
-
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterGeneric(typeof(NHibernateRepository<>)).As(typeof(IRepository<>));

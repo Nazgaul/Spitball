@@ -35,7 +35,6 @@ namespace Zbang.Zbox.Infrastructure.Search
         [IsSearchable]
         public string[] Subjects { get; set; }
 
-
         [IsSortable]
         public double Rank { get; set; }
 

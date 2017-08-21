@@ -8,7 +8,6 @@ namespace Zbang.Cloudents.MobileApp.DataObjects
 {
     public class FlashcardRequest
     {
-
         [BindNever]
         public long? Id { get; set; }
 
@@ -37,7 +36,6 @@ namespace Zbang.Cloudents.MobileApp.DataObjects
                 return false;
             }
             return true;
-
         }
     }
 

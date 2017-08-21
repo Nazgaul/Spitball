@@ -9,7 +9,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
         [MinLength(6,ErrorMessageResourceType = typeof(AccountSettingsResources), ErrorMessageResourceName = "Min6Chars")]
         public string CurrentPassword { get; set; }
 
-
         [MinLength(6, ErrorMessageResourceType = typeof(AccountSettingsResources), ErrorMessageResourceName = "Min6Chars")]
         [Required(ErrorMessageResourceType = typeof(AccountSettingsResources), ErrorMessageResourceName = "NewPwdEmpty")]
         public string NewPassword { get; set; }

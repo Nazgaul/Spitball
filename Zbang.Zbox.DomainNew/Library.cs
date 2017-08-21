@@ -9,7 +9,6 @@ namespace Zbang.Zbox.Domain
 {
     public class Library
     {
-
         protected Library()
         {
             Children = new List<Library>();
@@ -40,8 +39,6 @@ namespace Zbang.Zbox.Domain
             Settings = parent.Settings;
         }
 
-
-
         public virtual Guid Id { get; protected set; }
         public virtual string Name { get; protected set; }
         public virtual int AmountOfNodes { get; set; }
@@ -60,7 +57,6 @@ namespace Zbang.Zbox.Domain
 
         public virtual ICollection<UserLibraryRel> UserLibraryRelationship { get; protected set; }
 
-        
         public Library CreateSubLibrary(Guid id, string nodeName, User user)
         {
             if (nodeName == null)

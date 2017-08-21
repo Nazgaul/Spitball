@@ -19,7 +19,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             };
             SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
             SerializerSettings.Converters.Add(new IsoDateTimeConverter { DateTimeStyles = System.Globalization.DateTimeStyles.AssumeUniversal });
-
         }
 
         public override void ExecuteResult(ControllerContext context)

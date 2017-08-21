@@ -18,7 +18,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
             //    throw new NullReferenceException(nameof(marketingMailParams));
             //}
 
-
            // message.SetCategory(CategoryName);
             var html = LoadMailTempate.LoadMailFromContentWithDot(m_MarketingMailParams.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.MarketingTemplate");
             html.Replace("{name}", m_MarketingMailParams.Name);
@@ -34,6 +33,5 @@ namespace Zbang.Zbox.Infrastructure.Mail
             return CategoryName;
         }
     }
-
     
 }

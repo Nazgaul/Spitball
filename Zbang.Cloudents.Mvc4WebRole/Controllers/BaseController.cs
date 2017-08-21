@@ -25,7 +25,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, disconnectedToken);
         }
 
-       
 
         protected string RenderRazorViewToString(string viewName, object model)
         {
@@ -46,6 +45,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userAgent = HttpContext?.Request?.UserAgent;
             return userAgent != null && Regex.IsMatch(userAgent, @"bot|crawler|baiduspider|80legs|ia_archiver|voyager|curl|wget|yahoo! slurp|mediapartners-google", RegexOptions.IgnoreCase);
         }
+
         protected override void OnException(ExceptionContext filterContext)
         {
             var parameters = filterContext.HttpContext.Request.Params.ToString().Replace("&", "\n");
@@ -54,12 +54,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             TraceLog.WriteError(info, filterContext.Exception, parameters);
             base.OnException(filterContext);
         }
+
         protected override void HandleUnknownAction(string actionName)
         {
             var parameters = Request.Params.ToString().Replace("&", "\n");
             var info = string.Format("HandleUnknownAction {0} url {1} user {2} headers {5} isAjax {4} params {3} "
                 , actionName, Request.RawUrl, User.Identity.Name, parameters, Request.IsAjaxRequest(), Request.Headers);
-
 
             TraceLog.WriteError(info);
             if (Request.IsAjaxRequest())
@@ -81,7 +81,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 new HttpContextWrapper(
                     new HttpContext(new HttpRequest(null, url, string.Empty),
                         new HttpResponse(new StringWriter()))));
-
 
             // var routeData = RouteData;
             if (routeData == null)
@@ -111,6 +110,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             //    ContentEncoding = contentEncoding
             //};
         }
+
         protected override JsonResult Json(object data, string contentType, System.Text.Encoding contentEncoding, JsonRequestBehavior behavior)
         {
             //var profiler = MiniProfiler.Current; // it's ok if this is null
@@ -132,13 +132,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 ContentEncoding = contentEncoding,
                 JsonRequestBehavior = behavior
             };
-
         }
 
         protected JsonResult JsonOk(object data = null)
         {
             return Json(new JsonResponse(true, data));
         }
+
         protected JsonResult JsonError(object data = null)
         {
             return Json(new JsonResponse(false, data));
@@ -152,14 +152,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             return base.RedirectToRoutePermanent(routeName, routeValues);
         }
-        
+
 
         protected override void Initialize(RequestContext requestContext)
         {
             base.Initialize(requestContext);
 
             TempDataProvider = new CookieTempDataProvider(HttpContext);
-           
         }
     }
 }

@@ -10,7 +10,5 @@ namespace Zbang.Cloudents.MobileApp.DataObjects
         [Required]
         [MaxLength(2)]
         public string Country { get; set; }
-
-
     }
 }

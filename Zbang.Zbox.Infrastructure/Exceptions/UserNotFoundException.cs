@@ -13,5 +13,4 @@ namespace Zbang.Zbox.Infrastructure.Exceptions
 
         }
     }
-    
 }

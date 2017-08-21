@@ -35,7 +35,6 @@ namespace Zbang.Cloudents.MobileApp
     {
         public static void ConfigureMobileApp(IAppBuilder app)
         {
-
             // Register your SignalR hubs.
             IocFactory.IocWrapper.ContainerBuilder.RegisterHubs(Assembly.GetExecutingAssembly());
             var config = new HttpConfiguration();
@@ -68,9 +67,7 @@ namespace Zbang.Cloudents.MobileApp
             .MapLegacyCrossDomainController()         // from the CrossDomain package
             .ApplyTo(config);
 
-
             
-
 
             config.Filters.Add(new JsonSerializeAttribute());
             config.Filters.Add(new UnhandledExceptionFilter());
@@ -87,8 +84,6 @@ namespace Zbang.Cloudents.MobileApp
                 EnableDetailedErrors = false,
                 Resolver = new AutofacDependencyResolver(container)
             };
-
-
 
             GlobalHost.DependencyResolver = config.Resolver;
             GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => new UserIdProvider());
@@ -110,7 +105,6 @@ namespace Zbang.Cloudents.MobileApp
             var builder = IocFactory.IocWrapper.ContainerBuilder;
             builder.RegisterModule<InfrastructureModule>();
             builder.RegisterModule<FileModule>();
-
 
             builder.RegisterModule<SearchModule>();
 
@@ -135,11 +129,7 @@ namespace Zbang.Cloudents.MobileApp
 
            
             return IocFactory.IocWrapper.Build();
-
-
         }
     }
-
-
 }
 

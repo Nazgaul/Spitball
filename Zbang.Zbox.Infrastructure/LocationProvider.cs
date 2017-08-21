@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -9,6 +10,13 @@ namespace Zbang.Zbox.Infrastructure
 {
     public class LocationProvider : ILocationProvider
     {
+        private readonly ILogger m_Logger;
+
+        public LocationProvider(ILogger logger)
+        {
+            m_Logger = logger;
+        }
+
         public async Task<IPCheckEntity> GetLocationDataAsync(string ipAddress)
         {
             var client = new IPCheckContainer(
@@ -28,7 +36,7 @@ namespace Zbang.Zbox.Infrastructure
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError($"Location provider with ip address {ipAddress}", ex);
+                m_Logger.Exception(ex, new Dictionary<string,string> {["service"] = "Location"});
                 return null;
             }
         }

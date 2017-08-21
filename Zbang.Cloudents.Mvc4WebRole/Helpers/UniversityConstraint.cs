@@ -9,7 +9,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         public bool Match(HttpContextBase httpContext, Route route, string parameterName, RouteValueDictionary values,
             RouteDirection routeDirection)
         {
-
             if (httpContext.Request.IsAjaxRequest())
             {
                 return false;
@@ -20,7 +19,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                 return false;
             }
             var str = obj.ToString().ToLower();
-
 
             if (str == "dashboard" || str == "error" || str == "chat")
             {

@@ -1,6 +1,5 @@
 ﻿namespace Zbang.Zbox.WorkerRoleSearch
 {
-
     public class WyzantTutor
     {
         public int TutorID { get; set; }
@@ -30,5 +29,4 @@
         public string Name { get; set; }
         public object Description { get; set; }
     }
-
 }

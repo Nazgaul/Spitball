@@ -17,12 +17,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
     {
         public void Configuration(IAppBuilder app)
         {
-           
-
             //app.Use<LanguageMiddleware>();
             //app.Use((context, next) =>
             //{
-                
+
             //    var cultureInfo = new CultureInfo("de-DE");
             //    Thread.CurrentThread.CurrentUICulture = cultureInfo;
             //    Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
@@ -33,7 +31,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //app.CreatePerOwinContext(ApplicationDbContext.Create);
 
             //app.CreatePerOwinContext(() => DependencyResolver.Current.GetService<ApplicationUserManager>());
-            
+
 
         }
     }

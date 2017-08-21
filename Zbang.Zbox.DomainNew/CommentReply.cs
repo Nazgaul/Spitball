@@ -32,7 +32,6 @@ namespace Zbang.Zbox.Domain
             if (string.IsNullOrEmpty(text))
             {
                 text = null;
-
             }
             Text = text?.Trim();
             DateTimeUser = new UserTimeDetails(user.Id);
@@ -61,11 +60,7 @@ namespace Zbang.Zbox.Domain
 
         protected virtual ICollection<Updates> Updates { get; set; }
 
-
         protected virtual ICollection<ReplyLike> Likes { get; set; }
         public virtual int LikeCount { get; set; }
-
-
-       
     }
 }

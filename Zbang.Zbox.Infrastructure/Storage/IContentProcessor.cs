@@ -8,15 +8,11 @@ namespace Zbang.Zbox.Infrastructure.Storage
     {
         Task<PreviewResult> ConvertFileToWebsitePreviewAsync(Uri contentUrl, int index, CancellationToken cancelToken = default(CancellationToken));
 
-
         bool CanProcessFile(Uri contentUrl);
 
         //TODO: split to a different interface
         Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken));
 
         Task<string> ExtractContentAsync(Uri blobUri,CancellationToken cancelToken = default(CancellationToken));
-
     }
-
-   
 }

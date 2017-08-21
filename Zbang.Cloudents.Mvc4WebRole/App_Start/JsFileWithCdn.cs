@@ -14,6 +14,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             LocalFile = localFile;
             CdnFile = cdnFile;
         }
+
         public string LocalFile { get; }
         public string CdnFile { get; }
     }
@@ -25,6 +26,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             LeftCssFile = leftCssFile;
             RightCssFile = $"{LeftCssFile.Replace(Path.GetExtension(LeftCssFile), string.Empty)}.rtl.css";
         }
+
         public CssWithRtl(string leftCssFile,string rightCssFile)
         {
             LeftCssFile = leftCssFile;

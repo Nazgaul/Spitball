@@ -13,6 +13,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
         {
             m_EmailVerification = DependencyResolver.Current.GetService<IEmailVerification>();
         }
+
         public override bool IsValid(object value)
         {
             return m_EmailVerification.VerifyEmail(value.ToString());

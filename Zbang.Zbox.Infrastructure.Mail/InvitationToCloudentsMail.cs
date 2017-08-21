@@ -20,7 +20,6 @@
             html = html.Replace("{Image}", m_Parameters.SenderImage);
             html = html.Replace("{{Url}}", m_Parameters.Url);
             return html;
-
         }
 
         public override string AddSubject()
@@ -31,7 +30,6 @@
         public override string AddCategory()
         {
             return Category;
-
         }
     }
 }

@@ -2,7 +2,6 @@
 {
     public sealed class CacheRegions
     {
-
         public string Region { get; }
         public bool SuppressVersion { get;  }
 
@@ -15,7 +14,7 @@
         public static CacheRegions BuildFeedRegion(long boxId)
         {
             return new CacheRegions("feed_" + boxId, false);
-            
+
             //return $"feed_{boxId}";
         }
 
@@ -37,10 +36,9 @@
         public static readonly CacheRegions ZipToLocation = new CacheRegions("zip", true);
         public static readonly CacheRegions University = new CacheRegions("university",false);
         public static readonly CacheRegions Search = new CacheRegions("search", false);
-        public static readonly CacheRegions HomePage = new CacheRegions("boxesHomePage", false);
+        public static readonly CacheRegions Homepage = new CacheRegions("boxesHomePage", false);
         public static readonly CacheRegions Profile = new CacheRegions("profileStats", false);
         public static readonly CacheRegions SearchMobile = new CacheRegions("searchMobile", false);
-
 
         public override string ToString()
         {

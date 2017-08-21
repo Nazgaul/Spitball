@@ -12,7 +12,6 @@ using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.ReadServices;
 
-
 namespace Zbang.Zbox.WorkerRoleSearch
 {
     internal class IocFactory
@@ -46,7 +45,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             .WithParameter("hubName", ConfigFetcher.Fetch("ServiceBusHubName"))
             .InstancePerLifetimeScope();
 
-
             builder.RegisterType<JaredSendPush>()
                 .As<IJaredPushNotification>()
                 .WithParameter("connectionString", "Endpoint=sb://spitball.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=1+AAf2FSzauWHpYhHaoweYT9576paNgmicNSv6jAvKk=")
@@ -55,8 +53,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             builder.RegisterModule<WorkerRoleModule>();
             Container = builder.Build();
-
-
         }
 
         public T Resolve<T>(string name)

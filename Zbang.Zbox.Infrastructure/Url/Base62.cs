@@ -8,12 +8,12 @@ namespace Zbang.Zbox.Infrastructure.Url
     /// </summary>
     public struct Base62
     {
-        private readonly long m_Value;
         private string m_StringValue;
 
         public Base62(string value)
         {
-            m_Value = 0;
+            if (value == null) throw new ArgumentNullException(nameof(value));
+            Value = 0;
             var count = 0;
 
             for (var i = value.Length - 1; i >= 0; i--)
@@ -40,7 +40,7 @@ namespace Zbang.Zbox.Infrastructure.Url
                         $"The character '{c}' is not legal; only the characters 1-9, a-z and A-Z are legal.");
                 }
 
-                m_Value += part * pos;
+                Value += part * pos;
             }
 
             m_StringValue = value;
@@ -48,11 +48,9 @@ namespace Zbang.Zbox.Infrastructure.Url
 
         public Base62(long value)
         {
-            m_Value = value;
+            Value = value;
             m_StringValue = null;
         }
-
-
 
         private string ConvertToString(long value)
         {
@@ -83,11 +81,11 @@ namespace Zbang.Zbox.Infrastructure.Url
             return ConvertToString(value / 62) + val;
         }
 
-        public long Value => m_Value;
+        public long Value { get; }
 
         public override string ToString()
         {
-            return m_StringValue ?? (m_StringValue = ConvertToString(m_Value));
+            return m_StringValue ?? (m_StringValue = ConvertToString(Value));
         }
 
         public override bool Equals(object obj)
@@ -97,7 +95,7 @@ namespace Zbang.Zbox.Infrastructure.Url
 
         public override int GetHashCode()
         {
-            return m_Value.GetHashCode();
+            return Value.GetHashCode();
         }
 
         #region Base 62 Math
@@ -126,86 +124,86 @@ namespace Zbang.Zbox.Infrastructure.Url
 
         #region Comparison
 
-        public static bool operator <=(Base62 a, Base62 b)
+        public static bool operator <=(Base62 left, Base62 right)
         {
-            return (a == b) || (a.Value < b.Value);
+            return (left == right) || (left.Value < right.Value);
         }
 
-        public static bool operator >=(Base62 a, Base62 b)
+        public static bool operator >=(Base62 left, Base62 right)
         {
-            return (a == b) || (a.Value > b.Value);
+            return (left == right) || (left.Value > right.Value);
         }
 
-        public static bool operator <(Base62 a, Base62 b)
+        public static bool operator <(Base62 left, Base62 right)
         {
-            return a.Value < b.Value;
+            return left.Value < right.Value;
         }
 
-        public static bool operator >(Base62 a, Base62 b)
+        public static bool operator >(Base62 left, Base62 right)
         {
-            return a.Value > b.Value;
+            return left.Value > right.Value;
         }
 
         #endregion
 
         #region Implicit conversions to Base62
 
-        public static implicit operator Base62(string a)
+        public static implicit operator Base62(string number)
         {
-            return new Base62(a);
+            return new Base62(number);
         }
 
-        public static implicit operator Base62(int a)
+        public static implicit operator Base62(int number)
         {
-            return new Base62(a);
+            return new Base62(number);
         }
 
         #endregion
 
         #region Implicit conversions from Base62
 
-        public static implicit operator string(Base62 a)
+        public static implicit operator string(Base62 number)
         {
-            return a.ToString();
+            return number.ToString();
         }
 
-        public static implicit operator long(Base62 a)
+        public static implicit operator long(Base62 number)
         {
-            return a.Value;
+            return number.Value;
         }
 
         #endregion
 
         #region Equality and Inequality (Base62, string, int)
 
-        public static bool operator ==(Base62 a, Base62 b)
+        public static bool operator ==(Base62 left, Base62 right)
         {
-            return a.Equals(b);
+            return left.Equals(right);
         }
 
-        public static bool operator !=(Base62 a, Base62 b)
+        public static bool operator !=(Base62 left, Base62 right)
         {
-            return !a.Equals(b);
+            return !left.Equals(right);
         }
 
-        public static bool operator ==(Base62 a, int b)
+        public static bool operator ==(Base62 left, int right)
         {
-            return a.Value == b;
+            return left.Value == right;
         }
 
-        public static bool operator !=(Base62 a, int b)
+        public static bool operator !=(Base62 left, int right)
         {
-            return a.Value != b;
+            return left.Value != right;
         }
 
-        public static bool operator ==(Base62 a, string b)
+        public static bool operator ==(Base62 left, string right)
         {
-            return a.Value == new Base62(b).Value;
+            return left.Value == new Base62(right).Value;
         }
 
-        public static bool operator !=(Base62 a, string b)
+        public static bool operator !=(Base62 left, string right)
         {
-            return a.Value != new Base62(b).Value;
+            return left.Value != new Base62(right).Value;
         }
 
         #endregion

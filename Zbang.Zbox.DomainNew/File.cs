@@ -8,6 +8,7 @@ namespace Zbang.Zbox.Domain
         {
            
         }
+
         public File(string itemName, User uploaderUser, long sized, string blobName,
             Box box)
            : base(itemName, uploaderUser, sized, box, blobName)

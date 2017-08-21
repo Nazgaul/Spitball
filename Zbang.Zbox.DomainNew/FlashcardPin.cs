@@ -6,7 +6,7 @@ namespace Zbang.Zbox.Domain
     {
         protected FlashcardPin()
         {
-            
+
         }
 
         public FlashcardPin(Guid id, User user, FlashcardMeta flashcard,int index) :this()
@@ -17,6 +17,7 @@ namespace Zbang.Zbox.Domain
             Index = index;
             DateTime = DateTime.UtcNow;
         }
+
         public Guid Id { get; set; }
         public int Index { get; set; }
 
@@ -25,6 +26,5 @@ namespace Zbang.Zbox.Domain
         public FlashcardMeta Flashcard { get; set; }
 
         public DateTime DateTime { get; set; }
-
     }
 }

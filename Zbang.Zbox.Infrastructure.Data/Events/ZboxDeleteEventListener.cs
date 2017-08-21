@@ -29,7 +29,6 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
             var deletable = entity as ISoftDelete;
             if (deletable != null)
             {
-
                 deletable.DeleteAssociation();
                 deletable.IsDeleted = true;
 
@@ -42,6 +41,5 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
                                   persister, transientEntities);
             }
         }
-
     }
 }

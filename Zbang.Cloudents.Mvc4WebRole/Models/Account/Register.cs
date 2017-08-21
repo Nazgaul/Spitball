@@ -21,7 +21,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
         [EmailVerify(ErrorMessageResourceType = typeof(LogOnResources), ErrorMessageResourceName = "NotValidEmail", ErrorMessage = null)]
         public string NewEmail { get; set; }
 
-
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "PwdRequired")]
         [ValidatePasswordLength(ErrorMessageResourceName = "MustBeAtLeast", ErrorMessageResourceType = typeof(ValidatePasswordResources))]
         [DataType(DataType.Password)]
@@ -35,7 +34,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
         //public string ReturnUrl { get; set; }
 
         public long? BoxId { get; set; }
-
 
         public override string ToString()
         {

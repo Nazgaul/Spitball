@@ -40,7 +40,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
             public string Url { get; private set; }
             public int ExtraUpdatesCount { get; private set; }
             public IEnumerable<BoxUpdateDetails> Updates { get; private set; }
-
         }
         public abstract class BoxUpdateDetails
         {
@@ -57,7 +56,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
             public abstract string BuildMailLine(CultureInfo culture);
 
-
         }
         public class ItemUpdate : BoxUpdateDetails
         {
@@ -66,7 +64,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
             {
                 Name = name;
                 OwnerName = ownerName;
-
             }
             public string Name { get; set; }
             public string OwnerName { get; set; }
@@ -149,7 +146,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 return sb.ToString();
             }
         }
-
 
     }
 }

@@ -20,6 +20,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_QueueProviderExtract = queueProviderExtract;
             m_ComponentContent = componentContent;
         }
+
         public string Name => nameof(MailQueueProcess);
         public async Task RunAsync(CancellationToken cancellationToken)
         {
@@ -27,7 +28,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 try
                 {
-                    
                     var queueName = new MailQueueName();
                     var result = await m_QueueProviderExtract.RunQueueAsync(queueName, async msg =>
                     {
@@ -64,7 +64,5 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
             }
         }
-
-      
     }
 }

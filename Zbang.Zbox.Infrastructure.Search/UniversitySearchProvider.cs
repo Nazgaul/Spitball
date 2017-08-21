@@ -25,7 +25,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             m_Connection = connection;
             if (m_Connection.IsDevelop)
             {
-                m_IndexName = m_IndexName + "-dev";
+                m_IndexName += "-dev";
             }
             m_IndexClient = connection.SearchClient.Indexes.GetClient(m_IndexName);
         }
@@ -46,7 +46,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             var scoringProfile = new ScoringProfile(CountryScoringProfile,
                 functions: new ScoringFunction[] { scoringFunction }, functionAggregation: ScoringFunctionAggregation.Sum);
 
-            var suggester = new Suggester("sg", SuggesterSearchMode.AnalyzingInfixMatching, NameField3, nameof(UniversitySearch.Extra3).ToLowerInvariant());
+            var suggester = new Suggester("sg",  NameField3, nameof(UniversitySearch.Extra3).ToLowerInvariant());
 
             var index = new Index
             {
@@ -56,9 +56,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Suggesters = new[] { suggester }
             };
             return index;
-
         }
-
 
         private async Task BuildIndexAsync()
         {
@@ -112,7 +110,6 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
             await Task.WhenAll(tResult, tSuggest).ConfigureAwait(false);
 
-
             var result = tResult.Result.Results.Select(
                     s => new UniversityByPrefixDto
                     {
@@ -136,8 +133,8 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
 
             return result;
-
         }
+
         private static readonly Task<DocumentSuggestResult<UniversitySearch>> CompletedTask = Task.FromResult<DocumentSuggestResult<UniversitySearch>>(null);
 
         public async Task<bool> UpdateDataAsync(IEnumerable<UniversitySearchDto> universityToUpload, IEnumerable<long> universityToDelete)
@@ -161,14 +158,14 @@ namespace Zbang.Zbox.Infrastructure.Search
                             Name2 = s.Name.Trim(),
 #pragma warning restore 618
                             Name3 = s.Name.Trim(),
-                           
+
                             Extra3 = s.Extra?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
                             Image = s.Image?.Trim(),
                             Country = s.Country.ToLowerInvariant(),
                             MembersCount = s.NoOfUsers,
                             GeographyPoint = s.Latitude.HasValue && s.Longitude.HasValue ? GeographyPoint.Create(s.Latitude.Value,s.Longitude.Value) : null,
                             MembersImages = s.UsersImages.Where(w => w != null).ToArray()
-                           
+
                         }
                             );
 
@@ -177,8 +174,6 @@ namespace Zbang.Zbox.Infrastructure.Search
                 var batch = IndexBatch.Upload(uploadBatch);
                 if (batch.Actions.Any())
                     await m_IndexClient.Documents.IndexAsync(batch).ConfigureAwait(false);
-
-
             }
             if (universityToDelete != null)
             {
@@ -190,13 +185,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                 var batch = IndexBatch.Delete(deleteBatch);
                 if (batch.Actions.Any())
                     await m_IndexClient.Documents.IndexAsync(batch).ConfigureAwait(false);
-
-
             }
             return true;
-
         }
-
-
     }
 }

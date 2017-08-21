@@ -6,13 +6,10 @@ using Zbang.Zbox.ViewModel.Queries.Search;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
-
-
     public interface IItemReadSearchProvider
     {
         Task<IEnumerable<SearchDocument>> SearchItemAsync(SearchQuery query, CancellationToken cancelToken);
         Task<IEnumerable<SearchDocument>> SearchItemAsync(ViewModel.Queries.Search.SearchQueryMobile query, CancellationToken cancelToken);
-
 
         Task<IEnumerable<SearchDocument>> SearchItemAsync(ViewModel.Queries.Search.SearchItemInBox query,
             CancellationToken cancelToken);

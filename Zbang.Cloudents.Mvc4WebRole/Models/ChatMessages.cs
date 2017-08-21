@@ -5,7 +5,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
 {
     public class ChatMessages
     {
-
         private DateTime? m_DateTime;
         public Guid? ChatRoom { get; set; }
         public IEnumerable<long> UserIds { get; set; }

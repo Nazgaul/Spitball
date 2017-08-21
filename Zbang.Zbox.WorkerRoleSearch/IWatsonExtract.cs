@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Culture;
+using Zbang.Zbox.Infrastructure;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {

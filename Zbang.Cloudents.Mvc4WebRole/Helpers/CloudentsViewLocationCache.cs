@@ -14,7 +14,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         //  //  m_Cache = DependencyResolver.Current.GetService<Zbox.Infrastructure.Cache.ICache>();
         //}
 
-
         public string GetViewLocation(System.Web.HttpContextBase httpContext, string key)
         {
             try
@@ -24,7 +23,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             }
             catch (Exception ex)
             {
-
                 TraceLog.WriteError("GetViewLocation", ex);
                 return (string)httpContext.Cache[key];
             }
@@ -35,14 +33,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             try
             {
                 httpContext.Cache.Insert(key, virtualPath, null /* dependencies */, Cache.NoAbsoluteExpiration, TimeSpan.FromDays(2));
-               
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("InsertViewLocation", ex);
                 httpContext.Cache.Insert(key, virtualPath, null /* dependencies */, Cache.NoAbsoluteExpiration, TimeSpan.FromDays(2));
             }
-
         }
     }
 }

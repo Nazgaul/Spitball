@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Culture;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -24,6 +24,7 @@ namespace Zbang.Zbox.Domain
             Box = box;
             DateTimeUser = new UserTimeDetails(user.Id);
         }
+
         public virtual long Id { get; set; }
         public virtual Language Language { get; set; }
         public virtual string Name { get; set; }
@@ -50,7 +51,6 @@ namespace Zbang.Zbox.Domain
             ShouldMakeDirty = () => true;
         }
 
-
         public virtual bool IsDirty { get; set; }
         public virtual Func<bool> ShouldMakeDirty { get; set; }
         public virtual ISet<ItemTag> ItemTags { get; set; }
@@ -73,6 +73,7 @@ namespace Zbang.Zbox.Domain
             }
             return Task.CompletedTask;
         }
+
         public virtual void RemoveTag(string tag)
         {
             var tagToRemove = ItemTags.FirstOrDefault(w => w.Tag.Name == tag);
@@ -88,6 +89,5 @@ namespace Zbang.Zbox.Domain
         public virtual Box Box { get; set; }
 
         public ICollection<FlashcardPin> Pins { get; set; }
-
     }
 }

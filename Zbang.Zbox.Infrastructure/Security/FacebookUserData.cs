@@ -4,7 +4,6 @@ using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Security
 {
-
     public class FacebookUserData
     {
         public long Id { get; set; }
@@ -38,7 +37,6 @@ namespace Zbang.Zbox.Infrastructure.Security
                 {
                     return Sex.Female;
                 }
-                TraceLog.WriteError("read reading gender from facebook " + Gender.ToLower());
                 return Sex.NotKnown;
             }
         }

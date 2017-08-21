@@ -44,10 +44,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public ActionResult IndexPartial()
         {
             return PartialView("Index");
-
         }
 
-       
 
         [HttpGet,ActionName("Boxes")]
         public async Task<JsonResult> BoxesAsync(string q, int page, CancellationToken cancellationToken)
@@ -58,6 +56,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 ResultSizeRegularState);
             return await SearchQueryAsync(q, cancellationToken, query, m_BoxSearchService.SearchBoxAsync).ConfigureAwait(false);
         }
+
         [HttpGet, ActionName("Flashcards")]
         public async Task<JsonResult> FlashcardsAsync(string q, int page, CancellationToken cancellationToken)
         {
@@ -67,6 +66,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 ResultSizeRegularState);
             return await SearchQueryAsync(q, cancellationToken, query, m_FlashcardSearchService.SearchFlashcardAsync).ConfigureAwait(false);
         }
+
         [HttpGet,ActionName("Items")]
         public async Task<JsonResult> ItemsAsync(string q, int page, CancellationToken cancellationToken)
         {
@@ -76,6 +76,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 ResultSizeRegularState);
             return await SearchQueryAsync(q, cancellationToken, query, m_ItemSearchService.SearchItemAsync).ConfigureAwait(false);
         }
+
         [HttpGet,ActionName("Quizzes")]
         public async Task<JsonResult> QuizzesAsync(string q, int page, CancellationToken cancellationToken)
         {
@@ -91,10 +92,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             Func<SearchQuery, CancellationToken, Task<TD>> func)
             where TD : class
         {
-
             try
             {
-
                 if (string.IsNullOrEmpty(q))
                 {
                     return JsonError("need term");
@@ -126,11 +125,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(retVal);
         }
 
-
         [HttpGet,ActionName("ItemInBox")]
         public async Task<JsonResult> ItemInBoxAsync(string term, long boxId, int page, CancellationToken cancellationToken, int sizePerPage = 20)
         {
-
             if (string.IsNullOrEmpty(term))
             {
                 return JsonError();

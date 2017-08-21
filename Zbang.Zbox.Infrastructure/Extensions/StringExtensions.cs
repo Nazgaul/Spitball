@@ -28,7 +28,6 @@ namespace Zbang.Zbox.Infrastructure.Extensions
             }
             return str;
         }
-        
     }
 }
 

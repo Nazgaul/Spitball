@@ -67,7 +67,6 @@ namespace Zbang.Zbox.Domain
         public virtual bool IsDeleted { get; set; }
         public virtual User Owner { get; protected set; }
 
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         public virtual string Url { get; protected set; }
 
@@ -83,14 +82,12 @@ namespace Zbang.Zbox.Domain
         protected virtual ICollection<Updates> Updates { get; set; }
         public virtual ICollection<InviteToBox> Invites { get; set; }
 
-
         public virtual int MembersCount { get; protected set; }
         public virtual int ItemCount { get; protected set; }
         public virtual int QuizCount { get; protected set; }
         public virtual int FlashcardCount { get; protected set; }
 
         public virtual int CommentCount { get; protected set; }
-
 
         public void ChangeBoxName(string newBoxName, User user)
         {
@@ -105,11 +102,9 @@ namespace Zbang.Zbox.Domain
 
             Name = newBoxName.Trim();
             UserTime.UpdateUserTime(user.Id);
-            
+
             GenerateUrl();
         }
-
-
 
         public virtual void GenerateUrl()
         {
@@ -178,7 +173,6 @@ namespace Zbang.Zbox.Domain
             return usersAffectedByDeleteComment;
         }
 
-
         #region membersCount
         public virtual void CalculateMembers()
         {
@@ -210,11 +204,6 @@ namespace Zbang.Zbox.Domain
 
         #endregion
 
-        
-
-
-
-
         public void ChangePrivacySettings(BoxPrivacySetting boxPrivacySetting, User user)
         {
             if (PrivacySettings.PrivacySetting == boxPrivacySetting)
@@ -231,9 +220,7 @@ namespace Zbang.Zbox.Domain
             }
 
             PrivacySettings.PrivacySetting = boxPrivacySetting;
-
         }
-
 
         public virtual void DeleteAssociation()
         {
@@ -256,7 +243,6 @@ namespace Zbang.Zbox.Domain
         }
 
         public bool IsDirty { get; set; }
-
 
         public virtual Func<bool> ShouldMakeDirty { get; set; }
 

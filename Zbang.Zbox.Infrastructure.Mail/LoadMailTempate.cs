@@ -20,7 +20,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
                     return resource;
                 }
                 culture = culture.Parent;
-
             }
             //if (Resources.TryGetValue(resourceName, out content))
             //{
@@ -42,7 +41,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
                     return new StringBuilder(resource);
                 }
                 culture = culture.Parent;
-
             }
             //if (Resources.TryGetValue(resourceName, out content))
             //{
@@ -56,7 +54,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         private static string LoadResource(string resourceName)
         {
-
             using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
             {
                 if (stream == null) return null;

@@ -6,7 +6,6 @@ using System.Data;
 using System.Data.SqlClient;
 using Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling;
 using Zbang.Zbox.Infrastructure.Extensions;
-using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Data.Dapper
 {
@@ -24,13 +23,8 @@ namespace Zbang.Zbox.Infrastructure.Data.Dapper
 
             RetryManager.SetDefault(manager);
         }
+
         internal const string ConnectionStringKey = "Zbox";
-        //public static async Task<IDbConnection> OpenConnectionAsync()
-        //{
-        //    var connection = new SqlConnection(ConfigFetcher.Fetch(ConnectionStringKey));
-        //    await connection.OpenAsync();
-        //    return connection;
-        //}
 
         public static async Task<IDbConnection> OpenConnectionAsync(CancellationToken cancellationToken = default(CancellationToken), string connectionStringName = "Zbox")
         {
@@ -45,20 +39,18 @@ namespace Zbang.Zbox.Infrastructure.Data.Dapper
             var connection = new SqlConnection(ConfigFetcher.Fetch(ConnectionStringKey));
             connection.Open();
             return connection;
-
         }
 
         public static Task<IDbConnection> OpenReliableConnectionAsync(CancellationToken cancellationToken, string connectionStringName = ConnectionStringKey)
         {
             var retryPolicy = RetryManager.Instance.GetDefaultSqlConnectionRetryPolicy();
-            retryPolicy.Retrying += (sender, args) =>
-            {
-                // Log details of the retry.
-                var msg = $"Retry - Count:{args.CurrentRetryCount}, Delay:{args.Delay}, Exception:{args.LastException}";
-                TraceLog.WriteWarning(msg);
-            };
+            //retryPolicy.Retrying += (sender, args) =>
+            //{
+            //    // Log details of the retry.
+            //    var msg = $"Retry - Count:{args.CurrentRetryCount}, Delay:{args.Delay}, Exception:{args.LastException}";
+            //    TraceLog.WriteWarning(msg);
+            //};
             return retryPolicy.ExecuteAsync(() => OpenConnectionAsync(cancellationToken, connectionStringName), cancellationToken);
-
         }
     }
 }

@@ -15,8 +15,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                 throw new ArgumentNullException(nameof(httpContext));
             }
             m_UrlHelper = new UrlHelper(httpContext.Request.RequestContext);
-
         }
+
         public static string NameToQueryString(string name)
         {
             return UrlConst.NameToQueryString(name);

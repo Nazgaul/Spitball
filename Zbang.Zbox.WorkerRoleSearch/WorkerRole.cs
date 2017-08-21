@@ -19,7 +19,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private readonly IocFactory m_Unity;
 
-
         private readonly IList<IJob> m_Jobs;
         private readonly List<Task> m_Tasks = new List<Task>();
         private readonly ILogger m_Logger;
@@ -29,11 +28,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_Unity = new IocFactory();
             m_Jobs = GetJob();
             m_Logger = m_Unity.Resolve<ILogger>();
-
         }
+
         public override void Run()
         {
-
             Trace.TraceInformation("Zbang.Zbox.WorkerRoleSearch is running");
             try
             {
@@ -45,19 +43,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
         }
 
-        void RoleEnvironment_StatusCheck(object sender, RoleInstanceStatusCheckEventArgs e)
+        private void RoleEnvironment_StatusCheck(object sender, RoleInstanceStatusCheckEventArgs e)
         {
             if (e.Status == RoleInstanceStatus.Busy)
             {
                 m_Logger.Error("Status is busy");
             }
-
         }
-
 
         public override bool OnStart()
         {
-
             TelemetryConfiguration.Active.InstrumentationKey = RoleEnvironment.GetConfigurationSettingValue("APPINSIGHTS_INSTRUMENTATIONKEY");
             // Set the maximum number of concurrent connections
             ServicePointManager.DefaultConnectionLimit = 12;
@@ -107,19 +102,18 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         var task = m_Tasks[i];
                         if (task.IsFaulted)
                         {
-
                             // Observe unhandled exception
                             if (task.Exception != null)
                             {
                                 m_Logger.Exception(task.Exception.InnerException,
-                                    new Dictionary<string, string> {{"job", i.ToString()}});
+                                    new Dictionary<string, string> {["job"] = i.ToString() });
                             }
                             else
                             {
                                 m_Logger.Error("Job Failed and no exception thrown.");
                             }
 
-                            var jobToRestart = m_Jobs.ElementAt(i);
+                            var jobToRestart = m_Jobs[i];
                             m_Tasks[i] = Task.Run(() => jobToRestart.RunAsync(cancellationToken), cancellationToken);
                         }
                         if (task.IsCompleted)

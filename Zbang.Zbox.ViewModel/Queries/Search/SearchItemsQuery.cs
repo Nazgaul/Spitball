@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Zbang.Zbox.Infrastructure.Culture;
+using Zbang.Zbox.Infrastructure;
 
 namespace Zbang.Zbox.ViewModel.Queries.Search
 {

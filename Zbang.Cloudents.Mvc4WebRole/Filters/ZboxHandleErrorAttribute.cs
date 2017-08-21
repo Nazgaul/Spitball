@@ -29,7 +29,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                 $"url {filterContext.HttpContext.Request.RawUrl} user {filterContext.HttpContext.User.Identity.Name}  RequestType {filterContext.HttpContext.Request.RequestType} formData {sb} querystring {sb2}";
             TraceLog.WriteError(info, filterContext.Exception);
 
-
             if (filterContext.HttpContext.Request.IsAjaxRequest())
             {
                 filterContext.ExceptionHandled = true;
@@ -50,7 +49,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                 catch (Exception ex)
                 {
                     TraceLog.WriteError("Zbox Handle Error Attribute trying to send header", ex);
-
                 }
             }
             base.OnException(filterContext);

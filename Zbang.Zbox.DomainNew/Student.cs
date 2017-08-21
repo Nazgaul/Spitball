@@ -6,7 +6,7 @@ namespace Zbang.Zbox.Domain
     {
         protected Student()
         {
-            
+
         }
 
         public Student(University university, string id)
@@ -15,6 +15,7 @@ namespace Zbang.Zbox.Domain
             ID = id.PadLeft(9, '0');
             University = university;
         }
+
         public virtual long StudentId { get; set; }
         public virtual University University { get; set; }
 

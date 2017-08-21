@@ -32,8 +32,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //m_WriteService = writeService;
         }
 
-
-
         public string Name => nameof(UpdateSearchBox);
         public async Task RunAsync(CancellationToken cancellationToken)
         {
@@ -42,7 +40,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_Logger.Warning("box index " + index + " count " + count);
             while (!cancellationToken.IsCancellationRequested)
             {
-
                 try
                 {
                     await DoProcessAsync(cancellationToken, index, count).ConfigureAwait(false);
@@ -54,7 +51,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             m_Logger.Error($"{Name} On finish run");
         }
-
 
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
         {
@@ -79,9 +75,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return TimeToSleep.Same;
         }
 
-
-
-
         public async Task<bool> ExecuteAsync(FileProcess data, CancellationToken token)
         {
             var parameters = data as BoxProcessData;
@@ -94,7 +87,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 await m_ZboxWriteService.UpdateSearchUniversityDirtyToRegularAsync(
                     new UpdateDirtyToRegularCommand(new[] { parameters.BoxId })).ConfigureAwait(false);
-
             }
             return true;
         }

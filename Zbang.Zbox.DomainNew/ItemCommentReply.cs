@@ -8,6 +8,7 @@ namespace Zbang.Zbox.Domain
         {
 
         }
+
         public ItemCommentReply(User author, Item item, string comment, ItemComment parent, long id)
         {
             if (comment == null)
@@ -26,6 +27,7 @@ namespace Zbang.Zbox.Domain
             UserTime = new UserTimeDetails(Author.Id);
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
+
         public virtual ItemComment Parent { get; set; }
     }
 }

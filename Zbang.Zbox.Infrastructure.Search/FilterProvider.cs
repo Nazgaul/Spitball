@@ -37,8 +37,6 @@ namespace Zbang.Zbox.Infrastructure.Search
             var val = "(" + string.Join(" and ", uniToEnterFilter) + " and (not(" + uniIdField + " eq '-1')))";
             return val + $" or ({userField}/any(t: t eq '{userId}')  ) ";
         }
-
-
     }
 
     public interface ISearchFilterProvider

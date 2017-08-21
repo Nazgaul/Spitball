@@ -42,8 +42,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             m_BlobProviderFiles = blobProviderFiles;
         }
 
-
-
         //[VersionedRoute("api/item", 2),
         [HttpGet]
         [Route("api/item"), ActionName("Get")]
@@ -97,10 +95,8 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             //const string defaultMimeType = "application/octet-stream";
             var userId = User.GetUserId();
 
-
             //var item = ZboxReadService.GetItem(query);
             var t2 = m_ZboxReadService.GetItemDetailApiAsync(id);
-
 
             var autoFollowCommand = new SubscribeToSharedBoxCommand(userId, boxId);
             var t3 = m_ZboxWriteService.SubscribeToSharedBoxAsync(autoFollowCommand);
@@ -126,8 +122,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         }
 
-
-
         [HttpDelete, Route("api/item"), ActionName("Delete")]
         public async Task<HttpResponseMessage> DeleteAsync(long id/*, long boxId*/)
         {
@@ -140,14 +134,11 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             return Request.CreateResponse();
         }
 
-
-
         [HttpGet]
         [Route("api/item/upload")]
         public string UploadLink(string blob, string mimeType)
         {
             return m_BlobProviderFiles.GenerateSharedAccessWritePermission(blob, mimeType);
-            
         }
         // ReSharper disable once ConsiderUsingAsyncSuffix - api call
         [HttpPost]
@@ -165,7 +156,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
             try
             {
-
                 var helper = new UrlTitleBringer();
                 var title = model.Name;
                 if (string.IsNullOrEmpty(title))
@@ -177,7 +167,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                     catch (Exception ex)
                     {
                         TraceLog.WriteError("on bringing title of url " + model.FileUrl, ex);
-
                     }
                 }
                 if (string.IsNullOrWhiteSpace(title))
@@ -206,10 +195,8 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 return Request.CreateErrorResponse(System.Net.HttpStatusCode.Conflict, "Link already exists");
             }
-
-
-
         }
+
         [HttpPost]
         [Route("api/item/upload/dropbox"), ActionName("DropBox")]
         public async Task<HttpResponseMessage> DropBoxAsync(DropboxUploadRequest model)
@@ -217,11 +204,9 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             if (model == null)
             {
                 return Request.CreateBadRequestResponse();
-
             }
             if (!ModelState.IsValid)
             {
-
                 return Request.CreateBadRequestResponse();
             }
             var userId = User.GetUserId();
@@ -260,10 +245,8 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             };
 
             return Request.CreateResponse(fileDto);
-
-
-
         }
+
         [Route("api/item/upload/commit")]
         [HttpPost]
         public async Task<HttpResponseMessage> CommitFileAsync(FileUploadRequest model)
@@ -305,9 +288,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             };
 
             return Request.CreateResponse(fileDto);
-
         }
-
 
         [Route("api/item/rename")]
         [HttpPost]
@@ -329,7 +310,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
                 });
             }
-
             catch (UnauthorizedAccessException)
             {
                 return Request.CreateBadRequestResponse("You need to follow this box in order to change file name");
@@ -338,8 +318,8 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 return Request.CreateBadRequestResponse(ex.Message);
             }
-
         }
+
         [Route("api/item/like")]
         [HttpPost]
         public async Task<HttpResponseMessage> Like(ItemLikeRequest model)

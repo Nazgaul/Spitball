@@ -17,7 +17,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IMailComponent m_MailComponent;
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
-
+        private readonly ILogger m_Logger;
 
         public readonly int NumberOfEmailPerSession = int.Parse(ConfigFetcher.Fetch("NumberOfSpamGunEmailBatch"));
 
@@ -28,12 +28,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly int m_LimitPerIp = int.Parse(ConfigFetcher.Fetch("NumberOfEmailsPerHour"));
         //private const string ServiceName = "SpamGunService";
 
-
-        public SpamGun(IMailComponent mailComponent, IZboxReadServiceWorkerRole zboxReadService, IZboxWorkerRoleService zboxWriteService)
+        public SpamGun(IMailComponent mailComponent, IZboxReadServiceWorkerRole zboxReadService, IZboxWorkerRoleService zboxWriteService, ILogger logger)
         {
             m_MailComponent = mailComponent;
             m_ZboxReadService = zboxReadService;
             m_ZboxWriteService = zboxWriteService;
+            m_Logger = logger;
         }
 
         //private static bool NeedToProcess()
@@ -131,13 +131,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("spam gun error", ex);
+                m_Logger.Exception(ex);
                 await m_MailComponent.GenerateSystemEmailAsync("spam gun error", $"error {ex}").ConfigureAwait(false);
             }
             if (totalCount > 0)
             {
-                TraceLog.WriteInfo($"spam gun send {totalCount} emails");
-                //await m_MailComponent.GenerateSystemEmailAsync("spam gun", $"send {totalCount} emails");
+                m_Logger.Info($"spam gun send {totalCount} emails");
             }
 
             return true;
@@ -153,8 +152,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
         }
 
-
-
         private static string BuildIpPool(int i)
         {
             if (i == 0)
@@ -163,8 +160,5 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             return i.ToString();
         }
-
-
-
     }
 }

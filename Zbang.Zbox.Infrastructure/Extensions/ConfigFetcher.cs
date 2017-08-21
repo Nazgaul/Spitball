@@ -6,7 +6,6 @@ using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Extensions
 {
-
     public static class ConfigFetcher
     {
         public static readonly bool IsRunningOnCloud;
@@ -24,17 +23,16 @@ namespace Zbang.Zbox.Infrastructure.Extensions
                 {
                     IsEmulated = RoleEnvironment.IsEmulated;
                 }
-
             }
             catch (TypeInitializationException)
             {
                 IsRunningOnCloud = false;
             }
-            catch(Exception ex)
-            {
-                TraceLog.WriteError(ex);
-                IsRunningOnCloud = false;
-            }
+            //catch(Exception ex)
+            //{
+            //    //TraceLog.WriteError(ex);
+            //    IsRunningOnCloud = false;
+            //}
         }
 
         public static string Fetch(string name)
@@ -64,13 +62,10 @@ namespace Zbang.Zbox.Infrastructure.Extensions
             {
                 return FromConfig(name);
             }
-
         }
 
         private static string FromConfig(string name)
         {
-
-
             var setting = ConfigurationManager.AppSettings[name];
 
             if (setting != null)
@@ -84,6 +79,5 @@ namespace Zbang.Zbox.Infrastructure.Extensions
 
             //throw new ConfigurationErrorsException(name);
         }
-
     }
 }

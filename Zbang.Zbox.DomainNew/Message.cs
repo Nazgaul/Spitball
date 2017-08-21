@@ -4,13 +4,13 @@ namespace Zbang.Zbox.Domain
 {
     public class Message
     {
-
          protected Message()
         {
 
         }
+
         public Message(Guid id, User sender, User recipient, string text)
-           
+
         {
             if (string.IsNullOrEmpty(text))
             {
@@ -23,8 +23,8 @@ namespace Zbang.Zbox.Domain
             NotRead = false;
             New = true;
             Text = text;
-
         }
+
         public string Text { get; private set; }
 // ReSharper disable once UnusedAutoPropertyAccessor.Local
         public DateTime? OpenTime { get; protected set; }
@@ -39,11 +39,10 @@ namespace Zbang.Zbox.Domain
         {
             NotRead = true;
         }
+
         public void UpdateMessageAsOld()
         {
             New = false;
         }
-
-
     }
 }

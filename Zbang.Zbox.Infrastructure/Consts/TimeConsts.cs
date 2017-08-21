@@ -12,7 +12,6 @@ namespace Zbang.Zbox.Infrastructure.Consts
         public const int Year = Day * 365;
     }
 
-
     public static class ClaimConst
     {
         public const string UserIdClaim = "userId";

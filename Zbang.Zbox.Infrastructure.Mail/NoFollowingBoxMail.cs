@@ -18,7 +18,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
         }
     }
 
-
     public class LowContributionMail : MarketingMail
     {
         protected override string Text => EmailResource.LowContributionText;

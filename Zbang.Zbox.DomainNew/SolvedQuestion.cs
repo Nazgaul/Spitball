@@ -8,6 +8,7 @@ namespace Zbang.Zbox.Domain
         {
 
         }
+
         public SolvedQuestion(Guid id, User user, Question question,Answer answer, bool correct, SolvedQuiz solvedQuiz)
         {
             Id = id;
@@ -18,6 +19,7 @@ namespace Zbang.Zbox.Domain
             Correct = correct;
             SolvedQuiz = solvedQuiz;
         }
+
         public Guid Id { get; set; }
         public virtual User User { get; set; }
         public virtual Question Question { get; set; }

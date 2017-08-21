@@ -7,7 +7,6 @@ namespace Zbang.Zbox.Infrastructure.Extensions
     {
         public static void RegisterType<TFrom, TTo>(this ContainerBuilder builder, string name) where TTo : TFrom
         {
-
             builder.RegisterType<TTo>().Named<TFrom>(name);
         }
 
@@ -15,7 +14,6 @@ namespace Zbang.Zbox.Infrastructure.Extensions
         {
             builder.RegisterType(to).As(from);
         }
-
 
         public static void RegisterType<TFrom, TTo>(this ContainerBuilder builder) where TTo : TFrom
         {

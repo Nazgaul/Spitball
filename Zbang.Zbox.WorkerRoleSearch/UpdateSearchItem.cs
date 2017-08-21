@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure.Culture;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Search;
@@ -32,7 +32,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IWatsonExtract m_WatsonExtractProvider;
         private readonly IContentWriteSearchProvider m_ContentSearchProvider;
         private readonly ILogger m_Logger;
-
 
         public UpdateSearchItem(IZboxReadServiceWorkerRole zboxReadService,
             IZboxWorkerRoleService zboxWriteService,
@@ -66,7 +65,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 try
                 {
                     await DoProcessAsync(cancellationToken, index, count).ConfigureAwait(false);
-
                 }
                 catch (TaskCanceledException)
                 {
@@ -74,7 +72,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     {
                         break;
                     }
-
                 }
                 catch (Exception ex)
                 {
@@ -83,7 +80,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             m_Logger.Error($"{Name} On finish run");
         }
-
 
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
         {
@@ -170,7 +166,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     }
                 }
 
-
                 await m_ContentSearchProvider.UpdateDataAsync(elem, null, token).ConfigureAwait(false);
             }
         }
@@ -195,7 +190,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Uri uri;
             if (msgData.Type == ItemType.Document)
             {
-
                 uri = m_BlobProvider.GetBlobUrl(msgData.BlobName);
                 return new Processor
                 {
@@ -210,7 +204,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     ContentProcessor = m_FileProcessorFactory.GetProcessor(uri),
                     Uri = uri
                 };
-
             }
             return null;
         }
@@ -220,8 +213,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             public IContentProcessor ContentProcessor { get; set; }
             public Uri Uri { get; set; }
         }
-
-
 
         private void PreProcessFile(DocumentSearchDto msgData)
         {
@@ -276,13 +267,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 m_Logger.Error("blob url aborting process " + msgData.BlobName);
             }
             wait.Close();
-
         }
 
         private readonly TimeSpan m_TimeToWait = TimeSpan.FromMinutes(double.Parse(ConfigFetcher.Fetch("TimeToExtractText")));
         private string ExtractContentToUploadToSearch(DocumentSearchDto elem, CancellationToken token)
         {
-
             if (elem.Type != ItemType.Document)
             {
                 return null;
@@ -310,7 +299,6 @@ token);
                         {
                             try
                             {
-
                                 str = await processor.ExtractContentAsync(uri, tokenSource.Token).ConfigureAwait(false);
                                 if (string.IsNullOrEmpty(str))
                                 {
@@ -358,7 +346,6 @@ token);
             }
         }
 
-
         public async Task<bool> ExecuteAsync(FileProcess data, CancellationToken token)
         {
             var parameters = data as BoxFileProcessData;
@@ -384,7 +371,6 @@ token);
                 m_Logger.Exception(ex, new Dictionary<string, string> { { nameof(parameters), parameters.ToString() } });
                 return false;
             }
-
         }
     }
 }

@@ -28,6 +28,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
         {
             return Session.Get<T>(id);
         }
+
         public T UnProxyObjectAs(T obj)
         {
             return Session.GetSessionImplementation().PersistenceContext.Unproxy(obj) as T;
@@ -37,6 +38,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
         {
             return Session.Load<T>(id);
         }
+
         public void Save(T item, bool flush = false)
         {
             try
@@ -49,7 +51,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("Nhiberate save flush error", ex);
+                TraceLog.WriteError("Nhibernate save flush error", ex);
                 throw;
             }
         }
@@ -73,7 +75,6 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
             return Session.Query<T>();
         }
 
-
         public void Save(System.Collections.Generic.IEnumerable<T> items)
         {
             foreach (var item in items)
@@ -81,7 +82,5 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
                 Session.Save(item);
             }
         }
-
-
     }
 }

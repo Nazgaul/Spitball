@@ -19,11 +19,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
 
         public DateTime TimeOfExpire { get; set; }
 
-
         public override string ToString()
         {
             return $"email: {Email} code: {Code}";
         }
-
     }
 }

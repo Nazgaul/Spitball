@@ -14,6 +14,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
         {
             m_MailComponent = mailComponent;
         }
+
         public async Task<bool> ExecuteAsync(BaseMailData data, CancellationToken token)
         {
             var parameters2 = data as ForgotPasswordData2;

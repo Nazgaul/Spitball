@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Culture;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -14,6 +14,7 @@ namespace Zbang.Zbox.Domain
         protected Comment()
         {
         }
+
         public Comment(User user, string text, Box box, Guid id, IList<Item> items, FeedType feedType, bool anonymous)
         {
             if (user == null)
@@ -47,6 +48,7 @@ namespace Zbang.Zbox.Domain
             if (feedType == Infrastructure.Enums.FeedType.None) return string.IsNullOrEmpty(text) ? null : text.Trim();
             return feedType.GetEnumDescription(Languages.GetCultureBaseOnCountry(user.University.Country));
         }
+
         public virtual Guid Id { get; set; }
         public virtual User User { get; set; }
         public virtual string Text { get; set; }
@@ -92,6 +94,7 @@ namespace Zbang.Zbox.Domain
             }
             Quizzes.Add(quiz);
         }
+
         public virtual void AddFlashcard(FlashcardMeta flashcard)
         {
             if (Flashcards == null)

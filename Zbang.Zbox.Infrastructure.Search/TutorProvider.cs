@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure.Search;
@@ -14,7 +13,7 @@ namespace Zbang.Zbox.Infrastructure.Search
     {
         public TutorProvider(ISearchConnection connection, ILogger logger) : base(connection,"tutors", logger)
         {
-            
+
         }
 
         public override Index GetIndexStructure(string indexName)
@@ -24,12 +23,14 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Name = indexName,
                 Fields = FieldBuilder.BuildForType<Tutor>()
             };
+            definition.Fields.First(f => f.Name == nameof(Tutor.Subjects).ToLowerInvariant()).SynonymMaps =
+                new[] { SearchConnection.TutorSynonymMap };
             return definition;
         }
 
         public async Task<IEnumerable<string>> GetOldTutorsAsync(CancellationToken token)
         {
-            var parameters = new SearchParameters()
+            var parameters = new SearchParameters
             {
                 Filter = $"insertDate lt {DateTime.UtcNow.AddDays(-2):yyyy-MM-dd'T'hh:mm:ss'Z'}",
                 Select = new[] { "id" }

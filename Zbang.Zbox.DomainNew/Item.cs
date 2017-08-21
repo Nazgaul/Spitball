@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Consts;
-using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -15,11 +15,11 @@ namespace Zbang.Zbox.Domain
         public const int NameLength = 120;
         protected Item()
         {
-
             // ReSharper disable once DoNotCallOverridableMethodsInConstructor
             IsDeleted = false;
             ShouldMakeDirty = () => false;
         }
+
         protected Item(string itemName, User uploader,
             long iSized, Box box, string itemContentUrl)
             : this()
@@ -34,8 +34,8 @@ namespace Zbang.Zbox.Domain
             Size = iSized;
             Box = box;
             ItemContentUrl = itemContentUrl;
-
         }
+
         public virtual long Id { get; protected set; }
 
         public virtual string Name { get; set; }
@@ -62,11 +62,8 @@ namespace Zbang.Zbox.Domain
         protected virtual ICollection<ItemComment> ItemComments { get; set; }
         protected virtual ICollection<ItemCommentReply> ItemReplies { get; set; }
 
-
-
         public virtual ItemTab Tab { get; protected set; }
         public virtual Language Language { get; set; }
-
 
         public virtual ISet<ItemTag> ItemTags { get; set; }
         public virtual Task AddTagAsync(Tag tag, TagType type, IJaredPushNotification jaredPush)
@@ -86,6 +83,7 @@ namespace Zbang.Zbox.Domain
             }
             return Task.CompletedTask;
         }
+
         public virtual void RemoveTag(string tag)
         {
             var tagToRemove = ItemTags.FirstOrDefault(w => w.Tag.Name == tag);
@@ -116,12 +114,9 @@ namespace Zbang.Zbox.Domain
             NumberOfViews++;
         }
 
-
-
         public abstract string ChangeName(string newName);
 
         public ICollection<ItemRate> ItemRates { get; set; }
-
 
         public virtual void DeleteAssociation()
         {

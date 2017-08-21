@@ -31,8 +31,6 @@ namespace Zbang.Cloudents.Jared.Controllers
             [FromUri]IEnumerable<long> q,
             [FromUri]IEnumerable<long> f, [FromUri] IEnumerable<string> c)
         {
-
-
             var t2 = Task.FromResult<IEnumerable<Flashcard>>(new Flashcard[0]);
             var flashcardIdList = f as IList<long> ?? f.ToList();
             if (flashcardIdList.Any())

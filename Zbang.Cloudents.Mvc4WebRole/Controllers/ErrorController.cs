@@ -24,7 +24,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ViewBag.postBag = true;
             ViewBag.errorPage = true;
             return View();
-
         }
 
         [NoCache]
@@ -46,7 +45,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ViewBag.errorPage = true;
             return View();
         }
-
 
         [HttpPost]
         public JsonResult JsLog(JavaScriptError log)

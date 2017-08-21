@@ -12,16 +12,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
 {
     public class ETagAttribute : ActionFilterAttribute
     {
-
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-
             if (filterContext.IsChildAction) return;
 
             bool skipETag = filterContext.ActionDescriptor.IsDefined(typeof(NoEtagAttribute), inherit: true)
                                     || filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(NoEtagAttribute), inherit: true);
             if (skipETag) return;
-
 
             var headerSend = filterContext.HttpContext.Items[HTTPItemConsts.HeaderSend];
             if (headerSend != null && (bool)headerSend)
@@ -43,7 +40,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                 response.Filter
                 );
         }
-
     }
 
     public class ETagFilter : GZipStream
@@ -54,8 +50,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
         private readonly MD5 m_Md5;
         private bool m_FinalBlock;
 
-
-
         public ETagFilter(HttpResponseBase response, HttpRequestBase request)
             : base(response.Filter, CompressionLevel.NoCompression)
         {
@@ -63,7 +57,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             m_Request = request;
             m_Md5 = MD5.Create();
         }
-
 
         protected override void Dispose(bool disposing)
         {
@@ -113,12 +106,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                 m_Response.StatusCode = 304;
                 m_Response.StatusDescription = "Not Modified";
                 m_Response.Headers["Content-Length"] = "0";
-
             }
             base.Flush();
         }
     }
-
 
     public class ETagFilter2 : MemoryStream
     {
@@ -128,8 +119,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
         private readonly MD5 m_Md5;
         private bool m_FinalBlock;
 
-
-
         public ETagFilter2(HttpResponseBase response, HttpRequestBase request, Stream filter)
         {
             m_Response = response;
@@ -137,7 +126,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             m_Filter = filter;
             m_Md5 = MD5.Create();
         }
-
 
         protected override void Dispose(bool disposing)
         {
@@ -184,12 +172,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                 m_Response.StatusCode = 304;
                 m_Response.StatusDescription = "Not Modified";
                 m_Response.Headers["Content-Length"] = "0";
-
             }
             m_Filter.Flush();
             //base.Flush();
         }
     }
-
-   
 }

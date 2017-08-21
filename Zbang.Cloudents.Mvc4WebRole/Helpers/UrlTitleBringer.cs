@@ -11,10 +11,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
     {
         public async Task<string> BringTitleAsync(string url)
         {
-
             using (var client = new HttpClient { Timeout = TimeSpan.FromSeconds(5) })
             {
-
                 var uri = new UriBuilder(url).Uri;
                 using (var response = await client.GetAsync(uri))
                 {
@@ -24,7 +22,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                     }
                     var html = await response.Content.ReadAsStringAsync();
                     var regExCharset = Regex.Match(html, "<meta.*?charset=([^\"']+)").Groups[1].Value;
-
 
                     if (string.IsNullOrEmpty(regExCharset))
                     {

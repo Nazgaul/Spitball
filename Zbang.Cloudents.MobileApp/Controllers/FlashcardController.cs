@@ -115,6 +115,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             await m_ZboxWriteService.AddFlashcardLikeAsync(command);
             return Request.CreateResponse(HttpStatusCode.OK, command.Id);
         }
+
         [HttpDelete, Route("api/flashcard/{id:long}/like")]
         public async Task<HttpResponseMessage> DeleteLikeAsync(long id, Guid likeId)
         {
@@ -123,7 +124,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, string.Empty);
         }
 
-
         [HttpGet]
         [Route("api/flashcard/image")]
         public string UploadImage(string blob, string mimeType)
@@ -131,11 +131,9 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             return m_FlashcardBlob.GenerateSharedAccessWritePermission(blob, mimeType);
         }
 
-
         [HttpDelete, Route("api/flashcard/image")]
         public async Task<HttpResponseMessage> FlashcardImageRemoveAsync(Uri image, CancellationToken cancellationToken)
         {
-
             //var values = await m_DocumentDbReadService.FlashcardAsync(id);
             //if (values.Publish)
             //{
@@ -148,7 +146,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             var blobName = m_BlobProvider.Value.GetBlobNameFromUri(image);
             await m_FlashcardBlob.RemoveBlobAsync(blobName, cancellationToken);
             return Request.CreateResponse(string.Empty);
-
         }
 
         [HttpPost, Route("api/flashcard/publish")]

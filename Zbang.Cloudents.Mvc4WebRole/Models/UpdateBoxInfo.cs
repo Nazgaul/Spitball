@@ -21,7 +21,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
 
         public Zbox.Infrastructure.Enums.NotificationSetting Notification { get; set; }
 
-
         public override string ToString()
         {
             var sb = new StringBuilder();

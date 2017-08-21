@@ -20,8 +20,6 @@ namespace Zbang.Cloudents.Jared.Controllers
             m_ZboxWriteService = zboxWriteService;
         }
 
-
-
         [Route("api/course/follow")]
         [HttpPost]
         public async Task<HttpResponseMessage> FollowAsync(FollowRequest model)
@@ -47,7 +45,6 @@ namespace Zbang.Cloudents.Jared.Controllers
                 return Request.CreateBadRequestResponse();
             }
 
-
             var commandGeneral = new GetGeneralDepartmentCommand(User.GetUserId());
             var res = m_ZboxWriteService.GetGeneralDepartmentForUniversity(commandGeneral);
 
@@ -63,7 +60,6 @@ namespace Zbang.Cloudents.Jared.Controllers
             catch (BoxNameAlreadyExistsException)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.Conflict, "box already exists");
-
             }
         }
     }

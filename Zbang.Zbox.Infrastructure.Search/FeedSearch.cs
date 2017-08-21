@@ -40,13 +40,11 @@ namespace Zbang.Zbox.Infrastructure.Search
         [IsFilterable]
         public string UniversityId { get; set; }
 
-
         //[IsFilterable, IsSearchable]
         //public string Professor { get; set; }
 
         //[IsFilterable]
         //public string Code { get; set; }
-
 
         [IsSearchable, IsFilterable]
         public string[] Tags { get; set; }
@@ -65,7 +63,5 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public string UserName { get; set; }
         public string UserImage { get; set; }
-
-
     }
 }

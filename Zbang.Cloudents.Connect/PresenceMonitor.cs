@@ -38,7 +38,6 @@ namespace Zbang.Cloudents.Connect
 
         public void StartMonitoring()
         {
-           
             if (m_Timer == null)
             {
                 m_Timer = new Timer(_ =>

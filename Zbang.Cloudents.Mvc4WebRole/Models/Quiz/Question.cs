@@ -20,6 +20,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Quiz
 
         //[BindNever]
         public Guid? Id { get; set; }
-
     }
 }

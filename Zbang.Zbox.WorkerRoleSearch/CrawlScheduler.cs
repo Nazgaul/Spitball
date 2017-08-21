@@ -16,7 +16,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class CrawlScheduler2 : IScheduler
     {
-
         private readonly CloudTable m_Table;
         private readonly CloudQueue m_Queue;
         private int? m_Count;
@@ -33,7 +32,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         };
 
-
         public CrawlScheduler2(bool allowUriRecrawling)
         {
             var storageAccount = CloudStorageAccount.Parse(
@@ -46,6 +44,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_Queue = queueClient.GetQueueReference("crawler-urls");
             m_AllowUriRecrawling = allowUriRecrawling;
         }
+
         public void Dispose()
         {
             //m_Table.DeleteIfExists();
@@ -65,7 +64,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             if (page == null)
                 throw new ArgumentNullException(nameof(page));
 
-
             if (m_AllowUriRecrawling || page.IsRetry)
             {
                 InsertToQueue();
@@ -80,7 +78,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 try
                 {
-
                     var entity = new CrawlerUrlEntity(GetHostMd5(page.Uri), page.Uri.AbsoluteUri)
                     {
                         Url = page.Uri.AbsoluteUri,
@@ -93,8 +90,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 {
 
                 }
-
-
             }
         }
 
@@ -185,7 +180,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
         }
 
-
         private string GetHostMd5(Uri uri)
         {
             if (m_HostMd5.TryGetValue(uri.Host, out string md5Value))
@@ -197,6 +191,4 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return md5Value;
         }
     }
-
-
 }

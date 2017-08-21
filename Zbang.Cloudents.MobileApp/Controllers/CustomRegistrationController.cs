@@ -49,13 +49,10 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
             if (createStatus.Succeeded)
             {
-
-
                 CreateUserCommand command = new CreateMembershipUserCommand(Guid.Parse(user.Id),
                     model.NewEmail, model.FirstName, model.LastName,
                     model.Culture, Sex.NotKnown, null);
                 var result = await m_ZboxWriteService.CreateUserAsync(command);
-
 
                 var identity = new ClaimsIdentity();
                 identity.AddClaim(new Claim(ClaimConst.UserIdClaim, result.User.Id.ToString()/* User.GetUserId().ToString(CultureInfo.InvariantCulture)*/));
@@ -63,7 +60,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
                 //var identity = await user.GenerateUserIdentityAsync(m_UserManager, result.User.Id, result.UniversityId,
                 //     result.UniversityData);
-
 
                 var claims = identity.Claims.ToList();
                 claims.Add(new Claim(JwtRegisteredClaimNames.Sub, result.User.Id.ToString(CultureInfo.InvariantCulture)));
@@ -81,15 +77,10 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                     },
                     AuthenticationToken = token.RawData
                 });
-
-
-
             }
             var errors = string.Join(" ", createStatus.Errors);
             TraceLog.WriteError(errors);
             return Request.CreateBadRequestResponse(errors);
-
         }
-
     }
 }

@@ -8,7 +8,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
     /// </summary>
     public class ZboxAuthorizeAttribute : AuthorizeAttribute
     {
-
         public ZboxAuthorizeAttribute()
         {
             IsAuthenticationRequired = true;
@@ -17,8 +16,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
         /// should user need to be Authorize - default is true
         /// </summary>
         public bool IsAuthenticationRequired { get; set; }
-
-
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
@@ -40,7 +37,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                 catch (Exception ex)
                 {
                     Zbox.Infrastructure.Trace.TraceLog.WriteError("Zbox Authorize Attribute trying to send header", ex);
-
                 }
                 filterContext.Result = new EmptyResult();
                 return;

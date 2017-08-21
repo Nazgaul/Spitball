@@ -9,6 +9,5 @@ namespace Zbang.Cloudents.MobileApp.DataObjects
         public string BlobName { get; set; }
         [Required]
         public IList<long> Users { get; set; }
-
     }
 }

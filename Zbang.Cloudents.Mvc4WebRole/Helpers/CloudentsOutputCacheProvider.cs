@@ -25,8 +25,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             {
                 TraceLog.WriteError("CloudentsOutsputCacheProvider Initialize", ex);
             }
-
         }
+
         public override object Add(string key, object entry, DateTime utcExpiry)
         {
             try
@@ -38,7 +38,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                 TraceLog.WriteError("CloudentsOutsputCacheProvider Add", ex);
                 return m_Cache;
             }
-
         }
 
         public override object Get(string key)

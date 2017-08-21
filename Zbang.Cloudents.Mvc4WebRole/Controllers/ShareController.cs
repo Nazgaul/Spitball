@@ -14,7 +14,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class ShareController : BaseController
     {
-
         [HttpPost, ZboxAuthorize,ActionName("Invite")]
         public async Task<JsonResult> InviteAsync(InviteSystem model)
         {
@@ -41,7 +40,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError(BaseControllerResources.UnspecifiedError);
             }
         }
-        
+
 
         [HttpPost]
         [ZboxAuthorize,ActionName("InviteBox")]
@@ -72,7 +71,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-
                 TraceLog.WriteError($"InviteBox user: {User.GetUserId()} model: {model}", ex);
                 ModelState.AddModelError(string.Empty, BaseControllerResources.UnspecifiedError);
                 return JsonError(GetErrorFromModelState());
@@ -96,7 +94,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 TraceLog.WriteError($"SubscribeToBox userid {userid} boxid {boxId}", ex);
                 return JsonError();
             }
-
         }
 
         //[HttpGet,ActionName("FromEmail")]
@@ -110,7 +107,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //    try
         //    {
         //        var values = m_InviteLinkDecrypt.Value.DecryptInviteUrl(key, email);
-
 
         //        if (values.ExpireTime < DateTime.UtcNow || values.RecipientEmail != email)
         //        {

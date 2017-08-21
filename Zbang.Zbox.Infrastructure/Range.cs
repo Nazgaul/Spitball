@@ -24,7 +24,6 @@ namespace Zbang.Zbox.Infrastructure
             return $"[{Minimum} - {Maximum}]";
         }
 
-
         /// <summary>Determines if the range is valid.</summary>
         /// <returns>True if range is valid, else false</returns>
         public bool IsValid()
@@ -55,8 +54,6 @@ namespace Zbang.Zbox.Infrastructure
         {
             return IsValid() && range.IsValid() && ContainsValue(range.Minimum) && ContainsValue(range.Maximum);
         }
-
-
 
 
 

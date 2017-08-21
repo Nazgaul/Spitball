@@ -57,7 +57,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 result.Score
                 
             });
-
         }
 
         [HttpGet]
@@ -92,7 +91,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }));
         }
 
-
         [HttpGet]
         [Route("api/user/{userId}/items")]
         public async Task<HttpResponseMessage> ItemsAsync(long userId, int page, int sizePerPage = 15)
@@ -107,7 +105,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 s.Name,
                 s.Type
             }));
-
         }
     }
 }

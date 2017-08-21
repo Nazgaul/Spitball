@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
@@ -9,13 +11,15 @@ namespace Zbang.Zbox.Domain
     {
         protected Flashcard()
         {
-            
+
         }
+
         public Flashcard(long identifier)
         {
             Id = identifier;
-            id = Id.ToString();
+            id = Id.ToString(CultureInfo.InvariantCulture);
         }
+
         public long Id { get; set; }
         public string Name { get; set; }
         public bool Publish { get; set; }
@@ -24,12 +28,11 @@ namespace Zbang.Zbox.Domain
 
         public long BoxId { get; set; }
 
-        
         // ReSharper disable once InconsistentNaming Need for document db
+        [SuppressMessage("", "IDE1006", Justification = "Documentdb id is lowercase")]
         public string id { get; set; }
 
         public bool IsDeleted { get; set; }
-
 
         public IEnumerable<Card> Cards { get; set; }
         public DateTime DateTime { get; set; }
@@ -45,7 +48,6 @@ namespace Zbang.Zbox.Domain
     {
         public string Text { get; set; }
         public string Image { get; set; }
-
 
         //public Flashcard Flashcard { get; set; }
     }

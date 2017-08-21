@@ -9,8 +9,8 @@ using Microsoft.WindowsAzure.ServiceRuntime;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Newtonsoft.Json;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Azure.Blob;
-using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -27,7 +27,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IUniversityReadSearchProvider m_UniversitySearchProvider;
         private readonly ILogger m_Logger;
 
-
         private readonly string[] m_Prefix;
 
         public BlobManagement(IContentWriteSearchProvider searchProvider, IWatsonExtract watsonExtractProvider, IUniversityReadSearchProvider universitySearchProvider, ILogger logger)
@@ -42,8 +41,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             m_BlobClient = cloudStorageAccount.CreateCloudBlobClient();
             m_Prefix = Enumerable.Range(0, 16).Select(s=> s.ToString("X")).ToArray();
-
         }
+
         public async Task RunAsync(CancellationToken cancellationToken)
         {
             var container = m_BlobClient.GetContainerReference("crawl");
@@ -66,14 +65,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 //When the continuation token is null, the last page has been returned and execution can exit the loop.
                 do
                 {
-
                     var resultSegment = await container
                         .ListBlobsSegmentedAsync(prefix, false, BlobListingDetails.None, 100, continuationToken, null,
                             null,
                             cancellationToken).ConfigureAwait(false);
                     foreach (var blobItem in resultSegment.Results)
                     {
-
                         try
                         {
                             var blockBlob = blobItem as CloudBlockBlob;
@@ -93,7 +90,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     if (cancellationToken.IsCancellationRequested)
                     {
                         break;
-
                     }
 
                     //Get the continuation token.
@@ -193,7 +189,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
         }
 
         public string Name => nameof(BlobManagement);
-
 
         //private async Task DeleteStuffAsync(CloudBlobDirectory directory, CancellationToken cancellationToken)
         //{

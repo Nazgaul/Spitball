@@ -42,7 +42,6 @@ namespace Zbang.Cloudents.Jared.Controllers
             return Request.CreateResponse(retVal);
         }
 
-
         [Route("api/chat/message")]
         [Authorize]
         [HttpGet]
@@ -68,7 +67,6 @@ namespace Zbang.Cloudents.Jared.Controllers
             m_ZboxWriteService.MarkChatAsRead(command);
             return Request.CreateResponse();
         }
-
 
         [HttpGet]
         [Authorize]

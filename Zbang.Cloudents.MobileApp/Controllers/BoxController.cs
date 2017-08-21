@@ -33,11 +33,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             m_ZboxReadService = zboxReadService;
             m_ZboxReadSecurityService = zboxReadSecurityService;
             m_ZboxWriteService = zboxWriteService;
-
-
-
         }
-
 
         //[VersionedRoute("api/box", 2)]
         [HttpGet]
@@ -50,7 +46,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 //TODO we can remove this.
                 var tResult = m_ZboxReadService.GetBoxMetaWithMembersAsync(query, numberOfPeople);
                 var tUserType = m_ZboxReadSecurityService.GetUserStatusToBoxAsync(id, User.GetUserId());
-                await Task.WhenAll(tResult, tUserType);
+                await Task.WhenAll(tResult, tUserType).ConfigureAwait(false);
                 var result = tResult.Result;
                 result.UserType = tUserType.Result;
 
@@ -70,7 +66,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }
             catch (BoxAccessDeniedException)
             {
-
                 TraceLog.WriteError($"BoxAccessDeniedException userId: {User.GetUserId()} request box {id}");
                 return Request.CreateUnauthorizedResponse();
             }
@@ -90,11 +85,10 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 var query = new GetBoxQuery(id);
                 var tResult = m_ZboxReadService.GetBox2Async(query);
 
-
                 //TODO we can remove this.
                 //var tResult = m_ZboxReadService.GetBoxMetaWithMembersAsync(query, numberOfPeople);
                 var tUserType = m_ZboxReadSecurityService.GetUserStatusToBoxAsync(id, User.GetUserId());
-                await Task.WhenAll(tResult, tUserType);
+                await Task.WhenAll(tResult, tUserType).ConfigureAwait(false);
                 var result = tResult.Result;
                 result.UserType = tUserType.Result;
 
@@ -115,8 +109,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }
             catch (BoxAccessDeniedException)
             {
-
-                TraceLog.WriteError($"BoxAccessDeniedException userid: {User.GetUserId()} request box {id}");
+                TraceLog.WriteError($"BoxAccessDeniedException userId: {User.GetUserId()} request box {id}");
                 return Request.CreateUnauthorizedResponse();
             }
             catch (BoxDoesntExistException)
@@ -135,11 +128,10 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 var query = new GetBoxQuery(id);
                 var tResult = m_ZboxReadService.GetBox2Async(query);
 
-
                 //TODO we can remove this.
                 //var tResult = m_ZboxReadService.GetBoxMetaWithMembersAsync(query, numberOfPeople);
                 var tUserType = m_ZboxReadSecurityService.GetUserStatusToBoxAsync(id, User.GetUserId());
-                await Task.WhenAll(tResult, tUserType);
+                await Task.WhenAll(tResult, tUserType).ConfigureAwait(false);
                 var result = tResult.Result;
                 result.UserType = tUserType.Result;
 
@@ -160,8 +152,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }
             catch (BoxAccessDeniedException)
             {
-
-                TraceLog.WriteError($"BoxAccessDeniedException userid: {User.GetUserId()} request box {id}");
+                TraceLog.WriteError($"BoxAccessDeniedException userId: {User.GetUserId()} request box {id}");
                 return Request.CreateUnauthorizedResponse();
             }
             catch (BoxDoesntExistException)
@@ -169,7 +160,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 return Request.CreateNotFoundResponse();
             }
         }
-
 
         [HttpPost]
         [Route("api/box")]
@@ -187,7 +177,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 var userId = User.GetUserId();
                 var command = new CreateBoxCommand(userId, model.BoxName);
-                var result = await m_ZboxWriteService.CreateBoxAsync(command);
+                var result = await m_ZboxWriteService.CreateBoxAsync(command).ConfigureAwait(false);
                 return Request.CreateResponse(new
                 {
                     result.Url,
@@ -222,12 +212,11 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }
             try
             {
-
                 var userId = User.GetUserId();
 
                 var command = new CreateAcademicBoxCommand(userId, model.CourseName,
                                                            model.CourseId, model.Professor, guid.Value);
-                var result = await m_ZboxWriteService.CreateBoxAsync(command);
+                var result = await m_ZboxWriteService.CreateBoxAsync(command).ConfigureAwait(false);
                 return Request.CreateResponse(new
                 {
                     result.Url,
@@ -238,18 +227,15 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             catch (BoxNameAlreadyExistsException)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.Conflict, "box already exists");
-
             }
         }
-
-
 
         [HttpGet]
         [Route("api/box/{id:long}/items"), ActionName("Items")]
         public async Task<HttpResponseMessage> ItemsAsync(long id, Guid? tabId, int page, int sizePerPage = 20)
         {
             var query = new GetBoxItemsPagedQuery(id, tabId, page, sizePerPage);
-            var result = await m_ZboxReadService.GetWebServiceBoxItemsPagedAsync(query) ?? new List<Zbox.ViewModel.Dto.ItemDtos.ItemDto>();
+            var result = await m_ZboxReadService.GetWebServiceBoxItemsPagedAsync(query).ConfigureAwait(false) ?? new List<Zbox.ViewModel.Dto.ItemDtos.ItemDto>();
             return Request.CreateResponse(result.Select(s => new
             {
                 s.Name,
@@ -268,19 +254,20 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         public async Task<HttpResponseMessage> QuizzesAsync(long id, int page, int sizePerPage = 20)
         {
             var query = new GetBoxQuizesPagedQuery(id, page, sizePerPage);
-            var result = await m_ZboxReadService.GetBoxQuizzesAsync(query);
+            var result = await m_ZboxReadService.GetBoxQuizzesAsync(query).ConfigureAwait(false);
             return Request.CreateResponse(result.Where(w => w.Publish).Select(s => new
             {
                 s.Name,
                 s.Id
             }));
         }
+
         [HttpGet]
         [Route("api/box/{id:long}/flashcards")]
         public async Task<HttpResponseMessage> FlashcardsAsync(long id, int page, int sizePerPage = 20)
         {
             var query = new GetFlashCardsQuery(id);
-            var result = await m_ZboxReadService.GetBoxFlashcardsAsync(query);
+            var result = await m_ZboxReadService.GetBoxFlashcardsAsync(query).ConfigureAwait(false);
             return Request.CreateResponse(result.Where(w => w.Publish).Select(s => new
             {
                 s.Name,
@@ -312,7 +299,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [HttpGet, Route("api/box/{id:long}/members"), ActionName("Members")]
         public async Task<HttpResponseMessage> MembersAsync(long id, int page, int sizePerPage = 20)
         {
-            var result = await m_ZboxReadService.GetBoxMembersAsync(new GetBoxQuery(id, page, sizePerPage));
+            var result = await m_ZboxReadService.GetBoxMembersAsync(new GetBoxQuery(id, page, sizePerPage)).ConfigureAwait(false);
             return Request.CreateResponse(result.Select(s => new
             {
                 s.Id,
@@ -320,7 +307,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 s.Name
             }));
         }
-
 
         [Route("api/box/rename")]
         [HttpPost]
@@ -346,8 +332,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 return Request.CreateUnauthorizedResponse("You don't have permission");
             }
-
-
         }
 
         [Route("api/box/follow")]
@@ -363,7 +347,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 return Request.CreateBadRequestResponse();
             }
             var command = new SubscribeToSharedBoxCommand(User.GetUserId(), model.BoxId);
-            await m_ZboxWriteService.SubscribeToSharedBoxAsync(command);
+            await m_ZboxWriteService.SubscribeToSharedBoxAsync(command).ConfigureAwait(false);
             return Request.CreateResponse();
         }
 
@@ -373,7 +357,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         {
             var userId = User.GetUserId();
             var command = new UnFollowBoxCommand(id, userId, false);
-            await m_ZboxWriteService.UnFollowBoxAsync(command);
+            await m_ZboxWriteService.UnFollowBoxAsync(command).ConfigureAwait(false);
             return Request.CreateResponse();
         }
 
@@ -394,7 +378,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 var userId = User.GetUserId();
                 var shareCommand = new ShareBoxCommand(model.BoxId, userId, model.Recipients);
 
-                await m_ZboxWriteService.ShareBoxAsync(shareCommand);
+                await m_ZboxWriteService.ShareBoxAsync(shareCommand).ConfigureAwait(false);
                 return Request.CreateResponse();
             }
             catch (UnauthorizedAccessException)

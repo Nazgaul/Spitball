@@ -33,6 +33,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ViewBag.page = "privacy";
             return View();
         }
-
     }
 }

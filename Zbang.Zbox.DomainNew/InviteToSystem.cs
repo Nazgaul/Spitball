@@ -10,6 +10,7 @@ namespace Zbang.Zbox.Domain
         {
 
         }
+
         public InviteToSystem(Guid id, User sender, string image, string userName, string email)
             : base(id, sender, image, userName, email)
         {

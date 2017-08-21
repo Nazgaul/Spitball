@@ -11,6 +11,6 @@ namespace Zbang.Zbox.Infrastructure.UnitsOfWork
         ISession CurrentSession { get; set; }
 
         IUnitOfWork Create();
-        void DisposeUnitOfWork(IUnitOfWorkImplementor adapter);
+        void DisposeUnitOfWork(IUnitOfWorkImplementer adapter);
     }
 }

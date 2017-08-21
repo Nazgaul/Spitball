@@ -29,7 +29,6 @@ namespace Zbang.Cloudents.Jared.Controllers
         private readonly IZboxReadService m_ZboxReadService;
         private readonly IGuidIdGenerator m_GuidGenerator;
 
-
         public DocumentController(IBlobProvider2<FilesContainerName> blobProviderFiles, IQueueProvider queueProvider, IZboxWriteService zboxWriteService, IGuidIdGenerator guidGenerator, IZboxReadService zboxReadService)
         {
             m_BlobProviderFiles = blobProviderFiles;
@@ -70,7 +69,6 @@ namespace Zbang.Cloudents.Jared.Controllers
             return Request.CreateResponse(blobUrl);
         }
 
-
         [Route("api/document/like")]
         [HttpPost]
         [Authorize]
@@ -93,13 +91,11 @@ namespace Zbang.Cloudents.Jared.Controllers
             return Request.CreateResponse();
         }
 
-
         [HttpGet]
         [Route("api/document/upload")]
         public string UploadLink(string blob, string mimeType)
         {
             return m_BlobProviderFiles.GenerateSharedAccessWritePermission(blob, mimeType);
-
         }
 
         [Route("api/document/upload/commit")]
@@ -142,7 +138,6 @@ namespace Zbang.Cloudents.Jared.Controllers
             };
 
             return Request.CreateResponse(fileDto);
-
         }
 
         [HttpPost]
@@ -153,11 +148,9 @@ namespace Zbang.Cloudents.Jared.Controllers
             if (model == null)
             {
                 return Request.CreateBadRequestResponse();
-
             }
             if (!ModelState.IsValid)
             {
-
                 return Request.CreateBadRequestResponse();
             }
             var userId = User.GetUserId();

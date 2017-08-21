@@ -28,7 +28,6 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
         internal UnitOfWorkFactory()
         {
             ConfigureNHibernate();
-
         }
 
         private void ConfigureNHibernate()
@@ -78,8 +77,8 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             }
 
             SessionFactory = Configuration.BuildSessionFactory();
-
         }
+
         private void SaveConfiguration()
         {
             //try
@@ -96,7 +95,6 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             //        IFormatter bf = new BinaryFormatter();
             //        bf.Serialize(ms, Configuration);
 
-
             //        storage.AddToCache("nhibernate", GetConfigurationFileName(), ms.ToArray(),
             //            TimeSpan.FromDays(90));
             //    }
@@ -106,7 +104,6 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             //    TraceLog.WriteError("nhibernate SaveConfiguration", ex);
             //}
         }
-
 
         private static string GetConfigurationFileName()
         {
@@ -147,15 +144,12 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             //catch (Exception) { return null; }
         }
 
-
-
-
         public IUnitOfWork Create()
         {
             var session = CreateSession();
             session.FlushMode = FlushMode.Commit;
             CurrentSession = session;
-            return new UnitOfWorkImplementor(this, session);
+            return new UnitOfWorkImplementer(this, session);
         }
 
         public Configuration Configuration { get; private set; }
@@ -182,9 +176,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             }
         }
 
-
-
-        public void DisposeUnitOfWork(IUnitOfWorkImplementor adapter)
+        public void DisposeUnitOfWork(IUnitOfWorkImplementer adapter)
         {
             CurrentSession = null;
             Local.Data.Clear();

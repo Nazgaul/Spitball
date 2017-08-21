@@ -30,7 +30,6 @@ namespace Zbang.Zbox.Infrastructure.Search
         [IsSearchable]
         public string Course2 { get; set; }
 
-
         public string Url { get; set; }
         [IsFilterable]
         public long? UniversityId { get; set; }
@@ -52,8 +51,5 @@ namespace Zbang.Zbox.Infrastructure.Search
         [Obsolete]
         [IsSearchable,IsSortable]
         public string ParentDepartment { get; set; }
-
-
-
     }
 }

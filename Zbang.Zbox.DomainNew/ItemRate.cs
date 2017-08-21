@@ -8,6 +8,7 @@ namespace Zbang.Zbox.Domain
         {
 
         }
+
         public ItemRate(User user, Item item, Guid id)
         {
             if (user == null)

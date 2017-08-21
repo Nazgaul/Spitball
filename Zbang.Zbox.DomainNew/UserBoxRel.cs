@@ -11,6 +11,7 @@ namespace Zbang.Zbox.Domain
             UserTime = new UserTimeDetails(0);
             //Invites = new List<InviteToBox>();
         }
+
         public UserBoxRel(User user, Box box, UserRelationshipType userType)
             : this()
         {
@@ -22,8 +23,8 @@ namespace Zbang.Zbox.Domain
             BoxId = Box.Id;
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
 
-
         }
+
         public virtual long Id { get; protected set; }
         public virtual UserRelationshipType UserRelationshipType { get; set; }
         public virtual NotificationSetting NotificationSettings { get; set; }
@@ -33,7 +34,6 @@ namespace Zbang.Zbox.Domain
         public virtual Box Box { get; set; }
 
         //public virtual ICollection<InviteToBox> Invites { get; protected set; }
-
 
         //used for hashcode & equals
         public virtual long UserId { get; protected set; }
@@ -60,6 +60,5 @@ namespace Zbang.Zbox.Domain
                 return result;
             }
         }
-
     }
 }

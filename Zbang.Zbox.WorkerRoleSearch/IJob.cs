@@ -8,6 +8,5 @@ namespace Zbang.Zbox.WorkerRoleSearch
     {
         Task RunAsync(CancellationToken cancellationToken);
         string Name { get; }
-
     }
 }

@@ -79,8 +79,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                         catch (Exception ex)
                         {
                             await SendEmailStatusAsync($"error digest email {ex}").ConfigureAwait(false);
-                            m_Logger.Exception(ex,new Dictionary<string,string> {{ "service", GetServiceName() } });
-
+                            m_Logger.Exception(ex,new Dictionary<string,string> {["service"] = GetServiceName() });
                         }
                     }
                     await Task.WhenAll(list).ConfigureAwait(false);
@@ -97,12 +96,11 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     page++;
                     await progressAsync(page, TimeSpan.FromMinutes(5)).ConfigureAwait(false);
                     await SendEmailStatusAsync($"error digest email {ex}").ConfigureAwait(false);
-                    m_Logger.Exception(ex, new Dictionary<string, string> { { "service", GetServiceName() } });
+                    m_Logger.Exception(ex, new Dictionary<string, string> {["service"] = GetServiceName() });
 
                     //return false;
                 }
             }
-            await SendEmailStatusAsync($"finish to run  with page {page} utc {m_UtcTimeOffset} total: {m_EmailHash.Count}").ConfigureAwait(false);
             m_Logger.Info($"{GetServiceName()} finish running  mail page {page}");
             return true;
         }
@@ -134,14 +132,14 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 updatesList.GroupBy(g => g.QuizId).Where(s => s.Key != null).Select(s => s.Key),
                 updatesList.Where(
                         w =>
-                            !w.ItemId.HasValue && !w.QuizId.HasValue && !w.AnswerId.HasValue &&
-                            !w.QuizDiscussionId.HasValue)
+                            !w.ItemId.HasValue && !w.QuizId.HasValue
+                            && !w.AnswerId.HasValue
+                            && !w.QuizDiscussionId.HasValue)
                     .GroupBy(g => g.QuestionId).Where(s => s.Key != null).Select(s => s.Key),
                 updatesList.GroupBy(g => g.AnswerId).Where(s => s.Key != null).Select(s => s.Key),
                 updatesList.GroupBy(g => g.QuizDiscussionId).Where(s => s.Key != null).Select(s => s.Key));
 
             var updatesData = await m_ZboxReadService.GetUpdatesAsync(query, token).ConfigureAwait(false);
-
 
             var updatesEmail = new List<UpdateMailParams.BoxUpdate>();
             foreach (var box in updatesData.Boxes)
@@ -159,8 +157,11 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     culture, user.UserName,
                     updatesList.Count(
                         c =>
-                            c.QuestionId.HasValue && !c.ItemId.HasValue && !c.QuizId.HasValue &&
-                            !c.AnswerId.HasValue && !c.QuizDiscussionId.HasValue),
+                            c.QuestionId.HasValue
+                            && !c.ItemId.HasValue
+                            && !c.QuizId.HasValue
+                            && !c.AnswerId.HasValue
+                            && !c.QuizDiscussionId.HasValue),
                     updatesList.Count(c => c.AnswerId.HasValue),
                     updatesList.Count(c => c.ItemId.HasValue),
                     updatesList.Count), token, $"update {m_DigestEmailHourBack.GetStringValue()} "));

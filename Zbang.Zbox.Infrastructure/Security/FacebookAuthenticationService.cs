@@ -6,23 +6,20 @@ using System.Threading.Tasks;
 using System.IO;
 using Newtonsoft.Json;
 
-
 namespace Zbang.Zbox.Infrastructure.Security
 {
     public class FacebookAuthenticationService : IFacebookService
     {
         private const string FacebookPicture = "https://graph.facebook.com/v2.6/{0}/picture?width={1}&height={1}";
 
-
         public async Task<FacebookUserData> FacebookLogOnAsync(string token)
         {
             using (var client = new HttpClient())
             {
-                
                 var tData = client.GetStreamAsync("https://graph.facebook.com/v2.4/me?access_token=" + token + "&fields=id,name,first_name,email,middle_name,gender,last_name,locale");
                 var tBusiness = client.GetStringAsync("https://graph.facebook.com/v2.4/me/ids_for_business?access_token=" + token);
 
-                await Task.WhenAll(tData, tBusiness);
+                await Task.WhenAll(tData, tBusiness).ConfigureAwait(false);
 
                 FacebookUserData user;
                 using (var s = tData.Result)
@@ -41,7 +38,6 @@ namespace Zbang.Zbox.Infrastructure.Security
                             {
                                 user.Email = $"{user.Id}@facebook.com";
                             }
-
                         }
                     }
                 }
@@ -55,11 +51,7 @@ namespace Zbang.Zbox.Infrastructure.Security
                 user.LargeImage = GetFacebookUserImage(user.Id, FacebookPictureType.Normal);
                 return user;
             }
-
-
-
         }
-
 
         public string GetFacebookUserImage(long facebookId, FacebookPictureType type)
         {
@@ -89,6 +81,7 @@ namespace Zbang.Zbox.Infrastructure.Security
         //}
 
     }
+
     public enum FacebookPictureType
     {
         Square = 50,

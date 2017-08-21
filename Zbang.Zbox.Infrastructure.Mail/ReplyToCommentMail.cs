@@ -21,7 +21,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
             html = html.Replace("{BoxName}", m_Parameters.BoxName);
             html = html.Replace("{BoxUrl}", UrlConst.AppendCloudentsUrl(m_Parameters.BoxUrl));
             return html;
-
         }
 
         public override string AddSubject()

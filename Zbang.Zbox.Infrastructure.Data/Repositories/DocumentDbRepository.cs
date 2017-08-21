@@ -13,10 +13,8 @@ using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Data.Repositories
 {
-
     public class DocumentDbRepository<T> : IDocumentDbRepository<T> where T : class
     {
-
         public async Task<T> GetItemAsync(string id)
         {
             try
@@ -45,7 +43,6 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
                 }
             }
             throw new ArgumentException("no collection Id");
-
         }
 
         public async Task<IEnumerable<T>> GetItemsAsync(Expression<Func<T, bool>> predicate)
@@ -100,7 +97,6 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
 
         public async Task<IEnumerable<T>> GetItemsAsync(string sql)
         {
-
             var query =
                 DocumentDbUnitOfWork.Client.CreateDocumentQuery<T>(
                     DocumentDbUnitOfWork.BuildCollectionUri(GetCollectionId()), sql).AsDocumentQuery();
@@ -120,7 +116,6 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
         //        //UriFactory.CreateDocumentCollectionUri(DatabaseId, nameof(T))
         //        , item);
         //}
-
 
         //public Task UpdateItemAsync(string id, T item)
         //{
@@ -159,7 +154,6 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
         private static readonly DocumentClient _client;
         //private const bool NeedUpdate = false;
         private const string DevPrefix = "-dev";
-
 
         static DocumentDbUnitOfWork()
         {

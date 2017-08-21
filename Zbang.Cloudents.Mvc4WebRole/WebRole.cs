@@ -14,7 +14,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
     {
         //const string webApplicationProjectName = "Web";
 
-        
         public override bool OnStart()
         {
             //http://fabriccontroller.net/blog/posts/iis-8-0-application-initialization-module-in-a-windows-azure-web-role/
@@ -35,7 +34,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //ConfigureDiagnostics();
 
            // ConfigureStorageAccount();
-            
+
             //RoleEnvironment.Changed += (s, e) =>
             //{
             //    TraceLog.WriteWarning("recycling machine");
@@ -45,7 +44,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             //RoleEnvironment.Changing += (s, e) =>
             //{
-
 
             //    if (e.Changes.Any(change => change is RoleEnvironmentTopologyChange))
             //    {
@@ -90,9 +88,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //   }
             //}
 
-
-
-
             return base.OnStart();
         }
 
@@ -114,6 +109,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             return result;
         }
+
         public override void Run()
         {
             using (var serverManager = new ServerManager())
@@ -130,7 +126,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             try
             {
-
                 var localUri = new Uri(
                     $"https://{RoleEnvironment.CurrentRoleInstance.InstanceEndpoints["Endpoint2"].IPEndpoint}/");
                 System.Threading.Tasks.Task.Factory.StartNew(() =>
@@ -197,7 +192,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //CreateBlobStorages(cloudStorageAccount.CreateCloudBlobClient());
             //CreateQueues(cloudStorageAccount.CreateCloudQueueClient());
        // }
-
 
     }
 }

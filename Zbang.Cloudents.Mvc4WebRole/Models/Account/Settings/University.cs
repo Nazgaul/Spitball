@@ -8,7 +8,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
         [Range(1, int.MaxValue, ErrorMessageResourceType = typeof(AccountSettingsResources), ErrorMessageResourceName = "SchoolRequired")]
         public long UniversityId { get; set; }
 
-
         public string StudentId { get; set; }
 
         public override string ToString()
@@ -16,7 +15,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
             return string.Format(
                 "University id {0}  studentID {1}",
                 UniversityId, StudentId);
-
         }
     }
 }

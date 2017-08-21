@@ -15,11 +15,13 @@ namespace Zbang.Cloudents.MobileApp.Models
         {
             AllowedVersion = allowedVersion;
         }
+
         public int AllowedVersion
         {
             get;
             private set;
         }
+
         public bool Match(HttpRequestMessage request, IHttpRoute route, string parameterName, IDictionary<string, object> values, HttpRouteDirection routeDirection)
         {
             if (routeDirection != HttpRouteDirection.UriResolution) return false;
@@ -30,6 +32,7 @@ namespace Zbang.Cloudents.MobileApp.Models
             }
             return false;
         }
+
         private int? GetVersionHeader(HttpRequestMessage request)
         {
             string versionAsString;

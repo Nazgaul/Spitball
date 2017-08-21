@@ -34,7 +34,6 @@ namespace Zbang.Zbox.Infrastructure.Search
                 m_IndexName = m_IndexName + "-dev";
             }
             m_IndexClient = connection.SearchClient.Indexes.GetClient(m_IndexName);
-
         }
 
         private const string IdField = "id";
@@ -107,7 +106,6 @@ namespace Zbang.Zbox.Infrastructure.Search
 
             if (quizToUpload != null)
             {
-
                 var uploadBatch = quizToUpload.Select(s => new QuizSearch
                 {
                     Answers = s.Answers.ToArray(),
@@ -140,7 +138,6 @@ namespace Zbang.Zbox.Infrastructure.Search
                     await m_IndexClient.Documents.IndexAsync(batch).ConfigureAwait(false);
             }
             return true;
-
         }
 
         public async Task<IEnumerable<SearchQuizzes>> SearchQuizAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
@@ -170,8 +167,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                 UniName = s.Document.UniversityName,
                 Url = s.Document.Url
             });
-
         }
+
         private static string HighLightInField(SearchResult<QuizSearch> record, IEnumerable<string> fields, string defaultValue)
         {
             if (record.Highlights == null)
@@ -189,12 +186,10 @@ namespace Zbang.Zbox.Infrastructure.Search
         }
     }
 
-
     public interface IQuizWriteSearchProvider2
     {
         Task<bool> UpdateDataAsync(IEnumerable<QuizSearchDto> quizToUpload, IEnumerable<long> itemToDelete);
     }
-
 
     public interface IQuizReadSearchProvider2
     {

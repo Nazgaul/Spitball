@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Common;
@@ -25,67 +24,65 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_Logger = logger;
         }
 
-        private async Task<string> DoDeleteAsync(CancellationToken cancellationToken, string prefix, Func<CancellationToken, Task<int>> func)
+        private async Task DoDeleteAsync(CancellationToken cancellationToken, string prefix, Func<CancellationToken, Task<int>> func)
         {
             var needLoop = true;
-            var mailContent = new StringBuilder();
+            // var mailContent = new StringBuilder();
             while (needLoop && !cancellationToken.IsCancellationRequested)
             {
                 try
                 {
-                    if (func != null)
-                    {
-                        var counter = await func(cancellationToken).ConfigureAwait(false);
-                        needLoop = false;
-                        mailContent.AppendLine($"{prefix} number: {counter}");
-                    }
+                    if (func == null) continue;
+                    var counter = await func(cancellationToken).ConfigureAwait(false);
+                    m_Logger.TrackMetric(prefix, counter);
+                    needLoop = false;
+                    // mailContent.AppendLine($"{prefix} number: {counter}");
                 }
                 catch (Exception ex)
                 {
                     m_Logger.Exception(ex);
                     await m_MailComponent.GenerateSystemEmailAsync("delete old stuff", ex.ToString()).ConfigureAwait(false);
-                    mailContent.AppendLine($"{prefix} exception: {ex}");
+                    // mailContent.AppendLine($"{prefix} exception: {ex}");
                     break;
                 }
             }
-            return mailContent.ToString();
+            // return mailContent.ToString();
         }
 
-        public async Task<bool> ExecuteAsync(int index, Func<int,TimeSpan, Task> progressAsync, CancellationToken token)
+        public async Task<bool> ExecuteAsync(int index, Func<int, TimeSpan, Task> progressAsync, CancellationToken token)
         {
-
             try
             {
                 await m_MediaService.DeleteOldAssetsAsync().ConfigureAwait(false);
                 m_Logger.Info("delete stuff starting to work");
                 await m_ZboxWorkerRoleService.DoDirtyUpdateAsync(token).ConfigureAwait(false);
-                var result =
-                    await
-                        DoDeleteAsync(token, "deleteOldUpdates",
-                            m_ZboxWorkerRoleService.DeleteOldUpdatesAsync).ConfigureAwait(false);
-                var result2 =
-                    await
-                        DoDeleteAsync(token, "deleteOldItems",
-                            m_ZboxWorkerRoleService.DeleteOldItemAsync).ConfigureAwait(false);
 
-                var result6 =
-                    await
-                        DoDeleteAsync(token, "DeleteOldFlashcard",
-                            m_ZboxWorkerRoleService.DeleteOldFlashcardAsync).ConfigureAwait(false);
-                var result4 =
-                    await
-                        DoDeleteAsync(token, "deleteOldQuiz",
-                            m_ZboxWorkerRoleService.DeleteOldQuizAsync).ConfigureAwait(false);
-                var result3 =
-                    await
-                        DoDeleteAsync(token, "deleteOldBoxes",
-                            m_ZboxWorkerRoleService.DeleteOldBoxAsync).ConfigureAwait(false);
-                var result5 =
-                    await
-                        DoDeleteAsync(token, "deleteOldUniversity",
-                            m_ZboxWorkerRoleService.DeleteOldUniversityAsync).ConfigureAwait(false);
                 await
-                    m_MailComponent.GenerateSystemEmailAsync("delete old stuff", result + result2 + result4 + result3 + result5 + result6).ConfigureAwait(false);
+                    DoDeleteAsync(token, "deleteOldUpdates",
+                        m_ZboxWorkerRoleService.DeleteOldUpdatesAsync).ConfigureAwait(false);
+
+                await
+                    DoDeleteAsync(token, "deleteOldItems",
+                        m_ZboxWorkerRoleService.DeleteOldItemAsync).ConfigureAwait(false);
+
+                await
+                    DoDeleteAsync(token, "DeleteOldFlashcard",
+                        m_ZboxWorkerRoleService.DeleteOldFlashcardAsync).ConfigureAwait(false);
+
+                await
+                    DoDeleteAsync(token, "deleteOldQuiz",
+                        m_ZboxWorkerRoleService.DeleteOldQuizAsync).ConfigureAwait(false);
+
+                await
+                    DoDeleteAsync(token, "deleteOldBoxes",
+                        m_ZboxWorkerRoleService.DeleteOldBoxAsync).ConfigureAwait(false);
+
+                await
+                    DoDeleteAsync(token, "deleteOldUniversity",
+                        m_ZboxWorkerRoleService.DeleteOldUniversityAsync).ConfigureAwait(false);
+                //_Logger.TrackMetric("delete old stuff", result + result2 + result4 + result3 + result5 + result6);
+                //await
+                //    m_MailComponent.GenerateSystemEmailAsync("delete old stuff", result + result2 + result4 + result3 + result5 + result6).ConfigureAwait(false);
 
                 return true;
             }
@@ -95,7 +92,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 await progressAsync.Invoke(0, TimeSpan.FromHours(1)).ConfigureAwait(false);
                 return false;
             }
-
         }
     }
 }

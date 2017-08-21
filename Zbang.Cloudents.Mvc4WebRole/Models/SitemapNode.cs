@@ -17,7 +17,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         public string Language { get;private set; }
         public string RouteName { get;private set; }
         public object RouteValues { get;private set; }
-
     }
 
     public class SitemapLangNode
@@ -30,8 +29,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
 
         public string Url { get; private set; }
         public string Language { get; private set; }
-
     }
+
     public class SitemapNode
     {
         public string Url { get; set; }
@@ -40,7 +39,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         public double? Priority { get; set; }
 
         public IList<SitemapLangNode> SitemapLangNodes { get; set; }
-
 
         public SitemapNode(string relativeUrl, RequestContext request)
         {
@@ -56,7 +54,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
             var x = RouteTable.Routes.GetVirtualPathForArea(request, routeName, new RouteValueDictionary(routeValues));
             if (x != null)
             {
-                Url = GetAbsoluteUrl(request, x.VirtualPath);    
+                Url = GetAbsoluteUrl(request, x.VirtualPath);
             }
             Priority = null;
             Frequency = null;
@@ -72,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
                 {
                     SitemapLangNodes = new List<SitemapLangNode>()
                 };
-                
+
                 foreach (var node in nodes)
                 {
                     var url = GetUrl(request, node.RouteName, node.RouteValues);
@@ -83,7 +81,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
             return siteMapNodes;
         }
 
-       
 
         public static string GetUrl(RequestContext request, string routeName, object routeValues)
         {

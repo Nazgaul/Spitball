@@ -97,6 +97,5 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 return Request.CreateErrorResponse(System.Net.HttpStatusCode.MethodNotAllowed, ex);
             }
         }
-
     }
 }

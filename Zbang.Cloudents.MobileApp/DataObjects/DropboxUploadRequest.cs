@@ -13,7 +13,5 @@ namespace Zbang.Cloudents.MobileApp.DataObjects
         public string Name { get; set; }
         public Guid? TabId { get; set; }
         public bool Question { get; set; }
-
-       
     }
 }

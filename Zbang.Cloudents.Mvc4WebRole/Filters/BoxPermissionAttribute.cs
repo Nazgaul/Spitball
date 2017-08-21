@@ -21,8 +21,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
         //[Dependency]
         public IZboxReadSecurityReadService ZboxReadService { get; set; }
 
-
-
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var boxid = filterContext.ActionParameters[m_BoxParamsId];
@@ -71,18 +69,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                         UserId = userId,
                         UserType = userType
                     });
-
             }
             else
             {
                 userType = cookie.UserType;
             }
 
-
             filterContext.Controller.ViewBag.UserType = userType;
             base.OnActionExecuting(filterContext);
         }
-
 
         public class Permission
         {

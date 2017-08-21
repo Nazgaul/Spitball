@@ -12,7 +12,6 @@ namespace Zbang.Cloudents.Connect
                 return request.User.GetUserId().ToString();
             }
             return null;
-
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Zbang.Zbox.Domain
         {
             ShouldMakeDirty = () => true;
         }
+
         public University(long id, string name, string country, long userId)
         {
             Id = id;

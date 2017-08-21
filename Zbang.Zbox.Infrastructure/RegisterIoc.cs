@@ -5,7 +5,6 @@ namespace Zbang.Zbox.Infrastructure
 {
     public class InfrastructureModule : Module
     {
-
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<Cache.SystemCache>().As<Cache.ICache>().SingleInstance();
@@ -18,7 +17,6 @@ namespace Zbang.Zbox.Infrastructure
             builder.RegisterType<IdGenerator.GuidIdGenerator>().As<IdGenerator.IGuidIdGenerator>();
             builder.RegisterType<LocationProvider>().As<ILocationProvider>();
             builder.RegisterType<Logger>().As<ILogger>();
-
         }
     }
 }

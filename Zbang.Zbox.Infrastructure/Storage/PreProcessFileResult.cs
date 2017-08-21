@@ -10,6 +10,5 @@ namespace Zbang.Zbox.Infrastructure.Storage
         //public string FileTextContent { get; set; }
 
         public static readonly Task<PreProcessFileResult> GetEmptyResult = Task.FromResult<PreProcessFileResult>(null);
-
     }
 }

@@ -17,7 +17,6 @@ namespace Zbang.Zbox.Infrastructure.IdGenerator
             return GenerateComb(time);
         }
 
-
         private static Guid GenerateComb(DateTime time)
         {
             byte[] guidArray = Guid.NewGuid().ToByteArray();
@@ -44,7 +43,6 @@ namespace Zbang.Zbox.Infrastructure.IdGenerator
 
             return new Guid(guidArray);
         }
-
 
         public Guid GetId()
         {

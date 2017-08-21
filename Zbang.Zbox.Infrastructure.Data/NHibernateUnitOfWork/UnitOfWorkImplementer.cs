@@ -6,28 +6,31 @@ using Zbang.Zbox.Infrastructure.UnitsOfWork;
 
 namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 {
-    public class UnitOfWorkImplementor : IUnitOfWorkImplementor
+    public class UnitOfWorkImplementer : IUnitOfWorkImplementer
     {
-        public UnitOfWorkImplementor(IUnitOfWorkFactory factory, ISession session)
+        public UnitOfWorkImplementer(IUnitOfWorkFactory factory, ISession session)
         {
             Factory = factory;
             Session = session;
         }
+
         public void Dispose()
         {
             Factory.DisposeUnitOfWork(this);
             Session.Dispose();
         }
+
         public void IncrementUsages()
         {
             throw new NotImplementedException();
         }
+
         public void Flush()
         {
             Session.Flush();
         }
 
-        public bool IsInActiveTransaction => Session.Transaction.IsActive;
+        public bool IsInactiveTransaction => Session.Transaction.IsActive;
 
         public IUnitOfWorkFactory Factory { get; }
 

@@ -10,6 +10,7 @@ namespace Zbang.Zbox.Domain
         {
             IsDeleted = false;
         }
+
         protected Invite(Guid id, User sender, string image, string userName, string email)
             :this()
         {

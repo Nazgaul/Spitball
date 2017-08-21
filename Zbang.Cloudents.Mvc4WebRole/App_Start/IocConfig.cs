@@ -41,7 +41,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 //Zbox.Infrastructure.File.RegisterIoc.Register();
                 builder.RegisterModule<StorageModule>();
                 builder.RegisterModule<MailModule>();
-                
+
 
                 builder.RegisterModule<SearchModule>();
                 //RegisterIoc.Register();
@@ -65,12 +65,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                 builder.RegisterModule<WriteServiceModule>();
                 builder.RegisterModule<ReadServiceModule>();
-                
+
                 builder.RegisterModule<CommandsModule>();
 
                 builder.RegisterControllers(typeof (MvcApplication).Assembly).PropertiesAutowired();
                 builder.RegisterFilterProvider();
-
 
                 //builder.RegisterModule<AiModule>();
                 builder.RegisterModule<AutofacWebTypesModule>();
@@ -81,7 +80,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                 var container = IocFactory.IocWrapper.Build();
                 DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
-
 
                 //we need that for blob getting the blob container url
                 //DependencyResolver.Current.GetService<IBlobProvider>();

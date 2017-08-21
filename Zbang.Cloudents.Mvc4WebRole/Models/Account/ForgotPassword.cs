@@ -10,7 +10,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
         [EmailAddress(ErrorMessageResourceType = typeof(ForgotPasswordResources), ErrorMessageResourceName = "EmailNotValid", ErrorMessage = null)]
         public string Email { get; set; }
 
-
         public override string ToString()
         {
             return "Email: " + Email;

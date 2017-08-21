@@ -9,7 +9,6 @@ using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
-
     [MobileAppController,Authorize]
     public class UniversityController : ApiController
     {
@@ -34,10 +33,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             var command = new CreateUniversityCommand(model.Name, model.Country, User.GetUserId());
             await m_ZboxWriteService.CreateUniversityAsync(command).ConfigureAwait(false);
 
-
             return Request.CreateResponse(command.Id);
-
-
 
         }
     }

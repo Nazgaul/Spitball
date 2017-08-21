@@ -26,7 +26,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
             return html;
 
-
         }
 
         public override string AddCategory()

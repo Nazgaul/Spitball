@@ -78,7 +78,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk();
         }
 
-
         [HttpGet]
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult PreviewDialog()
@@ -122,7 +121,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
 
                 return JsonOk(retVal);
-
             }
             catch (Exception ex)
             {
@@ -134,7 +132,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonOk();
             }
         }
-
-
     }
 }

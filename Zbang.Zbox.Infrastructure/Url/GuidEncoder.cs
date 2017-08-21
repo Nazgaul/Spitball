@@ -20,6 +20,7 @@ namespace Zbang.Zbox.Infrastructure.Url
 
         public static Guid Decode(string encoded)
         {
+            if (encoded == null) throw new ArgumentNullException(nameof(encoded));
             if (encoded.Length != 22)
             {
                 return Guid.Empty;
@@ -36,13 +37,11 @@ namespace Zbang.Zbox.Infrastructure.Url
             {
                 return null;
             }
-            Guid guid;
-            if (Guid.TryParse(str, out guid))
+            if (Guid.TryParse(str, out Guid guid))
             {
                 return guid;
             }
             return Decode(str);
-
         }
     }
 }

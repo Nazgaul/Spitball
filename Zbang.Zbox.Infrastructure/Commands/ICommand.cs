@@ -19,7 +19,5 @@ namespace Zbang.Zbox.Infrastructure.Commands
 
     public interface ICommandAsync : ICommand 
     { }
-
-
    
 }

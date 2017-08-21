@@ -41,8 +41,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_UniversitySearch = universitySearch;
         }
 
-
-
         [DonutOutputCache(CacheProfile = "FullPage")]
         [NoUniversity, ActionName("Index")]
         public async Task<ActionResult> IndexAsync(long universityId, string universityName)
@@ -61,12 +59,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("Empty");
         }
 
-
         [NoUniversity, HttpGet]
         [Route("library")]
         public async Task<RedirectToRouteResult> LibraryRedirectAsync()
         {
-
             // ReSharper disable once PossibleInvalidOperationExcept
             //ion
             var universityWrapper = User.GetUniversityId().Value;
@@ -87,13 +83,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return RedirectToAction("choose");
         }
 
-
-
         [NoUniversity, HttpGet]
         [Route("library/{LibId}/{LibName}")]
         public async Task<RedirectToRouteResult> LibraryRedirectWithNodeAsync(string libId, string libName)
         {
-
             // ReSharper disable once PossibleInvalidOperationException
             var universityWrapper = User.GetUniversityId().Value;
 
@@ -108,7 +101,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 ["libraryname"] = libName
             });
         }
-
 
         [HttpGet, NoUniversity(Order = 1)]
         [DonutOutputCache(CacheProfile = "PartialPage", Order = 2)]
@@ -130,13 +122,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return View("ClassChoose", false);
         }
+
         [HttpGet]
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult ClassChooseMobilePartial()
         {
             return PartialView("ClassChoose", true);
         }
-
 
         [HttpGet, ActionName("ChoosePartial")]
         public async Task<PartialViewResult> ChoosePartialAsync()
@@ -164,7 +156,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return PartialView("_Settings");
         }
-
 
         [HttpGet, ActionName("Search")]
         public async Task<JsonResult> SearchAsync(string term, int page, CancellationToken cancellationToken)
@@ -195,9 +186,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-
-
-
         [HttpGet, ActionName("Nodes")]
         public async Task<ActionResult> NodesAsync(string section, long universityId/*, bool? skipUrl*/)
         {
@@ -207,7 +195,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     TraceLog.WriteError("need url Referrer");
                     return JsonError();
-
                 }
                 var guid = GuidEncoder.TryParseNullableGuid(section);
                 var query = new GetLibraryNodeQuery(universityId, guid, User.GetUserId());
@@ -258,7 +245,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-
         #region DeleteNode
         [HttpPost, ActionName("DeleteNode")]
         public async Task<JsonResult> DeleteNodeAsync(string id)
@@ -279,13 +265,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var command = new DeleteNodeFromLibraryCommand(guid.Value, universityId.Value);
             await ZboxWriteService.DeleteNodeLibraryAsync(command);
             return JsonOk();
-
         }
         #endregion
 
         #region RenameNode
-
-
 
         [HttpPost]
         public JsonResult ChangeSettings(DepartmentSettings model)
@@ -313,9 +296,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         #endregion
 
-
         #region Create
-
 
         [HttpPost, ActionName("Create")]
         public async Task<JsonResult> CreateAsync(CreateLibraryItem model)
@@ -334,7 +315,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 TraceLog.WriteError("need url Referrer");
                 return JsonError();
-
             }
 
             try
@@ -358,10 +338,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError(LibraryControllerResources.LibraryController_Create_Cannot_add_library_to_box_node);
             }
         }
-
-
-
-
 
         [HttpPost, ActionName("CreateBox")]
         //[ValidateAntiForgeryToken]
@@ -393,7 +369,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (BoxNameAlreadyExistsException)
             {
                 return JsonError(BoxControllerResources.BoxExists);
-
             }
             catch (Exception ex)
             {
@@ -402,10 +377,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-
-
         #endregion
-
 
         [HttpPost, ActionName("RequestAccess")]
         public async Task<JsonResult> RequestAccessAsync(Guid id)
@@ -425,9 +397,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var command = new LibraryNodeApproveAccessCommand(User.GetUserId(), id, userId);
             await ZboxWriteService.RequestAccessToDepartmentApprovedAsync(command);
             return JsonOk();
-
         }
-
 
         [HttpGet, ActionName("ClosedDepartment")]
         public async Task<JsonResult> ClosedDepartmentAsync()
@@ -435,6 +405,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var retVal = await ZboxReadService.GetUserClosedDepartmentAsync(new QueryBase(User.GetUserId()));
             return JsonOk(retVal);
         }
+
         [HttpGet, ActionName("ClosedDepartmentMembers")]
         public async Task<JsonResult> ClosedDepartmentMembersAsync(Guid id)
         {
@@ -442,7 +413,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var retVal = await ZboxReadService.GetMembersClosedDepartmentAsync(query);
             return JsonOk(retVal);
         }
-
 
         [HttpPost, ActionName("CreateUniversity")]
         public async Task<JsonResult> CreateUniversityAsync(CreateUniversity model)
@@ -453,7 +423,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var command = new CreateUniversityCommand(model.Name, model.Country, User.GetUserId());
             await ZboxWriteService.CreateUniversityAsync(command);
-
 
             var user = (ClaimsIdentity)User.Identity;
             var claimUniversity = user.Claims.SingleOrDefault(w => w.Type == ClaimConst.UniversityIdClaim);
@@ -473,7 +442,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             user.AddClaim(new Claim(ClaimConst.UniversityDataClaim,
                     command.Id.ToString(CultureInfo.InvariantCulture)));
-
 
             AuthenticationManager.SignIn(user);
 
@@ -499,6 +467,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var retVal = await ZboxReadService.GetUniversityNodesAsync(universityId.Value);
             return JsonOk(retVal);
         }
+
         private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
     }
 }

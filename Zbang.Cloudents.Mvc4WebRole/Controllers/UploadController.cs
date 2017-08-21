@@ -42,6 +42,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_BlobProvider = blobProvider;
             m_QueueProvider = queueProvider;
         }
+
         internal const string UploadCookieName = "upload";
 
         [HttpPost]
@@ -68,12 +69,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var uploadedFile = HttpContext.Request.Files[0];
                 if (uploadedFile == null) throw new NullReferenceException(nameof(uploadedFile));
 
-
                 var fileUploadedDetails = GetCookieUpload(UploadCookieName, model.FileSize, model.FileName, uploadedFile);
 
-
                 var blobAddressUri = fileUploadedDetails.BlobGuid.ToString().ToLower() + Path.GetExtension(fileUploadedDetails.FileName)?.ToLower();
-
 
                 fileUploadedDetails.CurrentIndex = await m_BlobProviderFiles.UploadFileBlockAsync(blobAddressUri, uploadedFile.InputStream, fileUploadedDetails.CurrentIndex).ConfigureAwait(false);
                 m_CookieHelper.InjectCookie(UploadCookieName, fileUploadedDetails);
@@ -95,7 +93,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     throw new NullReferenceException(nameof(result2));
                 }
 
-                
                 var fileDto = new ItemDto
                 {
                     Id = result2.File.Id,
@@ -113,7 +110,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 m_CookieHelper.RemoveCookie("upload");
                 return JsonOk(new { item = fileDto, boxId = model.BoxId });
-
             }
             catch (Exception ex)
             {
@@ -121,11 +117,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     $"Upload UploadFileAsync BoxId {model.BoxId} fileName {model.FileName} fileSize {model.FileSize} userid {userId} ", ex);
                 return JsonError(BaseControllerResources.UnspecifiedError);
             }
-
         }
-
-
-
 
         /// <summary>
         /// Use for cookie wise
@@ -175,7 +167,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             fileReceive.TotalUploadBytes += uploadedfile.ContentLength;
             return fileReceive;
-
         }
 
         [NonAction]
@@ -183,7 +174,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return fileUploadedDetails.TotalUploadBytes == fileUploadedDetails.FileSize;
         }
-
 
         [HttpPost, ZboxAuthorize, ActionName("ProfilePicture")]
         public async Task<JsonResult> ProfilePictureAsync()
@@ -213,7 +203,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost, ZboxAuthorize, ActionName("QuizImage")]
         public async Task<JsonResult> QuizImageAsync(long boxId)
         {
-
             if (HttpContext.Request.Files == null)
             {
                 return JsonError("No files");
@@ -230,9 +219,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var url = await m_BlobProvider.UploadQuizImageAsync(file.InputStream, file.ContentType, boxId, file.FileName).ConfigureAwait(false);
             return JsonOk(url);
         }
-
-
-
 
         internal const string ChatCookieName = "uploadchat";
         [HttpPost, ZboxAuthorize, ActionName("ChatFile")]
@@ -253,12 +239,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var uploadedFile = HttpContext.Request.Files[0];
             if (uploadedFile == null) throw new NullReferenceException(nameof(uploadedFile));
 
-
             var fileUploadedDetails = GetCookieUpload(ChatCookieName, model.FileSize, model.FileName, uploadedFile);
 
-
             var blobAddressUri = fileUploadedDetails.BlobGuid.ToString().ToLower() + Path.GetExtension(fileUploadedDetails.FileName)?.ToLower();
-
 
             fileUploadedDetails.CurrentIndex = await m_BlobProvider2.UploadFileBlockAsync(blobAddressUri, uploadedFile.InputStream, fileUploadedDetails.CurrentIndex);
             m_CookieHelper.InjectCookie(ChatCookieName, fileUploadedDetails);
@@ -274,8 +257,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             return JsonOk(blobAddressUri);
         }
-
-
 
         [HttpPost, ZboxAuthorize, RemoveBoxCookie, ActionName("Link")]
         public async Task<ActionResult> LinkAsync(AddLink model)
@@ -296,9 +277,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var title = model.Name;
                 if (string.IsNullOrEmpty(title))
                 {
-
                     title = await helper.BringTitleAsync(model.Url);
-
                 }
                 if (string.IsNullOrWhiteSpace(title))
                 {
@@ -365,8 +344,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 using (var webRequestHandler = new WebRequestHandler { AllowAutoRedirect = false })
                 {
-
-
                     using (HttpClient httpClient = new HttpClient(webRequestHandler))
                     {
                         var response = await httpClient.GetAsync(model.Url);
@@ -377,7 +354,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                                 throw new ObjectNotFoundException();
                             }
                         }
-
                     }
                 }
 
@@ -427,7 +403,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [RemoveBoxCookie]
         public async Task<ActionResult> DropboxAsync(AddFromDropBox model)
         {
-
             var userId = User.GetUserId();
             var blobAddressUri = Guid.NewGuid().ToString().ToLower() + Path.GetExtension(model.Name)?.ToLower();
 
@@ -464,10 +439,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 fileDto.TabId = model.TabId.Value;
             }
             return JsonOk(new { item = fileDto, boxId = model.BoxId });
-
-
         }
-
-
     }
 }

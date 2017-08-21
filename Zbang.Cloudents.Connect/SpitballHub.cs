@@ -55,7 +55,6 @@ namespace Zbang.Cloudents.Connect
             Clients.Users(users).updateImage(blobName);
         }
 
-
         public void UpdateThumbnail(long itemId, long boxId)
         {
             if (Context.User.Identity.IsAuthenticated)
@@ -64,6 +63,7 @@ namespace Zbang.Cloudents.Connect
             }
             Clients.Group($"box:{boxId}").updateThumbnail(itemId);
         }
+
         public void Badge(BadgeType badge, long userId)
         {
             if (Context.User.Identity.IsAuthenticated)
@@ -83,7 +83,6 @@ namespace Zbang.Cloudents.Connect
             //Clients.All.badge(badge);
             Clients.User(userId.ToString()).score(score);
         }
-
 
         /// <summary>
         /// use by worker role to disconnect user
@@ -115,7 +114,6 @@ namespace Zbang.Cloudents.Connect
             {
                 Groups.Add(Context.ConnectionId, $"box:{boxId}");
             }
-
         }
         /// <summary>
         /// Api to disconnect user from signalr - use by mobile api
@@ -157,8 +155,6 @@ namespace Zbang.Cloudents.Connect
             }
 
             return base.OnConnected();
-
-
         }
 
         public override Task OnDisconnected(bool stopCalled)
@@ -166,7 +162,6 @@ namespace Zbang.Cloudents.Connect
             if (!Context.User.Identity.IsAuthenticated)
             {
                 return base.OnDisconnected(stopCalled);
-
             }
             var user = Context.User.GetUserId();
             try

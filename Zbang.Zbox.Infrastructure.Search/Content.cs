@@ -69,6 +69,4 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public string Image { get; set; }
     }
-
-
 }

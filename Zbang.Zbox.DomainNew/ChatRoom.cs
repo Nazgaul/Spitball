@@ -9,26 +9,28 @@ namespace Zbang.Zbox.Domain
     {
         protected ChatRoom()
         {
-            
+
         }
+
         public ChatRoom(IEnumerable<User> users)
         {
             Id = GuidIdGenerator.GetGuid(); ;
             Users = users.Select(s => new ChatUser(this, s)).ToList();
             UpdateTime = DateTime.UtcNow;
         }
+
         public virtual Guid Id { get; protected set; }
         public virtual DateTime UpdateTime { get; set; }
         public virtual ICollection<ChatUser> Users { get; protected set; }
-
     }
 
     public class ChatUser
     {
         protected ChatUser()
         {
-            
+
         }
+
         public ChatUser(ChatRoom chatRoom , User user)
         {
             Id = GuidIdGenerator.GetGuid();
@@ -47,8 +49,9 @@ namespace Zbang.Zbox.Domain
     {
         protected ChatMessage()
         {
-            
+
         }
+
         public ChatMessage(ChatRoom chatRoom, User user, string message, string blob)
         {
             Id = GuidIdGenerator.GetGuid();
@@ -68,5 +71,4 @@ namespace Zbang.Zbox.Domain
 
         public virtual string Blob { get; protected set; }
     }
-
 }

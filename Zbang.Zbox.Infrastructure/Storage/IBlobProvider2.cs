@@ -8,7 +8,6 @@ namespace Zbang.Zbox.Infrastructure.Storage
 {
     public interface IBlobProvider2<out T> where T : IStorageContainerName //: IBlobProvider
     {
-
         Task<int> UploadFileBlockAsync(string blobName, Stream fileContent, int currentIndex);
         Task CommitBlockListAsync(string blobName, int currentIndex, string contentType);
         Task UploadStreamAsync(string blobName, Stream content, string mimeType, CancellationToken token);

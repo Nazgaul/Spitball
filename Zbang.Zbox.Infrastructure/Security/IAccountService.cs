@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 
 namespace Zbang.Zbox.Infrastructure.Security
 {
-
     public interface IAccountService
     {
         Task<bool> ChangePasswordAsync(Guid accountId, string oldPassword, string newPassword);

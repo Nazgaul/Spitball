@@ -76,7 +76,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("Index", homeStats);
         }
 
-
         //TODO: add cache on this
         [ActionName("Boxes"), HttpGet]
         public async Task<JsonResult> BoxesAsync()
@@ -101,23 +100,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return s;
             });
             return JsonOk(resultWithUrl);
-
         }
-
 
         [Route("account/signin")]
         public ActionResult SignIn(string lang, string invId)
         {
             return RedirectToRoutePermanent("homePage", new { step = "signin", lang, invId });
         }
+
         [Route("account/signup")]
         public ActionResult SignUp(string lang, string invId)
         {
             return RedirectToRoutePermanent("homePage", new { step = "signup", lang, invId });
         }
-
-
-
 
         //don't put in here route attribute
         [DonutOutputCache(CacheProfile = "FullPage")]
@@ -135,7 +130,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ViewBag.metaDescription = SeoResources.TermsMeta;
             return View("TermsOfService");
         }
-
 
         [DonutOutputCache(CacheProfile = "FullPage")]
         [Route("help", Name = "Help")]
@@ -169,6 +163,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                      Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));
             }
         }
+
         [DonutOutputCache(CacheProfile = "FullPage")]
         [Route("jobs", Name = "Jobs")]
         public async Task<ActionResult> JobsAsync()
@@ -199,6 +194,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return View("help2", model);
             }
         }
+
         [DonutOutputCache(CacheProfile = "FullPage")]
         [Route("privacy", Name = "Privacy")]
         public ActionResult Privacy()
@@ -228,7 +224,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //  [DonutOutputCache(CacheProfile = "FullPage")]
         public ViewResult Blog(string lang)
         {
-
             if (!string.IsNullOrEmpty(lang))
             {
                 LanguageMiddleware.ChangeThreadLanguage(lang);
@@ -285,12 +280,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return RedirectToRoutePermanent("Privacy");
         }
+
         [Route("home/aboutus")]
         public ActionResult AboutUsOld()
         {
             return RedirectToRoutePermanent("AboutUs");
         }
-
 
         [Route("advertiseWithUs", Name = "Advertise")]
         [DonutOutputCache(CacheProfile = "FullPage")]
@@ -299,7 +294,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ViewBag.title = SeoResources.AdvertiseWithUsTitle;
             ViewBag.metaDescription = SeoResources.AdvertiseWithUsMeta;
             return View();
-
         }
 
         [Route("apps", Name = "apps")]
@@ -311,13 +305,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
-
-
         [Route("classnotes", Name = "classnotes")]
         [Route("classnotes/{lang:regex(^(en|he))}", Name = "classnotes2")]
         public ActionResult ClassNotes(string lang)
         {
-
             if (!string.IsNullOrEmpty(lang))
             {
                 if (lang.ToLower() == "en")
@@ -354,13 +345,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return s;
             }));
         }
+
         [Route("home/help")]
         public ActionResult HelpOld()
         {
             return RedirectToRoutePermanent("Help");
         }
-
-
 
         [DonutOutputCache(CacheProfile = "FullPage")]
         // ReSharper disable once InconsistentNaming
@@ -369,20 +359,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
-
-
         [ChildActionOnly]
         public ActionResult AntiForgeryToken()
         {
             return PartialView("_AntiForgeryToken");
         }
-
-
-
-
-
-
-
 
         [AllowAnonymous]
         [HttpGet]
@@ -430,13 +411,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             new XElement(xmlns + "loc", $"https://www.spitball.co/sitemap-{elem.Type}-{i}.xml")
                                )
                             );
-
                 }
             }
             var document = new XDocument(new XDeclaration("1.0", "utf-8", "yes"), root);
             return document.ToString();
-
-
         }
 
         [NonAction]
@@ -448,7 +426,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (type == SeoType.Static)
             {
                 nodes = GetSitemapStaticLinks();
-
             }
             else
             {
@@ -475,7 +452,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     ? null
                     : new XElement(xmlns + "changefreq", node.Frequency.Value.ToString().ToLowerInvariant());
 
-
                 var url = new XElement(xmlns + "url", locContent, priorityContent, lastmodContent, frequencyContent);
                 if (node.SitemapLangNodes != null)
                 {
@@ -490,9 +466,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     }
                 }
 
-
                 root.Add(url);
-
             }
             var document = new XDocument(new XDeclaration("1.0", "utf-8", "yes"), root);
             return document.ToString();
@@ -570,8 +544,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                new SitemapNodeLangHelper("courses2", new { lang = "he" }, "he")
                ));
 
-
-
             nodes.Add(
                new SitemapNode(requestContext, "apps", null)
                {
@@ -637,7 +609,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             //return nodes;
         }
 
-
         [ZboxAuthorize]
         public ActionResult InsertUser()
         {
@@ -672,6 +643,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return JsonOk(VersionHelper.CurrentVersion(true));
         }
-
     }
 }

@@ -31,9 +31,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             m_ZboxReadService = zboxReadService;
         }
 
-
         // GET api/Search
-
 
         [HttpGet]
         [Route("api/search/boxes")]
@@ -43,7 +41,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             var universityId = User.GetUniversityDataId();
             if (!universityId.HasValue)
                 return Request.CreateBadRequestResponse("need university");
-
 
             var query = new SearchQueryMobile(term, User.GetUserId(), universityId.Value, page, sizePerPage);
             var retVal = await m_BoxSearchService2.SearchBoxAsync(query, cancelToken) ?? new List<SearchBoxes>();
@@ -60,10 +57,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 s.MembersCount,
                 s.DepartmentId
             }));
-
         }
-
-
 
         [HttpGet]
         [Route("api/search/items")]
@@ -86,6 +80,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 s.Source
             }));
         }
+
         [HttpGet]
         [Route("api/search/university")]
         [AllowAnonymous]
@@ -140,7 +135,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             var retVal = await m_ZboxReadService.GetUsersInBoxByTermAsync(query);
 
             return Request.CreateResponse(retVal);
-
         }
 
         private static long Ip2Long(string ip)

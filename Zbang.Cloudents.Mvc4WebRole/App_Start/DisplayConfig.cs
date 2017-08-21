@@ -9,7 +9,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
         {
             DisplayModeProvider.Instance.Modes.Clear();
             DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode(string.Empty));
-
         }
     }
 }

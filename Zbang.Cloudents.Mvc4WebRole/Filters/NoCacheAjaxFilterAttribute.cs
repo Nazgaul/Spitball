@@ -10,7 +10,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
     /// </summary>
     public class NoCacheAjaxFilterAttribute : ActionFilterAttribute
     {
-
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (!filterContext.HttpContext.Request.IsAjaxRequest())
