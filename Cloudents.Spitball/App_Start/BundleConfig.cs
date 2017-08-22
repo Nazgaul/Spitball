@@ -18,10 +18,8 @@ namespace Cloudents.Spitball.App_Start
                 "~/Scripts/angular.js"));
 
 
-            var lessBundle = new Bundle("~/My/Less")
-                .Include("~/App_Themes/site.less");
-            lessBundle.Transforms.Add(new LessTransform());
-            lessBundle.Transforms.Add(new CssMinify());
+            var lessBundle = new Bundle("~/My/Css")
+                .Include("~/App_Themes/site.css");
             bundles.Add(lessBundle);
         }
     }
