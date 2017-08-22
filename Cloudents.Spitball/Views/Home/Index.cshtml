@@ -5,12 +5,11 @@
 }
 
 <!DOCTYPE html>
-
 <html>
 <head>
 	<meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-    @Styles.Render("~/My/Less");
+	<title>Index</title>
+	@Styles.Render("~/My/Less");
     <script type = 'text/javascript' >
         var appInsights=window.appInsights||function(config)
         {
@@ -19,65 +18,103 @@
         }({
             instrumentationKey:'7fd51bd7-eb8b-4f0b-8ba8-03f30ac3dad6'
         });
-        
+
         window.appInsights=appInsights;
         appInsights.trackPageView();
     </script>
 	</head>
 <body>
 <header>
-	<picture>
-		<source media="(min-width: 641px) and (max-width: 1365px)" srcset="~/App_Themes/Images/small-logo.svg">
-		<img src="~/App_Themes/Images/normal-logo.svg" alt="Space Needle">
-	</picture>
-	<input type="search" id="transcript" class="speech-input" />
-	<button id="mic" class="speech-icon" onclick="startDictation(event)">mic</button>
-	<button id="search" class="search"><img src="~/App_Themes/Images/search-icon.svg"><span class="capitalize">search</span></button>
-	@*<img srcset="~/App_Themes/Images/normal-logo.svg 400w, ~/App_Themes/Images/small-logo.svg 400w" src="~/App_Themes/Images/normal-logo.svg"*@
+	<div>
+		<picture>
+			<source media="(min-width: 641px) and (max-width: 1365px)" srcset="/App_Themes/Images/small-logo.svg">
+			<img class="logo" src="/App_Themes/Images/normal-logo.svg" alt="logo">
+		</picture>
+		<input type="checkbox">
+		<input id="transcript" class="speech-input" type="search">
+		<button id="mic" class="speech-icon" onclick="startDictation(event)">mic</button>
+		<button id="search" class="search">
+			<svg class="icon icon-search-icon">
+				<use xlink:href="/App_Themes/Images/icons.svg#icon-search-icon"></use>
+			</svg><span class="capitalize">search</span>
+		</button>
+	</div>
 </header>
-@*<div class="grid">
-	<div>item 1</div>
-	<div>item 2</div>
-	<div>item 3</div>
-</div>*@
-<aside>
-    <label class="upper">search type</label>
-    <ul>
-        <li>
-            <div class="ask"><img src="~/App_Themes/Images/ask-copy.svg">
-            </div><span>ask</span></li>
-        <li>
-            <div class="note"><img src="~/App_Themes/Images/note.svg">
-            </div><span>notes</span></li>
-        <li>
-            <div class="flashcard"><img src="~/App_Themes/Images/flashcard.svg">
-            </div><span>flashcards</span></li>
-        <li>
-            <div class="tutor"><img src="~/App_Themes/Images/tutor-copy.svg">
-            </div><span>tutor</span></li>
-    </ul>
-    <label class="upper">contribute</label>
-    <ul>
-        <li>
-            <div class="ask"><img src="~/App_Themes/Images/ask-copy.svg">
-            </div><span>upload</span></li>
-        <li>
-            <div class="note"><img src="~/App_Themes/Images/note.svg">
-            </div><span>post</span></li>
-    </ul>
-    <label class="upper">class talk</label>
-    <ul>
-        <li>
-            <div class="ask"><img src="~/App_Themes/Images/ask-copy.svg">
-            </div><span>chat</span></li>
-    </ul>
-    <label class="upper">personal info</label>
-    <ul>
-        <li>
-            <div class="ask"><img src="~/App_Themes/Images/ask-copy.svg">
-            </div><span>settings</span></li>
-    </ul>
-</aside>
+
+<section>
+	<aside>
+		<label class="upper">search type</label>
+		<ul>
+			<li>
+				<div class="ask">
+					<svg class="icon icon-ask-copy">
+						<use xlink:href="/App_Themes/Images/icons.svg#icon-ask-copy"></use>
+					</svg>
+				</div><span>ask</span>
+			</li>
+			<li>
+				<div class="note">
+					<svg class="icon icon-note">
+						<use xlink:href="/App_Themes/Images/icons.svg#icon-note"></use>
+					</svg>
+				</div><span>notes</span>
+			</li>
+			<li>
+				<div class="flashcard">
+					<svg class="icon icon-flashcard">
+						<use xlink:href="/App_Themes/Images/icons.svg#icon-flashcard"></use>
+					</svg>
+				</div><span>flashcards</span>
+			</li>
+			<li>
+				<div class="tutor">
+					<svg class="icon icon-tutor-copy">
+						<use xlink:href="/App_Themes/Images/icons.svg#icon-tutor-copy"></use>
+					</svg>
+				</div><span>tutor</span>
+			</li>
+		</ul>
+		<label class="upper">contribute</label>
+		<ul>
+			<li>
+				<div class="ask">
+					<img src="/App_Themes/Images/icons.svg#icon-ask-copy">
+					<svg class="icon icon-upload">
+						<use xlink:href="/App_Themes/Images/icons.svg#icon-upload"></use>
+					</svg>
+				</div><span>upload</span>
+			</li>
+			<li>
+				<div class="note">
+					<svg class="icon icon-post">
+						<use xlink:href="/App_Themes/Images/icons.svg#icon-post"></use>
+					</svg>
+				</div><span>post</span>
+			</li>
+		</ul>
+		<label class="upper">class talk</label>
+		<ul>
+			<li>
+				<div class="ask">
+					<img src="/App_Themes/Images/icons.svg#icon-ask-copy">
+					<svg class="icon icon-chat">
+						<use xlink:href="/App_Themes/Images/icons.svg#icon-chat"></use>
+					</svg>
+				</div><span>chat</span>
+			</li>
+		</ul>
+		<label class="upper">personal info</label>
+		<ul>
+			<li>
+				<div class="ask">
+					<svg class="icon icon-settings">
+						<use xlink:href="/App_Themes/Images/icons.svg#icon-settings"></use>
+					</svg>
+				</div><span>settings</span>
+			</li>
+		</ul>
+	</aside>
+</section>
 @Scripts.Render("~/bundles/angularjs")
 <script>
 	function startDictation() {
