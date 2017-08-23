@@ -107,7 +107,8 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> SearchQuestionAsync([FromUri]SearchRequest model, CancellationToken token)
         {
             var term = new List<string>();
-            if (model.University.HasValue)
+
+            if (model.University.HasValue && !string.IsNullOrEmpty(model.Course))
             {
                 var universitySynonym = await m_ZboxReadService.GetUniversitySynonymAsync(model.University.Value).ConfigureAwait(false);
                 term.Add(universitySynonym);
