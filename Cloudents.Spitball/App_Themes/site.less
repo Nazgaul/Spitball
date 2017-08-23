@@ -1,13 +1,66 @@
-﻿@gap: 10fr;
-@light_blue:#3293f6;
-@dark_blue: #0455a8;
-@result_color: #07305a;
-@sub_filter_color: #1e59a8;
+﻿@import "icons.less";
+@tablet: ~"only screen and (min-width: 530px) and (max-width: 949px)";
+@desktop_1366: ~"only screen and (min-width: 1366px)";
+@tablet_641: ~"only screen and (min-width: 641px) and (max-width: 1365px)";
+@phone: ~"only screen and (min-width: 321px) and (max-width: 640px)";
+@gap: 10fr;
+@white-two: #ffffff;
+@white: #eeeeee;
+@charcoal-grey: #4a4a4a;
+@white-three: #dddddd;
+@ocean-blue: #0455a8;
+@marine: #07305a;
+@dodger-blue: #3293f6;
+@vermillion: #f61c0d;
+@royal-purple: #320161;
+@black: #000000;
+@red: #c30000;
+@white-four: #f0f0f0;
+@squash: #f49c20;
+@dark: #1d2129;
+@greyish-brown: #414141;
+@cool-grey: #90949c;
+@baby-blue: #9ccdff;
+@tealish: #2cbfa5;
+@purply: #8c3fbf;
+@light-grey-blue: #94b7cb;
+@sap-green: #52ab15;
+@coral: #f14d4d;
+@pinkish-grey: #bbbbbb;
+@purpley-grey: #9b9b9b;
 @circle_size:38px;
-@purple: #320161;
-@red: #f14d4d;
-@green: #52ab15;
-@bg_gray: #eeeeee;
+@gap_sides:15%;
+
+/* Text styles */
+
+.Text-Style {
+	font-family: OpenSans;
+	font-size: 20px;
+	letter-spacing: -0.4px;
+	text-align: left;
+	color: @marine;
+}
+
+.Text-Style-2 {
+	font-family: OpenSans;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 1.14;
+	letter-spacing: -0.3px;
+	text-align: left;
+	color: @ocean-blue;
+}
+.Search-text {
+	width: 55px;
+	height: 24px;
+	font-family: OpenSans;
+	font-size: 18px;
+	letter-spacing: -0.4px;
+	text-align: center;
+	margin-left:5px;
+	text-transform: capitalize;
+	color: @white-two;
+}
 .displayInlineFlex() {
 	display: -webkit-inline-box;
 	display: -ms-inline-flexbox;
@@ -29,27 +82,139 @@
 	border-radius:50%;
 	position:relative;
 }
-.inlineGrid() {
+.inlineGrid(@gap) {
 	display:inline-grid;
 	display: -ms-inline-grid;
-	display: -moz-inline-grid;
 	-ms-grid-column-gap: @gap;
 	grid-column-gap: @gap;
 	grid-gap:@gap;
 }
+
+
 body {
-	background: @bg_gray;
+	input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-ms-search-cancel-button,
+	input[type="search"]::-moz-search-cancel-button {
+		cursor: pointer;
+	}
+
+	background: @white;
 	margin: 0;
+
+	.hide_641 {
+		display: none;
+
+		@media(max-width:640px) {
+			display: block;
+		}
+	}
+
+	.show_641 {
+		@media(max-width:640px) {
+			display: none;
+		}
+	}
 
 	header {
 		width: 100%;
-		height: 2em;
-		background: @light_blue;
+		height: 64px;
+		line-height: 64px;
+		background: @dodger-blue;
 
-		#search {
-			background: @dark_blue;
-			border-radius: 6px;
-			height: 37px;
+		.grid {
+			margin: 0 16px;
+
+			@media @desktop_1366 {
+				margin: 0 @gap_sides;
+			}
+
+			.displayGrid(1em);
+			grid-template-areas: "logo search notification";
+			grid-template-columns: min-content 1fr max-content;
+			align-content: flex-end;
+
+			@media(max-width:640px) {
+				grid-template-areas: "menu logo notification" "search search search";
+
+				#menu {
+					grid-area: menu;
+				}
+			}
+
+			.logo {
+				grid-area: logo;
+
+				img {
+					vertical-align: middle;
+				}
+
+				@media(max-width:640px) {
+					justify-self: center;
+				}
+			}
+
+			#notification {
+				grid-area: notification;
+				justify-self: end;
+			}
+
+			#searchArea {
+				grid-area: search;
+				.inlineGrid(0);
+				-ms-grid-template-columns: auto max-content max-content;
+				grid-template-columns: auto max-content max-content;
+				-ms-align-items: center;
+				align-items: center;
+
+				@media @phone {
+					margin: -1em;
+					padding: 0.5em;
+					background: @white-three;
+				}
+
+				.section-icon {
+					padding-left: 8px;
+				}
+
+				#searchInput {
+					background: @ocean-blue;
+					border-radius: 6px;
+					line-height: 35px
+				}
+
+				.speech-icon {
+					margin-left: -1em;
+					background: white;
+					border: 0;
+					border-radius: 0 6px 6px 0;
+					height: 37px;
+					padding-right: 10px;
+
+					@media @phone {
+						margin-left: 1em;
+						background: none;
+					}
+				}
+			}
+
+			#search {
+				background: @ocean-blue;
+				border-radius: 6px;
+				color: white;
+				border: none;
+				height: 37px;
+				margin-left: 1em;
+				padding: 0 10px;
+
+				@media @phone{
+					display:none;
+				}
+
+				@media(max-width:1365px) {
+					span {
+						display: none;
+					}
+				}
+			}
 		}
 	}
 
@@ -57,7 +222,53 @@ body {
 		text-transform: uppercase;
 	}
 
+	#menu-checkbox {
+		position: absolute;
+		margin: 0;
+		margin-top: -45px;
+		margin-left: 16px;
+		width: 21px;
+		height: 21px;
+		opacity: 0;
+		cursor: pointer;
+	}
+
+	#menu-checkbox:checked + aside {
+		transform: scale(1.0, 1.0);
+		opacity: 1;
+	}
+
+	section {
+		.displayGrid(0);
+		grid-template-areas: "aside content";
+
+		.content {
+			grid-area: content;
+			margin-top: 1em;
+
+			@media @phone {
+				margin-top: ~"calc(2em + 37px)";
+			}
+		}
+	}
+
 	aside {
+		grid-area: aside;
+		padding: 1em 16px;
+
+		@media @desktop_1366 {
+			padding: 1em @gap_sides;
+		}
+
+		position: fixed;
+		width: 150px;
+
+		@media(max-width:640px) {
+			background: white;
+			transform-origin: 0% 0%;
+			transform: translate(-100%, 0);
+			transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+		}
 
 		label {
 			width: 59px;
@@ -84,7 +295,7 @@ body {
 					line-height: @circle_size;
 				}
 
-				img {
+				svg {
 					top: 25%;
 					left: 20%;
 					position: absolute;
@@ -96,17 +307,12 @@ body {
 
 				.ask {
 					.circle();
-					background: @dark_blue;
+					background: @ocean-blue;
 				}
 
 				.note {
 					.circle();
-
-					img {
-						left: 30%;
-					}
-
-					background: @purple;
+					background: @royal-purple;
 				}
 
 				.flashcard {
@@ -116,13 +322,12 @@ body {
 
 				.tutor {
 					.circle();
-					background: @green;
+					background: @sap-green;
 				}
 			}
 		}
 	}
-
-	.grid {
+	/*.grid {
 		.inlineGrid();
 		background: white;
 		grid-template-columns: 1fr 1fr 1fr;
@@ -133,8 +338,7 @@ body {
 		div {
 			background: green;
 		}
-	}
-
+	}*/
 	.sub-filter {
 		.displayInlineFlex();
 
@@ -142,14 +346,17 @@ body {
 			flex: 1 0 auto;
 		}
 	}
-	/*.speech-input {
-		width: 440px;
+
+	.speech-input {
+		width: ~"calc(100% - 40px)";
+		height: 37px;
+		border-radius: 0 6px 6px 0;
+		border-width: 0;
+		margin-left: 7px;
+		/*width: 440px;
 		max-width: 100%;
 		font-size: 2em;
 		padding: 0.4em;
-		box-sizing: border-box;
+		box-sizing: border-box;*/
 	}
-	.speech-icon{
-
-	}*/
 }
