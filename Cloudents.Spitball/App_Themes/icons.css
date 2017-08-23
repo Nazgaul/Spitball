@@ -6,23 +6,17 @@
     font-style: normal;
 }*/
 @font-face {
-    font-family: 'OpenSans';
-    src: url('OpenSans-Regular-webfont.woff') format('woff');
+  font-family: 'OpenSans';
+  src: url('OpenSans-Regular-webfont.woff') format('woff');
 }
-
-
-
-
-
 .icon {
-	display: inline-block;
-	width: 1em;
-	height: 1em;
-	stroke-width: 0;
-	stroke: currentColor;
-	fill: currentColor;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
 }
-
 /* ==========================================
 Single-colored icons can be modified like so:
 .icon-name {
@@ -30,75 +24,62 @@ Single-colored icons can be modified like so:
   color: red;
 }
 ========================================== */
-
 .icon-flash_2 {
-	width: 1.125em;
+  width: 1.125em;
 }
-
 .icon-flashcard {
-	width: 1.25em;
+  width: 1.25em;
 }
-
 .icon-jobs {
-	width: 0.4541015625em;
+  width: 0.4541015625em;
 }
-
 .icon-normal-logo {
-	width: 5em;
+  width: 5em;
 }
-
 .icon-note {
-	left: 32%;
-	height: 1.2em;
-	width: 1em;
+  left: 32%;
+  height: 1.2em;
+  width: 1em;
 }
-
 .icon-path {
-	width: 0.888671875em;
+  width: 0.888671875em;
 }
-
 .icon-post {
-	/*width: 0.7998046875em;*/
-	width: 1.1em;
-	height: 1.1em;
-	left: 27%;
+  /*width: 0.7998046875em;*/
+  width: 1.1em;
+  height: 1.1em;
+  left: 27%;
 }
-
 .icon-purchase {
-	width: 0.7998046875em;
+  width: 0.7998046875em;
 }
-
 .icon-shape {
-	width: 0.9521484375em;
+  width: 0.9521484375em;
 }
-
 .icon-small-logo {
-	width: 2.150390625em;
+  width: 2.150390625em;
 }
-
 .icon-tutor-copy {
-	width: 1.3em;
-	height: 1.3em;
-	top: 20%;
-	left: 15%;
+  width: 1.3em;
+  height: 1.3em;
+  top: 20%;
+  left: 15%;
 }
-
 .icon-ask-copy {
-	width: 1.412109375em;
+  width: 1.412109375em;
 }
-
 .icon-chat {
-	/*width: 1.125em;*/
-	width: 1.4em;
+  /*width: 1.125em;*/
+  width: 1.4em;
 }
 .icon-upload {
-	height: 1.1em;
-	width: 1.4em;
+  height: 1.1em;
+  width: 1.4em;
 }
 .icon-settings {
-	height: 1.2em;
-	width: 1.3em;
+  height: 1.2em;
+  width: 1.3em;
 }
-.icon-mic{
-	height:37px;
+.icon-mic {
+  height: 37px;
 }

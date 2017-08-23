@@ -161,6 +161,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Themes\icons.css">
+      <DependentUpon>icons.less</DependentUpon>
+    </Content>
+    <Content Include="App_Themes\icons.min.css">
+      <DependentUpon>icons.css</DependentUpon>
+    </Content>
     <Content Include="App_Themes\Images\icons.svg" />
     <Content Include="App_Themes\Images\normal-logo.svg" />
     <Content Include="App_Themes\Images\small-logo.svg" />

@@ -1,8 +1,9 @@
 ﻿@using System.Web.Optimization
 
 <!DOCTYPE html>
-<html>
+<html ng-app>
 <head>
+    <meta name="ad.size" content="width=300,height=250"/>
 	<meta name="viewport" content="width=device-width" />
 	<title>Index</title>
     @Styles.Render("~/My/Css")
@@ -39,7 +40,7 @@
 			</span>
 			<button id="mic" class="speech-icon" onclick="startDictation(event)">
 				<svg class="icon icon-mic">
-					<use xlink:href="/App_Themes/Images/icons.svg#icon-mic"></use>
+					<use xlink:href="/App_Themes/Images/icons.svg#icon-white-mic"></use>
 				</svg>
 			</button>
 			<button id="search" class="search">
@@ -60,8 +61,6 @@
 		</div>
 	</div>
 </header>
-<input id="menu-checkbox" type="checkbox" class="hide_641" />
-
 <section>
 	<input id="menu-checkbox" type="checkbox" class="hide_641" />
 	<aside>

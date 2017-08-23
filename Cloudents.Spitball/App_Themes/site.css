@@ -1,9 +1,13 @@
-﻿@font-face {
-  font-family: 'open_sansregular';
-  src: url('OpenSans-Regular-webfont.eot');
-  src: url('OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'), url('OpenSans-Regular-webfont.woff2') format('woff2'), url('OpenSans-Regular-webfont.woff') format('woff'), url('OpenSans-Regular-webfont.ttf') format('truetype'), url('OpenSans-Regular-webfont.svg#open_sansregular') format('svg');
-  font-weight: normal;
-  font-style: normal;
+﻿/*@font-face {
+    font-family: 'OpenSans';
+    src: url('');
+    src: url('OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'), url('OpenSans-Regular-webfont.woff2') format('woff2'), url('OpenSans-Regular-webfont.woff') format('woff'), url('OpenSans-Regular-webfont.ttf') format('truetype'), url('OpenSans-Regular-webfont.svg#open_sansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}*/
+@font-face {
+  font-family: 'OpenSans';
+  src: url('OpenSans-Regular-webfont.woff') format('woff');
 }
 .icon {
   display: inline-block;
@@ -85,16 +89,17 @@ Single-colored icons can be modified like so:
   font-size: 20px;
   letter-spacing: -0.4px;
   text-align: left;
-  color: #07305a;
+  color: #07305 5;
 }
 .Text-Style-2 {
+  margin-top: 0;
   font-family: OpenSans;
   font-size: 14px;
   font-weight: bold;
   line-height: 1.14;
   letter-spacing: -0.3px;
   text-align: left;
-  color: #0455a8;
+  color: #024294;
 }
 .Search-text {
   width: 55px;
@@ -128,6 +133,44 @@ body input[type="search"]::-ms-search-cancel-button,
 body input[type="search"]::-moz-search-cancel-button {
   cursor: pointer;
 }
+body [inline-flex] {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+body [grid] {
+  display: -ms-grid;
+  display: grid;
+  -ms-column-gap: 1em;
+  column-gap: 1em;
+  grid-gap: 1em;
+  -ms-grid-gap: 1em;
+  grid-row-gap: 1em;
+  -ms-grid-row-gap: 1em;
+}
+body button {
+  text-transform: capitalize;
+}
+body button:hover {
+  cursor: pointer;
+}
+body button:focus {
+  outline: none;
+}
+body .credit {
+  color: #9b9b9b;
+  font-size: 10px;
+}
+body .description {
+  font-size: 16px;
+}
+body .university-class {
+  font-size: 12px;
+  color: #888b8e;
+}
+body .university {
+  margin-bottom: 1em;
+}
 body .hide_641 {
   display: none;
 }
@@ -148,7 +191,8 @@ body header {
   background: #3293f6;
 }
 body header .grid {
-  margin: 0 16px;
+  margin: 0 auto;
+  max-width: 1000px;
   display: -ms-grid;
   display: grid;
   -ms-column-gap: 1em;
@@ -161,9 +205,9 @@ body header .grid {
   grid-template-columns: min-content 1fr max-content;
   align-content: flex-end;
 }
-@media only screen and (min-width: 1366px) {
+@media only screen and (max-width: 1030px) {
   body header .grid {
-    margin: 0 15%;
+    margin: 0 16px;
   }
 }
 @media (max-width: 640px) {
@@ -205,14 +249,14 @@ body header .grid #searchArea {
   body header .grid #searchArea {
     margin: -1em;
     padding: 0.5em;
-    background: #dddddd;
+    background: #3293f6;
   }
 }
 body header .grid #searchArea .section-icon {
   padding-left: 8px;
 }
 body header .grid #searchArea #searchInput {
-  background: #0455a8;
+  background: #024294;
   border-radius: 6px;
   line-height: 35px;
 }
@@ -231,7 +275,7 @@ body header .grid #searchArea .speech-icon {
   }
 }
 body header .grid #search {
-  background: #0455a8;
+  background: #024294;
   border-radius: 6px;
   color: white;
   border: none;
@@ -255,7 +299,7 @@ body .upper {
 body #menu-checkbox {
   position: absolute;
   margin: 0;
-  margin-top: -45px;
+  margin-top: -44px;
   margin-left: 16px;
   width: 21px;
   height: 21px;
@@ -267,6 +311,8 @@ body #menu-checkbox:checked + aside {
   opacity: 1;
 }
 body section {
+  margin: 0 auto;
+  max-width: 1000px;
   display: -ms-grid;
   display: grid;
   -ms-column-gap: 0;
@@ -276,36 +322,139 @@ body section {
   grid-row-gap: 0;
   -ms-grid-row-gap: 0;
   grid-template-areas: "aside content";
+  grid-template-columns: auto auto;
+  /*background: yellow;*/
+}
+@media only screen and (max-width: 1030px) {
+  body section {
+    margin: 0 16px;
+  }
+}
+@media only screen and (min-width: 321px) and (max-width: 640px) {
+  body section {
+    margin: 0;
+  }
+}
+body section h1 {
+  color: #07305 5;
+  font-size: 20px;
+  text-align: center;
+}
+@media only screen and (min-width: 641px) and (max-width: 1365px) {
+  body section {
+    grid-template-columns: 166px auto;
+  }
 }
 body section .content {
   grid-area: content;
-  margin-top: 1em;
+  margin: 1em;
+  max-width: 560px;
+}
+body section .content .item-result {
+  display: -ms-grid;
+  display: grid;
+  -ms-column-gap: 1em;
+  column-gap: 1em;
+  grid-gap: 1em;
+  -ms-grid-gap: 1em;
+  grid-row-gap: 1em;
+  -ms-grid-row-gap: 1em;
+  height: 176px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  background-color: var(--white-two);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  padding: 1em;
+  grid-template-areas: "image item" "image source";
+  grid-template-columns: 26.22% auto;
+  grid-template-rows: auto 16px;
+}
+body section .content .item-result .image {
+  grid-area: image;
+  height: 100%;
+  min-width: 80px;
+}
+body section .content .item-result .item-content {
+  grid-area: item;
+}
+body section .content .item-result .source {
+  grid-area: source;
+  vertical-align: bottom;
 }
 @media only screen and (min-width: 321px) and (max-width: 640px) {
   body section .content {
     margin-top: calc(2em + 37px);
   }
 }
-body aside {
+body section .content input[type='radio'] {
+  display: none;
+}
+body section .content input[type='radio'] + label {
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 0 1em 0 0;
+  /*height: 32px;*/
+  border-radius: 10px;
+  border: solid 1px;
+  background: none;
+  padding: 5px 6px;
+}
+body section .content .options input[type='radio'] + label {
+  border-color: #3293f6;
+  color: #3293f6;
+}
+body section .content input[type='radio']:checked + label {
+  background: white;
+}
+body section .content .options-val {
+  border-color: #1e59a8;
+  /*[inline-flex] button {
+                    margin: 0 1em 0 0;
+                    height: 32px;
+                    border-radius: 10px;
+                    border: solid 1px @dodger-blue;
+                    background: none;
+                    color: @dodger-blue;
+
+                    &:focus {
+                        background: white;
+                    }
+                }*/
+}
+body section .content .options-val input[type='radio']:checked + label {
+  background: #1e59a8;
+  color: white;
+}
+body section .content .options-val input[type='radio'] + label {
+  color: #1e59a8;
+}
+body section aside {
   grid-area: aside;
-  padding: 1em 16px;
+  padding: 1em;
   position: fixed;
+  /*@media @desktop_1366 {
+                padding: 1em 0 1em 15%;
+            }
+            
+            position: fixed;*/
   width: 150px;
 }
-@media only screen and (min-width: 1366px) {
-  body aside {
-    padding: 1em 15%;
+@media only screen and (min-width: 641px) and (max-width: 1365px), only screen and (min-width: 1366px) {
+  body section aside {
+    padding-left: 0;
   }
 }
 @media (max-width: 640px) {
-  body aside {
+  body section aside {
     background: white;
     transform-origin: 0% 0%;
     transform: translate(-100%, 0);
     transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
   }
 }
-body aside label {
+body section aside label {
   width: 59px;
   height: 14px;
   font-family: OpenSans;
@@ -314,7 +463,7 @@ body aside label {
   text-align: left;
   color: #90949c;
 }
-body aside ul {
+body section aside ul {
   padding: 0;
   display: -ms-grid;
   display: grid;
@@ -325,46 +474,46 @@ body aside ul {
   grid-row-gap: 0.5em;
   -ms-grid-row-gap: 0.5em;
 }
-body aside ul li {
+body section aside ul li {
   display: flex;
   list-style: none;
   list-style-type: none;
   text-transform: capitalize;
 }
-body aside ul li span {
+body section aside ul li span {
   margin-left: 1em;
   line-height: 38px;
 }
-body aside ul li svg {
+body section aside ul li svg {
   top: 25%;
   left: 20%;
   position: absolute;
 }
-body aside ul li:last-of-type {
+body section aside ul li:last-of-type {
   /*margin-bottom: 0.8em;*/
 }
-body aside ul li .ask {
+body section aside ul li .ask {
   width: 38px;
   height: 38px;
   border-radius: 50%;
   position: relative;
-  background: #0455a8;
+  background: #024294;
 }
-body aside ul li .note {
+body section aside ul li .note {
   width: 38px;
   height: 38px;
   border-radius: 50%;
   position: relative;
   background: #320161;
 }
-body aside ul li .flashcard {
+body section aside ul li .flashcard {
   width: 38px;
   height: 38px;
   border-radius: 50%;
   position: relative;
   background: #c30000;
 }
-body aside ul li .tutor {
+body section aside ul li .tutor {
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -385,6 +534,8 @@ body .speech-input {
   border-radius: 0 6px 6px 0;
   border-width: 0;
   margin-left: 7px;
+  color: #3293f6;
+  padding-left: 8px;
   /*width: 440px;
 		max-width: 100%;
 		font-size: 2em;
