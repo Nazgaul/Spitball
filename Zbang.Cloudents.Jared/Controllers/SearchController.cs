@@ -84,7 +84,7 @@ namespace Zbang.Cloudents.Jared.Controllers
                 term.Add(string.Join(" ", model.Query.Select(s => '"' + s + '"')));
             }
 
-            var result = Enumerable.Range(model.Page * 3, 3).Select(s => DoSearchAsync(string.Join(" ", term), model.Source, s, model.Sort, CustomApiKey.Documents, token)).ToList();
+            var result = Enumerable.Range(model.Page * 3, 3).Select(s => DoSearchAsync(string.Join(" ", term), model.Source, s, model.Sort, CustomApiKey.Flashcard, token)).ToList();
             await Task.WhenAll(result).ConfigureAwait(false);
 
             //var result = await DoSearchAsync(model, universitySynonym, CustomApiKey.Flashcard, token).ConfigureAwait(false);
