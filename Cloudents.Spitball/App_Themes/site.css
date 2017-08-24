@@ -31,7 +31,10 @@ Single-colored icons can be modified like so:
   width: 1.25em;
 }
 .icon-jobs {
-  width: 0.4541015625em;
+  /*width: 0.4541015625em;*/
+  height: 1.5em;
+  top: 17%;
+  left: 24%;
 }
 .icon-normal-logo {
   width: 5em;
@@ -51,7 +54,9 @@ Single-colored icons can be modified like so:
   left: 27%;
 }
 .icon-purchase {
-  width: 0.7998046875em;
+  /*width: 0.7998046875em;*/
+  width: 1.2em;
+  height: 1.2em;
 }
 .icon-shape {
   width: 0.9521484375em;
@@ -112,7 +117,18 @@ Single-colored icons can be modified like so:
   text-transform: capitalize;
   color: #ffffff;
 }
+[grid] {
+  display: -ms-grid;
+  display: grid;
+  -ms-column-gap: 1em;
+  column-gap: 1em;
+  grid-gap: 1em;
+  -ms-grid-gap: 1em;
+  grid-row-gap: 1em;
+  -ms-grid-row-gap: 1em;
+}
 body {
+  font-family: openSans;
   background: #eeeeee;
   margin: 0;
   /*.grid {
@@ -138,16 +154,6 @@ body [inline-flex] {
   display: -ms-inline-flexbox;
   display: inline-flex;
 }
-body [grid] {
-  display: -ms-grid;
-  display: grid;
-  -ms-column-gap: 1em;
-  column-gap: 1em;
-  grid-gap: 1em;
-  -ms-grid-gap: 1em;
-  grid-row-gap: 1em;
-  -ms-grid-row-gap: 1em;
-}
 body button {
   text-transform: capitalize;
 }
@@ -156,6 +162,27 @@ body button:hover {
 }
 body button:focus {
   outline: none;
+}
+body .color-ask-copy {
+  background: #024294 !important;
+}
+body .color-note {
+  background: #320161 !important;
+}
+body .color-flashcard {
+  background: #f14d4d !important;
+}
+body .color-tutor-copy {
+  background: #52ab15 !important;
+}
+body .color-jobs {
+  background: #f49c20 !important;
+}
+body .color-book {
+  background: #8c3fbf !important;
+}
+body .color-purchase {
+  background: #2cbfa5 !important;
 }
 body .credit {
   color: #9b9b9b;
@@ -190,6 +217,36 @@ body header {
   line-height: 64px;
   background: #3293f6;
 }
+@media only screen and (min-width: 321px) and (max-width: 640px) {
+  body header {
+    height: 130px;
+  }
+}
+body header.section-open {
+  height: 130px;
+}
+@media only screen and (min-width: 321px) and (max-width: 640px) {
+  body header.section-open {
+    height: 180px;
+  }
+}
+body header input[type="radio"] + label {
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 14px;
+  margin: 0 1em 0 0;
+  height: 22px;
+  line-height: 22px;
+  color: white;
+  border-radius: 10px;
+  border: solid 1px;
+  background: #bbbbbb;
+  border: none;
+  padding: 5px 6px;
+  font-family: openSans;
+}
 body header .grid {
   margin: 0 auto;
   max-width: 1000px;
@@ -201,7 +258,7 @@ body header .grid {
   -ms-grid-gap: 1em;
   grid-row-gap: 1em;
   -ms-grid-row-gap: 1em;
-  grid-template-areas: "logo search notification";
+  grid-template-areas: "logo search notification" "options options options";
   grid-template-columns: min-content 1fr max-content;
   align-content: flex-end;
 }
@@ -210,9 +267,36 @@ body header .grid {
     margin: 0 16px;
   }
 }
+@media only screen and (min-width: 1366px), only screen and (min-width: 641px) and (max-width: 1365px) {
+  body header .grid {
+    grid-row-gap: 0;
+  }
+}
+body header .grid input[type=radio] {
+  display: none;
+}
+body header .grid .sections {
+  grid-area: options;
+  padding: 0.5em 0;
+  white-space: nowrap;
+  overflow-x: visible;
+  overflow-y: hidden;
+}
+body header .grid .sections .bunner {
+  background: -webkit-gradient(linear, right top, left top, color-stop(0%, rgba(248, 248, 248, 0)), color-stop(100%, #f8f8f8));
+  height: 40px;
+  pointer-events: none;
+  width: 40px;
+  height: 43px;
+  z-index: 2;
+  background: linear-gradient(to right, rgba(50, 147, 246, 0), #3293f6);
+  position: absolute;
+  right: 0;
+  top: 118px;
+}
 @media (max-width: 640px) {
   body header .grid {
-    grid-template-areas: "menu logo notification" "search search search";
+    grid-template-areas: "menu logo notification" "search search search" "options options options";
   }
   body header .grid #menu {
     grid-area: menu;
@@ -256,9 +340,34 @@ body header .grid #searchArea .section-icon {
   padding-left: 8px;
 }
 body header .grid #searchArea #searchInput {
-  background: #024294;
   border-radius: 6px;
   line-height: 35px;
+  display: inline-grid;
+  display: -ms-inline-grid;
+  -ms-grid-column-gap: 0;
+  grid-column-gap: 0;
+  grid-gap: 0;
+  grid-template-columns: 40px 100%;
+}
+body header .grid #searchArea #searchInput .icon-note {
+  left: 0%;
+  width: 1em;
+  top: 0.2em;
+  margin: 0 0.2em;
+  position: relative;
+}
+body header .grid #searchArea #searchInput .icon-ask-copy {
+  position: relative;
+  top: 0.2em;
+}
+body header .grid #searchArea #searchInput .icon-tutor-copy {
+  position: relative;
+  top: 0.4em;
+  padding-right: 0.2em;
+  left: 0;
+}
+body header .grid #searchArea #searchInput .icon-flashcard {
+  margin-right: 0.2em;
 }
 body header .grid #searchArea .speech-icon {
   margin-left: -1em;
@@ -299,12 +408,18 @@ body .upper {
 body #menu-checkbox {
   position: absolute;
   margin: 0;
-  margin-top: -44px;
+  margin-top: -110px;
   margin-left: 16px;
   width: 21px;
   height: 21px;
   opacity: 0;
   cursor: pointer;
+}
+body #menu-checkbox:hover {
+  cursor: pointer;
+}
+body #menu-checkbox.section-open {
+  margin-top: -159px;
 }
 body #menu-checkbox:checked + aside {
   transform: scale(1, 1);
@@ -349,6 +464,9 @@ body section .content {
   grid-area: content;
   margin: 1em;
   max-width: 560px;
+  /*@media @phone {
+                margin-top: ~"calc(2em + 37px)";
+            }*/
 }
 body section .content .item-result {
   display: -ms-grid;
@@ -381,11 +499,6 @@ body section .content .item-result .source {
   grid-area: source;
   vertical-align: bottom;
 }
-@media only screen and (min-width: 321px) and (max-width: 640px) {
-  body section .content {
-    margin-top: calc(2em + 37px);
-  }
-}
 body section .content input[type='radio'] {
   display: none;
 }
@@ -400,6 +513,8 @@ body section .content input[type='radio'] + label {
   border: solid 1px;
   background: none;
   padding: 5px 6px;
+  font-family: openSans;
+  font-size: 14px;
 }
 body section .content .options input[type='radio'] + label {
   border-color: #3293f6;
@@ -433,7 +548,7 @@ body section .content .options-val input[type='radio'] + label {
 body section aside {
   grid-area: aside;
   padding: 1em;
-  position: fixed;
+  position: absolute;
   /*@media @desktop_1366 {
                 padding: 1em 0 1em 15%;
             }
@@ -479,6 +594,14 @@ body section aside ul li {
   list-style: none;
   list-style-type: none;
   text-transform: capitalize;
+}
+body section aside ul li:hover {
+  cursor: pointer;
+}
+body section aside ul li.selected {
+  margin: 0 -1em;
+  padding: 0 1em;
+  background: #f0f0f0;
 }
 body section aside ul li span {
   margin-left: 1em;
@@ -533,9 +656,9 @@ body .speech-input {
   height: 37px;
   border-radius: 0 6px 6px 0;
   border-width: 0;
-  margin-left: 7px;
+  /*margin-left: 7px;*/
   color: #3293f6;
-  padding-left: 8px;
+  /*padding-left: 8px;*/
   /*width: 440px;
 		max-width: 100%;
 		font-size: 2em;

@@ -31,7 +31,10 @@ Single-colored icons can be modified like so:
   width: 1.25em;
 }
 .icon-jobs {
-  width: 0.4541015625em;
+  /*width: 0.4541015625em;*/
+  height: 1.5em;
+  top: 17%;
+  left: 24%;
 }
 .icon-normal-logo {
   width: 5em;
@@ -51,7 +54,9 @@ Single-colored icons can be modified like so:
   left: 27%;
 }
 .icon-purchase {
-  width: 0.7998046875em;
+  /*width: 0.7998046875em;*/
+  width: 1.2em;
+  height: 1.2em;
 }
 .icon-shape {
   width: 0.9521484375em;

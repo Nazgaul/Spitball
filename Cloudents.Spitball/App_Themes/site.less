@@ -97,8 +97,12 @@
     grid-gap: @gap;
 }
 
-
+[grid] {
+    .displayGrid(1em);
+}
 body {
+    font-family: openSans;
+
     input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-ms-search-cancel-button,
     input[type="search"]::-moz-search-cancel-button {
         cursor: pointer;
@@ -108,9 +112,7 @@ body {
         .displayInlineFlex();
     }
 
-    [grid] {
-        .displayGrid(1em);
-    }
+
 
     button {
         text-transform: capitalize;
@@ -122,6 +124,34 @@ body {
         &:focus {
             outline: none;
         }
+    }
+
+    .color-ask-copy {
+        background: @ocean-blue !important;
+    }
+
+    .color-note {
+        background: @royal-purple !important;
+    }
+
+    .color-flashcard {
+        background: @coral !important;
+    }
+
+    .color-tutor-copy {
+        background: @sap-green !important;
+    }
+
+    .color-jobs {
+        background: @squash !important;
+    }
+
+    .color-book {
+        background: @purply !important;
+    }
+
+    .color-purchase {
+        background: @tealish !important;
     }
 
     .credit {
@@ -165,6 +195,36 @@ body {
         line-height: 64px;
         background: @dodger-blue;
 
+        @media @phone {
+            height: 130px;
+        }
+
+        &.section-open {
+            height: 130px;
+
+            @media @phone {
+                height: 180px;
+            }
+        }
+
+        input[type="radio"] + label {
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 0 1em 0 0;
+            height: 22px;
+            line-height: 22px;
+            color: white;
+            border-radius: 10px;
+            border: solid 1px;
+            background: @pinkish-grey;
+            border: none;
+            padding: 5px 6px;
+            font-family: openSans;
+        }
+
         .grid {
             margin: 0 auto;
             max-width: 1000px;
@@ -174,12 +234,44 @@ body {
             }
 
             .displayGrid(1em);
-            grid-template-areas: "logo search notification";
+
+
+            @media @desktop_1366,@tablet_641 {
+                grid-row-gap: 0;
+            }
+
+            grid-template-areas: "logo search notification" "options options options";
             grid-template-columns: min-content 1fr max-content;
             align-content: flex-end;
 
+            input[type=radio] {
+                display: none;
+            }
+
+            .sections {
+                grid-area: options;
+                padding: 0.5em 0;
+                white-space: nowrap;
+                overflow-x: visible;
+                overflow-y: hidden;
+
+                .bunner {
+                    background: -webkit-gradient(linear,right top,left top,color-stop(0%,rgba(248,248,248,0)),color-stop(100%,rgba(248,248,248,1)));
+                    height: 40px;
+                    position: absolute;
+                    pointer-events: none;
+                    width: 40px;
+                    height: 43px;
+                    z-index: 2;
+                    background: linear-gradient(to right, rgba(50, 147, 246, 0), @dodger-blue);
+                    position: absolute;
+                    right: 0;
+                    top: 118px;
+                }
+            }
+
             @media(max-width:640px) {
-                grid-template-areas: "menu logo notification" "search search search";
+                grid-template-areas: "menu logo notification" "search search search" "options options options";
 
                 #menu {
                     grid-area: menu;
@@ -222,9 +314,34 @@ body {
                 }
 
                 #searchInput {
-                    background: @ocean-blue;
                     border-radius: 6px;
-                    line-height: 35px
+                    line-height: 35px;
+                    .inlineGrid(0);
+                    grid-template-columns: 40px 100%;
+
+                    .icon-note {
+                        left: 0%;
+                        width: 1em;
+                        top: 0.2em;
+                        margin: 0 0.2em;
+                        position: relative;
+                    }
+
+                    .icon-ask-copy {
+                        position: relative;
+                        top: 0.2em;
+                    }
+
+                    .icon-tutor-copy {
+                        position: relative;
+                        top: 0.4em;
+                        padding-right: 0.2em;
+                        left: 0;
+                    }
+
+                    .icon-flashcard {
+                        margin-right: 0.2em;
+                    }
                 }
 
                 .speech-icon {
@@ -271,12 +388,16 @@ body {
     #menu-checkbox {
         position: absolute;
         margin: 0;
-        margin-top: -44px;
+        margin-top: -110px;
         margin-left: 16px;
         width: 21px;
         height: 21px;
         opacity: 0;
         cursor: pointer;
+        &:hover{cursor:pointer;}
+        &.section-open{
+            margin-top:-159px;
+        }
     }
 
     #menu-checkbox:checked + aside {
@@ -342,11 +463,9 @@ body {
                     vertical-align: bottom;
                 }
             }
-
-            @media @phone {
+            /*@media @phone {
                 margin-top: ~"calc(2em + 37px)";
-            }
-
+            }*/
             input[type='radio'] {
                 display: none;
             }
@@ -362,6 +481,8 @@ body {
                 border: solid 1px;
                 background: none;
                 padding: 5px 6px;
+                font-family: openSans;
+                font-size: 14px;
             }
 
             .options input[type='radio'] + label {
@@ -402,7 +523,7 @@ body {
         aside {
             grid-area: aside;
             padding: 1em;
-            position: fixed;
+            position: absolute;
             /*@media @desktop_1366 {
                 padding: 1em 0 1em 15%;
             }
@@ -436,6 +557,16 @@ body {
                 .displayGrid(0.5em);
 
                 li {
+                    &:hover {
+                        cursor: pointer;
+                    }
+
+                    &.selected {
+                        margin: 0 -1em;
+                        padding: 0 1em;
+                        background: @white-four;
+                    }
+
                     display: flex;
                     list-style: none;
                     list-style-type: none;
@@ -504,9 +635,9 @@ body {
         height: 37px;
         border-radius: 0 6px 6px 0;
         border-width: 0;
-        margin-left: 7px;
+        /*margin-left: 7px;*/
         color: @dodger-blue;
-        padding-left: 8px;
+        /*padding-left: 8px;*/
         /*width: 440px;
 		max-width: 100%;
 		font-size: 2em;
