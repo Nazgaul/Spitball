@@ -23,59 +23,60 @@
     </script>
 	</head>
 <body ng-controller="HomeController as ctrl">
+<div class="overlay" ng-show="ctrl.isOpen" ng-click="ctrl.isOpen=false"></div>
 <header ng-class="{'section-open':ctrl.sectionOpen}" ng-init="ctrl.sectionOpen=false">
 	<div class="grid">
-        <div class="logo" ng-click="ctrl.sectionOpen=true">
+		<div class="logo" ng-click="ctrl.sectionOpen=true">
 			<picture>
 				<source media="(min-width: 641px) and (max-width: 1365px)" srcset="/App_Themes/Images/small-logo.svg">
-				<img  src="/App_Themes/Images/normal-logo.svg" alt="logo">
+				<img src="/App_Themes/Images/normal-logo.svg" alt="logo">
 			</picture>
 		</div>
-		<div id="searchArea">
+		<form id="searchArea" ng-submit="ctrl.search()">
 			<span id="searchInput" class="color-{{ctrl.sec}}">
 				<span class="section-icon">
 					<svg class="icon icon-{{ctrl.sec}}">
 						<use xlink:href="{{'/App_Themes/Images/icons.svg#icon-'+ctrl.sec}}"></use>
 					</svg>
-					</span>
-				<input id="transcript" class="speech-input" type="search">
+				</span>
+				<input id="qFilter" class="speech-input" type="search" ng-model="ctrl.term">
 			</span>
 			<button id="mic" class="speech-icon" onclick="startDictation(event)">
 				<svg class="icon icon-mic">
 					<use xlink:href="/App_Themes/Images/icons.svg#icon-white-mic"></use>
 				</svg>
 			</button>
-			<button id="search" class="search">
+			<button id="search" class="search color-{{ctrl.sec}}">
 				<svg class="icon icon-search-icon">
 					<use xlink:href="/App_Themes/Images/icons.svg#icon-search-icon"></use>
 				</svg><span class="capitalize Search-text">search</span>
 			</button>
-		</div>
+		</form>
 		<div id="notification">
 			<svg class="icon icon-path">
 				<use xlink:href="/App_Themes/Images/icons.svg#icon-path"></use>
 			</svg>
 		</div>
-		<div id="menu" class="hide_641">
-			<svg class="icon icon-menu">
-				<use xlink:href="/App_Themes/Images/icons.svg#icon-menu"></use>
-			</svg>
+		<div id="menu" class="hide_641" ng-class="{'color-blue':ctrl.isOpen}">
+				<span></span>
+				<span></span>
+				<span></span>
 		</div>
-        <div inline-flex class="sections" ng-show="ctrl.sectionOpen">
-            <input id="ask" type="radio" value="ask-copy" ng-model="ctrl.sec" name="sec" ><label ng-class="{'color-ask-copy':(ctrl.sec=='ask-copy')}" for="ask">Ask</label>
-            <input id="note" type="radio" value="note" ng-model="ctrl.sec" name="sec" ><label ng-class="{'color-note':(ctrl.sec=='note')}" for="note">Note</label>
-            <input id="flashcard" type="radio" value="flashcard" ng-model="ctrl.sec" name="sec"><label ng-class="{'color-flashcard':(ctrl.sec=='flashcard')}" for="flashcard">Flashcard</label>
-            <input id="tutor" type="radio" value="tutor-copy" ng-model="ctrl.sec" name="sec"><label ng-class="{'color-tutor-copy':(ctrl.sec=='tutor-copy')}" for="tutor">Tutor</label>
-            <input id="job" type="radio" value="jobs" ng-model="ctrl.sec" name="sec"><label ng-class="{'color-jobs':(ctrl.sec=='jobs')}" for="job">Job</label>
-            <input id="book" type="radio" value="book" ng-model="ctrl.sec" name="sec"><label ng-class="{'color-book':(ctrl.sec=='book')}" for="book">Book</label>
-            <input id="purchase" type="radio" value="purchase" ng-model="ctrl.sec" name="sec"><label ng-class="{'color-purchase':(ctrl.sec=='purchase')}" for="purchase">Purchase</label>
-       <div class="bunner hide_641"></div>
-        </div>
+		<div inline-flex class="sections" ng-show="ctrl.sectionOpen">
+			<input id="ask" type="radio" ng-click="ctrl.changeSection('ask-copy')" value="ask-copy" ng-model="ctrl.sec" name="sec"><label ng-class="{'color-ask-copy':(ctrl.sec=='ask-copy')}" for="ask">Ask</label>
+			<input id="note" type="radio" ng-click="ctrl.changeSection('note')" value="note" ng-model="ctrl.sec" name="sec"><label ng-class="{'color-note':(ctrl.sec=='note')}" for="note">Note</label>
+			<input id="flashcard" type="radio" ng-click="ctrl.changeSection('flashcard')" value="flashcard" ng-model="ctrl.sec" name="sec"><label ng-class="{'color-flashcard':(ctrl.sec=='flashcard')}" for="flashcard">Flashcard</label>
+			<input id="tutor" type="radio" ng-click="ctrl.changeSection('tutor-copy')" value="tutor-copy" ng-model="ctrl.sec" name="sec"><label ng-class="{'color-tutor-copy':(ctrl.sec=='tutor-copy')}" for="tutor">Tutor</label>
+			<input id="job" type="radio" ng-click="ctrl.changeSection('jobs')" value="jobs" ng-model="ctrl.sec" name="sec"><label ng-class="{'color-jobs':(ctrl.sec=='jobs')}" for="job">Job</label>
+			<input id="book" type="radio" ng-click="ctrl.changeSection('book')" value="book" ng-model="ctrl.sec" name="sec"><label ng-class="{'color-book':(ctrl.sec=='book')}" for="book">Book</label>
+			<input id="purchase" type="radio" ng-click="ctrl.changeSection('purchase')" value="purchase" ng-model="ctrl.sec" name="sec"><label ng-class="{'color-purchase':(ctrl.sec=='purchase')}" for="purchase">Purchase</label>
+			<div class="bunner hide_641"></div>
+		</div>
 	</div>
 </header>
 <section>
 	<input id="menu-checkbox" type="checkbox" class="hide_641" ng-model="ctrl.isOpen" ng-class="{'section-open':ctrl.sectionOpen}"/>
-	<aside>
+	<aside ng-class="{'section-open':ctrl.sectionOpen}">
 		<label class="upper">search type</label>
 		<ul>
 			<li ng-click="ctrl.changeSection('ask-copy')" ng-class="{'selected':(ctrl.sec=='ask-copy')}">
@@ -93,7 +94,7 @@
 				</div><span>notes</span>
 			</li>
 			<li ng-click="ctrl.changeSection('flashcard')" ng-class="{'selected':(ctrl.sec=='flashcard')}">
-				<div class="flashcard">
+				<div class="flashcard color-flashcard">
 					<svg class="icon icon-flashcard">
 						<use xlink:href="/App_Themes/Images/icons.svg#icon-flashcard"></use>
 					</svg>
@@ -106,44 +107,56 @@
 					</svg>
 				</div><span>tutor</span>
 			</li>
-            <li ng-click="ctrl.changeSection('jobs')" ng-class="{'selected':(ctrl.sec=='jobs')}">
-                <div class="flashcard jobs color-jobs">
-                    <svg class="icon icon-jobs">
-                        <use xlink:href="/App_Themes/Images/icons.svg#icon-jobs"></use>
-                    </svg>
-                </div><span class="capitalize">jobs</span>
-            </li>
-            <li ng-click="ctrl.changeSection('purchase')" ng-class="{'selected':(ctrl.sec=='purchase')}">
-                <div class="flashcard color-purchase">
-                    <svg class="icon icon-purchase">
-                        <use xlink:href="/App_Themes/Images/icons.svg#icon-purchase"></use>
-                    </svg>
-                </div><span class="capitalize">purchase</span>
-            </li>
+			<li ng-click="ctrl.changeSection('jobs')" ng-class="{'selected':(ctrl.sec=='jobs')}">
+				<div class="flashcard jobs color-jobs">
+					<svg class="icon icon-jobs">
+						<use xlink:href="/App_Themes/Images/icons.svg#icon-jobs"></use>
+					</svg>
+				</div><span class="capitalize">jobs</span>
+			</li>
+			<li ng-click="ctrl.changeSection('book')" ng-class="{'selected':(ctrl.sec=='book')}">
+				<div class="flashcard book color-book">
+					<svg class="icon icon-book">
+						<use xlink:href="/App_Themes/Images/icons.svg#icon-book"></use>
+					</svg>
+				</div><span class="capitalize">book</span>
+			</li>
+			<li ng-click="ctrl.changeSection('purchase')" ng-class="{'selected':(ctrl.sec=='purchase')}">
+				<div class="flashcard color-purchase">
+					<svg class="icon icon-purchase">
+						<use xlink:href="/App_Themes/Images/icons.svg#icon-purchase"></use>
+					</svg>
+				</div><span class="capitalize">purchase</span>
+			</li>
 		</ul>
 		<label class="upper">contribute</label>
 		<ul>
 			<li>
-				<div class="ask">
-					<img src="/App_Themes/Images/icons.svg#icon-ask-copy">
+				<div class="ask color-upload">
 					<svg class="icon icon-upload">
 						<use xlink:href="/App_Themes/Images/icons.svg#icon-upload"></use>
 					</svg>
 				</div><span>upload</span>
 			</li>
 			<li>
-				<div class="note">
+				<div class="note color-post">
 					<svg class="icon icon-post">
 						<use xlink:href="/App_Themes/Images/icons.svg#icon-post"></use>
 					</svg>
-				</div><span>post</span>
+				</div><span>post to class</span>
+			</li>
+			<li>
+				<div class="note color-create-flashcard">
+					<svg class="icon icon-create-flashcard">
+						<use xlink:href="/App_Themes/Images/icons.svg#icon-create-flashcard"></use>
+					</svg>
+				</div><span>Create Flashcard</span>
 			</li>
 		</ul>
 		<label class="upper">class talk</label>
 		<ul>
 			<li>
-				<div class="ask">
-					<img src="/App_Themes/Images/icons.svg#icon-ask-copy">
+				<div class="ask color-chat">
 					<svg class="icon icon-chat">
 						<use xlink:href="/App_Themes/Images/icons.svg#icon-chat"></use>
 					</svg>
@@ -153,7 +166,14 @@
 		<label class="upper">personal info</label>
 		<ul>
 			<li>
-				<div class="ask">
+				<div class="ask color-my-likes">
+					<svg class="icon icon-settings">
+						<use xlink:href="/App_Themes/Images/icons.svg#icon-my-likes"></use>
+					</svg>
+				</div><span>My Likes</span>
+			</li>
+			<li>
+				<div class="ask color-settings">
 					<svg class="icon icon-settings">
 						<use xlink:href="/App_Themes/Images/icons.svg#icon-settings"></use>
 					</svg>
@@ -163,9 +183,9 @@
 	</aside>
 	<div class="content">@RenderBody()</div>
 </section>
-    @Scripts.Render("~/bundles/angularjs")
-    <script src="~/Scripts/app/home.controller.js"></script>
-    @*@Scripts.Render("~/My/Js")*@
+@Scripts.Render("~/bundles/angularjs")
+<script src="~/Scripts/app/home.controller.js"></script>
+@*@Scripts.Render("~/My/Js")*@
 <script>
 	function startDictation() {
 

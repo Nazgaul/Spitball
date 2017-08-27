@@ -34,7 +34,7 @@ Single-colored icons can be modified like so:
   /*width: 0.4541015625em;*/
   height: 1.5em;
   top: 17%;
-  left: 24%;
+  left: 27%;
 }
 .icon-normal-logo {
   width: 5em;
@@ -87,4 +87,21 @@ Single-colored icons can be modified like so:
 }
 .icon-mic {
   height: 37px;
+}
+.icon-book {
+  /*width: 1.2939453125em;*/
+  width: 1.4em;
+  height: 1.2em;
+}
+.icon-menu.color-blue {
+  fill: blue;
+}
+#menu span {
+  width: 35px;
+  height: 5px;
+  background-color: white;
+  margin: 6px 0;
+}
+.icon-create-flashcard {
+  width: 1.2em;
 }

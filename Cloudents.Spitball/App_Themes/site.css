@@ -34,7 +34,7 @@ Single-colored icons can be modified like so:
   /*width: 0.4541015625em;*/
   height: 1.5em;
   top: 17%;
-  left: 24%;
+  left: 27%;
 }
 .icon-normal-logo {
   width: 5em;
@@ -87,6 +87,23 @@ Single-colored icons can be modified like so:
 }
 .icon-mic {
   height: 37px;
+}
+.icon-book {
+  /*width: 1.2939453125em;*/
+  width: 1.4em;
+  height: 1.2em;
+}
+.icon-menu.color-blue {
+  fill: blue;
+}
+#menu span {
+  width: 35px;
+  height: 5px;
+  background-color: white;
+  margin: 6px 0;
+}
+.icon-create-flashcard {
+  width: 1.2em;
 }
 /* Text styles */
 .Text-Style {
@@ -144,6 +161,16 @@ body {
 		}
 	}*/
 }
+body .overlay {
+  width: 100%;
+  height: 100%;
+  background: black;
+  z-index: 6;
+  opacity: 0.8;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
 body input[type="search"]::-webkit-search-cancel-button,
 body input[type="search"]::-ms-search-cancel-button,
 body input[type="search"]::-moz-search-cancel-button {
@@ -166,6 +193,12 @@ body button:focus {
 body .color-ask-copy {
   background: #024294 !important;
 }
+body .color-create-flashcard {
+  background: #a40014 !important;
+}
+body .color-my-likes {
+  background: #7ed321 !important;
+}
 body .color-note {
   background: #320161 !important;
 }
@@ -183,6 +216,18 @@ body .color-book {
 }
 body .color-purchase {
   background: #2cbfa5 !important;
+}
+body .color-upload {
+  background: #94b7cb !important;
+}
+body .color-post {
+  background: #414141 !important;
+}
+body .color-chat {
+  background: #9ccdff !important;
+}
+body .color-settings {
+  background: #07305 5 !important;
 }
 body .credit {
   color: #9b9b9b;
@@ -212,10 +257,18 @@ body .hide_641 {
   }
 }
 body header {
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  -ms-overflow-style: none;
   width: 100%;
   height: 64px;
   line-height: 64px;
   background: #3293f6;
+}
+body header ::-webkit-scrollbar {
+  display: none;
+}
+body header label:last-of-type {
+  z-index: 5;
 }
 @media only screen and (min-width: 321px) and (max-width: 640px) {
   body header {
@@ -244,7 +297,7 @@ body header input[type="radio"] + label {
   border: solid 1px;
   background: #bbbbbb;
   border: none;
-  padding: 5px 6px;
+  padding: 2px 15px;
   font-family: openSans;
 }
 body header .grid {
@@ -300,6 +353,19 @@ body header .grid .sections .bunner {
   }
   body header .grid #menu {
     grid-area: menu;
+    padding-top: 17px;
+    z-index: 20;
+  }
+  body header .grid #menu span {
+    width: 20px;
+    display: block;
+    height: 3px;
+    background-color: white;
+    margin: 4px 0;
+    border-radius: 6px;
+  }
+  body header .grid #menu.color-blue span {
+    background-color: #3293f6;
   }
 }
 body header .grid .logo {
@@ -362,9 +428,24 @@ body header .grid #searchArea #searchInput .icon-ask-copy {
 }
 body header .grid #searchArea #searchInput .icon-tutor-copy {
   position: relative;
-  top: 0.4em;
+  top: 0.3em;
   padding-right: 0.2em;
+  width: 1.2em;
   left: 0;
+}
+body header .grid #searchArea #searchInput .icon-jobs {
+  height: 1.5em;
+  position: relative;
+  top: 17%;
+  left: 13%;
+}
+body header .grid #searchArea #searchInput .icon-purchase {
+  top: 8%;
+  position: relative;
+}
+body header .grid #searchArea #searchInput .icon-book {
+  top: 10%;
+  position: relative;
 }
 body header .grid #searchArea #searchInput .icon-flashcard {
   margin-right: 0.2em;
@@ -414,6 +495,7 @@ body #menu-checkbox {
   height: 21px;
   opacity: 0;
   cursor: pointer;
+  z-index: 30;
 }
 body #menu-checkbox:hover {
   cursor: pointer;
@@ -424,10 +506,20 @@ body #menu-checkbox.section-open {
 body #menu-checkbox:checked + aside {
   transform: scale(1, 1);
   opacity: 1;
+  z-index: 15;
+  padding-top: 45px;
+  margin-top: -130px;
+  height: 100%;
+  padding-bottom: 200px;
+}
+body #menu-checkbox:checked + aside.section-open {
+  margin-top: -180px;
 }
 body section {
   margin: 0 auto;
   max-width: 1000px;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  -ms-overflow-style: none;
   display: -ms-grid;
   display: grid;
   -ms-column-gap: 0;
@@ -439,6 +531,19 @@ body section {
   grid-template-areas: "aside content";
   grid-template-columns: auto auto;
   /*background: yellow;*/
+}
+body section .line {
+  width: 3px;
+  height: 25px;
+  margin-left: -7px;
+  margin-right: 6px;
+  border-left: solid 1px #3293f6;
+}
+body section ::-webkit-scrollbar {
+  display: none;
+}
+body section label:last-of-type {
+  z-index: 5;
 }
 @media only screen and (max-width: 1030px) {
   body section {
@@ -467,6 +572,20 @@ body section .content {
   /*@media @phone {
                 margin-top: ~"calc(2em + 37px)";
             }*/
+}
+body section .content .bunner {
+  width: 50px;
+  height: 43px;
+  z-index: 2;
+  right: 16px;
+  position: absolute;
+  margin-top: -10px;
+  background: linear-gradient(to right, rgba(238, 238, 238, 0), #eeeeee);
+}
+body section .content .options {
+  white-space: nowrap;
+  overflow-x: visible;
+  overflow-y: hidden;
 }
 body section .content .item-result {
   display: -ms-grid;
@@ -512,7 +631,7 @@ body section .content input[type='radio'] + label {
   border-radius: 10px;
   border: solid 1px;
   background: none;
-  padding: 5px 6px;
+  padding: 2px 15px;
   font-family: openSans;
   font-size: 14px;
 }
@@ -524,6 +643,9 @@ body section .content input[type='radio']:checked + label {
   background: white;
 }
 body section .content .options-val {
+  white-space: nowrap;
+  overflow-x: visible;
+  overflow-y: hidden;
   border-color: #1e59a8;
   /*[inline-flex] button {
                     margin: 0 1em 0 0;
@@ -552,9 +674,9 @@ body section aside {
   /*@media @desktop_1366 {
                 padding: 1em 0 1em 15%;
             }
-            
+
             position: fixed;*/
-  width: 150px;
+  width: 170px;
 }
 @media only screen and (min-width: 641px) and (max-width: 1365px), only screen and (min-width: 1366px) {
   body section aside {
@@ -634,7 +756,6 @@ body section aside ul li .flashcard {
   height: 38px;
   border-radius: 50%;
   position: relative;
-  background: #c30000;
 }
 body section aside ul li .tutor {
   width: 38px;
@@ -656,12 +777,6 @@ body .speech-input {
   height: 37px;
   border-radius: 0 6px 6px 0;
   border-width: 0;
-  /*margin-left: 7px;*/
+  padding-left: 7px;
   color: #3293f6;
-  /*padding-left: 8px;*/
-  /*width: 440px;
-		max-width: 100%;
-		font-size: 2em;
-		padding: 0.4em;
-		box-sizing: border-box;*/
 }
