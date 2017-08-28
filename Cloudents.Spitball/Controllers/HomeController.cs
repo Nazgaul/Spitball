@@ -15,6 +15,13 @@ namespace Cloudents.Spitball.Controllers
         {
             return View();
         }
+        [HttpGet, ActionName("search")]
+        public ActionResult Search(string category, string term)
+        {
+            int a = 5;
+            a = 7;
+            return Json("yifat", JsonRequestBehavior.AllowGet);
+        }
 
         public async Task<ActionResult> Do(string val)
         {

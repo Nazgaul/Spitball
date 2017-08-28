@@ -1,9 +1,35 @@
-﻿@using System.Web.Optimization
-
-@{
+﻿@{
     Layout = "_Layout.cshtml";
 }
 
 <div>
-	start my content
+	<h1>I’ve come to the conclusion that the answer is: 9 meters</h1>
+	<div grid>
+		<div inline-flex class="options"  ng-show="ctrl.options.filter.length">
+			<input ng-checked="i==0" ng-click="ctrl.sublist = v.data" ng-repeat-start="(i,v) in ctrl.options.filter" id="option{{i}}" type="radio" value="{{v.name}}" ng-model="ctrl.filter" name="filter1"><label for="option{{i}}" ng-repeat-end>{{v.name}}</label>
+			<span class="line"></span><input ng-checked="k==0"  ng-repeat-start="(k,f) in ctrl.options.sort" id="sort{{k}}" type="radio" value="{{f.code}}" ng-model="ctrl.sort" name="sort"><label for="sort{{k}}" ng-repeat-end>{{f.name}}</label>
+			<div class="bunner hide_641" ></div>
+		</div>
+		<div class="options-val" inline-flex ng-show="ctrl.sublist.length">
+			<input ng-repeat-start="(j,c) in ctrl.sublist" id="class{{j}}" type="radio" name="sub-filter" value="{{c.code}}"><label for="class{{j}}" ng-repeat-end>{{c.name}}</label>
+			<div class="bunner hide_641" ></div>
+		</div>
+
+			<iframe width="100%" height="315"
+					src="https://www.youtube.com/embed/XGSy3_Czz8k"></iframe>
+			<div class="item-result">
+				<div class="image"></div>
+				<div class="item-content">
+					<div class="university">
+						<div class="description">University of Michigan</div>
+						<div class="university-class">Econ 102 / Introductory Microecono…</div>
+					</div>
+					<h2 class="Text-Style-2">Gen Chem Test 1 Study Guide</h2>
+					<div class="description">
+						260261 Chemical Principles Fall 2015 Answer key to homework Assignment 3 Problem 1 30 pt Calculate the probability for an electron in the 2s state of
+					</div>
+				</div>
+				<span class="source credit">Source:Quizlet</span>
+			</div>
+	</div>
 </div>
