@@ -34,8 +34,6 @@ namespace Zbang.Zbox.ReadServices
             m_Cache = cache;
         }
 
-
-
         public Task<IEnumerable<BoxDto>> GetUserBoxesAsync(GetBoxesQuery query)
         {
             return m_ReadService.GetUserBoxesAsync(query);
@@ -57,10 +55,12 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetBoxItemsPagedAsync(query);
         }
+
         public Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetWebServiceBoxItemsPagedAsync(GetBoxItemsPagedQuery query)
         {
             return m_ReadService.GetWebServiceBoxItemsPagedAsync(query);
         }
+
         public Task<IEnumerable<QuizDto>> GetBoxQuizzesAsync(GetBoxQuizesPagedQuery query)
         {
             return m_ReadService.GetBoxQuizzesAsync(query);
@@ -70,7 +70,6 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetBoxFlashcardsAsync(query);
         }
-
 
         public Task<ItemDetailDto> GetItem2Async(GetItemQuery query)
         {
@@ -86,6 +85,7 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetBox2Async(query);
         }
+
         public Task<BoxDtoWithMembers> GetBoxMetaWithMembersAsync(GetBoxQuery query, int numberOfMembers)
         {
             return m_ReadService.GetBoxMetaWithMembersAsync(query, numberOfMembers);
@@ -96,14 +96,10 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetBoxTabsAsync(query);
         }
 
-
-
         public Task<IEnumerable<UserDto>> GetUserFriendsAsync(GetUserFriendsQuery query)
         {
             return m_ReadService.GetUserFriendsAsync(query);
         }
-
-
 
         public Task<UserAccountDto> GetUserAccountDetailsAsync(QueryBaseUserId query)
         {
@@ -120,8 +116,6 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUserBoxNotificationSettingsAsync(query, userId);
         }
 
-
-
         public Task<IEnumerable<UserMemberDto>> GetBoxMembersAsync(GetBoxQuery query)
         {
             return m_ReadService.GetBoxMembersAsync(query);
@@ -132,11 +126,11 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUserMinProfileAsync(query);
         }
 
-
         public Task<IEnumerable<CommentDto>> GetCommentsAsync(GetBoxQuestionsQuery query)
         {
             return m_Cache.QueryAsync(m_ReadService.GetCommentsAsync, query);
         }
+
         public Task<IEnumerable<ReplyDto>> GetRepliesAsync(GetCommentRepliesQuery query)
         {
             return m_Cache.QueryAsync(m_ReadService.GetRepliesAsync, query);
@@ -167,8 +161,6 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetInviteAsync(query);
         }
 
-
-
         public Task<LogInUserDto> GetUserDetailsByMembershipIdAsync(GetUserByMembershipQuery query)
         {
             return m_ReadService.GetUserDetailsByMembershipIdAsync(query);
@@ -178,6 +170,7 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetUserDetailsByFacebookIdAsync(query);
         }
+
         public Task<LogInUserDto> GetUserDetailsByGoogleIdAsync(GetUserByGoogleQuery query, CancellationToken cancellationToken)
         {
             return m_ReadService.GetUserDetailsByGoogleIdAsync(query, cancellationToken);
@@ -198,7 +191,6 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUpdatesAsync(query);
         }
 
-
         public Task<QuizWithDetailSolvedDto> GetQuizAsync(GetQuizQuery query)
         {
             return m_ReadService.GetQuizAsync(query);
@@ -209,24 +201,20 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetQuizSeoAsync(query);
         }
 
-
         public Task<QuizWithDetailDto> GetDraftQuizAsync(GetQuizDraftQuery query)
         {
             return m_ReadService.GetDraftQuizAsync(query);
         }
-
 
         public Task<IEnumerable<DiscussionDto>> GetDiscussionAsync(GetDisscussionQuery query)
         {
             return m_ReadService.GetDiscussionAsync(query);
         }
 
-
         public Task<UniversityWithCodeDto> GetUniversityNeedIdAsync(long universityId)
         {
             return m_ReadService.GetUniversityNeedIdAsync(universityId);
         }
-
 
         public Task<IEnumerable<ActivityDto>> GetUserCommentActivityAsync(GetUserWithFriendQuery query)
         {
@@ -248,10 +236,6 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetNumberOfSolversAsync(quizId);
         }
 
-
-
-
-
         public Task<FileSeo> GetItemSeoAsync(GetFileSeoQuery query)
         {
             return m_ReadService.GetItemSeoAsync(query);
@@ -262,47 +246,46 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetFlashcardUrlAsync(query);
         }
 
-
         public Task<BoxSeoDto> GetBoxSeoAsync(GetBoxIdQuery query)
         {
             return m_ReadService.GetBoxSeoAsync(query);
         }
-
 
         public Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetBoxLeaderboardQuery query)
         {
             return m_ReadService.GetBoxLeaderBoardAsync(query);
         }
 
-
         public Task<UserDetailDto> GetUserDataAsync(QueryBaseUserId query)
         {
             return m_ReadService.GetUserDataAsync(query);
         }
-
 
         public Task<ItemMobileDto> GetItemDetailApiAsync(long query)
         {
             return m_ReadService.GetItemDetailApiAsync(query);
         }
 
-
         public Task<LogInUserDto> GetUserDetailsByIdAsync(GetUserByIdQuery query)
         {
             return m_ReadService.GetUserDetailsByIdAsync(query);
         }
 
+        public string GetCountryByIp(long ip)
+        {
+            return m_ReadService.GetCountryByIp(ip);
+        }
 
         public Task<IEnumerable<UniversityByPrefixDto>> GetUniversityByIpAddressAsync(UniversityByIpQuery query)
         {
             return m_ReadService.GetUniversityByIpAddressAsync(query);
         }
 
-
         public Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetUserItemsActivityAsync(GetUserWithFriendQuery query)
         {
             return m_ReadService.GetUserItemsActivityAsync(query);
         }
+
         public Task<IEnumerable<QuizDto>> GetUserQuizActivityAsync(GetUserWithFriendQuery query)
         {
             return m_ReadService.GetUserQuizActivityAsync(query);
@@ -312,7 +295,6 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetUserFlashcardActivityAsync(query);
         }
-
 
         public Task<IEnumerable<UserImageNameDto>> GetUsersInBoxByTermAsync(UserInBoxSearchQuery query)
         {
@@ -348,6 +330,7 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GamificationBoardAsync(query);
         }
+
         public Task<LevelDto> UserLevelsAsync(QueryBaseUserId query)
         {
             return m_ReadService.UserLevelsAsync(query);
@@ -367,7 +350,6 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetQuizSolversAsync(query);
         }
-
 
         public Task<QuizQuestionWithSolvedAnswersDto> GetQuizQuestionWithAnswersAsync(GetQuizQuery query)
         {
@@ -424,6 +406,7 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetJaredUserDataAsync(query, token);
         }
+
         public Task<JaredDto> GetJaredStartupValuesAsync(CancellationToken token)
         {
             return m_ReadService.GetJaredStartupValuesAsync(token);
@@ -433,6 +416,7 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.OnlineUsersByClassAsync(query);
         }
+
         public Task<IEnumerable<ItemTagsDto>> GetItemsWithTagsAsync(JaredSearchQuery query)
         {
             return m_ReadService.GetItemsWithTagsAsync(query);
@@ -446,9 +430,11 @@ namespace Zbang.Zbox.ReadServices
         public Task<IEnumerable<string>> GetUniAsync(SearchTermQuery term) {
             return m_ReadService.GetUniAsync(term);
         }
+
         public Task<IEnumerable<string>> GetDepartmentAsync(SearchTermQuery term) {
             return m_ReadService.GetDepartmentAsync(term);
         }
+
         public Task<IEnumerable<string>> GetTagAsync(SearchTermQuery term)
         {
             return m_ReadService.GetTagAsync(term);

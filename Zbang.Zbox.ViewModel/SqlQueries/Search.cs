@@ -91,7 +91,6 @@ select l.*, b.boxid from zbox.library l join zbox.box b on l.libraryid = b.libra
 
 select Name,boxid from c;";
 
-
         public const string GetBoxesToDeleteToSearch = @"
         select top 500 boxid as id from zbox.box
         where isdirty = 1 and isdeleted = 1 and boxid % @count  = @index;";
@@ -123,7 +122,6 @@ and q.isdeleted = 0
 and q.isdirty = 1
 and q.id % @count  = @index
 order by q.Id desc;";
-
 
         public const string GetQuizzesQuestionToUploadToSearch =
             @"select text, QuizId, Id as questionId  from zbox.QuizQuestion where QuizId in (
@@ -173,18 +171,6 @@ where it.QuizId in (
         where isdirty = 1 and isdeleted = 1 and id % @count  = @index;";
         #endregion
 
-
-
-
-
-
-
-
-
-
-      
-
-
         public const string GetUsersInBox = @"
 select u.userid as Id, username as Name,UserImageLarge as Image 
 from zbox.users u 
@@ -205,7 +191,6 @@ case when u.UniversityId = @UniversityId then 0 else 1 end asc, Score desc
 offset @pageNumber*@rowsperpage ROWS
 FETCH NEXT @rowsperpage ROWS ONLY; ";
 
-
         public const string GetUniversitiesToUploadToSearch = @"
 select top (@top) id as Id,UniversityName as Name,LargeImage as Image,
 extra as Extra, Country, NoOfUsers, Latitude as Latitude, Longitude as Longitude
@@ -218,7 +203,6 @@ and id % @count  = @index;";
 extra as Extra, Country, NoOfUsers, Latitude as Latitude, Longitude as Longitude
 from zbox.University
 where id = @id;";
-
 
         public const string GetUniversitiesPeopleToUploadToSearch = @"select universityId, UserImageLarge as Image from (
 select userid, universityid, UserImageLarge, rowid = ROW_NUMBER() over (partition by UniversityId order by UserImageLarge desc) from zbox.Users u where UniversityId in (
@@ -235,8 +219,6 @@ where t.rowid < 6;";
 
         public const string GetUniversitiesToDeleteFromSearch = @"select top 500 id from zbox.University
                     where isdirty = 1 and isdeleted = 1 and id % @count  = @index;";
-
-
 
         #region Flashcard
         public const string GetFlashcardToUploadToSearch = @"select top (@top) 

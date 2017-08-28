@@ -30,8 +30,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public int Views { get; set; }
         public int Likes { get; set; }
 
-
-
        // private IEnumerable<ItemType> m_Type;
         public string Image { get; set; }
 
@@ -66,7 +64,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
                 //m_Type = type;
                 //return m_Type;
             }
-
         }
 
         // public string SearchContentId => "item_" + Id;

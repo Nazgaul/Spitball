@@ -25,19 +25,17 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new UnauthorizedAccessException("node is not connected to university");
             }
-            
-
 
             if (node.AmountOfNodes > 0)
             {
                 throw new UnauthorizedAccessException("node is not empty");
             }
-            
+
             if (node.CheckIfBoxesExists())
             {
                 throw new UnauthorizedAccessException("node is not empty");
             }
-            
+
             var parent = node.Parent;
             if (parent != null)
             {

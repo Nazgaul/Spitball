@@ -117,10 +117,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //    }
             //}
 
-
             //await m_ContentSearchProvider.UpdateDataAsync(elem, null, token).ConfigureAwait(false);
         }
-
 
         public async Task RunAsync(CancellationToken cancellationToken)
         {

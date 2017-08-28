@@ -64,11 +64,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             chatRoom.UpdateTime = DateTime.UtcNow;
             m_ChatRoomRepository.Save(chatRoom);
 
-
             m_ChatMessageRepository.Save(chatMessage);
             return t;
         }
-
 
         private ChatRoom GetChatRoom(ChatAddMessageCommand message)
         {

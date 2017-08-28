@@ -41,7 +41,6 @@ namespace Zbang.Zbox.ViewModel.Dto.JaredDtos
         public DateTime Date { get; set; }
     }
 
-
     public class JaredFavoriteFlashcardDto
     {
         public long Id { get; set; }
@@ -65,6 +64,5 @@ namespace Zbang.Zbox.ViewModel.Dto.JaredDtos
         public DateTime Date { get; set; }
         public int Replies { get; set; }
         public int Items { get; set; }
-
     }
 }

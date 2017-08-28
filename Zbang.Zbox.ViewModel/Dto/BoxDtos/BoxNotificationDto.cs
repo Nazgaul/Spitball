@@ -2,7 +2,6 @@
 
 namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
 {
-
     public class BoxNotificationDto
     {
         public long Id { get; set; }

@@ -61,7 +61,6 @@ namespace Zbang.Zbox.Domain.Services
 
         }
 
-
         public Task<int> DoDirtyUpdateAsync(CancellationToken token)
         {
             return ExecuteSqlLoopAsync(new[]
@@ -104,9 +103,9 @@ set isDirty = 1, isDeleted = 1, updateTime = getUtcDate()-121
 	select  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
 ) and isDeleted = 0 and publish = 1",
 
-
             }, token);
         }
+
         public async Task<int> DeleteOldQuizAsync(CancellationToken token)
         {
             var counter = 0;
@@ -146,8 +145,6 @@ set isDirty = 1, isDeleted = 1, updateTime = getUtcDate()-121
 
         public async Task<int> DeleteOldItemAsync(CancellationToken token)
         {
-
-
             var counter = 0;
             counter +=
                 await ExecuteSqlLoopAsync(
@@ -171,15 +168,14 @@ set isDirty = 1, isDeleted = 1, updateTime = getUtcDate()-121
                         "delete top (50) from zbox.item where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 option (maxDop 1)"
                     }, token).ConfigureAwait(false);
             return counter;
-
         }
+
         public async Task<int> DeleteOldBoxAsync(CancellationToken token)
         {
             int result;
             var counter = 0;
             do
             {
-
                 await
                     ExecuteSqlLoopAsync(
                         new[]
@@ -253,7 +249,6 @@ select top (3) boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcD
 select top (3) boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 order by boxId
 ) option(maxDop 1)",
 
-
                         }, token).ConfigureAwait(false);
 
                 using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
@@ -265,7 +260,6 @@ select top (3) boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcD
                 }
             } while (result > 0);
             return counter;
-
         }
 
         public Task<int> DeleteOldUniversityAsync(CancellationToken token)
@@ -285,7 +279,7 @@ where universityId in (
 select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
 )
 ",
-                    @"delete top(3) from zbox.university where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 option (maxDop 1)"
+                    "delete top(3) from zbox.university where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 option (maxDop 1)"
                 }, token);
         }
 
@@ -310,7 +304,7 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
                     }
                     catch (SqlException ex) when (ex.Number == -2)
                     {
-                        m_Logger.Exception(ex, new Dictionary<string, string> {{ "ExecuteSqlLoopAsync", "timeout" }});
+                        m_Logger.Exception(ex, new Dictionary<string, string> {["ExecuteSqlLoopAsync"] = "timeout" });
                     }
                 }
             }
@@ -322,10 +316,8 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
             return ExecuteSqlLoopAsync(new[] { "delete top (100)  from zbox.newUpdates where CreationTime < getUtcDate() - 45 option (maxDop 1)" }, token);
         }
 
-
         public void UpdateUniversityStats(DateTime dateTime)
         {
-
             using (var unitOfWork = UnitOfWork.Start())
             {
                 var i = 0;
@@ -345,14 +337,9 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
                     query.SetMaxResults(100);
                     query.SetFirstResult(i * 100);
                     universitiesIds = query.List<long>();
-                } while (universitiesIds.Any());
+                } while (universitiesIds.Count > 0);
             }
         }
-
-       
-
-
-
 
         public void UpdateReputation(UpdateReputationCommand command)
         {
@@ -380,6 +367,7 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
                 await conn.ExecuteAsync(sql, new { command.Ids }, commandType: CommandType.Text).ConfigureAwait(false);
             }
         }
+
         public async Task UpdateSearchItemDirtyToRegularAsync(UpdateDirtyToRegularCommand command)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
@@ -416,7 +404,6 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
             }
         }
 
-
         public async Task DeleteBoxAsync(DeleteBoxCommand command)
         {
             using (var unitOfWork = UnitOfWork.Start())
@@ -430,10 +417,8 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
             }
         }
 
-
         public async Task AddNewUpdateAsync(AddNewUpdatesCommand command)
         {
-
             using (var unitOfWork = UnitOfWork.Start())
             {
                 try
@@ -442,16 +427,12 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
                 }
                 catch (Exception ex)
                 {
-
                     //this can only happen from the await
-                    m_Logger.Exception(ex, new Dictionary<string, string> {{"AddNewUpdateAsync", ""}});
+                    m_Logger.Exception(ex, new Dictionary<string, string> {["AddNewUpdateAsync"] = "" });
                 }
                 unitOfWork.TransactionalFlush();
             }
         }
-
-
-
 
         public async Task StatisticsAsync(UpdateStatisticsCommand command)
         {
@@ -461,6 +442,7 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
                 unitOfWork.TransactionalFlush();
             }
         }
+
         public void UpdateQuota(UpdateQuotaCommand command)
         {
             using (var unitOfWork = UnitOfWork.Start())
@@ -494,10 +476,8 @@ where id = @id";
 
         public void UpdateBoxUrl()
         {
-
             using (var unitOfWork = UnitOfWork.Start())
             {
-
                 var items = UnitOfWork.CurrentSession.QueryOver<Box>().Where(w => w.Url == null && !w.IsDeleted).Take(100).List();
                 do
                 {
@@ -510,16 +490,13 @@ where id = @id";
                     items = UnitOfWork.CurrentSession.QueryOver<Box>().Where(w => w.Url == null && !w.IsDeleted)
                         .Take(100).List();
                 } while (items.Count > 0);
-
-
-
             }
         }
+
         public void UpdateItemUrl()
         {
             using (var unitOfWork = UnitOfWork.Start())
             {
-
                 var items = UnitOfWork.CurrentSession.QueryOver<Item>().Where(w => w.Url == null && !w.IsDeleted)
                     .List();
                 foreach (var item in items)
@@ -530,6 +507,5 @@ where id = @id";
                 unitOfWork.TransactionalFlush();
             }
         }
-
     }
 }

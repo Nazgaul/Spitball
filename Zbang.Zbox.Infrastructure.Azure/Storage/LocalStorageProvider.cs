@@ -11,7 +11,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
 {
     public class LocalStorageProvider : ILocalStorageProvider
     {
-        private readonly string m_LocalResourceLocation;
         private readonly long m_LocalResourceSize;
 
         private readonly ILogger m_Logger;
@@ -20,12 +19,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
         public LocalStorageProvider(ILogger logger)
         {
             m_Logger = logger;
-            m_LocalResourceLocation = StorageProvider.LocalResource.LocalResourcePath;
+            LocalStorageLocation = StorageProvider.LocalResource.LocalResourcePath;
             m_LocalResourceSize = StorageProvider.LocalResource.LocalResourceSizeInMegaBytes * 1024 * 1024;
         }
 
-        public string LocalStorageLocation => m_LocalResourceLocation;
-
+        public string LocalStorageLocation { get; }
 
         public async Task<string> SaveFileToStorageAsync(Stream streamSource, string fileName)
         {
@@ -51,7 +49,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             catch (IOException ex)
             {
                 DeleteOldFiles();
-                m_Logger.Exception(ex, new Dictionary<string, string> { { "service", "localStorage" } });
+                m_Logger.Exception(ex, new Dictionary<string, string> {["service"] = "localStorage" });
             }
             using (var stream = File.Open(fileNameWithPath, FileMode.Create))
             {
@@ -59,9 +57,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             }
             return fileNameWithPath;
         }
+
         public string CombineDirectoryWithFileName(string fileName)
         {
-            return Path.Combine(m_LocalResourceLocation, fileName);
+            return Path.Combine(LocalStorageLocation, fileName);
         }
 
         public void DeleteOldFiles()
@@ -78,19 +77,18 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
                     break;
                 }
             }
-
         }
 
         private IEnumerable<FileInfo> GetOldFiles(DateTime oldTimeToDeleteFile)
         {
-            var files = Directory.EnumerateFiles(m_LocalResourceLocation);
+            var files = Directory.EnumerateFiles(LocalStorageLocation);
             var oldFiles = from file in files let fileInfo = new FileInfo(file) where fileInfo.LastAccessTimeUtc < oldTimeToDeleteFile select fileInfo;
             return oldFiles;
         }
 
         private long CalculateInitSize()
         {
-            var files = Directory.EnumerateFiles(m_LocalResourceLocation);
+            var files = Directory.EnumerateFiles(LocalStorageLocation);
             return (from file in files let fileInfo = new FileInfo(file) select fileInfo.Length).Sum();
         }
     }

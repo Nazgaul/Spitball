@@ -14,7 +14,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ActivityDtos
 
         public string Comment { get; set; }
 
-
         public DateTime CreationDate
         {
             get => m_Date;

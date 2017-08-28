@@ -21,7 +21,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IQueueProvider m_QueueRepository;
         private readonly IIdGenerator m_IdGenerator;
 
-
         public AddItemReplyToCommentCommandHandler(IUserRepository userRepository,
             IRepository<Item> itemRepository,
             IRepository<ItemComment> itemCommentRepository,
@@ -45,7 +44,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new UnauthorizedAccessException("boxid is not equal to item in box id");
             }
 
-
             var itemComment = m_ItemCommentRepository.Load(message.ItemCommentId);
             var id = m_IdGenerator.GetId(IdContainer.ItemAnnotationReplyScope);
             var comment = new ItemCommentReply(user, item, message.Comment, itemComment, id);
@@ -56,8 +54,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     itemDiscussionReplyId: comment.Id));
 
             return Task.WhenAll(t2);
-
-
         }
     }
 }

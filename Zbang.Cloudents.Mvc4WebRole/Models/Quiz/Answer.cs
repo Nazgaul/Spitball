@@ -11,6 +11,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Quiz
         public string Text { get; set; }
 
         public Guid? Id { get; set; }
-
     }
 }

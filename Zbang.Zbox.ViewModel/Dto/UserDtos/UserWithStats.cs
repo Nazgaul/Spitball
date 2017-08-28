@@ -1,5 +1,4 @@
 ﻿
-
 namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 {
     public class UserWithStats

@@ -6,12 +6,10 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
     {
         public ItemDto()
         {
-            
+
         }
         //version 2 api mobile
-       
 
-       
         //this is for item
         public ItemDto(long id, string name, long ownerId,
              Guid? questionId, Guid? answerId,  string type, string source)
@@ -44,7 +42,6 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
 
         public Guid? QuestionId { get; set; }
         public Guid? AnswerId { get; set; }
-
 
         public string DownloadUrl { get; set; }
         public string Type { get; set; }

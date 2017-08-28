@@ -17,7 +17,6 @@ namespace Zbang.Zbox.ViewModel.Dto.Dashboard
 
         public string Logo { get; set; }
 
-
         public string Url { get; set; }
     }
 }

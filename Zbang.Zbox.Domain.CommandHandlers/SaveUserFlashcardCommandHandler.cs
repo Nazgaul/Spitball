@@ -32,7 +32,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 var user = m_UserRepository.Load(message.UserId);
                 var flashcard = m_FlashcardRepository.Load(message.FlashcardId);
                 solve = new FlashcardSolve(m_IdGenerator.GetId(), user, flashcard);
-
             }
             solve.DateTime = DateTime.UtcNow;
             m_FlashcardSolveRepository.Save(solve);

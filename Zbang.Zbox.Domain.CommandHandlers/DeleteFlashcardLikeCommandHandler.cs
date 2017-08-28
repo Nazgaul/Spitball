@@ -35,7 +35,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var t1 = m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(like.Flashcard.User.Id));
             var t2 = m_QueueProvider.InsertMessageToTransactionAsync(new LikesBadgeData(message.UserId));
             return Task.WhenAll(t1, t2);
-
         }
     }
 }

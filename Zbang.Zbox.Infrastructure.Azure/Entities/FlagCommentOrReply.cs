@@ -8,16 +8,16 @@ namespace Zbang.Zbox.Infrastructure.Azure.Entities
         public FlagCommentOrReply(Guid postId, long userId )
             : base("FlagPost", postId.ToString())
         {
-
             UserId = userId;
             PostId = postId;
         }
+
         public FlagCommentOrReply()
         {
         }
+
         public long UserId { get; set; }
 
         public Guid PostId { get; set; }
-
     }
 }

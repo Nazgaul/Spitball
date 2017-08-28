@@ -23,8 +23,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
             UniName = uniName;
             Description = description;
             BoxUrl = boxUrl;
-
-
         }
         public long Id { get; private set; }
         public string Name { get; protected set; }
@@ -35,7 +33,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
         public int NumberOfViews { get; private set; }
         public abstract string Type { get; }
-
 
         public string Blob { get; set; }
 
@@ -51,8 +48,5 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public string UniName { get; set; }
 
         public string Description { get; set; }
-
-       
-
     }
 }

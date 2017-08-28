@@ -12,13 +12,13 @@
 
         //public int? Badges { get; set; }
         //public string Url { get; set; }
-      
+
     }
 
     //public class LeaderboardFlashcardDto
     //{
     //    public int Row { get; set; }
     //    public int Count { get; set; }
-        
+
     //}
 }

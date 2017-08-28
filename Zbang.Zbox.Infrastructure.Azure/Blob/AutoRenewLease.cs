@@ -12,7 +12,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
     public class AutoRenewLease : IDisposable
     {
 
-
         public bool HasLease => m_LeaseId != null;
 
         readonly AccessCondition m_AccessCondition;
@@ -20,7 +19,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         private readonly string m_LeaseId;
         private Thread m_RenewalThread;
         private bool m_Disposed;
-
 
         public AutoRenewLease(CloudBlockBlob blob)
         {
@@ -103,7 +101,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             container.CreateIfNotExists();
 
             var blob = container.GetBlockBlobReference(lockBlobName);
-
 
             bool jobDone = false;
 

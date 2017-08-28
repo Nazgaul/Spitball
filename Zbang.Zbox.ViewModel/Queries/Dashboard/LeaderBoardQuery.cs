@@ -9,9 +9,7 @@
             RowsPerPage = 1000;
         }
 
-
         public long UserId { get; private set; }
-
 
         public int PageNumber { get; }
         public int RowsPerPage { get; }

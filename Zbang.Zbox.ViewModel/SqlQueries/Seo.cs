@@ -2,7 +2,6 @@
 {
     public static class Seo
     {
-
         public const string GetBoxSeoByPage = @"with boxSeo as (
  select BoxId, BoxName,u.UniversityName from zbox.box b join zbox.University u on u.id = b.University and needcode = 0
 and Discriminator = 2
@@ -63,13 +62,11 @@ order by boxid
 offset (@pageNumber)*@rowsperpage ROWS
 FETCH NEXT @rowsperpage ROWS ONLY";
 
-
         public const string GetSeoItemsCount = @"select count(*)*4 as boxcount , sum(b.ItemCount) as itemCount , sum(b.QuizCount) as quizCount , sum(b.FlashcardCount) as flashcardCount
 from zbox.box b 
 where University in (select id from zbox.University where  needcode = 0)
 and Discriminator = 2
 and IsDeleted = 0";
-
 
         public const string FileSeo = @"select i.name
 ,i.Content as Description

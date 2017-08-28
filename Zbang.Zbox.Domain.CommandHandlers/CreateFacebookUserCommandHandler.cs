@@ -33,7 +33,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new NullReferenceException("email cannot be null or empty");
             }
 
-
             var user = GetUserByEmail(command.Email);
             if (user != null && IsUserRegistered(user))
             {

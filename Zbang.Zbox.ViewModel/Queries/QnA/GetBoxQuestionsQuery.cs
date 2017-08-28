@@ -11,7 +11,6 @@ namespace Zbang.Zbox.ViewModel.Queries.QnA
             Top = top;
             Skip = skip;
             BoxId = boxId;
-            
         }
 
         public static GetBoxQuestionsQuery GetBoxQueryOldVersion(long boxId, int pageNumber, int rowsPerPage)
@@ -20,7 +19,6 @@ namespace Zbang.Zbox.ViewModel.Queries.QnA
         }
 
         public long BoxId { get; }
-
 
         public int Top { get; }
 

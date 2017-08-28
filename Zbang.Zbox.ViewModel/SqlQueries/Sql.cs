@@ -2,8 +2,6 @@
 {
     public static class Sql
     {
-
-
         /// <summary>
         /// Used in user page to bring friends
         /// </summary>
@@ -36,12 +34,6 @@ uWrap.HeaderBackgroundColor as StripColor
 from zbox.university uWrap  
 where uWrap.Id = @UniversityId";
 
-
-       
-
-        
-
-
         /// <summary>
         /// Mobile api - bring user comment and reply activity in user screen
         /// </summary>
@@ -64,8 +56,6 @@ where uWrap.Id = @UniversityId";
 				 order by t.CreationTime desc
   offset @pageNumber*@rowsperpage ROWS
     FETCH NEXT @rowsperpage ROWS ONLY;";
-        
-
 
         public const string UserAuthenticationDetail =
     @"select 
@@ -84,9 +74,6 @@ u.CreationTime as DateTime
 from zbox.Users u 
 left join zbox.University uu on u.UniversityId = uu.Id
 where u.userid = @UserId;";
-
-
-   
 
         public const string GetUserByMembershipId = @" select u.UserId as Id, u.UserName as Name, u.Culture as Culture, 
     u.UserImageLarge as Image, u.Email as Email,
@@ -159,7 +146,6 @@ u.GoogleUserId as GoogleId
     from zbox.Users u 
     where u.Email = @Email";
 
-
         public const string GetUserAccountData = @"  select 
     u.FirstName as FirstName,
     u.LastName as LastName,
@@ -199,7 +185,6 @@ u.GoogleUserId as GoogleId
 								where x = 1
 order by ItemCount desc ;";
 
-
         public const string GetCoursesPageBoxes_he = @"select top 16 b.boxid,
                                 b.BoxName as Name,
                                 b.quizcount + b.itemcount as ItemCount,
@@ -218,7 +203,8 @@ order by ItemCount desc ;";
                                 and id!=170460 
                                 order by b.[UpdateTime];";
 
-
+        public const string LocationByIp = @"select country_code2 from zbox.ip_range
+	where ip_from <= @IP and @IP <= ip_to";
 //        public const string MarketingEmailQuery = @"select email from zbox.users u join zbox.university uu on u.universityid = uu.id
 //and uu.country = 'IL'
 //and u.emailsendsettings = 0

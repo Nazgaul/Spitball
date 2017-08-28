@@ -23,7 +23,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public void Handle(AddFlashcardPinCommand message)
         {
-
             var user = m_UserRepository.Load(message.UserId);
             var flashcard = m_FlashcardRepository.Load(message.FlashCardId);
             var pin = new FlashcardPin(m_GuidGenerator.GetId(), user, flashcard, message.Index);

@@ -21,7 +21,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_QueueProvider = queueProvider;
         }
 
-
         public Task HandleAsync(DeleteQuizLikeCommand message)
         {
             var like = m_QuizLikeRepository.Load(message.Id);
@@ -36,7 +35,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var t1 = m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(like.Quiz.User.Id));
             var t2 = m_QueueProvider.InsertMessageToTransactionAsync(new LikesBadgeData(message.UserId));
             return Task.WhenAll(t1, t2);
-
         }
     }
 }

@@ -32,11 +32,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             //else
             //{
-                
+
             //}
             file.Md5 = command.Md5;
             m_ItemRepository.Save(file);
         }
-
     }
 }

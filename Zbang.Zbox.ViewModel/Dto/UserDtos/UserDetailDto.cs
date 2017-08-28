@@ -3,12 +3,12 @@ using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 {
-    public class UserDetailDto 
+    public class UserDetailDto
     {
         public long Id { get; set; }
         public string Name { get; set; }
         public string Image { get; set; }
-       
+
         public string Culture { get; set; }
 
         public int Score { get; set; }

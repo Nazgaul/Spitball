@@ -70,7 +70,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 catch (ApplicationException ex)
                 {
                     TraceLog.WriteError("On update quiz views itemId:" + itemId.ItemId, ex);
-
                 }
                 return t;
             }

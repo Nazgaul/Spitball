@@ -545,6 +545,14 @@ where ownerId = @UserId and boxId = @BoxId;";
             }
         }
 
+        public string GetCountryByIp(long ip)
+        {
+            using (var conn = DapperConnection.OpenConnection())
+            {
+                return conn.QueryFirstOrDefault<string>(Sql.Sql.LocationByIp, new { IP = ip });
+            }
+        }
+
         public async Task<IEnumerable<UniversityByPrefixDto>> GetUniversityByIpAddressAsync(UniversityByIpQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
@@ -1180,7 +1188,7 @@ from zbox.library l join zbox.box b on l.libraryId = b.libraryId where universit
             {
                 using (var grid = await conn.QueryMultipleAsync(Sql.Jared.DocumentFavorites
                     + Sql.Jared.QuizFavorites + Sql.Jared.FlashcardFavorite + Sql.Jared.CommentFavorite,
-                    new { query.DocumentIds,query.FlashcardIds,query.QuizIds, query.CommentIds }).ConfigureAwait(false))
+                    new { query.DocumentIds, query.FlashcardIds, query.QuizIds, query.CommentIds }).ConfigureAwait(false))
                 {
                     var retVal = new JaredFavoriteDto
                     {

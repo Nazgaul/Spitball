@@ -28,6 +28,4 @@ namespace Zbang.Zbox.ViewModel.Dto.Emails
         public string Name { get; set; }
         public int Students { get; set; }
     }
-
-
 }

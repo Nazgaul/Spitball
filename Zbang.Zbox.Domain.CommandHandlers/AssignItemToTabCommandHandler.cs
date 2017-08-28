@@ -16,7 +16,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             m_ItemTabRepository = itemTabRepository;
             m_ItemRepository = itemRepository;
-
         }
 
         public void Handle(AssignItemToTabCommand message)
@@ -30,7 +29,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 itemTab = item.Tab;
                 itemTab.DeleteItemFromTab(item);
-
             }
             else
             {

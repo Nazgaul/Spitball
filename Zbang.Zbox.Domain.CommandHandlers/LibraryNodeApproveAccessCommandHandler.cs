@@ -21,7 +21,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_LibraryRepository = libraryRepository;
         }
 
-
         public async Task HandleAsync(LibraryNodeApproveAccessCommand message)
         {
             var userAdminToLibraryRel = m_UserLibraryRepository.GetUserLibraryRelationship(message.UserId, message.DepartmentId);
@@ -46,7 +45,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_LibraryRepository.UpdateElementToIsDirty(message.DepartmentId);
             var library = m_LibraryRepository.Load(message.DepartmentId);
             await m_QueueProvider.InsertMessageToMailNewAsync(new AccessApprovedData(userToLibraryRel.User.Email, userToLibraryRel.User.Culture, library.Name));
-
         }
     }
 }

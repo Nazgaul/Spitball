@@ -29,7 +29,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         public async Task<int> UploadFileBlockAsync(string blobName, Stream fileContent, int currentIndex)
         {
-
             var blob = GetBlob(blobName);
             fileContent.Seek(0, SeekOrigin.Begin);
             await blob.PutBlockAsync(ToBase64(currentIndex), fileContent, null, null, new BlobRequestOptions
@@ -50,7 +49,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
                 StoreBlobContentMD5 = true
 
             }, null);
-
         }
 
         public Task UploadStreamAsync(string blobName, Stream content, string mimeType, CancellationToken token)
@@ -66,7 +64,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             blob.Properties.CacheControl = "public, max-age=" + TimeConst.Year;
             return blob.UploadFromStreamAsync(content, token);
         }
-
 
         public void UploadText(string blobName, string content)
         {
@@ -98,12 +95,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             if (path.StartsWith("/"))
             {
                 path = path.Remove(0, 1);
-
             }
             var uriBuilder = new UriBuilder(StorageCdnEndpoint) {Path = path};
 
             return uriBuilder.Uri;
-
         }
 
         public Task<bool> ExistsAsync(string blobName, CancellationToken token)
@@ -111,6 +106,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             var blob = GetBlob(blobName);
             return blob.ExistsAsync(token);
         }
+
         public bool Exists(string blobName)
         {
             var blob = GetBlob(blobName);
@@ -142,7 +138,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
                     md5Object.TransformFinalBlock(new byte[0], 0, 0);
                     blob.Properties.ContentMD5 = Convert.ToBase64String(md5Object.Hash);
                     await blob.SetPropertiesAsync().ConfigureAwait(false);
-
                 }
             }
             return blob.Properties.ContentMD5;
@@ -163,7 +158,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         {
             using (var client = new HttpClient())
             {
-
                 using (var sr = await client.GetAsync(url).ConfigureAwait(false))
                 {
                     if (!sr.IsSuccessStatusCode)
@@ -175,7 +169,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
                     using (var stream = await blob.OpenWriteAsync().ConfigureAwait(false))
                     {
                         await sr.Content.CopyToAsync(stream).ConfigureAwait(false);
-
                     }
                     blob.Properties.ContentType = sr.Content.Headers.ContentType.MediaType;
                     blob.Properties.CacheControl = "private max-age=" + TimeConst.Week;
@@ -183,7 +176,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
                 }
             }
         }
-
 
         public Task UploadByteArrayAsync(string blobName, byte[] fileContent,
             string mimeType, bool fileGziped, int cacheControlMinutes)
@@ -225,7 +217,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
                 SharedAccessStartTime = DateTime.UtcNow.AddMinutes(-1),
                 Permissions = SharedAccessBlobPermissions.Read,
                 SharedAccessExpiryTime = DateTime.UtcNow.AddMinutes(expirationTimeInMinutes)
-
 
             }, new SharedAccessBlobHeaders
             {

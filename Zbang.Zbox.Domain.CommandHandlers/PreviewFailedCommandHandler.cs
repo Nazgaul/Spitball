@@ -20,6 +20,4 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ItemRepository.Save(item);
         }
     }
-
-    
 }

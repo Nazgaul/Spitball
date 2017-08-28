@@ -29,7 +29,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         public const string AzureQuizContainer = "zboxquestion";
         public const string AzureChatContainer = "zboxchat";
 
-
         internal const string AzureIdGeneratorContainer = "zboxIdGenerator";
 
         private readonly Lazy<ILocalStorageProvider> m_LocalStorageProvider;
@@ -73,7 +72,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return BlobClient.GetContainerReference(AzureProfilePicContainer.ToLower()).GetBlockBlobReference(blobName);
         }
 
-
         public CloudBlockBlob GetFile(string blobName)
         {
             var blob = BlobClient.GetContainerReference(AzureBlobContainer.ToLower()).GetBlockBlobReference(blobName);
@@ -92,7 +90,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             var blob = GetBlob(blobUri);// GetFile(blobName);
             await blob.FetchAttributesAsync(token).ConfigureAwait(false);
             return blob.Metadata;
-
         }
 
         public Task SaveMetaDataToBlobAsync(Uri blobUri, IDictionary<string, string> metadata, CancellationToken token)
@@ -106,8 +103,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return blob.SetMetadataAsync(token);
         }
 
-
-
         public string GenerateSharedAccessReadPermissionInStorage(Uri blobUri, double expirationTimeInMinutes)
         {
             var blob = GetBlob(blobUri);
@@ -116,7 +111,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         private static string GenerateSharedAccessPermission(CloudBlockBlob blob, double expirationTimeInMinutes, SharedAccessBlobPermissions accessPermission)
         {
-
             var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
             {
                 SharedAccessStartTime = DateTime.UtcNow.AddMinutes(-1),
@@ -138,13 +132,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             await blob.SetPropertiesAsync().ConfigureAwait(false);
         }
 
-
         protected static string ToBase64(int blockIndex)
         {
             var blockId = blockIndex.ToString("D10");
             return Convert.ToBase64String(Encoding.UTF8.GetBytes(blockId));
         }
-
 
         #endregion
 
@@ -172,7 +164,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return blob.Uri;
         }
 
-
         #endregion
 
         #region Quiz
@@ -196,7 +187,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             await blob.UploadFromStreamAsync(content).ConfigureAwait(false);
 
             return TransferToCdnEndpoint(blob.Uri);
-
         }
         #endregion
 
@@ -210,12 +200,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             if (path.StartsWith("/"))
             {
                 path = path.Remove(0, 1);
-
             }
 
             return VirtualPathUtility.AppendTrailingSlash(StorageCdnEndpoint) + path;
         }
-
 
         #region files
 
@@ -223,6 +211,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         {
            return new CloudBlockBlob(blobUrl, StorageProvider.ZboxCloudStorage.Credentials);
         }
+
         public async Task<Stream> DownloadFileAsync(Uri blobUrl, CancellationToken cancelToken)
         {
             var blob = GetBlob(blobUrl);
@@ -230,7 +219,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             await blob.DownloadToStreamAsync(ms, cancelToken).ConfigureAwait(false);
             ms.Seek(0, SeekOrigin.Begin);
             return ms;
-
         }
 
         public Task<Stream> OpenBlobStreamAsync(Uri blobUri, CancellationToken cancelToken)
@@ -238,6 +226,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             var blob = GetBlob(blobUri);
             return blob.OpenReadAsync(cancelToken);
         }
+
         public async Task<string> DownloadToLocalDiskAsync(Uri blobUri, CancellationToken cancelToken)
         {
             var blob = GetBlob(blobUri);
@@ -259,12 +248,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             await blob.DownloadToFileAsync(fileSystemLocation,
                 FileMode.Create, cancelToken).ConfigureAwait(false);
             return fileSystemLocation;
-
         }
 
-
         #endregion
-
 
         #region FAQRegion
         public async Task<Stream> GetFaqQuestionAsync()
@@ -279,6 +265,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
                 return null;
             }
         }
+
         public async Task<Stream> GetJobsXmlAsync()
         {
             try

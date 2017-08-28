@@ -28,7 +28,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             DisplayConfig.RegisterDisplays();
             ViewConfig.RegisterEngineAndViews();
             BundleRegistration.RegisterBundles();
-            //BundleConfig.RegisterBundles();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 
             RouteConfig.RegisterRoutes(RouteTable.Routes);
@@ -45,7 +44,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             MvcHandler.DisableMvcResponseHeader = true;
             TelemetryConfiguration.Active.InstrumentationKey = ConfigFetcher.Fetch("APPINSIGHTS_INSTRUMENTATIONKEY");
         }
-
 
         protected void Application_End()
         {

@@ -19,7 +19,7 @@ namespace Zbang.Cloudents.Jared.Filters
         {
             get
             {
-                var constraints = new HttpRouteValueDictionary { { "version", new VersionConstraint(AllowedVersion) } };
+                var constraints = new HttpRouteValueDictionary {["version"] = new VersionConstraint(AllowedVersion) };
                 return constraints;
             }
         }

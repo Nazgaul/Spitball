@@ -13,11 +13,9 @@
 
         public string ImageUrl { get; set; }
 
-
         public string DepartmentName { get; set; }
 
         public long BoxId { get; set; }
         public string UniversityName { get; set; }
-
     }
 }

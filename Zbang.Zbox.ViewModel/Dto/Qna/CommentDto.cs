@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 
 namespace Zbang.Zbox.ViewModel.Dto.Qna
-{ 
+{
     public class CommentDto
     {
         private DateTime m_Date;
-       
+
         public Guid Id { get; set; }
 
         public string UserImage { get; set; }

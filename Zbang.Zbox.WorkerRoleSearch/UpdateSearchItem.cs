@@ -180,7 +180,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    m_Logger.Exception(ex, new Dictionary<string, string> { { Name, "update item" } });
+                    m_Logger.Exception(ex, new Dictionary<string, string> {[Name] = "update item" });
                 }
             }
         }
@@ -240,7 +240,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     }
                     catch (Exception ex)
                     {
-                        m_Logger.Exception(ex, new Dictionary<string, string> { { "ItemId", msgData.Id.ToString() }, { Name, "signalr" } });
+                        m_Logger.Exception(ex, new Dictionary<string, string> {["ItemId"] = msgData.Id.ToString(),[Name] = "signalr" });
                     }
                     if (msgData.Type == ItemType.Document)
                     {
@@ -253,7 +253,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    m_Logger.Exception(ex, new Dictionary<string, string> { { "ItemId", msgData.Id.ToString() } });
+                    m_Logger.Exception(ex, new Dictionary<string, string> {["ItemId"] = msgData.Id.ToString() });
 
                     // ReSharper disable once AccessToDisposedClosure
                     wait.Set();
@@ -324,7 +324,7 @@ token);
                             }
                             catch (Exception ex)
                             {
-                                m_Logger.Exception(ex, new Dictionary<string, string> { { "element", elem.ToString() } });
+                                m_Logger.Exception(ex, new Dictionary<string, string> {["element"] = elem.ToString() });
                                 wait.Set();
                             }
                         });
@@ -341,7 +341,7 @@ token);
             }
             catch (Exception ex)
             {
-                m_Logger.Exception(ex, new Dictionary<string, string> { { "element", elem.ToString() } });
+                m_Logger.Exception(ex, new Dictionary<string, string> {["element"] = elem.ToString() });
                 return null;
             }
         }
@@ -368,7 +368,7 @@ token);
             }
             catch (Exception ex)
             {
-                m_Logger.Exception(ex, new Dictionary<string, string> { { nameof(parameters), parameters.ToString() } });
+                m_Logger.Exception(ex, new Dictionary<string, string> {[nameof(parameters)] = parameters.ToString() });
                 return false;
             }
         }

@@ -53,7 +53,6 @@ select Prev as Previous,Next from  cte where itemid = @ItemId
         public const string UserItemRate =
             @"select ir.Rate from zbox.ItemRate ir where ir.ItemId = @ItemId and ir.OwnerId = @UserId;";
 
-
         public const string ItemComments = @"SELECT [ItemCommentId] as Id
                           ,[Comment]
                           ,ic.CreationTime as CreationDate

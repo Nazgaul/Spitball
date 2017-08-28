@@ -15,7 +15,6 @@ namespace Zbang.Zbox.ViewModel.Queries.Boxes
         }
         public long FriendId { get; private set; }
 
-
         public int PageNumber
         {
             get;
@@ -26,21 +25,15 @@ namespace Zbang.Zbox.ViewModel.Queries.Boxes
             get;
         }
 
-
-
     }
-
 
     public class GetUserStatsQuery : IQueryCache
     {
         public GetUserStatsQuery(long friendId)
         {
             FriendId = friendId;
-
         }
         public long FriendId { get; private set; }
-
-
 
         public string CacheKey => $"friendId{FriendId}";
         public CacheRegions CacheRegion => CacheRegions.Profile;

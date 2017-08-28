@@ -20,7 +20,6 @@ namespace Zbang.Zbox.ViewModel.Dto.Library
 
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }
-
     }
 
     public class UserImagesForUniversitySearchDto

@@ -27,6 +27,4 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 
         public int Progress { get;private set; }
     }
-
-  
 }

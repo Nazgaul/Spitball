@@ -64,7 +64,5 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             UserRepository.Save(user);
             m_BoxRepository.Save(box, true);
         }
-
-
     }
 }

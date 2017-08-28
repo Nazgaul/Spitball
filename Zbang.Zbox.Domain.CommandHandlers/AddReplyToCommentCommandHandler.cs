@@ -20,8 +20,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<Item> m_ItemRepository;
         private readonly IQueueProvider m_QueueProvider;
 
-
-
         public AddReplyToCommentCommandHandler(IUserRepository userRepository, IBoxRepository boxRepository,
             IRepository<CommentReply> answerRepository,
             IRepository<Comment> questionRepository,
@@ -43,7 +41,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var box = m_BoxRepository.Load(message.BoxId);
 
             var question = m_QuestionRepository.Load(message.QuestionId);
-
 
             var files = new List<Item>();
             if (message.FilesIds != null)

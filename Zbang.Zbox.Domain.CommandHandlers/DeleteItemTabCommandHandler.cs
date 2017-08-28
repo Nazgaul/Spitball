@@ -32,7 +32,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new NullReferenceException("itemTab");
             }
 
-
             if (itemTab.Box.Id != message.BoxId)
             {
                 throw new UnauthorizedAccessException("user is not the owner of boxtab");

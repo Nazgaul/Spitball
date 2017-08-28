@@ -19,7 +19,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IIdGenerator m_IdGenerator;
         private readonly IQueueProvider m_QueueProvider;
 
-        public CreateUniversityCommandHandler(IRepository<University> universityRepository, 
+        public CreateUniversityCommandHandler(IRepository<University> universityRepository,
             IRepository<User> userRepository, IIdGenerator idGenerator, IQueueProvider queueProvider)
         {
             m_UniversityRepository = universityRepository;
@@ -31,7 +31,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public Task HandleAsync(CreateUniversityCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
-
 
             var user = m_UserRepository.Load(message.UserId);
             // ReSharper disable once ReplaceWithSingleCallToFirstOrDefault Nhibernate doesnt support
@@ -46,7 +45,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     user.Id);
                 t1 = m_QueueProvider.InsertFileMessageAsync(new UniversityProcessData(id));
                 m_UniversityRepository.Save(university);
-
             }
             if (university.IsDeleted)
             {
@@ -58,7 +56,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_UserRepository.Save(user);
             return t1;
             //m_QueueProvider.InsertMessageToTranaction(new UniversityData(message.Name, message.Id, message.LargeImage));
-
 
         }
     }

@@ -37,7 +37,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var reply = m_ReplyRepository.Load(message.ReplyId);
             if (replyLike == null)
             {
-
                 reply.LikeCount++;
                 var user = m_UserRepository.Load(message.UserId);
                 replyLike = new ReplyLike(reply, user, m_GuidGenerator.GetId());
@@ -53,7 +52,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ReplyLikeRepository.Delete(replyLike);
             await CreateQueuesDataAsync(message.UserId, reply.User.Id);
             return new LikeReplyCommandResult(false);
-
         }
         private async Task CreateQueuesDataAsync(long userWhoMadeAction, long commentUser)
         {

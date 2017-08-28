@@ -15,8 +15,5 @@
 
         public long BoxId { get; set; }
 
-
-
     }
-
 }

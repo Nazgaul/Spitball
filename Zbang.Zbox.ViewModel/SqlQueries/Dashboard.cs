@@ -20,6 +20,5 @@
     ORDER BY b.UpdateTime desc
     offset @pageNumber*@rowsperpage ROWS
     FETCH NEXT @rowsperpage ROWS ONLY;";
-
     }
 }

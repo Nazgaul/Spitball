@@ -16,7 +16,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IUserRepository m_UserRepository;
         private readonly IQueueProvider m_QueueProvider;
 
-
         public RateItemCommandHandler(
             IItemRateRepository itemRateRepository,
             IRepository<Item> itemRepository,
@@ -34,7 +33,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             var item = m_ItemRepository.Load(message.ItemId);
             item.ShouldMakeDirty = () => true;
-
 
             if (userRate != null)
             {
@@ -57,8 +55,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var t1 = m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(userId));
             return Task.WhenAll(t1, t2);
         }
-
-
 
 
     }

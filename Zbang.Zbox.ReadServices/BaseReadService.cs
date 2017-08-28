@@ -15,7 +15,6 @@ namespace Zbang.Zbox.ReadServices
 {
     public class BaseReadService : IBaseReadService, IZboxReadSecurityReadService
     {
-
         #region login
         public async Task<LogInUserDto> GetUserDetailsByFacebookIdAsync(GetUserByFacebookQuery query)
         {
@@ -85,7 +84,6 @@ namespace Zbang.Zbox.ReadServices
         }
         #endregion
 
-
         private UserRelationshipType GetUserStatusToBox(BoxSecurityDto securityDto)
         {
             if (securityDto.BoxType == BoxType.AcademicClosed)
@@ -115,7 +113,6 @@ namespace Zbang.Zbox.ReadServices
 
             throw new BoxAccessDeniedException();
         }
-
 
         public UserRelationshipType GetUserStatusToBox(long boxId, long userId, Guid? inviteId)
         {
@@ -151,9 +148,9 @@ namespace Zbang.Zbox.ReadServices
                         throw new BoxDoesntExistException();
                     }
                 }
-
             }
         }
+
         public async Task<UserRelationshipType> GetUserStatusToBoxAsync(long boxId, long userId)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
@@ -169,10 +166,8 @@ namespace Zbang.Zbox.ReadServices
                     throw new BoxDoesntExistException();
                 }
 
-
             }
         }
-
 
 
 

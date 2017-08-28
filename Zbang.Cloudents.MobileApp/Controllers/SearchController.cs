@@ -22,7 +22,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         private readonly IItemReadSearchProvider m_ItemSearchService2;
         private readonly IUniversityReadSearchProvider m_UniversitySearch;
         private readonly IZboxCacheReadService m_ZboxReadService;
-       
+
         public SearchController(IBoxReadSearchProvider2 boxSearchService2, IItemReadSearchProvider itemSearchService2, IUniversityReadSearchProvider universitySearch, IZboxCacheReadService zboxReadService)
         {
             m_BoxSearchService2 = boxSearchService2;
@@ -69,7 +69,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             var cancelToken = Request.GetCancellationToken();
             var query = new SearchQueryMobile(term, User.GetUserId(), universityId.Value, page, sizePerPage);
             // Services.Log.Info(String.Format("search items query: {0}", query));
-            var retVal = await m_ItemSearchService2.SearchItemAsync(query, cancelToken) ?? new List<SearchDocument>();
+            var retVal = await m_ItemSearchService2.SearchItemAsync(query, cancelToken).ConfigureAwait(false) ?? new List<SearchDocument>();
             return Request.CreateResponse(retVal.Select(s => new
             {
                 s.Name,
@@ -92,7 +92,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
                 var retValWithoutSearch =
                     await
-                        m_ZboxReadService.GetUniversityByIpAddressAsync(new UniversityByIpQuery(Ip2Long(ip), sizePerPage, page));
+                        m_ZboxReadService.GetUniversityByIpAddressAsync(new UniversityByIpQuery(Ip2Long(ip), sizePerPage, page)).ConfigureAwait(false);
 
                 retValWithoutSearch = retValWithoutSearch.Select(s =>
                 {
@@ -108,7 +108,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             var cancelToken = Request.GetCancellationToken();
 
             var query = new UniversitySearchQuery(term, sizePerPage, page);
-            var retVal = await m_UniversitySearch.SearchUniversityAsync(query, cancelToken);
+            var retVal = await m_UniversitySearch.SearchUniversityAsync(query, cancelToken).ConfigureAwait(false);
 
             retVal = retVal.Select(s =>
             {
@@ -144,7 +144,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             var ipBytes = ip.Split('.');
             for (var i = ipBytes.Length - 1; i >= 0; i--)
             {
-                num += ((int.Parse(ipBytes[i]) % 256) * Math.Pow(256, (3 - i)));
+                num += ((int.Parse(ipBytes[i]) % 256) * Math.Pow(256, 3 - i));
             }
             return (long)num;
         }

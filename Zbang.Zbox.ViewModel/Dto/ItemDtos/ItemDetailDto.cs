@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Zbang.Zbox.Infrastructure.Enums;
 
-
 namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 {
     public class ItemDetailDto
@@ -33,7 +32,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public string Type { get; set; }
 
         //public string BoxUrl { get; set; }
-
 
         //public string DownloadUrl { get; set; }
         //public string PrintUrl { get; set; }

@@ -9,7 +9,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class CommandsModule : Module
     {
-
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType(typeof(AddLanguageToItemCommandHandler<Item>))
@@ -35,8 +34,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             builder.RegisterType(typeof(RemoveTagsFromItemCommandHandler<Domain.Quiz>))
                .As<ICommandHandler<RemoveTagsFromQuizCommand>>();
 
-
-
             builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces();
 
             builder.RegisterType(typeof(AddFileToBoxCommandHandler)).Named <
@@ -44,8 +41,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             builder.RegisterType(typeof(CreateAcademicBoxCommandHandler) ).Named<
                 ICommandHandlerAsync<CreateBoxCommand, CreateBoxCommandResult>>("CreateAcademicBoxCommand");
-
-
 
             builder
                 .RegisterType
@@ -98,24 +93,20 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             builder.RegisterType(typeof(ICommandHandler<UpdateUserUniversityCommand>), typeof(UpdateUserUniversityCommandHandler));
             builder.RegisterType(typeof(ICommandHandler<UnsubscribeUsersFromEmailCommand>), typeof(UnsubscribeUsersFromEmailCommandHandler));
 
-
             //annotation
             builder.RegisterType(typeof(ICommandHandlerAsync<AddItemCommentCommand>), typeof(AddItemCommentCommandHandler));
             builder.RegisterType(typeof(ICommandHandlerAsync<AddItemReplyToCommentCommand>), typeof(AddItemReplyToCommentCommandHandler));
             builder.RegisterType(typeof(ICommandHandler<DeleteItemCommentCommand>), typeof(DeleteItemCommentCommandHandler));
             builder.RegisterType(typeof(ICommandHandler<DeleteItemCommentReplyCommand>), typeof(DeleteItemCommentReplyCommandHandler));
 
-
             builder.RegisterType(typeof(ICommandHandler<CreateItemTabCommand>), typeof(CreateItemTabCommandHandler));
             builder.RegisterType(typeof(ICommandHandler<AssignItemToTabCommand>), typeof(AssignItemToTabCommandHandler));
             builder.RegisterType(typeof(ICommandHandler<ChangeItemTabNameCommand>), typeof(ChangeItemTabNameCommandHandler));
             builder.RegisterType(typeof(ICommandHandler<DeleteItemTabCommand>), typeof(DeleteItemTabCommandHandler));
 
-
             //item command
             builder.RegisterType(typeof(ICommandHandlerAsync<RateItemCommand>), typeof(RateItemCommandHandler));
             builder.RegisterType(typeof(ICommandHandler<PreviewFailedCommand>), typeof(PreviewFailedCommandHandler));
-
 
             //statistics
             builder.RegisterType(typeof(ICommandHandlerAsync<UpdateStatisticsCommand>), typeof(UpdateStatisticsCommandHandler));
@@ -125,7 +116,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             //create university app
             builder.RegisterType(typeof(ICommandHandlerAsync<CreateUniversityCommand>), typeof(CreateUniversityCommandHandler));
             builder.RegisterType(typeof(ICommandHandler<UpdateUniversityStatsCommand>), typeof(UpdateUniversityStatsCommandHandler));
-
 
             //QnA
             builder.RegisterType(typeof(ICommandHandlerAsync<AddCommentCommand, AddCommentCommandResult>), typeof(AddCommentCommandHandler));
@@ -184,7 +174,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 typeof(ManageConnectionsCommandHandler));
             builder.RegisterType(typeof(ICommandHandler<RemoveOldConnectionCommand>),
                 typeof(RemoveOldConnectionCommandHandler));
-
 
             builder.RegisterType(typeof(ICommandHandler<ChatMarkAsReadCommand>),
                 typeof(ChatMarkAsReadCommandHandler));

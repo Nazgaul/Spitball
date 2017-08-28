@@ -17,13 +17,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IInviteRepository m_InviteRepository;
         private readonly IQueueProvider m_QueueRepository;
 
-
         public SubscribeToSharedBoxCommandHandler(IRepository<Box> boxRepository, IUserRepository userRepository,
             IInviteRepository inviteRepository,
             IQueueProvider queueRepository
             )
         {
-
             m_UserRepository = userRepository;
             m_BoxRepository = boxRepository;
             m_InviteRepository = inviteRepository;
@@ -49,7 +47,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (type == UserRelationshipType.Invite ||
                 type == UserRelationshipType.None && box.PrivacySettings.PrivacySetting == BoxPrivacySetting.AnyoneWithUrl)
             {
-                
                 var user = m_UserRepository.Load(command.UserId);
                 user.ChangeUserRelationShipToBoxType(box, UserRelationshipType.Subscribe);
                 m_UserRepository.Save(user);
@@ -62,8 +59,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 await Task.WhenAll(t1, t5).ConfigureAwait(true);
             }
         }
-
-
 
         private void GiveReputation(string email, long boxId)
         {

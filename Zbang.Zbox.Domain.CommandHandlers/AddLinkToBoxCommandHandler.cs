@@ -24,7 +24,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IGuidIdGenerator m_IdGenerator;
         private readonly IRepository<Comment> m_CommentRepository;
 
-
         public AddLinkToBoxCommandHandler(IRepository<Box> boxRepository, IUserRepository userRepository, IQueueProvider queueProvider,
             IItemRepository itemRepository,
              IItemTabRepository itemTabRepository,
@@ -76,8 +75,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             await Task.WhenAll(t1, t4, t5);
             return new AddLinkToBoxCommandResult(link);
-
-
         }
         private void AddItemToTab(Guid? tabid, Item item)
         {
@@ -105,7 +102,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (u.Scheme != Uri.UriSchemeHttp && u.Scheme != Uri.UriSchemeHttps)
             {
                 throw new ArgumentException("Invalid url Scheme");
-
             }
             return u;
         }

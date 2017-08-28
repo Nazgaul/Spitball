@@ -60,8 +60,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 {
                     m_Logger.Exception(ex, new Dictionary<string, string>
                     {
-                        {"service", "Jobs"},
-                        {"zip", zip}
+                        ["service"] = "Jobs",
+                        ["zip"] = zip
                     });
                     return null;
                 }

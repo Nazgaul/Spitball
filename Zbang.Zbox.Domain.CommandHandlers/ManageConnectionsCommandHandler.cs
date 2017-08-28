@@ -9,7 +9,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IConnectionRepository m_ConnectionRepository;
 
-        public ManageConnectionsCommandHandler(IConnectionRepository connectionRepository 
+        public ManageConnectionsCommandHandler(IConnectionRepository connectionRepository
             )
         {
             m_ConnectionRepository = connectionRepository;

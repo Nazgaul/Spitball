@@ -12,16 +12,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly ILocationProvider m_LocationProvider;
         private readonly IRepository<UserLocationActivity> m_UserLocationActivityRepository;
         private readonly IRepository<User> m_UserRepository;
-        private readonly IGuidIdGenerator m_GuidGeneratory;
+        private readonly IGuidIdGenerator m_GuidGenerator;
 
-        public AddUserLocationActivityCommandHandler(ILocationProvider locationProvider, 
+        public AddUserLocationActivityCommandHandler(ILocationProvider locationProvider,
             IRepository<UserLocationActivity> userLocationActivityRepository,
-            IRepository<User> userRepository, IGuidIdGenerator guidGeneratory)
+            IRepository<User> userRepository, IGuidIdGenerator guidGenerator)
         {
             m_LocationProvider = locationProvider;
             m_UserLocationActivityRepository = userLocationActivityRepository;
             m_UserRepository = userRepository;
-            m_GuidGeneratory = guidGeneratory;
+            m_GuidGenerator = guidGenerator;
         }
 
         public async Task HandleAsync(AddUserLocationActivityCommand message)
@@ -35,7 +35,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 }
                 var user = m_UserRepository.Load(message.UserId);
                 var locationActivity = new UserLocationActivity(
-                    m_GuidGeneratory.GetId(),
+                    m_GuidGenerator.GetId(),
                     user,
                     result.Domain,
                     result.Latitude,
@@ -53,7 +53,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 var user = m_UserRepository.Load(message.UserId);
                 var locationActivity = new UserLocationActivity(
-                    m_GuidGeneratory.GetId(),
+                    m_GuidGenerator.GetId(),
                     user,
                     null,
                     null,
@@ -66,9 +66,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     null, message.UserAgent);
                 m_UserLocationActivityRepository.Save(locationActivity);
             }
-
-            
-
         }
     }
 }

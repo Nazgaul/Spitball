@@ -47,12 +47,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var user = m_UserRepository.Load(userId);
             var box = m_BoxRepository.Load(command.BoxId);
 
-
             var files = new List<Item>();
             if (command.FilesIds != null)
             {
                 files = command.FilesIds.Select(s => m_ItemRepository.Load(s)).ToList();
-
             }
             foreach (var file in files)
             {
@@ -75,8 +73,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             return new AddCommentCommandResult(command.Id, user.Name, user.ImageLarge, user.Id);
         }
-
-
 
 
     }

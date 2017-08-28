@@ -9,7 +9,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<Library> m_DepartmentRepository;
         private readonly IRepository<AcademicBox> m_BoxRepository;
 
-        public ChangeBoxLibraryCommandHandler(IRepository<Library> departmentRepository, 
+        public ChangeBoxLibraryCommandHandler(IRepository<Library> departmentRepository,
             IRepository<AcademicBox> boxRepository)
         {
             m_DepartmentRepository = departmentRepository;

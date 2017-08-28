@@ -19,7 +19,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
     {
         static StorageProvider()
         {
-
             ConfigureStorageAccount();
             try
             {
@@ -27,6 +26,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             }
             catch { }
         }
+
         private static void ConfigureLocalStorage()
         {
             if (RoleEnvironment.IsAvailable)
@@ -40,7 +40,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
                 Directory.CreateDirectory(LocalResource.LocalResourcePath);
             }
         }
-
 
         private static void ConfigureStorageAccount()
         {
@@ -59,7 +58,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             catch (ArgumentNullException ex)
             {
                 TraceLog.WriteError("on ConfigureStorageAccount", ex);
-
             }
         }
 
@@ -162,7 +160,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             });
 
 
-
         }
 
         private static void CreateQueues(CloudQueueClient queueClient)
@@ -183,16 +180,13 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             var table2 = tableClient.GetTableReference(TableProvider.FilterWords);
             table.CreateIfNotExists();
             table2.CreateIfNotExists();
-
         }
         #endregion
-
 
     }
 
     public class LocalResource
     {
-
         public string LocalResourcePath { get; set; }
         public int LocalResourceSizeInMegaBytes { get; set; }
     }

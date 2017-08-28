@@ -136,7 +136,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private FileUploadDetails GetCookieUpload(string cookieName, long fileSize, string fileName, HttpPostedFileBase uploadedfile)
         {
             var fileReceive = m_CookieHelper.ReadCookie<FileUploadDetails>(cookieName);
-            if (fileReceive != null && fileReceive.FileSize <= fileReceive.TotalUploadBytes)
+            if (fileReceive?.FileSize <= fileReceive.TotalUploadBytes)
             {
                 fileReceive = null;
             }

@@ -36,7 +36,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
             await ChangeUserEmailAsync(command.Email, user);
-
         }
 
         private bool CheckIfEmailOccupied(string email)

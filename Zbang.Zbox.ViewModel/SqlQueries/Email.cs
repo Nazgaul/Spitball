@@ -18,7 +18,7 @@
 	 order by userid
 	  offset @pageNumber*@rowsperpage ROWS
 	  FETCH NEXT @rowsperpage ROWS ONLY option(Recompile);";
-  
+
         public const string GetUserUpdates = @"select boxid,QuestionId,AnswerId,ItemId,QuizId,QuizDiscussionId
 	from zbox.NewUpdates nu
 	where nu.UserId = @UserId 
@@ -37,7 +37,6 @@
     'http://az32006.vo.msecnd.net/mailcontainer/Quiz.jpg' as Picture, q.url, q.BoxId
 	 from zbox.quiz q inner join zbox.users u on u.userid = q.userid
 	 where id in @QuizIds;";
-
 
         public const string GetCommentUpdates = @"select
     u.userName as UserName,
@@ -121,7 +120,6 @@
     where q.boxid = @BoxId
     and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,@Notification,d.creationTime)) >0;";
 
-
         public const string GetLikesOnItem =
             @"select u2.username as likePersonName, u.email,i.name as onElement, u.userid, u.username as name, u.culture from zbox.itemrate ir 
 join zbox.item i on i.itemid = ir.itemid 
@@ -139,7 +137,6 @@ join zbox.users u2 on u2.userid = rl.ownerid
 where rl.creationtime > dateadd(day,@timeDiff,getutcdate())
 and u.userid != u2.userid
 and u.EmailSendSettings = 0;";
-
 
         public const string GetLikesOnComments =
             @"select u2.username as likePersonName, u.email, q.text as onElement,u.userid , u.username as name, u.culture from zbox.CommentLike cl

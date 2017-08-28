@@ -2,7 +2,7 @@
 
 namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 {
-    public class UserMemberDto 
+    public class UserMemberDto
     {
         public UserRelationshipType UserStatus { get; set; }
         public string Image { get; set; }

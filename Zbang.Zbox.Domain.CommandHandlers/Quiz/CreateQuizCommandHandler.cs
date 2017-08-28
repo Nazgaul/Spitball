@@ -27,9 +27,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             if (message == null) throw new ArgumentNullException(nameof(message));
             var user = m_UserRepository.Load(message.UserId);
             var box = m_BoxRepository.Load(message.BoxId);
-           
+
             var quiz = new Domain.Quiz(TextManipulation.EncodeText(message.Text), message.QuizId, box, user);
-            
+
             m_QuizRepository.Save(quiz);
         }
     }

@@ -21,8 +21,6 @@ using Zbang.Zbox.ViewModel.Queries.QnA;
 using Zbang.Zbox.ViewModel.Queries.Search;
 using BoxDto = Zbang.Zbox.ViewModel.Dto.BoxDto;
 
-
-
 namespace Zbang.Zbox.ReadServices
 {
     public interface IZboxReadService : IBaseReadService
@@ -40,7 +38,6 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<string>> GetDepartmentAsync(SearchTermQuery term);
         Task<IEnumerable<string>> GetTagAsync(SearchTermQuery term);
 
-
         Task<UniversityDashboardInfoDto> GetUniversityInfoAsync(UniversityQuery query);
 
         Task<NodeBoxesDto> GetLibraryNodeAsync(GetLibraryNodeQuery query);
@@ -54,7 +51,6 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<FlashcardDto>> GetBoxFlashcardsAsync(GetFlashCardsQuery query);
         Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetBoxLeaderboardQuery query);
 
-
         Task<ItemDetailDto> GetItem2Async(GetItemQuery query);
         Task<IEnumerable<AnnotationDto>> GetItemCommentsAsync(ItemCommentQuery query);
         Task<ItemMobileDto> GetItemDetailApiAsync(long itemId);
@@ -62,12 +58,10 @@ namespace Zbang.Zbox.ReadServices
         Task<FlashcardSeoDto> GetFlashcardUrlAsync(GetFlashcardSeoQuery query);
         Task<BoxSeoDto> GetBoxSeoAsync(GetBoxIdQuery query);
 
-
         Task<BoxDto2> GetBox2Async(GetBoxQuery query);
 
         Task<BoxDtoWithMembers> GetBoxMetaWithMembersAsync(GetBoxQuery query, int numberOfMembers);
         Task<IEnumerable<TabDto>> GetBoxTabsAsync(GetBoxQuery query);
-
 
         Task<IEnumerable<UserDto>> GetUserFriendsAsync(GetUserFriendsQuery query);
 
@@ -76,9 +70,6 @@ namespace Zbang.Zbox.ReadServices
         Task<UserAccountDto> GetUserAccountDetailsAsync(QueryBaseUserId query);
         Task<UserNotification> GetUserBoxesNotificationAsync(QueryBaseUserId query);
         Task<NotificationSetting> GetUserBoxNotificationSettingsAsync(GetBoxQuery query, long userId);
-
-
-
 
         Task<IEnumerable<UserMemberDto>> GetBoxMembersAsync(GetBoxQuery query);
 
@@ -93,8 +84,6 @@ namespace Zbang.Zbox.ReadServices
         Task<CommentDto> GetCommentAsync(GetQuestionQuery query);
         Task<bool> GetInviteAsync(GetInviteDetailQuery query);
 
-
-
         //user page
         Task<IEnumerable<BoxDto>> GetUserBoxesActivityAsync(GetUserWithFriendQuery query);
 
@@ -107,12 +96,7 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<SeoDto>> GetSeoItemsAsync(SeoType type, int page, CancellationToken token);
         Task<IEnumerable<SitemapDto>> GetSeoItemCountAsync();
 
-
-
-
         Task<UniversityWithCodeDto> GetUniversityNeedIdAsync(long universityId);
-
-
 
         Task<IEnumerable<UpdatesDto>> GetUpdatesAsync(QueryBase query);
 
@@ -127,8 +111,7 @@ namespace Zbang.Zbox.ReadServices
         Task<QuizSolversWithCountDto> GetQuizSolversAsync(GetQuizBestSolvers query);
         Task<QuizQuestionWithSolvedAnswersDto> GetQuizQuestionWithAnswersAsync(GetQuizQuery query);
 
-
-
+        string GetCountryByIp(long ip);
         Task<IEnumerable<UniversityByPrefixDto>> GetUniversityByIpAddressAsync(UniversityByIpQuery query);
         Task<IEnumerable<UserImageNameDto>> GetUsersInBoxByTermAsync(UserInBoxSearchQuery query);
 
@@ -152,7 +135,6 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<LeaderBoardDto>> UserLeaderBoardAsync(LeaderboardQuery query);
 
         #endregion
-
 
         #region Jared
 

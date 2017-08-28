@@ -28,9 +28,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public Task HandleAsync(DeleteBoxCommand message)
         {
-
             var box = m_BoxRepository.Load(message.BoxId);
-
 
             if (box.Actual is AcademicBox academicBox)
             {
@@ -44,7 +42,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 university.UpdateNumberOfBoxes(--noOfBoxes);
                 m_UniversityRepository.Save(university);
             }
-
 
             m_BoxRepository.Delete(box);
             var reputationItemUsers = box.Items.Where(w => !w.IsDeleted).Select(s => s.UploaderId);

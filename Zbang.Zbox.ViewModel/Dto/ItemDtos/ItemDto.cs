@@ -4,8 +4,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 {
     public class ItemDto
     {
-
-
         public long Id { get; set; }
         public string Name { get; set; }
         public int Likes { get; set; }
@@ -21,7 +19,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
         public DateTime Date { get; set; }
 
-
         public int NumOfDownloads { get;  set; }
         public string Description { get;  set; }
 
@@ -30,7 +27,5 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public string Type { get; set; }
 
         public string Source { get; set; }
-
-
     }
 }

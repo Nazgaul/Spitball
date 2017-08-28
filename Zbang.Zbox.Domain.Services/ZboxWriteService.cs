@@ -20,6 +20,7 @@ namespace Zbang.Zbox.Domain.Services
             m_CommandBus = commandBus;
             m_Cache = cache;
         }
+
         public void Start()
         {
             //using (UnitOfWork.Start())
@@ -31,10 +32,6 @@ namespace Zbang.Zbox.Domain.Services
             using (UnitOfWork.Start())
             { }
         }
-
-
-
-
 
         #region IZboxWriteOnlyService
 
@@ -95,6 +92,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public void UpdateUserImage(UpdateUserProfileImageCommand command)
         {
             using (UnitOfWork.Start())
@@ -129,7 +127,6 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-
         public void ChangeNotificationSettings(ChangeNotificationSettingsCommand command)
         {
             using (UnitOfWork.Start())
@@ -138,7 +135,6 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-
 
         public async Task UnFollowBoxAsync(UnFollowBoxCommand command)
         {
@@ -194,9 +190,6 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-
-
-
         public void DeleteUserFromBox(DeleteUserFromBoxCommand command)
         {
             using (UnitOfWork.Start())
@@ -205,7 +198,6 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-
 
         public async Task ShareBoxAsync(ShareBoxCommand command)
         {
@@ -218,6 +210,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public async Task InviteSystemAsync(InviteToSystemCommand command)
         {
             using (UnitOfWork.Start())
@@ -227,7 +220,6 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-
         public async Task SubscribeToSharedBoxAsync(SubscribeToSharedBoxCommand command)
         {
             using (UnitOfWork.Start())
@@ -236,10 +228,6 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-
-
-
-
 
         public ChangeFileNameCommandResult ChangeFileName(ChangeFileNameCommand command)
         {
@@ -251,9 +239,6 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-
-
-
         public void UpdateUserLanguage(UpdateUserLanguageCommand command)
         {
             using (UnitOfWork.Start())
@@ -262,6 +247,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public void UpdateUserEmailSettings(UpdateUserEmailSubscribeCommand command)
         {
             using (UnitOfWork.Start())
@@ -271,7 +257,6 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-
         public void UpdateNodeSettings(UpdateNodeSettingsCommand command)
         {
             using (UnitOfWork.Start())
@@ -280,6 +265,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public void UpdatePreviewFailed(PreviewFailedCommand command)
         {
             using (UnitOfWork.Start())
@@ -348,9 +334,6 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-
-
-
         #region annotation
         public async Task AddAnnotationAsync(AddItemCommentCommand command)
         {
@@ -364,6 +347,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public async Task AddReplyAnnotationAsync(AddItemReplyToCommentCommand command)
         {
             using (UnitOfWork.Start())
@@ -376,6 +360,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public async Task DeleteAnnotationAsync(DeleteItemCommentCommand command)
         {
             using (UnitOfWork.Start())
@@ -386,6 +371,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public async Task DeleteItemCommentReplyAsync(DeleteItemCommentReplyCommand command)
         {
             using (UnitOfWork.Start())
@@ -408,12 +394,12 @@ namespace Zbang.Zbox.Domain.Services
                 var t2 = m_CommandBus.SendAsync(autoFollowCommand);
                 var t1 = m_CommandBus.DispatchAsync<AddCommentCommand, AddCommentCommandResult>(command);
 
-
                 await Task.WhenAll(t1, t2, t4).ConfigureAwait(true);
                 UnitOfWork.Current.TransactionalFlush();
                 return t1.Result;
             }
         }
+
         public async Task AddReplyAsync(AddReplyToCommentCommand command)
         {
             using (UnitOfWork.Start())
@@ -423,10 +409,8 @@ namespace Zbang.Zbox.Domain.Services
                 var t2 = m_CommandBus.SendAsync(autoFollowCommand);
                 var t1 = m_CommandBus.SendAsync(command);
 
-
                 await Task.WhenAll(t1, t2, t4).ConfigureAwait(true);
                 UnitOfWork.Current.TransactionalFlush();
-
             }
         }
 
@@ -441,6 +425,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public async Task DeleteReplyAsync(DeleteReplyCommand command)
         {
             using (UnitOfWork.Start())
@@ -451,6 +436,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public async Task<LikeCommentCommandResult> LikeCommentAsync(LikeCommentCommand command)
         {
             using (UnitOfWork.Start())
@@ -466,6 +452,7 @@ namespace Zbang.Zbox.Domain.Services
                 return result;
             }
         }
+
         public async Task<LikeReplyCommandResult> LikeReplyAsync(LikeReplyCommand command)
         {
             using (UnitOfWork.Start())
@@ -495,8 +482,6 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-
-
         #endregion
 
         public void DeleteUpdates(DeleteUpdatesCommand command)
@@ -515,12 +500,12 @@ namespace Zbang.Zbox.Domain.Services
             {
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
 
-
                 m_CommandBus.Send(command);
                 await m_CommandBus.SendAsync(autoFollowCommand);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public void UpdateQuiz(UpdateQuizCommand command)
         {
             using (UnitOfWork.Start())
@@ -529,6 +514,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public async Task DeleteQuizAsync(DeleteQuizCommand command)
         {
             using (UnitOfWork.Start())
@@ -537,6 +523,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public void CreateQuestion(CreateQuestionCommand command)
         {
             using (UnitOfWork.Start())
@@ -554,6 +541,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public async Task AddQuizLikeAsync(AddQuizLikeCommand command)
         {
             using (UnitOfWork.Start())
@@ -562,6 +550,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public async Task DeleteQuizLikeAsync(DeleteQuizLikeCommand command)
         {
             using (UnitOfWork.Start())
@@ -570,6 +559,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public async Task<SaveQuizCommandResult> SaveQuizAsync(SaveQuizCommand command)
         {
             using (UnitOfWork.Start())
@@ -579,6 +569,7 @@ namespace Zbang.Zbox.Domain.Services
                 return result;
             }
         }
+
         public async Task SaveUserAnswersAsync(SaveUserQuizCommand command)
         {
             using (UnitOfWork.Start())
@@ -591,6 +582,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public async Task CreateItemInDiscussionAsync(CreateDiscussionCommand command)
         {
             using (UnitOfWork.Start())
@@ -599,6 +591,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public void DeleteItemInDiscussion(DeleteDiscussionCommand command)
         {
             using (UnitOfWork.Start())
@@ -610,7 +603,6 @@ namespace Zbang.Zbox.Domain.Services
         #endregion
         public void AddStudent(AddStudentCommand command)
         {
-
             using (UnitOfWork.Start())
             {
                 m_CommandBus.Send(command);
@@ -636,6 +628,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public async Task RequestAccessToDepartmentApprovedAsync(LibraryNodeApproveAccessCommand command)
         {
             using (UnitOfWork.Start())
@@ -662,6 +655,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public async Task AddChatMessageAsync(ChatAddMessageCommand command)
         {
             using (UnitOfWork.Start())
@@ -697,6 +691,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public async Task AddUserLocationActivityAsync(AddUserLocationActivityCommand command)
         {
             using (UnitOfWork.Start())
@@ -717,6 +712,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public async Task UpdateFlashcardAsync(UpdateFlashcardCommand command)
         {
             using (UnitOfWork.Start())
@@ -754,6 +750,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public void DeletePinFlashcard(DeleteFlashcardPinCommand command)
         {
             using (UnitOfWork.Start())
@@ -762,6 +759,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public async Task AddFlashcardLikeAsync(AddFlashcardLikeCommand command)
         {
             using (UnitOfWork.Start())
@@ -770,6 +768,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public async Task DeleteFlashcardLikeAsync(DeleteFlashcardLikeCommand command)
         {
             using (UnitOfWork.Start())
@@ -778,7 +777,6 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-
 
         public void SolveFlashcard(SaveUserFlashcardCommand command)
         {
@@ -789,11 +787,8 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-
         #region Jared
 
-
-       
 
         public async Task AddItemTagAsync<T>(T command) where T : AssignTagsToItemCommand
         {
@@ -803,6 +798,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public void RemoveItemTag<T>(T command) where T : RemoveTagsFromItemCommand
         {
             using (UnitOfWork.Start())
@@ -811,6 +807,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public void SetReviewed<T>(T command) where T : SetReviewedCommand
         {
             using (UnitOfWork.Start())
@@ -819,6 +816,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public void ChangeItemDocType(ChangeItemDocTypeCommand command)
         {
             using (UnitOfWork.Start())
@@ -827,6 +825,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
         public void AddItemLanguage<T>(T command) where T : AddLanguageToItemCommand
         {
             using (UnitOfWork.Start())

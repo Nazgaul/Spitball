@@ -5,7 +5,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 {
     public class FileWithDetailDto : ItemWithDetailDto
     {
-
         public FileWithDetailDto(long id, DateTime updateTime, string name,
             string userName,
             string userImage,

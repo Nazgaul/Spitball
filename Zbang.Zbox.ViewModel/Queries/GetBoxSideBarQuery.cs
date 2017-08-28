@@ -14,7 +14,6 @@ namespace Zbang.Zbox.ViewModel.Queries
         }
 
         public long BoxId { get; }
-        
 
         public long UserId { get; private set; }
         //public string CacheKey => BoxId.ToString();

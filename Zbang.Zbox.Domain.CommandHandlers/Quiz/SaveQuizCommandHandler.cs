@@ -23,8 +23,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
         private readonly IRepository<Comment> m_CommentRepository;
         // private readonly IUserRepository m_UserRepository;
 
-
-
         public SaveQuizCommandHandler(
             IRepository<Domain.Quiz> quizRepository,
             IQueueProvider queueProvider,
@@ -74,7 +72,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
                 {
                     throw new ArgumentException("question answers don't have text");
                 }
-
             }
 
             quiz.Publish = true;

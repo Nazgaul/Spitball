@@ -16,7 +16,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IUserRepository m_UserRepository;
         private readonly IUpdatesRepository m_UpdatesRepository;
 
-
         public DeleteReplyCommandHandler(
             IRepository<CommentReply> answerRepository,
             IQueueProvider queueProvider, IUserRepository userRepository, IUpdatesRepository updatesRepository)
@@ -52,7 +51,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var t2 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
 
             return Task.WhenAll(task, t2);
-
         }
     }
 }

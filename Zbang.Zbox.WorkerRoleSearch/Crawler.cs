@@ -44,7 +44,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var finder = new CrawlSiteMapFinder();
             var config = AbotXConfigurationSectionHandler.LoadFromXml().Convert();
 
-
             var implementation = new ImplementationOverride(config, new ImplementationContainer
             {
                 HyperlinkParser = finder,
@@ -83,26 +82,28 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //Create dictionary of Authority and related create model function
             var validAuth = new Dictionary<string, string>
             {
-                {"studysoup.com", "CreateStudySoupNote"},
-                {"www.khanacademy.org", "CreateKhananNote"},
-                {"quizlet.com", "CreateQuizletFlashcard"},
-                { "www.studyblue.com","CreateStudyBlueFlashcard"}
+                ["studysoup.com"] = "CreateStudySoupNote",
+                ["www.khanacademy.org"] = "CreateKhananNote",
+                ["quizlet.com"] = "CreateQuizletFlashcard",
+                ["www.studyblue.com"] = "CreateStudyBlueFlashcard"
             };
             //Use reflection to decide which mapping to run
             if (validAuth.TryGetValue(crawledPage.Uri.Authority, out string modelFunction))
+            {
                 try
                 {
-                    var model = (CrawlModel) GetType()
+                    var model = (CrawlModel)GetType()
                         .GetMethod(modelFunction, BindingFlags.Static | BindingFlags.NonPublic)
-                        .Invoke(null, new[] {crawledPage});
+                        .Invoke(null, new[] { crawledPage });
                     var str = JsonConvert.SerializeObject(model);
                     m_BlobProvider.UploadText(model.Id, str);
                     m_DocumentDbRepository.CreateItemAsync(model).Wait();
                 }
                 catch (Exception ex)
                 {
-                    m_Logger.Exception(ex, new Dictionary<string, string> {{"page", crawledPage.ToString()}});
+                    m_Logger.Exception(ex, new Dictionary<string, string> { ["page"] = crawledPage.ToString() });
                 }
+            }
         }
 
         public async Task RunAsync(CancellationToken cancellationToken)
@@ -114,6 +115,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var t = m_Crawler.CrawlAsync(studySoupSiteMap);
 
             while (!cancellationToken.IsCancellationRequested && !t.IsCompleted)
+            {
                 try
                 {
                     await Task.Delay(TimeSpan.FromSeconds(10), cancellationToken).ConfigureAwait(false);
@@ -126,6 +128,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     if (cancellationToken.IsCancellationRequested)
                         m_Crawler.Stop();
                 }
+            }
+
             await t.ConfigureAwait(false);
             var result = t.Result;
             if (result.ErrorOccurred)
@@ -149,8 +153,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         //Khanan Academy crawler
         private static CrawlModel CreateKhananNote(CrawledPage page)
         {
-            var invalidCdnUrl =
-                "https://cdn.kastatic.org/googleusercontent/K5bzbA067FpSFjs7VuTCAEosuCGLm4NfxQbq_tYtpMHIyB5j-nirP_Pdy8XXrmoARE3_2TBnGafYaRTsSiFt4iw";
+            const string invalidCdnUrl = "https://cdn.kastatic.org/googleusercontent/K5bzbA067FpSFjs7VuTCAEosuCGLm4NfxQbq_tYtpMHIyB5j-nirP_Pdy8XXrmoARE3_2TBnGafYaRTsSiFt4iw";
             var doc = page.AngleSharpHtmlDocument;
             var metaDescription = doc.QuerySelector<IHtmlMetaElement>("meta[name=description]")?.Content?.Trim();
             var metaImage = doc.QuerySelector("[rel=image_src]")?.GetAttribute("href") ??
@@ -169,7 +172,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                               ?.Trim() ??
                           doc.QuerySelector("[class^=description],[class^=module]")?.TextContent?.Trim();
             //split in case lowerCase close to UpperCase
-            if (!string.IsNullOrEmpty(content)) content = Regex.Replace(content, @"([a-z])([A-Z])", "$1 $2");
+            if (!string.IsNullOrEmpty(content)) content = Regex.Replace(content, "([a-z])([A-Z])", "$1 $2");
 
             return new CrawlModel(page.Uri.AbsoluteUri, doc.Title, content, null, null,
                 tags, null, null, metaDescription, metaImage, metaKeyword, page.Uri.Host,
@@ -182,9 +185,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var metaDescription = doc.QuerySelector<IHtmlMetaElement>("meta[name=description]")?.Content?.Trim();
             var allCards = doc.QuerySelectorAll(".SetPage-term").Select(s => string.IsNullOrEmpty(s?.TextContent)
                 ? string.Empty
-                : Regex.Replace(s?.TextContent?.Trim(), @"([a-z])([A-Z])", "$1 $2", RegexOptions.CultureInvariant));
+                : Regex.Replace(s?.TextContent?.Trim(), "([a-z])([A-Z])", "$1 $2", RegexOptions.CultureInvariant));
             var enumerable = allCards as string[] ?? allCards.ToArray();
-            if (!enumerable.Any())
+            if (enumerable.Length == 0)
                 return null;
             var list = enumerable?.ToList();
             var firstDefImage = doc.QuerySelector(".SetPageTerm-image")?.GetAttribute("style");
@@ -206,7 +209,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 : s?.TextContent?.Trim());
             //Validate that have value(no sitemap)
             var enumerable = allCards as string[] ?? allCards.ToArray();
-            if (!enumerable.Any())
+            if (enumerable.Length == 0)
                 return null;
             var list = enumerable?.ToList();
             var metaImg = doc.QuerySelector<IHtmlMetaElement>("meta[property='og:image']")?.Content?.Trim();
@@ -218,15 +221,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 Md5HashGenerator.GenerateKey(page.Uri.AbsoluteUri));
         }
 
-
         private static CrawlModel CreateStudySoupNote(CrawledPage page)
         {
             var angleSharpHtmlDocument = page.AngleSharpHtmlDocument;
             int? views = null;
             var viewsText = angleSharpHtmlDocument.QuerySelector(".document-metrics:nth-child(3)")?.Text();
-            if (!string.IsNullOrEmpty(viewsText))
-                if (int.TryParse(Regex.Match(viewsText, @"\d+").Value, out int realViews))
-                    views = realViews;
+            if (!string.IsNullOrEmpty(viewsText)
+                && int.TryParse(Regex.Match(viewsText, @"\d+").Value, out int realViews))
+            {
+                views = realViews;
+            }
 
             var metaDescription = angleSharpHtmlDocument.QuerySelector<IHtmlMetaElement>("meta[name=description]")
                 ?.Content?.Trim();
@@ -260,7 +264,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     var dateString = item.FirstElementChild.Text().Replace("  ", " ");
                     if (DateTime.TryParseExact(dateString, "ddd MMM d HH:mm:ss yyyy", CultureInfo.InvariantCulture,
                         DateTimeStyles.None, out DateTime realCreateDate))
+                    {
                         createDate = realCreateDate;
+                    }
                 }
             }
 
@@ -320,6 +326,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var t = m_Crawler.CrawlAsync(studySoupSiteMap);
 
             while (!token.IsCancellationRequested)
+            {
                 try
                 {
                     await Task.Delay(TimeSpan.FromSeconds(10), token).ConfigureAwait(false);
@@ -332,6 +339,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     if (token.IsCancellationRequested)
                         m_Crawler.Stop();
                 }
+            }
+
             await t.ConfigureAwait(false);
             return true;
         }

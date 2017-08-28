@@ -50,8 +50,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 await UnFollowBoxAsync(box, message.UserId);
             }
-
-
         }
 
         private Task DeleteBoxAsync(Box box, User user)
@@ -67,7 +65,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_UpdatesRepository.DeleteUserUpdateByBoxId(userId, box.Id);
             m_BoxRepository.Save(box);
             return m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
-
         }
     }
 }

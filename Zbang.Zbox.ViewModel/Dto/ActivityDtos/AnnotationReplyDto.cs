@@ -23,6 +23,5 @@ namespace Zbang.Zbox.ViewModel.Dto.ActivityDtos
         public long UserId { get; set; }
 
         public string UserImage { get; set; }
-
     }
 }

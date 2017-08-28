@@ -19,12 +19,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public IZboxWriteService ZboxWriteService { get; set; }
         public IZboxCacheReadService ZboxReadService { get; set; }
 
+        public ILogger Logger { get; set; }
+
         protected CancellationTokenSource CreateCancellationToken(CancellationToken cancellationToken)
         {
             var disconnectedToken = Response.ClientDisconnectedToken;
             return CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, disconnectedToken);
         }
-
 
         protected string RenderRazorViewToString(string viewName, object model)
         {
@@ -43,7 +44,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         protected bool IsCrawler()
         {
             var userAgent = HttpContext?.Request?.UserAgent;
-            return userAgent != null && Regex.IsMatch(userAgent, @"bot|crawler|baiduspider|80legs|ia_archiver|voyager|curl|wget|yahoo! slurp|mediapartners-google", RegexOptions.IgnoreCase);
+            return userAgent != null && Regex.IsMatch(userAgent, "bot|crawler|baiduspider|80legs|ia_archiver|voyager|curl|wget|yahoo! slurp|mediapartners-google", RegexOptions.IgnoreCase);
         }
 
         protected override void OnException(ExceptionContext filterContext)
@@ -51,7 +52,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var parameters = filterContext.HttpContext.Request.Params.ToString().Replace("&", "\n");
             var info =
                 $"on exception base controller url {filterContext.HttpContext.Request.RawUrl} user {User.Identity.Name} ";
-            TraceLog.WriteError(info, filterContext.Exception, parameters);
+            Logger.Exception(filterContext.Exception, new Dictionary<string, string>
+            {
+                ["info"] = info,
+                ["parameters"] = parameters
+
+            });
             base.OnException(filterContext);
         }
 
@@ -60,8 +66,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var parameters = Request.Params.ToString().Replace("&", "\n");
             var info = string.Format("HandleUnknownAction {0} url {1} user {2} headers {5} isAjax {4} params {3} "
                 , actionName, Request.RawUrl, User.Identity.Name, parameters, Request.IsAjaxRequest(), Request.Headers);
-
-            TraceLog.WriteError(info);
+            Logger.Error(info);
             if (Request.IsAjaxRequest())
             {
                 HttpNotFound().ExecuteResult(ControllerContext);
@@ -152,7 +157,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             return base.RedirectToRoutePermanent(routeName, routeValues);
         }
-
 
         protected override void Initialize(RequestContext requestContext)
         {

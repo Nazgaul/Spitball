@@ -26,7 +26,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (command == null) throw new ArgumentNullException(nameof(command));
             User user = m_UserRepository.Load(command.Id);
             var id = await m_AccountService.GetUserIdAsync(user.Email);
-            
+
             if (!user.MembershipId.HasValue)
             {
                 user.MembershipId = id;
@@ -45,10 +45,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 m_Result.Error = Resources.CommandHandlerResources.CannotChangePwd;
             }
-
         }
-
-
 
 
 

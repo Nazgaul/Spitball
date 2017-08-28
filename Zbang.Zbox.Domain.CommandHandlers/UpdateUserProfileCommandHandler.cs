@@ -3,7 +3,6 @@ using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 
-
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class UpdateUserProfileCommandHandler : ICommandHandler<UpdateUserProfileCommand>

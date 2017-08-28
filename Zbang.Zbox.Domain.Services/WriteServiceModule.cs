@@ -18,7 +18,6 @@ namespace Zbang.Zbox.Domain.Services
     //}
     public class WriteServiceModule : Module
     {
-
         protected override void Load(ContainerBuilder builder)
         {
             //TODO: add unit of work to autofac

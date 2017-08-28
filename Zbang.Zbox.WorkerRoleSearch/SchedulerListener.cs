@@ -75,7 +75,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                                         }
                                         catch (Exception ex)
                                         {
-                                            m_Logger.Exception(ex, new Dictionary<string, string> {{"service", Name}});
+                                            m_Logger.Exception(ex, new Dictionary<string, string> {["service"] = Name });
                                         }
                                         finally
                                         {
@@ -104,7 +104,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    m_Logger.Exception(ex, new Dictionary<string, string> { { "service", Name } });
+                    m_Logger.Exception(ex, new Dictionary<string, string> {["service"] = Name });
                 }
                 await Task.Delay(TimeSpan.FromMinutes(2), cancellationToken).ConfigureAwait(false);
             }

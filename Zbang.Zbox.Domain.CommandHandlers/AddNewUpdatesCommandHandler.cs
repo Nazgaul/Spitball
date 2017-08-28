@@ -68,7 +68,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var usersToUpdate = m_UserRepository.GetUsersToUpdate(message.BoxId, message.UserId).ToList();
             var box = m_BoxRepository.Load(message.BoxId);
 
-
             var tQuiz = UpdateQuizAsync(message.QuizId, usersToUpdate, box);
             var tItem = UpdateItemAsync(message.ItemId, usersToUpdate, box);
             var tComment = UpdateCommentAsync(message.CommentId, usersToUpdate, box);
@@ -77,7 +76,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var tItemDiscussionReply = UpdateItemReplyDiscussionAsync(message.ItemDiscussionReplyId, usersToUpdate, box);
             var tQuizDiscussion = UpdateQuizDiscussionAsync(message.QuizDiscussionId, usersToUpdate, box);
             var tFlashcard = UpdateFlashcardAsync(message.FlashcardId,  box);
-
 
             return Task.WhenAll(tQuiz, tItem, tComment, tReply, tItemDiscussion, tItemDiscussionReply, tQuizDiscussion, tFlashcard);
         }
@@ -114,7 +112,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             DoUpdateLoop(userIds, u => new Updates(u, box, quiz));
             return m_JaredPush.SendItemPushAsync(quiz.User.Name, box.Id, quiz.Id, BuildBoxTag(box.Id),
                 Infrastructure.Enums.ItemType.Quiz);
-
         }
 
         private Task UpdateItemAsync(long? itemId, IList<long> userIds, Box box)
@@ -130,8 +127,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var t2 = m_SendPush.SendAddItemNotificationAsync(item.User.Name, box.Name, box.Id, userIds);
             return Task.WhenAll(t1, t2);
         }
-
-
 
         private Task UpdateReplyAsync(Guid? replyId, IList<long> userIds, Box box)
         {
@@ -193,8 +188,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 m_Logger.Exception(ex, new Dictionary<string, string>
                 {
-                    {"source", "addNewUpdates"},
-                    {"text regex", comment.Text}
+                    ["source"] = "addNewUpdates",
+                    ["text regex"] = comment.Text
                 });
                 throw;
             }
@@ -240,7 +235,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             DoUpdateLoop(userIds, u => Updates.UpdateQuizDiscussion(u, box, quizDiscussion));
             return Task.CompletedTask;
         }
-
 
         private static string BuildBoxTag(long id)
         {

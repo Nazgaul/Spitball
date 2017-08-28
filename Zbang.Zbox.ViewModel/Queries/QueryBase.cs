@@ -1,5 +1,4 @@
 ﻿
-
 namespace Zbang.Zbox.ViewModel.Queries
 {
     public class QueryBase

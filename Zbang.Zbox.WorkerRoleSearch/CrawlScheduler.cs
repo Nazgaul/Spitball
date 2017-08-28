@@ -19,12 +19,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly CloudTable m_Table;
         private readonly CloudQueue m_Queue;
         private int? m_Count;
-        readonly bool m_AllowUriRecrawling;
+        private readonly bool m_AllowUriRecrawling;
 
-        readonly ConcurrentDictionary<string, byte> m_TempTable = new ConcurrentDictionary<string, byte>();
+        private readonly ConcurrentDictionary<string, byte> m_TempTable = new ConcurrentDictionary<string, byte>();
         private readonly ConcurrentDictionary<string, string> m_HostMd5 = new ConcurrentDictionary<string, string>();
 
-        readonly JsonSerializerSettings m_Settings = new JsonSerializerSettings
+        private readonly JsonSerializerSettings m_Settings = new JsonSerializerSettings
         {
             TypeNameHandling = TypeNameHandling.All,
             NullValueHandling = NullValueHandling.Ignore,

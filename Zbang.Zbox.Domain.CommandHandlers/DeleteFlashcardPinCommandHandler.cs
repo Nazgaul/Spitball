@@ -15,7 +15,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public void Handle(DeleteFlashcardPinCommand message)
         {
-
             var pin = m_FlashcardPinRepository.GetUserPin(message.UserId, message.FlashCardId, message.Index);
             m_FlashcardPinRepository.Delete(pin);
         }

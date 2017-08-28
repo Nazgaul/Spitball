@@ -15,13 +15,10 @@ namespace Zbang.Zbox.ViewModel.Queries.Search
 
         public int RowsPerPage { get; }
 
-
         public string Term { get; private set; }
 
         public long UniversityId { get; private set; }
 
         public long UserId { get; private set; }
-
-
     }
 }

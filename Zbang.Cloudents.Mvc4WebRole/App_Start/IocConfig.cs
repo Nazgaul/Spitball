@@ -5,6 +5,7 @@ using Autofac;
 using Autofac.Integration.Mvc;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Owin;
+using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Domain.CommandHandlers;
 using Zbang.Zbox.Domain.Services;
@@ -13,7 +14,6 @@ using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Data;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.File;
-using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Security;
@@ -32,19 +32,16 @@ namespace Zbang.Cloudents.Mvc4WebRole
         {
             lock (ThisLock)
             {
-                var builder = IocFactory.IocWrapper.ContainerBuilder;
+                var builder = new ContainerBuilder();// IocFactory.IocWrapper.ContainerBuilder;
 
                 builder.RegisterModule<InfrastructureModule>();
 
                 builder.RegisterModule<DataModule>();
                 builder.RegisterModule<FileModule>();
-                //Zbox.Infrastructure.File.RegisterIoc.Register();
                 builder.RegisterModule<StorageModule>();
                 builder.RegisterModule<MailModule>();
 
-
                 builder.RegisterModule<SearchModule>();
-                //RegisterIoc.Register();
 
                 var x = new ApplicationDbContext(ConfigFetcher.Fetch("Zbox"));
                 builder.Register(c => x).AsSelf().InstancePerRequest();
@@ -60,7 +57,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     TraceLog.WriteError(ex);
                 }
 
-                IocFactory.IocWrapper.ContainerBuilder.Register(
+                builder.Register(
                     c => HttpContext.Current.GetOwinContext().Authentication);
 
                 builder.RegisterModule<WriteServiceModule>();
@@ -69,6 +66,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 builder.RegisterModule<CommandsModule>();
 
                 builder.RegisterControllers(typeof (MvcApplication).Assembly).PropertiesAutowired();
+
+                //builder.RegisterType<LandingPageAttribute>()
+
                 builder.RegisterFilterProvider();
 
                 //builder.RegisterModule<AiModule>();
@@ -77,8 +77,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 builder.RegisterType<CookieHelper>().As<ICookieHelper>();
                 builder.RegisterType<LanguageCookieHelper>().As<ILanguageCookieHelper>();
                 builder.RegisterType<LanguageMiddleware>().InstancePerRequest();
+                builder.Register(c =>
+                new LandingPageAttribute(c.Resolve<IZboxReadService>(), c.Resolve<ICookieHelper>())).AsActionFilterFor<Controller>();
 
-                var container = IocFactory.IocWrapper.Build();
+                var container = builder.Build();
                 DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
                 //we need that for blob getting the blob container url

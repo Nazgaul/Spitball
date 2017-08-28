@@ -7,7 +7,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public IEnumerable<DocumentSearchDto> ItemsToUpdate { get; set; }
 
         public IEnumerable<DocumentToDeleteSearchDto> ItemsToDelete { get; set; }
-
     }
 
     public abstract class ItemToDeleteSearchDto
@@ -20,7 +19,5 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
     {
         public override string SearchContentId => "item_" + Id;
     }
-
-
 
 }

@@ -26,6 +26,7 @@ namespace Zbang.Zbox.ReadServices
         {
             m_Logger = logger;
         }
+
         private RetryPolicy GetRetryPolicy()
         {
             var retryPolicy = RetryManager.Instance.GetDefaultSqlCommandRetryPolicy();
@@ -60,7 +61,6 @@ namespace Zbang.Zbox.ReadServices
                                             query.UtcOffset
                                         }, cancellationToken: token)), token).ConfigureAwait(false);
             }
-
         }
 
 
@@ -83,7 +83,6 @@ namespace Zbang.Zbox.ReadServices
                                         query.UserId
                                     }, cancellationToken: token)), token).ConfigureAwait(false);
             }
-
         }
 
         public async Task<BoxUpdatesDigestDto> GetUpdatesAsync(GetUpdatesQuery query, CancellationToken token)
@@ -123,7 +122,6 @@ namespace Zbang.Zbox.ReadServices
                 }, token).ConfigureAwait(false);
             }
 
-
         }
 
         public async Task<IEnumerable<BoxDigestDto>> GetBoxesLastUpdatesAsync(GetBoxesLastUpdateQuery query)
@@ -137,7 +135,6 @@ namespace Zbang.Zbox.ReadServices
                         query.UserId
                     }).ConfigureAwait(false);
             }
-
         }
 
         public async Task<BoxUpdatesDigestDto> GetBoxLastUpdatesAsync(GetBoxLastUpdateQuery query)
@@ -218,7 +215,6 @@ namespace Zbang.Zbox.ReadServices
                     retVal.UniversitiesToDelete = await grid.ReadAsync<long>().ConfigureAwait(false);
 
                     return retVal;
-
                 }
             }
         }
@@ -234,7 +230,6 @@ namespace Zbang.Zbox.ReadServices
                     var retVal = await grid.ReadSingleAsync<UniversitySearchDto>().ConfigureAwait(false);
                     retVal.UsersImages = (await grid.ReadAsync<UserImagesForUniversitySearchDto>().ConfigureAwait(false)).Select(s => s.Image);
                     return retVal;
-
                 }
             }
         }
@@ -263,7 +258,6 @@ namespace Zbang.Zbox.ReadServices
                         return retVal;
                     }
                 }, token).ConfigureAwait(false);
-
             }
         }
 
@@ -301,7 +295,6 @@ namespace Zbang.Zbox.ReadServices
                         return retVal;
                     }
                 }, token).ConfigureAwait(false);
-
             }
         }
 
@@ -356,7 +349,6 @@ namespace Zbang.Zbox.ReadServices
                 }
             }
 
-
         }
 
         public async Task<FeedToUpdateSearchDto> GetFeedDirtyUpdatesAsync(long? version, int page, int size,
@@ -364,7 +356,6 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
             {
-
                 using (var grid = await conn.QueryMultipleAsync(
                     $"{Search.GetFeedToDeleteFromSearch} {Search.GetFeedToSearch}"
                     , new { version, PageSize = size, PageNumber = page }).ConfigureAwait(false))
@@ -397,7 +388,6 @@ namespace Zbang.Zbox.ReadServices
 
                     return retVal;
                 }
-
             }
         }
 
@@ -454,7 +444,6 @@ namespace Zbang.Zbox.ReadServices
                     return retVal;
                 }
             }
-
         }
 
         public async Task<QuizToUpdateSearchDto> GetQuizzesDirtyUpdatesAsync(int index, int total, int top)
@@ -526,7 +515,6 @@ order by userId
 offset @PageNumber*@RowsPerPage ROWS
 FETCH NEXT @RowsPerPage ROWS ONLY";
             return GetMarketingDataAsync(query, sql, token);
-
         }
 
 
@@ -657,7 +645,6 @@ OPTION (TABLE HINT(s, INDEX ([students_shouldsend2])),Recompile);";
                 }, token).ConfigureAwait(false);
             }
 
-
         }
 
         public IEnumerable<long> GetUsersBadgeFollow(int page)
@@ -685,6 +672,7 @@ except select userId from zbox.badge where name = 3 and progress = 100
     FETCH NEXT 100 ROWS ONLY;", new { page });
             }
         }
+
         public IEnumerable<long> GetUsersBadgeItem(int page)
         {
             using (var conn = DapperConnection.OpenConnection())
@@ -697,6 +685,7 @@ except select userId from zbox.badge where name = 4 and progress = 100
     FETCH NEXT 100 ROWS ONLY;", new { page });
             }
         }
+
         public IEnumerable<long> GetUsersBadgeLike(int page)
         {
             using (var conn = DapperConnection.OpenConnection())

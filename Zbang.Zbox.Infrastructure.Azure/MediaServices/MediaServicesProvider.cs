@@ -19,7 +19,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
         private readonly BlobProvider m_BlobProvider;
         private readonly ILocalStorageProvider m_LocalProvider;
 
-
         private const string AccountName = "zboxmediaservices";
         private const string AccountKey = "S52DSdcZS2Bhgr7Ofg5rGtBKByR4eVZDkpx8fOXmi2I=";
         public MediaServicesProvider(IBlobProvider blobProvider, ILocalStorageProvider localProvider)
@@ -27,7 +26,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
             m_BlobProvider = blobProvider as BlobProvider;
             m_LocalProvider = localProvider;
             m_Context = new CloudMediaContext(AccountName, AccountKey);
-
         }
 
         public async Task<Uri> EncodeVideoAsync(Uri blobUrl, CancellationToken cancelToken)
@@ -58,7 +56,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
 
         public async Task DeleteOldAssetsAsync()
         {
-
             var deletedAssets = m_Context.Assets.Where(s => s.Created < DateTime.UtcNow.AddDays(-3));
 
             foreach (var deletedAsset in deletedAssets)
@@ -88,9 +85,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
                 return policy.DeleteAsync();
             }
             return Task.CompletedTask;
-
         }
-
 
         private async Task<string> CreateAssetAndUploadSingleFileAsync(Uri blobUrl, CancellationToken cancelToken)
         {
@@ -108,7 +103,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
             var assetFile = uploadAsset.AssetFiles.Create(Path.GetFileName(blobName));
             assetFile.Upload(uploadFilePath);
             return uploadAsset.Id;
-
         }
 
         public Task<Uri> DownloadEncodedVideoToStorageAsync(Uri originalBlob, string encodeAssetId, CancellationToken cancelToken)
@@ -165,7 +159,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
             using (var ms = new MemoryStream())
             {
                 locationToSave = await m_LocalProvider.SaveFileToStorageAsync(ms, blobName).ConfigureAwait(false);
-
             }
             // ReSharper disable once ReplaceWithSingleCallToFirstOrDefault -azure media services doesn't support first or default
             var streamingAsset = m_Context.Assets.Where(a => a.Id == streamingAssetId).FirstOrDefault();
@@ -181,17 +174,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
             await m_BlobProvider.UploadFileAsync(newBlobName, locationToSave, "video/mp4").ConfigureAwait(false);
             var blob = m_BlobProvider.GetFile(newBlobName);
 
-
-            await m_BlobProvider.SaveMetaDataToBlobAsync(blob.Uri, new Dictionary<string, string> { { MetadataConst.VideoStatus, "x" } }, cancelToken).ConfigureAwait(false);
+            await m_BlobProvider.SaveMetaDataToBlobAsync(blob.Uri, new Dictionary<string, string> {[MetadataConst.VideoStatus] = "x" }, cancelToken).ConfigureAwait(false);
             return blob.Uri;
-
         }
-
-
 
         private async Task<string> EncodeToHtml5Async(string encodeAssetId, CancellationToken cancelToken)
         {
-
             const string encodingPreset = "H264 Broadband 720p";
             // ReSharper disable once ReplaceWithSingleCallToFirstOrDefault - media services doesn't support first or default
             var assetToEncode = m_Context.Assets.Where(a => a.Id == encodeAssetId).FirstOrDefault();
@@ -212,8 +200,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
             var preparedAsset = job.OutputMediaAssets.FirstOrDefault();
             return preparedAsset?.Id;
         }
-
-
 
         IAsset GetAsset(string assetId)
         {
@@ -291,13 +277,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
             return Task.WhenAll(list);
         }
 
-
-
-
-
-
-
-
         public async Task<IAsset> CreateAssetFromExistingBlobsAsync(Uri blobUri)
         {
             if (blobUri == null) throw new ArgumentNullException(nameof(blobUri));
@@ -331,7 +310,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
             await destinationLocator.DeleteAsync().ConfigureAwait(false);
             await writePolicy.DeleteAsync().ConfigureAwait(false);
 
-
             return asset;
         }
 
@@ -349,10 +327,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
             {
                 var blob = new CloudBlockBlob(new Uri(sourceBlob.Uri.AbsoluteUri + signature));
                 destinationBlob.StartCopy(blob);
-
             }
         }
-
 
 
     }

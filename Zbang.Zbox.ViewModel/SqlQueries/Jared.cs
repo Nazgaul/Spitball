@@ -32,7 +32,6 @@ where item.itemid in (select i.itemid from " + ItemWhere + ");";
         public const string AutoDepartment = @"SELECT TOP 5 d.name from zbox.library d where d.name like +'%'+@term+'%';";
         public const string AutoTag = @"SELECT TOP 5 t.name from zbox.tag t where t.name like +'%'+@term+'%';";
 
-
         public const string DocumentFavorites = @"select 
 itemid as id,
 i.Name as name,

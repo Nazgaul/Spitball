@@ -18,7 +18,6 @@ namespace Zbang.Zbox.ViewModel.Dto.Emails
         public IEnumerable<BoxDigestDto> Boxes { get; set; }
     }
 
-
     public class UserUpdatesDigestDto
     {
         public long BoxId { get; set; }

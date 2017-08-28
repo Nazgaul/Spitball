@@ -14,7 +14,6 @@ using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Mail;
 
-
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class ShareBoxCommandHandler : ICommandHandlerAsync<ShareBoxCommand>
@@ -25,7 +24,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IGuidIdGenerator m_IdGenerator;
         private readonly IEmailVerification m_EmailVerification;
         private readonly IRepository<InviteToBox> m_InviteRepository;
-
 
         public ShareBoxCommandHandler(IQueueProvider queueProvider, IUserRepository userRepository,
             IRepository<Box> boxRepository,
@@ -43,10 +41,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public Task HandleAsync(ShareBoxCommand command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
-            
+
             var sender = m_UserRepository.Load(command.InviteeId);
             var box = m_BoxRepository.Load(command.BoxId);
-            
+
             if (box.Actual is AcademicBox)
             {
                 return SendInvitesAsync(command, sender, box);

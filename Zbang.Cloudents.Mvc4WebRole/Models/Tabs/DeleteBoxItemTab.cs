@@ -8,7 +8,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Tabs
         [Required]
         public Guid? TabId { get; set; }
 
-
         [Required]
         public long BoxId { get; set; }
     }

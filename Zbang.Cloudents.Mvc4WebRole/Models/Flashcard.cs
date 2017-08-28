@@ -22,11 +22,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         {
             //var sx = Front?.IsEmpty();
             //sx.GetValueOrDefault()
-            if (Front != null && !Front.IsEmpty())
+            if (Front?.IsEmpty() == false)
             {
                 return false;
             }
-            if (Cover != null && !Cover.IsEmpty())
+            if (Cover?.IsEmpty() == false)
             {
                 return false;
             }

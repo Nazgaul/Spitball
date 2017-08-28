@@ -1,5 +1,4 @@
 ﻿
-
 namespace Zbang.Zbox.ViewModel.SqlQueries
 {
     public static class User
@@ -116,7 +115,6 @@ q.NumberOfViews as numOfViews
     offset @pageNumber*@rowsperpage ROWS
     FETCH NEXT @rowsperpage ROWS ONLY;";
 
-
         public const string UserWithFriendFlashcards = @"select q.Id as id,
 q.Name as name,
 q.LikeCount as rate,
@@ -134,7 +132,6 @@ b.BoxName,u.UniversityName as UniversityName
     offset @pageNumber*@rowsperpage ROWS
     FETCH NEXT @rowsperpage ROWS ONLY";
 
-
         #region Gamification
 
         public const string GamificationBoard = @"with leaderboard as (
@@ -146,10 +143,9 @@ ROW_NUMBER () over (partition BY universityid order by score desc) as location
 select *
                             from leaderboard u 
                             where u.id =@userId;";
-        public const string Level = @"select score from zbox.users where userid = @userId";
+        public const string Level = "select score from zbox.users where userid = @userId";
         public const string Badge = @"select name as badge,progress from zbox.Badge where userid = @userId
 union select 1,100";
-
 
         public const string LeaderBoardAll =
             @"select userid as id,username as name,score,UserImageLarge as image

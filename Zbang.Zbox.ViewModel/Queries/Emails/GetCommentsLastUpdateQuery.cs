@@ -10,7 +10,5 @@ namespace Zbang.Zbox.ViewModel.Queries.Emails
             BoxId = boxid;
         }
         public long BoxId { get; private set; }
-
-
     }
 }

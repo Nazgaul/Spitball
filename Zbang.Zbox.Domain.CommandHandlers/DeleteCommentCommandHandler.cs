@@ -36,7 +36,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var user = m_UserRepository.Load(message.UserId);
             var box = comment.Box;
 
-
             var isAuthorize = comment.User.Id == message.UserId
                 || box.Owner.Id == message.UserId
                 || user.IsAdmin();

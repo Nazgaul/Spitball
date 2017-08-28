@@ -41,7 +41,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 m_AcademicBoxRepository.Save(academicBox);
             }
 
-
             var boxNameExists = box.Owner.GetUserOwnedBoxes().FirstOrDefault(w => w.Name == command.BoxName.Trim() && w.Id != box.Id);
             if (boxNameExists != null)
                 throw new ArgumentException("box with that name already exists");
@@ -56,7 +55,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             foreach (var flashcard in box.Flashcards)
             {
                 flashcard.ShouldMakeDirty = () => true;
-
             }
             if (command.Privacy.HasValue)
             {
@@ -66,7 +64,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             m_BoxRepository.Save(box);
         }
-
 
         private void ChangeNotificationSettings(long userId, long boxId, NotificationSetting? notificationSettings)
         {

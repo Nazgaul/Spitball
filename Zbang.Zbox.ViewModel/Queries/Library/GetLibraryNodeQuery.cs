@@ -15,7 +15,6 @@ namespace Zbang.Zbox.ViewModel.Queries.Library
         public long UniversityId { get; }
         public Guid? ParentNode { get; }
 
-
         public string CacheKey => $"{ParentNode}";
         public CacheRegions CacheRegion => CacheRegions.BuildNodesRegion(UniversityId);
         public TimeSpan Expiration  => TimeSpan.FromHours(1);

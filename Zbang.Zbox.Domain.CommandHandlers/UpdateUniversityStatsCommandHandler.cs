@@ -31,11 +31,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 }
 
                 university.NoOfUsers = universityStats.UsersCount;
-                university.NoOfQuizzes = universityStats.QuizzesCount; 
+                university.NoOfQuizzes = universityStats.QuizzesCount;
                 university.NoOfItems = universityStats.ItemsCount;
                 university.UpdateNumberOfBoxes( universityStats.BoxesCount);
                 university.NoOfFlashcards = universityStats.FlashcardCount;
-                
+
                 m_UniversityRepository.Save(university);
             }
         }

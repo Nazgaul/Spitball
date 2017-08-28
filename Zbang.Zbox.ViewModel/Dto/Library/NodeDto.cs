@@ -30,6 +30,4 @@ namespace Zbang.Zbox.ViewModel.Dto.Library
 
         public List<SmallBoxDto> Boxes { get; set; }
     }
-
-
 }

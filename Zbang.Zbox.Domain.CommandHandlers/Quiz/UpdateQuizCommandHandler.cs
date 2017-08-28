@@ -11,7 +11,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
     {
         private readonly IRepository<Domain.Quiz> m_QuizRepository;
 
-
         public UpdateQuizCommandHandler(
 
             IRepository<Domain.Quiz> quizRepository)
@@ -30,7 +29,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             }
             quiz.UpdateText(TextManipulation.EncodeText(message.Text));
             m_QuizRepository.Save(quiz);
-
         }
     }
 }

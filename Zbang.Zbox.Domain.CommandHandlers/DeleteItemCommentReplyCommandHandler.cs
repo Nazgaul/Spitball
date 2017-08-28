@@ -28,7 +28,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new UnauthorizedAccessException("User is unauthorized to delete annotation");
             }
-            
+
             m_ItemCommentReplyRepository.Delete(itemReply);
             //return m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(itemReply.Author.Id));
         }

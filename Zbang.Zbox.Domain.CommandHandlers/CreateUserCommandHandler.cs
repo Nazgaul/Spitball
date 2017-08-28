@@ -13,7 +13,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public abstract class CreateUserCommandHandler : ICommandHandlerAsync<CreateUserCommand, CreateUserCommandResult>
     {
-
         protected readonly IUserRepository UserRepository;
         private readonly IQueueProvider m_QueueRepository;
         private readonly IRepository<University> m_UniversityRepository;
@@ -77,7 +76,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             //await Task.WhenAll(list);
         }
 
-
         protected User GetUserByEmail(string email)
         {
             return UserRepository.GetUserByEmail(email);
@@ -90,7 +88,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             return new User(email, largeImage,
                    firstName,
                    lastName, culture, sex);
-
         }
 
         protected bool IsUserRegistered(User user)
@@ -111,12 +108,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             return TriggerWelcomeMailAsync(user, command);
         }
 
-
-
-
         protected void UpdateUniversity(CreateUserCommand command, CreateUserCommandResult result, User user)
         {
-
             if (result == null) throw new ArgumentNullException(nameof(result));
             if (user == null) throw new ArgumentNullException(nameof(user));
 
@@ -157,8 +150,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 UpdateUniversity(academicBox.University, result, user);
             }
         }
-
-
 
     }
 }

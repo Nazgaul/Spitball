@@ -58,7 +58,6 @@ order by name;";
 	and i.QuestionId = @QuestionId  
 ";
 
-
         public const string LeaderBoard = @"
 with leaderboard as (
 select u.userid as id,username as name,score,UserImageLarge as image,
@@ -70,7 +69,6 @@ ROW_NUMBER () over (partition BY boxid order by score desc) as location
 FROM leaderboard
 where location < 11 or id = @UserId";
 
-
         public const string BoxMembers =
             @"select u.UserId as Id , u.UserName as Name,u.UserImageLarge as Image , ub.UserType as userStatus, u.BadgeCount as badges, u.Score as score
     from zbox.UserBoxRel ub 
@@ -79,7 +77,6 @@ where location < 11 or id = @UserId";
 	   order by userStatus desc
 	offset @pageNumber*@rowsperpage ROWS
     FETCH NEXT @rowsperpage ROWS ONLY;";
-
 
         public const string BoxMembersWithoutInvited = @" select top (@top) u.UserId as Id , u.UserImageLarge as Image, u.Score
     from zbox.UserBoxRel ub 
@@ -148,10 +145,4 @@ where location < 11 or id = @UserId";
 	order by f.Id desc
 	";
     }
-
-
-
-
-
-
 }

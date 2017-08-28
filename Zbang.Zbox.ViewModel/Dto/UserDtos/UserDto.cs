@@ -10,7 +10,6 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
         public long Id { get; set; }
         public int Badges { get; set; }
         public int Score { get; set; }
-
     }
     public class UserMinProfile
     {
@@ -28,7 +27,6 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
         public long Id { get; set; }
         public string Image { get; set; }
     }
-
 
     public class ChatUserDtoComparer : IEqualityComparer<ChatUserDto>
     {

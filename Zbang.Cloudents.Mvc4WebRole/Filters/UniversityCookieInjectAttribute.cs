@@ -50,7 +50,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                 filterContext.HttpContext.Items[UniversityCookie.CookieName] = universityCookie;
                 CookieHelper.InjectCookie(UniversityCookie.CookieName, universityCookie);
             }
-            
             base.OnActionExecuting(filterContext);
         }
     }

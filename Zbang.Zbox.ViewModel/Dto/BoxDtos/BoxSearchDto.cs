@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
 {
     /// <summary>
@@ -9,7 +8,6 @@ namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
     /// </summary>
     public class BoxSearchDto
     {
-
         public long Id { get; set; }
         public string Name { get; set; }
         public string Professor { get; set; }
@@ -18,7 +16,6 @@ namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
         public string Url { get; set; }
 
         public long UniversityId { get; set; }
-
 
         public Infrastructure.Enums.BoxType Type { get; set; }
 

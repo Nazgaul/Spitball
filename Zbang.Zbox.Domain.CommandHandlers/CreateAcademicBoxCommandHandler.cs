@@ -17,7 +17,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly ILibraryRepository m_DepartmentRepository;
         private readonly IUniversityRepository m_UniversityRepository;
 
-
         public CreateAcademicBoxCommandHandler(
             IBoxRepository boxRepository,
             IUserRepository userRepository,
@@ -31,7 +30,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_AcademicRepository = academicRepository;
             m_DepartmentRepository = departmentRepository;
             m_UniversityRepository = universityRepository;
-
         }
         public override async Task<CreateBoxCommandResult> ExecuteAsync(CreateBoxCommand command)
         {
@@ -92,8 +90,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             return result;
         }
-
-
 
     }
 }

@@ -13,7 +13,6 @@ namespace Zbang.Zbox.ViewModel.Dto
         public string Name { get; set; }
 
         public string UniversityName { get; set; }
-
     }
 
     public class SitemapDto

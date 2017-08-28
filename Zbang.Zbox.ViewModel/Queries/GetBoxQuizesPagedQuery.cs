@@ -4,7 +4,6 @@
     {
         public GetBoxQuizesPagedQuery(long boxId, int pageNumber = 0, int rowsPerPage = int.MaxValue)
         {
-         
             BoxId = boxId;
             PageNumber = pageNumber;
             RowsPerPage = rowsPerPage;
@@ -20,7 +19,6 @@
     {
         public GetFlashCardsQuery(long boxId/*, int pageNumber = 0, int rowsPerPage = int.MaxValue*/)
         {
-
             BoxId = boxId;
             //PageNumber = pageNumber;
             //RowsPerPage = rowsPerPage;
@@ -32,5 +30,4 @@
 
         //public int RowsPerPage { get; }
     }
-
 }

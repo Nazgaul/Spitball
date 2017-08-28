@@ -9,11 +9,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         private readonly HttpContextBase m_HttpContext;
         public CookieHelper(HttpContextBase httpContext)
         {
-            if (httpContext == null)
-            {
-                throw new ArgumentNullException(nameof(httpContext));
-            }
-            m_HttpContext = httpContext;
+            m_HttpContext = httpContext ?? throw new ArgumentNullException(nameof(httpContext));
         }
 
         public void InjectCookie<T>(string cookieName, T cookieData, bool httpOnly = true) where T : class

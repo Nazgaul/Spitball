@@ -23,7 +23,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IGuidIdGenerator m_IdGenerator;
         private readonly IQueueProvider m_QueueProvider;
 
-
         public PublishFlashcardCommandHandler(IDocumentDbRepository<Flashcard> flashcardRepository, IRepository<FlashcardMeta> flashcardMetaRepository, IUserRepository userRepository, IBoxRepository boxRepository, IItemRepository itemRepository, IRepository<Comment> commentRepository, IGuidIdGenerator idGenerator, IQueueProvider queueProvider)
         {
             m_FlashcardRepository = flashcardRepository;
@@ -56,9 +55,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new UnauthorizedAccessException();
             }
 
-
-
-
             flashcard.Name = message.Flashcard.Name;
             if (message.Flashcard.Cards != null)
             {
@@ -69,7 +65,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             flashcard.Publish = true;
             m_FlashcardMetaRepository.Save(flashcard);
 
-
             if (flashcard.Comment == null) //if edit flashcard already have comment
             {
                 var comment = m_ItemRepository.GetPreviousCommentId(box.Id, user.Id) ??
@@ -77,7 +72,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 comment.AddFlashcard(flashcard);
                 m_CommentRepository.Save(comment);
             }
-
 
             box.UpdateFlashcardCount();
             m_BoxRepository.Save(box);

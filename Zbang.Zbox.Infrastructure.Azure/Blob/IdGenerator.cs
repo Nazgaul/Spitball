@@ -23,7 +23,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         public long GetId(string scopeName)
         {
             return m_Generator.NextId(scopeName);
-
         }
     }
 }

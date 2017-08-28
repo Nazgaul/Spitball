@@ -145,7 +145,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 var userId = User.GetUserId(false);
-                TraceLog.WriteError($"Box Index boxId {boxId} userId {userId}", ex);
+
+                Logger.Exception(ex, new Dictionary<string, string>
+                {
+                    ["boxId"] = boxId.ToString(),
+                    ["userId"] = userId.ToString()
+
+                });
                 return RedirectToAction("Index", "Error");
             }
         }
@@ -174,7 +180,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (BoxDoesntExistException ex)
             {
-                TraceLog.WriteError($"base 62: {box62Id} id: {base62.Value}", ex);
+                Logger.Exception(ex, new Dictionary<string, string>
+                {
+                    ["base 62"] = box62Id,
+                    ["id"] = base62.Value.ToString()
+
+                });
                 return RedirectToAction("NotFound", "Error");
             }
         }
@@ -243,7 +254,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var query = new GetBoxQuery(id);
-                var result = await ZboxReadService.GetBox2Async(query);
+                var result = await ZboxReadService.GetBox2Async(query).ConfigureAwait(false);
                 result.UserType = ViewBag.UserType;
                 if (IsCrawler())
                 {
@@ -292,7 +303,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError($"Box Index id {id}", ex);
+                Logger.Exception(ex, new Dictionary<string, string>
+                {
+                    ["id"] = id.ToString()
+                });
                 return JsonError();
             }
         }
@@ -328,7 +342,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             //myself = User.Identity.IsAuthenticated && myself;
             var userId = User.GetUserId(false);
             var query = new GetBoxLeaderboardQuery(id, userId);
-            var model = await ZboxReadService.GetBoxLeaderBoardAsync(query);
+            var model = await ZboxReadService.GetBoxLeaderBoardAsync(query).ConfigureAwait(false);
             var leaderBoardDtos = model as IList<LeaderBoardDto> ?? model.ToList();
             var rank = leaderBoardDtos.FirstOrDefault(w => w.Id == userId)?.Location;
             if (rank.HasValue && rank > 10)
@@ -367,12 +381,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var query = new GetBoxQuery(id);
-                var result = await ZboxReadService.GetBoxTabsAsync(query);
+                var result = await ZboxReadService.GetBoxTabsAsync(query).ConfigureAwait(false);
                 return JsonOk(result);
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError($"Box Tabs id {id}", ex);
+                Logger.Exception(ex, new Dictionary<string, string>
+                {
+                    ["id"] = id.ToString()
+                });
                 return JsonError();
             }
         }
@@ -385,7 +402,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var query = new GetBoxItemsPagedQuery(id, tabId, page, 80);
-                var result = await ZboxReadService.GetBoxItemsPagedAsync(query);
+                var result = await ZboxReadService.GetBoxItemsPagedAsync(query).ConfigureAwait(false);
                 var itemDtos = result as IList<ItemDto> ?? result.ToList();
                 return JsonOk(itemDtos.Select(s => new
                 {
@@ -401,7 +418,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError($"Box Items BoxId {id}", ex);
+                Logger.Exception(ex, new Dictionary<string, string>
+                {
+                    ["id"] = id.ToString()
+                });
                 return JsonError();
             }
         }
@@ -413,15 +433,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var query = new GetBoxQuizesPagedQuery(id);
-                var result = await ZboxReadService.GetBoxQuizzesAsync(query);
-                var userid = User.GetUserId(false);
+                var result = await ZboxReadService.GetBoxQuizzesAsync(query).ConfigureAwait(false);
+                var userId = User.GetUserId(false);
                 var quizDtos = result as QuizDto[] ?? result.ToArray();
-                var remove = quizDtos.Where(w => !w.Publish && w.OwnerId != userid);
+                var remove = quizDtos.Where(w => !w.Publish && w.OwnerId != userId);
                 return JsonOk(quizDtos.Except(remove));
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError($"Box Quiz BoxId {id} ", ex);
+                Logger.Exception(ex, new Dictionary<string, string>
+                {
+                    ["id"] = id.ToString()
+                });
                 return JsonError();
             }
         }
@@ -433,9 +456,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var query = new GetFlashCardsQuery(id);
-                var result = await ZboxReadService.GetBoxFlashcardsAsync(query);
-                var userid = User.GetUserId(false);
-                var data = result.Where(w => w.Publish || w.OwnerId == userid).Select(s => new
+                var result = await ZboxReadService.GetBoxFlashcardsAsync(query).ConfigureAwait(false);
+                var userId = User.GetUserId(false);
+                var data = result.Where(w => w.Publish || w.OwnerId == userId).Select(s => new
                 {
                     s.Id,
                     s.Name,
@@ -449,7 +472,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError($"Box Flashcards BoxId {id} ", ex);
+                Logger.Exception(ex, new Dictionary<string, string>
+                {
+                    ["id"] = id.ToString()
+                });
                 return JsonError();
             }
         }
@@ -460,7 +486,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public async Task<JsonResult> MembersAsync(long boxId)
         {
-            var result = await ZboxReadService.GetBoxMembersAsync(new GetBoxQuery(boxId));
+            var result = await ZboxReadService.GetBoxMembersAsync(new GetBoxQuery(boxId)).ConfigureAwait(false);
             return JsonOk(result);
         }
 
@@ -491,7 +517,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError($"on UpdateBox info model: {model} userid {User.GetUserId()}", ex);
+                Logger.Exception(ex, new Dictionary<string, string>
+                {
+                    ["userId"] = User.GetUserId().ToString(),
+                    ["model"] = model.ToString()
+                });
                 return JsonError();
             }
         }
@@ -500,10 +530,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, ActionName("GetNotification")]
         public async Task<JsonResult> GetNotificationAsync(long boxId)
         {
-            var userId = User.GetUserId();
+                var userId = User.GetUserId();
 
-            var result = await ZboxReadService.GetUserBoxNotificationSettingsAsync(new GetBoxQuery(boxId), userId);
-            return JsonOk(result);
+                var result = await ZboxReadService.GetUserBoxNotificationSettingsAsync(new GetBoxQuery(boxId), userId)
+                    .ConfigureAwait(false);
+                return JsonOk(result);
         }
 
         [ZboxAuthorize]
@@ -525,7 +556,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var userId = User.GetUserId();
             var command = new UnFollowBoxCommand(id, userId, false);
-            await ZboxWriteService.UnFollowBoxAsync(command);
+            await ZboxWriteService.UnFollowBoxAsync(command).ConfigureAwait(false);
             return JsonOk();
         }
 
@@ -545,7 +576,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var userId = User.GetUserId();
                 var guid = Guid.NewGuid();
                 var command = new CreateItemTabCommand(guid, model.Name, model.BoxId, userId);
-                await ZboxWriteService.CreateBoxItemTabAsync(command);
+                await ZboxWriteService.CreateBoxItemTabAsync(command).ConfigureAwait(false);
                 var result = new TabDto { Id = guid, Name = model.Name };
                 return JsonOk(result);
             }
@@ -564,7 +595,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var userId = User.GetUserId();
             var command = new AssignItemToTabCommand(model.ItemId, model.TabId, model.BoxId, userId);
-            await ZboxWriteService.AssignBoxItemToTabAsync(command);
+            await ZboxWriteService.AssignBoxItemToTabAsync(command).ConfigureAwait(false);
             return JsonOk();
         }
 
@@ -617,7 +648,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("delete update boxid " + boxId + " userid" + userId, ex);
+                Logger.Exception(ex, new Dictionary<string, string>
+                {
+                    ["boxId"] = boxId.ToString(),
+                    ["userId"] = userId.ToString()
+                });
                 return JsonError();
             }
         }

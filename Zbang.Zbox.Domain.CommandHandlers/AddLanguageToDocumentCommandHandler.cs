@@ -4,7 +4,7 @@ using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class AddLanguageToItemCommandHandler<T> : ICommandHandler<AddLanguageToItemCommand> 
+    public class AddLanguageToItemCommandHandler<T> : ICommandHandler<AddLanguageToItemCommand>
         where T :ILanguage
     {
         private readonly IRepository<T> m_ItemRepository;

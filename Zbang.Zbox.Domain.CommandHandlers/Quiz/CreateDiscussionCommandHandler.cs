@@ -43,7 +43,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             var user = m_UserRepository.Load(message.UserId);
             var question = m_QuestionRepository.Load(message.QuestionId);
 
-
             var discussion = new QuizDiscussion(message.DiscussionId, user, message.Text, question);
             //to get to box we have 3 selects.
             discussion.Quiz.Box.UserTime.UpdateUserTime(user.Id);

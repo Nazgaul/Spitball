@@ -20,7 +20,6 @@ namespace Zbang.Zbox.ViewModel.Queries.Emails
 
         public int UtcOffset { get; private set; }
 
-
         public override string ToString()
         {
             return $"Notification {NotificationSettings.GetStringValue()} PageNumber {PageNumber} rows {RowsPerPage}";

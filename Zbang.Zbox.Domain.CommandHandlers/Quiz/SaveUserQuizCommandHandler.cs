@@ -45,7 +45,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             var user = m_UserRepository.Load(message.UserId);
             var quiz = m_QuizRepository.Load(message.QuizId);
 
-
             var answerSheet = m_SolvedQuizRepository.Query().FirstOrDefault(w =>
                 // ReSharper disable once PossibleUnintendedReferenceComparison nHibernate doesn't support equals
                 w.User == user && w.Quiz == quiz);
@@ -73,19 +72,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             // TODO: check how can remove this 
             m_SolvedQuizRepository.Save(solvedQuiz, true);
             quiz.SolveCount = quiz.SolvedQuizzes.Count;
-            
+
             m_QuizRepository.Save(quiz);
             return m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(quiz.User.Id));
-
-
         }
 
         private void DeleteAnswers(SolvedQuiz answerSheet)
         {
             m_SolvedQuizRepository.Delete(answerSheet);
         }
-
-
 
 
     }

@@ -9,10 +9,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IUserBoxRelRepository m_UserBoxRelationshipRepository;
 
-
         public ChangeNotificationSettingsCommandHandler(IUserBoxRelRepository userBoxRelationshipRepository)
         {
-
             m_UserBoxRelationshipRepository = userBoxRelationshipRepository;
         }
 

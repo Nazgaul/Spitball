@@ -23,14 +23,13 @@ namespace Zbang.Zbox.ViewModel.Dto.Search
 
     public abstract class SearchJaredDto
     {
-        
+
     }
 
     public class SearchItemResult : SearchJaredDto
     {
         public IEnumerable<SearchItem> Result { get; set; }
         public Dictionary<string, IEnumerable<FacetResult>> Facet { get; set; }
-
     }
 
     public class FacetResult
@@ -39,7 +38,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Search
         public long Value { get; set; }
     }
 
-    public class SearchItem 
+    public class SearchItem
     {
         public string Id { get; set; }
         public string Name { get; set; }
@@ -62,6 +61,4 @@ namespace Zbang.Zbox.ViewModel.Dto.Search
 
         public string[] Tags { get; set; }
     }
-
-
 }

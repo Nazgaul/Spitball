@@ -5,7 +5,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 {
     public class QuizWithDetailSolvedDto
     {
-       
         public QuizWithDetailDto Quiz { get; set; }
         public SolveSheet Sheet { get; set; }
 
@@ -19,8 +18,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public IEnumerable<SolveQuestion> UserAnswers { get; set; }
     }
 
-    
-
     public class QuizWithDetailDto
     {
         private DateTime m_Date;
@@ -28,7 +25,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public long OwnerId { get; set; }
 
         public string Owner { get; set; }
-       
+
         public long Id { get; set; }
         public DateTime Date
         {
@@ -40,16 +37,11 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
         //public string BoxUrl { get; set; }
 
-
-
         public bool Publish { get; set; }
 
         public IEnumerable<QuestionWithDetailDto> Questions { get; set; }
 
-
         public IEnumerable<QuizBestUser> TopUsers { get; set; }
-
-
     }
 
     public class QuizBestUser
@@ -83,7 +75,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public Guid AnswerId { get; set; }
         public Guid QuestionId { get; set; }
     }
-
 
     public class QuizSolversWithCountDto
     {

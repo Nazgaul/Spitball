@@ -28,6 +28,7 @@ public static class EnumExtension
 
         return separateWord;
     }
+
     public static string GetStringValue(this Enum value)
     {
         if (value == null) throw new ArgumentNullException(nameof(value));
@@ -44,6 +45,7 @@ public static class EnumExtension
     {
         return GetEnumDescription(value, CultureInfo.CurrentCulture);
     }
+
     public static string GetEnumDescription(this Enum value, CultureInfo culture)
     {
         if (value == null) throw new ArgumentNullException(nameof(value));
@@ -51,7 +53,7 @@ public static class EnumExtension
 
         var attributes = (ResourceDescriptionAttribute[])fi.GetCustomAttributes(typeof(ResourceDescriptionAttribute), false);
 
-        if ((attributes.Length <= 0)) return value.GetStringValue();
+        if (attributes.Length <= 0) return value.GetStringValue();
         var att = attributes[0];
         if (att.ResourceType == null) return att.Description;
         var x = new System.Resources.ResourceManager(att.ResourceType);

@@ -124,9 +124,9 @@ namespace Zbang.Zbox.Infrastructure.Search
 
             var d = new Dictionary<string, double>
             {
-                { nameof(FeedSearch.Tags).ToLower(), 3},
-                { ContentEnglishField, 2},
-                { ContentHebrewField, 2},
+                [nameof(FeedSearch.Tags).ToLower()] = 3,
+                [ContentEnglishField] = 2,
+                [ContentHebrewField] = 2,
             };
             weightProfile.TextWeights = new TextWeights(d);
 

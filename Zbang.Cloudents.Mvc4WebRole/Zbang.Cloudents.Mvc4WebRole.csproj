@@ -370,6 +370,7 @@
     <Compile Include="Filters\EnforceLowercaseUrlAttribute.cs" />
     <Compile Include="Filters\ETagAttribute.cs" />
     <Compile Include="Filters\JsonHandleErrorAttribute.cs" />
+    <Compile Include="Filters\LandingPageAttribute.cs" />
     <Compile Include="Filters\NoCacheAjaxFilterAttribute.cs" />
     <Compile Include="Filters\NoCacheAttribute.cs" />
     <Compile Include="Filters\NoEtagAttribute.cs" />
@@ -2716,10 +2717,6 @@
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.File\Zbang.Zbox.Infrastructure.File.csproj">
       <Project>{9ba4df6c-b4da-40d4-8a33-795f0bed2622}</Project>
       <Name>Zbang.Zbox.Infrastructure.File</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Ioc\Zbang.Zbox.Infrastructure.Ioc.csproj">
-      <Project>{872878fa-a84a-4cd3-856a-4ee9018819c5}</Project>
-      <Name>Zbang.Zbox.Infrastructure.Ioc</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Mail\Zbang.Zbox.Infrastructure.Mail.csproj">
       <Project>{f5e270cf-6b83-4879-9b04-773b87f80b0e}</Project>

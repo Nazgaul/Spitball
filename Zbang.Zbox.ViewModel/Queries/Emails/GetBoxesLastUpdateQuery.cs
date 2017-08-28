@@ -16,7 +16,7 @@ namespace Zbang.Zbox.ViewModel.Queries.Emails
 
     public class GetUpdatesQuery
     {
-        public GetUpdatesQuery(IEnumerable<long> boxIds, 
+        public GetUpdatesQuery(IEnumerable<long> boxIds,
             IEnumerable<long?> itemIds,
             IEnumerable<long?> quizIds,
             IEnumerable<Guid?> commentsIds,
@@ -37,9 +37,6 @@ namespace Zbang.Zbox.ViewModel.Queries.Emails
         public IEnumerable<Guid?> CommentsIds { get;  }
         public IEnumerable<Guid?> RepliesIds { get;  }
         public IEnumerable<Guid?> DiscussionIds { get;  }
-
     }
-
-
 
 }

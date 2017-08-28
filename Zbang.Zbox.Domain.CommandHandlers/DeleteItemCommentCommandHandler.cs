@@ -17,7 +17,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<Item> m_ItemRepository;
         private readonly IQueueProvider m_QueueProvider;
 
-        public DeleteItemCommentCommandHandler(IUserRepository userRepository, 
+        public DeleteItemCommentCommandHandler(IUserRepository userRepository,
             IRepository<ItemComment> itemCommentRepository,
             IRepository<Item> itemRepository, IQueueProvider queueProvider)
         {
@@ -39,7 +39,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             m_ItemRepository.Save(itemComment.Item);
             m_ItemCommentRepository.Delete(itemComment);
-           
         }
     }
 }

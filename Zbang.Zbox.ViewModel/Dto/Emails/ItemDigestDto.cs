@@ -11,6 +11,5 @@
         public string Url { get; set; }
 
         public long BoxId { get; set; }
-
     }
 }

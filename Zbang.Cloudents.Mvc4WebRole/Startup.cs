@@ -28,11 +28,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //});
             Zbox.Infrastructure.Security.Startup.ConfigureAuth(app, true);
             IocConfig.RegisterTypes(app);
+           // FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+
             //app.CreatePerOwinContext(ApplicationDbContext.Create);
 
             //app.CreatePerOwinContext(() => DependencyResolver.Current.GetService<ApplicationUserManager>());
-
-
         }
     }
 }

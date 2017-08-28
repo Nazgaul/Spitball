@@ -22,7 +22,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public GetGeneralDepartmentCommandResult Execute(GetGeneralDepartmentCommand command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
-           
+
             var user = m_User.Load(command.UserId);
             var university = user.University;
             // ReSharper disable once ReplaceWithSingleCallToFirstOrDefault Nhibernate doesnt support
@@ -31,7 +31,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     w =>
                         w.University == university && w.Name == "General" && w.Parent == null)
                 .FirstOrDefault()?.Id;
-                
+
             var newId = m_IdGenerator.GetId();
             if (departmentId != null) return new GetGeneralDepartmentCommandResult(departmentId.Value);
             var dep = new Library(newId, "General", university, user);

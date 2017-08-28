@@ -28,6 +28,5 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
 
         public int Badges { get; set; }
         public int Score { get; set; }
-
     }
 }

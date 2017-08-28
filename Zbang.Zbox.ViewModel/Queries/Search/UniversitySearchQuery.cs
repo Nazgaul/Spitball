@@ -3,8 +3,6 @@ namespace Zbang.Zbox.ViewModel.Queries.Search
 {
     public class UniversitySearchQuery : IPagedQuery
     {
-
-
         public UniversitySearchQuery(string term, int rowsPerPage = 50, int pageNumber = 0, string country = "")
         {
             Term = term;
@@ -21,14 +19,11 @@ namespace Zbang.Zbox.ViewModel.Queries.Search
 
         public string Country { get; }
 
-
         public override string ToString()
         {
-            return $"term = {Term}, rowsperPage = {RowsPerPage} page = {PageNumber} country = {Country}";
-
+            return $"term = {Term}, rowsPerPage = {RowsPerPage} page = {PageNumber} country = {Country}";
         }
     }
-
 
     //TODO: remove this
     public class UniversityByIpQuery : IPagedQuery
@@ -44,6 +39,6 @@ namespace Zbang.Zbox.ViewModel.Queries.Search
 
         public int RowsPerPage { get; }
 
-        public long IpAddress { get; private set; }
+        public long IpAddress { get; }
     }
 }

@@ -78,7 +78,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         //    //               .Select((e, i) => ((int)e - 48) * (i % 2 == 0 ? 1 : 2))
         //    //               .Sum((e) => e / 10 + e % 10);
 
-
         //    //// If the final sum is divisible by 10, then the credit card number
         //    //   is valid. If it is not divisible by 10, the number is invalid.            
         //    var isValid = sumOfDigits % 13 == 0;

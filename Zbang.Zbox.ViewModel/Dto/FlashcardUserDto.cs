@@ -14,7 +14,6 @@ namespace Zbang.Zbox.ViewModel.Dto
 
         //public UniversityData UniversityData { get; set; }
 
-        
     }
     //public class UniversityData
     //{

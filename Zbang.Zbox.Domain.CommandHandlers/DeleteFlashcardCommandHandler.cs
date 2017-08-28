@@ -42,7 +42,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new UnauthorizedAccessException();
             }
 
-
             //if (flashcardMeta.User != user)
             //{
             //    throw new UnauthorizedAccessException();

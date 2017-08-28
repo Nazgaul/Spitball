@@ -33,7 +33,6 @@ namespace Zbang.Zbox.Infrastructure.Azure
     //}
     public class StorageModule : Module
     {
-
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<MediaServicesProvider>().As<IMediaServicesProvider>().SingleInstance();

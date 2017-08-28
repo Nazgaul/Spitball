@@ -26,7 +26,6 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
 
         public string Content
         {
-
             get
             {
                 if (Replies != null)

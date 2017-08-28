@@ -35,7 +35,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var comment = m_CommentRepository.Load(message.CommentId);
             if (commentLike == null)
             {
-            
                 comment.LikeCount++;
                 var user = m_UserRepository.Load(message.UserId);
                 commentLike = new CommentLike(comment, user, m_GuidGenerator.GetId());
@@ -52,10 +51,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_CommentLikeRepository.Delete(commentLike);
             await CreateQueuesDataAsync(message.UserId, comment.User.Id).ConfigureAwait(true);
 
-
            await m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(comment.User.Id)).ConfigureAwait(true);
             return new LikeCommentCommandResult(false);
-
         }
 
         private async Task CreateQueuesDataAsync(long userWhoMadeAction, long commentUser)

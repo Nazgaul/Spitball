@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
 {
     [Serializable]
@@ -14,7 +13,5 @@ namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
         public string Url { get; set; }
 
         public long BoxId { get; set; }
-      
-
     }
 }

@@ -7,7 +7,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
         public static void RegisterBundles()
         {
             BundleConfig.RegisterBundle(RegisterCss(), RegisterJs());
-            //BundleConfig.RegisterBundles(RegisterCss(), RegisterJs());
         }
 
         private static IEnumerable<KeyValuePair<string, IEnumerable<CssWithRtl>>> RegisterCss()
@@ -96,8 +95,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
             var jsDictionary = new Dictionary<string, IEnumerable<JsFileWithCdn>>
             {
 
-                {
-                    "jsHomePage", new[]
+                [
+                    "jsHomePage"] = new[]
                     {
                         new JsFileWithCdn("~/scripts/jquery-2.2.4.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/jquery.validate.js"),
@@ -109,18 +108,16 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/languageHandler.js"),
                         new JsFileWithCdn("~/js/HomePage.js"),
                         new JsFileWithCdn("~/js/signin/backgroundimage.js")
-                    }
-                },
-                {
-                    "alex",new[]
+                    },
+                [
+                    "alex"] = new[]
                     {
                         new JsFileWithCdn("~/scripts/jquery-2.2.4.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"),
                         new JsFileWithCdn("~/js/alex/helpers.js"),
                         new JsFileWithCdn("~/js/alex/normal.js")
-                    }
-                },
-                {
-                    "staticPage", new[]
+                    },
+                [
+                    "staticPage"] = new[]
                     {
                         new JsFileWithCdn("~/Scripts/jquery-2.2.4.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/jquery.bxslider.js"),
@@ -130,11 +127,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/signin/itemGallery.js"),
                         new JsFileWithCdn("~/js/signin/backgroundimage.js")
 
-                    }
-                },
-                 {
+                    },
+                [
                     //TODO: maybe we can remove this??? // passwordUpdate uses it - this page will be modified in v4.
-                    "signin", new[]
+                    "signin"] = new[]
                     {
 
                         new JsFileWithCdn("~/Scripts/jquery-2.2.4.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"),
@@ -142,11 +138,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/signin/login-soft.js"),
                         new JsFileWithCdn("~/scripts/svg4everybody.js"),
                         new JsFileWithCdn("~/js/signin/backgroundimage.js")
-                    }
-                },
+                    },
 
-                {
-                    "jsSite4", new[]
+                [
+                    "jsSite4"] = new[]
                     {
 
                         new JsFileWithCdn("~/scripts/jquery-2.2.4.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"),
@@ -365,8 +360,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/start/start.service.js"),
                          new JsFileWithCdn("~/js/initAngular.js")
                     }
-
-                }
             };
 
             return jsDictionary;

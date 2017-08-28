@@ -16,6 +16,5 @@
 
         public long BoxId { get; private set; }
         public long ItemId { get; }
-
     }
 }

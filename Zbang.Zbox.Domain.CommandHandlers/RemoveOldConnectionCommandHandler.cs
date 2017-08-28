@@ -35,7 +35,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     user.LastAccessTime = DateTime.UtcNow;
                     userIds.Add(user.Id);
                     user.Connections.Clear();
-
                 }
                 else
                 {

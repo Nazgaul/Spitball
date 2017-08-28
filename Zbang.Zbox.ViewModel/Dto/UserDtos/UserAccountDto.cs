@@ -17,9 +17,6 @@
         public string Email { get; set; }
         public string Language { get; set; }
 
-
         public bool System { get; set; }
-
-        
     }
 }

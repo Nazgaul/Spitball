@@ -24,7 +24,7 @@ namespace Zbang.Cloudents.MobileApp.Models
         {
             get
             {
-                var constraints = new HttpRouteValueDictionary { { "version", new VersionConstraint(AllowedVersion) } };
+                var constraints = new HttpRouteValueDictionary {["version"] = new VersionConstraint(AllowedVersion) };
                 return constraints;
             }
         }

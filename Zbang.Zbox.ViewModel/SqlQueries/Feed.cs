@@ -20,7 +20,6 @@
     offset @skip ROWS
 	FETCH NEXT @top ROWS ONLY;";
 
-
         public const string RepliesInComments = @"with questions as (
 select questionid from zbox.question
  where boxid = @boxid 
@@ -41,7 +40,6 @@ select a.[AnswerId] as id
  from questions q
 cross apply (select top (@rtop) * from zbox.Answer a where a.QuestionId = q.QuestionId order by a.AnswerId desc) as a
 join zbox.users u on u.userid = a.userid;";
-
 
         public const string GetItemsInCommentsAndReplies = @"with questions as (
 select questionid from zbox.question
@@ -78,7 +76,6 @@ select questionid from zbox.question
     where i.IsDeleted = 0
     and i.BoxId = @BoxId;";
 
-
         public const string GetQuizzesForComments = @"select
     i.Id as Id,
     i.Name as Name,
@@ -110,7 +107,6 @@ select questionid from zbox.question
 	            order by updatetime desc
 	            offset @skip ROWS
 	FETCH NEXT @top ROWS ONLY);";
-
 
         public const string GetReplies = @" SELECT  a.[AnswerId] as id
 	  ,u.[UserName] as UserName

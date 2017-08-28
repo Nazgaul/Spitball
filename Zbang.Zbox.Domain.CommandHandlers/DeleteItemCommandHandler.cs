@@ -12,7 +12,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class DeleteItemCommandHandler : ICommandHandlerAsync<DeleteItemCommand>
     {
-
         private readonly IRepository<Box> m_BoxRepository;
         private readonly IUserRepository m_UserRepository;
         private readonly IRepository<Item> m_ItemRepository;
@@ -30,7 +29,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IQueueProvider queueProvider,
             IItemTabRepository itemTabRepository, IUpdatesRepository updatesRepository)
         {
-
             m_BoxRepository = boxRepository;
             m_UserRepository = userRepository;
             m_ItemRepository = itemRepository;
@@ -83,7 +81,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var t4 = m_QueueProvider.InsertMessageToTransactionAsync(new UploadItemsBadgeData(item.UploaderId));
             var t5 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
 
-
             m_ItemRepository.Delete(item);
             box.UpdateItemCount();
             command.BoxId = box.Id;
@@ -91,6 +88,5 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             return Task.WhenAll(t1, t2, t4, t5);
         }
-
     }
 }

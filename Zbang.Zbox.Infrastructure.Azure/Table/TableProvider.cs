@@ -21,7 +21,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Table
             return TableClient.GetTableReference(UserRequests);
         }
 
-
         public async Task InsertUserRequestAsync(TableEntity entity)
         {
             try
@@ -39,7 +38,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Table
                 throw;
             }
         }
-
         
     }
 }

@@ -91,17 +91,17 @@ namespace Zbang.Cloudents.Mvc4WebRole
             return base.OnStart();
         }
 
-        void RoleEnvironment_Changing(object sender, RoleEnvironmentChangingEventArgs e)
-        {
-            //var configurationChanges = e.Changes
-            //                            .OfType<RoleEnvironmentConfigurationSettingChange>()
-            //                            .ToList();
+        //void RoleEnvironment_Changing(object sender, RoleEnvironmentChangingEventArgs e)
+        //{
+        //    //var configurationChanges = e.Changes
+        //    //                            .OfType<RoleEnvironmentConfigurationSettingChange>()
+        //    //                            .ToList();
 
-            //if (!configurationChanges.Any()) return;
+        //    //if (!configurationChanges.Any()) return;
 
-            //if (configurationChanges.Any(c => c.ConfigurationSettingName == "StorageAccount"))
-            //    e.Cancel = true;
-        }
+        //    //if (configurationChanges.Any(c => c.ConfigurationSettingName == "StorageAccount"))
+        //    //    e.Cancel = true;
+        //}
 
         private bool ValidateRemoteCertificate(object sender, X509Certificate cert, X509Chain chain, SslPolicyErrors policyErrors)
         {

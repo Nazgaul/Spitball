@@ -29,7 +29,6 @@ namespace Zbang.Zbox.ViewModel.Queries.Search
         public string Term { get; private set; }
         public int PageNumber { get; private set; }
 
-
         public int RowsPerPage { get; private set; }
         public long BoxId { get; private set; }
     }

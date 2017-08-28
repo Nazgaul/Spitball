@@ -84,13 +84,13 @@ namespace Zbang.Zbox.Infrastructure.Notifications
         {
             var googleMessage = new GooglePushMessage(
              new Dictionary<string, string>
-                {
-                    {"boxName", boxName },
-                    {"text", text},
-                    {"userName", userNameOfAction},
-                    {"action",((int)PushAction.PostComment).ToString(CultureInfo.InvariantCulture)},
-                    {"boxId", boxId.ToString(CultureInfo.InvariantCulture)}
-                }, null);
+             {
+                 ["boxName"] = boxName,
+                 ["text"] = text,
+                 ["userName"] = userNameOfAction,
+                 ["action"] = ((int)PushAction.PostComment).ToString(CultureInfo.InvariantCulture),
+                 ["boxId"] = boxId.ToString(CultureInfo.InvariantCulture)
+             }, null);
             var applePushMessage = new ApplePushMessage();
             applePushMessage.Aps.AlertProperties.LocKey = "PUSH_NOTIFICATION_COMMENT";
             applePushMessage.Aps.AlertProperties["loc-args"] = new[]
@@ -110,14 +110,14 @@ namespace Zbang.Zbox.Infrastructure.Notifications
         {
             var googleMessage = new GooglePushMessage(
              new Dictionary<string, string>
-                {
-                    {"boxName", boxName },
-                    {"text", text},
-                    {"userName", userNameOfAction},
-                    {"action",((int)PushAction.PostReply).ToString(CultureInfo.InvariantCulture)},
-                    {"boxId", boxId.ToString(CultureInfo.InvariantCulture)},
-                    {"commentId", commentId.ToString()}
-                }, null);
+             {
+                 ["boxName"] = boxName,
+                 ["text"] = text,
+                 ["userName"] = userNameOfAction,
+                 ["action"] = ((int)PushAction.PostReply).ToString(CultureInfo.InvariantCulture),
+                 ["boxId"] = boxId.ToString(CultureInfo.InvariantCulture),
+                 ["commentId"] = commentId.ToString()
+             }, null);
 
             var applePushMessage = new ApplePushMessage();
             applePushMessage.Aps.AlertProperties.LocKey = "PUSH_NOTIFICATION_COMMENT";
@@ -138,12 +138,12 @@ namespace Zbang.Zbox.Infrastructure.Notifications
         {
             var googleMessage = new GooglePushMessage(
              new Dictionary<string, string>
-                {
-                    {"boxName", boxName },
-                    {"userName", userNameOfAction},
-                    {"action",((int)PushAction.AddItem).ToString(CultureInfo.InvariantCulture)},
-                    {"boxId", boxId.ToString(CultureInfo.InvariantCulture)}
-                }, null);
+             {
+                 ["boxName"] = boxName,
+                 ["userName"] = userNameOfAction,
+                 ["action"] = ((int)PushAction.AddItem).ToString(CultureInfo.InvariantCulture),
+                 ["boxId"] = boxId.ToString(CultureInfo.InvariantCulture)
+             }, null);
             var applePushMessage = new ApplePushMessage();
             applePushMessage.Aps.AlertProperties.LocKey = "PUSH_NOTIFICATION_FILE";
             applePushMessage.Aps.AlertProperties["loc-args"] = new[]
@@ -162,12 +162,12 @@ namespace Zbang.Zbox.Infrastructure.Notifications
         {
             var googleMessage = new GooglePushMessage(
              new Dictionary<string, string>
-                {
-                    {"text", text},
-                    {"userName", userNameOfAction},
-                    {"action",((int)PushAction.ChatMessage).ToString()},
-                    {"conversationId", conversationId.ToString()}
-                }, null);
+             {
+                 ["text"] = text,
+                 ["userName"] = userNameOfAction,
+                 ["action"] = ((int)PushAction.ChatMessage).ToString(),
+                 ["conversationId"] = conversationId.ToString()
+             }, null);
             var applePushMessage = new ApplePushMessage();
             applePushMessage.Aps.AlertProperties.LocKey = "PUSH_NOTIFICATION_CHAT_MESSAGE";
             applePushMessage.Aps.AlertProperties["loc-args"] = new[]
@@ -185,11 +185,11 @@ namespace Zbang.Zbox.Infrastructure.Notifications
         {
             var googleMessage = new GooglePushMessage(
              new Dictionary<string, string>
-                {
-                    {"userName", userNameOfAction},
-                    {"action",((int)PushAction.ChatFile).ToString()},
-                    {"conversationId", conversationId.ToString()}
-                }, null);
+             {
+                 ["userName"] = userNameOfAction,
+                 ["action"] = ((int)PushAction.ChatFile).ToString(),
+                 ["conversationId"] = conversationId.ToString()
+             }, null);
             var applePushMessage = new ApplePushMessage();
             applePushMessage.Aps.AlertProperties.LocKey = "PUSH_NOTIFICATION_CHAT_FILE";
             applePushMessage.Aps.AlertProperties["loc-args"] = new[]
@@ -210,12 +210,12 @@ namespace Zbang.Zbox.Infrastructure.Notifications
         {
             var googleMessage = new GooglePushMessage(
              new Dictionary<string, string>
-                {
-                    {"boxName", boxName },
-                    {"userName", userNameOfAction},
-                    {"action",((int)PushAction.Invite).ToString(CultureInfo.InvariantCulture)},
-                    {"boxId", boxId.ToString(CultureInfo.InvariantCulture)}
-                }, null);
+             {
+                 ["boxName"] = boxName,
+                 ["userName"] = userNameOfAction,
+                 ["action"] = ((int)PushAction.Invite).ToString(CultureInfo.InvariantCulture),
+                 ["boxId"] = boxId.ToString(CultureInfo.InvariantCulture)
+             }, null);
             var applePushMessage = new ApplePushMessage();
             applePushMessage.Aps.AlertProperties.LocKey = "PUSH_NOTIFICATION_INVITE";
             applePushMessage.Aps.AlertProperties["loc-args"] = new[]

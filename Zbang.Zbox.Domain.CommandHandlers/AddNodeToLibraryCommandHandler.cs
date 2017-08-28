@@ -30,7 +30,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new UnauthorizedAccessException();
             }
 
-
             var university = user.University;
 
             var id = m_IdGenerator.GetId();
@@ -52,7 +51,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
             message.Id = id;
-
         }
     }
 }

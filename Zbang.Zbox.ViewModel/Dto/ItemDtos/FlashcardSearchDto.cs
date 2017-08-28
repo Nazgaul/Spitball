@@ -8,11 +8,9 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public override IEnumerable<ItemType> Type => new[] { ItemType.Flashcard };
         public override string SearchContentId => "flashcard_" + Id;
 
-
         public IEnumerable<string> FrontCards { get; set; }
         public IEnumerable<string> BackCards { get; set; }
         public IEnumerable<long> UserIds { get; set; }
-
 
         public int CardsCount { get; set; }
 
@@ -34,7 +32,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
             CoverText ?? string.Empty,
             CoverImage ?? string.Empty
         };
-
 
         public override int? ContentCount => CardsCount;
     }

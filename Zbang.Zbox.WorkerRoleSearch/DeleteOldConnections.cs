@@ -38,9 +38,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    m_Logger.Exception(ex, new Dictionary<string,string> {{"process", Name}});
+                    m_Logger.Exception(ex, new Dictionary<string,string> {["process"] = Name });
                 }
-                if (command.UserIds != null && command.UserIds.Any())
+                if (command.UserIds?.Any() == true)
                 {
                     try
                     {
@@ -52,7 +52,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     }
                     catch (Exception ex)
                     {
-                        m_Logger.Exception(ex, new Dictionary<string, string> { { "process", Name } });
+                        m_Logger.Exception(ex, new Dictionary<string, string> {["process"] = Name });
                     }
                 }
                 await Task.Delay(TimeSpan.FromSeconds(30), cancellationToken).ConfigureAwait(false);

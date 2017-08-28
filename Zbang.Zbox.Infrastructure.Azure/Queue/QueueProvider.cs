@@ -14,7 +14,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
 {
     public class QueueProvider : IQueueProvider, IQueueProviderExtract
     {
-
         private readonly ILogger m_Logger;
         private CloudQueueClient m_QueueClient;
 
@@ -27,7 +26,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
 
         private CloudQueueClient QueueClient => m_QueueClient ?? (m_QueueClient = StorageProvider.ZboxCloudStorage.CreateCloudQueueClient());
 
-
         private CloudQueue GetTransactionQueue()
         {
             return GetQueue(QueueName.UpdateDomainQueueName.ToLower());
@@ -39,11 +37,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
             return queue.InsertToQueueProtoAsync(message);
         }
 
-
         public Task InsertMessageToTransactionAsync(DomainProcess message)
         {
             return GetTransactionQueue().InsertToQueueProtoAsync(message);
         }
+
         public Task InsertMessageToTransactionAsync(DomainProcess message, CancellationToken token)
         {
             return GetTransactionQueue().InsertToQueueProtoAsync(message, token);
@@ -94,25 +92,24 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
                 {
                     m_Logger.Exception(ex, new Dictionary<string, string>
                     {
-                        {"Queue", queue.Name},
-                        {"MessageId", msg.Id},
-                        {"DeQueue", msg.DequeueCount.ToString()}
+                        ["Queue"] = queue.Name,
+                        ["MessageId"] = msg.Id,
+                        ["DeQueue"] = msg.DequeueCount.ToString()
                     });
                 }
                 catch (Exception ex)
                 {
                     m_Logger.Exception(ex, new Dictionary<string, string>
                     {
-                        {"Queue", queue.Name},
-                        {"MessageId", msg.Id},
-                        {"DeQueue", msg.DequeueCount.ToString()}
+                        ["Queue"] = queue.Name,
+                        ["MessageId"] = msg.Id,
+                        ["DeQueue"] = msg.DequeueCount.ToString()
                     });
                 }
             }
             await Task.WhenAll(listToWait).ConfigureAwait(false);
             return cloudQueueMessages.Any();
         }
-
 
         public Task UpdateMessageAsync(QueueName queueName, CloudQueueMessage msg, TimeSpan visibilityTimeout, CancellationToken token)
         {

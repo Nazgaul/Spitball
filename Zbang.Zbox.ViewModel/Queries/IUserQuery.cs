@@ -4,6 +4,4 @@
     {
         long UserId { get; }
     }
-
-    
 }

@@ -34,7 +34,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new NullReferenceException("itemTab");
             }
 
-
             if (itemTab.Box.Id != message.BoxId)
             {
                 throw new UnauthorizedAccessException("user is not connected to box");
@@ -48,9 +47,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             itemTab.ChangeName(message.NewName);
             m_ItemTabRepository.Save(itemTab);
-
-
         }
-
     }
 }

@@ -32,7 +32,6 @@
     and l.parentid is null
     order by name;";
 
-
        //TODO: check if we can do it better
        public const string GetLibraryNodeDetails = @"with name_tree as (
    select libraryid, parentId, name
@@ -85,7 +84,6 @@ where parentId is null)
     and l.parentid = @ParentId
     order by name;";
 
-      
        public const string GetClosedLibraryByUser = @"select l.LibraryId as id, l.Name from zbox.Library l
 where l.Settings = 1
 and ParentId is null

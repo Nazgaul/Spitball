@@ -9,6 +9,5 @@
         public long UserId { get; set; }
 
         public long BoxId { get; set; }
-        
     }
 }

@@ -124,10 +124,11 @@ namespace Zbang.Zbox.Infrastructure.File
             }
             catch (Exception ex)
             {
-                m_Logger.Exception(ex, new Dictionary<string, string> {
+                m_Logger.Exception(ex, new Dictionary<string, string>
                 {
-                    "service" , nameof(PdfProcessor)
-                }});
+                    [
+                    "service"] = nameof(PdfProcessor)
+                });
                 return null;
             }
         }

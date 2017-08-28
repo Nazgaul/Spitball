@@ -16,7 +16,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class AddFileToBoxCommandHandler : ICommandHandlerAsync<AddItemToBoxCommand, AddItemToBoxCommandResult>
     {
-
         private readonly IBoxRepository m_BoxRepository;
         private readonly IUserRepository m_UserRepository;
         private readonly IQueueProvider m_QueueProvider;
@@ -24,8 +23,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IItemTabRepository m_ItemTabRepository;
         private readonly IGuidIdGenerator m_IdGenerator;
         private readonly IRepository<Comment> m_CommentRepository;
-
-
 
         public AddFileToBoxCommandHandler(IQueueProvider queueProvider,
             IBoxRepository boxRepository, IUserRepository userRepository,
@@ -49,7 +46,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var command = itemCommand as AddFileToBoxCommand;
             if (command == null) throw new NullReferenceException("command");
 
-
             var box = m_BoxRepository.Load(command.BoxId);
             var user = m_UserRepository.Load(command.UserId);
 
@@ -58,14 +54,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new FileQuotaExceedException();
             }
 
-
             var fileName = GetUniqueFileNameToBox(command.FileName, box.Id);
 
             var item = box.AddFile(fileName,
                 user,
                 command.Length,
                 command.BlobAddressName);
-
 
             m_ItemRepository.Save(item, true);
             item.GenerateUrl();
@@ -126,6 +120,5 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             itemTab.AddItemToTab(item);
             m_ItemTabRepository.Save(itemTab);
         }
-
     }
 }

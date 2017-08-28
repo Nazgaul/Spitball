@@ -83,7 +83,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         }
                         catch (Exception ex)
                         {
-                            m_Logger.Exception(ex, new Dictionary<string, string> {{"Name", Name}});
+                            m_Logger.Exception(ex, new Dictionary<string, string> {["Name"] = Name });
                         }
                     }
 

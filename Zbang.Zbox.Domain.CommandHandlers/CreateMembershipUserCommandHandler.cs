@@ -10,7 +10,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class CreateMembershipUserCommandHandler : CreateUserCommandHandler
     {
-
         public CreateMembershipUserCommandHandler(IUserRepository userRepository,
             IRepository<University> universityRepository,
             IQueueProvider queueRepository,
@@ -68,6 +67,5 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             UserRepository.Save(user);
             return retVal;
         }
-
     }
 }

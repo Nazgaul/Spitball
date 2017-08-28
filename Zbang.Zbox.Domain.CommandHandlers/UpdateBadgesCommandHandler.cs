@@ -14,14 +14,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IGamificationRepository m_BadgeRepository;
         private readonly IGuidIdGenerator m_IdGenerator;
 
-        public UpdateBadgesCommandHandler(IUserRepository userRepository, 
+        public UpdateBadgesCommandHandler(IUserRepository userRepository,
             IGamificationRepository badgeRepository, IGuidIdGenerator idGenerator)
         {
             m_UserRepository = userRepository;
             m_BadgeRepository = badgeRepository;
             m_IdGenerator = idGenerator;
         }
-
 
         public void Handle(UpdateBadgesCommand message)
         {
@@ -76,7 +75,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 badge = new Badge(m_IdGenerator.GetId(), user, type, progress);
             }
             badge.Progress = progress;
-
         }
 
         private class Progress
@@ -84,8 +82,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             public int Start { get; set; }
             public int To { get; set; }
         }
-
-
 
     }
 }

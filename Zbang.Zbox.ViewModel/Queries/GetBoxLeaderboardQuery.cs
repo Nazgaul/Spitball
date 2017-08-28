@@ -3,7 +3,7 @@ using Zbang.Zbox.Infrastructure.Query;
 
 namespace Zbang.Zbox.ViewModel.Queries
 {
-    public class GetBoxLeaderboardQuery 
+    public class GetBoxLeaderboardQuery
     {
         public GetBoxLeaderboardQuery(long boxId, long userId)
         {

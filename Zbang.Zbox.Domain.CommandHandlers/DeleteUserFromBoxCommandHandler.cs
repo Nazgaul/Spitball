@@ -19,7 +19,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_UserRepository = userRepository;
             m_BoxRepository = boxRepository;
             m_UserBoxRelRepository = userBoxRelRepository;
-
         }
         public void Handle(DeleteUserFromBoxCommand command)
         {

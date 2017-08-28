@@ -23,8 +23,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var boxid = filterContext.ActionParameters[m_BoxParamsId];
-            var boxId = Convert.ToInt64(boxid);
+            var boxIdStr = filterContext.ActionParameters[m_BoxParamsId];
+            var boxId = Convert.ToInt64(boxIdStr);
             var userId = filterContext.HttpContext.User.GetUserId(false);
 
             var inviteId = filterContext.HttpContext.Request.QueryString["invId"];
@@ -53,10 +53,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                     }
                     filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary
                     {
-                        {"action", "MembersOnly"},
-                        {"controller", "Error"},
-                        {"returnUrl", filterContext.HttpContext.Request.Url?.AbsolutePath},
-                        {"invId", filterContext.HttpContext.Request.QueryString["invId"]}
+                        ["action"] = "MembersOnly",
+                        ["controller"] = "Error",
+                        ["returnUrl"] = filterContext.HttpContext.Request.Url?.AbsolutePath,
+                        ["invId"] = filterContext.HttpContext.Request.QueryString["invId"]
                     });
                     return;
                 }

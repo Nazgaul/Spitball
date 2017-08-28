@@ -8,7 +8,6 @@ namespace Zbang.Zbox.Infrastructure.Azure
 {
     public static class QueueExtension
     {
-        
         public static Task InsertToQueueProtoAsync<T>(this CloudQueue cloudQueue, T data) where T : class
         {
             using (var m = new MemoryStream())
@@ -41,7 +40,6 @@ namespace Zbang.Zbox.Infrastructure.Azure
                 catch (ProtoBuf.ProtoException)
                 {
                     return default(T);
-
                 }
             }
         }
