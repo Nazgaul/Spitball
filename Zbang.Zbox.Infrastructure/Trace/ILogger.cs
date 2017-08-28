@@ -14,6 +14,5 @@ namespace Zbang.Zbox.Infrastructure.Trace
         void Error(string error);
 
         void TrackMetric(string name, double value);
-
     }
 }

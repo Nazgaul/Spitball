@@ -1,11 +1,15 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
     var SbHistory = (function () {
-        function SbHistory($rootScope, $window) {
+        function SbHistory($rootScope, 
+            //private $location: angular.ILocationService,
+            $window) {
             var _this = this;
             this.$rootScope = $rootScope;
             this.$window = $window;
+            //url: string;
             this.skipState = false;
             this.arr = [];
             this.popElement = function () {
@@ -31,6 +35,7 @@ var app;
                     _this.skipState = false;
                     return;
                 }
+                // to be used for back button //won't work when page is reloaded.
                 _this.arr.push({
                     name: fromState.name,
                     params: angular.extend({}, fromParams, { pageYOffset: _this.pageYOffset })
@@ -41,9 +46,9 @@ var app;
                 _this.skipState = true;
             });
         }
+        SbHistory.$inject = ["$rootScope", "$window"];
         return SbHistory;
     }());
-    SbHistory.$inject = ["$rootScope", "$window"];
     angular.module('app').service('sbHistory', SbHistory);
 })(app || (app = {}));
 //# sourceMappingURL=history.js.map

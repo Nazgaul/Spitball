@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
@@ -6,13 +7,15 @@ var app;
         "$httpProvider", "$compileProvider", "$animateProvider",
         "$mdAriaProvider", "$mdIconProvider", "$sceDelegateProvider",
         "$mdThemingProvider", "$urlMatcherFactoryProvider"];
-    function config($controllerProvider, $provide, $httpProvider, $compileProvider, $animateProvider, $mdAriaProvider, $mdIconProvider, $sceDelegateProvider, $mdThemingProvider, $urlMatcherFactoryProvider) {
+    // ReSharper disable once Class
+    function config($controllerProvider, $provide, $httpProvider, $compileProvider, $animateProvider, $mdAriaProvider, $mdIconProvider, $sceDelegateProvider, $mdThemingProvider /*: angular.material.IThemingProvider*/, $urlMatcherFactoryProvider) {
         $controllerProvider.allowGlobals();
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
         $provide.factory("requestinterceptor", [function () { return ({
                 "request": function (c) {
                     return c;
                 },
+                // optional method
                 "response": function (response) {
                     return response;
                 },
@@ -36,6 +39,8 @@ var app;
                             window.open("/error/", "_self");
                             break;
                         default:
+                            // somehow firefox in incognito crash and transfer to error page
+                            //   window.open('/error/', '_self');
                             break;
                     }
                     return response;
@@ -46,10 +51,14 @@ var app;
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|whatsapp):/);
         $animateProvider.classNameFilter(/angular-animate/);
         $mdThemingProvider.disableTheming();
+        //$provide.constant("$MD_THEME_CSS", "");
         $mdAriaProvider.disableWarnings();
         $sceDelegateProvider.resourceUrlWhitelist([
+            // allow same origin resource loads.
             "self",
+            // allow loading from our assets domain.  Notice the difference between * and **.
             window["cdnPath"] + "/**",
+            //for preview of items
             "http://127.0.0.1:10000/devstoreaccount1/**",
             "https://zboxstorage.blob.core.windows.net/**"
         ]);
@@ -77,7 +86,8 @@ var app;
                 return item.toLowerCase();
             },
             decode: function (item) {
-                return item;
+                // Look up the list item by index
+                return item; //list[parseInt(item, 10)];
             },
             is: function (val) {
                 return (val == null || typeof val === "string");
@@ -88,14 +98,15 @@ var app;
             encode: function (item) {
                 var enc = app.Guid.toBase64(item);
                 enc = enc.replace("/", "_").replace("+", "-");
-                return enc.substring(0, 22);
+                return enc.substring(0, 22); // list.indexOf(item);
             },
             decode: function (item) {
                 var enc = item.replace("_", "/").replace("-", "+");
                 return app.Guid.fromBase64(enc + "==");
+                //return str;//list[parseInt(item, 10)];
             },
             is: function (val) {
-                return val == null || (typeof val === "string");
+                return val == null || (typeof val === "string"); // && val.match(/-/g).length === 4);
             },
             pattern: /[^/]*/
         });
@@ -126,6 +137,7 @@ var app;
         $document.ready(function () {
             analytics.createAnalyticsScriptTag();
         });
+        //for run the app
     }
     ;
 })();
@@ -145,6 +157,8 @@ var app;
     angular.module("app").config(config);
     config.$inject = ['ScrollBarsProvider'];
     function config(ScrollBarsProvider) {
+        // the following settings are defined for all scrollbars unless the
+        // scrollbar has local scope configuration
         ScrollBarsProvider.defaults = {
             scrollInertia: 400,
             scrollButtons: false,
@@ -160,6 +174,7 @@ var app;
         function Config(applicationInsightsServiceProvider) {
             this.applicationInsightsServiceProvider = applicationInsightsServiceProvider;
             var options = { applicationName: 'spitball', autoLogTracking: false };
+            // Configuration options are described below     
             applicationInsightsServiceProvider.configure('7f8df0c1-018b-4f0c-95bc-0441481acf0a', options);
         }
         Config.factory = function () {

@@ -1,5 +1,4 @@
-﻿/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
-/// <reference path="userDetails.ts" />
+﻿/// <reference path="userDetails.ts" />
 'use strict';
 declare var inline_manual_player: any;
 declare var inlineManualTracking: any;

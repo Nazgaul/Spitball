@@ -81,7 +81,21 @@ namespace Zbang.Zbox.Infrastructure.Search
         public abstract Index GetIndexStructure(string indexName);
         public void Start()
         {
-            m_Connection.SearchClient.Indexes.CreateOrUpdate(GetIndexStructure(m_IndexName));
+            try
+            {
+                m_Connection.SearchClient.Indexes.CreateOrUpdate(GetIndexStructure(m_IndexName));
+            }
+            catch (Exception ex)
+            {
+                if (m_Connection.IsDevelop)
+                {
+                    Logger.Exception(ex);
+                }
+                else
+                {
+                    throw;
+                }
+            }
         }
 
         public void Dispose()

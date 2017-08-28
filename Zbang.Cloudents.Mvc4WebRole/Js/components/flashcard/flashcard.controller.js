@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
@@ -85,6 +86,7 @@ var app;
             }
             this.flashcardService.solve(this.$stateParams["id"]);
             this.slidepos = 0;
+            // this.slide = this.cards[this.slidepos];
             this.step = Steps.Memo;
         };
         FlashcardController.prototype.startPin = function () {
@@ -92,11 +94,13 @@ var app;
             this.goToStep2();
         };
         FlashcardController.prototype.prev = function () {
+            //this.changeLegend(this.styleLegend);
             this.cards[this.slidepos].style = this.styleLegend;
             this.slidepos = Math.max(0, --this.slidepos);
             this.step = Steps.Memo;
         };
         FlashcardController.prototype.next = function () {
+            //this.changeLegend(this.styleLegend);
             this.cards[this.slidepos].style = this.styleLegend;
             this.slidepos = Math.min(this.cards.length, ++this.slidepos);
             if (this.slidepos === this.cards.length) {
@@ -110,6 +114,7 @@ var app;
             angular.forEach(this.cards, (function (c) {
                 c.style = _this.styleLegend;
             }));
+            //this.$scope.$apply(); // we want to digest the legend before doing the next phase. - mobile do problem due to animation
         };
         FlashcardController.prototype.flip = function (slide) {
             if (typeof (slide.style) === "boolean") {
@@ -138,13 +143,28 @@ var app;
                 this.flashcardService.likeDelete(this.flashcard.like).then(function () { return _this.flashcard.like = null; }).finally(function () { return _this.disabled = false; });
             }
         };
+        //details(ev) {
+        //    this.$mdDialog.show({
+        //        templateUrl: "/flashcard/promo/",
+        //        targetEvent: ev,
+        //        clickOutsideToClose: true,
+        //        locals: {
+        //            color1: this.flashcard.universityData.btnColor,
+        //            color2: this.flashcard.universityData.btnFontColor,
+        //            university: this.flashcard.universityData.universityName
+        //        },
+        //        controller: "DialogPromo",
+        //        controllerAs: "dp",
+        //        fullscreen: false // Only for -xs, -sm breakpoints.
+        //    });
+        //}
         FlashcardController.prototype.share = function () {
             this.shareService.shareDialog("f", this.$stateParams["id"]);
         };
+        FlashcardController.$inject = ["flashcard", "flashcardService", "$stateParams",
+            "user", "$state", "$mdMedia", "$scope", "$mdDialog", "shareService"];
         return FlashcardController;
     }());
-    FlashcardController.$inject = ["flashcard", "flashcardService", "$stateParams",
-        "user", "$state", "$mdMedia", "$scope", "$mdDialog", "shareService"];
     app.FlashcardController = FlashcardController;
     angular.module("app.flashcard").controller("flashcard", FlashcardController);
 })(app || (app = {}));

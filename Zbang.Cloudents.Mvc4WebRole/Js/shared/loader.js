@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
@@ -8,11 +9,16 @@ var app;
             this.$timeout = $timeout;
             this.link = function (scope, element) {
                 var hide = "hide";
+                //element.addClass('hide'); // hide spinner bar by default
+                // display the spinner bar whenever the route changes(the content part started loading)
                 _this.$rootScope.$on("$stateChangeStart", function () {
-                    element.removeClass(hide);
+                    element.removeClass(hide); // show spinner bar  
                 });
+                // hide the spinner bar on rounte change success(after the content loaded)
                 _this.$rootScope.$on("$stateChangeSuccess", addClass);
+                // handle errors
                 _this.$rootScope.$on("$stateNotFound", addClass);
+                // handle errors
                 _this.$rootScope.$on("$stateChangeError", addClass);
                 _this.$rootScope.$on("state-change-start-prevent", function () {
                     _this.$timeout(addClass, 1);

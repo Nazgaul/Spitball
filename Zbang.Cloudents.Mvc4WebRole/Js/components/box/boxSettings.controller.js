@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
@@ -25,6 +26,8 @@ var app;
                 _this.$rootScope.$broadcast('close-collapse');
                 boxController["settingsOpen"] = true;
                 _this.settings = _this.settings || {};
+                //boxType
+                //privacySetting
                 _this.settings.name = boxController["data"].name;
                 _this.settings.needFollow = boxController["needFollow"];
                 _this.settings.submitDisabled = false;
@@ -79,10 +82,10 @@ var app;
                 });
             }
         };
+        BoxSettingsController.$inject = ["$state", "$stateParams", "$scope",
+            "$rootScope", "resManager", "boxService", "ajaxService2", "$timeout", "showToasterService"];
         return BoxSettingsController;
     }());
-    BoxSettingsController.$inject = ["$state", "$stateParams", "$scope",
-        "$rootScope", "resManager", "boxService", "ajaxService2", "$timeout", "showToasterService"];
     angular.module('app.box').controller('BoxSettingsController', BoxSettingsController);
 })(app || (app = {}));
 //# sourceMappingURL=boxSettings.controller.js.map

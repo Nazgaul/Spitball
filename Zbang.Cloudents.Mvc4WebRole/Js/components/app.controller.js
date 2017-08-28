@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
@@ -37,19 +38,20 @@ var app;
             };
             $rootScope.$on("$stateChangeSuccess", function () {
                 var path = $location.path(), absUrl = $location.absUrl(), virtualUrl = absUrl.substring(absUrl.indexOf(path));
-                window["dataLayer"].push({ event: "virtualPageView", virtualUrl: virtualUrl });
-                __insp.push(["virtualPage"]);
+                window["dataLayer"].push({ event: "virtualPageView", virtualUrl: virtualUrl }); // google tag manger
+                __insp.push(["virtualPage"]); // inspectlet
             });
             $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
                 $log.error(error);
             });
             $rootScope.$on("$stateChangeStart", function (event, toState, toParams) {
+                // can't access anonymous user
                 if (toState.name === "user" && toParams.userId === 22886) {
                     event.preventDefault();
                     $rootScope.$broadcast("state-change-start-prevent");
                 }
-                $mdMenu.hide();
-                $mdToast.hide();
+                $mdMenu.hide(); // closes menu
+                $mdToast.hide(); // hide toasters
                 $rootScope.$broadcast("close-menu");
                 $rootScope.$broadcast("close-collapse");
                 checkUniversityChoose();
@@ -59,6 +61,7 @@ var app;
                         if (!userDetails.isAuthenticated()) {
                             return;
                         }
+                        // TODO remove that to university choose controller
                         if (!details.university.id) {
                             var userWithNoUniversityState = "universityChoose";
                             if (toState.name !== userWithNoUniversityState) {
@@ -107,12 +110,12 @@ var app;
                 }
             });
         }
+        AppController.$inject = ["$rootScope", "$location",
+            "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
+            "CacheFactory",
+            "sbHistory", "$state", "dashboardService", "$log"];
         return AppController;
     }());
-    AppController.$inject = ["$rootScope", "$location",
-        "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
-        "CacheFactory",
-        "sbHistory", "$state", "dashboardService", "$log"];
     angular.module("app").controller("AppController", AppController);
 })(app || (app = {}));
 //# sourceMappingURL=app.controller.js.map

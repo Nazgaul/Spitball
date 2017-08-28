@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     'use strict';
@@ -32,6 +33,7 @@ var app;
         Share.prototype.shareDialog = function (what, id) {
             return this.$mdDialog.show({
                 templateUrl: "/share/sharedialog/",
+                //targetEvent: ev,
                 clickOutsideToClose: true,
                 locals: {
                     data: {
@@ -44,9 +46,9 @@ var app;
                 fullscreen: false
             });
         };
+        Share.$inject = ["ajaxService2", "$mdDialog"];
         return Share;
     }());
-    Share.$inject = ["ajaxService2", "$mdDialog"];
     angular.module("app").service("shareService", Share);
 })(app || (app = {}));
 ;

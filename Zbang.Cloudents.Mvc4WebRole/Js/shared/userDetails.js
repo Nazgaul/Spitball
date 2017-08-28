@@ -1,3 +1,5 @@
+"use strict";
+/// <reference path="ajaxservice2.ts" />
 var app;
 (function (app) {
     "use strict";
@@ -55,12 +57,15 @@ var app;
             var _this = this;
             if (data.id) {
                 this.isLogedIn = true;
+                // ReSharper disable UseOfImplicitGlobalInFunctionScope
                 __insp.push(["identify", data.id]);
+                // ReSharper restore UseOfImplicitGlobalInFunctionScope
             }
             this.$timeout(function () {
-                _this.analytics.set("dimension1", data.universityName || "null");
-                _this.analytics.set("dimension2", data.universityCountry || "null");
-                _this.analytics.set("dimension3", data.id || "null");
+                //analytics doesnt work without timeout
+                _this.analytics.set("dimension1", data.universityName || "null"); // analytics doesnt support null
+                _this.analytics.set("dimension2", data.universityCountry || "null"); // analytics doesnt support null
+                _this.analytics.set("dimension3", data.id || "null"); // analytics doesnt support null
             });
             this.userData = {
                 id: data.id,
@@ -97,9 +102,9 @@ var app;
             }
             return this.deferDetails.promise;
         };
+        UserDetails.$inject = ["$rootScope", "$q", "ajaxService2", "Analytics", "$timeout", "$interval"];
         return UserDetails;
     }());
-    UserDetails.$inject = ["$rootScope", "$q", "ajaxService2", "Analytics", "$timeout", "$interval"];
     angular.module("app").service("userDetailsFactory", UserDetails);
 })(app || (app = {}));
 //# sourceMappingURL=userDetails.js.map

@@ -1,5 +1,4 @@
-﻿/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
-/// <reference path="../shared/userDetails.ts" />
+﻿/// <reference path="../shared/userDetails.ts" />
 
 
 declare var Intercom: any;

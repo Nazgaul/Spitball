@@ -1,11 +1,15 @@
+/// <reference path="shared/ajaxservice2.ts" />
 'use strict';
 (function () {
     angular.module('app').provider('routerHelper', routerHelperProvider);
     routerHelperProvider.$inject = ['$locationProvider', '$stateProvider', '$urlRouterProvider'];
+    /* @ngInject */
     function routerHelperProvider($locationProvider, $stateProvider, $urlRouterProvider) {
+        /* jshint validthis:true */
         this.$get = routerHelper;
         $locationProvider.html5Mode(true);
         routerHelper.$inject = ['$state'];
+        /* @ngInject */
         function routerHelper($state) {
             var hasOtherwise = false;
             var service = {
@@ -42,6 +46,7 @@
                 }
             }
             function getStates() { return $state.get(); }
+            //cookie in here
             function buildUrl(path) {
                 return path + '?lang=' + handleLanguage.getLangCookie() + '&version=' + version;
             }

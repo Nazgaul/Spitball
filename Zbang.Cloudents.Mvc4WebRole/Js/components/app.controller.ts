@@ -1,4 +1,5 @@
-﻿module app {
+﻿
+module app {
     "use strict";
     export interface IAppController {
         back(defaultUrl: string);
@@ -13,7 +14,9 @@
         static $inject = ["$rootScope", "$location",
             "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
             "CacheFactory",
-            "sbHistory", "$state", "dashboardService","$log"];
+            "sbHistory", "$state", "dashboardService", "$log"];
+
+        
 
         constructor(private $rootScope: angular.IRootScopeService,
             private $location: angular.ILocationService,
@@ -27,6 +30,7 @@
             private $state: angular.ui.IStateService,
             private dashboardService: IDashboardService,
             private $log: angular.ILogService
+            
         ) {
             $rootScope.$on("$stateChangeSuccess", () => {
                 var path = $location.path(),
@@ -139,7 +143,11 @@
         //    myform.$setPristine();
         //    myform.$setUntouched();
         //};
+
+       
     }
+    
+
     angular.module("app").controller("AppController", AppController);
 
 }

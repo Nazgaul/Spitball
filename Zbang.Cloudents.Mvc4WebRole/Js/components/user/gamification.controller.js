@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     var Gamification = (function () {
@@ -8,6 +9,7 @@ var app;
             this.userService = userService;
             this.doneLevel = false;
             this.leaderboard = [];
+            //leaderboardMyself = true;
             this.leaderboardPage = 0;
             $scope["$state"] = this.$state;
             if (!$state.params["type"]) {
@@ -24,6 +26,7 @@ var app;
                     _this.communityTab();
                 }
             });
+            //const user = this.userDetailsFactory.get();
         }
         Gamification.prototype.isActive = function (state) {
             return this.$state.params["type"] === state;
@@ -65,6 +68,10 @@ var app;
             var _this = this;
             return this.userService.leaderboard(this.$state.params["userId"], this.leaderboardPage)
                 .then(function (response) {
+                //var progress = 100;
+                //if (this.leaderboard.length) {
+                //    progress = this.leaderboard[this.leaderboard.length - 1].progress;
+                //}
                 var highScore = response[0].score;
                 if (_this.leaderboard.length) {
                     highScore = _this.leaderboard[0].score;
@@ -76,6 +83,7 @@ var app;
                             elem.progress = 100;
                             continue;
                         }
+                        // elem.progress = this.leaderboard[this.leaderboard.length - 1].progress || 100;
                     }
                     elem.progress = elem.score / highScore * 100;
                 }
@@ -85,15 +93,38 @@ var app;
                 else {
                     _this.leaderboard = response;
                 }
+                //if (this.leaderboardMyself) {
+                //    this.$timeout(() => {
+                //        this.$anchorScroll("user_" + this.$state.params["userId"]);
+                //    });
+                //}
             });
         };
+        //goToSelf() {
+        //    this.leaderboardPage = 0;
+        //    this.leaderboardMyself = !this.leaderboardMyself;
+        //    this.communityTab();
+        //}
+        //showBadge(badge) {
+        //    if (!badge) {
+        //        return;
+        //    }
+        //    const badgeIndex = this.badges.indexOf(badge);
+        //    this.badgeInfo = {
+        //        data: badge,
+        //        next: this.badges[badgeIndex + 1],
+        //        prev: this.badges[badgeIndex - 1]
+        //    };
+        //}
         Gamification.prototype.loadMoreLeaderboard = function () {
+            //if (!this.leaderboardMyself) {
             this.leaderboardPage++;
             return this.communityTab();
+            //}
         };
+        Gamification.$inject = ["$state", "$scope", "userService", "user"];
         return Gamification;
     }());
-    Gamification.$inject = ["$state", "$scope", "userService", "user"];
     angular.module("app.user").controller("gamification", Gamification);
 })(app || (app = {}));
 //# sourceMappingURL=gamification.controller.js.map

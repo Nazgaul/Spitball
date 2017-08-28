@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
@@ -35,9 +36,9 @@ var app;
             myform.$setUntouched();
             this.$scope["d"].createBoxOn = false;
         };
+        CreateBoxController.$inject = ['dashboardService', '$location', '$scope', '$rootScope', 'resManager', 'showToasterService'];
         return CreateBoxController;
     }());
-    CreateBoxController.$inject = ['dashboardService', '$location', '$scope', '$rootScope', 'resManager', 'showToasterService'];
     angular.module("app.dashboard").controller("CreateBoxController", CreateBoxController);
 })(app || (app = {}));
 //# sourceMappingURL=createBox.controller.js.map

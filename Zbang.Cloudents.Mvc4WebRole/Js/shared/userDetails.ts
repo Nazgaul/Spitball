@@ -1,6 +1,4 @@
-﻿/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
-/// <reference path="../../scripts/typings/angular-google-analytics/index.d.ts" />
-/// <reference path="ajaxservice2.ts" />
+﻿/// <reference path="ajaxservice2.ts" />
 // ReSharper disable once InconsistentNaming
 declare var __insp: any;
 //declare var googletag: any;
@@ -48,7 +46,7 @@ module app {
         private isLogedIn = false;
         private userData: IUserData;
         private serverCall = false;
-        private deferDetails = this.$q.defer();
+        private deferDetails = this.$q.defer<IUserData>();
 
         constructor(private $rootScope: angular.IRootScopeService, private $q: angular.IQService,
             private ajaxService: IAjaxService2,

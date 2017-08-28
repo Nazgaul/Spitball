@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
@@ -16,13 +17,14 @@ var app;
                 .position("top right")
                 .parent(element)
                 .hideDelay(2000);
+            // typedef doesnt have definition of toastClass
             toaster.toastClass("angular-animate");
             this.$mdToast.show(toaster);
         };
         ;
+        ShowToasterService.$inject = ['$document', '$mdToast'];
         return ShowToasterService;
     }());
-    ShowToasterService.$inject = ['$document', '$mdToast'];
     angular.module("app").service("showToasterService", ShowToasterService);
 })(app || (app = {}));
 //# sourceMappingURL=showToaster.service.js.map

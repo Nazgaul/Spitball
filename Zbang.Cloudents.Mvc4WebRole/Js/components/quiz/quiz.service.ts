@@ -88,8 +88,11 @@ module app {
                 id: quizId
             });
         }
-        like(id: number) {
-            return this.ajaxService.post("/quiz/like/", { id: id });
+        like(id: number): angular.IPromise<number> {
+            return this.ajaxService.post("/quiz/like/", { id: id }).then(p => {
+                return p as number;
+            });
+            //return this.ajaxService.post("/quiz/like/", { id: id });
         }
         likeDelete(id: Guid) {
             return this.ajaxService.delete("/quiz/like/", { id: id });

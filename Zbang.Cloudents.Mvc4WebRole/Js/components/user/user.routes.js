@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
@@ -10,6 +11,7 @@ var app;
                     {
                         state: "user",
                         config: {
+                            //abstract: true,
                             url: "/user/{userId:int}/{userName:encodeStr}/",
                             controller: "UserController as u",
                             resolve: {
@@ -25,6 +27,7 @@ var app;
                     {
                         state: 'user.badge',
                         config: {
+                            //?{type:level|badge|community}
                             url: 'badges/?{type:level|badge|community}',
                             controller: 'gamification as g',
                             parent: 'user',

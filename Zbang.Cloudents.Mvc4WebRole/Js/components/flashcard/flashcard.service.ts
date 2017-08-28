@@ -20,17 +20,17 @@
         constructor(private ajaxService2: IAjaxService2) {
         
         }
-        create(model, boxId: number) {
-            return this.ajaxService2.post("/flashcard/", { model: model, boxId: boxId }, "boxData");
+        create(model, boxId: number): angular.IPromise<number> {
+            return this.ajaxService2.post("/flashcard/", { model: model, boxId: boxId }, "boxData").then(r=> r as number);
         }
         get(id: number, boxId: number) {
             return this.ajaxService2.get("/flashcard/data/", { id: id, boxId:boxId});
         }
-        draft(id: number) {
-            return this.ajaxService2.get("/flashcard/draft/", { id: id });
+        draft(id: number): angular.IPromise<number> {
+            return this.ajaxService2.get("/flashcard/draft/", { id: id }).then(r => r as number);
         }
-        update(id: number, model, boxId: number) {
-            return this.ajaxService2.put("/flashcard/", { id: id, model: model, boxId: boxId });
+        update(id: number, model, boxId: number): angular.IPromise<number> {
+            return this.ajaxService2.put("/flashcard/", { id: id, model: model, boxId: boxId }).then(r => r as number);
         }
         deleteImage(id: number, image: string) {
             return this.ajaxService2.delete("/flashcard/image/", { id: id, image: image });
@@ -48,8 +48,8 @@
         pinDelete(id: number, index: number) {
             return this.ajaxService2.delete("/flashcard/pin/", { id: id, index: index });
         }
-        like(id: number) {
-            return this.ajaxService2.post("/flashcard/like/", { id: id });
+        like(id: number): angular.IPromise<number> {
+            return this.ajaxService2.post("/flashcard/like/", { id: id }).then(r => r as number);
         }
         likeDelete(id: Guid) {
             return this.ajaxService2.delete("/flashcard/unlike/", { id: id });

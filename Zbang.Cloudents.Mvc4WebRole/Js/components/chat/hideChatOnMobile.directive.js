@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     var HideChatOnMobile = (function () {

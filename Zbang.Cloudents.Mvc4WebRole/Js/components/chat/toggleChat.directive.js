@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
@@ -40,7 +41,8 @@ var app;
                 if (_this.$mdMedia("gt-sm")) {
                     return;
                 }
-                scope.$on("$stateChangeSuccess", function (event, toState) {
+                scope.$on("$stateChangeSuccess", function (event, toState
+                    /* toParams: ISpitballStateParamsService*/ ) {
                     if (toState.name === "classChoose") {
                         element.addClass(hide);
                     }

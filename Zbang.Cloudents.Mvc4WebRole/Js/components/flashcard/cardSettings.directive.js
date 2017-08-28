@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
@@ -13,12 +14,15 @@ var app;
                     $(".focused").removeClass("focused");
                     element.addClass("focused");
                     $(e.target).closest("card-form").addClass("focused");
+                    //element.closest("li").addClass("focused");
                 })
                     .on("focusout", function () {
+                    // :focus need some timeout since the first element is document
                     _this.$timeout(function () {
                         if ($(":focus").parents(".focused").length) {
                             return;
                         }
+                        //$(":checked").prop("checked", false);
                         $(".focused").removeClass("focused");
                     });
                 });

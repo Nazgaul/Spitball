@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
@@ -23,6 +24,9 @@ var app;
             this.departments = nodeData.nodes;
             this.boxes = nodeData.boxes || [];
             this.nodeDetail = nodeData.details;
+            //if (this.nodeDetail) {
+            //    this.nodeDetail.isPrivate = false;
+            //}
             this.buildState();
             this.university = {
                 name: universityData.name,
@@ -31,9 +35,10 @@ var app;
                 id: universityData.id
             };
             this.createClassShow = this.state.emptyNode || this.state.withBoxes && $mdMedia('gt-xs');
-            ;
+            ; // || l.state.emptyNodeAdmin;// l.departments.length === 0 && !l.topTree;
             this
                 .createDepartmentShowButton = !$stateParams["id"] || this.nodeDetail.state === "closed";
+            //this.state.emptyNode || !this.state.withBoxes && $mdMedia('gt-xs');
         }
         Library.prototype.goToSubLib = function (dep, $event) {
             var _this = this;
@@ -168,6 +173,7 @@ var app;
             this.libraryService.createClass(this.boxName, this.code, this.professor, this.$stateParams["id"]).then(function (response) {
                 _this.boxCancel();
                 _this.createClassShow = _this.secondStep = false;
+                //resetFiled(myform);
                 _this.showToasterService.showToaster(_this.resManager.get('toasterCreateCourse'));
                 _this.$location.url(response.url);
             }, function (response) {
@@ -239,11 +245,11 @@ var app;
                 _this.createClassShow = _this.departments.length === 0 && _this.$stateParams["id"] != null;
             });
         };
+        Library.$inject = ["$anchorScroll", "$stateParams", "nodeData",
+            "universityData", "itemThumbnailService", "$mdMedia", "$mdDialog", "resManager",
+            "libraryService", "showToasterService", "$location", "ajaxService2", "$timeout", "user", "$state"];
         return Library;
     }());
-    Library.$inject = ["$anchorScroll", "$stateParams", "nodeData",
-        "universityData", "itemThumbnailService", "$mdMedia", "$mdDialog", "resManager",
-        "libraryService", "showToasterService", "$location", "ajaxService2", "$timeout", "user", "$state"];
     angular.module("app.library").controller("Library", Library);
 })(app || (app = {}));
 //# sourceMappingURL=library.controller.js.map

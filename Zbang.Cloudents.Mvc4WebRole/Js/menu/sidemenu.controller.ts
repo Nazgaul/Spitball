@@ -1,15 +1,15 @@
-﻿/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
-/// <reference path="../shared/userDetails.ts" />
+﻿/// <reference path="../shared/userDetails.ts" />
 /// <reference path="../spitball.d.ts" />
 module app {
     'use strict';
 
     var loaded = false;
-    class SideMenu {
+    class SideMenu implements angular.IController {
         static $inject = ["user", "dashboardService", "$location", "$scope", "$mdSidenav","$state"];
 
         courses = [];
         privateBoxes = [];
+        //$onInit = () => { };
 
         constructor(private user: IUserData,
             private dashboardService: IDashboardService,
@@ -18,6 +18,8 @@ module app {
             private $mdSidenav: angular.material.ISidenavService,
             private $state: angular.ui.IStateService
         ) {
+            
+
             loaded = false; //loaded need to be initialize
             $scope.$on("close-menu", () => {
                 $mdSidenav("left").close();
@@ -125,7 +127,6 @@ module app {
             }
         }
 
-       
 
     }
 

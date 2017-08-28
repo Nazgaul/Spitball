@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
@@ -34,6 +35,7 @@ var app;
                             resolve: {
                                 flashcard: ['flashcardService', '$stateParams', function (flashcardService, $stateParams) { return flashcardService.get($stateParams["id"], $stateParams.boxId); }]
                             },
+                            //reloadOnSearch: false,
                             data: { animateClass: 'flashcardPage' },
                             views: {
                                 "menu@": {

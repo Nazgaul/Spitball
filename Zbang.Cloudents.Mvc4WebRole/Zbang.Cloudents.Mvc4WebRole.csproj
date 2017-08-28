@@ -2660,6 +2660,7 @@
     <Content Include="Views\Alex\_faq.cshtml" />
     <Content Include="Views\Alex\Terms.cshtml" />
     <Content Include="Views\Alex\Privacy.cshtml" />
+    <Content Include="tsconfig.json" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2668,21 +2669,6 @@
     </None>
     <TypeScriptCompile Include="Js\shared\versionChecker.ts" />
     <TypeScriptCompile Include="Js\spitball.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\angular-google-analytics\index.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\angular-material\index.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\angular-signalr-hub\index.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\angular-ui-router\index.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-cookies.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-mocks.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-resource.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-route.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-sanitize.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\angularjs\angular.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\cachefactory\index.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\modernizr\modernizr.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\plupload\plupload.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\signalr\signalr.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bower_components\plupload\src\moxie\" />

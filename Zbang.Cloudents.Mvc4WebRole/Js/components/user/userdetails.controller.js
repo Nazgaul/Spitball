@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     'use strict';
@@ -21,6 +22,7 @@ var app;
             e.target.href = e.target.href.replace(encodeURIComponent(url), encodeURIComponent(window.location.href));
         };
         UserDetailsController.prototype.logOut = function () {
+            // we want to remove the user data and not the html
             sessionStorage.clear();
             Intercom("shutdown");
         };
@@ -43,9 +45,9 @@ var app;
                 return '';
             return decodeURIComponent(results[2].replace(/\+/g, " "));
         };
+        UserDetailsController.$inject = ['accountService', '$scope', 'userDetailsFactory'];
         return UserDetailsController;
     }());
-    UserDetailsController.$inject = ['accountService', '$scope', 'userDetailsFactory'];
     angular.module('app.user.details').controller('UserDetailsController', UserDetailsController);
 })(app || (app = {}));
 //# sourceMappingURL=userdetails.controller.js.map

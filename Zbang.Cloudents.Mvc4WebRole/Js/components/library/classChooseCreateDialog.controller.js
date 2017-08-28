@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
@@ -14,6 +15,7 @@ var app;
                 this.departmentName = selectedDepartment.name;
             }
         }
+        //confirmStep = false;
         ClassChooseDialog.prototype.close = function () {
             this.$mdDialog.cancel();
         };
@@ -54,6 +56,7 @@ var app;
                     professor: createObj.professor,
                     items: 0,
                     members: 1,
+                    //selected: true,
                     department: _this.selectedDepartment.name,
                     departmentId: _this.selectedDepartment.id
                 };
@@ -66,6 +69,7 @@ var app;
                     nodeData: _this.nodeData,
                     box: box
                 });
+                //this.showCreateClass = false;
             }).catch(function (response) {
                 createBox["name"].$setValidity('server', false);
                 _this.create["error"] = response;
@@ -74,12 +78,12 @@ var app;
             });
         };
         ClassChooseDialog.prototype.queryDepartments = function (text) {
-            var result = this.$filter("filter")(this.nodeData, text);
+            var result = this.$filter("filter")(this.nodeData, text); //.map(m => { return { name: m.name, id: m.id } });
             return result;
         };
+        ClassChooseDialog.$inject = ["$mdDialog", "selectedDepartment", "$filter", "nodeData", "libraryService"];
         return ClassChooseDialog;
     }());
-    ClassChooseDialog.$inject = ["$mdDialog", "selectedDepartment", "$filter", "nodeData", "libraryService"];
     angular.module("app.library").controller("ClassChooseDialog", ClassChooseDialog);
 })(app || (app = {}));
 //# sourceMappingURL=classChooseCreateDialog.controller.js.map

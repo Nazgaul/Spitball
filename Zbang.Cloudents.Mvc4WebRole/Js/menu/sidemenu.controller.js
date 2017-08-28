@@ -1,8 +1,12 @@
+"use strict";
+/// <reference path="../shared/userDetails.ts" />
+/// <reference path="../spitball.d.ts" />
 var app;
 (function (app) {
     'use strict';
     var loaded = false;
     var SideMenu = (function () {
+        //$onInit = () => { };
         function SideMenu(user, dashboardService, $location, $scope, $mdSidenav, $state) {
             var _this = this;
             this.user = user;
@@ -17,9 +21,11 @@ var app;
             this.showBoxesNodes = true;
             this.coursesOpen = false;
             this.boxesOpen = false;
-            loaded = false;
+            loaded = false; //loaded need to be initialize
             $scope.$on("close-menu", function () {
                 $mdSidenav("left").close();
+                //$scope.app.menuOpened = false;
+                //self.menuOpened = !self.menuOpened;
             });
             $scope.$on("open-menu", function () {
                 $mdSidenav("left").toggle();
@@ -57,6 +63,7 @@ var app;
                     return;
                 }
                 if (!val) {
+                    //we don't know what is the status
                     _this.showBoxesNodes = true;
                 }
             });
@@ -112,9 +119,9 @@ var app;
                 arr.splice(index, 1);
             }
         };
+        SideMenu.$inject = ["user", "dashboardService", "$location", "$scope", "$mdSidenav", "$state"];
         return SideMenu;
     }());
-    SideMenu.$inject = ["user", "dashboardService", "$location", "$scope", "$mdSidenav", "$state"];
     angular.module("app").controller("SideMenu", SideMenu);
 })(app || (app = {}));
 //# sourceMappingURL=sidemenu.controller.js.map

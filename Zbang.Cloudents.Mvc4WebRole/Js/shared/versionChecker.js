@@ -1,7 +1,9 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
-    var timeInterval = 900000;
+    // clientVersion = window["version"],
+    var timeInterval = 900000; //fifteen minutes
     var VerionChecker = (function () {
         function VerionChecker($http, cacheFactory, $mdToast, resManager, $interval) {
             var _this = this;
@@ -12,6 +14,7 @@ var app;
             this.$interval = $interval;
             if (document.readyState === "complete") {
                 $interval(this.checkVersion, timeInterval);
+                //this.checkVersion();
             }
             else {
                 window.addEventListener("load", function () {

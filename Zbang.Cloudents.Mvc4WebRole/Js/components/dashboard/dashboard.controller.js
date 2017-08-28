@@ -1,8 +1,12 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
     var Dashboard = (function () {
-        function Dashboard(dashboardService, boxes, $scope, $mdDialog, boxService, $rootScope, resManager, ajaxService2) {
+        //showLeaderboard = true;
+        function Dashboard(dashboardService, 
+            // TODO
+            boxes, $scope, $mdDialog, boxService, $rootScope, resManager, ajaxService2) {
             var _this = this;
             this.dashboardService = dashboardService;
             this.boxes = boxes;
@@ -13,9 +17,21 @@ var app;
             this.resManager = resManager;
             this.ajaxService2 = ajaxService2;
             this.inviteOpen = false;
+            //this.boxes2 = boxes;
+            //dashboardService.recommended().then(response2 => {
+            //    for (let i = 0; i < response2.length; i++) {
+            //        const retVal = response2[i];
+            //        retVal.recommended = true;
+            //        retVal.updates = 0;
+            //    }
+            //    this.suggested = response2;
+            //});
             $scope.$on("close_invite", function () {
                 _this.inviteOpen = false;
             });
+            //$scope.$on('hide-leader-board', () => {
+            //    this.showLeaderboard = false;
+            //});
         }
         Dashboard.prototype.inviteExpand = function () {
             var _this = this;
@@ -40,8 +56,16 @@ var app;
                 this.createBoxOn = false;
             }
         };
+        //d.showLeaderboard = true;
+        //$uiViewScroll($('.dashboard-stat2:last'));
+        //$scope.math = Math;
+        //function openCreate() {
+        //    d.createBoxOn = true;
+        //    //d.createBoxFocus = true;
+        //}
         Dashboard.prototype.deleteBox = function (ev, box) {
             var _this = this;
+            //boxType //userType
             var confirm = this.$mdDialog.confirm()
                 .title(this.resManager.get('unfollowClass'))
                 .targetEvent(ev)
@@ -55,10 +79,10 @@ var app;
                 });
             });
         };
+        Dashboard.$inject = ["dashboardService", "boxes", "$scope", "$mdDialog", "boxService",
+            "$rootScope", "resManager", "ajaxService2"];
         return Dashboard;
     }());
-    Dashboard.$inject = ["dashboardService", "boxes", "$scope", "$mdDialog", "boxService",
-        "$rootScope", "resManager", "ajaxService2"];
     angular.module("app.dashboard").controller("Dashboard", Dashboard);
 })(app || (app = {}));
 //# sourceMappingURL=dashboard.controller.js.map

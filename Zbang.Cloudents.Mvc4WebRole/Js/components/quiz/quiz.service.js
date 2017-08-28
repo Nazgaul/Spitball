@@ -1,3 +1,5 @@
+"use strict";
+/// <reference path="quizCreate2.controller.ts" />
 var app;
 (function (app) {
     "use strict";
@@ -66,14 +68,17 @@ var app;
             });
         };
         QuizService.prototype.like = function (id) {
-            return this.ajaxService.post("/quiz/like/", { id: id });
+            return this.ajaxService.post("/quiz/like/", { id: id }).then(function (p) {
+                return p;
+            });
+            //return this.ajaxService.post("/quiz/like/", { id: id });
         };
         QuizService.prototype.likeDelete = function (id) {
             return this.ajaxService.delete("/quiz/like/", { id: id });
         };
+        QuizService.$inject = ["ajaxService2"];
         return QuizService;
     }());
-    QuizService.$inject = ["ajaxService2"];
     angular.module("app.quiz").service('quizService', QuizService);
 })(app || (app = {}));
 //# sourceMappingURL=quiz.service.js.map

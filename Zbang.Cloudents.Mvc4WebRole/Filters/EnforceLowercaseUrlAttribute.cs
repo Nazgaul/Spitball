@@ -21,7 +21,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                                     || filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(NoUrlLowercaseAttribute), inherit: true);
             if (skipLowercase) return;
 
-
             var request = filterContext.HttpContext.Request;
             if (request.Url == null) return;
             var path = System.Web.HttpUtility.UrlDecode(request.Url.AbsolutePath);

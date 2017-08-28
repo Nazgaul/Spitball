@@ -1,7 +1,4 @@
-﻿/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
-
-
-declare var version: any;
+﻿declare var version: any;
 
 module app {
     "use strict";

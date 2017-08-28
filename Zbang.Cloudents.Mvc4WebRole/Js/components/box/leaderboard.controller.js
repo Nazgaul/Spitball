@@ -1,7 +1,9 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
     var Leaderboard = (function () {
+        //leaderboardMyself = true;
         function Leaderboard(boxService, $stateParams, $mdDialog, userDetailsFactory, $scope) {
             var _this = this;
             this.boxService = boxService;
@@ -42,9 +44,9 @@ var app;
         Leaderboard.prototype.close = function () {
             this.$mdDialog.hide();
         };
+        Leaderboard.$inject = ["boxService", "$stateParams", "$mdDialog", "userDetailsFactory", "$scope"];
         return Leaderboard;
     }());
-    Leaderboard.$inject = ["boxService", "$stateParams", "$mdDialog", "userDetailsFactory", "$scope"];
     angular.module("app.box").controller("BoxLeaderboard", Leaderboard);
 })(app || (app = {}));
 //# sourceMappingURL=leaderboard.controller.js.map

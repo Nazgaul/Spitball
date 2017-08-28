@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
@@ -22,9 +23,9 @@ var app;
                 }
             });
         };
+        Feed.$inject = ["profileData", "userService"];
         return Feed;
     }());
-    Feed.$inject = ["profileData", "userService"];
     angular.module("app.user").controller("feed", Feed);
 })(app || (app = {}));
 //# sourceMappingURL=posts.controller.js.map

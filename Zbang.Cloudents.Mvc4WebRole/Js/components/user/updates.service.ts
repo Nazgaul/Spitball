@@ -88,7 +88,7 @@
 
 
         updatesNum(boxid: number): angular.IPromise<number> {
-            var q = this.$q.defer();
+            var q = this.$q.defer<number>();
 
             this.boxUpdates(boxid).then(() => {
                 q.resolve(this.allUpdates[boxid] ? Object.keys(this.allUpdates[boxid]).length : 0);

@@ -1,6 +1,12 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
+    // enum TabState {
+    //    Doc = 1,
+    //    Course = 2,
+    //    Quiz = 3
+    // }
     var stateName = "searchinfo";
     var tabs = ["doc", "course", "quiz", "flashcard"];
     var page = 0, needToBringMore = true;
@@ -44,6 +50,7 @@ var app;
             });
         };
         SearchController.prototype.changeTab = function (tab) {
+            // self.tab = tab;
             if (tabs.indexOf(tab) === -1) {
                 return;
             }
@@ -165,10 +172,10 @@ var app;
                 page++;
             });
         };
+        SearchController.$inject = ["$scope", "dashboardService", "$location",
+            "$state", "$stateParams", "Analytics", "searchService", "itemThumbnailService", "$q"];
         return SearchController;
     }());
-    SearchController.$inject = ["$scope", "dashboardService", "$location",
-        "$state", "$stateParams", "Analytics", "searchService", "itemThumbnailService", "$q"];
     angular.module("app.search").controller("SearchController", SearchController);
 })(app || (app = {}));
 //# sourceMappingURL=search.controller.js.map

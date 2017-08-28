@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
@@ -56,4 +57,4 @@ var app;
         .module("app.flashcard")
         .directive("myHide", CardSlideAnimation.factory());
 })(app || (app = {}));
-//# sourceMappingURL=cardAnimation.directive.js.map
+//# sourceMappingURL=CardAnimation.directive.js.map

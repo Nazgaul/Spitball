@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Zbang.Zbox.Infrastructure.Mail;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Cloudents.MobileApp.Filters
 {
@@ -13,7 +14,7 @@ namespace Zbang.Cloudents.MobileApp.Filters
 
        public EmailVerifyAttribute()
         {
-            m_EmailVerification = new EmailVerification();
+            m_EmailVerification = new EmailVerification(new Logger());
         }
         
         public override bool IsValid(object value)

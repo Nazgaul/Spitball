@@ -1,8 +1,10 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
     var LeaderBoard = (function () {
-        function LeaderBoard(dashboardService, $filter, $mdDialog) {
+        function LeaderBoard(dashboardService, $filter, //meganumber is need defined
+            $mdDialog) {
             var _this = this;
             this.dashboardService = dashboardService;
             this.$filter = $filter;
@@ -13,8 +15,10 @@ var app;
             this.hideBox = false;
             dashboardService.leaderboard().then(function (response) {
                 if (response.type === 1) {
+                    //this.hidePromo = true;
                     if (response.model.length < 3) {
                         _this.hideBox = true;
+                        //this.hideLeaderBoard = true;
                     }
                     _this.hideLeaderBoard = false;
                     for (var i = 0; i < response.model.length; i++) {
@@ -23,6 +27,7 @@ var app;
                     _this.leaderboard = response.model;
                 }
                 else {
+                    //this.hideLeaderBoard = true;
                     _this.flashcardPromo = response.model || {};
                     _this.flashcardPromo.count = _this.flashcardPromo.count || 0;
                     _this.dashboardService.getUniversityMeta()
@@ -33,6 +38,7 @@ var app;
                         _this.university = response2.name;
                     });
                 }
+                //                this.hideBox = this.hideLeaderBoard && this.hidePromo;
             });
         }
         LeaderBoard.prototype.details = function (ev) {
@@ -47,7 +53,9 @@ var app;
                 },
                 controller: "DialogPromo",
                 controllerAs: "dp",
-                fullscreen: false
+                //controller: ["color1","color2",function(color1, color2) {
+                //}],
+                fullscreen: false // Only for -xs, -sm breakpoints.
             });
         };
         LeaderBoard.$inject = ["dashboardService", "$filter", "$mdDialog"];
@@ -72,3 +80,4 @@ var app;
     angular.module("app.dashboard").controller("DialogPromo", DialogController);
     angular.module("app.dashboard").controller("DashboardLeaderboard", LeaderBoard);
 })(app || (app = {}));
+//# sourceMappingURL=leaderboard.controller.js.map

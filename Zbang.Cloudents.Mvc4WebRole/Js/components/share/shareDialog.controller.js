@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
@@ -19,6 +20,7 @@ var app;
                     this.socialAction = 'share';
             }
             this.socialAction = this.what == 'f' ? 'share-flashcard' : 'share-box';
+            //angularjs dont have origin in $location
             this.url = location.origin + "/" + data.what + "/" + encodeBase64(data.id);
             this.whatappLink = "whatsapp://send?text=" + encodeURIComponent(this.url);
             function encodeBase64(integer) {
@@ -45,18 +47,21 @@ var app;
         };
         ShareDialog.prototype.whatsapp = function () {
             this.analytics["send"]('social', "whatsApp", this.socialAction, this.url);
+            //ga('send', 'social', "whatsApp", "share", this.url);
+            //this.$window.open("whatsapp://send?text=" + this.url, "pop", "width=600, height=400, scrollbars=no");
         };
         ShareDialog.prototype.twitter = function () {
             this.analytics["send"]('social', "twitter", this.socialAction, this.url);
+            //ga('send', 'social', "twitter", "share", this.url);
             var shareTwiiter = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(this.url);
             this.$window.open(shareTwiiter, "pop", "width=600, height=400, scrollbars=no");
         };
         ShareDialog.prototype.onSuccess = function () {
             this.analytics["send"]('social', "copied-link", this.socialAction, this.url);
         };
+        ShareDialog.$inject = ["$mdDialog", "data", "$window", "Analytics"];
         return ShareDialog;
     }());
-    ShareDialog.$inject = ["$mdDialog", "data", "$window", "Analytics"];
     angular.module("app").controller("ShareDialog", ShareDialog);
 })(app || (app = {}));
 //# sourceMappingURL=shareDialog.controller.js.map

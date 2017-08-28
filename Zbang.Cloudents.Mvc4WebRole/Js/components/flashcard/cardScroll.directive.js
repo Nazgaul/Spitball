@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
@@ -20,6 +21,7 @@ var app;
                 $(element)
                     .on("touchmove", function (ev) {
                     if (ev.target.scrollHeight > ev.target.clientHeight) {
+                        // if the element has scroll on it.
                         return;
                     }
                     ev.preventDefault();
@@ -32,6 +34,7 @@ var app;
                     var cordY = getCoord(ev);
                     var directionDown = startY > cordY;
                     if (Math.abs(startY - cordY) < 20) {
+                        // click was made
                         return;
                     }
                     var target = ev.target, jTarget = $(target);
@@ -42,6 +45,10 @@ var app;
                         if (!directionDown && jTarget.scrollTop() > 0) {
                             return;
                         }
+                        //if (jTarget.scrollTop() + jTarget.innerHeight() < jTarget[0].scrollHeight) {
+                        //    // be able to scroll to the end of the element
+                        //    return;
+                        //} 
                     }
                     _this.$anchorScroll.yOffset = 150;
                     ev.preventDefault();
@@ -52,7 +59,9 @@ var app;
                         ctrl.prev();
                     }
                     scope.$apply();
+                    //this.$timeout(() => {
                     _this.$anchorScroll("card" + ctrl.slidepos);
+                    //},1000);
                 });
                 scope.$on("$destroy", function () {
                     $(window).unbind("touchstart touchend touchmove");

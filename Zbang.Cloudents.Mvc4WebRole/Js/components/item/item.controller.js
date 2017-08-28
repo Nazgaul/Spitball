@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
@@ -28,7 +29,7 @@ var app;
             this.preview = "";
             this.selectedState = State.Regular;
             this.loader = false;
-            this.showRawText = false;
+            this.showRawText = false; // for ui purpose
             this.view = "preview-svg.html";
             this.documents = [];
             this.details = itemData;
@@ -71,9 +72,11 @@ var app;
                         || preview.indexOf('audio') > 0
                         || preview.indexOf('video') > 0
                         || preview.indexOf('<a') >= 0) {
+                        //self.document.push(self.$sce.trustAsHtml(preview));
                         self.preview = self.$sce.trustAsHtml(preview);
                     }
                     else {
+                        // TODO: check why
                         self.view = "preview-" + preview.toLowerCase() + ".html";
                         self.documents = self.documents.concat(data.content);
                         if (data.content.length > 15) {
@@ -140,16 +143,17 @@ var app;
                 controller: "likeToasterDialog as lt",
                 templateUrl: "likeToasterTemplate.html",
                 toastClass: 'angular-animate'
+                //parent: element
             }).then(function (res) {
                 if (res) {
                     _this.itemService.like(_this.$stateParams.itemId, _this.$stateParams.boxId);
                 }
             });
         };
+        Item.$inject = ["itemData", "$state", "$stateParams", "$timeout",
+            "itemService", "$mdToast", "$sce", "$location", "user", "showToasterService", "resManager", "$scope"];
         return Item;
     }());
-    Item.$inject = ["itemData", "$state", "$stateParams", "$timeout",
-        "itemService", "$mdToast", "$sce", "$location", "user", "showToasterService", "resManager", "$scope"];
     angular.module('app.item').controller('ItemController', Item);
 })(app || (app = {}));
 //# sourceMappingURL=item.controller.js.map

@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     'use strict';
@@ -25,6 +26,7 @@ var app;
             this.items = [];
             this.uploadShow = true;
             this.buildItem = function (value) {
+                //in search we bring url
                 value.url = value.url || _this.$state.href("item", {
                     universityType: _this.$stateParams["universityType"],
                     boxId: _this.$stateParams["boxId"],
@@ -85,11 +87,12 @@ var app;
                     if (!response) {
                         return;
                     }
+                    // ReSharper disable once CoercedEqualsUsing
                     if (response.boxId !== $stateParams.boxId) {
                         return;
                     }
                     if (response.item.tabId !== $stateParams["tabId"]) {
-                        return;
+                        return; //not the same tab
                     }
                     self.followBox();
                     var item = response.item;
@@ -110,7 +113,7 @@ var app;
                 return [$state.params["tabId"], $state.params["q"]];
             }, function (newParams, oldParams) {
                 if ($state.current.name !== "box.items") {
-                    return;
+                    return; //happen upon link
                 }
                 if (newParams[0] !== oldParams[0]) {
                     if ($stateParams["tabId"] && $stateParams["q"]) {
@@ -209,6 +212,7 @@ var app;
             }
             this.$state.go('box.items', { tabId: null, q: this.term });
         };
+        //upload
         ItemsController.prototype.getFilter = function () {
             var _this = this;
             this.term = this.$stateParams["q"];
@@ -226,11 +230,11 @@ var app;
                 });
             }
         };
+        ItemsController.$inject = ['boxService', '$stateParams', '$rootScope',
+            'itemThumbnailService', '$mdDialog',
+            '$scope', 'user', '$q', 'resManager', '$state', "$window", "$timeout"];
         return ItemsController;
     }());
-    ItemsController.$inject = ['boxService', '$stateParams', '$rootScope',
-        'itemThumbnailService', '$mdDialog',
-        '$scope', 'user', '$q', 'resManager', '$state', "$window", "$timeout"];
     angular.module('app.box.items').controller('ItemsController', ItemsController);
 })(app || (app = {}));
 //# sourceMappingURL=item.controller.js.map

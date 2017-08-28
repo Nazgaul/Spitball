@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
@@ -15,6 +16,7 @@ var app;
             this.$scope = $scope;
             this.$anchorScroll = $anchorScroll;
             this.selectedCoursesView = [];
+            //limit = 0;
             this.data = [];
             this.selectedCourses = [];
             this.classSearch();
@@ -38,6 +40,7 @@ var app;
                     var _loop_1 = function (i) {
                         var box = v.boxes[i];
                         if (ids.indexOf(box.id) !== -1) {
+                            //box["selected"] = true;
                             v.boxes.splice(i, 1);
                             var course = _this.selectedCourses.find(function (f) { return f.id === box.id; });
                             course.department = v.name;
@@ -58,7 +61,9 @@ var app;
                 this.data = this.nodeData;
                 return;
             }
+            // we manipulate the boxes inorder to remove them
             var boxes = this.$filter("filter")(angular.copy(this.nodeData), function (value) {
+                //value.boxes = this.$filter("filter")(value.boxes, this.term);
                 value.boxes = _this.$filter("filter")(value.boxes, (function (v1) {
                     var lower = _this.term.toLowerCase();
                     if (v1.name.toLowerCase().indexOf(lower) !== -1) {
@@ -78,7 +83,7 @@ var app;
             });
             var department = this.$filter("filter")(this.nodeData, { name: this.term });
             this.data = this.makeUnique(department.concat(boxes));
-            this.$anchorScroll();
+            this.$anchorScroll(); //scroll to the top
         };
         ClassChoose.prototype.makeUnique = function (array) {
             var flags = [];
@@ -104,9 +109,9 @@ var app;
                 disableParentScroll: true,
                 locals: {
                     course: course,
-                    courses: this.selectedCourses
+                    courses: this.selectedCourses //this.selectedCoursesView
                 },
-                fullscreen: false
+                fullscreen: false // Only for -xs, -sm breakpoints.
             }).then(function (response) {
                 _this.selectedCoursesView = _this.selectedCourses.slice();
                 var department = _this.nodeData.find(function (f) { return f.id === response.departmentId; });
@@ -127,6 +132,8 @@ var app;
                     name: response.name,
                     professor: response.professor
                 });
+                //var box = department.boxes.find(f => f.id === response.id);
+                //box["selected"] = false;
             });
         };
         ClassChoose.prototype.choose = function (course, department) {
@@ -136,6 +143,7 @@ var app;
             if (!department.boxes.length) {
                 this.nodeData.splice(this.nodeData.indexOf(department), 1);
             }
+            //course["selected"] = true;
             var pushOne = angular.extend({}, course, {
                 department: department.name,
                 departmentId: department.id
@@ -148,6 +156,7 @@ var app;
                 this.selectedCoursesView.push(box);
             }
         };
+        //departmentName: string;
         ClassChoose.prototype.goCreateClass = function (ev, department) {
             var _this = this;
             this.$mdDialog.show({
@@ -159,8 +168,11 @@ var app;
                 locals: {
                     selectedDepartment: department,
                     nodeData: this.nodeData
+                    //    courses: this.selectedCourses
                 },
                 disableParentScroll: true
+                //scope: this.$scope,
+                //fullscreen: true // Only for -xs, -sm breakpoints.
             }).then(function (response) {
                 _this.nodeData = response.nodeData;
                 _this.selectedCourses.push(response.box);
@@ -177,10 +189,10 @@ var app;
                     .ok(_this.resManager.get('dialogOk')));
             });
         };
+        ClassChoose.$inject = ["searchService", "libraryService", "$mdDialog", "$filter",
+            "nodeData", "boxService", "boxes", "resManager", "$scope", "$anchorScroll"];
         return ClassChoose;
     }());
-    ClassChoose.$inject = ["searchService", "libraryService", "$mdDialog", "$filter",
-        "nodeData", "boxService", "boxes", "resManager", "$scope", "$anchorScroll"];
     angular.module("app.library").controller("ClassChoose", ClassChoose);
 })(app || (app = {}));
 //# sourceMappingURL=classChoose.controller.js.map

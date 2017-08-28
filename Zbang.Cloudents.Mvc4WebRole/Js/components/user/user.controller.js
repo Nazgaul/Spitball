@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     'use strict';
@@ -46,11 +47,11 @@ var app;
                 });
             }
         };
+        User.$inject = [
+            "user", "profileData", "$state", "$mdMedia", "$rootScope"
+        ];
         return User;
     }());
-    User.$inject = [
-        "user", "profileData", "$state", "$mdMedia", "$rootScope"
-    ];
     angular.module('app.user').controller('UserController', User);
 })(app || (app = {}));
 //# sourceMappingURL=user.controller.js.map

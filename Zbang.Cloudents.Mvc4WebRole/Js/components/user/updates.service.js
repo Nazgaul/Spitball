@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
@@ -15,13 +16,24 @@ var app;
             userDetailsFactory.init()
                 .then(function (userData) {
                 if (userData.id)
+                    //if (userData.university.id) {
                     _this.getUpdates();
+                //} else {
+                //need to resolve this
+                // this.deferred.resolve();
+                //}
             });
             $rootScope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams) {
                 if (fromState.parent === "box") {
                     _this.deleteUpdates(fromParams.boxId);
                 }
             });
+            //$window.onbeforeunload = () => {
+            //    var boxId = $stateParams.boxId;
+            //    if (boxId) {
+            //        this.deleteFromServer(boxId);
+            //    }
+            //};
         }
         UserUpdatesService.prototype.getUpdates = function () {
             var _this = this;
@@ -78,9 +90,9 @@ var app;
             });
             return q.promise;
         };
+        UserUpdatesService.$inject = ["ajaxService2", "$q", "userDetailsFactory", "$rootScope", "$window", "$stateParams"];
         return UserUpdatesService;
     }());
-    UserUpdatesService.$inject = ["ajaxService2", "$q", "userDetailsFactory", "$rootScope", "$window", "$stateParams"];
     angular.module('app.user').service('userUpdatesService', UserUpdatesService);
 })(app || (app = {}));
 //# sourceMappingURL=updates.service.js.map

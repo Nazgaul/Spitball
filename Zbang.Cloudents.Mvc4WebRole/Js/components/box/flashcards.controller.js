@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
@@ -30,6 +31,7 @@ var app;
             });
             this.flashcards = flashcards;
             this.$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState) {
+                //need indication that he actually created one
                 if (fromState.name === "flashcardCreate" && toParams["newId"]) {
                     var flashcard = _this.flashcards.find(function (f) { return f.ownerId === user.id && toParams["newId"] === f.id; });
                     if (flashcard && flashcard.publish) {
@@ -54,10 +56,10 @@ var app;
         Flashcards.prototype.canEdit = function (flashcard) {
             return this.user.id === flashcard.ownerId && flashcard.publish;
         };
+        Flashcards.$inject = ["$stateParams", "flashcards", "$state",
+            "$mdDialog", "resManager", "flashcardService", "user", "shareService", "$scope"];
         return Flashcards;
     }());
-    Flashcards.$inject = ["$stateParams", "flashcards", "$state",
-        "$mdDialog", "resManager", "flashcardService", "user", "shareService", "$scope"];
     angular.module('app.box.flashcards').controller('FlashcardsController', Flashcards);
 })(app || (app = {}));
 //# sourceMappingURL=flashcards.controller.js.map

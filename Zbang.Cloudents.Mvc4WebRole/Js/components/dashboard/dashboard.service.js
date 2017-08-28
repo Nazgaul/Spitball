@@ -1,6 +1,8 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
+    //var defer: angular.IDeferred<any>, serverCall = false;
     var Dashboard = (function () {
         function Dashboard($q, ajaxService2, realtimeFactotry, userUpdatesService, $rootScope) {
             var _this = this;
@@ -41,6 +43,7 @@ var app;
         Dashboard.prototype.getBoxes = function () {
             var _this = this;
             if (this.boxes) {
+                //defer.resolve(this.boxes);
                 return this.$q.when(this.boxes);
             }
             if (!this.serverCall) {
@@ -77,6 +80,7 @@ var app;
                 });
             }
             return this.deferUniversityMeta.promise;
+            //return this.ajaxService2.get('dashboard/university', { universityId: universityId }, 'university');
         };
         ;
         Dashboard.prototype.createPrivateBox = function (boxName) {
@@ -90,9 +94,9 @@ var app;
         Dashboard.prototype.recommended = function () {
             return this.ajaxService2.get("/dashboard/recommendedcourses/");
         };
+        Dashboard.$inject = ["$q", "ajaxService2", "realtimeFactory", "userUpdatesService", "$rootScope"];
         return Dashboard;
     }());
-    Dashboard.$inject = ["$q", "ajaxService2", "realtimeFactory", "userUpdatesService", "$rootScope"];
     angular.module("app.dashboard").service("dashboardService", Dashboard);
 })(app || (app = {}));
 //# sourceMappingURL=dashboard.service.js.map

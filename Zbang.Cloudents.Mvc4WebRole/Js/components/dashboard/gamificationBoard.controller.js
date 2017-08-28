@@ -1,6 +1,9 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
+    //var scoreToReach = 0;
+    //var badgesToReach = 0;
     var GamificationBoard = (function () {
         function GamificationBoard(userService, $interval, userDetailsFactory, $scope) {
             var _this = this;
@@ -9,6 +12,8 @@ var app;
             this.userDetailsFactory = userDetailsFactory;
             this.$scope = $scope;
             var user = userDetailsFactory.get();
+            //this.data = {};
+            //this.data.progress = 0;
             this.userService.gamificationBoard()
                 .then(function (response) {
                 _this.badges = response.badgeCount;
@@ -36,9 +41,9 @@ var app;
                 $scope.$apply();
             });
         }
+        GamificationBoard.$inject = ["userService", "$interval", "userDetailsFactory", "$scope"];
         return GamificationBoard;
     }());
-    GamificationBoard.$inject = ["userService", "$interval", "userDetailsFactory", "$scope"];
     angular.module("app.dashboard").controller("gamificationBoard", GamificationBoard);
 })(app || (app = {}));
 //# sourceMappingURL=gamificationBoard.controller.js.map

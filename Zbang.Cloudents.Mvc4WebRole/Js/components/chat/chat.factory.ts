@@ -32,7 +32,8 @@
         }
 
         messages(q: string, page: number): angular.IPromise<Array<any>> {
-            return this.ajaxService.get("/chat/conversation", { q: q, page: page });
+            
+            return this.ajaxService.get("/chat/conversation", { q: q, page: page }).then(r => r as Array<any>);;
         }
         chat(id: string, userIds: Array<number>, dateTime: Date, top: number): angular.IPromise<Array<any>> {
             return this.ajaxService.get("/chat/messages", {
@@ -40,13 +41,13 @@
                 userIds: userIds,
                 startTime: dateTime,
                 top: top
-            });
+            }).then(r => r as Array<any>);
         }
         preview(blob: string, i: number): angular.IPromise<Array<any>> {
             return this.ajaxService.get("/chat/Preview", {
                 blobName: blob,
                 index: i
-            });
+            }).then(r => r as Array<any>);;
         }
         read(id: string): angular.IPromise<any> {
             return this.ajaxService.post("chat/markread", {

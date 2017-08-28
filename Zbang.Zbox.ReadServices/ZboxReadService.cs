@@ -32,7 +32,6 @@ namespace Zbang.Zbox.ReadServices
 {
     public class ZboxReadService : BaseReadService, IZboxReadService, IUniversityWithCode
     {
-
         public async Task<HomePageDataDto> GetHomePageDataAsync(GetHomePageQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
@@ -52,7 +51,6 @@ namespace Zbang.Zbox.ReadServices
                     if (grid.IsConsumed) return retVal;
                     retVal.HomePageUniversityData = await grid.ReadFirstAsync<HomePageUniversityData>().ConfigureAwait(false);
                     return retVal;
-
                 }
             }
         }
@@ -64,7 +62,6 @@ namespace Zbang.Zbox.ReadServices
                 return conn.QuerySingleOrDefault<long?>("select id from zbox.university where url=@url", new { url });
             }
         }
-
 
         public async Task<string> GetUniversitySynonymAsync(long id)
         {
@@ -89,9 +86,8 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                var fieldInfo = typeof(Sql.Sql).GetFields(BindingFlags.Public | BindingFlags.Static |
-                                            BindingFlags.FlattenHierarchy)
-                                            .FirstOrDefault(fi => fi.IsLiteral && !fi.IsInitOnly && fi.Name == "GetCoursesPageBoxes_" + Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToLower());
+                var fieldInfo = Array.Find(typeof(Sql.Sql).GetFields(BindingFlags.Public | BindingFlags.Static
+                                            | BindingFlags.FlattenHierarchy), fi => fi.IsLiteral && !fi.IsInitOnly && fi.Name == "GetCoursesPageBoxes_" + Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToLower());
 
                 var coursesQuery = Sql.Sql.GetCoursesPageBoxes_en;
                 if (fieldInfo != null)
@@ -100,7 +96,6 @@ namespace Zbang.Zbox.ReadServices
                 }
                 return await conn.QueryAsync<Box.RecommendBoxDto>(coursesQuery).ConfigureAwait(false);
             }
-
         }
 
         /// <summary>
@@ -115,10 +110,7 @@ namespace Zbang.Zbox.ReadServices
                 return await conn.QueryAsync<BoxDto>(Sql.Dashboard.UserBoxes,
                     query).ConfigureAwait(false);
             }
-
         }
-
-
 
         /// <summary>
         /// used in dashboard to get user lib in top left
@@ -127,10 +119,10 @@ namespace Zbang.Zbox.ReadServices
         /// <returns></returns>
         public async Task<UniversityDashboardInfoDto> GetUniversityInfoAsync(UniversityQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 var retVal = await conn.QueryFirstAsync<UniversityDashboardInfoDto>(Sql.Sql.UniversityInfo,
-                    query);
+                    query).ConfigureAwait(false);
                 return retVal;
             }
         }
@@ -142,7 +134,7 @@ namespace Zbang.Zbox.ReadServices
         /// <returns></returns>
         public async Task<NodeBoxesDto> GetLibraryNodeAsync(GetLibraryNodeQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 var sql = query.ParentNode.HasValue ?
                     Sql.Library.GetLibraryNodeWithParent +
@@ -154,20 +146,20 @@ namespace Zbang.Zbox.ReadServices
                     query.UniversityId,
                     query.UserId,
                     LibraryId = query.ParentNode
-                }))
+                }).ConfigureAwait(false))
                 {
                     var retVal = new NodeBoxesDto
                     {
-                        Nodes = await grid.ReadAsync<NodeDto>()
+                        Nodes = await grid.ReadAsync<NodeDto>().ConfigureAwait(false)
                     };
 
                     if (grid.IsConsumed) return retVal;
-                    retVal.Boxes = await grid.ReadAsync<BoxDto>();
-                    retVal.Details = await grid.ReadFirstAsync<NodeDetails>();
+                    retVal.Boxes = await grid.ReadAsync<BoxDto>().ConfigureAwait(false);
+                    retVal.Details = await grid.ReadFirstAsync<NodeDetails>().ConfigureAwait(false);
                     if (retVal.Details.State == LibraryNodeSetting.Closed)
                     {
-                        if (retVal.Details.UserType == UserLibraryRelationType.Pending ||
-                            retVal.Details.UserType == UserLibraryRelationType.None)
+                        if (retVal.Details.UserType == UserLibraryRelationType.Pending
+                            || retVal.Details.UserType == UserLibraryRelationType.None)
                         {
                             throw new UnauthorizedAccessException();
                         }
@@ -175,16 +167,14 @@ namespace Zbang.Zbox.ReadServices
                     return retVal;
                 }
             }
-
         }
 
         public async Task<IEnumerable<ClosedNodeDto>> GetUserClosedDepartmentAsync(QueryBase query)
         {
-
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 var retVal =
-                    await conn.QueryAsync<ClosedNodeDto>(Sql.Library.GetClosedLibraryByUser, query);
+                    await conn.QueryAsync<ClosedNodeDto>(Sql.Library.GetClosedLibraryByUser, query).ConfigureAwait(false);
 
                 return retVal;
             }
@@ -192,11 +182,11 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<IEnumerable<ClosedNodeUsersDto>> GetMembersClosedDepartmentAsync(GetClosedNodeMembersQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 var retVal =
                    await conn.QueryAsync<ClosedNodeUsersDto>(Sql.Library.GetClosedLibraryUsers,
-                   query);
+                   query).ConfigureAwait(false);
 
                 return retVal;
             }
@@ -204,9 +194,9 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<Box.BoxDto2> GetBox2Async(GetBoxQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                var retVal = await conn.QueryFirstOrDefaultAsync<Box.BoxDto2>(Sql.Box.BoxData, query);
+                var retVal = await conn.QueryFirstOrDefaultAsync<Box.BoxDto2>(Sql.Box.BoxData, query).ConfigureAwait(false);
                 var box = retVal;
                 if (box == null)
                 {
@@ -216,39 +206,33 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-
         public async Task<Box.BoxDtoWithMembers> GetBoxMetaWithMembersAsync(GetBoxQuery query, int numberOfMembers)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-
                 using (var grid = await conn.QueryMultipleAsync(
                     $"{Sql.Box.BoxData} {Sql.Box.BoxMembersWithoutInvited}", new
                     {
                         query.BoxId,
                         top = numberOfMembers
-                    }))
+                    }).ConfigureAwait(false))
                 {
-                    var box = await grid.ReadFirstOrDefaultAsync<Box.BoxDtoWithMembers>();
+                    var box = await grid.ReadFirstOrDefaultAsync<Box.BoxDtoWithMembers>().ConfigureAwait(false);
                     if (box == null)
                     {
                         throw new BoxDoesntExistException();
                     }
-                    box.People = await grid.ReadAsync<User.UserWithImageDto>();
+                    box.People = await grid.ReadAsync<User.UserWithImageDto>().ConfigureAwait(false);
                     return box;
                 }
-
             }
         }
 
-
-
         public async Task<IEnumerable<TabDto>> GetBoxTabsAsync(GetBoxQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                return await conn.QueryAsync<TabDto>(Sql.Box.BoxTabs, query);
-
+                return await conn.QueryAsync<TabDto>(Sql.Box.BoxTabs, query).ConfigureAwait(false);
             }
         }
 
@@ -260,18 +244,17 @@ namespace Zbang.Zbox.ReadServices
         /// <returns></returns>
         public async Task<NotificationSetting> GetUserBoxNotificationSettingsAsync(GetBoxQuery query, long userId)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 const string getBoxNotification =
-                    "select NotificationSettings from zbox.UserBoxRel where userid = @UserId and boxid = @BoxId";
+                    "select NotificationSettings from zbox.UserBoxRel where userId = @UserId and boxId = @BoxId";
                 var val = await conn.QueryFirstOrDefaultAsync<NotificationSetting>(getBoxNotification, new
                 {
                     UserId = userId,
                     query.BoxId
-                });
+                }).ConfigureAwait(false);
                 return val;
             }
-
         }
 
         /// <summary>
@@ -281,7 +264,7 @@ namespace Zbang.Zbox.ReadServices
         /// <returns></returns>
         public async Task<IEnumerable<Item.ItemDto>> GetWebServiceBoxItemsPagedAsync(GetBoxItemsPagedQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 return await conn.QueryAsync<Item.ItemDto>(Sql.Box.Items, new
                 {
@@ -289,13 +272,13 @@ namespace Zbang.Zbox.ReadServices
                     pageNumber = query.PageNumber,
                     rowsperpage = query.RowsPerPage,
                     query.TabId
-                });
+                }).ConfigureAwait(false);
             }
         }
 
         public async Task<IEnumerable<Item.ItemDto>> GetBoxItemsPagedAsync(GetBoxItemsPagedQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 if (!query.TabId.HasValue)
                 {
@@ -304,7 +287,7 @@ namespace Zbang.Zbox.ReadServices
                         query.BoxId,
                         pageNumber = query.PageNumber,
                         rowsperpage = query.RowsPerPage,
-                    });
+                    }).ConfigureAwait(false);
                 }
                 return await conn.QueryAsync<Item.ItemDto>(Sql.Box.Items, new
                 {
@@ -312,35 +295,28 @@ namespace Zbang.Zbox.ReadServices
                     pageNumber = query.PageNumber,
                     rowsperpage = query.RowsPerPage,
                     query.TabId
-                });
+                }).ConfigureAwait(false);
             }
         }
 
-
-
         public async Task<IEnumerable<Item.QuizDto>> GetBoxQuizzesAsync(GetBoxQuizesPagedQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                return await conn.QueryAsync<Item.QuizDto>(Sql.Quiz.GetBoxQuiz, query);
+                return await conn.QueryAsync<Item.QuizDto>(Sql.Quiz.GetBoxQuiz, query).ConfigureAwait(false);
             }
-
         }
 
         public async Task<IEnumerable<Item.FlashcardDto>> GetBoxFlashcardsAsync(GetFlashCardsQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 return await conn.QueryAsync<Item.FlashcardDto>(Sql.Box.Flashcards, new
                 {
                     query.BoxId,
-                });
+                }).ConfigureAwait(false);
             }
-
         }
-
-
-
 
         public async Task<Item.ItemMobileDto> GetItemDetailApiAsync(long itemId)
         {
@@ -365,7 +341,6 @@ namespace Zbang.Zbox.ReadServices
                     foreach (var comment in retVal)
                     {
                         comment.Replies.AddRange(replies.Where(w => w.ParentId == comment.Id));
-
                     }
                     return retVal;
                 }
@@ -374,36 +349,34 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<Item.ItemDetailDto> GetItem2Async(GetItemQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 using (
                     var grid =
                         await
                             conn.QueryMultipleAsync(
                                 $"{Sql.Item.ItemDetail} {Sql.Item.Navigation}  {Sql.Item.UserItemRate}",
-                                query))
+                                query).ConfigureAwait(false))
                 {
-                    var retVal = await grid.ReadFirstOrDefaultAsync<Item.ItemDetailDto>();
+                    var retVal = await grid.ReadFirstOrDefaultAsync<Item.ItemDetailDto>().ConfigureAwait(false);
                     if (retVal == null)
                     {
                         throw new ItemNotFoundException();
                     }
-                    retVal.Navigation = await grid.ReadFirstOrDefaultAsync<Item.ItemNavigationDto>();
+                    retVal.Navigation = await grid.ReadFirstOrDefaultAsync<Item.ItemNavigationDto>().ConfigureAwait(false);
 
-                    retVal.Like = await grid.ReadFirstOrDefaultAsync<int>();
+                    retVal.Like = await grid.ReadFirstOrDefaultAsync<int>().ConfigureAwait(false);
                     return retVal;
                 }
-
             }
         }
 
-
         public async Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetBoxLeaderboardQuery query)
         {
-            using (var con = await DapperConnection.OpenConnectionAsync())
+            using (var con = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 return await con.QueryAsync<LeaderBoardDto>(Sql.Box.LeaderBoard,
-                    query);
+                    query).ConfigureAwait(false);
             }
         }
 
@@ -429,7 +402,6 @@ namespace Zbang.Zbox.ReadServices
                     var items = (await grid.ReadAsync<Qna.ItemDto>().ConfigureAwait(false))
                         .Union(await grid.ReadAsync<Qna.ItemDto>().ConfigureAwait(false))
                         .Union(await grid.ReadAsync<Qna.ItemDto>().ConfigureAwait(false));//.ToLookup(c => c.QuestionId ?? c.AnswerId);
-
 
                     replies = replies.Select(s =>
                     {
@@ -458,43 +430,43 @@ namespace Zbang.Zbox.ReadServices
                     var comment = await grid.ReadFirstAsync<Qna.CommentDto>().ConfigureAwait(false);
                     comment.Files = await grid.ReadAsync<Qna.ItemDto>().ConfigureAwait(false);
                     return comment;
-
                 }
             }
         }
 
         public async Task<IEnumerable<Qna.LikeDto>> GetReplyLikesAsync(GetFeedLikesQuery query)
         {
-            using (var con = await DapperConnection.OpenConnectionAsync())
+            using (var con = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                const string sql = "select UserImageLarge as Image ,UserName as Name,Url from zbox.ReplyLike join zbox.Users on OwnerId = userid where replyid = @Id";
-                return await con.QueryAsync<Qna.LikeDto>(sql, query);
+                const string sql = "select UserImageLarge as Image ,UserName as Name,Url from zbox.ReplyLike join zbox.Users on OwnerId = userId where replyId = @Id";
+                return await con.QueryAsync<Qna.LikeDto>(sql, query).ConfigureAwait(false);
             }
         }
+
         public async Task<IEnumerable<Qna.LikeDto>> GetCommentLikesAsync(GetFeedLikesQuery query)
         {
-            using (var con = await DapperConnection.OpenConnectionAsync())
+            using (var con = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                const string sql = "select UserImageLarge as Image ,UserName as Name,Url from zbox.CommentLike join zbox.Users on OwnerId = userid where CommentId = @Id";
-                return await con.QueryAsync<Qna.LikeDto>(sql, query);
+                const string sql = "select UserImageLarge as Image ,UserName as Name,Url from zbox.CommentLike join zbox.Users on OwnerId = userId where CommentId = @Id";
+                return await con.QueryAsync<Qna.LikeDto>(sql, query).ConfigureAwait(false);
             }
         }
 
         public async Task<IEnumerable<Guid>> GetUserFeedLikesAsync(UserLikesQuery query)
         {
-            using (var con = await DapperConnection.OpenConnectionAsync())
+            using (var con = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                const string commentSql = @"select commentid from zbox.CommentLike
-where ownerid = @UserId and boxid = @BoxId;";
+                const string commentSql = @"select commentId from zbox.CommentLike
+where ownerId = @UserId and boxId = @BoxId;";
 
                 const string replySql = @"select ReplyId from zbox.ReplyLike
-where ownerid = @UserId and boxid = @BoxId;";
+where ownerId = @UserId and boxId = @BoxId;";
 
-                using (var grid = await con.QueryMultipleAsync(commentSql + replySql, query))
+                using (var grid = await con.QueryMultipleAsync(commentSql + replySql, query).ConfigureAwait(false))
                 {
                     var retVal = new List<Guid>();
-                    retVal.AddRange(await grid.ReadAsync<Guid>());
-                    retVal.AddRange(await grid.ReadAsync<Guid>());
+                    retVal.AddRange(await grid.ReadAsync<Guid>().ConfigureAwait(false));
+                    retVal.AddRange(await grid.ReadAsync<Guid>().ConfigureAwait(false));
                     return retVal;
                 }
             }
@@ -523,31 +495,29 @@ where ownerid = @UserId and boxid = @BoxId;";
 
         public async Task<IEnumerable<User.UserDto>> GetUserFriendsAsync(GetUserFriendsQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 return await conn.QueryAsync<User.UserDto>(Sql.Sql.FriendList, new
                 {
                     query.UserId,
                     pageNumber = query.PageNumber,
                     rowsperpage = query.RowsPerPage
-                });
+                }).ConfigureAwait(false);
             }
         }
 
         public async Task<User.UserMinProfile> GetUserMinProfileAsync(GetUserMinProfileQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                const string sql = @"select u.userid as Id, u.username as name, u.UserImageLarge as image,
-                            u.score as score, uu.universityname as universityName, u.url as Url
+                const string sql = @"select u.userId as Id, u.username as name, u.UserImageLarge as image,
+                            u.score as score, uu.universityName as universityName, u.url as Url
                             from zbox.users u left join zbox.university uu on u.UniversityId = uu.id
-                            where u.userid =@UserId";
-                var retVal = await conn.QueryFirstAsync<User.UserMinProfile>(sql, query);
+                            where u.userId =@UserId";
+                var retVal = await conn.QueryFirstAsync<User.UserMinProfile>(sql, query).ConfigureAwait(false);
                 return retVal;
-
             }
         }
-
 
         /// <summary>
         /// used in user page to get initial data
@@ -575,11 +545,9 @@ where ownerid = @UserId and boxid = @BoxId;";
             }
         }
 
-
-
         public async Task<IEnumerable<UniversityByPrefixDto>> GetUniversityByIpAddressAsync(UniversityByIpQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 return await conn.QueryAsync<UniversityByPrefixDto>(Sql.LibraryChoose.GetInitialValueOfUniversitiesBaseOnIpAddress,
                      new
@@ -588,7 +556,7 @@ where ownerid = @UserId and boxid = @BoxId;";
                          query.PageNumber,
                          query.RowsPerPage
 
-                     });
+                     }).ConfigureAwait(false);
             }
         }
 
@@ -599,7 +567,7 @@ where ownerid = @UserId and boxid = @BoxId;";
         /// <returns></returns>
         public async Task<IEnumerable<User.UserImageNameDto>> GetUsersInBoxByTermAsync(UserInBoxSearchQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 var sql = string.IsNullOrEmpty(query.Term) ? Sql.Search.GetUsersInBox : Sql.Search.GetUsersInBoxByTerm;
                 return await conn.QueryAsync<User.UserImageNameDto>(sql,
@@ -611,15 +579,12 @@ where ownerid = @UserId and boxid = @BoxId;";
                          query.UniversityId,
                          query.BoxId
 
-                     });
+                     }).ConfigureAwait(false);
             }
         }
 
-
-
         public async Task<IEnumerable<User.ChatUserDto>> GetUsersConversationAndFriendsAsync(GetUserConversationAndFriends query)
         {
-
             using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 var sqlQuery = string.IsNullOrEmpty(query.Term)
@@ -638,10 +603,11 @@ where ownerid = @UserId and boxid = @BoxId;";
                 return result.Distinct(new User.ChatUserDtoComparer());
             }
         }
+
         public async Task<IEnumerable<ChatDto>> GetUserConversationAsync(GetChatRoomMessagesQuery query)
         {
             if (query == null) throw new ArgumentNullException(nameof(query));
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 if (query.Id.HasValue)
                 {
@@ -653,7 +619,7 @@ where ownerid = @UserId and boxid = @BoxId;";
                             query.Skip,
                             query.Top
 
-                        });
+                        }).ConfigureAwait(false);
                 }
                 return await conn.QueryAsync<ChatDto>(Sql.Chat.GetChatByUserIds,
                         new
@@ -664,39 +630,33 @@ where ownerid = @UserId and boxid = @BoxId;";
                             query.Skip,
                             query.Top
 
-                        });
+                        }).ConfigureAwait(false);
             }
         }
 
-
-
-
-
         public async Task<UniversityWithCodeDto> GetUniversityNeedIdAsync(long universityId)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 var retVal = await conn.QueryFirstOrDefaultAsync<UniversityWithCodeDto>(Sql.LibraryChoose.GetNeedId, new
                 {
                     universityId
-                });
+                }).ConfigureAwait(false);
                 return retVal;
             }
         }
 
-
         public async Task<int> GetChatUnreadMessagesAsync(QueryBaseUserId query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                var result = await conn.QueryFirstOrDefaultAsync<int?>(Sql.Chat.GetUnreadMessages, query);
+                var result = await conn.QueryFirstOrDefaultAsync<int?>(Sql.Chat.GetUnreadMessages, query).ConfigureAwait(false);
                 return result.GetValueOrDefault();
             }
         }
 
         public async Task<User.UserDetailDto> GetUserDataAsync(QueryBaseUserId query)
         {
-
             using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 var user = await conn.QueryFirstOrDefaultAsync<User.UserDetailDto>(Sql.Sql.UserAuthenticationDetail, query).ConfigureAwait(false);
@@ -705,20 +665,15 @@ where ownerid = @UserId and boxid = @BoxId;";
                     throw new UserNotFoundException("user is null");
                 }
                 return user;
-
             }
         }
-
-
-
-
 
         #region Account Settings
         public async Task<User.UserAccountDto> GetUserAccountDetailsAsync(QueryBaseUserId query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                return await conn.QueryFirstAsync<User.UserAccountDto>(Sql.Sql.GetUserAccountData, query);
+                return await conn.QueryFirstAsync<User.UserAccountDto>(Sql.Sql.GetUserAccountData, query).ConfigureAwait(false);
             }
         }
         /// <summary>
@@ -728,7 +683,7 @@ where ownerid = @UserId and boxid = @BoxId;";
         /// <returns></returns>
         public async Task<User.UserNotification> GetUserBoxesNotificationAsync(QueryBaseUserId query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 const string boxNotificationSql =
                     @"select b.BoxId as Id, b.BoxName as Name,  ub.NotificationSettings as Notifications, b.Url as url, u.UserName
@@ -737,20 +692,17 @@ where ownerid = @UserId and boxid = @BoxId;";
 					inner join zbox.Users u on b.OwnerId = u.UserId
                     where ub.UserId = @UserId";
 
-                const string userEmailSettings = @"select EmailSendSettings from zbox.Users where userid = @UserId";
-                using (var grid = await conn.QueryMultipleAsync($"{boxNotificationSql} {userEmailSettings}", query))
+                const string userEmailSettings = "select EmailSendSettings from zbox.Users where userId = @UserId";
+                using (var grid = await conn.QueryMultipleAsync($"{boxNotificationSql} {userEmailSettings}", query).ConfigureAwait(false))
                 {
                     var retVal = new User.UserNotification
                     {
-                        BoxNotifications = await grid.ReadAsync<Box.BoxNotificationDto>(),
-                        EmailNotification = await grid.ReadFirstOrDefaultAsync<EmailSend>()
+                        BoxNotifications = await grid.ReadAsync<Box.BoxNotificationDto>().ConfigureAwait(false),
+                        EmailNotification = await grid.ReadFirstOrDefaultAsync<EmailSend>().ConfigureAwait(false)
                     };
                     return retVal;
-
                 }
-
             }
-
         }
 
         /// <summary>
@@ -761,44 +713,40 @@ where ownerid = @UserId and boxid = @BoxId;";
         /// 
         public async Task<IEnumerable<User.UserMemberDto>> GetBoxMembersAsync(GetBoxQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                return await conn.QueryAsync<User.UserMemberDto>(Sql.Box.BoxMembers, query);
+                return await conn.QueryAsync<User.UserMemberDto>(Sql.Box.BoxMembers, query).ConfigureAwait(false);
             }
         }
 
-
-
         #endregion
-
 
         public async Task<bool> GetInviteAsync(GetInviteDetailQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 const string sqlQuery = @"select count(*) from   zbox.Message 
                                 where TypeOfMsg = 2
                                 and MessageId = @MessageId
                                 and isActive = 1";
-                var count = await conn.QueryFirstOrDefaultAsync<int>(sqlQuery, query);
+                var count = await conn.QueryFirstOrDefaultAsync<int>(sqlQuery, query).ConfigureAwait(false);
 
                 return count > 0;
             }
         }
 
-
         public async Task<IEnumerable<UpdatesDto>> GetUpdatesAsync(QueryBase query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                return await conn.QueryAsync<UpdatesDto>(Sql.Updates.GetUserUpdates, query);
+                return await conn.QueryAsync<UpdatesDto>(Sql.Updates.GetUserUpdates, query).ConfigureAwait(false);
             }
         }
 
         #region UserPage
         public async Task<IEnumerable<BoxDto>> GetUserBoxesActivityAsync(GetUserWithFriendQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 var retVal = await conn.QueryAsync<BoxDto>(Sql.User.UserWithFriendBoxes,
                     new
@@ -807,14 +755,14 @@ where ownerid = @UserId and boxid = @BoxId;";
                         Myfriend = query.FriendId,
                         pageNumber = query.PageNumber,
                         rowsperpage = query.RowsPerPage
-                    });
+                    }).ConfigureAwait(false);
                 return retVal;
             }
         }
 
         public async Task<IEnumerable<Item.QuizDto>> GetUserQuizActivityAsync(GetUserWithFriendQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 return await conn.QueryAsync<Item.QuizDto>(Sql.User.UserWithFriendQuizzes, new
                 {
@@ -822,34 +770,33 @@ where ownerid = @UserId and boxid = @BoxId;";
                     Myfriend = query.FriendId,
                     pageNumber = query.PageNumber,
                     rowsperpage = query.RowsPerPage
-                });
+                }).ConfigureAwait(false);
             }
         }
 
-
         public async Task<IEnumerable<Item.ItemDto>> GetUserItemsActivityAsync(GetUserWithFriendQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 return await conn.QueryAsync<Item.ItemDto>(Sql.User.UserWithFriendFiles, new
                 {
                     Myfriend = query.FriendId,
                     pageNumber = query.PageNumber,
                     rowsperpage = query.RowsPerPage
-                });
+                }).ConfigureAwait(false);
             }
         }
 
         public async Task<IEnumerable<Item.FlashcardDto>> GetUserFlashcardActivityAsync(GetUserWithFriendQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 return await conn.QueryAsync<Item.FlashcardDto>(Sql.User.UserWithFriendFlashcards, new
                 {
                     Myfriend = query.FriendId,
                     pageNumber = query.PageNumber,
                     rowsperpage = query.RowsPerPage
-                });
+                }).ConfigureAwait(false);
             }
         }
 
@@ -860,7 +807,7 @@ where ownerid = @UserId and boxid = @BoxId;";
         /// <returns></returns>
         public async Task<IEnumerable<User.ActivityDto>> GetUserCommentActivityAsync(GetUserWithFriendQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 return await conn.QueryAsync<User.ActivityDto>(Sql.Sql.UserQuestionAndAnswersActivityMobileApi, new
                 {
@@ -868,7 +815,7 @@ where ownerid = @UserId and boxid = @BoxId;";
                     Myfriend = query.FriendId,
                     pageNumber = query.PageNumber,
                     rowsperpage = query.RowsPerPage
-                });
+                }).ConfigureAwait(false);
             }
         }
 
@@ -902,25 +849,24 @@ where ownerid = @UserId and boxid = @BoxId;";
             //{
             //    return null;
             //}
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
             {
                 return await conn.QueryAsync<SeoDto>(new CommandDefinition(sql,
                     new { rowsperpage = pageSize, pageNumber = page },
-                    commandTimeout: 360, cancellationToken: token));
+                    commandTimeout: 360, cancellationToken: token)).ConfigureAwait(false);
             }
         }
 
         public async Task<IEnumerable<SitemapDto>> GetSeoItemCountAsync()
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                var data = await conn.QueryFirstOrDefaultAsync(new CommandDefinition(Sql.Seo.GetSeoItemsCount));
+                var data = await conn.QueryFirstOrDefaultAsync(new CommandDefinition(Sql.Seo.GetSeoItemsCount)).ConfigureAwait(false);
                 var list = new List<SitemapDto>
                 {
                     new SitemapDto(SeoType.Course, data.boxcount), new SitemapDto(SeoType.Item, data.itemCount), new SitemapDto(SeoType.Quiz, data.quizCount), new SitemapDto(SeoType.Flashcard, data.flashcardCount),
                 };
                 return list;
-
 
                 //return (retVal / pageSize) + 1;
             }
@@ -941,9 +887,9 @@ where ownerid = @UserId and boxid = @BoxId;";
 
         public async Task<Item.FileSeo> GetItemSeoAsync(GetFileSeoQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                var retVal = await conn.QueryFirstOrDefaultAsync<Item.FileSeo>(Sql.Seo.FileSeo, query);
+                var retVal = await conn.QueryFirstOrDefaultAsync<Item.FileSeo>(Sql.Seo.FileSeo, query).ConfigureAwait(false);
                 return retVal;
             }
         }
@@ -973,15 +919,15 @@ where ownerid = @UserId and boxid = @BoxId;";
 
         public async Task<Item.QuizSolversWithCountDto> GetQuizSolversAsync(GetQuizBestSolvers query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 var sql = $"{Sql.Quiz.TopUsers} {Sql.Quiz.NumberOfQuizSolved}";
-                using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId, topusers = query.NumberOfUsers }))
+                using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId, topusers = query.NumberOfUsers }).ConfigureAwait(false))
                 {
                     var retVal = new Item.QuizSolversWithCountDto
                     {
-                        Users = await grid.ReadAsync<Item.QuizBestUser>(),
-                        SolversCount = await grid.ReadFirstOrDefaultAsync<int>()
+                        Users = await grid.ReadAsync<Item.QuizBestUser>().ConfigureAwait(false),
+                        SolversCount = await grid.ReadFirstOrDefaultAsync<int>().ConfigureAwait(false)
                     };
 
                     return retVal;
@@ -1008,7 +954,7 @@ where ownerid = @UserId and boxid = @BoxId;";
                         question.Answers.AddRange(answers.Where(w => w.QuestionId == question.Id));
                     }
                     retVal.UserAnswers = solvedQuestion;
-                    retVal.Sheet = await grid.ReadFirstOrDefaultAsync<Item.SolveSheet>();
+                    retVal.Sheet = await grid.ReadFirstOrDefaultAsync<Item.SolveSheet>().ConfigureAwait(false);
                     return retVal;
                 }
             }
@@ -1046,12 +992,11 @@ where ownerid = @UserId and boxid = @BoxId;";
             }
         }
 
-
         public async Task<IEnumerable<Item.DiscussionDto>> GetDiscussionAsync(GetDisscussionQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                return await conn.QueryAsync<Item.DiscussionDto>(Sql.Quiz.Discussion, query);
+                return await conn.QueryAsync<Item.DiscussionDto>(Sql.Quiz.Discussion, query).ConfigureAwait(false);
             }
         }
 
@@ -1077,9 +1022,9 @@ where ownerid = @UserId and boxid = @BoxId;";
 
         public async Task<int> GetNumberOfSolversAsync(long quizId)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                var retVal = await conn.QueryFirstOrDefaultAsync<int>(Sql.Quiz.NumberOfQuizSolved, quizId);
+                var retVal = await conn.QueryFirstOrDefaultAsync<int>(Sql.Quiz.NumberOfQuizSolved, quizId).ConfigureAwait(false);
                 return retVal;
             }
         }
@@ -1088,34 +1033,35 @@ where ownerid = @UserId and boxid = @BoxId;";
 
         public async Task<IEnumerable<long>> GetUniversityWithCodeAsync()
         {
-            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
+            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                const string sql = @"select id from zbox.university  where needcode = 1
+                const string sql = @"select id from zbox.university  where needCode = 1
                                     union 
-	                select distinct universityid2 from zbox.student where universityid2 is not null
+	                select distinct universityId2 from zbox.student where universityId2 is not null
 					union 
-					select distinct universityid from zbox.department";
-                return await conn.QueryAsync<long>(sql);
+					select distinct universityId from zbox.department";
+                return await conn.QueryAsync<long>(sql).ConfigureAwait(false);
             }
         }
 
-
         public async Task<IEnumerable<SmallNodeDto>> GetUniversityNodesAsync(long universityId)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
                 const string sql = @"select l.Name,l.LibraryId as id, l.Settings as type ,
-b.boxid as Id,b.BoxName as Name, b.CourseCode as CourseId,b.ProfessorName as ProfessorName , b.quizcount + b.itemcount + b.FlashcardCount as Items,
+b.boxId as Id,b.BoxName as Name, b.CourseCode as CourseId,b.ProfessorName as ProfessorName , b.quizCount + b.itemCount + b.FlashcardCount as Items,
                                 b.MembersCount as Members
-from zbox.library l join zbox.box b on l.libraryid = b.libraryid where university = @UniversityId and isdeleted = 0 and Discriminator = 2;";
+from zbox.library l join zbox.box b on l.libraryId = b.libraryId where university = @UniversityId and isDeleted = 0 and Discriminator = 2;";
                 const string sql2 = "select l.Name,l.LibraryId as id,l.Settings as type from zbox.library l where id = @UniversityId and settings = 1 and ParentId is null";
-                using (var grid = await conn.QueryMultipleAsync(sql + sql2, new { UniversityId = universityId }))
+                using (var grid = await conn.QueryMultipleAsync(sql + sql2, new { UniversityId = universityId }).ConfigureAwait(false))
                 {
                     var dic = new Dictionary<Guid, SmallNodeDto>();
                     grid.Read<SmallNodeDto, Box.SmallBoxDto, Guid>((node, box) =>
                     {
                         if (dic.ContainsKey(node.Id))
+                        {
                             dic[node.Id].Boxes.Add(box);
+                        }
                         else
                         {
                             node.Boxes = new List<Box.SmallBoxDto>
@@ -1127,7 +1073,7 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
                         }
                         return node.Id;
                     });
-                    var nodes = dic.Select(s => s.Value).Union(await grid.ReadAsync<SmallNodeDto>()).OrderByDescending(a => a.Boxes?.Count);
+                    var nodes = dic.Select(s => s.Value).Union(await grid.ReadAsync<SmallNodeDto>().ConfigureAwait(false)).OrderByDescending(a => a.Boxes?.Count);
                     return nodes;
                 }
             }
@@ -1135,56 +1081,53 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
 
         public async Task<FlashcardUserDto> GetUserFlashcardAsync(GetUserFlashcardQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                const string sql = "SELECT position FROM [Zbox].[FlashcardPin] where flashcardid = @FlashcardId and userid = @UserId;";
-                const string sqlLike = "SELECT  [Id] FROM[Zbox].[FlashcardLike] where flashcardid = @FlashcardId and userid = @UserId;";
+                const string sql = "SELECT position FROM [Zbox].[FlashcardPin] where flashcardId = @FlashcardId and userId = @UserId;";
+                const string sqlLike = "SELECT  [Id] FROM[Zbox].[FlashcardLike] where flashcardId = @FlashcardId and userId = @UserId;";
                 const string sqlOwnerName = "select username as OwnerName, f.publish from zbox.users u join zbox.Flashcard f on f.UserId = u.UserId where id = @FlashcardId;";
 
-                using (var grid = await conn.QueryMultipleAsync(sqlOwnerName + sql + sqlLike, query))
+                using (var grid = await conn.QueryMultipleAsync(sqlOwnerName + sql + sqlLike, query).ConfigureAwait(false))
                 {
-                    var result = await grid.ReadFirstAsync<FlashcardUserDto>();
-                    result.Pins = await grid.ReadAsync<int>();
-                    result.Like = await grid.ReadFirstOrDefaultAsync<Guid?>();
+                    var result = await grid.ReadFirstAsync<FlashcardUserDto>().ConfigureAwait(false);
+                    result.Pins = await grid.ReadAsync<int>().ConfigureAwait(false);
+                    result.Like = await grid.ReadFirstOrDefaultAsync<Guid?>().ConfigureAwait(false);
                     return result;
                 }
             }
         }
 
-
-
-
         #region Gamification
 
         public async Task<User.GamificationBoardDto> GamificationBoardAsync(QueryBaseUserId query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                return await conn.QueryFirstAsync<User.GamificationBoardDto>(Sql.User.GamificationBoard, query);
+                return await conn.QueryFirstAsync<User.GamificationBoardDto>(Sql.User.GamificationBoard, query).ConfigureAwait(false);
             }
         }
 
         public async Task<User.LevelDto> UserLevelsAsync(QueryBaseUserId query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                return await conn.QueryFirstAsync<User.LevelDto>(Sql.User.Level, query);
+                return await conn.QueryFirstAsync<User.LevelDto>(Sql.User.Level, query).ConfigureAwait(false);
             }
         }
 
         public async Task<IEnumerable<User.BadgeDto>> UserBadgesAsync(QueryBaseUserId query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                return await conn.QueryAsync<User.BadgeDto>(Sql.User.Badge, query);
+                return await conn.QueryAsync<User.BadgeDto>(Sql.User.Badge, query).ConfigureAwait(false);
             }
         }
 
         public async Task<IEnumerable<LeaderBoardDto>> UserLeaderBoardAsync(LeaderboardQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
             {
-                return await conn.QueryAsync<LeaderBoardDto>(Sql.User.LeaderBoardAll, query);
+                return await conn.QueryAsync<LeaderBoardDto>(Sql.User.LeaderBoardAll, query).ConfigureAwait(false);
             }
         }
 
@@ -1196,8 +1139,7 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
         {
             using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
             {
-
-                const string actionsText = @"select action,text from zbox.jaredText;";
+                const string actionsText = "select action,text from zbox.jaredText;";
                 var command = new CommandDefinition(actionsText,
                        cancellationToken: token);
                 using (var grid = await conn.QueryMultipleAsync(command).ConfigureAwait(false))
@@ -1252,7 +1194,6 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
             }
         }
 
-
         public async Task<IEnumerable<User.ChatUserDto>> OnlineUsersByClassAsync(GetBoxIdQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
@@ -1264,10 +1205,8 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
                 return await conn.QueryAsync<User.ChatUserDto>(
                     new CommandDefinition(sql
                        , new { query.BoxId })).ConfigureAwait(false);
-
             }
         }
-
 
         #endregion
 
@@ -1289,6 +1228,7 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
                 }
             }
         }
+
         public async Task<IEnumerable<string>> GetUniAsync(SearchTermQuery term)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
@@ -1296,6 +1236,7 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
                 return await conn.QueryAsync<string>(Sql.Jared.AutoUni, term).ConfigureAwait(false);
             }
         }
+
         public async Task<IEnumerable<string>> GetDepartmentAsync(SearchTermQuery term)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
@@ -1303,6 +1244,7 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
                 return await conn.QueryAsync<string>(Sql.Jared.AutoDepartment, term).ConfigureAwait(false);
             }
         }
+
         public async Task<IEnumerable<string>> GetTagAsync(SearchTermQuery term)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))

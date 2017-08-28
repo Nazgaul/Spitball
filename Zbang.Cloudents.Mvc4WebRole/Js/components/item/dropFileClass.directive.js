@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
@@ -9,6 +10,14 @@ var app;
             this.link = function (scope, element) {
                 $(document).on("dragover", function (e) {
                     var dt = e.originalEvent.dataTransfer;
+                    /*dropEffect: string;
+        effectAllowed: string;
+        readonly files: FileList;
+        readonly items: DataTransferItemList;
+        readonly types: string[];
+        clearData(format?: string): boolean;
+        getData(format: string): string;
+        setData(format: string, data: string): boolean;*/
                     if (dt.types && (dt.types.indexOf ? dt.types.indexOf('Files') !== -1 : dt.types.contains('Files'))) {
                         element.addClass("drop");
                         _this.$timeout.cancel(dragTimer);

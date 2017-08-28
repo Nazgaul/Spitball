@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict;";
@@ -11,12 +12,20 @@ var app;
             this.loading = true;
             this.startService.intent(this.term).then(function (response) {
                 _this.loading = false;
+                //if (!response.data) {
+                //    this.sentence = "I don't understand what you want";
+                //    return;
+                //}
+                //this.sentence = response.sentence;
+                //this.term = "";
                 _this.sentence = JSON.stringify(response, null, "\t");
             });
         };
+        //xintent;
+        //data;
+        StartController.$inject = ["startService"];
         return StartController;
     }());
-    StartController.$inject = ["startService"];
     angular.module("app").controller("StartController", StartController);
 })(app || (app = {}));
 //# sourceMappingURL=start.controller.js.map

@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
@@ -35,6 +36,9 @@ var app;
                         if (element.is(":hidden")) {
                             return;
                         }
+                        //if (element.parents(".ng-hide").length) {
+                        //    return;
+                        //}
                         if (newValue[0].length <= 80) {
                             element.addClass("lessText");
                         }

@@ -1,8 +1,10 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
     var unreadCount = 0;
     var ChatBus = (function () {
+        // static $inject = ["ajaxService2"];
         function ChatBus(ajaxService) {
             this.ajaxService = ajaxService;
             this.setUnread = function (count) {
@@ -20,7 +22,8 @@ var app;
             });
         };
         ChatBus.prototype.messages = function (q, page) {
-            return this.ajaxService.get("/chat/conversation", { q: q, page: page });
+            return this.ajaxService.get("/chat/conversation", { q: q, page: page }).then(function (r) { return r; });
+            ;
         };
         ChatBus.prototype.chat = function (id, userIds, dateTime, top) {
             return this.ajaxService.get("/chat/messages", {
@@ -28,13 +31,14 @@ var app;
                 userIds: userIds,
                 startTime: dateTime,
                 top: top
-            });
+            }).then(function (r) { return r; });
         };
         ChatBus.prototype.preview = function (blob, i) {
             return this.ajaxService.get("/chat/Preview", {
                 blobName: blob,
                 index: i
-            });
+            }).then(function (r) { return r; });
+            ;
         };
         ChatBus.prototype.read = function (id) {
             return this.ajaxService.post("chat/markread", {

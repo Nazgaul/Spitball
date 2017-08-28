@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
@@ -5,6 +6,7 @@ var app;
         function CartAnimation($animate) {
             var _this = this;
             this.$animate = $animate;
+            // scope = true;
             this.restrict = 'A';
             this.priority = -1;
             this.link = function (scope, element, attrs) {

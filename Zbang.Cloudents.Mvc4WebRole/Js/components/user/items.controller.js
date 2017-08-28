@@ -1,3 +1,4 @@
+"use strict";
 var app;
 (function (app) {
     "use strict";
@@ -35,6 +36,7 @@ var app;
         };
         Item.prototype.deleteItem = function (ev, item) {
             var _this = this;
+            //disablePaging = true;
             var confirm = this.$mdDialog.confirm()
                 .title(this.resManager.get('deleteItem'))
                 .targetEvent(ev)
@@ -44,14 +46,16 @@ var app;
                 var index = _this.files.indexOf(item);
                 _this.files.splice(index, 1);
                 _this.$scope["u"].details.numItem--;
+                //self.details.numItem--;
                 _this.boxService.deleteItem(item.id);
             }).finally(function () {
+                //disablePaging = false;
             });
         };
+        Item.$inject = ["profileData", "itemThumbnailService", "userService",
+            "$mdDialog", "resManager", "boxService", "$scope"];
         return Item;
     }());
-    Item.$inject = ["profileData", "itemThumbnailService", "userService",
-        "$mdDialog", "resManager", "boxService", "$scope"];
     angular.module("app.user").controller("item", Item);
 })(app || (app = {}));
 //# sourceMappingURL=items.controller.js.map
