@@ -190,7 +190,7 @@ body button:hover {
 body button:focus {
   outline: none;
 }
-body .color-ask-copy {
+body .color-ask {
   background: #024294 !important;
 }
 body .color-create-flashcard {
@@ -205,7 +205,7 @@ body .color-note {
 body .color-flashcard {
   background: #f14d4d !important;
 }
-body .color-tutor-copy {
+body .color-tutor {
   background: #52ab15 !important;
 }
 body .color-jobs {
@@ -422,11 +422,11 @@ body header .grid #searchArea #searchInput .icon-note {
   margin: 0 0.2em;
   position: relative;
 }
-body header .grid #searchArea #searchInput .icon-ask-copy {
+body header .grid #searchArea #searchInput .icon-ask {
   position: relative;
   top: 0.2em;
 }
-body header .grid #searchArea #searchInput .icon-tutor-copy {
+body header .grid #searchArea #searchInput .icon-tutor {
   position: relative;
   top: 0.3em;
   padding-right: 0.2em;

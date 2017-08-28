@@ -107,29 +107,15 @@ module MyApp {
 			this.options = this.optionDic[item];
 			document.getElementById('qFilter').focus();
         }
+
 		search() {
-            //this.$http.get("/search", {'term':this.term}).then(function(response) {
-	           // console.log(response);
-            //})
+			this.$http.get("home/search", { params: { category: this.sec, term: this.term } })
+			.then(response => {
+					console.log("hello");
+				});
 		}
 	}
 
 	appf.controller("HomeController", HomeController as any);
 }
 
-//}
-
-//    homeController.$inject = ['$location'];
-
-//    function homeController($location) {
-//        /* jshint validthis:true */
-//        var vm = this;
-//        vm.title = 'homeController';
-//        vm.sec = 'ask-copy';
-
-//        function changeSection(item) {
-//            vm.isOpen = false;
-//            vm.sec = item;
-//        }
-//    }
-//}

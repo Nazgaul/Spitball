@@ -83,9 +83,10 @@ var MyApp;
             document.getElementById('qFilter').focus();
         };
         HomeController.prototype.search = function () {
-            //this.$http.get("/search", {'term':this.term}).then(function(response) {
-            // console.log(response);
-            //})
+            this.$http.get("home/search", { params: { category: this.sec, term: this.term } })
+                .then(function (response) {
+                console.log("hello");
+            });
         };
         return HomeController;
     }());
@@ -93,17 +94,3 @@ var MyApp;
     MyApp.HomeController = HomeController;
     appf.controller("HomeController", HomeController);
 })(MyApp || (MyApp = {}));
-//}
-//    homeController.$inject = ['$location'];
-//    function homeController($location) {
-//        /* jshint validthis:true */
-//        var vm = this;
-//        vm.title = 'homeController';
-//        vm.sec = 'ask-copy';
-//        function changeSection(item) {
-//            vm.isOpen = false;
-//            vm.sec = item;
-//        }
-//    }
-//}
-//# sourceMappingURL=home.controller.js.map
