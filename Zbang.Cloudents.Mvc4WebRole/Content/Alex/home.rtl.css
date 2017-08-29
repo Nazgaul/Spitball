@@ -1001,7 +1001,7 @@ h6 {
 		background-image: url(/Images/Alex/group.svg);
 	}
 	header.title {
-		/*margin-top: 90px;*/
+		margin-top: 90px;
 		text-align: center;
 	}
 	a img {
