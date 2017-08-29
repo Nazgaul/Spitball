@@ -63,10 +63,10 @@
 				<span></span>
 		</div>
 		<div inline-flex class="sections" ng-show="ctrl.sectionOpen">
-			<input id="ask" type="radio" ng-click="ctrl.changeSection('ask-copy')" value="ask-copy" ng-model="ctrl.sec" name="sec"><label ng-class="{'color-ask-copy':(ctrl.sec=='ask-copy')}" for="ask">Ask</label>
+			<input id="ask" type="radio" ng-click="ctrl.changeSection('ask')" value="ask" ng-model="ctrl.sec" name="sec"><label ng-class="{'color-ask':(ctrl.sec=='ask')}" for="ask">Ask</label>
 			<input id="note" type="radio" ng-click="ctrl.changeSection('note')" value="note" ng-model="ctrl.sec" name="sec"><label ng-class="{'color-note':(ctrl.sec=='note')}" for="note">Note</label>
 			<input id="flashcard" type="radio" ng-click="ctrl.changeSection('flashcard')" value="flashcard" ng-model="ctrl.sec" name="sec"><label ng-class="{'color-flashcard':(ctrl.sec=='flashcard')}" for="flashcard">Flashcard</label>
-			<input id="tutor" type="radio" ng-click="ctrl.changeSection('tutor-copy')" value="tutor-copy" ng-model="ctrl.sec" name="sec"><label ng-class="{'color-tutor-copy':(ctrl.sec=='tutor-copy')}" for="tutor">Tutor</label>
+			<input id="tutor" type="radio" ng-click="ctrl.changeSection('tutor')" value="tutor" ng-model="ctrl.sec" name="sec"><label ng-class="{'color-tutor':(ctrl.sec=='tutor')}" for="tutor">Tutor</label>
 			<input id="job" type="radio" ng-click="ctrl.changeSection('jobs')" value="jobs" ng-model="ctrl.sec" name="sec"><label ng-class="{'color-jobs':(ctrl.sec=='jobs')}" for="job">Job</label>
 			<input id="book" type="radio" ng-click="ctrl.changeSection('book')" value="book" ng-model="ctrl.sec" name="sec"><label ng-class="{'color-book':(ctrl.sec=='book')}" for="book">Book</label>
 			<input id="purchase" type="radio" ng-click="ctrl.changeSection('purchase')" value="purchase" ng-model="ctrl.sec" name="sec"><label ng-class="{'color-purchase':(ctrl.sec=='purchase')}" for="purchase">Purchase</label>
@@ -79,10 +79,10 @@
 	<aside ng-class="{'section-open':ctrl.sectionOpen}">
 		<label class="upper">search type</label>
 		<ul>
-			<li ng-click="ctrl.changeSection('ask-copy')" ng-class="{'selected':(ctrl.sec=='ask-copy')}">
+			<li ng-click="ctrl.changeSection('ask')" ng-class="{'selected':(ctrl.sec=='ask')}">
 				<div class="ask">
-					<svg class="icon icon-ask-copy">
-						<use xlink:href="/App_Themes/Images/icons.svg#icon-ask-copy"></use>
+					<svg class="icon icon-ask">
+						<use xlink:href="/App_Themes/Images/icons.svg#icon-ask"></use>
 					</svg>
 				</div><span>ask</span>
 			</li>
@@ -100,10 +100,10 @@
 					</svg>
 				</div><span>flashcards</span>
 			</li>
-			<li ng-click="ctrl.changeSection('tutor-copy')" ng-class="{'selected':(ctrl.sec=='tutor-copy')}">
+			<li ng-click="ctrl.changeSection('tutor')" ng-class="{'selected':(ctrl.sec=='tutor')}">
 				<div class="tutor">
-					<svg class="icon icon-tutor-copy">
-						<use xlink:href="/App_Themes/Images/icons.svg#icon-tutor-copy"></use>
+					<svg class="icon icon-tutor">
+						<use xlink:href="/App_Themes/Images/icons.svg#icon-tutor"></use>
 					</svg>
 				</div><span>tutor</span>
 			</li>

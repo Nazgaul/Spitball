@@ -3,9 +3,10 @@ var MyApp;
 (function (MyApp) {
     "use strict";
     var HomeController = (function () {
-        function HomeController($scope, $http) {
+        function HomeController($scope, $http, $sce) {
             this.$scope = $scope;
             this.$http = $http;
+            this.$sce = $sce;
             this.jobTypes = [{ code: "full", name: "full-time" }, { code: "part", name: "part-time" }, { code: "con", name: "contractor" }];
             this.sourceList = [
                 { code: "spitball.com", name: "spitball.com" }, { code: "Quizlet.com", name: "Quizlet.com" }
@@ -64,7 +65,7 @@ var MyApp;
                 'note': { filter: this.docOption, sort: this.relDatsSort }, 'flashcard': {
                     filter: this.flashcardOptions,
                     sort: this.relDatsSort
-                }, 'tutor-copy': {
+                }, 'tutor': {
                     filter: this.tutorOption,
                     sort: this.tutorSort
                 },
@@ -77,20 +78,36 @@ var MyApp;
             this.isOpen = false;
             this.sec = item;
             this.options = [];
+            this.results = {};
             console.log("change");
             this.sublist = [];
             this.options = this.optionDic[item];
             document.getElementById('qFilter').focus();
         };
         HomeController.prototype.search = function () {
+            var _this = this;
             this.$http.get("home/search", { params: { category: this.sec, term: this.term } })
                 .then(function (response) {
+                _this.results = {};
+                if (_this.sec == 'ask') {
+                    _this.results.video = _this.$sce.trustAsResourceUrl('https://www.youtube.com/embed/EqolSvoWNck');
+                    _this.results.items = [
+                        { title: "title", content: "content", source: "spitball.com", img: "https://thumbs.dreamstime.com/z/smiley-emoticon-happy-face-72284393.jpg", url: "www.google.com" },
+                        { title: "title2", content: "content2", source: "spitball.com", url: "www.google.com" }
+                    ];
+                }
                 console.log("hello");
             });
         };
+        HomeController.prototype.resultTemplate = function () {
+            if (this.sec === 'ask') {
+                return 'item-template.html';
+            }
+        };
+        HomeController.$inject = ["$scope", "$http", "$sce"];
         return HomeController;
     }());
-    HomeController.$inject = ["$scope", "$http"];
     MyApp.HomeController = HomeController;
     appf.controller("HomeController", HomeController);
 })(MyApp || (MyApp = {}));
+//# sourceMappingURL=home.controller.js.map

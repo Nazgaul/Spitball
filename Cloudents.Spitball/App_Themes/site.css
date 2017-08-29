@@ -1,4 +1,4 @@
-﻿/*@font-face {
+﻿/*@font-face {tutor-copy
     font-family: 'OpenSans';
     src: url('');
     src: url('OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'), url('OpenSans-Regular-webfont.woff2') format('woff2'), url('OpenSans-Regular-webfont.woff') format('woff'), url('OpenSans-Regular-webfont.ttf') format('truetype'), url('OpenSans-Regular-webfont.svg#open_sansregular') format('svg');
@@ -64,13 +64,13 @@ Single-colored icons can be modified like so:
 .icon-small-logo {
   width: 2.150390625em;
 }
-.icon-tutor-copy {
+.icon-tutor {
   width: 1.3em;
   height: 1.3em;
   top: 20%;
   left: 15%;
 }
-.icon-ask-copy {
+.icon-ask {
   width: 1.412109375em;
 }
 .icon-chat {
@@ -270,7 +270,7 @@ body header ::-webkit-scrollbar {
 body header label:last-of-type {
   z-index: 5;
 }
-@media only screen and (min-width: 321px) and (max-width: 640px) {
+@media only screen and (max-width: 640px) {
   body header {
     height: 130px;
   }
@@ -278,7 +278,7 @@ body header label:last-of-type {
 body header.section-open {
   height: 130px;
 }
-@media only screen and (min-width: 321px) and (max-width: 640px) {
+@media only screen and (max-width: 640px) {
   body header.section-open {
     height: 180px;
   }
@@ -395,7 +395,7 @@ body header .grid #searchArea {
   -ms-align-items: center;
   align-items: center;
 }
-@media only screen and (min-width: 321px) and (max-width: 640px) {
+@media only screen and (max-width: 640px) {
   body header .grid #searchArea {
     margin: -1em;
     padding: 0.5em;
@@ -458,7 +458,7 @@ body header .grid #searchArea .speech-icon {
   height: 37px;
   padding-right: 10px;
 }
-@media only screen and (min-width: 321px) and (max-width: 640px) {
+@media only screen and (max-width: 640px) {
   body header .grid #searchArea .speech-icon {
     margin-left: 1em;
     background: none;
@@ -473,7 +473,7 @@ body header .grid #search {
   margin-left: 1em;
   padding: 0 10px;
 }
-@media only screen and (min-width: 321px) and (max-width: 640px) {
+@media only screen and (max-width: 640px) {
   body header .grid #search {
     display: none;
   }
@@ -550,7 +550,7 @@ body section label:last-of-type {
     margin: 0 16px;
   }
 }
-@media only screen and (min-width: 321px) and (max-width: 640px) {
+@media only screen and (max-width: 640px) {
   body section {
     margin: 0;
   }
@@ -572,6 +572,9 @@ body section .content {
   /*@media @phone {
                 margin-top: ~"calc(2em + 37px)";
             }*/
+}
+body section .content a.item-result {
+  text-decoration: none;
 }
 body section .content .bunner {
   width: 50px;
