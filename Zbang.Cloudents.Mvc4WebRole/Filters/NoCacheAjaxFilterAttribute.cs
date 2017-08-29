@@ -5,6 +5,7 @@ using DevTrends.MvcDonutCaching;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Filters
 {
+    [AttributeUsageAttribute(AttributeTargets.All, AllowMultiple = false)]
     /// <summary>
     /// Global Filter to pervent ajax request from being cached by the browser
     /// </summary>

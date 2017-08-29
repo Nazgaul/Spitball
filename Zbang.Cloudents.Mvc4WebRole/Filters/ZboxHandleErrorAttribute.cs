@@ -6,6 +6,7 @@ using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Filters
 {
+    [AttributeUsageAttribute(AttributeTargets.All, AllowMultiple = true)]
     internal class ZboxHandleErrorAttribute : HandleErrorAttribute
     {
         public override void OnException(ExceptionContext filterContext)

@@ -36,8 +36,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
         {
             foreach (var attribute in typeof(T).GetCustomAttributes(true))
             {
-                var docAttribute = attribute as DocumentDbModelAttribute;
-                if (docAttribute != null)
+                if (attribute is DocumentDbModelAttribute docAttribute)
                 {
                     return docAttribute.CollectionId;
                 }
@@ -149,9 +148,8 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
 
     public static class DocumentDbUnitOfWork
     {
-        private static readonly string DatabaseId = "Zbox";
-        private static readonly string CollectionIds = "Flashcard";//ConfigurationManager.AppSettings["collection"];
-        private static readonly DocumentClient _client;
+        private const string DatabaseId = "Zbox";
+        private const string CollectionIds = "Flashcard";//ConfigurationManager.AppSettings["collection"];
         //private const bool NeedUpdate = false;
         private const string DevPrefix = "-dev";
 
@@ -159,7 +157,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
         {
             try
             {
-                _client = new DocumentClient(new Uri("https://zboxnew.documents.azure.com:443/"),
+                DocumentDbUnitOfWork.Client = new DocumentClient(new Uri("https://zboxnew.documents.azure.com:443/"),
                     "y2v1XQ6WIg81Soasz5YBA7R8fAp52XhJJufNmHy1t7y3YQzpBqbgRnlRPlatGhyGegKdsLq0qFChzOkyQVYdLQ==");
                 // ReSharper disable once ConditionIsAlwaysTrueOrFalse - for further need
                 //if (NeedUpdate)
@@ -179,13 +177,13 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
             }
         }
 
-        internal static DocumentClient Client => _client;
+        internal static DocumentClient Client { get; }
 
         private static async Task CreateDatabaseIfNotExistsAsync()
         {
             try
             {
-                await _client.CreateDatabaseAsync(new Database { Id = DatabaseId }).ConfigureAwait(false);
+                await DocumentDbUnitOfWork.Client.CreateDatabaseAsync(new Database { Id = DatabaseId }).ConfigureAwait(false);
             }
             catch (DocumentClientException e)
             {
@@ -205,8 +203,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
 
         private static string BuildCollectionName(string collectionId)
         {
-            bool isProduction;
-            bool.TryParse(ConfigFetcher.Fetch("documentDbProduction"), out isProduction);
+            bool.TryParse(ConfigFetcher.Fetch("documentDbProduction"), out bool isProduction);
             if (isProduction)
             {
                 return collectionId;
@@ -228,7 +225,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
         {
             try
             {
-                await _client.CreateDocumentCollectionAsync(
+                await DocumentDbUnitOfWork.Client.CreateDocumentCollectionAsync(
                         UriFactory.CreateDatabaseUri(DatabaseId),
                         new DocumentCollection { Id = collectionId },
                         new RequestOptions { OfferThroughput = 1000 }).ConfigureAwait(false);

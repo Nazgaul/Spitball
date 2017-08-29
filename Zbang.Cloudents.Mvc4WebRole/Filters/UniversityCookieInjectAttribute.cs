@@ -5,6 +5,7 @@ using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Filters
 {
+    [System.AttributeUsageAttribute(System.AttributeTargets.All, AllowMultiple = false)]
     public class UniversityCookieInjectAttribute : ActionFilterAttribute
     {
         private readonly string m_UniversityPrefix;

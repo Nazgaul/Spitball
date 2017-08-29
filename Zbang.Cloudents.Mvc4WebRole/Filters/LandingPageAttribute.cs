@@ -6,6 +6,7 @@ using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Filters
 {
+    [AttributeUsageAttribute(AttributeTargets.All, AllowMultiple = false)]
     public class LandingPageAttribute : ActionFilterAttribute
     {
         public LandingPageAttribute(IZboxReadService zboxReadService, ICookieHelper cookieHelper)

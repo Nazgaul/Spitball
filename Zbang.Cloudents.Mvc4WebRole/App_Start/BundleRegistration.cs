@@ -98,7 +98,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 [
                     "jsHomePage"] = new[]
                     {
-                        new JsFileWithCdn("~/scripts/jquery-2.2.4.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"),
+                        new JsFileWithCdn("~/scripts/jquery-2.2.4.js",
+                        "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/jquery.validate.js"),
                         new JsFileWithCdn("~/js/signin/login-soft.js"),
                         new JsFileWithCdn("~/scripts/svg4everybody.js"),
@@ -109,17 +110,17 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/HomePage.js"),
                         new JsFileWithCdn("~/js/signin/backgroundimage.js")
                     },
-                [
-                    "alex"] = new[]
+                ["alex"] = new[]
                     {
-                        new JsFileWithCdn("~/scripts/jquery-2.2.4.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"),
+                        new JsFileWithCdn("~/scripts/jquery-2.2.4.js",
+                        "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"),
                         new JsFileWithCdn("~/js/alex/helpers.js"),
                         new JsFileWithCdn("~/js/alex/normal.js")
                     },
-                [
-                    "staticPage"] = new[]
+                ["staticPage"] = new[]
                     {
-                        new JsFileWithCdn("~/Scripts/jquery-2.2.4.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"),
+                        new JsFileWithCdn("~/Scripts/jquery-2.2.4.js",
+                        "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/jquery.bxslider.js"),
                         new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
                         new JsFileWithCdn("~/js/shared/languageHandler.js"),
@@ -144,9 +145,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     "jsSite4"] = new[]
                     {
 
-                        new JsFileWithCdn("~/scripts/jquery-2.2.4.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"),
+                        new JsFileWithCdn("~/scripts/jquery-2.2.4.js",
+                        "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/Modernizr.js"),
-                        new JsFileWithCdn("~/scripts/angular.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.5.9/angular.min.js"),
+                        new JsFileWithCdn("~/scripts/angular.js",
+                        "https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"),
                         new JsFileWithCdn("~/scripts/angular-ui-router.js"),
                         new JsFileWithCdn("~/scripts/angular-messages.js"),
                         new JsFileWithCdn("~/bower_components/angular-cache/dist/angular-cache.js"),

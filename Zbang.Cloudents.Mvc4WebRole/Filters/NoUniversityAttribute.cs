@@ -5,6 +5,7 @@ using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Filters
 {
+    [System.AttributeUsageAttribute(System.AttributeTargets.All, AllowMultiple = false)]
     public class NoUniversityAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)

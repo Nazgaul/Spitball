@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Core;
 using System.IO;
@@ -85,7 +86,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command = new AddFileToBoxCommand(userId, model.BoxId, blobAddressUri,
                     fileUploadedDetails.FileName,
                      size, model.TabId, model.Comment);
-                var result = await ZboxWriteService.AddItemToBoxAsync(command);
+                var result = await ZboxWriteService.AddItemToBoxAsync(command).ConfigureAwait(false);
 
                 var result2 = result as AddFileToBoxCommandResult;
                 if (result2 == null)
@@ -113,8 +114,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(
-                    $"Upload UploadFileAsync BoxId {model.BoxId} fileName {model.FileName} fileSize {model.FileSize} userid {userId} ", ex);
+                Logger.Exception(ex, new Dictionary<string, string>
+                {
+                    ["BoxId"] = model.BoxId.ToString(),
+                    ["fileName"] = model.FileName,
+                    ["fileSize"] = model.FileSize.ToString(),
+                    ["userId"] = userId.ToString()
+                });
+                //TraceLog.WriteError(
+                //    $"Upload UploadFileAsync BoxId {model.BoxId} fileName {model.FileName} fileSize {model.FileSize} userid {userId} ", ex);
                 return JsonError(BaseControllerResources.UnspecifiedError);
             }
         }
@@ -133,10 +141,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [NonAction]
-        private FileUploadDetails GetCookieUpload(string cookieName, long fileSize, string fileName, HttpPostedFileBase uploadedfile)
+        private FileUploadDetails GetCookieUpload(string cookieName, long fileSize, string fileName, HttpPostedFileBase uploadedFile)
         {
             var fileReceive = m_CookieHelper.ReadCookie<FileUploadDetails>(cookieName);
-            if (fileReceive?.FileSize <= fileReceive.TotalUploadBytes)
+            if (fileReceive?.FileSize <= fileReceive?.TotalUploadBytes)
             {
                 fileReceive = null;
             }
@@ -145,10 +153,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return new FileUploadDetails
                 {
                     BlobGuid = Guid.NewGuid(),
-                    TotalUploadBytes = uploadedfile.ContentLength,
+                    TotalUploadBytes = uploadedFile.ContentLength,
                     FileSize = fileSize,
                     FileName = fileName,
-                    MimeType = uploadedfile.ContentType,
+                    MimeType = uploadedFile.ContentType,
                     CurrentIndex = 0
                 };
             }
@@ -158,14 +166,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return new FileUploadDetails
                 {
                     BlobGuid = Guid.NewGuid(),
-                    TotalUploadBytes = uploadedfile.ContentLength,
+                    TotalUploadBytes = uploadedFile.ContentLength,
                     FileSize = fileSize,
                     FileName = fileName,
-                    MimeType = uploadedfile.ContentType,
+                    MimeType = uploadedFile.ContentType,
                     CurrentIndex = 0
                 };
             }
-            fileReceive.TotalUploadBytes += uploadedfile.ContentLength;
+            fileReceive.TotalUploadBytes += uploadedFile.ContentLength;
             return fileReceive;
         }
 
@@ -243,17 +251,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var blobAddressUri = fileUploadedDetails.BlobGuid.ToString().ToLower() + Path.GetExtension(fileUploadedDetails.FileName)?.ToLower();
 
-            fileUploadedDetails.CurrentIndex = await m_BlobProvider2.UploadFileBlockAsync(blobAddressUri, uploadedFile.InputStream, fileUploadedDetails.CurrentIndex);
+            fileUploadedDetails.CurrentIndex = await m_BlobProvider2.UploadFileBlockAsync(blobAddressUri, uploadedFile.InputStream, fileUploadedDetails.CurrentIndex).ConfigureAwait(false);
             m_CookieHelper.InjectCookie(ChatCookieName, fileUploadedDetails);
 
             if (!FileFinishToUpload(fileUploadedDetails))
             {
                 return JsonOk();
             }
-            await m_BlobProvider2.CommitBlockListAsync(blobAddressUri, fileUploadedDetails.CurrentIndex, fileUploadedDetails.MimeType);
+            await m_BlobProvider2.CommitBlockListAsync(blobAddressUri, fileUploadedDetails.CurrentIndex, fileUploadedDetails.MimeType).ConfigureAwait(false);
             var uri = m_BlobProvider2.GetBlobUrl(blobAddressUri);
             model.Users.Add(User.GetUserId());
-            await m_QueueProvider.Value.InsertFileMessageAsync(new ChatFileProcessData(uri, model.Users));
+            await m_QueueProvider.Value.InsertFileMessageAsync(new ChatFileProcessData(uri, model.Users)).ConfigureAwait(false);
 
             return JsonOk(blobAddressUri);
         }
@@ -271,22 +279,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             try
             {
-                var userid = User.GetUserId();
+                var userId = User.GetUserId();
 
                 var helper = new UrlTitleBringer();
                 var title = model.Name;
                 if (string.IsNullOrEmpty(title))
                 {
-                    title = await helper.BringTitleAsync(model.Url);
+                    title = await helper.BringTitleAsync(model.Url).ConfigureAwait(false);
                 }
                 if (string.IsNullOrWhiteSpace(title))
                 {
                     title = model.Name ?? model.Url;
                 }
 
-                var command = new AddLinkToBoxCommand(userid, model.BoxId.Value, model.Url, model.TabId, title,
+                var command = new AddLinkToBoxCommand(userId, model.BoxId.Value, model.Url, model.TabId, title,
                     model.Question);
-                var result = await ZboxWriteService.AddItemToBoxAsync(command);
+                var result = await ZboxWriteService.AddItemToBoxAsync(command).ConfigureAwait(false);
                 var result2 = result as AddLinkToBoxCommandResult;
                 if (result2 == null)
                 {
@@ -322,13 +330,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError($"Link user: {User.GetUserId()} BoxId: {model.BoxId} url: {model.Url}", ex);
+                Logger.Exception(ex, new Dictionary<string, string>
+                {
+                    ["BoxId"] = model.BoxId.ToString(),
+                    ["url"] = model.Url,
+                    ["userId"] = User.GetUserId().ToString()
+                });
                 return JsonError(BoxControllerResources.ProblemUrl);
             }
         }
 
         [HttpPost, ZboxAuthorize, RemoveBoxCookie, ActionName("Google")]
-        public async Task<ActionResult> GooleAsync(AddLink model)
+        public async Task<ActionResult> GoogleAsync(AddLink model)
         {
             if (!ModelState.IsValid)
             {
@@ -340,13 +353,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             try
             {
-                var userid = User.GetUserId();
+                var userId = User.GetUserId();
 
                 using (var webRequestHandler = new WebRequestHandler { AllowAutoRedirect = false })
                 {
-                    using (HttpClient httpClient = new HttpClient(webRequestHandler))
+                    using (var httpClient = new HttpClient(webRequestHandler))
                     {
-                        var response = await httpClient.GetAsync(model.Url);
+                        var response = await httpClient.GetAsync(model.Url).ConfigureAwait(false);
                         if (response.StatusCode == System.Net.HttpStatusCode.Redirect)
                         {
                             if (response.Headers.Location.AbsoluteUri.ToLowerInvariant().Contains("servicelogin"))
@@ -359,9 +372,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var title = model.Name ?? model.Url;
 
-                var command = new AddLinkToBoxCommand(userid, model.BoxId.Value, model.Url, model.TabId, title,
+                var command = new AddLinkToBoxCommand(userId, model.BoxId.Value, model.Url, model.TabId, title,
                     model.Question);
-                var result = await ZboxWriteService.AddItemToBoxAsync(command);
+                var result = await ZboxWriteService.AddItemToBoxAsync(command).ConfigureAwait(false);
                 var result2 = result as AddLinkToBoxCommandResult;
                 if (result2 == null)
                 {
@@ -394,7 +407,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError($"Link user: {User.GetUserId()} BoxId: {model.BoxId} url: {model.Url}", ex);
+                Logger.Exception(ex, new Dictionary<string, string>
+                {
+                    ["BoxId"] = model.BoxId.ToString(),
+                    ["url"] = model.Url,
+                    ["userId"] = User.GetUserId().ToString()
+                });
                 return JsonError(BoxControllerResources.ProblemUrl);
             }
         }
@@ -409,8 +427,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             long size;
             try
             {
-                await m_BlobProviderFiles.UploadFromLinkAsync(model.Url, blobAddressUri);
-                size = await m_BlobProviderFiles.SizeAsync(blobAddressUri);
+                await m_BlobProviderFiles.UploadFromLinkAsync(model.Url, blobAddressUri).ConfigureAwait(false);
+                size = await m_BlobProviderFiles.SizeAsync(blobAddressUri).ConfigureAwait(false);
             }
             catch (UnauthorizedAccessException)
             {
@@ -419,7 +437,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var command = new AddFileToBoxCommand(userId, model.BoxId, blobAddressUri,
                model.Name,
                 size, model.TabId, model.Question);
-            var result = await ZboxWriteService.AddItemToBoxAsync(command);
+            var result = await ZboxWriteService.AddItemToBoxAsync(command).ConfigureAwait(false);
             var result2 = result as AddFileToBoxCommandResult;
             if (result2 == null)
             {

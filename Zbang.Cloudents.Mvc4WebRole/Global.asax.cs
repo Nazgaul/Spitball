@@ -148,13 +148,14 @@ namespace Zbang.Cloudents.Mvc4WebRole
             httpContext.Response.Clear();
             if (HttpContext.Current.Items[HTTPItemConsts.HeaderSend] == null)
             {
-                httpContext.Response.StatusCode = ex is HttpException ? ((HttpException)ex).GetHttpCode() : 500;
+                var exception = ex as HttpException;
+                httpContext.Response.StatusCode = exception?.GetHttpCode() ?? 500;
             }
             httpContext.Response.TrySkipIisCustomErrors = true;
 
             routeData.Values["controller"] = "Error";
             routeData.Values["action"] = action;
-            if (Request.HttpMethod.ToUpper() != "GET")
+            if (!string.Equals(Request.HttpMethod, "GET", StringComparison.CurrentCultureIgnoreCase))
             {
                 return;
             }
