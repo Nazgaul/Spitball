@@ -3,6 +3,8 @@
 
 .vs/
 
+**/wwwroot 
+!**/wwwroot/images
 
 **/cdn/Images/
 **/cdn/Content/
@@ -102,9 +104,7 @@ DocProject/Help/html
 
 # Visual Studio 2015 cache/options directory
 .vs/
-!wwwroot 
-wwwroot/* 
-!wwwroot/images
+
 
 
 
