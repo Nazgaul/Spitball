@@ -102,9 +102,9 @@ DocProject/Help/html
 
 # Visual Studio 2015 cache/options directory
 .vs/
-/wwwroot/css/
-/wwwroot/lib/
-/wwwroot/scripts/
+wwwroot/css/
+wwwroot/lib/
+wwwroot/scripts/
 
 
 # MSTest test Results
