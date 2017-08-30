@@ -46,7 +46,7 @@ using Zbang.Zbox.ReadServices;
 
 namespace Testing
 {
-    class Program
+    static class Program
     {
         static void Main(string[] args)
         {

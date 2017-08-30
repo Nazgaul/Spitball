@@ -12,7 +12,7 @@ using Zbang.Zbox.Infrastructure.Security;
 
 namespace Zbang.Cloudents.Mvc4WebRole
 {
-   // [assembly: OwinStartup(typeof(Zbang.Cloudents.Mvc4WebRole.Startup))]
+   //[assembly: OwinStartup(typeof(Zbang.Cloudents.Mvc4WebRole.Startup))]
     public class Startup
     {
         public void Configuration(IAppBuilder app)

@@ -129,8 +129,7 @@ module app {
                     }
                 },
                 errorHandler(error) {
-                    ajaxService.logError('signalr', 'errorHandler', error);
-                    //console.error(error);
+
                 },
 
                 methods: ['send', 'changeUniversity', 'enterBoxes'],
@@ -169,12 +168,12 @@ module app {
 
                 }
             });
-
-
+            var i = 1;
             this.hub.connection.disconnected(() => {
                 setTimeout(() => {
+                    i++;
                     this.hub.connection.start();
-                }, 5000); // Restart connection after 5 seconds.
+                }, 5000 * i); // Restart connection after 5 seconds.
             });
         }
 
@@ -185,9 +184,8 @@ module app {
         isConnected = (): boolean => {
             return connectionStatus;
         };
-        //isConnected() {
-        //    return connectionStatus;
-        //};
+        
+       
         sendMsg(userId: number, message: string, conversationId: Guid, blob: string) {
             this.hub.invoke('send', userId, message, conversationId, blob);
         }

@@ -62,7 +62,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                 return;
             }
             ChangeThreadLanguage(lang);
-            await Next.Invoke(context);
+            await Next.Invoke(context).ConfigureAwait(true);
         }
 
         public static string ChangeThreadLanguage(string language)
@@ -89,6 +89,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 
         private static void ChangeThreadCulture(CultureInfo cultureInfo)
         {
+            
             Thread.CurrentThread.CurrentUICulture = cultureInfo;
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
         }

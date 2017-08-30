@@ -76,10 +76,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                 builder.RegisterType<CookieHelper>().As<ICookieHelper>();
                 builder.RegisterType<LanguageCookieHelper>().As<ILanguageCookieHelper>();
-                builder.RegisterType<LanguageMiddleware>().InstancePerRequest();
                 builder.Register(c =>
                 new LandingPageAttribute(c.Resolve<IZboxReadService>(), c.Resolve<ICookieHelper>())).AsActionFilterFor<Controller>();
 
+                builder.RegisterType<LanguageMiddleware>().InstancePerRequest();
                 var container = builder.Build();
                 DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
@@ -87,7 +87,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 //DependencyResolver.Current.GetService<IBlobProvider>();
                 DependencyResolver.Current.GetService<Zbox.Domain.Common.IZboxServiceBootStrapper>().BootStrapper();
 
-                app.UseAutofacMiddleware(container);
+                app.UseAutofacLifetimeScopeInjector(container);
+                app.UseMiddlewareFromContainer<LanguageMiddleware>();
+                //app.UseAutofacMiddleware(container);
                 app.UseAutofacMvc();
             }
         }
