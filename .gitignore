@@ -9,6 +9,7 @@
 *.min.css
 *.js.map
 node_modules/
+bower_components/
 
 
 # mstest test results
