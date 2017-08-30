@@ -146,8 +146,6 @@ var app;
                     }
                 },
                 errorHandler: function (error) {
-                    ajaxService.logError('signalr', 'errorHandler', error);
-                    //console.error(error);
                 },
                 methods: ['send', 'changeUniversity', 'enterBoxes'],
                 stateChanged: function (state) {
@@ -158,8 +156,8 @@ var app;
                             break;
                         case $.signalR.connectionState.connected:
                             _this.canSend = true;
-                            for (var i = 0; i < _this.commands.length; i++) {
-                                _this.commands[i]();
+                            for (var i_1 = 0; i_1 < _this.commands.length; i_1++) {
+                                _this.commands[i_1]();
                             }
                             _this.commands = [];
                             _this.changeStatus(true);
@@ -183,15 +181,14 @@ var app;
                     }
                 }
             });
+            var i = 1;
             this.hub.connection.disconnected(function () {
                 setTimeout(function () {
+                    i++;
                     _this.hub.connection.start();
-                }, 5000); // Restart connection after 5 seconds.
+                }, 5000 * i); // Restart connection after 5 seconds.
             });
         }
-        //isConnected() {
-        //    return connectionStatus;
-        //};
         RealTimeFactory.prototype.sendMsg = function (userId, message, conversationId, blob) {
             this.hub.invoke('send', userId, message, conversationId, blob);
         };

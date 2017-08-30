@@ -1,6 +1,5 @@
+/Properties/launchSettings.json
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
-[Bb]in/
-[Oo]bj/
 
 .vs/
 
@@ -21,14 +20,24 @@ TestResults
 # User-specific files
 *.suo
 *.user
+*.userosscache
 *.sln.docstates
 
 # Build results
 [Dd]ebug/
+[Dd]ebugPublic/
 [Rr]elease/
+[Rr]eleases/
 x64/
+x86/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+build/
+bld/
 *_i.c
 *_p.c
+*_i.h
 *.ilk
 *.meta
 *.obj
@@ -42,10 +51,14 @@ x64/
 *.tli
 *.tlh
 *.tmp
+*.tmp_proj
 *.log
 *.vspscc
 *.vssscc
 .builds
+*.pidb
+*.svclog
+*.scc
 
 
 # Visual C++ cache files
@@ -59,12 +72,15 @@ ipch/
 *.psess
 *.vsp
 *.vspx
+*.sap
 
 # Guidance Automation Toolkit
 *.gpState
 
 # ReSharper is a .NET coding add-in
 _ReSharper*
+*.[Rr]e[Ss]harper
+*.DotSettings.user
 
 # NCrunch
 *.ncrunch*
@@ -83,17 +99,34 @@ DocProject/Help/*.hhp
 DocProject/Help/Html2
 DocProject/Help/html
 
-#vs
-.vs
+# Visual Studio 2015 cache/options directory
+.vs/
+/wwwroot/dist/
+wwwroot/
+
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
 
 # Click-Once directory
 publish
 
 # Publish Web Output
-*.Publish.xml
+*.[Pp]ublish.xml
+*.azurePubxml
+# TODO: Comment the next line if you want to checkin your web deploy settings
+# but database connection strings (with potential passwords) will be unencrypted
+*.pubxml
+*.publishproj
 
 # NuGet Packages Directory
-packages
+*.nupkg
+# The packages folder can be ignored because of Package Restore
+**/packages/*
+# except build/, which is used as an MSBuild target.
+!**/packages/build/
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/packages/repositories.config
 
 # Windows Azure Build Output
 csx
@@ -114,6 +147,13 @@ ClientBin
 *.dbmdl
 Generated_Code #added for RIA/Silverlight projects
 
+
+# Visual Studio cache files
+# files ending in .cache can be ignored
+*.[Cc]ache
+# but keep track of directories ending in .cache
+!*.[Cc]ache/
+
 # Backup & report files from converting an old project file to a newer
 # Visual Studio version. Backup files are not needed, because we have git ;-)
 _UpgradeReport_Files/
@@ -122,4 +162,5 @@ UpgradeLog*.XML
 
 Zbang.Cloudents.MobileApp2/Properties/PublishProfiles/mobile-cloudents.pubxml
 
-.vs/config/applicationhost.config
+# Microsoft Azure ApplicationInsights config file
+ApplicationInsights.config

@@ -1398,7 +1398,7 @@ img.tp-slider-alternative-image {
   margin-right: 0;
 }
 .tp-leftarrow.default {
-  background: url(../images/rev-slider/large_left.png) no-Repeat 0 0;
+  background: url(../images/rev-slider/large_left.png) no-Repeat 100% 0;
 }
 .tp-leftarrow.default,
 .tp-rightarrow.default {
@@ -1409,7 +1409,7 @@ img.tp-slider-alternative-image {
   height: 40px;
 }
 .tp-rightarrow.default {
-  background: url(../images/rev-slider/large_right.png) no-Repeat 0 0;
+  background: url(../images/rev-slider/large_right.png) no-Repeat 100% 0;
 }
 .tp-leftarrow:hover,
 .tp-rightarrow:hover {
