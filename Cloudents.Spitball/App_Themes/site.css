@@ -134,6 +134,30 @@ Single-colored icons can be modified like so:
   text-transform: capitalize;
   color: #ffffff;
 }
+.block-with-text {
+  overflow: hidden;
+  position: relative;
+  line-height: 1.2em;
+  max-height: 3.6em;
+  text-align: justify;
+  margin-right: -1em;
+  padding-right: 1em;
+}
+.block-with-text:before {
+  content: '...';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.block-with-text:after {
+  content: '';
+  position: absolute;
+  right: 0;
+  width: 1em;
+  height: 1em;
+  margin-top: 0.2em;
+  background: white;
+}
 [grid] {
   display: -ms-grid;
   display: grid;
@@ -160,6 +184,9 @@ body {
 			background: green;
 		}
 	}*/
+}
+body .capitalize {
+  text-transform: capitalize;
 }
 body .overlay {
   width: 100%;
@@ -309,10 +336,16 @@ body .color-border-settings {
 }
 body .credit {
   color: #9b9b9b;
-  font-size: 10px;
+  font-size: 12px;
 }
 body .description {
-  font-size: 16px;
+  /*.multiLineEllipsis(1.2em, 3, white);*/
+  font-size: 12px;
+  color: #000000;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 body .university-class {
   font-size: 12px;
@@ -391,6 +424,8 @@ body header .grid {
   -ms-grid-row-gap: 1em;
   grid-template-areas: "logo search notification" "options options options";
   grid-template-columns: min-content 1fr max-content;
+  -ms-grid-columns: min-content 1em 1fr 1em max-content;
+  -ms-grid-rows: auto auto auto;
   align-content: flex-end;
 }
 @media only screen and (max-width: 1030px) {
@@ -407,6 +442,9 @@ body header .grid input[type=radio] {
   display: none;
 }
 body header .grid .sections {
+  -ms-grid-row: 3;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 4;
   grid-area: options;
   padding: 0.5em 0;
   white-space: nowrap;
@@ -448,6 +486,8 @@ body header .grid .sections .bunner {
 }
 body header .grid .logo {
   grid-area: logo;
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
 }
 body header .grid .logo img {
   vertical-align: middle;
@@ -459,19 +499,24 @@ body header .grid .logo img {
 }
 body header .grid #notification {
   grid-area: notification;
+  -ms-grid-row: 1;
+  -ms-grid-column: 5;
+  -ms-grid-column-align: end;
   justify-self: end;
 }
 body header .grid #searchArea {
   grid-area: search;
+  -ms-grid-row: 1;
+  -ms-grid-column: 3;
   display: inline-grid;
   display: -ms-inline-grid;
-  -ms-grid-column-gap: 0;
   grid-column-gap: 0;
   grid-gap: 0;
-  -ms-grid-template-columns: auto max-content max-content;
+  -ms-grid-columns: auto max-content max-content;
   grid-template-columns: auto max-content max-content;
-  -ms-align-items: center;
+  /*-ms-align-items: center;*/
   align-items: center;
+  -ms-grid-row-align: center;
 }
 @media only screen and (max-width: 640px) {
   body header .grid #searchArea {
@@ -484,14 +529,16 @@ body header .grid #searchArea .section-icon {
   padding-left: 8px;
 }
 body header .grid #searchArea #searchInput {
+  -ms-grid-column: 1;
   border-radius: 6px;
   line-height: 35px;
   display: inline-grid;
   display: -ms-inline-grid;
-  -ms-grid-column-gap: 0;
   grid-column-gap: 0;
   grid-gap: 0;
+  display: -ms-grid;
   grid-template-columns: 40px 100%;
+  -ms-grid-columns: 40px 100%;
 }
 body header .grid #searchArea #searchInput .icon-note {
   left: 0%;
@@ -529,6 +576,7 @@ body header .grid #searchArea #searchInput .icon-flashcard {
   margin-right: 0.2em;
 }
 body header .grid #searchArea .speech-icon {
+  -ms-grid-column: 2;
   margin-left: -1em;
   background: white;
   border: 0;
@@ -545,6 +593,7 @@ body header .grid #searchArea .speech-icon {
 body header .grid #search {
   background: #024294;
   border-radius: 6px;
+  -ms-grid-column: 3;
   color: white;
   border: none;
   height: 37px;
@@ -608,6 +657,7 @@ body section {
   -ms-grid-row-gap: 0;
   grid-template-areas: "aside content";
   grid-template-columns: auto auto;
+  -ms-grid-columns: auto auto;
   /*background: yellow;*/
 }
 body section .line {
@@ -644,6 +694,7 @@ body section h1 {
   }
 }
 body section .content {
+  -ms-grid-column: 2;
   grid-area: content;
   margin: 1em;
   max-width: 560px;
@@ -651,8 +702,10 @@ body section .content {
                 margin-top: ~"calc(2em + 37px)";
             }*/
 }
-body section .content a.item-result {
+body section .content a.item-result,
+body section .content iframe {
   text-decoration: none;
+  margin-top: 1em;
 }
 body section .content .bunner {
   width: 50px;
@@ -684,14 +737,16 @@ body section .content .item-result {
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   padding: 1em;
   grid-template-areas: "image item" "image source";
-  grid-template-columns: 26.22% auto;
-  -ms-grid-columns: 26.22% 1.5em auto;
-  grid-template-rows: auto 16px;
-  -ms-grid-rows: 12px 1.5em 16px;
+  grid-template-columns: 30% auto;
+  -ms-grid-columns: 30% 1.5em auto;
+  grid-template-rows: calc(144px) 16px;
+  -ms-grid-rows: calc(144px) 1em auto;
 }
 @media only screen and (max-width: 640px) {
   body section .content .item-result {
     height: 128px;
+    grid-template-rows: calc(96px) 16px;
+    -ms-grid-rows: calc(96px) 1em 16px;
   }
 }
 body section .content .item-result .image {
@@ -714,6 +769,7 @@ body section .content .item-result .item-content {
   -ms-grid-row: 1;
   -ms-grid-row-span: 1;
   grid-area: item;
+  font-size: 12px !important;
 }
 body section .content .item-result .source {
   -ms-grid-column: 3;
@@ -750,7 +806,9 @@ body section .content .options-val {
   white-space: nowrap;
   overflow-x: visible;
   overflow-y: hidden;
+  -ms-grid-row: 2;
   border-color: #1e59a8;
+  margin-top: 1em;
   /*[inline-flex] button {
                     margin: 0 1em 0 0;
                     height: 32px;
@@ -772,9 +830,9 @@ body section .content .options-val input[type='radio'] + label {
   color: #1e59a8;
 }
 body section aside {
+  -ms-grid-column: 1;
   grid-area: aside;
   padding: 1em;
-  position: absolute;
   /*@media @desktop_1366 {
                 padding: 1em 0 1em 15%;
             }
@@ -789,6 +847,7 @@ body section aside {
 }
 @media (max-width: 640px) {
   body section aside {
+    position: absolute;
     background: white;
     transform-origin: 0% 0%;
     transform: translate(-100%, 0);
@@ -806,16 +865,10 @@ body section aside label {
 }
 body section aside ul {
   padding: 0;
-  display: -ms-grid;
-  display: grid;
-  -ms-column-gap: 0.5em;
-  column-gap: 0.5em;
-  grid-gap: 0.5em;
-  -ms-grid-gap: 0.5em;
-  grid-row-gap: 0.5em;
-  -ms-grid-row-gap: 0.5em;
+  /*.displayGrid(0.5em);*/
 }
 body section aside ul li {
+  margin-top: 0.5em;
   display: flex;
   list-style: none;
   list-style-type: none;
@@ -825,8 +878,8 @@ body section aside ul li:hover {
   cursor: pointer;
 }
 body section aside ul li.selected {
-  margin: 0 -1em;
-  padding: 0 1em;
+  /*margin: 0 -1em;
+                        padding: 0 1em;*/
   background: #f0f0f0;
 }
 body section aside ul li span {
@@ -869,14 +922,22 @@ body section aside ul li .tutor {
   background: #52ab15;
 }
 body .sub-filter {
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-body .sub-filter .item {
-  flex: 1 0 auto;
+  display: -ms-grid;
+  display: grid;
+  -ms-column-gap: 0;
+  column-gap: 0;
+  grid-gap: 0;
+  -ms-grid-gap: 0;
+  grid-row-gap: 0;
+  -ms-grid-row-gap: 0;
+  /*.displayInlineFlex();
+
+        .item {
+            flex: 1 0 auto;
+        }*/
 }
 body .speech-input {
+  -ms-grid-column: 2;
   width: calc(100% - 40px);
   height: 37px;
   border-radius: 0 6px 6px 0;

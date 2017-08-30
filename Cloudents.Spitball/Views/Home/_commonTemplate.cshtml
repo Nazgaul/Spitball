@@ -32,8 +32,8 @@
 <script defer type="text/ng-template" id="item-template.html">
     <div class="image color-border-{{ctrl.sec}}" ng-class="{'color-{{ctrl.sec}}':!e.img}"><img ng-if="e.img" width="100%" height="100%" ng-src="{{::e.img}}"/>
        
-        <div class="default-image">
-            <svg class="icon icon-{{ctrl.sec}}" ng-if="!e.img">
+        <div class="default-image" width="100%" height="100%" ng-if="!e.img">
+            <svg class="icon icon-{{ctrl.sec}}">
                 <use xlink:href="{{'/App_Themes/Images/icons.svg#icon-'+ctrl.sec}}"></use>
             </svg>
         </div>
@@ -48,7 +48,7 @@
             {{::e.content}}
         </div>
     </div>
-    <span class="source credit">Source:{{e.source}}</span>
+    <div class="source credit">Source : {{e.source}}</div>
     @*<a class="clearfix item item-template" ng-href="{{::e.url}}">
         <div class="base">
             <div class="item-ratio">
