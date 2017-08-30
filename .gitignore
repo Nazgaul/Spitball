@@ -3,7 +3,7 @@
 
 .vs/
 
-**/wwwroot 
+**/wwwroot/* 
 !**/wwwroot/images/*
 
 **/cdn/Images/
