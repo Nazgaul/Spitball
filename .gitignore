@@ -102,10 +102,6 @@ DocProject/Help/html
 
 # Visual Studio 2015 cache/options directory
 .vs/
-wwwroot/*
-!wwwroot/images/*
-
-
 !wwwroot 
 wwwroot/* 
 !wwwroot/images

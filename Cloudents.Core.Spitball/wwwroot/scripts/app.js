@@ -6,6 +6,7 @@ function hello() {
     alert("hi");
     alert("hi");
     alert("hi");
+    alert("hi");
 }
 var Test = (function () {
     function Test() {
