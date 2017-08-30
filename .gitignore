@@ -104,7 +104,7 @@ DocProject/Help/html
 .vs/
 !wwwroot/
 wwwroot/*
-!wwwroot/images/*
+!wwwroot/images
 
 
 # MSTest test Results
