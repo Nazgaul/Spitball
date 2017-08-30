@@ -40,7 +40,13 @@ namespace Cloudents.Core.Spitball
                 app.UseExceptionHandler("Home/Error");
             }
             app.UseResponseCompression();
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                OnPrepareResponse = ctx =>
+                {
+                    ctx.Context.Response.Headers.Add("Cache-Control", "public,max-age=600");
+                }
+            });
             //app.AddResponseCompression()
             app.UseMvc(routes =>
             {
