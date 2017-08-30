@@ -17,14 +17,13 @@ namespace Zbang.Zbox.Infrastructure.Security
         private static bool IsAjaxRequest(IOwinRequest request)
         {
             IReadableStringCollection query = request.Query;
-            if ((query != null) && (query["X-Requested-With"] == "XMLHttpRequest"))
+            if (query?["X-Requested-With"] == "XMLHttpRequest")
             {
                 return true;
             }
             IHeaderDictionary headers = request.Headers;
-            return ((headers != null) && (headers["X-Requested-With"] == "XMLHttpRequest"));
+            return headers?["X-Requested-With"] == "XMLHttpRequest";
         }
-
 
         internal static IDataProtectionProvider DataProtectionProvider { get; private set; }
 
@@ -32,10 +31,8 @@ namespace Zbang.Zbox.Infrastructure.Security
         {
             DataProtectionProvider = app.GetDataProtectionProvider();
 
-
             //app.CreatePerOwinContext<UserManager>(UserManager.Create);
             //app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
-
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
@@ -44,7 +41,7 @@ namespace Zbang.Zbox.Infrastructure.Security
             {
                 var cookieDomain = "spitball.co";
                 var cookieName = "dev-a5";
-                if (ConfigFetcher.IsRunningOnCloud) 
+                if (ConfigFetcher.IsRunningOnCloud)
                 {
                     cookieDomain = "spitball.co"; //DO NOT CHANGE THIS AT ALL TIME
                     cookieName = "a4";
@@ -80,10 +77,9 @@ namespace Zbang.Zbox.Infrastructure.Security
                         //    validateInterval: TimeSpan.FromMinutes(30),
                         //    regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager)),
 
-
                     }
                 });
-                
+
                 //app.UseOAuthBearerAuthentication(
                 //    new Microsoft.Owin.Security.OAuth.OAuthBearerAuthenticationOptions
                 //    {
@@ -118,7 +114,6 @@ namespace Zbang.Zbox.Infrastructure.Security
                 //    ClientSecret = ""
                 //});
             }
-          
         }
     }
 }

@@ -38,6 +38,5 @@ namespace Zbang.Zbox.Infrastructure.Azure.Table
                 throw;
             }
         }
-        
     }
 }

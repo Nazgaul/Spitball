@@ -15,7 +15,6 @@ namespace Zbang.Zbox.Infrastructure.Security
     public class ApplicationUser : IdentityUser
     {
 
-
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, long userId, long? universityId, long? universityDataId)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -39,12 +38,11 @@ namespace Zbang.Zbox.Infrastructure.Security
             var userIdentity =  new ClaimsIdentity(new List<Claim>
                 {
                     new Claim(ClaimConst.UserIdClaim, userId.ToString(CultureInfo.InvariantCulture)),
-                   
+
                 },
                    DefaultAuthenticationTypes.ApplicationCookie);
             return AddClaims(userId, universityId, universityDataId, userIdentity);
         }
-        
 
 
 

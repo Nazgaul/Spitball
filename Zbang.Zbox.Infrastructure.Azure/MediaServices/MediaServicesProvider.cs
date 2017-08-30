@@ -330,6 +330,5 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
             }
         }
 
-
     }
 }

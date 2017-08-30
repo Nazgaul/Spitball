@@ -10,7 +10,6 @@ namespace Zbang.Zbox.Infrastructure.Security
 {
     public class SqlPasswordHasher : PasswordHasher
     {
-
         public override PasswordVerificationResult VerifyHashedPassword(string hashedPassword, string providedPassword)
         {
             string[] passwordProperties = hashedPassword.Split('|');

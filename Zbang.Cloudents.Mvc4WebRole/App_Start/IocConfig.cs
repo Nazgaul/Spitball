@@ -19,6 +19,7 @@ using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
+using Zbang.Zbox.WorkerRoleSearch;
 
 namespace Zbang.Cloudents.Mvc4WebRole
 {
@@ -80,6 +81,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new LandingPageAttribute(c.Resolve<IZboxReadService>(), c.Resolve<ICookieHelper>())).AsActionFilterFor<Controller>();
 
                 builder.RegisterType<LanguageMiddleware>().InstancePerRequest();
+                builder.RegisterType<TelemetryLogger>().As<ILogger>();
+
                 var container = builder.Build();
                 DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 

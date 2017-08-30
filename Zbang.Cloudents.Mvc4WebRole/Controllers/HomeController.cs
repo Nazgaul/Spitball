@@ -39,7 +39,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [UniversityCookieInject("universityName", Order = 1)]
-        [DonutOutputCache(CacheProfile = "HomePage", Order = 2), ActionName("Index"), HttpGet]
+        [DonutOutputCache(CacheProfile = "HomePage", Order = 2), ActionName("Index"), HttpGet, AcceptVerbs(HttpVerbs.Get | HttpVerbs.Head)]
         public async Task<ActionResult> IndexAsync(string invId, string universityName, string step)
         {
             if (User.Identity.IsAuthenticated)

@@ -294,6 +294,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Zbang.Zbox.WorkerRoleSearch\TelemetryLogger.cs">
+      <Link>TelemetryLogger.cs</Link>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\BundleRegistration.cs" />
     <Compile Include="App_Start\DisplayConfig.cs" />

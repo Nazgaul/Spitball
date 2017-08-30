@@ -23,8 +23,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
         private static readonly Dictionary<string, string> CssBundles = new Dictionary<string, string>();
         private static readonly Dictionary<string, string> JsBundles = new Dictionary<string, string>();
 
-        private static readonly string CdnLocation = GetValueFromCloudConfig();
-
         //static BundleConfig()
         //{
 
@@ -142,24 +140,22 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         public static string CssLink(string key)
         {
-            string retVal;
             //we except that some values won't exists
-            CssBundles.TryGetValue(key, out retVal);
+            CssBundles.TryGetValue(key, out string retVal);
 
             return retVal;
         }
 
         public static string JsLink(string key)
         {
-            string value;
-            if (!JsBundles.TryGetValue(key, out value))
+            if (!JsBundles.TryGetValue(key, out string value))
             {
                 throw new KeyNotFoundException(key);
             }
             return value;
         }
 
-        public static string CdnEndpointUrl => CdnLocation;
+        public static string CdnEndpointUrl { get; } = GetValueFromCloudConfig();
 
         public static void RegisterBundle(
             IEnumerable<KeyValuePair<string, IEnumerable<CssWithRtl>>> registeredCssBundles,
@@ -242,7 +238,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         public static bool IsDebugEnabled()
         {
-            return HttpContext.Current.Request.IsLocal || string.IsNullOrWhiteSpace(CdnLocation);
+            return HttpContext.Current.Request.IsLocal || string.IsNullOrWhiteSpace(BundleConfig.CdnEndpointUrl);
         }
 
         private static void RegisterCss(string key, IEnumerable<string> cssFiles)
@@ -257,7 +253,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 }
             }
 
-            var cdnUrl = CdnLocation;
+            var cdnUrl = BundleConfig.CdnEndpointUrl;
             if (!string.IsNullOrWhiteSpace(cdnUrl))
             {
                 cssBundle.WithOutputBaseHref(cdnUrl);
@@ -291,7 +287,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         private static void RenderBundles(string key, JavaScriptBundle bundle)
         {
-            var cdnUrl = CdnLocation;
+            var cdnUrl = BundleConfig.CdnEndpointUrl;
             if (!string.IsNullOrWhiteSpace(cdnUrl))
             {
                 bundle.WithOutputBaseHref(cdnUrl);

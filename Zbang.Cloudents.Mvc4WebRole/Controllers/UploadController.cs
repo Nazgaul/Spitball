@@ -15,7 +15,6 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Profile;
 using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 
@@ -74,19 +73,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var blobAddressUri = fileUploadedDetails.BlobGuid.ToString().ToLower() + Path.GetExtension(fileUploadedDetails.FileName)?.ToLower();
 
-                fileUploadedDetails.CurrentIndex = await m_BlobProviderFiles.UploadFileBlockAsync(blobAddressUri, uploadedFile.InputStream, fileUploadedDetails.CurrentIndex).ConfigureAwait(false);
+                fileUploadedDetails.CurrentIndex = await m_BlobProviderFiles.UploadFileBlockAsync(blobAddressUri, uploadedFile.InputStream, fileUploadedDetails.CurrentIndex).ConfigureAwait(true);
                 m_CookieHelper.InjectCookie(UploadCookieName, fileUploadedDetails);
 
                 if (!FileFinishToUpload(fileUploadedDetails))
                 {
                     return JsonOk();
                 }
-                await m_BlobProviderFiles.CommitBlockListAsync(blobAddressUri, fileUploadedDetails.CurrentIndex, fileUploadedDetails.MimeType).ConfigureAwait(false);
-                var size = await m_BlobProviderFiles.SizeAsync(blobAddressUri).ConfigureAwait(false);
+                await m_BlobProviderFiles.CommitBlockListAsync(blobAddressUri, fileUploadedDetails.CurrentIndex, fileUploadedDetails.MimeType).ConfigureAwait(true);
+                var size = await m_BlobProviderFiles.SizeAsync(blobAddressUri).ConfigureAwait(true);
                 var command = new AddFileToBoxCommand(userId, model.BoxId, blobAddressUri,
                     fileUploadedDetails.FileName,
                      size, model.TabId, model.Comment);
-                var result = await ZboxWriteService.AddItemToBoxAsync(command).ConfigureAwait(false);
+                var result = await ZboxWriteService.AddItemToBoxAsync(command).ConfigureAwait(true);
 
                 var result2 = result as AddFileToBoxCommandResult;
                 if (result2 == null)

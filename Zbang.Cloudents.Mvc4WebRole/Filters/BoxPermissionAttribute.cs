@@ -10,7 +10,7 @@ using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Filters
 {
-    [AttributeUsageAttribute(AttributeTargets.All, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.All)]
     public class BoxPermissionAttribute : ActionFilterAttribute
     {
         private readonly string m_BoxParamsId;

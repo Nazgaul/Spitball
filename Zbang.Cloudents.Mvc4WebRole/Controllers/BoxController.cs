@@ -310,29 +310,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError();
             }
         }
-
-        //[HttpGet]
-        //[ZboxAuthorize(IsAuthenticationRequired = false)]
-        //[BoxPermission("id"), ActionName("Recommended")]
-        //[AsyncTimeout(TimeConst.Second * 3 * 1000)]
-        //public async Task<JsonResult> RecommendedAsync(long id, CancellationToken cancellationToken)
-        //{
-        //    try
-        //    {
-        //        using (var token = CreateCancellationToken(cancellationToken))
-        //        {
-        //            var userId = User.GetUserId(false);
-        //            var query = new GetBoxSideBarQuery(id, userId);
-        //            var result = await ZboxReadService.GetBoxRecommendedCoursesAsync(query, token.Token);
-        //            return JsonOk(result);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError($"Recommended {id}", ex);
-        //        return JsonOk();
-        //    }
-        //}
+        
 
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]

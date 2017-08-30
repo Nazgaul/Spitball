@@ -26,6 +26,5 @@ namespace Zbang.Zbox.Infrastructure.Azure.Entities
         public string BadItem {get; set;}
     
         public string Other { get; set; }
-        
     }
 }

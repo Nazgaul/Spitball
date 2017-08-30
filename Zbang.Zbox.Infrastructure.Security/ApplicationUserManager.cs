@@ -8,7 +8,6 @@ namespace Zbang.Zbox.Infrastructure.Security
 {
     public class ApplicationUserManager : UserManager<ApplicationUser>, IAccountService
     {
-
         public ApplicationUserManager(IUserStore<ApplicationUser> store)
             : base(store)
         {
@@ -58,7 +57,6 @@ namespace Zbang.Zbox.Infrastructure.Security
                 };
 
                 UserTokenProvider = protectorProvider;
-
             }
         }
         //public static UserManager Create(IdentityFactoryOptions<UserManager> options, IOwinContext context)

@@ -49,7 +49,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
                 if (string.IsNullOrEmpty(connectionString))
                 {
                     ZboxCloudStorage = CloudStorageAccount.DevelopmentStorageAccount;
-                    //CreateStorage();
+                    CreateStorage();
                     return;
                 }
                 ZboxCloudStorage = CloudStorageAccount.Parse(connectionString);
@@ -158,14 +158,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             {
                 PublicAccess = BlobContainerPublicAccessType.Blob
             });
-
-
         }
 
         private static void CreateQueues(CloudQueueClient queueClient)
         {
-            var fieldInfos = typeof(QueueName).GetFields(BindingFlags.Public |
-            BindingFlags.Static | BindingFlags.FlattenHierarchy);
+            var fieldInfos = typeof(QueueName).GetFields(BindingFlags.Public
+            | BindingFlags.Static | BindingFlags.FlattenHierarchy);
 
             foreach (var field in fieldInfos.Where(fi => fi.IsLiteral && !fi.IsInitOnly).ToList())
             {

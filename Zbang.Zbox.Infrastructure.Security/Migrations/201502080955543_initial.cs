@@ -2,7 +2,7 @@ namespace Zbang.Zbox.Infrastructure.Security.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class initial : DbMigration
     {
         public override void Up()
@@ -16,7 +16,7 @@ namespace Zbang.Zbox.Infrastructure.Security.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
-            
+
             CreateTable(
                 "dbo.AspNetUserRoles",
                 c => new
@@ -29,7 +29,7 @@ namespace Zbang.Zbox.Infrastructure.Security.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
-            
+
             CreateTable(
                 "dbo.AspNetUsers",
                 c => new
@@ -49,7 +49,7 @@ namespace Zbang.Zbox.Infrastructure.Security.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.UserName, unique: true, name: "UserNameIndex");
-            
+
             CreateTable(
                 "dbo.AspNetUserClaims",
                 c => new
@@ -62,7 +62,7 @@ namespace Zbang.Zbox.Infrastructure.Security.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
-            
+
             CreateTable(
                 "dbo.AspNetUserLogins",
                 c => new
@@ -74,9 +74,8 @@ namespace Zbang.Zbox.Infrastructure.Security.Migrations
                 .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
-            
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");

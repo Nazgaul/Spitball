@@ -11,7 +11,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 {
     public class AutoRenewLease : IDisposable
     {
-
         public bool HasLease => m_LeaseId != null;
 
         readonly AccessCondition m_AccessCondition;

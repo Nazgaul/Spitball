@@ -42,7 +42,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
         {
             if (Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft)
             {
-                key = key + BundleConfig.Rtl;
+                key += BundleConfig.Rtl;
             }
             var cssLinks = BundleConfig.CssLink(key);
             return MvcHtmlString.Create(cssLinks);

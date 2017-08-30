@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -157,7 +158,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     , userId), cancellationToken);
 
                 var tContent = Zbox.Infrastructure.Extensions.TaskExtensions.CompletedTaskString;
-                if (firstTime.HasValue && firstTime.Value)
+                if (firstTime == true)
                 {
                     var token = CreateCancellationToken(cancellationToken);
                     tContent = m_ItemSearchProvider.Value.ItemContentAsync(itemId, token.Token);
@@ -200,7 +201,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [HttpGet, ActionName("Comment")]
         [BoxPermission("boxId")]
-        public async Task<ActionResult> CommentsAsync(long itemId)
+        [SuppressMessage("","RCS1163",Justification = "We need that for box permission")]
+        public async Task<ActionResult> CommentsAsync(long boxId, long itemId)
         {
             var result = await ZboxReadService.GetItemCommentsAsync(new ItemCommentQuery(itemId)).ConfigureAwait(false);
             return JsonOk(result);
@@ -372,11 +374,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [BoxPermission("boxId")]
         [AsyncTimeout(TimeConst.Minute * 3 * 1000)]
         [JsonHandleError(HttpStatus = HttpStatusCode.BadRequest, ExceptionType = typeof(ArgumentException))]
+        [SuppressMessage("", "RCS1163", Justification = "We need that for box permission")]
         public async Task<JsonResult> PreviewAsync(string blobName, int index, long id,
             long boxId, CancellationToken cancellationToken)
         {
-            Uri uri;
-            if (!Uri.TryCreate(blobName, UriKind.Absolute, out uri))
+            if (!Uri.TryCreate(blobName, UriKind.Absolute, out Uri uri))
             {
                 uri = m_BlobProviderFiles.Value.GetBlobUrl(blobName);
             }
@@ -384,12 +386,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var processor = m_FileProcessorFactory.Value.GetProcessor(uri);
                 if (processor == null)
+                {
                     return
-                        JsonOk(
-                            new
-                            {
-                                template = "failed"
-                        });
+                       JsonOk(
+                           new
+                           {
+                               template = "failed"
+                           });
+                }
 
                 var retVal = await processor.ConvertFileToWebsitePreviewAsync(uri, index, cancellationToken).ConfigureAwait(false);
                 if (retVal.Content == null)
