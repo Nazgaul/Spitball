@@ -96,7 +96,7 @@ module MyApp {
 
         constructor(private $scope: angular.IScope, private $http: angular.IHttpService,private $sce: ng.ISCEService) {
 			this.isOpen = false;
-            this.sec = "ask-copy";
+            this.sec = "ask";
 		}
 
 		changeSection(item) {
@@ -114,21 +114,21 @@ module MyApp {
 			this.$http.get("home/search", { params: { category: this.sec, term: this.term } })
                 .then(response => {
                     this.results = {};
-                    if (this.sec == 'ask') {
+                    //if (this.sec == 'ask') {
                         this.results.video = this.$sce.trustAsResourceUrl('https://www.youtube.com/embed/EqolSvoWNck');
                         this.results.items = [
                             { title: "title", content: "content", source: "spitball.com", img: "https://thumbs.dreamstime.com/z/smiley-emoticon-happy-face-72284393.jpg", url: "www.google.com" },
                             { title: "title2", content: "content2", source: "spitball.com",  url: "www.google.com" }
 
                         ]
-                    }
+                    //}
 					console.log("hello");
 				});
         }
         resultTemplate() {
-            if (this.sec === 'ask') {
+            //if (this.sec === 'ask') {
                 return 'item-template.html';
-            }
+            //}
         }
 	}
 
