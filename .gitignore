@@ -1,8 +1,8 @@
 /Properties/launchSettings.json
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 
-.vs/
 
+!**/wwwroot/
 **/wwwroot/* 
 !**/wwwroot/images/*
 
