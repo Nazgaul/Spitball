@@ -20,10 +20,11 @@ module MyApp {
 	}
 
 	export class HomeController {
-		static $inject = ["$scope", "$http"];
+		static $inject = ["$scope", "$http","$sce"];
 		isOpen: boolean;
         sec: string;
         term: string;
+        results;
 		sublist: IOptionItemVal[];
         private jobTypes: IOptionItemVal[] = [{ code: "full", name: "full-time" }, { code: "part", name: "part-time" }, { code: "con", name: "contractor" }];
 		private sourceList: IOptionItemVal[] = [
@@ -84,7 +85,7 @@ module MyApp {
             'note': { filter: this.docOption, sort: this.relDatsSort}, 'flashcard': {
                 filter: this.flashcardOptions,
                 sort: this.relDatsSort
-            }, 'tutor-copy': {
+            }, 'tutor': {
 	            filter: this.tutorOption,
 	            sort: this.tutorSort
             },
@@ -93,7 +94,7 @@ module MyApp {
 
 		options: IOptionItem[];
 
-        constructor(private $scope: angular.IScope, private $http: angular.IHttpService) {
+        constructor(private $scope: angular.IScope, private $http: angular.IHttpService,private $sce: ng.ISCEService) {
 			this.isOpen = false;
             this.sec = "ask-copy";
 		}
@@ -101,7 +102,8 @@ module MyApp {
 		changeSection(item) {
 			this.isOpen = false;
 			this.sec = item;
-			this.options= [];
+            this.options = [];
+            this.results = {};
 			console.log("change");
 			this.sublist = [];
 			this.options = this.optionDic[item];
@@ -110,10 +112,24 @@ module MyApp {
 
 		search() {
 			this.$http.get("home/search", { params: { category: this.sec, term: this.term } })
-			.then(response => {
+                .then(response => {
+                    this.results = {};
+                    if (this.sec == 'ask') {
+                        this.results.video = this.$sce.trustAsResourceUrl('https://www.youtube.com/embed/EqolSvoWNck');
+                        this.results.items = [
+                            { title: "title", content: "content", source: "spitball.com", img: "https://thumbs.dreamstime.com/z/smiley-emoticon-happy-face-72284393.jpg", url: "www.google.com" },
+                            { title: "title2", content: "content2", source: "spitball.com",  url: "www.google.com" }
+
+                        ]
+                    }
 					console.log("hello");
 				});
-		}
+        }
+        resultTemplate() {
+            if (this.sec === 'ask') {
+                return 'item-template.html';
+            }
+        }
 	}
 
 	appf.controller("HomeController", HomeController as any);
