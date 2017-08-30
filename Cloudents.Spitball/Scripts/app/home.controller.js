@@ -110,4 +110,3 @@ var MyApp;
     MyApp.HomeController = HomeController;
     appf.controller("HomeController", HomeController);
 })(MyApp || (MyApp = {}));
-//# sourceMappingURL=home.controller.js.map
