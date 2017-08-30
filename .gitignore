@@ -2,9 +2,9 @@
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 
 
-/wwwroot/css/
-/wwwroot/lib/
-/wwwroot/scripts/
+**/wwwroot/css/**
+**/wwwroot/lib/**
+**/wwwroot/scripts/**
 
 **/cdn/Images/
 **/cdn/Content/
