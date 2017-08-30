@@ -102,8 +102,8 @@ DocProject/Help/html
 
 # Visual Studio 2015 cache/options directory
 .vs/
-wwwroot/*
-!wwwroot/images
+wwwroot
+
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
