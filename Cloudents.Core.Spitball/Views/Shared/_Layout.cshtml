@@ -14,6 +14,16 @@
     hi
     @RenderBody()
 </div>
-    
+<environment names="Development">
+    <script src="~/lib/angular/angular.js"></script>
+    <script src="~/scripts/app.js"></script>
+</environment>
+<environment names="Staing,Production">
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"
+            asp-fallback-src="~/lib/angular/angular.js"
+            asp-fallback-test="window.angular">
+        
+    </script>
+</environment>
 </body>
 </html>

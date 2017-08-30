@@ -1,0 +1,7 @@
+{
+  "name": "myproject",
+  "version": "1.0.0",
+  "devDependencies": {
+    "angular": "^1.6.6"
+  }
+}
