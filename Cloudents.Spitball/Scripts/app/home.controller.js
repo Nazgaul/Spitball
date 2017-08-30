@@ -72,7 +72,7 @@ var MyApp;
                 'jobs': { filter: this.jobOptions, sort: this.jobSort }
             };
             this.isOpen = false;
-            this.sec = "ask-copy";
+            this.sec = "ask";
         }
         HomeController.prototype.changeSection = function (item) {
             this.isOpen = false;
@@ -89,20 +89,20 @@ var MyApp;
             this.$http.get("home/search", { params: { category: this.sec, term: this.term } })
                 .then(function (response) {
                 _this.results = {};
-                if (_this.sec == 'ask') {
-                    _this.results.video = _this.$sce.trustAsResourceUrl('https://www.youtube.com/embed/EqolSvoWNck');
-                    _this.results.items = [
-                        { title: "title", content: "content", source: "spitball.com", img: "https://thumbs.dreamstime.com/z/smiley-emoticon-happy-face-72284393.jpg", url: "www.google.com" },
-                        { title: "title2", content: "content2", source: "spitball.com", url: "www.google.com" }
-                    ];
-                }
+                //if (this.sec == 'ask') {
+                _this.results.video = _this.$sce.trustAsResourceUrl('https://www.youtube.com/embed/EqolSvoWNck');
+                _this.results.items = [
+                    { title: "title", content: "content", source: "spitball.com", img: "https://thumbs.dreamstime.com/z/smiley-emoticon-happy-face-72284393.jpg", url: "www.google.com" },
+                    { title: "title2", content: "content2", source: "spitball.com", url: "www.google.com" }
+                ];
+                //}
                 console.log("hello");
             });
         };
         HomeController.prototype.resultTemplate = function () {
-            if (this.sec === 'ask') {
-                return 'item-template.html';
-            }
+            //if (this.sec === 'ask') {
+            return 'item-template.html';
+            //}
         };
         HomeController.$inject = ["$scope", "$http", "$sce"];
         return HomeController;

@@ -164,7 +164,7 @@ body {
 body .overlay {
   width: 100%;
   height: 100%;
-  background: black;
+  background: rgba(0, 0, 0, 0.5);
   z-index: 6;
   opacity: 0.8;
   position: fixed;
@@ -228,6 +228,84 @@ body .color-chat {
 }
 body .color-settings {
   background: #07305 5 !important;
+}
+body .color-text-ask {
+  color: #024294 !important;
+}
+body .color-text-create-flashcard {
+  color: #a40014 !important;
+}
+body .color-text-my-likes {
+  color: #7ed321 !important;
+}
+body .color-text-note {
+  color: #320161 !important;
+}
+body .color-text-flashcard {
+  color: #f14d4d !important;
+}
+body .color-text-tutor {
+  color: #52ab15 !important;
+}
+body .color-text-jobs {
+  color: #f49c20 !important;
+}
+body .color-text-book {
+  color: #8c3fbf !important;
+}
+body .color-text-purchase {
+  color: #2cbfa5 !important;
+}
+body .color-text-upload {
+  color: #94b7cb !important;
+}
+body .color-text-post {
+  color: #414141 !important;
+}
+body .color-text-chat {
+  color: #9ccdff !important;
+}
+body .color-text-settings {
+  color: #07305 5 !important;
+}
+body .color-border-ask {
+  border-color: #024294 !important;
+}
+body .color-border-create-flashcard {
+  border-color: #a40014 !important;
+}
+body .color-border-my-likes {
+  border-color: #7ed321 !important;
+}
+body .color-border-note {
+  border-color: #320161 !important;
+}
+body .color-border-flashcard {
+  border-color: #f14d4d !important;
+}
+body .color-border-tutor {
+  border-color: #52ab15 !important;
+}
+body .color-border-jobs {
+  border-color: #f49c20 !important;
+}
+body .color-border-book {
+  border-color: #8c3fbf !important;
+}
+body .color-border-purchase {
+  border-color: #2cbfa5 !important;
+}
+body .color-border-upload {
+  border-color: #94b7cb !important;
+}
+body .color-border-post {
+  border-color: #414141 !important;
+}
+body .color-border-chat {
+  border-color: #9ccdff !important;
+}
+body .color-border-settings {
+  border-color: #07305 5 !important;
 }
 body .credit {
   color: #9b9b9b;
@@ -509,8 +587,8 @@ body #menu-checkbox:checked + aside {
   z-index: 15;
   padding-top: 45px;
   margin-top: -130px;
-  height: 100%;
-  padding-bottom: 200px;
+  /*height: 100%;
+        padding-bottom: 200px;*/
 }
 body #menu-checkbox:checked + aside.section-open {
   margin-top: -180px;
@@ -607,17 +685,40 @@ body section .content .item-result {
   padding: 1em;
   grid-template-areas: "image item" "image source";
   grid-template-columns: 26.22% auto;
+  -ms-grid-columns: 26.22% 1.5em auto;
   grid-template-rows: auto 16px;
+  -ms-grid-rows: 12px 1.5em 16px;
+}
+@media only screen and (max-width: 640px) {
+  body section .content .item-result {
+    height: 128px;
+  }
 }
 body section .content .item-result .image {
+  display: flex;
+  align-items: center;
+  -ms-grid-column: 1;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 3;
   grid-area: image;
   height: 100%;
+  border: solid 1px #024294;
   min-width: 80px;
 }
+body section .content .item-result .image .default-image {
+  margin: auto;
+  transform: scale(1.5);
+}
 body section .content .item-result .item-content {
+  -ms-grid-column: 3;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 1;
   grid-area: item;
 }
 body section .content .item-result .source {
+  -ms-grid-column: 3;
+  -ms-grid-row: 3;
+  -ms-grid-row-span: 1;
   grid-area: source;
   vertical-align: bottom;
 }
@@ -679,7 +780,7 @@ body section aside {
             }
 
             position: fixed;*/
-  width: 170px;
+  width: 220px;
 }
 @media only screen and (min-width: 641px) and (max-width: 1365px), only screen and (min-width: 1366px) {
   body section aside {
@@ -695,13 +796,13 @@ body section aside {
   }
 }
 body section aside label {
-  width: 59px;
-  height: 14px;
+  /*width: 59px;
+                height: 14px;*/
   font-family: OpenSans;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: -0.2px;
   text-align: left;
-  color: #90949c;
+  color: #1d2129;
 }
 body section aside ul {
   padding: 0;
