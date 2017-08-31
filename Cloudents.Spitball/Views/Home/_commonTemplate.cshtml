@@ -74,51 +74,24 @@
         </div>
     </a>*@
 </script>
-<script defer type="text/ng-template" id="tutor-template.html">
+<script defer type="text/ng-template" id="purchase-template.html">
     <div class="image" ng-class="{'color-{{ctrl.sec}}':!e.img}">
         <img ng-if="e.img" width="100%" height="100%" ng-src="{{::e.img}}" />
 
-        <div class="default-image">
-            <svg class="icon icon-{{ctrl.sec}}" ng-if="!e.img">
-                <use xlink:href="{{'/App_Themes/Images/icons.svg#icon-'+ctrl.sec}}"></use>
-            </svg>
+        <div class="default-image" ng-if="!e.img">
+            <span>{{e.name|firstLetters|uppercase|limitTo : 2 }}</span>
         </div>
     </div>
-    <div class="item-content">
-        @*<div class="university">
-                <div class="description">University of Michigan</div>
-                <div class="university-class">Econ 102 / Introductory Microecono…</div>
-            </div>*@
-        <h2 class="Text-Style-2">{{::e.title}}</h2>
-        <div class="description">
-            {{::e.content}}
-        </div>
-    </div>
-    <span class="source credit">Source:{{e.source}}</span>
-    @*<a class="clearfix item item-template" ng-href="{{::e.url}}">
-            <div class="base">
-                <div class="item-ratio">
-                    <div class="content">
-                        <img class="img-responsive" ng-src="{{e.thumbnail}}" width="368" height="520" alt="{{::e.nameExtension}}" />
-                        <div class="extra" id="drag{{::$index}}">
-                            <h2 class="multi-line-ellipsis" dir="auto" ng-bind-html="::e.nameExtension"></h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="stats" ng-hide="::e.numOfViews == undefined">
-                    <div class="views">
-                        {{::e.numOfViews}} <md-icon md-svg-icon="b:eye"></md-icon>
-                    </div>
-                    <div class="likes">
-                        {{::e.likes}} <md-icon md-svg-icon="b:like"></md-icon>
-                    </div>
-                </div>
+    <div class="rest-details">
+        <h2 class="name capitalize">{{::e.name}}</h2>
+        <div class="rate-grid">
+            <div>{{::e.rate}}</div>
+            <div inline-flex class="rating-star">
+            <div ng-repeat="i in [1,2,3,4,5]" class="star-five" ng-class="{'selected':(e.rate>i)}"></div></div>
             </div>
-            <div class="extra-details">
-                <h5 ng-bind-html="::e.name"></h5>
-                <span ng-bind-html="::e.content"></span>
-            </div>
-        </a>*@
+        <div class="location">{{::e.location}}</div>
+        <div>{{::e.status}}</div>
+    </div>       
 </script>
 @*<script defer type="text/ng-template" id="quiz-template.html">
     <a class="quiz quiz-template" ng-href="{{::e.url}}">
