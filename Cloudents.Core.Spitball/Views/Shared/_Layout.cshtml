@@ -18,14 +18,13 @@
 </div>    
 <environment names="Development">
     <script src="~/lib/angular/angular.js" defer></script>
-    <script src="~/scripts/initAngular.js" defer></script>
     <script src="~/scripts/app.js" defer></script>
+    <script src="~/scripts/initAngular.js" defer></script>
 </environment>
 <environment names="Staing,Production">
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"
             asp-fallback-src="~/lib/angular/angular.js"
             asp-fallback-test="window.angular" defer="true">
-        
     </script>
     <script src="~/scripts/site.min.js" asp-append-version="true" defer></script>
 </environment>
