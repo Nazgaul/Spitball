@@ -512,7 +512,7 @@ body header .grid #searchArea {
   display: -ms-inline-grid;
   grid-column-gap: 0;
   grid-gap: 0;
-  -ms-grid-columns: auto max-content max-content;
+  -ms-grid-columns: auto 100fr max-content;
   grid-template-columns: auto max-content max-content;
   /*-ms-align-items: center;*/
   align-items: center;
@@ -795,6 +795,75 @@ body section .content .tutor-result .details div + div {
 }
 body section .content .tutor-result .details .place {
   font-weight: bold;
+}
+body section .content .jobs-result {
+  display: -ms-grid;
+  display: grid;
+  -ms-column-gap: 0;
+  column-gap: 0;
+  grid-gap: 0;
+  -ms-grid-gap: 0;
+  grid-row-gap: 0;
+  -ms-grid-row-gap: 0;
+  margin-top: 0.5em;
+  border-radius: 4px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  padding: 0.5em;
+  color: white;
+  text-decoration: none;
+  grid-template-columns: 50fr 0.5em 50fr;
+  -ms-grid-columns: 50fr 0.5em 50fr;
+  grid-template-rows: auto 0.5em 100fr 1em 20px 1em 20px;
+  -ms-grid-rows: auto 0.5em 100fr 1em 20px 1em 20px;
+  font-size: 14px;
+  color: #000000;
+}
+body section .content .jobs-result .icon {
+  margin-right: 0.5em;
+}
+body section .content .jobs-result .title {
+  font-size: 14px;
+  font-weight: bold;
+  grid-row: 1;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 4;
+}
+body section .content .jobs-result .description {
+  grid-row: 3;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  -ms-grid-row: 3;
+  -ms-grid-column: 1;
+  font-size: 14px;
+  -ms-grid-column-span: 4;
+}
+body section .content .jobs-result .company {
+  grid-row: 5;
+  -ms-grid-row: 5;
+  grid-column: 1;
+  -ms-grid-column: 1;
+}
+body section .content .jobs-result .location {
+  grid-row: 5;
+  -ms-grid-row: 5;
+  grid-column: 3;
+  -ms-grid-column: 3;
+}
+body section .content .jobs-result .jobType {
+  grid-row: 7;
+  -ms-grid-row: 7;
+  grid-column: 1;
+  -ms-grid-column: 1;
+}
+body section .content .jobs-result .startTime {
+  grid-row: 7;
+  -ms-grid-row: 7;
+  grid-column: 3;
+  -ms-grid-column: 3;
 }
 body section .content .purchase-result {
   display: -ms-grid;

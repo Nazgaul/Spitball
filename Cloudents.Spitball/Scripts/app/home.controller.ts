@@ -127,6 +127,12 @@ module MyApp {
                             { firstName: "Ram", lastName: "Yaari", place: "Berlin,Germany", distance: "253305", courseType: "offline", price: "55", url: "www.google.com" }
                         ];
 
+                    } else if (this.sec === "jobs") {
+                        this.results.items = [
+                            { title: "College Students - Online Media Journalist", desc: "Publish high-quality news (topics of your choice), having the chance to use a variety of formats (written articles, videos). Share and promote the news through social networks to increae the number of the readers. If", company: "Microsoft", location: "Berlin,Germany", jobType: "paid", startTime: "Now", url: "http://www.interclass.us/purchase" },
+                            { title: "Job num 2", desc: "mats (written articles, videos). Share and promote the news through social networks to increae the number of the readers. If", company: "Microsoft", location: "Berlin,Germany", jobType: "paid", startTime: "Now", url: "http://www.interclass.us/purchase" }
+                        ];
+
                     } else {
                         //if (this.sec == 'ask') {
                         this.results.video = this.$sce.trustAsResourceUrl('https://www.youtube.com/embed/EqolSvoWNck');

@@ -109,6 +109,38 @@
         <div>Ofer {{::e.courseType}}</div>
     </div>
 </script>
+<script defer type="text/ng-template" id="jobs-template.html">
+    <div class="title color-text-jobs">{{::e.title}}</div>
+    <div class="description">Job description: <br> {{::e.desc}}</div>
+    <div class="company">
+        <span class="icon">
+            <svg class="icon icon-company">
+                <use xlink:href="/App_Themes/Images/icons.svg#icon-company"></use>
+            </svg>
+        </span>{{::e.company}}
+    </div>
+    <div class="jobType">
+        <span class="icon">
+            <svg class="icon icon-paid">
+                <use xlink:href="/App_Themes/Images/icons.svg#icon-paid"></use>
+            </svg>
+        </span>{{::e.jobType}}
+    </div>
+    <div class="startTime">
+        <span class="icon">
+            <svg class="icon icon-calander">
+                <use xlink:href="/App_Themes/Images/icons.svg#icon-calander"></use>
+            </svg>
+        </span>{{::e.startTime}}
+    </div>
+    <div class="location">
+        <span class="icon">
+            <svg class="icon icon-location">
+                <use xlink:href="/App_Themes/Images/icons.svg#icon-location"></use>
+            </svg>
+        </span>{{::e.location}}
+    </div>
+</script>
 @*<script defer type="text/ng-template" id="quiz-template.html">
     <a class="quiz quiz-template" ng-href="{{::e.url}}">
         <div class="base">
