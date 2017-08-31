@@ -33,14 +33,14 @@
 			</picture>
 		</div>
 		<form id="searchArea" ng-submit="ctrl.search()">
-			<span id="searchInput" class="color-{{ctrl.sec}}">
-				<span class="section-icon">
+			<div id="searchInput" class="color-{{ctrl.sec}}">
+				<div class="section-icon">
 					<svg class="icon icon-{{ctrl.sec}}">
 						<use xlink:href="{{'/App_Themes/Images/icons.svg#icon-'+ctrl.sec}}"></use>
 					</svg>
-				</span>
+				</div>
 				<input id="qFilter" class="speech-input" type="search" ng-model="ctrl.term">
-			</span>
+			</div>
 			<button id="mic" class="speech-icon" onclick="startDictation(event)">
 				<svg class="icon icon-mic">
 					<use xlink:href="/App_Themes/Images/icons.svg#icon-white-mic"></use>

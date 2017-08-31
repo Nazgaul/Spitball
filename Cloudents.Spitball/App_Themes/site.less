@@ -99,15 +99,48 @@
 .inlineGrid(@gap) {
     display: inline-grid;
     display: -ms-inline-grid;
-    -ms-grid-column-gap: @gap;
     grid-column-gap: @gap;
     grid-gap: @gap;
+}
+.multiLineEllipsis(@lineHeight: 1.2em, @lineCount: 1, @bgColor: white) {
+    overflow: hidden;
+    position: relative;
+    line-height: @lineHeight;
+    max-height: @lineHeight * @lineCount;
+    text-align: justify;
+    margin-right: -1em;
+    padding-right: 1em;
+
+    &:before {
+        content: '...';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        right: 0;
+        width: 1em;
+        height: 1em;
+        margin-top: 0.2em;
+        background: @bgColor;
+    }
+}
+
+.block-with-text {
+    .multiLineEllipsis(1.2em, 3, white);
 }
 
 [grid] {
     .displayGrid(1em);
 }
 body {
+    .capitalize {
+        text-transform: capitalize;
+    }
+
     font-family: openSans;
 
     .overlay {
@@ -302,11 +335,17 @@ body {
 
     .credit {
         color: @purpley-grey;
-        font-size: 10px;
+        font-size: 12px;
     }
 
     .description {
-        font-size: 16px;
+        /*.multiLineEllipsis(1.2em, 3, white);*/
+        font-size: 12px;
+        color: @black;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
     }
 
     .university-class {
@@ -400,6 +439,8 @@ body {
 
             grid-template-areas: "logo search notification" "options options options";
             grid-template-columns: min-content 1fr max-content;
+            -ms-grid-columns: min-content 1em 1fr 1em max-content;
+            -ms-grid-rows: auto auto auto;
             align-content: flex-end;
 
             input[type=radio] {
@@ -407,6 +448,9 @@ body {
             }
 
             .sections {
+                -ms-grid-row: 3;
+                -ms-grid-column: 1;
+                -ms-grid-column-span: 4;
                 grid-area: options;
                 padding: 0.5em 0;
                 white-space: nowrap;
@@ -455,6 +499,8 @@ body {
 
             .logo {
                 grid-area: logo;
+                -ms-grid-row: 1;
+                -ms-grid-column: 1;
 
                 img {
                     vertical-align: middle;
@@ -467,16 +513,22 @@ body {
 
             #notification {
                 grid-area: notification;
+                -ms-grid-row: 1;
+                -ms-grid-column: 5;
+                -ms-grid-column-align: end;
                 justify-self: end;
             }
 
             #searchArea {
                 grid-area: search;
+                -ms-grid-row: 1;
+                -ms-grid-column: 3;
                 .inlineGrid(0);
-                -ms-grid-template-columns: auto max-content max-content;
+                -ms-grid-columns: auto max-content max-content;
                 grid-template-columns: auto max-content max-content;
-                -ms-align-items: center;
+                /*-ms-align-items: center;*/
                 align-items: center;
+                -ms-grid-row-align: center;
 
                 @media @phone {
                     margin: -1em;
@@ -489,10 +541,13 @@ body {
                 }
 
                 #searchInput {
+                    -ms-grid-column: 1;
                     border-radius: 6px;
                     line-height: 35px;
                     .inlineGrid(0);
+                    display: -ms-grid;
                     grid-template-columns: 40px 100%;
+                    -ms-grid-columns: 40px 100%;
 
                     .icon-note {
                         left: 0%;
@@ -538,6 +593,7 @@ body {
                 }
 
                 .speech-icon {
+                    -ms-grid-column: 2;
                     margin-left: -1em;
                     background: white;
                     border: 0;
@@ -555,6 +611,7 @@ body {
             #search {
                 background: @ocean-blue;
                 border-radius: 6px;
+                -ms-grid-column: 3;
                 color: white;
                 border: none;
                 height: 37px;
@@ -645,6 +702,7 @@ body {
         .displayGrid(0);
         grid-template-areas: "aside content";
         grid-template-columns: auto auto;
+        -ms-grid-columns: auto auto;
         /*background: yellow;*/
         h1 {
             color: @marine;
@@ -657,12 +715,14 @@ body {
         }
 
         .content {
+            -ms-grid-column: 2;
             grid-area: content;
             margin: 1em;
             max-width: 560px;
 
-            a.item-result {
+            a.item-result, iframe {
                 text-decoration: none;
+                margin-top: 1em;
             }
 
             .bunner {
@@ -685,6 +745,8 @@ body {
 
                 @media @phone {
                     height: 128px;
+                    grid-template-rows: calc(128px - 32px) 16px;
+                    -ms-grid-rows: calc(128px - 32px) 1em 16px;
                 }
 
                 border-radius: 4px;
@@ -693,10 +755,12 @@ body {
                 box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
                 padding: 1em;
                 grid-template-areas: "image item" "image source";
-                grid-template-columns: 26.22% auto;
-                -ms-grid-columns: 26.22% 1.5em auto;
-                grid-template-rows: auto 16px;
-                -ms-grid-rows: 12px 1.5em 16px;
+                grid-template-columns: 30% auto;
+                -ms-grid-columns: 30% 1.5em auto;
+                grid-template-rows: calc(176px - 32px) 16px;
+                -ms-grid-rows: calc(176px - 32px) 1em auto;
+
+
 
                 .image {
                     display: flex;
@@ -720,6 +784,7 @@ body {
                     -ms-grid-row: 1;
                     -ms-grid-row-span: 1;
                     grid-area: item;
+                    font-size: 12px !important;
                 }
 
                 .source {
@@ -763,7 +828,9 @@ body {
 
             .options-val {
                 .scrollX();
+                -ms-grid-row: 2;
                 border-color: @mid_blue;
+                margin-top: 1em;
 
                 input[type='radio']:checked + label {
                     background: @mid_blue;
@@ -789,9 +856,9 @@ body {
         }
 
         aside {
+            -ms-grid-column: 1;
             grid-area: aside;
             padding: 1em;
-            position: absolute;
             /*@media @desktop_1366 {
                 padding: 1em 0 1em 15%;
             }
@@ -804,6 +871,7 @@ body {
             width: 220px;
 
             @media(max-width:640px) {
+                position: absolute;
                 background: white;
                 transform-origin: 0% 0%;
                 transform: translate(-100%, 0);
@@ -822,16 +890,17 @@ body {
 
             ul {
                 padding: 0;
-                .displayGrid(0.5em);
-
+                /*.displayGrid(0.5em);*/
                 li {
+                    margin-top: 0.5em;
+
                     &:hover {
                         cursor: pointer;
                     }
 
                     &.selected {
-                        margin: 0 -1em;
-                        padding: 0 1em;
+                        /*margin: 0 -1em;
+                        padding: 0 1em;*/
                         background: @white-four;
                     }
 
@@ -890,14 +959,16 @@ body {
 		}
 	}*/
     .sub-filter {
-        .displayInlineFlex();
+        .displayGrid(0);
+        /*.displayInlineFlex();
 
         .item {
             flex: 1 0 auto;
-        }
+        }*/
     }
 
     .speech-input {
+        -ms-grid-column: 2;
         width: ~"calc(100% - 40px)";
         height: 37px;
         border-radius: 0 6px 6px 0;
