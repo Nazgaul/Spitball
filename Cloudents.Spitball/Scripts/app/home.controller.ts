@@ -118,6 +118,13 @@ module MyApp {
                         this.results.items = [
                             { name: "burger", location: "פארק המדע HaMada St 1, Rehovot ", rate: 3.4, status: "Open", img: "http://www.kaminarieducation.net/interclass/img/purchase_s2.jpg", url: "http://www.interclass.us/purchase" },
                             { name: "cafe luiz", location: "פארק המדע מאיר ויסגל 2, Rehovot", rate: 4.2, status: "closed", url: "www.google.com" }
+
+                        ];
+
+                    } else if (this.sec === "tutor") {
+                        this.results.items = [
+                            { firstName: "Yifat",place:"Burgas,Bulgaria",distance:"22.5",courseType:"online", lastName: "Biezuner", price: "15", img: "http://www.kaminarieducation.net/interclass/img/purchase_s2.jpg", url: "http://www.interclass.us/purchase" },
+                            { firstName: "Ram", lastName: "Yaari", place: "Berlin,Germany", distance: "253305", courseType: "offline", price: "55", url: "www.google.com" }
                         ];
 
                     } else {

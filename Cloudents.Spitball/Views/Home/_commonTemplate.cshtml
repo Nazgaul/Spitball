@@ -93,6 +93,22 @@
         <div>{{::e.status}}</div>
     </div>       
 </script>
+<script defer type="text/ng-template" id="tutor-template.html">
+    <div class="image" ng-class="{'color-{{ctrl.sec}}':!e.img}">
+        <img ng-if="e.img" width="100%" height="100%" ng-src="{{::e.img}}" />
+
+        <div class="default-image" ng-if="!e.img">
+            <span>{{e.firstName.substring(0,1)+e.lastName.substring(0,1)|uppercase|limitTo : 2 }}</span>
+        </div>
+    </div>
+    <div class="name">{{::e.firstName}} {{::e.lastName.substring(0,1)}}.</div>
+    <div class="price">${{::e.price}}/hour</div>
+    <div class="details">
+        <div class="place">{{::e.place}}</div>
+        <div>{{::e.distance}} miles</div>
+        <div>Ofer {{::e.courseType}}</div>
+    </div>
+</script>
 @*<script defer type="text/ng-template" id="quiz-template.html">
     <a class="quiz quiz-template" ng-href="{{::e.url}}">
         <div class="base">

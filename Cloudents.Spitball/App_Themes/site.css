@@ -423,8 +423,8 @@ body header .grid {
   grid-row-gap: 1em;
   -ms-grid-row-gap: 1em;
   grid-template-areas: "logo search notification" "options options options";
-  grid-template-columns: min-content 1fr max-content;
-  -ms-grid-columns: min-content 1em 1fr 1em max-content;
+  grid-template-columns: min-content 100fr max-content;
+  -ms-grid-columns: min-content 1em 100fr 1em max-content;
   -ms-grid-rows: auto auto auto;
   align-content: flex-end;
 }
@@ -718,6 +718,83 @@ body section .content .result {
   padding: 0.5em;
   color: white;
   text-decoration: none;
+}
+body section .content .tutor-result {
+  display: -ms-grid;
+  display: grid;
+  -ms-column-gap: 0;
+  column-gap: 0;
+  grid-gap: 0;
+  -ms-grid-gap: 0;
+  grid-row-gap: 0;
+  -ms-grid-row-gap: 0;
+  margin-top: 0.5em;
+  border-radius: 4px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  padding: 0.5em;
+  color: white;
+  text-decoration: none;
+  height: 104px;
+  -ms-grid-columns: 88px 0.5em auto 0.5em 80px;
+  grid-template-columns: 88px 0.5em 100fr 0.5em 80px;
+  -ms-grid-rows: 23px 1em auto;
+  grid-template-rows: 23px 1em auto;
+}
+body section .content .tutor-result .image {
+  display: flex;
+  align-items: center;
+  -ms-grid-column: 1;
+  -ms-grid-row: 1;
+  height: 100%;
+  border: solid 1px #52ab15;
+  min-width: 80px;
+}
+body section .content .tutor-result .image .default-image {
+  margin: auto;
+  transform: scale(1.5);
+}
+body section .content .tutor-result .image {
+  grid-row-start: 1;
+  -ms-grid-row: 1;
+  grid-column: 1;
+  -ms-grid-column: 1;
+  grid-row-end: 4;
+  -ms-grid-row-span: 4;
+}
+body section .content .tutor-result .name {
+  text-transform: capitalize;
+  color: #52ab15 !important;
+  font-size: 17px;
+  grid-row: 1;
+  -ms-grid-row: 1;
+  grid-column: 3;
+  -ms-grid-column: 3;
+}
+body section .content .tutor-result .price {
+  color: #ff6f00;
+  font-size: 17px;
+  grid-row: 1;
+  -ms-grid-row: 1;
+  grid-column: 5;
+  -ms-grid-column: 5;
+  -ms-grid-column-align: end;
+}
+body section .content .tutor-result .details {
+  grid-row: 3;
+  -ms-grid-row: 3;
+  grid-column-start: 3;
+  -ms-grid-column: 3;
+  grid-column-end: 6;
+  -ms-grid-column-span: 6;
+  color: #5d5d5d;
+  font-size: 12px;
+}
+body section .content .tutor-result .details div + div {
+  margin-top: 0.5em;
+}
+body section .content .tutor-result .details .place {
+  font-weight: bold;
 }
 body section .content .purchase-result {
   display: -ms-grid;

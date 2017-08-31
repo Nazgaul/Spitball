@@ -15,6 +15,7 @@
 @royal-purple: #320161;
 @black: #000000;
 @red: #c30000;
+@orange: #ff6f00;
 @white-four: #f0f0f0;
 @squash: #f49c20;
 @dark: #1d2129;
@@ -507,8 +508,8 @@ body {
             }
 
             grid-template-areas: "logo search notification" "options options options";
-            grid-template-columns: min-content 1fr max-content;
-            -ms-grid-columns: min-content 1em 1fr 1em max-content;
+            grid-template-columns: min-content 100fr max-content;
+            -ms-grid-columns: min-content 1em 100fr 1em max-content;
             -ms-grid-rows: auto auto auto;
             align-content: flex-end;
 
@@ -799,6 +800,62 @@ body {
                 padding: 0.5em;
                 color: white;
                 text-decoration: none;
+            }
+
+            .tutor-result {
+                .result;
+                height:104px;
+                .result-image(@sap-green);
+                -ms-grid-columns: 88px 0.5em auto 0.5em 80px;
+                grid-template-columns: 88px 0.5em 100fr 0.5em 80px;
+                -ms-grid-rows: 23px 1em auto;
+                grid-template-rows: 23px 1em auto;
+
+                .image {
+                    grid-row-start: 1;
+                    -ms-grid-row: 1;
+                    grid-column: 1;
+                    -ms-grid-column: 1;
+                    grid-row-end: 4;
+                    -ms-grid-row-span: 4;
+                }
+
+                .name {
+                    .capitalize;
+                    .color-text-tutor;
+                    font-size: 17px;
+                    grid-row: 1;
+                    -ms-grid-row: 1;
+                    grid-column: 3;
+                    -ms-grid-column: 3;
+                }
+
+                .price {
+                    color: @orange;
+                    font-size: 17px;
+                    grid-row: 1;
+                    -ms-grid-row: 1;
+                    grid-column: 5;
+                    -ms-grid-column: 5;
+                    -ms-grid-column-align: end;
+                }
+
+                .details {
+                    grid-row: 3;
+                    -ms-grid-row: 3;
+                    grid-column-start: 3;
+                    -ms-grid-column: 3;
+                    grid-column-end: 6;
+                    -ms-grid-column-span: 6;
+                    color: @brownish-grey;
+                    font-size: 12px;
+                    div+div{
+                        margin-top:0.5em;
+                    }
+                    .place {
+                        font-weight: bold;
+                    }
+                }
             }
 
             .purchase-result {
