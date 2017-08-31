@@ -3,13 +3,14 @@
     "noImplicitAny": true,
     "noEmitOnError": true,
     "removeComments": false,
-    "sourceMap": true,
+    "sourceMap": false,
     "target": "es5",
     "outDir": "./wwwroot/scripts",
     "alwaysStrict": true,
     "module": "system",
     "rootDir": "./Scripts"
   },
+  
   "compileOnSave": true,
   "exclude": [
     "node_modules",

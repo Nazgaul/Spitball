@@ -4,11 +4,15 @@
     "inputFiles": [
       "wwwroot/css/site.css"
     ]
+    
   },
   {
-    "outputFileName": "wwwroot/scripts/app.min.js",
+    "outputFileName": "wwwroot/scripts/site.min.js",
     "inputFiles": [
+      "wwwroot/scripts/initAngular.js",
       "wwwroot/scripts/app.js"
-    ]
+    ],
+    "sourceMap": false,
+    
   }
 ]

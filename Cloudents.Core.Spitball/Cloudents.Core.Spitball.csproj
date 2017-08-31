@@ -2,14 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>net47</TargetFramework>
+    <MvcRazorCompileOnPublish>true</MvcRazorCompileOnPublish>
     <ApplicationInsightsResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsAnnotationResourceId>
     <TypeScriptToolsVersion>2.4</TypeScriptToolsVersion>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Scripts\file.ts" />
-  </ItemGroup>
 
   <ItemGroup>
     <None Include="Views\Home\Index.cshtml" />
@@ -31,7 +28,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\app.ts" />
-    <TypeScriptCompile Include="Scripts\file.ts" />
+    <TypeScriptCompile Include="Scripts\initAngular.ts" />
   </ItemGroup>
 
   <ItemGroup>
