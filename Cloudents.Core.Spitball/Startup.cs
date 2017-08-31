@@ -40,6 +40,7 @@ namespace Cloudents.Core.Spitball
                 app.UseExceptionHandler("Home/Error");
             }
             app.UseResponseCompression();
+            app.UseStatusCodePages();
             app.UseStaticFiles(new StaticFileOptions
             {
                 OnPrepareResponse = ctx =>
