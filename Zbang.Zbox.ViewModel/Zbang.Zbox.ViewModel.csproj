@@ -88,7 +88,6 @@
     <Compile Include="Dto\ItemDtos\DocumentSearchDto.cs" />
     <Compile Include="Dto\ItemDtos\FlashcardSeoDto.cs" />
     <Compile Include="Dto\JaredDtos\JaredFavoriteDocumentDto.cs" />
-    <Compile Include="Dto\JaredDtos\JaredTextDto.cs" />
     <Compile Include="Dto\Qna\FeedToUpdateSearchDto.cs" />
     <Compile Include="Dto\ItemDtos\FileWithDetailDto.cs" />
     <Compile Include="Dto\ItemDtos\FlashcardDto.cs" />
@@ -113,7 +112,6 @@
     <Compile Include="Dto\ItemDtos\SolveSheet.cs" />
     <Compile Include="Dto\ItemDtos\ItemNavigationDto.cs" />
     <Compile Include="Dto\ItemRateDto.cs" />
-    <Compile Include="Dto\JaredDto.cs" />
     <Compile Include="Dto\JaredDtos\ItemTagsDto.cs" />
     <Compile Include="Dto\LeaderBoardDto.cs" />
     <Compile Include="Dto\Library\ClosedNodeDto.cs" />

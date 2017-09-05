@@ -6,17 +6,17 @@ using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Filters
 {
-    [AttributeUsageAttribute(AttributeTargets.All, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.All)]
     public class LandingPageAttribute : ActionFilterAttribute
     {
-        public LandingPageAttribute(IZboxReadService zboxReadService, ICookieHelper cookieHelper)
-        {
-            ZboxReadService = zboxReadService;
-            CookieHelper = cookieHelper;
-        }
+        //public LandingPageAttribute(IZboxReadService zboxReadService, ICookieHelper cookieHelper)
+        //{
+        //    ZboxReadService = zboxReadService;
+        //    CookieHelper = cookieHelper;
+        //}
 
-        public IZboxReadService ZboxReadService { get;  }
-        public ICookieHelper CookieHelper { get;  }
+        public IZboxReadService ZboxReadService { get; set; }
+        public ICookieHelper CookieHelper { get; set; }
 
         //GetCountryByIpAsync
         public override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -26,11 +26,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             //    base.OnActionExecuting(filterContext);
             //    return;
             //}
-            if (filterContext.Controller.GetType() == typeof(AlexController))
-            {
-                base.OnActionExecuting(filterContext);
-                return;
-            }
+            //if (filterContext.Controller.GetType() == typeof(AlexController))
+            //{
+            //    base.OnActionExecuting(filterContext);
+            //    return;
+            //}
             const string cookieName = "landing";
             var country = CookieHelper.ReadCookie<string>(cookieName);
 

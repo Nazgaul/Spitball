@@ -35,7 +35,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             //}
             //else
             //{
-            var result = await m_ZboxReadService.GetJaredStartupValuesAsync(token).ConfigureAwait(false);
+            //var result = await m_ZboxReadService.GetJaredStartupValuesAsync(token).ConfigureAwait(false);
             //}
             var documents = new Dictionary<string, IEnumerable<string>>
             {
@@ -51,7 +51,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             //result.Terms = documents;
             return Request.CreateResponse(new
             {
-                text = result,
+               // text = result,
                 terms = documents
             });
         }

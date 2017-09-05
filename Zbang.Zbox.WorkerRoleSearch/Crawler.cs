@@ -176,7 +176,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             return new CrawlModel(page.Uri.AbsoluteUri, doc.Title, content, null, null,
                 tags, null, null, metaDescription, metaImage, metaKeyword, page.Uri.Host,
-                Md5HashGenerator.GenerateKey(page.Uri.AbsoluteUri), ItemType.Document);
+                MD5HashGenerator.GenerateKey(page.Uri.AbsoluteUri), ItemType.Document);
         }
 
         private static CrawlModel CreateQuizletFlashcard(CrawledPage page)
@@ -197,7 +197,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             list.RemoveAll(string.IsNullOrWhiteSpace);
             var content = list.Count > 0 ? list.Aggregate<string>((a, b) => a + ", " + b) : null;
             return new CrawlModel(page.Uri.AbsoluteUri, page.Uri.Host, doc.Title, content, metaDescription, image,
-                Md5HashGenerator.GenerateKey(page.Uri.AbsoluteUri));
+                MD5HashGenerator.GenerateKey(page.Uri.AbsoluteUri));
         }
 
         private static CrawlModel CreateStudyBlueFlashcard(CrawledPage page)
@@ -218,7 +218,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var spaceReg = new Regex(@"\s+", RegexOptions.Compiled);
             var content = list.Count > 0 ? spaceReg.Replace(list.Aggregate((a, b) => a + ", " + b), " ") : null;
             return new CrawlModel(page.Uri.AbsoluteUri, page.Uri.Host, doc.Title, content, metaDescription, metaImg,
-                Md5HashGenerator.GenerateKey(page.Uri.AbsoluteUri));
+                MD5HashGenerator.GenerateKey(page.Uri.AbsoluteUri));
         }
 
         private static CrawlModel CreateStudySoupNote(CrawledPage page)
@@ -309,7 +309,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             return new CrawlModel(page.Uri.AbsoluteUri, angleSharpHtmlDocument.Title, content, university, course,
                 tags, createDate, views, metaDescription, metaImage, metaKeyword, page.Uri.Host,
-                Md5HashGenerator.GenerateKey(page.Uri.AbsoluteUri), type);
+                MD5HashGenerator.GenerateKey(page.Uri.AbsoluteUri), type);
         }
 
         public void Dispose()

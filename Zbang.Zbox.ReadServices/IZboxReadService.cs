@@ -138,8 +138,7 @@ namespace Zbang.Zbox.ReadServices
 
         #region Jared
 
-        //Task<JaredDto> GetJaredStartupValuesAsync(CancellationToken token,QueryBaseUserId query);
-        Task<JaredDto> GetJaredStartupValuesAsync(CancellationToken token);
+       // Task<JaredDto> GetJaredStartupValuesAsync(CancellationToken token);
 
         Task<Tuple<UserDetailDto, IEnumerable<BoxDto>>> GetJaredUserDataAsync(
             QueryBaseUserId query, CancellationToken token);

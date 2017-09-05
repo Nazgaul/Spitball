@@ -28,36 +28,22 @@ namespace Zbang.Zbox.ReadServicesTests
             m_ZboxReadService = new ZboxReadService();
         }
 
-        [TestMethod]
-        public async Task GetJaredStartupValuesAsync_returnList()
-        {
-            try
-            {
-                var result = await m_ZboxReadService.GetJaredStartupValuesAsync(new CancellationToken()).ConfigureAwait(false);
-                Assert.IsTrue(result.ActionsText.Count>0);
-                //Assert.IsNull(a.UserBoxes);
-                //Assert.IsNull(a.University);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
-        //[TestMethod()]
-        //public async Task GetJaredStartupValuesAsyncTestAuthorized()
+        //[TestMethod]
+        //public async Task GetJaredStartupValuesAsync_returnList()
         //{
-        //    var query = new QueryBaseUserId(1);
         //    try
         //    {
-        //        var a = await m_ZboxReadService.GetJaredStartupValuesAsync(new CancellationToken(), query);
-        //        Assert.IsTrue(a.UserBoxes.Count()>0);
-        //        Assert.IsNotNull(a.University);
+        //        var result = await m_ZboxReadService.GetJaredStartupValuesAsync(new CancellationToken()).ConfigureAwait(false);
+        //        Assert.IsTrue(result.ActionsText.Count>0);
+        //        //Assert.IsNull(a.UserBoxes);
+        //        //Assert.IsNull(a.University);
         //    }
         //    catch (Exception ex)
         //    {
         //        Assert.Fail("Expected no exception, but got: " + ex.Message);
         //    }
         //}
+       
 
         [TestMethod]
         public async Task GetUserBoxes_Query_ReturnResult()
@@ -102,9 +88,6 @@ namespace Zbang.Zbox.ReadServicesTests
         //        Assert.Fail("Expected no exception, but got: " + ex.Message);
         //    }
         //}
-
-
-
 
         // [TestMethod]
         //public void GetMyData_Query_ReturnResult()
@@ -240,8 +223,6 @@ namespace Zbang.Zbox.ReadServicesTests
                 Assert.Fail("Expected no exception, but got: " + ex.Message);
             }
         }
-
-
 
         //[TestMethod]
         //public void GetUniversityListByFriendsIds_Query_ReturnResult()

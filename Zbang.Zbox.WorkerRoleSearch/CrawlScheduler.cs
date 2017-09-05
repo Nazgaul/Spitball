@@ -156,7 +156,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 //m_TempTable.TryAdd(uri.AbsoluteUri, 0);
                 return false;
             }
-            var operation = TableOperation.Retrieve<CrawlerUrlEntity>(GetHostMd5(uri), Md5HashGenerator.GenerateKey(uri.AbsoluteUri));
+            var operation = TableOperation.Retrieve<CrawlerUrlEntity>(GetHostMd5(uri), MD5HashGenerator.GenerateKey(uri.AbsoluteUri));
             var result = m_Table.Execute(operation);
             var isUriKnown = result.Result != null;
             if (isUriKnown)
@@ -186,7 +186,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 return md5Value;
             }
-            md5Value = Md5HashGenerator.GenerateKey(uri.Host);
+            md5Value = MD5HashGenerator.GenerateKey(uri.Host);
             m_HostMd5.TryAdd(uri.Host, md5Value);
             return md5Value;
         }

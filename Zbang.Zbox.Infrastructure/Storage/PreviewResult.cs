@@ -8,10 +8,12 @@ namespace Zbang.Zbox.Infrastructure.Storage
         {
             Content = new List<string>();
         }
+
         public PreviewResult(string content)
         {
             Content = new List<string> { content };
         }
+
         public IEnumerable<string> Content { get; set; }
         public string ViewName { get; set; }
     }

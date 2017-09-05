@@ -9,6 +9,7 @@ namespace Zbang.Zbox.Infrastructure.Repositories
         {
             CollectionId = collectionId;
         }
+
         public string CollectionId { get; private set; }
     }
 }

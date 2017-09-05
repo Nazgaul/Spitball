@@ -9,7 +9,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public CrawlerUrlEntity(string domainMd5, string url)
         {
             this.PartitionKey = domainMd5;
-            this.RowKey = Md5HashGenerator.GenerateKey(url);
+            this.RowKey = MD5HashGenerator.GenerateKey(url);
         }
 
         public CrawlerUrlEntity() { }

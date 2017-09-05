@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
@@ -15,10 +16,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
     {
         private readonly IQueueProviderExtract m_QueueProviderExtract;
         private readonly ILifetimeScope m_ComponentContent;
-        public MailQueueProcess(IQueueProviderExtract queueProviderExtract, ILifetimeScope componentContent)
+        private readonly ILogger m_Logger;
+        public MailQueueProcess(IQueueProviderExtract queueProviderExtract, ILifetimeScope componentContent, ILogger logger)
         {
             m_QueueProviderExtract = queueProviderExtract;
             m_ComponentContent = componentContent;
+            m_Logger = logger;
         }
 
         public string Name => nameof(MailQueueProcess);
@@ -31,17 +34,17 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     var queueName = new MailQueueName();
                     var result = await m_QueueProviderExtract.RunQueueAsync(queueName, async msg =>
                     {
-                        TraceLog.WriteInfo($"{Name} is doing process");
+                        m_Logger.Info($"{Name} is doing process");
                         var msgData = msg.FromMessageProto<BaseMailData>();
                         if (msgData == null)
                         {
-                            TraceLog.WriteError($"{Name} run - msg cannot transfer to DomainProcess");
+                            m_Logger.Error($"{Name} run - msg cannot transfer to DomainProcess");
                             return true;
                         }
                         var process = m_ComponentContent.ResolveOptionalNamed<IMail2>(msgData.MailResolver);
                         if (process == null)
                         {
-                            TraceLog.WriteError($"{Name} run - process is null msgData.ProcessResolver:" + msgData.MailResolver);
+                            m_Logger.Error($"{Name} run - process is null msgData.ProcessResolver:" + msgData.MailResolver);
                             return true;
                         }
                         return await process.ExecuteAsync(msgData, cancellationToken).ConfigureAwait(false);
@@ -60,7 +63,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    TraceLog.WriteError($"{Name}", ex);
+                    m_Logger.Exception(ex, new Dictionary<string, string>
+                    {
+                        ["service"] = Name
+                    });
                 }
             }
         }

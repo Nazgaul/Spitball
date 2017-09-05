@@ -77,8 +77,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                 builder.RegisterType<CookieHelper>().As<ICookieHelper>();
                 builder.RegisterType<LanguageCookieHelper>().As<ILanguageCookieHelper>();
-                builder.Register(c =>
-                new LandingPageAttribute(c.Resolve<IZboxReadService>(), c.Resolve<ICookieHelper>())).AsActionFilterFor<Controller>();
+                //builder.Register(c =>
+                //    new LandingPageAttribute(c.Resolve<IZboxReadService>(), c.Resolve<ICookieHelper>()))
+                //    .AsActionFilterFor<Controller>();
 
                 builder.RegisterType<LanguageMiddleware>().InstancePerRequest();
                 builder.RegisterType<TelemetryLogger>().As<ILogger>();

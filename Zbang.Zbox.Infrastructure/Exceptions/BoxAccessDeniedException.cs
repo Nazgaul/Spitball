@@ -2,15 +2,17 @@
 
 namespace Zbang.Zbox.Infrastructure.Exceptions
 {
-    //maybe switch this to a different position
+    [Serializable]
     public class BoxAccessDeniedException : Exception
     {
     }
 
+    [Serializable]
     public class DuplicateDepartmentNameException : Exception
     {
     }
 
+    [Serializable]
     public class BoxesInDepartmentNodeException : Exception
     {
     }

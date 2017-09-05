@@ -56,7 +56,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
         {
             if (string.IsNullOrEmpty(name))
             {
-                throw new ArgumentException("name");
+                throw new ArgumentException(nameof(name));
             }
 
             var relativeUrl = VirtualPathUtility.AppendTrailingSlash(string.Format(UserUrl, id, NameToQueryString(name)));

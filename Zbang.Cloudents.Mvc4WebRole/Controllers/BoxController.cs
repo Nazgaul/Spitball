@@ -85,6 +85,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [DonutOutputCache(CacheProfile = "BoxPage")]
         [BoxPermission("boxId", Order = 3), ActionName("Index")]
+        [LandingPage]
         [Route("course/{universityName}/{boxId:long}/{boxName}/{part:regex(^(feed|items|quizzes|members|flashcards))}", Name = "CourseBoxWithSub")]
         public async Task<ActionResult> IndexAsync(long boxId,string universityName, string boxName, string invId, string part)
         {

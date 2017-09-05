@@ -261,7 +261,7 @@ will produce an inaccurate conversion value. The same issue exists with the cx/c
 			var textIndex = 0;
 
 			if (Alex.meta.wWidth >= 768 && !Alex.meta.isMobile) {
-				Alex.loadLazyImages();
+				//Alex.loadLazyImages();
 				Alex.initFaderNav();
 				Alex.handleHash();
 				Alex.ui.$scrollContainer.fullpage({

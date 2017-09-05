@@ -70,6 +70,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
         public void AddToCache<T>(CacheRegions region, string key, T value, TimeSpan expiration) where T : class
         {
+            if (region == null) throw new ArgumentNullException(nameof(region));
             try
             {
                 if (!m_CacheExists)

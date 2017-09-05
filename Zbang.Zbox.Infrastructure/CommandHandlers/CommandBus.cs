@@ -25,6 +25,7 @@ namespace Zbang.Zbox.Infrastructure.CommandHandlers
         {
             return m_Container.Resolve<ICommandHandlerAsync<TCommand, TCommandResult>>().ExecuteAsync(command);
         }
+
         public Task<TCommandResult> DispatchAsync<TCommand, TCommandResult>(TCommand command, string name)
             where TCommand : Commands.ICommandAsync
             where TCommandResult : Commands.ICommandResult

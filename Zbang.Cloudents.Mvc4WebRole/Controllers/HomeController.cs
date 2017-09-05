@@ -38,7 +38,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_CookieHelper = cookieHelper;
         }
 
+        [HttpPost, ActionName("Index")]
+        public ActionResult Index(string invId, string universityName, string step)
+        {
+            return RedirectToAction("Index", new {invId, universityName, step});
+        }
+
         [UniversityCookieInject("universityName", Order = 1)]
+        [LandingPage]
         [DonutOutputCache(CacheProfile = "HomePage", Order = 2), ActionName("Index"), AcceptVerbs(HttpVerbs.Get | HttpVerbs.Head)]
         public async Task<ActionResult> IndexAsync(string invId, string universityName, string step)
         {
@@ -133,6 +140,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [DonutOutputCache(CacheProfile = "FullPage")]
         [Route("help", Name = "Help")]
+        [LandingPage]
         public async Task<ViewResult> HelpAsync()
         {
             ViewBag.title = SeoResources.HelpTitle;
@@ -165,7 +173,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [DonutOutputCache(CacheProfile = "FullPage")]
-        [Route("jobs", Name = "Jobs")]
+        [Route("jobs", Name = "Jobs"), LandingPage]
+
+
         public async Task<ActionResult> JobsAsync()
         {
             ViewBag.title = SeoResources.JobsTitle;

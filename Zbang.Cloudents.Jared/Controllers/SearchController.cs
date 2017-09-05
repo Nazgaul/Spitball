@@ -181,7 +181,7 @@ namespace Zbang.Cloudents.Jared.Controllers
                 return new SearchResult
 
                 {
-                    Id = Md5HashGenerator.GenerateKey(s.Link),
+                    Id = MD5HashGenerator.GenerateKey(s.Link),
                     Url = s.Link,
                     Title = s.Title,
                     Snippet = s.Snippet,

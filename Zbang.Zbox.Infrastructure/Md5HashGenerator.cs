@@ -8,14 +8,14 @@ using System.Text;
 
 namespace Zbang.Zbox.Infrastructure
 {
-    public static class Md5HashGenerator
+    // ReSharper disable once InconsistentNaming
+    public static class MD5HashGenerator
     {
         public static string GenerateKey(object sourceObject)
         {
             if (sourceObject == null) throw new ArgumentNullException(nameof(sourceObject));
 
-            var stringObject = sourceObject as string;
-            if (stringObject != null)
+            if (sourceObject is string stringObject)
             {
                 return ComputeHash(Encoding.ASCII.GetBytes(stringObject));
             }
@@ -53,6 +53,7 @@ namespace Zbang.Zbox.Infrastructure
                 }
             }
         }
+
         private static readonly object Locker = new object();
         private static byte[] ObjectToByteArray(object objectToSerialize)
         {

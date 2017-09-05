@@ -39,27 +39,26 @@ namespace Zbang.Zbox.Infrastructure.Extensions
 
         public static long? GetUniversityId(this IPrincipal user)
         {
-            long value;
             var claim = ExtractValueFromClaim(user, ClaimConst.UniversityIdClaim);
             if (claim == null)
             {
                 return null;
             }
-            if (long.TryParse(claim, out value))
+            if (long.TryParse(claim, out long value))
             {
                 return value;
             }
             return null;
         }
+
         public static long? GetUniversityDataId(this IPrincipal user)
         {
-            long value;
             var claim = ExtractValueFromClaim(user, ClaimConst.UniversityDataClaim);
             if (claim == null)
             {
                 return null;
             }
-            if (long.TryParse(claim, out value))
+            if (long.TryParse(claim, out long value))
             {
                 return value;
             }

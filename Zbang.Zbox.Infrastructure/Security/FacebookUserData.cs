@@ -40,6 +40,7 @@ namespace Zbang.Zbox.Infrastructure.Security
                 return Sex.NotKnown;
             }
         }
+
         public override string ToString()
         {
             return $"id {Id} name {Name} email {Email}";

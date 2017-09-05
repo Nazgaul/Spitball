@@ -9,7 +9,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
     {
         Task GenerateAndSendEmailAsync(string recipient, MailParameters parameters,
             CancellationToken cancellationToken = default(CancellationToken), string category = null);
-        //Task GenerateAndSendEmailAsync(IEnumerable<string> recipients, MailParameters parameters);
 
         Task DeleteUnsubscribeAsync(string email);
 

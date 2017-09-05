@@ -9,11 +9,13 @@ namespace Zbang.Zbox.Infrastructure.Extensions
         {
             Description = description;
         }
+
         public ResourceDescriptionAttribute(Type resourceType, string resourceName)
         {
             ResourceType = resourceType;
             ResourceName = resourceName;
         }
+
         public string Description { get;private set; }
 
         public Type ResourceType { get; private set; }

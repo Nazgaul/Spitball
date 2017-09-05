@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
 namespace Zbang.Zbox.Infrastructure.Url
@@ -6,6 +7,8 @@ namespace Zbang.Zbox.Infrastructure.Url
     /// <summary>
     /// Struct whose numbering system consists of 0..9 a..z A..Z.  For example, "10" == 62.
     /// </summary>
+    /// 
+    [SuppressMessage("Microsoft.Performance", "CA2225", Justification = "Online code")]
     public struct Base62
     {
         private string m_StringValue;

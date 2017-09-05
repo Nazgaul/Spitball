@@ -52,6 +52,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         public override string Name => AzureChatContainer;
         public override string RelativePath => "";
     }
+
     public class FilesContainerName : StorageContainerName
     {
         public override string Name => AzureBlobContainer;

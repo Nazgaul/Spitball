@@ -63,7 +63,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     var str = el.ToString();
                     var stringReader = new StringReader(str);
                     var job = (WayUpJob)serializer.Deserialize(stringReader);
-                    job.Id = Md5HashGenerator.GenerateKey(str);
+                    job.Id = MD5HashGenerator.GenerateKey(str);
                     yield return job;
                 }
             }

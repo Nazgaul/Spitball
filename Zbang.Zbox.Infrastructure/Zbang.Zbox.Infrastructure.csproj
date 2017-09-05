@@ -101,7 +101,6 @@
     <Compile Include="Enums\BadgeType.cs" />
     <Compile Include="Enums\BadItem.cs" />
     <Compile Include="Enums\BoxType.cs" />
-    <Compile Include="Enums\CategoryTextType.cs" />
     <Compile Include="Enums\EmailSend.cs" />
     <Compile Include="Enums\FeedType.cs" />
     <Compile Include="Enums\ItemType.cs" />
@@ -153,7 +152,7 @@
     <Compile Include="IdGenerator\IIdGenerator.cs" />
     <Compile Include="IPCheckContainer.cs" />
     <Compile Include="LocationProvider.cs" />
-    <Compile Include="Md5HashGenerator.cs" />
+    <Compile Include="MD5HashGenerator.cs" />
     <Compile Include="MediaServices\IMediaServicesProvider.cs" />
     <Compile Include="Profile\IProfilePictureProvider.cs" />
     <Compile Include="Profile\ProfileImages.cs" />
