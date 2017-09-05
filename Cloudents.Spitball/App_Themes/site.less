@@ -15,9 +15,12 @@
 @royal-purple: #320161;
 @black: #000000;
 @red: #c30000;
+@orange: #ff6f00;
 @white-four: #f0f0f0;
 @squash: #f49c20;
 @dark: #1d2129;
+@squash-two: #f6a623;
+@brownish-grey :#5d5d5d;
 @greyish-brown: #414141;
 @cool-grey: #90949c;
 @baby-blue: #9ccdff;
@@ -102,6 +105,23 @@
     grid-column-gap: @gap;
     grid-gap: @gap;
 }
+.result-image(@color) {
+    .image {
+        display: flex;
+        align-items: center;
+        -ms-grid-column: 1;
+        -ms-grid-row: 1;
+        height: 100%;
+        border: solid 1px @color;
+        min-width: 80px;
+
+        .default-image {
+            margin: auto;
+            transform: scale(1.5);
+        }
+    }
+}
+
 .multiLineEllipsis(@lineHeight: 1.2em, @lineCount: 1, @bgColor: white) {
     overflow: hidden;
     position: relative;
@@ -135,6 +155,56 @@
 
 [grid] {
     .displayGrid(1em);
+}
+.star-five(@color) {
+    margin: 50px 0;
+    position: relative;
+    display: block;
+    color: @color;
+    width: 0px;
+    height: 0px;
+    border-right: 100px solid transparent;
+    border-bottom: 70px solid @color;
+    border-left: 100px solid transparent;
+    -moz-transform: rotate(35deg);
+    -webkit-transform: rotate(35deg);
+    -ms-transform: rotate(35deg);
+    -o-transform: rotate(35deg);
+
+    &:before {
+        border-bottom: 80px solid @color;
+        border-left: 30px solid transparent;
+        border-right: 30px solid transparent;
+        position: absolute;
+        height: 0;
+        width: 0;
+        top: -45px;
+        left: -65px;
+        display: block;
+        content: '';
+        -webkit-transform: rotate(-35deg);
+        -moz-transform: rotate(-35deg);
+        -ms-transform: rotate(-35deg);
+        -o-transform: rotate(-35deg);
+    }
+
+    &:after {
+        position: absolute;
+        display: block;
+        color: @color;
+        top: 3px;
+        left: -105px;
+        width: 0px;
+        height: 0px;
+        border-right: 100px solid transparent;
+        border-bottom: 70px solid @color;
+        border-left: 100px solid transparent;
+        -webkit-transform: rotate(-70deg);
+        -moz-transform: rotate(-70deg);
+        -ms-transform: rotate(-70deg);
+        -o-transform: rotate(-70deg);
+        content: '';
+    }
 }
 body {
     .capitalize {
@@ -438,8 +508,8 @@ body {
             }
 
             grid-template-areas: "logo search notification" "options options options";
-            grid-template-columns: min-content 1fr max-content;
-            -ms-grid-columns: min-content 1em 1fr 1em max-content;
+            grid-template-columns: min-content 100fr max-content;
+            -ms-grid-columns: min-content 1em 100fr 1em max-content;
             -ms-grid-rows: auto auto auto;
             align-content: flex-end;
 
@@ -524,7 +594,7 @@ body {
                 -ms-grid-row: 1;
                 -ms-grid-column: 3;
                 .inlineGrid(0);
-                -ms-grid-columns: auto max-content max-content;
+                -ms-grid-columns: auto 100fr max-content;
                 grid-template-columns: auto max-content max-content;
                 /*-ms-align-items: center;*/
                 align-items: center;
@@ -717,12 +787,211 @@ body {
         .content {
             -ms-grid-column: 2;
             grid-area: content;
-            margin: 1em;
+            margin: 0.5em;
             max-width: 560px;
+
+            .result {
+                .displayGrid(0);
+                margin-top: 0.5em;
+                border-radius: 4px;
+                background-color: #ffffff;
+                background-color: @white-two;
+                box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+                padding: 0.5em;
+                color: white;
+                text-decoration: none;
+            }
+
+            .tutor-result {
+                .result;
+                height: 104px;
+                .result-image(@sap-green);
+                -ms-grid-columns: 88px 0.5em auto 0.5em 80px;
+                grid-template-columns: 88px 0.5em 100fr 0.5em 80px;
+                -ms-grid-rows: 23px 1em auto;
+                grid-template-rows: 23px 1em auto;
+
+                .image {
+                    grid-row-start: 1;
+                    -ms-grid-row: 1;
+                    grid-column: 1;
+                    -ms-grid-column: 1;
+                    grid-row-end: 4;
+                    -ms-grid-row-span: 4;
+                }
+
+                .name {
+                    .capitalize;
+                    .color-text-tutor;
+                    font-size: 17px;
+                    grid-row: 1;
+                    -ms-grid-row: 1;
+                    grid-column: 3;
+                    -ms-grid-column: 3;
+                }
+
+                .price {
+                    color: @orange;
+                    font-size: 17px;
+                    grid-row: 1;
+                    -ms-grid-row: 1;
+                    grid-column: 5;
+                    -ms-grid-column: 5;
+                    -ms-grid-column-align: end;
+                }
+
+                .details {
+                    grid-row: 3;
+                    -ms-grid-row: 3;
+                    grid-column-start: 3;
+                    -ms-grid-column: 3;
+                    grid-column-end: 6;
+                    -ms-grid-column-span: 6;
+                    color: @brownish-grey;
+                    font-size: 12px;
+
+                    div + div {
+                        margin-top: 0.5em;
+                    }
+
+                    .place {
+                        font-weight: bold;
+                    }
+                }
+            }
+
+            .jobs-result {
+                .result;
+                grid-template-columns: 50fr 0.5em 50fr;
+                -ms-grid-columns: 50fr 0.5em 50fr;
+                grid-template-rows: auto 0.5em 100fr 1em 20px 1em 20px;
+                -ms-grid-rows: auto 0.5em 100fr 1em 20px 1em 20px;
+                font-size: 14px;
+                color: @black;
+
+                .icon {
+                    margin-right: 0.5em;
+                }
+
+                .title {
+                    font-size: 14px;
+                    font-weight: bold;
+                    grid-row: 1;
+                    grid-column-start: 1;
+                    grid-column-end: 4;
+                    -ms-grid-row: 1;
+                    -ms-grid-column: 1;
+                    -ms-grid-column-span: 4;
+                }
+
+                .description {
+                    grid-row: 3;
+                    grid-column-start: 1;
+                    grid-column-end: 4;
+                    -ms-grid-row: 3;
+                    -ms-grid-column: 1;
+                    font-size: 14px;
+                    -ms-grid-column-span: 4;
+                }
+
+                .company {
+                    grid-row: 5;
+                    -ms-grid-row: 5;
+                    grid-column: 1;
+                    -ms-grid-column: 1;
+                }
+
+                .location {
+                    grid-row: 5;
+                    -ms-grid-row: 5;
+                    grid-column: 3;
+                    -ms-grid-column: 3;
+                }
+
+                .jobType {
+                    grid-row: 7;
+                    -ms-grid-row: 7;
+                    grid-column: 1;
+                    -ms-grid-column: 1;
+                }
+
+                .startTime {
+                    grid-row: 7;
+                    -ms-grid-row: 7;
+                    grid-column: 3;
+                    -ms-grid-column: 3;
+                }
+            }
+
+            .purchase-result {
+                .result;
+                grid-template-columns: 30% 1em auto;
+                -ms-grid-columns: 30% 1em auto;
+                grid-template-rows: 100%;
+                -ms-grid-rows: 100%;
+                .result-image(@tealish);
+
+                .rate-grid {
+                    display: grid;
+                    display: -ms-grid;
+                    grid-template-columns: 40px 0 0;
+                    -ms-grid-columns: 40px 0 0;
+                    -ms-grid-rows: 15px;
+                    grid-template-rows: 15px;
+                    align-items: center;
+                    -ms-grid-row-align: center;
+                    grid-template-rows: 15px;
+                }
+
+                .rating-star {
+                    transform: scale(0.1);
+                    grid-column: 3;
+                    -ms-grid-column: 3;
+                    -ms-grid-row-align: center;
+                }
+
+                .star-five {
+                    .star-five(@white-three);
+
+                    &.selected {
+                        .star-five(@squash-two);
+                    }
+                }
+
+                @media @phone {
+                    height: 136px;
+                }
+
+                .image {
+                    -ms-grid-column: 1;
+                    border-radius: 6px;
+
+                    * {
+                        border-radius: 6px;
+                    }
+                }
+
+                .rest-details {
+                    -ms-grid-column: 3;
+                    grid-column: 3;
+                    font-size: 14px;
+                    color: @brownish-grey;
+
+                    .name {
+                        .color-text-purchase;
+                        font-size: 17px;
+                        margin-top: 0;
+                    }
+
+                    .location {
+                        margin: 0.7em 0;
+                    }
+                }
+            }
 
             a.item-result, iframe {
                 text-decoration: none;
-                margin-top: 1em;
+                margin-top: 0.5em;
             }
 
             .bunner {
@@ -740,7 +1009,8 @@ body {
             }
 
             .item-result {
-                .displayGrid(1em);
+                .result;
+                grid-gap: 1em;
                 height: 176px;
 
                 @media @phone {
@@ -749,14 +1019,9 @@ body {
                     -ms-grid-rows: calc(128px - 32px) 1em 16px;
                 }
 
-                border-radius: 4px;
-                background-color: #ffffff;
-                background-color: var(--white-two);
-                box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-                padding: 1em;
                 grid-template-areas: "image item" "image source";
                 grid-template-columns: 30% auto;
-                -ms-grid-columns: 30% 1.5em auto;
+                -ms-grid-columns: 30% 1em auto;
                 grid-template-rows: calc(176px - 32px) 16px;
                 -ms-grid-rows: calc(176px - 32px) 1em auto;
 

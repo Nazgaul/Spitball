@@ -89,24 +89,53 @@ var MyApp;
             this.$http.get("home/search", { params: { category: this.sec, term: this.term } })
                 .then(function (response) {
                 _this.results = {};
-                //if (this.sec == 'ask') {
-                _this.results.video = _this.$sce.trustAsResourceUrl('https://www.youtube.com/embed/EqolSvoWNck');
-                _this.results.items = [
-                    { title: "title", content: "content", source: "spitball.com", img: "https://thumbs.dreamstime.com/z/smiley-emoticon-happy-face-72284393.jpg", url: "www.google.com" },
-                    { title: "title2", content: "content2", source: "spitball.com", url: "www.google.com" }
-                ];
-                //}
+                if (_this.sec === "purchase") {
+                    _this.results.items = [
+                        { name: "burger", location: "פארק המדע HaMada St 1, Rehovot ", rate: 3.4, status: "Open", img: "http://www.kaminarieducation.net/interclass/img/purchase_s2.jpg", url: "http://www.interclass.us/purchase" },
+                        { name: "cafe luiz", location: "פארק המדע מאיר ויסגל 2, Rehovot", rate: 4.2, status: "closed", url: "www.google.com" }
+                    ];
+                }
+                else if (_this.sec === "tutor") {
+                    _this.results.items = [
+                        { firstName: "Yifat", place: "Burgas,Bulgaria", distance: "22.5", courseType: "online", lastName: "Biezuner", price: "15", img: "http://www.kaminarieducation.net/interclass/img/purchase_s2.jpg", url: "http://www.interclass.us/purchase" },
+                        { firstName: "Ram", lastName: "Yaari", place: "Berlin,Germany", distance: "253305", courseType: "offline", price: "55", url: "www.google.com" }
+                    ];
+                }
+                else if (_this.sec === "jobs") {
+                    _this.results.items = [
+                        { title: "College Students - Online Media Journalist", desc: "Publish high-quality news (topics of your choice), having the chance to use a variety of formats (written articles, videos). Share and promote the news through social networks to increae the number of the readers. If", company: "Microsoft", location: "Berlin,Germany", jobType: "paid", startTime: "Now", url: "http://www.interclass.us/purchase" },
+                        { title: "Job num 2", desc: "mats (written articles, videos). Share and promote the news through social networks to increae the number of the readers. If", company: "Microsoft", location: "Berlin,Germany", jobType: "paid", startTime: "Now", url: "http://www.interclass.us/purchase" }
+                    ];
+                }
+                else {
+                    //if (this.sec == 'ask') {
+                    _this.results.video = _this.$sce.trustAsResourceUrl('https://www.youtube.com/embed/EqolSvoWNck');
+                    _this.results.items = [
+                        { title: "title", content: "content", source: "spitball.com", img: "https://thumbs.dreamstime.com/z/smiley-emoticon-happy-face-72284393.jpg", url: "www.google.com" },
+                        { title: "title2", content: "content2", source: "spitball.com", url: "www.google.com" }
+                    ];
+                    //}
+                }
                 console.log("hello");
             });
         };
-        HomeController.prototype.resultTemplate = function () {
-            //if (this.sec === 'ask') {
-            return 'item-template.html';
-            //}
+        HomeController.prototype.resultName = function () {
+            var sec_items = ['ask', 'flashcard', 'note'];
+            if (sec_items.indexOf(this.sec) > -1) {
+                return 'item';
+            }
+            else {
+                return this.sec;
+            }
         };
         HomeController.$inject = ["$scope", "$http", "$sce"];
         return HomeController;
     }());
     MyApp.HomeController = HomeController;
+    appf.filter('firstLetters', function () {
+        return function (input, scope) {
+            return input.match(/\b(\w)/g).join('');
+        };
+    });
     appf.controller("HomeController", HomeController);
 })(MyApp || (MyApp = {}));

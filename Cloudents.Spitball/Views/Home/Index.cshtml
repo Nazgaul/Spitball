@@ -20,7 +20,7 @@
 
 			<iframe width="100%" height="315" ng-show="ctrl.results.video"
 					ng-src="{{ctrl.results.video}}"></iframe>
-        <a class="item-result" ng-href="{{::e.url}}" ng-include="ctrl.resultTemplate()" ng-repeat="(k,e) in ctrl.results.items" target="_blank"></a>
+        <a class="{{ctrl.resultName()}}-result" ng-href="{{::e.url}}" ng-include="ctrl.resultName()+'-template.html'" ng-repeat="(k,e) in ctrl.results.items" target="_blank"></a>
 			@*<div class="item-result">
 				<div class="image"></div>
 				<div class="item-content">
