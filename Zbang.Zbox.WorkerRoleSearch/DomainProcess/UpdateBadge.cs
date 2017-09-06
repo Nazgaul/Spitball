@@ -15,17 +15,18 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
     {
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
         private readonly IQueueProvider m_QueueProvider;
+        private readonly ILogger m_Logger;
 
-        public UpdateBadge(IZboxWorkerRoleService zboxWriteService, IQueueProvider queueProvider)
+        public UpdateBadge(IZboxWorkerRoleService zboxWriteService, IQueueProvider queueProvider, ILogger logger)
         {
             m_ZboxWriteService = zboxWriteService;
             m_QueueProvider = queueProvider;
+            m_Logger = logger;
         }
 
         public async Task<bool> ExecuteAsync(Infrastructure.Transport.DomainProcess data, CancellationToken token)
         {
-            var parameters = data as BadgeData;
-            if (parameters == null)
+            if (!(data is BadgeData parameters))
             {
                 throw new NullReferenceException(nameof(parameters));
             }
@@ -83,7 +84,10 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
                 }
                 catch (Exception ex)
                 {
-                    TraceLog.WriteError("on signalr update image", ex);
+                    m_Logger.Exception(ex, new Dictionary<string, string>
+                    {
+                        ["signalr"] = "signalr"
+                    });
                 }
 
                 await m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(userId), token).ConfigureAwait(false);

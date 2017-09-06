@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
     public class GoogleDriveProcessor : LinkProcessor
     {
-        public GoogleDriveProcessor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview)
-            : base(blobProvider, blobProviderPreview)
+        public GoogleDriveProcessor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview, ILogger logger)
+            : base(blobProvider, blobProviderPreview, logger)
         {  }
         private const string ContentFormat = "<iframe class=\"iframeContent\" src=\"{0}\"></iframe>";
         public override Task<PreviewResult> ConvertFileToWebsitePreviewAsync(Uri contentUrl, int index, CancellationToken cancelToken = default(CancellationToken))

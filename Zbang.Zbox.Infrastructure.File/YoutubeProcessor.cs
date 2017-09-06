@@ -6,14 +6,15 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
     public class YoutubeProcessor : LinkProcessor
     {
-        public YoutubeProcessor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview) 
-            : base(blobProvider, blobProviderPreview)
-        {  }
+        public YoutubeProcessor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview, ILogger logger)
+            : base(blobProvider, blobProviderPreview, logger)
+        { }
 
         private static readonly Regex YoutubeRegex = new Regex(
            @"# Match non-linked youtube URL in the wild. (Rev:20111012)
