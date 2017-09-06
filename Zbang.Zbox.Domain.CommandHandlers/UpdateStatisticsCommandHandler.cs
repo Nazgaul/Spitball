@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -16,13 +17,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<Domain.Quiz> m_QuizRepository;
         private readonly IRepository<FlashcardMeta> m_FlashcardRepository;
         private readonly IQueueProvider m_QueueProvider;
+        private readonly ILogger m_Logger;
+
         public UpdateStatisticsCommandHandler(IRepository<Item> itemRepository,
-            IRepository<Domain.Quiz> quizRepository, IRepository<FlashcardMeta> flashcardRepository, IQueueProvider queueProvider)
+            IRepository<Domain.Quiz> quizRepository, IRepository<FlashcardMeta> flashcardRepository, IQueueProvider queueProvider, ILogger logger)
         {
             m_ItemRepository = itemRepository;
             m_QuizRepository = quizRepository;
             m_FlashcardRepository = flashcardRepository;
             m_QueueProvider = queueProvider;
+            m_Logger = logger;
         }
 
         public Task HandleAsync(UpdateStatisticsCommand message)
@@ -51,7 +55,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 }
                 catch (ApplicationException ex)
                 {
-                    TraceLog.WriteError("On update quiz views itemId:" + itemId.ItemId, ex);
+                    m_Logger.Exception(ex, new Dictionary<string, string>
+                    {
+                        ["id"] = itemId.ItemId.ToString(),
+                    });
                 }
             }
             if (itemId.Action == Infrastructure.Enums.StatisticsAction.Quiz)
@@ -69,7 +76,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 }
                 catch (ApplicationException ex)
                 {
-                    TraceLog.WriteError("On update quiz views itemId:" + itemId.ItemId, ex);
+                    m_Logger.Exception(ex, new Dictionary<string, string>
+                    {
+                        ["id"] = itemId.ItemId.ToString(),
+                    });
                 }
                 return t;
             }
@@ -90,8 +100,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             else
             {
-                var file = item as File;
-                if (file == null)
+                if (!(item is File file))
                 {
                     item.IncreaseNumberOfViews();
                 }

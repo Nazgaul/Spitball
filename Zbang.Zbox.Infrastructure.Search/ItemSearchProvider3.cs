@@ -18,17 +18,18 @@ namespace Zbang.Zbox.Infrastructure.Search
     public class ItemSearchProvider3 : IItemReadSearchProvider, IItemWriteSearchProvider
     {
         private readonly string m_IndexName = "item3";
-#pragma warning disable CS0169 // The field 'ItemSearchProvider3.m_CheckIndexExists' is never used
         private bool m_CheckIndexExists;
-#pragma warning restore CS0169 // The field 'ItemSearchProvider3.m_CheckIndexExists' is never used
         private readonly ISearchConnection m_Connection;
         private readonly ISearchIndexClient m_IndexClient;
         private readonly ISearchFilterProvider m_FilterProvider;
+        private readonly ILogger m_Logger;
 
-        public ItemSearchProvider3(ISearchFilterProvider filterProvider, ISearchConnection connection)
+
+        public ItemSearchProvider3(ISearchFilterProvider filterProvider, ISearchConnection connection, ILogger logger)
         {
             m_FilterProvider = filterProvider;
             m_Connection = connection;
+            m_Logger = logger;
             if (m_Connection.IsDevelop)
             {
                 m_IndexName = m_IndexName + "-dev";
@@ -94,7 +95,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("on item build index", ex);
+                m_Logger.Exception(ex);
             }
             m_CheckIndexExists = true;
         }

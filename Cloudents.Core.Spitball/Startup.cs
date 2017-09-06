@@ -7,6 +7,7 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -42,6 +43,10 @@ namespace Cloudents.Core.Spitball
             {
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                {
+                    HotModuleReplacement = true
+                });
             }
             else
             {
@@ -51,10 +56,7 @@ namespace Cloudents.Core.Spitball
             app.UseStatusCodePages();
             app.UseStaticFiles(new StaticFileOptions
             {
-                OnPrepareResponse = ctx =>
-                {
-                    ctx.Context.Response.Headers.Add("Cache-Control", "public,max-age=600");
-                }
+                OnPrepareResponse = ctx => ctx.Context.Response.Headers.Add("Cache-Control", "public,max-age=600")
             });
             //app.AddResponseCompression()
             app.UseMvc(routes =>
@@ -62,6 +64,10 @@ namespace Cloudents.Core.Spitball
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapSpaFallbackRoute(
+                    name: "spa-fallback",
+                    defaults: new { controller = "Home", action = "Index" });
             });
         }
     }

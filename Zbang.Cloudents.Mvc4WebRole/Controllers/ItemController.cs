@@ -160,8 +160,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var tContent = Zbox.Infrastructure.Extensions.TaskExtensions.CompletedTaskString;
                 if (firstTime == true)
                 {
-                    var token = CreateCancellationToken(cancellationToken);
-                    tContent = m_ItemSearchProvider.Value.ItemContentAsync(itemId, token.Token);
+                    using (var token = CreateCancellationToken(cancellationToken))
+                    {
+                        tContent = m_ItemSearchProvider.Value.ItemContentAsync(itemId, token.Token);
+                    }
                 }
                 await Task.WhenAll(tItem, tTransAction, tContent).ConfigureAwait(false);
                 var retVal = tItem.Result;

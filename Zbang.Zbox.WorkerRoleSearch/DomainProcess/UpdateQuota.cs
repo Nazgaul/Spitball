@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
@@ -11,23 +12,27 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
     public class UpdateQuota : IDomainProcess
     {
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
+        private readonly ILogger m_Logger;
 
-        public UpdateQuota(IZboxWorkerRoleService zboxWriteService)
+        public UpdateQuota(IZboxWorkerRoleService zboxWriteService, ILogger logger)
         {
             m_ZboxWriteService = zboxWriteService;
+            m_Logger = logger;
         }
 
         public Task<bool> ExecuteAsync(Infrastructure.Transport.DomainProcess data, CancellationToken token)
         {
-            var parameters = data as QuotaData;
-            if (parameters == null) return Infrastructure.Extensions.TaskExtensions.CompletedTaskTrue;
+            if (!(data is QuotaData parameters)) return Infrastructure.Extensions.TaskExtensions.CompletedTaskTrue;
             try
             {
                 m_ZboxWriteService.UpdateQuota(new UpdateQuotaCommand(parameters.UserIds));
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("On new update model:" + parameters, ex);
+                m_Logger.Exception(ex, new Dictionary<string, string>
+                {
+                    ["model"] = parameters.ToString()
+                });
             }
             return Infrastructure.Extensions.TaskExtensions.CompletedTaskTrue;
         }

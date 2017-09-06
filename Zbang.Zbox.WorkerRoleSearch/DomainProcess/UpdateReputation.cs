@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
@@ -11,16 +12,17 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
     public class UpdateReputation : IDomainProcess
     {
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
+        private readonly ILogger m_Logger;
 
-        public UpdateReputation(IZboxWorkerRoleService zboxWriteService)
+        public UpdateReputation(IZboxWorkerRoleService zboxWriteService, ILogger logger)
         {
             m_ZboxWriteService = zboxWriteService;
+            m_Logger = logger;
         }
 
         public async Task<bool> ExecuteAsync(Infrastructure.Transport.DomainProcess data, CancellationToken token)
         {
-            var parameters = data as ReputationData;
-            if (parameters == null) return true;
+            if (!(data is ReputationData parameters)) return true;
             try
             {
                 //var userIds = string.Join(",", parameters.UserIds);
@@ -39,13 +41,20 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
                         }
                         catch (Exception ex)
                         {
-                            TraceLog.WriteError("on signalr reputation", ex);
+                            m_Logger.Exception(ex, new Dictionary<string, string>
+                            {
+                                ["model"] = parameters.ToString(),
+                                ["signalr"] = "signalr"
+                            });
                         }
                     }
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("On update reputation model:" + parameters, ex);
+                m_Logger.Exception(ex, new Dictionary<string, string>
+                {
+                    ["model"] = parameters.ToString()
+                });
                 return false;
             }
             return true;

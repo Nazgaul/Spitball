@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
@@ -11,17 +12,18 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
     internal class UpdatesProcess : IDomainProcess
     {
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
+        private readonly ILogger m_Logger;
 
-        public UpdatesProcess(IZboxWorkerRoleService zboxService)
+        public UpdatesProcess(IZboxWorkerRoleService zboxService, ILogger logger)
         {
             m_ZboxWriteService = zboxService;
+            m_Logger = logger;
         }
 
 
         public async Task<bool> ExecuteAsync(Infrastructure.Transport.DomainProcess data, CancellationToken token)
         {
-            var parameters = data as UpdateData;
-            if (parameters == null) return true;
+            if (!(data is UpdateData parameters)) return true;
             try
             {
                await m_ZboxWriteService.AddNewUpdateAsync(new AddNewUpdatesCommand(
@@ -39,7 +41,10 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("On new update model: " + parameters, ex);
+                m_Logger.Exception(ex, new Dictionary<string, string>
+                {
+                    ["model"] = parameters.ToString()
+                });
                 return false;
             }
             return true;

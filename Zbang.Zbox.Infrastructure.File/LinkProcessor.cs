@@ -15,11 +15,13 @@ namespace Zbang.Zbox.Infrastructure.File
     {
         protected readonly IBlobProvider BlobProvider;
         protected readonly IBlobProvider2<IPreviewContainer> BlobProviderPreview;
+        private readonly ILogger m_Logger;
 
-        public LinkProcessor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview)
+        public LinkProcessor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview, ILogger logger)
         {
             BlobProvider = blobProvider;
             BlobProviderPreview = blobProviderPreview;
+            m_Logger = logger;
         }
 
         private const string ContentFormat = "<a target=\"_Blank\" href=\"{0}\"><img src=\"{1}\"/></a>";
@@ -75,7 +77,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 {
                     if (!response.IsSuccessStatusCode)
                     {
-                        TraceLog.WriteError("cannot generate link preview " + blobUri.AbsoluteUri);
+                        m_Logger.Error("cannot generate link preview " + blobUri.AbsoluteUri);
                     }
 
                     var bytes = await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);

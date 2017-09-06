@@ -13,11 +13,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private string titleField;
 
-        private string cityField;
+       // private string cityField;
 
         private string stateField;
 
-        private ushort zipField;
+        //private ushort zipField;
 
         private string countryField;
 

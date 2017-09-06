@@ -15,11 +15,13 @@ namespace Zbang.Zbox.Infrastructure.File
     {
         private const string CacheVersion = CacheVersionPrefix + "6";
 
-        public WordProcessor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview, IBlobProvider2<ICacheContainer> blobProviderCache)
+        private readonly ILogger m_Logger;
+
+        public WordProcessor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview, IBlobProvider2<ICacheContainer> blobProviderCache, ILogger logger)
             : base(blobProvider, blobProviderPreview, blobProviderCache)
         {
+            m_Logger = logger;
             SetLicense();
-
         }
 
         private static void SetLicense()
@@ -99,7 +101,7 @@ namespace Zbang.Zbox.Infrastructure.File
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("PreProcessFile word", ex);
+                m_Logger.Exception(ex);
                 return null;
             }
         }
@@ -114,7 +116,7 @@ namespace Zbang.Zbox.Infrastructure.File
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("Failed to extract text from doc", ex);
+                m_Logger.Exception(ex);
                 return string.Empty;
             }
         }
