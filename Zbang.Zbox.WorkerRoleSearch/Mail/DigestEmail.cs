@@ -105,7 +105,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             return true;
         }
 
-        private async Task ProcessUserEmailAsync(CancellationToken token, UserDigestDto user, List<Task> list)
+        private async Task ProcessUserEmailAsync(CancellationToken token, UserDigestDto user, ICollection<Task> list)
         {
             var email = user.Email;
             if (RoleIndexProcessor.IsEmulated)
