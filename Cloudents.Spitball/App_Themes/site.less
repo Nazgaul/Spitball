@@ -14,6 +14,8 @@
 @vermillion: #f61c0d;
 @royal-purple: #320161;
 @black: #000000;
+@squash-three:#ebbc18;
+@prussian-blue: #003b78;
 @red: #c30000;
 @orange: #ff6f00;
 @white-four: #f0f0f0;
@@ -33,7 +35,7 @@
 @purpley-grey: #9b9b9b;
 @circle_size: 38px;
 @gap_sides: 15%;
-@marine: #07305;
+@marine:#07305a;
 @mid_blue: #1e59a8;
 @steel-grey: #888b8e;
 @apple-green:#7ed321;
@@ -780,8 +782,8 @@ body {
             text-align: center;
         }
 
-        @media @tablet_641 {
-            grid-template-columns: 166px auto;
+        @media @tablet_641,@desktop_1366 {
+            grid-template-columns: 220px auto;
         }
 
         .content {
@@ -856,6 +858,67 @@ body {
 
                     .place {
                         font-weight: bold;
+                    }
+                }
+            }
+
+            .book-result {
+                .result;
+                grid-template-columns: 104px 0.5em 100fr;
+                -ms-grid-columns: 104px 0.5em 100fr;
+                grid-template-rows: auto 1em 100fr 0.5em 25px;
+                -ms-grid-rows: auto 1em 100fr 0.5em 25px;
+
+                .image {
+                    grid-column: 1;
+                    -ms-grid-column: 1;
+                    grid-row-start: 1;
+                    grid-row-end: 4;
+                    -ms-grid-row: 1;
+                    -ms-grid-row-span: 3;
+                }
+
+                .title {
+                    grid-column: 3;
+                    -ms-grid-column: 3;
+                    grid-row: 1;
+                    -ms-grid-row: 1;
+                    .color-text-book;
+                }
+
+                .details {
+                    grid-column: 3;
+                    -ms-grid-column: 3;
+                    grid-row: 3;
+                    -ms-grid-row: 3;
+                    color: @black;
+                }
+
+                .buttons {
+                    grid-row: 5;
+                    -ms-grid-row: 5;
+                    grid-column: 3;
+                    -ms-grid-column: 3;
+                    justify-self: end;
+                    -ms-grid-column-align: end;
+                    font-size: 0.9rem;
+
+                    button {
+                        border-style: dashed;
+                        border-radius: 2px;
+                    }
+
+                    .sell {
+                        background: @squash-three;
+                        color: @marine;
+                        border-color: @squash-three
+                    }
+
+                    .buyOrRent {
+                        background: @prussian-blue;
+                        border-color: @prussian-blue;
+                        color: @white-two;
+                        margin-left: 0.5em;
                     }
                 }
             }
@@ -964,6 +1027,7 @@ body {
 
                 .image {
                     -ms-grid-column: 1;
+                    grid-column: 1;
                     border-radius: 6px;
 
                     * {

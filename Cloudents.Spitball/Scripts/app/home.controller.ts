@@ -132,8 +132,14 @@ module MyApp {
                             { title: "College Students - Online Media Journalist", desc: "Publish high-quality news (topics of your choice), having the chance to use a variety of formats (written articles, videos). Share and promote the news through social networks to increae the number of the readers. If", company: "Microsoft", location: "Berlin,Germany", jobType: "paid", startTime: "Now", url: "http://www.interclass.us/purchase" },
                             { title: "Job num 2", desc: "mats (written articles, videos). Share and promote the news through social networks to increae the number of the readers. If", company: "Microsoft", location: "Berlin,Germany", jobType: "paid", startTime: "Now", url: "http://www.interclass.us/purchase" }
                         ];
+                } else if (this.sec === "book") {
+                    this.results.items = [
+                        { title: "Harry Potter", binding: "Paperback", edition: "5th", isbn13: 9781305631946, isbn10: 1305631943, author: "J.K Rolling", url: "http://www.interclass.us/purchase", img:"http://www.publish.csiro.au/covers-high/7524.jpg" },
+                        { title: "Economics in One Lesson: The Shortest and Surest Way to Understand Basic Economisc", binding: "Paperback", edition: "5th", isbn13: 9781305631946, isbn10: 1305631943, author: "J.K Rolling", url: "http://www.interclass.us/purchase" },
+                    ];
 
-                    } else {
+                }
+                    else {
                         //if (this.sec == 'ask') {
                         this.results.video = this.$sce.trustAsResourceUrl('https://www.youtube.com/embed/EqolSvoWNck');
                         this.results.items = [

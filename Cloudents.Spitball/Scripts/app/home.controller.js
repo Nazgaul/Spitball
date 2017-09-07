@@ -107,6 +107,12 @@ var MyApp;
                         { title: "Job num 2", desc: "mats (written articles, videos). Share and promote the news through social networks to increae the number of the readers. If", company: "Microsoft", location: "Berlin,Germany", jobType: "paid", startTime: "Now", url: "http://www.interclass.us/purchase" }
                     ];
                 }
+                else if (_this.sec === "book") {
+                    _this.results.items = [
+                        { title: "Harry Potter", binding: "Paperback", edition: "5th", isbn13: 9781305631946, isbn10: 1305631943, author: "J.K Rolling", url: "http://www.interclass.us/purchase", img: "http://www.publish.csiro.au/covers-high/7524.jpg" },
+                        { title: "Economics in One Lesson: The Shortest and Surest Way to Understand Basic Economisc", binding: "Paperback", edition: "5th", isbn13: 9781305631946, isbn10: 1305631943, author: "J.K Rolling", url: "http://www.interclass.us/purchase" },
+                    ];
+                }
                 else {
                     //if (this.sec == 'ask') {
                     _this.results.video = _this.$sce.trustAsResourceUrl('https://www.youtube.com/embed/EqolSvoWNck');
@@ -139,3 +145,4 @@ var MyApp;
     });
     appf.controller("HomeController", HomeController);
 })(MyApp || (MyApp = {}));
+//# sourceMappingURL=home.controller.js.map
