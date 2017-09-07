@@ -3354,7 +3354,7 @@ h6 {
     padding: 5px 25px 25px 5px;
     font-family: sans-serif;
     position: absolute;
-    left: calc(50vw - 325px);
+    left: 25vw;
 }
 
     .internal-page h1 {
