@@ -111,7 +111,7 @@ Single-colored icons can be modified like so:
   font-size: 20px;
   letter-spacing: -0.4px;
   text-align: left;
-  color: #07305 5;
+  color: #07305a;
 }
 .Text-Style-2 {
   margin-top: 0;
@@ -254,7 +254,7 @@ body .color-chat {
   background: #9ccdff !important;
 }
 body .color-settings {
-  background: #07305 5 !important;
+  background: #07305a !important;
 }
 body .color-text-ask {
   color: #024294 !important;
@@ -293,7 +293,7 @@ body .color-text-chat {
   color: #9ccdff !important;
 }
 body .color-text-settings {
-  color: #07305 5 !important;
+  color: #07305a !important;
 }
 body .color-border-ask {
   border-color: #024294 !important;
@@ -332,7 +332,7 @@ body .color-border-chat {
   border-color: #9ccdff !important;
 }
 body .color-border-settings {
-  border-color: #07305 5 !important;
+  border-color: #07305a !important;
 }
 body .credit {
   color: #9b9b9b;
@@ -684,13 +684,13 @@ body section label:last-of-type {
   }
 }
 body section h1 {
-  color: #07305 5;
+  color: #07305a;
   font-size: 20px;
   text-align: center;
 }
-@media only screen and (min-width: 641px) and (max-width: 1365px) {
+@media only screen and (min-width: 641px) and (max-width: 1365px), only screen and (min-width: 1366px) {
   body section {
-    grid-template-columns: 166px auto;
+    grid-template-columns: 220px auto;
   }
 }
 body section .content {
@@ -795,6 +795,73 @@ body section .content .tutor-result .details div + div {
 }
 body section .content .tutor-result .details .place {
   font-weight: bold;
+}
+body section .content .book-result {
+  display: -ms-grid;
+  display: grid;
+  -ms-column-gap: 0;
+  column-gap: 0;
+  grid-gap: 0;
+  -ms-grid-gap: 0;
+  grid-row-gap: 0;
+  -ms-grid-row-gap: 0;
+  margin-top: 0.5em;
+  border-radius: 4px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  padding: 0.5em;
+  color: white;
+  text-decoration: none;
+  grid-template-columns: 104px 0.5em 100fr;
+  -ms-grid-columns: 104px 0.5em 100fr;
+  grid-template-rows: auto 1em 100fr 0.5em 25px;
+  -ms-grid-rows: auto 1em 100fr 0.5em 25px;
+}
+body section .content .book-result .image {
+  grid-column: 1;
+  -ms-grid-column: 1;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 3;
+}
+body section .content .book-result .title {
+  grid-column: 3;
+  -ms-grid-column: 3;
+  grid-row: 1;
+  -ms-grid-row: 1;
+  color: #8c3fbf !important;
+}
+body section .content .book-result .details {
+  grid-column: 3;
+  -ms-grid-column: 3;
+  grid-row: 3;
+  -ms-grid-row: 3;
+  color: #000000;
+}
+body section .content .book-result .buttons {
+  grid-row: 5;
+  -ms-grid-row: 5;
+  grid-column: 3;
+  -ms-grid-column: 3;
+  justify-self: end;
+  -ms-grid-column-align: end;
+  font-size: 0.9rem;
+}
+body section .content .book-result .buttons button {
+  border-style: dashed;
+  border-radius: 2px;
+}
+body section .content .book-result .buttons .sell {
+  background: #ebbc18;
+  color: #07305a;
+  border-color: #ebbc18;
+}
+body section .content .book-result .buttons .buyOrRent {
+  background: #003b78;
+  border-color: #003b78;
+  color: #ffffff;
+  margin-left: 0.5em;
 }
 body section .content .jobs-result {
   display: -ms-grid;
@@ -1018,6 +1085,7 @@ body section .content .purchase-result .star-five.selected:after {
 }
 body section .content .purchase-result .image {
   -ms-grid-column: 1;
+  grid-column: 1;
   border-radius: 6px;
 }
 body section .content .purchase-result .image * {

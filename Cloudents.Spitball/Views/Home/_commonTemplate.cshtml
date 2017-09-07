@@ -141,6 +141,23 @@
         </span>{{::e.location}}
     </div>
 </script>
+<script defer type="text/ng-template" id="book-template.html">
+    <div class="image" ng-class="{'color-{{ctrl.sec}}':!e.img}">
+        <img ng-if="e.img" width="100%" height="100%" ng-src="{{::e.img}}" />
+        <svg class="icon icon-{{ctrl.sec}}" ng-if="!e.img">
+            <use xlink:href="{{'/App_Themes/Images/icons.svg#icon-'+ctrl.sec}}"></use>
+        </svg>
+    </div>
+    <div class="title">{{::e.title}}</div>
+    <div class="buttons"><button class="sell">Sell</button><button class="buyOrRent">Buy or Rent</button></div>
+    <div class="details">
+        <div><label class="capitalize">author : </label>{{::e.author}}</div>
+        <div><label>{{"isbn10 : "|uppercase}}</label>{{::e.isbn10}}</div>
+        <div><label>{{"isbn13 : "|uppercase}}</label>{{::e.isbn13}}</div>
+        <div><label class="capitalize">edition : </label>{{::e.edition}}</div>
+        <div><label class="capitalize">binding : </label>{{::e.binding}}</div>
+    </div>
+</script>
 @*<script defer type="text/ng-template" id="quiz-template.html">
     <a class="quiz quiz-template" ng-href="{{::e.url}}">
         <div class="base">
