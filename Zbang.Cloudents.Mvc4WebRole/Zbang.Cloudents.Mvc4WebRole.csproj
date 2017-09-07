@@ -2665,6 +2665,7 @@
     <Content Include="Views\Alex\Terms.cshtml" />
     <Content Include="Views\Alex\Privacy.cshtml" />
     <Content Include="tsconfig.json" />
+    <Content Include="Views\Alex\WinMoney.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

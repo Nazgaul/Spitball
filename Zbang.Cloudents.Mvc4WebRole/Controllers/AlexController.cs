@@ -36,5 +36,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ViewBag.page = "privacy";
             return View();
         }
+        [Route("competiton", Name = "Alex_MONEY")]
+        public ActionResult WinMoney()
+        {
+            ViewBag.page = "money";
+            return View();
+        }
     }
 }
