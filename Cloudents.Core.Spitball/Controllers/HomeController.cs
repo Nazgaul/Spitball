@@ -12,5 +12,12 @@ namespace Cloudents.Core.Spitball.Controllers
         {
             return View();
         }
+        [HttpGet, ActionName("search")]
+        public IActionResult Search()
+        {
+            int a = 5;
+            a = 7;
+            return Json("Yifat");
+        }
     }
 }
