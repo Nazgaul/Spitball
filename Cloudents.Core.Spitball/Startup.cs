@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Zbang.Zbox.Infrastructure;
 
 namespace Cloudents.Core.Spitball
 {
@@ -30,7 +31,7 @@ namespace Cloudents.Core.Spitball
             services.AddResponseCompression();
 
             var containerBuilder = new ContainerBuilder();
-            //containerBuilder.RegisterModule<DefaultModule>();
+            containerBuilder.RegisterModule<InfrastructureModule>();
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);

@@ -16,6 +16,7 @@ namespace Zbang.Zbox.Infrastructure
             builder.RegisterType<Security.GoogleAuthenticationService>().As<Security.IGoogleService>();
             builder.RegisterType<IdGenerator.GuidIdGenerator>().As<IdGenerator.IGuidIdGenerator>();
             builder.RegisterType<LocationProvider>().As<ILocationProvider>();
+            builder.RegisterType<LuisAi>().As<IAi>();
             builder.RegisterType<Logger>().As<ILogger>();
         }
     }

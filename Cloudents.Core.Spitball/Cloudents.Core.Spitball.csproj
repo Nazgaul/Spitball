@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\components\home\home.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Views\Home\Index.cshtml" />
   </ItemGroup>
 
@@ -33,6 +37,14 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure\Zbang.Zbox.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\components\home\home.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

@@ -8,6 +8,7 @@
     "sourceMap": true,
     "skipDefaultLibCheck": true,
     "strict": true,
+    "lib": ["dom","es5","es2015.promise"],
     "types": [ "webpack-env" ]
   },
   "exclude": [

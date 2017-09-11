@@ -60,6 +60,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Cognitive.LUIS, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Cognitive.LUIS.2.0.2\lib\portable45-net45+win8+wpa81\Microsoft.Cognitive.LUIS.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Spatial, Version=7.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Spatial.7.2.0\lib\portable-net45+win8+wpa81\Microsoft.Spatial.dll</HintPath>
     </Reference>
@@ -152,6 +155,7 @@
     <Compile Include="IdGenerator\IIdGenerator.cs" />
     <Compile Include="IPCheckContainer.cs" />
     <Compile Include="LocationProvider.cs" />
+    <Compile Include="LuisAi.cs" />
     <Compile Include="MD5HashGenerator.cs" />
     <Compile Include="MediaServices\IMediaServicesProvider.cs" />
     <Compile Include="Profile\IProfilePictureProvider.cs" />
@@ -160,7 +164,7 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Query\IUniversityWithCode.cs" />
     <Compile Include="Range.cs" />
-    <Compile Include="RegisterIoc.cs" />
+    <Compile Include="InfrastructureModule.cs" />
     <Compile Include="Repositories\DocumentDbModelAttribute.cs" />
     <Compile Include="Repositories\IDirty.cs" />
     <Compile Include="Repositories\IDocumentDbRepository.cs" />
@@ -250,6 +254,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
