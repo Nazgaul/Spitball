@@ -27,5 +27,12 @@ namespace Cloudents.Core.Spitball.Controllers
             await m_Ai.InterpetString(str);
             return Content("hi");
         }
+        [HttpGet, ActionName("search")]
+        public IActionResult Search()
+        {
+            int a = 5;
+            a = 7;
+            return Json("Yifat");
+        }
     }
 }

@@ -1,0 +1,98 @@
+﻿@import "../sections.less";
+.circle() {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    position: relative;
+}
+aside {
+    -ms-grid-column: 1;
+    grid-area: aside;
+    padding: 1em;
+    /*@media @desktop_1366 {
+                padding: 1em 0 1em 15%;
+            }
+
+            position: fixed;*/
+    @media @tablet_641,@desktop_1366 {
+        padding-left: 0;
+    }
+
+    width: 220px;
+
+    @media(max-width:640px) {
+        position: absolute;
+        background: white;
+        transform-origin: 0% 0%;
+        transform: translate(-100%, 0);
+        transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+    }
+
+    label {
+        /*width: 59px;
+                height: 14px;*/
+        font-family: OpenSans;
+        font-size: 12px;
+        letter-spacing: -0.2px;
+        text-align: left;
+        color: @dark;
+    }
+
+    ul {
+        padding: 0;
+        /*.displayGrid(0.5em);*/
+        li {
+            margin-top: 0.5em;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            &.selected {
+                /*margin: 0 -1em;
+                        padding: 0 1em;*/
+                background: @white-four;
+            }
+
+            display: flex;
+            list-style: none;
+            list-style-type: none;
+            text-transform: capitalize;
+
+            span {
+                margin-left: 1em;
+                line-height: @circle_size;
+            }
+
+            svg {
+                top: 25%;
+                left: 20%;
+                position: absolute;
+            }
+
+            &:last-of-type {
+                /*margin-bottom: 0.8em;*/
+            }
+
+            .ask {
+                .circle();
+                background: @ocean-blue;
+            }
+
+            .note {
+                .circle();
+                background: @royal-purple;
+            }
+
+            .flashcard {
+                .circle();
+            }
+
+            .tutor {
+                .circle();
+                background: @sap-green;
+            }
+        }
+    }
+}
+

@@ -6,10 +6,29 @@
     <ApplicationInsightsResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsAnnotationResourceId>
     <TypeScriptToolsVersion>2.4</TypeScriptToolsVersion>
+    <UserSecretsId>70b7b22a-cb92-45ad-a991-eb75a9a94ffd</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\components\home\home.ts" />
+    <None Remove="ClientApp\components\sections\aside\navbar.ts" />
+    <None Remove="ClientApp\components\sections\sections.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ClientApp\components\sections\aside\navbar.vue.html" />
+    <Content Include="ClientApp\components\sections\header\header.vue.html" />
+    <Content Include="ClientApp\components\sections\icons.css">
+      <DependentUpon>icons.less</DependentUpon>
+    </Content>
+    <Content Include="ClientApp\components\sections\icons.less" />
+    <Content Include="ClientApp\components\sections\icons.min.css">
+      <DependentUpon>icons.css</DependentUpon>
+    </Content>
+    <Content Include="ClientApp\components\sections\Images\icons.svg" />
+    <Content Include="ClientApp\components\sections\header\Images\normal-logo.svg" />
+    <Content Include="ClientApp\components\sections\header\Images\small-logo.svg" />
+    <Content Include="ClientApp\components\sections\OpenSans-Regular-webfont.woff" />
+    <Content Include="ClientApp\components\sections\sections.vue.html" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,11 +59,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Zbang.Zbox.Infrastructure\Zbang.Zbox.Infrastructure.csproj" />
+    <TypeScriptCompile Include="ClientApp\components\sections\aside\navbar.ts" />
+    <TypeScriptCompile Include="ClientApp\components\sections\sections.ts" />
+    <TypeScriptCompile Include="ClientApp\components\home\home.ts" />
+    
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\components\home\home.ts" />
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure\Zbang.Zbox.Infrastructure.csproj" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
