@@ -1,4 +1,4 @@
-﻿@{
+@{
 	Layout ="~/Views/Alex/_LayoutStatic.cshtml";
 }
 @*<img class="coffee" src="@Url.CdnContent("~/Images/Alex/coffee2_500px.png")" />*@
@@ -10,6 +10,20 @@
 				<div class="category-wrapper">
 					<input id="toggle-1" class="toggle-level-1" type="radio" name="toggle" checked/>
 					<section id="contentLevel" class="content-level-1">
+                        <div class="category-wrapper">
+                            <input id="toggleK-10" class="toggle-level-2" type="radio" name="toggle-inner" />
+                            <label for="toggleK-10">What happened to the old Spitball and where did all my documents go?</label>
+                            <section id="content-10" class="content-level-2 tab-content">
+                                <div><span>We here at Spitball like to make you guys happy, and we recognized that our last website design was just not cutting it! Using feedback from our dedicated users, we re-vamped and re-designed Spitball from the ground up. Don't worry though - all the documents from the old Spitball are still available! Just search for your class under "Class Material." Then click on "Source" and "Spitball.co" to filter only Spitball results. And don't forget to like the documents you want to keep handy!</span></div>
+                            </section>
+                        </div>
+                        <div class="category-wrapper">
+                            <input id="toggleK-11" class="toggle-level-2" type="radio" name="toggle-inner" />
+                            <label for="toggleK-11">Why is it only available on the App Store?</label>
+                            <section id="content-11" class="content-level-2 tab-content">
+                                <div><span>This is only temporary! We're working as fast as we can to bring the new design to our website, as well as Google Play.</span></div>
+                            </section>
+                        </div>
 						<div class="category-wrapper">
 							<input id="toggleK-1" class="toggle-level-2" type="radio" name="toggle-inner"  />
 							<label for="toggleK-1">Why isn’t my school on Spitball?</label>
@@ -89,5 +103,5 @@
 	</div>
 </section>
 <script>
-	document.getElementById("toggleK-1").checked = true;
+	document.getElementById("toggleK-10").checked = true;
 </script>
