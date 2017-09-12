@@ -1,0 +1,18 @@
+﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <base href="~/" />
+    @Html.Raw(JavaScriptSnippet.FullScript)
+</head>
+<body>
+<div>
+    @RenderBody()
+</div>
+    
+    @RenderSection("scripts", required: false)
+</body>
+</html>
