@@ -11,11 +11,13 @@ module.exports = (env) => {
         resolve: { extensions: [ '.js' ] },
         entry: {
             vendor: [
+               // 'bootstrap',
+               // 'bootstrap/dist/css/bootstrap.css',
                 'event-source-polyfill',
                 'isomorphic-fetch',
+               // 'jquery',
                 'vue',
-                'vue-router',
-                'vue-resource'
+                'vue-router'
             ],
         },
         module: {

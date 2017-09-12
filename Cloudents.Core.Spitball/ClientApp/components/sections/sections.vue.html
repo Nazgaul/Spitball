@@ -2,14 +2,15 @@
     <div id='sections'>
         Yifat
         <div class="overlay" v-show="isOpen" v-click="isOpen=false"></div>
-    <AppHeader></AppHeader>
+        <app-aside :is-open="true"></app-aside>
+    <!--<AppHeader></AppHeader>
     <section>
         <input id="menu-checkbox" type="checkbox" class="hide_641" v-model="isOpen" v-class="{'section-open':sectionOpen}" />
-        <AppAside></AppAside>
+        
         <div class="content"></div>
-    </section>
+    </section>-->
         </div>
 </template>
 <style src="./sections.less" lang="less"></style>
-<script src="./sections.ts"></script>
+<!--<script src="./sections.js"></script>-->
 
