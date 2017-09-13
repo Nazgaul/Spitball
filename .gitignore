@@ -5,6 +5,7 @@
 **/wwwroot/css/**
 **/wwwroot/lib/**
 **/wwwroot/scripts/**
+**/wwwroot/dist/**
 
 **/cdn/Images/
 **/cdn/Content/
@@ -166,5 +167,3 @@ UpgradeLog*.XML
 
 Zbang.Cloudents.MobileApp2/Properties/PublishProfiles/mobile-cloudents.pubxml
 
-# Microsoft Azure ApplicationInsights config file
-ApplicationInsights.config
