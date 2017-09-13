@@ -157,7 +157,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             //}
             var request = new CseResource.ListRequest(p, string.Join(" ", query))
             {
-                Start = ++page * 10,
+                Start = page == 0 ? 1 : page * 10 + 1,
                 SiteSearch = source,
                 Cx = key.Key,
                 Fields = "items(title,link,snippet,pagemap/cse_image,displayLink)",

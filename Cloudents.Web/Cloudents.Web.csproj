@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Models\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -22,10 +23,15 @@
     <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Zbang.Zbox.Infrastructure\Zbang.Zbox.Infrastructure.csproj" />
+    <ProjectReference Include="..\Cloudents.Infrastructure\Cloudents.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

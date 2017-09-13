@@ -4,12 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Cloudents.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.DependencyInjection;
-using Zbang.Zbox.Infrastructure;
+using Newtonsoft.Json.Serialization;
 
 namespace Cloudents.Web
 {
@@ -19,8 +20,13 @@ namespace Cloudents.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+                //options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
             services.AddResponseCompression();
+            
 
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule<InfrastructureModule>();
@@ -62,6 +68,7 @@ namespace Cloudents.Web
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
             });
+            
         }
     }
 }

@@ -59,7 +59,7 @@
 /******/
 /******/
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "29b008e81b97591dca0c"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "61e020b893d0cd13835b"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -11656,13 +11656,16 @@ exports.default = {
         var _this = this;
 
         return {
-            msg: "hello vue.js!",
+            msg: "",
+            result: "",
             search: function search() {
 
-                _this.$http.post("/ai", {
-                    sentence: _this.msg
+                _this.$http.get("api/AI", {
+                    params: {
+                        sentence: _this.msg
+                    }
                 }).then(function (response) {
-                    console.log(response.body);
+                    _this.result = response.body;
                 });
 
                 console.log("hello");
@@ -11683,7 +11686,7 @@ exports.default = {
 
 "use strict";
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('form', {
+  return _c('div', [_c('form', {
     on: {
       "submit": function($event) {
         $event.preventDefault();
@@ -11717,7 +11720,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       "type": "submit",
       "value": "search"
     }
-  })])
+  })]), _vm._v(" "), _c('div', [_vm._v(_vm._s(_vm.result))])])
 }
 var staticRenderFns = []
 render._withStripped = true

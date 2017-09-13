@@ -155,7 +155,6 @@
     <Compile Include="IdGenerator\IIdGenerator.cs" />
     <Compile Include="IPCheckContainer.cs" />
     <Compile Include="LocationProvider.cs" />
-    <Compile Include="LuisAi.cs" />
     <Compile Include="MD5HashGenerator.cs" />
     <Compile Include="MediaServices\IMediaServicesProvider.cs" />
     <Compile Include="Profile\IProfilePictureProvider.cs" />

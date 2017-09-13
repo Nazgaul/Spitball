@@ -1,16 +1,20 @@
-﻿import VueResource from 'vue-resource' 
+﻿import VueResource from 'vue-resource'
 export default {
     data() {
         return {
-            msg: "hello vue.js!",
+            msg: "",
+            result: "",
             search: () => {
 
-                this.$http.post("/ai",
+                this.$http.get("api/AI",
                     {
-                       sentence: this.msg
+                        params:
+                        {
+                            sentence: this.msg
+                        }
                     }).then((response) => {
-                    console.log(response.body);
-                });
+                        this.result = response.body;
+                    });
 
                 console.log("hello");
             }

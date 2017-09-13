@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{5DE8FAF5-ED0F-4681-9C50-159B781380D4}"
 EndProject
@@ -108,9 +108,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Cloudents.Jared", "Zb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Cloudents.JaredTests3", "Zbang.Cloudents.JaredTests3\Zbang.Cloudents.JaredTests3.csproj", "{7E831FFB-4DE9-4EEF-938C-6C0D224FEBE6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{5E236067-82C7-4A3C-99D7-F64C95268EDB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{5E236067-82C7-4A3C-99D7-F64C95268EDB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Web", "Cloudents.Web\Cloudents.Web.csproj", "{CC9D9000-196A-432B-968C-85A239B1ABF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloudents.Core", "Cloudents.Core\Cloudents.Core.csproj", "{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloudents.Infrastructure", "Cloudents.Infrastructure\Cloudents.Infrastructure.csproj", "{9EBDEAF7-E562-4547-AB76-E24F27191783}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1113,6 +1117,66 @@ Global
 		{CC9D9000-196A-432B-968C-85A239B1ABF9}.SingleImage|Mixed Platforms.Build.0 = Debug|Any CPU
 		{CC9D9000-196A-432B-968C-85A239B1ABF9}.SingleImage|x86.ActiveCfg = Debug|Any CPU
 		{CC9D9000-196A-432B-968C-85A239B1ABF9}.SingleImage|x86.Build.0 = Debug|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.CD_ROM|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.CD_ROM|Mixed Platforms.Build.0 = Release|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.CD_ROM|x86.ActiveCfg = Release|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.CD_ROM|x86.Build.0 = Release|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.Debug|x86.Build.0 = Debug|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.DVD-5|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.DVD-5|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.DVD-5|x86.ActiveCfg = Debug|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.DVD-5|x86.Build.0 = Debug|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.Release|x86.ActiveCfg = Release|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.Release|x86.Build.0 = Release|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.SingleImage|x86.ActiveCfg = Release|Any CPU
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}.SingleImage|x86.Build.0 = Release|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.CD_ROM|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.CD_ROM|Mixed Platforms.Build.0 = Release|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.CD_ROM|x86.ActiveCfg = Release|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.CD_ROM|x86.Build.0 = Release|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.Debug|x86.Build.0 = Debug|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.DVD-5|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.DVD-5|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.DVD-5|x86.ActiveCfg = Debug|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.DVD-5|x86.Build.0 = Debug|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.Release|x86.ActiveCfg = Release|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.Release|x86.Build.0 = Release|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.SingleImage|x86.ActiveCfg = Release|Any CPU
+		{9EBDEAF7-E562-4547-AB76-E24F27191783}.SingleImage|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1160,11 +1224,13 @@ Global
 		{C8347269-DC11-4382-9E62-5BDE4D6B2279} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
 		{7E831FFB-4DE9-4EEF-938C-6C0D224FEBE6} = {BB7A281A-6674-4136-BF60-23048EA796FA}
 		{CC9D9000-196A-432B-968C-85A239B1ABF9} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
+		{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07} = {5E236067-82C7-4A3C-99D7-F64C95268EDB}
+		{9EBDEAF7-E562-4547-AB76-E24F27191783} = {5E236067-82C7-4A3C-99D7-F64C95268EDB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {6A41ACFB-B3D1-4E6A-941F-516155ACC34A}
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.2.1.505.2\lib\NET35;packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45
+		SolutionGuid = {6A41ACFB-B3D1-4E6A-941F-516155ACC34A}
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
