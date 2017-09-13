@@ -15,15 +15,16 @@ namespace Zbang.Zbox.Infrastructure
         {
 
         }
-        public async Task InterpetString(string sentence)
+        public async Task<string> InterpetStringAsync(string sentence)
         {
             var result = await m_Client.Predict(sentence);
+            return result.TopScoringIntent.Name;
 
         }
     }
 
     public interface IAi
     {
-        Task InterpetString(string sentence);
+        Task<string> InterpetStringAsync(string sentence);
     }
 }

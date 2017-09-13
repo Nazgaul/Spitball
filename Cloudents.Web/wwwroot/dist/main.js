@@ -59,7 +59,7 @@
 /******/
 /******/
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "ba272d2884cbb58f4135"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "29b008e81b97591dca0c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -11475,7 +11475,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _vue2.default.use(_vueRouter2.default);
 _vue2.default.use(_vueResource2.default);
 
-var routes = [{ path: "/", component: _homeVue2.default }];
+var routes = [{ path: "/", component: _homeVue2.default }, { path: "/result", component: _homeVue2.default }];
 
 var router = new _vueRouter2.default({
     mode: "history",
@@ -11571,11 +11571,7 @@ if (true) {(function () {
 
 "use strict";
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    attrs: {
-      "id": "app-root"
-    }
-  }, [_c('router-view')], 1)
+  return _c('div', [_c('div', [_vm._v("s")]), _vm._v(" "), _c('router-view')], 1)
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -11663,7 +11659,9 @@ exports.default = {
             msg: "hello vue.js!",
             search: function search() {
 
-                _this.$http.get("/home/GetMeAjaxBicth").then(function (response) {
+                _this.$http.post("/ai", {
+                    sentence: _this.msg
+                }).then(function (response) {
                     console.log(response.body);
                 });
 

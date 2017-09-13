@@ -5,7 +5,10 @@ export default {
             msg: "hello vue.js!",
             search: () => {
 
-                this.$http.get("/home/GetMeAjaxBicth").then((response) => {
+                this.$http.post("/ai",
+                    {
+                       sentence: this.msg
+                    }).then((response) => {
                     console.log(response.body);
                 });
 

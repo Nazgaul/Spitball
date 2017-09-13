@@ -1,19 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Threading.Tasks;
+using Cloudents.Web.Models;
+using Microsoft.AspNetCore.Mvc;
+using Zbang.Zbox.Infrastructure;
 
-namespace Cloudents.Web2.Controllers
+namespace Cloudents.Web.Controllers
 {
     public class HomeController : Controller
     {
         // GET
         public IActionResult Index()
         {
-            return
-            View();
+            return View();
         }
 
-        public IActionResult GetMeAjaxBicth()
+        [HttpPost("Ai")]
+        public async Task<IActionResult> AiAsync([FromBody] AI sentence, [FromServices] IAi luis)
         {
-            return Content("I dont want care");
+            if (sentence == null) throw new ArgumentNullException(nameof(sentence));
+            var result = await luis.InterpetStringAsync(sentence.Sentence);
+            return Content(result);
         }
     }
 }

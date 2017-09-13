@@ -125,8 +125,6 @@ namespace Zbang.Cloudents.Jared.Controllers
 
             var result = Enumerable.Range(model.Page * 3, 3).Select(s => DoSearchAsync(string.Join(" ", term), model.Source, s, model.Sort, CustomApiKey.AskQuestion, token)).ToList();
             await Task.WhenAll(result).ConfigureAwait(false);
-
-            //var result = await DoSearchAsync(model, universitySynonym, CustomApiKey.AskQuestion, token).ConfigureAwait(false);
             return Request.CreateResponse(result.Where(s => s.Result != null).SelectMany(s => s.Result));
         }
 
@@ -159,7 +157,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             //}
             var request = new CseResource.ListRequest(p, string.Join(" ", query))
             {
-                Start = ++page,
+                Start = ++page * 10,
                 SiteSearch = source,
                 Cx = key.Key,
                 Fields = "items(title,link,snippet,pagemap/cse_image,displayLink)",

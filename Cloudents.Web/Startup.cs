@@ -9,8 +9,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.DependencyInjection;
+using Zbang.Zbox.Infrastructure;
 
-namespace Cloudents.Web2
+namespace Cloudents.Web
 {
     public class Startup
     {
@@ -22,6 +23,7 @@ namespace Cloudents.Web2
             services.AddResponseCompression();
 
             var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterModule<InfrastructureModule>();
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);

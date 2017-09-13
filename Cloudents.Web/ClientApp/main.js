@@ -9,7 +9,10 @@ Vue.use(VueResource);
 
 
 const routes = [
-    { path: "/", component: HomePage }
+    { path: "/", component: HomePage },
+    { path: "/result", component: HomePage }
+
+
 ];
 
 const router = new VueRouter({
