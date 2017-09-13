@@ -11,10 +11,10 @@ module.exports = (env) => {
             entry: { main: './ClientApp/main.js' },
             context: __dirname,
             resolve: {
-                extensions: [".js"]
-                //alias: {
-                //    "vue$": "vue/dist/vue.esm.js"
-                //}
+                extensions: [".js", ".vue"],
+                alias: {
+                    "vue$": "vue/dist/vue.esm.js"
+                }
             },
             module: {
                 // Special compilation rules
@@ -29,9 +29,9 @@ module.exports = (env) => {
                         //exclude: /node_modules/
                     },
                     {
-                        test: /\.vue\.html$/,
-                        include: /ClientApp/,
+                        test: /\.vue$/,
                         loader: 'vue-loader',
+                        include: /ClientApp/,
                         options: { //maybe
                             extractCSS:true
                         }
@@ -46,6 +46,12 @@ module.exports = (env) => {
                 filename: '[name].js',
                 publicPath: 'dist/'
             },
+            //resolve: {
+            //    extensions: ['.js', '.vue', '.json'],
+            //    alias: {
+            //        'vue$': 'vue/dist/vue.esm.js'
+            //    }
+            //},
             plugins: [
                 new webpack.DefinePlugin({
                     'process.env': {
