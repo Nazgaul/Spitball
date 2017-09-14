@@ -10,15 +10,31 @@ module.exports = (env) => {
         {
             entry: { main: './ClientApp/main.js' },
             context: __dirname,
-            resolve: {
-                extensions: [".js", ".vue"],
-                alias: {
-                    "vue$": "vue/dist/vue.esm.js"
-                }
-            },
+           // resolve: {
+           //     extensions: [".js", ".vue"],
+                //alias: {
+                //    "vue$": "vue/dist/vue.esm.js"
+                //}
+           // },
             module: {
                 // Special compilation rules
                 loaders: [
+                   // {
+                   //    test: /\.less$/,
+                   //     loader : 'less!'
+                   //    use: [{
+                   //        loader: "style-loader" // creates style nodes from JS strings
+                   //    }, {
+                   //        loader: "css-loader" // translates CSS into CommonJS
+                   //    }, {
+                   //        loader: "less-loader" // compiles Less to CSS
+                   //    }]  
+                   // },
+                    {
+                        test: /\.svg$/,
+                        loader: 'vue-svg-loader'
+                        
+                    },
                     {
                         // Ask webpack to check: If this file ends with .js, then apply some transforms
                         test: /\.js$/,
@@ -33,7 +49,14 @@ module.exports = (env) => {
                         loader: 'vue-loader',
                         include: /ClientApp/,
                         options: { //maybe
-                            extractCSS:true
+                            loaders: {
+                                // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
+                                // the "scss" and "sass" values for the lang attribute to the right configs here.
+                                // other preprocessors should work out of the box, no loader config like this necessary.
+                                'less': 'vue-style-loader!css-loader!less-loader'
+                                //'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
+                            }
+                           // extractCSS: true
                         }
                     }
                 ]
@@ -58,7 +81,7 @@ module.exports = (env) => {
                         NODE_ENV: JSON.stringify(isDevBuild ? 'development' : 'production')
                     }
                 },
-                    new ExtractTextPlugin("style.css"))
+                new ExtractTextPlugin("style.css"))
             ].concat(isDevBuild
                 ? [
                     // Plugins that apply in development builds only

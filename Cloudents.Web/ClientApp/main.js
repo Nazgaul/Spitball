@@ -1,10 +1,10 @@
-﻿import Vue from 'vue'
-import App from './components/app/app.vue'
-import HomePage from "./components/home/home.vue"
-import SectionsPage from "./components/sections/sections.vue"
+﻿import Vue from 'vue';
+import App from './components/app/app.vue';
+import HomePage from "./components/home/home.vue";
+import SectionsPage from "./components/sections/sections.vue";
+
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
-
 Vue.use(VueRouter);
 Vue.use(VueResource);
 

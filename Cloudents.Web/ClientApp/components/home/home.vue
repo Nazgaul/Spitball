@@ -1,4 +1,4 @@
-﻿<template>
+﻿<template v-once>
     <div>
         <form v-on:submit.prevent="search">
             <input v-model.trim="msg" />
@@ -6,6 +6,8 @@
         </form>
 
         <div>{{result}}</div>
+
+        <vertical-collection></vertical-collection>
     </div>
 </template>
 

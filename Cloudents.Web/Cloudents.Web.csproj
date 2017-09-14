@@ -8,8 +8,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="ClientApp\components\general\images\ask.svg" />
+    <Content Include="ClientApp\components\general\images\book.svg" />
+    <Content Include="ClientApp\components\general\images\document.svg" />
+    <Content Include="ClientApp\components\general\images\flashcard.svg" />
+    <Content Include="ClientApp\components\general\images\job.svg" />
+    <Content Include="ClientApp\components\general\images\purchase.svg" />
+    <Content Include="ClientApp\components\general\images\tutor.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="wwwroot\" />
+    <Folder Include="ClientApp\components\general\images\" />
   </ItemGroup>
 
   <ItemGroup>
