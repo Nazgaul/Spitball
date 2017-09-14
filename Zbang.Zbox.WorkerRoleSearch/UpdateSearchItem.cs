@@ -113,7 +113,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             if (string.IsNullOrEmpty(elem.DocumentContent))
             {
                 elem.DocumentContent = ExtractContentToUploadToSearch(elem, cancellationToken);
-                PreProcessFile(elem);
+                PreProcessFile(elem, cancellationToken);
             }
             else
             {
@@ -180,7 +180,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    m_Logger.Exception(ex, new Dictionary<string, string> {[Name] = "update item" });
+                    m_Logger.Exception(ex, new Dictionary<string, string> { [Name] = "update item" });
                 }
             }
         }
@@ -214,7 +214,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             public Uri Uri { get; set; }
         }
 
-        private void PreProcessFile(DocumentSearchDto msgData)
+        private void PreProcessFile(DocumentSearchDto msgData, CancellationToken cancellationToken)
         {
             var processor = GetProcessor(msgData);
             if (processor?.ContentProcessor == null) return;
@@ -227,33 +227,47 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 try
                 {
-                    var tokenSource = new CancellationTokenSource();
-                    tokenSource.CancelAfter(timeSpanToWait);
-                    var retVal =
-                        await processor.ContentProcessor.PreProcessFileAsync(processor.Uri, tokenSource.Token)
-                            .ConfigureAwait(false);
-                    try
+                    using (var tokenSource = new CancellationTokenSource())
                     {
-                        var proxy = await SignalrClient.GetProxyAsync().ConfigureAwait(false);
-                        if (proxy != null)
-                            await proxy.Invoke("UpdateThumbnail", msgData.Id, msgData.Course.Id).ConfigureAwait(false);
+                        tokenSource.CancelAfter(timeSpanToWait);
+                        var cancelToken =
+                            CancellationTokenSource.CreateLinkedTokenSource(tokenSource.Token, cancellationToken);
+                        var retVal =
+                            await processor.ContentProcessor.PreProcessFileAsync(processor.Uri, cancelToken.Token)
+                                .ConfigureAwait(false);
+                        try
+                        {
+                            var proxy = await SignalrClient.GetProxyAsync().ConfigureAwait(false);
+                            if (proxy != null)
+                                await proxy.Invoke("UpdateThumbnail", msgData.Id, msgData.Course.Id)
+                                    .ConfigureAwait(false);
+                        }
+                        catch (Exception ex)
+                        {
+                            m_Logger.Exception(ex,
+                                new Dictionary<string, string>
+                                {
+                                    ["ItemId"] = msgData.Id.ToString(),
+                                    [Name] = "signalr"
+                                });
+                        }
+                        if (msgData.Type == ItemType.Document)
+                        {
+                            var command = new UpdateThumbnailCommand(msgData.Id, retVal?.BlobName,
+                                msgData.Content, await m_BlobProvider.MD5Async(msgData.BlobName).ConfigureAwait(false));
+                            m_ZboxWriteService.UpdateThumbnailPicture(command);
+                        }
+                        // ReSharper disable once AccessToDisposedClosure
+                        wait.Set();
                     }
-                    catch (Exception ex)
-                    {
-                        m_Logger.Exception(ex, new Dictionary<string, string> {["ItemId"] = msgData.Id.ToString(),[Name] = "signalr" });
-                    }
-                    if (msgData.Type == ItemType.Document)
-                    {
-                        var command = new UpdateThumbnailCommand(msgData.Id, retVal?.BlobName,
-                            msgData.Content, await m_BlobProvider.MD5Async(msgData.BlobName).ConfigureAwait(false));
-                        m_ZboxWriteService.UpdateThumbnailPicture(command);
-                    }
-                    // ReSharper disable once AccessToDisposedClosure
+                }
+                catch (TaskCanceledException)
+                {
                     wait.Set();
                 }
                 catch (Exception ex)
                 {
-                    m_Logger.Exception(ex, new Dictionary<string, string> {["ItemId"] = msgData.Id.ToString() });
+                    m_Logger.Exception(ex, new Dictionary<string, string> { ["ItemId"] = msgData.Id.ToString() });
 
                     // ReSharper disable once AccessToDisposedClosure
                     wait.Set();
@@ -324,7 +338,7 @@ token);
                             }
                             catch (Exception ex)
                             {
-                                m_Logger.Exception(ex, new Dictionary<string, string> {["element"] = elem.ToString() });
+                                m_Logger.Exception(ex, new Dictionary<string, string> { ["element"] = elem.ToString() });
                                 wait.Set();
                             }
                         });
@@ -341,7 +355,7 @@ token);
             }
             catch (Exception ex)
             {
-                m_Logger.Exception(ex, new Dictionary<string, string> {["element"] = elem.ToString() });
+                m_Logger.Exception(ex, new Dictionary<string, string> { ["element"] = elem.ToString() });
                 return null;
             }
         }
@@ -368,7 +382,7 @@ token);
             }
             catch (Exception ex)
             {
-                m_Logger.Exception(ex, new Dictionary<string, string> {[nameof(parameters)] = parameters.ToString() });
+                m_Logger.Exception(ex, new Dictionary<string, string> { [nameof(parameters)] = parameters.ToString() });
                 return false;
             }
         }

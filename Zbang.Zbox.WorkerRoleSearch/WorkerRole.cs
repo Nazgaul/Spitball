@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,7 +30,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public override void Run()
         {
-            Trace.TraceInformation("Zbang.Zbox.WorkerRoleSearch is running");
+            m_Logger.Info("Zbang.Zbox.WorkerRoleSearch is running");
             try
             {
                 RunAsync(m_CancellationTokenSource.Token).Wait();
@@ -47,6 +45,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             if (e.Status == RoleInstanceStatus.Busy)
             {
+
                 m_Logger.Error("Status is busy");
             }
         }
@@ -64,7 +63,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             XmlConfigurator.Configure();
             RoleEnvironment.Changing += RoleEnvironmentChanging;
             RoleEnvironment.StatusCheck += RoleEnvironment_StatusCheck;
-            Trace.TraceInformation("Zbang.Zbox.WorkerRoleSearch has been started");
+            m_Logger.Info("Zbang.Zbox.WorkerRoleSearch has been started");
 
             return result;
         }
@@ -77,13 +76,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public override void OnStop()
         {
-            Trace.TraceInformation("Zbang.Zbox.WorkerRoleSearch is stopping");
+            m_Logger.Info("Zbang.Zbox.WorkerRoleSearch is stopping");
             m_CancellationTokenSource.Cancel();
             m_RunCompleteEvent.WaitOne();
 
             base.OnStop();
+            m_Logger.Info("Zbang.Zbox.WorkerRoleSearch has stopped");
 
-            Trace.TraceInformation("Zbang.Zbox.WorkerRoleSearch has stopped");
         }
 
         private async Task RunAsync(CancellationToken cancellationToken)
@@ -126,7 +125,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    Trace.TraceError(ex.ToString());
+                    m_Logger.Exception(ex);
                 }
             }
         }
