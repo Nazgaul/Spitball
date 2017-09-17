@@ -59,7 +59,7 @@
 /******/
 /******/
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "7b012f38d114609080dc"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "40bd302aa9dff7b5867f"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -10627,21 +10627,28 @@ var _tutor2 = _interopRequireDefault(_tutor);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//let selected = verticals[0];
+
 exports.default = {
+
     name: 'vertical-collection',
     components: {
         ask: _ask2.default, book: _book2.default, document: _document2.default, flashcard: _flashcard2.default, job: _job2.default, purchase: _purchase2.default, tutor: _tutor2.default
     },
     data: function data() {
-        var verticals = [{ name: "ask", image: "ask" }, { name: "notes", image: "document" }, { name: "Flashcard", image: "flashcard" }, { name: "tutor", image: "tutor" }, { name: "job", image: "job" }, { name: "book", image: "book" }, { name: "purchase", image: "purchase" }];
+        var verticals = [{ name: "ask", image: "ask" }, { name: "notes", image: "document" }, { name: "flashcard", image: "flashcard" }, { name: "tutor", image: "tutor" }, { name: "job", image: "job" }, { name: "book", image: "book" }, { name: "purchase", image: "purchase" }];
         return {
-
             verticals: verticals,
             selected: verticals[0]
         };
-    }
-    // props: ['className', 'glyph', 'width', 'height'],
+    },
 
+    methods: {
+        change: function change(vertical) {
+            this.counter += 1;
+            this.selected = vertical;
+        }
+    }
 }; //import vertical from './vertical.vue';
 
 /***/ }),
@@ -10698,11 +10705,25 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       "perPage": "7"
     }
   }, _vm._l((_vm.verticals), function(vertical) {
-    return _c('slide', [_c('div', {
+    return _c('slide', {
+      key: vertical.name,
+      class: {
+        selected: vertical === _vm.selected
+      }
+    }, [_c('button', {
+      attrs: {
+        "type": "button"
+      },
+      on: {
+        "click": function($event) {
+          _vm.change(vertical)
+        }
+      }
+    }, [_c('div', {
       staticClass: "round-icon"
     }, [_c(vertical.image, {
       tag: "component"
-    })], 1), _vm._v("\n            " + _vm._s(vertical.name) + "\n        ")])
+    })], 1), _vm._v("\n                " + _vm._s(vertical.name) + "\n            ")])])
   }))], 1)
 }
 var staticRenderFns = []
