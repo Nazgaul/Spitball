@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Microsoft.Cognitive.LUIS;
@@ -20,9 +21,9 @@ namespace Cloudents.Infrastructure.AI
 
         public async Task<AIDto> InterpetStringAsync(string sentence)
         {
-            var result = await m_Client.Predict(sentence);
+            var result = await m_Client.Predict(sentence).ConfigureAwait(false);
             var entities = result.GetAllEntities();
-            var intent = result.TopScoringIntent.Name;
+            Enum.TryParse(result.TopScoringIntent.Name, out AIIntent intent);
 
             KeyValuePair<string, string>? searchType = null;
             string course = null;
@@ -45,11 +46,7 @@ namespace Cloudents.Infrastructure.AI
                 }
             }
 
-
-
             return new AIDto(intent, searchType, course, terms);
-            //return result.TopScoringIntent.Name;
-
         }
     }
 }

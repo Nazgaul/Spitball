@@ -14,6 +14,7 @@ namespace Cloudents.Infrastructure
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<LuisAI>().As<IAI>();
+            builder.RegisterType<AIDecision>().As<IDesicions>();
         }
     }
 }

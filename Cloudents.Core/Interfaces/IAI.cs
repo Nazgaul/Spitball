@@ -11,4 +11,9 @@ namespace Cloudents.Core.Interfaces
     {
         Task<AIDto> InterpetStringAsync(string sentence);
     }
+
+    public interface IDesicions
+    {
+        (AIResult result, AIDto data) MakeDesicision(AIDto aiResult);
+    }
 }

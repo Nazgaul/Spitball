@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 
 namespace Cloudents.Web
@@ -23,11 +24,14 @@ namespace Cloudents.Web
             services.AddMvc().AddJsonOptions(options =>
             {
                 options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+                options.SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
+                options.SerializerSettings.Converters.Add(new IsoDateTimeConverter
+                {
+                    DateTimeStyles = System.Globalization.DateTimeStyles.AssumeUniversal
+                });
                 //options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
             services.AddResponseCompression();
-            
-
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule<InfrastructureModule>();
             containerBuilder.Populate(services);
@@ -68,7 +72,6 @@ namespace Cloudents.Web
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
             });
-            
         }
     }
 }
