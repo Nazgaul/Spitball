@@ -166,4 +166,4 @@ Backup*/
 UpgradeLog*.XML
 
 Zbang.Cloudents.MobileApp2/Properties/PublishProfiles/mobile-cloudents.pubxml
-
+Zbang.Cloudents.Web/wwwroot/dist/main.js
