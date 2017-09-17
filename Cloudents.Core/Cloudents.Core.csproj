@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AIResult.cs" />
     <Compile Include="DTOs\AIDto.cs" />
     <Compile Include="Interfaces\IAI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

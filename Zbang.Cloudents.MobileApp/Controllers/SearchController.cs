@@ -43,7 +43,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 return Request.CreateBadRequestResponse("need university");
 
             var query = new SearchQueryMobile(term, User.GetUserId(), universityId.Value, page, sizePerPage);
-            var retVal = await m_BoxSearchService2.SearchBoxAsync(query, cancelToken) ?? new List<SearchBoxes>();
+            var retVal = await m_BoxSearchService2.SearchBoxAsync(query, cancelToken).ConfigureAwait(false) ?? new List<SearchBoxes>();
 
             return Request.CreateResponse(retVal.Select(s => new
             {
@@ -132,7 +132,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             if (!universityId.HasValue)
                 return Request.CreateBadRequestResponse("need university");
             var query = new UserInBoxSearchQuery(term, universityId.Value, boxId, page, sizePerPage);
-            var retVal = await m_ZboxReadService.GetUsersInBoxByTermAsync(query);
+            var retVal = await m_ZboxReadService.GetUsersInBoxByTermAsync(query).ConfigureAwait(false);
 
             return Request.CreateResponse(retVal);
         }

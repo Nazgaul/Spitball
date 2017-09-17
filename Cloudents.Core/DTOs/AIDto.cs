@@ -8,7 +8,7 @@ namespace Cloudents.Core.DTOs
 {
     public class AIDto
     {
-        public AIDto(string intent, KeyValuePair<string, string>? searchType, string course, IEnumerable<string> term)
+        public AIDto(AIIntent intent, KeyValuePair<string, string>? searchType, string course, IList<string> term)
         {
             Intent = intent;
             SearchType = searchType;
@@ -16,18 +16,11 @@ namespace Cloudents.Core.DTOs
             Term = term;
         }
 
-        public string Intent { get; private set; }
+        public AIIntent Intent { get; }
         public KeyValuePair<string,string>? SearchType { get;  }
 
         public string Course { get;  }
 
-        public IEnumerable<string> Term { get;  }
-
-        
-
-        //public string Professor { get; set; }
-
-
-
+        public IList<string> Term { get;  }
     }
 }

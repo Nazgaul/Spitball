@@ -239,8 +239,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         {
                             var proxy = await SignalrClient.GetProxyAsync().ConfigureAwait(false);
                             if (proxy != null)
+                            {
                                 await proxy.Invoke("UpdateThumbnail", msgData.Id, msgData.Course.Id)
-                                    .ConfigureAwait(false);
+                                   .ConfigureAwait(false);
+                            }
                         }
                         catch (Exception ex)
                         {

@@ -45,7 +45,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             if (e.Status == RoleInstanceStatus.Busy)
             {
-
                 m_Logger.Error("Status is busy");
             }
         }
@@ -82,7 +81,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             base.OnStop();
             m_Logger.Info("Zbang.Zbox.WorkerRoleSearch has stopped");
-
         }
 
         private async Task RunAsync(CancellationToken cancellationToken)
