@@ -1,13 +1,13 @@
 ﻿<template>
     <div>
-        asdasdasd
-        {{verticals.length}}
-        <ul>
-            <li v-for="vertical in verticals" style="background:#000000">
-                <component v-bind:is="vertical.image"></component>
+        <carousel scrollPerPage="false" perPage="7">
+            <slide v-for="vertical in verticals">
+                <div class="round-icon">
+                    <component v-bind:is="vertical.image"></component>
+                </div>
                 {{vertical.name}}
-            </li>
-        </ul>
+            </slide>
+        </carousel>
     </div>
 </template>
 
