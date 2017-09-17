@@ -1,5 +1,6 @@
 ﻿import Vue from 'vue'
-//import AsidePage from './aside/navbar.vue'
+import appAside from './aside/navbar.vue'
+import appHeader from './header/header.vue'
 //Vue.component('app-aside', {
 //    render: h => h(require('./aside/navbar.vue'),
 //});
@@ -12,11 +13,14 @@
 //    { path: '/note', component: require('./header/header.vue.html') },
 //    { path: '/flashcard', component: require('./header/header.vue.html') }
 //];
-window.addEventListener('load', function () {
-    var page = new Vue({
-        el: "#sections",
-        data: {
-            isOpen: false
+export default {
+    components: {
+        'app-aside':appAside, 'app-header':appHeader
+    },
+    data() {
+        return {
+            isOpen: "yifat",
+            section:""
         }
-    })
-})
+    }
+}

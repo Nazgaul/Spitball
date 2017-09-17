@@ -1,8 +1,9 @@
 ﻿<template>
     <aside>
         this is aside
-        <!--{{isOpen}}-->
+        {{isOpen}}
         <label class="upper">search type</label>
+        <input v-model="isOpen" placeholder="is open aside"/>
         <!--<ul>
             <li @click="changeSection('ask')" v-class="{'selected':(sec=='ask')}">
                 <div class="ask">
@@ -111,3 +112,8 @@
 </template>
 <!--<style src="./navbar.less" lang="less"></style>-->
 <!--<script src="./navbar.js"></script>-->
+<script>
+    export default {
+        props: ["isOpen"]
+    }
+</script>
