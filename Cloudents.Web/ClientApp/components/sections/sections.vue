@@ -12,5 +12,5 @@
     </div>
 </template>
 <script src="./sections.js"></script>
-<!--<style src="./sections.less" lang="less"></style>-->
+<style src="./sections.less" lang="less" scoped></style>
 

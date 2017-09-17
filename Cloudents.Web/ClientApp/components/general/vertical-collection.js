@@ -18,6 +18,9 @@ export default {
     components: {
         ask, book, document, flashcard, job, purchase, tutor
     },
+    props: {
+        changeCallback: {type:Function}
+    },
     data() {
         const verticals =
         [
@@ -38,6 +41,8 @@ export default {
         change(vertical) {
            this.counter += 1;
            this.selected = vertical;
+           //this.$emit('changeSection',vertical)
+           this.changeCallback(vertical);
         }
     }
 };
