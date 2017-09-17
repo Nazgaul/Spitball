@@ -7,13 +7,18 @@
 }
 aside {
     -ms-grid-column: 1;
-    grid-area: aside;
+    grid-column: 1;
+    /*grid-area: aside;*/
     padding: 1em;
     /*@media @desktop_1366 {
                 padding: 1em 0 1em 15%;
             }
 
             position: fixed;*/
+    .VueCarousel-inner {
+        display: block;
+    }
+
     @media @tablet_641,@desktop_1366 {
         padding-left: 0;
     }

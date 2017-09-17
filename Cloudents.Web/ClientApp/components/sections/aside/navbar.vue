@@ -1,8 +1,9 @@
 ﻿<template>
     <aside>
-        this is aside
-        <!--{{isOpen}}-->
         <label class="upper">search type</label>
+        <input v-model="isOpen" placeholder="is open aside"/>
+        <label class="upper">search type</label>
+        <search-verticals :changeCallback="changeSection"></search-verticals>
         <!--<ul>
             <li @click="changeSection('ask')" v-class="{'selected':(sec=='ask')}">
                 <div class="ask">
@@ -109,5 +110,20 @@
         </ul>-->
     </aside>
 </template>
-<!--<style src="./navbar.less" lang="less"></style>-->
+<style src="./navbar.less" lang="less"></style>
 <!--<script src="./navbar.js"></script>-->
+<script>
+    import SearchVerticals from './../../general/vertical-collection.vue'
+    export default {
+        props: ["isOpen","section"],
+        components: {
+            'search-verticals': SearchVerticals
+        },
+        methods: {
+            changeSection: function (val) {
+                console.log(val);
+                this.$emit('update:section',val)
+            } 
+        }
+    }
+</script>

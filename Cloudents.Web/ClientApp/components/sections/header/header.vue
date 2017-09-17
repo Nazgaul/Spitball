@@ -1,7 +1,7 @@
 ﻿<template>
     <header>
-        <!--{{isOpen}}-->
         this is header
+        <input v-model="isOpen" placeholder="is open header" />
         <!--<div class="grid">
             <div class="logo" @click="sectionOpen=true">
                 <picture>
@@ -52,3 +52,8 @@
         </div>-->
     </header>
 </template>
+<script>
+    export default {
+        props: ["isOpen"]
+    }
+</script>
