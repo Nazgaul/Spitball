@@ -20,7 +20,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet]
-        [ResponseCache(VaryByQueryKeys = new[] { "sentence" }, Duration = 30 * 60)]
+        //[ResponseCache(VaryByQueryKeys = new[] { "sentence" }, Duration = 30 * 60)]
         public async Task<IActionResult> AiAsync(string sentence)
         {
             if (sentence == null) throw new ArgumentNullException(nameof(sentence));

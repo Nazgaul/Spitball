@@ -33,6 +33,7 @@ namespace Cloudents.Web
                 //options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
             services.AddResponseCompression();
+            services.AddResponseCaching();
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule<InfrastructureModule>();
             containerBuilder.Populate(services);
@@ -57,6 +58,7 @@ namespace Cloudents.Web
             }
 
             app.UseResponseCompression();
+            app.UseResponseCaching();
             app.UseStatusCodePages();
             app.UseStaticFiles(new StaticFileOptions
             {
