@@ -19,10 +19,10 @@ export default {
                             sentence: this.msg
                         }
                     }).then((response) => {
-                    this.result = response.body;
-                });
-
-                console.log("hello");
+                        this.result = response.body;
+                        this.$store.commit("increment");
+                        this.$router.push("result");
+                    });
             }
         }
     }

@@ -7,7 +7,7 @@ using Cloudents.Core.Interfaces;
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
-    [Route("api/AI")]
+    [Route("api/[controller]")]
     public class AIController : Controller
     {
         private readonly IAI m_AI;
@@ -25,13 +25,27 @@ namespace Cloudents.Web.Api
             if (sentence == null) throw new ArgumentNullException(nameof(sentence));
             var aiResult = await m_AI.InterpetStringAsync(sentence).ConfigureAwait(false);
             var result = m_Decision.MakeDesicision(aiResult);
-
-            return Json(result);
+            //var navigation = BuildFlow(result.result);
+            return Json(new
+            {
+                result.result,
+                result.data
+            });
         }
 
-        //private void BuildFlow(AIResult aiResult)
+        //private Tree<string> BuildFlow(AIResult aiResult)
         //{
-            
+        //    var t = new Tree<string>("document");
+        //    var f = new Tree<string>("flashcard");
+        //    var p = new Tree<string>("post");
+        //    var tu = new Tree<string>("tutor");
+
+        //    p.Add(tu);
+        //    f.Add(p);
+        //    t.Add(f);
+
+        //    return t;
+
         //}
     }
 }
