@@ -10,37 +10,37 @@ import JobPage from "./components/sections/results/job.vue";
 import BookPage from "./components/sections/results/book.vue";
 import PurchasePage from "./components/sections/results/purchase.vue";
 
+
 import VueRouter from 'vue-router';
 import VueResource from 'vue-resource';
 import VueCarousel from 'vue-carousel';
+import Vuex from 'vuex';
+import * as route from './routes';
 Vue.use(VueRouter);
 Vue.use(VueResource);
 Vue.use(VueCarousel);
+Vue.use(Vuex);
 
-const routes = [
-    { path: "/", component: HomePage },
-    {
-        path: "/result", component: SectionsPage, activeClass: 'active',
-        children: [
-            { path: 'ask', component: askPage,name:'ask' },
-            { path: 'flashcard', component: flashcardPage, name: 'flashcard' },
-            { path: 'notes', component: NotePage, name: 'notes' },
-            { path: 'tutor', component: TutorPage, name: 'tutor' },
-            { path: 'job', component: JobPage, name: 'job' },
-            { path: 'book', component: BookPage, name: 'book' },
-            { path: 'purchase', component: PurchasePage, name: 'purchase' }
-        ]
+
+export const store = new Vuex.Store({
+    state: {
+        count: 0
+    },
+    mutations: {
+        increment(state) {
+            state.count++;
+            console.log(store.state.count)
+        }
     }
-
-
-];
+});
 
 const router = new VueRouter({
     mode: "history",
-    routes: routes
+    routes: route.routes
 });
 new Vue({
     el: "#app",
     router: router,
-    render: h => h(App)
+    render: h => h(App),
+    store: store
 })

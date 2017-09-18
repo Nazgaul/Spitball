@@ -29,6 +29,7 @@ namespace Cloudents.Web
                 {
                     DateTimeStyles = System.Globalization.DateTimeStyles.AssumeUniversal
                 });
+                options.SerializerSettings.Converters.Add(new TreeConverter());
                 //options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
             services.AddResponseCompression();
