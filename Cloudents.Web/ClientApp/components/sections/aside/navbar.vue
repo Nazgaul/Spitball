@@ -3,7 +3,7 @@
         <label class="upper">search type</label>
         <input v-model="isOpen" placeholder="is open aside"/>
         <label class="upper">search type</label>
-        <search-verticals :changeCallback="changeSection"></search-verticals>
+        <search-verticals></search-verticals>
         <!--<ul>
             <li @click="changeSection('ask')" v-class="{'selected':(sec=='ask')}">
                 <div class="ask">
@@ -113,7 +113,7 @@
 <style src="./navbar.less" lang="less"></style>
 <!--<script src="./navbar.js"></script>-->
 <script>
-    import SearchVerticals from './../../general/vertical-collection.vue'
+    import SearchVerticals from './../../general/link-verticals.vue';
     export default {
         props: ["isOpen","section"],
         components: {

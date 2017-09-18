@@ -24,14 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\Images\logo-spitball.png" />
-    <None Include="wwwroot\Images\logo-spitball@2x.png" />
-    <None Include="wwwroot\Images\logo-spitball@3x.png" />
-    <None Include="wwwroot\Images\normal-logo.svg" />
-    <None Include="wwwroot\Images\small-logo.svg" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Autofac" Version="4.6.1" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
