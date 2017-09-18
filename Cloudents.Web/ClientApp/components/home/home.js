@@ -1,13 +1,11 @@
-﻿//import VueResource from 'vue-resource'
-import verticalCollection from './../general/vertical-collection.vue'
-
+﻿import verticalCollection from './../general/vertical-collection.vue'
 
 export default {
     components: {
         verticalCollection
     },
     data() {
-        
+        var prefix = "";
         return {
 
             
@@ -16,14 +14,14 @@ export default {
 
             changeSection: (vertical) => {
                 this.placeholder = vertical.placeholder;
-                //console.log(vertical);
+                prefix = vertical.prefix;
             },
             search: () => {
                 this.$http.get("api/AI",
                     {
                         params:
                         {
-                            sentence: this.msg
+                            sentence: prefix + " " + this.msg
                         }
                     }).then((response) => {
                         this.result = response.body;

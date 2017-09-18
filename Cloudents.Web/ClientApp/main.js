@@ -23,7 +23,6 @@ Vue.use(VueCarousel);
 Vue.use(Vuex);
 
 
-console.log(state);
 const store = new Vuex.Store({
     modules: { state }
     //mutations: {
