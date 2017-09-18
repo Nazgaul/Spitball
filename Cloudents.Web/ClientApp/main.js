@@ -1,5 +1,6 @@
 ﻿import Vue from 'vue';
 import App from './components/app/app.vue';
+import state from './store/flow';
 
 
 import VueRouter from 'vue-router';
@@ -13,17 +14,15 @@ Vue.use(VueCarousel);
 Vue.use(Vuex);
 
 
-
-export const store = new Vuex.Store({
-    state: {
-        count: 0
-    },
-    mutations: {
-        increment(state) {
-            state.count++;
-            console.log(store.state.count)
-        }
-    }
+console.log(state);
+const store = new Vuex.Store({
+    modules: { state }
+    //mutations: {
+    //    increment(state) {
+    //        state.count++;
+    //        console.log(store.state.count)
+    //    }
+    //}
 });
 
 const router = new VueRouter({

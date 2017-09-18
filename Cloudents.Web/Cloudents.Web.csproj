@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\api\" />
-    <Folder Include="ClientApp\store\" />
     <Folder Include="Models\" />
     <Folder Include="ClientApp\components\general\images\" />
   </ItemGroup>

@@ -7,10 +7,17 @@ export default {
         verticalCollection
     },
     data() {
+        
         return {
-            msg: "",
-            result: "",
 
+            
+            msg: "",
+            placeholder: "",
+
+            changeSection: (vertical) => {
+                this.placeholder = vertical.placeholder;
+                //console.log(vertical);
+            },
             search: () => {
                 this.$http.get("api/AI",
                     {
@@ -20,8 +27,7 @@ export default {
                         }
                     }).then((response) => {
                         this.result = response.body;
-                        this.$store.commit("increment");
-                        this.$router.push("result");
+                        this.$store.commit("ADD", response.body);
                     });
             }
         }

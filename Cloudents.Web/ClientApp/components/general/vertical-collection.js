@@ -24,13 +24,13 @@ export default {
     data() {
         const verticals =
         [
-            { name: "ask", image: "ask" },
-            { name: "notes", image: "document" },
-            { name: "flashcard", image: "flashcard" },
-            { name: "tutor", image: "tutor" },
-            { name: "job", image: "job" },
-            { name: "book", image: "book" },
-            { name: "purchase", image: "purchase" }
+            { name: "ask", image: "ask" , placeholder: "Ask anything...", prefix: ""},
+            { name: "notes", image: "document", placeholder: "Find me class materials...", prefix: ""},
+            { name: "flashcard", image: "flashcard", placeholder: "Find me flashcards...", prefix: "" },
+            { name: "tutor", image: "tutor", placeholder: "Find me a tutor...", prefix: "" },
+            { name: "job", image: "job", placeholder: "Find me a job...", prefix: "" },
+            { name: "book", image: "book", placeholder: "Find me a textbook ...", prefix: ""},
+            { name: "purchase", image: "purchase", placeholder: "Where can i get...", prefix: "" }
         ];
         return {
             verticals : verticals,
@@ -39,9 +39,7 @@ export default {
     },
     methods: {
         change(vertical) {
-           this.counter += 1;
            this.selected = vertical;
-           //this.$emit('changeSection',vertical)
            this.changeCallback(vertical);
         }
     }

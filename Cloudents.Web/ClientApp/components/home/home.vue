@@ -1,11 +1,10 @@
 ﻿<template v-once>
     <div class="page">
         <form v-on:submit.prevent="search">
-            <input v-model.trim="msg" />
+            <input v-model.trim="msg" :placeholder="placeholder" />
             <input type="submit" value="search" />
         </form>
-        <div>{{result}}</div>
-        <vertical-collection></vertical-collection>
+        <vertical-collection :changeCallback="changeSection"></vertical-collection>
     </div>
 </template>
 
