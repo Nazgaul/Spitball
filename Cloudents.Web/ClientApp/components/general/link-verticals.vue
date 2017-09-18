@@ -1,15 +1,15 @@
 ﻿<template>
     <div>
         <ul>
-            <li>
-                <router-link :to="{name:vertical.name}" v-for="vertical in verticals" :key="vertical.name" v-bind:class="{selected: vertical.name === selected}">
-                    <button v-on:click="change(vertical)" type="button">
+            <li v-for="vertical in verticals">
+                <router-link :to="{name:vertical.name}" :key="vertical.name" v-bind:class="{selected: vertical.name === selected}">
+                    <button type="button">
                         <div class="round-icon">
                             <component v-bind:is="vertical.image"></component>
                         </div>
-                        {{vertical.name}}
+                        <span>{{vertical.name}}</span>
                     </button>
-                    <!--<component v-bind:is="vertical.image"></component>--><span>{{vertical.name}}</span>
+                    <!--<component v-bind:is="vertical.image"></component>-->
                 </router-link>
             </li>
           
