@@ -13,7 +13,6 @@ import tutor from './images/tutor.svg';
 //let selected = verticals[0];
 
 export default {
-    name: 'vertical-collection',
     components: {
         ask, book, document, flashcard, job, purchase, tutor
     },

@@ -1,4 +1,4 @@
-﻿@import "../sections.less";
+﻿@import "../../themes.less";
 header {
     display: grid;
     display: -ms-grid;
@@ -12,17 +12,6 @@ header {
     width: 100%;
     /*height: 64px;
     line-height: 64px;*/
-    .book .ic{
-        fill: @squash;
-    }
-
-    .flashcard .ic{
-        fill: @coral;
-    }
-
-    .ask .ic{
-        fill: @ask;
-    }
 
     /*.book path {
         fill: @squash
@@ -31,7 +20,6 @@ header {
     .book path {
         fill: @squash
     }*/
-
     @media @phone {
         height: 130px;
     }
@@ -56,6 +44,8 @@ header {
         -ms-grid-column: 3;
         grid-row: 1;
         grid-column: 3;
+        width:2em;
+        height:2em;
     }
 
     form {
@@ -65,7 +55,7 @@ header {
         grid-column: 5;
 
         input {
-            width: 100em;
+            width: 100%;
         }
     }
     /*#notification {

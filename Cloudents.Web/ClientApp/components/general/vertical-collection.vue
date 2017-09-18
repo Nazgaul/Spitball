@@ -14,8 +14,7 @@
 </template>
 
 
-<script src="./vertical-collection.js">
-</script>
+<script src="./vertical-collection.js"></script>
 <style src="./vertical-collection.less" lang="less" scoped></style>
 
 

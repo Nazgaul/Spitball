@@ -1,14 +1,12 @@
-﻿import verticalCollection from './../general/vertical-collection.vue'
+﻿import verticalCollection1 from './../general/vertical-collection.vue'
 
 export default {
     components: {
-        verticalCollection
+        'vertical-collection':verticalCollection1
     },
     data() {
         var prefix = "";
-        return {
-
-            
+        return {           
             msg: "",
             placeholder: "",
 

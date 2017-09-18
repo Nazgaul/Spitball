@@ -5,9 +5,6 @@
         <div class="overlay"></div>
         <app-header :isOpen="isOpen" :section.sync="section" :section="section"></app-header>
         <section>
-            <router-link to="/ask">
-                ask
-            </router-link>
             <input id="menu-checkbox" type="checkbox" class="hide_641" />
             <app-aside :isOpen="isOpen" :section.sync="section"></app-aside>
             <div class="content">

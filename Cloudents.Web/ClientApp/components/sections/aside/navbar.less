@@ -1,4 +1,4 @@
-﻿@import "../sections.less";
+﻿@import "../../themes.less";
 .circle() {
     width: 38px;
     height: 38px;
@@ -9,7 +9,7 @@ aside {
     .router-link-exact-active {
         background: yellow;
     }
-
+    background:@nav_color;
     -ms-grid-column: 1;
     grid-column: 1;
     /*grid-area: aside;*/
@@ -44,23 +44,40 @@ aside {
         font-size: 12px;
         letter-spacing: -0.2px;
         text-align: left;
-        color: @dark;
+        /*color: @dark;*/
     }
 
     ul {
         padding: 0;
         /*.displayGrid(0.5em);*/
         li {
+            a {
+                width: 100em;
+            }
+
             margin-top: 0.5em;
 
-            &:hover {
+            *:hover {
                 cursor: pointer;
             }
 
-            &.selected {
-                /*margin: 0 -1em;
-                        padding: 0 1em;*/
-                background: @white-four;
+            button {
+                display: flex;
+                line-height: 38px;
+
+                svg {
+                    width: 1.5em;
+                    height: 1.5em;
+                    vertical-align: middle;
+                }
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            &:hover {
+                cursor: pointer;
             }
 
             display: flex;
@@ -70,36 +87,50 @@ aside {
 
             span {
                 margin-left: 1em;
-                line-height: @circle_size;
+                /*line-height: @circle_size;*/
             }
-
-            svg {
+            /*svg {
                 top: 25%;
                 left: 20%;
                 position: absolute;
-            }
-
+            }*/
             &:last-of-type {
                 /*margin-bottom: 0.8em;*/
             }
 
             .ask {
                 .circle();
-                background: @ocean-blue;
+                background: @ask_color;
             }
 
-            .note {
+            .notes {
                 .circle();
-                background: @royal-purple;
+                background: @note_color;
             }
 
             .flashcard {
                 .circle();
+                background: @flashcard_color;
             }
 
             .tutor {
                 .circle();
-                background: @sap-green;
+                background: @tutor_color;
+            }
+
+            .book {
+                .circle();
+                background: @book_color;
+            }
+
+            .job {
+                .circle();
+                background: @job_color;
+            }
+
+            .purchase {
+                .circle();
+                background: @purchase_color;
             }
         }
     }

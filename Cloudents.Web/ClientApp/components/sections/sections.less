@@ -1,91 +1,5 @@
-﻿@import "icons.less";
-@tablet: ~"only screen and (min-width: 530px) and (max-width: 949px)";
-@desktop_1366: ~"only screen and (min-width: 1366px)";
-@tablet_641: ~"only screen and (min-width: 641px) and (max-width: 1365px)";
-@phone: ~"only screen and (max-width: 640px)";
-@gap: 10fr;
-@white-two: #ffffff;
-@white: #eeeeee;
-@charcoal-grey: #4a4a4a;
-@white-three: #dddddd;
-@ocean-blue: #024294;
-@marine: #07305a;
-@dodger-blue: #3293f6;
-@vermillion: #f61c0d;
-@royal-purple: #320161;
-@black: #000000;
-@squash-three: #ebbc18;
-@prussian-blue: #003b78;
-@red: #c30000;
-@orange: #ff6f00;
-@white-four: #f0f0f0;
-@squash: #f49c20;
-@dark: #1d2129;
-@squash-two: #f6a623;
-@brownish-grey: #5d5d5d;
-@greyish-brown: #414141;
-@cool-grey: #90949c;
-@baby-blue: #9ccdff;
-@tealish: #2cbfa5;
-@purply: #8c3fbf;
-@light-grey-blue: #94b7cb;
-@sap-green: #52ab15;
-@coral: #f14d4d;
-@pinkish-grey: #bbbbbb;
-@purpley-grey: #9b9b9b;
-@circle_size: 38px;
-@marine: #07305a;
-@mid_blue: #1e59a8;
-@steel-grey: #888b8e;
-@apple-green: #7ed321;
-@carmin: #a40014;
-@ask: #0455a8; 
-.displayInlineFlex() {
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-}
-
-.displayGrid(@gap) {
-    display: -ms-grid;
-    display: grid;
-    -ms-column-gap: @gap;
-    column-gap: @gap;
-    grid-gap: @gap;
-    -ms-grid-gap: @gap;
-    grid-row-gap: @gap;
-    -ms-grid-row-gap: @gap;
-}
-
-.scrollX() {
-    white-space: nowrap;
-    overflow-x: visible;
-    overflow-y: hidden;
-
-    ::-webkit-scrollbar {
-        display: none;
-    }
-
-    label:last-of-type {
-        z-index: 5;
-    }
-
-    -ms-overflow-style: -ms-autohiding-scrollbar;
-    -ms-overflow-style: none;
-}
-.inlineGrid(@gap) {
-    display: inline-grid;
-    display: -ms-inline-grid;
-    grid-column-gap: @gap;
-    grid-gap: @gap;
-}
-[grid] {
-    .displayGrid(1em);
-}
-[inline-flex] {
-    .displayInlineFlex();
-}
-.color-ask {
+﻿@import "../themes.less";
+/*.color-ask {
     background: @ocean-blue !important;
 }
 
@@ -239,23 +153,8 @@
 
 .color-border-settings {
     border-color: @marine !important;
-}
-.hide_641 {
-    display: none;
+}*/
 
-    @media(max-width:640px) {
-        display: block;
-    }
-}
-
-.show_641 {
-    @media(max-width:640px) {
-        display: none;
-    }
-}
-.upper {
-    text-transform: uppercase;
-}
 section {
     margin: 0 auto;
     max-width: 1000px;

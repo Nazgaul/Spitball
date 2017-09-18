@@ -11,7 +11,8 @@ import PurchasePage from "./components/sections/results/purchase.vue";
 export const routes = [
     { path: "/", component: HomePage, name: "home" },
     {
-        path: "/result", component: SectionsPage, name: "result", children: [
+        path: "/result", component: SectionsPage, name: "result"
+        , children: [
             { path: "ask", name: "ask", component: AskPage },
             { path: "flashcard", name: "flashcard", component: FlashcardPage },
             { path: "notes", name: "notes", component: NotePage },

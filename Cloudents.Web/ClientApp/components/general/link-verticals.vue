@@ -2,37 +2,64 @@
     <div>
         <ul>
             <li v-for="vertical in verticals">
-                <router-link :to="{name:vertical.name}" :key="vertical.name" v-bind:class="{selected: vertical.name === selected}">
+                <router-link :to="{name:vertical.name}" :key="vertical.name">
                     <button type="button">
-                        <div class="round-icon">
+                        <div :class="vertical.name">
                             <component v-bind:is="vertical.image"></component>
                         </div>
                         <span>{{vertical.name}}</span>
                     </button>
-                    <!--<component v-bind:is="vertical.image"></component>-->
                 </router-link>
-            </li>
-          
-            <!--<router-link :to="vertical.name">
-                <li>
-                    <component v-bind:is="vertical.image"></component><span>{{vertical.name}}</span>
-                </li>
-            </router-link>-->
+            </li>         
         </ul>
-        <!--<carousel :scrollPerPage="false" :perPage="7">
-            <slide v-for="vertical in verticals" :key="vertical.name" v-bind:class="{selected: vertical === selected}">
-                <button v-on:click="change(vertical)" type="button">
-                    <div class="round-icon">
-                        <component v-bind:is="vertical.image"></component>
-                    </div>
-                    {{vertical.name}}
-                </button>
-            </slide>
-        </carousel>-->
     </div>
 </template>
 
 
-<script src="./vertical-collection.js">
+<script>
+    //import vertical from './vertical.vue';
+    import ask from './images/ask.svg';
+    import book from './images/book.svg';
+    import document from './images/document.svg';
+    import flashcard from './images/flashcard.svg';
+    import job from './images/job.svg';
+    import purchase from './images/purchase.svg';
+    import tutor from './images/tutor.svg';
+
+
+
+
+    //let selected = verticals[0];
+
+    export default {
+        components: {
+            ask, book, document, flashcard, job, purchase, tutor
+        },
+        props: {
+            changeCallback: { type: Function }
+        },
+        data() {
+            const verticals =
+                [
+                    { name: "ask", image: "ask", placeholder: "Ask anything...", prefix: "" },
+                    { name: "notes", image: "document", placeholder: "Find me class materials...", prefix: "" },
+                    { name: "flashcard", image: "flashcard", placeholder: "Find me flashcards...", prefix: "" },
+                    { name: "tutor", image: "tutor", placeholder: "Find me a tutor...", prefix: "" },
+                    { name: "job", image: "job", placeholder: "Find me a job...", prefix: "" },
+                    { name: "book", image: "book", placeholder: "Find me a textbook ...", prefix: "" },
+                    { name: "purchase", image: "purchase", placeholder: "Where can i get...", prefix: "" }
+                ];
+            return {
+                verticals: verticals,
+                selected: verticals[0]
+            }
+        },
+        methods: {
+            change(vertical) {
+                this.selected = vertical;
+                this.changeCallback(vertical);
+            }
+        }
+    };
 </script>
 <style src="./vertical-collection.less" lang="less" scoped></style>

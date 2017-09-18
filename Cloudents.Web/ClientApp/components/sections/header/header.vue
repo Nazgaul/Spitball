@@ -10,7 +10,7 @@
                 </picture>
             </div>
             <div class="section-icon" :class="$route.name">
-                <component v-bind:is="$route.name"></component>
+                <component :class="$route.name" class="icon" v-bind:is="$route.name+'Header'"></component>
             </div>
                 <form>
                     <input type="search" v-model="qfilter" placeholder="bobo" />
@@ -62,18 +62,16 @@
 </template>
 <!--<script src="../../general/vertical-collection.js"></script>-->
 <script>
-    import ask from './../../general/images/ask.svg'
-    import flashcard from './../../general/images/flashcard.svg'
-    import job from './../../general/images/job.svg'
-    import book from './../../general/images/book.svg'
-    import notes from './../../general/images/document.svg'
-    import tutor from './../../general/images/tutor.svg'
-    import purchase from './../../general/images/purchase.svg'
+    import askHeader from './images/ask.svg'
+    import flashcardHeader from './images/flashcard.svg'
+    import jobHeader from './images/job.svg'
+    import bookHeader from './images/book.svg'
+    import notesHeader from './images/document.svg'
+    import tutorHeader from './images/tutor.svg'
+    import purchaseHeader from './images/purchase.svg'
     export default {
         props: ["isOpen", "qfilter", "section"],
-        components: { ask, book, notes, flashcard, job, purchase, tutor}
-        //,
-        //components: { ask, book, document, flashcard, job, purchase, tutor}
+        components: { askHeader, bookHeader, notesHeader, flashcardHeader, jobHeader, purchaseHeader, tutorHeader}
     }
 </script>
 <style src="./header.less" lang="less" scoped></style>

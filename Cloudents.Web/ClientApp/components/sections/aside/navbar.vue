@@ -1,8 +1,6 @@
 ﻿<template>
     <aside>
         <label class="upper">search type</label>
-        <input v-model="isOpen" placeholder="is open aside"/>
-        <label class="upper">search type</label>
         <search-verticals></search-verticals>
         <!--<ul>
             <li @click="changeSection('ask')" v-class="{'selected':(sec=='ask')}">
