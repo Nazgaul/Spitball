@@ -1,4 +1,5 @@
 ﻿import Vue from 'vue'
+//import VueRouter from 'vue-router';
 import appAside from './aside/navbar.vue'
 import appHeader from './header/header.vue'
 //Vue.component('app-aside', {
@@ -8,19 +9,27 @@ import appHeader from './header/header.vue'
 //    render: h => h(require('./header/header.vue.html')),
 //    props: ['isOpen']
 //});
-//var routes = [
-//    { path: '/ask', component: require('./header/header.vue.html') },
-//    { path: '/note', component: require('./header/header.vue.html') },
-//    { path: '/flashcard', component: require('./header/header.vue.html') }
-//];
+const NotFound = { template: '<p>Page not found</p>' }
+const Home = { template: '<p>home page</p>' }
+const About = { template: '<p>about page</p>' }
+//const routes = new VueRouter({
+//    routes: [
+//        { path:'/ask',component: Home },
+//        { path: '/note', component: Home },
+//        { path: '/flashcard', component: About },
+//        { path: '/tutor', component: About },
+//        { path: '/job', component: About },
+//        { path: '/purchase', component: NotFound }
+//    ]})
 export default {
     components: {
         'app-aside':appAside, 'app-header':appHeader
     },
+    
     data() {
         return {
             isOpen: "yifat",
-            section:""
+            section: ""
         }
     }
 }

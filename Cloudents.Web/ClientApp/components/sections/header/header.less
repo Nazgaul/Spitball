@@ -1,0 +1,96 @@
+﻿@import "../sections.less";
+header {
+    display: grid;
+    display: -ms-grid;
+    grid-template-columns: min-content 1em 5em 1em 100fr 1em 5em;
+    -ms-grid-columns: min-content 1em 5em 1em 100fr 1em 5em;
+    -ms-grid-rows: auto auto auto;
+    align-content: flex-end;
+    /*label:last-of-type {
+        z-index: 5;
+    }*/
+    width: 100%;
+    /*height: 64px;
+    line-height: 64px;*/
+    .book .ic{
+        fill: @squash;
+    }
+
+    .flashcard .ic{
+        fill: @coral;
+    }
+
+    .ask .ic{
+        fill: @ask;
+    }
+
+    /*.book path {
+        fill: @squash
+    }
+
+    .book path {
+        fill: @squash
+    }*/
+
+    @media @phone {
+        height: 130px;
+    }
+
+    &.section-open {
+        height: 130px;
+
+        @media @phone {
+            height: 180px;
+        }
+    }
+
+    .logo {
+        -ms-grid-row: 1;
+        -ms-grid-column: 1;
+        grid-row: 1;
+        grid-column: 1;
+    }
+
+    .section-icon {
+        -ms-grid-row: 1;
+        -ms-grid-column: 3;
+        grid-row: 1;
+        grid-column: 3;
+    }
+
+    form {
+        -ms-grid-row: 1;
+        -ms-grid-column: 5;
+        grid-row: 1;
+        grid-column: 5;
+
+        input {
+            width: 100em;
+        }
+    }
+    /*#notification {
+        grid-row: 1;
+        grid-column: 5;
+        -ms-grid-row: 1;
+        -ms-grid-column: 5;
+        -ms-grid-column-align: end;
+        justify-self: end;
+    }*/
+    /*input[type="radio"] + label {
+        text-align: center;
+        display: inline-block;
+        text-decoration: none;
+        cursor: pointer;
+        font-size: 14px;
+        margin: 0 1em 0 0;
+        height: 22px;
+        line-height: 22px;
+        color: white;
+        border-radius: 10px;
+        border: solid 1px;
+        background: @pinkish-grey;
+        border: none;
+        padding: 2px 15px;
+        font-family: openSans;
+    }*/
+}
