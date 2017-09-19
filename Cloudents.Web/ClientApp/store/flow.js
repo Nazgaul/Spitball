@@ -30,7 +30,7 @@ const mutations = {
             }
 
             state.node = state.flowTree.parse({
-                name: "document",
+                name: "notes",
                 children: [
                     {
                         name: "flashcard",

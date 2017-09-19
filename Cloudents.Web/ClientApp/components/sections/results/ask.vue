@@ -1,5 +1,7 @@
 ﻿<template>
-    <div>
-        ask
-    </div>
+    <transition name="slide-fade">
+        <div>
+            ask
+        </div>
+        </transition>
 </template>
