@@ -11,6 +11,10 @@
 
 export let verticalsPlaceholders = {};
 export let verticalsList=[];
+export let names = [];
+for (var v in verticals) {
+    names.push({ 'id': verticals[v].name, 'name': verticals[v].name });
+}
 for (var v in verticals) {
     verticalsPlaceholders[v]= verticals[v].placeholder;
 }

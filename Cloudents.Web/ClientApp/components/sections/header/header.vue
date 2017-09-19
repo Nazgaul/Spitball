@@ -13,7 +13,7 @@
                 <component :class="$route.name" class="icon" v-bind:is="$route.name+'Header'"></component>
             </div>
                 <form>
-                    <input type="search" id="qfilter" ref='search' v-model="qfilter" :placeholder="placeholders[$route.name]" />
+                    <input type="search" id="qfilter" ref='search' v-model="qfilter" :placeholder="placeholders[$route.name]" @focus="showOption=true"/>
                 </form>
             <div id="notification">
 
@@ -48,6 +48,8 @@
                     <span></span>
                     <span></span>
                 </div>
+        <search-type v-show="showOption" class="searchTypes" :values="names" :changeCallback="changeType"></search-type>
+        <!--<search-type v-show=""></search-type>-->
                 <!--<div inline-flex class="sections" v-show="sectionOpen">
             <input id="ask" type="radio" @click="chaveSection('ask')" value="ask" v-model="sec" name="sec"><label v-class="{'color-ask':(sec=='ask')}" for="ask">Ask</label>
             <input id="note" type="radio" @click="chaveSection('note')" value="note" v-model="sec" name="sec"><label v-class="{'color-note':(sec=='note')}" for="note">Note</label>
@@ -69,13 +71,21 @@
     import notesHeader from './images/document.svg'
     import tutorHeader from './images/tutor.svg'
     import purchaseHeader from './images/purchase.svg'
-    import {verticalsPlaceholders as placeholders} from '../../data.js'
+    import searchTypes from './../helpers/radioList.vue'
+    import { verticalsPlaceholders as placeholders, names} from '../../data.js'
     export default {
         props: ["isOpen", "qfilter", "section"],
-        components: { askHeader, bookHeader, notesHeader, flashcardHeader, jobHeader, purchaseHeader, tutorHeader },
+        components: { 'search-type': searchTypes, askHeader, bookHeader, notesHeader, flashcardHeader, jobHeader, purchaseHeader, tutorHeader },
         data() {
             return {
-                placeholders: placeholders
+                placeholders: placeholders,
+                showOption: false,
+                names: names
+            }
+        },
+        methods: {
+            changeType: function (e,v,s) {
+                this.$router.push({name:e.target.value})
             }
         }
     }
