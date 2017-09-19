@@ -13,13 +13,13 @@ namespace Cloudents.Infrastructure.AI
     {
         private readonly LuisClient m_Client = new LuisClient("a1a0245f-4cb3-42d6-8bb2-62b6cfe7d5a3", "6effb3962e284a9ba73dfb57fa1cfe40");
 
-        private readonly HashSet<string> m_SearchVaribles = new HashSet<string>(new[] {"documents", "flashcards"},
+        private readonly HashSet<string> m_SearchVariables = new HashSet<string>(new[] {"documents", "flashcards"},
             StringComparer.InvariantCultureIgnoreCase);
 
         private readonly HashSet<string> m_SearchTerms = new HashSet<string>(new[] { "isbn", "subject" },
             StringComparer.InvariantCultureIgnoreCase);
 
-        public async Task<AIDto> InterpetStringAsync(string sentence)
+        public async Task<AIDto> InterpretStringAsync(string sentence)
         {
             var result = await m_Client.Predict(sentence).ConfigureAwait(false);
             var entities = result.GetAllEntities();
@@ -35,7 +35,7 @@ namespace Cloudents.Infrastructure.AI
                     course = entity.Value;
                     continue;
                 }
-                if (m_SearchVaribles.Contains(entity.Name))
+                if (m_SearchVariables.Contains(entity.Name))
                 {
                     searchType = new KeyValuePair<string, string>(entity.Name, entity.Value);
                     continue;

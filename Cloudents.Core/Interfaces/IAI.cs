@@ -9,11 +9,11 @@ namespace Cloudents.Core.Interfaces
 {
     public interface IAI
     {
-        Task<AIDto> InterpetStringAsync(string sentence);
+        Task<AIDto> InterpretStringAsync(string sentence);
     }
 
     public interface IDesicions
     {
-        (AIResult result, AIDto data) MakeDesicision(AIDto aiResult);
+        (AIResult result, AIDto data) MakeDecision(AIDto aiResult);
     }
 }

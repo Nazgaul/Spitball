@@ -19,14 +19,14 @@ namespace Cloudents.Infrastructure.AI
 
         }
 
-        private static readonly Dictionary<Decision, AIResult> NoneIntentMatix =
+        private static readonly Dictionary<Decision, AIResult> NoneIntentMatrix =
             new Dictionary<Decision, AIResult>()
             {
                 [Decision.None] = AIResult.SearchOrQuestion,
                 [Decision.SearchType] = AIResult.AddSubjectOrCourse,
             };
 
-        private static readonly Dictionary<Decision, AIResult> TutorBookJobMatix =
+        private static readonly Dictionary<Decision, AIResult> TutorBookJobMatrix =
             new Dictionary<Decision, AIResult>()
             {
                 [Decision.None] = AIResult.AddSubject,
@@ -34,7 +34,7 @@ namespace Cloudents.Infrastructure.AI
                 [Decision.SearchType] = AIResult.AddSubject,
                 [Decision.Course | Decision.SearchType] = AIResult.AddSubject,
             };
-        private static readonly Dictionary<Decision, AIResult> AskQuestionMatix =
+        private static readonly Dictionary<Decision, AIResult> AskQuestionMatrix =
             new Dictionary<Decision, AIResult>()
             {
                 [Decision.None] = AIResult.SearchOrQuestion,
@@ -52,7 +52,7 @@ namespace Cloudents.Infrastructure.AI
                 [Decision.SearchType] = AIResult.AddSubjectOrCourse,
             };
 
-        private static readonly Dictionary<Decision, AIResult> PurcahseMatrix =
+        private static readonly Dictionary<Decision, AIResult> PurchaseMatrix =
             new Dictionary<Decision, AIResult>()
             {
                 [Decision.None] = AIResult.PurchaseAskBuy,
@@ -65,7 +65,7 @@ namespace Cloudents.Infrastructure.AI
                 [AIIntent.None] = p =>
                 {
                     const AIResult result = AIResult.Search;
-                    if (NoneIntentMatix.TryGetValue(p, out var result2))
+                    if (NoneIntentMatrix.TryGetValue(p, out var result2))
                     {
                         return result2;
                     }
@@ -75,7 +75,7 @@ namespace Cloudents.Infrastructure.AI
                 [AIIntent.Tutor] = p =>
                 {
                     const AIResult result = AIResult.Tutor;
-                    if (TutorBookJobMatix.TryGetValue(p, out var result2))
+                    if (TutorBookJobMatrix.TryGetValue(p, out var result2))
                     {
                         return result2;
                     }
@@ -84,7 +84,7 @@ namespace Cloudents.Infrastructure.AI
                 [AIIntent.Job] = p =>
             {
                 const AIResult result = AIResult.Jobs;
-                if (TutorBookJobMatix.TryGetValue(p, out var result2))
+                if (TutorBookJobMatrix.TryGetValue(p, out var result2))
                 {
                     return result2;
                 }
@@ -93,7 +93,7 @@ namespace Cloudents.Infrastructure.AI
                 [AIIntent.Book] = p =>
                 {
                     const AIResult result = AIResult.Books;
-                    if (TutorBookJobMatix.TryGetValue(p, out var result2))
+                    if (TutorBookJobMatrix.TryGetValue(p, out var result2))
                     {
                         return result2;
                     }
@@ -102,7 +102,7 @@ namespace Cloudents.Infrastructure.AI
                 [AIIntent.Question] = p =>
                 {
                     const AIResult result = AIResult.Question;
-                    if (AskQuestionMatix.TryGetValue(p, out var result2))
+                    if (AskQuestionMatrix.TryGetValue(p, out var result2))
                     {
                         return result2;
                     }
@@ -120,7 +120,7 @@ namespace Cloudents.Infrastructure.AI
                 [AIIntent.Purchase] = p =>
                 {
                     const AIResult result = AIResult.Purchase;
-                    if (PurcahseMatrix.TryGetValue(p, out var result2))
+                    if (PurchaseMatrix.TryGetValue(p, out var result2))
                     {
                         return result2;
                     }
@@ -128,9 +128,9 @@ namespace Cloudents.Infrastructure.AI
                 }
             };
 
-        public (AIResult result, AIDto data) MakeDesicision(AIDto aiResult)
+        public (AIResult result, AIDto data) MakeDecision(AIDto aiResult)
         {
-            var intentMatix = m_Dictionary[aiResult.Intent];
+            var intentMatrix = m_Dictionary[aiResult.Intent];
 
             var decision = Decision.None;
             if (aiResult.SearchType != null)
@@ -145,7 +145,7 @@ namespace Cloudents.Infrastructure.AI
             {
                 decision |= Decision.Term;
             }
-            var result = intentMatix(decision);
+            var result = intentMatrix(decision);
             if (result == AIResult.AddSearchTypeToSubject && aiResult.SearchType.HasValue)
             {
                 aiResult.Term.Add(aiResult.SearchType.Value.Value);

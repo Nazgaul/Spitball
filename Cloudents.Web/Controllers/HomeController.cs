@@ -17,7 +17,7 @@ namespace Cloudents.Web.Controllers
         //public async Task<IActionResult> AiAsync([FromBody] AI sentence, [FromServices] IAI luis)
         //{
         //    if (sentence == null) throw new ArgumentNullException(nameof(sentence));
-        //    var result = await luis.InterpetStringAsync(sentence.Sentence);
+        //    var result = await luis.InterpretStringAsync(sentence.Sentence);
         //    return Content("hi");
         //}
     }

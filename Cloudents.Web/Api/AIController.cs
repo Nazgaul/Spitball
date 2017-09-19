@@ -24,8 +24,8 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> AiAsync(string sentence)
         {
             if (sentence == null) throw new ArgumentNullException(nameof(sentence));
-            var aiResult = await m_AI.InterpetStringAsync(sentence).ConfigureAwait(false);
-            var result = m_Decision.MakeDesicision(aiResult);
+            var aiResult = await m_AI.InterpretStringAsync(sentence).ConfigureAwait(false);
+            var result = m_Decision.MakeDecision(aiResult);
             //var navigation = BuildFlow(result.result);
             return Json(new
             {

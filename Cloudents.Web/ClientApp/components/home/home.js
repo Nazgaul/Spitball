@@ -1,5 +1,5 @@
 ﻿import verticalCollection1 from './../general/vertical-collection.vue'
-import search from "./../api/search"
+import search from "./../api/ai"
 
 export default {
     components: {
@@ -16,9 +16,11 @@ export default {
                 prefix = vertical.prefix;
             },
             search: () => {
-                search.getDocument(null,
-                    (result) => {
-                        console.log(result);
+                search.interpet(prefix,
+                    this.msg,
+                    (response) => {
+                        this.result = response;
+                        this.$store.commit("ADD", response);
                     });
                 //this.$http.get("api/AI",
                 //    {
@@ -30,6 +32,7 @@ export default {
                 //        this.result = response.body;
                 //        this.$store.commit("ADD", response.body);
                 //    });
+
             }
         }
     }
