@@ -1,15 +1,11 @@
 ﻿@import "../../themes.less";
-.circle() {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    position: relative;
-}
 aside {
     .router-link-exact-active {
         background: yellow;
     }
-    background:@nav_color;
+
+    height: 100vh;
+    background: @nav_color;
     -ms-grid-column: 1;
     grid-column: 1;
     /*grid-area: aside;*/
@@ -96,41 +92,6 @@ aside {
             }*/
             &:last-of-type {
                 /*margin-bottom: 0.8em;*/
-            }
-
-            .ask {
-                .circle();
-                background: @ask_color;
-            }
-
-            .notes {
-                .circle();
-                background: @note_color;
-            }
-
-            .flashcard {
-                .circle();
-                background: @flashcard_color;
-            }
-
-            .tutor {
-                .circle();
-                background: @tutor_color;
-            }
-
-            .book {
-                .circle();
-                background: @book_color;
-            }
-
-            .job {
-                .circle();
-                background: @job_color;
-            }
-
-            .purchase {
-                .circle();
-                background: @purchase_color;
             }
         }
     }

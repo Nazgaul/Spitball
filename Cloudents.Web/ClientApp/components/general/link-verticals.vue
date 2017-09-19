@@ -4,7 +4,7 @@
             <li v-for="vertical in verticals">
                 <router-link :to="{name:vertical.name}" :key="vertical.name">
                     <button type="button">
-                        <div :class="vertical.name">
+                        <div class="round-icon" :class="'bg-'+vertical.name">
                             <component v-bind:is="vertical.image"></component>
                         </div>
                         <span>{{vertical.name}}</span>
