@@ -54,7 +54,7 @@ namespace Cloudents.Web
             }
             else
             {
-                app.UseExceptionHandler("Home/Error");
+               // app.UseExceptionHandler("Home/Error");
             }
 
             app.UseResponseCompression();
