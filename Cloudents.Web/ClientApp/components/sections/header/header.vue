@@ -9,11 +9,11 @@
                     <img src="/Images/spitb-logo.svg" alt="logo">
                 </picture>
             </div>
-            <div class="section-icon" :class="$route.name">
+            <div class="section-icon" :class="$route.name" v-if="placeholders[$route.name]">
                 <component :class="$route.name" class="icon" v-bind:is="$route.name+'Header'"></component>
             </div>
                 <form>
-                    <input type="search" v-model="qfilter" placeholder="bobo" />
+                    <input type="search" id="qfilter" ref='search' v-model="qfilter" :placeholder="placeholders[$route.name]" />
                 </form>
             <div id="notification">
 
@@ -69,9 +69,15 @@
     import notesHeader from './images/document.svg'
     import tutorHeader from './images/tutor.svg'
     import purchaseHeader from './images/purchase.svg'
+    import {verticalsPlaceholders as placeholders} from '../../data.js'
     export default {
         props: ["isOpen", "qfilter", "section"],
-        components: { askHeader, bookHeader, notesHeader, flashcardHeader, jobHeader, purchaseHeader, tutorHeader}
+        components: { askHeader, bookHeader, notesHeader, flashcardHeader, jobHeader, purchaseHeader, tutorHeader },
+        data() {
+            return {
+                placeholders: placeholders
+            }
+        }
     }
 </script>
 <style src="./header.less" lang="less" scoped></style>
