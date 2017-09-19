@@ -15,10 +15,13 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<LuisAI>().As<IAI>();
             builder.RegisterType<AIDecision>().As<IDesicions>();
             builder.RegisterType<UniqueKeyGenerator>().As<IKeyGenerator>();
+
+            
             builder.RegisterType<DocumentSearch>().As<IDocumentSearch>().PropertiesAutowired();
             builder.RegisterType<FlashcardSearch>().As<IFlashcardSearch>().PropertiesAutowired();
             builder.RegisterType<QuestionSearch>().As<IQuestionSearch>().PropertiesAutowired();
 
+            
             builder.RegisterType<UniversitySynonymRepository>().As<IReadRepositorySingle<UniversitySynonymDto, long>>();
         }
     }

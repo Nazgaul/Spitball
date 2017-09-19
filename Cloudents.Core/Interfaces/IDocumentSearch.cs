@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
@@ -27,6 +29,11 @@ namespace Cloudents.Core.Interfaces
     public interface IKeyGenerator
     {
         string GenerateKey(object sourceObject);
+    }
+
+    public interface IReadRepository
+    {
+        Task<T> WithConnectionAsync<T>(Func<IDbConnection, Task<T>> getData, CancellationToken token);
     }
 
     public interface IReadRepositorySingle<T, in TU>

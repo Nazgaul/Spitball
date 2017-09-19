@@ -6,15 +6,19 @@ using Dapper;
 
 namespace Cloudents.Infrastructure.Data
 {
-    public class UniversitySynonymRepository : DapperRepository, IReadRepositorySingle<UniversitySynonymDto, long>
+    public class UniversitySynonymRepository :  IReadRepositorySingle<UniversitySynonymDto, long>
     {
-        public UniversitySynonymRepository(string connectionString) : base(connectionString)
+        private readonly DapperRepository m_Repository;
+
+        public UniversitySynonymRepository(DapperRepository repository)
         {
+            m_Repository = repository;
         }
+
 
         public Task<UniversitySynonymDto> GetAsync(long universityId, CancellationToken token)
         {
-            return WithConnection(c => c.QueryFirstAsync<UniversitySynonymDto>("select coalesce( url, UniversityName) from zbox.university where id=@universityId", new { universityId }), token);
+            return m_Repository.WithConnectionAsync(c => c.QueryFirstAsync<UniversitySynonymDto>("select coalesce( url, UniversityName) from zbox.university where id=@universityId", new { universityId }), token);
         }
 
     }

@@ -6,20 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 using Dapper;
 
 namespace Cloudents.Infrastructure.Data
 {
-    public abstract class DapperRepository
+    public class DapperRepository : IReadRepository
     {
         private readonly string m_ConnectionString;
 
-        protected DapperRepository(string connectionString)
+        public DapperRepository(string connectionString)
         {
             m_ConnectionString = connectionString;
         }
 
-        protected async Task<T> WithConnection<T>(Func<IDbConnection, Task<T>> getData, CancellationToken token)
+        public async Task<T> WithConnectionAsync<T>(Func<IDbConnection, Task<T>> getData, CancellationToken token)
         {
             try
             {
@@ -31,7 +32,7 @@ namespace Cloudents.Infrastructure.Data
             }
             catch (TimeoutException ex)
             {
-                ex.Data.Add("additional data", $"{GetType().FullName}.WithConnection() experienced a SQL timeout" );
+                ex.Data.Add("additional data", $"{GetType().FullName}.WithConnection() experienced a SQL timeout");
                 throw;
             }
             catch (SqlException ex)
