@@ -1,4 +1,4 @@
-﻿namespace Zbang.Cloudents.Jared.Models
+﻿namespace Cloudents.Core.DTOs
 {
     public class SearchResult
     {

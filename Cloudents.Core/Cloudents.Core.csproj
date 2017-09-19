@@ -40,10 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AIResult.cs" />
+    <Compile Include="DTOs\UniversitySynonymDto.cs" />
+    <Compile Include="Enum\AIResult.cs" />
     <Compile Include="DTOs\AIDto.cs" />
+    <Compile Include="DTOs\SearchResult.cs" />
+    <Compile Include="Enum\SearchRequestSort.cs" />
+    <Compile Include="Extension\List.cs" />
     <Compile Include="Interfaces\IAI.cs" />
+    <Compile Include="Interfaces\IDocumentSearch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Request\SearchQuery.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

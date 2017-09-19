@@ -23,6 +23,7 @@ using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.WorkerRoleSearch;
+using t = Cloudents.Infrastructure;
 
 namespace Zbang.Cloudents.Jared
 {
@@ -67,6 +68,7 @@ namespace Zbang.Cloudents.Jared
             builder.RegisterModule<DataModule>();
             builder.RegisterModule<ReadServiceModule>();
             builder.RegisterModule<MailModule>();
+            builder.RegisterModule<t.InfrastructureModule>();
 
             builder.RegisterType<JaredSendPush>()
                 .As<IJaredPushNotification>()

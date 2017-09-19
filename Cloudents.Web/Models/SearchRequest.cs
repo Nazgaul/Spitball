@@ -1,9 +1,7 @@
 ﻿using Cloudents.Core.Enum;
 
-namespace Zbang.Cloudents.Jared.Models
+namespace Cloudents.Web.Models
 {
-   
-
     public class SearchRequest
     {
         public string Source { get; set; }
