@@ -8,25 +8,31 @@ const state = {
     userText: null
 
 };
-function buildFlashcardRoute() {
-    return {
-        name: routes.flashcardRoute,
-        children: [
-            buildChatPostRoute()
-        ]
-    }
+var buildChatPostRoute= {
+    name: routes.postChatRoute,
+    children: [
+        {
+            name: routes.tutorRoute
+        }
+    ]
 }
-function buildDocumentRoute() {
-
-    return {
+var buildFlashcardRoute= {
+    name: routes.flashcardRoute,
+    children: [
+        buildChatPostRoute
+    ]
+}
+    var buildDocumentRoute= {
         name: routes.notesRoute,
         children: [
-            buildFlashcardRoute()
+            buildFlashcardRoute
         ]
-    };
-}
-function buildTutorRoute() {
-    return {
+    }
+var optionalRoutes = {
+    post: buildChatPostRoute,
+    flashcard: buildFlashcardRoute,
+    document: buildDocumentRoute,
+tutor: {
         name: routes.tutorRoute,
         children: [
             {
@@ -34,10 +40,8 @@ function buildTutorRoute() {
             }
 
         ]
-    }
-}
-function buildJobRoute() {
-    return {
+},
+job: {
         name: routes.jobRoute,
         children: [
             {
@@ -45,10 +49,8 @@ function buildJobRoute() {
             }
 
         ]
-    }
-}
-function buildBookRoute() {
-    return {
+    },
+book:{
         name: routes.bookRoute,
         children: [
             {
@@ -56,29 +58,15 @@ function buildBookRoute() {
             }
 
         ]
-    }
-}
-function buildPurchaseRoute() {
-    return {
+    },
+purchase:{
         name: routes.purchaseRoute
-    }
-}
-function buildChatPostRoute() {
-    return {
-        name: routes.postChatRoute,
-        children: [
-            {
-                name: routes.tutorRoute
-            }
-        ]
-    }
-}
-function buildAskRoute() {
-    return {
+    },
+ask:{
         name: routes.buildAsk,
         children: [
-            buildChatPostRoute(),
-            buildDocumentRoute()
+            buildChatPostRoute,
+            buildDocumentRoute
         ]
     }
 }
@@ -86,53 +74,21 @@ function buildAskRoute() {
 const mutations = {
     [types.ADD](state, payload) {
         var flow;
-        if (payload.result === "search") {
-
-
+        if (payload.result === "search") {        
             payload.data.searchType = payload.data.searchType || {};
             if (payload.data.searchType.key === "Flashcards") {
-                flow = buildFlashcardRoute();
-                //state.node = state.flowTree.parse(buildFlashcardRoute());
-                //return;
+                flow = optionalRoutes.flashcard;
             } else {
-                flow = buildDocumentRoute();
+                flow = optionalRoutes.document;
             }
 
+        } else {
+            flow = optionalRoutes[ payload.result];
         }
-        if (payload.result === "tutor") {
-            flow = buildTutorRoute();
-            //state.node = state.flowTree.parse(buildTutorRoute());
-        }
-        if (payload.result === "book") {
-            flow = buildBookRoute();
-           // state.node = state.flowTree.parse(buildBookRoute());
-        }
-        if (payload.result === "job") {
-            flow = buildJobRoute();
-           // state.node = state.flowTree.parse(buildJobRoute());
-        }
-        if (payload.result === "purchase") {
-            flow = buildPurchaseRoute();
-           // state.node = state.flowTree.parse(buildPurchaseRoute());
-        }
-        if (payload.result === "chatPost") {
-            flow = buildChatPostRoute();
-           // state.node = state.flowTree.parse(buildChatPostRoute());
-        }
-        if (payload.result === "question") {
-            flow = buildAskRoute();
-          //  state.node = state.flowTree.parse(buildAskRoute());
-        }
+        console.log(flow);
         if (flow) {
             state.node = state.flowTree.parse(flow);
         }
-        /* None,
-       SearchOrQuestion,
-       AddSubjectOrCourse,
-       AddSubject,
-       Qna,
-       PurchaseAskBuy,
-        */
     }
 };
 

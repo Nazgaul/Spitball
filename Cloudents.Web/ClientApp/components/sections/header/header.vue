@@ -66,7 +66,7 @@
 </template>
 <!--<script src="../../general/vertical-collection.js"></script>-->
 <script>
-    import search from "./../../api/search"
+    import search from "./../../../api/search"
     import askHeader from './images/ask.svg'
     import flashcardHeader from './images/flashcard.svg'
     import jobHeader from './images/job.svg'
