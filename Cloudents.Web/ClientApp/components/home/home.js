@@ -1,5 +1,5 @@
 ﻿import verticalCollection1 from './../general/vertical-collection.vue'
-import search from "./../api/ai"
+import search from "./../../api/ai"
 
 export default {
     components: {

@@ -8,18 +8,29 @@ import JobPage from "./components/sections/results/job.vue";
 import BookPage from "./components/sections/results/book.vue";
 import PurchasePage from "./components/sections/results/purchase.vue";
 
+export const questionRoute = "ask";
+export const flashcardRoute = "flashcard";
+export const notesRoute = "note";
+export const tutorRoute = "tutor";
+export const bookRoute = "book";
+export const purchaseRoute = "purchase";
+export const jobRoute = "job";
+
+//TODO: need to add
+export const postChatRoute = "chat";
+
 export const routes = [
     { path: "/", component: HomePage, name: "home" },
     {
         path: "/result", component: SectionsPage, name: "result"
         , children: [
-            { path: "ask", name: "ask", component: AskPage },
-            { path: "flashcard", name: "flashcard", component: FlashcardPage },
-            { path: "notes", name: "notes", component: NotePage },
-            { path: "tutor", name: "tutor", component: TutorPage },
-            { path: "book", name: "book", component: BookPage },
-            { path: "purchase", name: "purchase", component: PurchasePage },
-            { path: "job", name: "job", component: JobPage }
+            { path: "ask", name: questionRoute, component: AskPage },
+            { path: "flashcard", name: flashcardRoute, component: FlashcardPage },
+            { path: "note", name: notesRoute, component: NotePage },
+            { path: "tutor", name: tutorRoute, component: TutorPage },
+            { path: "book", name: bookRoute, component: BookPage },
+            { path: "purchase", name: purchaseRoute, component: PurchasePage },
+            { path: "job", name: jobRoute, component: JobPage }
         ]
     },
 
