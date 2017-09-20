@@ -85,35 +85,47 @@ function buildAskRoute() {
 
 const mutations = {
     [types.ADD](state, payload) {
-
+        var flow;
         if (payload.result === "search") {
+
+
             payload.data.searchType = payload.data.searchType || {};
             if (payload.data.searchType.key === "Flashcards") {
-                state.node = state.flowTree.parse(buildFlashcardRoute());
-                return;
+                flow = buildFlashcardRoute();
+                //state.node = state.flowTree.parse(buildFlashcardRoute());
+                //return;
+            } else {
+                flow = buildDocumentRoute();
             }
-            state.node = state.flowTree.parse(buildDocumentRoute());
 
         }
         if (payload.result === "tutor") {
-            state.node = state.flowTree.parse(buildTutorRoute());
+            flow = buildTutorRoute();
+            //state.node = state.flowTree.parse(buildTutorRoute());
         }
         if (payload.result === "book") {
-            state.node = state.flowTree.parse(buildBookRoute());
+            flow = buildBookRoute();
+           // state.node = state.flowTree.parse(buildBookRoute());
         }
         if (payload.result === "job") {
-            state.node = state.flowTree.parse(buildJobRoute());
+            flow = buildJobRoute();
+           // state.node = state.flowTree.parse(buildJobRoute());
         }
         if (payload.result === "purchase") {
-            state.node = state.flowTree.parse(buildPurchaseRoute());
+            flow = buildPurchaseRoute();
+           // state.node = state.flowTree.parse(buildPurchaseRoute());
         }
         if (payload.result === "chatPost") {
-            state.node = state.flowTree.parse(buildChatPostRoute());
+            flow = buildChatPostRoute();
+           // state.node = state.flowTree.parse(buildChatPostRoute());
         }
         if (payload.result === "question") {
-            state.node = state.flowTree.parse(buildAskRoute());
+            flow = buildAskRoute();
+          //  state.node = state.flowTree.parse(buildAskRoute());
         }
-
+        if (flow) {
+            state.node = state.flowTree.parse(flow);
+        }
         /* None,
        SearchOrQuestion,
        AddSubjectOrCourse,
