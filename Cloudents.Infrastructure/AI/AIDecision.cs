@@ -83,7 +83,7 @@ namespace Cloudents.Infrastructure.AI
                 },
                 [AIIntent.Job] = p =>
             {
-                const AIResult result = AIResult.Jobs;
+                const AIResult result = AIResult.Job;
                 if (TutorBookJobMatrix.TryGetValue(p, out var result2))
                 {
                     return result2;
@@ -92,7 +92,7 @@ namespace Cloudents.Infrastructure.AI
             },
                 [AIIntent.Book] = p =>
                 {
-                    const AIResult result = AIResult.Books;
+                    const AIResult result = AIResult.Book;
                     if (TutorBookJobMatrix.TryGetValue(p, out var result2))
                     {
                         return result2;

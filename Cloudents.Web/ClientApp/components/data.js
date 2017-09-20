@@ -1,4 +1,6 @@
-﻿export let verticals =
+﻿
+
+export let verticals =
     {
         ask :{ name: "ask", image: "ask", placeholder: "Ask anything...", prefix: "" },
         notes :{ name: "notes", image: "document", placeholder: "Find me class materials...", prefix: "" },
@@ -12,12 +14,9 @@
 export let verticalsPlaceholders = {};
 export let verticalsList=[];
 export let names = [];
+
 for (var v in verticals) {
     names.push({ 'id': verticals[v].name, 'name': verticals[v].name });
-}
-for (var v in verticals) {
-    verticalsPlaceholders[v]= verticals[v].placeholder;
-}
-for (var v in verticals) {
+    verticalsPlaceholders[v] = verticals[v].placeholder;
     verticalsList.push(verticals[v]);
 }
