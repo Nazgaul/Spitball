@@ -1,15 +1,7 @@
 ﻿import Vue from 'vue';
 import App from './components/app/app.vue';
 import state from './store/flow';
-import HomePage from "./components/home/home.vue";
-import SectionsPage from "./components/sections/sections.vue";
-import askPage from "./components/sections//results/ask.vue";
-import flashcardPage from "./components/sections/results/flashcard.vue";
-import NotePage from "./components/sections/results/note.vue";
-import TutorPage from "./components/sections/results/tutor.vue";
-import JobPage from "./components/sections/results/job.vue";
-import BookPage from "./components/sections/results/book.vue";
-import PurchasePage from "./components/sections/results/purchase.vue";
+import searchStore from './store/search';
 
 
 import VueRouter from 'vue-router';
@@ -24,13 +16,7 @@ Vue.use(Vuex);
 
 
 const store = new Vuex.Store({
-    modules: { state }
-    //mutations: {
-    //    increment(state) {
-    //        state.count++;
-    //        console.log(store.state.count)
-    //    }
-    //}
+    modules: { state, searchStore }
 });
 
 const router = new VueRouter({

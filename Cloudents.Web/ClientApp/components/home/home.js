@@ -16,6 +16,7 @@ export default {
                 prefix = vertical.prefix;
             },
             search: () => {
+                this.$store.commit('UPDATE_FILTER', this.msg);
                 search.interpet(prefix,
                     this.msg,
                     (response) => {
