@@ -7,7 +7,7 @@ export default {
                 source: null,
                 university: null,
                 course: null,
-                query: ["war"],
+                query: ["war"], 
                 page: 0,
                 sort: "Relevance"
             }).then((response) => {

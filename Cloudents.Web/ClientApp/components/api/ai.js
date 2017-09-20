@@ -5,7 +5,7 @@ export default {
             {
                 params:
                 {
-                    sentence: prefix + " " + str
+                    sentence: prefix + " " + str 
                 }
             }).then((response) => {
                 cb(response.body);
