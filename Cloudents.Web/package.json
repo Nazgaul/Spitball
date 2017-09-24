@@ -3,7 +3,6 @@
   "name": "asp.net",
   "private": true,
   "devDependencies": {
-    "aspnet-webpack": "^2.0.1",
     "webpack": "^3.5.6",
     "webpack-hot-middleware": "^2.19.1",
     "babel-loader": "^7.1.2",
@@ -21,6 +20,7 @@
     "vuex": "^2.4.0",
     "css-loader": "^0.28.7",
     "extract-text-webpack-plugin": "^3.0.0",
-    "tree-model": "^1.0.6"
+    "tree-model": "^1.0.6",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0"
   }
 }

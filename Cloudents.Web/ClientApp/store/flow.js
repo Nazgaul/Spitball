@@ -82,7 +82,6 @@ const mutations = {
         } else {
             flow = optionalRoutes[ payload.result];
         }
-        console.log(flow);
         if (flow) {
             state.node = state.flowTree.parse(flow);
         }
