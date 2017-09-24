@@ -33,6 +33,6 @@ export const routes = [
             { path: "purchase", name: purchaseRoute, component: PurchasePage },
             { path: "job", name: jobRoute, component: JobPage }
         ]
-    },
+    }
 
 ];

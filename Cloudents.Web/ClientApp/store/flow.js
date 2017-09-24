@@ -1,6 +1,6 @@
 ﻿import Tree from 'tree-model';
-import * as types from './mutation-types'
-import * as routes from './../routes'
+import * as types from './mutation-types';
+import * as routes from './../routes';
 
 const state = {
     flowTree: new Tree(),
@@ -8,68 +8,65 @@ const state = {
     userText: null
 
 };
-var buildChatPostRoute= {
+var buildChatPostRoute = {
     name: routes.postChatRoute,
     children: [
         {
             name: routes.tutorRoute
         }
     ]
-}
-var buildFlashcardRoute= {
+};
+var buildFlashcardRoute = {
     name: routes.flashcardRoute,
     children: [
         buildChatPostRoute
     ]
-}
-    var buildDocumentRoute= {
-        name: routes.notesRoute,
-        children: [
-            buildFlashcardRoute
-        ]
-    }
+};
+var buildDocumentRoute = {
+    name: routes.notesRoute,
+    children: [
+        buildFlashcardRoute
+    ]
+};
 var optionalRoutes = {
     post: buildChatPostRoute,
     flashcard: buildFlashcardRoute,
     document: buildDocumentRoute,
-tutor: {
+    tutor: {
         name: routes.tutorRoute,
         children: [
             {
                 name: routes.postChatRoute
             }
-
         ]
-},
-job: {
+    },
+    job: {
         name: routes.jobRoute,
         children: [
             {
                 name: routes.postChatRoute
             }
-
         ]
     },
-book:{
+    book: {
         name: routes.bookRoute,
         children: [
             {
                 name: routes.postChatRoute
             }
-
         ]
     },
-purchase:{
+    purchase: {
         name: routes.purchaseRoute
     },
-ask:{
+    ask: {
         name: routes.buildAsk,
         children: [
             buildChatPostRoute,
             buildDocumentRoute
         ]
     }
-}
+};
 
 const mutations = {
     [types.ADD](state, payload) {
@@ -94,4 +91,4 @@ const mutations = {
 export default {
     state,
     mutations
-}
+};

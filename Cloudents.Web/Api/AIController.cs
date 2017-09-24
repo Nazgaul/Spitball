@@ -11,9 +11,9 @@ namespace Cloudents.Web.Api
     public class AIController : Controller
     {
         private readonly IAI m_AI;
-        private readonly IDesicions m_Decision;
+        private readonly IDecision m_Decision;
 
-        public AIController(IAI ai, IDesicions decision)
+        public AIController(IAI ai, IDecision decision)
         {
             m_AI = ai;
             m_Decision = decision;

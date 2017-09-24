@@ -6,9 +6,8 @@ using Cloudents.Core.Request;
 
 namespace Cloudents.Core.Interfaces
 {
-    public interface IDocumentSearch
+    public interface IQuestionSearch
     {
-        Task<(IEnumerable<SearchResult> result, string[] facet)> SearchAsync(SearchQuery model,
-            CancellationToken token);
+        Task<IEnumerable<SearchResult>> SearchAsync(SearchQuery model, CancellationToken token);
     }
 }

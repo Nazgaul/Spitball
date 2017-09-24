@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Infrastructure.AI
 {
-    public class AIDecision : IDesicions
+    public class AIDecision : IDecision
     {
         [Flags]
         private enum Decision

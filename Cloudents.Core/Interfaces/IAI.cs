@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Interfaces
 {
@@ -12,7 +9,7 @@ namespace Cloudents.Core.Interfaces
         Task<AIDto> InterpretStringAsync(string sentence);
     }
 
-    public interface IDesicions
+    public interface IDecision
     {
         (AIResult result, AIDto data) MakeDecision(AIDto aiResult);
     }
