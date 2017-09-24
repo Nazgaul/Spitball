@@ -1,4 +1,4 @@
-﻿namespace Cloudents.Core
+﻿namespace Cloudents.Core.Enum
 {
     public enum AIResult
     {

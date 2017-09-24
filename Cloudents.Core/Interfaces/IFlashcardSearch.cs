@@ -6,7 +6,7 @@ using Cloudents.Core.Request;
 
 namespace Cloudents.Core.Interfaces
 {
-    public interface IDocumentSearch
+    public interface IFlashcardSearch
     {
         Task<(IEnumerable<SearchResult> result, string[] facet)> SearchAsync(SearchQuery model,
             CancellationToken token);

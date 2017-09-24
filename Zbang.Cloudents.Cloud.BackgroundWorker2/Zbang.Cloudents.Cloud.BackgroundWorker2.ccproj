@@ -58,6 +58,14 @@
   <ItemGroup>
     <PublishProfile Include="Profiles\ZboxWorkerRole2Production.azurePubxml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Zbang.Zbox.WorkerRoleSearchContent\install.cmd">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Zbang.Zbox.WorkerRoleSearchContent\NDP47-KB3186500-Web.exe">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>
     <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>

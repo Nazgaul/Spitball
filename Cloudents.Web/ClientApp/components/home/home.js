@@ -1,13 +1,13 @@
-﻿import verticalCollection1 from './../general/vertical-collection.vue'
-import search from "./../../api/ai"
+﻿import verticalCollection1 from './../general/vertical-collection.vue';
+import search from "./../../api/ai";
 
 export default {
     components: {
-        'vertical-collection':verticalCollection1
+        'vertical-collection': verticalCollection1
     },
     data() {
         var prefix = "";
-        return {           
+        return {
             msg: "",
             placeholder: "",
 
@@ -35,6 +35,6 @@ export default {
                 //    });
 
             }
-        }
+        };
     }
-}
+};

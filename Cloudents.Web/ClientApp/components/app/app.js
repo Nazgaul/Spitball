@@ -1,4 +1,4 @@
-﻿import * as types from '../../store/mutation-types'
+﻿import * as types from '../../store/mutation-types';
 
 export default {
     name: "app",
@@ -13,6 +13,7 @@ export default {
             //search: () => {
             //    console.log("hello");
             //}
-        }
+        
+        };
     }
-}
+};
