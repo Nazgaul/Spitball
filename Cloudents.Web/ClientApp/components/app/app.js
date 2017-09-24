@@ -1,4 +1,5 @@
 ﻿import * as types from '../../store/mutation-types';
+import temp from '../../api/search';
 
 export default {
     name: "app",
@@ -8,12 +9,12 @@ export default {
                 this.$router.push({ name: state.state.node.model.name });
             }
         });
+        temp.getTutor(null,
+            (response) => {
+                console.log(response);
+            }
+        );
         return {
-            //msg: "hello vue.js! Ram is the king",
-            //search: () => {
-            //    console.log("hello");
-            //}
-        
-        };
+            };
     }
 };

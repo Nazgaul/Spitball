@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Jared.Controllers.Tests
             //controller.User.Identity.Stub(x=>x.IsAuthenticated).Return(false);
             m_Controller.User = user;
             CancellationToken token = new CancellationToken();
-            var b = await m_Controller.Get(token).ConfigureAwait(false);
+            var b = m_Controller.Get(token);
             Assert.IsTrue(b.IsSuccessStatusCode);
         }
         //[TestMethod]

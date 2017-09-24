@@ -41,8 +41,14 @@ namespace Cloudents.Web
             services.AddResponseCompression();
             services.AddResponseCaching();
             var containerBuilder = new ContainerBuilder();
-            containerBuilder.Register(c => new DapperRepository(Configuration.GetConnectionString("DefaultConnection")));
-            containerBuilder.RegisterModule<InfrastructureModule>();
+            
+            var infrastructureModule = new InfrastructureModule(
+                Configuration.GetConnectionString("DefaultConnection"),
+                Configuration["AzureSearch:SearchServiceName"],
+                Configuration["AzureSearch:SearchServiceAdminApiKey"]
+                );
+            containerBuilder.RegisterModule(infrastructureModule);
+            //containerBuilder.RegisterModule<>();
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);

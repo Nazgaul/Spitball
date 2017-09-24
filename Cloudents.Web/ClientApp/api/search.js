@@ -7,7 +7,7 @@ export default {
                 source: null,
                 university: null,
                 course: null,
-                query: ["war"], 
+                query: ["war"],
                 page: 0,
                 sort: "Relevance"
             }).then((response) => {
@@ -38,6 +38,16 @@ export default {
                 query: ["war"],
                 page: 0,
                 sort: "Relevance"
+            }).then((response) => {
+                cb(response.body);
+            });
+    },
+
+    getTutor(data, cb, errorCb) {
+        const resource = Vue.resource('api/tutor/{?query*}');
+        resource.get(
+            {
+                term: "math"
             }).then((response) => {
                 cb(response.body);
             });

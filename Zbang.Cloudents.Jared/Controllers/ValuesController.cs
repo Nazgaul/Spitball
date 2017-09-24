@@ -23,7 +23,7 @@ namespace Zbang.Cloudents.Jared.Controllers
 
         // GET api/values
         [CacheOutput(ClientTimeSpan = TimeConst.Day, ServerTimeSpan = TimeConst.Day)]
-        public async Task<HttpResponseMessage> Get(CancellationToken token)
+        public HttpResponseMessage Get(CancellationToken token)
         {
             //JaredDto result=null;
             //bool isAuthorized = User.Identity.IsAuthenticated;
@@ -51,7 +51,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             //result.Terms = documents;
             return Request.CreateResponse(new
             {
-               // text = result,
+                // text = result,
                 terms = documents
             });
         }

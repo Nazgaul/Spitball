@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTOs\TutorDto.cs" />
     <Compile Include="DTOs\UniversitySynonymDto.cs" />
+    <Compile Include="Entities\Search\Tutor.cs" />
     <Compile Include="Enum\AIResult.cs" />
     <Compile Include="DTOs\AIDto.cs" />
     <Compile Include="DTOs\SearchResult.cs" />
@@ -53,9 +55,9 @@
     <Compile Include="Interfaces\IQuestionSearch.cs" />
     <Compile Include="Interfaces\IReadRepository.cs" />
     <Compile Include="Interfaces\IReadRepositorySingle.cs" />
+    <Compile Include="Interfaces\ITutorSearch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Request\SearchQuery.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
