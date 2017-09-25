@@ -17,4 +17,15 @@ namespace Cloudents.Core.Interfaces
     {
         Task<string> SearchAsync(string term, CancellationToken token);
     }
+
+    public interface IJobSearch
+    {
+        Task<IEnumerable<JobDto>> SearchAsync(
+            string term,
+            SearchRequestFilter filter,
+            SearchRequestSort sort,
+            string jobType,
+            Location location,
+            CancellationToken token);
+    }
 }

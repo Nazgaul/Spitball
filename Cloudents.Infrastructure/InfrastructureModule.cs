@@ -40,6 +40,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<QuestionSearch>().As<IQuestionSearch>().PropertiesAutowired();
             builder.RegisterType<TutorSearch>().As<ITutorSearch>();
             builder.RegisterType<TitleSearch>().As<ITitleSearch>();
+            builder.RegisterType<JobSearch>().As<IJobSearch>();
 
             builder.RegisterType<UniversitySynonymRepository>().As<IReadRepositorySingle<UniversitySynonymDto, long>>();
 
@@ -58,6 +59,8 @@ namespace Cloudents.Infrastructure
                         return temp.Split(new[] {c.Items["term"].ToString()},
                             StringSplitOptions.RemoveEmptyEntries).Length;
                     }));
+
+                cfg.CreateMap<Search.Entities.Job, JobDto>();
             });
             builder.Register(c => config.CreateMapper()).SingleInstance();
         }

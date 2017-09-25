@@ -4,6 +4,7 @@
     {
         None,
         Online,
-        InPerson
+        InPerson,
+        Paid
     }
 }

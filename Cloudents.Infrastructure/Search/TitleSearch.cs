@@ -27,8 +27,8 @@ namespace Cloudents.Infrastructure.Search
 
                 var str = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-                if (str.Contains(term, StringComparison.InvariantCultureIgnoreCase) ||
-                    term.Contains(str, StringComparison.InvariantCultureIgnoreCase))
+                if (str.Contains(term, StringComparison.InvariantCultureIgnoreCase)
+                    || term.Contains(str, StringComparison.InvariantCultureIgnoreCase))
                 {
                     return null;
                 }
