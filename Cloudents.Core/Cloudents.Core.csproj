@@ -48,8 +48,9 @@
     <Compile Include="DTOs\SearchResult.cs" />
     <Compile Include="Enum\SearchRequestFilter.cs" />
     <Compile Include="Enum\SearchRequestSort.cs" />
-    <Compile Include="Extension\List.cs" />
-    <Compile Include="Extension\UriBuilder.cs" />
+    <Compile Include="Extension\ListExtension.cs" />
+    <Compile Include="Extension\StringExtensions.cs" />
+    <Compile Include="Extension\UriBuilderExtension.cs" />
     <Compile Include="Interfaces\IAI.cs" />
     <Compile Include="Interfaces\IDocumentSearch.cs" />
     <Compile Include="Interfaces\IFlashcardSearch.cs" />

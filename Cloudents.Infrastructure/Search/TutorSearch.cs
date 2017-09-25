@@ -43,7 +43,7 @@ namespace Cloudents.Infrastructure.Search
                 taskTutorMe = TutorMeApiAsync(term, token);
             }
             await Task.WhenAll(taskAzure, taskTutorMe).ConfigureAwait(false);
-            return taskAzure.Result.Union(taskTutorMe.Result);//.OrderByDescending(o => o.TermFound);
+            return taskAzure.Result.Union(taskTutorMe.Result).OrderByDescending(o => o.TermFound);
         }
 
         private static async Task<IList<TutorDto>> TutorMeApiAsync(string term, CancellationToken token)
@@ -72,8 +72,8 @@ namespace Cloudents.Infrastructure.Search
                         Url = $"https://tutorme.com/tutors/{result["id"].Value<string>()}",
                         Image = result["avatar"]["x300"].Value<string>(),
                         Name = result["shortName"].Value<string>(),
-                        Online = result["isOnline"].Value<bool>()
-                        //TermFound = result.ToString().Split(new string[] {term},StringSplitOptions.RemoveEmptyEntries).Length
+                        Online = result["isOnline"].Value<bool>(),
+                        TermFound = result.ToString().Split(new[] {term},StringSplitOptions.RemoveEmptyEntries).Length
                     }));
             }
             return retVal;
@@ -109,14 +109,25 @@ namespace Cloudents.Infrastructure.Search
 
             var searchParams = new SearchParameters
             {
-                Select = new[] { "name", "image", "url", "city", "state", "fee", "online", "location" },
+                Select = new[]
+                {
+                    "name", "image", "url", "city", "state", "fee", "online", "location","subjects","extra"
+                },
                 Filter = filterQuery,
                 OrderBy = sortQuery
 
             };
-            var result = await
+            var retVal = await
                 m_Client.Documents.SearchAsync<Tutor>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
-            return m_Mapper.Map<IEnumerable<Tutor>, IList<TutorDto>>(result.Results.Select(s => s.Document));
+
+            //foreach (var result in retVal.Results.Select(s => s.Document))
+            //{
+            //    m_Mapper.Map<Tutor, TutorDto>(result, opt =>
+            //    {
+            //        opt.
+            //    })
+            //}
+            return m_Mapper.Map<IEnumerable<Tutor>, IList<TutorDto>>(retVal.Results.Select(s => s.Document), opt => opt.Items["term"] = term);
         }
     }
 }

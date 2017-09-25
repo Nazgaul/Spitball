@@ -36,6 +36,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             await m_ZboxWriteService.SubscribeToSharedBoxAsync(command).ConfigureAwait(false);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
+
         [Route("api/course/create")]
         [HttpPost]
         public async Task<HttpResponseMessage> CreateAcademicBoxAsync(CreateAcademicCourseRequest model)

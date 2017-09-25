@@ -29,7 +29,6 @@ namespace Zbang.Cloudents.Jared.Controllers
             m_QuestionProvider = questionProvider;
         }
 
-
         [Route("api/search/documents"), HttpGet]
         public async Task<HttpResponseMessage> SearchDocumentAsync([FromUri] SearchRequest model,
             CancellationToken token)
@@ -105,7 +104,6 @@ namespace Zbang.Cloudents.Jared.Controllers
             var result = m_FlashcardProvider.Value.SearchAsync(query, token);
             return Request.CreateResponse(result);
 
-
             //var term = new List<string>();
             //if (model.University.HasValue)
             //{
@@ -148,7 +146,6 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> SearchQuestionAsync([FromUri] SearchRequest model,
             CancellationToken token)
         {
-
             string universitySynonym = null;
             if (model.University.HasValue && !string.IsNullOrEmpty(model.Course))
             {
@@ -160,7 +157,6 @@ namespace Zbang.Cloudents.Jared.Controllers
 
             var result = m_QuestionProvider.Value.SearchAsync(query, token);
             return Request.CreateResponse(result);
-
 
             //var term = new List<string>();
 
@@ -186,6 +182,5 @@ namespace Zbang.Cloudents.Jared.Controllers
             //await Task.WhenAll(result).ConfigureAwait(false);
             //return Request.CreateResponse(result.Where(s => s.Result != null).SelectMany(s => s.Result));
         }
-
     }
 }

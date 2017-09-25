@@ -17,5 +17,6 @@ namespace Cloudents.Core.DTOs
 
         public Location Location { get; set; }
 
+        public int TermFound { get; set; }
     }
 }

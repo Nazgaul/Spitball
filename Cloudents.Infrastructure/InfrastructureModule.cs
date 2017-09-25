@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using AutoMapper;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
@@ -23,6 +24,7 @@ namespace Cloudents.Infrastructure
             m_SearchServiceName = searchServiceName;
             m_SearchServiceKey = searchServiceKey;
         }
+
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<LuisAI>().As<IAI>();
@@ -36,7 +38,8 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<DocumentSearch>().As<IDocumentSearch>().PropertiesAutowired();
             builder.RegisterType<FlashcardSearch>().As<IFlashcardSearch>().PropertiesAutowired();
             builder.RegisterType<QuestionSearch>().As<IQuestionSearch>().PropertiesAutowired();
-            builder.RegisterType<TutorSearch>().As<ITutorSearch>().PropertiesAutowired();
+            builder.RegisterType<TutorSearch>().As<ITutorSearch>();
+            builder.RegisterType<TitleSearch>().As<ITitleSearch>();
 
             builder.RegisterType<UniversitySynonymRepository>().As<IReadRepositorySingle<UniversitySynonymDto, long>>();
 
@@ -48,23 +51,14 @@ namespace Cloudents.Infrastructure
                         Latitude = p.Location.Latitude,
                         Longitude = p.Location.Longitude
 
+                    }))
+                    .ForMember(d => d.TermFound, o => o.ResolveUsing((t, ts, i, c) =>
+                    {
+                        var temp = $"{t.City} {t.State} {string.Join(" ", t.Subjects)} {string.Join(" ", t.Extra)}";
+                        return temp.Split(new[] {c.Items["term"].ToString()},
+                            StringSplitOptions.RemoveEmptyEntries).Length;
                     }));
-                //.ForMember(d=>d.TermFound, o=> o.ResolveUsing(p =>
-                //    {
-                //        var temp = $"{p.City} {p.State} {string.Join(" ", p.Subjects)} {string.Join(" ", p.Extra)}";
-                //        return temp.Split(new string[] { })
-                //    }));
-
-                //cfg.CreateMap<Search.Entities.Tutor, Cloudents.Core.DTOs.TutorDto>()
             });
-            //Mapper.Initialize(cfg =>
-            //{
-            //    cfg.CreateMap<Search.Entities.Tutor, Cloudents.Core.DTOs.TutorDto>()
-            //        .ForMember(d => d.Latitude, o => o.ResolveUsing(p => p.Location.Latitude))
-            //        .ForMember(d => d.Longitude, o => o.ResolveUsing(p => p.Location.Longitude));
-
-            //    //cfg.CreateMap<Search.Entities.Tutor, Cloudents.Core.DTOs.TutorDto>()
-            //});
             builder.Register(c => config.CreateMapper()).SingleInstance();
         }
     }

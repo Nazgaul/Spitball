@@ -34,7 +34,6 @@ namespace Zbang.Cloudents.Jared.Controllers
             await m_ZboxWriteService.CreateUniversityAsync(command).ConfigureAwait(false);
 
             return Request.CreateResponse(command.Id);
-
         }
     }
 }

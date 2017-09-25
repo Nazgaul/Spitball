@@ -96,6 +96,7 @@
     <Compile Include="Search\Entities\Tutor.cs" />
     <Compile Include="Search\FlashcardSearch.cs" />
     <Compile Include="Search\QuestionSearch.cs" />
+    <Compile Include="Search\TitleSearch.cs" />
     <Compile Include="Search\TutorSearch.cs" />
     <Compile Include="UniqueKeyGenerator.cs" />
     <Compile Include="InfrastructureModule.cs" />

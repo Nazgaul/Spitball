@@ -2,7 +2,6 @@
 
 namespace Zbang.Cloudents.Jared.Models
 {
-   
 
     public class SearchRequest
     {
