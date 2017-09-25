@@ -1,4 +1,6 @@
 ﻿using System;
+using Cloudents.Core.Models;
+using Cloudents.Core.Request;
 
 namespace Cloudents.Core.Entities.Search
 {
@@ -14,8 +16,8 @@ namespace Cloudents.Core.Entities.Search
 
         public string State { get; set; }
 
-        public double Longitude { get; set; }
-        public double Latitude { get; set; }
+        public Location Location { get; set; }
+
         public double Fee { get; set; }
 
         public bool Online { get; set; }

@@ -68,7 +68,11 @@ namespace Zbang.Cloudents.Jared
             builder.RegisterModule<DataModule>();
             builder.RegisterModule<ReadServiceModule>();
             builder.RegisterModule<MailModule>();
-            builder.RegisterModule<t.InfrastructureModule>();
+            var module = new t.InfrastructureModule(
+                ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
+                ConfigurationManager.AppSettings["AzureSearchServiceName"],
+                ConfigurationManager.AppSettings["AzureSearchKey"]);
+            builder.RegisterModule(module);
 
             builder.RegisterType<JaredSendPush>()
                 .As<IJaredPushNotification>()

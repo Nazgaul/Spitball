@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web.Http;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
-using Cloudents.Core.Request;
-using Cloudents.Web.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
-namespace Cloudents.Web.Api
+namespace Zbang.Cloudents.Jared.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/Tutor")]
-    public class TutorController : Controller
+    public class TutorController : ApiController
     {
         private readonly ITutorSearch m_TutorSearch;
 
@@ -24,11 +21,10 @@ namespace Cloudents.Web.Api
             m_TutorSearch = tutorSearch;
         }
 
-        //TODO: location is not null
-        public async Task<IActionResult> Get(string term, SearchRequestFilter filter, SearchRequestSort sort, Location location, CancellationToken token)
+        public async Task<HttpResponseMessage> Get(string term, SearchRequestFilter filter, SearchRequestSort sort, Location location, CancellationToken token)
         {
             var result = await m_TutorSearch.SearchAsync(term, filter, sort, location, token).ConfigureAwait(false);
-            return Json(result);
+            return Request.CreateResponse(result);
         }
     }
 }

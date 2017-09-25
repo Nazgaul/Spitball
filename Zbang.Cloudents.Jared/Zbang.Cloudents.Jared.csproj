@@ -254,6 +254,7 @@
     <Compile Include="Controllers\QuizController.cs" />
     <Compile Include="Controllers\RefreshController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\TutorController.cs" />
     <Compile Include="Controllers\UniversityController.cs" />
     <Compile Include="Controllers\UpdateTagsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />

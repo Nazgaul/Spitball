@@ -1,4 +1,4 @@
-﻿import Vue from 'vue'
+﻿import Vue from 'vue';
 export default {
     getDocument(data, cb, errorCb) {
         const resource = Vue.resource('api/search/documents/{?query*}');
@@ -11,8 +11,8 @@ export default {
                 page: 0,
                 sort: "Relevance"
             }).then((response) => {
-                cb(response.body);
-            });
+            cb(response.body);
+        });
     },
     getFlashcard(data, cb, errorCb) {
         const resource = Vue.resource('api/search/flashcards/{?query*}');
@@ -25,8 +25,8 @@ export default {
                 page: 0,
                 sort: "Relevance"
             }).then((response) => {
-                cb(response.body);
-            });
+            cb(response.body);
+        });
     },
     getQna(data, cb, errorCb) {
         const resource = Vue.resource('api/search/qna/{?query*}');
@@ -39,8 +39,8 @@ export default {
                 page: 0,
                 sort: "Relevance"
             }).then((response) => {
-                cb(response.body);
-            });
+            cb(response.body);
+        });
     },
 
     getTutor(data, cb, errorCb) {
@@ -49,7 +49,7 @@ export default {
             {
                 term: "math"
             }).then((response) => {
-                cb(response.body);
-            });
+            cb(response.body);
+        });
     }
-}
+};

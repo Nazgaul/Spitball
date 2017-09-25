@@ -7,7 +7,7 @@ using Microsoft.Spatial;
 namespace Cloudents.Infrastructure.Search.Entities
 {
     [SerializePropertyNamesAsCamelCase]
-    public class Tutor 
+    public class Tutor
     {
         [Key]
         public string Id { get; set; }

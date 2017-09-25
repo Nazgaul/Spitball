@@ -2,6 +2,7 @@
 using AutoMapper;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Models;
 using Cloudents.Core.Request;
 using Cloudents.Infrastructure.AI;
 using Cloudents.Infrastructure.Data;
@@ -28,25 +29,31 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<AIDecision>().As<IDecision>();
             builder.RegisterType<UniqueKeyGenerator>().As<IKeyGenerator>();
 
-
             builder.Register(c => new DapperRepository(m_SqlConnectionString));
             builder.Register(c =>
                 new SearchServiceClient(m_SearchServiceName, new SearchCredentials(m_SearchServiceKey))).SingleInstance();
-
 
             builder.RegisterType<DocumentSearch>().As<IDocumentSearch>().PropertiesAutowired();
             builder.RegisterType<FlashcardSearch>().As<IFlashcardSearch>().PropertiesAutowired();
             builder.RegisterType<QuestionSearch>().As<IQuestionSearch>().PropertiesAutowired();
             builder.RegisterType<TutorSearch>().As<ITutorSearch>().PropertiesAutowired();
 
-
             builder.RegisterType<UniversitySynonymRepository>().As<IReadRepositorySingle<UniversitySynonymDto, long>>();
 
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Search.Entities.Tutor, TutorDto>()
-                    .ForMember(d => d.Latitude, o => o.ResolveUsing(p => p.Location.Latitude))
-                    .ForMember(d => d.Longitude, o => o.ResolveUsing(p => p.Location.Longitude));
+                    .ForMember(d => d.Location, o => o.ResolveUsing(p => new Location
+                    {
+                        Latitude = p.Location.Latitude,
+                        Longitude = p.Location.Longitude
+
+                    }));
+                //.ForMember(d=>d.TermFound, o=> o.ResolveUsing(p =>
+                //    {
+                //        var temp = $"{p.City} {p.State} {string.Join(" ", p.Subjects)} {string.Join(" ", p.Extra)}";
+                //        return temp.Split(new string[] { })
+                //    }));
 
                 //cfg.CreateMap<Search.Entities.Tutor, Cloudents.Core.DTOs.TutorDto>()
             });
@@ -59,8 +66,6 @@ namespace Cloudents.Infrastructure
             //    //cfg.CreateMap<Search.Entities.Tutor, Cloudents.Core.DTOs.TutorDto>()
             //});
             builder.Register(c => config.CreateMapper()).SingleInstance();
-
-
         }
     }
 }

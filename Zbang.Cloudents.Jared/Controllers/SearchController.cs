@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using Microsoft.Azure.Mobile.Server.Config;
 using Zbang.Cloudents.Jared.Models;
-using Zbang.Zbox.Infrastructure;
-using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {

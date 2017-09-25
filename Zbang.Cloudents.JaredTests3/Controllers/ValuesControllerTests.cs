@@ -90,7 +90,7 @@ namespace Zbang.Cloudents.Jared.Controllers.Tests
         }
 
         [TestMethod]
-        public async Task getCategoriesTextTest_returnOK()
+        public void getCategoriesTextTest_returnOK()
         {
             var user = new User(false);
             // user.Stub(x => x.GetUserId()).Return(1);
