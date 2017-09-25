@@ -93,11 +93,14 @@
     <Compile Include="Data\DapperRepository.cs" />
     <Compile Include="Data\UniversitySynonymRepository.cs" />
     <Compile Include="Search\DocumentSearch.cs" />
+    <Compile Include="Search\Entities\Job.cs" />
     <Compile Include="Search\Entities\Tutor.cs" />
     <Compile Include="Search\FlashcardSearch.cs" />
+    <Compile Include="Search\JobSearch.cs" />
     <Compile Include="Search\QuestionSearch.cs" />
     <Compile Include="Search\TitleSearch.cs" />
     <Compile Include="Search\TutorSearch.cs" />
+    <Compile Include="Search\VideoSearch.cs" />
     <Compile Include="UniqueKeyGenerator.cs" />
     <Compile Include="InfrastructureModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -40,6 +40,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<QuestionSearch>().As<IQuestionSearch>().PropertiesAutowired();
             builder.RegisterType<TutorSearch>().As<ITutorSearch>();
             builder.RegisterType<TitleSearch>().As<ITitleSearch>();
+            builder.RegisterType<VideoSearch>().As<IVideoSearch>();
             builder.RegisterType<JobSearch>().As<IJobSearch>();
 
             builder.RegisterType<UniversitySynonymRepository>().As<IReadRepositorySingle<UniversitySynonymDto, long>>();

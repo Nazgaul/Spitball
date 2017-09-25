@@ -17,6 +17,11 @@ namespace Cloudents.Core.Interfaces
     {
         Task<string> SearchAsync(string term, CancellationToken token);
     }
+    public interface IVideoSearch
+    {
+        Task<VideoDto> SearchAsync(string term, CancellationToken token);
+    }
+
 
     public interface IJobSearch
     {

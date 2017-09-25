@@ -40,8 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTOs\JobDto.cs" />
     <Compile Include="DTOs\TutorDto.cs" />
     <Compile Include="DTOs\UniversitySynonymDto.cs" />
+    <Compile Include="DTOs\VideoDto.cs" />
     <Compile Include="Entities\Search\Tutor.cs" />
     <Compile Include="Enum\AIResult.cs" />
     <Compile Include="DTOs\AIDto.cs" />
