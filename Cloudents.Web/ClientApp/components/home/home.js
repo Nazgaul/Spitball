@@ -8,7 +8,7 @@ export default {
     data() {
         var prefix = "";
         return {
-            msg: "",
+            msg: this.$route.meta.userText,
             placeholder: "",
 
             changeSection: (vertical) => {

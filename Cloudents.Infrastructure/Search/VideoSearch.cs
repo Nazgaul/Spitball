@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Extension;
 using Newtonsoft.Json.Linq;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Infrastructure.Search
 {
-    public class VideoSearch
+    public class VideoSearch:IVideoSearch
     {
         public async Task<VideoDto> SearchAsync(string term, CancellationToken token)
         {

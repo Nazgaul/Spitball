@@ -15,13 +15,13 @@
     <Content Include="ClientApp\components\general\images\job.svg" />
     <Content Include="ClientApp\components\general\images\purchase.svg" />
     <Content Include="ClientApp\components\general\images\tutor.svg" />
-    <Content Include="ClientApp\components\sections\header\images\ask.svg" />
-    <Content Include="ClientApp\components\sections\header\images\book.svg" />
-    <Content Include="ClientApp\components\sections\header\images\document.svg" />
-    <Content Include="ClientApp\components\sections\header\images\flashcard.svg" />
-    <Content Include="ClientApp\components\sections\header\images\job.svg" />
-    <Content Include="ClientApp\components\sections\header\images\purchase.svg" />
-    <Content Include="ClientApp\components\sections\header\images\tutor.svg" />
+    <Content Include="ClientApp\components\header\images\ask.svg" />
+    <Content Include="ClientApp\components\header\images\book.svg" />
+    <Content Include="ClientApp\components\header\images\document.svg" />
+    <Content Include="ClientApp\components\header\images\flashcard.svg" />
+    <Content Include="ClientApp\components\header\images\job.svg" />
+    <Content Include="ClientApp\components\header\images\purchase.svg" />
+    <Content Include="ClientApp\components\header\images\tutor.svg" />
   </ItemGroup>
 
   <ItemGroup>

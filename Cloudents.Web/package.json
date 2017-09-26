@@ -3,6 +3,7 @@
   "name": "asp.net",
   "private": true,
   "devDependencies": {
+    "aspnet-webpack": "^2.0.1",
     "webpack": "^3.5.6",
     "webpack-hot-middleware": "^2.19.1",
     "babel-loader": "^7.1.2",

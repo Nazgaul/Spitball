@@ -12,9 +12,13 @@ const mutations = {
 const getters = {
     userText: state => state.userText
 }
+const actions = {
+    updateSearchText: ({ commit }, text) => commit(types.UPDATE_FILTER, text)
+}
 
 export default {
     state,
     getters,
+    actions,
     mutations
 }

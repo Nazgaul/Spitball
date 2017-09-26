@@ -8,11 +8,12 @@
             <input id="menu-checkbox" type="checkbox" class="hide_641" />
             <app-aside :isOpen="isOpen" :section.sync="section"></app-aside>
             <div class="content">
+                <router-link :to="{name:$route.name,query:{a:'yiaft'}}">yifatttttt</router-link>
                 <router-view :items="result"></router-view>
             </div>
         </section>
     </div>
 </template>
-<script src="./sections.js"></script>
-<style src="./sections.less" lang="less" scoped></style>
+<script src="./pageApp.js"></script>
+<style src="./page.less" lang="less" scoped></style>
 

@@ -1,5 +1,7 @@
 ﻿<template>
     <div>
+        <router-link :to="{name:$route.name,query:{a:'yiaft'}}">yifatttttt</router-link>
+
         <div>
             ask
         </div>

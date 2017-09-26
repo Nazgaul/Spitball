@@ -10,14 +10,14 @@ export const purchaseRoute = "purchase";
 export const jobRoute = "job";
 export const postChatRoute = "chat";
 
-const SectionsPage = () => import("./components/sections/sections.vue");
-const AskPage = () => import("./components/sections/results/ask.vue");
-const FlashcardPage = () => import( "./components/sections/results/flashcard.vue");
-const NotePage = () => import( "./components/sections/results/note.vue");
-const TutorPage = () => import("./components/sections/results/tutor.vue");
-const JobPage = () => import("./components/sections/results/job.vue");
-const BookPage = () => import("./components/sections/results/book.vue");
-const PurchasePage = () => import("./components/sections/results/purchase.vue");
+const SectionsPage = () => import("./components/pages/page.vue");
+const AskPage = () => import("./components/pages/results/ask.vue");
+const FlashcardPage = () => import( "./components/pages/results/flashcard.vue");
+const NotePage = () => import( "./components/pages/results/note.vue");
+const TutorPage = () => import("./components/pages/results/tutor.vue");
+const JobPage = () => import("./components/pages/results/job.vue");
+const BookPage = () => import("./components/pages/results/book.vue");
+const PurchasePage = () => import("./components/pages/results/purchase.vue");
 
 
 export const routes = [

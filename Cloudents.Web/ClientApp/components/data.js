@@ -3,7 +3,7 @@
 export let verticals =
     {
         ask :{ name: "ask", image: "ask", placeholder: "Ask anything...", prefix: "" },
-        notes :{ name: "notes", image: "document", placeholder: "Find me class materials...", prefix: "" },
+        notes :{ name: "note", image: "document", placeholder: "Find me class materials...", prefix: "" },
         flashcard:{ name: "flashcard", image: "flashcard", placeholder: "Find me flashcards...", prefix: "" },
         tutor:{ name: "tutor", image: "tutor", placeholder: "Find me a tutor...", prefix: "" },
         job:{ name: "job", image: "job", placeholder: "Find me a job...", prefix: "" },

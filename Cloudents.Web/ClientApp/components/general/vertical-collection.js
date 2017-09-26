@@ -6,6 +6,7 @@ import flashcard from './images/flashcard.svg';
 import job from './images/job.svg';
 import purchase from './images/purchase.svg';
 import tutor from './images/tutor.svg';
+import { verticalsList as verticals } from '../data.js'
 
 
 
@@ -20,16 +21,6 @@ export default {
         changeCallback: {type:Function}
     },
     data() {
-        const verticals =
-        [
-            { name: "ask", image: "ask" , placeholder: "Ask anything...", prefix: ""},
-            { name: "notes", image: "document", placeholder: "Find me class materials...", prefix: ""},
-            { name: "flashcard", image: "flashcard", placeholder: "Find me flashcards...", prefix: "" },
-            { name: "tutor", image: "tutor", placeholder: "Find me a tutor...", prefix: "" },
-            { name: "job", image: "job", placeholder: "Find me a job...", prefix: "" },
-            { name: "book", image: "book", placeholder: "Find me a textbook ...", prefix: ""},
-            { name: "purchase", image: "purchase", placeholder: "Where can i get...", prefix: "" }
-        ];
         return {
             verticals : verticals,
             selected: verticals[0]

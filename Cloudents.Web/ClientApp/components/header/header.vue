@@ -10,7 +10,7 @@
                 <component :class="$route.name" class="icon" v-bind:is="$route.name+'Header'"></component>
             </div>
                 <form  @submit.prevent="submit">
-                    <input type="search" id="qfilter" ref='search' v-model="$store.getters.userText" :placeholder="placeholders[$route.name]" @focus="showOption=true"/>
+                    <input type="search" id="qfilter" ref='search' v-model="qfilter" :placeholder="placeholders[$route.name]" @focus="showOption=true"/>
                 </form>
             <div id="notification">
 
@@ -24,7 +24,6 @@
     </header>
 </template>
 <script>
-    import search from "./../../../api/search"
     import askHeader from './images/ask.svg'
     import flashcardHeader from './images/flashcard.svg'
     import jobHeader from './images/job.svg'
@@ -34,7 +33,7 @@
     import purchaseHeader from './images/purchase.svg'
     import searchTypes from './../helpers/radioList.vue'
     import { mapGetters } from 'vuex'
-    import { verticalsPlaceholders as placeholders, names} from '../../data.js'
+    import { verticalsPlaceholders as placeholders, names } from '../data'
     export default {
         props: ["isOpen", "section"],
         components: { 'search-type': searchTypes, askHeader, bookHeader, notesHeader, flashcardHeader, jobHeader, purchaseHeader, tutorHeader },
@@ -42,8 +41,16 @@
             return {
                 placeholders: placeholders,
                 showOption: false,
-                names: names,
-                qfilter: this.$store.getters.userText
+                names: names
+            }
+        }, computed: {
+            qfilter: {
+                get() {
+                    return this.$store.getters.userText;
+                },
+                set(val) {
+                    this.$store.dispatch('updateSearchText', val);
+                }
             }
         },
         methods: {
@@ -51,11 +58,12 @@
                 this.$router.push({name:e.target.value})
             },
             submit: function () {
-                console.log('boooo');
-                search.getDocument(null, (response) => {
-                    console.log(response);
-                    this.$emit('update:result', response)
-                })
+                this.$store.dispatch('fetchingData', this.$route);
+                //console.log('boooo');
+                //search.getDocument(null, (response) => {
+                //    console.log(response);
+                //    this.$emit('update:result', response)
+                //})
             }
         }
     }
