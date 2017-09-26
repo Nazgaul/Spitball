@@ -14,10 +14,6 @@ export default {
             result:null
         }
     },
-    watch: {
-        // call again the method if the route changes
-        '$route': 'fetchData'
-    },
     methods: {
         fetchData() {console.log('route change') }
     },
@@ -25,13 +21,7 @@ export default {
         console.log('Reusing this component.')
         console.log(to);
         this.$refs.header.$refs.search.focus()
-        this.$store.dispatch('fetchingData', to);
-        //console.log(this.$refs.header.search.focus());
-        //this.$refs.search.focus();
-        //search.getDocument(null, (response) => {
-        //            console.log(response);
-        //        })
-        next()
+        this.$store.dispatch('fetchingData', to).then(() => { next() })
     },
     beforeRouteEnter(to, from, next) {
         console.log('before enter');
