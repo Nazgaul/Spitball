@@ -1,27 +1,19 @@
 ﻿<template>
-    <div>
-        <div>
-            ask
+    <a target="_blank" :href="item.url" class="result" >
+        <div class="item-content">
+            <div>title: {{item.title}}</div>
+            <div>
+                snippet: {{item.snippet}}
+            </div>
         </div>
-        <div v-if="items">
-            <a target="_blank" :href="item.url" class="result" v-for="item in items.item1">
-                <div class="item-content">
-                    <div>title: {{item.title}}</div>
-                    <div>
-                        snippet: {{item.snippet}}
-                    </div>
-                </div>
-                <div class="source">
-                    source: {{item.source}}
-                </div>            <div class="image"><img :src="item.image" /></div>
-            </a>
-        </div>
-        <div v-else>There is no data</div>
-    </div>
+        <div class="source">
+            source: {{item.source}}
+        </div>            <div class="image"><img :src="item.image" /></div>
+    </a>
 </template>
 <script>
     export default {
-        props:['items']
+        props:['item']
     }
 </script>
 <style scoped>
@@ -42,6 +34,7 @@
         grid-template-rows: calc(176px - 32px) 16px;
         -ms-grid-rows: calc(176px - 32px) 1em auto;
     }
+
     .image {
         display: flex;
         align-items: center;
@@ -53,10 +46,12 @@
         border: solid 1px blue;
         min-width: 80px;
     }
+
     img {
-        height:100%;
+        height: 100%;
     }
-        .default-image{
+
+    .default-image {
         margin: auto;
         transform: scale(1.5);
     }

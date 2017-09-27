@@ -1,8 +1,22 @@
 ﻿import Vue from 'vue';
+import VueResource from 'vue-resource';
+Vue.use(VueResource)
+const basePath = 'api/search';
+const searchFunctions= {
+    document: { method: 'GET', url: basePath+'/documents/{?query*}' },
+    askData: { method: 'GET', url: basePath+'/qna/{?query*}' },
+    wolfram: { method: 'GET', url: basePath+'/title/{?query*}' }
+}
+const resource = Vue.resource('${basePath}/', {}, searchFunctions)
 export default {
+    getShortAnswer(data, cb, errorCb) {
+        return resource.wolfram(
+            {
+                term: 'president of argentina',
+            }).then(({ body }) => Promise.resolve(body))
+    },
     getDocument(data, cb, errorCb) {
-        const resource = Vue.resource('api/search/documents/{?query*}');
-        resource.get(
+        return resource.document(
             {
                 source: null,
                 university: null,
@@ -10,9 +24,7 @@ export default {
                 query: ["war"],
                 page: 0,
                 sort: "Relevance"
-            }).then((response) => {
-            cb(response.body);
-        });
+            }).then(({ body }) => Promise.resolve(body));
     },
     getFlashcard(data, cb, errorCb) {
         const resource = Vue.resource('api/search/flashcards/{?query*}');
@@ -28,9 +40,8 @@ export default {
             cb(response.body);
         });
     },
-    getQna(data, cb, errorCb) {
-        const resource = Vue.resource('api/search/qna/{?query*}');
-        resource.get(
+    getQna(data, errorCb) {
+        return resource.askData(
             {
                 source: null,
                 university: null,
@@ -38,9 +49,7 @@ export default {
                 query: ["war"],
                 page: 0,
                 sort: "Relevance"
-            }).then((response) => {
-            cb(response.body);
-        });
+            }).then(({ body }) => Promise.resolve(body));
     },
 
     getTutor(data, cb, errorCb) {

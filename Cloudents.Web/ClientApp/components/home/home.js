@@ -8,7 +8,7 @@ export default {
     data() {
         var prefix = "";
         return {
-            msg: "",
+            msg: this.$route.meta.userText,
             placeholder: "",
 
             changeSection: (vertical) => {
@@ -16,7 +16,8 @@ export default {
                 prefix = vertical.prefix;
             },
             search: () => {
-                this.$store.commit('UPDATE_FILTER', this.msg);
+                this.$store.dispatch('updateSearchText', this.msg);
+                //this.$store.dispatch('updateSearchText', this.msg);
                 search.interpet(prefix,
                     this.msg,
                     (response) => {

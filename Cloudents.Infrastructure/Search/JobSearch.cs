@@ -9,10 +9,11 @@ using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Search.Entities;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Infrastructure.Search
 {
-    public class JobSearch
+    public class JobSearch:IJobSearch
     {
         private readonly ISearchIndexClient m_Client;
         private readonly IMapper m_Mapper;
