@@ -4,7 +4,8 @@ import search from './../api/search'
 const state = {
     pageContent: null,
     loading: false,
-    userText:''
+    userText: '',
+    isEmpty:false
 };
 
 const mutations = {
@@ -12,8 +13,14 @@ const mutations = {
         state.userText = text;
     },
     [types.UPDATE_PAGE_CONTENT](state, payload) {
-        console.log("update page content")
-        state.pageContent = payload
+        console.log(payload)
+        if (!payload.hasOwnProperty('isEmpty')) {
+            state.pageContent = payload;
+        }else{
+            state.pageContent = payload.data;
+            state.isEmpty = payload.isEmpty;
+        }
+        this.commit(types.UPDATE_LOADING, false)
     },
     [types.MERGE_META](state, payload) {
         console.log("merge meta")
@@ -27,46 +34,58 @@ const mutations = {
 const getters = {
     userText: state => state.userText,
     pageContent : state => state.pageContent,
-    loading : state => state.loading
+    items: state => state.pageContent?state.pageContent.items:null,
+    loading : state => state.loading,
+    isEmpty: state => state.isEmpty,
+    pageTitle: state => state.pageContent ? state.pageContent.title : null
 }
 const actions = {
     updateSearchText: ({ commit }, text) => commit(types.UPDATE_FILTER, text),
-    rootChange: ({ commit}, page) => {
-        //if (page.meta) {
-        //    commit(types.MERGE_META);
-        //} else {
-
-        //}
-    },
     fetchingData: ({ commit }, page) => {
-        return new Promise((resolve, reject) => {
             commit(types.UPDATE_LOADING, true);
             activateFunction[page.name]().then(response => {
                 commit(types.UPDATE_PAGE_CONTENT, response);
-                console.log('resolve')
-                resolve('yifat')
-            })
-            //commit(types.UPDATE_PAGE_CONTENT, pageContent);
-            //console.log('resolve')
-            //resolve('yifat')
-        })
-       
+            })       
     }
 }
 const activateFunction = {
     ask: function () {
         return new Promise((resolve, reject) => {
-            var promise1 = search.getQna({}, null, null);
-            var promise2 = search.getShortAnswer({},null,null);
+            var promise2 = search.getQna({});
+            var promise1 = search.getShortAnswer(state.userText);
             Promise.all([promise1, promise2]).then(([short, items]) => {
-                resolve({ short: short.body, items: items.body })
+                resolve({ title: short.body, items: items.body })
             })
         } )
-        //Promise.all(short,moreData)
     },
     note: function () {
         return new Promise((resolve, reject) => {
-            search.getDocument({}, null, null).then(response=>resolve({ items: response.item1, sources: response.item2 }))
+            search.getDocument({}).then(({ body }) => resolve({ isEmpty: Boolean(body.item1.length),data:{ items: body.item1, sources: body.item2 }}))
+        })
+    },
+    flashcard: function () {
+        return new Promise((resolve, reject) => {
+            search.getFlashcard({}).then(({ body }) => resolve({ isEmpty: Boolean(body.item1.length), data: { items: body.item1, sources: body.item2 }}))
+        })
+    },
+    tutor: function () {
+        return new Promise((resolve, reject) => {
+            search.getTutor(state.userText).then(({ body }) => resolve({ items: body }));
+        })
+    },
+    job: function () {
+        return new Promise((resolve, reject) => {
+            search.getTutor(state.userText).then(response => resolve({ items: response.item1, sources: response.item2 }));
+        })
+    },
+    book: function () {
+        return new Promise((resolve, reject) => {
+            search.getTutor(state.userText).then(response => resolve({ items: response.item1, sources: response.item2 }));
+        })
+    },
+    purchase: function () {
+        return new Promise((resolve, reject) => {
+            search.getTutor(state.userText).then(response => resolve({ items: response.item1, sources: response.item2 }));
         })
     }
 }

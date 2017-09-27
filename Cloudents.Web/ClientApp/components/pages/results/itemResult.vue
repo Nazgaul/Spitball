@@ -1,5 +1,5 @@
 ﻿<template>
-    <a target="_blank" :href="item.url" class="result" >
+    <a target="_blank" :href="item.url" class="result" :class="'bg-'+$route.name">
         <div class="item-content">
             <div>title: {{item.title}}</div>
             <div>
@@ -20,8 +20,6 @@
     .result {
         margin-top: 0.5em;
         border-radius: 4px;
-        background-color: #ffffff;
-        background-color: rebeccapurple;
         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
         padding: 0.5em;
         color: white;
