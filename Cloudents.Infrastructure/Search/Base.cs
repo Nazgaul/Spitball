@@ -63,6 +63,10 @@ namespace Cloudents.Infrastructure.Search
                     };
                 });
             }
+            catch (GoogleApiException ex) when (ex.HttpStatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                return null;
+            }
             catch (GoogleApiException ex)
             {
                 ex.Data.Add("params", new

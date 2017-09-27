@@ -42,50 +42,8 @@ namespace Zbang.Cloudents.Jared.Controllers
             var query = new SearchQuery(model.Query, universitySynonym, model.Course, model.Source, model.Page,
                 model.Sort);
 
-            var result = m_SearchProvider.Value.SearchAsync(query, token);
+            var result = await m_SearchProvider.Value.SearchAsync(query, token).ConfigureAwait(false);
             return Request.CreateResponse(result);
-
-            //var term = new List<string>();
-            //if (model.University.HasValue)
-            //{
-            //    var universitySynonym = await m_UniversitySynonymRepository.GetAsync(model.University.Value, token)
-            //        .ConfigureAwait(false);
-            //    term.Add(universitySynonym.Name);
-            //}
-
-            //if (!string.IsNullOrEmpty(model.Course))
-            //{
-            //    term.Add('"' + model.Course + '"');
-            //}
-            //if (model.Query != null)
-            //{
-            //    term.Add(string.Join(" ", model.Query.Select(s => '"' + s + '"')));
-            //}
-
-            //var result = Enumerable.Range(model.Page * 3, 3).Select(s =>
-            //        DoSearchAsync(string.Join(" ", term), model.Source, s, model.Sort, CustomApiKey.Documents, token))
-            //    .ToList();
-            //await Task.WhenAll(result).ConfigureAwait(false);
-
-            ////result.Select(s=>s.Result)
-
-            ////var t1 = DoSearchAsync(model, universitySynonym, CustomApiKey.Documents, token)
-            ////var result = await DoSearchAsync(model, universitySynonym, CustomApiKey.Documents, token).ConfigureAwait(false);
-            //return Request.CreateResponse(new
-            //{
-            //    documents = result.Where(s => s.Result != null).SelectMany(s => s.Result),
-            //    facet = new[]
-            //    {
-            //        "uloop.com",
-            //        "spitball.co",
-            //        "studysoup.com",
-            //        "coursehero.com",
-            //        "cliffsnotes.com",
-            //        "oneclass.com",
-            //        "koofers.com",
-            //        "studylib.net"
-            //    }
-            //});
         }
 
         [Route("api/search/flashcards"), HttpGet]
@@ -101,45 +59,8 @@ namespace Zbang.Cloudents.Jared.Controllers
             var query = new SearchQuery(model.Query, universitySynonym, model.Course, model.Source, model.Page,
                 model.Sort);
 
-            var result = m_FlashcardProvider.Value.SearchAsync(query, token);
+            var result = await m_FlashcardProvider.Value.SearchAsync(query, token).ConfigureAwait(false);
             return Request.CreateResponse(result);
-
-            //var term = new List<string>();
-            //if (model.University.HasValue)
-            //{
-            //    var universitySynonym = await m_UniversitySynonymRepository.GetAsync(model.University.Value, token)
-            //        .ConfigureAwait(false);
-            //    term.Add(universitySynonym.Name);
-            //}
-
-            //if (!string.IsNullOrEmpty(model.Course))
-            //{
-            //    term.Add('"' + model.Course + '"');
-            //}
-            //if (model.Query != null)
-            //{
-            //    term.Add(string.Join(" ", model.Query.Select(s => '"' + s + '"')));
-            //}
-
-            //var result = Enumerable.Range(model.Page * 3, 3).Select(s =>
-            //        DoSearchAsync(string.Join(" ", term), model.Source, s, model.Sort, CustomApiKey.Flashcard, token))
-            //    .ToList();
-            //await Task.WhenAll(result).ConfigureAwait(false);
-
-            ////var result = await DoSearchAsync(model, universitySynonym, CustomApiKey.Flashcard, token).ConfigureAwait(false);
-            //return Request.CreateResponse(new
-            //{
-            //    documents = result.Where(s => s.Result != null).SelectMany(s => s.Result),
-            //    facet = new[]
-            //    {
-            //        "quizlet.com",
-            //        "cram.com",
-            //        "koofers.com",
-            //        "coursehero.com",
-            //        "studysoup.com",
-            //        "spitball.co"
-            //    }
-            //});
         }
 
         [Route("api/search/qna"), HttpGet]
@@ -155,32 +76,8 @@ namespace Zbang.Cloudents.Jared.Controllers
             var query = new SearchQuery(model.Query, universitySynonym, model.Course, model.Source, model.Page,
                 model.Sort);
 
-            var result = m_QuestionProvider.Value.SearchAsync(query, token);
+            var result = await m_QuestionProvider.Value.SearchAsync(query, token).ConfigureAwait(false);
             return Request.CreateResponse(result);
-
-            //var term = new List<string>();
-
-            //if (model.University.HasValue && !string.IsNullOrEmpty(model.Course))
-            //{
-            //    var universitySynonym = await m_UniversitySynonymRepository.GetAsync(model.University.Value, token)
-            //        .ConfigureAwait(false);
-            //    term.Add(universitySynonym.Name);
-            //}
-
-            //if (!string.IsNullOrEmpty(model.Course))
-            //{
-            //    term.Add('"' + model.Course + '"');
-            //}
-            //if (model.Query != null)
-            //{
-            //    term.Add(string.Join(" ", model.Query));
-            //}
-
-            //var result = Enumerable.Range(model.Page * 3, 3).Select(s =>
-            //        DoSearchAsync(string.Join(" ", term), model.Source, s, model.Sort, CustomApiKey.AskQuestion, token))
-            //    .ToList();
-            //await Task.WhenAll(result).ConfigureAwait(false);
-            //return Request.CreateResponse(result.Where(s => s.Result != null).SelectMany(s => s.Result));
         }
     }
 }

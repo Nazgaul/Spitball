@@ -27,7 +27,8 @@ namespace Cloudents.Infrastructure.Data
                 using (var connection = new SqlConnection(m_ConnectionString))
                 {
                     await connection.OpenAsync(token).ConfigureAwait(false); // Asynchronously open a connection to the database
-                    return await getData(connection).ConfigureAwait(false); // Asynchronously execute getData, which has been passed in as a Func<IDBConnection, Task<T>>
+                    var data =  await getData(connection).ConfigureAwait(false); // Asynchronously execute getData, which has been passed in as a Func<IDBConnection, Task<T>>
+                    return data;
                 }
             }
             catch (TimeoutException ex)
