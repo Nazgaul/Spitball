@@ -11,6 +11,7 @@ namespace Zbang.Zbox.Domain.Commands
         {
         }
     }
+
     public class AddLanguageToFlashcardCommand : AddLanguageToItemCommand
     {
         public AddLanguageToFlashcardCommand(long itemId, Language language)
@@ -18,6 +19,7 @@ namespace Zbang.Zbox.Domain.Commands
         {
         }
     }
+
     public class AddLanguageToQuizCommand : AddLanguageToItemCommand
     {
         public AddLanguageToQuizCommand(long itemId, Language language)

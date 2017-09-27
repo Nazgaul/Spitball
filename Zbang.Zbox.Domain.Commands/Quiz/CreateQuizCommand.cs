@@ -11,6 +11,7 @@ namespace Zbang.Zbox.Domain.Commands.Quiz
             Text = text;
             BoxId = boxId;
         }
+
         public long UserId { get; private set; }
         public long QuizId { get; private set; }
 

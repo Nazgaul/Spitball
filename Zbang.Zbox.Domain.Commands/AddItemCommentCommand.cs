@@ -12,6 +12,7 @@ namespace Zbang.Zbox.Domain.Commands
             ItemId = itemId;
             UserId = userId;
         }
+
         public string Comment { get; private set; }
 
       

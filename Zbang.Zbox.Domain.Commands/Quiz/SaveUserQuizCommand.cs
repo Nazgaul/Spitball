@@ -14,6 +14,7 @@ namespace Zbang.Zbox.Domain.Commands.Quiz
             QuizId = quizId;
             TimeTaken = timeTaken;
         }
+
         public long UserId { get; private set; }
         public long QuizId { get; private set; }
         public TimeSpan TimeTaken { get; private set; }

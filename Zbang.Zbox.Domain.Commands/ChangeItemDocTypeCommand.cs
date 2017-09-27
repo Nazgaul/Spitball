@@ -15,6 +15,7 @@ namespace Zbang.Zbox.Domain.Commands
             ItemId = item;
             DocType = docType;
         }
+
         public ItemType DocType { get; set; }
         public long ItemId { get; private set; }
     }

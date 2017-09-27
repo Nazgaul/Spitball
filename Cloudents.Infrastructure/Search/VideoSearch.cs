@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Extension;
-using Newtonsoft.Json.Linq;
+using Google.Apis.Services;
 
 namespace Cloudents.Infrastructure.Search
 {
@@ -16,43 +10,27 @@ namespace Cloudents.Infrastructure.Search
     {
         public async Task<VideoDto> SearchAsync(string term, CancellationToken token)
         {
-            using (var client = new HttpClient())
+            var t = new Google.Apis.YouTube.v3.YouTubeService(new BaseClientService.Initializer
             {
-                var uri = new UriBuilder("https://www.googleapis.com/youtube/v3/search");
-                var nvc = new NameValueCollection
-                {
-                    ["q"]= term,
-                    ["part"] = "snippet",
-                    ["type"]="video",
-                    ["videoDuration"]="short",
-                    ["videoEmbeddable"]="true",
-                    ["videoSyndicated"]="true",
-                    ["videoCategoryId"]= "27",
-                    ["maxResults"]="1",
-                    ["key"]="AIzaSyCAaZGgVHm0GxY2lY_mWQw3JXGy7KMypZ0"
-                };
-                uri.AddQuery(nvc);
+                ApiKey = "AIzaSyCAaZGgVHm0GxY2lY_mWQw3JXGy7KMypZ0"
+            });
+            var client = new Google.Apis.YouTube.v3.SearchResource(t);
 
-                var response = await client.GetAsync(uri.Uri, token).ConfigureAwait(false);
-                if (!response.IsSuccessStatusCode) return null;
+            var query = client.List("snippet");
+            query.Q = term;
+            query.Type = "video";
+            query.VideoDuration = Google.Apis.YouTube.v3.SearchResource.ListRequest.VideoDurationEnum.Short__;
+            query.VideoEmbeddable = Google.Apis.YouTube.v3.SearchResource.ListRequest.VideoEmbeddableEnum.True__;
+            query.VideoSyndicated = Google.Apis.YouTube.v3.SearchResource.ListRequest.VideoSyndicatedEnum.True__;
+            query.VideoCategoryId = "27";
+            query.MaxResults = 1;
 
-                var str = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var o = JObject.Parse(str);
-                var firstVideo = o["items"].Children().FirstOrDefault();
-
-                if (firstVideo == null)
-                {
-                    return null;
-                }
-                var result = new VideoDto
-                {
-                    Url = $"https://www.youtube.com/embed/{firstVideo["id"]["videoId"].Value<string>()}"
-                };
-                return result;
-
-
-
-            }
+            var result = await query.ExecuteAsync(token).ConfigureAwait(false);
+            var videoId = result.Items.FirstOrDefault()?.Id.VideoId;
+            return new VideoDto
+            {
+                Url = $"https://www.youtube.com/embed/{videoId}"
+            };
         }
     }
 }

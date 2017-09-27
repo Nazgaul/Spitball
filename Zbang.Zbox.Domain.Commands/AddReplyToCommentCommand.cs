@@ -16,6 +16,7 @@ namespace Zbang.Zbox.Domain.Commands
             QuestionId = questionId;
             FilesIds = filesIds;
         }
+
         public long UserId { get; private set; }
 
         public long BoxId { get; }

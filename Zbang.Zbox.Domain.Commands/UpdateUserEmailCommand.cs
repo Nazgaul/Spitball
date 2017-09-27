@@ -10,6 +10,7 @@ namespace Zbang.Zbox.Domain.Commands
             Id = id;
             Email = email;
         }
+
         public long Id { get; private set; }
         public string Email { get; private set; }
 

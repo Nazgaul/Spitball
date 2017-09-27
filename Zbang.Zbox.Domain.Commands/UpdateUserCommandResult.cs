@@ -8,6 +8,7 @@ namespace Zbang.Zbox.Domain.Commands
         {   
             Error = error;
         }
+
         public UpdateUserCommandResult()
         {
 

@@ -13,6 +13,7 @@ namespace Zbang.Zbox.Domain.Commands
         {
             Id = id;
         }
+
         public string Id { get; set; }
     }
 }

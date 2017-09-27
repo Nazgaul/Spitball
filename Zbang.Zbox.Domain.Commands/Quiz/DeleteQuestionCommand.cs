@@ -10,6 +10,7 @@ namespace Zbang.Zbox.Domain.Commands.Quiz
             UserId = userId;
             QuestionId = questionId;
         }
+
         public long UserId { get; private set; }
         public Guid QuestionId { get;private set; }
     }

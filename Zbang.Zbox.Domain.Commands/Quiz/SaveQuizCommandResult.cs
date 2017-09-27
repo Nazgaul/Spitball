@@ -9,6 +9,7 @@ namespace Zbang.Zbox.Domain.Commands.Quiz
         {
             Url = url;
         }
+
         public string Url { get; private set; }   
     }
 }

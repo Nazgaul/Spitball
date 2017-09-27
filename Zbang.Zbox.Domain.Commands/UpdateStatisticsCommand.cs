@@ -11,12 +11,14 @@ namespace Zbang.Zbox.Domain.Commands
             ItemId = itemId;
             UserId = userId;
         }
+
         public StatisticItemData ItemId { get; private set; }
         public long UserId { get; private set; }
 
 
        
     }
+
     public class StatisticItemData
     {
         public long ItemId { get; set; }

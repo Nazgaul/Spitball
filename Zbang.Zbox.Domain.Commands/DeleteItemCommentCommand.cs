@@ -11,6 +11,7 @@ namespace Zbang.Zbox.Domain.Commands
             UserId = userId;
             ItemId = itemId;
         }
+
         public long ItemCommentId { get; set; }
 
         public long UserId { get; set; }

@@ -9,6 +9,7 @@ namespace Zbang.Zbox.Domain.Commands.Quiz
             QuizId = quizId;
             UserId = userId;
         }
+
         public long QuizId { get; private set; }
         public long UserId { get; private set; }
     }

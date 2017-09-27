@@ -10,10 +10,11 @@ namespace Zbang.Zbox.Domain.Commands
             BoxId = boxId;
             UserId = userId;
         }
-        public long BoxId { get;private set; }
 
-        public long UserId { get;private set; }
+        public long BoxId { get; }
 
-        public bool ShouldDelete { get; private set; }
+        public long UserId { get; }
+
+        public bool ShouldDelete { get; }
     }
 }

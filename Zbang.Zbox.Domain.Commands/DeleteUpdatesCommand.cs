@@ -9,6 +9,7 @@ namespace Zbang.Zbox.Domain.Commands
             UserId = userId;
             BoxId = boxId;
         }
+
         public long UserId { get; private set; }
         public long BoxId { get;private set; }
     }

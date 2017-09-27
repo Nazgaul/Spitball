@@ -27,6 +27,7 @@ namespace Zbang.Zbox.Domain.Commands
             
         }
     }
+
     public class AssignTagsToFlashcardCommand : AssignTagsToItemCommand
     {
         public AssignTagsToFlashcardCommand(long itemId, IEnumerable<string> tags, TagType type) : base(itemId, tags, type)
@@ -34,6 +35,7 @@ namespace Zbang.Zbox.Domain.Commands
 
         }
     }
+
     public class AssignTagsToQuizCommand : AssignTagsToItemCommand
     {
         public AssignTagsToQuizCommand(long itemId, IEnumerable<string> tags, TagType type) : base(itemId, tags, type)

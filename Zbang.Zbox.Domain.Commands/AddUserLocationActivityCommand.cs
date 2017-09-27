@@ -10,6 +10,7 @@ namespace Zbang.Zbox.Domain.Commands
             UserId = userId;
             UserAgent = userAgent;
         }
+
         public AddUserLocationActivityCommand(long userId, string userAgent)
         {
             UserId = userId;

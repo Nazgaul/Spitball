@@ -56,11 +56,14 @@
     <Compile Include="Interfaces\IAI.cs" />
     <Compile Include="Interfaces\IDocumentSearch.cs" />
     <Compile Include="Interfaces\IFlashcardSearch.cs" />
+    <Compile Include="Interfaces\IJobSearch.cs" />
     <Compile Include="Interfaces\IKeyGenerator.cs" />
     <Compile Include="Interfaces\IQuestionSearch.cs" />
     <Compile Include="Interfaces\IReadRepository.cs" />
     <Compile Include="Interfaces\IReadRepositorySingle.cs" />
+    <Compile Include="Interfaces\ITitleSearch.cs" />
     <Compile Include="Interfaces\ITutorSearch.cs" />
+    <Compile Include="Interfaces\IVideoSearch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Request\SearchQuery.cs" />

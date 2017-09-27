@@ -37,6 +37,22 @@ namespace Zbang.Cloudents.Jared.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
+        [HttpDelete, Route("api/course/follow")]
+        public async Task<HttpResponseMessage> UnFollowAsync(FollowRequest model)
+        {
+            if (model == null)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            var command = new UnFollowBoxCommand(model.BoxId,User.GetUserId(), false);
+            await m_ZboxWriteService.UnFollowBoxAsync(command).ConfigureAwait(false);
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
         [Route("api/course/create")]
         [HttpPost]
         public async Task<HttpResponseMessage> CreateAcademicBoxAsync(CreateAcademicCourseRequest model)

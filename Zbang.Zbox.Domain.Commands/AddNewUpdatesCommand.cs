@@ -19,6 +19,7 @@ namespace Zbang.Zbox.Domain.Commands
             QuizDiscussionId = quizDiscussionId;
             FlashcardId = flashcardId;
         }
+
         public long BoxId { get;private set; }
 
         public long UserId { get; private set; }

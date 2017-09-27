@@ -12,6 +12,7 @@ namespace Zbang.Zbox.Domain.Commands
             UserId = userId;
             BoxId = boxId;
         }
+
         public Guid AnswerId { get; set; }
 
         public long UserId { get; set; }

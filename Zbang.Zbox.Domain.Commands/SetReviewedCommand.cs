@@ -8,6 +8,7 @@ namespace Zbang.Zbox.Domain.Commands
         {
             ItemId = item;
         }
+
         public long ItemId { get; private set; }
     }
     

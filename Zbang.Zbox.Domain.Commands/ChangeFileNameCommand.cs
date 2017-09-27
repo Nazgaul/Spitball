@@ -10,6 +10,7 @@ namespace Zbang.Zbox.Domain.Commands
             NewFileName = newFileName;
             UserId = userId;
         }
+
         public long FileId { get; set; }
         public long UserId { get; set; }
         public string NewFileName { get; set; }

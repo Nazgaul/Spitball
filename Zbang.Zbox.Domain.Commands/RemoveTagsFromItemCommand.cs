@@ -26,6 +26,7 @@ namespace Zbang.Zbox.Domain.Commands
 
         }
     }
+
     public class RemoveTagsFromFlashcardCommand : RemoveTagsFromItemCommand
     {
         public RemoveTagsFromFlashcardCommand(long itemId, IEnumerable<string> tags) : base(itemId, tags)
@@ -33,6 +34,7 @@ namespace Zbang.Zbox.Domain.Commands
 
         }
     }
+
     public class RemoveTagsFromQuizCommand : RemoveTagsFromItemCommand
     {
         public RemoveTagsFromQuizCommand(long itemId, IEnumerable<string> tags) : base(itemId, tags)

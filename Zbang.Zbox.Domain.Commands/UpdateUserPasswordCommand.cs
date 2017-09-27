@@ -11,6 +11,7 @@ namespace Zbang.Zbox.Domain.Commands
             CurrentPassword = currentPassword;
             NewPassword = newPassword;
         }
+
         public long Id { get; private set; }        
         public string CurrentPassword { get; private set; }
         public string NewPassword { get; private set; }

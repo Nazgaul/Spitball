@@ -10,6 +10,7 @@ namespace Zbang.Zbox.Domain.Commands
             Name = name;
             Country = country;
         }
+
         public string Name { get; private set; }
         public string Country { get; private set; }
 

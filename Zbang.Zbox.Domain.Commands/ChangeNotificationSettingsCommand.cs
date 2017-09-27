@@ -11,6 +11,7 @@ namespace Zbang.Zbox.Domain.Commands
             UserId = userId;
             NewNotificationSettings = newNotificationSettings;
         }
+
         public long BoxId { get; set; }
 
         /// <summary>

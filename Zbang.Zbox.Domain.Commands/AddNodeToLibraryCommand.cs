@@ -14,6 +14,7 @@ namespace Zbang.Zbox.Domain.Commands
             UniversityId = universityId;
             ParentId = parentId;
         }
+
         public string Name { get; private set; }
         public long UniversityId { get; }
         public Guid? ParentId { get; private set; }

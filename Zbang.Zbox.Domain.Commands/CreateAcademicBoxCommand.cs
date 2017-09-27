@@ -14,6 +14,7 @@ namespace Zbang.Zbox.Domain.Commands
             Professor = professor;
             DepartmentId = departmentId;
         }
+
         public string CourseCode { get; private set; }
         public string Professor { get; private set; }
         public Guid DepartmentId { get; private set; }
