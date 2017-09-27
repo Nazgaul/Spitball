@@ -1,16 +1,13 @@
 ﻿<template>
     <div>
-        <div>
-            note
-        </div>
-        <item-result :item="item" v-for="item in items"></item-result>
+        <item-result :item="item" v-for="item in items" :key="item.id"></item-result>
     </div>
 </template>
 <script>
     import itemResult from './itemResult.vue'
     export default {
         computed: {
-            items: function () { return this.$store.getters.pageContent.items } ,
+            items: function () { return this.$store.getters.items } ,
             sources: function () {return this.$store.getters.pageContent.sources}
         }, components: {itemResult}
     }

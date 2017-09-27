@@ -22,3 +22,8 @@ new Vue({
     render: h => h(App),
     store
 })
+router.beforeResolve((to, from, next) => {
+    store.dispatch('fetchingData', to);
+    from.meta.userText = store.getters.userText;
+    next();
+})

@@ -28,7 +28,7 @@
     import flashcardHeader from './images/flashcard.svg'
     import jobHeader from './images/job.svg'
     import bookHeader from './images/book.svg'
-    import notesHeader from './images/document.svg'
+    import noteHeader from './images/document.svg'
     import tutorHeader from './images/tutor.svg'
     import purchaseHeader from './images/purchase.svg'
     import searchTypes from './../helpers/radioList.vue'
@@ -36,7 +36,7 @@
     import { verticalsPlaceholders as placeholders, names } from '../data'
     export default {
         props: ["isOpen", "section"],
-        components: { 'search-type': searchTypes, askHeader, bookHeader, notesHeader, flashcardHeader, jobHeader, purchaseHeader, tutorHeader },
+        components: { 'search-type': searchTypes, askHeader, bookHeader, noteHeader, flashcardHeader, jobHeader, purchaseHeader, tutorHeader },
         data() {
             return {
                 placeholders: placeholders,
