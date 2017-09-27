@@ -27,7 +27,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> Get(string term,
             SearchRequestFilter filter,
             SearchRequestSort sort,
-            Location location, string facet, CancellationToken token)
+            GeoPoint location, string facet, CancellationToken token)
         {
             var result = await m_JobSearchSearch.SearchAsync(term, filter, sort, facet, location ,token).ConfigureAwait(false);
             return Json(result);

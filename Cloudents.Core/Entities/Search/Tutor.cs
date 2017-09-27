@@ -16,7 +16,7 @@ namespace Cloudents.Core.Entities.Search
 
         public string State { get; set; }
 
-        public Location Location { get; set; }
+        public GeoPoint Location { get; set; }
 
         public double Fee { get; set; }
 

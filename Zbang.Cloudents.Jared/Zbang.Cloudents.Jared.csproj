@@ -321,6 +321,8 @@
     <Content Include="Connected Services\Application Insights\ConnectedService.json" />
     <None Include="Properties\PublishProfiles\jared-spitball - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\jared-spitball - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\jared-spitball-mobile-dev - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\jared-us - Web Deploy.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj">

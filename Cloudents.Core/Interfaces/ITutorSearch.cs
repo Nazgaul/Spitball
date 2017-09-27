@@ -9,6 +9,6 @@ namespace Cloudents.Core.Interfaces
 {
     public interface ITutorSearch
     {
-        Task<IEnumerable<TutorDto>> SearchAsync(string term, SearchRequestFilter filter, SearchRequestSort sort, Location location, CancellationToken token);
+        Task<IEnumerable<TutorDto>> SearchAsync(string term, SearchRequestFilter filter, SearchRequestSort sort, GeoPoint location, CancellationToken token);
     }
 }

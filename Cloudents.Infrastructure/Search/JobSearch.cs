@@ -29,7 +29,7 @@ namespace Cloudents.Infrastructure.Search
             SearchRequestFilter filter,
             SearchRequestSort sort,
             string jobType,
-            Location location,
+            GeoPoint location,
             CancellationToken token)
         {
             string filterQuery = null;

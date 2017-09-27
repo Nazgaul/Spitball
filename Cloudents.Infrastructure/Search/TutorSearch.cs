@@ -30,7 +30,7 @@ namespace Cloudents.Infrastructure.Search
             m_Client = client.Indexes.GetClient("tutors");
         }
 
-        public async Task<IEnumerable<TutorDto>> SearchAsync(string term, SearchRequestFilter filter, SearchRequestSort sort, Location location, CancellationToken token)
+        public async Task<IEnumerable<TutorDto>> SearchAsync(string term, SearchRequestFilter filter, SearchRequestSort sort, GeoPoint location, CancellationToken token)
         {
             var taskAzure = SearchAzureAsync(term, filter, sort, location, token);
             Task<IList<TutorDto>> taskTutorMe;
@@ -81,7 +81,7 @@ namespace Cloudents.Infrastructure.Search
 
         private async Task<IList<TutorDto>> SearchAzureAsync(string term,
             SearchRequestFilter filter, SearchRequestSort sort,
-            Location location, CancellationToken token)
+            GeoPoint location, CancellationToken token)
         {
             string filterQuery = null;
             var sortQuery = new List<string>();

@@ -14,7 +14,7 @@ namespace Cloudents.Core.Interfaces
             SearchRequestFilter filter,
             SearchRequestSort sort,
             string jobType,
-            Location location,
+            GeoPoint location,
             CancellationToken token);
     }
 }

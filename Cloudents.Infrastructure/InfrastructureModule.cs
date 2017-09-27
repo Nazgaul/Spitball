@@ -48,7 +48,7 @@ namespace Cloudents.Infrastructure
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Search.Entities.Tutor, TutorDto>()
-                    .ForMember(d => d.Location, o => o.ResolveUsing(p => new Location
+                    .ForMember(d => d.Location, o => o.ResolveUsing(p => new GeoPoint
                     {
                         Latitude = p.Location.Latitude,
                         Longitude = p.Location.Longitude
