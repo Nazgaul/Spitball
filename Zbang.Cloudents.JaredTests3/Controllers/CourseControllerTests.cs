@@ -40,7 +40,6 @@ namespace Zbang.Cloudents.JaredTests3.Controllers
 
             var model = new CreateAcademicCourseRequest()
             {
-                Professor = "hello",
                 CourseName = new string('*', 5000)
             };
             _controller.Validate(model);
@@ -52,10 +51,7 @@ namespace Zbang.Cloudents.JaredTests3.Controllers
         {
             _controller.ModelState.Clear();
 
-            var model = new CreateAcademicCourseRequest()
-            {
-                Professor = "hello",
-            };
+            var model = new CreateAcademicCourseRequest();
             _controller.Validate(model);
             var result = await _controller.CreateAcademicBoxAsync(model);
             Assert.IsTrue(result.ReasonPhrase == "Bad Request");

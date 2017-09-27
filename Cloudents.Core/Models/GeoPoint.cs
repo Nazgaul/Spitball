@@ -9,7 +9,6 @@ namespace Cloudents.Core.Models
 
         public double Latitude { get; set; }
 
-
         public static bool TryParse(string s, out GeoPoint result)
         {
             result = null;

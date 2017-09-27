@@ -82,9 +82,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         [HttpGet, Route("api/course/{boxId:long}/feed/{feedId:guid}/replies")]
         public async Task<HttpResponseMessage> GetRepliesAsync(long boxId, Guid feedId, string belowReplyId, int page, int sizePerPage = 20)
         {
-            Guid replyId;
-
-            if (!Guid.TryParse(belowReplyId, out replyId))
+            if (!Guid.TryParse(belowReplyId, out var replyId))
             {
                 replyId = Guid.Parse("FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF");
             }
@@ -96,7 +94,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             {
                 s.Id,
                 s.UserImage,
-                s.UserName, 
+                s.UserName,
                 s.Content,
                 s.CreationTime,
                 s.LikesCount,

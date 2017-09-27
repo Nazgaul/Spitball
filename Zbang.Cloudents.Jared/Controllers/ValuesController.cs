@@ -23,7 +23,7 @@ namespace Zbang.Cloudents.Jared.Controllers
 
         // GET api/values
         [CacheOutput(ClientTimeSpan = TimeConst.Day, ServerTimeSpan = TimeConst.Day)]
-        public HttpResponseMessage Get(CancellationToken token)
+        public HttpResponseMessage Get()
         {
             //JaredDto result=null;
             //bool isAuthorized = User.Identity.IsAuthenticated;

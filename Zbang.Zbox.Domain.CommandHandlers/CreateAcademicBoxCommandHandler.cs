@@ -31,10 +31,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_DepartmentRepository = departmentRepository;
             m_UniversityRepository = universityRepository;
         }
+
         public override async Task<CreateBoxCommandResult> ExecuteAsync(CreateBoxCommand command)
         {
-            var academicCommand = command as CreateAcademicBoxCommand;
-            if (academicCommand == null)
+            if (!(command is CreateAcademicBoxCommand academicCommand))
             {
                 throw new InvalidCastException("can't cast CreateBox to CreateAcademicBox");
             }
@@ -47,7 +47,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 , academicCommand.BoxName);
             if (box != null)
             {
-                throw new BoxNameAlreadyExistsException();
+                throw new BoxNameAlreadyExistsException(box.Id);
             }
             var user = UserRepository.Load(command.UserId);
             if (department.University != user.University && department.University != user.University.UniversityData)
@@ -78,18 +78,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             var countOfBoxes = m_UniversityRepository.GetNumberOfBoxes(user.University.UniversityData) + 1;
             m_DepartmentRepository.Save(department.UpdateNumberOfBoxes());
-            // department.UpdateNumberOfBoxes(m_DepartmentRepository.GetBoxesInDepartment(department));
             user.University.UpdateNumberOfBoxes(countOfBoxes);
             user.University.UniversityData.UpdateNumberOfBoxes(countOfBoxes);
 
             m_UniversityRepository.Save(user.University);
             m_UniversityRepository.Save(user.University.UniversityData);
-            await QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
+            await QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id)).ConfigureAwait(true);
 
-            var result = new CreateBoxCommandResult(box.Id, box.Url);
-
-            return result;
+            return new CreateBoxCommandResult(box.Id, box.Url);
         }
-
     }
 }

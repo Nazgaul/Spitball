@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Google;
 using Google.Apis.Customsearch.v1;
 using Google.Apis.Services;
 
@@ -37,31 +36,45 @@ namespace Cloudents.Infrastructure.Search
                 Fields = "items(title,link,snippet,pagemap/cse_image,displayLink)",
                 Sort = sort == SearchRequestSort.Date ? "date" : string.Empty
             };
-
-            var result = await request.ExecuteAsync(token).ConfigureAwait(false);
-
-            return result.Items?.Select(s =>
+            try
             {
-                string image = null;
-                if (s.Pagemap != null && s.Pagemap.TryGetValue("cse_image", out var value))
+                var result = await request.ExecuteAsync(token).ConfigureAwait(false);
+
+                return result.Items?.Select(s =>
                 {
-                    if (value[0].TryGetValue("src", out var t))
+                    string image = null;
+                    if (s.Pagemap != null && s.Pagemap.TryGetValue("cse_image", out var value))
                     {
-                        image = t.ToString();
+                        if (value[0].TryGetValue("src", out var t))
+                        {
+                            image = t.ToString();
+                        }
                     }
-                }
-                return new SearchResult
+                    return new SearchResult
 
+                    {
+                        Id = KeyGenerator.GenerateKey(s.Link),
+                        Url = s.Link,
+                        Title = s.Title,
+                        Snippet = s.Snippet,
+                        Image = image,
+                        Source = s.DisplayLink
+
+                    };
+                });
+            }
+            catch (GoogleApiException ex)
+            {
+                ex.Data.Add("params", new
                 {
-                    Id = KeyGenerator.GenerateKey(s.Link),
-                    Url = s.Link,
-                    Title = s.Title,
-                    Snippet = s.Snippet,
-                    Image = image,
-                    Source = s.DisplayLink
-
-                };
-            });
+                    query,
+                    source,
+                    page,
+                    sort,
+                    key
+                });
+                throw;
+            }
         }
     }
 }

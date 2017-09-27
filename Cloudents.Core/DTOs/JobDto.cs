@@ -16,6 +16,5 @@ namespace Cloudents.Core.DTOs
         public string CompensationType { get; set; }
         public string Url { get; set; }
         public string Company { get; set; }
-
     }
 }

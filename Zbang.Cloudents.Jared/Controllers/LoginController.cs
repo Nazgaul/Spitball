@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Web.Http;
@@ -23,19 +24,25 @@ namespace Zbang.Cloudents.Jared.Controllers
         public LoginController(IZboxWriteService zboxWriteService)
         {
             m_ZboxWriteService = zboxWriteService;
-            m_SigningKey = Environment.GetEnvironmentVariable("WEBSITE_AUTH_SIGNING_KEY");
-            var website = Environment.GetEnvironmentVariable("WEBSITE_HOSTNAME");
+            m_SigningKey = Environment.GetEnvironmentVariable("WEBSITE_AUTH_SIGNING_KEY") ?? ConfigurationManager.AppSettings["MS_SigningKey"];
+            var website = Environment.GetEnvironmentVariable("WEBSITE_HOSTNAME") ?? ConfigurationManager.AppSettings["WEBSITE_HOSTNAME"];
             m_Audience = $"https://{website}/";
             m_Issuer = $"https://{website}/";
         }
-
+        //a288bff1-50c7-4290-b6f6-7f8245a335f3
+        /*{
+    "authenticationToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMTk5ODkwIiwidXNlcklkIjoiMTE5OTg5MCIsInZlciI6IjMiLCJpc3MiOiJodHRwczovL3d3dy5zcGl0YmFsbC5jby8iLCJhdWQiOiJodHRwczovL3d3dy5zcGl0YmFsbC5jby8iLCJleHAiOjE1MTE2ODkwNTgsIm5iZiI6MTUwNjUwNTA1OH0.VIc7Hn7EyViTMLZUWd7u7_nXLoaedQFgyflR5-HZMok",
+    "user": {
+        "userId": "1199890"
+    }
+}*/
         public IHttpActionResult Post([FromBody] JObject assertion)
         {
             var uniqueId = assertion["hash"].ToObject<Guid>();
 
             var command = new CreateJaredUserCommand(uniqueId);
             var userIdResult = m_ZboxWriteService.CreateUserJared(command);
-            
+
             var token = AppServiceLoginHandler.CreateToken(
                 new[]
                 {

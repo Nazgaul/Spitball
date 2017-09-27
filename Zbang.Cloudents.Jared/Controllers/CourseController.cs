@@ -70,13 +70,13 @@ namespace Zbang.Cloudents.Jared.Controllers
                 var userId = User.GetUserId();
 
                 var command = new CreateAcademicBoxCommand(userId, model.CourseName,
-                                                           model.CourseId, model.Professor, res.DepartmentId);
+                                                           model.CourseId, null, res.DepartmentId);
                 var result = await m_ZboxWriteService.CreateBoxAsync(command).ConfigureAwait(false);
                 return Request.CreateResponse(result.Id);
             }
-            catch (BoxNameAlreadyExistsException)
+            catch (BoxNameAlreadyExistsException ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.Conflict, "box already exists");
+                return Request.CreateResponse(ex.BoxId);
             }
         }
     }

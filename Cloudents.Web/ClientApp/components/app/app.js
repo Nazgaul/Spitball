@@ -9,7 +9,7 @@ export default {
                 this.$router.push({ name: state.state.node.model.name });
             }
         });
-        temp.getTutor(null,
+        temp.getShortAnswer(null,
             (response) => {
                 console.log(response);
             }

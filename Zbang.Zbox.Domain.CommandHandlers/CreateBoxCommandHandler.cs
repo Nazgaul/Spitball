@@ -41,12 +41,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var box = m_BoxRepository.GetBoxWithSameName(command.BoxName.Trim().ToLower(), user);
             if (box != null)
             {
-                throw new BoxNameAlreadyExistsException();
+                throw new BoxNameAlreadyExistsException(box.Id);
             }
             box = CreateNewBox(command, user);
-            await QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
-            var result = new CreateBoxCommandResult(box.Id, box.Url);
-            return result;
+            await QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id)).ConfigureAwait(true);
+            return new CreateBoxCommandResult(box.Id, box.Url);
         }
 
         private Box CreateNewBox(CreateBoxCommand command, User user)
