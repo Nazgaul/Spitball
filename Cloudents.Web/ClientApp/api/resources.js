@@ -8,6 +8,7 @@ const searchFunctions = {
     wolfram: { method: 'GET', url: basePath + 'title/{?query*}' },
     flashcard: { method: 'GET', url: basePath + 'search/flashcards/{?query*}' },
     tutor: { method: 'GET', url: basePath + 'tutor/{?query*}' },
-    video: { method: 'GET', url: basePath + 'video/{?query*}' }
+    video: { method: 'GET', url: basePath + 'video/{?query*}' },
+    job: { method: 'GET', url: basePath + 'job/{?query*}' }
 }
 export const search = Vue.resource(basePath, {}, searchFunctions)

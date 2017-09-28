@@ -8,7 +8,7 @@ export let verticals =
         },
         note: {
             name: "note", image: "document", placeholder: "Find me class materials...", prefix: "",
-            resultTitle: "I found some documents that might help.<br>See what you think!", emptyState: "ask", filter: "Ask anything...", sort: ""
+            resultTitle: "I found some documents that might help.<br>See what you think!", emptyState: "ask", filter: [{ id: 'all',name:'all' }, { id: 'sources',name:'sources' }], sort: ""
         },
         flashcard: {
             name: "flashcard", image: "flashcard", placeholder: "Find me flashcards...", prefix: "",

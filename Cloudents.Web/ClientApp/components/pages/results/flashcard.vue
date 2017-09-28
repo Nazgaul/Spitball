@@ -1,7 +1,5 @@
 ﻿<template> 
-    <div>
-        <item-result :item="item" v-for="item in items" :key="item.id"></item-result>
-        </div>
+        <item-result :items="items" ></item-result>
 </template>
 <script>
     import itemResult from './itemResult.vue'

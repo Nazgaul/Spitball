@@ -1,19 +1,21 @@
 ﻿<template>
-    <a target="_blank" :href="item.url" class="result" :class="'bg-'+$route.name">
-        <div class="item-content">
-            <div>title: {{item.title}}</div>
-            <div>
-                snippet: {{item.snippet}}
+    <scroll-list>
+        <a target="_blank" :href="item.url" class="result" :class="'bg-'+$route.name" :key="item.id" v-for="item in items">
+            <div class="item-content">
+                <div>title: {{item.title}}</div>
+                <div>
+                    snippet: {{item.snippet}}
+                </div>
             </div>
-        </div>
-        <div class="source">
-            source: {{item.source}}
-        </div>            <div class="image"><img :src="item.image" /></div>
-    </a>
+            <div class="source">
+                source: {{item.source}}
+            </div>            <div class="image"><img :src="item.image" /></div>
+        </a>
+    </scroll-list>
 </template>
 <script>
     export default {
-        props:['item']
+        props: ['items']
     }
 </script>
 <style scoped>
