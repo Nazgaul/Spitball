@@ -4,17 +4,21 @@ import search from './../api/search'
 const state = {
     pageContent: null,
     loading: false,
-    userText: '',
     isEmpty: false,
-    scrollingLoader:false
+    scrollingLoader: false,
+    search: {
+        userText: '',
+        page:1
+    }
 };
 
 const mutations = {
     [types.UPDATE_FILTER](state, text) {
-        state.userText = text;
+        state.search.userText = text;
     },
     [types.UPDATE_PAGE_CONTENT](state, payload) {
         state.pageContent = null;
+        state.search.page = 1;
         if (!payload.hasOwnProperty('isEmpty')) {
             state.isEmpty = false;
             state.pageContent = payload;
@@ -35,14 +39,19 @@ const mutations = {
     [types.UPDATE_ITEM_LIST](state, payload) {
         console.log("update item list")
         state.pageContent.items = [...state.pageContent.items, ...payload];
+        state.search.page++;
     },
     [types.UPDATE_SCROLLING_LOADING](state, payload) {
         console.log("update scroll loader")
         state.scrollingLoader = payload
+    },
+    [types.UPDATE_SEARCH_PARAMS](state, payload) {
+        console.log(payload);
+        state.search = { ...state.search, ...payload }
     }
 };
 const getters = {
-    userText: state => state.userText,
+    userText: state => state.search.userText,
     pageContent : state => state.pageContent,
     items: state => state.pageContent?state.pageContent.items:null,
     loading : state => state.loading,
@@ -53,7 +62,8 @@ const getters = {
 const actions = {
     updateSearchText: ({ commit }, text) => commit(types.UPDATE_FILTER, text),
     fetchingData: ({ commit }, page) => {
-            commit(types.UPDATE_LOADING, true);
+        commit(types.UPDATE_LOADING, true);
+        commit(types.UPDATE_SEARCH_PARAMS, page.query);        
             activateFunction[page.name]({}).then(response => {
                 commit(types.UPDATE_PAGE_CONTENT, response);
             })       
@@ -61,20 +71,23 @@ const actions = {
     scrollingItems({ commit }, model) {
         console.log("scrollllon");
         commit(types.UPDATE_SCROLLING_LOADING, true);
-        activateFunction[model.name]({ page: model.page }).then(response =>{
+        activateFunction[model.name]({ page:state.search.page }).then(response =>{
             var items = response;
             if (response.hasOwnProperty('data'))
             {
                 items = response.data.items;
             }
             
-            commit(types.UPDATE_ITEM_LIST, items);           
-                if (!items.length) model.scrollState.complete();
-                else {
-                    model.scrollState.loaded();
-                }
-            commit(types.UPDATE_SCROLLING_LOADING, false);
-            return model.page + 1;
+                   
+            if (!items.length) {
+                model.scrollState.complete();
+                return false;
+            }
+            else {
+                commit(types.UPDATE_ITEM_LIST, items); 
+                model.scrollState.loaded();
+                commit(types.UPDATE_SCROLLING_LOADING, false);
+             }
         })
 
         //loadMore[name]().then()
@@ -94,7 +107,7 @@ const activateFunction = {
             })
         } )
     },
-    note: function (more) {
+    note:  (more) => {
         return new Promise((resolve, reject) => {
             search.getDocument(more).then(({ body }) => resolve({ isEmpty: Boolean(body.item1.length),data:{ items: body.item1, sources: body.item2 }}))
         })
