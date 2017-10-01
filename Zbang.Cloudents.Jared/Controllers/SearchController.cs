@@ -43,7 +43,11 @@ namespace Zbang.Cloudents.Jared.Controllers
                 model.Sort);
 
             var result = await m_SearchProvider.Value.SearchAsync(query, token).ConfigureAwait(false);
-            return Request.CreateResponse(result);
+            return Request.CreateResponse(new
+            {
+               documents =  result.result,
+               result.facet
+            });
         }
 
         [Route("api/search/flashcards"), HttpGet]
@@ -60,7 +64,11 @@ namespace Zbang.Cloudents.Jared.Controllers
                 model.Sort);
 
             var result = await m_FlashcardProvider.Value.SearchAsync(query, token).ConfigureAwait(false);
-            return Request.CreateResponse(result);
+            return Request.CreateResponse(new
+            {
+                documents = result.result,
+                result.facet
+            });
         }
 
         [Route("api/search/qna"), HttpGet]

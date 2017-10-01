@@ -39,8 +39,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             builder.RegisterType<UpdateTutors>().Named<ISchedulerProcess>("downloadTutor");
             builder.RegisterType<UpdateCareerBuilderAffiliate>().Named<ISchedulerProcess>("careerBuilder");
 
-            var arrayOfUtcOffset = new[] { 0, 3, -5, -4, -6 };
-            foreach (var i in arrayOfUtcOffset)
+            foreach (var i in new[] { 0, 3, -5, -4, -6 })
             {
                 builder.RegisterType<DigestEmail>()
                     .Named<ISchedulerProcess>($"digestOnceADay_{i}")
