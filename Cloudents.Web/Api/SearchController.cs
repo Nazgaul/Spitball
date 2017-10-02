@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using Cloudents.Web.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Api
@@ -34,7 +29,7 @@ namespace Cloudents.Web.Api
                 var repositoryResult = await m_UniversitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
                 universitySynonym = repositoryResult.Name;
             }
-            var query = new SearchQuery(model.Query, universitySynonym, model.Course, model.Source, model.Page,
+            var query = new SearchQuery(model.Term, universitySynonym, model.Course, model.Source, model.Page,
                 model.Sort);
 
             var result = await searchProvider.SearchAsync(query, token).ConfigureAwait(false);
@@ -50,7 +45,7 @@ namespace Cloudents.Web.Api
                 var repositoryResult = await m_UniversitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
                 universitySynonym = repositoryResult.Name;
             }
-            var query = new SearchQuery(model.Query, universitySynonym, model.Course, model.Source, model.Page,
+            var query = new SearchQuery(model.Term, universitySynonym, model.Course, model.Source, model.Page,
                 model.Sort);
 
             var result = await searchProvider.SearchAsync(query, token).ConfigureAwait(false);
@@ -67,7 +62,7 @@ namespace Cloudents.Web.Api
                 var repositoryResult = await m_UniversitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
                 universitySynonym = repositoryResult.Name;
             }
-            var query = new SearchQuery(model.Query, universitySynonym, model.Course, model.Source, model.Page,
+            var query = new SearchQuery(model.Term, universitySynonym, model.Course, model.Source, model.Page,
                 model.Sort);
 
             var result = await searchProvider.SearchAsync(query, token).ConfigureAwait(false);

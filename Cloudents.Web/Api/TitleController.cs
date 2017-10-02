@@ -22,6 +22,7 @@ namespace Cloudents.Web.Api
 
         public async Task<IActionResult> Get(string term, CancellationToken token)
         {
+            if (term == null) throw new ArgumentNullException(nameof(term));
             var result = await m_TitleSearch.SearchAsync(term, token).ConfigureAwait(false);
             return Json(result);
         }

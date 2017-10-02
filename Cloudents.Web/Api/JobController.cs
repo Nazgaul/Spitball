@@ -23,12 +23,12 @@ namespace Cloudents.Web.Api
             m_JobSearchSearch = jobSearch;
         }
 
-        //TODO: location is not null
         public async Task<IActionResult> Get(string term,
             SearchRequestFilter filter,
             SearchRequestSort sort,
             GeoPoint location, string facet, CancellationToken token)
         {
+            if (term == null) throw new ArgumentNullException(nameof(term));
             var result = await m_JobSearchSearch.SearchAsync(term, filter, sort, facet, location ,token).ConfigureAwait(false);
             return Json(result);
         }

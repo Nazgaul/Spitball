@@ -26,27 +26,11 @@ namespace Cloudents.Web.Api
             if (sentence == null) throw new ArgumentNullException(nameof(sentence));
             var aiResult = await m_AI.InterpretStringAsync(sentence).ConfigureAwait(false);
             var result = m_Decision.MakeDecision(aiResult);
-            //var navigation = BuildFlow(result.result);
             return Json(new
             {
                 result.result,
                 result.data
             });
         }
-
-        //private Tree<string> BuildFlow(AIResult aiResult)
-        //{
-        //    var t = new Tree<string>("document");
-        //    var f = new Tree<string>("flashcard");
-        //    var p = new Tree<string>("post");
-        //    var tu = new Tree<string>("tutor");
-
-        //    p.Add(tu);
-        //    f.Add(p);
-        //    t.Add(f);
-
-        //    return t;
-
-        //}
     }
 }
