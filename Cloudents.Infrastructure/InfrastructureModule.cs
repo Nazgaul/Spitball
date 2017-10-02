@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Autofac;
 using AutoMapper;
 using Cloudents.Core.DTOs;
@@ -9,6 +10,8 @@ using Cloudents.Infrastructure.AI;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Search;
 using Microsoft.Azure.Search;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Infrastructure
 {
@@ -42,9 +45,15 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<TitleSearch>().As<ITitleSearch>();
             builder.RegisterType<VideoSearch>().As<IVideoSearch>();
             builder.RegisterType<JobSearch>().As<IJobSearch>();
+            builder.RegisterType<BookSearch>().As<IBookSearch>();
 
             builder.RegisterType<UniversitySynonymRepository>().As<IReadRepositorySingle<UniversitySynonymDto, long>>();
 
+            MapperConfiguration(builder);
+        }
+
+        private static void MapperConfiguration(ContainerBuilder builder)
+        {
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Search.Entities.Tutor, TutorDto>()
@@ -52,7 +61,6 @@ namespace Cloudents.Infrastructure
                     {
                         Latitude = p.Location.Latitude,
                         Longitude = p.Location.Longitude
-
                     }))
                     .ForMember(d => d.TermFound, o => o.ResolveUsing((t, ts, i, c) =>
                     {
@@ -62,6 +70,7 @@ namespace Cloudents.Infrastructure
                     }));
 
                 cfg.CreateMap<Search.Entities.Job, JobDto>();
+                cfg.CreateMap<JObject, IEnumerable<BookSearchDto>>().ConvertUsing((jo, bookSearch) => jo["response"]["page"]["results"]["book"].ToObject<IEnumerable<BookSearchDto>>());
             });
             builder.Register(c => config.CreateMapper()).SingleInstance();
         }

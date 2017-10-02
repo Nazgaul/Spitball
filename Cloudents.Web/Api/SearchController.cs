@@ -35,6 +35,7 @@ namespace Cloudents.Web.Api
             var result = await searchProvider.SearchAsync(query, token).ConfigureAwait(false);
             return Json(result);
         }
+
         [Route("flashcards")]
         public async Task<IActionResult> SearchFlashcardsAsync([FromQuery] SearchRequest model,
             CancellationToken token, [FromServices] IFlashcardSearch searchProvider)
@@ -69,6 +70,4 @@ namespace Cloudents.Web.Api
             return Json(result);
         }
     }
-
-
 }

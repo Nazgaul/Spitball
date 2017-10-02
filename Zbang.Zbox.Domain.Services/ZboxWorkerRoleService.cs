@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
@@ -297,7 +296,7 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
                         foreach (var sql in sqlStatements)
                         {
                             i += await conn.ExecuteAsync(new CommandDefinition(sql, cancellationToken: token)).ConfigureAwait(false);
-                            await Task.Delay(TimeSpan.FromMilliseconds(500), token).ConfigureAwait(false);
+                            await Task.Delay(TimeSpan.FromMilliseconds(1000), token).ConfigureAwait(false);
                         }
                         needToLoop = i > 0;
                         counter += i;
@@ -465,7 +464,7 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
         {
             using (var conn = await DapperConnection.OpenConnectionAsync(token, "SpamGun").ConfigureAwait(false))
             {
-                const string sql = @"UPDATE students 
+                const string sql = @"UPDATE students2 
 SET [Sent] = cast ( Coalesce([Sent],'') as nvarchar(max))  + cast (getUtcDate() as nvarchar(max) ) + ' ',
 shouldSend = 0
 where id = @id";

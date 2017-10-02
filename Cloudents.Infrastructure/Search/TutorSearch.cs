@@ -24,7 +24,7 @@ namespace Cloudents.Infrastructure.Search
         private readonly ISearchIndexClient m_Client;
         private readonly IMapper m_Mapper;
 
-        public TutorSearch(ISearchServiceClient client, IMapper mapper)
+        public TutorSearch(SearchServiceClient client, IMapper mapper)
         {
             m_Mapper = mapper;
             m_Client = client.Indexes.GetClient("tutors");
@@ -119,14 +119,6 @@ namespace Cloudents.Infrastructure.Search
             };
             var retVal = await
                 m_Client.Documents.SearchAsync<Tutor>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
-
-            //foreach (var result in retVal.Results.Select(s => s.Document))
-            //{
-            //    m_Mapper.Map<Tutor, TutorDto>(result, opt =>
-            //    {
-            //        opt.
-            //    })
-            //}
             return m_Mapper.Map<IEnumerable<Tutor>, IList<TutorDto>>(retVal.Results.Select(s => s.Document), opt => opt.Items["term"] = term);
         }
     }

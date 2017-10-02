@@ -3,6 +3,14 @@
   <PublicConfig xmlns="http://schemas.microsoft.com/ServiceHosting/2010/10/DiagnosticsConfiguration">
     <WadCfg>
       <DiagnosticMonitorConfiguration overallQuotaInMB="4096" sinks="applicationInsights.all">
+        <Directories>
+          <DataSources>
+            <DirectoryConfiguration containerName="netfx-install">
+              <LocalResource name="NETFXInstall" relativePath="log"/>
+              <!--<Absolute path="NETFXInstall" relativePath="log" expandEnvironment="false" />-->
+            </DirectoryConfiguration>
+          </DataSources>
+        </Directories>
         <Logs scheduledTransferPeriod="PT1M" sinks="applicationInsights.all" scheduledTransferLogLevelFilter="Verbose" />
       </DiagnosticMonitorConfiguration>
       <SinksConfig>

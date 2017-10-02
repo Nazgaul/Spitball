@@ -87,12 +87,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             else
                             {
                                 list.Add(TaskExtensions.CompletedTaskFalse);
-                                m_Logger.Warning($"cant resolve {property.Name}");
+                                m_Logger.Warning($"can't resolve {property.Name}");
                             }
                         }
                         await Task.WhenAll(list).ConfigureAwait(false);
-                        var result = list.All(a => a.Result);
-                        return result;
+                        return list.All(a => a.Result);
                     }, TimeSpan.FromMinutes(15), 3, cancellationToken).ConfigureAwait(false);
                 }
                 catch (TaskCanceledException)

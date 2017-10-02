@@ -84,10 +84,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
         {
             const int top = 10;
-            var result = await m_ZboxReadService.GetItemsDirtyUpdatesAsync(new SearchItemDirtyQuery(instanceId, instanceCount, top), cancellationToken).ConfigureAwait(false);
-            var updates = result.result;
+            var updates = await m_ZboxReadService.GetItemsDirtyUpdatesAsync(new SearchItemDirtyQuery(instanceId, instanceCount, top), cancellationToken).ConfigureAwait(false);
             if (!updates.ItemsToUpdate.Any() && !updates.ItemsToDelete.Any()) return TimeToSleep.Increase;
-            m_Logger.TrackMetric(Name, result.count);
             var tasks = new List<Task>();
             foreach (var elem in updates.ItemsToUpdate)
             {
@@ -364,14 +362,13 @@ token);
 
         public async Task<bool> ExecuteAsync(FileProcess data, CancellationToken token)
         {
-            var parameters = data as BoxFileProcessData;
-            if (parameters == null) return true;
+            if (!(data is BoxFileProcessData parameters)) return true;
             try
             {
                 var elements =
                     await m_ZboxReadService.GetItemsDirtyUpdatesAsync(
                         new SearchItemDirtyQuery(parameters.ItemId), token).ConfigureAwait(false);
-                var elem = elements.result.ItemsToUpdate.FirstOrDefault();
+                var elem = elements.ItemsToUpdate.FirstOrDefault();
                 if (elem == null)
                 {
                     return true;

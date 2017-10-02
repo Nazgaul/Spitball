@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,6 +23,8 @@ namespace Cloudents.Infrastructure.Search
             CustomApiKey key,
             CancellationToken token)
         {
+            if (string.IsNullOrEmpty(query)) throw new ArgumentNullException(nameof(query));
+
             var initializer = new BaseClientService.Initializer
             {
                 ApiKey = "AIzaSyCZEbkX9Of6pZQ47OD0VA9a8fd1A6IvW6E",
