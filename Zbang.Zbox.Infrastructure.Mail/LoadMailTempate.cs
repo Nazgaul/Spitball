@@ -30,6 +30,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             //return content;
 
         }
+
         public static StringBuilder LoadMailFromContentWithDot(CultureInfo culture, string resourceName)
         {
             while (!culture.Equals(CultureInfo.InvariantCulture))

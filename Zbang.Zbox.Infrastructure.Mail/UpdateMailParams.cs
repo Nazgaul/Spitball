@@ -17,15 +17,16 @@ namespace Zbang.Zbox.Infrastructure.Mail
             NoOfItems = numberOfItems;
             NoOfUpdates = noOfUpdates;
         }
-        public override string MailResover => UpdateResolver;
 
-        public IEnumerable<BoxUpdate> Updates { get; private set; }
-        public string UserName { get; private set; }
-        public int NoOfQuestions { get; private set; }
-        public int NoOfAnswers { get; private set; }
-        public int NoOfItems { get; private set; }
+        public override string MailResolver => UpdateResolver;
 
-        public int NoOfUpdates { get; private set; }
+        public IEnumerable<BoxUpdate> Updates { get; }
+        public string UserName { get; }
+        public int NoOfQuestions { get; }
+        public int NoOfAnswers { get; }
+        public int NoOfItems { get; }
+
+        public int NoOfUpdates { get; }
 
         public class BoxUpdate
         {
@@ -36,11 +37,13 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 Url = boxUrl;
                 ExtraUpdatesCount = numberOfExtraUpdates;
             }
-            public string BoxName { get; private set; }
-            public string Url { get; private set; }
-            public int ExtraUpdatesCount { get; private set; }
-            public IEnumerable<BoxUpdateDetails> Updates { get; private set; }
+
+            public string BoxName { get; }
+            public string Url { get; }
+            public int ExtraUpdatesCount { get; }
+            public IEnumerable<BoxUpdateDetails> Updates { get; }
         }
+
         public abstract class BoxUpdateDetails
         {
             protected BoxUpdateDetails(string url, string picture, long userId)
@@ -49,14 +52,14 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 Picture = picture;
                 UserId = userId;
             }
-            
-            public long UserId { get; private set; }
+
+            public long UserId { get; }
             public string Url { get; set; }
             public string Picture { get; set; }
 
             public abstract string BuildMailLine(CultureInfo culture);
-
         }
+
         public class ItemUpdate : BoxUpdateDetails
         {
             public ItemUpdate(string name, string picture, string ownerName, string url, long userId)
@@ -65,6 +68,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 Name = name;
                 OwnerName = ownerName;
             }
+
             public string Name { get; set; }
             public string OwnerName { get; set; }
 
@@ -78,6 +82,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 return sb.ToString();
             }
         }
+
         public class QuestionUpdate : BoxUpdateDetails
         {
             public QuestionUpdate(string user, string text, string picture, string url, long userId)
@@ -86,6 +91,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 User = user;
                 Text = text;
             }
+
             public string User { get; set; }
             public string Text { get; set; }
 
@@ -101,6 +107,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 return sb.ToString();
             }
         }
+
         public class AnswerUpdate : BoxUpdateDetails
         {
             public AnswerUpdate(string user, string text, string picture, string url, long userId)
@@ -109,6 +116,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 User = user;
                 Text = text;
             }
+
             public string User { get; set; }
             public string Text { get; set; }
 
@@ -132,6 +140,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 User = user;
                 Text = text;
             }
+
             public string User { get; set; }
             public string Text { get; set; }
 
@@ -146,6 +155,5 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 return sb.ToString();
             }
         }
-
     }
 }

@@ -13,15 +13,13 @@ namespace Zbang.Zbox.Infrastructure.Mail
             Email = email;
             Url = url;
         }
-        public override string MailResover
-        {
-            get { return FlagBadItemResolver; }
-        }
-        public string ItemName { get; private set; }
-        public string Reason { get; private set; }
-        public string UserName { get; private set; }
-        public string Email { get; private set; }
 
-        public string Url { get; private set; }
+        public override string MailResolver => FlagBadItemResolver;
+        public string ItemName { get; }
+        public string Reason { get; }
+        public string UserName { get; }
+        public string Email { get; }
+
+        public string Url { get; }
     }
 }

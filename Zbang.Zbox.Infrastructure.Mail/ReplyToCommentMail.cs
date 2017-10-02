@@ -12,6 +12,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         {
             m_Parameters = parameters as ReplyToCommentMailParams;
         }
+
         public override string GenerateMail()
         {
             if (m_Parameters == null) throw new ArgumentNullException(nameof(m_Parameters));

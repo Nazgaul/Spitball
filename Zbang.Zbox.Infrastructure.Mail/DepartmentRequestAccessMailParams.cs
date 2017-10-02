@@ -12,13 +12,10 @@ namespace Zbang.Zbox.Infrastructure.Mail
             UserName = userName;
         }
 
-        public string UserName { get; private set; }
-        public string UserImage { get; private set; }
-        public string DepName { get; private set; }
+        public string UserName { get; }
+        public string UserImage { get; }
+        public string DepName { get; }
 
-        public override string MailResover
-        {
-            get { return DepartmentRequestAccessResolver; }
-        }
+        public override string MailResolver => DepartmentRequestAccessResolver;
     }
 }

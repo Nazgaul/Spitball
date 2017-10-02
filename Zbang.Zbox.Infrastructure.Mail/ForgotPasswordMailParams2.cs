@@ -11,13 +11,10 @@ namespace Zbang.Zbox.Infrastructure.Mail
             Link = link;
             Name = name;
         }
-        public string Code { get; private set; }
-        public string Link { get; private set; }
-        public string Name { get; private set; }
-        public override string MailResover
-        {
-            get { return ForgotPswResolver; }
-        }
+
+        public string Code { get; }
+        public string Link { get; }
+        public string Name { get; }
+        public override string MailResolver => ForgotPswResolver;
     }
-    
 }

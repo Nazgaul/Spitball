@@ -10,6 +10,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         {
             m_MarketingMailParams = parameters as MarketingMailParams;
         }
+
         public string GenerateMail()
         {
             //marketingMailParams = parameters as MarketingMailParams;
@@ -25,6 +26,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
            // message.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: CategoryName);
             return html.ToString();
         }
+
         protected abstract string Text { get; }
         protected abstract string CategoryName { get; }
         public abstract string AddSubject();
@@ -33,5 +35,4 @@ namespace Zbang.Zbox.Infrastructure.Mail
             return CategoryName;
         }
     }
-    
 }

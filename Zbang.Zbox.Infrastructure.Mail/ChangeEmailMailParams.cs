@@ -9,11 +9,9 @@ namespace Zbang.Zbox.Infrastructure.Mail
         {
             Code = code;
         }
-        public string Code { get; private set; }
 
-        public override string MailResover
-        {
-            get { return ChangeEmailResolver; }
-        }
+        public string Code { get; }
+
+        public override string MailResolver => ChangeEmailResolver;
     }
 }

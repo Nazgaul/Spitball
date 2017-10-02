@@ -26,11 +26,10 @@ namespace Zbang.Zbox.Infrastructure.Mail
             SenderName = senderName;
         }
 
-        public abstract string MailResover { get; }
-        public CultureInfo UserCulture { get; private set; }
+        public abstract string MailResolver { get; }
+        public CultureInfo UserCulture { get; }
 
-        public string SenderEmail { get; private set; }
-        public string SenderName { get; private set; }
-        
+        public string SenderEmail { get; }
+        public string SenderName { get; }
     }
 }

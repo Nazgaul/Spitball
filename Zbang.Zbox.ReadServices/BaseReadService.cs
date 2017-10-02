@@ -165,10 +165,8 @@ namespace Zbang.Zbox.ReadServices
                 {
                     throw new BoxDoesntExistException();
                 }
-
             }
         }
-
 
 
 

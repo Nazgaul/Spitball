@@ -11,12 +11,11 @@ namespace Zbang.Zbox.Infrastructure.Mail
             SenderName = senderName;
             SenderImage = senderImage;
         }
-        
-        public new string SenderName { get; private set; }
-        public string SenderImage { get; private set; }
+        public new string SenderName { get; }
+        public string SenderImage { get; }
 
-        public override string MailResover => InvitationToCloudentsResolver;
+        public override string MailResolver => InvitationToCloudentsResolver;
 
-        public string Url { get; private set; }
+        public string Url { get; }
     }
 }

@@ -97,6 +97,7 @@
     <Compile Include="LikesMail.cs" />
     <Compile Include="LikesMailParams.cs" />
     <Compile Include="LoadMailTempate.cs" />
+    <Compile Include="LowContributionMailParams.cs" />
     <Compile Include="LowCoursesActivityMail.cs" />
     <Compile Include="LowCoursesActivityMailParams.cs" />
     <Compile Include="MailManager.cs" />

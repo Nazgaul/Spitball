@@ -16,6 +16,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         {
             m_Parameters = parameters as UpdateMailParams;
         }
+
         public override string GenerateMail()
         {
             Thread.CurrentThread.CurrentUICulture = m_Parameters.UserCulture;
@@ -64,18 +65,22 @@ namespace Zbang.Zbox.Infrastructure.Mail
             }
             return str.Remove(str.Length - 1, 1);
         }
+
         private static string AggregateAnswers(int numOfAnswers)
         {
             return AggregateWithString(numOfAnswers, EmailResource.answer, EmailResource.answers);
         }
+
         private static string AggregateQuestion(int numOfQuestion)
         {
             return AggregateWithString(numOfQuestion, EmailResource.question, EmailResource.questions);
         }
+
         private static string AggregateItems(int numOfItems)
         {
             return AggregateWithString(numOfItems, EmailResource.item, EmailResource.items);
         }
+
         private static string AggregateWithString(int number, string single, string many)
         {
             if (number == 1)
@@ -97,7 +102,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
             var sb = new StringBuilder();
             foreach (var update in boxUpdate.Updates)
             {
-
                 sb.Append(update.BuildMailLine(culture));
             }
             if (boxUpdate.ExtraUpdatesCount > 0)
@@ -110,7 +114,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
             cube = cube.Replace("{BOX_UPDATES}", sb.ToString());
             return cube;
         }
-
 
     }
 }

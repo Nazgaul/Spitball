@@ -9,6 +9,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
         {
         }
 
-        public override string MailResover => nameof(NoUniversityMailParams);
+        public override string MailResolver => nameof(NoUniversityMailParams);
     }
 }

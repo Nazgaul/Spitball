@@ -14,6 +14,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         {
             m_Parameters = parameters as DepartmentApprovedMailParams;
         }
+
         public override string GenerateMail()
         {
             var html = LoadMailTempate.LoadMailFromContent(m_Parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.DepartmentApprovedAccess");

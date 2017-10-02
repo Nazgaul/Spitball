@@ -47,7 +47,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
                 sendGridMail.AddTo(/*ConfigFetcher.IsEmulated ? "ram@cloudents.com" :*/ recipient);
 
-                var mail = m_ComponentContent.ResolveNamed<IMailBuilder>(parameters.MailResover, new NamedParameter("parameters", parameters));
+                var mail = m_ComponentContent.ResolveNamed<IMailBuilder>(parameters.MailResolver, new NamedParameter("parameters", parameters));
                 sendGridMail.Html = mail.GenerateMail();
                 sendGridMail.Subject = mail.AddSubject();
                 sendGridMail.SetCategory(mail.AddCategory());
@@ -76,7 +76,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 m_Logger.Exception(ex, new Dictionary<string, string>
                 {
                     ["recipient"] = recipient,
-                    ["resolve"] = parameters.MailResover,
+                    ["resolve"] = parameters.MailResolver,
                     ["type"] = parameters.GetType().Name
                 });
             }
@@ -144,7 +144,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             int interVal,
             CancellationToken cancellationToken)
         {
-            var mail = m_ComponentContent.ResolveNamed<IMailBuilder>(parameters.MailResover, new NamedParameter("parameters", parameters));
+            var mail = m_ComponentContent.ResolveNamed<IMailBuilder>(parameters.MailResolver, new NamedParameter("parameters", parameters));
 
             var client = new RestClient
             {

@@ -13,11 +13,11 @@ namespace Zbang.Zbox.Infrastructure.Mail
             LikeData = likeData;
         }
 
-        public string Name { get; private set; }
+        public string Name { get; }
 
-        public IEnumerable<LikeData> LikeData { get; private set; }
+        public IEnumerable<LikeData> LikeData { get; }
 
-        public override string MailResover => nameof(LikesMailParams);
+        public override string MailResolver => nameof(LikesMailParams);
     }
 
     public class LikeData

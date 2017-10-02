@@ -25,7 +25,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
             //sb.Replace("{REPLY_URL}", messageParams.SenderEmail);
 
             return html;
-
         }
 
         public override string AddCategory()

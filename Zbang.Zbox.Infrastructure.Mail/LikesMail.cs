@@ -12,6 +12,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         {
             m_Parameters = parameters as LikesMailParams;
         }
+
         public override string GenerateMail()
         {
             var html = LoadMailTempate.LoadMailFromContentWithDot(m_Parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.MarketingTemplate");

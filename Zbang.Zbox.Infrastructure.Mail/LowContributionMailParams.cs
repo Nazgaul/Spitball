@@ -2,9 +2,9 @@
 
 namespace Zbang.Zbox.Infrastructure.Mail
 {
-    public class NoFollowingBoxMailParams : MarketingMailParams
+    public class LowContributionMailParams : MarketingMailParams
     {
-        public NoFollowingBoxMailParams(string name, CultureInfo culture)
+        public LowContributionMailParams(string name, CultureInfo culture)
             : base(name, culture)
         {
         }

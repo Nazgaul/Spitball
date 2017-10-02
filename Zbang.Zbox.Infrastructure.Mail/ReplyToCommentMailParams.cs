@@ -14,11 +14,11 @@ namespace Zbang.Zbox.Infrastructure.Mail
             BoxUrl = boxUrl;
         }
 
-        public string UserName { get; private set; }
-        public string UserWhoMadeActionName { get; private set; }
-        public string BoxName { get; private set; }
-        public string BoxUrl { get; private set; }
+        public string UserName { get; }
+        public string UserWhoMadeActionName { get; }
+        public string BoxName { get; }
+        public string BoxUrl { get; }
 
-        public override string MailResover => nameof(ReplyToCommentMailParams);
+        public override string MailResolver => nameof(ReplyToCommentMailParams);
     }
 }

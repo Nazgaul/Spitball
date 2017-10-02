@@ -4,8 +4,8 @@
     {
         public SpamGunMailParams(
              string body,
-            string universityUrl, string name, string subject, string category) 
-            :base(new System.Globalization.CultureInfo("en-US"),senderName: "Michael Baker <michael@spitball.co>")
+            string universityUrl, string name, string subject, string category)
+            :base(new System.Globalization.CultureInfo("en-US"),senderName: "Olivia Williams <olivia@spitball.co>")
         {
             Body = body;
             UniversityUrl = universityUrl;
@@ -14,14 +14,14 @@
             Category = category;
         }
 
-        public string Body { get; private set; }
-        public string Name { get; private set; }
-        public string UniversityUrl { get; private set; }
+        public string Body { get; }
+        public string Name { get; }
+        public string UniversityUrl { get; }
 
-        public string Subject { get; private set; }
+        public string Subject { get; }
 
-        public string Category { get; private set; }
-        public override string MailResover => nameof(SpamGunMailParams);
+        public string Category { get; }
+        public override string MailResolver => nameof(SpamGunMailParams);
     }
 
     public class GreekPartnerMailParams : MailParameters
@@ -40,16 +40,16 @@
             Chapter = chapter;
         }
 
-        public string Body { get; private set; }
-        public string Name { get; private set; }
-        public string UniversityUrl { get; private set; }
+        public string Body { get; }
+        public string Name { get; }
+        public string UniversityUrl { get; }
 
-        public string Subject { get; private set; }
+        public string Subject { get; }
 
-        public string School { get; private set; }
-        public string Chapter { get; private set; }
+        public string School { get; }
+        public string Chapter { get; }
 
-        public string Category { get; private set; }
-        public override string MailResover => nameof(GreekPartnerMailParams);
+        public string Category { get; }
+        public override string MailResolver => nameof(GreekPartnerMailParams);
     }
 }

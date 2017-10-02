@@ -145,8 +145,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private async Task BuildQueueDataAsync(Queue<SpamGunDto> queue, int queueUniversityId, CancellationToken token)
         {
             queue.Clear();
-            var data = await m_ZboxReadService.GetSpamGunDataAsync(++queueUniversityId, token).ConfigureAwait(false);
-            foreach (var val in data)
+            foreach (var val in await m_ZboxReadService.GetSpamGunDataAsync(++queueUniversityId, token).ConfigureAwait(false))
             {
                 queue.Enqueue(val);
             }

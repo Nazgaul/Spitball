@@ -1,47 +1,26 @@
 ﻿using System;
-using System.Linq;
-using System.Text;
 using System.IO;
-using System.Xml.Linq;
 using Autofac;
 using Dapper;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
-using Zbang.Zbox.ViewModel.Dto.ItemDtos;
-using NHibernate;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Notifications;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Mail;
-
-using System.Diagnostics;
 using Zbang.Zbox.Infrastructure.Storage;
-using System.Globalization;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
-using Cobisi.EmailVerify;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure;
-using Zbang.Zbox.Infrastructure.Url;
-using File = System.IO.File;
 using System.Collections.Generic;
-using System.Threading;
-using AlchemyAPIClient;
-using AlchemyAPIClient.Requests;
-using Autofac.Features.ResolveAnything;
 using Autofac.Features.Variance;
 using Zbang.Zbox.Domain.CommandHandlers;
-using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure.Azure;
-using Zbang.Zbox.Infrastructure.Commands;
 using Zbang.Zbox.Infrastructure.Data;
 using Zbang.Zbox.Infrastructure.File;
-using Zbang.Zbox.Infrastructure.Profile;
-using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
 
 namespace Testing

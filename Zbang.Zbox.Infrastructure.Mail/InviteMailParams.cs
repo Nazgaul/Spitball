@@ -12,6 +12,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             BoxUrl = boxurl;
             InvitorImage = invitorImage;
         }
+
         public InviteMailParams(string invitor, string boxname, string boxurl, string invitorImage, CultureInfo culture, string senderEmail)
             : base(culture, senderEmail, invitor)
         {
@@ -20,13 +21,11 @@ namespace Zbang.Zbox.Infrastructure.Mail
             BoxUrl = boxurl;
             InvitorImage = invitorImage;
         }
-        public string Invitor { get; private set; }
-        public string BoxName { get; private set; }
-        public string BoxUrl { get; private set; }
+
+        public string Invitor { get; }
+        public string BoxName { get; }
+        public string BoxUrl { get; }
         public string InvitorImage { get; set; }
-        public override string MailResover
-        {
-            get { return InviteResolver; }
-        }
+        public override string MailResolver => InviteResolver;
     }
 }

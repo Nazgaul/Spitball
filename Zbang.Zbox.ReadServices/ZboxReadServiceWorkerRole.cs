@@ -63,8 +63,6 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-
-
         public async Task<IEnumerable<UserUpdatesDigestDto>> GetUserUpdatesAsync(GetBoxesLastUpdateQuery query,
             CancellationToken token)
         {
@@ -121,7 +119,6 @@ namespace Zbang.Zbox.ReadServices
                     }
                 }, token).ConfigureAwait(false);
             }
-
         }
 
         public async Task<IEnumerable<BoxDigestDto>> GetBoxesLastUpdatesAsync(GetBoxesLastUpdateQuery query)
@@ -163,9 +160,6 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-
-
-
         public BadItemDto GetFlagItemUserDetail(GetBadItemFlagQuery query)
         {
             using (UnitOfWork.Start())
@@ -173,7 +167,6 @@ namespace Zbang.Zbox.ReadServices
                 var dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBadItemUserDetail");
                 dbQuery.SetInt64("UserId", query.UserId);
                 dbQuery.SetResultTransformer(NHibernate.Transform.Transformers.AliasToBean<BadItemDto>());
-
 
                 var itemQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBadItemDetail");
                 itemQuery.SetInt64("ItemId", query.ItemId);
@@ -348,7 +341,6 @@ namespace Zbang.Zbox.ReadServices
                     return (retVal, count);
                 }
             }
-
         }
 
         public async Task<FeedToUpdateSearchDto> GetFeedDirtyUpdatesAsync(long? version, int page, int size,
@@ -391,7 +383,6 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-
         public async Task<long> GetTrackingCurrentVersionAsync()
         {
             using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
@@ -400,7 +391,6 @@ namespace Zbang.Zbox.ReadServices
                 //NextVersionChanges
             }
         }
-
 
         public async Task<FlashcardToUpdateSearchDto> GetFlashcardsDirtyUpdatesAsync(int index, int total, int top, CancellationToken token)
         {
@@ -501,7 +491,6 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-
         public Task<IEnumerable<MarketingDto>> GetUsersWithoutUniversityAsync(MarketingQuery query,
             CancellationToken token)
         {
@@ -516,8 +505,6 @@ offset @PageNumber*@RowsPerPage ROWS
 FETCH NEXT @RowsPerPage ROWS ONLY";
             return GetMarketingDataAsync(query, sql, token);
         }
-
-
 
         public Task<IEnumerable<MarketingDto>> GetUsersWithUniversityWithoutSubscribedBoxesAsync(MarketingQuery query,
             CancellationToken token)
@@ -616,21 +603,19 @@ FETCH NEXT @RowsPerPage ROWS ONLY";
             using (var conn = await DapperConnection.OpenReliableConnectionAsync(token, "SpamGun").ConfigureAwait(false))
             {
                 const string sql1 = @"select top 500 s.id, FirstName, Email,mailBody as MailBody,s.chapter,
-mailsubject as MailSubject, mailcategory as MailCategory,u.url as UniversityUrl, u.name as school 
-from students s join universities u on s.uniid = u.id
+mailSubject as MailSubject, mailCategory as MailCategory,u.url as UniversityUrl, u.name as school 
+from students2 s join universities u on s.uniId = u.id
 where uniid = @UniId
 and shouldSend = 1
 and chapter is not null
-order by s.id
-OPTION (TABLE HINT(s, INDEX ([students_shouldsend2])),Recompile);";
+order by s.id;";
                 const string sql2 = @"select top 500 s.id, FirstName, LastName, Email,mailBody as MailBody,
 mailSubject as MailSubject, mailCategory as MailCategory,u.url as UniversityUrl 
-from students s join universities u on s.uniid = u.id
+from students2 s join universities u on s.uniId = u.id
 where uniid = @UniId
 and shouldSend = 1
 and chapter is null
-order by s.id
-OPTION (TABLE HINT(s, INDEX ([students_shouldsend2])),Recompile);";
+order by s.id;";
                 var policy = GetRetryPolicy();
                 return await policy.ExecuteAsync(async () =>
                 {
@@ -644,7 +629,6 @@ OPTION (TABLE HINT(s, INDEX ([students_shouldsend2])),Recompile);";
                     }
                 }, token).ConfigureAwait(false);
             }
-
         }
 
         public IEnumerable<long> GetUsersBadgeFollow(int page)
@@ -717,7 +701,6 @@ offset @page*100 ROWS
                         Tuple.Create, splitOn: "*", param: new { id }).ConfigureAwait(false);
             }
         }
-
 
         public async Task<IEnumerable<Tuple<long, decimal>>> GetDuplicateDocumentsAsync()
         {

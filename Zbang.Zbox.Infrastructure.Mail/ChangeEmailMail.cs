@@ -11,6 +11,7 @@
         {
             m_Parameters = parameters as ChangeEmailMailParams;
         }
+
         public override string GenerateMail()
         {
             var html = LoadMailTempate.LoadMailFromContent(m_Parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.ChangeEmail");

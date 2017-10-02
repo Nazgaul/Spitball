@@ -9,8 +9,9 @@ namespace Zbang.Zbox.Infrastructure.Mail
         {
             Name = name;
         }
-        public string Name { get; private set; }
 
-        public override string MailResover => WelcomeResolver;
+        public string Name { get; }
+
+        public override string MailResolver => WelcomeResolver;
     }
 }

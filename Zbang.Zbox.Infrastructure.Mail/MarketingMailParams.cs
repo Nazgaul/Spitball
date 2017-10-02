@@ -10,8 +10,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
             Name = name;
         }
 
-        public string Name { get; private set; }
+        public string Name { get; }
 
-        public abstract override string MailResover { get; }
+        public abstract override string MailResolver { get; }
     }
 }

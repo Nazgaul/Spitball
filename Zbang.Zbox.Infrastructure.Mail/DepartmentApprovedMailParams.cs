@@ -9,10 +9,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
         {
             DepName = depName;
         }
-        public string DepName { get; private set; }
-        public override string MailResover
-        {
-            get { return DepartmentRequestApprovedResolver; }
-        }
+
+        public string DepName { get; }
+        public override string MailResolver => DepartmentRequestApprovedResolver;
     }
 }
