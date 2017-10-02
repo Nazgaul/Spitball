@@ -291,16 +291,16 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<(ItemToUpdateSearchDto result, int count)> GetItemsDirtyUpdatesAsync(SearchItemDirtyQuery query, CancellationToken token)
+        public async Task<ItemToUpdateSearchDto> GetItemsDirtyUpdatesAsync(SearchItemDirtyQuery query, CancellationToken token)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
             {
-                var sql = Search.SearchItemNew + Search.SearchItemUserBoxRel +
-                          Search.SearchItemTags + Search.GetItemToDeleteToSearch;
-                if (!query.ItemId.HasValue)
-                {
-                    sql += "select count(*) from zbox.item where isDirty = 1 and isDeleted = 0";
-                }
+                const string sql = Search.SearchItemNew + Search.SearchItemUserBoxRel +
+                                   Search.SearchItemTags + Search.GetItemToDeleteToSearch;
+                //if (!query.ItemId.HasValue)
+                //{
+                //    sql += "select count(*) from zbox.item where isDirty = 1 and isDeleted = 0";
+                //}
                 using (var grid = await conn.QueryMultipleAsync(
                     new CommandDefinition(sql,
                         new { query.Index, count = query.Total, query.Top, query.ItemId }, cancellationToken: token)).ConfigureAwait(false))
@@ -333,12 +333,12 @@ namespace Zbang.Zbox.ReadServices
 
                         p.Tags = tags.Where(w => w.Id == p.Id).ToList();
                     }
-                    var count = 0;
-                    if (!grid.IsConsumed)
-                    {
-                        count = await grid.ReadFirstOrDefaultAsync<int>().ConfigureAwait(false);
-                    }
-                    return (retVal, count);
+                    //var count = 0;
+                    //if (!grid.IsConsumed)
+                    //{
+                    //    count = await grid.ReadFirstOrDefaultAsync<int>().ConfigureAwait(false);
+                    //}
+                    return retVal;
                 }
             }
         }

@@ -36,14 +36,19 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public string Name => nameof(TestingJob);
         public Task RunAsync(CancellationToken cancellationToken)
         {
-            var process = m_LifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("deleteOld");
+            //var process = m_LifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("deleteOld");
+            //return process.ExecuteAsync(0, (a, b) => Task.CompletedTask, cancellationToken);
+
+            var process = m_LifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("spamGun");
             return process.ExecuteAsync(0, (a, b) => Task.CompletedTask, cancellationToken);
+
+
             //var msgData = new BoxFileProcessData(70197);
             //var process = m_LifetimeScope.ResolveOptionalNamed<IFileProcess>(msgData.ProcessResolver);
             //var t =  await process.ExecuteAsync(msgData, cancellationToken).ConfigureAwait(false);
 
             //await RemoveDuplicatesFilesAsync().ConfigureAwait(false);
-           // await Md5ProcessAsync(cancellationToken).ConfigureAwait(false);
+            // await Md5ProcessAsync(cancellationToken).ConfigureAwait(false);
         }
 
         private async Task RemoveDuplicatesFilesAsync()

@@ -119,14 +119,6 @@ namespace Cloudents.Infrastructure.Search
             };
             var retVal = await
                 m_Client.Documents.SearchAsync<Tutor>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
-
-            //foreach (var result in retVal.Results.Select(s => s.Document))
-            //{
-            //    m_Mapper.Map<Tutor, TutorDto>(result, opt =>
-            //    {
-            //        opt.
-            //    })
-            //}
             return m_Mapper.Map<IEnumerable<Tutor>, IList<TutorDto>>(retVal.Results.Select(s => s.Document), opt => opt.Items["term"] = term);
         }
     }
