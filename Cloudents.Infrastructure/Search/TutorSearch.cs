@@ -23,20 +23,22 @@ namespace Cloudents.Infrastructure.Search
     {
         private readonly ISearchIndexClient m_Client;
         private readonly IMapper m_Mapper;
+        private readonly IRestClient m_RestClient;
 
-        public TutorSearch(SearchServiceClient client, IMapper mapper)
+        public TutorSearch(SearchServiceClient client, IMapper mapper, IRestClient restClient)
         {
             m_Mapper = mapper;
+            m_RestClient = restClient;
             m_Client = client.Indexes.GetClient("tutors");
         }
 
         public async Task<IEnumerable<TutorDto>> SearchAsync(string term, SearchRequestFilter filter, SearchRequestSort sort, GeoPoint location, CancellationToken token)
         {
             var taskAzure = SearchAzureAsync(term, filter, sort, location, token);
-            Task<IList<TutorDto>> taskTutorMe;
+            Task<IEnumerable<TutorDto>> taskTutorMe;
             if (filter == SearchRequestFilter.InPerson)
             {
-                taskTutorMe = Task.FromResult<IList<TutorDto>>(new List<TutorDto>());
+                taskTutorMe = Task.FromResult<IEnumerable<TutorDto>>(new List<TutorDto>());
             }
             else
             {
@@ -46,37 +48,43 @@ namespace Cloudents.Infrastructure.Search
             return taskAzure.Result.Union(taskTutorMe.Result).OrderByDescending(o => o.TermFound);
         }
 
-        private static async Task<IList<TutorDto>> TutorMeApiAsync(string term, CancellationToken token)
+        private async Task<IEnumerable<TutorDto>> TutorMeApiAsync(string term, CancellationToken token)
         {
-            var retVal = new List<TutorDto>();
 
-            using (var client = new HttpClient())
+            var nvc = new NameValueCollection
             {
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                ["search"] = term
+            };
+            var result = await m_RestClient.GetAsync(new Uri("https://tutorme.com/api/v1/tutors/"), nvc, token).ConfigureAwait(false);
+            return m_Mapper.Map<JObject, IEnumerable<TutorDto>>(result, opt => opt.Items["term"] = term);
+           
+            //using (var client = new HttpClient())
+            //{
+            //    client.DefaultRequestHeaders.Accept.Clear();
+            //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var uri = new UriBuilder("https://tutorme.com/api/v1/tutors/");
-                var nvc = new NameValueCollection
-                {
-                    ["search"] = term
-                };
-                uri.AddQuery(nvc);
+            //    var uri = new UriBuilder("https://tutorme.com/api/v1/tutors/");
+            //    var nvc = new NameValueCollection
+            //    {
+            //        ["search"] = term
+            //    };
+            //    uri.AddQuery(nvc);
 
-                var response = await client.GetAsync(uri.Uri, token).ConfigureAwait(false);
-                if (!response.IsSuccessStatusCode) return retVal;
-                var str = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var o = JObject.Parse(str);
-                retVal.AddRange(o["results"].Children()
-                    .Select(result => new TutorDto
-                    {
-                        Url = $"https://tutorme.com/tutors/{result["id"].Value<string>()}",
-                        Image = result["avatar"]["x300"].Value<string>(),
-                        Name = result["shortName"].Value<string>(),
-                        Online = result["isOnline"].Value<bool>(),
-                        TermFound = result.ToString().Split(new[] {term},StringSplitOptions.RemoveEmptyEntries).Length
-                    }));
-            }
-            return retVal;
+            //    var response = await client.GetAsync(uri.Uri, token).ConfigureAwait(false);
+            //    if (!response.IsSuccessStatusCode) return retVal;
+            //    var str = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            //    var o = JObject.Parse(str);
+            //    retVal.AddRange(o["results"].Children()
+            //        .Select(result => new TutorDto
+            //        {
+            //            Url = $"https://tutorme.com/tutors/{result["id"].Value<string>()}",
+            //            Image = result["avatar"]["x300"].Value<string>(),
+            //            Name = result["shortName"].Value<string>(),
+            //            Online = result["isOnline"].Value<bool>(),
+            //            TermFound = result.ToString().Split(new[] {term},StringSplitOptions.RemoveEmptyEntries).Length
+            //        }));
+            //}
+            //return retVal;
         }
 
         private async Task<IList<TutorDto>> SearchAzureAsync(string term,

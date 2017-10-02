@@ -19,55 +19,67 @@ namespace Cloudents.Infrastructure.Search
     public class BookSearch : IBookSearch
     {
         private readonly IMapper m_Mapper;
+        private readonly IRestClient m_RestClient;
 
-        public BookSearch(IMapper mapper)
+        public BookSearch(IMapper mapper, IRestClient restClient)
         {
             m_Mapper = mapper;
+            m_RestClient = restClient;
         }
 
         public async Task<IEnumerable<BookSearchDto>> SearchAsync(string term, int page, CancellationToken token)
         {
             //var retVal = new List<BookSearchDto>();
-
-            using (var client = new HttpClient())
+            var nvc = new NameValueCollection
             {
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                ["key"] = "sP8C5AHcdiT0tsMsotT",
+                ["keywords"] = term,
+                ["page"] = page.ToString(),
+                /*   "image_height": "\(104 * UIScreen.main.scale)",
+        "image_width": "\(160 * UIScreen.main.scale)" ,*/
+                ["format"] = "json"
+            };
+            var result = await m_RestClient.GetAsync(new Uri("http://api2.campusbooks.com/12/rest/search"), nvc, token).ConfigureAwait(false);
+            return m_Mapper.Map<JObject, IEnumerable<BookSearchDto>>(result);
+            //using (var client = new HttpClient())
+            //{
+            //    client.DefaultRequestHeaders.Accept.Clear();
+            //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var uri = new UriBuilder("http://api2.campusbooks.com/12/rest/search");
-                var nvc = new NameValueCollection
-                {
-                    ["key"] = "sP8C5AHcdiT0tsMsotT",
-                    ["keywords"] = term,
-                    ["page"] = page.ToString(),
-                    /*   "image_height": "\(104 * UIScreen.main.scale)",
-            "image_width": "\(160 * UIScreen.main.scale)" ,*/
-                    ["format"] = "json"
-                };
-                uri.AddQuery(nvc);
+            //    var uri = new UriBuilder("http://api2.campusbooks.com/12/rest/search");
+            //    var nvc = new NameValueCollection
+            //    {
+            //        ["key"] = "sP8C5AHcdiT0tsMsotT",
+            //        ["keywords"] = term,
+            //        ["page"] = page.ToString(),
+            //        /*   "image_height": "\(104 * UIScreen.main.scale)",
+            //"image_width": "\(160 * UIScreen.main.scale)" ,*/
+            //        ["format"] = "json"
+            //    };
+            //    uri.AddQuery(nvc);
 
-                var response = await client.GetAsync(uri.Uri, token).ConfigureAwait(false);
-                if (!response.IsSuccessStatusCode) return null;
-                var str = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var o = JObject.Parse(str);
-                //var books = o["response"]["page"]["results"]["book"].Children() as IEnumerable<JToken>;
-                return m_Mapper.Map<JObject, IEnumerable<BookSearchDto>>(o);
-                /*let books = result["response"]["page"]["results"]["book"]
-            return books.arrayValue.map({ (j) -> BookDto in
-                return BookDto(json: j)
-            })*/
+            //    var response = await client.GetAsync(uri.Uri, token).ConfigureAwait(false);
+            //    if (!response.IsSuccessStatusCode) return null;
+            //    var str = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            //    var o = JObject.Parse(str);
+            //    //var books = o["response"]["page"]["results"]["book"].Children() as IEnumerable<JToken>;
+            //    return m_Mapper.Map<JObject, IEnumerable<BookSearchDto>>(o);
+            //    /*let books = result["response"]["page"]["results"]["book"]
+            //return books.arrayValue.map({ (j) -> BookDto in
+            //    return BookDto(json: j)
+            //})*/
 
-                //retVal.AddRange(o["results"].Children()
-                //    .Select(result => new TutorDto
-                //    {
-                //        Url = $"https://tutorme.com/tutors/{result["id"].Value<string>()}",
-                //        Image = result["avatar"]["x300"].Value<string>(),
-                //        Name = result["shortName"].Value<string>(),
-                //        Online = result["isOnline"].Value<bool>(),
-                //        TermFound = result.ToString().Split(new[] { term }, StringSplitOptions.RemoveEmptyEntries).Length
-                //    }));
-            }
-            //return retVal;
+            //    //retVal.AddRange(o["results"].Children()
+            //    //    .Select(result => new TutorDto
+            //    //    {
+            //    //        Url = $"https://tutorme.com/tutors/{result["id"].Value<string>()}",
+            //    //        Image = result["avatar"]["x300"].Value<string>(),
+            //    //        Name = result["shortName"].Value<string>(),
+            //    //        Online = result["isOnline"].Value<bool>(),
+            //    //        TermFound = result.ToString().Split(new[] { term }, StringSplitOptions.RemoveEmptyEntries).Length
+            //    //    }));
+            //}
+            ////return retVal;
         }
     }
 }

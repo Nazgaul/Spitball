@@ -116,6 +116,7 @@
     <Compile Include="AI\LuisAI.cs" />
     <Compile Include="Data\DapperRepository.cs" />
     <Compile Include="Data\UniversitySynonymRepository.cs" />
+    <Compile Include="RestClient.cs" />
     <Compile Include="Search\BookSearch.cs" />
     <Compile Include="Search\DocumentSearch.cs" />
     <Compile Include="Search\Entities\Job.cs" />

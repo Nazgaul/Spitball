@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Autofac;
 using AutoMapper;
 using Cloudents.Core.DTOs;
@@ -46,6 +47,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<VideoSearch>().As<IVideoSearch>();
             builder.RegisterType<JobSearch>().As<IJobSearch>();
             builder.RegisterType<BookSearch>().As<IBookSearch>();
+            builder.RegisterType<RestClient>().As<IRestClient>();
 
             builder.RegisterType<UniversitySynonymRepository>().As<IReadRepositorySingle<UniversitySynonymDto, long>>();
 
@@ -65,12 +67,25 @@ namespace Cloudents.Infrastructure
                     .ForMember(d => d.TermFound, o => o.ResolveUsing((t, ts, i, c) =>
                     {
                         var temp = $"{t.City} {t.State} {string.Join(" ", t.Subjects)} {string.Join(" ", t.Extra)}";
-                        return temp.Split(new[] {c.Items["term"].ToString()},
+                        return temp.Split(new[] { c.Items["term"].ToString() },
                             StringSplitOptions.RemoveEmptyEntries).Length;
                     }));
 
                 cfg.CreateMap<Search.Entities.Job, JobDto>();
                 cfg.CreateMap<JObject, IEnumerable<BookSearchDto>>().ConvertUsing((jo, bookSearch) => jo["response"]["page"]["results"]["book"].ToObject<IEnumerable<BookSearchDto>>());
+                cfg.CreateMap<JObject, IEnumerable<TutorDto>>().ConvertUsing((jo, tu, c) =>
+                {
+
+                    return jo["results"].Children().Select(result => new TutorDto
+                    {
+                        Url = $"https://tutorme.com/tutors/{result["id"].Value<string>()}",
+                        Image = result["avatar"]["x300"].Value<string>(),
+                        Name = result["shortName"].Value<string>(),
+                        Online = result["isOnline"].Value<bool>(),
+                        TermFound = result.ToString().Split(new[] {c.Items["term"].ToString()},
+                            StringSplitOptions.RemoveEmptyEntries).Length
+                    });
+                });
             });
             builder.Register(c => config.CreateMapper()).SingleInstance();
         }
