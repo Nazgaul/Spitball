@@ -12,5 +12,15 @@ export default {
             //this.result = response.body;
             //this.$store.commit("ADD", response.body);
         });
+    },
+
+    interpetPromise(prefix, str) {
+       return  Vue.http.get("api/AI",
+            {
+                params:
+                {
+                    sentence: prefix + " " + str
+                }
+            })
     }
 };

@@ -16,13 +16,7 @@ export default {
                 prefix = vertical.prefix;
             },
             search: () => {
-                this.$store.dispatch('updateSearchText', this.msg);
-                search.interpet(prefix,
-                    this.msg,
-                    (response) => {
-                        this.result = response;
-                        this.$store.commit("ADD", response);
-                    });
+                this.$store.dispatch('updateSearchText', { prefix:"",str:this.msg });
             }
         };
     }

@@ -2,7 +2,7 @@
         <item-result :items="items" ></item-result>
 </template>
 <script>
-    import itemResult from './itemResult.vue'
+    import itemResult from './ResultItem.vue'
     export default {
         computed: {
             items: function () { return this.$store.getters.items}

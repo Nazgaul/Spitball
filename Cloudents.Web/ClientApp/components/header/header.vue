@@ -10,7 +10,7 @@
                 <component :class="$route.name" class="icon" v-bind:is="$route.name+'Header'"></component>
             </div>
                 <form  @submit.prevent="submit">
-                    <input type="search" id="qfilter" ref='search' v-model="qfilter" :placeholder="placeholders[$route.name]" @focus="showOption=true"/>
+                    <input type="search" id="qfilter" ref='search' v-model.lazy="qfilter" :placeholder="placeholders[$route.name]" @focus="showOption=true"/>
                 </form>
             <div id="notification">
 
@@ -20,7 +20,7 @@
                     <span></span>
                     <span></span>
                 </div>
-        <search-type v-show="showOption" class="searchTypes" :values="names" :model="'searchTypes'" :changeCallback="changeType"></search-type>
+        <search-type v-show="showOption" class="searchTypes" :values="names" :model="'searchTypes'" :value="$route.name" @click="changeType"></search-type>
     </header>
 </template>
 <script>
@@ -54,8 +54,8 @@
             }
         },
         methods: {
-            changeType: function (e,v,s) {
-                this.$router.push({name:e.target.value})
+            changeType: function (val) {
+                this.$router.push({name:val})
             },
             submit: function () {
                 this.$store.dispatch('fetchingData', this.$route);

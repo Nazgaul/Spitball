@@ -19,7 +19,7 @@ export default {
                 university: null,
                 course: null,
                 query: ["war"],
-                page: data.page ? data.page:0,
+                page: data.page,
                 sort: "Relevance"
             });
     },
@@ -30,7 +30,7 @@ export default {
                 university: null,
                 course: null,
                 query: ["war"],
-                page: data.page ? data.page : 0,
+                page: data.page,
                 sort: "Relevance"
             });
     },
@@ -41,7 +41,7 @@ export default {
                 university: null,
                 course: null,
                 query: ["war"],
-                page: data.page ? data.page : 0,
+                page: data.page,
                 sort: "Relevance"
             });
     },

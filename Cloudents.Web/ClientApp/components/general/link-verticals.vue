@@ -1,17 +1,16 @@
 ﻿<template>
     <div>
-        <ul>
-            <li v-for="vertical in verticals">
-                <router-link :to="{name:vertical.name}" :key="vertical.name">
-                    <button type="button">
+        <div v-for="(vertical,index) in verticals">
+            <label v-if="isNewLabel(index)" class="uppper">{{vertical.asideLabel}}</label>
+            <router-link :to="{name:vertical.name}" :key="vertical.name">
+                    <button type="button" inline-flex>
                         <div class="round-icon" :class="'bg-'+vertical.name">
                             <component v-bind:is="vertical.image"></component>
                         </div>
                         <span>{{vertical.name}}</span>
                     </button>
-                </router-link>
-            </li>         
-        </ul>
+           </router-link>
+        </div>
     </div>
 </template>
 
@@ -48,7 +47,8 @@
             change(vertical) {
                 this.selected = vertical;
                 this.changeCallback(vertical);
-            }
+            },
+            isNewLabel: (index) => { return (index == 0 || verticals[index].asideLabel != (verticals[index - 1].asideLabel)) }
         }
     };
 </script>
