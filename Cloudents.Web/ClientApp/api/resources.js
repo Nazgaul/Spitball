@@ -3,12 +3,12 @@ import VueResource from 'vue-resource';
 Vue.use(VueResource)
 const basePath = 'api/';
 const searchFunctions = {
-    document: { method: 'GET', url: basePath + 'search/documents/{?query*}' },
-    askData: { method: 'GET', url: basePath + 'search/qna/{?query*}' },
-    wolfram: { method: 'GET', url: basePath + 'title/{?query*}' },
-    flashcard: { method: 'GET', url: basePath + 'search/flashcards/{?query*}' },
-    tutor: { method: 'GET', url: basePath + 'tutor/{?query*}' },
-    video: { method: 'GET', url: basePath + 'video/{?query*}' },
-    job: { method: 'GET', url: basePath + 'job/{?query*}' }
+    document: { method: 'GET', url: basePath + 'search/documents/{?term*}' },
+    askData: { method: 'GET', url: basePath + 'search/qna/{?term*}' },
+    wolfram: { method: 'GET', url: basePath + 'title/{?term*}' },
+    flashcard: { method: 'GET', url: basePath + 'search/flashcards/{?term*}' },
+    tutor: { method: 'GET', url: basePath + 'tutor/{?term*}' },
+    video: { method: 'GET', url: basePath + 'video/{?term*}' },
+    job: { method: 'GET', url: basePath + 'job/{?term*}' }
 }
 export const search = Vue.resource(basePath, {}, searchFunctions)

@@ -3,47 +3,23 @@ export default {
     getShortAnswer(term) {
         return resource.wolfram(
             {
-                term: term,
+                term: term
             });
     },
     getVideo(term) {
         return resource.video(
             {
-                term: term,
+                term: term
             });
     },
     getDocument(data) {
-        return resource.document(
-            {
-                source: null,
-                university: null,
-                course: null,
-                term: ["war"],
-                page: data.page,
-                sort: "Relevance"
-            });
+        return resource.document(data);
     },
     getFlashcard(data) {
-        return resource.flashcard(
-            {
-                source: null,
-                university: null,
-                course: null,
-                term: ["war"],
-                page: data.page,
-                sort: "Relevance"
-            });
+        return resource.flashcard(data);
     },
     getQna(data) {
-        return resource.askData(
-            {
-                source: null,
-                university: null,
-                course: null,
-                term: ["war"],
-                page: data.page,
-                sort: "Relevance"
-            });
+        return resource.askData(data);
     },
 
     getTutor(term) {

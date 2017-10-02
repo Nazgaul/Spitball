@@ -8,11 +8,11 @@ export let verticals =
         },
         note: {
             name: "note", image: "document", placeholder: "Find me class materials...", prefix: "Find me class material for", asideLabel: "search type",
-            resultTitle: "I found some documents that might help.<br>See what you think!", emptyState: "ask", filter: [{ id: 'all', name: 'all' }, { id: 'sources', name: 'sources' }], sort: [{ id: 'relevance', name: 'relevance' }, { id: 'name', name: 'name' }]
+            resultTitle: "I found some documents that might help.<br>See what you think!", emptyState: "ask", filter: [{ id: 'all', name: 'all' }, { id: 'source', name: 'sources' }], sort: [{ id: 'relevance', name: 'relevance' }, { id: 'date', name: 'date' }]
         },
         flashcard: {
             name: "flashcard", image: "flashcard", placeholder: "Find me flashcards...", prefix: "Find me flashcards on", asideLabel: "search type",
-            resultTitle: "Oh look - I found some flashcards for you.<br>Test yourself!", emptyState: "ask", filter: [{ id: 'all', name: 'all' }, { id: 'sources', name: 'sources' }], sort: ""
+            resultTitle: "Oh look - I found some flashcards for you.<br>Test yourself!", emptyState: "ask", filter: [{ id: 'all', name: 'all' }, { id: 'source', name: 'sources' }], sort: ""
         },
         tutor: {
             name: "tutor", image: "tutor", placeholder: "Find me a tutor...", prefix: "Find me a tutor for", asideLabel: "search type",
