@@ -16,25 +16,7 @@ export default {
                 prefix = vertical.prefix;
             },
             search: () => {
-                this.$store.dispatch('updateSearchText', this.msg);
-                //this.$store.dispatch('updateSearchText', this.msg);
-                search.interpet(prefix,
-                    this.msg,
-                    (response) => {
-                        this.result = response;
-                        this.$store.commit("ADD", response);
-                    });
-                //this.$http.get("api/AI",
-                //    {
-                //        params:
-                //        {
-                //            sentence: prefix + " " + this.msg
-                //        }
-                //    }).then((response) => {
-                //        this.result = response.body;
-                //        this.$store.commit("ADD", response.body);
-                //    });
-
+                this.$store.dispatch('updateSearchText', { prefix:"",str:this.msg });
             }
         };
     }

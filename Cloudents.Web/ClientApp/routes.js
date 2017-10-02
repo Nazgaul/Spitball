@@ -11,13 +11,13 @@ export const jobRoute = "job";
 export const postChatRoute = "chat";
 
 const SectionsPage = () => import("./components/pages/page.vue");
-const AskPage = () => import("./components/pages/results/ask.vue");
-const FlashcardPage = () => import( "./components/pages/results/flashcard.vue");
-const NotePage = () => import( "./components/pages/results/note.vue");
-const TutorPage = () => import("./components/pages/results/tutor.vue");
-const JobPage = () => import("./components/pages/results/job.vue");
-const BookPage = () => import("./components/pages/results/book.vue");
-const PurchasePage = () => import("./components/pages/results/purchase.vue");
+const AskPage = () => import("./components/pages/results/ResultAsk.vue");
+const FlashcardPage = () => import( "./components/pages/results/ResultFlashcard.vue");
+const NotePage = () => import( "./components/pages/results/ResultNote.vue");
+const TutorPage = () => import("./components/pages/results/ResultTutor.vue");
+const JobPage = () => import("./components/pages/results/ResultJob.vue");
+const BookPage = () => import("./components/pages/results/ResultBook.vue");
+const PurchasePage = () => import("./components/pages/results/ResultPurchase.vue");
 const meta = {userText:""}
 
 export const routes = [

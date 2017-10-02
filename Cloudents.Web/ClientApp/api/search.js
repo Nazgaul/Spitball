@@ -6,6 +6,12 @@ export default {
                 term: term,
             });
     },
+    getVideo(term) {
+        return resource.video(
+            {
+                term: term,
+            });
+    },
     getDocument(data) {
         return resource.document(
             {
@@ -13,7 +19,7 @@ export default {
                 university: null,
                 course: null,
                 query: ["war"],
-                page: 0,
+                page: data.page,
                 sort: "Relevance"
             });
     },
@@ -24,7 +30,7 @@ export default {
                 university: null,
                 course: null,
                 query: ["war"],
-                page: 0,
+                page: data.page,
                 sort: "Relevance"
             });
     },
@@ -35,13 +41,19 @@ export default {
                 university: null,
                 course: null,
                 query: ["war"],
-                page: 0,
+                page: data.page,
                 sort: "Relevance"
             });
     },
 
     getTutor(term) {
         return resource.tutor(
+            {
+                term: term
+            });
+    },
+    getJob(term) {
+        return resource.job(
             {
                 term: term
             });

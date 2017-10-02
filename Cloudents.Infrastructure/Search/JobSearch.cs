@@ -38,7 +38,7 @@ namespace Cloudents.Infrastructure.Search
             {
                 filterQuery = "compensationType eq 'paid'";
             }
-            if (string.IsNullOrEmpty(jobType))
+            if (!string.IsNullOrEmpty(jobType))
             {
                 filterQuery = $"jobType eq {jobType}";
             }

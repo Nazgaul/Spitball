@@ -1,0 +1,8 @@
+[
+  {
+    "outputFileName": "ClientApp/api/search.min.js",
+    "inputFiles": [
+      "ClientApp/api/search.js"
+    ]
+  }
+]

@@ -1,6 +1,5 @@
 ﻿<template>
     <aside>
-        <label class="upper">search type</label>
         <search-verticals></search-verticals>
     </aside>
 </template>
@@ -8,15 +7,8 @@
 <script>
     import SearchVerticals from './../general/link-verticals.vue'
     export default {
-        props: ["isOpen","section"],
         components: {
             'search-verticals': SearchVerticals
-        },
-        methods: {
-            changeSection: function (val) {
-                console.log(val);
-                this.$emit('update:section',val)
-            } 
         }
     }
 </script>

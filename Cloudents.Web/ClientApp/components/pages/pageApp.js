@@ -1,7 +1,7 @@
 ﻿import Vue from 'vue'
 import appAside from './../navbar/navbar.vue'
 import appHeader from './../header/header.vue'
-import pageResult from './results/pageResult.vue'
+import pageResult from './results/Result.vue'
 
 export default {
     components: {

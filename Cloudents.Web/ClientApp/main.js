@@ -1,16 +1,13 @@
 ﻿import Vue from 'vue';
 import App from './components/app/app.vue';
 import store from './store';
+import scroll from './components/helpers/infinateScroll.vue'
 import VueRouter from 'vue-router';
-//import VueResource from 'vue-resource';
 import VueCarousel from 'vue-carousel';
 import * as route from './routes';
 Vue.use(VueRouter);
-//Vue.use(VueResource);
 Vue.use(VueCarousel);
-
-
-
+Vue.component('scroll-list',scroll);
 
 const router = new VueRouter({
     mode: "history",
