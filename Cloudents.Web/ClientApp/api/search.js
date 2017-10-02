@@ -18,7 +18,7 @@ export default {
                 source: null,
                 university: null,
                 course: null,
-                query: ["war"],
+                term: ["war"],
                 page: data.page,
                 sort: "Relevance"
             });
@@ -29,7 +29,7 @@ export default {
                 source: null,
                 university: null,
                 course: null,
-                query: ["war"],
+                term: ["war"],
                 page: data.page,
                 sort: "Relevance"
             });
@@ -40,7 +40,7 @@ export default {
                 source: null,
                 university: null,
                 course: null,
-                query: ["war"],
+                term: ["war"],
                 page: data.page,
                 sort: "Relevance"
             });

@@ -1,5 +1,6 @@
 ﻿import * as types from './mutation-types'
 import search from './../api/search'
+import { prefixes} from './consts'
 import ai from './../api/ai'
 
 const state = {
@@ -11,7 +12,8 @@ const state = {
         userText: '',
         page: 0,
         prefix: '',
-        term:''
+        term: '',
+        sort:"Relevance"
     }
 };
 
@@ -51,6 +53,10 @@ const mutations = {
     [types.UPDATE_SEARCH_PARAMS](state, payload) {
         console.log(payload);
         state.search = { ...state.search, ...payload }
+    },
+     [types.UPDATE_PREFIX](state, payload) {
+         console.log(payload);
+         state.search.prefix = payload;
     }
 };
 const getters = {
@@ -64,14 +70,24 @@ const getters = {
     searchParams: state => state.search
 }
 const actions = {
-    updateSearchText: ({ commit }, text) => {
-        ai.interpetPromise(text).then(( response ) => {
-            console.log(response);
-            commit(types.UPDATE_FILTER, text)
-            commit(types.ADD, response)
+    updateSearchText: (context, text) => {
+        let params = {};
+        console.log(text);
+        if (typeof text === typeof {}) {
+            params = text;
+        }
+        else{
+            params.prefix = context.state.search.prefix;
+            params.str = text;
+        }
+        ai.interpetPromise(params.prefix, params.str).then(({ body} ) => {
+            context.commit(types.UPDATE_SEARCH_PARAMS, body.data)
+            context.commit(types.UPDATE_FILTER, params.str)
+            context.commit(types.ADD, body)
         })
     },
-    fetchingData: ( context , page) => {
+    fetchingData: (context, page) => {
+        context.commit(types.UPDATE_SEARCH_PARAMS, { prefix: prefixes[page.name] })
         context.commit(types.UPDATE_LOADING, true);
         context.commit(types.UPDATE_SEARCH_PARAMS, page.query);
         activateFunction[page.name](context.getters.searchParams).then(response => {

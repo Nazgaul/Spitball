@@ -37,11 +37,13 @@ export let verticalsPlaceholders = {};
 export let verticalsList=[];
 export let names = [];
 export let page = [];
+export let prefix = {};
 
 for (var v in verticals) {
     var item = verticals[v];
     names.push({ 'id': item.name, 'name': item.name });
     verticalsPlaceholders[v] = item.placeholder;
+    prefix[v] = item.prefix;
     verticalsList.push(verticals[v]);
     page[v] = { title: item.resultTitle, emptyText: item.emptyState,filter:item.filter,sort:item.sort}
 }
