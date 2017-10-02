@@ -33,6 +33,10 @@ module.exports = (env) => {
                         
                     },
                     {
+                        test: /\.(png|jpg)$/,
+                        loader: 'url-loader'
+                    },
+                    {
                         // Ask webpack to check: If this file ends with .js, then apply some transforms
                         test: /\.js$/,
                         // Transform it with babel
