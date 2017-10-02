@@ -4,9 +4,14 @@ import store from './store';
 import scroll from './components/helpers/infinateScroll.vue'
 import VueRouter from 'vue-router';
 import VueCarousel from 'vue-carousel';
+import Vuetify from 'vuetify'
 import * as route from './routes';
+
+//import './main.styl'
+import('../node_modules/vuetify/dist/vuetify.min.css');
 Vue.use(VueRouter);
 Vue.use(VueCarousel);
+Vue.use(Vuetify);
 Vue.component('scroll-list',scroll);
 
 const router = new VueRouter({
@@ -18,7 +23,7 @@ new Vue({
     router: router,
     render: h => h(App),
     store
-})
+});
 router.beforeResolve((to, from, next) => {
     store.dispatch('newPage', to);
     from.meta.userText = store.getters.userText;

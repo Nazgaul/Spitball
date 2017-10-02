@@ -9,5 +9,6 @@ export default {
                 this.$router.push({ name: state.state.node.model.name });
             }
         });
+        return {}
     }
 };

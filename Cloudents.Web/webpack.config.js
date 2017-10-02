@@ -19,17 +19,14 @@ module.exports = (env) => {
             module: {
                 // Special compilation rules
                 loaders: [
-                   // {
-                   //    test: /\.less$/,
-                   //     loader : 'less!'
-                   //    use: [{
-                   //        loader: "style-loader" // creates style nodes from JS strings
-                   //    }, {
-                   //        loader: "css-loader" // translates CSS into CommonJS
-                   //    }, {
-                   //        loader: "less-loader" // compiles Less to CSS
-                   //    }]  
-                   // },
+                    {
+                       test: /\.less$/,
+                       loader: 'vue-style-loader!css-loader!less-loader!',
+                       include: [
+                           path.resolve(__dirname, './src'),
+                           path.resolve(__dirname, './node_modules/vuetify')
+                       ]
+                    },
                     {
                         test: /\.svg$/,
                         loader: 'vue-svg-loader'
@@ -58,6 +55,14 @@ module.exports = (env) => {
                             }
                            // extractCSS: true
                         }
+                    },
+                    {
+                        test: /\.styl$/,
+                        loader: ['style-loader', 'css-loader', 'stylus-loader']
+                    },
+                    {
+                        test: /\.css$/,
+                        use: ['style-loader', 'css-loader']
                     }
                 ]
             },
