@@ -9,7 +9,7 @@
             <div class="section-icon" :class="$route.name" v-if="placeholders[$route.name]">
                 <component :class="$route.name" class="icon" v-bind:is="$route.name+'Header'"></component>
             </div>
-                <form  @submit.prevent="submit">
+                <form  @submit.prevent="">
                     <input type="search" id="qfilter" ref='search' v-model.lazy="qfilter" :placeholder="placeholders[$route.name]" @focus="showOption=true"/>
                 </form>
             <div id="notification">
@@ -32,7 +32,7 @@
     import tutorHeader from './images/tutor.svg'
     import purchaseHeader from './images/purchase.svg'
     import searchTypes from './../helpers/radioList.vue'
-    import { mapGetters } from 'vuex'
+    import { mapGetters, mapActions } from 'vuex'
     import { verticalsPlaceholders as placeholders, names } from '../data'
     export default {
         props: ["isOpen", "section"],
@@ -44,26 +44,21 @@
                 names: names
             }
         }, computed: {
+            ...mapGetters(['userText']),
             qfilter: {
                 get() {
-                    return this.$store.getters.userText;
+                    return this.userText;
                 },
                 set(val) {
-                    this.$store.dispatch('updateSearchText', val);
+                   this.updateSearchText(val);
                 }
             }
         },
         methods: {
+            ...mapActions(['updateSearchText']),
             changeType: function (val) {
+                this.updateSearchText();
                 this.$router.push({name:val})
-            },
-            submit: function () {
-                this.$store.dispatch('fetchingData', this.$route);
-                //console.log('boooo');
-                //search.getDocument(null, (response) => {
-                //    console.log(response);
-                //    this.$emit('update:result', response)
-                //})
             }
         }
     }

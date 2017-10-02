@@ -1,6 +1,6 @@
 ﻿<template>
     <div class="content">
-        <h1 ><span v-if="isEmpty" v-html="page.emptyState"></span>
+        <h1 ><span v-if="isEmpty" class="empty" v-html="page.emptyText"></span>
         <span v-else v-html="page.title"></span>{{dynamicHeader}}</h1>
         <slot name="options">
             <radio-list :values="page.filter" @click="$_changeFilter" model="filter" :value="filterOptions"></radio-list>

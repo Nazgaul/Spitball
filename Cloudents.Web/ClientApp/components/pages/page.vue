@@ -8,7 +8,6 @@
             <input id="menu-checkbox" type="checkbox" class="hide_641" />
             <app-aside :isOpen="isOpen" :section.sync="section"></app-aside>
             <div class="content">
-                <router-link :to="{name:$route.name,query:{a:'yiaft'}}">yifatttttt</router-link>
                 <div v-if="isLoading">Loading.....</div>
                 <page-result v-else><router-view></router-view></page-result>
             </div>

@@ -1,6 +1,5 @@
 ﻿<template>
     <div>
-        <router-link :to="{name:$route.name,query:{a:'yiaft'}}">yifatttttt</router-link>
         <iframe v-if="video" id="video" width="420" height="315" :src="video" frameborder="0" allowfullscreen></iframe>
         <item-result :items="items"></item-result>
     </div>

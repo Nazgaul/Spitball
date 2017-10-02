@@ -11,7 +11,7 @@ const state = {
     search: {
         userText: '',
         page: 0,
-        prefix: '',
+        type: '',
         term: '',
         sort:"Relevance"
     }
@@ -36,9 +36,9 @@ const mutations = {
         console.log("merge meta")
         //state.pageContent = payload
     },
-    [types.UPDATE_LOADING](state, payload) {
-        console.log("update loading")
-        state.search.page = payload?0:1;
+    [types.UPDATE_LOADING](state, payload) {        
+        state.search.page = payload ? 0 : 1;
+        console.log("update loading page:" + state.search.page);
         state.loading = payload
     },
     [types.UPDATE_ITEM_LIST](state, payload) {
@@ -67,30 +67,44 @@ const getters = {
     isEmpty: state => state.isEmpty,
     scrollingLoader: state => state.scrollingLoader,
     pageTitle: state => state.pageContent ? state.pageContent.title : null,
-    searchParams: state => state.search
+    searchParams: state => state.search,
+    searchPrefix: state => prefixes[state.search.type]
 }
 const actions = {
     updateSearchText: (context, text) => {
         let params = {};
         console.log(text);
-        if (typeof text === typeof {}) {
-            params = text;
+        if (text){
+            context.commit(types.UPDATE_SEARCH_PARAMS, { userText: null });
+            return;
         }
-        else{
-            params.prefix = context.state.search.prefix;
-            params.str = text;
-        }
-        ai.interpetPromise(params.prefix, params.str).then(({ body} ) => {
-            context.commit(types.UPDATE_SEARCH_PARAMS, body.data)
-            context.commit(types.UPDATE_FILTER, params.str)
-            context.commit(types.ADD, body)
-        })
+
+            if (typeof text === typeof {}) {
+                params = text;
+            }
+            else {
+                params.prefix = context.getters.searchPrefix;
+                params.str = text;
+            }
+
+
+            ai.interpetPromise(params.prefix, params.str).then(({ body }) => {
+                context.commit(types.UPDATE_SEARCH_PARAMS, { ...body.data, userText: params.str });
+                if (context.state.search.type) context.dispatch('fetchingData', context.state.search.type);
+                context.commit(types.ADD, body)
+            })
     },
-    fetchingData: (context, page) => {
-        context.commit(types.UPDATE_SEARCH_PARAMS, { prefix: prefixes[page.name] })
+    newPage: (context, page) => {
+        console.log(page.name);
+        let query=page.query
+        if (page.name !== context.state.search.type) { query = { ...page.query, source: null, sort: "relevance" } }
+        context.commit(types.UPDATE_SEARCH_PARAMS, {...query, type: page.name })
+        //context.commit(types.UPDATE_SEARCH_PARAMS, page.query);
+        page.name!='home'?context.dispatch('fetchingData',page.name):'';
+    },
+    fetchingData: (context,pageName) => {
         context.commit(types.UPDATE_LOADING, true);
-        context.commit(types.UPDATE_SEARCH_PARAMS, page.query);
-        activateFunction[page.name](context.getters.searchParams).then(response => {
+        activateFunction[pageName](context.getters.searchParams).then(response => {
                 context.commit(types.UPDATE_PAGE_CONTENT, response);
             })       
     },
@@ -133,12 +147,12 @@ const activateFunction = {
     },
     note:  (params) => {
         return new Promise((resolve, reject) => {
-            search.getDocument(params).then(({ body }) => resolve({ isEmpty: !Boolean(body.item1.length),data:{ items: body.item1, sources: body.item2 }}))
+            search.getDocument(params).then(({ body }) => resolve({ isEmpty: !Boolean(body.item1.length),data:{ items: body.item1, source: body.item2 }}))
         })
     },
     flashcard: function (params) {
         return new Promise((resolve, reject) => {
-            search.getFlashcard(params).then(({ body }) => resolve({ isEmpty: !Boolean(body.item1.length), data: { items: body.item1, sources: body.item2 }}))
+            search.getFlashcard(params).then(({ body }) => resolve({ isEmpty: !Boolean(body.item1.length), data: { items: body.item1, source: body.item2 }}))
         })
     },
     tutor: function (params) {
