@@ -5,6 +5,7 @@
         None,
         Online,
         InPerson,
-        Paid
+        Paid,
+        OpenNow
     }
 }

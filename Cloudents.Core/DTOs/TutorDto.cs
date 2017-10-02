@@ -1,7 +1,5 @@
-﻿using System;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using Cloudents.Core.Models;
-using Cloudents.Core.Request;
 
 namespace Cloudents.Core.DTOs
 {

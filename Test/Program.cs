@@ -5,7 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Models;
 using Cloudents.Infrastructure;
 
 namespace Test
@@ -25,9 +27,15 @@ namespace Test
             var container = builder.Build();
 
 
-            var service = container.Resolve<ITutorSearch>();
+            var service = container.Resolve<IPurchaseSearch>();
 
-            var result = await service.SearchAsync("math",Cloudents.Core.Enum.SearchRequestFilter.None, Cloudents.Core.Enum.SearchRequestSort.None,null, default).ConfigureAwait(false);
+            var point = new GeoPoint()
+            {
+                Latitude = 34.8013,
+                Longitude = 31.9321
+            };
+            var result = await service.SearchAsync("hamburger", SearchRequestFilter.None, point,
+                default).ConfigureAwait(false);
 
             var t = result.ToList();
             Console.WriteLine();

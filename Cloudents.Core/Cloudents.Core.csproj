@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="DTOs\BookSearchDto.cs" />
     <Compile Include="DTOs\JobDto.cs" />
+    <Compile Include="DTOs\PlaceDto.cs" />
     <Compile Include="DTOs\TutorDto.cs" />
     <Compile Include="DTOs\UniversitySynonymDto.cs" />
     <Compile Include="DTOs\VideoDto.cs" />

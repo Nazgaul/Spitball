@@ -48,6 +48,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<JobSearch>().As<IJobSearch>();
             builder.RegisterType<BookSearch>().As<IBookSearch>();
             builder.RegisterType<RestClient>().As<IRestClient>();
+            builder.RegisterType<PurchaseSearch>().As<IPurchaseSearch>();
 
             builder.RegisterType<UniversitySynonymRepository>().As<IReadRepositorySingle<UniversitySynonymDto, long>>();
 
@@ -73,6 +74,37 @@ namespace Cloudents.Infrastructure
 
                 cfg.CreateMap<Search.Entities.Job, JobDto>();
                 cfg.CreateMap<JObject, IEnumerable<BookSearchDto>>().ConvertUsing((jo, bookSearch) => jo["response"]["page"]["results"]["book"].ToObject<IEnumerable<BookSearchDto>>());
+                cfg.CreateMap<JObject, IEnumerable<PlaceDto>>().ConvertUsing((jo, bookSearch, c) =>
+                {
+                    return jo["results"].Select(json =>
+                    {
+                        var photo = json["photos"]?[0]?["photo_reference"]?.Value<string>();
+                        string image = null;
+                        if (!string.IsNullOrEmpty(photo))
+                        {
+                            image =
+                                $"https://maps.googleapis.com/maps/api/place/photo?maxwidth={c.Items["width"]}&photoreference={photo}&key={c.Items["key"]}";
+                        }
+                        GeoPoint location = null;
+                        if (json["geometry"]?["location"] != null)
+                        {
+                            location = new GeoPoint
+                            {
+                                Latitude = json["geometry"]["location"]["lat"].Value<double>(),
+                                Longitude = json["geometry"]["location"]["lng"].Value<double>()
+                            };
+                        }
+                        return new PlaceDto
+                        {
+                            Address = json["vicinity"].Value<string>(),
+                            Image = image,
+                            Location = location,
+                            Name = json["name"].Value<string>(),
+                            Open = json["opening_hours"]?["open_now"]?.Value<bool>() ?? false,
+                            Rating = json["rating"]?.Value<double>() ?? 0
+                        };
+                    });
+                });
                 cfg.CreateMap<JObject, IEnumerable<TutorDto>>().ConvertUsing((jo, tu, c) =>
                 {
 
