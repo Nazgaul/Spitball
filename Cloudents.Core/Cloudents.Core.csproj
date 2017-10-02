@@ -56,6 +56,7 @@
     <Compile Include="Extension\StringExtensions.cs" />
     <Compile Include="Extension\UriBuilderExtension.cs" />
     <Compile Include="Interfaces\IAI.cs" />
+    <Compile Include="Interfaces\IBookSearch.cs" />
     <Compile Include="Interfaces\IDocumentSearch.cs" />
     <Compile Include="Interfaces\IFlashcardSearch.cs" />
     <Compile Include="Interfaces\IJobSearch.cs" />

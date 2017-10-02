@@ -70,7 +70,6 @@ namespace Cloudents.Infrastructure
                     }));
 
                 cfg.CreateMap<Search.Entities.Job, JobDto>();
-                cfg.CreateMap<JToken, BookSearchDto>().ConvertUsing((jo, bookSearch) => jo.ToObject<BookSearchDto>());
                 cfg.CreateMap<JObject, IEnumerable<BookSearchDto>>().ConvertUsing((jo, bookSearch) => jo["response"]["page"]["results"]["book"].ToObject<IEnumerable<BookSearchDto>>());
             });
             builder.Register(c => config.CreateMapper()).SingleInstance();

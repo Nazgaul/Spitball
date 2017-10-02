@@ -25,9 +25,9 @@ namespace Test
             var container = builder.Build();
 
 
-            var service = container.Resolve<IBookSearch>();
+            var service = container.Resolve<ITutorSearch>();
 
-            var result = await service.SearchAsync("war", 0, default).ConfigureAwait(false);
+            var result = await service.SearchAsync("math",Cloudents.Core.Enum.SearchRequestFilter.None, Cloudents.Core.Enum.SearchRequestSort.None,null, default).ConfigureAwait(false);
 
             var t = result.ToList();
             Console.WriteLine();

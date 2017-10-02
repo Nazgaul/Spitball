@@ -24,7 +24,7 @@ namespace Cloudents.Infrastructure.Search
         private readonly ISearchIndexClient m_Client;
         private readonly IMapper m_Mapper;
 
-        public TutorSearch(ISearchServiceClient client, IMapper mapper)
+        public TutorSearch(SearchServiceClient client, IMapper mapper)
         {
             m_Mapper = mapper;
             m_Client = client.Indexes.GetClient("tutors");
