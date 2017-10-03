@@ -67,8 +67,8 @@ namespace Cloudents.Infrastructure.Search
 
             };
             var retVal = await
-                m_Client.Documents.SearchAsync<Tutor>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
-            return m_Mapper.Map<IEnumerable<Tutor>, IList<JobDto>>(retVal.Results.Select(s => s.Document));
+                m_Client.Documents.SearchAsync<Job>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
+            return m_Mapper.Map<IEnumerable<Job>, IList<JobDto>>(retVal.Results.Select(s => s.Document));
         }
     }
 }

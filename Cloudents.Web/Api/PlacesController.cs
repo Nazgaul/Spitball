@@ -23,11 +23,11 @@ namespace Cloudents.Web.Api
         }
 
 
-        public async Task<IActionResult> Get(string term, SearchRequestFilter filter, GeoPoint location, CancellationToken token)
+        public async Task<IActionResult> Get(string[] term, SearchRequestFilter filter, GeoPoint location, CancellationToken token)
         {
             if (term == null) throw new ArgumentNullException(nameof(term));
             if (location == null) throw new ArgumentNullException(nameof(location));
-            var result = await m_PurchaseSearch.SearchAsync(term, filter, location, token).ConfigureAwait(false);
+            var result = await m_PurchaseSearch.SearchAsync(string.Join(" ", term), filter, location, token).ConfigureAwait(false);
             return Json(result);
         }
     }
