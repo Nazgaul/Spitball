@@ -3,36 +3,9 @@
 //@font-bold: "OpenSans-Bold";
 //@font-regular: "OpenSans-Regular";
 //@font-italic: "OpenSans-Italic";
-
-@color-blue: #3293f6;
-@color-dark-blue: #0455a8;
-@color-white: #fff;
-@color-grey: #4a4a4a;
-@color-light-grey: #f0f0f0;
-@color-light-grey-2: #fbfbfb;
-@color-green: #52ab15;
-@color-orange: #f5a623;
-@color-purple: #8c3fbf;
-@color-dark-purple: #320161;
+@import "../../mixin.less";
 
 
-.rounded-all(@radius) {
-    border-radius: (@radius);
-}
-
-@color-pink-gradient: fade(#f14d4d, 15%);
-@color-purple-gradient: fade(@color-purple, 15%);
-@color-green-gradient: fade(@color-green, 15%);
-@color-orange-gradient: fade(@color-orange, 15%);
-
-.gradient (@startColor: @color-white, @endColor: @color-purple) {
-    background-color: @startColor;
-    background: -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
-    background: -webkit-linear-gradient(top, @startColor, @endColor);
-    background: -moz-linear-gradient(top, @startColor, @endColor);
-    background: -ms-linear-gradient(top, @startColor, @endColor);
-    background: -o-linear-gradient(top, @startColor, @endColor);
-}
 
 html {
     font-family: sans-serif;
@@ -439,95 +412,7 @@ p, div {
     max-width: 800px;
 }
 
-.scroll {
-    padding-bottom: 100px;
-    white-space: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: -ms-autohiding-scrollbar;
-}
 
-.box-nav-circle {
-    height: 114px;
-    overflow: hidden;
-
-    li {
-        display: inline-block;
-        list-style: none;
-        text-align: center;
-        width: 110px;
-
-        .hover {
-            border: 2px solid transparent;
-            .rounded-all(50%);
-            margin: 0 auto 5px;
-            padding: 6px;
-            width: 88px;
-        }
-    }
-
-    li:hover {
-        .hover {
-            border-color: @color-white;
-        }
-    }
-
-    a {
-        color: @color-white;
-        font-size: 14px;
-        display: block;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-    }
-
-    a:hover {
-        text-decoration: none;
-    }
-
-    span {
-        display: inline-block;
-        font-size: 30px;
-        height: 72px;
-        line-height: 68px;
-        text-align: center;
-        width: 72px;
-        .rounded-all(50%);
-    }
-
-    img {
-        display: inline-block;
-        vertical-align: middle;
-    }
-
-    .box-1 span {
-        background: #0455a8;
-    }
-
-    .box-2 span {
-        background: #0455a8;
-    }
-
-    .box-3 span {
-        background: #f14d4d;
-    }
-
-    .box-4 span {
-        background: #52ab15;
-    }
-
-    .box-5 span {
-        background: #f49c20;
-    }
-
-    .box-6 span {
-        background: #8c3fbf;
-    }
-
-    .box-7 span {
-        background: #2cbfa5;
-    }
-}
 
 .box-section {
     margin: 20px 0 0;

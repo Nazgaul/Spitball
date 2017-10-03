@@ -51,7 +51,8 @@
                         </div>
                     </div>
                     <div class="box-nav-circle">
-                        <ul class="scroll">
+                        <vertical-collection :changeCallback="changeSection"></vertical-collection>
+                        <!--<ul class="scroll">
                             <li class="box-1">
                                 <a href="#">
                                     <div class="hover"><span><img src="img/svg/ask-icon.svg" alt=""></span></div>
@@ -94,7 +95,7 @@
                                     Food
                                 </a>
                             </li>
-                        </ul>
+                        </ul>-->
                     </div>
                 </div>
             </v-container>
