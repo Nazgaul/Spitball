@@ -37,13 +37,15 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     var counter = await func(cancellationToken).ConfigureAwait(false);
                     m_Logger.TrackMetric(prefix, counter);
                     needLoop = false;
-                    // mailContent.AppendLine($"{prefix} number: {counter}");
+                }
+                catch (TaskCanceledException)
+                {
+                    throw;
                 }
                 catch (Exception ex)
                 {
                     m_Logger.Exception(ex);
                     await m_MailComponent.GenerateSystemEmailAsync("delete old stuff", ex.ToString()).ConfigureAwait(false);
-                    // mailContent.AppendLine($"{prefix} exception: {ex}");
                     break;
                 }
             }

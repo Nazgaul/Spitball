@@ -10,30 +10,30 @@ module.exports = (env) => {
         {
             entry: { main: './ClientApp/main.js' },
             context: __dirname,
-           // resolve: {
-           //     extensions: [".js", ".vue"],
-                //alias: {
-                //    "vue$": "vue/dist/vue.esm.js"
-                //}
-           // },
+            // resolve: {
+            //     extensions: [".js", ".vue"],
+            //alias: {
+            //    "vue$": "vue/dist/vue.esm.js"
+            //}
+            // },
             module: {
                 // Special compilation rules
                 loaders: [
                     {
-                       test: /\.less$/,
-                       loader: 'vue-style-loader!css-loader!less-loader!',
-                       include: [
-                           path.resolve(__dirname, './src'),
-                           path.resolve(__dirname, './node_modules/vuetify')
-                       ]
+                        test: /\.less$/,
+                        loader: 'vue-style-loader!css-loader!less-loader!',
+                        include: [
+                            path.resolve(__dirname, './src'),
+                            path.resolve(__dirname, './node_modules/vuetify')
+                        ]
                     },
                     {
                         test: /\.svg$/,
                         loader: 'vue-svg-loader'
-                        
+
                     },
                     {
-                        test: /\.(png|jpg)$/,
+                        test: /\.(png|jpg|jpeg|gif)$/,
                         loader: 'url-loader'
                     },
                     {
@@ -51,13 +51,8 @@ module.exports = (env) => {
                         include: /ClientApp/,
                         options: { //maybe
                             loaders: {
-                                // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
-                                // the "scss" and "sass" values for the lang attribute to the right configs here.
-                                // other preprocessors should work out of the box, no loader config like this necessary.
                                 'less': 'vue-style-loader!css-loader!less-loader'
-                                //'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
                             }
-                           // extractCSS: true
                         }
                     },
                     {
@@ -66,6 +61,7 @@ module.exports = (env) => {
                     },
                     {
                         test: /\.css$/,
+                        //use: isDevBuild ? ['style-loader', 'css-loader'] : ExtractTextPlugin.extract({ use: 'css-loader?minimize' })
                         use: ['style-loader', 'css-loader']
                     }
                 ]
@@ -89,8 +85,12 @@ module.exports = (env) => {
                     'process.env': {
                         NODE_ENV: JSON.stringify(isDevBuild ? 'development' : 'production')
                     }
-                },
-                new ExtractTextPlugin("style.css"))
+                }),
+                //new webpack.DllReferencePlugin({
+                //    context: __dirname,
+                //    manifest: require('./wwwroot/dist/vendor-manifest.json')
+                //})
+                new ExtractTextPlugin("style.css")
             ].concat(isDevBuild
                 ? [
                     // Plugins that apply in development builds only
@@ -104,7 +104,6 @@ module.exports = (env) => {
                 : [
                     // Plugins that apply in production builds only
                     new webpack.optimize.UglifyJsPlugin()
-                    //new ExtractTextPlugin('site.css')
                 ])
         }
     ];

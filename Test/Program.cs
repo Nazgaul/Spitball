@@ -27,19 +27,18 @@ namespace Test
             var container = builder.Build();
 
 
-            var service = container.Resolve<IPurchaseSearch>();
+            var service = container.Resolve<IBookSearch>();
 
             var point = new GeoPoint()
             {
                 Latitude = 34.8013,
                 Longitude = 31.9321
             };
-            var result = await service.SearchAsync("hamburger", SearchRequestFilter.None, point,
-                default).ConfigureAwait(false);
+            var result = await service.SearchAsync("trampolina123", 256, 0, default);
 
-            var t = result.ToList();
+            var t = result;
             Console.WriteLine();
-            
+
             Console.ReadLine();
         }
     }
