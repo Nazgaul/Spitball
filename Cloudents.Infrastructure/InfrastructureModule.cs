@@ -73,7 +73,56 @@ namespace Cloudents.Infrastructure
                     }));
 
                 cfg.CreateMap<Search.Entities.Job, JobDto>();
-                cfg.CreateMap<JObject, IEnumerable<BookSearchDto>>().ConvertUsing((jo, bookSearch) => jo["response"]["page"]["results"]["book"].ToObject<IEnumerable<BookSearchDto>>());
+                cfg.CreateMap<JObject, IEnumerable<BookSearchDto>>().ConvertUsing((jo, bookSearch,c) =>
+                {
+                    return jo["response"]["page"]["books"]["book"].Select(json =>
+                    {
+                        return c.Mapper.Map<JToken, BookSearchDto>(json);
+                        //return new BookSearchDto
+                        //{
+                        //    Image = json["image"]?["image"].Value<string>(),
+                        //    Author = json["author"].Value<string>(),
+                        //    Binding = json["binding"].Value<string>(),
+                        //    Edition = json["edition"].Value<string>(),
+                        //    Isbn10 = json["isbn10"].Value<string>(),
+                        //    Isbn13 = json["isbn13"].Value<string>(),
+                        //    Title = json["title"].Value<string>()
+                        //};
+                    });
+                });
+                cfg.CreateMap<JToken, BookSearchDto>().ConvertUsing((jo, bookSearch) => new BookSearchDto
+                {
+                    Image = jo["image"]?["image"].Value<string>(),
+                    Author = jo["author"].Value<string>(),
+                    Binding = jo["binding"].Value<string>(),
+                    Edition = jo["edition"].Value<string>(),
+                    Isbn10 = jo["isbn10"].Value<string>(),
+                    Isbn13 = jo["isbn13"].Value<string>(),
+                    Title = jo["title"].Value<string>()
+
+                });
+                cfg.CreateMap<JObject, BookDetailsDto>().ConvertUsing((jo, bookSearch, c) =>
+                {
+
+                    var book = jo["response"]["page"]["books"]["book"].First;
+                    var offers = book["offers"]["group"].SelectMany(json =>
+                    {
+                        return json["offer"].Select(s => new BookPricesDto
+                        {
+                            Condition = s["condition"]["condition"].Value<string>(),
+                            Image = s["merchant"]["image"].Value<string>(),
+                            Link = s["link"].Value<string>(),
+                            Name = s["merchant"]["name"].Value<string>(),
+                            Price = s["total"].Value<double>()
+                        });
+                    });
+                    return new BookDetailsDto
+                    {
+
+                        Details = c.Mapper.Map<JToken, BookSearchDto>(book), //book.ToObject<BookSearchDto>(),,
+                        Prices = offers
+                    };
+                });
                 cfg.CreateMap<JObject, IEnumerable<PlaceDto>>().ConvertUsing((jo, bookSearch, c) =>
                 {
                     return jo["results"].Select(json =>
@@ -114,7 +163,7 @@ namespace Cloudents.Infrastructure
                         Image = result["avatar"]["x300"].Value<string>(),
                         Name = result["shortName"].Value<string>(),
                         Online = result["isOnline"].Value<bool>(),
-                        TermFound = result.ToString().Split(new[] {c.Items["term"].ToString()},
+                        TermFound = result.ToString().Split(new[] { c.Items["term"].ToString() },
                             StringSplitOptions.RemoveEmptyEntries).Length
                     });
                 });
