@@ -25,13 +25,10 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 
         public async Task<bool> ExecuteAsync(BaseMailData data, CancellationToken token)
         {
-            var parameters = data as MessageMailData;
+            if (!(data is MessageMailData parameters)) return true;
 
-            if (parameters == null) return true;
-
-            Guid temp;
             //TODO: This is Jared user - need to figure out better system
-            if (Guid.TryParse(parameters.EmailAddress, out temp))
+            if (Guid.TryParse(parameters.EmailAddress, out _))
             {
                 await DoJaredPushAsync(parameters).ConfigureAwait(false);
                 return true;

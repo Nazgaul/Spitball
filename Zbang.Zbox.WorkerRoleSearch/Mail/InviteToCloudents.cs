@@ -17,9 +17,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 
         public async Task<bool> ExecuteAsync(BaseMailData data, CancellationToken token)
         {
-            var parameters = data as InviteToCloudentsData;
-
-            if (parameters == null)
+            if (!(data is InviteToCloudentsData parameters))
             {
                 throw new NullReferenceException("parameters");
             }
@@ -32,8 +30,8 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             }
             var url = string.IsNullOrEmpty(parameters.Url) ? "https://www.spitball.co/" : parameters.Url;
             await m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
-              new InvitationToCloudentsMailParams(parameters.SenderName, userImage,
-             new CultureInfo(parameters.Culture), inviteeEmail, url), token);
+                new InvitationToCloudentsMailParams(parameters.SenderName, userImage,
+                    new CultureInfo(parameters.Culture), inviteeEmail, url), token).ConfigureAwait(false);
 
             return true;
         }

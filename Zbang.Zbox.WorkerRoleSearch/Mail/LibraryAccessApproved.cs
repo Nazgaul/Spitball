@@ -18,15 +18,14 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 
         public async Task<bool> ExecuteAsync(BaseMailData data, CancellationToken token)
         {
-            var parameters = data as AccessApprovedData;
-            if (parameters == null)
+            if (!(data is AccessApprovedData parameters))
             {
                 throw new NullReferenceException("parameters");
             }
             //string depName = parameters.DepName;
 
             await m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
-                 new DepartmentApprovedMailParams(new CultureInfo(parameters.Culture), parameters.DepName), token);
+                new DepartmentApprovedMailParams(new CultureInfo(parameters.Culture), parameters.DepName), token).ConfigureAwait(false);
 
             return true;
         }

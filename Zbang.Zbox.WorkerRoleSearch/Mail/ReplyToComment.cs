@@ -21,8 +21,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 
         public async Task<bool> ExecuteAsync(BaseMailData data, CancellationToken token)
         {
-            var parameters = data as ReplyToCommentData;
-            if (parameters == null)
+            if (!(data is ReplyToCommentData parameters))
             {
                 throw new NullReferenceException("parameters");
             }

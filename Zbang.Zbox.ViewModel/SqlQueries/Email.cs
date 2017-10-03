@@ -2,27 +2,24 @@
 {
     public static class Email
     {
-        //TODO: need to check if we can remove recompile option
         public const string GetUserListByNotificationSettings =
             @"select distinct u.userid as UserId,u.email as Email, u.culture as Culture, u.UserName as UserName
      from zbox.users u 
-	 inner join  zbox.userboxrel ub  
-	 on u.userid = ub.userid and notificationSettings = @Notification
-	 inner join zbox.university u2 on u2.id = u.universityid
+	 inner join  zbox.userboxrel ub on u.userid = ub.userid and notificationSettings = @Notification
+	 inner join zbox.university u2 on u2.id = u.universityid and u2.country != 'us'  and coalesce(u2.utcoffset,0) = @utcoffset
      where u.emailsendsettings = 0
-	 and coalesce(u2.utcoffset,0) = @utcoffset
 	 and exists ( select top 1 * 
 	 from zbox.newupdates nu 
 	 where nu.boxid = ub.boxid and nu.userid = u.userid
-	 and DATEADD(minute,-(@NotificationTime), getutcdate()) < nu.CreationTime)
+	 and DATEADD(minute,-(@NotificationTime), SYSUTCDATETIME()) < nu.CreationTime)
 	 order by userid
-	  offset @pageNumber*@rowsperpage ROWS
-	  FETCH NEXT @rowsperpage ROWS ONLY option(Recompile);";
+	 offset @pageNumber*@rowsperpage ROWS
+	 FETCH NEXT @rowsperpage ROWS ONLY;;";
 
         public const string GetUserUpdates = @"select boxid,QuestionId,AnswerId,ItemId,QuizId,QuizDiscussionId
 	from zbox.NewUpdates nu
 	where nu.UserId = @UserId 
-	and DATEADD(minute,-(@NotificationTime), getutcdate()) < nu.CreationTime";
+	and DATEADD(minute,-(@NotificationTime), SYSUTCDATETIME()) < nu.CreationTime";
 
         public const string GetBoxUpdates = @"select boxid as BoxId, boxname as BoxName, Url
             from zbox.Box

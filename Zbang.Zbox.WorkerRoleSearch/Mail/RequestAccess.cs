@@ -18,8 +18,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 
         public async Task<bool> ExecuteAsync(BaseMailData data, CancellationToken token)
         {
-            var parameters = data as RequestAccessData;
-            if (parameters == null)
+            if (!(data is RequestAccessData parameters))
             {
                 throw new NullReferenceException("parameters");
             }
@@ -28,8 +27,8 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             //string depName = parameters.DepName;
 
             await m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
-                 new DepartmentRequestAccessMailParams(new CultureInfo(parameters.Culture),
-                     parameters.UserName, parameters.UserImage, parameters.DepName), token);
+                new DepartmentRequestAccessMailParams(new CultureInfo(parameters.Culture),
+                    parameters.UserName, parameters.UserImage, parameters.DepName), token).ConfigureAwait(false);
 
             return true;
         }

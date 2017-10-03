@@ -20,8 +20,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 
         public async Task<bool> ExecuteAsync(BaseMailData data, CancellationToken token)
         {
-            var parameters = data as InviteMailData;
-            if (parameters == null)
+            if (!(data is InviteMailData parameters))
             {
                 throw new NullReferenceException("parameters");
             }
@@ -30,7 +29,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             if (parameters.ReceiverId.HasValue)
             {
                 await m_SendPush.SendInviteNotificationAsync(parameters.InviterName, parameters.BoxName, parameters.BoxId,
-                    parameters.ReceiverId.Value);
+                    parameters.ReceiverId.Value).ConfigureAwait(false);
             }
 
             var inviteeEmail = parameters.InviterEmail;
@@ -39,11 +38,11 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 inviteeEmail = MailParameters.DefaultEmail;
             }
             await m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
-                 new InviteMailParams(parameters.InviterName,
-                 parameters.BoxName,
-                 parameters.BoxUrl,
-                 userImage,
-                new CultureInfo(parameters.Culture), inviteeEmail), token);
+                new InviteMailParams(parameters.InviterName,
+                    parameters.BoxName,
+                    parameters.BoxUrl,
+                    userImage,
+                    new CultureInfo(parameters.Culture), inviteeEmail), token).ConfigureAwait(false);
 
             return true;
         }
