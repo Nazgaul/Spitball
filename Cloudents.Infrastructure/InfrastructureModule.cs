@@ -75,7 +75,7 @@ namespace Cloudents.Infrastructure
                 cfg.CreateMap<Search.Entities.Job, JobDto>();
                 cfg.CreateMap<JObject, IEnumerable<BookSearchDto>>().ConvertUsing((jo, bookSearch,c) =>
                 {
-                    return jo["response"]["page"]["books"]["book"].Select(json =>
+                    return jo["response"]["page"]["books"]?["book"]?.Select(json =>
                     {
                         return c.Mapper.Map<JToken, BookSearchDto>(json);
                         //return new BookSearchDto

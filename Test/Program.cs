@@ -34,7 +34,7 @@ namespace Test
                 Latitude = 34.8013,
                 Longitude = 31.9321
             };
-            var result = await service.BuyAsync("9780446556224", 250, default);
+            var result = await service.SearchAsync("trampolina123", 256, 0, default);
 
             var t = result;
             Console.WriteLine();
