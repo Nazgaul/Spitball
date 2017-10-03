@@ -12,24 +12,24 @@ export let verticals =
         },
         flashcard: {
             name: "flashcard", image: "flashcard", placeholder: "Find me flashcards...", prefix: "Find me flashcards on", asideLabel: "search type",
-            resultTitle: "Oh look - I found some flashcards for you.<br>Test yourself!", emptyState: "ask", filter: [{ id: 'all', name: 'all' }, { id: 'source', name: 'sources' }], sort: ""
+            resultTitle: "Oh look - I found some flashcards for you.<br>Test yourself!", emptyState: "ask", filter: [{ id: 'all', name: 'all' }, { id: 'source', name: 'sources' }], sort: [{ id: 'relevance', name: 'relevance' }, { id: 'date', name: 'date' }]
         },
         tutor: {
             name: "tutor", image: "tutor", placeholder: "Find me a tutor...", prefix: "Find me a tutor for", asideLabel: "search type",
-            resultTitle: "I found these tutors. Help is juast a click away!", emptyState: "no tutor found...", filter: "Ask anything...", sort: ""
+            resultTitle: "I found these tutors. Help is juast a click away!", emptyState: "no tutor found...", filter: [{ id: 'all', name: 'all' }, { id: 'online', name: 'online' }, { id: 'inPerson', name: 'In Person' }], sort: [{ id: 'relevance', name: 'relevance' }, { id: 'price', name: 'price' }, { id: 'distance', name: 'distance' }]
         },
         job: {
             name: "job", image: "job", placeholder: "Find me a job...", prefix: "Find me a job in", asideLabel: "search type",
-            resultTitle: "Look at this - you’ll be employed in no time!", emptyState: "ask", filter: "Ask anything...", sort: ""
+            resultTitle: "Look at this - you’ll be employed in no time!", emptyState: "no job founds", filter: [{ id: 'all', name: 'all' }, { id: 'jobType', name: 'job type' }, { id: 'paid', name: 'paid' }], sort:[{ id: 'relevance', name: 'relevance' }, { id: 'price', name: 'price' }, { id: 'distance', name: 'distance' }]
         },
         book: {
             //TODO: need to check if its the right prefix
-            name: "book", image: "book", placeholder: "Find me a textbook ...", prefix: "Textbook by", asideLabel: "search type",
-            resultTitle: "I found some textbooks that match your search. Check them out!", emptyState: "ask", filter: "Ask anything...", sort: ""
+            name: "book", image: "book", placeholder: "Find me a textbook ...", prefix: "Find me a textbook -", asideLabel: "search type",
+            resultTitle: "I found some textbooks that match your search. Check them out!", emptyState: "no Books founds", filter: "", sort: ""
         },
         purchase: {
             name: "purchase", image: "purchase", placeholder: "Where can i get...", prefix: "Where can I get a", asideLabel: "purchase",
-            resultTitle: "Booya! I found a few places that<br>you might like.", emptyState: "ask", filter: "Ask anything...", sort: ""
+            resultTitle: "Booya! I found a few places that<br>you might like.", emptyState: "ask", filter: [{ id: 'all', name: 'all' }, { id: 'openNow', name: 'open now' }], sort: [{ id: 'distance', name: 'distance' }]
         }
     };
 

@@ -1,12 +1,12 @@
 ﻿<template>
-        <item-result :items="items" ></item-result>
+    <div><item-result :items="items"></item-result></div>
 </template>
 <script>
     import itemResult from './ResultItem.vue'
+    import { itemsList } from './mixins'
+
     export default {
-        computed: {
-            items: function () { return this.$store.getters.items } ,
-            sources: function () {return this.$store.getters.pageContent.sources}
-        }, components: {itemResult}
+        mixins: [itemsList],
+        components: { itemResult }
     }
 </script>

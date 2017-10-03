@@ -1,7 +1,6 @@
 ﻿
 <template v-once>
     <div>
-        <!--<input v-model="isOpen" placeholder="is open main" />-->
         <div class="overlay"></div>
         <app-header ref="header" :isOpen="isOpen" :section.sync="section" :section="section" ></app-header>
         <section>

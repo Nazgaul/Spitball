@@ -9,6 +9,7 @@ const searchFunctions = {
     flashcard: { method: 'GET', url: basePath + 'search/flashcards/{?term*}' },
     tutor: { method: 'GET', url: basePath + 'tutor/{?term*}' },
     video: { method: 'GET', url: basePath + 'video/{?term*}' },
-    job: { method: 'GET', url: basePath + 'job/{?term*}' }
+    job: { method: 'GET', url: basePath + 'job/{?term*}' },
+    book: { method: 'GET', url: basePath + 'book/{?term*}' }
 }
 export const search = Vue.resource(basePath, {}, searchFunctions)

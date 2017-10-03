@@ -3,13 +3,13 @@ export default {
     getShortAnswer(term) {
         return resource.wolfram(
             {
-                term: term
+                term
             });
     },
     getVideo(term) {
         return resource.video(
             {
-                term: term
+                term
             });
     },
     getDocument(data) {
@@ -22,16 +22,16 @@ export default {
         return resource.askData(data);
     },
 
-    getTutor(term) {
-        return resource.tutor(
-            {
-                term: term
-            });
+    getTutor(params) {
+        return resource.tutor(params);
     },
-    getJob(term) {
-        return resource.job(
+    getJob(params) {
+        return resource.job(params);
+    },
+    getBook(term,page) {
+        return resource.book(
             {
-                term: term
+                term ,page
             });
     }
 };
