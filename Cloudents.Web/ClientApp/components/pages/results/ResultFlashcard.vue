@@ -3,10 +3,10 @@
 </template>
 <script>
     import itemResult from './ResultItem.vue'
+    import { itemsList } from './mixins'
+
     export default {
-        computed: {
-            items: function () { return this.$store.getters.items}
-        },
-        components: {itemResult}
+        mixins: [itemsList],
+        components: { itemResult }
     }
 </script>

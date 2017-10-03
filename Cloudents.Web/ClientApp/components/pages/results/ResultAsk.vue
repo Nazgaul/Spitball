@@ -5,11 +5,13 @@
     </div>
 </template>
 <script>
-    import itemResult from './ResultItem.vue'
+    import ItemResult from './ResultItem.vue'
+    import { itemsList } from './mixins'
+
     export default {
+        mixins: [itemsList],
         computed: {
-            items: function (){return this.$store.getters.items
-            }, video: function () { return this.$store.getters.pageContent.video} 
-        }, components: {itemResult}
+            video: function () { return this.$store.getters.pageContent.video} 
+        }, components: { ItemResult}
     }
 </script>
