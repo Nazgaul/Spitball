@@ -7,7 +7,6 @@ import Vuetify from 'vuetify'
 import * as route from './routes';
 
 //import './main.styl'
-import('../node_modules/vuetify/dist/vuetify.min.css');
 Vue.use(VueRouter);
 Vue.use(Vuetify);
 Vue.component('scroll-list',scroll);

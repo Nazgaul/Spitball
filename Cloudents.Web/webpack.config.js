@@ -19,14 +19,24 @@ module.exports = (env) => {
             module: {
                 // Special compilation rules
                 loaders: [
-                    {
-                        test: /\.less$/,
-                        loader: 'vue-style-loader!css-loader!less-loader!',
-                        include: [
-                            path.resolve(__dirname, './src'),
-                            path.resolve(__dirname, './node_modules/vuetify')
-                        ]
-                    },
+                    //{
+                    //    test: /\.less$/,
+                    //    loader: 'vue-style-loader!css-loader!less-loader!',
+                    //    //    isDevBuild ? ['vue-style-loader', 'css-loader', 'less-loader'] : ExtractTextPlugin.extract({ use: 'css-loader?minimize|less-loader!' }),
+                    //    //    //ExtractTextPlugin.extract({ use: 'css-loader!less-loader!' }),
+                    //    //    //loader: ExtractTextPlugin.extract({
+                    //    //    //    use: 'vue-style-loader!css-loader!less-loader!'
+                    //    //    //}),
+                    //    //include: /ClientApp/
+                    //    //    //options: {
+                    //    //    //    extractCSS: true
+                    //    //    //}
+                    //    include: [
+
+                    //        path.resolve(__dirname, './src'),
+                    //        path.resolve(__dirname, './node_modules/vuetify')
+                    //    ]
+                    //},
                     {
                         test: /\.svg$/,
                         loader: 'vue-svg-loader'
@@ -49,15 +59,20 @@ module.exports = (env) => {
                         test: /\.vue$/,
                         loader: 'vue-loader',
                         include: /ClientApp/,
-                        options: { //maybe
+                        options: {
+                            extractCSS: true,
                             loaders: {
-                                'less': 'vue-style-loader!css-loader!less-loader'
+                                'less': 'vue-style-loader!css-loader!less-loader',
+                                'css': 'vue-style-loader!css-loader'
+                                
                             }
                         }
-                    },
-                    {
-                        test: /\.styl$/,
-                        loader: ['style-loader', 'css-loader', 'stylus-loader']
+                        //options: { //maybe
+                        //    loaders: {
+                        //        'less': 'vue-style-loader!css-loader!less-loader'
+                        //    },
+                        //   
+                        //}
                     },
                     {
                         test: /\.css$/,
