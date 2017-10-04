@@ -1,5 +1,4 @@
 ﻿import * as types from '../../store/mutation-types';
-import temp from '../../api/search';
 
 export default {
     name: "app",

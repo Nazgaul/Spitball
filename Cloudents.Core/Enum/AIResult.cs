@@ -25,9 +25,9 @@
         None,
         Qna,
         Tutor,
-        Book,
-        Job,
-        Question,
+        Book, //books
+        Job, //jobs
+        Question, //askQuestion
         Search,
         Purchase
     }

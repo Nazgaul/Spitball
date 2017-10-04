@@ -61,8 +61,7 @@ module.exports = (env) => {
                     },
                     {
                         test: /\.css$/,
-                        //use: isDevBuild ? ['style-loader', 'css-loader'] : ExtractTextPlugin.extract({ use: 'css-loader?minimize' })
-                        use: ['style-loader', 'css-loader']
+                        use: isDevBuild ? ['style-loader', 'css-loader'] : ExtractTextPlugin.extract({ use: 'css-loader?minimize' })
                     }
                 ]
             },
@@ -86,11 +85,10 @@ module.exports = (env) => {
                         NODE_ENV: JSON.stringify(isDevBuild ? 'development' : 'production')
                     }
                 }),
-                //new webpack.DllReferencePlugin({
-                //    context: __dirname,
-                //    manifest: require('./wwwroot/dist/vendor-manifest.json')
-                //})
-                new ExtractTextPlugin("style.css")
+                new webpack.DllReferencePlugin({
+                    context: __dirname,
+                    manifest: require('./wwwroot/dist/vendor-manifest.json')
+                })
             ].concat(isDevBuild
                 ? [
                     // Plugins that apply in development builds only
@@ -103,7 +101,9 @@ module.exports = (env) => {
                 ]
                 : [
                     // Plugins that apply in production builds only
-                    new webpack.optimize.UglifyJsPlugin()
+                    new webpack.optimize.UglifyJsPlugin(),
+                    new ExtractTextPlugin("style.css")
+
                 ])
         }
     ];

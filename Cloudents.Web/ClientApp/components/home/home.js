@@ -30,17 +30,17 @@ export default {
         "instegram-icon": instegramIcon
     },
     data() {
-        var prefix = "";
+        var prefix;
         return {
             msg: this.$route.meta.userText,
             placeholder: "",
-            drawer:null,
+            drawer: null,
             changeSection: (vertical) => {
                 this.placeholder = vertical.placeholder;
                 prefix = vertical.prefix;
             },
             search: () => {
-                this.$store.dispatch('updateSearchText', { prefix:"",str:this.msg });
+                this.$store.dispatch('updateSearchText', { prefix: prefix, str: this.msg });
             }
         };
     }

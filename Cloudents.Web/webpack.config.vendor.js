@@ -15,9 +15,8 @@ module.exports = (env) => {
                 'vue-router',
                 'vue-resource',
                 'vuetify',
-                'vuex'
-                //'vue-carousel',
-                //'vuex'
+                'vuex',
+                'vuetify/dist/vuetify.css'
             ]
         },
         module: {
@@ -37,11 +36,11 @@ module.exports = (env) => {
             // new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }), // Maps these identifiers to the jQuery package (because Bootstrap expects it to be a global variable)
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': isDevBuild ? '"development"' : '"production"'
+            }),
+            new webpack.DllPlugin({
+                path: path.join(__dirname, 'wwwroot', 'dist', '[name]-manifest.json'),
+                name: '[name]_[hash]'
             })
-            //new webpack.DllPlugin({
-            //    path: path.join(__dirname, 'wwwroot', 'dist', '[name]-manifest.json'),
-            //    name: '[name]_[hash]'
-            //})
         ].concat(isDevBuild ? [] : [
             new webpack.optimize.UglifyJsPlugin()
         ])
