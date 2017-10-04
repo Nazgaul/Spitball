@@ -10,33 +10,8 @@ module.exports = (env) => {
         {
             entry: { main: './ClientApp/main.js' },
             context: __dirname,
-            // resolve: {
-            //     extensions: [".js", ".vue"],
-            //alias: {
-            //    "vue$": "vue/dist/vue.esm.js"
-            //}
-            // },
             module: {
-                // Special compilation rules
                 loaders: [
-                    //{
-                    //    test: /\.less$/,
-                    //    loader: 'vue-style-loader!css-loader!less-loader!',
-                    //    //    isDevBuild ? ['vue-style-loader', 'css-loader', 'less-loader'] : ExtractTextPlugin.extract({ use: 'css-loader?minimize|less-loader!' }),
-                    //    //    //ExtractTextPlugin.extract({ use: 'css-loader!less-loader!' }),
-                    //    //    //loader: ExtractTextPlugin.extract({
-                    //    //    //    use: 'vue-style-loader!css-loader!less-loader!'
-                    //    //    //}),
-                    //    //include: /ClientApp/
-                    //    //    //options: {
-                    //    //    //    extractCSS: true
-                    //    //    //}
-                    //    include: [
-
-                    //        path.resolve(__dirname, './src'),
-                    //        path.resolve(__dirname, './node_modules/vuetify')
-                    //    ]
-                    //},
                     {
                         test: /\.svg$/,
                         loader: 'vue-svg-loader'
@@ -64,7 +39,7 @@ module.exports = (env) => {
                             loaders: {
                                 'less': 'vue-style-loader!css-loader!less-loader',
                                 'css': 'vue-style-loader!css-loader'
-                                
+
                             }
                         }
                         //options: { //maybe
@@ -73,6 +48,12 @@ module.exports = (env) => {
                         //    },
                         //   
                         //}
+                    },
+                    {
+                        test: /\.less$/,
+                        exclude: /ClientApp/,
+                        use: isDevBuild ? ['style-loader', 'css-loader',"less-loader"] : ExtractTextPlugin.extract({ use: ['css-loader?minimize','less-loader'] })
+                        
                     },
                     {
                         test: /\.css$/,

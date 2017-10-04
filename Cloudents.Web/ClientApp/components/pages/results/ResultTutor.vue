@@ -1,20 +1,29 @@
 ﻿<template>
-
-                <div>
-                    <a target="_blank" :href="item.url" v-for="item in items">
-                    <v-card-text>
-                        <span v-if="item.name">name:{{item.name}}</span>
-                        <span v-if="item.city">city:{{item.city}}</span>
-                        <span v-if="item.state">state:{{item.state}}</span>
-                        <span v-if="item.fee">fee:{{item.fee}}</span>
-                        <span v-if="item.online">online:{{item.online}}</span>
-                        <span v-if="item.location">location:{{item.location}}</span>
-                        <span v-if="item.termFound">termFound:{{item.termFound}}</span>
-                    </v-card-text>
-                    <v-card-media :src="item.image" height="125px"
-                                  contain></v-card-media>
-                    </a>
+    <div>
+        <a target="_blank" :href="item.url" v-for="item in items">
+            <v-card class="wrapper">
+                <div class="container-box">
+                    <div class="box-main box-user">
+                        <div class="img">
+                            <span class="up">
+                                <img :src="item.image" alt="">
+                            </span>
+                        </div>
+                        <div class="box-wrapper">
+                            <v-layout row>
+                                <v-flex xs8><div class="title">{{item.name}}</div></v-flex>
+                                <v-flex xs4 v-if="item.fee"><div class="price text-xs-right">${{item.fee}} / hour</div></v-flex>
+                            </v-layout>
+                            <div class="sub-title">Engineering student and math tutor!</div>
+                            <p>I am a current materials science engineering student at the University of Michigan…</p>
+                            <div class="author">{{item.city}}, {{item.state}}</div>
+                            <div class="state" v-if="item.online">Offers online lessons</div>
+                        </div>
+                    </div>
                 </div>
+            </v-card>
+        </a>
+    </div>
 </template>
 <script>
     export default {
