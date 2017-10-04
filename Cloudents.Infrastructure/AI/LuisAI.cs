@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cloudents.Core;
+using Cloudents.Core.Extension;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
@@ -24,7 +25,10 @@ namespace Cloudents.Infrastructure.AI
         {
             var result = await m_Client.Predict(sentence).ConfigureAwait(false);
             var entities = result.GetAllEntities();
-            Enum.TryParse(result.TopScoringIntent.Name, out AIIntent intent);
+
+            result.TopScoringIntent.Name.TryToEnum(out AIIntent intent);
+            
+            //Enum.TryParse(result.TopScoringIntent.Name, out AIIntent intent);
 
             KeyValuePair<string, string>? searchType = null;
             string course = null;

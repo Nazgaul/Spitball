@@ -51,6 +51,7 @@
     <Compile Include="Enum\AIResult.cs" />
     <Compile Include="DTOs\AIDto.cs" />
     <Compile Include="DTOs\SearchResult.cs" />
+    <Compile Include="Enum\ParseAttribute.cs" />
     <Compile Include="Enum\SearchRequestFilter.cs" />
     <Compile Include="Enum\SearchRequestSort.cs" />
     <Compile Include="Extension\ListExtension.cs" />
