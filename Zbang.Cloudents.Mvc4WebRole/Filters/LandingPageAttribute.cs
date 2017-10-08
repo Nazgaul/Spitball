@@ -9,28 +9,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
     [AttributeUsage(AttributeTargets.All)]
     public class LandingPageAttribute : ActionFilterAttribute
     {
-        //public LandingPageAttribute(IZboxReadService zboxReadService, ICookieHelper cookieHelper)
-        //{
-        //    ZboxReadService = zboxReadService;
-        //    CookieHelper = cookieHelper;
-        //}
-
         public IZboxReadService ZboxReadService { get; set; }
         public ICookieHelper CookieHelper { get; set; }
 
         //GetCountryByIpAsync
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            //if (CookieHelper == null)
-            //{
-            //    base.OnActionExecuting(filterContext);
-            //    return;
-            //}
-            //if (filterContext.Controller.GetType() == typeof(AlexController))
-            //{
-            //    base.OnActionExecuting(filterContext);
-            //    return;
-            //}
             const string cookieName = "landing";
             var country = CookieHelper.ReadCookie<string>(cookieName);
 
@@ -45,7 +29,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                 country = ZboxReadService.GetCountryByIp(Ip2Long(ip));
                 CookieHelper.InjectCookie(cookieName, country);
             }
-            if (country?.ToLowerInvariant() == "us")
+            if (country?.ToLowerInvariant() != "il")
             {
                 filterContext.Result = new RedirectToRouteResult("Alex", null);
                 return;
