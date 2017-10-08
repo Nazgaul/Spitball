@@ -210,6 +210,11 @@ select questionId from Zbox.Question where boxId in (
                             @"delete from zbox.commentLike where boxId in (
 select top (3) boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 order by boxId)",
 
+                            @"delete from Zbox.CommentTag where commentId in (
+select top(3) questionId from Zbox.Question where boxId in (
+	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0  order by boxId
+) 
+)option (maxDop 1)",
                             @"delete top(3) from Zbox.Question where boxId in (
 	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0  order by boxId
 ) option (maxDop 1)",

@@ -79,7 +79,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         DoDeleteAsync(newToken.Token, "deleteOldQuiz",
                             m_ZboxWorkerRoleService.DeleteOldQuizAsync).ConfigureAwait(false);
 
-                    await
+                  await
                         DoDeleteAsync(newToken.Token, "deleteOldBoxes",
                             m_ZboxWorkerRoleService.DeleteOldBoxAsync).ConfigureAwait(false);
 

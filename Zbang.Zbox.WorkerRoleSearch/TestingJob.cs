@@ -34,13 +34,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
         }
 
         public string Name => nameof(TestingJob);
-        public Task RunAsync(CancellationToken cancellationToken)
+        public async Task RunAsync(CancellationToken cancellationToken)
         {
-            //var process = m_LifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("deleteOld");
-            //return process.ExecuteAsync(0, (a, b) => Task.CompletedTask, cancellationToken);
+            var process = m_LifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("deleteOld");
+            // ReSharper disable once AsyncConverter.AsyncAwaitMayBeElidedHighlighting
+            await process.ExecuteAsync(0, (a, b) => Task.CompletedTask, cancellationToken).ConfigureAwait(false);
 
-            var process = m_LifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("spamGun");
-            return process.ExecuteAsync(0, (a, b) => Task.CompletedTask, cancellationToken);
+            //var process = m_LifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("spamGun");
+            //return process.ExecuteAsync(0, (a, b) => Task.CompletedTask, cancellationToken);
 
 
             //var msgData = new BoxFileProcessData(70197);

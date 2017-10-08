@@ -23,10 +23,10 @@ namespace Cloudents.Web.Api
         {
             m_TutorSearch = tutorSearch;
         }
-        public async Task<IActionResult> Get(string[] term, SearchRequestFilter filter, SearchRequestSort sort, GeoPoint location, CancellationToken token)
+        public async Task<IActionResult> Get(string[] term, SearchRequestFilter filter, SearchRequestSort sort, GeoPoint location, int page, CancellationToken token)
         {
             if (term == null) throw new ArgumentNullException(nameof(term));
-            var result = await m_TutorSearch.SearchAsync(string.Join(" ", term), filter, sort, location, token).ConfigureAwait(false);
+            var result = await m_TutorSearch.SearchAsync(string.Join(" ", term), filter, sort, location, page, token).ConfigureAwait(false);
             return Json(result);
         }
     }
