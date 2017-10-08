@@ -63,6 +63,7 @@
     <Compile Include="Interfaces\IFlashcardSearch.cs" />
     <Compile Include="Interfaces\IJobSearch.cs" />
     <Compile Include="Interfaces\IKeyGenerator.cs" />
+    <Compile Include="Interfaces\IPurchaseSearch.cs" />
     <Compile Include="Interfaces\IQuestionSearch.cs" />
     <Compile Include="Interfaces\IReadRepository.cs" />
     <Compile Include="Interfaces\IReadRepositorySingle.cs" />

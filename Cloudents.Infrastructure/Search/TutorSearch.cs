@@ -32,9 +32,10 @@ namespace Cloudents.Infrastructure.Search
             m_Client = client.Indexes.GetClient("tutors");
         }
 
-        public async Task<IEnumerable<TutorDto>> SearchAsync(string term, SearchRequestFilter filter, SearchRequestSort sort, GeoPoint location, CancellationToken token)
+        public async Task<IEnumerable<TutorDto>> SearchAsync(string term, SearchRequestFilter filter,
+            SearchRequestSort sort, GeoPoint location, int page, CancellationToken token)
         {
-            var taskAzure = SearchAzureAsync(term, filter, sort, location, token);
+            var taskAzure = SearchAzureAsync(term, filter, sort, location, page, token);
             Task<IEnumerable<TutorDto>> taskTutorMe;
             if (filter == SearchRequestFilter.InPerson)
             {
@@ -42,54 +43,29 @@ namespace Cloudents.Infrastructure.Search
             }
             else
             {
-                taskTutorMe = TutorMeApiAsync(term, token);
+                taskTutorMe = TutorMeApiAsync(term, page, token);
             }
             await Task.WhenAll(taskAzure, taskTutorMe).ConfigureAwait(false);
             return taskAzure.Result.Union(taskTutorMe.Result).OrderByDescending(o => o.TermFound);
         }
 
-        private async Task<IEnumerable<TutorDto>> TutorMeApiAsync(string term, CancellationToken token)
+        private async Task<IEnumerable<TutorDto>> TutorMeApiAsync(string term, int page, CancellationToken token)
         {
+            //https://gist.github.com/barbuza/4b3666fa88cd326f18f2c464c8e4487c
+            // page is 12
 
             var nvc = new NameValueCollection
             {
-                ["search"] = term
+                ["search"] = term,
+                ["offset"] = (page * 12).ToString()
             };
             var result = await m_RestClient.GetAsync(new Uri("https://tutorme.com/api/v1/tutors/"), nvc, token).ConfigureAwait(false);
             return m_Mapper.Map<JObject, IEnumerable<TutorDto>>(result, opt => opt.Items["term"] = term);
-           
-            //using (var client = new HttpClient())
-            //{
-            //    client.DefaultRequestHeaders.Accept.Clear();
-            //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            //    var uri = new UriBuilder("https://tutorme.com/api/v1/tutors/");
-            //    var nvc = new NameValueCollection
-            //    {
-            //        ["search"] = term
-            //    };
-            //    uri.AddQuery(nvc);
-
-            //    var response = await client.GetAsync(uri.Uri, token).ConfigureAwait(false);
-            //    if (!response.IsSuccessStatusCode) return retVal;
-            //    var str = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            //    var o = JObject.Parse(str);
-            //    retVal.AddRange(o["results"].Children()
-            //        .Select(result => new TutorDto
-            //        {
-            //            Url = $"https://tutorme.com/tutors/{result["id"].Value<string>()}",
-            //            Image = result["avatar"]["x300"].Value<string>(),
-            //            Name = result["shortName"].Value<string>(),
-            //            Online = result["isOnline"].Value<bool>(),
-            //            TermFound = result.ToString().Split(new[] {term},StringSplitOptions.RemoveEmptyEntries).Length
-            //        }));
-            //}
-            //return retVal;
         }
 
         private async Task<IList<TutorDto>> SearchAzureAsync(string term,
             SearchRequestFilter filter, SearchRequestSort sort,
-            GeoPoint location, CancellationToken token)
+            GeoPoint location, int page, CancellationToken token)
         {
             string filterQuery = null;
             var sortQuery = new List<string>();
@@ -117,6 +93,8 @@ namespace Cloudents.Infrastructure.Search
 
             var searchParams = new SearchParameters
             {
+                Top = 15,
+                Skip = 15 * page,
                 Select = new[]
                 {
                     "name", "image", "url", "city", "state", "fee", "online", "location","subjects","extra"

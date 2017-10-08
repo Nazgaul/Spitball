@@ -268,14 +268,17 @@
     <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Controllers\FlashcardController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\PlacesController.cs" />
     <Compile Include="Controllers\QuizController.cs" />
     <Compile Include="Controllers\RefreshController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\TitleController.cs" />
     <Compile Include="Controllers\TutorController.cs" />
     <Compile Include="Controllers\UniversityController.cs" />
     <Compile Include="Controllers\UpdateTagsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="App_Start\AiExceptionLogger.cs" />
+    <Compile Include="Controllers\VideoController.cs" />
     <Compile Include="Models\MailRequest.cs" />
     <Compile Include="Models\CreateAcademicCourseRequest.cs" />
     <Compile Include="Models\FollowRequest.cs" />

@@ -6,7 +6,6 @@ namespace Cloudents.Core.DTOs
     {
         public string Name { get; set; }
         public double Rating { get; set; }
-        //public double PriceLevel { get; set; }
         public string Address { get; set; }
         public bool Open { get; set; }
 
