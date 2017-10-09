@@ -54,7 +54,7 @@ module.exports = (env) => {
                         exclude: /ClientApp/,
                         use: isDevBuild ? ['style-loader', 'css-loader',"less-loader"] : ExtractTextPlugin.extract({ use: ['css-loader?minimize','less-loader'] })
                         
-                    },
+                    },                 
                     {
                         test: /\.css$/,
                         use: isDevBuild ? ['style-loader', 'css-loader'] : ExtractTextPlugin.extract({ use: 'css-loader?minimize' })
