@@ -14,8 +14,8 @@ export const pageMixin =
 
         computed: {
             filterOptions: function () {
-                let fil = Object.keys(this.$route.query).filter(item => item !== 'sort').toString();
-                return this.currentQuery.filter ? this.currentQuery.filter : (fil.length ? fil : 'all')
+                let fil = Object.keys(this.$route.query).filter(item => (item !== 'sort' && item !== 'filter')).toString();
+                return fil.length ? fil : (this.currentQuery.filter ? this.currentQuery.filter : 'all')
             },
             subFilter: function () { return this.currentQuery[this.filter]; },
             dynamicHeader: function () { return this.$store.getters.pageTitle },

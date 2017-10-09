@@ -6,6 +6,10 @@
             <v-container grid-list-md>
                 <v-layout row wrap>
                     <v-flex>
+                        <div class="text-xs-center">
+                            <v-chip class=" blue--text">Primary</v-chip>
+                            <v-chip outline :ref="v.id"  class="blue blue--text" v-for="v in page.filter" :key="v.id" :focus="v.id==filterOptions">{{v.name}}</v-chip>
+                        </div>
                         <radio-list :values="page.filter" @click="$_changeFilter" model="filter" :value="filterOptions"></radio-list>
                     </v-flex>                   
                     <v-flex>
@@ -17,13 +21,24 @@
                     </v-flex>                </v-layout>
             </v-container>
         </slot>
-        <slot></slot>
+        <slot name="firstContent"></slot>
+        <slot>
+
+        </slot>
        <slot name="emptyState" v-show="isEmpty"></slot>
     </div>
 </template>
 <script>
     import { pageMixin } from './mixins'
     export default {
-        mixins:[pageMixin]
+        mixins: [pageMixin],
+        //mounted: function(){
+        //    this.$refs[this.filter].focus();
+        //}
     }
 </script>
+<style scoped>
+    .chip:focus:not(.chip--disabled) {
+        background: blue !important;
+    }
+</style>
