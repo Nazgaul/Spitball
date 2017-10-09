@@ -27,6 +27,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "vuetify": "^0.15.7",
     "url-loader": "^0.5.9",
-    "file-loader" : "^1.1.4" 
+    "file-loader": "^1.1.4",
+    "vuex-persistedstate": "^2.0.0"
   }
 }

@@ -23,12 +23,15 @@ export default {
     data() {
         return {
             verticals : verticals,
-            selected: verticals[0]
+            selected: this.$route.meta.searchType.length ? this.$route.meta.searchType : verticals[0].name
         }
     },
+    //computed: {
+    //    selected: () => { return this.$router.meta.searchType ? this.$router.meta.searchType:verticals[0]}
+    //},
     methods: {
         change(vertical) {
-           this.selected = vertical;
+           this.selected = vertical.name;
            this.changeCallback(vertical);
         }
     }

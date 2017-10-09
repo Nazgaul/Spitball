@@ -87,12 +87,16 @@ const actions = {
             if (context.state.search.type)context.dispatch('fetchingData', context.state.search.type);
         })
     },
-    newPage: (context, page) => {
+    newResultPage: (context, page) => {
         console.log(page.name);
         //let query=page.query
         //if (page.name !== context.state.search.type) { query = { ...page.query, source: null, sort: "relevance" } }
-        //context.commit(types.UPDATE_SEARCH_PARAMS, { ...query, type: page.name })
-        page.name!=='home'?context.dispatch('fetchingData',page.name):'';
+        context.commit(types.UPDATE_SEARCH_PARAMS, { type: page.name })
+        if (page.meta.userText && context.getters.user !== page.meta.userText) {
+            context.dispatch('updateSearchText', page.meta.userText)
+        } else {
+            context.dispatch('fetchingData', page.name);
+        }
     },
     fetchingData: (context,pageName) => {
         context.commit(types.UPDATE_LOADING, true);

@@ -5,7 +5,7 @@ export default {
     data() {
         this.$store.subscribe((mutation, state) => {
             if (mutation.type === types.ADD) {
-                this.$router.push({ name: state.state.node.model.name });
+                this.$router.push({ name: state.Flow.node.model.name });
             }
         });
         return {}

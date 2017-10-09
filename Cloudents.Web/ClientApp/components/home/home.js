@@ -34,12 +34,15 @@ export default {
         return {
             msg: this.$route.meta.userText,
             placeholder: "",
+            searchType:"",
             drawer: null,
             changeSection: (vertical) => {
                 this.placeholder = vertical.placeholder;
                 prefix = vertical.prefix;
+                this.searchType = vertical.name;
             },
             search: () => {
+                this.$route.meta.searchType = this.searchType;
                 this.$store.dispatch('updateSearchText', { prefix: prefix, str: this.msg });
             }
         };

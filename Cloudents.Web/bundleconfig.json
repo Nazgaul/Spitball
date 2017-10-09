@@ -4,5 +4,11 @@
     "inputFiles": [
       "ClientApp/api/search.js"
     ]
+  },
+  {
+    "outputFileName": "ClientApp/main.min.js",
+    "inputFiles": [
+      "ClientApp/main.js"
+    ]
   }
 ]

@@ -6,11 +6,7 @@
             <v-container grid-list-md>
                 <v-layout row wrap>
                     <v-flex>
-                        <div class="text-xs-center">
-                            <v-chip class=" blue--text">Primary</v-chip>
-                            <v-chip outline :ref="v.id"  class="blue blue--text" v-for="v in page.filter" :key="v.id" :focus="v.id==filterOptions">{{v.name}}</v-chip>
-                        </div>
-                        <radio-list :values="page.filter" @click="$_changeFilter" model="filter" :value="filterOptions"></radio-list>
+                        <radio-list class="text-xs-center" :values="page.filter" @click="$_changeFilter" model="filter" :value="filterOptions"></radio-list>
                     </v-flex>                   
                     <v-flex>
                         <hr v-if="page.sort">
@@ -18,7 +14,8 @@
                     </v-flex>               
                     <v-flex xs12>
                         <radio-list :values="subFilters" @click="$_changeSubFilter" model="subFilter" :value="subFilter"></radio-list>
-                    </v-flex>                </v-layout>
+                    </v-flex>
+                </v-layout>
             </v-container>
         </slot>
         <slot name="firstContent"></slot>

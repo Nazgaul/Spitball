@@ -11,7 +11,7 @@
             prop: 'value',
             event:'click'
         },
-        props: { value: {type:[String,Number]}, values: { type: Array}, model: { type: String }, changeCallback: { type: Function } },
+        props: { value: {type:[String,Number]}, values: { type: [String,Array]}, model: { type: String }, changeCallback: { type: Function } },
         methods: {
             radioClick(value) {
                 console.log(value);

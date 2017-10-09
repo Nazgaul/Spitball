@@ -23,7 +23,7 @@ new Vue({
     store
 });
 router.beforeResolve((to, from, next) => {
-    store.dispatch('newPage', to);
+    if (to.meta.load) store.dispatch(to.meta.load, to)
     from.meta.userText = store.getters.userText;
     next();
 })
