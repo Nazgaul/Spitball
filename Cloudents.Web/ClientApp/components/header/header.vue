@@ -35,7 +35,6 @@
     import { mapGetters, mapActions } from 'vuex'
     import { verticalsPlaceholders as placeholders, names } from '../data'
     export default {
-        props: ["isOpen", "section"],
         components: { 'search-type': searchTypes, askHeader, bookHeader, noteHeader, flashcardHeader, jobHeader, purchaseHeader, tutorHeader },
         data() {
             return {

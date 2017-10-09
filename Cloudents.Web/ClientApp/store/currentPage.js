@@ -89,9 +89,9 @@ const actions = {
     },
     newPage: (context, page) => {
         console.log(page.name);
-        let query=page.query
-        if (page.name !== context.state.search.type) { query = { ...page.query, source: null, sort: "relevance" } }
-        context.commit(types.UPDATE_SEARCH_PARAMS, { ...query, type: page.name })
+        //let query=page.query
+        //if (page.name !== context.state.search.type) { query = { ...page.query, source: null, sort: "relevance" } }
+        //context.commit(types.UPDATE_SEARCH_PARAMS, { ...query, type: page.name })
         page.name!=='home'?context.dispatch('fetchingData',page.name):'';
     },
     fetchingData: (context,pageName) => {

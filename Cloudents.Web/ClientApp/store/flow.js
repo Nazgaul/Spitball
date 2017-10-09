@@ -1,6 +1,6 @@
 ﻿import Tree from 'tree-model';
 import * as types from './mutation-types';
-import * as routes from './../routes';
+import * as routes from './../routeTypes';
 
 const state = {
     flowTree: new Tree(),
@@ -67,7 +67,6 @@ var optionalRoutes = {
         ]
     }
 };
-
 const mutations = {
     [types.ADD](state, payload) {
         var flow;

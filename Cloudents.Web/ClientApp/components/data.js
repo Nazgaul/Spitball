@@ -1,4 +1,5 @@
 ﻿
+import * as routes from './../routeTypes';
 
 export let verticals =
     {
@@ -23,7 +24,6 @@ export let verticals =
             resultTitle: "Look at this - you’ll be employed in no time!", emptyState: "no job founds", filter: [{ id: 'all', name: 'all' }, { id: 'jobType', name: 'job type' }, { id: 'paid', name: 'paid' }], sort:[{ id: 'relevance', name: 'relevance' }, { id: 'price', name: 'price' }, { id: 'distance', name: 'distance' }]
         },
         book: {
-            //TODO: need to check if its the right prefix
             name: "book", image: "book", placeholder: "Find me a textbook ...", prefix: "Find me a textbook -", asideLabel: "search type",
             resultTitle: "I found some textbooks that match your search. Check them out!", emptyState: "no Books founds", filter: "", sort: ""
         },
@@ -38,6 +38,23 @@ export let verticalsList=[];
 export let names = [];
 export let page = [];
 export let prefix = {};
+
+export let verticalsNavbar = [{
+    label: "search type", data: [{ id: routes.questionRoute, name: verticals[routes.questionRoute].name, image: verticals[routes.questionRoute].image },
+        { id: routes.notesRoute, name: verticals[routes.notesRoute].name, image: verticals[routes.notesRoute].image },
+        { id: routes.flashcardRoute, name: verticals[routes.flashcardRoute].name, image: verticals[routes.flashcardRoute].image },
+        { id: routes.tutorRoute, name: verticals[routes.tutorRoute].name, image: verticals[routes.tutorRoute].image },
+        { id: routes.jobRoute, name: verticals[routes.jobRoute].name, image: verticals[routes.jobRoute].image },
+        { id: routes.bookRoute, name: verticals[routes.bookRoute].name, image: verticals[routes.bookRoute].image }
+    ]
+},
+    {
+        label: "purchase", data: [
+            { id: routes.purchaseRoute, name: verticals[routes.purchaseRoute].name, image: verticals[routes.purchaseRoute].image }
+
+        ]
+    }
+]
 
 for (var v in verticals) {
     var item = verticals[v];

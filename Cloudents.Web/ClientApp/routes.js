@@ -1,14 +1,7 @@
 ﻿import HomePage from "./components/home/home.vue";
+import * as RouteTypes from "./routeTypes";
 
 
-export const questionRoute = "ask";
-export const flashcardRoute = "flashcard";
-export const notesRoute = "note";
-export const tutorRoute = "tutor";
-export const bookRoute = "book";
-export const purchaseRoute = "purchase";
-export const jobRoute = "job";
-export const postChatRoute = "chat";
 
 const SectionsPage = () => import("./components/pages/page.vue");
 const AskPage = () => import("./components/pages/results/ResultAsk.vue");
@@ -25,13 +18,13 @@ export const routes = [
     {
         path: "/result", component: SectionsPage, name: "result" ,meta
         , children: [
-            { path: "ask", name: questionRoute, component: AskPage,meta},
-            { path: "flashcard", name: flashcardRoute, component: FlashcardPage, meta },
-            { path: "note", name: notesRoute, component: NotePage, meta },
-            { path: "tutor", name: tutorRoute, component: TutorPage, meta },
-            { path: "book", name: bookRoute, component: BookPage, meta },
-            { path: "purchase", name: purchaseRoute, component: PurchasePage, meta },
-            { path: "job", name: jobRoute, component: JobPage, meta }
+            { path: "ask", name: RouteTypes.questionRoute, component: AskPage,meta},
+            { path: "flashcard", name: RouteTypes.flashcardRoute, component: FlashcardPage, meta },
+            { path: "note", name: RouteTypes.notesRoute, component: NotePage, meta },
+            { path: "tutor", name: RouteTypes.tutorRoute, component: TutorPage, meta },
+            { path: "book", name: RouteTypes.bookRoute, component: BookPage, meta },
+            { path: "purchase", name: RouteTypes.purchaseRoute, component: PurchasePage, meta },
+            { path: "job", name: RouteTypes.jobRoute, component: JobPage, meta }
         ]
     }
 
