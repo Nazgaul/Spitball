@@ -7,9 +7,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Cloudents.Core.Interfaces;
+using Microsoft.Azure.Mobile.Server.Config;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
+    [MobileAppController]
     public class TitleController : ApiController
     {
         private readonly ITitleSearch m_TitleSearch;

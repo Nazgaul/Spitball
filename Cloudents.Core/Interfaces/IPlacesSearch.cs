@@ -7,7 +7,7 @@ using Cloudents.Core.Models;
 
 namespace Cloudents.Core.Interfaces
 {
-    public interface IPurchaseSearch
+    public interface IPlacesSearch
     {
         Task<IEnumerable<PlaceDto>> SearchNearbyAsync(string term, SearchRequestFilter filter,
             GeoPoint location, CancellationToken token);
