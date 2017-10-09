@@ -19,7 +19,7 @@ namespace Cloudents.Infrastructure.Search
         private readonly IMapper m_Mapper;
         private readonly IRestClient m_RestClient;
 
-        private const string key = "AIzaSyAhNIR9O5bBnPZoB0lm5qRNeNN6EzjTTBg";
+        private const string Key = "AIzaSyAoFR5uWJy1cf76q-J46EoEbFVZCaLk93w";//"AIzaSyAhNIR9O5bBnPZoB0lm5qRNeNN6EzjTTBg";
 
         public PurchaseSearch(IRestClient restClient, IMapper mapper)
         {
@@ -27,7 +27,7 @@ namespace Cloudents.Infrastructure.Search
             m_Mapper = mapper;
         }
 
-        public async Task<IEnumerable<PlaceDto>> SearchAsync(string term, SearchRequestFilter filter,
+        public async Task<IEnumerable<PlaceDto>> SearchNearbyAsync(string term, SearchRequestFilter filter,
             GeoPoint location, CancellationToken token)
         {
             if (term == null) throw new ArgumentNullException(nameof(term));
@@ -36,7 +36,7 @@ namespace Cloudents.Infrastructure.Search
             {
                 ["location"] = $"{location.Latitude} {location.Longitude}",
                 ["keyword"] = term,
-                ["key"] = key,
+                ["key"] = Key,
                 ["rankby"] = "distance"
             };
             if (filter == SearchRequestFilter.OpenNow)
@@ -47,8 +47,29 @@ namespace Cloudents.Infrastructure.Search
             return m_Mapper.Map<JObject, IEnumerable<PlaceDto>>(result, opt =>
             {
                 opt.Items["width"] = 150;
-                opt.Items["key"] = key;
+                opt.Items["key"] = Key;
             });
+        }
+
+        public async Task<PlaceDto> SearchAsync(string term, CancellationToken token)
+        {
+            if (term == null) throw new ArgumentNullException(nameof(term));
+
+            var nvc = new NameValueCollection
+            {
+                ["query"] = term,
+                ["key"] = Key,
+            };
+
+
+            var result = await m_RestClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/place/textsearch/json"), nvc, token).ConfigureAwait(false);
+            var mapperResult = m_Mapper.Map<JObject, IEnumerable<PlaceDto>>(result, opt =>
+           {
+               opt.Items["width"] = 150;
+               opt.Items["key"] = Key;
+           });
+            return mapperResult.FirstOrDefault();
+
         }
     }
 }

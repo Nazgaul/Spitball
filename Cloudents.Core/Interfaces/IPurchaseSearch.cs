@@ -9,7 +9,9 @@ namespace Cloudents.Core.Interfaces
 {
     public interface IPurchaseSearch
     {
-        Task<IEnumerable<PlaceDto>> SearchAsync(string term, SearchRequestFilter filter,
+        Task<IEnumerable<PlaceDto>> SearchNearbyAsync(string term, SearchRequestFilter filter,
             GeoPoint location, CancellationToken token);
+
+        Task<PlaceDto> SearchAsync(string term, CancellationToken token);
     }
 }

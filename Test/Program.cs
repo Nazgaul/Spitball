@@ -22,22 +22,14 @@ namespace Test
                 ConfigurationManager.AppSettings["AzureSearchServiceName"],
                 ConfigurationManager.AppSettings["AzureSearchKey"]);
 
-
+            builder.RegisterType<GoogleSheet>().As<IGoogleSheet>();
             builder.RegisterModule(infrastructureModule);
             var container = builder.Build();
 
+            
 
-            var service = container.Resolve<IBookSearch>();
-
-            var point = new GeoPoint()
-            {
-                Latitude = 34.8013,
-                Longitude = 31.9321
-            };
-            var result = await service.SearchAsync("trampolina123", 256, 0, default);
-
-            var t = result;
-            Console.WriteLine();
+            var service = container.Resolve<IGoogleSheet>();
+            await service.DoWorkAsync();
 
             Console.ReadLine();
         }

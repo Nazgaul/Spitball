@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Autofac;
 using AutoMapper;
+using CacheManager.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
@@ -51,11 +52,22 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<PurchaseSearch>().As<IPurchaseSearch>();
 
             builder.RegisterType<UniversitySynonymRepository>().As<IReadRepositorySingle<UniversitySynonymDto, long>>();
+            
 
-            MapperConfiguration(builder);
+            var config = MapperConfiguration();
+            builder.Register(c => config.CreateMapper()).SingleInstance();
         }
 
-        private static void MapperConfiguration(ContainerBuilder builder)
+        private static void ConfigureCache()
+        {
+            var cache = CacheFactory.Build("getStartedCache", settings =>
+            {
+                settings.WithRedisCacheHandle("redis");
+                //settings.WithSystemRuntimeCacheHandle("handleName");
+            });
+        }
+
+        private static MapperConfiguration MapperConfiguration()
         {
             var config = new MapperConfiguration(cfg =>
             {
@@ -75,20 +87,7 @@ namespace Cloudents.Infrastructure
                 cfg.CreateMap<Search.Entities.Job, JobDto>();
                 cfg.CreateMap<JObject, IEnumerable<BookSearchDto>>().ConvertUsing((jo, bookSearch,c) =>
                 {
-                    return jo["response"]["page"]["books"]?["book"]?.Select(json =>
-                    {
-                        return c.Mapper.Map<JToken, BookSearchDto>(json);
-                        //return new BookSearchDto
-                        //{
-                        //    Image = json["image"]?["image"].Value<string>(),
-                        //    Author = json["author"].Value<string>(),
-                        //    Binding = json["binding"].Value<string>(),
-                        //    Edition = json["edition"].Value<string>(),
-                        //    Isbn10 = json["isbn10"].Value<string>(),
-                        //    Isbn13 = json["isbn13"].Value<string>(),
-                        //    Title = json["title"].Value<string>()
-                        //};
-                    });
+                    return jo["response"]["page"]["books"]?["book"]?.Select(json => c.Mapper.Map<JToken, BookSearchDto>(json));
                 });
                 cfg.CreateMap<JToken, BookSearchDto>().ConvertUsing((jo, bookSearch) => new BookSearchDto
                 {
@@ -145,11 +144,11 @@ namespace Cloudents.Infrastructure
                         }
                         return new PlaceDto
                         {
-                            Address = json["vicinity"].Value<string>(),
+                            Address = json["vicinity"]?.Value<string>(),
                             Image = image,
                             Location = location,
                             Name = json["name"].Value<string>(),
-                            Open = json["opening_hours"]?["open_now"]?.Value<bool>() ?? false,
+                            Open = json["opening_hours"]?["open_now"].Value<bool?>() ?? false,
                             Rating = json["rating"]?.Value<double>() ?? 0
                         };
                     });
@@ -168,7 +167,7 @@ namespace Cloudents.Infrastructure
                     });
                 });
             });
-            builder.Register(c => config.CreateMapper()).SingleInstance();
+            return config;
         }
     }
 }
