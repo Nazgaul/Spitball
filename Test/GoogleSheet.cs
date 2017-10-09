@@ -21,13 +21,13 @@ namespace Test
     }
     internal class GoogleSheet : IGoogleSheet
     {
-        private readonly IPurchaseSearch m_Search;
+        private readonly IPlacesSearch m_Search;
         // If modifying these scopes, delete your previously saved credentials
         // at ~/.credentials/sheets.googleapis.com-dotnet-quickstart.json
         static string[] Scopes = { SheetsService.Scope.Spreadsheets };
         static string ApplicationName = "Google Sheets API .NET Quickstart";
 
-        public GoogleSheet(IPurchaseSearch search)
+        public GoogleSheet(IPlacesSearch search)
         {
             m_Search = search;
         }

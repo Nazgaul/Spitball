@@ -14,14 +14,14 @@ using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Infrastructure.Search
 {
-    public class PurchaseSearch : IPurchaseSearch
+    public class PlacesSearch : IPlacesSearch
     {
         private readonly IMapper m_Mapper;
         private readonly IRestClient m_RestClient;
 
         private const string Key = "AIzaSyAoFR5uWJy1cf76q-J46EoEbFVZCaLk93w";//"AIzaSyAhNIR9O5bBnPZoB0lm5qRNeNN6EzjTTBg";
 
-        public PurchaseSearch(IRestClient restClient, IMapper mapper)
+        public PlacesSearch(IRestClient restClient, IMapper mapper)
         {
             m_RestClient = restClient;
             m_Mapper = mapper;
@@ -34,7 +34,7 @@ namespace Cloudents.Infrastructure.Search
             if (location == null) throw new ArgumentNullException(nameof(location));
             var nvc = new NameValueCollection
             {
-                ["location"] = $"{location.Latitude} {location.Longitude}",
+                ["location"] = $"{location.Longitude} {location.Latitude}",
                 ["keyword"] = term,
                 ["key"] = Key,
                 ["rankby"] = "distance"

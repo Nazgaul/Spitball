@@ -28,8 +28,11 @@ namespace Test
 
             
 
-            var service = container.Resolve<IGoogleSheet>();
-            await service.DoWorkAsync();
+            var service = container.Resolve<IPlacesSearch>();
+            //await service.SearchNearbyAsync("pizza",SearchRequestFilter.None,new GeoPoint()
+            //{
+            //    Latitude
+            //})
 
             Console.ReadLine();
         }

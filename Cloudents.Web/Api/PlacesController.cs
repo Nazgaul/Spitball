@@ -15,9 +15,9 @@ namespace Cloudents.Web.Api
     [Route("api/Places")]
     public class PlacesController : Controller
     {
-        private readonly IPurchaseSearch m_PurchaseSearch;
+        private readonly IPlacesSearch m_PurchaseSearch;
 
-        public PlacesController(IPurchaseSearch purchaseSearch)
+        public PlacesController(IPlacesSearch purchaseSearch)
         {
             m_PurchaseSearch = purchaseSearch;
         }

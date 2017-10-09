@@ -49,7 +49,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<JobSearch>().As<IJobSearch>();
             builder.RegisterType<BookSearch>().As<IBookSearch>();
             builder.RegisterType<RestClient>().As<IRestClient>();
-            builder.RegisterType<PurchaseSearch>().As<IPurchaseSearch>();
+            builder.RegisterType<PlacesSearch>().As<IPlacesSearch>();
 
             builder.RegisterType<UniversitySynonymRepository>().As<IReadRepositorySingle<UniversitySynonymDto, long>>();
             
