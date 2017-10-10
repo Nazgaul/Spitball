@@ -7,7 +7,7 @@ namespace Cloudents.Core.Interfaces
 {
     public interface IAI
     {
-        Task<AIDto> InterpretStringAsync(AiQuery sentence);
+        Task<AIDto> InterpretStringAsync(string sentence);
     }
 
     public interface IDecision

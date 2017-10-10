@@ -2,6 +2,8 @@
 const webpack = require('webpack');
 const bundleOutputDir = './wwwroot/dist';
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
@@ -19,42 +21,41 @@ module.exports = (env) => {
                     },
                     {
                         test: /\.(png|jpg|jpeg|gif)$/,
-                        loader: 'url-loader'
+                        loader: 'url-loader',
+                        options: {
+                            limit: 8192
+                        }
                     },
                     {
-                        // Ask webpack to check: If this file ends with .js, then apply some transforms
                         test: /\.js$/,
-                        // Transform it with babel
                         loader: 'babel-loader',
                         include: /ClientApp/
-                        // don't transform node_modules folder (which don't need to be compiled)
                         //exclude: /node_modules/
                     },
                     {
                         test: /\.vue$/,
                         loader: 'vue-loader',
                         include: /ClientApp/,
-                        options: {
-                            extractCSS: true,
-                            loaders: {
-                                'less': 'vue-style-loader!css-loader!less-loader',
-                                'css': 'vue-style-loader!css-loader'
 
+                        options: {
+                            loaders: {
+                                css: ExtractTextPlugin.extract({
+                                    use: 'css-loader?minimize',
+                                    fallback: 'vue-style-loader'
+                                }),
+                                less: ExtractTextPlugin.extract({
+                                    use: 'css-loader?minimize!less-loader',
+                                    fallback: 'vue-style-loader'
+                                })
                             }
                         }
-                        //options: { //maybe
-                        //    loaders: {
-                        //        'less': 'vue-style-loader!css-loader!less-loader'
-                        //    },
-                        //   
-                        //}
                     },
                     {
                         test: /\.less$/,
                         exclude: /ClientApp/,
-                        use: isDevBuild ? ['style-loader', 'css-loader',"less-loader"] : ExtractTextPlugin.extract({ use: ['css-loader?minimize','less-loader'] })
-                        
-                    },                 
+                        use: isDevBuild ? ['style-loader', 'css-loader', "less-loader"] : ExtractTextPlugin.extract({ use: ['css-loader?minimize', 'less-loader'] })
+
+                    },
                     {
                         test: /\.css$/,
                         use: isDevBuild ? ['style-loader', 'css-loader'] : ExtractTextPlugin.extract({ use: 'css-loader?minimize' })
@@ -67,14 +68,8 @@ module.exports = (env) => {
                 path: path.join(__dirname, bundleOutputDir),
                 // With the filename `build.js` so it's dist/build.js
                 filename: '[name].js',
-                publicPath: 'dist/'
+                publicPath: '/dist/'
             },
-            //resolve: {
-            //    extensions: ['.js', '.vue', '.json'],
-            //    alias: {
-            //        'vue$': 'vue/dist/vue.esm.js'
-            //    }
-            //},
             plugins: [
                 new webpack.DefinePlugin({
                     'process.env': {
@@ -98,7 +93,13 @@ module.exports = (env) => {
                 : [
                     // Plugins that apply in production builds only
                     new webpack.optimize.UglifyJsPlugin(),
-                    new ExtractTextPlugin("style.css")
+                    new ExtractTextPlugin({ filename: 'site.css' }),
+                    new OptimizeCssAssetsPlugin({
+                        assetNameRegExp: /\.optimize\.css$/g,
+                        cssProcessor: require('cssnano'),
+                        cssProcessorOptions: { discardComments: { removeAll: true } },
+                        canPrint: true
+                    })
 
                 ])
         }

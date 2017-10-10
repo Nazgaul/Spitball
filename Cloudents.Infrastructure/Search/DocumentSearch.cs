@@ -11,8 +11,15 @@ using Cloudents.Core.Request;
 
 namespace Cloudents.Infrastructure.Search
 {
-    public class DocumentSearch : CseSearch, IDocumentSearch
+    public class DocumentSearch : IDocumentSearch
     {
+        private readonly ICseSearch m_Search;
+
+        public DocumentSearch(ICseSearch search)
+        {
+            m_Search = search;
+        }
+
         public async Task<(IEnumerable<SearchResult> result, string[] facet)> SearchAsync(SearchQuery model, CancellationToken token)
         {
             var term = new List<string>();
@@ -23,10 +30,14 @@ namespace Cloudents.Infrastructure.Search
             {
                 term.Add(string.Join(" ", model.Query.Select(s => '"' + s + '"')));
             }
-
-            var result = Enumerable.Range(model.Page * 3, 3).Select(s =>
-            DoSearchAsync(new Query.GoogleQuery(string.Join(" ", term), model.Source, s, model.Sort, CustomApiKey.Documents),
-                 token)).ToList();
+            //model.Page * 3, 3
+            var result = Enumerable.Range(0, 2).Select(s =>
+            {
+               var t = m_Search.DoSearchAsync(string.Join(" ", term), model.Source, s, model.Sort,
+                    CustomApiKey.Documents,
+                    token);
+                return t;
+            }).ToList();
             await Task.WhenAll(result).ConfigureAwait(false);
             return (
                  result.Where(s => s.Result != null).SelectMany(s => s.Result),

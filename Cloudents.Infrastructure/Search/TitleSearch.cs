@@ -3,13 +3,16 @@ using System.Collections.Specialized;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Models;
 
 namespace Cloudents.Infrastructure.Search
 {
     public class TitleSearch : ITitleSearch
     {
+        [Cache(TimeConst.Week, "title")]
         public async Task<string> SearchAsync(string term, CancellationToken token)
         {
             using (var client = new HttpClient())
