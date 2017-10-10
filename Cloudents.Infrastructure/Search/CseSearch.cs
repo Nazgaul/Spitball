@@ -6,25 +6,31 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Models;
+using Cloudents.Infrastructure.Cache;
+using Cloudents.Infrastructure.Search.Query;
 using Google;
 using Google.Apis.Customsearch.v1;
 using Google.Apis.Services;
 
 namespace Cloudents.Infrastructure.Search
 {
-    public abstract class Base
+    public abstract class CseSearch
     {
         public IKeyGenerator KeyGenerator { get; set; }
+        public ICacheProvider<IEnumerable<SearchResult>> CacheProvider { get; set; }
 
-        protected async Task<IEnumerable<SearchResult>> DoSearchAsync(string query,
-            string source,
-            int page,
-            SearchRequestSort sort,
-            CustomApiKey key,
+        protected async Task<IEnumerable<SearchResult>> DoSearchAsync(GoogleQuery query,
             CancellationToken token)
         {
-            if (string.IsNullOrEmpty(query)) throw new ArgumentNullException(nameof(query));
+            if (query == null)
+                throw new ArgumentNullException(nameof(query));
 
+           // var cacheResult = CacheProvider.Get(query, CacheRegion.SearchCse);
+           // if (cacheResult != null)
+           // {
+           //     return cacheResult;
+           // }
             var initializer = new BaseClientService.Initializer
             {
                 ApiKey = "AIzaSyCZEbkX9Of6pZQ47OD0VA9a8fd1A6IvW6E",
@@ -33,28 +39,24 @@ namespace Cloudents.Infrastructure.Search
             var p = new CustomsearchService(initializer);
             var request = new CseResource.ListRequest(p, string.Join(" ", query))
             {
-                Start = page == 0 ? 1 : (page * 10) + 1,
-                SiteSearch = source,
-                Cx = key.Key,
+                Start = query.Page == 0 ? 1 : (query.Page * 10) + 1,
+                SiteSearch = query.Source,
+                Cx = query.Key.Key,
                 Fields = "items(title,link,snippet,pagemap/cse_image,displayLink)",
-                Sort = sort == SearchRequestSort.Date ? "date" : string.Empty
+                Sort = query.Sort == SearchRequestSort.Date ? "date" : string.Empty
             };
             try
             {
                 var result = await request.ExecuteAsync(token).ConfigureAwait(false);
-
-                return result.Items?.Select(s =>
+                var retVal =  result.Items?.Select(s =>
                 {
                     string image = null;
-                    if (s.Pagemap != null && s.Pagemap.TryGetValue("cse_image", out var value))
+                    if (s.Pagemap != null && s.Pagemap.TryGetValue("cse_image", out var value)
+                        && value[0].TryGetValue("src", out var t))
                     {
-                        if (value[0].TryGetValue("src", out var t))
-                        {
-                            image = t.ToString();
-                        }
+                        image = t.ToString();
                     }
                     return new SearchResult
-
                     {
                         Id = KeyGenerator.GenerateKey(s.Link),
                         Url = s.Link,
@@ -64,7 +66,9 @@ namespace Cloudents.Infrastructure.Search
                         Source = s.DisplayLink
 
                     };
-                });
+                }).ToList();
+               // CacheProvider.Set(query, CacheRegion.SearchCse, retVal, TimeSpan.FromDays(1));
+                return retVal;
             }
             catch (GoogleApiException ex) when (ex.HttpStatusCode == System.Net.HttpStatusCode.BadRequest)
             {
@@ -75,10 +79,10 @@ namespace Cloudents.Infrastructure.Search
                 ex.Data.Add("params", new
                 {
                     query,
-                    source,
-                    page,
-                    sort,
-                    key
+                    query.Source,
+                    query.Page,
+                    SearchRequestSort = query.Sort,
+                    query.Key
                 });
                 throw;
             }

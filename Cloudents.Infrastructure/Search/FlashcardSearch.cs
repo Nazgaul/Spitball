@@ -9,7 +9,7 @@ using Cloudents.Core.Request;
 
 namespace Cloudents.Infrastructure.Search
 {
-    public class FlashcardSearch : Base, IFlashcardSearch
+    public class FlashcardSearch : CseSearch, IFlashcardSearch
     {
         public async Task<(IEnumerable<SearchResult> result, string[] facet)> SearchAsync(SearchQuery model, CancellationToken token)
         {
@@ -21,7 +21,8 @@ namespace Cloudents.Infrastructure.Search
                 term.Add(string.Join(" ", model.Query.Select(s => '"' + s + '"')));
             }
 
-            var result = Enumerable.Range(model.Page * 3, 3).Select(s => DoSearchAsync(string.Join(" ", term), model.Source, s, model.Sort, CustomApiKey.Flashcard, token)).ToList();
+            var result = Enumerable.Range(model.Page * 3, 3).Select(s => 
+            DoSearchAsync(new Query.GoogleQuery(string.Join(" ", term), model.Source, s, model.Sort, CustomApiKey.Flashcard), token)).ToList();
             await Task.WhenAll(result).ConfigureAwait(false);
             return (
 

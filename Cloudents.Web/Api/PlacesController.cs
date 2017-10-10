@@ -27,7 +27,7 @@ namespace Cloudents.Web.Api
         {
             if (term == null) throw new ArgumentNullException(nameof(term));
             if (location == null) throw new ArgumentNullException(nameof(location));
-            var result = await m_PurchaseSearch.SearchAsync(string.Join(" ", term), filter, location, token).ConfigureAwait(false);
+            var result = await m_PurchaseSearch.SearchNearbyAsync(string.Join(" ", term), filter, location, token).ConfigureAwait(false);
             return Json(result);
         }
     }

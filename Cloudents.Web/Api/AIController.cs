@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Cloudents.Core;
 using Microsoft.AspNetCore.Mvc;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Request;
 
 namespace Cloudents.Web.Api
 {
@@ -24,7 +25,8 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> AiAsync(string sentence)
         {
             if (sentence == null) throw new ArgumentNullException(nameof(sentence));
-            var aiResult = await m_AI.InterpretStringAsync(sentence).ConfigureAwait(false);
+            var query = new AiQuery(sentence);
+            var aiResult = await m_AI.InterpretStringAsync(query).ConfigureAwait(false);
             var result = m_Decision.MakeDecision(aiResult);
             return Json(new
             {

@@ -61,7 +61,6 @@ namespace Cloudents.Infrastructure.Search
                 ["key"] = Key,
             };
 
-
             var result = await m_RestClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/place/textsearch/json"), nvc, token).ConfigureAwait(false);
             var mapperResult = m_Mapper.Map<JObject, IEnumerable<PlaceDto>>(result, opt =>
            {
@@ -69,7 +68,6 @@ namespace Cloudents.Infrastructure.Search
                opt.Items["key"] = Key;
            });
             return mapperResult.FirstOrDefault();
-
         }
     }
 }

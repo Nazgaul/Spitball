@@ -20,15 +20,18 @@ namespace Test
             var infrastructureModule = new InfrastructureModule(
                 ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                 ConfigurationManager.AppSettings["AzureSearchServiceName"],
-                ConfigurationManager.AppSettings["AzureSearchKey"]);
+                ConfigurationManager.AppSettings["AzureSearchKey"], null);
 
             builder.RegisterType<GoogleSheet>().As<IGoogleSheet>();
             builder.RegisterModule(infrastructureModule);
             var container = builder.Build();
 
-            
 
-            var service = container.Resolve<IPlacesSearch>();
+
+            var service = container.Resolve<IAI>();
+            var result = await service.InterpretStringAsync(new Cloudents.Core.Request.AiQuery("document on war"));
+            var result2 = await service.InterpretStringAsync(new Cloudents.Core.Request.AiQuery("document on war"));
+
             //await service.SearchNearbyAsync("pizza",SearchRequestFilter.None,new GeoPoint()
             //{
             //    Latitude

@@ -21,7 +21,7 @@ namespace Cloudents.Infrastructure.Search
         private readonly IMapper m_Mapper;
         private readonly IRestClient m_RestClient;
 
-        private const string key = "sP8C5AHcdiT0tsMsotT";
+        private const string Key = "sP8C5AHcdiT0tsMsotT";
 
         public BookSearch(IMapper mapper, IRestClient restClient)
         {
@@ -31,10 +31,10 @@ namespace Cloudents.Infrastructure.Search
 
         public async Task<IEnumerable<BookSearchDto>> SearchAsync(string term, int imageWidth, int page, CancellationToken token)
         {
-            //var retVal = new List<BookSearchDto>();
+            
             var nvc = new NameValueCollection
             {
-                ["key"] = key,
+                ["key"] = Key,
                 ["keywords"] = term,
                 ["page"] = (++page).ToString(),
                 ["f"] = "search",
@@ -56,7 +56,7 @@ namespace Cloudents.Infrastructure.Search
             if (isbn13 == null) throw new ArgumentNullException(nameof(isbn13));
             var nvc = new NameValueCollection
             {
-                ["key"] = key,
+                ["key"] = Key,
                 ["f"] = "search,prices",
                 ["isbn"] = isbn13,
                 ["image_width"] = imageWidth.ToString(),

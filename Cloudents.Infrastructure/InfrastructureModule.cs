@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using Autofac;
+using Autofac.Extras.DynamicProxy;
 using AutoMapper;
 using CacheManager.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
-using Cloudents.Core.Request;
 using Cloudents.Infrastructure.AI;
+using Cloudents.Infrastructure.Cache;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Search;
 using Microsoft.Azure.Search;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Microsoft.Cognitive.LUIS;
 
 namespace Cloudents.Infrastructure
 {
@@ -22,24 +23,33 @@ namespace Cloudents.Infrastructure
         private readonly string m_SqlConnectionString;
         private readonly string m_SearchServiceName;
         private readonly string m_SearchServiceKey;
+        private readonly string m_RedisConnectionString;
 
-        public InfrastructureModule(string sqlConnectionString, string searchServiceName, string searchServiceKey)
+        public InfrastructureModule(string sqlConnectionString,
+            string searchServiceName,
+            string searchServiceKey,
+            string redisConnectionString)
         {
             m_SqlConnectionString = sqlConnectionString;
             m_SearchServiceName = searchServiceName;
             m_SearchServiceKey = searchServiceKey;
+            m_RedisConnectionString = redisConnectionString;
         }
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<LuisAI>().As<IAI>();
+            builder.Register(c => new CacheResultInterceptor(c.Resolve<ICacheProvider<object>>())); //<CacheResultInterceptor>();
+            builder.RegisterType<LuisAI>().As<IAI>().EnableInterfaceInterceptors()
+                .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<AIDecision>().As<IDecision>();
             builder.RegisterType<UniqueKeyGenerator>().As<IKeyGenerator>();
 
             builder.Register(c => new DapperRepository(m_SqlConnectionString));
+            builder.Register(c => new LuisClient("a1a0245f-4cb3-42d6-8bb2-62b6cfe7d5a3", "6effb3962e284a9ba73dfb57fa1cfe40"));
             builder.Register(c =>
                 new SearchServiceClient(m_SearchServiceName, new SearchCredentials(m_SearchServiceKey))).SingleInstance();
 
+            builder.RegisterGeneric(typeof(CacheProvider<>)).As(typeof(ICacheProvider<>));
             builder.RegisterType<DocumentSearch>().As<IDocumentSearch>().PropertiesAutowired();
             builder.RegisterType<FlashcardSearch>().As<IFlashcardSearch>().PropertiesAutowired();
             builder.RegisterType<QuestionSearch>().As<IQuestionSearch>().PropertiesAutowired();
@@ -52,19 +62,37 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<PlacesSearch>().As<IPlacesSearch>();
 
             builder.RegisterType<UniversitySynonymRepository>().As<IReadRepositorySingle<UniversitySynonymDto, long>>();
-            
 
+            ConfigureCache(builder);
             var config = MapperConfiguration();
             builder.Register(c => config.CreateMapper()).SingleInstance();
         }
 
-        private static void ConfigureCache()
+        private void ConfigureCache(ContainerBuilder builder)
         {
-            var cache = CacheFactory.Build("getStartedCache", settings =>
+            var cacheConfig = ConfigurationBuilder.BuildConfiguration(settings =>
             {
-                settings.WithRedisCacheHandle("redis");
-                //settings.WithSystemRuntimeCacheHandle("handleName");
+                settings
+                    .WithSystemRuntimeCacheHandle("inProcess")
+                    .WithExpiration(ExpirationMode.Absolute, TimeSpan.FromMinutes(10));
+                if (!string.IsNullOrEmpty(m_RedisConnectionString))
+                {
+                    settings.WithJsonSerializer();
+
+                    settings.WithRedisConfiguration("redis", m_RedisConnectionString)
+
+                    .WithRedisBackplane("redis").WithRedisCacheHandle("redis");
+
+                }
+
             });
+            builder.RegisterGeneric(typeof(BaseCacheManager<>))
+                .WithParameters(new[]
+                {
+                    new TypedParameter(typeof(ICacheManagerConfiguration), cacheConfig)
+                })
+                .As(typeof(ICacheManager<>))
+                .SingleInstance();
         }
 
         private static MapperConfiguration MapperConfiguration()
@@ -85,10 +113,7 @@ namespace Cloudents.Infrastructure
                     }));
 
                 cfg.CreateMap<Search.Entities.Job, JobDto>();
-                cfg.CreateMap<JObject, IEnumerable<BookSearchDto>>().ConvertUsing((jo, bookSearch,c) =>
-                {
-                    return jo["response"]["page"]["books"]?["book"]?.Select(json => c.Mapper.Map<JToken, BookSearchDto>(json));
-                });
+                cfg.CreateMap<JObject, IEnumerable<BookSearchDto>>().ConvertUsing((jo, bookSearch, c) => jo["response"]["page"]["books"]?["book"]?.Select(json => c.Mapper.Map<JToken, BookSearchDto>(json)));
                 cfg.CreateMap<JToken, BookSearchDto>().ConvertUsing((jo, bookSearch) => new BookSearchDto
                 {
                     Image = jo["image"]?["image"].Value<string>(),
@@ -102,7 +127,6 @@ namespace Cloudents.Infrastructure
                 });
                 cfg.CreateMap<JObject, BookDetailsDto>().ConvertUsing((jo, bookSearch, c) =>
                 {
-
                     var book = jo["response"]["page"]["books"]["book"].First;
                     var offers = book["offers"]["group"].SelectMany(json =>
                     {
@@ -155,7 +179,6 @@ namespace Cloudents.Infrastructure
                 });
                 cfg.CreateMap<JObject, IEnumerable<TutorDto>>().ConvertUsing((jo, tu, c) =>
                 {
-
                     return jo["results"].Children().Select(result => new TutorDto
                     {
                         Url = $"https://tutorme.com/tutors/{result["id"].Value<string>()}",
