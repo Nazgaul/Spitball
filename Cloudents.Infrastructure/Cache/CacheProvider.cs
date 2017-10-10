@@ -17,7 +17,17 @@ namespace Cloudents.Infrastructure.Cache
 
         public object Get(string key, string region)
         {
-            return m_Cache.Get(key, region);
+            try
+            {
+                return m_Cache.Get(key, region);
+            }
+            catch
+            {
+                m_Cache.Remove(key, region);
+                return null;
+                     
+            }
+
         }
 
         public void Set(string key, string region, object value, int expire)
