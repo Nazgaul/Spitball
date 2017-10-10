@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const bundleOutputDir = './wwwroot/dist';
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
     // This is the "main" file which should include all other modules
@@ -19,42 +20,61 @@ module.exports = (env) => {
                     },
                     {
                         test: /\.(png|jpg|jpeg|gif)$/,
-                        loader: 'url-loader'
+                        loader: 'url-loader',
+                        options: {
+                            limit: 10000,
+                            //TODO: check
+                            //name: path.join(bundleOutputDir,"img/[name].[hash:7].[ext]")
+                        }
                     },
                     {
-                        // Ask webpack to check: If this file ends with .js, then apply some transforms
                         test: /\.js$/,
-                        // Transform it with babel
                         loader: 'babel-loader',
                         include: /ClientApp/
-                        // don't transform node_modules folder (which don't need to be compiled)
                         //exclude: /node_modules/
                     },
                     {
                         test: /\.vue$/,
                         loader: 'vue-loader',
                         include: /ClientApp/,
-                        options: {
-                            extractCSS: true,
-                            loaders: {
-                                'less': 'vue-style-loader!css-loader!less-loader',
-                                'css': 'vue-style-loader!css-loader'
 
+                        options: {
+                            loaders: {
+                                css: ExtractTextPlugin.extract({
+                                    use: 'css-loader',
+                                    fallback: 'vue-style-loader'
+                                }),
+                                less: ExtractTextPlugin.extract({
+                                    use: 'css-loader!less-loader',
+                                    fallback: 'vue-style-loader'
+                                })
                             }
+                            //loaders: cssLoaders({
+                            //    sourceMap: false,
+                            //    //? config.build.productionSourceMap
+                            //    //: config.dev.cssSourceMap,
+                            //    extract: isDevBuild
+                            //}, isDevBuild),
+                            //transformToRequire: {
+                            //    video: 'src',
+                            //    source: 'src',
+                            //    img: 'src',
+                            //    image: 'xlink:href'
+                            //}
+                              //extractCSS: true,
+                              //loaders: {
+                              //  'less': 'vue-style-loader!css-loader!less-loader',
+                              //  'css': 'vue-style-loader!css-loader'
+
+                              //}
                         }
-                        //options: { //maybe
-                        //    loaders: {
-                        //        'less': 'vue-style-loader!css-loader!less-loader'
-                        //    },
-                        //   
-                        //}
                     },
                     {
                         test: /\.less$/,
                         exclude: /ClientApp/,
-                        use: isDevBuild ? ['style-loader', 'css-loader',"less-loader"] : ExtractTextPlugin.extract({ use: ['css-loader?minimize','less-loader'] })
-                        
-                    },                 
+                        use: isDevBuild ? ['style-loader', 'css-loader', "less-loader"] : ExtractTextPlugin.extract({ use: ['css-loader?minimize', 'less-loader'] })
+
+                    },
                     {
                         test: /\.css$/,
                         use: isDevBuild ? ['style-loader', 'css-loader'] : ExtractTextPlugin.extract({ use: 'css-loader?minimize' })
@@ -69,12 +89,6 @@ module.exports = (env) => {
                 filename: '[name].js',
                 publicPath: 'dist/'
             },
-            //resolve: {
-            //    extensions: ['.js', '.vue', '.json'],
-            //    alias: {
-            //        'vue$': 'vue/dist/vue.esm.js'
-            //    }
-            //},
             plugins: [
                 new webpack.DefinePlugin({
                     'process.env': {
@@ -98,7 +112,7 @@ module.exports = (env) => {
                 : [
                     // Plugins that apply in production builds only
                     new webpack.optimize.UglifyJsPlugin(),
-                    new ExtractTextPlugin("style.css")
+                    new ExtractTextPlugin({ filename: 'site.css'})
 
                 ])
         }
