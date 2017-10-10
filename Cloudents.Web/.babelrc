@@ -1,4 +1,8 @@
 ﻿{
   "presets": ["env"],
-  "plugins": ["syntax-dynamic-import","transform-object-rest-spread"]
+  "plugins": ["syntax-dynamic-import","transform-object-rest-spread",["transform-imports", {
+  "vuetify": {
+    "transform": "vuetify/es5/components/${member}"
+  }
+}]]
 }
