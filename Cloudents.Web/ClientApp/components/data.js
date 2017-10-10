@@ -27,8 +27,8 @@ export let verticals =
             name: "book", image: "book", placeholder: "Find me a textbook ...", prefix: "Find me a textbook -", asideLabel: "search type",
             resultTitle: "I found some textbooks that match your search. Check them out!", emptyState: "no Books founds", filter: "", sort: ""
         },
-        purchase: {
-            name: "purchase", image: "purchase", placeholder: "Where can i get...", prefix: "Where can I get a", asideLabel: "purchase",
+        food: {
+            name: "food", image: "food", placeholder: "Where can i get...", prefix: "Where can I get a", asideLabel: "food",
             resultTitle: "Booya! I found a few places that<br>you might like.", emptyState: "ask", filter: [{ id: 'all', name: 'all' }, { id: 'openNow', name: 'open now' }], sort: [{ id: 'distance', name: 'distance' }]
         }
     };
@@ -49,8 +49,8 @@ export let verticalsNavbar = [{
     ]
 },
     {
-        label: "purchase", data: [
-            { id: routes.purchaseRoute, name: verticals[routes.purchaseRoute].name, image: verticals[routes.purchaseRoute].image }
+        label: "food", data: [
+            { id: routes.foodRoute, name: verticals[routes.foodRoute].name, image: verticals[routes.foodRoute].image }
 
         ]
     }

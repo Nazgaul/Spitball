@@ -1,6 +1,5 @@
 ﻿<template>
-    <div>
-        <a target="_blank" :href="item.url" v-for="item in items">
+        <a target="_blank" :href="item.url">
             <v-card class="wrapper">
                 <div class="container-box">
                     <div class="box-main box-user">
@@ -23,12 +22,9 @@
                 </div>
             </v-card>
         </a>
-    </div>
 </template>
 <script>
     export default {
-        computed: {
-            items: function () { return this.$store.getters.items }
-        }
+        props: { item: {type:Object,required:true}}
     }
 </script>

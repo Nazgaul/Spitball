@@ -2,9 +2,10 @@
     <div>
        <slot></slot>
         <infinite-loading @infinite="infiniteHandler">
-            <!--<span slot="no-more">
-                There is no more Hacker News
-            </span>-->
+            <span slot="no-more">
+            </span>
+            <div slot="no-results"></div>
+            <div slot="no-more"></div>
         </infinite-loading>
     </div>
 </template>

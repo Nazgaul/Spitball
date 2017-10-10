@@ -11,39 +11,39 @@ export const activateFunction = {
                 var answer = search.getShortAnswer(params.userText);
                 var video = search.getVideo(params.userText);
                 Promise.all([answer, items, video]).then(([short, items, video]) => {
-                    resolve({ title: short.body, items: items.body, video: video.body.url })
+                    resolve({ title: short.body, data: [{ url:video.body.url, template: "video" },...items.body.map(val => { return { ...val, template: "item" } })] })
                 })
             }
         })
     },
     note: (params) => {
         return new Promise((resolve, reject) => {
-            search.getDocument(params).then(({ body }) => resolve({ isEmpty: !Boolean(body.item1.length), data: { items: body.item1, source: body.item2 } }))
+            search.getDocument(params).then(({ body }) => resolve({ isEmpty: !Boolean(body.item1.length), source: body.item2, data: body.item1.map(val => {return { ...val, template:"item"}}) }))
         })
     },
     flashcard: function (params) {
         return new Promise((resolve, reject) => {
-            search.getFlashcard(params).then(({ body }) => resolve({ isEmpty: !Boolean(body.item1.length), data: { items: body.item1, source: body.item2 } }))
+            search.getFlashcard(params).then(({ body }) => resolve({ isEmpty: !Boolean(body.item1.length), source: body.item2, data: body.item1.map(val => Object.assign(val, { template: "item" })) }))
         })
     },
     tutor: function (params) {
         return new Promise((resolve, reject) => {
-            search.getTutor(params).then(({ body }) => resolve({ items: body }));
+            search.getTutor(params).then(({ body }) => resolve({ data: body.map(val => { return {...val,template:"tutor"}}) }));
         })
     },
     job: function (params) {
         return new Promise((resolve, reject) => {
-            search.getJob(params).then(({ body }) => resolve({ isEmpty: !Boolean(body.length), data: { items: body } }));
+            search.getJob(params).then(({ body }) => resolve({ isEmpty: !Boolean(body.length), data: body.map(val => { return { ...val, template: "job" } }) }));
         })
     },
     book: function (params) {
         return new Promise((resolve, reject) => {
-            search.getBook(params.term, params.page).then(({body}) => resolve({ items: body }));
+            search.getBook(params).then(({ body }) => resolve({ data: body.map(val => { return {...val,template:"book"}}) }) );
         })
     },
-    purchase: function () {
+    food: function (params) {
         return new Promise((resolve, reject) => {
-            search.getTutor(state.userText).then(response => resolve({ items: response.item1, sources: response.item2 }));
+            search.getFood(params).then(({ body }) => resolve({isEmpty:!body.length,data: body.map(val => { return { ...val, template: "food" } })}));
         })
     }
 }

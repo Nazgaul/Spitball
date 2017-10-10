@@ -4,7 +4,7 @@ import book from './images/book.svg';
 import document from './images/document.svg';
 import flashcard from './images/flashcard.svg';
 import job from './images/job.svg';
-import purchase from './images/purchase.svg';
+import food from './images/food.svg';
 import tutor from './images/tutor.svg';
 import { verticalsList as verticals } from '../data.js'
 
@@ -15,7 +15,7 @@ import { verticalsList as verticals } from '../data.js'
 
 export default {
     components: {
-        ask, book, document, flashcard, job, purchase, tutor
+        ask, book, document, flashcard, job, food, tutor
     },
     props: {
         changeCallback: {type:Function}

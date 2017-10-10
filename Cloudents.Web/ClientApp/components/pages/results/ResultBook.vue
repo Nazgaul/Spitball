@@ -1,8 +1,7 @@
 ﻿<template>
-    <scroll-list>
-        <v-container grid-list-md>
+
             <v-layout row wrap>
-                    <v-card v-for="(item,index) in items" :key="index">
+                    <v-card>
                         <v-card-title primary-title>{{item.title}}</v-card-title>
                         <v-card-text>
                             <span v-if="item.author">author:{{item.author}}</span>
@@ -14,12 +13,9 @@
                         <v-card-media :src="item.image"></v-card-media>
                     </v-card>
             </v-layout>
-        </v-container>
-    </scroll-list>
 </template>
 <script>
-    import { itemsList} from './mixins';
     export default {
-        mixins: [itemsList]
+        props: { item: {type:Object,required:true}}
     }
 </script>

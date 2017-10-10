@@ -1,6 +1,5 @@
 ﻿<template>
-    <scroll-list>
-        <a :key="item.id" v-for="(item,i) in items" target="_blank" :href="item.url" class="result" :class="'bg-'+$route.name">
+        <a :key="item.id" target="_blank" :href="item.url" class="result" :class="'bg-'+$route.name">
             <div class="item-content">
                 <div>title: {{item.title}}</div>
                 <div>
@@ -12,11 +11,10 @@
             </div>            <div class="image"><img :src="item.image" /></div>
 
         </a>
-    </scroll-list>
 </template>
 <script>
     export default {
-        props: ['items']
+        props: { item: {type:Object,required:true}}
     }
 </script>
 <style scoped>

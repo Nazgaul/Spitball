@@ -1,7 +1,7 @@
 ﻿<template>
-    <div>
-        <a target="_blank" :href="item.url" v-for="(item,i) in items" :key="i">
-                <v-card-title>title#{{i}}:{{item.title}}</v-card-title>
+        <a target="_blank" :href="item.url">
+            <v-card>
+                <v-card-title>title#:{{item.title}}</v-card-title>
                 <v-card-text>
                     <span v-if="item.responsibilities">responsibilities:{{item.responsibilities}}</span>
                     <span v-if="item.city">city:{{item.city}}</span>
@@ -10,13 +10,12 @@
                     <span v-if="item.company">company:{{item.company}}</span>
                     <span v-if="item.dateTime">dateTime:{{item.dateTime}}</span>
                 </v-card-text>
+            </v-card>
         </a>
-    </div>
 </template>
 <script>
-    import { itemsList } from './mixins'
 
     export default {
-        mixins:[itemsList]
+        props: { item: { type: Object, required: true } }
     }
 </script>

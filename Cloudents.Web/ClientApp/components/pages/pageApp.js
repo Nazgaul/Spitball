@@ -8,12 +8,6 @@ export default {
         'app-aside': appAside, 'app-header': appHeader, pageResult
     },
     
-    data() {
-        return {
-            isOpen: "yifat",
-            section: ""
-        }
-    },
     computed: {
         isLoading: function () { return this.$store.getters.loading }
     }

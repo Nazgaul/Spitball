@@ -28,10 +28,10 @@ export default {
     getJob(params) {
         return resource.job(params);
     },
-    getBook(term,page) {
-        return resource.book(
-            {
-                term ,page
-            });
+    getBook(params) {
+        return resource.book(params);
+    },
+    getFood(params) {
+        return resource.food({ ...params, location: "34.8016837,31.9195509"});
     }
 };
