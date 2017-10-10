@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cloudents.Core;
 using Cloudents.Core.Extension;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
@@ -12,9 +13,9 @@ using Microsoft.Cognitive.LUIS;
 namespace Cloudents.Infrastructure.AI
 {
     // ReSharper disable once InconsistentNaming - AI is Shorthand
+   
     public class LuisAI : IAI, IDisposable
     {
-        private readonly ICacheProvider<AIDto> m_Cache;
         private readonly LuisClient m_Client;
 
         private readonly HashSet<string> m_SearchVariables = new HashSet<string>(new[] {"documents", "flashcards"},
@@ -23,22 +24,16 @@ namespace Cloudents.Infrastructure.AI
         private readonly HashSet<string> m_SearchTerms = new HashSet<string>(new[] { "isbn", "subject" },
             StringComparer.InvariantCultureIgnoreCase);
 
-        public LuisAI(ICacheProvider<AIDto> cache, LuisClient client)
+        public LuisAI(LuisClient client)
         {
-            m_Cache = cache;
             m_Client = client;
         }
 
-        [CacheResult(5, "ai")]
-        public async Task<AIDto> InterpretStringAsync(AiQuery sentence)
+        [Cache(TimeConst.Day, "ai")]
+        public async Task<AIDto> InterpretStringAsync(string sentence)
         {
-            var cache = m_Cache.Get(sentence, CacheRegion.Ai);
-            if (cache != null)
-            {
-                return cache;
-            }
-
-            var result = await m_Client.Predict(sentence.Sentence).ConfigureAwait(false);
+            if (sentence == null) throw new ArgumentNullException(nameof(sentence));
+            var result = await m_Client.Predict(sentence).ConfigureAwait(false);
             var entities = result.GetAllEntities();
 
             result.TopScoringIntent.Name.TryToEnum(out AIIntent intent);
@@ -62,9 +57,7 @@ namespace Cloudents.Infrastructure.AI
                     terms.Add(entity.Value);
                 }
             }
-            var retVal = new AIDto(intent, searchType, course, terms);
-            m_Cache.Set(sentence, CacheRegion.Ai, retVal, TimeSpan.FromDays(1));
-            return retVal;
+            return new AIDto(intent, searchType, course, terms);
         }
 
         public void Dispose()

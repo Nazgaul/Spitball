@@ -5,6 +5,7 @@ using Autofac;
 using Autofac.Extras.DynamicProxy;
 using AutoMapper;
 using CacheManager.Core;
+using Castle.DynamicProxy;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
@@ -38,8 +39,9 @@ namespace Cloudents.Infrastructure
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(c => new CacheResultInterceptor(c.Resolve<ICacheProvider<object>>())); //<CacheResultInterceptor>();
-            builder.RegisterType<LuisAI>().As<IAI>().EnableInterfaceInterceptors()
+            builder.Register(c => new CacheResultInterceptor(c.Resolve<ICacheProvider>())); //<CacheResultInterceptor>();
+            builder.RegisterType<LuisAI>().As<IAI>()
+                .EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<AIDecision>().As<IDecision>();
             builder.RegisterType<UniqueKeyGenerator>().As<IKeyGenerator>();
@@ -49,10 +51,12 @@ namespace Cloudents.Infrastructure
             builder.Register(c =>
                 new SearchServiceClient(m_SearchServiceName, new SearchCredentials(m_SearchServiceKey))).SingleInstance();
 
-            builder.RegisterGeneric(typeof(CacheProvider<>)).As(typeof(ICacheProvider<>));
-            builder.RegisterType<DocumentSearch>().As<IDocumentSearch>().PropertiesAutowired();
-            builder.RegisterType<FlashcardSearch>().As<IFlashcardSearch>().PropertiesAutowired();
-            builder.RegisterType<QuestionSearch>().As<IQuestionSearch>().PropertiesAutowired();
+            builder.RegisterType(typeof(CacheProvider)).As(typeof(ICacheProvider));
+            builder.RegisterType<CseSearch>().As<ICseSearch>().EnableInterfaceInterceptors()
+                .InterceptedBy(typeof(CacheResultInterceptor));
+            builder.RegisterType<DocumentSearch>().As<IDocumentSearch>();
+            builder.RegisterType<FlashcardSearch>().As<IFlashcardSearch>();
+            builder.RegisterType<QuestionSearch>().As<IQuestionSearch>();
             builder.RegisterType<TutorSearch>().As<ITutorSearch>();
             builder.RegisterType<TitleSearch>().As<ITitleSearch>();
             builder.RegisterType<VideoSearch>().As<IVideoSearch>();

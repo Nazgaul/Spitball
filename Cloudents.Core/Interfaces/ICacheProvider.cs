@@ -1,12 +1,10 @@
 ﻿using System;
-using Cloudents.Core.Models;
-using Cloudents.Core.Request;
 
 namespace Cloudents.Core.Interfaces
 {
-    public interface ICacheProvider<T>
+    public interface ICacheProvider
     {
-        T Get(IQuery key, CacheRegion region);
-        void Set(IQuery key, CacheRegion region, T value, TimeSpan expire);
+        object Get(string key, string region);
+        void Set(string key, string region, object value, int expire);
     }
 }

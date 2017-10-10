@@ -137,6 +137,7 @@
     <Compile Include="AI\AIDecision.cs" />
     <Compile Include="AI\LuisAI.cs" />
     <Compile Include="Cache\CacheProvider.cs" />
+    <Compile Include="Cache\CacheResultInterceptor.cs" />
     <Compile Include="Data\DapperRepository.cs" />
     <Compile Include="Data\UniversitySynonymRepository.cs" />
     <Compile Include="IRestClient.cs" />
@@ -146,7 +147,6 @@
     <Compile Include="Search\Entities\Job.cs" />
     <Compile Include="Search\Entities\Tutor.cs" />
     <Compile Include="Search\FlashcardSearch.cs" />
-    <Compile Include="Search\Query\GoogleQuery.cs" />
     <Compile Include="Search\JobSearch.cs" />
     <Compile Include="Search\PlacesSearch.cs" />
     <Compile Include="Search\QuestionSearch.cs" />
