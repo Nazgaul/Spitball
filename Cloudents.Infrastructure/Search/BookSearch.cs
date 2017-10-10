@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Cloudents.Core;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Models;
 using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Infrastructure.Search
@@ -29,6 +25,7 @@ namespace Cloudents.Infrastructure.Search
             m_RestClient = restClient;
         }
 
+        [Cache(TimeConst.Day, "book")]
         public async Task<IEnumerable<BookSearchDto>> SearchAsync(string term, int imageWidth, int page, CancellationToken token)
         {
             

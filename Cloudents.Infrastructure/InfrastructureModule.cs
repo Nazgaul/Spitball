@@ -58,10 +58,12 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<FlashcardSearch>().As<IFlashcardSearch>();
             builder.RegisterType<QuestionSearch>().As<IQuestionSearch>();
             builder.RegisterType<TutorSearch>().As<ITutorSearch>();
-            builder.RegisterType<TitleSearch>().As<ITitleSearch>();
+            builder.RegisterType<TitleSearch>().As<ITitleSearch>().EnableInterfaceInterceptors()
+                .InterceptedBy(typeof(CacheResultInterceptor)); ;
             builder.RegisterType<VideoSearch>().As<IVideoSearch>();
             builder.RegisterType<JobSearch>().As<IJobSearch>();
-            builder.RegisterType<BookSearch>().As<IBookSearch>();
+            builder.RegisterType<BookSearch>().As<IBookSearch>().EnableInterfaceInterceptors()
+                .InterceptedBy(typeof(CacheResultInterceptor)); 
             builder.RegisterType<RestClient>().As<IRestClient>();
             builder.RegisterType<PlacesSearch>().As<IPlacesSearch>();
 
