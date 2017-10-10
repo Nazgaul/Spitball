@@ -2,6 +2,7 @@
 const webpack = require('webpack');
 const bundleOutputDir = './wwwroot/dist';
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 
 module.exports = (env) => {
@@ -22,9 +23,7 @@ module.exports = (env) => {
                         test: /\.(png|jpg|jpeg|gif)$/,
                         loader: 'url-loader',
                         options: {
-                            limit: 10000,
-                            //TODO: check
-                            //name: path.join(bundleOutputDir,"img/[name].[hash:7].[ext]")
+                            limit: 8192
                         }
                     },
                     {
@@ -41,32 +40,14 @@ module.exports = (env) => {
                         options: {
                             loaders: {
                                 css: ExtractTextPlugin.extract({
-                                    use: 'css-loader',
+                                    use: 'css-loader?minimize',
                                     fallback: 'vue-style-loader'
                                 }),
                                 less: ExtractTextPlugin.extract({
-                                    use: 'css-loader!less-loader',
+                                    use: 'css-loader?minimize!less-loader',
                                     fallback: 'vue-style-loader'
                                 })
                             }
-                            //loaders: cssLoaders({
-                            //    sourceMap: false,
-                            //    //? config.build.productionSourceMap
-                            //    //: config.dev.cssSourceMap,
-                            //    extract: isDevBuild
-                            //}, isDevBuild),
-                            //transformToRequire: {
-                            //    video: 'src',
-                            //    source: 'src',
-                            //    img: 'src',
-                            //    image: 'xlink:href'
-                            //}
-                              //extractCSS: true,
-                              //loaders: {
-                              //  'less': 'vue-style-loader!css-loader!less-loader',
-                              //  'css': 'vue-style-loader!css-loader'
-
-                              //}
                         }
                     },
                     {
@@ -87,7 +68,7 @@ module.exports = (env) => {
                 path: path.join(__dirname, bundleOutputDir),
                 // With the filename `build.js` so it's dist/build.js
                 filename: '[name].js',
-                publicPath: 'dist/'
+                publicPath: '/dist/'
             },
             plugins: [
                 new webpack.DefinePlugin({
@@ -112,7 +93,13 @@ module.exports = (env) => {
                 : [
                     // Plugins that apply in production builds only
                     new webpack.optimize.UglifyJsPlugin(),
-                    new ExtractTextPlugin({ filename: 'site.css'})
+                    new ExtractTextPlugin({ filename: 'site.css' }),
+                    new OptimizeCssAssetsPlugin({
+                        assetNameRegExp: /\.optimize\.css$/g,
+                        cssProcessor: require('cssnano'),
+                        cssProcessorOptions: { discardComments: { removeAll: true } },
+                        canPrint: true
+                    })
 
                 ])
         }
