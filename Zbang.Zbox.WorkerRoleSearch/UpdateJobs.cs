@@ -28,10 +28,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
         }
 
 
-        protected override async Task DeleteOldItemsAsync(CancellationToken token)
+        protected override Task DeleteOldItemsAsync(CancellationToken token)
         {
-            var oldJobs = await m_JobSearchService.GetOldJobsAsync(token).ConfigureAwait(false);
-            await m_JobSearchService.DeleteDataAsync(oldJobs, token).ConfigureAwait(false);
+            return m_JobSearchService.DeleteOldJobsAsync(token);
         }
 
 

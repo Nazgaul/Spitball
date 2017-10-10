@@ -34,7 +34,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             var serializer = new JsonSerializer();
             using (FileStream s = File.Open(location, FileMode.Open))
-            using (StreamReader sr = new StreamReader(s))
+            using (var sr = new StreamReader(s))
             using (JsonReader reader = new JsonTextReader(sr))
             {
                 while (reader.Read())
@@ -52,7 +52,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         protected override async Task<Tutor> ParseTAsync(WyzantTutor obj, CancellationToken token)
         {
             var location = await m_ZipToLocation.GetLocationViaZipAsync(obj.Zip).ConfigureAwait(false);
-            var searchJobObject = new Tutor
+            return new Tutor
             {
                 City = obj.City,
                 Fee = obj.FeePerHour,
@@ -68,7 +68,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 Subjects = obj.Subjects?.Select(s => s.Name).ToArray(),
                 Url = obj.ProfileLink
             };
-            return searchJobObject;
         }
 
         protected override Task UpdateSearchAsync(IEnumerable<Tutor> list, CancellationToken token)
@@ -76,11 +75,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return m_TutorProvider.UpdateDataAsync(list, token);
         }
 
-        protected override async Task DeleteOldItemsAsync(CancellationToken token)
+        protected override Task DeleteOldItemsAsync(CancellationToken token)
         {
-            var oldJobs = await m_TutorProvider.GetOldTutorsAsync(token).ConfigureAwait(false);
-
-            await m_TutorProvider.DeleteDataAsync(oldJobs, token).ConfigureAwait(false);
+            return m_TutorProvider.DeleteOldTutorsAsync(token);
         }
     }
 }

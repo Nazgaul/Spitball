@@ -51,7 +51,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         protected override async Task<Job> ParseTAsync(CareerBuilderJobs obj, CancellationToken token)
         {
             var location = await m_ZipToLocation.GetLocationViaZipAsync(obj.Zip).ConfigureAwait(false);
-            var searchJobObject = new Job
+            return new Job
             {
                 City = obj.City,
                 CompensationType = "paid",
@@ -67,7 +67,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 Company = obj.company,
                 Extra = new[] { obj.category }
             };
-            return searchJobObject;
         }
 
         private static string StripHtml(string body)
@@ -81,10 +80,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return m_JobSearchService.UpdateDataAsync(list, token);
         }
 
-        protected override async Task DeleteOldItemsAsync(CancellationToken token)
+        protected override Task DeleteOldItemsAsync(CancellationToken token)
         {
-            var oldJobs = await m_JobSearchService.GetOldJobsAsync(token).ConfigureAwait(false);
-            await m_JobSearchService.DeleteDataAsync(oldJobs, token).ConfigureAwait(false);
+            return m_JobSearchService.DeleteOldJobsAsync(token);
         }
 
         private static string JobTypeConversion(string jobType)

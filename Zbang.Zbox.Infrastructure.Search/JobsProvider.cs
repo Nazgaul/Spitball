@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Autofac;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
-using Microsoft.Rest.Azure;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
-    public class JobsProvider : SearchServiceWrite<Job>, IJobsProviderReadService
+    public class JobsProvider : SearchServiceWrite<Job>
     {
         public JobsProvider(ISearchConnection connection, ILogger logger)
             : base(connection, "jobs", logger)
@@ -30,20 +27,27 @@ namespace Zbang.Zbox.Infrastructure.Search
             return definition;
         }
 
-        public async Task<IEnumerable<string>> GetOldJobsAsync(CancellationToken token)
+        public async Task DeleteOldJobsAsync(CancellationToken token)
         {
+            const int top = 1000;
             var parameters = new SearchParameters
             {
                 Filter = $"insertDate lt {DateTime.UtcNow.AddDays(-4):yyyy-MM-dd'T'hh:mm:ss'Z'}",
-                Select = new[] { "id" }
+                Select = new[] { "id" },
+                Top = top
             };
-            var result = await IndexClient.Documents.SearchAsync<Job>("*", parameters, cancellationToken: token).ConfigureAwait(false);
-            return result.Results.Select(s => s.Document.Id);
+            IList<SearchResult<Job>> result;
+            do
+            {
+                var searchRetVal = await IndexClient.Documents.SearchAsync<Job>("*", parameters, cancellationToken: token)
+                    .ConfigureAwait(false);
+                result = searchRetVal.Results;
+
+                await DeleteDataAsync(result.Select(s => s.Document.Id), token).ConfigureAwait(false);
+
+            } while (result.Count == top);
         }
     }
 
-    public interface IJobsProviderReadService
-    {
-        //Task<Job> GetByIdAsync(string id, CancellationToken token);
-    }
+   
 }

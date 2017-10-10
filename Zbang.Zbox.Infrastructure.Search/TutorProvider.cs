@@ -9,9 +9,9 @@ using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
-   public  class TutorProvider : SearchServiceWrite<Tutor>
+    public class TutorProvider : SearchServiceWrite<Tutor>
     {
-        public TutorProvider(ISearchConnection connection, ILogger logger) : base(connection,"tutors", logger)
+        public TutorProvider(ISearchConnection connection, ILogger logger) : base(connection, "tutors", logger)
         {
 
         }
@@ -28,15 +28,25 @@ namespace Zbang.Zbox.Infrastructure.Search
             return definition;
         }
 
-        public async Task<IEnumerable<string>> GetOldTutorsAsync(CancellationToken token)
+        public async Task DeleteOldTutorsAsync(CancellationToken token)
         {
+            const int top = 1000;
             var parameters = new SearchParameters
             {
                 Filter = $"insertDate lt {DateTime.UtcNow.AddDays(-2):yyyy-MM-dd'T'hh:mm:ss'Z'}",
-                Select = new[] { "id" }
+                Select = new[] { "id" },
+                Top = top
             };
-            var result = await IndexClient.Documents.SearchAsync<Job>("*", parameters, cancellationToken: token).ConfigureAwait(false);
-            return result.Results.Select(s => s.Document.Id);
+            IList<SearchResult<Tutor>> result;
+            do
+            {
+                var searchRetVal = await IndexClient.Documents.SearchAsync<Tutor>("*", parameters, cancellationToken: token)
+                    .ConfigureAwait(false);
+                result = searchRetVal.Results;
+
+                await DeleteDataAsync(result.Select(s => s.Document.Id), token).ConfigureAwait(false);
+
+            } while (result.Count == top);
         }
     }
 }

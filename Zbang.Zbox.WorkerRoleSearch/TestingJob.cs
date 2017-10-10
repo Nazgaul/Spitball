@@ -36,7 +36,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public string Name => nameof(TestingJob);
         public async Task RunAsync(CancellationToken cancellationToken)
         {
-            var process = m_LifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("deleteOld");
+            var process = m_LifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("careerBuilder");
             // ReSharper disable once AsyncConverter.AsyncAwaitMayBeElidedHighlighting
             await process.ExecuteAsync(0, (a, b) => Task.CompletedTask, cancellationToken).ConfigureAwait(false);
 
