@@ -20,7 +20,7 @@
         </slot>
         <slot name="data">
             <scroll-list>
-                <component v-for="item in pageData.data" :is="'result-'+item.template" :item="item"></component>
+                <component v-for="(item,index) in pageData.data" :is="'result-'+item.template" :item="item" :key="index"></component>
             </scroll-list>
         </slot>
        <slot name="emptyState" v-show="isEmpty"></slot>

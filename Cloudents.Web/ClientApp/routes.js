@@ -19,7 +19,7 @@ export const routes = [
     {
         path: "/result", component: SectionsPage, name: "result" ,meta
         , children: [
-            { path: "ask", name: RouteTypes.questionRoute, component: resultPage, meta: Object.assign({}, resultMeta)},
+            { path: "ask", name: RouteTypes.questionRoute, component: resultPage, meta: { userText: "", load: "newResultPage" } },
             { path: "flashcard", name: RouteTypes.flashcardRoute, component: resultPage, meta: Object.assign({}, resultMeta) },
             { path: "note", name: RouteTypes.notesRoute, component: resultPage, meta: Object.assign({}, resultMeta) },
             { path: "tutor", name: RouteTypes.tutorRoute, component: resultPage, meta: Object.assign({}, resultMeta) },

@@ -81,7 +81,7 @@ const actions = {
         context.commit(types.UPDATE_SEARCH_PARAMS, { type: page.name })
        
         //if page have usertext and has been changed call luis again
-        if (page.meta.userText && context.getters.user !== page.meta.userText) {
+        if (page.meta.userText && context.getters.userText !== page.meta.userText) {
             context.dispatch('updateSearchText', page.meta.userText)
         } else {
             context.dispatch('fetchingData', page.name);

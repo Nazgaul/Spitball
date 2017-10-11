@@ -1,5 +1,5 @@
 ﻿<template>
-        <a :key="item.id" target="_blank" :href="item.url" class="result" :class="'bg-'+$route.name">
+        <!--<a target="_blank" :href="item.url" class="result" :class="'bg-'+$route.name">
             <div class="item-content">
                 <div>title: {{item.title}}</div>
                 <div>
@@ -10,15 +10,35 @@
                 source: {{item.source}}
             </div>            <div class="image"><img :src="item.image" /></div>
 
-        </a>
+        </a>-->
+    <a class="wrapper" target="_blank" :href="item.url">
+
+        <div class="container-box">
+            <div class="box-main box-mask-1">
+                <div class="img">
+                    <span class="up">
+                        <img :src="item.image" alt="">
+                    </span>
+                </div>
+                <div class="box-wrapper">
+                    <div class="title" :class="'text-'+$route.name">{{item.title}}</div>
+                    <p>{{item.snippet}}</p>
+                    <div class="bottom">Source: {{item.source}}</div>
+                </div>
+            </div>
+        </div>
+
+    </a>
+
 </template>
 <script>
     export default {
         props: { item: {type:Object,required:true}}
     }
 </script>
+<style src="./ResultItem.less" lang="less" scoped></style>
 <style scoped>
-    .result {
+    /*.result {
         margin-top: 0.5em;
         border-radius: 4px;
         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
@@ -71,5 +91,5 @@
         -ms-grid-row-span: 1;
         grid-area: source;
         vertical-align: bottom;
-    }
+    }*/
 </style>
