@@ -19,7 +19,7 @@ export const pageMixin =
                 }
             })
             return {
-                page: page[this.$route.name],
+                
                 sort: this.$route.query.sort ? this.$route.query.sort:'relevance',
                 currentQuery: this.$route.query,
                 filter: '',
@@ -30,13 +30,14 @@ export const pageMixin =
         },
 
         computed: {
+            page: function() {return page[this.$route.name] },
             filterOptions: function () {
                 let fil = Object.keys(this.$route.query).filter(item => (item !== 'sort' && item !== 'filter')).toString();
                 return fil.length ? fil : (this.currentQuery.filter ? this.currentQuery.filter : 'all')
             },
             subFilter: function () { return this.currentQuery[this.filter]; },
             dynamicHeader: function () { return this.pageData.title },
-            isEmpty: function () { return this.pageData.isEmpty||false},
+            isEmpty: function () { return this.pageData.data ? !this.pageData.data.length:true},
             subFilters: function () {
                 var list = this.pageData[this.filter];
                 return list ? list.map(item => { return { id: item, name: item } }) : [];

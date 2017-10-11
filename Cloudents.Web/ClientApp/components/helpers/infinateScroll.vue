@@ -15,14 +15,21 @@
     export default {
         data() {
             return {
-                loadMore: true
+                page:1
             }
         },
         methods: {
             infiniteHandler($state) {
-                if (this.loadMore) {
-                    this.loadMore=this.$store.dispatch('scrollingItems', { name: this.$route.name, scrollState: $state});
-                } else { $state.complete();}
+                this.$store.dispatch('scrollingItems', { name: this.$route.name, scrollState: $state, page: this.page })
+                    .then(({ data}) => {
+                        if (data&&data.length) {
+                            this.$emit('scroll',data);
+                            $state.loaded();
+                            this.page++;
+                        } else {
+                            $state.complete();
+                        }
+                    })
             },
         },
         components: {

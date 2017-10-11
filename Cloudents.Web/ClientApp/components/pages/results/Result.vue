@@ -19,7 +19,7 @@
             </v-container>
         </slot>
         <slot name="data">
-            <scroll-list>
+            <scroll-list v-if="pageData.data" @scroll="value => {pageData.data=pageData.data.concat(value) }">
                 <component v-for="(item,index) in pageData.data" :is="'result-'+item.template" :item="item" :key="index"></component>
             </scroll-list>
         </slot>

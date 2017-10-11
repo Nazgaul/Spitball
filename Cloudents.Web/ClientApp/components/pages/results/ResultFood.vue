@@ -10,29 +10,22 @@
                     <div class="box-wrapper">
                         <div class="title">{{item.name}}</div>
                         <div class="rate">
-                            {{item.rating}}
-                            <!--<img src="img/rate-full.png" alt="">
-                            <img src="img/rate-full.png" alt="">
-                            <img src="img/rate-full.png" alt="">
-                            <img src="img/rate-full.png" alt="">
-                            <img src="img/rate-empty.png" alt="">-->
+                            {{item.rating}} <star-rating :inline="true" :star-size="20" :read-only="true" :show-rating="false" :increment="0.1" :rating="item.rating"></star-rating>
                         </div>
                         <p>
                             {{item.address}}
                         </p>
                         <div class="bottom" v-if="item.open">Open Now</div>
                     </div>
-                    <!--<div class="box-label">
-                        <img src="img/svg/hooked-logo-copy.svg" alt="">
-                        <span>Discount</span>
-                    </div>-->
                 </div>
             </div>
         </div>
 </template>
 <script>
+    import StarRating from 'vue-star-rating'
     export default {
-        props: { item: {type:Object,required:true}}
+        props: { item: { type: Object, required: true } },
+        components: {StarRating}
     }
 </script>
 <style src="./ResultFood.less" lang="less" scoped></style>

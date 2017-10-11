@@ -24,6 +24,7 @@ new Vue({
 });
 router.beforeResolve((to, from, next) => {
     if (to.meta.load) store.dispatch(to.meta.load, to)
+    //TODO not good as wanted save on the route name and not on current only
     from.meta.userText = store.getters.userText;
     next();
 })

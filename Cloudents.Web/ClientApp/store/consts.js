@@ -18,12 +18,12 @@ export const activateFunction = {
     },
     note: (params) => {
         return new Promise((resolve, reject) => {
-            search.getDocument(params).then(({ body }) => resolve({ isEmpty: !Boolean(body.item1.length), source: body.item2, data: body.item1.map(val => {return { ...val, template:"item"}}) }))
+            search.getDocument(params).then(({ body }) => resolve({source: body.item2, data: body.item1.map(val => {return { ...val, template:"item"}}) }))
         })
     },
     flashcard: function (params) {
         return new Promise((resolve, reject) => {
-            search.getFlashcard(params).then(({ body }) => resolve({ isEmpty: !Boolean(body.item1.length), source: body.item2, data: body.item1.map(val => Object.assign(val, { template: "item" })) }))
+            search.getFlashcard(params).then(({ body }) => resolve({source: body.item2, data: body.item1.map(val => Object.assign(val, { template: "item" })) }))
         })
     },
     tutor: function (params) {
@@ -33,7 +33,7 @@ export const activateFunction = {
     },
     job: function (params) {
         return new Promise((resolve, reject) => {
-            search.getJob(params).then(({ body }) => resolve({ isEmpty: !Boolean(body.length), data: body.map(val => { return { ...val, template: "job" } }) }));
+            search.getJob(params).then(({ body }) => resolve({ data: body.map(val => { return { ...val, template: "job" } }) }));
         })
     },
     book: function (params) {
@@ -43,7 +43,8 @@ export const activateFunction = {
     },
     food: function (params) {
         return new Promise((resolve, reject) => {
-            search.getFood(params).then(({ body }) => resolve({isEmpty:!body.length,data: body.map(val => { return { ...val, template: "food" } })}));
+            if (params.page) resolve({data:[]});
+            search.getFood(params).then(({ body }) => resolve({data: body.map(val => { return { ...val, template: "food" } })}));
         })
     }
 }
