@@ -7,18 +7,24 @@
         <vertical-collection :changeCallback="changeSection"></vertical-collection>
     </div>-->
     <div class="wrapper">
-        <v-alert color="success" icon="check_circle" value="true">
-            This is a success alert.
-        </v-alert>
         <v-navigation-drawer temporary
                              light
                              v-model="drawer"
                              overflow
                              absolute>
-            <a href="#">Spitball Guide</a>
-            <a href="#">Key Features</a>
-            <a href="#">Shared Documents</a>
-            <a href="#">Mobile App</a>
+            <v-list>
+                <template v-for="action in actions">
+                    <v-list-tile append="true">
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{ action.name }}</v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                </template>
+                <!--<a href="#">Spitball Guide</a>
+                <a href="#">Key Features</a>
+                <a href="#">Shared Documents</a>
+                <a href="#">Mobile App</a>-->
+            </v-list>
         </v-navigation-drawer>
         <div class="box-header">
             <v-container fluid>
@@ -30,11 +36,8 @@
                             <img class="hidden-md-and-up" src="./img/spitball-logo.png" alt="">
                         </v-toolbar-title>
                         <v-spacer class="hidden-sm-and-down"></v-spacer>
-                        <div class="hidden-sm-and-down">
-                            <a href="#">Spitball Guide</a>
-                            <a href="#">Key Features</a>
-                            <a href="#">Shared Documents</a>
-                            <a href="#">Mobile App</a>
+                        <div class="hidden-sm-and-down" v-for="action in actions">
+                            <a href="#">{{ action.name }}</a>
                         </div>
                     </v-toolbar>
                 </header>

@@ -36,6 +36,24 @@ export default {
             placeholder: "",
             searchType:"",
             drawer: null,
+            actions: [
+                {
+                    name: "Spitball Guide",
+                    link: "#"
+                },
+                {
+                    name: "Key Features",
+                    link: "#"
+                },
+                {
+                    name: "Shared Documents",
+                    link: "#"
+                },
+                {
+                    name: "Mobile App",
+                    link: "#"
+                }
+            ],
             changeSection: (vertical) => {
                 this.placeholder = vertical.placeholder;
                 prefix = vertical.prefix;

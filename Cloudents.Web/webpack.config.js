@@ -11,7 +11,10 @@ module.exports = (env) => {
     // This is the "main" file which should include all other modules
     return [
         {
-            entry: { main: './ClientApp/main.js' },
+            entry: {
+                main: './ClientApp/main.js'
+
+            },
             context: __dirname,
             module: {
                 loaders: [

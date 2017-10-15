@@ -3,13 +3,24 @@ import App from './components/app/app.vue';
 import store from './store';
 import scroll from './components/helpers/infinateScroll.vue'
 import VueRouter from 'vue-router';
+
+const vuetifyComponents = {
+    VApp,
+    VGrid,
+    VChip,
+    VToolbar,
+    VNavigationDrawer,
+    VList
+};
 import {
     Vuetify,
     VApp,
     VGrid,
     VChip,
     VToolbar,
-    VNavigationDrawer
+    VNavigationDrawer,
+    VList
+
 } from 'vuetify'
 import * as route from './routes';
 
@@ -18,13 +29,7 @@ import('../wwwroot/content/main.less');
 Vue.use(VueRouter);
 Vue.use(Vuetify,
     {
-        components: {
-            VApp,
-            VGrid,
-            VChip,
-            VToolbar,
-            VNavigationDrawer
-        }
+        components: vuetifyComponents
     });
 Vue.component('scroll-list', scroll);
 
