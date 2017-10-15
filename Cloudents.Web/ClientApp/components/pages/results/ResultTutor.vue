@@ -1,27 +1,4 @@
 ﻿<template>
-        <!--<a target="_blank" :href="item.url">
-            <v-card class="wrapper">
-                <div class="container-box">
-                    <div class="box-main box-user">
-                        <div class="img">
-                            <span class="up">
-                                <img :src="item.image" alt="">
-                            </span>
-                        </div>
-                        <div class="box-wrapper">
-                            <v-layout row>
-                                <v-flex xs8><div class="title">{{item.name}}</div></v-flex>
-                                <v-flex xs4 v-if="item.fee"><div class="price text-xs-right">${{item.fee}} / hour</div></v-flex>
-                            </v-layout>
-                            <div class="sub-title">Engineering student and math tutor!</div>
-                            <p>I am a current materials science engineering student at the University of Michigan…</p>
-                            <div class="author">{{item.city}}, {{item.state}}</div>
-                            <div class="state" v-if="item.online">Offers online lessons</div>
-                        </div>
-                    </div>
-                </div>
-            </v-card>
-        </a>-->
     <a class="wrapper" target="_blank" :href="item.url">
         <div class="container-box">
             <div class="box-main box-user">
@@ -112,6 +89,7 @@
                 -ms-transform: translateY(-50%);
                 -webkit-transform: translateY(-50%);
                 max-width: 100%;
+                height: 10em;
             }
 
         .box-main .bottom {
@@ -151,7 +129,7 @@
 
         .box-user .img {
             border: 1px solid #fff;
-            height: 120px;
+            height: 112px;
             width: 88px;
         }
 

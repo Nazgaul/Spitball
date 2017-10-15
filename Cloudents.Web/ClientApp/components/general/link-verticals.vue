@@ -2,7 +2,7 @@
     <v-list subheader>
         <div v-for="(list,index) in verticals" :key="index">
             <v-subheader  class="uppper">{{list.label}}</v-subheader>
-            <router-link :to="{name:vertical.name}" :key="vertical.name" v-for="vertical in list.data" tag="v-list-tile" avatar>
+            <router-link :to="{name:vertical.name}" :key="vertical.name" :userText="userText" v-for="vertical in list.data" tag="v-list-tile" avatar>
                 <v-list-tile-avatar>
                     <component class="item" :class="'bg-'+vertical.name" v-bind:is="vertical.image"></component>
                 </v-list-tile-avatar>
@@ -30,7 +30,8 @@
         },
         data() {          
             return {
-                verticals: verticals
+                verticals: verticals,
+                userText:this.$store.getters.userText
             }
         }
     };

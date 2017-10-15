@@ -1,8 +1,8 @@
 ﻿
 <template v-once>
     <div>
-        <div class="overlay"></div>
-        <app-header ref="header" ></app-header>
+        <div :class="{overlay:isOverlay}"></div>
+        <app-header ref="header" :overlay.sync="isOverlay"></app-header>
         <section>
             <input id="menu-checkbox" type="checkbox" class="hide_641" />
             <app-aside></app-aside>

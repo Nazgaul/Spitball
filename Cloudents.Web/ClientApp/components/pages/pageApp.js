@@ -9,6 +9,17 @@ export default {
     },
     
     computed: {
-        isLoading: function () { return this.$store.getters.loading }
-    }
+        isLoading: function () { return this.$store.getters.loading },
+    },
+
+    data: 
+        function() {
+            return {
+                isOverlay: !this.$store.getters.userText
+            }
+        }
+    
+
+
+
 }
