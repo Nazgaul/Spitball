@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const bundleOutputDir = './wwwroot/dist';
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+var resolve = (p) => path.resolve(__dirname, p);
 
 
 module.exports = (env) => {
@@ -10,7 +11,10 @@ module.exports = (env) => {
     // This is the "main" file which should include all other modules
     return [
         {
-            entry: { main: './ClientApp/main.js' },
+            entry: {
+                main: './ClientApp/main.js'
+
+            },
             context: __dirname,
             module: {
                 loaders: [
@@ -55,6 +59,15 @@ module.exports = (env) => {
                         exclude: /ClientApp/,
                         use: isDevBuild ? ['style-loader', 'css-loader', "less-loader"] : ExtractTextPlugin.extract({ use: ['css-loader?minimize', 'less-loader'] })
 
+                    },
+                    {
+                        test: /\.styl$/,
+                        loader: ['css-loader', 'stylus-loader', {
+                            loader: 'vuetify-loader',
+                            options: {
+                                theme: resolve('./ClientApp/theme.styl')
+                            }
+                        }]
                     },
                     {
                         test: /\.css$/,
