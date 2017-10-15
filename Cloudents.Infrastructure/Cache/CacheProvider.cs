@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Autofac.Extras.DynamicProxy;
 using CacheManager.Core;
 using Cloudents.Core.Interfaces;
@@ -25,17 +28,20 @@ namespace Cloudents.Infrastructure.Cache
             {
                 m_Cache.Remove(key, region);
                 return null;
-                     
             }
-
         }
 
         public void Set(string key, string region, object value, int expire)
         {
-            var cacheItem = new CacheItem<object>(key, region, value, ExpirationMode.Sliding, TimeSpan.FromSeconds(expire));
+            //if (value is IEnumerable iEnumerable)
+            //{
+                
+               // Activator.CreateInstance(typeof(List<>).MakeGenericType(TypeObjectOfT), paginatedListObject);
+               // value = iEnumerable.ToList();
+           // }
+            var cacheItem = new CacheItem<object>(key, region, value, ExpirationMode.Sliding,
+                TimeSpan.FromSeconds(expire));
             m_Cache.Put(cacheItem);
         }
-
     }
-    
 }

@@ -1,5 +1,8 @@
 ﻿<template>
-    <header>
+    <v-toolbar app clipped-left fixed color="#ffdcdc">
+
+    </v-toolbar>
+    <!--<header>
             <div class="logo">
                 <picture>
                     <source media="(min-width: 641px) and (max-width: 1365px)" srcset="/Images/sb-logo.svg" >
@@ -21,7 +24,7 @@
                     <span></span>
                 </div>
         <search-type v-show="showOption" class="searchTypes" :values="names" :model="'searchTypes'" :value="$route.name" @click="changeType"></search-type>
-    </header>
+    </header>-->
 </template>
 <script>
     import askHeader from './images/ask.svg'

@@ -86,10 +86,7 @@ namespace Cloudents.Infrastructure.Cache
                         convertMethod.Invoke(null,
                             new[] { data }); //Call the convert method and return the generic Task, e.g. Task<int>
 
-                    //Convert(d)
-                    //var retVal = CreateCacheResultAsync((dynamic) data);
-                    //Task < (dynamic)invocation.ReturnValue > retVal = Task.FromResult((dynamic)data);
-                    invocation.ReturnValue = result; //InterceptAsync();
+                    invocation.ReturnValue = result;
                     return;
                 }
                 else
