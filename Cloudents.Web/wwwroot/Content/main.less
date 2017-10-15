@@ -1,4 +1,6 @@
-﻿html {
+﻿@import "../../ClientApp/mixin.less";
+
+html {
     font-family: sans-serif;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
@@ -6,6 +8,7 @@
 
 body {
     margin: 0;
+    background-color: @Site-Background;
 }
 
 article,
@@ -32,10 +35,10 @@ video {
     vertical-align: baseline;
 }
 
-audio:not([controls]) {
+/*audio:not([controls]) {
     display: none;
     height: 0;
-}
+}*/
 
 [hidden],
 template {
@@ -44,11 +47,13 @@ template {
 
 a {
     background-color: transparent;
+    
 }
 
 a:active,
 a:hover {
     outline: 0;
+    text-decoration: none;
 }
 
 abbr[title] {
@@ -228,14 +233,6 @@ th {
 ul {
     margin: 0;
     padding: 0;
-}
-
-a {
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
 }
 
 body {
