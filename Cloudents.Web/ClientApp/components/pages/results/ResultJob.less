@@ -1,0 +1,103 @@
+﻿@font-bold: "OpenSans-Bold";
+@font-regular: "OpenSans-Regular";
+@font-semibold: "OpenSans-Semibold";
+
+@color-white: #fff;
+@color-black: #000;
+@color-orange-3: #f49c20;
+
+.rounded-all(@radius) {
+    border-radius: (@radius);
+}
+
+.box-shadow (@string) {
+    -webkit-box-shadow: @string;
+    -moz-box-shadow: @string;
+    box-shadow: @string;
+}
+
+.container-box {
+    padding: 17px;
+}
+
+.box-main {
+    background: @color-white;
+    .rounded-all(4px);
+    .box-shadow(0 1px 2px 0 rgba(0, 0, 0, 0.2));
+    min-height: 176px;
+    padding: 8px 9px;
+    position: relative;
+    max-width: 504px;
+
+    .box-wrapper {
+        padding-left: 127px;
+    }
+
+    .title {
+        font-family: @font-bold;
+        font-size: 14px !important;
+        line-height: 1.29 !important;
+        letter-spacing: -0.3px !important;
+        margin-bottom: 4px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    p {
+        font-size: 14px;
+        height: 72px;
+        line-height: 1.29;
+        letter-spacing: -0.3px;
+        overflow: hidden;
+        max-width: 324px;
+    }
+}
+
+.box-jobs-2 {
+    height: 184px;
+    padding: 4px 8px;
+
+    .box-wrapper {
+        padding: 0;
+    }
+
+    .title {
+        color: @color-orange-3;
+    }
+
+    p {
+        height: 96px;
+        margin-bottom: 6px;
+        max-width: 424px;
+
+        .descr {
+            display: block;
+            margin-bottom: 6px;
+        }
+    }
+
+    .box-options {
+        > div {
+            height: 19px;
+            line-height: 19px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+    }
+
+    .img-option {
+        display: inline-block;
+        width: 22px;
+
+        img {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+
+    .mb-14 {
+        margin-bottom: 14px;
+    }
+}

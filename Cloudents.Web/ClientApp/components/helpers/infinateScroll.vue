@@ -2,9 +2,10 @@
     <div>
        <slot></slot>
         <infinite-loading @infinite="infiniteHandler">
-            <!--<span slot="no-more">
-                There is no more Hacker News
-            </span>-->
+            <span slot="no-more">
+            </span>
+            <div slot="no-results"></div>
+            <div slot="no-more"></div>
         </infinite-loading>
     </div>
 </template>
@@ -14,14 +15,21 @@
     export default {
         data() {
             return {
-                loadMore: true
+                page:1
             }
         },
         methods: {
             infiniteHandler($state) {
-                if (this.loadMore) {
-                    this.loadMore=this.$store.dispatch('scrollingItems', { name: this.$route.name, scrollState: $state});
-                } else { $state.complete();}
+                this.$store.dispatch('scrollingItems', { name: this.$route.name, scrollState: $state, page: this.page })
+                    .then(({ data}) => {
+                        if (data&&data.length) {
+                            this.$emit('scroll',data);
+                            $state.loaded();
+                            this.page++;
+                        } else {
+                            $state.complete();
+                        }
+                    })
             },
         },
         components: {

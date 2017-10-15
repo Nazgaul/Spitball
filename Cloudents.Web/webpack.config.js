@@ -40,7 +40,7 @@ module.exports = (env) => {
 
                         options: {
                             loaders: {
-                                css: isDevBuild ? 'vue-style-loader!css-loader!less-loader' : ExtractTextPlugin.extract({
+                                css: isDevBuild ? 'vue-style-loader!css-loader!less-loader': ExtractTextPlugin.extract({
                                     use: 'css-loader?minimize',
                                     fallback: 'vue-style-loader'
                                 }),

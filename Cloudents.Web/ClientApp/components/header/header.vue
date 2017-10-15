@@ -30,12 +30,12 @@
     import bookHeader from './images/book.svg'
     import noteHeader from './images/document.svg'
     import tutorHeader from './images/tutor.svg'
-    import purchaseHeader from './images/purchase.svg'
+    import foodHeader from './images/food.svg'
     import searchTypes from './../helpers/radioList.vue'
     import { mapGetters, mapActions } from 'vuex'
     import { verticalsPlaceholders as placeholders, names } from '../data'
     export default {
-        components: { 'search-type': searchTypes, askHeader, bookHeader, noteHeader, flashcardHeader, jobHeader, purchaseHeader, tutorHeader },
+        components: { 'search-type': searchTypes, askHeader, bookHeader, noteHeader, flashcardHeader, jobHeader, foodHeader, tutorHeader },
         data() {
             return {
                 placeholders: placeholders,

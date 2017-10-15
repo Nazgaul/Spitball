@@ -1,6 +1,6 @@
 ﻿<template>
     <aside>
-        <search-verticals></search-verticals>
+        <search-verticals class="blue"></search-verticals>
     </aside>
 </template>
 <style src="./navbar.less" lang="less"></style>

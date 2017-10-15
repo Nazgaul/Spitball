@@ -5,15 +5,15 @@ export let verticals =
     {
         ask: {
             name: "ask", image: "ask", placeholder: "Ask anything...", prefix: "",
-            resultTitle: "I’ve come to the conclusion that the answer is:", emptyState: "ask", sort: "", asideLabel:"search type"
+            resultTitle: "I’ve come to the conclusion that the answer is:", emptyState: "I couldnt found results for your questions..", sort: "", asideLabel:"search type"
         },
         note: {
             name: "note", image: "document", placeholder: "Find me class materials...", prefix: "Find me class material for", asideLabel: "search type",
-            resultTitle: "I found some documents that might help.<br>See what you think!", emptyState: "ask", filter: [{ id: 'all', name: 'all' }, { id: 'source', name: 'sources' }], sort: [{ id: 'relevance', name: 'relevance' }, { id: 'date', name: 'date' }]
+            resultTitle: "I found some documents that might help.<br>See what you think!", emptyState: "no document founds", filter: [{ id: 'all', name: 'all' }, { id: 'source', name: 'sources' }], sort: [{ id: 'relevance', name: 'relevance' }, { id: 'date', name: 'date' }]
         },
         flashcard: {
             name: "flashcard", image: "flashcard", placeholder: "Find me flashcards...", prefix: "Find me flashcards on", asideLabel: "search type",
-            resultTitle: "Oh look - I found some flashcards for you.<br>Test yourself!", emptyState: "ask", filter: [{ id: 'all', name: 'all' }, { id: 'source', name: 'sources' }], sort: [{ id: 'relevance', name: 'relevance' }, { id: 'date', name: 'date' }]
+            resultTitle: "Oh look - I found some flashcards for you.<br>Test yourself!", emptyState: "no flashcards found", filter: [{ id: 'all', name: 'all' }, { id: 'source', name: 'sources' }], sort: [{ id: 'relevance', name: 'relevance' }, { id: 'date', name: 'date' }]
         },
         tutor: {
             name: "tutor", image: "tutor", placeholder: "Find me a tutor...", prefix: "Find me a tutor for", asideLabel: "search type",
@@ -27,9 +27,9 @@ export let verticals =
             name: "book", image: "book", placeholder: "Find me a textbook ...", prefix: "Find me a textbook -", asideLabel: "search type",
             resultTitle: "I found some textbooks that match your search. Check them out!", emptyState: "no Books founds", filter: "", sort: ""
         },
-        purchase: {
-            name: "purchase", image: "purchase", placeholder: "Where can i get...", prefix: "Where can I get a", asideLabel: "purchase",
-            resultTitle: "Booya! I found a few places that<br>you might like.", emptyState: "ask", filter: [{ id: 'all', name: 'all' }, { id: 'openNow', name: 'open now' }], sort: [{ id: 'distance', name: 'distance' }]
+        food: {
+            name: "food", image: "food", placeholder: "Where can i get...", prefix: "Where can I get a", asideLabel: "food",
+            resultTitle: "Booya! I found a few places that<br>you might like.", emptyState: "no Food founds", filter: [{ id: 'all', name: 'all' }, { id: 'openNow', name: 'open now' }], sort: [{ id: 'distance', name: 'distance' }]
         }
     };
 
@@ -49,8 +49,8 @@ export let verticalsNavbar = [{
     ]
 },
     {
-        label: "purchase", data: [
-            { id: routes.purchaseRoute, name: verticals[routes.purchaseRoute].name, image: verticals[routes.purchaseRoute].image }
+        label: "food", data: [
+            { id: routes.foodRoute, name: verticals[routes.foodRoute].name, image: verticals[routes.foodRoute].image }
 
         ]
     }

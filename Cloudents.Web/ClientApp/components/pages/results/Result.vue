@@ -18,9 +18,10 @@
                 </v-layout>
             </v-container>
         </slot>
-        <slot name="firstContent"></slot>
-        <slot>
-
+        <slot name="data">
+            <scroll-list v-if="pageData.data" @scroll="value => {pageData.data=pageData.data.concat(value) }">
+                <component v-for="(item,index) in pageData.data" :is="'result-'+item.template" :item="item" :key="index"></component>
+            </scroll-list>
         </slot>
        <slot name="emptyState" v-show="isEmpty"></slot>
     </div>
@@ -28,10 +29,7 @@
 <script>
     import { pageMixin } from './mixins'
     export default {
-        mixins: [pageMixin],
-        //mounted: function(){
-        //    this.$refs[this.filter].focus();
-        //}
+        mixins: [pageMixin]
     }
 </script>
 <style scoped>
