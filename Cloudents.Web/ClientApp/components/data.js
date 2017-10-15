@@ -57,6 +57,7 @@ export let verticals =
             //asideLabel: "purchase",
             resultTitle: "Booya! I found a few places that<br>you might like.", emptyState: "no Food founds", filter: [{ id: 'all', name: 'all' }, { id: 'openNow', name: 'open now' }], sort: [{ id: 'distance', name: 'distance' }]
         }
+       
     };
 
 export let verticalsPlaceholders = {};
@@ -96,9 +97,63 @@ export let verticalsNavbar = [
     {
         label: "purchase",
         data: [
-            { id: routes.foodRoute, name: verticals[routes.foodRoute].name, image: verticals[routes.foodRoute].image }
+            {
+                id: routes.foodRoute,
+                name: verticals[routes.foodRoute].name,
+                image: verticals[routes.foodRoute].image
+            }
         ]
-    }
+    },
+    {
+        label: "Contribute",
+        data: [
+            {
+                id: routes.uploadRoute,
+                name: "upload",
+                image: "upload"
+            },
+            {
+                id: routes.postRoute,
+                name: "post",
+                image: "post"
+            },
+            {
+                id: routes.createFlashcard,
+                name: "Create Flashcard",
+                image: "flashcard"
+            }
+        ]
+    },
+    {
+        label: "Class talk",
+        data: [
+            {
+                id: routes.chatRoute,
+                name: "chat",
+                image: "chat"
+            }
+        ]
+    },
+    {
+        label: "Personal info",
+        data: [
+            {
+                id: routes.coursesRoute,
+                name: "My Courses",
+                image: "courses"
+            },
+            {
+                id: routes.likesRoute,
+                name: "My likes",
+                image: "likes"
+            },
+            {
+                id: routes.settingsRoute,
+                name: "Settings",
+                image: "courses" //missing
+            }
+        ]
+    },
 ];
 
 for (var v in verticals) {
