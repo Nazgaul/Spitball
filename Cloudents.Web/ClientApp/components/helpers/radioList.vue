@@ -1,7 +1,7 @@
 ﻿<template>
     <v-flex>
         <div inline-flex>
-            <div class="text-xs-center ml-1" v-for="v in values"><input @click="radioClick($event.target.value)" :checked="checkVal==v.id" :ref="v.id" type="radio" :id="v.id" :value="v.id" :name="model" /><label class=" chip chip--outline" :for="v.id" :class="[checkVal==v.id?'selected':'not-selected']">{{v.name}}</label></div>
+            <div class="text-xs-center ml-1" v-for="v in values" :key="v.id"><input @click="radioClick($event.target.value)" :checked="value==v.id" :ref="v.id" type="radio" :id="v.id" :value="v.id" :name="model" /><label class=" chip chip--outline" :for="v.id" :class="[value==v.id?'selected':'not-selected']">{{v.name}}</label></div>
             <v-spacer></v-spacer>
         </div>
     </v-flex>
@@ -13,12 +13,16 @@
             event:'click'
         },
         data: function () {
-            return {checkVal:this.value}
+            return { checkVal: this.value}
+        },
+        computed: {
+            currentVal: function () { return this.checkVal || this.value }
         },
         props: { value: { type: [String, Number] }, values: { type: [String, Array] }, model: { type: String }, changeCallback: { type: Function }},
         methods: {
             radioClick(value) {
-                this.checkVal = value;
+                //this.checkVal = value;
+                console.log(value);
                 this.$emit('click', value);
                 if (this.changeCallback) {
                     this.changeCallback(value);
@@ -35,33 +39,33 @@
          display:none;
     }
 
-    .header .selected {
-        background: #0455a8!important;
-        color:white
+    .header input[type="radio"]:checked + label {
+        background: #0455a8 !important;
+        color: white
     }
 
-    .header .not-selected {
+    .header label {
         background: #bbbbbb!important;
         color:white
     }
 
-    .search .selected {
+    .search input[type="radio"]:checked + label {
         background: #ffffff !important;
         color: #3293f6;
     }
 
-    .search .not-selected {
+    .search label {
         background: #eeeeee !important;
         color: #3293f6;
         border: solid 1px #3293f6;
     }
 
-    .sub-search .selected {
+    .sub-search input[type="radio"]:checked + label {
         background: #1e59a8 !important;
         color: #ffffff;
     }
 
-    .sub-search .not-selected {
+    .sub-search label {
         background: #eeeeee !important;
         color: #1e59a8;
         border: solid 1px #1e59a8;

@@ -61,7 +61,7 @@ const actions = {
         ai.interpetPromise(params.prefix, params.str).then(({ body }) => {
             context.commit(types.UPDATE_SEARCH_PARAMS, { ...body.data, userText: params.str });
             context.commit(types.ADD, body)
-            if (context.state.search.type)context.dispatch('fetchingData', context.state.search.type);
+            if (context.state.search.type) context.dispatch('fetchingData', { pageName: context.state.search.type, queryParams: {} });
         })
     },
     newResultPage: (context, page) => {
@@ -72,18 +72,18 @@ const actions = {
             if (page.meta.userText && context.getters.userText !== page.meta.userText) {
                 context.dispatch('updateSearchText', page.query.userText)
             } else {
-                context.dispatch('fetchingData', page.name);
+                context.dispatch('fetchingData', {pageName:page.name,queryParams:page.query});
             }
         }
     },
-    fetchingData: (context,pageName) => {
+    fetchingData: (context,data) => {
         context.commit(types.UPDATE_LOADING, true);
-        activateFunction[pageName](context.getters.searchParams).then(response => {
+        activateFunction[data.pageName]({ ...context.getters.searchParams, ...data.queryParams}).then(response => {
             context.commit(types.PAGE_LOADED, response);
             })       
     },
     scrollingItems( context , model) {
-        return activateFunction[model.name]({ ...context.getters.searchParams, page: model.page })
+        return activateFunction[model.name]({ ...context.getters.searchParams, ...model.params,page: model.page })
     }
 }
 

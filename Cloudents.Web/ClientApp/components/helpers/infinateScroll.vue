@@ -20,7 +20,7 @@
         },
         methods: {
             infiniteHandler($state) {
-                this.$store.dispatch('scrollingItems', { name: this.$route.name, scrollState: $state, page: this.page })
+                this.$store.dispatch('scrollingItems', { name: this.$route.name, params: this.$router.query, page: this.page })
                     .then(({ data}) => {
                         if (data&&data.length) {
                             this.$emit('scroll',data);

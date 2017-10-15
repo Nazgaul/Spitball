@@ -9,7 +9,7 @@
                         <radio-list class="search" :values="page.filter" @click="$_changeFilter" model="filter" :value="filterOptions"></radio-list>
                     </v-flex>                   
                     <v-flex>
-                        <radio-list v-if="page.sort" :values="page.sort" @click="$_updateSort" model="sort" v-model="sort" class="search sort"></radio-list>
+                        <radio-list v-if="page.sort" :values="page.sort" @click="$_updateSort" model="sort"  class="search sort" :value="$_defaultSort(page.sort[0].id)"></radio-list>
                     </v-flex>               
                     
                 </v-layout>

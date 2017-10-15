@@ -21,7 +21,6 @@ export const pageMixin =
             return {
                 
                 sort: this.$route.query.sort ? this.$route.query.sort:'relevance',
-                currentQuery: this.$route.query,
                 filter: '',
                 items: '',
                 position: {},
@@ -30,12 +29,12 @@ export const pageMixin =
         },
 
         computed: {
+            currentQuery: function () { return this.$route.query },
             page: function() {return page[this.$route.name] },
             filterOptions: function () {
-                let fil = Object.keys(this.$route.query).filter(item => (item !== 'sort' && item !== 'filter')).toString();
-                return fil.length ? fil : (this.currentQuery.filter ? this.currentQuery.filter : 'all')
+                return  (this.currentQuery.filter ? this.currentQuery.filter : 'all')
             },
-            subFilter: function () { return this.currentQuery[this.filter]; },
+            subFilter: function () { return this.currentQuery[this.filterOptions]; },
             dynamicHeader: function () { return this.pageData.title },
             isEmpty: function () { return this.pageData.data ? !this.pageData.data.length:true},
             subFilters: function () {
@@ -46,10 +45,6 @@ export const pageMixin =
 
         props: { userText: { type: String } },
 
-        created: function () {
-            this.filter = this.filterOptions;
-        },
-
         components: { RadioList, ResultItem, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood },
 
         mounted: function () {
@@ -59,24 +54,30 @@ export const pageMixin =
                 })
             }
         },
+        created: function () {
+            this.filter = this.filterOptions;
+        },
+
         methods: {
+            $_defaultSort(defaultSort) {
+                let sort = this.currentQuery.sort ? this.currentQuery.sort : defaultSort;
+                return sort;
+            },
             $_updateSort(sort) {
-                this.$router.push({ query: { ... this.currentQuery, sort: this.sort } });
+                this.$router.push({ query: { ... this.currentQuery, sort: sort } });
             },
             $_changeFilter(filter) {
-                console.log('filter')
                 delete this.currentQuery[this.filter];
                 this.filter = filter;
                 let query = this.currentQuery.sort ? { sort: this.currentQuery.sort } : {};
                 if (!this.subFilters.length) {
-                    //TODO think on better way to detect all
                     this.$router.push({ query: { ...query, filter} });
                 }
             },
             $_changeSubFilter(val) {
                 let sub = {};
                 sub[this.filter] = val
-                this.$router.push({ query: { ... this.currentQuery, ...sub } });
+                this.$router.push({ query: { ... this.currentQuery, ...sub,filter:this.filter } });
                 console.log('change sub filter');
             }
         }
