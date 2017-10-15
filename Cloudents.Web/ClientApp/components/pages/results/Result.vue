@@ -36,9 +36,9 @@
     .chip:focus:not(.chip--disabled) {
         background: blue !important;
     }
-    .content {
+    /*.content {
         background: #eeeeee;
-    }
+    }*/
     .sort {
         border-left: 1px solid #ddd;
     }

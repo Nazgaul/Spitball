@@ -3,8 +3,8 @@
     <div>
         <div :class="{overlay:isOverlay}"></div>
         <app-header ref="header" :overlay.sync="isOverlay"></app-header>
-
-        <app-header ref="header"></app-header>
+        <app-aside></app-aside>
+        <!--<app-header ref="header"></app-header>-->
         <main>
             <v-content>
                 <v-container fluid>

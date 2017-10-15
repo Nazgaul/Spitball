@@ -1,0 +1,96 @@
+﻿@import "../../mixin.less";
+
+.list__tile__title {
+    color: #fff;
+    font-size: 12px;
+    letter-spacing: -0.2px;
+    text-transform: capitalize;
+}
+
+li /deep/ .list__tile--active {
+    background-color: @Selected-Vertical;
+    color:#fff;
+}
+
+v-subheader {
+    font-size: 10px;
+    color: @Chat;
+    text-transform: capitalize;
+}
+
+.vertical-cycle {
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bg-ask {
+    background-color: @Ask-a-Question;
+
+    svg {
+        width: 18.7px;
+        height: 13px;
+    }
+}
+
+
+.bg-note {
+    background: @Class-Material;
+
+    svg {
+        width: 11.8px;
+        height: 14.3px;
+    }
+}
+
+.bg-flashcard {
+    background: @Flashcards;
+
+    svg {
+        width: 16px;
+        height: 13px;
+    }
+}
+
+.bg-tutor {
+    background: @Tutors;
+
+    svg {
+        width: 14.2px;
+        height: 17.8px;
+    }
+}
+
+.bg-job {
+    background: @Jobs;
+
+    svg {
+        width: 8px;
+        height: 17.8px;
+    }
+}
+
+.bg-book {
+    background: @Textbooks;
+
+    svg {
+        width: 17.8px;
+        height: 14.2px;
+    }
+}
+
+.bg-food {
+    background: @Food;
+
+    svg {
+        width: 12.5px;
+        height: 15.6px;
+    }
+}
+/*.item {
+        width: 40px;
+        height: 40px;
+    }*/
