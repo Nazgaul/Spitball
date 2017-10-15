@@ -44,6 +44,8 @@ export const pageMixin =
             }
         },
 
+        props: { userText: { type: String } },
+
         created: function () {
             this.filter = this.filterOptions;
         },

@@ -13,6 +13,7 @@ import twitterIcon from "./svg/twitter-icon.svg";
 import googleIcon from "./svg/google-icon.svg";
 import youtubeIcon from "./svg/youtube-icon.svg";
 import instegramIcon from "./svg/instagram-icon.svg";
+import { verticalsPlaceholders } from "./../data"
 
 
 export default {
@@ -33,7 +34,7 @@ export default {
         var prefix;
         return {
             msg: this.$route.meta.userText,
-            placeholder: "",
+            placeholder: verticalsPlaceholders['ask'],
             searchType:"",
             drawer: null,
             actions: [

@@ -1,8 +1,8 @@
 ﻿
 <template v-once>
     <div>
-        <!--<div class="overlay"></div>-->
-        <app-aside></app-aside>
+        <div :class="{overlay:isOverlay}"></div>
+        <app-header ref="header" :overlay.sync="isOverlay"></app-header>
 
         <app-header ref="header"></app-header>
         <main>

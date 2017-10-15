@@ -66,12 +66,14 @@ const actions = {
     },
     newResultPage: (context, page) => {
         context.commit(types.UPDATE_SEARCH_PARAMS, { type: page.name })
-       
-        //if page have usertext and has been changed call luis again
-        if (page.meta.userText && context.getters.userText !== page.meta.userText) {
-            context.dispatch('updateSearchText', page.query.userText)
-        } else {
-            context.dispatch('fetchingData', page.name);
+
+        if (context.getters.userText) {
+            //if page have usertext and has been changed call luis again
+            if (page.meta.userText && context.getters.userText !== page.meta.userText) {
+                context.dispatch('updateSearchText', page.query.userText)
+            } else {
+                context.dispatch('fetchingData', page.name);
+            }
         }
     },
     fetchingData: (context,pageName) => {

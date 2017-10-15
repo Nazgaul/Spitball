@@ -6,16 +6,16 @@
             <v-container grid-list-md>
                 <v-layout row wrap>
                     <v-flex>
-                        <radio-list class="text-xs-center" :values="page.filter" @click="$_changeFilter" model="filter" :value="filterOptions"></radio-list>
+                        <radio-list class="search" :values="page.filter" @click="$_changeFilter" model="filter" :value="filterOptions"></radio-list>
                     </v-flex>                   
                     <v-flex>
-                        <hr v-if="page.sort">
-                        <radio-list :values="page.sort" @click="$_updateSort" model="sort" v-model="sort"></radio-list>
+                        <radio-list v-if="page.sort" :values="page.sort" @click="$_updateSort" model="sort" v-model="sort" class="search sort"></radio-list>
                     </v-flex>               
-                    <v-flex xs12>
-                        <radio-list :values="subFilters" @click="$_changeSubFilter" model="subFilter" :value="subFilter"></radio-list>
-                    </v-flex>
+                    
                 </v-layout>
+                <v-flex xs12>
+                    <radio-list :values="subFilters" @click="$_changeSubFilter" class="sub-search" model="subFilter" :value="subFilter"></radio-list>
+                </v-flex>
             </v-container>
         </slot>
         <slot name="data">
@@ -35,5 +35,11 @@
 <style scoped>
     .chip:focus:not(.chip--disabled) {
         background: blue !important;
+    }
+    .content {
+        background: #eeeeee;
+    }
+    .sort {
+        border-left: 1px solid #ddd;
     }
 </style>

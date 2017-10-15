@@ -1,30 +1,27 @@
 ﻿<template>
     <v-toolbar app clipped-left fixed color="#ffdcdc">
+        <v-toolbar clipped-left prominent class="white border">
+                <router-link tag="v-toolbar-title" :to="{name:'home'}" class="logo">
 
     </v-toolbar>
     <!--<header>
-            <div class="logo">
-                <picture>
-                    <source media="(min-width: 641px) and (max-width: 1365px)" srcset="/Images/sb-logo.svg" >
-                    <img src="/Images/spitb-logo.svg" alt="logo">
-                </picture>
-            </div>
-            <div class="section-icon" :class="$route.name" v-if="placeholders[$route.name]">
-                <component :class="$route.name" class="icon" v-bind:is="$route.name+'Header'"></component>
-            </div>
-                <form  @submit.prevent="">
-                    <input type="search" id="qfilter" ref='search' v-model.lazy="qfilter" :placeholder="placeholders[$route.name]" @focus="showOption=true"/>
-                </form>
-            <div id="notification">
-
-            </div>
-                <div id="menu" class="hide_641">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <picture>
+                        <source media="(min-width: 641px) and (max-width: 1365px)" srcset="/Images/sb-logo.svg">
+                        <img src="/Images/spitb-logo.svg" alt="logo">
+                    </picture>
+                </router-link>
+                <div class="icon"><component :class="$route.name" class="item" v-bind:is="$route.name+'Header'"></component></div>
+                <div class="box-header-search">
+                    <form @submit.prevent="submit">
+                        <button type="submit"><img src="/Images/search-icon.svg" alt=""></button>
+                        <input name="search" type="text" :placeholder="placeholders[$route.name]" v-model="qFilter" @focus="focus">
+                    </form>
                 </div>
-        <search-type v-show="showOption" class="searchTypes" :values="names" :model="'searchTypes'" :value="$route.name" @click="changeType"></search-type>
+            <v-flex :slot="isOptions?'extension':''"  v-show="isOptions">
+                <search-type class="searchTypes header offset-xs2" :values="names" :model="'searchTypes'" :value="$route.name" @click="changeType"></search-type>
     </header>-->
+            </v-flex>
+        </v-toolbar>
 </template>
 <script>
     import askHeader from './images/ask.svg'
@@ -43,26 +40,45 @@
             return {
                 placeholders: placeholders,
                 showOption: false,
-                names: names
+                names: names,
+                qFilter: this.userText,
+                isOptions:false
             }
         }, computed: {
-            ...mapGetters(['userText']),
-            qfilter: {
-                get() {
-                    return this.userText;
-                },
-                set(val) {
-                   this.updateSearchText(val);
-                }
-            }
+            ...mapGetters(['userText'])
         },
+
+        props: {
+            openOptions: {type:Function}
+        },
+
+        mounted: function () {
+            this.qFilter = this.userText;
+        },
+
         methods: {
             ...mapActions(['updateSearchText']),
             changeType: function (val) {
                 this.updateSearchText();
-                this.$router.push({name:val})
+                this.qFilter = "";
+                this.$router.push({ name: val })
+                this.updateSearchText();
+            },
+            submit: function () {
+                this.isOptions = false;
+                this.updateSearchText(this.qFilter);
+                this.$emit('update:overlay', false)
+            },
+            focus: function () {
+                this.isOptions = true
+                this.$emit('update:overlay', true)
             }
         }
     }
 </script>
+<style>
+    .toolbar__extension {
+        border-top: 1px solid #ddd;
+    }
+</style>
 <style src="./header.less" lang="less" scoped></style>
