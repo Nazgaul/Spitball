@@ -15,11 +15,11 @@ namespace Cloudents.Web.Api
     [Route("api/Places")]
     public class PlacesController : Controller
     {
-        private readonly IPlacesSearch m_PurchaseSearch;
+        private readonly IPlacesSearch m_PlacesSearch;
 
-        public PlacesController(IPlacesSearch purchaseSearch)
+        public PlacesController(IPlacesSearch placesSearch)
         {
-            m_PurchaseSearch = purchaseSearch;
+            m_PlacesSearch = placesSearch;
         }
 
 
@@ -27,7 +27,7 @@ namespace Cloudents.Web.Api
         {
             if (term == null) throw new ArgumentNullException(nameof(term));
             if (location == null) throw new ArgumentNullException(nameof(location));
-            var result = await m_PurchaseSearch.SearchNearbyAsync(string.Join(" ", term), filter, location, token).ConfigureAwait(false);
+            var result = await m_PlacesSearch.SearchNearbyAsync(string.Join(" ", term), filter, location, token).ConfigureAwait(false);
             return Json(result);
         }
     }

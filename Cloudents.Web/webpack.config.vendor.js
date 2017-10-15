@@ -14,9 +14,9 @@ module.exports = (env) => {
                 'vue',
                 'vue-router',
                 'vue-resource',
-                'vuetify',
+                //'vuetify',
                 'vuex',
-                'vuetify/dist/vuetify.css',
+                //'vuetify/dist/vuetify.css',
                 'vuex-persistedstate'
             ]
         },

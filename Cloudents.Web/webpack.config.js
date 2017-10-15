@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const bundleOutputDir = './wwwroot/dist';
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+var resolve = (p) => path.resolve(__dirname, p);
 
 
 module.exports = (env) => {
@@ -39,11 +40,11 @@ module.exports = (env) => {
 
                         options: {
                             loaders: {
-                                css: ExtractTextPlugin.extract({
+                                css: isDevBuild ? 'vue-style-loader!css-loader!less-loader' : ExtractTextPlugin.extract({
                                     use: 'css-loader?minimize',
                                     fallback: 'vue-style-loader'
                                 }),
-                                less: ExtractTextPlugin.extract({
+                                less: isDevBuild ? 'vue-style-loader!css-loader!less-loader' : ExtractTextPlugin.extract({
                                     use: 'css-loader?minimize!less-loader',
                                     fallback: 'vue-style-loader'
                                 })
@@ -55,6 +56,15 @@ module.exports = (env) => {
                         exclude: /ClientApp/,
                         use: isDevBuild ? ['style-loader', 'css-loader', "less-loader"] : ExtractTextPlugin.extract({ use: ['css-loader?minimize', 'less-loader'] })
 
+                    },
+                    {
+                        test: /\.styl$/,
+                        loader: ['css-loader', 'stylus-loader', {
+                            loader: 'vuetify-loader',
+                            options: {
+                                theme: resolve('./ClientApp/theme.styl')
+                            }
+                        }]
                     },
                     {
                         test: /\.css$/,

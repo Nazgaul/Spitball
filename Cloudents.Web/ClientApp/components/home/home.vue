@@ -7,6 +7,9 @@
         <vertical-collection :changeCallback="changeSection"></vertical-collection>
     </div>-->
     <div class="wrapper">
+        <v-alert color="success" icon="check_circle" value="true">
+            This is a success alert.
+        </v-alert>
         <v-navigation-drawer temporary
                              light
                              v-model="drawer"

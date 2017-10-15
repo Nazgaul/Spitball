@@ -19,10 +19,10 @@ namespace Cloudents.Core.Models
                 return false;
             }
 
-            if (double.TryParse(parts[0], out var latitude) &&
-                double.TryParse(parts[1], out var longitude))
+            if (double.TryParse(parts[0], out var latitude)
+                && double.TryParse(parts[1], out var longitude))
             {
-                result = new GeoPoint() { Longitude = longitude, Latitude = latitude };
+                result = new GeoPoint { Longitude = longitude, Latitude = latitude };
                 return true;
             }
             return false;

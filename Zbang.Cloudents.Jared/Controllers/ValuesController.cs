@@ -48,9 +48,12 @@ namespace Zbang.Cloudents.Jared.Controllers
                 ["lectures"] = new[] { "lecture" },
                 ["class notes"] = new[] { "class note", "note", "notes" }
             };
+
+
             //result.Terms = documents;
             return Request.CreateResponse(new
             {
+                verticals = new[] { 1, 0, 2, 3, 4, 5, 6, 7, 8 },
                 // text = result,
                 terms = documents
             });
