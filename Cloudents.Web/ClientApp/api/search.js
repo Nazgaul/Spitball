@@ -31,6 +31,9 @@ export default {
     getBook(params) {
         return resource.book(params);
     },
+    getBookDetails(params) {
+        return resource.bookDetails(params);
+    },
     getFood(params) {
         return resource.food({ ...params, location: "34.8016837,31.9195509"});
     }

@@ -18,18 +18,23 @@
                 page:1
             }
         },
+
+        props: { loadMore: {type:Boolean} },
+
         methods: {
             infiniteHandler($state) {
-                this.$store.dispatch('scrollingItems', { name: this.$route.name, params: this.$router.query, page: this.page })
-                    .then(({ data}) => {
-                        if (data&&data.length) {
-                            this.$emit('scroll',data);
-                            $state.loaded();
-                            this.page++;
-                        } else {
-                            $state.complete();
-                        }
-                    })
+                if (this.loadMore) {
+                    this.$store.dispatch('scrollingItems', { name: this.$route.name, params: this.$router.query, page: this.page })
+                        .then(({ data }) => {
+                            if (data && data.length) {
+                                this.$emit('scroll', data);
+                                $state.loaded();
+                                this.page++;
+                            } else {
+                                $state.complete();
+                            }
+                        })
+                } else { $state.complete(); }
             },
         },
         components: {

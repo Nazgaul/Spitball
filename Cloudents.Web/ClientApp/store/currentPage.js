@@ -70,6 +70,9 @@ const actions = {
         context.commit(types.UPDATE_SEARCH_PARAMS, { type: page.name })
         context.dispatch('fetchingData', {pageName:page.name,queryParams:page.query});
     },
+    bookDetails: (context, page) => {
+        context.dispatch('fetchingData', { pageName: page.name, queryParams: page.params });
+    },
     fetchingData: (context,data) => {
         context.commit(types.UPDATE_LOADING, true);
         activateFunction[data.pageName]({ ...context.getters.searchParams, ...data.queryParams}).then(response => {

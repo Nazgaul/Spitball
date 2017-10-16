@@ -11,6 +11,7 @@ const searchFunctions = {
     video: { method: 'GET', url: basePath + 'video/{?term*}' },
     job: { method: 'GET', url: basePath + 'job/{?term*}' },
     book: { method: 'GET', url: basePath + 'book/search/{?term*}' },
+    bookDetails: { method: 'GET', url: basePath + 'book/{type}/{?term*}' },
     food: { method: 'GET', url: basePath + 'places/{?term*}' }
 }
 export const search = Vue.resource(basePath, {}, searchFunctions)
