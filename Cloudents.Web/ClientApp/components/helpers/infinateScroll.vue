@@ -1,6 +1,6 @@
 ﻿<template>
     <div>
-       <slot></slot>
+        <slot></slot>
         <infinite-loading @infinite="infiniteHandler">
             <span slot="no-more">
             </span>
@@ -15,7 +15,7 @@
     export default {
         data() {
             return {
-                page:1
+                page: 1
             }
         },
 
@@ -23,7 +23,7 @@
 
         methods: {
             infiniteHandler($state) {
-                if (this.loadMore) {
+              if (this.loadMore) {
                     this.$store.dispatch('scrollingItems', { name: this.$route.name, params: this.$router.query, page: this.page })
                         .then(({ data }) => {
                             if (data && data.length) {
@@ -39,6 +39,6 @@
         },
         components: {
             InfiniteLoading
-        }       
+        }
     }
 </script>

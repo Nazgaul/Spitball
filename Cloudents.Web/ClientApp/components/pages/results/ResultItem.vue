@@ -1,6 +1,5 @@
 ﻿<template>
     <a class="wrapper" target="_blank" :href="item.url">
-
         <div class="container-box">
             <div class="box-main" :class="[item.image?'box-mask-1':'box-mask-2']">
                 <div class="img" :class="[item.image?'border-'+$route.name:'bg-'+$route.name]">
@@ -15,9 +14,7 @@
                 </div>
             </div>
         </div>
-
     </a>
-
 </template>
 <script>
     export default {

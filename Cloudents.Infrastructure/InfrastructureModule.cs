@@ -11,9 +11,11 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure.AI;
 using Cloudents.Infrastructure.Cache;
+using Cloudents.Infrastructure.Converters;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Search;
 using Microsoft.Azure.Search;
+using Microsoft.Azure.Search.Models;
 using Newtonsoft.Json.Linq;
 using Microsoft.Cognitive.LUIS;
 
@@ -63,7 +65,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<VideoSearch>().As<IVideoSearch>();
             builder.RegisterType<JobSearch>().As<IJobSearch>();
             builder.RegisterType<BookSearch>().As<IBookSearch>().EnableInterfaceInterceptors()
-                .InterceptedBy(typeof(CacheResultInterceptor)); 
+                .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<RestClient>().As<IRestClient>();
             builder.RegisterType<PlacesSearch>().As<IPlacesSearch>();
 
@@ -118,9 +120,13 @@ namespace Cloudents.Infrastructure
                             StringSplitOptions.RemoveEmptyEntries).Length;
                     }));
 
+                cfg.CreateMap<DocumentSearchResult<Search.Entities.Job>, JobFacetDto>()
+                    .ConvertUsing(new JobResultConverter());
+                
+
                 cfg.CreateMap<Search.Entities.Job, JobDto>();
                 cfg.CreateMap<JObject, IEnumerable<BookSearchDto>>().ConvertUsing((jo, bookSearch, c) => jo["response"]["page"]["books"]?["book"]?.Select(json => c.Mapper.Map<JToken, BookSearchDto>(json)));
-                cfg.CreateMap<JToken, BookSearchDto>().ConvertUsing((jo, bookSearch) => new BookSearchDto
+                cfg.CreateMap<JToken, BookSearchDto>().ConvertUsing((jo) => new BookSearchDto
                 {
                     Image = jo["image"]?["image"].Value<string>(),
                     Author = jo["author"].Value<string>(),

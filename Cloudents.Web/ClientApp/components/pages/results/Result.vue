@@ -1,17 +1,19 @@
 ﻿<template>
-    <div class="content">
-        <h4><span v-if="isEmpty" class="empty" v-html="page.emptyText.replace('$subject', term)"></span>
-        <span v-else v-html="page.title"></span>{{dynamicHeader}}</h4>
+    <div>
+        <h5>
+            <span v-if="isEmpty" class="empty" v-html="page.emptyText.replace('$subject', term)"></span>
+            <span v-else v-html="page.title"></span>{{dynamicHeader}}
+        </h5>
         <slot name="options">
             <v-container grid-list-md>
                 <v-layout row wrap>
                     <v-flex>
                         <radio-list class="search" :values="page.filter" @click="$_changeFilter" model="filter" :value="filterOptions"></radio-list>
-                    </v-flex>                   
+                    </v-flex>
                     <v-flex>
-                        <radio-list v-if="page.sort" :values="page.sort" @click="$_updateSort" model="sort"  class="search sort" :value="$_defaultSort(page.sort[0].id)"></radio-list>
-                    </v-flex>               
-                    
+                        <radio-list v-if="page.sort" :values="page.sort" @click="$_updateSort" model="sort" class="search sort" :value="$_defaultSort(page.sort[0].id)"></radio-list>
+                    </v-flex>
+
                 </v-layout>
                 <v-flex xs12>
                     <radio-list :values="subFilters" @click="$_changeSubFilter" class="sub-search" model="subFilter" :value="subFilter"></radio-list>
@@ -20,10 +22,17 @@
         </slot>
         <slot name="data">
             <scroll-list :loadMore="!isEmpty" v-if="pageData.data" @scroll="value => {pageData.data=pageData.data.concat(value) }">
-                <component v-for="(item,index) in pageData.data" :is="'result-'+item.template" :item="item" :key="index"></component>
+                <v-container fluid grid-list-md v-for="(item,index) in pageData.data">
+                    <component :is="'result-'+item.template" :item="item" :key="index"></component>
+                </v-container>
             </scroll-list>
         </slot>
-       <slot name="emptyState" v-show="isEmpty"></slot>
+
+        <!--<slot name="emptyState" v-show="isEmpty"></slot>-->
+        <v-flex xs4>
+            <img src="http://lorempixel.com/246/205/sports/" />
+            <img src="http://lorempixel.com/246/205/sports/" />
+        </v-flex>
     </div>
 </template>
 <script>
@@ -41,5 +50,10 @@
     }*/
     .sort {
         border-left: 1px solid #ddd;
+    }
+
+    h5 {
+        text-align: center;
+        color: #003b78;
     }
 </style>

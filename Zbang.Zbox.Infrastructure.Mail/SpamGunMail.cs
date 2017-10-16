@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Text;
 
 namespace Zbang.Zbox.Infrastructure.Mail
 {
@@ -12,7 +13,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         public override string GenerateMail()
         {
-            var html = LoadMailTempate.LoadMailFromContentWithDot(new CultureInfo("en-US"), "Zbang.Zbox.Infrastructure.Mail.MailTemplate.SpamGun");
+            //var html = LoadMailTempate.LoadMailFromContentWithDot(new CultureInfo("en-US"), "Zbang.Zbox.Infrastructure.Mail.MailTemplate.SpamGun");
+            var html = new StringBuilder(m_Parameters.HtmlBody);
             html.Replace("{name}", m_Parameters.Name);
             html.Replace("{body}", m_Parameters.Body.Replace("\n", "<br>"));
             html.Replace("{uni_Url}", m_Parameters.UniversityUrl);
@@ -51,7 +53,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         public override string AddSubject()
         {
-            return  m_Parameters.Subject.Replace("{Chapter}", m_Parameters.Chapter);
+            return m_Parameters.Subject.Replace("{Chapter}", m_Parameters.Chapter);
         }
 
         public override string AddCategory()

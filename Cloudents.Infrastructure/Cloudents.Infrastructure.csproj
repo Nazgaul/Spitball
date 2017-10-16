@@ -138,6 +138,7 @@
     <Compile Include="AI\LuisAI.cs" />
     <Compile Include="Cache\CacheProvider.cs" />
     <Compile Include="Cache\CacheResultInterceptor.cs" />
+    <Compile Include="Converters\JobResultConverter.cs" />
     <Compile Include="Data\DapperRepository.cs" />
     <Compile Include="Data\UniversitySynonymRepository.cs" />
     <Compile Include="IRestClient.cs" />

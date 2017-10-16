@@ -1,9 +1,9 @@
 ﻿<template>
     <v-app>
         <main>
-            <v-container fluid pa-0>
+            <!--<v-container fluid pa-0>-->
                 <router-view></router-view>
-            </v-container>
+            <!--</v-container>-->
         </main>
     </v-app>
 </template>

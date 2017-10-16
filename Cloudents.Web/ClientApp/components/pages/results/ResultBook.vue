@@ -1,7 +1,5 @@
 ﻿<template>
-
     <div class="wrapper">
-
         <div class="container-box">
             <div class="box-main box-books">
                 <div class="img">

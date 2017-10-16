@@ -24,6 +24,11 @@ v-subheader {
     height: 32px;
     .inTheMiddle();
 }
+svg {
+    /deep/ .fill {
+        fill: #fff;
+    }
+}
 
 .bg-ask {
     background-color: @Ask-a-Question;
@@ -44,9 +49,9 @@ v-subheader {
         width: 11.8px;
         height: 14.3px;
 
-        .fill {
+        /*/deep/ .fill {
             fill: #fff;
-        }
+        }*/
     }
 }
 

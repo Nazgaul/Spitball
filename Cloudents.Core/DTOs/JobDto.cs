@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cloudents.Core.DTOs
 {
@@ -16,5 +13,11 @@ namespace Cloudents.Core.DTOs
         public string CompensationType { get; set; }
         public string Url { get; set; }
         public string Company { get; set; }
+    }
+
+    public class JobFacetDto
+    {
+        public IEnumerable<JobDto> Jobs { get; set; }
+        public IEnumerable<string> Types { get; set; }
     }
 }

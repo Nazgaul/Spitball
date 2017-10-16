@@ -73,6 +73,13 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             blob.UploadText(content);
         }
 
+        public Task<string> DownloadTextAsync(string blobName)
+        {
+            if (blobName == null) throw new ArgumentNullException(nameof(blobName));
+            var blob = GetBlob(blobName);
+            return blob.DownloadTextAsync();
+        }
+
         public Task RemoveBlobAsync(string blobName, CancellationToken token)
         {
             var blob = GetBlob(blobName);

@@ -25,7 +25,7 @@
             <div class="line"></div>
             <div class="notification">
                 <v-badge right overlap>
-                    <span slot="badge">10</span>
+                    <span slot="badge">1</span>
                     <notification-icon></notification-icon>
                 </v-badge>
             </div>
