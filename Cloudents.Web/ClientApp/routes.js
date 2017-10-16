@@ -28,7 +28,7 @@ export const routes = [
             {path: "book", name: RouteTypes.bookRoute, component: resultPage, meta: Object.assign({}, resultMeta), props: dynamicPropsFn},
             { path: "food", name: RouteTypes.foodRoute, component: resultPage, meta: Object.assign({ location: true }, resultMeta), props: dynamicPropsFn },
             { path: "job", name: RouteTypes.jobRoute, component: resultPage, meta: Object.assign({}, resultMeta), props: dynamicPropsFn },
-            { path: 'book/:type/:id', name: RouteTypes.bookDetailsRoute, component: bookDetails, props: true, meta: { load: "bookDetails" } },
+            { path: 'book/:type/:id', name: RouteTypes.bookDetailsRoute, component: bookDetails, props: dynamicPropsFn, meta: { load: "bookDetails" } },
             { path: "not-found", name: RouteTypes.uploadRoute, component: resultPage },
             { path: "not-found", name: RouteTypes.postRoute, component: resultPage },
             { path: "not-found", name: RouteTypes.createFlashcard, component: resultPage},

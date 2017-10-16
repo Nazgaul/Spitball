@@ -5,8 +5,8 @@
                 <img v-if="item.image" :src="item.image" />
                 <span v-else>{{item.name}}</span>
             </v-flex>
-            <v-flex xs4>
-                condition:{{item.condition}}
+            <v-flex xs4 class="text-black">
+               {{item.condition}}
             </v-flex>        <v-flex xs4>price:{{item.price}}</v-flex>
         </v-layout>
     </a>

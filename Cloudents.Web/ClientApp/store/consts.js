@@ -33,7 +33,7 @@ export const activateFunction = {
     },
     job: function (params) {
         return new Promise((resolve, reject) => {
-            search.getJob(params).then(({ body }) => resolve({ data: body.map(val => { return { ...val, template: "job" } }) }));
+            search.getJob(params).then(({ body }) => resolve({jobType:body.types, data: body.jobs.map(val => { return { ...val, template: "job" } }) }));
         })
     },
     book: function (params) {
