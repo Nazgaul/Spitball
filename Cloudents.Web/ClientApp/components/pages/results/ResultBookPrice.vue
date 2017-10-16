@@ -5,9 +5,9 @@
                 <img v-if="item.image" :src="item.image" />
                 <span v-else>{{item.name}}</span>
             </v-flex>
-            <v-flex xs4 class="text-black">
+            <v-flex xs4 class="black--text">
                {{item.condition}}
-            </v-flex>        <v-flex xs4>price:{{item.price}}</v-flex>
+            </v-flex>        <v-flex xs4  class="price">${{item.price}}</v-flex>
         </v-layout>
     </a>
 </template>
@@ -16,3 +16,12 @@
         props: { item: {type:Object}}
     }
 </script>
+<style scoped>
+    .price{
+        width: 88px;
+        height: 24px;
+        border-radius: 2px;
+        background-color: #ebbc18;
+        text-align:center;
+    }
+</style>
