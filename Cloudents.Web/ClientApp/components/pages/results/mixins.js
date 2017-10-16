@@ -15,11 +15,10 @@ export const pageMixin =
                     this.filter = 'all';
                 } else if (mutation.type === "PAGE_LOADED") {
                     this.pageData = mutation.payload;
+                    this.filter = this.filterOptions
                 }
             });
-            return {
-                
-                sort: this.$route.query.sort ? this.$route.query.sort:'relevance',
+            return {                
                 filter: '',
                 items: '',
                 position: {},
@@ -29,11 +28,7 @@ export const pageMixin =
 
         computed: {
             term: function () { return this.$store.getters.term},
-            currentQuery: function () { return this.$route.query },
-            page: function() {return page[this.$route.name] },
-            filterOptions: function () {
-                return  (this.currentQuery.filter ? this.currentQuery.filter : 'all')
-            },
+            page: function() {return page[this.name] },
             subFilter: function () { return this.currentQuery[this.filterOptions]; },
             dynamicHeader: function () { return this.pageData.title },
             isEmpty: function () { return this.pageData.data ? !this.pageData.data.length:true},
@@ -43,7 +38,10 @@ export const pageMixin =
             }
         },
 
-        props: { userText: { type: String } },
+        props: {
+            userText: { type: String }
+            , name: { type: String }, currentQuery: { type: Object }, filterOptions: { type: String }, sort: {type:String}
+        },
 
         components: { RadioList, ResultItem, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood },
 

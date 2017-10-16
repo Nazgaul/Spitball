@@ -46,6 +46,7 @@ const getters = {
 const actions = {
     updateSearchText: (context, text) => {
         let params = {};
+        let isHome = true;
         console.log(text);
         if (!text){
             context.commit(types.UPDATE_SEARCH_PARAMS, { userText: null });
@@ -58,24 +59,16 @@ const actions = {
         else {
             params.prefix = context.getters.searchPrefix;
             params.str = text;
+            isHome = false;
         }
         ai.interpetPromise(params.prefix, params.str).then(({ body }) => {
             context.commit(types.UPDATE_SEARCH_PARAMS, { ...body.data, userText: params.str });
-            context.commit(types.ADD, body)
-            if (context.state.search.type) context.dispatch('fetchingData', { pageName: context.state.search.type, queryParams: {} });
+            isHome ? context.commit(types.ADD, body) : context.dispatch('fetchingData', { pageName: context.state.search.type, queryParams: {} });
         })
     },
     newResultPage: (context, page) => {
         context.commit(types.UPDATE_SEARCH_PARAMS, { type: page.name })
-
-        //if (context.getters.userText) {
-            //if page have usertext and has been changed call luis again
-            //if (page.meta.userText && context.getters.userText !== page.meta.userText) {
-            //    context.dispatch('updateSearchText', page.query.userText)
-            //} else {
-                context.dispatch('fetchingData', {pageName:page.name,queryParams:page.query});
-            //}
-        //}
+        context.dispatch('fetchingData', {pageName:page.name,queryParams:page.query});
     },
     fetchingData: (context,data) => {
         context.commit(types.UPDATE_LOADING, true);

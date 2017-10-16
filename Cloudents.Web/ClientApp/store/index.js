@@ -7,6 +7,5 @@ import createPersistedState from 'vuex-persistedstate'
 Vue.use(Vuex)
 export default new Vuex.Store({
     modules: { Flow, CurrentPage },
-    //issue in saving Flow need to save specific module
-    plugins: [createPersistedState({ paths: ['CurrentPage']})]
+    plugins: [createPersistedState({ storage: window.sessionStorage,paths: ['CurrentPage']})]
 });
