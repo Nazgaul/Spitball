@@ -7,7 +7,7 @@ export let verticals =
             name: "ask", image: "ask", placeholder: "Ask anything...", prefix: "",
             resultTitle: "I’ve come to the conclusion that the answer is:",
             emptyState: "I could not find any relevant answers. Try these other options.",
-            sort: "",
+            sort: ""
             //asideLabel: "search type"
         },
         note: {

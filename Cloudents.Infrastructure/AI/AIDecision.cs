@@ -102,7 +102,7 @@ namespace Cloudents.Infrastructure.AI
                 },
                 [AIIntent.Question] = p =>
                 {
-                    const AIResult result = AIResult.Question;
+                    const AIResult result = AIResult.Ask;
                     if (AskQuestionMatrix.TryGetValue(p, out var result2))
                     {
                         return result2;
@@ -150,7 +150,7 @@ namespace Cloudents.Infrastructure.AI
             if (result == AIResult.AddSearchTypeToSubject && aiResult.SearchType.HasValue)
             {
                 aiResult.Term.Add(aiResult.SearchType.Value.Value);
-                return (AIResult.Question, aiResult);
+                return (AIResult.Ask, aiResult);
             }
             if (result == AIResult.PurchaseChangeTerm && aiResult.SearchType.HasValue)
             {

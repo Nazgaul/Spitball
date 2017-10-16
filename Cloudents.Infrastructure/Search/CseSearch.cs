@@ -42,7 +42,7 @@ namespace Cloudents.Infrastructure.Search
             CustomApiKey key,
             CancellationToken token)
         {
-            if (query == null)
+            if (string.IsNullOrEmpty(query))
                 throw new ArgumentNullException(nameof(query));
             var initializer = new BaseClientService.Initializer
             {
@@ -87,14 +87,11 @@ namespace Cloudents.Infrastructure.Search
             }
             catch (GoogleApiException ex)
             {
-                ex.Data.Add("params", new
-                {
-                    query,
-                    source,
-                    page,
-                    sort,
-                    key
-                });
+                ex.Data.Add("q", query);
+                ex.Data.Add("source", source);
+                ex.Data.Add("page", page);
+                ex.Data.Add("sort", sort);
+                ex.Data.Add("key", key);
                 throw;
             }
         }

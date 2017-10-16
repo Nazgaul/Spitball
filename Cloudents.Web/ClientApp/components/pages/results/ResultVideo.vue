@@ -1,5 +1,5 @@
 ﻿<template>
-    <iframe width="420" height="315" :src="item.url" frameborder="0" allowfullscreen></iframe>
+    <iframe width="504" height="283" :src="item.url" frameborder="0" allowfullscreen></iframe>
 </template>
 
 

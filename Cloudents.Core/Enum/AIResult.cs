@@ -11,7 +11,7 @@
         Book,
         Job,
         ChatPost,
-        Question,
+        Ask,
         Qna,
         AddSearchTypeToSubject, //Need to change Dto
         Purchase,
