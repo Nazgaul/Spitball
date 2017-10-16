@@ -15,7 +15,8 @@ export let verticals =
             prefix: "Find me class material for",
             //asideLabel: "search type",
             resultTitle: "I found some documents that might help.<br>See what you think!",
-            emptyState: "Darn, U wasn't able to find any documents. Try these other options.", filter: [{ id: 'all', name: 'all' },
+            emptyState: "Darn, U wasn't able to find any documents. Try these other options.",
+            filter: [{ id: 'all', name: 'all' },
                 { id: 'source', name: 'sources' }], sort: [{ id: 'relevance', name: 'relevance' },
                 { id: 'date', name: 'date' }]
         },

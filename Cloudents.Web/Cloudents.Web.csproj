@@ -14,6 +14,7 @@
     <Content Include="ClientApp\components\general\images\flashcard.svg" />
     <Content Include="ClientApp\components\general\images\job.svg" />
     <Content Include="ClientApp\components\general\images\tutor.svg" />
+    <Content Include="ClientApp\components\header\Images\notification-icon.svg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,10 +46,6 @@
 
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ClientApp\components\pages\Images\" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

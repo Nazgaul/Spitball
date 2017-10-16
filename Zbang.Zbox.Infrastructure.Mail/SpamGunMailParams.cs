@@ -4,7 +4,7 @@
     {
         public SpamGunMailParams(
              string body,
-            string universityUrl, string name, string subject, string category)
+            string universityUrl, string name, string subject, string category, string htmlBody)
             :base(new System.Globalization.CultureInfo("en-US"),senderName: "Olivia Williams <olivia@spitball.co>")
         {
             Body = body;
@@ -12,9 +12,12 @@
             Name = name;
             Subject = subject;
             Category = category;
+            HtmlBody = htmlBody;
         }
 
         public string Body { get; }
+
+        public string HtmlBody { get; }
         public string Name { get; }
         public string UniversityUrl { get; }
 

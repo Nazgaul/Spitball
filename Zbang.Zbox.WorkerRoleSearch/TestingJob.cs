@@ -11,6 +11,7 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.ReadServices;
 using Autofac;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.WorkerRoleSearch.Mail;
 
 namespace Zbang.Zbox.WorkerRoleSearch
@@ -22,27 +23,31 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IZboxWriteService m_ZboxWriteService;
         private readonly IBlobProvider2<FilesContainerName> m_BlobProvider;
         private readonly ILifetimeScope m_LifetimeScope;
+        private readonly ILogger m_Logger;
 
         public TestingJob(IZboxWorkerRoleService zboxWorkerRoleService,
-            IZboxReadServiceWorkerRole zboxReadService, IBlobProvider2<FilesContainerName> blobProvider, IZboxWriteService zboxWriteService, ILifetimeScope lifetimeScope)
+            IZboxReadServiceWorkerRole zboxReadService, IBlobProvider2<FilesContainerName> blobProvider, IZboxWriteService zboxWriteService, ILifetimeScope lifetimeScope, ILogger logger)
         {
             m_ZboxWorkerRoleService = zboxWorkerRoleService;
             m_ZboxReadService = zboxReadService;
             m_BlobProvider = blobProvider;
             m_ZboxWriteService = zboxWriteService;
             m_LifetimeScope = lifetimeScope;
+            m_Logger = logger;
         }
 
         public string Name => nameof(TestingJob);
         public async Task RunAsync(CancellationToken cancellationToken)
         {
-            var process = m_LifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("careerBuilder");
+            //var process = m_LifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("careerBuilder");
             // ReSharper disable once AsyncConverter.AsyncAwaitMayBeElidedHighlighting
+            //await process.ExecuteAsync(0, (a, b) => Task.CompletedTask, cancellationToken).ConfigureAwait(false);
+
+            var process = m_LifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("spamGun");
             await process.ExecuteAsync(0, (a, b) => Task.CompletedTask, cancellationToken).ConfigureAwait(false);
 
-            //var process = m_LifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("spamGun");
-            //return process.ExecuteAsync(0, (a, b) => Task.CompletedTask, cancellationToken);
 
+            m_Logger.Info("finish test");
 
             //var msgData = new BoxFileProcessData(70197);
             //var process = m_LifetimeScope.ResolveOptionalNamed<IFileProcess>(msgData.ProcessResolver);

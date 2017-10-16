@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Mail;
+using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Dto.Emails;
@@ -19,6 +20,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
         private readonly ILogger m_Logger;
 
+        private readonly IBlobProvider2<SpamGunContainerName> m_BlobProvider;
+
         public readonly int NumberOfEmailPerSession = int.Parse(ConfigFetcher.Fetch("NumberOfSpamGunEmailBatch"));
 
         public const int SpanGunNumberOfQueues = 13;
@@ -28,12 +31,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly int m_LimitPerIp = int.Parse(ConfigFetcher.Fetch("NumberOfEmailsPerHour"));
         //private const string ServiceName = "SpamGunService";
 
-        public SpamGun(IMailComponent mailComponent, IZboxReadServiceWorkerRole zboxReadService, IZboxWorkerRoleService zboxWriteService, ILogger logger)
+        public SpamGun(IMailComponent mailComponent, IZboxReadServiceWorkerRole zboxReadService, IZboxWorkerRoleService zboxWriteService, ILogger logger, IBlobProvider2<SpamGunContainerName> blobProvider)
         {
             m_MailComponent = mailComponent;
             m_ZboxReadService = zboxReadService;
             m_ZboxWriteService = zboxWriteService;
             m_Logger = logger;
+            m_BlobProvider = blobProvider;
         }
 
         //private static bool NeedToProcess()
@@ -65,6 +69,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //{
             //    return true;
             //}
+            var htmlBody = await m_BlobProvider.DownloadTextAsync("mail.html").ConfigureAwait(false);
             for (var i = 0; i < SpanGunNumberOfQueues; i++)
             {
                 m_Queues[i] = new Queue<SpamGunDto>();
@@ -109,7 +114,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                                 t1 = m_MailComponent.SendSpanGunEmailAsync(message.Email, BuildIpPool(j),
                                     new SpamGunMailParams(message.MailBody,
                                         message.UniversityUrl, message.FirstName.UppercaseFirst(), message.MailSubject,
-                                        message.MailCategory),
+                                        message.MailCategory, htmlBody),
                                     k, token);
                             }
                             else

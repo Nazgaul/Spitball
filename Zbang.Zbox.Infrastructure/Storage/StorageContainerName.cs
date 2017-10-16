@@ -26,6 +26,8 @@ namespace Zbang.Zbox.Infrastructure.Storage
         public const string AzureFAQContainer = "zboxhelp";
         public const string AzureQuizContainer = "zboxquestion";
         public const string AzureChatContainer = "zboxchat";
+        public const string AzureMailContainer = "mailcontainer";
+
 
         public abstract string Name
         {
@@ -33,6 +35,12 @@ namespace Zbang.Zbox.Infrastructure.Storage
         }
 
         public abstract string RelativePath { get; }
+    }
+
+    public class SpamGunContainerName : StorageContainerName
+    {
+        public override string Name => AzureMailContainer;
+        public override string RelativePath => "SpamGun";
     }
 
     public class CacheContainerName : StorageContainerName, ICacheContainer

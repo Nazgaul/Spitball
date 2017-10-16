@@ -11,7 +11,8 @@ const vuetifyComponents = {
     VToolbar,
     VNavigationDrawer,
     VList,
-    VBadge
+    VBadge,
+    VProgressCircular
 };
 import {
     Vuetify,
@@ -21,7 +22,8 @@ import {
     VToolbar,
     VNavigationDrawer,
     VList,
-    VBadge
+    VBadge,
+    VProgressCircular
 
 } from 'vuetify'
 import * as route from './routes';

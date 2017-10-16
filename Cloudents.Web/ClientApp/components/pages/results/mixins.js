@@ -9,16 +9,14 @@ const RadioList = () => import('./../../helpers/radioList.vue');
 export const pageMixin =
     {
         data() {
-            console.log('data')
             this.$store.subscribe((mutation, state) => {
                 if (mutation.type === "UPDATE_LOADING" && mutation.payload) {
                     this.pageData = {};
                     this.filter = 'all';
-                }
-                else if (mutation.type === "PAGE_LOADED") {
+                } else if (mutation.type === "PAGE_LOADED") {
                     this.pageData = mutation.payload;
                 }
-            })
+            });
             return {
                 
                 sort: this.$route.query.sort ? this.$route.query.sort:'relevance',
@@ -40,7 +38,7 @@ export const pageMixin =
             dynamicHeader: function () { return this.pageData.title },
             isEmpty: function () { return this.pageData.data ? !this.pageData.data.length:true},
             subFilters: function () {
-                var list = this.pageData[this.filter];
+                const list = this.pageData[this.filter];
                 return list ? list.map(item => { return { id: item, name: item } }) : [];
             }
         },
@@ -53,7 +51,7 @@ export const pageMixin =
             if (this.$route.name==='food'&&navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(position => {
                     this.position = position;
-                })
+                });
             }
         },
         created: function () {
@@ -78,7 +76,7 @@ export const pageMixin =
             },
             $_changeSubFilter(val) {
                 let sub = {};
-                sub[this.filter] = val
+                sub[this.filter] = val;
                 this.$router.push({ query: { ... this.currentQuery, ...sub,filter:this.filter } });
                 console.log('change sub filter');
             }

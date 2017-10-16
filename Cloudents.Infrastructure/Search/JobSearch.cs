@@ -10,10 +10,11 @@ using Cloudents.Infrastructure.Search.Entities;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using Cloudents.Core.Interfaces;
+using Cloudents.Infrastructure.Converters;
 
 namespace Cloudents.Infrastructure.Search
 {
-    public class JobSearch:IJobSearch
+    public class JobSearch : IJobSearch
     {
         private readonly ISearchIndexClient m_Client;
         private readonly IMapper m_Mapper;
@@ -24,7 +25,7 @@ namespace Cloudents.Infrastructure.Search
             m_Client = client.Indexes.GetClient("jobs");
         }
 
-        public async Task<IEnumerable<JobDto>> SearchAsync(
+        public async Task<JobFacetDto> SearchAsync(
             string term,
             SearchRequestFilter filter,
             SearchRequestSort sort,
@@ -66,9 +67,10 @@ namespace Cloudents.Infrastructure.Search
                 OrderBy = sortQuery
 
             };
+
             var retVal = await
                 m_Client.Documents.SearchAsync<Job>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
-            return m_Mapper.Map<IEnumerable<Job>, IList<JobDto>>(retVal.Results.Select(s => s.Document));
+            return m_Mapper.Map<JobFacetDto>(retVal, opt => opt.Items[JobResultConverter.FacetType] = "jobType");
         }
     }
 }
