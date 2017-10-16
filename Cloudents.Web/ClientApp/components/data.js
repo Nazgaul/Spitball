@@ -6,7 +6,7 @@ export let verticals =
         ask: {
             name: "ask", image: "ask", placeholder: "Ask anything...", prefix: "",
             resultTitle: "I’ve come to the conclusion that the answer is:",
-            emptyState: "I couldnt found results for your questions..",
+            emptyState: "I could not find any relevant answers. Try these other options.",
             sort: "",
             //asideLabel: "search type"
         },
@@ -15,7 +15,7 @@ export let verticals =
             prefix: "Find me class material for",
             //asideLabel: "search type",
             resultTitle: "I found some documents that might help.<br>See what you think!",
-            emptyState: "no document founds", filter: [{ id: 'all', name: 'all' },
+            emptyState: "Darn, U wasn't able to find any documents. Try these other options.", filter: [{ id: 'all', name: 'all' },
                 { id: 'source', name: 'sources' }], sort: [{ id: 'relevance', name: 'relevance' },
                 { id: 'date', name: 'date' }]
         },
@@ -24,7 +24,7 @@ export let verticals =
             prefix: "Find me flashcards on",
             //asideLabel: "search type",
             resultTitle: "Oh look - I found some flashcards for you.<br>Test yourself!",
-            emptyState: "no flashcards found",
+            emptyState: "Sorry, I did not find any quiz results...",
             filter: [{ id: 'all', name: 'all' }, { id: 'source', name: 'sources' }],
             sort: [{ id: 'relevance', name: 'relevance' }, { id: 'date', name: 'date' }]
         },
@@ -33,7 +33,7 @@ export let verticals =
             prefix: "Find me a tutor for",
             //asideLabel: "search type",
             resultTitle: "I found these tutors. Help is juast a click away!",
-            emptyState: "no tutor found...",
+            emptyState: "Sorry, I did not find any tutors...",
             filter: [{ id: 'all', name: 'all' }, { id: 'online', name: 'online' }, { id: 'inPerson', name: 'In Person' }],
             sort: [{ id: 'relevance', name: 'relevance' }, { id: 'price', name: 'price' }, { id: 'distance', name: 'distance' }]
         },
@@ -43,19 +43,19 @@ export let verticals =
             placeholder: "Find me a job...",
             prefix: "Find me a job in",
             resultTitle: "Look at this - you’ll be employed in no time!",
-            emptyState: "no job founds",
+            emptyState: "Sorry, I did not find any jobs that match your search...",
             filter: [{ id: 'all', name: 'all' },{ id: 'jobType', name: 'job type' }, { id: 'paid', name: 'paid' }],
             sort: [{ id: 'relevance', name: 'relevance' }, { id: 'price', name: 'price' }, { id: 'distance', name: 'distance' }]
         },
         book: {
             name: "book", image: "book", placeholder: "Find me a textbook ...", prefix: "Find me a textbook -",
             //asideLabel: "search type",
-            resultTitle: "I found some textbooks that match your search. Check them out!", emptyState: "no Books founds", filter: "", sort: ""
+            resultTitle: "I found some textbooks that match your search. Check them out!", emptyState: "Sorry, I did not find any textbooks that match your search...", filter: "", sort: ""
         },
         food: {
             name: "food", image: "food", placeholder: "Where can i get...", prefix: "Where can I get a",
             //asideLabel: "purchase",
-            resultTitle: "Booya! I found a few places that<br>you might like.", emptyState: "no Food founds", filter: [{ id: 'all', name: 'all' }, { id: 'openNow', name: 'open now' }], sort: [{ id: 'distance', name: 'distance' }]
+            resultTitle: "Booya! I found a few places that<br>you might like.", emptyState: "Sorry, friend! I couldn't find anywhere nearby that sells $subject", filter: [{ id: 'all', name: 'all' }, { id: 'openNow', name: 'open now' }], sort: [{ id: 'distance', name: 'distance' }]
         }
        
     };

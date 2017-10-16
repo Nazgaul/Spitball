@@ -1,6 +1,6 @@
 ﻿<template>
     <div class="content">
-        <h4><span v-if="isEmpty" class="empty" v-html="page.emptyText"></span>
+        <h4><span v-if="isEmpty" class="empty" v-html="page.emptyText.replace('$subject', term)"></span>
         <span v-else v-html="page.title"></span>{{dynamicHeader}}</h4>
         <slot name="options">
             <v-container grid-list-md>

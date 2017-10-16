@@ -13,6 +13,7 @@ export const pageMixin =
             this.$store.subscribe((mutation, state) => {
                 if (mutation.type === "UPDATE_LOADING" && mutation.payload) {
                     this.pageData = {};
+                    this.filter = 'all';
                 }
                 else if (mutation.type === "PAGE_LOADED") {
                     this.pageData = mutation.payload;
@@ -29,6 +30,7 @@ export const pageMixin =
         },
 
         computed: {
+            term: function () { return this.$store.getters.term},
             currentQuery: function () { return this.$route.query },
             page: function() {return page[this.$route.name] },
             filterOptions: function () {
