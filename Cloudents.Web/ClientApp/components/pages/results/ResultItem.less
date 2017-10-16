@@ -1,124 +1,34 @@
-﻿@font-bold: "OpenSans-Bold";
-@font-regular: "OpenSans-Regular";
-
-@color-white: #fff;
-@color-dark-purple: #320161;
-@color-light-grey-3: #888b8e;
-
-.rounded-all(@radius) {
-    border-radius: (@radius);
+﻿@import "../../../mixin.less";
+a {
+    max-width: 500px;
+    height: 176px;
 }
 
-.box-shadow (@string) {
-    -webkit-box-shadow: @string;
-    -moz-box-shadow: @string;
-    box-shadow: @string;
+.full-height {
+    height: 100%;
+    
 }
 
-/*.container-box {
-    padding: 17px;
-}*/
-.text-note {
-    color: @color-dark-purple;
+p {
+    .giveMeEllipsis(3,1.29);
+    font-size: 14px;
+    color: #000;
 }
+
+img {
+    width: 117.5px;
+    height: 160px;
+}
+
+.border-ask {
+    border: solid 1px @Ask-a-Question;
+}
+
 .text-ask {
-    color: #0455a8
+    color: @Ask-a-Question;
 }
-.text-flashcard {
-    color: #f14d4d;
-}
-.box-main {
-    background: @color-white;
-    .rounded-all(4px);
-    .box-shadow(0 1px 2px 0 rgba(0, 0, 0, 0.2));
-    min-height: 176px;
-    padding: 8px 9px;
-    position: relative;
-    max-width: 504px;
-
-    .box-wrapper {
-        padding-left: 127px;
-    }
-
-    .title {
-        font-family: @font-bold;
-        font-size: 14px !important;
-        line-height: 1.29 !important;
-        letter-spacing: -0.3px !important;
-        margin-bottom: 4px;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-    }
-
-    p {
-        font-size: 14px;
-        height: 72px;
-        line-height: 1.29;
-        letter-spacing: -0.3px;
-        overflow: hidden;
-        max-width: 324px;
-    }
-
-    .img {
-        border: 1px solid @color-dark-purple;
-        box-sizing: border-box;
-        height: 160px;
-        overflow: hidden;
-        position: absolute;
-        width: 118px;
-
-        .up {
-            display: block;
-            height: 100%;
-            position: absolute;
-            text-align: center;
-            top: 50%;
-            width: 100%;
-        }
-
-        img {
-            display: inline-block;
-            transform: translateY(-50%);
-            -ms-transform: translateY(-50%);
-            -webkit-transform: translateY(-50%);
-            max-width: 100%;
-        }
-    }
-
-    .bottom {
-        bottom: 9px;
-        color: @color-light-grey-3;
-        font-size: 11px;
-        left: 137px;
-        letter-spacing: -0.3px;
-        position: absolute;
-    }
-}
-
-.box-mask-1 {
-
-    .img {
-        background: @color-white;
-        border-color: @color-dark-purple;
-    }
-}
-
-@media screen and (max-width: 360px) {
-    .box-main {
-        min-height: 136px;
-
-        .box-wrapper {
-            padding-left: 96px;
-        }
-
-        .img {
-            height: 120px;
-            width: 88px;
-        }
-
-        .bottom {
-            left: 105px;
-        }
-    }
+.bottom {
+    flex-grow: 0;
+    color: #9b9b9b;
+    font-size:10px;
 }

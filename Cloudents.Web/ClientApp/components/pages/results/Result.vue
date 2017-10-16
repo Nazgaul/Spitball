@@ -29,10 +29,10 @@
         </slot>
 
         <!--<slot name="emptyState" v-show="isEmpty"></slot>-->
-        <v-flex xs4>
+        <!--<v-flex xs4>
             <img src="http://lorempixel.com/246/205/sports/" />
             <img src="http://lorempixel.com/246/205/sports/" />
-        </v-flex>
+        </v-flex>-->
     </div>
 </template>
 <script>

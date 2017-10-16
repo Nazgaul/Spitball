@@ -1,5 +1,8 @@
-﻿namespace Cloudents.Infrastructure.Search
+﻿using System;
+
+namespace Cloudents.Infrastructure.Search
 {
+    [Serializable] 
     public sealed class CustomApiKey
     {
         public string Key { get; }
