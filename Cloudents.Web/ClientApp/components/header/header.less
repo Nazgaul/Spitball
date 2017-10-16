@@ -134,14 +134,57 @@ header {
     }
 }*/
 .logo-link {
-    width: 216px; //note this is the navbar width as on navbar.vue
+    width: 215px; //note this is the navbar width as on navbar.vue
     .inTheMiddle();
-    border-right: 1px solid #dddddd;
-    height: 100%;
+    //border-right: 1px solid #dddddd;
+    //height: 100%;
 }
+
+.line {
+    border: 1px solid #ddd;
+    //height:100%;
+}
+
 .logo {
     width: 128px;
     height: 24.6px;
 }
 
+.icon {
+    width: 50px;
+    //border-right: 1px solid #dddddd;
+    //height:100%;
+}
 
+.bg-note {
+    /deep/ .fill {
+        fill: @Class-Material;
+    }
+}
+
+.item {
+    width: 34.6px;
+    height: 24px;
+}
+
+.box-header-search {
+    flex-grow: 2;
+    display: flex;
+    align-items: stretch;
+    align-content: center;
+
+    input {
+        flex-grow: 2;
+        font-size: 16px;
+        color: @Class-Material;
+    }
+    //width:100%;
+}
+.notification {
+    width: 60px;
+    .inTheMiddle();
+    svg {
+        width: 15.8px;
+        height: 18px;
+    }
+}

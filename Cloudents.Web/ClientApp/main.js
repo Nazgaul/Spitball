@@ -10,7 +10,8 @@ const vuetifyComponents = {
     VChip,
     VToolbar,
     VNavigationDrawer,
-    VList
+    VList,
+    VBadge
 };
 import {
     Vuetify,
@@ -19,7 +20,8 @@ import {
     VChip,
     VToolbar,
     VNavigationDrawer,
-    VList
+    VList,
+    VBadge
 
 } from 'vuetify'
 import * as route from './routes';

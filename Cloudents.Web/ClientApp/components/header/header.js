@@ -6,9 +6,11 @@ import noteHeader from '../general/images/document.svg'
 import tutorHeader from '../general/images/tutor.svg'
 import foodHeader from '../general/images/food.svg'
 import searchTypes from './../helpers/radioList.vue'
+import searchIcon from './Images/search-icon.svg';
 import { mapGetters, mapActions } from 'vuex'
 import { verticalsPlaceholders as placeholders, names } from '../data'
 import logo from '../../../wwwroot/Images/logo-spitball.svg';
+import notification from "./images/notification-icon.svg";
 
 export default {
     components: {
@@ -20,7 +22,9 @@ export default {
         jobHeader,
         foodHeader,
         tutorHeader,
-        logo
+        logo,
+        "notification-icon" : notification,
+        "search-icon": searchIcon
     },
     data() {
         return {
@@ -29,6 +33,8 @@ export default {
             names: names,
             qFilter: this.userText,
             isOptions: false
+            
+
         }
     }, computed: {
         ...mapGetters(['userText'])
