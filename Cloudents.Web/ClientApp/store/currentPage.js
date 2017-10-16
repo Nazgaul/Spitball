@@ -40,7 +40,8 @@ const getters = {
     items: state => state.pageContent?state.pageContent.items:null,
     loading : state => state.loading,
     searchParams: state => state.search,
-    searchPrefix: state => prefixes[state.search.type]
+    searchPrefix: state => prefixes[state.search.type],
+    term: state => state.search.term ? state.search.term[0]:''
 }
 const actions = {
     updateSearchText: (context, text) => {
@@ -67,14 +68,14 @@ const actions = {
     newResultPage: (context, page) => {
         context.commit(types.UPDATE_SEARCH_PARAMS, { type: page.name })
 
-        if (context.getters.userText) {
+        //if (context.getters.userText) {
             //if page have usertext and has been changed call luis again
-            if (page.meta.userText && context.getters.userText !== page.meta.userText) {
-                context.dispatch('updateSearchText', page.query.userText)
-            } else {
+            //if (page.meta.userText && context.getters.userText !== page.meta.userText) {
+            //    context.dispatch('updateSearchText', page.query.userText)
+            //} else {
                 context.dispatch('fetchingData', {pageName:page.name,queryParams:page.query});
-            }
-        }
+            //}
+        //}
     },
     fetchingData: (context,data) => {
         context.commit(types.UPDATE_LOADING, true);
