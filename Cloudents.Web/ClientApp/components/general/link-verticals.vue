@@ -29,7 +29,9 @@
     import chat from './images/chat.svg';
     import courses from './images/courses.svg';
     import likes from './images/likes.svg';
-    import { verticalsNavbar as verticals } from '../data.js'
+    import { verticalsNavbar as verticals } from '../data.js';
+    
+
     export default {
         components: {
             ask, book, document, flashcard, job, food, tutor, upload, post, chat, courses, likes

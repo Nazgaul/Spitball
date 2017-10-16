@@ -20,10 +20,6 @@
                         </v-list-tile-content>
                     </v-list-tile>
                 </template>
-                <!--<a href="#">Spitball Guide</a>
-                <a href="#">Key Features</a>
-                <a href="#">Shared Documents</a>
-                <a href="#">Mobile App</a>-->
             </v-list>
         </v-navigation-drawer>
         <div class="box-header">
@@ -32,8 +28,13 @@
                     <v-toolbar flat style="background-color:transparent;">
                         <v-toolbar-side-icon @click.stop="drawer = !drawer" class="hidden-md-and-up">Hamburger</v-toolbar-side-icon>
                         <v-toolbar-title>
-                            <img class="hidden-sm-and-down" src="./img/logo-spitball.png" alt="">
-                            <img class="hidden-md-and-up" src="./img/spitball-logo.png" alt="">
+                            <picture>
+                                <source media="(min-width: 959px)" srcset="/images/logo-spitball.svg" />
+                                <source media="(max-width: 959px)" srcset="./img/spitball-logo.png" />
+                                <img src="/images/logo-spitball.svg" alt="" />
+                            </picture>
+                            <!--<img class="hidden-sm-and-down" src="./img/logo-spitball.png" alt="">
+                            <img class="hidden-md-and-up" src="./img/spitball-logo.png" alt="">-->
                         </v-toolbar-title>
                         <v-spacer class="hidden-sm-and-down"></v-spacer>
                         <div class="hidden-sm-and-down" v-for="action in actions">

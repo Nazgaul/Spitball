@@ -33,6 +33,10 @@ namespace Cloudents.Infrastructure.Cache
 
         public void Set(string key, string region, object value, int expire)
         {
+            if (value == null)
+            {
+                return;
+            }
             //if (value is IEnumerable iEnumerable)
             //{
                 

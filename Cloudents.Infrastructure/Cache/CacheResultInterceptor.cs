@@ -44,7 +44,10 @@ namespace Cloudents.Infrastructure.Cache
         private async Task<T> InterceptAsync<T>(string key, CacheAttribute att, Task<T> task)
         {
             T result = await task.ConfigureAwait(false);
-            m_CacheProvider.Set(key, att.Region, result, att.Duration);// cacheAttr.Duration);
+            if (result != null)
+            {
+                m_CacheProvider.Set(key, att.Region, result, att.Duration); // cacheAttr.Duration);
+            }
             // do the logging here, as continuation work for Task<T>...
             return result;
         }
