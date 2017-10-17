@@ -13,7 +13,7 @@ import twitterIcon from "./svg/twitter-icon.svg";
 import googleIcon from "./svg/google-icon.svg";
 import youtubeIcon from "./svg/youtube-icon.svg";
 import instegramIcon from "./svg/instagram-icon.svg";
-import { verticalsPlaceholders } from "./../data"
+import { verticalsPlaceholders,prefix } from "./../data"
 import * as types from '../../store/mutation-types';
 
 
@@ -32,18 +32,11 @@ export default {
         "instegram-icon": instegramIcon
     },
     data() {
-        var prefix;
-        this.$store.subscribeAction((action, state) => {
-            if (action.type === types.PAGE_RELOAD) {
-                this.$router.push({
-                    name: action.payload
-                });
-            }
-        });
         return {
-            msg: this.$route.meta.userText,
-            placeholder: verticalsPlaceholders['ask'],
-            searchType:"",
+            msg: this.metaText,
+            placeholder: verticalsPlaceholders[this.metaType],
+            searchType: this.metaType,
+            prefix: prefix[this.metaType],
             drawer: null,
             links: [
                 {
@@ -62,17 +55,26 @@ export default {
                     name: "Mobile App",
                     link: "#"
                 }
-            ],
-            changeSection: (vertical) => {
-                this.placeholder = vertical.placeholder;
-                prefix = vertical.prefix;
-                this.searchType = vertical.name;
-            },
-            search: () => {
-                this.$route.meta.searchType = this.searchType;
-                this.$route.meta.userText = this.msg;
-                this.$store.dispatch('updateSearchText', { prefix: prefix, str: this.msg });
-            }
+            ]
         };
+    },
+    methods: {
+        changeSection(vertical){
+            this.placeholder = vertical.placeholder;
+            this.prefix = vertical.prefix;
+            this.searchType = vertical.name;
+        },
+
+        search(){
+            this.$route.meta.searchType = this.searchType;
+            this.$route.meta.userText = this.msg;
+            this.$store.dispatch('updateSearchText', { prefix: this.prefix, str: this.msg }).then((name) => {
+                this.$router.push({ name });
+            });;
+        }
+    },
+
+    props: {
+        metaType: { type: String }, metaText: { type: String }
     }
 };

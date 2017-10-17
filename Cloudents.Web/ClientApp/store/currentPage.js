@@ -44,7 +44,8 @@ const getters = {
     term: state => state.search.term ? state.search.term[0]:''
 }
 const actions = {
-    updateSearchText: (context, text) => {
+    updateSearchText(context, text) {
+       
         let params = {};
         let isHome = true;
         console.log(text);
@@ -61,19 +62,23 @@ const actions = {
             params.str = text;
             isHome = false;
         }
-        ai.interpetPromise(params.prefix, params.str).then(({ body }) => {
-            context.commit(types.UPDATE_SEARCH_PARAMS, { ...body.data, userText: params.str });
-            if (isHome) {           
-                context.commit(types.ADD, { ...body });
-                context.dispatch(types.PAGE_RELOAD, context.rootGetters.currenFlow);
-            } else {
-                context.dispatch('fetchingData', { pageName: context.state.search.type, queryParams: {} })
-            }
+        return new Promise((resolve, reject) => {
+            ai.interpetPromise(params.prefix, params.str).then(({ body }) => {
+                context.commit(types.UPDATE_SEARCH_PARAMS, { ...body.data, userText: params.str });
+                if (isHome) {
+                    context.commit(types.ADD, { ...body });
+                    resolve(context.rootGetters.currenFlow);
+                    //context.dispatch(types.PAGE_RELOAD, context.rootGetters.currenFlow);
+                } else {
+                    context.dispatch('fetchingData', { pageName: context.state.search.type, queryParams: {} })
+                }
+            })
         })
     },
-    [types.PAGE_RELOAD](state, payload) {
-        console.log("page reload " + payload);
-    },
+
+    //[types.PAGE_RELOAD](state, payload) {
+    //    console.log("page reload " + payload);
+    //},
     newResultPage: (context, page) => {
         context.commit(types.UPDATE_SEARCH_PARAMS, { type: page.name })
         if (context.rootGetters.currenFlow != page.name) {

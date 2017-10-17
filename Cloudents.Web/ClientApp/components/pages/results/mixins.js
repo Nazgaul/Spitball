@@ -10,6 +10,7 @@ const RadioList = () => import('./../../helpers/radioList.vue');
 export const pageMixin =
     {
         data() {
+            console.log(page);
             this.$store.subscribe((mutation, state) => {
                 if (mutation.type === "UPDATE_LOADING" && mutation.payload) {
                     this.pageData = {};
@@ -53,9 +54,10 @@ export const pageMixin =
                 });
             }
         },
-        created: function () {
-            this.filter = this.filterOptions;
-        },
+        //created: function () {
+        //    console.log("created")
+        //    this.filter = this.filterOptions;
+        //},
 
         methods: {
             $_defaultSort(defaultSort) {

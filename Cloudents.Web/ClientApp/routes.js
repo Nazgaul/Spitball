@@ -16,8 +16,16 @@ function dynamicPropsFn(route) {
         sort: route.query.sort || 'relevance'
     }
 }
+function homePropsFn(route) {
+    console.log(route.meta.searchType)
+    return {
+        metaType: route.meta.searchType,
+        metaText: route.meta.userText
+    }
+}
+
 export const routes = [
-    { path: "/", component: HomePage, name: "home", meta: Object.assign({}, { ...meta, searchType: '' }) },
+    { path: "/", component: HomePage, name: "home", meta: Object.assign({}, { ...meta, searchType: 'ask' }), props: homePropsFn },
     {
         path: "/result", component: SectionsPage, name: "result", meta
         , children: [
