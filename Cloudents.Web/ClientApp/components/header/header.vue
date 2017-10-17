@@ -11,7 +11,7 @@
             <div class="line"></div>
             <form @submit.prevent="submit" class="box-header-search ml-2">
                 <button type="submit" class="mr-2"><search-icon></search-icon></button>
-                <input name="search" type="text" :placeholder="placeholders[$route.name]"
+                <input name="search" type="text" :placeholder="placeholders[$route.name]" required
                        v-model="qFilter" ref="search" @focus="focus">
             </form>
 

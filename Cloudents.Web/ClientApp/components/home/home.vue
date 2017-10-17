@@ -43,7 +43,7 @@
                         <div class="box-search">
                             <form id="labnol" method="get" v-on:submit.prevent="search">
                                 <div class="speech">
-                                    <input type="text" name="q" id="transcript" v-model.trim="msg" :placeholder="placeholder">
+                                    <input type="text" required name="q" id="transcript" v-model.trim="msg" :placeholder="placeholder">
                                     <button type="button" class="demo-icon-mic"><mic-icon></mic-icon></button>
                                     <button type="submit"><search-icon></search-icon> Send</button>
                                 </div>
