@@ -38,7 +38,7 @@
         methods: {
             radioClick(value) {
                 this.value = value.id;
-                this.$emit('click', value);
+                this.$emit('click', value.id);
                 //if (this.changeCallback) {
                     //this.changeCallback(value);
                 //}

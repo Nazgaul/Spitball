@@ -29,6 +29,7 @@ export const pageMixin =
         },
 
         computed: {
+            term: function () { return this.$store.getters.term },
             page: function() {return page[this.name] },
             subFilter: function () { return this.currentQuery[this.filterOptions]; },
             dynamicHeader: function () { return this.pageData.title },
