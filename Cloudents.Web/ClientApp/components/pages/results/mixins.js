@@ -7,10 +7,10 @@ import ResultVideo from './ResultVideo.vue'
 import ResultFood from './ResultFood.vue'
 import ResultBookPrice from './ResultBookPrice.vue'
 const RadioList = () => import('./../../helpers/radioList.vue');
+
 export const pageMixin =
     {
         data() {
-            console.log(page);
             this.$store.subscribe((mutation, state) => {
                 if (mutation.type === "UPDATE_LOADING" && mutation.payload) {
                     this.pageData = {};
@@ -29,7 +29,6 @@ export const pageMixin =
         },
 
         computed: {
-            term: function () { return this.$store.getters.term},
             page: function() {return page[this.name] },
             subFilter: function () { return this.currentQuery[this.filterOptions]; },
             dynamicHeader: function () { return this.pageData.title },
@@ -41,8 +40,7 @@ export const pageMixin =
         },
 
         props: {
-            userText: { type: String }
-            , name: { type: String }, currentQuery: { type: Object }, filterOptions: { type: String }, sort: {type:String}
+            name: { type: String }, currentQuery: { type: Object }, filterOptions: { type: String }, sort: {type:String}
         },
 
         components: { RadioList, ResultItem, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood, ResultBookPrice },
@@ -54,10 +52,6 @@ export const pageMixin =
                 });
             }
         },
-        //created: function () {
-        //    console.log("created")
-        //    this.filter = this.filterOptions;
-        //},
 
         methods: {
             $_defaultSort(defaultSort) {

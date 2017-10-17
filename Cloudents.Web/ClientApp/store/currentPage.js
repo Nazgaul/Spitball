@@ -68,7 +68,6 @@ const actions = {
                 if (isHome) {
                     context.commit(types.ADD, { ...body });
                     resolve(context.rootGetters.currenFlow);
-                    //context.dispatch(types.PAGE_RELOAD, context.rootGetters.currenFlow);
                 } else {
                     context.dispatch('fetchingData', { pageName: context.state.search.type, queryParams: {} })
                 }
@@ -76,9 +75,6 @@ const actions = {
         })
     },
 
-    //[types.PAGE_RELOAD](state, payload) {
-    //    console.log("page reload " + payload);
-    //},
     newResultPage: (context, page) => {
         context.commit(types.UPDATE_SEARCH_PARAMS, { type: page.name })
         if (context.rootGetters.currenFlow != page.name) {
