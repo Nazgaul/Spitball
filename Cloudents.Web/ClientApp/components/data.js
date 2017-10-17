@@ -67,13 +67,6 @@ export let verticals =
             //asideLabel: "search type",
             resultTitle: "I found some textbooks that match your search. Check them out!", emptyState: "Sorry, I did not find any textbooks that match your search...", filter: "", sort: ""
         },
-        //TODO: this is no good place since home page using that list
-        //bookDetails: {
-        //    //id: routes.questionRoute,
-
-        //    filter: [{ id: 'all', name: 'all' }, { id: 'new', name: 'new' }, { id: 'rental', name: 'rental' }, { id: 'eBook', name: 'eBook' }],
-        //    sort: [{ id: 'price', name: 'price' }]
-        //},
         food: {
             id: routes.foodRoute,
 
@@ -86,7 +79,16 @@ export let verticals =
         }
        
     };
-
+export let details = {
+    bookDetails: {
+        filter: [{ id: 'all', name: 'all' }, { id: 'new', name: 'new' }, { id: 'rental', name: 'rental' }, { id: 'eBook', name: 'eBook' }],
+        sort: [{ id: 'price', name: 'price' }]
+    }
+}
+export let actionFunction = {
+        ...verticals,
+        ...details
+};
 export let verticalsPlaceholders = {};
 export let verticalsList=[];
 export let names = [];
@@ -118,7 +120,7 @@ export let verticalsNavbar = [
                 image: verticals[routes.tutorRoute].image
             },
             { id: verticals[routes.jobRoute].name, name: verticals[routes.jobRoute].name, image: verticals[routes.jobRoute].image },
-            { id: verticals[routes.notesRoute].name, name: verticals[routes.bookRoute].name, image: verticals[routes.bookRoute].image }
+            { id: verticals[routes.bookRoute].name, name: verticals[routes.bookRoute].name, image: verticals[routes.bookRoute].image }
         ]
     },
     {
@@ -191,3 +193,8 @@ for (var v in verticals) {
     verticalsList.push(verticals[v]);
     page[v] = { title: item.resultTitle, emptyText: item.emptyState,filter:item.filter,sort:item.sort}
 }
+for (var v in details) {
+    var item = details[v]
+    page[v] = {filter: item.filter, sort: item.sort }
+}
+
