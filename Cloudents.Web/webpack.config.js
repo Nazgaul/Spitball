@@ -43,7 +43,7 @@ module.exports = (env) => {
 
                         options: {
                             loaders: {
-                                css: isDevBuild ? 'vue-style-loader!css-loader!less-loader': ExtractTextPlugin.extract({
+                                css: isDevBuild ? 'vue-style-loader!css-loader!less-loader' : ExtractTextPlugin.extract({
                                     use: 'css-loader?minimize',
                                     fallback: 'vue-style-loader'
                                 }),
@@ -57,7 +57,13 @@ module.exports = (env) => {
                     {
                         test: /\.less$/,
                         exclude: /ClientApp/,
-                        use: isDevBuild ? ['style-loader', 'css-loader', "less-loader"] : ExtractTextPlugin.extract({ use: ['css-loader?minimize', 'less-loader'] })
+                        use: isDevBuild ? ['style-loader', 'css-loader', "less-loader"]
+                            : ExtractTextPlugin.extract(
+                                {
+                                    use: "css-loader?minimize!less-loader",
+                                    fallback: 'style-loader'
+                                }
+                            )
 
                     },
                     {
@@ -106,7 +112,7 @@ module.exports = (env) => {
                 : [
                     // Plugins that apply in production builds only
                     new webpack.optimize.UglifyJsPlugin(),
-                    new ExtractTextPlugin({ filename: 'site.css' }),
+                    new ExtractTextPlugin({ filename: 'site.css', allChunks: true }),
                     new OptimizeCssAssetsPlugin({
                         assetNameRegExp: /\.optimize\.css$/g,
                         cssProcessor: require('cssnano'),
