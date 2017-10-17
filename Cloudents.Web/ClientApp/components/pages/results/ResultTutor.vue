@@ -1,5 +1,43 @@
 ﻿<template>
-    <a class="wrapper" target="_blank" :href="item.url">
+    <a class="elevation-1 d-block" target="_blank" :href="item.url">
+        <v-container class="pa-2">
+            <v-layout row>
+                <!--<v-flex>-->
+                <avatar class="ma-1" :fullname="item.name" :image="item.image" radius="0" size="88"></avatar>
+                <!--<avatar fullname="Jane Doe"></avatar>-->
+                <!--<img :src="item.image" alt="">-->
+                <!--</v-flex>-->
+                <v-flex>
+                    <v-container class="pa-0 full-height">
+                        <v-layout wrap column justify-content-space-between align-item-stretch class="full-height ma-0">
+                            <v-flex class="pa-0">
+                                <v-container class="pa-0">
+                                    <v-layout row>
+                                        <v-flex xs8 class="title">{{item.name}}</v-flex>
+                                        <v-flex xs4 v-if="item.fee"><div class="price text-xs-right">${{item.fee}} / hour</div></v-flex>
+                                    </v-layout>
+                                    <div class="location" v-if="item.city">{{item.city}}, {{item.state}}</div>
+                                </v-container>
+                            </v-flex>
+                            <div class="pa-0 location" v-if="item.online">
+                                Offers online lessons
+                            </div>
+                        </v-layout>
+                    </v-container>
+                    <!--<v-container>
+                        <v-layout row>
+                            <v-flex xs8 class="title">{{item.name}}</v-flex>
+                            <v-flex xs4 v-if="item.fee"><div class="price text-xs-right">${{item.fee}} / hour</div></v-flex>
+                        </v-layout>
+                        <div class="author">{{item.city}}, {{item.state}}</div>
+                        <div class="state" v-if="item.online">Offers online lessons</div>
+                    </v-container>-->
+                </v-flex>
+            </v-layout>
+        </v-container>
+    </a>
+
+    <!--<a class="wrapper" target="_blank" :href="item.url">
         <div class="container-box">
             <div class="box-main box-user">
                 <div class="img">
@@ -17,14 +55,21 @@
                 </div>
             </div>
         </div>
-    </a>
+    </a>-->
 </template>
 <script>
+    import Avatar from 'vue-avatar-component'
     export default {
-        props: { item: {type:Object,required:true}}
+        components: {
+            Avatar
+        },
+        props: { item: { type: Object, required: true } }
     }
 </script>
-<style scoped>
+<style src="./ResultTutor.less" lang="less" scoped>
+   
+</style>
+<!--<style scoped>
     .container-box {
         padding: 17px;
     }
@@ -164,4 +209,4 @@
         .box-user .author {
             margin-bottom: 7px;
         }
-</style>
+</style>-->
