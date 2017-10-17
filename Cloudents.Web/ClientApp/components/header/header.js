@@ -34,8 +34,6 @@ export default {
             names: names,
             qFilter: this.userText,
             isOptions: false
-            
-
         }
     }, computed: {
         ...mapGetters(['userText'])
@@ -52,9 +50,10 @@ export default {
     methods: {
         ...mapActions(['updateSearchText']),
         changeType: function (val) {
-            this.updateSearchText();
+            //this.updateSearchText();
             this.qFilter = "";
-            this.$router.push({ name: val });
+            this.$refs.search.focus();
+            //this.$router.push({ name: val });
             this.updateSearchText();
         },
         submit: function () {

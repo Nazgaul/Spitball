@@ -3,7 +3,7 @@
         <v-container class="pa-2">
             <v-layout row>
                 <v-flex>
-                    <img :class="[item.image?'border-'+$route.name:'bg-'+$route.name]" :src="item.image" alt="">
+                    <img :class="['border-'+$route.name]" :src="item.image" alt="">
                 </v-flex>
                 <v-flex>
                     <v-container class="pa-0 full-height" >

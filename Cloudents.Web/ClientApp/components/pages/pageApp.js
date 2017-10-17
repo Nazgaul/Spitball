@@ -1,5 +1,4 @@
-﻿import Vue from 'vue'
-import appAside from './../navbar/navbar.vue'
+﻿import appAside from './../navbar/navbar.vue'
 import appHeader from './../header/header.vue'
 import pageResult from './results/Result.vue'
 
@@ -9,17 +8,19 @@ export default {
     },
     
     computed: {
-        isLoading: function () { return this.$store.getters.loading },
+        isLoading: function () { return this.$store.getters.loading }
     },
+    methods: {
+        begone: function() {
+            console.log("hasdasd");
+            this.isOverlay = false;
+        }
 
+    },
     data: 
         function() {
             return {
                 isOverlay: !this.$store.getters.userText
             }
         }
-    
-
-
-
 }
