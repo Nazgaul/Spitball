@@ -12,7 +12,6 @@
                 </v-flex>
             </v-layout>
         </v-container>
-        <scroll-list :loadMore="!isEmpty" v-if="pageData.data" @scroll="value => {pageData.data=pageData.data.concat(value) }">
             <v-list>
                 <template v-for="(item,index) in pageData.data">
                     <v-list-tile>
@@ -25,7 +24,6 @@
                 </template>    
                
     </v-list>
-</scroll-list>
     </div>
 </template>
 <script>

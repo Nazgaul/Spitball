@@ -49,9 +49,8 @@ export const activateFunction = {
             });
         })
     },
-    food: function (params) {
+    purchase: function (params) {
         return new Promise((resolve, reject) => {
-            if (params.page) { resolve({ data: [] }); return; }
             search.getFood(params).then(({ body }) => resolve({data: body.map(val => { return { ...val, template: "food" } })}));
         })
     }
