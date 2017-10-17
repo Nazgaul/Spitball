@@ -14,6 +14,7 @@ import googleIcon from "./svg/google-icon.svg";
 import youtubeIcon from "./svg/youtube-icon.svg";
 import instegramIcon from "./svg/instagram-icon.svg";
 import { verticalsPlaceholders } from "./../data"
+import * as types from '../../store/mutation-types';
 
 
 export default {
@@ -32,6 +33,13 @@ export default {
     },
     data() {
         var prefix;
+        this.$store.subscribeAction((action, state) => {
+            if (action.type === types.PAGE_RELOAD) {
+                this.$router.push({
+                    name: action.payload
+                });
+            }
+        });
         return {
             msg: this.$route.meta.userText,
             placeholder: verticalsPlaceholders['ask'],
@@ -62,6 +70,7 @@ export default {
             },
             search: () => {
                 this.$route.meta.searchType = this.searchType;
+                this.$route.meta.userText = this.msg;
                 this.$store.dispatch('updateSearchText', { prefix: prefix, str: this.msg });
             }
         };

@@ -21,7 +21,7 @@
             </v-container>
         </slot>
         <slot name="data">
-            <scroll-list v-if="pageData.data" @scroll="value => {pageData.data=pageData.data.concat(value) }">
+            <scroll-list :loadMore="!isEmpty" v-if="pageData.data" @scroll="value => {pageData.data=pageData.data.concat(value) }">
                 <v-container fluid grid-list-md v-for="(item,index) in pageData.data">
                     <component :is="'result-'+item.template" :item="item" :key="index"></component>
                 </v-container>

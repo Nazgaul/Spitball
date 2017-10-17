@@ -5,6 +5,7 @@ import ResultBook from './ResultBook.vue'
 import ResultJob from './ResultJob.vue'
 import ResultVideo from './ResultVideo.vue'
 import ResultFood from './ResultFood.vue'
+import ResultBookPrice from './ResultBookPrice.vue'
 const RadioList = () => import('./../../helpers/radioList.vue');
 export const pageMixin =
     {
@@ -43,7 +44,7 @@ export const pageMixin =
             , name: { type: String }, currentQuery: { type: Object }, filterOptions: { type: String }, sort: {type:String}
         },
 
-        components: { RadioList, ResultItem, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood },
+        components: { RadioList, ResultItem, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood, ResultBookPrice },
 
         mounted: function () {
             if (this.$route.name==='food'&&navigator.geolocation) {
@@ -80,8 +81,3 @@ export const pageMixin =
             }
         }
     };
-export const itemsList = {
-    computed: {
-        items: function () { return this.$store.getters.items }
-    }
-}

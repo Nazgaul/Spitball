@@ -32,6 +32,7 @@ var optionalRoutes = {
     post: buildChatPostRoute,
     flashcard: buildFlashcardRoute,
     document: buildDocumentRoute,
+    note: buildDocumentRoute,
     tutor: {
         name: routes.tutorRoute,
         children: [
@@ -57,16 +58,22 @@ var optionalRoutes = {
         ]
     },
     purchase: {
-        name: routes.purchaseRoute
+        name: routes.foodRoute
+    },
+    food: {
+        name: routes.foodRoute
     },
     ask: {
-        name: routes.buildAsk,
+        name: routes.questionRoute,
         children: [
             buildChatPostRoute,
             buildDocumentRoute
         ]
     }
 };
+const getters = {
+    currenFlow: state => state.node ? state.node.model.name:"home",
+}
 const mutations = {
     [types.ADD](state, payload) {
         var flow;
@@ -87,7 +94,9 @@ const mutations = {
     }
 };
 
+
 export default {
     state,
+    getters,
     mutations
 };

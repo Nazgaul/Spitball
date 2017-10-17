@@ -63,12 +63,26 @@ const actions = {
         }
         ai.interpetPromise(params.prefix, params.str).then(({ body }) => {
             context.commit(types.UPDATE_SEARCH_PARAMS, { ...body.data, userText: params.str });
-            isHome ? context.commit(types.ADD, body) : context.dispatch('fetchingData', { pageName: context.state.search.type, queryParams: {} });
+            if (isHome) {           
+                context.commit(types.ADD, { ...body });
+                context.dispatch(types.PAGE_RELOAD, context.rootGetters.currenFlow);
+            } else {
+                context.dispatch('fetchingData', { pageName: context.state.search.type, queryParams: {} })
+            }
         })
+    },
+    [types.PAGE_RELOAD](state, payload) {
+        console.log("page reload " + payload);
     },
     newResultPage: (context, page) => {
         context.commit(types.UPDATE_SEARCH_PARAMS, { type: page.name })
+        if (context.rootGetters.currenFlow != page.name) {
+            context.commit(types.ADD, { result: page.name })
+        }
         context.dispatch('fetchingData', {pageName:page.name,queryParams:page.query});
+    },
+    bookDetails: (context, page) => {
+        context.dispatch('fetchingData', { pageName: page.name, queryParams: page.params });
     },
     fetchingData: (context,data) => {
         context.commit(types.UPDATE_LOADING, true);

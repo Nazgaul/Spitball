@@ -24,7 +24,8 @@ export default {
         tutorHeader,
         logo,
         "notification-icon" : notification,
-        "search-icon": searchIcon
+        "search-icon": searchIcon,
+        "bookDetailsHeader":bookHeader
     },
     data() {
         return {

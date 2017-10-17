@@ -7,7 +7,7 @@
                              absolute>
             <v-list>
                 <template v-for="action in actions">
-                    <v-list-tile append="true">
+                    <v-list-tile append>
                         <v-list-tile-content>
                             <v-list-tile-title>{{ action.name }}</v-list-tile-title>
                         </v-list-tile-content>

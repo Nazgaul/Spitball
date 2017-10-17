@@ -53,6 +53,10 @@ export let verticals =
             //asideLabel: "search type",
             resultTitle: "I found some textbooks that match your search. Check them out!", emptyState: "Sorry, I did not find any textbooks that match your search...", filter: "", sort: ""
         },
+        bookDetails: {
+            filter: [{ id: 'all', name: 'all' }, { id: 'new', name: 'new' }, { id: 'rental', name: 'rental' }, { id: 'eBook', name: 'eBook' }],
+            sort: [{ id: 'price', name: 'price' }]
+        },
         food: {
             name: "food", image: "food", placeholder: "Where can i get...", prefix: "Where can I get a",
             //asideLabel: "purchase",

@@ -33,7 +33,7 @@ export const activateFunction = {
     },
     job: function (params) {
         return new Promise((resolve, reject) => {
-            search.getJob(params).then(({ body }) => resolve({ data: body.map(val => { return { ...val, template: "job" } }) }));
+            search.getJob(params).then(({ body }) => resolve({jobType:body.types, data: body.jobs.map(val => { return { ...val, template: "job" } }) }));
         })
     },
     book: function (params) {
@@ -41,9 +41,17 @@ export const activateFunction = {
             search.getBook(params).then(({ body }) => resolve({ data: body.map(val => { return {...val,template:"book"}}) }) );
         })
     },
+    bookDetails: function (params) {
+        return new Promise((resolve, reject) => {
+            if (params.page) { resolve({ data: [] }); return;}
+            search.getBookDetails({ type: params.type, isbn13: params.id }).then(({ body }) => {
+                resolve({details:body.details, data: body.prices.map(val => { return { ...val, template: "book-price" } }) })
+            });
+        })
+    },
     food: function (params) {
         return new Promise((resolve, reject) => {
-            if (params.page) resolve({data:[]});
+            if (params.page) { resolve({ data: [] }); return; }
             search.getFood(params).then(({ body }) => resolve({data: body.map(val => { return { ...val, template: "food" } })}));
         })
     }
