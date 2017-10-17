@@ -29,4 +29,6 @@
     </v-toolbar>
 </template>
 <script src="./header.js"></script>
-<style src="./header.less" lang="less" scoped></style>
+<style src="./header.less" lang="less"></style>
+
+

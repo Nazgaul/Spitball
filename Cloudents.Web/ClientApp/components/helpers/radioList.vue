@@ -46,7 +46,7 @@
         }
     }
 </script>
-<style src="./radioList.less" scoped lang="less"></style>
+<!--<style src="./radioList.less" scoped lang="less"></style>-->
 <!--<style scoped lang="less">
    
     .not-selected--text {
