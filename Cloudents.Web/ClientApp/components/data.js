@@ -4,13 +4,19 @@ import * as routes from './../routeTypes';
 export let verticals =
     {
         ask: {
-            name: "ask", image: "ask", placeholder: "Ask anything...", prefix: "",
+            id: routes.questionRoute,
+            name: "ask",
+            image: "ask",
+            placeholder: "Ask anything...",
+            prefix: "",
             resultTitle: "I’ve come to the conclusion that the answer is:",
             emptyState: "I could not find any relevant answers. Try these other options.",
             sort: ""
             //asideLabel: "search type"
         },
         note: {
+            id: routes.notesRoute,
+
             name: "note", image: "document", placeholder: "Find me class materials...",
             prefix: "Find me class material for",
             //asideLabel: "search type",
@@ -21,6 +27,8 @@ export let verticals =
                 { id: 'date', name: 'date' }]
         },
         flashcard: {
+            id: routes.flashcardRoute,
+
             name: "flashcard", image: "flashcard", placeholder: "Find me flashcards...",
             prefix: "Find me flashcards on",
             //asideLabel: "search type",
@@ -30,6 +38,8 @@ export let verticals =
             sort: [{ id: 'relevance', name: 'relevance' }, { id: 'date', name: 'date' }]
         },
         tutor: {
+            id: routes.tutorRoute,
+
             name: "tutor", image: "tutor", placeholder: "Find me a tutor...",
             prefix: "Find me a tutor for",
             //asideLabel: "search type",
@@ -39,6 +49,8 @@ export let verticals =
             sort: [{ id: 'relevance', name: 'relevance' }, { id: 'price', name: 'price' }, { id: 'distance', name: 'distance' }]
         },
         job: {
+            id: routes.jobRoute,
+
             name: "job",
             image: "job",
             placeholder: "Find me a job...",
@@ -49,16 +61,26 @@ export let verticals =
             sort: [{ id: 'relevance', name: 'relevance' }, { id: 'price', name: 'price' }, { id: 'distance', name: 'distance' }]
         },
         book: {
+            id: routes.bookRoute,
+
             name: "book", image: "book", placeholder: "Find me a textbook ...", prefix: "Find me a textbook -",
             //asideLabel: "search type",
             resultTitle: "I found some textbooks that match your search. Check them out!", emptyState: "Sorry, I did not find any textbooks that match your search...", filter: "", sort: ""
         },
-        bookDetails: {
-            filter: [{ id: 'all', name: 'all' }, { id: 'new', name: 'new' }, { id: 'rental', name: 'rental' }, { id: 'eBook', name: 'eBook' }],
-            sort: [{ id: 'price', name: 'price' }]
-        },
+        //TODO: this is no good place since home page using that list
+        //bookDetails: {
+        //    //id: routes.questionRoute,
+
+        //    filter: [{ id: 'all', name: 'all' }, { id: 'new', name: 'new' }, { id: 'rental', name: 'rental' }, { id: 'eBook', name: 'eBook' }],
+        //    sort: [{ id: 'price', name: 'price' }]
+        //},
         food: {
-            name: "food", image: "food", placeholder: "Where can i get...", prefix: "Where can I get a",
+            id: routes.foodRoute,
+
+            name: "food",
+            image: "food",
+            placeholder: "Where can i get...",
+            prefix: "Where can I get a",
             //asideLabel: "purchase",
             resultTitle: "Booya! I found a few places that<br>you might like.", emptyState: "Sorry, friend! I couldn't find anywhere nearby that sells $subject", filter: [{ id: 'all', name: 'all' }, { id: 'openNow', name: 'open now' }], sort: [{ id: 'distance', name: 'distance' }]
         }
@@ -76,34 +98,34 @@ export let verticalsNavbar = [
         label: "search type",
         data: [
             {
-                id: routes.questionRoute,
+                id: verticals[routes.questionRoute].id,
                 name: verticals[routes.questionRoute].name,
                 image: verticals[routes.questionRoute].image
             },
             {
-                id: routes.notesRoute,
+                id: verticals[routes.notesRoute].name,
                 name: verticals[routes.notesRoute].name,
                 image: verticals[routes.notesRoute].image
             },
             {
-                id: routes.flashcardRoute,
+                id: verticals[routes.flashcardRoute].name,
                 name: verticals[routes.flashcardRoute].name,
                 image: verticals[routes.flashcardRoute].image
             },
             {
-                id: routes.tutorRoute,
+                id: verticals[routes.tutorRoute].name,
                 name: verticals[routes.tutorRoute].name,
                 image: verticals[routes.tutorRoute].image
             },
-            { id: routes.jobRoute, name: verticals[routes.jobRoute].name, image: verticals[routes.jobRoute].image },
-            { id: routes.bookRoute, name: verticals[routes.bookRoute].name, image: verticals[routes.bookRoute].image }
+            { id: verticals[routes.jobRoute].name, name: verticals[routes.jobRoute].name, image: verticals[routes.jobRoute].image },
+            { id: verticals[routes.notesRoute].name, name: verticals[routes.bookRoute].name, image: verticals[routes.bookRoute].image }
         ]
     },
     {
         label: "purchase",
         data: [
             {
-                id: routes.foodRoute,
+                id: verticals[routes.foodRoute].id,
                 name: verticals[routes.foodRoute].name,
                 image: verticals[routes.foodRoute].image
             }

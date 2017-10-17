@@ -6,7 +6,7 @@
                              overflow
                              absolute>
             <v-list>
-                <template v-for="action in actions">
+                <template v-for="action in links">
                     <v-list-tile append>
                         <v-list-tile-content>
                             <v-list-tile-title>{{ action.name }}</v-list-tile-title>
@@ -21,16 +21,16 @@
                     <v-toolbar flat style="background-color:transparent;">
                         <v-toolbar-side-icon @click.stop="drawer = !drawer" class="hidden-md-and-up">Hamburger</v-toolbar-side-icon>
                         <v-toolbar-title>
-                            <picture>
+                            <!--<picture>
                                 <source media="(min-width: 959px)" srcset="/images/logo-spitball.svg" />
                                 <source media="(max-width: 959px)" srcset="./img/spitball-logo.png" />
                                 <img src="/images/logo-spitball.svg" alt="" />
-                            </picture>
-                            <!--<img class="hidden-sm-and-down" src="./img/logo-spitball.png" alt="">
-                            <img class="hidden-md-and-up" src="./img/spitball-logo.png" alt="">-->
+                            </picture>-->
+                            <img class="hidden-sm-and-down" src="./img/logo-spitball.png" alt="">
+                            <img class="hidden-md-and-up" src="./img/spitball-logo.png" alt="">
                         </v-toolbar-title>
                         <v-spacer class="hidden-sm-and-down"></v-spacer>
-                        <div class="hidden-sm-and-down" v-for="action in actions">
+                        <div class="hidden-sm-and-down" v-for="action in links" :key="action.name">
                             <a href="#">{{ action.name }}</a>
                         </div>
                     </v-toolbar>

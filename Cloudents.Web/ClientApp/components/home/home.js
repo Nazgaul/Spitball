@@ -45,7 +45,7 @@ export default {
             placeholder: verticalsPlaceholders['ask'],
             searchType:"",
             drawer: null,
-            actions: [
+            links: [
                 {
                     name: "Spitball Guide",
                     link: "#"
