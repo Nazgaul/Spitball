@@ -8,7 +8,7 @@
             </router-link>
             <div class="line"></div>
             <div class="icon">
-                <component :class="'bg-'+$route.name" class="item" v-bind:is="$route.name+'Header'"></component>
+                <component :class="'fill-'+$route.name" class="item" v-bind:is="$route.name+'Header'"></component>
             </div>
             <div class="line"></div>
             <!--<v-text-field

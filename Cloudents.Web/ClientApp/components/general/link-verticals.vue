@@ -7,7 +7,7 @@
                     <component class="item" v-bind:is="vertical.image"></component>
                 </v-list-tile-action-text>
                 <v-list-tile-content class="ml-2">
-                    <v-list-tile-title>{{vertical.name }}</v-list-tile-title>
+                    <v-list-tile-title>{{vertical.name}}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
         </template>

@@ -32,6 +32,8 @@
 
 //new stuff
 
+
+
 @Ask-a-Question: #0455a8;
 @Class-Material: #320161;
 @Flashcards: #f14d4d;
@@ -66,19 +68,21 @@
 @Feed-Date: #888b8e;
 
 
-.inTheMiddle() {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
-.giveMeEllipsis(@lines,@line-height) {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: @lines; /* number of lines to show */
-    line-height: @line-height; /* fallback */
-    max-height: (@lines*@line-height); /* fallback */
-}
+
+    .inTheMiddle() {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .giveMeEllipsis(@lines,@line-height) {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: @lines; /* number of lines to show */
+        line-height: @line-height; /* fallback */
+        max-height: (@lines*@line-height); /* fallback */
+    }
 

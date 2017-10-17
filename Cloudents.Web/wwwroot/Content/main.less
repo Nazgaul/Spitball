@@ -1,24 +1,87 @@
-﻿@import "../../ClientApp/mixin.less";
+﻿//@import "../../ClientApp/mixin.less";
+
+
+@Site-Background: #eeeeee;
 
 html {
-    font-family: sans-serif;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
 }
 
 body {
+    font-family: 'Open Sans', sans-serif;
     //margin: 0;
     background-color: @Site-Background;
 }
+
 input[type="text"]:focus {
     outline: none;
 }
+
 button {
-    margin:0;
+    margin: 0;
 }
+
 .application--light {
     background: @Site-Background;
 }
+
+
+
+@vertical-ask: #0455a8;
+@vertical-note: #320161;
+@vertical-flashcard: #f14d4d;
+@vertical-tutor: #52ab15;
+@vertical-book: #8c3fbf;
+@vertical-job: #f49c20;
+@vertical-food: #2cbfa5;
+@vertical-upload: #94b7cb;
+@vertical-post: #414141;
+@vertical-create: #a40115;
+@vertical-chat: #9ccdff;
+@vertical-course: #2adaff;
+@vertical-like: #7ed321;
+@vertical-setting: #07305a;
+@list-verticals: ask,flashcard,note,tutor,book,food,job,upload,post,create,chat,course,like,setting;
+
+.horizontal-variant(@variant,@p) {
+    @color: "vertical-@{variant}"; //"horizontal-@{variant}-color";
+    @{p}: @@color;
+}
+
+.loop(@index) when (@index <= length(@list-verticals)) {
+    .loop((@index + 1)); // next iteration
+    //@p: at(@list-verticals,@index) ;
+    @p: extract(@list-verticals,@index);
+    //@z: "@{p}";
+    //width: (10px * @counter); // code for each iteration
+    .text-@{p} {
+        .horizontal-variant(@p,color)
+        //color: @z;// extract(@list-verticals,@index)
+    }
+
+    .bg-@{p} {
+        .horizontal-variant(@p,background);
+        .svg-fill {
+            fill:#fff;
+        }
+    }
+
+    .fill-@{p} {
+        .svg-fill {
+            .horizontal-variant(@p,fill);
+        }
+    }
+    .border-@{p} {
+        border:1px solid;
+        .horizontal-variant(@p,border-color);
+    }
+}
+
+.loop(1);
+
+
+
 /*article,
 aside,
 details,

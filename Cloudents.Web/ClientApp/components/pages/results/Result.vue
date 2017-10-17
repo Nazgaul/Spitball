@@ -41,19 +41,6 @@
         mixins: [pageMixin]
     }
 </script>
-<style scoped>
-    .chip:focus:not(.chip--disabled) {
-        background: blue !important;
-    }
-    /*.content {
-        background: #eeeeee;
-    }*/
-    .sort {
-        border-left: 1px solid #ddd;
-    }
-
-    h5 {
-        text-align: center;
-        color: #003b78;
-    }
+<style src="./Result.less" lang="less" scoped>
+    
 </style>
