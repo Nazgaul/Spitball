@@ -2,8 +2,8 @@
     <div>
         <div class="text-xs-center">
             <v-chip  color="not-selected" v-for="v in values" :key="v.id"
-                    @click="radioClick(v)"
-                    :selected="value==v.id">{{v.name}}  </v-chip>
+                    @click="radioClick(v.id)"
+                    :selected="checkVal==v.id">{{v.name}}  </v-chip>
 
         </div>
     </div>
@@ -37,8 +37,8 @@
         },
         methods: {
             radioClick(value) {
-                this.value = value.id;
-                this.$emit('click', value.id);
+                this.checkVal = value;
+                this.$emit('click', value);
                 //if (this.changeCallback) {
                     //this.changeCallback(value);
                 //}

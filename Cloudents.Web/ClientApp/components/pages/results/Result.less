@@ -1,6 +1,8 @@
 ﻿@import "../../../mixin.less";
 
 .sec-result {
+    max-width: 520px;
+
     .cell {
         background: #fff;
     }
@@ -27,6 +29,21 @@
         &.chip--selected {
             background: #fff;
             color: @Spitball-Main-color; //override
+        }
+    }
+
+    .sub-search {
+        overflow: auto;
+        white-space: nowrap;
+
+        .chip {
+            border: solid 1px @Sub-Filter;
+            color: @Sub-Filter;
+
+            &.chip--selected {
+                background: @Sub-Filter;
+                color: #fff; //override
+            }
         }
     }
 }
