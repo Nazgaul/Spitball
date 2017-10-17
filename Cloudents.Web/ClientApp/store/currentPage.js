@@ -49,8 +49,9 @@ const actions = {
         let params = {};
         let isHome = true;
         console.log(text);
-        if (!text){
-            context.commit(types.UPDATE_SEARCH_PARAMS, { userText: null });
+        if (!text) {
+            //TODO: need to figure out what do to in here.
+            //context.commit(types.UPDATE_SEARCH_PARAMS, { userText: null });
             return;
         }
 

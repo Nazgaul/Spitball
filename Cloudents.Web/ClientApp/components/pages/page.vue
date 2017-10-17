@@ -2,7 +2,7 @@
 <template v-once>
     <div>
         <div :class="{overlay:isOverlay}" @click="begone()"></div>
-        <app-header ref="header" :overlay.sync="isOverlay"></app-header>
+        <app-header ref="header" :overlay.sync="isOverlay" :isOverlay="isOverlay"></app-header>
         <app-aside></app-aside>
         <main>
             <v-content>
