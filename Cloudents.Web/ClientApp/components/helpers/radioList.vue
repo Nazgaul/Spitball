@@ -1,42 +1,62 @@
 ﻿<template>
-    <v-flex>
+    <div>
+        <div class="text-xs-center">
+            <v-chip  color="not-selected" v-for="v in values" :key="v.id"
+                    @click="radioClick(v)"
+                    :selected="value==v.id">{{v.name}}  </v-chip>
+
+        </div>
+    </div>
+    <!--<v-flex>
         <div inline-flex>
-            <div class="text-xs-center ml-1" v-for="v in values" :key="v.id"><input @click="radioClick($event.target.value)" :checked="value==v.id" :ref="v.id" type="radio" :id="v.id" :value="v.id" :name="model" /><label class=" chip chip--outline" :for="v.id" :class="[value==v.id?'selected':'not-selected']">{{v.name}}</label></div>
+            <div class="text-xs-center ml-1" v-for="v in values" :key="v.id">
+                <input @click="radioClick($event.target.value)" :checked="value==v.id" :ref="v.id" type="radio" :id="v.id" :value="v.id" :name="model" />
+                <label class=" chip chip--outline" :for="v.id" :class="[value==v.id?'selected':'not-selected']">{{v.name}}</label>
+            </div>
             <v-spacer></v-spacer>
         </div>
-    </v-flex>
+    </v-flex>-->
 </template>
 <script>
     export default {
         model: {
             prop: 'value',
-            event:'click'
+            event: 'click'
         },
         data: function () {
-            return { checkVal: this.value}
+            return { checkVal: this.value }
         },
         computed: {
             currentVal: function () { return this.checkVal || this.value }
         },
-        props: { value: { type: [String, Number] }, values: { type: [String, Array] }, model: { type: String }, changeCallback: { type: Function }},
+        props: {
+            value: { type: [String, Number] },
+            values: { type: [String, Array] },
+            model: { type: String },
+            changeCallback: { type: Function }
+        },
         methods: {
             radioClick(value) {
-                //this.checkVal = value;
-                console.log(value);
+                this.value = value.id;
                 this.$emit('click', value);
-                if (this.changeCallback) {
-                    this.changeCallback(value);
-                }
+                //if (this.changeCallback) {
+                    //this.changeCallback(value);
+                //}
             }
         }
     }
 </script>
-<style scoped>
-    /*input[type="radio"]:checked + label {
+<style src="./radioList.less" scoped lang="less"></style>
+<!--<style scoped lang="less">
+   
+    .not-selected--text {
+        color: blueviolet;
+    }
+    input[type="radio"]:checked + label {
     background:black!important;
     }*/
-    input[type="radio"] {
-         display:none;
+    /*input[type="radio"] {
+        display: none;
     }
 
     .header input[type="radio"]:checked + label {
@@ -45,8 +65,8 @@
     }
 
     .header label {
-        background: #bbbbbb!important;
-        color:white
+        background: #bbbbbb !important;
+        color: white
     }
 
     .search input[type="radio"]:checked + label {
@@ -69,5 +89,5 @@
         background: #eeeeee !important;
         color: #1e59a8;
         border: solid 1px #1e59a8;
-    }
-</style>
+    }*/
+</style>-->

@@ -1,140 +1,10 @@
 ﻿@import "../../mixin.less";
-/*@font-bold: "OpenSans-Bold";
-@font-regular: "OpenSans-Regular";
-@font-semibold: "OpenSans-Semibold";
 
-@color-white: #fff;
-@color-black: #000;
-@color-light-grey-5: #ddd;
-@color-dark-blue: #0455a8;
-@color-dark-red: #c30000;
-@color-suggest: #bbbbbb;
+@logoWidth: 215px;
+@iconWidth: 50px;
 
-.box-shadow (@string) {
-    -webkit-box-shadow: @string;
-    -moz-box-shadow: @string;
-    box-shadow: @string;
-}
-
-.rounded-all(@radius) {
-    border-radius: (@radius);
-}*/
-
-
-/*.toolbar__content {
-    .box-shadow (0 2px 4px 0 rgba(0, 0, 0, 0.1));
-    border: 1px solid @color-light-grey-5;
-}
-
-header {
-    min-width: 700px;
-
-    .logo {
-        border-right: 1px solid @color-light-grey-5;
-        display: block;
-        height: 100%;
-        line-height: 64px;
-        margin: 0 !important;
-        text-align: center;
-        width: 214px;
-
-        img {
-            display: inline-block;
-            vertical-align: middle;
-        }
-    }
-
-
-    .icon {
-        border-right: 1px solid @color-light-grey-5;
-        height: 100%;
-        line-height: 64px;
-        text-align: center;
-        width: 70px;
-
-        .item {
-            height: 1.5em;
-            width: 1.5em;
-        }
-
-        img {
-            display: inline-block;
-            vertical-align: middle;
-        }
-    }
-
-    .box-header-search {
-        padding: 0 17px;
-
-        input[type="text"] {
-            color: @color-dark-blue;
-            font-size: 16px;
-            letter-spacing: -0.4px;
-            height: 22px;
-            padding: 0 12px;
-            width: 280px;
-        }
-
-        input[type="text"]:focus {
-            outline: none;
-        }
-
-        input::-webkit-input-placeholder {
-            color: @color-dark-blue;
-        }
-
-        input::-moz-placeholder {
-            color: @color-dark-blue;
-        }
-
-        input:-ms-input-placeholder {
-            color: @color-dark-blue;
-        }
-
-        input:-moz-placeholder {
-            color: @color-dark-blue;
-        }
-
-        input:-webkit-autofill {
-            -webkit-box-shadow: 0 0 0 30px white inset;
-        }
-
-        button {
-            float: left;
-            height: 22px;
-
-            img {
-                display: block;
-            }
-        }
-    }
-
-    .box-notification {
-        border-left: 1px solid @color-light-grey-5;
-        display: block;
-        height: 100%;
-        margin: 0 !important;
-        position: relative;
-        width: 64px;
-    }
-
-    .counter {
-        background: @color-dark-red;
-        border: 1px solid @color-white;
-        .rounded-all(50%);
-        color: @color-white;
-        font-size: 9px;
-        height: 16px;
-        line-height: 14px;
-        position: absolute;
-        text-align: center;
-        top: 16px;
-        right: 16px;
-        width: 16px;
-    }
-}*/
 .logo-link {
-    width: 215px; //note this is the navbar width as on navbar.vue
+    width: @logoWidth; //note this is the navbar width as on navbar.vue
     .inTheMiddle();
     //border-right: 1px solid #dddddd;
     //height: 100%;
@@ -145,26 +15,35 @@ header {
     //height:100%;
 }
 
+.toolbar__content {
+    border-bottom: 1px solid #ddd;
+}
+
+.header {
+    background: #fff;
+}
+
+.first-header {
+    border-bottom: 1px solid #ddd;
+}
+
+
 .logo {
     width: 128px;
     height: 24.6px;
 }
 
 .icon {
-    width: 50px;
-    //border-right: 1px solid #dddddd;
-    //height:100%;
-}
-
-.bg-note {
-    /deep/ .fill {
-        fill: @Class-Material;
-    }
+    width: @iconWidth;
 }
 
 .item {
     width: 34.6px;
     height: 24px;
+}
+
+.verticals {
+    margin-left: @iconWidth + @logoWidth;
 }
 
 .box-header-search {
@@ -181,9 +60,11 @@ header {
     }
     //width:100%;
 }
+
 .notification {
     width: 60px;
     .inTheMiddle();
+
     svg {
         width: 15.8px;
         height: 18px;
