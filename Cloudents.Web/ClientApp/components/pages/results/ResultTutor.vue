@@ -1,8 +1,8 @@
-﻿<template>
+﻿<template v-once>
     <a class="elevation-1 d-block" target="_blank" :href="item.url">
         <v-container class="pa-2">
             <v-layout row>
-                <avatar class="ma-1" :fullname="item.name" :image="item.image" radius="0" size="88"></avatar>
+                <avatar class="ma-1" :fullname="item.name" :image="item.image" :radius="0" :size="88"></avatar>
                 <v-flex>
                     <v-container class="pa-0 full-height">
                         <v-layout wrap column justify-content-space-between align-item-stretch class="full-height ma-0">

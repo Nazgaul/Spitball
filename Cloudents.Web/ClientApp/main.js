@@ -3,6 +3,7 @@ import App from './components/app/app.vue';
 import store from './store';
 import scroll from './components/helpers/infinateScroll.vue'
 import VueRouter from 'vue-router';
+import vueMoment from "vue-moment";
 
 const vuetifyComponents = {
     VApp,
@@ -37,6 +38,7 @@ Vue.use(Vuetify,
     {
         components: vuetifyComponents
     });
+Vue.use(vueMoment);
 Vue.component('scroll-list', scroll);
 
 const router = new VueRouter({
