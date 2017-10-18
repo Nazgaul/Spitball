@@ -1,5 +1,24 @@
-﻿<template>
-    <div class="wrapper">
+﻿<template v-once>
+    <a class="elevation-1 d-block pa-2 place-cell">
+        <v-container class="pa-2">
+            <v-layout row>
+                <img :src="item.image" alt="">
+                <v-flex>
+                    <v-container class="pa-0 full-height">
+                        <v-layout wrap column justify-content-space-between align-item-stretch class="full-height ma-0">
+                            <v-flex class="pa-0" style="flex-grow:1">
+                                <div class="cell-title" >{{item.name}}</div>
+                                <star-rating :inline="true" :star-size="20" :read-only="true" :show-rating="false" :increment="0.1" :rating="item.rating"></star-rating>
+                                <div>{{item.address}}</div>
+                            </v-flex>
+                            <div class="pa-0 bottom" v-if="item.open">Open Now</div>
+                        </v-layout>
+                    </v-container>
+                </v-flex>
+            </v-layout>
+        </v-container>
+    </a>
+    <!--<div class="wrapper">
             <div class="container-box">
                 <div class="box-main box-food">
                     <div class="img">
@@ -19,13 +38,13 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
 </template>
 <script>
     import StarRating from 'vue-star-rating'
     export default {
         props: { item: { type: Object, required: true } },
-        components: {StarRating}
+        components: { StarRating }
     }
 </script>
-<style src="./ResultFood.less" lang="less" scoped></style>
+<!--<style src="./ResultFood.less" lang="less" scoped></style>-->
