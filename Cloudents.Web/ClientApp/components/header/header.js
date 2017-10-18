@@ -54,7 +54,6 @@ export default {
             this.qFilter = "";
             this.$refs.search.focus();
             //this.$router.push({ name: val });
-            this.updateSearchText();
         },
         submit: function () {
             this.isOptions = false;

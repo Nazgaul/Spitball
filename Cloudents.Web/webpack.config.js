@@ -39,7 +39,7 @@ module.exports = (env) => {
                     {
                         test: /\.vue$/,
                         loader: 'vue-loader',
-                        include: /ClientApp/,
+                        //include: /ClientApp/,
 
                         options: {
                             loaders: {
