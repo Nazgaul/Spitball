@@ -2,14 +2,25 @@
     <a class="elevation-1 d-block pa-2 place-cell">
         <v-container class="pa-2">
             <v-layout row>
-                <img :src="item.image" alt="">
-                <v-flex>
+                <div class="img-wrap">
+                    <img :src="item.image" alt="">
+                </div>
+                <v-flex class="pa-0 ml-2">
                     <v-container class="pa-0 full-height">
                         <v-layout wrap column justify-content-space-between align-item-stretch class="full-height ma-0">
-                            <v-flex class="pa-0" style="flex-grow:1">
+                            <v-flex class="pa-0">
                                 <div class="cell-title" >{{item.name}}</div>
-                                <star-rating :inline="true" :star-size="20" :read-only="true" :show-rating="false" :increment="0.1" :rating="item.rating"></star-rating>
-                                <div>{{item.address}}</div>
+                                <div class="rate">
+                                    <span>{{item.rating}}</span>
+                                    
+                                    <star-rating :inline="true" :star-size="12" 
+                                                 :read-only="true" :show-rating="false" 
+                                                 active-color="#f6a623"
+                                                 inactive-color="#ddd"
+                                                 :increment="0.1"
+                                                 :rating="item.rating"></star-rating>
+                                </div>
+                                <div class="address">{{item.address}}</div>
                             </v-flex>
                             <div class="pa-0 bottom" v-if="item.open">Open Now</div>
                         </v-layout>
@@ -47,4 +58,4 @@
         components: { StarRating }
     }
 </script>
-<!--<style src="./ResultFood.less" lang="less" scoped></style>-->
+<style src="./ResultFood.less" lang="less"></style>

@@ -86,3 +86,22 @@
         max-height: (@lines*@line-height); /* fallback */
     }
 
+.imageWrapper(@width,@height) {
+    .img-wrap {
+        width: @width;
+        height: @height;
+        
+
+        > img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
+.flexSameSize() {
+    flex-grow:0;
+    flex-shrink:0;
+}
+
+

@@ -2,8 +2,8 @@
     <a class="elevation-1 d-block" target="_blank" :href="item.url">
         <v-container class="pa-2">
             <v-layout row>
-                <v-flex>
-                    <img :class="['border-'+$route.name]" :src="item.image" alt="">
+                <v-flex class="img-wrap" :class="['border-'+$route.name]">
+                    <img  :src="item.image" alt="">
                 </v-flex>
                 <v-flex>
                     <v-container class="pa-0 full-height" >
@@ -12,7 +12,7 @@
                                 <div class="cell-title" :class="'text-'+$route.name">{{item.title}}</div>
                                 <p>{{item.snippet}}</p>
                             </v-flex>
-                            <v-flex class="pa-0 bottom" style="flex-grow:0">
+                            <v-flex class="pa-0 bottom">
                                 Source: {{item.source}}
                             </v-flex>
                         </v-layout>

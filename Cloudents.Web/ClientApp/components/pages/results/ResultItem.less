@@ -21,21 +21,16 @@ p {
     overflow: hidden;
 }
 
-img {
-    width: 117.5px;
-    height: 160px;
-}
-
-.border-ask {
-    border: solid 1px @Ask-a-Question;
-}
-
-.text-ask {
-    color: @Ask-a-Question;
-}
 .bottom {
     flex-grow: 0;
     color: #9b9b9b;
     font-size: 10px;
     letter-spacing: -0.2px;
+    .flexSameSize();
+}
+
+.imageWrapper(117.5px,160px);
+
+.img-wrap {
+    .flexSameSize();
 }

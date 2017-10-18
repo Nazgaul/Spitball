@@ -1,5 +1,35 @@
-﻿.place-cell {
+﻿@import "../../../mixin.less";
 
+.place-cell {
+    .imageWrapper(80px,116px);
+
+    .cell-title {
+        font-size: 17px;
+        font-weight: 600;
+        letter-spacing: -0.4px;
+        color: @Food;
+    }
+
+    .rate {
+        span {
+            font-size: 14px;
+            letter-spacing: -0.3px;
+            color: @Feed-Like-count;
+        }
+    }
+
+    .address {
+        font-size: 14px;
+        letter-spacing: -0.3px;
+        color: @Book-Info;
+    }
+
+    .bottom {
+        font-size: 14px;
+        letter-spacing: -0.3px;
+        color: @Feed-Like-count;
+        .flexSameSize();
+    }
 }
 /*@font-bold: "OpenSans-Bold";
 @font-regular: "OpenSans-Regular";
