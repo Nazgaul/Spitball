@@ -1,6 +1,6 @@
 ﻿<template v-once>
     <a class="elevation-1 d-block pa-2 place-cell">
-        <v-container class="pa-2">
+        <v-container class="pa-0">
             <v-layout row>
                 <div class="img-wrap">
                     <img :src="item.image" alt="">

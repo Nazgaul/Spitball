@@ -1,7 +1,7 @@
 ﻿@import "../../../mixin.less";
 a {
-    max-width: 500px;
-    height: 176px;
+    //max-width: 500px;
+    //height: 176px;
 }
 
 
@@ -9,13 +9,21 @@ a {
     font-size: 14px;
     font-weight: bold;
     letter-spacing: -0.3px;
+    .giveMeEllipsisOne();
+    max-width: ~"calc(100% - 5px)";
+
+    //.giveMeEllipsis(1,1.14);
+    //margin-right: 40px;
+}
+.right-section  {
+    min-width:0; // elipsis casus issue this is the solution
 }
 p {
     //.giveMeEllipsis(3,1.29);
     font-size: 14px;
     color: #000;
     height: 72px;
-    margin-right: 70px;
+    //margin-right: 40px;
     line-height: 1.29;
     letter-spacing: -0.3px;
     overflow: hidden;
@@ -29,7 +37,7 @@ p {
     .flexSameSize();
 }
 
-.imageWrapper(117.5px,160px);
+.imageWrapper(118px,160px);
 
 .img-wrap {
     .flexSameSize();

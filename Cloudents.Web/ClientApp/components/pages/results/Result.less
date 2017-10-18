@@ -3,20 +3,25 @@
 .sec-result {
     //max-width: 520px;
     //TODO: need to do responsive
+    @cell-width: 504px;
+
     .cell {
         background: #fff;
-        width: 520px;
+        width: @cell-width;
+        border-radius: 4px;
     }
 
     h5 {
         font-weight: 600;
         text-align: center;
+        width: @cell-width;
         color: @Spitball-Text;
     }
 
     .s-divider {
         width: 0px;
         border-left: solid 1px @Spitball-Main-color;
+        margin: 4px 6px;
     }
 
     .chip {
@@ -29,6 +34,7 @@
 
         &.chip--selected {
             background: #fff;
+            border: 0;
             color: @Spitball-Main-color; //override
         }
     }

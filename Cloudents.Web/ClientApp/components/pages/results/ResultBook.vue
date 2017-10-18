@@ -1,8 +1,10 @@
 ﻿<template v-once>
     <div class="elevation-1 pa-2 book-cell">
-        <v-container class="pa-2">
+        <v-container class="pa-0">
             <v-layout row>
-                <img :src="item.image" alt="">
+                <div class="img-wrap">
+                    <img :src="item.image" alt="">
+                </div>
                 <v-flex class="details ml-2">
                     <div class="mb-3 cell-title">{{item.title}}</div>
                     <div v-if="item.author">Author: {{item.author}}</div>
@@ -14,8 +16,8 @@
             </v-layout>
         </v-container>
         <div class="text-xs-right">
-            <v-btn flat class="sell" :to="{name:'bookDetails',params:{id:item.isbn13,type:'sell'}}">Sell</v-btn>
-            <v-btn flat class="buy"  append :to="{name:'bookDetails',params:{id:item.isbn13,type:'buy'}}">Buy or Rent</v-btn>
+            <v-btn flat small  class="sell mb-0 mr-1" :to="{name:'bookDetails',params:{id:item.isbn13,type:'sell'}}">Sell</v-btn>
+            <v-btn flat small  class="buy mb-0 ml-1 mr-0"  append :to="{name:'bookDetails',params:{id:item.isbn13,type:'buy'}}">Buy or Rent</v-btn>
         </div>
     </div>
     <!--<div class="wrapper">

@@ -1,13 +1,13 @@
 ﻿<template>
     <a class="elevation-1 d-block" target="_blank" :href="item.url">
         <v-container class="pa-2">
-            <v-layout row>
-                <v-flex class="img-wrap" :class="['border-'+$route.name]">
+            <v-layout row fluid>
+                <v-flex class="img-wrap mr-2 pa-0" :class="['border-'+$route.name]">
                     <img  :src="item.image" alt="">
                 </v-flex>
-                <v-flex>
+                <v-flex class="right-section">
                     <v-container class="pa-0 full-height" >
-                        <v-layout wrap column justify-content-space-between align-item-stretch class="full-height ma-0">
+                        <v-layout  wrap column justify-content-space-between align-item-stretch class="full-height ma-0">
                             <v-flex class="pa-0" style="flex-grow:1">
                                 <div class="cell-title" :class="'text-'+$route.name">{{item.title}}</div>
                                 <p>{{item.snippet}}</p>
@@ -16,7 +16,7 @@
                                 Source: {{item.source}}
                             </v-flex>
                         </v-layout>
-                    </v-container>
+                    </v-container>-
                 </v-flex>
             </v-layout>
         </v-container>

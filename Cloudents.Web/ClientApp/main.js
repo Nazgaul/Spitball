@@ -4,6 +4,7 @@ import store from './store';
 import scroll from './components/helpers/infinateScroll.vue'
 import VueRouter from 'vue-router';
 import vueMoment from "vue-moment";
+import vueAdsense from 'vue-adsense';
 
 const vuetifyComponents = {
     VApp,
@@ -42,6 +43,7 @@ Vue.use(Vuetify,
     });
 Vue.use(vueMoment);
 Vue.component('scroll-list', scroll);
+Vue.component('adsense', vueAdsense);
 
 const router = new VueRouter({
     mode: "history",

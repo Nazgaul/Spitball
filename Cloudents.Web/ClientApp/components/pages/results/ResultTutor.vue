@@ -1,6 +1,6 @@
 ﻿<template v-once>
-    <a class="elevation-1 d-block" target="_blank" :href="item.url">
-        <v-container class="pa-2">
+    <a class="elevation-1 d-block pa-2" target="_blank" :href="item.url">
+        <v-container class="pa-0">
             <v-layout row>
                 <avatar class="ma-1" :fullname="item.name" :image="item.image" :radius="0" :size="88"></avatar>
                 <v-flex>

@@ -70,27 +70,33 @@
 
 
 
-    .inTheMiddle() {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+.inTheMiddle() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    .giveMeEllipsis(@lines,@line-height) {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: @lines; /* number of lines to show */
-        line-height: @line-height; /* fallback */
-        max-height: (@lines*@line-height); /* fallback */
-    }
+.giveMeEllipsis(@lines,@line-height) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: @lines; /* number of lines to show */
+    line-height: @line-height; /* fallback */
+    max-height: (@lines*@line-height); /* fallback */
+}
+
+.giveMeEllipsisOne() {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 .imageWrapper(@width,@height) {
     .img-wrap {
         width: @width;
         height: @height;
-        
+
 
         > img {
             width: 100%;
@@ -99,9 +105,8 @@
         }
     }
 }
+
 .flexSameSize() {
-    flex-grow:0;
-    flex-shrink:0;
+    flex-grow: 0;
+    flex-shrink: 0;
 }
-
-

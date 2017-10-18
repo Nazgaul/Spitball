@@ -1,7 +1,7 @@
 ﻿@import "../../../mixin.less";
 
 .place-cell {
-    .imageWrapper(80px,116px);
+    .imageWrapper(96px,120px);
 
     .cell-title {
         font-size: 17px;
@@ -29,6 +29,11 @@
         letter-spacing: -0.3px;
         color: @Feed-Like-count;
         .flexSameSize();
+    }
+    .img-wrap {
+        .flexSameSize();
+        border-radius:4px;
+        overflow:hidden;
     }
 }
 /*@font-bold: "OpenSans-Bold";

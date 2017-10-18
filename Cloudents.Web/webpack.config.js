@@ -33,7 +33,7 @@ module.exports = (env) => {
                     {
                         test: /\.js$/,
                         loader: 'babel-loader',
-                        include: /ClientApp/
+                      //  include: /ClientApp/
                         //exclude: /node_modules/
                     },
                     {
