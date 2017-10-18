@@ -37,6 +37,7 @@
         },
         methods: {
             radioClick(value) {
+
                 this.checkVal = value;
                 this.$emit('click', value);
                 //if (this.changeCallback) {
