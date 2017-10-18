@@ -14,19 +14,24 @@
                 <radio-list :values="subFilters" @click="$_changeSubFilter" class="sub-search" model="subFilter" :value="subFilter"></radio-list>
             </v-container>
         </slot>
-        <slot name="data">
-            <scroll-list :loadMore="!isEmpty" v-if="pageData.data" @scroll="value => {pageData.data=pageData.data.concat(value) }">
-                <v-container fluid grid-list-md v-for="(item,index) in pageData.data" >
-                    <component :is="'result-'+item.template" :item="item" :key="index" class="cell"></component>
-                </v-container>
-            </scroll-list>
-        </slot>
+        <v-container>
+            <v-layout row>
+                <slot name="data" >
+                    <scroll-list :loadMore="!isEmpty" v-if="pageData.data" @scroll="value => {pageData.data=pageData.data.concat(value) }">
+                        <v-container fluid grid-list-md v-for="(item,index) in pageData.data">
+                            <component :is="'result-'+item.template" :item="item" :key="index" class="cell"></component>
+                        </v-container>
+                    </scroll-list>
+                </slot>
+                <div class="pa-2">
+                    <img src="http://lorempixel.com/320/240/" />
+                    <img src="http://lorempixel.com/320/240/" />
+                </div>
+            </v-layout>
+        </v-container>
 
         <!--<slot name="emptyState" v-show="isEmpty"></slot>-->
-        <!--<v-flex xs4>
-            <img src="http://lorempixel.com/246/205/sports/" />
-            <img src="http://lorempixel.com/246/205/sports/" />
-        </v-flex>-->
+        
     </div>
 </template>
 <script>
