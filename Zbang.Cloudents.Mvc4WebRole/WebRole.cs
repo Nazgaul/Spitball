@@ -105,7 +105,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         private bool ValidateRemoteCertificate(object sender, X509Certificate cert, X509Chain chain, SslPolicyErrors policyErrors)
         {
-            var result = cert.Subject.ToUpper().Contains("SPITBALL");
+            var result = cert.Subject.IndexOf("SPITBALL", StringComparison.OrdinalIgnoreCase) >= 0;
 
             return result;
         }

@@ -1,6 +1,5 @@
 ﻿<template v-once>
     <div class="elevation-1 pa-2 book-cell">
-       
         <v-container class="pa-0">
             <v-layout row>
                 <div class="img-wrap">

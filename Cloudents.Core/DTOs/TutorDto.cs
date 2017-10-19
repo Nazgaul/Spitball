@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 
 namespace Cloudents.Core.DTOs
@@ -23,9 +24,9 @@ namespace Cloudents.Core.DTOs
         [DataMember]
         public bool? Online { get; set; }
 
-        //[DataMember]
+        [DataMember]
         public GeoPoint Location { get; set; }
 
-        public int TermFound { get; set; }
+        public int TermCount { get; set; }
     }
 }

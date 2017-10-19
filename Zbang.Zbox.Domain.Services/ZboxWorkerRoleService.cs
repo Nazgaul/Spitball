@@ -447,11 +447,12 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
             }
         }
 
-        public void UpdateQuota(UpdateQuotaCommand command)
+        public void UpdateQuota(UpdateQuotaCommand updateQuotaCommand)
         {
+            if (updateQuotaCommand == null) throw new ArgumentNullException(nameof(updateQuotaCommand));
             using (var unitOfWork = UnitOfWork.Start())
             {
-                m_CommandBus.Send(command);
+                m_CommandBus.Send(updateQuotaCommand);
                 unitOfWork.TransactionalFlush();
             }
         }

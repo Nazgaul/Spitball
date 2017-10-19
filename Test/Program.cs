@@ -6,13 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure;
+using Environment = Cloudents.Infrastructure.Environment;
 
 namespace Test
 {
-    class Program
+    static class Program
     {
         static async Task Main(string[] args)
         {
@@ -21,27 +23,25 @@ namespace Test
                 ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                 ConfigurationManager.AppSettings["AzureSearchServiceName"],
                 ConfigurationManager.AppSettings["AzureSearchKey"],
-                ConfigurationManager.AppSettings["Redis"]);
+                ConfigurationManager.AppSettings["Redis"], Environment.Console);
 
             builder.RegisterType<GoogleSheet>().As<IGoogleSheet>();
             builder.RegisterModule(infrastructureModule);
             var container = builder.Build();
 
 
+            var services = container.Resolve<ITutorSearch>();
 
-            var service = container.Resolve<IDocumentSearch>();
-            var service2 = container.Resolve<IAI>();
+            var result = await services.SearchAsync("math", SearchRequestFilter.None, SearchRequestSort.None, null, 0, default);
 
 
-            //var result3 = await service2.InterpretStringAsync("document on war");
-            //var result4 = await service2.InterpretStringAsync("document on war");
+            //foreach (var service in services)
+            //{
+            //    service.SearchAsync("math",SearchRequestFilter.None,SearchRequestSort.None,null,0,default);
+            //}
 
-            var result = await service.SearchAsync(
-                new Cloudents.Core.Request.SearchQuery(new[] {"war"}, null, null, null, 0, SearchRequestSort.None), default);
-            var result2 = await service.SearchAsync(
-                new Cloudents.Core.Request.SearchQuery(new[] { "war" }, null, null, null, 0, SearchRequestSort.None), default);
 
-            
+
 
             //await service.SearchNearbyAsync("pizza",SearchRequestFilter.None,new GeoPoint()
             //{

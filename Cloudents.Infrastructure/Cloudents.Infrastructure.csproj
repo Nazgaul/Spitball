@@ -139,8 +139,10 @@
     <Compile Include="Cache\CacheProvider.cs" />
     <Compile Include="Cache\CacheResultInterceptor.cs" />
     <Compile Include="Converters\JobResultConverter.cs" />
+    <Compile Include="Converters\TutorMeConverter.cs" />
     <Compile Include="Data\DapperRepository.cs" />
     <Compile Include="Data\UniversitySynonymRepository.cs" />
+    <Compile Include="Environment.cs" />
     <Compile Include="IRestClient.cs" />
     <Compile Include="RestClient.cs" />
     <Compile Include="Search\BookSearch.cs" />
@@ -148,10 +150,13 @@
     <Compile Include="Search\Entities\Job.cs" />
     <Compile Include="Search\Entities\Tutor.cs" />
     <Compile Include="Search\FlashcardSearch.cs" />
+    <Compile Include="Search\ITutorProvider.cs" />
     <Compile Include="Search\JobSearch.cs" />
     <Compile Include="Search\PlacesSearch.cs" />
     <Compile Include="Search\QuestionSearch.cs" />
     <Compile Include="Search\TitleSearch.cs" />
+    <Compile Include="Search\TutorMeSearch.cs" />
+    <Compile Include="Search\TutorAzureSearch.cs" />
     <Compile Include="Search\TutorSearch.cs" />
     <Compile Include="Search\VideoSearch.cs" />
     <Compile Include="UniqueKeyGenerator.cs" />
