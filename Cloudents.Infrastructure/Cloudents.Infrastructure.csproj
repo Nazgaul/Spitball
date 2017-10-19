@@ -139,6 +139,7 @@
     <Compile Include="Cache\CacheProvider.cs" />
     <Compile Include="Cache\CacheResultInterceptor.cs" />
     <Compile Include="Converters\JobResultConverter.cs" />
+    <Compile Include="Converters\PlaceConverter.cs" />
     <Compile Include="Converters\TutorMeConverter.cs" />
     <Compile Include="Data\DapperRepository.cs" />
     <Compile Include="Data\UniversitySynonymRepository.cs" />

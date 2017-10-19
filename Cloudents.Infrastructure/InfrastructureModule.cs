@@ -165,37 +165,7 @@ namespace Cloudents.Infrastructure
                         Prices = offers
                     };
                 });
-                cfg.CreateMap<JObject, IEnumerable<PlaceDto>>().ConvertUsing((jo, bookSearch, c) =>
-                {
-                    return jo["results"].Select(json =>
-                    {
-                        var photo = json["photos"]?[0]?["photo_reference"]?.Value<string>();
-                        string image = null;
-                        if (!string.IsNullOrEmpty(photo))
-                        {
-                            image =
-                                $"https://maps.googleapis.com/maps/api/place/photo?maxwidth={c.Items["width"]}&photoreference={photo}&key={c.Items["key"]}";
-                        }
-                        GeoPoint location = null;
-                        if (json["geometry"]?["location"] != null)
-                        {
-                            location = new GeoPoint
-                            {
-                                Latitude = json["geometry"]["location"]["lat"].Value<double>(),
-                                Longitude = json["geometry"]["location"]["lng"].Value<double>()
-                            };
-                        }
-                        return new PlaceDto
-                        {
-                            Address = json["vicinity"]?.Value<string>(),
-                            Image = image,
-                            Location = location,
-                            Name = json["name"].Value<string>(),
-                            Open = json["opening_hours"]?["open_now"].Value<bool?>() ?? false,
-                            Rating = json["rating"]?.Value<double>() ?? 0
-                        };
-                    });
-                });
+                cfg.CreateMap<JObject, (string, IEnumerable<PlaceDto>)>().ConvertUsing<PlaceConverter>();
                 cfg.CreateMap<JObject, IEnumerable<TutorDto>>().ConvertUsing<TutorMeConverter>();
             });
             return config;
