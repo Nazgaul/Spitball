@@ -1,12 +1,8 @@
-﻿<template>
-    <a class="elevation-1 d-block" target="_blank" :href="item.url">
-        <v-container class="pa-2">
+﻿<template v-once>
+    <a class="elevation-1 d-block pa-2" target="_blank" :href="item.url">
+        <v-container class="pa-0">
             <v-layout row>
-                <!--<v-flex>-->
-                <avatar class="ma-1" :fullname="item.name" :image="item.image" radius="0" size="88"></avatar>
-                <!--<avatar fullname="Jane Doe"></avatar>-->
-                <!--<img :src="item.image" alt="">-->
-                <!--</v-flex>-->
+                <avatar class="ma-1" :fullname="item.name" :image="item.image" :radius="0" :size="88"></avatar>
                 <v-flex>
                     <v-container class="pa-0 full-height">
                         <v-layout wrap column justify-content-space-between align-item-stretch class="full-height ma-0">
@@ -24,38 +20,10 @@
                             </div>
                         </v-layout>
                     </v-container>
-                    <!--<v-container>
-                        <v-layout row>
-                            <v-flex xs8 class="title">{{item.name}}</v-flex>
-                            <v-flex xs4 v-if="item.fee"><div class="price text-xs-right">${{item.fee}} / hour</div></v-flex>
-                        </v-layout>
-                        <div class="author">{{item.city}}, {{item.state}}</div>
-                        <div class="state" v-if="item.online">Offers online lessons</div>
-                    </v-container>-->
                 </v-flex>
             </v-layout>
         </v-container>
     </a>
-
-    <!--<a class="wrapper" target="_blank" :href="item.url">
-        <div class="container-box">
-            <div class="box-main box-user">
-                <div class="img">
-                    <span class="up">
-                        <img :src="item.image" alt="">
-                    </span>
-                </div>
-                <div class="box-wrapper">
-                    <v-layout row>
-                        <v-flex xs8><div class="title">{{item.name}}</div></v-flex>
-                        <v-flex xs4 v-if="item.fee"><div class="price text-xs-right">${{item.fee}} / hour</div></v-flex>
-                    </v-layout>
-                    <div class="author">{{item.city}}<span v-if="item.state">, {{item.state}}</span></div>
-                    <div class="state" v-if="item.online">Offers online lessons</div>
-                </div>
-            </div>
-        </div>
-    </a>-->
 </template>
 <script>
     import Avatar from 'vue-avatar-component'

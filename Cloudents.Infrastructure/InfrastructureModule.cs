@@ -27,16 +27,18 @@ namespace Cloudents.Infrastructure
         private readonly string m_SearchServiceName;
         private readonly string m_SearchServiceKey;
         private readonly string m_RedisConnectionString;
+        private readonly Environment m_Environment;
 
         public InfrastructureModule(string sqlConnectionString,
             string searchServiceName,
             string searchServiceKey,
-            string redisConnectionString)
+            string redisConnectionString, Environment environment)
         {
             m_SqlConnectionString = sqlConnectionString;
             m_SearchServiceName = searchServiceName;
             m_SearchServiceKey = searchServiceKey;
             m_RedisConnectionString = redisConnectionString;
+            m_Environment = environment;
         }
 
         protected override void Load(ContainerBuilder builder)
@@ -60,8 +62,13 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<FlashcardSearch>().As<IFlashcardSearch>();
             builder.RegisterType<QuestionSearch>().As<IQuestionSearch>();
             builder.RegisterType<TutorSearch>().As<ITutorSearch>();
+            builder.RegisterType<TutorAzureSearch>().As<ITutorProvider>();
+            if (m_Environment == Environment.Web)
+            {
+                builder.RegisterType<TutorMeSearch>().As<ITutorProvider>();
+            }
             builder.RegisterType<TitleSearch>().As<ITitleSearch>().EnableInterfaceInterceptors()
-                .InterceptedBy(typeof(CacheResultInterceptor)); ;
+                .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<VideoSearch>().As<IVideoSearch>();
             builder.RegisterType<JobSearch>().As<IJobSearch>();
             builder.RegisterType<BookSearch>().As<IBookSearch>().EnableInterfaceInterceptors()
@@ -113,7 +120,7 @@ namespace Cloudents.Infrastructure
                         Latitude = p.Location.Latitude,
                         Longitude = p.Location.Longitude
                     }))
-                    .ForMember(d => d.TermFound, o => o.ResolveUsing((t, ts, i, c) =>
+                    .ForMember(d => d.TermCount, o => o.ResolveUsing((t, ts, i, c) =>
                     {
                         var temp = $"{t.City} {t.State} {string.Join(" ", t.Subjects)} {string.Join(" ", t.Extra)}";
                         return temp.Split(new[] { c.Items["term"].ToString() },
@@ -121,8 +128,8 @@ namespace Cloudents.Infrastructure
                     }));
 
                 cfg.CreateMap<DocumentSearchResult<Search.Entities.Job>, JobFacetDto>()
-                    .ConvertUsing(new JobResultConverter());
-                
+                    .ConvertUsing<JobResultConverter>();
+
 
                 cfg.CreateMap<Search.Entities.Job, JobDto>();
                 cfg.CreateMap<JObject, IEnumerable<BookSearchDto>>().ConvertUsing((jo, bookSearch, c) => jo["response"]["page"]["books"]?["book"]?.Select(json => c.Mapper.Map<JToken, BookSearchDto>(json)));
@@ -158,49 +165,8 @@ namespace Cloudents.Infrastructure
                         Prices = offers
                     };
                 });
-                cfg.CreateMap<JObject, IEnumerable<PlaceDto>>().ConvertUsing((jo, bookSearch, c) =>
-                {
-                    return jo["results"].Select(json =>
-                    {
-                        var photo = json["photos"]?[0]?["photo_reference"]?.Value<string>();
-                        string image = null;
-                        if (!string.IsNullOrEmpty(photo))
-                        {
-                            image =
-                                $"https://maps.googleapis.com/maps/api/place/photo?maxwidth={c.Items["width"]}&photoreference={photo}&key={c.Items["key"]}";
-                        }
-                        GeoPoint location = null;
-                        if (json["geometry"]?["location"] != null)
-                        {
-                            location = new GeoPoint
-                            {
-                                Latitude = json["geometry"]["location"]["lat"].Value<double>(),
-                                Longitude = json["geometry"]["location"]["lng"].Value<double>()
-                            };
-                        }
-                        return new PlaceDto
-                        {
-                            Address = json["vicinity"]?.Value<string>(),
-                            Image = image,
-                            Location = location,
-                            Name = json["name"].Value<string>(),
-                            Open = json["opening_hours"]?["open_now"].Value<bool?>() ?? false,
-                            Rating = json["rating"]?.Value<double>() ?? 0
-                        };
-                    });
-                });
-                cfg.CreateMap<JObject, IEnumerable<TutorDto>>().ConvertUsing((jo, tu, c) =>
-                {
-                    return jo["results"].Children().Select(result => new TutorDto
-                    {
-                        Url = $"https://tutorme.com/tutors/{result["id"].Value<string>()}",
-                        Image = result["avatar"]["x300"].Value<string>(),
-                        Name = result["shortName"].Value<string>(),
-                        Online = result["isOnline"].Value<bool>(),
-                        TermFound = result.ToString().Split(new[] { c.Items["term"].ToString() },
-                            StringSplitOptions.RemoveEmptyEntries).Length
-                    });
-                });
+                cfg.CreateMap<JObject, (string, IEnumerable<PlaceDto>)>().ConvertUsing<PlaceConverter>();
+                cfg.CreateMap<JObject, IEnumerable<TutorDto>>().ConvertUsing<TutorMeConverter>();
             });
             return config;
         }

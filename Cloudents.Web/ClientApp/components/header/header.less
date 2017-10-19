@@ -1,7 +1,7 @@
 ﻿@import "../../mixin.less";
 
 @logoWidth: 215px;
-@iconWidth: 50px;
+@iconWidth: 70px;
 
 .header {
     .logo-link {
@@ -25,7 +25,7 @@
     }
 
     .first-header {
-        border-bottom: 1px solid #ddd;
+        //  border-bottom: 1px solid #ddd;
     }
 
 
@@ -63,12 +63,20 @@
     }
 
     .notification {
-        width: 60px;
+        width: 62px;
         .inTheMiddle();
 
+        .badge--overlap .badge__badge {
+            top: -10px;
+            right: -10px;
+            background: @Notificaion-Text-Circle !important; //TODO: override
+            border:1px solid #fff !important;
+            box-sizing :content-box;
+        }
+
         svg {
-            width: 15.8px;
-            height: 18px;
+            width: 22px;
+            height: 22px;
         }
     }
 
@@ -77,8 +85,10 @@
         color: #FFF;
         letter-spacing: -0.3px;
         font-size: 14px;
-        border-radius: 10px;
-
+        border-radius: 8px;
+        text-transform:capitalize;
+        height:24px;
+        line-height:24px;
         &.chip--selected {
             background: #0455a8;
         }

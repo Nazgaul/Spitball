@@ -27,29 +27,46 @@ namespace Cloudents.Infrastructure.Search
             m_Mapper = mapper;
         }
 
-        public async Task<IEnumerable<PlaceDto>> SearchNearbyAsync(string term, SearchRequestFilter filter,
-            GeoPoint location, CancellationToken token)
+        public async Task<(string token, IEnumerable<PlaceDto> data)> SearchNearbyAsync(string term, SearchRequestFilter filter,
+            GeoPoint location, string nextPageToken, CancellationToken token)
         {
-            if (term == null) throw new ArgumentNullException(nameof(term));
-            if (location == null) throw new ArgumentNullException(nameof(location));
-            var nvc = new NameValueCollection
-            {
-                ["location"] = $"{location.Longitude} {location.Latitude}",
-                ["keyword"] = term,
-                ["key"] = Key,
-                ["rankby"] = "distance"
-            };
+            var nvc = BuildQuery(term, filter, location, nextPageToken);
             if (filter == SearchRequestFilter.OpenNow)
             {
                 nvc.Add("opennow", true.ToString());
             }
             var result = await m_RestClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/place/nearbysearch/json"), nvc, token).ConfigureAwait(false);
-            return m_Mapper.Map<JObject, IEnumerable<PlaceDto>>(result, opt =>
+            return m_Mapper.Map<JObject, (string, IEnumerable<PlaceDto>)>(result, opt =>
             {
                 opt.Items["width"] = 150;
                 opt.Items["key"] = Key;
             });
         }
+
+        private NameValueCollection BuildQuery(string term, SearchRequestFilter filter,
+            GeoPoint location, string nextPageToken)
+        {
+            if (string.IsNullOrEmpty(nextPageToken))
+            {
+                if (term == null) throw new ArgumentNullException(nameof(term));
+                if (location == null) throw new ArgumentNullException(nameof(location));
+                return new NameValueCollection
+                {
+                    ["location"] = $"{location.Longitude} {location.Latitude}",
+                    ["keyword"] = term,
+                    ["key"] = Key,
+                    ["rankby"] = "distance",
+                    ["pagetoken"] = nextPageToken
+                };
+            }
+            return new NameValueCollection
+            {
+                ["key"] = Key,
+                ["pagetoken"] = nextPageToken
+            };
+
+        }
+
 
         public async Task<PlaceDto> SearchAsync(string term, CancellationToken token)
         {

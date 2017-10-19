@@ -20,107 +20,107 @@ namespace Cloudents.Infrastructure.AI
 
         }
 
-        private static readonly Dictionary<Decision, AIResult> NoneIntentMatrix =
-            new Dictionary<Decision, AIResult>()
+        private static readonly Dictionary<Decision, AiResult> NoneIntentMatrix =
+            new Dictionary<Decision, AiResult>()
             {
-                [Decision.None] = AIResult.SearchOrQuestion,
-                [Decision.SearchType] = AIResult.AddSubjectOrCourse,
+                [Decision.None] = AiResult.SearchOrQuestion,
+                [Decision.SearchType] = AiResult.AddSubjectOrCourse,
             };
 
-        private static readonly Dictionary<Decision, AIResult> TutorBookJobMatrix =
-            new Dictionary<Decision, AIResult>()
+        private static readonly Dictionary<Decision, AiResult> TutorBookJobMatrix =
+            new Dictionary<Decision, AiResult>()
             {
-                [Decision.None] = AIResult.AddSubject,
-                [Decision.Course] = AIResult.AddSubject,
-                [Decision.SearchType] = AIResult.AddSubject,
-                [Decision.Course | Decision.SearchType] = AIResult.AddSubject,
+                [Decision.None] = AiResult.AddSubject,
+                [Decision.Course] = AiResult.AddSubject,
+                [Decision.SearchType] = AiResult.AddSubject,
+                [Decision.Course | Decision.SearchType] = AiResult.AddSubject,
             };
-        private static readonly Dictionary<Decision, AIResult> AskQuestionMatrix =
-            new Dictionary<Decision, AIResult>()
+        private static readonly Dictionary<Decision, AiResult> AskQuestionMatrix =
+            new Dictionary<Decision, AiResult>()
             {
-                [Decision.None] = AIResult.SearchOrQuestion,
-                [Decision.Course] = AIResult.ChatPost,
-                [Decision.SearchType] = AIResult.AddSubjectOrCourse,
-                [Decision.Course | Decision.SearchType] = AIResult.AddSearchTypeToSubject,
-                [Decision.SearchType | Decision.Term] = AIResult.AddSearchTypeToSubject,
-            };
-
-        private static readonly Dictionary<Decision, AIResult> SearchMatrix =
-            new Dictionary<Decision, AIResult>()
-            {
-                [Decision.None] = AIResult.SearchOrQuestion,
-                [Decision.Course] = AIResult.SearchOrQuestion,
-                [Decision.SearchType] = AIResult.AddSubjectOrCourse,
+                [Decision.None] = AiResult.SearchOrQuestion,
+                [Decision.Course] = AiResult.ChatPost,
+                [Decision.SearchType] = AiResult.AddSubjectOrCourse,
+                [Decision.Course | Decision.SearchType] = AiResult.AddSearchTypeToSubject,
+                [Decision.SearchType | Decision.Term] = AiResult.AddSearchTypeToSubject,
             };
 
-        private static readonly Dictionary<Decision, AIResult> PurchaseMatrix =
-            new Dictionary<Decision, AIResult>()
+        private static readonly Dictionary<Decision, AiResult> SearchMatrix =
+            new Dictionary<Decision, AiResult>()
             {
-                [Decision.None] = AIResult.PurchaseAskBuy,
-                [Decision.SearchType] = AIResult.PurchaseChangeTerm,
+                [Decision.None] = AiResult.SearchOrQuestion,
+                [Decision.Course] = AiResult.SearchOrQuestion,
+                [Decision.SearchType] = AiResult.AddSubjectOrCourse,
             };
 
-        private readonly Dictionary<AIIntent, Func<Decision, AIResult>> m_Dictionary =
-            new Dictionary<AIIntent, Func<Decision, AIResult>>
+        private static readonly Dictionary<Decision, AiResult> PurchaseMatrix =
+            new Dictionary<Decision, AiResult>()
             {
-                [AIIntent.None] = p =>
+                [Decision.None] = AiResult.PurchaseAskBuy,
+                [Decision.SearchType] = AiResult.PurchaseChangeTerm,
+            };
+
+        private readonly Dictionary<AiIntent, Func<Decision, AiResult>> m_Dictionary =
+            new Dictionary<AiIntent, Func<Decision, AiResult>>
+            {
+                [AiIntent.None] = p =>
                 {
-                    const AIResult result = AIResult.Search;
+                    const AiResult result = AiResult.Search;
                     if (NoneIntentMatrix.TryGetValue(p, out var result2))
                     {
                         return result2;
                     }
                     return result;
                 },
-                [AIIntent.Qna] = _ => AIResult.Qna,
-                [AIIntent.Tutor] = p =>
+                [AiIntent.Qna] = _ => AiResult.Qna,
+                [AiIntent.Tutor] = p =>
                 {
-                    const AIResult result = AIResult.Tutor;
+                    const AiResult result = AiResult.Tutor;
                     if (TutorBookJobMatrix.TryGetValue(p, out var result2))
                     {
                         return result2;
                     }
                     return result;
                 },
-                [AIIntent.Job] = p =>
+                [AiIntent.Job] = p =>
             {
-                const AIResult result = AIResult.Job;
+                const AiResult result = AiResult.Job;
                 if (TutorBookJobMatrix.TryGetValue(p, out var result2))
                 {
                     return result2;
                 }
                 return result;
             },
-                [AIIntent.Book] = p =>
+                [AiIntent.Book] = p =>
                 {
-                    const AIResult result = AIResult.Book;
+                    const AiResult result = AiResult.Book;
                     if (TutorBookJobMatrix.TryGetValue(p, out var result2))
                     {
                         return result2;
                     }
                     return result;
                 },
-                [AIIntent.Question] = p =>
+                [AiIntent.Question] = p =>
                 {
-                    const AIResult result = AIResult.Ask;
+                    const AiResult result = AiResult.Ask;
                     if (AskQuestionMatrix.TryGetValue(p, out var result2))
                     {
                         return result2;
                     }
                     return result;
                 },
-                [AIIntent.Search] = p =>
+                [AiIntent.Search] = p =>
                 {
-                    const AIResult result = AIResult.Search;
+                    const AiResult result = AiResult.Search;
                     if (SearchMatrix.TryGetValue(p, out var result2))
                     {
                         return result2;
                     }
                     return result;
                 },
-                [AIIntent.Purchase] = p =>
+                [AiIntent.Purchase] = p =>
                 {
-                    const AIResult result = AIResult.Purchase;
+                    const AiResult result = AiResult.Purchase;
                     if (PurchaseMatrix.TryGetValue(p, out var result2))
                     {
                         return result2;
@@ -129,7 +129,7 @@ namespace Cloudents.Infrastructure.AI
                 }
             };
 
-        public (AIResult result, AIDto data) MakeDecision(AIDto aiResult)
+        public (AiResult result, AIDto data) MakeDecision(AIDto aiResult)
         {
             var intentMatrix = m_Dictionary[aiResult.Intent];
 
@@ -147,15 +147,15 @@ namespace Cloudents.Infrastructure.AI
                 decision |= Decision.Term;
             }
             var result = intentMatrix(decision);
-            if (result == AIResult.AddSearchTypeToSubject && aiResult.SearchType.HasValue)
+            if (result == AiResult.AddSearchTypeToSubject && aiResult.SearchType.HasValue)
             {
                 aiResult.Term.Add(aiResult.SearchType.Value.Value);
-                return (AIResult.Ask, aiResult);
+                return (AiResult.Ask, aiResult);
             }
-            if (result == AIResult.PurchaseChangeTerm && aiResult.SearchType.HasValue)
+            if (result == AiResult.PurchaseChangeTerm && aiResult.SearchType.HasValue)
             {
                 aiResult.Term.Add(aiResult.SearchType.Value.Value);
-                return (AIResult.Purchase, aiResult);
+                return (AiResult.Purchase, aiResult);
             }
             return (result, aiResult);
         }

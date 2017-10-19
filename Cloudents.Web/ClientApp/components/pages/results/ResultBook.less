@@ -1,4 +1,44 @@
-﻿@font-bold: "OpenSans-Bold";
+﻿@import "../../../mixin.less";
+.book-cell {
+    .btn {
+        > div {
+            letter-spacing: -0.3px;
+            text-transform: capitalize;
+        }
+    }
+
+    .buy {
+        > div {
+            background: @Spitball-Text;
+            color: #fff;
+        }
+    }
+
+    .sell {
+        > div {
+            background: @Chat-Suggestion-Icon-Background;
+            color: @Settings;
+        }
+    }
+
+    .details {
+        font-size: 14px;
+        font-weight: 600;
+        //line-height: 1.14;
+        letter-spacing: -0.3px;
+    }
+
+    .cell-title {
+        color: @Textbooks;
+    }
+
+    .imageWrapper(104px,160px);
+
+    .img-wrap {
+        .flexSameSize();
+    }
+}
+/*@font-bold: "OpenSans-Bold";
 @font-regular: "OpenSans-Regular";
 @font-semibold: "OpenSans-Semibold";
 
@@ -176,4 +216,4 @@
             min-width: 50px;
         }
     }
-}
+}*/

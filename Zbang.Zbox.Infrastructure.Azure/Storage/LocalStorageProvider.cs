@@ -25,15 +25,15 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
 
         public string LocalStorageLocation { get; }
 
-        public async Task<string> SaveFileToStorageAsync(Stream streamSource, string fileName)
+        public async Task<string> SaveFileToStorageAsync(Stream streamArray, string fileName)
         {
-            if (streamSource == null) throw new ArgumentNullException(nameof(streamSource));
+            if (streamArray == null) throw new ArgumentNullException(nameof(streamArray));
             var fileNameWithPath = CombineDirectoryWithFileName(fileName);
 
             if (File.Exists(fileNameWithPath))
             {
                 var file = new FileInfo(fileNameWithPath);
-                if (streamSource.CanSeek && file.Length == streamSource.Length)
+                if (streamArray.CanSeek && file.Length == streamArray.Length)
                 {
                     return fileNameWithPath;
                 }
@@ -42,7 +42,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             {
                 using (var stream = File.Open(fileNameWithPath, FileMode.Create))
                 {
-                    await streamSource.CopyToAsync(stream).ConfigureAwait(false);
+                    await streamArray.CopyToAsync(stream).ConfigureAwait(false);
                 }
                 return fileNameWithPath;
             }
@@ -53,7 +53,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             }
             using (var stream = File.Open(fileNameWithPath, FileMode.Create))
             {
-                await streamSource.CopyToAsync(stream).ConfigureAwait(false);
+                await streamArray.CopyToAsync(stream).ConfigureAwait(false);
             }
             return fileNameWithPath;
         }

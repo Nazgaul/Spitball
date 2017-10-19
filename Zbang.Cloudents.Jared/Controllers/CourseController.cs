@@ -11,7 +11,7 @@ using Zbang.Cloudents.Jared.Models;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
-    [MobileAppController,Authorize]
+    [MobileAppController]
     public class CourseController : ApiController
     {
         private readonly IZboxWriteService m_ZboxWriteService;
@@ -53,13 +53,12 @@ namespace Zbang.Cloudents.Jared.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-
-            var commandGeneral = new GetGeneralDepartmentCommand(User.GetUserId());
+            var userId = 1202815;// User.GetUserId();
+            var commandGeneral = new GetGeneralDepartmentCommand(userId);
             var res = m_ZboxWriteService.GetGeneralDepartmentForUniversity(commandGeneral);
 
             try
             {
-                var userId = User.GetUserId();
 
                 var command = new CreateAcademicBoxCommand(userId, model.CourseName,
                                                            model.CourseId, null, res.DepartmentId);

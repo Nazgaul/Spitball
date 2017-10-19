@@ -1,111 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
-using Cloudents.Infrastructure.Search.Entities;
-using Microsoft.Azure.Search;
-using Microsoft.Azure.Search.Models;
-using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Infrastructure.Search
 {
     public class TutorSearch : ITutorSearch
     {
-        private readonly ISearchIndexClient m_Client;
-        private readonly IMapper m_Mapper;
-        private readonly IRestClient m_RestClient;
+        private readonly IEnumerable<ITutorProvider> m_TutorSearch;
 
-        public TutorSearch(SearchServiceClient client, IMapper mapper, IRestClient restClient)
+        public TutorSearch(IEnumerable<ITutorProvider> tutorSearch)
         {
-            m_Mapper = mapper;
-            m_RestClient = restClient;
-            m_Client = client.Indexes.GetClient("tutors");
+            m_TutorSearch = tutorSearch;
         }
 
-        public async Task<IEnumerable<TutorDto>> SearchAsync(string term, SearchRequestFilter filter,
-            SearchRequestSort sort, GeoPoint location, int page, CancellationToken token)
+        public async Task<IEnumerable<TutorDto>> SearchAsync(string term, SearchRequestFilter filter, SearchRequestSort sort, GeoPoint location, int page,
+            CancellationToken token)
         {
-            var taskAzure = SearchAzureAsync(term, filter, sort, location, page, token);
-            Task<IEnumerable<TutorDto>> taskTutorMe;
-            if (filter == SearchRequestFilter.InPerson)
-            {
-                taskTutorMe = Task.FromResult<IEnumerable<TutorDto>>(new List<TutorDto>());
-            }
-            else
-            {
-                taskTutorMe = TutorMeApiAsync(term, page, token);
-            }
-            await Task.WhenAll(taskAzure, taskTutorMe).ConfigureAwait(false);
-            return taskAzure.Result.Union(taskTutorMe.Result).OrderByDescending(o => o.TermFound);
-        }
+            var tasks = m_TutorSearch.Select(s =>
+                s.SearchAsync(term, filter, sort, location, page, token)).ToList();
+            await Task.WhenAll(tasks).ConfigureAwait(false);
 
-        private async Task<IEnumerable<TutorDto>> TutorMeApiAsync(string term, int page, CancellationToken token)
-        {
-            //https://gist.github.com/barbuza/4b3666fa88cd326f18f2c464c8e4487c
-            // page is 12
-
-            var nvc = new NameValueCollection
-            {
-                ["search"] = term,
-                ["offset"] = (page * 12).ToString()
-            };
-            var result = await m_RestClient.GetAsync(new Uri("https://tutorme.com/api/v1/tutors/"), nvc, token).ConfigureAwait(false);
-            return m_Mapper.Map<JObject, IEnumerable<TutorDto>>(result, opt => opt.Items["term"] = term);
-        }
-
-        private async Task<IList<TutorDto>> SearchAzureAsync(string term,
-            SearchRequestFilter filter, SearchRequestSort sort,
-            GeoPoint location, int page, CancellationToken token)
-        {
-            string filterQuery = null;
-            var sortQuery = new List<string>();
-            switch (filter)
-            {
-                case SearchRequestFilter.Online:
-                    filterQuery = "online eq true";
-                    break;
-                case SearchRequestFilter.InPerson:
-                    filterQuery = "inPerson eq true";
-                    break;
-            }
-            switch (sort)
-            {
-                case SearchRequestSort.Price:
-                    sortQuery.Add("fee");
-                    break;
-                case SearchRequestSort.Distance when location != null:
-                    sortQuery.Add($"geo.distance(location, geography'POINT({location.Longitude} {location.Latitude})')");
-                    break;
-                case SearchRequestSort.Rating:
-                    sortQuery.Add("rank desc");
-                    break;
-            }
-
-            var searchParams = new SearchParameters
-            {
-                Top = 15,
-                Skip = 15 * page,
-                Select = new[]
-                {
-                    "name", "image", "url", "city", "state", "fee", "online", "location","subjects","extra"
-                },
-                Filter = filterQuery,
-                OrderBy = sortQuery
-
-            };
-            var retVal = await
-                m_Client.Documents.SearchAsync<Tutor>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
-            return m_Mapper.Map<IEnumerable<Tutor>, IList<TutorDto>>(retVal.Results.Select(s => s.Document), opt => opt.Items["term"] = term);
+            return tasks.SelectMany(s => s.Result).OrderByDescending(o => o.TermCount);
         }
     }
 }

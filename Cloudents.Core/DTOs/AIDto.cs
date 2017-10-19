@@ -5,7 +5,7 @@ namespace Cloudents.Core.DTOs
 {
     public class AIDto
     {
-        public AIDto(AIIntent intent, KeyValuePair<string, string>? searchType, string course, IList<string> term)
+        public AIDto(AiIntent intent, KeyValuePair<string, string>? searchType, string course, IList<string> term)
         {
             Intent = intent;
             SearchType = searchType;
@@ -13,7 +13,7 @@ namespace Cloudents.Core.DTOs
             Term = term;
         }
 
-        public AIIntent Intent { get; }
+        public AiIntent Intent { get; }
         public KeyValuePair<string,string>? SearchType { get;  }
 
         public string Course { get;  }

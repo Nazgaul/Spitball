@@ -70,7 +70,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             else
             {
-                if (page.Uri.PathAndQuery.ToLowerInvariant().Contains("xml"))
+                if (page.Uri.PathAndQuery.IndexOf("xml", StringComparison.InvariantCultureIgnoreCase) >= 0)
                 {
                     m_TempTable.TryAdd(page.Uri.AbsoluteUri, 0);
                     InsertToQueue();
@@ -149,7 +149,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 return true;
             }
-            if (uri.AbsoluteUri.ToLowerInvariant().Contains("xml"))
+            if (uri.AbsoluteUri.IndexOf("xml", StringComparison.InvariantCultureIgnoreCase) >= 0)
             {
                 //We want at least one time xml pass per machine. if it doesn't work we take this down
                 //TraceLog.WriteInfo($"{uri} is not known uri");

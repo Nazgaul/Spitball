@@ -1,4 +1,42 @@
-﻿@font-bold: "OpenSans-Bold";
+﻿@import "../../../mixin.less";
+
+.place-cell {
+    .imageWrapper(96px,120px);
+
+    .cell-title {
+        font-size: 17px;
+        font-weight: 600;
+        letter-spacing: -0.4px;
+        color: @Food;
+    }
+
+    .rate {
+        span {
+            font-size: 14px;
+            letter-spacing: -0.3px;
+            color: @Feed-Like-count;
+        }
+    }
+
+    .address {
+        font-size: 14px;
+        letter-spacing: -0.3px;
+        color: @Book-Info;
+    }
+
+    .bottom {
+        font-size: 14px;
+        letter-spacing: -0.3px;
+        color: @Feed-Like-count;
+        .flexSameSize();
+    }
+    .img-wrap {
+        .flexSameSize();
+        border-radius:4px;
+        overflow:hidden;
+    }
+}
+/*@font-bold: "OpenSans-Bold";
 @font-regular: "OpenSans-Regular";
 @font-semibold: "OpenSans-Semibold";
 
@@ -225,4 +263,4 @@
             left: 105px;
         }
     }
-}
+}*/

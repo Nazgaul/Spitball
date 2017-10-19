@@ -3,6 +3,8 @@ import App from './components/app/app.vue';
 import store from './store';
 import scroll from './components/helpers/infinateScroll.vue'
 import VueRouter from 'vue-router';
+import vueMoment from "vue-moment";
+import vueAdsense from 'vue-adsense';
 
 const vuetifyComponents = {
     VApp,
@@ -13,7 +15,8 @@ const vuetifyComponents = {
     VList,
     VBadge,
     VProgressCircular,
-    VSubheader
+    VSubheader,
+    VBtn
 };
 import {
     Vuetify,
@@ -25,7 +28,8 @@ import {
     VList,
     VBadge,
     VProgressCircular,
-    VSubheader
+    VSubheader,
+    VBtn
 
 } from 'vuetify'
 import * as route from './routes';
@@ -37,7 +41,9 @@ Vue.use(Vuetify,
     {
         components: vuetifyComponents
     });
+Vue.use(vueMoment);
 Vue.component('scroll-list', scroll);
+Vue.component('adsense', vueAdsense);
 
 const router = new VueRouter({
     mode: "history",

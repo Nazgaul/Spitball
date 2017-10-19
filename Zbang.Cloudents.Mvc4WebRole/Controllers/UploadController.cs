@@ -361,7 +361,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         var response = await httpClient.GetAsync(model.Url).ConfigureAwait(false);
                         if (response.StatusCode == System.Net.HttpStatusCode.Redirect)
                         {
-                            if (response.Headers.Location.AbsoluteUri.ToLowerInvariant().Contains("servicelogin"))
+                            if (response.Headers.Location.AbsoluteUri.IndexOf("servicelogin", StringComparison.InvariantCultureIgnoreCase) >= 0)
                             {
                                 throw new ObjectNotFoundException();
                             }
