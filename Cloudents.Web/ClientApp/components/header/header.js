@@ -7,7 +7,7 @@ import tutorHeader from '../general/images/tutor.svg'
 import foodHeader from '../general/images/food.svg'
 import searchTypes from './../helpers/radioList.vue'
 import searchIcon from './Images/search-icon.svg';
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions} from 'vuex'
 import { verticalsPlaceholders as placeholders, names } from '../data'
 import logo from '../../../wwwroot/Images/logo-spitball.svg';
 import notification from "./images/notification-icon.svg";
@@ -32,11 +32,9 @@ export default {
             placeholders: placeholders,
             showOption: false,
             names: names,
-            qFilter: this.userText,
+            qFilter: this.$route.query.q,
             isOptions: false
         }
-    }, computed: {
-        ...mapGetters(['userText'])
     },
 
     props: {
@@ -44,20 +42,20 @@ export default {
     },
 
     mounted: function () {
-        this.qFilter = this.userText;
+        console.log("mounte")
     },
 
     methods: {
         ...mapActions(['updateSearchText']),
         changeType: function (val) {
-            //this.updateSearchText();
             this.qFilter = "";
             this.$refs.search.focus();
-            //this.$router.push({ name: val });
         },
         submit: function () {
             this.isOptions = false;
-            this.updateSearchText(this.qFilter);
+            this.updateSearchText({ str: this.qFilter,type:this.$route.name}).then((response) => {
+                this.$router.push({ response, query: { q: this.qFilter } });
+            });
             this.$emit('update:overlay', false);
         },
         focus: function () {

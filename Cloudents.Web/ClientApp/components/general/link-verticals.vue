@@ -2,7 +2,7 @@
     <v-list subheader>
         <template v-for="(list,index) in verticals">
             <v-subheader class="ml-2 sub" v-text="list.label"></v-subheader>
-            <v-list-tile append v-for="vertical in list.data" :key="vertical.name" :to="{name:vertical.id}">
+            <v-list-tile append v-for="vertical in list.data" :key="vertical.name" :to="{name:vertical.id,query:{q:userText}}">
                 <v-list-tile-action-text :class="'bg-'+vertical.id" class="vertical-cycle">
                     <component class="item" v-bind:is="vertical.image"></component>
                 </v-list-tile-action-text>
@@ -38,9 +38,12 @@
         },
         data() {
             return {
-                verticals: verticals,
-                userText: this.$store.getters.userText
+                verticals: verticals,      
             }
+        },
+
+        computed: {
+            userText: function () { return this.$route.query.q }
         }
     };
 </script>

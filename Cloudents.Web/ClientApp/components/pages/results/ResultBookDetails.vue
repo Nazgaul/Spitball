@@ -1,7 +1,7 @@
 ﻿<template>
-    <div>
+    <div v-if="pageData.details">
         <div class="title">{{pageData.details.title}}</div>
-        <result-book :item="pageData.details" :isDetails="true"></result-book>
+        <result-book  :item="pageData.details" :isDetails="true"></result-book>
         <v-container grid-list-md>
             <v-layout row wrap>
                 <v-flex>

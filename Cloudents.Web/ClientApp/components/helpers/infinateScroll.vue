@@ -31,10 +31,14 @@
                                 $state.loaded();
                                 this.page++;
                             } else {
+                                this.page = 1;
                                 $state.complete();
                             }
                         })
-                } else { $state.complete(); }
+              } else {
+                  this.page = 1;
+                  $state.complete();
+              }
             },
         },
         components: {

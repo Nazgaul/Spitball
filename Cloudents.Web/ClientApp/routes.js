@@ -2,22 +2,21 @@
 import * as RouteTypes from "./routeTypes";
 
 
-
 const SectionsPage = () => import("./components/pages/page.vue");
 const resultPage = () => import("./components/pages/results/Result.vue");
 const bookDetails = () => import("./components/pages/results/ResultBookDetails.vue");
-const meta = { userText: "" }
-const resultMeta = { ...meta, load: "newResultPage" }
 function dynamicPropsFn(route) {
     return {
         name: route.name,
-        currentQuery: route.query,
+        query: route.query,
         filterOptions: route.query.filter || 'all',
-        sort: route.query.sort || 'relevance'
+        sort: route.query.sort || 'relevance',
+        id: route.params.id,
+        userText: route.params.q,
+        params: route.params
     }
 }
 function homePropsFn(route) {
-    console.log(route.meta.searchType)
     return {
         metaType: route.meta.searchType,
         metaText: route.meta.userText
@@ -25,27 +24,25 @@ function homePropsFn(route) {
 }
 
 export const routes = [
-    { path: "/", component: HomePage, name: "home", meta: Object.assign({}, { ...meta, searchType: 'ask' }), props: homePropsFn },
+    { path: "/", component: HomePage, name: "home", meta: {searchType: 'ask' }, props: homePropsFn },
     {
         path: "/result", component: SectionsPage, name: "result", meta
         , children: [
-            { path: "ask", name: RouteTypes.questionRoute, component: resultPage, meta: { userText: "", load: "newResultPage" }, props: dynamicPropsFn },
-            { path: "flashcard", name: RouteTypes.flashcardRoute, component: resultPage, meta: { ...resultMeta }, props: dynamicPropsFn },
-            { path: "note", name: RouteTypes.notesRoute, component: resultPage, meta: { ...resultMeta }, props: dynamicPropsFn},
-            { path: "tutor", name: RouteTypes.tutorRoute, component: resultPage, meta: Object.assign({}, resultMeta),props: dynamicPropsFn },
-            {path: "book", name: RouteTypes.bookRoute, component: resultPage, meta: Object.assign({}, resultMeta), props: dynamicPropsFn},
-            { path: "food", name: RouteTypes.foodRoute, component: resultPage, meta: Object.assign({ location: true }, resultMeta), props: dynamicPropsFn },
-            { path: "job", name: RouteTypes.jobRoute, component: resultPage, meta: Object.assign({}, resultMeta), props: dynamicPropsFn },
-            { path: 'book/:type/:id', name: RouteTypes.bookDetailsRoute, component: bookDetails, props: dynamicPropsFn, meta: { load: "bookDetails" } },
+            { path: "ask", name: RouteTypes.questionRoute, component: resultPage,  props: dynamicPropsFn },
+            { path: "flashcard", name: RouteTypes.flashcardRoute, component: resultPage,  props: dynamicPropsFn },
+            { path: "note", name: RouteTypes.notesRoute, component: resultPage,  props: dynamicPropsFn},
+            { path: "tutor", name: RouteTypes.tutorRoute, component: resultPage, props: dynamicPropsFn },
+            {path: "book", name: RouteTypes.bookRoute, component: resultPage, props: dynamicPropsFn},
+            { path: "food", name: RouteTypes.foodRoute, component: resultPage, meta: { location: true }, props: dynamicPropsFn },
+            { path: "job", name: RouteTypes.jobRoute, component: resultPage, props: dynamicPropsFn },
+            { path: 'book/:type/:id', name: RouteTypes.bookDetailsRoute, component: bookDetails, props: dynamicPropsFn },
             { path: "not-found", name: RouteTypes.uploadRoute, component: resultPage },
             { path: "not-found", name: RouteTypes.postRoute, component: resultPage },
-            { path: "not-found", name: RouteTypes.createFlashcard, component: resultPage},
+            { path: "not-found", name: RouteTypes.createFlashcard, component: resultPage },
             { path: "not-found", name: RouteTypes.chatRoute, component: resultPage },
-            { path: "not-found", name: RouteTypes.coursesRoute, component: resultPage},
-            { path: "not-found", name: RouteTypes.likesRoute, component: resultPage},
-            { path: "not-found", name: RouteTypes.settingsRoute, component: resultPage}
-
-
+            { path: "not-found", name: RouteTypes.coursesRoute, component: resultPage },
+            { path: "not-found", name: RouteTypes.likesRoute, component: resultPage },
+            { path: "not-found", name: RouteTypes.settingsRoute, component: resultPage }
         ]
     }
 

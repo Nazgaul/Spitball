@@ -7,57 +7,67 @@ const ResultJob = () => import('./ResultJob.vue');
 import ResultVideo from './ResultVideo.vue'
 const ResultFood = () => import('./ResultFood.vue')
 const ResultBookPrice = () => import('./ResultBookPrice.vue');
+const bobo = (obj) => {
+    obj.$store.commit(types.UPDATE_LOADING, true);
+    obj.$store.dispatch("fetchingData", { pageName: obj.name, queryParams: { ...obj.query, ...obj.params } })
+        .then((data) => {
+            obj.pageData = data;
+            obj.filter = obj.filterOptions
+            obj.$store.commit(types.UPDATE_LOADING, false);
+        })
+}
 const sortAndFilterMixin = {
-    data() {
-        this.$store.subscribe((mutation, state) => {
-            if (mutation.type === "UPDATE_LOADING" && mutation.payload) {
-                this.pageData = {};
-                this.filter = 'all';
-            } else if (mutation.type === "PAGE_LOADED") {
-                this.pageData = mutation.payload;
+    beforeRouteUpdate(to, from, next) {
+        // just use `this`
+        this.$store.commit(types.UPDATE_LOADING, true);
+        this.$store.dispatch("fetchingData", { pageName: to.name, queryParams: { ...to.query, ...to.params } })
+            .then((data) => {
+                this.pageData = data;
                 this.filter = this.filterOptions
-            }
-        });
+                this.$store.commit(types.UPDATE_LOADING, false);
+            })
+        next();
+    },
+    watch: {
+        '$route': '$_routeChange'
+    },
+    data() {
+        bobo(this);
         return {
             filter: '',
-            items: '',
-            pageData: {}
+            pageData: ''
         }
     },
+
     components: { RadioList },
 
     computed: {
         page: function () { return page[this.name] },
-        subFilter: function () { return this.currentQuery[this.filterOptions]; },
+        subFilter: function () { return this.query[this.filterOptions]; },
         subFilters: function () {
             const list = this.pageData[this.filter];
             return list ? list.map(item => { return { id: item, name: item } }) : [];
         }
     },
     props: {
-        name: { type: String }, currentQuery: { type: Object }, filterOptions: { type: String }, sort: { type: String }
+        name: { type: String }, query: { type: Object }, filterOptions: { type: String }, sort: { type: String }, fetch: { type: String }, params: { type: Object }
     },
 
     methods: {
+        $_routeChange(current, prev) {
+            if(current.name!==prev.name)bobo(this);
+        },
         $_defaultSort(defaultSort) {
-            let sort = this.currentQuery.sort ? this.currentQuery.sort : defaultSort;
+            let sort = this.query.sort ? this.query.sort : defaultSort;
             return sort;
         },
         $_updateSort(sort) {
-            this.$router.push({ query: { ... this.currentQuery, sort: sort } });
-        },
-        $_changeFilter(filter) {
-            delete this.currentQuery[this.filter];
-            this.filter = filter;
-            let query = this.currentQuery.sort ? { sort: this.currentQuery.sort } : {};
-            if (!this.subFilters.length) {
-                this.$router.push({ query: { ...query, filter } });
-            }
+            this.$router.push({ query: { ... this.query, sort: sort } });
         },
         $_changeSubFilter(val) {
             let sub = {};
             sub[this.filter] = val;
-            this.$router.push({ query: { ... this.currentQuery, ...sub, filter: this.filter } });
+            this.$router.push({ query: { ... this.query, ...sub, filter: this.filter } });
         }
     }
 };
@@ -84,11 +94,22 @@ export const pageMixin =
                     this.position = position;
                 });
             }
+        },
+
+        methods: {
+            $_changeFilter(filter) {
+                this.filter = filter;
+                let query = this.query.sort ? { sort: this.query.sort } : {};
+                if (!this.subFilters.length) {
+                    this.$router.push({ query: { ...query, filter } });
+                }
+            }
         }
+
     };
 export const detailsMixin = {
     mixins:[sortAndFilterMixin],
-    components: { ResultBookPrice },
+    components: { ResultBookPrice, ResultBook},
     computed: {
         filteredList: function () {
             return this.filter === 'all' ? this.pageData.data:this.pageData.data.filter(item => item.condition === this.filter);
