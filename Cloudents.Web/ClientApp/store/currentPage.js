@@ -60,7 +60,7 @@ const actions = {
 
     newResultPage: (context, page) => {
         return new Promise((resolve)=>{
-            if (context.rootGetters.currenFlow != page.name) {
+            if (context.rootGetters.currenFlow !== page.name) {
                 context.commit(types.ADD, { result: page.name })
             }
         })

@@ -32,21 +32,24 @@ export default {
             placeholders: placeholders,
             showOption: false,
             names: names,
-            qFilter: this.$route.query.q,
+            qFilter: this.userText,
             isOptions: false
         }
     },
 
     props: {
-        openOptions: { type: Function }
+        openOptions: { type: Function }, userText: {type:String}
     },
 
-    mounted: function () {
-        console.log("mounte")
+    watch: {
+        '$route.query': '$_routeChange'
     },
 
     methods: {
         ...mapActions(['updateSearchText']),
+        $_routeChange(val) {
+            this.qFilter = this.userText;
+        },
         changeType: function (val) {
             this.qFilter = "";
             this.$refs.search.focus();
@@ -54,7 +57,7 @@ export default {
         submit: function () {
             this.isOptions = false;
             this.updateSearchText({ str: this.qFilter,type:this.$route.name}).then((response) => {
-                this.$router.push({ response, query: { q: this.qFilter } });
+                this.$router.push({ path:response, query: { q: this.qFilter } });
             });
             this.$emit('update:overlay', false);
         },

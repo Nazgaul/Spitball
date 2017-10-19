@@ -8,23 +8,23 @@ import ResultVideo from './ResultVideo.vue'
 const ResultFood = () => import('./ResultFood.vue')
 const ResultBookPrice = () => import('./ResultBookPrice.vue');
 const bobo = (obj) => {
-    obj.$store.commit(types.UPDATE_LOADING, true);
+    obj.$store.commit("UPDATE_LOADING", true);
     obj.$store.dispatch("fetchingData", { pageName: obj.name, queryParams: { ...obj.query, ...obj.params } })
         .then((data) => {
             obj.pageData = data;
             obj.filter = obj.filterOptions
-            obj.$store.commit(types.UPDATE_LOADING, false);
+            obj.$store.commit("UPDATE_LOADING", false);
         })
 }
 const sortAndFilterMixin = {
     beforeRouteUpdate(to, from, next) {
         // just use `this`
-        this.$store.commit(types.UPDATE_LOADING, true);
+        this.$store.commit("UPDATE_LOADING", true);
         this.$store.dispatch("fetchingData", { pageName: to.name, queryParams: { ...to.query, ...to.params } })
             .then((data) => {
                 this.pageData = data;
                 this.filter = this.filterOptions
-                this.$store.commit(types.UPDATE_LOADING, false);
+                this.$store.commit("UPDATE_LOADING", false);
             })
         next();
     },
@@ -42,6 +42,7 @@ const sortAndFilterMixin = {
     components: { RadioList },
 
     computed: {
+        isLoading: function () { return this.$store.getters.loading },
         page: function () { return page[this.name] },
         subFilter: function () { return this.query[this.filterOptions]; },
         subFilters: function () {
@@ -99,9 +100,8 @@ export const pageMixin =
         methods: {
             $_changeFilter(filter) {
                 this.filter = filter;
-                let query = this.query.sort ? { sort: this.query.sort } : {};
                 if (!this.subFilters.length) {
-                    this.$router.push({ query: { ...query, filter } });
+                    this.$router.push({ query: { ... this.query, filter } });
                 }
             }
         }

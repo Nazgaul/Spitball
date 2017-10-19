@@ -1,17 +1,19 @@
 ﻿<template>
-    <v-list subheader>
-        <template v-for="(list,index) in verticals">
-            <v-subheader class="sub mt-2" v-text="list.label"></v-subheader>
-            <v-list-tile append v-for="vertical in list.data" :key="vertical.name" :to="{name:vertical.id,,query:{q:userText}}">
-                <v-list-tile-action-text :class="'bg-'+vertical.id" class="vertical-cycle">
-                    <component class="item" v-bind:is="vertical.image"></component>
-                </v-list-tile-action-text>
-                <v-list-tile-content class="ml-2">
-                    <v-list-tile-title>{{vertical.name}}</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-        </template>
-    </v-list>
+    <v-navigation-drawer light app clipped permanent class="aside" width="216">
+        <v-list subheader>
+            <template v-for="(list,index) in verticals">
+                <v-subheader class="sub mt-2" v-text="list.label"></v-subheader>
+                <v-list-tile append v-for="vertical in list.data" :key="vertical.name" :to="{name:vertical.id,query:{q:text}}">
+                    <v-list-tile-action-text :class="'bg-'+vertical.id" class="vertical-cycle">
+                        <component class="item" v-bind:is="vertical.image"></component>
+                    </v-list-tile-action-text>
+                    <v-list-tile-content class="ml-2">
+                        <v-list-tile-title>{{vertical.name}}</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+            </template>
+        </v-list>
+        </v-navigation-drawer>
 </template>
 
 
@@ -42,9 +44,24 @@
             }
         },
 
+        props: {
+            userText: { type: String }
+        },
         computed: {
-            userText: function () { return this.$route.query.q }
+            text() {
+                return this.userText
+            }
         }
     };
 </script>
 <style src="./link-verticals.less" lang="less" scoped></style>
+<style scoped>
+    /*need to override theme*/
+    .navigation-drawer.aside {
+        background: #3293f6;
+    }
+
+    .navigation-drawer {
+        padding: 0;
+    }
+</style>

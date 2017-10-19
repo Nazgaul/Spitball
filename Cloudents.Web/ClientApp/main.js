@@ -57,7 +57,7 @@ new Vue({
 });
 router.beforeResolve((to, from, next) => {
     console.log("before resolve" + new Date())
-
+    //TODO check for the suggest
     //if (to.meta.fetch && !to.meta.isUpdate) {
     //    store.commit("UPDATE_LOADING", true);
     //    store.dispatch(to.meta.fetch, to).then((data) => {

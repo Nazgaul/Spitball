@@ -55,7 +55,7 @@ export default {
         food: function (params) {
             return new Promise((resolve, reject) => {
                 if (params.page) { resolve({ data: [] }); return; }
-                search.getFood({ ...params, location: "34.8016837,31.9195509" }).then(({ body }) => resolve({ data: body.map(val => { return { ...val, template: "food" } }) }));
+                search.getFood({ ...params, location: "34.8016837,31.9195509" }).then(({ body }) => resolve({ data: body.item2.map(val => { return { ...val, template: "food" } }) }));
             })
         }
     }
