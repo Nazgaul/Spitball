@@ -11,6 +11,6 @@ namespace Cloudents.Core.Interfaces
 
     public interface IDecision
     {
-        (AIResult result, AIDto data) MakeDecision(AIDto aiResult);
+        (AiResult result, AIDto data) MakeDecision(AIDto aiResult);
     }
 }

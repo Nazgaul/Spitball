@@ -1,6 +1,6 @@
 ﻿namespace Cloudents.Core.Enum
 {
-    public enum AIResult
+    public enum AiResult
     {
         None,
         SearchOrQuestion,
@@ -17,21 +17,5 @@
         Purchase,
         PurchaseAskBuy,
         PurchaseChangeTerm //Need to change Dto
-
-    }
-
-    public enum AIIntent
-    {
-        None,
-        Qna,
-        Tutor,
-        [Parse("books")]
-        Book, //books
-        [Parse("jobs")]
-        Job, //jobs
-        [Parse("askQuestion")]
-        Question, //askQuestion
-        Search,
-        Purchase
     }
 }

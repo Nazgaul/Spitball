@@ -36,7 +36,7 @@ namespace Cloudents.Infrastructure.AI
             var result = await m_Client.Predict(sentence).ConfigureAwait(false);
             var entities = result.GetAllEntities();
 
-            result.TopScoringIntent.Name.TryToEnum(out AIIntent intent);
+            result.TopScoringIntent.Name.TryToEnum(out AiIntent intent);
             KeyValuePair<string, string>? searchType = null;
             string course = null;
             var terms = new List<string>();

@@ -49,6 +49,7 @@
     <Compile Include="DTOs\UniversitySynonymDto.cs" />
     <Compile Include="DTOs\VideoDto.cs" />
     <Compile Include="Entities\Search\Tutor.cs" />
+    <Compile Include="Enum\AiIntent.cs" />
     <Compile Include="Enum\AIResult.cs" />
     <Compile Include="DTOs\AIDto.cs" />
     <Compile Include="DTOs\SearchResult.cs" />
