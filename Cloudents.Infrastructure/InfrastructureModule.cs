@@ -149,27 +149,7 @@ namespace Cloudents.Infrastructure
                     Title = jo["title"].Value<string>()
 
                 });
-                cfg.CreateMap<JObject, BookDetailsDto>().ConvertUsing((jo, bookSearch, c) =>
-                {
-                    var book = jo["response"]["page"]["books"]["book"].First;
-                    var offers = book["offers"]["group"].SelectMany(json =>
-                    {
-                        return json["offer"].Select(s => new BookPricesDto
-                        {
-                            Condition = s["condition"]["condition"].Value<string>(),
-                            Image = s["merchant"]["image"].Value<string>(),
-                            Link = s["link"].Value<string>(),
-                            Name = s["merchant"]["name"].Value<string>(),
-                            Price = s["total"].Value<double>()
-                        });
-                    });
-                    return new BookDetailsDto
-                    {
-
-                        Details = c.Mapper.Map<JToken, BookSearchDto>(book), //book.ToObject<BookSearchDto>(),,
-                        Prices = offers
-                    };
-                });
+                cfg.CreateMap<JObject, BookDetailsDto>().ConvertUsing<BookDetailConverter>();
                 cfg.CreateMap<JObject, (string, IEnumerable<PlaceDto>)>().ConvertUsing<PlaceConverter>();
                 cfg.CreateMap<JObject, IEnumerable<TutorDto>>().ConvertUsing<TutorMeConverter>();
             });

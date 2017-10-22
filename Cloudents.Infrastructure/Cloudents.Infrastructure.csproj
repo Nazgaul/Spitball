@@ -138,6 +138,7 @@
     <Compile Include="AI\LuisAI.cs" />
     <Compile Include="Cache\CacheProvider.cs" />
     <Compile Include="Cache\CacheResultInterceptor.cs" />
+    <Compile Include="Converters\BookDetailConverter.cs" />
     <Compile Include="Converters\JobResultConverter.cs" />
     <Compile Include="Converters\PlaceConverter.cs" />
     <Compile Include="Converters\TutorMeConverter.cs" />
