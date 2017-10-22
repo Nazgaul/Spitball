@@ -34,24 +34,16 @@ const getters = {
 const actions = {
     updateSearchText(context, text) {
        
-        let params = {};
-        let isHome = true;
         console.log(text);
         if (!text) {
             //TODO: need to figure out what do to in here.
             //context.commit(types.UPDATE_SEARCH_PARAMS, { userText: null });
             return;
         }
-        if (!params.hasOwnProperty('prefix')) {
-            params = { str: text.str, prefix: prefixes[text.type]}
-        }
-        else {
-            params = text;
-        }
 
         return new Promise((resolve, reject) => {
-            ai.interpetPromise(params.prefix, params.str).then(({ body }) => {
-                context.commit(types.UPDATE_SEARCH_PARAMS, { ...body.data, userText: params.str });
+            ai.interpetPromise(text).then(({ body }) => {
+                context.commit(types.UPDATE_SEARCH_PARAMS, { ...body.data });
                     context.commit(types.ADD, { ...body });
                     resolve(context.rootGetters.currenFlow);
             })
@@ -59,22 +51,18 @@ const actions = {
     },
 
     updateLuisAndFetch({commit}, page) {
-        ai.interpetPromise(page.query.q).then(({ body }) => {
-            //commit(types.UPDATE_SEARCH_PARAMS, { ...body.data, userText: params.str });
-            //context.commit(types.ADD, { ...body });
-            commit(types.UPDATE_LOADING, true)
-            searchService.activateFunction[page.path.slice(1)]({ ...body.data, ...page.query, ...page.params })
-                .then((response) => {
-                    commit(types.FETCH, response)
-                    commit(types.UPDATE_LOADING, false)
-                })
+        return new Promise((resolve) => {
+            ai.interpetPromise(page.query.q).then(({ body }) => {
+                commit(types.UPDATE_SEARCH_PARAMS, { ...body.data });
+                //context.commit(types.ADD, { ...body });
+                resolve(searchService.activateFunction[page.path.slice(1)]({ ...body.data, ...page.query, ...page.params }))
+            })
         })
     },
     updateResult(context, page) {
         context.commit(types.UPDATE_LOADING, true)
         searchService.activateFunction[page.path.slice(1)]({ ...context.getters.searchParams, ...page.query, ...page.params })
             .then((response) => {
-                context.commit(types.FETCH, response)
                 context.commit(types.UPDATE_LOADING, false)
             })
     },

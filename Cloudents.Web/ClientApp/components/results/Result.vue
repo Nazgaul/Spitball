@@ -61,16 +61,3 @@
 <style src="./Result.less" lang="less">
     
 </style>
-<style lang="less">
-    @import "../../../mixin.less";
-
-    .overlay {
-        top: 128px;
-        background: rgba(0,0,0,0.5);
-        pointer-events: all;
-    }
-
-    .loader {
-        .inTheMiddle();
-    }
-</style>
