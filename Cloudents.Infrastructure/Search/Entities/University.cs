@@ -28,10 +28,10 @@ namespace Cloudents.Infrastructure.Search.Entities
         [IsFilterable]
         public string Country { get; set; }
 
-        [JsonProperty("membersCount")]
-        public int? MembersCount { get; set; }
-        [JsonProperty("membersImages")]
-        public string[] MembersImages { get; set; }
+        //[JsonProperty("membersCount")]
+        //public int? MembersCount { get; set; }
+        //[JsonProperty("membersImages")]
+        //public string[] MembersImages { get; set; }
         [IsSortable,IsFilterable]
         public GeographyPoint GeographyPoint { get; set; }
     }

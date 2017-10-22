@@ -63,6 +63,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<FlashcardSearch>().As<IFlashcardSearch>();
             builder.RegisterType<QuestionSearch>().As<IQuestionSearch>();
             builder.RegisterType<TutorSearch>().As<ITutorSearch>();
+            builder.RegisterType<CourseSearch>().As<ICourseSearch>();
             builder.RegisterType<TutorAzureSearch>().As<ITutorProvider>();
             if (m_Environment == Environment.Web)
             {
@@ -134,6 +135,7 @@ namespace Cloudents.Infrastructure
 
 
                 cfg.CreateMap<Search.Entities.Job, JobDto>();
+                cfg.CreateMap<Search.Entities.Course, CourseDto>();
                 cfg.CreateMap<Search.Entities.University, UniversityDto>();
 
 

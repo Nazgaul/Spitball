@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -21,7 +19,7 @@ namespace Cloudents.Infrastructure.Search
 
         public UniversitySearch(ISearchServiceClient client, IMapper mapper)
         {
-            m_Client = client.Indexes.GetClient("universities2"); ;
+            m_Client = client.Indexes.GetClient("universities2");
             m_Mapper = mapper;
         }
 
@@ -45,20 +43,6 @@ namespace Cloudents.Infrastructure.Search
                 Filter = "geographyPoint ne null",
                 OrderBy = sortQuery
             };
-
-            if (!term.Contains(" "))
-            {
-                term = "*";
-            }
-            //if (string.IsNullOrEmpty(term)) //obsolete
-            //{
-            //    searchParameter.ScoringProfile = CountryScoringProfile;
-            //    searchParameter.ScoringParameters = new[] { new ScoringParameter("country", new[] { query.Country }) };
-            //}
-            //else
-            //{
-            //    term = query.Term.Replace("\"", string.Empty);
-            //}
 
             var tResult =
                 m_Client.Documents.SearchAsync<University>(term, searchParameter,

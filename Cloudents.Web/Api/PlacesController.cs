@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
+using Cloudents.Web.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +23,7 @@ namespace Cloudents.Web.Api
             m_PlacesSearch = placesSearch;
         }
 
-
+        [IpToLocationActionFilter]
         public async Task<IActionResult> Get(string[] term, SearchRequestFilter filter, GeoPoint location, CancellationToken token)
         {
             if (term == null) throw new ArgumentNullException(nameof(term));

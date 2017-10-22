@@ -148,7 +148,9 @@
     <Compile Include="IRestClient.cs" />
     <Compile Include="RestClient.cs" />
     <Compile Include="Search\BookSearch.cs" />
+    <Compile Include="Search\CourseSearch.cs" />
     <Compile Include="Search\DocumentSearch.cs" />
+    <Compile Include="Search\Entities\Course.cs" />
     <Compile Include="Search\Entities\Job.cs" />
     <Compile Include="Search\Entities\Tutor.cs" />
     <Compile Include="Search\Entities\University.cs" />
