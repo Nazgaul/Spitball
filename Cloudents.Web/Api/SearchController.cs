@@ -33,7 +33,10 @@ namespace Cloudents.Web.Api
                 model.Sort);
 
             var result = await searchProvider.SearchAsync(query, token).ConfigureAwait(false);
-            return Json(result);
+            return Json(new
+            {
+                result.result, result.facet
+            });
         }
 
         [Route("flashcards")]
@@ -50,7 +53,11 @@ namespace Cloudents.Web.Api
                 model.Sort);
 
             var result = await searchProvider.SearchAsync(query, token).ConfigureAwait(false);
-            return Json(result);
+            return Json(new
+            {
+                result.result,
+                result.facet
+            });
         }
 
         [Route("qna")]

@@ -45,19 +45,15 @@ button {
 @list-verticals: ask,flashcard,note,tutor,book,food,job,upload,post,create,chat,course,like,setting;
 
 .horizontal-variant(@variant,@p) {
-    @color: "vertical-@{variant}"; //"horizontal-@{variant}-color";
+    @color: "vertical-@{variant}"; 
     @{p}: @@color;
 }
 
 .loop(@index) when (@index <= length(@list-verticals)) {
-    .loop((@index + 1)); // next iteration
-    //@p: at(@list-verticals,@index) ;
+    .loop((@index + 1)); 
     @p: extract(@list-verticals,@index);
-    //@z: "@{p}";
-    //width: (10px * @counter); // code for each iteration
     .text-@{p} {
         .horizontal-variant(@p,color)
-        //color: @z;// extract(@list-verticals,@index)
     }
 
     .bg-@{p} {
