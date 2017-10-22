@@ -46,6 +46,7 @@
     <Compile Include="DTOs\ResultWithFacetDto.cs" />
     <Compile Include="DTOs\PlaceDto.cs" />
     <Compile Include="DTOs\TutorDto.cs" />
+    <Compile Include="DTOs\UniversityDto.cs" />
     <Compile Include="DTOs\UniversitySynonymDto.cs" />
     <Compile Include="DTOs\VideoDto.cs" />
     <Compile Include="Entities\Search\Tutor.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Interfaces\IReadRepositorySingle.cs" />
     <Compile Include="Interfaces\ITitleSearch.cs" />
     <Compile Include="Interfaces\ITutorSearch.cs" />
+    <Compile Include="Interfaces\IUniversitySearch.cs" />
     <Compile Include="Interfaces\IVideoSearch.cs" />
     <Compile Include="Models\CacheRegion.cs" />
     <Compile Include="Models\GeoPoint.cs" />

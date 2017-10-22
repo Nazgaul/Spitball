@@ -30,9 +30,9 @@ namespace Test
             var container = builder.Build();
 
 
-            var services = container.Resolve<ITutorSearch>();
+            var services = container.Resolve<IUniversitySearch>();
 
-            var result = await services.SearchAsync("math", SearchRequestFilter.None, SearchRequestSort.None, null, 0, default);
+            var result = await services.SearchAsync("iowa", null, default);
 
 
             //foreach (var service in services)

@@ -138,6 +138,7 @@
     <Compile Include="AI\LuisAI.cs" />
     <Compile Include="Cache\CacheProvider.cs" />
     <Compile Include="Cache\CacheResultInterceptor.cs" />
+    <Compile Include="Converters\BookDetailConverter.cs" />
     <Compile Include="Converters\JobResultConverter.cs" />
     <Compile Include="Converters\PlaceConverter.cs" />
     <Compile Include="Converters\TutorMeConverter.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Search\DocumentSearch.cs" />
     <Compile Include="Search\Entities\Job.cs" />
     <Compile Include="Search\Entities\Tutor.cs" />
+    <Compile Include="Search\Entities\University.cs" />
     <Compile Include="Search\FlashcardSearch.cs" />
     <Compile Include="Search\ITutorProvider.cs" />
     <Compile Include="Search\JobSearch.cs" />
@@ -159,6 +161,7 @@
     <Compile Include="Search\TutorMeSearch.cs" />
     <Compile Include="Search\TutorAzureSearch.cs" />
     <Compile Include="Search\TutorSearch.cs" />
+    <Compile Include="Search\UniversitySearch.cs" />
     <Compile Include="Search\VideoSearch.cs" />
     <Compile Include="UniqueKeyGenerator.cs" />
     <Compile Include="InfrastructureModule.cs" />

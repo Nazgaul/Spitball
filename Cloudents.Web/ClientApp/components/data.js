@@ -63,7 +63,8 @@ export let verticals =
         book: {
             id: routes.bookRoute,
 
-            name: "book", image: "book", placeholder: "Find me a textbook ...", prefix: "Find me a textbook -",
+            name: "book", image: "book", placeholder: "Find me a textbook ...",
+            prefix: "Find me a textbook -",
             //asideLabel: "search type",
             resultTitle: "I found some textbooks that match your search. Check them out!", emptyState: "Sorry, I did not find any textbooks that match your search...", filter: "", sort: ""
         },

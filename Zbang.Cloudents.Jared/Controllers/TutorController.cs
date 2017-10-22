@@ -19,7 +19,8 @@ namespace Zbang.Cloudents.Jared.Controllers
             m_TutorSearch = tutorSearch;
         }
 
-        public async Task<HttpResponseMessage> Get(string term, SearchRequestFilter filter, SearchRequestSort sort, [FromUri] GeoPoint location, int page, CancellationToken token)
+        public async Task<HttpResponseMessage> Get(string term, SearchRequestFilter filter,
+            SearchRequestSort sort, [FromUri] GeoPoint location, int page, CancellationToken token)
         {
             var result = await m_TutorSearch.SearchAsync(term, filter, sort, location, page, token).ConfigureAwait(false);
             return Request.CreateResponse(result);
