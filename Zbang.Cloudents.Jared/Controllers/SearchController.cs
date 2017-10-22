@@ -45,8 +45,8 @@ namespace Zbang.Cloudents.Jared.Controllers
             var result = await m_SearchProvider.Value.SearchAsync(query, token).ConfigureAwait(false);
             return Request.CreateResponse(new
             {
-               documents =  result.result,
-               result.facet
+               documents =  result.Result,
+               result.Facet
             });
         }
 
@@ -66,8 +66,8 @@ namespace Zbang.Cloudents.Jared.Controllers
             var result = await m_FlashcardProvider.Value.SearchAsync(query, token).ConfigureAwait(false);
             return Request.CreateResponse(new
             {
-                documents = result.result,
-                result.facet
+                documents = result.Result,
+                result.Facet
             });
         }
 

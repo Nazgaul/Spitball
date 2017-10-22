@@ -8,7 +8,10 @@ namespace Cloudents.Core.Interfaces
 {
     public interface IFlashcardSearch
     {
-        Task<(IEnumerable<SearchResult> result, string[] facet)> SearchAsync(SearchQuery model,
+        //Task<(IEnumerable<SearchResult> result, string[] facet)> SearchAsync(SearchQuery model,
+        //    CancellationToken token);
+
+        Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model,
             CancellationToken token);
     }
 }

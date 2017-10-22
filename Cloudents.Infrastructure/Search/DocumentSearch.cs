@@ -20,7 +20,7 @@ namespace Cloudents.Infrastructure.Search
             m_Search = search;
         }
 
-        public async Task<(IEnumerable<SearchResult> result, string[] facet)> SearchAsync(SearchQuery model, CancellationToken token)
+        public async Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, CancellationToken token)
         {
             var term = new List<string>();
 
@@ -31,17 +31,15 @@ namespace Cloudents.Infrastructure.Search
                 term.Add(string.Join(" ", model.Query.Select(s => '"' + s + '"')));
             }
             //model.Page * 3, 3
-            var result = Enumerable.Range(0, 2).Select(s =>
-            {
-               var t = m_Search.DoSearchAsync(string.Join(" ", term), model.Source, s, model.Sort,
-                    CustomApiKey.Documents,
-                    token);
-                return t;
-            }).ToList();
+            var result = Enumerable.Range(0, 2).Select(s => m_Search.DoSearchAsync(string.Join(" ", term), model.Source, s, model.Sort,
+                CustomApiKey.Documents,
+                token)).ToList();
             await Task.WhenAll(result).ConfigureAwait(false);
-            return (
-                 result.Where(s => s.Result != null).SelectMany(s => s.Result),
-                 new[] {
+            return new ResultWithFacetDto<SearchResult>
+            {
+                Result = result.Where(s => s.Result != null).SelectMany(s => s.Result),
+                Facet = new[]
+                {
                     "uloop.com",
                     "spitball.co",
                     "studysoup.com",
@@ -50,7 +48,8 @@ namespace Cloudents.Infrastructure.Search
                     "oneclass.com",
                     "koofers.com",
                     "studylib.net"
-                });
+                }
+            };
         }
     }
 }

@@ -58,8 +58,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 {
                     if (reader.NodeType != XmlNodeType.Element) continue;
                     if (reader.Name != "job") continue;
-                    if (!(XNode.ReadFrom(reader) is XElement el)) continue;
-                    var str = el.ToString();
+                    string str;
+                    try
+                    {
+                        if (!(XNode.ReadFrom(reader) is XElement el)) continue;
+                        str = el.ToString();
+                    }
+                    catch (XmlException)
+                    {
+                        continue;
+                    }
                     var stringReader = new StringReader(str);
                     var job = (WayUpJob)serializer.Deserialize(stringReader);
                     job.Id = MD5HashGenerator.GenerateKey(str);
@@ -84,7 +92,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
 
             var location = await m_ZipToLocation.GetLocationViaZipAsync(obj.Zip).ConfigureAwait(false);
-            var searchJobObject = new Job
+            return new Job
             {
                 City = obj.City,
                 CompensationType = obj.CompType,
@@ -99,7 +107,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 Url = obj.Url,
                 Company = obj.Company,
             };
-            return searchJobObject;
         }
 
         protected override Task UpdateSearchAsync(IEnumerable<Job> list, CancellationToken token)

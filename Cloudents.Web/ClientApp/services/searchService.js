@@ -21,12 +21,12 @@ export default {
         note: (params) => {
             console.log(params);
             return new Promise((resolve, reject) => {
-                search.getDocument(params).then(({ body }) => resolve({ source: body.item2, data: body.item1.map(val => { return { ...val, template: "item" } }) }))
+                search.getDocument(params).then(({ body }) => resolve({ source: body.facet, data: body.result.map(val => { return { ...val, template: "item" } }) }))
             })
         },
         flashcard: function (params) {
             return new Promise((resolve, reject) => {
-                search.getFlashcard(params).then(({ body }) => resolve({ source: body.item2, data: body.item1.map(val => Object.assign(val, { template: "item" })) }))
+                search.getFlashcard(params).then(({ body }) => resolve({ source: body.facet, data: body.result.map(val => Object.assign(val, { template: "item" })) }))
             })
         },
         tutor: function (params) {
@@ -36,7 +36,7 @@ export default {
         },
         job: function (params) {
             return new Promise((resolve, reject) => {
-                search.getJob(params).then(({ body }) => resolve({ jobType: body.types, data: body.jobs.map(val => { return { ...val, template: "job" } }) }));
+                search.getJob(params).then(({ body }) => resolve({ jobType: body.facet, data: body.result.map(val => { return { ...val, template: "job" } }) }));
             })
         },
         book: function (params) {

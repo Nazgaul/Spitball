@@ -32,10 +32,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             var point = await m_Cache.GetFromCacheAsync<GeographyPoint>(CacheRegions.ZipToLocation, zip).ConfigureAwait(false);
             if (point != null)
-            //if (m_ZipToLocationCache.TryGetValue(zip, out GeographyPoint point))
-            //{
+            {
                 return point;
-            //}
+            }
             using (var client = new HttpClient())
             {
                 try
@@ -53,7 +52,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     var lng = location["lng"].Value<double>();
                     point = GeographyPoint.Create(lat, lng);
                     await m_Cache.AddToCacheAsync(CacheRegions.ZipToLocation, zip, point, TimeSpan.FromDays(365)).ConfigureAwait(false);
-                    //m_ZipToLocationCache[zip] = point;
                     return point;
                 }
                 catch (Exception ex)

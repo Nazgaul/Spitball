@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure.Search
             m_Client = client.Indexes.GetClient("jobs");
         }
 
-        public async Task<JobFacetDto> SearchAsync(
+        public async Task<ResultWithFacetDto<JobDto>> SearchAsync(
             string term,
             SearchRequestFilter filter,
             SearchRequestSort sort,
@@ -70,7 +70,7 @@ namespace Cloudents.Infrastructure.Search
 
             var retVal = await
                 m_Client.Documents.SearchAsync<Job>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
-            return m_Mapper.Map<JobFacetDto>(retVal, opt => opt.Items[JobResultConverter.FacetType] = "jobType");
+            return m_Mapper.Map<ResultWithFacetDto<JobDto>>(retVal, opt => opt.Items[JobResultConverter.FacetType] = "jobType");
         }
     }
 }

@@ -27,8 +27,27 @@ namespace Cloudents.Web.Api
         {
             if (term == null) throw new ArgumentNullException(nameof(term));
             if (location == null) throw new ArgumentNullException(nameof(location));
-            var result = await m_PlacesSearch.SearchNearbyAsync(string.Join(" ", term), filter, location,"", token).ConfigureAwait(false);
-            return Json(result);
+            var result = await m_PlacesSearch.SearchNearbyAsync(string.Join(" ", term), filter, location, default, token).ConfigureAwait(false);
+            return Json(new
+            {
+                result.token,
+                result.data
+            });
+        }
+
+
+        public async Task<IActionResult> Get(string nextPageToken,
+            CancellationToken token)
+        {
+            if (nextPageToken == null) throw new ArgumentNullException(nameof(nextPageToken));
+            var result = await m_PlacesSearch.SearchNearbyAsync(string.Empty,
+                default, default, nextPageToken, token).ConfigureAwait(false);
+
+            return Json(new
+            {
+                result.token,
+                result.data
+            });
         }
     }
 }
