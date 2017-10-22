@@ -58,6 +58,26 @@ const actions = {
         })
     },
 
+    updateLuisAndFetch({commit}, page) {
+        ai.interpetPromise(page.query.q).then(({ body }) => {
+            //commit(types.UPDATE_SEARCH_PARAMS, { ...body.data, userText: params.str });
+            //context.commit(types.ADD, { ...body });
+            commit(types.UPDATE_LOADING, true)
+            searchService.activateFunction[page.path.slice(1)]({ ...body.data, ...page.query, ...page.params })
+                .then((response) => {
+                    commit(types.FETCH, response)
+                    commit(types.UPDATE_LOADING, false)
+                })
+        })
+    },
+    updateResult(context, page) {
+        context.commit(types.UPDATE_LOADING, true)
+        searchService.activateFunction[page.path.slice(1)]({ ...context.getters.searchParams, ...page.query, ...page.params })
+            .then((response) => {
+                context.commit(types.FETCH, response)
+                context.commit(types.UPDATE_LOADING, false)
+            })
+    },
     newResultPage: (context, page) => {
         return new Promise((resolve)=>{
             if (context.rootGetters.currenFlow !== page.name) {
@@ -65,8 +85,8 @@ const actions = {
             }
         })
     },
-    bookDetails: (context, page) => {
-       return context.dispatch('fetchingData', { pageName: page.name, queryParams: page.params });
+    bookDetails: (context, data) => {
+        return searchService.activateFunction[data.pageName](data.params) 
     },
     fetchingData: (context, data) => {
         return searchService.activateFunction[data.pageName]({ ...context.getters.searchParams, ...data.queryParams })    

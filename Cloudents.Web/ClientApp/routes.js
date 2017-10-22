@@ -2,19 +2,28 @@
 import * as RouteTypes from "./routeTypes";
 
 
-const SectionsPage = () => import("./components/pages/page.vue");
 const resultContent = () => import("./components/pages/results/Result.vue");
 const resultPageHeader = () => import("./components/header/header.vue");
-const resultPageNavbar = () => import("./components/navbar/navbar.vue");
+const resultPageNavbar = () => import("./components/general/TheNavbar.vue");
 const bookDetails = () => import("./components/pages/results/ResultBookDetails.vue");
+const notFound = () => import("./components/pages/results/notFound.vue");
 function dynamicPropsFn(route) {
     return {
-        name: route.name,
+        name: route.path.slice(1),
         query: route.query,
         filterOptions: route.query.filter || 'all',
         sort: route.query.sort || 'relevance',
-        id: route.params.id,
         userText: route.params.q,
+        params: route.params
+    }
+}
+function dynamicDetailsPropsFn(route) {
+    return {
+        name: route.name,
+        query: route.query,
+        filterOptions: 'all',
+        sort: 'price',
+        id: route.params.id,
         params: route.params
     }
 }
@@ -25,25 +34,32 @@ function homePropsFn(route) {
     }
 }
 const resultPage = { navbar: resultPageNavbar, default: resultContent, header: resultPageHeader }
-const resultProps = { default: dynamicPropsFn, navbar: (route) => ({ userText: route.query.q }), header: (route) => ({ userText: route.query.q }) }
+const bookDetailsPage = { navbar: resultPageNavbar, default: bookDetails, header: resultPageHeader }
+const notFoundPage = { navbar: resultPageNavbar, header: resultPageHeader, default: notFound }
+const resultProps = { default: dynamicPropsFn, navbar: (route) => ({ userText: route.query.q }), header: (route) => ({ userText: route.query.q,name:route.path.slice(1) }) }
+const notFoundProps = {  navbar: (route) => ({ userText: "" }), header: (route) => ({ userText: "",name:route.path.slice(1) }) }
+const bookDetailsProps = { ...resultProps, default: dynamicDetailsPropsFn, header: (route) => ({ userText: route.query.q, name: 'book' })}
 export const routes = [
-    { path: "/", component: HomePage, name: "home", meta: {searchType: 'ask' }, props: homePropsFn },
+    {
+        path: "/", component: HomePage, name: "home", meta: { searchType: 'ask' }, props: homePropsFn
+    },
 
-    { path: "/ask", name: RouteTypes.questionRoute, components: resultPage, props: resultProps},
-    { path: "/flashcard", name: RouteTypes.flashcardRoute, components: resultPage, props: resultProps },
-    { path: "/note", name: RouteTypes.notesRoute, components: resultPage, props: resultProps},
-    { path: "/tutor", name: RouteTypes.tutorRoute, components: resultPage, props: resultProps },
-    { path: "/book", name: RouteTypes.bookRoute, components: resultPage, props: resultProps},
-    { path: "/food", name: RouteTypes.foodRoute, components: resultPage, meta: { location: true }, props: resultProps },
-    { path: "/job", name: RouteTypes.jobRoute, components: resultPage, props: resultProps },
-    { path: '/book/:type/:id', name: RouteTypes.bookDetailsRoute, components: bookDetails, props: resultProps },
-            { path: "not-found", name: RouteTypes.uploadRoute, components: resultPage },
-            { path: "not-found", name: RouteTypes.postRoute, components: resultPage },
-            { path: "not-found", name: RouteTypes.createFlashcard, components: resultPage },
-            { path: "not-found", name: RouteTypes.chatRoute, components: resultPage },
-            { path: "not-found", name: RouteTypes.coursesRoute, components: resultPage },
-            { path: "not-found", name: RouteTypes.likesRoute, components: resultPage },
-            { path: "not-found", name: RouteTypes.settingsRoute, components: resultPage }
+    {
+        path: "/result", name: "result", alias: [
+            '/' + RouteTypes.questionRoute, '/' + RouteTypes.flashcardRoute,
+            '/' + RouteTypes.notesRoute, '/' + RouteTypes.tutorRoute, '/' + RouteTypes.bookRoute,
+            '/' + RouteTypes.jobRoute, '/'+RouteTypes.foodRoute
+        ], components: resultPage, props: resultProps, meta: { fetch: true, isUpdated: false }
+    },
+    { path: "/book/:type/:id", name: RouteTypes.bookDetailsRoute, components: bookDetailsPage, props: bookDetailsProps },
+    {
+        path: "/not-found", name: "notFound", components: notFoundPage, alias: [
+            '/' + RouteTypes.postRoute, '/' + RouteTypes.uploadRoute, '/' + RouteTypes.chatRoute,
+            '/' + RouteTypes.createFlashcard, '/' + RouteTypes.coursesRoute, '/' + RouteTypes.likesRoute,
+            '/' + RouteTypes.settingsRoute
+        ]
+    }
+
 
 
 ];

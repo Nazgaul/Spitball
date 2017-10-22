@@ -38,7 +38,7 @@ export default {
     },
 
     props: {
-        openOptions: { type: Function }, userText: {type:String}
+        openOptions: { type: Function }, userText: { type: String }, name: {type:String}
     },
 
     watch: {

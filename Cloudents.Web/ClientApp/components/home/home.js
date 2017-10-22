@@ -66,7 +66,7 @@ export default {
             this.$route.meta.searchType = this.searchType;
             this.$route.meta.userText = this.msg;
             this.$store.dispatch('updateSearchText', { prefix: this.prefix, str: this.msg }).then((name) => {
-                this.$router.push({ name, query: {q:this.msg} });
+                this.$router.push({ path:'/'+name, query: {q:this.msg} });
             });;
         }
     },

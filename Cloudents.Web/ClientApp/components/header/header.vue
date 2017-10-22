@@ -6,12 +6,12 @@
             </router-link>
             <div class="line"></div>
             <div class="icon">
-                <component :class="'fill-'+$route.name" class="item" v-bind:is="$route.name+'Header'"></component>
+                <component :class="'fill-'+name" class="item" v-bind:is="name+'Header'"></component>
             </div>
             <div class="line"></div>
             <form @submit.prevent="submit" class="box-header-search ml-3">
                 <button type="submit" class="mr-2 pt-2"><search-icon></search-icon></button>
-                <input name="search" type="text" :placeholder="placeholders[$route.name]" required
+                <input name="search" type="text" :placeholder="placeholders[name]" required
                        v-model="qFilter" ref="search" @focus="focus">
             </form>
 
@@ -24,7 +24,7 @@
             </div>
         </v-layout>
         <div :slot="isOptions?'extension':''" v-show="isOptions">
-            <search-type class="verticals"  :values="names" :model="'searchTypes'" :value="$route.name" @click="changeType"></search-type>
+            <search-type class="verticals"  :values="names" :model="'searchTypes'" :value="name" @click="changeType"></search-type>
         </div>
     </v-toolbar>
 </template>
