@@ -59,18 +59,19 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             var list = new List<TU>();
             var i = 0;
-            foreach (var job in GetT(locationToSave))
+            try
             {
-                if (i < index)
+                foreach (var job in GetT(locationToSave))
                 {
-                    continue;
-                }
-                i++;
-                var obj = await ParseTAsync(job, token).ConfigureAwait(false);
-                list.Add(obj);
-                if (list.Count > 100)
-                {
-                    var t1 = UpdateSearchAsync(list, token);// m_JobSearchService.UpdateDataAsync(list, token);
+                    i++;
+                    if (i < index)
+                    {
+                        continue;
+                    }
+                    var obj = await ParseTAsync(job, token).ConfigureAwait(false);
+                    list.Add(obj);
+                    if (list.Count <= 100) continue;
+                    var t1 = UpdateSearchAsync(list, token); // m_JobSearchService.UpdateDataAsync(list, token);
 
                     var t2 = progressAsync.Invoke(i, TimeSpan.FromMinutes(10));
                     m_Logger.Info($"{Service} finish processing " + i);
@@ -79,6 +80,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     token.ThrowIfCancellationRequested();
                     list.Clear();
                 }
+            }
+            catch (Exception ex)
+            {
+                m_Logger.Exception(ex);
             }
             if (list.Count > 0)
             {
