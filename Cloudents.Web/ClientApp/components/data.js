@@ -81,7 +81,7 @@ export let verticals =
     };
 export let details = {
     bookDetails: {
-        filter: [{ id: 'all', name: 'all' }, { id: 'new', name: 'new' }, { id: 'rental', name: 'rental' }, { id: 'eBook', name: 'eBook' }],
+        filter: [{ id: 'all', name: 'all' }, { id: 'New', name: 'new' }, { id: 'Rental', name: 'rental' }, { id: 'eBook', name: 'eBook' }],
         sort: [{ id: 'price', name: 'price' }]
     }
 }

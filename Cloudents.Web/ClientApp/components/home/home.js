@@ -1,6 +1,4 @@
 ﻿import verticalCollection1 from './../general/vertical-collection.vue';
-import search from "./../../api/ai";
-
 import micIcon from "./svg/mic.svg";
 import searchIcon from "./svg/search-icon.svg";
 import classMaterialIcon from "./svg/class-material-icon-purple.svg";
@@ -14,7 +12,6 @@ import googleIcon from "./svg/google-icon.svg";
 import youtubeIcon from "./svg/youtube-icon.svg";
 import instegramIcon from "./svg/instagram-icon.svg";
 import { verticalsPlaceholders,prefix } from "./../data"
-import * as types from '../../store/mutation-types';
 
 
 export default {
@@ -69,7 +66,7 @@ export default {
             this.$route.meta.searchType = this.searchType;
             this.$route.meta.userText = this.msg;
             this.$store.dispatch('updateSearchText', { prefix: this.prefix, str: this.msg }).then((name) => {
-                this.$router.push({ name });
+                this.$router.push({ name, query: {q:this.msg} });
             });;
         }
     },

@@ -56,7 +56,17 @@ new Vue({
     store
 });
 router.beforeResolve((to, from, next) => {
-    if (to.meta.load) store.dispatch(to.meta.load, to)
+    console.log("before resolve" + new Date())
+    //TODO check for the suggest
+    //if (to.meta.fetch && !to.meta.isUpdate) {
+    //    store.commit("UPDATE_LOADING", true);
+    //    store.dispatch(to.meta.fetch, to).then((data) => {
+    //        console.log("update meta data")
+    //        to.meta.dataM = data;
+    //        store.commit("UPDATE_LOADING", false);
+    //    });
+    //}
+    //to.meta.isUpdate = false;
     //TODO not good as wanted save on the route name and not on current only
     //from.params.userText = store.getters.userText;
     //from = { ...from, params: { userText: store.getters.userText } }
