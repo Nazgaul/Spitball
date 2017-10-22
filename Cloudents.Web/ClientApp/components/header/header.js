@@ -56,7 +56,7 @@ export default {
         },
         submit: function () {
             this.isOptions = false;
-            this.updateSearchText({ str: this.qFilter,type:this.$route.name}).then((response) => {
+            this.updateSearchText(this.qFilter).then((response) => {
                 this.$router.push({ path:response, query: { q: this.qFilter } });
             });
             this.$emit('update:overlay', false);

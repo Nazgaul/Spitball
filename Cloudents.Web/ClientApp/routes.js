@@ -2,11 +2,11 @@
 import * as RouteTypes from "./routeTypes";
 
 
-const resultContent = () => import("./components/pages/results/Result.vue");
-const resultPageHeader = () => import("./components/header/header.vue");
-const resultPageNavbar = () => import("./components/general/TheNavbar.vue");
-const bookDetails = () => import("./components/pages/results/ResultBookDetails.vue");
-const notFound = () => import("./components/pages/results/notFound.vue");
+const resultContent = () => import(/* webpackChunkName: "group-foo" */ "./components/results/Result.vue");
+const resultPageHeader = () => import(/* webpackChunkName: "group-foo" */ "./components/header/header.vue");
+const resultPageNavbar = () => import(/* webpackChunkName: "group-foo" */ "./components/general/TheNavbar.vue");
+const bookDetails = () => import("./components/results/ResultBookDetails.vue");
+const notFound = () => import("./components/results/notFound.vue");
 function dynamicPropsFn(route) {
     return {
         name: route.path.slice(1),

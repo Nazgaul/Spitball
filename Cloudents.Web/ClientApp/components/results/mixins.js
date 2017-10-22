@@ -1,5 +1,5 @@
-﻿import { page } from './../../data'
-import RadioList from './../../helpers/radioList.vue';
+﻿import { page } from './../data'
+import RadioList from './../helpers/radioList.vue';
 import ResultItem from './ResultItem.vue'
 const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
@@ -11,7 +11,6 @@ let dataContent = {};
 const sortAndFilterMixin = {
    
     data() {
-        console.log('daaaaaaaaaa')
         return {
             filter: ''
         }
@@ -33,17 +32,27 @@ export const pageMixin =
         beforeRouteUpdate(to, from, next) {
             // just use `this`
             this.$store.commit("UPDATE_LOADING", true);
-            if (to.query.q !== from.query.q) {
-                this.$store.dispatch("updateLuisAndFetch", to)
-            } else {
-                this.$store.dispatch("fetchingData", { pageName: to.path.slice(1), queryParams: { ...to.query, ...to.params } })
-                    .then((data) => {
-                        //this.pageData = data;
-                        dataContent = data;
-                        this.filter = this.filterOptions
-                        this.$store.commit("UPDATE_LOADING", false);
-                    })
-            }
+            //if (to.query.q !== from.query.q) {
+                this.$store.dispatch("updateLuisAndFetch", to).then((data) => {
+                    dataContent = data;
+                    console.log(data)
+                    this.pageData = data;
+                    console.log(dataContent);
+                    this.filter = this.filterOptions
+                    this.$store.commit("UPDATE_LOADING", false);
+                })
+            //} else {
+            //    //this.$store.dispatch("fetchingData", { pageName: to.path.slice(1), queryParams: { ...to.query, ...to.params } })
+            //    //    .then((data) => {
+            //    //        dataContent = data;
+            //    //        console.log(data)
+            //    //        this.pageData = data;
+            //    //        console.log(dataContent);
+            //    //        this.filter = this.filterOptions
+            //    //        this.$store.commit("UPDATE_LOADING", false);
+            //    //    })
+
+            //}
             next();
         },
   
@@ -61,7 +70,9 @@ export const pageMixin =
                     return dataContent
                 },
                 set(val) {
-                    this.items = dataContent.data;
+                    console.log(val)
+                    val ? this.items = val.data : '';
+                    //this.$nextTick();
                 }
             } ,
             term: function () { return this.$store.getters.term },
@@ -88,8 +99,10 @@ export const pageMixin =
             this.$store.commit("UPDATE_LOADING", true);
                 this.$store.dispatch("fetchingData", { pageName: this.name, queryParams: { ... this.query, ... this.params } })
                     .then((data) => {
-                        //this.pageData = data;
                         dataContent = data;
+                        console.log(data)
+                        this.pageData = data;
+                        console.log(dataContent);
                         this.filter = this.filterOptions
                         this.$store.commit("UPDATE_LOADING", false);
                     })
