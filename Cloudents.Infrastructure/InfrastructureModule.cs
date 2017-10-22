@@ -127,7 +127,7 @@ namespace Cloudents.Infrastructure
                             StringSplitOptions.RemoveEmptyEntries).Length;
                     }));
 
-                cfg.CreateMap<DocumentSearchResult<Search.Entities.Job>, JobFacetDto>()
+                cfg.CreateMap<DocumentSearchResult<Search.Entities.Job>, ResultWithFacetDto<JobDto>>()
                     .ConvertUsing<JobResultConverter>();
 
 

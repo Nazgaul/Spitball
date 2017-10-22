@@ -18,7 +18,7 @@ namespace Cloudents.Infrastructure.Search
             m_Search = search;
         }
 
-        public async Task<(IEnumerable<SearchResult> result, string[] facet)> SearchAsync(SearchQuery model, CancellationToken token)
+        public async Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, CancellationToken token)
         {
             var term = new List<string>();
             term.AddNotNull(model.UniversitySynonym);
@@ -31,10 +31,10 @@ namespace Cloudents.Infrastructure.Search
             var result = Enumerable.Range(model.Page * 3, 3).Select(s =>
                 m_Search.DoSearchAsync(string.Join(" ", term), model.Source, s, model.Sort, CustomApiKey.Flashcard, token)).ToList();
             await Task.WhenAll(result).ConfigureAwait(false);
-            return (
+            return new ResultWithFacetDto<SearchResult> {
 
-                result.Where(s => s.Result != null).SelectMany(s => s.Result),
-                new[]
+                Result = result.Where(s => s.Result != null).SelectMany(s => s.Result),
+                Facet = new[]
                 {
                     "quizlet.com",
                     "cram.com",
@@ -42,7 +42,9 @@ namespace Cloudents.Infrastructure.Search
                     "coursehero.com",
                     "studysoup.com",
                     "spitball.co"
-                });
+                }
+                
+            };
         }
     }
 }
