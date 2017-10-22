@@ -24,7 +24,7 @@
         methods: {
             infiniteHandler($state) {
               if (this.loadMore) {
-                    this.$store.dispatch('scrollingItems', { name: this.$route.name, params: this.$router.query, page: this.page })
+                    this.$store.dispatch('scrollingItems', { name: this.$route.path.slice(1), params: this.$router.query, page: this.page })
                         .then(({ data }) => {
                             if (data && data.length) {
                                 this.$emit('scroll', data);

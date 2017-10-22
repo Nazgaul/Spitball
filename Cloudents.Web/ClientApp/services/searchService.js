@@ -46,8 +46,7 @@ export default {
         },
         bookDetails: function (params) {
             return new Promise((resolve, reject) => {
-                if (params.page) { resolve({ data: [] }); return; }
-                search.getBookDetails({ type: params.type, isbn13: params.id }).then(({ body }) => {
+                search.getBookDetails({ type: params.type, isbn13: params.id}).then(({ body }) => {
                     resolve({ details: body.details, data: body.prices.map(val => { return { ...val, template: "book-price" } }) })
                 });
             })

@@ -7,35 +7,13 @@ const ResultJob = () => import('./ResultJob.vue');
 import ResultVideo from './ResultVideo.vue'
 const ResultFood = () => import('./ResultFood.vue')
 const ResultBookPrice = () => import('./ResultBookPrice.vue');
-const bobo = (obj) => {
-    obj.$store.commit("UPDATE_LOADING", true);
-    obj.$store.dispatch("fetchingData", { pageName: obj.name, queryParams: { ...obj.query, ...obj.params } })
-        .then((data) => {
-            obj.pageData = data;
-            obj.filter = obj.filterOptions
-            obj.$store.commit("UPDATE_LOADING", false);
-        })
-}
+let dataContent = {};
 const sortAndFilterMixin = {
-    beforeRouteUpdate(to, from, next) {
-        // just use `this`
-        this.$store.commit("UPDATE_LOADING", true);
-        this.$store.dispatch("fetchingData", { pageName: to.name, queryParams: { ...to.query, ...to.params } })
-            .then((data) => {
-                this.pageData = data;
-                this.filter = this.filterOptions
-                this.$store.commit("UPDATE_LOADING", false);
-            })
-        next();
-    },
-    watch: {
-        '$route': '$_routeChange'
-    },
+   
     data() {
-        bobo(this);
+        console.log('daaaaaaaaaa')
         return {
-            filter: '',
-            pageData: ''
+            filter: ''
         }
     },
 
@@ -43,76 +21,118 @@ const sortAndFilterMixin = {
 
     computed: {
         isLoading: function () { return this.$store.getters.loading },
-        page: function () { return page[this.name] },
-        subFilter: function () { return this.query[this.filterOptions]; },
-        subFilters: function () {
-            const list = this.pageData[this.filter];
-            return list ? list.map(item => { return { id: item, name: item } }) : [];
-        }
+        page: function () { return page[this.name] }
     },
     props: {
         name: { type: String }, query: { type: Object }, filterOptions: { type: String }, sort: { type: String }, fetch: { type: String }, params: { type: Object }
-    },
-
-    methods: {
-        $_routeChange(current, prev) {
-            if(current.name!==prev.name)bobo(this);
-        },
-        $_defaultSort(defaultSort) {
-            let sort = this.query.sort ? this.query.sort : defaultSort;
-            return sort;
-        },
-        $_updateSort(sort) {
-            this.$router.push({ query: { ... this.query, sort: sort } });
-        },
-        $_changeSubFilter(val) {
-            let sub = {};
-            sub[this.filter] = val;
-            this.$router.push({ query: { ... this.query, ...sub, filter: this.filter } });
-        }
     }
 };
 export const pageMixin =
     {
-        mixins:[sortAndFilterMixin],
+        mixins: [sortAndFilterMixin],
+        beforeRouteUpdate(to, from, next) {
+            // just use `this`
+            this.$store.commit("UPDATE_LOADING", true);
+            if (to.query.q !== from.query.q) {
+                this.$store.dispatch("updateLuisAndFetch", to)
+            } else {
+                this.$store.dispatch("fetchingData", { pageName: to.path.slice(1), queryParams: { ...to.query, ...to.params } })
+                    .then((data) => {
+                        //this.pageData = data;
+                        dataContent = data;
+                        this.filter = this.filterOptions
+                        this.$store.commit("UPDATE_LOADING", false);
+                    })
+            }
+            next();
+        },
+  
         data() {
             return {
                 position: {},
+                items: ''
             }
         },
 
         computed: {
+            pageData: {
+                get() {
+                    this.items = dataContent.data;
+                    return dataContent
+                },
+                set(val) {
+                    this.items = dataContent.data;
+                }
+            } ,
             term: function () { return this.$store.getters.term },
             dynamicHeader: function () { return this.pageData.title },
-            isEmpty: function () { return this.pageData.data? !this.pageData.data.length : true }
+            isEmpty: function () { return this.pageData.data ? !this.pageData.data.length : true },
+            subFilter: function () { return this.query[this.filterOptions]; },
+            subFilters: function () {
+                const list = this.pageData[this.filter];
+                return list ? list.map(item => { return { id: item, name: item } }) : [];
+            }
         },
 
         components: { ResultItem, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood },
 
         mounted: function () {
-            if (this.$route.name === 'food' && navigator.geolocation) {
+            if (this.name === 'food' && navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(position => {
                     this.position = position;
                 });
             }
         },
 
+        created() {
+            this.$store.commit("UPDATE_LOADING", true);
+                this.$store.dispatch("fetchingData", { pageName: this.name, queryParams: { ... this.query, ... this.params } })
+                    .then((data) => {
+                        //this.pageData = data;
+                        dataContent = data;
+                        this.filter = this.filterOptions
+                        this.$store.commit("UPDATE_LOADING", false);
+                    })
+        },
         methods: {
             $_changeFilter(filter) {
                 this.filter = filter;
                 if (!this.subFilters.length) {
                     this.$router.push({ query: { ... this.query, filter } });
                 }
+            },
+            $_defaultSort(defaultSort) {
+                let sort = this.query.sort ? this.query.sort : defaultSort;
+                return sort;
+            },
+            $_updateSort(sort) {
+                this.$router.push({ query: { ... this.query, sort: sort } });
+            },
+            $_changeSubFilter(val) {
+                let sub = {};
+                sub[this.filter] = val;
+                this.$router.push({ query: { ... this.query, ...sub, filter: this.filter } });
             }
         }
 
     };
 export const detailsMixin = {
-    mixins:[sortAndFilterMixin],
+    mixins: [sortAndFilterMixin],
+    created() {
+        this.filter = 'all';
+        this.$store.commit("UPDATE_LOADING", true);
+        this.$store.dispatch("bookDetails", { pageName: this.name, params: this.params }).then((res) => {
+            this.pageData = res
+            this.$store.commit("UPDATE_LOADING", false);
+        })
+    },
+    data() {
+        return { pageData: ''}
+    },
     components: { ResultBookPrice, ResultBook},
     computed: {
         filteredList: function () {
-            return this.filter === 'all' ? this.pageData.data:this.pageData.data.filter(item => item.condition === this.filter);
+            return this.filter === 'all' ? this.pageData.data.sort((a, b) => b.price - a.price):this.pageData.data.filter(item => item.condition === this.filter);
         }
     }
 }
