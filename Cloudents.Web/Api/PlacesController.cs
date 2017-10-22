@@ -35,7 +35,7 @@ namespace Cloudents.Web.Api
             });
         }
 
-
+        [HttpGet("{nextPageToken:required}")]
         public async Task<IActionResult> Get(string nextPageToken,
             CancellationToken token)
         {
