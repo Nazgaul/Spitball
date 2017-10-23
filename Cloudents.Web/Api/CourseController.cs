@@ -22,7 +22,7 @@ namespace Cloudents.Web.Api
         {
             m_CourseProvider = courseProvider;
         }
-
+        [HttpGet]
         public async Task<IActionResult> Get(string term, long universityId, CancellationToken token)
         {
             if (universityId == default)
@@ -32,8 +32,8 @@ namespace Cloudents.Web.Api
             var result = await m_CourseProvider.SearchAsync(term, universityId, token).ConfigureAwait(false);
             return Json(result);
         }
-
         [ValidateModel]
+        [HttpPost]
         public async Task<IActionResult> Post(CreateCourse model)
         {
             var result = await Task.FromResult(55).ConfigureAwait(false);
