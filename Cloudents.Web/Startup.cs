@@ -6,9 +6,11 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Data;
+using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,6 +39,10 @@ namespace Cloudents.Web
                 {
                     DateTimeStyles = System.Globalization.DateTimeStyles.AssumeUniversal
                 });
+            });
+            services.Configure<RouteOptions>(o =>
+            {
+                o.ConstraintMap.Add("requiredArray", typeof(RequiredArrayRouteConstraint));
             });
             services.AddResponseCompression();
             services.AddResponseCaching();

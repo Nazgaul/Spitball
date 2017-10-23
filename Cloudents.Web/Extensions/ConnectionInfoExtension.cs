@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Routing.Constraints;
 
 namespace Cloudents.Web.Extensions
 {
@@ -25,6 +27,21 @@ namespace Cloudents.Web.Extensions
             }
 
             return false;
+        }
+
+
+        
+    }
+
+    public class RequiredArrayRouteConstraint : IRouteConstraint
+    {
+
+
+        public bool Match(HttpContext httpContext, IRouter route, string routeKey, RouteValueDictionary values,
+            RouteDirection routeDirection)
+        {
+            return true;
+            //throw new NotImplementedException();
         }
     }
 }

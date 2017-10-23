@@ -55,9 +55,11 @@ export default {
             return new Promise((resolve, reject) => {
                 if (params.page) {
                     console.log("pageeee")
-                    search.getFood({ nextPageToken: params.page, location: "34.8016837,31.9195509"}).then(({ body }) => resolve({ token: body.token, data: body.data.map(val => { return { ...val, template: "food" } }) }));
+                    search.getFood({ nextPageToken: params.page/*, location: "34.8016837,31.9195509"*/}).then(({ body }) => resolve({ token: body.token, data: body.data.map(val => { return { ...val, template: "food" } }) }));
                 }
-                search.getFood({ ...params, location: "34.8016837,31.9195509" }).then(({ body }) => resolve({token:body.token,data: body.data.map(val => { return { ...val, template: "food" } }) }));
+                search.getFood({
+                    ...params /*, location: "34.8016837,31.9195509"*/
+                }).then(({ body }) => resolve({token:body.token,data: body.data.map(val => { return { ...val, template: "food" } }) }));
             })
         }
     }
