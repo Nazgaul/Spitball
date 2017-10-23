@@ -27,7 +27,6 @@
     import tutor from './images/tutor.svg';
     import upload from './images/upload.svg';
     import post from './images/post.svg';
-    //import flashcard from './images/flashcard.svg';
     import chat from './images/chat.svg';
     import courses from './images/courses.svg';
     import likes from './images/likes.svg';
@@ -49,7 +48,7 @@
         }
     };
 </script>
-<style src="./link-verticals.less" lang="less" scoped></style>
+<style src="./TheNavbar.less" lang="less" scoped></style>
 <style scoped>
     /*need to override theme*/
     .navigation-drawer.aside {

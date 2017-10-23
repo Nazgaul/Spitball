@@ -83,6 +83,24 @@
         width: calc(~'100% - 180px');
     }
 
+    input:focus {
+        &::-webkit-input-placeholder {
+            color: white;
+        }
+
+        &:-moz-placeholder { /* Firefox 18- */
+            color: white;
+        }
+
+        &::-moz-placeholder { /* Firefox 19+ */
+            color: white;
+        }
+
+        &:-ms-input-placeholder {
+            color: white;
+        }
+    }
+
     button[type="submit"] {
         background: @color-dark-blue;
         color: @color-white;

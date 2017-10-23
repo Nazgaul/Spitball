@@ -12,12 +12,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="ClientApp\components\general\images\ask.svg" />
-    <Content Include="ClientApp\components\general\images\book.svg" />
-    <Content Include="ClientApp\components\general\images\document.svg" />
-    <Content Include="ClientApp\components\general\images\flashcard.svg" />
-    <Content Include="ClientApp\components\general\images\job.svg" />
-    <Content Include="ClientApp\components\general\images\tutor.svg" />
+    <Content Include="ClientApp\components\navbar\images\ask.svg" />
+    <Content Include="ClientApp\components\navbar\images\book.svg" />
+    <Content Include="ClientApp\components\navbar\images\document.svg" />
+    <Content Include="ClientApp\components\navbar\images\flashcard.svg" />
+    <Content Include="ClientApp\components\navbar\images\job.svg" />
+    <Content Include="ClientApp\components\navbar\images\tutor.svg" />
     <Content Include="ClientApp\components\header\Images\notification-icon.svg" />
   </ItemGroup>
 

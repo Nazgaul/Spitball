@@ -16,19 +16,18 @@
             </v-list>
         </v-navigation-drawer>
         <div class="box-header">
-            <v-container fluid>
+            <v-container fluid @click="showOptions=false">
                 <header>
                     <v-toolbar flat style="background-color:transparent;">
                         <v-toolbar-side-icon @click.stop="drawer = !drawer" class="hidden-md-and-up">Hamburger</v-toolbar-side-icon>
-                        <v-toolbar-title>
-                            <!--<picture>
+                        <!--<v-toolbar-title>
+                            <picture>
                                 <source media="(min-width: 959px)" srcset="/images/logo-spitball.svg" />
                                 <source media="(max-width: 959px)" srcset="./img/spitball-logo.png" />
                                 <img src="/images/logo-spitball.svg" alt="" />
-                            </picture>-->
-                            <img class="hidden-sm-and-down" src="./img/logo-spitball.png" alt="">
+                            </picture>
                             <img class="hidden-md-and-up" src="./img/spitball-logo.png" alt="">
-                        </v-toolbar-title>
+                        </v-toolbar-title>-->
                         <v-spacer class="hidden-sm-and-down"></v-spacer>
                         <div class="hidden-sm-and-down" v-for="action in links" :key="action.name">
                             <a href="#">{{ action.name }}</a>
@@ -36,22 +35,49 @@
                     </v-toolbar>
                 </header>
 
-                <div class="box-small-container">
+                <div class="box-small-container" @click.stop="">
                     <div class="box-inner-header">
-                        <div class="title">Study Help & More for College Students</div>
-                        <div class="sub-title">Work smart, play smart with our class material, study tools, textbooks, local food recs and more!</div>
-                        <div class="box-search">
+                        <img  src="./img/logo-spitball.png"  width="227" height="54">
+
+                        <div class="box-search" >
                             <form id="labnol" method="get" v-on:submit.prevent="search">
                                 <div class="speech">
-                                    <input type="text" required name="q" id="transcript" v-model.trim="msg" :placeholder="placeholder">
+                                    <input type="text" required name="q" id="transcript" v-model.trim="msg" @focus="$_focus()"  :placeholder="placeholder">
                                     <button type="button" class="demo-icon-mic"><mic-icon></mic-icon></button>
                                     <button type="submit"><search-icon></search-icon> Send</button>
                                 </div>
                             </form>
+                            <!--<div v-show="showOptions" >
+                                <v-list>
+                                    <v-subheader>Some things you can ask me:</v-subheader>
+                                    <template v-for="(item, index) in items">
+                                        <v-list-tile @click="selectos(item)" :key="index">
+                                            <v-list-tile-action>
+                                                -
+                                            </v-list-tile-action>
+                                            <v-list-tile-content>
+                                                <v-list-tile-title v-text="item"></v-list-tile-title>
+                                            </v-list-tile-content>
+                                        </v-list-tile>
+                                        </template>
+</v-list>
+                            </div>-->
                         </div>
-                    </div>
-                    <div class="box-nav-circle">
-                        <vertical-collection :changeCallback="changeSection" ></vertical-collection>
+                        <div v-show="showOptions">
+                            <v-list>
+                                <v-subheader>Some things you can ask me:</v-subheader>
+                                <template v-for="(item, index) in items">
+                                    <v-list-tile @click="selectos(item)" :key="index">
+                                        <v-list-tile-action>
+                                            -
+                                        </v-list-tile-action>
+                                        <v-list-tile-content>
+                                            <v-list-tile-title v-text="item"></v-list-tile-title>
+                                        </v-list-tile-content>
+                                    </v-list-tile>
+                                </template>
+                            </v-list>
+                        </div>
                     </div>
                 </div>
             </v-container>

@@ -4,7 +4,7 @@ import * as RouteTypes from "./routeTypes";
 
 const resultContent = () => import("./components/results/Result.vue");
 const resultPageHeader = () => import("./components/header/header.vue");
-const resultPageNavbar = () => import("./components/general/TheNavbar.vue");
+const resultPageNavbar = () => import("./components/navbar/TheNavbar.vue");
 const bookDetails = () => import("./components/results/ResultBookDetails.vue");
 const foodDetails = () => import("./components/results/ResultFoodDetails.vue");
 const notFound = () => import("./components/results/notFound.vue");
@@ -29,12 +29,7 @@ function dynamicDetailsPropsFn(route) {
         params: route.params
     }
 }
-function homePropsFn(route) {
-    return {
-        metaType: route.meta.searchType,
-        metaText: route.meta.userText
-    }
-}
+
 const resultPage = { navbar: resultPageNavbar, default: resultContent, header: resultPageHeader }
 const bookDetailsPage = { navbar: resultPageNavbar, default: bookDetails, header: resultPageHeader }
 const foodDetailsPage = { navbar: resultPageNavbar, default: foodDetails, header: resultPageHeader }
@@ -45,7 +40,7 @@ const bookDetailsProps = { ...resultProps, default: dynamicDetailsPropsFn, heade
 const foodDetailsProps = { ...resultProps, default: (route) => ({ position: { lat: Number.parseFloat(route.query.lat, 10), lng: Number.parseFloat(route.query.lng, 10) } }), header: (route) => ({ userText: route.query.q, name: 'food' }) }
 export const routes = [
     {
-        path: "/", component: HomePage, name: "home", meta: { searchType: 'ask' }, props: homePropsFn
+        path: "/", component: HomePage, name: "home"
     },
 
     {

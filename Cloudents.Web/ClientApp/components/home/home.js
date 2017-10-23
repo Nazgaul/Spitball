@@ -1,5 +1,4 @@
-﻿import verticalCollection1 from './../general/vertical-collection.vue';
-import micIcon from "./svg/mic.svg";
+﻿import micIcon from "./svg/mic.svg";
 import searchIcon from "./svg/search-icon.svg";
 import classMaterialIcon from "./svg/class-material-icon-purple.svg";
 import tutorIcon from "./svg/tutor-icon-green.svg";
@@ -11,12 +10,11 @@ import twitterIcon from "./svg/twitter-icon.svg";
 import googleIcon from "./svg/google-icon.svg";
 import youtubeIcon from "./svg/youtube-icon.svg";
 import instegramIcon from "./svg/instagram-icon.svg";
-import { verticalsPlaceholders,prefix } from "./../data"
+import { homeSuggest, verticalsPlaceholders as askPlaceholder } from "./../data";
 
 
 export default {
     components: {
-        'vertical-collection': verticalCollection1,
         "mic-icon": micIcon, "search-icon": searchIcon,
         "class-material-icon": classMaterialIcon,
         "tutor-icon": tutorIcon,
@@ -30,10 +28,10 @@ export default {
     },
     data() {
         return {
-            msg: this.metaText,
-            placeholder: verticalsPlaceholders[this.metaType],
-            searchType: this.metaType,
-            prefix: prefix[this.metaType],
+            placeholder: askPlaceholder.ask,
+            items: homeSuggest,
+            showOptions: false,
+            msg: '',
             drawer: null,
             links: [
                 {
@@ -56,22 +54,23 @@ export default {
         };
     },
     methods: {
-        changeSection(vertical){
-            this.placeholder = vertical.placeholder;
-            this.prefix = vertical.prefix;
-            this.searchType = vertical.name;
-        },
-
         search(){
-            this.$route.meta.searchType = this.searchType;
-            this.$route.meta.userText = this.msg;
             this.$store.dispatch('updateSearchText', this.msg ).then((name) => {
                 this.$router.push({ path:'/'+name, query: {q:this.msg} });
             });;
+        },
+        $_focus() {
+            console.log('focus')
+            this.showOptions = true;
+        },
+        selectos(item) {
+            console.log("selected " + item)
+            this.msg = item;
+            this.search();
         }
     },
 
     props: {
-        metaType: { type: String }, metaText: { type: String }
+         metaText: { type: String }
     }
 };

@@ -95,7 +95,8 @@ export let verticalsList=[];
 export let names = [];
 export let page = [];
 export let prefix = {};
-
+export let homeSuggest = ['Find me flashcards for financial accounting', 'Find me class material for Calculus', 'When did World War 2 end?',
+'Difference between meiosis and mitosis']
 export let verticalsNavbar = [
     {
         label: "search type",
