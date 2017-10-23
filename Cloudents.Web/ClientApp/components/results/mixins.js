@@ -8,6 +8,7 @@ import ResultVideo from './ResultVideo.vue'
 const ResultFood = () => import('./ResultFood.vue')
 const ResultBookPrice = () => import('./ResultBookPrice.vue');
 let dataContent = {};
+let itoom = [];
 const sortAndFilterMixin = {
    
     data() {
@@ -32,47 +33,48 @@ export const pageMixin =
         beforeRouteUpdate(to, from, next) {
             // just use `this`
             this.$store.commit("UPDATE_LOADING", true);
-            //if (to.query.q !== from.query.q) {
+            if (to.query.q && from.query.q && to.query.q === from.query.q) {
+                this.$store.dispatch("fetchingData", { pageName: to.path.slice(1), queryParams: { ...to.query, ...to.params } })
+                    .then((data) => {
+                        dataContent = data;
+                        console.log(data)
+                        this.pageData = data;
+                        itoom=data.data
+                        console.log(dataContent);
+                        this.filter = this.filterOptions
+                        this.$store.commit("UPDATE_LOADING", false);
+                    })
+            }
+            else {
                 this.$store.dispatch("updateLuisAndFetch", to).then((data) => {
                     dataContent = data;
                     console.log(data)
                     this.pageData = data;
+                    itoom = data.data
                     console.log(dataContent);
                     this.filter = this.filterOptions
                     this.$store.commit("UPDATE_LOADING", false);
                 })
-            //} else {
-            //    //this.$store.dispatch("fetchingData", { pageName: to.path.slice(1), queryParams: { ...to.query, ...to.params } })
-            //    //    .then((data) => {
-            //    //        dataContent = data;
-            //    //        console.log(data)
-            //    //        this.pageData = data;
-            //    //        console.log(dataContent);
-            //    //        this.filter = this.filterOptions
-            //    //        this.$store.commit("UPDATE_LOADING", false);
-            //    //    })
-
-            //}
+            }
             next();
         },
   
         data() {
             return {
                 position: {},
-                items: ''
+                items: itoom
             }
         },
 
         computed: {
             pageData: {
                 get() {
-                    this.items = dataContent.data;
+                    //this.items = dataContent.data;
                     return dataContent
                 },
                 set(val) {
-                    console.log(val)
+                    //for simple filter
                     val ? this.items = val.data : '';
-                    //this.$nextTick();
                 }
             } ,
             term: function () { return this.$store.getters.term },
@@ -96,16 +98,17 @@ export const pageMixin =
         },
 
         created() {
+            console.log("created")
             this.$store.commit("UPDATE_LOADING", true);
-                this.$store.dispatch("fetchingData", { pageName: this.name, queryParams: { ... this.query, ... this.params } })
-                    .then((data) => {
-                        dataContent = data;
-                        console.log(data)
-                        this.pageData = data;
-                        console.log(dataContent);
-                        this.filter = this.filterOptions
-                        this.$store.commit("UPDATE_LOADING", false);
-                    })
+            this.$store.dispatch("updateLuisAndFetch", this.$route).then((data) => {
+                dataContent = data;
+                console.log(data)
+                this.pageData = data;
+                itoom = data.data
+                console.log(dataContent);
+                this.filter = this.filterOptions
+                this.$store.commit("UPDATE_LOADING", false);
+            })
         },
         methods: {
             $_changeFilter(filter) {

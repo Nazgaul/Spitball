@@ -53,9 +53,11 @@ const actions = {
     updateLuisAndFetch({commit}, page) {
         return new Promise((resolve) => {
             ai.interpetPromise(page.query.q).then(({ body }) => {
-                commit(types.UPDATE_SEARCH_PARAMS, { ...body.data });
+                commit(types.UPDATE_SEARCH_PARAMS, body.data);
                 //context.commit(types.ADD, { ...body });
-                resolve(searchService.activateFunction[page.path.slice(1)]({ ...body.data, ...page.query, ...page.params }))
+                var params = { ...page.query, ...page.params, ...body.data }
+                console.log("params "+params);
+                resolve(searchService.activateFunction[page.path.slice(1)](params))
             })
         })
     },
@@ -77,7 +79,7 @@ const actions = {
         return searchService.activateFunction[data.pageName](data.params) 
     },
     fetchingData: (context, data) => {
-        return searchService.activateFunction[data.pageName]({ ...context.getters.searchParams, ...data.queryParams })    
+        return searchService.activateFunction[data.pageName]({ ...data.queryParams, ...context.getters.searchParams })    
     },
     scrollingItems( context , model) {
         return searchService.activateFunction[model.name]({ ...context.getters.searchParams, ...model.params,page: model.page })

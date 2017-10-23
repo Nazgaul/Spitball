@@ -57,7 +57,14 @@ Vue.component('adsense', vueAdsense);
 
 const router = new VueRouter({
     mode: "history",
-    routes: route.routes
+    routes: route.routes,
+    scrollBehavior(to, from, savedPosition) {
+        if (savedPosition) {
+            return savedPosition
+        } else {
+            return { x: 0, y: 0 }
+        }
+    }
 });
 new Vue({
     el: "#app",

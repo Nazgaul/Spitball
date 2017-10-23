@@ -21,7 +21,7 @@
             <v-container class="pa-0">
                 <v-layout row>
                     <slot name="data">
-                        <scroll-list :loadMore="!isEmpty" v-if="items" @scroll="value => {items=items.concat(value) }">
+                        <scroll-list :loadMore="!isEmpty" v-if="items" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
                             <v-container fluid grid-list-sm v-for="(item,index) in items" :key="index">
                                 <component :is="'result-'+item.template" :item="item" :key="index" class="cell"></component>
                             </v-container>
