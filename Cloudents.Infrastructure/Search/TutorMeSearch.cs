@@ -46,7 +46,7 @@ namespace Cloudents.Infrastructure.Search
                 ["search"] = term,
                 ["offset"] = (page * 12).ToString()
             };
-            var result = await m_RestClient.GetAsync(new Uri("https://tutorme.com/api/v1/tutors/"), nvc, token).ConfigureAwait(false);
+            var result = await m_RestClient.GetJsonAsync(new Uri("https://tutorme.com/api/v1/tutors/"), nvc, token).ConfigureAwait(false);
             return m_Mapper.Map<JObject, IEnumerable<TutorDto>>(result, opt => opt.Items["term"] = term);
         }
     }

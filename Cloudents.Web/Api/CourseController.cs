@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
+using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -30,12 +32,16 @@ namespace Cloudents.Web.Api
             var result = await m_CourseProvider.SearchAsync(term, universityId, token).ConfigureAwait(false);
             return Json(result);
         }
+        [ValidateModel]
         [HttpPost]
         public async Task<IActionResult> Post(CreateCourse model)
         {
-            var result = await Task.FromResult(55);
+            var result = await Task.FromResult(55).ConfigureAwait(false);
 
-            return Json(result);
+            return Json( new
+            {
+                id = result
+            });
         }
     }
 }

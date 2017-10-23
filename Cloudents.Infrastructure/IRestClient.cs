@@ -8,6 +8,7 @@ namespace Cloudents.Infrastructure
 {
     public interface IRestClient
     {
-        Task<JObject> GetAsync(Uri url, NameValueCollection queryString, CancellationToken token);
+        Task<string> GetAsync(Uri url, NameValueCollection queryString, CancellationToken token);
+        Task<JObject> GetJsonAsync(Uri url, NameValueCollection queryString, CancellationToken token);
     }
 }

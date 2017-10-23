@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="DTOs\BookSearchDto.cs" />
     <Compile Include="DTOs\CourseDto.cs" />
+    <Compile Include="DTOs\IpDto.cs" />
     <Compile Include="DTOs\JobDto.cs" />
     <Compile Include="DTOs\ResultWithFacetDto.cs" />
     <Compile Include="DTOs\PlaceDto.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Interfaces\ICourseSearch.cs" />
     <Compile Include="Interfaces\IDocumentSearch.cs" />
     <Compile Include="Interfaces\IFlashcardSearch.cs" />
+    <Compile Include="Interfaces\IIpToLocation.cs" />
     <Compile Include="Interfaces\IJobSearch.cs" />
     <Compile Include="Interfaces\IKeyGenerator.cs" />
     <Compile Include="Interfaces\IPlacesSearch.cs" />

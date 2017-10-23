@@ -38,7 +38,7 @@ namespace Cloudents.Infrastructure.Search
                 ["image_width"] = imageWidth.ToString(),
                 ["format"] = "json"
             };
-            var result = await m_RestClient.GetAsync(new Uri("http://api2.campusbooks.com/13/rest/books"), nvc, token).ConfigureAwait(false);
+            var result = await m_RestClient.GetJsonAsync(new Uri("http://api2.campusbooks.com/13/rest/books"), nvc, token).ConfigureAwait(false);
             return m_Mapper.Map<JObject, IEnumerable<BookSearchDto>>(result);
         }
 
@@ -61,7 +61,7 @@ namespace Cloudents.Infrastructure.Search
                 ["type"] = sell ? "buyback" : "Buy"
             };
             //http://api2.campusbooks.com/13/rest/books?key=sP8C5AHcdiT0tsMsotT&f=search,prices&format=json&isbn=9780446556224&type=buyback
-            var result = await m_RestClient.GetAsync(new Uri("http://api2.campusbooks.com/13/rest/books"), nvc, token).ConfigureAwait(false);
+            var result = await m_RestClient.GetJsonAsync(new Uri("http://api2.campusbooks.com/13/rest/books"), nvc, token).ConfigureAwait(false);
             return m_Mapper.Map<JObject, BookDetailsDto>(result);
         }
 
