@@ -139,13 +139,16 @@
     <Compile Include="Cache\CacheProvider.cs" />
     <Compile Include="Cache\CacheResultInterceptor.cs" />
     <Compile Include="Converters\BookDetailConverter.cs" />
+    <Compile Include="Converters\IPConverter.cs" />
     <Compile Include="Converters\JobResultConverter.cs" />
     <Compile Include="Converters\PlaceConverter.cs" />
     <Compile Include="Converters\TutorMeConverter.cs" />
     <Compile Include="Data\DapperRepository.cs" />
     <Compile Include="Data\UniversitySynonymRepository.cs" />
     <Compile Include="Environment.cs" />
+    <Compile Include="IpToLocation.cs" />
     <Compile Include="IRestClient.cs" />
+    <Compile Include="MapperProfile.cs" />
     <Compile Include="RestClient.cs" />
     <Compile Include="Search\BookSearch.cs" />
     <Compile Include="Search\CourseSearch.cs" />
@@ -165,6 +168,7 @@
     <Compile Include="Search\TutorSearch.cs" />
     <Compile Include="Search\UniversitySearch.cs" />
     <Compile Include="Search\VideoSearch.cs" />
+    <Compile Include="UnderscorePropertyNamesContractResolver.cs" />
     <Compile Include="UniqueKeyGenerator.cs" />
     <Compile Include="InfrastructureModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

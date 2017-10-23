@@ -11,7 +11,13 @@ namespace Cloudents.Infrastructure
 {
     public class RestClient : IRestClient
     {
-        public async Task<JObject> GetAsync(Uri url, NameValueCollection queryString, CancellationToken token)
+        public async Task<JObject> GetJsonAsync(Uri url, NameValueCollection queryString, CancellationToken token)
+        {
+            var str = await GetAsync(url, queryString, token).ConfigureAwait(false);
+            return JObject.Parse(str);
+        }
+
+        public async Task<string> GetAsync(Uri url, NameValueCollection queryString, CancellationToken token)
         {
             using (var client = new HttpClient())
             {
@@ -25,8 +31,7 @@ namespace Cloudents.Infrastructure
                 var response = await client.GetAsync(uri.Uri, token).ConfigureAwait(false);
                 if (!response.IsSuccessStatusCode)
                     return null;
-                var str = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                return JObject.Parse(str);
+                return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             }
         }
     }

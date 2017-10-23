@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
 using AutoMapper;
@@ -8,15 +6,11 @@ using CacheManager.Core;
 using Castle.DynamicProxy;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
 using Cloudents.Infrastructure.AI;
 using Cloudents.Infrastructure.Cache;
-using Cloudents.Infrastructure.Converters;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Search;
 using Microsoft.Azure.Search;
-using Microsoft.Azure.Search.Models;
-using Newtonsoft.Json.Linq;
 using Microsoft.Cognitive.LUIS;
 
 namespace Cloudents.Infrastructure
@@ -78,6 +72,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<RestClient>().As<IRestClient>();
             builder.RegisterType<PlacesSearch>().As<IPlacesSearch>();
             builder.RegisterType<UniversitySearch>().As<IUniversitySearch>();
+            builder.RegisterType<IpToLocation>().As<IIpToLocation>();
 
             builder.RegisterType<UniversitySynonymRepository>().As<IReadRepositorySingle<UniversitySynonymDto, long>>();
 
@@ -117,43 +112,8 @@ namespace Cloudents.Infrastructure
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<Search.Entities.Tutor, TutorDto>()
-                    .ForMember(d => d.Location, o => o.ResolveUsing(p => new GeoPoint
-                    {
-                        Latitude = p.Location.Latitude,
-                        Longitude = p.Location.Longitude
-                    }))
-                    .ForMember(d => d.TermCount, o => o.ResolveUsing((t, ts, i, c) =>
-                    {
-                        var temp = $"{t.City} {t.State} {string.Join(" ", t.Subjects)} {string.Join(" ", t.Extra)}";
-                        return temp.Split(new[] { c.Items["term"].ToString() },
-                            StringSplitOptions.RemoveEmptyEntries).Length;
-                    }));
+                cfg.AddProfile<MapperProfile>();
 
-                cfg.CreateMap<DocumentSearchResult<Search.Entities.Job>, ResultWithFacetDto<JobDto>>()
-                    .ConvertUsing<JobResultConverter>();
-
-
-                cfg.CreateMap<Search.Entities.Job, JobDto>();
-                cfg.CreateMap<Search.Entities.Course, CourseDto>();
-                cfg.CreateMap<Search.Entities.University, UniversityDto>();
-
-
-                cfg.CreateMap<JObject, IEnumerable<BookSearchDto>>().ConvertUsing((jo, bookSearch, c) => jo["response"]["page"]["books"]?["book"]?.Select(json => c.Mapper.Map<JToken, BookSearchDto>(json)));
-                cfg.CreateMap<JToken, BookSearchDto>().ConvertUsing((jo) => new BookSearchDto
-                {
-                    Image = jo["image"]?["image"].Value<string>(),
-                    Author = jo["author"].Value<string>(),
-                    Binding = jo["binding"].Value<string>(),
-                    Edition = jo["edition"].Value<string>(),
-                    Isbn10 = jo["isbn10"].Value<string>(),
-                    Isbn13 = jo["isbn13"].Value<string>(),
-                    Title = jo["title"].Value<string>()
-
-                });
-                cfg.CreateMap<JObject, BookDetailsDto>().ConvertUsing<BookDetailConverter>();
-                cfg.CreateMap<JObject, (string, IEnumerable<PlaceDto>)>().ConvertUsing<PlaceConverter>();
-                cfg.CreateMap<JObject, IEnumerable<TutorDto>>().ConvertUsing<TutorMeConverter>();
             });
             return config;
         }

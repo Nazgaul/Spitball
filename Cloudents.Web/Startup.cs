@@ -75,6 +75,11 @@ namespace Cloudents.Web
             app.UseResponseCompression();
             app.UseResponseCaching();
             app.UseStatusCodePages();
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedFor
+                | Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedProto
+            });
             app.UseStaticFiles(new StaticFileOptions
             {
                 OnPrepareResponse = ctx => ctx.Context.Response.Headers.Add("Cache-Control", "public,max-age=600")

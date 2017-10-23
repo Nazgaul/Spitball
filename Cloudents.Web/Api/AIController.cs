@@ -1,9 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Microsoft.AspNetCore.Mvc;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
+using Cloudents.Web.Filters;
+using Cloudents.Web.Models;
 
 namespace Cloudents.Web.Api
 {
@@ -11,21 +14,23 @@ namespace Cloudents.Web.Api
     [Route("api/[controller]")]
     public class AIController : Controller
     {
-        private readonly IAI m_AI;
+        private readonly IAI m_Ai;
         private readonly IDecision m_Decision;
 
         public AIController(IAI ai, IDecision decision)
         {
-            m_AI = ai;
+            m_Ai = ai;
             m_Decision = decision;
         }
 
         [HttpGet]
+        [ValidateModel]
         //[ResponseCache(VaryByQueryKeys = new[] { "sentence" }, Duration = 30 * 60)]
-        public async Task<IActionResult> AiAsync(string sentence)
+        public async Task<IActionResult> AiAsync(
+            AiRequest model)
         {
-            if (sentence == null) throw new ArgumentNullException(nameof(sentence));
-            var aiResult = await m_AI.InterpretStringAsync(sentence).ConfigureAwait(false);
+            if (model == null) throw new ArgumentNullException(nameof(model));
+            var aiResult = await m_Ai.InterpretStringAsync(model.Sentence).ConfigureAwait(false);
             var result = m_Decision.MakeDecision(aiResult);
             return Json(new
             {

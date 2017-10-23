@@ -16,6 +16,7 @@ namespace Cloudents.Infrastructure.Search
 {
     public class PlacesSearch : IPlacesSearch
     {
+        //https://developers.google.com/places/web-service/search
         private readonly IMapper m_Mapper;
         private readonly IRestClient m_RestClient;
 
@@ -35,7 +36,7 @@ namespace Cloudents.Infrastructure.Search
             {
                 nvc.Add("opennow", true.ToString());
             }
-            var result = await m_RestClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/place/nearbysearch/json"), nvc, token).ConfigureAwait(false);
+            var result = await m_RestClient.GetJsonAsync(new Uri("https://maps.googleapis.com/maps/api/place/nearbysearch/json"), nvc, token).ConfigureAwait(false);
             return m_Mapper.Map<JObject, (string, IEnumerable<PlaceDto>)>(result, opt =>
             {
                 opt.Items["width"] = 150;
@@ -52,7 +53,7 @@ namespace Cloudents.Infrastructure.Search
                 if (location == null) throw new ArgumentNullException(nameof(location));
                 return new NameValueCollection
                 {
-                    ["location"] = $"{location.Longitude} {location.Latitude}",
+                    ["location"] = $"{location.Latitude} {location.Longitude}",
                     ["keyword"] = term,
                     ["key"] = Key,
                     ["rankby"] = "distance",
@@ -78,7 +79,7 @@ namespace Cloudents.Infrastructure.Search
                 ["key"] = Key,
             };
 
-            var result = await m_RestClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/place/textsearch/json"), nvc, token).ConfigureAwait(false);
+            var result = await m_RestClient.GetJsonAsync(new Uri("https://maps.googleapis.com/maps/api/place/textsearch/json"), nvc, token).ConfigureAwait(false);
             var mapperResult = m_Mapper.Map<JObject, IEnumerable<PlaceDto>>(result, opt =>
            {
                opt.Items["width"] = 150;

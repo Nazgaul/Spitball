@@ -30,9 +30,8 @@ namespace Test
             var container = builder.Build();
 
 
-            var services = container.Resolve<ICourseSearch>();
-
-            var result = await services.SearchAsync("מבוא", 920, default);
+            var services = container.Resolve<IBookSearch>();
+            var result = await services.SellAsync("9781510718203", 150, default);
 
 
             //foreach (var service in services)
