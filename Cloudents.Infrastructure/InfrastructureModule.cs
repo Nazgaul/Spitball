@@ -54,7 +54,7 @@ namespace Cloudents.Infrastructure
             builder.Register(c => new LuisClient("a1a0245f-4cb3-42d6-8bb2-62b6cfe7d5a3", "6effb3962e284a9ba73dfb57fa1cfe40"));
             builder.Register(c =>
                 new SearchServiceClient(m_SearchServiceName, new SearchCredentials(m_SearchServiceKey)))
-                .SingleInstance().As<ISearchServiceClient>();
+                .SingleInstance().AsSelf().As<ISearchServiceClient>();
 
             builder.RegisterType(typeof(CacheProvider)).As(typeof(ICacheProvider));
             builder.RegisterType<CseSearch>().As<ICseSearch>().EnableInterfaceInterceptors()
