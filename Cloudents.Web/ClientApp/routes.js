@@ -2,9 +2,9 @@
 import * as RouteTypes from "./routeTypes";
 
 
-const resultContent = () => import(/* webpackChunkName: "group-foo" */ "./components/results/Result.vue");
-const resultPageHeader = () => import(/* webpackChunkName: "group-foo" */ "./components/header/header.vue");
-const resultPageNavbar = () => import(/* webpackChunkName: "group-foo" */ "./components/general/TheNavbar.vue");
+const resultContent = () => import("./components/results/Result.vue");
+const resultPageHeader = () => import("./components/header/header.vue");
+const resultPageNavbar = () => import("./components/general/TheNavbar.vue");
 const bookDetails = () => import("./components/results/ResultBookDetails.vue");
 const foodDetails = () => import("./components/results/ResultFoodDetails.vue");
 const notFound = () => import("./components/results/notFound.vue");
