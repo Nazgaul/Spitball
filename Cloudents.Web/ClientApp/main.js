@@ -5,6 +5,7 @@ import scroll from './components/helpers/infinateScroll.vue'
 import VueRouter from 'vue-router';
 import vueMoment from "vue-moment";
 import vueAdsense from 'vue-adsense';
+import * as VueGoogleMaps from 'vue2-google-maps'
 
 const vuetifyComponents = {
     VApp,
@@ -42,6 +43,15 @@ Vue.use(Vuetify,
         components: vuetifyComponents
     });
 Vue.use(vueMoment);
+Vue.use(VueGoogleMaps, {
+    load: {
+        key: 'AIzaSyAoFR5uWJy1cf76q-J46EoEbFVZCaLk93w',
+        //libraries: 'places', // This is required if you use the Autocomplete plugin
+        // OR: libraries: 'places,drawing'
+        // OR: libraries: 'places,drawing,visualization'
+        // (as you require)
+    }
+})
 Vue.component('scroll-list', scroll);
 Vue.component('adsense', vueAdsense);
 

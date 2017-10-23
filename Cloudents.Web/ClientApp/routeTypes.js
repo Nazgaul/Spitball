@@ -6,6 +6,7 @@ export const tutorRoute = "tutor";
 export const bookRoute = "book";
 export const bookDetailsRoute = "bookDetails";
 export const foodRoute = "food";
+export const foodDetailsRoute = "foodDetails";
 export const jobRoute = "job";
 export const postChatRoute = "postChat";
 

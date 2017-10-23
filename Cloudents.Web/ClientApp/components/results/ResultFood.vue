@@ -1,5 +1,5 @@
 ﻿<template v-once>
-    <a class="elevation-1 d-block pa-2 place-cell">
+    <router-link class="elevation-1 d-block pa-2 place-cell" :to="{name:'foodDetails',query:{lat:item.location.latitude, lng: item.location.longitude}}">
         <v-container class="pa-0">
             <v-layout row>
                 <div class="img-wrap">
@@ -28,7 +28,7 @@
                 </v-flex>
             </v-layout>
         </v-container>
-    </a>
+    </router-link>
 </template>
 <script>
     import StarRating from 'vue-star-rating'

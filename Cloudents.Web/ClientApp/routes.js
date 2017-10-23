@@ -6,6 +6,7 @@ const resultContent = () => import(/* webpackChunkName: "group-foo" */ "./compon
 const resultPageHeader = () => import(/* webpackChunkName: "group-foo" */ "./components/header/header.vue");
 const resultPageNavbar = () => import(/* webpackChunkName: "group-foo" */ "./components/general/TheNavbar.vue");
 const bookDetails = () => import("./components/results/ResultBookDetails.vue");
+const foodDetails = () => import("./components/results/ResultFoodDetails.vue");
 const notFound = () => import("./components/results/notFound.vue");
 function dynamicPropsFn(route) {
     return {
@@ -35,10 +36,12 @@ function homePropsFn(route) {
 }
 const resultPage = { navbar: resultPageNavbar, default: resultContent, header: resultPageHeader }
 const bookDetailsPage = { navbar: resultPageNavbar, default: bookDetails, header: resultPageHeader }
+const foodDetailsPage = { navbar: resultPageNavbar, default: foodDetails, header: resultPageHeader }
 const notFoundPage = { navbar: resultPageNavbar, header: resultPageHeader, default: notFound }
-const resultProps = { default: dynamicPropsFn, navbar: (route) => ({ userText: route.query.q }), header: (route) => ({ userText: route.query.q,name:route.path.slice(1) }) }
-const notFoundProps = {  navbar: (route) => ({ userText: "" }), header: (route) => ({ userText: "",name:route.path.slice(1) }) }
-const bookDetailsProps = { ...resultProps, default: dynamicDetailsPropsFn, header: (route) => ({ userText: route.query.q, name: 'book' })}
+const resultProps = { default: dynamicPropsFn, navbar: (route) => ({ userText: route.query.q }), header: (route) => ({ userText: route.query.q, name: route.path.slice(1) }) }
+const notFoundProps = { navbar: (route) => ({ userText: "" }), header: (route) => ({ userText: "", name: route.path.slice(1) }) }
+const bookDetailsProps = { ...resultProps, default: dynamicDetailsPropsFn, header: (route) => ({ userText: route.query.q, name: 'book' }) }
+const foodDetailsProps = { ...resultProps, default: (route) => ({ position: { lat: Number.parseFloat(route.query.lat, 10), lng: Number.parseFloat(route.query.lng, 10) } }), header: (route) => ({ userText: route.query.q, name: 'food' }) }
 export const routes = [
     {
         path: "/", component: HomePage, name: "home", meta: { searchType: 'ask' }, props: homePropsFn
@@ -48,10 +51,11 @@ export const routes = [
         path: "/result", name: "result", alias: [
             '/' + RouteTypes.questionRoute, '/' + RouteTypes.flashcardRoute,
             '/' + RouteTypes.notesRoute, '/' + RouteTypes.tutorRoute, '/' + RouteTypes.bookRoute,
-            '/' + RouteTypes.jobRoute, '/'+RouteTypes.foodRoute
+            '/' + RouteTypes.jobRoute, '/' + RouteTypes.foodRoute
         ], components: resultPage, props: resultProps, meta: { fetch: true, isUpdated: false }
     },
     { path: "/book/:type/:id", name: RouteTypes.bookDetailsRoute, components: bookDetailsPage, props: bookDetailsProps },
+    { path: "/food/show", name: RouteTypes.foodDetailsRoute, components: foodDetailsPage, props: foodDetailsProps },
     {
         path: "/not-found", name: "notFound", components: notFoundPage, alias: [
             '/' + RouteTypes.postRoute, '/' + RouteTypes.uploadRoute, '/' + RouteTypes.chatRoute,
