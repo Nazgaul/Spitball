@@ -10,7 +10,7 @@ namespace Cloudents.Infrastructure.Converters
         public BookDetailsDto Convert(JObject source, BookDetailsDto destination, ResolutionContext context)
         {
             var book = source["response"]["page"]["books"]["book"].First;
-            var offers = book["offers"]["group"].SelectMany(json =>
+            var offers = book["offers"]?["group"]?.SelectMany(json =>
             {
                 return json["offer"].Select(s => new BookPricesDto
                 {
