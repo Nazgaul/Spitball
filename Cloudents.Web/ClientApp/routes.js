@@ -8,6 +8,7 @@ const resultPageNavbar = () => import(/* webpackChunkName: "group-foo" */ "./com
 const bookDetails = () => import("./components/results/ResultBookDetails.vue");
 const foodDetails = () => import("./components/results/ResultFoodDetails.vue");
 const notFound = () => import("./components/results/notFound.vue");
+const settings = () => import("./components/settings/settings.vue");
 function dynamicPropsFn(route) {
     return {
         name: route.path.slice(1),
@@ -59,10 +60,11 @@ export const routes = [
     {
         path: "/not-found", name: "notFound", components: notFoundPage, alias: [
             '/' + RouteTypes.postRoute, '/' + RouteTypes.uploadRoute, '/' + RouteTypes.chatRoute,
-            '/' + RouteTypes.createFlashcard, '/' + RouteTypes.coursesRoute, '/' + RouteTypes.likesRoute,
-            '/' + RouteTypes.settingsRoute
+            '/' + RouteTypes.createFlashcard, '/' + RouteTypes.coursesRoute, '/' + RouteTypes.likesRoute
         ]
-    }
+    },
+    { path: "/" + RouteTypes.settingsRoute, name: RouteTypes.settingsRoute, component: settings},
+
 
 
 
