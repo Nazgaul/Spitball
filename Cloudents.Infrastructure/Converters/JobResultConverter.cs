@@ -20,8 +20,11 @@ namespace Cloudents.Infrastructure.Converters
                 Result = context.Mapper.Map<IEnumerable<Job>, IList<JobDto>>(source.Results.Select(s => s.Document))
             };
 
-            source.Facets.TryGetValue(context.Items[FacetType].ToString(), out var facets);
-            retVal.Facet = facets?.Select(s => s.AsValueFacetResult<string>().Value);
+            if (source.Facets != null)
+            {
+                source.Facets.TryGetValue(context.Items[FacetType].ToString(), out var facets);
+                retVal.Facet = facets?.Select(s => s.AsValueFacetResult<string>().Value);
+            }
 
             return retVal;
         }
