@@ -14,4 +14,6 @@ const searchFunctions = {
     getBookDetails: { method: 'GET', url: basePath + 'book/{type}/{?term*}' },
     getFood: { method: 'GET', url: basePath + 'places/{?term*}' }
 }
+
+export const university = Vue.resource(basePath + 'university{/term}')
 export const search = Vue.resource(basePath, {}, searchFunctions)

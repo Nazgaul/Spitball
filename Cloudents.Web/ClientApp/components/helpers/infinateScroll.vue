@@ -15,21 +15,24 @@
     export default {
         data() {
             return {
-                page: 1
+                page: this.token
             }
         },
 
-        props: { loadMore: {type:Boolean} },
+        props: { loadMore: { type: Boolean }, token: { type: [String, Number],default:1}},
 
         methods: {
             infiniteHandler($state) {
               if (this.loadMore) {
                     this.$store.dispatch('scrollingItems', { name: this.$route.path.slice(1), params: this.$router.query, page: this.page })
-                        .then(({ data }) => {
-                            if (data && data.length) {
-                                this.$emit('scroll', data);
+                        .then((res) => {
+                            if (res.data && res.data.length) {
+                                this.$emit('scroll', res.data);
                                 $state.loaded();
-                                this.page++;
+                                if (res.hasOwnProperty('token')) {
+                                    this.page = res.token;
+                                } else { this.page++; }
+                                
                             } else {
                                 this.page = 1;
                                 $state.complete();
