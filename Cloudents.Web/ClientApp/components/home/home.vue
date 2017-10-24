@@ -19,15 +19,7 @@
             <v-container fluid @click="showOptions=false">
                 <header>
                     <v-toolbar flat style="background-color:transparent;">
-                        <v-toolbar-side-icon @click.stop="drawer = !drawer" class="hidden-md-and-up">Hamburger</v-toolbar-side-icon>
-                        <!--<v-toolbar-title>
-                            <picture>
-                                <source media="(min-width: 959px)" srcset="/images/logo-spitball.svg" />
-                                <source media="(max-width: 959px)" srcset="./img/spitball-logo.png" />
-                                <img src="/images/logo-spitball.svg" alt="" />
-                            </picture>
-                            <img class="hidden-md-and-up" src="./img/spitball-logo.png" alt="">
-                        </v-toolbar-title>-->
+                        <v-toolbar-side-icon @click.stop="drawer = !drawer" class="hidden-md-and-up"><menu-icon></menu-icon></v-toolbar-side-icon>
                         <v-spacer class="hidden-sm-and-down"></v-spacer>
                         <div class="hidden-sm-and-down" v-for="action in links" :key="action.name">
                             <a href="#">{{ action.name }}</a>
@@ -39,29 +31,14 @@
                     <div class="box-inner-header">
                         <img  src="./img/logo-spitball.png"  width="227" height="54">
 
-                        <div class="box-search" >
+                        <div class="box-search mb-3">
                             <form id="labnol" method="get" v-on:submit.prevent="search">
                                 <div class="speech">
-                                    <input type="text" required name="q" id="transcript" v-model.trim="msg" @focus="$_focus()"  :placeholder="placeholder">
+                                    <input autocomplete="off" type="text" required name="q" id="transcript" v-model.trim="msg" @focus="$_focus()"  :placeholder="placeholder">
                                     <button type="button" class="demo-icon-mic"><mic-icon></mic-icon></button>
                                     <button type="submit"><search-icon></search-icon> Send</button>
                                 </div>
                             </form>
-                            <!--<div v-show="showOptions" >
-                                <v-list>
-                                    <v-subheader>Some things you can ask me:</v-subheader>
-                                    <template v-for="(item, index) in items">
-                                        <v-list-tile @click="selectos(item)" :key="index">
-                                            <v-list-tile-action>
-                                                -
-                                            </v-list-tile-action>
-                                            <v-list-tile-content>
-                                                <v-list-tile-title v-text="item"></v-list-tile-title>
-                                            </v-list-tile-content>
-                                        </v-list-tile>
-                                        </template>
-</v-list>
-                            </div>-->
                         </div>
                         <div v-show="showOptions">
                             <v-list>

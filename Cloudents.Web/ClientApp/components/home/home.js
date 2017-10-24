@@ -10,6 +10,7 @@ import twitterIcon from "./svg/twitter-icon.svg";
 import googleIcon from "./svg/google-icon.svg";
 import youtubeIcon from "./svg/youtube-icon.svg";
 import instegramIcon from "./svg/instagram-icon.svg";
+import menuIcon from "./svg/menu-icon.svg";
 import { homeSuggest, verticalsPlaceholders as askPlaceholder } from "./../data";
 
 
@@ -24,7 +25,7 @@ export default {
         "twitter-icon": twitterIcon,
         "google-icon": googleIcon,
         "youtube-icon": youtubeIcon,
-        "instegram-icon": instegramIcon
+        "instegram-icon": instegramIcon,menuIcon
     },
     data() {
         return {
