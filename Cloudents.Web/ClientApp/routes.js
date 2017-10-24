@@ -8,7 +8,8 @@ const resultPageNavbar = () => import("./components/navbar/TheNavbar.vue");
 const bookDetails = () => import("./components/results/ResultBookDetails.vue");
 const foodDetails = () => import("./components/results/ResultFoodDetails.vue");
 const notFound = () => import("./components/results/notFound.vue");
-const settings = () => import("./components/settings/settings.vue");
+//const settings = () => import("./components/settings/settings.vue");
+const settings = () => import("./components/settings/searchItem.vue");
 function dynamicPropsFn(route) {
     return {
         name: route.path.slice(1),
@@ -58,7 +59,7 @@ export const routes = [
             '/' + RouteTypes.createFlashcard, '/' + RouteTypes.coursesRoute, '/' + RouteTypes.likesRoute
         ]
     },
-    { path: "/" + RouteTypes.settingsRoute, name: RouteTypes.settingsRoute, component: settings},
+    { path: "/" + RouteTypes.settingsRoute, name: RouteTypes.settingsRoute, component: settings, props: { searchApi:'getUniversities',type:'university'}},
 
 
 

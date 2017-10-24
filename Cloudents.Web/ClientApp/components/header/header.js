@@ -33,7 +33,8 @@ export default {
             showOption: false,
             names: names,
             qFilter: this.userText,
-            isOptions: false
+            isOptions: false,
+            snackbar:true
         }
     },
 

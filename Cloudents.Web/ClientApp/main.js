@@ -17,6 +17,10 @@ const vuetifyComponents = {
     VBadge,
     VProgressCircular,
     VSubheader,
+    VDivider,
+    VSnackbar,
+    VDialog,
+    VTextField,
     VBtn
 };
 import {
@@ -27,9 +31,13 @@ import {
     VToolbar,
     VNavigationDrawer,
     VList,
+    VTextField,
     VBadge,
     VProgressCircular,
     VSubheader,
+    VDivider,
+    VSnackbar,
+    VDialog,
     VBtn
 
 } from 'vuetify'

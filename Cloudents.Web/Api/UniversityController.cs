@@ -17,7 +17,7 @@ namespace Cloudents.Web.Api
         {
             m_UniversityProvider = universityProvider;
         }
-
+        [HttpGet]
         public async Task<IActionResult> Get(string term, GeoPoint location, CancellationToken token)
         {
             var result = await m_UniversityProvider.SearchAsync(term, location, token).ConfigureAwait(false);

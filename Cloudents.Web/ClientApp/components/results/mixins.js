@@ -1,12 +1,14 @@
 ﻿import { page } from './../data'
 import RadioList from './../helpers/radioList.vue';
-import ResultItem from './ResultItem.vue'
+const ResultItem = () => import('./ResultItem.vue');
 const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
+const ResultPersonalize = () => import('./ResultPersonalize.vue');
 const ResultJob = () => import('./ResultJob.vue');
 import ResultVideo from './ResultVideo.vue'
 const ResultFood = () => import('./ResultFood.vue')
 const ResultBookPrice = () => import('./ResultBookPrice.vue');
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 const sortAndFilterMixin = {
    
     data() {
@@ -23,6 +25,10 @@ const sortAndFilterMixin = {
     },
     props: {
         name: { type: String }, query: { type: Object }, filterOptions: { type: String }, sort: { type: String }, fetch: { type: String }, params: { type: Object }
+    },
+
+    methods: {
+        ...mapMutations(['UPDATE_LOADING']),
     }
 };
 export const pageMixin =
@@ -31,39 +37,31 @@ export const pageMixin =
         beforeRouteUpdate(to, from, next) {
             // just use `this`
             if (to.query.path == from.query.path) {
-                this.$store.commit("UPDATE_LOADING", true);
+                this.UPDATE_LOADING(true);
                 if (to.query.q && from.query.q && to.query.q === from.query.q) {
-                    this.$store.dispatch("fetchingData", { pageName: to.path.slice(1), queryParams: { ...to.query, ...to.params } })
+                    this.fetchingData({ pageName: to.path.slice(1), queryParams: { ...to.query, ...to.params } })
                         .then((data) => {
                             this.content = data;
                             this.filter = this.filterOptions
                             this.$nextTick(() => {
-                                this.$store.commit("UPDATE_LOADING", false);
+                                this.UPDATE_LOADING(false);
                             })
                         })
                 }
                 else {
-                    this.$store.dispatch("updateLuisAndFetch", to).then((data) => {
+                    this.updateLuisAndFetch(to).then((data) => {
                         this.content = data;
                         this.filter = this.filterOptions
                         this.$nextTick(() => {
-                            this.$store.commit("UPDATE_LOADING", false);
+                            this.UPDATE_LOADING(false);
                         })
                     })
                 }
             }
             next();
         },
-  
-        data() {
-            return {
-                position: {},
-                items: '',
-                pageData:''
-            }
-        },
-
         computed: {
+            ...mapGetters(['term', 'isFirst']),
             content: {
                 get() {
                     return this.pageData
@@ -75,8 +73,7 @@ export const pageMixin =
                         this.items = val.data;
                     }
                 }
-            } ,
-            term: function () { return this.$store.getters.term },
+            },
             dynamicHeader: function () { return this.pageData.title },
             isEmpty: function () { return this.pageData.data ? !this.pageData.data.length : true },
             subFilter: function () { return this.query[this.filterOptions]; },
@@ -86,20 +83,31 @@ export const pageMixin =
             }
         },
 
-        components: { ResultItem, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood },
+        data() {
+            return {
+                position: {},
+                items: '',
+                pageData: ''
+            }
+        },
+
+     
+
+        components: { ResultItem, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood,ResultPersonalize },
 
         created() {
-            console.log(this.pageData)
-            this.$store.commit("UPDATE_LOADING", true);
-            this.$store.dispatch("updateLuisAndFetch", this.$route).then((data) => {
+            if(this.isFirst)this.updateFirstTime();
+            this.UPDATE_LOADING(true);
+            this.updateLuisAndFetch(this.$route).then((data) => {
                 this.content = data;
                 this.filter = this.filterOptions
                 this.$nextTick(() => {
-                    this.$store.commit("UPDATE_LOADING", false);
+                    this.UPDATE_LOADING(false);
                 })
             })
         },
         methods: {
+            ...mapActions(['updateLuisAndFetch', 'fetchingData','updateFirstTime']),
             $_changeFilter(filter) {
                 this.filter = filter;
                 if (!this.subFilters.length) {
@@ -125,10 +133,10 @@ export const detailsMixin = {
     mixins: [sortAndFilterMixin],
     created() {
         this.filter = 'all';
-        this.$store.commit("UPDATE_LOADING", true);
+        this.UPDATE_LOADING(true)
         this.$store.dispatch("bookDetails", { pageName: this.name, params: this.params }).then((res) => {
             this.pageData = res
-            this.$store.commit("UPDATE_LOADING", false);
+            this.UPDATE_LOADING(false)
         })
     },
     data() {
