@@ -55,6 +55,18 @@ export default {
         };
     },
     methods: {
+        $_voiceDetection() {
+            var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
+            recognition.lang = 'en-US';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 5;
+            recognition.start();
+            var _self = this;
+
+            recognition.onresult = function (event) {
+                _self.msg = event.results[0][0].transcript;
+            };
+        },
         search(){
             this.$store.dispatch('updateSearchText', this.msg ).then((name) => {
                 this.$router.push({ path:'/'+name, query: {q:this.msg} });

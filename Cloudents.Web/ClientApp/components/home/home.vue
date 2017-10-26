@@ -35,7 +35,7 @@
                             <form id="labnol" method="get" v-on:submit.prevent="search">
                                 <div class="speech">
                                     <input autocomplete="off" type="text" required name="q" id="transcript" v-model.trim="msg" @focus="$_focus()"  :placeholder="placeholder">
-                                    <button type="button" class="demo-icon-mic"><mic-icon></mic-icon></button>
+                                    <button type="button" class="demo-icon-mic" @click="$_voiceDetection"><mic-icon></mic-icon></button>
                                     <button type="submit"><search-icon></search-icon> Send</button>
                                 </div>
                             </form>
