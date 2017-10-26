@@ -1,0 +1,1 @@
+﻿export let emptyStates = { course: "no courses add your own", university:"If you would like to add your school send us a note from the feedback link in the settings tab."}
