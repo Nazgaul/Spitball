@@ -7,6 +7,6 @@ export default {
         return course.get(params)
     },
     createCourse(model) {
-        return course.create({name:"yifat"})
+        return course.create(model, { emulateJSON: true })
     }
 }

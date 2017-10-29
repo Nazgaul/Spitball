@@ -3,7 +3,7 @@ import RadioList from './../helpers/radioList.vue';
 const ResultItem = () => import('./ResultItem.vue');
 const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
-const ResultPersonalize = () => import('./ResultPersonalize.vue');
+const ResultPersonalize = () => import('../settings/ResultPersonalize.vue');
 const ResultJob = () => import('./ResultJob.vue');
 import ResultVideo from './ResultVideo.vue'
 const ResultFood = () => import('./ResultFood.vue')
