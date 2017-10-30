@@ -73,7 +73,8 @@
             },
             extraItem: function (val) {
                 this.items = [... this.items, val];
-                this.selectedItems = [... this.selectedItems, val.id]
+                this.selectedItems = [... this.selectedItems, val]
+                this.$emit('selected', this.selectedItems)
             }
         },
         methods: {
@@ -96,16 +97,13 @@
                     console.log('selected ' + val)
                     this.$emit('selected', this.selectedItems)
             },
-            $_addCourse() {
-                console.log('addCorse');
-            },
+
             $_updateFilter(val) {
-                console.log(val + " update filter")
                 this.filteredItems = (val == 'all') ? this.items : this.items.filter((i) => this.myCourses.length || this.myCourses.includes(i.id))
             }
         },
-        created() {
-            this.defaultVals ? this.selectedItems = this.defaultVals : '';
+        mounted() {
+            this.selectedItems = this.defaultVals ? this.defaultVals : this.myCourses;
             this.$emit('selected', [])
             this.$_search('')
         }

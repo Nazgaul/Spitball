@@ -33,14 +33,23 @@
         data() {
             return { showDialog: false, extraItem:'',snackbar: true, selectedItems: this.myCourses, showActions:false,currentAction:''}
         },
-       
+
+
         computed: {
-            ...mapGetters(['getUniversity','myCourses']),
+            ...mapGetters(['getUniversity', 'myCourses']),
             currentItem: function () { return searchObjects[this.searchType] },
             searchType: function () { return this.getUniversity ? 'course' : 'university' },
             params: function () { return this.getUniversity ? { universityId: this.getUniversity } : {} }
         },
 
+        props: { show: {} },
+        watch: {
+            show: function (val) {
+                if (val) {
+                this.showDialog = true;
+                }
+            }
+        },
         mounted() {
             console.log('created')
             this.selectedItems = this.myCourses

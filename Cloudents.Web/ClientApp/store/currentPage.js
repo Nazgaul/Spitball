@@ -50,20 +50,24 @@ const actions = {
         })
     },
 
-    updateLuisAndFetch({commit}, page) {
+    updateLuisAndFetch(context, page) {
         return new Promise((resolve) => {
             ai.interpetPromise(page.query.q).then(({ body }) => {
-                commit(types.UPDATE_SEARCH_PARAMS, body.data);
+                context.commit(types.UPDATE_SEARCH_PARAMS, body.data);
                 //context.commit(types.ADD, { ...body });
                 var params = { ...page.query, ...page.params, ...body.data }
-                console.log("params "+params);
-                resolve(searchService.activateFunction[page.path.slice(1)](params))
+                console.log("params " + params);
+                //let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity:null
+                let university = null
+                resolve(searchService.activateFunction[page.path.slice(1)]({ ...params, university }))
             })
         })
     },
     updateResult(context, page) {
         context.commit(types.UPDATE_LOADING, true)
-        searchService.activateFunction[page.path.slice(1)]({ ...context.getters.searchParams, ...page.query, ...page.params })
+        //let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null
+        let university = null
+        searchService.activateFunction[page.path.slice(1)]({ ...context.getters.searchParams, ...page.query, ...page.params, university })
             .then((response) => {
                 context.commit(types.UPDATE_LOADING, false)
             })
@@ -79,7 +83,10 @@ const actions = {
         return searchService.activateFunction[data.pageName](data.params) 
     },
     fetchingData: (context, data) => {
-        return searchService.activateFunction[data.pageName]({ ...data.queryParams, ...context.getters.searchParams })    
+        console.log(context.rootGetters.getUniversity)
+        //let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null
+        let university = null
+        return searchService.activateFunction[data.pageName]({ ...data.queryParams, ...context.getters.searchParams, university })    
     },
     scrollingItems( context , model) {
         return searchService.activateFunction[model.name]({ ...context.getters.searchParams, ...model.params,page: model.page })

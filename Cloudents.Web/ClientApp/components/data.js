@@ -23,7 +23,7 @@ export let verticals =
             resultTitle: "I found some documents that might help.<br>See what you think!",
             emptyState: "Darn, U wasn't able to find any documents. Try these other options.",
             filter: [{ id: 'all', name: 'all' },
-                { id: 'source', name: 'sources' }], sort: [{ id: 'relevance', name: 'relevance' },
+                { id: 'source', name: 'sources' }, {id:'course',name:"My Courses"}], sort: [{ id: 'relevance', name: 'relevance' },
                 { id: 'date', name: 'date' }]
         },
         flashcard: {

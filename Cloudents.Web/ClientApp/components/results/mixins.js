@@ -61,7 +61,7 @@ export const pageMixin =
             next();
         },
         computed: {
-            ...mapGetters(['term', 'isFirst']),
+            ...mapGetters(['term', 'isFirst','myCourses']),
             content: {
                 get() {
                     return this.pageData
@@ -78,7 +78,8 @@ export const pageMixin =
             isEmpty: function () { return this.pageData.data ? !this.pageData.data.length : true },
             subFilter: function () { return this.query[this.filterOptions]; },
             subFilters: function () {
-                const list = this.pageData[this.filter];
+               
+                const list = (this.filter === 'course') ? [... this.myCourses, 'Select Course']:this.pageData[this.filter];
                 return list ? list.map(item => { return { id: item, name: item } }) : [];
             }
         },
@@ -87,7 +88,9 @@ export const pageMixin =
             return {
                 position: {},
                 items: '',
-                pageData: ''
+                pageData: '',
+                isfirst: false,
+                showSearch: false
             }
         },
 
@@ -96,7 +99,10 @@ export const pageMixin =
         components: { ResultItem, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood,ResultPersonalize },
 
         created() {
-            if(this.isFirst)this.updateFirstTime();
+            this.isfirst = this.isFirst;
+            this.$nextTick(() => {
+                if (this.isFirst) this.updateFirstTime();
+            })
             this.UPDATE_LOADING(true);
             this.updateLuisAndFetch(this.$route).then((data) => {
                 this.content = data;
@@ -109,6 +115,9 @@ export const pageMixin =
         methods: {
             ...mapActions(['updateLuisAndFetch', 'fetchingData','updateFirstTime']),
             $_changeFilter(filter) {
+                if (this.subFilters.length) {
+                    delete this.query[this.filter]
+                }
                 this.filter = filter;
                 if (!this.subFilters.length) {
                     this.$router.push({ query: { ... this.query, filter } });
@@ -124,6 +133,13 @@ export const pageMixin =
             $_changeSubFilter(val) {
                 let sub = {};
                 sub[this.filter] = val;
+                if (val === 'Select Course') {
+                    this.showSearch = false;
+                    this.$nextTick(() => {
+                        this.showSearch = true;
+                    })
+                    return;
+                }
                 this.$router.push({ query: { ... this.query, ...sub, filter: this.filter } });
             }
         }
