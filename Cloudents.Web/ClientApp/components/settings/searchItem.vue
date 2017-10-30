@@ -20,7 +20,7 @@
         <div v-else>
             <v-list v-if="items.length">
                 <template v-for="item in filterItems">
-                    <div @click="$_selected(item.id)"> <component :is="'search-item-'+type" :item="item" v-model="selectedItems"></component></div>
+                    <div @click="$_selected({id:item.id,name:item.name})"> <component :is="'search-item-'+type" :item="item" v-model="selectedItems"></component></div>
                     <v-divider></v-divider>
                 </template>
             </v-list><div v-else>
@@ -91,9 +91,7 @@
             },
             $_selected(val) {
                 if (this.isChanged) { this.isChanged = false; return; }
-                    let setVals = new Set(this.selectedItems)
-                    setVals.has(val) ? setVals.delete(val) : setVals.add(val)
-                    this.selectedItems = [...setVals]
+                this.selectedItems.find((item) => val.id == item.id) ? this.selectedItems = this.selectedItems.filter(e=>e.id!=val.id) : this.selectedItems.push(val)
                     console.log('selected ' + val)
                     this.$emit('selected', this.selectedItems)
             },

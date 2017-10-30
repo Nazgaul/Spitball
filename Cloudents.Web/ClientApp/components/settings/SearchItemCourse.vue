@@ -17,7 +17,7 @@
             props: { item: { type: Object, required: true }, value: {} },
 
             computed: {
-                isSelected: function () { return this.value.includes(this.item.id)}
+                isSelected: function () { return this.value&&this.value.map(i=>i.id).includes(this.item.id)}
             }
     }
     </script>

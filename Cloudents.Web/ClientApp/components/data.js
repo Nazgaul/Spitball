@@ -9,19 +9,19 @@ export let verticals =
             image: "ask",
             placeholder: "Ask anything...",
             prefix: "",
-            resultTitle: "I’ve come to the conclusion that the answer is:",
-            emptyState: "I could not find any relevant answers. Try these other options.",
+            resultTitle: { short: "I’ve come to the conclusion that the answer is:", normal: "I found a few things that I think are relevant. Check these out."},
+            emptyState: "I could not find any relevant answers.<br>Try these other options.",
             sort: ""
             //asideLabel: "search type"
         },
         note: {
             id: routes.notesRoute,
 
-            name: "note", image: "document", placeholder: "Find me class materials...",
+            name: "Class Material", image: "document", placeholder: "Find me class material...",
             prefix: "Find me class material for",
             //asideLabel: "search type",
             resultTitle: "I found some documents that might help.<br>See what you think!",
-            emptyState: "Darn, U wasn't able to find any documents. Try these other options.",
+            emptyState: "Darn, I wasn't able to find any documents.<br>Try these other options.",
             filter: [{ id: 'all', name: 'all' },
                 { id: 'source', name: 'sources' }, {id:'course',name:"My Courses"}], sort: [{ id: 'relevance', name: 'relevance' },
                 { id: 'date', name: 'date' }]
@@ -29,7 +29,7 @@ export let verticals =
         flashcard: {
             id: routes.flashcardRoute,
 
-            name: "flashcard", image: "flashcard", placeholder: "Find me flashcards...",
+            name: "Flashcards", image: "flashcard", placeholder: "Find me flashcards...",
             prefix: "Find me flashcards on",
             //asideLabel: "search type",
             resultTitle: "Oh look - I found some flashcards for you.<br>Test yourself!",
@@ -40,10 +40,10 @@ export let verticals =
         tutor: {
             id: routes.tutorRoute,
 
-            name: "tutor", image: "tutor", placeholder: "Find me a tutor...",
+            name: "Tutors", image: "tutor", placeholder: "Find me a tutor...",
             prefix: "Find me a tutor for",
             //asideLabel: "search type",
-            resultTitle: "I found these tutors. Help is juast a click away!",
+            resultTitle: "I found these tutors. Help is just a click away!",
             emptyState: "Sorry, I did not find any tutors...",
             filter: [{ id: 'all', name: 'all' }, { id: 'online', name: 'online' }, { id: 'inPerson', name: 'In Person' }],
             sort: [{ id: 'relevance', name: 'relevance' }, { id: 'price', name: 'price' }, { id: 'distance', name: 'distance' }]
@@ -51,32 +51,32 @@ export let verticals =
         job: {
             id: routes.jobRoute,
 
-            name: "job",
+            name: "Jobs",
             image: "job",
             placeholder: "Find me a job...",
             prefix: "Find me a job in",
             resultTitle: "Look at this - you’ll be employed in no time!",
-            emptyState: "Sorry, I did not find any jobs that match your search...",
+            emptyState: "Sorry, I didn't find any jobs that match your search",
             filter: [{ id: 'all', name: 'all' },{ id: 'jobType', name: 'job type' }, { id: 'paid', name: 'paid' }],
             sort: [{ id: 'relevance', name: 'relevance' }, { id: 'price', name: 'price' }, { id: 'distance', name: 'distance' }]
         },
         book: {
             id: routes.bookRoute,
 
-            name: "book", image: "book", placeholder: "Find me a textbook ...",
+            name: "Textbooks", image: "book", placeholder: "Find me a textbook...",
             prefix: "Find me a textbook -",
             //asideLabel: "search type",
-            resultTitle: "I found some textbooks that match your search. Check them out!", emptyState: "Sorry, I did not find any textbooks that match your search...", filter: "", sort: ""
+            resultTitle: "I found some textbooks that match your search. Check them out!", emptyState: "Sorry, I didn't find any textbooks that match your search", filter: "", sort: ""
         },
         food: {
             id: routes.foodRoute,
 
-            name: "food",
+            name: "Food",
             image: "food",
-            placeholder: "Where can i get...",
+            placeholder: "Where can I get...",
             prefix: "Where can I get a",
             //asideLabel: "purchase",
-            resultTitle: "Booya! I found a few places that<br>you might like.", emptyState: "Sorry, friend! I couldn't find anywhere nearby that sells $subject", filter: [{ id: 'all', name: 'all' }, { id: 'openNow', name: 'open now' }], sort: [{ id: 'distance', name: 'distance' }]
+            resultTitle: "Booya! I found a few places that<br>you might like.", emptyState: "Sorry, friend! I could not find anywhere nearby that sells $subject", filter: [{ id: 'all', name: 'all' }, { id: 'openNow', name: 'open now' }], sort: [{ id: 'distance', name: 'distance' }]
         }
        
     };
@@ -107,22 +107,22 @@ export let verticalsNavbar = [
                 image: verticals[routes.questionRoute].image
             },
             {
-                id: verticals[routes.notesRoute].name,
+                id: verticals[routes.notesRoute].id,
                 name: verticals[routes.notesRoute].name,
                 image: verticals[routes.notesRoute].image
             },
             {
-                id: verticals[routes.flashcardRoute].name,
+                id: verticals[routes.flashcardRoute].id,
                 name: verticals[routes.flashcardRoute].name,
                 image: verticals[routes.flashcardRoute].image
             },
             {
-                id: verticals[routes.tutorRoute].name,
+                id: verticals[routes.tutorRoute].id,
                 name: verticals[routes.tutorRoute].name,
                 image: verticals[routes.tutorRoute].image
             },
-            { id: verticals[routes.jobRoute].name, name: verticals[routes.jobRoute].name, image: verticals[routes.jobRoute].image },
-            { id: verticals[routes.bookRoute].name, name: verticals[routes.bookRoute].name, image: verticals[routes.bookRoute].image }
+            { id: verticals[routes.jobRoute].id, name: verticals[routes.jobRoute].name, image: verticals[routes.jobRoute].image },
+            { id: verticals[routes.bookRoute].id, name: verticals[routes.bookRoute].name, image: verticals[routes.bookRoute].image }
         ]
     },
     {
@@ -140,12 +140,12 @@ export let verticalsNavbar = [
         data: [
             {
                 id: routes.uploadRoute,
-                name: "upload",
+                name: "Upload Content",
                 image: "upload"
             },
             {
                 id: routes.postRoute,
-                name: "post",
+                name: "Post to Class",
                 image: "post"
             },
             {
@@ -160,7 +160,7 @@ export let verticalsNavbar = [
         data: [
             {
                 id: routes.chatRoute,
-                name: "chat",
+                name: "Chat",
                 image: "chat"
             }
         ]
@@ -175,7 +175,7 @@ export let verticalsNavbar = [
             },
             {
                 id: routes.likesRoute,
-                name: "My likes",
+                name: "My Likes",
                 image: "likes"
             },
             {
@@ -189,7 +189,7 @@ export let verticalsNavbar = [
 
 for (var v in verticals) {
     var item = verticals[v];
-    names.push({ 'id': item.name, 'name': item.name });
+    names.push({ 'id': item.id, 'name': item.name });
     verticalsPlaceholders[v] = item.placeholder;
     prefix[v] = item.prefix;
     verticalsList.push(verticals[v]);

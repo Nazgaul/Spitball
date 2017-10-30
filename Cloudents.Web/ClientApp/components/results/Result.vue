@@ -7,7 +7,7 @@
         <div class="sec-result" v-else>
             <h5>
                 <span v-if="isEmpty" class="empty" v-html="page.emptyText.replace('$subject', term)"></span>
-                <span v-else v-html="page.title"></span>{{dynamicHeader}}
+                <span v-else v-html="titleText"></span> {{dynamicHeader}}
             </h5>
             <slot name="options">
                 <v-container class="pa-0 mb-3">

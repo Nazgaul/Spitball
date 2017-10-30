@@ -13,7 +13,9 @@ export default {
                         video = search.getVideo({ term: params.q });
                 }
                     Promise.all([answer, items, video]).then(([short, items, video]) => {
-                        resolve({ title: short.body, data: [{ url: video.body.url, template: "video" }, ...items.body.map(val => { return { ...val, template: "item" } })] })
+                        let list = items.body.map(val => { return { ...val, template: "item" } })
+                        video.body.url ? list = [{ url: video.body.url, template: "video" }, ...list]:''
+                        resolve({ title: short.body, data: list })
                     })
                 }
             })
@@ -41,7 +43,10 @@ export default {
         },
         book: function (params) {
             return new Promise((resolve, reject) => {
-                search.getBook(params).then(({ body }) => resolve({ data: body.map(val => { return { ...val, template: "book" } }) }));
+                search.getBook(params).then(({ body }) => {
+                    let data = body ? body.map(val => { return { ...val, template: "book" } }):[]
+                    resolve({ data })
+                });
             })
         },
         bookDetails: function (params) {

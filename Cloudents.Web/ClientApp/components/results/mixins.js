@@ -74,12 +74,15 @@ export const pageMixin =
                     }
                 }
             },
+            titleText: function () { return (this.name != 'ask')?this.page.title : this.dynamicHeader ? this.page.title.short :  this.page.title.normal},
             dynamicHeader: function () { return this.pageData.title },
             isEmpty: function () { return this.pageData.data ? !this.pageData.data.length : true },
             subFilter: function () { return this.query[this.filterOptions]; },
             subFilters: function () {
-               
-                const list = (this.filter === 'course') ? [... this.myCourses, 'Select Course']:this.pageData[this.filter];
+                if (this.filter === 'course') {
+                    return [... this.myCourses, { id: 'addCourse', name: 'Select Course'}]
+                }
+                const list = this.pageData[this.filter];
                 return list ? list.map(item => { return { id: item, name: item } }) : [];
             }
         },
@@ -133,7 +136,7 @@ export const pageMixin =
             $_changeSubFilter(val) {
                 let sub = {};
                 sub[this.filter] = val;
-                if (val === 'Select Course') {
+                if (val === 'addCourse') {
                     this.showSearch = false;
                     this.$nextTick(() => {
                         this.showSearch = true;

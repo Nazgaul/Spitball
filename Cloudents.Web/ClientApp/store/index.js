@@ -9,6 +9,6 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     modules: { Flow, CurrentPage,User },
     plugins: [createPersistedState({ storage: window.sessionStorage, paths: ['CurrentPage'] }),
-        createPersistedState({ paths: ['User'] })
+        //createPersistedState({ paths: ['User'] })
     ]
 });

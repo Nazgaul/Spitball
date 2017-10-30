@@ -28,9 +28,15 @@ namespace Cloudents.Infrastructure.Search
 
             var result = await query.ExecuteAsync(token).ConfigureAwait(false);
             var videoId = result.Items.FirstOrDefault()?.Id.VideoId;
+            var url="";
+            if(!string.IsNullOrEmpty(videoId))
+            {
+                url =$"https://www.youtube.com/embed/{videoId}";
+            }
+
             return new VideoDto
             {
-                Url = $"https://www.youtube.com/embed/{videoId}"
+                Url = url
             };
         }
     }
