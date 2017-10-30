@@ -8,8 +8,7 @@ const state = {
     scrollingLoader: false,
     search: {
         page: 0,
-        term: '',
-        sort:"Relevance"
+        term: ''
     }
 };
 
@@ -86,7 +85,7 @@ const actions = {
         console.log(context.rootGetters.getUniversity)
         //let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null
         let university = null
-        return searchService.activateFunction[data.pageName]({ ...data.queryParams, ...context.getters.searchParams, university })    
+        return searchService.activateFunction[data.pageName]({ ...context.getters.searchParams,...data.queryParams, university })    
     },
     scrollingItems( context , model) {
         return searchService.activateFunction[model.name]({ ...context.getters.searchParams, ...model.params,page: model.page })

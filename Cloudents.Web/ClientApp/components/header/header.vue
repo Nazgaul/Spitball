@@ -23,9 +23,9 @@
                 </v-badge>
             </div>
         </v-layout>
-        <div :slot="isOptions?'extension':''" v-show="isOptions">
+        <!--<div :slot="isOptions?'extension':''" v-show="isOptions">
             <search-type class="verticals"  :values="names" :model="'searchTypes'" :value="name" @click="changeType"></search-type>
-        </div>
+        </div>-->
     </v-toolbar>
 </template>
 <script src="./header.js"></script>

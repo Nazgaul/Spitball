@@ -131,6 +131,7 @@ export const pageMixin =
                 return sort;
             },
             $_updateSort(sort) {
+                console.log(sort);
                 this.$router.push({ query: { ... this.query, sort: sort } });
             },
             $_changeSubFilter(val) {
