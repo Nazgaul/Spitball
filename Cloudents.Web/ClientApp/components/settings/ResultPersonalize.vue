@@ -9,7 +9,7 @@
                 <v-btn xs1 flat color="white" @click="snackbar=false">X</v-btn>
             </v-layout>
         </v-snackbar>
-        <v-dialog v-model="showDialog">
+        <v-dialog v-model="showDialog" max-width="500">
             <div class="white">
                 <v-flex xs12> <h5>{{currentItem.title}}</h5> <v-btn color="primary" flat @click.stop="(!getUniversity?showDialog=false:$_done())">{{currentItem.closeText}}</v-btn></v-flex>
                 <search-item :extraItem="extraItem" :searchApi="currentItem.searchApi" :actions.sync="showActions" :actionsCallback="$_updateActions" :type="searchType" :params="params" v-model="selectedItems" :defaultVals="selectedItems">
@@ -17,7 +17,7 @@
                 </search-item>
             </div>
         </v-dialog>
-        <v-dialog v-model="showActions" v-if="showActions">
+        <v-dialog v-model="showActions" v-if="showActions" max-width="350" persistent>
             <div class="white">
                 <component :is="searchType+'-'+currentAction" @done="$_actionDone"></component>
             </div>

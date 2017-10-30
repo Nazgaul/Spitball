@@ -1,7 +1,7 @@
 ﻿<template>
     <div>
         Add Course
-        <form @submit.prevent="$_submit">
+        <form @submit.prevent="$_submit" @keydown.enter.prevent="$_submit">
             <v-text-field v-model.trim="name" required placeholder="Course Name" />
             <v-text-field v-model.trim="code" placeholder="CourseCode" />
             <v-btn @click="$_submit"
