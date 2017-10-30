@@ -1,5 +1,5 @@
 ﻿<template>
-    <div class="ma-4">
+    <div class="pa-4">
         <v-text-field 
                       label="Search" @input="$_search" debounce="500" 
                       class="input-group--focused" v-model="term"
@@ -19,9 +19,9 @@
         </div>
         <div v-else>
             <v-list v-if="items.length">
-                <template v-for="item in filterItems">
+                <template v-for="(item,index) in filterItems">
                     <div @click="$_selected({id:item.id,name:item.name})"> <component :is="'search-item-'+type" :item="item" v-model="selectedItems"></component></div>
-                    <v-divider></v-divider>
+                    <v-divider v-if="index < filterItems.length-1"></v-divider>
                 </template>
             </v-list><div v-else>
                 <div>No Results Found</div>

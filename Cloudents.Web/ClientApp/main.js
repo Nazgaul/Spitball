@@ -8,14 +8,12 @@ import vueAdsense from 'vue-adsense';
 import * as VueGoogleMaps from 'vue2-google-maps'
 import VueIntercom from 'vue-intercom';
 
-Vue.use(VueIntercom, { appId: 'njmpgayv' });
-
 const vuetifyComponents = {
     VApp,
+    VNavigationDrawer,
     VGrid,
     VChip,
     VToolbar,
-    VNavigationDrawer,
     VList,
     VBadge,
     VProgressCircular,
@@ -29,10 +27,10 @@ const vuetifyComponents = {
 import {
     Vuetify,
     VApp,
+    VNavigationDrawer,
     VGrid,
     VChip,
     VToolbar,
-    VNavigationDrawer,
     VList,
     VTextField,
     VBadge,
@@ -54,6 +52,7 @@ Vue.use(Vuetify,
         components: vuetifyComponents
     });
 Vue.use(vueMoment);
+Vue.use(VueIntercom, { appId: 'njmpgayv' });
 Vue.use(VueGoogleMaps, {
     load: {
         key: 'AIzaSyAoFR5uWJy1cf76q-J46EoEbFVZCaLk93w',
@@ -83,13 +82,14 @@ new Vue({
     render: h => h(App),
     store,
     watch: {
-        '$intercom.ready': function ready() {
-            this.$intercom.boot();
+        '$intercom.ready': function() {
+            this.$intercom.boot({
+                //user_id: 1,
+                //name: 'yifat',
+                //email: 'yifat@cloudents.com',
+            });
             this.$intercom.show();
-        },
-        email(email) {
-            this.$intercom.update({ email });
-        },
+        }
     }
 });
 router.beforeResolve((to, from, next) => {
