@@ -6,6 +6,9 @@ import VueRouter from 'vue-router';
 import vueMoment from "vue-moment";
 import vueAdsense from 'vue-adsense';
 import * as VueGoogleMaps from 'vue2-google-maps'
+import VueIntercom from 'vue-intercom';
+
+Vue.use(VueIntercom, { appId: 'njmpgayv' });
 
 const vuetifyComponents = {
     VApp,
@@ -78,7 +81,16 @@ new Vue({
     el: "#app",
     router: router,
     render: h => h(App),
-    store
+    store,
+    watch: {
+        '$intercom.ready': function ready() {
+            this.$intercom.boot();
+            this.$intercom.show();
+        },
+        email(email) {
+            this.$intercom.update({ email });
+        },
+    }
 });
 router.beforeResolve((to, from, next) => {
     console.log("before resolve" + new Date())
