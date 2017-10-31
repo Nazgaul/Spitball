@@ -8,6 +8,7 @@ const ResultJob = () => import('./ResultJob.vue');
 import ResultVideo from './ResultVideo.vue'
 const ResultFood = () => import('./ResultFood.vue')
 const ResultBookPrice = () => import('./ResultBookPrice.vue');
+const foodExtra = () => import('./foodExtra.vue');
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 const sortAndFilterMixin = {
    
@@ -31,31 +32,37 @@ const sortAndFilterMixin = {
         ...mapMutations(['UPDATE_LOADING']),
     }
 };
+var updateData = function (data) {
+    this.content = data;
+    this.filter = this.filterOptions
+    this.$nextTick(() => {
+        this.UPDATE_LOADING(false);
+    })
+}
+var updateLuis = function (page) {
+    let self = this;
+    this.updateLuisAndFetch(page).then((data) => {
+        updateData.call(self,data)
+    })
+}
+
 export const pageMixin =
     {
         mixins: [sortAndFilterMixin],
         beforeRouteUpdate(to, from, next) {
+            
             // just use `this`
-            if (to.query.path == from.query.path) {
+            if (to.path == from.path) {
+  
                 this.UPDATE_LOADING(true);
                 if (to.query.q && from.query.q && to.query.q === from.query.q) {
                     this.fetchingData({ pageName: to.path.slice(1), queryParams: { ...to.query, ...to.params } })
                         .then((data) => {
-                            this.content = data;
-                            this.filter = this.filterOptions
-                            this.$nextTick(() => {
-                                this.UPDATE_LOADING(false);
-                            })
+                            updateData.call(this,data)
                         })
                 }
                 else {
-                    this.updateLuisAndFetch(to).then((data) => {
-                        this.content = data;
-                        this.filter = this.filterOptions
-                        this.$nextTick(() => {
-                            this.UPDATE_LOADING(false);
-                        })
-                    })
+                    updateLuis.call(this, to);
                 }
             }
             next();
@@ -89,7 +96,6 @@ export const pageMixin =
 
         data() {
             return {
-                position: {},
                 items: '',
                 pageData: '',
                 isfirst: false,
@@ -99,21 +105,16 @@ export const pageMixin =
 
      
 
-        components: { ResultItem, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood,ResultPersonalize },
+        components: { foodExtra, ResultItem, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood,ResultPersonalize },
 
         created() {
+            console.log("popo")
             this.isfirst = this.isFirst;
             this.$nextTick(() => {
                 if (this.isFirst) this.updateFirstTime();
             })
             this.UPDATE_LOADING(true);
-            this.updateLuisAndFetch(this.$route).then((data) => {
-                this.content = data;
-                this.filter = this.filterOptions
-                this.$nextTick(() => {
-                    this.UPDATE_LOADING(false);
-                })
-            })
+            updateLuis.call(this,this.$route)
         },
         methods: {
             ...mapActions(['updateLuisAndFetch', 'fetchingData','updateFirstTime']),
@@ -146,7 +147,8 @@ export const pageMixin =
                 }
                 this.$router.push({ query: { ... this.query, ...sub, filter: this.filter } });
             }
-        }
+        },
+        props: { hasExtra: {type:Boolean}}
 
     };
 export const detailsMixin = {

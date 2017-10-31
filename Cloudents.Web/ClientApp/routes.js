@@ -1,11 +1,11 @@
 ﻿import HomePage from "./components/home/home.vue";
 import * as RouteTypes from "./routeTypes";
-import resultPageHeader from "./components/header/header.vue";
-import resultPageNavbar from "./components/navbar/TheNavbar.vue";
+//import resultPageHeader from "./components/header/header.vue";
+//import resultPageNavbar from "./components/navbar/TheNavbar.vue";
 
 const resultContent = () => import("./components/results/Result.vue");
-//const resultPageHeader = () => import(/* webpackChunkName: "group-foo"*/"./components/header/header.vue");
-//const resultPageNavbar = () => import(/* webpackChunkName: "group-foo"*/"./components/navbar/TheNavbar.vue");
+const resultPageHeader = () => import(/* webpackChunkName: "group-foo"*/"./components/header/header.vue");
+const resultPageNavbar = () => import(/* webpackChunkName: "group-foo"*/"./components/navbar/TheNavbar.vue");
 const bookDetails = () => import("./components/results/ResultBookDetails.vue");
 const foodDetails = () => import("./components/results/ResultFoodDetails.vue");
 const notFound = () => import("./components/results/notFound.vue");
@@ -18,7 +18,8 @@ function dynamicPropsFn(route) {
         filterOptions: route.query.filter || 'all',
         sort: route.query.sort || 'relevance',
         userText: route.params.q,
-        params: route.params
+        params: route.params,
+        hasExtra: route.path.slice(1).includes('food')
     }
 }
 function dynamicDetailsPropsFn(route) {

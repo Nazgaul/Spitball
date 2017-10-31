@@ -5,6 +5,7 @@
             <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
         </div>
         <div class="sec-result" v-else>
+            <slot :name="name"><component v-if="hasExtra" :is="name+'-extra'"></component></slot>
             <h5>
                 <span v-if="isEmpty" class="empty" v-html="page.emptyText.replace('$subject', term)"></span>
                 <span v-else v-html="titleText"></span> {{dynamicHeader}}
@@ -47,7 +48,6 @@
                     </div>
                 </v-layout>
             </v-container>
-
             <!--<slot name="emptyState" v-show="isEmpty"></slot>-->
 
         </div>

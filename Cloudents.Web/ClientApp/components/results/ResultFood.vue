@@ -1,5 +1,6 @@
 ﻿<template v-once>
-    <router-link class="elevation-1 d-block pa-2 place-cell" :to="{name:'foodDetails',query:{lat:item.location.latitude, lng: item.location.longitude}}">
+   
+    <div class="elevation-1 d-block pa-2 place-cell" @click="showMap=!showMap">
         <v-container class="pa-0">
             <v-layout row>
                 <div class="img-wrap">
@@ -26,15 +27,43 @@
                         </v-layout>
                     </v-container>
                 </v-flex>
+                <!--<gmap-map style="width: 100%; height: 100%; position: absolute; left:0; top:0"
+                          :center="myLocation"
+                          :zoom="12">
+                    <gmap-marker :position="myLocation"
+                                 :clickable="true"></gmap-marker>
+
+                </gmap-map>-->
+                <!--<gmap-map v-show="showMap" :center="pos"
+                          :zoom="20"
+                          style="width: 500px; height: 300px">
+                    <gmap-marker :position="pos"
+                                 :clickable="true"></gmap-marker>
+
+                </gmap-map>-->
             </v-layout>
         </v-container>
-    </router-link>
+    </div>
 </template>
 <script>
     import StarRating from 'vue-star-rating'
     export default {
         props: { item: { type: Object, required: true } },
-        components: { StarRating }
+        components: { StarRating },
+        data() { return { showMap: false } },
+        computed: {
+            myLocation: function () {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(({ coords }) => {
+                        console.log(coords)
+                        return { lat: Number(coords.latitude), lng: Number(coords.longitude) }
+                    })
+                }
+                return { lat: this.item.location.latitude, lng: this.item.location.longitude }
+            },
+            //pos: function () { return { lat: this.item.location.latitude, lng: this.item.location.longitude } }
+            pos: function () { return { lat: 10.0, lng: 10.0 }}
+        }
     }
 </script>
 <style src="./ResultFood.less" lang="less"></style>
