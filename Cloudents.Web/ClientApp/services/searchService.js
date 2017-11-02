@@ -5,7 +5,9 @@ export default {
         ask: function (params) {
             return new Promise((resolve, reject) => {
                 var items = search.getQna(params);
-                if (params.page) items.then(({ body }) => { resolve({ items: body }) })
+                if (params.page) items.then(({ body }) => {
+                    resolve({ data: body.map(val => { return { ...val, template: "item" } }) })
+                })
                 else {
                     var answer = Promise.resolve({})
                     var video = Promise.resolve({ body: {}})
@@ -64,21 +66,17 @@ export default {
                     search.getFood({ nextPageToken: params.page/*, location: "34.8016837,31.9195509"*/ }).then(({ body }) => resolve({ token: body.token, data: body.data.map(val => { return { ...val, template: "food" } }) }));
                 }
                 if (!location) {
-                    console.log('get location')
                     if (navigator.geolocation) {
                         navigator.geolocation.getCurrentPosition(({ coords }) => {
-                            console.log(coords)
                             location = coords.latitude + ',' + coords.longitude;
                             params = { ...params, location }
                             search.getFood(params).then(({ body }) => resolve({ token: body.token, data: body.data.map(val => { return { ...val, template: "food" } }) }));
                         });
                     } else {
-                        console.log("not supported")
                         search.getFood(params).then(({ body }) => resolve({ token: body.token, data: body.data.map(val => { return { ...val, template: "food" } }) }));
                     }
                 } else {
                     params = { ...params, location }
-                    console.log("food params: " + params)
                     search.getFood(params).then(({ body }) => resolve({ token: body.token, data: body.data.map(val => { return { ...val, template: "food" } }) }));
                 }
             })

@@ -16,7 +16,8 @@ const mutations = {
 const getters = {
     isFirst: state => state.user.isFirst,
     getUniversity: state => state.user.universityId,
-    myCourses: state => state.user.myCourses
+    myCourses: state => state.user.myCourses,
+    myCoursesId: state => (state.user.myCourses.length ? state.user.myCourses.map(i=>i.id):[])
 }
 const actions = {
     getUniversities(context, data) {
@@ -25,14 +26,12 @@ const actions = {
     getCorses(context, data) {
         return settingsService.getCourse(data)
     },
-    updateMyCourses({ commit }, data) {
-        return Promise.resolve(commit(USER.UPDATE_USER, { myCourses:data}))
-    },
+
     createCourse(context, data) {
         return new Promise((resolve, reject) => {
             settingsService.createCourse(data).then(({body}) => {
                 console.log(body.id)
-                context.commit(USER.UPDATE_USER, { myCourses: [...context.getters.myCourses, body.id] });
+                context.commit(USER.UPDATE_USER, { myCourses: [...context.getters.myCourses, { id: body.id, name: data.name }] });
                 resolve({id:body.id,name:data.name,code:data.code})
             })
         })
