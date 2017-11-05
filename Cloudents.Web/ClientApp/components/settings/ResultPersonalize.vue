@@ -11,8 +11,8 @@
         </v-snackbar>
         <v-dialog v-model="showDialog" max-width="500">
             <div class="white">
-                <v-layout row wrap class="pa-4 text-xs-center"> <v-flex xs10><h5>{{currentItem.title}}</h5></v-flex><v-flex xs2><v-btn color="primary" flat @click.stop="(!getUniversity?showDialog=false:$_done())">{{currentItem.closeText}}</v-btn></v-flex></v-layout>
-                <search-item :extraItem="extraItem" :searchApi="currentItem.searchApi" :actions.sync="showActions" :actionsCallback="$_updateActions" :type="searchType" :params="params" v-model="selectedItems" :defaultVals="selectedItems">
+                <v-layout row wrap class="pa-4 text-xs-center"> <v-flex xs10><h5>{{currentItem.title}}</h5></v-flex><v-flex xs2><v-btn color="primary" flat @click.stop="showDialog=false">{{currentItem.closeText}}</v-btn></v-flex></v-layout>
+                <search-item :extraItem="extraItem" :searchApi="currentItem.searchApi" :actions.sync="showActions" :actionsCallback="$_updateActions" :type="searchType" :params="params">
 
                 </search-item>
             </div>
@@ -31,7 +31,7 @@
     import { mapGetters,mapActions } from 'vuex'
     export default {
         data() {
-            return { showDialog: false, extraItem:'',snackbar: true, selectedItems: this.myCourses, showActions:false,currentAction:''}
+            return { showDialog: false, extraItem:'',snackbar: true, showActions:false,currentAction:''}
         },
 
 
@@ -50,17 +50,9 @@
                 }
             }
         },
-        mounted() {
-            console.log('created')
-            this.selectedItems = this.myCourses
-        },
+
         methods: {
             ...mapActions(['updateMyCourses']),
-            $_done() {
-                this.updateMyCourses(this.selectedItems).then(() =>
-                    this.showDialog=false
-                    )
-            },
             $_updateActions(data) {
                 this.currentAction = data;
                 this.showActions = true;

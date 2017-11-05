@@ -108,7 +108,6 @@ export const pageMixin =
         components: { foodExtra, ResultItem, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood,ResultPersonalize },
 
         created() {
-            console.log("popo")
             this.isfirst = this.isFirst;
             this.$nextTick(() => {
                 if (this.isFirst) this.updateFirstTime();
@@ -132,7 +131,6 @@ export const pageMixin =
                 return sort;
             },
             $_updateSort(sort) {
-                console.log(sort);
                 this.$router.push({ query: { ... this.query, sort: sort } });
             },
             $_changeSubFilter(val) {

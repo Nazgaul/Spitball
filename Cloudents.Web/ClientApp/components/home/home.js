@@ -73,11 +73,9 @@ export default {
             });;
         },
         $_focus() {
-            console.log('focus')
             this.showOptions = true;
         },
         selectos(item) {
-            console.log("selected " + item)
             this.msg = item;
             this.search();
         }
