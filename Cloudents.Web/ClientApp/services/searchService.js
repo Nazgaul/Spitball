@@ -24,7 +24,6 @@ export default {
             })
         },
         note: (params) => {
-            console.log(params);
             return new Promise((resolve, reject) => {
                 search.getDocument(params).then(({ body }) => resolve({ source: body.facet, data: body.result.map(val => { return { ...val, template: "item" } }) }))
             })

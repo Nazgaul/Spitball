@@ -41,7 +41,8 @@ namespace Cloudents.Infrastructure.Converters
                    Location = location,
                    Name = json["name"].Value<string>(),
                    Open = json["opening_hours"]?["open_now"].Value<bool?>() ?? false,
-                   Rating = json["rating"]?.Value<double>() ?? 0
+                   Rating = json["rating"]?.Value<double>() ?? 0,
+                   PlaceId= json["place_id"]?.Value<string>()
                };
            });
             var nextPage = source["next_page_token"]?.Value<string>();

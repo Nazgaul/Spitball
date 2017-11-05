@@ -34,6 +34,7 @@ const sortAndFilterMixin = {
 };
 var updateData = function (data) {
     this.content = data;
+    (data.data && this.hasExtra) ? this.selectedItem = data.data[0].placeId : ''
     this.filter = this.filterOptions
     this.$nextTick(() => {
         this.UPDATE_LOADING(false);
@@ -99,7 +100,8 @@ export const pageMixin =
                 items: '',
                 pageData: '',
                 isfirst: false,
-                showSearch: false
+                showSearch: false,
+                selectedItem:null
             }
         },
 

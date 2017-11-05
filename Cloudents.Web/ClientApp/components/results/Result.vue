@@ -5,7 +5,6 @@
             <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
         </div>
         <div class="sec-result" v-else>
-            <slot :name="name"><component v-if="hasExtra" :is="name+'-extra'"></component></slot>
             <h5>
                 <span v-if="isEmpty" class="empty" v-html="page.emptyText.replace('$subject', term)"></span>
                 <span v-else v-html="titleText"></span> {{dynamicHeader}}
@@ -24,12 +23,13 @@
                 <v-layout row>
                     <slot name="data">
                         <scroll-list :loadMore="!isEmpty" v-if="items" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
-                            <v-container fluid grid-list-sm v-for="(item,index) in items" :key="index">
+                            <v-container fluid grid-list-sm v-for="(item,index) in items" :key="index" @click="(hasExtra?selectedItem=item.placeId:'')">
                                 <component :is="'result-'+item.template" :item="item" :key="index" class="cell"></component>
                             </v-container>
                         </scroll-list>
                     </slot>
-                    <div class="pa-2" style="width:320px; height:240px;">
+                    <slot :name="name" v-if="hasExtra"><component :is="name+'-extra'" :place="selectedItem"></component></slot>
+                    <div v-else class="pa-2" style="width:320px; height:240px;" >
                         <img src="http://lorempixel.com/320/240/" />
                         <img src="http://lorempixel.com/320/240/" />
 

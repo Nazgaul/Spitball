@@ -12,5 +12,6 @@ namespace Cloudents.Core.DTOs
         public GeoPoint Location { get; set; }
 
         public string Image { get; set; }
+        public string PlaceId { get; set; }
     }
 }
