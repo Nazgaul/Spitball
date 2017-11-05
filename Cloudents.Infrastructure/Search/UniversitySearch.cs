@@ -9,6 +9,7 @@ using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Search.Entities;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
+using Microsoft.Spatial;
 
 namespace Cloudents.Infrastructure.Search
 {
@@ -31,18 +32,18 @@ namespace Cloudents.Infrastructure.Search
                 term = "*";
             }
             var listOfSelectParams = new[] { "id", "name3", "imageField" };
-            var sortQuery = new List<string>();
-
-            if (location != null)
-            {
-                sortQuery.Add($"geo.distance(geographyPoint, geography'POINT({location.Longitude} {location.Latitude})')");
-            }
             var searchParameter = new SearchParameters
             {
                 Select = listOfSelectParams,
-                Filter = "geographyPoint ne null",
-                OrderBy = sortQuery
+                Filter = "geographyPoint ne null"
             };
+            if (location != null)
+            {
+                searchParameter.ScoringProfile = "university-score-location";
+                searchParameter.ScoringParameters = new[] {
+                    new ScoringParameter("currentLocation",GeographyPoint.Create(location.Latitude,location.Longitude))
+                };
+            }
 
             var tResult =
                 m_Client.Documents.SearchAsync<University>(term, searchParameter,
