@@ -72,12 +72,12 @@ var optionalRoutes = {
     }
 };
 const getters = {
-    currenFlow: state => state.node ? state.node.model.name:"home",
+    currenFlow: state => state.node ? state.node.model.name : "home",
 }
 const mutations = {
     [types.ADD](state, payload) {
         var flow;
-        if (payload.result === "search") {        
+        if (payload.result === "search") {
             payload.data.searchType = payload.data.searchType || {};
             if (payload.data.searchType.key === "Flashcards") {
                 flow = optionalRoutes.flashcard;
@@ -86,10 +86,13 @@ const mutations = {
             }
 
         } else {
-            flow = optionalRoutes[ payload.result];
+            flow = optionalRoutes[payload.result];
         }
         if (flow) {
-            state.node = state.flowTree.parse(flow);
+            //state.node = state.flowTree.parse(flow);
+            state.node = {
+                model: { ...flow }
+            };
         }
     }
 };

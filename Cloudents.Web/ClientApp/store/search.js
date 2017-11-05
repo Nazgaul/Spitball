@@ -1,5 +1,4 @@
 ﻿import * as types from './mutation-types'
-import { prefixes} from './consts'
 import ai from './../services/ai'
 import searchService from './../services/searchService'
 
@@ -68,13 +67,13 @@ const actions = {
                 context.commit(types.UPDATE_LOADING, false)
             })
     },
-    newResultPage: (context, page) => {
-        return new Promise((resolve)=>{
-            if (context.rootGetters.currenFlow !== page.name) {
-                context.commit(types.ADD, { result: page.name })
-            }
-        })
-    },
+    //newResultPage: (context, page) => {
+    //    return new Promise((resolve)=>{
+    //        if (context.rootGetters.currenFlow !== page.name) {
+    //            context.commit(types.ADD, { result: page.name })
+    //        }
+    //    })
+    //},
     bookDetails: (context, data) => {
         return searchService.activateFunction[data.pageName](data.params) 
     },
@@ -85,7 +84,11 @@ const actions = {
     },
     scrollingItems( context , model) {
         return searchService.activateFunction[model.name]({ ...context.getters.searchParams, ...model.params,page: model.page })
+    },
+    getPreview(context, model) {
+        return searchService.getPreview(model)
     }
+
 }
 
 export default {

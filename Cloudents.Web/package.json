@@ -38,7 +38,6 @@
     "vue-star-rating": "^1.5.0",
     "vuetify-loader": "^0.1.1",
     "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.1",
-    "vue-intercom": "^1.0.6"
+    "stylus-loader": "^3.0.1"
   }
 }

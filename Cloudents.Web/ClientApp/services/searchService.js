@@ -1,5 +1,21 @@
 ﻿import { search } from './resources';
 let location = null;
+const previewMap = {
+    item(id) {
+        return {
+            name: 'Math 116 formula sheet.doc',
+            author: "Jamie Schneider",
+            date: "Dec 10, 2015",
+
+        }
+    },
+    flashcard(id) {
+        return { name: 'flashcard' }
+    },
+    quiz(id) {
+        return { name: 'quiz' }
+    }
+}
 export default {
     activateFunction :{
         ask: function (params) {
@@ -80,5 +96,10 @@ export default {
                 }
             })
         }
+    },
+    getPreview(data) {
+        let previewFunc = previewMap[data.type] ? previewMap[data.type] : previewMap.item;
+
+        return previewFunc(data.id);
     }
 }

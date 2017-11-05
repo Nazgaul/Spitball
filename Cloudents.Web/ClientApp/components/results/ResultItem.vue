@@ -1,8 +1,8 @@
 ﻿<template>
-    <a class="elevation-1 d-block" target="_blank" :href="item.url">
+    <a class="elevation-1 d-block" target="_blank" :href="url">
         <v-container class="pa-2">
             <v-layout row fluid>
-                <v-flex class="img-wrap mr-2 pa-0" :class="['border-'+$route.name]">
+                <v-flex class="img-wrap mr-2 pa-0" :class="['border-'+$route.path.slice(1)]">
                     <img  :src="item.image" alt="">
                 </v-flex>
                 <v-flex class="right-section">
@@ -24,7 +24,10 @@
 </template>
 <script>
     export default {
-        props: { item: { type: Object, required: true } }
+        props: { item: { type: Object, required: true } },
+        computed: {
+            url: function () { return this.item.source.includes('spitball') ? this.$route.path.replace('note','item').concat('/',this.item.id) : this.item.url}
+        }
     }
 </script>
 <style src="./ResultItem.less" lang="less" scoped></style>

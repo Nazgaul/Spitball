@@ -80,15 +80,5 @@ new Vue({
     el: "#app",
     router: router,
     render: h => h(App),
-    store,
-    watch: {
-        '$intercom.ready': function() {
-            this.$intercom.boot({
-                //user_id: 1,
-                //name: 'yifat',
-                //email: 'yifat@cloudents.com',
-            });
-            this.$intercom.show();
-        }
-    }
+    store
 });
