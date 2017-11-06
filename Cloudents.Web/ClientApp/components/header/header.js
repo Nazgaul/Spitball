@@ -32,39 +32,35 @@ export default {
             placeholders: placeholders,
             showOption: false,
             names: names,
-            qFilter: this.userText,
+            currentName:'',
+            qFilter: this.$route.query.q,
             isOptions: false,
             snackbar:true
         }
     },
 
-    props: {
-        openOptions: { type: Function }, userText: { type: String }, name: {type:String}
-    },
-
-    watch: {
-        '$route.query': '$_routeChange'
+    computed: {
+        name: function () {
+            let currentPage = this.$route.meta.pageName ? this.$route.meta.pageName : this.$route.path.split('/')[1];
+            if (this.currentName != currentPage) {
+                this.currentName = currentPage;
+                    if (this.$route.query.q) {
+                        this.qFilter = this.$route.query.q;
+                        this.$emit('update:userText', this.qFilter);
+                    }
+                }
+                return this.currentName
+            }
     },
 
     methods: {
         ...mapActions(['updateSearchText']),
-        $_routeChange(val) {
-            this.qFilter = this.userText;
-        },
-        changeType: function (val) {
-            this.qFilter = "";
-            this.$refs.search.focus();
-        },
         submit: function () {
-            this.isOptions = false;
             this.updateSearchText(this.qFilter).then((response) => {
-                this.$router.push({ path:response, query: { q: this.qFilter } });
+                this.$router.push({ path: response, query: { q: this.qFilter } });
+                this.$emit('update:userText', this.qFilter);
             });
             this.$emit('update:overlay', false);
-        },
-        focus: function () {
-            this.isOptions = true;
-            this.$emit('update:overlay', true);
         }
     }
 }

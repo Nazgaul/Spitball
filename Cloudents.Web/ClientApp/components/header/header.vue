@@ -12,7 +12,7 @@
             <form @submit.prevent="submit" class="box-header-search ml-3">
                 <button type="submit" class="mr-2 pt-2"><search-icon></search-icon></button>
                 <input name="search" type="text" :placeholder="placeholders[name]" required
-                       v-model="qFilter" ref="search" @focus="focus">
+                       v-model="qFilter" ref="search">
             </form>
 
             <div class="line"></div>
@@ -23,9 +23,6 @@
                 </v-badge>
             </div>
         </v-layout>
-        <!--<div :slot="isOptions?'extension':''" v-show="isOptions">
-            <search-type class="verticals"  :values="names" :model="'searchTypes'" :value="name" @click="changeType"></search-type>
-        </div>-->
     </v-toolbar>
 </template>
 <script src="./header.js"></script>

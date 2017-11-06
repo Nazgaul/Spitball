@@ -28,7 +28,7 @@
                             </v-container>
                         </scroll-list>
                     </slot>
-                    <slot :name="name" v-if="hasExtra"><component :is="name+'-extra'" :place="selectedItem"></component></slot>
+                    <slot :name="name" v-if="hasExtra&&!isEmpty"><component :is="name+'-extra'" :place="selectedItem"></component></slot>
                     <div v-else class="pa-2" style="width:320px; height:240px;" >
                         <img src="http://lorempixel.com/320/240/" />
                         <img src="http://lorempixel.com/320/240/" />

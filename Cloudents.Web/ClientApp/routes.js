@@ -1,15 +1,10 @@
 ﻿import HomePage from "./components/home/home.vue";
 import * as RouteTypes from "./routeTypes";
 import showItem from "./components/preview/Item.vue";
-//import resultPageHeader from "./components/header/header.vue";
-//import resultPageNavbar from "./components/navbar/TheNavbar.vue";
 
 const resultContent = () => import("./components/results/Result.vue");
-const resultPageHeader = () => import(/* webpackChunkName: "group-foo"*/"./components/header/header.vue");
-const resultPageNavbar = () => import(/* webpackChunkName: "group-foo"*/"./components/navbar/TheNavbar.vue");
 const bookDetails = () => import("./components/results/ResultBookDetails.vue");
 //const showItem = () => import("./components/preview/Item.vue");
-const foodDetails = () => import("./components/results/ResultFoodDetails.vue");
 const notFound = () => import("./components/results/notFound.vue");
 //const settings = () => import("./components/settings/settings.vue");
 const settings = () => import("./components/settings/searchItem.vue");
@@ -35,17 +30,14 @@ function dynamicDetailsPropsFn(route) {
     }
 }
 
-const resultPage = { navbar: resultPageNavbar, default: resultContent, header: resultPageHeader }
-const bookDetailsPage = { navbar: resultPageNavbar, default: bookDetails, header: resultPageHeader }
-const foodDetailsPage = { navbar: resultPageNavbar, default: foodDetails, header: resultPageHeader }
-const notFoundPage = { navbar: resultPageNavbar, header: resultPageHeader, default: notFound }
-const resultProps = { default: dynamicPropsFn, navbar: (route) => ({ userText: route.query.q }), header: (route) => ({ userText: route.query.q, name: route.path.slice(1) }) }
-const notFoundProps = { navbar: (route) => ({ userText: "" }), header: (route) => ({ userText: "", name: route.path.slice(1) }) }
-const bookDetailsProps = { ...resultProps, default: dynamicDetailsPropsFn, header: (route) => ({ userText: route.query.q, name: 'book' }) }
-const foodDetailsProps = { ...resultProps, default: (route) => ({ position: { lat: Number.parseFloat(route.query.lat, 10), lng: Number.parseFloat(route.query.lng, 10) } }), header: (route) => ({ userText: route.query.q, name: 'food' }) }
+const resultPage = {  default: resultContent }
+const bookDetailsPage = { default: bookDetails }
+const notFoundPage = { default: notFound }
+const resultProps = { default: dynamicPropsFn}
+const bookDetailsProps = { ...resultProps, default: dynamicDetailsPropsFn }
 export const routes = [
     {
-        path: "/", component: HomePage, name: "home"
+        path: "/", component: HomePage, name: "home", meta: { showHeader: false, showSidebar: false }
     },
 
     {
@@ -53,16 +45,15 @@ export const routes = [
             '/' + RouteTypes.questionRoute, '/' + RouteTypes.flashcardRoute,
             '/' + RouteTypes.notesRoute, '/' + RouteTypes.tutorRoute, '/' + RouteTypes.bookRoute,
             '/' + RouteTypes.jobRoute, '/' + RouteTypes.foodRoute
-        ], components: resultPage, props: resultProps, meta: { fetch: true, isUpdated: false }
+        ], components: resultPage, props: resultProps, meta: {showHeader:true,showSidebar:true}
     },
-    { path: "/book/:type/:id", name: RouteTypes.bookDetailsRoute, components: bookDetailsPage, props: bookDetailsProps },
-    { path: "/food/show", name: RouteTypes.foodDetailsRoute, components: foodDetailsPage, props: foodDetailsProps },
+    { path: "/book/:type/:id", name: RouteTypes.bookDetailsRoute, components: bookDetailsPage, props: bookDetailsProps, meta: { pageName: 'book',showHeader: true, showSidebar: true } },
     {
         path: "/not-found", name: "notFound", components: notFoundPage, alias: [
-            '/' + RouteTypes.postRoute, '/' + RouteTypes.uploadRoute, '/' + RouteTypes.chatRoute,
+            '/' + RouteTypes.postRoute, '/' + RouteTypes.uploadRoute, '/' + RouteTypes.chatRoute,         
             '/' + RouteTypes.createFlashcard, '/' + RouteTypes.coursesRoute, '/' + RouteTypes.likesRoute
-        ]
+        ], meta: { showHeader: true, showSidebar: true }
     },
-    { path: "/" + RouteTypes.settingsRoute, name: RouteTypes.settingsRoute, component: settings, props: { searchApi:'getUniversities',type:'university'}},
-    { path: "/item/:id", name: "item", component: showItem,props:true},
+    { path: "/" + RouteTypes.settingsRoute, name: RouteTypes.settingsRoute, component: settings, props: { searchApi: 'getUniversities', type: 'university' }, meta: { pageName: RouteTypes.settingsRoute, showHeader: true, showSidebar: true }},
+    { path: "/item/:university/:courseId/:courseName/:id/:itemName", name: "item", component: showItem, props: true, meta: { pageName: RouteTypes.notesRoute, showHeader: true, showSidebar: false }},
 ];

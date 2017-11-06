@@ -43,8 +43,9 @@
             }
         },
 
-        props: {
-            userText: { type: String }
+        props: { term: {type:String}},
+        computed: {
+            userText() { return this.term?this.term:this.$route.query.q}
         }
     };
 </script>

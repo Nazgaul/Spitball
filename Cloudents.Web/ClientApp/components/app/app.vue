@@ -1,9 +1,11 @@
 ﻿<template>
     <v-app>
         <main>
-            <router-view name="header"></router-view>
-            <router-view name="navbar"></router-view>
-            <main v-if="hasSidebar">
+            <app-header v-if="$route.meta.showHeader" :userText.sync="userText"></app-header>
+            <app-menu v-if="$route.meta.showSidebar" :term="userText"></app-menu>
+            <!--<router-view  name="header"></router-view>-->
+            <!--<router-view name="navbar"></router-view>-->
+            <main v-if="$route.meta.showHeader">
                 <v-content>
                     <v-container fluid>
                         <v-layout>                                                        
@@ -17,13 +19,13 @@
     </v-app>
 </template>
 <script>
-    export default{
-        computed: {
-            hasSidebar() {
-                return this.$route.matched[0] &&
-                    this.$route.matched[0].components &&
-                    !!this.$route.matched[0].components.navbar
-            }
-        }
+    import AppMenu from '../navbar/TheNavbar.vue'
+    import AppHeader from '../header/header.vue'
+    export default {
+        data() {
+            return {userText:this.$route.query.q}
+        },
+
+        components: { AppHeader, AppMenu }
     }
 </script>

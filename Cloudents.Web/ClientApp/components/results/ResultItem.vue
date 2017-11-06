@@ -1,5 +1,5 @@
 ﻿<template>
-    <a class="elevation-1 d-block" target="_blank" :href="url">
+    <a class="elevation-1 d-block" target="_blank" :href="url" @click="(isSpitball?$_spitball($event):'')">
         <v-container class="pa-2">
             <v-layout row fluid>
                 <v-flex class="img-wrap mr-2 pa-0" :class="['border-'+$route.path.slice(1)]">
@@ -26,7 +26,17 @@
     export default {
         props: { item: { type: Object, required: true } },
         computed: {
-            url: function () { return this.item.source.includes('spitball') ? this.$route.path.replace('note','item').concat('/',this.item.id) : this.item.url}
+            isSpitball() { return this.item.source.includes('spitball')},
+            url: function () {
+                return this.isSpitball ? this.item.url.split('.co/')[1]: this.item.url
+            }
+        },
+
+        methods: {
+            $_spitball(event) {
+                event.preventDefault();
+                this.$router.push(this.url)
+            }
         }
     }
 </script>

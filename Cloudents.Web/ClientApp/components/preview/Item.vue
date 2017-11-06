@@ -1,5 +1,5 @@
 ﻿<template>
-    <div>Hi,{{id}}, {{item?item.name:'yifat'}}</div>
+    <div>Hi,{{id}}, {{itemName}}</div>
 </template>
 <script>
     import { mapActions } from 'vuex'
@@ -19,6 +19,6 @@
                 this.item =res
             })
         },
-        props: { id: {type:String}}
+        props: { id: { type: String }, itemName: {type:String}}
     }
 </script>
