@@ -21,7 +21,9 @@ const vuetifyComponents = {
     VSnackbar,
     VDialog,
     VTextField,
-    VBtn
+    VBtn,
+    VTooltip,
+    VMenu
 };
 import {
     Vuetify,
@@ -38,7 +40,9 @@ import {
     VDivider,
     VSnackbar,
     VDialog,
-    VBtn
+    VBtn,
+    VTooltip,
+    VMenu
 
 } from 'vuetify'
 import * as route from './routes';

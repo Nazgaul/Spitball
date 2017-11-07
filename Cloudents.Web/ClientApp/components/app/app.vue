@@ -3,8 +3,6 @@
         <main>
             <app-header v-if="$route.meta.showHeader" :userText.sync="userText"></app-header>
             <app-menu v-if="$route.meta.showSidebar" :term="userText"></app-menu>
-            <!--<router-view  name="header"></router-view>-->
-            <!--<router-view name="navbar"></router-view>-->
             <main v-if="$route.meta.showHeader">
                 <v-content>
                     <v-container fluid>
