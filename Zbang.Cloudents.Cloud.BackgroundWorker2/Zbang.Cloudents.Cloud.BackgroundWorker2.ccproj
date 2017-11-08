@@ -58,6 +58,7 @@
   <ItemGroup>
     <PublishProfile Include="Profiles\ZboxWorkerRole2Production.azurePubxml" />
     <PublishProfile Include="Profiles\ZboxWorkerRole2Production1.azurePubxml" />
+    <PublishProfile Include="Profiles\ZboxWorkerRole2Production2.azurePubxml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Zbang.Zbox.WorkerRoleSearchContent\install.cmd">

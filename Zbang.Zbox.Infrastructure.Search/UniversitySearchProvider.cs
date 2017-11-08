@@ -139,10 +139,10 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public async Task<bool> UpdateDataAsync(IEnumerable<UniversitySearchDto> universityToUpload, IEnumerable<long> universityToDelete)
         {
-            if (!m_CheckIndexExists)
-            {
-                await BuildIndexAsync().ConfigureAwait(false);
-            }
+            //if (!m_CheckIndexExists)
+            //{
+            //    await BuildIndexAsync().ConfigureAwait(false);
+            //}
 
             //var listOfCommands = new List<IndexAction<UniversitySearch>>();
             if (universityToUpload != null)
