@@ -30,8 +30,8 @@ namespace Cloudents.Infrastructure.Search
             {
                 term.Add(string.Join(" ", model.Query.Select(s => '"' + s + '"')));
             }
-            //model.Page * 3, 3
-            var result = Enumerable.Range(0, 2).Select(s => m_Search.DoSearchAsync(string.Join(" ", term), model.Source, s, model.Sort,
+            
+            var result = Enumerable.Range(model.Page * 3, 3).Select(s => m_Search.DoSearchAsync(string.Join(" ", term), model.Source, s, model.Sort,
                 CustomApiKey.Documents,
                 token)).ToList();
             await Task.WhenAll(result).ConfigureAwait(false);
