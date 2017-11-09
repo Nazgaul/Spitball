@@ -48,7 +48,7 @@ import {
 import * as route from './routes';
 
 //import './main.styl'
-import('../wwwroot/content/main.less');
+//import('../wwwroot/content/main.less');
 Vue.use(VueRouter);
 Vue.use(Vuetify,
     {

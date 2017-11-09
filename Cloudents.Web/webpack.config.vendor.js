@@ -1,6 +1,8 @@
 ﻿const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+//require("./ClientApp/main.styl")
+//require('../wwwroot/content/main.less');
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
@@ -8,7 +10,7 @@ module.exports = (env) => {
 
     return [{
         stats: { modules: false },
-        resolve: { extensions: ['.js'] },
+        //resolve: { extensions: ['.js'] },
         entry: {
             vendor: [
                 'vue',
@@ -16,6 +18,8 @@ module.exports = (env) => {
                 'vue-resource',
                 //'vuetify',
                 'vuex',
+                "./ClientApp/main.styl",
+                "./wwwroot/content/main.less",
                 //'vuetify/dist/vuetify.css',
                 'vuex-persistedstate'
             ]
@@ -23,7 +27,29 @@ module.exports = (env) => {
         module: {
             rules: [
                 { test: /\.css(\?|$)/, use: extractCSS.extract({ use: isDevBuild ? 'css-loader' : 'css-loader?minimize' }) },
-                { test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, use: 'url-loader?limit=8192' }
+                { test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, use: 'url-loader?limit=8192' },
+                {
+                    test: /\.styl$/,
+                    use: ExtractTextPlugin.extract({ use: 'css-loader?minimize!stylus-loader' }),
+                    //loader: ['css-loader', 'stylus-loader', {
+                    //    loader: 'vuetify-loader',
+                    //    options: {
+                    //    //    theme: resolve('./ClientApp/theme.styl')
+                    //    }
+                    //}]
+                },
+                {
+                    test: /\.less$/,
+                    exclude: /ClientApp/,
+                    use: //isDevBuild ? ['style-loader', 'css-loader', "less-loader"]
+                         ExtractTextPlugin.extract(
+                            {
+                                use: "css-loader?minimize!less-loader",
+                                fallback: 'style-loader'
+                            }
+                        )
+
+                },
             ]
         },
         output: {
@@ -34,7 +60,6 @@ module.exports = (env) => {
         },
         plugins: [
             extractCSS,
-            // new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }), // Maps these identifiers to the jQuery package (because Bootstrap expects it to be a global variable)
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': isDevBuild ? '"development"' : '"production"'
             }),

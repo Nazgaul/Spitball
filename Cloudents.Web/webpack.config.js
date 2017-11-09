@@ -32,8 +32,8 @@ module.exports = (env) => {
                     },
                     {
                         test: /\.js$/,
-                        loader: 'babel-loader',
-                      //  include: /ClientApp/
+                        loader: 'babel-loader'
+                        //  include: /ClientApp/
                         //exclude: /node_modules/
                     },
                     {
@@ -55,25 +55,16 @@ module.exports = (env) => {
                         }
                     },
                     {
-                        test: /\.less$/,
-                        exclude: /ClientApp/,
-                        use: isDevBuild ? ['style-loader', 'css-loader', "less-loader"]
-                            : ExtractTextPlugin.extract(
-                                {
-                                    use: "css-loader?minimize!less-loader",
-                                    fallback: 'style-loader'
-                                }
-                            )
-
-                    },
-                    {
                         test: /\.styl$/,
-                        loader: ['css-loader', 'stylus-loader', {
+                        loader: isDevBuild ? ['style-loader', 'css-loader', 'stylus-loader', {
                             loader: 'vuetify-loader',
                             options: {
                                 theme: resolve('./ClientApp/theme.styl')
                             }
-                        }]
+                        }] : ExtractTextPlugin.extract({
+                                use: 'css-loader?minimize!stylus-loader'
+                          
+                        })
                     },
                     {
                         test: /\.css$/,
