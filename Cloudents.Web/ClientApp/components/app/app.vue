@@ -27,3 +27,6 @@
         components: { AppHeader, AppMenu }
     }
 </script>
+<!--<style lang="stylus">
+    @import './stylus/main'
+</style>-->
