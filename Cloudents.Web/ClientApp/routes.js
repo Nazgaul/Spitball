@@ -1,10 +1,10 @@
 ﻿import HomePage from "./components/home/home.vue";
 import * as RouteTypes from "./routeTypes";
-import showItem from "./components/preview/Item.vue";
 
 const resultContent = () => import("./components/results/Result.vue");
 const bookDetails = () => import("./components/results/ResultBookDetails.vue");
-//const showItem = () => import("./components/preview/Item.vue");
+const showItem = () => import("./components/preview/Item.vue");
+const showFlashcard = () => import("./components/preview/Flashcard.vue");
 const notFound = () => import("./components/results/notFound.vue");
 //const settings = () => import("./components/settings/settings.vue");
 const settings = () => import("./components/settings/searchItem.vue");
@@ -55,5 +55,6 @@ export const routes = [
         ], meta: { showHeader: true, showSidebar: true }
     },
     { path: "/" + RouteTypes.settingsRoute, name: RouteTypes.settingsRoute, component: settings, props: { searchApi: 'getUniversities', type: 'university' }, meta: { pageName: RouteTypes.settingsRoute, showHeader: true, showSidebar: true }},
-    { path: "/item/:university/:courseId/:courseName/:id/:itemName", name: "item", component: showItem, props: true, meta: { pageName: RouteTypes.notesRoute, showHeader: true, showSidebar: false }},
+    { path: "/item/:university/:courseId/:courseName/:id/:itemName", name: "item", component: showItem, props: true, meta: { pageName: RouteTypes.notesRoute, showHeader: true, showSidebar: false } },
+    { path: "/flashcard/:university/:courseId/:courseName/:id/:itemName", name: "flashcard", component: showFlashcard, props: true, meta: { pageName: RouteTypes.flashcardRoute, showHeader: true, showSidebar: false } },
 ];

@@ -23,7 +23,8 @@ const vuetifyComponents = {
     VTextField,
     VBtn,
     VTooltip,
-    VMenu
+    VMenu,
+VSwitch
 };
 import {
     Vuetify,
@@ -42,7 +43,8 @@ import {
     VDialog,
     VBtn,
     VTooltip,
-    VMenu
+    VMenu,
+    VSwitch
 
 } from 'vuetify'
 import * as route from './routes';

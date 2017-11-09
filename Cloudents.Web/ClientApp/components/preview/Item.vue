@@ -5,7 +5,6 @@
                 <v-layout row>
                     <v-flex>{{item.name}}</v-flex>
                     <item-actions></item-actions>
-                    <v-flex><!--<span @click="$_actionClick(act.callback)" class="ml-4" v-for="act in actions"><component :is="act.id+'-icon'"></component></span>--></v-flex>
                     </v-layout>
                 </v-container>
                     <v-layout row><v-flex>{{item.author}}</v-flex> <v-flex>{{item.date | mediumDate}}</v-flex></v-layout>
@@ -32,15 +31,12 @@
         },
 
         methods: {
-            ...mapActions(['getPreview']),
-            $_actionClick(act) {
-                
-            }
+            ...mapActions(['getPreview'])
         }, 
 
         created() {
             this.getPreview({ type: 'item', id: this.id }).then(res => {
-                console.log(res)
+                console.log('item'+res)
                 this.item =res
             })
         },
@@ -72,7 +68,7 @@
         margin: 0 auto;
     }
 
-    .imgContent {
+    .svgContent, .imageContent {
         background: #fff;
         border-radius: 15px;
         max-width: 100%;
@@ -81,7 +77,7 @@
         margin: 10px 0;
         box-shadow: 0 3px 8px rgba(0,0,0,.2);
     }
-    .iframeContent {
+    .textContent, .linkContent {
         border: 0;
         height: ~"calc(100vh - 175px)";
         width: ~"calc(100% - 40px)";
