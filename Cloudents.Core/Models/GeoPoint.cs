@@ -27,5 +27,9 @@ namespace Cloudents.Core.Models
             }
             return false;
         }
+        public override string ToString()
+        {
+            return $"{Longitude},{Longitude}";
+        }
     }
 }

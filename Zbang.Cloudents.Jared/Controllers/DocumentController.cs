@@ -23,25 +23,25 @@ namespace Zbang.Cloudents.Jared.Controllers
     [MobileAppController]
     public class DocumentController : ApiController
     {
-        private readonly IBlobProvider2<FilesContainerName> m_BlobProviderFiles;
-        private readonly IQueueProvider m_QueueProvider;
-        private readonly IZboxWriteService m_ZboxWriteService;
-        private readonly IZboxReadService m_ZboxReadService;
-        private readonly IGuidIdGenerator m_GuidGenerator;
+        private readonly IBlobProvider2<FilesContainerName> _blobProviderFiles;
+        private readonly IQueueProvider _queueProvider;
+        private readonly IZboxWriteService _zboxWriteService;
+        private readonly IZboxReadService _zboxReadService;
+        private readonly IGuidIdGenerator _guidGenerator;
 
         public DocumentController(IBlobProvider2<FilesContainerName> blobProviderFiles, IQueueProvider queueProvider, IZboxWriteService zboxWriteService, IGuidIdGenerator guidGenerator, IZboxReadService zboxReadService)
         {
-            m_BlobProviderFiles = blobProviderFiles;
-            m_QueueProvider = queueProvider;
-            m_ZboxWriteService = zboxWriteService;
-            m_GuidGenerator = guidGenerator;
-            m_ZboxReadService = zboxReadService;
+            _blobProviderFiles = blobProviderFiles;
+            _queueProvider = queueProvider;
+            _zboxWriteService = zboxWriteService;
+            _guidGenerator = guidGenerator;
+            _zboxReadService = zboxReadService;
         }
 
         [Route("api/document/{id}")]
         public async Task<HttpResponseMessage> GetDataAsync(long id)
         {
-            var retVal = await m_ZboxReadService.GetItemDetailApiAsync(id).ConfigureAwait(false);
+            var retVal = await _zboxReadService.GetItemDetailApiAsync(id).ConfigureAwait(false);
 
             return Request.CreateResponse(new
             {
@@ -57,7 +57,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-            await m_QueueProvider.InsertMessageToTransactionAsync(
+            await _queueProvider.InsertMessageToTransactionAsync(
                 new StatisticsData4(
                     new StatisticsData4.StatisticItemData
                     {
@@ -65,7 +65,7 @@ namespace Zbang.Cloudents.Jared.Controllers
                         Action = (int)StatisticsAction.View
                     }
                     , -1), cancellationToken).ConfigureAwait(false);
-            var blobUrl = m_BlobProviderFiles.GenerateSharedAccessReadPermission(blob, 20);
+            var blobUrl = _blobProviderFiles.GenerateSharedAccessReadPermission(blob, 20);
             return Request.CreateResponse(blobUrl);
         }
 
@@ -74,18 +74,18 @@ namespace Zbang.Cloudents.Jared.Controllers
         [Authorize]
         public async Task<HttpResponseMessage> LikeAsync(ItemLikeRequest model)
         {
-            if (ModelState != null && !ModelState.IsValid)
+            if (ModelState?.IsValid == false)
             {
                 return Request.CreateBadRequestResponse();
             }
-            var id = m_GuidGenerator.GetId();
+            var id = _guidGenerator.GetId();
             var command = new RateItemCommand(model.Id, User.GetUserId(), id);
-            await m_ZboxWriteService.RateItemAsync(command).ConfigureAwait(true);
+            await _zboxWriteService.RateItemAsync(command).ConfigureAwait(true);
 
-            if (model.Tags != null && model.Tags.Any())
+            if (model.Tags?.Any() == true)
             {
                 var z = new AssignTagsToDocumentCommand(model.Id, model.Tags, TagType.User);
-                await m_ZboxWriteService.AddItemTagAsync(z).ConfigureAwait(false);
+                await _zboxWriteService.AddItemTagAsync(z).ConfigureAwait(false);
             }
 
             return Request.CreateResponse();
@@ -95,7 +95,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         [Route("api/document/upload")]
         public string UploadLink(string blob, string mimeType)
         {
-            return m_BlobProviderFiles.GenerateSharedAccessWritePermission(blob, mimeType);
+            return _blobProviderFiles.GenerateSharedAccessWritePermission(blob, mimeType);
         }
 
         [Route("api/document/upload/commit")]
@@ -111,21 +111,19 @@ namespace Zbang.Cloudents.Jared.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-            long boxId;
-            if (!long.TryParse(model.BoxId, out boxId))
+            if (!long.TryParse(model.BoxId, out var boxId))
             {
                 return Request.CreateBadRequestResponse();
             }
-            
-            var size = await m_BlobProviderFiles.SizeAsync(model.BlobName).ConfigureAwait(false);
+
+            var size = await _blobProviderFiles.SizeAsync(model.BlobName).ConfigureAwait(false);
             var command = new AddFileToBoxCommand(User.GetUserId(),
                 boxId, model.BlobName,
                    model.FileName,
                     size, null, model.Question);
-            var result = await m_ZboxWriteService.AddItemToBoxAsync(command).ConfigureAwait(false);
+            var result = await _zboxWriteService.AddItemToBoxAsync(command).ConfigureAwait(false);
 
-            var result2 = result as AddFileToBoxCommandResult;
-            if (result2 == null)
+            if (!(result is AddFileToBoxCommandResult result2))
             {
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "result is null");
             }
@@ -165,8 +163,8 @@ namespace Zbang.Cloudents.Jared.Controllers
 
             try
             {
-                await m_BlobProviderFiles.UploadFromLinkAsync(model.Url, blobAddressUri).ConfigureAwait(false);
-                size = await m_BlobProviderFiles.SizeAsync(blobAddressUri).ConfigureAwait(false);
+                await _blobProviderFiles.UploadFromLinkAsync(model.Url, blobAddressUri).ConfigureAwait(false);
+                size = await _blobProviderFiles.SizeAsync(blobAddressUri).ConfigureAwait(false);
             }
             catch (UnauthorizedAccessException)
             {
@@ -175,7 +173,7 @@ namespace Zbang.Cloudents.Jared.Controllers
 
             var command = new AddFileToBoxCommand(userId, model.BoxId, blobAddressUri,
                model.Name, size, null, model.Question);
-            var result = await m_ZboxWriteService.AddItemToBoxAsync(command).ConfigureAwait(false);
+            var result = await _zboxWriteService.AddItemToBoxAsync(command).ConfigureAwait(false);
             var result2 = result as AddFileToBoxCommandResult;
             if (result2 == null)
             {

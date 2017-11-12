@@ -14,15 +14,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 
         public void InjectCookie<T>(string cookieName, T cookieData, bool httpOnly = true) where T : class
         {
-            string value;
-            if (typeof(T) == typeof(string))
-            {
-                value = cookieData.ToString();
-            }
-            else
-            {
-                value = SerializeData(cookieData);
-            }
+            var value = typeof(T) == typeof(string) ? cookieData.ToString() : SerializeData(cookieData);
             var cookie = new HttpCookie(cookieName)
             {
                 HttpOnly = httpOnly,

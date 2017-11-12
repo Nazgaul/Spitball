@@ -30,7 +30,7 @@ namespace Cloudents.Infrastructure.Search
             {
                 term.Add(string.Join(" ", model.Query.Select(s => '"' + s + '"')));
             }
-            
+
             var result = Enumerable.Range(model.Page * 3, 3).Select(s => m_Search.DoSearchAsync(string.Join(" ", term), model.Source, s, model.Sort,
                 CustomApiKey.Documents,
                 token)).ToList();
