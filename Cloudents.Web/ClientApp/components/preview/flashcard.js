@@ -1,9 +1,8 @@
 ﻿
-    import vueFlashcard from 'vue-flashcard';
     import closeAction from './itemActions.vue'
     import flashcardHeader from './flashcardHeader.vue'
     import flashcardContent from './flashcardContent.vue'
-    import { mapActions } from 'vuex'
+    import { mapActions, mapGetters } from 'vuex'
     export default {
         data() {
             return {
@@ -11,18 +10,22 @@
                 shuffle: false,
                 currentIndex: -1,
                 showList: [],
-                pinnCards:[]
+                slideFront:true
             }
         },
         computed: {
+            ...mapGetters(['pinnedCards']),
             beginText() { return this.isEnded?'Start Over':'Start'},
             isEnded() {
                 let retVal = this.currentIndex == this.showList.length;
-                if (retVal) this.showList = this.item.cards.map((item, index) => { return { index, data: item } })
+                if (retVal) {
+                    this.showList = this.item.cards.map((item, index) => { return { index, data: item } })
+                    this.slideFront = true;
+                }
                 return retVal
             },
+            currentPinn() { return new Set(this.pinnedCards[this.$attrs.id])},
             currentCard() { if (this.currentIndex > -1 && this.showList && this.currentIndex < this.showList.length) return this.showList[this.currentIndex].data},
-            isPinned() { return this.pinnCards.includes(this.showList[this.currentIndex].index) },
             showCards() { return (this.currentCard&&!this.isEnded)}
         },
         created() {
@@ -30,7 +33,6 @@
                 console.log('falshcard' + res)
                 this.item = res
                 this.showList = this.item.cards.map((item, index) => { return { index, data: item } })
-                this.pinnCards = this.item.pins;
             })
             let vm = this;
             window.addEventListener('keyup', function (event) {
@@ -46,17 +48,10 @@
                 this.showList = this.shuffle ? list.sort(() => Math.random() - 0.5) : list.sort((a,b)=> a.index - b.index)
             },
             $_startPinnsFlashcards() {
-                this.showList = this.showList.filter((i) => this.pinnCards.includes(i.index))
+                this.showList = this.showList.filter((i) => this.currentPinn.has(i.index))
                 this.$_startFlashcards();
-            },
-            $_pinCard() {
-                let indexToCheck = this.showList[this.currentIndex].index;
-                console.log(indexToCheck);
-                this.isPinned ? this.pinnCards = this.pinnCards.filter((i) => i != indexToCheck) : this.pinnCards.push(indexToCheck)  
-                //TODO add and remove from db
             }
         },
-        props: { id: { type: String } },
 
-        components: { closeAction, vueFlashcard, flashcardHeader, flashcardContent}
+        components: { closeAction, flashcardHeader, flashcardContent}
     }

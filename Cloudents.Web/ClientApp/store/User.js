@@ -4,7 +4,8 @@ const state = {
     user: {
         universityId: null,
         myCourses: [],
-        isFirst: true
+        isFirst: true,
+        pinnedCards: {}
     }
 };
 
@@ -15,6 +16,7 @@ const mutations = {
 }
 const getters = {
     isFirst: state => state.user.isFirst,
+    pinnedCards: state => state.user.pinnedCards,
     getUniversity: state => state.user.universityId,
     myCourses: state => state.user.myCourses,
     myCoursesId: state => (state.user.myCourses.length ? state.user.myCourses.map(i=>i.id):[])
@@ -41,6 +43,9 @@ const actions = {
     },
     updateUniversity({ commit }, university) {
         commit(USER.UPDATE_USER, { universityId: university });
+    },
+    updatePinnedCards(context, data) {
+        context.commit(USER.UPDATE_USER, { pinnedCards: { ...context.getters.pinnedCards,...data} });
     }
 
 }
