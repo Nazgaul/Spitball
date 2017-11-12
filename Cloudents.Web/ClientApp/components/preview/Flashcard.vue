@@ -26,9 +26,9 @@
         </transition>-->
         <v-btn @click="$_pinCard">{{isPinned?'unpin':'pin'}} this card</v-btn>
 
-        <vue-flashcard v-if="currentCard" :front="currentCard.front.text"
+        <flashcard-content v-if="currentCard" :front="currentCard.front.text"
                        :imgFront="currentCard.front.image" :back="currentCard.cover.text" :imgBack="currentCard.cover.image">
-        </vue-flashcard>
+        </flashcard-content>
     </div>
     </div>
     
