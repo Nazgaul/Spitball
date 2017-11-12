@@ -1,34 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
-using Dapper;
 
 namespace Cloudents.Infrastructure.Data
 {
     public class DapperRepository : IReadRepository
     {
-        private readonly string m_ConnectionString;
+        private readonly string _connectionString;
 
         public DapperRepository(string connectionString)
         {
-            m_ConnectionString = connectionString;
+            _connectionString = connectionString;
         }
 
         public async Task<T> WithConnectionAsync<T>(Func<IDbConnection, Task<T>> getData, CancellationToken token)
         {
+            if (getData == null) throw new ArgumentNullException(nameof(getData));
             try
             {
-                using (var connection = new SqlConnection(m_ConnectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
                     await connection.OpenAsync(token).ConfigureAwait(false); // Asynchronously open a connection to the database
-                    var data =  await getData(connection).ConfigureAwait(false); // Asynchronously execute getData, which has been passed in as a Func<IDBConnection, Task<T>>
-                    return data;
+                          // Asynchronously execute getData, which has been passed in as a Func<IDBConnection, Task<T>>
+                    return await getData(connection).ConfigureAwait(false);
                 }
             }
             catch (TimeoutException ex)

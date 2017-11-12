@@ -47,6 +47,7 @@
     <Compile Include="DTOs\JobDto.cs" />
     <Compile Include="DTOs\ResultWithFacetDto.cs" />
     <Compile Include="DTOs\PlaceDto.cs" />
+    <Compile Include="DTOs\SiteMapDto.cs" />
     <Compile Include="DTOs\TutorDto.cs" />
     <Compile Include="DTOs\UniversityDto.cs" />
     <Compile Include="DTOs\UniversitySynonymDto.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Enum\ParseAttribute.cs" />
     <Compile Include="Enum\SearchRequestFilter.cs" />
     <Compile Include="Enum\SearchRequestSort.cs" />
+    <Compile Include="Enum\SeoType.cs" />
     <Compile Include="Extension\ListExtension.cs" />
     <Compile Include="Extension\StringExtensions.cs" />
     <Compile Include="Extension\UriBuilderExtension.cs" />

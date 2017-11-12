@@ -7,4 +7,9 @@ namespace Cloudents.Core.Interfaces
     {
         Task<T> GetAsync(TU query, CancellationToken token);
     }
+
+    public interface IReadRepositorySingle<T>
+    {
+        Task<T> GetAsync(CancellationToken token);
+    }
 }

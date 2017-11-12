@@ -8,16 +8,16 @@ namespace Cloudents.Infrastructure.Data
 {
     public class UniversitySynonymRepository :  IReadRepositorySingle<UniversitySynonymDto, long>
     {
-        private readonly DapperRepository m_Repository;
+        private readonly DapperRepository _repository;
 
         public UniversitySynonymRepository(DapperRepository repository)
         {
-            m_Repository = repository;
+            _repository = repository;
         }
 
         public Task<UniversitySynonymDto> GetAsync(long universityId, CancellationToken token)
         {
-            return m_Repository.WithConnectionAsync(c => c.QueryFirstAsync<UniversitySynonymDto>("select coalesce( url, UniversityName) as Name from zbox.university where id=@universityId", new { universityId }), token);
+            return _repository.WithConnectionAsync(c => c.QueryFirstAsync<UniversitySynonymDto>("select coalesce( url, UniversityName) as Name from zbox.university where id=@universityId", new { universityId }), token);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
 using AutoMapper;
@@ -12,6 +13,7 @@ using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Search;
 using Microsoft.Azure.Search;
 using Microsoft.Cognitive.LUIS;
+using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure
 {
@@ -74,7 +76,10 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<UniversitySearch>().As<IUniversitySearch>();
             builder.RegisterType<IpToLocation>().As<IIpToLocation>();
 
-            builder.RegisterType<UniversitySynonymRepository>().As<IReadRepositorySingle<UniversitySynonymDto, long>>();
+            //builder.RegisterType<UniversitySynonymRepository>().As<IReadRepositorySingle<UniversitySynonymDto, long>>();
+            //builder.RegisterType<UniversitySynonymRepository>().As<IReadRepositorySingle<UniversitySynonymDto, long>>();
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IReadRepositorySingle<,>));
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IReadRepositorySingle<>));
 
             ConfigureCache(builder);
             var config = MapperConfiguration();
