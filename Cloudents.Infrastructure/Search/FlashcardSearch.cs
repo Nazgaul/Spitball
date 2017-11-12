@@ -43,7 +43,7 @@ namespace Cloudents.Infrastructure.Search
                     "studysoup.com",
                     "spitball.co"
                 }
-                
+
             };
         }
     }

@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Web.Filters;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Api
@@ -16,20 +13,20 @@ namespace Cloudents.Web.Api
     [Route("api/Places")]
     public class PlacesController : Controller
     {
-        private readonly IPlacesSearch m_PlacesSearch;
+        private readonly IPlacesSearch _placesSearch;
 
         public PlacesController(IPlacesSearch placesSearch)
         {
-            m_PlacesSearch = placesSearch;
+            _placesSearch = placesSearch;
         }
 
         [TypeFilter(typeof(IpToLocationActionFilter),Arguments = new object[] {"location"})]
         [HttpGet]
-        public async Task<IActionResult> Get([RequiredFromQuery]string[] term, SearchRequestFilter filter, GeoPoint location, CancellationToken token)
+        public async Task<IActionResult> GetAsync([RequiredFromQuery]string[] term, SearchRequestFilter filter, GeoPoint location, CancellationToken token)
         {
             if (term == null) throw new ArgumentNullException(nameof(term));
             if (location == null) throw new ArgumentNullException(nameof(location));
-            var result = await m_PlacesSearch.SearchNearbyAsync(string.Join(" ", term), filter, location, default, token).ConfigureAwait(false);
+            var result = await _placesSearch.SearchNearbyAsync(string.Join(" ", term), filter, location, default, token).ConfigureAwait(false);
             return Json(new
             {
                 result.token,
@@ -38,11 +35,11 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([RequiredFromQuery]string nextPageToken,
+        public async Task<IActionResult> GetAsync([RequiredFromQuery]string nextPageToken,
             CancellationToken token)
         {
             if (nextPageToken == null) throw new ArgumentNullException(nameof(nextPageToken));
-            var result = await m_PlacesSearch.SearchNearbyAsync(string.Empty,
+            var result = await _placesSearch.SearchNearbyAsync(string.Empty,
                 default, default, nextPageToken, token).ConfigureAwait(false);
 
             return Json(new
