@@ -24,7 +24,7 @@
         methods: {
             infiniteHandler($state) {
               if (this.loadMore) {
-                    this.$store.dispatch('scrollingItems', { name: this.$route.path.slice(1), params: this.$router.query, page: this.page })
+                    this.$store.dispatch('scrollingItems', { name: this.$route.path.slice(1), params: this.$route.query, page: this.page })
                         .then((res) => {
                             if (res.data && res.data.length && !res.hasOwnProperty('token') ||
                                 (res.hasOwnProperty('token') && res.token)) {

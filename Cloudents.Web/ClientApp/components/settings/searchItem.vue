@@ -69,12 +69,11 @@
             },
             extraItem: function (val) {
                 this.items = [... this.items, val];
-                //this.selectedItems = [... this.selectedItems, val]
-                //this.$emit('selected', this.selectedItems)
             }
         },
         methods: {
             $_search(val) {
+                console.log('search bobobobobobo')
                 if (!val.length || val.length > 3) {
                     this.isLoading = true;
                     this.$store.dispatch(this.searchApi, { ... this.params, term: val }).then(({ body }) => {
@@ -86,9 +85,6 @@
             },
             $_selected(val) {
                 if (this.isChanged) { this.isChanged = false; return; }
-                //this.selectedItems.find((item) => val.id == item.id) ? this.selectedItems = this.selectedItems.filter(e=>e.id!=val.id) : this.selectedItems.push(val)
-                //    console.log('selected ' + val)
-                //    this.$emit('selected', this.selectedItems)
             },
 
             $_updateFilter(val) {
@@ -96,6 +92,7 @@
             }
         },
         mounted() {
+            console.log('search mounted')
             this.$_search('')
         }
     }
