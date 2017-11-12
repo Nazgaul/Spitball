@@ -12,15 +12,15 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class AIController : Controller
+    public class AiController : Controller
     {
-        private readonly IAI m_Ai;
-        private readonly IDecision m_Decision;
+        private readonly IAI _ai;
+        private readonly IDecision _mDecision;
 
-        public AIController(IAI ai, IDecision decision)
+        public AiController(IAI ai, IDecision decision)
         {
-            m_Ai = ai;
-            m_Decision = decision;
+            _ai = ai;
+            _mDecision = decision;
         }
 
         [HttpGet]
@@ -30,8 +30,8 @@ namespace Cloudents.Web.Api
             AiRequest model)
         {
             if (model == null) throw new ArgumentNullException(nameof(model));
-            var aiResult = await m_Ai.InterpretStringAsync(model.Sentence).ConfigureAwait(false);
-            var result = m_Decision.MakeDecision(aiResult);
+            var aiResult = await _ai.InterpretStringAsync(model.Sentence).ConfigureAwait(false);
+            var result = _mDecision.MakeDecision(aiResult);
             return Json(new
             {
                 result.result,

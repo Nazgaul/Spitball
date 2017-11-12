@@ -24,8 +24,8 @@ namespace Cloudents.Web.Api
         }
 
         [TypeFilter(typeof(IpToLocationActionFilter),Arguments = new object[] {"location"})]
-        [HttpGet(/*"{term:requiredArray}"*/)]
-        public async Task<IActionResult> Get(string[] term, SearchRequestFilter filter, GeoPoint location, CancellationToken token)
+        [HttpGet]
+        public async Task<IActionResult> Get([RequiredFromQuery]string[] term, SearchRequestFilter filter, GeoPoint location, CancellationToken token)
         {
             if (term == null) throw new ArgumentNullException(nameof(term));
             if (location == null) throw new ArgumentNullException(nameof(location));
@@ -37,8 +37,8 @@ namespace Cloudents.Web.Api
             });
         }
 
-        [HttpGet("{nextPageToken:required}")]
-        public async Task<IActionResult> Get(string nextPageToken,
+        [HttpGet]
+        public async Task<IActionResult> Get([RequiredFromQuery]string nextPageToken,
             CancellationToken token)
         {
             if (nextPageToken == null) throw new ArgumentNullException(nameof(nextPageToken));

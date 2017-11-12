@@ -40,14 +40,9 @@ namespace Cloudents.Web
                     DateTimeStyles = System.Globalization.DateTimeStyles.AssumeUniversal
                 });
             });
-            services.Configure<RouteOptions>(o =>
-            {
-                o.ConstraintMap.Add("requiredArray", typeof(RequiredArrayRouteConstraint));
-            });
             services.AddResponseCompression();
             services.AddResponseCaching();
             var containerBuilder = new ContainerBuilder();
-            
             var infrastructureModule = new InfrastructureModule(
                 Configuration.GetConnectionString("DefaultConnection"),
                 Configuration["AzureSearch:SearchServiceName"],
