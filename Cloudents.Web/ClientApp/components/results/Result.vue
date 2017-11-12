@@ -1,6 +1,6 @@
 ﻿<template>
     <v-flex offset-xs1>
-        <result-personalize v-show="isfirst" :show="showSearch"></result-personalize>
+        <result-personalize v-show="isfirst" :show="showSearch" v-if="isfirst||showCourses"></result-personalize>
         <div class="loader" v-if="isLoading">
             <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
         </div>
