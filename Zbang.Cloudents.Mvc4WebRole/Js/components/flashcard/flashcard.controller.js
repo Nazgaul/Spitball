@@ -161,10 +161,10 @@ var app;
         FlashcardController.prototype.share = function () {
             this.shareService.shareDialog("f", this.$stateParams["id"]);
         };
-        FlashcardController.$inject = ["flashcard", "flashcardService", "$stateParams",
-            "user", "$state", "$mdMedia", "$scope", "$mdDialog", "shareService"];
         return FlashcardController;
     }());
+    FlashcardController.$inject = ["flashcard", "flashcardService", "$stateParams",
+        "user", "$state", "$mdMedia", "$scope", "$mdDialog", "shareService"];
     app.FlashcardController = FlashcardController;
     angular.module("app.flashcard").controller("flashcard", FlashcardController);
 })(app || (app = {}));

@@ -65,9 +65,9 @@ var app;
             return defer.promise;
         };
         ;
-        ExternalUploadProvider.$inject = ['dropboxService', 'googleService', '$q', 'itemService'];
         return ExternalUploadProvider;
     }());
+    ExternalUploadProvider.$inject = ['dropboxService', 'googleService', '$q', 'itemService'];
     angular.module("app.upload").service("externalUploadProvider", ExternalUploadProvider);
 })(app || (app = {}));
 // #    OLD externalProviderUpload.service.js

@@ -81,9 +81,9 @@ var app;
             var result = this.$filter("filter")(this.nodeData, text); //.map(m => { return { name: m.name, id: m.id } });
             return result;
         };
-        ClassChooseDialog.$inject = ["$mdDialog", "selectedDepartment", "$filter", "nodeData", "libraryService"];
         return ClassChooseDialog;
     }());
+    ClassChooseDialog.$inject = ["$mdDialog", "selectedDepartment", "$filter", "nodeData", "libraryService"];
     angular.module("app.library").controller("ClassChooseDialog", ClassChooseDialog);
 })(app || (app = {}));
 //# sourceMappingURL=classChooseCreateDialog.controller.js.map

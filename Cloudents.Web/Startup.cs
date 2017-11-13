@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
@@ -10,6 +11,7 @@ using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
@@ -31,7 +33,10 @@ namespace Cloudents.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().AddJsonOptions(options =>
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.AddMvc()
+                
+                .AddJsonOptions(options =>
             {
                 options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
                 options.SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
@@ -60,6 +65,16 @@ namespace Cloudents.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            var supportedCultures = new[]
+            {
+                new CultureInfo("en-US")
+            };
+            app.UseRequestLocalization(new RequestLocalizationOptions()
+            {
+                DefaultRequestCulture = new RequestCulture(supportedCultures[0]),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

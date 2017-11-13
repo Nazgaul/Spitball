@@ -59,9 +59,9 @@ var app;
         ShareDialog.prototype.onSuccess = function () {
             this.analytics["send"]('social', "copied-link", this.socialAction, this.url);
         };
-        ShareDialog.$inject = ["$mdDialog", "data", "$window", "Analytics"];
         return ShareDialog;
     }());
+    ShareDialog.$inject = ["$mdDialog", "data", "$window", "Analytics"];
     angular.module("app").controller("ShareDialog", ShareDialog);
 })(app || (app = {}));
 //# sourceMappingURL=shareDialog.controller.js.map

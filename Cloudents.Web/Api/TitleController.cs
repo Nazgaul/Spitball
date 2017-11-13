@@ -13,17 +13,17 @@ namespace Cloudents.Web.Api
     [Route("api/Title")]
     public class TitleController : Controller
     {
-        private readonly ITitleSearch m_TitleSearch;
+        private readonly ITitleSearch _titleSearch;
 
         public TitleController(ITitleSearch titleSearch)
         {
-            m_TitleSearch = titleSearch;
+            _titleSearch = titleSearch;
         }
 
         public async Task<IActionResult> Get(string term, CancellationToken token)
         {
             if (term == null) throw new ArgumentNullException(nameof(term));
-            var result = await m_TitleSearch.SearchAsync(term, token).ConfigureAwait(false);
+            var result = await _titleSearch.SearchAsync(term, token).ConfigureAwait(false);
             return Json(result);
         }
     }

@@ -52,10 +52,10 @@ var app;
                 //disablePaging = false;
             });
         };
-        Item.$inject = ["profileData", "itemThumbnailService", "userService",
-            "$mdDialog", "resManager", "boxService", "$scope"];
         return Item;
     }());
+    Item.$inject = ["profileData", "itemThumbnailService", "userService",
+        "$mdDialog", "resManager", "boxService", "$scope"];
     angular.module("app.user").controller("item", Item);
 })(app || (app = {}));
 //# sourceMappingURL=items.controller.js.map

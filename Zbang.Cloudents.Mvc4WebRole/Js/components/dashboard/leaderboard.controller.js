@@ -58,9 +58,9 @@ var app;
                 fullscreen: false // Only for -xs, -sm breakpoints.
             });
         };
-        LeaderBoard.$inject = ["dashboardService", "$filter", "$mdDialog"];
         return LeaderBoard;
     }());
+    LeaderBoard.$inject = ["dashboardService", "$filter", "$mdDialog"];
     var DialogController = (function () {
         function DialogController(color1, color2, university, $mdDialog) {
             this.color1 = color1;
@@ -74,9 +74,9 @@ var app;
         DialogController.prototype.close = function () {
             this.$mdDialog.hide();
         };
-        DialogController.$inject = ["color1", "color2", "university", "$mdDialog"];
         return DialogController;
     }());
+    DialogController.$inject = ["color1", "color2", "university", "$mdDialog"];
     angular.module("app.dashboard").controller("DialogPromo", DialogController);
     angular.module("app.dashboard").controller("DashboardLeaderboard", LeaderBoard);
 })(app || (app = {}));

@@ -11,16 +11,16 @@ namespace Cloudents.Web.Api
     public class UniversityController : Controller
     {
 
-        private readonly IUniversitySearch m_UniversityProvider;
+        private readonly IUniversitySearch _universityProvider;
 
         public UniversityController(IUniversitySearch universityProvider)
         {
-            m_UniversityProvider = universityProvider;
+            _universityProvider = universityProvider;
         }
         [HttpGet]
         public async Task<IActionResult> Get(string term, GeoPoint location, CancellationToken token)
         {
-            var result = await m_UniversityProvider.SearchAsync(term, location, token).ConfigureAwait(false);
+            var result = await _universityProvider.SearchAsync(term, location, token).ConfigureAwait(false);
             return Json(result);
         }
     }

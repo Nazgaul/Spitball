@@ -14,12 +14,12 @@ namespace Zbang.Cloudents.Jared.Controllers
     [MobileAppController]
     public class SearchController : ApiController
     {
-        private readonly IReadRepositorySingle<UniversitySynonymDto, long> m_UniversitySynonymRepository;
+        private readonly IReadRepositoryAsync<UniversitySynonymDto, long> m_UniversitySynonymRepository;
         private readonly Lazy<IDocumentSearch> m_SearchProvider;
         private readonly Lazy<IFlashcardSearch> m_FlashcardProvider;
         private readonly Lazy<IQuestionSearch> m_QuestionProvider;
 
-        public SearchController(IReadRepositorySingle<UniversitySynonymDto, long> universitySynonymRepository,
+        public SearchController(IReadRepositoryAsync<UniversitySynonymDto, long> universitySynonymRepository,
             Lazy<IDocumentSearch> searchProvider, Lazy<IFlashcardSearch> flashcardProvider,
             Lazy<IQuestionSearch> questionProvider)
         {

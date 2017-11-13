@@ -191,12 +191,12 @@ var app;
                 fullscreen: false
             });
         };
-        BoxController.$inject = ["$state", "$stateParams", "boxData", "$scope",
-            "$rootScope", "user", "resManager", "boxService", "ajaxService2",
-            "$timeout", "$window", "userUpdatesService", "shareService",
-            "showToasterService", "$mdDialog"];
         return BoxController;
     }());
+    BoxController.$inject = ["$state", "$stateParams", "boxData", "$scope",
+        "$rootScope", "user", "resManager", "boxService", "ajaxService2",
+        "$timeout", "$window", "userUpdatesService", "shareService",
+        "showToasterService", "$mdDialog"];
     angular.module('app.box').controller('BoxController', BoxController);
 })(app || (app = {}));
 //# sourceMappingURL=box.controller.js.map

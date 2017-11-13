@@ -35,9 +35,9 @@ var app;
                 }
             });
         };
-        Flashcard.$inject = ["profileData", "userService", "$state"];
         return Flashcard;
     }());
+    Flashcard.$inject = ["profileData", "userService", "$state"];
     angular.module("app.user").controller("userFlashcard", Flashcard);
 })(app || (app = {}));
 //# sourceMappingURL=flashcards.controller.js.map

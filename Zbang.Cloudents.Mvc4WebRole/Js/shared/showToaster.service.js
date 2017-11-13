@@ -22,9 +22,9 @@ var app;
             this.$mdToast.show(toaster);
         };
         ;
-        ShowToasterService.$inject = ['$document', '$mdToast'];
         return ShowToasterService;
     }());
+    ShowToasterService.$inject = ['$document', '$mdToast'];
     angular.module("app").service("showToasterService", ShowToasterService);
 })(app || (app = {}));
 //# sourceMappingURL=showToaster.service.js.map

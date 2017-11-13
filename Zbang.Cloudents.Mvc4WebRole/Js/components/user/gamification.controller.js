@@ -122,9 +122,9 @@ var app;
             return this.communityTab();
             //}
         };
-        Gamification.$inject = ["$state", "$scope", "userService", "user"];
         return Gamification;
     }());
+    Gamification.$inject = ["$state", "$scope", "userService", "user"];
     angular.module("app.user").controller("gamification", Gamification);
 })(app || (app = {}));
 //# sourceMappingURL=gamification.controller.js.map

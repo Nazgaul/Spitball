@@ -43,11 +43,14 @@
   <ItemGroup>
     <Compile Include="DTOs\BookSearchDto.cs" />
     <Compile Include="DTOs\CourseDto.cs" />
+    <Compile Include="DTOs\FlashcardSeoDto.cs" />
     <Compile Include="DTOs\IpDto.cs" />
     <Compile Include="DTOs\JobDto.cs" />
     <Compile Include="DTOs\ResultWithFacetDto.cs" />
     <Compile Include="DTOs\PlaceDto.cs" />
+    <Compile Include="DTOs\SiteMapCountDto.cs" />
     <Compile Include="DTOs\SiteMapDto.cs" />
+    <Compile Include="DTOs\SiteMapSeoDto.cs" />
     <Compile Include="DTOs\TutorDto.cs" />
     <Compile Include="DTOs\UniversityDto.cs" />
     <Compile Include="DTOs\UniversitySynonymDto.cs" />
@@ -86,6 +89,7 @@
     <Compile Include="Models\GeoPointConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Request\SearchQuery.cs" />
+    <Compile Include="Request\SeoQuery.cs" />
     <Compile Include="TimeConst.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

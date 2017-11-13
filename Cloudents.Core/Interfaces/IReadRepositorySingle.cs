@@ -3,12 +3,19 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Core.Interfaces
 {
-    public interface IReadRepositorySingle<T, in TU>
+    public interface IReadRepositoryAsync<T, in TU>
     {
         Task<T> GetAsync(TU query, CancellationToken token);
+
     }
 
-    public interface IReadRepositorySingle<T>
+    public interface IReadRepository<out T, in TU>
+    {
+        T Get(TU query);
+
+    }
+
+    public interface IReadRepositoryAsync<T>
     {
         Task<T> GetAsync(CancellationToken token);
     }

@@ -41,9 +41,9 @@ var app;
         Flashcard.prototype.solve = function (id) {
             return this.ajaxService2.post("/flashcard/solve/", { id: id });
         };
-        Flashcard.$inject = ["ajaxService2"];
         return Flashcard;
     }());
+    Flashcard.$inject = ["ajaxService2"];
     angular.module("app.flashcard").service("flashcardService", Flashcard);
 })(app || (app = {}));
 //# sourceMappingURL=flashcard.service.js.map

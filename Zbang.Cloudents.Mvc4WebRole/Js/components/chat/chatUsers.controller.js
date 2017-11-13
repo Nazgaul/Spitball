@@ -171,10 +171,10 @@ var app;
             //            $rootScope.$broadcast("expandChat");
             //            c.state = c.states.chat;
         };
-        ChatUsers.$inject = ["chatBus", "userDetailsFactory", "$timeout",
-            "$rootScope", "$scope", "notificationService", "resManager"];
         return ChatUsers;
     }());
+    ChatUsers.$inject = ["chatBus", "userDetailsFactory", "$timeout",
+        "$rootScope", "$scope", "notificationService", "resManager"];
     angular.module("app.chat").controller("chatUsers", ChatUsers);
 })(app || (app = {}));
 //# sourceMappingURL=chatUsers.controller.js.map

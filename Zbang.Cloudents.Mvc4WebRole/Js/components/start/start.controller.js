@@ -21,11 +21,11 @@ var app;
                 _this.sentence = JSON.stringify(response, null, "\t");
             });
         };
-        //xintent;
-        //data;
-        StartController.$inject = ["startService"];
         return StartController;
     }());
+    //xintent;
+    //data;
+    StartController.$inject = ["startService"];
     angular.module("app").controller("StartController", StartController);
 })(app || (app = {}));
 //# sourceMappingURL=start.controller.js.map

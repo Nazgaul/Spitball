@@ -22,9 +22,9 @@ var app;
             this.confirmStep = false;
             this.$mdDialog.hide(this.course);
         };
-        ClassChooseUnfollowDialog.$inject = ["$mdDialog", "course", "courses", "boxService"];
         return ClassChooseUnfollowDialog;
     }());
+    ClassChooseUnfollowDialog.$inject = ["$mdDialog", "course", "courses", "boxService"];
     angular.module("app.library").controller("classChooseUnfollowDialog", ClassChooseUnfollowDialog);
 })(app || (app = {}));
 //# sourceMappingURL=classChooseUnfollowDialog.controller.js.map

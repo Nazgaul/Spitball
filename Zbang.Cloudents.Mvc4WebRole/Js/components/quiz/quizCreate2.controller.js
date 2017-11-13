@@ -394,10 +394,10 @@ var app;
                     .catch(function () { });
             });
         };
-        QuizCreateController.$inject = ["$mdDialog", "$state", "$stateParams", "$scope",
-            "quizService", "quizData", "resManager", "$q", "$window"];
         return QuizCreateController;
     }());
+    QuizCreateController.$inject = ["$mdDialog", "$state", "$stateParams", "$scope",
+        "quizService", "quizData", "resManager", "$q", "$window"];
     angular.module('app.quiz.create').controller('QuizCreateController', QuizCreateController);
 })(app || (app = {}));
 //# sourceMappingURL=quizCreate2.controller.js.map

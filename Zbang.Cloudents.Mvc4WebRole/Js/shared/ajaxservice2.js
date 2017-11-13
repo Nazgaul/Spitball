@@ -228,9 +228,9 @@ var app;
             this.analytics.trackTimings(url.toLowerCase() !== "/item/preview/" ? "ajax " + type
                 : "ajaxPreview", url, timeSpent, JSON.stringify(data));
         };
-        AjaxService2.$inject = ["$http", "$q", "Analytics", "CacheFactory", "routerHelper"];
         return AjaxService2;
     }());
+    AjaxService2.$inject = ["$http", "$q", "Analytics", "CacheFactory", "routerHelper"];
     angular.module("app").service("ajaxService2", AjaxService2);
 })(app || (app = {}));
 //# sourceMappingURL=ajaxservice2.js.map

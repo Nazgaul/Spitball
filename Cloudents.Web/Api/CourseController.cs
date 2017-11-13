@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Api
@@ -13,12 +12,13 @@ namespace Cloudents.Web.Api
     [Route("api/Course")]
     public class CourseController : Controller
     {
-        private readonly ICourseSearch m_CourseProvider;
+        private readonly ICourseSearch _courseProvider;
 
         public CourseController(ICourseSearch courseProvider)
         {
-            m_CourseProvider = courseProvider;
+            _courseProvider = courseProvider;
         }
+
         [HttpGet]
         public async Task<IActionResult> Get(string term, long universityId, CancellationToken token)
         {
@@ -26,9 +26,10 @@ namespace Cloudents.Web.Api
             {
                 throw new ArgumentException(nameof(universityId));
             }
-            var result = await m_CourseProvider.SearchAsync(term, universityId, token).ConfigureAwait(false);
+            var result = await _courseProvider.SearchAsync(term, universityId, token).ConfigureAwait(false);
             return Json(result);
         }
+
         [ValidateModel]
         [HttpPost]
         public async Task<IActionResult> Post(CreateCourse model)

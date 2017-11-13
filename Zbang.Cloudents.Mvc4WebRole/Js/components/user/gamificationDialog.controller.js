@@ -9,9 +9,9 @@ var app;
         GamificationDialogController.prototype.hide = function () {
             this.$mdDialog.hide();
         };
-        GamificationDialogController.$inject = ['$mdDialog'];
         return GamificationDialogController;
     }());
+    GamificationDialogController.$inject = ['$mdDialog'];
     angular.module('app.user').controller('gamificationDialog', GamificationDialogController);
 })(app || (app = {}));
 //# sourceMappingURL=gamificationDialog.controller.js.map

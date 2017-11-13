@@ -23,9 +23,9 @@ var app;
                 }
             });
         };
-        Members.$inject = ["profileData", "userService"];
         return Members;
     }());
+    Members.$inject = ["profileData", "userService"];
     angular.module("app.user").controller("classmates", Members);
 })(app || (app = {}));
 //# sourceMappingURL=classmates.controller.js.map

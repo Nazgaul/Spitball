@@ -195,11 +195,11 @@ var app;
                 _this.$scope.$broadcast("enablePaging");
             });
         };
-        Conversation.$inject = ["$scope", "chatBus", "userDetailsFactory",
-            "$timeout", "itemThumbnailService", "realtimeFactory",
-            "$uiViewScroll", "routerHelper", "$mdDialog"];
         return Conversation;
     }());
+    Conversation.$inject = ["$scope", "chatBus", "userDetailsFactory",
+        "$timeout", "itemThumbnailService", "realtimeFactory",
+        "$uiViewScroll", "routerHelper", "$mdDialog"];
     angular.module("app.chat").controller("conversation", Conversation);
 })(app || (app = {}));
 //# sourceMappingURL=conversation.controller.js.map

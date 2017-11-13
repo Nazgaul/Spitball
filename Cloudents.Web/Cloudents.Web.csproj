@@ -23,6 +23,7 @@
     <Content Include="ClientApp\components\navbar\images\job.svg" />
     <Content Include="ClientApp\components\navbar\images\tutor.svg" />
     <Content Include="ClientApp\components\header\Images\notification-icon.svg" />
+    <Content Include="robots.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,6 +59,22 @@
 
   <ItemGroup>
     <Folder Include="Extensions\" />
+    <Folder Include="Views\Home\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\Seo.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Seo.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Seo.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Seo.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <!--And !Exists('wwwroot\dist')-->
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist')">
