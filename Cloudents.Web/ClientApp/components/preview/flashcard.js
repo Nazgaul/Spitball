@@ -19,7 +19,7 @@
             isEnded() {
                 let retVal = this.currentIndex == this.showList.length;
                 if (retVal) {
-                    this.showList = this.item.cards.map((item, index) => { return { index, data: item } })
+                    this.showList = this.item.cards.map((item, index) => ({ index, data: item }))
                     this.slideFront = true;
                 }
                 return retVal
@@ -30,9 +30,8 @@
         },
         created() {
             this.getPreview({ type: 'flashcard', id: this.id }).then(res => {
-                console.log('falshcard' + res)
                 this.item = res
-                this.showList = this.item.cards.map((item, index) => { return { index, data: item } })
+                this.showList = this.item.cards.map((item, index) => ({ index, data: item } ))
             })
             let vm = this;
             window.addEventListener('keyup', function (event) {
