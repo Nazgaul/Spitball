@@ -73,7 +73,6 @@
         },
         methods: {
             $_search(val) {
-                console.log('search bobobobobobo')
                 if (!val.length || val.length > 3) {
                     this.isLoading = true;
                     this.$store.dispatch(this.searchApi, { ... this.params, term: val }).then(({ body }) => {
@@ -92,7 +91,6 @@
             }
         },
         mounted() {
-            console.log('search mounted')
             this.$_search('')
         }
     }

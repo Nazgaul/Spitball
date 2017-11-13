@@ -11,9 +11,10 @@ import googleIcon from "./svg/google-icon.svg";
 import youtubeIcon from "./svg/youtube-icon.svg";
 import instegramIcon from "./svg/instagram-icon.svg";
 import menuIcon from "./svg/menu-icon.svg";
-import { homeSuggest, verticalsPlaceholders as askPlaceholder } from "./../data";
+import { verticalsPlaceholders as askPlaceholder } from "./../data";
 
-
+let homeSuggest = ['Find me flashcards for financial accounting', 'Find me class material for Calculus', 'When did World War 2 end?',
+    'Difference between meiosis and mitosis']
 export default {
     components: {
         "mic-icon": micIcon, "search-icon": searchIcon,
@@ -83,5 +84,9 @@ export default {
 
     props: {
          metaText: { type: String }
+    },
+
+    computed: {
+        voiceEnable() { return window.chrome}
     }
 };

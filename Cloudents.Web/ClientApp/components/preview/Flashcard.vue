@@ -1,12 +1,12 @@
 ﻿<template>
     <div>
-        <flashcard-header :name="item.name" :showCards="showCards" 
+        <flashcard-header :name="item.name" :showCards="showCards" v-model="slideFront"
                           :currentIndex="currentIndex" :cardsSize="showList.length"></flashcard-header>
     <div class="white" v-if="!showCards">
         <h5 v-text="item.name"></h5>
         <span>Created by {{item.author}}</span>
         <p v-if="item.cards">{{item.cards.length}} Cards</p>
-        <v-btn v-if="pinnCards" @click="$_startPinnsFlashcards">take {{pinnCards.length}} pinns cards</v-btn>
+        <v-btn v-if="currentPinn.size" @click="$_startPinnsFlashcards">take {{currentPinn.size}} pinns cards</v-btn>
         <v-btn @click="$_startFlashcards">{{beginText}}</v-btn>
         <v-switch label="Shuffle cards"
                   v-model="shuffle"
@@ -15,19 +15,8 @@
     <div v-else>
         <v-btn @click="currentIndex--" :disabled="currentIndex==0">Back</v-btn>
         <v-btn @click="currentIndex++">Next</v-btn>
-        <!--The Original index:{{showList[currentIndex]}}-->
-        Is Pin:{{isPinned}}
-        <!--<flashcard-content></flashcard-content>-->
-        <!--<transition>
-            <div v-if="items.length > 0">
-                 ... 
-            </div>
-            <div v-else>Sorry, no items found.</div>
-        </transition>-->
-        <v-btn @click="$_pinCard">{{isPinned?'unpin':'pin'}} this card</v-btn>
 
-        <flashcard-content v-if="currentCard" :front="currentCard.front.text"
-                       :imgFront="currentCard.front.image" :back="currentCard.cover.text" :imgBack="currentCard.cover.image">
+        <flashcard-content v-if="currentCard" v-bind="$attrs" :showFrontSide="slideFront" :card="showList[currentIndex]">
         </flashcard-content>
     </div>
     </div>

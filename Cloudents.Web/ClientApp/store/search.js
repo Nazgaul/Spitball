@@ -67,13 +67,6 @@ const actions = {
                 context.commit(types.UPDATE_LOADING, false)
             })
     },
-    //newResultPage: (context, page) => {
-    //    return new Promise((resolve)=>{
-    //        if (context.rootGetters.currenFlow !== page.name) {
-    //            context.commit(types.ADD, { result: page.name })
-    //        }
-    //    })
-    //},
     bookDetails: (context, data) => {
         return searchService.activateFunction[data.pageName](data.params) 
     },
