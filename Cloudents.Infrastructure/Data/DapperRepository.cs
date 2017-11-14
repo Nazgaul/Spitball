@@ -7,7 +7,7 @@ using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Infrastructure.Data
 {
-    public class DapperRepository : IReadRepository
+    public class DapperRepository //: IReadRepository
     {
         private readonly string _connectionString;
 
@@ -26,6 +26,30 @@ namespace Cloudents.Infrastructure.Data
                     await connection.OpenAsync(token).ConfigureAwait(false); // Asynchronously open a connection to the database
                           // Asynchronously execute getData, which has been passed in as a Func<IDBConnection, Task<T>>
                     return await getData(connection).ConfigureAwait(false);
+                }
+            }
+            catch (TimeoutException ex)
+            {
+                ex.Data.Add("additional data", $"{GetType().FullName}.WithConnection() experienced a SQL timeout");
+                throw;
+            }
+            catch (SqlException ex)
+            {
+                ex.Data.Add("additional data", $"{GetType().FullName}.WithConnection()  experienced a SQL exception (not a timeout)");
+                throw;
+            }
+        }
+
+        public T WithConnection<T>(Func<IDbConnection, T> getData)
+        {
+            if (getData == null) throw new ArgumentNullException(nameof(getData));
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open(); // Asynchronously open a connection to the database
+                    // Asynchronously execute getData, which has been passed in as a Func<IDBConnection, Task<T>>
+                    return getData(connection);
                 }
             }
             catch (TimeoutException ex)

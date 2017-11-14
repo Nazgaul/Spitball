@@ -6,7 +6,7 @@ using Dapper;
 
 namespace Cloudents.Infrastructure.Data
 {
-    public class UniversitySynonymRepository :  IReadRepositorySingle<UniversitySynonymDto, long>
+    public class UniversitySynonymRepository : IReadRepositoryAsync<UniversitySynonymDto, long>
     {
         private readonly DapperRepository _repository;
 

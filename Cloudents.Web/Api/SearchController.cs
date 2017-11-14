@@ -12,9 +12,9 @@ namespace Cloudents.Web.Api
     [Route("api/Search")]
     public class SearchController : Controller
     {
-        private readonly IReadRepositorySingle<UniversitySynonymDto, long> m_UniversitySynonymRepository;
+        private readonly IReadRepositoryAsync<UniversitySynonymDto, long> m_UniversitySynonymRepository;
 
-        public SearchController(IReadRepositorySingle<UniversitySynonymDto, long> universitySynonymRepository)
+        public SearchController(IReadRepositoryAsync<UniversitySynonymDto, long> universitySynonymRepository)
         {
             m_UniversitySynonymRepository = universitySynonymRepository;
         }

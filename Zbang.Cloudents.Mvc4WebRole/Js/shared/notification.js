@@ -52,9 +52,9 @@ var app;
                 .parent(element)
                 .hideDelay(2000));
         };
-        DesktopNotification.$inject = ['$document', '$mdToast', 'resManager'];
         return DesktopNotification;
     }());
+    DesktopNotification.$inject = ['$document', '$mdToast', 'resManager'];
     angular.module("app").service("notificationService", DesktopNotification);
 })(app || (app = {}));
 //(function () {

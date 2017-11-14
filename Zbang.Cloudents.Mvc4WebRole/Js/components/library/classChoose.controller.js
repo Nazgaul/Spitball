@@ -189,10 +189,10 @@ var app;
                     .ok(_this.resManager.get('dialogOk')));
             });
         };
-        ClassChoose.$inject = ["searchService", "libraryService", "$mdDialog", "$filter",
-            "nodeData", "boxService", "boxes", "resManager", "$scope", "$anchorScroll"];
         return ClassChoose;
     }());
+    ClassChoose.$inject = ["searchService", "libraryService", "$mdDialog", "$filter",
+        "nodeData", "boxService", "boxes", "resManager", "$scope", "$anchorScroll"];
     angular.module("app.library").controller("ClassChoose", ClassChoose);
 })(app || (app = {}));
 //# sourceMappingURL=classChoose.controller.js.map

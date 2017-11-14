@@ -291,10 +291,10 @@ var app;
             var cardIndex = this.data.cards.indexOf(card);
             this.data.cards.splice(cardIndex, 0, this.data.cards.splice(dropCardIndex, 1)[0]);
         };
-        FlashcardCreateController.$inject = ["flashcardService", "$stateParams", "$state", "flashcard", "$scope",
-            "$timeout", "$window", "resManager", "$mdDialog", "$q", "showToasterService"];
         return FlashcardCreateController;
     }());
+    FlashcardCreateController.$inject = ["flashcardService", "$stateParams", "$state", "flashcard", "$scope",
+        "$timeout", "$window", "resManager", "$mdDialog", "$q", "showToasterService"];
     angular.module("app.flashcard").controller("flashcardCreate", FlashcardCreateController);
 })(app || (app = {}));
 //# sourceMappingURL=flashcardCreate.controller.js.map

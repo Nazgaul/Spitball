@@ -9,9 +9,9 @@ var app;
         Start.prototype.intent = function (term) {
             return this.ajaxService2.get("start/intent/", { term: term });
         };
-        Start.$inject = ["ajaxService2"];
         return Start;
     }());
+    Start.$inject = ["ajaxService2"];
     angular.module("app").service("startService", Start);
 })(app || (app = {}));
 //# sourceMappingURL=start.service.js.map

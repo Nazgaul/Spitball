@@ -20,15 +20,15 @@ namespace Zbang.Cloudents.Jared.Controllers
     [MobileAppController, Authorize]
     public class AccountController : ApiController
     {
-        private readonly IZboxWriteService m_ZboxWriteService;
-        private readonly IZboxReadService m_ZboxReadService;
-        private readonly IProfilePictureProvider m_ProfilePicture;
+        private readonly IZboxWriteService _zboxWriteService;
+        private readonly IZboxReadService _zboxReadService;
+        private readonly IProfilePictureProvider _profilePicture;
 
         public AccountController(IZboxWriteService zboxWriteService, IZboxReadService zboxReadService, IProfilePictureProvider profilePicture)
         {
-            m_ZboxWriteService = zboxWriteService;
-            m_ZboxReadService = zboxReadService;
-            m_ProfilePicture = profilePicture;
+            _zboxWriteService = zboxWriteService;
+            _zboxReadService = zboxReadService;
+            _profilePicture = profilePicture;
         }
 
         // GET api/Account
@@ -36,11 +36,11 @@ namespace Zbang.Cloudents.Jared.Controllers
         {
             try
             {
-                var result = await m_ZboxReadService.GetJaredUserDataAsync(new QueryBaseUserId(User.GetUserId()), token)
+                var result = await _zboxReadService.GetJaredUserDataAsync(new QueryBaseUserId(User.GetUserId()), token)
                     .ConfigureAwait(false);
                 return Request.CreateResponse(new
                 {
-                    university = new
+                   university = new
                     {
                         Id = result.Item1.UniversityId,
                         Name = result.Item1.UniversityName
@@ -71,7 +71,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             var command = new UpdateUserProfileCommand(User.GetUserId(),
                 model.FirstName,
                 model.LastName);
-            m_ZboxWriteService.UpdateUserProfile(command);
+            _zboxWriteService.UpdateUserProfile(command);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
@@ -81,9 +81,9 @@ namespace Zbang.Cloudents.Jared.Controllers
             var bytes = await Request.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
             using (var ms = new MemoryStream(bytes))
             {
-                var result = await m_ProfilePicture.UploadProfilePicturesAsync(ms).ConfigureAwait(false);
+                var result = await _profilePicture.UploadProfilePicturesAsync(ms).ConfigureAwait(false);
                 var command = new UpdateUserProfileImageCommand(User.GetUserId(), result.Image.AbsoluteUri);
-                m_ZboxWriteService.UpdateUserImage(command);
+                _zboxWriteService.UpdateUserImage(command);
                 return result.Image.AbsoluteUri;
             }
         }
@@ -105,7 +105,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             var command = new UpdateUserUniversityCommand(model.UniversityId, id, null);
             try
             {
-                m_ZboxWriteService.UpdateUserUniversity(command);
+                _zboxWriteService.UpdateUserUniversity(command);
             }
             catch (ArgumentException ex)
             {

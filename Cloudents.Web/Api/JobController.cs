@@ -16,11 +16,11 @@ namespace Cloudents.Web.Api
     public class JobController : Controller
     {
 
-        private readonly IJobSearch m_JobSearchSearch;
+        private readonly IJobSearch _jobSearch;
 
         public JobController(IJobSearch jobSearch)
         {
-            m_JobSearchSearch = jobSearch;
+            _jobSearch = jobSearch;
         }
 
         public async Task<IActionResult> Get(string[] term,
@@ -29,7 +29,7 @@ namespace Cloudents.Web.Api
             GeoPoint location, string facet, CancellationToken token)
         {
             if (term == null) throw new ArgumentNullException(nameof(term));
-            var result = await m_JobSearchSearch.SearchAsync(string.Join(" ", term), filter, sort, facet, location, token).ConfigureAwait(false);
+            var result = await _jobSearch.SearchAsync(string.Join(" ", term), filter, sort, facet, location, token).ConfigureAwait(false);
             return Json(result);
         }
     }

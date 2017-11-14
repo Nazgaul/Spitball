@@ -27,9 +27,9 @@ var app;
             //}
             //this.details.like = !this.details.like;
         };
-        LikeToasterDialog.$inject = ["$mdToast", "$timeout", "userLike"];
         return LikeToasterDialog;
     }());
+    LikeToasterDialog.$inject = ["$mdToast", "$timeout", "userLike"];
     angular.module("app.item").controller("likeToasterDialog", LikeToasterDialog);
 })(app || (app = {}));
 //# sourceMappingURL=likeToasterController.js.map

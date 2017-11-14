@@ -27,9 +27,9 @@ var app;
         PreviewController.prototype.close = function () {
             this.$mdDialog.hide();
         };
-        PreviewController.$inject = ['$mdDialog', 'doc', 'blob', '$sce'];
         return PreviewController;
     }());
+    PreviewController.$inject = ['$mdDialog', 'doc', 'blob', '$sce'];
     angular.module('app.chat').controller('previewController', PreviewController);
 })(app || (app = {}));
 //# sourceMappingURL=previewController.js.map

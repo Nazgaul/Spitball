@@ -204,9 +204,9 @@ var app;
             }
         };
         ;
-        RealTimeFactory.$inject = ["Hub", "$rootScope", "ajaxService2", "userDetailsFactory"];
         return RealTimeFactory;
     }());
+    RealTimeFactory.$inject = ["Hub", "$rootScope", "ajaxService2", "userDetailsFactory"];
     angular.module('app.chat').service('realtimeFactory', RealTimeFactory);
 })(app || (app = {}));
 //# sourceMappingURL=hubFactory.js.map

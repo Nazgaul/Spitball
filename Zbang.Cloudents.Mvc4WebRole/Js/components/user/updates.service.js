@@ -90,9 +90,9 @@ var app;
             });
             return q.promise;
         };
-        UserUpdatesService.$inject = ["ajaxService2", "$q", "userDetailsFactory", "$rootScope", "$window", "$stateParams"];
         return UserUpdatesService;
     }());
+    UserUpdatesService.$inject = ["ajaxService2", "$q", "userDetailsFactory", "$rootScope", "$window", "$stateParams"];
     angular.module('app.user').service('userUpdatesService', UserUpdatesService);
 })(app || (app = {}));
 //# sourceMappingURL=updates.service.js.map

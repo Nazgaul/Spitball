@@ -20,9 +20,9 @@ var app;
             }
             return resource;
         };
-        ResManager.$inject = ["ajaxService2"];
         return ResManager;
     }());
+    ResManager.$inject = ["ajaxService2"];
     angular.module("app").service("resManager", ResManager);
 })(app || (app = {}));
 //# sourceMappingURL=resourceManager.js.map

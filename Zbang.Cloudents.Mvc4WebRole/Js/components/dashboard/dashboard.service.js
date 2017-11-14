@@ -94,9 +94,9 @@ var app;
         Dashboard.prototype.recommended = function () {
             return this.ajaxService2.get("/dashboard/recommendedcourses/");
         };
-        Dashboard.$inject = ["$q", "ajaxService2", "realtimeFactory", "userUpdatesService", "$rootScope"];
         return Dashboard;
     }());
+    Dashboard.$inject = ["$q", "ajaxService2", "realtimeFactory", "userUpdatesService", "$rootScope"];
     angular.module("app.dashboard").service("dashboardService", Dashboard);
 })(app || (app = {}));
 //# sourceMappingURL=dashboard.service.js.map

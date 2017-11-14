@@ -46,9 +46,9 @@ var app;
                 fullscreen: false
             });
         };
-        Share.$inject = ["ajaxService2", "$mdDialog"];
         return Share;
     }());
+    Share.$inject = ["ajaxService2", "$mdDialog"];
     angular.module("app").service("shareService", Share);
 })(app || (app = {}));
 ;

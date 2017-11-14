@@ -41,9 +41,9 @@ var app;
                 $scope.$apply();
             });
         }
-        GamificationBoard.$inject = ["userService", "$interval", "userDetailsFactory", "$scope"];
         return GamificationBoard;
     }());
+    GamificationBoard.$inject = ["userService", "$interval", "userDetailsFactory", "$scope"];
     angular.module("app.dashboard").controller("gamificationBoard", GamificationBoard);
 })(app || (app = {}));
 //# sourceMappingURL=gamificationBoard.controller.js.map

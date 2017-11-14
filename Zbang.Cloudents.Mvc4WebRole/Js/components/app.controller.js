@@ -110,12 +110,12 @@ var app;
                 }
             });
         }
-        AppController.$inject = ["$rootScope", "$location",
-            "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
-            "CacheFactory",
-            "sbHistory", "$state", "dashboardService", "$log"];
         return AppController;
     }());
+    AppController.$inject = ["$rootScope", "$location",
+        "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
+        "CacheFactory",
+        "sbHistory", "$state", "dashboardService", "$log"];
     angular.module("app").controller("AppController", AppController);
 })(app || (app = {}));
 //# sourceMappingURL=app.controller.js.map

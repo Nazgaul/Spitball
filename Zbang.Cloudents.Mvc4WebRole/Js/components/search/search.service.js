@@ -18,9 +18,9 @@ var app;
         SearchService.prototype.searchFlashcards = function (term, page) {
             return this.ajaxService2.get("/search/flashcards/", { q: term, page: page });
         };
-        SearchService.$inject = ["ajaxService2"];
         return SearchService;
     }());
+    SearchService.$inject = ["ajaxService2"];
     angular.module("app.search").service("searchService", SearchService);
 })(app || (app = {}));
 //# sourceMappingURL=search.service.js.map
