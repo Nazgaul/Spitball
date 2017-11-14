@@ -27,12 +27,7 @@ namespace Cloudents.Infrastructure.Search
         public async Task<IEnumerable<CourseDto>> SearchAsync(string term, long universityId,
             CancellationToken token)
         {
-            if (string.IsNullOrEmpty(term))
-            {
-                term = "*";
-            }
-
-            var result = await m_Client.Documents.SearchAsync<Course>(term, new SearchParameters
+            var result = await m_Client.Documents.SearchAsync<Course>(term + "*", new SearchParameters
             {
                 Select = new[] { "id", "name2", "course2" },
                 SearchFields = new[] { "course2", "name2" },
