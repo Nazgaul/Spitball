@@ -55,7 +55,9 @@
     <Compile Include="DTOs\UniversityDto.cs" />
     <Compile Include="DTOs\UniversitySynonymDto.cs" />
     <Compile Include="DTOs\VideoDto.cs" />
-    <Compile Include="Entities\Search\Tutor.cs" />
+    <Compile Include="Entities\DocumentDb\Card.cs" />
+    <Compile Include="Entities\DocumentDb\CardSlide.cs" />
+    <Compile Include="Entities\DocumentDb\Flashcard.cs" />
     <Compile Include="Enum\AiIntent.cs" />
     <Compile Include="Enum\AIResult.cs" />
     <Compile Include="DTOs\AIDto.cs" />
@@ -91,6 +93,9 @@
     <Compile Include="Request\SearchQuery.cs" />
     <Compile Include="Request\SeoQuery.cs" />
     <Compile Include="TimeConst.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Entities\Search\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

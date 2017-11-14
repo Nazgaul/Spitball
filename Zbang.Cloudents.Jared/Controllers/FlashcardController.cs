@@ -20,19 +20,19 @@ namespace Zbang.Cloudents.Jared.Controllers
     [MobileAppController]
     public class FlashcardController : ApiController
     {
-        private readonly IQueueProvider m_QueueProvider;
-        private readonly IZboxCacheReadService m_ZboxReadService;
-        private readonly IDocumentDbReadService m_DocumentDbReadService;
-        private readonly IZboxWriteService m_ZboxWriteService;
+        private readonly IQueueProvider _queueProvider;
+        private readonly IZboxCacheReadService _zboxReadService;
+        private readonly IDocumentDbReadService _documentDbReadService;
+        private readonly IZboxWriteService _zboxWriteService;
 
         public FlashcardController(IQueueProvider queueProvider, 
             IZboxCacheReadService zboxReadService,
             IDocumentDbReadService documentDbReadService, IZboxWriteService zboxWriteService)
         {
-            m_QueueProvider = queueProvider;
-            m_ZboxReadService = zboxReadService;
-            m_DocumentDbReadService = documentDbReadService;
-            m_ZboxWriteService = zboxWriteService;
+            _queueProvider = queueProvider;
+            _zboxReadService = zboxReadService;
+            _documentDbReadService = documentDbReadService;
+            _zboxWriteService = zboxWriteService;
         }
 
         // GET api/Flashcard
@@ -40,7 +40,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> Get(long id)
         {
             var userId = User.GetUserId();
-            var tTransAction = m_QueueProvider.InsertMessageToTransactionAsync(
+            var tTransAction = _queueProvider.InsertMessageToTransactionAsync(
                       new StatisticsData4(
                         new StatisticsData4.StatisticItemData
                         {
@@ -49,9 +49,9 @@ namespace Zbang.Cloudents.Jared.Controllers
                         }
                     , userId));
 
-            var tUserValues = m_ZboxReadService.GetUserFlashcardAsync(new GetUserFlashcardQuery(
+            var tUserValues = _zboxReadService.GetUserFlashcardAsync(new GetUserFlashcardQuery(
                     userId, id));
-            var tValues = m_DocumentDbReadService.FlashcardAsync(id);
+            var tValues = _documentDbReadService.FlashcardAsync(id);
             await Task.WhenAll(tTransAction, tValues/*, tUserValues*/).ConfigureAwait(false);
             var values = tValues.Result;
             if (!values.Publish)
@@ -76,12 +76,12 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> AddLikeAsync(ItemLikeRequest model)
         {
             var command = new AddFlashcardLikeCommand(User.GetUserId(), model.Id);
-            await m_ZboxWriteService.AddFlashcardLikeAsync(command).ConfigureAwait(false);
+            await _zboxWriteService.AddFlashcardLikeAsync(command).ConfigureAwait(false);
 
             if (model.Tags != null && model.Tags.Any())
             {
                 var z = new AssignTagsToFlashcardCommand(model.Id, model.Tags, TagType.User);
-                await m_ZboxWriteService.AddItemTagAsync(z).ConfigureAwait(false);
+                await _zboxWriteService.AddItemTagAsync(z).ConfigureAwait(false);
             }
 
             return Request.CreateResponse(HttpStatusCode.OK, command.Id);
@@ -91,7 +91,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> DeleteLikeAsync(Guid likeId)
         {
             var command = new DeleteFlashcardLikeCommand(User.GetUserId(), likeId);
-            await m_ZboxWriteService.DeleteFlashcardLikeAsync(command).ConfigureAwait(false);
+            await _zboxWriteService.DeleteFlashcardLikeAsync(command).ConfigureAwait(false);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
