@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-            var userId = 1202815;// User.GetUserId();
+            var userId = User.GetUserId();
             var commandGeneral = new GetGeneralDepartmentCommand(userId);
             var res = _zboxWriteService.GetGeneralDepartmentForUniversity(commandGeneral);
 
