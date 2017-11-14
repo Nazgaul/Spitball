@@ -24,7 +24,6 @@
     "css-loader": "^0.28.7",
     "style-loader": "^0.19.0",
     "extract-text-webpack-plugin": "^3.0.2",
-    "tree-model": "^1.0.6",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "vue-infinite-loading": "^2.2.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",

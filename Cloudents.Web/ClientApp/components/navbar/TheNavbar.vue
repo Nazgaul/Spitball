@@ -3,7 +3,7 @@
         <v-list subheader>
             <template v-for="(list,index) in verticals">
                 <v-subheader class="sub mt-2" v-text="list.label"></v-subheader>
-                <v-list-tile append v-for="vertical in list.data" :key="vertical.id" :to="{path:'/'+vertical.id,query:{q:userText}}">
+                <v-list-tile v-for="vertical in list.data" :key="vertical.id"  @click="$_updateType(vertical.id)" :class="{'list__tile--active':vertical.id==currentPage}">
                     <v-list-tile-action-text :class="'bg-'+vertical.id" class="vertical-cycle">
                         <component class="item" v-bind:is="vertical.image"></component>
                     </v-list-tile-action-text>
@@ -31,7 +31,7 @@
     import courses from './images/courses.svg';
     import likes from './images/likes.svg';
     import { verticalsNavbar as verticals } from '../data.js';
-    
+    import {mapMutations} from 'vuex'
 
     export default {
         components: {
@@ -43,9 +43,17 @@
             }
         },
 
+        methods:{
+            ...mapMutations({'changeFlow':'ADD'}),
+         $_updateType(result){
+              this.changeFlow({result})
+             this.$router.push({path:'/'+result,query:{q:this.userText}})
+         }
+        },
         props: { term: {type:String}},
         computed: {
-            userText() { return this.term?this.term:this.$route.query.q}
+            userText() { return this.term?this.term:this.$route.query.q},
+            currentPage(){return this.$route.path.slice(1)}
         }
     };
 </script>

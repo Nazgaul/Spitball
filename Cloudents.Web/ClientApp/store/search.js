@@ -1,4 +1,4 @@
-﻿import * as types from './mutation-types'
+﻿import {SEARCH,FLOW} from './mutation-types'
 import ai from './../services/ai'
 import searchService from './../services/searchService'
 
@@ -12,11 +12,11 @@ const state = {
 };
 
 const mutations = {
-    [types.UPDATE_LOADING](state, payload) {        
+    [SEARCH.UPDATE_LOADING](state, payload) {
         state.search.page = payload ? 0 : 1;
         state.loading = payload
     },
-    [types.UPDATE_SEARCH_PARAMS](state, payload) {
+    [SEARCH.UPDATE_SEARCH_PARAMS](state, payload) {
         state.search = { ...state.search, ...payload }
     }
 };
@@ -29,6 +29,7 @@ const getters = {
     luisTerm: state => state.search.term
 }
 const actions = {
+    //Always update the current route according the flow
     updateSearchText(context, text) {
        
         if (!text) {
@@ -39,32 +40,33 @@ const actions = {
 
         return new Promise((resolve, reject) => {
             ai.interpetPromise(text).then(({ body }) => {
-                context.commit(types.UPDATE_SEARCH_PARAMS, { ...body.data });
-                    context.commit(types.ADD, { ...body });
+                context.commit(SEARCH.UPDATE_SEARCH_PARAMS, { ...body.data });
+                    context.commit(FLOW.ADD, { ...body });
                     resolve(context.rootGetters.currenFlow);
             })
         })
     },
 
     updateLuisAndFetch(context, page) {
-        return new Promise((resolve) => {
+        return new Promise((resolve,reject) => {
             ai.interpetPromise(page.query.q).then(({ body }) => {
-                context.commit(types.UPDATE_SEARCH_PARAMS, body.data);
-                //context.commit(types.ADD, { ...body });
-                var params = { ...page.query, ...page.params, ...body.data }
+                context.commit(SEARCH.UPDATE_SEARCH_PARAMS, body.data);
+                // context.commit(FLOW.ADD, { result:page.path.slice(1) });
+                var params = { ...page.query, ...page.params, ...body.data };
                 //let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity:null
                 let university = null
-                resolve(searchService.activateFunction[page.path.slice(1)]({ ...params, university }))
+                if(!body.data.term.length){reject(body.result);}
+                else{resolve(searchService.activateFunction[page.path.slice(1)]({ ...params, university }));}
             })
         })
     },
     updateResult(context, page) {
-        context.commit(types.UPDATE_LOADING, true)
+        context.commit(SEARCH.UPDATE_LOADING, true);
         //let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null
         let university = null
         searchService.activateFunction[page.path.slice(1)]({ ...context.getters.searchParams, ...page.query, ...page.params, university })
             .then((response) => {
-                context.commit(types.UPDATE_LOADING, false)
+                context.commit(SEARCH.UPDATE_LOADING, false)
             })
     },
     bookDetails: (context, data) => {

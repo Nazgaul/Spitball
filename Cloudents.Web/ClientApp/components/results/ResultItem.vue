@@ -16,7 +16,7 @@
                                 Source: {{item.source}}
                             </v-flex>
                         </v-layout>
-                    </v-container>-
+                    </v-container>
                 </v-flex>
             </v-layout>
         </v-container>
