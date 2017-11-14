@@ -6,6 +6,7 @@ const ResultBook = () => import('./ResultBook.vue');
 const ResultPersonalize = () => import('../settings/ResultPersonalize.vue');
 const ResultJob = () => import('./ResultJob.vue');
 import ResultVideo from './ResultVideo.vue'
+import SuggestCard from './suggestCard.vue'
 const ResultFood = () => import('./ResultFood.vue')
 const ResultBookPrice = () => import('./ResultBookPrice.vue');
 const foodExtra = () => import('./foodExtra.vue');
@@ -44,7 +45,8 @@ var updateLuis = function (page) {
     let self = this;
     this.updateLuisAndFetch(page).then((data) => {
         updateData.call(self,data)
-    }).catch(()=>{
+    }).catch((page)=>{
+        alert(`we still don\'t have this page ${page}`);
         this.content = {};
         this.pageData = {};
         this.items=[];
@@ -118,7 +120,7 @@ export const pageMixin =
             }
         },
 
-        components: { foodExtra, ResultItem, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood,ResultPersonalize },
+        components: { foodExtra, ResultItem,SuggestCard, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood,ResultPersonalize },
 
         created() {
             this.isfirst = this.isFirst;

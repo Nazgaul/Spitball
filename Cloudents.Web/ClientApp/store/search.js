@@ -55,7 +55,7 @@ const actions = {
                 var params = { ...page.query, ...page.params, ...body.data };
                 //let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity:null
                 let university = null
-                if(!body.data.term.length){reject();}
+                if(!body.data.term.length){reject(body.result);}
                 else{resolve(searchService.activateFunction[page.path.slice(1)]({ ...params, university }));}
             })
         })

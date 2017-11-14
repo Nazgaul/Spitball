@@ -26,13 +26,13 @@
                             <v-container fluid grid-list-sm v-for="(item,index) in items" :key="index" @click="(hasExtra?selectedItem=item.placeId:'')">
                                 <component :is="'result-'+item.template" :item="item" :key="index" class="cell"></component>
                                 <div  v-if="$_showSuggest(index)&&flowNode" v-for="(child,flowIndex) in flowNode.children" class="suggest" @click="$_updateCurrentFlow(flowIndex)">
-                                    {{child.name}}
-                                    {{flowIndex}}
+                                    <suggest-card :name="child.name"></suggest-card>
                                 </div>
                             </v-container>
                             <div v-if="!items.length&&flowNode" v-for="(childo,index1) in flowNode.children" class="suggest" @click="$_updateCurrentFlow(index1)">
                                 {{index1}}
                                 {{childo.name}}
+                                <suggest-card :name="childo.name"></suggest-card>
                             </div>
                         </scroll-list>
                     </slot>
