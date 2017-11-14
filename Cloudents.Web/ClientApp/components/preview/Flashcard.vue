@@ -10,7 +10,7 @@
         </flashcard-header>
     <div class="white" v-if="!showCards">
         <h5 v-text="item.name"></h5>
-        <span>Created by {{item.author}}</span>
+        <span>Created by Yifat the Queen</span>
         <p v-if="item.cards">{{item.cards.length}} Cards</p>
         <v-btn v-if="currentPinn.size" @click="$_startPinnsFlashcards">take {{currentPinn.size}} pinns cards</v-btn>
         <v-btn @click="$_startFlashcards">{{beginText}}</v-btn>

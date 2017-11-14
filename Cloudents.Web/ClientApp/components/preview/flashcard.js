@@ -29,8 +29,8 @@
             showCards() { return (this.currentCard&&!this.isEnded)}
         },
         created() {
-            this.getPreview({ type: 'flashcard', id: this.$attrs.id }).then(res => {
-                this.item = res
+            this.getPreview({ type: 'flashcard', id: this.$attrs.id }).then(({body}) => {
+                this.item = body;
                 this.showList = this.item.cards.map((item, index) => ({ index, data: item } ))
             })
             window.addEventListener('keyup', this.handleArrow);
