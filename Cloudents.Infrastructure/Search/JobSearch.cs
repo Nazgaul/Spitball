@@ -41,7 +41,7 @@ namespace Cloudents.Infrastructure.Search
             }
             if (!string.IsNullOrEmpty(jobType))
             {
-                filterQuery = $"jobType eq {jobType}";
+                filterQuery = $"jobType eq '{jobType}'";
             }
 
             switch (sort)
