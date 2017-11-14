@@ -1,5 +1,5 @@
 ﻿<template>
-    <v-list-tile :key="item.id" @click="$_universitySelected(item.id)">
+    <v-list-tile :key="item.id" @click="$_universitySelected(item)">
         <v-list-tile-action class="mr-2 pa-2">
             <img class="uni" :src="item.image" alt="">
         </v-list-tile-action>

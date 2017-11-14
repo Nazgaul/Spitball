@@ -83,9 +83,6 @@ export let names = [];
 export let page = [];
 
 export let verticalsNavbar = [
-    {
-        label: "search type",
-        data: [
             {
                 id: verticals[routes.questionRoute].id,
                 name: verticals[routes.questionRoute].name,
@@ -107,69 +104,17 @@ export let verticalsNavbar = [
                 image: verticals[routes.tutorRoute].image
             },
             { id: verticals[routes.jobRoute].id, name: verticals[routes.jobRoute].name, image: verticals[routes.jobRoute].image },
-            { id: verticals[routes.bookRoute].id, name: verticals[routes.bookRoute].name, image: verticals[routes.bookRoute].image }
-        ]
-    },
-    {
-        label: "purchase",
-        data: [
+            { id: verticals[routes.bookRoute].id, name: verticals[routes.bookRoute].name, image: verticals[routes.bookRoute].image },
             {
                 id: verticals[routes.foodRoute].id,
                 name: verticals[routes.foodRoute].name,
                 image: verticals[routes.foodRoute].image
-            }
-        ]
-    },
-    {
-        label: "Contribute",
-        data: [
-            {
-                id: routes.uploadRoute,
-                name: "Upload Content",
-                image: "upload"
-            },
-            {
-                id: routes.postRoute,
-                name: "Post to Class",
-                image: "post"
-            },
-            {
-                id: routes.createFlashcard,
-                name: "Create Flashcard",
-                image: "flashcard"
-            }
-        ]
-    },
-    {
-        label: "Class talk",
-        data: [
-            {
-                id: routes.chatRoute,
-                name: "Chat",
-                image: "chat"
-            }
-        ]
-    },
-    {
-        label: "Personal info",
-        data: [
-            {
-                id: routes.coursesRoute,
-                name: "My Courses",
-                image: "courses"
-            },
-            {
-                id: routes.likesRoute,
-                name: "My Likes",
-                image: "likes"
             },
             {
                 id: routes.settingsRoute,
                 name: "Settings",
                 image: "courses" //missing
             }
-        ]
-    },
 ];
 
 for (var v in verticals) {

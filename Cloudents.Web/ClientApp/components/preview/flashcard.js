@@ -33,11 +33,10 @@
                 this.item = res
                 this.showList = this.item.cards.map((item, index) => ({ index, data: item } ))
             })
-            let vm = this;
-            window.addEventListener('keyup', function (event) {
-                if (event.keyCode == 37 && vm.currentIndex > 0 && !vm.isEnded) vm.currentIndex--;
-                else if (vm.currentIndex >= 0 && event.keyCode == 39 && !vm.isEnded) vm.currentIndex++;
-            });
+            window.addEventListener('keyup', this.handleArrow);
+        },
+        beforeDestroy(){
+            window.removeEventListener('keyup',this.handleArrow)
         },
         methods: {
             ...mapActions(['getPreview']),
@@ -49,6 +48,12 @@
             $_startPinnsFlashcards() {
                 this.showList = this.showList.filter((i) => this.currentPinn.has(i.index))
                 this.$_startFlashcards();
+            },
+
+            handleArrow (event){
+                console.log('listenet');
+                if (event.keyCode == 37 && this.currentIndex > 0 && !this.isEnded) this.currentIndex--;
+                else if (this.currentIndex >= 0 && event.keyCode == 39 && !this.isEnded) this.currentIndex++;
             }
         },
 

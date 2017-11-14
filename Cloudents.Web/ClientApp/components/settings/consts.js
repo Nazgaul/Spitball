@@ -17,6 +17,8 @@
         actions: []
     }
 }
+export let settingMenu=[
+    {id:"university",name:"Choose university"},{id:"myCourses",name:"My courses"},{id:"walkthrough",name:"Walkthrough"},{id:"aboutUs",name:"About us"}];
 export let emptyStates = {};
 export let filtersAction = {};
 for (var v in searchObjects) {

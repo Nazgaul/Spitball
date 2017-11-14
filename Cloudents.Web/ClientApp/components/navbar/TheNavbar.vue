@@ -1,9 +1,7 @@
 ﻿<template>
     <v-navigation-drawer light app clipped permanent class="aside" width="216">
         <v-list subheader>
-            <template v-for="(list,index) in verticals">
-                <v-subheader class="sub mt-2" v-text="list.label"></v-subheader>
-                <v-list-tile v-for="vertical in list.data" :key="vertical.id"  @click="$_updateType(vertical.id)" :class="{'list__tile--active':vertical.id==currentPage}">
+                <v-list-tile v-for="vertical in verticals" :key="vertical.id"  @click="$_updateType(vertical.id)" :class="{'list__tile--active':vertical.id==currentPage}">
                     <v-list-tile-action-text :class="'bg-'+vertical.id" class="vertical-cycle">
                         <component class="item" v-bind:is="vertical.image"></component>
                     </v-list-tile-action-text>
@@ -11,7 +9,6 @@
                         <v-list-tile-title>{{vertical.name}}</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
-            </template>
         </v-list>
         </v-navigation-drawer>
 </template>
@@ -25,17 +22,13 @@
     import job from './images/job.svg';
     import food from './images/food.svg';
     import tutor from './images/tutor.svg';
-    import upload from './images/upload.svg';
-    import post from './images/post.svg';
-    import chat from './images/chat.svg';
     import courses from './images/courses.svg';
-    import likes from './images/likes.svg';
     import { verticalsNavbar as verticals } from '../data.js';
     import {mapMutations} from 'vuex'
 
     export default {
         components: {
-            ask, book, document, flashcard, job, food, tutor, upload, post, chat, courses, likes
+            ask, book, document, flashcard, job, food, tutor,courses
         },
         data() {
             return {

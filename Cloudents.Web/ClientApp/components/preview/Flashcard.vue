@@ -1,7 +1,13 @@
 ﻿<template>
     <div>
         <flashcard-header :name="item.name" :showCards="showCards" v-model="slideFront"
-                          :currentIndex="currentIndex" :cardsSize="showList.length"></flashcard-header>
+                          :currentIndex="currentIndex" :cardsSize="showList.length">
+            <div v-if="showCards" slot="actions">
+                <v-btn @click="slideFront=1"  :class="{'active':slideFront==1}">Front</v-btn>
+                <v-btn @click="slideFront=0"  :class="{'active':slideFront==0}">Back</v-btn>
+                <v-btn @click="slideFront=-1"  :class="{'active':slideFront==-1}">Both</v-btn>
+            </div>
+        </flashcard-header>
     <div class="white" v-if="!showCards">
         <h5 v-text="item.name"></h5>
         <span>Created by {{item.author}}</span>

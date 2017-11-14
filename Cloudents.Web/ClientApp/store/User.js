@@ -17,7 +17,8 @@ const mutations = {
 const getters = {
     isFirst: state => state.user.isFirst,
     pinnedCards: state => state.user.pinnedCards,
-    getUniversity: state => state.user.universityId,
+    getUniversity: state => state.user.universityId.id,
+    getUniversityName: state => state.user.universityId.name,
     myCourses: state => state.user.myCourses,
     myCoursesId: state => (state.user.myCourses.length ? state.user.myCourses.map(i=>i.id):[])
 }
@@ -25,14 +26,13 @@ const actions = {
     getUniversities(context, data) {
         return settingsService.getUniversity(data.term)
     },
-    getCorses(context, data) {
-        return settingsService.getCourse(data)
+    getCorses(context, {term}) {
+        return settingsService.getCourse({term,universityId:context.getters.getUniversity})
     },
 
     createCourse(context, data) {
         return new Promise((resolve, reject) => {
             settingsService.createCourse(data).then(({body}) => {
-                console.log(body.id)
                 context.commit(USER.UPDATE_USER, { myCourses: [...context.getters.myCourses, { id: body.id, name: data.name }] });
                 resolve({id:body.id,name:data.name,code:data.code})
             })
@@ -41,8 +41,8 @@ const actions = {
     updateFirstTime({ commit }) {
         commit(USER.UPDATE_USER, {isFirst:false});
     },
-    updateUniversity({ commit }, university) {
-        commit(USER.UPDATE_USER, { universityId: university });
+    updateUniversity({ commit }, {id,name}) {
+        commit(USER.UPDATE_USER, { universityId: {id,name} });
     },
     updatePinnedCards(context, data) {
         context.commit(USER.UPDATE_USER, { pinnedCards: { ...context.getters.pinnedCards,...data} });

@@ -59,7 +59,7 @@
         },
 
         components: { searchItemUniversity, searchItemCourse, RadioList, plusButton},
-        props: { extraItem: {type:[Object,String]}, actionsCallback: {type:Function},  type: {type:String,required:true},searchApi: { type: String, required: true }, params: { type: Object, default: () => { return {}} } },
+        props: { extraItem: {type:[Object,String]}, actionsCallback: {type:Function},  type: {type:String,required:true},searchApi: { type: String, required: true }, selectCallback:{type:Function} },
         watch: {
             type: function (val) {
                 this.items = [];
@@ -75,7 +75,7 @@
             $_search(val) {
                 if (!val.length || val.length > 3) {
                     this.isLoading = true;
-                    this.$store.dispatch(this.searchApi, { ... this.params, term: val }).then(({ body }) => {
+                    this.$store.dispatch(this.searchApi, {term: val }).then(({ body }) => {
                         this.items = body;
                         this.filteredItems = body;
                         this.isLoading=false
@@ -83,11 +83,12 @@
                 }              
             },
             $_selected(val) {
-                if (this.isChanged) { this.isChanged = false; return; }
+                if (this.isChanged) { this.isChanged = false; }
+                else if(this.selectCallback)this.selectCallback.call(this);
             },
 
             $_updateFilter(val) {
-                this.filteredItems = (val == 'all') ? this.items : this.items.filter((i) => this.myCoursesId.length || this.myCoursesId.includes(i.id))
+                this.filteredItems = (val === 'all') ? this.items : this.items.filter((i) => this.myCoursesId.length || this.myCoursesId.includes(i.id))
             }
         },
         mounted() {

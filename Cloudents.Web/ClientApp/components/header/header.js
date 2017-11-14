@@ -4,7 +4,9 @@ import jobHeader from '../navbar/images/job.svg'
 import bookHeader from '../navbar/images/book.svg'
 import noteHeader from '../navbar/images/document.svg'
 import tutorHeader from '../navbar/images/tutor.svg'
+import courseHeader from '../navbar/images/courses.svg'
 import foodHeader from '../navbar/images/food.svg'
+// import settingHeader from '../navbar/images/'
 import searchTypes from './../helpers/radioList.vue'
 import searchIcon from './Images/search-icon.svg';
 import { mapActions} from 'vuex'
@@ -19,6 +21,7 @@ export default {
         bookHeader,
         noteHeader,
         flashcardHeader,
+        courseHeader,
         jobHeader,
         foodHeader,
         tutorHeader,
