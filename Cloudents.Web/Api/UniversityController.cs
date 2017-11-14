@@ -17,6 +17,7 @@ namespace Cloudents.Web.Api
         {
             _universityProvider = universityProvider;
         }
+
         [HttpGet]
         public async Task<IActionResult> Get(string term, GeoPoint location, CancellationToken token)
         {

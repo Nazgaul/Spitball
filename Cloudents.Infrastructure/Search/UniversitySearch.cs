@@ -63,7 +63,7 @@ namespace Cloudents.Infrastructure.Search
 
             var result = m_Mapper.Map<IEnumerable<University>, IList<UniversityDto>>(tResult.Result.Results.Select(s => s.Document));
             var result2 = m_Mapper.Map<IEnumerable<University>, IList<UniversityDto>>(tSuggest?.Result?.Results.Select(s => s.Document));
-            return result.Union(result2);
+            return result.Union(result2,new UniversityDtoEquality());
         }
 
         private static readonly Task<DocumentSuggestResult<University>> CompletedTask = Task.FromResult<DocumentSuggestResult<University>>(null);
