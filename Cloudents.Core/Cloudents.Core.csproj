@@ -48,7 +48,11 @@
     <Compile Include="DTOs\FlashcardSeoDto.cs" />
     <Compile Include="DTOs\IpDto.cs" />
     <Compile Include="DTOs\JobDto.cs" />
+    <Compile Include="DTOs\QuizAnswerWithDetailDto.cs" />
+    <Compile Include="DTOs\QuizDto.cs" />
+    <Compile Include="DTOs\QuizQuestionWithDetailDto.cs" />
     <Compile Include="DTOs\QuizSeoDto.cs" />
+    <Compile Include="DTOs\QuizWithDetailDto.cs" />
     <Compile Include="DTOs\ResultWithFacetDto.cs" />
     <Compile Include="DTOs\PlaceDto.cs" />
     <Compile Include="DTOs\SiteMapCountDto.cs" />

@@ -160,6 +160,7 @@
     <Compile Include="Data\DapperRepository.cs" />
     <Compile Include="Data\DocumentRepository.cs" />
     <Compile Include="Data\FlashcardByIdRepository.cs" />
+    <Compile Include="Data\QuizRepository.cs" />
     <Compile Include="Data\SeoDocumentPage.cs" />
     <Compile Include="Data\SeoDocumentRepository.cs" />
     <Compile Include="Data\SeoFlashcardPage.cs" />
