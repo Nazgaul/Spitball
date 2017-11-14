@@ -44,22 +44,34 @@ var updateLuis = function (page) {
     let self = this;
     this.updateLuisAndFetch(page).then((data) => {
         updateData.call(self,data)
+    }).catch(()=>{
+        this.content = {};
+        this.pageData = {};
+        this.items=[];
+        this.filter =null;
+        this.UPDATE_LOADING(false);
     })
 }
 
 export const pageMixin =
     {
         mixins: [sortAndFilterMixin],
+        beforeRouteEnter (to, from, next) {
+            next((vm)=>{
+                vm.$store.commit('ADD',{result:vm.$route.path.slice(1)})
+            })
+        },
+
         beforeRouteUpdate(to, from, next) {
             
             // just use `this`
             if (to.path == from.path) {
-  
+
                 this.UPDATE_LOADING(true);
                 if (to.query.q && from.query.q && to.query.q === from.query.q) {
                     this.fetchingData({ pageName: to.path.slice(1), queryParams: { ...to.query, ...to.params } })
                         .then((data) => {
-                            updateData.call(this,data)
+                            updateData.call(this, data)
                         })
                 }
                 else {
@@ -69,7 +81,7 @@ export const pageMixin =
             next();
         },
         computed: {
-            ...mapGetters(['term', 'isFirst','myCourses']),
+            ...mapGetters(['term', 'isFirst','myCourses','flowNode','currenFlow']),
             content: {
                 get() {
                     return this.pageData
@@ -106,8 +118,6 @@ export const pageMixin =
             }
         },
 
-     
-
         components: { foodExtra, ResultItem, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood,ResultPersonalize },
 
         created() {
@@ -119,7 +129,7 @@ export const pageMixin =
             updateLuis.call(this,this.$route)
         },
         methods: {
-            ...mapActions(['updateLuisAndFetch', 'fetchingData','updateFirstTime']),
+            ...mapActions(['updateLuisAndFetch', 'fetchingData','updateFirstTime','updateFlow']),
             $_changeFilter(filter) {
                 if (this.subFilters.length) {
                     delete this.query[this.filter]
@@ -128,6 +138,16 @@ export const pageMixin =
                 if (!this.subFilters.length) {
                     this.$router.push({ query: { ... this.query, filter } });
                 }
+            },
+            $_showSuggest(index) {
+                return (this.flowNode && this.flowNode.children &&
+                    ((this.items.length < 7 && index == (this.items.length - 1)) ||
+                    (this.items.length >= 7&&index == 6)));
+            },
+            $_updateCurrentFlow(index){
+                this.updateFlow(index).then(()=>{
+                    this.$router.push({path:'/'+this.currenFlow,query:{q:this.query.q}})
+                })
             },
             $_defaultSort(defaultSort) {
                 let sort = this.query.sort ? this.query.sort : defaultSort;

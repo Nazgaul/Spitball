@@ -9,7 +9,7 @@
                 <span v-if="isEmpty" class="empty" v-html="page.emptyText.replace('$subject', term)"></span>
                 <span v-else v-html="titleText"></span> {{dynamicHeader}}
             </h5>
-            <slot name="options">
+            <slot name="options" v-if="pageData.data">
                 <v-container class="pa-0 mb-3">
                     <v-layout row>
                         <radio-list class="search" :values="page.filter" @click="$_changeFilter" model="filter" :value="filterOptions"></radio-list>
@@ -25,7 +25,15 @@
                         <scroll-list :loadMore="!isEmpty" v-if="items" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
                             <v-container fluid grid-list-sm v-for="(item,index) in items" :key="index" @click="(hasExtra?selectedItem=item.placeId:'')">
                                 <component :is="'result-'+item.template" :item="item" :key="index" class="cell"></component>
+                                <div  v-if="$_showSuggest(index)&&flowNode" v-for="(child,flowIndex) in flowNode.children" class="suggest" @click="$_updateCurrentFlow(flowIndex)">
+                                    {{child.name}}
+                                    {{flowIndex}}
+                                </div>
                             </v-container>
+                            <div v-if="!items.length&&flowNode" v-for="(childo,index1) in flowNode.children" class="suggest" @click="$_updateCurrentFlow(index1)">
+                                {{index1}}
+                                {{childo.name}}
+                            </div>
                         </scroll-list>
                     </slot>
                     <slot :name="name" v-if="hasExtra&&!isEmpty"><component :is="name+'-extra'" :place="selectedItem"></component></slot>

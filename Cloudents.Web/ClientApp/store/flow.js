@@ -1,61 +1,64 @@
-﻿import Tree from 'tree-model';
-import * as types from './mutation-types';
+﻿import {FLOW} from './mutation-types';
 import * as routes from './../routeTypes';
 
 const state = {
-    flowTree: new Tree(),
-    node: null,
-    userText: null
+    node: {},
+};
 
-};
-var buildChatPostRoute = {
-    name: routes.postChatRoute,
-    children: [
-        {
-            name: routes.tutorRoute
-        }
-    ]
-};
 var buildFlashcardRoute = {
     name: routes.flashcardRoute,
     children: [
-        buildChatPostRoute
+        {name:routes.tutorRoute,children:[
+            {name:routes.notesRoute,children:[
+                {name:routes.questionRoute}
+            ]}
+        ]}
     ]
 };
 var buildDocumentRoute = {
     name: routes.notesRoute,
     children: [
-        buildFlashcardRoute
+        {name: routes.flashcardRoute,
+            children: [
+                {name:routes.tutorRoute,children:[
+                    {name:routes.questionRoute}
+                ]}
+            ]}
+    ]
+};
+var buildQuestionRoute = {
+    name: routes.questionRoute,
+    children: [
+        {name: routes.notesRoute,
+            children: [
+                {name:routes.flashcardRoute,children:[
+                    {name:routes.tutorRoute,children:[
+                        {name:routes.bookRoute}]}
+                ]}
+            ]}
+    ]
+};
+var buildTutorRoute = {
+    name: routes.tutorRoute,
+    children: [
+        {name: routes.flashcardRoute,
+            children: [
+                {name:routes.notesRoute,children:[
+                    {name:routes.bookRoute}
+                ]}
+            ]}
     ]
 };
 var optionalRoutes = {
-    post: buildChatPostRoute,
     flashcard: buildFlashcardRoute,
     document: buildDocumentRoute,
     note: buildDocumentRoute,
-    tutor: {
-        name: routes.tutorRoute,
-        children: [
-            {
-                name: routes.postChatRoute
-            }
-        ]
-    },
+    tutor: buildTutorRoute,
     job: {
-        name: routes.jobRoute,
-        children: [
-            {
-                name: routes.postChatRoute
-            }
-        ]
+        name: routes.jobRoute
     },
     book: {
-        name: routes.bookRoute,
-        children: [
-            {
-                name: routes.postChatRoute
-            }
-        ]
+        name: routes.bookRoute
     },
     purchase: {
         name: routes.foodRoute
@@ -63,43 +66,45 @@ var optionalRoutes = {
     food: {
         name: routes.foodRoute
     },
-    ask: {
-        name: routes.questionRoute,
-        children: [
-            buildChatPostRoute,
-            buildDocumentRoute
-        ]
-    }
+    ask: buildQuestionRoute
 };
 const getters = {
-    currenFlow: state => state.node ? state.node.model.name : "home",
+    currenFlow: state => state.node.model ? state.node.model.name : "home",
+    flowNode: state => state.node.model
 }
 const mutations = {
-    [types.ADD](state, payload) {
+    [FLOW.ADD](state, { result,data}) {
         var flow;
-        if (payload.result === "search") {
-            payload.data.searchType = payload.data.searchType || {};
-            if (payload.data.searchType.key === "Flashcards") {
+        if (result === "search") {
+            data.searchType = data.searchType || {};
+            if (data.searchType.key === "Flashcards") {
                 flow = optionalRoutes.flashcard;
             } else {
                 flow = optionalRoutes.document;
             }
 
         } else {
-            flow = optionalRoutes[payload.result];
+            flow = optionalRoutes[result];
         }
         if (flow) {
-            //state.node = state.flowTree.parse(flow);
             state.node = {
-                model: { ...flow }
+                model: flow
             };
         }
+    },
+    [FLOW.UPDATE_FLOW](state,model){
+        state.node={model};
     }
 };
-
+const actions = {
+    updateFlow(context, flowIndex) {
+        return new Promise((resolve, reject) => {resolve(context.commit(FLOW.UPDATE_FLOW,context.state.node.model.children[flowIndex]))});
+    }
+}
 
 export default {
     state,
     getters,
+    actions,
     mutations
 };
