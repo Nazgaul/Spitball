@@ -21,4 +21,6 @@ export const chatRoute = "chat";
 export const coursesRoute = "course";
 export const likesRoute = "like";
 export const settingsRoute = "setting";
+export const universityRoute = "university";
+export const myCoursesRoute = "myCourses";
 
