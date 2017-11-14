@@ -28,33 +28,7 @@ namespace Cloudents.Infrastructure.Search
             SearchRequestSort sort, GeoPoint location, int page, CancellationToken token)
         {
             return SearchAzureAsync(term, filter, sort, location, page, token);
-            
-            //Task<IEnumerable<TutorDto>> taskTutorMe;
-            //if (filter == SearchRequestFilter.InPerson)
-            //{
-            //    taskTutorMe = Task.FromResult<IEnumerable<TutorDto>>(new List<TutorDto>());
-            //}
-            //else
-            //{
-            //    taskTutorMe = TutorMeApiAsync(term, page, token);
-            //}
-            //await Task.WhenAll(taskAzure, taskTutorMe).ConfigureAwait(false);
-            //return taskAzure.Result.Union(taskTutorMe.Result).OrderByDescending(o => o.TermFound);
         }
-
-        //private async Task<IEnumerable<TutorDto>> TutorMeApiAsync(string term, int page, CancellationToken token)
-        //{
-        //    //https://gist.github.com/barbuza/4b3666fa88cd326f18f2c464c8e4487c
-        //    // page is 12
-
-        //    var nvc = new NameValueCollection
-        //    {
-        //        ["search"] = term,
-        //        ["offset"] = (page * 12).ToString()
-        //    };
-        //    var result = await m_RestClient.GetAsync(new Uri("https://tutorme.com/api/v1/tutors/"), nvc, token).ConfigureAwait(false);
-        //    return m_Mapper.Map<JObject, IEnumerable<TutorDto>>(result, opt => opt.Items["term"] = term);
-        //}
 
         private async Task<IEnumerable<TutorDto>> SearchAzureAsync(string term,
             SearchRequestFilter filter, SearchRequestSort sort,

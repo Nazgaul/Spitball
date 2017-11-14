@@ -158,10 +158,13 @@
     <Compile Include="Converters\PlaceConverter.cs" />
     <Compile Include="Converters\TutorMeConverter.cs" />
     <Compile Include="Data\DapperRepository.cs" />
+    <Compile Include="Data\DocumentRepository.cs" />
     <Compile Include="Data\FlashcardByIdRepository.cs" />
+    <Compile Include="Data\SeoDocumentPage.cs" />
     <Compile Include="Data\SeoDocumentRepository.cs" />
     <Compile Include="Data\SeoFlashcardPage.cs" />
     <Compile Include="Data\SeoItemCountRepository.cs" />
+    <Compile Include="Data\SeoQuizPage.cs" />
     <Compile Include="Data\UniversitySynonymRepository.cs" />
     <Compile Include="Environment.cs" />
     <Compile Include="IpToLocation.cs" />

@@ -86,5 +86,32 @@ namespace Cloudents.Web.Resources {
                 return ResourceManager.GetString("FlashcardTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get class notes for free with Spitball.
+        /// </summary>
+        public static string ItemMetaDescription {
+            get {
+                return ResourceManager.GetString("ItemMetaDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to See how well you are doing in {0} and test yourself with the {1} quiz your classmates have built. Start getting better grades with Spitball!.
+        /// </summary>
+        public static string QuizMetaDescription {
+            get {
+                return ResourceManager.GetString("QuizMetaDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quiz.
+        /// </summary>
+        public static string QuizTitle {
+            get {
+                return ResourceManager.GetString("QuizTitle", resourceCulture);
+            }
+        }
     }
 }

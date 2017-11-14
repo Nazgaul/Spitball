@@ -43,9 +43,12 @@
   <ItemGroup>
     <Compile Include="DTOs\BookSearchDto.cs" />
     <Compile Include="DTOs\CourseDto.cs" />
+    <Compile Include="DTOs\DocumentDto.cs" />
+    <Compile Include="DTOs\DocumentSeoDto.cs" />
     <Compile Include="DTOs\FlashcardSeoDto.cs" />
     <Compile Include="DTOs\IpDto.cs" />
     <Compile Include="DTOs\JobDto.cs" />
+    <Compile Include="DTOs\QuizSeoDto.cs" />
     <Compile Include="DTOs\ResultWithFacetDto.cs" />
     <Compile Include="DTOs\PlaceDto.cs" />
     <Compile Include="DTOs\SiteMapCountDto.cs" />
