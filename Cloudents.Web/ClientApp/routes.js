@@ -61,5 +61,5 @@ export const routes = [
     { path: "/walkthrough", name: "walkthrough", component: walkthrough, meta: { pageName: RouteTypes.settingsRoute, showHeader: true, showSidebar: true }},
     { path: "/aboutUs", name: "aboutUs", component: aboutUs, meta: { pageName: RouteTypes.settingsRoute, showHeader: true, showSidebar: true }},
     { path: "/item/:university/:courseId/:courseName/:id/:itemName", name: "item", component: showItem, props: true, meta: { pageName: RouteTypes.notesRoute, showHeader: true, showSidebar: false } },
-    { path: "/flashcard/:university/:courseId/:courseName/:id/:itemName", name: "flashcard", component: showFlashcard, props: true, meta: { pageName: RouteTypes.coursesRoute, showHeader: true, showSidebar: false } },
+    { path: "/flashcard/:university/:courseId/:courseName/:id/:itemName", name: "flashcard", component: showFlashcard, props: true, meta: { pageName: RouteTypes.flashcardRoute, showHeader: true, showSidebar: false } }
 ];

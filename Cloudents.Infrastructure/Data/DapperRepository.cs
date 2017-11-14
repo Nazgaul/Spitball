@@ -3,11 +3,10 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Infrastructure.Data
 {
-    public class DapperRepository //: IReadRepository
+    public class DapperRepository 
     {
         private readonly string _connectionString;
 

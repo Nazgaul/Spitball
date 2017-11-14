@@ -11,7 +11,7 @@
                 currentIndex: -1,
                 showList: [],
                 slideFront:true
-            }
+            };
         },
         computed: {
             ...mapGetters(['pinnedCards']),
@@ -19,39 +19,38 @@
             isEnded() {
                 let retVal = this.currentIndex == this.showList.length;
                 if (retVal) {
-                    this.showList = this.item.cards.map((item, index) => ({ index, data: item }))
+                    this.showList = this.item.cards.map((item, index) => ({ index, data: item }));
                     this.slideFront = true;
                 }
-                return retVal
+                return retVal;
             },
             currentPinn() { return new Set(this.pinnedCards[this.$attrs.id])},
             currentCard() { if (this.currentIndex > -1 && this.showList && this.currentIndex < this.showList.length) return this.showList[this.currentIndex].data},
             showCards() { return (this.currentCard&&!this.isEnded)}
         },
         created() {
-            this.getPreview({ type: 'flashcard', id: this.id }).then(res => {
+            this.getPreview({ type: 'flashcard', id: this.$attrs.id }).then(res => {
                 this.item = res
                 this.showList = this.item.cards.map((item, index) => ({ index, data: item } ))
             })
             window.addEventListener('keyup', this.handleArrow);
         },
         beforeDestroy(){
-            window.removeEventListener('keyup',this.handleArrow)
+            window.removeEventListener('keyup',this.handleArrow);
         },
         methods: {
             ...mapActions(['getPreview']),
             $_startFlashcards() {
                 this.currentIndex = 0;
                 let list = this.showList;
-                this.showList = this.shuffle ? list.sort(() => Math.random() - 0.5) : list.sort((a,b)=> a.index - b.index)
+                this.showList = this.shuffle ? list.sort(() => Math.random() - 0.5) : list.sort((a,b)=> a.index - b.index);
             },
             $_startPinnsFlashcards() {
-                this.showList = this.showList.filter((i) => this.currentPinn.has(i.index))
+                this.showList = this.showList.filter((i) => this.currentPinn.has(i.index));
                 this.$_startFlashcards();
             },
 
             handleArrow (event){
-                console.log('listenet');
                 if (event.keyCode == 37 && this.currentIndex > 0 && !this.isEnded) this.currentIndex--;
                 else if (this.currentIndex >= 0 && event.keyCode == 39 && !this.isEnded) this.currentIndex++;
             }

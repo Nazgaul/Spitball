@@ -23,14 +23,19 @@ namespace Cloudents.Core.Extension
             foreach (var field in typeof(TEnum).GetFields())
             {
                 if (Attribute.GetCustomAttribute(field,
-                        typeof(ParseAttribute)) is ParseAttribute attribute &&
-                    attribute.Description.Equals(value, StringComparison.InvariantCultureIgnoreCase))
+                        typeof(ParseAttribute)) is ParseAttribute attribute
+                    && attribute.Description.Equals(value, StringComparison.InvariantCultureIgnoreCase))
                 {
                     result = (TEnum)System.Enum.Parse(typeof(TEnum), field.Name);
                     return true;
                 }
             }
             return false;
+        }
+
+        public static string RemoveEndOfString(this string word, int length)
+        {
+            return word?.Substring(0, Math.Min(word.Length, length));
         }
     }
 }

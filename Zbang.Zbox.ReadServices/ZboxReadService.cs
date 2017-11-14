@@ -408,13 +408,12 @@ namespace Zbang.Zbox.ReadServices
                         s.Files = items.Where(w => w.AnswerId == s.Id);
                         return s;
                     });
-                    comments = comments.Select(s =>
+                    return comments.Select(s =>
                     {
                         s.Files = items.Where(w => w.QuestionId == s.Id);
                         s.Replies = replies.Where(w => w.QuestionId == s.Id);
                         return s;
                     });
-                    return comments;
                 }
             }
         }
@@ -1142,24 +1141,6 @@ from zbox.library l join zbox.box b on l.libraryId = b.libraryId where universit
         #endregion
 
         #region Jared
-
-        //public async Task<JaredDto> GetJaredStartupValuesAsync(CancellationToken token)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
-        //    {
-        //        const string actionsText = "select action,text from zbox.jaredText;";
-        //        var command = new CommandDefinition(actionsText,
-        //               cancellationToken: token);
-        //        using (var grid = await conn.QueryMultipleAsync(command).ConfigureAwait(false))
-        //        {
-        //            var groupResult = (await grid.ReadAsync<JaredTextDto>().ConfigureAwait(false)).GroupBy(x => x.Action, x => x.Text);
-        //            return new JaredDto
-        //            {
-        //                ActionsText = groupResult.ToDictionary(x => x.Key, x => x.AsEnumerable())
-        //            };
-        //        }
-        //    }
-        //}
 
         public async Task<Tuple<User.UserDetailDto, IEnumerable<BoxDto>>> GetJaredUserDataAsync(
             QueryBaseUserId query, CancellationToken token)

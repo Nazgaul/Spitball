@@ -126,4 +126,13 @@
   <data name="FlashcardTitle" xml:space="preserve">
     <value>Flashcard</value>
   </data>
+  <data name="ItemMetaDescription" xml:space="preserve">
+    <value>Get class notes for free with Spitball</value>
+  </data>
+  <data name="QuizMetaDescription" xml:space="preserve">
+    <value>See how well you are doing in {0} and test yourself with the {1} quiz your classmates have built. Start getting better grades with Spitball!</value>
+  </data>
+  <data name="QuizTitle" xml:space="preserve">
+    <value>Quiz</value>
+  </data>
 </root>

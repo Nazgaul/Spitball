@@ -43,9 +43,12 @@
   <ItemGroup>
     <Compile Include="DTOs\BookSearchDto.cs" />
     <Compile Include="DTOs\CourseDto.cs" />
+    <Compile Include="DTOs\DocumentDto.cs" />
+    <Compile Include="DTOs\DocumentSeoDto.cs" />
     <Compile Include="DTOs\FlashcardSeoDto.cs" />
     <Compile Include="DTOs\IpDto.cs" />
     <Compile Include="DTOs\JobDto.cs" />
+    <Compile Include="DTOs\QuizSeoDto.cs" />
     <Compile Include="DTOs\ResultWithFacetDto.cs" />
     <Compile Include="DTOs\PlaceDto.cs" />
     <Compile Include="DTOs\SiteMapCountDto.cs" />
@@ -55,7 +58,9 @@
     <Compile Include="DTOs\UniversityDto.cs" />
     <Compile Include="DTOs\UniversitySynonymDto.cs" />
     <Compile Include="DTOs\VideoDto.cs" />
-    <Compile Include="Entities\Search\Tutor.cs" />
+    <Compile Include="Entities\DocumentDb\Card.cs" />
+    <Compile Include="Entities\DocumentDb\CardSlide.cs" />
+    <Compile Include="Entities\DocumentDb\Flashcard.cs" />
     <Compile Include="Enum\AiIntent.cs" />
     <Compile Include="Enum\AIResult.cs" />
     <Compile Include="DTOs\AIDto.cs" />
@@ -91,6 +96,9 @@
     <Compile Include="Request\SearchQuery.cs" />
     <Compile Include="Request\SeoQuery.cs" />
     <Compile Include="TimeConst.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Entities\Search\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -16,13 +16,13 @@ namespace Cloudents.Infrastructure.Search
 {
     public class TutorMeSearch : ITutorProvider
     {
-        private readonly IMapper m_Mapper;
-        private readonly IRestClient m_RestClient;
+        private readonly IMapper _mapper;
+        private readonly IRestClient _restClient;
 
         public TutorMeSearch(IMapper mapper, IRestClient restClient)
         {
-            m_Mapper = mapper;
-            m_RestClient = restClient;
+            _mapper = mapper;
+            _restClient = restClient;
         }
 
 
@@ -32,7 +32,6 @@ namespace Cloudents.Infrastructure.Search
             if (filter == SearchRequestFilter.InPerson)
             {
                 return Task.FromResult(Enumerable.Empty<TutorDto>());
-                //taskTutorMe = Task.FromResult<IEnumerable<TutorDto>>(new List<TutorDto>());
             }
             return TutorMeApiAsync(term, page, token);
         }
@@ -46,8 +45,8 @@ namespace Cloudents.Infrastructure.Search
                 ["search"] = term,
                 ["offset"] = (page * 12).ToString()
             };
-            var result = await m_RestClient.GetJsonAsync(new Uri("https://tutorme.com/api/v1/tutors/"), nvc, token).ConfigureAwait(false);
-            return m_Mapper.Map<JObject, IEnumerable<TutorDto>>(result, opt => opt.Items["term"] = term);
+            var result = await _restClient.GetJsonAsync(new Uri("https://tutorme.com/api/v1/tutors/"), nvc, token).ConfigureAwait(false);
+            return _mapper.Map<JObject, IEnumerable<TutorDto>>(result, opt => opt.Items["term"] = term);
         }
     }
 

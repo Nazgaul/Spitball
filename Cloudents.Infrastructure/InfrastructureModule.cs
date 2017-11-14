@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Reflection;
 using Autofac;
+using Autofac.Core;
 using Autofac.Extras.DynamicProxy;
 using AutoMapper;
 using CacheManager.Core;
-using Castle.DynamicProxy;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.AI;
 using Cloudents.Infrastructure.Cache;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Search;
+using DocumentDB.Repository;
+using Microsoft.Azure.Documents.Client.TransientFaultHandling;
 using Microsoft.Azure.Search;
 using Microsoft.Cognitive.LUIS;
 using Module = Autofac.Module;
@@ -19,22 +20,22 @@ namespace Cloudents.Infrastructure
 {
     public class InfrastructureModule : Module
     {
-        private readonly string m_SqlConnectionString;
-        private readonly string m_SearchServiceName;
-        private readonly string m_SearchServiceKey;
-        private readonly string m_RedisConnectionString;
-        private readonly Environment m_Environment;
+        private readonly string _sqlConnectionString;
+        private readonly string _searchServiceName;
+        private readonly string _searchServiceKey;
+        private readonly string _redisConnectionString;
+        private readonly Environment _environment;
 
         public InfrastructureModule(string sqlConnectionString,
             string searchServiceName,
             string searchServiceKey,
             string redisConnectionString, Environment environment)
         {
-            m_SqlConnectionString = sqlConnectionString;
-            m_SearchServiceName = searchServiceName;
-            m_SearchServiceKey = searchServiceKey;
-            m_RedisConnectionString = redisConnectionString;
-            m_Environment = environment;
+            _sqlConnectionString = sqlConnectionString;
+            _searchServiceName = searchServiceName;
+            _searchServiceKey = searchServiceKey;
+            _redisConnectionString = redisConnectionString;
+            _environment = environment;
         }
 
         protected override void Load(ContainerBuilder builder)
@@ -46,10 +47,21 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<AIDecision>().As<IDecision>();
             builder.RegisterType<UniqueKeyGenerator>().As<IKeyGenerator>();
 
-            builder.Register(c => new DapperRepository(m_SqlConnectionString));
+            builder.Register(c => new DapperRepository(_sqlConnectionString));
             builder.Register(c => new LuisClient("a1a0245f-4cb3-42d6-8bb2-62b6cfe7d5a3", "6effb3962e284a9ba73dfb57fa1cfe40"));
+            builder.Register(c => new DocumentDbInitializer().GetClient("https://zboxnew.documents.azure.com:443/",
+                    "y2v1XQ6WIg81Soasz5YBA7R8fAp52XhJJufNmHy1t7y3YQzpBqbgRnlRPlatGhyGegKdsLq0qFChzOkyQVYdLQ=="))
+                .As<IReliableReadWriteDocumentClient>().SingleInstance();
+
+            builder.RegisterGeneric(typeof(DocumentDbRepository<>))
+                .AsImplementedInterfaces().SingleInstance()
+                .WithParameter("databaseId", "Zbox")
+                .WithParameter(new ResolvedParameter((pi, ctx) => pi.Name == "client",
+                (pi, ctx) => ctx.Resolve<IReliableReadWriteDocumentClient>()
+                ));
+
             builder.Register(c =>
-                new SearchServiceClient(m_SearchServiceName, new SearchCredentials(m_SearchServiceKey)))
+                new SearchServiceClient(_searchServiceName, new SearchCredentials(_searchServiceKey)))
                 .SingleInstance().AsSelf().As<ISearchServiceClient>();
 
             builder.RegisterType(typeof(CacheProvider)).As(typeof(ICacheProvider));
@@ -61,7 +73,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<TutorSearch>().As<ITutorSearch>();
             builder.RegisterType<CourseSearch>().As<ICourseSearch>();
             builder.RegisterType<TutorAzureSearch>().As<ITutorProvider>();
-            if (m_Environment == Environment.Web)
+            if (_environment == Environment.Web)
             {
                 builder.RegisterType<TutorMeSearch>().As<ITutorProvider>();
             }
@@ -93,11 +105,11 @@ namespace Cloudents.Infrastructure
                 settings
                     .WithSystemRuntimeCacheHandle("inProcess")
                     .WithExpiration(ExpirationMode.Absolute, TimeSpan.FromMinutes(10));
-                if (!string.IsNullOrEmpty(m_RedisConnectionString))
+                if (!string.IsNullOrEmpty(_redisConnectionString))
                 {
                     settings.WithJsonSerializer();
 
-                    settings.WithRedisConfiguration("redis", m_RedisConnectionString)
+                    settings.WithRedisConfiguration("redis", _redisConnectionString)
 
                     .WithRedisBackplane("redis").WithRedisCacheHandle("redis");
 
