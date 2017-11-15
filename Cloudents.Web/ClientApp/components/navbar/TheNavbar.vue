@@ -1,5 +1,5 @@
 ﻿<template>
-    <v-navigation-drawer light app clipped permanent class="aside" width="216">
+    <v-navigation-drawer app light clipped permanent   class="aside" width="216">
         <v-list subheader>
                 <v-list-tile v-for="vertical in verticals" :key="vertical.id"  @click="$_updateType(vertical.id)" :class="{'list__tile--active':vertical.id==currentPage}">
                     <v-list-tile-action-text :class="'bg-'+vertical.id" class="vertical-cycle">

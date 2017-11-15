@@ -44,7 +44,7 @@
                         <component :is="name+'-extra'" :place="selectedItem"></component>
                     </slot>
                 </v-flex>
-                <v-flex class="ml-1 mt-1">
+                <v-flex class="ml-1 mt-1 hidden-md">
 
                     <adsense ad-client="ca-pub-1215688692145777"
                              ad-slot="3866041406"
