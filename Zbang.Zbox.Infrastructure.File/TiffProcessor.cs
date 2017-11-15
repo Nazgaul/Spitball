@@ -36,6 +36,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var license = new License();
             license.SetLicense("Aspose.Total.lic");
         }
+
         public override async Task<PreviewResult> ConvertFileToWebsitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
@@ -45,15 +46,11 @@ namespace Zbang.Zbox.Infrastructure.File
                SetLicense();
                blobStr = await BlobProvider.DownloadFileAsync(blobUri, cancelToken).ConfigureAwait(false);
 
-               var tiffImage = (TiffImage)Image.Load(blobStr);
-               return tiffImage;
-
-
+               return (TiffImage)Image.Load(blobStr);
            });
             var blobsNamesInCache = new List<string>();
             var parallelTask = new List<Task>();
             var jpgCreateOptions = new JpegOptions();
-
 
             for (var pageIndex = indexNum; pageIndex < indexNum + 15; pageIndex++)
             {
@@ -66,7 +63,6 @@ namespace Zbang.Zbox.Infrastructure.File
                 }
                 try
                 {
-
                     var activeTiff = await tiff.Value.ConfigureAwait(false);
                     activeTiff.ActiveFrame = activeTiff.Frames[pageIndex];// tiffFrame;
                     //Load Pixels of TiffFrame into an array of Colors
@@ -92,7 +88,6 @@ namespace Zbang.Zbox.Infrastructure.File
                 {
                     break;
                 }
-
             }
             await Task.WhenAll(parallelTask).ConfigureAwait(false);
             if (tiff.IsValueCreated)
@@ -108,7 +103,6 @@ namespace Zbang.Zbox.Infrastructure.File
             return $"{Path.GetFileNameWithoutExtension(blobName)}V4_{index}_{Path.GetExtension(blobName)}.jpg";
         }
 
-
         public static readonly string[] TiffExtensions = { ".tiff", ".tif" };
 
         public override bool CanProcessFile(Uri blobName)
@@ -118,7 +112,6 @@ namespace Zbang.Zbox.Infrastructure.File
                 return TiffExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
             return false;
-
         }
 
         public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
@@ -130,7 +123,6 @@ namespace Zbang.Zbox.Infrastructure.File
                 {
                     return null;
                 }
-
 
                 using (var stream = await BlobProvider.DownloadFileAsync(blobUri, cancelToken).ConfigureAwait(false))
                 {
@@ -155,11 +147,9 @@ namespace Zbang.Zbox.Infrastructure.File
             return null;
         }
 
-
         public override Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             return Task.FromResult<string>(null);
         }
-
     }
 }

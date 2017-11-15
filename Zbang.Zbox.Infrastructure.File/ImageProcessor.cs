@@ -18,6 +18,7 @@ namespace Zbang.Zbox.Infrastructure.File
         {
 
         }
+
         public ImageProcessor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview)
             : base(blobProvider)
         {
@@ -48,9 +49,6 @@ namespace Zbang.Zbox.Infrastructure.File
             return Task.FromResult(new PreviewResult { ViewName = "Image", Content = blobsNamesInCache });
         }
 
-        
-
-
         public static readonly string[] ImageExtensions = { ".jpg", ".gif", ".png", ".jpeg", ".bmp" };
 
         public override bool CanProcessFile(Uri blobName)
@@ -77,7 +75,6 @@ namespace Zbang.Zbox.Infrastructure.File
                         TraceLog.WriteError("image is empty" + blobUri);
                     }
 
-
                     using (var ms = new MemoryStream())
                     {
                         var settings2 = new ResizeSettings
@@ -85,30 +82,22 @@ namespace Zbang.Zbox.Infrastructure.File
                             Format = "jpg"
                         };
                         ImageBuilder.Current.Build(stream, ms, settings2, false);
-                        
+
                         await m_BlobProviderPreview.UploadStreamAsync(previewBlobName, ms, "image/jpeg", cancelToken).ConfigureAwait(false);
                     }
-
                 }
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("PreProcessFile image blobUri: " + blobUri, ex);
-
             }
             return null;
-
-
         }
-
-
 
         public override Task<string> ExtractContentAsync(Uri blobUri,
             CancellationToken cancelToken = default(CancellationToken))
         {
             return Task.FromResult<string>(null);
         }
-
-
     }
 }

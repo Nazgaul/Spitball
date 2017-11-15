@@ -26,8 +26,6 @@ namespace Zbang.Zbox.Infrastructure.File
             return null;
         }
 
-
-
         public override async Task<PreviewResult> ConvertFileToWebsitePreviewAsync(Uri blobUri,
             int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
@@ -39,8 +37,6 @@ namespace Zbang.Zbox.Infrastructure.File
                 return new PreviewResult { Content = blobsNamesInCache };
             }
             var cacheFileName = CreateCacheFileName(blobName);
-
-
 
             if (await m_BlobProviderCache.ExistsAsync(cacheFileName, cancelToken).ConfigureAwait(false))
             {
@@ -59,8 +55,6 @@ namespace Zbang.Zbox.Infrastructure.File
             return new PreviewResult { Content = blobsNamesInCache, ViewName = "Text" };
         }
 
-
-
         public async Task<string> UploadFileToCacheAsync(Stream stream, string cacheFileName)
         {
             if (stream.Length == 0)
@@ -72,12 +66,10 @@ namespace Zbang.Zbox.Infrastructure.File
             return m_BlobProviderCache.GenerateSharedAccessReadPermission(cacheFileName, 30);
         }
 
-
         private static string CreateCacheFileName(string blobName)
         {
             return $"{Path.GetFileNameWithoutExtension(blobName)}V3_{Path.GetExtension(blobName)}.html";
         }
-
 
         public static readonly string[] TxtExtensions = { ".txt", ".cpp", ".c", ".h", ".manifest", ".vcproj", ".java", ".sql", ".cs", ".css", ".less", ".log", ".vpp", ".xaml", ".xml", ".ini", ".suo", ".sln", ".php", ".js", ".config", ".htm", ".svg", ".html" };
         public override bool CanProcessFile(Uri blobName)

@@ -40,16 +40,12 @@ namespace Zbang.Zbox.Infrastructure.File
                 string.Format(ContentFormat, blobUri.AbsoluteUri,previewLink)
             }
             });
-
         }
-
-
 
         public virtual bool CanProcessFile(Uri blobName)
         {
             return !blobName.AbsoluteUri.StartsWith(BlobProvider.StorageContainerUrl);
         }
-
 
         public virtual async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
@@ -90,13 +86,10 @@ namespace Zbang.Zbox.Infrastructure.File
             return null;
         }
 
-
         private static string Md5HashPhpCompliant(string pass)
         {
-
             using (var md5 = new System.Security.Cryptography.MD5CryptoServiceProvider())
             {
-
                 var dataMd5 = md5.ComputeHash(Encoding.UTF8.GetBytes(pass));
                 var sb = new StringBuilder();
 
@@ -107,16 +100,11 @@ namespace Zbang.Zbox.Infrastructure.File
 
                 return sb.ToString();
             }
-
         }
-
-
-
 
         public Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             return Extensions.TaskExtensions.CompletedTaskString;
         }
-
     }
 }

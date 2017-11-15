@@ -31,19 +31,15 @@ namespace Zbang.Zbox.Infrastructure.File
             SetLicense();
         }
 
-
         private static void SetLicense()
         {
             var license = new License();
             license.SetLicense("Aspose.Total.lic");
         }
 
-
-
         public override async Task<PreviewResult> ConvertFileToWebsitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
-
 
             var resolution = new Resolution(150);
             var jpegDevice = new JpegDevice(resolution, 90);
@@ -74,6 +70,7 @@ namespace Zbang.Zbox.Infrastructure.File
             }
             return new PreviewResult { Content = retVal, ViewName = "Image" };
         }
+
         protected static string CreateCacheFileNameAsync(string blobName, int index)
         {
             return
@@ -89,9 +86,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 return PdfExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
             return false;
-
         }
-
 
         public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
@@ -109,13 +104,10 @@ namespace Zbang.Zbox.Infrastructure.File
                             // ReSharper disable once AccessToDisposedClosure
                             jpegDevice.Process(pdfDocument.Pages[1], ms);
                             return ms;
-
                         },
                         // ReSharper disable once AccessToDisposedClosure
                         () => pdfDocument.Pages.Count, CacheVersion, cancelToken).ConfigureAwait(false);
-
                 }
-
             }
             catch (InvalidPdfFileFormatException)
             {
@@ -148,7 +140,6 @@ namespace Zbang.Zbox.Infrastructure.File
                 catch (ArgumentException ex)
                 {
                     m_Logger.Warning($"{nameof(PdfProcessor)} {ex}");
-
                 }
                 catch (EndOfStreamException)
                 {
@@ -156,8 +147,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 }
             }
             var text = textAbsorber.Text;
-            var str = StripUnwantedChars(text);
-            return str;
+            return StripUnwantedChars(text);
         }
 
         public override async Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
@@ -176,11 +166,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 m_Logger.Warning($"{nameof(PdfProcessor)} {blobUri} is invalid pdf");
                 return null;
             }
-
-
         }
-
-
 
     }
 }

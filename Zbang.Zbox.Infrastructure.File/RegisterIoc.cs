@@ -28,10 +28,8 @@ namespace Zbang.Zbox.Infrastructure.File
     //    }
     //}
 
-
     public class FileModule : Module
     {
-
         protected override void Load(ContainerBuilder builder)
         {
             //builder.RegisterType<IFileProcessorFactory, FileProcessorFactory>(LifeTimeManager.Singleton);

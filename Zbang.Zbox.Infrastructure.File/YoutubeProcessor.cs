@@ -54,18 +54,12 @@ namespace Zbang.Zbox.Infrastructure.File
 
             var videoId = match.Groups[1].Value;
             return Task.FromResult(new PreviewResult { Content = new List<string> { string.Format(ContentFormat, 800, 450, videoId) } });
-
         }
-
-
 
         public override bool CanProcessFile(Uri blobName)
         {
-
             return Domains.Any(d => blobName.AbsoluteUri.StartsWith(d, StringComparison.OrdinalIgnoreCase));
-
         }
-
 
         public IEnumerable<string> Domains
         {
@@ -77,7 +71,6 @@ namespace Zbang.Zbox.Infrastructure.File
                 yield return "https://youtu.be";
             }
         }
-
 
         //public Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         //{

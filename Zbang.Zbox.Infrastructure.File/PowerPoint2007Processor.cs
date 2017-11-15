@@ -31,7 +31,6 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override async Task<PreviewResult> ConvertFileToWebsitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
-
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
 
             var ppt = new AsyncLazy<Presentation>(async () =>
@@ -69,7 +68,6 @@ namespace Zbang.Zbox.Infrastructure.File
                 $"{Path.GetFileNameWithoutExtension(blobName)}{CacheVersion}_{index}_{Path.GetExtension(blobName)}.jpg";
         }
 
-
         public static readonly string[] PowerPoint2007Extensions =
         {
           ".ppt",".pot", ".pps", ".pptx", ".potx", ".ppsx", ".odp", ".pptm"
@@ -82,7 +80,6 @@ namespace Zbang.Zbox.Infrastructure.File
                 return PowerPoint2007Extensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
             return false;
-
         }
 
         public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
@@ -101,7 +98,6 @@ namespace Zbang.Zbox.Infrastructure.File
                                 img.Save(ms, ImageFormat.Jpeg);
                                 return ms;
                             }
-
                         }
                         , () => pptx.Slides.Count, CacheVersion, cancelToken).ConfigureAwait(false);
                 }
@@ -112,16 +108,17 @@ namespace Zbang.Zbox.Infrastructure.File
                 return null;
             }
         }
+
         private string ExtractStringFromPpt(Presentation ppt)
         {
             try
             {
                 var sb = new StringBuilder();
 
-                var textFramesSlideOne = SlideUtil.GetAllTextFrames(ppt, false);
+                    
 
                 //Loop through the Array of TextFrames
-                foreach (ITextFrame t in textFramesSlideOne)
+                foreach (ITextFrame t in SlideUtil.GetAllTextFrames(ppt, false))
                     foreach (var para in t.Paragraphs)
                         //Loop through portions in the current Paragraph
                         foreach (var port in para.Portions)
@@ -129,7 +126,6 @@ namespace Zbang.Zbox.Infrastructure.File
                             //Display text in the current portion
                             sb.Append(port.Text);
                         }
-
 
                 return StripUnwantedChars(sb.ToString());
             }
@@ -139,7 +135,6 @@ namespace Zbang.Zbox.Infrastructure.File
                 return string.Empty;
             }
         }
-
 
         public override async Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
@@ -158,6 +153,5 @@ namespace Zbang.Zbox.Infrastructure.File
                 return null;
             }
         }
-
     }
 }

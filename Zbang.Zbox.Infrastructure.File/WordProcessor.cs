@@ -58,6 +58,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
             return new PreviewResult { Content = retVal, ViewName = "Svg" };
         }
+
         protected static string CreateCacheFileName(string blobName, int index)
         {
             return
@@ -91,9 +92,7 @@ namespace Zbang.Zbox.Infrastructure.File
                     word.Save(ms, imgOptions);
                     ms.Seek(0, SeekOrigin.Begin);
                     return ms;
-
                 }, () => word.PageCount, CacheVersion, cancelToken).ConfigureAwait(false);
-
             }
             catch (UnsupportedFileFormatException)
             {
@@ -121,8 +120,6 @@ namespace Zbang.Zbox.Infrastructure.File
             }
         }
 
-
-
         public override async Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             SetLicense();
@@ -138,8 +135,6 @@ namespace Zbang.Zbox.Infrastructure.File
                     return null;
                 }
             }
-            
         }
-
     }
 }

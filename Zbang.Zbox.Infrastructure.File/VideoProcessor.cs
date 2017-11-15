@@ -33,7 +33,6 @@ namespace Zbang.Zbox.Infrastructure.File
             }
             var url = BlobProvider.GenerateSharedAccessReadPermissionInStorage(blobUri, 600);
             return new PreviewResult(string.Format(ContentFormat, url));
-
         }
 
         public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri,
@@ -50,8 +49,6 @@ namespace Zbang.Zbox.Infrastructure.File
             var metaData = new Dictionary<string, string> {[MetadataConst.VideoStatus] = "done" };
             await BlobProvider.SaveMetaDataToBlobAsync(newBlobName, metaData, cancelToken).ConfigureAwait(false);
             return new PreProcessFileResult {BlobName = GetBlobNameFromUri(newBlobName)};
-
-
         }
 
         public static readonly string[] VideoExtensions =
@@ -59,7 +56,6 @@ namespace Zbang.Zbox.Infrastructure.File
             ".3gp", ".3g2", ".3gp2", ".asf", ".mts", ".m2ts", ".mod", ".dv", ".ts", ".vob", ".xesc", ".mp4", ".mpeg",
             ".mpg", ".m2v", ".ismv", ".wmv"
         };
-
 
         public override bool CanProcessFile(Uri blobName)
         {

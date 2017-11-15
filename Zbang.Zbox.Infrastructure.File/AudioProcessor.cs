@@ -12,17 +12,16 @@ namespace Zbang.Zbox.Infrastructure.File
     {
         private const string ContentFormat = "<audio controls=\"controls\"><source src=\"{0}\" type=\"audio/mp3\" /></audio>";
 
-        public AudioProcessor(IBlobProvider blobProvider /*, IBlobProvider2<IStorageContainerName> blobProviderPreview*/)
-            : base(blobProvider /*, blobProviderPreview*/)
+        public AudioProcessor(IBlobProvider blobProvider)
+            : base(blobProvider)
         {
 
         }
+
         public override Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             return PreProcessFileResult.GetEmptyResult;
         }
-
-      
 
         public override Task<PreviewResult> ConvertFileToWebsitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
@@ -41,7 +40,5 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             return Extensions.TaskExtensions.CompletedTaskString;
         }
-
-        
     }
 }

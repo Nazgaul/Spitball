@@ -20,12 +20,12 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override bool CanProcessFile(Uri contentUrl)
         {
-            return contentUrl.AbsoluteUri.ToLower().Contains("google");
+            return contentUrl.AbsoluteUri.IndexOf("google", StringComparison.OrdinalIgnoreCase) >= 0;
         }
+
         public override Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             return Task.FromResult<PreProcessFileResult>(null);
         }
-       
     }
 }

@@ -15,7 +15,7 @@ namespace Zbang.Zbox.Infrastructure.File
     public class ExcelProcessor : DocumentProcessor
     {
         private const string CacheVersion = CacheVersionPrefix + "5";
-        public ExcelProcessor(IBlobProvider blobProvider, 
+        public ExcelProcessor(IBlobProvider blobProvider,
             IBlobProvider2<IPreviewContainer> blobProviderPreview,
             IBlobProvider2<ICacheContainer> blobProviderCache)
             : base(blobProvider, blobProviderPreview, blobProviderCache)
@@ -23,8 +23,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         }
 
-
-        private void ScalePageSetupToFitPage(Worksheet workSheet)
+        private static void ScalePageSetupToFitPage(Worksheet workSheet)
         {
             workSheet.PageSetup.Orientation = PageOrientationType.Landscape;
             workSheet.PageSetup.FitToPagesTall = 1;
@@ -32,14 +31,11 @@ namespace Zbang.Zbox.Infrastructure.File
             workSheet.PageSetup.PaperSize = PaperSizeType.PaperA4;
         }
 
-
         private static void SetLicense()
         {
             var license = new License();
             license.SetLicense("Aspose.Total.lic");
         }
-
-
 
         public override async Task<PreviewResult> ConvertFileToWebsitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
@@ -48,7 +44,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var excel = new AsyncLazy<Workbook>(async () =>
             {
                 SetLicense();
-                using (var sr = await BlobProvider.DownloadFileAsync(blobUri, cancelToken))
+                using (var sr = await BlobProvider.DownloadFileAsync(blobUri, cancelToken).ConfigureAwait(false))
                 {
                     return new Workbook(sr);
                 }
@@ -70,16 +66,14 @@ namespace Zbang.Zbox.Infrastructure.File
                    sr.ToImage(0, ms);
                    return ms;
                }, CacheVersion, "image/jpg", cancelToken
-            );
+            ).ConfigureAwait(false);
             return new PreviewResult { Content = retVal, ViewName = "Image" };
-
         }
 
-        protected string CreateCacheFileName(string blobName, int index)
+        protected static string CreateCacheFileName(string blobName, int index)
         {
-            return string.Format("{0}{3}_{2}_{1}.jpg", Path.GetFileNameWithoutExtension(blobName), Path.GetExtension(blobName), index, CacheVersion);
+            return $"{Path.GetFileNameWithoutExtension(blobName)}{CacheVersion}_{index}_{Path.GetExtension(blobName)}.jpg";
         }
-
 
         public static readonly string[] ExcelExtensions = { ".xls", ".xlsx", ".xlsm", ".xltx", ".ods", ".csv" };
 
@@ -90,14 +84,13 @@ namespace Zbang.Zbox.Infrastructure.File
                 return ExcelExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
             return false;
-
         }
 
         public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             try
             {
-                var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken);
+                var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken).ConfigureAwait(false);
                 SetLicense();
                 var excel = new Workbook(path);
                 var wb = excel.Worksheets[0];
@@ -116,21 +109,18 @@ namespace Zbang.Zbox.Infrastructure.File
                         img.Save(ms, ImageFormat.Jpeg);
                         return ms;
                     }
-                },  () => excel.Worksheets.Count, CacheVersion, cancelToken);
-
+                },  () => excel.Worksheets.Count, CacheVersion, cancelToken).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("PreProcessFile excel", ex);
                 return null;
             }
-
         }
 
         public override Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             return Extensions.TaskExtensions.CompletedTaskString;
         }
-
     }
 }

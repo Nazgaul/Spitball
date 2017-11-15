@@ -9,40 +9,32 @@ using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
-
     public abstract class FileProcessor : ContentProcessor, IContentProcessor
     {
-
         protected const int ThumbnailWidth = 148;
         protected const int ThumbnailHeight = 187;
 
         protected const string CacheVersionPrefix = "V";
         protected const string PagesInDocsMetaKey = "pageCount";
 
-
         protected readonly IBlobProvider BlobProvider;
-
 
         protected FileProcessor(IBlobProvider blobProvider)
         {
             BlobProvider = blobProvider;
         }
 
-
-
-        protected string GetBlobNameFromUri(Uri blobUri)
+        protected static string GetBlobNameFromUri(Uri blobUri)
         {
-            var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
-            return blobName;
+            return blobUri.Segments[blobUri.Segments.Length - 1];
         }
-
 
         public abstract Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken));
 
         public abstract Task<string> ExtractContentAsync(Uri blobUri,
             CancellationToken cancelToken = default(CancellationToken));
 
-        protected string StripUnwantedChars(string input)
+        protected static string StripUnwantedChars(string input)
         {
             if (string.IsNullOrEmpty(input))
             {
@@ -54,7 +46,6 @@ namespace Zbang.Zbox.Infrastructure.File
             string result;
             try
             {
-               
                 var d = sentenceRegex.Matches(input);
                 if (d.Count == 0)
                 {
@@ -65,9 +56,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 }
                 foreach (Match match in d)
                 {
-                    var x = SplitSentence(match.Value);
-
-                    foreach (var t in x)
+                    foreach (var t in SplitSentence(match.Value))
                     {
                         AddSentenceToList(t, pageTexts);
                     }
@@ -78,7 +67,7 @@ namespace Zbang.Zbox.Infrastructure.File
             {
                 result = input;
             }
-            
+
             var eightOrNineDigitsId = new Regex(@"\b\d{8,9}\b", RegexOptions.Compiled);
             result = TextManipulation.SpaceReg.Replace(result, " ");
             result = eightOrNineDigitsId.Replace(result, string.Empty);
@@ -120,7 +109,7 @@ namespace Zbang.Zbox.Infrastructure.File
             await BlobProvider.SaveMetaDataToBlobAsync(blobUri, metaData, token).ConfigureAwait(false);
         }
 
-        protected IDictionary<string, string> RemoveOldMetaTags(IDictionary<string, string> metaTags, string cacheVersionPrefix)
+        protected static IDictionary<string, string> RemoveOldMetaTags(IDictionary<string, string> metaTags, string cacheVersionPrefix)
         {
             var oldElements = metaTags.Where(w =>
                 Regex.IsMatch(w.Key, @"\d") && !w.Key.StartsWith(cacheVersionPrefix)).Select(s => s.Key).ToList();
@@ -141,10 +130,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 metaTags.Remove(cacheVersionPrefix + i);
             }
 
-
             return metaTags;
         }
-
-
     }
 }

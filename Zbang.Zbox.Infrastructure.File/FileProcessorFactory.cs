@@ -16,6 +16,7 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             m_Container = container;
         }
+
         public IContentProcessor GetProcessor<T, TU>(Uri contentUrl)
             where T : IPreviewContainer
             where TU : ICacheContainer
@@ -23,9 +24,9 @@ namespace Zbang.Zbox.Infrastructure.File
             var blob = m_Container.Resolve<IBlobProvider2<T>>();
             var blob2 = m_Container.Resolve<IBlobProvider2<TU>>();
             var processors = m_Container.Resolve<IEnumerable<IContentProcessor>>(
-                new NamedParameter("blobProviderPreview", blob), new NamedParameter("blobProviderCache", blob2));
-            var processor = processors.FirstOrDefault(w => w.CanProcessFile(contentUrl));
-            return processor;
+                new NamedParameter("blobProviderPreview", blob),
+                new NamedParameter("blobProviderCache", blob2));
+            return processors.FirstOrDefault(w => w.CanProcessFile(contentUrl));
         }
 
         public IContentProcessor GetProcessor<T>(Uri contentUrl) where T : IPreviewContainer
@@ -34,8 +35,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var blob2 = m_Container.Resolve<IBlobProvider2<CacheContainerName>>();
             var processors = m_Container.Resolve<IEnumerable<IContentProcessor>>(
                 new NamedParameter("blobProviderPreview", blob), new NamedParameter("blobProviderCache", blob2));
-            var processor = processors.FirstOrDefault(w => w.CanProcessFile(contentUrl));
-            return processor;
+            return processors.FirstOrDefault(w => w.CanProcessFile(contentUrl));
         }
 
         public IContentProcessor GetProcessor(Uri contentUrl)
@@ -52,9 +52,7 @@ namespace Zbang.Zbox.Infrastructure.File
             }
             var processors = m_Container.Resolve<IEnumerable<IContentProcessor>>(
                 new NamedParameter("blobProviderPreview", blob), new NamedParameter("blobProviderCache", blob2));
-            var processor = processors.FirstOrDefault(w => w.CanProcessFile(contentUrl));
-            return processor;
+            return processors.FirstOrDefault(w => w.CanProcessFile(contentUrl));
         }
     }
-
 }

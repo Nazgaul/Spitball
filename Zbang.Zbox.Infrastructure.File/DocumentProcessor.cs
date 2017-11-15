@@ -15,7 +15,6 @@ namespace Zbang.Zbox.Infrastructure.File
         protected readonly IBlobProvider2<IPreviewContainer> BlobProviderPreview;
         protected readonly IBlobProvider2<ICacheContainer> BlobProviderCache;
 
-
         protected DocumentProcessor(
             IBlobProvider blobProvider,
             IBlobProvider2<IPreviewContainer> blobProviderPreview,
@@ -52,7 +51,6 @@ namespace Zbang.Zbox.Infrastructure.File
             }
             await t2.ConfigureAwait(false);
             return null;
-
         }
 
         protected async Task<IEnumerable<string>> UploadPreviewCacheToAzureAsync(Uri blobName,
@@ -100,7 +98,6 @@ namespace Zbang.Zbox.Infrastructure.File
                 {
                     break;
                 }
-
             }
             var t = BlobProvider.SaveMetaDataToBlobAsync(blobName, meta, token);
             var tasks = new List<Task>();
