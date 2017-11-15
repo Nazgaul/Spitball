@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{5DE8FAF5-ED0F-4681-9C50-159B781380D4}"
 EndProject
@@ -94,8 +94,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Cloudents.Images", "Zbang.Cloudents.Images\Zbang.Cloudents.Images.csproj", "{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}"
 EndProject
 Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Zbang.Cloudents.Cloud.Images", "Zbang.Cloudents.Cloud.Images\Zbang.Cloudents.Cloud.Images.ccproj", "{55208D32-DD75-4C47-B692-89620A6A41F1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Cloudents.MobileApp", "Zbang.Cloudents.MobileApp\Zbang.Cloudents.MobileApp.csproj", "{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}"
 EndProject
 Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Zbang.Cloudents.Cloud.Connect", "Zbang.Cloudents.Cloud.Connect\Zbang.Cloudents.Cloud.Connect.ccproj", "{8465361D-A17D-42BF-984C-E793DBFDA7D7}"
 EndProject
@@ -887,31 +885,6 @@ Global
 		{55208D32-DD75-4C47-B692-89620A6A41F1}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{55208D32-DD75-4C47-B692-89620A6A41F1}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
 		{55208D32-DD75-4C47-B692-89620A6A41F1}.SingleImage|x86.ActiveCfg = Release|Any CPU
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}.CD_ROM|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}.CD_ROM|Mixed Platforms.Build.0 = Release|Any CPU
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}.CD_ROM|x86.ActiveCfg = Release|Any CPU
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}.DVD-5|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}.DVD-5|Mixed Platforms.Build.0 = Debug|Any CPU
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}.DVD-5|x86.ActiveCfg = Debug|Any CPU
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}.Release|x86.ActiveCfg = Release|Any CPU
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}.SingleImage|Any CPU.Build.0 = Release|Any CPU
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8}.SingleImage|x86.ActiveCfg = Release|Any CPU
 		{8465361D-A17D-42BF-984C-E793DBFDA7D7}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
 		{8465361D-A17D-42BF-984C-E793DBFDA7D7}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
 		{8465361D-A17D-42BF-984C-E793DBFDA7D7}.CD_ROM|Mixed Platforms.ActiveCfg = Release|Any CPU
@@ -1221,7 +1194,6 @@ Global
 		{DD6289C1-67B6-4E08-A261-40BF46ACBC93} = {B3E23D7B-5670-4C30-85BF-0094713146B2}
 		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
 		{55208D32-DD75-4C47-B692-89620A6A41F1} = {B3E23D7B-5670-4C30-85BF-0094713146B2}
-		{7D17A7EB-864A-4D7D-9135-72CD8E86EEF8} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
 		{8465361D-A17D-42BF-984C-E793DBFDA7D7} = {B3E23D7B-5670-4C30-85BF-0094713146B2}
 		{2337BD52-AA31-4A80-8075-2CFA68DFC684} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
 		{8E505C7F-EF4B-43D1-9906-34823932AAED} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
@@ -1232,9 +1204,9 @@ Global
 		{9EBDEAF7-E562-4547-AB76-E24F27191783} = {5E236067-82C7-4A3C-99D7-F64C95268EDB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.2.1.505.2\lib\NET35;packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45
 		SolutionGuid = {6A41ACFB-B3D1-4E6A-941F-516155ACC34A}
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.2.1.505.2\lib\NET35;packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
