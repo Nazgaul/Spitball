@@ -53,11 +53,5 @@
 <style src="./TheNavbar.less" lang="less" scoped></style>
 <style scoped>
     /*need to override theme*/
-    .navigation-drawer.aside {
-        background: #3293f6;
-    }
-
-    .navigation-drawer {
-        padding: 0;
-    }
+   
 </style>

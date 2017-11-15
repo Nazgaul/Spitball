@@ -5,7 +5,7 @@
             <app-menu v-if="$route.meta.showSidebar" :term="userText"></app-menu>
             <main v-if="$route.meta.showHeader">
                 <v-content>
-                    <v-container fluid>
+                    <v-container fluid class="pa-0">
                         <v-layout>                                                        
                                 <router-view :key="$route.path"></router-view>
                         </v-layout>
@@ -27,6 +27,11 @@
         components: { AppHeader, AppMenu }
     }
 </script>
+<style lang="less" scoped>
+    main {
+        width:100%;
+    }
+</style>
 <!--<style lang="stylus">
     @import './stylus/main'
 </style>-->

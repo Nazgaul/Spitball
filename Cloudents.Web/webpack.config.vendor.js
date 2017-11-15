@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 //require("./ClientApp/main.styl")
 //require('../wwwroot/content/main.less');
+var resolve = (p) => path.resolve(__dirname, p);
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
@@ -30,18 +31,20 @@ module.exports = (env) => {
                 { test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, use: 'url-loader?limit=8192' },
                 {
                     test: /\.styl$/,
-                    use: ExtractTextPlugin.extract({ use: 'css-loader?minimize!stylus-loader' }),
-                    //loader: ['css-loader', 'stylus-loader', {
-                    //    loader: 'vuetify-loader',
-                    //    options: {
-                    //    //    theme: resolve('./ClientApp/theme.styl')
-                    //    }
-                    //}]
+                    loader: isDevBuild ? ['style-loader', 'css-loader', 'stylus-loader', {
+                        loader: 'vuetify-loader',
+                        options: {
+                            theme: resolve('./ClientApp/theme.styl')
+                        }
+                    }] : ExtractTextPlugin.extract({
+                        use: 'css-loader?minimize!stylus-loader'
+
+                    })
                 },
                 {
                     test: /\.less$/,
                     exclude: /ClientApp/,
-                    use: //isDevBuild ? ['style-loader', 'css-loader', "less-loader"]
+                    use: isDevBuild ? ['style-loader', 'css-loader', "less-loader"] :
                          ExtractTextPlugin.extract(
                             {
                                 use: "css-loader?minimize!less-loader",
