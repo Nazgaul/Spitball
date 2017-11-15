@@ -5,6 +5,28 @@
     background:#fff;
 }
 
+
+.application--light .list {
+    background: #fff !important;
+    border-radius: 4px;
+
+    .subheader {
+        color: @Feed-Like-count;
+        letter-spacing: -0.3px;
+        font-size: 18px;
+        line-height: 2.22;
+    }
+
+    .list__tile__title:not(.list__tile--active) {
+        color: @Spitball-Main-color;
+        height:36px;
+        font-size: 18px;
+        line-height: 2;
+        letter-spacing: -0.3px;
+    }
+
+    
+}
 .box-header {
     background: @color-blue url("./img/doodels.png") no-repeat 50% 50%;
     background-size: cover;
@@ -625,119 +647,6 @@ footer {
         }
     }
 
-    /*.animenu {
-        display: block;
-
-        ul {
-            padding: 0;
-            list-style: none;
-            font: 0 'Open Sans', Arial, Helvetica;
-            left: 0;
-            position: absolute;
-            background: #fff;
-            width: 100%;
-            margin-top: 8px;
-        }
-
-        li, a {
-            display: inline-block;
-            font-size: 15px;
-            color: @color-blue !important;
-            line-height: 45px;
-        }
-
-        a {
-            text-decoration: none;
-        }
-    }*/
-
-    // First level -> main menu items
-    // <nav class="animenu">
-    //    <ul class="animenu__nav">
-    //    ...
-    //    </ul>
-    //  </nav>
-    /*.animenu__nav {
-
-        > li {
-            position: relative;
-
-            > a {
-                text-transform: uppercase;
-                // https://bit.ly/SkmL1T & currentColor keyword
-                &:first-child:nth-last-child(2):before {
-                    content: "";
-                    position: absolute;
-                    border: 4px solid transparent;
-                    border-bottom: 0;
-                    border-top-color: currentColor;
-                    top: 50%;
-                    margin-top: -2px;
-                    right: 10px;
-                }
-            }
-
-            &:hover {
-                > ul {
-                    opacity: 1;
-                    visibility: visible;
-                    margin: 0;
-                }
-
-                > a {
-                    color: #fff;
-                }
-            }
-        }
-    }*/
-
-    // Second level
-    // <nav class="animenu">
-    //    <ul class="animenu__nav">
-    //      <li>
-    //        <ul class="animenu__nav__child"></ul>
-    //      </li>
-    //    </ul>
-    //  </nav>
-    /*.animenu__nav__child {
-        min-width: 100%;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        z-index: 1;
-        opacity: 0;
-        visibility: hidden;
-        transition: margin .15s, opacity .15s;
-        width: 100%;
-
-        > li {
-            width: 100%;
-
-            &:first-child::after {
-                content: '';
-                position: absolute;
-                height: 0;
-                width: 0;
-                left: 1em;
-                top: -6px;
-                border: 6px solid transparent;
-                border-top: 0;
-                border-bottom-color: inherit;
-            }
-
-            &:last-child {
-                border: 0;
-            }
-        }
-
-        a {
-            width: 100%;
-
-            &:hover {
-                color: #fff;
-            }
-        }
-    }*/
 
     // The main breakpoint is 767px
     // Adjust the first and second levels display
@@ -746,101 +655,5 @@ footer {
         margin-left: 50px;
     }
 
-    /*.animenu {
-        position: absolute;
-        top: 32px;
-        width: auto;
-        left: 0;
-        right: 15px;
-    }
-
-    .animenu__toggle {
-        display: inline-block;
-    }
-
-    .animenu__nav,
-    .animenu__nav__child {
-        display: none;
-    }*/
-
-    // First level -> main menu items
-    // <nav class="animenu">
-    //    <ul class="animenu__nav">
-    //    ...
-    //    </ul>
-    //  </nav>
-    /*.animenu__nav {
-
-        > li {
-            width: 100%;
-            border-right: 0;
-
-            &:last-child {
-                border: 0;
-            }
-
-            &:first-child:after {
-                color: @color-white;
-                content: '';
-                position: absolute;
-                height: 0;
-                width: 0;
-                left: 1em;
-                top: -6px;
-                border: 6px solid transparent;
-                border-top: 0;
-                border-bottom-color: inherit;
-            }
-
-            > a {
-                width: 100%;
-                position: relative; //dropdown caret
-            }
-        }
-
-        a:hover {
-            color: #fff;
-        }
-    }*/
-
-    // Second level
-    // <nav class="animenu">
-    //    <ul class="animenu__nav">
-    //      <li>
-    //        <ul class="animenu__nav__child"></ul>
-    //      </li>
-    //    </ul>
-    //  </nav>
-    /*.animenu__nav__child {
-        position: static;
-        background-color: @color-white;
-        margin: 0;
-        transition: none;
-        visibility: visible;
-        opacity: 1;
-
-        > li:first-child > a:after {
-            content: none;
-        }
-
-        a {
-            width: 100%;
-        }
-    }*/
+    
 }
-
-// Expanding the animenu
-// <nav class="animenu">
-//    <ul class="animenu__nav animenu__nav--open">
-//      <li>
-//        <ul class="animenu__nav__child"></ul>
-//      </li>
-//    </ul>
-//  </nav>
-/*.animenu__nav--open {
-    display: block !important;
-
-    & .animenu__nav__child {
-        display: block;
-    }
-}*/
