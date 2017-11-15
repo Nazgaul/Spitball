@@ -1,10 +1,13 @@
 ﻿<template>
-    <v-navigation-drawer v-model="open" app light clipped persistent enable-resize-watcher :mobile-break-point="960"  class="aside" width="216">
-        <v-list subheader>
-                <v-list-tile v-for="vertical in verticals" :key="vertical.id"  @click="$_updateType(vertical.id)" :class="{'list__tile--active':vertical.id==currentPage}">
-                    <v-list-tile-action-text :class="'bg-'+vertical.id" class="vertical-cycle">
+    <v-navigation-drawer v-model="open" app light clipped persistent enable-resize-watcher :mobile-break-point="960"  class="sb-aside" width="216">
+        <v-list>
+                <v-list-tile v-for="vertical in verticals" :key="vertical.id" class="mb-2"  @click="$_updateType(vertical.id)" :class="{'list__tile--active':vertical.id==currentPage}">
+                    <!--<v-list-tile-action-text >
+                        
+                    </v-list-tile-action-text>-->
+                    <v-list-tile-avatar :class="'bg-'+vertical.id" class="vertical-cycle">
                         <component class="item" v-bind:is="vertical.image"></component>
-                    </v-list-tile-action-text>
+                    </v-list-tile-avatar>
                     <v-list-tile-content class="ml-2">
                         <v-list-tile-title>{{vertical.name}}</v-list-tile-title>
                     </v-list-tile-content>
@@ -51,8 +54,5 @@
         }
     };
 </script>
-<style src="./TheNavbar.less" lang="less" scoped></style>
-<style scoped>
-    /*need to override theme*/
-   
-</style>
+<style src="./TheNavbar.less" lang="less"></style>
+
