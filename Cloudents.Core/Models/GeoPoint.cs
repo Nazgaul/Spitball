@@ -29,7 +29,7 @@ namespace Cloudents.Core.Models
         }
         public override string ToString()
         {
-            return $"{Longitude},{Longitude}";
+            return $"{Latitude},{Longitude}";
         }
     }
 }

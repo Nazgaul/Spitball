@@ -25,17 +25,21 @@ namespace Cloudents.Web.Filters
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             var cookie = context.HttpContext.Request.Cookies[CookieName];
-
+            
             if (next == null) throw new ArgumentNullException(nameof(next));
             if (context.ActionArguments.TryGetValue(_geoLocationArgumentName, out var b)
-                && b is GeoPoint place)
+                && b is GeoPoint placeLocation)
             {
-                AppendCookie(context, place);
+                AppendCookie(context, placeLocation);
                 await next().ConfigureAwait(false);
                 return;
             }
-            var converter = TypeDescriptor.GetConverter(typeof(GeoPoint)); //cookie
-            place = converter.ConvertFromInvariantString(cookie) as GeoPoint;
+            GeoPoint place = null;
+            if (!string.IsNullOrEmpty(cookie))
+            {
+                var converter = TypeDescriptor.GetConverter(typeof(GeoPoint)); //cookie
+                place = converter.ConvertFromInvariantString(cookie) as GeoPoint;
+            }
             if (place != null)
             {
                 context.ActionArguments[_geoLocationArgumentName] = place;

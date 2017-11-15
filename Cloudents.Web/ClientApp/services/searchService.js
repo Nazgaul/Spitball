@@ -92,17 +92,26 @@ export default {
             });
         },
         food({ term, filter, page: nextPageToken }) {
+           
             return new Promise((resolve, reject) => {
+                function getFood() {
+                    search.getFood({ term, filter, location }).then(({ body }) => resolve({ token: body.token, data: body.data.map(val => { return { ...val, template: "food" } }) }));
+                }
+                console.log("sdkfljsdflk");
                 if (nextPageToken) {
                     search.getFood({ nextPageToken }).then(({ body }) => resolve({ token: body.token, data: body.data.map(val => { return { ...val, template: "food" } }) }));
                 }
                 else if (!location && navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(({ coords }) => {
+                        console.log(coords);
+                        coords = coords || {};
                         location = coords.latitude + ',' + coords.longitude;
-                        search.getFood({ term, filter, location }).then(({ body }) => resolve({ token: body.token, data: body.data.map(val => { return { ...val, template: "food" } }) }));
+                        getFood();
+                    },error => {
+                        getFood();
                     });
                 } else {
-                    search.getFood({ term, filter, location }).then(({ body }) => resolve({ token: body.token, data: body.data.map(val => { return { ...val, template: "food" } }) }));
+                    getFood();
                 }
             });
         }

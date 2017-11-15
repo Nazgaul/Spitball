@@ -29,26 +29,28 @@ module.exports = (env) => {
                 { test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, use: 'url-loader?limit=8192' },
                 {
                     test: /\.styl$/,
-                    loader: isDevBuild ? ['style-loader', 'css-loader', 'stylus-loader', {
-                        loader: 'vuetify-loader',
-                        options: {
-                            theme: resolve('./ClientApp/theme.styl')
-                        }
-                    }] : ExtractTextPlugin.extract({
-                        use: 'css-loader?minimize!stylus-loader'
+                    loader: extractCSS.extract({ use: isDevBuild ? 'css-loader!stylus-loader' : 'css-loader?minimize!stylus-loader' })
+                    //loader: isDevBuild ? ['style-loader', 'css-loader', 'stylus-loader', {
+                    //    loader: 'vuetify-loader',
+                    //    options: {
+                    //        theme: resolve('./ClientApp/theme.styl')
+                    //    }
+                    //}] : ExtractTextPlugin.extract({
+                    //    use: 'css-loader?minimize!stylus-loader'
 
-                    })
+                    //})
                 },
                 {
                     test: /\.less$/,
                     exclude: /ClientApp/,
-                    use: isDevBuild ? ['style-loader', 'css-loader', "less-loader"] :
-                         ExtractTextPlugin.extract(
-                            {
-                                use: "css-loader?minimize!less-loader",
-                                fallback: 'style-loader'
-                            }
-                        )
+                    use: extractCSS.extract({ use: isDevBuild ? 'css-loader!less-loader' : 'css-loader?minimize!less-loader' })
+                 //isDevBuild ? ['style-loader', 'css-loader', "less-loader"] :
+                 //        ExtractTextPlugin.extract(
+                 //           {
+                 //               use: "css-loader?minimize!less-loader",
+                 //               fallback: 'style-loader'
+                 //           }
+                      //  )
 
                 },
             ]

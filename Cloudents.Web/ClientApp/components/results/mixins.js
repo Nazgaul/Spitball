@@ -7,7 +7,7 @@ const ResultPersonalize = () => import('../settings/ResultPersonalize.vue');
 const ResultJob = () => import('./ResultJob.vue');
 import ResultVideo from './ResultVideo.vue'
 import SuggestCard from './suggestCard.vue'
-const ResultFood = () => import('./ResultFood.vue')
+const ResultFood = () => import('./ResultFood.vue');
 const ResultBookPrice = () => import('./ResultBookPrice.vue');
 const foodExtra = () => import('./foodExtra.vue');
 import { mapActions, mapGetters, mapMutations } from 'vuex'
@@ -16,7 +16,7 @@ const sortAndFilterMixin = {
     data() {
         return {
             filter: ''
-        }
+        };
     },
 
     components: { RadioList },
@@ -30,21 +30,21 @@ const sortAndFilterMixin = {
     },
 
     methods: {
-        ...mapMutations(['UPDATE_LOADING']),
+        ...mapMutations(['UPDATE_LOADING'])
     }
 };
 var updateData = function (data) {
     this.content = data;
-    (data.data.length && this.hasExtra) ? this.selectedItem = data.data[0].placeId : ''
-    this.filter = this.filterOptions
+    (data.data.length && this.hasExtra) ? this.selectedItem = data.data[0].placeId : '';
+    this.filter = this.filterOptions;
     this.$nextTick(() => {
         this.UPDATE_LOADING(false);
-    })
-}
+    });
+};
 var updateLuis = function (page) {
     let self = this;
     this.updateLuisAndFetch(page).then((data) => {
-        updateData.call(self,data)
+        updateData.call(self,data);
     }).catch((page)=>{
         alert(`we still don\'t have this page ${page}`);
         this.content = {};
@@ -52,16 +52,16 @@ var updateLuis = function (page) {
         this.items=[];
         this.filter =null;
         this.UPDATE_LOADING(false);
-    })
-}
+    });
+};
 
 export const pageMixin =
     {
         mixins: [sortAndFilterMixin],
         beforeRouteEnter (to, from, next) {
             next((vm)=>{
-                vm.$store.commit('ADD',{result:vm.$route.path.slice(1)})
-            })
+                vm.$store.commit('ADD',{result:vm.$route.path.slice(1)});
+            });
         },
 
         beforeRouteUpdate(to, from, next) {
@@ -73,8 +73,8 @@ export const pageMixin =
                 if (to.query.q && from.query.q && to.query.q === from.query.q) {
                     this.fetchingData({ pageName: to.path.slice(1), queryParams: { ...to.query, ...to.params } })
                         .then((data) => {
-                            updateData.call(this, data)
-                        })
+                            updateData.call(this, data);
+                        });
                 }
                 else {
                     updateLuis.call(this, to);
@@ -86,7 +86,7 @@ export const pageMixin =
             ...mapGetters(['term', 'isFirst','myCourses','flowNode','currenFlow']),
             content: {
                 get() {
-                    return this.pageData
+                    return this.pageData;
                 },
                 set(val) {
                     //for simple filter
@@ -103,7 +103,7 @@ export const pageMixin =
             subFilter: function () { return this.query[this.filterOptions]; },
             subFilters: function () {
                 if (this.filter === 'course') {
-                    return [... this.myCourses, { id: 'addCourse', name: 'Select Course'}]
+                    return [... this.myCourses, { id: 'addCourse', name: 'Select Course'}];
                 }
                 const list = this.pageData[this.filter];
                 return list ? list.map(item => { return { id: item, name: item } }) : [];
@@ -117,7 +117,7 @@ export const pageMixin =
                 isfirst: false,
                 showSearch: false,
                 selectedItem:null
-            }
+            };
         },
 
         components: { foodExtra, ResultItem,SuggestCard, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood,ResultPersonalize },
@@ -126,15 +126,15 @@ export const pageMixin =
             this.isfirst = this.isFirst;
             this.$nextTick(() => {
                 if (this.isFirst) this.updateFirstTime();
-            })
+            });
             this.UPDATE_LOADING(true);
-            updateLuis.call(this,this.$route)
+            updateLuis.call(this,this.$route);
         },
         methods: {
             ...mapActions(['updateLuisAndFetch', 'fetchingData','updateFirstTime','updateFlow']),
             $_changeFilter(filter) {
                 if (this.subFilters.length) {
-                    delete this.query[this.filter]
+                    delete this.query[this.filter];
                 }
                 this.filter = filter;
                 if (!this.subFilters.length) {
@@ -148,8 +148,8 @@ export const pageMixin =
             },
             $_updateCurrentFlow(index){
                 this.updateFlow(index).then(()=>{
-                    this.$router.push({path:'/'+this.currenFlow,query:{q:this.query.q}})
-                })
+                    this.$router.push({path:'/'+this.currenFlow,query:{q:this.query.q}});
+                });
             },
             $_defaultSort(defaultSort) {
                 let sort = this.query.sort ? this.query.sort : defaultSort;
@@ -165,7 +165,7 @@ export const pageMixin =
                     this.showSearch = false;
                     this.$nextTick(() => {
                         this.showSearch = true;
-                    })
+                    });
                     return;
                 }
                 this.$router.push({ query: { ... this.query, ...sub, filter: this.filter } });
@@ -178,14 +178,14 @@ export const detailsMixin = {
     mixins: [sortAndFilterMixin],
     created() {
         this.filter = 'all';
-        this.UPDATE_LOADING(true)
+        this.UPDATE_LOADING(true);
         this.$store.dispatch("bookDetails", { pageName: this.name, params: this.params }).then((res) => {
-            this.pageData = res
-            this.UPDATE_LOADING(false)
-        })
+            this.pageData = res;
+            this.UPDATE_LOADING(false);
+        });
     },
     data() {
-        return { pageData: ''}
+        return { pageData: ''};
     },
     components: { ResultBookPrice, ResultBook},
     computed: {
@@ -193,4 +193,4 @@ export const detailsMixin = {
             return this.filter === 'all' ? this.pageData.data.sort((a, b) => b.price - a.price):this.pageData.data.filter(item => item.condition === this.filter);
         }
     }
-}
+};
