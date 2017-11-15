@@ -1,8 +1,6 @@
 ﻿const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-//require("./ClientApp/main.styl")
-//require('../wwwroot/content/main.less');
 var resolve = (p) => path.resolve(__dirname, p);
 
 module.exports = (env) => {

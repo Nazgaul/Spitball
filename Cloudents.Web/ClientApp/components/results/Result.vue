@@ -4,7 +4,7 @@
         <div class="loader" v-if="isLoading">
             <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
         </div>
-        <v-container v-else>
+        <v-container fluid v-else>
             <v-layout row>
                 <v-flex class="sec-result">
                     <h5>

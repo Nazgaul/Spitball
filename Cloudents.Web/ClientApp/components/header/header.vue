@@ -19,13 +19,13 @@
                        v-model="qFilter" ref="search">
             </form>
 
-            <div class="line"></div>
+            <!--<div class="line"></div>
             <div class="notification pt-2">
                 <v-badge right overlap>
                     <span slot="badge">1</span>
                     <notification-icon></notification-icon>
                 </v-badge>
-            </div>
+            </div>-->
         </v-layout>
     </v-toolbar>
 </template>
