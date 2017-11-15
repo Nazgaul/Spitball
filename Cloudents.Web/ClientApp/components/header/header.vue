@@ -1,6 +1,10 @@
 ﻿<template>
     <v-toolbar app clipped-left fixed class="header" >
         <v-layout row fill-height class="first-header ma-0">
+            <!--@click.stop="primaryDrawer.model = !primaryDrawer.model"-->
+            <v-toolbar-side-icon class="hidden-md-and-up" @click.stop="menuToggle">
+                <hamburger></hamburger>
+            </v-toolbar-side-icon>
             <router-link :to="{name:'home'}" class="logo-link pt-2">
                 <logo class="logo"></logo>
             </router-link>

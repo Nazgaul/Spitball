@@ -9,6 +9,7 @@ import foodHeader from '../navbar/images/food.svg'
 // import settingHeader from '../navbar/images/'
 import searchTypes from './../helpers/radioList.vue'
 import searchIcon from './Images/search-icon.svg';
+import hamburger from './Images/hamburger.svg';
 import { mapActions} from 'vuex'
 import { verticalsPlaceholders as placeholders, names } from '../data'
 import logo from '../../../wwwroot/Images/logo-spitball.svg';
@@ -28,7 +29,8 @@ export default {
         logo,
         "notification-icon" : notification,
         "search-icon": searchIcon,
-        "bookDetailsHeader":bookHeader
+        "bookDetailsHeader": bookHeader,
+        hamburger
     },
     data() {
         return {
@@ -39,21 +41,21 @@ export default {
             qFilter: this.$route.query.q,
             isOptions: false,
             snackbar:true
-        }
+        };
     },
 
     computed: {
         name: function () {
             let currentPage = this.$route.meta.pageName ? this.$route.meta.pageName : this.$route.path.split('/')[1];
-            if (this.currentName != currentPage) {
+            if (this.currentName !== currentPage) {
                 this.currentName = currentPage;
                     if (this.$route.query.q) {
                         this.qFilter = this.$route.query.q;
                         this.$emit('update:userText', this.qFilter);
                     }
                 }
-                return this.currentName
-            }
+                return this.currentName;
+        }
     },
 
     methods: {
@@ -64,6 +66,10 @@ export default {
                 this.$emit('update:userText', this.qFilter);
             });
             this.$emit('update:overlay', false);
+        },
+        menuToggle: function() {
+            console.log("here")
+
         }
     }
 }

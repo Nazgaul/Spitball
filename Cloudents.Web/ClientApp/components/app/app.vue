@@ -23,11 +23,4 @@
         components: { AppHeader, AppMenu }
     }
 </script>
-<style lang="less" scoped>
-    main {
-        width: 100%;
-    }
-</style>
-<!--<style lang="stylus">
-    @import './stylus/main'
-</style>-->
+

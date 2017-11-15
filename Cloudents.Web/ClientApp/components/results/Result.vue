@@ -1,5 +1,5 @@
 ﻿<template>
-    <v-flex offset-xs1 class="mt-5">
+    <v-flex offset-lg1 class="mt-5">
         <result-personalize v-show="isfirst" :show="showSearch" v-if="isfirst||showCourses"></result-personalize>
         <div class="loader" v-if="isLoading">
             <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
@@ -44,7 +44,7 @@
                         <component :is="name+'-extra'" :place="selectedItem"></component>
                     </slot>
                 </v-flex>
-                <v-flex class="ml-1 mt-1 hidden-md">
+                <v-flex class="ml-1 mt-1 hidden-md-only hidden-xs-only">
 
                     <adsense ad-client="ca-pub-1215688692145777"
                              ad-slot="3866041406"
