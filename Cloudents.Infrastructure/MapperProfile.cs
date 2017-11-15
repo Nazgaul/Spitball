@@ -30,11 +30,9 @@ namespace Cloudents.Infrastructure
             CreateMap<DocumentSearchResult<Search.Entities.Job>, ResultWithFacetDto<JobDto>>()
                 .ConvertUsing<JobResultConverter>();
 
-
             CreateMap<Search.Entities.Job, JobDto>();
             CreateMap<Search.Entities.Course, CourseDto>();
             CreateMap<Search.Entities.University, UniversityDto>();
-
 
             CreateMap<JObject, IEnumerable<BookSearchDto>>().ConvertUsing((jo, bookSearch, c) => jo["response"]["page"]["books"]?["book"]?.Select(json => c.Mapper.Map<JToken, BookSearchDto>(json)));
             CreateMap<JToken, BookSearchDto>().ConvertUsing((jo) => new BookSearchDto
@@ -52,8 +50,6 @@ namespace Cloudents.Infrastructure
             CreateMap<JObject, (string, IEnumerable<PlaceDto>)>().ConvertUsing<PlaceConverter>();
             CreateMap<JObject, IEnumerable<TutorDto>>().ConvertUsing<TutorMeConverter>();
             CreateMap<string, IpDto>().ConvertUsing<IpConverter>();
-
-            
         }
     }
 }

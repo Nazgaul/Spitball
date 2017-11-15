@@ -74,8 +74,7 @@ namespace Zbang.Zbox.Infrastructure.File
             result = new string(result.Where(w => char.IsLetterOrDigit(w) || char.IsWhiteSpace(w)).ToArray());
             //result = result.Replace("\0", string.Empty);
             result = result.Replace("בס\"ד", string.Empty);
-            result = result.Replace("find more resources at oneclass.com", string.Empty);
-            return result;
+            return result.Replace("find more resources at oneclass.com", string.Empty);
         }
 
         private static IEnumerable<string> SplitSentence(string input)

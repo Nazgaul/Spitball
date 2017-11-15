@@ -25,7 +25,6 @@ namespace Cloudents.Infrastructure.Search
             _restClient = restClient;
         }
 
-
         public Task<IEnumerable<TutorDto>> SearchAsync(string term, SearchRequestFilter filter,
             SearchRequestSort sort, GeoPoint location, int page, CancellationToken token)
         {
@@ -49,6 +48,4 @@ namespace Cloudents.Infrastructure.Search
             return _mapper.Map<JObject, IEnumerable<TutorDto>>(result, opt => opt.Items["term"] = term);
         }
     }
-
-   
 }

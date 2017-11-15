@@ -11,14 +11,12 @@ namespace Cloudents.Core.DTOs
         public string Edition { get; set; }
         public string Binding { get; set; }
         public string Image { get; set; }
-       
     }
 
     public class BookDetailsDto
     {
         public BookSearchDto Details { get; set; }
         public IEnumerable<BookPricesDto> Prices { get; set; }
-
     }
 
     public class BookPricesDto

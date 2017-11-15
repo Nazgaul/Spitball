@@ -53,8 +53,8 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override bool CanProcessFile(Uri blobName)
         {
-            return blobName.AbsoluteUri.StartsWith(BlobProvider.StorageContainerUrl) &&
-                   ImageExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
+            return blobName.AbsoluteUri.StartsWith(BlobProvider.StorageContainerUrl)
+                   && ImageExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
         }
 
         public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri,

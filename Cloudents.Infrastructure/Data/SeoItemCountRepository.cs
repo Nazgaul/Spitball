@@ -22,7 +22,6 @@ namespace Cloudents.Infrastructure.Data
 
         public async Task<IEnumerable<SiteMapCountDto>> GetAsync(CancellationToken token)
         {
-            
             var data = await _repository.WithConnectionAsync(c =>
                 c.QueryFirstOrDefaultAsync(
                     new CommandDefinition(@"WITH item as (

@@ -9,7 +9,6 @@ namespace Cloudents.Core.Interfaces
 {
     public interface IJobSearch
     {
-
         Task<ResultWithFacetDto<JobDto>> SearchAsync(string term,
             SearchRequestFilter filter,
             SearchRequestSort sort,

@@ -15,12 +15,12 @@ namespace Zbang.Cloudents.Jared.Controllers
     public class SearchController : ApiController
     {
         private readonly IReadRepositoryAsync<UniversitySynonymDto, long> m_UniversitySynonymRepository;
-        private readonly Lazy<IDocumentSearch> m_SearchProvider;
+        private readonly Lazy<IDocumentCseSearch> m_SearchProvider;
         private readonly Lazy<IFlashcardSearch> m_FlashcardProvider;
         private readonly Lazy<IQuestionSearch> m_QuestionProvider;
 
         public SearchController(IReadRepositoryAsync<UniversitySynonymDto, long> universitySynonymRepository,
-            Lazy<IDocumentSearch> searchProvider, Lazy<IFlashcardSearch> flashcardProvider,
+            Lazy<IDocumentCseSearch> searchProvider, Lazy<IFlashcardSearch> flashcardProvider,
             Lazy<IQuestionSearch> questionProvider)
         {
             m_UniversitySynonymRepository = universitySynonymRepository;

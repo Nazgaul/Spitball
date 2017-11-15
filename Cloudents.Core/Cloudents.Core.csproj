@@ -80,6 +80,7 @@
     <Compile Include="Interfaces\IBookSearch.cs" />
     <Compile Include="Interfaces\ICacheProvider.cs" />
     <Compile Include="Interfaces\ICourseSearch.cs" />
+    <Compile Include="Interfaces\IDocumentCseSearch.cs" />
     <Compile Include="Interfaces\IDocumentSearch.cs" />
     <Compile Include="Interfaces\IFlashcardSearch.cs" />
     <Compile Include="Interfaces\IIpToLocation.cs" />

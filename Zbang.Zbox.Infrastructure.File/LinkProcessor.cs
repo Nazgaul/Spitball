@@ -53,7 +53,7 @@ namespace Zbang.Zbox.Infrastructure.File
             const string url2PngPrivateKey = "S_B085D82FEC756";
 
             var url = WebUtility.UrlEncode(blobUri.AbsoluteUri);
-            if (url != null && url.Length > 260) //The fully qualified file name must be less than 260 characters, and the directory name must be less than 248 characters.
+            if (url?.Length > 260) //The fully qualified file name must be less than 260 characters, and the directory name must be less than 248 characters.
             {
                 return null;
             }

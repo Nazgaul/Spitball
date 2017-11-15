@@ -12,11 +12,9 @@ namespace Cloudents.Infrastructure.Search.Entities
         [Key]
         public string Id { get; set; }
 
-
         [IsSearchable]
         [JsonProperty("Name2")]
         public string Name { get; set; }
-
 
        // [IsSearchable]
         //[JsonProperty("Professor2")]
@@ -44,6 +42,5 @@ namespace Cloudents.Infrastructure.Search.Entities
        // public int? MembersCount { get; set; }
         //public int? ItemsCount { get; set; }
 
-       
     }
 }

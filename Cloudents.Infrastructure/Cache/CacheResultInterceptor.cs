@@ -102,8 +102,6 @@ namespace Cloudents.Infrastructure.Cache
             if (isAsync && typeof(Task).IsAssignableFrom(method.ReturnType))
             {
                 invocation.ReturnValue = InterceptAsync(key, cacheAttr, (dynamic)invocation.ReturnValue);
-
-
             }
         }
     }

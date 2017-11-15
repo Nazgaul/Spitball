@@ -27,7 +27,6 @@ namespace Cloudents.Infrastructure
             var uri = new Uri($"http://freegeoip.net/json/{address}");
             var str = await m_RestClient.GetAsync(uri, null, token).ConfigureAwait(false);
             return m_Mapper.Map<IpDto>(str);
-
         }
     }
 }

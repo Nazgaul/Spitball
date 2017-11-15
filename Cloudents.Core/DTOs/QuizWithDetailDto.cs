@@ -20,6 +20,5 @@ namespace Cloudents.Core.DTOs
         public int NumberOfViews { get; set; }
 
         public IEnumerable<QuizQuestionWithDetailDto> Questions { get; set; }
-
     }
 }

@@ -110,8 +110,7 @@ namespace Zbang.Zbox.Infrastructure.File
             try
             {
                 var str = doc.ToString(SaveFormat.Text);
-                str = StripUnwantedChars(str);
-                return str;
+                return StripUnwantedChars(str);
             }
             catch (Exception ex)
             {

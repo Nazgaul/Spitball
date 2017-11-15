@@ -21,7 +21,7 @@ namespace Cloudents.Web.Api
 
         [Route("documents")]
         public async Task<IActionResult> SearchDocumentAsync([FromQuery] SearchRequest model,
-            CancellationToken token, [FromServices] IDocumentSearch searchProvider)
+            CancellationToken token, [FromServices] IDocumentCseSearch searchProvider)
         {
             string universitySynonym = null;
             if (model.University.HasValue)

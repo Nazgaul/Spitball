@@ -28,7 +28,6 @@ namespace Cloudents.Infrastructure.Search
         [Cache(TimeConst.Day, "book")]
         public async Task<IEnumerable<BookSearchDto>> SearchAsync(string term, int imageWidth, int page, CancellationToken token)
         {
-            
             var nvc = new NameValueCollection
             {
                 ["key"] = Key,

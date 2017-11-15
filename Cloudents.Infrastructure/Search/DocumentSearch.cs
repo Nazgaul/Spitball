@@ -1,55 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Request;
+using Cloudents.Infrastructure.Search.Entities;
+using Microsoft.Azure.Search;
+using Microsoft.Rest.Azure;
 
 namespace Cloudents.Infrastructure.Search
 {
     public class DocumentSearch : IDocumentSearch
     {
-        private readonly ICseSearch m_Search;
+        private readonly ISearchIndexClient _client;
 
-        public DocumentSearch(ICseSearch search)
+        public DocumentSearch(SearchServiceClient client)
         {
-            m_Search = search;
+            _client = client.Indexes.GetClient("item3");
         }
 
-        public async Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, CancellationToken token)
+        public async Task<string> ItemContentAsync(long itemId, CancellationToken cancelToken)
         {
-            var term = new List<string>();
-
-            term.AddNotNull(model.UniversitySynonym);
-            term.AddNotNull(model.Course, s => '"' + s + '"');
-            if (model.Query != null)
+            try
             {
-                term.Add(string.Join(" ", model.Query.Select(s => '"' + s + '"')));
+                var item =
+                    await
+                        _client.Documents.GetAsync<Document>
+                        (itemId.ToString(CultureInfo.InvariantCulture),
+                            new[] { "content" }, cancellationToken: cancelToken).ConfigureAwait(false);
+                return item.Content;
             }
-
-            var result = Enumerable.Range(model.Page * 3, 3).Select(s => m_Search.DoSearchAsync(string.Join(" ", term), model.Source, s, model.Sort,
-                CustomApiKey.Documents,
-                token)).ToList();
-            await Task.WhenAll(result).ConfigureAwait(false);
-            return new ResultWithFacetDto<SearchResult>
+            //item may not exists in the search....
+            catch (CloudException)
             {
-                Result = result.Where(s => s.Result != null).SelectMany(s => s.Result),
-                Facet = new[]
-                {
-                    "uloop.com",
-                    "spitball.co",
-                    "studysoup.com",
-                    "coursehero.com",
-                    "cliffsnotes.com",
-                    "oneclass.com",
-                    "koofers.com",
-                    "studylib.net"
-                }
-            };
+                return null;
+            }
         }
     }
 }

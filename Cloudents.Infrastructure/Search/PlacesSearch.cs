@@ -65,9 +65,7 @@ namespace Cloudents.Infrastructure.Search
                 ["key"] = Key,
                 ["pagetoken"] = nextPageToken
             };
-
         }
-
 
         public async Task<PlaceDto> SearchAsync(string term, CancellationToken token)
         {

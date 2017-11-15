@@ -14,7 +14,6 @@ namespace Cloudents.Infrastructure.Converters
     {
         public IpDto Convert(string source, IpDto destination, ResolutionContext context)
         {
-
             return JsonConvert.DeserializeObject<IpDto>(source,
                 new JsonSerializerSettings()
                 {
@@ -25,7 +24,7 @@ namespace Cloudents.Infrastructure.Converters
             //    City = source["city"].Value<string>(),
             //    CountryCode = source["country_code"].Value<string>(),
             //    CountryName = source["country_name"].Value<string>()
-            
+
             //}
             //throw new NotImplementedException();
         }

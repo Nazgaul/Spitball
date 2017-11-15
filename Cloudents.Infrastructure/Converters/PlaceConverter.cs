@@ -12,8 +12,6 @@ namespace Cloudents.Infrastructure.Converters
 {
     public class PlaceConverter : ITypeConverter<JObject, (string, IEnumerable<PlaceDto>)>
     {
-
-
         public (string, IEnumerable<PlaceDto>) Convert(JObject source, (string, IEnumerable<PlaceDto>) destination, ResolutionContext context)
         {
             var retVal = source["results"].Select(json =>

@@ -67,7 +67,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType(typeof(CacheProvider)).As(typeof(ICacheProvider));
             builder.RegisterType<CseSearch>().As<ICseSearch>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
-            builder.RegisterType<DocumentSearch>().As<IDocumentSearch>();
+            builder.RegisterType<DocumentCseSearch>().As<IDocumentCseSearch>();
             builder.RegisterType<FlashcardSearch>().As<IFlashcardSearch>();
             builder.RegisterType<QuestionSearch>().As<IQuestionSearch>();
             builder.RegisterType<TutorSearch>().As<ITutorSearch>();
@@ -87,6 +87,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<PlacesSearch>().As<IPlacesSearch>();
             builder.RegisterType<UniversitySearch>().As<IUniversitySearch>();
             builder.RegisterType<IpToLocation>().As<IIpToLocation>();
+            builder.RegisterType<DocumentSearch>().AsImplementedInterfaces();
 
             //builder.RegisterType<UniversitySynonymRepository>().As<IReadRepositorySingle<UniversitySynonymDto, long>>();
             //builder.RegisterType<UniversitySynonymRepository>().As<IReadRepositorySingle<UniversitySynonymDto, long>>();
@@ -112,9 +113,7 @@ namespace Cloudents.Infrastructure
                     settings.WithRedisConfiguration("redis", _redisConnectionString)
 
                     .WithRedisBackplane("redis").WithRedisCacheHandle("redis");
-
                 }
-
             });
             builder.RegisterGeneric(typeof(BaseCacheManager<>))
                 .WithParameters(new[]
@@ -127,12 +126,7 @@ namespace Cloudents.Infrastructure
 
         private static MapperConfiguration MapperConfiguration()
         {
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile<MapperProfile>();
-
-            });
-            return config;
+            return new MapperConfiguration(cfg => cfg.AddProfile<MapperProfile>());
         }
     }
 }
