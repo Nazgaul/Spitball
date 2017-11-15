@@ -33,17 +33,19 @@
     }
 
     .chip {
-        background: transparent;
+        background: #fff;
         color: @Spitball-Main-color;
         border: 1px solid @Spitball-Main-color;
         border-radius: 10px;
-        letter-spacing: -0.2px;
-        font-size: 12px;
+        letter-spacing: -0.3px;
+        //font-size: 12px;
+        text-transform:capitalize;
+        padding:0 24px;
 
         &.chip--selected {
-            background: #fff;
+            color: #fff;
             border: 0;
-            color: @Spitball-Main-color; //override
+            background: @Spitball-Main-color; //override
         }
     }
 
