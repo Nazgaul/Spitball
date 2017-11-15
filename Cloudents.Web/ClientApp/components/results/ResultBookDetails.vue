@@ -1,10 +1,10 @@
 ﻿<template>
     <v-flex offset-xs1>
+        <!--TODO: this is not good. should be in application level.-->
         <div class="loader" v-if="isLoading">
             <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
         </div>
         <div class="sec-result" v-else>
-
                 <h5>{{pageData.details.title}}</h5>
                 <result-book :item="pageData.details" :isDetails="true"></result-book>
                 <v-container grid-list-md>

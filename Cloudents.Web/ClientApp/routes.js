@@ -43,12 +43,25 @@ export const routes = [
 
     {
         path: "/result", name: "result", alias: [
-            '/' + RouteTypes.questionRoute, '/' + RouteTypes.flashcardRoute,
-            '/' + RouteTypes.notesRoute, '/' + RouteTypes.tutorRoute, '/' + RouteTypes.bookRoute,
-            '/' + RouteTypes.jobRoute, '/' + RouteTypes.foodRoute
+            '/' + RouteTypes.questionRoute,
+            '/' + RouteTypes.flashcardRoute,
+            '/' + RouteTypes.notesRoute,
+            '/' + RouteTypes.tutorRoute,
+            '/' + RouteTypes.bookRoute,
+            '/' + RouteTypes.jobRoute,
+            '/' + RouteTypes.foodRoute
         ], components: resultPage, props: resultProps, meta: {showHeader:true,showSidebar:true}
     },
-    { path: "/book/:type/:id", name: RouteTypes.bookDetailsRoute, components: bookDetailsPage, props: bookDetailsProps, meta: { pageName: 'book',showHeader: true, showSidebar: true } },
+    {
+        path: "/book/:type/:id",
+        name: RouteTypes.bookDetailsRoute,
+        components: bookDetailsPage,
+        props: bookDetailsProps,
+        meta: {
+            pageName: 'book',
+            showHeader: true, showSidebar: true
+        }
+    },
     {
         path: "/not-found", name: "notFound", components: notFoundPage, alias: [
             '/' + RouteTypes.postRoute, '/' + RouteTypes.uploadRoute, '/' + RouteTypes.chatRoute,         
