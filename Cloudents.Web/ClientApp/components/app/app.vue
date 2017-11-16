@@ -2,10 +2,10 @@
     <v-app>
         <app-header v-if="$route.meta.showHeader" :userText.sync="userText"></app-header>
         <app-menu v-if="$route.meta.showSidebar" :term="userText"></app-menu>
-        <div v-if="isLoading" class="loader">
+        <div v-show="loading" class="loader">
             <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
         </div>
-        <router-view v-else></router-view>
+        <router-view v-show="!loading"></router-view>
     </v-app>
 </template>
 <script>
@@ -17,7 +17,7 @@
             return { userText: this.$route.query.q }
         },
         computed:{
-          ...mapGetters(['isLoading'])
+          ...mapGetters(['loading'])
         },
         components: { AppHeader, AppMenu }
     }
