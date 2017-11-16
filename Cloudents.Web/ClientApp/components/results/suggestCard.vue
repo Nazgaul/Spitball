@@ -1,5 +1,5 @@
 <template functional>
-    <button type="button" class="suggest elevation-1">
+    <button type="button" class="suggest">
         <v-container >
             <v-layout row>
                 <v-flex>

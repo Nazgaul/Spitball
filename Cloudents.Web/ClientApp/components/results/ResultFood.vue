@@ -1,6 +1,6 @@
 ﻿<template v-once>
    
-    <div class="elevation-1 d-block pa-2 place-cell" @click="showMap=!showMap">
+    <div class="d-block pa-2 place-cell" @click="showMap=!showMap">
         <v-container class="pa-0">
             <v-layout row>
                 <div class="img-wrap">

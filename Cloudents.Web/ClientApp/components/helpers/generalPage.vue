@@ -15,10 +15,9 @@
             <v-layout row>
                 <v-flex class="sec-result">
                     <slot name="data">
-
                     </slot>
                 </v-flex>
-                <slot name="adsense"><v-flex class="ml-1 mt-1 hidden-md-only hidden-xs-only">
+                <slot name="adsense"><v-flex class="ml-2 hidden-md-only hidden-xs-only">
 
                     <adsense ad-client="ca-pub-1215688692145777"
                              ad-slot="3866041406"
@@ -34,3 +33,4 @@
         </v-container>
     </v-flex></v-layout></v-container></v-content>
 </template>
+<style lang="less" src="./generalPage.less"></style>

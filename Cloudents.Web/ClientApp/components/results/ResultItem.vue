@@ -1,5 +1,5 @@
 ﻿<template>
-    <a class="elevation-1 d-block" target="_blank" :href="url" @click="(isSpitball?$_spitball($event):'')">
+    <a class="d-block" target="_blank" :href="url" @click="(isSpitball?$_spitball($event):'')">
         <v-container class="pa-2">
             <v-layout row fluid>
                 <v-flex class="img-wrap mr-2 pa-0" :class="['border-'+$route.path.slice(1)]">

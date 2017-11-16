@@ -1,5 +1,5 @@
 ﻿<template v-once>
-    <a class="elevation-1 d-block pa-2 job-cell" target="_blank" :href="item.url">
+    <a class="d-block pa-2 job-cell" target="_blank" :href="item.url">
         <div class="cell-title mb-1">{{item.title}}</div>
         <div class="desc">
             <div class="mb-2">Job description:</div>
