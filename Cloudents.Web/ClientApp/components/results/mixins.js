@@ -23,7 +23,6 @@ const sortAndFilterMixin = {
     components: { RadioList,GeneralPage },
 
     computed: {
-        isLoading: function () { return this.$store.getters.loading },
         page: function () { return page[this.name] }
     },
     props: {

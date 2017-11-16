@@ -1,5 +1,5 @@
 ﻿<template>
-   <general-page :isLoading="isLoading" :title="titleText">
+   <general-page :title="titleText">
        <result-personalize v-show="isfirst" :show="showSearch" v-if="isfirst||showCourses"></result-personalize>
        <!--<h5 slot="title">-->
            <!--<span v-if="isEmpty" class="empty" v-html="page.emptyText.replace('$subject', term)"></span>-->
