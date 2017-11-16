@@ -1,23 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Cloudents.Infrastructure;
-using Cloudents.Infrastructure.Data;
-using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
 
 namespace Cloudents.Web
 {
@@ -33,9 +27,9 @@ namespace Cloudents.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddMvc()
-                
                 .AddJsonOptions(options =>
             {
                 options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
@@ -44,6 +38,10 @@ namespace Cloudents.Web
                 {
                     DateTimeStyles = System.Globalization.DateTimeStyles.AssumeUniversal
                 });
+            });
+            services.Configure<MvcOptions>(options =>
+            {
+                options.Filters.Add(new RequireHttpsAttribute());
             });
             services.AddResponseCompression();
             services.AddResponseCaching();
@@ -83,10 +81,12 @@ namespace Cloudents.Web
                     HotModuleReplacement = true
                 });
             }
-            //else
-            //{
-            //     app.UseExceptionHandler("Home/Error");
-            //}
+            else
+            {
+
+                //     app.UseExceptionHandler("Home/Error");
+            }
+            app.UseRewriter(new RewriteOptions().AddRedirectToHttpsPermanent());
 
             app.UseResponseCompression();
             app.UseResponseCaching();
