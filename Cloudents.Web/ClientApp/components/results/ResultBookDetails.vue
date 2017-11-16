@@ -1,23 +1,18 @@
 ﻿<template>
-    <v-flex offset-xs1>
-        <!--TODO: this is not good. should be in application level.-->
-        <div class="loader" v-if="isLoading">
-            <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
-        </div>
-        <div class="sec-result" v-else>
-                <h5>{{pageData.details.title}}</h5>
-                <result-book :item="pageData.details" :isDetails="true"></result-book>
-                <v-container grid-list-md>
-                    <v-layout row wrap>
-                        <v-flex>
-                            <radio-list class="search" :values="page.filter" v-model="filter" :value="filterOptions"></radio-list>
-                        </v-flex>
-                        <v-flex>
-                            <radio-list v-if="page.sort" :values="page.sort" model="sort" class="search sort" value="price"></radio-list>
-                        </v-flex>
-                    </v-layout>
-                </v-container>
-                <v-list>
+    <general-page :title="(pageData.details?pageData.details.title:'')"  :isLoading="isLoading">
+
+                <v-list slot="data" v-if="pageData">
+                    <result-book :item="pageData.details" :isDetails="true"></result-book>
+                    <v-container grid-list-md>
+                        <v-layout row wrap>
+                            <v-flex>
+                                <radio-list class="search" :values="page.filter" v-model="filter" :value="filterOptions"></radio-list>
+                            </v-flex>
+                            <v-flex>
+                                <radio-list v-if="page.sort" :values="page.sort" model="sort" class="search sort" value="price"></radio-list>
+                            </v-flex>
+                        </v-layout>
+                    </v-container>
                     <template v-for="(item,index) in filteredList">
                         <v-list-tile>
                             <v-list-tile-content>
@@ -29,8 +24,8 @@
                         <v-divider v-if="(index< filteredList.length - 1)"></v-divider>
                     </template>
                 </v-list>
-            </div>
-        </v-flex>
+
+    </general-page>
 </template>
 <script>
     import { detailsMixin } from './mixins'

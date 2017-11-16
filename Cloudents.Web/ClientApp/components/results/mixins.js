@@ -1,5 +1,6 @@
 ﻿import { page } from './../data'
 import RadioList from './../helpers/radioList.vue';
+import GeneralPage from './../helpers/generalPage.vue'
 const ResultItem = () => import('./ResultItem.vue');
 const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
@@ -19,7 +20,7 @@ const sortAndFilterMixin = {
         };
     },
 
-    components: { RadioList },
+    components: { RadioList,GeneralPage },
 
     computed: {
         isLoading: function () { return this.$store.getters.loading },
