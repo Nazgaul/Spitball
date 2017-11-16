@@ -5,7 +5,7 @@ export let verticals =
     {
         ask: {
             id: routes.questionRoute,
-            name: "ask",
+            name: "Ask a Question",
             image: "ask",
             placeholder: "Ask anything...",
             resultTitle: { short: "I’ve come to the conclusion that the answer is:", normal: "I found a few things that I think are relevant. Check these out."},
@@ -15,7 +15,7 @@ export let verticals =
         note: {
             id: routes.notesRoute,
 
-            name: "Class Material", image: "document", placeholder: "Find me class material...",
+            name: "Study Documents", image: "document", placeholder: "Find me class material...",
             resultTitle: "I found some documents that might help.<br>See what you think!",
             emptyState: "Darn, I wasn't able to find any documents.<br>Try these other options.",
             filter: [{ id: 'all', name: 'all' },
@@ -60,7 +60,7 @@ export let verticals =
         food: {
             id: routes.foodRoute,
 
-            name: "Food",
+            name: "Food and Deals",
             image: "food",
             placeholder: "Where can I get...",
             resultTitle: "Booya! I found a few places that<br>you might like.", emptyState: "Sorry, friend! I could not find anywhere nearby that sells $subject", filter: [{ id: 'all', name: 'all' }, { id: 'openNow', name: 'open now' }], sort: [{ id: 'distance', name: 'distance' }]
