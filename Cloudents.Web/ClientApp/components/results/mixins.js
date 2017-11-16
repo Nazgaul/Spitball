@@ -34,6 +34,7 @@ const sortAndFilterMixin = {
     }
 };
 var updateData = function (data) {
+    this.pageData={};
     this.content = data;
     (data.data.length && this.hasExtra) ? this.selectedItem = data.data[0].placeId : '';
     this.filter = this.filterOptions;
@@ -65,21 +66,13 @@ export const pageMixin =
         },
 
         beforeRouteUpdate(to, from, next) {
-            
+            console.log('route update');
             // just use `this`
-            if (to.path == from.path) {
-
-                this.UPDATE_LOADING(true);
-                if (to.query.q && from.query.q && to.query.q === from.query.q) {
-                    this.fetchingData({ pageName: to.path.slice(1), queryParams: { ...to.query, ...to.params } })
-                        .then((data) => {
-                            updateData.call(this, data);
-                        });
-                }
-                else {
-                    updateLuis.call(this, to);
-                }
-            }
+            this.UPDATE_LOADING(true);
+            this.fetchingData({ pageName: to.path.slice(1), queryParams: { ...to.query, ...to.params } })
+                .then((data) => {
+                    updateData.call(this, data);
+                });
             next();
         },
         computed: {
@@ -89,7 +82,6 @@ export const pageMixin =
                     return this.pageData;
                 },
                 set(val) {
-                    //for simple filter
                     if (val) {
                         this.pageData = val;
                         this.items = val.data;

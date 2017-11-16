@@ -71,7 +71,8 @@ export default {
                 search.getTutor({ term, filter, sort, location, page }).then(({ body }) => resolve({ data: body.map(val => { return { ...val, template: "tutor" } }) }));
             });
         },
-        job({ term, filter, sort, location, jobType }) {
+        job({ term, filter, sort, location, jobType,page }) {
+            if(page)return Promise.resolve({data:{}});
             return new Promise((resolve, reject) => {
                 search.getJob({ term, filter, sort, location, facet: jobType }).then(({ body }) => resolve({ jobType: body.facet, data: body.result.map(val => { return { ...val, template: "job" } }) }));
             });
