@@ -7,7 +7,7 @@
        <v-container class="pa-0 mb-3" slot="options">
            <v-layout row>
                <radio-list class="search" :values="page.filter" @click="$_changeFilter" model="filter" :value="filterOptions"></radio-list>
-               <div class="s-divider"></div>
+               <!--<div class="s-divider"></div>-->
                <radio-list v-if="page.sort" :values="page.sort" @click="$_updateSort" model="sort" class="search sort" :value="$_defaultSort(page.sort[0].id)"></radio-list>
            </v-layout>
            <radio-list :values="subFilters" @click="$_changeSubFilter" class="sub-search" model="subFilter" :value="subFilter"></radio-list>

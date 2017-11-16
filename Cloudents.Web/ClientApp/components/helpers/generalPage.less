@@ -5,7 +5,6 @@
 
 .sec-result {
     //@cell-width: 504px;
-
     max-width: 504px;
 
     .cell {
@@ -21,12 +20,39 @@
         color: @Spitball-Text;
     }
 
+    .sort-filter {
+        overflow: auto;
+        white-space: nowrap;
+        //transform: rotate(-90deg) translateY(-100px);
+        //transform-origin: right top;
+
+        ::-webkit-scrollbar-button {
+            width: 2px;
+            height: 2px;
+        }
+
+        > span {
+            display: inline-block;
+            //transform: rotate(90deg);
+            //transform-origin: right top;
+        }
+
+        > span:first-child {
+            border-right: solid 1px @Spitball-Main-color;
+            padding-right: 6px;
+        }
+
+        > span:last-child {
+            padding-left: 6px;
+        }
+    }
     /*.s-divider {
         width: 0px;
+        display:inline-block;
         border-left: solid 1px @Spitball-Main-color;
-        margin: 4px 6px;
+        margin: 0px 6px;
+        height:100%;
     }*/
-
     /*.chip {
         background: #fff;
         color: @Spitball-Main-color;
@@ -43,7 +69,6 @@
             background: @Spitball-Main-color; //override
         }
     }*/
-
     /*.sub-search {
         overflow: auto;
         white-space: nowrap;
@@ -58,7 +83,6 @@
             }
         }
     }*/
-
     /*.full-height {
         height: 100%;
     }*/
