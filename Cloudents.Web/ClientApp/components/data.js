@@ -83,41 +83,6 @@ export let names = [];
 export let page = [];
 export let verticalsNavbar=[];
 
-// export let verticalsNavbar = [
-//             {
-//                 id: verticals[routes.questionRoute].id,
-//                 name: verticals[routes.questionRoute].name,
-//                 image: verticals[routes.questionRoute].image
-//             },
-//             {
-//                 id: verticals[routes.notesRoute].id,
-//                 name: verticals[routes.notesRoute].name,
-//                 image: verticals[routes.notesRoute].image
-//             },
-//             {
-//                 id: verticals[routes.flashcardRoute].id,
-//                 name: verticals[routes.flashcardRoute].name,
-//                 image: verticals[routes.flashcardRoute].image
-//             },
-//             {
-//                 id: verticals[routes.tutorRoute].id,
-//                 name: verticals[routes.tutorRoute].name,
-//                 image: verticals[routes.tutorRoute].image
-//             },
-//             { id: verticals[routes.jobRoute].id, name: verticals[routes.jobRoute].name, image: verticals[routes.jobRoute].image },
-//             { id: verticals[routes.bookRoute].id, name: verticals[routes.bookRoute].name, image: verticals[routes.bookRoute].image },
-//             {
-//                 id: verticals[routes.foodRoute].id,
-//                 name: verticals[routes.foodRoute].name,
-//                 image: verticals[routes.foodRoute].image
-//             },
-//             {
-//                 id: routes.settingsRoute,
-//                 name: "Settings",
-//                 image: "setting" //missing
-//             }
-// ];
-
 for (var v in verticals) {
     var item = verticals[v];
     names.push({ 'id': item.id, 'name': item.name });

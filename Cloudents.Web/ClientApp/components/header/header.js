@@ -6,7 +6,6 @@ import noteHeader from '../navbar/images/document.svg'
 import tutorHeader from '../navbar/images/tutor.svg'
 import settingHeader from '../navbar/images/setting.svg'
 import foodHeader from '../navbar/images/food.svg'
-// import settingHeader from '../navbar/images/'
 import searchTypes from './../helpers/radioList.vue'
 import searchIcon from './Images/search-icon.svg';
 import hamburger from './Images/hamburger.svg';

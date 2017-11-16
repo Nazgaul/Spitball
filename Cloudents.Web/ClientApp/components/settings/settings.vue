@@ -1,8 +1,6 @@
 ﻿<template>
-    <v-container class="pa-0">
-        <v-layout row>
-            <h5>Settings</h5>
-            <v-list class="pt-0 pb-0">
+    <general-page title="Settings" :isLoading="false">
+            <v-list slot="data">
                 <template v-for="(item,index) in menuData">
                     <v-list-tile :to="{name:item.id}">
                         <v-list-tile-action>
@@ -18,18 +16,7 @@
                     <v-divider></v-divider>
                 </template>
             </v-list>
-            <div class="pa-2" style="width:320px; height:240px;" >
-                <img src="http://lorempixel.com/320/240/" />
-                <img src="http://lorempixel.com/320/240/" />
-
-                <adsense ad-client="ca-pub-1215688692145777"
-                         ad-slot="3866041406"
-                         ad-style="display: block; width:320px; height:240px;"
-                         ad-format="auto">
-                </adsense>
-            </div>
-        </v-layout>
-    </v-container>
+    </general-page>
 </template>
 <script>
     import AboutUsIcon from './svg/about-us-icon.svg'
@@ -37,11 +24,12 @@
     import MyCoursesIcon from './svg/my-courses-icon.svg'
     import  UniversityIcon from './svg/university-icon.svg'
     import WalkthroughIcon from './svg/walkthrough.svg'
+    import GeneralPage from './../helpers/generalPage.vue'
     import {settingMenu} from './consts'
     import { mapActions,mapGetters } from 'vuex'
     import VDivider from "vuetify/src/components/VDivider/VDivider";
     export default {
-        components: {VDivider,AboutUsIcon,ArrowButtonIcon,MyCoursesIcon,UniversityIcon,WalkthroughIcon},
+        components: {VDivider,AboutUsIcon,ArrowButtonIcon,MyCoursesIcon,UniversityIcon,WalkthroughIcon,GeneralPage},
         data(){
             return{
                 menuData:settingMenu
