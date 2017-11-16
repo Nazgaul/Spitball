@@ -9,15 +9,15 @@ export let verticals =
             image: "ask",
             placeholder: "Ask anything...",
             resultTitle: { short: "I’ve come to the conclusion that the answer is:", normal: "I found a few things that I think are relevant. Check these out."},
-            emptyState: "I could not find any relevant answers.<br>Try these other options.",
+            emptyState: "I could not find any relevant answers.Try these other options.",
             sort: ""
         },
         note: {
             id: routes.notesRoute,
 
             name: "Class Material", image: "document", placeholder: "Find me class material...",
-            resultTitle: "I found some documents that might help.<br>See what you think!",
-            emptyState: "Darn, I wasn't able to find any documents.<br>Try these other options.",
+            resultTitle: "I found some documents that might help.See what you think!",
+            emptyState: "Darn, I wasn't able to find any documents.Try these other options.",
             filter: [{ id: 'all', name: 'all' },
                 { id: 'source', name: 'sources' }, {id:'course',name:"My Courses"}], sort: [{ id: 'relevance', name: 'relevance' },
                 { id: 'date', name: 'date' }]
@@ -26,7 +26,7 @@ export let verticals =
             id: routes.flashcardRoute,
 
             name: "Flashcards", image: "flashcard", placeholder: "Find me flashcards...",
-            resultTitle: "Oh look - I found some flashcards for you.<br>Test yourself!",
+            resultTitle: "Oh look - I found some flashcards for you.Test yourself!",
             emptyState: "Sorry, I did not find any quiz results...",
             filter: [{ id: 'all', name: 'all' }, { id: 'source', name: 'sources' }],
             sort: [{ id: 'relevance', name: 'relevance' }, { id: 'date', name: 'date' }]
@@ -63,7 +63,7 @@ export let verticals =
             name: "Food",
             image: "food",
             placeholder: "Where can I get...",
-            resultTitle: "Booya! I found a few places that<br>you might like.", emptyState: "Sorry, friend! I could not find anywhere nearby that sells $subject", filter: [{ id: 'all', name: 'all' }, { id: 'openNow', name: 'open now' }], sort: [{ id: 'distance', name: 'distance' }]
+            resultTitle: "Booya! I found a few places that.you might like.", emptyState: "Sorry, friend! I could not find anywhere nearby that sells $subject", filter: [{ id: 'all', name: 'all' }, { id: 'openNow', name: 'open now' }], sort: [{ id: 'distance', name: 'distance' }]
         }
        
     };

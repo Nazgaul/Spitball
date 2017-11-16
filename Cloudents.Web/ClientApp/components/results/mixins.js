@@ -98,8 +98,9 @@ export const pageMixin =
                 }
             },
             showCourses() { return this.page.filter?new Set(this.page.filter.map((i)=>i.id)).has('course'):false},
-            titleText: function () { return (this.name != 'ask')?this.page.title : this.dynamicHeader ? this.page.title.short :  this.page.title.normal},
-            dynamicHeader: function () { return this.pageData.title },
+            titleText: function () {
+                if(this.isEmpty)return this.page.emptyText.replace('$subject', this.term);
+                return (this.name !== 'ask')?this.page.title : this.dynamicHeader ? this.page.title.short+ this.pageData.title :  this.page.title.normal},
             isEmpty: function () { return this.pageData.data ? !this.pageData.data.length : true },
             subFilter: function () { return this.query[this.filterOptions]; },
             subFilters: function () {
