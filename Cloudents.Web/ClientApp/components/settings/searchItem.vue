@@ -1,7 +1,7 @@
 ﻿<template>
     <div class="pa-4">
         <v-text-field 
-                      label="Search" @input="$_search" debounce="500" 
+                      label="Search" @input="$_search" v-debounce="500"
                       class="input-group--focused"
                       single-line></v-text-field>
         <slot name="options">
@@ -31,6 +31,7 @@
     </div>
 </template>
 <script>
+    import debounce from 'v-debounce'
     const RadioList = () => import('./../helpers/radioList.vue');
     const plusButton = () => import('./svg/plus-button.svg');
     import { emptyStates, filtersAction } from './consts'
@@ -42,6 +43,9 @@
         model: {
             prop: 'value',
             event: 'selected'
+        },
+        directives: {
+            debounce
         },
         computed: {
             ...mapGetters(['myCoursesId']),
@@ -74,12 +78,12 @@
         methods: {
             $_search(val) {
                 if (!val.length || val.length > 3) {
-                    this.isLoading = true;
-                    this.$store.dispatch(this.searchApi, {term: val }).then(({ body }) => {
-                        this.items = body;
-                        this.filteredItems = body;
-                        this.isLoading=false
-                    })
+                        this.isLoading = true;
+                        this.$store.dispatch(this.searchApi, {term: val}).then(({body}) => {
+                            this.items = body;
+                            this.filteredItems = body;
+                            this.isLoading = false
+                        })
                 }              
             },
             $_selected(val) {

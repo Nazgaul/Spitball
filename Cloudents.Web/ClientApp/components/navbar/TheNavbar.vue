@@ -25,13 +25,13 @@
     import job from './images/job.svg';
     import food from './images/food.svg';
     import tutor from './images/tutor.svg';
-    import courses from './images/courses.svg';
+    import setting from './images/setting.svg';
     import { verticalsNavbar as verticals } from '../data.js';
     import {mapMutations} from 'vuex'
 
     export default {
         components: {
-            ask, book, document, flashcard, job, food, tutor,courses
+            ask, book, document, flashcard, job, food, tutor,setting
         },
         data() {
             return {
