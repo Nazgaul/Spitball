@@ -1,4 +1,4 @@
-<template functional>
+<template>
     <button type="button" class="suggest">
         <v-container >
             <v-layout row>
@@ -8,7 +8,7 @@
                     </div>
                 </v-flex>
                 <v-flex class="text">
-                    I found some sweet {{props.name}} for you.  You can thank me later:)
+                    I found some sweet for you.  You can thank me later:)
                 </v-flex>
             </v-layout>
         </v-container>
