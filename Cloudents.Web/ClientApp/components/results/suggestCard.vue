@@ -39,8 +39,7 @@
     }
 
     svg {
-      //  width: 49px;
-      //  height: 28px;
+        height: 28px;
     }
     .text {
         display: flex;
