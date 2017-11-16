@@ -13,8 +13,16 @@ import instegramIcon from "./svg/instagram-icon.svg";
 import menuIcon from "./svg/menu-icon.svg";
 import { verticalsPlaceholders as askPlaceholder } from "./../data";
 
-let homeSuggest = ['Find me flashcards for financial accounting', 'Find me class material for Calculus', 'When did World War 2 end?',
-    'Difference between meiosis and mitosis']
+let homeSuggest = [
+    'Flashcards for financial accounting',
+    'Class notes for my Calculus class',
+    'When did World War 2 end?',
+    'Difference between meiosis and mitosis',
+    'Tutor for Linear Algebra',
+    'Job in marketing in NYC',
+    'The textbook - Accounting: Tools for Decision Making',
+    'Where can I get a burger near campus?'
+];
 export default {
     components: {
         "mic-icon": micIcon, "search-icon": searchIcon,
@@ -32,7 +40,6 @@ export default {
         return {
             placeholder: askPlaceholder.ask,
             items: homeSuggest,
-            showOptions: false,
             msg: '',
             drawer: null,
             links: [
@@ -72,9 +79,6 @@ export default {
             this.$store.dispatch('updateSearchText', this.msg ).then((name) => {
                 this.$router.push({ path:'/'+name, query: {q:this.msg} });
             });;
-        },
-        $_focus() {
-            this.showOptions = true;
         },
         selectos(item) {
             this.msg = item;

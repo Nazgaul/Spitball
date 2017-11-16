@@ -16,7 +16,7 @@
             </v-list>
         </v-navigation-drawer>
         <div class="box-header">
-            <v-container fluid @click="showOptions=false">
+            <v-container fluid>
                 <header>
                     <v-toolbar flat style="background-color:transparent;">
                         <v-toolbar-side-icon @click.stop="drawer = !drawer" class="hidden-md-and-up"><menu-icon></menu-icon></v-toolbar-side-icon>
@@ -29,32 +29,47 @@
 
                 <div class="box-small-container" @click.stop="">
                     <div class="box-inner-header">
-                        <img  src="./img/logo-spitball.png"  width="227" height="54">
+                        <img src="./img/logo-spitball.png" width="227" height="54">
 
                         <div class="box-search mb-3">
+
                             <form id="labnol" method="get" v-on:submit.prevent="search">
-                                <div class="speech">
-                                    <input autocomplete="off" type="text" required name="q" id="transcript" v-model.trim="msg" @focus="$_focus()"  :placeholder="placeholder">
-                                    <button type="button" v-if="voiceEnable" class="demo-icon-mic" @click="$_voiceDetection"><mic-icon></mic-icon></button>
-                                    <button type="submit"><search-icon></search-icon> Send</button>
-                                </div>
+                                <!--<div class="speech">-->
+                                <v-container>
+                                    <v-layout row>
+                                        <v-flex class="tx-input">
+                                            <v-menu offset-y full-width>
+                                                <input slot="activator" autocomplete="off" type="text" required name="q" id="transcript" v-model.trim="msg" :placeholder="placeholder">
+                                                <v-list>
+                                                    <v-subheader>Some things you can ask me:</v-subheader>
+                                                    <template v-for="(item, index) in items">
+                                                        <v-list-tile @click="selectos(item)" :key="index">
+                                                            <v-list-tile-action>
+                                                                -
+                                                            </v-list-tile-action>
+                                                            <v-list-tile-content>
+                                                                <v-list-tile-title v-text="item"></v-list-tile-title>
+                                                            </v-list-tile-content>
+                                                        </v-list-tile>
+                                                    </template>
+                                                </v-list>
+                                            </v-menu>
+                                        </v-flex>
+                                        <v-flex class="mic" v-if="voiceEnable">
+                                            <button type="button"  class="demo-icon-mic" @click="$_voiceDetection"><mic-icon></mic-icon></button>
+                                            
+                                        </v-flex>
+                                        <v-flex class="f-submit">
+                                            <button type="submit"><search-icon></search-icon> Send</button>
+                                        </v-flex>
+                                    </v-layout>
+                                </v-container>
+                                    
+                                   
+                                <!--</div>-->
                             </form>
                         </div>
-                        <div v-show="showOptions">
-                            <v-list>
-                                <v-subheader>Some things you can ask me:</v-subheader>
-                                <template v-for="(item, index) in items">
-                                    <v-list-tile @click="selectos(item)" :key="index">
-                                        <v-list-tile-action>
-                                            -
-                                        </v-list-tile-action>
-                                        <v-list-tile-content>
-                                            <v-list-tile-title v-text="item"></v-list-tile-title>
-                                        </v-list-tile-content>
-                                    </v-list-tile>
-                                </template>
-                            </v-list>
-                        </div>
+                       
                     </div>
                 </div>
             </v-container>

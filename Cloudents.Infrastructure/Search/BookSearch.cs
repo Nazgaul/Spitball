@@ -14,15 +14,15 @@ namespace Cloudents.Infrastructure.Search
 {
     public class BookSearch : IBookSearch
     {
-        private readonly IMapper m_Mapper;
-        private readonly IRestClient m_RestClient;
+        private readonly IMapper _mapper;
+        private readonly IRestClient _restClient;
 
         private const string Key = "sP8C5AHcdiT0tsMsotT";
 
         public BookSearch(IMapper mapper, IRestClient restClient)
         {
-            m_Mapper = mapper;
-            m_RestClient = restClient;
+            _mapper = mapper;
+            _restClient = restClient;
         }
 
         [Cache(TimeConst.Day, "book")]
@@ -37,8 +37,8 @@ namespace Cloudents.Infrastructure.Search
                 ["image_width"] = imageWidth.ToString(),
                 ["format"] = "json"
             };
-            var result = await m_RestClient.GetJsonAsync(new Uri("http://api2.campusbooks.com/13/rest/books"), nvc, token).ConfigureAwait(false);
-            return m_Mapper.Map<JObject, IEnumerable<BookSearchDto>>(result);
+            var result = await _restClient.GetJsonAsync(new Uri("https://api2.campusbooks.com/13/rest/books"), nvc, token).ConfigureAwait(false);
+            return _mapper.Map<JObject, IEnumerable<BookSearchDto>>(result);
         }
 
         public Task<BookDetailsDto> BuyAsync(string isbn13, int imageWidth, CancellationToken token)
@@ -60,8 +60,8 @@ namespace Cloudents.Infrastructure.Search
                 ["type"] = sell ? "buyback" : "Buy"
             };
             //http://api2.campusbooks.com/13/rest/books?key=sP8C5AHcdiT0tsMsotT&f=search,prices&format=json&isbn=9780446556224&type=buyback
-            var result = await m_RestClient.GetJsonAsync(new Uri("http://api2.campusbooks.com/13/rest/books"), nvc, token).ConfigureAwait(false);
-            return m_Mapper.Map<JObject, BookDetailsDto>(result);
+            var result = await _restClient.GetJsonAsync(new Uri("https://api2.campusbooks.com/13/rest/books"), nvc, token).ConfigureAwait(false);
+            return _mapper.Map<JObject, BookDetailsDto>(result);
         }
 
         public Task<BookDetailsDto> SellAsync(string isbn13, int imageWidth, CancellationToken token)

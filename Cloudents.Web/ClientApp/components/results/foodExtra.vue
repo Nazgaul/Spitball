@@ -1,7 +1,6 @@
 ﻿<template>
-    <iframe width="600" 
-            height="450"
-            frameborder="0" class="pa-2 pl-5 offset-xs3 flex" style="position:fixed"
+    <iframe 
+            frameborder="0" class="pa-2 pl-5 flex"
             :src="url" allowfullscreen></iframe>
 
 </template>

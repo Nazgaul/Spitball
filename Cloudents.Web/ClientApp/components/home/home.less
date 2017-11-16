@@ -5,7 +5,19 @@
     background:#fff;
 }
 
+.tx-input {
+    flex-grow:1;
+    input {
+        width:100%;
+    }
+}
 
+.mic {
+    .flexSameSize();
+}
+.f-submit {
+    .flexSameSize();
+}
 .application--light .list {
     background: #fff !important;
     border-radius: 4px;
@@ -19,13 +31,11 @@
 
     .list__tile__title:not(.list__tile--active) {
         color: @Spitball-Main-color;
-        height:36px;
+        height: 36px;
         font-size: 18px;
         line-height: 2;
         letter-spacing: -0.3px;
     }
-
-    
 }
 .box-header {
     background: @color-blue url("./img/doodels.png") no-repeat 50% 50%;
@@ -100,8 +110,8 @@
         background: #fff;
         color: @color-blue;
         .rounded-all(4px);
-        padding: 0 60px 0 20px;
-        width: calc(~'100% - 180px');
+        padding: 0 20px 0;
+       // width: calc(~'100% - 180px');
     }
 
     input:focus {
@@ -140,7 +150,7 @@
         padding: 0;
         position: absolute;
         right: 200px;
-        top: 16px;
+        top: 34px;
         line-height: 48px;
 
         &:hover {

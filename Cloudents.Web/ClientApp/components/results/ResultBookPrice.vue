@@ -8,7 +8,9 @@
             <v-flex xs4 class="black--text">
                 {{item.condition}}
             </v-flex>
-            <v-flex xs4 class="price">${{item.price}}</v-flex>
+            <v-flex xs4 class="price">
+                ${{item.price}}
+            </v-flex>
         </v-layout>
     </a>
 </template>
@@ -18,11 +20,11 @@
     }
 </script>
 <style scoped>
-    .price {
+    /*.price {
         width: 88px;
         height: 24px;
         border-radius: 2px;
         background-color: #ebbc18;
         text-align: center;
-    }
+    }*/
 </style>

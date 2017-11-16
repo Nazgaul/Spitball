@@ -8,10 +8,10 @@ const ResultJob = () => import('./ResultJob.vue');
 import ResultVideo from './ResultVideo.vue'
 import SuggestCard from './suggestCard.vue'
 const ResultFood = () => import('./ResultFood.vue');
-const ResultBookPrice = () => import('./ResultBookPrice.vue');
+//const ResultBookPrice = () => import('./ResultBookPrice.vue');
 const foodExtra = () => import('./foodExtra.vue');
 import { mapActions, mapGetters, mapMutations } from 'vuex'
-const sortAndFilterMixin = {
+export const sortAndFilterMixin = {
    
     data() {
         return {
@@ -133,11 +133,11 @@ export const pageMixin =
                     this.$router.push({ query: { ... this.query, filter } });
                 }
             },
-            $_showSuggest(index) {
-                return (this.flowNode && this.flowNode.children &&
-                    ((this.items.length < 7 && index == (this.items.length - 1)) ||
-                    (this.items.length >= 7&&index == 6)));
-            },
+            //$_showSuggest(index) {
+            //    return (this.flowNode && this.flowNode.children &&
+            //        ((this.items.length < 7 && index == (this.items.length - 1)) ||
+            //        (this.items.length >= 7&&index == 6)));
+            //},
             $_updateCurrentFlow(index){
                 this.updateFlow(index).then(()=>{
                     this.$router.push({path:'/'+this.currenFlow,query:{q:this.query.q}});
@@ -166,23 +166,6 @@ export const pageMixin =
         props: { hasExtra: {type:Boolean}}
 
     };
-export const detailsMixin = {
-    mixins: [sortAndFilterMixin],
-    created() {
-        this.filter = 'all';
-        this.UPDATE_LOADING(true);
-        this.$store.dispatch("bookDetails", { pageName: this.name, params: this.params }).then((res) => {
-            this.pageData = res;
-            this.UPDATE_LOADING(false);
-        });
-    },
-    data() {
-        return { pageData: ''};
-    },
-    components: { ResultBookPrice, ResultBook},
-    computed: {
-        filteredList: function () {
-            return this.filter === 'all' ? this.pageData.data.sort((a, b) => b.price - a.price):this.pageData.data.filter(item => item.condition === this.filter);
-        }
-    }
-};
+//export const detailsMixin = {
+    
+//};
