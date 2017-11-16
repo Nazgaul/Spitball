@@ -1,6 +1,7 @@
 ﻿<template>
-    <general-page title="Settings">
-            <v-list slot="data">
+    <general-page title="Settings" >
+        <div class="p-setting"  slot="data">
+            <v-list class="pa-0">
                 <template v-for="(item,index) in menuData">
                     <v-list-tile :to="{name:item.id}">
                         <v-list-tile-action>
@@ -13,9 +14,10 @@
                             <arrow-button-icon></arrow-button-icon>
                         </v-list-tile-action>
                     </v-list-tile>
-                    <v-divider></v-divider>
+                    <v-divider v-if="index < menuData.length -1"></v-divider>
                 </template>
             </v-list>
+        </div>
     </general-page>
 </template>
 <script>
@@ -41,3 +43,9 @@
         }
     }
 </script>
+<style lang="less">
+    .p-setting {
+        background: #fff;
+        border-radius: 8px;
+    }
+</style>

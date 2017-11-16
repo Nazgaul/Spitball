@@ -4,14 +4,23 @@
        <!--<h5 slot="title">-->
            <!--<span v-if="isEmpty" class="empty" v-html="page.emptyText.replace('$subject', term)"></span>-->
            <!--<span v-else v-html="titleText"></span> {{dynamicHeader}}-->
-       <v-container class="pa-0 mb-3" slot="options">
-           <v-layout row>
+       <div  slot="options">
+           <div class="sort-filter">
                <radio-list class="search" :values="page.filter" @click="$_changeFilter" model="filter" :value="filterOptions"></radio-list>
                <!--<div class="s-divider"></div>-->
                <radio-list v-if="page.sort" :values="page.sort" @click="$_updateSort" model="sort" class="search sort" :value="$_defaultSort(page.sort[0].id)"></radio-list>
+           </div>
+           <div class="sort-filter">
+               <radio-list :values="subFilters" @click="$_changeSubFilter" class="sub-search" model="subFilter" :value="subFilter"></radio-list>
+               </div>
+           </div>
+       <!--<v-container class="pa-0 mb-3" slot="options">
+           <v-layout row>
+               <radio-list class="search" :values="page.filter" @click="$_changeFilter" model="filter" :value="filterOptions"></radio-list>
+               <radio-list v-if="page.sort" :values="page.sort" @click="$_updateSort" model="sort" class="search sort" :value="$_defaultSort(page.sort[0].id)"></radio-list>
            </v-layout>
            <radio-list :values="subFilters" @click="$_changeSubFilter" class="sub-search" model="subFilter" :value="subFilter"></radio-list>
-       </v-container>
+       </v-container>-->
        <scroll-list slot="data" :loadMore="!isEmpty" v-if="items" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
            <v-container class="pa-0">
                <v-layout column>

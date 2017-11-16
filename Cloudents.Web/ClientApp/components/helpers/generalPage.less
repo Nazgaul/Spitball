@@ -1,7 +1,4 @@
 ﻿@import "../../mixin.less";
-.loader {
-    .inTheMiddle();
-}
 
 .sec-result {
     //@cell-width: 504px;
@@ -23,14 +20,28 @@
     .sort-filter {
         overflow: auto;
         white-space: nowrap;
-        //transform: rotate(-90deg) translateY(-100px);
-        //transform-origin: right top;
 
-        ::-webkit-scrollbar-button {
-            width: 2px;
-            height: 2px;
+        &::-webkit-scrollbar-track {
+            border: none;
         }
 
+        &::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            background: #000;
+        }
+
+        &:hover {
+            &::-webkit-scrollbar {
+                width: 1px;
+            }
+        }
+        //transform: rotate(-90deg) translateY(-100px);
+        //transform-origin: right top;
         > span {
             display: inline-block;
             //transform: rotate(90deg);
