@@ -40,7 +40,6 @@ export default {
         return {
             placeholder: askPlaceholder.ask,
             items: homeSuggest,
-            showOptions: false,
             msg: '',
             drawer: null,
             links: [
@@ -80,9 +79,6 @@ export default {
             this.$store.dispatch('updateSearchText', this.msg ).then((name) => {
                 this.$router.push({ path:'/'+name, query: {q:this.msg} });
             });;
-        },
-        $_focus() {
-            this.showOptions = true;
         },
         selectos(item) {
             this.msg = item;
