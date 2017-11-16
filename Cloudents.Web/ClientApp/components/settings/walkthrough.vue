@@ -1,3 +1,3 @@
 <template functional>
-    <div>This is walkthrough page</div>
+    <general-page title="walkthrough">This is walkthrough page</general-page>
 </template>

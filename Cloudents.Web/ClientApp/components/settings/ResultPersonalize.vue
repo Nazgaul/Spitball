@@ -12,16 +12,12 @@
         <v-dialog v-model="showDialog" max-width="500">
             <div class="white">
                 <v-layout row wrap class="pa-4 text-xs-center"> <v-flex xs10><h5>{{currentItem.title}}</h5></v-flex><v-flex xs2><v-btn color="primary" flat @click.stop="showDialog=false">{{currentItem.closeText}}</v-btn></v-flex></v-layout>
-                <search-item :extraItem="extraItem" :searchApi="currentItem.searchApi" :actions.sync="showActions" :actionsCallback="$_updateActions" :type="searchType" :params="params">
+                <search-item isDialog="true" :searchApi="currentItem.searchApi" :type="searchType" :params="params">
 
                 </search-item>
             </div>
         </v-dialog>
-        <v-dialog v-model="showActions" v-if="showActions" max-width="350" persistent>
-            <div class="white pa-2">
-                <component :is="searchType+'-'+currentAction" @done="$_actionDone"></component>
-            </div>
-        </v-dialog>
+
     </div>
 </template>
 <script>
@@ -52,18 +48,7 @@
         },
 
         methods: {
-            ...mapActions(['updateMyCourses']),
-            $_updateActions(data) {
-                this.currentAction = data;
-                this.showActions = true;
-                this.showDialog = false;
-            },
-            $_actionDone(obj) {
-                this.currentAction = '';
-                this.showActions = false;
-                this.showDialog = true;
-                this.extraItem = obj;
-            }
+            ...mapActions(['updateMyCourses'])
 
         },
         components: {

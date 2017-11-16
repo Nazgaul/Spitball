@@ -1,3 +1,3 @@
 <template functional>
-    <div>This is about us page</div>
+    <general-page title="aboput us">This is about us page</general-page>
 </template>

@@ -71,8 +71,8 @@ export const routes = [
     { path: "/" + RouteTypes.settingsRoute, name: RouteTypes.settingsRoute, component: settings, props: { searchApi: 'getUniversities', type: 'university' }, meta: { pageName: RouteTypes.settingsRoute, showHeader: true, showSidebar: true }},
     { path: "/university", name: RouteTypes.universityRoute, component: searchItem, props: { searchApi: 'getUniversities', type: 'university',selectCallback:function(){this.$router.go(-1)} }, meta: { pageName: RouteTypes.settingsRoute, showHeader: true, showSidebar: true }},
     { path: "/myCourses", name: RouteTypes.myCoursesRoute, component: searchItem, props: { searchApi: 'getCorses', type: 'course' }, meta: { pageName: RouteTypes.coursesRoute, showHeader: true, showSidebar: true }},
-    { path: "/walkthrough", name: "walkthrough", component: walkthrough, meta: { pageName: RouteTypes.settingsRoute, showHeader: true, showSidebar: true }},
-    { path: "/aboutUs", name: "aboutUs", component: aboutUs, meta: { pageName: RouteTypes.settingsRoute, showHeader: true, showSidebar: true }},
+    { path: "/walkthrough", name: "walkthrough", component: walkthrough, meta: { pageName: RouteTypes.settingsRoute, showHeader: true, showSidebar: true,isStatic:true }},
+    { path: "/aboutUs", name: "aboutUs", component: aboutUs, meta: { pageName: RouteTypes.settingsRoute, showHeader: true, showSidebar: true ,isStatic:true,}},
     { path: "/item/:university/:courseId/:courseName/:id/:itemName", name: "item", component: showItem, props: true, meta: { pageName: RouteTypes.notesRoute, showHeader: true, showSidebar: false } },
     { path: "/flashcard/:university/:courseId/:courseName/:id/:itemName", name: "flashcard", component: showFlashcard, props: true, meta: { pageName: RouteTypes.flashcardRoute, showHeader: true, showSidebar: false } }
 ];

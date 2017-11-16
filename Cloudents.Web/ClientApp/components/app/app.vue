@@ -2,10 +2,10 @@
     <v-app>
         <app-header v-if="$route.meta.showHeader" :userText.sync="userText"></app-header>
         <app-menu v-if="$route.meta.showSidebar" :term="userText"></app-menu>
-        <div v-show="loading" class="loader">
+        <div v-show="!$route.meta.isStatic&&loading" class="loader">
             <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
         </div>
-        <router-view v-show="!loading"></router-view>
+        <router-view v-show="!loading||$route.meta.isStatic"></router-view>
     </v-app>
 </template>
 <script>

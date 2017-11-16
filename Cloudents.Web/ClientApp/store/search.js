@@ -53,8 +53,7 @@ const actions = {
                 context.commit(SEARCH.UPDATE_SEARCH_PARAMS, body.data);
                 // context.commit(FLOW.ADD, { result:page.path.slice(1) });
                 var params = { ...page.query, ...page.params, ...body.data };
-                //let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity:null
-                let university = null
+                let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity:null
                 if(!body.data.term.length){reject(body.result);}
                 else{resolve(searchService.activateFunction[page.path.slice(1)]({ ...params, university }));}
             })
@@ -62,8 +61,7 @@ const actions = {
     },
     updateResult(context, page) {
         context.commit(SEARCH.UPDATE_LOADING, true);
-        //let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null
-        let university = null
+        let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
         searchService.activateFunction[page.path.slice(1)]({ ...context.getters.searchParams, ...page.query, ...page.params, university })
             .then((response) => {
                 context.commit(SEARCH.UPDATE_LOADING, false)
@@ -73,9 +71,8 @@ const actions = {
         return searchService.activateFunction[data.pageName](data.params) 
     },
     fetchingData: (context, data) => {
-        //let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null
-        let university = null
-        return searchService.activateFunction[data.pageName]({ ...context.getters.searchParams,...data.queryParams, university })    
+        let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
+        return searchService.activateFunction[data.pageName]({ ...context.getters.searchParams,...data.queryParams, university })
     },
     scrollingItems( context , model) {
         return searchService.activateFunction[model.name]({ ...context.getters.searchParams, ...model.params,page: model.page })

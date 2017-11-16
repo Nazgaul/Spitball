@@ -22,7 +22,7 @@ export let settingMenu=[
 export let emptyStates = {};
 export let filtersAction = {};
 for (var v in searchObjects) {
-    let item = searchObjects[v]
-    emptyStates[v] = item.emptyState
-    filtersAction[v] = { filters: item.filters, defaultFilter: item.defaultFilter, actions: item.actions }
+    let item = searchObjects[v];
+    emptyStates[v] = item.emptyState;
+    filtersAction[v] = { filters: item.filters, defaultFilter: item.defaultFilter, actions: item.actions,title:item.title }
 }

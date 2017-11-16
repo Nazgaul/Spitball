@@ -2,6 +2,7 @@
 import App from './components/app/app.vue';
 import store from './store';
 import scroll from './components/helpers/infinateScroll.vue'
+import GeneralPage from './components/helpers/generalPage.vue'
 import VueRouter from 'vue-router';
 import vueMoment from "vue-moment";
 import vueAdsense from 'vue-adsense';
@@ -64,6 +65,7 @@ Vue.use(vueMoment);
 //Vue.use(VueIntercom, { appId: 'njmpgayv' });
 Vue.component('scroll-list', scroll);
 Vue.component('adsense', vueAdsense);
+Vue.component('general-page', GeneralPage);
 
 const router = new VueRouter({
     mode: "history",
