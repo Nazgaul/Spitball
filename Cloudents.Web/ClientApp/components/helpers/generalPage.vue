@@ -1,10 +1,7 @@
 <template functional>
-    <v-flex offset-lg1 class="mt-5">
+    <v-content><v-container fluid class="pa-0"><v-layout><v-flex offset-lg1 class="mt-5">
         <slot></slot>
-        <div class="loader" v-if="props.isLoading">
-            <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
-        </div>
-        <v-container fluid v-else>
+        <v-container fluid>
             <v-layout row>
                 <v-flex class="sec-result">
                     <slot name="title"><h5>
@@ -35,5 +32,5 @@
                 </v-flex></slot>
             </v-layout>
         </v-container>
-    </v-flex>
+    </v-flex></v-layout></v-container></v-content>
 </template>

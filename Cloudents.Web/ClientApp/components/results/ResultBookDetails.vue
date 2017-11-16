@@ -1,5 +1,5 @@
 ﻿<template>
-    <general-page :title="(pageData.details?pageData.details.title:'')"  :isLoading="isLoading">
+    <general-page :title="(pageData.details?pageData.details.title:'')">
 
                 <v-list slot="data" v-if="pageData">
                     <result-book :item="pageData.details" :isDetails="true"></result-book>

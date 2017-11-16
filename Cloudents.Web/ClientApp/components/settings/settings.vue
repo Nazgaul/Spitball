@@ -1,5 +1,5 @@
 ﻿<template>
-    <general-page title="Settings" :isLoading="false">
+    <general-page title="Settings">
             <v-list slot="data">
                 <template v-for="(item,index) in menuData">
                     <v-list-tile :to="{name:item.id}">
