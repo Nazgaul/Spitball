@@ -3,7 +3,8 @@
         <v-container class="pa-0">
             <v-layout row>
                 <div class="img-wrap">
-                    <img :src="item.image" alt="">
+                    <img :src="item.image" alt="" v-if="item.image">
+                    <food-default v-else class="defaultImage bg-food"></food-default>
                 </div>
                 <v-flex class="pa-0 ml-2">
                     <v-container class="pa-0 full-height">
@@ -46,9 +47,10 @@
 </template>
 <script>
     import StarRating from 'vue-star-rating'
+    import FoodDefault from './../navbar/images/food.svg'
     export default {
         props: { item: { type: Object, required: true } },
-        components: { StarRating },
+        components: { StarRating,FoodDefault },
         data() { return { showMap: false } },
         computed: {
             myLocation: function () {

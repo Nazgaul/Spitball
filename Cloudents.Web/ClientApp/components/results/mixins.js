@@ -75,7 +75,7 @@ export const pageMixin =
             next();
         },
         computed: {
-            ...mapGetters(['term', 'isFirst','myCourses','flowNode','currenFlow']),
+            ...mapGetters(['term', 'isFirst','myCourses','flowNode','currenFlow','luisTerm']),
             content: {
                 get() {
                     return this.pageData;
@@ -120,7 +120,12 @@ export const pageMixin =
                 if (this.isFirst) this.updateFirstTime();
             });
             this.UPDATE_LOADING(true);
-            updateLuis.call(this,this.$route);
+            if(!this.luisTerm){updateLuis.call(this,this.$route);}else{
+                this.fetchingData({ pageName: this.name, queryParams: { ...this.query, ...this.params } })
+                    .then((data) => {
+                        updateData.call(this, data);
+                    });
+            }
         },
         methods: {
             ...mapActions(['updateLuisAndFetch', 'fetchingData','updateFirstTime','updateFlow']),
@@ -133,11 +138,6 @@ export const pageMixin =
                     this.$router.push({ query: { ... this.query, filter } });
                 }
             },
-            //$_showSuggest(index) {
-            //    return (this.flowNode && this.flowNode.children &&
-            //        ((this.items.length < 7 && index == (this.items.length - 1)) ||
-            //        (this.items.length >= 7&&index == 6)));
-            //},
             $_updateCurrentFlow(index){
                 this.updateFlow(index).then(()=>{
                     this.$router.push({path:'/'+this.currenFlow,query:{q:this.query.q}});
@@ -166,6 +166,3 @@ export const pageMixin =
         props: { hasExtra: {type:Boolean}}
 
     };
-//export const detailsMixin = {
-    
-//};

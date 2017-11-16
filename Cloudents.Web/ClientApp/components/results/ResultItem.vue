@@ -3,7 +3,8 @@
         <v-container class="pa-2">
             <v-layout row fluid>
                 <v-flex class="img-wrap mr-2 pa-0" :class="['border-'+$route.path.slice(1)]">
-                    <img  :src="item.image" alt="">
+                    <img  :src="item.image" alt="" v-if="item.image">
+                    <component :is="$route.path.slice(1)+'-default'" v-else :class="'bg-'+$route.path.slice(1)" class="defaultImage"></component>
                 </v-flex>
                 <v-flex class="right-section">
                     <v-container class="pa-0 full-height" >
@@ -23,7 +24,12 @@
     </a>
 </template>
 <script>
+    import FlashcardDefault from './../navbar/images/flashcard.svg'
+    import AskDefault from './../navbar/images/ask.svg'
+    import NoteDefault from './../navbar/images/document.svg'
     export default {
+        components:{AskDefault,FlashcardDefault,NoteDefault},
+
         props: { item: { type: Object, required: true } },
         computed: {
             isSpitball() { return this.item.source.includes('spitball')},
