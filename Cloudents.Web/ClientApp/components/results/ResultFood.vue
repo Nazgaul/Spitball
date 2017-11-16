@@ -1,5 +1,4 @@
 ﻿<template v-once>
-   
     <div class="d-block pa-2 place-cell" @click="showMap=!showMap">
         <v-container class="pa-0">
             <v-layout row>

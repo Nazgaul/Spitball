@@ -31,7 +31,6 @@
            </div>-->
        </scroll-list>
        <component slot="adsense"  v-if="hasExtra&&!isEmpty" :is="name+'-extra'" :place="selectedItem"></component>
-
    </general-page>
 </template>
 <script>
