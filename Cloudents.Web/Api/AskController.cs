@@ -37,7 +37,11 @@ namespace Cloudents.Web.Api
             var query = new SearchQuery(model.Term, universitySynonym, model.Course, model.Source, model.Page.GetValueOrDefault(),
                 model.Sort.GetValueOrDefault());
             var tResult = _searchProvider.SearchAsync(query, token);
-            var tVideo = _videoSearch.SearchAsync(model.UserText, token);
+            var tVideo = Task.FromResult<VideoDto>(null);
+            if (model.Page > 0)
+            {
+                tVideo = _videoSearch.SearchAsync(model.UserText, token);
+            }
             await Task.WhenAll(tResult, tVideo).ConfigureAwait(false);
             return Json(new
             {
