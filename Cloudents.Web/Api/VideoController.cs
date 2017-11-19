@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/Video")]
+    [Obsolete]
     public class VideoController : Controller
     {
         private readonly IVideoSearch _videoSearch;

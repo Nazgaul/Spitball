@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
@@ -54,6 +55,7 @@ namespace Cloudents.Web.Api
         }
 
         [Route("qna")]
+        [Obsolete]
         public async Task<IActionResult> SearchQuestionsAsync([FromQuery] SearchRequest model,
             CancellationToken token, [FromServices] IQuestionSearch searchProvider)
         {
