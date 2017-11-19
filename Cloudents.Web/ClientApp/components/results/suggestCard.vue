@@ -40,6 +40,11 @@
         display: flex;
         justify-content: center;
         flex-direction: column;
+
+        @media only screen and (max-device-width : 600px) {
+            width: 48px;
+            height: 48px;
+        }
     }
 
     svg {
@@ -49,6 +54,10 @@
         display: flex;
         justify-content: center;
         flex-direction: column;
+
+        @media only screen and (max-device-width : 600px) {
+            font-size: 14px;
+        }
     } 
     .suggest {
         background: #FFF;

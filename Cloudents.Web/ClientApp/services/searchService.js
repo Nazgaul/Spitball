@@ -36,9 +36,10 @@ export default {
         ask({ source, university, course, term, page, sort, q:userText }) {
             return new Promise((resolve, reject) => {
                 search.getQna({ source, university, course, term, page, sort, userText }).then(({body})=>{
-                    let video=body.video;
-                    let videoMap=video?[video].map(val => {return { ...val, template: "video" }}):[];
-                    resolve({ data: [...videoMap,...body.result.map(val => {  return{ ...val, template: "item" } })] })
+                    const video = body.video;
+                    const videoMap = video ? [video].map(val => { return { ...val, template: "video" } }) : [];
+                    const data = body.result.map(val => { return { ...val, template: "item" } })[0];
+                    resolve({ data: [...videoMap, ...[data]] });
                 });
             });
         },
