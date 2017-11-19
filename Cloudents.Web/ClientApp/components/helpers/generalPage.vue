@@ -1,8 +1,8 @@
 <template functional>
     <v-content>
-        <v-container fluid class="pa-0">
+        <v-container fluid class="pa-0 wrap">
             <v-layout>
-                <v-flex offset-lg1 class="mt-5">
+                <v-flex offset-lg1 >
                     <slot></slot>
                     <v-container fluid class="pa-2">
                         <v-layout row>

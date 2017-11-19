@@ -7,7 +7,7 @@
                     <component :is="$route.path.slice(1)+'-default'" v-else :class="'bg-'+$route.path.slice(1)" class="defaultImage"></component>
                 </v-flex>
                 <v-flex class="right-section">
-                    <v-container class="pa-0 full-height" >
+                    <!--<v-container class="pa-0 full-height" >-->
                         <v-layout  wrap column justify-content-space-between align-item-stretch class="full-height ma-0">
                             <v-flex class="pa-0" style="flex-grow:1">
                                 <div class="cell-title" :class="'text-'+$route.path.slice(1)">{{item.title}}</div>
@@ -17,7 +17,7 @@
                                 Source: {{item.source}}
                             </v-flex>
                         </v-layout>
-                    </v-container>
+                    <!--</v-container>-->
                 </v-flex>
             </v-layout>
         </v-container>
