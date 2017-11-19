@@ -1,7 +1,7 @@
 ﻿<template>
     <span class="text-xs-center">
         <v-chip color="not-selected" v-for="v in values" :key="v.id"
-                @click="radioClick(v.id)"
+                @click="(!$_isDisabledButton(v.id)?radioClick(v.id):'')" :disabled="$_isDisabledButton(v.id)"
                 :selected="checkVal==v.id">{{v.name}}<sort-arrow class="ml-2" v-if="checkVal==v.id&&model=='sort'"></sort-arrow></v-chip>
 
     </span>
@@ -34,6 +34,12 @@
             radioClick(value) {
                 this.checkVal = value;
                 this.$emit('click', value);
+            },
+
+            $_isDisabledButton(id){
+//                return this.$route.query.filter==='inPerson'&&id==='distance'
+                console.log(this.$route.query.filter==='course'&&id==='date');
+                return this.$route.query.filter==='course'&&id==='date'
             }
         }
     }

@@ -8,7 +8,7 @@ export let verticals =
             name: "Ask a Question",
             image: "ask",
             placeholder: "Ask anything...",
-            resultTitle: { short: "I’ve come to the conclusion that the answer is:", normal: "I found a few things that I think are relevant. Check these out."},
+            resultTitle:  "I found a few things that I think are relevant. Check these out.",
             emptyState: "I could not find any relevant answers.Try these other options.",
             sort: ""
         },
@@ -38,7 +38,7 @@ export let verticals =
             resultTitle: "I found these tutors. Help is just a click away!",
             emptyState: "Sorry, I did not find any tutors...",
             filter: [{ id: 'all', name: 'all' }, { id: 'online', name: 'online' }, { id: 'inPerson', name: 'In Person' }],
-            sort: [{ id: 'relevance', name: 'relevance' }, { id: 'price', name: 'price' }, { id: 'distance', name: 'distance' }]
+            sort: [{ id: 'price', name: 'price' }, { id: 'distance', name: 'distance' }]
         },
         job: {
             id: routes.jobRoute,
@@ -49,7 +49,7 @@ export let verticals =
             resultTitle: "Look at this - you’ll be employed in no time!",
             emptyState: "Sorry, I didn't find any jobs that match your search",
             filter: [{ id: 'all', name: 'all' },{ id: 'jobType', name: 'job type' }, { id: 'paid', name: 'paid' }],
-            sort: [{ id: 'relevance', name: 'relevance' }, { id: 'price', name: 'price' }, { id: 'distance', name: 'distance' }]
+            sort: [{ id: 'price', name: 'price' }, { id: 'distance', name: 'distance' }]
         },
         book: {
             id: routes.bookRoute,
