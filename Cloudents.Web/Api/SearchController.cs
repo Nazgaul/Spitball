@@ -30,8 +30,8 @@ namespace Cloudents.Web.Api
                 var repositoryResult = await m_UniversitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
                 universitySynonym = repositoryResult.Name;
             }
-            var query = new SearchQuery(model.Term, universitySynonym, model.Course, model.Source, model.Page,
-                model.Sort);
+            var query = new SearchQuery(model.Term, universitySynonym, model.Course, model.Source, model.Page.GetValueOrDefault(),
+                model.Sort.GetValueOrDefault());
 
             var result = await searchProvider.SearchAsync(query, token).ConfigureAwait(false);
             return Json(result);
@@ -47,29 +47,29 @@ namespace Cloudents.Web.Api
                 var repositoryResult = await m_UniversitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
                 universitySynonym = repositoryResult.Name;
             }
-            var query = new SearchQuery(model.Term, universitySynonym, model.Course, model.Source, model.Page,
-                model.Sort);
+            var query = new SearchQuery(model.Term, universitySynonym, model.Course, model.Source, model.Page.GetValueOrDefault(),
+                model.Sort.GetValueOrDefault());
 
             var result = await searchProvider.SearchAsync(query, token).ConfigureAwait(false);
             return Json(result);
         }
 
-        [Route("qna")]
-        [Obsolete]
-        public async Task<IActionResult> SearchQuestionsAsync([FromQuery] SearchRequest model,
-            CancellationToken token, [FromServices] IQuestionSearch searchProvider)
-        {
-            string universitySynonym = null;
-            if (model.University.HasValue && !string.IsNullOrEmpty(model.Course))
-            {
-                var repositoryResult = await m_UniversitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
-                universitySynonym = repositoryResult.Name;
-            }
-            var query = new SearchQuery(model.Term, universitySynonym, model.Course, model.Source, model.Page,
-                model.Sort);
+        //[Route("qna")]
+        //[Obsolete]
+        //public async Task<IActionResult> SearchQuestionsAsync([FromQuery] SearchRequest model,
+        //    CancellationToken token, [FromServices] IQuestionSearch searchProvider)
+        //{
+        //    string universitySynonym = null;
+        //    if (model.University.HasValue && !string.IsNullOrEmpty(model.Course))
+        //    {
+        //        var repositoryResult = await m_UniversitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
+        //        universitySynonym = repositoryResult.Name;
+        //    }
+        //    var query = new SearchQuery(model.Term, universitySynonym, model.Course, model.Source, model.Page.GetValueOrDefault(),
+        //        model.Sort.GetValueOrDefault());
 
-            var result = await searchProvider.SearchAsync(query, token).ConfigureAwait(false);
-            return Json(result);
-        }
+        //    var result = await searchProvider.SearchAsync(query, token).ConfigureAwait(false);
+        //    return Json(result);
+        //}
     }
 }

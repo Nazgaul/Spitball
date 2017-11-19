@@ -14,19 +14,19 @@ namespace Zbang.Cloudents.Jared.Controllers
     [MobileAppController]
     public class SearchController : ApiController
     {
-        private readonly IReadRepositoryAsync<UniversitySynonymDto, long> m_UniversitySynonymRepository;
-        private readonly Lazy<IDocumentCseSearch> m_SearchProvider;
-        private readonly Lazy<IFlashcardSearch> m_FlashcardProvider;
-        private readonly Lazy<IQuestionSearch> m_QuestionProvider;
+        private readonly IReadRepositoryAsync<UniversitySynonymDto, long> _universitySynonymRepository;
+        private readonly Lazy<IDocumentCseSearch> _searchProvider;
+        private readonly Lazy<IFlashcardSearch> _flashcardProvider;
+        private readonly Lazy<IQuestionSearch> _questionProvider;
 
         public SearchController(IReadRepositoryAsync<UniversitySynonymDto, long> universitySynonymRepository,
             Lazy<IDocumentCseSearch> searchProvider, Lazy<IFlashcardSearch> flashcardProvider,
             Lazy<IQuestionSearch> questionProvider)
         {
-            m_UniversitySynonymRepository = universitySynonymRepository;
-            m_SearchProvider = searchProvider;
-            m_FlashcardProvider = flashcardProvider;
-            m_QuestionProvider = questionProvider;
+            _universitySynonymRepository = universitySynonymRepository;
+            _searchProvider = searchProvider;
+            _flashcardProvider = flashcardProvider;
+            _questionProvider = questionProvider;
         }
 
         [Route("api/search/documents"), HttpGet]
@@ -36,13 +36,13 @@ namespace Zbang.Cloudents.Jared.Controllers
             string universitySynonym = null;
             if (model.University.HasValue)
             {
-                var repositoryResult = await m_UniversitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
+                var repositoryResult = await _universitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
                 universitySynonym = repositoryResult.Name;
             }
-            var query = new SearchQuery(model.Query, universitySynonym, model.Course, model.Source, model.Page,
-                model.Sort);
+            var query = new SearchQuery(model.Query, universitySynonym, model.Course, model.Source, model.Page.GetValueOrDefault(),
+                model.Sort.GetValueOrDefault());
 
-            var result = await m_SearchProvider.Value.SearchAsync(query, token).ConfigureAwait(false);
+            var result = await _searchProvider.Value.SearchAsync(query, token).ConfigureAwait(false);
             return Request.CreateResponse(new
             {
                documents =  result.Result,
@@ -57,13 +57,13 @@ namespace Zbang.Cloudents.Jared.Controllers
             string universitySynonym = null;
             if (model.University.HasValue)
             {
-                var repositoryResult = await m_UniversitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
+                var repositoryResult = await _universitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
                 universitySynonym = repositoryResult.Name;
             }
-            var query = new SearchQuery(model.Query, universitySynonym, model.Course, model.Source, model.Page,
-                model.Sort);
+            var query = new SearchQuery(model.Query, universitySynonym, model.Course, model.Source, model.Page.GetValueOrDefault(),
+                model.Sort.GetValueOrDefault());
 
-            var result = await m_FlashcardProvider.Value.SearchAsync(query, token).ConfigureAwait(false);
+            var result = await _flashcardProvider.Value.SearchAsync(query, token).ConfigureAwait(false);
             return Request.CreateResponse(new
             {
                 documents = result.Result,
@@ -78,13 +78,13 @@ namespace Zbang.Cloudents.Jared.Controllers
             string universitySynonym = null;
             if (model.University.HasValue && !string.IsNullOrEmpty(model.Course))
             {
-                var repositoryResult = await m_UniversitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
+                var repositoryResult = await _universitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
                 universitySynonym = repositoryResult.Name;
             }
-            var query = new SearchQuery(model.Query, universitySynonym, model.Course, model.Source, model.Page,
-                model.Sort);
+            var query = new SearchQuery(model.Query, universitySynonym, model.Course, model.Source, model.Page.GetValueOrDefault(),
+                model.Sort.GetValueOrDefault());
 
-            var result = await m_QuestionProvider.Value.SearchAsync(query, token).ConfigureAwait(false);
+            var result = await _questionProvider.Value.SearchAsync(query, token).ConfigureAwait(false);
             return Request.CreateResponse(result);
         }
     }

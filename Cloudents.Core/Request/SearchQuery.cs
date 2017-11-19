@@ -5,7 +5,7 @@ namespace Cloudents.Core.Request
     public class SearchQuery
     {
         public SearchQuery(string[] query, string universitySynonym, 
-            string course, string source, int page, SearchRequestSort sort)
+            string course, string source, int page, SearchCseRequestSort sort)
         {
             Query = query;
             UniversitySynonym = universitySynonym;
@@ -20,6 +20,6 @@ namespace Cloudents.Core.Request
         public string Course { get;  }
         public string[] Query { get;  }
         public int Page { get;  }
-        public SearchRequestSort Sort { get;  }
+        public SearchCseRequestSort Sort { get;  }
     }
 }

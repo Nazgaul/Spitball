@@ -16,6 +16,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Api\TitleController.cs" />
+    <Compile Remove="Api\VideoController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="ClientApp\components\navbar\images\ask.svg" />
     <Content Include="ClientApp\components\navbar\images\book.svg" />
     <Content Include="ClientApp\components\navbar\images\document.svg" />

@@ -24,49 +24,42 @@ namespace Cloudents.Infrastructure.Search
             _client = client.Indexes.GetClient("tutors");
         }
 
-        public Task<IEnumerable<TutorDto>> SearchAsync(string term, SearchRequestFilter filter,
-            SearchRequestSort sort, GeoPoint location, int page, CancellationToken token)
+        public Task<IEnumerable<TutorDto>> SearchAsync(string term, TutorRequestFilter filter,
+            TutorRequestSort sort, GeoPoint location, int page, CancellationToken token)
         {
             return SearchAzureAsync(term, filter, sort, location, page, token);
         }
 
         private async Task<IEnumerable<TutorDto>> SearchAzureAsync(string term,
-            SearchRequestFilter filter, SearchRequestSort sort,
+            TutorRequestFilter filter, TutorRequestSort sort,
             GeoPoint location, int page, CancellationToken token)
         {
-            if (sort == SearchRequestSort.Distance && location == null)
-            {
-                throw  new ArgumentException("Need to location");
-            }
-            if (filter == SearchRequestFilter.InPerson && location == null)
-            {
-                throw new ArgumentException("Need to location");
-            }
+           
             string filterQuery = null;
             var sortQuery = new List<string>();
             switch (filter)
             {
-                case SearchRequestFilter.Online:
+                case TutorRequestFilter.Online:
                     filterQuery = "online eq true";
                     break;
-                case SearchRequestFilter.InPerson:
+                case TutorRequestFilter.InPerson:
                     filterQuery = "inPerson eq true";
                     const double distance = 50 * 1.6;
                     sortQuery.Add($"geo.distance(location, geography'POINT({location.Longitude} {location.Latitude})') le {distance}");
                     break;
             }
-            if (filter != SearchRequestFilter.InPerson)
+            if (filter != TutorRequestFilter.InPerson)
             {
                 switch (sort)
                 {
-                    case SearchRequestSort.Price:
+                    case TutorRequestSort.Price:
                         sortQuery.Add("fee");
                         break;
-                    case SearchRequestSort.Distance:
+                    case TutorRequestSort.Distance:
                         sortQuery.Add(
                             $"geo.distance(location, geography'POINT({location.Longitude} {location.Latitude})')");
                         break;
-                    case SearchRequestSort.Rating:
+                    case TutorRequestSort.Rating:
                         sortQuery.Add("rank desc");
                         break;
                 }

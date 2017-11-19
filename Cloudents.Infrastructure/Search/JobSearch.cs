@@ -27,15 +27,15 @@ namespace Cloudents.Infrastructure.Search
 
         public async Task<ResultWithFacetDto<JobDto>> SearchAsync(
             string term,
-            SearchRequestFilter filter,
-            SearchRequestSort sort,
+            JobRequestFilter filter,
+            JobRequestSort sort,
             string jobType,
             GeoPoint location,
             CancellationToken token)
         {
             string filterQuery = null;
             var sortQuery = new List<string>();
-            if (filter == SearchRequestFilter.Paid)
+            if (filter == JobRequestFilter.Paid)
             {
                 filterQuery = "compensationType eq 'paid'";
             }
@@ -46,10 +46,10 @@ namespace Cloudents.Infrastructure.Search
 
             switch (sort)
             {
-                case SearchRequestSort.Distance when location != null:
+                case JobRequestSort.Distance when location != null:
                     sortQuery.Add($"geo.distance(location, geography'POINT({location.Longitude} {location.Latitude})')");
                     break;
-                case SearchRequestSort.Date:
+                case JobRequestSort.Date:
                     sortQuery.Add("dateTime");
                     break;
             }

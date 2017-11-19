@@ -13,21 +13,21 @@ namespace Zbang.Cloudents.Jared.Controllers
     [MobileAppController]
     public class PlacesController : ApiController
     {
-        private readonly IPlacesSearch m_PurchaseSearch;
+        private readonly IPlacesSearch _purchaseSearch;
 
         public PlacesController(IPlacesSearch purchaseSearch)
         {
-            m_PurchaseSearch = purchaseSearch;
+            _purchaseSearch = purchaseSearch;
         }
 
         public async Task<HttpResponseMessage> Get([FromUri]string[] term,
-            SearchRequestFilter filter,
+            PlacesRequestFilter filter,
             GeoPoint location,
             CancellationToken token)
         {
             if (term == null) throw new ArgumentNullException(nameof(term));
             if (location == null) throw new ArgumentNullException(nameof(location));
-            var result = await m_PurchaseSearch.SearchNearbyAsync(string.Join(" ", term), filter, location, null, token).ConfigureAwait(false);
+            var result = await _purchaseSearch.SearchNearbyAsync(string.Join(" ", term), filter, location, null, token).ConfigureAwait(false);
             return Request.CreateResponse(new
             {
                 result.token,result.data
@@ -38,7 +38,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             CancellationToken token)
         {
             if (nextPageToken == null) throw new ArgumentNullException(nameof(nextPageToken));
-            var result = await m_PurchaseSearch.SearchNearbyAsync(string.Empty,
+            var result = await _purchaseSearch.SearchNearbyAsync(string.Empty,
                 default, default, nextPageToken, token).ConfigureAwait(false);
             return Request.CreateResponse(new
             {
