@@ -90,7 +90,7 @@ export const pageMixin =
             showCourses() { return this.page.filter?new Set(this.page.filter.map((i)=>i.id)).has('course'):false},
             titleText: function () {
                 if(this.isEmpty)return this.page.emptyText.replace('$subject', this.term);
-                return (this.name !== 'ask')?this.page.title : this.dynamicHeader ? this.page.title.short+ this.pageData.title :  this.page.title.normal},
+                return this.page.title},
             isEmpty: function () { return this.pageData.data ? !this.pageData.data.length : true },
             subFilter: function () { return this.query[this.filterOptions]; },
             subFilters: function () {
@@ -135,7 +135,9 @@ export const pageMixin =
                 }
                 this.filter = filter;
                 if (!this.subFilters.length) {
-                    this.$router.push({ query: { ... this.query, filter } });
+                    let currentQuery=this.query;
+                    if(this.filter==='inPerson')currentQuery={... this.query,sort:"price"};
+                    this.$router.push({ query: { ... currentQuery, filter } });
                 }
             },
             $_updateCurrentFlow(index){
@@ -144,8 +146,7 @@ export const pageMixin =
                 });
             },
             $_defaultSort(defaultSort) {
-                let sort = this.query.sort ? this.query.sort : defaultSort;
-                return sort;
+                return this.query.sort ? this.query.sort : defaultSort;
             },
             $_updateSort(sort) {
                 this.$router.push({ query: { ... this.query, sort: sort } });

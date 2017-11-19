@@ -14,7 +14,7 @@ function dynamicPropsFn(route) {
         name: route.path.slice(1),
         query: route.query,
         filterOptions: route.query.filter || 'all',
-        sort: route.query.sort || 'relevance',
+        sort: route.query.sort,
         userText: route.params.q,
         params: route.params,
         hasExtra: route.path.slice(1).includes('food')
