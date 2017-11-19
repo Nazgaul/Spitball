@@ -33,26 +33,13 @@ const previewMap = {
 };
 export default {
     activateFunction: {
-        ask({ source, university, course, term, page, sort, q }) {
+        ask({ source, university, course, term, page, sort, q:userText }) {
             return new Promise((resolve, reject) => {
-                var items = search.getQna({ source, university, course, term, page, sort });
-                if (page)
-                    items.then(({ body }) => {
-                        resolve({ data: body.map(val => { return { ...val, template: "item" } }) });
-                    });
-                else {
-                    let answer = Promise.resolve({});
-                    let video = Promise.resolve({ body: {} });
-                    if (q) {
-                        answer = search.getShortAnswer({ term: q });
-                        video = search.getVideo({ term: q });
-                    }
-                    Promise.all([answer, items, video]).then(([short, items, video]) => {
-                        let list = items.body.map(val => { return { ...val, template: "item" } });
-                        video.body.url ? list = [{ url: video.body.url, template: "video" }, ...list] : '';
-                        resolve({ title: short.body, data: list });
-                    });
-                }
+                search.getQna({ source, university, course, term, page, sort, userText }).then(({body})=>{
+                    let video=body.video;
+                    let videoMap=video?[video].map(val => {return { ...val, template: "video" }}):[];
+                    resolve({ data: [...videoMap,...body.result.map(val => {  return{ ...val, template: "item" } })] })
+                });
             });
         },
         note({ source, university, course, term, page, sort }) {
