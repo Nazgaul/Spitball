@@ -63,7 +63,7 @@ export let verticals =
             name: "Food and Deals",
             image: "food",
             placeholder: "Where can I get...",
-            resultTitle: "Booya! I found a few places that.you might like.", emptyState: "Sorry, friend! I could not find anywhere nearby that sells $subject", filter: [{ id: 'all', name: 'all' }, { id: 'openNow', name: 'open now' }], sort: [{ id: 'distance', name: 'distance' }]
+            resultTitle: "Booya! I found a few places that you might like.", emptyState: "Sorry, friend! I could not find anywhere nearby that sells $subject", filter: [{ id: 'all', name: 'all' }, { id: 'openNow', name: 'open now' }], sort: [{ id: 'distance', name: 'distance' }]
         }
        
     };
