@@ -34,6 +34,7 @@ namespace Cloudents.Infrastructure.Search
             }
             return TutorMeApiAsync(term, page, token);
         }
+
         private async Task<IEnumerable<TutorDto>> TutorMeApiAsync(string term, int page, CancellationToken token)
         {
             //https://gist.github.com/barbuza/4b3666fa88cd326f18f2c464c8e4487c

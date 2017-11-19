@@ -12,17 +12,18 @@ namespace Zbang.Cloudents.Jared.Controllers
     [MobileAppController]
     public class TutorController : ApiController
     {
-        private readonly ITutorSearch m_TutorSearch;
+        private readonly ITutorSearch _tutorSearch;
 
         public TutorController(ITutorSearch tutorSearch)
         {
-            m_TutorSearch = tutorSearch;
+            _tutorSearch = tutorSearch;
         }
 
         public async Task<HttpResponseMessage> Get(string term, SearchRequestFilter filter,
-            SearchRequestSort sort, [FromUri] GeoPoint location, int page, CancellationToken token)
+            SearchRequestSort? sort, [FromUri] GeoPoint location, int page, CancellationToken token)
         {
-            var result = await m_TutorSearch.SearchAsync(term, filter, sort, location, page, token).ConfigureAwait(false);
+
+            var result = await _tutorSearch.SearchAsync(term, filter, sort.GetValueOrDefault(SearchRequestSort.Price), location, page, token).ConfigureAwait(false);
             return Request.CreateResponse(result);
         }
     }
