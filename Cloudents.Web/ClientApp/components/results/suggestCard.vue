@@ -8,7 +8,7 @@
                     </div>
                 </v-flex>
                 <v-flex class="text">
-                    I found some sweet for you.  You can thank me later:)
+                    I found some sweet {{name}} for you.  You can thank me later:)
                 </v-flex>
             </v-layout>
         </v-container>
@@ -24,7 +24,11 @@
 <script>
     import logo from "./svg/sb-logo-copy.svg";
     export default {
-        components: { logo }
+        components: { logo },
+
+        props:{
+           name:{type:String}
+        }
     }
 </script>
 <style scoped lang="less">
