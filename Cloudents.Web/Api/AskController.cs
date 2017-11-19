@@ -25,8 +25,7 @@ namespace Cloudents.Web.Api
         }
 
 
-        [Route("qna")]
-        public async Task<IActionResult> SearchQuestionsAsync([FromQuery] AskRequest model,
+        public async Task<IActionResult> Get([FromQuery] AskRequest model,
             CancellationToken token)
         {
             string universitySynonym = null;
@@ -37,11 +36,8 @@ namespace Cloudents.Web.Api
             }
             var query = new SearchQuery(model.Term, universitySynonym, model.Course, model.Source, model.Page,
                 model.Sort);
-
             var tResult = _searchProvider.SearchAsync(query, token);
-
             var tVideo = _videoSearch.SearchAsync(model.UserText, token);
-
             await Task.WhenAll(tResult, tVideo).ConfigureAwait(false);
             return Json(new
             {
