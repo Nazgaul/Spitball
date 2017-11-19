@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,14 +15,13 @@ namespace Cloudents.Infrastructure.Search
 {
     public class TutorAzureSearch : ITutorProvider
     {
-        private readonly ISearchIndexClient m_Client;
-        private readonly IMapper m_Mapper;
-        //private readonly IRestClient m_RestClient;
+        private readonly ISearchIndexClient _client;
+        private readonly IMapper _mapper;
 
         public TutorAzureSearch(SearchServiceClient client, IMapper mapper)
         {
-            m_Mapper = mapper;
-            m_Client = client.Indexes.GetClient("tutors");
+            _mapper = mapper;
+            _client = client.Indexes.GetClient("tutors");
         }
 
         public Task<IEnumerable<TutorDto>> SearchAsync(string term, SearchRequestFilter filter,
@@ -34,6 +34,14 @@ namespace Cloudents.Infrastructure.Search
             SearchRequestFilter filter, SearchRequestSort sort,
             GeoPoint location, int page, CancellationToken token)
         {
+            if (sort == SearchRequestSort.Distance && location == null)
+            {
+                throw  new ArgumentException("Need to location");
+            }
+            if (filter == SearchRequestFilter.InPerson && location == null)
+            {
+                throw new ArgumentException("Need to location");
+            }
             string filterQuery = null;
             var sortQuery = new List<string>();
             switch (filter)
@@ -43,19 +51,25 @@ namespace Cloudents.Infrastructure.Search
                     break;
                 case SearchRequestFilter.InPerson:
                     filterQuery = "inPerson eq true";
+                    const double distance = 50 * 1.6;
+                    sortQuery.Add($"geo.distance(location, geography'POINT({location.Longitude} {location.Latitude})') le {distance}");
                     break;
             }
-            switch (sort)
+            if (filter != SearchRequestFilter.InPerson)
             {
-                case SearchRequestSort.Price:
-                    sortQuery.Add("fee");
-                    break;
-                case SearchRequestSort.Distance when location != null:
-                    sortQuery.Add($"geo.distance(location, geography'POINT({location.Longitude} {location.Latitude})')");
-                    break;
-                case SearchRequestSort.Rating:
-                    sortQuery.Add("rank desc");
-                    break;
+                switch (sort)
+                {
+                    case SearchRequestSort.Price:
+                        sortQuery.Add("fee");
+                        break;
+                    case SearchRequestSort.Distance:
+                        sortQuery.Add(
+                            $"geo.distance(location, geography'POINT({location.Longitude} {location.Latitude})')");
+                        break;
+                    case SearchRequestSort.Rating:
+                        sortQuery.Add("rank desc");
+                        break;
+                }
             }
 
             var searchParams = new SearchParameters
@@ -71,8 +85,8 @@ namespace Cloudents.Infrastructure.Search
 
             };
             var retVal = await
-                m_Client.Documents.SearchAsync<Tutor>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
-            return m_Mapper.Map<IEnumerable<Tutor>, IList<TutorDto>>(retVal.Results.Select(s => s.Document), opt => opt.Items["term"] = term);
+                _client.Documents.SearchAsync<Tutor>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
+            return _mapper.Map<IEnumerable<Tutor>, IList<TutorDto>>(retVal.Results.Select(s => s.Document), opt => opt.Items["term"] = term);
         }
     }
 }
