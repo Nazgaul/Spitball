@@ -36,11 +36,9 @@ export default {
     data() {
         return {
             placeholders: placeholders,
-            showOption: false,
             names: names,
             currentName:'',
             qFilter: this.$route.query.q,
-            isOptions: false,
             snackbar:true
         };
     },
@@ -59,6 +57,7 @@ export default {
         }
     },
 
+    props:{value:{type:Boolean}},
     methods: {
         ...mapActions(['updateSearchText']),
         submit: function () {
@@ -69,7 +68,9 @@ export default {
             this.$emit('update:overlay', false);
         },
         menuToggle: function() {
-            console.log("here")
+            // this.$emit('@update:showMenu',)
+            console.log("here");
+            this.$emit('input',!this.value);
 
         }
     }
