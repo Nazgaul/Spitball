@@ -1,5 +1,5 @@
 ﻿<template>
-    <v-navigation-drawer v-model="open" app light clipped persistent enable-resize-watcher :mobile-break-point="960"  class="sb-aside" width="216">
+    <v-navigation-drawer v-model="showNav"  app light clipped persistent enable-resize-watcher :mobile-break-point="960"  class="sb-aside" width="216" >
         <v-list>
                 <v-list-tile v-for="vertical in verticals" :key="vertical.id" class="mb-2"  @click="$_updateType(vertical.id)" :class="{'list__tile--active':vertical.id==currentPage}">
                     <!--<v-list-tile-action-text >
@@ -35,20 +35,26 @@
         },
         data() {
             return {
-                open : true,
-                verticals: verticals,      
+                verticals: verticals
             }
         },
 
         methods:{
             ...mapMutations({'changeFlow':'ADD'}),
          $_updateType(result){
-              this.changeFlow({result})
+              this.changeFlow({result});
              this.$router.push({path:'/'+result,query:{q:this.userText}})
          }
         },
-        props: { term: {type:String}},
+        watch: {
+           isOpen(val){this.showNav=val}
+        },
+        props: { term: {type:String},isOpen:{type:Boolean,default:true}},
         computed: {
+            showNav:{
+                get(){return this.isOpen},
+                set(val){this.$emit('input',val)}
+            },
             userText() { return this.term?this.term:this.$route.query.q},
             currentPage(){return this.$route.path.slice(1)}
         }
