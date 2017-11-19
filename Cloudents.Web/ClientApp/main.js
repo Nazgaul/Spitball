@@ -1,7 +1,7 @@
 ﻿import Vue from 'vue';
 import App from './components/app/app.vue';
 import store from './store';
-import scroll from './components/helpers/infinateScroll.vue'
+const scroll = () => import('./components/helpers/infinateScroll.vue');
 import GeneralPage from './components/helpers/generalPage.vue'
 import VueRouter from 'vue-router';
 import vueMoment from "vue-moment";

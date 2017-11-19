@@ -1,6 +1,6 @@
 ﻿import { page } from './../data'
 import RadioList from './../helpers/radioList.vue';
-const ResultItem = () => import('./ResultItem.vue');
+import ResultItem from './ResultItem.vue';
 const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
 const ResultPersonalize = () => import('../settings/ResultPersonalize.vue');
@@ -37,9 +37,6 @@ var updateData = function (data) {
     this.content = data;
     (data.data.length && this.hasExtra) ? this.selectedItem = data.data[0].placeId : '';
     this.filter = this.filterOptions;
-    this.$nextTick(() => {
-        this.UPDATE_LOADING(false);
-    });
 };
 var updateLuis = function (page) {
     let self = this;
@@ -84,6 +81,9 @@ export const pageMixin =
                     if (val) {
                         this.pageData = val;
                         this.items = val.data;
+                        this.$nextTick(() => {
+                            this.UPDATE_LOADING(false);
+                        });
                     }
                 }
             },

@@ -33,10 +33,8 @@
                     this.page=this.token?this.token:1;
                     if(this.token){this.currentToken=this.token;this.page=1;}
                     this.currentQuery=this.$route.fullPath;
-                    console.log('reset');
                     this.$refs.infiniteLoading.isComplete=false;
-                    this.$emit('$InfiniteLoading:reset')
-                    this.$refs.infiniteLoading.$emit('$InfiniteLoading:reset')
+                    this.$emit('$InfiniteLoading:reset');
             },
             infiniteHandler($state) {
 
@@ -51,7 +49,7 @@
                                 if (res.hasOwnProperty('token')) {
                                     this.currentToken = res.token;
                                 } else { this.page++; }
-                                
+
                             } else {
                                 this.page = 1;
                                 $state.complete();

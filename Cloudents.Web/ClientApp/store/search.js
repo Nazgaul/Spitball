@@ -75,7 +75,8 @@ const actions = {
         return searchService.activateFunction[data.pageName]({ ...context.getters.searchParams,...data.queryParams, university })
     },
     scrollingItems( context , model) {
-        return searchService.activateFunction[model.name]({ ...context.getters.searchParams, ...model.params,page: model.page })
+        let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
+        return searchService.activateFunction[model.name]({ ...context.getters.searchParams, ...model.params,page: model.page,university })
     },
     getPreview(context, model) {
         return searchService.getPreview(model)
