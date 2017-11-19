@@ -28,11 +28,11 @@ namespace Cloudents.Infrastructure.Search
             m_Mapper = mapper;
         }
 
-        public async Task<(string token, IEnumerable<PlaceDto> data)> SearchNearbyAsync(string term, SearchRequestFilter filter,
+        public async Task<(string token, IEnumerable<PlaceDto> data)> SearchNearbyAsync(string term, PlacesRequestFilter filter,
             GeoPoint location, string nextPageToken, CancellationToken token)
         {
             var nvc = BuildQuery(term, filter, location, nextPageToken);
-            if (filter == SearchRequestFilter.OpenNow)
+            if (filter == PlacesRequestFilter.OpenNow)
             {
                 nvc.Add("opennow", true.ToString());
             }
@@ -44,7 +44,7 @@ namespace Cloudents.Infrastructure.Search
             });
         }
 
-        private NameValueCollection BuildQuery(string term, SearchRequestFilter filter,
+        private NameValueCollection BuildQuery(string term, PlacesRequestFilter filter,
             GeoPoint location, string nextPageToken)
         {
             if (string.IsNullOrEmpty(nextPageToken))

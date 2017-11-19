@@ -34,8 +34,8 @@ namespace Cloudents.Web.Api
                 var repositoryResult = await _universitySynonymRepository.Value.GetAsync(model.University.Value, token).ConfigureAwait(false);
                 universitySynonym = repositoryResult.Name;
             }
-            var query = new SearchQuery(model.Term, universitySynonym, model.Course, model.Source, model.Page,
-                model.Sort);
+            var query = new SearchQuery(model.Term, universitySynonym, model.Course, model.Source, model.Page.GetValueOrDefault(),
+                model.Sort.GetValueOrDefault());
             var tResult = _searchProvider.SearchAsync(query, token);
             var tVideo = _videoSearch.SearchAsync(model.UserText, token);
             await Task.WhenAll(tResult, tVideo).ConfigureAwait(false);

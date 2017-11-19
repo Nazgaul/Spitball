@@ -22,7 +22,7 @@ namespace Cloudents.Web.Api
 
         [TypeFilter(typeof(IpToLocationActionFilter),Arguments = new object[] {"location"})]
         [HttpGet]
-        public async Task<IActionResult> GetAsync([RequiredFromQuery]string[] term, SearchRequestFilter filter, GeoPoint location, CancellationToken token)
+        public async Task<IActionResult> GetAsync([RequiredFromQuery]string[] term, PlacesRequestFilter filter, GeoPoint location, CancellationToken token)
         {
             if (term == null) throw new ArgumentNullException(nameof(term));
             if (location == null) throw new ArgumentNullException(nameof(location));

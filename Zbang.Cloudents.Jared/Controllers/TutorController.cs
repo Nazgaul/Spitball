@@ -19,11 +19,12 @@ namespace Zbang.Cloudents.Jared.Controllers
             _tutorSearch = tutorSearch;
         }
 
-        public async Task<HttpResponseMessage> Get(string term, SearchRequestFilter filter,
-            SearchRequestSort? sort, [FromUri] GeoPoint location, int page, CancellationToken token)
+        //TODO we need geo point to be on in here since case 8920
+        public async Task<HttpResponseMessage> Get(string term, TutorRequestFilter? filter,
+            TutorRequestSort? sort, [FromUri] GeoPoint location, int page, CancellationToken token)
         {
 
-            var result = await _tutorSearch.SearchAsync(term, filter, sort.GetValueOrDefault(SearchRequestSort.Price), location, page, token).ConfigureAwait(false);
+            var result = await _tutorSearch.SearchAsync(term, filter.GetValueOrDefault(), sort.GetValueOrDefault(TutorRequestSort.Price), location, page, token).ConfigureAwait(false);
             return Request.CreateResponse(result);
         }
     }

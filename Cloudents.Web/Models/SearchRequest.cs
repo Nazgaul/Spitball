@@ -8,8 +8,8 @@ namespace Cloudents.Web.Models
         public long? University { get; set; }
         public string Course { get; set; }
         public string[] Term { get; set; }
-        public int Page { get; set; }
-        public SearchRequestSort Sort { get; set; }
+        public int? Page { get; set; }
+        public SearchCseRequestSort? Sort { get; set; }
     }
 
     public class AskRequest : SearchRequest

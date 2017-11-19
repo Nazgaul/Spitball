@@ -30,8 +30,8 @@ namespace Cloudents.Web.Api
                 var repositoryResult = await m_UniversitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
                 universitySynonym = repositoryResult.Name;
             }
-            var query = new SearchQuery(model.Term, universitySynonym, model.Course, model.Source, model.Page,
-                model.Sort);
+            var query = new SearchQuery(model.Term, universitySynonym, model.Course, model.Source, model.Page.GetValueOrDefault(),
+                model.Sort.GetValueOrDefault());
 
             var result = await searchProvider.SearchAsync(query, token).ConfigureAwait(false);
             return Json(result);
@@ -47,8 +47,8 @@ namespace Cloudents.Web.Api
                 var repositoryResult = await m_UniversitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
                 universitySynonym = repositoryResult.Name;
             }
-            var query = new SearchQuery(model.Term, universitySynonym, model.Course, model.Source, model.Page,
-                model.Sort);
+            var query = new SearchQuery(model.Term, universitySynonym, model.Course, model.Source, model.Page.GetValueOrDefault(),
+                model.Sort.GetValueOrDefault());
 
             var result = await searchProvider.SearchAsync(query, token).ConfigureAwait(false);
             return Json(result);
@@ -65,8 +65,8 @@ namespace Cloudents.Web.Api
                 var repositoryResult = await m_UniversitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
                 universitySynonym = repositoryResult.Name;
             }
-            var query = new SearchQuery(model.Term, universitySynonym, model.Course, model.Source, model.Page,
-                model.Sort);
+            var query = new SearchQuery(model.Term, universitySynonym, model.Course, model.Source, model.Page.GetValueOrDefault(),
+                model.Sort.GetValueOrDefault());
 
             var result = await searchProvider.SearchAsync(query, token).ConfigureAwait(false);
             return Json(result);

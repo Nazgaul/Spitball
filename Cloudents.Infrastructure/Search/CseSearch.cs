@@ -20,7 +20,7 @@ namespace Cloudents.Infrastructure.Search
         Task<IEnumerable<SearchResult>> DoSearchAsync(string query,
             string source,
             int page,
-            SearchRequestSort sort,
+            SearchCseRequestSort sort,
             CustomApiKey key,
             CancellationToken token);
     }
@@ -38,7 +38,7 @@ namespace Cloudents.Infrastructure.Search
         public async Task<IEnumerable<SearchResult>> DoSearchAsync(string query,
             string source,
             int page,
-            SearchRequestSort sort,
+            SearchCseRequestSort sort,
             CustomApiKey key,
             CancellationToken token)
         {
@@ -56,7 +56,7 @@ namespace Cloudents.Infrastructure.Search
                 SiteSearch = source,
                 Cx = key.Key,
                 Fields = "items(title,link,snippet,pagemap/cse_image,displayLink)",
-                Sort = sort == SearchRequestSort.Date ? "date" : string.Empty
+                Sort = sort == SearchCseRequestSort.Date ? "date" : string.Empty
             };
             try
             {

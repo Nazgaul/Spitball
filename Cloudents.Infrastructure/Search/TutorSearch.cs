@@ -20,9 +20,16 @@ namespace Cloudents.Infrastructure.Search
             _tutorSearch = tutorSearch;
         }
 
-        public async Task<IEnumerable<TutorDto>> SearchAsync(string term, SearchRequestFilter filter, SearchRequestSort sort, GeoPoint location, int page,
+        // filter = FilterSortDto(filters: [.all,.online,.inPerson], sortArr: [.relevance, .price,.distance,.rating])
+        public async Task<IEnumerable<TutorDto>> SearchAsync(string term, TutorRequestFilter filter, TutorRequestSort sort, GeoPoint location, int page,
             CancellationToken token)
         {
+            if (sort == TutorRequestSort.Distance && location == null)
+            {
+                throw new ArgumentException("Need to location");
+            }
+            if (filter == TutorRequestFilter.InPerson && location == null)
+                throw new ArgumentException("Need to location");
             var tasks = _tutorSearch.Select(s =>
                 s.SearchAsync(term, filter, sort, location, page, token)).ToList();
             await Task.WhenAll(tasks).ConfigureAwait(false);
