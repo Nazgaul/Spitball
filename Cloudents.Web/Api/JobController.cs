@@ -13,7 +13,6 @@ namespace Cloudents.Web.Api
     [Route("api/Job")]
     public class JobController : Controller
     {
-
         private readonly IJobSearch _jobSearch;
 
         public JobController(IJobSearch jobSearch)

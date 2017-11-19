@@ -22,16 +22,8 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> Get(long id, bool? firstTime, CancellationToken token)
         {
             var tModel = _repository.GetAsync(id, token);
-            Task<string> tContent;
-            if (firstTime.GetValueOrDefault())
-            {
-                tContent = _documentSearch.Value.ItemContentAsync(id, token);
-                //TODO: need to bring content of blob
-            }
-            else
-            {
-                tContent = Task.FromResult<string>(null);
-            }
+            var tContent = firstTime.GetValueOrDefault() ?
+                _documentSearch.Value.ItemContentAsync(id, token) : Task.FromResult<string>(null);
             await Task.WhenAll(tModel, tContent).ConfigureAwait(false);
 
             var model = tModel.Result;

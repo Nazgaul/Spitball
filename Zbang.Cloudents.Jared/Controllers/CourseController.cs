@@ -76,7 +76,6 @@ namespace Zbang.Cloudents.Jared.Controllers
 
             try
             {
-
                 var command = new CreateAcademicBoxCommand(userId, model.CourseName,
                                                            model.CourseId, null, res.DepartmentId);
                 var result = await _zboxWriteService.CreateBoxAsync(command).ConfigureAwait(false);

@@ -33,7 +33,6 @@ namespace Cloudents.Infrastructure.Search
             m_KeyGenerator = keyGenerator;
         }
 
-
         [Cache(TimeConst.Day, "cse")]
         public async Task<IEnumerable<SearchResult>> DoSearchAsync(string query,
             string source,

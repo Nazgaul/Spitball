@@ -46,7 +46,5 @@ namespace Zbang.Cloudents.Jared.Controllers
                 result.data
             });
         }
-
-
     }
 }

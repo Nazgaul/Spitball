@@ -10,7 +10,6 @@ namespace Cloudents.Web.Api
     [Route("api/University")]
     public class UniversityController : Controller
     {
-
         private readonly IUniversitySearch _universityProvider;
 
         public UniversityController(IUniversitySearch universityProvider)

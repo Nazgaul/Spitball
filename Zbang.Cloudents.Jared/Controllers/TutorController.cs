@@ -23,7 +23,6 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> Get(string term, TutorRequestFilter? filter,
             TutorRequestSort? sort, [FromUri] GeoPoint location, int page, CancellationToken token)
         {
-
             var result = await _tutorSearch.SearchAsync(term, filter.GetValueOrDefault(), sort.GetValueOrDefault(TutorRequestSort.Price), location, page, token).ConfigureAwait(false);
             return Request.CreateResponse(result);
         }

@@ -111,6 +111,5 @@ namespace Zbang.Cloudents.Jared.Controllers
             await m_ZboxWriteService.DeleteQuizLikeAsync(command).ConfigureAwait(true);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
-
     }
 }

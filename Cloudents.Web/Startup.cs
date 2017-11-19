@@ -27,7 +27,6 @@ namespace Cloudents.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddMvc()
                 .AddJsonOptions(options =>

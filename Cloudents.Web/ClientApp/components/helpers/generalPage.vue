@@ -4,7 +4,7 @@
             <v-layout>
                 <v-flex offset-lg1 class="mt-5">
                     <slot></slot>
-                    <v-container fluid>
+                    <v-container fluid class="pa-2">
                         <v-layout row>
                             <v-flex class="sec-result">
                                 <slot name="title">

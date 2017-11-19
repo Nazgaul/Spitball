@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
@@ -24,7 +25,6 @@ namespace Cloudents.Web.Api
             _videoSearch = videoSearch;
         }
 
-
         public async Task<IActionResult> Get([FromQuery] AskRequest model,
             CancellationToken token)
         {
@@ -38,14 +38,14 @@ namespace Cloudents.Web.Api
                 model.Sort.GetValueOrDefault());
             var tResult = _searchProvider.SearchAsync(query, token);
             var tVideo = Task.FromResult<VideoDto>(null);
-            if (model.Page > 0)
+            if (model.Page.GetValueOrDefault() == 0)
             {
                 tVideo = _videoSearch.SearchAsync(model.UserText, token);
             }
             await Task.WhenAll(tResult, tVideo).ConfigureAwait(false);
             return Json(new
             {
-                result = tResult.Result,
+                result = tResult.Result.Take(1),
                 video = tVideo.Result
             });
         }

@@ -34,7 +34,6 @@ namespace Cloudents.Infrastructure.Search
             TutorRequestFilter filter, TutorRequestSort sort,
             GeoPoint location, int page, CancellationToken token)
         {
-           
             string filterQuery = null;
             var sortQuery = new List<string>();
             switch (filter)
