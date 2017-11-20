@@ -4,7 +4,7 @@
             <div class="p-setting">
                 <v-list class="pa-0">
                     <template v-for="(item,index) in menuData">
-                        <v-list-tile @click="($_isDisabled(item.id)?'':$_currentClick(item))" :disabled="$_isDisabled(item.id)">
+                        <v-list-tile @click="$_currentClick(item)">
                             <v-list-tile-action>
                                 <component :is="item.id+'-icon'"></component>
                             </v-list-tile-action>
@@ -21,7 +21,7 @@
             </div>
             <div class="version">version:{{version}}</div>
         </div>
-        <search-item v-model="showDialog" :type="type"></search-item>
+        <search-item v-model="showDialog" :type="(!type?'':getUniversityName?type:'university')" :keep="type==='course'&&!getUniversityName"></search-item>
 
     </general-page>
 </template>
@@ -50,9 +50,6 @@
         },
 
         methods: {
-            $_isDisabled(itemId){
-                return itemId==='myCourses'&&!this.getUniversityName
-            },
             $_currentClick(item) {
                 item.click.call(this);
             }

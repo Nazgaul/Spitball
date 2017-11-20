@@ -12,9 +12,9 @@
         emptyState: "If you would like to add your school send us a note from the feedback link in the settings tab.",
         title: 'Select University',
         closeText: "X",
-        click:function(){
-            console.log('pojggfg');
-            this.dialog=false;},
+        click:function(keep=true){
+            if(this.$route.name==="setting"&&!keep){this.dialog = false}
+        },
         defaultFilter: '',
         filters: [],
         actions: []
