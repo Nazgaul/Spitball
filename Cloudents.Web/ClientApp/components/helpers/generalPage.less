@@ -26,6 +26,10 @@
     .sort-filter {
         overflow: auto;
         white-space: nowrap;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
 
         &::-webkit-scrollbar-track {
             border: none;
@@ -63,8 +67,6 @@
             padding-left: 6px;
         }
     }
-
-   
     /*.s-divider {
         width: 0px;
         display:inline-block;
