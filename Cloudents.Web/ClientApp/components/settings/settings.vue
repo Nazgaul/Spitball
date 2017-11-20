@@ -3,7 +3,7 @@
         <div class="p-setting"  slot="data">
             <v-list class="pa-0">
                 <template v-for="(item,index) in menuData">
-                    <v-list-tile :to="{name:item.id}">
+                    <v-list-tile @click="$_currentClick(item)">
                         <v-list-tile-action>
                             <component :is="item.id+'-icon'"></component>
                         </v-list-tile-action>
@@ -18,6 +18,7 @@
                 </template>
             </v-list>
         </div>
+        <search-item v-model="showDialog" :type="type"></search-item>
     </general-page>
 </template>
 <script>
@@ -27,19 +28,26 @@
     import  UniversityIcon from './svg/university-icon.svg'
     import WalkthroughIcon from './svg/walkthrough.svg'
     import GeneralPage from './../helpers/generalPage.vue'
+    import searchItem from './searchItem.vue'
     import {settingMenu} from './consts'
     import { mapActions,mapGetters } from 'vuex'
     import VDivider from "vuetify/src/components/VDivider/VDivider";
     export default {
-        components: {VDivider,AboutUsIcon,ArrowButtonIcon,MyCoursesIcon,UniversityIcon,WalkthroughIcon,GeneralPage},
+        components: {VDivider,searchItem,AboutUsIcon,ArrowButtonIcon,MyCoursesIcon,UniversityIcon,WalkthroughIcon,GeneralPage,searchItem},
         data(){
             return{
-                menuData:settingMenu
+                menuData:settingMenu,showDialog:false,type:"university"
             }
         },
         computed:
         {
             ...mapGetters(['getUniversityName'])
+        },
+
+        methods:{
+            $_currentClick(item){
+                item.click.call(this);
+            }
         }
     }
 </script>

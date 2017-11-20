@@ -18,11 +18,8 @@
     }
 }
 export let settingMenu=[
-    {id:"university",name:"Choose university"},{id:"myCourses",name:"My courses"},{id:"walkthrough",name:"Walkthrough"},{id:"aboutUs",name:"About us"}];
-export let emptyStates = {};
-export let filtersAction = {};
-for (var v in searchObjects) {
-    let item = searchObjects[v];
-    emptyStates[v] = item.emptyState;
-    filtersAction[v] = { filters: item.filters, defaultFilter: item.defaultFilter, actions: item.actions,title:item.title }
-}
+    {id:"university",name:"Choose university",click:function () {
+        this.showDialog=true;this.type="university"
+    }},{id:"myCourses",name:"My courses",click:function(){
+        this.showDialog=true;this.type="course"
+    }},{id:"walkthrough",name:"Walkthrough",click:function(){this.$router.push({name:'walkthrough'})}},{id:"aboutUs",name:"About us",click:function(){this.$router.push({name:'aboutUs'})}}];
