@@ -120,7 +120,15 @@ export const pageMixin =
                 if (this.isFirst) this.updateFirstTime();
             });
             this.UPDATE_LOADING(true);
-            if(!this.luisTerm){updateLuis.call(this,this.$route);}else{
+            if(!this.luisTerm){this.updateSearchText(this.query.q).then((response)=>{
+                if(response!==this.name){
+                this.$router.push({ path: '/'+response, query: { q: this.query.q } });}else{
+                    this.fetchingData({ pageName: this.name, queryParams: { ...this.query, ...this.params } })
+                        .then((data) => {
+                            updateData.call(this, data);
+                        });
+                }
+            })}else{
                 this.fetchingData({ pageName: this.name, queryParams: { ...this.query, ...this.params } })
                     .then((data) => {
                         updateData.call(this, data);
@@ -128,7 +136,7 @@ export const pageMixin =
             }
         },
         methods: {
-            ...mapActions(['updateLuisAndFetch', 'fetchingData','updateFirstTime','updateFlow']),
+            ...mapActions(['updateSearchText', 'fetchingData','updateFirstTime','updateFlow']),
             $_changeFilter(filter) {
                 if (this.subFilters.length) {
                     delete this.query[this.filter];
