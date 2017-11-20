@@ -38,8 +38,8 @@ export default {
                 search.getQna({ source, university, course, term, page, sort, userText }).then(({body})=>{
                     const video = body.video;
                     const videoMap = video ? [video].map(val => { return { ...val, template: "video" } }) : [];
-                    const data = body.result.map(val => { return { ...val, template: "item" } })[0];
-                    resolve({ data: [...videoMap, ...[data]] });
+                    const data = body.result.map(val => { return { ...val, template: "item" } });
+                    resolve({ data: [...videoMap, ...data] });
                 });
             });
         },

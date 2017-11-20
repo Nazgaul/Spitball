@@ -114,7 +114,7 @@
         }
 
         loadMore() {
-            if (this.needLoadMore && this.user.id) {
+            if (this.needLoadMore) {
                 this.needLoadMore = false;
                 ++this.index;
                 return this.getPreview();

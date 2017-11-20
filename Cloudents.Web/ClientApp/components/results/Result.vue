@@ -1,15 +1,15 @@
 ﻿<template>
    <general-page :title="titleText">
        <result-personalize v-show="isfirst" :show="showSearch" v-if="isfirst||showCourses"></result-personalize>
-       <div  slot="options">
-           <div class="sort-filter">
+       <template  slot="options">
+           <div class="sort-filter" v-if="page.sort || page.filter">
                <radio-list class="search" :values="page.filter" @click="$_changeFilter" model="filter" :value="filterOptions"></radio-list>
                <radio-list v-if="page.sort" :values="page.sort" @click="$_updateSort" model="sort" class="search sort" :value="$_defaultSort(page.sort[0].id)"></radio-list>
            </div>
            <div class="sort-filter">
                <radio-list :values="subFilters" @click="$_changeSubFilter" class="sub-search" model="subFilter" :value="subFilter"></radio-list>
                </div>
-           </div>
+           </template>
        <scroll-list slot="data" :loadMore="!isEmpty" v-if="items" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
            <v-container class="pa-0">
                <v-layout column>

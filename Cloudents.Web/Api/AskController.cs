@@ -45,7 +45,7 @@ namespace Cloudents.Web.Api
             await Task.WhenAll(tResult, tVideo).ConfigureAwait(false);
             return Json(new
             {
-                result = tResult.Result.Take(1),
+                result = tResult.Result,
                 video = tVideo.Result
             });
         }
