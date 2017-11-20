@@ -34,34 +34,31 @@ namespace Cloudents.Infrastructure.Search
             TutorRequestFilter filter, TutorRequestSort sort,
             GeoPoint location, int page, CancellationToken token)
         {
-            string filterQuery = null;
+            var filterQuery = new List<string>();
             var sortQuery = new List<string>();
             switch (filter)
             {
                 case TutorRequestFilter.Online:
-                    filterQuery = "online eq true";
+                    filterQuery.Add("online eq true");
                     break;
                 case TutorRequestFilter.InPerson:
-                    filterQuery = "inPerson eq true";
+                    filterQuery.Add("inPerson eq true");
                     const double distance = 50 * 1.6;
-                    sortQuery.Add($"geo.distance(location, geography'POINT({location.Longitude} {location.Latitude})') le {distance}");
+                    filterQuery.Add($"geo.distance(location, geography'POINT({location.Longitude} {location.Latitude})') le {distance}");
                     break;
             }
-            if (filter != TutorRequestFilter.InPerson)
+            switch (sort)
             {
-                switch (sort)
-                {
-                    case TutorRequestSort.Price:
-                        sortQuery.Add("fee");
-                        break;
-                    case TutorRequestSort.Distance:
-                        sortQuery.Add(
-                            $"geo.distance(location, geography'POINT({location.Longitude} {location.Latitude})')");
-                        break;
-                    case TutorRequestSort.Rating:
-                        sortQuery.Add("rank desc");
-                        break;
-                }
+                case TutorRequestSort.Price:
+                    sortQuery.Add("fee");
+                    break;
+                case TutorRequestSort.Distance:
+                    sortQuery.Add(
+                        $"geo.distance(location, geography'POINT({location.Longitude} {location.Latitude})')");
+                    break;
+                case TutorRequestSort.Rating:
+                    sortQuery.Add("rank desc");
+                    break;
             }
 
             var searchParams = new SearchParameters
@@ -72,7 +69,7 @@ namespace Cloudents.Infrastructure.Search
                 {
                     "name", "image", "url", "city", "state", "fee", "online", "location","subjects","extra"
                 },
-                Filter = filterQuery,
+                Filter = string.Join(" and ", filterQuery),
                 OrderBy = sortQuery
 
             };
