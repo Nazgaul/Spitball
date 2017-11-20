@@ -37,7 +37,7 @@
         components: {VDivider,searchItem,AboutUsIcon,ArrowButtonIcon,MyCoursesIcon,UniversityIcon,WalkthroughIcon,GeneralPage,searchItem},
         data(){
             return{
-                menuData:settingMenu,showDialog:false,type:"university"
+                menuData:settingMenu,showDialog:false,type:""
             }
         },
         computed:

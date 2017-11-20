@@ -26,7 +26,7 @@
 
         computed: {
             ...mapGetters(['getUniversity']),
-            searchType: function () { return this.getUniversity ? 'course' : 'university' }
+            searchType: function () { return !this.showDialog?'':this.getUniversity ? 'course' : 'university' }
         },
 
         props: { show: {} },

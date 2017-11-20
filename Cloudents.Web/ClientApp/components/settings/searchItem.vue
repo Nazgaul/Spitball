@@ -1,11 +1,11 @@
 ﻿<template>
     <component is="slot">
-    <v-dialog class="white" v-model="dialog" scrollable max-width="500px">
+    <v-dialog class="white" v-model="dialog" scrollable max-width="500px" v-if="currentItem">
         <v-card>
             <v-card-title>
                     <v-flex xs12 class="headline">{{currentItem.title}}</v-flex>
                 <v-flex xs12><v-text-field
-                        label="Search" @input="$_search" v-debounce="500"
+                        label="Search" @input="$_search" ref="searchText" v-debounce="500"
                         class="input-group--focused"
                         single-line></v-text-field></v-flex>
                 <v-container class="pa-0 mb-3" v-if="currentItem.filters">
@@ -25,8 +25,8 @@
                 <div v-else>
                     <v-list v-if="items.length">
                         <template v-for="(item,index) in filterItems">
-                            <div @click="$_selected({id:item.id,name:item.name})"> <component :is="'search-item-'+type" :item="item"></component></div>
-                            <v-divider v-if="index < filterItems.length-1"></v-divider>
+<div  @click="$_clickItemCallback()">                            <component :is="'search-item-'+type" :item="item"></component>
+</div>                            <v-divider v-if="index < filterItems.length-1"></v-divider>
                         </template>
                     </v-list><div v-else>
                     <div>No Results Found</div>
@@ -41,7 +41,7 @@
             </v-card-actions>
         </v-card>
     </v-dialog>
-    <v-dialog v-model="showActionsDialog">
+    <v-dialog v-model="showActionsDialog" v-if="currentItem">
         <div class="white pa-2" v-for="action in currentItem.actions" :key="action.id">
             <component :is="type+'-'+action.id" v-if="currentAction==action.id" @done="$_actionDone"></component>
         </div>
@@ -67,6 +67,11 @@
         directives: {
             debounce
         },
+        watch:{
+            type(val){
+               this.$refs.searchText?this.$refs.searchText.inputValue='':this.$_search('')
+            }
+        },
         computed: {
             dialog:{
                 get(){
@@ -77,7 +82,8 @@
             ...mapGetters(['myCoursesId']),
             showActionsDialog:{
                 get(){return this.currentAction},set(val){}},
-            currentItem: function () { return searchObjects[this.type]},
+            currentItem: function () {
+            return searchObjects[this.type]},
             emptyText: function () { return this.currentItem.emptyState },
             filterItems: function () { return this.filter === 'myCourses' ? this.items.filter((i) => this.myCoursesId.length && this.myCoursesId.includes(i.id)):this.items}
         },
@@ -96,6 +102,9 @@
             searchItemUniversity, searchItemCourse, RadioList, plusButton},
         props: { type: {type:String,required:true},value:{type:Boolean}},
         methods: {
+            $_clickItemCallback(){
+                this.currentItem.click?this.currentItem.click.call(this):''
+            },
             $_actionDone(val){
                 this.items = [... this.items, val];
                 this.currentAction="";
@@ -117,9 +126,6 @@
             $_updateFilter(val) {
                 this.filteredItems = (val === 'all') ? this.items : this.items.filter((i) => this.myCoursesId.length || this.myCoursesId.includes(i.id))
             }
-        },
-        mounted() {
-            this.$_search('')
         }
     }
 </script>
