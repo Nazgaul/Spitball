@@ -50,10 +50,12 @@ const actions = {
     bookDetails: (context, data) => {
         return searchService.activateFunction[data.pageName](data.params) 
     },
-    fetchingData: (context, data) => {
+    //TODO merge this both to one
+    fetchingData: (context, {name,params}) => {
         let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
-        return searchService.activateFunction[data.pageName]({ ...context.getters.searchParams,...data.queryParams, university })
+        return searchService.activateFunction[name]({ ...context.getters.searchParams,...params, university })
     },
+    //TODO merge this both to one
     scrollingItems( context , model) {
         let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
         return searchService.activateFunction[model.name]({ ...context.getters.searchParams, ...model.params,page: model.page,university })

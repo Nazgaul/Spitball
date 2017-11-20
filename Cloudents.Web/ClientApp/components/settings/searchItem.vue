@@ -2,7 +2,7 @@
     <component is="slot">
         <!--class="white"  -->
         <!--class="input-group--focused"-->
-        <v-dialog v-model="dialog" max-width="500px" content-class="dialog-choose">
+        <v-dialog v-model="dialog" max-width="500px" content-class="dialog-choose" v-if="currentItem">
             <div class="d-header">
                 <v-layout row>
                     <v-flex>
@@ -14,7 +14,7 @@
                         <h5>{{currentItem.title}}</h5>
                     </v-flex>
                 </v-layout>
-                <v-text-field label="Search" @input="$_search" v-debounce="500"
+                <v-text-field label="Search" @input="$_search" ref="searchText" v-debounce="500"
                               single-line></v-text-field>
                 <v-container class="pa-0 mb-3" v-if="currentItem.filters">
                     <v-layout row>
@@ -69,22 +69,22 @@
         directives: {
             debounce
         },
-        watch: {
-            type(val) {
-                this.$refs.searchText ? this.$refs.searchText.inputValue = '' : this.$_search('')
+        watch:{
+            type(val){
+               this.$refs.searchText?this.$refs.searchText.inputValue='':this.$_search('')
             }
         },
         computed: {
             dialog: {
                 get() {
-                    return this.value
+                    return this.value;
                 }, set(val) {
                     this.$emit('change', val)
                 }
             },
             ...mapGetters(['myCoursesId']),
-            showActionsDialog: {
-                get() { return this.currentAction }, set(val) { }
+            showActionsDialog:{
+                get(){return this.currentAction},set(val){}},
             currentItem: function () {
                     return searchObjects[this.type]
                 },
