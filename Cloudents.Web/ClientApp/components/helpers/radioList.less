@@ -1,23 +1,25 @@
 ﻿@import "../../mixin.less";
 
 .application--light .chip {
-    font-size: 14px; //?
+    font-size: 14px;
     background: #fff;
     color: @Spitball-Main-color;
     border: 1px solid @Spitball-Main-color;
     border-radius: 10px;
     letter-spacing: -0.3px;
-    //font-size: 12px;
     text-transform: capitalize;
     padding: 0 24px;
+    cursor: pointer;
 
     &.chip--selected {
         color: #fff;
         border: 0;
         background: @Spitball-Main-color;
+        pointer-events: none;
     }
-    &.chip--disabled{
-        opacity:0.5;
+
+    &.chip--disabled {
+        opacity: 0.5;
     }
 }
 
