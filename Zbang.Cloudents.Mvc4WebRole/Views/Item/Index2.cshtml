@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
-<div srph-infinite-scroll="i.loadMore()" unregister-scroll="true" collapse-header ng-class="{hideActions: i.selectedState === 1 || i.selectedState === 2}">
+<div srph-infinite-scroll="i.loadMore()" collapse-header ng-class="{hideActions: i.selectedState === 1 || i.selectedState === 2}">
     <header layout="row" layout-align="space-between center">
         <div class="progress-bar"><md-progress-linear ng-if="i.loader" md-mode="indeterminate"></md-progress-linear></div>
         <div class="top-wrapper">
@@ -91,9 +91,6 @@
         </div>
     </header>
     <div class="item-content" md-swipe-left="i.swipeLeft()" md-swipe-right="i.swipeRight()">
-        @*<div class="ad">
-            <adsense ad-client="ca-pub-1215688692145777" ad-slot="1167934950" inline-style="display:block;" ad-format="auto"></adsense>
-        </div>*@
         <div class="side-ad">
             <adsense ad-client="ca-pub-1215688692145777" ad-slot="5039731352" inline-style="display:inline-block;width:160px;height:600px"></adsense>
         </div>

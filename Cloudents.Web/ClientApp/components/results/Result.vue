@@ -1,20 +1,16 @@
 ﻿<template>
    <general-page :title="titleText">
        <result-personalize v-show="isfirst" :show="showSearch" v-if="isfirst||showCourses"></result-personalize>
-       <!--<h5 slot="title">-->
-           <!--<span v-if="isEmpty" class="empty" v-html="page.emptyText.replace('$subject', term)"></span>-->
-           <!--<span v-else v-html="titleText"></span> {{dynamicHeader}}-->
-       <div  slot="options">
-           <div class="sort-filter">
+       <template  slot="options">
+           <div class="sort-filter" v-if="page.sort || page.filter">
                <radio-list class="search" :values="page.filter" @click="$_changeFilter" model="filter" :value="filterOptions"></radio-list>
-               <!--<div class="s-divider"></div>-->
                <radio-list v-if="page.sort" :values="page.sort" @click="$_updateSort" model="sort" class="search sort" :value="$_defaultSort(page.sort[0].id)"></radio-list>
            </div>
            <div class="sort-filter">
                <radio-list :values="subFilters" @click="$_changeSubFilter" class="sub-search" model="subFilter" :value="subFilter"></radio-list>
                </div>
-           </div>
-       <scroll-list slot="data"  :loadMore="!isEmpty&&items.length>10" v-if="items.length" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
+           </template>
+       <scroll-list slot="data" :loadMore="!isEmpty&&items.length>10" v-if="items" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
            <v-container class="pa-0">
                <v-layout column>
                    <v-flex class="elevation-1 mb-2" xs-12 v-for="(item,index) in items" :key="index" @click="(hasExtra?selectedItem=item.placeId:'')" :class="(index>6?'order-xs3':'order-xs1')">

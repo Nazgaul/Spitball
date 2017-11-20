@@ -1026,7 +1026,7 @@ img.tp-slider-alternative-image {
   -webkit-box-sizing: border-box;
 }
 .html5vid .tp-revstop,
-.html5vid.videoisplaying .revicon-left-dir {
+.html5vid.videoisplaying .revicon-right-dir {
   display: none;
 }
 .html5vid.videoisplaying .tp-revstop {
@@ -2493,31 +2493,31 @@ img.tp-slider-alternative-image {
 .revicon-trash:before {
   content: '\e801';
 }
-.revicon-right-dir:before {
+.revicon-left-dir:before {
   content: '\e817';
 }
-.revicon-left-dir:before {
+.revicon-right-dir:before {
   content: '\e818';
 }
 .revicon-down-open:before {
   content: '\e83b';
 }
-.revicon-right-open:before {
+.revicon-left-open:before {
   content: '\e819';
 }
-.revicon-left-open:before {
+.revicon-right-open:before {
   content: '\e81a';
 }
-.revicon-angle-right:before {
+.revicon-angle-left:before {
   content: '\e820';
 }
-.revicon-angle-left:before {
+.revicon-angle-right:before {
   content: '\e81d';
 }
-.revicon-right-big:before {
+.revicon-left-big:before {
   content: '\e81f';
 }
-.revicon-left-big:before {
+.revicon-right-big:before {
   content: '\e81e';
 }
 .revicon-magic:before {
@@ -2544,28 +2544,28 @@ img.tp-slider-alternative-image {
 .revicon-arrow-combo:before {
   content: '\e827';
 }
-.revicon-right-open-1:before {
+.revicon-left-open-1:before {
   content: '\e82a';
 }
-.revicon-left-open-1:before {
+.revicon-right-open-1:before {
   content: '\e82b';
 }
-.revicon-right-open-mini:before {
+.revicon-left-open-mini:before {
   content: '\e822';
 }
-.revicon-left-open-mini:before {
+.revicon-right-open-mini:before {
   content: '\e823';
 }
-.revicon-right-open-big:before {
+.revicon-left-open-big:before {
   content: '\e824';
 }
-.revicon-left-open-big:before {
+.revicon-right-open-big:before {
   content: '\e825';
 }
-.revicon-right:before {
+.revicon-left:before {
   content: '\e836';
 }
-.revicon-left:before {
+.revicon-right:before {
   content: '\e826';
 }
 .revicon-ccw:before {
@@ -2583,16 +2583,16 @@ img.tp-slider-alternative-image {
 .revicon-doc:before {
   content: '\e809';
 }
-.revicon-right-open-outline:before {
+.revicon-left-open-outline:before {
   content: '\e82e';
 }
-.revicon-right-open-2:before {
+.revicon-left-open-2:before {
   content: '\e82c';
 }
-.revicon-left-open-outline:before {
+.revicon-right-open-outline:before {
   content: '\e82f';
 }
-.revicon-left-open-2:before {
+.revicon-right-open-2:before {
   content: '\e82d';
 }
 .revicon-equalizer:before {

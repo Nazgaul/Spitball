@@ -1,4 +1,5 @@
-﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+﻿@using System.Reflection
+@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
 @{
     const string themeColor = "#4190b";
     ViewBag.title = ViewBag.title ?? "Spitball";
@@ -20,14 +21,14 @@
     <environment exclude="Development">
         <link rel="stylesheet" href="~/dist/site.css" asp-append-version="true" />
     </environment>
-    
+
     <meta charset="utf-8">
     <meta name="theme-color" content="@themeColor">
     <meta name="msapplication-navbutton-color" content="@themeColor">
     <meta name="apple-mobile-web-app-status-bar-style" content="@themeColor">
     <meta name="title" content="@ViewBag.title" />
     <meta name="description" content="@ViewBag.metaDescription" />
-    
+
     <meta name="apple-itunes-app" content="app-id=990911114">
     <link rel="image_src" href="@ViewBag.imageSrc" />
 
@@ -39,7 +40,7 @@
     <meta property="og:url" content="https://www.spitball.co/@Context.Request.Path" />
     <meta property="og:type" content="website" />
     <link href="https://plus.google.com/116999550356569810034" rel="publisher" />
-    
+
     <link rel="apple-touch-icon" sizes="57x57" href="Images/favIcons/favicon_114.png" />
     <link rel="apple-touch-icon" sizes="57x57" href="images/favIcons/favicon_57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="images/favicons/favicon_60.png">
@@ -57,19 +58,25 @@
     @Html.Raw(JavaScriptSnippet.FullScript)
 </head>
 <body>
-<div>
-    @RenderBody()
-</div>
+    <div>
+        @RenderBody()
+    </div>
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script src="~/dist/vendor.js" asp-append-version="true"></script>
     <script>
-        (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;
-            s.src ='https://widget.intercom.io/widget/njmpgayv';
-            var x = d.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
-        } if (w.attachEvent) { w.attachEvent('onload', l); } else { w.addEventListener('load', l, false); }
-        }
+        (function () {
+            var w = window; var ic = w.Intercom; if (typeof ic === "function") { ic('reattach_activator'); ic('update', intercomSettings); } else {
+                var d = document; var i = function () { i.c(arguments) }; i.q = []; i.c = function (args) { i.q.push(args) }; w.Intercom = i; function l() {
+                    var s = d.createElement('script'); s.type = 'text/javascript'; s.async = true;
+                    s.src = 'https://widget.intercom.io/widget/njmpgayv';
+                    var x = d.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+                } if (w.attachEvent) { w.attachEvent('onload', l); } else { w.addEventListener('load', l, false); }
+            }
             Intercom('boot', { app_id: 'njmpgayv' })
         })()
+    </script>
+    <script>
+    window.version = '@Assembly.GetExecutingAssembly().GetName().Version.ToString(3)';
     </script>
     @await RenderSectionAsync("scripts", required: false).ConfigureAwait(false)
 </body>

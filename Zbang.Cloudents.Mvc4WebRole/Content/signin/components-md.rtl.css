@@ -2961,7 +2961,7 @@ Dropdown Menu
 .dropdown-submenu:hover > a:after {
   border-right-color: #ffffff;
 }
-.dropdown-submenu.pull-right {
+.dropdown-submenu.pull-left {
   float: none;
 }
 .dropdown-submenu.pull-left > .dropdown-menu {
@@ -6010,12 +6010,12 @@ Customized Bootstrap Tabs
   border-color: transparent;
 }
 /* Left and right tabs */
-.tabs-left.nav-tabs,
-.tabs-right.nav-tabs {
+.tabs-right.nav-tabs,
+.tabs-left.nav-tabs {
   border-bottom: 0;
 }
-.tabs-left.nav-tabs > li,
-.tabs-right.nav-tabs > li {
+.tabs-right.nav-tabs > li,
+.tabs-left.nav-tabs > li {
   float: none;
 }
 .tabs-right.nav-tabs > li > a,
@@ -6792,10 +6792,10 @@ Custimized Bootstrap Wells
   height: auto;
   margin-left: 15px;
 }
-.widget-news .widget-news-left-body {
+.widget-news .widget-news-right-body {
   overflow: hidden;
 }
-.widget-news .widget-news-left-body .widget-news-left-body-title {
+.widget-news .widget-news-right-body .widget-news-right-body-title {
   font-size: 16px;
   font-weight: 600;
   color: #3e4f5e;
@@ -6808,7 +6808,7 @@ Custimized Bootstrap Wells
   background: #a1afbb;
   border-radius: 3px !important;
 }
-.widget-news .widget-news-left-body p {
+.widget-news .widget-news-right-body p {
   font-size: 13px;
 }
 /*** Widget Thumb ***/

@@ -101,7 +101,7 @@ var app;
             this.renameText = this.details.name;
         };
         Item.prototype.loadMore = function () {
-            if (this.needLoadMore && this.user.id) {
+            if (this.needLoadMore) {
                 this.needLoadMore = false;
                 ++this.index;
                 return this.getPreview();

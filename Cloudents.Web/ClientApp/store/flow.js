@@ -2,7 +2,7 @@
 import * as routes from './../routeTypes';
 
 const state = {
-    node: {},
+    node: {}
 };
 
 var buildFlashcardRoute = {

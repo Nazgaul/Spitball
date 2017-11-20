@@ -436,13 +436,13 @@ th {
 .glyphicon-text-width:before {
   content: "\e051";
 }
-.glyphicon-align-right:before {
+.glyphicon-align-left:before {
   content: "\e052";
 }
 .glyphicon-align-center:before {
   content: "\e053";
 }
-.glyphicon-align-left:before {
+.glyphicon-align-right:before {
   content: "\e054";
 }
 .glyphicon-align-justify:before {
@@ -451,10 +451,10 @@ th {
 .glyphicon-list:before {
   content: "\e056";
 }
-.glyphicon-indent-right:before {
+.glyphicon-indent-left:before {
   content: "\e057";
 }
-.glyphicon-indent-left:before {
+.glyphicon-indent-right:before {
   content: "\e058";
 }
 .glyphicon-facetime-video:before {
@@ -514,10 +514,10 @@ th {
 .glyphicon-eject:before {
   content: "\e078";
 }
-.glyphicon-chevron-right:before {
+.glyphicon-chevron-left:before {
   content: "\e079";
 }
-.glyphicon-chevron-left:before {
+.glyphicon-chevron-right:before {
   content: "\e080";
 }
 .glyphicon-plus-sign:before {
@@ -550,10 +550,10 @@ th {
 .glyphicon-ban-circle:before {
   content: "\e090";
 }
-.glyphicon-arrow-right:before {
+.glyphicon-arrow-left:before {
   content: "\e091";
 }
-.glyphicon-arrow-left:before {
+.glyphicon-arrow-right:before {
   content: "\e092";
 }
 .glyphicon-arrow-up:before {
@@ -649,10 +649,10 @@ th {
 .glyphicon-thumbs-down:before {
   content: "\e126";
 }
-.glyphicon-hand-left:before {
+.glyphicon-hand-right:before {
   content: "\e127";
 }
-.glyphicon-hand-right:before {
+.glyphicon-hand-left:before {
   content: "\e128";
 }
 .glyphicon-hand-up:before {
@@ -661,10 +661,10 @@ th {
 .glyphicon-hand-down:before {
   content: "\e130";
 }
-.glyphicon-circle-arrow-left:before {
+.glyphicon-circle-arrow-right:before {
   content: "\e131";
 }
-.glyphicon-circle-arrow-right:before {
+.glyphicon-circle-arrow-left:before {
   content: "\e132";
 }
 .glyphicon-circle-arrow-up:before {
@@ -1009,19 +1009,19 @@ th {
 .glyphicon-object-align-horizontal:before {
   content: "\e246";
 }
-.glyphicon-object-align-right:before {
+.glyphicon-object-align-left:before {
   content: "\e247";
 }
 .glyphicon-object-align-vertical:before {
   content: "\e248";
 }
-.glyphicon-object-align-left:before {
+.glyphicon-object-align-right:before {
   content: "\e249";
 }
-.glyphicon-triangle-left:before {
+.glyphicon-triangle-right:before {
   content: "\e250";
 }
-.glyphicon-triangle-right:before {
+.glyphicon-triangle-left:before {
   content: "\e251";
 }
 .glyphicon-triangle-bottom:before {
@@ -1039,10 +1039,10 @@ th {
 .glyphicon-subscript:before {
   content: "\e256";
 }
-.glyphicon-menu-right:before {
+.glyphicon-menu-left:before {
   content: "\e257";
 }
-.glyphicon-menu-left:before {
+.glyphicon-menu-right:before {
   content: "\e258";
 }
 .glyphicon-menu-down:before {
@@ -1495,17 +1495,17 @@ blockquote.pull-right {
 .blockquote-reverse footer:before,
 .blockquote-reverse small:before,
 .blockquote-reverse .small:before,
-blockquote.pull-left footer:before,
-blockquote.pull-left small:before,
-blockquote.pull-left .small:before {
+blockquote.pull-right footer:before,
+blockquote.pull-right small:before,
+blockquote.pull-right .small:before {
   content: '';
 }
 .blockquote-reverse footer:after,
 .blockquote-reverse small:after,
 .blockquote-reverse .small:after,
-blockquote.pull-left footer:after,
-blockquote.pull-left small:after,
-blockquote.pull-left .small:after {
+blockquote.pull-right footer:after,
+blockquote.pull-right small:after,
+blockquote.pull-right .small:after {
   content: '\00A0 \2014';
 }
 address {
@@ -5360,8 +5360,8 @@ a.thumbnail.active {
 .media > .pull-left {
   padding-left: 10px;
 }
-.media-right,
 .media-left,
+.media-right,
 .media-body {
   display: table-cell;
   vertical-align: top;
@@ -6492,8 +6492,8 @@ button.close {
 }
 .carousel-control .icon-prev,
 .carousel-control .icon-next,
-.carousel-control .glyphicon-chevron-right,
-.carousel-control .glyphicon-chevron-left {
+.carousel-control .glyphicon-chevron-left,
+.carousel-control .glyphicon-chevron-right {
   position: absolute;
   top: 50%;
   margin-top: -10px;
@@ -6568,8 +6568,8 @@ button.close {
   text-shadow: none;
 }
 @media screen and (min-width: 768px) {
-  .carousel-control .glyphicon-chevron-right,
   .carousel-control .glyphicon-chevron-left,
+  .carousel-control .glyphicon-chevron-right,
   .carousel-control .icon-prev,
   .carousel-control .icon-next {
     width: 30px;
