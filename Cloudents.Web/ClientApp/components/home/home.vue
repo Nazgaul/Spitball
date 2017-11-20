@@ -39,7 +39,7 @@
                                     <v-layout row>
                                         <v-flex class="tx-input">
                                             <v-menu offset-y full-width>
-                                                <input slot="activator" autocomplete="off" type="text" required name="q" id="transcript" v-model.trim="msg" :placeholder="placeholder">
+                                                <input slot="activator" @keyup.enter="search" autocomplete="off" type="text" required name="q" id="transcript" v-model.trim="msg" :placeholder="placeholder" >
                                                 <v-list>
                                                     <v-subheader>Some things you can ask me:</v-subheader>
                                                     <template v-for="(item, index) in items">
