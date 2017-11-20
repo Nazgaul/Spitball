@@ -51,8 +51,6 @@ export const pageMixin =
         },
 
         beforeRouteUpdate(to, from, next) {
-            console.log('route update');
-            // just use `this`
             this.UPDATE_LOADING(true);
             this.fetchingData({ name: to.path.slice(1), params: { ...to.query, ...to.params } })
                 .then((data) => {

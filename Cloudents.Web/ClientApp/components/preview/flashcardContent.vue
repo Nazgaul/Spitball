@@ -40,12 +40,9 @@
             ...mapActions(['updatePinnedCards']),
             $_pinCard() {
                 let indexToCheck = this.card.index;
-                console.log('pin');
-                let currentPinned = new Set(this.pinnedCards[this.$attrs.id])
-                this.isPined ? currentPinned.delete(indexToCheck) : currentPinned.add(indexToCheck)
+                let currentPinned = new Set(this.pinnedCards[this.$attrs.id]);
+                this.isPined ? currentPinned.delete(indexToCheck) : currentPinned.add(indexToCheck);
                 let updatedPinned = { [this.$attrs.id]: [...currentPinned]};
-                //updatedPinned[this.$attrs.id] = [...currentPinned];
-                console.log(updatedPinned);
                 this.updatePinnedCards(updatedPinned);
             },
             $_flip() {

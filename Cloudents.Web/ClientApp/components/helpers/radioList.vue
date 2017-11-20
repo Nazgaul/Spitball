@@ -37,8 +37,6 @@
             },
 
             $_isDisabledButton(id){
-//                return this.$route.query.filter==='inPerson'&&id==='distance'
-                console.log(this.$route.query.filter==='course'&&id==='date');
                 return this.$route.query.filter==='course'&&id==='date'
             }
         }

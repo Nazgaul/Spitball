@@ -56,7 +56,6 @@
             myLocation: function () {
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(({ coords }) => {
-                        console.log(coords)
                         return { lat: Number(coords.latitude), lng: Number(coords.longitude) }
                     })
                 }
