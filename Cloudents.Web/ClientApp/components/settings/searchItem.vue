@@ -31,8 +31,10 @@
             <div class="d-result" v-else>
                 <v-list v-if="items.length">
                     <template v-for="(item,index) in filterItems">
-<div  @click="$_clickItemCallback()">                            <component :is="'search-item-'+type" :item="item"></component>
-</div>                            <v-divider v-if="index < filterItems.length-1"></v-divider>
+                        <div @click="$_clickItemCallback()">
+                            <component :is="'search-item-'+type" :item="item"></component>
+                        </div>
+                        <v-divider v-if="index < filterItems.length-1"></v-divider>
                     </template>
                 </v-list><div v-else>
                     <div>No Results Found</div>
@@ -40,7 +42,7 @@
                 </div>
             </div>
         </v-dialog>
-    <v-dialog v-model="showActionsDialog" v-if="currentItem">
+        <v-dialog v-model="showActionsDialog" v-if="currentItem">
             <div class="white pa-2" v-for="action in currentItem.actions" :key="action.id">
                 <component :is="type+'-'+action.id" v-if="currentAction==action.id" @done="$_actionDone"></component>
             </div>
@@ -67,9 +69,9 @@
         directives: {
             debounce
         },
-        watch:{
-            type(val){
-               this.$refs.searchText?this.$refs.searchText.inputValue='':this.$_search('')
+        watch: {
+            type(val) {
+                this.$refs.searchText ? this.$refs.searchText.inputValue = '' : this.$_search('')
             }
         },
         computed: {
@@ -84,52 +86,53 @@
             showActionsDialog: {
                 get() { return this.currentAction }, set(val) { }
             currentItem: function () {
-            return searchObjects[this.type]},
-            emptyText: function () { return this.currentItem.emptyState },
-            filterItems: function () { return this.filter === 'myCourses' ? this.items.filter((i) => this.myCoursesId.length && this.myCoursesId.includes(i.id)) : this.items }
-        },
-        data() {
-            return {
-                items: [],
-                filter: 'all',
-                isLoading: true,
-                isChanged: false,
-                currentAction: ""
-            }
-        },
-
-        components: {
-            CourseAdd, VDialog,
-            searchItemUniversity, searchItemCourse, RadioList, plusButton, closeButton
-        },
-        props: { type: { type: String, required: true }, value: { type: Boolean } },
-        methods: {
-            $_clickItemCallback(){
-                this.currentItem.click?this.currentItem.click.call(this):''
+                    return searchObjects[this.type]
+                },
+                emptyText: function () { return this.currentItem.emptyState },
+                filterItems: function () { return this.filter === 'myCourses' ? this.items.filter((i) => this.myCoursesId.length && this.myCoursesId.includes(i.id)) : this.items }
             },
-            $_actionDone(val) {
-                this.items = [... this.items, val];
-                this.currentAction = "";
-            },
-            $_actionsCallback(action) {
-                this.currentAction = action;
-            },
-            $_search(val) {
-                if (!val.length || val.length > 1) {
-                    this.isLoading = true;
-                    this.$store.dispatch(this.currentItem.searchApi, { term: val }).then(({ body }) => {
-                        this.items = body;
-                        this.filteredItems = body;
-                        this.isLoading = false
-                    })
+            data() {
+                return {
+                    items: [],
+                    filter: 'all',
+                    isLoading: true,
+                    isChanged: false,
+                    currentAction: ""
                 }
             },
 
-            $_updateFilter(val) {
-                this.filteredItems = (val === 'all') ? this.items : this.items.filter((i) => this.myCoursesId.length || this.myCoursesId.includes(i.id))
+            components: {
+                CourseAdd, VDialog,
+                searchItemUniversity, searchItemCourse, RadioList, plusButton, closeButton
+            },
+            props: { type: { type: String, required: true }, value: { type: Boolean } },
+            methods: {
+                $_clickItemCallback() {
+                    this.currentItem.click ? this.currentItem.click.call(this) : ''
+                },
+                $_actionDone(val) {
+                    this.items = [... this.items, val];
+                    this.currentAction = "";
+                },
+                $_actionsCallback(action) {
+                    this.currentAction = action;
+                },
+                $_search(val) {
+                    if (!val.length || val.length > 1) {
+                        this.isLoading = true;
+                        this.$store.dispatch(this.currentItem.searchApi, { term: val }).then(({ body }) => {
+                            this.items = body;
+                            this.filteredItems = body;
+                            this.isLoading = false
+                        })
+                    }
+                },
+
+                $_updateFilter(val) {
+                    this.filteredItems = (val === 'all') ? this.items : this.items.filter((i) => this.myCoursesId.length || this.myCoursesId.includes(i.id))
+                }
             }
         }
-    }
 </script>
 <style src="./searchItem.less" lang="less"></style>
 
