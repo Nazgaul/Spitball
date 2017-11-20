@@ -104,7 +104,7 @@
                 this.currentAction=action;
             },
             $_search(val) {
-                if (!val.length || val.length > 3) {
+                if (!val.length || val.length > 1) {
                         this.isLoading = true;
                         this.$store.dispatch(this.currentItem.searchApi, {term: val}).then(({body}) => {
                             this.items = body;

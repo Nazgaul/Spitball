@@ -76,7 +76,7 @@
         })()
     </script>
     <script>
-    window.version = '@Assembly.GetExecutingAssembly().GetName().Version.ToString(3)';
+    window.version = '@Assembly.GetEntryAssembly().GetName().Version.ToString(3)';
     </script>
     @await RenderSectionAsync("scripts", required: false).ConfigureAwait(false)
 </body>
