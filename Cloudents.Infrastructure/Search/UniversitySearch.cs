@@ -15,21 +15,21 @@ namespace Cloudents.Infrastructure.Search
 {
     public class UniversitySearch : IUniversitySearch
     {
-        private readonly ISearchIndexClient m_Client;
-        private readonly IMapper m_Mapper;
+        private readonly ISearchIndexClient _client;
+        private readonly IMapper _mapper;
 
         public UniversitySearch(ISearchServiceClient client, IMapper mapper)
         {
-            m_Client = client.Indexes.GetClient("universities2");
-            m_Mapper = mapper;
+            _client = client.Indexes.GetClient("universities2");
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<UniversityDto>> SearchAsync(string term, GeoPoint location,
             CancellationToken token)
         {
-            if (string.IsNullOrEmpty(term))
+            if (string.IsNullOrEmpty(term) || term.Length < 3)
             {
-                term = "*";
+                term += "*";
             }
             var listOfSelectParams = new[] { "id", "name3", "imageField" };
             var searchParameter = new SearchParameters
@@ -46,24 +46,25 @@ namespace Cloudents.Infrastructure.Search
             }
 
             var tResult =
-                m_Client.Documents.SearchAsync<University>(term, searchParameter,
+                _client.Documents.SearchAsync<University>(term, searchParameter,
                     cancellationToken: token);
 
             var tSuggest = CompletedTask;
             if (!string.IsNullOrEmpty(term) && term.Length >= 3)
             {
-                tSuggest = m_Client.Documents.SuggestAsync<University>(term, "sg",
+                tSuggest = _client.Documents.SuggestAsync<University>(term, "sg",
                     new SuggestParameters
                     {
                         UseFuzzyMatching = true,
-                        Select = listOfSelectParams
+                        Select = listOfSelectParams,
+                        Filter = "geographyPoint ne null"
                     }, cancellationToken: token);
             }
             await Task.WhenAll(tResult, tSuggest).ConfigureAwait(false);
 
-            var result = m_Mapper.Map<IEnumerable<University>, IList<UniversityDto>>(tResult.Result.Results.Select(s => s.Document));
-            var result2 = m_Mapper.Map<IEnumerable<University>, IList<UniversityDto>>(tSuggest?.Result?.Results.Select(s => s.Document));
-            return result.Union(result2,new UniversityDtoEquality());
+            var result = _mapper.Map<IEnumerable<University>, IList<UniversityDto>>(tResult.Result.Results.Select(s => s.Document));
+            var result2 = _mapper.Map<IEnumerable<University>, IList<UniversityDto>>(tSuggest?.Result?.Results.Select(s => s.Document));
+            return result.Union(result2, new UniversityDtoEquality());
         }
 
         private static readonly Task<DocumentSuggestResult<University>> CompletedTask = Task.FromResult<DocumentSuggestResult<University>>(null);
