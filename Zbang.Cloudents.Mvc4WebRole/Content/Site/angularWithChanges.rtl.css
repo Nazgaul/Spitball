@@ -605,25 +605,25 @@ button.md-button::-moz-focus-inner {
     overflow: hidden;
     -webkit-mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC"); }
 
-.md-toast-open-top .md-button.md-fab-top-right,
-.md-toast-open-top .md-button.md-fab-top-left {
+.md-toast-open-top .md-button.md-fab-top-left,
+.md-toast-open-top .md-button.md-fab-top-right {
   transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   -webkit-transform: translate3d(0, 42px, 0);
           transform: translate3d(0, 42px, 0); }
-  .md-toast-open-top .md-button.md-fab-top-right:not([disabled]).md-focused, .md-toast-open-top .md-button.md-fab-top-right:not([disabled]):hover,
-  .md-toast-open-top .md-button.md-fab-top-left:not([disabled]).md-focused,
-  .md-toast-open-top .md-button.md-fab-top-left:not([disabled]):hover {
+  .md-toast-open-top .md-button.md-fab-top-left:not([disabled]).md-focused, .md-toast-open-top .md-button.md-fab-top-left:not([disabled]):hover,
+  .md-toast-open-top .md-button.md-fab-top-right:not([disabled]).md-focused,
+  .md-toast-open-top .md-button.md-fab-top-right:not([disabled]):hover {
     -webkit-transform: translate3d(0, 41px, 0);
             transform: translate3d(0, 41px, 0); }
 
-.md-toast-open-bottom .md-button.md-fab-bottom-right,
-.md-toast-open-bottom .md-button.md-fab-bottom-left {
+.md-toast-open-bottom .md-button.md-fab-bottom-left,
+.md-toast-open-bottom .md-button.md-fab-bottom-right {
   transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   -webkit-transform: translate3d(0, -42px, 0);
           transform: translate3d(0, -42px, 0); }
-  .md-toast-open-bottom .md-button.md-fab-bottom-right:not([disabled]).md-focused, .md-toast-open-bottom .md-button.md-fab-bottom-right:not([disabled]):hover,
-  .md-toast-open-bottom .md-button.md-fab-bottom-left:not([disabled]).md-focused,
-  .md-toast-open-bottom .md-button.md-fab-bottom-left:not([disabled]):hover {
+  .md-toast-open-bottom .md-button.md-fab-bottom-left:not([disabled]).md-focused, .md-toast-open-bottom .md-button.md-fab-bottom-left:not([disabled]):hover,
+  .md-toast-open-bottom .md-button.md-fab-bottom-right:not([disabled]).md-focused,
+  .md-toast-open-bottom .md-button.md-fab-bottom-right:not([disabled]):hover {
     -webkit-transform: translate3d(0, -43px, 0);
             transform: translate3d(0, -43px, 0); }
 
@@ -1130,7 +1130,7 @@ md-checkbox {
       top: -15px;
       left: -15px;
       bottom: -15px; }
-  md-checkbox.md-align-top-right > div.md-container {
+  md-checkbox.md-align-top-left > div.md-container {
     top: 12px; }
   md-checkbox .md-icon {
     box-sizing: border-box;
@@ -1784,39 +1784,39 @@ md-fab-speed-dial {
       -webkit-order: 1;
           -ms-flex-order: 1;
               order: 1; }
-  md-fab-speed-dial.md-right {
+  md-fab-speed-dial.md-left {
     -webkit-flex-direction: row;
         -ms-flex-direction: row;
             flex-direction: row; }
-    md-fab-speed-dial.md-right md-fab-trigger {
+    md-fab-speed-dial.md-left md-fab-trigger {
       -webkit-order: 2;
           -ms-flex-order: 2;
               order: 2; }
-    md-fab-speed-dial.md-right md-fab-actions {
+    md-fab-speed-dial.md-left md-fab-actions {
       -webkit-flex-direction: row-reverse;
           -ms-flex-direction: row-reverse;
               flex-direction: row-reverse;
       -webkit-order: 1;
           -ms-flex-order: 1;
               order: 1; }
-      md-fab-speed-dial.md-right md-fab-actions .md-fab-action-item {
+      md-fab-speed-dial.md-left md-fab-actions .md-fab-action-item {
         transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2); }
-  md-fab-speed-dial.md-left {
+  md-fab-speed-dial.md-right {
     -webkit-flex-direction: row;
         -ms-flex-direction: row;
             flex-direction: row; }
-    md-fab-speed-dial.md-left md-fab-trigger {
+    md-fab-speed-dial.md-right md-fab-trigger {
       -webkit-order: 1;
           -ms-flex-order: 1;
               order: 1; }
-    md-fab-speed-dial.md-left md-fab-actions {
+    md-fab-speed-dial.md-right md-fab-actions {
       -webkit-flex-direction: row;
           -ms-flex-direction: row;
               flex-direction: row;
       -webkit-order: 2;
           -ms-flex-order: 2;
               order: 2; }
-      md-fab-speed-dial.md-left md-fab-actions .md-fab-action-item {
+      md-fab-speed-dial.md-right md-fab-actions .md-fab-action-item {
         transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2); }
   md-fab-speed-dial.md-fling-remove .md-fab-action-item > *, md-fab-speed-dial.md-scale-remove .md-fab-action-item > * {
     visibility: hidden; }
@@ -1886,7 +1886,7 @@ md-fab-toolbar {
       transition: all 200ms ease-in; }
   md-fab-toolbar.md-left md-fab-trigger {
     left: 0; }
-  md-fab-toolbar.md-right .md-toolbar-tools {
+  md-fab-toolbar.md-left .md-toolbar-tools {
     -webkit-flex-direction: row-reverse;
         -ms-flex-direction: row-reverse;
             flex-direction: row-reverse; }
@@ -1898,7 +1898,7 @@ md-fab-toolbar {
       margin-left: 8px; }
   md-fab-toolbar.md-right md-fab-trigger {
     right: 0; }
-  md-fab-toolbar.md-left .md-toolbar-tools {
+  md-fab-toolbar.md-right .md-toolbar-tools {
     -webkit-flex-direction: row;
         -ms-flex-direction: row;
             flex-direction: row; }
@@ -3085,13 +3085,13 @@ md-progress-circular {
         border-top-width: 10px;
         border-top-style: solid;
         box-sizing: border-box; }
-      md-progress-circular .md-spinner-wrapper .md-inner .md-right, md-progress-circular .md-spinner-wrapper .md-inner .md-left {
+      md-progress-circular .md-spinner-wrapper .md-inner .md-left, md-progress-circular .md-spinner-wrapper .md-inner .md-right {
         position: absolute;
         top: 0;
         height: 100px;
         width: 50px;
         overflow: hidden; }
-        md-progress-circular .md-spinner-wrapper .md-inner .md-right .md-half-circle, md-progress-circular .md-spinner-wrapper .md-inner .md-left .md-half-circle {
+        md-progress-circular .md-spinner-wrapper .md-inner .md-left .md-half-circle, md-progress-circular .md-spinner-wrapper .md-inner .md-right .md-half-circle {
           position: absolute;
           top: 0;
           width: 100px;
@@ -3117,7 +3117,7 @@ md-progress-circular {
     md-progress-circular .md-mode-indeterminate .md-spinner-wrapper .md-inner {
       -webkit-animation: sporadic-rotate 5.25s cubic-bezier(0.35, 0, 0.25, 1) infinite;
               animation: sporadic-rotate 5.25s cubic-bezier(0.35, 0, 0.25, 1) infinite; }
-      md-progress-circular .md-mode-indeterminate .md-spinner-wrapper .md-inner .md-right .md-half-circle, md-progress-circular .md-mode-indeterminate .md-spinner-wrapper .md-inner .md-left .md-half-circle {
+      md-progress-circular .md-mode-indeterminate .md-spinner-wrapper .md-inner .md-left .md-half-circle, md-progress-circular .md-mode-indeterminate .md-spinner-wrapper .md-inner .md-right .md-half-circle {
         -webkit-animation-iteration-count: infinite;
                 animation-iteration-count: infinite;
         -webkit-animation-duration: 1.3125s;
@@ -3136,10 +3136,10 @@ md-progress-circular {
     md-progress-circular md-progress-circular.ng-hide .md-spinner-wrapper .md-inner {
       -webkit-animation: none;
               animation: none; }
-      md-progress-circular md-progress-circular.ng-hide .md-spinner-wrapper .md-inner .md-right .md-half-circle {
+      md-progress-circular md-progress-circular.ng-hide .md-spinner-wrapper .md-inner .md-left .md-half-circle {
         -webkit-animation-name: none;
                 animation-name: none; }
-      md-progress-circular md-progress-circular.ng-hide .md-spinner-wrapper .md-inner .md-left .md-half-circle {
+      md-progress-circular md-progress-circular.ng-hide .md-spinner-wrapper .md-inner .md-right .md-half-circle {
         -webkit-animation-name: none;
                 animation-name: none; }
   md-progress-circular .md-spinner-wrapper.ng-hide {
@@ -3148,10 +3148,10 @@ md-progress-circular {
     md-progress-circular .md-spinner-wrapper.ng-hide .md-inner {
       -webkit-animation: none;
               animation: none; }
-      md-progress-circular .md-spinner-wrapper.ng-hide .md-inner .md-right .md-half-circle {
+      md-progress-circular .md-spinner-wrapper.ng-hide .md-inner .md-left .md-half-circle {
         -webkit-animation-name: none;
                 animation-name: none; }
-      md-progress-circular .md-spinner-wrapper.ng-hide .md-inner .md-left .md-half-circle {
+      md-progress-circular .md-spinner-wrapper.ng-hide .md-inner .md-right .md-half-circle {
         -webkit-animation-name: none;
                 animation-name: none; }
 
@@ -3575,7 +3575,7 @@ md-radio-button {
       bottom: 0;
       transition: all 0.5s;
       width: auto; }
-  md-radio-button.md-align-top-right > div.md-container {
+  md-radio-button.md-align-top-left > div.md-container {
     top: 12px; }
   md-radio-button .md-off {
     box-sizing: border-box;
@@ -3937,7 +3937,7 @@ md-sidenav {
     display: flex;
     -webkit-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0); }
-  md-sidenav.md-locked-open, md-sidenav.md-locked-open.md-closed, md-sidenav.md-locked-open.md-closed.md-sidenav-right, md-sidenav.md-locked-open.md-closed, md-sidenav.md-locked-open.md-closed.md-sidenav-left, md-sidenav.md-locked-open-remove.md-closed {
+  md-sidenav.md-locked-open, md-sidenav.md-locked-open.md-closed, md-sidenav.md-locked-open.md-closed.md-sidenav-left, md-sidenav.md-locked-open.md-closed, md-sidenav.md-locked-open.md-closed.md-sidenav-right, md-sidenav.md-locked-open-remove.md-closed {
     position: static;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -3977,7 +3977,7 @@ md-sidenav {
   top: 0;
   -webkit-transform: translate3d(100%, 0, 0);
           transform: translate3d(100%, 0, 0); }
-  .md-sidenav-left.md-closed {
+  .md-sidenav-right.md-closed {
     -webkit-transform: translate3d(0%, 0, 0);
             transform: translate3d(0%, 0, 0); }
 
@@ -4648,7 +4648,7 @@ md-tab-content {
     -webkit-animation: 1s md-tab-content-hide;
             animation: 1s md-tab-content-hide;
     opacity: 0; }
-    md-tab-content.md-right:not(.md-active) * {
+    md-tab-content.md-left:not(.md-active) * {
       transition: visibility 0s linear;
       transition-delay: 0.5s;
       visibility: hidden; }
@@ -4658,7 +4658,7 @@ md-tab-content {
     -webkit-animation: 1s md-tab-content-hide;
             animation: 1s md-tab-content-hide;
     opacity: 0; }
-    md-tab-content.md-left:not(.md-active) * {
+    md-tab-content.md-right:not(.md-active) * {
       transition: visibility 0s linear;
       transition-delay: 0.5s;
       visibility: hidden; }

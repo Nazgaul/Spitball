@@ -172,7 +172,7 @@ input:-webkit-autofill {
   .md-padding {
     padding: 16px; } }
 
-html[dir=ltr], html[dir=rtl], body[dir=ltr], body[dir=rtl] {
+html[dir=rtl], html[dir=ltr], body[dir=rtl], body[dir=ltr] {
   unicode-bidi: embed; }
 
 bdo[dir=rtl] {
@@ -865,27 +865,27 @@ button.md-button::-moz-focus-inner {
 button.md-button.md-fab md-icon {
   display: block; }
 
-.md-toast-open-top .md-button.md-fab-top-right,
-.md-toast-open-top .md-button.md-fab-top-left {
+.md-toast-open-top .md-button.md-fab-top-left,
+.md-toast-open-top .md-button.md-fab-top-right {
   -webkit-transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   -webkit-transform: translate3d(0, 42px, 0);
           transform: translate3d(0, 42px, 0); }
-  .md-toast-open-top .md-button.md-fab-top-right:not([disabled]).md-focused, .md-toast-open-top .md-button.md-fab-top-right:not([disabled]):hover,
-  .md-toast-open-top .md-button.md-fab-top-left:not([disabled]).md-focused,
-  .md-toast-open-top .md-button.md-fab-top-left:not([disabled]):hover {
+  .md-toast-open-top .md-button.md-fab-top-left:not([disabled]).md-focused, .md-toast-open-top .md-button.md-fab-top-left:not([disabled]):hover,
+  .md-toast-open-top .md-button.md-fab-top-right:not([disabled]).md-focused,
+  .md-toast-open-top .md-button.md-fab-top-right:not([disabled]):hover {
     -webkit-transform: translate3d(0, 41px, 0);
             transform: translate3d(0, 41px, 0); }
 
-.md-toast-open-bottom .md-button.md-fab-bottom-right,
-.md-toast-open-bottom .md-button.md-fab-bottom-left {
+.md-toast-open-bottom .md-button.md-fab-bottom-left,
+.md-toast-open-bottom .md-button.md-fab-bottom-right {
   -webkit-transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   -webkit-transform: translate3d(0, -42px, 0);
           transform: translate3d(0, -42px, 0); }
-  .md-toast-open-bottom .md-button.md-fab-bottom-right:not([disabled]).md-focused, .md-toast-open-bottom .md-button.md-fab-bottom-right:not([disabled]):hover,
-  .md-toast-open-bottom .md-button.md-fab-bottom-left:not([disabled]).md-focused,
-  .md-toast-open-bottom .md-button.md-fab-bottom-left:not([disabled]):hover {
+  .md-toast-open-bottom .md-button.md-fab-bottom-left:not([disabled]).md-focused, .md-toast-open-bottom .md-button.md-fab-bottom-left:not([disabled]):hover,
+  .md-toast-open-bottom .md-button.md-fab-bottom-right:not([disabled]).md-focused,
+  .md-toast-open-bottom .md-button.md-fab-bottom-right:not([disabled]):hover {
     -webkit-transform: translate3d(0, -43px, 0);
             transform: translate3d(0, -43px, 0); }
 
@@ -1328,7 +1328,7 @@ md-checkbox {
     bottom: -8px; }
   md-checkbox.md-focused:not([disabled]):not(.md-checked) .md-container:before {
     background-color: rgba(0, 0, 0, 0.12); }
-  md-checkbox.md-align-top-right > div.md-container {
+  md-checkbox.md-align-top-left > div.md-container {
     top: 12px; }
   md-checkbox .md-container {
     position: absolute;
@@ -1524,7 +1524,7 @@ md-calendar {
   .md-calendar-month-label md-icon {
     -webkit-transform: rotate(-180deg);
             transform: rotate(-180deg); }
-    [dir=ltr] .md-calendar-month-label md-icon {
+    [dir=rtl] .md-calendar-month-label md-icon {
       -webkit-transform: none;
               transform: none; }
   .md-calendar-month-label span {
@@ -1996,16 +1996,16 @@ md-fab-speed-dial {
       -webkit-box-ordinal-group: 2;
       -webkit-order: 1;
               order: 1; }
-  md-fab-speed-dial.md-right {
+  md-fab-speed-dial.md-left {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -webkit-flex-direction: row;
             flex-direction: row; }
-    md-fab-speed-dial.md-right md-fab-trigger {
+    md-fab-speed-dial.md-left md-fab-trigger {
       -webkit-box-ordinal-group: 3;
       -webkit-order: 2;
               order: 2; }
-    md-fab-speed-dial.md-right md-fab-actions {
+    md-fab-speed-dial.md-left md-fab-actions {
       -webkit-box-orient: horizontal;
       -webkit-box-direction: reverse;
       -webkit-flex-direction: row-reverse;
@@ -2013,19 +2013,19 @@ md-fab-speed-dial {
       -webkit-box-ordinal-group: 2;
       -webkit-order: 1;
               order: 1; }
-      md-fab-speed-dial.md-right md-fab-actions .md-fab-action-item {
+      md-fab-speed-dial.md-left md-fab-actions .md-fab-action-item {
         -webkit-transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
         transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2); }
-  md-fab-speed-dial.md-left {
+  md-fab-speed-dial.md-right {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -webkit-flex-direction: row;
             flex-direction: row; }
-    md-fab-speed-dial.md-left md-fab-trigger {
+    md-fab-speed-dial.md-right md-fab-trigger {
       -webkit-box-ordinal-group: 2;
       -webkit-order: 1;
               order: 1; }
-    md-fab-speed-dial.md-left md-fab-actions {
+    md-fab-speed-dial.md-right md-fab-actions {
       -webkit-box-orient: horizontal;
       -webkit-box-direction: normal;
       -webkit-flex-direction: row;
@@ -2033,7 +2033,7 @@ md-fab-speed-dial {
       -webkit-box-ordinal-group: 3;
       -webkit-order: 2;
               order: 2; }
-      md-fab-speed-dial.md-left md-fab-actions .md-fab-action-item {
+      md-fab-speed-dial.md-right md-fab-actions .md-fab-action-item {
         -webkit-transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
         transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2); }
   md-fab-speed-dial.md-fling-remove .md-fab-action-item > *, md-fab-speed-dial.md-scale-remove .md-fab-action-item > * {
@@ -2112,7 +2112,7 @@ md-fab-toolbar {
     [dir=rtl] md-fab-toolbar.md-left md-fab-trigger {
       left: auto;
       right: 0; }
-  md-fab-toolbar.md-right .md-toolbar-tools {
+  md-fab-toolbar.md-left .md-toolbar-tools {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: reverse;
     -webkit-flex-direction: row-reverse;
@@ -2137,7 +2137,7 @@ md-fab-toolbar {
     [dir=rtl] md-fab-toolbar.md-right md-fab-trigger {
       right: auto;
       left: 0; }
-  md-fab-toolbar.md-left .md-toolbar-tools {
+  md-fab-toolbar.md-right .md-toolbar-tools {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -webkit-flex-direction: row;
@@ -2506,9 +2506,9 @@ md-input-container {
         right: auto; }
       [dir=rtl] md-input-container.md-icon-float > md-icon {
         left: 2px; }
-  md-input-container.md-icon-right > label:not(.md-no-float):not(.md-container-ignore),
-  md-input-container.md-icon-right > label .md-placeholder, md-input-container.md-icon-left > label:not(.md-no-float):not(.md-container-ignore),
-  md-input-container.md-icon-left > label .md-placeholder {
+  md-input-container.md-icon-left > label:not(.md-no-float):not(.md-container-ignore),
+  md-input-container.md-icon-left > label .md-placeholder, md-input-container.md-icon-right > label:not(.md-no-float):not(.md-container-ignore),
+  md-input-container.md-icon-right > label .md-placeholder {
     width: calc(100% - 36px - 18px); }
   md-input-container.md-icon-left {
     padding-right: 36px;
@@ -2542,8 +2542,8 @@ md-input-container {
   md-input-container.md-icon-left.md-icon-right {
     padding-right: 36px;
     padding-left: 36px; }
-    md-input-container.md-icon-right.md-icon-left > label:not(.md-no-float):not(.md-container-ignore),
-    md-input-container.md-icon-right.md-icon-left > label .md-placeholder {
+    md-input-container.md-icon-left.md-icon-right > label:not(.md-no-float):not(.md-container-ignore),
+    md-input-container.md-icon-left.md-icon-right > label .md-placeholder {
       width: calc(100% - (36px * 2)); }
 
 .md-resize-wrapper {
@@ -3650,7 +3650,7 @@ md-radio-button {
       -webkit-transition: all 0.5s;
       transition: all 0.5s;
       width: auto; }
-  md-radio-button.md-align-top-right > div.md-container {
+  md-radio-button.md-align-top-left > div.md-container {
     top: 12px; }
   md-radio-button .md-off {
     box-sizing: border-box;
@@ -4123,7 +4123,7 @@ md-sidenav {
     display: flex;
     -webkit-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0); }
-  md-sidenav.md-locked-open, md-sidenav.md-locked-open.md-closed, md-sidenav.md-locked-open.md-closed.md-sidenav-right, md-sidenav.md-locked-open.md-closed, md-sidenav.md-locked-open.md-closed.md-sidenav-left, md-sidenav.md-locked-open-remove.md-closed {
+  md-sidenav.md-locked-open, md-sidenav.md-locked-open.md-closed, md-sidenav.md-locked-open.md-closed.md-sidenav-left, md-sidenav.md-locked-open.md-closed, md-sidenav.md-locked-open.md-closed.md-sidenav-right, md-sidenav.md-locked-open-remove.md-closed {
     position: static;
     display: -webkit-box;
     display: -webkit-flex;
@@ -4165,7 +4165,7 @@ md-sidenav {
   top: 0;
   -webkit-transform: translate(100%, 0);
           transform: translate(100%, 0); }
-  .md-sidenav-left.md-closed {
+  .md-sidenav-right.md-closed {
     -webkit-transform: translate(0%, 0);
             transform: translate(0%, 0); }
 
@@ -5045,7 +5045,7 @@ md-tab-content {
     [dir=rtl] md-tab-content.md-left:not(.md-active) {
       -webkit-transform: translateX(-100%);
               transform: translateX(-100%); }
-    md-tab-content.md-right:not(.md-active) * {
+    md-tab-content.md-left:not(.md-active) * {
       -webkit-transition: visibility 0s linear;
       transition: visibility 0s linear;
       -webkit-transition-delay: 0.5s;
@@ -5060,7 +5060,7 @@ md-tab-content {
     [dir=rtl] md-tab-content.md-right:not(.md-active) {
       -webkit-transform: translateX(100%);
               transform: translateX(100%); }
-    md-tab-content.md-left:not(.md-active) * {
+    md-tab-content.md-right:not(.md-active) * {
       -webkit-transition: visibility 0s linear;
       transition: visibility 0s linear;
       -webkit-transition-delay: 0.5s;
@@ -5175,7 +5175,7 @@ md-toast {
       min-height: 48px;
       visibility: hidden;
       display: inline-block; }
-    [dir=ltr] md-toast .md-toast-content {
+    [dir=rtl] md-toast .md-toast-content {
       -webkit-box-pack: end;
       -webkit-justify-content: flex-end;
               justify-content: flex-end; }

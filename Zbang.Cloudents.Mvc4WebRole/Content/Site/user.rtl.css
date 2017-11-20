@@ -619,7 +619,7 @@
   padding: 0;
   /*Fixed color box overalying members and items*/
 }
-.userPage .page-tabs md-tab-content.md-right:not(.md-active) {
+.userPage .page-tabs md-tab-content.md-left:not(.md-active) {
   -webkit-transform: none !important;
   transform: none !important;
   -webkit-animation: none !important;

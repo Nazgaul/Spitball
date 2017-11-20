@@ -56,15 +56,12 @@ import {
 } from 'vuetify'
 import * as route from './routes';
 
-//import './main.styl'
-//import('../wwwroot/content/main.less');
 Vue.use(VueRouter);
 Vue.use(Vuetify,
     {
         components: vuetifyComponents
     });
 Vue.use(vueMoment);
-//Vue.use(VueIntercom, { appId: 'njmpgayv' });
 Vue.component('scroll-list', scroll);
 Vue.component('adsense', vueAdsense);
 Vue.component('general-page', GeneralPage);
@@ -74,7 +71,7 @@ const router = new VueRouter({
     routes: route.routes,
     scrollBehavior(to, from, savedPosition) {
         if (savedPosition) {
-            return savedPosition
+            return savedPosition;
         } else {
             return { x: 0, y: 0 }
         }
@@ -85,4 +82,7 @@ new Vue({
     router: router,
     render: h => h(App),
     store
+    //data: {
+    //    version : window.version
+    //}
 });

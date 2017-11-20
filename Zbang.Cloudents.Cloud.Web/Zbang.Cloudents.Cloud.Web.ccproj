@@ -47,6 +47,7 @@
   <ItemGroup>
     <PublishProfile Include="Profiles\zboxSiteProduction.azurePubxml" />
     <PublishProfile Include="Profiles\zboxSiteStaging.azurePubxml" />
+    <PublishProfile Include="Profiles\zboxtestProduction.azurePubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Zbang.Cloudents.Mvc4WebRole\Zbang.Cloudents.Mvc4WebRole.csproj">

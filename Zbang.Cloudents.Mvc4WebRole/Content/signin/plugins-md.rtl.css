@@ -129,10 +129,10 @@ Bootstrap Datepaginator
 #dp-calendar {
   left: 4px !important;
 }
-.datepaginator .fa-angle-left:before {
+.datepaginator .fa-angle-right:before {
   content: "\f105";
 }
-.datepaginator .fa-angle-right:before {
+.datepaginator .fa-angle-left:before {
   content: "\f104";
 }
 /***
@@ -235,10 +235,10 @@ Bootstrap Daterangepicker
 .daterangepicker .range_inputs input {
   margin-bottom: 0 !important;
 }
-.daterangepicker .fa-angle-left:before {
+.daterangepicker .fa-angle-right:before {
   content: "\f105";
 }
-.daterangepicker .fa-angle-right:before {
+.daterangepicker .fa-angle-left:before {
   content: "\f104";
 }
 /***
@@ -266,10 +266,10 @@ Bootstrap  Datetimepicker
   background-image: none !important;
   filter: none !important;
 }
-.datetimepicker .fa-angle-right:before {
+.datetimepicker .fa-angle-left:before {
   content: "\f104";
 }
-.datetimepicker .fa-angle-left:before {
+.datetimepicker .fa-angle-right:before {
   content: "\f105";
 }
 /* change z-index when opened in modal */
@@ -1398,16 +1398,6 @@ Fullcalendar
 .portlet.calendar .fc-button.fc-state-disabled {
   color: #ddd;
 }
-.portlet.calendar .fc-button .fc-icon-right-single-arrow {
-  font-family: FontAwesome;
-  font-size: 16px;
-}
-.portlet.calendar .fc-button .fc-icon-right-single-arrow:after {
-  content: "";
-}
-.portlet.calendar .fc-button .fc-icon-right-single-arrow:before {
-  content: "\f104";
-}
 .portlet.calendar .fc-button .fc-icon-left-single-arrow {
   font-family: FontAwesome;
   font-size: 16px;
@@ -1416,6 +1406,16 @@ Fullcalendar
   content: "";
 }
 .portlet.calendar .fc-button .fc-icon-left-single-arrow:before {
+  content: "\f104";
+}
+.portlet.calendar .fc-button .fc-icon-right-single-arrow {
+  font-family: FontAwesome;
+  font-size: 16px;
+}
+.portlet.calendar .fc-button .fc-icon-right-single-arrow:after {
+  content: "";
+}
+.portlet.calendar .fc-button .fc-icon-right-single-arrow:before {
   content: "\f105";
 }
 .portlet.calendar .fc-text-arrow {
@@ -1513,18 +1513,18 @@ Fullcalendar
   padding: 0px;
   width: 0px;
 }
-.portlet.calendar .mobile .fc-header-right {
+.portlet.calendar .mobile .fc-header-left {
   position: absolute;
   z-index: 10;
 }
-.portlet.calendar .mobile .fc-header-right .fc-button {
+.portlet.calendar .mobile .fc-header-left .fc-button {
   top: -2px;
 }
 .portlet.calendar .mobile .fc-header-right {
   position: relative;
   left: 0;
 }
-.portlet.calendar .mobile .fc-header-left .fc-button {
+.portlet.calendar .mobile .fc-header-right .fc-button {
   top: 35px;
 }
 .portlet.calendar .mobile .fc-content {
@@ -1674,8 +1674,8 @@ jQuery Notific8 Plugin
   -moz-box-sizing: content-box;
   box-sizing: content-box;
 }
-.left .jquery-notific8-close-sticky span,
-.right .jquery-notific8-close-sticky span {
+.right .jquery-notific8-close-sticky span,
+.left .jquery-notific8-close-sticky span {
   font-size: 10px;
 }
 .jquery-notific8-heading {
@@ -1870,7 +1870,7 @@ Jstree
   margin-right: 2px;
   content: "\f07c";
 }
-.jstree-default.jstree-ltr .jstree-last {
+.jstree-default.jstree-rtl .jstree-last {
   background: transparent;
   background-repeat: no-repeat;
 }
@@ -1916,7 +1916,7 @@ Jstree
   border: 0 !important;
 }
 .vakata-context .vakata-context-separator a,
-.vakata-context-ltr .vakata-context-separator a {
+.vakata-context-rtl .vakata-context-separator a {
   margin: 0;
   border: 0;
 }

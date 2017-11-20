@@ -635,19 +635,19 @@ blockquote.pull-right {
   text-align: left;
 }
 .blockquote-reverse footer:before,
-blockquote.pull-left footer:before,
+blockquote.pull-right footer:before,
 .blockquote-reverse small:before,
-blockquote.pull-left small:before,
+blockquote.pull-right small:before,
 .blockquote-reverse .small:before,
-blockquote.pull-left .small:before {
+blockquote.pull-right .small:before {
   content: '';
 }
 .blockquote-reverse footer:after,
-blockquote.pull-left footer:after,
+blockquote.pull-right footer:after,
 .blockquote-reverse small:after,
-blockquote.pull-left small:after,
+blockquote.pull-right small:after,
 .blockquote-reverse .small:after,
-blockquote.pull-left .small:after {
+blockquote.pull-right .small:after {
   content: '\00A0 \2014';
 }
 address {
