@@ -1,50 +1,58 @@
 ﻿<template>
-    <component :is="(isDialog?'slot':'general-page')" :title="currentItem.title">
-    <div class="pa-4" slot="data">
-
-
-        <v-text-field 
-                      label="Search" @input="$_search" v-debounce="500"
-                      class="input-group--focused"
-                      single-line></v-text-field>
-        <slot name="options" >
-            <v-container class="pa-0 mb-3">
-                <v-layout row>
-                    <radio-list class="search" :values="currentItem.filters"  model="filter" v-model="filter"  :value="currentItem.defaultFilter"></radio-list>
-                    <template v-for="act in currentItem.actions">
-                        <v-flex @click="$_actionsCallback(act.id)" v-if="act.component"><component :is="act.component"></component></v-flex>
-                    </template>  
-                </v-layout>
-            </v-container>
-        </slot>
-        <div class="loader" v-if="isLoading">
-            <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
+    <component is="slot">
+    <v-dialog class="white" v-model="dialog" scrollable max-width="500px">
+        <v-card>
+            <v-card-title>
+                    <v-flex xs12 class="headline">{{currentItem.title}}</v-flex>
+                <v-flex xs12><v-text-field
+                        label="Search" @input="$_search" v-debounce="500"
+                        class="input-group--focused"
+                        single-line></v-text-field></v-flex>
+                <v-container class="pa-0 mb-3" v-if="currentItem.filters">
+                    <v-layout row>
+                        <radio-list class="search" :values="currentItem.filters"  model="filter" v-model="filter"  :value="currentItem.defaultFilter"></radio-list>
+                        <template v-for="act in currentItem.actions">
+                            <v-flex @click="$_actionsCallback(act.id)" v-if="act.component"><component :is="act.component"></component></v-flex>
+                        </template>
+                    </v-layout>
+                </v-container>
+            </v-card-title>
+            <v-divider></v-divider>
+            <v-card-text style="height: 300px;">
+                <div class="loader" v-if="isLoading">
+                    <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
+                </div>
+                <div v-else>
+                    <v-list v-if="items.length">
+                        <template v-for="(item,index) in filterItems">
+                            <div @click="$_selected({id:item.id,name:item.name})"> <component :is="'search-item-'+type" :item="item"></component></div>
+                            <v-divider v-if="index < filterItems.length-1"></v-divider>
+                        </template>
+                    </v-list><div v-else>
+                    <div>No Results Found</div>
+                    <div v-html="emptyText"></div>
+                </div>
+                </div>
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-card-actions>
+                <v-btn color="blue darken-1" flat @click.native="dialog = false">Close</v-btn>
+                <v-btn color="blue darken-1" flat @click.native="dialog = false">Save</v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
+    <v-dialog v-model="showActionsDialog">
+        <div class="white pa-2" v-for="action in currentItem.actions" :key="action.id">
+            <component :is="type+'-'+action.id" v-if="currentAction==action.id" @done="$_actionDone"></component>
         </div>
-        <div v-else>
-            <v-list v-if="items.length">
-                <template v-for="(item,index) in filterItems">
-                    <div @click="$_selected({id:item.id,name:item.name})"> <component :is="'search-item-'+type" :item="item"></component></div>
-                    <v-divider v-if="index < filterItems.length-1"></v-divider>
-                </template>
-            </v-list><div v-else>
-                <div>No Results Found</div>
-                <div v-html="emptyText"></div>
-            </div>
-        </div>
-        <v-dialog v-model="showActionsDialog">
-            <div class="white pa-2" v-for="action in currentItem.actions" :key="action.id">
-                <component :is="type+'-'+action.id" v-if="currentAction==action.id" @done="$_actionDone"></component>
-            </div>
-        </v-dialog>
-
-    </div>
+    </v-dialog>
     </component>
 </template>
 <script>
     import debounce from 'v-debounce'
     const RadioList = () => import('./../helpers/radioList.vue');
     const plusButton = () => import('./svg/plus-button.svg');
-    import { emptyStates, filtersAction } from './consts'
+    import { searchObjects } from './consts'
     const searchItemUniversity = () => import('./searchItemUniversity.vue');
     const searchItemCourse = () => import('./searchItemCourse.vue');
     import { mapGetters } from 'vuex'
@@ -54,19 +62,23 @@
     export default {
         model: {
             prop: 'value',
-            event: 'selected'
+            event: 'change'
         },
         directives: {
             debounce
         },
         computed: {
+            dialog:{
+                get(){
+                    return this.value},set(val){
+                    this.$emit('change',val)
+                }
+            },
             ...mapGetters(['myCoursesId']),
             showActionsDialog:{
                 get(){return this.currentAction},set(val){}},
-            isDialog(){
-                return this.$attrs.isDialog},
-            currentItem: function () { return filtersAction[this.type]},
-            emptyText: function () { return emptyStates[this.type] },
+            currentItem: function () { return searchObjects[this.type]},
+            emptyText: function () { return this.currentItem.emptyState },
             filterItems: function () { return this.filter === 'myCourses' ? this.items.filter((i) => this.myCoursesId.length && this.myCoursesId.includes(i.id)):this.items}
         },
         data() {
@@ -80,17 +92,9 @@
         },
 
         components: {
-            VDialog,CourseAdd,
+            CourseAdd,VDialog,
             searchItemUniversity, searchItemCourse, RadioList, plusButton},
-        props: { type: {type:String,required:true},searchApi: { type: String, required: true }, selectCallback:{type:Function} },
-        watch: {
-            type: function (val) {
-                this.items = [];
-                this.filteredItems=[]
-                this.isChanged = true;
-                this.$_search('');
-            }
-        },
+        props: { type: {type:String,required:true},value:{type:Boolean}},
         methods: {
             $_actionDone(val){
                 this.items = [... this.items, val];
@@ -102,16 +106,12 @@
             $_search(val) {
                 if (!val.length || val.length > 1) {
                         this.isLoading = true;
-                        this.$store.dispatch(this.searchApi, {term: val}).then(({body}) => {
+                        this.$store.dispatch(this.currentItem.searchApi, {term: val}).then(({body}) => {
                             this.items = body;
                             this.filteredItems = body;
                             this.isLoading = false
                         })
                 }              
-            },
-            $_selected(val) {
-                if (this.isChanged) { this.isChanged = false; }
-                else if(this.selectCallback)this.selectCallback.call(this);
             },
 
             $_updateFilter(val) {
@@ -119,7 +119,6 @@
             }
         },
         mounted() {
-            console.log('mount search0');
             this.$_search('')
         }
     }

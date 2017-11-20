@@ -9,33 +9,24 @@
                 <v-btn xs1 flat color="white" @click="snackbar=false">X</v-btn>
             </v-layout>
         </v-snackbar>
-        <v-dialog v-model="showDialog" max-width="500">
-            <div class="white">
-                <v-layout row wrap class="pa-4 text-xs-center"> <v-flex xs10><h5>{{currentItem.title}}</h5></v-flex><v-flex xs2><v-btn color="primary" flat @click.stop="showDialog=false">{{currentItem.closeText}}</v-btn></v-flex></v-layout>
-                <search-item isDialog="true" :searchApi="currentItem.searchApi" :type="searchType" :params="params">
-
-                </search-item>
-            </div>
-        </v-dialog>
-
+        <search-item  :type="searchType" v-model="showDialog">
+        </search-item>
     </div>
 </template>
 <script>
     import searchItem from './searchItem.vue'
     import courseAdd from './courseAdd.vue'
     import { searchObjects} from './consts'
-    import { mapGetters,mapActions } from 'vuex'
+    import { mapGetters } from 'vuex'
     export default {
         data() {
-            return { showDialog: false, extraItem:'',snackbar: true, showActions:false,currentAction:''}
+            return { showDialog: false, snackbar: true}
         },
 
 
         computed: {
-            ...mapGetters(['getUniversity', 'myCourses']),
-            currentItem: function () { return searchObjects[this.searchType] },
-            searchType: function () { return this.getUniversity ? 'course' : 'university' },
-            params: function () { return this.getUniversity ? { universityId: this.getUniversity } : {} }
+            ...mapGetters(['getUniversity']),
+            searchType: function () { return this.getUniversity ? 'course' : 'university' }
         },
 
         props: { show: {} },
@@ -47,10 +38,6 @@
             }
         },
 
-        methods: {
-            ...mapActions(['updateMyCourses'])
-
-        },
         components: {
             searchItem, courseAdd
         }
