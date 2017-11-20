@@ -17,6 +17,7 @@
                     <v-divider v-if="index < menuData.length -1"></v-divider>
                 </template>
             </v-list>
+            <div>version:{{version}}</div>
         </div>
         <search-item v-model="showDialog" :type="type"></search-item>
     </general-page>
@@ -41,7 +42,8 @@
         },
         computed:
         {
-            ...mapGetters(['getUniversityName'])
+            ...mapGetters(['getUniversityName']),
+            version(){return window.version}
         },
 
         methods:{
