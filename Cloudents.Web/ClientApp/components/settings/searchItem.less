@@ -1,0 +1,53 @@
+﻿@import "../../mixin.less";
+.dialog-choose {
+    //background: #fff;
+    box-shadow: none;
+    height:80vh;
+    //padding : 8px;
+
+    .d-header {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0px;
+        z-index: 1;
+        background: #eee;
+
+        button {
+            height: 100%;
+        }
+
+        h5 {
+            margin-bottom: 0;
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1.21;
+            letter-spacing: -0.5px;
+            //text-align: center;
+            color: @Spitball-Text;
+        }
+    }
+
+    .d-result {
+        background: #fff;
+        
+    }
+}
+
+.overlay {
+    
+    //-webkit-backdrop-filter: blur(10px);
+    //backdrop-filter: blur(10px);
+    /*-moz-filter: blur(10px);
+    -ms-filter: blur(10px);
+    -webkit-filter: blur(10px);
+    filter: blur(10px);
+    background-color: #eeeeee;*/
+    &:before {
+        background-color: #eee;
+        opacity: 0.95;
+    }
+
+    &:after {
+        filter: blur(20px);
+    }
+}

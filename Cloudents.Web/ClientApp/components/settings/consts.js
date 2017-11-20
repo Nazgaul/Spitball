@@ -16,10 +16,16 @@
         filters: [],
         actions: []
     }
-}
+};
 export let settingMenu=[
     {id:"university",name:"Choose university",click:function () {
-        this.showDialog=true;this.type="university"
-    }},{id:"myCourses",name:"My courses",click:function(){
-        this.showDialog=true;this.type="course"
-    }},{id:"walkthrough",name:"Walkthrough",click:function(){this.$router.push({name:'walkthrough'})}},{id:"aboutUs",name:"About us",click:function(){this.$router.push({name:'aboutUs'})}}];
+        this.showDialog = true;
+        this.type = "university";
+    }
+    },
+    {
+        id: "myCourses", name: "My courses", click: function () {
+        this.showDialog=true;this.type="course";
+        }
+    },
+    { id: "walkthrough", name: "Walkthrough", click: function () { this.$router.push({ name: 'walkthrough' }) } }, { id: "aboutUs", name: "About us", click: function () { this.$router.push({ name: 'aboutUs' }) } }];

@@ -1,5 +1,5 @@
 ﻿<template v-once>
-    <div class="d-block pa-2 place-cell" @click="showMap=!showMap">
+    <button type="button" class="d-block pa-2 place-cell" @click="showMap=!showMap">
         <v-container class="pa-0">
             <v-layout row>
                 <div class="img-wrap">
@@ -43,7 +43,7 @@
                 </gmap-map>-->
             </v-layout>
         </v-container>
-    </div>
+    </button>
 </template>
 <script>
     import StarRating from 'vue-star-rating'

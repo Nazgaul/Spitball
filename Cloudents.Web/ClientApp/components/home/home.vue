@@ -33,7 +33,7 @@
 
                         <div class="box-search mb-3">
 
-                            <form id="labnol" method="get" v-on:submit.prevent="search">
+                            <form id="labnol" method="get" @submit.prevent="search">
                                 <!--<div class="speech">-->
                                 <v-container>
                                     <v-layout row>
