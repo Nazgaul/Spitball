@@ -336,7 +336,7 @@
       <Name>Cloudents.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cloudents.Infrastructure\Cloudents.Infrastructure.csproj">
-      <Project>{9ebdeaf7-e562-4547-ab76-e24f27191783}</Project>
+      <Project>{1464aece-aaf3-4910-a0da-153420580a69}</Project>
       <Name>Cloudents.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Domain.CommandHandlers\Zbang.Zbox.Domain.CommandHandlers.csproj">

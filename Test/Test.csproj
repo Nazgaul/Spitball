@@ -109,7 +109,7 @@
       <Name>Cloudents.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cloudents.Infrastructure\Cloudents.Infrastructure.csproj">
-      <Project>{9EBDEAF7-E562-4547-AB76-E24F27191783}</Project>
+      <Project>{1464aece-aaf3-4910-a0da-153420580a69}</Project>
       <Name>Cloudents.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
