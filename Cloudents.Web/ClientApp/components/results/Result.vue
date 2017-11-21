@@ -1,7 +1,7 @@
 ﻿<template>
    <general-page :title="titleText">
        <result-personalize v-show="isfirst" :show="showSearch" v-if="isfirst||showCourses"></result-personalize>
-       <template  slot="options">
+       <template  slot="options" v-if="page">
            <div class="sort-filter" v-if="page.sort || page.filter">
                <radio-list class="search" :values="page.filter" @click="$_changeFilter" model="filter" :value="filterOptions"></radio-list>
                <radio-list v-if="page.sort" :values="page.sort" @click="$_updateSort" model="sort" class="search sort" :value="$_defaultSort(page.sort[0].id)"></radio-list>
@@ -10,7 +10,7 @@
                <radio-list :values="subFilters" @click="$_changeSubFilter" class="sub-search" model="subFilter" :value="subFilter"></radio-list>
                </div>
            </template>
-       <scroll-list slot="data" :loadMore="!isEmpty&&items.length>10" v-if="items" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
+       <scroll-list slot="data" :loadMore="!isEmpty&&items.length>10" v-if="page&&items" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
            <v-container class="pa-0">
                <v-layout column>
                    <v-flex class="elevation-1 mb-2" xs-12 v-for="(item,index) in items" :key="index" @click="(hasExtra?selectedItem=item.placeId:'')" :class="(index>6?'order-xs3':'order-xs1')">
