@@ -109,6 +109,7 @@ export const pageMixin =
             this.UPDATE_LOADING(true);
                 this.updateSearchText(this.query.q).then((response)=>{
                     if(response!==this.name){
+                        this.UPDATE_LOADING(false);
                         this.$router.push({ path: '/'+response, query: { q: this.query.q } });}else{
                         this.fetchingData({name: this.name, params: {...this.query, ...this.params}})
                             .then((data) => {

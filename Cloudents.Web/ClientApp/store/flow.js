@@ -66,7 +66,10 @@ var optionalRoutes = {
     food: {
         name: routes.foodRoute
     },
-    ask: buildQuestionRoute
+    ask: buildQuestionRoute,
+    searchOrQuestion:{name:"searchOrQuestion"},
+    AddSubjectOrCourse:{name:"AddSubjectOrCourse"}
+
 };
 const getters = {
     currenFlow: state => state.node.model ? state.node.model.name : "home",
