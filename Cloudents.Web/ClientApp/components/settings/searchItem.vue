@@ -1,20 +1,18 @@
 ﻿<template>
     <component is="slot">
-        <!--class="white"  -->
-        <!--class="input-group--focused"-->
-        <v-dialog v-model="dialog" max-width="500px" content-class="dialog-choose" v-if="currentItem">
+        <v-dialog v-model="dialog" max-width="500px" persistent content-class="dialog-choose" v-if="currentItem">
             <div class="d-header">
                 <v-layout row>
                     <v-flex>
-                        <button type="button" @click="dialog=false">
+                        <button type="button" @click="$_closeButton">
                             <close-button></close-button>
                         </button>
                     </v-flex>
                     <v-flex>
-                        <h5>{{currentItem.title}}</h5>
+                        <h5>{{title}}</h5>
                     </v-flex>
                 </v-layout>
-                <v-text-field label="Search" @input="$_search" ref="searchText" v-debounce="500"
+             <slot v-if="!currentAction" name="search">   <v-text-field label="Search" @input="$_search" ref="searchText" v-debounce="500"
                               single-line></v-text-field>
                 <v-container class="pa-0 mb-3" v-if="currentItem.filters">
                     <v-layout row>
@@ -23,9 +21,10 @@
                             <v-flex @click="$_actionsCallback(act.id)" v-if="act.component"><component :is="act.component"></component></v-flex>
                         </template>
                     </v-layout>
-                </v-container>
+                </v-container></slot>
             </div>
-            <div class="loader" v-if="isLoading">
+            <slot name="searchData" v-if="!currentAction">
+                <div class="loader" v-if="isLoading">
                 <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
             </div>
             <div class="d-result" v-else>
@@ -40,12 +39,7 @@
                     <div>No Results Found</div>
                     <div v-html="emptyText"></div>
                 </div>
-            </div>
-        </v-dialog>
-        <v-dialog v-model="showActionsDialog" v-if="currentItem" persistent>
-            <div class="white pa-2" v-for="action in currentItem.actions" :key="action.id">
-                <component :is="type+'-'+action.id" v-if="currentAction==action.id" @done="$_actionDone"></component>
-            </div>
+            </div></slot><component v-else :is="type+'-'+currentAction" @done="$_actionDone"></component>
         </v-dialog>
     </component>
 </template>
@@ -82,9 +76,12 @@
                     this.$emit('change', val)
                 }
             },
+            title(){
+                if(this.currentAction&&!this.dialog)this.dialog=true;
+                if(this.currentAction)return "Add Class";
+                return this.currentItem.title
+            },
             ...mapGetters(['myCoursesId']),
-            showActionsDialog:{
-                get(){return this.currentAction},set(val){}},
             currentItem: function () {
                     return searchObjects[this.type]
                 },
@@ -107,6 +104,9 @@
             },
             props: { type: { type: String, required: true }, value: { type: Boolean },keep:{type:Boolean} },
             methods: {
+                $_closeButton(){
+                    this.currentAction?this.currentAction="":this.dialog=false;
+                },
                 $_clickItemCallback(keep) {
                     this.currentItem.click ? this.currentItem.click.call(this,keep) : ''
                 },
