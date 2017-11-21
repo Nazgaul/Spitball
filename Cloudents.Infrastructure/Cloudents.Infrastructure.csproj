@@ -1,224 +1,28 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9EBDEAF7-E562-4547-AB76-E24F27191783}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Cloudents.Infrastructure</RootNamespace>
-    <AssemblyName>Cloudents.Infrastructure</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.6.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.6.1\lib\net45\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="Autofac.Extras.DynamicProxy, Version=4.2.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.Extras.DynamicProxy.4.2.1\lib\net45\Autofac.Extras.DynamicProxy.dll</HintPath>
-    </Reference>
-    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
-    </Reference>
-    <Reference Include="CacheManager.Core, Version=1.1.1.0, Culture=neutral, PublicKeyToken=5b450b4fb65c4cdb, processorArchitecture=MSIL">
-      <HintPath>..\packages\CacheManager.Core.1.1.1\lib\net45\CacheManager.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="CacheManager.Serialization.Json, Version=1.1.1.0, Culture=neutral, PublicKeyToken=5b450b4fb65c4cdb, processorArchitecture=MSIL">
-      <HintPath>..\packages\CacheManager.Serialization.Json.1.1.1\lib\net45\CacheManager.Serialization.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="CacheManager.StackExchange.Redis, Version=1.1.1.0, Culture=neutral, PublicKeyToken=5b450b4fb65c4cdb, processorArchitecture=MSIL">
-      <HintPath>..\packages\CacheManager.StackExchange.Redis.1.1.1\lib\net45\CacheManager.StackExchange.Redis.dll</HintPath>
-    </Reference>
-    <Reference Include="CacheManager.SystemRuntimeCaching, Version=1.1.1.0, Culture=neutral, PublicKeyToken=5b450b4fb65c4cdb, processorArchitecture=MSIL">
-      <HintPath>..\packages\CacheManager.SystemRuntimeCaching.1.1.1\lib\net45\CacheManager.SystemRuntimeCaching.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Castle.Core.4.0.0\lib\net45\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
-    </Reference>
-    <Reference Include="DocumentDb.Repository, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DocumentDB.Repository.1.2.0\lib\net45\DocumentDb.Repository.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis, Version=1.29.2.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.1.29.2\lib\net45\Google.Apis.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.Auth, Version=1.29.2.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.Auth.1.29.2\lib\net45\Google.Apis.Auth.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.Auth.PlatformServices, Version=1.29.2.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.Auth.1.29.2\lib\net45\Google.Apis.Auth.PlatformServices.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.Core, Version=1.29.2.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.Core.1.29.2\lib\net45\Google.Apis.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.Customsearch.v1, Version=1.29.2.896, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.Customsearch.v1.1.29.2.896\lib\net45\Google.Apis.Customsearch.v1.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.PlatformServices, Version=1.29.2.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.1.29.2\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.YouTube.v3, Version=1.29.2.991, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.YouTube.v3.1.29.2.991\lib\net45\Google.Apis.YouTube.v3.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Azure.Documents.Client, Version=1.14.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Azure.DocumentDB.1.14.1\lib\net45\Microsoft.Azure.Documents.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Azure.Documents.Client.TransientFaultHandling, Version=1.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Azure.DocumentDB.TransientFaultHandling.1.5.0\lib\net45\Microsoft.Azure.Documents.Client.TransientFaultHandling.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Azure.Search, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Azure.Search.4.0.1-preview\lib\net452\Microsoft.Azure.Search.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Cognitive.LUIS, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Cognitive.LUIS.2.0.2\lib\portable45-net45+win8+wpa81\Microsoft.Cognitive.LUIS.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.9\lib\net452\Microsoft.Rest.ClientRuntime.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Rest.ClientRuntime.Azure, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.Azure.3.3.10\lib\net452\Microsoft.Rest.ClientRuntime.Azure.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Spatial, Version=7.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Spatial.7.2.0\lib\portable-net45+win8+wpa81\Microsoft.Spatial.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="StackExchange.Redis.StrongName, Version=1.2.1.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
-      <HintPath>..\packages\StackExchange.Redis.StrongName.1.2.1\lib\net46\StackExchange.Redis.StrongName.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
-    </Reference>
-    <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Net" />
-    <Reference Include="System.Net.Http, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Net.Http.4.3.1\lib\net46\System.Net.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.WebRequest" />
-    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <PackageReference Include="Autofac" Version="4.6.1" />
+    <PackageReference Include="Autofac.Extras.DynamicProxy" Version="4.2.1" />
+    <PackageReference Include="AutoMapper" Version="6.2.1" />
+    <PackageReference Include="CacheManager.Microsoft.Extensions.Caching.Memory" Version="1.1.2" />
+    <PackageReference Include="CacheManager.Serialization.Json" Version="1.1.2" />
+    <PackageReference Include="CacheManager.StackExchange.Redis" Version="1.1.2" />
+    <PackageReference Include="Castle.Core" Version="4.2.1" />
+    <PackageReference Include="Dapper" Version="1.50.2" />
+    <PackageReference Include="Google.Apis.Customsearch.v1" Version="1.30.0.896" />
+    <PackageReference Include="Google.Apis.YouTube.v3" Version="1.30.0.1035" />
+    <PackageReference Include="Microsoft.Azure.DocumentDB" Version="1.19.1" />
+    <PackageReference Include="Microsoft.Azure.Search" Version="3.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
+    <PackageReference Include="Spitball.Luis" Version="1.0.0" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="AI\AIDecision.cs" />
-    <Compile Include="AI\LuisAI.cs" />
-    <Compile Include="Cache\CacheProvider.cs" />
-    <Compile Include="Cache\CacheResultInterceptor.cs" />
-    <Compile Include="Converters\BookDetailConverter.cs" />
-    <Compile Include="Converters\IPConverter.cs" />
-    <Compile Include="Converters\JobResultConverter.cs" />
-    <Compile Include="Converters\PlaceConverter.cs" />
-    <Compile Include="Converters\TutorMeConverter.cs" />
-    <Compile Include="Data\DapperRepository.cs" />
-    <Compile Include="Data\DocumentRepository.cs" />
-    <Compile Include="Data\FlashcardByIdRepository.cs" />
-    <Compile Include="Data\QuizRepository.cs" />
-    <Compile Include="Data\SeoDocumentPage.cs" />
-    <Compile Include="Data\SeoDocumentRepository.cs" />
-    <Compile Include="Data\SeoFlashcardPage.cs" />
-    <Compile Include="Data\SeoItemCountRepository.cs" />
-    <Compile Include="Data\SeoQuizPage.cs" />
-    <Compile Include="Data\UniversitySynonymRepository.cs" />
-    <Compile Include="Environment.cs" />
-    <Compile Include="IpToLocation.cs" />
-    <Compile Include="IRestClient.cs" />
-    <Compile Include="MapperProfile.cs" />
-    <Compile Include="RestClient.cs" />
-    <Compile Include="Search\BookSearch.cs" />
-    <Compile Include="Search\CourseSearch.cs" />
-    <Compile Include="Search\DocumentCseSearch.cs" />
-    <Compile Include="Search\DocumentSearch.cs" />
-    <Compile Include="Search\Entities\Course.cs" />
-    <Compile Include="Search\Entities\Document.cs" />
-    <Compile Include="Search\Entities\Job.cs" />
-    <Compile Include="Search\Entities\Tutor.cs" />
-    <Compile Include="Search\Entities\University.cs" />
-    <Compile Include="Search\FlashcardSearch.cs" />
-    <Compile Include="Search\ITutorProvider.cs" />
-    <Compile Include="Search\JobSearch.cs" />
-    <Compile Include="Search\PlacesSearch.cs" />
-    <Compile Include="Search\QuestionSearch.cs" />
-    <Compile Include="Search\TitleSearch.cs" />
-    <Compile Include="Search\TutorMeSearch.cs" />
-    <Compile Include="Search\TutorAzureSearch.cs" />
-    <Compile Include="Search\TutorSearch.cs" />
-    <Compile Include="Search\UniversitySearch.cs" />
-    <Compile Include="Search\VideoSearch.cs" />
-    <Compile Include="UnderscorePropertyNamesContractResolver.cs" />
-    <Compile Include="UniqueKeyGenerator.cs" />
-    <Compile Include="InfrastructureModule.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Search\CseSearch.cs" />
-    <Compile Include="Search\CustomApiKey.cs" />
+    <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj">
-      <Project>{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}</Project>
-      <Name>Cloudents.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\NewFolder1\" />
-    <Folder Include="Mapper\" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Microsoft.Azure.DocumentDB.1.14.1\build\Microsoft.Azure.DocumentDB.targets" Condition="Exists('..\packages\Microsoft.Azure.DocumentDB.1.14.1\build\Microsoft.Azure.DocumentDB.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Azure.DocumentDB.1.14.1\build\Microsoft.Azure.DocumentDB.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Azure.DocumentDB.1.14.1\build\Microsoft.Azure.DocumentDB.targets'))" />
-  </Target>
+
 </Project>

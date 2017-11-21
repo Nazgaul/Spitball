@@ -68,6 +68,7 @@ export default {
     methods: {
         $_voiceDetection() {
             this.recognition.start();
+            
         },
         search(){
             this.$router.push({ name:'result', query: {q:this.msg} });
