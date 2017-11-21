@@ -3,12 +3,14 @@ using System.Globalization;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Cloudents.Infrastructure;
+using Cloudents.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.Webpack;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Converters;
@@ -35,7 +37,7 @@ namespace Cloudents.Web
                 options.SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
                 options.SerializerSettings.Converters.Add(new IsoDateTimeConverter
                 {
-                    DateTimeStyles = System.Globalization.DateTimeStyles.AssumeUniversal
+                    DateTimeStyles = DateTimeStyles.AssumeUniversal
                 });
             });
             services.Configure<MvcOptions>(options =>
@@ -44,6 +46,13 @@ namespace Cloudents.Web
             });
             services.AddResponseCompression();
             services.AddResponseCaching();
+
+            var connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<SpitballContent>(options =>
+            {
+                options.UseSqlServer(connection);
+            });
+
             var containerBuilder = new ContainerBuilder();
             var infrastructureModule = new InfrastructureModule(
                 Configuration.GetConnectionString("DefaultConnection"),

@@ -6,12 +6,7 @@
 
   <ItemGroup>
     <Compile Remove="Class2.cs" />
-    <Compile Remove="Entities\Db\Box.cs" />
     <Compile Remove="Entities\Db\CourseContent.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Entities\Db\" />
   </ItemGroup>
 
 </Project>
