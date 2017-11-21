@@ -7,7 +7,7 @@ namespace Cloudents.Core.Entities.Db
     using System.Data.Entity.Spatial;
 
     [Table("Zbox.Box")]
-    public partial class Box
+    public partial class Course
     {
         public long BoxId { get; set; }
 

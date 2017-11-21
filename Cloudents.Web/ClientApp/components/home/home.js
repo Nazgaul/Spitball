@@ -71,6 +71,7 @@ export default {
             recognition.start();
             var _self = this;
 
+            
             recognition.onresult = function (event) {
                 _self.msg = event.results[0][0].transcript;
             };

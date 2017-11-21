@@ -200,18 +200,17 @@
     <Compile Include="Search\CustomApiKey.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj">
-      <Project>{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}</Project>
-      <Name>Cloudents.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\NewFolder1\" />
     <Folder Include="Mapper\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj">
+      <Project>{85208b6b-6ad1-4b2e-8cc7-eec6990085a7}</Project>
+      <Name>Cloudents.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Azure.DocumentDB.1.14.1\build\Microsoft.Azure.DocumentDB.targets" Condition="Exists('..\packages\Microsoft.Azure.DocumentDB.1.14.1\build\Microsoft.Azure.DocumentDB.targets')" />

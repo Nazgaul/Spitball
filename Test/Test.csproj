@@ -105,7 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj">
-      <Project>{BA74EE7F-9FC3-4FCF-904A-9EA712C52A07}</Project>
+      <Project>{85208b6b-6ad1-4b2e-8cc7-eec6990085a7}</Project>
       <Name>Cloudents.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cloudents.Infrastructure\Cloudents.Infrastructure.csproj">
