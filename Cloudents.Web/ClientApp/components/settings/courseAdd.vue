@@ -1,6 +1,5 @@
 ﻿<template>
     <div>
-        <h5 class="text-xs-center">Add Course</h5>
         <form @submit.prevent="$_submit" @keydown.enter.prevent="$_submit">
             <v-text-field v-model.trim="name" required placeholder="Course Name" />
             <v-text-field v-model.trim="code" placeholder="CourseCode" />

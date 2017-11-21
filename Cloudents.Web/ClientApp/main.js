@@ -2,11 +2,11 @@
 import App from './components/app/app.vue';
 import store from './store';
 const scroll = () => import('./components/helpers/infinateScroll.vue');
+import VScroll from 'vuetify/es5/directives/scroll';
 import GeneralPage from './components/helpers/generalPage.vue'
 import VueRouter from 'vue-router';
 import vueMoment from "vue-moment";
 import vueAdsense from 'vue-adsense';
-//import VueIntercom from 'vue-intercom';
 
 const vuetifyComponents = {
     VApp,
@@ -59,6 +59,7 @@ import * as route from './routes';
 Vue.use(VueRouter);
 Vue.use(Vuetify,
     {
+        directives:{VScroll},
         components: vuetifyComponents
     });
 Vue.use(vueMoment);
@@ -82,7 +83,4 @@ new Vue({
     router: router,
     render: h => h(App),
     store
-    //data: {
-    //    version : window.version
-    //}
 });

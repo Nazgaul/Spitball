@@ -9,6 +9,7 @@ const showFlashcard = () => import("./components/preview/Flashcard.vue");
 const notFound = () => import("./components/results/notFound.vue");
 const searchItem = () => import("./components/settings/searchItem.vue");
 const settings = () => import("./components/settings/settings.vue");
+const moreInfo = () => import("./components/results/MoreInfo.vue");
 function dynamicPropsFn(route) {
     return {
         name: route.path.slice(1),
@@ -51,6 +52,9 @@ export const routes = [
             '/' + RouteTypes.jobRoute,
             '/' + RouteTypes.foodRoute
         ], components: resultPage, props: resultProps, meta: {showHeader:true,showSidebar:true}
+    },
+    {
+        path:"/moreInfo",name:"moreInfo",alias:['/searchOrQuestion','/AddSubjectOrCourse'],component:moreInfo,meta: {showHeader:true,showSidebar:true},props:(route)=>({name:route.path.slice(1),actions:[{name:"edit Subject"},{name:"Select Course"}]})
     },
     {
         path: "/book/:type/:id",

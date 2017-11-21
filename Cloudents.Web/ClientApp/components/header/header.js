@@ -28,6 +28,7 @@ export default {
         foodHeader,
         tutorHeader,
         logo,
+        "resultHeader":askHeader,
         "notification-icon" : notification,
         "search-icon": searchIcon,
         "bookDetailsHeader": bookHeader,

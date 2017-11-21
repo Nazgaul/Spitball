@@ -25,7 +25,6 @@
     "style-loader": "^0.19.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "vue-infinite-loading": "^2.2.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "vuetify": "^0.16.9",
     "url-loader": "^0.6.2",
@@ -37,6 +36,7 @@
     "vuetify-loader": "^0.1.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
-    "v-debounce": "^0.1.2"
+    "v-debounce": "^0.1.2",
+    "lodash": "^4.17.4"
   }
 }

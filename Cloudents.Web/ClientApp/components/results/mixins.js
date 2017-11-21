@@ -8,7 +8,6 @@ const ResultJob = () => import('./ResultJob.vue');
 import ResultVideo from './ResultVideo.vue'
 import SuggestCard from './suggestCard.vue'
 const ResultFood = () => import('./ResultFood.vue');
-//const ResultBookPrice = () => import('./ResultBookPrice.vue');
 const foodExtra = () => import('./foodExtra.vue');
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 export const sortAndFilterMixin = {
@@ -32,14 +31,13 @@ export const sortAndFilterMixin = {
         ...mapMutations(['UPDATE_LOADING'])
     }
 };
-var updateData = function (data) {
+let updateData = function (data) {
     this.pageData={};
     this.content = data;
     (data.data.length && this.hasExtra) ? this.selectedItem = data.data[0].placeId : '';
     this.filter = this.filterOptions;
     this.UPDATE_LOADING(false);
 };
-
 
 export const pageMixin =
     {
@@ -51,6 +49,8 @@ export const pageMixin =
         },
 
         beforeRouteUpdate(to, from, next) {
+            this.pageData={};
+            this.items=[];
             this.UPDATE_LOADING(true);
             this.fetchingData({ name: to.path.slice(1), params: { ...to.query, ...to.params } })
                 .then((data) => {
@@ -109,6 +109,7 @@ export const pageMixin =
             this.UPDATE_LOADING(true);
                 this.updateSearchText(this.query.q).then((response)=>{
                     if(response!==this.name){
+                        this.UPDATE_LOADING(false);
                         this.$router.push({ path: '/'+response, query: { q: this.query.q } });}else{
                         this.fetchingData({name: this.name, params: {...this.query, ...this.params}})
                             .then((data) => {
