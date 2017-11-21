@@ -68,10 +68,7 @@ export default {
             this.$emit('update:overlay', false);
         },
         menuToggle: function() {
-            // this.$emit('@update:showMenu',)
-            console.log("here");
             this.$emit('input',!this.value);
-
         }
     }
 }

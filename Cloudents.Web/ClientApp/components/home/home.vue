@@ -56,8 +56,7 @@
                                             </v-menu>
                                         </v-flex>
                                         <v-flex class="mic" v-if="voiceEnable">
-                                            <button type="button"  class="demo-icon-mic" @click="$_voiceDetection"><mic-icon></mic-icon></button>
-                                            
+                                            <button type="button"  class="demo-icon-mic" @click="$_voiceDetection"><component :is="(isRecording?'recording-icon':'mic-icon')"></component></button>
                                         </v-flex>
                                         <v-flex class="f-submit">
                                             <button type="submit"><search-icon></search-icon> Send</button>

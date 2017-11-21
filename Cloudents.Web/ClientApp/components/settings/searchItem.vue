@@ -31,7 +31,7 @@
             <div class="d-result" v-else>
                 <v-list v-if="items.length">
                     <template v-for="(item,index) in filterItems">
-                        <div @click="$_clickItemCallback()">
+                        <div @click="$_clickItemCallback(keep)">
                             <component :is="'search-item-'+type" :item="item"></component>
                         </div>
                         <v-divider v-if="index < filterItems.length-1"></v-divider>
@@ -42,7 +42,7 @@
                 </div>
             </div>
         </v-dialog>
-        <v-dialog v-model="showActionsDialog" v-if="currentItem">
+        <v-dialog v-model="showActionsDialog" v-if="currentItem" persistent>
             <div class="white pa-2" v-for="action in currentItem.actions" :key="action.id">
                 <component :is="type+'-'+action.id" v-if="currentAction==action.id" @done="$_actionDone"></component>
             </div>
@@ -105,10 +105,10 @@
                 CourseAdd, VDialog,
                 searchItemUniversity, searchItemCourse, RadioList, plusButton, closeButton
             },
-            props: { type: { type: String, required: true }, value: { type: Boolean } },
+            props: { type: { type: String, required: true }, value: { type: Boolean },keep:{type:Boolean} },
             methods: {
-                $_clickItemCallback() {
-                    this.currentItem.click ? this.currentItem.click.call(this) : ''
+                $_clickItemCallback(keep) {
+                    this.currentItem.click ? this.currentItem.click.call(this,keep) : ''
                 },
                 $_actionDone(val) {
                     this.items = [... this.items, val];

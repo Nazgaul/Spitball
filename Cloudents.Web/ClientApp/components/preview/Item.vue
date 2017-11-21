@@ -36,7 +36,6 @@
 
         created() {
             this.getPreview({ type: 'item', id: this.id }).then(res => {
-                console.log('item'+res)
                 this.item =res
             })
         },

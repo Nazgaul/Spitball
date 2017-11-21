@@ -51,8 +51,6 @@ export const pageMixin =
         },
 
         beforeRouteUpdate(to, from, next) {
-            console.log('route update');
-            // just use `this`
             this.UPDATE_LOADING(true);
             this.fetchingData({ name: to.path.slice(1), params: { ...to.query, ...to.params } })
                 .then((data) => {
@@ -77,7 +75,7 @@ export const pageMixin =
                 }
             },
             showCourses() { return this.page.filter?new Set(this.page.filter.map((i)=>i.id)).has('course'):false},
-            titleText: function () {
+            titleText: function () {if(!this.page)return '';
                 if(this.isEmpty)return this.page.emptyText.replace('$subject', this.term);
                 return this.page.title},
             isEmpty: function () { return this.pageData.data ? !this.pageData.data.length : true },
@@ -109,22 +107,15 @@ export const pageMixin =
                 if (this.isFirst) this.updateFirstTime();
             });
             this.UPDATE_LOADING(true);
-            //TODO improve this
-            if(!this.luisTerm){this.updateSearchText(this.query.q).then((response)=>{
-                if(response!==this.name){
-                this.$router.push({ path: '/'+response, query: { q: this.query.q } });}else{
-                    this.fetchingData({name: this.name, params: {...this.query, ...this.params}})
-                        .then((data) => {
-                            updateData.call(this, data);
-                        });
-                }})
-            }else {
+                this.updateSearchText(this.query.q).then((response)=>{
+                    if(response!==this.name){
+                        this.$router.push({ path: '/'+response, query: { q: this.query.q } });}else{
+                        this.fetchingData({name: this.name, params: {...this.query, ...this.params}})
+                            .then((data) => {
+                                updateData.call(this, data);
+                            });
+                    }})
 
-                this.fetchingData({name: this.name, params: {...this.query, ...this.params}})
-                    .then((data) => {
-                        updateData.call(this, data);
-                    });
-            }
         },
         methods: {
             ...mapActions(['updateSearchText', 'fetchingData','updateFirstTime','updateFlow']),

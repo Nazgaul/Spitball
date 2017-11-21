@@ -1,4 +1,5 @@
-﻿import micIcon from "./svg/mic.svg";
+﻿import recordingIcon from "./svg/recording.svg";
+import micIcon from "./svg/mic.svg";
 import searchIcon from "./svg/search-icon.svg";
 import classMaterialIcon from "./svg/class-material-icon-purple.svg";
 import tutorIcon from "./svg/tutor-icon-green.svg";
@@ -34,13 +35,15 @@ export default {
         "twitter-icon": twitterIcon,
         "google-icon": googleIcon,
         "youtube-icon": youtubeIcon,
-        "instegram-icon": instegramIcon,menuIcon
+        "instegram-icon": instegramIcon,menuIcon,recordingIcon
     },
     data() {
         return {
             placeholder: askPlaceholder.ask,
             items: homeSuggest,
             msg: '',
+            recognition:false,
+            isRecording:false,
             drawer: null,
             links: [
                 {
@@ -64,22 +67,11 @@ export default {
     },
     methods: {
         $_voiceDetection() {
-            var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
-            recognition.lang = 'en-US';
-            recognition.interimResults = false;
-            recognition.maxAlternatives = 5;
-            recognition.start();
-            var _self = this;
-
+            this.recognition.start();
             
-            recognition.onresult = function (event) {
-                _self.msg = event.results[0][0].transcript;
-            };
         },
         search(){
-            this.$store.dispatch('updateSearchText', this.msg ).then((name) => {
-                this.$router.push({ path:'/'+name, query: {q:this.msg} });
-            });;
+            this.$router.push({ name:'result', query: {q:this.msg} });
         },
         selectos(item) {
             this.msg = item;
@@ -87,11 +79,29 @@ export default {
         }
     },
 
+    created(){
+        if(this.voiceEnable){
+            this.recognition=new webkitSpeechRecognition();
+            this.recognition.lang = 'en-US';
+            this.recognition.interimResults = false;
+            this.recognition.maxAlternatives = 5;
+            let _self = this;
+
+            this.recognition.onstart = function() {
+                console.log('start');
+                _self.isRecording=true;
+            };
+            this.recognition.onresult = function (event) {
+                _self.msg = event.results[0][0].transcript;
+                _self.isRecording=false;
+            };
+        }
+    },
     props: {
          metaText: { type: String }
     },
 
     computed: {
-        voiceEnable() { return window.chrome}
+        voiceEnable() { return 'webkitSpeechRecognition' in window}
     }
 };

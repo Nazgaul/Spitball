@@ -17,7 +17,6 @@ const previewMap = {
         };
     },
     flashcard(id) {
-        console.log(id);
         return flashcard.get({ id: id });
         //return {
         //    name: 'Math 1172 - Exam 2',
