@@ -48,9 +48,10 @@ namespace Cloudents.Web
             services.AddResponseCaching();
 
             var connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<SpitballContent>(options =>
+            services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(connection);
+                options.UseLoggerFactory(AppDbContext.MyLoggerFactory);
             });
 
             var containerBuilder = new ContainerBuilder();

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace Cloudents.Core.Entities.Db
 {
-    
 
     public partial class University
     {
@@ -12,6 +11,7 @@ namespace Cloudents.Core.Entities.Db
         {
             // ReSharper disable once VirtualMemberCallInConstructor
             Courses = new HashSet<Course>();
+            RowDetail = new RowDetail();
         }
 
         public long Id { get; set; }
@@ -20,9 +20,7 @@ namespace Cloudents.Core.Entities.Db
 
         public string Name { get; set; }
 
-        public DateTime CreationTime { get; set; }
-
-        public DateTime UpdateTime { get; set; }
+        public RowDetail RowDetail { get; set; }
 
         public string Country { get; set; }
         public bool IsDeleted { get; set; }

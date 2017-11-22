@@ -38,6 +38,7 @@ const actions = {
 
     createCourse(context, data) {
         return new Promise((resolve) => {
+            data.university = context.getters.getUniversity;
             settingsService.createCourse(data).then(({body}) => {
                 context.commit(USER.UPDATE_USER, { myCourses: [...context.getters.myCourses, { id: body.id, name: data.name }] });
                 resolve({id:body.id,name:data.name,code:data.code});
