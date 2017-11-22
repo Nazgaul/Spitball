@@ -87,7 +87,7 @@
 }
 
 .giveMeEllipsisOne() {
-    //white-space: nowrap; //TODO: IRENA - need to fix that
+    white-space: nowrap; //TODO: IRENA - need to fix that
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -106,6 +106,24 @@
     }
 }
 
+.placeholder-color(@color) {
+
+    input::-webkit-input-placeholder {
+        color: @color;
+    }
+
+    input::-moz-placeholder {
+        color: @color;
+    }
+
+    input:-ms-input-placeholder {
+        color: @color;
+    }
+
+    input:-moz-placeholder {
+        color: @color;
+    }
+}
 .flexSameSize() {
     flex-grow: 0;
     flex-shrink: 0;
