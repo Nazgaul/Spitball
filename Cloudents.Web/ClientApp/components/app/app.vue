@@ -22,12 +22,5 @@
         components: { AppHeader, AppMenu }
     }
 </script>
-<style lang="less">
-    @import "../../mixin.less";
-    .loader {
-        .inTheMiddle();
-        width: 100vw;
-        height: 100vh;
-    }
-</style>
+<style lang="less" src="./app.less"></style>
 
