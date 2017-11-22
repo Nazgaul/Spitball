@@ -40,7 +40,8 @@ namespace Cloudents.Web.Api
             var course = new Course
             {
                 Name = model.Name,
-                CourseCode = model.Code
+                CourseCode = model.Code,
+                UniversityId = model.University
             };
 
             var result = await _repository.AddAsync(course, token).ConfigureAwait(false);
