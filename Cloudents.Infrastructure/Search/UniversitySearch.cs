@@ -7,6 +7,7 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Search.Entities;
+using Google.Apis.Customsearch.v1.Data;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using Microsoft.Spatial;
@@ -63,8 +64,14 @@ namespace Cloudents.Infrastructure.Search
             await Task.WhenAll(tResult, tSuggest).ConfigureAwait(false);
 
             var result = _mapper.Map<IEnumerable<University>, IList<UniversityDto>>(tResult.Result.Results.Select(s => s.Document));
-            var result2 = _mapper.Map<IEnumerable<University>, IList<UniversityDto>>(tSuggest?.Result?.Results.Select(s => s.Document));
-            return result.Union(result2, new UniversityDtoEquality());
+            if (tSuggest.Result != null)
+            {
+                var result2 =
+                    _mapper.Map<IEnumerable<University>, IList<UniversityDto>>(
+                        tSuggest?.Result?.Results?.Select(s => s.Document));
+                return result.Union(result2, new UniversityDtoEquality());
+            }
+            return result;
         }
 
         private static readonly Task<DocumentSuggestResult<University>> CompletedTask = Task.FromResult<DocumentSuggestResult<University>>(null);

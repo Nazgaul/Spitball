@@ -17,8 +17,8 @@
     <PackageReference Include="Google.Apis.YouTube.v3" Version="1.30.0.1035" />
     <PackageReference Include="Microsoft.Azure.DocumentDB" Version="1.19.1" />
     <PackageReference Include="Microsoft.Azure.Search" Version="3.0.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0" />
     <PackageReference Include="Spitball.Luis" Version="1.0.0" />
   </ItemGroup>
 

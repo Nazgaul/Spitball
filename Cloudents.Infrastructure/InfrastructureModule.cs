@@ -92,6 +92,8 @@ namespace Cloudents.Infrastructure
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IReadRepositoryAsync<,>));
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IReadRepositoryAsync<>));
 
+            builder.RegisterGeneric(typeof(EfRepository<>)).AsImplementedInterfaces();
+
             ConfigureCache(builder);
             var config = MapperConfiguration();
             builder.Register(c => config.CreateMapper()).SingleInstance();

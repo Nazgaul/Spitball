@@ -1,7 +1,7 @@
 ﻿namespace Cloudents.Core.Enum
 {
 // ReSharper disable once EnumUnderlyingTypeIsInt - need for dapper
-    public enum BoxType : int
+    public enum CourseType : int
     {
         Box = 0,
         Academic = 2,

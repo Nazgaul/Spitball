@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
@@ -13,10 +14,12 @@ namespace Cloudents.Web.Api
     public class CourseController : Controller
     {
         private readonly ICourseSearch _courseProvider;
+        private readonly IRepository<Course> _repository;
 
-        public CourseController(ICourseSearch courseProvider)
+        public CourseController(ICourseSearch courseProvider, IRepository<Course> repository)
         {
             _courseProvider = courseProvider;
+            _repository = repository;
         }
 
         [HttpGet]
@@ -32,13 +35,19 @@ namespace Cloudents.Web.Api
 
         [ValidateModel]
         [HttpPost]
-        public async Task<IActionResult> Post(CreateCourse model)
+        public async Task<IActionResult> Post(CreateCourse model,CancellationToken token)
         {
-            var result = await Task.FromResult(55).ConfigureAwait(false);
+            var course = new Course
+            {
+                Name = model.Name,
+                CourseCode = model.Code
+            };
+
+            var result = await _repository.AddAsync(course, token).ConfigureAwait(false);
 
             return Json( new
             {
-                id = result
+                result.Id
             });
         }
     }
