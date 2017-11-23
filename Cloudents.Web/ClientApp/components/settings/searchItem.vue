@@ -45,7 +45,7 @@
     </component>
 </template>
 <script>
-    import {debounce} from 'lodash'
+    import debounce from 'lodash/debounce'
     const RadioList = () => import('./../helpers/radioList.vue');
     const plusButton = () => import('./svg/plus-button.svg');
     const closeButton = () => import('./svg/close-icon.svg');
