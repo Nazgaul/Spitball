@@ -30,10 +30,9 @@
                 return retVal},
             scrollList () {
                 if (this.keepLoad()) {
-                    console.log("scroll");
                     let page=this.token?this.currentToken:this.page;
                     this.isLoading=true;
-                    this.$store.dispatch('scrollingItems', { name: this.$route.path.slice(1), params: this.$route.query, page })
+                    this.$store.dispatch('fetchingData', { name: this.$route.path.slice(1), params: this.$route.query, page })
                         .then((res) => {
                             if (res.data && res.data.length && !res.hasOwnProperty('token') ||
                                 (res.hasOwnProperty('token') && res.token)) {
