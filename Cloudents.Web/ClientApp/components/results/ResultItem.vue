@@ -14,7 +14,7 @@
                                 <p>{{item.snippet}}</p>
                             </v-flex>
                             <v-flex class="pa-0 bottom">
-                                Source: {{item.source}}
+                               {{item.source}}
                             </v-flex>
                         </v-layout>
                     <!--</v-container>-->
