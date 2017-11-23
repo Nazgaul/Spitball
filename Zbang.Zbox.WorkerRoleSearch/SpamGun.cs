@@ -9,7 +9,6 @@ using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
-using Zbang.Zbox.ViewModel.Dto.Emails;
 using Zbang.Zbox.WorkerRoleSearch.Mail;
 
 namespace Zbang.Zbox.WorkerRoleSearch

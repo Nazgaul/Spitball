@@ -18,30 +18,30 @@ namespace Zbang.Zbox.WorkerRoleSearch
     {
         private readonly IFlashcardWriteSearchProvider m_FlashcardSearchProvider;
         private readonly IDocumentDbReadService m_DocumentDbService;
-        private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
+        private readonly IZboxReadServiceWorkerRole _zboxReadService;
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
         private readonly IContentWriteSearchProvider m_ContentSearchProvider;
-        private readonly IZboxWriteService m_WriteService;
-        private readonly IWatsonExtract m_WatsonExtractProvider;
-        private readonly ILogger m_Logger;
+        private readonly IZboxWriteService _writeService;
+        private readonly IWatsonExtract _watsonExtractProvider;
+        private readonly ILogger _logger;
 
         public UpdateSearchFlashcard(IFlashcardWriteSearchProvider flashcardSearchProvider, IZboxReadServiceWorkerRole zboxReadService, IZboxWorkerRoleService zboxWriteService, IDocumentDbReadService documentDbService, IContentWriteSearchProvider contentSearchProvider, IZboxWriteService writeService, IWatsonExtract watsonExtractProvider, ILogger logger)
         {
             m_FlashcardSearchProvider = flashcardSearchProvider;
-            m_ZboxReadService = zboxReadService;
+            _zboxReadService = zboxReadService;
             m_ZboxWriteService = zboxWriteService;
             m_DocumentDbService = documentDbService;
             m_ContentSearchProvider = contentSearchProvider;
-            m_WriteService = writeService;
-            m_WatsonExtractProvider = watsonExtractProvider;
-            m_Logger = logger;
+            _writeService = writeService;
+            _watsonExtractProvider = watsonExtractProvider;
+            _logger = logger;
         }
 
         public string Name => nameof(UpdateSearchFlashcard);
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
         {
             const int top = 100;
-            var updates = await m_ZboxReadService.GetFlashcardsDirtyUpdatesAsync(instanceId, instanceCount, top, cancellationToken).ConfigureAwait(false);
+            var updates = await _zboxReadService.GetFlashcardsDirtyUpdatesAsync(instanceId, instanceCount, top, cancellationToken).ConfigureAwait(false);
             if (!updates.Updates.Any() && !updates.Deletes.Any()) return TimeToSleep.Increase;
             var toUpdates = updates.Updates.ToList();
             for (var i = toUpdates.Count - 1; i >= 0; i--)
@@ -98,22 +98,22 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return Task.CompletedTask;
             //if (elem.Language.GetValueOrDefault(Language.Undefined) == Language.Undefined)
             //{
-            //    var result = await m_WatsonExtractProvider.GetLanguageAsync(elem.Content, token).ConfigureAwait(false);
+            //    var result = await _watsonExtractProvider.GetLanguageAsync(elem.Content, token).ConfigureAwait(false);
             //    elem.Language = result;
             //    var commandLang = new AddLanguageToFlashcardCommand(elem.Id, result);
-            //    m_WriteService.AddItemLanguage(commandLang);
+            //    _writeService.AddItemLanguage(commandLang);
             //}
 
             //if (elem.Language == Language.EnglishUs && elem.Tags.All(a=>a.Type != TagType.Watson))
             //{
 
-            //    var result = await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token).ConfigureAwait(false);
+            //    var result = await _watsonExtractProvider.GetConceptAsync(elem.Content, token).ConfigureAwait(false);
             //    if (result != null)
             //    {
             //        var tags = result as IList<string> ?? result.ToList();
             //        elem.Tags.AddRange(tags.Select(s => new ItemSearchTag { Name = s }));
             //        var z = new AssignTagsToFlashcardCommand(elem.Id, tags, TagType.Watson);
-            //        await m_WriteService.AddItemTagAsync(z).ConfigureAwait(false);
+            //        await _writeService.AddItemTagAsync(z).ConfigureAwait(false);
             //    }
             //}
 
@@ -124,7 +124,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             var index = RoleIndexProcessor.GetIndex();
             var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
-            m_Logger.Warning("item index " + index + " count " + count);
+            _logger.Warning("item index " + index + " count " + count);
             while (!cancellationToken.IsCancellationRequested)
             {
                 try
@@ -133,10 +133,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    m_Logger.Exception(ex);
+                    _logger.Exception(ex);
                 }
             }
-            m_Logger.Error($"{Name} On finish run");
+            _logger.Error($"{Name} On finish run");
         }
     }
 }

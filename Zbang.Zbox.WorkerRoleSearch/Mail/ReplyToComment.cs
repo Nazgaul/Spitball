@@ -11,12 +11,12 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
     public class ReplyToComment : IMail2
     {
         private readonly IMailComponent m_MailComponent;
-        private readonly ILogger m_Logger;
+        private readonly ILogger _logger;
 
         public ReplyToComment(IMailComponent mailComponent, ILogger logger)
         {
             m_MailComponent = mailComponent;
-            m_Logger = logger;
+            _logger = logger;
         }
 
         public async Task<bool> ExecuteAsync(BaseMailData data, CancellationToken token)
@@ -33,7 +33,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             }
             catch (Exception ex)
             {
-                m_Logger.Exception(ex);
+                _logger.Exception(ex);
                 return false;
             }
 

@@ -16,12 +16,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
     {
         private readonly IQueueProviderExtract m_QueueProviderExtract;
         private readonly ILifetimeScope m_ComponentContent;
-        private readonly ILogger m_Logger;
+        private readonly ILogger _logger;
         public MailQueueProcess(IQueueProviderExtract queueProviderExtract, ILifetimeScope componentContent, ILogger logger)
         {
             m_QueueProviderExtract = queueProviderExtract;
             m_ComponentContent = componentContent;
-            m_Logger = logger;
+            _logger = logger;
         }
 
         public string Name => nameof(MailQueueProcess);
@@ -34,17 +34,17 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     var queueName = new MailQueueName();
                     var result = await m_QueueProviderExtract.RunQueueAsync(queueName, async msg =>
                     {
-                        m_Logger.Info($"{Name} is doing process");
+                        _logger.Info($"{Name} is doing process");
                         var msgData = msg.FromMessageProto<BaseMailData>();
                         if (msgData == null)
                         {
-                            m_Logger.Error($"{Name} run - msg cannot transfer to DomainProcess");
+                            _logger.Error($"{Name} run - msg cannot transfer to DomainProcess");
                             return true;
                         }
                         var process = m_ComponentContent.ResolveOptionalNamed<IMail2>(msgData.MailResolver);
                         if (process == null)
                         {
-                            m_Logger.Error($"{Name} run - process is null msgData.ProcessResolver:" + msgData.MailResolver);
+                            _logger.Error($"{Name} run - process is null msgData.ProcessResolver:" + msgData.MailResolver);
                             return true;
                         }
                         return await process.ExecuteAsync(msgData, cancellationToken).ConfigureAwait(false);
@@ -63,7 +63,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    m_Logger.Exception(ex, new Dictionary<string, string>
+                    _logger.Exception(ex, new Dictionary<string, string>
                     {
                         ["service"] = Name
                     });

@@ -14,7 +14,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IZboxWorkerRoleService m_ZboxWorkerRoleService;
         private readonly IMailComponent m_MailComponent;
         private readonly IMediaServicesProvider m_MediaService;
-        private readonly ILogger m_Logger;
+        private readonly ILogger _logger;
 
         public DeleteOldStuff(IZboxWorkerRoleService zboxWorkerRoleService, IMailComponent mailComponent,
             IMediaServicesProvider mediaService, ILogger logger)
@@ -22,7 +22,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_ZboxWorkerRoleService = zboxWorkerRoleService;
             m_MailComponent = mailComponent;
             m_MediaService = mediaService;
-            m_Logger = logger;
+            _logger = logger;
         }
 
         private async Task DoDeleteAsync(CancellationToken cancellationToken, string prefix, Func<CancellationToken, Task<int>> func)
@@ -35,7 +35,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 {
                     if (func == null) continue;
                     var counter = await func(cancellationToken).ConfigureAwait(false);
-                    m_Logger.TrackMetric(prefix, counter);
+                    _logger.TrackMetric(prefix, counter);
                     needLoop = false;
                 }
                 catch (TaskCanceledException)
@@ -44,7 +44,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    m_Logger.Exception(ex);
+                    _logger.Exception(ex);
                     await m_MailComponent.GenerateSystemEmailAsync("delete old stuff", ex.ToString()).ConfigureAwait(false);
                     break;
                 }
@@ -60,7 +60,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 try
                 {
                     await m_MediaService.DeleteOldAssetsAsync().ConfigureAwait(false);
-                    m_Logger.Info("delete stuff starting to work");
+                    _logger.Info("delete stuff starting to work");
                     await m_ZboxWorkerRoleService.DoDirtyUpdateAsync(newToken.Token).ConfigureAwait(false);
 
                     await
@@ -95,7 +95,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    m_Logger.Exception(ex);
+                    _logger.Exception(ex);
                     await progressAsync.Invoke(0, TimeSpan.FromHours(1)).ConfigureAwait(false);
                     return false;
                 }

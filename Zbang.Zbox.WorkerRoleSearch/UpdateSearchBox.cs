@@ -15,21 +15,21 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class UpdateSearchBox : UpdateSearch, IJob, IFileProcess
     {
-        private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
-        private readonly IBoxWriteSearchProvider2 m_BoxSearchProvider;
-        private readonly IZboxWorkerRoleService m_ZboxWriteService;
-        private readonly ILogger m_Logger;
+        private readonly IZboxReadServiceWorkerRole _zboxReadService;
+        private readonly IBoxWriteSearchProvider2 _boxSearchProvider;
+        private readonly IZboxWorkerRoleService _zboxWriteService;
+        private readonly ILogger _logger;
 
         public UpdateSearchBox(IZboxReadServiceWorkerRole zboxReadService,
             IBoxWriteSearchProvider2 boxSearchProvider,
             IZboxWorkerRoleService zboxWriteService, ILogger logger
 /*,  IZboxWriteService writeService*/)
         {
-            m_ZboxReadService = zboxReadService;
-            m_BoxSearchProvider = boxSearchProvider;
-            m_ZboxWriteService = zboxWriteService;
-            m_Logger = logger;
-            //m_WriteService = writeService;
+            _zboxReadService = zboxReadService;
+            _boxSearchProvider = boxSearchProvider;
+            _zboxWriteService = zboxWriteService;
+            _logger = logger;
+            //_writeService = writeService;
         }
 
         public string Name => nameof(UpdateSearchBox);
@@ -37,7 +37,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             var index = RoleIndexProcessor.GetIndex();
             var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
-            m_Logger.Warning("box index " + index + " count " + count);
+            _logger.Warning("box index " + index + " count " + count);
             while (!cancellationToken.IsCancellationRequested)
             {
                 try
@@ -46,16 +46,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    m_Logger.Exception(ex);
+                    _logger.Exception(ex);
                 }
             }
-            m_Logger.Error($"{Name} On finish run");
+            _logger.Error($"{Name} On finish run");
         }
 
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
         {
             const int top = 100;
-            var updates = await m_ZboxReadService.GetBoxesDirtyUpdatesAsync(instanceId, instanceCount, top, cancellationToken).ConfigureAwait(false);
+            var updates = await _zboxReadService.GetBoxesDirtyUpdatesAsync(instanceId, instanceCount, top, cancellationToken).ConfigureAwait(false);
             if (!updates.BoxesToUpdate.Any() && !updates.BoxesToDelete.Any()) return TimeToSleep.Increase;
             // await JaredPilotAsync(updates.BoxesToUpdate.Where(w => w.UniversityId == JaredUniversityIdPilot));
 
@@ -63,10 +63,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //     updates.BoxesToUpdate.Where(
             //         w => w.Type == Infrastructure.Enums.BoxType.Academic && w.Name.Length > 2
             //         ).Select(s => s.Name), cancellationToken);
-            var isSuccess = await m_BoxSearchProvider.UpdateDataAsync(updates.BoxesToUpdate, updates.BoxesToDelete).ConfigureAwait(false);
+            var isSuccess = await _boxSearchProvider.UpdateDataAsync(updates.BoxesToUpdate, updates.BoxesToDelete).ConfigureAwait(false);
             if (isSuccess)
             {
-                await m_ZboxWriteService.UpdateSearchBoxDirtyToRegularAsync(new UpdateDirtyToRegularCommand(updates.BoxesToDelete.Union(updates.BoxesToUpdate.Select(s => s.Id)))).ConfigureAwait(false);
+                await _zboxWriteService.UpdateSearchBoxDirtyToRegularAsync(new UpdateDirtyToRegularCommand(updates.BoxesToDelete.Union(updates.BoxesToUpdate.Select(s => s.Id)))).ConfigureAwait(false);
             }
             if (updates.BoxesToUpdate.Count() == top)
             {
@@ -80,12 +80,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var parameters = data as BoxProcessData;
             if (parameters == null) return true;
 
-            var elem = await m_ZboxReadService.GetBoxDirtyUpdatesAsync(parameters.BoxId, token).ConfigureAwait(false);
+            var elem = await _zboxReadService.GetBoxDirtyUpdatesAsync(parameters.BoxId, token).ConfigureAwait(false);
             var isSuccess =
-                await m_BoxSearchProvider.UpdateDataAsync(new[] { elem }, null).ConfigureAwait(false);
+                await _boxSearchProvider.UpdateDataAsync(new[] { elem }, null).ConfigureAwait(false);
             if (isSuccess)
             {
-                await m_ZboxWriteService.UpdateSearchUniversityDirtyToRegularAsync(
+                await _zboxWriteService.UpdateSearchUniversityDirtyToRegularAsync(
                     new UpdateDirtyToRegularCommand(new[] { parameters.BoxId })).ConfigureAwait(false);
             }
             return true;

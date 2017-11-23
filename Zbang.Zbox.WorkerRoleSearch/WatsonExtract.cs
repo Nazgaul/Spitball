@@ -12,13 +12,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class WatsonExtract : IWatsonExtract
     {
-        private readonly ILogger m_Logger;
+        private readonly ILogger _logger;
         private readonly AlchemyClient m_Client =
               new AlchemyClient("e05317b0a67d8a3d0bf82f5b0e0b58012b717779");
 
         public WatsonExtract(ILogger logger)
         {
-            m_Logger = logger;
+            _logger = logger;
         }
 
         public async Task<IEnumerable<string>> GetConceptAsync(string text, CancellationToken token)
@@ -41,7 +41,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             catch (Exception ex)
             {
-                m_Logger.Exception(ex);
+                _logger.Exception(ex);
                 return null;
             }
         }
@@ -67,7 +67,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             catch (Exception ex)
             {
-                m_Logger.Exception(ex);
+                _logger.Exception(ex);
                 return null;
             }
         }
@@ -99,7 +99,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             catch (Exception ex)
             {
-                m_Logger.Exception(ex);
+                _logger.Exception(ex);
             }
             return Language.Undefined;
         }

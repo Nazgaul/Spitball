@@ -19,18 +19,18 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private readonly IList<IJob> m_Jobs;
         private readonly List<Task> m_Tasks = new List<Task>();
-        private readonly ILogger m_Logger;
+        private readonly ILogger _logger;
 
         public WorkerRole()
         {
             m_Unity = new IocFactory();
             m_Jobs = GetJob();
-            m_Logger = m_Unity.Resolve<ILogger>();
+            _logger = m_Unity.Resolve<ILogger>();
         }
 
         public override void Run()
         {
-            m_Logger.Info("Zbang.Zbox.WorkerRoleSearch is running");
+            _logger.Info("Zbang.Zbox.WorkerRoleSearch is running");
             try
             {
                 RunAsync(m_CancellationTokenSource.Token).Wait();
@@ -45,7 +45,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             if (e.Status == RoleInstanceStatus.Busy)
             {
-                m_Logger.Error("Status is busy");
+                _logger.Error("Status is busy");
             }
         }
 
@@ -62,25 +62,25 @@ namespace Zbang.Zbox.WorkerRoleSearch
             XmlConfigurator.Configure();
             RoleEnvironment.Changing += RoleEnvironmentChanging;
             RoleEnvironment.StatusCheck += RoleEnvironment_StatusCheck;
-            m_Logger.Info("Zbang.Zbox.WorkerRoleSearch has been started");
+            _logger.Info("Zbang.Zbox.WorkerRoleSearch has been started");
 
             return result;
         }
 
         private void RoleEnvironmentChanging(object sender, RoleEnvironmentChangingEventArgs e)
         {
-            m_Logger.Warning("change role Environment");
+            _logger.Warning("change role Environment");
             RoleEnvironment.RequestRecycle();
         }
 
         public override void OnStop()
         {
-            m_Logger.Info("Zbang.Zbox.WorkerRoleSearch is stopping");
+            _logger.Info("Zbang.Zbox.WorkerRoleSearch is stopping");
             m_CancellationTokenSource.Cancel();
             m_RunCompleteEvent.WaitOne();
 
             base.OnStop();
-            m_Logger.Info("Zbang.Zbox.WorkerRoleSearch has stopped");
+            _logger.Info("Zbang.Zbox.WorkerRoleSearch has stopped");
         }
 
         private async Task RunAsync(CancellationToken cancellationToken)
@@ -102,12 +102,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             // Observe unhandled exception
                             if (task.Exception != null)
                             {
-                                m_Logger.Exception(task.Exception.InnerException,
+                                _logger.Exception(task.Exception.InnerException,
                                     new Dictionary<string, string> {["job"] = i.ToString() });
                             }
                             else
                             {
-                                m_Logger.Error("Job Failed and no exception thrown.");
+                                _logger.Error("Job Failed and no exception thrown.");
                             }
 
                             var jobToRestart = m_Jobs[i];
@@ -115,7 +115,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         }
                         if (task.IsCompleted)
                         {
-                            m_Logger.Warning($"Job finished index: {i}");
+                            _logger.Warning($"Job finished index: {i}");
                             m_Tasks.RemoveAt(i);
                         }
                     }
@@ -123,7 +123,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    m_Logger.Exception(ex);
+                    _logger.Exception(ex);
                 }
             }
         }

@@ -24,13 +24,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly ILifetimeScope m_LifetimeScope;
         private readonly XmlSerializer m_Dcs = new XmlSerializer(typeof(StorageQueueMessage));
         private readonly SemaphoreSlim m_CriticalCode = new SemaphoreSlim(1);
-        private readonly ILogger m_Logger;
+        private readonly ILogger _logger;
 
         public SchedulerListener(IQueueProviderExtract queueProviderExtract, ILifetimeScope lifetimeScope, ILogger logger)
         {
             m_QueueProviderExtract = queueProviderExtract;
             m_LifetimeScope = lifetimeScope;
-            m_Logger = logger;
+            _logger = logger;
         }
 
         public string Name => nameof(SchedulerListener);
@@ -50,7 +50,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         {
                             message = (StorageQueueMessage)m_Dcs.Deserialize(xmlStream);
                         }
-                        m_Logger.Info($"{Name} found message {msg.AsString}");
+                        _logger.Info($"{Name} found message {msg.AsString}");
                         var messageContent = JObject.Parse(message.Message);
                         var properties = messageContent.Properties();
                         var list = new List<Task<bool>>();
@@ -75,7 +75,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                                         }
                                         catch (Exception ex)
                                         {
-                                            m_Logger.Exception(ex, new Dictionary<string, string> {["service"] = Name });
+                                            _logger.Exception(ex, new Dictionary<string, string> {["service"] = Name });
                                         }
                                         finally
                                         {
@@ -87,7 +87,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             else
                             {
                                 list.Add(TaskExtensions.CompletedTaskFalse);
-                                m_Logger.Warning($"can't resolve {property.Name}");
+                                _logger.Warning($"can't resolve {property.Name}");
                             }
                         }
                         await Task.WhenAll(list).ConfigureAwait(false);
@@ -103,7 +103,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    m_Logger.Exception(ex, new Dictionary<string, string> {["service"] = Name });
+                    _logger.Exception(ex, new Dictionary<string, string> {["service"] = Name });
                 }
                 await Task.Delay(TimeSpan.FromMinutes(2), cancellationToken).ConfigureAwait(false);
             }

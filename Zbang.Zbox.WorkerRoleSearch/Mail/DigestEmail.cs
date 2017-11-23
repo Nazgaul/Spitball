@@ -18,11 +18,11 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
     public class DigestEmail : ISchedulerProcess
     {
         private readonly IMailComponent m_MailComponent;
-        private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
+        private readonly IZboxReadServiceWorkerRole _zboxReadService;
         private const string ServiceName = "Digest email";
         private readonly NotificationSetting m_DigestEmailHourBack;
         private readonly int m_UtcTimeOffset;
-        private readonly ILogger m_Logger;
+        private readonly ILogger _logger;
 
         private readonly HashSet<string> m_EmailHash = new HashSet<string>();
 
@@ -30,10 +30,10 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             NotificationSetting hourForEmailDigest, int utcTimeOffset, ILogger logger)
         {
             m_MailComponent = mailComponent;
-            m_ZboxReadService = zboxReadService;
+            _zboxReadService = zboxReadService;
             m_DigestEmailHourBack = hourForEmailDigest;
             m_UtcTimeOffset = utcTimeOffset;
-            m_Logger = logger;
+            _logger = logger;
         }
 
         private string GetServiceName()
@@ -65,9 +65,9 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     var usersQuery = new GetUserByNotificationQuery(m_DigestEmailHourBack, page, pageSize, m_UtcTimeOffset);
                     var users =
                         (await
-                            m_ZboxReadService.GetUsersByNotificationSettingsAsync(
+                            _zboxReadService.GetUsersByNotificationSettingsAsync(
                                 usersQuery, token).ConfigureAwait(false)).ToList();
-                    m_Logger.Info(
+                    _logger.Info(
                         $"{GetServiceName()} query: {usersQuery} going to send emails to {string.Join("\n", users)}");
                     foreach (var user in users)
                     {
@@ -79,7 +79,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                         catch (Exception ex)
                         {
                             await SendEmailStatusAsync($"error digest email {ex}").ConfigureAwait(false);
-                            m_Logger.Exception(ex,new Dictionary<string,string> {["service"] = GetServiceName() });
+                            _logger.Exception(ex,new Dictionary<string,string> {["service"] = GetServiceName() });
                         }
                     }
                     await Task.WhenAll(list).ConfigureAwait(false);
@@ -96,12 +96,12 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     page++;
                     await progressAsync(page, TimeSpan.FromMinutes(5)).ConfigureAwait(false);
                     await SendEmailStatusAsync($"error digest email {ex}").ConfigureAwait(false);
-                    m_Logger.Exception(ex, new Dictionary<string, string> {["service"] = GetServiceName() });
+                    _logger.Exception(ex, new Dictionary<string, string> {["service"] = GetServiceName() });
 
                     //return false;
                 }
             }
-            m_Logger.Info($"{GetServiceName()} finish running  mail page {page}");
+            _logger.Info($"{GetServiceName()} finish running  mail page {page}");
             return true;
         }
 
@@ -114,7 +114,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             }
             if (!m_EmailHash.Add(email))
             {
-                m_Logger.Warning($"{email} is already sent");
+                _logger.Warning($"{email} is already sent");
                 return;
             }
             var culture = string.IsNullOrEmpty(user.Culture)
@@ -122,7 +122,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 : new CultureInfo(user.Culture);
             var updates =
                 await
-                    m_ZboxReadService.GetUserUpdatesAsync(
+                    _zboxReadService.GetUserUpdatesAsync(
                         new GetBoxesLastUpdateQuery(m_DigestEmailHourBack, user.UserId), token).ConfigureAwait(false);
 
             var updatesList = updates.ToList();
@@ -139,14 +139,14 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 updatesList.GroupBy(g => g.AnswerId).Where(s => s.Key != null).Select(s => s.Key),
                 updatesList.GroupBy(g => g.QuizDiscussionId).Where(s => s.Key != null).Select(s => s.Key));
 
-            var updatesData = await m_ZboxReadService.GetUpdatesAsync(query, token).ConfigureAwait(false);
+            var updatesData = await _zboxReadService.GetUpdatesAsync(query, token).ConfigureAwait(false);
 
             var updatesEmail = new List<UpdateMailParams.BoxUpdate>();
             foreach (var box in updatesData.Boxes)
             {
                 if (box.Url == null)
                 {
-                    m_Logger.Error($"{box.BoxId} url is null");
+                    _logger.Error($"{box.BoxId} url is null");
                     continue;
                 }
                 ProcessBoxUpdates(box, updatesData, updatesEmail, updatesList);

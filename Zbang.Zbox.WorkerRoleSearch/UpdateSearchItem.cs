@@ -23,15 +23,15 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class UpdateSearchItem : UpdateSearch, IJob, IFileProcess
     {
-        private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
+        private readonly IZboxReadServiceWorkerRole _zboxReadService;
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private readonly IItemWriteSearchProvider m_ItemSearchProvider3;
         private readonly IBlobProvider2<FilesContainerName> m_BlobProvider;
-        private readonly IZboxWriteService m_WriteService;
-        private readonly IWatsonExtract m_WatsonExtractProvider;
+        private readonly IZboxWriteService _writeService;
+        private readonly IWatsonExtract _watsonExtractProvider;
         private readonly IContentWriteSearchProvider m_ContentSearchProvider;
-        private readonly ILogger m_Logger;
+        private readonly ILogger _logger;
 
         public UpdateSearchItem(IZboxReadServiceWorkerRole zboxReadService,
             IZboxWorkerRoleService zboxWriteService,
@@ -42,15 +42,15 @@ namespace Zbang.Zbox.WorkerRoleSearch
             IWatsonExtract watsonExtractProvider,
             IContentWriteSearchProvider contentSearchProvider, ILogger logger)
         {
-            m_ZboxReadService = zboxReadService;
+            _zboxReadService = zboxReadService;
             m_ZboxWriteService = zboxWriteService;
             m_FileProcessorFactory = fileProcessorFactory;
             m_BlobProvider = blobProvider;
             m_ItemSearchProvider3 = itemSearchProvider3;
-            m_WriteService = writeService;
-            m_WatsonExtractProvider = watsonExtractProvider;
+            _writeService = writeService;
+            _watsonExtractProvider = watsonExtractProvider;
             m_ContentSearchProvider = contentSearchProvider;
-            m_Logger = logger;
+            _logger = logger;
         }
 
         public string Name => nameof(UpdateSearchItem);
@@ -58,7 +58,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             var index = RoleIndexProcessor.GetIndex();
             var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
-            m_Logger.Warning("item index " + index + " count " + count);
+            _logger.Warning("item index " + index + " count " + count);
 
             while (!cancellationToken.IsCancellationRequested)
             {
@@ -75,16 +75,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    m_Logger.Exception(ex);
+                    _logger.Exception(ex);
                 }
             }
-            m_Logger.Error($"{Name} On finish run");
+            _logger.Error($"{Name} On finish run");
         }
 
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
         {
             const int top = 10;
-            var updates = await m_ZboxReadService.GetItemsDirtyUpdatesAsync(new SearchItemDirtyQuery(instanceId, instanceCount, top), cancellationToken).ConfigureAwait(false);
+            var updates = await _zboxReadService.GetItemsDirtyUpdatesAsync(new SearchItemDirtyQuery(instanceId, instanceCount, top), cancellationToken).ConfigureAwait(false);
             if (!updates.ItemsToUpdate.Any() && !updates.ItemsToDelete.Any()) return TimeToSleep.Increase;
             var tasks = new List<Task>();
             foreach (var elem in updates.ItemsToUpdate)
@@ -142,25 +142,25 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 if (elem.Language.GetValueOrDefault(Language.Undefined) == Language.Undefined)
                 {
                     ExtractText(elem, token);
-                    var result = await m_WatsonExtractProvider.GetLanguageAsync(elem.Content, token).ConfigureAwait(false);
+                    var result = await _watsonExtractProvider.GetLanguageAsync(elem.Content, token).ConfigureAwait(false);
                     elem.Language = result;
                     if (result != Language.Undefined)
                     {
                         var commandLang = new AddLanguageToDocumentCommand(elem.Id, result);
-                        m_WriteService.AddItemLanguage(commandLang);
+                        _writeService.AddItemLanguage(commandLang);
                     }
                 }
 
                 if (elem.Language == Language.EnglishUs && elem.Tags.All(a => a.Type != TagType.Watson))
                 {
                     ExtractText(elem, token);
-                    var result = await m_WatsonExtractProvider.GetConceptAsync(elem.Content, token).ConfigureAwait(false);
+                    var result = await _watsonExtractProvider.GetConceptAsync(elem.Content, token).ConfigureAwait(false);
                     if (result != null)
                     {
                         var resultList = result.ToList();
                         elem.Tags.AddRange(resultList.Select(s => new ItemSearchTag { Name = s }));
                         var z = new AssignTagsToDocumentCommand(elem.Id, resultList, TagType.Watson);
-                        await m_WriteService.AddItemTagAsync(z).ConfigureAwait(false);
+                        await _writeService.AddItemTagAsync(z).ConfigureAwait(false);
                     }
                 }
 
@@ -178,7 +178,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    m_Logger.Exception(ex, new Dictionary<string, string> { [Name] = "update item" });
+                    _logger.Exception(ex, new Dictionary<string, string> { [Name] = "update item" });
                 }
             }
         }
@@ -244,7 +244,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         }
                         catch (Exception ex)
                         {
-                            m_Logger.Exception(ex,
+                            _logger.Exception(ex,
                                 new Dictionary<string, string>
                                 {
                                     ["ItemId"] = msgData.Id.ToString(),
@@ -267,7 +267,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    m_Logger.Exception(ex, new Dictionary<string, string> { ["ItemId"] = msgData.Id.ToString() });
+                    _logger.Exception(ex, new Dictionary<string, string> { ["ItemId"] = msgData.Id.ToString() });
 
                     // ReSharper disable once AccessToDisposedClosure
                     wait.Set();
@@ -278,7 +278,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             if (!signal)
             {
                 work.Abort();
-                m_Logger.Error("blob url aborting process " + msgData.BlobName);
+                _logger.Error("blob url aborting process " + msgData.BlobName);
             }
             wait.Close();
         }
@@ -292,7 +292,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             if (elem.PreviewFailed)
             {
-                m_Logger.Info($"{Name} skipping extract content due to preview failed ");
+                _logger.Info($"{Name} skipping extract content due to preview failed ");
                 return null;
             }
             //TraceLog.WriteInfo(PrefixLog, "search processing " + elem);
@@ -338,7 +338,7 @@ token);
                             }
                             catch (Exception ex)
                             {
-                                m_Logger.Exception(ex, new Dictionary<string, string> { ["element"] = elem.ToString() });
+                                _logger.Exception(ex, new Dictionary<string, string> { ["element"] = elem.ToString() });
                                 wait.Set();
                             }
                         });
@@ -347,7 +347,7 @@ token);
                     if (!signal)
                     {
                         work.Abort();
-                        m_Logger.Error("aborting returning null on elem " + elem);
+                        _logger.Error("aborting returning null on elem " + elem);
                         return null;
                     }
                     return str;
@@ -355,7 +355,7 @@ token);
             }
             catch (Exception ex)
             {
-                m_Logger.Exception(ex, new Dictionary<string, string> { ["element"] = elem.ToString() });
+                _logger.Exception(ex, new Dictionary<string, string> { ["element"] = elem.ToString() });
                 return null;
             }
         }
@@ -366,7 +366,7 @@ token);
             try
             {
                 var elements =
-                    await m_ZboxReadService.GetItemsDirtyUpdatesAsync(
+                    await _zboxReadService.GetItemsDirtyUpdatesAsync(
                         new SearchItemDirtyQuery(parameters.ItemId), token).ConfigureAwait(false);
                 var elem = elements.ItemsToUpdate.FirstOrDefault();
                 if (elem == null)
@@ -381,7 +381,7 @@ token);
             }
             catch (Exception ex)
             {
-                m_Logger.Exception(ex, new Dictionary<string, string> { [nameof(parameters)] = parameters.ToString() });
+                _logger.Exception(ex, new Dictionary<string, string> { [nameof(parameters)] = parameters.ToString() });
                 return false;
             }
         }

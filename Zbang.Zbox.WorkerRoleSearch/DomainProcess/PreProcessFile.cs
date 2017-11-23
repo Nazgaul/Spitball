@@ -12,13 +12,13 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
     {
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private readonly IMailComponent m_MailComponent;
-        private readonly ILogger m_Logger;
+        private readonly ILogger _logger;
 
         public PreProcessFile(IFileProcessorFactory fileProcessorFactory, IMailComponent mailComponent, ILogger logger)
         {
             m_FileProcessorFactory = fileProcessorFactory;
             m_MailComponent = mailComponent;
-            m_Logger = logger;
+            _logger = logger;
         }
 
         public async Task<bool> ExecuteAsync(FileProcess data, CancellationToken token)
@@ -45,13 +45,13 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
                 }
                 else
                 {
-                    m_Logger.Error($"users is null on {blobName}");
+                    _logger.Error($"users is null on {blobName}");
                 }
             }
             catch (Exception ex)
             {
                 await m_MailComponent.GenerateSystemEmailAsync("signalR error", ex.Message).ConfigureAwait(false);
-                m_Logger.Exception(ex);
+                _logger.Exception(ex);
             }
 
             return true;
@@ -80,7 +80,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
                 }
                 catch (Exception ex)
                 {
-                    m_Logger.Exception(ex);
+                    _logger.Exception(ex);
                     wait.Set();
                 }
             });
@@ -89,7 +89,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             if (!signal)
             {
                 work.Abort();
-                m_Logger.Error($"blob url aborting process {parameters.BlobUri}");
+                _logger.Error($"blob url aborting process {parameters.BlobUri}");
             }
         }
     }
