@@ -13,11 +13,11 @@ namespace Cloudents.Web.Api
     [Route("api/Search")]
     public class SearchController : Controller
     {
-        private readonly IReadRepositoryAsync<UniversitySynonymDto, long> m_UniversitySynonymRepository;
+        private readonly IReadRepositoryAsync<UniversitySynonymDto, long> _universitySynonymRepository;
 
         public SearchController(IReadRepositoryAsync<UniversitySynonymDto, long> universitySynonymRepository)
         {
-            m_UniversitySynonymRepository = universitySynonymRepository;
+            _universitySynonymRepository = universitySynonymRepository;
         }
 
         [Route("documents")]
@@ -27,7 +27,7 @@ namespace Cloudents.Web.Api
             string universitySynonym = null;
             if (model.University.HasValue)
             {
-                var repositoryResult = await m_UniversitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
+                var repositoryResult = await _universitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
                 universitySynonym = repositoryResult.Name;
             }
             var query = new SearchQuery(model.Term, universitySynonym, model.Course, model.Source, model.Page.GetValueOrDefault(),
@@ -44,7 +44,7 @@ namespace Cloudents.Web.Api
             string universitySynonym = null;
             if (model.University.HasValue)
             {
-                var repositoryResult = await m_UniversitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
+                var repositoryResult = await _universitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
                 universitySynonym = repositoryResult.Name;
             }
             var query = new SearchQuery(model.Term, universitySynonym, model.Course, model.Source, model.Page.GetValueOrDefault(),

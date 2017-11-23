@@ -18,22 +18,22 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class TestingJob : IJob
     {
-        private readonly IZboxWorkerRoleService m_ZboxWorkerRoleService;
-        private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
-        private readonly IZboxWriteService m_ZboxWriteService;
-        private readonly IBlobProvider2<FilesContainerName> m_BlobProvider;
-        private readonly ILifetimeScope m_LifetimeScope;
-        private readonly ILogger m_Logger;
+        private readonly IZboxWorkerRoleService _zboxWorkerRoleService;
+        private readonly IZboxReadServiceWorkerRole _zboxReadService;
+        private readonly IZboxWriteService _zboxWriteService;
+        private readonly IBlobProvider2<FilesContainerName> _blobProvider2;
+        private readonly ILifetimeScope _lifetimeScope;
+        private readonly ILogger _logger;
 
         public TestingJob(IZboxWorkerRoleService zboxWorkerRoleService,
             IZboxReadServiceWorkerRole zboxReadService, IBlobProvider2<FilesContainerName> blobProvider, IZboxWriteService zboxWriteService, ILifetimeScope lifetimeScope, ILogger logger)
         {
-            m_ZboxWorkerRoleService = zboxWorkerRoleService;
-            m_ZboxReadService = zboxReadService;
-            m_BlobProvider = blobProvider;
-            m_ZboxWriteService = zboxWriteService;
-            m_LifetimeScope = lifetimeScope;
-            m_Logger = logger;
+            _zboxWorkerRoleService = zboxWorkerRoleService;
+            _zboxReadService = zboxReadService;
+            _blobProvider2 = blobProvider;
+            _zboxWriteService = zboxWriteService;
+            _lifetimeScope = lifetimeScope;
+            _logger = logger;
         }
 
         public string Name => nameof(TestingJob);
@@ -43,11 +43,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             // ReSharper disable once AsyncConverter.AsyncAwaitMayBeElidedHighlighting
             //await process.ExecuteAsync(0, (a, b) => Task.CompletedTask, cancellationToken).ConfigureAwait(false);
 
-            var process = m_LifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("downloadXml");
+            var process = _lifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("spamGun");
             await process.ExecuteAsync(0, (a, b) => Task.CompletedTask, cancellationToken).ConfigureAwait(false);
 
 
-            m_Logger.Info("finish test");
+            _logger.Info("finish test");
 
             //var msgData = new BoxFileProcessData(70197);
             //var process = m_LifetimeScope.ResolveOptionalNamed<IFileProcess>(msgData.ProcessResolver);
@@ -60,13 +60,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private async Task RemoveDuplicatesFilesAsync()
         {
             IEnumerable<Tuple<long, decimal>> documents;
-            while ((documents = (await m_ZboxReadService.GetDuplicateDocumentsAsync().ConfigureAwait(false)).ToList())
+            while ((documents = (await _zboxReadService.GetDuplicateDocumentsAsync().ConfigureAwait(false)).ToList())
                 .Any())
             {
                 foreach (var document in documents.Skip(1))
                 {
                     var deleteItemCommand = new DeleteItemCommand(document.Item1, 1);
-                    await m_ZboxWriteService.DeleteItemAsync(deleteItemCommand).ConfigureAwait(false);
+                    await _zboxWriteService.DeleteItemAsync(deleteItemCommand).ConfigureAwait(false);
                 }
             }
         }
@@ -75,7 +75,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             IEnumerable<Tuple<long, string>> documents;
             var lastId = 0L;
-            while ((documents = (await m_ZboxReadService.GetDocumentsWithoutMd5Async(lastId).ConfigureAwait(false)).ToList())
+            while ((documents = (await _zboxReadService.GetDocumentsWithoutMd5Async(lastId).ConfigureAwait(false)).ToList())
                 .Any())
             {
                 if (cancellationToken.IsCancellationRequested)
@@ -88,17 +88,17 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     try
                     {
                         lastId = document.Item1;
-                        var md5 = await m_BlobProvider.MD5Async(document.Item2).ConfigureAwait(false);
+                        var md5 = await _blobProvider2.MD5Async(document.Item2).ConfigureAwait(false);
                         var command = new UpdateThumbnailCommand(document.Item1, null,
                             null, md5);
-                        m_ZboxWorkerRoleService.UpdateThumbnailPicture(command);
+                        _zboxWorkerRoleService.UpdateThumbnailPicture(command);
                     }
                     catch (StorageException ex)
                     {
                         if (ex.RequestInformation.HttpStatusCode == (int)HttpStatusCode.NotFound)
                         {
                             var deleteItemCommand = new DeleteItemCommand(document.Item1, 1);
-                            await m_ZboxWriteService.DeleteItemAsync(deleteItemCommand).ConfigureAwait(false);
+                            await _zboxWriteService.DeleteItemAsync(deleteItemCommand).ConfigureAwait(false);
                         }
                     }
                     catch (Exception ex)
