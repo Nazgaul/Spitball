@@ -5,7 +5,7 @@ const state = {
     node: {}
 };
 
-var buildFlashcardRoute = {
+const buildFlashcardRoute = {
     name: routes.flashcardRoute,
     children: [
         {name:routes.tutorRoute,children:[
@@ -15,7 +15,7 @@ var buildFlashcardRoute = {
         ]}
     ]
 };
-var buildDocumentRoute = {
+const buildDocumentRoute = {
     name: routes.notesRoute,
     children: [
         {name: routes.flashcardRoute,
@@ -26,7 +26,7 @@ var buildDocumentRoute = {
             ]}
     ]
 };
-var buildQuestionRoute = {
+const buildQuestionRoute = {
     name: routes.questionRoute,
     children: [
         {name: routes.notesRoute,
@@ -38,7 +38,7 @@ var buildQuestionRoute = {
             ]}
     ]
 };
-var buildTutorRoute = {
+const buildTutorRoute = {
     name: routes.tutorRoute,
     children: [
         {name: routes.flashcardRoute,
@@ -49,7 +49,7 @@ var buildTutorRoute = {
             ]}
     ]
 };
-var optionalRoutes = {
+const optionalRoutes = {
     flashcard: buildFlashcardRoute,
     document: buildDocumentRoute,
     note: buildDocumentRoute,
