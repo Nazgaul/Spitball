@@ -11,7 +11,8 @@ import searchTypes from './../helpers/radioList.vue'
 import searchIcon from './Images/search-icon.svg';
 import hamburger from './Images/hamburger.svg';
 import { mapActions} from 'vuex'
-import { verticalsPlaceholders as placeholders, names } from '../data'
+//verticalsPlaceholders as placeholders,
+import {  names } from '../data'
 import logo from '../../../wwwroot/Images/logo-spitball.svg';
 import notification from "./images/notification-icon.svg";
 
@@ -36,7 +37,7 @@ export default {
     },
     data() {
         return {
-            placeholders: placeholders,
+           // placeholders: placeholders,
             names: names,
             currentName:'',
             qFilter: this.$route.query.q,
