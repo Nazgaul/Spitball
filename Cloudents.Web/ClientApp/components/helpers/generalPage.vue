@@ -2,7 +2,7 @@
     <v-content>
         <v-container fluid class="pa-0 wrap">
             <v-layout>
-                <v-flex offset-lg1 >
+                <v-flex offset-lg1 class="flex-fix">
                     <slot></slot>
                     <v-container fluid class="pa-2">
                         <v-layout row>

@@ -17,19 +17,23 @@
         </v-navigation-drawer>
         <div class="box-header">
             <v-container fluid>
-                <header>
-                    <v-toolbar flat style="background-color:transparent;">
-                        <v-toolbar-side-icon @click.stop="drawer = !drawer" class="hidden-md-and-up"><menu-icon></menu-icon></v-toolbar-side-icon>
-                        <v-spacer class="hidden-sm-and-down"></v-spacer>
-                        <div class="hidden-sm-and-down" v-for="action in links" :key="action.name">
-                            <a href="#">{{ action.name }}</a>
-                        </div>
-                    </v-toolbar>
-                </header>
-
+                <v-layout row>
+                    <v-flex  class="logo-wrapper">
+                        <logo class="logo"></logo>
+                    </v-flex>
+                    <header>
+                        <v-toolbar flat style="background-color:transparent;" height="52">
+                            <v-toolbar-side-icon @click.stop="drawer = !drawer" class="hidden-md-and-up"><menu-icon></menu-icon></v-toolbar-side-icon>
+                            <!--<v-spacer class="hidden-sm-and-down"></v-spacer>-->
+                            <div class="hidden-sm-and-down" v-for="action in links" :key="action.name">
+                                <a href="#">{{ action.name }}</a>
+                            </div>
+                        </v-toolbar>
+                    </header>
+                </v-layout>
                 <div class="box-small-container" @click.stop="">
                     <div class="box-inner-header">
-                        <img src="./img/logo-spitball.png" width="227" height="54">
+                        <!--<img src="./img/logo-spitball.png" width="227" height="54">-->
 
                         <div class="box-search mb-3">
 
@@ -39,7 +43,7 @@
                                     <v-layout row>
                                         <v-flex class="tx-input">
                                             <v-menu offset-y full-width>
-                                                <input slot="activator" @keyup.enter="search" autocomplete="off" type="text" required name="q" id="transcript" v-model.trim="msg" placeholder="Ask me anything" >
+                                                <input slot="activator" @keyup.enter="search" autocomplete="off" type="text" required name="q" id="transcript" v-model.trim="msg" :placeholder="placeholder">
                                                 <v-list>
                                                     <v-subheader>Some things you can ask me:</v-subheader>
                                                     <template v-for="(item, index) in items">
@@ -56,19 +60,19 @@
                                             </v-menu>
                                         </v-flex>
                                         <v-flex class="mic" v-if="voiceEnable">
-                                            <button type="button"  class="demo-icon-mic" @click="$_voiceDetection"><component :is="(isRecording?'recording-icon':'mic-icon')"></component></button>
+                                            <button type="button" class="demo-icon-mic" @click="$_voiceDetection"><component :is="(isRecording?'recording-icon':'mic-icon')"></component></button>
                                         </v-flex>
                                         <v-flex class="f-submit">
-                                            <button type="submit"><search-icon></search-icon> Send</button>
+                                            <button type="submit">Search</button>
                                         </v-flex>
                                     </v-layout>
                                 </v-container>
-                                    
-                                   
+
+
                                 <!--</div>-->
                             </form>
                         </div>
-                       
+
                     </div>
                 </div>
             </v-container>

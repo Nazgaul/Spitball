@@ -63,7 +63,9 @@
         },
         watch:{
             type(val){
-                this.$refs.searchText?this.$refs.searchText.inputValue='':this.$_search('')
+                this.isLoading=true;
+                this.items =[];
+                this.$refs.searchText?this.$refs.searchText.inputValue='':this.$_search('');
             }
         },
         computed: {
@@ -71,6 +73,7 @@
                 get() {
                     return this.value;
                 }, set(val) {
+                    if(!val)this.$refs.searchText.inputValue='';
                     this.$emit('change', val)
                 }
             },

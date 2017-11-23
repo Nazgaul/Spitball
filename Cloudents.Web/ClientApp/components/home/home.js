@@ -5,14 +5,13 @@ import classMaterialIcon from "./svg/class-material-icon-purple.svg";
 import tutorIcon from "./svg/tutor-icon-green.svg";
 import jobIcon from "./svg/jobs-icon-orange.svg";
 import textBookIcon from "./svg/textbooks-icon-purple.svg";
-
+import logo from '../../../wwwroot/Images/logo-spitball.svg';
 import facebookIcon from "./svg/facebook-icon.svg";
 import twitterIcon from "./svg/twitter-icon.svg";
 import googleIcon from "./svg/google-icon.svg";
 import youtubeIcon from "./svg/youtube-icon.svg";
 import instegramIcon from "./svg/instagram-icon.svg";
 import menuIcon from "./svg/menu-icon.svg";
-//import { verticalsPlaceholders as askPlaceholder } from "./../data";
 
 let homeSuggest = [
     "Flashcards for financial accounting",
@@ -27,6 +26,7 @@ let homeSuggest = [
 export default {
     components: {
         "mic-icon": micIcon, "search-icon": searchIcon,
+        logo,
         "class-material-icon": classMaterialIcon,
         "tutor-icon": tutorIcon,
         "job-icon": jobIcon,
@@ -39,7 +39,7 @@ export default {
     },
     data() {
         return {
-           // placeholder: askPlaceholder.ask,
+            placeholder: "Find study documents, textbooks, deals, tutors and more…",
             items: homeSuggest,
             msg: "",
             recognition:false,
