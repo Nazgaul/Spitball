@@ -74,7 +74,10 @@ export const pageMixin =
                     }
                 }
             },
-            showCourses() { return this.page.filter?new Set(this.page.filter.map((i)=>i.id)).has('course'):false},
+            showCourses() {
+                return this.page && this.page.filter ?
+                    new Set(this.page.filter.map((i) => i.id)).has('course') : false;
+            },
             titleText: function () {if(!this.page)return '';
                 if(this.isEmpty)return this.page.emptyText.replace('$subject', this.term);
                 return this.page.title},
@@ -115,7 +118,7 @@ export const pageMixin =
                             .then((data) => {
                                 updateData.call(this, data);
                             });
-                    }})
+                    }});
 
         },
         methods: {

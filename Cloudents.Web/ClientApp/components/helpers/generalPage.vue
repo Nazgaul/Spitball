@@ -7,11 +7,11 @@
                     <v-container fluid class="pa-2">
                         <v-layout row>
                             <v-flex class="sec-result">
-                                <slot name="title">
+                                <!--<slot name="title">
                                     <h5>
                                         {{props.title}}
                                     </h5>
-                                </slot>
+                                </slot>-->
                                 <slot name="options">
 
                                 </slot>

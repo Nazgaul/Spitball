@@ -1,5 +1,6 @@
 ﻿<template>
-   <general-page :title="titleText">
+    <!--:title="titleText"-->
+   <general-page>
        <result-personalize v-show="isfirst" :show="showSearch" v-if="isfirst||showCourses"></result-personalize>
        <template  slot="options" v-if="page">
            <div class="sort-filter" v-if="page.sort || page.filter">

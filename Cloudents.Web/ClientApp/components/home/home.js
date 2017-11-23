@@ -12,17 +12,17 @@ import googleIcon from "./svg/google-icon.svg";
 import youtubeIcon from "./svg/youtube-icon.svg";
 import instegramIcon from "./svg/instagram-icon.svg";
 import menuIcon from "./svg/menu-icon.svg";
-import { verticalsPlaceholders as askPlaceholder } from "./../data";
+//import { verticalsPlaceholders as askPlaceholder } from "./../data";
 
 let homeSuggest = [
-    'Flashcards for financial accounting',
-    'Class notes for my Calculus class',
-    'When did World War 2 end?',
-    'Difference between meiosis and mitosis',
-    'Tutor for Linear Algebra',
-    'Job in marketing in NYC',
-    'The textbook - Accounting: Tools for Decision Making',
-    'Where can I get a burger near campus?'
+    "Flashcards for financial accounting",
+    "Class notes for my Calculus class",
+    "When did World War 2 end?",
+    "Difference between meiosis and mitosis",
+    "Tutor for Linear Algebra",
+    "Job in marketing in NYC",
+    "The textbook - Accounting: Tools for Decision Making",
+    "Where can I get a burger near campus?"
 ];
 export default {
     components: {
@@ -39,9 +39,9 @@ export default {
     },
     data() {
         return {
-            placeholder: askPlaceholder.ask,
+           // placeholder: askPlaceholder.ask,
             items: homeSuggest,
-            msg: '',
+            msg: "",
             recognition:false,
             isRecording:false,
             drawer: null,
@@ -71,7 +71,7 @@ export default {
             
         },
         search(){
-            this.$router.push({ name:'result', query: {q:this.msg} });
+            this.$router.push({ name:"result", query: {q:this.msg} });
         },
         selectos(item) {
             this.msg = item;
@@ -80,15 +80,16 @@ export default {
     },
 
     created(){
-        if(this.voiceEnable){
-            this.recognition=new webkitSpeechRecognition();
-            this.recognition.lang = 'en-US';
+        if (this.voiceEnable) {
+            var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+            this.recognition = new SpeechRecognition();
+            this.recognition.lang = "en-US";
             this.recognition.interimResults = false;
             this.recognition.maxAlternatives = 5;
             let _self = this;
 
             this.recognition.onstart = function() {
-                console.log('start');
+                console.log("start");
                 _self.isRecording=true;
             };
             this.recognition.onresult = function (event) {
@@ -102,6 +103,6 @@ export default {
     },
 
     computed: {
-        voiceEnable() { return 'webkitSpeechRecognition' in window}
+        voiceEnable() { return "webkitSpeechRecognition" in window}
     }
 };
