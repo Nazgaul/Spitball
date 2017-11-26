@@ -33,7 +33,7 @@ namespace Zbang.Cloudents.Jared
         {
             var builder = new ContainerBuilder();
 
-            HttpConfiguration config = new HttpConfiguration();
+            var config = new HttpConfiguration();
             config.EnableSystemDiagnosticsTracing();
             config.MapHttpAttributeRoutes();
 
@@ -44,7 +44,7 @@ namespace Zbang.Cloudents.Jared
         .ApplyTo(config);
 
             config.Services.Add(typeof(IExceptionLogger), new AiExceptionLogger());
-            MobileAppSettingsDictionary settings = config.GetMobileAppSettingsProvider().GetMobileAppSettings();
+            var settings = config.GetMobileAppSettingsProvider().GetMobileAppSettings();
 
             if (string.IsNullOrEmpty(settings.HostName))
             {
@@ -89,6 +89,7 @@ namespace Zbang.Cloudents.Jared
             app.UseAutofacWebApi(config);
 
             app.UseWebApi(config);
+            ConfigureSwagger(config);
         }
 
         private static void ConfigureSignalR(IAppBuilder app, IContainer container)
@@ -104,12 +105,6 @@ namespace Zbang.Cloudents.Jared
 
             GlobalHost.DependencyResolver.UseServiceBus(
                 ConfigurationManager.AppSettings["Microsoft.ServiceBus.ConnectionString"], "signalr");
-            //app.UseAutofacMiddleware(container);
-            //var heartBeat = GlobalHost.DependencyResolver.Resolve<ITransportHeartbeat>();
-            //var writeService = GlobalHost.DependencyResolver.Resolve<IZboxWriteService>();
-
-            //var monitor = new PresenceMonitor(heartBeat, writeService);
-            //monitor.StartMonitoring();
             app.MapSignalR(config);
         }
     }
