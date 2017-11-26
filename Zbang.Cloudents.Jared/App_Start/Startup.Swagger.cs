@@ -25,7 +25,6 @@ namespace Zbang.Cloudents.Jared
                     // Tells the Swagger doc that any MobileAppController needs a
                     // ZUMO-API-VERSION header with default 2.0.0
                     c.OperationFilter<MobileAppHeaderFilter>();
-
                     // Looks at attributes on properties to decide whether they are readOnly.
                     // Right now, this only applies to the DatabaseGeneratedAttribute.
                     c.SchemaFilter<MobileAppSchemaFilter>();
