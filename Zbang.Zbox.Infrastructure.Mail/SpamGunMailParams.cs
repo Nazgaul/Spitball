@@ -1,4 +1,6 @@
-﻿namespace Zbang.Zbox.Infrastructure.Mail
+﻿using System;
+
+namespace Zbang.Zbox.Infrastructure.Mail
 {
     public class SpamGunMailParams : MailParameters
     {
@@ -7,8 +9,8 @@
              string name, string subject, string category, string htmlBody)
             :base(new System.Globalization.CultureInfo("en-US"),senderName: "Olivia Williams <olivia@spitball.co>")
         {
-            Body = body;
-            Name = name;
+            Body = body ?? throw new ArgumentNullException(nameof(body));
+            Name = name ?? throw new ArgumentNullException(nameof(name));
             Subject = subject;
             Category = category;
             HtmlBody = htmlBody;
