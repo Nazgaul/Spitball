@@ -11,12 +11,14 @@ const searchItem = () => import("./components/settings/searchItem.vue");
 const settings = () => import("./components/settings/settings.vue");
 const moreInfo = () => import("./components/results/MoreInfo.vue");
 function dynamicPropsFn(route) {
+    let newName=route.path.slice(1);
     return {
         name: route.path.slice(1),
         query: route.query,
         filterOptions: route.query.filter || 'all',
         sort: route.query.sort,
         userText: route.params.q,
+        currentTerm:newName.includes('food')?route.meta.foodTerm:newName.includes('job')?route.meta.jobTerm:route.meta.term,
         params: route.params,
         hasExtra: route.path.slice(1).includes('food')
     }
@@ -54,7 +56,7 @@ export const routes = [
         ], components: resultPage, props: resultProps, meta: {showHeader:true,showSidebar:true}
     },
     {
-        path:"/moreInfo",name:"moreInfo",alias:['/searchOrQuestion','/AddSubjectOrCourse'],component:moreInfo,meta: {showHeader:true,showSidebar:true},props:(route)=>({name:route.path.slice(1),actions:[{name:"edit Subject"},{name:"Select Course"}]})
+        path:"/moreInfo",name:"moreInfo",alias:['/searchOrQuestion','/AddSubjectOrCourse'],component:moreInfo,meta: {showHeader:true,showSidebar:true,term:"",foodTerm:"",jobTerm:""},props:(route)=>({name:route.path.slice(1),actions:[{name:"edit Subject"},{name:"Select Course"}]})
     },
     {
         path: "/book/:type/:id",

@@ -1,4 +1,4 @@
-﻿<template>
+﻿﻿<template>
     <component is="slot">
         <v-dialog v-model="dialog" max-width="500px" persistent content-class="dialog-choose" v-if="currentItem">
             <div class="d-header">
@@ -13,7 +13,7 @@
                     </v-flex>
                 </v-layout>
                 <slot v-if="!currentAction" name="search">
-                    <v-text-field label="Search"  @input="(filter == 'myCourses'?$_searchMyCourses($event):$_search($event))" ref="searchText"
+                    <v-text-field label="Search" @input="$_search" ref="searchText"
                                   single-line></v-text-field>
                     <v-container class="pa-0 mb-3" v-if="currentItem.filters">
                         <v-layout row>
@@ -30,11 +30,11 @@
                 </div>
                 <div class="d-result" v-else>
                     <v-list v-if="items.length">
-                        <template v-for="(item,index) in showItems">
+                        <template v-for="(item,index) in filterItems">
                             <div @click="$_clickItemCallback(keep)">
                                 <component :is="'search-item-'+type" :item="item"></component>
                             </div>
-                            <v-divider v-if="index < showItems.length-1"></v-divider>
+                            <v-divider v-if="index < filterItems.length-1"></v-divider>
                         </template>
                     </v-list><div v-else>
                     <div>No Results Found</div>
@@ -57,9 +57,6 @@
     import VDialog from "vuetify/src/components/VDialog/VDialog";
 
     export default {
-        created(){
-            this.filterItems=this.myCourses;
-        },
         model: {
             prop: 'value',
             event: 'change'
@@ -85,14 +82,12 @@
                 if(this.currentAction)return "Add Class";
                 return this.currentItem.title
             },
-            ...mapGetters(['myCoursesId','myCourses']),
+            ...mapGetters(['myCoursesId']),
             currentItem: function () {
                 return searchObjects[this.type]
             },
             emptyText: function () { return this.currentItem.emptyState },
-            showItems(){
-                return this.filter === 'myCourses'?this.filterItems:this.items;
-            }
+            filterItems: function () { return this.filter === 'myCourses' ? this.items.filter((i) => this.myCoursesId.length && this.myCoursesId.includes(i.id)) : this.items }
         },
         data() {
             return {
@@ -100,8 +95,7 @@
                 filter: 'all',
                 isLoading: true,
                 isChanged: false,
-                currentAction: "",
-                filterItems:this.myCourses
+                currentAction: ""
             }
         },
 
@@ -111,11 +105,6 @@
         },
         props: { type: { type: String, required: true }, value: { type: Boolean },keep:{type:Boolean} },
         methods: {
-            $_searchMyCourses(val){
-                console.log(val);
-                let value=val?val.toLowerCase():"";
-                this.filterItems=this.myCourses.filter((i)=>{return (i.name.toLowerCase().includes(value)||(i.code&&i.code.toLowerCase().includes(value)))})
-            },
             $_closeButton(){
                 this.currentAction?this.currentAction="":this.dialog=false;
             },

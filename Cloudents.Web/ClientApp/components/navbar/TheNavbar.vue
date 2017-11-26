@@ -1,4 +1,4 @@
-﻿<template>
+﻿﻿<template>
     <v-navigation-drawer v-model="showNav"  app light clipped persistent enable-resize-watcher :mobile-break-point="960"  class="sb-aside" width="216" >
         <v-list>
                 <v-list-tile v-for="vertical in verticals" :key="vertical.id" class="mb-2"  @click="$_updateType(vertical.id)" :class="{'list__tile--active':vertical.id==currentPage}">
@@ -41,9 +41,13 @@
 
         methods:{
             ...mapMutations({'changeFlow':'ADD'}),
+            $_currentTerm(type){
+                let term= type.includes('food')?this.$route.meta.foodTerm:type.includes('job')?this.$route.meta.jobTerm:this.$route.meta.term;
+                return term||{};
+            },
          $_updateType(result){
               this.changeFlow({result});
-             this.$router.push({path:'/'+result,query:{q:this.userText}})
+             this.$router.push({path:'/'+result,query:{q:this.$_currentTerm(result).term}})
          }
         },
         watch: {

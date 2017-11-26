@@ -1,4 +1,4 @@
-﻿import {SEARCH,FLOW} from './mutation-types'
+﻿﻿import {SEARCH,FLOW} from './mutation-types'
 import ai from './../services/ai'
 import searchService from './../services/searchService'
 
@@ -42,7 +42,7 @@ const actions = {
             ai.interpetPromise(text).then(({ body }) => {
                 context.commit(SEARCH.UPDATE_SEARCH_PARAMS, { ...body.data });
                     context.commit(FLOW.ADD, { ...body });
-                    resolve(context.rootGetters.currenFlow);
+                    resolve({result:context.rootGetters.currenFlow,term:body.data.term});
             });
         });
     },
@@ -51,9 +51,9 @@ const actions = {
         return searchService.activateFunction[data.pageName](data.params);
     },
 
-    fetchingData: (context, {name,params,page}) => {
+    fetchingData: (context, {name,params,page,luisTerm:term}) => {
         let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
-        return searchService.activateFunction[name]({ ...context.getters.searchParams,...params, university,page });
+        return searchService.activateFunction[name]({ ...context.getters.searchParams,...params, university,page,term});
     },
 
     getPreview(context, model) {

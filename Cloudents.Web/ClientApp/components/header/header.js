@@ -1,4 +1,4 @@
-﻿import askHeader from '../navbar/images/ask.svg'
+﻿﻿import askHeader from '../navbar/images/ask.svg'
 import flashcardHeader from '../navbar/images/flashcard.svg'
 import jobHeader from '../navbar/images/job.svg'
 import bookHeader from '../navbar/images/book.svg'
@@ -10,7 +10,7 @@ import foodHeader from '../navbar/images/food.svg'
 import searchTypes from './../helpers/radioList.vue'
 import searchIcon from './Images/search-icon.svg';
 import hamburger from './Images/hamburger.svg';
-import { mapActions} from 'vuex'
+import { mapActions,mapGetters} from 'vuex'
 //verticalsPlaceholders as placeholders,
 import {  names } from '../data'
 import logo from '../../../wwwroot/Images/logo-spitball.svg';
@@ -46,6 +46,7 @@ export default {
     },
 
     computed: {
+        ...mapGetters(['luisTerm']),
         name: function () {
             let currentPage = this.$route.meta.pageName ? this.$route.meta.pageName : this.$route.path.split('/')[1];
             if (this.currentName !== currentPage) {
@@ -58,13 +59,22 @@ export default {
                 return this.currentName;
         }
     },
-
+    watch:{
+      '$route':function(val){
+          this.qFilter=val.query.q;
+      }
+    },
     props:{value:{type:Boolean}},
     methods: {
         ...mapActions(['updateSearchText']),
         submit: function () {
             this.updateSearchText(this.qFilter).then((response) => {
-                this.$router.push({ path: response, query: { q: this.qFilter } });
+                let result=response.result;
+                this.$route.meta[result.includes('food')?'foodTerm':result.includes('job')?'jobTerm':'term']={
+                    term: this.qFilter,
+                    luisTerm: response.term
+                };
+                this.$router.push({ path: response.result, query: { q: this.qFilter } });
                 this.$emit('update:userText', this.qFilter);
             });
             this.$emit('update:overlay', false);
