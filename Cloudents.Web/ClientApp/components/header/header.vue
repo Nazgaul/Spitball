@@ -1,7 +1,19 @@
 ﻿<template>
-    <v-toolbar app clipped-left fixed class="header" >
+    <v-toolbar app clipped-left fixed :height="$vuetify.breakpoint.smAndDown? 48 : 72" :extended="$vuetify.breakpoint.smAndDown" class="header">
+        <!--class="ml-0 pl-3"-->
+        <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 230px; min-width: 230px' : 'min-width: 72px'" :class="$vuetify.breakpoint.smAndUp? 'ml-4' : ''">
+            <logo class="logo"></logo>
+
+        </v-toolbar-title>
+        <v-text-field :slot="$vuetify.breakpoint.smAndDown? 'extension' : 'default'" light solo class="search-b"  placeholder="Ask me anything" v-model="qFilter"></v-text-field>
+        <div class="d-flex align-center" style="margin-left: auto">
+            <settings-icon class="settings"></settings-icon>
+        </div>
+    </v-toolbar>
+
+    <!--<v-toolbar app clipped-left fixed class="header" >
         <v-layout row fill-height class="first-header ma-0">
-            <!--@click.stop="primaryDrawer.model = !primaryDrawer.model"-->
+            <!--@click.stop="primaryDrawer.model = !primaryDrawer.model"
             <v-toolbar-side-icon class="hidden-md-and-up" @click.stop="menuToggle" ref="menuIcon">
                 <hamburger></hamburger>
             </v-toolbar-side-icon>
@@ -25,9 +37,9 @@
                     <span slot="badge">1</span>
                     <notification-icon></notification-icon>
                 </v-badge>
-            </div>-->
+            </div>
         </v-layout>
-    </v-toolbar>
+    </v-toolbar>-->
 </template>
 <script src="./header.js"></script>
 <style src="./header.less" lang="less"></style>

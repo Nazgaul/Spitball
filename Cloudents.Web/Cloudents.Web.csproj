@@ -29,7 +29,6 @@
     <Content Include="ClientApp\components\navbar\images\flashcard.svg" />
     <Content Include="ClientApp\components\navbar\images\job.svg" />
     <Content Include="ClientApp\components\navbar\images\tutor.svg" />
-    <Content Include="ClientApp\components\header\Images\notification-icon.svg" />
     <Content Include="robots.txt" />
   </ItemGroup>
 
