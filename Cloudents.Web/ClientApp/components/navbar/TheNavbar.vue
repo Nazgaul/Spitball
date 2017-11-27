@@ -1,15 +1,15 @@
 ﻿<template>
     <div class="sb-menu">
-        <v-tabs centered fixed v-model="currentPage">
+        <v-tabs v-model="currentPage">
             <v-tabs-bar>
                 <!--:class="{'list__tile--active':vertical.id==currentPage}"-->
-                {{currentPage}}
                 <v-tabs-slider color="yellow"></v-tabs-slider>
                 <v-tabs-item v-for="vertical in verticals"
                              :key="vertical.id" :href="vertical.id"
                              :class="['bg-'+vertical.id,vertical.id==currentPage?'tabs__item--active':'']"
+                             class="ml-1 mr-1 vertical"
                              @click="$_updateType(vertical.id)">
-                    {{vertical.name}}
+                        {{vertical.name}}
                 </v-tabs-item>
             </v-tabs-bar>
         </v-tabs><!--:class="{'selected':vertical.id==currentPage}"-->

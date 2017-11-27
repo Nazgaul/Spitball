@@ -1,134 +1,37 @@
 ﻿@import "../../mixin.less";
 
 .sb-menu {
+    .tabs:not(.tabs--centered):not(.tabs--grow):not(.tabs--mobile) .tabs__wrapper--scrollable {
+        margin:0;
+    }
     /*.chip {
         background: transparent;
     }*/
+    //max-width: 784px;
+    .tabs:not(.tabs--grow):not(.tabs--mobile) .tabs__item {
+        padding:0 16px;
+    }
     .tabs__bar {
+        height: 40px;
         background-color: transparent;
-
         .tabs__li {
             a {
                 color: #fff;
+                font-size: 14px;
+                font-weight: 600;
+                letter-spacing: -0.3px;
+                padding: 0 16px;
             }
         }
     }
 
-    .chip {
-        font-size: 14px;
-        background: #fff;
-        color: @Spitball-Main-color;
-        border: 1px solid @Spitball-Main-color;
-        border-radius: 10px;
-        letter-spacing: -0.3px;
-        text-transform: capitalize;
-        padding: 0 24px;
-        cursor: pointer;
+    .vertical {
+        border-radius: 4px;
 
-        &.chip--selected {
-            color: #fff;
-            border: 0;
-            background: @Spitball-Main-color;
-            pointer-events: none;
+        a {
+            text-transform: capitalize;
         }
-
-        &.chip--disabled {
-            opacity: 0.5;
-        }
-    }
-}
-/*.sb-aside {
-    &.navigation-drawer {
-        background: #3293f6 !important; //override vuetify
-        padding: 0;
-    }
-
-    .list__tile__title {
-        color: #fff;
-        font-size: 13px;
-        letter-spacing: -0.2px;
-        text-transform: capitalize;
-    }
-
-    .list__tile .avatar {
-        justify-content: center;
-        min-width: inherit;
-    }
-
-    li.list__tile--active {
-        background-color: @Selected-Vertical;
-
-        .list__tile__content {
-            color: #fff !important;
-        }
-    }
-
-    .list__tile.list__tile--link {
-        height: 64px;
     }
     
-    .vertical-cycle {
-        border-radius: 50%;
-        width: 46px;
-        height: 46px;
-        .inTheMiddle();
-    }
+}
 
-
-    .bg-ask {
-        svg {
-            width: 26.4px;
-            height: 18.7px;
-        }
-    }
-
-
-    .bg-note {
-        svg {
-            width: 16.8px;
-            height: 20.6px;
-        }
-    }
-
-    .bg-flashcard {
-        svg {
-            width: 22.7px;
-            height: 18.7px;
-        }
-    }
-
-    .bg-tutor {
-        svg {
-            width: 20.2px;
-            height: 25.6px;
-        }
-    }
-
-    .bg-job {
-        svg {
-            width: 11.4px;
-            height: 25.6px;
-        }
-    }
-
-    .bg-book {
-        svg {
-            width: 25.4px;
-            height: 20.4px;
-        }
-    }
-
-    .bg-food {
-        svg {
-            width: 17.7px;
-            height: 22.2px;
-        }
-    }
-   
-    .bg-setting {
-        svg {
-            width: 23.9px;
-            height: 24.2px;
-        }
-    }
-}*/
