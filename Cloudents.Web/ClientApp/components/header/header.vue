@@ -3,7 +3,6 @@
         <!--class="ml-0 pl-3"-->
         <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 230px; min-width: 230px' : 'min-width: 72px'" :class="$vuetify.breakpoint.smAndUp? 'pl-4' : ''">
             <logo class="logo"></logo>
-
         </v-toolbar-title>
         <v-text-field :slot="$vuetify.breakpoint.smAndDown? 'extension' : 'default'" light solo class="search-b"  placeholder="Ask me anything" v-model="qFilter"></v-text-field>
         <div class="d-flex align-center" style="margin-left: auto">

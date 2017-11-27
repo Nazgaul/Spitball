@@ -97,11 +97,11 @@ for (var v in verticals) {
     verticalsList.push(verticals[v]);
     page[v] = { title: item.resultTitle, emptyText: item.emptyState,filter:item.filter,sort:item.sort}
 }
-verticalsNavbar.push({
-    id: routes.settingsRoute,
-    name: "Settings",
-    image: "setting"
-});
+//verticalsNavbar.push({
+//    id: routes.settingsRoute,
+//    name: "Settings",
+//    image: "setting"
+//});
 for (var v in details) {
     var item = details[v];
     page[v] = {filter: item.filter, sort: item.sort }

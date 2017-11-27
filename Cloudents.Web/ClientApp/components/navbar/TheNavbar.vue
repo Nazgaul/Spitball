@@ -60,21 +60,21 @@
 
 
 <script>
-    import ask from './images/ask.svg';
-    import book from './images/book.svg';
-    import document from './images/document.svg';
-    import flashcard from './images/flashcard.svg';
-    import job from './images/job.svg';
-    import food from './images/food.svg';
-    import tutor from './images/tutor.svg';
-    import setting from './images/setting.svg';
+    //import ask from './images/ask.svg';
+    //import book from './images/book.svg';
+    //import document from './images/document.svg';
+    //import flashcard from './images/flashcard.svg';
+    //import job from './images/job.svg';
+    //import food from './images/food.svg';
+    //import tutor from './images/tutor.svg';
+    //import setting from './images/setting.svg';
     import { verticalsNavbar as verticals } from '../data.js';
     import { mapMutations } from 'vuex'
 
     export default {
-        components: {
-            ask, book, document, flashcard, job, food, tutor, setting
-        },
+        //components: {
+        //    ask, book, document, flashcard, job, food, tutor, setting
+        //},
         data() {
             return {
                 verticals: verticals
