@@ -1,10 +1,13 @@
 ﻿<template>
-    <v-navigation-drawer v-model="showNav"  app light clipped persistent enable-resize-watcher :mobile-break-point="960"  class="sb-aside" width="216" >
+    <div class="sb-menu">
+        <!--:class="{'selected':vertical.id==currentPage}"-->
+        <v-chip v-for="vertical in verticals" :class="'bg-'+vertical.id" :key="vertical.id" @click="$_updateType(vertical.id)"
+                >{{vertical.name}}</v-chip>
+    </div>
+
+    <!--<v-navigation-drawer v-model="showNav"  app light clipped persistent enable-resize-watcher :mobile-break-point="960"  class="sb-aside" width="216" >
         <v-list>
                 <v-list-tile v-for="vertical in verticals" :key="vertical.id" class="mb-2"  @click="$_updateType(vertical.id)" :class="{'list__tile--active':vertical.id==currentPage}">
-                    <!--<v-list-tile-action-text >
-                        
-                    </v-list-tile-action-text>-->
                     <v-list-tile-avatar :class="'bg-'+vertical.id" class="vertical-cycle">
                         <component class="item" v-bind:is="vertical.image"></component>
                     </v-list-tile-avatar>
@@ -13,7 +16,7 @@
                     </v-list-tile-content>
                 </v-list-tile>
         </v-list>
-        </v-navigation-drawer>
+        </v-navigation-drawer>-->
 </template>
 
 
