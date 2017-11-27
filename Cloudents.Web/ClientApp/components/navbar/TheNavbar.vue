@@ -5,8 +5,8 @@
                 <!--:class="{'list__tile--active':vertical.id==currentPage}"-->
                 {{currentPage}}
                 <v-tabs-slider color="yellow"></v-tabs-slider>
-                <v-tabs-item v-for="(vertical,index) in verticals"
-                             :key="vertical.id" 
+                <v-tabs-item v-for="vertical in verticals"
+                             :key="vertical.id" :href="vertical.id"
                              :class="['bg-'+vertical.id,vertical.id==currentPage?'tabs__item--active':'']"
                              @click="$_updateType(vertical.id)">
                     {{vertical.name}}
@@ -74,7 +74,7 @@
                 set(val) { this.$emit('input', val) }
             },
             userText() { return this.term ? this.term : this.$route.query.q },
-            currentPage() { return this.$route.path.slice(1) }
+            currentPage: { get(){return this.$route.path.slice(1)},set(val){} }
         }
     };
 </script>
