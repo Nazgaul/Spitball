@@ -44,9 +44,13 @@
 
         methods:{
             ...mapMutations({'changeFlow':'ADD'}),
+            $_currentTerm(type){
+                let term= type.includes('food')?this.$route.meta.foodTerm:type.includes('job')?this.$route.meta.jobTerm:this.$route.meta.term;
+                return term||{};
+            },
          $_updateType(result){
               this.changeFlow({result});
-             this.$router.push({path:'/'+result,query:{q:this.userText}})
+             this.$router.push({path:'/'+result,query:{q:this.$_currentTerm(result).term}})
          }
         },
         watch: {

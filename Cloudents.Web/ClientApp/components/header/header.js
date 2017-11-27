@@ -3,6 +3,7 @@ import { mapActions} from "vuex"
 import {  names } from "../data"
 import logo from "../../../wwwroot/Images/logo-spitball.svg";
 import settingsIcon from "./Images/settings-icon.svg";
+import { mapActions,mapGetters} from 'vuex'
 
 export default {
     components: {
@@ -22,6 +23,7 @@ export default {
     },
 
     computed: {
+        ...mapGetters(['luisTerm']),
         name: function () {
             let currentPage = this.$route.meta.pageName ? this.$route.meta.pageName : this.$route.path.split("/")[1];
             if (this.currentName !== currentPage) {
@@ -34,14 +36,22 @@ export default {
                 return this.currentName;
         }
     },
-
+    watch:{
+      '$route':function(val){
+          this.qFilter=val.query.q;
+      }
+    },
     props:{value:{type:Boolean}},
     methods: {
         ...mapActions(["updateSearchText"]),
         submit: function () {
             this.updateSearchText(this.qFilter).then((response) => {
-                this.$router.push({ path: response, query: { q: this.qFilter } });
-                this.$emit("update:userText", this.qFilter);
+                let result=response.result;
+                this.$route.meta[result.includes('food')?'foodTerm':result.includes('job')?'jobTerm':'term']={
+                    term: this.qFilter,
+                    luisTerm: response.term
+                };
+                this.$router.push({ path: response.result, query: { q: this.qFilter } });
             });
             this.$emit("update:overlay", false);
         },

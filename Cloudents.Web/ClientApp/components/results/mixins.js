@@ -1,4 +1,4 @@
-﻿import { page } from './../data'
+﻿﻿import { page } from './../data'
 import RadioList from './../helpers/radioList.vue';
 import ResultItem from './ResultItem.vue';
 const ResultTutor = () => import('./ResultTutor.vue');
@@ -49,14 +49,44 @@ export const pageMixin =
         },
 
         beforeRouteUpdate(to, from, next) {
-            this.pageData={};
-            this.items=[];
+
             this.UPDATE_LOADING(true);
-            this.fetchingData({ name: to.path.slice(1), params: { ...to.query, ...to.params } })
-                .then((data) => {
-                    updateData.call(this, data);
+            let toName=to.path.slice(1);
+            let savedTerm=to.meta[this.$_calcTerm(toName)];
+            //Check if have meta term
+            if(savedTerm) {
+                this.pageData={};
+                this.items=[];
+                new Promise((resolve, reject) => {
+                    if(savedTerm.term!==to.query.q){
+                        this.updateSearchText(to.query.q).then((response)=> {
+                            this.$route.meta[this.$_calcTerm(toName)] = {term: to.query.q, luisTerm: response.term};
+                            resolve(to.meta[this.$_calcTerm(toName)].luisTerm);
+                        })}else{
+                        resolve(savedTerm.luisTerm)
+                    }
+                    }).then((luisTerm)=>{
+                    this.fetchingData({name: toName, params: {...to.query, ...to.params}, luisTerm})
+                        .then((data) => {
+                            updateData.call(this, data);
+                        });
+                    next();
                 });
-            next();
+            }else{
+                this.UPDATE_LOADING(false);
+                const newTerm=prompt(`Please enter the search term for ${toName}`);
+                if(newTerm){
+                    this.updateSearchText(newTerm).then((response)=>{
+                        this.$route.meta[this.$_calcTerm(toName)]={term:newTerm,luisTerm:response.term};
+                        let luisTerm = to.meta[this.$_calcTerm(toName)].luisTerm;
+                        this.fetchingData({name: toName, params: {...to.query, ...to.params}, luisTerm})
+                            .then((data) => {
+                                updateData.call(this, data);
+                            });
+                        this.$router.push({path:to.path,query:{q:newTerm}})
+                    })
+                }
+            }
         },
         computed: {
             ...mapGetters(['term', 'isFirst','myCourses','flowNode','currenFlow','luisTerm']),
@@ -111,11 +141,12 @@ export const pageMixin =
             });
             this.UPDATE_LOADING(true);
                 this.updateSearchText(this.query.q).then((response)=>{
-                    if(response!==this.name){
+                    this.$route.meta[this.$_calcTerm(this.name)]={term:this.query.q,luisTerm:response.term};
+                        if(response.result!==this.name){
                         this.UPDATE_LOADING(false);
-                        let routeParams={ path: '/'+response, query: { q: this.query.q } };
+                        let routeParams={ path: '/'+response.result, query: { q: this.query.q } };
                         this.$router.replace(routeParams);}else{
-                        this.fetchingData({name: this.name, params: {...this.query, ...this.params}})
+                        this.fetchingData({name: this.name, params: {...this.query, ...this.params},luisTerm:response.term})
                             .then((data) => {
                                 updateData.call(this, data);
                             });
@@ -123,6 +154,7 @@ export const pageMixin =
 
         },
         methods: {
+            $_calcTerm(name){return name.includes('food')?'foodTerm':name.includes('job')?'jobTerm':'term'},
             ...mapActions(['updateSearchText', 'fetchingData','updateFirstTime','updateFlow']),
             $_changeFilter(filter) {
                 if (this.subFilters.length) {
@@ -159,6 +191,6 @@ export const pageMixin =
                 this.$router.push({ query: { ... this.query, ...sub, filter: this.filter } });
             }
         },
-        props: { hasExtra: {type:Boolean}}
+        props: { hasExtra: {type:Boolean},currentTerm:{type:[String,Object]}}
 
     };

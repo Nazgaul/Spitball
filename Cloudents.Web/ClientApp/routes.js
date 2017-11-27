@@ -11,12 +11,14 @@ const searchItem = () => import("./components/settings/searchItem.vue");
 const settings = () => import("./components/settings/settings.vue");
 const moreInfo = () => import("./components/results/MoreInfo.vue");
 function dynamicPropsFn(route) {
+    let newName=route.path.slice(1);
     return {
         name: route.path.slice(1),
         query: route.query,
         filterOptions: route.query.filter || 'all',
         sort: route.query.sort,
         userText: route.params.q,
+        currentTerm:newName.includes('food')?route.meta.foodTerm:newName.includes('job')?route.meta.jobTerm:route.meta.term,
         params: route.params,
         hasExtra: route.path.slice(1).includes('food')
     }
@@ -31,12 +33,17 @@ function dynamicDetailsPropsFn(route) {
         params: route.params
     }
 }
+function moreInfoFn(route){
+   return{
+       actions:route.path.includes('SubjectOrCourse')?[{name:"edit Subject"},{name:"Select Course"}]:[{name:"edit Search"}]
+   }
+}
 
-const resultPage = {  default: resultContent }
-const bookDetailsPage = { default: bookDetails }
-const notFoundPage = { default: notFound }
-const resultProps = { default: dynamicPropsFn}
-const bookDetailsProps = { ...resultProps, default: dynamicDetailsPropsFn }
+const resultPage = {  default: resultContent };
+const bookDetailsPage = { default: bookDetails };
+const notFoundPage = { default: notFound };
+const resultProps = { default: dynamicPropsFn};
+const bookDetailsProps = { ...resultProps, default: dynamicDetailsPropsFn };
 export const routes = [
     {
         path: "/", component: HomePage, name: "home", meta: {

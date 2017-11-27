@@ -24,7 +24,10 @@
 
         methods: {
             keepLoad(){
-                let retVal=((window.pageYOffset>0 || document.documentElement.scrollTop>0)&&
+                let totalHeight=document.body.scrollHeight;
+                let currentScroll=window.scrollY;
+                let scrollOffset=(currentScroll>0.75*totalHeight);
+                let retVal=((window.pageYOffset>0 || document.documentElement.scrollTop>0)&&scrollOffset&&
                     !this.isLoading&&!this.isComplete);
                 console.log(retVal);
                 return retVal},
