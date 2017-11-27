@@ -1,8 +1,8 @@
 <template>
-    <v-content>
+    <v-content class="p-result">
         <v-container fluid class="pa-0 wrap">
             <v-layout row>
-                <v-flex>
+                <v-flex class="first-grid">
                 </v-flex>
                 <v-flex>
                     <app-menu :term="userText"></app-menu>

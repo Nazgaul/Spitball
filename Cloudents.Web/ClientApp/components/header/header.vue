@@ -1,7 +1,7 @@
 ﻿<template>
     <v-toolbar app clipped-left fixed :height="$vuetify.breakpoint.smAndDown? 48 : 72" :extended="$vuetify.breakpoint.smAndDown" class="header">
         <!--class="ml-0 pl-3"-->
-        <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 230px; min-width: 230px' : 'min-width: 72px'" :class="$vuetify.breakpoint.smAndUp? 'ml-4' : ''">
+        <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 230px; min-width: 230px' : 'min-width: 72px'" :class="$vuetify.breakpoint.smAndUp? 'pl-4' : ''">
             <logo class="logo"></logo>
 
         </v-toolbar-title>

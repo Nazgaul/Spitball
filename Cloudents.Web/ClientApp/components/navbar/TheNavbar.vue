@@ -1,8 +1,19 @@
 ﻿<template>
     <div class="sb-menu">
-        <!--:class="{'selected':vertical.id==currentPage}"-->
-        <v-chip v-for="vertical in verticals" :class="'bg-'+vertical.id" :key="vertical.id" @click="$_updateType(vertical.id)"
-                >{{vertical.name}}</v-chip>
+        <v-tabs centered fixed v-model="currentPage">
+            <v-tabs-bar>
+                <!--:class="{'list__tile--active':vertical.id==currentPage}"-->
+                {{currentPage}}
+                <v-tabs-slider color="yellow"></v-tabs-slider>
+                <v-tabs-item v-for="(vertical,index) in verticals"
+                             :key="vertical.id" 
+                             :class="['bg-'+vertical.id,vertical.id==currentPage?'tabs__item--active':'']"
+                             @click="$_updateType(vertical.id)">
+                    {{vertical.name}}
+                </v-tabs-item>
+            </v-tabs-bar>
+        </v-tabs><!--:class="{'selected':vertical.id==currentPage}"-->
+        <!--<v-chip v-for="vertical in verticals" :class="'bg-'+vertical.id" :key="vertical.id" @click="$_updateType(vertical.id)">{{vertical.name}}</v-chip>-->
     </div>
 
     <!--<v-navigation-drawer v-model="showNav"  app light clipped persistent enable-resize-watcher :mobile-break-point="960"  class="sb-aside" width="216" >
@@ -30,11 +41,11 @@
     import tutor from './images/tutor.svg';
     import setting from './images/setting.svg';
     import { verticalsNavbar as verticals } from '../data.js';
-    import {mapMutations} from 'vuex'
+    import { mapMutations } from 'vuex'
 
     export default {
         components: {
-            ask, book, document, flashcard, job, food, tutor,setting
+            ask, book, document, flashcard, job, food, tutor, setting
         },
         data() {
             return {
@@ -42,28 +53,28 @@
             }
         },
 
-        methods:{
-            ...mapMutations({'changeFlow':'ADD'}),
-            $_currentTerm(type){
-                let term= type.includes('food')?this.$route.meta.foodTerm:type.includes('job')?this.$route.meta.jobTerm:this.$route.meta.term;
-                return term||{};
+        methods: {
+            ...mapMutations({ 'changeFlow': 'ADD' }),
+            $_currentTerm(type) {
+                let term = type.includes('food') ? this.$route.meta.foodTerm : type.includes('job') ? this.$route.meta.jobTerm : this.$route.meta.term;
+                return term || {};
             },
-         $_updateType(result){
-              this.changeFlow({result});
-             this.$router.push({path:'/'+result,query:{q:this.$_currentTerm(result).term}})
-         }
+            $_updateType(result) {
+                this.changeFlow({ result });
+                this.$router.push({ path: '/' + result, query: { q: this.$_currentTerm(result).term } })
+            }
         },
         watch: {
-           isOpen(val){this.showNav=val}
+            isOpen(val) { this.showNav = val }
         },
-        props: { term: {type:String},isOpen:{type:Boolean,default:true}},
+        props: { term: { type: String }, isOpen: { type: Boolean, default: true } },
         computed: {
-            showNav:{
-                get(){return this.isOpen},
-                set(val){this.$emit('input',val)}
+            showNav: {
+                get() { return this.isOpen },
+                set(val) { this.$emit('input', val) }
             },
-            userText() { return this.term?this.term:this.$route.query.q},
-            currentPage(){return this.$route.path.slice(1)}
+            userText() { return this.term ? this.term : this.$route.query.q },
+            currentPage() { return this.$route.path.slice(1) }
         }
     };
 </script>

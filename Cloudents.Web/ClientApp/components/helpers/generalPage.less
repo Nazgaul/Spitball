@@ -1,7 +1,16 @@
 ﻿@import "../../mixin.less";
-.wrap  {
-    margin-top:2%;
+
+.wrap {
+    margin-top: 2%;
 }
+
+.p-result {
+    .first-grid {
+        width: 230px;
+        .flexSameSize();
+    }
+}
+
 .sec-result {
     //@cell-width: 504px;
     max-width: 504px;
@@ -11,7 +20,6 @@
         //width: @cell-width;
         border-radius: 4px;
     }
-
     /*h5 {
         font-weight: 600;
         text-align: center;
@@ -22,7 +30,6 @@
             font-size: 16px;
         }
     }*/
-
     .sort-filter {
         overflow: auto;
         white-space: nowrap;
@@ -68,6 +75,7 @@
         }
     }
 }
+
 .side-bar {
     position: -webkit-sticky;
     position: sticky;
