@@ -74,7 +74,7 @@ export const pageMixin =
                 });
             }else{
                 this.UPDATE_LOADING(false);
-                const newTerm=prompt(`Please enter the search term for ${toName}`);
+                let newTerm=prompt(`Please enter the search term for ${toName}`);
                 if(newTerm){
                     this.updateSearchText(newTerm).then((response)=>{
                         this.$route.meta[this.$_calcTerm(toName)]={term:newTerm,luisTerm:response.term};
@@ -141,7 +141,7 @@ export const pageMixin =
             });
             this.UPDATE_LOADING(true);
                 this.updateSearchText(this.query.q).then((response)=>{
-                    this.$route.meta[this.$_calcTerm(this.name)]={term:this.query.q,luisTerm:response.term};
+                    this.$route.meta[this.$_calcTerm(response.result)]={term:this.query.q,luisTerm:response.term};
                         if(response.result!==this.name){
                         this.UPDATE_LOADING(false);
                         let routeParams={ path: '/'+response.result, query: { q: this.query.q } };
@@ -154,7 +154,8 @@ export const pageMixin =
 
         },
         methods: {
-            $_calcTerm(name){return name.includes('food')?'foodTerm':name.includes('job')?'jobTerm':'term'},
+            //TODO update the food in theNavber to purchase also
+            $_calcTerm(name){return (name.includes('food')||name.includes('purchase'))?'foodTerm':name.includes('job')?'jobTerm':'term'},
             ...mapActions(['updateSearchText', 'fetchingData','updateFirstTime','updateFlow']),
             $_changeFilter(filter) {
                 if (this.subFilters.length) {
