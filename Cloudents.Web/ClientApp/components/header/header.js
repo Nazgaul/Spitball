@@ -1,5 +1,4 @@
 ﻿import searchIcon from "./Images/search-icon.svg";
-import { mapActions} from "vuex"
 import {  names } from "../data"
 import logo from "../../../wwwroot/Images/logo-spitball.svg";
 import settingsIcon from "./Images/settings-icon.svg";

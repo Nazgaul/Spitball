@@ -71,7 +71,7 @@ export const routes = [
         meta: {
             showHeader: true
             //showSidebar: true
-        }, props: (route) => ({ name: route.path.slice(1), actions: [{ name: "edit Subject" }, { name: "Select Course" }] })
+        }, props: moreInfoFn
     },
     {
         path: "/book/:type/:id",
