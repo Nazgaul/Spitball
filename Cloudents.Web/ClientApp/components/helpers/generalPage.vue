@@ -9,7 +9,7 @@
                 </v-flex>
             </v-layout>
             <v-layout row>
-                <v-flex>
+                <v-flex class="first-grid">
                     <slot name="options">
                     </slot>
                 </v-flex>
