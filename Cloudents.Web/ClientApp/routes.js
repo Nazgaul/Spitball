@@ -33,12 +33,17 @@ function dynamicDetailsPropsFn(route) {
         params: route.params
     }
 }
+function moreInfoFn(route){
+   return{
+       actions:route.path.includes('SubjectOrCourse')?[{name:"edit Subject"},{name:"Select Course"}]:[{name:"edit Search"}]
+   }
+}
 
-const resultPage = {  default: resultContent }
-const bookDetailsPage = { default: bookDetails }
-const notFoundPage = { default: notFound }
-const resultProps = { default: dynamicPropsFn}
-const bookDetailsProps = { ...resultProps, default: dynamicDetailsPropsFn }
+const resultPage = {  default: resultContent };
+const bookDetailsPage = { default: bookDetails };
+const notFoundPage = { default: notFound };
+const resultProps = { default: dynamicPropsFn};
+const bookDetailsProps = { ...resultProps, default: dynamicDetailsPropsFn };
 export const routes = [
     {
         path: "/", component: HomePage, name: "home", meta: { showHeader: false, showSidebar: false }
@@ -56,7 +61,7 @@ export const routes = [
         ], components: resultPage, props: resultProps, meta: {showHeader:true,showSidebar:true}
     },
     {
-        path:"/moreInfo",name:"moreInfo",alias:['/searchOrQuestion','/AddSubjectOrCourse'],component:moreInfo,meta: {showHeader:true,showSidebar:true,term:"",foodTerm:"",jobTerm:""},props:(route)=>({name:route.path.slice(1),actions:[{name:"edit Subject"},{name:"Select Course"}]})
+        path:"/moreInfo",name:"moreInfo",alias:['/searchOrQuestion','/AddSubjectOrCourse'],component:moreInfo,meta: {showHeader:true,showSidebar:true,pageName:"ask",isStatic:"true"},props:moreInfoFn
     },
     {
         path: "/book/:type/:id",
