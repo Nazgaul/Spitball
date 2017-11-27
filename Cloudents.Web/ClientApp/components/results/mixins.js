@@ -37,6 +37,9 @@ let updateData = function (data) {
     (data.data.length && this.hasExtra) ? this.selectedItem = data.data[0].placeId : '';
     this.filter = this.filterOptions;
     this.UPDATE_LOADING(false);
+    this.$nextTick(()=>{
+    this.$el.querySelector(`#${this.name} a`).click();
+    })
 };
 
 export const pageMixin =

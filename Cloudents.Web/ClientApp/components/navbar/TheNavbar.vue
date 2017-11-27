@@ -1,20 +1,48 @@
 ﻿<template>
-    <div class="sb-menu">
-        <v-tabs v-model="currentPage">
-            <v-tabs-bar>
-                <!--:class="{'list__tile--active':vertical.id==currentPage}"-->
-                <v-tabs-slider color="yellow"></v-tabs-slider>
-                <v-tabs-item v-for="vertical in verticals"
-                             :key="vertical.id" :href="vertical.id"
-                             :class="['bg-'+vertical.id,vertical.id==currentPage?'tabs__item--active':'']"
-                             class="ml-1 mr-1 vertical"
-                             @click="$_updateType(vertical.id)">
-                        {{vertical.name}}
-                </v-tabs-item>
-            </v-tabs-bar>
-        </v-tabs><!--:class="{'selected':vertical.id==currentPage}"-->
+    <v-tabs v-model="currentPage" >
+        <v-tabs-bar class="cyan" dark >
+           <template v-for="tab in verticals">
+               <v-tabs-item :href="tab.id" :id="tab.id"
+            >
+                <span @click.once="$_updateType(tab.id)">{{tab.name}}</span>
+            </v-tabs-item>
+            <v-tabs-slider color="yellow" :class="`bg-${currentPage}`"></v-tabs-slider></template>
+        </v-tabs-bar>
+        <!--<v-tabs-items>-->
+            <!--<v-tabs-content-->
+                    <!--v-for="tab in verticalsIds"-->
+                    <!--:key="tab"-->
+                    <!--:id="tab" :ref="tab"-->
+            <!--&gt;</v-tabs-content>-->
+        <!--</v-tabs-items>-->
+        <!--<v-tabs-items>-->
+            <!--&lt;!&ndash;<v-tabs-content&ndash;&gt;-->
+                    <!--&lt;!&ndash;v-for="tab1 in verticalsIds"&ndash;&gt;-->
+                    <!--&lt;!&ndash;:key="tab1"&ndash;&gt;-->
+                    <!--&lt;!&ndash;:id="tab1"&ndash;&gt;-->
+            <!--&lt;!&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;{{tab1}}&ndash;&gt;-->
+            <!--&lt;!&ndash;</v-tabs-content>&ndash;&gt;-->
+        <!--</v-tabs-items>-->
+    </v-tabs>
+    <!--<div class="sb-menu" v-model="selectedTab" @input="$_updateType($event)">-->
+        <!--<v-tabs>-->
+            <!--<v-tabs-bar>-->
+                <!--&lt;!&ndash;:class="{'list__tile&#45;&#45;active':vertical.id==currentPage}"&ndash;&gt;-->
+                <!--<template v-for="verticalw in verticalsIds"><v-tabs-item-->
+                              <!--:href="verticalw"-->
+                             <!--:class="['bg-'+verticalw]" :ref="verticalw"-->
+                             <!--class="ml-1 mr-1 vertical"-->
+                             <!--&gt;-->
+                        <!--&lt;!&ndash;{{vertical.name}}&ndash;&gt;-->
+                    <!--yifat-->
+                <!--</v-tabs-item>-->
+                <!--<v-tabs-slider :class="'bg-'+verticalw"></v-tabs-slider></template>-->
+
+            <!--</v-tabs-bar>-->
+        <!--</v-tabs>&lt;!&ndash;:class="{'selected':vertical.id==currentPage}"&ndash;&gt;-->
         <!--<v-chip v-for="vertical in verticals" :class="'bg-'+vertical.id" :key="vertical.id" @click="$_updateType(vertical.id)">{{vertical.name}}</v-chip>-->
-    </div>
+    <!--</div>-->
 
     <!--<v-navigation-drawer v-model="showNav"  app light clipped persistent enable-resize-watcher :mobile-break-point="960"  class="sb-aside" width="216" >
         <v-list>
@@ -74,7 +102,8 @@
                 set(val) { this.$emit('input', val) }
             },
             userText() { return this.term ? this.term : this.$route.query.q },
-            currentPage: { get(){return this.$route.path.slice(1)},set(val){} }
+            currentPage: { get(){
+                return this.$route.path.slice(1)},set(val){} }
         }
     };
 </script>

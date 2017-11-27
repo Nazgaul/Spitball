@@ -7,7 +7,9 @@
         </v-toolbar-title>
         <v-text-field :slot="$vuetify.breakpoint.smAndDown? 'extension' : 'default'" light solo class="search-b"  placeholder="Ask me anything" v-model="qFilter"></v-text-field>
         <div class="d-flex align-center" style="margin-left: auto">
-            <settings-icon class="settings"></settings-icon>
+            <router-link :to="{name:'setting'}" class="settings">
+                <settings-icon></settings-icon>
+            </router-link>
         </div>
     </v-toolbar>
 
