@@ -37,6 +37,7 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
     "v-debounce": "^0.1.2",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "vue-awesome": "^2.3.4"
   }
 }
