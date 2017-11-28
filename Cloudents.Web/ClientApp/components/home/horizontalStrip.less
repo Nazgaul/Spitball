@@ -1,0 +1,194 @@
+﻿@import "../../mixin.less";
+
+.strip {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    margin: 0;
+    max-width: 100%;
+
+
+    &:nth-child(2n+1) .strip-content {
+        flex-direction: row-reverse;
+    }
+
+    &.documents { // Study documents
+        background-image: linear-gradient(to bottom, rgba(38,0,75,0.2), rgba(249,249,249,0.2));
+
+        .icon-1 {
+            top: 10%;
+            left: -6%;
+        }
+
+        .icon-2 {
+            top: -7%;
+            right: 17%;
+        }
+
+        .icon-3 {
+            bottom: 0;
+            right: 6%;
+        }
+    }
+
+    &.tutors { // Tutors
+        background-image: linear-gradient(to bottom, rgba(249,249,249,0.2) 10%, rgba(82,171,21,0.2) 98%);
+
+        .icon-1 {
+            top: -5%;
+            right: 7%;
+        }
+
+        .icon-2 {
+            bottom: -12%;
+            right: 16%;
+        }
+
+        .icon-3 {
+            bottom: 7%;
+            left: -9%;
+        }
+    }
+
+    &.food-deals { // Food and Deals
+        background-image: linear-gradient(to bottom, rgba(44,191,165,0.2), rgba(249,249,249,0.2));
+
+        .icon-1 {
+            top: -23%;
+            left: 38%;
+        }
+
+        .icon-2 {
+            bottom: -12%;
+            right: -3%;
+        }
+
+        .icon-3 {
+            bottom: -19%;
+            left: 5%;
+        }
+    }
+
+    &.textbooks { // Textbooks
+        background-image: linear-gradient(to bottom, rgba(249,249,249,0.2), rgba(140,63,191,0.2));
+
+        .icon-1 {
+            top: -8%;
+            right: 9%;
+        }
+
+        .icon-2 {
+            bottom: -6%;
+            right: 18%;
+        }
+
+        .icon-3 {
+            bottom: 12%;
+            left: -20%;
+        }
+    }
+
+    &.flashcards { // Flashcards
+        background-image: linear-gradient(to bottom, rgba(241,77,77,0.2), rgba(249,249,249,0.2));
+
+        .icon-1 {
+            top: 3%;
+            left: 2%;
+        }
+
+        .icon-2 {
+            top: -15%;
+            right: 23%;
+        }
+
+        .icon-3 {
+            bottom: -17%;
+            right: 53%;
+        }
+    }
+
+    &.ask-question { // Ask a Question
+        background-image: linear-gradient(to bottom, rgba(249,249,249,0.2), rgba(4,85,168,0.2));
+
+        .icon-1 {
+            bottom: -7%;
+            right: 49%;
+        }
+
+        .icon-2 {
+            top: 15%;
+            right: 4%;
+        }
+
+        .icon-3 {
+            top: -12%;
+            left: 16%;
+        }
+    }
+
+    &.jobs { // Jobs
+        background-image: linear-gradient(to bottom, rgba(245,166,35,0.2), rgba(249,249,249,0.2));
+
+        .icon-1 {
+            top: -11%;
+            left: 44%;
+        }
+
+        .icon-2 {
+            bottom: -19%;
+            right: 9%;
+        }
+
+        .icon-3 {
+            bottom: -18%;
+            left: 8%;
+        }
+    }
+
+    .image-wrapper, .description {
+        flex-grow: 0;
+    }
+
+    .image-wrapper {
+        .images {
+            position: relative;
+        }
+
+        img {
+            width: 433px;
+        }
+
+        .floating-icons svg {
+            position: absolute;
+            /*&:nth-child(1) {
+                top: 36px;
+                left: -24px;
+            }
+
+            &:nth-child(2) {
+                top: -24px;
+                right: 72px;
+            }
+
+            &:nth-child(3) {
+                bottom: 0;
+                right: 24px;
+            }*/
+        }
+    }
+
+    .description {
+        .strip-title {
+            h3 {
+                font-size: 30px;
+                margin: 0 0 0 16px;
+            }
+        }
+
+        .strip-text {
+            font-size: 20px;
+            color: #4a4a4a;
+            margin: 16px 0 0 0;
+            max-width: 450px;
+        }
+    }
+}

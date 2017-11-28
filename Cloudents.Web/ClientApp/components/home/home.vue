@@ -18,7 +18,7 @@
         <div class="box-header">
             <v-container fluid>
                 <v-layout row>
-                    <v-flex  class="logo-wrapper">
+                    <v-flex class="logo-wrapper">
                         <logo class="logo"></logo>
                     </v-flex>
                     <header>
@@ -35,12 +35,15 @@
                     <div class="box-inner-header">
                         <!--<img src="./img/logo-spitball.png" width="227" height="54">-->
 
+                        <h2 class="box-title">Simplify School</h2>
                         <div class="box-search mb-3">
-
                             <form id="labnol" method="get" @submit.prevent="search">
                                 <!--<div class="speech">-->
                                 <v-container>
                                     <v-layout row>
+                                        <v-flex class="search-icon">
+                                            <search-icon></search-icon>
+                                        </v-flex>
                                         <v-flex class="tx-input">
                                             <v-menu offset-y full-width>
                                                 <input slot="activator" @keyup.enter="search" autocomplete="off" type="text" required name="q" id="transcript" v-model.trim="msg" :placeholder="placeholder">
@@ -72,104 +75,45 @@
                                 <!--</div>-->
                             </form>
                         </div>
-
                     </div>
                 </div>
+                <features-section></features-section>
+
             </v-container>
         </div>
-
-        <section class="box-section vertical-pink">
-            <v-container class="box-class-materials">
-                <v-layout row class="box-small-container">
-                    <v-flex md8 sm12 xs12>
-                        <div class="title"><span class="demo-icon"><class-material-icon></class-material-icon></span> Class Materials</div>
-                        <p>Spitball curates content for you from the best sites on the web. The documents populate based on student ratings and are filtered by your school, classes, and preferences.</p>
+        <section class="websites-section">
+            <v-container class="websites text-xs-center">
+                <h2>Content from your favorite websites</h2>
+                <v-layout class="logos" row align-center justify-space-around wrap>
+                    <v-flex v-for="site in sites" class="site">
+                        <v-layout column align-center d-flex>
+                            <img :src="require(`./img/${site.image}`)" />
+                        </v-layout>
                     </v-flex>
                 </v-layout>
-                <v-layout row class="box-small-container">
-                    <v-flex md12>
-                        <div class="img">
-                            <img class="hidden-sm-and-down" src="./img/class-materiall-screen.png" alt="">
-                            <img class="hidden-md-and-up" src="./img/class-material-mobil-image.png" alt="">
+                <p class="text-xs-right text-sm-center">… and many more.</p>
+            </v-container>
+        </section>
+        <strips-section></strips-section>
+
+
+        <section class="box-section testimonials">
+            <v-carousel hide-delimiters>
+                <v-carousel-item v-for="testimonial in testimonials">
+                    <div class="testimonial">
+                        <p class="testimonial-text">{{testimonial.testimonial}}</p>
+                        <div class="author">
+                            <img :src="require(`./img/${testimonial.image}`)" />
+                            <div>
+                                <span class="name">{{testimonial.name}}</span>
+                                <span class="uni">{{testimonial.uni}}</span>
+                            </div>
                         </div>
-                    </v-flex>
-                </v-layout>
-            </v-container>
+                    </div>
+                </v-carousel-item>
+            </v-carousel>
         </section>
 
-        <section class="box-section">
-            <v-container class="up-box">
-                <v-layout row wrap>
-                    <v-flex md6 sm12 xs12 class="box-tutors">
-                        <div class="title"><span class="demo-icon"><tutor-icon></tutor-icon></span> Tutors</div>
-
-                        <p>Spitball has teamed up with the most trusted tutoring services. All of our online and in-person tutors are highly qualified experts with educations from the best universities around the world. </p>
-
-                        <div class="img"><img src="./img/group-copy-5.png" alt=""></div>
-                        <div class="img"><img src="./img/group-2-copy.png" alt=""></div>
-                    </v-flex>
-                    <v-flex md6 sm12 xs12 class="box-jobs">
-                        <div class="title"><span class="demo-icon"><job-icon></job-icon></span> Jobs and Internships</div>
-
-                        <p>Easily find and apply to paid internships, part-time jobs and entry-level opportunities at thousands of Fortune 500 companies and startups. </p>
-
-                        <div class="img">
-                            <img src="./img/group-copy-4.png" alt="">
-                            <img src="./img/group-copy-6.png" alt="">
-                        </div>
-                    </v-flex>
-                </v-layout>
-            </v-container>
-            <v-layout row class="box-substrate">
-                <v-flex md6 class="vertical-green"></v-flex>
-                <v-flex md6 class="vertical-orange"></v-flex>
-            </v-layout>
-        </section>
-
-        <section class="box-section vertical-purple">
-            <v-container class="box-textbooks">
-                <v-layout row class="box-small-container">
-                    <v-flex md8 sm12 xs12>
-                        <div class="title"><span class="demo-icon"><text-book-icon></text-book-icon></span> Textbooks</div>
-                        <p>Spitball finds you textbooks at the best prices by simultaneously searching multiple websites. Compare prices to buy, rent, and sell back your books.</p>
-                    </v-flex>
-
-                </v-layout>
-                <v-layout row class="box-small-container">
-                    <v-flex md12 sm12 xs12>
-                        <div class="img">
-                            <img class="hidden-sm-and-down" src="./img/textbook-screen.png" alt="">
-                            <img class="hidden-md-and-up" src="./img/textbook-mobile-screen.png" alt="">
-                        </div>
-                    </v-flex>
-                </v-layout>
-
-            </v-container>
-        </section>
-
-        <section class="box-section box-testimonials">
-            <v-container>
-                <div class="box-small-container">
-                    <p>"As a sophomore, I found myself looking for a new way to communicate and study with my classmates. After searching online, I was shocked that there was no real solution that fit my lifestyle (nothing I could easily access on my phone or computer). Then someone invited me to Spitball... it saved me."</p>
-                    <img src="./img/user-mage-place-holder.png" alt="">
-                    <div class="author">Donna Floyd <span>Sophomore at UC Davis</span></div>
-                </div>
-
-            </v-container>
-        </section>
-        <section class="box-section box-websites">
-            <v-container>
-                <div class="title">Content from your favorite websites</div>
-                <v-layout row wrap>
-                    <v-flex xs6 sm6 md2><img src="./img/quizlet.png" alt=""></v-flex>
-                    <v-flex xs6 sm6 md2><img src="./img/chegg.png" alt=""></v-flex>
-                    <v-flex xs6 sm6 md2><img src="./img/study-blue.png" alt=""></v-flex>
-                    <v-flex xs6 sm6 md2><img src="./img/wyzant.png" alt=""></v-flex>
-                    <v-flex xs6 sm6 md2><img src="./img/course-hero.png" alt=""></v-flex>
-                    <v-flex xs6 sm6 md2><img src="./img/wayup.png" alt=""></v-flex>
-                </v-layout>
-            </v-container>
-        </section>
         <footer>
             <v-container grid-list-xl>
                 <v-layout row wrap>
