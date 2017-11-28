@@ -30,8 +30,8 @@ namespace Test
             var container = builder.Build();
 
 
-            var services = container.Resolve<IBookSearch>();
-            var result = await services.SellAsync("9781510718203", 150, default);
+            var services = container.Resolve<IEngineProcess>();
+            var result = await services.ProcessRequestAsync("study guides on war");
 
 
             //foreach (var service in services)

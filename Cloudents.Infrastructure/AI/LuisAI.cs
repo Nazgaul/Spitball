@@ -7,44 +7,43 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
-using Cloudents.Core.Request;
 using Microsoft.Cognitive.LUIS;
 
 namespace Cloudents.Infrastructure.AI
 {
     // ReSharper disable once InconsistentNaming - AI is Shorthand
-   
     public class LuisAI : IAI, IDisposable
     {
-        private readonly LuisClient m_Client;
+        private readonly LuisClient _client;
 
-        private readonly HashSet<string> _searchVariables = new HashSet<string>(new[] {"documents", "flashcards"},
+        private readonly HashSet<string> _searchVariables = new HashSet<string>(new[] { "documents", "flashcards" },
             StringComparer.InvariantCultureIgnoreCase);
 
-        private readonly HashSet<string> _searchTerms = new HashSet<string>(new[] { "isbn", "subject" },
-            StringComparer.InvariantCultureIgnoreCase);
+
+        //private readonly HashSet<string> _searchTerms = new HashSet<string>(new[] { "isbn", "subject" ,"class"},
+        //    StringComparer.InvariantCultureIgnoreCase);
 
         public LuisAI(LuisClient client)
         {
-            m_Client = client;
+            _client = client;
         }
 
         [Cache(TimeConst.Day, "ai")]
-        public async Task<AIDto> InterpretStringAsync(string sentence)
+        public async Task<AiDto> InterpretStringAsync(string sentence)
         {
             if (sentence == null) throw new ArgumentNullException(nameof(sentence));
-            var result = await m_Client.Predict(sentence).ConfigureAwait(false);
+            var result = await _client.Predict(sentence).ConfigureAwait(false);
             var entities = result.GetAllEntities();
 
             result.TopScoringIntent.Name.TryToEnum(out AiIntent intent);
             KeyValuePair<string, string>? searchType = null;
-            string course = null;
+            string university = null, location = null, course = null, isbn = null;
             var terms = new List<string>();
             foreach (var entity in entities)
             {
-                if (entity.Name.Equals("Class", StringComparison.InvariantCultureIgnoreCase))
+                if (entity.Name.Equals("university", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    course = entity.Value;
+                    university = entity.Value;
                     continue;
                 }
                 if (_searchVariables.Contains(entity.Name))
@@ -52,17 +51,29 @@ namespace Cloudents.Infrastructure.AI
                     searchType = new KeyValuePair<string, string>(entity.Name, entity.Value);
                     continue;
                 }
-                if (_searchTerms.Contains(entity.Name))
+                if (entity.Name.Equals("subject", StringComparison.InvariantCultureIgnoreCase))
                 {
                     terms.Add(entity.Value);
                 }
+                if (entity.Name.Equals("class", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    course = entity.Value;
+                }
+                if (entity.Name.Equals("isbn", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    isbn = entity.Value;
+                }
+                if (entity.Name.Equals("Weather.Location", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    location = entity.Value;
+                }
             }
-            return new AIDto(intent, searchType, course, terms);
+            return new AiDto(intent, searchType, university, terms, location, course, isbn);
         }
 
         public void Dispose()
         {
-            m_Client?.Dispose();
+            _client?.Dispose();
             GC.SuppressFinalize(this);
         }
     }

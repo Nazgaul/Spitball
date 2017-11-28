@@ -2,8 +2,7 @@
 <div class="sb-menu">    <v-tabs v-model="currentPage" >
         <v-tabs-bar class="cyan" dark >
                <v-tabs-item v-for="tab in verticals" :key="tab.id" :href="tab.id" :id="tab.id" @click.once="$_updateType(tab.id)"  :class="['bg-'+tab.id,tab.id==currentPage?'tabs__item--active':'']"
-                            class="ml-1 mr-1 vertical"
-            >
+                            class="ml-1 mr-1 vertical">
                 {{tab.name}}
             </v-tabs-item>
             <v-tabs-slider color="yellow" :class="`bg-${currentPage}`"></v-tabs-slider>
