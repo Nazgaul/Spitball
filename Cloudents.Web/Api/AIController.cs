@@ -14,14 +14,13 @@ namespace Cloudents.Web.Api
     [Route("api/[controller]")]
     public class AiController : Controller
     {
-        private readonly IAI _ai;
-        private readonly IDecision _mDecision;
+        private readonly IEngineProcess _engineProcess;
 
-        public AiController(IAI ai, IDecision decision)
+        public AiController(IEngineProcess engineProcess)
         {
-            _ai = ai;
-            _mDecision = decision;
+            _engineProcess = engineProcess;
         }
+
 
         [HttpGet]
         [ValidateModel]
@@ -30,13 +29,8 @@ namespace Cloudents.Web.Api
             AiRequest model)
         {
             if (model == null) throw new ArgumentNullException(nameof(model));
-            var aiResult = await _ai.InterpretStringAsync(model.Sentence).ConfigureAwait(false);
-            var result = _mDecision.MakeDecision(aiResult);
-            return Json(new
-            {
-                result.result,
-                result.data
-            });
+            var result = await _engineProcess.ProcessRequestAsync(model.Sentence).ConfigureAwait(false);
+            return Json(result);
         }
     }
 }

@@ -41,8 +41,9 @@ const actions = {
         return new Promise((resolve, reject) => {
             ai.interpetPromise(text).then(({ body }) => {
                 context.commit(SEARCH.UPDATE_SEARCH_PARAMS, { ...body.data });
-                    context.commit(FLOW.ADD, { ...body });
-                    resolve({result:context.rootGetters.currenFlow,term:body.data.term});
+                context.commit(FLOW.ADD, { ...body });
+                console.log(body);
+                    resolve({result:context.rootGetters.currenFlow,term:body.term});
             });
         });
     },

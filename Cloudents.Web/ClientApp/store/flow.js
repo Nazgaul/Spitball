@@ -76,19 +76,20 @@ const getters = {
     flowNode: state => state.node.model
 }
 const mutations = {
-    [FLOW.ADD](state, { result,data}) {
-        var flow;
-        if (result === "search") {
-            data.searchType = data.searchType || {};
-            if (data.searchType.key === "Flashcards") {
-                flow = optionalRoutes.flashcard;
-            } else {
-                flow = optionalRoutes.document;
-            }
+    [FLOW.ADD](state, { vertical,data}) {
+        
+        //if (result === "search") {
+        //    data.searchType = data.searchType || {};
+        //    if (data.searchType.key === "Flashcards") {
+        //        flow = optionalRoutes.flashcard;
+        //    } else {
+        //        flow = optionalRoutes.document;
+        //    }
 
-        } else {
-            flow = optionalRoutes[result];
-        }
+        //} else {
+        console.log(vertical, data)
+        var flow = optionalRoutes[vertical];
+        //}
         if (flow) {
             state.node = {
                 model: flow

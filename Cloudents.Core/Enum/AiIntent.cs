@@ -3,14 +3,13 @@
     public enum AiIntent
     {
         None,
-        Qna,
         Tutor,
         [Parse("books")]
-        Book, //books
+        Book,
         [Parse("jobs")]
-        Job, //jobs
+        Job,
         [Parse("askQuestion")]
-        Question, //askQuestion
+        Question,
         Search,
         Purchase
     }

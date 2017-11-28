@@ -50,6 +50,7 @@ namespace Cloudents.Infrastructure
             CreateMap<JObject, (string, IEnumerable<PlaceDto>)>().ConvertUsing<PlaceConverter>();
             CreateMap<JObject, IEnumerable<TutorDto>>().ConvertUsing<TutorMeConverter>();
             CreateMap<string, IpDto>().ConvertUsing<IpConverter>();
+
         }
     }
 }

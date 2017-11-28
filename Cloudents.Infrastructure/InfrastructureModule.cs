@@ -43,6 +43,7 @@ namespace Cloudents.Infrastructure
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<AIDecision>().As<IDecision>();
+            builder.RegisterType<EngineProcess>().As<IEngineProcess>();
             builder.RegisterType<UniqueKeyGenerator>().As<IKeyGenerator>();
 
             builder.Register(c => new DapperRepository(_sqlConnectionString));
