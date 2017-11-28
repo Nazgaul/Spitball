@@ -1,7 +1,7 @@
 ﻿export let searchObjects = {
     course: {
         emptyState: "To add your course tap on the plus sign",
-        title: 'Select Courses',
+        placeholder: 'Select courses',
         closeText: "done",
         searchApi: "getCorses",
         defaultFilter:'all',
@@ -10,7 +10,7 @@
     }, university: {
         searchApi:"getUniversities",
         emptyState: "If you would like to add your school send us a note from the feedback link in the settings tab.",
-        title: 'Select University',
+        placeholder: 'Select school',
         closeText: "X",
         click:function(keep=true){
             if(this.$route.name==="setting"&&!keep){this.dialog = false}

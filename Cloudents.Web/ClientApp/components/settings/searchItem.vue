@@ -1,48 +1,21 @@
 ﻿﻿<template>
-    <component is="slot">
-        <v-dialog v-model="dialog" max-width="500px" persistent content-class="dialog-choose" v-if="currentItem">
-            <div class="d-header">
-                <v-layout row>
-                    <v-flex>
-                        <button type="button" @click="$_closeButton">
-                            <close-button></close-button>
-                        </button>
-                    </v-flex>
-                    <v-flex>
-                        <h5>{{title}}</h5>
-                    </v-flex>
-                </v-layout>
-                <slot v-if="!currentAction" name="search">
-                    <v-text-field label="Search" @input="$_search" ref="searchText"
-                                  single-line></v-text-field>
-                    <v-container class="pa-0 mb-3" v-if="currentItem.filters">
-                        <v-layout row>
-                            <radio-list class="search" :values="currentItem.filters" model="filter" v-model="filter" :value="currentItem.defaultFilter"></radio-list>
-                            <template v-for="act in currentItem.actions">
-                                <v-flex @click="$_actionsCallback(act.id)" v-if="act.component"><component :is="act.component"></component></v-flex>
-                            </template>
-                        </v-layout>
-                    </v-container></slot>
+        <v-dialog  v-model="dialog" fullscreen content-class="dialog-choose" v-if="currentItem" :overlay=false>
+            <personalize-page :title="(currentAction?title:null)" :search="!currentAction" :isLoading="isLoading" :emptyText="emptyText" :items="items" :selectedCourse="selectedCourse">
+                <button slot="closeAction" type="button" @click="$_closeButton">
+                    <close-button></close-button>
+                </button>
+                <v-text-field slot="inputField" dark  @input="$_search" color="white" ref="searchText" :placeholder="currentItem.placeholder"
+                              single-line></v-text-field>
+                <v-chip slot="selectedItems" slot-scope="props" v-if="selectedCourse">
+                        <strong>{{ props.course.name }}</strong>
+                        <span @click="$_removeCourse(props.course.id)"><v-icon name="close"></v-icon></span>
+                </v-chip>
+            <div v-if="!currentAction" @click="$_clickItemCallback(keep)" slot-scope="props" slot="results">
+                    <component :is="'search-item-'+type" :item="props.item"></component>
             </div>
-            <slot name="searchData" v-if="!currentAction">
-                <div class="loader" v-if="isLoading">
-                    <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
-                </div>
-                <div class="d-result" v-else>
-                    <v-list v-if="items.length">
-                        <template v-for="(item,index) in filterItems">
-                            <div @click="$_clickItemCallback(keep)">
-                                <component :is="'search-item-'+type" :item="item"></component>
-                            </div>
-                            <v-divider v-if="index < filterItems.length-1"></v-divider>
-                        </template>
-                    </v-list><div v-else>
-                    <div>No Results Found</div>
-                    <div v-html="emptyText"></div>
-                </div>
-                </div></slot><component v-else :is="type+'-'+currentAction" @done="$_actionDone"></component>
+            <component slot="actionContent" v-if="currentAction" :is="type+'-'+currentAction" @done="$_actionDone"></component>
+            </personalize-page>
         </v-dialog>
-    </component>
 </template>
 <script>
     import debounce from 'lodash/debounce'
@@ -52,9 +25,12 @@
     import { searchObjects } from './consts'
     const searchItemUniversity = () => import('./searchItemUniversity.vue');
     const searchItemCourse = () => import('./searchItemCourse.vue');
-    import { mapGetters } from 'vuex'
-    import CourseAdd from './courseAdd.vue'
+    import { mapGetters,mapMutations } from 'vuex'
+    import CourseAdd from './courseAdd.vue';
+    import  PersonalizePage from './personalizePage.vue';
     import VDialog from "vuetify/src/components/VDialog/VDialog";
+    import 'vue-awesome/icons/close';
+    import VIcon from 'vue-awesome/components/Icon.vue'
 
     export default {
         model: {
@@ -80,14 +56,13 @@
             title(){
                 if(this.currentAction&&!this.dialog)this.dialog=true;
                 if(this.currentAction)return "Add Class";
-                return this.currentItem.title
             },
-            ...mapGetters(['myCoursesId']),
+            ...mapGetters(['myCourses']),
             currentItem: function () {
                 return searchObjects[this.type]
             },
             emptyText: function () { return this.currentItem.emptyState },
-            filterItems: function () { return this.filter === 'myCourses' ? this.items.filter((i) => this.myCoursesId.length && this.myCoursesId.includes(i.id)) : this.items }
+            selectedCourse(){if(this.type === 'course')return this.myCourses}
         },
         data() {
             return {
@@ -100,11 +75,15 @@
         },
 
         components: {
-            CourseAdd, VDialog,
+            CourseAdd, VDialog,PersonalizePage,VIcon,
             searchItemUniversity, searchItemCourse, RadioList, plusButton, closeButton
         },
         props: { type: { type: String, required: true }, value: { type: Boolean },keep:{type:Boolean} },
         methods: {
+            ...mapMutations({updateUser:'UPDATE_USER'}),
+            $_removeCourse(val){
+                this.updateUser({ myCourses: this.myCourses.filter(i=>i.id!==val)})
+            },
             $_closeButton(){
                 this.currentAction?this.currentAction="":this.dialog=false;
             },

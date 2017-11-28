@@ -21,7 +21,7 @@
             </div>
             <div class="version">version:{{version}}</div>
         </div>
-        <search-item v-model="showDialog" :type="(!type?'':getUniversityName?type:'university')" :keep="type==='course'&&!getUniversityName"></search-item>
+        <search-item v-model="showDialog" :type="currentType" :keep="keep"></search-item>
 
     </general-page>
 </template>
@@ -32,12 +32,12 @@
     import UniversityIcon from './svg/university-icon.svg'
     import WalkthroughIcon from './svg/walkthrough.svg'
     import GeneralPage from './../helpers/generalPage.vue'
-    import searchItem from './searchItem.vue'
+    import SearchItem from './searchItem.vue'
     import { settingMenu } from './consts'
     import { mapActions, mapGetters } from 'vuex'
     import VDivider from "vuetify/src/components/VDivider/VDivider";
     export default {
-        components: { VDivider, searchItem, AboutUsIcon, ArrowButtonIcon, MyCoursesIcon, UniversityIcon, WalkthroughIcon, GeneralPage, searchItem },
+        components: { VDivider, AboutUsIcon, ArrowButtonIcon, MyCoursesIcon, UniversityIcon, WalkthroughIcon, GeneralPage,SearchItem },
         data() {
             return {
                 menuData:settingMenu,showDialog:false,type:""
@@ -46,7 +46,9 @@
         computed:
         {
             ...mapGetters(['getUniversityName']),
-            version() { return window.version }
+            version() { return window.version },
+            currentType(){return !this.type?'':this.getUniversityName?this.type:'university'},
+            keep(){return this.type==='course'&&!this.getUniversityName}
         },
 
         methods: {

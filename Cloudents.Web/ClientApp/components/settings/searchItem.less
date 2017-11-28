@@ -1,4 +1,7 @@
 ﻿@import "../../mixin.less";
+.dialog__content.dialog__content__active{
+    background-image: linear-gradient(328deg, #3293f6, #3023ae);
+}
 .dialog-choose {
     //background: #fff;
     box-shadow: none;
@@ -10,20 +13,26 @@
         position: sticky;
         top: 0px;
         z-index: 1;
-        background: #eee;
 
         button {
             height: 100%;
         }
 
-        h5 {
+        h1{
+            font-size: 60px;
+            font-weight: 300;
+            line-height: 0.37;
+            letter-spacing: -0.8px;
+            color: white;
+        }
+        h5{
             margin-bottom: 0;
             font-size: 24px;
             font-weight: 600;
             line-height: 1.21;
             letter-spacing: -0.5px;
             //text-align: center;
-            color: @Spitball-Text;
+            color: white;
         }
     }
 

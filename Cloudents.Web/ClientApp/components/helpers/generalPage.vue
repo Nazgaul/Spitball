@@ -1,5 +1,7 @@
 <template functional>
-    <v-content class="p-result">
+    <component is="slot">
+        <slot></slot>
+        <v-content class="p-result">
         <v-container fluid class="pa-0 wrap">
             <v-layout row>
                 <v-flex class="first-grid hidden-sm-and-down">
@@ -14,15 +16,7 @@
                     <slot name="options">
                     </slot>
                 </v-flex>
-                <!--<v-flex class="flex-fix">-->
-                <!--<slot></slot>-->
                 <v-container fluid class="pa-2">
-                    <!--<v-layout row>
-                        <v-flex class="sec-result">
-                            <slot name="options">
-                            </slot>
-                        </v-flex>
-                    </v-layout>-->
                     <v-layout row>
                         <v-flex class="sec-result">
                             <slot name="data">
@@ -46,6 +40,6 @@
                 <!--</v-flex>-->
             </v-layout>
         </v-container>
-    </v-content>
+    </v-content></component>
 </template>
 <style lang="less" src="./generalPage.less"></style>
