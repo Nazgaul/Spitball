@@ -1,11 +1,12 @@
-<template>
+<template functional>
     <v-content class="p-result">
         <v-container fluid class="pa-0 wrap">
             <v-layout row>
                 <v-flex class="first-grid hidden-sm-and-down">
                 </v-flex>
                 <v-flex>
-                    <app-menu :term="userText"></app-menu>
+                    <slot name="verticalNavbar"></slot>
+                    <!--<app-menu :term="userText"></app-menu>-->
                 </v-flex>
             </v-layout>
             <v-layout row>
@@ -48,13 +49,3 @@
     </v-content>
 </template>
 <style lang="less" src="./generalPage.less"></style>
-<script>
-    import AppMenu from '../navbar/TheNavbar.vue'
-
-    export default {
-        data() {
-            return { userText: this.$route.query.q, showMenu: true }
-        },
-        components: { AppMenu }
-    }
-</script>

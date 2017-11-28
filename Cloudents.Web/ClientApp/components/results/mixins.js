@@ -9,6 +9,7 @@ import ResultVideo from './ResultVideo.vue'
 import SuggestCard from './suggestCard.vue'
 const ResultFood = () => import('./ResultFood.vue');
 const foodExtra = () => import('./foodExtra.vue');
+import AppMenu from './../navbar/TheNavbar.vue';
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 export const sortAndFilterMixin = {
    
@@ -18,7 +19,7 @@ export const sortAndFilterMixin = {
         };
     },
 
-    components: { RadioList },
+    components: { RadioList,AppMenu },
 
     computed: {
         page: function () { return page[this.name] }
