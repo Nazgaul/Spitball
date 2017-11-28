@@ -1,4 +1,4 @@
-﻿import { page } from './../data'
+﻿﻿import { page } from './../data'
 import RadioList from './../helpers/radioList.vue';
 import ResultItem from './ResultItem.vue';
 const ResultTutor = () => import('./ResultTutor.vue');
@@ -9,6 +9,7 @@ import ResultVideo from './ResultVideo.vue'
 import SuggestCard from './suggestCard.vue'
 const ResultFood = () => import('./ResultFood.vue');
 const foodExtra = () => import('./foodExtra.vue');
+import AppMenu from './../navbar/TheNavbar.vue';
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 export const sortAndFilterMixin = {
    
@@ -18,7 +19,7 @@ export const sortAndFilterMixin = {
         };
     },
 
-    components: { RadioList },
+    components: { RadioList,AppMenu },
 
     computed: {
         page: function () { return page[this.name] }
@@ -37,6 +38,9 @@ let updateData = function (data) {
     (data.data.length && this.hasExtra) ? this.selectedItem = data.data[0].placeId : '';
     this.filter = this.filterOptions;
     this.UPDATE_LOADING(false);
+    this.$nextTick(()=>{
+    this.$el.querySelector(`#${this.name} a`).click();
+    })
 };
 
 export const pageMixin =
@@ -49,14 +53,39 @@ export const pageMixin =
         },
 
         beforeRouteUpdate(to, from, next) {
-            this.pageData={};
-            this.items=[];
+
             this.UPDATE_LOADING(true);
-            this.fetchingData({ name: to.path.slice(1), params: { ...to.query, ...to.params } })
-                .then((data) => {
-                    updateData.call(this, data);
+            let toName=to.path.slice(1);
+            let savedTerm=to.meta[this.$_calcTerm(toName)];
+            //Check if have meta term
+            if(savedTerm) {
+                this.pageData={};
+                this.items=[];
+                new Promise((resolve, reject) => {
+                    if(savedTerm.term!==to.query.q){
+                        this.updateSearchText(to.query.q).then((response)=> {
+                            this.$route.meta[this.$_calcTerm(toName)] = {term: to.query.q, luisTerm: response.term};
+                            resolve(to.meta[this.$_calcTerm(toName)].luisTerm);
+                        })}else{
+                        resolve(savedTerm.luisTerm)
+                    }
+                    }).then((luisTerm)=>{
+                    this.fetchingData({name: toName, params: {...to.query, ...to.params}, luisTerm})
+                        .then((data) => {
+                            updateData.call(this, data);
+                        });
+                    next();
                 });
-            next();
+            }else{
+                this.UPDATE_LOADING(false);
+                const newTerm=prompt(`Please enter the search term for ${toName}`);
+                if(newTerm){
+                        this.updateSearchText(newTerm).then((response) => {
+                            this.$route.meta[this.$_calcTerm(toName)] = {term: newTerm, luisTerm: response.term};
+                                this.$router.push({path: to.path, query: {q: newTerm}});
+                        })
+                }
+            }
         },
         computed: {
             ...mapGetters(['term', 'isFirst','myCourses','flowNode','currenFlow','luisTerm']),
@@ -74,7 +103,10 @@ export const pageMixin =
                     }
                 }
             },
-            showCourses() { return this.page.filter?new Set(this.page.filter.map((i)=>i.id)).has('course'):false},
+            showCourses() {
+                return this.page && this.page.filter ?
+                    new Set(this.page.filter.map((i) => i.id)).has('course') : false;
+            },
             titleText: function () {if(!this.page)return '';
                 if(this.isEmpty)return this.page.emptyText.replace('$subject', this.term);
                 return this.page.title},
@@ -108,17 +140,21 @@ export const pageMixin =
             });
             this.UPDATE_LOADING(true);
                 this.updateSearchText(this.query.q).then((response)=>{
-                    if(response!==this.name){
+                    this.$route.meta[this.$_calcTerm(response.result)]={term:this.query.q,luisTerm:response.term};
+                        if(response.result!==this.name){
                         this.UPDATE_LOADING(false);
-                        this.$router.push({ path: '/'+response, query: { q: this.query.q } });}else{
-                        this.fetchingData({name: this.name, params: {...this.query, ...this.params}})
+                        let routeParams={ path: '/'+response.result, query: { q: this.query.q } };
+                        this.$router.replace(routeParams);}else{
+                        this.fetchingData({name: this.name, params: {...this.query, ...this.params},luisTerm:response.term})
                             .then((data) => {
                                 updateData.call(this, data);
                             });
-                    }})
+                    }});
 
         },
         methods: {
+            //TODO update the food in theNavber to purchase also
+            $_calcTerm(name){return (name.includes('food')||name.includes('purchase'))?'foodTerm':name.includes('job')?'jobTerm':'term'},
             ...mapActions(['updateSearchText', 'fetchingData','updateFirstTime','updateFlow']),
             $_changeFilter(filter) {
                 if (this.subFilters.length) {
@@ -155,6 +191,6 @@ export const pageMixin =
                 this.$router.push({ query: { ... this.query, ...sub, filter: this.filter } });
             }
         },
-        props: { hasExtra: {type:Boolean}}
+        props: { hasExtra: {type:Boolean},currentTerm:{type:[String,Object]}}
 
     };

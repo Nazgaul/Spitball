@@ -18,11 +18,11 @@ const getters = {
     isFirst: state => state.user.isFirst,
     pinnedCards: state => state.user.pinnedCards,
     getUniversity: state => {
-        var obj = state.user.universityId || {}; 
+        let obj = state.user.universityId || {};
         return obj.id;
     },
     getUniversityName: state => {
-        var obj = state.user.universityId || {};
+        let obj = state.user.universityId || {};
         return obj.name;
     },
     myCourses: state => state.user.myCourses,
@@ -36,12 +36,12 @@ const actions = {
         return settingsService.getCourse({term,universityId:context.getters.getUniversity});
     },
 
-    createCourse(context, data) {
+    createCourse(context, {name,code}) {
         return new Promise((resolve) => {
-            data.university = context.getters.getUniversity;
-            settingsService.createCourse(data).then(({body}) => {
-                context.commit(USER.UPDATE_USER, { myCourses: [...context.getters.myCourses, { id: body.id, name: data.name }] });
-                resolve({id:body.id,name:data.name,code:data.code});
+            const university = context.getters.getUniversity;
+            settingsService.createCourse({name,code,university}).then(({body}) => {
+                context.commit(USER.UPDATE_USER, { myCourses: [...context.getters.myCourses, { id: body.id, name: name }] });
+                resolve({id:body.id,name:name,code:code});
             });
         });
     },

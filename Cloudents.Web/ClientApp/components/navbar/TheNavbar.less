@@ -1,147 +1,43 @@
 ﻿@import "../../mixin.less";
 
-.sb-aside {
-    &.navigation-drawer {
-        background: #3293f6 !important; //override vuetify
-        padding: 0;
+.sb-menu {
+    .tabs:not(.tabs--centered):not(.tabs--grow):not(.tabs--mobile) .tabs__wrapper--scrollable {
+        margin: 0;
     }
 
-    .list__tile__title {
-        color: #fff;
-        font-size: 13px;
-        letter-spacing: -0.2px;
-        text-transform: capitalize;
+    .tabs:not(.tabs--grow):not(.tabs--mobile) .tabs__item {
+        padding: 0 16px;
     }
 
-    .list__tile .avatar {
-        justify-content: center;
-        min-width: inherit;
-    }
+    .tabs__bar {
+        height: 36px;
+        background-color: transparent;
 
-    li.list__tile--active {
-        background-color: @Selected-Vertical;
-
-        .list__tile__content {
-            color: #fff !important;
+        .tabs__li {
+            a {
+                height: 36px;
+               // display:inline-block;
+                //width:100%;
+                color: #fff !important;
+                font-size: 14px;
+                font-weight: 600;
+                letter-spacing: -0.3px;
+                padding: 0 16px ;
+              //  margin-bottom:8px;
+            }
         }
+
+        /*.tabs__item--active {
+            border-bottom: 2px solid @Class-Material;
+        }*/
     }
 
-    .list__tile.list__tile--link {
-        height: 64px;
-    }
-    /*.application .theme--light.navigation-drawer .subheader.subheader.sub {
-        font-size: 10px;
-        color: @Chat;
-        height: 25px;
-        text-transform: capitalize;
-    }*/
-    .vertical-cycle {
-        border-radius: 50%;
-        width: 46px;
-        height: 46px;
-        .inTheMiddle();
-    }
+    .vertical {
+        border-radius: 4px;
 
-
-    .bg-ask {
-        svg {
-            width: 26.4px;
-            height: 18.7px;
-        }
-    }
-
-
-    .bg-note {
-        svg {
-            width: 16.8px;
-            height: 20.6px;
-        }
-    }
-
-    .bg-flashcard {
-        svg {
-            width: 22.7px;
-            height: 18.7px;
-        }
-    }
-
-    .bg-tutor {
-        svg {
-            width: 20.2px;
-            height: 25.6px;
-        }
-    }
-
-    .bg-job {
-        svg {
-            width: 11.4px;
-            height: 25.6px;
-        }
-    }
-
-    .bg-book {
-        svg {
-            width: 25.4px;
-            height: 20.4px;
-        }
-    }
-
-    .bg-food {
-        svg {
-            width: 17.7px;
-            height: 22.2px;
-        }
-    }
-    /*.bg-upload {
-    svg {
-        width: 13.5px;
-        height: 16px;
-    }
-}
-.bg-post {
-    svg {
-        width: 14.3px;
-        height: 14.3px;
-    }
-}
-.bg-create {
-    svg {
-        width: 19.2px;
-        height: 15.6px;
-    }
-}
-.bg-chat {
-
-    svg {
-        width: 14.7px;
-        height: 12.7px;
-    }
-}
-.bg-chat {
-
-    svg {
-        width: 14.7px;
-        height: 12.7px;
-    }
-}
-.bg-course {
-
-    svg {
-        width: 16px;
-        height: 16px;
-    }
-}
-.bg-like {
-
-    svg {
-        width: 13.4px;
-        height: 16px;
-    }
-}*/
-    .bg-setting {
-        svg {
-            width: 23.9px;
-            height: 24.2px;
+        a {
+            text-transform: capitalize;
         }
     }
 }
+

@@ -12,12 +12,12 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
     public class DeleteBox : IDomainProcess
     {
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
-        private readonly ILogger m_Logger;
+        private readonly ILogger _logger;
 
         public DeleteBox(IZboxWorkerRoleService zboxWriteService, ILogger logger)
         {
             m_ZboxWriteService = zboxWriteService;
-            m_Logger = logger;
+            _logger = logger;
         }
 
         public async Task<bool> ExecuteAsync(Infrastructure.Transport.DomainProcess data, CancellationToken token)
@@ -29,7 +29,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             }
             catch (Exception ex)
             {
-                m_Logger.Exception(ex, new Dictionary<string, string>
+                _logger.Exception(ex, new Dictionary<string, string>
                 {
                     ["model"] = parameters.ToString()
                 });

@@ -27,14 +27,14 @@ import stripsSection from './horizontalStrip.vue';
 
 
 let homeSuggest = [
-    'Flashcards for financial accounting',
-    'Class notes for my Calculus class',
-    'When did World War 2 end?',
-    'Difference between meiosis and mitosis',
-    'Tutor for Linear Algebra',
-    'Job in marketing in NYC',
-    'The textbook - Accounting: Tools for Decision Making',
-    'Where can I get a burger near campus?'
+    "Flashcards for financial accounting",
+    "Class notes for my Calculus class",
+    "When did World War 2 end?",
+    "Difference between meiosis and mitosis",
+    "Tutor for Linear Algebra",
+    "Job in marketing in NYC",
+    "The textbook - Accounting: Tools for Decision Making",
+    "Where can I get a burger near campus?"
 ];
 
 export default {
@@ -57,7 +57,7 @@ export default {
         return {
             placeholder: "Find study documents, textbooks, deals, tutors and more…",
             items: homeSuggest,
-            msg: '',
+            msg: "",
             recognition: false,
             isRecording: false,
             drawer: null,
@@ -137,7 +137,7 @@ export default {
 
         },
         search() {
-            this.$router.push({ name: 'result', query: { q: this.msg } });
+            this.$router.push({ name:"result", query: {q:this.msg} });
         },
         selectos(item) {
             this.msg = item;
@@ -148,14 +148,15 @@ export default {
 
     created() {
         if (this.voiceEnable) {
-            this.recognition = new webkitSpeechRecognition();
-            this.recognition.lang = 'en-US';
+            var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+            this.recognition = new SpeechRecognition();
+            this.recognition.lang = "en-US";
             this.recognition.interimResults = false;
             this.recognition.maxAlternatives = 5;
             let _self = this;
 
             this.recognition.onstart = function () {
-                console.log('start');
+                console.log("start");
                 _self.isRecording = true;
             };
             this.recognition.onresult = function (event) {
@@ -169,6 +170,6 @@ export default {
     },
 
     computed: {
-        voiceEnable() { return 'webkitSpeechRecognition' in window }
+        voiceEnable() { return "webkitSpeechRecognition" in window}
     }
 };

@@ -12,15 +12,15 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 {
     public class UniversityWithLowActivation : BaseMarketingMailProcess
     {
-        private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
+        private readonly IZboxReadServiceWorkerRole _zboxReadService;
         public UniversityWithLowActivation(ILogger logger, IMailComponent mailComponent, IZboxReadServiceWorkerRole zboxReadService) : base(mailComponent, logger)
         {
-            m_ZboxReadService = zboxReadService;
+            _zboxReadService = zboxReadService;
         }
 
         protected override Task<IEnumerable<MarketingDto>> GetDataAsync(MarketingQuery query, CancellationToken token)
         {
-            return m_ZboxReadService.GetUsersWithLowActivityUniversitiesAsync(query, token);
+            return _zboxReadService.GetUsersWithLowActivityUniversitiesAsync(query, token);
         }
 
         protected override MarketingMailParams BuildMarketingMail(string name, CultureInfo info)

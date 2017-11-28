@@ -7,7 +7,7 @@ export let verticals =
             id: routes.questionRoute,
             name: "Ask a Question",
             image: "ask",
-            placeholder: "Ask anything...",
+           // placeholder: "Ask anything...",
             resultTitle:  "I found a few things that I think are relevant. Check these out.",
             emptyState: "I could not find any relevant answers.Try these other options.",
             sort: ""
@@ -15,7 +15,8 @@ export let verticals =
         note: {
             id: routes.notesRoute,
 
-            name: "Study Documents", image: "document", placeholder: "Find me class material...",
+            name: "Study Documents", image: "document",
+           // placeholder: "Find me class material...",
             resultTitle: "I found some documents that might help.See what you think!",
             emptyState: "Darn, I wasn't able to find any documents.Try these other options.",
             filter: [{ id: 'all', name: 'all' },
@@ -25,7 +26,8 @@ export let verticals =
         flashcard: {
             id: routes.flashcardRoute,
 
-            name: "Flashcards", image: "flashcard", placeholder: "Find me flashcards...",
+            name: "Flashcards", image: "flashcard",
+            //placeholder: "Find me flashcards...",
             resultTitle: "Oh look - I found some flashcards for you.Test yourself!",
             emptyState: "Sorry, I did not find any quiz results...",
             filter: [{ id: 'all', name: 'all' }, { id: 'source', name: 'sources' }],
@@ -34,7 +36,8 @@ export let verticals =
         tutor: {
             id: routes.tutorRoute,
 
-            name: "Tutors", image: "tutor", placeholder: "Find me a tutor...",
+            name: "Tutors", image: "tutor",
+            //placeholder: "Find me a tutor...",
             resultTitle: "I found these tutors. Help is just a click away!",
             emptyState: "Sorry, I did not find any tutors...",
             filter: [{ id: 'all', name: 'all' }, { id: 'online', name: 'online' }, { id: 'inPerson', name: 'In Person' }],
@@ -45,7 +48,7 @@ export let verticals =
 
             name: "Jobs",
             image: "job",
-            placeholder: "Find me a job...",
+            //placeholder: "Find me a job...",
             resultTitle: "Look at this - you’ll be employed in no time!",
             emptyState: "Sorry, I didn't find any jobs that match your search",
             filter: [{ id: 'all', name: 'all' },{ id: 'jobType', name: 'job type' }, { id: 'paid', name: 'paid' }],
@@ -54,7 +57,8 @@ export let verticals =
         book: {
             id: routes.bookRoute,
 
-            name: "Textbooks", image: "book", placeholder: "Find me a textbook...",
+            name: "Textbooks", image: "book",
+            //placeholder: "Find me a textbook...",
             resultTitle: "I found some textbooks that match your search. Check them out!", emptyState: "Sorry, I didn't find any textbooks that match your search", filter: "", sort: ""
         },
         food: {
@@ -62,8 +66,10 @@ export let verticals =
 
             name: "Food and Deals",
             image: "food",
-            placeholder: "Where can I get...",
-            resultTitle: "Booya! I found a few places that you might like.", emptyState: "Sorry, friend! I could not find anywhere nearby that sells $subject", filter: [{ id: 'all', name: 'all' }, { id: 'openNow', name: 'open now' }], sort: [{ id: 'distance', name: 'distance' }]
+            //placeholder: "Where can I get...",
+            resultTitle: "Booya! I found a few places that you might like.",
+            emptyState: "Sorry, friend! I could not find anywhere nearby that sells $subject",
+            filter: [{ id: 'all', name: 'all' }, { id: 'openNow', name: 'open now' }], sort: [{ id: 'distance', name: 'distance' }]
         }
        
     };
@@ -77,7 +83,7 @@ export let actionFunction = {
         ...verticals,
         ...details
 };
-export let verticalsPlaceholders = {};
+//export let verticalsPlaceholders = {};
 export let verticalsList=[];
 export let names = [];
 export let page = [];
@@ -87,17 +93,17 @@ for (var v in verticals) {
     var item = verticals[v];
     names.push({ 'id': item.id, 'name': item.name });
     verticalsNavbar.push({'id':item.id,'name':item.name,image:item.image});
-    verticalsPlaceholders[v] = item.placeholder;
+   // verticalsPlaceholders[v] = item.placeholder;
     verticalsList.push(verticals[v]);
     page[v] = { title: item.resultTitle, emptyText: item.emptyState,filter:item.filter,sort:item.sort}
 }
-verticalsNavbar.push({
-    id: routes.settingsRoute,
-    name: "Settings",
-    image: "setting"
-});
+//verticalsNavbar.push({
+//    id: routes.settingsRoute,
+//    name: "Settings",
+//    image: "setting"
+//});
 for (var v in details) {
-    var item = details[v]
+    var item = details[v];
     page[v] = {filter: item.filter, sort: item.sort }
 }
 

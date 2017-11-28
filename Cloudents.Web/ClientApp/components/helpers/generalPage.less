@@ -1,7 +1,16 @@
 ﻿@import "../../mixin.less";
-.wrap  {
-    margin-top:2%;
+
+.wrap {
+    margin-top: 2%;
 }
+
+.p-result {
+    .first-grid {
+        width: 230px;
+        .flexSameSize();
+    }
+}
+
 .sec-result {
     //@cell-width: 504px;
     max-width: 504px;
@@ -11,8 +20,7 @@
         //width: @cell-width;
         border-radius: 4px;
     }
-
-    h5 {
+    /*h5 {
         font-weight: 600;
         text-align: center;
         //width: @cell-width;
@@ -21,8 +29,7 @@
         @media only screen and (max-device-width : 600px) {
             font-size: 16px;
         }
-    }
-
+    }*/
     .sort-filter {
         overflow: auto;
         white-space: nowrap;
@@ -67,47 +74,8 @@
             padding-left: 6px;
         }
     }
-    /*.s-divider {
-        width: 0px;
-        display:inline-block;
-        border-left: solid 1px @Spitball-Main-color;
-        margin: 0px 6px;
-        height:100%;
-    }*/
-    /*.chip {
-        background: #fff;
-        color: @Spitball-Main-color;
-        border: 1px solid @Spitball-Main-color;
-        border-radius: 10px;
-        letter-spacing: -0.3px;
-        //font-size: 12px;
-        text-transform:capitalize;
-        padding:0 24px;
-
-        &.chip--selected {
-            color: #fff;
-            border: 0;
-            background: @Spitball-Main-color; //override
-        }
-    }*/
-    /*.sub-search {
-        overflow: auto;
-        white-space: nowrap;
-
-        .chip {
-            border: solid 1px @Sub-Filter;
-            color: @Sub-Filter;
-
-            &.chip--selected {
-                background: @Sub-Filter;
-                color: #fff; //override
-            }
-        }
-    }*/
-    /*.full-height {
-        height: 100%;
-    }*/
 }
+
 .side-bar {
     position: -webkit-sticky;
     position: sticky;

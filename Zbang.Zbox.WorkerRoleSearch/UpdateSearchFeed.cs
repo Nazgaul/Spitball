@@ -20,21 +20,21 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class UpdateSearchFeed : UpdateSearch, IJob
     {
-        private readonly ICloudBlockProvider m_CloudBlockProvider;
-        private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
-        private readonly IFeedWriteSearchProvider m_SearchProvider;
-        private readonly IWatsonExtract m_WatsonExtractProvider;
-        private readonly IZboxWriteService m_WriteService;
-        private readonly ILogger m_Logger;
+        private readonly ICloudBlockProvider _cloudBlockProvider;
+        private readonly IZboxReadServiceWorkerRole _zboxReadService;
+        private readonly IFeedWriteSearchProvider _searchProvider;
+        private readonly IWatsonExtract _watsonExtractProvider;
+        private readonly IZboxWriteService _writeService;
+        private readonly ILogger _logger;
 
         public UpdateSearchFeed(ICloudBlockProvider cloudBlockProvider, IZboxReadServiceWorkerRole zboxReadService, IFeedWriteSearchProvider searchProvider, IWatsonExtract watsonExtractProvider, IZboxWriteService writeService, ILogger logger)
         {
-            m_CloudBlockProvider = cloudBlockProvider;
-            m_ZboxReadService = zboxReadService;
-            m_SearchProvider = searchProvider;
-            m_WatsonExtractProvider = watsonExtractProvider;
-            m_WriteService = writeService;
-            m_Logger = logger;
+            _cloudBlockProvider = cloudBlockProvider;
+            _zboxReadService = zboxReadService;
+            _searchProvider = searchProvider;
+            _watsonExtractProvider = watsonExtractProvider;
+            _writeService = writeService;
+            _logger = logger;
         }
 
         public string Name => nameof(UpdateSearchFeed);
@@ -46,7 +46,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             FeedToUpdateSearchDto updates;
             do
             {
-                updates = await m_ZboxReadService.GetFeedDirtyUpdatesAsync(version, page, size, cancellationToken)
+                updates = await _zboxReadService.GetFeedDirtyUpdatesAsync(version, page, size, cancellationToken)
                     .ConfigureAwait(false);
                 if (!updates.Updates.Any() && !updates.Deletes.Any())
                 {
@@ -56,13 +56,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         return TimeToSleep.Increase;
                     }
                 }
-                m_Logger.Info("Feed search Going to process " + updates.NextVersion);
+                _logger.Info("Feed search Going to process " + updates.NextVersion);
                 foreach (var feed in updates.Updates.Where(w => w.University != null && JaredUniversityIdPilot.Contains(w.University.Id)))
                 {
                     await JaredPilotAsync(feed, cancellationToken).Unwrap().ConfigureAwait(false); // otherwise we got race condition
                 }
 
-                await m_SearchProvider.UpdateDataAsync(null, updates.Deletes, cancellationToken).ConfigureAwait(false);
+                await _searchProvider.UpdateDataAsync(null, updates.Deletes, cancellationToken).ConfigureAwait(false);
                 //await Task.WhenAll(tasks).ConfigureAwait(false);
                 page++;
                 //version = Math.Max(version.GetValueOrDefault(), updates.NextVersion);
@@ -78,7 +78,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task WriteNextVersionAsync(CancellationToken cancellationToken, long? version)
         {
-            var currentVersionDb = await m_ZboxReadService.GetTrackingCurrentVersionAsync().ConfigureAwait(false);
+            var currentVersionDb = await _zboxReadService.GetTrackingCurrentVersionAsync().ConfigureAwait(false);
             if (currentVersionDb != version)
             {
                 await WriteVersionAsync(currentVersionDb, cancellationToken).ConfigureAwait(false);
@@ -89,21 +89,21 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             if (elem.Language.GetValueOrDefault(Language.Undefined) == Language.Undefined)
             {
-                elem.Language = await m_WatsonExtractProvider.GetLanguageAsync(elem.Content,cancellationToken).ConfigureAwait(false);
+                elem.Language = await _watsonExtractProvider.GetLanguageAsync(elem.Content,cancellationToken).ConfigureAwait(false);
             }
 
             if (elem.Language == Language.EnglishUs && elem.Tags.All(a => a.Type != TagType.Watson))
             {
-                var result = await m_WatsonExtractProvider.GetKeywordAsync(elem.Content, cancellationToken).ConfigureAwait(false);
+                var result = await _watsonExtractProvider.GetKeywordAsync(elem.Content, cancellationToken).ConfigureAwait(false);
                 if (result != null)
                 {
                     var tags = result as IList<string> ?? result.ToList();
                     elem.Tags.AddRange(tags.Select(s => new FeedSearchTag { Name = s }));
                     var z = new AssignTagsToFeedCommand(elem.Id, tags, TagType.Watson);
-                    await m_WriteService.AddItemTagAsync(z).ConfigureAwait(false);
+                    await _writeService.AddItemTagAsync(z).ConfigureAwait(false);
                 }
             }
-            return m_SearchProvider.UpdateDataAsync(elem, null, cancellationToken);
+            return _searchProvider.UpdateDataAsync(elem, null, cancellationToken);
         }
 
         private async Task<long?> ReadVersionBlobDataAsync(CancellationToken cancellationToken)
@@ -136,7 +136,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private CloudBlockBlob GetBlobVersion()
         {
-            var blob = m_CloudBlockProvider.GetFile("dbVersion", "zboxIdGenerator".ToLower());
+            var blob = _cloudBlockProvider.GetFile("dbVersion", "zboxIdGenerator".ToLower());
             return blob;
         }
 
@@ -144,7 +144,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             var index = RoleIndexProcessor.GetIndex();
             var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
-            m_Logger.Warning($"{Name} index {index} count {count}");
+            _logger.Warning($"{Name} index {index} count {count}");
             while (!cancellationToken.IsCancellationRequested)
             {
                 try
@@ -153,10 +153,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    m_Logger.Exception(ex);
+                    _logger.Exception(ex);
                 }
             }
-            m_Logger.Error($"{Name} on finish run");
+            _logger.Error($"{Name} on finish run");
         }
     }
 }

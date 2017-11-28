@@ -8,26 +8,26 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class TelemetryLogger : ILogger
     {
-        private readonly TelemetryClient m_Telemetry = new TelemetryClient();
+        private readonly TelemetryClient _telemetry = new TelemetryClient();
 
         public void Exception(Exception ex, IDictionary<string, string> properties = null)
         {
-            m_Telemetry.TrackException(ex, properties);
+            _telemetry.TrackException(ex, properties);
         }
 
-        public void Info(string info)
+        public void Info(string message)
         {
-            m_Telemetry.TrackTrace(info, SeverityLevel.Information);
+            _telemetry.TrackTrace(message, SeverityLevel.Information);
         }
 
-        public void Warning(string warning)
+        public void Warning(string message)
         {
-            m_Telemetry.TrackTrace(warning, SeverityLevel.Warning);
+            _telemetry.TrackTrace(message, SeverityLevel.Warning);
         }
 
-        public void Error(string error)
+        public void Error(string message)
         {
-            m_Telemetry.TrackTrace(error, SeverityLevel.Error);
+            _telemetry.TrackTrace(message, SeverityLevel.Error);
         }
 
         public void TrackMetric(string name, double value)
@@ -37,7 +37,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 Name = name,
                 Sum = value
             };
-            m_Telemetry.TrackMetric(sample);
+            _telemetry.TrackMetric(sample);
         }
     }
 }

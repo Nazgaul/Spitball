@@ -17,7 +17,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             builder.RegisterType<UpdateSearchFlashcard>().Named<IJob>(IocFactory.UpdateSearchFlashcard);
             builder.RegisterType<UpdateSearchUniversity>().Named<IJob>(IocFactory.UpdateSearchUniversity);
             builder.RegisterType<UpdateSearchFeed>().Named<IJob>(nameof(UpdateSearchFeed));
-            builder.RegisterType<Crawler>().Named<IJob>(nameof(Crawler));
+           // builder.RegisterType<Crawler>().Named<IJob>(nameof(Crawler));
 
             builder.RegisterType<SchedulerListener>().Named<IJob>(nameof(SchedulerListener));
             builder.RegisterType<UpdateUnsubscribeList>().Named<IJob>(nameof(UpdateUnsubscribeList));
@@ -25,7 +25,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             builder.RegisterType<ThumbnailQueueProcess>().Named<IJob>(nameof(ThumbnailQueueProcess));
             builder.RegisterType<MailQueueProcess>().Named<IJob>(nameof(MailQueueProcess));
             builder.RegisterType<TestingJob>().Named<IJob>(nameof(TestingJob));
-            builder.RegisterType<BlobManagement>().Named<IJob>(nameof(BlobManagement));
+           // builder.RegisterType<BlobManagement>().Named<IJob>(nameof(BlobManagement));
             builder.RegisterType<DeleteOldConnections>().Named<IJob>(nameof(DeleteOldConnections));
 
             builder.RegisterType<NoUniversityMailProcess>().Named<ISchedulerProcess>("universityNotSelected");

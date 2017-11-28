@@ -12,13 +12,11 @@
         public string MailSubject { get; set; }
 
         public string MailCategory { get; set; }
-
-        public string UniversityUrl { get; set; }
     }
 
-    public class GreekPartnerDto : SpamGunDto
-    {
-        public string Chapter { get; set; }
-        public string School { get; set; }
-    }
+    //public class GreekPartnerDto : SpamGunDto
+    //{
+    //    public string Chapter { get; set; }
+    //    public string School { get; set; }
+    //}
 }

@@ -16,11 +16,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
         //private readonly Dictionary<string, GeographyPoint> m_ZipToLocationCache = new Dictionary<string, GeographyPoint>();
 
         private readonly ICache m_Cache;
-        private readonly ILogger m_Logger;
+        private readonly ILogger _logger;
 
         public ZipToLocationProvider(ILogger logger, ICache cache)
         {
-            m_Logger = logger;
+            _logger = logger;
             m_Cache = cache;
         }
 
@@ -56,7 +56,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    m_Logger.Exception(ex, new Dictionary<string, string>
+                    _logger.Exception(ex, new Dictionary<string, string>
                     {
                         ["service"] = "Jobs",
                         ["zip"] = zip

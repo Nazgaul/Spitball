@@ -10,7 +10,7 @@ import vueAdsense from 'vue-adsense';
 
 const vuetifyComponents = {
     VApp,
-    VNavigationDrawer,
+    //VNavigationDrawer,
     VGrid,
     VChip,
     VToolbar,
@@ -29,12 +29,13 @@ const vuetifyComponents = {
     VBtn,
     VTooltip,
     VMenu,
-VSwitch
+    VSwitch,
+    VTabs
 };
 import {
     Vuetify,
     VApp,
-    VNavigationDrawer,
+    //VNavigationDrawer,
     VGrid,
     VChip,
     VToolbar,
@@ -53,7 +54,8 @@ import {
     VBtn,
     VTooltip,
     VMenu,
-    VSwitch
+    VSwitch,
+    VTabs
 
 } from 'vuetify'
 import * as route from './routes';

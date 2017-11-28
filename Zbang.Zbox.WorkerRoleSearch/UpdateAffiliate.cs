@@ -12,12 +12,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public abstract class UpdateAffiliate<T, TU> : ISchedulerProcess
     {
-        private readonly ILogger m_Logger;
+        private readonly ILogger _logger;
         private readonly ILocalStorageProvider m_LocalStorage;
 
         protected UpdateAffiliate(ILogger logger, ILocalStorageProvider localStorage)
         {
-            m_Logger = logger;
+            _logger = logger;
             m_LocalStorage = localStorage;
         }
 
@@ -39,7 +39,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public async Task<bool> ExecuteAsync(int index, Func<int, TimeSpan, Task> progressAsync, CancellationToken token)
         {
             if (progressAsync == null) throw new ArgumentNullException(nameof(progressAsync));
-            m_Logger.Info($"{Service} starting to work");
+            _logger.Info($"{Service} starting to work");
             var locationToSave = m_LocalStorage.CombineDirectoryWithFileName(FileLocation);
             if (!File.Exists(locationToSave) || index == 0)
             {
@@ -74,7 +74,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     var t1 = UpdateSearchAsync(list, token); // m_JobSearchService.UpdateDataAsync(list, token);
 
                     var t2 = progressAsync.Invoke(i, TimeSpan.FromMinutes(10));
-                    m_Logger.Info($"{Service} finish processing " + i);
+                    _logger.Info($"{Service} finish processing " + i);
 
                     await Task.WhenAll(t1, t2).ConfigureAwait(false);
                     token.ThrowIfCancellationRequested();
@@ -83,15 +83,15 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             catch (Exception ex)
             {
-                m_Logger.Exception(ex);
+                _logger.Exception(ex);
             }
             if (list.Count > 0)
             {
                 await UpdateSearchAsync(list, token).ConfigureAwait(false);
             }
-            m_Logger.Info($"{Service} Going To delete old items");
+            _logger.Info($"{Service} Going To delete old items");
             await DeleteOldItemsAsync(token).ConfigureAwait(false);
-            m_Logger.Info($"{Service} finish to work");
+            _logger.Info($"{Service} finish to work");
             return true;
         }
     }

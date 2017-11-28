@@ -15,13 +15,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
     {
         private readonly IQueueProviderExtract m_QueueProviderExtract;
         private readonly ILifetimeScope m_LifetimeScope;
-        private readonly ILogger m_Logger;
+        private readonly ILogger _logger;
 
         public TransactionQueueProcess(IQueueProviderExtract queueProviderExtract, ILifetimeScope lifetimeScope, ILogger logger)
         {
             m_QueueProviderExtract = queueProviderExtract;
             m_LifetimeScope = lifetimeScope;
-            m_Logger = logger;
+            _logger = logger;
         }
 
         public string Name => nameof(TransactionQueueProcess);
@@ -38,13 +38,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         var msgData = msg.FromMessageProto<Infrastructure.Transport.DomainProcess>();
                         if (msgData == null)
                         {
-                            m_Logger.Error($"{Name} run - msg cannot transfer to DomainProcess");
+                            _logger.Error($"{Name} run - msg cannot transfer to DomainProcess");
                             return true;
                         }
                         var process = m_LifetimeScope.ResolveNamed<IDomainProcess>(msgData.ProcessResolver);
                         if (process == null)
                         {
-                            m_Logger.Error($"{Name} run - process is null msgData.ProcessResolver: {msgData.ProcessResolver}");
+                            _logger.Error($"{Name} run - process is null msgData.ProcessResolver: {msgData.ProcessResolver}");
                             return true;
                         }
                         return await process.ExecuteAsync(msgData, cancellationToken).ConfigureAwait(false);
@@ -63,7 +63,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    m_Logger.Exception(ex, new Dictionary<string, string> {["service"] = Name });
+                    _logger.Exception(ex, new Dictionary<string, string> {["service"] = Name });
                 }
             }
         }

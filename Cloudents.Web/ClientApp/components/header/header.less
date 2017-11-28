@@ -5,11 +5,37 @@
 
 
 .header {
-    .logo-link {
+    background-image: linear-gradient(276deg, @Spitball-Main-color, #3023ae);
+
+    .toolbar__title {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        box-sizing:border-box;
+        margin-left:0 !important; //override
+        //.inTheMiddle();
+    }
+
+    .logo {
+        .filler {
+            fill: #fff;
+        }
+
+        width: 165px;
+        height: 32px;
+        // .inTheMiddle();
+    }
+
+    .search-b{
+        max-width:784px;
+    } 
+    .settings {
+        width: 24px;
+        height: 24px;
+    }
+    /*.logo-link {
         width: @logoWidth; //note this is the navbar width as on navbar.vue
         .inTheMiddle();
-        //border-right: 1px solid #dddddd;
-        //height: 100%;
     }
 
     .line {
@@ -92,5 +118,5 @@
         &.chip--selected {
             background: #0455a8;
         }
-    }
+    }*/
 }

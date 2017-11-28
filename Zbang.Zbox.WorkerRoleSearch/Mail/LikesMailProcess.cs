@@ -13,21 +13,21 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
     public class LikesMailProcess : ISchedulerProcess
     {
         private readonly IMailComponent m_MailComponent;
-        private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
+        private readonly IZboxReadServiceWorkerRole _zboxReadService;
         private const string ServiceName = nameof(LikesMailProcess);
-        private readonly ILogger m_Logger;
+        private readonly ILogger _logger;
 
         public LikesMailProcess(IZboxReadServiceWorkerRole zboxReadService, IMailComponent mailComponent, ILogger logger)
         {
-            m_ZboxReadService = zboxReadService;
+            _zboxReadService = zboxReadService;
             m_MailComponent = mailComponent;
-            m_Logger = logger;
+            _logger = logger;
         }
 
         public async Task<bool> ExecuteAsync(int index, Func<int,TimeSpan, Task> progressAsync, CancellationToken token)
         {
             var list = new List<Task>();
-            var result = await m_ZboxReadService.GetLikesDataAsync(token).ConfigureAwait(false);
+            var result = await _zboxReadService.GetLikesDataAsync(token).ConfigureAwait(false);
             foreach (var user in result.GroupBy(g => g.Email))
             {
                 var email = user.Key;
@@ -49,7 +49,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     marketingMail, token));
             }
             await Task.WhenAll(list).ConfigureAwait(false);
-            m_Logger.Info($"{ServiceName} finish running  mail");
+            _logger.Info($"{ServiceName} finish running  mail");
             return true;
         }
     }

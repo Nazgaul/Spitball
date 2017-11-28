@@ -18,10 +18,10 @@ namespace Cloudents.Infrastructure.AI
     {
         private readonly LuisClient m_Client;
 
-        private readonly HashSet<string> m_SearchVariables = new HashSet<string>(new[] {"documents", "flashcards"},
+        private readonly HashSet<string> _searchVariables = new HashSet<string>(new[] {"documents", "flashcards"},
             StringComparer.InvariantCultureIgnoreCase);
 
-        private readonly HashSet<string> m_SearchTerms = new HashSet<string>(new[] { "isbn", "subject" },
+        private readonly HashSet<string> _searchTerms = new HashSet<string>(new[] { "isbn", "subject" },
             StringComparer.InvariantCultureIgnoreCase);
 
         public LuisAI(LuisClient client)
@@ -47,12 +47,12 @@ namespace Cloudents.Infrastructure.AI
                     course = entity.Value;
                     continue;
                 }
-                if (m_SearchVariables.Contains(entity.Name))
+                if (_searchVariables.Contains(entity.Name))
                 {
                     searchType = new KeyValuePair<string, string>(entity.Name, entity.Value);
                     continue;
                 }
-                if (m_SearchTerms.Contains(entity.Name))
+                if (_searchTerms.Contains(entity.Name))
                 {
                     terms.Add(entity.Value);
                 }
@@ -63,6 +63,7 @@ namespace Cloudents.Infrastructure.AI
         public void Dispose()
         {
             m_Client?.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

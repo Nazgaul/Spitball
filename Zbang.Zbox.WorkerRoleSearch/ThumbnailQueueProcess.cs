@@ -16,13 +16,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
     {
         private readonly IQueueProviderExtract m_QueueProviderExtract;
         private readonly ILifetimeScope m_ComponentContent;
-        private readonly ILogger m_Logger;
+        private readonly ILogger _logger;
 
         public ThumbnailQueueProcess(IQueueProviderExtract queueProviderExtract, ILifetimeScope componentContent, ILogger logger)
         {
             m_QueueProviderExtract = queueProviderExtract;
             m_ComponentContent = componentContent;
-            m_Logger = logger;
+            _logger = logger;
         }
 
         public string Name => nameof(ThumbnailQueueProcess);
@@ -40,13 +40,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         var msgData = msg.FromMessageProto<FileProcess>();
                         if (msgData == null)
                         {
-                            m_Logger.Error($"{Name} run - msg cannot transfer to FileProcess");
+                            _logger.Error($"{Name} run - msg cannot transfer to FileProcess");
                             return true;
                         }
                         var process = m_ComponentContent.ResolveOptionalNamed<IFileProcess>(msgData.ProcessResolver);
                         if (process != null) return await process.ExecuteAsync(msgData, cancellationToken).ConfigureAwait(false);
 
-                        m_Logger.Error($"{Name} run - process is null msgData.ProcessResolver: {msgData.ProcessResolver}");
+                        _logger.Error($"{Name} run - process is null msgData.ProcessResolver: {msgData.ProcessResolver}");
                         return true;
                     }, TimeSpan.FromMinutes(1), 5, cancellationToken).ConfigureAwait(false);
                     if (!result)
@@ -63,7 +63,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    m_Logger.Exception(ex, new Dictionary<string, string> {["service"] = Name });
+                    _logger.Exception(ex, new Dictionary<string, string> {["service"] = Name });
                 }
             }
         }

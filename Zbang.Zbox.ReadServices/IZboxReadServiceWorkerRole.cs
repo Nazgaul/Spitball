@@ -26,11 +26,6 @@ namespace Zbang.Zbox.ReadServices
 
         BadItemDto GetFlagItemUserDetail(GetBadItemFlagQuery query);
 
-        //Task<IEnumerable<dynamic>> GetMissingThumbnailBlobsAsync(int index, long start);
-
-
-        //Task<IEnumerable<UniversitySearchDto>> GetUniversityDetailAsync();
-
         Task<UniversityToUpdateSearchDto> GetUniversitiesDirtyUpdatesAsync(int index, int total, int top);
         Task<UniversitySearchDto> GetUniversityDirtyUpdatesAsync(long id);
 
@@ -44,8 +39,6 @@ namespace Zbang.Zbox.ReadServices
         Task<FlashcardToUpdateSearchDto> GetFlashcardsDirtyUpdatesAsync(int index, int total, int top,
             CancellationToken token);
 
-        // Task<DocumentSearchDto> GetItemDirtyUpdatesAsync(long itemId);
-
         Task<IEnumerable<MarketingDto>> GetUsersWithoutUniversityAsync(MarketingQuery query,
             CancellationToken token);
 
@@ -58,25 +51,22 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<MarketingDto>> GetUsersFollowingCoursesNoActivityAsync(MarketingQuery query,
             CancellationToken token);
 
-        //Task<IEnumerable<MarketingDto>> GetLowContributersUsersAsync(MarketingQuery query,
-        //    CancellationToken token);
-
         Task<IEnumerable<LikesDto>> GetLikesDataAsync(CancellationToken token);
 
         Task<IEnumerable<Tuple<long, string>>> GetDocumentsWithoutMd5Async(long id);
 
         Task<IEnumerable<Tuple<long, decimal>>> GetDuplicateDocumentsAsync();
-        //Task<IEnumerable<string>> GetEmailsAsync(int page);
 
+        Task<IEnumerable<int>> SpamGunUniversityNumberAsync(CancellationToken token);
 
-        Task<IEnumerable<SpamGunDto>> GetSpamGunDataAsync(int universityId, CancellationToken token);
+       // Task<IEnumerable<SpamGunDto>> GetSpamGunDataAsync(int universityId, CancellationToken token);
+        Task<IEnumerable<SpamGunDto>> GetSpamGunDataAsync(int universityId, int limit, CancellationToken token);
 
         IEnumerable<long> GetUsersBadgeFollow(int page);
         IEnumerable<long> GetUsersBadgeQuiz(int page);
         IEnumerable<long> GetUsersBadgeItem(int page);
         IEnumerable<long> GetUsersBadgeLike(int page);
         IEnumerable<long> GetUserReputationUpdate(int page);
-
 
         #region feedUpdateSearch
 
@@ -86,7 +76,6 @@ namespace Zbang.Zbox.ReadServices
         Task<long> GetTrackingCurrentVersionAsync();
 
         #endregion
-
 
     }
 }

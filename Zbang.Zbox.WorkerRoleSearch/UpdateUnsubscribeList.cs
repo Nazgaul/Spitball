@@ -19,13 +19,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public class UpdateUnsubscribeList : IJob
     {
         private readonly IZboxWorkerRoleService m_ZboxWorkerRoleService;
-        private readonly ICloudBlockProvider m_CloudBlockProvider;
+        private readonly ICloudBlockProvider _cloudBlockProvider;
         private readonly IIntercomApiManager m_IntercomManager;
         private DateTime m_DateTime;
         private string m_LeaseId = string.Empty;
         private readonly TimeSpan m_SleepTime = TimeSpan.FromMinutes(30);
         private readonly IMailComponent m_MailComponent;
-        private readonly ILogger m_Logger;
+        private readonly ILogger _logger;
 
         private CloudBlockBlob m_Blob;
 
@@ -35,9 +35,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public UpdateUnsubscribeList(IMailComponent mailComponent, IZboxWorkerRoleService zboxWorkerRoleService, ICloudBlockProvider cloudBlockProvider, IIntercomApiManager intercomManager, ILogger logger)
         {
             m_ZboxWorkerRoleService = zboxWorkerRoleService;
-            m_CloudBlockProvider = cloudBlockProvider;
+            _cloudBlockProvider = cloudBlockProvider;
             m_IntercomManager = intercomManager;
-            m_Logger = logger;
+            _logger = logger;
             m_DateTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
             m_Jobs = new List<JobPerApi>
@@ -77,7 +77,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         }
                     }
 
-                    m_Logger.Info($"{Name} update unsubscribe list data {m_DateTime}");
+                    _logger.Info($"{Name} update unsubscribe list data {m_DateTime}");
                     var mailContent = new StringBuilder();
                     foreach (var job in m_Jobs)
                     {
@@ -125,7 +125,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 catch (Exception ex)
                 {
                     await m_MailComponent.GenerateSystemEmailAsync("sendGrid api", $"{Name} with errors {ex}").ConfigureAwait(false);
-                    m_Logger.Exception(ex);
+                    _logger.Exception(ex);
                 }
             }
         }
@@ -160,7 +160,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private async Task<CloudBlockBlob> ReadBlobDataAsync(CancellationToken cancellationToken)
         {
             // ReSharper disable once StringLiteralTypo
-            var blob = m_CloudBlockProvider.GetFile("sendGridApiQuery", "zboxidgenerator");
+            var blob = _cloudBlockProvider.GetFile("sendGridApiQuery", "zboxidgenerator");
             if (!await blob.ExistsAsync(cancellationToken).ConfigureAwait(false))
             {
                 await blob.UploadTextAsync(m_DateTime.ToFileTimeUtc().ToString(), cancellationToken).ConfigureAwait(false);

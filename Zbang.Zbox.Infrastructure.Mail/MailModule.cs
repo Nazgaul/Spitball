@@ -26,7 +26,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             builder.RegisterType<LowContributionMail>().Named<IMailBuilder>(nameof(LowContributionMailParams));
             builder.RegisterType<ReplyToCommentMail>().Named<IMailBuilder>(nameof(ReplyToCommentMailParams));
             builder.RegisterType<SpamGunMail>().Named<IMailBuilder>(nameof(SpamGunMailParams));
-            builder.RegisterType<GreekPartnerMail>().Named<IMailBuilder>(nameof(GreekPartnerMailParams));
+           // builder.RegisterType<GreekPartnerMail>().Named<IMailBuilder>(nameof(GreekPartnerMailParams));
             builder.RegisterType<EmailVerification>().As<IEmailVerification>().SingleInstance();
         }
     }

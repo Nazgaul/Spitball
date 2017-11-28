@@ -57,7 +57,9 @@ namespace Cloudents.Infrastructure.Data
                     p.Property(z => z.CreatedUser).HasColumnName("CreatedUser");
                     p.Property(z => z.UpdatedUser).HasColumnName("UpdatedUser");
                 });
+#pragma warning disable CC0021 // Use nameof
                 entity.Property(p => p.UniversityId).HasColumnName("University");
+#pragma warning restore CC0021 // Use nameof
                 entity.HasOne(e => e.University).WithMany(b => b.Courses).HasForeignKey(e=>e.UniversityId);
             });
 

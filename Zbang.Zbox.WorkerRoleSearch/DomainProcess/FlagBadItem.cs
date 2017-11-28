@@ -14,13 +14,13 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
     {
         private readonly IMailComponent m_MailComponent;
         private readonly ITableProvider m_TableProvider;
-        private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
+        private readonly IZboxReadServiceWorkerRole _zboxReadService;
 
         public FlagBadItem(IMailComponent mailComponent, ITableProvider tableProvider, IZboxReadServiceWorkerRole zboxReadService)
         {
             m_MailComponent = mailComponent;
             m_TableProvider = tableProvider;
-            m_ZboxReadService = zboxReadService;
+            _zboxReadService = zboxReadService;
         }
 
         public Task<bool> ExecuteAsync(Infrastructure.Transport.DomainProcess data, CancellationToken token)
@@ -43,7 +43,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             await m_TableProvider.InsertUserRequestAsync(
                 new FlagItem(parameters.ItemId, parameters.UserId, parameters.Other, parameters.Reason));
 
-            var flagItemDetail = m_ZboxReadService.GetFlagItemUserDetail(new GetBadItemFlagQuery(parameters.UserId, parameters.ItemId));
+            var flagItemDetail = _zboxReadService.GetFlagItemUserDetail(new GetBadItemFlagQuery(parameters.UserId, parameters.ItemId));
 
             await m_MailComponent.GenerateAndSendEmailAsync("eidan@cloudents.com",
                    new FlagItemMailParams(flagItemDetail.ItemName,

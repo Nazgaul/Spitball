@@ -51,7 +51,9 @@ namespace Cloudents.Web
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(connection);
+#if DEBUG
                 options.UseLoggerFactory(AppDbContext.MyLoggerFactory);
+# endif
             });
 
             var containerBuilder = new ContainerBuilder();

@@ -19,19 +19,19 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public class BlobManagement : IJob //: ISchedulerProcess
     {
         private readonly CloudBlobClient m_BlobClient;
-        private readonly IContentWriteSearchProvider m_SearchProvider;
-        private readonly IWatsonExtract m_WatsonExtractProvider;
+        private readonly IContentWriteSearchProvider _searchProvider;
+        private readonly IWatsonExtract _watsonExtractProvider;
         private readonly IUniversityReadSearchProvider m_UniversitySearchProvider;
-        private readonly ILogger m_Logger;
+        private readonly ILogger _logger;
 
         private readonly string[] m_Prefix;
 
         public BlobManagement(IContentWriteSearchProvider searchProvider, IWatsonExtract watsonExtractProvider, IUniversityReadSearchProvider universitySearchProvider, ILogger logger)
         {
-            m_SearchProvider = searchProvider;
-            m_WatsonExtractProvider = watsonExtractProvider;
+            _searchProvider = searchProvider;
+            _watsonExtractProvider = watsonExtractProvider;
             m_UniversitySearchProvider = universitySearchProvider;
-            m_Logger = logger;
+            _logger = logger;
             var cloudStorageAccount = CloudStorageAccount.Parse(
 
                    CloudConfigurationManager.GetSetting("StorageConnectionString"));
@@ -57,7 +57,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 var prefix = m_Prefix[position % m_Prefix.Length];
                 position += count;
-                m_Logger.Warning($"{Name} prefix {prefix}");
+                _logger.Warning($"{Name} prefix {prefix}");
                 //Call ListBlobsSegmentedAsync and enumerate the result segment returned, while the continuation token is non-null.
                 //When the continuation token is null, the last page has been returned and execution can exit the loop.
                 do
@@ -80,7 +80,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         }
                         catch (Exception ex)
                         {
-                            m_Logger.Exception(ex, new Dictionary<string, string> {["Name"] = Name });
+                            _logger.Exception(ex, new Dictionary<string, string> {["Name"] = Name });
                         }
                     }
 
@@ -132,7 +132,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
             }
 
-            var language = await m_WatsonExtractProvider
+            var language = await _watsonExtractProvider
                 .GetLanguageAsync(model.Content, cancellationToken)
                 .ConfigureAwait(false);
             var tags = model.Tags?.Length > 0 ? model.Tags : model.MetaKeywords;
@@ -167,7 +167,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            await m_SearchProvider.UpdateDataAsync(document, cancellationToken).ConfigureAwait(false);
+            await _searchProvider.UpdateDataAsync(document, cancellationToken).ConfigureAwait(false);
 
             await CopyBlobAsync(cancellationToken, directoryOk, model.Id, blockBlob)
                 .ConfigureAwait(false);
@@ -210,7 +210,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         //            }
 
         //        }
-        //        await m_SearchProvider.DeleteDataAsync(list, cancellationToken).ConfigureAwait(false);
+        //        await _searchProvider.DeleteDataAsync(list, cancellationToken).ConfigureAwait(false);
 
         //        continuationToken = resultSegment.ContinuationToken;
         //    } while (continuationToken != null);

@@ -1,4 +1,4 @@
-﻿<template>
+﻿﻿<template>
     <component is="slot">
         <v-dialog v-model="dialog" max-width="500px" persistent content-class="dialog-choose" v-if="currentItem">
             <div class="d-header">
@@ -45,7 +45,7 @@
     </component>
 </template>
 <script>
-    import {debounce} from 'lodash'
+    import debounce from 'lodash/debounce'
     const RadioList = () => import('./../helpers/radioList.vue');
     const plusButton = () => import('./svg/plus-button.svg');
     const closeButton = () => import('./svg/close-icon.svg');
@@ -63,7 +63,9 @@
         },
         watch:{
             type(val){
-                this.$refs.searchText?this.$refs.searchText.inputValue='':this.$_search('')
+                this.isLoading=true;
+                this.items =[];
+                this.$refs.searchText?this.$refs.searchText.inputValue='':this.$_search('');
             }
         },
         computed: {
@@ -71,6 +73,7 @@
                 get() {
                     return this.value;
                 }, set(val) {
+                    if(!val)this.$refs.searchText.inputValue='';
                     this.$emit('change', val)
                 }
             },

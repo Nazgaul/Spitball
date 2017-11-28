@@ -12,12 +12,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public class DeleteOldConnections : IJob
     {
         private readonly IZboxWriteService m_ZboxWriteService;
-        private readonly ILogger m_Logger;
+        private readonly ILogger _logger;
 
         public DeleteOldConnections(IZboxWriteService zboxWriteService, ILogger logger)
         {
             m_ZboxWriteService = zboxWriteService;
-            m_Logger = logger;
+            _logger = logger;
         }
 
         public string Name => nameof(DeleteOldConnections);
@@ -38,7 +38,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    m_Logger.Exception(ex, new Dictionary<string,string> {["process"] = Name });
+                    _logger.Exception(ex, new Dictionary<string,string> {["process"] = Name });
                 }
                 if (command.UserIds?.Any() == true)
                 {
@@ -52,7 +52,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     }
                     catch (Exception ex)
                     {
-                        m_Logger.Exception(ex, new Dictionary<string, string> {["process"] = Name });
+                        _logger.Exception(ex, new Dictionary<string, string> {["process"] = Name });
                     }
                 }
                 await Task.Delay(TimeSpan.FromSeconds(30), cancellationToken).ConfigureAwait(false);

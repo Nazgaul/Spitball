@@ -32,7 +32,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IBlobProvider2<CrawlContainerName> m_BlobProvider;
         private readonly IDocumentDbRepository<CrawlModel> m_DocumentDbRepository;
         private readonly IMailComponent m_MailManager;
-        private readonly ILogger m_Logger;
+        private readonly ILogger _logger;
 
         public Crawler(IBlobProvider2<CrawlContainerName> blobProvider,
             IDocumentDbRepository<CrawlModel> documentDbRepository, IMailComponent mailManager, ILogger logger)
@@ -40,7 +40,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_BlobProvider = blobProvider;
             m_DocumentDbRepository = documentDbRepository;
             m_MailManager = mailManager;
-            m_Logger = logger;
+            _logger = logger;
             var finder = new CrawlSiteMapFinder();
             var config = AbotXConfigurationSectionHandler.LoadFromXml().Convert();
 
@@ -62,21 +62,21 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             if (crawledPage.WebException != null || crawledPage.HttpWebResponse.StatusCode != HttpStatusCode.OK)
             {
-                m_Logger.Warning(
+                _logger.Warning(
                     $"Crawl of page failed {crawledPage.Uri.AbsoluteUri} , exception {crawledPage.WebException}");
                 return;
             }
 
             if (!crawledPage.HttpWebResponse.ContentType.Contains("text/html"))
             {
-                m_Logger.Warning(
+                _logger.Warning(
                     $"Crawl of page {crawledPage.Uri.AbsoluteUri} of type {crawledPage.HttpWebResponse.ContentType}");
                 return;
             }
 
             if (string.IsNullOrEmpty(crawledPage.Content.Text))
             {
-                m_Logger.Warning($"Page had no content {crawledPage.Uri.AbsoluteUri}");
+                _logger.Warning($"Page had no content {crawledPage.Uri.AbsoluteUri}");
                 return;
             }
             //Create dictionary of Authority and related create model function
@@ -101,14 +101,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    m_Logger.Exception(ex, new Dictionary<string, string> { ["page"] = crawledPage.ToString() });
+                    _logger.Exception(ex, new Dictionary<string, string> { ["page"] = crawledPage.ToString() });
                 }
             }
         }
 
         public async Task RunAsync(CancellationToken cancellationToken)
         {
-            m_Logger.Info("starting to log");
+            _logger.Info("starting to log");
             var studySoupSiteMap = new Uri("https://studysoup.com/sitemap.xml.gz");
             //var tempUrl =
             //    new Uri("https://studysoup.com/note/17394/ui-econ-1100-0aaa-week-10-spring-2015-kelsy-lartius");
@@ -137,14 +137,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 await m_MailManager.GenerateSystemEmailAsync("crawler",
                         $"Crawl of {result.RootUri.AbsoluteUri} completed with error: {result.ErrorException.Message}")
                     .ConfigureAwait(false);
-                m_Logger.Error(
+                _logger.Error(
                     $"Crawl of {result.RootUri.AbsoluteUri} completed with error: {result.ErrorException.Message}");
             }
             else
             {
                 await m_MailManager.GenerateSystemEmailAsync("crawler",
                     $"Crawl of {result.RootUri.AbsoluteUri} completed without error.").ConfigureAwait(false);
-                m_Logger.Info($"Crawl of {result.RootUri.AbsoluteUri} completed without error.");
+                _logger.Info($"Crawl of {result.RootUri.AbsoluteUri} completed without error.");
             }
         }
 
@@ -321,7 +321,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public async Task<bool> ExecuteAsync(int index, Func<int, TimeSpan, Task> progressAsync,
             CancellationToken token)
         {
-            m_Logger.Info("starting to log");
+            _logger.Info("starting to log");
             var studySoupSiteMap = new Uri("https://studysoup.com/sitemap.xml.gz");
             var t = m_Crawler.CrawlAsync(studySoupSiteMap);
 

@@ -598,36 +598,64 @@ FETCH NEXT @RowsPerPage ROWS ONLY";
             }
         }
 
-        public async Task<IEnumerable<SpamGunDto>> GetSpamGunDataAsync(int universityId, CancellationToken token)
+        public async Task<IEnumerable<int>> SpamGunUniversityNumberAsync(CancellationToken token)
         {
-            using (var conn = await DapperConnection.OpenReliableConnectionAsync(token, "SpamGun").ConfigureAwait(false))
+            using (var conn =
+                await DapperConnection.OpenReliableConnectionAsync(token, "SpamGun").ConfigureAwait(false))
             {
-                const string sql1 = @"select top 500 s.id, FirstName, Email,mailBody as MailBody,s.chapter,
-mailSubject as MailSubject, mailCategory as MailCategory,u.url as UniversityUrl, u.name as school 
-from students2 s join universities u on s.uniId = u.id
-where uniid = @UniId
-and shouldSend = 1
-and chapter is not null
-order by s.id;";
-                const string sql2 = @"select top 500 s.id, FirstName, LastName, Email,mailBody as MailBody,
-mailSubject as MailSubject, mailCategory as MailCategory,u.url as UniversityUrl 
-from students2 s join universities u on s.uniId = u.id
-where uniid = @UniId
+                return await conn.QueryAsync<int>(new CommandDefinition(@"SELECT DISTINCT UniId FROM dbo.students2
+                WHERE ShouldSend = 1", cancellationToken: token)).ConfigureAwait(false);
+            }
+        }
+
+//        public async Task<IEnumerable<SpamGunDto>> GetSpamGunDataAsync(int universityId, CancellationToken token)
+//        {
+//            using (var conn = await DapperConnection.OpenReliableConnectionAsync(token, "SpamGun").ConfigureAwait(false))
+//            {
+//                const string sql1 = @"select top 500 s.id, FirstName, Email,mailBody as MailBody,s.chapter,
+//mailSubject as MailSubject, mailCategory as MailCategory,u.url as UniversityUrl, u.name as school 
+//from students2 s join universities u on s.uniId = u.id
+//where uniId = @UniId
+//and shouldSend = 1
+//and chapter is not null
+//order by s.id;";
+//                const string sql2 = @"select top 500 s.id, FirstName, LastName, Email,mailBody as MailBody,
+//mailSubject as MailSubject, mailCategory as MailCategory,u.url as UniversityUrl 
+//from students2 s join universities u on s.uniId = u.id
+//where uniId = @UniId
+//and shouldSend = 1
+//and chapter is null
+//order by s.id;";
+//                var policy = GetRetryPolicy();
+//                return await policy.ExecuteAsync(async () =>
+//                {
+//                    // ReSharper disable once AccessToDisposedClosure
+//                    using (var grid = await conn.QueryMultipleAsync(
+//                        new CommandDefinition(
+//                            sql1 + sql2, new { UniId = universityId }, cancellationToken: token)).ConfigureAwait(false))
+//                    {
+//                        var result = await grid.ReadAsync<GreekPartnerDto>().ConfigureAwait(false);
+//                        return result.Union(await grid.ReadAsync<SpamGunDto>().ConfigureAwait(false));
+//                    }
+//                }, token).ConfigureAwait(false);
+//            }
+//        }
+
+        public async Task<IEnumerable<SpamGunDto>> GetSpamGunDataAsync(int universityId, int limit, CancellationToken token)
+        {
+            const string sql2 = @"SELECT top (@top) s.id, FirstName, LastName, Email,mailBody as MailBody,
+mailSubject as MailSubject, mailCategory as MailCategory
+from students2 s 
+where uniId = @UniId
 and shouldSend = 1
 and chapter is null
 order by s.id;";
-                var policy = GetRetryPolicy();
-                return await policy.ExecuteAsync(async () =>
-                {
-                    // ReSharper disable once AccessToDisposedClosure
-                    using (var grid = await conn.QueryMultipleAsync(
-                        new CommandDefinition(
-                            sql1 + sql2, new { UniId = universityId }, cancellationToken: token)).ConfigureAwait(false))
-                    {
-                        var result = await grid.ReadAsync<GreekPartnerDto>().ConfigureAwait(false);
-                        return result.Union(await grid.ReadAsync<SpamGunDto>().ConfigureAwait(false));
-                    }
-                }, token).ConfigureAwait(false);
+            using (var conn =
+                await DapperConnection.OpenReliableConnectionAsync(token, "SpamGun").ConfigureAwait(false))
+            {
+                return await conn.QueryAsync<SpamGunDto>(
+                        new CommandDefinition(sql2, new {UniId = universityId, top = limit}, cancellationToken: token))
+                    .ConfigureAwait(false);
             }
         }
 
