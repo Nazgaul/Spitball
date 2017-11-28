@@ -1,7 +1,7 @@
 ﻿<template>
     <component is="slot">
         <v-container v-for="(strip,index) in strips" class="strip" :class="strip.class">
-            <v-layout row justify-center align-center class="strip-content">
+            <v-layout row justify-center align-center wrap class="strip-content">
                 <v-flex class="image-wrapper">
                     <div class="images">
                         <img :src="require(`./img/${strip.image}`)" />
@@ -10,7 +10,7 @@
                         </div>
                     </div>
                 </v-flex>
-                <v-flex class="description pa-4">
+                <v-flex class="description">
                     <v-layout class="strip-title" row align-center justify-start>
                         <component :is="strip.titleIcon"></component>
                         <h3 :style="{'color':strip.titleColor}">{{strip.title}}</h3>
