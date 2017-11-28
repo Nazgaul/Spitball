@@ -82,6 +82,10 @@ export const pageMixin =
                 if(newTerm){
                     this.$route.meta[this.$_calcTerm(toName)] = {term: newTerm, luisTerm: newTerm};
                     this.$router.push({path: to.path, query: {q: newTerm}});
+                }else{
+                    this.$nextTick(()=>{
+                        this.$el.querySelector(`#${this.name} a`).click();
+                    })
                 }
             }
         },
