@@ -78,17 +78,12 @@ export const pageMixin =
                 });
             }else{
                 this.UPDATE_LOADING(false);
-                let newTerm=prompt(`Please enter the search term for ${toName}`);
+                const newTerm=prompt(`Please enter the search term for ${toName}`);
                 if(newTerm){
-                    this.updateSearchText(newTerm).then((response)=>{
-                        this.$route.meta[this.$_calcTerm(toName)]={term:newTerm,luisTerm:response.term};
-                        let luisTerm = to.meta[this.$_calcTerm(toName)].luisTerm;
-                        this.fetchingData({name: toName, params: {...to.query, ...to.params}, luisTerm})
-                            .then((data) => {
-                                updateData.call(this, data);
-                            });
-                        this.$router.push({path:to.path,query:{q:newTerm}})
-                    })
+                        this.updateSearchText(newTerm).then((response) => {
+                            this.$route.meta[this.$_calcTerm(toName)] = {term: newTerm, luisTerm: response.term};
+                                this.$router.push({path: to.path, query: {q: newTerm}});
+                        })
                 }
             }
         },
