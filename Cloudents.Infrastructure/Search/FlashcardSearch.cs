@@ -21,11 +21,15 @@ namespace Cloudents.Infrastructure.Search
         public async Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, CancellationToken token)
         {
             var term = new List<string>();
-            term.AddNotNull(model.UniversitySynonym);
+
+            if (model.UniversitySynonym != null)
+            {
+                term.Add(string.Join(" OR ", model.UniversitySynonym.Select(s => '"' + s + '"')));
+            }
             term.AddNotNull(model.Course, s => '"' + s + '"');
             if (model.Query != null)
             {
-                term.Add(string.Join(" ", model.Query.Select(s => '"' + s + '"')));
+                term.Add(string.Join(" ", model.Query));
             }
 
             var result = Enumerable.Range(model.Page * 3, 3).Select(s =>

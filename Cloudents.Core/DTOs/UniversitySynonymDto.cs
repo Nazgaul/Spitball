@@ -1,7 +1,9 @@
-﻿namespace Cloudents.Core.DTOs
+﻿using System.Collections.Generic;
+
+namespace Cloudents.Core.DTOs
 {
     public class UniversitySynonymDto
     {
-        public string Name { get; set; }
+        public IEnumerable<string> Name { get; set; }
     }
 }

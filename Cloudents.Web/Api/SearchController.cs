@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
@@ -24,7 +25,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> SearchDocumentAsync([FromQuery] SearchRequest model,
             CancellationToken token, [FromServices] IDocumentCseSearch searchProvider)
         {
-            string universitySynonym = null;
+            IEnumerable<string> universitySynonym = null;
             if (model.University.HasValue)
             {
                 var repositoryResult = await _universitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
@@ -41,7 +42,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> SearchFlashcardsAsync([FromQuery] SearchRequest model,
             CancellationToken token, [FromServices] IFlashcardSearch searchProvider)
         {
-            string universitySynonym = null;
+            IEnumerable<string> universitySynonym = null;
             if (model.University.HasValue)
             {
                 var repositoryResult = await _universitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
