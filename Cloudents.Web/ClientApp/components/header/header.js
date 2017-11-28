@@ -3,11 +3,14 @@ import {  names } from "../data"
 import logo from "../../../wwwroot/Images/logo-spitball.svg";
 import settingsIcon from "./Images/settings-icon.svg";
 import { mapActions,mapGetters} from 'vuex'
+import 'vue-awesome/icons/search';
+import VIcon from 'vue-awesome/components/Icon.vue'
 
 export default {
     components: {
         //'search-type': searchTypes,
         logo,
+        VIcon,
         settingsIcon,
         "search-icon": searchIcon
     },
