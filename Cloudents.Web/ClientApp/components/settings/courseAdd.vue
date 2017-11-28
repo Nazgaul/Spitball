@@ -1,8 +1,14 @@
 ﻿<template>
     <div>
         <form @submit.prevent="$_submit" @keydown.enter.prevent="$_submit">
-            <v-text-field v-model.trim="name" required placeholder="Course Name" />
-            <v-text-field v-model.trim="code" placeholder="CourseCode" />
+           <v-container fluid grid-list-l> <v-layout row justify-center>
+                <v-flex xs4><v-text-field dark color="white" v-model.trim="name" required placeholder="Course Name" />
+                </v-flex>
+            </v-layout>
+            <v-layout row justify-center>
+                <v-flex xs4>
+                    <v-text-field dark color="white" v-model.trim="code" placeholder="Course Code(optional)" /></v-flex>
+            </v-layout></v-container>
             <v-btn @click="$_submit"
                    :disabled="!name">
                 submit
