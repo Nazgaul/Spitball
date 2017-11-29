@@ -1,14 +1,22 @@
 <template>
     <button type="button" class="suggest">
-        <v-container >
+        <v-container>
             <v-layout row>
-                <v-flex>
+                <v-flex class="image-wrapper">
                     <div class="logo-wrap">
                         <logo></logo>
                     </div>
                 </v-flex>
-                <v-flex class="text">
-                    I found some sweet {{name}} for you.  You can thank me later:)
+
+                <v-flex class="text-wrapper">
+                    <v-layout class="wrapper" align-content-space-between column>
+                        <v-flex class="text">
+                            I found some sweet {{name}} for you.  You can thank me later:)
+                        </v-flex>
+                        <v-flex class="button-text">
+                            <div>Show me</div>
+                        </v-flex>
+                    </v-layout>
                 </v-flex>
             </v-layout>
         </v-container>
@@ -26,44 +34,9 @@
     export default {
         components: { logo },
 
-        props:{
-           name:{type:String}
+        props: {
+            name: { type: String }
         }
     }
 </script>
-<style scoped lang="less">
-    .logo-wrap {
-        width: 64px;
-        height: 64px;
-        background: #000;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-
-        @media only screen and (max-device-width : 600px) {
-            width: 48px;
-            height: 48px;
-        }
-    }
-
-    svg {
-        height: 28px;
-    }
-    .text {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-
-        @media only screen and (max-device-width : 600px) {
-            font-size: 14px;
-        }
-    } 
-    .suggest {
-        background: #FFF;
-        width: 100%;
-        //cursor: pointer;
-        border-radius: 4px;
-        color: #000;
-    }
-</style>
+<style src="./suggestCard.less" lang="less" scoped></style>

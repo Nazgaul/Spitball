@@ -1,0 +1,62 @@
+﻿@import "../../mixin.less";
+
+.logo-wrap {
+    width: 64px;
+    height: 64px;
+    background: #000;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    @media only screen and (max-device-width : 600px) {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+svg {
+    height: 28px;
+}
+
+.text {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    @media only screen and (max-device-width : 600px) {
+        font-size: 14px;
+    }
+}
+
+.suggest {
+    background: #FFF;
+    width: 100%;
+    //cursor: pointer;
+    border-radius: 4px;
+    color: #000;
+
+    .container {
+        padding: 8px;
+    }
+
+    .image-wrapper {
+        padding: 8px 0 8px 8px;
+    }
+
+    .text-wrapper .wrapper {
+        height: 100%;
+
+        .button-text {
+            flex-grow: 0;
+
+            > div {
+                width: 80px;
+                line-height: 24px;
+                background: @color-blue;
+                color: #ffffff;
+                margin-left: auto;
+            }
+        }
+    }
+}

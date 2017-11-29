@@ -67,6 +67,8 @@
 @Selected-Vertical: #2a7bcf;
 @Feed-Date: #888b8e;
 
+@mobile-breakpoint: 600px;
+
 
 
 
@@ -92,15 +94,16 @@
     text-overflow: ellipsis;
 }
 
-.imageWrapper(@width,@height) {
+.imageWrapper(@width,@height,@svgSize:48px) {
     .img-wrap {
         width: @width;
         height: @height;
+            .inTheMiddle();
 
 
         > img,.defaultImage {
-            width: 100%;
-            height: 100%;
+            width: @svgSize;
+            height: auto;
             object-fit: cover;
         }
     }

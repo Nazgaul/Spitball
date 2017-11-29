@@ -1,16 +1,16 @@
 ﻿<template>
-    <v-toolbar app clipped-left fixed :height="$vuetify.breakpoint.smAndDown? 48 : 72" :extended="$vuetify.breakpoint.smAndDown" class="header">
+    <v-toolbar app clipped-left fixed :height="isMobileSize? 48 : 72" :extended="isMobileSize" class="header">
         <!--class="ml-0 pl-3"-->
         <!--<v-icon name="search"></v-icon>-->
-        <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 230px; min-width: 230px' : 'min-width: 72px'" :class="$vuetify.breakpoint.smAndUp? 'pl-4' : ''">
-            <router-link :to="{name:'home'}">
+        <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 230px; min-width: 230px' : 'min-width: 72px'">
+            <router-link class="logo-link" :to="{name:'home'}">
                 <logo class="logo"></logo>
             </router-link>
         </v-toolbar-title>
-        <form @submit.prevent="submit" :slot="$vuetify.breakpoint.smAndDown? 'extension' : 'default'">
+        <form @submit.prevent="submit" :slot="isMobileSize? 'extension' : 'default'" :class="isMobileSize? 'ml-2 mr-2' : 'default'">
             <v-text-field  light solo class="search-b" placeholder="Ask me anything" v-model="qFilter"></v-text-field>
         </form>
-        <div class="d-flex align-center" style="margin-left: auto">
+        <div class="settings-wrapper d-flex align-center">
             <router-link :to="{name:'setting'}" class="settings">
                 <settings-icon></settings-icon>
             </router-link>

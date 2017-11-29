@@ -36,6 +36,9 @@ export default {
                     }
                 }
                 return this.currentName;
+        },
+        isMobileSize: function () {
+             return this.$vuetify.breakpoint.xsOnly
         }
     },
     watch:{
