@@ -13,5 +13,6 @@ namespace Cloudents.Core.Interfaces
             GeoPoint location, string nextPageToken, CancellationToken token);
 
         Task<PlaceDto> SearchAsync(string term, CancellationToken token);
+        Task<GeoPoint> GeoCodingAsync(string location, CancellationToken token);
     }
 }

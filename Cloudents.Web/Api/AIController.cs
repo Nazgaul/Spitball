@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Microsoft.AspNetCore.Mvc;
@@ -26,10 +27,11 @@ namespace Cloudents.Web.Api
         [ValidateModel]
         //[ResponseCache(VaryByQueryKeys = new[] { "sentence" }, Duration = 30 * 60)]
         public async Task<IActionResult> AiAsync(
-            AiRequest model)
+            AiRequest model, CancellationToken token)
         {
             if (model == null) throw new ArgumentNullException(nameof(model));
-            var result = await _engineProcess.ProcessRequestAsync(model.Sentence).ConfigureAwait(false);
+            var result = await _engineProcess.ProcessRequestAsync(model.Sentence, token).ConfigureAwait(false);
+            
             return Json(result);
         }
     }

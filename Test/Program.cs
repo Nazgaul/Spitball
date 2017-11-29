@@ -25,28 +25,13 @@ namespace Test
                 ConfigurationManager.AppSettings["AzureSearchKey"],
                 ConfigurationManager.AppSettings["Redis"], Environment.Console);
 
-            builder.RegisterType<GoogleSheet>().As<IGoogleSheet>();
+          //  builder.RegisterType<GoogleSheet>().As<IGoogleSheet>();
             builder.RegisterModule(infrastructureModule);
             var container = builder.Build();
-
+            
 
             var services = container.Resolve<IEngineProcess>();
-            var result = await services.ProcessRequestAsync("study guides on war");
-
-
-            //foreach (var service in services)
-            //{
-            //    service.SearchAsync("math",SearchRequestFilter.None,SearchRequestSort.None,null,0,default);
-            //}
-
-
-
-
-            //await service.SearchNearbyAsync("pizza",SearchRequestFilter.None,new GeoPoint()
-            //{
-            //    Latitude
-            //})
-
+            var result = await services.ProcessRequestAsync("find me a job in chicago", default);
             Console.ReadLine();
         }
     }

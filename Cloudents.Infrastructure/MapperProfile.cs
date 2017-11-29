@@ -35,7 +35,7 @@ namespace Cloudents.Infrastructure
             CreateMap<Search.Entities.University, UniversityDto>();
 
             CreateMap<JObject, IEnumerable<BookSearchDto>>().ConvertUsing((jo, bookSearch, c) => jo["response"]["page"]["books"]?["book"]?.Select(json => c.Mapper.Map<JToken, BookSearchDto>(json)));
-            CreateMap<JToken, BookSearchDto>().ConvertUsing((jo) => new BookSearchDto
+            CreateMap<JToken, BookSearchDto>().ConvertUsing(jo => new BookSearchDto
             {
                 Image = jo["image"]?["image"].Value<string>(),
                 Author = jo["author"].Value<string>(),
@@ -49,6 +49,15 @@ namespace Cloudents.Infrastructure
             CreateMap<JObject, BookDetailsDto>().ConvertUsing<BookDetailConverter>();
             CreateMap<JObject, (string, IEnumerable<PlaceDto>)>().ConvertUsing<PlaceConverter>();
             CreateMap<JObject, IEnumerable<TutorDto>>().ConvertUsing<TutorMeConverter>();
+            CreateMap<JObject, GeoPoint>().ConvertUsing(jo =>
+            {
+                var geo = jo["results"][0]["geometry"]["location"];
+                return new GeoPoint
+                {
+                    Latitude = geo["lat"].Value<double>(),
+                    Longitude = geo["lng"].Value<double>()
+                };
+            });
             CreateMap<string, IpDto>().ConvertUsing<IpConverter>();
 
         }

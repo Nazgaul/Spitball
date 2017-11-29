@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Extension;
@@ -29,7 +30,7 @@ namespace Cloudents.Infrastructure.AI
         }
 
         [Cache(TimeConst.Day, "ai")]
-        public async Task<AiDto> InterpretStringAsync(string sentence)
+        public async Task<AiDto> InterpretStringAsync(string sentence, CancellationToken token)
         {
             if (sentence == null) throw new ArgumentNullException(nameof(sentence));
             var result = await _client.Predict(sentence).ConfigureAwait(false);
