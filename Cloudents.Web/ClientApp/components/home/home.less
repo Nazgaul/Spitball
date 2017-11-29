@@ -56,6 +56,7 @@
 
         .logo {
             width: 128px;
+            fill:@color-blue;
         }
     }
 
@@ -225,11 +226,6 @@
     p {
         color: @color-grey;
         font-size: 20px;
-        line-height: 1.65;
-        height: 130px;
-        margin: 0 0 40px;
-        padding-right: 110px;
-        overflow: hidden;
     }
 }
 
@@ -331,8 +327,13 @@
     padding: 34px 0;
     text-align: center;
 
-    .carousel{
+    .carousel {
+        height: auto;
         box-shadow: none;
+
+        @media(max-width: 600px) {
+            padding: 16px;
+        }
     }
 
     .testimonial-text {

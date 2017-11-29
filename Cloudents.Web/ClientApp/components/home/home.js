@@ -70,10 +70,10 @@ export default {
                     name: "Key Features",
                     link: "#"
                 },
-                {
-                    name: "Shared Documents",
-                    link: "#"
-                },
+                //{
+                //    name: "Shared Documents",
+                //    link: "#"
+                //},
                 {
                     name: "Mobile App",
                     link: "#"

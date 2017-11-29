@@ -1,29 +1,15 @@
 ﻿<template v-once>
     <div class="wrapper">
-        <v-navigation-drawer temporary
-                             light
-                             v-model="drawer"
-                             overflow
-                             absolute>
-            <v-list>
-                <template v-for="action in links">
-                    <v-list-tile append>
-                        <v-list-tile-content>
-                            <v-list-tile-title>{{ action.name }}</v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                </template>
-            </v-list>
-        </v-navigation-drawer>
         <div class="box-header">
             <v-container fluid>
                 <v-layout row>
                     <v-flex class="logo-wrapper">
                         <logo class="logo"></logo>
                     </v-flex>
+
                     <header>
                         <v-toolbar flat style="background-color:transparent;" height="52">
-                            <v-toolbar-side-icon @click.stop="drawer = !drawer" class="hidden-md-and-up"><menu-icon></menu-icon></v-toolbar-side-icon>
+                            <!--<v-toolbar-side-icon @click.stop="drawer = !drawer" class="hidden-md-and-up"><menu-icon></menu-icon></v-toolbar-side-icon>-->
                             <!--<v-spacer class="hidden-sm-and-down"></v-spacer>-->
                             <div class="hidden-sm-and-down" v-for="action in links" :key="action.name">
                                 <a href="#">{{ action.name }}</a>
@@ -99,9 +85,9 @@
 
         <section class="box-section testimonials">
             <v-carousel hide-delimiters>
-                <v-carousel-item v-for="testimonial in testimonials">
+                <v-carousel-item v-for="testimonial in testimonials" src="">
                     <div class="testimonial">
-                        <p class="testimonial-text">{{testimonial.testimonial}}</p>
+                        <p class="testimonial-text">"{{testimonial.testimonial}}"</p>
                         <div class="author">
                             <img :src="require(`./img/${testimonial.image}`)" />
                             <div>
