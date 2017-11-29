@@ -3,9 +3,13 @@
         <!--class="ml-0 pl-3"-->
         <v-icon name="search"></v-icon>
         <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 230px; min-width: 230px' : 'min-width: 72px'" :class="$vuetify.breakpoint.smAndUp? 'pl-4' : ''">
-            <logo class="logo"></logo>
+            <router-link :to="{name:'home'}">
+                <logo class="logo"></logo>
+            </router-link>
         </v-toolbar-title>
-        <v-text-field :slot="$vuetify.breakpoint.smAndDown? 'extension' : 'default'" light solo class="search-b"  placeholder="Ask me anything" v-model="qFilter"></v-text-field>
+        <form @submit.prevent="submit">
+            <v-text-field :slot="$vuetify.breakpoint.smAndDown? 'extension' : 'default'" light solo class="search-b" placeholder="Ask me anything" v-model="qFilter"></v-text-field>
+        </form>
         <div class="d-flex align-center" style="margin-left: auto">
             <router-link :to="{name:'setting'}" class="settings">
                 <settings-icon></settings-icon>

@@ -1,163 +1,176 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cloudents.Core;
+using System.Reflection;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Models;
 
 namespace Cloudents.Infrastructure.AI
 {
     public class AIDecision : IDecision
     {
-        [Flags]
-        private enum Decision
+        [AttributeUsage(AttributeTargets.Method)]
+        private sealed class FactoryAttribute : Attribute
         {
-            None = 0,
-            Course = 1,
-            SearchType = 2,
-            Term = 4
 
         }
 
-        private static readonly Dictionary<Decision, AiResult> NoneIntentMatrix =
-            new Dictionary<Decision, AiResult>()
-            {
-                [Decision.None] = AiResult.SearchOrQuestion,
-                [Decision.SearchType] = AiResult.AddSubjectOrCourse,
-            };
+        private readonly List<Func<AiDto, VerticalEngineDto>> _matrix = new List<Func<AiDto, VerticalEngineDto>>();
 
-        private static readonly Dictionary<Decision, AiResult> TutorBookJobMatrix =
-            new Dictionary<Decision, AiResult>()
-            {
-                [Decision.None] = AiResult.AddSubject,
-                [Decision.Course] = AiResult.AddSubject,
-                [Decision.SearchType] = AiResult.AddSubject,
-                [Decision.Course | Decision.SearchType] = AiResult.AddSubject,
-            };
-        private static readonly Dictionary<Decision, AiResult> AskQuestionMatrix =
-            new Dictionary<Decision, AiResult>()
-            {
-                [Decision.None] = AiResult.SearchOrQuestion,
-                [Decision.Course] = AiResult.ChatPost,
-                [Decision.SearchType] = AiResult.AddSubjectOrCourse,
-                [Decision.Course | Decision.SearchType] = AiResult.AddSearchTypeToSubject,
-                [Decision.SearchType | Decision.Term] = AiResult.AddSearchTypeToSubject,
-            };
 
-        private static readonly Dictionary<Decision, AiResult> SearchMatrix =
-            new Dictionary<Decision, AiResult>()
-            {
-                [Decision.None] = AiResult.SearchOrQuestion,
-                [Decision.Course] = AiResult.SearchOrQuestion,
-                [Decision.SearchType] = AiResult.AddSubjectOrCourse,
-            };
 
-        private static readonly Dictionary<Decision, AiResult> PurchaseMatrix =
-            new Dictionary<Decision, AiResult>()
-            {
-                [Decision.None] = AiResult.PurchaseAskBuy,
-                [Decision.SearchType] = AiResult.PurchaseChangeTerm,
-            };
-
-        private readonly Dictionary<AiIntent, Func<Decision, AiResult>> m_Dictionary =
-            new Dictionary<AiIntent, Func<Decision, AiResult>>
-            {
-                [AiIntent.None] = p =>
-                {
-                    const AiResult result = AiResult.Search;
-                    if (NoneIntentMatrix.TryGetValue(p, out var result2))
-                    {
-                        return result2;
-                    }
-                    return result;
-                },
-                [AiIntent.Qna] = _ => AiResult.Qna,
-                [AiIntent.Tutor] = p =>
-                {
-                    const AiResult result = AiResult.Tutor;
-                    if (TutorBookJobMatrix.TryGetValue(p, out var result2))
-                    {
-                        return result2;
-                    }
-                    return result;
-                },
-                [AiIntent.Job] = p =>
-            {
-                const AiResult result = AiResult.Job;
-                if (TutorBookJobMatrix.TryGetValue(p, out var result2))
-                {
-                    return result2;
-                }
-                return result;
-            },
-                [AiIntent.Book] = p =>
-                {
-                    const AiResult result = AiResult.Book;
-                    if (TutorBookJobMatrix.TryGetValue(p, out var result2))
-                    {
-                        return result2;
-                    }
-                    return result;
-                },
-                [AiIntent.Question] = p =>
-                {
-                    const AiResult result = AiResult.Ask;
-                    if (AskQuestionMatrix.TryGetValue(p, out var result2))
-                    {
-                        return result2;
-                    }
-                    return result;
-                },
-                [AiIntent.Search] = p =>
-                {
-                    const AiResult result = AiResult.Search;
-                    if (SearchMatrix.TryGetValue(p, out var result2))
-                    {
-                        return result2;
-                    }
-                    return result;
-                },
-                [AiIntent.Purchase] = p =>
-                {
-                    const AiResult result = AiResult.Purchase;
-                    if (PurchaseMatrix.TryGetValue(p, out var result2))
-                    {
-                        return result2;
-                    }
-                    return result;
-                }
-            };
-
-        public (AiResult result, AIDto data) MakeDecision(AIDto aiResult)
+        public AIDecision()
         {
-            var intentMatrix = m_Dictionary[aiResult.Intent];
 
-            var decision = Decision.None;
-            if (aiResult.SearchType != null)
+            var methods = typeof(AIDecision).GetMethods(BindingFlags.NonPublic |BindingFlags.Static).Where(mi =>
             {
-                decision |= Decision.SearchType;
-            }
-            if (!string.IsNullOrEmpty(aiResult.Course))
+                if (mi.ReturnType != typeof(VerticalEngineDto))
+                {
+                    return false;
+                }
+                var t = mi.GetCustomAttributes(typeof(FactoryAttribute), true);
+                return t.Length != 0;
+            });
+            foreach (var method in methods)
             {
-                decision |= Decision.Course;
+                var t = (Func<AiDto, VerticalEngineDto>)Delegate.CreateDelegate(typeof(Func<AiDto, VerticalEngineDto>), method);
+                _matrix.Add(t);
             }
-            if (aiResult.Term.Count > 0)
+        }
+        public VerticalEngineDto MakeDecision(AiDto aiResult)
+        {
+            foreach (var vertical in _matrix)
             {
-                decision |= Decision.Term;
+                var result = vertical(aiResult);
+                if (result != null)
+                {
+                    return result;
+                }
             }
-            var result = intentMatrix(decision);
-            if (result == AiResult.AddSearchTypeToSubject && aiResult.SearchType.HasValue)
+            return new NoneEngineDto();
+
+        }
+
+        [Factory]
+        private static VerticalEngineDto DocumentEngine(AiDto aiResult)
+        {
+            if (aiResult.Intent != AiIntent.Search)
             {
-                aiResult.Term.Add(aiResult.SearchType.Value.Value);
-                return (AiResult.Ask, aiResult);
+                return null;
             }
-            if (result == AiResult.PurchaseChangeTerm && aiResult.SearchType.HasValue)
+            if (aiResult.SearchType.HasValue && string.Equals(aiResult.SearchType.Value.Key, Flashcards,
+                    StringComparison.InvariantCultureIgnoreCase))
             {
-                aiResult.Term.Add(aiResult.SearchType.Value.Value);
-                return (AiResult.Purchase, aiResult);
+                return null;
             }
-            return (result, aiResult);
+            var terms = aiResult.Subject;
+            terms.AddNotNull(aiResult.Course);
+            terms.AddNotNull(aiResult.SearchType?.Value);
+            terms.AddNotNull(aiResult.Location);
+
+            if (terms.Count == 0)
+            {
+                return null;
+            }
+            return new DocumentEngineDto(terms, aiResult.University);
+
+
+        }
+        const string Flashcards = "flashcards";
+        [Factory]
+        private static VerticalEngineDto FlashcardEngine(AiDto aiResult)
+        {
+            if (aiResult.Intent != AiIntent.Search)
+            {
+                return null;
+            }
+          
+            if (!aiResult.SearchType.HasValue || !string.Equals(aiResult.SearchType.Value.Key, Flashcards,
+                    StringComparison.InvariantCultureIgnoreCase))
+            {
+                return null;
+            }
+            var terms = aiResult.Subject;
+            terms.AddNotNull(aiResult.Course);
+            terms.AddNotNull(aiResult.Location);
+
+            if (terms.Count == 0)
+            {
+                return null;
+            }
+            return new FlashcardEngineDto(terms, aiResult.University);
+        }
+        [Factory]
+
+        private static VerticalEngineDto AskEngine(AiDto aiResult)
+        {
+            if (aiResult.Intent != AiIntent.None && aiResult.Intent != AiIntent.Question) return null;
+            var terms = aiResult.Subject;
+            terms.AddNotNull(aiResult.Location);
+
+            if (terms.Count == 0)
+            {
+                return null;
+            }
+            return new AskEngineDto(terms);
+        }
+        [Factory]
+
+        private static VerticalEngineDto JobEngine(AiDto aiResult)
+        {
+            if (aiResult.Intent != AiIntent.Job)
+            {
+                return null;
+            }
+            return new JobEngineDto(aiResult.Subject, aiResult.Location);
+        }
+        [Factory]
+
+        private static VerticalEngineDto TutorEngine(AiDto aiResult)
+        {
+            if (aiResult.Intent != AiIntent.Tutor)
+            {
+                return null;
+            }
+            if (aiResult.Subject.Count == 0)
+            {
+                return null;
+            }
+            return new TutorEngineDto(aiResult.Subject, aiResult.Location);
+        }
+        [Factory]
+
+        private static VerticalEngineDto FoodEngine(AiDto aiResult)
+        {
+            if (aiResult.Intent != AiIntent.Purchase)
+            {
+                return null;
+            }
+            if (aiResult.Subject.Count == 0)
+            {
+                return null;
+            }
+            return new FoodEngineDto(aiResult.Subject, aiResult.Location);
+        }
+        [Factory]
+
+        private static VerticalEngineDto BookEngine(AiDto aiResult)
+        {
+
+            if (aiResult.Intent != AiIntent.Book)
+            {
+                return null;
+            }
+            var terms = aiResult.Subject;
+            terms.AddNotNull(aiResult.Isbn);
+            if (aiResult.Subject.Count == 0)
+            {
+                return null;
+            }
+            return new BookEngineDto(terms);
         }
     }
 }

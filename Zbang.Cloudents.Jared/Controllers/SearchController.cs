@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,7 +34,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> SearchDocumentAsync([FromUri] SearchRequest model,
             CancellationToken token)
         {
-            string universitySynonym = null;
+            IEnumerable<string> universitySynonym = null;
             if (model.University.HasValue)
             {
                 var repositoryResult = await _universitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
@@ -54,7 +55,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> SearchFlashcardAsync([FromUri] SearchRequest model,
             CancellationToken token)
         {
-            string universitySynonym = null;
+            IEnumerable<string> universitySynonym = null;
             if (model.University.HasValue)
             {
                 var repositoryResult = await _universitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
@@ -75,7 +76,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> SearchQuestionAsync([FromUri] SearchRequest model,
             CancellationToken token)
         {
-            string universitySynonym = null;
+            IEnumerable<string> universitySynonym = null;
             if (model.University.HasValue && !string.IsNullOrEmpty(model.Course))
             {
                 var repositoryResult = await _universitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);

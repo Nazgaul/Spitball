@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
@@ -14,13 +12,11 @@ namespace Cloudents.Web.Api
     [Route("api/Ask")]
     public class AskController : Controller
     {
-        private readonly Lazy<IReadRepositoryAsync<UniversitySynonymDto, long>> _universitySynonymRepository;
         private readonly IQuestionSearch _searchProvider;
         private readonly IVideoSearch _videoSearch;
 
-        public AskController(Lazy<IReadRepositoryAsync<UniversitySynonymDto, long>> universitySynonymRepository, IQuestionSearch searchProvider, IVideoSearch videoSearch)
+        public AskController( IQuestionSearch searchProvider, IVideoSearch videoSearch)
         {
-            _universitySynonymRepository = universitySynonymRepository;
             _searchProvider = searchProvider;
             _videoSearch = videoSearch;
         }
@@ -28,14 +24,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> Get([FromQuery] AskRequest model,
             CancellationToken token)
         {
-            string universitySynonym = null;
-            if (model.University.HasValue && !string.IsNullOrEmpty(model.Course))
-            {
-                var repositoryResult = await _universitySynonymRepository.Value.GetAsync(model.University.Value, token).ConfigureAwait(false);
-                universitySynonym = repositoryResult.Name;
-            }
-            var query = new SearchQuery(model.Term, universitySynonym, model.Course, model.Source, model.Page.GetValueOrDefault(),
-                model.Sort.GetValueOrDefault());
+            var query = new SearchQuery(model.Term,  model.Page.GetValueOrDefault());
             var tResult = _searchProvider.SearchAsync(query, token);
             var tVideo = Task.FromResult<VideoDto>(null);
             if (model.Page.GetValueOrDefault() == 0)

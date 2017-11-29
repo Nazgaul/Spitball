@@ -1,10 +1,16 @@
-﻿using Cloudents.Core.Enum;
+﻿using System.Collections.Generic;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Request
 {
     public class SearchQuery
     {
-        public SearchQuery(string[] query, string universitySynonym,
+        public SearchQuery(IEnumerable<string> query, int page)
+            : this(query, null, null, null, page, SearchCseRequestSort.None)
+        {
+        }
+
+        public SearchQuery(IEnumerable<string> query, IEnumerable<string> universitySynonym,
             string course, string source, int page, SearchCseRequestSort sort)
         {
             Query = query;
@@ -15,11 +21,11 @@ namespace Cloudents.Core.Request
             Sort = sort;
         }
 
-        public string Source { get;  }
-        public string UniversitySynonym { get;  }
-        public string Course { get;  }
-        public string[] Query { get;  }
-        public int Page { get;  }
-        public SearchCseRequestSort Sort { get;  }
+        public string Source { get; }
+        public IEnumerable<string> UniversitySynonym { get; }
+        public string Course { get; }
+        public IEnumerable<string> Query { get; }
+        public int Page { get; }
+        public SearchCseRequestSort Sort { get; }
     }
 }

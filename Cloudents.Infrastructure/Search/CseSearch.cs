@@ -26,11 +26,11 @@ namespace Cloudents.Infrastructure.Search
     }
     public class CseSearch : ICseSearch
     {
-        private readonly IKeyGenerator m_KeyGenerator;
+        private readonly IKeyGenerator _keyGenerator;
 
         public CseSearch(IKeyGenerator keyGenerator)
         {
-            m_KeyGenerator = keyGenerator;
+            _keyGenerator = keyGenerator;
         }
 
         [Cache(TimeConst.Day, "cse")]
@@ -70,7 +70,7 @@ namespace Cloudents.Infrastructure.Search
                     }
                     return new SearchResult
                     {
-                        Id = m_KeyGenerator.GenerateKey(s.Link),
+                        Id = _keyGenerator.GenerateKey(s.Link),
                         Url = s.Link,
                         Title = s.Title,
                         Snippet = s.Snippet,

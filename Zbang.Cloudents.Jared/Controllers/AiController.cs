@@ -10,26 +10,20 @@ namespace Zbang.Cloudents.Jared.Controllers
     [MobileAppController]
     public class AiController : ApiController
     {
-        private readonly IAI _ai;
-        private readonly IDecision _mDecision;
+        private readonly IEngineProcess _engineProcess;
 
-        public AiController(IAI ai, IDecision mDecision)
+        public AiController(IEngineProcess engineProcess)
         {
-            _ai = ai;
-            _mDecision = mDecision;
+            _engineProcess = engineProcess;
         }
+
 
         // GET api/Ai
         public async Task<HttpResponseMessage> Get(string sentence)
         {
             if (sentence == null) throw new ArgumentNullException(nameof(sentence));
-            var aiResult = await _ai.InterpretStringAsync(sentence).ConfigureAwait(false);
-            var result = _mDecision.MakeDecision(aiResult);
-            return Request.CreateResponse(new
-            {
-                result.result,
-                result.data
-            });
+            var result = await _engineProcess.ProcessRequestAsync(sentence).ConfigureAwait(false);
+            return Request.CreateResponse(result);
         }
     }
 }

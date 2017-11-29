@@ -80,10 +80,12 @@ export const pageMixin =
                 this.UPDATE_LOADING(false);
                 const newTerm=prompt(`Please enter the search term for ${toName}`);
                 if(newTerm){
-                        this.updateSearchText(newTerm).then((response) => {
-                            this.$route.meta[this.$_calcTerm(toName)] = {term: newTerm, luisTerm: response.term};
-                                this.$router.push({path: to.path, query: {q: newTerm}});
-                        })
+                    this.$route.meta[this.$_calcTerm(toName)] = {term: newTerm, luisTerm: newTerm};
+                    this.$router.push({path: to.path, query: {q: newTerm}});
+                }else{
+                    this.$nextTick(()=>{
+                        this.$el.querySelector(`#${this.name} a`).click();
+                    })
                 }
             }
         },
