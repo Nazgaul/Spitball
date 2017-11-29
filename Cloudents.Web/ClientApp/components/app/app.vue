@@ -1,5 +1,6 @@
 ﻿<template>
     <v-app>
+        <!--TODO v-model is not relevant anymore-->
         <app-header v-if="$route.meta.showHeader" :userText.sync="userText" v-model="showMenu"></app-header>
         <!--<app-menu v-if="$route.meta.showSidebar" :term="userText" :isOpen="showMenu" v-model="showMenu"></app-menu>-->
         <div  class="loader" v-show="!$route.meta.isStatic&&loading">
