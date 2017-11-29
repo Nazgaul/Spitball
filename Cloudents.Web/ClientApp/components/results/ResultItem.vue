@@ -2,7 +2,7 @@
     <a class="d-block" target="_blank" :href="url" @click="(isSpitball?$_spitball($event):'')">
         <v-container class="pa-2">
             <v-layout row fluid>
-                <v-flex class="img-wrap mr-2 pa-0" :class="['border-'+$route.path.slice(1)]">
+                <v-flex class="img-wrap mr-2 pa-0" :class="['border-'+$route.path.slice(1),'bg-'+$route.path.slice(1)]">
                     <img  :src="item.image" alt="" v-if="item.image">
                     <component :is="$route.path.slice(1)+'-default'" v-else :class="'bg-'+$route.path.slice(1)" class="defaultImage"></component>
                 </v-flex>

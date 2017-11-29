@@ -10,20 +10,25 @@
     }
 
     .tabs__bar {
-        height: 36px;
+        @tabsHeight: 60px;
+        height: @tabsHeight;
         background-color: transparent;
+
+        .tabs__container {
+            padding: 10px 0;
+        }
 
         .tabs__li {
             a {
-                height: 36px;
-               // display:inline-block;
+                height: @tabsHeight - 20px;
+                // display:inline-block;
                 //width:100%;
                 color: #fff !important;
                 font-size: 14px;
                 font-weight: 600;
                 letter-spacing: -0.3px;
-                padding: 0 16px ;
-              //  margin-bottom:8px;
+                padding: 0 16px;
+                //  margin-bottom:8px;
             }
         }
 
@@ -40,4 +45,3 @@
         }
     }
 }
-
