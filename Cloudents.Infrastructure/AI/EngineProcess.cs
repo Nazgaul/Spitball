@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
 
 namespace Cloudents.Infrastructure.AI
 {
@@ -12,18 +10,25 @@ namespace Cloudents.Infrastructure.AI
     {
         private readonly IAI _ai;
         private readonly IDecision _mDecision;
+        private readonly IPlacesSearch _placesSearch;
 
-        public EngineProcess(IAI ai, IDecision mDecision)
+        public EngineProcess(IAI ai, IDecision mDecision, IPlacesSearch placesSearch)
         {
             _ai = ai;
             _mDecision = mDecision;
+            _placesSearch = placesSearch;
         }
 
-        public async Task<VerticalEngineDto> ProcessRequestAsync(string str)
+        public async Task<VerticalEngineDto> ProcessRequestAsync(string str, CancellationToken token)
         {
             if (str == null) throw new ArgumentNullException(nameof(str));
-            var aiResult = await _ai.InterpretStringAsync(str).ConfigureAwait(false);
+            var aiResult = await _ai.InterpretStringAsync(str, token).ConfigureAwait(false);
             var result = _mDecision.MakeDecision(aiResult);
+
+            if (result is IVerticalLocation location)
+            {
+                location.Cords = await _placesSearch.GeoCodingAsync(location.Location, token).ConfigureAwait(false);
+            }
 
             return result;
         }

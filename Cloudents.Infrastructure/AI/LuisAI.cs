@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Extension;
@@ -29,7 +30,7 @@ namespace Cloudents.Infrastructure.AI
         }
 
         [Cache(TimeConst.Day, "ai")]
-        public async Task<AiDto> InterpretStringAsync(string sentence)
+        public async Task<AiDto> InterpretStringAsync(string sentence, CancellationToken token)
         {
             if (sentence == null) throw new ArgumentNullException(nameof(sentence));
             var result = await _client.Predict(sentence).ConfigureAwait(false);
@@ -37,15 +38,15 @@ namespace Cloudents.Infrastructure.AI
 
             result.TopScoringIntent.Name.TryToEnum(out AiIntent intent);
             KeyValuePair<string, string>? searchType = null;
-            string university = null, location = null, course = null, isbn = null;
+            string location = null, course = null, isbn = null;
             var terms = new List<string>();
             foreach (var entity in entities)
             {
-                if (entity.Name.Equals("university", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    university = entity.Value;
-                    continue;
-                }
+                //if (entity.Name.Equals("university", StringComparison.InvariantCultureIgnoreCase))
+                //{
+                //    university = entity.Value;
+                //    continue;
+                //}
                 if (_searchVariables.Contains(entity.Name))
                 {
                     searchType = new KeyValuePair<string, string>(entity.Name, entity.Value);
@@ -68,7 +69,7 @@ namespace Cloudents.Infrastructure.AI
                     location = entity.Value;
                 }
             }
-            return new AiDto(intent, searchType, university, terms, location, course, isbn);
+            return new AiDto(intent, searchType, null, terms, location, course, isbn);
         }
 
         public void Dispose()

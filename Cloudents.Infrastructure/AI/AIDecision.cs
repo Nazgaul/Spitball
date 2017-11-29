@@ -50,7 +50,7 @@ namespace Cloudents.Infrastructure.AI
                     return result;
                 }
             }
-            return new NoneEngineDto();
+            return new VerticalEngineNoneDto();
 
         }
 
@@ -75,7 +75,7 @@ namespace Cloudents.Infrastructure.AI
             {
                 return null;
             }
-            return new DocumentEngineDto(terms, aiResult.University);
+            return new VerticalEngineSearchDto(terms, aiResult.University);
 
 
         }
@@ -101,7 +101,7 @@ namespace Cloudents.Infrastructure.AI
             {
                 return null;
             }
-            return new FlashcardEngineDto(terms, aiResult.University);
+            return new VerticalEngineFlashcardDto(terms, aiResult.University);
         }
         [Factory]
 
@@ -115,7 +115,7 @@ namespace Cloudents.Infrastructure.AI
             {
                 return null;
             }
-            return new AskEngineDto(terms);
+            return new VerticalEngineAskDto(terms);
         }
         [Factory]
 
@@ -125,7 +125,7 @@ namespace Cloudents.Infrastructure.AI
             {
                 return null;
             }
-            return new JobEngineDto(aiResult.Subject, aiResult.Location);
+            return new VerticalEngineJobDto(aiResult.Subject, aiResult.Location);
         }
         [Factory]
 
@@ -139,7 +139,7 @@ namespace Cloudents.Infrastructure.AI
             {
                 return null;
             }
-            return new TutorEngineDto(aiResult.Subject, aiResult.Location);
+            return new VerticalEngineTutorDto(aiResult.Subject, aiResult.Location);
         }
         [Factory]
 
@@ -153,7 +153,7 @@ namespace Cloudents.Infrastructure.AI
             {
                 return null;
             }
-            return new FoodEngineDto(aiResult.Subject, aiResult.Location);
+            return new VerticalEngineFoodDto(aiResult.Subject, aiResult.Location);
         }
         [Factory]
 
@@ -170,7 +170,7 @@ namespace Cloudents.Infrastructure.AI
             {
                 return null;
             }
-            return new BookEngineDto(terms);
+            return new VerticalEngineBookDto(terms);
         }
     }
 }
