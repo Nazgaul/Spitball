@@ -1,5 +1,5 @@
-﻿import {FLOW} from './mutation-types';
-import * as routes from './../routeTypes';
+﻿import {FLOW} from "./mutation-types";
+import * as routes from "./../routeTypes";
 
 const state = {
     node: {}
@@ -77,19 +77,7 @@ const getters = {
 }
 const mutations = {
     [FLOW.ADD](state, { vertical,data}) {
-        
-        //if (result === "search") {
-        //    data.searchType = data.searchType || {};
-        //    if (data.searchType.key === "Flashcards") {
-        //        flow = optionalRoutes.flashcard;
-        //    } else {
-        //        flow = optionalRoutes.document;
-        //    }
-
-        //} else {
-        console.log(vertical, data)
         var flow = optionalRoutes[vertical];
-        //}
         if (flow) {
             state.node = {
                 model: flow
