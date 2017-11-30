@@ -33,7 +33,8 @@ const vuetifyComponents = {
     VTooltip,
     VMenu,
     VSwitch,
-    VTabs
+    VTabs,
+    VIcon
 };
 import {
     Vuetify,
@@ -60,7 +61,8 @@ import {
     VTooltip,
     VMenu,
     VSwitch,
-    VTabs
+    VTabs,
+    VIcon
 
 } from "vuetify"
 import * as route from "./routes";

@@ -27,18 +27,20 @@
                                 <!--<div class="speech">-->
                                 <v-container>
                                     <v-layout row>
-                                        <v-flex class="search-icon">
+                                        <!--<v-flex class="search-icon">
                                             <search-icon></search-icon>
-                                        </v-flex>
+                                        </v-flex>-->
                                         <v-flex class="tx-input">
                                             <v-menu offset-y full-width>
-                                                <input slot="activator" @keyup.enter="search" autocomplete="off" type="text" required name="q" id="transcript" v-model.trim="msg" :placeholder="placeholder">
+                                                <!--<v-text-field slot="activator" class="search-b" placeholder="Ask me anything" v-model="qFilter" prepend-icon="sbf-search" append-icon="sbf-mic" :append-icon-cb="mic"></v-text-field>-->
+                                                <!--<v-text-field light solo class="search-b" placeholder="Ask me anything" v-model="qFilter" prepend-icon="sbf-search" append-icon="sbf-mic" :append-icon-cb="mic"></v-text-field>-->
+                                                <v-text-field slot="activator" solo @keyup.enter="search" autocomplete="off" type="text" required name="q" id="transcript" v-model.trim="msg" :placeholder="placeholder" prepend-icon="sbf-search" append-icon="sbf-mic" :append-icon-cb="$_voiceDetection"></v-text-field>
                                                 <v-list>
                                                     <v-subheader>Some things you can ask me:</v-subheader>
                                                     <template v-for="(item, index) in items">
                                                         <v-list-tile @click="selectos(item)" :key="index">
                                                             <v-list-tile-action>
-                                                                -
+                                                                <v-icon>sbf-search</v-icon>
                                                             </v-list-tile-action>
                                                             <v-list-tile-content>
                                                                 <v-list-tile-title v-text="item"></v-list-tile-title>
@@ -48,9 +50,9 @@
                                                 </v-list>
                                             </v-menu>
                                         </v-flex>
-                                        <v-flex class="mic" v-if="voiceEnable">
+                                        <!--<v-flex class="mic" v-if="voiceEnable">
                                             <button type="button" class="demo-icon-mic" @click="$_voiceDetection"><component :is="(isRecording?'recording-icon':'mic-icon')"></component></button>
-                                        </v-flex>
+                                        </v-flex>-->
                                         <v-flex class="f-submit">
                                             <button type="submit">Search</button>
                                         </v-flex>
