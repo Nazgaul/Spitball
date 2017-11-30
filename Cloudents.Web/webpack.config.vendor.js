@@ -21,7 +21,6 @@ module.exports = (env) => {
                 "./wwwroot/content/main.less",
                 "./ClientApp/myFont.font.js",
                 'vuex-persistedstate',
-                "vue-moment",
                 "vue-star-rating",
                 "vuetify/es5/components/Vuetify",
                 "vuetify/es5/components/VApp",
@@ -45,7 +44,8 @@ module.exports = (env) => {
                 "vuetify/es5/components/VMenu",
                 "vuetify/es5/components/VSwitch",
                 "vuetify/es5/components/VTabs",
-                "vuetify/es5/directives/scroll"
+                "vuetify/es5/directives/scroll",
+                "vuetify/es5/components/VIcon"
             ]
         },
         module: {

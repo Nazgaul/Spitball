@@ -33,7 +33,8 @@ const vuetifyComponents = {
     VTooltip,
     VMenu,
     VSwitch,
-    VTabs
+    VTabs,
+    VIcon
 };
 import {
     Vuetify,
@@ -60,7 +61,8 @@ import {
     VTooltip,
     VMenu,
     VSwitch,
-    VTabs
+    VTabs,
+    VIcon
 
 } from "vuetify"
 import * as route from "./routes";
@@ -68,8 +70,7 @@ import VueLazyload from 'vue-lazyload'
 
 Vue.use(VueLazyload, {
     lazyComponent: true,
-    preLoad: 1.3,
-    loading:"Loading...",
+    preLoad: 1,
     attempt: 1
 });
 Vue.use(VueRouter);
