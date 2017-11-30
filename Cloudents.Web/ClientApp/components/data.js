@@ -3,15 +3,6 @@ import * as routes from './../routeTypes';
 
 export let verticals =
     {
-        ask: {
-            id: routes.questionRoute,
-            name: "Ask a Question",
-            image: "ask",
-           // placeholder: "Ask anything...",
-            resultTitle:  "I found a few things that I think are relevant. Check these out.",
-            emptyState: "I could not find any relevant answers.Try these other options.",
-            sort: ""
-        },
         note: {
             id: routes.notesRoute,
 
@@ -42,6 +33,22 @@ export let verticals =
             filter: [{ id: 'all', name: 'all' }, { id: 'online', name: 'online' }, { id: 'inPerson', name: 'In Person' }],
             sort: [{ id: 'price', name: 'price' }, { id: 'distance', name: 'distance' }]
         },
+        book: {
+            id: routes.bookRoute,
+
+            name: "Textbooks", image: "book",
+            //placeholder: "Find me a textbook...",
+            resultTitle: "I found some textbooks that match your search. Check them out!", emptyState: "Sorry, I didn't find any textbooks that match your search", filter: "", sort: ""
+        },
+        ask: {
+            id: routes.questionRoute,
+            name: "Ask a Question",
+            image: "ask",
+            // placeholder: "Ask anything...",
+            resultTitle:  "I found a few things that I think are relevant. Check these out.",
+            emptyState: "I could not find any relevant answers.Try these other options.",
+            sort: ""
+        },
         job: {
             id: routes.jobRoute,
 
@@ -52,13 +59,6 @@ export let verticals =
             emptyState: "Sorry, I didn't find any jobs that match your search",
             filter: [{ id: 'all', name: 'all' },{ id: 'jobType', name: 'job type' }, { id: 'paid', name: 'paid' }],
             sort: [{ id: 'price', name: 'price' }, { id: 'distance', name: 'distance' }]
-        },
-        book: {
-            id: routes.bookRoute,
-
-            name: "Textbooks", image: "book",
-            //placeholder: "Find me a textbook...",
-            resultTitle: "I found some textbooks that match your search. Check them out!", emptyState: "Sorry, I didn't find any textbooks that match your search", filter: "", sort: ""
         },
         food: {
             id: routes.foodRoute,
