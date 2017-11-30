@@ -1,12 +1,12 @@
 ﻿﻿<template>
         <v-dialog  v-model="dialog" fullscreen content-class="dialog-choose" v-if="currentItem" :overlay=false>
-            <personalize-page :title="(currentAction?title:null)" :search="!currentAction" :isLoading="isLoading" :emptyText="emptyText" :items="items" :selectedCourse="selectedCourse">
-                <button slot="closeAction" type="button" @click="$_closeButton">
-                    <close-button></close-button>
-                </button>
+            <personalize-page :title="(currentAction?title:null)" :search="!currentAction" :isLoading="isLoading" :emptyText="emptyText" :items="items" :selectedCourse="selectedCourse" :closeFunction="$_closeButton">
+                <v-flex class="white--text" xs2 slot="extraClose" @click="$_closeButton" v-if="type!=='university'">DONE</v-flex>
+                    <close-button slot="closeAction"></close-button>
+                <v-btn slot="actionButton" v-if="currentItem.action" @click="currentAction=currentItem.action">X</v-btn>
                 <v-text-field slot="inputField" dark  @input="$_search" color="white" ref="searchText" :placeholder="currentItem.placeholder"
                               single-line></v-text-field>
-                <v-chip slot="selectedItems" slot-scope="props" v-if="selectedCourse">
+                <v-chip slot="selectedItems" slot-scope="props" v-if="selectedCourse" label>
                         <strong>{{ props.course.name }}</strong>
                         <span @click="$_removeCourse(props.course.id)"><v-icon name="close"></v-icon></span>
                 </v-chip>

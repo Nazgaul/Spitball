@@ -1,8 +1,9 @@
-﻿const path = require('path');
-const webpack = require('webpack');
-const bundleOutputDir = './wwwroot/dist';
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+﻿const path = require("path");
+const webpack = require("webpack");
+const bundleOutputDir = "./wwwroot/dist";
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+var Visualizer = require("webpack-visualizer-plugin");
 var resolve = (p) => path.resolve(__dirname, p);
 
 
@@ -12,7 +13,7 @@ module.exports = (env) => {
     return [
         {
             entry: {
-                main: './ClientApp/main.js'
+                main: "./ClientApp/main.js"
 
             },
             context: __dirname,
@@ -20,55 +21,79 @@ module.exports = (env) => {
                 loaders: [
                     {
                         test: /\.svg$/,
-                        loader: 'vue-svg-loader'
+                        loader: "vue-svg-loader",
+                        options: {
+                            // optional [svgo](https://github.com/svg/svgo) options
+                            svgo: {
+                                plugins: [
+                                    { removeDoctype: true },
+                                    { removeComments: true }
+                                ]
+                            }
+                        }
 
                     },
                     {
                         test: /\.(png|jpg|jpeg|gif)$/,
-                        loader: 'url-loader',
-                        options: {
-                            limit: 8192
-                        }
+                        use: [
+                            {
+                                loader: "url-loader", options: {
+                                    limit: 8192
+
+                                }
+                            },
+                            {
+                                loader: "image-webpack-loader",
+                                options: {
+                                    bypassOnDebug: true,
+                                    optipng: {
+                                        enabled: true
+                                    }
+                                }
+                            }
+                        ]
+
                     },
                     {
                         test: /\.js$/,
-                        loader: 'babel-loader'
+                        loader: "babel-loader"
                         //  include: /ClientApp/
                         //exclude: /node_modules/
                     },
                     {
                         test: /\.vue$/,
-                        loader: 'vue-loader',
+                        loader: "vue-loader",
                         //include: /ClientApp/,
 
                         options: {
+                            preserveWhitespace: isDevBuild ? false : true,
                             loaders: {
-                                css: isDevBuild ? 'vue-style-loader!css-loader' : ExtractTextPlugin.extract({
-                                    use: 'css-loader?minimize',
-                                    fallback: 'vue-style-loader'
+                                css: isDevBuild ? "vue-style-loader!css-loader" : ExtractTextPlugin.extract({
+                                    use: "css-loader?minimize",
+                                    fallback: "vue-style-loader"
                                 }),
-                                less: isDevBuild ? 'vue-style-loader!css-loader!less-loader' : ExtractTextPlugin.extract({
-                                    use: 'css-loader?minimize!less-loader',
-                                    fallback: 'vue-style-loader'
+                                less: isDevBuild ? "vue-style-loader!css-loader!less-loader" : ExtractTextPlugin.extract({
+                                    use: "css-loader?minimize!less-loader",
+                                    fallback: "vue-style-loader"
                                 })
                             }
                         }
                     },
-                    {
-                        test: /\.styl$/,
-                        loader: isDevBuild ? ['style-loader', 'css-loader', 'stylus-loader', {
-                            loader: 'vuetify-loader',
-                            options: {
-                                theme: resolve('./ClientApp/theme.styl')
-                            }
-                        }] : ExtractTextPlugin.extract({
-                                use: 'css-loader?minimize!stylus-loader'
-                          
-                        })
-                    },
+                    //{
+                    //    test: /\.styl$/,
+                    //    loader: isDevBuild ? ["style-loader", "css-loader", "stylus-loader", {
+                    //        loader: "vuetify-loader",
+                    //        options: {
+                    //            theme: resolve("./ClientApp/theme.styl")
+                    //        }
+                    //    }] : ExtractTextPlugin.extract({
+                    //        use: "css-loader?minimize!stylus-loader"
+
+                    //    })
+                    //},
                     {
                         test: /\.css$/,
-                        use: isDevBuild ? ['style-loader', 'css-loader'] : ExtractTextPlugin.extract({ use: 'css-loader?minimize' })
+                        use: isDevBuild ? ["style-loader", "css-loader"] : ExtractTextPlugin.extract({ use: "css-loader?minimize" })
                     }
                 ]
             },
@@ -77,36 +102,43 @@ module.exports = (env) => {
                 // To the `dist` folder
                 path: path.join(__dirname, bundleOutputDir),
                 // With the filename `build.js` so it's dist/build.js
-                filename: '[name].js',
-                publicPath: '/dist/'
+                filename: "[name].js",
+                publicPath: "/dist/"
             },
             plugins: [
                 new webpack.DefinePlugin({
                     'process.env': {
-                        NODE_ENV: JSON.stringify(isDevBuild ? 'development' : 'production')
+                        NODE_ENV: JSON.stringify(isDevBuild ? "development" : "production")
                     }
                 }),
                 new webpack.DllReferencePlugin({
                     context: __dirname,
-                    manifest: require('./wwwroot/dist/vendor-manifest.json')
+                    manifest: require("./wwwroot/dist/vendor-manifest.json")
                 })
             ].concat(isDevBuild
                 ? [
+                    new Visualizer({
+                        filename: "./statistics.html"
+                    }),
                     // Plugins that apply in development builds only
                     new webpack.SourceMapDevToolPlugin({
-                        filename: '[file].map', // Remove this line if you prefer inline source maps
+                        filename: "[file].map", // Remove this line if you prefer inline source maps
                         moduleFilenameTemplate:
                         path.relative(bundleOutputDir,
-                            '[resourcePath]') // Point sourcemap entries to the original file locations on disk
+                            "[resourcePath]") // Point sourcemap entries to the original file locations on disk
                     })
                 ]
                 : [
                     // Plugins that apply in production builds only
-                    new webpack.optimize.UglifyJsPlugin(),
-                    new ExtractTextPlugin({ filename: 'site.css', allChunks: true }),
+                    new webpack.optimize.UglifyJsPlugin({
+                        compress: {
+                            warnings: false
+                        }
+                    }),
+                    new ExtractTextPlugin({ filename: "site.css", allChunks: true }),
                     new OptimizeCssAssetsPlugin({
                         assetNameRegExp: /\.optimize\.css$/g,
-                        cssProcessor: require('cssnano'),
+                        cssProcessor: require("cssnano"),
                         cssProcessorOptions: { discardComments: { removeAll: true } },
                         canPrint: true
                     })

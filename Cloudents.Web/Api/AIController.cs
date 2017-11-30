@@ -1,11 +1,8 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
 using Microsoft.AspNetCore.Mvc;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Request;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
 
@@ -31,7 +28,6 @@ namespace Cloudents.Web.Api
         {
             if (model == null) throw new ArgumentNullException(nameof(model));
             var result = await _engineProcess.ProcessRequestAsync(model.Sentence, token).ConfigureAwait(false);
-            
             return Json(result);
         }
     }

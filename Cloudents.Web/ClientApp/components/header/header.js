@@ -56,7 +56,7 @@ export default {
                     term: this.qFilter,
                     luisTerm: response.term
                 };
-                this.$router.push({ path: response.result, query: { q: this.qFilter } });
+                this.$router.push({ path: result, query: { q: this.qFilter } });
             });
             this.$emit("update:overlay", false);
         },

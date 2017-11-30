@@ -15,12 +15,34 @@ module.exports = (env) => {
                 'vue',
                 'vue-router',
                 'vue-resource',
-                //'vuetify',
                 'vuex',
                 "./ClientApp/main.styl",
                 "./wwwroot/content/main.less",
-                //'vuetify/dist/vuetify.css',
-                'vuex-persistedstate'
+                'vuex-persistedstate',
+                "vue-moment",
+                "vue-star-rating",
+                "vuetify/es5/components/Vuetify",
+                "vuetify/es5/components/VApp",
+                "vuetify/es5/components/VGrid",
+                "vuetify/es5/components/VChip",
+                "vuetify/es5/components/VToolbar",
+                "vuetify/es5/components/VList",
+                "vuetify/es5/components/VTextField",
+                "vuetify/es5/components/VAvatar",
+                "vuetify/es5/components/VCard",
+                "vuetify/es5/components/VCarousel",
+                "vuetify/es5/components/VProgressCircular",
+                "vuetify/es5/components/VProgressLinear",
+                "vuetify/es5/components/VSubheader",
+                "vuetify/es5/components/VDivider",
+                "vuetify/es5/components/VSnackbar",
+                "vuetify/es5/components/VDialog",
+                "vuetify/es5/components/VBtn",
+                "vuetify/es5/components/VTooltip",
+                "vuetify/es5/components/VMenu",
+                "vuetify/es5/components/VSwitch",
+                "vuetify/es5/components/VTabs",
+                "vuetify/es5/directives/scroll"
             ]
         },
         module: {
@@ -30,29 +52,12 @@ module.exports = (env) => {
                 {
                     test: /\.styl$/,
                     loader: extractCSS.extract({ use: isDevBuild ? 'css-loader!stylus-loader' : 'css-loader?minimize!stylus-loader' })
-                    //loader: isDevBuild ? ['style-loader', 'css-loader', 'stylus-loader', {
-                    //    loader: 'vuetify-loader',
-                    //    options: {
-                    //        theme: resolve('./ClientApp/theme.styl')
-                    //    }
-                    //}] : ExtractTextPlugin.extract({
-                    //    use: 'css-loader?minimize!stylus-loader'
-
-                    //})
                 },
                 {
                     test: /\.less$/,
                     exclude: /ClientApp/,
                     use: extractCSS.extract({ use: isDevBuild ? 'css-loader!less-loader' : 'css-loader?minimize!less-loader' })
-                 //isDevBuild ? ['style-loader', 'css-loader', "less-loader"] :
-                 //        ExtractTextPlugin.extract(
-                 //           {
-                 //               use: "css-loader?minimize!less-loader",
-                 //               fallback: 'style-loader'
-                 //           }
-                      //  )
-
-                },
+                }
             ]
         },
         output: {

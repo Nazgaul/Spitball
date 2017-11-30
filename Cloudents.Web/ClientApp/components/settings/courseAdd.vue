@@ -8,11 +8,14 @@
             <v-layout row justify-center>
                 <v-flex xs4>
                     <v-text-field dark color="white" v-model.trim="code" placeholder="Course Code(optional)" /></v-flex>
-            </v-layout></v-container>
+            </v-layout>
+               <v-layout row justify-center>
+                   <v-flex xs1>
             <v-btn @click="$_submit"
                    :disabled="!name">
                 submit
-            </v-btn>
+            </v-btn></v-flex></v-layout>
+           </v-container>
         </form>
     </div>
   
