@@ -1,4 +1,5 @@
-﻿﻿<template v-once>
+﻿﻿
+<template v-once>
     <div class="wrapper">
         <div class="box-header">
             <v-container fluid>
@@ -75,7 +76,7 @@
                 <v-layout class="logos" row align-center justify-space-around wrap>
                     <v-flex v-for="site in sites" class="site">
                         <v-layout column align-center d-flex>
-                           <lazy-component> <img :src="require(`./img/${site.image}`)" /></lazy-component>
+                            <lazy-component> <img :src="require(`./img/${site.image}`)" /></lazy-component>
                         </v-layout>
                     </v-flex>
                 </v-layout>
@@ -91,8 +92,10 @@
                     <div class="testimonial">
                         <p class="testimonial-text">"{{testimonial.testimonial}}"</p>
                         <div class="author">
-<lazy-component>                            <img :src="require(`./img/${testimonial.image}`)" />
-</lazy-component>                            <div>
+                            <lazy-component>
+                                <img :src="require(`./img/${testimonial.image}`)" />
+                            </lazy-component>       
+                            <div>
                                 <span class="name">{{testimonial.name}}</span>
                                 <span class="uni">{{testimonial.uni}}</span>
                             </div>
@@ -141,10 +144,7 @@
                 </v-layout>
             </v-container>
         </footer>
-
     </div>
-
 </template>
-
 <style src="./home.less" lang="less" scoped></style>
 <script src="./home.js"></script>

@@ -1,5 +1,4 @@
 ﻿import recordingIcon from "./svg/recording.svg";
-import micIcon from "./svg/mic.svg";
 import searchIcon from "./svg/search-icon.svg";
 import classMaterialIcon from "./svg/class-material-icon-purple.svg";
 import tutorIcon from "./svg/tutor-icon-green.svg";
@@ -39,7 +38,7 @@ let homeSuggest = [
 
 export default {
     components: {
-        "mic-icon": micIcon, "search-icon": searchIcon,
+        "search-icon": searchIcon,
         logo,
         "class-material-icon": classMaterialIcon,
         "tutor-icon": tutorIcon,
