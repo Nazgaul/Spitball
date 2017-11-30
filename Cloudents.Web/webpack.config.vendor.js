@@ -27,6 +27,7 @@ module.exports = (env) => {
                 "vuetify/es5/components/VGrid",
                 "vuetify/es5/components/VChip",
                 "vuetify/es5/components/VToolbar",
+                "vuetify/es5/components/VExpansionPanel",
                 "vuetify/es5/components/VList",
                 "vuetify/es5/components/VTextField",
                 "vuetify/es5/components/VAvatar",
