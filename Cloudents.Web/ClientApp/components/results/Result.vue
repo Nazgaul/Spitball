@@ -3,14 +3,18 @@
         <app-menu slot="verticalNavbar"></app-menu>
         <result-personalize v-show="isfirst" :show="showSearch" v-if="isfirst||showCourses"></result-personalize>
         <template slot="options" v-if="page">
-            <div class="sort-filter" v-if="page.sort || page.filter">
+            <!--<div class="sort-filter" v-if="page.sort || page.filter">
                 <radio-list class="search" :values="page.filter" @click="$_changeFilter" model="filter" :value="filterOptions"></radio-list>
                 <radio-list v-if="page.sort" :values="page.sort" @click="$_updateSort" model="sort" class="search sort" :value="$_defaultSort(page.sort[0].id)"></radio-list>
             </div>
             <div class="sort-filter">
                 <radio-list :values="subFilters" @click="$_changeSubFilter" class="sub-search" model="subFilter" :value="subFilter"></radio-list>
+            </div>-->
+
+            <div class="sort-filter" v-if="page.sort || page.filter">
+                <radio-list class="search" :values="[page.filter, pageData]" @click="$_changeSubFilter" model="page.filter" :value="filterOptions"></radio-list>
             </div>
-        </template>
+</template>
         <scroll-list slot="data" v-if="page&&items" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
             <v-container class="pa-0">
                 <v-layout column>

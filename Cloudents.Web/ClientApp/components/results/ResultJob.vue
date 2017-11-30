@@ -10,7 +10,7 @@
                 <v-flex xs6><company-icon class="mr-2"></company-icon>{{item.company}}</v-flex>
                 <v-flex xs6><location-icon class="mr-2"></location-icon><span class="location" v-if="item.city">{{item.city}}, {{item.state}}</span></v-flex>
                 <v-flex xs6><paid-icon class="mr-2"></paid-icon>{{item.compensationType}}</v-flex>
-                <v-flex xs6><caldendar-icon class="mr-2"></caldendar-icon> {{item.dateTime | moment("D MMM YYYY")}}</v-flex>
+                <v-flex xs6><caldendar-icon class="mr-2"></caldendar-icon>{{formatDate}}</v-flex>
             </v-layout>
         </v-container>
 
@@ -25,6 +25,17 @@
         components: { caldendarIcon, companyIcon, locationIcon, paidIcon },
         props: {
             item: { type: Object, required: true }
+        },
+
+        computed:{
+            formatDate(){
+                let date_str=this.item.dateTime;
+                let options = { year: 'numeric', month: 'short', day: 'numeric'},
+                    formatted = (new Date(date_str)).toLocaleDateString('en-US', options),
+                    date_parts = formatted.substring(0, formatted.indexOf(",")).split(" ").reverse().join(" ");
+
+                return date_parts + formatted.substr(formatted.indexOf(",") + 1);
+            }
         }
     }
 </script>

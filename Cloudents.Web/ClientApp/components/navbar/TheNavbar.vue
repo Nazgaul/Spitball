@@ -30,7 +30,7 @@
             },
             $_updateType(result) {
                 this.changeFlow({ result });
-                this.$router.push({ path: '/' + result, query: { q: this.$_currentTerm(result).term } })
+                this.$router.push({ path: '/' + result, query: {...this.$route.query,q: this.$_currentTerm(result).term } })
             }
         },
         computed: {

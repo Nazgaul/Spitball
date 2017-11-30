@@ -145,7 +145,7 @@ export const pageMixin =
                     this.$route.meta[this.$_calcTerm(response.result)]={term:this.query.q,luisTerm:response.term};
                         if(response.result!==this.name){
                         this.UPDATE_LOADING(false);
-                        let routeParams={ path: '/'+response.result, query: { q: this.query.q } };
+                        let routeParams={ path: '/'+response.result, query: {...this.query, q: this.query.q } };
                         this.$router.replace(routeParams);}else{
                         this.fetchingData({name: this.name, params: {...this.query, ...this.params},luisTerm:response.term})
                             .then((data) => {
