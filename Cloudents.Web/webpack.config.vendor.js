@@ -21,7 +21,6 @@ module.exports = (env) => {
                 "./wwwroot/content/main.less",
                 "./ClientApp/myFont.font.js",
                 'vuex-persistedstate',
-                "vue-moment",
                 "vue-star-rating",
                 "vuetify/es5/components/Vuetify",
                 "vuetify/es5/components/VApp",
