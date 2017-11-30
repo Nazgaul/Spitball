@@ -6,7 +6,7 @@
         searchApi: "getCorses",
         defaultFilter:'all',
         filters: [{ id: 'all', name: 'ALL COURSES' }, { id: 'myCourses', name: 'MY COURSES' }],
-        actions: [{ id:"add",name:"+",component:'plus-button'}]
+        action: "add"
     }, university: {
         searchApi:"getUniversities",
         emptyState: "If you would like to add your school send us a note from the feedback link in the settings tab.",
@@ -16,8 +16,7 @@
             if(this.$route.name==="setting"&&!keep){this.dialog = false}
         },
         defaultFilter: '',
-        filters: [],
-        actions: []
+        filters: []
     }
 };
 export let settingMenu=[

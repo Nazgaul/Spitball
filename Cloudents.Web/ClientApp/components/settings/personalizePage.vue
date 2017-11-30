@@ -2,13 +2,15 @@
     <div>
         <div class="d-header">
             <v-layout row>
-                <v-flex>
-                    <slot name="closeAction"></slot>
-                </v-flex>
+                    <slot name="extraClose"></slot>
                 <v-flex>
                     <h1 class="mt-3">Personalize Results</h1>
                     <h5 v-if="props.title" class="pt-3">{{props.title}}</h5>
                 </v-flex>
+                <v-flex>
+                    <button type="button" @click="props.closeFunction"><slot name="closeAction"></slot></button>
+                </v-flex>
+
             </v-layout>
             <slot name="search" v-if="props.search">
                 <v-container fluid grid-list-l> <v-layout row justify-center>
@@ -20,12 +22,14 @@
                         </template></v-layout>
                     </v-container>
                 </v-container>
+                <slot name="actionButton"></slot>
             </slot>
         </div>
         <div class="loader" v-if="props.search&&props.isLoading">
             <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
         </div>
-        <v-container fluid class="d-result" v-else-if="props.search&&!props.isLoading">
+        <v-container fluid class="d-result" v-else-if="props.search
+        &&!props.isLoading">
             <v-list v-if="props.items.length">
                 <template v-for="(item, index) in props.items">
                     <v-layout row justify-center>
