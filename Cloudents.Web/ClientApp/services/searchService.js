@@ -1,5 +1,4 @@
 ﻿import { search, flashcard } from "./resources";
-let location = null;
 const previewMap = {
     item(id) {
         return {
@@ -30,19 +29,7 @@ const previewMap = {
         return { name: "quiz" };
     }
 };
-const getLocation=()=>{
-    return new Promise((resolve)=>{
-        if(!location && navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(({ coords }) => {
-            coords = coords || {};
-            location = coords.latitude + "," + coords.longitude;
-            resolve(location);
-        },error => {
-                resolve();
-        });
-    }else{resolve(location)}
-    });
-};
+
 export default {
     activateFunction: {
         ask({ source, university, course, term, page, sort, q:userText }) {
@@ -66,19 +53,15 @@ export default {
                 search.getFlashcard({ source, university, course, term, page, sort }).then(({ body }) => resolve({ source: body.facet, data: body.result.map(val => Object.assign(val, { template: "item" })) }));
             });
         },
-        tutor({ term, filter, sort, page }) {
+        tutor({ term, filter, sort, page,location }) {
             return new Promise((resolve, reject) => {
-                getLocation().then((location)=>{
                 search.getTutor({ term, filter, sort, location, page }).then(({ body }) => resolve({ data: body.map(val => { return { ...val, template: "tutor" } }) }));
-                });
             });
         },
-        job({ term, filter, sort, jobType,page }) {
+        job({ term, filter, sort, jobType,page,location }) {
             if(page)return Promise.resolve({data:{}});
             return new Promise((resolve, reject) => {
-                getLocation().then((location)=>{
                     search.getJob({ term, filter, sort, location, facet: jobType }).then(({ body }) => resolve({ jobType: body.facet, data: body.result.map(val => { return { ...val, template: "job" } }) }));
-                });
             });
         },
         book({ term, page }) {
@@ -96,15 +79,13 @@ export default {
                 });
             });
         },
-        food({ term, filter, page: nextPageToken }) {
+        food({ term, filter, page: nextPageToken,location }) {
            
             return new Promise((resolve, reject) => {
                 if (nextPageToken) {
                     search.getFood({ nextPageToken }).then(({ body }) => resolve({ token: body.token, data: body.data.map(val => { return { ...val, template: "food" } }) }));
                 }
-                getLocation().then((location)=>{
                     search.getFood({ term, filter, location }).then(({ body }) => resolve({ token: body.token, data: body.data.map(val => { return { ...val, template: "food" } }) }));
-                });
             });
         }
     },
