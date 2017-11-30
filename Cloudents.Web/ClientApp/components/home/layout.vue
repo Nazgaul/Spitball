@@ -23,9 +23,6 @@
                                 <!--<div class="speech">-->
                                 <v-container>
                                     <v-layout row>
-                                        <v-flex class="search-icon">
-                                            <slot name="search-icon"></slot>
-                                        </v-flex>
                                         <v-flex class="tx-input">
                                             <v-menu offset-y full-width>
                                                 <span slot="activator">
@@ -45,9 +42,6 @@
                                                     </template>
                                                 </v-list>
                                             </v-menu>
-                                        </v-flex>
-                                        <v-flex class="mic" v-if="props.voice.flag">
-                                            <button type="button" class="demo-icon-mic" @click="props.voice.callback"><slot name="voiceIcon"></slot></button>
                                         </v-flex>
                                         <v-flex class="f-submit">
                                             <button type="submit">Search</button>

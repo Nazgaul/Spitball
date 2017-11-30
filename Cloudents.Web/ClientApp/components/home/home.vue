@@ -1,9 +1,8 @@
-<template>
+<template v-once>
 <page-layout :links="links" :submitFunction="search" :items="items" :sites="sites" :selectosFunction="selectos"
-             :bottomIcons="bottomIcons" :voice="{flag:voiceEnable,callback:$_voiceDetection}" :testimonials="testimonials">
+             :bottomIcons="bottomIcons" :testimonials="testimonials">
     <logo slot="logo" class="logo"></logo>
-    <search-icon slot="searchIcon"></search-icon>
-    <input slot="inputField" @keyup.enter="search" autocomplete="off" type="text" required name="q" id="transcript" v-model.trim="msg" :placeholder="placeholder">
+    <v-text-field slot="inputField" solo @keyup.enter="search" autocomplete="off" type="text" required name="q" id="transcript" v-model.trim="msg" :placeholder="placeholder" prepend-icon="sbf-search" :append-icon="voiceEnable?'sbf-mic':''" :append-icon-cb="$_voiceDetection"></v-text-field>
     <component v-if="voiceEnable" slot="voiceIcon" :is="(isRecording?'recording-icon':'mic-icon')"></component>
     <strips-section slot="stripSection" :strips="strips">
         <component :is="props.type" :class="props.classIcon" slot="stripImage" slot-scope="props"></component>
