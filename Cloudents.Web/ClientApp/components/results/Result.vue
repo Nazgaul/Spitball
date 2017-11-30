@@ -10,9 +10,12 @@
             <div class="sort-filter">
                 <radio-list :values="subFilters" @click="$_changeSubFilter" class="sub-search" model="subFilter" :value="subFilter"></radio-list>
             </div>-->
-
-            <div class="sort-filter" v-if="page.sort || page.filter">
-                <radio-list class="search" :values="[page.filter, pageData]" @click="$_changeSubFilter" model="page.filter" :value="filterOptions"></radio-list>
+            <div class="sort-filter">
+                <h3>Sort by</h3>
+                <h3>filter by</h3>
+                <div class="sort-filter" v-if="page.sort || page.filter">
+                    <radio-list class="search" :values="[page.filter, pageData]" @click="$_changeSubFilter" model="page.filter" :value="filterOptions"></radio-list>
+                </div>
             </div>
 </template>
         <scroll-list slot="data" v-if="page&&items" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
