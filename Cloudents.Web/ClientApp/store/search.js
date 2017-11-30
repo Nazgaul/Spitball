@@ -16,14 +16,14 @@ const mutations = {
         state.search.page = payload ? 0 : 1;
         state.loading = payload;
     },
-    [SEARCH.UPDATE_SEARCH_PARAMS](state, payload) {
-        if(!state.search.location&&navigator.geolocation){
+    [SEARCH.UPDATE_SEARCH_PARAMS](state, {term,location}) {
+        if(!location&&!state.search.location&&navigator.geolocation){
             navigator.geolocation.getCurrentPosition(({ coords }) => {
                 coords = coords || {};
                 state.search.location = coords.latitude + ',' + coords.longitude;
             })
         }
-        state.search = { ...state.search, ...payload };
+        state.search = { ...state.search, term,location} ;
     }
 };
 
