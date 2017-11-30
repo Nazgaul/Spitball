@@ -1,11 +1,12 @@
-﻿import Vue from 'vue';
-import App from './components/app/app.vue';
-import store from './store';
-const scroll = () => import('./components/helpers/infinateScroll.vue');
-import VScroll from 'vuetify/es5/directives/scroll';
-import GeneralPage from './components/helpers/generalPage.vue'
-import VueRouter from 'vue-router';
-import vueAdsense from 'vue-adsense';
+﻿import Vue from "vue";
+import App from "./components/app/app.vue";
+import store from "./store";
+const scroll = () => import("./components/helpers/infinateScroll.vue");
+import VScroll from "vuetify/es5/directives/scroll";
+import GeneralPage from "./components/helpers/generalPage.vue"
+import VueRouter from "vue-router";
+import vueAdsense from "vue-adsense";
+
 
 //NOTE: put changes in here in webpack vendor as well
 const vuetifyComponents = {
@@ -61,8 +62,8 @@ import {
     VSwitch,
     VTabs
 
-} from 'vuetify'
-import * as route from './routes';
+} from "vuetify"
+import * as route from "./routes";
 import VueLazyload from 'vue-lazyload'
 
 Vue.use(VueLazyload, {
@@ -77,9 +78,9 @@ Vue.use(Vuetify,
         directives:{VScroll},
         components: vuetifyComponents
     });
-Vue.component('scroll-list', scroll);
-Vue.component('adsense', vueAdsense);
-Vue.component('general-page', GeneralPage);
+Vue.component("scroll-list", scroll);
+Vue.component("adsense", vueAdsense);
+Vue.component("general-page", GeneralPage);
 
 const router = new VueRouter({
     mode: "history",
