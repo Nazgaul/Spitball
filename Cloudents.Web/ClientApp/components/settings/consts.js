@@ -30,4 +30,14 @@ export let settingMenu=[
         this.showDialog=true;this.type="course";
         }
     },
-    { id: "walkthrough", name: "Walkthrough", click: function () { this.$router.push({ name: 'walkthrough' }) } }, { id: "aboutUs", name: "About us", click: function () { this.$router.push({ name: 'aboutUs' }) } }];
+    {
+         id: "walkthrough", name: "Walkthrough", click: function() {
+             this.$router.push({ name: 'walkthrough' })
+             
+         }
+    }, {
+         id: "aboutUs", name: "About us", click: function() {
+             this.$router.push({ name: 'aboutUs' })
+             
+         }
+    }];

@@ -1,21 +1,17 @@
-﻿import searchIcon from "./Images/search-icon.svg";
-import {  names } from "../data"
+﻿import {  names } from "../data"
 import logo from "../../../wwwroot/Images/logo-spitball.svg";
-import settingsIcon from "./Images/settings-icon.svg";
-import { mapActions,mapGetters} from 'vuex'
+import { mapActions, mapGetters } from 'vuex';
+import { settingMenu } from '../settings/consts';
 //import 'vue-awesome/icons/search';
 //import VIcon from 'vue-awesome/components/Icon.vue'
 
 export default {
     components: {
-        //'search-type': searchTypes,
-        logo,
-       // VIcon,
-        settingsIcon,
-        "search-icon": searchIcon
+        logo
     },
     data() {
         return {
+            settingMenu,
            // placeholders: placeholders,
             names: names,
             currentName:"",
@@ -38,7 +34,7 @@ export default {
                 return this.currentName;
         },
         isMobileSize: function () {
-             return this.$vuetify.breakpoint.xsOnly
+            return this.$vuetify.breakpoint.xsOnly;
         },
         voiceAppend(){
            return ("webkitSpeechRecognition" in window)?'sbf-mic':'';
@@ -66,7 +62,8 @@ export default {
         menuToggle: function() {
             this.$emit("input",!this.value);
         },
-        mic:function() {
+        mic: function () {
+            //TODO: YIFAT need to add mic handle here.
             console.log("hi")
         }
     }

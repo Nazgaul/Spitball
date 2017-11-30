@@ -1,3 +1,4 @@
+
 <template v-once>
 <page-layout :links="links" :submitFunction="search" :items="items" :sites="sites" :selectosFunction="selectos"
              :bottomIcons="bottomIcons" :testimonials="testimonials">
@@ -13,7 +14,8 @@
     </features-section>
     <component :is="`${props.iconName}-icon`" slot="bottomIcon" slot-scope="props"></component>
 </page-layout>
+                            </lazy-component>       
+                            <div>
 </template>
-
 <style src="./home.less" lang="less" scoped></style>
 <script src="./home.js"></script>
