@@ -5,7 +5,6 @@ const scroll = () => import('./components/helpers/infinateScroll.vue');
 import VScroll from 'vuetify/es5/directives/scroll';
 import GeneralPage from './components/helpers/generalPage.vue'
 import VueRouter from 'vue-router';
-import vueMoment from "vue-moment";
 import vueAdsense from 'vue-adsense';
 
 //NOTE: put changes in here in webpack vendor as well
@@ -60,14 +59,20 @@ import {
 
 } from 'vuetify'
 import * as route from './routes';
+import VueLazyload from 'vue-lazyload'
 
+Vue.use(VueLazyload, {
+    lazyComponent: true,
+    preLoad: 1.3,
+    loading:"Loading...",
+    attempt: 1
+});
 Vue.use(VueRouter);
 Vue.use(Vuetify,
     {
         directives:{VScroll},
         components: vuetifyComponents
     });
-Vue.use(vueMoment);
 Vue.component('scroll-list', scroll);
 Vue.component('adsense', vueAdsense);
 Vue.component('general-page', GeneralPage);

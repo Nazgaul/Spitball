@@ -1,11 +1,11 @@
-﻿<template>
+﻿﻿<template>
     <component is="slot">
         <v-container v-for="(strip,index) in strips" class="strip" :class="strip.class">
             <v-layout row justify-center align-center wrap class="strip-content">
                 <v-flex class="image-wrapper">
                     <div class="images">
-                        <img :src="require(`./img/${strip.image}`)" />
-                        <div class="floating-icons">
+<lazy-component>                        <img :src="require(`./img/${strip.image}`)" />
+</lazy-component>                        <div class="floating-icons">
                             <component v-for="(image,index) in strip.floatingImages" :is="image" :class="'icon-' + (index+1)"></component>
                         </div>
                     </div>
