@@ -8,6 +8,7 @@
     "babel-loader": "^7.1.2",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-imports": "^1.4.1",
+    "babel-preset-es2015": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "css-loader": "^0.28.7",
@@ -26,7 +27,6 @@
     "vue": "^2.5.2",
     "vue-adsense": "^1.0.1",
     "vue-avatar-component": "^1.2.4",
-    "vue-awesome": "^2.3.4",
     "vue-loader": "^13.3.0",
     "vue-resource": "^1.3.4",
     "vue-router": "^3.0.1",
@@ -39,8 +39,9 @@
     "vuex-persistedstate": "^2.1.2",
     "webpack": "^3.8.1",
     "webpack-hot-middleware": "^2.20.0",
-    "webpack-visualizer-plugin" :  "0.1.11",
-    "vue-lazyload":"^1.1.4"
+    "webpack-visualizer-plugin": "0.1.11",
+    "vue-lazyload":"^1.1.4",
+    "webfonts-loader" : "0.2.4" 
 
   }
 }

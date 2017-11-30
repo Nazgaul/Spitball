@@ -1,4 +1,4 @@
-﻿<template>
+<template>
 <page-layout :links="links" :submitFunction="search" :items="items" :sites="sites" :selectosFunction="selectos"
              :bottomIcons="bottomIcons" :voice="{flag:voiceEnable,callback:$_voiceDetection}" :testimonials="testimonials">
     <logo slot="logo" class="logo"></logo>

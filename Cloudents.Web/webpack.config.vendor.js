@@ -2,6 +2,7 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 var resolve = (p) => path.resolve(__dirname, p);
+var Visualizer = require("webpack-visualizer-plugin");
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
@@ -18,14 +19,15 @@ module.exports = (env) => {
                 'vuex',
                 "./ClientApp/main.styl",
                 "./wwwroot/content/main.less",
+                "./ClientApp/myFont.font.js",
                 'vuex-persistedstate',
-                "vue-moment",
                 "vue-star-rating",
                 "vuetify/es5/components/Vuetify",
                 "vuetify/es5/components/VApp",
                 "vuetify/es5/components/VGrid",
                 "vuetify/es5/components/VChip",
                 "vuetify/es5/components/VToolbar",
+                "vuetify/es5/components/VExpansionPanel",
                 "vuetify/es5/components/VList",
                 "vuetify/es5/components/VTextField",
                 "vuetify/es5/components/VAvatar",
@@ -42,7 +44,8 @@ module.exports = (env) => {
                 "vuetify/es5/components/VMenu",
                 "vuetify/es5/components/VSwitch",
                 "vuetify/es5/components/VTabs",
-                "vuetify/es5/directives/scroll"
+                "vuetify/es5/directives/scroll",
+                "vuetify/es5/components/VIcon"
             ]
         },
         module: {
@@ -57,17 +60,32 @@ module.exports = (env) => {
                     test: /\.less$/,
                     exclude: /ClientApp/,
                     use: extractCSS.extract({ use: isDevBuild ? 'css-loader!less-loader' : 'css-loader?minimize!less-loader' })
+                },
+                {
+                    test: /\.font\.js/,
+                    loader: extractCSS.extract({
+                        use: [
+                            isDevBuild ? 'css-loader' : 'css-loader?minimize',
+                            {
+                                loader: 'webfonts-loader' //TODO: need to add svg compression
+
+                            }
+                        ]
+                    })
                 }
             ]
         },
         output: {
             path: path.join(__dirname, 'wwwroot', 'dist'),
-            publicPath: 'dist/',
+            publicPath: '/dist/',
             filename: '[name].js',
             library: '[name]_[hash]'
         },
         plugins: [
             extractCSS,
+            new Visualizer({
+                filename: "./statistics-vendor.html"
+            }),
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': isDevBuild ? '"development"' : '"production"'
             }),
