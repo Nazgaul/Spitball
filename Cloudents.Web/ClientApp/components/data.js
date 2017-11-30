@@ -19,9 +19,8 @@ export let verticals =
            // placeholder: "Find me class material...",
             resultTitle: "I found some documents that might help.See what you think!",
             emptyState: "Darn, I wasn't able to find any documents.Try these other options.",
-            filter: [{ id: 'all', name: 'all' },
-                { id: 'source', name: 'sources' }, {id:'course',name:"My Courses"}], sort: [{ id: 'relevance', name: 'relevance' },
-                { id: 'date', name: 'date' }]
+            filter: [{ id: 'all', name: 'all' }, { id: 'source', name: 'sources' }, { id: 'course', name: "My Courses" }],
+            sort: [{ id: 'relevance', name: 'relevance' }, { id: 'date', name: 'date' }]
         },
         flashcard: {
             id: routes.flashcardRoute,
@@ -30,7 +29,7 @@ export let verticals =
             //placeholder: "Find me flashcards...",
             resultTitle: "Oh look - I found some flashcards for you.Test yourself!",
             emptyState: "Sorry, I did not find any quiz results...",
-            filter: [{ id: 'all', name: 'all' }, { id: 'source', name: 'sources' }],
+            filter: [{ id: 'source', name: 'sources' }],
             sort: [{ id: 'relevance', name: 'relevance' }, { id: 'date', name: 'date' }]
         },
         tutor: {
