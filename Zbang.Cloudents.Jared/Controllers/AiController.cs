@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Cloudents.Core.Interfaces;
@@ -19,10 +20,10 @@ namespace Zbang.Cloudents.Jared.Controllers
 
 
         // GET api/Ai
-        public async Task<HttpResponseMessage> Get(string sentence)
+        public async Task<HttpResponseMessage> Get(string sentence, CancellationToken token)
         {
             if (sentence == null) throw new ArgumentNullException(nameof(sentence));
-            var result = await _engineProcess.ProcessRequestAsync(sentence).ConfigureAwait(false);
+            var result = await _engineProcess.ProcessRequestAsync(sentence, token).ConfigureAwait(false);
             return Request.CreateResponse(result);
         }
     }

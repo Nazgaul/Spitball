@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure.AI
             var aiResult = await _ai.InterpretStringAsync(str, token).ConfigureAwait(false);
             var result = _mDecision.MakeDecision(aiResult);
 
-            if (result is IVerticalLocation location)
+            if (result is IVerticalLocation location && location.Location != null)
             {
                 location.Cords = await _placesSearch.GeoCodingAsync(location.Location, token).ConfigureAwait(false);
             }
