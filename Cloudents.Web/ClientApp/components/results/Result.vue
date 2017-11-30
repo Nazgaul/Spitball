@@ -10,9 +10,12 @@
             <div class="sort-filter">
                 <radio-list :values="subFilters" @click="$_changeSubFilter" class="sub-search" model="subFilter" :value="subFilter"></radio-list>
             </div>-->
-
-            <div class="sort-filter" v-if="page.sort || page.filter">
-                <radio-list class="search" :values="[page.filter, pageData]" @click="$_changeSubFilter" model="page.filter" :value="filterOptions"></radio-list>
+            <div class="sort-filter">
+                <h3>Sort by</h3>
+                <h3>filter by</h3>
+                <div class="sort-filter" v-if="page.sort || page.filter">
+                    <radio-list class="search" :values="[page.filter, pageData]" @click="$_changeSubFilter" model="page.filter" :value="filterOptions"></radio-list>
+                </div>
             </div>
 </template>
         <scroll-list slot="data" v-if="page&&items" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
@@ -21,7 +24,7 @@
                     <v-flex class="elevation-1 mb-2" xs-12 v-for="(item,index) in items" :key="index" @click="(hasExtra?selectedItem=item.placeId:'')" :class="(index>6?'order-xs3':'order-xs1')">
                         <component :is="'result-'+item.template" :item="item" :key="index" class="cell"></component>
                     </v-flex>
-                    <v-flex class="elevation-1 mb-2" xs-12 v-if="flowNode" v-for="(child,index) in flowNode.children" @click="$_updateCurrentFlow(index)" order-xs2>
+                    <v-flex class="elevation-1 mb-2" xs-12 v-if="flowNode" v-for="(child,index) in flowNode.children" :key="index" @click="$_updateCurrentFlow(index)" order-xs2>
                         <suggest-card :name="child.name"></suggest-card>
                     </v-flex>
                 </v-layout>

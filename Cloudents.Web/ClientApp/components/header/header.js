@@ -35,6 +35,9 @@ export default {
         },
         isMobileSize: function () {
             return this.$vuetify.breakpoint.xsOnly;
+        },
+        voiceAppend(){
+           return ("webkitSpeechRecognition" in window)?'sbf-mic':'';
         }
     },
     watch:{

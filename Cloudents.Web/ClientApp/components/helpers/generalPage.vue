@@ -12,7 +12,7 @@
                 </v-flex>
             </v-layout>
             <v-layout row>
-                <v-flex class="first-grid hidden-sm-and-down">
+                <v-flex class="first-grid hidden-sm-and-down pa-4">
                     <slot name="options">
                     </slot>
                 </v-flex>

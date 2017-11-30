@@ -9,8 +9,8 @@
     </span>-->
 
 
-    <v-expansion-panel expand="">
-        <v-expansion-panel-content v-for="v in values[0]" :key="v.id">
+    <v-expansion-panel expand>
+        <v-expansion-panel-content v-for="(v,index) in values[0]" :key="v.id" v-bind:value="true">
             <div slot="header">{{v.name}}</div>
             <div class="sort-filter">
                 <v-checkbox v-for="s in values[1][v.id]" @click="radioClick(s)" :label="s" :key="s"></v-checkbox>
