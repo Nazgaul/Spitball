@@ -8,6 +8,7 @@ import VueRouter from 'vue-router';
 import vueMoment from "vue-moment";
 import vueAdsense from 'vue-adsense';
 
+//NOTE: put changes in here in webpack vendor as well
 const vuetifyComponents = {
     VApp,
     //VNavigationDrawer,
