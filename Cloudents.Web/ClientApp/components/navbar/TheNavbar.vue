@@ -29,6 +29,7 @@
                 return term || {};
             },
             $_updateType(result) {
+                //todo check here if need to show dialog for change subject
                 this.changeFlow({ result });
                 this.$router.push({ path: '/' + result, query: {...this.$route.query,q: this.$_currentTerm(result).term } })
             }
