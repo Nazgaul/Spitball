@@ -26,7 +26,7 @@ export const sortAndFilterMixin = {
         page: function () { return page[this.name] }
     },
     props: {
-        name: { type: String }, query: { type: Object }, filterOptions: { type: String }, sort: { type: String }, fetch: { type: String }, params: { type: Object }
+        name: { type: String }, query: { type: Object }, filterOptions: { type: [String,Array] }, sort: { type: String }, fetch: { type: String }, params: { type: Object }
     },
 
     methods: {
@@ -110,7 +110,19 @@ export const pageMixin =
                 }
                 const list = this.pageData[this.filter];
                 return list ? list.map(item => { return { id: item, name: item } }) : [];
-            }
+            },
+            filterObject(){
+                if(!this.subFilterVertical&&this.page.filter){
+                    return [{title:'filter',modelId:"filter",data:this.page.filter}];
+                }
+                else if(this.page.filter&&this.subFilterVertical){
+                    return this.page.filter.map((i)=>{
+                        let item={title:i.name,modelId:i.id};
+                        item.data=this.pageData[i.id]?this.pageData[i.id]:this.myCourses;
+                        return item;
+                    })
+                }
+        }
         },
 
         data() {
@@ -170,17 +182,27 @@ export const pageMixin =
             $_updateSort(sort) {
                 this.$router.push({ query: { ... this.query, sort: sort } });
             },
-            $_changeSubFilter(val) {
-                let sub = {};
-                sub[this.filter] = val;
-                if (val === 'addCourse') {
-                    this.showSearch = false;
-                    this.$nextTick(() => {
-                        this.showSearch = true;
-                    });
-                    return;
-                }
-                this.$router.push({ query: { ... this.query, ...sub, filter: this.filter } });
+            $_changeSubFilter({id,val,type}) {
+                // console.log(arguments);
+                // let sub = {};
+                // sub[this.filter] = val;
+                // if (val === 'addCourse') {
+                //     this.showSearch = false;
+                //     this.$nextTick(() => {
+                //         this.showSearch = true;
+                //     });
+                //     return;
+                // }
+                let currentFilter=!this.query[id]?[]:Array.isArray(this.query[id])?this.query[id]:[this.query[id]];
+                let filter1={[id]:[val,...currentFilter]};
+                let {q,sort,course,source,filter}=this.query;
+                // if(currentFilter.includes(val)){
+                //
+                // }
+                // let filter={[id]:[val,...currentFilter]};
+                console.log(filter);
+                console.log(type)
+                this.$router.push({ query: {q,sort,course,source,filter, ...filter1}});
             }
         },
         props: { hasExtra: {type:Boolean},currentTerm:{type:[String,Object]}}
