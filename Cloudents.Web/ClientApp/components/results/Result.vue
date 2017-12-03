@@ -16,7 +16,7 @@
                 <h3>filter by</h3>
                 <div class="sort-filter" v-if="page.sort || page.filter">
                     <template v-for="f in page.filter" v-if="subFilterVertical">
-                    <radio-list class="search" :values="pageData[f.id]" :title="f.name" @click="$_changeSubFilter(f.id)" :model="f.id"></radio-list>
+                    <radio-list class="search" :values="(pageData[f.id]?pageData[f.id]:myCourses)" :title="f.name" @click="$_changeSubFilter(f.id)"></radio-list>
                     </template>
                     <radio-list v-else-if="page.filter" class="search" :values="page.filter" title="filter" @click="$_changeSubFilter" ></radio-list>
                 </div>

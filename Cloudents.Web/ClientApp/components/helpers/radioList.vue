@@ -8,4 +8,6 @@
         </v-expansion-panel-content>
     </v-expansion-panel>
 </template>
+            changeCallback: { type: Function },
+            title:{}
 <style src="./radioList.less" lang="less"></style>
