@@ -1,6 +1,7 @@
 ﻿const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 var resolve = (p) => path.resolve(__dirname, p);
 var Visualizer = require("webpack-visualizer-plugin");
 
@@ -82,10 +83,9 @@ module.exports = (env) => {
             library: '[name]_[hash]'
         },
         plugins: [
+            
             extractCSS,
-            new Visualizer({
-                filename: "./statistics-vendor.html"
-            }),
+            
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': isDevBuild ? '"development"' : '"production"'
             }),
@@ -93,7 +93,12 @@ module.exports = (env) => {
                 path: path.join(__dirname, 'wwwroot', 'dist', '[name]-manifest.json'),
                 name: '[name]_[hash]'
             })
-        ].concat(isDevBuild ? [] : [
+        ].concat(isDevBuild ? [
+            new CleanWebpackPlugin(path.join(__dirname, 'wwwroot', 'dist')),
+            new Visualizer({
+                filename: "./statistics-vendor.html"
+            })
+        ] : [
             new webpack.optimize.UglifyJsPlugin()
         ])
     }];
