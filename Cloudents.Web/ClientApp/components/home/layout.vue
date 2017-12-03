@@ -1,10 +1,10 @@
 <template functional>
-    <div class="wrapper">
+    <div class="wrapper h-p">
         <div class="box-header">
             <v-container fluid>
                 <v-layout row>
                     <v-flex class="logo-wrapper">
-                        <slot name="logo" ></slot>
+                        <slot name="logo"></slot>
                     </v-flex>
 
                     <header>
@@ -20,7 +20,6 @@
                         <h2 class="box-title">Simplify School</h2>
                         <div class="box-search mb-3">
                             <form id="labnol" method="get" @submit.prevent="props.submitFunction">
-                                <!--<div class="speech">-->
                                 <v-container>
                                     <v-layout row>
                                         <v-flex class="tx-input">
@@ -48,15 +47,11 @@
                                         </v-flex>
                                     </v-layout>
                                 </v-container>
-
-
-                                <!--</div>-->
                             </form>
                         </div>
                     </div>
                 </div>
                 <slot name="featuresSection"></slot>
-
             </v-container>
         </div>
         <section class="websites-section">
@@ -73,19 +68,20 @@
             </v-container>
         </section>
         <slot name="stripSection"></slot>
-
-
         <section class="box-section testimonials">
-            <v-carousel hide-delimiters>
-                <v-carousel-item v-for="(testimonial,index) in props.testimonials" src="" :key="index">
+            <v-carousel hide-delimiters left-control-icon="sbf-arrow-right" right-control-icon="sbf-arrow-right">
+                <!--<v-carousel-item v-for="(testimonial,index) in props.testimonials" src="./Images/3rdParty/fbFlashcard.png" :key="index"></v-carousel-item>-->
+                <v-carousel-item v-for="(testimonial,index) in props.testimonials" src="" :key="index" >
                     <div class="testimonial">
                         <p class="testimonial-text">"{{testimonial.testimonial}}"</p>
                         <div class="author">
-                            <lazy-component>                            <img :src="require(`./img/${testimonial.image}`)" />
-                            </lazy-component>                            <div>
-                            <span class="name">{{testimonial.name}}</span>
-                            <span class="uni">{{testimonial.uni}}</span>
-                        </div>
+                            <lazy-component>
+                                <img :src="require(`./img/${testimonial.image}`)" />
+                            </lazy-component>
+                            <div>
+                                <span class="name">{{testimonial.name}}</span>
+                                <span class="uni">{{testimonial.uni}}</span>
+                            </div>
                         </div>
                     </div>
                 </v-carousel-item>

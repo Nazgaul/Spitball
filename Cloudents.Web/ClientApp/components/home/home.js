@@ -161,7 +161,6 @@ export default {
             let _self = this;
 
             this.recognition.onstart = function () {
-                console.log("start");
                 _self.isRecording = true;
             };
             this.recognition.onresult = function (event) {
