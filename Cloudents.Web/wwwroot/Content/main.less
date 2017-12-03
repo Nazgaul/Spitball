@@ -53,16 +53,18 @@ button {
 }
 
 .loop(@index) when (@index <= length(@list-verticals)) {
-    .loop((@index + 1)); 
+    .loop((@index + 1));
     @p: extract(@list-verticals,@index);
+
     .text-@{p} {
         .horizontal-variant(@p,color)
     }
 
     .bg-@{p} {
         .horizontal-variant(@p,background);
+
         .svg-fill {
-            fill:#fff;
+            fill: #fff;
         }
     }
 
@@ -71,8 +73,8 @@ button {
             .horizontal-variant(@p,fill);
         }
     }
+
     .border-@{p} {
-        border:1px solid;
         .horizontal-variant(@p,border-color);
     }
 }
