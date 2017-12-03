@@ -1,5 +1,5 @@
 <template functional>
-    <div class="wrapper">
+    <div class="wrapper h-p">
         <div class="box-header">
             <v-container fluid>
                 <v-layout row>
@@ -24,7 +24,7 @@
                                 <v-container>
                                     <v-layout row>
                                         <v-flex class="tx-input">
-                                            <v-menu offset-y full-width>
+                                            <v-menu offset-y full-width content-class="h-p-menu">
                                                 <span slot="activator">
                                                     <slot name="inputField"></slot>
                                                 </span>
@@ -33,7 +33,7 @@
                                                     <template v-for="(item, index) in props.items">
                                                         <v-list-tile @click="props.selectosFunction(item)" :key="index">
                                                             <v-list-tile-action>
-                                                                -
+                                                                <v-icon>sbf-search</v-icon>
                                                             </v-list-tile-action>
                                                             <v-list-tile-content>
                                                                 <v-list-tile-title v-text="item"></v-list-tile-title>
@@ -48,15 +48,11 @@
                                         </v-flex>
                                     </v-layout>
                                 </v-container>
-
-
-                                <!--</div>-->
                             </form>
                         </div>
                     </div>
                 </div>
                 <slot name="featuresSection"></slot>
-
             </v-container>
         </div>
         <section class="websites-section">
@@ -73,10 +69,8 @@
             </v-container>
         </section>
         <slot name="stripSection"></slot>
-
-
         <section class="box-section testimonials">
-            <v-carousel hide-delimiters>
+            <v-carousel hide-delimiters left-control-icon="sbf-arrow-right" right-control-icon="sbf-arrow-right">
                 <v-carousel-item v-for="(testimonial,index) in props.testimonials" src="" :key="index">
                     <div class="testimonial">
                         <p class="testimonial-text">"{{testimonial.testimonial}}"</p>

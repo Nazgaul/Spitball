@@ -23,8 +23,7 @@
         letter-spacing: -0.5px;
         text-align: center;
         color: @Spitball-Text;
-        display: block;
-        //override
+        display: block; //override
     }
     .card__text {
         font-size: 16px;
