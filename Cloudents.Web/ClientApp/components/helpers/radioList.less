@@ -1,25 +1,23 @@
 ﻿@import "../../mixin.less";
 
-/*.application--light .chip {
-    font-size: 14px;
-    background: #fff;
-    color: @Spitball-Main-color;
-    border: 1px solid @Spitball-Main-color;
-    border-radius: 10px;
-    letter-spacing: -0.3px;
-    text-transform: capitalize;
-    padding: 0 24px;
-    cursor: pointer;
 
-    &.chip--selected {
-        color: #fff;
-        border: 0;
-        background: @Spitball-Main-color;
-        pointer-events: none;
+
+.application--light .input-group--selection-controls.checkbox {
+    label {
+        color: rgba(0,0,0,0.54);
+        font-size: 14px;
+        color: black;
+        text-transform: capitalize;
+        left: 16px;
     }
 
-    &.chip--disabled {
-        opacity: 0.5;
+    .input-group__input .icon--selection-control {
+        font-size: 14px;
     }
-}*/
 
+    .input-group--selection-controls__ripple {
+        height: 32px;
+        width: 32px;
+        transform: translate3d(-9px, -50%, 0);
+    }
+}

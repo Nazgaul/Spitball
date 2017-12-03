@@ -11,12 +11,12 @@
                     <!--<app-menu :term="userText"></app-menu>-->
                 </v-flex>
             </v-layout>
-            <v-layout row>
-                <v-flex class="first-grid hidden-sm-and-down pa-4">
+            <v-layout row class="pt-3">
+                <v-flex class="first-grid hidden-sm-and-down">
                     <slot name="options">
                     </slot>
                 </v-flex>
-                <v-container fluid class="pa-2">
+                <v-container class="results-section px-2" fluid>
                     <v-layout row>
                         <v-flex class="sec-result">
                             <slot name="data">

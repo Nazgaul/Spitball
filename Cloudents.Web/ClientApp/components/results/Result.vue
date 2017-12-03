@@ -12,6 +12,7 @@
             </div>-->
             <div class="sort-filter">
                 <h3>Sort by</h3>
+                <sort-switch></sort-switch>
                 <h3>filter by</h3>
                 <div class="sort-filter" v-if="page.filter">
                     <radio-list class="search" :callback="$_changeSubFilter" :values="filterObject" :checkesVals="filterOptions"></radio-list>
