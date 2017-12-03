@@ -1,5 +1,5 @@
 ﻿﻿<template>
-        <v-dialog  v-model="dialog" fullscreen content-class="dialog-choose" v-if="currentItem" class="settings" :overlay=false>
+    <v-dialog  v-model="dialog" fullscreen content-class="dialog-choose" v-if="currentItem" class="settings" :overlay=false>
             <personalize-page :title="(currentAction?title:null)" :search="!currentAction" :isLoading="isLoading" :emptyText="emptyText" :items="items" :selectedCourse="selectedCourse" :closeFunction="$_closeButton">
                 <v-flex class="white--text" xs2 slot="extraClose" @click="$_closeButton" v-if="type!=='university'">DONE</v-flex>
                     <close-button slot="closeAction"></close-button>

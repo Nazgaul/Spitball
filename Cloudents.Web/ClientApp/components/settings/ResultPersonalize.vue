@@ -1,5 +1,5 @@
 ﻿<template>
-    <v-dialog v-model="showDialog" max-width="518">
+      <v-dialog v-model="showDialog" max-width="518">
         <v-card>
             <v-card-title class="">Personalize Results</v-card-title>
             <v-card-text>You can tailor the results to you by adding your school and classes.</v-card-text>
@@ -44,18 +44,17 @@
 </style>
 <script>
     import searchItem from './searchItem.vue'
-    import courseAdd from './courseAdd.vue'
     import { searchObjects } from './consts'
     import { mapGetters } from 'vuex'
     export default {
         data() {
-            return { showDialog: true, snackbar: true }
+            return { showDialog: true }
         },
 
 
         computed: {
             ...mapGetters(['getUniversity']),
-            searchType: function () { return !this.showDialog ? '' : this.getUniversity ? 'course' : 'university' }
+            searchType: function () { return this.getUniversity ? 'course' : 'university' }
         },
 
         props: { show: {} },
@@ -65,10 +64,6 @@
                 this.showDialog = true;
                 }
             }
-        },
-
-        components: {
-            searchItem, courseAdd
         }
     }
 </script>

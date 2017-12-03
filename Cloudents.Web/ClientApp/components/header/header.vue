@@ -1,5 +1,7 @@
 ﻿<template>
-    <v-toolbar app clipped-left fixed :height="isMobileSize? 48 : 72" :extended="isMobileSize" class="header">
+  <component is="slot">
+      <search-item v-model="showDialog" :type="type"></search-item>
+      <v-toolbar app clipped-left fixed :height="isMobileSize? 48 : 72" :extended="isMobileSize" class="header">
         <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 230px; min-width: 230px' : 'min-width: 72px'">
             <router-link class="logo-link" :to="{name:'home'}">
                 <logo class="logo"></logo>
@@ -22,7 +24,7 @@
                 </v-list>
             </v-menu>
         </div>
-    </v-toolbar>
+    </v-toolbar></component>
 </template>
 <script src="./header.js"></script>
 <style src="./header.less" lang="less"></style>

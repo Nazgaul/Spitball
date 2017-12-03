@@ -1,27 +1,14 @@
 ﻿<template>
     <general-page>
         <app-menu slot="verticalNavbar" :$_calcTerm="$_calcTerm"></app-menu>
-        <result-personalize v-show="isfirst" :show="showSearch" v-if="isfirst||showCourses"></result-personalize>
+        <result-personalize v-show="isfirst" :show="showSearch" ></result-personalize>
         <template slot="options" v-if="page">
-            <!--<div class="sort-filter" v-if="page.sort || page.filter">
-                <radio-list class="search" :values="page.filter" @click="$_changeFilter" model="filter" :value="filterOptions"></radio-list>
-                <radio-list v-if="page.sort" :values="page.sort" @click="$_updateSort" model="sort" class="search sort" :value="$_defaultSort(page.sort[0].id)"></radio-list>
-            </div>
-            <div class="sort-filter">
-                <radio-list :values="subFilters" @click="$_changeSubFilter" class="sub-search" model="subFilter" :value="subFilter"></radio-list>
-            </div>-->
             <div class="sort-filter">
                 <h3>Sort by</h3>
                 <sort-switch></sort-switch>
                 <h3>filter by</h3>
                 <div class="sort-filter" v-if="page.filter">
                     <radio-list class="search" :callback="$_changeSubFilter" :values="filterObject" :checkesVals="filterOptions"></radio-list>
-                    <!--<radio-list v-if="subFilterVertical||page.filter" class="search" :values="(subFilterVertical?(pageData[f.id]?pageData[f.id]:myCourses):page.filter)" :modelId="f.id" :callback="$_changeSubFilter"></radio-list>-->
-
-                    <!--<template v-for="f in page.filter" v-if="subFilterVertical">-->
-                    <!--<radio-list class="search" :values="(pageData[f.id]?pageData[f.id]:myCourses)" :title="f.name" :modelId="f.id" :callback="$_changeSubFilter"></radio-list>-->
-                    <!--</template>-->
-                    <!--<radio-list v-else-if="page.filter" class="search" :values="page.filter" title="filter" modelId="filter" :callback="$_changeSubFilter" ></radio-list>-->
                 </div>
             </div>
 </template>

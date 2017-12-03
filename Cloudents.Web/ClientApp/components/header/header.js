@@ -2,21 +2,23 @@
 import logo from "../../../wwwroot/Images/logo-spitball.svg";
 import { mapActions, mapGetters } from 'vuex';
 import { settingMenu } from '../settings/consts';
+import searchItem from '../settings/searchItem.vue'
 //import 'vue-awesome/icons/search';
 //import VIcon from 'vue-awesome/components/Icon.vue'
 
 export default {
     components: {
-        logo
+        logo,searchItem
     },
     data() {
         return {
             settingMenu,
+            showDialog:false,
            // placeholders: placeholders,
             names: names,
             currentName:"",
             qFilter: this.$route.query.q,
-            snackbar:true
+            type:""
         };
     },
 
@@ -65,6 +67,9 @@ export default {
         mic: function () {
             //TODO: YIFAT need to add mic handle here.
             console.log("hi")
+        },
+        $_currentClick(item){
+            item.click.call(this);
         }
     }
 }
