@@ -21,7 +21,7 @@ export default {
     },
 
     computed: {
-        ...mapGetters(['luisTerm']),
+        ...mapGetters(['luisTerm','getUniversityName']),
         name: function () {
             let currentPage = this.$route.meta.pageName ? this.$route.meta.pageName : this.$route.path.split("/")[1];
             if (this.currentName !== currentPage) {
