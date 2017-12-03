@@ -1,32 +1,61 @@
 ﻿<template>
-    <div>
-        <v-snackbar color="orange" xs12
-                    left
-                    top v-model="snackbar" :timeout="7000">
-            <v-layout row wrap>
-                You can tailored the results to you by adding your school and classes.
-                <v-btn offset-xs2 xs2 flat color="white" @click.stop="showDialog=true;snackbar=false;">Yes, I want</v-btn>
-                <v-btn xs1 flat color="white" @click="snackbar=false">X</v-btn>
-            </v-layout>
-        </v-snackbar>
-        <search-item  :type="searchType" v-model="showDialog">
-        </search-item>
-    </div>
+    <v-dialog v-model="showDialog" max-width="518">
+        <v-card>
+            <v-card-title class="">Personalize Results</v-card-title>
+            <v-card-text>You can tailor the results to you by adding your school and classes.</v-card-text>
+            <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn flat="flat" @click.native="showDialog = false">Not now</v-btn>
+                <v-btn flat="flat" @click.native="showDialog = false">Personalize</v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
+    
 </template>
+<style lang="less" scoped>
+    @import "../../mixin.less";
+    .card{
+        border-radius:6px;
+    } 
+    .card__title {
+        font-size: 36px;
+        font-weight: 300;
+        letter-spacing: -0.5px;
+        text-align: center;
+        color: @Spitball-Text;
+        display: block;
+        //override
+    }
+    .card__text {
+        font-size: 16px;
+        letter-spacing: -0.3px;
+        text-align: center;
+        max-width: 360px;
+        margin: 0 auto;
+        line-height: 1.38;
+        color: @Feed-Like-count;
+    }
+    .btn {
+        text-transform: capitalize;
+        font-size: 16px;
+        letter-spacing: -0.3px;
+        color: @Spitball-Main-color;
+    }
+</style>
 <script>
     import searchItem from './searchItem.vue'
     import courseAdd from './courseAdd.vue'
-    import { searchObjects} from './consts'
+    import { searchObjects } from './consts'
     import { mapGetters } from 'vuex'
     export default {
         data() {
-            return { showDialog: false, snackbar: true}
+            return { showDialog: true, snackbar: true }
         },
 
 
         computed: {
             ...mapGetters(['getUniversity']),
-            searchType: function () { return !this.showDialog?'':this.getUniversity ? 'course' : 'university' }
+            searchType: function () { return !this.showDialog ? '' : this.getUniversity ? 'course' : 'university' }
         },
 
         props: { show: {} },

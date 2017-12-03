@@ -9,10 +9,24 @@ const notFound = () => import("./components/results/notFound.vue");
 const moreInfo = () => import("./components/results/MoreInfo.vue");
 function dynamicPropsFn(route) {
     let newName=route.path.slice(1);
+    let filterOptions=[];
+        if(route.query.filter){filterOptions=filterOptions.concat(route.query.filter);
+        }else{
+            if(route.query.source){
+                filterOptions=filterOptions.concat(route.query.source);
+            }
+            if(route.query.course){
+                filterOptions=filterOptions.concat(route.query.course);
+            }
+            if(route.query.jobType){
+                filterOptions=filterOptions.concat(route.query.jobType);
+            }
+        }
+    console.log(filterOptions);
     return {
         name: route.path.slice(1),
         query: route.query,
-        filterOptions: route.query.filter || 'all',
+        filterOptions: filterOptions,
         sort: route.query.sort,
         userText: route.params.q,
         currentTerm:newName.includes('food')?route.meta.foodTerm:newName.includes('job')?route.meta.jobTerm:route.meta.term,
