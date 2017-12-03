@@ -100,6 +100,9 @@ export const pageMixin =
                 return this.page.title},
             isEmpty: function () { return this.pageData.data ? !this.pageData.data.length : true },
             subFilter: function () { return this.query[this.filterOptions]; },
+            subFilterVertical(){
+                return this.name.includes('note')||this.name==='flashcard'
+            },
             subFilters: function () {
                 if (this.filter === 'course') {
                     return [... this.myCourses, { id: 'addCourse', name: 'Select Course'}];
