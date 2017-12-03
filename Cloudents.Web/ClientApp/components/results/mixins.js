@@ -1,5 +1,6 @@
 ﻿﻿import { page } from './../data'
-import RadioList from './../helpers/radioList.vue';
+ import RadioList from './../helpers/radioList.vue';
+ import SortSwitch from './../helpers/sortSwitch.vue';
 import ResultItem from './ResultItem.vue';
 const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
@@ -19,7 +20,7 @@ export const sortAndFilterMixin = {
         };
     },
 
-    components: { RadioList,AppMenu },
+    components: { RadioList,SortSwitch,AppMenu },
 
     computed: {
         page: function () { return page[this.name] }
