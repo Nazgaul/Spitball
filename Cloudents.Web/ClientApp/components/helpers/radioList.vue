@@ -1,4 +1,4 @@
-﻿<template>
+﻿<template functional>
     <!--<span class="text-xs-center">
         <v-chip color="not-selected" v-for="v in values" :key="v.id"
                 @click="(!$_isDisabledButton(v.id)?radioClick(v.id):'')" :disabled="$_isDisabledButton(v.id)"
@@ -10,10 +10,10 @@
 
 
     <v-expansion-panel expand>
-        <v-expansion-panel-content v-for="(v,index) in values[0]" :key="v.id" v-bind:value="true">
-            <div slot="header">{{v.name}}</div>
+        <v-expansion-panel-content>
+            <div slot="header">{{props.title}}</div>
             <div class="sort-filter">
-                <v-checkbox v-for="s in values[1][v.id]" @click="radioClick(s)" :label="s" :key="s"></v-checkbox>
+                <v-checkbox v-if="props.values" v-for="s in props.values" @click="props.callback(s)" :label="s" :key="s" hide-details></v-checkbox>
             </div>
         </v-expansion-panel-content>
     </v-expansion-panel>
