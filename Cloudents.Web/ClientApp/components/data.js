@@ -10,7 +10,7 @@ export let verticals =
            // placeholder: "Find me class material...",
             resultTitle: "I found some documents that might help.See what you think!",
             emptyState: "Darn, I wasn't able to find any documents.Try these other options.",
-            filter: [{ id: 'all', name: 'all' }, { id: 'source', name: 'sources' }, { id: 'course', name: "My Courses" }],
+            filter: [{ id: 'source', name: 'sources' }, { id: 'course', name: "My Courses" }],
             sort: [{ id: 'relevance', name: 'relevance' }, { id: 'date', name: 'date' }]
         },
         flashcard: {

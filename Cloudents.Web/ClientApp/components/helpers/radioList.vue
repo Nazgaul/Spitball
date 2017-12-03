@@ -44,7 +44,8 @@
             value: { type: [String, Number] },
             values: { type: [String, Array] },
             model: { type: String },
-            changeCallback: { type: Function }
+            changeCallback: { type: Function },
+            title:{}
         },
         methods: {
             radioClick(value) {
