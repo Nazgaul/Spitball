@@ -2,22 +2,39 @@
 
 
 
-.application--light .input-group--selection-controls.checkbox {
-    label {
-        color: rgba(0,0,0,0.54);
-        font-size: 14px;
-        color: black;
-        text-transform: capitalize;
-        left: 16px;
-    }
+.expansion-panel {
+    box-shadow: none;
 
-    .input-group__input .icon--selection-control {
-        font-size: 14px;
-    }
+    .expansion-panel__container {
+        background-color: transparent;
 
-    .input-group--selection-controls__ripple {
-        height: 32px;
-        width: 32px;
-        transform: translate3d(-9px, -50%, 0);
+        .expansion-panel__header {
+            padding: 8px 4px;
+            font-weight: bold;
+            border-top: 2px solid;
+            border-bottom: 2px solid;
+            border-image: linear-gradient(to right, #3023ae, #3293f6) 10;
+            text-transform: capitalize;
+            margin-bottom: 8px;
+
+            i {
+                font-size: 8px;
+                color: @color-dark-blue
+            }
+        }
+
+        .sort-filter {
+            .filter {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+
+                label {
+                    text-transform: capitalize;
+                    margin-left: 6px;
+                    line-height: 24px;
+                }
+            }
+        }
     }
 }
