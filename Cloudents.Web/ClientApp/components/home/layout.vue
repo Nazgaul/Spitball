@@ -23,7 +23,7 @@
                                 <v-container>
                                     <v-layout row>
                                         <v-flex class="tx-input">
-                                            <v-menu offset-y full-width>
+                                            <v-menu offset-y full-width content-class="h-p-menu">
                                                 <span slot="activator">
                                                     <slot name="inputField"></slot>
                                                 </span>
@@ -32,7 +32,7 @@
                                                     <template v-for="(item, index) in props.items">
                                                         <v-list-tile @click="props.selectosFunction(item)" :key="index">
                                                             <v-list-tile-action>
-                                                                -
+                                                                <v-icon>sbf-search</v-icon>
                                                             </v-list-tile-action>
                                                             <v-list-tile-content>
                                                                 <v-list-tile-title v-text="item"></v-list-tile-title>

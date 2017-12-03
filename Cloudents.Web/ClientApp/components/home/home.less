@@ -1,6 +1,24 @@
 ﻿@import "../../mixin.less";
 
+.h-p-menu {
+    background: #fff !important;
+    border-radius: 4px;
 
+    .subheader {
+        color: @Feed-Like-count;
+        letter-spacing: -0.3px;
+        font-size: 18px;
+        line-height: 2.22;
+    }
+
+    .list__tile__title:not(.list__tile--active) {
+        color: @Spitball-Main-color;
+        height: 36px;
+        font-size: 18px;
+        line-height: 2;
+        letter-spacing: -0.3px;
+    }
+}
 .h-p {
     &.wrapper {
         width: 100%;
@@ -20,26 +38,7 @@
     .f-submit {
         .flexSameSize();
     }
-
-    .application--light .list {
-        background: #fff !important;
-        border-radius: 4px;
-
-        .subheader {
-            color: @Feed-Like-count;
-            letter-spacing: -0.3px;
-            font-size: 18px;
-            line-height: 2.22;
-        }
-
-        .list__tile__title:not(.list__tile--active) {
-            color: @Spitball-Main-color;
-            height: 36px;
-            font-size: 18px;
-            line-height: 2;
-            letter-spacing: -0.3px;
-        }
-    }
+   
     //strips
     .strip {
         padding-top: 80px;
