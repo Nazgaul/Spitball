@@ -5,8 +5,8 @@
     'fontName': 'sb-images',
     'classPrefix': 'sbf-',
     'baseSelector': '.sbf',
-    'types': [ 'woff'],
-    //'fixedWidth': true,
+    'types': ['woff'],
     //'embed': true,
-    'fileName': 'sb.[hash].[ext]'
+    'html': true,
+    'fileName': 'sb-[hash].[ext]'
 };
