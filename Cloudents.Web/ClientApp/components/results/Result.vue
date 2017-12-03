@@ -13,11 +13,14 @@
             <div class="sort-filter">
                 <h3>Sort by</h3>
                 <h3>filter by</h3>
-                <div class="sort-filter" v-if="page.sort || page.filter">
-                    <template v-for="f in page.filter" v-if="subFilterVertical">
-                    <radio-list class="search" :values="(pageData[f.id]?pageData[f.id]:myCourses)" :title="f.name" @click="$_changeSubFilter(f.id)"></radio-list>
-                    </template>
-                    <radio-list v-else-if="page.filter" class="search" :values="page.filter" title="filter" @click="$_changeSubFilter" ></radio-list>
+                <div class="sort-filter" v-if="page.filter">
+                    <radio-list class="search" :callback="$_changeSubFilter" :values="filterObject" :checkesVals="filterOptions"></radio-list>
+                    <!--<radio-list v-if="subFilterVertical||page.filter" class="search" :values="(subFilterVertical?(pageData[f.id]?pageData[f.id]:myCourses):page.filter)" :modelId="f.id" :callback="$_changeSubFilter"></radio-list>-->
+
+                    <!--<template v-for="f in page.filter" v-if="subFilterVertical">-->
+                    <!--<radio-list class="search" :values="(pageData[f.id]?pageData[f.id]:myCourses)" :title="f.name" :modelId="f.id" :callback="$_changeSubFilter"></radio-list>-->
+                    <!--</template>-->
+                    <!--<radio-list v-else-if="page.filter" class="search" :values="page.filter" title="filter" modelId="filter" :callback="$_changeSubFilter" ></radio-list>-->
                 </div>
             </div>
 </template>
