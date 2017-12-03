@@ -15,5 +15,5 @@
         <component :is="`${props.iconName}-icon`" slot="bottomIcon" slot-scope="props"></component>
     </page-layout>
 </template>
-<style src="./home.less" lang="less" scoped></style>
+<style src="./home.less" lang="less"></style>
 <script src="./home.js"></script>
