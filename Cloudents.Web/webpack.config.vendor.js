@@ -38,7 +38,6 @@ module.exports = (env) => {
                 "vuetify/es5/components/VProgressLinear",
                 "vuetify/es5/components/VSubheader",
                 "vuetify/es5/components/VDivider",
-                "vuetify/es5/components/VSnackbar",
                 "vuetify/es5/components/VDialog",
                 "vuetify/es5/components/VBtn",
                 "vuetify/es5/components/VTooltip",
