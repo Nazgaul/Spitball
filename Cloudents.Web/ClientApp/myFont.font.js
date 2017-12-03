@@ -8,5 +8,5 @@
     'types': [ 'woff'],
     //'fixedWidth': true,
     //'embed': true,
-    'fileName': 'sb.[ext]'
+    'fileName': 'sb.[hash].[ext]'
 };
