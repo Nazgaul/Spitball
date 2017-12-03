@@ -1,4 +1,4 @@
-﻿﻿@using System.Reflection
+﻿@using System.Reflection
 @inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
 @{
     const string themeColor = "#4190b";
@@ -19,8 +19,6 @@
     <base href="~/" />
     
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    @*<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet">*@
     <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
     <environment exclude="Development">
         <link rel="stylesheet" href="~/dist/site.css" asp-append-version="true" />
