@@ -1,12 +1,11 @@
 ﻿<template functional>
 
     <div class="sort-switch">
-        <input type="radio" id="option1"
-               name="switch" value="option1" checked>
-        <label for="option1">option1</label>
-        <input type="radio" id="option2"
-               name="switch" value="option2">
-        <label for="option2">option2</label>
+        <template v-for="(o,index) in props.options">
+            <input type="radio" :id="`option${index}`" @click="props.callback(o.id)"
+                   name="switch" :value="o.id" :checked="props.val?props.val===o.id:index===0">
+            <label :for="`option${index}`">{{o.name}}</label>
+        </template>
     </div>
 
 </template>
