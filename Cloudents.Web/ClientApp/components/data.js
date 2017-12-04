@@ -57,7 +57,7 @@ export let verticals =
             //placeholder: "Find me a job...",
             resultTitle: "Look at this - you’ll be employed in no time!",
             emptyState: "Sorry, I didn't find any jobs that match your search",
-            filter: [{ id: 'jobType', name: 'job type' }, { id: 'paid', name: 'paid' }],
+            filter: [{ id: 'jobType', name: 'job type' }],
             sort: [{ id: 'price', name: 'price' }, { id: 'distance', name: 'distance' }]
         },
         food: {
