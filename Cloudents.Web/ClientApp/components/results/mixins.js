@@ -92,24 +92,10 @@ export const pageMixin =
                     }
                 }
             },
-            // showCourses() {
-            //     return this.page && this.page.filter ?
-            //         new Set(this.page.filter.map((i) => i.id)).has('course') : false;
-            // },
-            // titleText: function () {if(!this.page)return '';
-            //     if(this.isEmpty)return this.page.emptyText.replace('$subject', this.term);
-            //     return this.page.title},
+
             isEmpty: function () { return this.pageData.data ? !this.pageData.data.length : true },
-            // subFilter: function () { return this.query[this.filterSelection]; },
             subFilterVertical(){
                 return this.name.includes('note')||this.name==='flashcard'
-            },
-            subFilters: function () {
-                if (this.filter === 'course') {
-                    return [... this.myCourses, { id: 'addCourse', name: 'Select Course'}];
-                }
-                const list = this.pageData[this.filter];
-                return list ? list.map(item => { return { id: item, name: item } }) : [];
             },
             filterObject(){
                 if(!this.subFilterVertical&&this.page.filter){
@@ -130,7 +116,6 @@ export const pageMixin =
                 items: '',
                 pageData: '',
                 isfirst: false,
-                showSearch: false,
                 selectedItem:null
             };
         },

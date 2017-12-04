@@ -1,7 +1,7 @@
 ﻿﻿
 <template>
     <v-dialog v-model="dialog" fullscreen content-class="dialog-choose" v-if="currentItem" class="settings" :overlay=false>
-        <personalize-page :title="(currentAction?title:null)" :search="!currentAction" :isLoading="isLoading" :emptyText="emptyText" :items="items" :selectedCourse="selectedCourse" :closeFunction="$_closeButton">
+        <page-layout :title="title" :search="!currentAction" :titleImage="(currentType==='course'&&!currentAction)?getUniversityImage:''" :isLoading="isLoading" :emptyText="emptyText" :items="items" :selectedCourse="selectedCourse" :closeFunction="$_closeButton">
             <v-flex class="white--text" xs2 slot="extraClose" @click="$_closeButton" v-if="currentType!=='university'">DONE</v-flex>
             <close-button slot="closeAction"></close-button>
             <v-btn slot="actionButton" v-if="currentItem.action" @click="currentAction=currentItem.action">X</v-btn>
@@ -16,7 +16,7 @@
                 <component :is="'search-item-'+currentType" :item="props.item"></component>
             </v-flex>
             <component slot="actionContent" v-if="currentAction" :is="currentType+'-'+currentAction" @done="$_actionDone"></component>
-        </personalize-page>
+        </page-layout>
     </v-dialog>
 </template>
 <script>
@@ -29,7 +29,7 @@
     const searchItemCourse = () => import('./searchItemCourse.vue');
     import { mapGetters, mapMutations } from 'vuex'
     import CourseAdd from './courseAdd.vue';
-    import PersonalizePage from './personalizePage.vue';
+    import PageLayout from './layout.vue';
     import VDialog from "vuetify/src/components/VDialog/VDialog";
     import 'vue-awesome/icons/close';
     import VIcon from 'vue-awesome/components/Icon.vue'
@@ -61,8 +61,10 @@
             title() {
                 if (this.currentAction && !this.dialog) this.dialog = true;
                 if (this.currentAction) return "Add Class";
+                if(this.currentType==="course")return this.getUniversityName;
+                return "Personalize Results"
             },
-            ...mapGetters(['myCourses']),
+            ...mapGetters(['myCourses',"getUniversityImage","getUniversityName"]),
             currentItem: function () {
                 return searchObjects[this.currentType]
             },
@@ -80,7 +82,7 @@
         },
 
         components: {
-            CourseAdd, VDialog, PersonalizePage, VIcon, searchItemUniversity, searchItemCourse, closeButton
+            CourseAdd, VDialog, PageLayout, VIcon, searchItemUniversity, searchItemCourse, closeButton
         },
         props: { type: { type: String, required: true }, value: { type: Boolean }, keep: { type: Boolean } },
         methods: {
