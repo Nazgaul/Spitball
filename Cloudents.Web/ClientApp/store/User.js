@@ -25,6 +25,10 @@ const getters = {
         let obj = state.user.universityId || {};
         return obj.name;
     },
+    getUniversityImage:state => {
+        let obj = state.user.universityId || {};
+        return obj.image;
+    },
     myCourses: state => state.user.myCourses,
     myCoursesId: state => (state.user.myCourses.length ? state.user.myCourses.map(i=>i.id):[])
 };
@@ -48,8 +52,8 @@ const actions = {
     updateFirstTime({ commit }) {
         commit(USER.UPDATE_USER, {isFirst:false});
     },
-    updateUniversity({ commit }, {id,name}) {
-        commit(USER.UPDATE_USER, { universityId: {id,name} });
+    updateUniversity({ commit }, {id,name,image}) {
+        commit(USER.UPDATE_USER, { universityId: {id,name,image} });
     },
     updatePinnedCards(context, data) {
         context.commit(USER.UPDATE_USER, { pinnedCards: { ...context.getters.pinnedCards,...data} });
