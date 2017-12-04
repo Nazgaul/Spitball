@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
@@ -20,7 +19,10 @@ namespace Cloudents.Infrastructure.Search
         public CseModel(IEnumerable<string> query, IEnumerable<string> source, int page, SearchCseRequestSort sort, CustomApiKey key)
         {
             Query = string.Join(" ", query);
-            Source = string.Join(" ", source);
+            if (source != null)
+            {
+                Source = string.Join(" ", source);
+            }
             Page = page;
             Sort = sort;
             Key = key;

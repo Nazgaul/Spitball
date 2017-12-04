@@ -18,6 +18,7 @@ module.exports = (env) => {
                 'vue-router',
                 'vue-resource',
                 'vuex',
+                "vue-analytics",
                 "./ClientApp/main.styl",
                 "./wwwroot/content/main.less",
                 "./ClientApp/myFont.font.js",
