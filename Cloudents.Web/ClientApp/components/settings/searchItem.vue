@@ -13,7 +13,7 @@
             <div v-if="!currentAction" @click="$_clickItemCallback(keep)" slot-scope="props" slot="results">
                     <component :is="'search-item-'+type" :item="props.item"></component>
             </div>
-            <component slot="actionContent" v-if="currentAction" :is="type+'-'+currentAction" @done="$_actionDone"></component>
+            <component slot="actionContent" v-if="currentAction" :is="currentType+'-'+currentAction" @done="$_actionDone"></component>
             </personalize-page>
         </v-dialog>
 </template>
@@ -39,6 +39,9 @@
         },
         watch:{
             type(val){
+                this.currentType=val;
+            },
+            currentType(val){
                 this.isLoading=true;
                 this.items =[];
                 this.$refs.searchText?this.$refs.searchText.inputValue='':this.$_search('');
@@ -59,7 +62,7 @@
             },
             ...mapGetters(['myCourses']),
             currentItem: function () {
-                return searchObjects[this.type]
+                return searchObjects[this.currentType]
             },
             emptyText: function () { return this.currentItem.emptyState },
             selectedCourse(){if(this.type === 'course')return this.myCourses}
@@ -67,16 +70,15 @@
         data() {
             return {
                 items: [],
-                filter: 'all',
                 isLoading: true,
                 isChanged: false,
+                currentType:"",
                 currentAction: ""
             }
         },
 
         components: {
-            CourseAdd, VDialog,PersonalizePage,VIcon,
-            searchItemUniversity, searchItemCourse, RadioList, plusButton, closeButton
+            CourseAdd, VDialog,PersonalizePage,VIcon
         },
         props: { type: { type: String, required: true }, value: { type: Boolean },keep:{type:Boolean} },
         methods: {
