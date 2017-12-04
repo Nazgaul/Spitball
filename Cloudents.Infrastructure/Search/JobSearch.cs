@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -64,7 +63,7 @@ namespace Cloudents.Infrastructure.Search
                 {
                     "title","responsibilities","dateTime","city","state","jobType","compensationType","url","company"
                 },
-                Facets = filterQuery != null || sortQuery.Count > 0 ? null : new[]
+                Facets = filterQuery != null ? null : new[]
                 {
                     "jobType"
                 },

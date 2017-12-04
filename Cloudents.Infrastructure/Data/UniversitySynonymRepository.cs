@@ -24,7 +24,7 @@ namespace Cloudents.Infrastructure.Data
                 var dbResult = await c.QueryFirstAsync(
                     new CommandDefinition("select  UniversityName,Extra from zbox.university where id=@universityId", new { universityId }, cancellationToken: token)).ConfigureAwait(false);
                 var result = new List<string> {dbResult.UniversityName.ToString()};
-                string extra = dbResult.Extra.ToString();
+                string extra = dbResult.Extra?.ToString();
 
                 if (extra != null)
                 {

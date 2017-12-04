@@ -1,20 +1,23 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Models;
 
 namespace Cloudents.Core.DTOs
 {
     public class AiDto
     {
+        private readonly List<string> _list = new List<string>();
+
         public AiDto(AiIntent intent, KeyValuePair<string, string>? searchType,
-            string university, IList<string> subject,
+            string university, IEnumerable<string> subject,
             string location, string course, string isbn)
         {
             Intent = intent;
             SearchType = searchType;
             University = university;
-            Subject = subject;
+           
+            _list.AddRange(subject);
             Location = location;
             Course = course;
             Isbn = isbn;
@@ -26,7 +29,7 @@ namespace Cloudents.Core.DTOs
         public string University { get; }
         public string Course { get; }
         public string Isbn { get; }
-        public IList<string> Subject { get; }
+        public IList<string> Subject => new List<string>(_list);
         public string Location { get; }
     }
 

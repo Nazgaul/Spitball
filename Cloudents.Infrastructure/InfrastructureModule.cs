@@ -5,6 +5,7 @@ using Autofac.Core;
 using Autofac.Extras.DynamicProxy;
 using AutoMapper;
 using CacheManager.Core;
+using Castle.DynamicProxy;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.AI;
 using Cloudents.Infrastructure.Cache;
@@ -38,7 +39,9 @@ namespace Cloudents.Infrastructure
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(c => new CacheResultInterceptor(c.Resolve<ICacheProvider>())); //<CacheResultInterceptor>();
+            //builder.Register(c => new CacheResultInterceptor(c.Resolve<ICacheProvider>())); //<CacheResultInterceptor>();
+            builder.RegisterType<CacheResultInterceptor>();
+
             builder.RegisterType<LuisAI>().As<IAI>()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
@@ -63,7 +66,7 @@ namespace Cloudents.Infrastructure
                 new SearchServiceClient(_searchServiceName, new SearchCredentials(_searchServiceKey)))
                 .SingleInstance().AsSelf().As<ISearchServiceClient>();
 
-            builder.RegisterType(typeof(CacheProvider)).As(typeof(ICacheProvider));
+            builder.RegisterType<CacheProvider>().AsImplementedInterfaces();
             builder.RegisterType<CseSearch>().As<ICseSearch>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<DocumentCseSearch>().As<IDocumentCseSearch>();
@@ -102,10 +105,8 @@ namespace Cloudents.Infrastructure
         {
             var cacheConfig = ConfigurationBuilder.BuildConfiguration(settings =>
             {
-                settings.WithMicrosoftMemoryCacheHandle()
-                //settings
-                //    .WithSystemRuntimeCacheHandle("inProcess")
-                    .WithExpiration(ExpirationMode.Absolute, TimeSpan.FromMinutes(10));
+                settings.WithMicrosoftMemoryCacheHandle();
+                // .WithExpiration(ExpirationMode.Absolute, TimeSpan.FromMinutes(10));
                 if (!string.IsNullOrEmpty(_redisConnectionString))
                 {
                     settings.WithJsonSerializer();
@@ -129,4 +130,7 @@ namespace Cloudents.Infrastructure
             return new MapperConfiguration(cfg => cfg.AddProfile<MapperProfile>());
         }
     }
+
+
 }
+
