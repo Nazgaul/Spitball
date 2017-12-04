@@ -95,7 +95,7 @@ export const pageMixin =
 
             isEmpty: function () { return this.pageData.data ? !this.pageData.data.length : true },
             subFilterVertical(){
-                return this.name.includes('note')||this.name==='flashcard'
+                return this.name.includes('note')||this.name==='flashcard'||this.name==='job'
             },
             version() { return window.version },
             filterObject(){

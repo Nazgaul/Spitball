@@ -20,7 +20,7 @@ export let verticals =
             //placeholder: "Find me flashcards...",
             resultTitle: "Oh look - I found some flashcards for you.Test yourself!",
             emptyState: "Sorry, I did not find any quiz results...",
-            filter: [{ id: 'source', name: 'sources' }],
+            filter: [{ id: 'source', name: 'sources' },{ id: 'course', name: "My Courses" }],
             sort: [{ id: 'relevance', name: 'relevance' }, { id: 'date', name: 'date' }]
         },
         tutor: {
@@ -57,7 +57,7 @@ export let verticals =
             //placeholder: "Find me a job...",
             resultTitle: "Look at this - you’ll be employed in no time!",
             emptyState: "Sorry, I didn't find any jobs that match your search",
-            filter: [{ id: 'all', name: 'all' },{ id: 'jobType', name: 'job type' }, { id: 'paid', name: 'paid' }],
+            filter: [{ id: 'jobType', name: 'job type' }, { id: 'paid', name: 'paid' }],
             sort: [{ id: 'price', name: 'price' }, { id: 'distance', name: 'distance' }]
         },
         food: {
