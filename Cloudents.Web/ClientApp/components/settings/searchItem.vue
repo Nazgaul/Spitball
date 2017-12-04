@@ -4,13 +4,14 @@
         <page-layout :title="title" :search="!currentAction" :titleImage="(currentType==='course'&&!currentAction)?getUniversityImage:''" :isLoading="isLoading" :emptyText="emptyText" :items="items" :selectedCourse="selectedCourse" :closeFunction="$_closeButton">
             <v-flex class="white--text" xs2 slot="extraClose" @click="$_closeButton" v-if="currentType!=='university'">DONE</v-flex>
             <close-button slot="closeAction"></close-button>
-            <v-btn slot="actionButton" v-if="currentItem.action" @click="currentAction=currentItem.action">X</v-btn>
-       
+
             <v-text-field light solo slot="inputField" @input="$_search" class="search-b" ref="searchText" :placeholder="currentItem.placeholder" prepend-icon="sbf-search"></v-text-field>
 
-            <v-chip slot="selectedItems" slot-scope="props" v-if="selectedCourse" label>
-                <strong>{{ props.course.name }}</strong>
-                <span @click="$_removeCourse(props.course.id)"><v-icon name="close"></v-icon></span>
+            <v-chip class="ma-2" slot="selectedItems" slot-scope="props" v-if="selectedCourse" label>
+                <span class="name">{{ props.course.name }}</span>
+                <button class="close pa-2" @click="$_removeCourse(props.course.id)">
+                    <close-button></close-button>
+                </button>
             </v-chip>
             <v-flex class="result" v-if="!currentAction" @click="$_clickItemCallback(keep)" slot-scope="props" slot="results">
                 <component :is="'search-item-'+currentType" :item="props.item"></component>
@@ -61,10 +62,10 @@
             title() {
                 if (this.currentAction && !this.dialog) this.dialog = true;
                 if (this.currentAction) return "Add Class";
-                if(this.currentType==="course")return this.getUniversityName;
+                if (this.currentType === "course") return this.getUniversityName;
                 return "Personalize Results"
             },
-            ...mapGetters(['myCourses',"getUniversityImage","getUniversityName"]),
+            ...mapGetters(['myCourses', "getUniversityImage", "getUniversityName"]),
             currentItem: function () {
                 return searchObjects[this.currentType]
             },

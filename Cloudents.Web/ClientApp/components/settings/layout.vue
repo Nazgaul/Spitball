@@ -7,20 +7,21 @@
                         <slot name="closeAction"></slot>
                     </button>
                 </v-flex>
-                    <slot name="extraClose"></slot>
+                <slot name="extraClose"></slot>
             </v-layout>
-            <div class="title-text">
-                <img v-if="props.titleImage" :src="props.titleImage"/>
-                <h1 class="mt-3">{{props.title}}</h1>
-                <!--<h5 v-if="props.title" class="pt-3">{{props.title}}</h5>-->
+            <div>
+                <v-layout row align-center justify-center class="title-text mt-3">
+                    <img class="ma-4" v-if="props.titleImage" :src="props.titleImage" />
+                    <h1>{{props.title}}</h1>
+                </v-layout>
             </div>
             <slot name="search" v-if="props.search">
-                <v-container class="pa-0" fluid grid-list-l>
+                <v-container class="pa-0">
                     <v-layout row justify-center>
                         <v-flex><slot name="inputField"></slot></v-flex>
                     </v-layout>
-                    <v-container fluid slot="selectedItems" class="pa-0 mb-3" v-if="props.selectedCourse">
-                        <v-layout row justify-center>
+                    <v-container fluid slot="selectedItems" class="selected-items pa-0" v-if="props.selectedCourse">
+                        <v-layout row wrap justify-start>
                             <template v-for="course in props.selectedCourse">
                                 <slot name="selectedItems" :course="course"></slot>
                             </template>

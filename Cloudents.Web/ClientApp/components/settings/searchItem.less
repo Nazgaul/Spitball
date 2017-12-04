@@ -14,13 +14,19 @@
     .d-header {
         button {
             height: 100%;
-            svg{
+
+            svg {
                 fill: white;
             }
         }
 
         .title-text {
             padding: 72px 0 24px 0;
+
+            img {
+                width: 64px;
+                height: 64px;
+            }
 
             h1 {
                 font-size: 60px;
@@ -55,6 +61,31 @@
             width: auto;
         }
 
+
+        .selected-items .chip__content {
+            background: white;
+            padding: 8px 0 8px 8px;
+            border-radius: 4px;
+            overflow: hidden;
+
+            .name {
+                color: @color-blue;
+                font-weight: normal;
+            }
+
+            .close {
+                display: flex;
+                align-items: center;
+                height: 26px;
+
+                svg {
+                    width: 10px;
+                    height: 10px;
+                    fill: @Feed-Date;
+                }
+            }
+        }
+
         .results-container {
             overflow-y: auto;
 
@@ -64,7 +95,6 @@
 
             .uni {
                 width: 96px;
-                margin: 16px;
                 text-align: center;
                 color: #fff;
                 font-size: 12px;
@@ -73,6 +103,25 @@
                     width: 100%;
                     height: 96px;
                     background-color: white;
+                }
+            }
+
+            .course {
+                width: 136px;
+                border-radius: 4px;
+                overflow: hidden;
+
+                .code {
+                    height: 72px;
+                    font-size: 16px;
+                    background: @color-blue;
+                    color: white;
+                    text-align: center;
+                }
+
+                .name {
+                    background: white;
+                    height: 72px;
                 }
             }
         }
