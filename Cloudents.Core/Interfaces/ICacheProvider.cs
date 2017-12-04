@@ -7,4 +7,6 @@ namespace Cloudents.Core.Interfaces
         object Get(string key, string region);
         void Set(string key, string region, object value, int expire);
     }
+
+
 }

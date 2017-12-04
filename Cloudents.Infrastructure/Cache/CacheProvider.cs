@@ -1,32 +1,27 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Autofac.Extras.DynamicProxy;
 using CacheManager.Core;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Request;
 
 namespace Cloudents.Infrastructure.Cache
 {
     public class CacheProvider : ICacheProvider
     {
-        private readonly ICacheManager<object> m_Cache;
+        private readonly ICacheManager<object> _cache;
 
         public CacheProvider(ICacheManager<object> cache)
         {
-            m_Cache = cache;
+            _cache = cache;
         }
 
         public object Get(string key, string region)
         {
             try
             {
-                return m_Cache.Get(key, region);
+                return _cache.Get(key, region);
             }
-            catch
+            catch (Exception ex)
             {
-                m_Cache.Remove(key, region);
+                _cache.Remove(key, region);
                 return null;
             }
         }
@@ -37,15 +32,9 @@ namespace Cloudents.Infrastructure.Cache
             {
                 return;
             }
-            //if (value is IEnumerable iEnumerable)
-            //{
-                
-               // Activator.CreateInstance(typeof(List<>).MakeGenericType(TypeObjectOfT), paginatedListObject);
-               // value = iEnumerable.ToList();
-           // }
             var cacheItem = new CacheItem<object>(key, region, value, ExpirationMode.Sliding,
                 TimeSpan.FromSeconds(expire));
-            m_Cache.Put(cacheItem);
+            _cache.Put(cacheItem);
         }
     }
 }

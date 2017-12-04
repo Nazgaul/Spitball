@@ -9,4 +9,10 @@
     <Compile Remove="Entities\Db\CourseContent.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="System.Collections.Immutable">
+      <HintPath>..\..\..\..\.nuget\packages\system.collections.immutable\1.4.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

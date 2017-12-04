@@ -13,6 +13,7 @@
                     <label :for="s">{{s.name?s.name:s}}</label>
                 </div>
                 <slot :name="`${k.modelId}EmptyState`" v-if="k.data.length===0"></slot>
+                <slot :name="`${k.modelId}ExtraState`" v-else></slot>
             </div>
         </v-expansion-panel-content>
     </v-expansion-panel>

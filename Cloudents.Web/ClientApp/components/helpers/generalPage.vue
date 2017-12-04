@@ -8,6 +8,9 @@
                 </v-flex>
                 <v-flex>
                     <slot name="verticalNavbar"></slot>
+                    <div>
+                        <template v-for="item in props.filterSelection"><slot name="selectedFilters" :item="item"></slot></template>
+                    </div>
                     <!--<app-menu :term="userText"></app-menu>-->
                 </v-flex>
             </v-layout>

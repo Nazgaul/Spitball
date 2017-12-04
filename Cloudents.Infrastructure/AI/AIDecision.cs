@@ -24,7 +24,6 @@ namespace Cloudents.Infrastructure.AI
 
         public AIDecision()
         {
-
             var methods = typeof(AIDecision).GetMethods(BindingFlags.NonPublic |BindingFlags.Static).Where(mi =>
             {
                 if (mi.ReturnType != typeof(VerticalEngineDto))
@@ -40,6 +39,7 @@ namespace Cloudents.Infrastructure.AI
                 _matrix.Add(t);
             }
         }
+
         public VerticalEngineDto MakeDecision(AiDto aiResult)
         {
             foreach (var vertical in _matrix)
@@ -79,6 +79,7 @@ namespace Cloudents.Infrastructure.AI
 
 
         }
+
         const string Flashcards = "flashcards";
         [Factory]
         private static VerticalEngineDto FlashcardEngine(AiDto aiResult)
@@ -87,7 +88,6 @@ namespace Cloudents.Infrastructure.AI
             {
                 return null;
             }
-          
             if (!aiResult.SearchType.HasValue || !string.Equals(aiResult.SearchType.Value.Key, Flashcards,
                     StringComparison.InvariantCultureIgnoreCase))
             {
@@ -103,6 +103,7 @@ namespace Cloudents.Infrastructure.AI
             }
             return new VerticalEngineFlashcardDto(terms, aiResult.University);
         }
+
         [Factory]
 
         private static VerticalEngineDto AskEngine(AiDto aiResult)
@@ -117,6 +118,7 @@ namespace Cloudents.Infrastructure.AI
             }
             return new VerticalEngineAskDto(terms);
         }
+
         [Factory]
 
         private static VerticalEngineDto JobEngine(AiDto aiResult)
@@ -127,6 +129,7 @@ namespace Cloudents.Infrastructure.AI
             }
             return new VerticalEngineJobDto(aiResult.Subject, aiResult.Location);
         }
+
         [Factory]
 
         private static VerticalEngineDto TutorEngine(AiDto aiResult)
@@ -141,6 +144,7 @@ namespace Cloudents.Infrastructure.AI
             }
             return new VerticalEngineTutorDto(aiResult.Subject, aiResult.Location);
         }
+
         [Factory]
 
         private static VerticalEngineDto FoodEngine(AiDto aiResult)
@@ -155,8 +159,8 @@ namespace Cloudents.Infrastructure.AI
             }
             return new VerticalEngineFoodDto(aiResult.Subject, aiResult.Location);
         }
-        [Factory]
 
+        [Factory]
         private static VerticalEngineDto BookEngine(AiDto aiResult)
         {
 
