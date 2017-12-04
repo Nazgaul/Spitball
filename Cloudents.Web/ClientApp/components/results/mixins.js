@@ -194,14 +194,12 @@ export const pageMixin =
                 //     return;
                 // }
                 let currentFilter=!this.query[id]?[]:Array.isArray(this.query[id])?this.query[id]:[this.query[id]];
-                let filter1={[id]:[val,...currentFilter]};
+                let listo=[val,...currentFilter];
+                if(!type.target.checked){
+                    listo=currentFilter.filter(i=>i!==val);
+                }
+                let filter1={[id]:listo};
                 let {q,sort,course,source,filter}=this.query;
-                // if(currentFilter.includes(val)){
-                //
-                // }
-                // let filter={[id]:[val,...currentFilter]};
-                console.log(filter);
-                console.log(type)
                 this.$router.push({ query: {q,sort,course,source,filter, ...filter1}});
             }
         },

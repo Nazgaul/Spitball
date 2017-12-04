@@ -18,6 +18,7 @@ export default {
             names: names,
             currentName:"",
             qFilter: this.$route.query.q,
+            keep:false,
             type:""
         };
     },
@@ -69,7 +70,7 @@ export default {
             console.log("hi")
         },
         $_currentClick(item){
-            item.click.call(this);
+            item.click.call(this,this.getUniversityName);
         }
     }
 }

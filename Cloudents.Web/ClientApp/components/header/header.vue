@@ -1,6 +1,6 @@
 ﻿<template>
   <component is="slot">
-      <search-item v-model="showDialog" :type="type"></search-item>
+      <search-item v-model="showDialog" :type="type" :keep="keep"></search-item>
       <v-toolbar app clipped-left fixed :height="isMobileSize? 48 : 72" :extended="isMobileSize" class="header">
         <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 230px; min-width: 230px' : 'min-width: 72px'">
             <router-link class="logo-link" :to="{name:'home'}">
@@ -16,7 +16,7 @@
                     <v-icon>sbf-3-dot</v-icon>
                 </v-btn>
                 <v-list>
-                    <v-list-tile @click="$_currentClick(item)" v-for="(item,index) in settingMenu">
+                    <v-list-tile @click="$_currentClick(item)" v-for="(item,index) in settingMenu" :key="index">
                         <v-list-tile-content>
                             <v-list-tile-title>{{item.id==='university'&&getUniversityName?getUniversityName:item.name}}</v-list-tile-title>
                         </v-list-tile-content>

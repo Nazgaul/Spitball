@@ -13,7 +13,11 @@
         placeholder: 'Select school',
         closeText: "X",
         click:function(keep=true){
-            if(this.$route.name==="setting"&&!keep){this.dialog = false}
+            // console.log("huii")
+            // this.dialog = false;
+            if(!keep){this.dialog = false}else{
+                this.currentType="course";
+            }
         },
         defaultFilter: '',
         filters: []
@@ -23,11 +27,14 @@ export let settingMenu=[
     {id:"university",name:"Choose university",click:function () {
         this.showDialog = true;
         this.type = "university";
+        this.keep=false;
     }
     },
     {
-        id: "myCourses", name: "My courses", click: function () {
-        this.showDialog=true;this.type="course";
+        id: "myCourses", name: "My courses", click: function (universityExist) {
+        this.showDialog=true;
+        this.type=universityExist?"course":"university";
+        !universityExist?this.keep=true:"";
         }
     }
     ];

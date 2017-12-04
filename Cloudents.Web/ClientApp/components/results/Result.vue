@@ -1,15 +1,15 @@
 ﻿<template>
     <general-page>
         <app-menu slot="verticalNavbar" :$_calcTerm="$_calcTerm"></app-menu>
-        <result-personalize v-show="isfirst" :show="showSearch" ></result-personalize>
+        <result-personalize :show="isfirst"></result-personalize>
         <template slot="options" v-if="page">
             <div class="sort-filter">
-                <h3>Sort by</h3>
-                <sort-switch></sort-switch>
-                <h3>filter by</h3>
+               <slot v-if="page.sort"> <h3>Sort by</h3>
+                <sort-switch :options="page.sort" :callback="$_updateSort" :val="sort"></sort-switch></slot>
+                <slot v-if="page.filter"><h3>filter by</h3>
                 <div class="sort-filter" v-if="page.filter">
                     <radio-list class="search" :callback="$_changeSubFilter" :values="filterObject" :checkesVals="filterOptions"></radio-list>
-                </div>
+                </div></slot>
             </div>
 </template>
         <scroll-list slot="data" v-if="page&&items" @scroll="value => {items=items.concat(value) }" :token="pageData.token">

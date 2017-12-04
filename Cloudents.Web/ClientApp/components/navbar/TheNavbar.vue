@@ -34,6 +34,12 @@
 
         props:{$_calcTerm:{type:Function}},
 
+        watch:{
+            changeTerm(val){
+                if(!val)this.$el.querySelector(`[href=${this.currentPage}]`).click();
+            }
+        },
+
         methods: {
             ...mapMutations({ 'changeFlow': 'ADD' }),
             $_currentTerm(type) {
@@ -43,12 +49,11 @@
             $_updateType(result) {
                 if(this.$route.meta[this.$_calcTerm(result)]){
                     this.changeFlow({ result });
-                this.$router.push({ path: '/' + result, query: {...this.$route.query,q: this.$_currentTerm(result).term } })}else{
+                    let query={q: this.$_currentTerm(result).term };
+                    if(this.currentPage===result)query={...this.$route.query,...query};
+                this.$router.push({ path: '/' + result,query})}else{
                     this.changeTerm=true;
-                    this.$nextTick(()=>{
-                        this.$el.querySelector(`[href=${this.currentPage}]`).click();
-                        this.newVertical=result;
-                    });
+                    this.newVertical=result;
                 }
             },
             $_changeTerm(){
