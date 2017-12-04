@@ -1,5 +1,5 @@
 ﻿<template>
-    <div class="uni" :key="item.id" @click="$_universitySelected(item)">
+    <div class="uni ma-3" :key="item.id" @click="$_universitySelected(item)">
         <img :src="item.image" alt="">
         <div>{{item.name}}</div>
     </div>
