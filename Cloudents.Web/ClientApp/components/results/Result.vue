@@ -8,7 +8,10 @@
                 <sort-switch :options="page.sort" :callback="$_updateSort" :val="sort"></sort-switch></slot>
                 <slot v-if="page.filter"><h3>filter by</h3>
                 <div class="sort-filter" v-if="page.filter">
-                    <radio-list class="search" :callback="$_changeSubFilter" :values="filterObject" :checkesVals="filterOptions"></radio-list>
+                    <radio-list class="search" :callback="$_changeSubFilter" :values="filterObject" :checkesVals="filterSelection">
+                        <div slot="courseEmptyState">Add your school
+                            and courses for better results</div>
+                    </radio-list>
                 </div></slot>
             </div>
 </template>

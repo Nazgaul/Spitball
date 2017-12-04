@@ -4,7 +4,7 @@
         <div slot="data" class="book-detail elevation-1">
             <result-book :item="pageData.details" :isDetails="true"></result-book>
             <div class="sort-filter">
-                    <radio-list class="search" :values="page.filter" v-model="filter" :value="filterOptions"></radio-list>
+                    <radio-list class="search" :values="page.filter" v-model="filter" :value="filterSelection"></radio-list>
                     <!--<div class="s-divider"></div>-->
                     <radio-list v-if="page.sort" :values="page.sort" model="sort" class="search sort" value="price"></radio-list>
             </div>

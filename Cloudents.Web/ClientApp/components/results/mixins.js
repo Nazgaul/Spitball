@@ -26,7 +26,7 @@ export const sortAndFilterMixin = {
         page: function () { return page[this.name] }
     },
     props: {
-        name: { type: String }, query: { type: Object }, filterOptions: { type: [String,Array] }, sort: { type: String }, fetch: { type: String }, params: { type: Object }
+        name: { type: String }, query: { type: Object }, filterSelection: { type: [String,Array] }, sort: { type: String }, fetch: { type: String }, params: { type: Object }
     },
 
     methods: {
@@ -37,7 +37,7 @@ let updateData = function (data) {
     this.pageData={};
     this.content = data;
     (data.data.length && this.hasExtra) ? this.selectedItem = data.data[0].placeId : '';
-    this.filter = this.filterOptions;
+    this.filter = this.filterSelection;
     this.UPDATE_LOADING(false);
     this.$nextTick(()=>{
     this.$el.querySelector(`#${this.name} a`).click();
@@ -92,15 +92,15 @@ export const pageMixin =
                     }
                 }
             },
-            showCourses() {
-                return this.page && this.page.filter ?
-                    new Set(this.page.filter.map((i) => i.id)).has('course') : false;
-            },
-            titleText: function () {if(!this.page)return '';
-                if(this.isEmpty)return this.page.emptyText.replace('$subject', this.term);
-                return this.page.title},
+            // showCourses() {
+            //     return this.page && this.page.filter ?
+            //         new Set(this.page.filter.map((i) => i.id)).has('course') : false;
+            // },
+            // titleText: function () {if(!this.page)return '';
+            //     if(this.isEmpty)return this.page.emptyText.replace('$subject', this.term);
+            //     return this.page.title},
             isEmpty: function () { return this.pageData.data ? !this.pageData.data.length : true },
-            subFilter: function () { return this.query[this.filterOptions]; },
+            // subFilter: function () { return this.query[this.filterSelection]; },
             subFilterVertical(){
                 return this.name.includes('note')||this.name==='flashcard'
             },
