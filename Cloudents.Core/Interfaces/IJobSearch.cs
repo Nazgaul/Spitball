@@ -12,7 +12,7 @@ namespace Cloudents.Core.Interfaces
         Task<ResultWithFacetDto<JobDto>> SearchAsync(string term,
             JobRequestFilter filter,
             JobRequestSort sort,
-            string jobType,
+            IEnumerable<string> jobType,
             GeoPoint location,
             CancellationToken token);
     }

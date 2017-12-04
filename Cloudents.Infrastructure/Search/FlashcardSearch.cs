@@ -11,11 +11,11 @@ namespace Cloudents.Infrastructure.Search
 {
     public class FlashcardSearch : IFlashcardSearch
     {
-        private readonly ICseSearch m_Search;
+        private readonly ICseSearch _search;
 
         public FlashcardSearch(ICseSearch search)
         {
-            m_Search = search;
+            _search = search;
         }
 
         public async Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, CancellationToken token)
@@ -26,16 +26,28 @@ namespace Cloudents.Infrastructure.Search
             {
                 term.Add(string.Join(" OR ", model.UniversitySynonym.Select(s => '"' + s + '"')));
             }
-            term.AddNotNull(model.Course, s => '"' + s + '"');
+            if (model.Course != null)
+            {
+                term.Add(string.Join(" OR ", model.Course.Select(s => '"' + s + '"')));
+            }
             if (model.Query != null)
             {
                 term.Add(string.Join(" ", model.Query));
             }
 
-            var result = Enumerable.Range(model.Page * 3, 3).Select(s =>
-                m_Search.DoSearchAsync(string.Join(" ", term), model.Source, s, model.Sort, CustomApiKey.Flashcard, token)).ToList();
+
+            var result = Enumerable.Range(model.Page * CseSearch.NumberOfPagesPerRequest, CseSearch.NumberOfPagesPerRequest).Select(s =>
+            {
+                var cseModel = new CseModel(term, model.Source, s, model.Sort, CustomApiKey.Flashcard);
+                return _search.DoSearchAsync(cseModel,
+                    token);
+            }).ToList();
+
+            //var result = Enumerable.Range(model.Page * 3, 3).Select(s => { }
+            //    m_Search.DoSearchAsync(string.Join(" ", term), model.Source, s, model.Sort, CustomApiKey.Flashcard, token)).ToList();
             await Task.WhenAll(result).ConfigureAwait(false);
-            return new ResultWithFacetDto<SearchResult> {
+            return new ResultWithFacetDto<SearchResult>
+            {
 
                 Result = result.Where(s => s.Result != null).SelectMany(s => s.Result),
                 Facet = new[]

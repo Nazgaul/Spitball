@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -22,18 +23,13 @@ namespace Cloudents.Infrastructure.Search
         {
             _mapper = mapper;
             _client = client.Indexes.GetClient("jobs");
-
-            //var index = new Index();
-            //{
-            //    Fields
-            //}
         }
 
         public async Task<ResultWithFacetDto<JobDto>> SearchAsync(
             string term,
             JobRequestFilter filter,
             JobRequestSort sort,
-            string jobType,
+            IEnumerable<string> jobType,
             GeoPoint location,
             CancellationToken token)
         {
@@ -43,9 +39,10 @@ namespace Cloudents.Infrastructure.Search
             {
                 filterQuery = "compensationType eq 'paid'";
             }
-            if (!string.IsNullOrEmpty(jobType))
+            if (jobType != null)
+            //if (!string.IsNullOrEmpty(jobType))
             {
-                filterQuery = $"jobType eq '{jobType}'";
+                filterQuery = string.Join(" or ", jobType.Select(s => $"jobType eq '{jobType}'"));
             }
 
             switch (sort)

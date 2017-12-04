@@ -6,6 +6,7 @@ import VScroll from "vuetify/es5/directives/scroll";
 import GeneralPage from "./components/helpers/generalPage.vue"
 import VueRouter from "vue-router";
 import vueAdsense from "vue-adsense";
+import VueAnalytics from "vue-analytics";
 
 
 //NOTE: put changes in here in webpack vendor as well
@@ -92,6 +93,14 @@ const router = new VueRouter({
         }
     }
 });
+Vue.use(VueAnalytics,
+    {
+        id: 'UA-100723645-2',
+        router,
+        autoTracking: {
+            exception: true
+        }
+    });
 new Vue({
     el: "#app",
     router: router,

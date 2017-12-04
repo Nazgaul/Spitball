@@ -77,7 +77,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             CancellationToken token)
         {
             IEnumerable<string> universitySynonym = null;
-            if (model.University.HasValue && !string.IsNullOrEmpty(model.Course))
+            if (model.University.HasValue)
             {
                 var repositoryResult = await _universitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
                 universitySynonym = repositoryResult.Name;

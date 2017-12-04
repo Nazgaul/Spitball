@@ -26,15 +26,21 @@ namespace Cloudents.Infrastructure.Search
             {
                 term.Add(string.Join(" OR ", model.UniversitySynonym.Select(s => '"' + s + '"')));
             }
-            term.AddNotNull(model.Course, s => '"' + s + '"');
+            if (model.Course != null)
+            {
+                term.Add(string.Join(" OR ", model.Course.Select(s => '"' + s + '"')));
+            }
             if (model.Query != null)
             {
                 term.Add(string.Join(" ", model.Query));
             }
+            var result = Enumerable.Range(model.Page * CseSearch.NumberOfPagesPerRequest, CseSearch.NumberOfPagesPerRequest).Select(s =>
+            {
+                var cseModel = new CseModel(term, model.Source, s, model.Sort, CustomApiKey.Documents);
 
-            var result = Enumerable.Range(model.Page * 3, 3).Select(s => _search.DoSearchAsync(string.Join(" ", term), model.Source, s, model.Sort,
-                CustomApiKey.Documents,
-                token)).ToList();
+                return _search.DoSearchAsync(cseModel,
+                    token);
+            }).ToList();
             await Task.WhenAll(result).ConfigureAwait(false);
             return new ResultWithFacetDto<SearchResult>
             {

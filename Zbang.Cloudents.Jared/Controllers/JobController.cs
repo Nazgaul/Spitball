@@ -24,10 +24,11 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> Get(string[] term,
             JobRequestFilter? filter,
             JobRequestSort? sort,
-            GeoPoint location, string facet, CancellationToken token)
+            GeoPoint location, string[] facet, CancellationToken token)
         {
             if (term == null) throw new ArgumentNullException(nameof(term));
-            var result = await _jobSearch.SearchAsync(string.Join(" ", term), filter.GetValueOrDefault(), sort.GetValueOrDefault(JobRequestSort.Distance), facet, location, token).ConfigureAwait(false);
+            var result = await _jobSearch.SearchAsync(string.Join(" ", term), filter.GetValueOrDefault(), sort.GetValueOrDefault(JobRequestSort.Distance),
+                facet, location, token).ConfigureAwait(false);
             return Request.CreateResponse(result);
         }
     }

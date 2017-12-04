@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
@@ -15,47 +14,56 @@ using Google.Apis.Services;
 
 namespace Cloudents.Infrastructure.Search
 {
-    public interface ICseSearch
+    public class CseModel
     {
-        Task<IEnumerable<SearchResult>> DoSearchAsync(string query,
-            string source,
-            int page,
-            SearchCseRequestSort sort,
-            CustomApiKey key,
-            CancellationToken token);
+        public CseModel(IEnumerable<string> query, IEnumerable<string> source, int page, SearchCseRequestSort sort, CustomApiKey key)
+        {
+            Query = string.Join(" ", query);
+            if (source != null)
+            {
+                Source = string.Join(" ", source);
+            }
+            Page = page;
+            Sort = sort;
+            Key = key;
+        }
+
+        public string Query { get; }
+        public string Source { get; }
+        public int Page { get; }
+        public SearchCseRequestSort Sort { get; }
+        public CustomApiKey Key { get; }
     }
-    public class CseSearch : ICseSearch
+
+    internal class CseSearch : ICseSearch
     {
         private readonly IKeyGenerator _keyGenerator;
-
+        public const int NumberOfPagesPerRequest = 2;
         public CseSearch(IKeyGenerator keyGenerator)
         {
             _keyGenerator = keyGenerator;
         }
 
-       // [Cache(TimeConst.Day, "cse")]
-        public async Task<IEnumerable<SearchResult>> DoSearchAsync(string query,
-            string source,
-            int page,
-            SearchCseRequestSort sort,
-            CustomApiKey key,
+        [Cache(TimeConst.Day, "cse")]
+        public async Task<IEnumerable<SearchResult>> DoSearchAsync(CseModel model,
             CancellationToken token)
         {
-            if (string.IsNullOrEmpty(query))
-                throw new ArgumentNullException(nameof(query));
+            if (model == null) throw new ArgumentNullException(nameof(model));
+            if (string.IsNullOrEmpty(model.Query))
+                throw new ArgumentNullException(nameof(model.Query));
             var initializer = new BaseClientService.Initializer
             {
                 ApiKey = "AIzaSyCZEbkX9Of6pZQ47OD0VA9a8fd1A6IvW6E",
 
             };
             var p = new CustomsearchService(initializer);
-            var request = new CseResource.ListRequest(p, string.Join(" ", query))
+            var request = new CseResource.ListRequest(p, string.Join(" ", model.Query))
             {
-                Start = page == 0 ? 1 : (page * 10) + 1,
-                SiteSearch = source,
-                Cx = key.Key,
+                Start = model.Page == 0 ? 1 : (model.Page * 10) + 1,
+                SiteSearch = model.Source,
+                Cx = model.Key.Key,
                 Fields = "items(title,link,snippet,pagemap/cse_image,displayLink)",
-                Sort = sort == SearchCseRequestSort.Date ? "date" : string.Empty
+                Sort = model.Sort == SearchCseRequestSort.Date ? "date" : string.Empty
             };
             try
             {
@@ -86,11 +94,11 @@ namespace Cloudents.Infrastructure.Search
             }
             catch (GoogleApiException ex)
             {
-                ex.Data.Add("q", query);
-                ex.Data.Add("source", source);
-                ex.Data.Add("page", page);
-                ex.Data.Add("sort", sort);
-                ex.Data.Add("key", key);
+                ex.Data.Add("q", model.Query);
+                ex.Data.Add("source", model.Source);
+                ex.Data.Add("page", model.Page);
+                ex.Data.Add("sort", model.Sort);
+                ex.Data.Add("key", model.Key);
                 throw;
             }
         }

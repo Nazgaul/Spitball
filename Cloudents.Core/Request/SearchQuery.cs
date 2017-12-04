@@ -11,7 +11,7 @@ namespace Cloudents.Core.Request
         }
 
         public SearchQuery(IEnumerable<string> query, IEnumerable<string> universitySynonym,
-            string course, string source, int page, SearchCseRequestSort sort)
+            IEnumerable<string> course, IEnumerable<string> source, int page, SearchCseRequestSort sort)
         {
             Query = query;
             UniversitySynonym = universitySynonym;
@@ -21,9 +21,9 @@ namespace Cloudents.Core.Request
             Sort = sort;
         }
 
-        public string Source { get; }
+        public IEnumerable<string> Source { get; }
         public IEnumerable<string> UniversitySynonym { get; }
-        public string Course { get; }
+        public IEnumerable<string> Course { get; }
         public IEnumerable<string> Query { get; }
         public int Page { get; }
         public SearchCseRequestSort Sort { get; }
