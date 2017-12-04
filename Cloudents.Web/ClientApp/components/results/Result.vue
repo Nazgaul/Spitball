@@ -9,8 +9,11 @@
                 <slot v-if="page.filter"><h3>filter by</h3>
                 <div class="sort-filter" v-if="page.filter">
                     <radio-list class="search" :callback="$_changeSubFilter" :values="filterObject" :checkesVals="filterSelection">
-                        <div slot="courseEmptyState">Add your school
-                            and courses for better results</div>
+                        <div slot="courseEmptyState" v-if="!myCourses.length">Add your school
+                            and courses for better results <v-btn @click="$_openPersonalize">Personalize</v-btn></div>
+                        <div slot="courseExtraState" v-else>
+                            <v-btn @click="$_openPersonalize">Add course</v-btn>
+                        </div>
                     </radio-list>
                 </div></slot>
             </div>

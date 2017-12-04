@@ -201,6 +201,9 @@ export const pageMixin =
                 let filter1={[id]:listo};
                 let {q,sort,course,source,filter}=this.query;
                 this.$router.push({ query: {q,sort,course,source,filter, ...filter1}});
+            },
+            $_openPersonalize(){
+                this.$parent.$el.querySelector("#myCourses").click();
             }
         },
         props: { hasExtra: {type:Boolean},currentTerm:{type:[String,Object]}}
