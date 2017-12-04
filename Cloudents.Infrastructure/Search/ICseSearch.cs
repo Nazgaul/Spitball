@@ -8,11 +8,7 @@ namespace Cloudents.Infrastructure.Search
 {
     public interface ICseSearch
     {
-        Task<IEnumerable<SearchResult>> DoSearchAsync(string query,
-            string source,
-            int page,
-            SearchCseRequestSort sort,
-            CustomApiKey key,
+        Task<IEnumerable<SearchResult>> DoSearchAsync(CseModel model,
             CancellationToken token);
     }
 }

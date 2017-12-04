@@ -25,8 +25,14 @@ namespace Cloudents.Infrastructure.Search
                 term.Add(string.Join(" ", model.Query));
             }
 
-            var result = Enumerable.Range(model.Page * 3, 3).Select(s => _search.DoSearchAsync(
-                string.Join(" ", term), model.Source, s, model.Sort, CustomApiKey.AskQuestion, token)).ToList();
+
+            var result = Enumerable.Range(model.Page * 3, 3).Select(s =>
+            {
+                var cseModel = new CseModel(term, model.Source, s, model.Sort, CustomApiKey.AskQuestion);
+                return _search.DoSearchAsync(cseModel,
+                    token);
+            }).ToList();
+
             await Task.WhenAll(result).ConfigureAwait(false);
             return result.Where(s => s.Result != null).SelectMany(s => s.Result);
         }
