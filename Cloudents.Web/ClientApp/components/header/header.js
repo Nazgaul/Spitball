@@ -53,12 +53,14 @@ export default {
         ...mapActions(["updateSearchText"]),
         submit: function () {
             this.updateSearchText(this.qFilter).then((response) => {
-                let result=response.result;
+                let result=this.$route.path;
                 this.$route.meta[result.includes('food')?'foodTerm':result.includes('job')?'jobTerm':'term']={
                     term: this.qFilter,
                     luisTerm: response.term
                 };
-                this.$router.push({ path: result, query: { q: this.qFilter } });
+                this.$nextTick(()=>{
+                this.$router.push({path:result, query: { q: this.qFilter },meta:{...this.$route.meta} });
+                });
             });
             this.$emit("update:overlay", false);
         },
