@@ -1,4 +1,4 @@
-﻿﻿<template>
+﻿<template>
     <v-dialog  v-model="dialog" fullscreen content-class="dialog-choose" v-if="currentItem" class="settings" :overlay=false>
             <personalize-page :title="(currentAction?title:null)" :search="!currentAction" :isLoading="isLoading" :emptyText="emptyText" :items="items" :selectedCourse="selectedCourse" :closeFunction="$_closeButton">
                 <v-flex class="white--text" xs2 slot="extraClose" @click="$_closeButton" v-if="currentType!=='university'">DONE</v-flex>
@@ -37,14 +37,14 @@
             prop: 'value',
             event: 'change'
         },
-        watch:{
-            type(val){
+        watch: {
+            type(val) {
                 this.currentType=val;
             },
             currentType(val){
-                this.isLoading=true;
-                this.items =[];
-                this.$refs.searchText?this.$refs.searchText.inputValue='':this.$_search('');
+                this.isLoading = true;
+                this.items = [];
+                this.$refs.searchText ? this.$refs.searchText.inputValue = '' : this.$_search('');
             }
         },
         computed: {
@@ -52,20 +52,20 @@
                 get() {
                     return this.value;
                 }, set(val) {
-                    if(!val)this.$refs.searchText.inputValue='';
+                    if (!val) this.$refs.searchText.inputValue = '';
                     this.$emit('change', val)
                 }
             },
-            title(){
-                if(this.currentAction&&!this.dialog)this.dialog=true;
-                if(this.currentAction)return "Add Class";
+            title() {
+                if (this.currentAction && !this.dialog) this.dialog = true;
+                if (this.currentAction) return "Add Class";
             },
             ...mapGetters(['myCourses']),
             currentItem: function () {
                 return searchObjects[this.currentType]
             },
             emptyText: function () { return this.currentItem.emptyState },
-            selectedCourse(){if(this.currentType === 'course')return this.myCourses}
+            selectedCourse(){if(this.currentType === 'course')return this.myCourses;}
         },
         data() {
             return {
@@ -78,7 +78,7 @@
         },
 
         components: {
-            CourseAdd, VDialog,PersonalizePage,VIcon,searchItemUniversity,searchItemCourse,closeButton
+            CourseAdd, VDialog,PersonalizePage,VIcon
         },
         props: { type: { type: String, required: true }, value: { type: Boolean },keep:{type:Boolean} },
         methods: {

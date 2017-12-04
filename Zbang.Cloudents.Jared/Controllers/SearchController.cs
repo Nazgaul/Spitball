@@ -46,8 +46,8 @@ namespace Zbang.Cloudents.Jared.Controllers
             var result = await _searchProvider.Value.SearchAsync(query, token).ConfigureAwait(false);
             return Request.CreateResponse(new
             {
-               documents =  result.Result,
-               result.Facet
+                documents = result.Result,
+                result.Facet
             });
         }
 
@@ -72,7 +72,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             });
         }
 
-        [Route("api/search/qna"), HttpGet]
+        [Route("api/search/qna"), HttpGet, Obsolete]
         public async Task<HttpResponseMessage> SearchQuestionAsync([FromUri] SearchRequest model,
             CancellationToken token)
         {
