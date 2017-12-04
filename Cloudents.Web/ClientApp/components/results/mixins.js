@@ -160,17 +160,6 @@ export const pageMixin =
             //TODO update the food in theNavber to purchase also
             $_calcTerm(name){return (name.includes('food')||name.includes('purchase'))?'foodTerm':name.includes('job')?'jobTerm':'term'},
             ...mapActions(['updateSearchText', 'fetchingData','updateFirstTime','updateFlow']),
-            $_changeFilter(filter) {
-                if (this.subFilters.length) {
-                    delete this.query[this.filter];
-                }
-                this.filter = filter;
-                if (!this.subFilters.length) {
-                    let currentQuery=this.query;
-                    if(this.filter==='inPerson')currentQuery={... this.query,sort:"price"};
-                    this.$router.push({ query: { ... currentQuery, filter } });
-                }
-            },
             $_updateCurrentFlow(index){
                 this.updateFlow(index).then(()=>{
                     this.$router.push({path:'/'+this.currenFlow,query:{q:this.query.q}});
@@ -183,24 +172,22 @@ export const pageMixin =
                 this.$router.push({ query: { ... this.query, sort: sort } });
             },
             $_changeSubFilter({id,val,type}) {
-                // console.log(arguments);
-                // let sub = {};
-                // sub[this.filter] = val;
-                // if (val === 'addCourse') {
-                //     this.showSearch = false;
-                //     this.$nextTick(() => {
-                //         this.showSearch = true;
-                //     });
-                //     return;
-                // }
                 let currentFilter=!this.query[id]?[]:Array.isArray(this.query[id])?this.query[id]:[this.query[id]];
                 let listo=[val,...currentFilter];
                 if(!type.target.checked){
                     listo=currentFilter.filter(i=>i!==val);
                 }
-                let filter1={[id]:listo};
+                let newFilter={[id]:listo};
                 let {q,sort,course,source,filter}=this.query;
-                this.$router.push({ query: {q,sort,course,source,filter, ...filter1}});
+                if(val==='inPerson'&&type)sort="price";
+                this.$router.push({ query: {q,sort,course,source,filter, ...newFilter}});
+            },
+            $_removeFilter(val){
+                let {source,course,filter}=this.query;
+                source=source?[].concat(source).filter(i=>i!== val):source;
+                course=course?[].concat(course).filter(i=>i!== val):course;
+                filter=filter?[].concat(filter).filter(i=>i!== val):filter;
+                this.$router.push({path:this.name,query:{...this.query,source,course,filter}});
             },
             $_openPersonalize(){
                 this.$parent.$el.querySelector("#myCourses").click();
