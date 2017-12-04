@@ -1,12 +1,8 @@
 ﻿<template>
-    <v-list-tile :key="item.id" @click="$_universitySelected(item)">
-        <v-list-tile-action class="mr-2 pa-2">
-            <img class="uni" :src="item.image" alt="">
-        </v-list-tile-action>
-        <v-list-tile-content>
-            <v-list-tile-title v-text="item.name"></v-list-tile-title>
-        </v-list-tile-content>
-    </v-list-tile>
+    <div class="uni" :key="item.id" @click="$_universitySelected(item)">
+        <img :src="item.image" alt="">
+        <div>{{item.name}}</div>
+    </div>
 </template>
 <script>
     import { mapActions } from 'vuex'
@@ -15,14 +11,8 @@
         methods: {
             ...mapActions(['updateUniversity']),
             $_universitySelected(val) {
-                this.updateUniversity(val); 
+                this.updateUniversity(val);
             }
         }
     }
 </script>
-<style scoped>
-    .uni {
-    width:2em;
-    height:2em;
-    }
-</style>
