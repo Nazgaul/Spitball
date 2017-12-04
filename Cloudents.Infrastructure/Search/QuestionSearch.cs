@@ -26,7 +26,7 @@ namespace Cloudents.Infrastructure.Search
             }
 
 
-            var result = Enumerable.Range(model.Page * 3, 3).Select(s =>
+            var result = Enumerable.Range(model.Page * CseSearch.NumberOfPagesPerRequest, CseSearch.NumberOfPagesPerRequest).Select(s =>
             {
                 var cseModel = new CseModel(term, model.Source, s, model.Sort, CustomApiKey.AskQuestion);
                 return _search.DoSearchAsync(cseModel,

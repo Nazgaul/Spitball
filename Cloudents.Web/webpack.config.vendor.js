@@ -1,28 +1,29 @@
-﻿const path = require('path');
-const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-var resolve = (p) => path.resolve(__dirname, p);
+﻿const path = require("path");
+const webpack = require("webpack");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
+//var resolve = (p) => path.resolve(__dirname, p);
 var Visualizer = require("webpack-visualizer-plugin");
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
-    const extractCSS = new ExtractTextPlugin('vendor.css');
+    const extractCss = new ExtractTextPlugin("vendor.css");
 
     return [{
         stats: { modules: false },
         //resolve: { extensions: ['.js'] },
         entry: {
             vendor: [
-                'vue',
-                'vue-router',
-                'vue-resource',
-                'vuex',
+                "vue",
+                "vue-router",
+                "vue-resource",
+                "vuex",
                 "vue-analytics",
+                "vue-lazyload",
                 "./ClientApp/main.styl",
                 "./wwwroot/content/main.less",
                 "./ClientApp/myFont.font.js",
-                'vuex-persistedstate',
+                "vuex-persistedstate",
                 "vue-star-rating",
                 "vuetify/es5/components/Vuetify",
                 "vuetify/es5/components/VApp",
@@ -32,7 +33,7 @@ module.exports = (env) => {
                 "vuetify/es5/components/VExpansionPanel",
                 "vuetify/es5/components/VList",
                 "vuetify/es5/components/VTextField",
-                "vuetify/es5/components/VAvatar",
+               // "vuetify/es5/components/VAvatar",
                 "vuetify/es5/components/VCard",
                 "vuetify/es5/components/VCarousel",
                 "vuetify/es5/components/VProgressCircular",
@@ -51,24 +52,24 @@ module.exports = (env) => {
         },
         module: {
             rules: [
-                { test: /\.css(\?|$)/, use: extractCSS.extract({ use: isDevBuild ? 'css-loader' : 'css-loader?minimize' }) },
-                { test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, use: 'url-loader?limit=8192' },
+                { test: /\.css(\?|$)/, use: extractCss.extract({ use: isDevBuild ? "css-loader" : "css-loader?minimize" }) },
+                { test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, use: "url-loader?limit=8192" },
                 {
                     test: /\.styl$/,
-                    loader: extractCSS.extract({ use: isDevBuild ? 'css-loader!stylus-loader' : 'css-loader?minimize!stylus-loader' })
+                    loader: extractCss.extract({ use: isDevBuild ? "css-loader!stylus-loader" : "css-loader?minimize!stylus-loader" })
                 },
                 {
                     test: /\.less$/,
                     exclude: /ClientApp/,
-                    use: extractCSS.extract({ use: isDevBuild ? 'css-loader!less-loader' : 'css-loader?minimize!less-loader' })
+                    use: extractCss.extract({ use: isDevBuild ? "css-loader!less-loader" : "css-loader?minimize!less-loader" })
                 },
                 {
                     test: /\.font\.js/,
-                    loader: extractCSS.extract({
+                    loader: extractCss.extract({
                         use: [
-                            isDevBuild ? 'css-loader' : 'css-loader?minimize',
+                            isDevBuild ? "css-loader" : "css-loader?minimize",
                             {
-                                loader: 'webfonts-loader' //TODO: need to add svg compression
+                                loader: "webfonts-loader" //TODO: need to add svg compression
 
                             }
                         ]
@@ -77,24 +78,24 @@ module.exports = (env) => {
             ]
         },
         output: {
-            path: path.join(__dirname, 'wwwroot', 'dist'),
-            publicPath: '/dist/',
-            filename: '[name].js',
-            library: '[name]_[hash]'
+            path: path.join(__dirname, "wwwroot", "dist"),
+            publicPath: "/dist/",
+            filename: "[name].js",
+            library: "[name]_[hash]"
         },
         plugins: [
             
-            extractCSS,
+            extractCss,
             
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': isDevBuild ? '"development"' : '"production"'
             }),
             new webpack.DllPlugin({
-                path: path.join(__dirname, 'wwwroot', 'dist', '[name]-manifest.json'),
-                name: '[name]_[hash]'
+                path: path.join(__dirname, "wwwroot", "dist", "[name]-manifest.json"),
+                name: "[name]_[hash]"
             })
         ].concat(isDevBuild ? [
-            new CleanWebpackPlugin(path.join(__dirname, 'wwwroot', 'dist')),
+            new CleanWebpackPlugin(path.join(__dirname, "wwwroot", "dist")),
             new Visualizer({
                 filename: "./statistics-vendor.html"
             })
