@@ -1,21 +1,23 @@
-﻿﻿<template>
-    <v-dialog  v-model="dialog" fullscreen content-class="dialog-choose" v-if="currentItem" class="settings" :overlay=false>
-            <personalize-page :title="(currentAction?title:null)" :search="!currentAction" :isLoading="isLoading" :emptyText="emptyText" :items="items" :selectedCourse="selectedCourse" :closeFunction="$_closeButton">
-                <v-flex class="white--text" xs2 slot="extraClose" @click="$_closeButton" v-if="currentType!=='university'">DONE</v-flex>
-                    <close-button slot="closeAction"></close-button>
-                <v-btn slot="actionButton" v-if="currentItem.action" @click="currentAction=currentItem.action">X</v-btn>
-                <v-text-field slot="inputField" dark  @input="$_search" color="white" ref="searchText" :placeholder="currentItem.placeholder"
-                              single-line></v-text-field>
-                <v-chip slot="selectedItems" slot-scope="props" v-if="selectedCourse" label>
-                        <strong>{{ props.course.name }}</strong>
-                        <span @click="$_removeCourse(props.course.id)"><v-icon name="close"></v-icon></span>
-                </v-chip>
-            <div v-if="!currentAction" @click="$_clickItemCallback(keep)" slot-scope="props" slot="results">
-                    <component :is="'search-item-'+currentType" :item="props.item"></component>
-            </div>
+﻿﻿
+<template>
+    <v-dialog v-model="dialog" fullscreen content-class="dialog-choose" v-if="currentItem" class="settings" :overlay=false>
+        <personalize-page :title="(currentAction?title:null)" :search="!currentAction" :isLoading="isLoading" :emptyText="emptyText" :items="items" :selectedCourse="selectedCourse" :closeFunction="$_closeButton">
+            <v-flex class="white--text" xs2 slot="extraClose" @click="$_closeButton" v-if="currentType!=='university'">DONE</v-flex>
+            <close-button slot="closeAction"></close-button>
+            <v-btn slot="actionButton" v-if="currentItem.action" @click="currentAction=currentItem.action">X</v-btn>
+       
+            <v-text-field light solo slot="inputField" @input="$_search" class="search-b" ref="searchText" :placeholder="currentItem.placeholder" prepend-icon="sbf-search"></v-text-field>
+
+            <v-chip slot="selectedItems" slot-scope="props" v-if="selectedCourse" label>
+                <strong>{{ props.course.name }}</strong>
+                <span @click="$_removeCourse(props.course.id)"><v-icon name="close"></v-icon></span>
+            </v-chip>
+            <v-flex v-if="!currentAction" @click="$_clickItemCallback(keep)" slot-scope="props" slot="results">
+                <component :is="'search-item-'+currentType" :item="props.item"></component>
+            </v-flex>
             <component slot="actionContent" v-if="currentAction" :is="currentType+'-'+currentAction" @done="$_actionDone"></component>
-            </personalize-page>
-        </v-dialog>
+        </personalize-page>
+    </v-dialog>
 </template>
 <script>
     import debounce from 'lodash/debounce'
@@ -25,9 +27,9 @@
     import { searchObjects } from './consts'
     const searchItemUniversity = () => import('./searchItemUniversity.vue');
     const searchItemCourse = () => import('./searchItemCourse.vue');
-    import { mapGetters,mapMutations } from 'vuex'
+    import { mapGetters, mapMutations } from 'vuex'
     import CourseAdd from './courseAdd.vue';
-    import  PersonalizePage from './personalizePage.vue';
+    import PersonalizePage from './personalizePage.vue';
     import VDialog from "vuetify/src/components/VDialog/VDialog";
     import 'vue-awesome/icons/close';
     import VIcon from 'vue-awesome/components/Icon.vue'
@@ -39,9 +41,9 @@
         },
         watch: {
             type(val) {
-                this.currentType=val;
+                this.currentType = val;
             },
-            currentType(val){
+            currentType(val) {
                 this.isLoading = true;
                 this.items = [];
                 this.$refs.searchText ? this.$refs.searchText.inputValue = '' : this.$_search('');
@@ -65,32 +67,32 @@
                 return searchObjects[this.currentType]
             },
             emptyText: function () { return this.currentItem.emptyState },
-            selectedCourse(){if(this.currentType === 'course')return this.myCourses;}
+            selectedCourse() { if (this.currentType === 'course') return this.myCourses; }
         },
         data() {
             return {
                 items: [],
                 isLoading: true,
                 isChanged: false,
-                currentType:"",
+                currentType: "",
                 currentAction: ""
             }
         },
 
         components: {
-            CourseAdd, VDialog,PersonalizePage,VIcon,searchItemUniversity,searchItemCourse,closeButton
+            CourseAdd, VDialog, PersonalizePage, VIcon, searchItemUniversity, searchItemCourse, closeButton
         },
-        props: { type: { type: String, required: true }, value: { type: Boolean },keep:{type:Boolean} },
+        props: { type: { type: String, required: true }, value: { type: Boolean }, keep: { type: Boolean } },
         methods: {
-            ...mapMutations({updateUser:'UPDATE_USER'}),
-            $_removeCourse(val){
-                this.updateUser({ myCourses: this.myCourses.filter(i=>i.id!==val)})
+            ...mapMutations({ updateUser: 'UPDATE_USER' }),
+            $_removeCourse(val) {
+                this.updateUser({ myCourses: this.myCourses.filter(i => i.id !== val) })
             },
-            $_closeButton(){
-                this.currentAction?this.currentAction="":this.dialog=false;
+            $_closeButton() {
+                this.currentAction ? this.currentAction = "" : this.dialog = false;
             },
             $_clickItemCallback(keep) {
-                this.currentItem.click ? this.currentItem.click.call(this,keep) : ''
+                this.currentItem.click ? this.currentItem.click.call(this, keep) : ''
             },
             $_actionDone(val) {
                 this.items = [... this.items, val];
@@ -99,17 +101,21 @@
             $_actionsCallback(action) {
                 this.currentAction = action;
             },
-            $_search:debounce(function (val) {
-                    this.isLoading = true;
-                    this.$store.dispatch(this.currentItem.searchApi, { term: val }).then(({ body }) => {
-                        this.items = body;
-                        this.isLoading = false
-                    })
-                },500)
+            $_search: debounce(function (val) {
+                this.isLoading = true;
+                this.$store.dispatch(this.currentItem.searchApi, { term: val }).then(({ body }) => {
+                    this.items = body;
+                    this.isLoading = false
+                })
+            }, 500)
         }
     }
 </script>
 <style src="./searchItem.less" lang="less"></style>
+
+
+
+
 
 
 
