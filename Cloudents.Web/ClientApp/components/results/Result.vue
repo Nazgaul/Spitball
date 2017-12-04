@@ -1,7 +1,7 @@
 ﻿<template>
     <general-page>
         <app-menu slot="verticalNavbar" :$_calcTerm="$_calcTerm"></app-menu>
-        <result-personalize v-show="isfirst" :show="showSearch" ></result-personalize>
+        <result-personalize :show="isfirst"></result-personalize>
         <template slot="options" v-if="page">
             <div class="sort-filter">
                <slot v-if="page.sort"> <h3>Sort by</h3>

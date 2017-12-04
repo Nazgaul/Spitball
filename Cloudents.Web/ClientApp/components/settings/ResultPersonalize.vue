@@ -47,7 +47,7 @@
     import { mapGetters } from 'vuex'
     export default {
         data() {
-            return { showDialog: true }
+            return { showDialog: false }
         },
 
 

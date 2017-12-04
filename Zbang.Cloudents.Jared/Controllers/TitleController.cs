@@ -11,6 +11,7 @@ using Microsoft.Azure.Mobile.Server.Config;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
+    [Obsolete]
     [MobileAppController]
     public class TitleController : ApiController
     {

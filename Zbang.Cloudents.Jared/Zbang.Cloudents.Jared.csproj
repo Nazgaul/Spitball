@@ -245,12 +245,15 @@
     <Compile Include="App_Start\Startup.Swagger.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AiController.cs" />
+    <Compile Include="Controllers\AskController.cs" />
+    <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\FavoriteController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Controllers\FlashcardController.cs" />
+    <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PlacesController.cs" />
     <Compile Include="Controllers\QuizController.cs" />
@@ -263,6 +266,7 @@
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="App_Start\AiExceptionLogger.cs" />
     <Compile Include="Controllers\VideoController.cs" />
+    <Compile Include="Models\AskRequest.cs" />
     <Compile Include="Models\MailRequest.cs" />
     <Compile Include="Models\CreateAcademicCourseRequest.cs" />
     <Compile Include="Models\FollowRequest.cs" />

@@ -11,11 +11,4 @@ namespace Cloudents.Web.Models
         public int? Page { get; set; }
         public SearchCseRequestSort? Sort { get; set; }
     }
-
-    public class AskRequest
-    {
-        public string UserText { get; set; }
-        public int? Page { get; set; }
-        public string[] Term { get; set; }
-    }
 }
