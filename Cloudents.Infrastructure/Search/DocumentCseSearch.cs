@@ -34,7 +34,7 @@ namespace Cloudents.Infrastructure.Search
             {
                 term.Add(string.Join(" ", model.Query));
             }
-            var result = Enumerable.Range(model.Page * 3, 3).Select(s =>
+            var result = Enumerable.Range(model.Page * CseSearch.NumberOfPagesPerRequest, CseSearch.NumberOfPagesPerRequest).Select(s =>
             {
                 var cseModel = new CseModel(term, model.Source, s, model.Sort, CustomApiKey.Documents);
 
