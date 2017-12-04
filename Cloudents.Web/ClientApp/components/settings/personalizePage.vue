@@ -33,7 +33,7 @@
             <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
         </div>
         <flex class="results-container" v-else-if="props.search&&!props.isLoading">
-            <v-layout fluid class="d-result" row justify-center wrap>
+            <v-layout fluid class="d-result" row justify-start wrap>
                 <slot v-if="props.items.length">
                     <slot v-for="(item, index) in props.items" name="results" :item="item"></slot>
                 </slot><div v-else>
