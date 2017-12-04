@@ -1,38 +1,48 @@
 ﻿@import "../../mixin.less";
 
 
+.sort-filter {
+    .expansion-panel {
+        @border-bg-image: linear-gradient(to right, #3023ae, #3293f6) 10;
+        box-shadow: none;
+        border-top: 1px solid;
+        border-image: @border-bg-image;
 
-.expansion-panel {
-    box-shadow: none;
+        .expansion-panel__container {
+            background-color: transparent;
+            border: none;
 
-    .expansion-panel__container {
-        background-color: transparent;
+            .expansion-panel__header {
+                padding: 8px 4px;
+                font-weight: bold;
+                border-bottom: 1px solid;
+                border-image: @border-bg-image;
+                text-transform: capitalize;
 
-        .expansion-panel__header {
-            padding: 8px 4px;
-            font-weight: bold;
-            border-top: 2px solid;
-            border-bottom: 2px solid;
-            border-image: linear-gradient(to right, #3023ae, #3293f6) 10;
-            text-transform: capitalize;
-            margin-bottom: 8px;
-
-            i {
-                font-size: 8px;
-                color: @color-dark-blue
+                i.icon {
+                    font-size: 8px;
+                    color: @color-dark-blue
+                }
             }
-        }
 
-        .sort-filter {
             .filter {
                 display: flex;
-                align-items: center;
+                align-items: flex-start;
                 justify-content: flex-start;
 
                 label {
                     margin-left: 6px;
                     line-height: 24px;
                 }
+
+                input {
+                    margin-top: 6px;
+                }
+            }
+
+            .expansion-panel__body .sort-filter {
+                border-bottom: 1px solid;
+                border-image: @border-bg-image;
             }
         }
     }
