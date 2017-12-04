@@ -20,7 +20,7 @@ namespace Zbang.Cloudents.Jared.Controllers
 
 
         [Route("search")]
-        public async Task<HttpResponseMessage> Get(string[] term, int page, int? thumbnail, CancellationToken token)
+        public async Task<HttpResponseMessage> Get([FromUri]string[] term, int page, int? thumbnail, CancellationToken token)
         {
             if (term == null) throw new ArgumentNullException(nameof(term));
             var result = await _booksSearch.SearchAsync(string.Join(" ", term), thumbnail.GetValueOrDefault(150), page, token).ConfigureAwait(false);
