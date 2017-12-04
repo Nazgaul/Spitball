@@ -106,13 +106,10 @@ namespace Cloudents.Infrastructure
             var cacheConfig = ConfigurationBuilder.BuildConfiguration(settings =>
             {
                 settings.WithMicrosoftMemoryCacheHandle();
-                // .WithExpiration(ExpirationMode.Absolute, TimeSpan.FromMinutes(10));
                 if (!string.IsNullOrEmpty(_redisConnectionString))
                 {
                     settings.WithJsonSerializer();
-
                     settings.WithRedisConfiguration("redis", _redisConnectionString)
-
                     .WithRedisBackplane("redis").WithRedisCacheHandle("redis");
                 }
             });

@@ -12,7 +12,7 @@
                 <strong>{{ props.course.name }}</strong>
                 <span @click="$_removeCourse(props.course.id)"><v-icon name="close"></v-icon></span>
             </v-chip>
-            <v-flex v-if="!currentAction" @click="$_clickItemCallback(keep)" slot-scope="props" slot="results">
+            <v-flex class="result" v-if="!currentAction" @click="$_clickItemCallback(keep)" slot-scope="props" slot="results">
                 <component :is="'search-item-'+currentType" :item="props.item"></component>
             </v-flex>
             <component slot="actionContent" v-if="currentAction" :is="currentType+'-'+currentAction" @done="$_actionDone"></component>

@@ -22,11 +22,6 @@ namespace Cloudents.Infrastructure.Search
         {
             _mapper = mapper;
             _client = client.Indexes.GetClient("jobs");
-
-            //var index = new Index();
-            //{
-            //    Fields
-            //}
         }
 
         public async Task<ResultWithFacetDto<JobDto>> SearchAsync(

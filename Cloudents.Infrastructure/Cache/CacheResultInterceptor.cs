@@ -45,7 +45,7 @@ namespace Cloudents.Infrastructure.Cache
             var result = await task.ConfigureAwait(false);
             if (result != null)
             {
-                _cacheProvider.Set(key, att.Region, result, att.Duration); // cacheAttr.Duration);
+                result = (T)_cacheProvider.Set(key, att.Region, result, att.Duration); // cacheAttr.Duration);
             }
             // do the logging here, as continuation work for Task<T>...
             return result;
