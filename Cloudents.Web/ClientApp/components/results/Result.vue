@@ -19,6 +19,7 @@
                         </div>
                     </radio-list>
                 </div></slot>
+               <v-flex class="text-xs-center pt-2"> {{version}}</v-flex>
             </div>
 </template>
         <scroll-list slot="data" v-if="page&&items" @scroll="value => {items=items.concat(value) }" :token="pageData.token">

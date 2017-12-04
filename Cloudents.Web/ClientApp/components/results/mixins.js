@@ -97,6 +97,7 @@ export const pageMixin =
             subFilterVertical(){
                 return this.name.includes('note')||this.name==='flashcard'
             },
+            version() { return window.version },
             filterObject(){
                 if(!this.subFilterVertical&&this.page.filter){
                     return [{title:'filter',modelId:"filter",data:this.page.filter}];
