@@ -19,6 +19,7 @@ module.exports = (env) => {
                 'vue-resource',
                 'vuex',
                 "vue-analytics",
+                "vue-lazyload",
                 "./ClientApp/main.styl",
                 "./wwwroot/content/main.less",
                 "./ClientApp/myFont.font.js",
