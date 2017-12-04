@@ -2,7 +2,7 @@
     <general-page :filterSelection="filterSelection">
         <app-menu slot="verticalNavbar" :$_calcTerm="$_calcTerm"></app-menu>
             <v-chip  slot="selectedFilters" slot-scope="props" label>
-               <strong>{{props.item}}</strong> <v-btn @click="$_removeFilter(props.item)">X</v-btn></v-chip>
+               <strong>{{$_showSelectedFilter(props.item)}}</strong> <v-btn @click="$_removeFilter(props.item)">X</v-btn></v-chip>
         <result-personalize v-if="isfirst"></result-personalize>
         <template slot="options" v-if="page">
             <div class="sort-filter">

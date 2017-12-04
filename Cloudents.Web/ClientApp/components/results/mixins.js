@@ -176,6 +176,11 @@ export const pageMixin =
             },
             $_openPersonalize(){
                 this.$parent.$el.querySelector("#myCourses").click();
+            },
+            $_showSelectedFilter(item){
+                console.log(!Number.isNaN(item));
+                return !Number.isNaN(item)&&this.myCourses.find(x=>x.id===Number(item))?this.myCourses.find(x=>x.id===Number(item)).name:item;
+                // this.myCourses.find(x=>x.id===item).name
             }
         },
         props: { hasExtra: {type:Boolean},currentTerm:{type:[String,Object]}}
