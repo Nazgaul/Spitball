@@ -2,7 +2,7 @@
     <general-page :filterSelection="filterSelection">
         <app-menu slot="verticalNavbar" :$_calcTerm="$_calcTerm"></app-menu>
             <v-chip  slot="selectedFilters" slot-scope="props" label>
-               <strong>{{props.item}}</strong> <v-btn @click="$_removeFilter(props.item)">X</v-btn></v-chip>
+               <strong>{{$_showSelectedFilter(props.item)}}</strong> <v-btn @click="$_removeFilter(props.item)">X</v-btn></v-chip>
         <result-personalize v-if="isfirst"></result-personalize>
         <template slot="options" v-if="page">
             <div class="sort-filter">
@@ -19,6 +19,7 @@
                         </div>
                     </radio-list>
                 </div></slot>
+               <v-flex class="text-xs-center pt-2"> {{version}}</v-flex>
             </div>
 </template>
         <scroll-list slot="data" v-if="page&&items" @scroll="value => {items=items.concat(value) }" :token="pageData.token">

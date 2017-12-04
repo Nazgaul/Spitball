@@ -9,7 +9,7 @@
             </template>
             <div class="sort-filter pa-2">
                 <div v-for="s in k.data" :key="(s.id?s.id:s)" class="filter">
-                    <input type="checkbox" :id="s" :checked="props.checkesVals.includes(s.id?s.id.toString():s.toString())" @change="props.callback({id:k.modelId,val:(s.id?s.id:s),type:$event})"/>
+                    <input type="checkbox" :id="s" :checked="props.checkesVals.includes(s.id?s.id:s.toString())" @change="props.callback({id:k.modelId,val:(s.id?s.id:s),type:$event})"/>
                     <label :for="s">{{s.name?s.name:s}}</label>
                 </div>
                 <slot :name="`${k.modelId}EmptyState`" v-if="k.data.length===0"></slot>
