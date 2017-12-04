@@ -6,7 +6,7 @@
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn flat="flat" @click.native="showDialog = false">Not now</v-btn>
-                <v-btn flat="flat" @click.native="showDialog = false">Personalize</v-btn>
+                <v-btn flat="flat" @click.native="$_personalize">Personalize</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -47,22 +47,13 @@
     import { mapGetters } from 'vuex'
     export default {
         data() {
-            return { showDialog: false }
+            return { showDialog: true }
         },
 
-
-        computed: {
-            ...mapGetters(['getUniversity']),
-            searchType: function () { return this.getUniversity ? 'course' : 'university' }
-        },
-
-        props: { show: {} },
-        watch: {
-            show: function (val) {
-                if (val) {
-                this.showDialog = true;
-                }
+        methods: {
+            $_personalize() {
+                this.$parent.$parent.$el.querySelector("#myCourses").click();
             }
-        }
+        },
     }
 </script>
