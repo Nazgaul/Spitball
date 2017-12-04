@@ -41,7 +41,7 @@ let updateData = function (data) {
     this.UPDATE_LOADING(false);
     this.$nextTick(()=>{
     this.$el.querySelector(`#${this.name} a`).click();
-    })
+    });
 };
 
 export const pageMixin =
@@ -66,7 +66,7 @@ export const pageMixin =
                             this.$route.meta[this.$_calcTerm(toName)] = {term: to.query.q, luisTerm: response.term};
                             resolve(to.meta[this.$_calcTerm(toName)].luisTerm);
                         })}else{
-                        resolve(savedTerm.luisTerm)
+                        resolve(savedTerm.luisTerm);
                     }
                     }).then((luisTerm)=>{
                     this.fetchingData({name: toName, params: {...to.query, ...to.params}, luisTerm})
@@ -95,7 +95,7 @@ export const pageMixin =
 
             isEmpty: function () { return this.pageData.data ? !this.pageData.data.length : true },
             subFilterVertical(){
-                return this.name.includes('note')||this.name==='flashcard'
+                return this.name.includes('note')||this.name==='flashcard';
             },
             version() { return window.version },
             filterObject(){
@@ -107,7 +107,7 @@ export const pageMixin =
                         let item={title:i.name,modelId:i.id};
                         item.data=this.pageData[i.id]?this.pageData[i.id]:this.myCourses;
                         return item;
-                    })
+                    });
                 }
         }
         },
