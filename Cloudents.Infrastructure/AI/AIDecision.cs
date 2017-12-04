@@ -76,11 +76,10 @@ namespace Cloudents.Infrastructure.AI
                 return null;
             }
             return new VerticalEngineSearchDto(terms, aiResult.University);
-
-
         }
 
         const string Flashcards = "flashcards";
+
         [Factory]
         private static VerticalEngineDto FlashcardEngine(AiDto aiResult)
         {

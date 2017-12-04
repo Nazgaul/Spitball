@@ -15,15 +15,6 @@ using Google.Apis.Services;
 
 namespace Cloudents.Infrastructure.Search
 {
-    public interface ICseSearch
-    {
-        Task<IEnumerable<SearchResult>> DoSearchAsync(string query,
-            string source,
-            int page,
-            SearchCseRequestSort sort,
-            CustomApiKey key,
-            CancellationToken token);
-    }
     public class CseSearch : ICseSearch
     {
         private readonly IKeyGenerator _keyGenerator;
@@ -33,7 +24,7 @@ namespace Cloudents.Infrastructure.Search
             _keyGenerator = keyGenerator;
         }
 
-       // [Cache(TimeConst.Day, "cse")]
+        [Cache(TimeConst.Day, "cse")]
         public async Task<IEnumerable<SearchResult>> DoSearchAsync(string query,
             string source,
             int page,

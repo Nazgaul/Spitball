@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using CacheManager.Core;
 using Cloudents.Core.Interfaces;
 
@@ -26,15 +30,48 @@ namespace Cloudents.Infrastructure.Cache
             }
         }
 
-        public void Set(string key, string region, object value, int expire)
+        public object Set(string key, string region, object value, int expire)
         {
-            if (value == null)
+            var obj = ConvertEnumerableToList(value);
+            if (obj == null)
             {
-                return;
+                return value;
             }
-            var cacheItem = new CacheItem<object>(key, region, value, ExpirationMode.Sliding,
+            var cacheItem = new CacheItem<object>(key, region, obj, ExpirationMode.Sliding,
                 TimeSpan.FromSeconds(expire));
             _cache.Put(cacheItem);
+            return obj;
+        }
+
+        /// <summary>
+        /// Detect if object is IEnumerable if yes return it as IList otherwise as the same type
+        /// </summary>
+        /// <param name="val">The object</param>
+        /// <returns></returns>
+        private static object ConvertEnumerableToList(object val)
+        {
+            var o = val.GetType();
+            var p = o.GetInterfaces()
+                .FirstOrDefault(t => t.IsGenericType
+                          && t.GetGenericTypeDefinition() == typeof(IEnumerable<>));
+            if (p != null)
+            {
+                var t = p.GetGenericArguments()[0];
+                var listType = typeof(List<>);
+                var constructedListType = listType.MakeGenericType(t);
+
+                var instance = (IList)Activator.CreateInstance(constructedListType);
+
+                var temp = val as IEnumerable;
+                foreach (var obj in temp)
+                {
+                    instance.Add(obj);
+                }
+                return instance;
+
+
+            }
+            return val;
         }
     }
 }
