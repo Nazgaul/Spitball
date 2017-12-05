@@ -1,7 +1,13 @@
 ﻿﻿
 <template>
     <v-dialog v-model="dialog" fullscreen content-class="dialog-choose" v-if="currentItem" class="settings" :overlay=false>
-        <page-layout :title="title" :search="!currentAction" :titleImage="(currentType==='course'&&!currentAction)?getUniversityImage:''" :isLoading="isLoading" :emptyText="emptyText" :items="items" :selectedCourse="selectedCourse" :closeFunction="$_closeButton">
+        <page-layout :type="currentType" :title="title" :search="!currentAction" :titleImage="(currentType==='course'&&!currentAction)?getUniversityImage:''" :isLoading="isLoading" :emptyText="emptyText" :items="items" :selectedCourse="selectedCourse" :closeFunction="$_closeButton">
+           <template :slot="`${currentType}ExtraItem`">
+               <slot :name="`${currentType}ExtraItem`"></slot>
+           </template>
+            <template :slot="`${props.type}FirstTime`">
+                <slot :name="`${props.type}FirstTime`"></slot>
+            </template>
             <v-flex class="white--text" xs2 slot="extraClose" @click="$_closeButton" v-if="currentType!=='university'">DONE</v-flex>
             <close-button slot="closeAction"></close-button>
 

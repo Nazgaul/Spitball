@@ -25,6 +25,7 @@
                             <template v-for="course in props.selectedCourse">
                                 <slot name="selectedItems" :course="course"></slot>
                             </template>
+                            <slot :name="`${props.type}FirstTime`"></slot>
                         </v-layout>
                     </v-container>
                 </v-container>
@@ -37,7 +38,10 @@
         <v-flex class="results-container" v-else-if="props.search&&!props.isLoading">
             <v-layout fluid class="d-result" row justify-start wrap>
                 <slot v-if="props.items.length">
-                    <slot v-for="(item, index) in props.items" name="results" :item="item"></slot>
+                    <template v-for="item in props.items">
+                        <slot name="results" :item="item"></slot>
+                    </template>
+                    <slot :name="`${props.type}ExtraItem`"></slot>
                 </slot><div v-else>
                     <div>No Results Found</div>
                     <div v-html="props.emptyText"></div>
