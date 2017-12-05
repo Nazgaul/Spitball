@@ -8,12 +8,6 @@
                 </v-flex>
                 <v-flex>
                     <slot name="verticalNavbar"></slot>
-                    <div>
-                        <template v-for="item in props.filterSelection">
-                            <slot name="selectedFilters" :item="item"></slot>
-                        </template>
-                    </div>
-                    <!--<app-menu :term="userText"></app-menu>-->
                 </v-flex>
             </v-layout>
             <v-layout row class="pt-3">
@@ -21,9 +15,16 @@
                     <slot name="options">
                     </slot>
                 </v-flex>
-                <v-container class="results-section px-2" fluid>
+                <v-container class="results-section px-2 pt-0" fluid>
+
+                    
                     <v-layout row>
                         <v-flex class="sec-result">
+                            <div v-if="props.filterSelection.length" class="pb-3">
+                        <template v-for="item in props.filterSelection">
+                            <slot name="selectedFilters" :item="item"></slot>
+                        </template>
+                    </div>
                             <slot name="data">
                             </slot>
                         </v-flex>

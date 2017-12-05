@@ -11,14 +11,15 @@
         padding: 0 35px;
     }
 
-    .results-section{
-        padding-top: 30px;
-    }
+    // .results-section{
+    //     padding-top: 30px;
+    // }
 }
 
 .sec-result {
     max-width: 504px;
 
+    margin-top: @heightOfTitle;
     .cell {
         background: #fff;
         border-radius: 4px;
@@ -26,7 +27,7 @@
   
     
 }
-
+@heightOfTitle : 22px;
 .sort-filter {
     overflow: auto;
     position: -webkit-sticky;
@@ -51,6 +52,7 @@
         font-weight: bold;
         margin-bottom: 8px;
         line-height: normal;
+        height:@heightOfTitle;
     }
     .add-course {
         color:@Spitball-Main-color;
@@ -71,7 +73,25 @@
     position: sticky;
     max-height: 100vh;
     top: 74px;
+}
 
+.chip.filter-chip {
 
-    
+    .chip__content {
+        cursor: pointer;
+        
+    }
+    .chip {
+        background-color: @Dividers;
+    }
+    border-radius: 4px;
+    background-color: @Dividers;
+    font-size: 12px;
+    letter-spacing: -0.2px;
+    color: #4a4a4a;
+    svg {
+        margin-left: 28px;
+        width: 10px;
+        height: 10px;
+    }
 }
