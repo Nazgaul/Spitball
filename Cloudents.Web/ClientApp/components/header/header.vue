@@ -1,6 +1,7 @@
 ﻿<template>
   <component is="slot">
-      <search-item v-model="showDialog" :type="type" :keep="keep"></search-item>
+      <result-personalize v-if="isfirst"></result-personalize>
+      <search-item v-model="showDialog" :type="type" :keep="keep" :isFirst="isfirst"></search-item>
       <v-toolbar app clipped-left fixed :height="isMobileSize? 48 : 72" :extended="isMobileSize" class="header">
         <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 230px; min-width: 230px' : 'min-width: 72px'">
             <router-link class="logo-link" :to="{name:'home'}">

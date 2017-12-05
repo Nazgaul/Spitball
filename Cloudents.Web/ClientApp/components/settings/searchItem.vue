@@ -106,7 +106,7 @@
         components: {
             CourseAdd, VDialog, PageLayout, VIcon, searchItemUniversity, searchItemCourse, closeButton, plusButton
         },
-        props: { type: { type: String, required: true }, value: { type: Boolean }, keep: { type: Boolean } },
+        props: { type: { type: String, required: true }, value: { type: Boolean }, keep: { type: Boolean },isFirst:{type:Boolean} },
         methods: {
             ...mapMutations({ updateUser: 'UPDATE_USER' }),
             ...mapActions(["createCourse"]),
