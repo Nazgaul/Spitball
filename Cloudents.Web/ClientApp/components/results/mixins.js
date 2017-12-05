@@ -51,6 +51,14 @@ export const pageMixin =
                 vm.$store.commit('ADD',{result:vm.$route.path.slice(1)});
             });
         },
+        beforeRouteLeave (to, from, next) {
+            this.$route.meta.jobTerm=null;
+            this.$route.meta.foodTerm=null;
+            this.$route.meta.term=null;
+            this.$nextTick(()=>{
+            next();
+            })
+        },
 
         beforeRouteUpdate(to, from, next) {
 
