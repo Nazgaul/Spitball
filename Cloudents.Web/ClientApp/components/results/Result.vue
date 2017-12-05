@@ -16,9 +16,11 @@
                     Add your school
                     and courses for better results <v-btn @click="$_openPersonalize">Personalize</v-btn>
                 </div>
-                <div slot="courseExtraState" v-else>
-                    <v-btn @click="$_openPersonalize">Add course</v-btn>
-                </div>
+                <template slot="courseExtraState" v-else>
+                    <button class="add-course"  @click="$_openPersonalize" type="button">
+                        <plus-btn></plus-btn> Add Course
+                    </button>
+                </template>
             </sort-and-filter>
         </template>
         <scroll-list slot="data" v-if="page&&items" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
@@ -38,8 +40,11 @@
 </template>
 <script>
     import { pageMixin } from './mixins'
+    import plusBtn from "../settings/svg/plus-button.svg";
+    import closeBtn from "../settings/svg/close-icon.svg";
     export default {
-        mixins: [pageMixin]
+        mixins: [pageMixin],
+        components: { plusBtn,closeBtn }
     }
 </script>
 <style src="./Result.less" lang="less">

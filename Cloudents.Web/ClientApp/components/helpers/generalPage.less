@@ -11,85 +11,61 @@
         padding: 0 35px;
     }
 
-    .results-section{
-        padding-top: 30px;
-    }
+    // .results-section{
+    //     padding-top: 30px;
+    // }
 }
 
 .sec-result {
-    //@cell-width: 504px;
     max-width: 504px;
 
+    margin-top: @heightOfTitle;
     .cell {
         background: #fff;
-        //width: @cell-width;
         border-radius: 4px;
     }
-    /*h5 {
-        font-weight: 600;
-        text-align: center;
-        //width: @cell-width;
-        color: @Spitball-Text;
-
-        @media only screen and (max-device-width : 600px) {
-            font-size: 16px;
-        }
-    }*/
-    .sort-filter {
-        overflow: auto;
-        white-space: nowrap;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        -webkit-user-select: none;
-        user-select: none;
-
-        &::-webkit-scrollbar-track {
-            border: none;
-        }
-
-        &::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            border-radius: 5px;
-            background: #000;
-        }
-
-        &:hover {
-            &::-webkit-scrollbar {
-                width: 1px;
-            }
-        }
-        //transform: rotate(-90deg) translateY(-100px);
-        //transform-origin: right top;
-        > span {
-            display: inline-block;
-            //transform: rotate(90deg);
-            //transform-origin: right top;
-        }
-
-        > span:first-child {
-            border-right: solid 1px @Spitball-Main-color;
-            padding-right: 6px;
-        }
-
-        > span:last-child {
-            padding-left: 6px;
-        }
-    }
+  
+    
 }
-
+@heightOfTitle : 22px;
 .sort-filter {
+    overflow: auto;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 74px;
+
+    // > span {
+    //     display: inline-block;
+    // }
+
+    // > span:first-child {
+    //     border-right: solid 1px @Spitball-Main-color;
+    //     padding-right: 6px;
+    // }
+
+    // > span:last-child {
+    //     padding-left: 6px;
+    // }
     h3 {
         font-size: 16px;
         color: @color-blue;
         font-weight: bold;
         margin-bottom: 8px;
         line-height: normal;
+        height:@heightOfTitle;
     }
-
+    .add-course {
+        color:@Spitball-Main-color;
+        font-size: 14px;
+        letter-spacing: -0.2px;
+        text-transform: capitalize;
+        svg {
+            fill: @Spitball-Main-color;
+            width: 9px;
+            height: 9px;
+            margin-right:6px;
+        }
+    }
 }
 
 .side-bar {
@@ -97,4 +73,25 @@
     position: sticky;
     max-height: 100vh;
     top: 74px;
+}
+
+.chip.filter-chip {
+
+    .chip__content {
+        cursor: pointer;
+        
+    }
+    .chip {
+        background-color: @Dividers;
+    }
+    border-radius: 4px;
+    background-color: @Dividers;
+    font-size: 12px;
+    letter-spacing: -0.2px;
+    color: #4a4a4a;
+    svg {
+        margin-left: 28px;
+        width: 10px;
+        height: 10px;
+    }
 }

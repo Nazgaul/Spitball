@@ -8,7 +8,6 @@ import VueRouter from "vue-router";
 import vueAdsense from "vue-adsense";
 import VueAnalytics from "vue-analytics";
 
-
 //NOTE: put changes in here in webpack vendor as well
 const vuetifyComponents = {
     VApp,

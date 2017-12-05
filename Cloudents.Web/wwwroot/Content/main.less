@@ -42,14 +42,14 @@ button {
 @vertical-book: #8c3fbf;
 @vertical-job: #f49c20;
 @vertical-food: #2cbfa5;
-@vertical-upload: #94b7cb;
-@vertical-post: #414141;
-@vertical-create: #a40115;
-@vertical-chat: #9ccdff;
-@vertical-course: #2adaff;
-@vertical-like: #7ed321;
-@vertical-setting: #07305a;
-@list-verticals: ask,flashcard,note,tutor,book,food,job,upload,post,create,chat,course,like,setting;
+//@vertical-upload: #94b7cb;
+//@vertical-post: #414141;
+//@vertical-create: #a40115;
+//@vertical-chat: #9ccdff;
+//@vertical-course: #2adaff;
+//@vertical-like: #7ed321;
+//@vertical-setting: #07305a;
+@list-verticals: ask,flashcard,note,tutor,book,food,job;
 
 .horizontal-variant(@variant,@p) {
     @color: "vertical-@{variant}"; 
@@ -60,25 +60,22 @@ button {
     .loop((@index + 1));
     @p: extract(@list-verticals,@index);
 
-    .text-@{p} {
+    .spitball-text-@{p} {
         .horizontal-variant(@p,color)
     }
 
-    .bg-@{p} {
+    .spitball-bg-@{p} {
         .horizontal-variant(@p,background);
-
-        .svg-fill {
+        .spitball-svg-fill {
             fill: #fff;
         }
     }
-
-    .fill-@{p} {
-        .svg-fill {
+    .spitball-fill-@{p} {
+        .spitball-svg-fill {
             .horizontal-variant(@p,fill);
         }
     }
-
-    .border-@{p} {
+    .spitball-border-@{p} {
         .horizontal-variant(@p,border-color);
     }
 }
@@ -132,6 +129,12 @@ a:hover {
 }
 input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     background:none;
+}
+
+.ram-this {
+    font-size:large;
+    background:red;
+    color:red;
 }
 /*abbr[title] {
     border-bottom: 1px dotted;

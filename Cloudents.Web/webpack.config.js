@@ -1,10 +1,12 @@
 ﻿const path = require("path");
+const glob = require('glob');
 const webpack = require("webpack");
 const bundleOutputDir = "./wwwroot/dist";
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const PurifyCSSPlugin = require('purifycss-webpack');
 var Visualizer = require("webpack-visualizer-plugin");
-var resolve = (p) => path.resolve(__dirname, p);
+//var resolve = (p) => path.resolve(__dirname, p);
 
 
 module.exports = (env) => {
@@ -27,7 +29,9 @@ module.exports = (env) => {
                             svgo: {
                                 plugins: [
                                     { removeDoctype: true },
-                                    { removeComments: true }
+                                    { removeComments: true },
+                                    { removeTitle: true },
+                                    { cleanupIDs : true}
                                 ]
                             }
                         }
@@ -57,14 +61,10 @@ module.exports = (env) => {
                     {
                         test: /\.js$/,
                         loader: "babel-loader"
-                        //  include: /ClientApp/
-                        //exclude: /node_modules/
                     },
                     {
                         test: /\.vue$/,
                         loader: "vue-loader",
-                        //include: /ClientApp/,
-
                         options: {
                             preserveWhitespace: isDevBuild ? false : true,
                             loaders: {
@@ -79,19 +79,6 @@ module.exports = (env) => {
                             }
                         }
                     },
-                   
-                    //{
-                    //    test: /\.styl$/,
-                    //    loader: isDevBuild ? ["style-loader", "css-loader", "stylus-loader", {
-                    //        loader: "vuetify-loader",
-                    //        options: {
-                    //            theme: resolve("./ClientApp/theme.styl")
-                    //        }
-                    //    }] : ExtractTextPlugin.extract({
-                    //        use: "css-loader?minimize!stylus-loader"
-
-                    //    })
-                    //},
                     {
                         test: /\.css$/,
                         use: isDevBuild ? ["style-loader", "css-loader"] : ExtractTextPlugin.extract({ use: "css-loader?minimize" })
@@ -142,6 +129,14 @@ module.exports = (env) => {
                         cssProcessor: require("cssnano"),
                         cssProcessorOptions: { discardComments: { removeAll: true } },
                         canPrint: true
+                    }),
+                    new PurifyCSSPlugin({
+                        // Give paths to parse for rules. These should be absolute!
+                        paths: glob.sync(path.join(__dirname, 'clientapp/**/*.vue')),
+                        minimize: true,
+                        purifyOptions: {
+                            whitelist: ["spitball-*"]
+                        }
                     })
 
                 ])

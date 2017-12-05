@@ -39,11 +39,12 @@
                     <template v-for="item in props.items">
                         <slot name="results" :item="item"></slot>
                     </template>
-                    <slot :name="`${props.type}ExtraItem`"></slot>
-                </slot><div v-else>
+                </slot>
+                <div v-else>
                     <div>No Results Found</div>
                     <div v-html="props.emptyText"></div>
                 </div>
+                <slot :name="`${props.type}ExtraItem`"></slot>
             </v-layout>
             <slot name="actionContent">
             </slot>
