@@ -3,9 +3,10 @@
     <v-dialog v-model="dialog" fullscreen content-class="dialog-choose" v-if="currentItem" class="settings" :overlay=false>
         <page-layout :title="title" :search="!currentAction" :titleImage="(currentType==='course'&&!currentAction)?getUniversityImage:''" :isLoading="isLoading" :emptyText="emptyText" :items="items" :selectedCourse="selectedCourse" :closeFunction="$_closeButton">
             <button class="white--text" slot="extraClose" @click="$_closeButton" v-if="currentType!=='university'">DONE</button>
-            
-                <close-button slot="closeAction" v-if="currentType==='university'"></close-button>
-                <i slot="closeAction" v-else class="sbf icon sbf-arrow-button"></i>
+            <template slot="closeAction">
+                <close-button v-if="currentType==='university'"></close-button>
+                <i v-else class="sbf icon sbf-arrow-button"></i>
+            </template>
             <v-btn slot="actionButton" v-if="currentItem.action" @click="currentAction=currentItem.action">X</v-btn>
 
             <v-text-field light solo slot="inputField" @input="$_search" class="search-b" ref="searchText" :placeholder="currentItem.placeholder" prepend-icon="sbf-search"></v-text-field>
