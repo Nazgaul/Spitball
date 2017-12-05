@@ -19,7 +19,9 @@ export default {
             currentName:"",
             qFilter: this.$route.query.q,
             keep:false,
-            type:""
+            type:"",
+            showAddCourse:false,
+            newCourseName:""
         };
     },
 
@@ -50,7 +52,7 @@ export default {
     },
     props:{value:{type:Boolean}},
     methods: {
-        ...mapActions(["updateSearchText"]),
+        ...mapActions(["updateSearchText","createCourse"]),
         submit: function () {
             this.updateSearchText(this.qFilter).then((response) => {
                 let result=this.$route.path;
@@ -66,6 +68,11 @@ export default {
         },
         menuToggle: function() {
             this.$emit("input",!this.value);
+        },
+        $_submitAddCourse(){
+            this.createCourse({name:this.newCourseName});
+            this.newCourseName='';
+            this.showAddCourse=false;
         },
         mic: function () {
             //TODO: YIFAT need to add mic handle here.
