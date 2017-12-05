@@ -60,10 +60,10 @@ namespace Cloudents.Infrastructure.Search
                 {
                     "title","responsibilities","dateTime","city","state","jobType","compensationType","url","company"
                 },
-                Facets = filterQuery != null ? null : new[]
+                Facets = string.IsNullOrEmpty(filterQuery) ? new[]
                 {
                     "jobType"
-                },
+                } : null,
                 Filter = filterQuery,
                 OrderBy = sortQuery
 
