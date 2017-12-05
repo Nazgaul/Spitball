@@ -42,8 +42,8 @@
     }
 </style>
 <script>
-    import searchItem from './searchItem.vue'
-    import { searchObjects } from './consts'
+    import searchItem from '../settings/searchItem.vue'
+    import { searchObjects } from '../settings/consts'
     import { mapGetters } from 'vuex'
     export default {
         data() {
@@ -52,7 +52,7 @@
 
         methods: {
             $_personalize() {
-                this.$parent.$parent.$el.querySelector("#myCourses").click();
+                this.$root.$el.querySelector("#myCourses").click();
             }
         },
     }

@@ -169,6 +169,9 @@ export const pageMixin =
                 filter=filter?[].concat(filter).filter(i=>i!== val):filter;
                 this.$router.push({path:this.name,query:{...this.query,source,course,filter}});
             },
+            $_openPersonalize(){
+                this.$root.$el.querySelector("#myCourses").click();
+            },
             $_showSelectedFilter(item){
                 console.log(!Number.isNaN(item));
                 return !Number.isNaN(item)&&this.myCourses.find(x=>x.id===Number(item))?this.myCourses.find(x=>x.id===Number(item)).name:item;

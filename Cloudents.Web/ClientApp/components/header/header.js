@@ -1,6 +1,6 @@
 ﻿import {  names } from "../data"
 import logo from "../../../wwwroot/Images/logo-spitball.svg";
-const ResultPersonalize = () => import('../settings/ResultPersonalize.vue');
+const ResultPersonalize = () => import('./ResultPersonalize.vue');
 import { mapActions, mapGetters } from 'vuex';
 import { settingMenu } from '../settings/consts';
 import searchItem from '../settings/searchItem.vue'
