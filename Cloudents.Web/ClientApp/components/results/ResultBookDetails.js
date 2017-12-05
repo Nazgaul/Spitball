@@ -21,7 +21,7 @@ export default {
     components: {  ResultBook },
     computed: {
         filteredList: function () {
-            return this.filter === 'all' ? this.pageData.data.sort((a, b) => a.price - b.price) : this.pageData.data.filter(item => item.condition === this.filter);
+            return !this.pageData.data?[]:this.filter === 'all' ? this.pageData.data.sort((a, b) => a.price - b.price) : this.pageData.data.filter(item => item.condition === this.filter);
         }
     },
 

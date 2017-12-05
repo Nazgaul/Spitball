@@ -1,8 +1,8 @@
 ﻿<template>
-    <general-page :title="(pageData.details?pageData.details.title:'')">
+    <general-page :title="(pageData.details?pageData.details.title:'')" :filterSelection="[]">
         <app-menu slot="verticalNavbar" :$_calcTerm="$_calcTerm"></app-menu>
         <template slot="options" v-if="page">
-            <sort-and-filter :sortOptions="sortOptions" :sortCallback="$_updateSort" :sortVal="sortVal" :isExtended="false"
+            <sort-and-filter :sortOptions="sortOptions" :sortCallback="$_updateSort" :sortVal="sortVal"
                              :filterOptions="filterOptions" :filterCallback="$_updateFilter" :filterVal="[filter]"
                              :version="$version"></sort-and-filter>
         </template>
