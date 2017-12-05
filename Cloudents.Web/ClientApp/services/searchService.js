@@ -72,7 +72,7 @@ export default {
                 });
             });
         },
-        bookDetails({ type, id: isbn13 }) {
+        bookDetails({ type, isbn13 }) {
             return new Promise((resolve, reject) => {
                 search.getBookDetails({ type, isbn13 }).then(({ body }) => {
                     resolve({ details: body.details, data: body.prices.map(val => { return { ...val, template: "book-price" } }) });

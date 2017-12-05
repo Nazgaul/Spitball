@@ -1,6 +1,4 @@
 ﻿import { page } from './../data'
- import RadioList from './../helpers/radioList.vue';
- import SortSwitch from './../helpers/sortSwitch.vue';
 import ResultItem from './ResultItem.vue';
 const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
@@ -10,6 +8,7 @@ import SuggestCard from './suggestCard.vue'
 const ResultFood = () => import('./ResultFood.vue');
 const foodExtra = () => import('./foodExtra.vue');
 import AppMenu from './../navbar/TheNavbar.vue';
+import SortAndFilter from './SortAndFilter.vue'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 export const sortAndFilterMixin = {
    
@@ -19,7 +18,7 @@ export const sortAndFilterMixin = {
         };
     },
 
-    components: { RadioList,SortSwitch,AppMenu },
+    components: {SortAndFilter,AppMenu },
 
     computed: {
         page: function () { return page[this.name] }
@@ -29,7 +28,8 @@ export const sortAndFilterMixin = {
     },
 
     methods: {
-        ...mapMutations(['UPDATE_LOADING'])
+        ...mapMutations(['UPDATE_LOADING']),
+        $_calcTerm(name){return (name.includes('food')||name.includes('purchase'))?'foodTerm':name.includes('job')?'jobTerm':'term'}
     }
 };
 let updateData = function (data) {
@@ -96,7 +96,7 @@ export const pageMixin =
             subFilterVertical(){
                 return this.name.includes('note')||this.name==='flashcard'||this.name==='job'
             },
-            version() { return window.version },
+            // version() { return window.version },
             filterObject(){
                 if(!this.subFilterVertical&&this.page.filter){
                     return [{title:'filter',modelId:"filter",data:this.page.filter}];
@@ -138,7 +138,7 @@ export const pageMixin =
         },
         methods: {
             //TODO update the food in theNavber to purchase also
-            $_calcTerm(name){return (name.includes('food')||name.includes('purchase'))?'foodTerm':name.includes('job')?'jobTerm':'term'},
+            // ...mapMutations(['UPDATE_LOADING']),
             ...mapActions(['updateSearchText', 'fetchingData','updateFirstTime','updateFlow']),
             $_updateCurrentFlow(index){
                 this.updateFlow(index).then(()=>{

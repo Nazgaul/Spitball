@@ -80,6 +80,8 @@ Vue.use(Vuetify,
 Vue.component("scroll-list", scroll);
 Vue.component("adsense", vueAdsense);
 Vue.component("general-page", GeneralPage);
+Vue.prototype.$version = window.version;
+
 
 const router = new VueRouter({
     mode: "history",

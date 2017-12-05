@@ -54,8 +54,8 @@ const actions = {
         });
     },
 
-    bookDetails: (context, data) => {
-        return searchService.activateFunction[data.pageName](data.params);
+    bookDetails: (context, {pageName,isbn13,type}) => {
+        return searchService.activateFunction[pageName]({isbn13,type});
     },
 
     fetchingData: (context, { name, params, page, luisTerm: term }) => {

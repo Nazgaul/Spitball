@@ -1,37 +1,27 @@
 ﻿<template>
     <general-page :filterSelection="filterSelection">
         <app-menu slot="verticalNavbar" :$_calcTerm="$_calcTerm"></app-menu>
-        <v-chip slot="selectedFilters" slot-scope="props" class="chip--removable filter-chip">
+        <v-chip slot="selectedFilters" slot-scope="props" class="chip--removable">
             {{$_showSelectedFilter(props.item)}}
             <span class="chip chip--removable" @click="$_removeFilter(props.item)">
-               <close-btn></close-btn>
+                X
             </span>
             <!--<strong>{{$_showSelectedFilter(props.item)}}</strong> <v-btn @click="$_removeFilter(props.item)">X</v-btn>-->
         </v-chip>
         <template slot="options" v-if="page">
-            <div class="sort-filter">
-                <slot v-if="page.sort">
-                    <h3>Sort by</h3>
-                    <sort-switch :options="page.sort" :callback="$_updateSort" :val="sort"></sort-switch>
-                </slot>
-                <slot v-if="page.filter">
-                    <h3>filter by</h3>
-                    <div class="sort-filter" v-if="page.filter">
-                        <radio-list class="search" :callback="$_changeSubFilter" :values="filterObject" :checkesVals="filterSelection">
-                            <div slot="courseEmptyState" v-if="!myCourses.length">
-                                Add your school
-                                and courses for better results <v-btn @click="$_openPersonalize">Personalize</v-btn>
-                            </div>
-                            <template slot="courseExtraState" v-else>
-                                <button class="add-course"  @click="$_openPersonalize" type="button">
-                                    <plus-btn></plus-btn> Add Course
-                                </button>
-                            </template>
-                        </radio-list>
-                    </div>
-                </slot>
-                <v-flex class="text-xs-center pt-2"> {{version}}</v-flex>
-            </div>
+            <sort-and-filter :sortOptions="page.sort" :sortCallback="$_updateSort" :sortVal="sort"
+                             :filterOptions="filterObject" :filterCallback="$_changeSubFilter" :filterVal="filterSelection"
+                             :version="$version">
+                <div slot="courseEmptyState" v-if="!myCourses.length">
+                    Add your school
+                    and courses for better results <v-btn @click="$_openPersonalize">Personalize</v-btn>
+                </div>
+                <template slot="courseExtraState" v-else>
+                    <button class="add-course"  @click="$_openPersonalize" type="button">
+                        <plus-btn></plus-btn> Add Course
+                    </button>
+                </template>
+            </sort-and-filter>
         </template>
         <scroll-list slot="data" v-if="page&&items" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
             <v-container class="pa-0">
@@ -39,7 +29,7 @@
                     <v-flex class="elevation-1 mb-2" xs-12 v-for="(item,index) in items" :key="index" @click="(hasExtra?selectedItem=item.placeId:'')" :class="(index>6?'order-xs3':'order-xs1')">
                         <component :is="'result-'+item.template" :item="item" :key="index" class="cell"></component>
                     </v-flex>
-                    <v-flex v-if="flowNode" class="elevation-1 mb-2" xs-12  v-for="(child,index) in flowNode.children" :key="index" @click="$_updateCurrentFlow(index)" order-xs2>
+                    <v-flex class="elevation-1 mb-2" xs-12 v-if="flowNode" v-for="(child,index) in flowNode.children" :key="index" @click="$_updateCurrentFlow(index)" order-xs2>
                         <suggest-card :name="child.name"></suggest-card>
                     </v-flex>
                 </v-layout>

@@ -12,7 +12,7 @@
                             class="ml-1 mr-1 vertical">
                 {{tab.name}}
             </v-tabs-item>
-            <v-tabs-slider color="yellow" :class="`border-${currentPage}`"></v-tabs-slider>
+            <v-tabs-slider color="yellow" :class="`spitball-border-${currentPage}`"></v-tabs-slider>
         </v-tabs-bar>
     </v-tabs></div>
 </template>
@@ -69,7 +69,8 @@
         },
         computed: {
             currentPage: { get(){
-                return this.$route.path.slice(1)},set(val){} }
+                return this.$route.meta.pageName?this.$route.meta.pageName:this.$route.path.slice(1);
+                },set(val){} }
         }
     };
 </script>
