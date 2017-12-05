@@ -12,7 +12,7 @@
                             class="ml-1 mr-1 vertical">
                 {{tab.name}}
             </v-tabs-item>
-            <v-tabs-slider color="yellow" :class="`border-${currentPage}`"></v-tabs-slider>
+            <v-tabs-slider color="yellow" :class="`spitball-border-${currentPage}`"></v-tabs-slider>
         </v-tabs-bar>
     </v-tabs></div>
 </template>
