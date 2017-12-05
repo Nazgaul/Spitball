@@ -21,8 +21,6 @@ export default {
             qFilter: this.$route.query.q,
             keep:false,
             type:"",
-            showCourseFirst:true,
-            courseFirst:false,
             isfirst:false
         };
     },
@@ -35,7 +33,7 @@ export default {
         });
     },
     computed: {
-        ...mapGetters(['luisTerm','getUniversityName','courseFirstTime','isFirst']),
+        ...mapGetters(['luisTerm','getUniversityName','isFirst']),
         name: function () {
             let currentPage = this.$route.meta.pageName ? this.$route.meta.pageName : this.$route.path.split("/")[1];
             if (this.currentName !== currentPage) {
