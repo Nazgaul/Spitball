@@ -8,8 +8,17 @@
                 <i v-else class="sbf icon sbf-arrow-button"></i>
             </template>
             <v-btn slot="actionButton" v-if="currentItem.action" @click="currentAction=currentItem.action">X</v-btn>
-            <template :slot="`${currentType}ExtraItem`">
-                <slot :name="`${currentType}ExtraItem`"></slot>
+            <template v-if="currentType==='course'" slot="courseExtraItem">
+                <button class="add-course-btn ma-2" @click="showAddCourse=true" v-show="!showAddCourse">
+                    <plus-button></plus-button>
+                    <div>add course</div>
+                </button>
+                <div class="add-course-form ma-2 pa-2" v-show="showAddCourse">
+                    <form @submit.prevent="$_submitAddCourse">
+                        <v-text-field dark v-model="newCourseName" placeholder="Course Name"></v-text-field>
+                        <v-btn @click="$_submitAddCourse">ADD</v-btn>
+                    </form>
+                </div>
             </template>
             <template :slot="`${currentType}FirstTime`">
                 <slot :name="`${currentType}FirstTime`"></slot>
@@ -37,12 +46,12 @@
     import { searchObjects } from './consts'
     const searchItemUniversity = () => import('./searchItemUniversity.vue');
     const searchItemCourse = () => import('./searchItemCourse.vue');
-    import { mapGetters, mapMutations } from 'vuex'
+    import { mapGetters, mapMutations, mapActions } from 'vuex'
     import CourseAdd from './courseAdd.vue';
     import PageLayout from './layout.vue';
     import VDialog from "vuetify/src/components/VDialog/VDialog";
     import 'vue-awesome/icons/close';
-    import VIcon from 'vue-awesome/components/Icon.vue'
+    import VIcon from 'vue-awesome/components/Icon.vue';
 
     export default {
         model: {
@@ -60,6 +69,7 @@
             }
         },
         computed: {
+            ...mapGetters(['getUniversityName']),
             dialog: {
                 get() {
                     return this.value;
@@ -87,16 +97,19 @@
                 isLoading: true,
                 isChanged: false,
                 currentType: "",
-                currentAction: ""
+                currentAction: "",
+                newCourseName: "",
+                showAddCourse: false,
             }
         },
 
         components: {
-            CourseAdd, VDialog, PageLayout, VIcon, searchItemUniversity, searchItemCourse, closeButton
+            CourseAdd, VDialog, PageLayout, VIcon, searchItemUniversity, searchItemCourse, closeButton, plusButton
         },
         props: { type: { type: String, required: true }, value: { type: Boolean }, keep: { type: Boolean } },
         methods: {
             ...mapMutations({ updateUser: 'UPDATE_USER' }),
+            ...mapActions(["createCourse"]),
             $_removeCourse(val) {
                 this.updateUser({ myCourses: this.myCourses.filter(i => i.id !== val) })
             },
@@ -119,7 +132,12 @@
                     this.items = body;
                     this.isLoading = false
                 })
-            }, 500)
+            }, 500),
+            $_submitAddCourse() {
+                this.createCourse({ name: this.newCourseName });
+                this.newCourseName = '';
+                this.showAddCourse = false;
+            }
         }
     }
 </script>

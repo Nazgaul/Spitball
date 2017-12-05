@@ -2,7 +2,7 @@
 import logo from "../../../wwwroot/Images/logo-spitball.svg";
 import { mapActions, mapGetters } from 'vuex';
 import { settingMenu } from '../settings/consts';
-import searchItem from '../settings/searchItem.vue'
+import searchItem from '../settings/searchItem.vue';
 //import 'vue-awesome/icons/search';
 //import VIcon from 'vue-awesome/components/Icon.vue'
 
@@ -19,9 +19,7 @@ export default {
             currentName:"",
             qFilter: this.$route.query.q,
             keep:false,
-            type:"",
-            showAddCourse:false,
-            newCourseName:""
+            type:""
         };
     },
 
@@ -68,11 +66,6 @@ export default {
         },
         menuToggle: function() {
             this.$emit("input",!this.value);
-        },
-        $_submitAddCourse(){
-            this.createCourse({name:this.newCourseName});
-            this.newCourseName='';
-            this.showAddCourse=false;
         },
         mic: function () {
             //TODO: YIFAT need to add mic handle here.
