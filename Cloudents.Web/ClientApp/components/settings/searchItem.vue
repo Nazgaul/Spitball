@@ -7,7 +7,6 @@
                 <close-button v-if="currentType==='university'"></close-button>
                 <i v-else class="sbf icon sbf-arrow-button"></i>
             </template>
-            <v-btn slot="actionButton" v-if="currentItem.action" @click="currentAction=currentItem.action">X</v-btn>
             <template v-if="currentType==='course'" slot="courseExtraItem">
                 <button class="add-course-btn ma-2" @click="showAddCourse=true" v-show="!showAddCourse">
                     <plus-button></plus-button>
@@ -20,9 +19,21 @@
                     </form>
                 </div>
             </template>
-            <template :slot="`${currentType}FirstTime`">
-                <slot :name="`${currentType}FirstTime`"></slot>
+
+            <template slot="courseFirstTime" v-if="courseFirst&&showCourseFirst">
+                <div class="first-time-message ma-3">
+                    <div class="text">
+                        <div>We are working hard on getting all the courses from your school into our system,</div>
+                        <div><b>but we might have missed a few. If you can't find your course, use this icon to add it</b></div>
+                    </div>
+                    <div class="image">missing...</div>
+
+                    <button>
+                        <close-button @click="showCourseFirst=false"></close-button>
+                    </button>
+                </div>
             </template>
+
             <v-text-field light solo slot="inputField" @input="$_search" class="search-b" ref="searchText" :placeholder="currentItem.placeholder" prepend-icon="sbf-search"></v-text-field>
 
             <v-chip class="ma-2" slot="selectedItems" slot-scope="props" v-if="selectedCourse" label>
@@ -68,7 +79,7 @@
             }
         },
         computed: {
-            ...mapGetters(['getUniversityName']),
+            ...mapGetters(['getUniversityName', 'courseFirstTime']),
             dialog: {
                 get() {
                     return this.value;
@@ -99,13 +110,15 @@
                 currentAction: "",
                 newCourseName: "",
                 showAddCourse: false,
+                showCourseFirst: true,
+                courseFirst: false
             }
         },
 
         components: {
-            CourseAdd, VDialog, PageLayout, searchItemUniversity, searchItemCourse, closeButton
+            CourseAdd, VDialog, PageLayout, searchItemUniversity, searchItemCourse, closeButton, plusButton
         },
-        props: { type: { type: String, required: true }, value: { type: Boolean }, keep: { type: Boolean },isFirst:{type:Boolean} },
+        props: { type: { type: String, required: true }, value: { type: Boolean }, keep: { type: Boolean }, isFirst: { type: Boolean } },
         methods: {
             ...mapMutations({ updateUser: 'UPDATE_USER' }),
             ...mapActions(["createCourse"]),
@@ -137,6 +150,12 @@
                 this.newCourseName = '';
                 this.showAddCourse = false;
             }
+        },
+        created() {
+            this.courseFirst = this.courseFirstTime;
+            this.$nextTick(() => {
+                this.courseFirstTime ? this.$store.dispatch("updateFirstTime", "courseFirstTime") : "";
+            })
         }
     }
 </script>

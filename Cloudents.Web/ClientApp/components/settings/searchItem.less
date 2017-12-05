@@ -74,26 +74,66 @@
         }
 
 
-        .selected-items .chip__content {
-            background: white;
-            padding: 8px 0 8px 8px;
-            border-radius: 4px;
-            overflow: hidden;
+        .selected-items {
+            .chip__content {
+                background: white;
+                padding: 8px 0 8px 8px;
+                border-radius: 4px;
+                overflow: hidden;
 
-            .name {
-                color: @color-blue;
-                font-weight: normal;
+                .name {
+                    color: @color-blue;
+                    font-weight: normal;
+                }
+
+                .close {
+                    display: flex;
+                    align-items: center;
+                    height: 26px;
+
+                    svg {
+                        width: 10px;
+                        height: 10px;
+                        fill: @Feed-Date;
+                    }
+                }
             }
 
-            .close {
+            .first-time-message {
+                width: 100%;
+                border: 1px solid white;
+                border-radius: 2px;
                 display: flex;
                 align-items: center;
-                height: 26px;
+                justify-content: space-between;
+                color: white;
+                font-size: 20px;
+                padding: 24px 36px;
+                font-weight: 100;
+                position: relative;
 
-                svg {
-                    width: 10px;
-                    height: 10px;
-                    fill: @Feed-Date;
+                b {
+                    font-weight: 600;
+                }
+
+                button {
+                    @button-width: 26px;
+                    position: absolute;
+                    top: -@button-width/2 + 4px;
+                    right: -@button-width/2 + 4px;
+                    background: white;
+                    border-radius: 100%;
+                    width: @button-width;
+                    height: @button-width;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    svg {
+                        fill: @color-blue;
+                        width: 12px;
+                        height: 12px;
+                    }
                 }
             }
         }
@@ -176,9 +216,10 @@
                     height: 24px;
                 }
 
-                .input-group{
+                .input-group {
                     padding: 0;
-                } 
+                }
+
                 .input-group__input {
                     align-items: flex-end;
                 }

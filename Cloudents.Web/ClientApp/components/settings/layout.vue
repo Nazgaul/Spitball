@@ -23,11 +23,10 @@
                             <template v-for="course in props.selectedCourse">
                                 <slot name="selectedItems" :course="course"></slot>
                             </template>
-                            <slot :name="`${props.type}FirstTime`"></slot>
+                            <slot v-if="props.type==='course'" name="courseFirstTime"></slot>
                         </v-layout>
                     </v-container>
                 </v-container>
-                <slot name="actionButton"></slot>
             </slot>
         </v-flex>
         <div class="loader" v-if="props.search&&props.isLoading">
