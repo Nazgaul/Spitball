@@ -4,7 +4,6 @@
 import ResultItem from './ResultItem.vue';
 const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
-const ResultPersonalize = () => import('../settings/ResultPersonalize.vue');
 const ResultJob = () => import('./ResultJob.vue');
 import ResultVideo from './ResultVideo.vue'
 import SuggestCard from './suggestCard.vue'
@@ -116,18 +115,13 @@ export const pageMixin =
             return {
                 items: '',
                 pageData: '',
-                isfirst: false,
                 selectedItem:null
             };
         },
 
-        components: { foodExtra, ResultItem,SuggestCard, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood,ResultPersonalize },
+        components: { foodExtra, ResultItem,SuggestCard, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood },
 
         created() {
-            this.isfirst = this.isFirst;
-            this.$nextTick(() => {
-                if (this.isFirst) this.updateFirstTime();
-            });
             this.UPDATE_LOADING(true);
                 this.updateSearchText(this.query.q).then((response)=>{
                     this.$route.meta[this.$_calcTerm(response.result)]={term:this.query.q,luisTerm:response.term};
@@ -175,13 +169,9 @@ export const pageMixin =
                 filter=filter?[].concat(filter).filter(i=>i!== val):filter;
                 this.$router.push({path:this.name,query:{...this.query,source,course,filter}});
             },
-            $_openPersonalize(){
-                this.$parent.$el.querySelector("#myCourses").click();
-            },
             $_showSelectedFilter(item){
                 console.log(!Number.isNaN(item));
                 return !Number.isNaN(item)&&this.myCourses.find(x=>x.id===Number(item))?this.myCourses.find(x=>x.id===Number(item)).name:item;
-                // this.myCourses.find(x=>x.id===item).name
             }
         },
         props: { hasExtra: {type:Boolean},currentTerm:{type:[String,Object]}}

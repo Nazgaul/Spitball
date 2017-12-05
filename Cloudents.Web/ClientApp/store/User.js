@@ -5,6 +5,7 @@ const state = {
         universityId: null,
         myCourses: [],
         isFirst: true,
+        courseFirstTime:true,
         pinnedCards: {}
     }
 };
@@ -16,6 +17,7 @@ const mutations = {
 };
 const getters = {
     isFirst: state => state.user.isFirst,
+    courseFirstTime:state => state.user.courseFirstTime,
     pinnedCards: state => state.user.pinnedCards,
     getUniversity: state => {
         let obj = state.user.universityId || {};
@@ -49,8 +51,10 @@ const actions = {
             });
         });
     },
-    updateFirstTime({ commit }) {
-        commit(USER.UPDATE_USER, {isFirst:false});
+    updateFirstTime( {commit},val ) {
+        let ob={[val]:false};
+        console.log(ob);
+        commit(USER.UPDATE_USER, ob);
     },
     updateUniversity({ commit }, {id,name,image}) {
         commit(USER.UPDATE_USER, { universityId: {id,name,image} });

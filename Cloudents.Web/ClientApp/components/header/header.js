@@ -1,5 +1,6 @@
 ﻿import {  names } from "../data"
 import logo from "../../../wwwroot/Images/logo-spitball.svg";
+const ResultPersonalize = () => import('../settings/ResultPersonalize.vue');
 import { mapActions, mapGetters } from 'vuex';
 import { settingMenu } from '../settings/consts';
 import searchItem from '../settings/searchItem.vue'
@@ -8,7 +9,7 @@ import searchItem from '../settings/searchItem.vue'
 
 export default {
     components: {
-        logo,searchItem
+        logo,searchItem,ResultPersonalize
     },
     data() {
         return {
@@ -21,12 +22,22 @@ export default {
             keep:false,
             type:"",
             showAddCourse:false,
-            newCourseName:""
+            newCourseName:"",
+            showCourseFirst:true,
+            courseFirst:false,
+            isfirst:false
         };
     },
-
+    created(){
+        this.isfirst = this.isFirst;
+        this.courseFirst=this.courseFirstTime;
+        this.$nextTick(() => {
+            if (this.isFirst) this.updateFirstTime("isFirst");
+            if(this.courseFirst)this.updateFirstTime("courseFirstTime");
+        });
+    },
     computed: {
-        ...mapGetters(['luisTerm','getUniversityName']),
+        ...mapGetters(['luisTerm','getUniversityName','courseFirstTime','isFirst']),
         name: function () {
             let currentPage = this.$route.meta.pageName ? this.$route.meta.pageName : this.$route.path.split("/")[1];
             if (this.currentName !== currentPage) {
@@ -48,11 +59,16 @@ export default {
     watch:{
       '$route':function(val){
           this.qFilter=val.query.q;
-      }
+      },
+        showDialog(val){
+          if(!val){
+              this.isfirst=false;
+          }
+        }
     },
     props:{value:{type:Boolean}},
     methods: {
-        ...mapActions(["updateSearchText","createCourse"]),
+        ...mapActions(["updateSearchText","createCourse","updateFirstTime"]),
         submit: function () {
             this.updateSearchText(this.qFilter).then((response) => {
                 let result=this.$route.path;
