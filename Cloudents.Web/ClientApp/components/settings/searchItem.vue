@@ -10,8 +10,8 @@
             <template :slot="`${currentType}ExtraItem`">
                 <slot :name="`${currentType}ExtraItem`"></slot>
             </template>
-            <template :slot="`${props.type}FirstTime`">
-                <slot :name="`${props.type}FirstTime`"></slot>
+            <template :slot="`${currentType}FirstTime`">
+                <slot :name="`${currentType}FirstTime`"></slot>
             </template>
             <v-text-field light solo slot="inputField" @input="$_search" class="search-b" ref="searchText" :placeholder="currentItem.placeholder" prepend-icon="sbf-search"></v-text-field>
 
