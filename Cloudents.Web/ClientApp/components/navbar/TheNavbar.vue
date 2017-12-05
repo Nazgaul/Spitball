@@ -69,7 +69,8 @@
         },
         computed: {
             currentPage: { get(){
-                return this.$route.path.slice(1)},set(val){} }
+                return this.$route.meta.pageName?this.$route.meta.pageName:this.$route.path.slice(1);
+                },set(val){} }
         }
     };
 </script>

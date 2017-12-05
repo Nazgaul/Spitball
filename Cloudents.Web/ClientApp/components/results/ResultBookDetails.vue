@@ -1,14 +1,13 @@
 ﻿<template>
     <general-page :title="(pageData.details?pageData.details.title:'')">
-        <!--v-if="pageData"-->
+        <app-menu slot="verticalNavbar" :$_calcTerm="$_calcTerm"></app-menu>
         <template slot="options" v-if="page">
+            <sort-and-filter :sortOptions="sortOptions" :sortCallback="$_updateSort" :sortVal="sortVal" :isExtended="false"
+                             :filterOptions="filterOptions" :filterCallback="$_updateFilter" :filterVal="[filter]"
+                             :version="$version"></sort-and-filter>
         </template>
         <div slot="data" class="book-detail elevation-1">
             <result-book :item="pageData.details" :isDetails="true"></result-book>
-            <!--<div class="sort-filter">
-                    <radio-list class="search" :values="page.filter" v-model="filter" :value="filterSelection"></radio-list>
-                    <radio-list v-if="page.sort" :values="page.sort" model="sort" class="search sort" value="price"></radio-list>
-            </div>-->
             <div class="ma-2">
                 <table>
                     <tr v-for="(item,index) in filteredList" class="border-row">

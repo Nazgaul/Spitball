@@ -85,7 +85,7 @@ export const routes = [
         }, props: moreInfoFn
     },
     {
-        path: "/book/:type/:id",
+        path: "/book/:id",
         name: RouteTypes.bookDetailsRoute,
         components: bookDetailsPage,
         props: bookDetailsProps,
