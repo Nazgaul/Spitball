@@ -13,7 +13,7 @@
         <template v-if="props.filterOptions">
             <h3>filter by</h3>
             <div class="sort-filter" v-if="props.filterOptions">
-                <v-expansion-panel :value="true">
+                <v-expansion-panel :value="true" expand>
                     <v-expansion-panel-content v-for="k in props.filterOptions" :key="k.modelId" hide-actions>
                         <template slot="header">
                             <div>{{k.title}}</div>

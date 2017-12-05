@@ -1,10 +1,10 @@
 ﻿<template>
     <general-page :filterSelection="filterSelection">
         <app-menu slot="verticalNavbar" :$_calcTerm="$_calcTerm"></app-menu>
-        <v-chip slot="selectedFilters" slot-scope="props" class="chip--removable">
+        <v-chip slot="selectedFilters" slot-scope="props" class="chip--removable filter-chip">
             {{$_showSelectedFilter(props.item)}}
             <span class="chip chip--removable" @click="$_removeFilter(props.item)">
-                X
+                 <close-btn></close-btn>
             </span>
             <!--<strong>{{$_showSelectedFilter(props.item)}}</strong> <v-btn @click="$_removeFilter(props.item)">X</v-btn>-->
         </v-chip>
