@@ -118,13 +118,23 @@
                 }
             }
 
-            .course {
+            .course, .add-course-btn, .add-course-form {
                 width: 136px;
                 border-radius: 4px;
                 overflow: hidden;
+                height: 144px;
+            }
+
+            .add-course-btn, .add-course-form {
+                color: white;
+                font-weight: 100;
+                border: 1px solid white;
+            }
+
+            .course {
 
                 .code {
-                    height: 72px;
+                    height: 50%;
                     font-size: 16px;
                     background: @color-blue;
                     color: white;
@@ -134,6 +144,43 @@
                 .name {
                     background: white;
                     height: 72px;
+                }
+            }
+
+            .add-course-btn {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-around;
+                text-transform: uppercase;
+                padding: 30px 0;
+
+                svg {
+                    fill: white;
+                    width: 32px;
+                    height: 32px;
+                }
+            }
+
+            .add-course-form form {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: stretch;
+                height: 100%;
+
+                button {
+                    margin: 0;
+                    background: @color-blue;
+                    color: white;
+                    height: 24px;
+                }
+
+                .input-group{
+                    padding: 0;
+                } 
+                .input-group__input {
+                    align-items: flex-end;
                 }
             }
         }

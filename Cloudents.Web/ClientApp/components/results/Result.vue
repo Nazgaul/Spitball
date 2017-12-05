@@ -8,7 +8,6 @@
             </span>
             <!--<strong>{{$_showSelectedFilter(props.item)}}</strong> <v-btn @click="$_removeFilter(props.item)">X</v-btn>-->
         </v-chip>
-        <result-personalize v-if="isfirst"></result-personalize>
         <template slot="options" v-if="page">
             <div class="sort-filter">
                 <slot v-if="page.sort">
