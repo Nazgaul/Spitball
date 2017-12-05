@@ -1,6 +1,16 @@
 ﻿<template>
   <component is="slot">
-      <search-item v-model="showDialog" :type="type" :keep="keep"></search-item>
+      <search-item v-model="showDialog" :type="type" :keep="keep">
+          <template slot="courseExtraItem">
+              <v-btn @click="showAddCourse=true" v-show="!showAddCourse">add course click</v-btn>
+              <div v-show="showAddCourse">
+                  <form @submit.prevent="$_submitAddCourse">
+                      <v-text-field v-model="newCourseName" placeholder="Course Name"></v-text-field>
+                      <v-btn @click="$_submitAddCourse">ADD</v-btn>
+                  </form>
+              </div>
+          </template>
+      </search-item>
       <v-toolbar app clipped-left fixed :height="isMobileSize? 48 : 72" :extended="isMobileSize" class="header">
         <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 230px; min-width: 230px' : 'min-width: 72px'">
             <router-link class="logo-link" :to="{name:'home'}">
