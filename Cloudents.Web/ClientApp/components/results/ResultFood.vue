@@ -4,7 +4,7 @@
             <v-layout row>
                 <div class="img-wrap">
                     <img :src="item.image" alt="" v-if="item.image">
-                    <food-default v-else class="defaultImage bg-food"></food-default>
+                    <food-default v-else class="defaultImage spitball-bg-food"></food-default>
                 </div>
                 <v-flex class="pa-0 ml-2">
                     <v-container class="pa-0 full-height">
