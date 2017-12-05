@@ -1,5 +1,5 @@
 ﻿<template>
-    <general-page :title="(pageData.details?pageData.details.title:'')" :filterSelection="[]">
+    <general-page v-if="pageData.details" :title="(pageData.details?pageData.details.title:'')" :filterSelection="[]">
         <app-menu slot="verticalNavbar" :$_calcTerm="$_calcTerm"></app-menu>
         <template slot="options" v-if="page">
             <sort-and-filter :sortOptions="sortOptions" :sortCallback="$_updateSort" :sortVal="sortVal"
@@ -7,7 +7,7 @@
                              :version="$version"></sort-and-filter>
         </template>
         <div slot="data" class="book-detail elevation-1">
-            <result-book :item="pageData.details" :isDetails="true"></result-book>
+            <result-book  :item="pageData.details"></result-book>
             <div class="ma-2">
                 <table>
                     <tr v-for="(item,index) in filteredList" class="border-row">
