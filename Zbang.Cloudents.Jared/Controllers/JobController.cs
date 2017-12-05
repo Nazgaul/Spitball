@@ -21,10 +21,10 @@ namespace Zbang.Cloudents.Jared.Controllers
         }
 
         //[TypeFilter(typeof(IpToLocationActionFilter), Arguments = new object[] { "location" })]
-        public async Task<HttpResponseMessage> Get(string[] term,
+        public async Task<HttpResponseMessage> Get([FromUri]string[] term,
             JobRequestFilter? filter,
             JobRequestSort? sort,
-            GeoPoint location, string[] facet, CancellationToken token)
+            GeoPoint location, [FromUri]string[] facet, CancellationToken token)
         {
             if (term == null) throw new ArgumentNullException(nameof(term));
             var result = await _jobSearch.SearchAsync(string.Join(" ", term), filter.GetValueOrDefault(), sort.GetValueOrDefault(JobRequestSort.Distance),

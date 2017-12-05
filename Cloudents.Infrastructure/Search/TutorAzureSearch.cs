@@ -56,9 +56,6 @@ namespace Cloudents.Infrastructure.Search
                     sortQuery.Add(
                         $"geo.distance(location, geography'POINT({location.Longitude} {location.Latitude})')");
                     break;
-                case TutorRequestSort.Rating:
-                    sortQuery.Add("rank desc");
-                    break;
             }
 
             var searchParams = new SearchParameters

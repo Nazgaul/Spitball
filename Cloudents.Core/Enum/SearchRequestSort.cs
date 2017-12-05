@@ -4,8 +4,7 @@
     {
         //None,
         Price,
-        Distance,
-        Rating
+        Distance
     }
 
     public enum SearchCseRequestSort

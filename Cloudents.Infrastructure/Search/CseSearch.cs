@@ -21,7 +21,7 @@ namespace Cloudents.Infrastructure.Search
             Query = string.Join(" ", query);
             if (source != null)
             {
-                Source = string.Join(" ", source);
+                Source = string.Join(" OR ", source.Select(s => $"site:{s}"));
             }
             Page = page;
             Sort = sort;
@@ -33,6 +33,11 @@ namespace Cloudents.Infrastructure.Search
         public int Page { get; }
         public SearchCseRequestSort Sort { get; }
         public CustomApiKey Key { get; }
+
+        public override string ToString()
+        {
+            return $"Query:{Query}-Source:{Source}-Page:{Page}-Sort:{Sort}-Key:{Key.Key}";
+        }
     }
 
     internal class CseSearch : ICseSearch
@@ -60,7 +65,8 @@ namespace Cloudents.Infrastructure.Search
             var request = new CseResource.ListRequest(p, string.Join(" ", model.Query))
             {
                 Start = model.Page == 0 ? 1 : (model.Page * 10) + 1,
-                SiteSearch = model.Source,
+                //SiteSearch = model.Source,
+                Hq = model.Source,
                 Cx = model.Key.Key,
                 Fields = "items(title,link,snippet,pagemap/cse_image,displayLink)",
                 Sort = model.Sort == SearchCseRequestSort.Date ? "date" : string.Empty

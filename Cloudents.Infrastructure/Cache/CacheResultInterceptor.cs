@@ -31,7 +31,7 @@ namespace Cloudents.Infrastructure.Cache
         public static string GetInvocationSignature(IInvocation invocation)
         {
             return
-                $"{invocation.TargetType.FullName}-{invocation.Method.Name}-{string.Join("-", invocation.Arguments.Select(a => (a ?? "").ToString()).ToArray())}";
+                $"{Assembly.GetExecutingAssembly().GetName().Version.ToString(4)}-{invocation.TargetType.FullName}-{invocation.Method.Name}-{string.Join("-", invocation.Arguments.Select(a => (a ?? "").ToString()).ToArray())}";
         }
 
         private static Task InterceptAsync(string key, CacheAttribute att, Task task)

@@ -2,7 +2,8 @@
 
 namespace Cloudents.Core.Models
 {
-   public class CacheAttribute : Attribute
+    [AttributeUsageAttribute(AttributeTargets.Method, AllowMultiple = false)]
+    public sealed class CacheAttribute : Attribute
     {
         public CacheAttribute(int duration, string region)
         {
