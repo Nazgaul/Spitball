@@ -1,13 +1,11 @@
 <template functional>
     <v-layout class="d-wrapper" column>
         <v-flex class="d-header pt-3">
-            <v-layout row>
-                <v-flex class="text-xs-right">
-                    <button type="button" @click="props.closeFunction">
-                        <slot name="closeAction"></slot>
-                    </button>
-                </v-flex>
+            <v-layout class="navigation-buttons" row reverse justify-space-between>
                 <slot name="extraClose"></slot>
+                <button type="button" @click="props.closeFunction">
+                    <slot name="closeAction"></slot>
+                </button>
             </v-layout>
             <div>
                 <v-layout row align-center justify-center class="title-text mt-3">
