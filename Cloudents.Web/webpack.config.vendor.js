@@ -1,6 +1,8 @@
 ﻿const path = require("path");
+//const glob = require('glob');
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+//const PurifyCSSPlugin = require('purifycss-webpack');
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 //var resolve = (p) => path.resolve(__dirname, p);
 var Visualizer = require("webpack-visualizer-plugin");
@@ -33,7 +35,6 @@ module.exports = (env) => {
                 "vuetify/es5/components/VExpansionPanel",
                 "vuetify/es5/components/VList",
                 "vuetify/es5/components/VTextField",
-               // "vuetify/es5/components/VAvatar",
                 "vuetify/es5/components/VCard",
                 "vuetify/es5/components/VCarousel",
                 "vuetify/es5/components/VProgressCircular",
@@ -68,10 +69,21 @@ module.exports = (env) => {
                     loader: extractCss.extract({
                         use: [
                             isDevBuild ? "css-loader" : "css-loader?minimize",
-                            {
-                                loader: "webfonts-loader" //TODO: need to add svg compression
+                            "webfonts-loader"
+                            //{
+                            //    loader: "svgo-loader",
+                            //    options: {
+                            //        plugins: [
+                            //            //{ removeDoctype: false },
+                            //            //{ removeComments: true },
+                            //            //{ removeTitle: true },
+                            //            //{ cleanupIDs: true }
+                            //        ]
+                            //    }
+                            //}
 
-                            }
+
+
                         ]
                     })
                 }
@@ -84,9 +96,15 @@ module.exports = (env) => {
             library: "[name]_[hash]"
         },
         plugins: [
-            
             extractCss,
-            
+            //new PurifyCSSPlugin({
+            //    // Give paths to parse for rules. These should be absolute!
+            //    paths: glob.sync(path.join(__dirname, 'clientapp/**/*.vue')),
+            //    minimize: !isDevBuild,
+            //    purifyOptions: {
+            //        whitelist: ["*spitball*"]
+            //    }
+            //}),
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': isDevBuild ? '"development"' : '"production"'
             }),
@@ -100,7 +118,7 @@ module.exports = (env) => {
                 filename: "./statistics-vendor.html"
             })
         ] : [
-            new webpack.optimize.UglifyJsPlugin()
-        ])
+                new webpack.optimize.UglifyJsPlugin()
+            ])
     }];
 };

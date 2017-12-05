@@ -41,8 +41,8 @@
     import CourseAdd from './courseAdd.vue';
     import PageLayout from './layout.vue';
     import VDialog from "vuetify/src/components/VDialog/VDialog";
-    import 'vue-awesome/icons/close';
-    import VIcon from 'vue-awesome/components/Icon.vue'
+    //import 'vue-awesome/icons/close';
+    //import VIcon from 'vue-awesome/components/Icon.vue'
 
     export default {
         model: {
@@ -92,7 +92,7 @@
         },
 
         components: {
-            CourseAdd, VDialog, PageLayout, VIcon, searchItemUniversity, searchItemCourse, closeButton
+            CourseAdd, VDialog, PageLayout, searchItemUniversity, searchItemCourse, closeButton
         },
         props: { type: { type: String, required: true }, value: { type: Boolean }, keep: { type: Boolean } },
         methods: {
