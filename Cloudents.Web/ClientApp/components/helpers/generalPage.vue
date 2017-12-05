@@ -9,7 +9,9 @@
                 <v-flex>
                     <slot name="verticalNavbar"></slot>
                     <div>
-                        <template v-for="item in props.filterSelection"><slot name="selectedFilters" :item="item"></slot></template>
+                        <template v-for="item in props.filterSelection">
+                            <slot name="selectedFilters" :item="item"></slot>
+                        </template>
                     </div>
                     <!--<app-menu :term="userText"></app-menu>-->
                 </v-flex>
@@ -40,9 +42,9 @@
                         </v-flex>
                     </v-layout>
                 </v-container>
-                <!--</v-flex>-->
             </v-layout>
         </v-container>
-    </v-content></component>
+    </v-content>
+    </component>
 </template>
 <style lang="less" src="./generalPage.less"></style>

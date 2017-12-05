@@ -104,7 +104,7 @@ export let page = [];
 export let verticalsNavbar = [];
 
 for (var v in verticals) {
-    var item = verticals[v];
+    let item = verticals[v];
     names.push({ 'id': item.id, 'name': item.name });
     verticalsNavbar.push(
         {
@@ -122,7 +122,7 @@ for (var v in verticals) {
 }
 
 for (var v in details) {
-    var item = details[v];
+    let item = details[v];
     page[v] = { filter: item.filter, sort: item.sort }
 }
 

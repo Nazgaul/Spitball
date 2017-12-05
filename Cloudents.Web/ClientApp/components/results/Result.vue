@@ -22,9 +22,11 @@
                                 Add your school
                                 and courses for better results <v-btn @click="$_openPersonalize">Personalize</v-btn>
                             </div>
-                            <div slot="courseExtraState" v-else>
-                                <v-btn @click="$_openPersonalize">Add course</v-btn>
-                            </div>
+                            <template slot="courseExtraState" v-else>
+                                <button class="add-course"  @click="$_openPersonalize" type="button">
+                                    <plus-btn></plus-btn> Add Course
+                                </button>
+                            </template>
                         </radio-list>
                     </div>
                 </slot>
@@ -48,8 +50,10 @@
 </template>
 <script>
     import { pageMixin } from './mixins'
+    import plusBtn from "../settings/svg/plus-button.svg";
     export default {
-        mixins: [pageMixin]
+        mixins: [pageMixin],
+        components: { plusBtn }
     }
 </script>
 <style src="./Result.less" lang="less">
