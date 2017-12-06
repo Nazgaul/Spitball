@@ -10,7 +10,7 @@ const searchFunctions = {
     getJob: { method: "GET", url: basePath + "job/{?term*,jobType*}" },
     getBook: { method: "GET", url: basePath + "book/search/{?term*}" },
     getBookDetails: { method: "GET", url: basePath + "book/{type}/{?term*}" },
-    getFood: { method: "GET", url: basePath + "places/{?term*}" }
+    getFood: { method: "GET", url: basePath + "places/{?term*,filter*}" }
 }
 
 const courseFunctions = {
