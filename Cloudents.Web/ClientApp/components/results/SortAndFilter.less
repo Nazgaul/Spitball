@@ -30,9 +30,27 @@
     }
 }
 
-.sort-filter {
+.filter-switch {
+    .add-course {
+        color: @Spitball-Main-color;
+        font-size: 14px;
+        letter-spacing: -0.2px;
+        text-transform: capitalize;
+
+        svg {
+            fill: @Spitball-Main-color;
+            width: 9px;
+            height: 9px;
+            margin-right: 6px;
+        }
+    }
+
     .expansion-panel {
         @border-bg-image: linear-gradient(to right, #3023ae, #3293f6) 10;
+
+        border-bottom: 0;
+        border-left: 0;
+        border-right: 0;
         box-shadow: none;
         border-top: 1px solid;
         border-image: @border-bg-image;
@@ -58,9 +76,9 @@
                 display: flex;
                 align-items: flex-start;
                 justify-content: flex-start;
-                cursor:pointer;
-                label {
+                cursor: pointer;
 
+                label {
                     margin-left: 6px;
                     line-height: 24px;
                 }
@@ -72,6 +90,9 @@
 
             .expansion-panel__body .sort-filter {
                 border-bottom: 1px solid;
+                border-top: 0;
+                border-left: 0;
+                border-right: 0;
                 border-image: @border-bg-image;
             }
         }
