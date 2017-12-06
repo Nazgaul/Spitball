@@ -6,7 +6,7 @@
     'classPrefix': 'sbf-',
     'baseSelector': '.sbf',
     'types': ['woff'],
-    //'embed': true,
+    'embed': true,
     'html': true,
     'fileName': 'sb-[hash].[ext]'
 };

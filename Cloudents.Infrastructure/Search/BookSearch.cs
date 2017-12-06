@@ -59,7 +59,7 @@ namespace Cloudents.Infrastructure.Search
                 ["format"] = "json",
                 ["type"] = sell ? "buyback" : "Buy"
             };
-            //http://api2.campusbooks.com/13/rest/books?key=sP8C5AHcdiT0tsMsotT&f=search,prices&format=json&isbn=9780446556224&type=buyback
+            //https://api2.campusbooks.com/13/rest/books?key=sP8C5AHcdiT0tsMsotT&f=search,prices&format=json&isbn=9780446556224&type=buyback
             var result = await _restClient.GetJsonAsync(new Uri("https://api2.campusbooks.com/13/rest/books"), nvc, token).ConfigureAwait(false);
             return _mapper.Map<JObject, BookDetailsDto>(result);
         }

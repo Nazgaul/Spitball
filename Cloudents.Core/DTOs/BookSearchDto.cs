@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Cloudents.Core.DTOs
 {
@@ -21,7 +22,7 @@ namespace Cloudents.Core.DTOs
 
     public class BookPricesDto
     {
-        public string Image { get; set; }
+        public Uri Image { get; set; }
         public string Name { get; set; }
 
         public string Link { get; set; }

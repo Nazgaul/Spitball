@@ -9,6 +9,8 @@ const ResultFood = () => import('./ResultFood.vue');
 const foodExtra = () => import('./foodExtra.vue');
 import AppMenu from './../navbar/TheNavbar.vue';
 import SortAndFilter from './SortAndFilter.vue'
+import plusBtn from "../settings/svg/plus-button.svg";
+//import closeBtn from "../settings/svg/close-icon.svg";
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 export const sortAndFilterMixin = {
    
@@ -18,7 +20,7 @@ export const sortAndFilterMixin = {
         };
     },
 
-    components: {SortAndFilter,AppMenu },
+    components: {SortAndFilter,AppMenu,plusBtn },
 
     computed: {
         page: function () { return page[this.name] }

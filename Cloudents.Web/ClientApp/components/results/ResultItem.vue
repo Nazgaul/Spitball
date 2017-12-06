@@ -1,5 +1,6 @@
 ﻿<template>
-    <a class="d-block" :target="$vuetify.breakpoint.xsOnly?'_self':'_blank'" :href="url" @click="(isSpitball?$_spitball($event):'')">
+    <!--@click="(isSpitball?$_spitball($event):'')"-->
+    <a class="d-block" :target="$vuetify.breakpoint.xsOnly?'_self':'_blank'" :href="url">
         <v-container class="pa-2">
             <v-layout row fluid>
                 <v-flex class="img-wrap mr-2 pa-0" :class="['border-'+$route.path.slice(1),'spitball-bg-'+$route.path.slice(1)]">
@@ -7,7 +8,6 @@
                     <component :is="$route.path.slice(1)+'-default'" v-else :class="'spitball-bg-'+$route.path.slice(1)" class="defaultImage"></component>
                 </v-flex>
                 <v-flex class="right-section">
-                    <!--<v-container class="pa-0 full-height" >-->
                         <v-layout  wrap column justify-content-space-between align-item-stretch class="full-height ma-0">
                             <v-flex class="pa-0" style="flex-grow:1">
                                 <div class="cell-title" :class="'text-'+$route.path.slice(1)">{{item.title}}</div>
@@ -17,7 +17,6 @@
                                {{item.source}}
                             </v-flex>
                         </v-layout>
-                    <!--</v-container>-->
                 </v-flex>
             </v-layout>
         </v-container>

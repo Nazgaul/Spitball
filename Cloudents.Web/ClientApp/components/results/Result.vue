@@ -1,12 +1,12 @@
 ﻿<template>
     <general-page :filterSelection="filterSelection">
         <app-menu slot="verticalNavbar" :$_calcTerm="$_calcTerm"></app-menu>
-        <v-chip slot="selectedFilters" slot-scope="props" class="chip--removable filter-chip">
+        <v-chip color="color-light-gray" label slot="selectedFilters" slot-scope="props" class="filter-chip" @click="$_removeFilter(props.item)">
             {{$_showSelectedFilter(props.item)}}
-            <span class="chip chip--removable" @click="$_removeFilter(props.item)">
+            <v-icon right>sbf-close</v-icon>
+            <!--<span class="chip chip--removable" >
                  <close-btn></close-btn>
-            </span>
-            <!--<strong>{{$_showSelectedFilter(props.item)}}</strong> <v-btn @click="$_removeFilter(props.item)">X</v-btn>-->
+            </span>-->
         </v-chip>
         <template slot="options" v-if="page">
             <sort-and-filter :sortOptions="page.sort" :sortCallback="$_updateSort" :sortVal="sort"
@@ -40,11 +40,10 @@
 </template>
 <script>
     import { pageMixin } from './mixins'
-    import plusBtn from "../settings/svg/plus-button.svg";
-    import closeBtn from "../settings/svg/close-icon.svg";
+    
     export default {
         mixins: [pageMixin],
-        components: { plusBtn,closeBtn }
+       // components: { plusBtn,closeBtn }
     }
 </script>
 <style src="./Result.less" lang="less">

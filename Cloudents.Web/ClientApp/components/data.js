@@ -37,7 +37,7 @@ export let verticals =
             //emptyState: "Sorry, I did not find any tutors...",
             filter: [
                 //{ id: "all", name: "all" },
-                { id: "online", name: "online" },
+                { id: "online", name: "Online Lession" },
                 { id: "inPerson", name: "In Person" }
             ],
             sort: [
@@ -90,7 +90,7 @@ export let verticals =
     };
 export let details = {
     bookDetails: {
-        filter: [{ id: "all", name: "all" }, { id: "New", name: "new" }, { id: "Rental", name: "rental" }, { id: "eBook", name: "eBook" }],
+        filter: [ { id: "New", name: "new" }, { id: "Rental", name: "rental" }, { id: "eBook", name: "eBook" }],
         sort: [{ id: "price", name: "price" }]
     }
 }

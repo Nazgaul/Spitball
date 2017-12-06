@@ -7,9 +7,28 @@
                              :version="$version"></sort-and-filter>
         </template>
         <div slot="data" class="book-detail elevation-1">
-            <result-book  :item="pageData.details"></result-book>
+            <result-book :item="pageData.details"></result-book>
+
             <div class="ma-2">
-                <table>
+                <a :href="item.link" :target="$vuetify.breakpoint.xsOnly?'_self':'_blank'" class="price-line" v-for="(item,index) in filteredList">
+                    <v-layout row justify-space-between>
+                        <v-flex xs3 class="text-xs-left">
+                            <img v-if="item.image" :src="item.image" />
+                            <span v-else>{{item.name}}</span>
+                        </v-flex>
+                        <v-flex xs3 class="text-xs-center">
+                            {{item.condition}}
+                        </v-flex>
+                        <v-flex xs3 class="text-xs-right">
+                            <div>
+                                ${{item.price}}
+                            </div>
+                        </v-flex>
+
+                    </v-layout>
+                    <v-divider></v-divider>
+                </a>
+                <!--<table>
                     <tr v-for="(item,index) in filteredList" class="border-row">
                         <td>
                             <img v-if="item.image" :src="item.image" />
@@ -24,7 +43,7 @@
                             </div>
                         </td>
                     </tr>
-                </table>
+                </table>-->
             </div>
         </div>
     </general-page>

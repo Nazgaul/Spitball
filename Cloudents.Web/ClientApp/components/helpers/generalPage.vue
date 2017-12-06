@@ -11,7 +11,7 @@
                 </v-flex>
             </v-layout>
             <v-layout row class="pt-3">
-                <v-flex class="first-grid hidden-sm-and-down">
+                <v-flex class="first-grid hidden-sm-and-down left-side-bar">
                     <slot name="options">
                     </slot>
                 </v-flex>
