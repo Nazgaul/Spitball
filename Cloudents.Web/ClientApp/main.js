@@ -7,6 +7,7 @@ import GeneralPage from "./components/helpers/generalPage.vue"
 import VueRouter from "vue-router";
 import vueAdsense from "vue-adsense";
 import VueAnalytics from "vue-analytics";
+import WebFont from "webfontloader";
 
 //NOTE: put changes in here in webpack vendor as well
 const vuetifyComponents = {
@@ -65,6 +66,12 @@ import {
 } from "vuetify"
 import * as route from "./routes";
 import VueLazyload from 'vue-lazyload'
+
+WebFont.load({
+    google: {
+        families: ["Open+Sans:300,400,600,700"]
+    }
+});
 
 Vue.use(VueLazyload, {
     lazyComponent: true,

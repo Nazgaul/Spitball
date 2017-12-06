@@ -10,7 +10,7 @@
                 </template>
             </div>
         </template>
-        <template v-if="props.filterOptions">
+        <div v-if="props.filterOptions">
             <h3>filter by</h3>
             <div class="sort-filter" v-if="props.filterOptions">
                 <v-expansion-panel :value="true" expand>
@@ -32,7 +32,7 @@
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </div>
-        </template>
+        </div>
         <v-flex class="text-xs-center pt-2"> {{props.version}}</v-flex>
     </div>
 </template>

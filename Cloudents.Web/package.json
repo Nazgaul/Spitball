@@ -45,7 +45,8 @@
     "vue-lazyload": "^1.1.4",
     "webfonts-loader": "4.0.1",
     "purifycss-webpack": "0.7.0",
-    "purify-css": "1.2.6"
+    "purify-css": "1.2.6",
+    "webfontloader": "1.6.28"
 
 
   },

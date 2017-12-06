@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AutoMapper;
 using Cloudents.Core.DTOs;
 using Newtonsoft.Json.Linq;
@@ -12,13 +13,27 @@ namespace Cloudents.Infrastructure.Converters
             var book = source["response"]["page"]["books"]["book"].First;
             var offers = book["offers"]?["group"]?.SelectMany(json =>
             {
-                return json["offer"].Select(s => new BookPricesDto
+                return json["offer"].Select(s =>
                 {
-                    Condition = s["condition"]["condition"].Value<string>(),
-                    Image = s["merchant"]["image"].Value<string>(),
-                    Link = s["link"].Value<string>(),
-                    Name = s["merchant"]["name"].Value<string>(),
-                    Price = s["price"].Value<double>()
+                    var merchantImage = s["merchant"]["image"].Value<string>();
+                    Uri uri = null;
+                    if (merchantImage != null)
+                    {
+                        var uriBuilder = new UriBuilder(merchantImage)
+                        {
+                            Scheme = Uri.UriSchemeHttps,
+                            Port = -1
+                        };
+                        uri = uriBuilder.Uri;
+                    }
+                    return new BookPricesDto
+                    {
+                        Condition = s["condition"]["condition"].Value<string>(),
+                        Image = uri,
+                        Link = s["link"].Value<string>(),
+                        Name = s["merchant"]["name"].Value<string>(),
+                        Price = s["price"].Value<double>()
+                    };
                 });
             });
             return new BookDetailsDto

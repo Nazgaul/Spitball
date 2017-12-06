@@ -21,6 +21,12 @@ body {
 input[type="text"]:focus {
     outline: none;
 }
+input[type="checkbox"] {
+    cursor:pointer;
+}
+input[type="checkbox"] + label {
+    cursor: pointer;
+}
 
 button {
     margin: 0;
@@ -81,6 +87,26 @@ button {
 }
 
 .loop(1);
+
+
+
+
+@color-light-gray: #ddd;
+@list-colors: light-gray;
+
+
+.loop2(@index2) when (@index2 <= length(@list-colors)) {
+    .loop2((@index2 + 1));
+    @p: extract(@list-colors,@index2);
+
+    .color-@{p} {
+        @color: "color-@{p}";
+        background-color: @@color !important;
+        border-color: @@color !important;
+    }
+}
+
+.loop2(1);
 
 
 

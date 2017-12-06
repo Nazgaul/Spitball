@@ -4,7 +4,7 @@ const webpack = require("webpack");
 const bundleOutputDir = "./wwwroot/dist";
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const PurifyCSSPlugin = require('purifycss-webpack');
+//const PurifyCSSPlugin = require('purifycss-webpack');
 var Visualizer = require("webpack-visualizer-plugin");
 //var resolve = (p) => path.resolve(__dirname, p);
 
@@ -129,15 +129,15 @@ module.exports = (env) => {
                         cssProcessor: require("cssnano"),
                         cssProcessorOptions: { discardComments: { removeAll: true } },
                         canPrint: true
-                    }),
-                    new PurifyCSSPlugin({
-                        // Give paths to parse for rules. These should be absolute!
-                        paths: glob.sync(path.join(__dirname, 'clientapp/**/*.vue')),
-                        minimize: true,
-                        purifyOptions: {
-                            whitelist: ["spitball-*"]
-                        }
                     })
+                    //new PurifyCSSPlugin({
+                    //    // Give paths to parse for rules. These should be absolute!
+                    //    paths: glob.sync(path.join(__dirname, 'clientapp/**/*.vue')),
+                    //    minimize: true,
+                    //    purifyOptions: {
+                    //        whitelist: ["spitball-*"]
+                    //    }
+                    //})
 
                 ])
         }
