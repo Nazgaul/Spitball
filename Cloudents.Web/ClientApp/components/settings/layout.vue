@@ -1,6 +1,6 @@
 <template functional>
     <v-layout class="d-wrapper" column>
-        <v-flex class="d-header pt-3">
+        <div class="d-header pt-3">
             <v-layout class="navigation-buttons" row reverse justify-space-between>
                 <slot name="extraClose"></slot>
                 <button type="button" @click="props.closeFunction">
@@ -28,7 +28,7 @@
                     </v-container>
                 </v-container>
             </slot>
-        </v-flex>
+        </div>
         <div class="loader" v-if="props.search&&props.isLoading">
             <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
         </div>
@@ -39,10 +39,10 @@
                         <slot name="results" :item="item"></slot>
                     </template>
                 </slot>
-                <div v-else>
+                <!--<div v-else>
                     <div>No Results Found</div>
                     <div v-html="props.emptyText"></div>
-                </div>
+                </div>-->
                 <slot :name="`${props.type}ExtraItem`"></slot>
             </v-layout>
             <slot name="actionContent">

@@ -1,5 +1,5 @@
 ﻿<template v-once>
-    <router-link class="pa-2 book-cell" :to="{name:'bookDetails',params:{id:item.isbn13}}" tag="div">
+    <router-link class="pa-2 book-cell" :to="{name:'bookDetails',params:{id:item.isbn13}}" tag="a">
         <v-container class="pa-0">
             <v-layout row>
                 <div class="img-wrap">
