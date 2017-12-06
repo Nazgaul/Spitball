@@ -4,7 +4,7 @@
             <v-container fluid>
                 <v-layout row>
                     <v-flex class="logo-wrapper">
-                        <slot name="logo" ></slot>
+                        <slot name="logo"></slot>
                     </v-flex>
 
                     <header>
@@ -18,7 +18,7 @@
                 <div class="box-small-container" @click.stop="">
                     <div class="box-inner-header">
                         <h2 class="box-title">Simplify School</h2>
-                        <div class="box-search mb-3">
+                        <div class="box-search">
                             <form id="labnol" method="get" @submit.prevent="props.submitFunction">
                                 <!--<div class="speech">-->
                                 <v-container>
@@ -32,7 +32,7 @@
                                                     <v-subheader>Some things you can ask me:</v-subheader>
                                                     <template v-for="(item, index) in props.items">
                                                         <v-list-tile @click="props.selectosFunction(item)" :key="index">
-                                                            <v-list-tile-action>
+                                                            <v-list-tile-action hidden-xs-only>
                                                                 <v-icon>sbf-search</v-icon>
                                                             </v-list-tile-action>
                                                             <v-list-tile-content>
@@ -44,7 +44,10 @@
                                             </v-menu>
                                         </v-flex>
                                         <v-flex class="f-submit">
-                                            <button type="submit">Search</button>
+                                            <button type="submit">
+                                                <v-icon class="hidden-sm-and-up">sbf-search</v-icon>
+                                                <span class="hidden-xs-only">Search</span>
+                                            </button>
                                         </v-flex>
                                     </v-layout>
                                 </v-container>
@@ -75,11 +78,12 @@
                     <div class="testimonial">
                         <p class="testimonial-text">"{{testimonial.testimonial}}"</p>
                         <div class="author">
-                            <lazy-component>                            <img :src="require(`./img/${testimonial.image}`)" />
+                            <lazy-component>
+                                <img :src="require(`./img/${testimonial.image}`)" />
                             </lazy-component>                            <div>
-                            <span class="name">{{testimonial.name}}</span>
-                            <span class="uni">{{testimonial.uni}}</span>
-                        </div>
+                                <span class="name">{{testimonial.name}}</span>
+                                <span class="uni">{{testimonial.uni}}</span>
+                            </div>
                         </div>
                     </div>
                 </v-carousel-item>
@@ -87,36 +91,42 @@
         </section>
 
         <footer>
-            <v-container grid-list-xl>
-                <v-layout row wrap>
-                    <v-flex md6 sm12 xs12 class="box-app">
-                        <div class="title">GET THE SPITBALL APP</div>
+            <v-container>
+                <v-layout row wrap justify-space-between>
+                    <v-flex class="box-app">
+                        <div class="footer-title">GET THE SPITBALL APP</div>
                         <p>Study socially on your smartphone, laptop and tablet anytime, anywhere</p>
                         <a href="#" class="app"><lazy-component><img src="./img/app-store-icon.png" alt=""></lazy-component></a>
                     </v-flex>
-                    <v-flex md3 sm6 xs6 class="box-list">
-                        <div class="title">COMPANY</div>
-                        <ul>
-                            <li><a href="#">About Spitball</a></li>
-                            <li><a href="#">Jobs</a></li>
-                            <li><a href="#">Blog</a></li>
-                        </ul>
-                    </v-flex>
-                    <v-flex md3 sm6 xs6 class="box-list">
-                        <div class="title">SUPPORT</div>
-                        <ul>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Terms of Service</a></li>
-                            <li><a href="#">Help</a></li>
-                            <li><a href="#">Advertise with us</a></li>
-                        </ul>
-                    </v-flex>
-                </v-layout>
-                <v-layout row>
-                    <v-flex md6 sm8 xs10 offset-md6>
-                        <ul class="list-social-links">
-                            <li v-for="icon in props.bottomIcons" :key="icon"><a href="#"><span class="demo-icon"><slot name="bottomIcon" :iconName="icon"></slot></span></a></li>
-                        </ul>
+                    <v-flex class="box-links">
+                        <v-layout row wrap justify-space-between>
+                            <v-flex md6 sm12 xs12 class="box-list">
+                                <div class="title">COMPANY</div>
+                                <ul>
+                                    <li><a href="#">About Spitball</a></li>
+                                    <li><a href="#">Jobs</a></li>
+                                    <li><a href="#">Blog</a></li>
+                                </ul>
+                            </v-flex>
+                            <v-flex md6 sm12 xs12 class="box-list">
+                                <div class="title">SUPPORT</div>
+                                <ul>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                    <li><a href="#">Terms of Service</a></li>
+                                    <li><a href="#">Help</a></li>
+                                    <li><a href="#">Advertise with us</a></li>
+                                </ul>
+                            </v-flex>
+                        </v-layout>
+                        <v-layout class="list-social-links" align-center justify-space-between>
+                            <v-flex class="text-xs-center" v-for="icon in props.bottomIcons" :key="icon" pa-0>
+                                <a href="#">
+                                    <span class="demo-icon">
+                                        <slot name="bottomIcon" :iconName="icon"></slot>
+                                    </span>
+                                </a>
+                            </v-flex>
+                        </v-layout>
                     </v-flex>
                 </v-layout>
             </v-container>

@@ -1,6 +1,6 @@
 ﻿@import "../../mixin.less";
 
-.strip {
+.strip.container {
     padding-top: 80px;
     padding-bottom: 80px;
     margin: 0;
@@ -23,6 +23,9 @@
     &.documents { // Study documents
         background-image: linear-gradient(to bottom, rgba(38,0,75,0.2), rgba(249,249,249,0.2));
 
+        .floating-icons svg {
+            fill: @color-dark-purple;
+        }
 
         .icon-1 {
             top: 10%;
@@ -64,6 +67,9 @@
     &.tutors { // Tutors
         background-image: linear-gradient(to bottom, rgba(249,249,249,0.2) 10%, rgba(82,171,21,0.2) 98%);
 
+        .floating-icons svg {
+            fill: @color-green;
+        }
 
         .icon-1 {
             top: -5%;
@@ -104,6 +110,10 @@
 
     &.food-deals { // Food and Deals
         background-image: linear-gradient(to bottom, rgba(44,191,165,0.2), rgba(249,249,249,0.2));
+
+        .floating-icons svg {
+            fill: #2CBFA5;
+        }
 
 
         .icon-1 {
@@ -146,6 +156,10 @@
     &.textbooks { // Textbooks
         background-image: linear-gradient(to bottom, rgba(249,249,249,0.2), rgba(140,63,191,0.2));
 
+        .floating-icons svg {
+            fill: @color-purple;
+        }
+
         .icon-1 {
             top: -8%;
             right: 9%;
@@ -185,6 +199,10 @@
 
     &.flashcards { // Flashcards
         background-image: linear-gradient(to bottom, rgba(241,77,77,0.2), rgba(249,249,249,0.2));
+
+        .floating-icons svg {
+            fill: #F14D4D;
+        }
 
         .icon-1 {
             top: 3%;
@@ -226,6 +244,10 @@
     &.ask-question { // Ask a Question
         background-image: linear-gradient(to bottom, rgba(249,249,249,0.2), rgba(4,85,168,0.2));
 
+        .floating-icons svg {
+            fill: @color-dark-blue;
+        }
+
         .icon-1 {
             bottom: -7%;
             right: 49%;
@@ -265,6 +287,10 @@
 
     &.jobs { // Jobs
         background-image: linear-gradient(to bottom, rgba(245,166,35,0.2), rgba(249,249,249,0.2));
+
+        .floating-icons svg {
+            fill: @color-orange;
+        }
 
         .icon-1 {
             top: -11%;
@@ -329,6 +355,7 @@
 
         .floating-icons svg {
             position: absolute;
+            opacity: 0.5;
 
             @media(max-width: 600px) {
                 width: 20%;
@@ -348,6 +375,8 @@
 
             @media(max-width: 600px) {
                 justify-content: center;
+                margin-bottom: 8px;
+                margin-top: 16px;
             }
 
             svg {
@@ -356,6 +385,7 @@
 
             h3 {
                 font-size: 30px;
+                font-weight: normal;
                 margin: 0 0 0 16px;
 
                 @media(max-width: 600px) {
@@ -363,6 +393,7 @@
                     margin-left: 12px;
                 }
             }
+
         }
 
         .strip-text {

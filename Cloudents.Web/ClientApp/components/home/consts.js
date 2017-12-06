@@ -91,19 +91,19 @@ let features =
         document: {
             title: "Millions of Documents",
             text: "Find study guides, homework, and notes for courses at your school.",
-            mobileText: "study guides and notes."
+            icon: "notebookIcon"
         },
 
         textbook: {
             title: "Save up to 50% on Textbooks",
             text: "A new course load doesn’t have to break the bank! Find the best prices to rent, buy, or sell your textbooks.",
-            mobileText: "Best prices to rent, buy, or sell."
+            icon: "bookStackIcon"
         },
 
         homework: {
             title: "Homework Help 24/7",
             text: "Find the answers to all your questions with step-by-step help from expert tutors, in person or online.",
-            mobileText: "Step-by-step help from expert tutors."
+            icon: "studentLaptopIcon"
         },
     }
     let sites=[
