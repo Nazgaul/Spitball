@@ -64,7 +64,7 @@ namespace Cloudents.Infrastructure.Search
                 Skip = 15 * page,
                 Select = new[]
                 {
-                    "name", "image", "url", "city", "state", "fee", "online", "location","subjects","extra"
+                    "name", "image", "url", "city", "state", "fee", "online", "location","subjects","extra","description"
                 },
                 Filter = string.Join(" and ", filterQuery),
                 OrderBy = sortQuery

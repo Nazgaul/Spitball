@@ -43,5 +43,7 @@ namespace Cloudents.Infrastructure.Search.Entities
 
         [IsSearchable]
         public string[] Extra { get; set; }
+
+        public string Description { get; set; }
     }
 }

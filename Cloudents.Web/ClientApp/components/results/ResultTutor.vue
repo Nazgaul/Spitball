@@ -12,6 +12,7 @@
                                         <v-flex xs8 class="title">{{item.name}}</v-flex>
                                         <v-flex xs4 v-if="item.fee"><div class="price text-xs-right">${{item.fee}} / hour</div></v-flex>
                                     </v-layout>
+                                    <div class="description" v-if="item.description">{{item.description}}</div>
                                     <div class="location" v-if="item.city">{{item.city}}, {{item.state}}</div>
                                 </v-container>
                             </v-flex>

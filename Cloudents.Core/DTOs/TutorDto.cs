@@ -1,5 +1,4 @@
 ﻿using System.Runtime.Serialization;
-using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 
 namespace Cloudents.Core.DTOs
@@ -26,6 +25,8 @@ namespace Cloudents.Core.DTOs
 
         [DataMember]
         public GeoPoint Location { get; set; }
+        [DataMember]
+        public string Description { get; set; }
 
         public int TermCount { get; set; }
     }
