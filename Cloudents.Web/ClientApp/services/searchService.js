@@ -61,7 +61,8 @@ export default {
         job({ term, filter, sort, jobType,page,location }) {
             if(page)return Promise.resolve({data:{}});
             return new Promise((resolve, reject) => {
-                    search.getJob({ term, filter, sort, location, facet: jobType }).then(({ body }) => resolve({ jobType: body.facet, data: body.result.map(val => { return { ...val, template: "job" } }) }));
+                search.getJob({ term, filter, sort, location, facet: jobType }).then(({ body }) =>
+                    resolve({ jobType: body.facet, data: body.result.map(val => { return { ...val, template: "job" } }) }));
             });
         },
         book({ term, page }) {

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
@@ -22,11 +24,11 @@ namespace Cloudents.Web.Api
 
         [TypeFilter(typeof(IpToLocationActionFilter),Arguments = new object[] {"location"})]
         [HttpGet]
-        public async Task<IActionResult> GetAsync([RequiredFromQuery]string[] term, PlacesRequestFilter filter, GeoPoint location, CancellationToken token)
+        public async Task<IActionResult> GetAsync(string[] term, PlacesRequestFilter filter, GeoPoint location, CancellationToken token)
         {
-            if (term == null) throw new ArgumentNullException(nameof(term));
             if (location == null) throw new ArgumentNullException(nameof(location));
-            var result = await _placesSearch.SearchNearbyAsync(string.Join(" ", term), filter, location, default, token).ConfigureAwait(false);
+            var queryTerm = string.Join(" ", term ?? Enumerable.Empty<string>());
+            var result = await _placesSearch.SearchNearbyAsync(queryTerm, filter, location, default, token).ConfigureAwait(false);
             return Json(new
             {
                 result.token,
