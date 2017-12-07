@@ -77,7 +77,7 @@ export const routes = [
             '/' + RouteTypes.jobRoute,
             '/' + RouteTypes.foodRoute
         ], components: resultPage, props: resultProps, meta: {
-            showHeader: true
+            showHeader: true,isStatic:true
             
         }
     },

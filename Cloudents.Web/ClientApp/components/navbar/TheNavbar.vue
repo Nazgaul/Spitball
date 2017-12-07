@@ -27,7 +27,6 @@
         props:{$_calcTerm:{type:Function}},
 
         methods: {
-            ...mapMutations({ 'changeFlow': 'ADD' }),
             $_currentTerm(type) {
                 let term = type.includes('food') ? this.$route.meta.foodTerm : type.includes('job') ? this.$route.meta.jobTerm : this.$route.meta.term;
                 return term || {};
@@ -37,7 +36,6 @@
                     this.$router.push({ path: '/' + result,query:{q:this.$route.query.q}});
                 }
                 if(this.$route.meta[this.$_calcTerm(result)]){
-                    this.changeFlow({ result });
                     let query={q: this.$_currentTerm(result).term };
                     if(this.currentPage===result)query={...this.$route.query,...query};
                 this.$router.push({ path: '/' + result,query})}else{

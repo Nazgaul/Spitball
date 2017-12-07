@@ -48,8 +48,7 @@ const actions = {
                     params.location=`${params.cords.latitude},${params.cords.longitude}`
                 }
                 context.commit(SEARCH.UPDATE_SEARCH_PARAMS, { ...params });
-                context.commit(FLOW.ADD, { ...body });
-                resolve({ result: context.rootGetters.currenFlow, term: body.term });
+                resolve({ result: body.vertical, term: body.term });
             });
         });
     },
