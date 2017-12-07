@@ -1,5 +1,5 @@
 <template functional>
-    <div class="sort-filter">
+    <div class="sort-filter-wrap">
         <template v-if="props.sortOptions">
             <h3>Sort by</h3>
             <div class="sort-switch">
