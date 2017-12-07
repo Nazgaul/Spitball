@@ -57,8 +57,9 @@ export const pageMixin =
             this.$route.meta.jobTerm=null;
             this.$route.meta.foodTerm=null;
             this.$route.meta.term=null;
+            this.$route.meta.myClasses=[];
             this.$nextTick(()=>{
-            next();
+                next();
             })
         },
 
@@ -167,6 +168,9 @@ export const pageMixin =
                 if(!type.target.checked){
                     listo=currentFilter.filter(i=>i!==val);
                 }
+                if(id==='course'){
+                    this.$route.meta.myClasses=listo;
+                }
                 let newFilter={[id]:listo};
                 let {q,sort,course,source,filter}=this.query;
                 if(val==='inPerson'&&type)sort="price";
@@ -187,6 +191,6 @@ export const pageMixin =
                 return !Number.isNaN(item)&&this.myCourses.find(x=>x.id===Number(item))?this.myCourses.find(x=>x.id===Number(item)).name:item;
             }
         },
-        props: { hasExtra: {type:Boolean},currentTerm:{type:[String,Object]}}
+        props: { hasExtra: {type:Boolean},currentTerm:{type:[String,Object]},myClasses:{type:Array}}
 
     };
