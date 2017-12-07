@@ -70,6 +70,7 @@ export const pageMixin =
                 this.pageData={};
                 this.items=[];
                 new Promise((resolve, reject) => {
+                    if(!to.query.q){resolve()}
                     if(savedTerm.term!==to.query.q){
                         this.updateSearchText(to.query.q).then((response)=> {
                             this.$route.meta[this.$_calcTerm(toName)] = {term: to.query.q, luisTerm: response.term};

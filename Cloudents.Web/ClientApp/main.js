@@ -75,7 +75,7 @@ WebFont.load({
 
 Vue.use(VueLazyload, {
     lazyComponent: true,
-    preLoad: 1,
+    preLoad: 2,
     attempt: 1
 });
 Vue.use(VueRouter);
