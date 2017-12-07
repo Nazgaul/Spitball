@@ -36,7 +36,8 @@ export default {
             return new Promise((resolve, reject) => {
                 search.getQna({ source, university, course, term, page, sort, userText }).then(({body})=>{
                     const video = body.video;
-                    const items = body.result.map(val => { return { ...val, template: "item" } });
+                    const itemResult = body.result || [];
+                    const items = itemResult.map(val => { return { ...val, template: "item" } });
                     const data = video ? [{...video,template:"video"},...items]:items;
                     resolve({ data });
                 });
@@ -45,7 +46,13 @@ export default {
         note({ source, university, course, term, page, sort }) {
             return new Promise((resolve, reject) => {
                 search.getDocument({ source, university, course, term, page, sort })
-                    .then(({ body }) => resolve({ source: body.facet, data: body.result.map(val => { return { ...val, template: "item" } }) }));
+                    .then(({ body }) => {
+                        const result = body.result || [];
+                        resolve({
+                            source: body.facet,
+                            data: result.map(val => { return { ...val, template: "item" } })
+                        });
+                    });
             });
         },
         flashcard({ source, university, course, term, page, sort }) {
@@ -55,19 +62,24 @@ export default {
         },
         tutor({ term, filter, sort, page,location }) {
             return new Promise((resolve, reject) => {
-                search.getTutor({ term, filter, sort, location, page }).then(({ body }) => resolve({ data: body.map(val => { return { ...val, template: "tutor" } }) }));
+                search.getTutor({ term, filter, sort, location, page }).then(({ body }) => {
+                    body = body || [];
+                    resolve({ data: body.map(val => { return { ...val, template: "tutor" } }) });
+                });
             });
         },
         job({ term, filter, sort, jobType,page,location }) {
             if(page)return Promise.resolve({data:{}});
             return new Promise((resolve, reject) => {
-                    search.getJob({ term, filter, sort, location, facet: jobType }).then(({ body }) => resolve({ jobType: body.facet, data: body.result.map(val => { return { ...val, template: "job" } }) }));
+                search.getJob({ term, filter, sort, location, facet: jobType }).then(({ body }) =>
+                    resolve({ jobType: body.facet, data: body.result.map(val => { return { ...val, template: "job" } }) }));
             });
         },
         book({ term, page }) {
             return new Promise((resolve, reject) => {
                 search.getBook({ term, page }).then(({ body }) => {
-                    let data = body ? body.map(val => { return { ...val, template: "book" } }) : [];
+                    body = body || [];
+                    let data =  body.map(val => { return { ...val, template: "book" } });
                     resolve({ data });
                 });
             });
@@ -88,9 +100,18 @@ export default {
            
             return new Promise((resolve, reject) => {
                 if (nextPageToken) {
-                    search.getFood({ nextPageToken }).then(({ body }) => resolve({ token: body.token, data: body.data.map(val => { return { ...val, template: "food" } }) }));
+                    search.getFood({ nextPageToken }).then(({ body }) => {
+                        const data = body.data || [];
+                        resolve({
+                            token: body.token,
+                            data: data.map(val => { return { ...val, template: "food" } })
+                        });
+                    });
                 }
-                    search.getFood({ term, filter, location }).then(({ body }) => resolve({ token: body.token, data: body.data.map(val => { return { ...val, template: "food" } }) }));
+                search.getFood({ term, filter, location }).then(({ body }) => {
+                    const data = body.data || [];
+                    resolve({ token: body.token, data: data.map(val => { return { ...val, template: "food" } }) });
+                });
             });
         }
     },

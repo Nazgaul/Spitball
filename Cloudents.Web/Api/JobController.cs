@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
@@ -26,9 +27,8 @@ namespace Cloudents.Web.Api
             JobRequestSort? sort,
             GeoPoint location, string[] facet,int? page, CancellationToken token)
         {
-            if (term == null) throw new ArgumentNullException(nameof(term));
             var result = await _jobSearch.SearchAsync(
-                string.Join(" ", term),
+                string.Join(" ", term ?? Enumerable.Empty<string>()),
                 filter.GetValueOrDefault(),
                 sort.GetValueOrDefault(JobRequestSort.Distance),
                 facet, location, page.GetValueOrDefault(), token).ConfigureAwait(false);

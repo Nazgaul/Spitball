@@ -32,10 +32,7 @@ namespace Cloudents.Infrastructure.Search
             GeoPoint location, string nextPageToken, CancellationToken token)
         {
             var nvc = BuildQuery(term, filter, location, nextPageToken);
-            if (filter == PlacesRequestFilter.OpenNow)
-            {
-                nvc.Add("opennow", true.ToString());
-            }
+            
             var result = await _restClient.GetJsonAsync(new Uri("https://maps.googleapis.com/maps/api/place/nearbysearch/json"), nvc, token).ConfigureAwait(false);
             return _mapper.Map<JObject, (string, IEnumerable<PlaceDto>)>(result, opt =>
             {
@@ -61,16 +58,20 @@ namespace Cloudents.Infrastructure.Search
         {
             if (string.IsNullOrEmpty(nextPageToken))
             {
-                if (term == null) throw new ArgumentNullException(nameof(term));
                 if (location == null) throw new ArgumentNullException(nameof(location));
-                return new NameValueCollection
+                var nvc =  new NameValueCollection
                 {
                     ["location"] = $"{location.Latitude} {location.Longitude}",
-                    ["keyword"] = term,
+                    ["keyword"] = term ?? string.Empty,
                     ["key"] = Key,
                     ["rankby"] = "distance",
-                    ["pagetoken"] = nextPageToken
+                    //["pagetoken"] = nextPageToken
                 };
+                if (filter == PlacesRequestFilter.OpenNow)
+                {
+                    nvc.Add("opennow", true.ToString());
+                }
+                return nvc;
             }
             return new NameValueCollection
             {

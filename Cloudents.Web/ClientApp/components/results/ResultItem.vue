@@ -31,9 +31,9 @@
 
         props: { item: { type: Object, required: true } },
         computed: {
-            isSpitball() { return this.item.source.includes('spitball')},
+            //isSpitball() { return this.item.source.includes('spitball')},
             url: function () {
-                return this.isSpitball ? this.item.url.split('.co/')[1]: this.item.url
+                return /*this.isSpitball ? this.item.url.split('.co/')[1]:*/ this.item.url
             }
         },
 
