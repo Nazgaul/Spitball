@@ -47,11 +47,6 @@ let updateData = function (data) {
 export const pageMixin =
     {
         mixins: [sortAndFilterMixin],
-        beforeRouteEnter (to, from, next) {
-            next((vm)=>{
-                vm.$store.commit('ADD',{result:vm.$route.path.slice(1)});
-            });
-        },
         beforeRouteLeave (to, from, next) {
             if(to.name&&to.name==='home') {
                 this.$route.meta.jobTerm = null;
@@ -91,7 +86,7 @@ export const pageMixin =
                 });
         },
         computed: {
-            ...mapGetters(['term', 'isFirst','myCourses','flowNode','currenFlow','luisTerm']),
+            ...mapGetters(['term', 'isFirst','myCourses','luisTerm']),
             content: {
                 get() {
                     return this.pageData;
