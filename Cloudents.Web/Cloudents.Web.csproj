@@ -5,8 +5,8 @@
     <MvcRazorCompileOnPublish>true</MvcRazorCompileOnPublish>
     <ApplicationInsightsResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsAnnotationResourceId>
-    <AssemblyVersion>7.12.7.1</AssemblyVersion>
-    <FileVersion>7.12.7.1</FileVersion>
+    <AssemblyVersion>7.12.7.2</AssemblyVersion>
+    <FileVersion>7.12.7.2</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

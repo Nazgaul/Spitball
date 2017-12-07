@@ -7,7 +7,7 @@ const searchFunctions = {
     getQna: { method: "GET", url: basePath + "ask/{?term*}" },
     getFlashcard: { method: "GET", url: basePath + "search/flashcards/{?source*,term*,course*,sort*}" },
     getTutor: { method: "GET", url: basePath + "tutor/{?term*,filter*,sort*}" },
-    getJob: { method: "GET", url: basePath + "job/{?term*,jobType*}" },
+    getJob: { method: "GET", url: basePath + "job/{?term*,facet*}" },
     getBook: { method: "GET", url: basePath + "book/search/{?term*}" },
     getBookDetails: { method: "GET", url: basePath + "book/{type}/{?term*}" },
     getFood: { method: "GET", url: basePath + "places/{?term*,filter*}" }
