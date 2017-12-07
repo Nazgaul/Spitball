@@ -10,7 +10,6 @@ const foodExtra = () => import('./foodExtra.vue');
 import AppMenu from './../navbar/TheNavbar.vue';
 import SortAndFilter from './SortAndFilter.vue'
 import plusBtn from "../settings/svg/plus-button.svg";
-//import closeBtn from "../settings/svg/close-icon.svg";
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 export const sortAndFilterMixin = {
    
@@ -71,6 +70,7 @@ export const pageMixin =
                 this.pageData={};
                 this.items=[];
                 new Promise((resolve, reject) => {
+                    if(!to.query.q){resolve()}
                     if(savedTerm.term!==to.query.q){
                         this.updateSearchText(to.query.q).then((response)=> {
                             this.$route.meta[this.$_calcTerm(toName)] = {term: to.query.q, luisTerm: response.term};
@@ -188,7 +188,7 @@ export const pageMixin =
                 this.$root.$el.querySelector("#myCourses").click();
             },
             $_showSelectedFilter(item){
-                console.log(!Number.isNaN(item));
+                if(!this.subFilterVertical)return this.page.filter.find(i=>i.id===item).name;
                 return !Number.isNaN(item)&&this.myCourses.find(x=>x.id===Number(item))?this.myCourses.find(x=>x.id===Number(item)).name:item;
             }
         },
