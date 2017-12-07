@@ -7,7 +7,6 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Search.Entities;
-using Google.Apis.Customsearch.v1.Data;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using Microsoft.Spatial;
@@ -36,7 +35,8 @@ namespace Cloudents.Infrastructure.Search
             var searchParameter = new SearchParameters
             {
                 Select = listOfSelectParams,
-                Filter = "geographyPoint ne null"
+                Filter = "geographyPoint ne null",
+                OrderBy = new List<string> { "search.score()", "name3"}
             };
             if (location != null)
             {

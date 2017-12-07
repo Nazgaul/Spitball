@@ -1,4 +1,4 @@
-﻿import { page } from './../data'
+﻿import { page,verticalsName } from './../data'
 import ResultItem from './ResultItem.vue';
 const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
@@ -106,6 +106,9 @@ export const pageMixin =
                     }
                 }
             },
+            currentSuggest(){
+                return verticalsName.filter(i=>i!==this.name)[(Math.floor(Math.random() * (verticalsName.length - 2)))];
+            },
 
             isEmpty: function () { return this.pageData.data ? !this.pageData.data.length : true },
             subFilterVertical(){
@@ -166,14 +169,7 @@ export const pageMixin =
 
         },
         methods: {
-            //TODO update the food in theNavber to purchase also
-            // ...mapMutations(['UPDATE_LOADING']),
-            ...mapActions(['updateSearchText', 'fetchingData','updateFirstTime','updateFlow']),
-            $_updateCurrentFlow(index){
-                this.updateFlow(index).then(()=>{
-                    this.$router.push({path:'/'+this.currenFlow,query:{q:this.query.q}});
-                });
-            },
+            ...mapActions(['updateSearchText', 'fetchingData']),
             $_defaultSort(defaultSort) {
                 return this.query.sort ? this.query.sort : defaultSort;
             },
