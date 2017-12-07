@@ -12,20 +12,20 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class WorkerRole : RoleEntryPoint
     {
-        private readonly CancellationTokenSource m_CancellationTokenSource = new CancellationTokenSource();
-        private readonly ManualResetEvent m_RunCompleteEvent = new ManualResetEvent(false);
+        private readonly CancellationTokenSource _mCancellationTokenSource = new CancellationTokenSource();
+        private readonly ManualResetEvent _mRunCompleteEvent = new ManualResetEvent(false);
 
-        private readonly IocFactory m_Unity;
+        private readonly IocFactory _mUnity;
 
-        private readonly IList<IJob> m_Jobs;
-        private readonly List<Task> m_Tasks = new List<Task>();
+        private readonly IList<IJob> _mJobs;
+        private readonly List<Task> _mTasks = new List<Task>();
         private readonly ILogger _logger;
 
         public WorkerRole()
         {
-            m_Unity = new IocFactory();
-            m_Jobs = GetJob();
-            _logger = m_Unity.Resolve<ILogger>();
+            _mUnity = new IocFactory();
+            _mJobs = GetJob();
+            _logger = _mUnity.Resolve<ILogger>();
         }
 
         public override void Run()
@@ -33,11 +33,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             _logger.Info("Zbang.Zbox.WorkerRoleSearch is running");
             try
             {
-                RunAsync(m_CancellationTokenSource.Token).Wait();
+                RunAsync(_mCancellationTokenSource.Token).Wait();
             }
             finally
             {
-                m_RunCompleteEvent.Set();
+                _mRunCompleteEvent.Set();
             }
         }
 
@@ -76,8 +76,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public override void OnStop()
         {
             _logger.Info("Zbang.Zbox.WorkerRoleSearch is stopping");
-            m_CancellationTokenSource.Cancel();
-            m_RunCompleteEvent.WaitOne();
+            _mCancellationTokenSource.Cancel();
+            _mRunCompleteEvent.WaitOne();
 
             base.OnStop();
             _logger.Info("Zbang.Zbox.WorkerRoleSearch has stopped");
@@ -85,18 +85,18 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task RunAsync(CancellationToken cancellationToken)
         {
-            foreach (var job in m_Jobs)
+            foreach (var job in _mJobs)
             {
                 var t =  Task.Run(() => job.RunAsync(cancellationToken), cancellationToken);
-                m_Tasks.Add(t);
+                _mTasks.Add(t);
             }
             while (!cancellationToken.IsCancellationRequested)
             {
                 try
                 {
-                    for (int i = 0; i < m_Tasks.Count; i++)
+                    for (int i = 0; i < _mTasks.Count; i++)
                     {
-                        var task = m_Tasks[i];
+                        var task = _mTasks[i];
                         if (task.IsFaulted)
                         {
                             // Observe unhandled exception
@@ -110,13 +110,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
                                 _logger.Error("Job Failed and no exception thrown.");
                             }
 
-                            var jobToRestart = m_Jobs[i];
-                            m_Tasks[i] = Task.Run(() => jobToRestart.RunAsync(cancellationToken), cancellationToken);
+                            var jobToRestart = _mJobs[i];
+                            _mTasks[i] = Task.Run(() => jobToRestart.RunAsync(cancellationToken), cancellationToken);
                         }
                         if (task.IsCompleted)
                         {
                             _logger.Warning($"Job finished index: {i}");
-                            m_Tasks.RemoveAt(i);
+                            _mTasks.RemoveAt(i);
                         }
                     }
                     await Task.Delay(TimeSpan.FromSeconds(30), cancellationToken).ConfigureAwait(false);
@@ -137,7 +137,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchItem), //0
                     //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchBox), //1
                     //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchQuiz), //2
-                    //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchUniversity), //3
+                    _mUnity.Resolve<IJob>(IocFactory.UpdateSearchUniversity), //3
                     //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchFlashcard), //4
                     //m_Unity.Resolve<IJob>(nameof(UpdateUnsubscribeList)), //5
                     //m_Unity.Resolve<IJob>(nameof(SchedulerListener)), //6
@@ -149,24 +149,24 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     //m_Unity.Resolve<IJob>(nameof(Crawler)) //12
 
                    // m_Unity.Resolve<IJob>(nameof(BlobManagement))
-                    m_Unity.Resolve<IJob>(nameof(TestingJob))
+                   // _mUnity.Resolve<IJob>(nameof(TestingJob))
 
                 };
             }
             return new List<IJob>
             {
-                m_Unity.Resolve<IJob>(IocFactory.UpdateSearchItem), //0
-                m_Unity.Resolve<IJob>(IocFactory.UpdateSearchBox), //1
-                m_Unity.Resolve<IJob>(IocFactory.UpdateSearchQuiz), //2
-                m_Unity.Resolve<IJob>(IocFactory.UpdateSearchUniversity), //3
-                m_Unity.Resolve<IJob>(IocFactory.UpdateSearchFlashcard), //4
-                m_Unity.Resolve<IJob>(nameof(UpdateUnsubscribeList)), //5
-                m_Unity.Resolve<IJob>(nameof(SchedulerListener)), //6
-                m_Unity.Resolve<IJob>(nameof(MailQueueProcess)), //7
-                m_Unity.Resolve<IJob>(nameof(TransactionQueueProcess)), //8
-                m_Unity.Resolve<IJob>(nameof(ThumbnailQueueProcess)), //9
-                m_Unity.Resolve<IJob>(nameof(DeleteOldConnections)), //10
-                m_Unity.Resolve<IJob>(nameof(UpdateSearchFeed)), //11
+                _mUnity.Resolve<IJob>(IocFactory.UpdateSearchItem), //0
+                _mUnity.Resolve<IJob>(IocFactory.UpdateSearchBox), //1
+                _mUnity.Resolve<IJob>(IocFactory.UpdateSearchQuiz), //2
+                _mUnity.Resolve<IJob>(IocFactory.UpdateSearchUniversity), //3
+                _mUnity.Resolve<IJob>(IocFactory.UpdateSearchFlashcard), //4
+                _mUnity.Resolve<IJob>(nameof(UpdateUnsubscribeList)), //5
+                _mUnity.Resolve<IJob>(nameof(SchedulerListener)), //6
+                _mUnity.Resolve<IJob>(nameof(MailQueueProcess)), //7
+                _mUnity.Resolve<IJob>(nameof(TransactionQueueProcess)), //8
+                _mUnity.Resolve<IJob>(nameof(ThumbnailQueueProcess)), //9
+                _mUnity.Resolve<IJob>(nameof(DeleteOldConnections)), //10
+                _mUnity.Resolve<IJob>(nameof(UpdateSearchFeed)), //11
                 //m_Unity.Resolve<IJob>(nameof(BlobManagement))
                 //m_Unity.Resolve<IJob>(nameof(Crawler)) //12
                // m_Unity.Resolve<IJob>(nameof(TestingJob)) //13

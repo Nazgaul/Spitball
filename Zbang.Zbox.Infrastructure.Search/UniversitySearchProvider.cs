@@ -15,19 +15,21 @@ namespace Zbang.Zbox.Infrastructure.Search
 {
     public class UniversitySearchProvider : IUniversityReadSearchProvider, IUniversityWriteSearchProvider2
     {
-        private readonly string m_IndexName = "universities2";
-        private bool m_CheckIndexExists;
-        private readonly ISearchConnection m_Connection;
-        private readonly ISearchIndexClient m_IndexClient;
+        private readonly string _indexName = "universities2";
+        private bool _checkIndexExists;
+        private readonly ISearchConnection _connection;
+        private readonly ISearchIndexClient _indexClient;
+        private readonly ILogger _logger;
 
-        public UniversitySearchProvider(ISearchConnection connection)
+        public UniversitySearchProvider(ISearchConnection connection, ILogger logger)
         {
-            m_Connection = connection;
-            if (m_Connection.IsDevelop)
+            _connection = connection;
+            _logger = logger;
+            if (_connection.IsDevelop)
             {
-                m_IndexName += "-dev";
+                _indexName += "-dev";
             }
-            m_IndexClient = connection.SearchClient.Indexes.GetClient(m_IndexName);
+            _indexClient = connection.SearchClient.Indexes.GetClient(_indexName);
         }
 
         private const string IdField = "id";
@@ -50,7 +52,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
             var index = new Index
             {
-                Name = m_IndexName,
+                Name = _indexName,
                 Fields = FieldBuilder.BuildForType<UniversitySearch>(),
                 ScoringProfiles = new[] { scoringProfile },
                 Suggesters = new[] { suggester }
@@ -62,13 +64,13 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             try
             {
-                await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetUniversityIndex()).ConfigureAwait(false);
+                await _connection.SearchClient.Indexes.CreateOrUpdateAsync(GetUniversityIndex()).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("on box build index", ex);
+                _logger.Exception(ex);
             }
-            m_CheckIndexExists = true;
+            _checkIndexExists = true;
         }
 
         public async Task<IEnumerable<UniversityByPrefixDto>> SearchUniversityAsync(UniversitySearchQuery query, CancellationToken cancelToken)
@@ -97,12 +99,12 @@ namespace Zbang.Zbox.Infrastructure.Search
                 term = query.Term.Replace("\"", string.Empty);
             }
 
-            var tResult = m_IndexClient.Documents.SearchAsync<UniversitySearch>(term + "*", searchParameter, cancellationToken: cancelToken);
+            var tResult = _indexClient.Documents.SearchAsync<UniversitySearch>(term + "*", searchParameter, cancellationToken: cancelToken);
 
             var tSuggest = CompletedTask;
             if (!string.IsNullOrEmpty(query.Term) && query.Term.Length >= 3 && query.PageNumber == 0)
             {
-                tSuggest = m_IndexClient.Documents.SuggestAsync<UniversitySearch>(query.Term, "sg", new SuggestParameters
+                tSuggest = _indexClient.Documents.SuggestAsync<UniversitySearch>(query.Term, "sg", new SuggestParameters
                 {
                     UseFuzzyMatching = true,
                     Select = listOfSelectParams
@@ -115,7 +117,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     {
                         Id = long.Parse(s.Document.Id),
                         Image = s.Document.Image,
-                        Name = s.Document.Name3,
+                        Name = s.Document.Name4,
                         NumOfUsers = s.Document.MembersCount ?? 0,
                         UserImages = s.Document.MembersImages
                     });
@@ -126,7 +128,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                       {
                           Id = long.Parse(s.Document.Id),
                           Image = s.Document.Image,
-                          Name = s.Document.Name3,
+                          Name = s.Document.Name4,
                           NumOfUsers = s.Document.MembersCount ?? 0,
                           UserImages = s.Document.MembersImages
                       }));
@@ -139,10 +141,10 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public async Task<bool> UpdateDataAsync(IEnumerable<UniversitySearchDto> universityToUpload, IEnumerable<long> universityToDelete)
         {
-            //if (!m_CheckIndexExists)
-            //{
-            //    await BuildIndexAsync().ConfigureAwait(false);
-            //}
+            if (!_checkIndexExists)
+            {
+                await BuildIndexAsync().ConfigureAwait(false);
+            }
 
             //var listOfCommands = new List<IndexAction<UniversitySearch>>();
             if (universityToUpload != null)
@@ -156,9 +158,9 @@ namespace Zbang.Zbox.Infrastructure.Search
 #pragma warning disable 618 // we need to populate this field
                             Name = s.Name.Trim(),
                             Name2 = s.Name.Trim(),
-#pragma warning restore 618
                             Name3 = s.Name.Trim(),
-
+#pragma warning restore 618
+                            Name4 = s.Name.Trim(),
                             Extra3 = s.Extra?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
                             Image = s.Image?.Trim(),
                             Country = s.Country.ToLowerInvariant(),
@@ -173,7 +175,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
                 var batch = IndexBatch.Upload(uploadBatch);
                 if (batch.Actions.Any())
-                    await m_IndexClient.Documents.IndexAsync(batch).ConfigureAwait(false);
+                    await _indexClient.Documents.IndexAsync(batch).ConfigureAwait(false);
             }
             if (universityToDelete != null)
             {
@@ -184,7 +186,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 });
                 var batch = IndexBatch.Delete(deleteBatch);
                 if (batch.Actions.Any())
-                    await m_IndexClient.Documents.IndexAsync(batch).ConfigureAwait(false);
+                    await _indexClient.Documents.IndexAsync(batch).ConfigureAwait(false);
             }
             return true;
         }
