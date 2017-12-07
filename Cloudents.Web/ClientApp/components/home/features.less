@@ -1,16 +1,18 @@
-﻿.features {
+﻿@import "../../mixin.less";
+
+.features {
     color: white;
     text-align: center;
     margin-top: 100px;
+
+    @media(max-width: 600px) {
+        margin-top: 16px;
+    }
 
 
     h3 {
         font-weight: bold;
         line-height: normal;
-
-        @media(min-width: 600px) {
-            margin: 20px 0 0 0;
-        }
     }
 
     .feature {
@@ -18,23 +20,57 @@
             max-width: 352px;
         }
 
+        .icon-wrapper {
+            height: 64px;
+
+            @media(max-width: 600px) {
+                height: 50px;
+            }
+        }
+
+        svg {
+            fill: @Chat;
+        }
+
+        &.document {
+            svg {
+                transform: rotate(-15deg);
+                width: 42px;
+
+                @media(max-width: 600px) {
+                    width: 28px;
+                }
+            }
+        }
+
+        &.textbook {
+            svg {
+                width: 50px;
+
+                @media(max-width: 600px) {
+                    width: 32px;
+                    padding-top: 6px;
+                }
+            }
+        }
+
+        &.homework {
+            svg {
+                transform: rotate(-12.5deg);
+                width: 37px;
+
+                @media(max-width: 600px) {
+                    width: 26px;
+                    padding-bottom: 12px;
+                }
+            }
+        }
 
         .wrapper {
             @media(max-width: 600px) {
                 flex-wrap: nowrap;
                 max-width: 300px;
                 margin: 0 auto;
-
-                .icon-wrapper {
-                    padding-right: 16px;
-                    max-width: 60px;
-
-                    svg {
-                        width: 100%;
-                        max-width: 60px;
-                        height: auto;
-                    }
-                }
             }
         }
     }

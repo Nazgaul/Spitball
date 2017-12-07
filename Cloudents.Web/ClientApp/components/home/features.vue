@@ -1,16 +1,15 @@
 ﻿<template functional>
     <v-container class="features" grid-list-xs>
         <v-layout row justify-space-around wrap>
-            <v-flex v-for="(feature, index) in props.features" :key="index" class="feature" md4 xs12 pa-3>
-                <v-layout class="wrapper" row align-start justify-space-between d-flex wrap>
-                    <v-flex class="icon-wrapper" md12>
-                        <slot :type="`feature-${index}`" name="item" ></slot>
+            <v-flex v-for="(feature, index) in props.features" :key="index" :class="`feature ${index}`" xs4 pa-3>
+                <v-layout class="wrapper" column align-top justify-space-between d-flex wrap>
+                    <v-flex class="icon-wrapper" xs12>
+                        <slot :type="feature.icon" name="item" ></slot>
                     </v-flex>
-                    <v-flex md12>
-                        <div class="data text-xs-left text-sm-center">
+                    <v-flex xs12>
+                        <div class="data text-xs-center">
                             <h3>{{feature.title}}</h3>
-                            <p class="hidden-xs-only">{{feature.text}}</p>
-                            <p class="hidden-sm-and-up">{{feature.mobileText}}</p>
+                            <p class="hidden-sm-and-down">{{feature.text}}</p>
                         </div>
                     </v-flex>
                 </v-layout>
@@ -20,4 +19,4 @@
 </template>
 
 
-<style src="./features.less" lang="less" scoped></style>
+<style src="./features.less" lang="less"></style>

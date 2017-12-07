@@ -27,4 +27,4 @@
 
 
 
-<style src="./horizontalStrip.less" lang="less" scoped></style>
+<style src="./horizontalStrip.less" lang="less"></style>
