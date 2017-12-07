@@ -31,12 +31,12 @@ namespace Cloudents.Infrastructure.Search
             {
                 term += "*";
             }
-            var listOfSelectParams = new[] { "id", "name3", "imageField" };
+            var listOfSelectParams = new[] { "id", University.NameProperty, "imageField" };
             var searchParameter = new SearchParameters
             {
                 Select = listOfSelectParams,
                 Filter = "geographyPoint ne null",
-                OrderBy = new List<string> { "search.score()", "name3"}
+                OrderBy = new List<string> { "search.score()", University.NameProperty }
             };
             if (location != null)
             {

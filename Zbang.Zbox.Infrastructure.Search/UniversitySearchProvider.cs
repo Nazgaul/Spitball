@@ -45,16 +45,21 @@ namespace Zbang.Zbox.Infrastructure.Search
         private Index GetUniversityIndex()
         {
             var scoringFunction = new TagScoringFunction(CountryField, 3, new TagScoringParameters("country"));
+            var universityFunction = new DistanceScoringFunction("geographyPoint", 5, "currentLocation", 50);
             var scoringProfile = new ScoringProfile(CountryScoringProfile,
                 functions: new ScoringFunction[] { scoringFunction }, functionAggregation: ScoringFunctionAggregation.Sum);
 
-            var suggester = new Suggester("sg",  NameField3, nameof(UniversitySearch.Extra3).ToLowerInvariant());
+
+            var universityScoringProfile = new ScoringProfile("university-score-location",
+                functions: new ScoringFunction[] { universityFunction });
+            var suggester = new Suggester("sg", NameField3, nameof(UniversitySearch.Extra3).ToLowerInvariant());
 
             var index = new Index
             {
                 Name = _indexName,
                 Fields = FieldBuilder.BuildForType<UniversitySearch>(),
-                ScoringProfiles = new[] { scoringProfile },
+                ScoringProfiles = new[] { scoringProfile, universityScoringProfile },
+
                 Suggesters = new[] { suggester }
             };
             return index;
@@ -165,7 +170,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                             Image = s.Image?.Trim(),
                             Country = s.Country.ToLowerInvariant(),
                             MembersCount = s.NoOfUsers,
-                            GeographyPoint = s.Latitude.HasValue && s.Longitude.HasValue ? GeographyPoint.Create(s.Latitude.Value,s.Longitude.Value) : null,
+                            GeographyPoint = s.Latitude.HasValue && s.Longitude.HasValue ? GeographyPoint.Create(s.Latitude.Value, s.Longitude.Value) : null,
                             MembersImages = s.UsersImages.Where(w => w != null).ToArray()
 
                         }
