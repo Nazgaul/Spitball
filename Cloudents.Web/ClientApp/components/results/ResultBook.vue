@@ -1,5 +1,5 @@
 ﻿<template v-once>
-    <router-link class="pa-2 book-cell" :to="{name:'bookDetails',params:{id:item.isbn13}}" tag="a">
+    <component :is="isDetails?'div':'router-link'"  class="pa-2 book-cell" :to="{name:'bookDetails',params:{id:item.isbn13},query:{q:$route.query.q}}">
         <v-container class="pa-0">
             <v-layout row>
                 <div class="img-wrap">
@@ -15,7 +15,7 @@
                 </v-flex>
             </v-layout>
         </v-container>
-    </router-link>
+    </component>
 </template>
 <script>
     export default {
