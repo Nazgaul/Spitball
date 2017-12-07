@@ -1,14 +1,16 @@
-﻿﻿<template functional>
+﻿﻿
+<template functional>
     <component is="slot">
         <v-container v-for="(strip,index) in props.strips" class="strip" :class="strip.class" :key="index">
-            <v-layout row justify-center align-center wrap class="strip-content">
+            <v-layout row justify-center align-center class="strip-content limited-width">
                 <v-flex class="image-wrapper">
                     <div class="images">
-<lazy-component>                        <img :src="require(`./img/${strip.image}`)" />
-</lazy-component>                        <div class="floating-icons">
-                        <template v-for="(image,index2) in strip.floatingImages">
-                           <slot name="stripImage" :type="image" :class-icon="`icon-${index2+1}`" class="white"></slot>
-                     </template>
+                        <lazy-component>
+                            <img :src="require(`./img/${strip.image}`)" />
+                        </lazy-component>                        <div class="floating-icons">
+                            <template v-for="(image,index2) in strip.floatingImages">
+                                <slot name="stripImage" :type="image" :class-icon="`icon-${index2+1}`" class="white"></slot>
+                            </template>
                         </div>
                     </div>
                 </v-flex>

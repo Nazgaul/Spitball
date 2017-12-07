@@ -1,7 +1,7 @@
 <template functional>
     <div class="wrapper h-p">
         <div class="box-header">
-            <v-container fluid>
+            <v-container fluid class="limited-width">
                 <v-layout row>
                     <v-flex class="logo-wrapper">
                         <slot name="logo"></slot>
@@ -59,10 +59,10 @@
             </v-container>
         </div>
         <section class="websites-section">
-            <v-container class="websites text-xs-center">
+            <v-container class="websites text-xs-center limited-width">
                 <h2>Content from your favorite websites</h2>
                 <v-layout class="logos" row align-center justify-space-around wrap>
-                    <v-flex v-for="(site,index) in props.sites" class="site" :key="index">
+                    <v-flex v-for="(site,index) in props.sites" class="site" :key="index" xs6 sm4 md2>
                         <v-layout column align-center d-flex>
                             <lazy-component> <img :src="require(`./img/${site.image}`)" /></lazy-component>
                         </v-layout>
@@ -73,7 +73,7 @@
         </section>
         <slot name="stripSection"></slot>
         <section class="box-section testimonials">
-            <v-carousel hide-delimiters left-control-icon="sbf-arrow-right" right-control-icon="sbf-arrow-right">
+            <v-carousel hide-delimiters left-control-icon="sbf-arrow-right" right-control-icon="sbf-arrow-right" class="limited-width">
                 <v-carousel-item v-for="(testimonial,index) in props.testimonials" src="" :key="index">
                     <div class="testimonial">
                         <p class="testimonial-text">"{{testimonial.testimonial}}"</p>
@@ -91,7 +91,7 @@
         </section>
 
         <footer>
-            <v-container>
+            <v-container class="limited-width">
                 <v-layout row wrap justify-space-between>
                     <v-flex class="box-app">
                         <div class="footer-title">GET THE SPITBALL APP</div>
@@ -118,7 +118,7 @@
                                 </ul>
                             </v-flex>
                         </v-layout>
-                        <v-layout class="list-social-links" align-center justify-space-between>
+                        <v-layout class="list-social-links" justify-space-between>
                             <v-flex class="text-xs-center" v-for="icon in props.bottomIcons" :key="icon" pa-0>
                                 <a href="#">
                                     <span class="demo-icon">
