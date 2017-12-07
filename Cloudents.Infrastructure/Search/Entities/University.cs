@@ -10,11 +10,13 @@ namespace Cloudents.Infrastructure.Search.Entities
     [SerializePropertyNamesAsCamelCase]
     internal class University
     {
+        public const string NameProperty = "name4";
+
         [Key]
         public string Id { get; set; }
 
         [IsSearchable]
-        [JsonProperty("Name3")]
+        [JsonProperty(NameProperty)]
         public string Name { get; set; }
 
         [IsSearchable]
