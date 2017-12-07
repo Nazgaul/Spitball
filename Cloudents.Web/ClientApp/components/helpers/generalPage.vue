@@ -2,7 +2,7 @@
     <component is="slot">
         <slot></slot>
         <v-content class="p-result">
-        <v-container fluid class="pa-0 wrap">
+        <v-container fluid class="pa-0 mt-2 wrap">
             <v-layout row>
                 <v-flex class="first-grid hidden-sm-and-down">
                 </v-flex>
@@ -10,12 +10,12 @@
                     <slot name="verticalNavbar"></slot>
                 </v-flex>
             </v-layout>
-            <v-layout row class="pt-3">
+            <v-layout row class="pt-2">
                 <v-flex class="first-grid hidden-sm-and-down left-side-bar">
                     <slot name="options">
                     </slot>
                 </v-flex>
-                <v-container class="results-section px-2 pt-0" fluid>
+                <v-container class="results-section px-0 pt-0" fluid>
 
                     
                     <v-layout row>
