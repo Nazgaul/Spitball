@@ -20,7 +20,11 @@ namespace Zbang.Zbox.Infrastructure.Search
         public string Name2 { get; set; }
 
         [IsSearchable]
+        [Obsolete("use Name4")]
         public string Name3 { get; set; }
+
+        [IsSearchable, IsSortable]
+        public string Name4 { get; set; }
 
         [IsSearchable, IsRetrievable(false)]
         [Obsolete("use Extra3")]
@@ -43,7 +47,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         public int? MembersCount { get; set; }
         [JsonProperty("membersImages")]
         public string[] MembersImages { get; set; }
-        [IsSortable,IsFilterable]
+        [IsSortable, IsFilterable]
         public GeographyPoint GeographyPoint { get; set; }
     }
 }
