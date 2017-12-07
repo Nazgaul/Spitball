@@ -16,16 +16,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public class UpdateSearchUniversity : UpdateSearch, IJob, IFileProcess
     {
         private readonly IZboxReadServiceWorkerRole _zboxReadService;
-        private readonly IUniversityWriteSearchProvider2 m_UniversitySearchProvider;
+        private readonly IUniversityWriteSearchProvider2 _universitySearchProvider;
         private readonly ILogger _logger;
 
-        private readonly IZboxWorkerRoleService m_ZboxWriteService;
+        private readonly IZboxWorkerRoleService _zboxWriteService;
 
         public UpdateSearchUniversity(IZboxReadServiceWorkerRole zboxReadService, IUniversityWriteSearchProvider2 universitySearchProvider, IZboxWorkerRoleService zboxWriteService, ILogger logger)
         {
             _zboxReadService = zboxReadService;
-            m_UniversitySearchProvider = universitySearchProvider;
-            m_ZboxWriteService = zboxWriteService;
+            _universitySearchProvider = universitySearchProvider;
+            _zboxWriteService = zboxWriteService;
             _logger = logger;
             MaxInterval = TimeSpan.FromMinutes(10).TotalSeconds; //Remove once production is up
         }
@@ -56,10 +56,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var updates = await _zboxReadService.GetUniversitiesDirtyUpdatesAsync(instanceId, instanceCount, updatesPerCycle).ConfigureAwait(false);
             if (!updates.UniversitiesToDelete.Any() && !updates.UniversitiesToUpdate.Any()) return TimeToSleep.Increase;
             var isSuccess =
-                await m_UniversitySearchProvider.UpdateDataAsync(updates.UniversitiesToUpdate, updates.UniversitiesToDelete).ConfigureAwait(false);
+                await _universitySearchProvider.UpdateDataAsync(updates.UniversitiesToUpdate, updates.UniversitiesToDelete).ConfigureAwait(false);
             if (isSuccess)
             {
-                await m_ZboxWriteService.UpdateSearchUniversityDirtyToRegularAsync(
+                await _zboxWriteService.UpdateSearchUniversityDirtyToRegularAsync(
                     new UpdateDirtyToRegularCommand(
                         updates.UniversitiesToDelete.Union(updates.UniversitiesToUpdate.Select(s => s.Id)))).ConfigureAwait(false);
             }
@@ -72,8 +72,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public async Task<bool> ExecuteAsync(FileProcess data, CancellationToken token)
         {
-            var parameters = data as UniversityProcessData;
-            if (parameters == null) return true;
+            if (!(data is UniversityProcessData parameters)) return true;
 
             var elem = await _zboxReadService.GetUniversityDirtyUpdatesAsync(parameters.UniversityId).ConfigureAwait(false);
 
@@ -88,10 +87,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //        }
             //    }, token);
             var isSuccess =
-                await m_UniversitySearchProvider.UpdateDataAsync(new[] { elem }, null).ConfigureAwait(false);
+                await _universitySearchProvider.UpdateDataAsync(new[] { elem }, null).ConfigureAwait(false);
             if (isSuccess)
             {
-                await m_ZboxWriteService.UpdateSearchUniversityDirtyToRegularAsync(
+                await _zboxWriteService.UpdateSearchUniversityDirtyToRegularAsync(
                     new UpdateDirtyToRegularCommand(new[] { parameters.UniversityId })).ConfigureAwait(false);
             }
             return true;
