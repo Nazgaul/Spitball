@@ -18,7 +18,9 @@ function dynamicPropsFn(route) {
             if(route.query.course||
             (newName.includes("flashcard")||newName.includes("note"))
             ){
-                filterOptions=filterOptions.concat([...new Set(route.meta.myClasses,route.query.course)]);
+                let list=[].concat(route.query.course?route.query.course:[])
+                list=list.concat(route.meta.myClasses?route.meta.myClasses:[])
+                filterOptions=filterOptions.concat([...new Set(list.map(i=>Number(i)))]);
             }
             if(route.query.jobType){
                 filterOptions=filterOptions.concat(route.query.jobType);
@@ -33,8 +35,7 @@ function dynamicPropsFn(route) {
         userText: route.params.q,
         currentTerm:newName.includes('food')?route.meta.foodTerm:newName.includes('job')?route.meta.jobTerm:route.meta.term,
         params: route.params,
-        hasExtra: route.path.slice(1).includes('food'),
-        myClasses:route.meta.myClasses
+        hasExtra: route.path.slice(1).includes('food')
     }
 }
 function dynamicDetailsPropsFn(route) {

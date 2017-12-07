@@ -133,6 +133,7 @@ export const pageMixin =
         components: { foodExtra, ResultItem,SuggestCard, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood },
 
         created() {
+            if(this.query.course)this.$route.meta.myClasses=this.query.course;
             this.UPDATE_LOADING(true);
                 this.updateSearchText(this.query.q).then((response)=>{
                     this.$route.meta[this.$_calcTerm(response.result)]={term:this.query.q,luisTerm:response.term};
@@ -191,6 +192,6 @@ export const pageMixin =
                 return !Number.isNaN(item)&&this.myCourses.find(x=>x.id===Number(item))?this.myCourses.find(x=>x.id===Number(item)).name:item;
             }
         },
-        props: { hasExtra: {type:Boolean},currentTerm:{type:[String,Object]},myClasses:{type:Array}}
+        props: { hasExtra: {type:Boolean},currentTerm:{type:[String,Object]}}
 
     };
