@@ -33,6 +33,9 @@
                 return term || {};
             },
             $_updateType(result) {
+                if(this.$route.name!=="result"){
+                    this.$router.push({ path: '/' + result,query:{q:this.$route.query.q}});
+                }
                 if(this.$route.meta[this.$_calcTerm(result)]){
                     this.changeFlow({ result });
                     let query={q: this.$_currentTerm(result).term };
