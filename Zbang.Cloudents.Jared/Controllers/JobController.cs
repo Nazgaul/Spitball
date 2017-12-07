@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
 using Microsoft.Azure.Mobile.Server.Config;
+using Zbang.Cloudents.Jared.Models;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
@@ -21,14 +21,12 @@ namespace Zbang.Cloudents.Jared.Controllers
         }
 
         //[TypeFilter(typeof(IpToLocationActionFilter), Arguments = new object[] { "location" })]
-        public async Task<HttpResponseMessage> Get([FromUri]string[] term,
-            JobRequestFilter? filter,
-            JobRequestSort? sort,
-            GeoPoint location, [FromUri]string[] facet, CancellationToken token)
+        public async Task<HttpResponseMessage> Get([FromUri]JobRequest model, CancellationToken token)
         {
-            if (term == null) throw new ArgumentNullException(nameof(term));
-            var result = await _jobSearch.SearchAsync(string.Join(" ", term), filter.GetValueOrDefault(), sort.GetValueOrDefault(JobRequestSort.Distance),
-                facet, location, token).ConfigureAwait(false);
+            if (model.Term == null) throw new ArgumentNullException(nameof(model.Term));
+            var result = await _jobSearch.SearchAsync(string.Join(" ", model.Term),
+                model.Filter.GetValueOrDefault(), model.Sort.GetValueOrDefault(JobRequestSort.Distance),
+                model.Facet, model.Location,model.Page, token).ConfigureAwait(false);
             return Request.CreateResponse(result);
         }
     }

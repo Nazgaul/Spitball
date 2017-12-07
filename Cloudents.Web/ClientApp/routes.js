@@ -15,8 +15,12 @@ function dynamicPropsFn(route) {
             if(route.query.source){
                 filterOptions=filterOptions.concat(route.query.source);
             }
-            if(route.query.course){
-                filterOptions=filterOptions.concat(route.query.course);
+            if(route.query.course||
+            (newName.includes("flashcard")||newName.includes("note"))
+            ){
+                let list=[].concat(route.query.course?route.query.course:[])
+                list=list.concat(route.meta.myClasses?route.meta.myClasses:[])
+                filterOptions=filterOptions.concat([...new Set(list.map(i=>Number(i)))]);
             }
             if(route.query.jobType){
                 filterOptions=filterOptions.concat(route.query.jobType);

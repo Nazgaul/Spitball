@@ -8,15 +8,6 @@ using System.Web.Http.Routing;
 
 namespace Zbang.Cloudents.Jared.Filters
 {
-    public class xxx : AuthorizeAttribute
-    {
-        protected override bool IsAuthorized(HttpActionContext actionContext)
-        {
-            var t = actionContext.Request.Headers.GetValues("z");
-            return base.IsAuthorized(actionContext);
-        }
-    }
-
     public class VersionConstraint : IHttpRouteConstraint
     {
         public const string VersionHeaderName = "s-version";
@@ -28,7 +19,6 @@ namespace Zbang.Cloudents.Jared.Filters
         public int AllowedVersion
         {
             get;
-            private set;
         }
         public bool Match(HttpRequestMessage request, IHttpRoute route, string parameterName, IDictionary<string, object> values, HttpRouteDirection routeDirection)
         {
@@ -40,11 +30,10 @@ namespace Zbang.Cloudents.Jared.Filters
             }
             return false;
         }
-        private int? GetVersionHeader(HttpRequestMessage request)
+        private static int? GetVersionHeader(HttpRequestMessage request)
         {
             string versionAsString;
-            IEnumerable<string> headerValues;
-            if (request.Headers.TryGetValues(VersionHeaderName, out headerValues) && headerValues.Count() == 1)
+            if (request.Headers.TryGetValues(VersionHeaderName, out var headerValues) && headerValues.Count() == 1)
             {
                 versionAsString = headerValues.First();
             }
@@ -52,8 +41,7 @@ namespace Zbang.Cloudents.Jared.Filters
             {
                 return null;
             }
-            int version;
-            if (versionAsString != null && int.TryParse(versionAsString, out version))
+            if (versionAsString != null && int.TryParse(versionAsString, out int version))
             {
                 return version;
             }

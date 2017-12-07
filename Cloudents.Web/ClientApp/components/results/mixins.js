@@ -57,8 +57,9 @@ export const pageMixin =
             this.$route.meta.jobTerm=null;
             this.$route.meta.foodTerm=null;
             this.$route.meta.term=null;
+            this.$route.meta.myClasses=[];
             this.$nextTick(()=>{
-            next();
+                next();
             })
         },
 
@@ -132,6 +133,7 @@ export const pageMixin =
         components: { foodExtra, ResultItem,SuggestCard, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood },
 
         created() {
+            if(this.query.course)this.$route.meta.myClasses=this.query.course;
             this.UPDATE_LOADING(true);
                 this.updateSearchText(this.query.q).then((response)=>{
                     this.$route.meta[this.$_calcTerm(response.result)]={term:this.query.q,luisTerm:response.term};
@@ -166,6 +168,9 @@ export const pageMixin =
                 let listo=[val,...currentFilter];
                 if(!type.target.checked){
                     listo=currentFilter.filter(i=>i!==val);
+                }
+                if(id==='course'){
+                    this.$route.meta.myClasses=listo;
                 }
                 let newFilter={[id]:listo};
                 let {q,sort,course,source,filter}=this.query;

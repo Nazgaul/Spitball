@@ -9,6 +9,7 @@ using Microsoft.AspNet.SignalR;
 using Microsoft.Azure.Mobile.Server;
 using Microsoft.Azure.Mobile.Server.Authentication;
 using Microsoft.Azure.Mobile.Server.Config;
+using Newtonsoft.Json;
 using Owin;
 using Zbang.Cloudents.Connect;
 using Zbang.Zbox.Domain.CommandHandlers;
@@ -36,6 +37,7 @@ namespace Zbang.Cloudents.Jared
             var config = new HttpConfiguration();
             config.EnableSystemDiagnosticsTracing();
             config.MapHttpAttributeRoutes();
+            config.Formatters.JsonFormatter.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
 
             new MobileAppConfiguration()
         .AddMobileAppHomeController()             // from the Home package

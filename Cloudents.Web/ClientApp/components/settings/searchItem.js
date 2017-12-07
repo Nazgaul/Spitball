@@ -25,7 +25,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(["getUniversityName", "courseFirstTime"]),
+        ...mapGetters(["courseFirstTime","myCourses", "getUniversityImage", "getUniversityName","myCoursesId"]),
         dialog: {
             get() {
                 return this.value;
@@ -40,14 +40,15 @@ export default {
             if (this.currentType === "course") return this.getUniversityName;
             return "Personalize Results";
         },
-        ...mapGetters(["myCourses", "getUniversityImage", "getUniversityName"]),
         currentItem: function () {
             return searchObjects[this.currentType];
         },
         emptyText: function () { return this.currentItem.emptyState },
         selectedCourse() {
-            if (this.currentType === "course")
-                return this.myCourses;
+            if (this.currentType === "course"){
+                this.items=this.items.filter(i=>!this.myCoursesId.includes(i.id));    
+                return this.myCourses;            
+            }
         }
     },
     data() {
@@ -72,7 +73,9 @@ export default {
         ...mapMutations({ updateUser: "UPDATE_USER" }),
         ...mapActions(["createCourse"]),
         $_removeCourse(val) {
+            this.items.push(this.myCourses.find(i=>i.id===val));
             this.updateUser({ myCourses: this.myCourses.filter(i => i.id !== val) });
+            // this.items.push(val);
         },
         $_closeButton() {
             this.currentAction ? this.currentAction = "" : this.dialog = false;

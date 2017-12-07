@@ -7,10 +7,10 @@
                              :version="$version"></sort-and-filter>
         </template>
         <div slot="data" class="book-detail elevation-1">
-            <result-book :item="pageData.details"></result-book>
+            <result-book :item="pageData.details" :isDetails="true"></result-book>
 
             <div class="ma-2">
-                <a :href="item.link" :target="$vuetify.breakpoint.xsOnly?'_self':'_blank'" class="price-line" v-for="(item,index) in filteredList">
+                <a :href="item.link" :target="$vuetify.breakpoint.xsOnly?'_self':'_blank'" class="price-line" v-for="(item,index) in filteredList" :key="index">
                     <v-layout row justify-space-between>
                         <v-flex xs3 class="text-xs-left">
                             <img v-if="item.image" :src="item.image" />
