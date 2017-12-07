@@ -10,7 +10,7 @@ namespace Cloudents.Core.DTOs
             University = university;
         }
 
-        public override Vertical Vertical => Vertical.Document;
+        public override Vertical Vertical => Vertical.Note;
 
         public string University { get; }
     }

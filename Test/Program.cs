@@ -30,20 +30,14 @@ namespace Test
             builder.RegisterModule(infrastructureModule);
             var container = builder.Build();
 
-            var service = container.Resolve<IDocumentCseSearch>();
+            var services = container.Resolve<IUniversitySearch>();
+            var location = new GeoPoint()
+            {
+                Latitude = 40.695217,
+                Longitude = -73.964510
+            };
 
-            service.SearchAsync(new SearchQuery(
-                new List<string> { "vector operations in 2-dimensions" }, 
-                ), default);
-
-            //var services = container.Resolve<IUniversitySearch>();
-            //var location = new GeoPoint()
-            //{
-            //    Latitude = 40.695217,
-            //    Longitude = -73.964510
-            //};
-           
-            //var result = await services.SearchAsync("iowa",)
+            var result = await services.SearchAsync("iowa", location, default);
             Console.ReadLine();
         }
     }
