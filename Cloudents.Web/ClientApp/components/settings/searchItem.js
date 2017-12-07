@@ -59,7 +59,6 @@ export default {
             currentType: "",
             currentAction: "",
             newCourseName: "",
-            showAddCourse: false,
             showCourseFirst: true,
             courseFirst: false
         };
@@ -102,7 +101,9 @@ export default {
         $_submitAddCourse() {
             this.createCourse({ name: this.newCourseName });
             this.newCourseName = "";
-            this.showAddCourse = false;
+        },
+        $_clearAddCourse() {
+            this.newCourseName = "";
         }
     },
     created() {

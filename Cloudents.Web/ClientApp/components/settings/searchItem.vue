@@ -8,14 +8,14 @@
                 <i v-else class="sbf icon sbf-arrow-button"></i>
             </template>
             <template v-if="currentType==='course'" slot="courseExtraItem">
-                <button class="add-course-btn ma-2" @click="showAddCourse=true" v-show="!showAddCourse">
-                    <plus-button></plus-button>
-                    <div>add course</div>
-                </button>
-                <div class="add-course-form ma-2 pa-2" v-show="showAddCourse">
+                <div class="add-course-form ma-2 py-3 px-3">
                     <form @submit.prevent="$_submitAddCourse">
-                        <v-text-field dark v-model="newCourseName" placeholder="Course Name"></v-text-field>
-                        <v-btn @click="$_submitAddCourse">ADD</v-btn>
+                        <div class="form-title">Still don't see your class?</div>
+                        <v-text-field dark v-model="newCourseName" placeholder="Type it in here:"></v-text-field>
+                        <div class="actions">
+                            <v-btn :disabled="!newCourseName" @click="$_submitAddCourse">save</v-btn>
+                            <v-btn :disabled="!newCourseName" @click="$_clearAddCourse">clear</v-btn>
+                        </div>
                     </form>
                 </div>
             </template>
