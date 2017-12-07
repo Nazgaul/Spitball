@@ -43,9 +43,7 @@ namespace Cloudents.Infrastructure.Search
                 filterQuery = "compensationType eq 'paid'";
             }
 
-
             if (jobType != null)
-            //if (!string.IsNullOrEmpty(jobType))
             {
                 filterQuery = string.Join(" or ", jobType.Select(s => $"jobType eq '{s}'"));
             }
@@ -75,6 +73,10 @@ namespace Cloudents.Infrastructure.Search
                 OrderBy = sortQuery
 
             };
+            if (string.IsNullOrEmpty(term))
+            {
+                term = "*";
+            }
 
             var retVal = await
                 _client.Documents.SearchAsync<Job>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
