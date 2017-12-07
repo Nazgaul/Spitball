@@ -13,14 +13,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class UpdateTutors : UpdateAffiliate<WyzantTutor, Tutor>
     {
-        private readonly TutorProvider m_TutorProvider;
-        private readonly IZipToLocationProvider m_ZipToLocation;
+        private readonly TutorProvider _tutorProvider;
+        private readonly IZipToLocationProvider _zipToLocation;
 
         public UpdateTutors(TutorProvider tutorProvider, ILogger logger, IZipToLocationProvider zipToLocation, ILocalStorageProvider localStorage)
             :base(logger,localStorage)
         {
-            m_TutorProvider = tutorProvider;
-            m_ZipToLocation = zipToLocation;
+            _tutorProvider = tutorProvider;
+            _zipToLocation = zipToLocation;
         }
 
         protected override string FileLocation => "tutor.json";
@@ -51,7 +51,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         protected override async Task<Tutor> ParseTAsync(WyzantTutor obj, CancellationToken token)
         {
-            var location = await m_ZipToLocation.GetLocationViaZipAsync(obj.Zip).ConfigureAwait(false);
+            var location = await _zipToLocation.GetLocationViaZipAsync(obj.Zip).ConfigureAwait(false);
             return new Tutor
             {
                 City = obj.City,
@@ -72,12 +72,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         protected override Task UpdateSearchAsync(IEnumerable<Tutor> list, CancellationToken token)
         {
-            return m_TutorProvider.UpdateDataAsync(list, token);
+            return _tutorProvider.UpdateDataAsync(list, token);
         }
 
         protected override Task DeleteOldItemsAsync(CancellationToken token)
         {
-            return m_TutorProvider.DeleteOldTutorsAsync(token);
+            return _tutorProvider.DeleteOldTutorsAsync(token);
         }
     }
 }

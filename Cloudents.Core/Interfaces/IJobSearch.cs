@@ -14,6 +14,7 @@ namespace Cloudents.Core.Interfaces
             JobRequestSort sort,
             IEnumerable<string> jobType,
             GeoPoint location,
+            int page,
             CancellationToken token);
     }
 }

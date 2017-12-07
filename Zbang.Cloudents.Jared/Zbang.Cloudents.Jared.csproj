@@ -267,6 +267,7 @@
     <Compile Include="App_Start\AiExceptionLogger.cs" />
     <Compile Include="Controllers\VideoController.cs" />
     <Compile Include="Models\AskRequest.cs" />
+    <Compile Include="Models\JobRequest.cs" />
     <Compile Include="Models\MailRequest.cs" />
     <Compile Include="Models\CreateAcademicCourseRequest.cs" />
     <Compile Include="Models\FollowRequest.cs" />

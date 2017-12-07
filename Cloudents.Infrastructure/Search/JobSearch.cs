@@ -19,6 +19,8 @@ namespace Cloudents.Infrastructure.Search
         private readonly ISearchIndexClient _client;
         private readonly IMapper _mapper;
 
+        private const int PageSize = 30;
+
         public JobSearch(SearchServiceClient client, IMapper mapper)
         {
             _mapper = mapper;
@@ -31,6 +33,7 @@ namespace Cloudents.Infrastructure.Search
             JobRequestSort sort,
             IEnumerable<string> jobType,
             GeoPoint location,
+            int page,
             CancellationToken token)
         {
             string filterQuery = null;
@@ -39,10 +42,12 @@ namespace Cloudents.Infrastructure.Search
             {
                 filterQuery = "compensationType eq 'paid'";
             }
+
+
             if (jobType != null)
             //if (!string.IsNullOrEmpty(jobType))
             {
-                filterQuery = string.Join(" or ", jobType.Select(s => $"jobType eq '{jobType}'"));
+                filterQuery = string.Join(" or ", jobType.Select(s => $"jobType eq '{s}'"));
             }
 
             switch (sort)
@@ -64,6 +69,8 @@ namespace Cloudents.Infrastructure.Search
                 {
                     "jobType"
                 } : null,
+                Top = PageSize,
+                Skip = PageSize * page,
                 Filter = filterQuery,
                 OrderBy = sortQuery
 
@@ -71,7 +78,8 @@ namespace Cloudents.Infrastructure.Search
 
             var retVal = await
                 _client.Documents.SearchAsync<Job>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
-            return _mapper.Map<ResultWithFacetDto<JobDto>>(retVal, opt => opt.Items[JobResultConverter.FacetType] = "jobType");
+            return _mapper.Map<ResultWithFacetDto<JobDto>>(retVal,
+                opt => opt.Items[JobResultConverter.FacetType] = "jobType");
         }
     }
 }

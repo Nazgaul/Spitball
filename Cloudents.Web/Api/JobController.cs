@@ -24,10 +24,14 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> Get(string[] term,
             JobRequestFilter? filter,
             JobRequestSort? sort,
-            GeoPoint location, string[] facet, CancellationToken token)
+            GeoPoint location, string[] facet,int? page, CancellationToken token)
         {
             if (term == null) throw new ArgumentNullException(nameof(term));
-            var result = await _jobSearch.SearchAsync(string.Join(" ", term), filter.GetValueOrDefault(), sort.GetValueOrDefault(JobRequestSort.Distance), facet, location, token).ConfigureAwait(false);
+            var result = await _jobSearch.SearchAsync(
+                string.Join(" ", term),
+                filter.GetValueOrDefault(),
+                sort.GetValueOrDefault(JobRequestSort.Distance),
+                facet, location, page.GetValueOrDefault(), token).ConfigureAwait(false);
             return Json(result);
         }
     }
