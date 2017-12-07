@@ -1,6 +1,6 @@
 ﻿<template>
     <div class="uni ma-3" :key="item.id" @click="$_universitySelected(item)">
-        <img :src="item.image" alt="">
+        <div class="image" :style="`background-image: url('${item.image}')`"></div>
         <div>{{item.name}}</div>
     </div>
 </template>
