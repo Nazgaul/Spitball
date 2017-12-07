@@ -20,20 +20,6 @@
                 </div>
             </template>
 
-            <template slot="courseFirstTime" v-if="courseFirst&&showCourseFirst">
-                <div class="first-time-message ma-3">
-                    <div class="text">
-                        <div>We are working hard on getting all the courses from your school into our system,</div>
-                        <div><b>but we might have missed a few. If you can't find your course, use this icon to add it</b></div>
-                    </div>
-                    <div class="image">missing...</div>
-
-                    <button @click="showCourseFirst=false">
-                        <close-button ></close-button>
-                    </button>
-                </div>
-            </template>
-
             <v-text-field light solo slot="inputField" @input="$_search" class="search-b" ref="searchText" :placeholder="currentItem.placeholder" prepend-icon="sbf-search"></v-text-field>
 
             <v-chip class="ma-2" slot="selectedItems" slot-scope="props" v-if="selectedCourse" label>
