@@ -37,7 +37,7 @@ export let verticals =
             //emptyState: "Sorry, I did not find any tutors...",
             filter: [
                 //{ id: "all", name: "all" },
-                { id: "online", name: "Online Lession" },
+                { id: "online", name: "Online Lessons" },
                 { id: "inPerson", name: "In Person" }
             ],
             sort: [
