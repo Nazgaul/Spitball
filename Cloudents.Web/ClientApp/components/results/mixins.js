@@ -53,13 +53,17 @@ export const pageMixin =
             });
         },
         beforeRouteLeave (to, from, next) {
-            this.$route.meta.jobTerm=null;
-            this.$route.meta.foodTerm=null;
-            this.$route.meta.term=null;
-            this.$route.meta.myClasses=[];
-            this.$nextTick(()=>{
+            if(to.name&&to.name==='home') {
+                this.$route.meta.jobTerm = null;
+                this.$route.meta.foodTerm = null;
+                this.$route.meta.term = null;
+                this.$route.meta.myClasses = [];
+                this.$nextTick(() => {
+                    next();
+                })
+            }else{
                 next();
-            })
+            }
         },
 
         beforeRouteUpdate(to, from, next) {
@@ -135,17 +139,30 @@ export const pageMixin =
         created() {
             if(this.query.course)this.$route.meta.myClasses=this.query.course;
             this.UPDATE_LOADING(true);
-                this.updateSearchText(this.query.q).then((response)=>{
-                    this.$route.meta[this.$_calcTerm(response.result)]={term:this.query.q,luisTerm:response.term};
-                        if(response.result!==this.name){
+            if(!this.query.q){
+                this.fetchingData({name: this.name, params: {...this.query, ...this.params}})
+                    .then((data) => {
+                        updateData.call(this, data);
+                    });
+            }else {
+                this.updateSearchText(this.query.q).then((response) => {
+                    this.$route.meta[this.$_calcTerm(response.result)] = {term: this.query.q, luisTerm: response.term};
+                    if (response.result !== this.name) {
                         this.UPDATE_LOADING(false);
-                        let routeParams={ path: '/'+response.result, query: {...this.query, q: this.query.q } };
-                        this.$router.replace(routeParams);}else{
-                        this.fetchingData({name: this.name, params: {...this.query, ...this.params},luisTerm:response.term})
+                        let routeParams = {path: '/' + response.result, query: {...this.query, q: this.query.q}};
+                        this.$router.replace(routeParams);
+                    } else {
+                        this.fetchingData({
+                            name: this.name,
+                            params: {...this.query, ...this.params},
+                            luisTerm: response.term
+                        })
                             .then((data) => {
                                 updateData.call(this, data);
                             });
-                    }});
+                    }
+                });
+            }
 
         },
         methods: {
