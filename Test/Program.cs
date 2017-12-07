@@ -9,6 +9,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
+using Cloudents.Core.Request;
 using Cloudents.Infrastructure;
 using Environment = Cloudents.Infrastructure.Environment;
 
@@ -28,10 +29,15 @@ namespace Test
           //  builder.RegisterType<GoogleSheet>().As<IGoogleSheet>();
             builder.RegisterModule(infrastructureModule);
             var container = builder.Build();
-            
 
-            var services = container.Resolve<IEngineProcess>();
-            var result = await services.ProcessRequestAsync("find me a job in chicago", default);
+            var services = container.Resolve<IUniversitySearch>();
+            var location = new GeoPoint()
+            {
+                Latitude = 40.695217,
+                Longitude = -73.964510
+            };
+
+            var result = await services.SearchAsync("iowa", location, default);
             Console.ReadLine();
         }
     }

@@ -1,7 +1,7 @@
 ﻿export let searchObjects = {
     course: {
         emptyState: "To add your course tap on the plus sign",
-        placeholder: 'Select courses',
+        placeholder: 'What class are you taking?',
         closeText: "done",
         searchApi: "getCorses",
         defaultFilter:'all',
@@ -10,7 +10,7 @@
     }, university: {
         searchApi:"getUniversities",
         emptyState: "If you would like to add your school send us a note from the feedback link in the settings tab.",
-        placeholder: 'Select school',
+        placeholder: 'Where do you go to school?',
         closeText: "X",
         click:function(keep=true){
             // console.log("huii")

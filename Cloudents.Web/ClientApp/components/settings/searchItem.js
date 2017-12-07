@@ -58,9 +58,7 @@ export default {
             isChanged: false,
             currentType: "",
             currentAction: "",
-            newCourseName: "",
-            showCourseFirst: true,
-            courseFirst: false
+            newCourseName: ""
         };
     },
 
@@ -105,14 +103,5 @@ export default {
         $_clearAddCourse() {
             this.newCourseName = "";
         }
-    },
-    created() {
-        this.courseFirst = this.courseFirstTime;
-        this.$nextTick(() => {
-            if (this.courseFirstTime) {
-                this.$store.dispatch("updateFirstTime", "courseFirstTime");
-            }
-        
-        });
     }
 }
