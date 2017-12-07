@@ -13,8 +13,8 @@
                         <div class="form-title">Still don't see your class?</div>
                         <v-text-field dark v-model="newCourseName" placeholder="Type it in here:"></v-text-field>
                         <div class="actions">
-                            <v-btn :disabled="!newCourseName" @click="$_submitAddCourse">save</v-btn>
-                            <v-btn :disabled="!newCourseName" @click="$_clearAddCourse">clear</v-btn>
+                            <v-btn class="save" :disabled="!newCourseName" @click="$_submitAddCourse">save</v-btn>
+                            <v-btn class="clear" :disabled="!newCourseName" @click="$_clearAddCourse">clear</v-btn>
                         </div>
                     </form>
                 </div>

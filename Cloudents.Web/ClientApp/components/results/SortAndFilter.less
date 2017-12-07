@@ -37,17 +37,17 @@
 }
 
 .filter-switch {
-    .add-course {
-        color: @Spitball-Main-color;
-        font-size: 14px;
-        letter-spacing: -0.2px;
-        text-transform: capitalize;
+    .course-empty-state {
+        text-align: center;
 
-        svg {
-            fill: @Spitball-Main-color;
-            width: 9px;
-            height: 9px;
-            margin-right: 6px;
+        .btn:not(.btn--icon):not(.btn--flat) {
+            background-color: @color-blue;
+            color: white;
+            width: 96px;
+            height: 24px;
+            border-radius: 4px;
+            margin: 8px auto;
+            text-transform: capitalize;
         }
     }
 
