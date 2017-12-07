@@ -37,7 +37,6 @@ const getters = {
 const actions = {
     //Always update the current route according the flow
     updateSearchText(context, text) {
-        console.log(context);
         return new Promise((resolve, reject) => {
             if (!text) {
                 reject();
