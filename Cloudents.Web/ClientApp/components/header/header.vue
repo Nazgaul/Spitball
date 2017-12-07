@@ -1,6 +1,6 @@
 ﻿<template>
   <component is="slot">
-      <result-personalize v-if="isfirst"></result-personalize>
+      <result-personalize v-if="isfirst" ref="personalize"></result-personalize>
       <search-item v-model="showDialog" :type="type" :keep="keep" :isFirst="isfirst">
          
       </search-item>
