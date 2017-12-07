@@ -13,12 +13,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public abstract class UpdateAffiliate<T, TU> : ISchedulerProcess
     {
         private readonly ILogger _logger;
-        private readonly ILocalStorageProvider m_LocalStorage;
+        private readonly ILocalStorageProvider _localStorage;
 
         protected UpdateAffiliate(ILogger logger, ILocalStorageProvider localStorage)
         {
             _logger = logger;
-            m_LocalStorage = localStorage;
+            _localStorage = localStorage;
         }
 
         protected abstract string FileLocation { get; }
@@ -40,7 +40,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             if (progressAsync == null) throw new ArgumentNullException(nameof(progressAsync));
             _logger.Info($"{Service} starting to work");
-            var locationToSave = m_LocalStorage.CombineDirectoryWithFileName(FileLocation);
+            var locationToSave = _localStorage.CombineDirectoryWithFileName(FileLocation);
             if (!File.Exists(locationToSave) || index == 0)
             {
                 using (var client = new HttpClient(HttpHandler()))
@@ -52,7 +52,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
                     using (var stream = await result.Content.ReadAsStreamAsync().ConfigureAwait(false))
                     {
-                        locationToSave = await m_LocalStorage.SaveFileToStorageAsync(stream, FileLocation)
+                        locationToSave = await _localStorage.SaveFileToStorageAsync(stream, FileLocation)
                             .ConfigureAwait(false);
                     }
                 }
