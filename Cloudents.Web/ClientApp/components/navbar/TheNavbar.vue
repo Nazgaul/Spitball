@@ -13,18 +13,17 @@
 
 
 <script>
-    import { verticalsNavbar as verticals } from '../data.js';
+    // import { verticalsNavbar as verticals } from '../data.js';
     import { mapMutations,mapGetters } from 'vuex'
 
     export default {
         data() {
             return {
-                verticals: verticals,
                 newVertical:""
             }
         },
 
-        props:{$_calcTerm:{type:Function}},
+        props:{$_calcTerm:{type:Function},verticals:{type:Array}},
 
         methods: {
             $_currentTerm(type) {

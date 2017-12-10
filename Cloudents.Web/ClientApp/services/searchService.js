@@ -68,11 +68,14 @@ export default {
                 });
             });
         },
-        job({ term, filter, sort, jobType,page,location }) {
+        job({ term, filter, sort, jobType:facet,page,location }) {
             if(page)return Promise.resolve({data:{}});
             return new Promise((resolve, reject) => {
-                search.getJob({ term, filter, sort, location, facet: jobType }).then(({ body }) =>
-                    resolve({ jobType: body.facet, data: body.result.map(val => { return { ...val, template: "job" } }) }));
+                search.getJob({ term, filter, sort, location, facet }).then(({ body }) => {
+                    let {result,facet:jobType}=body;
+                    // console.log(jobType);
+                    resolve({ jobType, data: result.map(val => { return { ...val, template: "job" } }) });
+                })
             });
         },
         book({ term, page }) {
