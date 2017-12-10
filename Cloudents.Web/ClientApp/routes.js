@@ -1,12 +1,12 @@
-﻿import HomePage from "./components/home/home.vue";
+﻿const HomePage = () => import("./components/home/home.vue");
 import * as RouteTypes from "./routeTypes";
 const resultContent = () => import("./components/results/Result.vue");
 const bookDetails = () => import("./components/results/ResultBookDetails.vue");
 const showItem = () => import("./components/preview/Item.vue");
 const showFlashcard = () => import("./components/preview/Flashcard.vue");
 const notFound = () => import("./components/results/notFound.vue");
-//const searchItem = () => import("./components/settings/searchItem.vue");
 const moreInfo = () => import("./components/results/MoreInfo.vue");
+
 function dynamicPropsFn(route) {
     let newName=route.path.slice(1);
     let filterOptions=[];
@@ -18,40 +18,39 @@ function dynamicPropsFn(route) {
             if(route.query.course||
             (newName.includes("flashcard")||newName.includes("note"))
             ){
-                let list=[].concat(route.query.course?route.query.course:[])
-                list=list.concat(route.meta.myClasses?route.meta.myClasses:[])
+                let list=[].concat(route.query.course?route.query.course:[]);
+                list=list.concat(route.meta.myClasses?route.meta.myClasses:[]);
                 filterOptions=filterOptions.concat([...new Set(list.map(i=>Number(i)))]);
             }
             if(route.query.jobType){
                 filterOptions=filterOptions.concat(route.query.jobType);
             }
         }
-    console.log(filterOptions);
     return {
         name: route.path.slice(1),
         query: route.query,
         filterSelection: filterOptions,
         sort: route.query.sort,
         userText: route.params.q,
-        currentTerm:newName.includes('food')?route.meta.foodTerm:newName.includes('job')?route.meta.jobTerm:route.meta.term,
+        currentTerm:newName.includes("food")?route.meta.foodTerm:newName.includes("job")?route.meta.jobTerm:route.meta.term,
         params: route.params,
-        hasExtra: route.path.slice(1).includes('food')
-    }
+        hasExtra: route.path.slice(1).includes("food")
+    };
 }
 function dynamicDetailsPropsFn(route) {
     return {
         name: route.name,
         query: route.query,
-        filterOptions: 'all',
-        sort: 'price',
+        filterOptions: "all",
+        sort: "price",
         id: route.params.id,
         params: route.params
-    }
+    };
 }
 function moreInfoFn(route){
    return{
-       actions:route.path.includes('SubjectOrCourse')?[{name:"edit Subject"},{name:"Select Course"}]:[{name:"edit Search"}]
-   }
+       actions:route.path.includes("SubjectOrCourse")?[{name:"edit Subject"},{name:"Select Course"}]:[{name:"edit Search"}]
+   };
 }
 
 const resultPage = {  default: resultContent };
@@ -69,20 +68,20 @@ export const routes = [
 
     {
         path: "/result", name: "result", alias: [
-            '/' + RouteTypes.questionRoute,
-            '/' + RouteTypes.flashcardRoute,
-            '/' + RouteTypes.notesRoute,
-            '/' + RouteTypes.tutorRoute,
-            '/' + RouteTypes.bookRoute,
-            '/' + RouteTypes.jobRoute,
-            '/' + RouteTypes.foodRoute
+            "/" + RouteTypes.questionRoute,
+            "/" + RouteTypes.flashcardRoute,
+            "/" + RouteTypes.notesRoute,
+            "/" + RouteTypes.tutorRoute,
+            "/" + RouteTypes.bookRoute,
+            "/" + RouteTypes.jobRoute,
+            "/" + RouteTypes.foodRoute
         ], components: resultPage, props: resultProps, meta: {
             showHeader: true
             
         }
     },
     {
-        path: "/moreInfo", name: "moreInfo", alias: ['/searchOrQuestion', '/AddSubjectOrCourse'], component: moreInfo,
+        path: "/moreInfo", name: "moreInfo", alias: ["/searchOrQuestion", "/AddSubjectOrCourse"], component: moreInfo,
         meta: {
             showHeader: true
            
@@ -94,14 +93,14 @@ export const routes = [
         components: bookDetailsPage,
         props: bookDetailsProps,
         meta: {
-            pageName: 'book',
+            pageName: "book",
             showHeader: true 
         }
     },
     {
         path: "/not-found", name: "notFound", components: notFoundPage, alias: [
             //'/' + RouteTypes.postRoute,
-            '/' + RouteTypes.uploadRoute,
+            "/" + RouteTypes.uploadRoute,
             //'/' + RouteTypes.chatRoute,         
             //'/' + RouteTypes.createFlashcard,
             //'/' + RouteTypes.coursesRoute,

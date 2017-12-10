@@ -97,8 +97,7 @@ module.exports = (env) => {
                 new webpack.DefinePlugin({
                     'process.env': {
                         NODE_ENV: JSON.stringify(isDevBuild ? "development" : "production")
-                    },
-                    BROWSER_SUPPORTS_HTML5: true
+                    }
                 }),
                 new webpack.DllReferencePlugin({
                     context: __dirname,
@@ -106,9 +105,9 @@ module.exports = (env) => {
                 })
             ].concat(isDevBuild
                 ? [
-                    new Visualizer({
-                        filename: "./statistics.html"
-                    }),
+                    //new Visualizer({
+                    //    filename: "./statistics.html"
+                    //}),
                     // Plugins that apply in development builds only
                     new webpack.SourceMapDevToolPlugin({
                         filename: "[file].map", // Remove this line if you prefer inline source maps

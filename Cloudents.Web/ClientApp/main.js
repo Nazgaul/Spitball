@@ -3,23 +3,19 @@ import App from "./components/app/app.vue";
 import store from "./store";
 const scroll = () => import("./components/helpers/infinateScroll.vue");
 import VScroll from "vuetify/es5/directives/scroll";
-import GeneralPage from "./components/helpers/generalPage.vue"
+const GeneralPage = () => import("./components/helpers/generalPage.vue");
 import VueRouter from "vue-router";
-import vueAdsense from "vue-adsense";
+const vueAdsense = () => import("vue-adsense");
 import VueAnalytics from "vue-analytics";
 import WebFont from "webfontloader";
 
 //NOTE: put changes in here in webpack vendor as well
 const vuetifyComponents = {
     VApp,
-    //VNavigationDrawer,
     VGrid,
     VChip,
-    //VCheckbox,
     VToolbar,
     VList,
-   // VAvatar,
-    //VBadge,
     VExpansionPanel,
     VCard,
     VCarousel,
@@ -39,15 +35,11 @@ const vuetifyComponents = {
 import {
     Vuetify,
     VApp,
-    //VNavigationDrawer,
     VGrid,
     VChip,
-    //VCheckbox,
     VToolbar,
     VList,
     VTextField,
-    //VAvatar,
-    //VBadge,
     VExpansionPanel,
     VCard,
     VCarousel,
@@ -75,7 +67,7 @@ WebFont.load({
 
 Vue.use(VueLazyload, {
     lazyComponent: true,
-    preLoad: 2,
+    preLoad: 1.8,
     attempt: 1
 });
 Vue.use(VueRouter);
@@ -85,7 +77,7 @@ Vue.use(Vuetify,
         components: vuetifyComponents
     });
 Vue.component("scroll-list", scroll);
-Vue.component("adsense", vueAdsense);
+Vue.component("adsense",  vueAdsense);
 Vue.component("general-page", GeneralPage);
 Vue.prototype.$version = window.version;
 

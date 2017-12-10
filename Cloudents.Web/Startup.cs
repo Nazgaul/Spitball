@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Converters;
+using WebMarkupMin.AspNetCore2;
 
 namespace Cloudents.Web
 {
@@ -29,6 +30,7 @@ namespace Cloudents.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddWebMarkupMin().AddHtmlMinification();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddMvc()
                 .AddJsonOptions(options =>
@@ -110,9 +112,9 @@ namespace Cloudents.Web
             });
             app.UseStaticFiles(new StaticFileOptions
             {
-                OnPrepareResponse = ctx => ctx.Context.Response.Headers.Add("Cache-Control", "public,max-age=600")
+                OnPrepareResponse = ctx => ctx.Context.Response.Headers.Add("Cache-Control", "public,max-age=864000")
             });
-            //app.AddResponseCompression()
+            app.UseWebMarkupMin();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

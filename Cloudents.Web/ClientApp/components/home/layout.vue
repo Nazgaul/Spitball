@@ -6,7 +6,6 @@
                     <v-flex class="logo-wrapper">
                         <slot name="logo"></slot>
                     </v-flex>
-
                     <header>
                         <v-toolbar flat style="background-color:transparent;" height="52">
                             <div class="hidden-sm-and-down" v-for="action in props.links" :key="action.name">
@@ -20,7 +19,6 @@
                         <h2 class="box-title">Simplify School</h2>
                         <div class="box-search">
                             <form id="labnol" method="get" @submit.prevent="props.submitFunction">
-                                <!--<div class="speech">-->
                                 <v-container>
                                     <v-layout row>
                                         <v-flex class="tx-input">

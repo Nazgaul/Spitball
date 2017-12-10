@@ -102,9 +102,9 @@ module.exports = (env) => {
                 })
             ].concat(isDevBuild ? [
                 new CleanWebpackPlugin(path.join(__dirname, "wwwroot", "dist")),
-                new Visualizer({
-                    filename: "./statistics-vendor.html"
-                })
+                //new Visualizer({
+                //    filename: "./statistics-vendor.html"
+                //})
             ] : [
                     new webpack.optimize.UglifyJsPlugin()
                 ])
