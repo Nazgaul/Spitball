@@ -3,7 +3,7 @@
         <slot></slot>
         <v-content class="p-result">
         <v-container fluid class="pa-0 mt-2 wrap">
-            <v-layout row>
+            <v-layout row class="navigation-bar">
                 <v-flex class="first-grid hidden-sm-and-down">
                 </v-flex>
                 <v-flex>

@@ -94,7 +94,6 @@ module.exports = (env) => {
                 //}),
                 new webpack.DefinePlugin({
                     'process.env.NODE_ENV': isDevBuild ? '"development"' : '"production"',
-                    VERSION: JSON.stringify("5fa3b9")
                 }),
                 new webpack.DllPlugin({
                     path: path.join(__dirname, "wwwroot", "dist", "[name]-manifest.json"),
