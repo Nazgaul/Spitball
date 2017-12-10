@@ -1,4 +1,4 @@
-﻿import ResultItem from './ResultItem.vue';
+﻿﻿import ResultItem from './ResultItem.vue';
 const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
 const ResultJob = () => import('./ResultJob.vue');
@@ -6,7 +6,6 @@ import ResultVideo from './ResultVideo.vue'
 import SuggestCard from './suggestCard.vue'
 const ResultFood = () => import('./ResultFood.vue');
 const foodExtra = () => import('./foodExtra.vue');
-import AppMenu from './../navbar/TheNavbar.vue';
 import SortAndFilter from './SortAndFilter.vue'
 import plusBtn from "../settings/svg/plus-button.svg";
 import { mapActions, mapGetters, mapMutations } from 'vuex'
@@ -18,7 +17,7 @@ export const sortAndFilterMixin = {
         };
     },
 
-    components: {SortAndFilter,AppMenu,plusBtn },
+    components: {SortAndFilter,plusBtn },
 
     props: {
         name: { type: String }, query: { type: Object }, filterSelection: { type: [String,Array] }, $_calcTerm:{type:Function},sort: { type: String }, page: { type: Object }, params: { type: Object }

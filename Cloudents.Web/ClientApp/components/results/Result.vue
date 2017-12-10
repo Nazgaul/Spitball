@@ -1,12 +1,8 @@
-﻿<template>
+﻿﻿<template>
     <general-page :filterSelection="filterSelection">
-        <app-menu slot="verticalNavbar" :$_calcTerm="$_calcTerm"></app-menu>
         <v-chip color="color-light-gray" label slot="selectedFilters" slot-scope="props" class="filter-chip" @click="$_removeFilter(props.item)">
             {{$_showSelectedFilter(props.item)}}
             <v-icon right>sbf-close</v-icon>
-            <!--<span class="chip chip--removable" >
-                 <close-btn></close-btn>
-            </span>-->
         </v-chip>
         <template slot="options" v-if="page">
             <sort-and-filter :sortOptions="page.sort" :sortCallback="$_updateSort" :sortVal="sort"
