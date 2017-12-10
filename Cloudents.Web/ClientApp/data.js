@@ -1,4 +1,4 @@
-﻿import * as routes from "./../routeTypes";
+﻿import * as routes from "./routeTypes";
 
 export let verticals =
     {
@@ -93,7 +93,7 @@ export let details = {
         filter: [ { id: "New", name: "new" }, { id: "Rental", name: "rental" }, { id: "eBook", name: "eBook" }],
         sort: [{ id: "price", name: "price" }]
     }
-}
+};
 export let actionFunction = {
     ...verticals,
     ...details
@@ -123,7 +123,7 @@ for (var v in verticals) {
     }
 }
 console.log(verticalsName);
-for (var v in details) {
+for (let v in details) {
     let item = details[v];
     page[v] = { filter: item.filter, sort: item.sort }
 }

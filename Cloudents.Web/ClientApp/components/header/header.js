@@ -1,4 +1,4 @@
-﻿import {  names } from "../data"
+﻿import {  names } from "../../data"
 import logo from "../../../wwwroot/Images/logo-spitball.svg";
 const ResultPersonalize = () => import('./ResultPersonalize.vue');
 import { mapActions, mapGetters } from 'vuex';

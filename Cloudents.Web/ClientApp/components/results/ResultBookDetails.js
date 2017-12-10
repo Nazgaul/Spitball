@@ -1,9 +1,6 @@
 ﻿import { sortAndFilterMixin } from './mixins'
-//const ResultBook = () => import('./ResultBook.vue');
 import ResultBook from './ResultBook.vue';
-import {details} from '../data';
 const sortOptions=[{id:'buy',name:'BUY/RENT'},{id:'sell',name:'SELL'}];
-const filterOptions=[{title:"Book Type",modelId:"filter",data:details.bookDetails.filter}];
 export default {
     mixins: [sortAndFilterMixin],
     created() {
@@ -16,7 +13,7 @@ export default {
     },
     data() {
         return { pageData: '',sortVal:"buy",
-            sortOptions,filterOptions};
+            sortOptions}
     },
     components: {  ResultBook },
     computed: {
@@ -40,5 +37,5 @@ export default {
             });
         }
     },
-    // mixins: [detailsMixin]
+    props:{filterOptions:{type:Array}}
 }
