@@ -16,6 +16,8 @@ namespace Zbang.Zbox.Infrastructure.Search
         public string Image { get; set; }
         public string Url { get; set; }
 
+        public string Description { get; set; }
+
         [IsSearchable]
         public string City { get; set; }
 

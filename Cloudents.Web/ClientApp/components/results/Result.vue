@@ -12,12 +12,12 @@
             <sort-and-filter :sortOptions="page.sort" :sortCallback="$_updateSort" :sortVal="sort"
                              :filterOptions="filterObject" :filterCallback="$_changeSubFilter" :filterVal="filterSelection"
                              :version="$version">
-                <div slot="courseEmptyState" v-if="!myCourses.length">
-                    Add your school
-                    and courses for better results <v-btn @click="$_openPersonalize">Personalize</v-btn>
+                <div class="course-empty-state" slot="courseEmptyState" v-if="!myCourses.length">
+                    <div>Add your school and courses for better results</div>
+                    <v-btn @click="$_openPersonalize">Personalize</v-btn>
                 </div>
                 <template slot="courseExtraState" v-else>
-                    <button class="add-course"  @click="$_openPersonalize" type="button">
+                    <button class="add-course" @click="$_openPersonalize" type="button">
                         <plus-btn></plus-btn> Add Course
                     </button>
                 </template>
@@ -29,7 +29,7 @@
                     <v-flex class="elevation-1 mb-2" xs-12 v-for="(item,index) in items" :key="index" @click="(hasExtra?selectedItem=item.placeId:'')" :class="(index>6?'order-xs3':'order-xs1')">
                         <component :is="'result-'+item.template" :item="item" :key="index" class="cell"></component>
                     </v-flex>
-                    <router-link tag="v-flex" class="elevation-1 mb-2 xs-12 order-xs2"  :to="{path:'/'+currentSuggest,query:{q:this.query.q}}" >
+                    <router-link tag="v-flex" class="elevation-1 mb-2 xs-12 order-xs2" :to="{path:'/'+currentSuggest,query:{q:this.query.q}}">
                         <suggest-card :name="currentSuggest"></suggest-card>
                     </router-link>
                 </v-layout>
@@ -40,10 +40,10 @@
 </template>
 <script>
     import { pageMixin } from './mixins'
-    
+
     export default {
         mixins: [pageMixin],
-       // components: { plusBtn,closeBtn }
+        // components: { plusBtn,closeBtn }
     }
 </script>
 <style src="./Result.less" lang="less">

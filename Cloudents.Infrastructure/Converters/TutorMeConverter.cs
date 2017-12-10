@@ -17,6 +17,7 @@ namespace Cloudents.Infrastructure.Converters
                 Image = result["avatar"]["x300"].Value<string>(),
                 Name = result["shortName"].Value<string>(),
                 Online = result["isOnline"].Value<bool>(),
+                Description = result["about"].Value<string>(),
                 TermCount = result.ToString().Split(new[] { context.Items["term"].ToString() },
                     StringSplitOptions.RemoveEmptyEntries).Length
             });

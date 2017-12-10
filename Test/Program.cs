@@ -30,14 +30,14 @@ namespace Test
             builder.RegisterModule(infrastructureModule);
             var container = builder.Build();
 
-            var services = container.Resolve<IUniversitySearch>();
+            var services = container.Resolve<IPlacesSearch>();
             var location = new GeoPoint()
             {
                 Latitude = 40.695217,
                 Longitude = -73.964510
             };
 
-            var result = await services.SearchAsync("iowa", location, default);
+            var result = await services.SearchNearbyAsync(null, PlacesRequestFilter.None, location, null, default);
             Console.ReadLine();
         }
     }

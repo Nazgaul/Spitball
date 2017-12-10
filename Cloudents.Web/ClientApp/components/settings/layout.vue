@@ -1,6 +1,6 @@
 <template functional>
     <v-layout class="d-wrapper" column>
-        <div class="d-header pt-3">
+        <div class="d-header pt-3 mb-5">
             <v-layout class="navigation-buttons" row reverse justify-space-between>
                 <slot name="extraClose"></slot>
                 <button type="button" @click="props.closeFunction">

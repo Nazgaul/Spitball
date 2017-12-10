@@ -71,6 +71,10 @@
                 color: white;
             }
         }
+
+        .search-b {
+            border-radius:4px;
+        }
     }
 
     .d-wrapper {
@@ -112,8 +116,7 @@
                     }
                 }
             }
-
-            .first-time-message {
+            /*.first-time-message {
                 width: 100%;
                 border: 1px solid white;
                 border-radius: 2px;
@@ -149,7 +152,7 @@
                         height: 12px;
                     }
                 }
-            }
+            }*/
         }
 
         .results-container {
@@ -164,14 +167,17 @@
                 text-align: center;
                 color: #fff;
                 font-size: 12px;
+                line-height: 1.17;
+                letter-spacing: -0.5px;
 
                 .image {
+                    border-radius: 4px;
+                    overflow: hidden;
                     height: 96px;
                     width: 96px;
                     background-color: white;
                     background-size: contain;
                     background-position: center;
-                    margin-bottom: 4px;
                 }
             }
 
@@ -180,13 +186,6 @@
                 border-radius: 4px;
                 overflow: hidden;
                 height: 144px;
-            }
-
-
-            .add-course-form {
-                color: white;
-                font-weight: 100;
-                border: 1px solid white;
             }
 
             .course {
@@ -207,6 +206,9 @@
 
             .add-course-form {
                 width: 280px;
+                color: white;
+                font-weight: 100;
+                border: 1px solid white;
 
                 form {
                     display: flex;
@@ -240,9 +242,16 @@
                         button {
                             width: ~"calc(50% - 8px)";
                             margin: 0;
-                            background: @color-blue;
                             color: white;
                             height: 24px;
+
+                            &.save {
+                                background: @color-blue;
+                            }
+
+                            &.clear {
+                                background: #9b9b9b;
+                            }
                         }
 
                         .btn.btn--disabled:not(.btn--icon):not(.btn--flat) {

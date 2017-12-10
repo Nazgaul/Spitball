@@ -43,7 +43,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             // ReSharper disable once AsyncConverter.AsyncAwaitMayBeElidedHighlighting
             //await process.ExecuteAsync(0, (a, b) => Task.CompletedTask, cancellationToken).ConfigureAwait(false);
 
-            var process = _lifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("spamGun");
+            var process = _lifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("downloadTutor");
             await process.ExecuteAsync(0, (a, b) => Task.CompletedTask, cancellationToken).ConfigureAwait(false);
 
 

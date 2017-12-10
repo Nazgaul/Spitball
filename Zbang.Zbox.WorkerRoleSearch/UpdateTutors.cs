@@ -65,6 +65,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 Online = obj.OffersOnlineLessons,
                 Rank = obj.TutorRank,
                 State = obj.State,
+                Description = obj.Title,
                 Subjects = obj.Subjects?.Select(s => s.Name).ToArray(),
                 Url = obj.ProfileLink
             };

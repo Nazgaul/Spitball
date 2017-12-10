@@ -12,17 +12,17 @@ namespace Zbang.Zbox.Infrastructure.Search
 {
     public abstract class SearchServiceWrite<T> : IDisposable, IStartable, ISearchServiceWrite<T> where T : class, ISearchObject, new()
     {
-        private readonly ISearchConnection m_Connection;
+        private readonly ISearchConnection _connection;
         protected readonly ISearchIndexClient IndexClient;
-        private readonly string m_IndexName;
+        private readonly string _indexName;
         protected readonly ILogger Logger;
 
         protected SearchServiceWrite(ISearchConnection connection, string indexName, ILogger logger)
         {
-            m_Connection = connection;
+            _connection = connection;
             Logger = logger;
-            m_IndexName = m_Connection.IsDevelop ? indexName + "-dev" : indexName;
-            IndexClient = connection.SearchClient.Indexes.GetClient(m_IndexName);
+            _indexName = _connection.IsDevelop ? indexName + "-dev" : indexName;
+            IndexClient = connection.SearchClient.Indexes.GetClient(_indexName);
         }
 
         public Task UpdateDataAsync(IEnumerable<T> items, CancellationToken token)
@@ -83,11 +83,11 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             try
             {
-                m_Connection.SearchClient.Indexes.CreateOrUpdate(GetIndexStructure(m_IndexName));
+                _connection.SearchClient.Indexes.CreateOrUpdate(GetIndexStructure(_indexName));
             }
             catch (Exception ex)
             {
-                if (m_Connection.IsDevelop)
+                if (_connection.IsDevelop)
                 {
                     Logger.Exception(ex);
                 }

@@ -7,7 +7,7 @@
         public string City { get; set; }
         public string State { get; set; }
         public string Zip { get; set; }
-        public object Title { get; set; }
+        public string Title { get; set; }
         public int FeePerHour { get; set; }
         public string FreeResponse { get; set; }
         public int TravelDistance { get; set; }

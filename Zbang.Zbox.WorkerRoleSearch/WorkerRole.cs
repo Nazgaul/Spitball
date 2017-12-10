@@ -137,7 +137,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchItem), //0
                     //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchBox), //1
                     //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchQuiz), //2
-                    _mUnity.Resolve<IJob>(IocFactory.UpdateSearchUniversity), //3
+                    //_mUnity.Resolve<IJob>(IocFactory.UpdateSearchUniversity), //3
                     //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchFlashcard), //4
                     //m_Unity.Resolve<IJob>(nameof(UpdateUnsubscribeList)), //5
                     //m_Unity.Resolve<IJob>(nameof(SchedulerListener)), //6
@@ -149,7 +149,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     //m_Unity.Resolve<IJob>(nameof(Crawler)) //12
 
                    // m_Unity.Resolve<IJob>(nameof(BlobManagement))
-                   // _mUnity.Resolve<IJob>(nameof(TestingJob))
+                    _mUnity.Resolve<IJob>(nameof(TestingJob))
 
                 };
             }

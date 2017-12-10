@@ -63,10 +63,15 @@ namespace Cloudents.Infrastructure.Search
                 {
                     ["location"] = $"{location.Latitude} {location.Longitude}",
                     ["keyword"] = term ?? string.Empty,
+                    
                     ["key"] = Key,
                     ["rankby"] = "distance",
                     //["pagetoken"] = nextPageToken
                 };
+                if (string.IsNullOrEmpty(term))
+                {
+                    nvc.Add("type", "restaurant");
+                }
                 if (filter == PlacesRequestFilter.OpenNow)
                 {
                     nvc.Add("opennow", true.ToString());
