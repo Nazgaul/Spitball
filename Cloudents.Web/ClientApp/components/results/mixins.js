@@ -181,11 +181,12 @@ export const pageMixin =
                 this.$router.push({ query: {q,sort,course,source,filter, ...newFilter}});
             },
             $_removeFilter(val){
-                let {source,course,filter}=this.query;
+                let {source,course,filter,jobType}=this.query;
                 source=source?[].concat(source).filter(i=>i!== val):source;
                 course=course?[].concat(course).filter(i=>i!== val):course;
                 filter=filter?[].concat(filter).filter(i=>i!== val):filter;
-                this.$router.push({path:this.name,query:{...this.query,source,course,filter}});
+                jobType=jobType?[].concat(jobType).filter(i=>i!== val):jobType;
+                this.$router.push({path:this.name,query:{...this.query,source,course,filter,jobType}});
             },
             $_openPersonalize(){
                 this.$root.$el.querySelector("#myCourses").click();
