@@ -29,11 +29,20 @@
         font-size: 22px;
         font-weight: 600;
 
+        button:focus {
+            outline: none;
+        }
+
         .sbf-arrow-button {
             transform: rotate(-90deg);
             color: white;
             font-size: 10px;
             margin-top: -7px;
+        }
+
+        .sbf-close {
+            font-size: 20px;
+            color: white;
         }
     }
 
@@ -109,10 +118,13 @@
                     align-items: center;
                     height: 26px;
 
-                    svg {
-                        width: 10px;
-                        height: 10px;
-                        fill: @Feed-Date;
+                    &:focus {
+                        outline: none;
+                    }
+
+                    .sbf-close {
+                        font-size: 10px;
+                        color: @Feed-Date;
                     }
                 }
             }
@@ -162,9 +174,10 @@
                 flex-grow: 0;
             }
 
-            .uni, .course{
-            cursor: pointer;
+            .uni, .course {
+                cursor: pointer;
             }
+
             .uni {
                 width: 96px;
                 text-align: center;

@@ -4,7 +4,7 @@
         <page-layout :type="currentType" :title="title" :search="!currentAction" :titleImage="(currentType==='course'&&!currentAction)?getUniversityImage:''" :isLoading="isLoading" :emptyText="emptyText" :items="items" :selectedCourse="selectedCourse" :closeFunction="$_closeButton">
             <button class="white--text" slot="extraClose" @click="$_closeButton" v-if="currentType!=='university'">DONE</button>
             <template slot="closeAction">
-                <close-button v-if="currentType==='university'"></close-button>
+                <i v-else v-if="currentType==='university'" class="sbf icon sbf-close"></i>
                 <i v-else class="sbf icon sbf-arrow-button"></i>
             </template>
             <template v-if="currentType==='course'" slot="courseExtraItem">
@@ -25,7 +25,7 @@
             <v-chip class="ma-2" slot="selectedItems" slot-scope="props" v-if="selectedCourse" label>
                 <span class="name">{{ props.course.name }}</span>
                 <button class="close pa-2" @click="$_removeCourse(props.course.id)">
-                    <close-button></close-button>
+                    <i class="sbf icon sbf-close"></i>
                 </button>
             </v-chip>
             <v-flex class="result" v-if="!currentAction" @click="$_clickItemCallback(keep)" slot-scope="props" slot="results">
