@@ -115,3 +115,5 @@ new Vue({
     render: h => h(App),
     store
 });
+//This is for cdn fallback do not touch
+global.mainCdn = true;

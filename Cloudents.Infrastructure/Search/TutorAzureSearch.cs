@@ -21,7 +21,7 @@ namespace Cloudents.Infrastructure.Search
         public TutorAzureSearch(SearchServiceClient client, IMapper mapper)
         {
             _mapper = mapper;
-            _client = client.Indexes.GetClient("tutors");
+            _client = client.Indexes.GetClient("tutors2");
         }
 
         public Task<IEnumerable<TutorDto>> SearchAsync(string term, TutorRequestFilter filter,
