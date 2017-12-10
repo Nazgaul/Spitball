@@ -1,6 +1,15 @@
 ﻿@import "../../mixin.less";
 
 .sb-menu {
+    padding-top: 6px;
+    margin-top: @navBarHeightDesktop;
+    margin-left: @resultsFilterWidth;
+
+    @media(max-width: 600px) {
+        margin-top: @navBarHeightMobile;
+        margin-left: 8px;
+    }
+
     .tabs:not(.tabs--centered):not(.tabs--grow):not(.tabs--mobile) .tabs__wrapper--scrollable {
         margin: 0;
     }
