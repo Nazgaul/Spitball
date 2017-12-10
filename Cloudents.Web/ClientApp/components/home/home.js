@@ -13,37 +13,37 @@ import instegramIcon from "./svg/instagram-icon.svg";
 
 import menuIcon from "./svg/menu-icon.svg";
 
-import stripDocumentIcon from "./svg/strip-documents-icon.svg";
+import stripDocumentIcon from "./../navbar/images/document.svg";
 import bagIcon from "./svg/bag-icon.svg";
 import notebookIcon from "./svg/notebook-icon.svg";
 import laptopIcon from "./svg/laptop-icon.svg";
 
-import stripTutorIcon from "./svg/strip-tutor-icon.svg"
+import stripTutorIcon from "./../navbar/images/tutor.svg"
 import discussionIcon from "./svg/discussion-icon.svg"
 import tutorIcon from "./svg/tutor-icon.svg"
 import studentLaptopIcon from "./svg/student-laptop-icon.svg"
 
-import stripFoodDealsIcon from "./svg/strip-food-deals-icon.svg"
+import stripFoodDealsIcon from "./../navbar/images/food.svg"
 import shoppingBagsIcon from "./svg/shopping-bags-icon.svg"
 import headsetIcon from "./svg/headset-icon.svg"
 import pizzaIcon from "./svg/pizza-icon.svg"
 
-import stripTextbooksIcon from "./svg/strip-textbooks-icon.svg"
+import stripTextbooksIcon from "./../navbar/images/book.svg"
 import bookClosedIcon from "./svg/book-closed-icon.svg"
 import bookStackIcon from "./svg/book-stack-icon.svg"
 import bookOpenIcon from "./svg/book-open-icon.svg"
 
-import stripFlashcardsIcon from "./svg/strip-flashcards-icon.svg"
+import stripFlashcardsIcon from "./../navbar/images/flashcard.svg"
 import flashcardPenIcon from "./svg/flashcard-pen-icon.svg"
 import flashcardQuestionIcon from "./svg/flashcard-question-icon.svg"
 import flashcardGroupIcon from "./svg/flashcard-group-icon.svg"
 
-import stripAskQuestionIcon from "./svg/strip-ask-question-icon.svg"
+import stripAskQuestionIcon from "./../navbar/images/ask.svg"
 import askQuestionMountainIcon from "./svg/ask-question-mountain-icon.svg"
 import askQuestionHouseIcon from "./svg/ask-question-house-icon.svg"
 import askQuestionRocketIcon from "./svg/ask-question-rocket-icon.svg"
 
-import stripJobsIcon from "./svg/strip-jobs-icon.svg"
+import stripJobsIcon from "./../navbar/images/job.svg"
 import jobsGraphIcon from "./svg/jobs-graph-icon.svg"
 import jobsChemistryIcon from "./svg/jobs-chemistry-icon.svg"
 import jobsSlideIcon from "./svg/jobs-slide-icon.svg"

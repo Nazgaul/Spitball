@@ -97,7 +97,8 @@ module.exports = (env) => {
                 new webpack.DefinePlugin({
                     'process.env': {
                         NODE_ENV: JSON.stringify(isDevBuild ? "development" : "production")
-                    }
+                    },
+                    BROWSER_SUPPORTS_HTML5: true
                 }),
                 new webpack.DllReferencePlugin({
                     context: __dirname,
