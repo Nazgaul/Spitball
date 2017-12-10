@@ -155,7 +155,7 @@ export const pageMixin =
                 else{
                     this.filterObject=this.page.filter.map((i)=>{
                         let item={title:i.name,modelId:i.id};
-                        item.data=(i.id==="course")?this.myCourses:this.pageData[i.id]?this.pageData[i.id]:this.getFacet;
+                        item.data=(i.id==="course")?this.myCourses:this.pageData[i.id]?this.pageData[i.id]:this.getFacet?this.getFacet:[];
                         return item;
                     });
                 }
