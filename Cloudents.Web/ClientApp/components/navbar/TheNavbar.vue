@@ -47,7 +47,7 @@
                         header.$refs.personalize.showDialog=true;
                         return;
                     }
-                    this.$router.push({ path: '/' + result,query:{q:""}});
+                    this.$router.push({ path: '/' + result});
                 }
             }
         },

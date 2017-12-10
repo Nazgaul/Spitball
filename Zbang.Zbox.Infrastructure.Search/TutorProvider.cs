@@ -11,7 +11,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 {
     public class TutorProvider : SearchServiceWrite<Tutor>
     {
-        public TutorProvider(ISearchConnection connection, ILogger logger) : base(connection, "tutors", logger)
+        public TutorProvider(ISearchConnection connection, ILogger logger) : base(connection, "tutors2", logger)
         {
 
         }

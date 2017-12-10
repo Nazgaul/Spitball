@@ -70,7 +70,7 @@ export const pageMixin =
                 this.items=[];
                 new Promise((resolve, reject) => {
                     if(!to.query.q||!to.query.q.length){resolve()}
-                    if(!savedTerm||(savedTerm.term!==to.query.q)){
+                    else if(!savedTerm||(savedTerm.term!==to.query.q)){
                         this.updateSearchText(to.query.q).then((response)=> {
                             this.$route.meta[this.$_calcTerm(toName)] = {term: to.query.q, luisTerm: response.term};
                             resolve(to.meta[this.$_calcTerm(toName)].luisTerm);
@@ -137,7 +137,7 @@ export const pageMixin =
         created() {
             if(this.query.course)this.$route.meta.myClasses=this.query.course;
             this.UPDATE_LOADING(true);
-            if(!this.query.q){
+            if(!this.query.q||!this.query.q.length){
                 this.fetchingData({name: this.name, params: {...this.query, ...this.params}})
                     .then((data) => {
                         updateData.call(this, data);
