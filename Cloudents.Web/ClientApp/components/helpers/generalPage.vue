@@ -1,5 +1,5 @@
 <template functional>
-    <component is="slot">
+    <component is="slot" class="general-page">
         <slot></slot>
         <v-content class="p-result">
         <v-container fluid class="pa-0 mt-2 wrap">
