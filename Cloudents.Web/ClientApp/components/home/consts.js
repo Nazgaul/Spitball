@@ -18,7 +18,6 @@ let strips =
             floatingImages: ['laptopIcon', 'notebookIcon', 'bagIcon'],
             titleIcon: 'stripDocumentIcon',
             title: "Study documents",
-            titleColor: "#320161",
             text: "Spitball curates content for you from the best sites on the web. The documents populate based on student ratings and are filtered by your school, classes, and preferences."
         },
 
@@ -28,7 +27,6 @@ let strips =
             floatingImages: ['tutorIcon', 'discussionIcon','studentLaptopIcon'],
             titleIcon: 'stripTutorIcon',
             title: "Tutors",
-            titleColor: "#52ab15",
             text: "Spitball has teamed up with the most trusted tutoring services. All of our online and in-person tutors are highly qualified experts with educations from the best universities around the world."
         },
 
@@ -38,7 +36,6 @@ let strips =
             floatingImages: ['shoppingBagsIcon', 'headsetIcon', 'pizzaIcon'],
             titleIcon: "stripFoodDealsIcon",
             title: "Food and Deals",
-            titleColor: "#2cbfa5",
             text: "Find and discover exclusive, short-term offers from restaurants around your campus."
         },
 
@@ -48,7 +45,6 @@ let strips =
             floatingImages: ['bookClosedIcon', 'bookStackIcon', 'bookOpenIcon'],
             titleIcon: "stripTextbooksIcon",
             title: "Textbooks",
-            titleColor: "#8c3fbf",
             text: "Spitball finds you textbooks at the best prices by simultaneously searching multiple websites. Compare prices to buy, rent, and sell back your books."
         },
 
@@ -59,7 +55,6 @@ let strips =
             floatingImages: ['flashcardPenIcon', 'flashcardQuestionIcon', 'flashcardGroupIcon'],
             titleIcon: 'stripFlashcardsIcon',
             title: "Flashcards",
-            titleColor: "#f14d4d",
             text: "Search millions of study sets and improve your grades by studying with flashcards."
         },
 
@@ -70,7 +65,6 @@ let strips =
             floatingImages: ['askQuestionMountainIcon', 'askQuestionHouseIcon', 'askQuestionRocketIcon'],
             titleIcon: 'stripAskQuestionIcon',
             title: "Ask a Question",
-            titleColor: "#0455a8",
             text: "Ask any school related question and immediately get answers and information that relates specifically to you, your classes, and your university."
         },
 
@@ -80,7 +74,6 @@ let strips =
             floatingImages: ['jobsGraphIcon', 'jobsChemistryIcon', 'jobsSlideIcon'],
             titleIcon: 'stripJobsIcon',
             title: "Jobs",
-            titleColor: "#f5a623",
             text: "Easily find and apply to paid internships, part-time jobs and entry-level opportunities at thousands of Fortune 500 companies and startups."
         }
 

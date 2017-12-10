@@ -51,6 +51,27 @@
         }
     }
 
+    .add-course {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        color: @color-blue;
+
+        svg {
+            fill: @color-blue;
+            width: 12px;
+            height: 12px;
+        }
+
+        span {
+            margin-left: 8px
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
     .expansion-panel {
         @border-bg-image: linear-gradient(to right, #3023ae, #3293f6) 10;
 

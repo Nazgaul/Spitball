@@ -18,7 +18,7 @@
                 </div>
                 <template slot="courseExtraState" v-else>
                     <button class="add-course" @click="$_openPersonalize" type="button">
-                        <plus-btn></plus-btn> Add Course
+                        <plus-btn></plus-btn><span>Add Course</span>
                     </button>
                 </template>
             </sort-and-filter>

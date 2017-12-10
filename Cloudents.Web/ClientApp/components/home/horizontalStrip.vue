@@ -17,7 +17,7 @@
                 <v-flex class="description">
                     <v-layout class="strip-title" row align-center justify-start>
                         <slot name="stripIcon" :type="strip.titleIcon"></slot>
-                        <h3 :style="{'color':strip.titleColor}">{{strip.title}}</h3>
+                        <h3 class="title-text">{{strip.title}}</h3>
                     </v-layout>
                     <p class="strip-text">{{strip.text}}</p>
 
