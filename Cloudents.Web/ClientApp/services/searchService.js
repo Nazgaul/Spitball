@@ -69,11 +69,9 @@ export default {
             });
         },
         job({ term, filter, sort, jobType:facet,page,location }) {
-            if(page)return Promise.resolve({data:{}});
             return new Promise((resolve, reject) => {
-                search.getJob({ term, filter, sort, location, facet }).then(({ body }) => {
+                search.getJob({ term, filter, sort, location, facet,page }).then(({ body }) => {
                     let {result,facet:jobType}=body;
-                    // console.log(jobType);
                     resolve({ jobType, data: result.map(val => { return { ...val, template: "job" } }) });
                 })
             });

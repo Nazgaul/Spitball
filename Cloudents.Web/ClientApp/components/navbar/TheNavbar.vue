@@ -13,7 +13,6 @@
 
 
 <script>
-    // import { verticalsNavbar as verticals } from '../data.js';
     import { mapMutations,mapGetters } from 'vuex'
 
     export default {

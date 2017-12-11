@@ -1,4 +1,4 @@
-﻿import ResultItem from './ResultItem.vue';
+﻿﻿import ResultItem from './ResultItem.vue';
 const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
 const ResultJob = () => import('./ResultJob.vue');
@@ -6,7 +6,6 @@ import ResultVideo from './ResultVideo.vue'
 import SuggestCard from './suggestCard.vue'
 const ResultFood = () => import('./ResultFood.vue');
 const foodExtra = () => import('./foodExtra.vue');
-import AppMenu from './../navbar/TheNavbar.vue';
 import SortAndFilter from './SortAndFilter.vue'
 import plusBtn from "../settings/svg/plus-button.svg";
 import { mapActions, mapGetters, mapMutations } from 'vuex'
@@ -18,7 +17,7 @@ export const sortAndFilterMixin = {
         };
     },
 
-    components: {SortAndFilter,AppMenu,plusBtn },
+    components: {SortAndFilter,plusBtn },
 
     props: {
         name: { type: String }, query: { type: Object }, filterSelection: { type: [String,Array] }, $_calcTerm:{type:Function},sort: { type: String }, page: { type: Object }, params: { type: Object }
@@ -156,7 +155,7 @@ export const pageMixin =
                 else{
                     this.filterObject=this.page.filter.map((i)=>{
                         let item={title:i.name,modelId:i.id};
-                        item.data=(i.id==="course")?this.myCourses:this.pageData[i.id]?this.pageData[i.id]:this.getFacet;
+                        item.data=(i.id==="course")?this.myCourses:this.pageData[i.id]?this.pageData[i.id]:this.getFacet?this.getFacet:[];
                         return item;
                     });
                 }
@@ -182,11 +181,12 @@ export const pageMixin =
                 this.$router.push({ query: {q,sort,course,source,filter, ...newFilter}});
             },
             $_removeFilter(val){
-                let {source,course,filter}=this.query;
+                let {source,course,filter,jobType}=this.query;
                 source=source?[].concat(source).filter(i=>i!== val):source;
                 course=course?[].concat(course).filter(i=>i!== val):course;
                 filter=filter?[].concat(filter).filter(i=>i!== val):filter;
-                this.$router.push({path:this.name,query:{...this.query,source,course,filter}});
+                jobType=jobType?[].concat(jobType).filter(i=>i!== val):jobType;
+                this.$router.push({path:this.name,query:{...this.query,source,course,filter,jobType}});
             },
             $_openPersonalize(){
                 this.$root.$el.querySelector("#myCourses").click();
