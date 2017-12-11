@@ -43,17 +43,13 @@ const actions = {
     },
 
     createCourse(context, {name,code}) {
-        return new Promise((resolve) => {
             const university = context.getters.getUniversity;
-            settingsService.createCourse({name,code,university}).then(({body}) => {
+            return settingsService.createCourse({name,code,university}).then(({data:body}) => {
                 context.commit(USER.UPDATE_USER, { myCourses: [...context.getters.myCourses, { id: body.id, name: name }] });
-                resolve({id:body.id,name:name,code:code});
             });
-        });
     },
     updateFirstTime( {commit},val ) {
         let ob={[val]:false};
-        console.log(ob);
         commit(USER.UPDATE_USER, ob);
     },
     updateUniversity({ commit }, {id,name,image}) {

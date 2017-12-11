@@ -77,7 +77,7 @@ export const pageMixin =
             }).then((luisTerm)=>{
                 let updateFilter=(to.path===from.path&&to.query.q===from.query.q);
                 this.fetchingData({name: toName, params: {...to.query, ...to.params}, luisTerm})
-                    .then((data) => {
+                    .then(({data}) => {
                         updateData.call(this, data,updateFilter);
                     });
                 next();
@@ -121,7 +121,7 @@ export const pageMixin =
             this.UPDATE_LOADING(true);
             if(!this.query.q||!this.query.q.length){
                 this.fetchingData({name: this.name, params: {...this.query, ...this.params}})
-                    .then((data) => {
+                    .then(({data}) => {
                         updateData.call(this, data);
                     });
             }else {
@@ -137,7 +137,7 @@ export const pageMixin =
                             params: {...this.query, ...this.params},
                             luisTerm: response.term
                         })
-                            .then((data) => {
+                            .then(({data}) => {
                                 updateData.call(this, data);
                             });
                     }

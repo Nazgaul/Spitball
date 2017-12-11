@@ -1,5 +1,5 @@
 ﻿﻿import { SEARCH, FLOW } from "./mutation-types"
-import ai from "./../services/ai"
+import {interpetPromise} from "./../services/resources"
 import searchService from "./../services/searchService"
 
 const state = {
@@ -38,19 +38,17 @@ const actions = {
     //Always update the current route according the flow
     updateSearchText(context, text) {
         console.log(context);
-        return new Promise((resolve, reject) => {
             if (!text) {
-                reject();
+                return ""
             }
-            ai.interpetPromise(text).then(({ body }) => {
+           return interpetPromise(text).then(({data:body}) => {
                 let params={...body};
                 if(params.hasOwnProperty('cords')){
                     params.location=`${params.cords.latitude},${params.cords.longitude}`
                 }
                 context.commit(SEARCH.UPDATE_SEARCH_PARAMS, { ...params });
-                resolve({ result: body.vertical, term: body.term });
+                return{ result: body.vertical, term: body.term };
             });
-        });
     },
 
     bookDetails: (context, {pageName,isbn13,type}) => {
