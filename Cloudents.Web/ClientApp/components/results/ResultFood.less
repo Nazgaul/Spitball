@@ -2,8 +2,8 @@
 
 .place-cell {
     .imageWrapper(96px,120px);
-    width:100%;
-    text-align:left;
+    width: 100%;
+    text-align: left;
 
     .cell-title {
         font-size: 17px;
@@ -13,6 +13,10 @@
     }
 
     .rate {
+        .vue-star-rating{
+            margin-left: 2px;
+        }
+
         span {
             font-size: 14px;
             letter-spacing: -0.3px;
@@ -32,10 +36,11 @@
         color: @Feed-Like-count;
         .flexSameSize();
     }
+
     .img-wrap {
         .flexSameSize();
-        border-radius:4px;
-        overflow:hidden;
+        border-radius: 4px;
+        overflow: hidden;
     }
 }
 /*@font-bold: "OpenSans-Bold";
