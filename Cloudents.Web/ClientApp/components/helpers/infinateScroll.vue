@@ -47,7 +47,9 @@
                                 this.page = 1;
                                 this.isComplete=true;
                             }
-                        })
+                        }).catch(reason => {
+                        this.isComplete=true;
+                    })
                 }
             },
             $_resetScrolling(){
