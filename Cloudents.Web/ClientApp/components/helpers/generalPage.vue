@@ -3,7 +3,7 @@
         <slot></slot>
         <v-content class="p-result">
             <v-container fluid class="pa-0 wrap">
-                <v-layout row class="pt-2">
+                <v-layout row>
                     <v-flex class="first-grid hidden-sm-and-down left-side-bar">
                         <slot name="options">
                         </slot>
@@ -21,7 +21,7 @@
                                 <slot name="data">
                                 </slot>
                             </v-flex>
-                            <v-flex class="ml-2 hidden-md-only hidden-xs-only side-bar">
+                            <v-flex class="ml-2 hidden-md-only hidden-xs-only side-bar ">
                                 <slot name="adsense">
                                     <adsense ad-client="ca-pub-1215688692145777"
                                              ad-slot="3866041406"

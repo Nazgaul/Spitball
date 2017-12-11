@@ -1,13 +1,20 @@
 ﻿@import "../../mixin.less";
 
 .sb-menu {
+    position: sticky;
+    top: @navBarHeightDesktop;
+    background: @Site-Background;
+    padding-left: @resultsFilterWidth;
     padding-top: 6px;
-    margin-top: @navBarHeightDesktop;
-    margin-left: @resultsFilterWidth;
+    padding-bottom: 6px;
+
+    &.scrolled {
+        box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+    }
 
     @media(max-width: 600px) {
-        margin-top: @navBarHeightMobile;
-        margin-left: 8px;
+        top: @navBarHeightMobile;
+        padding-left: 8px;
     }
 
     .tabs:not(.tabs--centered):not(.tabs--grow):not(.tabs--mobile) .tabs__wrapper--scrollable {
@@ -19,17 +26,19 @@
     }
 
     .tabs__bar {
-        @tabsHeight: 52px;
-        height: @tabsHeight;
+        @tabsPaddingTop: 16px;
+        @tabsPaddingBottom: 8px;
+        height: @resultsTabsHeight;
         background-color: transparent;
 
         .tabs__container {
-            padding: 10px 0;
+            padding: 16px 0 16px 0;
         }
 
         .tabs__li {
+            height: @resultsTabsHeight - 20;
+
             a {
-                height: @tabsHeight - 20px;
                 // display:inline-block;
                 //width:100%;
                 color: #fff !important;

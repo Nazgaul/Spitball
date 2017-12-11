@@ -6,6 +6,7 @@
 .application--wrap {
     background: #eeeeee;
 }
+
 .p-result {
 
     .first-grid {
@@ -22,9 +23,11 @@
     margin: 0;
 }
 
+@spaceFromTop: @resultsTabsHeight + 40;
+
 .sec-result {
     max-width: 504px;
-    margin-top: @heightOfTitle+4;
+    margin-top: @spaceFromTop;
 
     .elevation-1 {
         border-radius: 4px;
@@ -56,10 +59,11 @@
     position: -webkit-sticky;
     position: sticky;
     max-height: 100vh;
-    top: 74px;
+    top: @navBarHeightDesktop + @spaceFromTop + 10;
 }
 
 .chip.filter-chip {
+    margin-top: 0;
 
     .chip__content {
         cursor: pointer;
