@@ -90,7 +90,7 @@ export default {
         },
         $_search: debounce(function (val) {
             this.isLoading = true;
-            this.$store.dispatch(this.currentItem.searchApi, { term: val }).then(({ body }) => {
+            this.$store.dispatch(this.currentItem.searchApi, { term: val }).then(({ data:body }) => {
                 this.items = body;
                 this.isLoading = false;
             });

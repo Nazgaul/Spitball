@@ -29,14 +29,13 @@
                 let scrollOffset=(currentScroll>0.75*totalHeight);
                 let retVal=((window.pageYOffset>0 || document.documentElement.scrollTop>0)&&scrollOffset&&
                     !this.isLoading&&!this.isComplete);
-                console.log(retVal);
                 return retVal},
             scrollList () {
                 if (this.keepLoad()) {
                     let page=this.token?this.currentToken:this.page;
                     this.isLoading=true;
                     this.$store.dispatch('fetchingData', { name: this.$route.path.slice(1), params: this.$route.query, page })
-                        .then((res) => {
+                        .then(({data:res}) => {
                             if (res.data && res.data.length && !res.hasOwnProperty('token') ||
                                 (res.hasOwnProperty('token') && res.token)) {
                                 this.$emit('scroll', res.data);

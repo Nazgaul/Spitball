@@ -77,9 +77,10 @@ export const pageMixin =
             }).then((luisTerm)=>{
                 let updateFilter=(to.path===from.path&&to.query.q===from.query.q);
                 this.fetchingData({name: toName, params: {...to.query, ...to.params}, luisTerm})
-                    .then((data) => {
+                    .then(({data}) => {
                         updateData.call(this, data,updateFilter);
-                    });
+                    }).catch(reason => {this.UPDATE_LOADING(false);
+                });
                 next();
             });
         },
@@ -121,9 +122,9 @@ export const pageMixin =
             this.UPDATE_LOADING(true);
             if(!this.query.q||!this.query.q.length){
                 this.fetchingData({name: this.name, params: {...this.query, ...this.params}})
-                    .then((data) => {
+                    .then(({data}) => {
                         updateData.call(this, data);
-                    });
+                    }).catch(reason => {this.UPDATE_LOADING(false);});
             }else {
                 this.updateSearchText(this.query.q).then((response) => {
                     this.$route.meta[this.$_calcTerm(response.result)] = {term: this.query.q, luisTerm: response.term};
@@ -137,7 +138,7 @@ export const pageMixin =
                             params: {...this.query, ...this.params},
                             luisTerm: response.term
                         })
-                            .then((data) => {
+                            .then(({data}) => {
                                 updateData.call(this, data);
                             });
                     }

@@ -1,4 +1,8 @@
 ﻿import { search, flashcard } from "./resources";
+import axios from "axios";
+import qs from "qs"
+axios.defaults.paramsSerializer=params => qs.stringify(params, { indices: false });
+axios.defaults.baseURL="api/";
 const previewMap = {
     item(id) {
         return {
@@ -33,87 +37,33 @@ const previewMap = {
 export default {
     activateFunction: {
         ask({ source, university, course, term, page, sort, q:userText }) {
-            return new Promise((resolve, reject) => {
-                search.getQna({ source, university, course, term, page, sort, userText }).then(({body})=>{
-                    const video = body.video;
-                    const itemResult = body.result || [];
-                    const items = itemResult.map(val => { return { ...val, template: "item" } });
-                    const data = video ? [{...video,template:"video"},...items]:items;
-                    resolve({ data });
-                });
-            });
+             return  search.getQna({ source, university, course, term, page, sort, userText });
         },
         note({ source, university, course, term, page, sort }) {
-            return new Promise((resolve, reject) => {
-                search.getDocument({ source, university, course, term, page, sort })
-                    .then(({ body }) => {
-                        const result = body.result || [];
-                        resolve({
-                            source: body.facet,
-                            data: result.map(val => { return { ...val, template: "item" } })
-                        });
-                    });
-            });
+               return search.getDocument({ source, university, course, term, page, sort });
         },
         flashcard({ source, university, course, term, page, sort }) {
-            return new Promise((resolve, reject) => {
-                search.getFlashcard({ source, university, course, term, page, sort }).then(({ body }) => resolve({ source: body.facet, data: body.result.map(val => Object.assign(val, { template: "item" })) }));
-            });
+                return search.getFlashcard({ source, university, course, term, page, sort });
         },
         tutor({ term, filter, sort, page,location }) {
-            return new Promise((resolve, reject) => {
-                search.getTutor({ term, filter, sort, location, page }).then(({ body }) => {
-                    body = body || [];
-                    resolve({ data: body.map(val => { return { ...val, template: "tutor" } }) });
-                });
-            });
+            return search.getTutor({ term, filter, sort, location, page })
         },
         job({ term, filter, sort, jobType:facet,page,location }) {
-            return new Promise((resolve, reject) => {
-                search.getJob({ term, filter, sort, location, facet,page }).then(({ body }) => {
-                    let {result,facet:jobType}=body;
-                    resolve({ jobType, data: result.map(val => { return { ...val, template: "job" } }) });
-                })
-            });
+               return search.getJob({ term, filter, sort, location, facet,page });
         },
         book({ term, page }) {
-            return new Promise((resolve, reject) => {
-                search.getBook({ term, page }).then(({ body }) => {
-                    body = body || [];
-                    let data =  body.map(val => { return { ...val, template: "book" } });
-                    resolve({ data });
-                });
-            });
+               return search.getBook({ term, page });
         },
         bookDetails({ type, isbn13 }) {
-            return new Promise((resolve, reject) => {
-                search.getBookDetails({ type, isbn13 }).then(({ body }) => {
-                    const prices = body.prices || [];
-                    resolve(
-                        {
-                            details: body.details, data: prices.map(val => { return { ...val, template: "book-price" } }) 
-                            
-                        });
-                });
-            });
+               return search.getBookDetails({ type, isbn13 })
         },
         food({ term, filter, page: nextPageToken,location }) {
            
-            return new Promise((resolve, reject) => {
                 if (nextPageToken) {
-                    search.getFood({ nextPageToken }).then(({ body }) => {
-                        const data = body.data || [];
-                        resolve({
-                            token: body.token,
-                            data: data.map(val => { return { ...val, template: "food" } })
-                        });
-                    });
+                    return search.getFood({ nextPageToken })
+                }else{
+                   return search.getFood({ term, filter, location })
                 }
-                search.getFood({ term, filter, location }).then(({ body }) => {
-                    const data = body.data || [];
-                    resolve({ token: body.token, data: data.map(val => { return { ...val, template: "food" } }) });
-                });
-            });
         }
     },
     getPreview({ type, id }) {

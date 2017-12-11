@@ -6,8 +6,8 @@ export default {
     created() {
         this.filter = 'all';
         this.UPDATE_LOADING(true);
-        this.$store.dispatch("bookDetails", { pageName: "bookDetails", isbn13: this.params.id,type:"buy" }).then((res) => {
-            this.pageData = res;
+        this.$store.dispatch("bookDetails", { pageName: "bookDetails", isbn13: this.params.id,type:"buy" }).then(({data}) => {
+            this.pageData = data;
             this.UPDATE_LOADING(false);
         });
     },
@@ -31,8 +31,8 @@ export default {
             console.log(val);
             this.sortVal=val;
             this.UPDATE_LOADING(true);
-            this.$store.dispatch("bookDetails", { pageName: "bookDetails", isbn13: this.params.id,type:val }).then((res) => {
-                this.pageData = res;
+            this.$store.dispatch("bookDetails", { pageName: "bookDetails", isbn13: this.params.id,type:val }).then(({data}) => {
+                this.pageData = data;
                 this.UPDATE_LOADING(false);
             });
         }
