@@ -11,7 +11,7 @@
                         <v-layout wrap column justify-content-space-between align-item-stretch class="full-height ma-0">
                             <v-flex class="pa-0">
                                 <div class="cell-title" >{{item.name}}</div>
-                                <div class="rate">
+                                <div class="rate mb-2">
                                     <span>{{item.rating}}</span>
                                     
                                     <star-rating :inline="true" :star-size="12" 

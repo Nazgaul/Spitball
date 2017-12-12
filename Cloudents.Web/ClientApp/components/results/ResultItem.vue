@@ -1,11 +1,11 @@
 ﻿<template>
     <!--@click="(isSpitball?$_spitball($event):'')"-->
-    <a class="d-block" :target="$vuetify.breakpoint.xsOnly?'_self':'_blank'" :href="url">
+    <a class="d-block" :target="$vuetify.breakpoint.xsOnly?'_self':'_blank'" :href="url" :class="'cell-'+$route.path.slice(1)">
         <v-container class="pa-2">
             <v-layout row fluid>
                 <v-flex class="img-wrap mr-2 pa-0" :class="['border-'+$route.path.slice(1),'spitball-bg-'+$route.path.slice(1)]">
                     <img  :src="item.image" alt="" v-if="item.image">
-                    <component :is="$route.path.slice(1)+'-default'" v-else :class="'spitball-bg-'+$route.path.slice(1)" class="defaultImage"></component>
+                    <component :is="$route.path.slice(1)+'-default'" v-else :class="'spitball-bg-'+$route.path.slice(1) + 'spitball-border-'+$route.path.slice(1)" class="defaultImage"></component>
                 </v-flex>
                 <v-flex class="right-section">
                         <v-layout  wrap column justify-content-space-between align-item-stretch class="full-height ma-0">

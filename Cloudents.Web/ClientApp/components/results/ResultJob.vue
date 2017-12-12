@@ -2,10 +2,10 @@
     <a class="d-block job-cell" target="_blank" :href="item.url">
         <div class="cell-title mb-1">{{item.title}}</div>
         <div class="desc">
-            <div class="mb-2">Job description:</div>
+            <div class="desc-title">Job description:</div>
             <p>{{item.responsibilities}}</p>
         </div>
-        <v-container class="pa-0">
+        <v-container class="properties">
             <v-layout row wrap>
                 <v-flex class="property" xs6><company-icon class="mr-2"></company-icon><span>{{item.company}}</span></v-flex>
                 <v-flex class="property" xs6><location-icon class="mr-2"></location-icon><span class="location" v-if="item.city">{{item.city}}, {{item.state}}</span></v-flex>

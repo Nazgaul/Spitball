@@ -13,8 +13,13 @@
     }
 
     .rate {
-        .vue-star-rating{
-            margin-left: 2px;
+        margin-top: 2px;
+
+        .vue-star-rating {
+            margin-left: 2px;//
+            > span{
+                margin-left: 2px;
+            }
         }
 
         span {
@@ -25,8 +30,8 @@
     }
 
     .address {
-        font-size: 14px;
-        letter-spacing: -0.3px;
+        font-size: 12px;
+        letter-spacing: 0.1px;
         color: @Book-Info;
     }
 
@@ -35,6 +40,7 @@
         letter-spacing: -0.3px;
         color: @Feed-Like-count;
         .flexSameSize();
+        margin-bottom: 4px;
     }
 
     .img-wrap {

@@ -11,7 +11,7 @@
         placeholder: 'Where do you go to school?',
         closeText: "X",
         click:function(keep=true){
-            if(!keep){this.$parent.showDialog = false}else{
+            if(!keep){this.$parent.$parent.showDialog = false}else{
                 this.currentType="course";
             }
         },

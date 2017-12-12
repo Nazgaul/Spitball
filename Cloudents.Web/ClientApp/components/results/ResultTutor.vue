@@ -12,15 +12,16 @@
                                         <v-flex xs8 class="tutor-title">{{item.name}}</v-flex>
                                         <v-flex xs4 v-if="item.fee"><div class="price text-xs-right">${{item.fee}} / hour</div></v-flex>
                                     </v-layout>
-                                    <div class="tutor-info">
                                         <div class="description" v-if="item.description">{{item.description}}</div>
-                                    </div>
-                                    <div class="location" v-if="item.city">{{item.city}}, {{item.state}}</div>
+                                    
                                 </v-container>
                             </v-flex>
-                            <div class="pa-0 location" v-if="item.online">
-                                Offers online lessons
-                            </div>
+                            <v-layout class="bottom" row justify-space-between align-item-center>
+                                <flex class="location" v-if="item.city">{{item.city}}, {{item.state}}</flex>
+                                <flex class="pa-0 location" v-if="item.online">
+                                    Offers online lessons
+                                </flex>
+                            </v-layout>
                         </v-layout>
                     </v-container>
                 </v-flex>

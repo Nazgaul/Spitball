@@ -1,10 +1,10 @@
 ﻿
 <template>
-        <page-layout :type="currentType" :title="title" :search="!currentAction" :titleImage="(currentType==='course'&&!currentAction)?getUniversityImage:''" :isLoading="isLoading"  :items="items" :selectedCourse="selectedCourse" :closeFunction="$_closeButton">
-            <button class="white--text" slot="extraClose" @click="$_closeButton" v-if="currentType!=='university'">DONE</button>
+        <page-layout v-if="currentType" :type="currentType" :title="title" :search="!currentAction" :titleImage="(currentType==='course'&&!currentAction)?getUniversityImage:''" :isLoading="isLoading"  :items="items" :selectedCourse="selectedCourse" :closeFunction="$_closeButton">
+            <button class="white--text" slot="courseExtraClose" @click="$emit('input',false)">DONE</button>
             <template slot="closeAction">
-                <i v-if="currentType==='university'" class="sbf icon sbf-close"></i>
-                <i v-else class="sbf icon sbf-arrow-button"></i>
+                <i v-if="isFirst&&currentType==='course'" class="sbf icon sbf-arrow-button"></i>
+                <i v-else class="sbf icon sbf-close"></i>
             </template>
             <template v-if="currentType==='course'" slot="courseExtraItem">
                 <div class="add-course-form ma-2 py-3 px-3">

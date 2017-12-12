@@ -17,9 +17,7 @@
 
 svg {
     height: 28px;
-
-        fill: white !important;
-    
+    fill: white !important;
 }
 
 .text {
@@ -44,11 +42,20 @@ svg {
     }
 
     .image-wrapper {
-        padding: 8px 0 8px 8px;
+        padding: 12px 0 8px 8px;
     }
 
     .text-wrapper .wrapper {
         height: 100%;
+
+        .text {
+            margin-top: 20px;
+            margin-right: 32px;
+            margin-left: 22px;
+            text-align: left;
+            font-size: 16px;
+            letter-spacing: -0.15px;
+        }
 
         .button-text {
             flex-grow: 0;
@@ -59,6 +66,7 @@ svg {
                 background: @color-blue;
                 color: #ffffff;
                 margin-left: auto;
+                font-size: 12px;
             }
         }
     }

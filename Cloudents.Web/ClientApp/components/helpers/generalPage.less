@@ -3,15 +3,18 @@
 //.wrap {
 //margin-top: 2%;
 //}
-.navigation-bar  {
-    position:-webkit-sticky;
-    position:sticky;
+.navigation-bar {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 70px;
+    background: #eee;
+}
+
 .application--wrap {
     background: #eeeeee;
 }
-    top:70px;
-    background:#eee;
-}.p-result {
+
+.p-result {
 
     .first-grid {
         width: @resultsFilterWidth;
@@ -27,13 +30,13 @@
     margin: 0;
 }
 
-@spaceFromTop: @resultsTabsHeight + 40;
+@spaceFromNavBar: @resultsTabsHeight + 40;//40 px of space according to Shlomi's request
 
 .sec-result {
     max-width: 504px;
+    margin-top: 36px;
     //margin-top: @spaceFromTop;
-
-    .elevation-1 {
+    .result-cell {
         border-radius: 4px;
         overflow: hidden
     }
@@ -42,6 +45,7 @@
         background: #fff;
         border-radius: 4px;
     }
+
 }
 
 @heightOfTitle: 22px;
@@ -60,11 +64,11 @@
 }
 
 .side-bar {
+    @upperSpace: @navBarHeightDesktop + @spaceFromNavBar + 8; //TODO: check why content--wrap containes margin of -8 pixels
     position: -webkit-sticky;
     position: sticky;
-    max-height: 100vh;
-    top: @navBarHeightDesktop + @spaceFromTop + 10;
-    top: 120px;
+    max-height: ~"calc(100vh - @{upperSpace} - 16px)"; //container padding from bottom is 16
+    top: @upperSpace;
 }
 
 .chip.filter-chip {

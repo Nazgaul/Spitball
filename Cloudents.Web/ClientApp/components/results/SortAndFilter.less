@@ -3,8 +3,8 @@
 .sort-filter-wrap {
     position: -webkit-sticky;
     position: sticky;
-    top: @navBarHeightDesktop + 40;
-    padding-top: 32px;
+    top: @navBarHeightDesktop + 64;
+    padding-top: 6px;
     /*position: sticky;
     top: 74px;*/
 }
@@ -88,6 +88,7 @@
         .expansion-panel__container {
             background-color: transparent;
             border: none;
+            max-width: 100%;
 
             .expansion-panel__header {
                 padding: 9px 4px;
@@ -115,6 +116,8 @@
                 label {
                     margin-left: 6px;
                     line-height: 24px;
+                    .giveMeEllipsisOne;
+                    max-width: 124px;
                 }
 
                 input {
