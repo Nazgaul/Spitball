@@ -1,6 +1,5 @@
 ﻿import debounce from "lodash/debounce"
 const plusButton = () => import("./svg/plus-button.svg");
-const closeButton = () => import("./svg/close-icon.svg");
 import { searchObjects } from "./consts"
 const searchItemUniversity = () => import("./searchItemUniversity.vue");
 const searchItemCourse = () => import("./searchItemCourse.vue");
@@ -63,7 +62,7 @@ export default {
     },
 
     components: {
-        CourseAdd, VDialog, PageLayout, searchItemUniversity, searchItemCourse, closeButton, plusButton
+        CourseAdd, VDialog, PageLayout, searchItemUniversity, searchItemCourse, plusButton
     },
     props: { type: { type: String, required: true }, value: { type: Boolean }, keep: { type: Boolean }, isFirst: { type: Boolean } },
     methods: {

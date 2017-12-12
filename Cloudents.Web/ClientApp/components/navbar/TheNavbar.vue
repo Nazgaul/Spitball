@@ -1,5 +1,5 @@
 ﻿<template>
-<div class="sb-menu">
+<div class="sb-menu" :class="offsetTop > 0 ? 'scrolled':''" v-scroll="$_onScroll">
     <v-tabs v-model="currentPage" >
         <v-tabs-bar class="cyan" dark>
                <v-tabs-item v-for="tab in verticals" :key="tab.id" :href="tab.id" :id="tab.id" @click="$_updateType(tab.id)"  :class="['spitball-bg-'+tab.id,tab.id==currentPage?'tabs__item--active':'']"
@@ -18,7 +18,8 @@
     export default {
         data() {
             return {
-                newVertical:""
+                newVertical: "",
+                offsetTop: 0
             }
         },
 
@@ -47,13 +48,20 @@
                     }
                     this.$router.push({ path: '/' + result});
                 }
+            },
+            $_onScroll: function () {
+                console.log('woop');
+                this.offsetTop = window.pageYOffset || document.documentElement.scrollTop;
             }
+
+
         },
         computed: {
             ...mapGetters(["getUniversityName"]),
             currentPage: { get(){
                 return this.$route.meta.pageName?this.$route.meta.pageName:this.$route.path.slice(1);
-                },set(val){} }
+            }, set(val) { }
+            }
         }
     };
 </script>

@@ -9,13 +9,25 @@
     .giveMeEllipsisOne();
     max-width: ~"calc(100% - 5px)";
 
+    &.text-note {
+        color: @color-dark-purple;
+    }
+
+    &.text-flashcard {
+        margin-bottom: 4px;
+        color: @Flashcards;
+    }
     //.giveMeEllipsis(1,1.14);
     //margin-right: 40px;
 }
-.right-section  {
-    min-width:0; // elipsis casus issue this is the solution
+
+.right-section {
+    min-width: 0; // elipsis casus issue this is the solution
+    margin-left: 4px;
 }
+
 p {
+    max-width: 328px;
     //.giveMeEllipsis(3,1.29);
     font-size: 14px;
     color: #000;

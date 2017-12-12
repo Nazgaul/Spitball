@@ -1,6 +1,9 @@
 ﻿@import "../../mixin.less";
+
 .job-cell {
     color: @Book-Info !important; // override
+    padding: 4px 8px 8px 8px;
+
     .cell-title {
         font-size: 14px;
         font-weight: bold;
@@ -18,13 +21,20 @@
 
     p {
         //.giveMeEllipsis(3,1.29);
+        margin-bottom: 0;
         font-size: 14px;
         color: #000;
         height: 72px;
         margin-right: 70px;
         line-height: 1.29;
         letter-spacing: -0.3px;
-        overflow:hidden;
+        overflow: hidden;
+    }
+
+    .property {
+        display: flex;
+        align-items: center;
+        padding-top: 14px;
     }
 }
 /*@font-bold: "OpenSans-Bold";

@@ -3,7 +3,10 @@
 .sort-filter-wrap {
     position: -webkit-sticky;
     position: sticky;
-    top: 74px;
+    top: @navBarHeightDesktop + 40;
+    padding-top: 32px;
+    /*position: sticky;
+    top: 74px;*/
 }
 
 ﻿.sort-switch {
@@ -110,7 +113,6 @@
                 cursor: pointer;
 
                 label {
-                    text-transform: capitalize;
                     margin-left: 6px;
                     line-height: 24px;
                 }
