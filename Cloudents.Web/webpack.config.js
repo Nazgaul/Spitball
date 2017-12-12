@@ -31,7 +31,7 @@ module.exports = (env) => {
                                     { removeDoctype: true },
                                     { removeComments: true },
                                     { removeTitle: true },
-                                    { cleanupIDs : true}
+                                    { cleanupIDs: true }
                                 ]
                             }
                         }
@@ -42,7 +42,9 @@ module.exports = (env) => {
                         use: [
                             {
                                 loader: "url-loader", options: {
-                                    limit: 8192
+                                    limit: 8192,
+                                   // useRelativePath: !isDevBuild,
+                                    publicPath: !isDevBuild ? '//spitball.azureedge.net/dist/' : '/dist/'
 
                                 }
                             },
