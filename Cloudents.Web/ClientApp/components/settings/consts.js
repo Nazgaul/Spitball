@@ -1,6 +1,5 @@
 ﻿export let searchObjects = {
     course: {
-        emptyState: "To add your course tap on the plus sign",
         placeholder: 'What class are you taking?',
         closeText: "done",
         searchApi: "getCorses",
@@ -9,13 +8,10 @@
         action: "add"
     }, university: {
         searchApi:"getUniversities",
-        emptyState: "If you would like to add your school send us a note from the feedback link in the settings tab.",
         placeholder: 'Where do you go to school?',
         closeText: "X",
         click:function(keep=true){
-            // console.log("huii")
-            // this.dialog = false;
-            if(!keep){this.dialog = false}else{
+            if(!keep){this.$parent.showDialog = false}else{
                 this.currentType="course";
             }
         },
@@ -28,6 +24,7 @@ export let settingMenu=[
         this.showDialog = true;
         this.type = "university";
         this.keep=false;
+        this.isSearch=true;
     }
     },
     {
@@ -35,6 +32,8 @@ export let settingMenu=[
         this.showDialog=true;
         this.type=universityExist?"course":"university";
         !universityExist?this.keep=true:"";
+         this.isSearch=true;
+
         }
     }
     ];

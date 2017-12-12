@@ -1,6 +1,6 @@
 ﻿<template>
-      <v-dialog v-model="showDialog" max-width="518">
-        <v-card>
+     <v-dialog ref="person" v-model="showDialog" max-width="518" :fullscreen="isSearch" :content-class="isSearch?'dialog-choose':''" :overlay="!isSearch">
+        <v-card v-show="!isSearch">
             <v-card-title class="">Personalize Results</v-card-title>
             <v-card-text>You can tailor the results to you by adding your school and classes.</v-card-text>
             <v-card-actions>
@@ -9,8 +9,8 @@
                 <v-btn flat="flat" @click.native="$_personalize">Personalize</v-btn>
             </v-card-actions>
         </v-card>
+         <search-item v-model="showDialog" v-show="isSearch" :type="type" :keep="keep"></search-item>
     </v-dialog>
-    
 </template>
 <style lang="less" scoped>
     @import "../../mixin.less";
@@ -42,17 +42,29 @@
     }
 </style>
 <script>
-    import searchItem from '../settings/searchItem.vue'
-    import { searchObjects } from '../settings/consts'
-    import { mapGetters } from 'vuex'
+    import searchItem from './searchItem.vue'
+    import { mapGetters,mapActions } from 'vuex'
     export default {
+        components:{searchItem},
         data() {
-            return { showDialog: true }
+            return { showDialog: false,isSearch:false,type:"",keep:true}
         },
 
+        computed:{
+            ...mapGetters(['isFirst'])
+        },
+
+        created(){
+            if(this.isFirst){
+                this.updateFirstTime("isFirst");
+                this.showDialog=true;
+            }
+        },
         methods: {
+            ...mapActions(["updateFirstTime"]),
             $_personalize() {
-                this.$root.$el.querySelector("#myCourses").click();
+                this.type="university";
+                this.isSearch=true;
             }
         },
     }

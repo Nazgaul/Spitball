@@ -1,10 +1,9 @@
 ﻿
 <template>
-    <v-dialog v-model="dialog" fullscreen content-class="dialog-choose" v-if="currentItem" class="settings" :overlay=false>
-        <page-layout :type="currentType" :title="title" :search="!currentAction" :titleImage="(currentType==='course'&&!currentAction)?getUniversityImage:''" :isLoading="isLoading" :emptyText="emptyText" :items="items" :selectedCourse="selectedCourse" :closeFunction="$_closeButton">
+        <page-layout :type="currentType" :title="title" :search="!currentAction" :titleImage="(currentType==='course'&&!currentAction)?getUniversityImage:''" :isLoading="isLoading"  :items="items" :selectedCourse="selectedCourse" :closeFunction="$_closeButton">
             <button class="white--text" slot="extraClose" @click="$_closeButton" v-if="currentType!=='university'">DONE</button>
             <template slot="closeAction">
-                <i v-else v-if="currentType==='university'" class="sbf icon sbf-close"></i>
+                <i v-if="currentType==='university'" class="sbf icon sbf-close"></i>
                 <i v-else class="sbf icon sbf-arrow-button"></i>
             </template>
             <template v-if="currentType==='course'" slot="courseExtraItem">
@@ -33,7 +32,6 @@
             </v-flex>
             <component slot="actionContent" v-if="currentAction" :is="currentType+'-'+currentAction" @done="$_actionDone"></component>
         </page-layout>
-    </v-dialog>
 </template>
 <script src="./searchItem.js">
 </script>

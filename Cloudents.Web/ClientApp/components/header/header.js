@@ -1,34 +1,20 @@
 ﻿import logo from "../../../wwwroot/Images/logo-spitball.svg";
-const ResultPersonalize = () => import('./ResultPersonalize.vue');
 import { mapActions, mapGetters } from 'vuex';
 import { settingMenu } from '../settings/consts';
-import searchItem from '../settings/searchItem.vue';
-//import 'vue-awesome/icons/search';
-//import VIcon from 'vue-awesome/components/Icon.vue'
+
 
 export default {
     components: {
-        logo,searchItem,ResultPersonalize
+        logo
     },
     data() {
         return {
             settingMenu,
-            showDialog:false,
-           // placeholders: placeholders,
             currentName:"",
             qFilter: this.$route.query.q,
             keep:false,
             type:"",
-            isfirst:false
         };
-    },
-    created(){
-        this.isfirst = this.isFirst;
-        this.courseFirst=this.courseFirstTime;
-        this.$nextTick(() => {
-            if (this.isFirst) this.updateFirstTime("isFirst");
-            if(this.courseFirst)this.updateFirstTime("courseFirstTime");
-        });
     },
     computed: {
         ...mapGetters(['luisTerm','getUniversityName','isFirst']),
@@ -53,12 +39,7 @@ export default {
     watch:{
       '$route':function(val){
           this.qFilter=val.query.q;
-      },
-        showDialog(val){
-          if(!val){
-              this.isfirst=false;
-          }
-        }
+      }
     },
     props:{value:{type:Boolean}},
     methods: {
@@ -84,7 +65,8 @@ export default {
             console.log("hi")
         },
         $_currentClick(item){
-            item.click.call(this,this.getUniversityName);
+            let itemToUpdate=this.$parent.$children.find(i=>i.$refs.person);
+            item.click.call(itemToUpdate,this.getUniversityName);
         }
     }
 }
