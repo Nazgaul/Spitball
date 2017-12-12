@@ -39,7 +39,7 @@ const actions = {
     updateSearchText(context, text) {
         console.log(context);
             if (!text) {
-                return ""
+                return Promise.resolve("");
             }
            return interpetPromise(text).then(({data:body}) => {
                 let params={...body};
