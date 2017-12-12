@@ -1,5 +1,4 @@
-﻿import {  names } from "../data"
-import logo from "../../../wwwroot/Images/logo-spitball.svg";
+﻿import logo from "../../../wwwroot/Images/logo-spitball.svg";
 const ResultPersonalize = () => import('./ResultPersonalize.vue');
 import { mapActions, mapGetters } from 'vuex';
 import { settingMenu } from '../settings/consts';
@@ -16,7 +15,6 @@ export default {
             settingMenu,
             showDialog:false,
            // placeholders: placeholders,
-            names: names,
             currentName:"",
             qFilter: this.$route.query.q,
             keep:false,

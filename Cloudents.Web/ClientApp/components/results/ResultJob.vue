@@ -1,5 +1,5 @@
 ﻿<template v-once>
-    <a class="d-block pa-2 job-cell" target="_blank" :href="item.url">
+    <a class="d-block job-cell" target="_blank" :href="item.url">
         <div class="cell-title mb-1">{{item.title}}</div>
         <div class="desc">
             <div class="mb-2">Job description:</div>
@@ -7,10 +7,10 @@
         </div>
         <v-container class="pa-0">
             <v-layout row wrap>
-                <v-flex xs6><company-icon class="mr-2"></company-icon>{{item.company}}</v-flex>
-                <v-flex xs6><location-icon class="mr-2"></location-icon><span class="location" v-if="item.city">{{item.city}}, {{item.state}}</span></v-flex>
-                <v-flex xs6><paid-icon class="mr-2"></paid-icon>{{item.compensationType}}</v-flex>
-                <v-flex xs6><caldendar-icon class="mr-2"></caldendar-icon>{{formatDate}}</v-flex>
+                <v-flex class="property" xs6><company-icon class="mr-2"></company-icon><span>{{item.company}}</span></v-flex>
+                <v-flex class="property" xs6><location-icon class="mr-2"></location-icon><span class="location" v-if="item.city">{{item.city}}, {{item.state}}</span></v-flex>
+                <v-flex class="property" xs6><paid-icon class="mr-2"></paid-icon><span>{{item.compensationType}}</span></v-flex>
+                <v-flex class="property" xs6><caldendar-icon class="mr-2"></caldendar-icon><span>{{formatDate}}</span></v-flex>
             </v-layout>
         </v-container>
 

@@ -16,8 +16,10 @@
 </script>
 <style scoped>
     iframe {
+        margin-left: 0 !important;
         width:100%;
-        height:50vh; /*TODO: this is a temp solution*/
+        height: 100%;
+        max-height:444px; /*TODO: this is a temp solution*/
     }
 </style>
 

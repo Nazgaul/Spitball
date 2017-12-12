@@ -30,7 +30,7 @@
     <!--{{props.name}}-->
 </template>
 <script>
-    import logo from "./svg/sb-logo-copy.svg";
+    import logo from "./svg/sb-logo.svg";
     export default {
         components: { logo },
 

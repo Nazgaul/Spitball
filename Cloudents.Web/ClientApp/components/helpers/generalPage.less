@@ -1,18 +1,20 @@
 ﻿@import "../../mixin.less";
 
 //.wrap {
-    //margin-top: 2%;
+//margin-top: 2%;
 //}
 .navigation-bar  {
     position:-webkit-sticky;
     position:sticky;
+.application--wrap {
+    background: #eeeeee;
+}
     top:70px;
     background:#eee;
 }.p-result {
-    background: #eeeeee;
 
     .first-grid {
-        width: 230px;
+        width: @resultsFilterWidth;
         .flexSameSize();
         padding: 0 50px 0 20px;
     }
@@ -25,9 +27,11 @@
     margin: 0;
 }
 
+@spaceFromTop: @resultsTabsHeight + 40;
+
 .sec-result {
     max-width: 504px;
-    margin-top: @heightOfTitle+4;
+    //margin-top: @spaceFromTop;
 
     .elevation-1 {
         border-radius: 4px;
@@ -59,10 +63,12 @@
     position: -webkit-sticky;
     position: sticky;
     max-height: 100vh;
+    top: @navBarHeightDesktop + @spaceFromTop + 10;
     top: 120px;
 }
 
 .chip.filter-chip {
+    margin-top: 0;
 
     .chip__content {
         cursor: pointer;

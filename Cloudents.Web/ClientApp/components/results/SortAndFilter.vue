@@ -26,7 +26,7 @@
                                 <input type="checkbox" :id="(s.id?s.id:s)" :checked="props.filterVal.includes(s.id?s.id:s.toString())" @change="props.filterCallback({id:k.modelId,val:(s.id?s.id:s),type:$event})"/>
                                 <label :for="(s.id?s.id:s)">{{s.name?s.name:s}}</label>
                             </div>
-                            <slot :name="`${k.modelId}EmptyState`" v-if="k.data.length===0"></slot>
+                            <slot :name="`${k.modelId}EmptyState`" v-if="k.data&&k.data.length===0"></slot>
                             <slot :name="`${k.modelId}ExtraState`" v-else></slot>
                         </div>
                     </v-expansion-panel-content>

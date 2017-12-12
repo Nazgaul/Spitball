@@ -1,6 +1,7 @@
 ﻿@import "../../mixin.less";
+
 a {
- //   width: 100%;
+    //   width: 100%;
     //height: 136px;
 }
 
@@ -8,29 +9,42 @@ a {
     height: 120px !important; /*override inline style*/
 }
 
-.title {
+.tutor-title {
     font-size: 17px;
     letter-spacing: -0.4px;
     color: @Tutors;
 }
-.avatar  {
+
+.avatar {
     .flexSameSize();
 }
+
 .price {
+    margin-right: 6px;
     font-size: 17px;
     letter-spacing: -0.4px;
     color: @Tutor-Price;
 }
+
 .location {
     font-size: 11px;
     letter-spacing: -0.3px;
     color: @Feed-Date;
 }
-.description {
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: -0.3px;
-    color: @Book-Info;
-    height: 38px;
-    overflow: hidden;
+
+.tutor-info {
+    height: 62px;
+    max-width: 364px;
+    .description {
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: -0.3px;
+        color: @Book-Info;
+        overflow: hidden;
+    }
+
+    .about{
+        color: @Book-Info;
+        font-size: 12px;
+    }
 }

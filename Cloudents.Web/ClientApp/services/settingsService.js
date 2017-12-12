@@ -1,12 +1,12 @@
-﻿import { university,course } from './resources';
+﻿import { getUniversity,course } from './resources';
 export default {
     getUniversity(term) {
-        return university.get({term});
+        return getUniversity({term});
     },
     getCourse(params) {
-        return course.get(params);
+        return course.getCourse(params);
     },
     createCourse(model) {
-        return course.create(model, { emulateJSON: true });
+        return course.createCourse(model);
     }
 }
