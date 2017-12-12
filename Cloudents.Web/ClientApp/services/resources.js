@@ -10,14 +10,14 @@ let transferResultNote=res=>{
     return {source: res.facet,data:result.map(val => { return { ...val, template: "item" } })}
 };
 //todo think about error
-let transferResultAsk=(res,header)=>{
-    console.log(header);
-    if(Number(header.status)!==200)return {data:[]};
+let transferResultAsk=res=>{
     const video = res.video;
     const itemResult = res.result || [];
     const items = itemResult.map(val => { return { ...val, template: "item" } });
     const data = video ? [{...video,template:"video"},...items]:items;
-    return {data}
+    console.log(res);
+    console.log(data);
+    return {data:items}
 };
 let transferResultTutor=data=>{
     let body = data || [];
