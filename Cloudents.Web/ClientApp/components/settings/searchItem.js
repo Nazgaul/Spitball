@@ -49,7 +49,7 @@ export default {
     components: {
         CourseAdd, PageLayout, searchItemUniversity, searchItemCourse, plusButton
     },
-    props: { type: { type: String, required: true }, keep: { type: Boolean }},
+    props: { type: { type: String, required: true }, keep: { type: Boolean },isFirst:{type:Boolean}},
     methods: {
         ...mapMutations({ updateUser: "UPDATE_USER" }),
         ...mapActions(["createCourse"]),
@@ -58,7 +58,12 @@ export default {
             this.updateUser({ myCourses: this.myCourses.filter(i => i.id !== val) });
         },
         $_closeButton() {
-            this.currentAction ? this.currentAction = "" : this.$emit('input',false);
+            if(this.isFirst&&this.currentType==="course"&&!this.currentAction){
+                this.currentType="university";
+            }else {
+
+                this.currentAction ? this.currentAction = "" : this.$emit('input', false);
+            }
         },
         $_clickItemCallback(keep) {
            if (this.currentItem.click) {

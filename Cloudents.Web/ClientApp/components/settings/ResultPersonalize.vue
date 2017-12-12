@@ -9,7 +9,7 @@
                 <v-btn flat="flat" @click.native="$_personalize">Personalize</v-btn>
             </v-card-actions>
         </v-card>
-         <search-item v-model="showDialog" v-show="isSearch" :type="type" :keep="keep"></search-item>
+         <search-item v-model="showDialog" v-show="isSearch" :type="type" :keep="keep" :isFirst="isfirst"></search-item>
     </v-dialog>
 </template>
 <style lang="less" scoped>
@@ -47,15 +47,21 @@
     export default {
         components:{searchItem},
         data() {
-            return { showDialog: false,isSearch:false,type:"",keep:true}
+            return { showDialog: false,isSearch:false,type:"",keep:true,isfirst:false}
         },
 
         computed:{
             ...mapGetters(['isFirst'])
         },
 
+        watch:{
+            showDialog(val){
+                !val&&this.isfirst?this.isfirst=false:"";
+            }
+        },
         created(){
             if(this.isFirst){
+                this.isfirst=true;
                 this.updateFirstTime("isFirst");
                 this.showDialog=true;
             }
