@@ -2,7 +2,7 @@
     <v-layout class="d-wrapper" column>
         <div class="d-header pt-3 mb-5">
             <v-layout class="navigation-buttons" row reverse justify-space-between>
-                <slot name="extraClose"></slot>
+                <slot :name="`${props.type}ExtraClose`"></slot>
                 <button type="button" @click="props.closeFunction">
                     <slot name="closeAction"></slot>
                 </button>
@@ -23,7 +23,6 @@
                             <template v-for="course in props.selectedCourse">
                                 <slot name="selectedItems" :course="course"></slot>
                             </template>
-                            <slot v-if="props.type==='course'" name="courseFirstTime"></slot>
                         </v-layout>
                     </v-container>
                 </v-container>
@@ -34,15 +33,9 @@
         </div>
         <v-flex class="results-container" v-else-if="props.search&&!props.isLoading">
             <v-layout fluid class="d-result" row justify-start wrap>
-                <slot v-if="props.items.length">
-                    <template v-for="item in props.items">
+                    <template v-for="item in props.items" v-if="props.items.length">
                         <slot name="results" :item="item"></slot>
                     </template>
-                </slot>
-                <!--<div v-else>
-                    <div>No Results Found</div>
-                    <div v-html="props.emptyText"></div>
-                </div>-->
                 <slot :name="`${props.type}ExtraItem`"></slot>
             </v-layout>
             <slot name="actionContent">

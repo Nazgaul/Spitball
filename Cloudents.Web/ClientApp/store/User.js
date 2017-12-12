@@ -5,7 +5,6 @@ const state = {
         universityId: null,
         myCourses: [],
         isFirst: true,
-        courseFirstTime:true,
         pinnedCards: {}
     }
 };
@@ -17,7 +16,6 @@ const mutations = {
 };
 const getters = {
     isFirst: state => state.user.isFirst,
-    courseFirstTime:state => state.user.courseFirstTime,
     pinnedCards: state => state.user.pinnedCards,
     getUniversity: state => {
         let obj = state.user.universityId || {};

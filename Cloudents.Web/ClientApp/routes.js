@@ -7,6 +7,7 @@ const showFlashcard = () => import("./components/preview/Flashcard.vue");
 const notFound = () => import("./components/results/notFound.vue");
 const theNavbar = () => import("./components/navbar/TheNavbar.vue");
 const moreInfo = () => import("./components/results/MoreInfo.vue");
+const personalize=()=>import("./components/settings/ResultPersonalize.vue");
 import {page, verticalsName,verticalsNavbar,details} from './data'
 const $_calcTerm=(name)=>{return (name.includes('food')||name.includes('purchase'))?'foodTerm':name.includes('job')?'jobTerm':'term'};
 
@@ -73,8 +74,8 @@ function verticalsLinkFun(route){
     }
 }
 
-const resultPage = {  default: resultContent ,verticalList:theNavbar};
-const bookDetailsPage = { default: bookDetails,verticalList:theNavbar };
+const resultPage = {  default: resultContent ,verticalList:theNavbar,personalize};
+const bookDetailsPage = { default: bookDetails,verticalList:theNavbar,personalize };
 const notFoundPage = { default: notFound };
 const resultProps = { default: dynamicPropsFn,verticalList:verticalsLinkFun};
 

@@ -19,10 +19,11 @@ module.exports = (env) => {
                 vendor: [
                     "vue",
                     "vue-router",
-                    "vue-resource",
                     "vuex",
                     "vue-analytics",
                     "vue-lazyload",
+                    "axios",
+                    "querystring",
                     "./ClientApp/main.styl",
                     "./wwwroot/content/main.less",
                     "./ClientApp/myFont.font.js",

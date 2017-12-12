@@ -43,9 +43,7 @@
                 } else {
 
                     if (!this.getUniversityName && (result !== 'food' && result !== 'job')) {
-                        let header = this.$root.$children[0].$refs.header;
-                        header.isfirst = true;
-                        header.$refs.personalize.showDialog = true;
+                        this.$root.$children[0].$refs.personalize.showDialog=true;
                         return;
                     }
                     this.$router.push({ path: '/' + result });

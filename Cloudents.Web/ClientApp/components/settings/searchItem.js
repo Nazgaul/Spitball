@@ -6,13 +6,8 @@ const searchItemCourse = () => import("./searchItemCourse.vue");
 import { mapGetters, mapMutations, mapActions } from "vuex"
 import CourseAdd from "./courseAdd.vue";
 import PageLayout from "./layout.vue";
-import VDialog from "vuetify/src/components/VDialog/VDialog";
 
 export default {
-    model: {
-        prop: "value",
-        event: "change"
-    },
     watch: {
         type(val) {
             this.currentType = val;
@@ -25,16 +20,7 @@ export default {
     },
     computed: {
         ...mapGetters(["courseFirstTime","myCourses", "getUniversityImage", "getUniversityName","myCoursesId"]),
-        dialog: {
-            get() {
-                return this.value;
-            }, set(val) {
-                if (!val) this.$refs.searchText.inputValue = "";
-                this.$emit("change", val);
-            }
-        },
         title() {
-            if (this.currentAction && !this.dialog) this.dialog = true;
             if (this.currentAction) return "Add Class";
             if (this.currentType === "course") return this.getUniversityName;
             return "Personalize Results";
@@ -42,7 +28,6 @@ export default {
         currentItem: function () {
             return searchObjects[this.currentType];
         },
-        emptyText: function () { return this.currentItem.emptyState },
         selectedCourse() {
             if (this.currentType === "course"){
                 this.items=this.items.filter(i=>!this.myCoursesId.includes(i.id));    
@@ -62,19 +47,23 @@ export default {
     },
 
     components: {
-        CourseAdd, VDialog, PageLayout, searchItemUniversity, searchItemCourse, plusButton
+        CourseAdd, PageLayout, searchItemUniversity, searchItemCourse, plusButton
     },
-    props: { type: { type: String, required: true }, value: { type: Boolean }, keep: { type: Boolean }, isFirst: { type: Boolean } },
+    props: { type: { type: String, required: true }, keep: { type: Boolean },isFirst:{type:Boolean}},
     methods: {
         ...mapMutations({ updateUser: "UPDATE_USER" }),
         ...mapActions(["createCourse"]),
         $_removeCourse(val) {
             this.items.push(this.myCourses.find(i=>i.id===val));
             this.updateUser({ myCourses: this.myCourses.filter(i => i.id !== val) });
-            // this.items.push(val);
         },
         $_closeButton() {
-            this.currentAction ? this.currentAction = "" : this.dialog = false;
+            if(this.isFirst&&this.currentType==="course"&&!this.currentAction){
+                this.currentType="university";
+            }else {
+
+                this.currentAction ? this.currentAction = "" : this.$emit('input', false);
+            }
         },
         $_clickItemCallback(keep) {
            if (this.currentItem.click) {
