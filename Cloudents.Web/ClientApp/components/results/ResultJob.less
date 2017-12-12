@@ -17,6 +17,10 @@
         line-height: 1.29;
         letter-spacing: -0.3px;
         color: @Book-Info;
+
+        .desc-title {
+            margin-bottom: 6px;
+        }
     }
 
     p {
@@ -31,10 +35,19 @@
         overflow: hidden;
     }
 
-    .property {
-        display: flex;
-        align-items: center;
-        padding-top: 14px;
+
+    .properties {
+        margin-top: 6px;
+        padding: 0 144px 0 0;
+
+        .property {
+            display: flex;
+            align-items: center;
+
+            &:nth-child(3), &:nth-child(4) {
+                margin-top: 14px;
+            }
+        }
     }
 }
 /*@font-bold: "OpenSans-Bold";

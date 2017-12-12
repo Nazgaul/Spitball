@@ -20,7 +20,7 @@ a {
 }
 
 .price {
-    margin-right: 6px;
+    margin-right: 8px;
     font-size: 17px;
     letter-spacing: -0.4px;
     color: @Tutor-Price;
@@ -32,19 +32,22 @@ a {
     color: @Feed-Date;
 }
 
-.tutor-info {
-    height: 62px;
-    max-width: 364px;
-    .description {
-        font-size: 14px;
-        font-weight: 600;
-        letter-spacing: -0.3px;
-        color: @Book-Info;
-        overflow: hidden;
-    }
+.description {
+    font-size: 12px;
+    letter-spacing: -0.3px;
+    color: @Book-Info;
+    overflow: hidden;
+    margin-top: 4px;
+    .giveMeEllipsis(4,15px);
+    margin-right: 36px;
 
-    .about{
-        color: @Book-Info;
-        font-size: 12px;
+    @media(max-width: 600px) {
+        margin-right: 16px;
     }
+}
+
+.bottom {
+    flex-grow: 0;
+    margin-bottom: -4px;
+    margin-right: 8px;
 }

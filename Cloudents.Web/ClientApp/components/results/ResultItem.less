@@ -21,13 +21,29 @@
     //margin-right: 40px;
 }
 
+.cell-note .img-wrap {
+    border: 1px solid @Class-Material;
+}
+
+.cell-flashcard .img-wrap {
+    border: 1px solid @Flashcards;
+}
+
+.cell-ask .img-wrap {
+    border: 1px solid @Ask-a-Question
+}
+
 .right-section {
     min-width: 0; // elipsis casus issue this is the solution
-    margin-left: 4px;
+    margin-left: 2px;
+    margin-right: 36px;
+
+    @media(max-width: 600) {
+        margin-right: 16px;
+    }
 }
 
 p {
-    max-width: 328px;
     //.giveMeEllipsis(3,1.29);
     font-size: 14px;
     color: #000;
@@ -36,13 +52,14 @@ p {
     line-height: 1.29;
     letter-spacing: -0.3px;
     overflow: hidden;
+    margin-top: 4px;
 }
 
 .bottom {
     flex-grow: 0;
     color: #9b9b9b;
-    font-size: 10px;
-    letter-spacing: -0.2px;
+    font-size: 12px;
+    letter-spacing: -0.03em;
     .flexSameSize();
 }
 

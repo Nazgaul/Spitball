@@ -6,12 +6,12 @@
                     <img :src="item.image" alt="">
                 </div>
                 <v-flex class="details ml-2">
-                    <div class="mb-3 cell-title">{{item.title}}</div>
-                    <div v-if="item.author">Author: {{item.author}}</div>
-                    <div v-if="item.isbn13">ISBN 13: {{item.isbn13}}</div>
-                    <div v-if="item.isbn10">ISBN 10: {{item.isbn10}}</div>
-                    <div v-if="item.edition">Edition: {{item.edition}}</div>
-                    <div v-if="item.binding">Blinding: {{item.binding}}</div>
+                    <div class="cell-title">{{item.title}}</div>
+                    <div class="book-info author" v-if="item.author">Author: {{item.author}}</div>
+                    <div class="book-info isbn13" v-if="item.isbn13">ISBN 13: {{item.isbn13}}</div>
+                    <div class="book-info isbn10" v-if="item.isbn10">ISBN 10: {{item.isbn10}}</div>
+                    <div class="book-info edition" v-if="item.edition">Edition: {{item.edition}}</div>
+                    <div class="book-info binding" v-if="item.binding">Binding: {{item.binding}}</div>
                 </v-flex>
             </v-layout>
         </v-container>
