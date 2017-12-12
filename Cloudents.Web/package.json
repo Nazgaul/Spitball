@@ -47,7 +47,7 @@
     "purify-css": "1.2.6",
     "webfontloader": "1.6.28",
     "axios": "^0.17.1",
-    "qs":"^6.5.1"
+    "querystring":"^0.2.0"
   },
   "dependencies": {}
 }

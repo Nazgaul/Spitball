@@ -111,7 +111,7 @@ export const pageMixin =
                 items: '',
                 pageData: '',
                 selectedItem:null,
-                filterObject:{}
+                filterObject:null
             };
         },
 
@@ -149,7 +149,7 @@ export const pageMixin =
         methods: {
             ...mapActions(['updateSearchText', 'fetchingData']),
             $_updateFilterObject(){
-                if(!this.page.filter){ this.filterObject={}}
+                if(!this.page.filter){ this.filterObject=null}
                 else if(!this.subFilterVertical){
                     this.filterObject=[{title:'filter',modelId:"filter",data:this.page.filter}];
                 }
