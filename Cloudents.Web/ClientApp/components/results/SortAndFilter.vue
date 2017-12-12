@@ -33,7 +33,7 @@
                 </v-expansion-panel>
             </div>
         </div>
-        <v-flex class="text-xs-center pt-2"> {{props.version}}</v-flex>
+        <!--<v-flex class="text-xs-center pt-2"> {{props.version}}</v-flex>-->
     </div>
 </template>
 <style src="./SortAndFilter.less" lang="less"></style>

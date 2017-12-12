@@ -25,7 +25,7 @@ namespace Cloudents.Web.Api
         [HttpGet]
         public async Task<IActionResult> Get(string term, long universityId, CancellationToken token)
         {
-            if (universityId == default)
+            if (universityId == 0)
             {
                 throw new ArgumentException(nameof(universityId));
             }

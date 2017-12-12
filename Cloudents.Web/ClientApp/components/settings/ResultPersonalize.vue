@@ -40,6 +40,16 @@
         letter-spacing: -0.3px;
         color: @Spitball-Main-color;
     }
+    .overlay {
+        &:before
+
+    {
+        background-color: rgba(0,0,0,.6);
+    }
+    /*&:after {
+        filter: blur(20px);
+    }*/
+    }
 </style>
 <script>
     import searchItem from './searchItem.vue'

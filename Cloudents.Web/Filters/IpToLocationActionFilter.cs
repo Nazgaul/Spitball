@@ -52,7 +52,7 @@ namespace Cloudents.Web.Filters
                 ipV4 = IPAddress.Parse("72.229.28.185");
             }
 
-            var ipDto = await _ipToLocation.GetAsync(ipV4, default).ConfigureAwait(false);
+            var ipDto = await _ipToLocation.GetAsync(ipV4, context.HttpContext.RequestAborted).ConfigureAwait(false);
             place = new GeoPoint
             {
                 Latitude = ipDto.Latitude,

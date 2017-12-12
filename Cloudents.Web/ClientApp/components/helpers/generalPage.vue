@@ -9,8 +9,6 @@
                         </slot>
                     </v-flex>
                     <v-container class="results-section px-0 pt-0" fluid>
-
-
                         <v-layout row>
                             <v-flex class="sec-result">
                                 <div v-if="props.filterSelection.length" class="pb-3">
