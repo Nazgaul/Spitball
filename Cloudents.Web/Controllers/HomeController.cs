@@ -5,7 +5,8 @@ namespace Cloudents.Web.Controllers
 {
     public class HomeController : Controller
     {
-        [ResponseCache(Duration = TimeConst.Day)]
+        //[ResponseCache()] 
+      // we can't use that for now.
         // GET
         public IActionResult Index()
         {
