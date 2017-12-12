@@ -2,47 +2,41 @@
 import qs from "querystring"
 
 axios.defaults.paramsSerializer=params => qs.stringify(params, { indices: false });
+axios.defaults.responseType="json";
 axios.defaults.baseURL="api/";
 
-let transferResultNote=data=>{
-    let res=JSON.parse(data);
+let transferResultNote=res=>{
     let result = res.result || [];
     return {source: res.facet,data:result.map(val => { return { ...val, template: "item" } })}
 };
 //todo think about error
-let transferResultAsk=(pop,header)=>{
+let transferResultAsk=(res,header)=>{
     console.log(header);
     if(Number(header.status)!==200)return {data:[]};
-    let res=JSON.parse(pop);
     const video = res.video;
     const itemResult = res.result || [];
     const items = itemResult.map(val => { return { ...val, template: "item" } });
     const data = video ? [{...video,template:"video"},...items]:items;
     return {data}
 };
-let transferResultTutor=pop=>{
-    let data=JSON.parse(pop);
+let transferResultTutor=data=>{
     let body = data || [];
     return{ data: body.map(val => { return { ...val, template: "tutor" } }) };
 };
-let transferJob=pop=>{
-    let body=JSON.parse(pop);
+let transferJob=body=>{
     let {result,facet:jobType}=body;
     return{ jobType, data: result.map(val => { return { ...val, template: "job" } }) };
 };
-let transferBook=pop=>{
-    let body=JSON.parse(pop);
+let transferBook=body=>{
     body = body || [];
     let data =  body.map(val => { return { ...val, template: "book" } });
     return {data}
 };
-let transferFood=pop=>{
-    let body=JSON.parse(pop);
+let transferFood=body=>{
     const data = body.data || [];
     return{ token: body.token, data: data.map(val => { return { ...val, template: "food" } }) };
 };
-let transferBookDetails=pop=>{
-    let body=JSON.parse(pop);
+let transferBookDetails=body=>{
     let prices = body.prices || [];
     return {details: body.details, data: prices.map(val => { return { ...val, template: "book-price" }})}
 };
