@@ -12,76 +12,7 @@
          <search-item v-model="showDialog" v-show="isSearch" :type="type" :keep="keep" :isFirst="isfirst"></search-item>
     </v-dialog>
 </template>
-<style lang="less" scoped>
-    @import "../../mixin.less";
-    .card{
-        border-radius:6px;
-    } 
-    .card__title {
-        font-size: 36px;
-        font-weight: 300;
-        letter-spacing: -0.5px;
-        text-align: center;
-        color: @Spitball-Text;
-        display: block; //override
-    }
-    .card__text {
-        font-size: 16px;
-        letter-spacing: -0.3px;
-        text-align: center;
-        max-width: 360px;
-        margin: 0 auto;
-        line-height: 1.38;
-        color: @Feed-Like-count;
-    }
-    .btn {
-        text-transform: capitalize;
-        font-size: 16px;
-        letter-spacing: -0.3px;
-        color: @Spitball-Main-color;
-    }
-    .overlay {
-        &:before
-
-    {
-        background-color: rgba(0,0,0,.6);
-    }
-    /*&:after {
-        filter: blur(20px);
-    }*/
-    }
+<style lang="less" src="./ResultPersonalize.less" scoped>
 </style>
-<script>
-    import searchItem from './searchItem.vue'
-    import { mapGetters,mapActions } from 'vuex'
-    export default {
-        components:{searchItem},
-        data() {
-            return { showDialog: false,isSearch:false,type:"",keep:true,isfirst:false}
-        },
-
-        computed:{
-            ...mapGetters(['isFirst'])
-        },
-
-        watch:{
-            showDialog(val){
-                !val&&this.isfirst?this.isfirst=false:"";
-            }
-        },
-        created(){
-            if(this.isFirst){
-                this.isfirst=true;
-                this.updateFirstTime("isFirst");
-                this.showDialog=true;
-            }
-        },
-        methods: {
-            ...mapActions(["updateFirstTime"]),
-            $_personalize() {
-                this.type="university";
-                this.isSearch=true;
-            }
-        },
-    }
+<script src="./ResultPersonalize.js">  
 </script>
