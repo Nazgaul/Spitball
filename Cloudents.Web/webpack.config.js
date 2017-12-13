@@ -6,6 +6,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 //const PurifyCSSPlugin = require('purifycss-webpack');
 var Visualizer = require("webpack-visualizer-plugin");
+const cdnUrl = '//spitball.azureedge.net/dist/';
 //var resolve = (p) => path.resolve(__dirname, p);
 
 
@@ -44,7 +45,7 @@ module.exports = (env) => {
                                 loader: "url-loader", options: {
                                     limit: 8192,
                                    // useRelativePath: !isDevBuild,
-                                    publicPath: !isDevBuild ? '//spitball.azureedge.net/dist/' : '/dist/'
+                                    //publicPath: !isDevBuild ? 'cdnUrl' : '/dist/'
 
                                 }
                             },
@@ -93,7 +94,7 @@ module.exports = (env) => {
                 path: path.join(__dirname, bundleOutputDir),
                 // With the filename `build.js` so it's dist/build.js
                 filename: "[name].js",
-                publicPath: "/dist/"
+                publicPath: isDevBuild ? "/dist/" : "//spitball.azureedge.net/dist/"
             },
             plugins: [
                 new webpack.DefinePlugin({
