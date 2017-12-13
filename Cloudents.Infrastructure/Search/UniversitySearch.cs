@@ -36,7 +36,7 @@ namespace Cloudents.Infrastructure.Search
             {
                 Select = listOfSelectParams,
                 Filter = "geographyPoint ne null",
-                OrderBy = new List<string> { "search.score()", University.NameProperty }
+                OrderBy = new List<string> { "search.score() desc", University.NameProperty }
             };
             if (location != null)
             {

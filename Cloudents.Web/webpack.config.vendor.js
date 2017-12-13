@@ -79,7 +79,7 @@ module.exports = (env) => {
             },
             output: {
                 path: path.join(__dirname, "wwwroot", "dist"),
-                publicPath: "/dist/",
+                publicPath: isDevBuild? "/dist/" : "//spitball.azureedge.net/dist/",
                 filename: "[name].js",
                 library: "[name]"
             },
