@@ -30,7 +30,7 @@
     margin: 0;
 }
 
-@spaceFromNavBar: @resultsTabsHeight + 40;//40 px of space according to Shlomi's request
+@spaceFromNavBar: @resultsTabsHeight + 40; //40 px of space according to Shlomi's request
 
 .sec-result {
     max-width: 504px;
@@ -45,7 +45,6 @@
         background: #fff;
         border-radius: 4px;
     }
-
 }
 
 
@@ -58,10 +57,23 @@
 }
 
 .chip.filter-chip {
-    margin-top: 0;
+    margin: 0 8px 0 0;
+
+    &:focus {
+        box-shadow: none;
+
+        &:after {
+            content: none;
+        }
+    }
 
     .chip__content {
         cursor: pointer;
+        padding: 0 4px 0 8px;
+        letter-spacing: -0.8px;
+        min-width: 102px;
+        border-radius: 4px;
+        color: @color-grey;
     }
     /*.chip {
         background-color: @Dividers;
@@ -73,6 +85,7 @@
     //color: #4a4a4a;
     i {
         margin: 0 4px 0 16px;
-        font-size: 12px;
+        font-size: 10px;
+        color: @color-grey;
     }
 }

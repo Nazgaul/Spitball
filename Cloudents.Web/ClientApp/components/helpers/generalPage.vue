@@ -4,7 +4,7 @@
         <div class="p-result">
             <v-container fluid class="pa-0 wrap">
                 <v-layout row class="navigation-bar">
-                    <v-flex class="first-grid hidden-sm-and-down left-side-bar">
+                    <v-flex class="first-grid hidden-xs-only left-side-bar">
                         <slot name="options">
                         </slot>
                     </v-flex>
