@@ -47,12 +47,12 @@ namespace Cloudents.Infrastructure.Search
                 Result = result.Where(s => s.Result != null).SelectMany(s => s.Result),
                 Facet = new[]
                 {
-                    "spitball.co",
-                    "studysoup.com",
-                    "coursehero.com",
-                    "cliffsnotes.com",
-                    "oneclass.com",
-                    "koofers.com",
+                    "Spitball.co",
+                    "Studysoup.com",
+                    "Coursehero.com",
+                    "Cliffsnotes.com",
+                    "Oneclass.com",
+                    "Koofers.com",
                 }
             };
         }
