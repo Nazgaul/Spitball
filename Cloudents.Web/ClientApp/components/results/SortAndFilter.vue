@@ -21,7 +21,7 @@
                                 <v-icon>sbf-arrow-button</v-icon>
                             </div>
                         </template>
-                        <div class="sort-filter pa-2">
+                        <div class="sort-filter">
                             <div v-for="s in k.data" :key="(s.id?s.id:s)" class="filter">
                                 <input type="checkbox" :id="(s.id?s.id:s)" :checked="props.filterVal.includes(s.id?s.id:s.toString())" @change="props.filterCallback({id:k.modelId,val:(s.id?s.id:s),type:$event})"/>
                                 <label :title="s.name?s.name:s" :for="(s.id?s.id:s)">{{s.name?s.name:s}}</label>
