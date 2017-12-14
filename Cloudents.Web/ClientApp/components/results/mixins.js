@@ -84,6 +84,13 @@ export const pageMixin =
                 next();
             });
         },
+
+        watch:{
+            myCourses(val){
+                let courseIndex = this.filterObject.findIndex(i => i.modelId === "course");
+                this.filterObject[courseIndex].data=val;
+            }
+        },
         computed: {
             ...mapGetters(['term', 'isFirst','myCourses','luisTerm']),
             content: {
@@ -187,6 +194,7 @@ export const pageMixin =
                 course=course?[].concat(course).filter(i=>i!== val):course;
                 filter=filter?[].concat(filter).filter(i=>i!== val):filter;
                 jobType=jobType?[].concat(jobType).filter(i=>i!== val):jobType;
+                this.$route.meta.myClasses=course;
                 this.$router.push({path:this.name,query:{...this.query,source,course,filter,jobType}});
             },
             $_openPersonalize(){
