@@ -124,7 +124,19 @@ export const pageMixin =
 
         components: { foodExtra, ResultItem,SuggestCard, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood },
 
+        beforeRouteEnter (to, from, next) {
+            new Promise(resolve => {
+                if(from.name&&from.name==="bookDetails"){
+                    to.meta.vertical=true;
+                    resolve();
+                }else{
+                    resolve();
+                }
+            }).then(()=>next())
+
+        },
         created() {
+            console.log("created");
             if(this.query.course)this.$route.meta.myClasses=this.query.course;
             this.UPDATE_LOADING(true);
             if(!this.query.q||!this.query.q.length){
@@ -135,7 +147,7 @@ export const pageMixin =
             }else {
                 this.updateSearchText(this.query.q).then((response) => {
                     this.$route.meta[this.$_calcTerm(response.result)] = {term: this.query.q, luisTerm: response.term};
-                    if (response.result !== this.name) {
+                    if (!this.vertical&&response.result !== this.name) {
                         this.UPDATE_LOADING(false);
                         let routeParams = {path: '/' + response.result, query: {...this.query, q: this.query.q}};
                         this.$router.replace(routeParams);
@@ -205,6 +217,6 @@ export const pageMixin =
                 return !Number.isNaN(item)&&this.myCourses.find(x=>x.id===Number(item))?this.myCourses.find(x=>x.id===Number(item)).name:item;
             }
         },
-        props: { hasExtra: {type:Boolean},currentTerm:{type:[String,Object]},getFacet:{type:[Array]},currentSuggest:{type:String}}
+        props: { hasExtra: {type:Boolean},currentTerm:{type:[String,Object]},getFacet:{type:[Array]},currentSuggest:{type:String},vertical:{}}
 
     };

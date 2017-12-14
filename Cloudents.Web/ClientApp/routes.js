@@ -46,8 +46,8 @@ function dynamicPropsFn(route) {
         page: page[newName],
         $_calcTerm: $_calcTerm,
         getFacet: route.meta[`${newName}Facet`],
-        currentSuggest: verticalsName.filter(i => i !== newName)[(Math.floor(Math.random() * (verticalsName.length - 2))
-        )]
+        currentSuggest: verticalsName.filter(i => i !== newName)[(Math.floor(Math.random() * (verticalsName.length - 2)))],
+        vertical:route.meta.vertical
     }
 }
 function dynamicDetailsPropsFn(route) {
