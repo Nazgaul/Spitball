@@ -15,9 +15,7 @@ let transferResultAsk=res=>{
     const itemResult = res.result || [];
     const items = itemResult.map(val => { return { ...val, template: "item" } });
     const data = video ? [{...video,template:"video"},...items]:items;
-    console.log(res);
-    console.log(data);
-    return {data:items}
+    return {data}
 };
 let transferResultTutor=data=>{
     let body = data || [];
