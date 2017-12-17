@@ -84,7 +84,6 @@ export const routes = [
     {
         path: "/", component: HomePage, name: "home", meta: {
             showHeader: false
-            
         }
     },
 

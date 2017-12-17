@@ -1,5 +1,11 @@
 ﻿@using System.Reflection
+@using System.Text.RegularExpressions
+@using Cloudents.Web.Extensions
+@using Microsoft.AspNetCore.Hosting
+@using Microsoft.Extensions.FileProviders
 @inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+@inject IHostingEnvironment Environment
+@inject WebPackChunkName Provider
 @{
     const string themeColor = "#4190b";
     ViewBag.title = ViewBag.title ?? "Spitball";
@@ -7,7 +13,8 @@
     ViewBag.fbImage = ViewBag.fbImage ?? "/images/3rdParty/fbShare.png";
     ViewBag.imageSrc = ViewBag.imageSrc ?? "/images/3rdParty/fbShare.png";
     var version = Assembly.GetEntryAssembly().GetName().Version.ToString(4);
-
+    var p = Provider.GetTag("vendor");
+    var main = Provider.GetTag("main");
 }
 <!DOCTYPE html>
 
@@ -18,23 +25,20 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <base href="~/" />
-    @* <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">*@
     <environment include="Development">
-        <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/dist/@p.Css" />
     </environment>
 
     <environment exclude="Development">
-        <link rel="stylesheet" href="//spitball.azureedge.net/dist/vendor.css?v=@version"
-              asp-fallback-href="~/dist/vendor.css"
+        <link rel="stylesheet" href="//spitball.azureedge.net/dist/@p.Css"
+              asp-fallback-href="~/dist/@p.Css"
               asp-fallback-test-class="cdn-only" asp-fallback-test-property="position"
-              asp-fallback-test-value="absolute"
-              asp-append-version="true" />
+              asp-fallback-test-value="absolute" />
 
-        <link rel="stylesheet" href="//spitball.azureedge.net/dist/site.css?v=@version"
-              asp-fallback-href="~/dist/site.css"
+        <link rel="stylesheet" href="//spitball.azureedge.net/dist/@main.Css"
+              asp-fallback-href="~/dist/@main.Css"
               asp-fallback-test-class="cdn-only2" asp-fallback-test-property="position"
-              asp-fallback-test-value="absolute"
-              asp-append-version="true" />
+              asp-fallback-test-value="absolute" />
     </environment>
     <meta charset="utf-8">
     <meta name="theme-color" content="@themeColor">
@@ -76,15 +80,14 @@
         @RenderBody()
     </div>
     <div class="cdn-only"></div>
-    <div class="cdn-only2"></div>
+
     <environment include="Development">
-        <script src="~/dist/vendor.js" asp-append-version="true"></script>
+        <script src="~/dist/@p.Js" asp-append-version="true"></script>
     </environment>
 
     <environment exclude="Development">
-        <script src="//spitball.azureedge.net/dist/vendor.js?v=@version"
-                asp-append-version="true"
-                asp-fallback-src="~/dist/vendor.js"
+        <script src="//spitball.azureedge.net/dist/@p.Js"
+                asp-fallback-src="~/dist/@p.Js"
                 asp-fallback-test="window.vendor">
         </script>
     </environment>
@@ -104,7 +107,6 @@
     </script>
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
-
         window.version = '@version';
     </script>
     @await RenderSectionAsync("scripts", required: false).ConfigureAwait(false)

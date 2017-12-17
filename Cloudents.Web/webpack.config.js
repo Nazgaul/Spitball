@@ -1,13 +1,10 @@
 ﻿const path = require("path");
-const glob = require('glob');
 const webpack = require("webpack");
 const bundleOutputDir = "./wwwroot/dist";
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-//const PurifyCSSPlugin = require('purifycss-webpack');
 var Visualizer = require("webpack-visualizer-plugin");
-const cdnUrl = '//spitball.azureedge.net/dist/';
-//var resolve = (p) => path.resolve(__dirname, p);
+var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
 
 
 module.exports = (env) => {
@@ -44,7 +41,7 @@ module.exports = (env) => {
                             {
                                 loader: "url-loader", options: {
                                     limit: 8192,
-                                   // useRelativePath: !isDevBuild,
+                                    // useRelativePath: !isDevBuild,
                                     //publicPath: !isDevBuild ? 'cdnUrl' : '/dist/'
 
                                 }
@@ -88,12 +85,9 @@ module.exports = (env) => {
                     }
                 ]
             },
-            // Where should the compiled file go?
             output: {
-                // To the `dist` folder
                 path: path.join(__dirname, bundleOutputDir),
-                // With the filename `build.js` so it's dist/build.js
-                filename: "[name].js",
+                filename: isDevBuild ? "[name].js" : "[name].[chunkhash].js",
                 publicPath: isDevBuild ? "/dist/" : "//spitball.azureedge.net/dist/"
             },
             plugins: [
@@ -105,6 +99,12 @@ module.exports = (env) => {
                 new webpack.DllReferencePlugin({
                     context: __dirname,
                     manifest: require("./wwwroot/dist/vendor-manifest.json")
+                }),
+                new StatsWriterPlugin({
+                    filename: "main.json",
+                    transform: function (data, opts) {
+                        return JSON.stringify(data.assetsByChunkName, null, 2);
+                    }
                 })
             ].concat(isDevBuild
                 ? [
@@ -126,7 +126,7 @@ module.exports = (env) => {
                             warnings: false
                         }
                     }),
-                    new ExtractTextPlugin({ filename: "site.css", allChunks: true }),
+                    new ExtractTextPlugin({ filename: "site.[contenthash].css", allChunks: true }),
                     new OptimizeCssAssetsPlugin({
                         assetNameRegExp: /\.optimize\.css$/g,
                         cssProcessor: require("cssnano"),
