@@ -6,11 +6,18 @@ namespace Cloudents.Core.Entities.Db
 
     public partial class Course
     {
-        public Course()
+        protected Course()
+        {
+                
+        }
+        public Course(string name, long universityId)
         {
             RowDetail = new RowDetail();
             Discriminator = CourseType.Academic;
             PrivacySetting = CoursePrivacySetting.AnyoneWithUrl;
+            //IsDeleted = false;
+            Name = name.Trim();
+            UniversityId = universityId;
         }
 
         public long Id { get; set; }

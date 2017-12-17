@@ -8,6 +8,9 @@ using Microsoft.Azure.Mobile.Server.Config;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
+    /// <summary>
+    /// Get a sentence the user enter and interpret it
+    /// </summary>
     [MobileAppController]
     public class AiController : ApiController
     {
@@ -19,7 +22,12 @@ namespace Zbang.Cloudents.Jared.Controllers
         }
 
 
-        // GET api/Ai
+        /// <summary>
+        /// interpret user sentence
+        /// </summary>
+        /// <param name="sentence">The sentence</param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public async Task<HttpResponseMessage> Get(string sentence, CancellationToken token)
         {
             if (sentence == null) throw new ArgumentNullException(nameof(sentence));

@@ -20,9 +20,8 @@ namespace Cloudents.Infrastructure.Data
         {
             return _repository.WithConnectionAsync(c => c.QueryAsync<CourseNameDto>(
                 @"SELECT COALESCE(CourseCode,BoxName) as Name 
-FROM zbox.box WHERE (IsDeleted IS NULL OR IsDeleted=0) AND BoxId IN @BoxIds;",
+FROM zbox.box WHERE IsDeleted=0 AND BoxId IN @BoxIds;",
                 new { BoxIds = query }), token);
         }
     }
-    //TODO issue in added course isDeleted NULL
 }

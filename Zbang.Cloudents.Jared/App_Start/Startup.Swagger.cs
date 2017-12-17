@@ -20,7 +20,7 @@ namespace Zbang.Cloudents.Jared
             config
                 .EnableSwagger(c =>
                 {
-                    c.SingleApiVersion("v1", "myService");
+                    c.SingleApiVersion("v1", "Spitball Mobile Service");
                     c.ResolveConflictingActions(f=>f.FirstOrDefault());
                     // Tells the Swagger doc that any MobileAppController needs a
                     // ZUMO-API-VERSION header with default 2.0.0
@@ -28,6 +28,10 @@ namespace Zbang.Cloudents.Jared
                     // Looks at attributes on properties to decide whether they are readOnly.
                     // Right now, this only applies to the DatabaseGeneratedAttribute.
                     c.SchemaFilter<MobileAppSchemaFilter>();
+                    c.DescribeAllEnumsAsStrings(true);
+
+                    c.IncludeXmlComments(
+                        $@"{AppDomain.CurrentDomain.BaseDirectory}\bin\Zbang.Cloudents.Jared.xml");
                 })
                 .EnableSwaggerUi();
         }

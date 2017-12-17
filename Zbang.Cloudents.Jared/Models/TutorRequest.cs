@@ -1,40 +1,39 @@
 ﻿using System.ComponentModel;
+using System.Web.Http;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
 
 namespace Zbang.Cloudents.Jared.Models
 {
     /// <summary>
-    /// Job request api model
+    /// Tutor request object
     /// </summary>
-    public class JobRequest
+    public class TutorRequest
     {
         /// <summary>
         /// The term array of Ai parse
         /// </summary>
         public string[] Term { get; set; }
         /// <summary>
-        /// Filter request
+        /// The filter option
         /// </summary>
         [DefaultValue(0)]
-        public JobRequestFilter? Filter { get; set; }
+        public TutorRequestFilter? Filter { get; set; }
         /// <summary>
-        /// Sort Request
+        /// The sort option
         /// </summary>
         [DefaultValue(0)]
-        public JobRequestSort? Sort { get; set; }
+        public TutorRequestSort? Sort { get; set; } 
         /// <summary>
-        /// Location of user
+        /// The user location
         /// </summary>
         public GeoPoint Location { get; set; }
         /// <summary>
-        /// Facet filter got from the api
-        /// </summary>
-        public string[] Facet { get; set; }
-        /// <summary>
-        /// Page of paging
+        /// Page for paging
         /// </summary>
         [DefaultValue(0)]
         public int? Page { get; set; }
+            
+
     }
 }

@@ -96,6 +96,8 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterGeneric(typeof(EfRepository<>)).AsImplementedInterfaces();
 
+           
+
             ConfigureCache(builder);
             var config = MapperConfiguration();
             builder.Register(c => config.CreateMapper()).SingleInstance();

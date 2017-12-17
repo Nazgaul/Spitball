@@ -78,7 +78,7 @@ namespace Cloudents.Infrastructure.AI
             return new VerticalEngineSearchDto(terms, aiResult.University);
         }
 
-        const string Flashcards = "flashcards";
+        private const string Flashcards = "flashcards";
 
         [Factory]
         private static VerticalEngineDto FlashcardEngine(AiDto aiResult)
@@ -169,7 +169,7 @@ namespace Cloudents.Infrastructure.AI
             }
             var terms = aiResult.Subject;
             terms.AddNotNull(aiResult.Isbn);
-            if (aiResult.Subject.Count == 0)
+            if (terms.Count == 0)
             {
                 return null;
             }

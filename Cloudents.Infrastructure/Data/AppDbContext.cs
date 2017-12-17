@@ -12,13 +12,9 @@ namespace Cloudents.Infrastructure.Data
 {
     public partial class AppDbContext : DbContext
     {
-        //public SpitballContent()
-        //    : base("name=CourseContent")
-        //{
-        //}
 
-        public static readonly LoggerFactory MyLoggerFactory
-            = new LoggerFactory(new[] { new DebugLoggerProvider() });
+        //public static readonly LoggerFactory MyLoggerFactory
+        //    = new LoggerFactory(new[] { new DebugLoggerProvider() });
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -29,13 +25,6 @@ namespace Cloudents.Infrastructure.Data
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<University> Universities { get; set; }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    //if (!optionsBuilder.IsConfigured)
-        //    //{
-        //        optionsBuilder.UseLoggerFactory(MyLoggerFactory);
-        //    //}
-        //}
         //https://putshello.wordpress.com/2014/08/20/entity-framework-soft-deletes-are-easy/
         //TODO : need to do soft delete and isDirty
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -45,8 +34,9 @@ namespace Cloudents.Infrastructure.Data
             {
                 entity.Property(e => e.Name).IsRequired().HasMaxLength(255).HasColumnName("BoxName");
                 entity.Property(e => e.Id).HasColumnName("BoxId");
+                entity.Property(e => e.IsDeleted);
                 entity.ToTable("Box", "Zbox");
-                entity.HasQueryFilter(e => !e.IsDeleted).Ignore(e => e.IsDeleted);
+                //entity.HasQueryFilter(e => !e.IsDeleted).Ignore(e => e.IsDeleted);
                 entity.Property(e => e.IsDirty);//.ValueGeneratedOnAddOrUpdate();
                 entity.Property(e => e.CourseCode).HasMaxLength(255);
 
@@ -57,9 +47,7 @@ namespace Cloudents.Infrastructure.Data
                     p.Property(z => z.CreatedUser).HasColumnName("CreatedUser");
                     p.Property(z => z.UpdatedUser).HasColumnName("UpdatedUser");
                 });
-#pragma warning disable CC0021 // Use nameof
                 entity.Property(p => p.UniversityId).HasColumnName("University");
-#pragma warning restore CC0021 // Use nameof
                 entity.HasOne(e => e.University).WithMany(b => b.Courses).HasForeignKey(e=>e.UniversityId);
             });
 

@@ -1,24 +1,27 @@
 ﻿using System.ComponentModel;
+using System.Threading;
 
 namespace Zbang.Cloudents.Jared.Models
 {
     /// <summary>
-    /// Ask Question search object
+    /// Book api search request
     /// </summary>
-    public class AskRequest
+    public class BookRequest
     {
         /// <summary>
-        /// The user text to parse
+        /// The term array of Ai parse
         /// </summary>
-        public string UserText { get; set; }
+        public string[] Term { get; set; }
         /// <summary>
         /// Page for paging
         /// </summary>
         [DefaultValue(0)]
         public int? Page { get; set; }
         /// <summary>
-        /// The term array of Ai parse
+        /// size of width of image size
         /// </summary>
-        public string[] Term { get; set; }
+        [DefaultValue(150)]
+        public int? Thumbnail { get; set; }
+        
     }
 }

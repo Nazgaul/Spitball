@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Cloudents.Web.Extensions
     public class WebPackChunkName
     {
         private readonly IFileProvider _provider;
-        private readonly Dictionary<string, WebPackBundle> _tags = new Dictionary<string, WebPackBundle>();
+        private readonly ConcurrentDictionary<string, WebPackBundle> _tags = new ConcurrentDictionary<string, WebPackBundle>();
 
 
         public WebPackChunkName(IFileProvider provider)
@@ -55,7 +56,8 @@ namespace Cloudents.Web.Extensions
                                 webPackBundle.Css = file;
                             }
                         }
-                        _tags.Add(chunk, webPackBundle);
+                        _tags.AddOrUpdate(chunk, webPackBundle, (key, existingValue) => existingValue);
+                        //_tags.Add(chunk, webPackBundle);
                         return webPackBundle;
                     }
                 }

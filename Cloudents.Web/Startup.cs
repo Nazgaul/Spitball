@@ -57,9 +57,6 @@ namespace Cloudents.Web
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(connection);
-#if DEBUG
-                options.UseLoggerFactory(AppDbContext.MyLoggerFactory);
-# endif
             });
 
             
@@ -77,7 +74,6 @@ namespace Cloudents.Web
                 Infrastructure.Environment.Web
                 );
             containerBuilder.RegisterModule(infrastructureModule);
-            //containerBuilder.RegisterModule<>();
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);

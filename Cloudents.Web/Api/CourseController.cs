@@ -37,11 +37,13 @@ namespace Cloudents.Web.Api
         [HttpPost]
         public async Task<IActionResult> Post(CreateCourse model,CancellationToken token)
         {
-            var course = new Course
+            if (!model.University.HasValue)
             {
-                Name = model.Name,
+                throw new ArgumentNullException(nameof(model.University));
+            }
+            var course = new Course(model.Name, model.University.Value)
+            {
                 CourseCode = model.Code,
-                UniversityId = model.University
             };
 
             var result = await _repository.AddAsync(course, token).ConfigureAwait(false);

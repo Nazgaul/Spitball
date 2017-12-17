@@ -10,6 +10,9 @@ using Zbang.Cloudents.Jared.Models;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
+    /// <summary>
+    /// Perform Ask question search
+    /// </summary>
     [MobileAppController]
     public class AskController : ApiController
     {
@@ -22,6 +25,12 @@ namespace Zbang.Cloudents.Jared.Controllers
             _videoSearch = videoSearch;
         }
 
+        /// <summary>
+        /// Query to get ask vertical
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public async Task<HttpResponseMessage> Get([FromUri] AskRequest model,
             CancellationToken token)
         {

@@ -13,7 +13,10 @@ using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
-    [MobileAppController,Authorize]
+    /// <summary>
+    /// University api controller
+    /// </summary>
+    [MobileAppController]
     public class UniversityController : ApiController
     {
         private readonly IZboxWriteService _zboxWriteService;
@@ -25,7 +28,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             _universityProvider = universityProvider;
         }
 
-        [HttpPost]
+        [HttpPost, Authorize]
         public async Task<HttpResponseMessage> Post(CreateUniversityRequest model)
         {
             if (model == null)
@@ -43,6 +46,13 @@ namespace Zbang.Cloudents.Jared.Controllers
         }
 
 
+        /// <summary>
+        /// Get list of universities
+        /// </summary>
+        /// <param name="term">the user input</param>
+        /// <param name="location">the user location</param>
+        /// <param name="token"></param>
+        /// <returns>list of universities</returns>
         [HttpGet]
         public async Task<HttpResponseMessage> Get(string term, GeoPoint location, CancellationToken token)
         {
