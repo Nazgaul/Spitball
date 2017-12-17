@@ -5,12 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Core.Request;
 using Cloudents.Infrastructure;
+using Cloudents.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using Environment = Cloudents.Infrastructure.Environment;
 
 namespace Test
@@ -27,17 +30,30 @@ namespace Test
                 ConfigurationManager.AppSettings["Redis"], Environment.Console);
 
           //  builder.RegisterType<GoogleSheet>().As<IGoogleSheet>();
-            builder.RegisterModule(infrastructureModule);
+        builder.RegisterModule(infrastructureModule);
             var container = builder.Build();
 
-            var services = container.Resolve<IUniversitySearch>();
+            
             var location = new GeoPoint()
             {
                 Latitude = 31.889692,
                 Longitude = 34.812241
             };
 
-            var result = await services.SearchAsync("East Carolina", location, default);
+            var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseSqlServer(ConfigurationManager.ConnectionStrings["Zbox"].ConnectionString).Options;
+
+
+
+
+            using (var db = new AppDbContext(options))
+            {
+                var services = new EfRepository<Course>(db);
+                var t = await services.AddAsync(new Course("ram2", 170460), default);
+
+                
+            }
+           
             Console.ReadLine();
         }
     }
