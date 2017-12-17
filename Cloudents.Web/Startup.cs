@@ -4,6 +4,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Data;
+using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
@@ -13,6 +14,7 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Newtonsoft.Json.Converters;
 using WebMarkupMin.AspNetCore2;
 
@@ -20,12 +22,14 @@ namespace Cloudents.Web
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            HostingEnvironment = env;
         }
 
         public IConfiguration Configuration { get; }
+        private IHostingEnvironment HostingEnvironment { get;  }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public IServiceProvider ConfigureServices(IServiceCollection services)
@@ -58,7 +62,12 @@ namespace Cloudents.Web
 # endif
             });
 
+            
+            var physicalProvider = HostingEnvironment.ContentRootFileProvider;
+            services.AddSingleton(physicalProvider);
+
             var containerBuilder = new ContainerBuilder();
+            services.AddSingleton<WebPackChunkName>();
             var infrastructureModule = new InfrastructureModule(
                 Configuration.GetConnectionString("DefaultConnection"),
                 Configuration["AzureSearch:SearchServiceName"],

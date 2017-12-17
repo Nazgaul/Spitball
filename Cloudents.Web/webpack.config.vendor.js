@@ -6,10 +6,11 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 //var resolve = (p) => path.resolve(__dirname, p);
 var Visualizer = require("webpack-visualizer-plugin");
+var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
-    const extractCss = new ExtractTextPlugin("vendor.css");
+    //const extractCss = new ExtractTextPlugin({ name: "vendor[contenthash].css" });
 
     return [
         {
@@ -55,20 +56,20 @@ module.exports = (env) => {
             },
             module: {
                 rules: [
-                    { test: /\.css(\?|$)/, use: extractCss.extract({ use: isDevBuild ? "css-loader" : "css-loader?minimize" }) },
+                    { test: /\.css(\?|$)/, use: ExtractTextPlugin.extract({ use: isDevBuild ? "css-loader" : "css-loader?minimize" }) },
                     { test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, use: "url-loader?limit=8192" },
                     {
                         test: /\.styl$/,
-                        loader: extractCss.extract({ use: isDevBuild ? "css-loader!stylus-loader" : "css-loader?minimize!stylus-loader" })
+                        loader: ExtractTextPlugin.extract({ use: isDevBuild ? "css-loader!stylus-loader" : "css-loader?minimize!stylus-loader" })
                     },
                     {
                         test: /\.less$/,
                         exclude: /ClientApp/,
-                        use: extractCss.extract({ use: isDevBuild ? "css-loader!less-loader" : "css-loader?minimize!less-loader" })
+                        use: ExtractTextPlugin.extract({ use: isDevBuild ? "css-loader!less-loader" : "css-loader?minimize!less-loader" })
                     },
                     {
                         test: /\.font\.js/,
-                        loader: extractCss.extract({
+                        loader: ExtractTextPlugin.extract({
                             use: [
                                 isDevBuild ? "css-loader" : "css-loader?minimize",
                                 "webfonts-loader"
@@ -79,12 +80,14 @@ module.exports = (env) => {
             },
             output: {
                 path: path.join(__dirname, "wwwroot", "dist"),
-                publicPath: isDevBuild? "/dist/" : "//spitball.azureedge.net/dist/",
-                filename: "[name].js",
+                publicPath: isDevBuild ? "/dist/" : "//spitball.azureedge.net/dist/",
+                filename: "[name].[chunkhash].js",
                 library: "[name]"
             },
             plugins: [
-                extractCss,
+                new ExtractTextPlugin({
+                    filename: '[name].[contenthash].css'
+                }),
                 //new PurifyCSSPlugin({
                 //    // Give paths to parse for rules. These should be absolute!
                 //    paths: glob.sync(path.join(__dirname, 'clientapp/**/*.vue')),
@@ -99,9 +102,16 @@ module.exports = (env) => {
                 new webpack.DllPlugin({
                     path: path.join(__dirname, "wwwroot", "dist", "[name]-manifest.json"),
                     name: "[name]"
+                }),
+                new CleanWebpackPlugin(path.join(__dirname, "wwwroot", "dist")),
+                new StatsWriterPlugin({
+                    filename: "vendor.json",
+                    transform: function (data, opts) {
+                        return JSON.stringify(data.assetsByChunkName);
+                    }
                 })
             ].concat(isDevBuild ? [
-                new CleanWebpackPlugin(path.join(__dirname, "wwwroot", "dist")),
+                //new CleanWebpackPlugin(path.join(__dirname, "wwwroot", "dist")),
                 new Visualizer({
                     filename: "./statistics-vendor.html"
                 })
