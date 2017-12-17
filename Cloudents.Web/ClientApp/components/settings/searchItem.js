@@ -10,7 +10,9 @@ import PageLayout from "./layout.vue";
 export default {
     watch: {
         type(val) {
-            this.currentType = val;
+            if(val) {
+                this.currentType = val;
+            }
         },
         currentType() {
             this.isLoading = true;

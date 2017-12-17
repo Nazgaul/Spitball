@@ -22,7 +22,8 @@
 export let settingMenu=[
     {id:"university",name:"Choose university",click:function () {
         this.showDialog = true;
-        this.type = "university";
+        this.type="";
+        this.$nextTick(()=>this.type = "university");
         this.keep=false;
         this.isSearch=true;
     }
