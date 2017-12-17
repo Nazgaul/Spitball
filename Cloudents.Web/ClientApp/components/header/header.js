@@ -1,9 +1,10 @@
 ﻿import logo from "../../../wwwroot/Images/logo-spitball.svg";
 import { mapActions, mapGetters } from 'vuex';
 import { settingMenu } from '../settings/consts';
-
+import {micMixin} from '../helpers/mic'
 
 export default {
+    mixins:[micMixin],
     components: {
         logo
     },
@@ -31,14 +32,14 @@ export default {
         },
         isMobileSize: function () {
             return this.$vuetify.breakpoint.xsOnly;
-        },
-        voiceAppend(){
-           return ("webkitSpeechRecognition" in window)?'sbf-mic':'';
         }
     },
     watch:{
       '$route':function(val){
           this.qFilter=val.query.q;
+      },
+      msg(val){
+          this.qFilter=val;
       }
     },
     props:{value:{type:Boolean}},
@@ -59,10 +60,6 @@ export default {
         },
         menuToggle: function() {
             this.$emit("input",!this.value);
-        },
-        mic: function () {
-            //TODO: YIFAT need to add mic handle here.
-            console.log("hi")
         },
         $_currentClick(item){
             let itemToUpdate=this.$parent.$children.find(i=>i.$refs.person);

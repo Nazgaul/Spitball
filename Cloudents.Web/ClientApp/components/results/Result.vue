@@ -7,7 +7,7 @@
         <template slot="options" v-if="page">
             <sort-and-filter :sortOptions="page.sort" :sortCallback="$_updateSort" :sortVal="sort"
                              :filterOptions="filterObject" :filterCallback="$_changeSubFilter" :filterVal="filterSelection"
-                             :version="$version">
+                            >
                 <div class="course-empty-state" slot="courseEmptyState" v-if="!myCourses.length">
                     <div>Add your school and courses for better results</div>
                     <v-btn @click="$_openPersonalize">Personalize</v-btn>

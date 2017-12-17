@@ -58,6 +58,7 @@ import featureTextbook from "./svg/feature-textbook.svg";
 import featuresSection from './features.vue';
 import stripsSection from './horizontalStrip.vue';
 import PageLayout from './layout.vue';
+import {micMixin} from '../helpers/mic'
 //import menuIcon from "./svg/menu-icon.svg";
 
 
@@ -71,6 +72,7 @@ import {features,bottomIcons,homeSuggest,strips,sites,testimonials} from './cons
 
 
 export default {
+    mixins:[micMixin],
     components: {
         logo,PageLayout,
         "class-material-icon": classMaterialIcon,
@@ -106,10 +108,8 @@ export default {
         return {
             placeholder: "Find study documents, textbooks, deals, tutors and more…",
             items: homeSuggest,
-            msg: "",
             bottomIcons:bottomIcons,
             recognition: false,
-            isRecording: false,
             drawer: null,
             strips:strips,
             features:features,
@@ -137,10 +137,6 @@ export default {
         };
     },
     methods: {
-        $_voiceDetection() {
-            this.recognition.start();
-
-        },
         search() {
             this.$router.push({ name:"result", query: {q:this.msg} });
         },
@@ -150,30 +146,7 @@ export default {
         },
         //$_imageUrl(image) { return require.context(`~/img/${image}.png`);}
     },
-
-    created() {
-        if (this.voiceEnable) {
-            var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
-            this.recognition = new SpeechRecognition();
-            this.recognition.lang = "en-US";
-            this.recognition.interimResults = false;
-            this.recognition.maxAlternatives = 5;
-            let _self = this;
-
-            this.recognition.onstart = function () {
-                _self.isRecording = true;
-            };
-            this.recognition.onresult = function (event) {
-                _self.msg = event.results[0][0].transcript;
-                _self.isRecording = false;
-            };
-        }
-    },
     props: {
         metaText: { type: String }
-    },
-
-    computed: {
-        voiceEnable() { return "webkitSpeechRecognition" in window}
     }
 };
