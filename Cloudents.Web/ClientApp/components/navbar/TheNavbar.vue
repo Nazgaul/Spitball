@@ -39,6 +39,7 @@
                 if (this.$route.meta[this.$_calcTerm(result)]) {
                     let query = { q: this.$_currentTerm(result).term };
                     if (this.currentPage === result) query = { ...this.$route.query, ...query };
+                    if(this.$route.meta.myClasses&&(result.includes('note')||result.includes('flashcard')))query.course=this.$route.meta.myClasses;
                     this.$router.push({ path: '/' + result, query })
                 } else {
 
