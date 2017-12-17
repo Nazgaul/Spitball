@@ -16,6 +16,15 @@
     @media(max-width: 600px) {
         top: @navBarHeightMobile;
         padding-left: 8px;
+        //Mobile class added for mobile bookDetailsFilter
+        &.Mobile{
+            .tabs__li{
+                background:mediumpurple ;
+            }
+            .tabs__slider{
+            color: mediumpurple;
+        }
+        }
     }
 
     .tabs:not(.tabs--centered):not(.tabs--grow):not(.tabs--mobile) .tabs__wrapper--scrollable {

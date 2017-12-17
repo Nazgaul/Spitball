@@ -1,13 +1,13 @@
 ﻿<template>
     <!---->
     <div class="sb-menu" :class="offsetTop > 0 ? 'scrolled':''" v-scroll="$_onScroll">
-        <v-tabs v-model="currentPage">
+        <v-tabs :value="currentSelection">
             <v-tabs-bar class="cyan" dark>
-                <v-tabs-item v-for="tab in verticals" :key="tab.id" :href="tab.id" :id="tab.id" @click="$_updateType(tab.id)" :class="['spitball-bg-'+tab.id,tab.id==currentPage?'tabs__item--active':'']"
+                <v-tabs-item v-for="tab in verticals" :key="tab.id" :href="tab.id" :id="tab.id" @click="$_updateType(tab.id)" :class="['spitball-bg-'+tab.id,tab.id==currentSelection?'tabs__item--active':'']"
                              class="mr-2 vertical">
                     {{tab.name}}
                 </v-tabs-item>
-                <v-tabs-slider color="yellow" :class="`spitball-border-${currentPage}`"></v-tabs-slider>
+                <v-tabs-slider color="yellow" :class="`spitball-border-${currentSelection}`"></v-tabs-slider>
             </v-tabs-bar>
         </v-tabs>
     </div>
@@ -25,7 +25,7 @@
             }
         },
 
-        props: { $_calcTerm: { type: Function }, verticals: { type: Array } },
+        props: { $_calcTerm: { type: Function }, verticals: { type: Array },callbackFunc:{type:Function} ,currentSelection:{type:String}},
 
         methods: {
             $_currentTerm(type) {
@@ -34,9 +34,13 @@
             },
             $_updateType(result) {
                 if (this.$route.name !== "result") {
-                    this.$router.push({ path: '/' + result, query: { q: this.$route.query.q } });
+                    if(this.callbackFunc){
+                        this.callbackFunc.call(this,result);
+                    }else {
+                        this.$router.push({path: '/' + result, query: {q: this.$route.query.q}});
+                    }
                 }
-                if (this.$route.meta[this.$_calcTerm(result)]) {
+                else if (this.$route.meta[this.$_calcTerm(result)]) {
                     let query = { q: this.$_currentTerm(result).term };
                     if (this.currentPage === result) query = { ...this.$route.query, ...query };
                     if(this.$route.meta.myClasses&&(result.includes('note')||result.includes('flashcard')))query.course=this.$route.meta.myClasses;
@@ -57,12 +61,7 @@
 
         },
         computed: {
-            ...mapGetters(["getUniversityName"]),
-            currentPage: {
-                get() {
-                    return this.$route.meta.pageName ? this.$route.meta.pageName : this.$route.path.slice(1);
-                }, set(val) { }
-            }
+            ...mapGetters(["getUniversityName"])
         }
     };
 </script>

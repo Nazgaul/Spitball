@@ -42,7 +42,7 @@ export default {
           this.qFilter=val;
       }
     },
-    props:{value:{type:Boolean}},
+    props:{value:{type:Boolean},showMoreOptions:{type:Boolean}},
     methods: {
         ...mapActions(["updateSearchText","createCourse","updateFirstTime"]),
         submit: function () {
