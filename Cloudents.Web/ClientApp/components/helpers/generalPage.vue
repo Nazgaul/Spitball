@@ -1,12 +1,12 @@
 <template functional>
         <div class="p-result">
             <v-container fluid class="pa-0 wrap">
-                <v-layout row class="navigation-bar">
+                <v-layout row>
                     <v-flex class="first-grid hidden-xs-only left-side-bar">
                         <slot name="options">
                         </slot>
                     </v-flex>
-                    <v-container class="results-section px-0 pt-0" fluid>
+                    <v-container class="px-0 pt-0 ma-0" fluid>
                         <v-layout row>
                             <v-flex class="sec-result">
                                 <div v-if="props.filterSelection.length" class="pb-3">
