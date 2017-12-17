@@ -1,6 +1,4 @@
 <template functional>
-    <component is="slot">
-        <slot></slot>
         <div class="p-result">
             <v-container fluid class="pa-0 wrap">
                 <v-layout row class="navigation-bar">
@@ -37,6 +35,5 @@
                 </v-layout>
             </v-container>
         </div>
-    </component>
 </template>
 <style lang="less" src="./generalPage.less"></style>
