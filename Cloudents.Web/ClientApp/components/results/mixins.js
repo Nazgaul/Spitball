@@ -190,7 +190,7 @@ export const pageMixin =
                 let currentFilter=!this.query[id]?[]:Array.isArray(this.query[id])?this.query[id]:[this.query[id]];
                 let listo=[val,...currentFilter];
                 if(!type.target.checked){
-                    listo=currentFilter.filter(i=>i!==val);
+                    listo=currentFilter.filter(i=>i.toString()!==val.toString());
                 }
                 if(id==='course'){
                     this.$route.meta.myClasses=listo;
@@ -203,7 +203,7 @@ export const pageMixin =
             $_removeFilter(val){
                 let {source,course,filter,jobType}=this.query;
                 source=source?[].concat(source).filter(i=>i!== val):source;
-                course=course?[].concat(course).filter(i=>i!== val):course;
+                course=course?[].concat(course).filter(i=>i.toString()!== val.toString()):course;
                 filter=filter?[].concat(filter).filter(i=>i!== val):filter;
                 jobType=jobType?[].concat(jobType).filter(i=>i!== val):jobType;
                 this.$route.meta.myClasses=course;
