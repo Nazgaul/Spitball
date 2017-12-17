@@ -1,13 +1,15 @@
 ﻿const HomePage = () => import("./components/home/home.vue");
 import * as RouteTypes from "./routeTypes";
 const resultContent = () => import("./components/results/Result.vue");
-const bookDetails = () => import("./components/results/ResultBookDetails.vue");
+const bookDetails = () => import("./components/details/ResultBookDetails.vue");
 const showItem = () => import("./components/preview/Item.vue");
 const showFlashcard = () => import("./components/preview/Flashcard.vue");
 const notFound = () => import("./components/results/notFound.vue");
 const theNavbar = () => import("./components/navbar/TheNavbar.vue");
 const moreInfo = () => import("./components/results/MoreInfo.vue");
 const personalize=()=>import("./components/settings/ResultPersonalize.vue");
+const bookTabsMobile=()=>import("./components/details/bookDetailsTabsMobile.vue");
+const mobileDetailsFirstLine=()=>import("./components/details/HeaderFirstLineMobile.vue");
 import {page, verticalsName,verticalsNavbar,details} from './data'
 const $_calcTerm=(name)=>{return (name.includes('food')||name.includes('purchase'))?'foodTerm':name.includes('job')?'jobTerm':'term'};
 
@@ -70,16 +72,27 @@ function moreInfoFn(route){
 function verticalsLinkFun(route){
     return{
         $_calcTerm:$_calcTerm,
-        verticals:verticalsNavbar
+        verticals:verticalsNavbar,
+        currentSelection:route.name==="result"?route.path.slice(1):"book"
+    }
+}
+function filterLinkFun(route){
+    return{
+        verticals:[{id:"all",name:"all"}, ...details.bookDetails.filter],
+        callbackFunc:function(res){
+            console.log(res);
+            this.$root.$children[0].$refs.mainPage.filter=res;
+        },
+        currentSelection:"all"
     }
 }
 
 const resultPage = {  default: resultContent ,verticalList:theNavbar,personalize};
-const bookDetailsPage = { default: bookDetails,verticalList:theNavbar,personalize };
+const bookDetailsPage = { default: bookDetails,verticalList:theNavbar,personalize,verticalListMobile:theNavbar,bookDetailsSecondLineMobile:bookTabsMobile,mobileHeaderFirstLine:mobileDetailsFirstLine};
 const notFoundPage = { default: notFound };
 const resultProps = { default: dynamicPropsFn,verticalList:verticalsLinkFun};
 
-const bookDetailsProps = { ...resultProps, default: dynamicDetailsPropsFn };
+const bookDetailsProps = { ...resultProps, default: dynamicDetailsPropsFn,verticalListMobile:filterLinkFun,bookDetailsSecondLineMobile:true,mobileHeaderFirstLine:{name:"textbooks"}};
 export const routes = [
     {
         path: "/", component: HomePage, name: "home", meta: {

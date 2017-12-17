@@ -1,8 +1,8 @@
-﻿import { sortAndFilterMixin } from './mixins'
-import ResultBook from './ResultBook.vue';
-const sortOptions=[{id:'buy',name:'BUY/RENT'},{id:'sell',name:'SELL'}];
+﻿import { sortAndFilterMixin } from '../results/mixins'
+import ResultBook from '../results/ResultBook.vue';
+import TabsSort from "./bookDetailsSort"
 export default {
-    mixins: [sortAndFilterMixin],
+    mixins: [sortAndFilterMixin,TabsSort],
     created() {
         this.filter = 'all';
         this.UPDATE_LOADING(true);
@@ -12,8 +12,7 @@ export default {
         });
     },
     data() {
-        return { pageData: '',sortVal:"buy",
-            sortOptions}
+        return { pageData: '',sortVal:"buy"}
     },
     components: {  ResultBook },
     computed: {
@@ -28,13 +27,8 @@ export default {
         this.filter=(type.target.checked||val==='all')?val:'all';
     },
         $_updateSort(val){
-            console.log(val);
             this.sortVal=val;
-            this.UPDATE_LOADING(true);
-            this.$store.dispatch("bookDetails", { pageName: "bookDetails", isbn13: this.params.id,type:val }).then(({data}) => {
-                this.pageData = data;
-                this.UPDATE_LOADING(false);
-            });
+            this.$_changeTab(val)
         }
     },
     props:{filterOptions:{type:Array}}
