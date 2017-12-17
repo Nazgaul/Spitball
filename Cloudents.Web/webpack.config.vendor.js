@@ -103,7 +103,6 @@ module.exports = (env) => {
                     path: path.join(__dirname, "wwwroot", "dist", "[name]-manifest.json"),
                     name: "[name]"
                 }),
-                new CleanWebpackPlugin(path.join(__dirname, "wwwroot", "dist")),
                 new StatsWriterPlugin({
                     filename: "vendor.json",
                     transform: function (data, opts) {
@@ -111,7 +110,7 @@ module.exports = (env) => {
                     }
                 })
             ].concat(isDevBuild ? [
-                //new CleanWebpackPlugin(path.join(__dirname, "wwwroot", "dist")),
+                new CleanWebpackPlugin(path.join(__dirname, "wwwroot", "dist")),
                 new Visualizer({
                     filename: "./statistics-vendor.html"
                 })

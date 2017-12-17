@@ -121,7 +121,11 @@ namespace Cloudents.Web
             });
             app.UseStaticFiles(new StaticFileOptions
             {
-                OnPrepareResponse = ctx => ctx.Context.Response.Headers.Add("Cache-Control", "public,max-age=864000")
+                OnPrepareResponse = ctx =>
+                {
+                    ctx.Context.Response.Headers.Add("Cache-Control", "public,max-age=864000");
+                    ctx.Context.Response.Headers.Add("Access-Control-Allow-Origin","*");
+                }
             });
             app.UseWebMarkupMin();
             app.UseMvc(routes =>
