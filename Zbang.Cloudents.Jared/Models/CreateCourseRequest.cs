@@ -2,12 +2,21 @@
 
 namespace Zbang.Cloudents.Jared.Models
 {
-    public class CreateAcademicCourseRequest
+    /// <summary>
+    /// Create course object
+    /// </summary>
+    public class CreateCourseRequest
     {
+        /// <summary>
+        /// The course name
+        /// </summary>
         [Required]
         [StringLength(Zbox.Domain.Box.NameLength)]
         public string CourseName { get; set; }
 
+        /// <summary>
+        /// The course code 
+        /// </summary>
         public string CourseId { get; set; }
 
         //public string Professor { get; set; }
@@ -17,8 +26,7 @@ namespace Zbang.Cloudents.Jared.Models
 
         public override string ToString()
         {
-            var baseString = base.ToString();
-            return $"{baseString} CourseName {CourseName} CourseId {CourseId}";
+            return $"CourseName {CourseName} CourseId {CourseId}";
         }
     }
 }

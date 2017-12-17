@@ -36,6 +36,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>7.1</LangVersion>
+    <DocumentationFile>bin\Zbang.Cloudents.Jared.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -45,6 +46,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>7.1</LangVersion>
+    <DocumentationFile>bin\Zbang.Cloudents.Jared.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac, Version=4.6.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
@@ -247,6 +249,7 @@
     <Compile Include="Controllers\AiController.cs" />
     <Compile Include="Controllers\AskController.cs" />
     <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Models\BookRequest.cs" />
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
@@ -256,6 +259,7 @@
     <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PlacesController.cs" />
+    <Compile Include="Models\PurchaseRequest.cs" />
     <Compile Include="Controllers\QuizController.cs" />
     <Compile Include="Controllers\RefreshController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -269,7 +273,7 @@
     <Compile Include="Models\AskRequest.cs" />
     <Compile Include="Models\JobRequest.cs" />
     <Compile Include="Models\MailRequest.cs" />
-    <Compile Include="Models\CreateAcademicCourseRequest.cs" />
+    <Compile Include="Models\CreateCourseRequest.cs" />
     <Compile Include="Models\FollowRequest.cs" />
     <Compile Include="Models\SearchRequest.cs" />
     <Compile Include="Models\UpdateTagsRequest.cs" />
@@ -286,7 +290,7 @@
     <Compile Include="Models\LoginResult.cs" />
     <Compile Include="Models\MarkReadRequest.cs" />
     <Compile Include="Models\ProfileRequest.cs" />
-    <Compile Include="Models\Tutor.cs" />
+    <Compile Include="Models\TutorRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestBodyInitializer.cs" />
     <Compile Include="Startup.cs" />

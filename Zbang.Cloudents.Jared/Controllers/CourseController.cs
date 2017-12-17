@@ -14,6 +14,9 @@ using Zbang.Cloudents.Jared.Models;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
+    /// <summary>
+    /// Course api controller
+    /// </summary>
     [MobileAppController]
     public class CourseController : ApiController
     {
@@ -25,6 +28,14 @@ namespace Zbang.Cloudents.Jared.Controllers
             _courseProvider = courseProvider;
         }
 
+        /// <summary>
+        /// Perform course search
+        /// </summary>
+        /// <param name="term">the user input</param>
+        /// <param name="universityId">the user university</param>
+        /// <param name="token"></param>
+        /// <returns>list of courses filter by input</returns>
+        /// <exception cref="ArgumentException">university is empty</exception>
         [Route("api/course/search")]
         [HttpGet]
         public async Task<HttpResponseMessage> Get(string term, long universityId, CancellationToken token)
@@ -39,6 +50,7 @@ namespace Zbang.Cloudents.Jared.Controllers
 
         [Route("api/course/follow")]
         [HttpPost]
+        [Obsolete]
         public async Task<HttpResponseMessage> FollowAsync(FollowRequest model)
         {
             if (model == null)
@@ -55,6 +67,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         }
 
         [HttpDelete, Route("api/course/follow")]
+        [Obsolete]
         public async Task<HttpResponseMessage> UnFollowAsync(long courseId)
         {
             var command = new UnFollowBoxCommand(courseId, User.GetUserId(), false);
@@ -62,9 +75,14 @@ namespace Zbang.Cloudents.Jared.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
+        /// <summary>
+        /// Create academic course - note talk to RAM before applying
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>The id of the course created</returns>
         [Route("api/course/create")]
         [HttpPost]
-        public async Task<HttpResponseMessage> CreateAcademicBoxAsync(CreateAcademicCourseRequest model)
+        public async Task<HttpResponseMessage> CreateAcademicBoxAsync(CreateCourseRequest model)
         {
             if (!ModelState.IsValid)
             {
