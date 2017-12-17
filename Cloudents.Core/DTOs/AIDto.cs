@@ -16,7 +16,6 @@ namespace Cloudents.Core.DTOs
             Intent = intent;
             SearchType = searchType;
             University = university;
-           
             _list.AddRange(subject);
             Location = location;
             Course = course;

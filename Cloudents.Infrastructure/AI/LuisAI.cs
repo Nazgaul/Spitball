@@ -20,10 +20,6 @@ namespace Cloudents.Infrastructure.AI
         private readonly HashSet<string> _searchVariables = new HashSet<string>(new[] { "documents", "flashcards" },
             StringComparer.InvariantCultureIgnoreCase);
 
-
-        //private readonly HashSet<string> _searchTerms = new HashSet<string>(new[] { "isbn", "subject" ,"class"},
-        //    StringComparer.InvariantCultureIgnoreCase);
-
         public LuisAI(LuisClient client)
         {
             _client = client;
