@@ -1,4 +1,4 @@
-﻿﻿import ResultItem from './ResultItem.vue';
+﻿import ResultItem from './ResultItem.vue';
 const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
 const ResultJob = () => import('./ResultJob.vue');
@@ -69,7 +69,7 @@ export const pageMixin =
             this.pageData = {};
             this.items = [];
             new Promise((resolve, reject) => {
-                if (!to.query.q || !to.query.q.length) { resolve({})}
+                if(!to.query.q||!to.query.q.length){resolve({})}
                 else if(!savedTerm||(savedTerm.term!==to.query.q)){
                     this.updateSearchText(to.query.q).then(({term,docType})=> {
                         this.$route.meta[this.$_calcTerm(toName)] = {term: to.query.q, luisTerm: term,docType};
