@@ -88,7 +88,8 @@ export const pageMixin =
         watch:{
             myCourses(val){
                 let courseIndex = this.filterObject.findIndex(i => i.modelId === "course");
-                this.filterObject[courseIndex].data=val;
+                if(courseIndex>-1)
+                     this.filterObject[courseIndex].data=val;
             }
         },
         computed: {

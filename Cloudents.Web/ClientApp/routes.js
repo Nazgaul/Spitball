@@ -87,10 +87,10 @@ function filterLinkFun(route){
     }
 }
 
-const resultPage = {  default: resultContent ,verticalList:theNavbar,personalize};
+const resultPage = {  default: resultContent ,verticalList:theNavbar,personalize,verticalListMobile:theNavbar};
 const bookDetailsPage = { default: bookDetails,verticalList:theNavbar,personalize,verticalListMobile:theNavbar,bookDetailsSecondLineMobile:bookTabsMobile,mobileHeaderFirstLine:mobileDetailsFirstLine};
 const notFoundPage = { default: notFound };
-const resultProps = { default: dynamicPropsFn,verticalList:verticalsLinkFun};
+const resultProps = { default: dynamicPropsFn,verticalList:verticalsLinkFun,verticalListMobile:verticalsLinkFun};
 
 const bookDetailsProps = { ...resultProps, default: dynamicDetailsPropsFn,verticalListMobile:filterLinkFun,bookDetailsSecondLineMobile:true,mobileHeaderFirstLine:{name:"textbooks"}};
 export const routes = [
