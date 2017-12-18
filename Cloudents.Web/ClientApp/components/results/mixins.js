@@ -177,6 +177,7 @@ export const pageMixin =
                     this.filterObject=this.page.filter.map((i)=>{
                         let item={title:i.name,modelId:i.id};
                         item.data=(i.id==="course")?this.myCourses:this.pageData[i.id]?this.pageData[i.id]:this.getFacet?this.getFacet:[];
+                        if(i.id==="filter"&&this.name==="job")item.data=[{id:"Paid",name:"Paid"}];
                         return item;
                     });
                 }
