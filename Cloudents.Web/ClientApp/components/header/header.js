@@ -14,12 +14,14 @@ export default {
             currentName:"",
             qFilter: this.$route.query.q,
             keep:false,
-            type:"",
+            type: "",
+            
         };
     },
     computed: {
         ...mapGetters(['luisTerm','getUniversityName','isFirst']),
         name: function () {
+            
             let currentPage = this.$route.meta.pageName ? this.$route.meta.pageName : this.$route.path.split("/")[1];
             if (this.currentName !== currentPage) {
                 this.currentName = currentPage;

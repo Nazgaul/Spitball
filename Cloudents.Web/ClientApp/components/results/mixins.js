@@ -22,7 +22,9 @@ export const sortAndFilterMixin = {
     props: {
         name: { type: String }, query: { type: Object }, filterSelection: { type: [String, Array] }, $_calcTerm: { type: Function }, sort: { type: String }, page: { type: Object }, params: { type: Object }
     },
-
+    computed: {
+        ...mapGetters(['loading'])
+    },
     methods: {
         ...mapMutations(['UPDATE_LOADING'])
     }
@@ -140,7 +142,6 @@ export const pageMixin =
 
         },
         created() {
-            console.log("created");
             if (this.query.course) this.$route.meta.myClasses = this.query.course;
             this.UPDATE_LOADING(true);
             if (!this.query.q || !this.query.q.length) {
