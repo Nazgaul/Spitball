@@ -5,7 +5,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 var Visualizer = require("webpack-visualizer-plugin");
 var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
-
+var t = require("./webpack.global.js");
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
@@ -88,7 +88,7 @@ module.exports = (env) => {
             output: {
                 path: path.join(__dirname, bundleOutputDir),
                 filename: isDevBuild ? "[name].js" : "[name].[chunkhash].js",
-                publicPath: isDevBuild ? "/dist/" : "//spitball.azureedge.net/dist/"
+                publicPath: t.getdist(isDevBuild)
             },
             plugins: [
                 new webpack.DefinePlugin({
