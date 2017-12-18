@@ -1,6 +1,7 @@
 ﻿@using System.Reflection
 @using System.Text.RegularExpressions
 @using Cloudents.Web.Extensions
+@using Cloudents.Web.Views
 @using Microsoft.AspNetCore.Hosting
 @using Microsoft.Extensions.FileProviders
 @inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
@@ -15,6 +16,7 @@
     var version = Assembly.GetEntryAssembly().GetName().Version.ToString(4);
     var p = Provider.GetTag("vendor");
     var main = Provider.GetTag("main");
+    const string cdnEndPoint = Constants.CdnEndpoint;
 }
 <!DOCTYPE html>
 
@@ -30,12 +32,12 @@
     </environment>
 
     <environment exclude="Development">
-        <link rel="stylesheet" href="//spitball.azureedge.net/dist/@p.Css"
+        <link rel="stylesheet" href="@cdnEndPoint/dist/@p.Css"
               asp-fallback-href="~/dist/@p.Css"
               asp-fallback-test-class="cdn-only" asp-fallback-test-property="position"
               asp-fallback-test-value="absolute" />
 
-        <link rel="stylesheet" href="//spitball.azureedge.net/dist/@main.Css"
+        <link rel="stylesheet" href="@cdnEndPoint/dist/@main.Css"
               asp-fallback-href="~/dist/@main.Css"
               asp-fallback-test-class="cdn-only2" asp-fallback-test-property="position"
               asp-fallback-test-value="absolute" />
@@ -59,20 +61,20 @@
     <meta property="og:type" content="website" />
     <link href="https://plus.google.com/116999550356569810034" rel="publisher" />
 
-    <link rel="apple-touch-icon" sizes="57x57" href="//spitball.azureedge.net/images/favIcons/favicon_114.png" />
-    <link rel="apple-touch-icon" sizes="57x57" href="//spitball.azureedge.net/images/favIcons/favicon_57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="//spitball.azureedge.net/images/favicons/favicon_60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="//spitball.azureedge.net/images/favicons/favicon_72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="//spitball.azureedge.net/images/favicons/favicon_76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="//spitball.azureedge.net/images/favicons/favicon_114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="//spitball.azureedge.net/images/favicons/favicon_120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="//spitball.azureedge.net/images/favicons/favicon_144.png">
-    <link rel="icon" type="image/png" href="//spitball.azureedge.net/images/favicons/favicon_32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="//spitball.azureedge.net/images/favicons/favicon_96.png" sizes="96x96">
-    <link rel="icon" type="image/png" href="//spitball.azureedge.net/images/favicons/favicon_16.png" sizes="16x16">
+    <link rel="apple-touch-icon" sizes="57x57" href="@cdnEndPoint/images/favIcons/favicon_114.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="@cdnEndPoint/images/favIcons/favicon_57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="@cdnEndPoint/images/favicons/favicon_60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="@cdnEndPoint/images/favicons/favicon_72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="@cdnEndPoint/images/favicons/favicon_76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="@cdnEndPoint/images/favicons/favicon_114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="@cdnEndPoint/images/favicons/favicon_120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="@cdnEndPoint/images/favicons/favicon_144.png">
+    <link rel="icon" type="image/png" href="@cdnEndPoint/images/favicons/favicon_32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="@cdnEndPoint/images/favicons/favicon_96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="@cdnEndPoint/images/favicons/favicon_16.png" sizes="16x16">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="//spitball.azureedge.net/images/favicons/mstile-144x144.png">
-    <link rel="SHORTCUT ICON" href="//spitball.azureedge.net/favicon.ico" />
+    <meta name="msapplication-TileImage" content="@cdnEndPoint/images/favicons/mstile-144x144.png">
+    <link rel="SHORTCUT ICON" href="@cdnEndPoint/favicon.ico" />
     @Html.Raw(JavaScriptSnippet.FullScript)
 </head>
 <body>
@@ -86,7 +88,7 @@
     </environment>
 
     <environment exclude="Development">
-        <script src="//spitball.azureedge.net/dist/@p.Js"
+        <script src="@cdnEndPoint/dist/@p.Js"
                 asp-fallback-src="~/dist/@p.Js"
                 asp-fallback-test="window.vendor">
         </script>

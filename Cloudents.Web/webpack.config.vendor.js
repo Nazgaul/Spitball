@@ -1,17 +1,14 @@
 ﻿const path = require("path");
-//const glob = require('glob');
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-//const PurifyCSSPlugin = require('purifycss-webpack');
 const CleanWebpackPlugin = require("clean-webpack-plugin");
-//var resolve = (p) => path.resolve(__dirname, p);
 var Visualizer = require("webpack-visualizer-plugin");
 var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
+var t = require("./webpack.global.js");
+
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
-    //const extractCss = new ExtractTextPlugin({ name: "vendor[contenthash].css" });
-
     return [
         {
             stats: { modules: false },
@@ -80,7 +77,7 @@ module.exports = (env) => {
             },
             output: {
                 path: path.join(__dirname, "wwwroot", "dist"),
-                publicPath: isDevBuild ? "/dist/" : "//spitball.azureedge.net/dist/",
+                publicPath: t.getdist(isDevBuild), // isDevBuild ? "/dist/" : "//spitball.azureedge.net/dist/",
                 filename: "[name].[chunkhash].js",
                 library: "[name]"
             },
@@ -97,7 +94,7 @@ module.exports = (env) => {
                 //    }
                 //}),
                 new webpack.DefinePlugin({
-                    'process.env.NODE_ENV': isDevBuild ? '"development"' : '"production"',
+                    'process.env.NODE_ENV': isDevBuild ? '"development"' : '"production"'
                 }),
                 new webpack.DllPlugin({
                     path: path.join(__dirname, "wwwroot", "dist", "[name]-manifest.json"),
