@@ -88,7 +88,8 @@ export const pageMixin =
         watch:{
             myCourses(val){
                 let courseIndex = this.filterObject.findIndex(i => i.modelId === "course");
-                this.filterObject[courseIndex].data=val;
+                if(courseIndex>-1)
+                     this.filterObject[courseIndex].data=val;
             }
         },
         computed: {
@@ -176,6 +177,7 @@ export const pageMixin =
                     this.filterObject=this.page.filter.map((i)=>{
                         let item={title:i.name,modelId:i.id};
                         item.data=(i.id==="course")?this.myCourses:this.pageData[i.id]?this.pageData[i.id]:this.getFacet?this.getFacet:[];
+                        if(i.id==="filter"&&this.name==="job")item.data=[{id:"Paid",name:"Paid"}];
                         return item;
                     });
                 }

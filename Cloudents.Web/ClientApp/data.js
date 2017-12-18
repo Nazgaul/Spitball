@@ -67,7 +67,7 @@ export let verticals =
             //image: "job",
             //resultTitle: "Look at this - you’ll be employed in no time!",
             //emptyState: "Sorry, I didn't find any jobs that match your search",
-            filter: [{ id: "jobType", name: "job type" }],
+            filter: [{ id: "jobType", name: "job type" },{id: "filter", name: "Filter" }],
             sort: [
                 { id: "price", name: "price" },
                 { id: "distance", name: "distance" }

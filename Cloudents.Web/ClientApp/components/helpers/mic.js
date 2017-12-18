@@ -20,7 +20,7 @@ export const micMixin = {
 
         created() {
             if (this.voiceEnable) {
-                var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+                let SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
                 this.recognition = new SpeechRecognition();
                 this.recognition.lang = "en-US";
                 this.recognition.interimResults = false;
@@ -38,7 +38,7 @@ export const micMixin = {
         },
     
         computed: {
-            voiceEnable() { return "webkitSpeechRecognition" in window},
+            voiceEnable() { return ("webkitSpeechRecognition" in window) || ("SpeechRecognition" in window)},
             voiceAppend(){return this.voiceEnable?(this.isRecording?'sbf-mic-recording':'sbf-mic'):''}
         }
     };

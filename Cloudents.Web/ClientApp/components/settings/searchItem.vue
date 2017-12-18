@@ -8,7 +8,7 @@
             </template>
             <template v-if="currentType==='course'" slot="courseExtraItem">
                 <div class="add-course-form ma-2 py-3 px-3">
-                    <form @submit.prevent="$_submitAddCourse">
+                    <form @submit.prevent="$_submitAddCourse" ref="addForm">
                         <div class="form-title">Still don't see your class?</div>
                         <v-text-field dark v-model="newCourseName" placeholder="Type it in here:"></v-text-field>
                         <div class="actions">

@@ -87,8 +87,10 @@ export default {
             });
         }, 500),
         $_submitAddCourse() {
+            this.$refs.addForm.blur();
             this.createCourse({ name: this.newCourseName });
             this.newCourseName = "";
+            this.$el.querySelector('.results-container').scrollTop=0;
         },
         $_clearAddCourse() {
             this.newCourseName = "";
