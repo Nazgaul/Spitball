@@ -3,6 +3,6 @@
     public static class Constants
     {
         public const string CdnEndpoint =
-            "//spitball.azureedge.net/";
+            "//spitball.azureedge.net";
     }
 }

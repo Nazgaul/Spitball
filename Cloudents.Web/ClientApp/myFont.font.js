@@ -8,5 +8,5 @@
     'types': ['woff'],
     'embed': false,
     //'html': true,
-    'fileName': 'sb-[chunkhash].[ext]'
+    'fileName': 'sb1-[chunkhash].[ext]'
 };

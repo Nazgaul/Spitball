@@ -27,7 +27,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         /// <param name="purchaseRequest">The model</param>
         /// <param name="token"></param>
         /// <returns>The list of places and token for paging</returns>
-        public async Task<HttpResponseMessage> Get(PurchaseRequest purchaseRequest,
+        public async Task<HttpResponseMessage> Get([FromUri]PurchaseRequest purchaseRequest,
             CancellationToken token)
         {
             if (purchaseRequest.Term == null) throw new ArgumentNullException(nameof(purchaseRequest.Term));
