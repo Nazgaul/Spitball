@@ -33,7 +33,16 @@ namespace Test
         builder.RegisterModule(infrastructureModule);
             var container = builder.Build();
 
-            
+            var repository = container.Resolve<IDocumentCseSearch>();
+
+            var result = await repository.SearchAsync(
+                new SearchQuery(new[] {"calculus", "class notes"}, 
+                new[] { "University of Michigan","umich" },
+                new[] {"ECON 101"}, null, 0,
+                    SearchCseRequestSort.None)
+                , default);
+
+
             var location = new GeoPoint()
             {
                 Latitude = 31.889692,

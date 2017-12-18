@@ -1,4 +1,4 @@
-﻿﻿import ResultItem from './ResultItem.vue';
+﻿import ResultItem from './ResultItem.vue';
 const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
 const ResultJob = () => import('./ResultJob.vue');
