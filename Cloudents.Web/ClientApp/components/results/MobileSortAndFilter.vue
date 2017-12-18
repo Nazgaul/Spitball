@@ -27,12 +27,10 @@
         name: "mobile-sort-and-filter",
         methods:{
             $_applayFilters(){
-                console.log("applayFilters")
                 this.$router.push({ query: { q:this.$route.query.q, sort:this.sort, ...this.filters} });
                 this.$emit('input',false);
             },
             $_resetFilters(){
-                console.log("clear filters")
                 if(this.$route.path.includes('note')||this.$route.path.includes('flashcard'))
                     this.$route.meta.myClasses = [];
                 this.$router.push({ query: { q:this.$route.query.q} });
