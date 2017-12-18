@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Cloudents.Web.Filters
 {
-    public class IpToLocationActionFilter : ActionFilterAttribute
+    public sealed class IpToLocationActionFilter : ActionFilterAttribute
     {
         private readonly string _geoLocationArgumentName;
         private readonly IIpToLocation _ipToLocation;
@@ -25,7 +25,7 @@ namespace Cloudents.Web.Filters
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             var cookie = context.HttpContext.Request.Cookies[CookieName];
-            
+
             if (next == null) throw new ArgumentNullException(nameof(next));
             if (context.ActionArguments.TryGetValue(_geoLocationArgumentName, out var b)
                 && b is GeoPoint placeLocation)

@@ -27,7 +27,7 @@ export const sortAndFilterMixin = {
         ...mapMutations(['UPDATE_LOADING'])}
 };
 let updateData = function (data,isFilterUpdate=false) {
-    let {source,jobType}=data;
+    const {source,jobType} = data;
 
     this.pageData = {};
     this.content = data;
@@ -52,7 +52,7 @@ export const pageMixin =
                 this.$route.meta.myClasses = [];
                 this.$nextTick(() => {
                     next();
-                })
+                });
             }else{
                 next();
             }
@@ -61,8 +61,8 @@ export const pageMixin =
         beforeRouteUpdate(to, from, next) {
 
             this.UPDATE_LOADING(true);
-            let toName=to.path.slice(1);
-            let savedTerm=to.meta[this.$_calcTerm(toName)];
+            const toName = to.path.slice(1);
+            const savedTerm = to.meta[this.$_calcTerm(toName)];
             this.pageData={};
             this.items=[];
             new Promise((resolve, reject) => {
@@ -75,7 +75,7 @@ export const pageMixin =
                     resolve(savedTerm.luisTerm);
                 }
             }).then((luisTerm)=>{
-                let updateFilter=(to.path===from.path&&to.query.q===from.query.q);
+                const updateFilter = (to.path===from.path&&to.query.q===from.query.q);
                 this.fetchingData({name: toName, params: {...to.query, ...to.params}, luisTerm})
                     .then(({data}) => {
                         updateData.call(this, data,updateFilter);
@@ -86,8 +86,8 @@ export const pageMixin =
         },
 
         watch:{
-            myCourses(val){
-                let courseIndex = this.filterObject.findIndex(i => i.modelId === "course");
+            myCourses(val) {
+                const courseIndex = this.filterObject.findIndex(i => i.modelId === "course");
                 if(courseIndex>-1)
                      this.filterObject[courseIndex].data=val;
             }
@@ -109,8 +109,8 @@ export const pageMixin =
                 }
             },
             isEmpty: function () { return this.pageData.data ? !this.pageData.data.length : true },
-            subFilterVertical(){
-                return this.name.includes('note')||this.name==='flashcard'||this.name==='job'
+            subFilterVertical() {
+                return this.name.includes('note') || this.name === 'flashcard' || this.name === 'job';
             }
         },
 
@@ -133,7 +133,7 @@ export const pageMixin =
                 }else{
                     resolve();
                 }
-            }).then(()=>next())
+            }).then(()=>next());
 
         },
         created() {
@@ -150,7 +150,7 @@ export const pageMixin =
                     this.$route.meta[this.$_calcTerm(response.result)] = {term: this.query.q, luisTerm: response.term};
                     if (!this.vertical&&response.result !== this.name) {
                         this.UPDATE_LOADING(false);
-                        let routeParams = {path: '/' + response.result, query: {...this.query, q: this.query.q}};
+                        const routeParams = {path: '/' + response.result, query: {...this.query, q: this.query.q}};
                         this.$router.replace(routeParams);
                     } else {
                         this.fetchingData({
@@ -175,7 +175,7 @@ export const pageMixin =
                 }
                 else{
                     this.filterObject=this.page.filter.map((i)=>{
-                        let item={title:i.name,modelId:i.id};
+                        const item = {title:i.name,modelId:i.id};
                         item.data=(i.id==="course")?this.myCourses:this.pageData[i.id]?this.pageData[i.id]:this.getFacet?this.getFacet:[];
                         if(i.id==="filter"&&this.name==="job")item.data=[{id:"Paid",name:"Paid"}];
                         return item;
@@ -189,7 +189,7 @@ export const pageMixin =
                 this.$router.push({ query: { ... this.query, sort: sort } });
             },
             $_changeSubFilter({id,val,type}) {
-                let currentFilter=!this.query[id]?[]:Array.isArray(this.query[id])?this.query[id]:[this.query[id]];
+                const currentFilter = !this.query[id]?[]:Array.isArray(this.query[id])?this.query[id]:[this.query[id]];
                 let listo=[val,...currentFilter];
                 if(!type.target.checked){
                     listo=currentFilter.filter(i=>i.toString()!==val.toString());
@@ -197,7 +197,7 @@ export const pageMixin =
                 if(id==='course'){
                     this.$route.meta.myClasses=listo;
                 }
-                let newFilter={[id]:listo};
+                const newFilter = {[id]:listo};
                 let {q,sort,course,source,filter}=this.query;
                 if(val==='inPerson'&&type)sort="price";
                 this.$router.push({ query: {q,sort,course,source,filter, ...newFilter}});

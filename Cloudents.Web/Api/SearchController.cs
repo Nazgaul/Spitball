@@ -27,11 +27,11 @@ namespace Cloudents.Web.Api
         private static readonly Task<IEnumerable<string>> EmptyResultTask = Task.FromResult<IEnumerable<string>>(null);
 
         [Route("documents")]
-        public async Task<IActionResult> SearchDocumentAsync([FromQuery] SearchRequest model,
+        public async Task<IActionResult> SearchDocumentAsync([FromQuery] DocumentSearchRequest model,
             CancellationToken token, [FromServices] IDocumentCseSearch searchProvider)
         {
             var parseResult = await ParseUniversityAndCoursesAsync(model.University, model.Course, token).ConfigureAwait(false);
-
+            
             var query = new SearchQuery(model.Term, parseResult.university, parseResult.course, model.Source, model.Page.GetValueOrDefault(),
                 model.Sort.GetValueOrDefault());
 

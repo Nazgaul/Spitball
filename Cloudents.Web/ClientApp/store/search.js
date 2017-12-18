@@ -17,11 +17,11 @@ const mutations = {
         state.loading = payload;
     },
     [SEARCH.UPDATE_SEARCH_PARAMS](state, {term,location}) {
-        if(!location&&!state.search.location&&navigator.geolocation){
+        if(!location&&!state.search.location&&navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(({ coords }) => {
                 coords = coords || {};
                 state.search.location = coords.latitude + ',' + coords.longitude;
-            })
+            });
         }
         state.search = { ...state.search, term,location} ;
     }
@@ -37,14 +37,13 @@ const getters = {
 const actions = {
     //Always update the current route according the flow
     updateSearchText(context, text) {
-        console.log(context);
             if (!text) {
                 return Promise.resolve("");
             }
            return interpetPromise(text).then(({data:body}) => {
                 let params={...body};
-                if(params.hasOwnProperty('cords')){
-                    params.location=`${params.cords.latitude},${params.cords.longitude}`
+                if(params.hasOwnProperty('cords')) {
+                    params.location = `${params.cords.latitude},${params.cords.longitude}`;
                 }
                 context.commit(SEARCH.UPDATE_SEARCH_PARAMS, { ...params });
                 return{ result: body.vertical, term: body.term };

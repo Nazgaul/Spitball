@@ -68,14 +68,13 @@ namespace Cloudents.Infrastructure.AI
             }
             var terms = aiResult.Subject;
             terms.AddNotNull(aiResult.Course);
-            terms.AddNotNull(aiResult.SearchType?.Value);
             terms.AddNotNull(aiResult.Location);
 
             if (terms.Count == 0)
             {
                 return null;
             }
-            return new VerticalEngineSearchDto(terms, aiResult.University);
+            return new VerticalEngineSearchDto(terms, aiResult.University, aiResult.SearchType?.Value);
         }
 
         private const string Flashcards = "flashcards";
