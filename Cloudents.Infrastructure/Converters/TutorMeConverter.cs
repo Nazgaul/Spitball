@@ -18,6 +18,7 @@ namespace Cloudents.Infrastructure.Converters
                 Name = result["shortName"].Value<string>(),
                 Online = result["isOnline"].Value<bool>(),
                 Description = result["about"].Value<string>(),
+                Fee = 60,
                 TermCount = result.ToString().Split(new[] { context.Items["term"].ToString() },
                     StringSplitOptions.RemoveEmptyEntries).Length
             });
