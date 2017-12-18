@@ -1,12 +1,12 @@
 ﻿﻿<template>
      <general-page :filterSelection="filterSelection" :result="!loading">
-         
+         <v-btn :slot="(isMobile?'mobile':'')+'FilterIcon'" @click="showFilters=true">filter</v-btn>
          <v-chip color="color-light-gray" label slot="selectedFilters" slot-scope="props" class="filter-chip" @click="$_removeFilter(props.item)">
              {{$_showSelectedFilter(props.item) | capitalize}}
              <v-icon right>sbf-close</v-icon>
          </v-chip>
          <template slot="options" v-if="page">
-             <sort-and-filter :sortOptions="page.sort" :sortCallback="$_updateSort" :sortVal="sort"
+             <component :is="(isMobile?'mobile-':'')+'sort-and-filter'" :sortOptions="page.sort" :sortCallback="$_updateSort" :sortVal="sort" v-model="showFilters"
                               :filterOptions="filterObject" :filterCallback="$_changeSubFilter" :filterVal="filterSelection">
                  <div class="course-empty-state" slot="courseEmptyState" v-if="!myCourses.length">
                      <div>Add your school and courses for better results</div>
@@ -17,7 +17,7 @@
                          <plus-btn></plus-btn><span>Add Course</span>
                      </button>
                  </template>
-             </sort-and-filter>
+             </component>
          </template>
          <scroll-list slot="data" v-if="page&&items" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
              <v-container class="pa-0">

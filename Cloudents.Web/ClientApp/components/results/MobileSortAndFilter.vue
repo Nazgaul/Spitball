@@ -1,0 +1,56 @@
+<template>
+    <v-dialog v-model="value" fullscreen content-class="white">
+        <v-btn @click="$emit('input',false)">X</v-btn>
+        <v-btn @click="$_applayFilters">APPLAY</v-btn>
+        <v-btn @click="$_resetFilters">CLEAR ALL</v-btn>
+        <sort-and-filter :sortOptions="sortOptions" :sortCallback="$_updateSortMobile" :sortVal="sortVal"
+                         :filterOptions="filterOptions" :filterCallback="$_updateFilterMobile" :filterVal="filterVal">
+            <template slot="courseEmptyState"><slot name="courseEmptyState"></slot></template>
+            <template slot="courseExtraState"><slot name="courseExtraState">
+            </slot></template>
+        </sort-and-filter>
+    </v-dialog>
+</template>
+
+<script>
+    import SortAndFilter from './SortAndFilter.vue'
+    export default {
+        model:{
+            prop:"value",
+            event:"input"
+        },
+        data(){
+            return {filters:{},sort:""}
+        },
+        components:{SortAndFilter},
+        props:{value:{type:Boolean},sortOptions:{},filterOptions:{},filterVal:{},sortVal:{}},
+        name: "mobile-sort-and-filter",
+        methods:{
+            $_applayFilters(){
+                this.$router.push({ query: { q:this.$route.query.q, sort:this.sort, ...this.filters} });
+                this.$emit('input',false);
+            },
+            $_resetFilters(){
+                if(this.$route.path.includes('note')||this.$route.path.includes('flashcard'))
+                    this.$route.meta.myClasses = [];
+                this.$router.push({ query: { q:this.$route.query.q} });
+                this.$emit('input',false);
+            },
+            $_updateSortMobile(val){
+                this.sort=val;
+            },
+            $_updateFilterMobile({ id, val, type }){
+                let currentFilter=this.filters[id]||[];
+                let listo = [val, ...currentFilter];
+                if (!type.target.checked) {
+                    listo = currentFilter.filter(i => i.toString() !== val.toString());
+                }
+                if (id === 'course') {
+                    this.$route.meta.myClasses = listo;
+                }
+                this.filters[id]=listo;
+                if (val === 'inPerson' && type) this.sort = "price";
+            }
+        }
+    }
+</script>
