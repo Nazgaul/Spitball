@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Resources;
 using Microsoft.AspNetCore.Mvc;
@@ -22,10 +23,10 @@ namespace Cloudents.Web.Controllers
             _localizer = localizer;
         }
 
-        [Route("quiz/{universityName}/{boxId:long}/{boxName}/{quizId:long}/{quizName}", Name = "Quiz")]
-        public async Task<IActionResult> Index(long quizId, CancellationToken token)
+        [Route("quiz/{universityName}/{boxId:long}/{boxName}/{id:long}/{name}", Name = SeoTypeString.Quiz)]
+        public async Task<IActionResult> Index(long id, CancellationToken token)
         {
-            var model = await _repository.GetAsync(quizId, token).ConfigureAwait(false);
+            var model = await _repository.GetAsync(id, token).ConfigureAwait(false);
             if (model == null)
             {
                 return NotFound();

@@ -6,11 +6,11 @@ using Dapper;
 
 namespace Cloudents.Infrastructure.Data
 {
-    public class SeoDocumentRepository : IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>
+    public class SeoQuizRepository : IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>
     {
         private readonly DapperRepository _repository;
 
-        public SeoDocumentRepository(DapperRepository repository)
+        public SeoQuizRepository(DapperRepository repository)
         {
             _repository = repository;
         }
@@ -20,24 +20,25 @@ namespace Cloudents.Infrastructure.Data
             const int pageSize = 49950;
             using (var conn = _repository.OpenConnection())
             {
-                var data = conn.Query<SiteMapSeoDto>(@"WITH boxSeo as (
- select BoxId, BoxName,u.UniversityName from zbox.box b LEFT JOIN zbox.University u on u.id = b.University
+                var data = conn.Query<SiteMapSeoDto>(@"with boxSeo as (
+ select BoxId, BoxName,u.UniversityName from zbox.box b join zbox.University u on u.id = b.University and needCode = 0
 and Discriminator = 2
 and b.IsDeleted = 0
 )
-select b.*,i.ItemId as id,i.Name
-from zbox.item i join boxSeo b on i.BoxId = b.BoxId
-where i.IsDeleted = 0
-and i.content is not null
-and i.Discriminator = 'FILE'
+select b.*,q.Id,q.Name
+from zbox.quiz q join boxSeo b on q.BoxId = b.BoxId
+where q.IsDeleted = 0
+and q.publish = 1
 order by boxId
 offset (@pageNumber)*@rowsPerPage ROWS
 FETCH NEXT @rowsPerPage ROWS ONLY", new { rowsPerPage = pageSize, pageNumber = query.Page }, buffered: false);
 
                 foreach (var row in data)
                 {
+                    //query.Callback(row);
                     yield return row;
                 }
+
             }
         }
         

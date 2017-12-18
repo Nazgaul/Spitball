@@ -82,8 +82,8 @@ namespace Cloudents.Web.Controllers
                     universityName = entity.UniversityName ?? "my",
                     boxId = entity.BoxId,
                     boxName = entity.BoxName,
-                    itemId = entity.Id,
-                    itemName = entity.Name
+                    id = entity.Id,
+                    name = entity.Name
                 }, Request.GetUri().Scheme);
 
                 await WriteTagAsync("1", "Daily", url, writer).ConfigureAwait(false);

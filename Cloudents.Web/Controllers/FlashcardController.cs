@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Resources;
 using Microsoft.AspNetCore.Mvc;
@@ -18,12 +19,11 @@ namespace Cloudents.Web.Controllers
             _localizer = localizer;
             _repository = repository;
         }
-        //Temp: http://localhost:53216/flashcard/noa-university/100493/tatty/1477/%D7%AA%D7%9E%D7%95%D7%A0%D7%95%D7%AA-%D7%98%D7%95%D7%91%D7%95%D7%AA/
-        [Route("flashcard/{universityName}/{boxId:long}/{boxName}/{flashcardId:long}/{flashcardName}", Name = "Flashcard")]
-        public async Task<IActionResult> Index(long flashcardId, CancellationToken token)
+        [Route("flashcard/{universityName}/{boxId:long}/{boxName}/{id:long}/{name}", Name = SeoTypeString.Flashcard)]
+        public async Task<IActionResult> Index(long id, CancellationToken token)
         {
             ViewBag.fbImage = ViewBag.imageSrc = "/images/3rdParty/fbFlashcard.png";
-            var model = await _repository.GetAsync(flashcardId, token).ConfigureAwait(false);
+            var model = await _repository.GetAsync(id, token).ConfigureAwait(false);
 
             if (model == null)
             {

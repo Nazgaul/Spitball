@@ -101,9 +101,12 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<SeoDocumentRepository>()
                 .Keyed<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>(SeoType.Item);
 
-            builder.RegisterGeneric(typeof(EfRepository<>)).AsImplementedInterfaces();
+            builder.RegisterType<SeoFlashcardRepository>()
+                .Keyed<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>(SeoType.Flashcard);
+            builder.RegisterType<SeoQuizRepository>()
+                .Keyed<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>(SeoType.Quiz);
 
-           
+            builder.RegisterGeneric(typeof(EfRepository<>)).AsImplementedInterfaces();
 
             ConfigureCache(builder);
             var config = MapperConfiguration();

@@ -23,10 +23,10 @@ namespace Cloudents.Web.Controllers
             _repository = repository;
         }
 
-        [Route("item/{universityName}/{boxId:long}/{boxName}/{itemId:long}/{itemName}", Name = SeoTypeString.Item)]
-        public async Task<IActionResult> Index(long itemId, CancellationToken token)
+        [Route("item/{universityName}/{boxId:long}/{boxName}/{id:long}/{name}", Name = SeoTypeString.Item)]
+        public async Task<IActionResult> Index(long id, CancellationToken token)
         {
-            var model = await _repository.GetAsync(itemId, token).ConfigureAwait(false);
+            var model = await _repository.GetAsync(id, token).ConfigureAwait(false);
 
             if (model == null)
             {
