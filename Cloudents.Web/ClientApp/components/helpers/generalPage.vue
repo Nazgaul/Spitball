@@ -9,6 +9,7 @@
                     <v-container class="px-0 pt-0 ma-0" fluid>
                         <v-layout row>
                             <v-flex class="sec-result">
+                                <slot name="mobileFilterIcon"></slot>
                                 <div v-if="props.filterSelection.length" class="pb-3">
                                     <template v-for="item in props.filterSelection">
                                         <slot name="selectedFilters" :item="item"></slot>

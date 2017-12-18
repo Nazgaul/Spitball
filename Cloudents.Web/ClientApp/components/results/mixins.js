@@ -6,7 +6,8 @@ import ResultVideo from './ResultVideo.vue'
 import SuggestCard from './suggestCard.vue'
 const ResultFood = () => import('./ResultFood.vue');
 const foodExtra = () => import('./foodExtra.vue');
-import SortAndFilter from './SortAndFilter.vue'
+const SortAndFilter = ()=> import('./SortAndFilter.vue');
+const MobileSortAndFilter =()=>import('./MobileSortAndFilter.vue');
 import plusBtn from "../settings/svg/plus-button.svg";
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 export const sortAndFilterMixin = {
@@ -98,6 +99,9 @@ export const pageMixin =
         },
         computed: {
             ...mapGetters(['term', 'isFirst', 'myCourses', 'luisTerm']),
+            isMobile(){
+                return this.$vuetify.breakpoint.xsOnly;
+            },
             content: {
                 get() {
                     return this.pageData;
@@ -123,11 +127,12 @@ export const pageMixin =
                 items: '',
                 pageData: '',
                 selectedItem: null,
-                filterObject: null
+                filterObject: null,
+                showFilters:false
             };
         },
 
-        components: { foodExtra, ResultItem, SuggestCard, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood },
+        components: { foodExtra, ResultItem, SuggestCard, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood,MobileSortAndFilter },
 
         beforeRouteEnter(to, from, next) {
             new Promise(resolve => {
