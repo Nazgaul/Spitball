@@ -46,11 +46,11 @@ export default {
     methods: {
         ...mapActions(["updateSearchText","createCourse","updateFirstTime"]),
         submit: function () {
-            this.updateSearchText(this.qFilter).then((response) => {
+            this.updateSearchText(this.qFilter).then(({term:luisTerm,docType}) => {
                 let result=this.$route.name==="bookDetails"?"/book":this.$route.path;
                 this.$route.meta[result.includes('food')?'foodTerm':result.includes('job')?'jobTerm':'term']={
                     term: this.qFilter,
-                    luisTerm: response.term
+                    luisTerm,docType
                 };
                 this.$nextTick(()=>{
                 this.$router.push({path:result, query: { q: this.qFilter },meta:{...this.$route.meta} });

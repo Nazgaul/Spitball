@@ -39,8 +39,8 @@ export default {
         ask({ source, university, course, term, page, sort, q:userText }) {
              return  search.getQna({ source, university, course, term, page, sort, userText });
         },
-        note({ source, university, course, term, page, sort }) {
-               return search.getDocument({ source, university, course, term, page, sort });
+        note({ source, university, course, term, page, sort,docType }) {
+               return search.getDocument({ source, university, course, term, page, sort,docType });
         },
         flashcard({ source, university, course, term, page, sort }) {
                 return search.getFlashcard({ source, university, course, term, page, sort });

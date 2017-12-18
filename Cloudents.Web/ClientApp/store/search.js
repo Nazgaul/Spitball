@@ -46,7 +46,7 @@ const actions = {
                     params.location = `${params.cords.latitude},${params.cords.longitude}`;
                 }
                 context.commit(SEARCH.UPDATE_SEARCH_PARAMS, { ...params });
-                return{ result: body.vertical, term: body.term };
+                return{ result: body.vertical, term: body.term,docType:body.docType};
             });
     },
 
@@ -54,9 +54,9 @@ const actions = {
         return searchService.activateFunction[pageName]({isbn13,type});
     },
 
-    fetchingData: (context, { name, params, page, luisTerm: term }) => {
+    fetchingData: (context, { name, params, page, luisTerm: term,docType }) => {
         let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
-        return searchService.activateFunction[name]({ ...context.getters.searchParams, ...params, university, page, term });
+        return searchService.activateFunction[name]({ ...context.getters.searchParams, ...params, university, page, term,docType });
     },
 
     getPreview(context, model) {

@@ -68,15 +68,15 @@ export const pageMixin =
             new Promise((resolve, reject) => {
                 if(!to.query.q||!to.query.q.length){resolve()}
                 else if(!savedTerm||(savedTerm.term!==to.query.q)){
-                    this.updateSearchText(to.query.q).then((response)=> {
-                        this.$route.meta[this.$_calcTerm(toName)] = {term: to.query.q, luisTerm: response.term};
-                        resolve(to.meta[this.$_calcTerm(toName)].luisTerm);
+                    this.updateSearchText(to.query.q).then(({term,docType})=> {
+                        this.$route.meta[this.$_calcTerm(toName)] = {term: to.query.q, luisTerm: term,docType};
+                        resolve({luisTerm:to.meta[this.$_calcTerm(toName)].luisTerm,docType});
                     })}else{
-                    resolve(savedTerm.luisTerm);
+                    resolve({luisTerm:savedTerm.luisTerm,docType:savedTerm.docType});
                 }
-            }).then((luisTerm)=>{
+            }).then(({luisTerm,docType})=>{
                 const updateFilter = (to.path===from.path&&to.query.q===from.query.q);
-                this.fetchingData({name: toName, params: {...to.query, ...to.params}, luisTerm})
+                this.fetchingData({name: toName, params: {...to.query, ...to.params}, luisTerm,docType})
                     .then(({data}) => {
                         updateData.call(this, data,updateFilter);
                     }).catch(reason => {this.UPDATE_LOADING(false);
@@ -146,17 +146,18 @@ export const pageMixin =
                         updateData.call(this, data);
                     }).catch(reason => {this.UPDATE_LOADING(false);});
             }else {
-                this.updateSearchText(this.query.q).then((response) => {
-                    this.$route.meta[this.$_calcTerm(response.result)] = {term: this.query.q, luisTerm: response.term};
-                    if (!this.vertical&&response.result !== this.name) {
+                this.updateSearchText(this.query.q).then(({term,result,docType}) => {
+                    console.log(docType);
+                    this.$route.meta[this.$_calcTerm(result)] = {term: this.query.q, luisTerm: term,docType};
+                    if (!this.vertical&&result !== this.name) {
                         this.UPDATE_LOADING(false);
-                        const routeParams = {path: '/' + response.result, query: {...this.query, q: this.query.q}};
+                        const routeParams = {path: '/' + result, query: {...this.query, q: this.query.q}};
                         this.$router.replace(routeParams);
                     } else {
                         this.fetchingData({
                             name: this.name,
                             params: {...this.query, ...this.params},
-                            luisTerm: response.term
+                            luisTerm: term,docType
                         })
                             .then(({data}) => {
                                 updateData.call(this, data);
