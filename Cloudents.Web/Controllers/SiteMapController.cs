@@ -1,216 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
+using Autofac.Features.Indexed;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Web.Models;
-using Microsoft.AspNetCore.Http;
+using Cloudents.Core.Request;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Net.Http.Headers;
 
 namespace Cloudents.Web.Controllers
 {
     public class SiteMapController : Controller
     {
         private readonly IReadRepositoryAsync<IEnumerable<SiteMapCountDto>> _readRepository;
+        private readonly IIndex<SeoType, IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>> _seoRepositories;
 
-        public SiteMapController(IReadRepositoryAsync<IEnumerable<SiteMapCountDto>> readRepository)
+        public SiteMapController(IReadRepositoryAsync<IEnumerable<SiteMapCountDto>> readRepository, IIndex<SeoType, IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>> seoRepositories)
         {
             _readRepository = readRepository;
+            _seoRepositories = seoRepositories;
         }
 
         [Route("sitemap.xml")]
         [ResponseCache(Duration = 2 * TimeConst.Day)]
         public async Task<IActionResult> Index(CancellationToken token)
-        {
-            var content = await GetSiteMapIndexAsync(token).ConfigureAwait(false);
-            return Content(content, "application/xml");
-        }
-
-        [Route("sitemap-{type}-{index:int}.xml")]
-        //[ResponseCache(Duration = 2 * TimeConst.Day,Va)]
-        public async Task DetailIndexAsync(SeoType type, int index, CancellationToken token)
-        {
-            //var content = await GetSiteMapXmlAsync(type, index,token).ConfigureAwait(false);
-
-            var response = HttpContext.Response;
-
-            response.StatusCode = 200;
-            response.ContentType = "application/xml";
-
-            XNamespace xmlns = "http://www.sitemaps.org/schemas/sitemap/0.9";
-            XNamespace xhtml = "http://www.w3.org/1999/xhtml";
-            IEnumerable<SiteMapNode> nodes;
-
-
-            //    if (type == SeoType.Static)
-            //    {
-            //        //nodes = GetSitemapStaticLinks();
-            //    }
-            //    else
-            //    {
-            //        nodes = await GetSitemapNodesAsync(type, index, cancellationToken).ConfigureAwait(false);
-            //    }
-            var writer = XmlWriter.Create(Response.Body,new XmlWriterSettings
-            {
-                Async = true
-            });
-            await writer.WriteStartDocumentAsync().ConfigureAwait(false);
-            writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
-            WriteTag("1", "Daily", "http://www.delshad.ir/default.aspx", writer);
-            WriteTag("0.6", "Yearly", "http://www.delshad.ir/Contact.aspx", writer);
-            WriteTag("0.8", "Monthly", "http://www.delshad.ir/About.aspx", writer);
-
-            await writer.WriteEndElementAsync().ConfigureAwait(false);
-            await writer.WriteEndDocumentAsync().ConfigureAwait(false);
-            await writer.FlushAsync().ConfigureAwait(false);
-            //var p = new XmlTextWriter(response.Body,Encoding.UTF8);
-            
-
-            //var root = new XElement(xmlns + "urlset",
-            //    new XAttribute(XNamespace.Xmlns + "xhtml", xhtml));
-
-            //    foreach (var node in nodes)
-            //    {
-            //        cancellationToken.ThrowIfCancellationRequested();
-            //        var locContent = new XElement(xmlns + "loc", node.Url);
-            //        var priorityContent = node.Priority == null
-            //                ? null
-            //                : new XElement(xmlns + "priority",
-            //                    node.Priority.Value.ToString("F1", CultureInfo.InvariantCulture));
-            //        var lastmodContent = node.LastModified == null
-            //            ? null
-            //            : new XElement(xmlns + "lastmod",
-            //                // ReSharper disable once StringLiteralTypo
-            //                node.LastModified.Value.ToLocalTime().ToString("yyyy-MM-ddTHH:mm:sszzz"));
-            //        var frequencyContent = node.Frequency == null
-            //            ? null
-            //            : new XElement(xmlns + "changefreq", node.Frequency.Value.ToString().ToLowerInvariant());
-
-            //        var url = new XElement(xmlns + "url", locContent, priorityContent, lastmodContent, frequencyContent);
-            //        if (node.SitemapLangNodes != null)
-            //        {
-            //            foreach (var lang in node.SitemapLangNodes)
-            //            {
-            //                var langNode = new XElement(xhtml + "link",
-            //                new XAttribute("rel", "alternate"),
-            //                new XAttribute("hreflang", lang.Language),
-            //                new XAttribute("href", lang.Url));
-
-            //                url.Add(langNode);
-            //            }
-            //        }
-
-            //        root.Add(url);
-            //    }
-            //    var document = new XDocument(new XDeclaration("1.0", "utf-8", "yes"), root);
-            //    return document.ToString();
-
-            //for (var i = 0; i < 10; ++i)
-            //{
-            //    //the tags are either 'events:' or 'data:' and two \n indicates ends of the msg
-            //    //event: xyz \n\n
-            //    //data: xyz \n\n
-
-            //    await response.WriteAsync($"data: test {i}\n\n", cancellationToken: token).ConfigureAwait(false);
-
-            //    await response.Body.FlushAsync(token).ConfigureAwait(false);
-            //    await Task.Delay(5 * 1000, token).ConfigureAwait(false);
-            //}
-            //await response.WriteAsync("data:\n\n", cancellationToken: token).ConfigureAwait(false);
-            await response.Body.FlushAsync(token).ConfigureAwait(false);
-            //return Content(content, "application/xml");
-        }
-
-
-        private void WriteTag(string Priority, string freq,
-            string Navigation, XmlWriter MyWriter)
-        {
-            MyWriter.WriteStartElement("url");
-
-            MyWriter.WriteStartElement("loc");
-            MyWriter.WriteValue(Navigation);
-            MyWriter.WriteEndElement();
-
-            MyWriter.WriteStartElement("lastmod");
-            MyWriter.WriteValue(DateTime.Now.ToShortDateString());
-            MyWriter.WriteEndElement();
-
-            MyWriter.WriteStartElement("changefreq");
-            MyWriter.WriteValue(freq);
-            MyWriter.WriteEndElement();
-
-            MyWriter.WriteStartElement("priority");
-            MyWriter.WriteValue(Priority);
-            MyWriter.WriteEndElement();
-
-            MyWriter.WriteEndElement();
-        }
-
-
-        //private async Task<string> GetSiteMapXmlAsync(SeoType type, int index, CancellationToken cancellationToken)
-        //{
-        //    XNamespace xmlns = "http://www.sitemaps.org/schemas/sitemap/0.9";
-        //    XNamespace xhtml = "http://www.w3.org/1999/xhtml";
-        //    IEnumerable<SitemapNode> nodes;
-        //    if (type == SeoType.Static)
-        //    {
-        //        //nodes = GetSitemapStaticLinks();
-        //    }
-        //    else
-        //    {
-        //        nodes = await GetSitemapNodesAsync(type, index, cancellationToken).ConfigureAwait(false);
-        //    }
-
-        //    var root = new XElement(xmlns + "urlset",
-        //        new XAttribute(XNamespace.Xmlns + "xhtml", xhtml));
-
-        //    foreach (var node in nodes)
-        //    {
-        //        cancellationToken.ThrowIfCancellationRequested();
-        //        var locContent = new XElement(xmlns + "loc", node.Url);
-        //        var priorityContent = node.Priority == null
-        //                ? null
-        //                : new XElement(xmlns + "priority",
-        //                    node.Priority.Value.ToString("F1", CultureInfo.InvariantCulture));
-        //        var lastmodContent = node.LastModified == null
-        //            ? null
-        //            : new XElement(xmlns + "lastmod",
-        //                // ReSharper disable once StringLiteralTypo
-        //                node.LastModified.Value.ToLocalTime().ToString("yyyy-MM-ddTHH:mm:sszzz"));
-        //        var frequencyContent = node.Frequency == null
-        //            ? null
-        //            : new XElement(xmlns + "changefreq", node.Frequency.Value.ToString().ToLowerInvariant());
-
-        //        var url = new XElement(xmlns + "url", locContent, priorityContent, lastmodContent, frequencyContent);
-        //        if (node.SitemapLangNodes != null)
-        //        {
-        //            foreach (var lang in node.SitemapLangNodes)
-        //            {
-        //                var langNode = new XElement(xhtml + "link",
-        //                new XAttribute("rel", "alternate"),
-        //                new XAttribute("hreflang", lang.Language),
-        //                new XAttribute("href", lang.Url));
-
-        //                url.Add(langNode);
-        //            }
-        //        }
-
-        //        root.Add(url);
-        //    }
-        //    var document = new XDocument(new XDeclaration("1.0", "utf-8", "yes"), root);
-        //    return document.ToString();
-        //}
-
-        private async Task<string> GetSiteMapIndexAsync(CancellationToken token)
         {
             XNamespace nameSpace = "http://www.sitemaps.org/schemas/sitemap/0.9";
             var model = await _readRepository.GetAsync(token).ConfigureAwait(false);
@@ -218,25 +37,93 @@ namespace Cloudents.Web.Controllers
             const int pageSize = 49950;
             // ReSharper disable once StringLiteralTypo
             var root = new XElement(nameSpace + "sitemapindex");
-            //root.Add(
-            //    new XElement(nameSpace + "sitemap",
-            //        new XElement(nameSpace + "loc", $"https://www.spitball.co/sitemap-{SeoType.Static}-0.xml")
-            //    )
-            //);
-
             foreach (var elem in model)
             {
                 for (var i = 0; i <= elem.Count / pageSize; i++)
                 {
+                    var url = Url.RouteUrl("siteMapDescription", new { type = elem.Type, index = i }, Request.GetUri().Scheme);
                     root.Add(
                         new XElement(nameSpace + "sitemap",
-                            new XElement(nameSpace + "loc", $"https://www.spitball.co/sitemap-{elem.Type}-{i}.xml")
+                            new XElement(nameSpace + "loc",
+                                url)
                         )
                     );
                 }
             }
             var document = new XDocument(new XDeclaration("1.0", "utf-8", "yes"), root);
-            return document.ToString();
+            return Content(document.ToString(), "application/xml");
         }
+
+        [Route("sitemap-{type}-{index:int}.xml", Name = "siteMapDescription")]
+        //[ResponseCache(Duration = 2 * TimeConst.Day,Va)]
+        public async Task DetailIndexAsync(SeoType type, int index, CancellationToken token)
+        {
+            var query = new SeoQuery(index);
+            var entities = _seoRepositories[type].Get(query);
+            var routeName = type.GetDescription();
+            var response = HttpContext.Response;
+            response.StatusCode = 200;
+            response.ContentType = "application/xml";
+
+            XNamespace xmlns = "http://www.sitemaps.org/schemas/sitemap/0.9";
+            XNamespace xhtml = "http://www.w3.org/1999/xhtml";
+            var writer = XmlWriter.Create(Response.Body, new XmlWriterSettings
+            {
+                Async = true
+            });
+            await writer.WriteStartDocumentAsync().ConfigureAwait(false);
+            writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
+            var iterator = 0;
+            foreach (var entity in entities)
+            {
+                iterator++;
+                var url = Url.RouteUrl(routeName, new
+                {
+                    universityName = entity.UniversityName ?? "my",
+                    boxId = entity.BoxId,
+                    boxName = entity.BoxName,
+                    itemId = entity.Id,
+                    itemName = entity.Name
+                }, Request.GetUri().Scheme);
+
+                await WriteTagAsync("1", "Daily", url, writer).ConfigureAwait(false);
+                if (iterator == 100)
+                {
+                    await writer.FlushAsync().ConfigureAwait(false);
+                    iterator = 0;
+                }
+            }
+            await writer.WriteEndElementAsync().ConfigureAwait(false);
+            await writer.WriteEndDocumentAsync().ConfigureAwait(false);
+            await writer.FlushAsync().ConfigureAwait(false);
+            await response.Body.FlushAsync(token).ConfigureAwait(false);
+        }
+
+
+        private static async Task WriteTagAsync(string priority, string freq,
+            string navigation, XmlWriter myWriter)
+        {
+            myWriter.WriteStartElement("url");
+
+            myWriter.WriteStartElement("loc");
+            myWriter.WriteValue(navigation);
+            await myWriter.WriteEndElementAsync().ConfigureAwait(false);
+
+            myWriter.WriteStartElement("lastmod");
+            myWriter.WriteValue(DateTime.Now.ToShortDateString());
+            await myWriter.WriteEndElementAsync().ConfigureAwait(false);
+
+            myWriter.WriteStartElement("changefreq");
+            myWriter.WriteValue(freq);
+            await myWriter.WriteEndElementAsync().ConfigureAwait(false);
+
+            myWriter.WriteStartElement("priority");
+            myWriter.WriteValue(priority);
+            await myWriter.WriteEndElementAsync().ConfigureAwait(false);
+
+            await myWriter.WriteEndElementAsync().ConfigureAwait(false);
+        }
+
+       
     }
 }

@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Resources;
@@ -22,7 +23,7 @@ namespace Cloudents.Web.Controllers
             _repository = repository;
         }
 
-        [Route("item/{universityName}/{boxId:long}/{boxName}/{itemId:long}/{itemName}", Name = "Item")]
+        [Route("item/{universityName}/{boxId:long}/{boxName}/{itemId:long}/{itemName}", Name = SeoTypeString.Item)]
         public async Task<IActionResult> Index(long itemId, CancellationToken token)
         {
             var model = await _repository.GetAsync(itemId, token).ConfigureAwait(false);

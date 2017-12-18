@@ -9,8 +9,17 @@ namespace Cloudents.Core.Request
 {
     public class SeoQuery
     {
-        public int Page { get; private set; }
+        public SeoQuery(int page)
+        {
+            Page = page;
+        }
 
-        public Action<SiteMapSeoDto> Callback { get; private set; }
+        public int Page { get;  }
     }
+    //public class DocumentSeoQuery : SeoQuery
+    //{
+    //    public DocumentSeoQuery(int page) : base(page)
+    //    {
+    //    }
+    //}
 }

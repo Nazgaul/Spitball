@@ -33,11 +33,12 @@ flashcard AS (
 SELECT COUNT(*) as flashcardCount FROM zbox.Flashcard WHERE IsDeleted = 0) 
 SELECT * FROM item,quiz,flashcard", cancellationToken: token)
                 ), token).ConfigureAwait(false);
-            var list = new List<SiteMapCountDto>
+            return new List<SiteMapCountDto>
             {
-                new SiteMapCountDto(SeoType.Item, data.itemCount), new SiteMapCountDto(SeoType.Quiz, data.quizCount), new SiteMapCountDto(SeoType.Flashcard, data.flashcardCount),
+                new SiteMapCountDto(SeoType.Item, data.itemCount),
+                new SiteMapCountDto(SeoType.Quiz, data.quizCount),
+                new SiteMapCountDto(SeoType.Flashcard, data.flashcardCount),
             };
-            return list;
         }
     }
 }

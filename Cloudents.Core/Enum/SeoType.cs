@@ -3,9 +3,14 @@
     public enum SeoType
     {
         Static,
-       // Course,
+        [Parse(SeoTypeString.Item)]
         Item,
         Quiz,
         Flashcard
+    }
+
+    public static class SeoTypeString
+    {
+        public const string Item = "Item";
     }
 }

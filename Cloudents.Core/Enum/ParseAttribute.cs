@@ -14,6 +14,7 @@ namespace Cloudents.Core.Enum
         {
             Description = description;
         }
-        public string Description { get; private set; }
+
+        public string Description { get; }
     }
 }

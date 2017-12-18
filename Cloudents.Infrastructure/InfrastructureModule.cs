@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Autofac;
 using Autofac.Core;
@@ -6,7 +7,10 @@ using Autofac.Extras.DynamicProxy;
 using AutoMapper;
 using CacheManager.Core;
 using Castle.DynamicProxy;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Request;
 using Cloudents.Infrastructure.AI;
 using Cloudents.Infrastructure.Cache;
 using Cloudents.Infrastructure.Data;
@@ -93,6 +97,9 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IReadRepositoryAsync<,>));
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IReadRepositoryAsync<>));
+
+            builder.RegisterType<SeoDocumentRepository>()
+                .Keyed<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>(SeoType.Item);
 
             builder.RegisterGeneric(typeof(EfRepository<>)).AsImplementedInterfaces();
 

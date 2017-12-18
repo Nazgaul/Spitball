@@ -39,6 +39,13 @@ namespace Cloudents.Infrastructure.Data
             }
         }
 
+        public IDbConnection OpenConnection()
+        {
+            var connection = new SqlConnection(_connectionString);
+            connection.Open();
+            return connection;
+        }
+
         public T WithConnection<T>(Func<IDbConnection, T> getData)
         {
             if (getData == null) throw new ArgumentNullException(nameof(getData));
@@ -46,8 +53,7 @@ namespace Cloudents.Infrastructure.Data
             {
                 using (var connection = new SqlConnection(_connectionString))
                 {
-                    connection.Open(); // Asynchronously open a connection to the database
-                    // Asynchronously execute getData, which has been passed in as a Func<IDBConnection, Task<T>>
+                    connection.Open();
                     return getData(connection);
                 }
             }
