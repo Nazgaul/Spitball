@@ -109,12 +109,7 @@ new Vue({
     el: "#app",
     router: router,
     render: h => h(App),
-    store,
-    computed:{
-        $isMobile(){
-            return this.$vuetify.breakpoint.xsOnly;
-        }
-    }
+    store
 });
 //This is for cdn fallback do not touch
 global.mainCdn = true;

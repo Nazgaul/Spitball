@@ -44,7 +44,7 @@ export default {
           this.qFilter=val;
       }
     },
-    props:{value:{type:Boolean},showMoreOptions:{type:Boolean}},
+    props:{value:{type:Boolean},showMoreOptions:{type:Boolean},showSingleLine:{type:Boolean,default:false}},
     methods: {
         ...mapActions(["updateSearchText","createCourse","updateFirstTime"]),
         submit: function () {

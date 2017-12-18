@@ -1,5 +1,5 @@
 ﻿<template v-once>
-    <button type="button" class="d-block pa-2 place-cell" @click="showMap=!showMap">
+    <button type="button" class="d-block pa-2 place-cell" @click="$_clickItem">
         <v-container class="pa-0">
             <v-layout row>
                 <div class="img-wrap">
@@ -63,6 +63,15 @@
             },
             //pos: function () { return { lat: this.item.location.latitude, lng: this.item.location.longitude } }
             pos: function () { return { lat: 10.0, lng: 10.0 }}
+        },
+        methods:{
+            $_clickItem(){
+                if(!this.$vuetify.breakpoint.xsOnly){
+                    this.showMap=!this.showMap;
+                }else{
+                    this.$router.push({name:"foodDetails",params:{item:this.item,id:this.item.placeId}})
+                }
+            }
         }
     }
 </script>

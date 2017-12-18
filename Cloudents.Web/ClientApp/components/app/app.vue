@@ -1,6 +1,6 @@
 ﻿<template>
     <v-app>
-        <app-header ref="header" v-if="$route.meta.showHeader" :showMoreOptions="showMoreOptions">
+        <app-header ref="header" v-if="$route.meta.showHeader" :showMoreOptions="showMoreOptions" :showSingleLine="$route.meta.showHeaderSingleLine">
            <template  v-if="isMobileApp">
                <router-view name="mobileHeaderFirstLine" :slot="`${$route.name}Mobile`"></router-view>
                 <router-view :name="`${$route.name}SecondLineMobile`" :slot="`${$route.name}SecondLineMobile`"></router-view>

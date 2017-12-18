@@ -2,6 +2,7 @@
 import * as RouteTypes from "./routeTypes";
 const resultContent = () => import("./components/results/Result.vue");
 const bookDetails = () => import("./components/details/ResultBookDetails.vue");
+const foodDetails = () => import("./components/details/FoodDetails.vue");
 const showItem = () => import("./components/preview/Item.vue");
 const showFlashcard = () => import("./components/preview/Flashcard.vue");
 const notFound = () => import("./components/results/notFound.vue");
@@ -89,9 +90,11 @@ function filterLinkFun(route){
 
 const resultPage = {  default: resultContent ,verticalList:theNavbar,personalize,verticalListMobile:theNavbar};
 const bookDetailsPage = { default: bookDetails,verticalList:theNavbar,personalize,verticalListMobile:theNavbar,bookDetailsSecondLineMobile:bookTabsMobile,mobileHeaderFirstLine:mobileDetailsFirstLine};
+const foodDetailsPage = { default: foodDetails,mobileHeaderFirstLine:mobileDetailsFirstLine};
 const notFoundPage = { default: notFound };
 const resultProps = { default: dynamicPropsFn,verticalList:verticalsLinkFun,verticalListMobile:verticalsLinkFun};
 
+const foodDetailsProps = { default: true,mobileHeaderFirstLine:{name:"Food and Deals"}};
 const bookDetailsProps = { ...resultProps, default: dynamicDetailsPropsFn,verticalListMobile:filterLinkFun,bookDetailsSecondLineMobile:true,mobileHeaderFirstLine:{name:"textbooks"}};
 export const routes = [
     {
@@ -129,6 +132,16 @@ export const routes = [
         meta: {
             pageName: "book",
             showHeader: true 
+        }
+    },
+    {
+        path: "/food/:id",
+        name: RouteTypes.foodDetailsRoute,
+        components: foodDetailsPage,
+        props: foodDetailsProps,
+        meta: {
+            showHeader: true,
+            showHeaderSingleLine:true
         }
     },
     {

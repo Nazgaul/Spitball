@@ -1,12 +1,12 @@
 ﻿<template>
-        <v-toolbar app flat clipped-left fixed :height="isMobileSize? 48 : 72" :extended="isMobileSize" class="header">
+        <v-toolbar app flat clipped-left fixed :height="isMobileSize? 48 : 72" :extended="isMobileSize&&!showSingleLine" class="header">
           <slot :name="`${$route.name}Mobile`">
               <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 230px; min-width: 230px' : 'min-width: 72px'">
                 <router-link class="logo-link" :to="{name:'home'}">
                     <logo class="logo"></logo>
                 </router-link>
             </v-toolbar-title></slot>
-         <slot :name="`${$route.name}SecondLineMobile`" :slot="isMobileSize? 'extension' : 'default'">
+         <slot :name="`${$route.name}SecondLineMobile`" :slot="isMobileSize? 'extension' : 'default'" v-if="!showSingleLine">
              <form @submit.prevent="submit" :class="isMobileSize? 'ml-2 mr-2' : 'default'">
                 <v-text-field light solo class="search-b" placeholder="Ask me anything" v-model="qFilter"  prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>
             </form></slot>
