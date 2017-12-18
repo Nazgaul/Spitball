@@ -48,10 +48,6 @@ export let verticals =
         book: {
             id: routes.bookRoute,
             name: "Textbooks"
-            //image: "book"
-            //resultTitle: "I found some textbooks that match your search. Check them out!",
-            //emptyState: "Sorry, I didn't find any textbooks that match your search",
-            //filter: "", sort: ""
         },
         ask: {
             id: routes.questionRoute,
@@ -64,9 +60,6 @@ export let verticals =
         job: {
             id: routes.jobRoute,
             name: "Jobs",
-            //image: "job",
-            //resultTitle: "Look at this - you’ll be employed in no time!",
-            //emptyState: "Sorry, I didn't find any jobs that match your search",
             filter: [{ id: "jobType", name: "job type" },{id: "filter", name: "Filter" }],
             sort: [
                 { id: "price", name: "price" },
@@ -76,15 +69,8 @@ export let verticals =
         food: {
             id: routes.foodRoute,
             name: "Food and Deals",
-            //image: "food",
-            //resultTitle: "Booya! I found a few places that you might like.",
-            //emptyState: "Sorry, friend! I could not find anywhere nearby that sells $subject",
             filter: [
-                //{ id: "all", name: "all" },
-                { id: "openNow", name: "open now" }]
-            //sort: [
-            //    { id: "distance", name: "distance" }
-            //]
+                { id: "openNow", name: "Open now" }]
         }
 
     };

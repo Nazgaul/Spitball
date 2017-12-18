@@ -1,7 +1,7 @@
 ﻿﻿<template>
     <general-page :filterSelection="filterSelection">
         <v-chip color="color-light-gray" label slot="selectedFilters" slot-scope="props" class="filter-chip" @click="$_removeFilter(props.item)">
-            {{$_showSelectedFilter(props.item)}}
+            {{$_showSelectedFilter(props.item) | capitalize}}
             <v-icon right>sbf-close</v-icon>
         </v-chip>
         <template slot="options" v-if="page">
