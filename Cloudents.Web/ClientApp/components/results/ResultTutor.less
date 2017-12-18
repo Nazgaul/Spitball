@@ -1,53 +1,50 @@
 ﻿@import "../../mixin.less";
 
-a {
-    //   width: 100%;
-    //height: 136px;
-}
-
-.avatar {
-    height: 120px !important; /*override inline style*/
-}
-
-.tutor-title {
-    font-size: 17px;
-    letter-spacing: -0.4px;
-    color: @Tutors;
-}
-
-.avatar {
-    .flexSameSize();
-}
-
-.price {
-    margin-right: 8px;
-    font-size: 17px;
-    letter-spacing: -0.4px;
-    color: @Tutor-Price;
-}
-
-.location {
-    font-size: 11px;
-    letter-spacing: -0.3px;
-    color: @Feed-Date;
-}
-
-.description {
-    font-size: 12px;
-    letter-spacing: -0.3px;
-    color: @Book-Info;
-    overflow: hidden;
-    margin-top: 4px;
-    .giveMeEllipsis(4,15px);
-    margin-right: 36px;
-
-    @media(max-width: 600px) {
-        margin-right: 16px;
+.tutor-cell {
+    .avatar {
+        height: 120px !important; /*override inline style*/
     }
-}
 
-.bottom {
-    flex-grow: 0;
-    margin-bottom: -4px;
-    margin-right: 8px;
+    .tutor-title {
+        font-size: 17px;
+        letter-spacing: -0.4px;
+        color: @Tutors;
+    }
+
+    .avatar {
+        .flexSameSize();
+    }
+
+    .price {
+        margin-right: 8px;
+        font-size: 17px;
+        letter-spacing: -0.4px;
+        color: @Tutor-Price;
+    }
+
+    .location {
+        font-size: 11px;
+        letter-spacing: -0.3px;
+        color: @Feed-Date;
+    }
+
+    .description {
+        font-size: 12px;
+        letter-spacing: -0.3px;
+        color: @Book-Info;
+        overflow: hidden;
+        margin-top: 4px;
+        .giveMeEllipsis(4,15px);
+        margin-right: 36px;
+
+        @media(max-width: 600px) {
+            margin-right: 16px;
+        }
+    }
+
+    .bottom {
+        flex-grow: 0;
+        margin-bottom: -4px;
+        margin-right: 8px;
+    }
 }
