@@ -109,7 +109,6 @@ export default {
             placeholder: "Find study documents, textbooks, deals, tutors and more…",
             items: homeSuggest,
             bottomIcons:bottomIcons,
-            recognition: false,
             drawer: null,
             strips:strips,
             features:features,
@@ -146,7 +145,9 @@ export default {
         },
         //$_imageUrl(image) { return require.context(`~/img/${image}.png`);}
     },
+
     props: {
         metaText: { type: String }
     }
+
 };

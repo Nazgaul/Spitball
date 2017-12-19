@@ -2,6 +2,7 @@ export const micMixin = {
         data() {
             return {
                 isRecording: false,
+                recognition: false,
                 msg:""
             };
         },
