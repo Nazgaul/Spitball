@@ -11,8 +11,9 @@ const theNavbar = () => import("./components/navbar/TheNavbar.vue");
 const moreInfo = () => import("./components/results/MoreInfo.vue");
 const personalize=()=>import("./components/settings/ResultPersonalize.vue");
 const pageHeader=()=>import("./components/header/header.vue");
-const bookTabsMobile=()=>import("./components/details/bookDetailsTabsMobile.vue");
-const mobileDetailsFirstLine=()=>import("./components/details/HeaderFirstLineMobile.vue");
+const foodDetailsHeader=()=>import("./components/header/headerFirstLineMobile.vue");
+const boodDetailsHeaderMobile=()=>import("./components/header/headerBookDetailsMobile.vue");
+const mobileDetailsFirstLine=()=>import("./components/header/headerFirstLineMobile.vue");
 import {page, verticalsName,verticalsNavbar,details} from './data'
 const $_calcTerm=(name)=>{return (name.includes('food')||name.includes('purchase'))?'foodTerm':name.includes('job')?'jobTerm':'term'};
 
@@ -90,14 +91,14 @@ function filterLinkFun(route){
     }
 }
 
-const resultPage = {  default: resultContent ,verticalList:theNavbar,personalize,verticalListMobile:theNavbar,header:pageHeader};
-const bookDetailsPage = { default: bookDetails,verticalList:theNavbar,personalize,verticalListMobile:theNavbar,bookDetailsSecondLineMobile:bookTabsMobile,mobileHeaderFirstLine:mobileDetailsFirstLine,header:pageHeader};
-const foodDetailsPage = { default: foodDetails,mobileHeaderFirstLine:mobileDetailsFirstLine,header:pageHeader};
+const resultPage = {  default: resultContent ,verticalList:theNavbar,personalize,verticalListMobile:theNavbar,header:pageHeader,headerMobile:pageHeader};
+const bookDetailsPage = { default: bookDetails,verticalList:theNavbar,personalize,verticalListMobile:theNavbar,headerMobile:boodDetailsHeaderMobile,header:pageHeader};
+const foodDetailsPage = { default: foodDetails,mobileHeaderFirstLine:mobileDetailsFirstLine,header:pageHeader,headerMobile:foodDetailsHeader};
 const notFoundPage = { default: notFound };
 const resultProps = { default: dynamicPropsFn,verticalList:verticalsLinkFun,verticalListMobile:verticalsLinkFun};
 
-const foodDetailsProps = { default: true,mobileHeaderFirstLine:{name:"Food and Deals"},header:{showSingleLine:true,showMoreOptions:false}};
-const bookDetailsProps = { ...resultProps, default: dynamicDetailsPropsFn,verticalListMobile:filterLinkFun,bookDetailsSecondLineMobile:true,mobileHeaderFirstLine:{name:"textbooks"}};
+const foodDetailsProps = { default: true,header:{showSingleLine:true,showMoreOptions:false},headerMobile:{name:"Food and Deals"}};
+const bookDetailsProps = { ...resultProps, default: dynamicDetailsPropsFn,verticalListMobile:filterLinkFun,headerMobile:(route)=>({name:"textbooks",id:route.params.id})};
 export const routes = [
     {
         path: "/", components: {
