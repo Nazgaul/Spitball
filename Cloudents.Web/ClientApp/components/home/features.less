@@ -29,7 +29,7 @@
         }
 
         svg {
-            fill: @Chat;
+            fill: #302eb5;
         }
 
         &.document {
@@ -77,6 +77,7 @@
 
     .data {
         font-size: 18px;
+        letter-spacing: -0.3px;
 
         @media(max-width: 600px) {
             font-size: 14px;
@@ -86,12 +87,19 @@
             }
         }
 
-        h3, p {
-            font-size: inherit;
+        h3 {
+            font-weight: 600;
+            color: #302eb5;
         }
 
+        /*h3, p {
+            font-size: inherit;
+        }*/
+
         p {
-            font-weight: 100;
+            color: #a4a4a4;
+            line-height: 1.44;
+            //font-weight: 100;
         }
     }
 }

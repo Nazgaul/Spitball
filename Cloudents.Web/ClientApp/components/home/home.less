@@ -1,44 +1,6 @@
 ﻿@import "../../mixin.less";
 
-.h-p-menu {
-    background: #fff !important;
-    border-radius: 4px;
-    margin-top: 8px;
 
-    .subheader {
-        color: @Feed-Like-count;
-        letter-spacing: -0.3px;
-        font-size: 18px;
-        line-height: 2.22;
-        height: 20px;
-        margin-bottom: 10px;
-    }
-
-    .list__tile__title:not(.list__tile--active) {
-        color: @Spitball-Main-color;
-        height: 36px;
-        font-size: 18px;
-        line-height: 2;
-        letter-spacing: -0.3px;
-    }
-
-    .list__tile__title {
-        line-height: normal;
-    }
-
-    .list__tile {
-        height: 37px;
-    }
-
-    .list__tile--link {
-        padding-left: 10px;
-
-
-        .list__tile__action {
-            min-width: 32px;
-        }
-    }
-}
 
 .h-p {
     &.wrapper {
@@ -46,31 +8,25 @@
         background: #fff;
     }
 
-    .limited-width {
+    .header {
+       
+    }
+    /*.limited-width {
         max-width: 1280px;
         margin: 0 auto;
-    }
-
-    .tx-input {
-        flex-grow: 1;
-
-        input {
-            width: 100%;
-        }
-    }
+    }*/
+   
     /*.mic {
     .flexSameSize();
 }*/
-    .f-submit {
-        .flexSameSize();
-    }
+    
 
-    @submitHeight: 48px;
-    @submitMobileHeight: 40px;
+   
 
     .box-header {
         /*background: @color-blue url("./img/doodels.png") no-repeat 50% 50%;*/
-        background-image: linear-gradient(317deg, #3293f6, #3023ae);
+        //background-image: linear-gradient(317deg, #3293f6, #3023ae);
+        background-image: linear-gradient(to top, #d1e3f6, #f0f0f0 41%, #f0f0f0);
         background-size: cover;
         padding-bottom: 24px;
 
@@ -80,15 +36,14 @@
 
         .logo-wrapper {
             .flexSameSize();
-            background: white;
             padding: 12px 12px 10px 12px;
             border-radius: 0 0 8px 8px;
             margin-left: 36px;
             .inTheMiddle();
 
             .logo {
-                width: 128px;
-                fill: @color-blue;
+                width: 165px;
+                // fill: @color-blue;
             }
 
             @media(max-width:600px) {
@@ -110,9 +65,10 @@
             }
 
             nav a {
-                color: @color-white;
+                color: #302eb5;
                 font-size: 14px;
                 padding-left: 34px;
+                letter-spacing: -0.3px;
             }
         }
 
@@ -121,7 +77,7 @@
         }
 
         .box-inner-header {
-            color: @color-white;
+            color: #302eb5;
             text-align: center;
 
             .box-title {
@@ -129,6 +85,8 @@
                 line-height: normal;
                 margin: 100px 0 30px;
                 font-weight: 300;
+                letter-spacing: -0.5px;
+
 
                 @media(max-width:600px) {
                     font-size: 40px;
@@ -136,120 +94,21 @@
                 }
             }
 
-            .sub-title {
+            h4 {
                 font-size: 24px;
                 line-height: normal;
                 margin: 0 0 30px;
-            }
-        }
-    }
+                letter-spacing: -0.4px;
+                font-weight: 300;
 
-    .box-search {
-        background: rgba(255,255,255, 0.3);
-        .rounded-all(4px);
-        position: relative;
-        margin: 16px 0;
-
-        @media(max-width: 600px) {
-            margin: 8px;
-        }
-
-        button[type="submit"] {
-            border: none;
-            display: inline-block;
-            height: @submitHeight;
-            font-size: 20px;
-
-            @media(max-width: 600px) {
-                height: @submitMobileHeight;
-            }
-        }
-
-        form .container {
-            padding: 16px;
-
-            @media(max-width: 600px) {
-                padding: 8px;
-            }
-        }
-
-        .placeholder-color(#5d5d5d);
-        /*input[type="text"] {
-            background: #fff;
-            color: @color-blue;
-            .rounded-all(4px);
-            padding: 0 38px 0;
-            // width: calc(~'100% - 180px');
-        }*/
-        .input-group.input-group--solo {
-            min-height: 40px;
-            height: @submitHeight;
-            border-radius: 4px;
-            box-shadow: none;
-
-            .sbf-mic {
-                color: @color-blue !important;
-            }
-
-            .input-group__input {
-                padding-right: 10px;
-                padding-left: 10px;
-            }
-
-            input-group__prepend-icon {
-                min-width: 28px;
-            }
-
-            @media(max-width:600px) {
-                border-top-right-radius: 0;
-                border-bottom-right-radius: 0;
-                height: @submitMobileHeight;
-
-                .input-group__prepend-icon {
-                    display: none;
+                b {
+                    font-weight: 700;
                 }
             }
         }
-
-        input:focus {
-            &::-webkit-input-placeholder {
-                color: white;
-            }
-
-            &:-moz-placeholder {
-                color: white;
-            }
-
-            &::-moz-placeholder {
-                color: white;
-            }
-
-            &:-ms-input-placeholder {
-                color: white;
-            }
-        }
-
-        button[type="submit"] {
-            background: #302eb5;
-            //font-family: @font-bold;
-            margin: 0 0 0 12px;
-            padding: 0 24px;
-            width: 108px;
-            .rounded-all(4px);
-
-            i {
-                color: @color-white;
-            }
-
-            @media(max-width: 600px) {
-                margin: 0;
-                border-top-left-radius: 0;
-                border-bottom-left-radius: 0;
-                width: 40px;
-                padding: 0;
-            }
-        }
     }
+
+    
 
     .box-small-container {
         margin: 0 auto;
@@ -336,8 +195,7 @@
             padding: 0;
         }
     }
-
-    .vertical-pink {
+    /*.vertical-pink {
         .gradient (@startColor: @color-white, @endColor: @color-pink-gradient)
     }
 
@@ -351,8 +209,7 @@
 
     .vertical-orange {
         .gradient (@startColor: @color-orange-gradient, @endColor: @color-white )
-    }
-
+    }*/
     .box-substrate {
         height: 100%;
         margin: 0;

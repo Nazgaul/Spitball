@@ -3,7 +3,7 @@ import classMaterialIcon from "./svg/class-material-icon-purple.svg";
 import tutorIcon1 from "./svg/tutor-icon-green.svg";
 import jobIcon from "./svg/jobs-icon-orange.svg";
 import textBookIcon from "./svg/textbooks-icon-purple.svg";
-import logo from '../../../wwwroot/Images/logo-spitball.svg';
+
 
 import facebookIcon from "./svg/facebook-icon.svg";
 import twitterIcon from "./svg/twitter-icon.svg";
@@ -58,7 +58,8 @@ import featureTextbook from "./svg/feature-textbook.svg";
 import featuresSection from './features.vue';
 import stripsSection from './horizontalStrip.vue';
 import PageLayout from './layout.vue';
-import {micMixin} from '../helpers/mic'
+import { micMixin } from '../helpers/mic';
+import sbSearch from "./search.vue";
 //import menuIcon from "./svg/menu-icon.svg";
 
 
@@ -68,13 +69,14 @@ import {micMixin} from '../helpers/mic'
 //"img/wyzant"
 //"img/course-hero"
 //"img/wayup"
-import {features,bottomIcons,homeSuggest,strips,sites,testimonials} from './consts'
+import {features,bottomIcons,strips,sites,testimonials} from './consts'
 
 
 export default {
     mixins:[micMixin],
     components: {
-        logo,PageLayout,
+        sbSearch,
+        PageLayout,
         "class-material-icon": classMaterialIcon,
         "tutor-icon": tutorIcon1,
         "job-icon": jobIcon,
@@ -104,47 +106,42 @@ export default {
         tutorIcon, discussionIcon,studentLaptopIcon,
         laptopIcon, notebookIcon, bagIcon
     },
+    computed : {
+        placeholder: function() {
+            if (this.$vuetify.breakpoint.smAndUp) {
+                return "Find study documents, textbooks, deals, tutors and more…";
+            }
+            return "Study documents, textbooks, tutors …";
+        }
+    
+    },
     data() {
         return {
-            placeholder: "Find study documents, textbooks, deals, tutors and more…",
-            items: homeSuggest,
+           // items: homeSuggest,
             bottomIcons:bottomIcons,
             drawer: null,
             strips:strips,
             features:features,
-            links: [
-                {
-                    name: "Spitball Guide",
-                    link: "#"
-                },
-                {
-                    name: "Key Features",
-                    link: "#"
-                },
-                //{
-                //    name: "Shared Documents",
-                //    link: "#"
-                //},
-                {
-                    name: "Mobile App",
-                    link: "#"
-                }
-            ],
+            
             sites: sites,
-            testimonials: testimonials
+            testimonials: testimonials,
+            scrollTop:false
 
         };
     },
-    methods: {
-        search() {
-            this.$router.push({ name:"result", query: {q:this.msg} });
-        },
-        selectos(item) {
-            this.msg = item;
-            this.search();
-        },
-        //$_imageUrl(image) { return require.context(`~/img/${image}.png`);}
-    },
+    //methods: {
+    //    search() {
+    //        this.$router.push({ name:"result", query: {q:this.msg} });
+    //    },
+    //    selectos(item) {
+    //        this.msg = item;
+    //        this.search();
+    //    },
+    //    //onScroll(e) {
+    //    //    this.scrollTop = window.pageYOffset || document.documentElement.scrollTop > 100;
+    //    //}
+    //    //$_imageUrl(image) { return require.context(`~/img/${image}.png`);}
+    //},
 
     props: {
         metaText: { type: String }

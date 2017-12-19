@@ -1,4 +1,5 @@
 ﻿const HomePage = () => import("./components/home/home.vue");
+const homePageHeader = () => import("./components/home/header.vue");
 import * as RouteTypes from "./routeTypes";
 const resultContent = () => import("./components/results/Result.vue");
 const bookDetails = () => import("./components/details/ResultBookDetails.vue");
@@ -99,8 +100,11 @@ const foodDetailsProps = { default: true,mobileHeaderFirstLine:{name:"Food and D
 const bookDetailsProps = { ...resultProps, default: dynamicDetailsPropsFn,verticalListMobile:filterLinkFun,bookDetailsSecondLineMobile:true,mobileHeaderFirstLine:{name:"textbooks"}};
 export const routes = [
     {
-        path: "/", component: HomePage, name: "home", meta: {
-            showHeader: false
+        path: "/", components: {
+            default: HomePage,
+            header: homePageHeader
+        }, name: "home", meta: {
+            
         }
     },
 
