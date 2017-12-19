@@ -9,6 +9,7 @@ const notFound = () => import("./components/results/notFound.vue");
 const theNavbar = () => import("./components/navbar/TheNavbar.vue");
 const moreInfo = () => import("./components/results/MoreInfo.vue");
 const personalize=()=>import("./components/settings/ResultPersonalize.vue");
+const pageHeader=()=>import("./components/header/header.vue");
 const bookTabsMobile=()=>import("./components/details/bookDetailsTabsMobile.vue");
 const mobileDetailsFirstLine=()=>import("./components/details/HeaderFirstLineMobile.vue");
 import {page, verticalsName,verticalsNavbar,details} from './data'
@@ -88,13 +89,13 @@ function filterLinkFun(route){
     }
 }
 
-const resultPage = {  default: resultContent ,verticalList:theNavbar,personalize,verticalListMobile:theNavbar};
-const bookDetailsPage = { default: bookDetails,verticalList:theNavbar,personalize,verticalListMobile:theNavbar,bookDetailsSecondLineMobile:bookTabsMobile,mobileHeaderFirstLine:mobileDetailsFirstLine};
-const foodDetailsPage = { default: foodDetails,mobileHeaderFirstLine:mobileDetailsFirstLine};
+const resultPage = {  default: resultContent ,verticalList:theNavbar,personalize,verticalListMobile:theNavbar,header:pageHeader};
+const bookDetailsPage = { default: bookDetails,verticalList:theNavbar,personalize,verticalListMobile:theNavbar,bookDetailsSecondLineMobile:bookTabsMobile,mobileHeaderFirstLine:mobileDetailsFirstLine,header:pageHeader};
+const foodDetailsPage = { default: foodDetails,mobileHeaderFirstLine:mobileDetailsFirstLine,header:pageHeader};
 const notFoundPage = { default: notFound };
 const resultProps = { default: dynamicPropsFn,verticalList:verticalsLinkFun,verticalListMobile:verticalsLinkFun};
 
-const foodDetailsProps = { default: true,mobileHeaderFirstLine:{name:"Food and Deals"}};
+const foodDetailsProps = { default: true,mobileHeaderFirstLine:{name:"Food and Deals"},header:{showSingleLine:true,showMoreOptions:false}};
 const bookDetailsProps = { ...resultProps, default: dynamicDetailsPropsFn,verticalListMobile:filterLinkFun,bookDetailsSecondLineMobile:true,mobileHeaderFirstLine:{name:"textbooks"}};
 export const routes = [
     {
