@@ -56,7 +56,9 @@ const actions = {
 
     fetchingData: (context, { name, params, page, luisTerm: term,docType }) => {
         let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
-        return searchService.activateFunction[name]({ ...context.getters.searchParams, ...params, university, page, term,docType });
+        let paramsList={ ...context.getters.searchParams, ...params, university, page,docType };
+        if(term)paramsList={...paramsList,term};
+        return searchService.activateFunction[name](paramsList);
     },
 
     getPreview(context, model) {
