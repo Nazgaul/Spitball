@@ -5,7 +5,7 @@ namespace Zbang.Cloudents.Jared.Models
     /// <summary>
     /// Ask Question search object
     /// </summary>
-    public class AskRequest
+    public class AskRequest : IPaging
     {
         /// <summary>
         /// The user text to parse

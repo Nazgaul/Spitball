@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Net;
@@ -13,8 +14,17 @@ namespace Cloudents.Core.Extension
             {
                 return;
             }
-            builder.Query = string.Join("&", val.AllKeys.Select(key =>
-                $"{WebUtility.UrlEncode(key)}={WebUtility.UrlEncode(val[key])}"));
+            var query = string.Join("&", val.AllKeys.Select(key => $"{WebUtility.UrlEncode(key)}={WebUtility.UrlEncode(val[key])}"));
+            if (builder.Query != null && builder.Query.Length > 1)
+            {
+                builder.Query = builder.Query.Substring(1) + "&" + query;
+            }
+            else
+            {
+                builder.Query = query;
+            }
         }
     }
+
+    
 }

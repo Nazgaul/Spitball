@@ -3,17 +3,16 @@ using System.Web.Http.Routing;
 
 namespace Zbang.Cloudents.Jared.Filters
 {
-    public class VersionedRoute : RouteFactoryAttribute
+    public class VersionedRouteAttribute : RouteFactoryAttribute
     {
-        public VersionedRoute(string template, int allowedVersion)
+        public VersionedRouteAttribute(string template, string allowedVersion)
             : base(template)
         {
             AllowedVersion = allowedVersion;
         }
-        public int AllowedVersion
+        public string AllowedVersion
         {
             get;
-            private set;
         }
         public override IDictionary<string, object> Constraints
         {

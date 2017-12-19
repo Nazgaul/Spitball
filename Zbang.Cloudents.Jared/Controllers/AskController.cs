@@ -6,6 +6,7 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using Microsoft.Azure.Mobile.Server.Config;
+using Zbang.Cloudents.Jared.Extensions;
 using Zbang.Cloudents.Jared.Models;
 
 namespace Zbang.Cloudents.Jared.Controllers
@@ -19,7 +20,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         private readonly IQuestionSearch _searchProvider;
         private readonly IVideoSearch _videoSearch;
 
-        public AskController( IQuestionSearch searchProvider, IVideoSearch videoSearch)
+        public AskController(IQuestionSearch searchProvider, IVideoSearch videoSearch)
         {
             _searchProvider = searchProvider;
             _videoSearch = videoSearch;
@@ -34,7 +35,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> Get([FromUri] AskRequest model,
             CancellationToken token)
         {
-            var query = new SearchQuery(model.Term,  model.Page.GetValueOrDefault());
+            var query = new SearchQuery(model.Term, model.Page.GetValueOrDefault());
             var tResult = _searchProvider.SearchAsync(query, token);
             var tVideo = Task.FromResult<VideoDto>(null);
             if (model.Page.GetValueOrDefault() == 0)
@@ -42,12 +43,18 @@ namespace Zbang.Cloudents.Jared.Controllers
                 tVideo = _videoSearch.SearchAsync(model.UserText, token);
             }
             await Task.WhenAll(tResult, tVideo).ConfigureAwait(false);
+            var nextPageLink = Url.NextPageLink("DefaultApis", new
+            {
+                controller = "Ask"
+            }, model);
+
             return Request.CreateResponse(new
             {
                 result = tResult.Result,
-                video = tVideo.Result
+                video = tVideo.Result,
+                nextPageLink
             });
-           
+
         }
     }
 }

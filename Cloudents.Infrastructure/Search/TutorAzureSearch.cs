@@ -29,7 +29,7 @@ namespace Cloudents.Infrastructure.Search
             var filterQuery = new List<string>();
             var sortQuery = new List<string>();
 
-            foreach (var filter in filters)
+            foreach (var filter in filters ?? Enumerable.Empty<TutorRequestFilter>())
             {
                 switch (filter)
                 {

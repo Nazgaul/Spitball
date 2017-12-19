@@ -28,7 +28,7 @@ namespace Cloudents.Infrastructure.Search
             {
                 throw new ArgumentException("Need to location");
             }
-            if (filters.Contains(TutorRequestFilter.InPerson) && location == null)
+            if (filters?.Contains(TutorRequestFilter.InPerson) == true && location == null)
                 throw new ArgumentException("Need to location");
             var tasks = _tutorSearch.Select(s =>
                 s.SearchAsync(term, filters, sort, location, page, token)).ToList();

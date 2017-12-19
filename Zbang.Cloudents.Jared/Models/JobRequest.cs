@@ -7,7 +7,7 @@ namespace Zbang.Cloudents.Jared.Models
     /// <summary>
     /// Job request api model
     /// </summary>
-    public class JobRequest
+    public class JobRequest : IPaging
     {
         /// <summary>
         /// The term array of Ai parse

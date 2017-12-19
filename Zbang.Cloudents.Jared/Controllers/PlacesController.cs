@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Cloudents.Core.Interfaces;
 using Microsoft.Azure.Mobile.Server.Config;
+using Zbang.Cloudents.Jared.Extensions;
 using Zbang.Cloudents.Jared.Models;
 
 namespace Zbang.Cloudents.Jared.Controllers
@@ -33,9 +34,16 @@ namespace Zbang.Cloudents.Jared.Controllers
             if (purchaseRequest.Term == null) throw new ArgumentNullException(nameof(purchaseRequest.Term));
             if (purchaseRequest.Location == null) throw new ArgumentNullException(nameof(purchaseRequest.Location));
             var result = await _purchaseSearch.SearchNearbyAsync(string.Join(" ", purchaseRequest.Term), purchaseRequest.Filter.GetValueOrDefault(), purchaseRequest.Location, null, token).ConfigureAwait(false);
+
+            var nextPageLink = Url.Link("DefaultApis", new
+            {
+                controller = "Places"
+            }, new { nextPageToken = result.token });
+
             return Request.CreateResponse(new
             {
-                result.token,result.data
+                nextPageLink,
+                result.data
             });
         }
 
@@ -52,9 +60,15 @@ namespace Zbang.Cloudents.Jared.Controllers
             if (nextPageToken == null) throw new ArgumentNullException(nameof(nextPageToken));
             var result = await _purchaseSearch.SearchNearbyAsync(string.Empty,
                 default, default, nextPageToken, token).ConfigureAwait(false);
+
+            var nextPageLink = Url.Link("DefaultApis", new
+            {
+                controller = "Places"
+            }, new { nextPageToken = result.token });
+
             return Request.CreateResponse(new
             {
-                result.token,
+                nextPageLink,
                 result.data
             });
         }

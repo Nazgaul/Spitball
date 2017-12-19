@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Cloudents.Core.Interfaces;
 using Microsoft.Azure.Mobile.Server.Config;
+using Zbang.Cloudents.Jared.Extensions;
+using Zbang.Cloudents.Jared.Filters;
 using Zbang.Cloudents.Jared.Models;
 
 namespace Zbang.Cloudents.Jared.Controllers
@@ -13,7 +15,7 @@ namespace Zbang.Cloudents.Jared.Controllers
     /// <summary>
     /// The book api controller
     /// </summary>
-    [MobileAppController,RoutePrefix("api/book")]
+    [MobileAppController, RoutePrefix("api/book")]
     public class BookController : ApiController
     {
         private readonly IBookSearch _booksSearch;
@@ -37,6 +39,30 @@ namespace Zbang.Cloudents.Jared.Controllers
             if (bookRequest.Term == null) throw new ArgumentNullException(nameof(bookRequest.Term));
             var result = await _booksSearch.SearchAsync(string.Join(" ", bookRequest.Term), bookRequest.Thumbnail.GetValueOrDefault(150), bookRequest.Page.GetValueOrDefault(), token).ConfigureAwait(false);
             return Request.CreateResponse(result);
+        }
+
+        /// <summary>
+        /// Search book vertical end point with next page token add to query string api-version = 2017-12-19
+        /// </summary>
+        /// <param name="bookRequest"></param>
+        /// <param name="token"></param>
+        /// <returns>List of book</returns>
+        /// <exception cref="ArgumentNullException">term cannot be empty</exception>
+        [VersionedRoute("search", "2017-12-19", Name = "BookSearch"), HttpGet]
+        public async Task<HttpResponseMessage> SearchV2Async([FromUri]BookRequest bookRequest, CancellationToken token)
+        {
+            if (bookRequest.Term == null) throw new ArgumentNullException(nameof(bookRequest.Term));
+            var result = await _booksSearch.SearchAsync(string.Join(" ", bookRequest.Term), bookRequest.Thumbnail.GetValueOrDefault(150), bookRequest.Page.GetValueOrDefault(), token).ConfigureAwait(false);
+            var nextPageLink = Url.NextPageLink("BookSearch", new
+            {
+                api_version = "2017-12-19"
+            }, bookRequest);
+            return Request.CreateResponse(new
+            {
+                result,
+                nextPageLink
+            }
+            );
         }
 
         /// <summary>

@@ -6,7 +6,7 @@ namespace Zbang.Cloudents.Jared.Models
     /// <summary>
     /// Book api search request
     /// </summary>
-    public class BookRequest
+    public class BookRequest : IPaging
     {
         /// <summary>
         /// The term array of Ai parse

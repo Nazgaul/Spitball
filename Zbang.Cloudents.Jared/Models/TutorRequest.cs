@@ -8,7 +8,7 @@ namespace Zbang.Cloudents.Jared.Models
     /// <summary>
     /// Tutor request object
     /// </summary>
-    public class TutorRequest
+    public class TutorRequest : IPaging
     {
         /// <summary>
         /// The term array of Ai parse
@@ -33,7 +33,7 @@ namespace Zbang.Cloudents.Jared.Models
         /// </summary>
         [DefaultValue(0)]
         public int? Page { get; set; }
-            
+
 
     }
 }
