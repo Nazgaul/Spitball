@@ -38,7 +38,7 @@ function dynamicPropsFn(route) {
         query: route.query,
         filterSelection: filterOptions,
         sort: route.query.sort,
-        userText: route.params.q,
+        userText: route.query.q,
         currentTerm: newName.includes("food")
             ? route.meta.foodTerm
             : newName.includes("job")
