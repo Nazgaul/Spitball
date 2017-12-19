@@ -93,7 +93,8 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<PlacesSearch>().As<IPlacesSearch>();
             builder.RegisterType<UniversitySearch>().As<IUniversitySearch>();
             builder.RegisterType<IpToLocation>().As<IIpToLocation>();
-            builder.RegisterType<DocumentSearch>().AsImplementedInterfaces();
+            builder.RegisterType<DocumentIndexSearch>().AsImplementedInterfaces();
+            builder.RegisterType<SearchConvertRepository>().AsImplementedInterfaces();
 
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IReadRepositoryAsync<,>));
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IReadRepositoryAsync<>));
