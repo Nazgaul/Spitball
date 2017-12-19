@@ -19,7 +19,7 @@
                 </div>
             </template>
 
-            <v-text-field light solo slot="inputField" @input="$_search" class="search-b" ref="searchText" :placeholder="currentItem.placeholder" prepend-icon="sbf-search"></v-text-field>
+            <v-text-field light solo slot="inputField" @input="(val)=>{(val.length>2||!val.length)?$_search(val):''}" class="search-b" ref="searchText" :placeholder="currentItem.placeholder" prepend-icon="sbf-search"></v-text-field>
 
             <v-chip class="ma-2" slot="selectedItems" slot-scope="props" v-if="selectedCourse" label>
                 <span class="name">{{ props.course.name }}</span>
