@@ -18,7 +18,7 @@ namespace Zbang.Cloudents.Jared.Models
         /// The filter option
         /// </summary>
         [DefaultValue(0)]
-        public TutorRequestFilter? Filter { get; set; }
+        public TutorRequestFilter[] Filter { get; set; }
         /// <summary>
         /// The sort option
         /// </summary>

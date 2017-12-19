@@ -21,17 +21,17 @@ namespace Cloudents.Infrastructure.Search
         }
 
         // filter = FilterSortDto(filters: [.all,.online,.inPerson], sortArr: [.relevance, .price,.distance,.rating])
-        public async Task<IEnumerable<TutorDto>> SearchAsync(string term, TutorRequestFilter filter, TutorRequestSort sort, GeoPoint location, int page,
+        public async Task<IEnumerable<TutorDto>> SearchAsync(string term, TutorRequestFilter[] filters, TutorRequestSort sort, GeoPoint location, int page,
             CancellationToken token)
         {
             if (sort == TutorRequestSort.Distance && location == null)
             {
                 throw new ArgumentException("Need to location");
             }
-            if (filter == TutorRequestFilter.InPerson && location == null)
+            if (filters.Contains(TutorRequestFilter.InPerson) && location == null)
                 throw new ArgumentException("Need to location");
             var tasks = _tutorSearch.Select(s =>
-                s.SearchAsync(term, filter, sort, location, page, token)).ToList();
+                s.SearchAsync(term, filters, sort, location, page, token)).ToList();
             await Task.WhenAll(tasks).ConfigureAwait(false);
             return tasks.SelectMany(s => s.Result).OrderByDescending(o => o.TermCount);
         }

@@ -34,7 +34,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> Get([FromUri]TutorRequest model, CancellationToken token)
         {
             var result = await _tutorSearch.SearchAsync(string.Join(" ", model.Term),
-                model.Filter.GetValueOrDefault(),
+                model.Filter,
                 model.Sort.GetValueOrDefault(TutorRequestSort.Price),
                 model.Location,
                 model.Page.GetValueOrDefault(), token).ConfigureAwait(false);

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,28 +23,26 @@ namespace Cloudents.Infrastructure.Search
             _client = client.Indexes.GetClient("tutors2");
         }
 
-        public Task<IEnumerable<TutorDto>> SearchAsync(string term, TutorRequestFilter filter,
+        public async Task<IEnumerable<TutorDto>> SearchAsync(string term, TutorRequestFilter[] filters,
             TutorRequestSort sort, GeoPoint location, int page, CancellationToken token)
-        {
-            return SearchAzureAsync(term, filter, sort, location, page, token);
-        }
-
-        private async Task<IEnumerable<TutorDto>> SearchAzureAsync(string term,
-            TutorRequestFilter filter, TutorRequestSort sort,
-            GeoPoint location, int page, CancellationToken token)
         {
             var filterQuery = new List<string>();
             var sortQuery = new List<string>();
-            switch (filter)
+
+            foreach (var filter in filters)
             {
-                case TutorRequestFilter.Online:
-                    filterQuery.Add("online eq true");
-                    break;
-                case TutorRequestFilter.InPerson:
-                    filterQuery.Add("inPerson eq true");
-                    const double distance = 50 * 1.6;
-                    filterQuery.Add($"geo.distance(location, geography'POINT({location.Longitude} {location.Latitude})') le {distance}");
-                    break;
+                switch (filter)
+                {
+                    case TutorRequestFilter.Online:
+                        filterQuery.Add("online eq true");
+                        break;
+                    case TutorRequestFilter.InPerson:
+                        filterQuery.Add("inPerson eq true");
+                        const double distance = 50 * 1.6;
+                        filterQuery.Add(
+                            $"geo.distance(location, geography'POINT({location.Longitude} {location.Latitude})') le {distance}");
+                        break;
+                }
             }
             switch (sort)
             {

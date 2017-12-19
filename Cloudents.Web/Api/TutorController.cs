@@ -22,12 +22,12 @@ namespace Cloudents.Web.Api
 
         [TypeFilter(typeof(IpToLocationActionFilter), Arguments = new object[] { "location" })]
         public async Task<IActionResult> Get(string[] term,
-            TutorRequestFilter? filter,
+            TutorRequestFilter[] filter,
             TutorRequestSort? sort,
             GeoPoint location, int page, CancellationToken token)
         {
             if (term == null) throw new ArgumentNullException(nameof(term));
-            var result = await _tutorSearch.SearchAsync(string.Join(" ", term), filter.GetValueOrDefault(), sort.GetValueOrDefault(TutorRequestSort.Price), location, page, token).ConfigureAwait(false);
+            var result = await _tutorSearch.SearchAsync(string.Join(" ", term), filter, sort.GetValueOrDefault(TutorRequestSort.Price), location, page, token).ConfigureAwait(false);
             return Json(result);
         }
     }

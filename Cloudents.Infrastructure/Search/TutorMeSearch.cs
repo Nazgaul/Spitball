@@ -25,10 +25,10 @@ namespace Cloudents.Infrastructure.Search
             _restClient = restClient;
         }
 
-        public Task<IEnumerable<TutorDto>> SearchAsync(string term, TutorRequestFilter filter,
+        public Task<IEnumerable<TutorDto>> SearchAsync(string term, TutorRequestFilter[] filters,
             TutorRequestSort sort, GeoPoint location, int page, CancellationToken token)
         {
-            if (filter == TutorRequestFilter.InPerson)
+            if (Array.TrueForAll(filters, t => t == TutorRequestFilter.InPerson))
             {
                 return Task.FromResult(Enumerable.Empty<TutorDto>());
             }
