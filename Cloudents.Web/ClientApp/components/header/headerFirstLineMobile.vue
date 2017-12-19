@@ -11,7 +11,3 @@
         props:{name:{type:String}}
     }
 </script>
-
-<style scoped>
-
-</style>
