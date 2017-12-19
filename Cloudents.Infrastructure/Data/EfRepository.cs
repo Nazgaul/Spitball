@@ -15,9 +15,9 @@ namespace Cloudents.Infrastructure.Data
         {
             _dbContext = dbContext;
         }
+
         public async Task<T> AddAsync(T entity, CancellationToken token)
         {
-            
             await _dbContext.Set<T>().AddAsync(entity, token).ConfigureAwait(false);
             await _dbContext.SaveChangesAsync(token).ConfigureAwait(false);
             return entity;

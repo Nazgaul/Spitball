@@ -19,14 +19,11 @@ namespace Zbang.Cloudents.Jared.Models
         /// </summary>
         public string CourseId { get; set; }
 
-        //public string Professor { get; set; }
+        /// <summary>
+        /// User university
+        /// </summary>
+        [Required]
+        public long? University { get; set; }
 
-        //[Required]
-        //public string DepartmentId { get; set; }
-
-        public override string ToString()
-        {
-            return $"CourseName {CourseName} CourseId {CourseId}";
-        }
     }
 }
