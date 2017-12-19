@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 
@@ -12,23 +11,27 @@ namespace Cloudents.Infrastructure.Search
     public class FlashcardSearch : IFlashcardSearch
     {
         private readonly ICseSearch _search;
+        private readonly ISearchConvertRepository _searchConvertRepository;
 
-        public FlashcardSearch(ICseSearch search)
+        public FlashcardSearch(ICseSearch search, ISearchConvertRepository searchConvertRepository)
         {
             _search = search;
+            _searchConvertRepository = searchConvertRepository;
         }
 
         public async Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, CancellationToken token)
         {
+            var (universitySynonym, courses) = await _searchConvertRepository.ParseUniversityAndCoursesAsync(model.University, model.Courses, token).ConfigureAwait(false);
+
             var term = new List<string>();
 
-            if (model.UniversitySynonym != null)
+            if (universitySynonym != null)
             {
-                term.Add(string.Join(" OR ", model.UniversitySynonym.Select(s => '"' + s + '"')));
+                term.Add(string.Join(" OR ", universitySynonym.Select(s => '"' + s + '"')));
             }
-            if (model.Course != null)
+            if (courses != null)
             {
-                term.Add(string.Join(" OR ", model.Course.Select(s => '"' + s + '"')));
+                term.Add(string.Join(" OR ", courses.Select(s => '"' + s + '"')));
             }
             if (model.Query != null)
             {

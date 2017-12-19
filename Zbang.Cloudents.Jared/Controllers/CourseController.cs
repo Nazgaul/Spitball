@@ -3,12 +3,9 @@ using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure.Extensions;
-using Zbang.Zbox.Infrastructure.Exceptions;
 using System.Net;
 using System.Threading;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Zbang.Cloudents.Jared.Models;
 
@@ -20,12 +17,18 @@ namespace Zbang.Cloudents.Jared.Controllers
     [MobileAppController]
     public class CourseController : ApiController
     {
-        private readonly IZboxWriteService _zboxWriteService;
         private readonly ICourseSearch _courseProvider;
-        public CourseController(IZboxWriteService zboxWriteService, ICourseSearch courseProvider)
+        private readonly IRepository<Course> _repository;
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="courseProvider"></param>
+        /// <param name="repository"></param>
+        public CourseController( ICourseSearch courseProvider, IRepository<Course> repository)
         {
-            _zboxWriteService = zboxWriteService;
             _courseProvider = courseProvider;
+            _repository = repository;
         }
 
         /// <summary>
@@ -51,27 +54,25 @@ namespace Zbang.Cloudents.Jared.Controllers
         [Route("api/course/follow")]
         [HttpPost]
         [Obsolete]
-        public async Task<HttpResponseMessage> FollowAsync(FollowRequest model)
+        public HttpResponseMessage Follow(FollowRequest model)
         {
-            if (model == null)
-            {
-                return Request.CreateBadRequestResponse();
-            }
-            if (!ModelState.IsValid)
-            {
-                return Request.CreateBadRequestResponse();
-            }
-            var command = new SubscribeToSharedBoxCommand(User.GetUserId(), model.BoxId);
-            await _zboxWriteService.SubscribeToSharedBoxAsync(command).ConfigureAwait(false);
+            //if (model == null)
+            //{
+            //    return Request.CreateBadRequestResponse();
+            //}
+            //if (!ModelState.IsValid)
+            //{
+            //    return Request.CreateBadRequestResponse();
+            //}
+            //var command = new SubscribeToSharedBoxCommand(User.GetUserId(), model.BoxId);
+            //await _zboxWriteService.SubscribeToSharedBoxAsync(command).ConfigureAwait(false);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         [HttpDelete, Route("api/course/follow")]
         [Obsolete]
-        public async Task<HttpResponseMessage> UnFollowAsync(long courseId)
+        public HttpResponseMessage UnFollow(long courseId)
         {
-            var command = new UnFollowBoxCommand(courseId, User.GetUserId(), false);
-            await _zboxWriteService.UnFollowBoxAsync(command).ConfigureAwait(false);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
@@ -79,30 +80,23 @@ namespace Zbang.Cloudents.Jared.Controllers
         /// Create academic course - note talk to RAM before applying
         /// </summary>
         /// <param name="model"></param>
+        /// <param name="token">Cancellation token</param>
         /// <returns>The id of the course created</returns>
         [Route("api/course/create")]
         [HttpPost]
-        public async Task<HttpResponseMessage> CreateAcademicBoxAsync(CreateCourseRequest model)
+        public async Task<HttpResponseMessage> CreateAcademicBoxAsync(CreateCourseRequest model, CancellationToken token)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || !model.University.HasValue)
             {
                 return Request.CreateBadRequestResponse();
             }
-            var userId = User.GetUserId();
-            var commandGeneral = new GetGeneralDepartmentCommand(userId);
-            var res = _zboxWriteService.GetGeneralDepartmentForUniversity(commandGeneral);
+            var course = new Course(model.CourseName, model.University.Value)
+            {
+                CourseCode = model.CourseId,
+            };
 
-            try
-            {
-                var command = new CreateAcademicBoxCommand(userId, model.CourseName,
-                                                           model.CourseId, null, res.DepartmentId);
-                var result = await _zboxWriteService.CreateBoxAsync(command).ConfigureAwait(false);
-                return Request.CreateResponse(result.Id);
-            }
-            catch (BoxNameAlreadyExistsException ex)
-            {
-                return Request.CreateResponse(ex.BoxId);
-            }
+            var result = await _repository.AddAsync(course, token).ConfigureAwait(false);
+            return Request.CreateResponse(result.Id);
         }
     }
 }

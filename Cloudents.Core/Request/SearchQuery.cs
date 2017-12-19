@@ -6,24 +6,24 @@ namespace Cloudents.Core.Request
     public class SearchQuery
     {
         public SearchQuery(IEnumerable<string> query, int page)
-            : this(query, null, null, null, page, SearchCseRequestSort.None)
+            : this(query, default, null, null, page, SearchCseRequestSort.None)
         {
         }
 
-        public SearchQuery(IEnumerable<string> query, IEnumerable<string> universitySynonym,
-            IEnumerable<string> course, IEnumerable<string> source, int page, SearchCseRequestSort sort)
+        public SearchQuery(IEnumerable<string> query, long? university,
+            IEnumerable<long> courses, IEnumerable<string> source, int page, SearchCseRequestSort sort)
         {
             Query = query;
-            UniversitySynonym = universitySynonym;
-            Course = course;
+            University = university;
+            Courses = courses;
             Source = source;
             Page = page;
             Sort = sort;
         }
 
         public IEnumerable<string> Source { get; }
-        public IEnumerable<string> UniversitySynonym { get; }
-        public IEnumerable<string> Course { get; }
+        public long? University { get; }
+        public IEnumerable<long> Courses { get; }
         public IEnumerable<string> Query { get; }
         public int Page { get; }
         public SearchCseRequestSort Sort { get; }

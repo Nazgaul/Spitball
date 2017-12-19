@@ -8,11 +8,11 @@ using Microsoft.Rest.Azure;
 
 namespace Cloudents.Infrastructure.Search
 {
-    public class DocumentSearch : IDocumentSearch
+    public class DocumentIndexSearch : IDocumentSearch
     {
         private readonly ISearchIndexClient _client;
 
-        public DocumentSearch(SearchServiceClient client)
+        public DocumentIndexSearch(SearchServiceClient client)
         {
             _client = client.Indexes.GetClient("item3");
         }

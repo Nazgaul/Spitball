@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using Microsoft.Azure.Mobile.Server.Config;
@@ -19,16 +16,20 @@ namespace Zbang.Cloudents.Jared.Controllers
     [MobileAppController]
     public class SearchController : ApiController
     {
-        private readonly IReadRepositoryAsync<UniversitySynonymDto, long> _universitySynonymRepository;
         private readonly Lazy<IDocumentCseSearch> _searchProvider;
         private readonly Lazy<IFlashcardSearch> _flashcardProvider;
         private readonly Lazy<IQuestionSearch> _questionProvider;
 
-        public SearchController(IReadRepositoryAsync<UniversitySynonymDto, long> universitySynonymRepository,
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="searchProvider"></param>
+        /// <param name="flashcardProvider"></param>
+        /// <param name="questionProvider"></param>
+        public SearchController(
             Lazy<IDocumentCseSearch> searchProvider, Lazy<IFlashcardSearch> flashcardProvider,
             Lazy<IQuestionSearch> questionProvider)
         {
-            _universitySynonymRepository = universitySynonymRepository;
             _searchProvider = searchProvider;
             _flashcardProvider = flashcardProvider;
             _questionProvider = questionProvider;
@@ -40,28 +41,22 @@ namespace Zbang.Cloudents.Jared.Controllers
         /// <param name="model"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [Route("api/search/documents"), HttpGet]
+        [Route("api/search/documents",Name = "DocumentSearch"), HttpGet]
         public async Task<HttpResponseMessage> SearchDocumentAsync([FromUri] SearchRequest model,
             CancellationToken token)
         {
-            if (model.Course != null)
-            {
-                throw new NotImplementedException();
-            }
-            IEnumerable<string> universitySynonym = null;
-            if (model.University.HasValue)
-            {
-                var repositoryResult = await _universitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
-                universitySynonym = repositoryResult.Name;
-            }
-            var query = new SearchQuery(model.Query, universitySynonym, null, model.Source, model.Page.GetValueOrDefault(),
+            var query = new SearchQuery(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
                 model.Sort.GetValueOrDefault());
-
             var result = await _searchProvider.Value.SearchAsync(query, token).ConfigureAwait(false);
+
+            //https://stackoverflow.com/questions/8391055/passing-an-array-to-routevalues-and-have-it-render-model-binder-friendly-url
+            //var nextPageLink = Url.Link("DocumentSearch",
+            //    model.GetNextPage());
             return Request.CreateResponse(new
             {
                 documents = result.Result,
-                result.Facet
+                result.Facet,
+                //nextPageLink
             });
         }
 
@@ -75,17 +70,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> SearchFlashcardAsync([FromUri] SearchRequest model,
             CancellationToken token)
         {
-            if (model.Course != null)
-            {
-                throw new NotImplementedException();
-            }
-            IEnumerable<string> universitySynonym = null;
-            if (model.University.HasValue)
-            {
-                var repositoryResult = await _universitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
-                universitySynonym = repositoryResult.Name;
-            }
-            var query = new SearchQuery(model.Query, universitySynonym, null, model.Source, model.Page.GetValueOrDefault(),
+            var query = new SearchQuery(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
                 model.Sort.GetValueOrDefault());
 
             var result = await _flashcardProvider.Value.SearchAsync(query, token).ConfigureAwait(false);
@@ -100,15 +85,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> SearchQuestionAsync([FromUri] SearchRequest model,
             CancellationToken token)
         {
-            IEnumerable<string> universitySynonym = null;
-            if (model.University.HasValue)
-            {
-                var repositoryResult = await _universitySynonymRepository.GetAsync(model.University.Value, token).ConfigureAwait(false);
-                universitySynonym = repositoryResult.Name;
-            }
-            var query = new SearchQuery(model.Query, universitySynonym, null, model.Source, model.Page.GetValueOrDefault(),
-                model.Sort.GetValueOrDefault());
-
+            var query = new SearchQuery(model.Query,  model.Page.GetValueOrDefault());
             var result = await _questionProvider.Value.SearchAsync(query, token).ConfigureAwait(false);
             return Request.CreateResponse(result);
         }

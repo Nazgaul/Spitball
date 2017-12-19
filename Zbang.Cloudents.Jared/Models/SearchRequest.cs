@@ -33,5 +33,19 @@ namespace Zbang.Cloudents.Jared.Models
         /// </summary>
         [DefaultValue(0)]
         public SearchCseRequestSort? Sort { get; set; }
+
+        internal SearchRequest GetNextPage()
+        {
+            var model = new SearchRequest
+            {
+                Source = this.Source,
+                Course = Course,
+                University = University,
+                Sort = Sort,
+                Page = Page.GetValueOrDefault() + 1,
+                Query = Query
+            };
+            return model;
+        }
     }
 }
