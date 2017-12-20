@@ -91,11 +91,25 @@ function filterLinkFun(route){
     }
 }
 
-const resultPage = {  default: resultContent ,verticalList:theNavbar,personalize,verticalListMobile:theNavbar,header:pageHeader,headerMobile:pageHeader};
+const resultPage = {
+    default: resultContent,
+    //verticalList: theNavbar,
+    personalize,
+    //verticalListMobile: theNavbar,
+    header: pageHeader,
+    headerMobile: pageHeader
+};
+const resultProps = {
+    default: dynamicPropsFn,
+    header: verticalsLinkFun,
+    //verticalList: verticalsLinkFun,
+    //verticalListMobile: verticalsLinkFun
+};
+
 const bookDetailsPage = { default: bookDetails,verticalList:theNavbar,personalize,verticalListMobile:theNavbar,headerMobile:boodDetailsHeaderMobile,header:pageHeader};
 const foodDetailsPage = { default: foodDetails,mobileHeaderFirstLine:mobileDetailsFirstLine,header:pageHeader,headerMobile:foodDetailsHeader};
 const notFoundPage = { default: notFound };
-const resultProps = { default: dynamicPropsFn,verticalList:verticalsLinkFun,verticalListMobile:verticalsLinkFun};
+
 
 const foodDetailsProps = { default: true,header:{showSingleLine:true,showMoreOptions:false},headerMobile:{name:"Food and Deals"}};
 const bookDetailsProps = { ...resultProps, default: dynamicDetailsPropsFn,verticalListMobile:filterLinkFun,headerMobile:(route)=>({name:"textbooks",id:route.params.id})};
@@ -119,7 +133,7 @@ export const routes = [
             "/" + RouteTypes.jobRoute,
             "/" + RouteTypes.foodRoute
         ], components: resultPage, props: resultProps, meta: {
-            showHeader: true
+          
             
         }
     },

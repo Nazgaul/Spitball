@@ -19,7 +19,7 @@
                             <v-list>
                                 <v-subheader>Some things you can ask me:</v-subheader>
                                 <template v-for="(item, index) in items">
-                                    <v-list-tile @click="props.selectosFunction(item)" :key="index">
+                                    <v-list-tile @click="selectos(item)" :key="index">
                                         <v-list-tile-action hidden-xs-only>
                                             <v-icon>sbf-search</v-icon>
                                         </v-list-tile-action>
@@ -69,7 +69,7 @@
                 if (this.$vuetify.breakpoint.smAndDown && !this.headerMenu) {
                     const element = this.$refs.search;
                     this.$scrollTo(element, 500, {
-                        offset : -64
+                        offset : -72
                     })
                 }
             },

@@ -54,7 +54,7 @@ button {
 
 .horizontal-variant(@variant,@p) {
     @color: "vertical-@{variant}"; 
-    @{p}: @@color;
+    @{p}: @@color !important;
 }
 
 .loop(@index) when (@index <= length(@list-verticals)) {
@@ -65,7 +65,7 @@ button {
         .horizontal-variant(@p,color)
     }
 
-    .spitball-bg-@{p} {
+    /*.spitball-bg-@{p} {
         .horizontal-variant(@p,background);
         .spitball-svg-fill {
             fill: #fff;
@@ -78,7 +78,7 @@ button {
     }
     .spitball-border-@{p} {
         .horizontal-variant(@p,border-color);
-    }
+    }*/
 }
 
 .loop(1);
@@ -87,7 +87,15 @@ button {
 
 
 @color-light-gray: #ddd;
-@list-colors: light-gray;
+
+@color-ask: #0455a8;
+@color-note: #320161;
+@color-flashcard: #f14d4d;
+@color-tutor: #52ab15;
+@color-book: #8c3fbf;
+@color-job: #f49c20;
+@color-food: #0ead91;
+@list-colors: light-gray,ask,note,flashcard,tutor,job,food;
 
 
 .loop2(@index2) when (@index2 <= length(@list-colors)) {

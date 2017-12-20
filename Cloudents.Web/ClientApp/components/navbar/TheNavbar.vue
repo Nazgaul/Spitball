@@ -1,6 +1,6 @@
 ﻿<template>
     <!---->
-    <div class="sb-menu" :class="offsetTop > 0 ? 'scrolled':''" v-scroll="$_onScroll">
+    <!--<div class="sb-menu" :class="offsetTop > 0 ? 'scrolled':''" v-scroll="$_onScroll">-->
         <v-tabs :value="currentSelection">
             <v-tabs-bar class="cyan" dark>
                 <v-tabs-item v-for="tab in verticals" :key="tab.id" :href="tab.id" :id="tab.id" @click="$_updateType(tab.id)" :class="['spitball-bg-'+tab.id,tab.id==currentSelection?'tabs__item--active':'']"
@@ -10,7 +10,7 @@
                 <v-tabs-slider color="yellow" :class="`spitball-border-${currentSelection}`"></v-tabs-slider>
             </v-tabs-bar>
         </v-tabs>
-    </div>
+    <!--</div>-->
 </template>
 
 
@@ -21,7 +21,7 @@
         data() {
             return {
                 newVertical: "",
-                offsetTop: 0
+               // offsetTop: 0
             }
         },
 
@@ -54,9 +54,9 @@
                     this.$router.push({ path: '/' + result });
                 }
             },
-            $_onScroll: function () {
-                this.offsetTop = window.pageYOffset || document.documentElement.scrollTop;
-            }
+            //$_onScroll: function () {
+            //    this.offsetTop = window.pageYOffset || document.documentElement.scrollTop;
+            //}
 
 
         },

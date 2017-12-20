@@ -14,14 +14,10 @@
             <v-list>
                 <v-list-tile href="#" v-for="action in links" :key="action.name">
                     {{ action.name }}
-                    <!--<v-list-tile-content>
-                        <v-list-tile-title>{{item.id==='university'&&getUniversityName?getUniversityName:item.name}}</v-list-tile-title>
-                    </v-list-tile-content>-->
                 </v-list-tile>
             </v-list>
         </v-menu>
         <!--<transition name="fade">-->
-            <!--:slot="$vuetify.breakpoint.smAndDown? 'extension' : 'default'"-->
             <sb-search :header-menu="true" v-if="showText" :slot="$vuetify.breakpoint.smAndDown? 'extension' : 'default'"></sb-search>
         <!--</transition>-->
     </v-toolbar>

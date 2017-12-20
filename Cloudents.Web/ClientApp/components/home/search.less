@@ -53,7 +53,6 @@
 
     .tx-input {
         flex-grow: 1;
-
         /*input {
             width: 100%;
         }*/
@@ -64,11 +63,10 @@
     position: relative;
     //margin: 16px 0;
     //height: 100%;
-
     @media(max-width: @mobileBreakPoint) {
         //margin: 8px;
         max-width: 100%;
-        margin-top: -8px; // hack because the two cells are in the same height
+        margin: -8px 8px 0; // hack on top because the two cells are in the same height( blame Shlomi)
     }
 
     form {
@@ -76,7 +74,7 @@
     }
 
 
-    
+
 
     button[type="submit"] {
         border: none;

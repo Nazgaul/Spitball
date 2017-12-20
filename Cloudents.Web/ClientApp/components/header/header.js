@@ -1,12 +1,14 @@
 ﻿import logo from "../../../wwwroot/Images/logo-spitball.svg";
+import navBar from "../navbar/TheNavbar.vue"
 import { mapActions, mapGetters } from 'vuex';
 import { settingMenu } from '../settings/consts';
-import {micMixin} from '../helpers/mic'
+import { micMixin } from '../helpers/mic';
+
 
 export default {
     mixins:[micMixin],
     components: {
-        logo
+        logo, navBar
     },
     data() {
         return {
@@ -14,7 +16,7 @@ export default {
             currentName:"",
             qFilter: this.$route.query.q,
             keep:false,
-            type: "",
+            type: ""
             
         };
     },
@@ -44,7 +46,9 @@ export default {
           this.qFilter=val;
       }
     },
-    props:{showMoreOptions:{type:Boolean,default:true},showSingleLine:{type:Boolean,default:false}},
+    props: { $_calcTerm: { type: Function }, verticals: { type: Array }, callbackFunc: { type: Function }, currentSelection: { type: String } },
+
+    //props:{showMoreOptions:{type:Boolean,default:true},showSingleLine:{type:Boolean,default:false}},
     methods: {
         ...mapActions(["updateSearchText","createCourse","updateFirstTime"]),
         submit: function () {
@@ -66,6 +70,32 @@ export default {
         $_currentClick(item){
             let itemToUpdate=this.$parent.$children.find(i=>i.$refs.person);
             item.click.call(itemToUpdate,this.getUniversityName);
-        }
+        },
+        $_currentTerm(type) {
+            let term = type.includes('food') ? this.$route.meta.foodTerm : type.includes('job') ? this.$route.meta.jobTerm : this.$route.meta.term;
+            return term || {};
+        },
+        $_updateType(result) {
+            if (this.$route.name !== "result") {
+                if (this.callbackFunc) {
+                    this.callbackFunc.call(this, result);
+                } else {
+                    this.$router.push({ path: '/' + result, query: { q: this.$route.query.q } });
+                }
+            }
+            else if (this.$route.meta[this.$_calcTerm(result)]) {
+                let query = { q: this.$_currentTerm(result).term };
+                if (this.currentPage === result) query = { ...this.$route.query, ...query };
+                if (this.$route.meta.myClasses && (result.includes('note') || result.includes('flashcard'))) query.course = this.$route.meta.myClasses;
+                this.$router.push({ path: '/' + result, query })
+            } else {
+
+                if (!this.getUniversityName && (result !== 'food' && result !== 'job')) {
+                    this.$root.$children[0].$refs.personalize.showDialog = true;
+                    return;
+                }
+                this.$router.push({ path: '/' + result });
+            }
+        },
     }
 }
