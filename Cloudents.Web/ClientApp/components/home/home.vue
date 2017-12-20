@@ -1,12 +1,7 @@
 
 <template v-once>
-    <page-layout :submitFunction="search" :items="items" :sites="sites" :selectosFunction="selectos"
+    <page-layout :sites="sites" 
                  :bottomIcons="bottomIcons" :testimonials="testimonials">
-        
-
-
-       
-        <!--<v-text-field slot="inputField" type="search" solo @keyup.enter="search" autocomplete="off" required name="q" :class="{'record':isRecording}" id="transcript" v-model.trim="msg" :placeholder="placeholder" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>-->
         <sb-search slot="search"></sb-search>
         <strips-section slot="stripSection" :strips="strips">
             <component :is="props.type" :class="props.classIcon" slot="stripImage" slot-scope="props"></component>

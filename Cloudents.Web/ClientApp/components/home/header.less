@@ -1,14 +1,18 @@
-﻿.h-p-header {
-    
+﻿@import "../../mixin.less";
+.h-p-header {
+
     &.toolbar {
         background-color: transparent;
-        }
+    }
 
     &.scroll {
         background-color: #ffffff;
         box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5) !important;
     }
 
+    .toolbar__title {
+        .inTheMiddle();
+    } 
     .toolbar__content {
         max-width: 1280px;
         margin: 0 auto;
@@ -19,5 +23,18 @@
         letter-spacing: -0.3px;
         color: #302eb5;
         text-transform: capitalize;
+    }
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s
+    }
+
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0
+    }
+
+
+    .sbf-3-dot {
+        color: #3293F6;
     }
 }

@@ -48,7 +48,8 @@ module.exports = (env) => {
                     "vuetify/es5/components/VSwitch",
                     "vuetify/es5/components/VTabs",
                     "vuetify/es5/directives/scroll",
-                    "vuetify/es5/components/VIcon"
+                    "vuetify/es5/components/VIcon",
+                    "vue-scrollto"
                 ]
             },
             module: {

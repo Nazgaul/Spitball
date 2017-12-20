@@ -2,7 +2,51 @@
 
 @submitHeight: 48px;
 @submitMobileHeight: 40px;
+
+@mobileBreakPoint: 959px;
+
+.search-menu {
+    background: #fff !important;
+    border-radius: 4px;
+    margin-top: 8px;
+
+    .subheader {
+        color: @Feed-Like-count;
+        letter-spacing: -0.3px;
+        font-size: 18px;
+        line-height: 2.22;
+        height: 20px;
+        margin-bottom: 10px;
+    }
+
+    .list__tile__title {
+        color: #302eb5;
+        height: 36px;
+        font-size: 18px;
+        line-height: 2;
+        letter-spacing: -0.3px;
+    }
+    /*.list__tile__title {
+            line-height: normal;
+        }*/
+    .list__tile {
+        height: 37px;
+    }
+
+    .list__tile--link {
+        padding-left: 10px;
+
+
+        .list__tile__action {
+            min-width: 32px;
+        }
+    }
+}
 .box-search {
+    max-width: 800px;
+    flex-grow: 1;
+    .inTheMiddle();
+
     .f-submit {
         .flexSameSize();
     }
@@ -10,59 +54,29 @@
     .tx-input {
         flex-grow: 1;
 
-        input {
+        /*input {
             width: 100%;
-        }
+        }*/
     }
 
     background: rgba(48,46,181, 0.2);
     .rounded-all(4px);
     position: relative;
-    margin: 16px 0;
+    //margin: 16px 0;
+    //height: 100%;
 
-    @media(max-width: 600px) {
-        margin: 8px;
+    @media(max-width: @mobileBreakPoint) {
+        //margin: 8px;
+        max-width: 100%;
+        margin-top: -8px; // hack because the two cells are in the same height
     }
 
-    .h-p-menu {
-        background: #fff !important;
-        border-radius: 4px;
-        margin-top: 8px;
-
-        .subheader {
-            color: @Feed-Like-count;
-            letter-spacing: -0.3px;
-            font-size: 18px;
-            line-height: 2.22;
-            height: 20px;
-            margin-bottom: 10px;
-        }
-
-        .list__tile__title:not(.list__tile--active) {
-            color: @Spitball-Main-color;
-            height: 36px;
-            font-size: 18px;
-            line-height: 2;
-            letter-spacing: -0.3px;
-        }
-
-        .list__tile__title {
-            line-height: normal;
-        }
-
-        .list__tile {
-            height: 37px;
-        }
-
-        .list__tile--link {
-            padding-left: 10px;
-
-
-            .list__tile__action {
-                min-width: 32px;
-            }
-        }
+    form {
+        width: 100%;
     }
+
+
+    
 
     button[type="submit"] {
         border: none;
@@ -73,7 +87,7 @@
         font-weight: bold;
         letter-spacing: -0.4px;
 
-        @media(max-width: 600px) {
+        @media(max-width: @mobileBreakPoint) {
             height: @submitMobileHeight;
         }
     }
@@ -81,7 +95,7 @@
     form .container {
         padding: 16px;
 
-        @media(max-width: 600px) {
+        @media(max-width: @mobileBreakPoint) {
             padding: 8px;
         }
     }
@@ -107,7 +121,7 @@
             min-width: 28px;
         }
 
-        @media(max-width:600px) {
+        @media(max-width:@mobileBreakPoint) {
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
             height: @submitMobileHeight;
@@ -148,7 +162,7 @@
             color: @color-white;
         }
 
-        @media(max-width: 600px) {
+        @media(max-width: @mobileBreakPoint) {
             margin: 0;
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;

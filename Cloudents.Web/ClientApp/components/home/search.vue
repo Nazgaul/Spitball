@@ -1,16 +1,17 @@
 ﻿<template>
-    <div class="box-search">
-        <form id="labnol" method="get" @submit.prevent="props.submitFunction">
+    <div class="box-search" ref="search">
+        <form method="get" @submit.prevent="props.submitFunction">
             <v-container>
                 <v-layout row>
                     <v-flex class="tx-input">
-                        <v-menu offset-y full-width content-class="h-p-menu">
+                        <v-menu offset-y full-width content-class="search-menu">
                             <span slot="activator">
                                 <v-text-field slot="inputField" type="search" solo
                                               @keyup.enter="search" autocomplete="off"
                                               required name="q"
                                               :class="{'record':isRecording}"
                                               id="transcript"
+                                              v-on:focus="focus"
                                               v-model.trim="msg" :placeholder="placeholder"
                                               prepend-icon="sbf-search" :append-icon="voiceAppend"
                                               :append-icon-cb="$_voiceDetection"></v-text-field>
@@ -32,8 +33,8 @@
                     </v-flex>
                     <v-flex class="f-submit">
                         <button type="submit">
-                            <v-icon class="hidden-sm-and-up">sbf-search</v-icon>
-                            <span class="hidden-xs-only">Search</span>
+                            <v-icon class="hidden-md-and-up">sbf-search</v-icon>
+                            <span class="hidden-sm-and-down">Search</span>
                         </button>
                     </v-flex>
                 </v-layout>
@@ -46,6 +47,7 @@
     import { homeSuggest } from "./consts";
     export default {
         mixins: [micMixin],
+        props: ["headerMenu"],
         computed: {
             placeholder: function () {
                 if (this.$vuetify.breakpoint.smAndUp) {
@@ -63,7 +65,14 @@
             search() {
                 this.$router.push({ name: "result", query: { q: this.msg } });
             },
-
+            focus() {
+                if (this.$vuetify.breakpoint.smAndDown && !this.headerMenu) {
+                    const element = this.$refs.search;
+                    this.$scrollTo(element, 500, {
+                        offset : -64
+                    })
+                }
+            },
             selectos(item) {
                 this.msg = item;
                 this.search();

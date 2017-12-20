@@ -1,77 +1,14 @@
 <template functional>
     <div class="wrapper h-p">
-
         <div class="box-header">
-            <slot name="header"></slot>
-
-            <!--<v-container fluid>-->
-            <!--<v-layout row>
-        <v-flex class="logo-wrapper">
-            <slot name="logo"></slot>
-        </v-flex>
-        <header>
-            <v-toolbar flat style="background-color:transparent;" height="52">
-                <div class="hidden-sm-and-down" v-for="action in props.links" :key="action.name">
-                    <a href="#">{{ action.name }}</a>
-                </div>
-            </v-toolbar>
-            <v-menu bottom left>
-                <v-btn icon slot="activator" dark>
-                    <v-icon>sbf-3-dot</v-icon>
-                </v-btn>
-                <v-list>
-                    <v-list-tile @click="$_currentClick(item)" v-for="(item,index) in settingMenu" :key="index" :id="item.id">
-                        <v-list-tile-content>
-                            <v-list-tile-title>{{item.id==='university'&&getUniversityName?getUniversityName:item.name}}</v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                </v-list>
-            </v-menu>
-        </header>
-    </v-layout>-->
-            <search></search>
-            <div class="box-small-container" @click.stop="">
+            <div class="box-small-container">
                 <div class="box-inner-header">
                     <h2 class="box-title">Simplify School</h2>
                     <h4>Curating all of the resources you need. For <b>Free.</b></h4>
                         <slot name="search"></slot>
-                        <!--<form id="labnol" method="get" @submit.prevent="props.submitFunction">
-                            <v-container>
-                                <v-layout row>
-                                    <v-flex class="tx-input">
-
-                                        <v-menu offset-y full-width content-class="h-p-menu">
-                                            <span slot="activator">
-                                                <slot name="inputField"></slot>
-                                            </span>
-                                            <v-list>
-                                                <v-subheader>Some things you can ask me:</v-subheader>
-                                                <template v-for="(item, index) in props.items">
-                                                    <v-list-tile @click="props.selectosFunction(item)" :key="index">
-                                                        <v-list-tile-action hidden-xs-only>
-                                                            <v-icon>sbf-search</v-icon>
-                                                        </v-list-tile-action>
-                                                        <v-list-tile-content>
-                                                            <v-list-tile-title v-text="item"></v-list-tile-title>
-                                                        </v-list-tile-content>
-                                                    </v-list-tile>
-                                                </template>
-                                            </v-list>
-                                        </v-menu>
-                                    </v-flex>
-                                    <v-flex class="f-submit">
-                                        <button type="submit">
-                                            <v-icon class="hidden-sm-and-up">sbf-search</v-icon>
-                                            <span class="hidden-xs-only">Search</span>
-                                        </button>
-                                    </v-flex>
-                                </v-layout>
-                            </v-container>
-                        </form>-->
                 </div>
             </div>
             <slot name="featuresSection"></slot>
-            <!--</v-container>-->
         </div>
         <section class="websites-section">
             <v-container class="websites text-xs-center limited-width">
@@ -86,7 +23,7 @@
                 <p class="text-xs-right text-sm-center">… and many more.</p>
             </v-container>
         </section>
-        <slot name="stripSection"></slot>
+        <!--<slot name="stripSection"></slot>-->
         <section class="box-section testimonials">
             <v-carousel hide-delimiters left-control-icon="sbf-arrow-right" right-control-icon="sbf-arrow-right" class="limited-width">
                 <v-carousel-item v-for="(testimonial,index) in props.testimonials" src="" :key="index">
