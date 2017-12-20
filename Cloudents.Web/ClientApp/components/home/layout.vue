@@ -23,7 +23,7 @@
                 <p class="text-xs-right text-sm-center">… and many more.</p>
             </v-container>
         </section>
-        <!--<slot name="stripSection"></slot>-->
+        <slot name="stripSection"></slot>
         <section class="box-section testimonials">
             <v-carousel hide-delimiters left-control-icon="sbf-arrow-right" right-control-icon="sbf-arrow-right" class="limited-width">
                 <v-carousel-item v-for="(testimonial,index) in props.testimonials" src="" :key="index">

@@ -6,7 +6,9 @@
 
 .header {
     //background-image: linear-gradient(276deg, @Spitball-Main-color, #3023ae);
-    background: #fff;
+    &.toolbar {
+        background-color: #fff;
+    }
 
     .toolbar__items {
         flex-grow: 1;
@@ -90,10 +92,10 @@
             color: @color-blue !important;
         }
     }
-
+    .btn{
     .sbf-3-dot {
         color: #3293f6;
-    }
+    }}
     /*.toolbar__content > *:not(.btn):not(.menu):last-child {
         margin-left: auto;
         margin: 0 14px;
