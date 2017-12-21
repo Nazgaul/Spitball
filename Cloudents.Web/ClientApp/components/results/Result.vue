@@ -26,7 +26,7 @@
                      <v-flex class="result-cell elevation-1 mb-2" xs-12 v-for="(item,index) in items" :key="index" @click="(hasExtra?selectedItem=item.placeId:'')" :class="(index>6?'order-xs3':'order-xs1')">
                          <component :is="'result-'+item.template" :item="item" :key="index" class="cell"></component>
                      </v-flex>
-                     <router-link tag="v-flex" class="result-cell elevation-1 mb-2 xs-12 order-xs2" :to="{path:'/'+currentSuggest,query:{q:this.query.q}}">
+                     <router-link v-if="!hasExtra" tag="v-flex" class="result-cell elevation-1 mb-2 xs-12 order-xs2" :to="{path:'/'+currentSuggest,query:{q:this.query.q}}">
                          <suggest-card :name="currentSuggest"></suggest-card>
                      </router-link>
                  </v-layout>
