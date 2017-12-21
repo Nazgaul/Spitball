@@ -14,7 +14,6 @@ using Cloudents.Core.Request;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using Environment = Cloudents.Infrastructure.Environment;
 
 namespace Test
 {
@@ -27,7 +26,7 @@ namespace Test
                 ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                 ConfigurationManager.AppSettings["AzureSearchServiceName"],
                 ConfigurationManager.AppSettings["AzureSearchKey"],
-                ConfigurationManager.AppSettings["Redis"], Environment.Console);
+                ConfigurationManager.AppSettings["Redis"]);
 
           //  builder.RegisterType<GoogleSheet>().As<IGoogleSheet>();
         builder.RegisterModule(infrastructureModule);

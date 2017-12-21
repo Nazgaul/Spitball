@@ -27,18 +27,20 @@ namespace Cloudents.Infrastructure
         private readonly string _searchServiceName;
         private readonly string _searchServiceKey;
         private readonly string _redisConnectionString;
-        private readonly Environment _environment;
+       // private readonly Environment _environment;
 
         public InfrastructureModule(string sqlConnectionString,
             string searchServiceName,
             string searchServiceKey,
-            string redisConnectionString, Environment environment)
+            string redisConnectionString
+            //Environment environment
+            )
         {
             _sqlConnectionString = sqlConnectionString;
             _searchServiceName = searchServiceName;
             _searchServiceKey = searchServiceKey;
             _redisConnectionString = redisConnectionString;
-            _environment = environment;
+           // _environment = environment;
         }
 
         protected override void Load(ContainerBuilder builder)
@@ -79,10 +81,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<TutorSearch>().As<ITutorSearch>();
             builder.RegisterType<CourseSearch>().As<ICourseSearch>();
             builder.RegisterType<TutorAzureSearch>().As<ITutorProvider>();
-            if (_environment == Environment.Web)
-            {
-                builder.RegisterType<TutorMeSearch>().As<ITutorProvider>();
-            }
+            
             builder.RegisterType<TitleSearch>().As<ITitleSearch>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<VideoSearch>().As<IVideoSearch>();
@@ -102,10 +101,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<SeoDocumentRepository>()
                 .Keyed<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>(SeoType.Item);
 
-            builder.RegisterType<SeoFlashcardRepository>()
-                .Keyed<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>(SeoType.Flashcard);
-            builder.RegisterType<SeoQuizRepository>()
-                .Keyed<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>(SeoType.Quiz);
+         
 
             builder.RegisterGeneric(typeof(EfRepository<>)).AsImplementedInterfaces();
 

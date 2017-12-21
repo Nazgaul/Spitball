@@ -18,7 +18,7 @@
     </v-app>
 </template>
 <script>
-    import AppHeader from '../header/header.vue'
+    //import AppHeader from '../header/header.vue'
     import { mapGetters } from 'vuex'
     export default {
         computed: {
@@ -27,8 +27,8 @@
             isMobileApp(){
                 return (this.$vuetify.breakpoint.xsOnly)?'Mobile':"";
             }
-        },
-        components: { AppHeader }
+        }
+       // components: { AppHeader }
     }
 </script>
 <style lang="less" src="./app.less"></style>

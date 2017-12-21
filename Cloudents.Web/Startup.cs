@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Request;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Web.Extensions;
@@ -65,15 +70,14 @@ namespace Cloudents.Web
 
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();
-            var infrastructureModule = new InfrastructureModule(
+            var infrastructureModule = new WebInfrastructureModule(
                 Configuration.GetConnectionString("DefaultConnection"),
                 Configuration["AzureSearch:SearchServiceName"],
                 Configuration["AzureSearch:SearchServiceAdminApiKey"],
-                Configuration["Redis"],
-                //null,
-                Infrastructure.Environment.Web
+                Configuration["Redis"]
                 );
             containerBuilder.RegisterModule(infrastructureModule);
+
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);
