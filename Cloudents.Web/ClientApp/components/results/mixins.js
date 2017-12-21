@@ -200,7 +200,7 @@ export const pageMixin =
             //Function for update the filter object(when term or vertical change)
             $_updateFilterObject() {
                 //validate current page have filters
-                if (!this.page.filter) { this.filterObject = null }
+                if (!this.page||!this.page.filter) { this.filterObject = null }
                 else if (!this.subFilterVertical) {
                     this.filterObject = [{ title: 'filter', modelId: "filter", data: this.page.filter }];
                 }

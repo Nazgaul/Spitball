@@ -23,7 +23,6 @@ export default {
 
     methods: {
     $_updateFilter({val,type}){
-        console.log(val);
         this.filter=(type.target.checked||val==='all')?val:'all';
     },
         $_updateSort(val){
