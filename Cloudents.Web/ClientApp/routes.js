@@ -76,7 +76,6 @@ function moreInfoFn(route) {
         actions: route.path.includes("SubjectOrCourse") ? [{ name: "edit Subject" }, { name: "Select Course" }] : [{ name: "edit Search" }]
     };
 }
-let getLuisBox=(type)=>type.includes('food')?'foodTerm':type.includes('job')?'jobTerm':'term'||{};
 function verticalsLinkFun(route) {
     let currentPath=route.name==="bookDetails"?"/book":route.path;
     return {
