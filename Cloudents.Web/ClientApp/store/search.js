@@ -57,7 +57,7 @@ const actions = {
     fetchingData: (context, { name, params, page, luisTerm: term,docType }) => {
         let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
         let paramsList={ ...context.getters.searchParams, ...params, university, page,docType };
-        if(term)paramsList={...paramsList,term};
+        if(term!==undefined)paramsList={...paramsList,term};
         return searchService.activateFunction[name](paramsList);
     },
 

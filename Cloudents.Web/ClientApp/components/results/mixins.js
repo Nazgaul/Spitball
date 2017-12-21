@@ -76,7 +76,7 @@ export const pageMixin =
             this.items = [];
             //if the term for the page is as the page saved term use it else call to luis and update the saved term
             new Promise((resolve, reject) => {
-                if(!to.query.q||!to.query.q.length){resolve({})}
+                if(!to.query.q||!to.query.q.length){resolve({luisTerm:""})}
                 else if(!savedTerm||(savedTerm.term!==to.query.q)){
                     this.updateSearchText(to.query.q).then(({term,docType})=> {
                         this.$route.meta[this.$_calcTerm(toName)] = {term: to.query.q, luisTerm: term,docType};

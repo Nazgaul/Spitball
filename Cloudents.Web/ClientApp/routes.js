@@ -76,11 +76,24 @@ function moreInfoFn(route) {
         actions: route.path.includes("SubjectOrCourse") ? [{ name: "edit Subject" }, { name: "Select Course" }] : [{ name: "edit Search" }]
     };
 }
+let getLuisBox=(type)=>type.includes('food')?'foodTerm':type.includes('job')?'jobTerm':'term'||{};
 function verticalsLinkFun(route) {
+    let currentPath=route.name==="bookDetails"?"/book":route.path;
     return {
         $_calcTerm: $_calcTerm,
         verticals: verticalsNavbar,
+        userText:route.query.q,
+        currentPath,
+        getLuisBox:(name)=>route.meta[$_calcTerm(name)],
+        name:route.name,
+        myClasses:route.meta.myClasses,
+        luisType:currentPath.includes('food')?'foodTerm':currentPath.includes('job')?'jobTerm':'term',
         currentSelection: route.name === "result" ? route.path.slice(1) : "book"
+    }
+}
+function headerResultPageFn(route){
+    return {
+        userText:route.query.q
     }
 }
 //function filterLinkFun(route){
