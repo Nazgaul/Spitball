@@ -27,6 +27,13 @@ export default {
             this.qFilter=val
         }
     },
+    mounted(){
+        if(this.isMobileSize){
+            let tabs=this.$el.querySelector('.tabs__wrapper');
+            let currentItem=this.$el.querySelector(`#${this.currentSelection}`);
+            tabs.scrollLeft=currentItem.offsetLeft-(tabs.clientWidth/2);
+        }
+    },
     props: { $_calcTerm: { type: Function }, verticals: { type: Array }, callbackFunc: { type: Function }, currentSelection: { type: String },
         userText:{type:String},currentPath:{type:String},luisType:{type:String},getLuisBox:{type:Function},name:{type:String},myClasses:{} },
     methods: {
@@ -51,6 +58,11 @@ export default {
             item.click.call(itemToUpdate,this.getUniversityName);
         },
         $_updateType(result) {
+            if(this.isMobileSize){
+                let tabs=this.$el.querySelector('.tabs__wrapper.tabs__wrapper--overflow');
+                let currentItem=this.$el.querySelector(`#${result}`);
+                tabs.scrollLeft=currentItem.offsetLeft-(tabs.clientWidth/2);
+            }
             if (this.name !== "result") {
                 if (this.callbackFunc) {
                     this.callbackFunc.call(this, result);
@@ -70,6 +82,6 @@ export default {
                 }
                 this.$router.push({ path: '/' + result,query:{q:""} });
             }
-        },
+        }
     }
 }
