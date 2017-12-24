@@ -75,11 +75,11 @@ Vue.use(vueSmoothScroll);
 Vue.use(VueRouter);
 Vue.use(Vuetify,
     {
-        directives:{VScroll},
+        directives: { VScroll },
         components: vuetifyComponents
     });
 Vue.component("scroll-list", scroll);
-Vue.component("adsense",  vueAdsense);
+Vue.component("adsense", vueAdsense);
 Vue.component("general-page", GeneralPage);
 
 const router = new VueRouter({
@@ -102,16 +102,18 @@ Vue.use(VueAnalytics,
         }
     });
 Vue.filter('capitalize',
-    function(value) {
+    function (value) {
         if (!value) return '';
         value = value.toString();
         return value.charAt(0).toUpperCase() + value.slice(1);
     });
-new Vue({
-    el: "#app",
+const app = new Vue({
+    //el: "#app",
     router: router,
     render: h => h(App),
     store
 });
+app.$mount("#app");
 //This is for cdn fallback do not touch
 global.mainCdn = true;
+export { app, router };
