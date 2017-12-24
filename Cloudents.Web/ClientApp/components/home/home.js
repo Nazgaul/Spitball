@@ -58,7 +58,6 @@ import featureTextbook from "./svg/feature-textbook.svg";
 import featuresSection from './features.vue';
 import stripsSection from './horizontalStrip.vue';
 import PageLayout from './layout.vue';
-import { micMixin } from '../helpers/mic';
 import sbSearch from "./search.vue";
 //import menuIcon from "./svg/menu-icon.svg";
 
@@ -73,7 +72,6 @@ import {features,bottomIcons,strips,sites,testimonials} from './consts'
 
 
 export default {
-    mixins:[micMixin],
     components: {
         sbSearch,
         PageLayout,

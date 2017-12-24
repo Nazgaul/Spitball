@@ -1,6 +1,6 @@
 ﻿﻿
 <template functional>
-        <v-container v-for="(strip,index) in props.strips" class="strip" :class="strip.class" :key="index">
+        <div><v-container v-for="(strip,index) in props.strips" class="strip" :class="strip.class" :key="index">
             <v-layout row justify-center align-center class="strip-content limited-width">
                 <v-flex class="image-wrapper">
                     <div class="images">
@@ -22,7 +22,7 @@
 
                 </v-flex>
             </v-layout>
-        </v-container>
+        </v-container></div>
 </template>
 
 

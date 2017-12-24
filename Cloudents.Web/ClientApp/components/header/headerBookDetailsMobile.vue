@@ -1,7 +1,7 @@
 <template>
     <div>
         <first-line :name="name"></first-line>
-       <type-filter-tab></type-filter-tab>
+       <type-filter-tab :id="id"></type-filter-tab>
     </div>
 </template>
 
@@ -11,7 +11,7 @@
     export default {
         name: "header-book-details-mobile",
         components:{FirstLine,TypeFilterTab},
-        props:{name:{type:String}}
+        props:{name:{type:String},id:{}}
     }
 </script>
 
