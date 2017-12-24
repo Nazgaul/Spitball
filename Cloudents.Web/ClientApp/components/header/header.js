@@ -27,11 +27,22 @@ export default {
             this.qFilter=val
         }
     },
+    beforeRouteUpdate(to, from, next) {
+        const toName = to.path.slice(1);
+        if(this.isMobileSize){
+            let tabs=this.$el.querySelector('.tabs__wrapper');
+            let currentItem=this.$el.querySelector(`#${toName}`);
+            if(currentItem)
+                tabs.scrollLeft=currentItem.offsetLeft-(tabs.clientWidth/2);
+        }
+        next();
+    },
     mounted(){
         if(this.isMobileSize){
             let tabs=this.$el.querySelector('.tabs__wrapper');
             let currentItem=this.$el.querySelector(`#${this.currentSelection}`);
-            tabs.scrollLeft=currentItem.offsetLeft-(tabs.clientWidth/2);
+            if(currentItem)
+                tabs.scrollLeft=currentItem.offsetLeft-(tabs.clientWidth/2);
         }
     },
     props: { $_calcTerm: { type: Function }, verticals: { type: Array }, callbackFunc: { type: Function }, currentSelection: { type: String },
@@ -59,9 +70,10 @@ export default {
         },
         $_updateType(result) {
             if(this.isMobileSize){
-                let tabs=this.$el.querySelector('.tabs__wrapper.tabs__wrapper--overflow');
+                let tabs=this.$el.querySelector('.tabs__wrapper');
                 let currentItem=this.$el.querySelector(`#${result}`);
-                tabs.scrollLeft=currentItem.offsetLeft-(tabs.clientWidth/2);
+                if(currentItem)
+                     tabs.scrollLeft=currentItem.offsetLeft-(tabs.clientWidth/2);
             }
             if (this.name !== "result") {
                 if (this.callbackFunc) {
