@@ -110,8 +110,8 @@ export const pageMixin =
         },
         computed: {
             //get data from vuex getters
-            ...mapGetters(['term', 'isFirst', 'myCourses','luisTerm']),
-            ...mapGetters({universityImage:'getUniversityImage'}),
+            ...mapGetters(['term', 'isFirst', 'myCourses','luisTerm',]),
+            ...mapGetters({universityImage:'getUniversityImage',university:'getUniversity'}),
             isMobile(){
                 return this.$vuetify.breakpoint.xsOnly;
             },
