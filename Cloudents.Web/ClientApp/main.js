@@ -113,7 +113,7 @@ const app = new Vue({
     render: h => h(App),
     store
 });
-app.$mount("#app");
+//app.$mount("#app");
 //This is for cdn fallback do not touch
 global.mainCdn = true;
 export { app, router };

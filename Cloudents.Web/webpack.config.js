@@ -138,7 +138,7 @@ module.exports = (env) => {
     const clientBundleConfig = merge(sharedConfig(),
         {
             entry: {
-                main: "./ClientApp/main.js"
+                main: "./ClientApp/client.js"
 
             },
 

@@ -1,6 +1,6 @@
 ﻿import { app, router } from "./main";
 
 
-//router.onReady( () => {
-app.$mount("#app");
-//})
+router.onReady(() => {
+    app.$mount("#app");
+})
