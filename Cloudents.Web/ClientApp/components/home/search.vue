@@ -76,6 +76,10 @@
             selectos(item) {
                 this.msg = item;
                 this.search();
+            },
+            //callback for mobile submit mic
+            submitMic(){
+                this.search();
             }
         }
     }

@@ -23,10 +23,11 @@
                                     <adsense ad-client="ca-pub-1215688692145777"
                                              ad-slot="3866041406"
                                              ad-style="display: block; width:336px; height:280px;"
-                                             ad-format="auto" class="mb-2">
+                                             ad-format="auto" class="mb-2 order-lg1">
                                     </adsense>
+                                    <slot name="suggestCell"></slot>
                                     <adsense ad-client="ca-pub-1215688692145777"
-                                             ad-slot="5547053037"
+                                             ad-slot="5547053037" class="order-lg3"
                                              ad-style="display: block; width:336px;height:280px">
                                     </adsense>
                                 </slot>

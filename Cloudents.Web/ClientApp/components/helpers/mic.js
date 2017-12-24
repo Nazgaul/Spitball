@@ -35,6 +35,9 @@ export const micMixin = {
                 this.recognition.onresult = function (event) {
                     _self.msg = event.results[0][0].transcript;
                     _self.isRecording = false;
+                    if(_self.$vuetify.breakpoint.xsOnly){
+                        _self.submitMic();
+                    }
                 };
             }
         },
@@ -42,5 +45,6 @@ export const micMixin = {
         computed: {
             voiceEnable() { return ("webkitSpeechRecognition" in window) || ("SpeechRecognition" in window)},
             voiceAppend(){return this.voiceEnable?(this.isRecording?'sbf-mic-recording':'sbf-mic'):''}
-        }
+        },
+    props:{submitFunc:{type:Function}}
     };
