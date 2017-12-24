@@ -4,7 +4,7 @@
     .first-grid {
         width: @resultsFilterWidth;
         .flexSameSize();
-        padding: 0 50px 0 20px;
+        padding: 0 50px 0 22px;
     }
 }
 
@@ -17,7 +17,12 @@
     //margin-top: @spaceFromTop;
     .result-cell {
         border-radius: 4px;
-        overflow: hidden
+        overflow: hidden;
+
+        @media(max-width: 599px) {
+            margin-left: 8px;
+            margin-right: 8px;
+        }
     }
 
     .cell {
@@ -36,7 +41,7 @@
 }
 
 .chip.filter-chip {
-    margin: 0 8px 0 0;
+    margin: 0 8px 8px 0;
 
     &:focus {
         box-shadow: none;
@@ -53,7 +58,7 @@
         min-width: 102px;
         border-radius: 4px;
         color: @color-grey;
-        z-index:0;
+        z-index: 0;
     }
     /*.chip {
         background-color: @Dividers;
