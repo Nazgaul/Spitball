@@ -1,6 +1,6 @@
 ﻿﻿<template>
      <general-page :filterSelection="filterSelection" :result="!loading">
-         <v-btn :slot="(isMobile?'mobile':'')+'FilterIcon'" @click="showFilters=true" v-if="page.filter">filter</v-btn>
+         <v-btn :slot="(isMobile?'mobile':'')+'FilterIcon'" @click="showFilters=true" v-if="page&&page.filter">filter</v-btn>
          <v-chip color="color-light-gray" label slot="selectedFilters" slot-scope="props" class="filter-chip" @click="$_removeFilter(props.item)">
              {{$_showSelectedFilter(props.item) | capitalize}}
              <v-icon right>sbf-close</v-icon>
@@ -26,7 +26,7 @@
                      <v-flex class="result-cell elevation-1 mb-2" xs-12 v-for="(item,index) in items" :key="index" @click="(hasExtra?selectedItem=item.placeId:'')" :class="(index>6?'order-xs3':'order-xs1')">
                          <component :is="'result-'+item.template" :item="item" :key="index" class="cell"></component>
                      </v-flex>
-                     <router-link tag="v-flex" class="result-cell elevation-1 mb-2 xs-12 order-xs2" :to="{path:'/'+currentSuggest,query:{q:this.query.q}}">
+                     <router-link v-if="!hasExtra" tag="v-flex" class="result-cell elevation-1 mb-2 xs-12 order-xs2" :to="{path:'/'+currentSuggest,query:{q:this.query.q}}">
                          <suggest-card :name="currentSuggest"></suggest-card>
                      </router-link>
                  </v-layout>

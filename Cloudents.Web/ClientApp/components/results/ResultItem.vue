@@ -1,7 +1,7 @@
 ﻿<template>
     <!--@click="(isSpitball?$_spitball($event):'')"-->
     <a class="d-block" :target="$vuetify.breakpoint.xsOnly?'_self':'_blank'" :href="url" :class="'cell-'+$route.path.slice(1)">
-        <v-container class="pa-2">
+        <v-container class="pa-2" @click="$ga.event('Partnerships', item.source)">
             <v-layout row fluid>
                 <v-flex class="img-wrap mr-2 pa-0" :class="['border-'+$route.path.slice(1),'spitball-bg-'+$route.path.slice(1)]">
                     <img  :src="item.image" alt="" v-if="item.image">

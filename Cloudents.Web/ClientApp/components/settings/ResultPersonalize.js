@@ -19,7 +19,7 @@ export default {
         if (this.isFirst) {
             this.isfirst = true;
             this.updateFirstTime("isFirst");
-            this.showDialog = true;
+            setTimeout(()=>this.showDialog = true,5000);
         }
     },
     methods: {

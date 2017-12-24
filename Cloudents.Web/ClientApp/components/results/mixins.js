@@ -76,7 +76,7 @@ export const pageMixin =
             this.items = [];
             //if the term for the page is as the page saved term use it else call to luis and update the saved term
             new Promise((resolve, reject) => {
-                if(!to.query.q||!to.query.q.length){resolve({})}
+                if(!to.query.q||!to.query.q.length){resolve({luisTerm:""})}
                 else if(!savedTerm||(savedTerm.term!==to.query.q)){
                     this.updateSearchText(to.query.q).then(({term,docType})=> {
                         this.$route.meta[this.$_calcTerm(toName)] = {term: to.query.q, luisTerm: term,docType};
@@ -200,7 +200,7 @@ export const pageMixin =
             //Function for update the filter object(when term or vertical change)
             $_updateFilterObject() {
                 //validate current page have filters
-                if (!this.page.filter) { this.filterObject = null }
+                if (!this.page||!this.page.filter) { this.filterObject = null }
                 else if (!this.subFilterVertical) {
                     this.filterObject = [{ title: 'filter', modelId: "filter", data: this.page.filter }];
                 }
@@ -254,7 +254,7 @@ export const pageMixin =
             },
             //The presentation functionality for the selected filter(course=>take course name,known list=>take the terms from the const name,else=>the given name)
             $_showSelectedFilter(item) {
-                if (!this.subFilterVertical) return this.page.filter.find(i => i.id === item).name;
+                if (this.page&&!this.subFilterVertical) return this.page.filter.find(i => i.id === item).name;
                 return !Number.isNaN(item) && this.myCourses.find(x => x.id === Number(item)) ? this.myCourses.find(x => x.id === Number(item)).name : item;
             }
         },

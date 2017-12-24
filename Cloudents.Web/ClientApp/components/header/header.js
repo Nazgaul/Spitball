@@ -13,48 +13,46 @@ export default {
     data() {
         return {
             settingMenu,
-            currentName:"",
-            qFilter: this.$route.query.q,
-            keep:false,
-            type: ""
-            
+            qFilter: this.userText,
         };
     },
     computed: {
         ...mapGetters(['luisTerm','getUniversityName','isFirst']),
-        name: function () {
-            
-            let currentPage = this.$route.meta.pageName ? this.$route.meta.pageName : this.$route.path.split("/")[1];
-            if (this.currentName !== currentPage) {
-                this.currentName = currentPage;
-                    if (this.$route.query.q) {
-                        this.qFilter = this.$route.query.q;
-                        this.$emit("update:userText", this.qFilter);
-                    }
-                }
-                return this.currentName;
-        },
         isMobileSize: function () {
             return this.$vuetify.breakpoint.xsOnly;
         }
     },
     watch:{
-      '$route':function(val){
-          this.qFilter=val.query.q;
-      },
-      msg(val){
-          this.qFilter=val;
-      }
+        userText(val){
+            this.qFilter=val
+        }
     },
-    props: { $_calcTerm: { type: Function }, verticals: { type: Array }, callbackFunc: { type: Function }, currentSelection: { type: String } },
-
-    //props:{showMoreOptions:{type:Boolean,default:true},showSingleLine:{type:Boolean,default:false}},
+    beforeRouteUpdate(to, from, next) {
+        const toName = to.path.slice(1);
+        if(this.isMobileSize){
+            let tabs=this.$el.querySelector('.tabs__wrapper');
+            let currentItem=this.$el.querySelector(`#${toName}`);
+            if(currentItem)
+                tabs.scrollLeft=currentItem.offsetLeft-(tabs.clientWidth/2);
+        }
+        next();
+    },
+    mounted(){
+        if(this.isMobileSize){
+            let tabs=this.$el.querySelector('.tabs__wrapper');
+            let currentItem=this.$el.querySelector(`#${this.currentSelection}`);
+            if(currentItem)
+                tabs.scrollLeft=currentItem.offsetLeft-(tabs.clientWidth/2);
+        }
+    },
+    props: { $_calcTerm: { type: Function }, verticals: { type: Array }, callbackFunc: { type: Function }, currentSelection: { type: String },
+        userText:{type:String},currentPath:{type:String},luisType:{type:String},getLuisBox:{type:Function},name:{type:String},myClasses:{} },
     methods: {
-        ...mapActions(["updateSearchText","createCourse","updateFirstTime"]),
+        ...mapActions(["updateSearchText"]),
         submit: function () {
             this.updateSearchText(this.qFilter).then(({term:luisTerm,docType}) => {
-                let result=this.$route.name==="bookDetails"?"/book":this.$route.path;
-                this.$route.meta[result.includes('food')?'foodTerm':result.includes('job')?'jobTerm':'term']={
+                let result=this.currentPath;
+                this.$route.meta[this.luisType]={
                     term: this.qFilter,
                     luisTerm,docType
                 };
@@ -62,7 +60,6 @@ export default {
                 this.$router.push({path:result, query: { q: this.qFilter },meta:{...this.$route.meta} });
                 });
             });
-            this.$emit("update:overlay", false);
         },
         menuToggle: function() {
             this.$emit("input",!this.value);
@@ -71,31 +68,32 @@ export default {
             let itemToUpdate=this.$parent.$children.find(i=>i.$refs.person);
             item.click.call(itemToUpdate,this.getUniversityName);
         },
-        $_currentTerm(type) {
-            let term = type.includes('food') ? this.$route.meta.foodTerm : type.includes('job') ? this.$route.meta.jobTerm : this.$route.meta.term;
-            return term || {};
-        },
         $_updateType(result) {
-            if (this.$route.name !== "result") {
+            if(this.isMobileSize){
+                let tabs=this.$el.querySelector('.tabs__wrapper');
+                let currentItem=this.$el.querySelector(`#${result}`);
+                if(currentItem)
+                     tabs.scrollLeft=currentItem.offsetLeft-(tabs.clientWidth/2);
+            }
+            if (this.name !== "result") {
                 if (this.callbackFunc) {
                     this.callbackFunc.call(this, result);
                 } else {
-                    this.$router.push({ path: '/' + result, query: { q: this.$route.query.q } });
+                    this.$router.push({ path: '/' + result, query: { q: this.userText } });
                 }
             }
             else if (this.$route.meta[this.$_calcTerm(result)]) {
-                let query = { q: this.$_currentTerm(result).term };
-                if (this.currentPage === result) query = { ...this.$route.query, ...query };
-                if (this.$route.meta.myClasses && (result.includes('note') || result.includes('flashcard'))) query.course = this.$route.meta.myClasses;
+                let query = { q: this.getLuisBox(result).term };
+                if (this.currentPath.includes(result)) query = { ...this.$route.query, ...query };
+                if (this.myClasses && (result.includes('note') || result.includes('flashcard'))) query.course = this.myClasses;
                 this.$router.push({ path: '/' + result, query })
             } else {
-
                 if (!this.getUniversityName && (result !== 'food' && result !== 'job')) {
                     this.$root.$children[0].$refs.personalize.showDialog = true;
                     return;
                 }
-                this.$router.push({ path: '/' + result });
+                this.$router.push({ path: '/' + result,query:{q:""} });
             }
-        },
+        }
     }
 }
