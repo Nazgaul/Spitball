@@ -51,9 +51,7 @@ module.exports = (env) => {
 
     const sharedConfig = () => ({
         stats: { modules: false },
-        entry: {
-            vendor: allModules
-        },
+
         module: {
             rules: [
                 { test: /\.css(\?|$)/, use: ExtractTextPlugin.extract({ use: isDevBuild ? "css-loader" : "css-loader?minimize" }) },
@@ -93,24 +91,13 @@ module.exports = (env) => {
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': isDevBuild ? '"development"' : '"production"'
             }),
-            new webpack.DllPlugin({
-                path: path.join(__dirname, "wwwroot", "dist", "[name]-manifest.json"),
-                name: "[name]"
-            }),
-            new StatsWriterPlugin({
-                filename: "vendor.json",
-                transform: function (data, opts) {
-                    return JSON.stringify(data.assetsByChunkName);
-                }
-            })
+
+
         ].concat(isDevBuild ? [
-            new CleanWebpackPlugin(path.join(__dirname, "wwwroot", "dist")),
-            new Visualizer({
-                filename: "./statistics-vendor.html"
-            })
+
         ] : [
-            new webpack.optimize.UglifyJsPlugin()
-        ])
+
+            ])
     });
     const clientBundleConfig = merge(sharedConfig(),
         {
@@ -120,7 +107,54 @@ module.exports = (env) => {
                 filename: "[name].[chunkhash].js",
                 library: "[name]"
             },
+            entry: {
+                vendor: allModules
+            },
+            plugins: [
+                new StatsWriterPlugin({
+                    filename: "vendor.json",
+                    transform: function (data, opts) {
+                        return JSON.stringify(data.assetsByChunkName);
+                    }
+                }),
+                new webpack.DllPlugin({
+                    path: path.join(__dirname, "wwwroot", "dist", "[name]-manifest.json"),
+                    name: "[name]"
+                })
+            ].concat(isDevBuild ? [
+                new CleanWebpackPlugin(path.join(__dirname, "wwwroot", "dist")),
+                new Visualizer({
+                    filename: "./statistics-vendor.html"
+                })
+            ] : [
+                    new webpack.optimize.UglifyJsPlugin()
+                ])
+
         });
-    return [clientBundleConfig];
+
+    const serverBundleConfig = merge(sharedConfig(), {
+        target: 'node',
+        resolve: { mainFields: ['main'] },
+        entry: {
+            vendor: allModules.concat(['aspnet-prerendering'])
+        },
+        output: {
+            path: path.join(__dirname, 'ClientApp', 'dist'),
+            filename: "[name].js",
+            libraryTarget: 'commonjs2'
+        },
+        //module: {
+        //    rules: [ { test: /\.css(\?|$)/, use: ['to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize' ] } ]
+        //},
+        plugins: [
+            new webpack.DllPlugin({
+                path: path.join(__dirname, 'ClientApp', 'dist', '[name]-manifest.json'),
+                name: '[name]_[hash]'
+            })
+        ].concat(isDevBuild ? [
+            new CleanWebpackPlugin(path.join(__dirname, "ClientApp", "dist"))
+        ] : [])
+    });
+    return [clientBundleConfig, serverBundleConfig];
 
 };

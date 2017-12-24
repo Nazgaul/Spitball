@@ -6,6 +6,7 @@
 **/wwwroot/lib/**
 **/wwwroot/scripts/**
 **/wwwroot/dist/**
+**/clientApp/dist/**
 
 **/cdn/Images/
 **/cdn/Content/
