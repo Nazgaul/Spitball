@@ -1,7 +1,7 @@
 ﻿<template>
 
-    <v-toolbar app fixed :height="$vuetify.breakpoint.mdAndUp ? 120 : 180" class="header">
-        <v-layout column>
+    <v-toolbar app fixed :height="$vuetify.breakpoint.mdAndUp ? 120 : 152" class="header">
+        <v-layout column class="header-elements">
             <v-flex class="line">
                 <v-layout row>
                     <v-toolbar-title class="ma-0">
@@ -41,7 +41,7 @@
                 <v-layout row>
                     <div class="gap ma-0" v-if="$vuetify.breakpoint.mdAndUp"></div>
                     <!--<nav-bar></nav-bar>-->
-                    <v-tabs :value="currentSelection" :scrollable="false">
+                    <v-tabs class="verticals-bar" :value="currentSelection" :scrollable="false">
                         <v-tabs-bar>
                             <v-tabs-item v-for="tab in verticals" :key="tab.id" :href="tab.id" :id="tab.id" @click="$_updateType(tab.id)" :class="['spitball-text-'+tab.id,tab.id==currentSelection?'tabs__item--active':'']"
                                          class="mr-4 vertical">
