@@ -1,7 +1,7 @@
 ﻿<template>
-    <v-toolbar :height="$vuetify.breakpoint.smAndDown? 64 : 110" flat class="h-p-header" :class="{scroll: scrollTop}" :extended="$vuetify.breakpoint.smAndDown && showText" app fixed v-scroll="onScroll">
+    <v-toolbar :height="$vuetify.breakpoint.smAndDown? 64 : 66" flat class="h-p-header" :class="{scroll: scrollTop}" :extended="$vuetify.breakpoint.smAndDown && showText" app fixed v-scroll="onScroll">
         <v-toolbar-title>
-            <logo class="logo mr-5"></logo>
+            <logo class="logo"></logo>
         </v-toolbar-title>
         <v-toolbar-items class="hidden-sm-and-down" v-if="!showText" v-for="action in links" :key="action.name">
             <v-btn class="link-menu" flat href="#">{{ action.name }}</v-btn>

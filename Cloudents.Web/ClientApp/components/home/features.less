@@ -3,7 +3,8 @@
 .features {
     color: white;
     text-align: center;
-    margin-top: 118px;
+    margin-top: 98px;
+    max-width: 1128px;
 
     @media(max-width: 600px) {
         margin-top: 16px;
@@ -17,11 +18,12 @@
 
     .feature {
         @media(min-width: 600px) {
-            max-width: 352px;
+            max-width: 340px;
         }
 
         .icon-wrapper {
             height: 64px;
+            margin-bottom: 12px;
 
             @media(max-width: 600px) {
                 height: 50px;
@@ -35,7 +37,8 @@
         &.document {
             svg {
                 transform: rotate(-15deg);
-                width: 42px;
+                width: 54px;
+                height: auto;
 
                 @media(max-width: 600px) {
                     width: 28px;
@@ -45,7 +48,8 @@
 
         &.textbook {
             svg {
-                width: 50px;
+                width: 68px;
+                height: auto;
 
                 @media(max-width: 600px) {
                     width: 32px;
@@ -57,7 +61,10 @@
         &.homework {
             svg {
                 transform: rotate(-12.5deg);
-                width: 37px;
+                width: 60px;
+                height: auto;
+                margin-top: -14px;
+                margin-left: -20px;
 
                 @media(max-width: 600px) {
                     width: 26px;
@@ -88,17 +95,18 @@
         }
 
         h3 {
+            letter-spacing: -1.4px;
+            font-size: 20px;
             font-weight: 600;
             color: #302eb5;
         }
-
         /*h3, p {
             font-size: inherit;
         }*/
-
         p {
             color: #4a4a4a;
-            line-height: 1.44;
+            line-height: 1.65;
+            font-size: 16px;
             //font-weight: 100;
         }
     }
