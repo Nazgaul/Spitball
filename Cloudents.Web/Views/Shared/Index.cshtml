@@ -1,15 +1,19 @@
-﻿@using Cloudents.Web.Controllers
-@using Cloudents.Web.Extensions
+﻿@using Cloudents.Web.Extensions
 @using Cloudents.Web.Views
 @inject WebPackChunkName Provider
 @{
     ViewBag.Title = "Spitball";
     Layout = "_Layout";
     var main = Provider.GetTag("main");
+    //var main = new WebPackBundle
+    //{
+    //    Js = "main.js"
+    //};
 }
 
 
-<div id="app">Loading....</div>
+@*<div id="app" asp-prerender-module="ClientApp/renderOnServer">Loading....</div>*@
+ <div id="app">Loading....</div> 
 <div class="cdn-only2"></div>
 
 @section scripts {

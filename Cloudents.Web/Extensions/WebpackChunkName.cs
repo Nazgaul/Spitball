@@ -21,9 +21,6 @@ namespace Cloudents.Web.Extensions
             _provider = provider;
         }
 
-
-
-
         public WebPackBundle GetTag(string chunk)
         {
             if (_tags.TryGetValue(chunk, out var webPack))
@@ -42,9 +39,13 @@ namespace Cloudents.Web.Extensions
                     using (var reader = new JsonTextReader(sr))
                     {
                         var obj = JObject.Load(reader);
-
+                        
                         var webPackBundle = new WebPackBundle();
                         var files = obj[chunk].Values<string>();
+                        foreach (var z in obj.Values())
+                        {
+                            
+                        }
                         foreach (var file in files)
                         {
                             if (file.EndsWith("js", StringComparison.InvariantCultureIgnoreCase))
