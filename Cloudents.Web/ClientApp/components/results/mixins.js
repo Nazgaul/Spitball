@@ -254,7 +254,7 @@ export const pageMixin =
             },
             //The presentation functionality for the selected filter(course=>take course name,known list=>take the terms from the const name,else=>the given name)
             $_showSelectedFilter(item) {
-                if (!this.subFilterVertical) return this.page.filter.find(i => i.id === item).name;
+                if (this.page&&!this.subFilterVertical) return this.page.filter.find(i => i.id === item).name;
                 return !Number.isNaN(item) && this.myCourses.find(x => x.id === Number(item)) ? this.myCourses.find(x => x.id === Number(item)).name : item;
             }
         },

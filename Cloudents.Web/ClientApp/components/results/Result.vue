@@ -1,6 +1,6 @@
 ﻿﻿<template>
      <general-page :filterSelection="filterSelection" :result="!loading">
-         <v-btn :slot="(isMobile?'mobile':'')+'FilterIcon'" @click="showFilters=true" v-if="page.filter">filter</v-btn>
+         <v-btn :slot="(isMobile?'mobile':'')+'FilterIcon'" @click="showFilters=true" v-if="page&&page.filter">filter</v-btn>
          <v-chip color="color-light-gray" label slot="selectedFilters" slot-scope="props" class="filter-chip" @click="$_removeFilter(props.item)">
              {{$_showSelectedFilter(props.item) | capitalize}}
              <v-icon right>sbf-close</v-icon>
