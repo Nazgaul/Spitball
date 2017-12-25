@@ -1,5 +1,5 @@
 ﻿﻿<template>
-     <general-page :filterSelection="filterSelection" :result="!loading">
+     <general-page :filterSelection="filterSelection" :result="!loading" :breakPointSideBar="$vuetify.breakpoint.lgAndUp">
          <v-btn :slot="(isMobile?'mobile':'')+'FilterIcon'" @click="showFilters=true" v-if="page&&page.filter">filter</v-btn>
          <v-chip color="color-light-gray" label slot="selectedFilters" slot-scope="props" class="filter-chip" @click="$_removeFilter(props.item)">
              {{$_showSelectedFilter(props.item) | capitalize}}
@@ -35,6 +35,7 @@
                  </v-layout>
              </v-container>
          </scroll-list>
+
          <component slot="adsense" v-if="hasExtra&&!isEmpty" :is="name+'-extra'" :place="selectedItem"></component>
          <router-link slot="suggestCell" v-if="!hasExtra" tag="v-flex" class="result-cell hidden-md-and-down elevation-1 mb-2 xs-12 order-xs3 " :to="{path:'/'+currentSuggest,query:{q:this.query.q}}">
              <suggest-card :name="currentSuggest"></suggest-card>
