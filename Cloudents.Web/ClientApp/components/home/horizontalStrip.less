@@ -1,7 +1,7 @@
 ﻿@import "../../mixin.less";
 
 .strip.container {
-    padding-top: 80px;
+    padding-top: 72px;
     padding-bottom: 80px;
     margin: 0;
     max-width: 100%;
@@ -83,7 +83,7 @@
     }
 
     &.tutors { // Tutors
-        background-image: linear-gradient(to bottom, rgba(249,249,249,0.2) 10%, rgba(82,171,21,0.2) 98%);
+        background-image: linear-gradient(to top, rgba(249,249,249,0.2) 10%, rgba(82,171,21,0.2) 98%);
 
         .strip-title {
             svg {
@@ -253,7 +253,7 @@
     }
 
     &.flashcards { // Flashcards
-        background-image: linear-gradient(to bottom, rgba(241,77,77,0.2), rgba(249,249,249,0.2));
+        background-image: linear-gradient(to top, rgba(241,77,77,0.2), rgba(249,249,249,0.2));
 
         .strip-title {
             svg {
@@ -309,7 +309,7 @@
     }
 
     &.ask-question { // Ask a Question
-        background-image: linear-gradient(to bottom, rgba(249,249,249,0.2), rgba(4,85,168,0.2));
+        background-image: linear-gradient(to top, rgba(249,249,249,0.2), rgba(4,85,168,0.2));
 
         .strip-title {
             svg {
@@ -365,7 +365,7 @@
     }
 
     &.jobs { // Jobs
-        background-image: linear-gradient(to bottom, rgba(245,166,35,0.2), rgba(249,249,249,0.2));
+        background-image: linear-gradient(to top, rgba(245,166,35,0.2), rgba(249,249,249,0.2));
 
         .strip-title {
             svg {
@@ -430,7 +430,8 @@
     }
 
     .image-wrapper {
-        width: 433px;
+        width: 446px;
+        margin: 0 16px;
 
         @media(max-width:960px) {
             max-width: 219px;
@@ -456,7 +457,7 @@
     }
 
     .description {
-        padding: 24px 24px;
+        padding: 24px 4px;
 
         @media(max-width: 960px) {
             padding: 8px 0;

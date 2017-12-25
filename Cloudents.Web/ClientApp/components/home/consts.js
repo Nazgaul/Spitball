@@ -21,6 +21,15 @@ let strips =
             text: "Spitball curates content for you from the best sites on the web. The documents populate based on student ratings and are filtered by your school, classes, and preferences."
         },
 
+        flashcards: {
+            class: "flashcards",
+            image: "strip-flashcards.png",
+            floatingImages: ['flashcardPenIcon', 'flashcardQuestionIcon', 'flashcardGroupIcon'],
+            titleIcon: 'stripFlashcardsIcon',
+            title: "Flashcards",
+            text: "Search millions of study sets and improve your grades by studying with flashcards."
+        },
+
         tutors: {
             class: "tutors",
             image: "strip-tutors.png",
@@ -28,15 +37,6 @@ let strips =
             titleIcon: 'stripTutorIcon',
             title: "Tutors",
             text: "Spitball has teamed up with the most trusted tutoring services. All of our online and in-person tutors are highly qualified experts with educations from the best universities around the world."
-        },
-
-        foodDeals: {
-            class: "food-deals",
-            image: "strip-food-deals.png",
-            floatingImages: ['shoppingBagsIcon', 'headsetIcon', 'pizzaIcon'],
-            titleIcon: "stripFoodDealsIcon",
-            title: "Food and Deals",
-            text: "Find and discover exclusive, short-term offers from restaurants around your campus."
         },
 
         textbooks: {
@@ -47,17 +47,6 @@ let strips =
             title: "Textbooks",
             text: "Spitball finds you textbooks at the best prices by simultaneously searching multiple websites. Compare prices to buy, rent, and sell back your books."
         },
-
-
-        flashcards: {
-            class: "flashcards",
-            image: "strip-flashcards.png",
-            floatingImages: ['flashcardPenIcon', 'flashcardQuestionIcon', 'flashcardGroupIcon'],
-            titleIcon: 'stripFlashcardsIcon',
-            title: "Flashcards",
-            text: "Search millions of study sets and improve your grades by studying with flashcards."
-        },
-
 
         askQuestion: {
             class: "ask-question",
@@ -75,7 +64,17 @@ let strips =
             titleIcon: 'stripJobsIcon',
             title: "Jobs",
             text: "Easily find and apply to paid internships, part-time jobs and entry-level opportunities at thousands of Fortune 500 companies and startups."
+        },
+        
+        foodDeals: {
+            class: "food-deals",
+            image: "strip-food-deals.png",
+            floatingImages: ['shoppingBagsIcon', 'headsetIcon', 'pizzaIcon'],
+            titleIcon: "stripFoodDealsIcon",
+            title: "Food and Deals",
+            text: "Find and discover exclusive, short-term offers from restaurants around your campus."
         }
+
 
     };
 let features =
