@@ -16,9 +16,9 @@
 <div class="cdn-only2"></div>
 
 @section scripts {
-    @*<environment include="Development">
+    <environment include="Development">
         <script src="~/dist/@main.Js"></script>
-    </environment>*@
+    </environment>
     <environment exclude="Development">
         <script src="@Constants.CdnEndpoint/dist/@main.Js"
                 asp-fallback-src="~/dist/@main.Js"
