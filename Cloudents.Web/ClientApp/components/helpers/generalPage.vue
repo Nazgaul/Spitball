@@ -18,7 +18,7 @@
                                 <slot name="data">
                                 </slot>
                             </v-flex>
-                            <v-flex class="ml-2 hidden-md-only hidden-xs-only side-bar" v-if="props.result">
+                            <v-flex v-if="props.breakPointSideBar" class="ml-2 side-bar">
                                 <slot name="adsense">
                                     <adsense ad-client="ca-pub-1215688692145777"
                                              ad-slot="3866041406"

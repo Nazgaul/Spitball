@@ -1,6 +1,5 @@
 ﻿import { app, router } from "./main";
 
-router.push("/");
 router.onReady(() => {
   //const matchedComponents = router.getMatchedComponents()
   //console.log(matchedComponents);

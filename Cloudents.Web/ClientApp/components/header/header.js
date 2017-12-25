@@ -31,23 +31,23 @@ export default {
             this.qFilter=val;
         }
     },
-    beforeRouteUpdate(to, from, next) {
-        const toName = to.path.slice(1);
-        if(this.isMobileSize){
-            let tabs=this.$el.querySelector('.tabs__wrapper');
-            let currentItem=this.$el.querySelector(`#${toName}`);
-            if(currentItem)
-                tabs.scrollLeft=currentItem.offsetLeft-(tabs.clientWidth/2);
-        }
-        next();
-    },
+    //beforeRouteUpdate(to, from, next) {
+    //    //const toName = to.path.slice(1);
+    //    //if(this.isMobileSize){
+    //    //    let tabs=this.$el.querySelector('.tabs__wrapper');
+    //    //    let currentItem=this.$el.querySelector(`#${toName}`);
+    //    //    if(currentItem)
+    //    //        tabs.scrollLeft=currentItem.offsetLeft-(tabs.clientWidth/2);
+    //    //}
+    //    next();
+    //},
     mounted(){
-        if(this.isMobileSize){
+        //if(this.isMobileSize){
             let tabs=this.$el.querySelector('.tabs__wrapper');
             let currentItem=this.$el.querySelector(`#${this.currentSelection}`);
             if(currentItem)
                 tabs.scrollLeft=currentItem.offsetLeft-(tabs.clientWidth/2);
-        }
+        //}
     },
     props: { $_calcTerm: { type: Function }, verticals: { type: Array }, callbackFunc: { type: Function }, currentSelection: { type: String },
         userText:{type:String},currentPath:{type:String},luisType:{type:String},getLuisBox:{type:Function},name:{type:String},myClasses:{} },
