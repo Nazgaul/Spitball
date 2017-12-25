@@ -6,10 +6,12 @@
                         <slot name="options">
                         </slot>
                     </v-flex>
-                    <v-container class="px-0 pt-0 ma-0" fluid>
+                    <v-container class="px-2 pt-0 ma-0" fluid style="min-width:0">
                         <v-layout row>
                             <v-flex class="sec-result">
-                                <slot name="mobileFilterIcon"></slot>
+                                <div class="d-flex mobile-filter">
+                                    <slot name="mobileFilter"></slot>
+                                </div>
                                 <div v-if="props.filterSelection.length" class="pb-3">
                                     <template v-for="item in props.filterSelection">
                                         <slot name="selectedFilters" :item="item"></slot>

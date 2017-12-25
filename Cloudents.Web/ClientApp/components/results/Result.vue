@@ -1,6 +1,8 @@
 ﻿﻿<template>
      <general-page :filterSelection="filterSelection" :result="!loading" :breakPointSideBar="$vuetify.breakpoint.lgAndUp">
-         <v-btn :slot="(isMobile?'mobile':'')+'FilterIcon'" @click="showFilters=true" v-if="page&&page.filter">filter</v-btn>
+         <button type="button" slot="mobileFilter" @click="showFilters=true" class="text-xs-right mb-2">
+             <filter-icon></filter-icon>
+         </button>
          <v-chip color="color-light-gray" label slot="selectedFilters" slot-scope="props" class="filter-chip" @click="$_removeFilter(props.item)">
              {{$_showSelectedFilter(props.item) | capitalize}}
              <v-icon right>sbf-close</v-icon>

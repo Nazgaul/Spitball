@@ -20,7 +20,6 @@ export const micMixin = {
         },
 
         created() {
-            console.log("here")
             if (this.voiceEnable) {
                 let SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
                 this.recognition = new SpeechRecognition();
