@@ -18,6 +18,7 @@
             </v-list>
         </v-menu>
         <!--<transition name="fade">-->
+        <div class="spacing" v-if="showText"></div>
             <sb-search :header-menu="true" v-if="showText" :slot="$vuetify.breakpoint.smAndDown? 'extension' : 'default'"></sb-search>
         <!--</transition>-->
     </v-toolbar>
@@ -34,7 +35,7 @@
         },
         computed: {
             showText: function () {
-                return this.scrollTop > 275
+                return screen.height > 768 ? this.scrollTop > 275 : this.scrollTop > 215
             }
         },
         data() {

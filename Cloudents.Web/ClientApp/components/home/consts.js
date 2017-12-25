@@ -17,7 +17,7 @@ let strips =
             image: "strip-documents.png",
             floatingImages: ['laptopIcon', 'notebookIcon', 'bagIcon'],
             titleIcon: 'stripDocumentIcon',
-            title: "Study documents",
+            title: "Study Documents",
             text: "Spitball curates content for you from the best sites on the web. The documents populate based on student ratings and are filtered by your school, classes, and preferences."
         },
 
@@ -126,25 +126,21 @@ let features =
     let testimonials=[{
         name: "Donna Floyd",
         uni: "Sophomore at UC Davis",
-        image: "testimonial-1.jpg",
         testimonial: "As a sophomore, I found myself looking for a new way to communicate and study with my classmates. After searching online, I was shocked that there was no real solution that fit my lifestyle (nothing I could easily access on my phone or computer). Then someone invited me to Spitball... it saved me."
     },
         {
             name: "Jack Harris",
             uni: "Junior at UC Berkeley",
-            image: "testimonial-1.jpg",
             testimonial: "There have been many times when I would try to share files or a document with classmates over the school’s portal or other online studying tools, but it was a huge hassle! Then I started using Spitball and everything changed - I was easily able to upload all of my files, even video and audio files!"
         },
         {
             name: "Daniel Kaplan",
             uni: "Senior at UCLA",
-            image: "testimonial-1.jpg",
             testimonial: "It’s so nice to have all my notes, questions, answers, lectures, etc. in one place and always available online and in the palm of my hand! Spitball comes in handy when I need to compare class notes. Thank you Spitball for making my life a whole lot easier! I already know whom I have to thank first on graduation day :)"
         },
         {
             name: "Sarah Friedman",
             uni: "Freshman at UC Santa Barbara",
-            image: "testimonial-1.jpg",
             testimonial: "Spitball is such a great idea! I love the quizzes - such a great way to interactively test my knowledge of the coursework! The chat feed is really helpful if you miss a class or don't understand the material. During my last semester, I feel like all I did was talk about Spitball! It was funny- people actually thought that it was my job."
         }];
     export{

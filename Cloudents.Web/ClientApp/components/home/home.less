@@ -109,7 +109,7 @@
     .websites-section {
         padding: 8px;
         background-image: linear-gradient(to bottom, #ffffff, rgba(182,215,250,0.5));
-        
+
         .websites {
             padding: 18px 0 0;
             max-width: 1280px;
@@ -274,7 +274,7 @@
         }
 
         .carousel {
-            // height: auto;
+            height: 376px;
             box-shadow: none;
             margin: 0 auto;
             padding: 0;
@@ -293,8 +293,46 @@
             }
 
             .carousel__left {
+                left: 62px;
+
                 .sbf-arrow-right {
                     transform: rotate(-180deg);
+                }
+            }
+
+            .carousel__right {
+                right: 62px;
+            }
+
+            .carousel__left, .carousel__right {
+                top: 57%;
+
+                .btn i {
+                    font-size: 58px;
+                }
+            }
+
+            .carousel__item {
+                &:nth-child(6n+3) .testimonial-image {
+                    background-position: -2px -2px;
+                }
+            }
+
+            .carousel__item {
+                &:nth-child(6n+4) .testimonial-image {
+                    background-position: -2px -86px;
+                }
+            }
+
+            .carousel__item {
+                &:nth-child(6n+5) .testimonial-image {
+                    background-position: -2px -168px;
+                }
+            }
+
+            .carousel__item {
+                &:nth-child(6n+6) .testimonial-image {
+                    background-position: -2px -250px;
                 }
             }
         }
@@ -302,15 +340,19 @@
         .testimonial-text {
             font-size: 20px;
             max-width: 720px;
-            padding: 0 0 40px 0;
+            letter-spacing: -0.4px;
+            line-height: 33px;
+            padding: 0 0 22px 0;
         }
 
         .author {
-            img {
-                margin-bottom: 16px;
+            .testimonial-image {
+                margin: 0 auto 16px auto;
                 width: 80px;
                 height: 80px;
-                border-radius: 100%
+                border-radius: 100%;
+                background-image: url('./img/testimonials-combined.jpg');
+                background-size: 84px;
             }
 
             .name, .uni {
@@ -343,10 +385,11 @@
     footer {
         background: @color-grey;
         color: @color-white;
-        padding: 24px 0;
+        padding: 40px 0;
 
         .container {
-            max-width: 960px;
+            max-width: 1026px;
+            padding-left: 50px;
         }
 
         @media(max-width: 600px) {
@@ -377,24 +420,27 @@
             text-transform: uppercase;
             margin-bottom: 10px;
             font-weight: bold;
+            letter-spacing: -0.2px;
         }
 
         p {
             font-size: 20px;
             margin-bottom: 46px;
             font-weight: 300;
+            max-width: 430px;
         }
     }
 
     .box-links {
         max-width: 400px;
+        margin-top: 4px;
 
         .box-list {
             font-size: 20px;
 
-            .title {
+            .list-title {
                 //font-family: @font-bold;
-                line-height: 54px !important;
+                line-height: 54px;
                 text-transform: uppercase;
                 font-weight: bold;
             }
@@ -414,8 +460,8 @@
     }
 
     .list-social-links {
-        max-width: 420px;
-        margin: 20px 0 0 auto;
+        max-width: 386px;
+        margin-top: 12px;
 
         a {
             color: @color-white;
@@ -551,6 +597,32 @@
     @media screen and (max-width: 600px) {
         .container {
             padding: 0 16px;
+        }
+    }
+
+    @media (min-width: 600px) and (max-height: 768px) {
+        .box-header {
+            padding-bottom: 0;
+
+            .box-title {
+                margin-top: -32px;
+            }
+
+            .box-inner-header h4 {
+                margin: 0 0 44px;
+            }
+
+            .features {
+                margin-top: 43px;
+            }
+        }
+
+        .websites-section .websites {
+            padding: 8px 0;
+
+            .logos {
+                padding: 16px 0 8px 0;
+            }
         }
     }
 }

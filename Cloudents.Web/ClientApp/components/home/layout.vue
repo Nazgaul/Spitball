@@ -5,7 +5,7 @@
                 <div class="box-inner-header">
                     <h2 class="box-title">Simplify School</h2>
                     <h4>Curating all of the resources you need. For <b>Free.</b></h4>
-                        <slot name="search"></slot>
+                    <slot name="search"></slot>
                 </div>
             </div>
             <slot name="featuresSection"></slot>
@@ -25,13 +25,14 @@
         </section>
         <slot name="stripSection"></slot>
         <section class="box-section testimonials">
-            <v-carousel hide-delimiters left-control-icon="sbf-arrow-right" right-control-icon="sbf-arrow-right" class="limited-width">
+            <v-carousel hide-delimiters left-control-icon="sbf-arrow-right" interval="6000000" right-control-icon="sbf-arrow-right" class="limited-width">
                 <v-carousel-item v-for="(testimonial,index) in props.testimonials" src="" :key="index">
                     <div class="testimonial">
                         <p class="testimonial-text">"{{testimonial.testimonial}}"</p>
                         <div class="author">
                             <lazy-component>
-                                <img :src="require(`./img/${testimonial.image}`)" />
+                                <div class="testimonial-image"></div>
+                                <!--<img :src="require(`./img/${testimonial.image}`)" />-->
                             </lazy-component>                            <div>
                                 <span class="name">{{testimonial.name}}</span>
                                 <span class="uni">{{testimonial.uni}}</span>
@@ -47,13 +48,13 @@
                 <v-layout row wrap justify-space-between>
                     <v-flex class="box-app">
                         <div class="footer-title">GET THE SPITBALL APP</div>
-                        <p>Study socially on your smartphone, laptop and tablet anytime, anywhere</p>
+                        <p>Simplify School. Find class notes, textbooks, deals, tutors and more anytime, anywhere.</p>
                         <a href="#" class="app"><lazy-component><img src="./img/app-store-icon.png" alt=""></lazy-component></a>
                     </v-flex>
                     <v-flex class="box-links">
                         <v-layout row wrap justify-space-between>
                             <v-flex md6 sm12 xs12 class="box-list">
-                                <div class="title">COMPANY</div>
+                                <div class="list-title">COMPANY</div>
                                 <ul>
                                     <li><a href="#">About Spitball</a></li>
                                     <li><a href="#">Jobs</a></li>
@@ -61,7 +62,7 @@
                                 </ul>
                             </v-flex>
                             <v-flex md6 sm12 xs12 class="box-list">
-                                <div class="title">SUPPORT</div>
+                                <div class="list-title">SUPPORT</div>
                                 <ul>
                                     <li><a href="#">Privacy Policy</a></li>
                                     <li><a href="#">Terms of Service</a></li>
@@ -71,7 +72,7 @@
                             </v-flex>
                         </v-layout>
                         <v-layout class="list-social-links" justify-space-between>
-                            <v-flex class="text-xs-center" v-for="icon in props.bottomIcons" :key="icon" pa-0>
+                            <v-flex v-for="icon in props.bottomIcons" :key="icon" pa-0>
                                 <a href="#">
                                     <span class="demo-icon">
                                         <slot name="bottomIcon" :iconName="icon"></slot>
