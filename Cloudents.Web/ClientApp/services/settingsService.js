@@ -1,7 +1,7 @@
 ﻿import { getUniversity,course } from './resources';
 export default {
-    getUniversity(term) {
-        return getUniversity({term});
+    getUniversity({term,location}) {
+        return getUniversity({term,location});
     },
     getCourse(params) {
         return course.getCourse(params);

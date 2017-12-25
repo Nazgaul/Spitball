@@ -3,8 +3,8 @@
 .sort-filter-wrap {
     position: -webkit-sticky;
     position: sticky;
-    top: @navBarHeightDesktop + 64;
-    padding-top: 6px;
+    top: @navBarHeightDesktop + 48;
+    padding-top: 12px;
     /*position: sticky;
     top: 74px;*/
 
@@ -18,7 +18,15 @@
         line-height: normal;
         height: @heightOfTitle;
         font-weight: 600;
-        letter-spacing: -0.7px;
+        letter-spacing: -0.4px;
+    }
+
+    .icon-wrapper {
+        display: flex;
+        flex-grow: 0;
+        border-radius: 4px;
+        overflow: hidden;
+        margin-right: 8px;
     }
 }
 
@@ -28,7 +36,7 @@
     align-items: stretch;
     border-radius: 4px;
     padding: 3px;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     text-transform: capitalize;
 
 
@@ -80,7 +88,7 @@
         }
 
         span {
-            margin-left: 8px
+            margin-left: 4px
         }
 
         &:focus {
@@ -104,7 +112,7 @@
             max-width: 100%;
 
             .expansion-panel__header {
-                padding: 9px 5px 9px 8px;
+                padding: 7px 3px 7px 2px;
                 font-weight: bold;
                 border-bottom: 1px solid;
                 border-top: 0;
@@ -113,6 +121,7 @@
                 border-image: @border-bg-image;
                 text-transform: capitalize;
                 letter-spacing: -0.6px;
+
 
                 i.icon {
                     font-size: 8px;
@@ -139,13 +148,36 @@
                 }
             }
 
-            .expansion-panel__body .sort-filter {
-                padding: 10px 8px 8px 6px;
-                border-bottom: 1px solid;
-                border-top: 0;
-                border-left: 0;
-                border-right: 0;
-                border-image: @border-bg-image;
+            .expansion-panel__body {
+                ::-webkit-scrollbar {
+                    width: 3px;
+                }
+
+                ::-webkit-scrollbar-track {
+                    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+                }
+
+                ::-webkit-scrollbar-thumb {
+                    background-color: #979797;
+                    outline: 1px solid #979797;
+                }
+
+                ::-webkit-scrollbar-track-piece {
+                    background-color: @Site-Background;
+                    opacity: 0.5;
+                }
+
+                .sort-filter {
+                    padding: 4px 8px;
+                    margin: 4px 0;
+                    border-bottom: 1px solid;
+                    border-top: 0;
+                    border-left: 0;
+                    border-right: 0;
+                    border-image: @border-bg-image;
+                    max-height: 250px;
+                    overflow-y: scroll;
+                }
             }
         }
     }

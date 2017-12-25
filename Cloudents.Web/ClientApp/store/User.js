@@ -5,6 +5,7 @@ const state = {
         universityId: null,
         myCourses: [],
         isFirst: true,
+        location:null,
         pinnedCards: {}
     }
 };
@@ -12,10 +13,11 @@ const state = {
 const mutations = {
     [USER.UPDATE_USER](state, payload) {
         state.user = { ...state.user, ...payload};
-    } 
+    }
 };
 const getters = {
     isFirst: state => state.user.isFirst,
+    location:state=>state.user.location,
     pinnedCards: state => state.user.pinnedCards,
     getUniversity: state => {
         let obj = state.user.universityId || {};
@@ -33,8 +35,24 @@ const getters = {
     myCoursesId: state => (state.user.myCourses.length ? state.user.myCourses.map(i=>i.id):[])
 };
 const actions = {
+    updateLocation(context, data){
+        return new Promise((resolve)=>{
+            if(!context.getters.location&&navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(({ coords }) => {
+                    coords = coords || {};
+                    context.commit(USER.UPDATE_USER, {location: `${coords.latitude},${coords.longitude}`});
+                    resolve(context.getters.location);
+                },()=>{resolve(context.getters.location)})
+            }
+            else{
+                resolve(context.getters.location)
+            }
+        })
+    },
     getUniversities(context, data) {
-        return settingsService.getUniversity(data.term);
+       return context.dispatch("updateLocation").then((location)=>{
+           return settingsService.getUniversity({term:data.term,location});
+       });
     },
     getCorses(context, {term}) {
         return settingsService.getCourse({term,universityId:context.getters.getUniversity});

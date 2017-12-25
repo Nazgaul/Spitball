@@ -1,7 +1,7 @@
 ﻿@import "../../mixin.less";
 
-@logoWidth: 215px;
 @iconWidth: 70px;
+@logoWidth: 215px;
 
 
 .header {
@@ -23,13 +23,21 @@
         .inTheMiddle();
     }
 
-    @logoWidth: 231px;
 
     .logo-link {
         //.inTheMiddle();
         display: flex;
         align-items: center;
         width: @logoWidth;
+        padding-left: 20px;
+
+        @media(max-width: 959px) {
+            padding-left: 0;
+
+            svg {
+                width: 114px;
+            }
+        }
     }
 
     .gap {
@@ -45,15 +53,53 @@
         letter-spacing: -0.2px;
     }
 
+    .toolbar__content > *:not(.btn):not(.menu):last-child,
+    .toolbar__content > *:not(.btn):not(.menu):first-child {
+        @media(max-width: 599px) {
+            margin: 0;
+        }
+    }
+
     .line {
+        @media(max-width: 959px) {
+            margin-left: 8px;
+            margin-right: 0;
+
+            &:nth-child(2) {
+                align-items: center;
+            }
+
+            form {
+                margin-right: 14px;
+
+                @media (max-width: 599px) {
+                    margin-right: 8px;
+                }
+
+                .search-b {
+                    max-width: 100%;
+                }
+
+                .sbf-search {
+                    min-width: 35px;
+                }
+            }
+        }
+
         flex: 1;
         //.inTheMiddle();
         display: flex;
-        justify-content:center;
+        justify-content: center;
         align-items: flex-end;
         /*> * {
             height:100%;
         }*/
+    }
+
+    .settings-wrapper .btn--icon {
+        @media(max-width: 959px) {
+            margin-right: 0;
+        }
     }
     /*/*.toolbar__title {
         display: flex;
@@ -104,6 +150,14 @@
         .sbf-mic {
             color: @color-blue !important;
         }
+
+        .input-group__input {
+            padding: 8px 8px 8px 12px;
+
+            input {
+                letter-spacing: -0.4px;
+            }
+        }
     }
 
     .btn {
@@ -125,4 +179,19 @@
         width: 24px;
         height: 24px;
     }*/
+    .verticals-bar {
+        padding-left: 10px;
+
+        @media(max-width: 959px) {
+            padding-left: 0;
+        }
+
+        .tabs__bar {
+            height: 60px;
+
+            .tabs__slider {
+                height: 3px;
+            }
+        }
+    }
 }

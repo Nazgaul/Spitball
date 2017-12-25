@@ -8,7 +8,7 @@
          <template slot="options" v-if="page">
              <component :is="(isMobile?'mobile-':'')+'sort-and-filter'" :sortOptions="page.sort" :sortCallback="$_updateSort" :sortVal="sort" v-model="showFilters"
                               :filterOptions="filterObject" :filterCallback="$_updateFilter" :filterVal="filterSelection">
-                 <img :src="universityImage" slot="courseTitlePrefix" width="20" height="20" v-if="universityImage"/>
+                 <img :src="universityImage" slot="courseTitlePrefix" width="24" height="24" v-if="universityImage"/>
                  <div class="course-empty-state" slot="courseEmptyState" v-if="!myCourses.length">
                      <div>Add your school and courses for better results</div>
                      <v-btn @click="$_openPersonalize">Personalize</v-btn>
@@ -23,16 +23,22 @@
          <scroll-list slot="data" v-if="page&&items" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
              <v-container class="pa-0">
                  <v-layout column>
-                     <v-flex class="result-cell elevation-1 mb-2" xs-12 v-for="(item,index) in items" :key="index" @click="(hasExtra?selectedItem=item.placeId:'')" :class="(index>6?'order-xs3':'order-xs1')">
+                     <v-flex order-xs1 v-if="!university">
+                         <v-text-field type="search" solo prepend-icon="sbf-search" placeholder="Where do you go to school" @click="$_openPersonalize"></v-text-field>
+                     </v-flex>
+                     <v-flex class="result-cell elevation-1 mb-2" xs-12 v-for="(item,index) in items" :key="index" @click="(hasExtra?selectedItem=item.placeId:'')" :class="(index>6?'order-xs4':'order-xs2')">
                          <component :is="'result-'+item.template" :item="item" :key="index" class="cell"></component>
                      </v-flex>
-                     <router-link v-if="!hasExtra" tag="v-flex" class="result-cell elevation-1 mb-2 xs-12 order-xs2" :to="{path:'/'+currentSuggest,query:{q:this.query.q}}">
+                     <router-link v-if="!hasExtra" tag="v-flex" class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs3 " :to="{path:'/'+currentSuggest,query:{q:this.query.q}}">
                          <suggest-card :name="currentSuggest"></suggest-card>
                      </router-link>
                  </v-layout>
              </v-container>
          </scroll-list>
          <component slot="adsense" v-if="hasExtra&&!isEmpty" :is="name+'-extra'" :place="selectedItem"></component>
+         <router-link slot="suggestCell" v-if="!hasExtra" tag="v-flex" class="result-cell hidden-md-and-down elevation-1 mb-2 xs-12 order-xs3 " :to="{path:'/'+currentSuggest,query:{q:this.query.q}}">
+             <suggest-card :name="currentSuggest"></suggest-card>
+         </router-link>
      </general-page>
 </template>
 <script>

@@ -24,7 +24,11 @@ export default {
     },
     watch:{
         userText(val){
-            this.qFilter=val
+            this.qFilter=val;
+        },
+        //update text according mic update
+        msg(val){
+            this.qFilter=val;
         }
     },
     beforeRouteUpdate(to, from, next) {
@@ -60,6 +64,10 @@ export default {
                 this.$router.push({path:result, query: { q: this.qFilter },meta:{...this.$route.meta} });
                 });
             });
+        },
+        //callback for mobile submit mic
+        submitMic(){
+            this.submit();
         },
         menuToggle: function() {
             this.$emit("input",!this.value);

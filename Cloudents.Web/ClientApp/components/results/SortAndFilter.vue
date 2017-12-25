@@ -16,7 +16,8 @@
                 <v-expansion-panel :value="true" expand>
                     <v-expansion-panel-content v-for="k in props.filterOptions" :key="k.modelId" hide-actions :value="true">
                         <template slot="header">
-                            <div><slot :name="`${k.modelId}TitlePrefix`"></slot></div><div>{{k.title}}</div>
+                            <div class="icon-wrapper"><slot :name="`${k.modelId}TitlePrefix`"></slot></div>
+                            <div>{{k.title}}</div>
                             <div class="header__icon">
                                 <v-icon>sbf-arrow-button</v-icon>
                             </div>
