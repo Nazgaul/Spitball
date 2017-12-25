@@ -3,7 +3,6 @@
 @using Cloudents.Web.Extensions
 @using Cloudents.Web.Views
 @using Microsoft.AspNetCore.Hosting
-@using Microsoft.Extensions.FileProviders
 @inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
 @inject IHostingEnvironment Environment
 @inject WebPackChunkName Provider
@@ -22,19 +21,22 @@
 
 <html>
 <head>
-<script type="text/javascript" id="inspectletjs">
-(function() {
-window.__insp = window.__insp || [];
-__insp.push(['wid', 348650174]);
-var ldinsp = function(){ if(typeof window.__inspld != "undefined") return; window.__inspld = 1; var insp = document.createElement('script'); insp.type = 'text/javascript'; insp.async = true; insp.id = "inspsync"; insp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cdn.inspectlet.com/inspectlet.js?wid=348650174&r=' + Math.floor(new Date().getTime()/3600000); var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(insp, x); };
-setTimeout(ldinsp, 0);
-})();
-</script>
+    <script type="text/javascript" id="inspectletjs">
+        (function () {
+            window.__insp = window.__insp || [];
+            __insp.push(['wid', 348650174]);
+            var ldinsp = function () { if (typeof window.__inspld != "undefined") return; window.__inspld = 1; var insp = document.createElement('script'); insp.type = 'text/javascript'; insp.async = true; insp.id = "inspsync"; insp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cdn.inspectlet.com/inspectlet.js?wid=348650174&r=' + Math.floor(new Date().getTime() / 3600000); var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(insp, x); };
+            setTimeout(ldinsp, 0);
+        })();
+    </script>
     <title>@ViewBag.title</title>
 
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <base href="~/" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    
+
     <environment include="Development">
         <link rel="stylesheet" href="~/dist/@p.Css" />
     </environment>

@@ -4,29 +4,69 @@ process.env.VUE_ENV = 'server';
 const fs = require('fs');
 const path = require('path');
 
-const filePath = path.join(__dirname, '../wwwroot/dist/main-server.js')
+const filePath = path.join(__dirname, './dist/main-server.js')
 const code = fs.readFileSync(filePath, 'utf8');
+
+
+
+
+
 
 const bundleRenderer = require('vue-server-renderer').createBundleRenderer(code);
 
 var prerendering = require('aspnet-prerendering');
 
+
+
 module.exports = prerendering.createServerRenderer(function (params) {
-    return new Promise(function (resolve, reject) {
-        const context = { url: params.url };
 
-        bundleRenderer.renderToString(context,
-            (err, resultHtml) => {
-                if (err) {
-                    reject(err.message);
-                }
-                resolve({
-                    html: resultHtml,
-                    globals: {
-                        __INITIAL_STATE__: context.state
-                    }
-                });
+  return new Promise(function (resolve, reject) {
+    //console.log(params);
+    //resolve({
+    //    html:  "<div>" + JSON.stringify(params, null, 2) + "</div>"
+    //});
+    const context = { url: params.url };
+
+
+    //renderer.renderToString(app).then(html => {
+    //    resolve({
+    //        html: html,
+    //        globals: {
+    //            __INITIAL_STATE__: context.state
+    //        }
+    //    });
+    //}).catch(err => {
+    //    reject(err.message);
+    //})
+
+    bundleRenderer.renderToString(context,
+      (err, resultHtml) => {
+        if (err) {
+          if (err.code === 404) {
+            resolve({
+              html: JSON.stringify(err.router.options.routes),
+              statusCode: 404
             });
+            //res.status(404).end('Page not found')
+          } else {
+            resolve({
+              html: JSON.stringify(err),
+              statusCode: 500
+            });
+            //res.status(500).end('Internal Server Error')
+          }
+        //  html: "<div>Ram</div>"
+        //  reject({ err });
+        }
+        resolve({
+          html: "<div>Ram</div>" +  JSON.stringify(err)
+          //html: result + "<div>" + JSON.stringify(params, null, 2) + "</div>"
+          //html: resultHtml,
+          //globals: {
+          //  __INITIAL_STATE__: context.state
+          //}
+        });
+      });
 
-    });
+  });
 });

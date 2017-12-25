@@ -136,7 +136,7 @@ module.exports = (env) => {
         target: 'node',
         resolve: { mainFields: ['main'] },
         entry: {
-            vendor: allModules.concat(['aspnet-prerendering'])
+          vendor: allModules.concat(['aspnet-prerendering'])
         },
         output: {
             path: path.join(__dirname, 'ClientApp', 'dist'),
@@ -148,9 +148,13 @@ module.exports = (env) => {
         //},
         plugins: [
             new webpack.DllPlugin({
+                publicPath: 'dist/',
+                filename: '[name].js',
+                library: '[name]_[hash]',
                 path: path.join(__dirname, 'ClientApp', 'dist', '[name]-manifest.json'),
                 name: '[name]_[hash]'
-            })
+          }),
+          
         ].concat(isDevBuild ? [
             new CleanWebpackPlugin(path.join(__dirname, "ClientApp", "dist"))
         ] : [])
