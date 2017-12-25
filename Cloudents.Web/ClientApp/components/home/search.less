@@ -3,7 +3,6 @@
 @submitHeight: 48px;
 @submitMobileHeight: 40px;
 
-@mobileBreakPoint: 959px;
 
 .search-menu {
     background: #fff !important;
@@ -70,10 +69,6 @@
     //margin: 16px 0;
     //height: 100%;
     @media(max-width: @tabletEndBreakPoint) {
-        margin: 0 auto !important;
-    }
-
-    @media(max-width: @mobileEndBreakPoint) {
         //margin: 8px;
         max-width: 100%;
         margin: -8px 8px 0; // hack on top because the two cells are in the same height( blame Shlomi)
@@ -95,7 +90,7 @@
         font-weight: bold;
         letter-spacing: -0.4px;
 
-        @media(max-width: 599px) {
+        @media(max-width: @tabletEndBreakPoint) {
             height: @submitMobileHeight;
         }
     }
@@ -103,7 +98,7 @@
     form .container {
         padding: 16px;
 
-        @media(max-width: 599px) {
+        @media(max-width: @tabletEndBreakPoint) {
             padding: 8px;
         }
     }
@@ -133,9 +128,6 @@
         @media(max-width:@tabletEndBreakPoint) {
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
-        }
-
-        @media(max-width:599px) {
             height: @submitMobileHeight;
 
             .input-group__prepend-icon {
