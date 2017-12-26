@@ -11,6 +11,7 @@ using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Core.Request;
+using Cloudents.Core.Storage;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -26,14 +27,17 @@ namespace Test
                 ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                 ConfigurationManager.AppSettings["AzureSearchServiceName"],
                 ConfigurationManager.AppSettings["AzureSearchKey"],
-                ConfigurationManager.AppSettings["Redis"]);
+                ConfigurationManager.AppSettings["Redis"],
+                ConfigurationManager.AppSettings["StorageConnectionString"]);
 
           //  builder.RegisterType<GoogleSheet>().As<IGoogleSheet>();
         builder.RegisterModule(infrastructureModule);
             var container = builder.Build();
 
-            var repository = container.Resolve<IDocumentCseSearch>();
+            var repository = container.Resolve<IBlobProvider>();
 
+            var result  = await repository.FetchBlobMetaDataAsync(new Uri(
+                "https://zboxstorage.blob.core.windows.net/zboxfiles/b6a4938b-8dd8-4df7-bcdf-4454a80e31d1.pdf"),default);
            
 
 

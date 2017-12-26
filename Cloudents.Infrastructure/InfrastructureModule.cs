@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using Autofac;
-using Autofac.Core;
 using Autofac.Extras.DynamicProxy;
 using AutoMapper;
 using CacheManager.Core;
-using Castle.DynamicProxy;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
@@ -15,6 +12,7 @@ using Cloudents.Infrastructure.AI;
 using Cloudents.Infrastructure.Cache;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Search;
+using Cloudents.Infrastructure.Storage;
 using Microsoft.Azure.Search;
 using Microsoft.Cognitive.LUIS;
 using Module = Autofac.Module;
@@ -27,12 +25,14 @@ namespace Cloudents.Infrastructure
         private readonly string _searchServiceName;
         private readonly string _searchServiceKey;
         private readonly string _redisConnectionString;
+
+        private readonly string _storageConnectionString;
        // private readonly Environment _environment;
 
         public InfrastructureModule(string sqlConnectionString,
             string searchServiceName,
             string searchServiceKey,
-            string redisConnectionString
+            string redisConnectionString, string storageConnectionString
             //Environment environment
             )
         {
@@ -40,7 +40,8 @@ namespace Cloudents.Infrastructure
             _searchServiceName = searchServiceName;
             _searchServiceKey = searchServiceKey;
             _redisConnectionString = redisConnectionString;
-           // _environment = environment;
+            _storageConnectionString = storageConnectionString;
+            // _environment = environment;
         }
 
         protected override void Load(ContainerBuilder builder)
@@ -104,6 +105,10 @@ namespace Cloudents.Infrastructure
          
 
             builder.RegisterGeneric(typeof(EfRepository<>)).AsImplementedInterfaces();
+
+
+            builder.Register(c => new CloudStorageProvider(_storageConnectionString)).SingleInstance();
+            builder.RegisterType<BlobProvider>().AsImplementedInterfaces();
 
             ConfigureCache(builder);
             var config = MapperConfiguration();

@@ -22,7 +22,7 @@
     <PackageReference Include="CacheManager.Serialization.Json" Version="1.1.2" />
     <PackageReference Include="CacheManager.StackExchange.Redis" Version="1.1.2" />
     <PackageReference Include="Castle.Core" Version="4.2.1" />
-    <PackageReference Include="Dapper" Version="1.50.2" />
+    <PackageReference Include="Dapper" Version="1.50.4" />
     <PackageReference Include="Google.Apis.Customsearch.v1" Version="1.30.0.896" />
     <PackageReference Include="Google.Apis.YouTube.v3" Version="1.30.0.1035" />
     <PackageReference Include="Microsoft.Azure.DocumentDB" Version="1.19.1" />
@@ -30,6 +30,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0" />
     <PackageReference Include="Spitball.Luis" Version="1.0.0" />
+    <PackageReference Include="WindowsAzure.Storage" Version="8.7.0" />
   </ItemGroup>
 
   <ItemGroup>

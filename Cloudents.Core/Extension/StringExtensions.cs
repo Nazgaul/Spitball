@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
-using System.Threading.Tasks;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Extension
 {
+   
     public static class StringExtensions
     {
         public static bool Contains(this string source, string toCheck, StringComparison comp)

@@ -13,9 +13,12 @@ namespace Cloudents.Infrastructure
 {
     public class WebInfrastructureModule : InfrastructureModule
     {
-        public WebInfrastructureModule(string sqlConnectionString, string searchServiceName,
-            string searchServiceKey, string redisConnectionString) :
-            base(sqlConnectionString, searchServiceName, searchServiceKey, redisConnectionString)
+        public WebInfrastructureModule(string sqlConnectionString, 
+            string searchServiceName,
+            string searchServiceKey, 
+            string redisConnectionString,
+            string storageConnectionString) :
+            base(sqlConnectionString, searchServiceName, searchServiceKey, redisConnectionString, storageConnectionString)
         {
         }
 
@@ -29,6 +32,8 @@ namespace Cloudents.Infrastructure
                 .Keyed<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>(SeoType.Quiz);
 
             builder.RegisterType<TutorMeSearch>().As<ITutorProvider>();
+
+
         }
     }
 }

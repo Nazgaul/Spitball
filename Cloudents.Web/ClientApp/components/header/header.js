@@ -18,9 +18,9 @@ export default {
     },
     computed: {
         ...mapGetters(['luisTerm','getUniversityName','isFirst']),
-        isMobileSize: function () {
-            return this.$vuetify.breakpoint.xsOnly;
-        }
+        //isMobileSize: function () {
+        //    return this.$vuetify.breakpoint.xsOnly;
+        //}
     },
     watch:{
         userText(val){
@@ -77,12 +77,12 @@ export default {
             item.click.call(itemToUpdate,this.getUniversityName);
         },
         $_updateType(result) {
-            if(this.isMobileSize){
+            //if(this.isMobileSize){
                 let tabs=this.$el.querySelector('.tabs__wrapper');
                 let currentItem=this.$el.querySelector(`#${result}`);
                 if(currentItem)
                      tabs.scrollLeft=currentItem.offsetLeft-(tabs.clientWidth/2);
-            }
+            //}
             if (this.name !== "result") {
                 if (this.callbackFunc) {
                     this.callbackFunc.call(this, result);
