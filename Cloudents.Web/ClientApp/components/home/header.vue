@@ -17,10 +17,8 @@
                 </v-list-tile>
             </v-list>
         </v-menu>
-        <!--<transition name="fade">-->
         <div class="spacing hidden-sm-and-down" v-if="showText"></div>
-        <sb-search v-if="showText || $vuetify.breakpoint.smAndDown" :slot="$vuetify.breakpoint.smAndDown? 'extension' : 'default'"></sb-search>
-        <!--</transition>-->
+        <sb-search v-if="$vuetify.breakpoint.smAndDown || showText" :slot="$vuetify.breakpoint.smAndDown? 'extension' : 'default'"></sb-search>
     </v-toolbar>
 
 

@@ -1,6 +1,7 @@
 ﻿<template>
     <v-app>
-        <router-view :name="`header${isMobileApp}`"></router-view>
+        <router-view name="header"></router-view>
+        <!--<router-view :name="`header${isMobileApp}`"></router-view>-->
         <!--<router-view :name="`verticalList${isMobileApp}`" :class="`${$route.name}${isMobileApp}`"></router-view>-->
         <router-view ref="personalize" name="personalize"></router-view>
         <v-content>
