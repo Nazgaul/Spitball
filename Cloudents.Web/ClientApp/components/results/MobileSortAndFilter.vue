@@ -1,6 +1,5 @@
 <template>
     <v-dialog v-model="value" fullscreen content-class="white filter-dialog">
-
         <v-toolbar fixed class="elevation-1">
             <v-btn icon class="back" @click="$emit('input',false)">X</v-btn>
             <v-toolbar-title class="toolbar-title">Filter & Sort</v-toolbar-title>
@@ -14,7 +13,7 @@
                          :filterOptions="filterOptions"
                          :filterCallback="$_updateFilterMobile" :filterVal="filterVal">
             
-            </template>
+            <!--</template>-->
             <!--<template slot="courseEmptyState">
                 <slot name="courseEmptyState"></slot>
             </template>
