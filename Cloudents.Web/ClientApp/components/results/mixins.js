@@ -6,10 +6,11 @@ import ResultVideo from './ResultVideo.vue'
 import SuggestCard from './suggestCard.vue'
 const ResultFood = () => import('./ResultFood.vue');
 const foodExtra = () => import('./foodExtra.vue');
-const SortAndFilter = ()=> import('./SortAndFilter.vue');
-const MobileSortAndFilter =()=>import('./MobileSortAndFilter.vue');
+const SortAndFilter = () => import('./SortAndFilter.vue');
+const MobileSortAndFilter = () => import('./MobileSortAndFilter.vue');
 import plusBtn from "../settings/svg/plus-button.svg";
 import filterIcon from "./svg/filter.svg";
+import { typesPersonalize } from "../settings/consts.js";
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 export const sortAndFilterMixin = {
 
@@ -77,25 +78,26 @@ export const pageMixin =
             this.items = [];
             //if the term for the page is as the page saved term use it else call to luis and update the saved term
             new Promise((resolve, reject) => {
-                if(!to.query.q||!to.query.q.length){resolve({luisTerm:""})}
-                else if(!savedTerm||(savedTerm.term!==to.query.q)){
-                    this.updateSearchText(to.query.q).then(({term,docType})=> {
-                        this.$route.meta[this.$_calcTerm(toName)] = {term: to.query.q, luisTerm: term,docType};
-                        resolve({luisTerm:to.meta[this.$_calcTerm(toName)].luisTerm,docType});
-                    })}else{
-                    resolve({luisTerm:savedTerm.luisTerm,docType:savedTerm.docType});
+                if (!to.query.q || !to.query.q.length) { resolve({ luisTerm: "" }) }
+                else if (!savedTerm || (savedTerm.term !== to.query.q)) {
+                    this.updateSearchText(to.query.q).then(({ term, docType }) => {
+                        this.$route.meta[this.$_calcTerm(toName)] = { term: to.query.q, luisTerm: term, docType };
+                        resolve({ luisTerm: to.meta[this.$_calcTerm(toName)].luisTerm, docType });
+                    })
+                } else {
+                    resolve({ luisTerm: savedTerm.luisTerm, docType: savedTerm.docType });
                 }
-            }).then(({luisTerm,docType})=>{
+            }).then(({ luisTerm, docType }) => {
                 //After luis return term and optional docType fetch the data
-                const updateFilter = (to.path===from.path&&to.query.q===from.query.q);
-                this.fetchingData({ name: toName, params: { ...to.query, ...to.params}, luisTerm,docType})
-                    .then(({data}) => {
+                const updateFilter = (to.path === from.path && to.query.q === from.query.q);
+                this.fetchingData({ name: toName, params: { ...to.query, ...to.params }, luisTerm, docType })
+                    .then(({ data }) => {
                         //update data for this page
-                        updateData.call(this, data,updateFilter);
+                        updateData.call(this, data, updateFilter);
                     }).catch(reason => {
                         //when error from fetching data remove the loader
                         this.UPDATE_LOADING(false);
-                });
+                    });
                 //go to the next page
                 next();
             });
@@ -111,9 +113,9 @@ export const pageMixin =
         },
         computed: {
             //get data from vuex getters
-            ...mapGetters(['term', 'isFirst', 'myCourses','luisTerm',]),
-            ...mapGetters({universityImage:'getUniversityImage',university:'getUniversity'}),
-            isMobile(){
+            ...mapGetters(['term', 'isFirst', 'myCourses', 'luisTerm',]),
+            ...mapGetters({ universityImage: 'getUniversityImage', university: 'getUniversity' }),
+            isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
             },
             content: {
@@ -142,11 +144,11 @@ export const pageMixin =
                 pageData: '',
                 selectedItem: null,
                 filterObject: null,
-                showFilters:false
+                showFilters: false
             };
         },
 
-        components: { foodExtra, ResultItem, SuggestCard, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood,MobileSortAndFilter },
+        components: { foodExtra, ResultItem, SuggestCard, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood, MobileSortAndFilter },
 
         //If change term on book details page stay in book vertical(don't update vertical) according vertical flag
         beforeRouteEnter(to, from, next) {
@@ -169,23 +171,23 @@ export const pageMixin =
                 this.fetchingData({ name: this.name, params: { ...this.query, ...this.params } })
                     .then(({ data }) => {
                         updateData.call(this, data);
-                    }).catch(reason => {this.UPDATE_LOADING(false);});
-            }else {
+                    }).catch(reason => { this.UPDATE_LOADING(false); });
+            } else {
                 //call luis with the userText
-                this.updateSearchText(this.userText).then(({term,result,docType}) => {
+                this.updateSearchText(this.userText).then(({ term, result, docType }) => {
                     //save the data in the appropriate meta according the box methodology
-                    this.$route.meta[this.$_calcTerm(result)] = {term: this.userText, luisTerm: term,docType};
+                    this.$route.meta[this.$_calcTerm(result)] = { term: this.userText, luisTerm: term, docType };
                     //If should update vertical(not book details) and luis return not identical vertical as current vertical replace to luis vertical page
-                    if (!this.vertical&&result !== this.name) {
+                    if (!this.vertical && result !== this.name) {
                         this.UPDATE_LOADING(false);
-                        const routeParams = {path: '/' + result, query: {...this.query, q: this.userText}};
+                        const routeParams = { path: '/' + result, query: { ...this.query, q: this.userText } };
                         this.$router.replace(routeParams);
                     } else {
                         //fetch data with the params
                         this.fetchingData({
                             name: this.name,
-                            params: {...this.query, ...this.params},
-                            luisTerm: term,docType
+                            params: { ...this.query, ...this.params },
+                            luisTerm: term, docType
                         })
                             .then(({ data }) => {
                                 updateData.call(this, data);
@@ -201,7 +203,7 @@ export const pageMixin =
             //Function for update the filter object(when term or vertical change)
             $_updateFilterObject() {
                 //validate current page have filters
-                if (!this.page||!this.page.filter) { this.filterObject = null }
+                if (!this.page || !this.page.filter) { this.filterObject = null }
                 else if (!this.subFilterVertical) {
                     this.filterObject = [{ title: 'filter', modelId: "filter", data: this.page.filter }];
                 }
@@ -251,15 +253,15 @@ export const pageMixin =
             },
             //Open the personalize dialog when click on select course in class filter
             $_openPersonalize() {
-                this.$root.$el.querySelector("#myCourses").click();
+                this.$root.$emit("personalize", typesPersonalize.course);
             },
             //The presentation functionality for the selected filter(course=>take course name,known list=>take the terms from the const name,else=>the given name)
             $_showSelectedFilter(item) {
-                if (this.page&&!this.subFilterVertical) return this.page.filter.find(i => i.id === item).name;
+                if (this.page && !this.subFilterVertical) return this.page.filter.find(i => i.id === item).name;
                 return !Number.isNaN(item) && this.myCourses.find(x => x.id === Number(item)) ? this.myCourses.find(x => x.id === Number(item)).name : item;
             }
         },
         //Page props come from the route
-        props: { hasExtra: { type: Boolean }, currentTerm: { type: [String, Object] }, getFacet: { type: [Array] }, currentSuggest: { type: String }, vertical: {},userText:{type:String} }
+        props: { hasExtra: { type: Boolean }, currentTerm: { type: [String, Object] }, getFacet: { type: [Array] }, currentSuggest: { type: String }, vertical: {}, userText: { type: String } }
 
     };

@@ -1,13 +1,20 @@
 ﻿import searchItem from './searchItem.vue'
+import { settingMenu } from '../settings/consts';
 import { mapGetters, mapActions } from 'vuex'
 export default {
     components: { searchItem },
     data() {
-        return { showDialog: false, isSearch: false, type: "", keep: true, isfirst: false }
+        return {
+            showDialog: false,
+            isSearch: false,
+            type: "",
+            keep: true,
+            isfirst: false
+        }
     },
 
     computed: {
-        ...mapGetters(['isFirst'])
+        ...mapGetters(['isFirst', 'getUniversityName'])
     },
 
     watch: {
@@ -19,8 +26,14 @@ export default {
         if (this.isFirst) {
             this.isfirst = true;
             this.updateFirstTime("isFirst");
-            setTimeout(()=>this.showDialog = true,5000);
+            setTimeout(() => this.showDialog = true, 5000);
         }
+        this.$root.$on("personalize",
+            (type) => {
+
+                settingMenu.find(i => i.id === type).click.call(this, this.getUniversityName);
+                this.showDialog = true;
+            });
     },
     methods: {
         ...mapActions(["updateFirstTime"]),
