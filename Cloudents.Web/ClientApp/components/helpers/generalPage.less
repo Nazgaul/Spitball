@@ -30,7 +30,7 @@
     }
 
     .mobile-filter {
-        flex-direction:row-reverse;
+        flex-direction: row-reverse;
     }
 }
 
@@ -41,6 +41,10 @@
     position: sticky;
     max-height: ~"calc(100vh - @{upperSpace} - 16px)"; //container padding from bottom is 16
     top: @upperSpace;
+
+    .side-bar-wrapper {
+        max-width: 264px;
+    }
 }
 
 .chip.filter-chip {

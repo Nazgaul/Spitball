@@ -1,8 +1,15 @@
 <template>
-    <v-dialog v-model="value" fullscreen content-class="white">
-        <v-btn @click="$emit('input',false)">X</v-btn>
-        <v-btn @click="$_applayFilters">APPLAY</v-btn>
-        <v-btn @click="$_resetFilters">CLEAR ALL</v-btn>
+    <v-dialog v-model="value" fullscreen content-class="white filter-dialog">
+
+        <v-toolbar fixed flat class="elevation-1">
+            <v-btn icon class="back" @click="$emit('input',false)">X</v-btn>
+            <v-toolbar-title class="toolbar-title">Filter & Sort</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn flat class="clear-btn" @click="$_resetFilters">Clear all</v-btn>
+        </v-toolbar>
+
+        <v-btn class="apply" flat color="color-ask" @click="$_applayFilters">APPLAY</v-btn>
+
         <sort-and-filter :sortOptions="sortOptions" :sortCallback="$_updateSortMobile" :sortVal="sortVal"
                          :filterOptions="filterOptions" :filterCallback="$_updateFilterMobile" :filterVal="filterVal">
             <template slot="courseEmptyState"><slot name="courseEmptyState"></slot></template>
