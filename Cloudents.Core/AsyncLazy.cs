@@ -13,7 +13,7 @@ namespace Cloudents.Core
         /// <summary>
         /// The underlying lazy task.
         /// </summary>
-        private readonly Lazy<Task<T>> _instance;
+        public readonly Lazy<Task<T>> _instance;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AsyncLazy&lt;T&gt;"/> class.

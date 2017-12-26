@@ -74,7 +74,8 @@ namespace Cloudents.Web
                 Configuration.GetConnectionString("DefaultConnection"),
                 Configuration["AzureSearch:SearchServiceName"],
                 Configuration["AzureSearch:SearchServiceAdminApiKey"],
-                Configuration["Redis"]
+                Configuration["Redis"],
+                Configuration["Storage"]
                 );
             containerBuilder.RegisterModule(infrastructureModule);
 

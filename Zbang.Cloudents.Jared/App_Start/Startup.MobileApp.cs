@@ -74,7 +74,8 @@ namespace Zbang.Cloudents.Jared
                 ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                 ConfigurationManager.AppSettings["AzureSearchServiceName"],
                 ConfigurationManager.AppSettings["AzureSearchKey"],
-                ConfigurationManager.AppSettings["Redis"]);
+                ConfigurationManager.AppSettings["Redis"],
+                null);
             builder.RegisterModule(module);
 
             builder.RegisterType<JaredSendPush>()

@@ -11,13 +11,14 @@ using Cloudents.Core.Storage;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class WordProcessor  : Processor
+    public class WordProcessor : Processor, IPreviewProvider
     {
-        
+
         private const string CacheVersion = CacheVersionPrefix + "6";
 
 
-        public WordProcessor(IBlobProvider blobProvider, IBlobProvider<CacheContainer> blobProviderCache)
+        public WordProcessor(IBlobProvider blobProvider,
+                IBlobProvider<CacheContainer> blobProviderCache)
             //: base(blobProvider, blobProviderPreview, blobProviderCache)
             : base(blobProvider, blobProviderCache)
         {
@@ -30,7 +31,7 @@ namespace Cloudents.Infrastructure.Framework
             license.SetLicense("Aspose.Total.lic");
         }
 
-        public async Task<IEnumerable<string>> ConvertFileToWebsitePreviewAsync(
+        public Task<IEnumerable<string>> ConvertFileToWebsitePreviewAsync(
             Uri blobUri, int indexNum,
             CancellationToken cancelToken)
         {
@@ -46,7 +47,7 @@ namespace Cloudents.Infrastructure.Framework
             });
 
             var svgOptions = new SvgSaveOptions { ShowPageBorder = false, FitToViewPort = true, JpegQuality = 85, ExportEmbeddedImages = true, PageCount = 1 };
-            return await UploadPreviewCacheToAzureAsync(blobUri, indexNum,
+            return UploadPreviewCacheToAzureAsync(blobUri, indexNum,
                 i => CreateCacheFileName(blobName, i),
                 async z =>
                 {
@@ -56,7 +57,7 @@ namespace Cloudents.Infrastructure.Framework
                     w.Save(ms, svgOptions);
                     return ms;
                 }, CacheVersion, "image/svg+xml", cancelToken
-            ).ConfigureAwait(false);
+            );
         }
 
         protected static string CreateCacheFileName(string blobName, int index)
@@ -68,7 +69,7 @@ namespace Cloudents.Infrastructure.Framework
         public static readonly string[] WordExtensions = { ".rtf", ".docx", ".doc", ".odt" };
         public override bool CanProcessFile(Uri blobName)
         {
-            return  WordExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
+            return WordExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
         }
 
         //public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri,

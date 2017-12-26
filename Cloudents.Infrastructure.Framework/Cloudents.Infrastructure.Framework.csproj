@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IocModule.cs" />
+    <Compile Include="PdfProcessor.cs" />
     <Compile Include="Processor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WordProcessor.cs" />

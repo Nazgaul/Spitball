@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
+using Cloudents.Core.Storage;
 
 namespace Cloudents.Infrastructure.Framework
 {
@@ -11,6 +12,10 @@ namespace Cloudents.Infrastructure.Framework
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<WordProcessor>().As<IPreviewProvider>();
+            builder.RegisterType<PdfProcessor>().As<IPreviewProvider>();
+
+            //builder.RegisterType<PdfProcessor>().Keyed()
             base.Load(builder);
         }
     }
