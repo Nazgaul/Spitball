@@ -3,12 +3,15 @@
 @submitHeight: 48px;
 @submitMobileHeight: 40px;
 
-@mobileBreakPoint: 959px;
 
 .search-menu {
     background: #fff !important;
     border-radius: 4px;
     margin-top: 8px;
+
+    .list {
+        padding-bottom: 16px;
+    }
 
     .subheader {
         color: @Feed-Like-count;
@@ -16,7 +19,8 @@
         font-size: 18px;
         line-height: 2.22;
         height: 20px;
-        margin-bottom: 10px;
+        padding-left: 10px;
+        margin-bottom: 12px;
     }
 
     .list__tile__title {
@@ -30,7 +34,7 @@
             line-height: normal;
         }*/
     .list__tile {
-        height: 37px;
+        height: 36px;
     }
 
     .list__tile--link {
@@ -64,7 +68,7 @@
     position: relative;
     //margin: 16px 0;
     //height: 100%;
-    @media(max-width: @mobileBreakPoint) {
+    @media(max-width: @tabletEndBreakPoint) {
         //margin: 8px;
         max-width: 100%;
         margin: -8px 8px 0; // hack on top because the two cells are in the same height( blame Shlomi)
@@ -86,7 +90,7 @@
         font-weight: bold;
         letter-spacing: -0.4px;
 
-        @media(max-width: @mobileBreakPoint) {
+        @media(max-width: @tabletEndBreakPoint) {
             height: @submitMobileHeight;
         }
     }
@@ -94,7 +98,7 @@
     form .container {
         padding: 16px;
 
-        @media(max-width: @mobileBreakPoint) {
+        @media(max-width: @tabletEndBreakPoint) {
             padding: 8px;
         }
     }
@@ -116,11 +120,12 @@
             padding-left: 10px;
         }
 
-        input-group__prepend-icon {
+        .input-group__prepend-icon {
             min-width: 28px;
         }
 
-        @media(max-width:@mobileBreakPoint) {
+
+        @media(max-width:@tabletEndBreakPoint) {
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
             height: @submitMobileHeight;
@@ -131,21 +136,25 @@
         }
     }
 
-    input:focus {
-        &::-webkit-input-placeholder {
-            color: white;
-        }
+    input {
+        letter-spacing: 0.6px;
 
-        &:-moz-placeholder {
-            color: white;
-        }
+        &:focus {
+            &::-webkit-input-placeholder {
+                color: white;
+            }
 
-        &::-moz-placeholder {
-            color: white;
-        }
+            &:-moz-placeholder {
+                color: white;
+            }
 
-        &:-ms-input-placeholder {
-            color: white;
+            &::-moz-placeholder {
+                color: white;
+            }
+
+            &:-ms-input-placeholder {
+                color: white;
+            }
         }
     }
 
@@ -161,7 +170,7 @@
             color: @color-white;
         }
 
-        @media(max-width: @mobileBreakPoint) {
+        @media(max-width: @tabletEndBreakPoint) {
             margin: 0;
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
