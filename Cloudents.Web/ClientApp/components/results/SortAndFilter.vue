@@ -18,9 +18,11 @@
                         <template slot="header">
                             <div class="icon-wrapper"><slot :name="`${k.modelId}TitlePrefix`"></slot></div>
                             <div>{{k.title}}</div>
-                            <div class="header__icon">
+                            <div class="header__icon hidden-xs-only">
                                 <v-icon>sbf-arrow-button</v-icon>
                             </div>
+                            <button v-if="k.modelId === 'course'" class="edit-list hidden-sm-and-up" type="button">Edit List</button>
+
                         </template>
                         <div class="sort-filter">
                             <div v-for="s in k.data" :key="(s.id?s.id:s)" class="filter">

@@ -1,20 +1,19 @@
 <template>
     <v-dialog v-model="value" fullscreen content-class="white filter-dialog">
 
-        <v-toolbar fixed flat class="elevation-1">
+        <v-toolbar fixed class="elevation-1">
             <v-btn icon class="back" @click="$emit('input',false)">X</v-btn>
             <v-toolbar-title class="toolbar-title">Filter & Sort</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn flat class="clear-btn" @click="$_resetFilters">Clear all</v-btn>
         </v-toolbar>
 
-        <v-btn class="apply" flat color="color-ask" @click="$_applayFilters">APPLAY</v-btn>
+        <v-btn class="apply elevation-0" fixed color="color-blue" @click="$_applayFilters">Apply Filters</v-btn>
 
         <sort-and-filter :sortOptions="sortOptions" :sortCallback="$_updateSortMobile" :sortVal="sortVal"
                          :filterOptions="filterOptions" :filterCallback="$_updateFilterMobile" :filterVal="filterVal">
             <template slot="courseEmptyState"><slot name="courseEmptyState"></slot></template>
-            <template slot="courseExtraState"><slot name="courseExtraState">
-            </slot></template>
+            
         </sort-and-filter>
     </v-dialog>
 </template>
