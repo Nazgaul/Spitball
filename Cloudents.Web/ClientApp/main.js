@@ -8,7 +8,7 @@ import VueRouter from "vue-router";
 const vueAdsense = () => import("vue-adsense");
 import VueAnalytics from "vue-analytics";
 import WebFont from "webfontloader";
-import vueSmoothScroll from 'vue-scrollto'
+//import vueSmoothScroll from 'vue-scrollto'
 
 //NOTE: put changes in here in webpack vendor as well
 const vuetifyComponents = {
@@ -72,7 +72,7 @@ Vue.use(VueLazyload, {
     preLoad: 1.8,
     attempt: 1
 });
-Vue.use(vueSmoothScroll);
+//Vue.use(vueSmoothScroll);
 Vue.use(VueRouter);
 Vue.use(Vuetify,
     {

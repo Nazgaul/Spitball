@@ -5,7 +5,9 @@
                 <div class="box-inner-header">
                     <h2 class="box-title">Simplify School</h2>
                     <h4>Curating all of the resources you need. For <b>Free.</b></h4>
-                    <slot name="search"></slot>
+                    <div class="hidden-sm-and-down">
+                        <slot name="search"></slot>
+                    </div>
                 </div>
             </div>
             <slot name="featuresSection"></slot>
