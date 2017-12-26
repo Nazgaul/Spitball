@@ -182,3 +182,41 @@
         }
     }
 }
+
+
+.filter-dialog {
+    .filter-switch .expansion-panel .expansion-panel__container .expansion-panel__body .sort-filter {
+        max-height: none;
+        overflow-y: auto;
+    }
+
+    .toolbar {
+        background: @color-white;
+
+        .toolbar-title {
+            font-size: 18px;
+            font-weight: 400;
+            margin-left: 0;
+        }
+
+        .clear-btn {
+            margin-right: 0;
+
+            .btn__content {
+                text-transform: none;
+                color: @color-blue;
+                padding: 0 6px;
+            }
+        }
+    }
+
+    .apply{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: @color-blue;
+        width: 100%;
+        z-index: 2;
+    }
+}
