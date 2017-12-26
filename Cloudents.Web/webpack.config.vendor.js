@@ -160,6 +160,6 @@ module.exports = (env) => {
             new CleanWebpackPlugin(path.join(__dirname, "ClientApp", "dist"))
         ] : [])
     });
-    return [clientBundleConfig, serverBundleConfig];
+    return [clientBundleConfig];
 
 };

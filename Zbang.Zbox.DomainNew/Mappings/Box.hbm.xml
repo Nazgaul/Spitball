@@ -26,7 +26,7 @@
 
     <property name="IsDeleted"/>
     <property name="IsDirty" />
-    <many-to-one name="Owner" class="User" column="OwnerId" not-null="true" foreign-key="ownerIdBoxes"/>
+    <many-to-one name="Owner" class="User" column="OwnerId" foreign-key="ownerIdBoxes"/>
 
     <set name="UserBoxRelationship"  cascade="all-delete-orphan" lazy="true" inverse="true" batch-size="20">
       <key column="BoxId"/>

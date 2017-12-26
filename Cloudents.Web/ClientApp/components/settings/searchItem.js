@@ -10,7 +10,7 @@ import PageLayout from "./layout.vue";
 export default {
     watch: {
         type(val) {
-            if(val) {
+            if (val) {
                 this.currentType = val;
             }
         },
@@ -21,7 +21,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(["courseFirstTime","myCourses", "getUniversityImage", "getUniversityName","myCoursesId"]),
+        ...mapGetters(["courseFirstTime", "myCourses", "getUniversityImage", "getUniversityName", "myCoursesId"]),
         title() {
             if (this.currentAction) return "Add Class";
             if (this.currentType === "course") return this.getUniversityName;
@@ -31,9 +31,9 @@ export default {
             return searchObjects[this.currentType];
         },
         selectedCourse() {
-            if (this.currentType === "course"){
-                this.items=this.items.filter(i=>!this.myCoursesId.includes(i.id));    
-                return this.myCourses;            
+            if (this.currentType === "course") {
+                this.items = this.items.filter(i => !this.myCoursesId.includes(i.id));
+                return this.myCourses;
             }
         }
     },
@@ -51,26 +51,26 @@ export default {
     components: {
         CourseAdd, PageLayout, searchItemUniversity, searchItemCourse, plusButton
     },
-    props: { type: { type: String, required: true }, keep: { type: Boolean },isFirst:{type:Boolean}},
+    props: { type: { type: String, required: true }, keep: { type: Boolean }, isFirst: { type: Boolean } },
     methods: {
         ...mapMutations({ updateUser: "UPDATE_USER" }),
         ...mapActions(["createCourse"]),
         $_removeCourse(val) {
-            this.items.push(this.myCourses.find(i=>i.id===val));
+            this.items.push(this.myCourses.find(i => i.id === val));
             this.updateUser({ myCourses: this.myCourses.filter(i => i.id !== val) });
         },
         $_closeButton() {
-            if(this.isFirst&&this.currentType==="course"&&!this.currentAction){
-                this.currentType="university";
-            }else {
+            if (this.isFirst && this.currentType === "course" && !this.currentAction) {
+                this.currentType = "university";
+            } else {
 
                 this.currentAction ? this.currentAction = "" : this.$emit('input', false);
             }
         },
         $_clickItemCallback(keep) {
-           if (this.currentItem.click) {
-               this.currentItem.click.call(this, keep);
-           }
+            if (this.currentItem.click) {
+                this.currentItem.click.call(this, keep);
+            }
         },
         $_actionDone(val) {
             this.items = [... this.items, val];
@@ -80,17 +80,19 @@ export default {
             this.currentAction = action;
         },
         $_search: debounce(function (val) {
-            this.isLoading = true;
-            this.$store.dispatch(this.currentItem.searchApi, { term: val }).then(({ data:body }) => {
-                this.items = body;
-                this.isLoading = false;
-            });
+            if (val.length > 2) {
+                this.isLoading = true;
+                this.$store.dispatch(this.currentItem.searchApi, { term: val }).then(({ data: body }) => {
+                    this.items = body;
+                    this.isLoading = false;
+                });
+            }
         }, 500),
         $_submitAddCourse() {
             this.$refs.addForm.blur();
             this.createCourse({ name: this.newCourseName });
             this.newCourseName = "";
-            this.$el.querySelector('.results-container').scrollTop=0;
+            this.$el.querySelector('.results-container').scrollTop = 0;
         },
         $_clearAddCourse() {
             this.newCourseName = "";

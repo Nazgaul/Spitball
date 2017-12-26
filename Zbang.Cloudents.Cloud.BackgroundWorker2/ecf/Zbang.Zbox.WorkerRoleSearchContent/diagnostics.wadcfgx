@@ -7,7 +7,6 @@
           <DataSources>
             <DirectoryConfiguration containerName="netfx-install">
               <LocalResource name="NETFXInstall" relativePath="log" />
-              <!--<Absolute path="NETFXInstall" relativePath="log" expandEnvironment="false" />-->
             </DirectoryConfiguration>
           </DataSources>
         </Directories>

@@ -9,7 +9,7 @@
                 <v-container class="px-2 pt-0 ma-0" fluid style="min-width:0">
                     <v-layout row>
                         <v-flex class="sec-result">
-                            <div class="d-flex mobile-filter">
+                                <div class="d-flex mobile-filter hidden-sm-and-up">
                                 <slot name="mobileFilter"></slot>
                             </div>
                             <div v-if="props.filterSelection.length" class="pb-3">
