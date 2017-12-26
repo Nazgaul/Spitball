@@ -1,6 +1,6 @@
 ﻿import debounce from "lodash/debounce"
 const plusButton = () => import("./svg/plus-button.svg");
-import { searchObjects } from "./consts"
+import { typesPersonalize, searchObjects } from "./consts"
 const searchItemUniversity = () => import("./searchItemUniversity.vue");
 const searchItemCourse = () => import("./searchItemCourse.vue");
 import { mapGetters, mapMutations, mapActions } from "vuex"
@@ -15,10 +15,15 @@ export default {
             }
         },
         currentType() {
-            this.isLoading = true;
+            this.isLoading = false;
             this.items = [];
-            this.$refs.searchText ? this.$refs.searchText.inputValue = "" : this.$_search("");
-        }
+            //this.$refs.searchText ? this.$refs.searchText.inputValue = "" : this.$_search("");
+        },
+        val: debounce(function () {
+            this.items = [];
+            if (this.val.length > 2)
+            this.$_search();
+        }, 500)
     },
     computed: {
         ...mapGetters(["courseFirstTime", "myCourses", "getUniversityImage", "getUniversityName", "myCoursesId"]),
@@ -27,6 +32,11 @@ export default {
             if (this.currentType === "course") return this.getUniversityName;
             return "Personalize Results";
         },
+        showCreateCourse: function () {
+            return this.val.length > 2 && this.currentType === typesPersonalize.course;
+        },
+
+
         currentItem: function () {
             return searchObjects[this.currentType];
         },
@@ -35,16 +45,19 @@ export default {
                 this.items = this.items.filter(i => !this.myCoursesId.includes(i.id));
                 return this.myCourses;
             }
-        }
+        },
+
     },
     data() {
         return {
             items: [],
-            isLoading: true,
+            isLoading: false,
             isChanged: false,
             currentType: "",
             currentAction: "",
-            newCourseName: ""
+            newCourseName: "",
+            val: ""
+
         };
     },
 
@@ -79,15 +92,18 @@ export default {
         $_actionsCallback(action) {
             this.currentAction = action;
         },
-        $_search: debounce(function (val) {
-            if (val.length > 2) {
-                this.isLoading = true;
-                this.$store.dispatch(this.currentItem.searchApi, { term: val }).then(({ data: body }) => {
-                    this.items = body;
-                    this.isLoading = false;
-                });
-            }
-        }, 500),
+        $_search() {
+            //if (this.val.length > 2) {
+            this.isLoading = true;
+            //    debounce(function (val) {
+            this.$store.dispatch(this.currentItem.searchApi, { term: this.val }).then(({ data: body }) => {
+                this.items = body;
+                this.isLoading = false;
+            });
+            //    }, 500);
+            //}
+        },
+
         $_submitAddCourse() {
             this.$refs.addForm.blur();
             this.createCourse({ name: this.newCourseName });

@@ -93,11 +93,12 @@
         height: 100%;
 
         .loader {
-            height: auto;
-            position: absolute;
-            top: ~"calc(50% - 25px)";
-            right: ~"calc(50% - 25px)";
-            width: auto;
+            background: transparent;
+            position: fixed;
+            z-index: 100;
+            .inTheMiddle();
+            top: 0;
+            left: 0;
         }
 
 
