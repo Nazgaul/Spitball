@@ -24,14 +24,17 @@
     .icon-wrapper {
         display: flex;
         flex-grow: 0;
-        border-radius: 4px;
-        overflow: hidden;
-        margin-right: 8px;
+
+        img {
+            margin-right: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
     }
 }
 
 ﻿.sort-switch {
-    background: linear-gradient(102deg, #3023ae, #3293f6);
+    background: @color-blue;
     display: flex;
     align-items: stretch;
     border-radius: 4px;
@@ -103,8 +106,7 @@
         border-left: 0;
         border-right: 0;
         box-shadow: none;
-        border-top: 1px solid;
-        border-image: @border-bg-image;
+        border-top: 1px solid @color-grey;
 
         .expansion-panel__container {
             background-color: transparent;
@@ -114,18 +116,17 @@
             .expansion-panel__header {
                 padding: 7px 3px 7px 2px;
                 font-weight: bold;
-                border-bottom: 1px solid;
+                border-bottom: 1px solid @color-grey;
                 border-top: 0;
                 border-left: 0;
                 border-right: 0;
-                border-image: @border-bg-image;
                 text-transform: capitalize;
                 letter-spacing: -0.6px;
 
 
                 i.icon {
                     font-size: 8px;
-                    color: @color-dark-blue;
+                    color: @color-blue;
                     margin-right: 4px;
                 }
             }
@@ -170,11 +171,10 @@
                 .sort-filter {
                     padding: 4px 8px;
                     margin: 4px 0;
-                    border-bottom: 1px solid;
+                    border-bottom: 1px solid @color-grey;
                     border-top: 0;
                     border-left: 0;
                     border-right: 0;
-                    border-image: @border-bg-image;
                     max-height: 250px;
                     overflow-y: scroll;
                 }
@@ -185,11 +185,6 @@
 
 
 .filter-dialog {
-    .filter-switch .expansion-panel .expansion-panel__container .expansion-panel__body .sort-filter {
-        max-height: none;
-        overflow-y: auto;
-    }
-
     .toolbar {
         background: @color-white;
 
@@ -197,10 +192,12 @@
             font-size: 18px;
             font-weight: 400;
             margin-left: 0;
+            letter-spacing: -0.4px;
         }
 
         .clear-btn {
             margin-right: 0;
+            letter-spacing: -0.2px;
 
             .btn__content {
                 text-transform: none;
@@ -210,13 +207,113 @@
         }
     }
 
-    .apply{
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background-color: @color-blue;
-        width: 100%;
+    .apply {
+        bottom: 12px;
+        left: 8px;
+        color: @color-white;
+        width: calc(~"100% - 16px");
         z-index: 2;
+        height: 48px;
+        font-size: 18px;
+        font-weight: 300;
+        letter-spacing: -0.4px;
+        border-radius: 0;
+
+        .btn__content {
+            text-transform: none;
+        }
+    }
+
+
+    .sort-filter-wrap {
+        padding: 72px 0 60px 0;
+
+
+        h3 {
+            text-transform: uppercase;
+            color: @color-grey;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .sort-switch {
+            background: #bbbbbb;
+            padding: 1px;
+            margin-bottom: 16px;
+
+            label {
+                cursor: pointer;
+                flex-grow: 1;
+                text-align: center;
+                line-height: 48px;
+                color: black;
+                font-weight: 600;
+                background: @color-light-grey;
+            }
+
+            input:checked + label {
+                background: @color-white;
+            }
+        }
+
+
+        .expansion-panel {
+            border-color: #dddddd;
+
+            .expansion-panel__header,
+            .expansion-panel__body .sort-filter {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            .expansion-panel__container {
+                .expansion-panel__body .sort-filter {
+                    max-height: none;
+                    overflow-y: auto;
+                }
+
+                .filter {
+                    justify-content: space-between;
+                    flex-direction: row-reverse;
+                    cursor: pointer;
+                    align-items: center;
+
+                    label {
+                        margin-left: 0;
+                        line-height: 40px;
+                        padding-right: 8px;
+                        max-width: none;
+                    }
+
+                    input {
+                        margin: 0;
+                    }
+                }
+
+                .expansion-panel__body .sort-filter,
+                .expansion-panel__header {
+                    border-color: #dddddd;
+                }
+
+                .expansion-panel__header {
+                    letter-spacing: -0.6px;
+                    font-weight: normal;
+                    height: 38px;
+
+                    .edit-list {
+                        flex-grow: 0;
+                        color: @color-blue;
+                        font-weight: normal;
+                        letter-spacing: -0.2px;
+                    }
+                }
+            }
+        }
+
+
+        h3, .sort-switch {
+            margin-left: 16px;
+            margin-right: 16px;
+        }
     }
 }
