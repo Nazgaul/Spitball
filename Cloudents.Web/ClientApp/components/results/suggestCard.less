@@ -1,34 +1,6 @@
 ﻿@import "../../mixin.less";
 
-.logo-wrap {
-    width: 64px;
-    height: 64px;
-    background: linear-gradient(328deg,#3293f6, #3023ae);
-    border-radius: 100%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
 
-    @media only screen and (max-device-width : 600px) {
-        width: 48px;
-        height: 48px;
-    }
-}
-
-svg {
-    height: 28px;
-    fill: white !important;
-}
-
-.text {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-
-    @media only screen and (max-device-width : 600px) {
-        font-size: 14px;
-    }
-}
 
 .suggest {
     background: #FFF;
@@ -36,38 +8,25 @@ svg {
     //cursor: pointer;
     border-radius: 4px;
     color: #000;
+    text-align: start;
+    font-size: 16px;
 
     .container {
-        padding: 8px;
-    }
+        padding: 14px 8px;
 
-    .image-wrapper {
-        padding: 12px 0 8px 8px;
-    }
+        .wrapper {
 
-    .text-wrapper .wrapper {
-        height: 100%;
+            .logo {
+            }
 
-        .text {
-            margin-top: 20px;
-            margin-right: 32px;
-            margin-left: 22px;
-            text-align: left;
-            font-size: 16px;
-            letter-spacing: -0.15px;
+            .action {
+                color: @color-blue;
+            }
         }
 
-        .button-text {
-            flex-grow: 0;
-
-            > div {
-                width: 80px;
-                line-height: 24px;
-                background: @color-blue;
-                color: #ffffff;
-                margin-left: auto;
-                font-size: 12px;
-            }
+        .text {
+            font-weight: 300;
+            margin: 16px 0 14px 0;
         }
     }
 }
