@@ -42,9 +42,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //var process = m_LifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("careerBuilder");
             // ReSharper disable once AsyncConverter.AsyncAwaitMayBeElidedHighlighting
             //await process.ExecuteAsync(0, (a, b) => Task.CompletedTask, cancellationToken).ConfigureAwait(false);
-
-            var process = _lifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("downloadTutor");
-            await process.ExecuteAsync(0, (a, b) => Task.CompletedTask, cancellationToken).ConfigureAwait(false);
+            _zboxWorkerRoleService.OneTimeDbi();
+            //var process = _lifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("downloadTutor");
+            //await process.ExecuteAsync(0, (a, b) => Task.CompletedTask, cancellationToken).ConfigureAwait(false);
 
 
             _logger.Info("finish test");
