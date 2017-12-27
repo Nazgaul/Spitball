@@ -1,14 +1,14 @@
 <template>
-    <div>
-        <v-toolbar app fixed v-if="$vuetify.breakpoint.xsOnly" extended>
+    <div class="book-header">
+        <v-toolbar class="elevation-1" height="48" app fixed v-if="$vuetify.breakpoint.xsOnly" extended>
             <v-btn icon @click="$router.go(-1)">
                 <v-icon>sbf-arrow-button</v-icon>
             </v-btn>
-            <v-toolbar-title>Textbooks</v-toolbar-title>
-            <v-tabs value="buy" grow slot="extension">
+            <v-toolbar-title class="spitball-text-book">Textbooks</v-toolbar-title>
+            <v-tabs class="mx-2" value="buy" grow slot="extension">
                 <v-tabs-bar>
                     <v-tabs-item v-for="tab in sortOptions" :key="tab.id" :href="tab.id" :id="tab.id" @click="$_changeTab(tab.id)"
-                                 class="mr-2 vertical">
+                                 class="mr-2 vertical spitball-text-book">
                         {{tab.name}}
                     </v-tabs-item>
                     <v-tabs-slider color="color-book"></v-tabs-slider>
@@ -40,12 +40,7 @@
             name: { type: String },
             myClasses: {}
         },
-        components: { regularHeader},
+        components: { regularHeader },
     }
 </script>
-
-<style>
-    .tabs__item {
-        color:red;
-    }
-</style>
+<style src="./header.less" lang="less"></style>
