@@ -2,7 +2,7 @@
     <div class="food-detail">
         <food-map :place="id">
         </food-map>
-        <div class="pa-2 d-block ma-2">
+        <div class="pa-2 d-block ma-2 elevation-1">
             <food-cell class="detail" :item="pageData"></food-cell>
         </div>
     </div>

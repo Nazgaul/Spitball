@@ -1,5 +1,5 @@
 ﻿<template>
-    <v-toolbar app fixed height="48">
+    <v-toolbar app fixed height="48" class="elevation-1">
         <v-btn icon @click="$router.go(-1)">
             <v-icon>sbf-arrow-button</v-icon>
         </v-btn>
