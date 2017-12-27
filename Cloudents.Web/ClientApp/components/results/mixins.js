@@ -9,7 +9,7 @@ const foodExtra = () => import('./foodExtra.vue');
 const SortAndFilter = () => import('./SortAndFilter.vue');
 const MobileSortAndFilter = () => import('./MobileSortAndFilter.vue');
 import plusBtn from "../settings/svg/plus-button.svg";
-import filterIcon from "./svg/filter.svg";
+//import filterIcon from "./svg/filter.svg";
 import { typesPersonalize } from "../settings/consts.js";
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 export const sortAndFilterMixin = {
@@ -20,7 +20,7 @@ export const sortAndFilterMixin = {
         };
     },
 
-    components: { SortAndFilter, plusBtn, filterIcon },
+    components: { SortAndFilter, plusBtn },
 
     props: {
         name: { type: String },

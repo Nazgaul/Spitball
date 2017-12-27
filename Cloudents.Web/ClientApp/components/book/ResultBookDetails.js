@@ -1,5 +1,5 @@
 ﻿import { sortAndFilterMixin } from '../results/mixins'
-import ResultBook from '../results/ResultBook.vue';
+import ResultBook from './bookCell.vue';
 import TabsSort from "./bookDetailsSort"
 export default {
     mixins: [sortAndFilterMixin,TabsSort],
@@ -12,7 +12,7 @@ export default {
         });
     },
     data() {
-        return { pageData: '',sortVal:"buy"}
+        return { pageData: '',sortVal:"buy"};
     },
     components: {  ResultBook },
     computed: {
@@ -27,7 +27,7 @@ export default {
     },
         $_updateSort(val){
             this.sortVal=val;
-            this.$_changeTab(val)
+            this.$_changeTab(val);
         }
     },
     props:{filterOptions:{type:Array}}

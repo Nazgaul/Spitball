@@ -2,19 +2,20 @@
 const homePageHeader = () => import("./components/home/header.vue");
 import * as RouteTypes from "./routeTypes";
 const resultContent = () => import("./components/results/Result.vue");
-const bookDetails = () => import("./components/details/ResultBookDetails.vue");
 const foodDetails = () => import("./components/food/foodDetails.vue");
 const foodHeader = () => import("./components/food/foodHeader.vue");
 const showItem = () => import("./components/preview/Item.vue");
 const showFlashcard = () => import("./components/preview/Flashcard.vue");
-const notFound = () => import("./components/results/notFound.vue");
+//const notFound = () => import("./components/results/notFound.vue");
 //const theNavbar = () => import("./components/navbar/TheNavbar.vue");
 //const moreInfo = () => import("./components/results/MoreInfo.vue");
 const personalize = () => import("./components/settings/ResultPersonalize.vue");
 const pageHeader = () => import("./components/header/header.vue");
 //const foodDetailsHeader = () => import("./components/header/headerFirstLineMobile.vue");
-const boodDetailsHeaderMobile = () => import("./components/header/headerBookDetailsMobile.vue");
-const mobileDetailsFirstLine = () => import("./components/header/headerFirstLineMobile.vue");
+const boodDetailsHeader = () => import("./components/book/header.vue");
+const bookDetails = () => import("./components/book/ResultBookDetails.vue");
+
+//const mobileDetailsFirstLine = () => import("./components/header/headerFirstLineMobile.vue");
 import { page, verticalsName, verticalsNavbar, details } from './data'
 const $_calcTerm = (name) => {
      return (name.includes('food') || name.includes('purchase')) ? 'foodTerm' : name.includes('job') ? 'jobTerm' : 'term'
@@ -123,21 +124,8 @@ const resultProps = {
     //verticalListMobile: verticalsLinkFun
 };
 
-const bookDetailsPage = {
-    default: bookDetails,
-    //verticalList: theNavbar,
-    personalize,
-    //verticalListMobile: theNavbar,
-    headerMobile: boodDetailsHeaderMobile,
-    header: pageHeader
-};
-const foodDetailsPage = {
-    default: foodDetails,
-    //mobileHeaderFirstLine: mobileDetailsFirstLine,
-    header: foodHeader
-    //headerMobile: foodDetailsHeader
-};
-const notFoundPage = { default: notFound };
+
+//const notFoundPage = { default: notFound };
 
 
 const foodDetailsProps = {
@@ -185,26 +173,34 @@ export const routes = [
     {
         path: "/book/:id",
         name: RouteTypes.bookDetailsRoute,
-        components: bookDetailsPage,
+        components: {
+            default: bookDetails,
+            //verticalList: theNavbar,
+            //personalize,
+            //verticalListMobile: theNavbar,
+            //headerMobile: boodDetailsHeaderMobile,
+            header: boodDetailsHeader },
         props: bookDetailsProps,
         meta: {
-            pageName: "book",
-           // showHeader: true
+            pageName: "book"
         }
     },
     {
         path: "/food/:id",
         name: RouteTypes.foodDetailsRoute,
-        components: foodDetailsPage,
+        components: {
+            default: foodDetails,
+            header: foodHeader
+        },
         props: foodDetailsProps
     },
-    {
-        path: "/not-found", name: "notFound", components: notFoundPage, alias: [
+    //{
+    //    path: "/not-found", name: "notFound", components: notFoundPage, alias: [
 
-        ], meta: {
-            //showHeader: true
-        }
-    },
+    //    ], meta: {
+    //        //showHeader: true
+    //    }
+    //},
     {
         path: "/item/:university/:courseId/:courseName/:id/:itemName", name: "item", component: showItem, props: true, meta: {
             pageName: RouteTypes.notesRoute
