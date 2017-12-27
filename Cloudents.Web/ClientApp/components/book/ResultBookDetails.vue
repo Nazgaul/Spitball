@@ -16,7 +16,7 @@
         <div slot="main" class="book-detail elevation-1">
             <result-book :item="pageData.details" :isDetails="true"></result-book>
             <div class="d-flex mobile-filter hidden-sm-and-up">
-                <v-btn icon slot="mobileFilter" @click="showFilters=true" class="text-xs-right mb-2">
+                <v-btn icon flat color="color-book" slot="mobileFilter" @click="showFilters=true" class="text-xs-right mb-2">
                     <v-icon>sbf-filter</v-icon>
                 </v-btn>
             </div>

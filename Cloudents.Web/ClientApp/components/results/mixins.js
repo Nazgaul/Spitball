@@ -9,7 +9,6 @@ const foodExtra = () => import('./foodExtra.vue');
 const SortAndFilter = () => import('./SortAndFilter.vue');
 const MobileSortAndFilter = () => import('./MobileSortAndFilter.vue');
 import plusBtn from "../settings/svg/plus-button.svg";
-//import filterIcon from "./svg/filter.svg";
 import { typesPersonalize } from "../settings/consts.js";
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 export const sortAndFilterMixin = {
@@ -29,7 +28,7 @@ export const sortAndFilterMixin = {
         $_calcTerm: { type: Function },
         sort: { type: String },
         page: { type: Object },
-        params: { type: Object }
+        params: { type: Object },
     },
     computed: {
         ...mapGetters(['loading'])
@@ -268,6 +267,13 @@ export const pageMixin =
             }
         },
         //Page props come from the route
-        props: { hasExtra: { type: Boolean }, currentTerm: { type: [String, Object] }, getFacet: { type: [Array] }, currentSuggest: { type: String }, vertical: {}, userText: { type: String } }
+        props: {
+            hasExtra: { type: Boolean },
+            currentTerm: { type: [String, Object] },
+            getFacet: { type: [Array] },
+            currentSuggest: { type: String },
+            vertical: {},
+            userText: { type: String }
+        }
 
     };

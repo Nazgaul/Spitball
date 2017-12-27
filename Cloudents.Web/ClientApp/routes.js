@@ -41,6 +41,8 @@ function dynamicPropsFn(route) {
             filterOptions = filterOptions.concat(route.query.jobType);
         }
     }
+    console.log(route.meta);
+
     return {
         name: route.path.slice(1),
         query: route.query,
@@ -118,8 +120,8 @@ const resultPage = {
 };
 const resultProps = {
     default: dynamicPropsFn,
-    header: verticalsLinkFun,
-    headerMobile: verticalsLinkFun
+    header: verticalsLinkFun
+    //headerMobile: verticalsLinkFun
     //verticalList: verticalsLinkFun,
     //verticalListMobile: verticalsLinkFun
 };
