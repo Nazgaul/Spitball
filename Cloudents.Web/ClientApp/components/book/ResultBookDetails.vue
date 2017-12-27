@@ -2,9 +2,16 @@
     <general-page v-if="pageData.details" 
                   :title="(pageData.details?pageData.details.title:'')">
         <template slot="sideBar" v-if="page">
-            <sort-and-filter :sortOptions="sortOptions" :sortCallback="$_updateSort"
-                             :sortVal="sortVal" :filterOptions="filterOptions"
-                             :filterCallback="$_updateFilter" :filterVal="[filter]"></sort-and-filter>
+            <component :is="($vuetify.breakpoint.xsOnly?'mobile-':'')+'sort-and-filter'"
+                       :sortOptions="sortOptions" :sortCallback="$_updateSort" :sortVal="sortVal"
+                       v-model="showFilters"
+                       :filterOptions="filterOptions"
+                       :filterCallback="$_updateFilter"
+                       :filterVal="[filter]">
+                </component>
+                <!--<sort-and-filter :sortOptions="sortOptions" :sortCallback="$_updateSort"
+                                 :sortVal="sortVal" :filterOptions="filterOptions"
+                                 :filterCallback="$_updateFilter" :filterVal="[filter]"></sort-and-filter>-->
         </template>
         <div slot="main" class="book-detail elevation-1">
             <result-book :item="pageData.details" :isDetails="true"></result-book>

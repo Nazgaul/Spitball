@@ -20,7 +20,7 @@ export const sortAndFilterMixin = {
         };
     },
 
-    components: { SortAndFilter, plusBtn },
+    components: { SortAndFilter, plusBtn, MobileSortAndFilter },
 
     props: {
         name: { type: String },
@@ -154,7 +154,7 @@ export const pageMixin =
             };
         },
 
-        components: { foodExtra, ResultItem, SuggestCard, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood, MobileSortAndFilter },
+        components: { foodExtra, ResultItem, SuggestCard, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood  },
 
         //If change term on book details page stay in book vertical(don't update vertical) according vertical flag
         beforeRouteEnter(to, from, next) {
