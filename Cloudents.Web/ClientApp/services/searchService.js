@@ -4,6 +4,7 @@ import qs from "qs"
 axios.defaults.paramsSerializer=params => qs.stringify(params, { indices: false });
 axios.defaults.baseURL="api/";
 const previewMap = {
+
     item(id) {
         return {
             //blob: ["https://zboxstorage.blob.core.windows.net/zboxcahce/850de13a-001a-4284-9fa8-68d97dcd81adV6_0_.docx.svg?sv=2016-05-31&sr=b&sig=3Ymn%2BX5WFN%2BuBA3kaxImosiQQhdSeK0QmZNcItQQUX8%3D&st=2017-11-07T09%3A19%3A47Z&se=2017-11-07T09%3A40%3A47Z&sp=r", "https://zboxstorage.blob.core.windows.net/zboxcahce/850de13a-001a-4284-9fa8-68d97dcd81adV6_1_.docx.svg?sv=2016-05-31&sr=b&sig=zhbfiY%2Fi6Z%2F6i2995OevC1CXsJU9jTx7eaekzl8m9pA%3D&st=2017-11-07T09%3A19%3A47Z&se=2017-11-07T09%3A40%3A47Z&sp=r"]
@@ -46,7 +47,7 @@ export default {
                 return search.getFlashcard({ source, university, course, term, page, sort });
         },
         tutor({ term, filter, sort, page,location }) {
-            return search.getTutor({ term, filter, sort, location, page })
+            return search.getTutor({ term, filter, sort, location, page });
         },
         job({ term, filter, sort, jobType:facet,page,location }) {
                return search.getJob({ term, filter, sort, location, facet,page });
@@ -55,20 +56,22 @@ export default {
                return search.getBook({ term, page });
         },
         bookDetails({ type, isbn13 }) {
-               return search.getBookDetails({ type, isbn13 })
+               return search.getBookDetails({ type, isbn13 });
+        },
+        foodDetails({ id }) {
+            return search.getPlacesDetails({ id });
         },
         food({ term, filter, page: nextPageToken,location }) {
            
                 if (nextPageToken) {
-                    return search.getFood({ nextPageToken })
+                    return search.getFood({ nextPageToken });
                 }else{
-                   return search.getFood({ term, filter, location })
+                   return search.getFood({ term, filter, location });
                 }
         }
     },
     getPreview({ type, id }) {
         let previewFunc = previewMap[type] ? previewMap[type] : previewMap.item;
-
         return previewFunc(id);
     }
 }

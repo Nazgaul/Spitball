@@ -8,7 +8,7 @@
              <v-icon right>sbf-close</v-icon>
          </v-chip>
          <template slot="options" v-if="page">
-             <component :is="(isMobile?'mobile-':'')+'sort-and-filter'" :sortOptions="page.sort" :sortCallback="$_updateSort" :sortVal="sort" v-model="showFilters"
+             <component :is="($vuetify.breakpoint.xsOnly?'mobile-':'')+'sort-and-filter'" :sortOptions="page.sort" :sortCallback="$_updateSort" :sortVal="sort" v-model="showFilters"
                               :filterOptions="filterObject" :filterCallback="$_updateFilter" :filterVal="filterSelection">
                  <img :src="universityImage" slot="courseTitlePrefix" width="24" height="24" v-if="universityImage"/>
                  <div class="course-empty-state" slot="courseEmptyState" v-if="!myCourses.length">

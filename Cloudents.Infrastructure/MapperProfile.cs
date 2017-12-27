@@ -47,7 +47,8 @@ namespace Cloudents.Infrastructure
 
             });
             CreateMap<JObject, BookDetailsDto>().ConvertUsing<BookDetailConverter>();
-            CreateMap<JObject, (string, IEnumerable<PlaceDto>)>().ConvertUsing<PlaceConverter>();
+            CreateMap<JObject, (string, IEnumerable<PlaceDto>)>().ConvertUsing<PlacesConverter>();
+            CreateMap<JObject, PlaceDto>().ConvertUsing<PlaceConverter>();
             CreateMap<JObject, IEnumerable<TutorDto>>().ConvertUsing<TutorMeConverter>();
             CreateMap<JObject, GeoPoint>().ConvertUsing(jo =>
             {

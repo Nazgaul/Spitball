@@ -102,5 +102,21 @@ namespace Cloudents.Infrastructure.Search
            });
             return mapperResult.FirstOrDefault();
         }
+
+        public async Task<PlaceDto> ByIdAsync(string id, CancellationToken token)
+        {
+            var nvc = new NameValueCollection
+            {
+                ["key"] = Key,
+                ["placeid"] = id
+            };
+
+            var result = await _restClient.GetJsonAsync(new Uri("https://maps.googleapis.com/maps/api/place/details/json"), nvc, token).ConfigureAwait(false);
+            return _mapper.Map<JObject, PlaceDto>(result, opt =>
+            {
+                opt.Items["width"] = 150;
+                opt.Items["key"] = Key;
+            });
+        }
     }
 }

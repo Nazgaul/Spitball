@@ -12,7 +12,8 @@ namespace Cloudents.Core.Interfaces
         Task<(string token, IEnumerable<PlaceDto> data)> SearchNearbyAsync(string term, PlacesRequestFilter filter,
             GeoPoint location, string nextPageToken, CancellationToken token);
 
-        Task<PlaceDto> SearchAsync(string term, CancellationToken token);
+        //Task<PlaceDto> SearchAsync(string term, CancellationToken token);
+        Task<PlaceDto> ByIdAsync(string id, CancellationToken token);
         Task<GeoPoint> GeoCodingAsync(string location, CancellationToken token);
     }
 }

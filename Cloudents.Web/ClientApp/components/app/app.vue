@@ -20,10 +20,10 @@
     export default {
         computed: {
             ...mapGetters(['loading']),
-            showMoreOptions(){return !(this.$vuetify.breakpoint.xsOnly&&this.$route.name.includes("Details"))},
-            isMobileApp(){
-                return (this.$vuetify.breakpoint.xsOnly)?'Mobile':"";
-            }
+           // showMoreOptions(){return !(this.$vuetify.breakpoint.xsOnly&&this.$route.name.includes("Details"))},
+            //isMobileApp(){
+            //    return (this.$vuetify.breakpoint.xsOnly)?'Mobile':"";
+            //}
         }
        // components: { AppHeader }
     }

@@ -1,0 +1,52 @@
+﻿@import "../../mixin.less";
+
+.place-cell {
+    .imageWrapper(96px,120px);
+    width: 100%;
+    text-align: left;
+    background: #fff;
+
+    .cell-title {
+        font-size: 17px;
+        font-weight: 600;
+        letter-spacing: -0.4px;
+        color: @Food;
+    }
+
+    .rate {
+        margin-top: 2px;
+
+        .vue-star-rating {
+            margin-left: 2px; //
+            > span {
+                margin-left: 2px;
+            }
+        }
+
+        span {
+            font-size: 14px;
+            letter-spacing: -0.3px;
+            color: @Feed-Like-count;
+        }
+    }
+
+    .address {
+        font-size: 12px;
+        letter-spacing: 0.1px;
+        color: @Book-Info;
+    }
+
+    .bottom {
+        font-size: 14px;
+        letter-spacing: -0.3px;
+        color: @Feed-Like-count;
+        .flexSameSize();
+        margin-bottom: 4px;
+    }
+
+    .img-wrap {
+        .flexSameSize();
+        border-radius: 4px;
+        overflow: hidden;
+    }
+}
