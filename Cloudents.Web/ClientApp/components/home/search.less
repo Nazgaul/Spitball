@@ -21,6 +21,12 @@
         height: 20px;
         padding-left: 10px;
         margin-bottom: 12px;
+
+        @media(max-width: @tabletEndBreakPoint) {
+            font-size: 14px;
+            height: 24px;
+            margin-bottom: 8px;
+        }
     }
 
     .list__tile__title {
@@ -29,20 +35,40 @@
         font-size: 18px;
         line-height: 2;
         letter-spacing: -0.3px;
+
+        @media(max-width: @tabletEndBreakPoint) {
+            font-size: 12px;
+            letter-spacing: -0.2px;
+        }
     }
     /*.list__tile__title {
             line-height: normal;
         }*/
     .list__tile {
         height: 36px;
+
+        @media(max-width: @tabletEndBreakPoint) {
+            height: 27px;
+        }
     }
 
     .list__tile--link {
         padding-left: 10px;
 
+        @media(max-width: @tabletEndBreakPoint) {
+            padding-left: 8px;
+        }
 
         .list__tile__action {
             min-width: 32px;
+
+            @media(max-width: @tabletEndBreakPoint) {
+                min-width: 24px;
+
+                .icon {
+                    font-size: 16px;
+                }
+            }
         }
     }
 }
@@ -71,7 +97,7 @@
     @media(max-width: @tabletEndBreakPoint) {
         //margin: 8px;
         max-width: 100%;
-        margin: -8px 8px 0; // hack on top because the two cells are in the same height( blame Shlomi)
+        margin: -8px 8px 0 !important; // hack on top because the two cells are in the same height( blame Shlomi)
     }
 
     form {
@@ -103,7 +129,7 @@
         }
     }
 
-    .placeholder-color(#9b9b9b);
+
 
     .input-group.input-group--solo {
         min-height: 40px;
@@ -138,23 +164,18 @@
 
     input {
         letter-spacing: 0.6px;
+        .placeholder-color(#9b9b9b);
 
         &:focus {
-            &::-webkit-input-placeholder {
-                color: white;
-            }
+            .placeholder-color(white);
+        }
+    }
 
-            &:-moz-placeholder {
-                color: white;
-            }
-
-            &::-moz-placeholder {
-                color: white;
-            }
-
-            &:-ms-input-placeholder {
-                color: white;
-            }
+    @media(max-width: @tabletEndBreakPoint) {
+        input {
+            font-size: 14px;
+            .placeholder-color(#5d5d5d);
+            letter-spacing: -0.5px;
         }
     }
 
