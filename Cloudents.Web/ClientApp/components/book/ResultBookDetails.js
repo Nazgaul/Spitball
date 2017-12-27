@@ -2,7 +2,7 @@
 import ResultBook from './bookCell.vue';
 import TabsSort from "./bookDetailsSort"
 export default {
-    mixins: [sortAndFilterMixin,TabsSort],
+    mixins: [sortAndFilterMixin, TabsSort],
     created() {
         this.filter = 'all';
         this.UPDATE_LOADING(true);
@@ -12,7 +12,11 @@ export default {
         });
     },
     data() {
-        return { pageData: '',sortVal:"buy"};
+        return {
+            pageData: '',
+            sortVal: "buy",
+            showFilters:false
+        };
     },
     components: {  ResultBook },
     computed: {
