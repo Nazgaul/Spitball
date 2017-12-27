@@ -1,5 +1,5 @@
 ﻿<template>
-    <v-toolbar app fixed>
+    <v-toolbar app fixed height="48">
         <v-btn icon @click="$router.go(-1)">
             <v-icon>sbf-arrow-button</v-icon>
         </v-btn>
@@ -12,9 +12,14 @@
         font-size: 12px;
         transform: rotate(-90deg);
     }
+
     .toolbar__title {
         font-size: 18px;
         letter-spacing: -0.4px;
         color: #0ead91;
+    }
+
+    .toolbar {
+        background-color: white;
     }
 </style>

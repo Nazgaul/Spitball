@@ -1,7 +1,6 @@
 ﻿<template>
-    <div class="course ma-2" :key="item.id" @click="$_updateMyCourses(item)">
-        <div class="code pa-2">{{item.code}}</div>
-        <div class="name pa-2">{{item.name}}</div>
+    <div class="course pa-2" :key="item.id" @click="$_updateMyCourses(item)">
+        <div class="code">{{item.code}}</div>
     </div>
     </template>
 <script>

@@ -2,7 +2,9 @@
     <div class="food-detail">
         <food-map :place="id">
         </food-map>
-        <food-cell class="detail" :item="pageData"></food-cell>
+        <div class="pa-2 d-block ma-2">
+            <food-cell class="detail" :item="pageData"></food-cell>
+        </div>
     </div>
 </template>
 
@@ -33,14 +35,4 @@
     }
 </script>
 
-
-<style>
-    .food-detail {
-        height: 100%;
-    }
-
-    .food-detail .detail {
-        position:fixed;
-        background:#fff;
-    }
-</style>
+<style lang="less" src="./foodDetails.less"></style>

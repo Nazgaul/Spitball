@@ -1,5 +1,5 @@
 ﻿<template v-once>
-    <button type="button" class="d-block pa-2 place-cell" @click="$_clickItem">
+    <button type="button" class="d-block pa-2" @click="$_clickItem">
         <food-cell :item="item"></food-cell>
     </button>
 </template>
