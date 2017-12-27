@@ -25,8 +25,10 @@
 
                         </template>
                         <div class="sort-filter">
+
                             <div v-for="s in k.data" :key="(s.id?s.id:s)" class="filter">
-                                <input type="checkbox" :id="(s.id?s.id:s)" :checked="props.filterVal.includes(s.id?s.id:s.toString())" @change="props.filterCallback({id:k.modelId,val:(s.id?s.id:s),type:$event})" />
+                                <input type="checkbox" :id="(s.id?s.id:s)" :checked="props.filterVal.includes(s.id?s.id:s.toString())" 
+                                @change="props.filterCallback({id:k.modelId,val:(s.id?s.id:s),type:$event})" />
                                 <label :title="s.name?s.name:s" :for="(s.id?s.id:s)">
                                     {{s.name?s.name:s | capitalize}}
                                 </label>
@@ -38,7 +40,6 @@
                 </v-expansion-panel>
             </div>
         </div>
-        <!--<v-flex class="text-xs-center pt-2"> {{props.version}}</v-flex>-->
     </div>
 </template>
 <style src="./SortAndFilter.less" lang="less"></style>

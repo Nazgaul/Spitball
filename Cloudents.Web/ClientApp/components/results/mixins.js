@@ -28,7 +28,7 @@ export const sortAndFilterMixin = {
         $_calcTerm: { type: Function },
         sort: { type: String },
         page: { type: Object },
-        params: { type: Object },
+        params: { type: Object }
     },
     computed: {
         ...mapGetters(['loading'])
@@ -145,6 +145,7 @@ export const pageMixin =
 
         data() {
             return {
+                test:true,
                 items: '',
                 pageData: '',
                 selectedItem: null,

@@ -1,5 +1,5 @@
 ﻿import logo from "../../../wwwroot/Images/logo-spitball.svg";
-import navBar from "../navbar/TheNavbar.vue"
+//import navBar from "../navbar/TheNavbar.vue"
 import { mapActions, mapGetters } from 'vuex';
 import { settingMenu } from '../settings/consts';
 import { micMixin } from '../helpers/mic';
@@ -8,7 +8,7 @@ import { micMixin } from '../helpers/mic';
 export default {
     mixins: [micMixin],
     components: {
-        logo, navBar
+        logo
     },
     data() {
         return {
