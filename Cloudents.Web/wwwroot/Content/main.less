@@ -109,6 +109,11 @@ button {
         background-color: @@color !important;
         border-color: @@color !important;
     }
+
+    .color-@{p}--text {
+        @color: "color-@{p}";
+        color: @@color !important;
+    }
 }
 
 .loop2(1);
