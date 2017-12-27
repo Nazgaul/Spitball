@@ -22,12 +22,12 @@
 
         <v-text-field light solo slot="inputField" @input="(val)=>{val.length > 2 ? isLoading = true : isLoading = false}" v-model.lazy="val" class="search-b elevation-0" ref="searchText" :placeholder="currentItem.placeholder" prepend-icon="sbf-search"></v-text-field>
         <v-chip class="ma-2" slot="selectedItems" slot-scope="props" v-if="selectedCourse" label>
-            <span class="name">{{ props.course.name }}</span>
+            <span class="name">{{ props.course.code }}</span>
             <button class="close pa-2" @click="$_removeCourse(props.course.id)">
                 <i class="sbf icon sbf-close"></i>
             </button>
         </v-chip>
-            <v-flex class="result ma-2" v-if="!currentAction" @click="$_clickItemCallback(keep)" slot-scope="props" slot="results">
+            <v-flex class="result mx-2 mt-3" v-if="!currentAction" @click="$_clickItemCallback(keep)" slot-scope="props" slot="results">
             
             <component :is="'search-item-'+currentType" :item="props.item"></component>
         </v-flex>
