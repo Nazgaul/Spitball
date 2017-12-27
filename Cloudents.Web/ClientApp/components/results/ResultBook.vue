@@ -1,6 +1,7 @@
 ﻿<template v-once>
-    <component :is="isDetails?'div':'router-link'"  class="pa-2 book-cell" :to="{name:'bookDetails',params:{id:item.isbn13},query:{q:$route.query.q}}">
-        <v-container class="pa-0">
+    <router-link class="pa-2 d-block" :to="{name:'bookDetails',params:{id:item.isbn13},query:{q:$route.query.q}}">
+        <book-cell :item="item"></book-cell>
+        <!--<v-container class="pa-0">
             <v-layout row>
                 <div class="img-wrap">
                     <img :src="item.image" alt="">
@@ -14,12 +15,13 @@
                     <div class="book-info binding" v-if="item.binding">Binding: {{item.binding}}</div>
                 </v-flex>
             </v-layout>
-        </v-container>
-    </component>
+        </v-container>-->
+    </router-link>
 </template>
 <script>
+    import bookCell from "../book/bookCell.vue"
     export default {
+        components: { bookCell},
         props: { item: { type: Object, required: true }, isDetails: { type: Boolean, default: false } }
     }
 </script>
-<style src="./ResultBook.less" lang="less"></style>

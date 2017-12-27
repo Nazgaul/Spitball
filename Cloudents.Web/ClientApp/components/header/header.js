@@ -6,7 +6,7 @@ import { micMixin } from '../helpers/mic';
 
 
 export default {
-    mixins:[micMixin],
+    mixins: [micMixin],
     components: {
         logo, navBar
     },
@@ -17,70 +17,79 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(['luisTerm','getUniversityName','isFirst'])
+        ...mapGetters(['luisTerm', 'getUniversityName', 'isFirst'])
         //isMobileSize: function () {
         //    return this.$vuetify.breakpoint.xsOnly;
         //}
     },
-    watch:{
-        userText(val){
-            this.qFilter=val;
+    watch: {
+        userText(val) {
+            this.qFilter = val;
         },
         //update text according mic update
-        msg(val){
-            this.qFilter=val;
+        msg(val) {
+            this.qFilter = val;
         }
     },
-    //beforeRouteUpdate(to, from, next) {
-    //    //const toName = to.path.slice(1);
-    //    //if(this.isMobileSize){
-    //    //    let tabs=this.$el.querySelector('.tabs__wrapper');
-    //    //    let currentItem=this.$el.querySelector(`#${toName}`);
-    //    //    if(currentItem)
-    //    //        tabs.scrollLeft=currentItem.offsetLeft-(tabs.clientWidth/2);
-    //    //}
-    //    next();
-    //},
-    mounted(){
+    beforeRouteUpdate(to, from, next) {
+        const toName = to.path.slice(1);
+        let tabs = this.$el.querySelector('.tabs__wrapper');
+        let currentItem = this.$el.querySelector(`#${toName}`);
+        if (currentItem)
+            tabs.scrollLeft = currentItem.offsetLeft - (tabs.clientWidth / 2);
+
+        next();
+    },
+    mounted() {
         //if(this.isMobileSize){
-            let tabs=this.$el.querySelector('.tabs__wrapper');
-            let currentItem=this.$el.querySelector(`#${this.currentSelection}`);
-            if(currentItem)
-                tabs.scrollLeft=currentItem.offsetLeft-(tabs.clientWidth/2);
+        let tabs = this.$el.querySelector('.tabs__wrapper');
+        let currentItem = this.$el.querySelector(`#${this.currentSelection}`);
+        if (currentItem)
+            tabs.scrollLeft = currentItem.offsetLeft - (tabs.clientWidth / 2);
         //}
     },
-    props: { $_calcTerm: { type: Function }, verticals: { type: Array }, callbackFunc: { type: Function }, currentSelection: { type: String },
-        userText:{type:String},currentPath:{type:String},luisType:{type:String},getLuisBox:{type:Function},name:{type:String},myClasses:{} },
+    props: {
+        $_calcTerm: { type: Function },
+        verticals: { type: Array },
+        callbackFunc: { type: Function },
+        currentSelection: { type: String },
+        userText: { type: String },
+        currentPath: { type: String },
+        luisType: { type: String },
+        getLuisBox: { type: Function },
+        name: { type: String },
+        myClasses: {}
+    },
     methods: {
         ...mapActions(["updateSearchText"]),
         submit: function () {
-            this.updateSearchText(this.qFilter).then(({term:luisTerm,docType}) => {
-                let result=this.currentPath;
-                this.$route.meta[this.luisType]={
+            this.updateSearchText(this.qFilter).then(({ term: luisTerm, docType }) => {
+                let result = this.currentPath;
+                this.$route.meta[this.luisType] = {
                     term: this.qFilter,
-                    luisTerm,docType
+                    luisTerm, docType
                 };
-                this.$nextTick(()=>{
-                this.$router.push({path:result, query: { q: this.qFilter },meta:{...this.$route.meta} });
+                this.$nextTick(() => {
+                    this.$router.push({ path: result, query: { q: this.qFilter }, meta: { ...this.$route.meta } });
                 });
             });
         },
         //callback for mobile submit mic
-        submitMic(){
+        submitMic() {
             this.submit();
         },
-        menuToggle: function() {
-            this.$emit("input",!this.value);
+        menuToggle: function () {
+            this.$emit("input", !this.value);
         },
         $_currentClick(item) {
             this.$root.$emit("personalize", item.id);
         },
         $_updateType(result) {
             //if(this.isMobileSize){
-                let tabs=this.$el.querySelector('.tabs__wrapper');
-                let currentItem=this.$el.querySelector(`#${result}`);
-                if(currentItem)
-                     tabs.scrollLeft=currentItem.offsetLeft-(tabs.clientWidth/2);
+            let tabs = this.$el.querySelector('.tabs__wrapper');
+            let currentItem = this.$el.querySelector(`#${result}`);
+            if (currentItem)
+                tabs.scrollLeft = currentItem.offsetLeft - (tabs.clientWidth / 2);
             //}
             if (this.name !== "result") {
                 if (this.callbackFunc) {
@@ -99,7 +108,7 @@ export default {
                     this.$root.$children[0].$refs.personalize.showDialog = true;
                     return;
                 }
-                this.$router.push({ path: '/' + result,query:{q:""} });
+                this.$router.push({ path: '/' + result, query: { q: "" } });
             }
         }
     }
