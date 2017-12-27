@@ -5,7 +5,14 @@
 }
 
 .dialog-choose {
-    background-image: linear-gradient(328deg, #3293f6, #3023ae);
+    @search-width: 784px;
+    @course-width: 176px;
+
+    background: @color-white;
+
+    .d-wrapper {
+        max-height: 100vh;
+    }
 
     ::-webkit-scrollbar {
         width: 4px;
@@ -28,6 +35,7 @@
     .navigation-buttons {
         font-size: 22px;
         font-weight: 600;
+        margin: 28px 32px 0px 32px;
 
         button:focus {
             outline: none;
@@ -41,12 +49,22 @@
         }
 
         .sbf-close {
-            font-size: 20px;
-            color: white;
+            font-size: 18px;
+            color: @color-grey;
+        }
+
+        .done-btn {
+            color: @color-blue;
         }
     }
 
     .d-header {
+        max-width: @search-width;
+        width: 100%;
+        margin: 0 auto;
+        max-height: 100vh;
+        height: 100%;
+
         button {
             height: 100%;
 
@@ -68,6 +86,7 @@
                 font-weight: 300;
                 color: white;
                 text-align: center;
+                color: @Spitball-Text;
             }
 
             h5 {
@@ -83,15 +102,25 @@
 
         .search-b {
             border-radius: 4px;
+            background: @color-light-grey;
+            min-height: 56px;
+
+            icon {
+                font-size: 32px;
+            }
+
+            input {
+                font-size: 20px;
+            }
         }
     }
 
-    .d-wrapper {
-        max-width: 784px;
+    .divider {
         margin: 0 auto;
-        max-height: 100vh;
-        height: 100%;
+        max-width: @search-width - 32px
+    }
 
+    .d-wrapper {
         .loader {
             height: auto;
             position: absolute;
@@ -102,14 +131,21 @@
 
 
         .selected-items {
+            .chip {
+                background: none;
+                border: none;
+            }
+
             .chip__content {
                 background: white;
                 padding: 8px 0 8px 8px;
                 border-radius: 4px;
                 overflow: hidden;
+                background: @color-blue;
+                width: @course-width;
 
                 .name {
-                    color: @color-blue;
+                    color: @color-white;
                     font-weight: normal;
                 }
 
@@ -124,7 +160,7 @@
 
                     .sbf-close {
                         font-size: 10px;
-                        color: @Feed-Date;
+                        color: @color-white;
                     }
                 }
             }
@@ -168,6 +204,9 @@
         }
 
         .results-container {
+            width: 100%;
+            max-width: @search-width;
+            margin: 0 auto;
             overflow-y: auto;
 
             .result {
@@ -198,33 +237,31 @@
             }
 
             .course, .add-course-form {
-                width: 136px;
                 border-radius: 4px;
                 overflow: hidden;
-                height: 144px;
             }
 
             .course {
+                height: 72px;
+                width: @course-width;
+                background: @color-blue;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: none;
 
                 .code {
-                    height: 50%;
                     font-size: 16px;
-                    background: @color-blue;
                     color: white;
                     text-align: center;
-                }
-
-                .name {
-                    background: white;
-                    height: 72px;
                 }
             }
 
             .add-course-form {
-                width: 280px;
-                color: white;
-                font-weight: 100;
-                border: 1px solid white;
+                width: 368px;
+                letter-spacing: -0.3px;
+                color: @color-grey;
+                border: 1px solid @color-blue;
 
                 form {
                     display: flex;
@@ -245,6 +282,11 @@
 
                     .input-group__input {
                         align-items: flex-end;
+                        .placeholder-color(@Feed-Date);
+                    }
+
+                    .input-group__details:before {
+                        background-color: @color-blue;
                     }
 
                     input {
@@ -280,5 +322,3 @@
         }
     }
 }
-
-
