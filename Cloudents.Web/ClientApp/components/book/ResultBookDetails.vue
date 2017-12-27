@@ -13,16 +13,18 @@
                                  :sortVal="sortVal" :filterOptions="filterOptions"
                                  :filterCallback="$_updateFilter" :filterVal="[filter]"></sort-and-filter>-->
         </template>
-        <div slot="main" class="book-detail elevation-1">
-            <result-book :item="pageData.details" :isDetails="true"></result-book>
+        <div slot="main" class="book-detail">
+            <div class="d-cell elevation-1 pa-2">
+                <result-book :item="pageData.details" :isDetails="true"></result-book>
+            </div>
             <div class="d-flex mobile-filter hidden-sm-and-up">
                 <v-btn icon slot="mobileFilter" @click="showFilters=true" class="text-xs-right mb-2">
                     <v-icon>sbf-filter</v-icon>
                 </v-btn>
             </div>
-            <div class="ma-2">
+            <div class="book-sources pa-2 elevation-1">
                 <a :href="item.link" :target="$vuetify.breakpoint.xsOnly?'_self':'_blank'" class="price-line" v-for="(item,index) in filteredList" :key="index">
-                    <v-layout row justify-space-between>
+                    <v-layout row justify-space-between class="price-line-content">
                         <v-flex xs3 class="text-xs-left">
                             <img v-if="item.image" :src="item.image" />
                             <span v-else>{{item.name}}</span>

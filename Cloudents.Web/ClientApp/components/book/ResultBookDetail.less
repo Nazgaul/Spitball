@@ -1,38 +1,74 @@
 ﻿@import "../../mixin.less";
+
 .book-detail {
-    background: #fff;
-    border-radius: 4px;
+    .d-cell {
+        background: white;
 
-    .price-line {
-        height: 54px;
-        display: block;
+        @media(max-width: @mobileEndBreakPoint) {
+            border-radius: 4px;
+        }
+    }
 
-        > div {
-            height: 100%;
+    .book-sources {
+        background: white;
+
+        @media(max-width: @mobileEndBreakPoint) {
+            border-radius: 4px;
         }
 
-        .flex {
-            .inTheMiddle();
-        }
+        .price-line {
+            height: 54px;
+            display: block;
 
-        .flex:nth-child(2) {
-            font-size: 14px;
-            letter-spacing: -0.3px;
-            color: #000;
-        }
+            @media(max-width: @mobileEndBreakPoint) {
+                height: 62px;
 
-        .flex:nth-child(3) {
+                .price-line-content {
+                    padding-left: 8px;
+                    padding-right: 8px;
+                }
 
-            div {
-                width: 88px;
-                border-radius: 2px;
-                background: #ebbc18;
-                text-align: right;
-                height: 24px;
-                font-size: 16px;
-                letter-spacing: -0.4px;
-                text-align: center;
+                .divider {
+                    background-color: #dddddd;
+                }
+            }
+
+            > div {
+                height: 100%;
+            }
+
+            .flex {
+                .inTheMiddle();
+            }
+
+            .flex:nth-child(2) {
+                font-size: 14px;
+                letter-spacing: -0.3px;
                 color: #000;
+            }
+
+            .flex:nth-child(3) {
+
+                div {
+                    width: 88px;
+                    border-radius: 2px;
+                    background: #ebbc18;
+                    text-align: right;
+                    height: 24px;
+                    font-size: 16px;
+                    letter-spacing: -0.4px;
+                    text-align: center;
+                    color: #000;
+
+                    @media(max-width: @mobileEndBreakPoint) {
+                        height: 32px;
+                        line-height: 32px;
+                    }
+                }
+            }
+
+            img {
+                width: 100%;
             }
         }
     }
