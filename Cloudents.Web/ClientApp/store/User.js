@@ -16,7 +16,7 @@ const mutations = {
     }
 };
 const getters = {
-    isFirst: state => state.user.isFirst,
+    isFirst: state => false,
     location:state=>state.user.location,
     pinnedCards: state => state.user.pinnedCards,
     getUniversity: state => {

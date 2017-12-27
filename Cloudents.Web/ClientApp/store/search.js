@@ -46,18 +46,21 @@ const actions = {
                         context.dispatch("updateLocation").then((location)=>{
                             params.location=location;
                             resolve();
-                        })
+                        });
                     }else{resolve();}
                 }).then(()=>{
                     context.commit(SEARCH.UPDATE_SEARCH_PARAMS, { ...params });
                     return{ result: body.vertical, term: body.term,docType:body.docType};
-                })
+                });
 
-            });
+           });
     },
 
     bookDetails: (context, {pageName,isbn13,type}) => {
         return searchService.activateFunction[pageName]({isbn13,type});
+    },
+    foodDetails: (context, {  id }) => {
+        return searchService.activateFunction["foodDetails"]({ id });
     },
 
     fetchingData: (context, { name, params, page, luisTerm: term,docType }) => {
@@ -70,11 +73,11 @@ const actions = {
                 context.dispatch("updateLocation").then((location)=>{
                     paramsList.location=location;
                     resolve();
-                })
+                });
             }else{resolve();}
         }).then(()=>{
             return searchService.activateFunction[name](paramsList);
-        })
+        });
     },
 
     getPreview(context, model) {

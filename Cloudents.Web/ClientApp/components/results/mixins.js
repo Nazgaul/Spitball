@@ -23,7 +23,13 @@ export const sortAndFilterMixin = {
     components: { SortAndFilter, plusBtn, filterIcon },
 
     props: {
-        name: { type: String }, query: { type: Object }, filterSelection: { type: [String, Array] }, $_calcTerm: { type: Function }, sort: { type: String }, page: { type: Object }, params: { type: Object }
+        name: { type: String },
+        query: { type: Object },
+        filterSelection: { type: [String, Array] },
+        $_calcTerm: { type: Function },
+        sort: { type: String },
+        page: { type: Object },
+        params: { type: Object }
     },
     computed: {
         ...mapGetters(['loading'])
@@ -115,9 +121,9 @@ export const pageMixin =
             //get data from vuex getters
             ...mapGetters(['term', 'isFirst', 'myCourses', 'luisTerm',]),
             ...mapGetters({ universityImage: 'getUniversityImage', university: 'getUniversity' }),
-            isMobile() {
-                return this.$vuetify.breakpoint.xsOnly;
-            },
+            //isMobile() {
+            //    return this.$vuetify.breakpoint.xsOnly;
+            //},
             content: {
                 get() {
                     return this.pageData;

@@ -11,7 +11,6 @@
                                               required name="q"
                                               :class="{'record':isRecording}"
                                               id="transcript"
-                                              v-on:focus="focus"
                                               v-model.trim="msg" :placeholder="placeholder"
                                               prepend-icon="sbf-search" :append-icon="voiceAppend"
                                               :append-icon-cb="$_voiceDetection"></v-text-field>
@@ -65,14 +64,14 @@
             search() {
                 this.$router.push({ name: "result", query: { q: this.msg } });
             },
-            focus() {
-                if (this.$vuetify.breakpoint.smAndDown && !this.headerMenu) {
-                    const element = this.$refs.search;
-                    this.$scrollTo(element, 500, {
-                        offset : -72
-                    })
-                }
-            },
+            //focus() {
+            //    if (this.$vuetify.breakpoint.smAndDown && !this.headerMenu) {
+            //        const element = this.$refs.search;
+            //        this.$scrollTo(element, 500, {
+            //            offset : -72
+            //        })
+            //    }
+            //},
             selectos(item) {
                 this.msg = item;
                 this.search();

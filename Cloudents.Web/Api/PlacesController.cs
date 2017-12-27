@@ -50,5 +50,16 @@ namespace Cloudents.Web.Api
                 result.data
             });
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetByIdAsync([RequiredFromQuery]string id,
+            CancellationToken token)
+        {
+            if (id == null) throw new ArgumentNullException(nameof(id));
+            var result = await _placesSearch.ByIdAsync(id, token).ConfigureAwait(false);
+
+            return Json(result);
+        }
     }
 }

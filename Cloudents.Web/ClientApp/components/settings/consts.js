@@ -1,5 +1,10 @@
-﻿export let searchObjects = {
+﻿export const typesPersonalize = {
+    university: "univeristy",
+    course: "course"
+}
+export let searchObjects = {
     course: {
+        id: typesPersonalize.course,
         placeholder: 'What class are you taking?',
         closeText: "done",
         searchApi: "getCorses",
@@ -7,6 +12,7 @@
         filters: [{ id: 'all', name: 'ALL COURSES' }, { id: 'myCourses', name: 'MY COURSES' }],
         action: "add"
     }, university: {
+        id: typesPersonalize.university,
         searchApi: "getUniversities",
         placeholder: 'Where do you go to school?',
         closeText: "X",
@@ -19,10 +25,7 @@
         filters: []
     }
 };
-export const typesPersonalize = {
-    university:"univeristy",
-    course:"course"
-}
+
 export let settingMenu = [
     {
         id: typesPersonalize.university,

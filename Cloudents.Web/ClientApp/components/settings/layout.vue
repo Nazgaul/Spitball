@@ -30,13 +30,13 @@
         </div>
         <v-divider v-if="props.search&&!props.isLoading" class="my-3"></v-divider>
         <div class="loader" v-if="props.search&&props.isLoading">
-            <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
+            <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
         </div>
         <v-flex class="results-container px-2" v-else-if="props.search&&!props.isLoading">
             <v-layout fluid class="d-result" row justify-start wrap>
-                    <template v-for="item in props.items" v-if="props.items.length">
-                        <slot name="results" :item="item"></slot>
-                    </template>
+                <template v-for="item in props.items" v-if="props.items.length">
+                    <slot name="results" :item="item"></slot>
+                </template>
                 <slot :name="`${props.type}ExtraItem`"></slot>
             </v-layout>
             <slot name="actionContent">
