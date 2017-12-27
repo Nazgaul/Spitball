@@ -1,6 +1,6 @@
 ﻿<template>
-    <iframe 
-            frameborder="0" class="ml-2 flex"
+    <iframe
+            frameborder="0" class="map ml-2 flex"
             :src="url" allowfullscreen></iframe>
 
 </template>
@@ -14,14 +14,5 @@
         }
     }
 </script>
-<style scoped>
-    iframe {
-        margin-left: 0 !important;
-        width:100%;
-        height: 100%;
-        max-height:444px; /*TODO: this is a temp solution*/
-    }
-</style>
-
-
+<style src="./foodExtra.less" lang="less"></style>
 
