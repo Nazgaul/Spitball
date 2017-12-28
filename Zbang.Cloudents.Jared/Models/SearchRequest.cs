@@ -36,6 +36,10 @@ namespace Zbang.Cloudents.Jared.Models
         /// </summary>
         [DefaultValue(0)]
         public SearchCseRequestSort? Sort { get; set; }
+        /// <summary>
+        /// Doc type only for document vertical
+        /// </summary>
+        public string DocType { get; set; }
 
        
     }

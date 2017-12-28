@@ -11,6 +11,7 @@ namespace Cloudents.Infrastructure.Search
     {
         public async Task<VideoDto> SearchAsync(string term, CancellationToken token)
         {
+            term = term ?? QuestionSearch.QueryString;
             var t = new Google.Apis.YouTube.v3.YouTubeService(new BaseClientService.Initializer
             {
                 ApiKey = "AIzaSyCAaZGgVHm0GxY2lY_mWQw3JXGy7KMypZ0"

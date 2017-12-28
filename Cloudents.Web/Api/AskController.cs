@@ -25,11 +25,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> Get([FromQuery] AskRequest model,
             CancellationToken token)
         {
-            if (model.Term == null || model.Term.Length == 0)
-            {
-                throw new ArgumentNullException(nameof(model.Term));
-            }
-            var query = new SearchQuery(model.Term,  model.Page.GetValueOrDefault());
+            var query = SearchQuery.Ask(model.Term,  model.Page.GetValueOrDefault());
             var tResult = _searchProvider.SearchAsync(query, token);
             var tVideo = Task.FromResult<VideoDto>(null);
             if (model.Page.GetValueOrDefault() == 0)

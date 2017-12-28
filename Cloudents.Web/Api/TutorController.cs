@@ -26,8 +26,7 @@ namespace Cloudents.Web.Api
             TutorRequestSort? sort,
             GeoPoint location, int page, CancellationToken token)
         {
-            if (term == null) throw new ArgumentNullException(nameof(term));
-            var result = await _tutorSearch.SearchAsync(string.Join(" ", term), filter, sort.GetValueOrDefault(TutorRequestSort.Price), location, page, token).ConfigureAwait(false);
+            var result = await _tutorSearch.SearchAsync(term, filter, sort.GetValueOrDefault(TutorRequestSort.Price), location, page, token).ConfigureAwait(false);
             return Json(result);
         }
     }
