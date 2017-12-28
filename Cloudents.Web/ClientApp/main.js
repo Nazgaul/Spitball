@@ -8,7 +8,7 @@ import VueRouter from "vue-router";
 const vueAdsense = () => import("vue-adsense");
 import VueAnalytics from "vue-analytics";
 import WebFont from "webfontloader";
-import checkBox from "./components/app/sb-checkbox"
+import checkBox from "./components/app/sb-checkbox.vue"
 
 //NOTE: put changes in here in webpack vendor as well
 const vuetifyComponents = {
@@ -84,6 +84,7 @@ Vue.use(Vuetify,
 Vue.component("scroll-list", scroll);
 Vue.component("adsense", vueAdsense);
 Vue.component("general-page", GeneralPage);
+//Vue.component("sb-checkbox", checkBox);
 Vue.component("sb-checkbox", checkBox);
 
 const router = new VueRouter({

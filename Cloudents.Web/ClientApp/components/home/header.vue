@@ -20,8 +20,6 @@
         <div class="spacing hidden-sm-and-down" v-if="showText"></div>
         <sb-search v-if="$vuetify.breakpoint.smAndDown || showText" :slot="$vuetify.breakpoint.smAndDown? 'extension' : 'default'"></sb-search>
     </v-toolbar>
-
-
 </template>
 
 <script>
@@ -39,24 +37,24 @@
         data() {
             return {
                 scrollTop: 0,
-                links: [
-                    {
-                        name: "Spitball Guide",
-                        link: "#"
-                    },
-                    {
-                        name: "Key Features",
-                        link: "#"
-                    },
-                    //{
-                    //    name: "Shared Documents",
-                    //    link: "#"
-                    //},
-                    {
-                        name: "Mobile App",
-                        link: "#"
-                    }
-                ]
+                //links: [
+                //    {
+                //        name: "Spitball Guide",
+                //        link: "#"
+                //    },
+                //    {
+                //        name: "Key Features",
+                //        link: "#"
+                //    },
+                //    //{
+                //    //    name: "Shared Documents",
+                //    //    link: "#"
+                //    //},
+                //    {
+                //        name: "Mobile App",
+                //        link: "#"
+                //    }
+                //]
             }
         },
         methods: {
