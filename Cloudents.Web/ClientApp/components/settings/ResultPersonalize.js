@@ -29,7 +29,7 @@ export default {
         if (this.isFirst) {
             this.isfirst = true;
             this.updateFirstTime("isFirst");
-            setTimeout(() => this.showDialog = true, 10);
+            setTimeout(() => this.showDialog = true, 5000);
         }
         this.$root.$on("personalize",
             (type) => {

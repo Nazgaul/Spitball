@@ -18,7 +18,7 @@ export default {
             this.isLoading = false;
             this.val="";
             this.items = [];
-            //this.$refs.searchText ? this.$refs.searchText.inputValue = "" : this.$_search("");
+            this.$refs.searchText ? this.$refs.searchText.focus():"";
         },
         val: debounce(function () {
             this.items = [];
@@ -37,7 +37,6 @@ export default {
             return this.val.length > 2 && this.currentType === typesPersonalize.course;
         },
 
-
         currentItem: function () {
             return searchObjects[this.currentType];
         },
@@ -46,7 +45,7 @@ export default {
                 this.items = this.items.filter(i => !this.myCoursesId.includes(i.id));
                 return this.myCourses;
             }
-        },
+        }
 
     },
     data() {
@@ -58,7 +57,6 @@ export default {
             currentAction: "",
             newCourseName: "",
             val: ""
-
         };
     },
 
