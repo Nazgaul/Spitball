@@ -8,7 +8,7 @@
 </template>
 <style scoped>
     .sbf-arrow-button {
-        color: #9B9B9B;
+        color: #9B9B9B !important;
         font-size: 12px;
         transform: rotate(-90deg);
     }
