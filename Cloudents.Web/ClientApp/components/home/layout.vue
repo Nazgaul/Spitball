@@ -14,7 +14,7 @@
         </div>
         <section class="websites-section">
             <v-container class="websites text-xs-center limited-width">
-                <h2>Content from your favorite websites</h2>
+                <h2>Our Partners</h2>
                 <v-layout class="logos" row align-center justify-space-around wrap>
                     <v-flex v-for="(site,index) in props.sites" class="site" :key="index" xs6 sm4 md2>
                         <v-layout column align-center d-flex>
