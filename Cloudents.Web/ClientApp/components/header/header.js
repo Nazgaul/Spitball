@@ -4,7 +4,15 @@ import { mapActions, mapGetters } from 'vuex';
 import { settingMenu } from '../settings/consts';
 import { micMixin } from '../helpers/mic';
 
-
+let placeholders={
+    job:"Your field of expertise...",
+    tutor: "Find a tutor...",
+    note:"Find study documents in...",
+    book:"Textbook title of ISBN...",
+    ask:"Ask anything...",
+    flashcard:"look for flashcards...",
+    food:"Search for deals..."
+}
 export default {
     mixins: [micMixin],
     components: {
@@ -13,6 +21,7 @@ export default {
     data() {
         return {
             settingMenu,
+            placeholders,
             qFilter: this.userText,
         };
     },
