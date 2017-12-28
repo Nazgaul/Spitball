@@ -85,11 +85,13 @@ export default {
             this.$root.$emit("personalize", item.id);
         },
         $_updateType(result) {
+            console.log(result);
             //if(this.isMobileSize){
             let tabs = this.$el.querySelector('.tabs__wrapper');
             let currentItem = this.$el.querySelector(`#${result}`);
-            if (currentItem)
+            if (currentItem) {
                 tabs.scrollLeft = currentItem.offsetLeft - (tabs.clientWidth / 2);
+            }
             //}
             if (this.name !== "result") {
                 if (this.callbackFunc) {
@@ -98,6 +100,7 @@ export default {
                     this.$router.push({ path: '/' + result, query: { q: this.userText } });
                 }
             }
+            //TODO - new version of vuex dont need this
             else if (this.$route.meta[this.$_calcTerm(result)]) {
                 let query = { q: this.getLuisBox(result).term };
                 if (this.currentPath.includes(result)) query = { ...this.$route.query, ...query };
@@ -110,6 +113,8 @@ export default {
                 }
                 this.$router.push({ path: '/' + result, query: { q: "" } });
             }
+            //THIS is new version of vuex
+            //this.$router.push({ path: '/' + result, query: { q: this.userText } });
         }
     }
 }

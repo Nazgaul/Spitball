@@ -169,6 +169,7 @@ export const pageMixin =
 
         },
         created() {
+            
             //If query have courses save those courses
             if (this.query.course) this.$route.meta.myClasses = this.query.course;
             this.UPDATE_LOADING(true);
@@ -192,8 +193,12 @@ export const pageMixin =
                         //fetch data with the params
                         this.fetchingData({
                             name: this.name,
-                            params: { ...this.query, ...this.params },
-                            luisTerm: term, docType
+                            params: { ...this.query, ...this.params }, //TODO: new version of vuex dont need it
+                            luisTerm: term, docType //TODO: new version of vuex dont need it
+
+                            //This is new version
+                            //name: this.name
+                            
                         })
                             .then(({ data }) => {
                                 updateData.call(this, data);

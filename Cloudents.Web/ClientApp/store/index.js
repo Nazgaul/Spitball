@@ -1,5 +1,7 @@
 ﻿import Vue from "vue";
 import Vuex from "vuex";
+//This is new vuex
+//import Search from "./session";
 import Search from "./search";
 import User from "./User";
 //TODO: server side fix
