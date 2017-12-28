@@ -16,6 +16,7 @@ export default {
         },
         currentType() {
             this.isLoading = false;
+            this.val="";
             this.items = [];
             //this.$refs.searchText ? this.$refs.searchText.inputValue = "" : this.$_search("");
         },
