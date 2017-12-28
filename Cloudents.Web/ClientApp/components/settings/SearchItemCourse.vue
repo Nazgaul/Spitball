@@ -1,6 +1,6 @@
 ﻿<template>
     <div class="course pa-2" :key="item.id" @click="$_updateMyCourses(item)">
-        <div class="code">{{item.name}}</div>
+        <div class="name" :title="item.name">{{item.name | ellipsis(38)}}</div>
     </div>
     </template>
 <script>
