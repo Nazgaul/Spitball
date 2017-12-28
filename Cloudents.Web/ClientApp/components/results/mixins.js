@@ -111,9 +111,11 @@ export const pageMixin =
         watch: {
             //update the course list of filters if have in page while the course list changes
             myCourses(val) {
-                const courseIndex = this.filterObject.findIndex(i => i.modelId === "course");
-                if (courseIndex > -1)
-                    this.filterObject[courseIndex].data = val;
+                if(this.filterObject) {
+                    const courseIndex = this.filterObject.findIndex(i => i.modelId === "course");
+                    if (courseIndex > -1)
+                        this.filterObject[courseIndex].data = val;
+                }
             }
         },
         computed: {
@@ -149,7 +151,8 @@ export const pageMixin =
                 pageData: '',
                 selectedItem: null,
                 filterObject: null,
-                showFilters: false
+                showFilters: false,
+                showPersonalizeField:false
             };
         },
 
@@ -168,7 +171,7 @@ export const pageMixin =
 
         },
         created() {
-            
+            this.$root.$on("closePersonalize",()=>{this.showPersonalizeField=true});
             //If query have courses save those courses
             if (this.query.course) this.$route.meta.myClasses = this.query.course;
             this.UPDATE_LOADING(true);

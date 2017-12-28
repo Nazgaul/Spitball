@@ -55,7 +55,7 @@
                     </v-flex>
                     <v-flex class="box-links">
                         <v-layout row wrap justify-space-between>
-                            <v-flex md6 sm12 xs12 class="box-list">
+                            <v-flex md6 sm6 xs12 class="box-list">
                                 <div class="list-title">COMPANY</div>
                                 <ul>
                                     <li><a href="#">About Spitball</a></li>
@@ -63,7 +63,7 @@
                                     <li><a href="#">Blog</a></li>
                                 </ul>
                             </v-flex>
-                            <v-flex md6 sm12 xs12 class="box-list">
+                            <v-flex md6 sm6 xs12 class="box-list">
                                 <div class="list-title">SUPPORT</div>
                                 <ul>
                                     <li><a href="#">Privacy Policy</a></li>

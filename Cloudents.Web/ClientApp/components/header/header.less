@@ -8,6 +8,7 @@
     //background-image: linear-gradient(276deg, @Spitball-Main-color, #3023ae);
     &.toolbar {
         background-color: #fff;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
     }
 
     .toolbar__items {
@@ -29,7 +30,7 @@
         display: flex;
         align-items: center;
         width: @logoWidth;
-        padding-left: 20px;
+        padding-left: 16px;
 
         @media(max-width: 959px) {
             padding-left: 0;
@@ -51,7 +52,7 @@
         font-size: 14px;
         font-weight: 600;
         letter-spacing: -0.2px;
-        opacity:1;
+        opacity: 1;
     }
 
     .toolbar__content > *:not(.btn):not(.menu):last-child,
@@ -102,7 +103,7 @@
             margin-right: 0;
         }
     }
-   
+
     form {
         flex-grow: 1;
         width: 100%;
@@ -125,6 +126,10 @@
             color: @color-blue !important;
         }
 
+        .sbf-search {
+            min-width: 34px;
+        }
+
         .input-group__input {
             padding: 8px 8px 8px 12px;
 
@@ -139,6 +144,7 @@
             color: #3293f6;
         }
     }
+
     .verticals-bar {
         padding-left: 10px;
 
