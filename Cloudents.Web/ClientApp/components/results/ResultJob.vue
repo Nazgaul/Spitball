@@ -7,7 +7,7 @@
         </div>
         <v-container class="properties">
             <v-layout row wrap>
-                <v-flex class="property" xs6><company-icon class="mr-2"></company-icon><span>{{item.company}}</span></v-flex>
+                <v-flex class="property" xs6><company-icon class="mr-2"></company-icon><span class="company" :title="item.company">{{item.company}}</span></v-flex>
                 <v-flex class="property" xs6><location-icon class="mr-2"></location-icon><span class="location" v-if="item.city">{{item.city}}, {{item.state}}</span></v-flex>
                 <v-flex class="property" xs6><paid-icon class="mr-2"></paid-icon><span>{{item.compensationType}}</span></v-flex>
                 <v-flex class="property" xs6><caldendar-icon class="mr-2"></caldendar-icon><span>{{formatDate}}</span></v-flex>

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -15,26 +13,26 @@ namespace Cloudents.Infrastructure.Search
 {
     public class CourseSearch : ICourseSearch
     {
-        private readonly ISearchIndexClient m_Client;
-        private readonly IMapper m_Mapper;
+        private readonly ISearchIndexClient _client;
+        private readonly IMapper _mapper;
 
         public CourseSearch(ISearchServiceClient client, IMapper mapper)
         {
-            m_Client = client.Indexes.GetClient("box2");
-            m_Mapper = mapper;
+            _client = client.Indexes.GetClient("box2");
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<CourseDto>> SearchAsync(string term, long universityId,
             CancellationToken token)
         {
-            var result = await m_Client.Documents.SearchAsync<Course>(term + "*", new SearchParameters
+            var result = await _client.Documents.SearchAsync<Course>(term + "*", new SearchParameters
             {
-                Select = new[] { "id", "name2", "course2" },
+                Select = new[] { "id", "name2" },
                 SearchFields = new[] { "course2", "name2" },
                 Filter = $"universityId eq {universityId}"
             }, cancellationToken: token).ConfigureAwait(false);
 
-            return m_Mapper.Map<IEnumerable<Course>, IEnumerable<CourseDto>>(result.Results.Select(s => s.Document));
+            return _mapper.Map<IEnumerable<Course>, IEnumerable<CourseDto>>(result.Results.Select(s => s.Document));
         }
     }
 }

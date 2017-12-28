@@ -43,12 +43,13 @@ namespace Cloudents.Infrastructure.Search
             return _mapper.Map<JObject, IEnumerable<BookSearchDto>>(result);
         }
 
+        [Cache(TimeConst.Day, "book-buy")]
         public Task<BookDetailsDto> BuyAsync(string isbn13, int imageWidth, CancellationToken token)
         {
             return BuyOrSellApiAsync(isbn13, imageWidth, false, token);
         }
 
-        private async Task<BookDetailsDto> BuyOrSellApiAsync(string isbn13, int imageWidth, bool sell,
+        protected async Task<BookDetailsDto> BuyOrSellApiAsync(string isbn13, int imageWidth, bool sell,
             CancellationToken token)
         {
             if (isbn13 == null) throw new ArgumentNullException(nameof(isbn13));
@@ -66,6 +67,7 @@ namespace Cloudents.Infrastructure.Search
             return _mapper.Map<JObject, BookDetailsDto>(result);
         }
 
+        [Cache(TimeConst.Day, "book-sell")]
         public Task<BookDetailsDto> SellAsync(string isbn13, int imageWidth, CancellationToken token)
         {
             return BuyOrSellApiAsync(isbn13, imageWidth, true, token);

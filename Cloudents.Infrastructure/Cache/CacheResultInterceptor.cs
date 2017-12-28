@@ -67,12 +67,12 @@ namespace Cloudents.Infrastructure.Cache
             var key = GetInvocationSignature(invocation);
 
             var method = invocation.MethodInvocationTarget;
-            var isAsync = method.GetCustomAttribute(typeof(AsyncStateMachineAttribute)) != null;
+            //var isAsync = method.GetCustomAttribute(typeof(AsyncStateMachineAttribute)) != null;
             var data = _cacheProvider.Get(key, cacheAttr.Region);
 
             if (data != null)
             {
-                if (isAsync && typeof(Task).IsAssignableFrom(method.ReturnType))
+                if (/*isAsync &&*/ typeof(Task).IsAssignableFrom(method.ReturnType))
                 {
                     var taskReturnType = method.ReturnType; //e.g. Task<int>
 
@@ -93,7 +93,7 @@ namespace Cloudents.Infrastructure.Cache
             }
             invocation.Proceed();
 
-            if (isAsync && typeof(Task).IsAssignableFrom(method.ReturnType))
+            if (/*isAsync &&*/ typeof(Task).IsAssignableFrom(method.ReturnType))
             {
                 invocation.ReturnValue = InterceptAsync(key, cacheAttr, (dynamic)invocation.ReturnValue);
             }

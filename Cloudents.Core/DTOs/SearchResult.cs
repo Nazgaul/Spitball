@@ -1,9 +1,11 @@
-﻿namespace Cloudents.Core.DTOs
+﻿using System;
+
+namespace Cloudents.Core.DTOs
 {
     public class SearchResult
     {
         public string Id { get; set; }
-        public string Image { get; set; }
+        public Uri Image { get; set; }
         public int? Views { get; set; }
         public string University { get; set; }
         public string Course { get; set; }

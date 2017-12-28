@@ -137,7 +137,7 @@ const bookDetailsProps = {
     ...resultProps,
     default: dynamicDetailsPropsFn,
     //verticalListMobile: filterLinkFun,
-    headerMobile: (route) => ({ name: "textbooks", id: route.params.id })
+    header: (route) => ({ name: "textbooks", id: route.params.id })
 };
 export const routes = [
     {
