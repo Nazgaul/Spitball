@@ -41,10 +41,8 @@ namespace Cloudents.Web.Api
             {
                 throw new ArgumentNullException(nameof(model.University));
             }
-            var course = new Course(model.Name, model.University.Value)
-            {
-                CourseCode = model.Code,
-            };
+
+            var course = new Course(model.Name, model.University.Value);
 
             var result = await _repository.AddAsync(course, token).ConfigureAwait(false);
 

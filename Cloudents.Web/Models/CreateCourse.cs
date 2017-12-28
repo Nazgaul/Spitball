@@ -6,7 +6,6 @@ namespace Cloudents.Web.Models
     {
         [Required(AllowEmptyStrings = false)]
         public string Name { get; set; }
-        public string Code { get; set; }
 
         [Required]
         public long? University { get; set; }

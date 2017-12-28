@@ -15,11 +15,6 @@ namespace Zbang.Cloudents.Jared.Models
         public string CourseName { get; set; }
 
         /// <summary>
-        /// The course code 
-        /// </summary>
-        public string CourseId { get; set; }
-
-        /// <summary>
         /// User university
         /// </summary>
         [Required]
