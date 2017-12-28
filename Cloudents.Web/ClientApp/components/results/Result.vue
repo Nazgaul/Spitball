@@ -2,6 +2,7 @@
 <template>
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp">
         <div slot="main">
+           
             <div class="d-flex mobile-filter hidden-sm-and-up">
                 <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right mb-2">
                     <v-icon>sbf-filter</v-icon>
@@ -33,7 +34,7 @@
         </div>
         <template slot="sideBar" v-if="page">
             <component :is="($vuetify.breakpoint.xsOnly?'mobile-':'')+'sort-and-filter'"
-                       :sortOptions="page.sort" 
+                       :sortOptions="page.sort"
                        :sortCallback="$_updateSort"
                        :sortVal="sort"
                        v-model="showFilters"

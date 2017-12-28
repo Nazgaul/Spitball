@@ -55,7 +55,6 @@ const getters = {
                 term:  state.search.term,
                 docType: state.search.docType
             }
-
         }
         return {
             term: state.search.term

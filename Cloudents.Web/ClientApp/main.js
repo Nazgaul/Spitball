@@ -84,7 +84,7 @@ Vue.use(Vuetify,
 Vue.component("scroll-list", scroll);
 Vue.component("adsense", vueAdsense);
 Vue.component("general-page", GeneralPage);
-Vue.component("sb-checkbox",checkBox)
+Vue.component("sb-checkbox", checkBox);
 
 const router = new VueRouter({
     mode: "history",

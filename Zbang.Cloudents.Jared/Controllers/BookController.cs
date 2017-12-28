@@ -37,7 +37,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> Get([FromUri]BookRequest bookRequest, CancellationToken token)
         {
             if (bookRequest.Term == null) throw new ArgumentNullException(nameof(bookRequest.Term));
-            var result = await _booksSearch.SearchAsync(string.Join(" ", bookRequest.Term), bookRequest.Thumbnail.GetValueOrDefault(150), bookRequest.Page.GetValueOrDefault(), token).ConfigureAwait(false);
+            var result = await _booksSearch.SearchAsync(bookRequest.Term, bookRequest.Thumbnail.GetValueOrDefault(150), bookRequest.Page.GetValueOrDefault(), token).ConfigureAwait(false);
             return Request.CreateResponse(result);
         }
 
@@ -52,7 +52,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> SearchV2Async([FromUri]BookRequest bookRequest, CancellationToken token)
         {
             if (bookRequest.Term == null) throw new ArgumentNullException(nameof(bookRequest.Term));
-            var result = await _booksSearch.SearchAsync(string.Join(" ", bookRequest.Term), bookRequest.Thumbnail.GetValueOrDefault(150), bookRequest.Page.GetValueOrDefault(), token).ConfigureAwait(false);
+            var result = await _booksSearch.SearchAsync(bookRequest.Term, bookRequest.Thumbnail.GetValueOrDefault(150), bookRequest.Page.GetValueOrDefault(), token).ConfigureAwait(false);
             var nextPageLink = Url.NextPageLink("BookSearch", new
             {
                 api_version = "2017-12-19"
