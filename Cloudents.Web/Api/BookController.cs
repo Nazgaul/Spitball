@@ -23,8 +23,7 @@ namespace Cloudents.Web.Api
         [Route("search")]
         public async Task<IActionResult> Get(string[] term, int page, CancellationToken token)
         {
-            if (term == null) throw new ArgumentNullException(nameof(term));
-            var result = await _booksSearch.SearchAsync(string.Join(" ", term), 150, page, token).ConfigureAwait(false);
+            var result = await _booksSearch.SearchAsync( term, 150, page, token).ConfigureAwait(false);
             return Json(result);
         }
 

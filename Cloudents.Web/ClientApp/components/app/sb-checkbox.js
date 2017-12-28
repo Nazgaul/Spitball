@@ -4,15 +4,15 @@ export default {
     extends: checkBox,
     computed: {
         icon: function icon() {
-            console.log("hi ram", this.isActive,this);
-           // if (this.inputIndeterminate) {
-               //return 'indeterminate_check_box';
-               if (this.isActive) {
-                return 'sbf-mic';
-              } else {
-                return 'sbf-filter';
-              }
+            console.log("hi ram", this.isActive, this);
+            // if (this.inputIndeterminate) {
+            //return 'indeterminate_check_box';
+            if (this.isActive) {
+                return 'sbf-checkbox-marked';
+            } else {
+                return 'sbf-checkbox-blank-outline';
             }
-          
+        }
+
     }
 }
