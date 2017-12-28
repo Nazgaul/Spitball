@@ -54,22 +54,23 @@
                         <a href="#" class="app"><lazy-component><img src="./img/app-store-icon.png" alt=""></lazy-component></a>
                     </v-flex>
                     <v-flex class="box-links">
-                        <v-layout row wrap justify-space-between>
-                            <v-flex md6 sm6 xs12 class="box-list">
+                        <v-layout class="about-links" row wrap justify-space-between>
+                            <v-flex class="box-list">
                                 <div class="list-title">COMPANY</div>
                                 <ul>
-                                    <li><a href="#">About Spitball</a></li>
-                                    <li><a href="#">Jobs</a></li>
+                                    <li><a href="#">How Spitball Works</a></li>
+                                    <li><a href="#">Work For Us</a></li>
                                     <li><a href="#">Blog</a></li>
+                                    <li><a href="#">Contact Us</a></li>
                                 </ul>
                             </v-flex>
-                            <v-flex md6 sm6 xs12 class="box-list">
+                            <v-flex class="box-list">
                                 <div class="list-title">SUPPORT</div>
                                 <ul>
                                     <li><a href="#">Privacy Policy</a></li>
                                     <li><a href="#">Terms of Service</a></li>
-                                    <li><a href="#">Help</a></li>
-                                    <li><a href="#">Advertise with us</a></li>
+                                    <li><a href="#">FAQ</a></li>
+                                    <li><a href="#">Become a Partner</a></li>
                                 </ul>
                             </v-flex>
                         </v-layout>
