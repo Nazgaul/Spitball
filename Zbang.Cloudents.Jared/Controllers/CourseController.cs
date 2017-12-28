@@ -90,10 +90,8 @@ namespace Zbang.Cloudents.Jared.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-            var course = new Course(model.CourseName, model.University.Value)
-            {
-                CourseCode = model.CourseId,
-            };
+
+            var course = new Course(model.CourseName, model.University.Value);
 
             var result = await _repository.AddAsync(course, token).ConfigureAwait(false);
             return Request.CreateResponse(result.Id);
