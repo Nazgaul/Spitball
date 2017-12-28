@@ -18,8 +18,8 @@
             <scroll-list v-if="page&&items" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
                 <v-container class="pa-0">
                     <v-layout column>
-                        <v-flex order-xs1 v-if="!university">
-                            <v-text-field type="search" solo prepend-icon="sbf-search" placeholder="Where do you go to school" @click="$_openPersonalize"></v-text-field>
+                        <v-flex order-xs1 v-if="showPersonalizeField&&!university">
+                            <v-text-field type="search" solo prepend-icon="sbf-search" placeholder="Where do you go to school?" @click="$_openPersonalize"></v-text-field>
                         </v-flex>
                         <v-flex class="result-cell elevation-1 mb-2" xs-12 v-for="(item,index) in items" :key="index" @click="(hasExtra?selectedItem=item.placeId:'')" :class="(index>6?'order-xs4':'order-xs2')">
                             <component :is="'result-'+item.template" :item="item" :key="index" class="cell"></component>

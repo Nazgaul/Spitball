@@ -20,13 +20,16 @@ export default {
     watch: {
         showDialog(val) {
             !val && this.isfirst ? this.isfirst = false : "";
+            if(!val){
+                this.$root.$emit("closePersonalize");
+            }
         }
     },
     created() {
         if (this.isFirst) {
             this.isfirst = true;
             this.updateFirstTime("isFirst");
-            setTimeout(() => this.showDialog = true, 5000);
+            setTimeout(() => this.showDialog = true, 10);
         }
         this.$root.$on("personalize",
             (type) => {

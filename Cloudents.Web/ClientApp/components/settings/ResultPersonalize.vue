@@ -2,7 +2,9 @@
      <v-dialog ref="person" v-model="showDialog" max-width="518" :fullscreen="isSearch" :content-class="isSearch?'dialog-choose':''" :overlay="!isSearch">
         <v-card v-show="!isSearch">
             <v-card-title class="">Personalize Results</v-card-title>
-            <v-card-text>You can tailor the results to you by adding your school and classes.</v-card-text>
+            <v-card-text>
+                <v-text-field type="search" auto-grow solo prepend-icon="sbf-search" placeholder="Where do you go to school?" @click="$_personalize"></v-text-field>
+            </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn flat="flat" @click.native="showDialog = false">Not now</v-btn>
