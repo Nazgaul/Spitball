@@ -50,7 +50,7 @@
         computed: {
             placeholder: function () {
                 if (this.$vuetify.breakpoint.smAndUp) {
-                    return "Find study documents, textbooks, deals, tutors and more…";
+                    return "Find study documents, textbooks, tutors, jobs, deals and more...";
                 }
                 return "Study documents, textbooks, tutors …";
             }

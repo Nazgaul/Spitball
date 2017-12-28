@@ -3,9 +3,9 @@
         <v-toolbar-title>
             <logo class="logo"></logo>
         </v-toolbar-title>
-        <v-toolbar-items class="hidden-sm-and-down" v-if="!showText" v-for="action in links" :key="action.name">
-            <v-btn class="link-menu" flat href="#">{{ action.name }}</v-btn>
-        </v-toolbar-items>
+        <!--<v-toolbar-items class="hidden-sm-and-down" v-if="!showText" v-for="action in links" :key="action.name">-->
+            <!--<v-btn class="link-menu" flat href="#">{{ action.name }}</v-btn>-->
+        <!--</v-toolbar-items>-->
         <v-spacer v-if="$vuetify.breakpoint.smAndDown"></v-spacer>
         <v-menu bottom left v-if="$vuetify.breakpoint.smAndDown">
             <v-btn icon slot="activator">

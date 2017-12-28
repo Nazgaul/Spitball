@@ -18,7 +18,7 @@ let strips =
             floatingImages: ['laptopIcon', 'notebookIcon', 'bagIcon'],
             titleIcon: 'stripDocumentIcon',
             title: "Study Documents",
-            text: "Spitball curates content for you from the best sites on the web. The documents populate based on student ratings and are filtered by your school, classes, and preferences."
+            text: "Spitball curates study documents from the best sites on the web. Our notes, study guides and exams populate based on student ratings and are filtered by your school, classes and preferences."
         },
 
         flashcards: {
@@ -36,7 +36,7 @@ let strips =
             floatingImages: ['tutorIcon', 'discussionIcon','studentLaptopIcon'],
             titleIcon: 'stripTutorIcon',
             title: "Tutors",
-            text: "Spitball has teamed up with the most trusted tutoring services. All of our online and in-person tutors are highly qualified experts with educations from the best universities around the world."
+            text: "Spitball has teamed up with the most trusted tutoring services to help you ace your classes. All of our online and in-person tutors are highly qualified experts with educations from some of the best universities in the world."
         },
 
         textbooks: {
@@ -45,7 +45,7 @@ let strips =
             floatingImages: ['bookClosedIcon', 'bookStackIcon', 'bookOpenIcon'],
             titleIcon: "stripTextbooksIcon",
             title: "Textbooks",
-            text: "Spitball finds you textbooks at the best prices by simultaneously searching multiple websites. Compare prices to buy, rent, and sell back your books."
+            text: "Find the best prices to buy, rent and sell your textbooks by comparing hundreds of sites simultaneously."
         },
 
         askQuestion: {
@@ -53,7 +53,7 @@ let strips =
             image: "strip-ask-question.png",
             floatingImages: ['askQuestionMountainIcon', 'askQuestionHouseIcon', 'askQuestionRocketIcon'],
             titleIcon: 'stripAskQuestionIcon',
-            title: "Ask a Question",
+            title: "Ask A Question",
             text: "Ask any school related question and immediately get answers and information that relates specifically to you, your classes, and your university."
         },
 
@@ -63,7 +63,7 @@ let strips =
             floatingImages: ['jobsGraphIcon', 'jobsChemistryIcon', 'jobsSlideIcon'],
             titleIcon: 'stripJobsIcon',
             title: "Jobs",
-            text: "Easily find and apply to paid internships, part-time jobs and entry-level opportunities at thousands of Fortune 500 companies and startups."
+            text: "Easily search and apply to paid internships, part-time jobs and entry-level opportunities from local businesses all the way to Fortune 500 companies."
         },
         
         foodDeals: {
@@ -72,7 +72,7 @@ let strips =
             floatingImages: ['shoppingBagsIcon', 'headsetIcon', 'pizzaIcon'],
             titleIcon: "stripFoodDealsIcon",
             title: "Food and Deals",
-            text: "Find and discover exclusive, short-term offers from restaurants around your campus."
+            text: "Discover exclusive deals to local businesses, restaurants and bars near campus."
         }
 
 
@@ -82,19 +82,19 @@ let features =
 
         document: {
             title: "Millions of Documents",
-            text: "Find study guides, homework, and notes for courses at your school.",
+            text: "Find study guides, homework, practice exams and notes for courses at your school.",
             icon: "notebookIcon"
         },
 
         textbook: {
             title: "Save up to 50% on Textbooks",
-            text: "A new course load doesn’t have to break the bank! Find the best prices to rent, buy, or sell your textbooks.",
+            text: "A new course load doesn’t have to break the bank! Find the best prices to rent, buy or sell your textbooks.",
             icon: "bookStackIcon"
         },
 
         homework: {
             title: "Homework Help 24/7",
-            text: "Find the answers to all your questions with step-by-step help from expert tutors, in person or online.",
+            text: "Find the answers to all of your questions with help from expert tutors in person or online.",
             icon: "studentLaptopIcon"
         },
     }
@@ -125,23 +125,23 @@ let features =
         }];
     let testimonials=[{
         name: "Donna Floyd",
-        uni: "Sophomore at UC Davis",
-        testimonial: "As a sophomore, I found myself looking for a new way to communicate and study with my classmates. After searching online, I was shocked that there was no real solution that fit my lifestyle (nothing I could easily access on my phone or computer). Then someone invited me to Spitball... it saved me."
+        uni: "Sophomore at Rutgers",
+        testimonial: "After a tough freshman year, I found myself looking for new resources to help me stay organized and do better in school. Then a friend told me about Spitball - practice exams, study guides and more from the actual classes at my school. You saved me Spitball!"
     },
         {
             name: "Jack Harris",
-            uni: "Junior at UC Berkeley",
-            testimonial: "There have been many times when I would try to share files or a document with classmates over the school’s portal or other online studying tools, but it was a huge hassle! Then I started using Spitball and everything changed - I was easily able to upload all of my files, even video and audio files!"
+            uni: "Junior at Penn State",
+            testimonial: "There have been too many times when I spent countless hours searching the Internet for online study tools and class material. Finally, I found Spitball and have everything I need for college all in one place."
         },
         {
             name: "Daniel Kaplan",
-            uni: "Senior at UCLA",
-            testimonial: "It’s so nice to have all my notes, questions, answers, lectures, etc. in one place and always available online and in the palm of my hand! Spitball comes in handy when I need to compare class notes. Thank you Spitball for making my life a whole lot easier! I already know whom I have to thank first on graduation day :)"
+            uni: "Senior at Michigan",
+            testimonial: "It’s so nice to have all of my notes, questions, tutors and more in one place and always available. Spitball comes in handy when I miss class and need to find notes or homework help. Thank you Spitball for making my life a whole lot easier!"
         },
         {
             name: "Sarah Friedman",
-            uni: "Freshman at UC Santa Barbara",
-            testimonial: "Spitball is such a great idea! I love the quizzes - such a great way to interactively test my knowledge of the coursework! The chat feed is really helpful if you miss a class or don't understand the material. During my last semester, I feel like all I did was talk about Spitball! It was funny- people actually thought that it was my job."
+            uni: "Freshman at Syracuse",
+            testimonial: "Spitball is such a great idea! No more searching 100 different sites for class notes and study material. Plus, you can’t beat the textbook prices. Sorry campus bookstore, you’re old news."
         }];
     export{
         homeSuggest,bottomIcons,strips,features,sites,testimonials

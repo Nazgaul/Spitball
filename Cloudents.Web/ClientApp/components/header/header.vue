@@ -18,7 +18,7 @@
                                 <v-btn icon slot="activator">
                                     <v-icon>sbf-3-dot</v-icon>
                                 </v-btn>
-                                <v-list>
+                                <v-list class="settings-list">
                                     <v-list-tile @click="$_currentClick(item)" v-for="(item,index) in settingMenu" :key="index" :id="item.id">
                                         <v-list-tile-content>
                                             <v-list-tile-title>{{item.id==='university'&&getUniversityName?getUniversityName:item.name}}</v-list-tile-title>
