@@ -26,12 +26,14 @@ namespace Cloudents.Infrastructure.Search
         }
 
         [Cache(TimeConst.Day, "book")]
-        public async Task<IEnumerable<BookSearchDto>> SearchAsync(string term, int imageWidth, int page, CancellationToken token)
+        public async Task<IEnumerable<BookSearchDto>> SearchAsync(IEnumerable<string> term, int imageWidth, int page, CancellationToken token)
         {
+            term = term ?? new[] { "textbooks" };
+
             var nvc = new NameValueCollection
             {
                 ["key"] = Key,
-                ["keywords"] = term,
+                ["keywords"] = string.Join(" ", term),
                 ["page"] = (++page).ToString(),
                 ["f"] = "search",
                 ["image_width"] = imageWidth.ToString(),

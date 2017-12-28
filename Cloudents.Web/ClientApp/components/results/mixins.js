@@ -147,7 +147,6 @@ export const pageMixin =
 
         data() {
             return {
-                test:true,
                 items: '',
                 pageData: '',
                 selectedItem: null,
