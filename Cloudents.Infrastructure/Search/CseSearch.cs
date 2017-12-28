@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Google;
@@ -76,11 +77,12 @@ namespace Cloudents.Infrastructure.Search
                 var result = await request.ExecuteAsync(token).ConfigureAwait(false);
                 return result.Items?.Select(s =>
                 {
-                    string image = null;
+                    Uri image = null;
                     if (s.Pagemap != null && s.Pagemap.TryGetValue("cse_image", out var value)
                         && value[0].TryGetValue("src", out var t))
                     {
-                        image = t.ToString();
+                        image = new Uri(t.ToString());
+                        image = image.ChangeToHttps();
                     }
                     return new SearchResult
                     {
