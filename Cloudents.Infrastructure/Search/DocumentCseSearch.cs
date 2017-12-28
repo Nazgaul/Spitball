@@ -36,7 +36,7 @@ namespace Cloudents.Infrastructure.Search
             }
             if (model.Query != null)
             {
-                term.Add(string.Join(" ", model.Query));
+                term.AddNotNull(string.Join(" ", model.Query));
             }
             term.AddNotNull(model.DocType);
             if (term.Count == 0)

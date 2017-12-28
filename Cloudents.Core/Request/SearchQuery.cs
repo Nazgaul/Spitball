@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Request
@@ -8,7 +9,7 @@ namespace Cloudents.Core.Request
         public static SearchQuery Document(IEnumerable<string> query, long? university,
             IEnumerable<long> courses, IEnumerable<string> source, int page, SearchCseRequestSort sort, string docType)
         {
-            return  new SearchQuery(query,university,courses,source,page,sort,docType);
+            return new SearchQuery(query, university, courses, source, page, sort, docType);
         }
 
         public static SearchQuery Flashcard(IEnumerable<string> query, long? university,
@@ -26,6 +27,7 @@ namespace Cloudents.Core.Request
             IEnumerable<long> courses, IEnumerable<string> source, int page, SearchCseRequestSort sort, string docType)
         {
             Query = query;
+
             University = university;
             Courses = courses;
             Source = source;
