@@ -2,6 +2,7 @@
 using System.Linq;
 using AutoMapper;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Extension;
 using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Infrastructure.Converters
@@ -16,16 +17,19 @@ namespace Cloudents.Infrastructure.Converters
                 return json["offer"].Select(s =>
                 {
                     var merchantImage = s["merchant"]["image"].Value<string>();
-                    Uri uri = null;
-                    if (merchantImage != null)
-                    {
-                        var uriBuilder = new UriBuilder(merchantImage)
-                        {
-                            Scheme = Uri.UriSchemeHttps,
-                            Port = -1
-                        };
-                        uri = uriBuilder.Uri;
-                    }
+                    var uri = new Uri(merchantImage);
+
+                    uri = uri.ChangeToHttps();
+                    //Uri uri = null;
+                    //if (merchantImage != null)
+                    //{
+                    //    var uriBuilder = new UriBuilder(merchantImage)
+                    //    {
+                    //        Scheme = Uri.UriSchemeHttps,
+                    //        Port = -1
+                    //    };
+                    //    uri = uriBuilder.Uri;
+                    //}
                     return new BookPricesDto
                     {
                         Condition = s["condition"]["condition"].Value<string>(),

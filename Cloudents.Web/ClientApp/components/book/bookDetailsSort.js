@@ -7,11 +7,18 @@ export default {
         $_changeTab(val) {
             this.UPDATE_LOADING(true);
             let _this = this;
-            this.$store.dispatch("bookDetails", { pageName: "bookDetails", isbn13: this.id, type: val }).then(({ data }) => {
+            this.$store.dispatch("bookDetails", {
+                pageName: "bookDetails",
+                isbn13: _this.id,
+                type: val
+            }).then(({ data }) => {
                 _this.$root.$children[0].$refs.mainPage.pageData = data;
                 this.UPDATE_LOADING(false);
             });
         }
     },
-    props: { id: {} }
+    created() {
+        console.log(this.id);
+    },
+    props: { id: { Number } }
 }

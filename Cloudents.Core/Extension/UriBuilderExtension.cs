@@ -5,7 +5,7 @@ using System.Net;
 
 namespace Cloudents.Core.Extension
 {
-    public static class UriBuilderExtension
+    public static class UriBuilderExtensions
     {
         public static void AddQuery(this UriBuilder builder, NameValueCollection val)
         {
@@ -22,6 +22,20 @@ namespace Cloudents.Core.Extension
             {
                 builder.Query = query;
             }
+        }
+    }
+
+    public static class UriExtensions
+    {
+        public static Uri ChangeToHttps(this Uri uri)
+        {
+            var uriBuilder = new UriBuilder(uri)
+            {
+                Scheme = Uri.UriSchemeHttps,
+                Port = -1
+            };
+            return uriBuilder.Uri;
+
         }
     }
 
