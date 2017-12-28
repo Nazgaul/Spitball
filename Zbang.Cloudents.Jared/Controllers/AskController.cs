@@ -35,7 +35,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> Get([FromUri] AskRequest model,
             CancellationToken token)
         {
-            var query = new SearchQuery(model.Term, model.Page.GetValueOrDefault());
+            var query = SearchQuery.Ask(model.Term, model.Page.GetValueOrDefault());
             var tResult = _searchProvider.SearchAsync(query, token);
             var tVideo = Task.FromResult<VideoDto>(null);
             if (model.Page.GetValueOrDefault() == 0)

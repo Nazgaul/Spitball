@@ -37,7 +37,10 @@ namespace Cloudents.Infrastructure.Search
             {
                 term.Add(string.Join(" ", model.Query));
             }
-
+            if (term.Count == 0)
+            {
+                term.Add("accounting");
+            }
 
             var result = Enumerable.Range(model.Page * CseSearch.NumberOfPagesPerRequest, CseSearch.NumberOfPagesPerRequest).Select(s =>
             {

@@ -10,6 +10,7 @@ namespace Cloudents.Infrastructure.Search
 {
     public class QuestionSearch : IQuestionSearch
     {
+        public const string QueryString = "world war 2";
         private readonly ICseSearch _search;
 
         public QuestionSearch(ICseSearch search)
@@ -25,6 +26,10 @@ namespace Cloudents.Infrastructure.Search
                 term.Add(string.Join(" ", model.Query));
             }
 
+            if (term.Count == 0)
+            {
+                term.Add(QueryString);
+            }
 
             var result = Enumerable.Range(model.Page * CseSearch.NumberOfPagesPerRequest, CseSearch.NumberOfPagesPerRequest).Select(s =>
             {

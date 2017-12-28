@@ -35,7 +35,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         //TODO we need geo point to be on in here since case 8920
         public async Task<HttpResponseMessage> Get([FromUri]TutorRequest model, CancellationToken token)
         {
-            var result = await _tutorSearch.SearchAsync(string.Join(" ", model.Term),
+            var result = await _tutorSearch.SearchAsync(model.Term,
                 model.Filter,
                 model.Sort.GetValueOrDefault(TutorRequestSort.Price),
                 model.Location,
@@ -55,7 +55,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         [VersionedRoute("api/tutor", "2017-12-19", Name = "TutorSearch"), HttpGet]
         public async Task<HttpResponseMessage> TutorV2Async([FromUri]TutorRequest model, CancellationToken token)
         {
-            var result = await _tutorSearch.SearchAsync(string.Join(" ", model.Term),
+            var result = await _tutorSearch.SearchAsync(model.Term,
                 model.Filter,
                 model.Sort.GetValueOrDefault(TutorRequestSort.Price),
                 model.Location,
