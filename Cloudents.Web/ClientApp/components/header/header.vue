@@ -9,8 +9,8 @@
                         </router-link>
                     </v-toolbar-title>
                     <v-toolbar-items>
-                        <form v-if="$vuetify.breakpoint.mdAndUp" @submit.prevent="submit">
-                            <v-text-field type="search" light solo class="search-b" placeholder="Ask me anything" v-model="qFilter" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>
+                        <form v-if="$vuetify.breakpoint.mdAndUp" @submit.prevent="submit" ref="myForm">
+                            <v-text-field type="search" light solo class="search-b" ref="qFilter" placeholder="Ask me anything" v-model="qFilter" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>
                         </form>
                         <v-spacer v-if="$vuetify.breakpoint.smAndDown"></v-spacer>
                         <div class="settings-wrapper d-flex align-center">
