@@ -64,6 +64,11 @@
                 this.filters[id] = listo;
                 if (val === 'inPerson' && type) this.sort = "price";
             }
+        },
+        watch:{
+            filterVal(val){
+                this.filters=val;
+            }
         }
     }
 </script>
