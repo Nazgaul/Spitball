@@ -4,7 +4,15 @@ import { mapActions, mapGetters } from 'vuex';
 import { settingMenu } from '../settings/consts';
 import { micMixin } from '../helpers/mic';
 
-
+let placeholders={
+    job:"Your field of expertise...",
+    tutor: "Find a tutor...",
+    note:"Find study documents in...",
+    book:"Textbook title of ISBN...",
+    ask:"Ask anything...",
+    flashcard:"look for flashcards...",
+    food:"Search for deals..."
+}
 export default {
     mixins: [micMixin],
     components: {
@@ -13,6 +21,7 @@ export default {
     data() {
         return {
             settingMenu,
+            placeholders,
             qFilter: this.userText,
         };
     },
@@ -70,6 +79,8 @@ export default {
                     luisTerm, docType
                 };
                 this.$nextTick(() => {
+                    this.$refs.myForm.blur();
+                    this.$refs.qFilter.blur();
                     this.$router.push({ path: result, query: { q: this.qFilter }, meta: { ...this.$route.meta } });
                 });
             });
@@ -107,10 +118,10 @@ export default {
                 if (this.myClasses && (result.includes('note') || result.includes('flashcard'))) query.course = this.myClasses;
                 this.$router.push({ path: '/' + result, query })
             } else {
-                if (!this.getUniversityName && (result !== 'food' && result !== 'job')) {
-                    this.$root.$children[0].$refs.personalize.showDialog = true;
-                    return;
-                }
+                // if (!this.getUniversityName && (result !== 'food' && result !== 'job')) {
+                //     this.$root.$children[0].$refs.personalize.showDialog = true;
+                //     return;
+                // }
                 this.$router.push({ path: '/' + result, query: { q: "" } });
             }
             //THIS is new version of vuex
