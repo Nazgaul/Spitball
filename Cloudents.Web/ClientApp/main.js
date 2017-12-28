@@ -8,7 +8,7 @@ import VueRouter from "vue-router";
 const vueAdsense = () => import("vue-adsense");
 import VueAnalytics from "vue-analytics";
 import WebFont from "webfontloader";
-//import vueSmoothScroll from 'vue-scrollto'
+import checkBox from "./components/app/sb-checkbox"
 
 //NOTE: put changes in here in webpack vendor as well
 const vuetifyComponents = {
@@ -31,7 +31,8 @@ const vuetifyComponents = {
     VMenu,
     VSwitch,
     VTabs,
-    VIcon
+    VIcon,
+    VCheckbox
 };
 import {
     Vuetify,
@@ -54,7 +55,8 @@ import {
     VMenu,
     VSwitch,
     VTabs,
-    VIcon
+    VIcon,
+    VCheckbox
 
 } from "vuetify"
 import * as route from "./routes";
@@ -82,6 +84,7 @@ Vue.use(Vuetify,
 Vue.component("scroll-list", scroll);
 Vue.component("adsense", vueAdsense);
 Vue.component("general-page", GeneralPage);
+Vue.component("sb-checkbox",checkBox)
 
 const router = new VueRouter({
     mode: "history",

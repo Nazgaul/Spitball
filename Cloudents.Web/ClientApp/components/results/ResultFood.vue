@@ -21,14 +21,14 @@
                 return { lat: this.item.location.latitude, lng: this.item.location.longitude }
             },
             //pos: function () { return { lat: this.item.location.latitude, lng: this.item.location.longitude } }
-            pos: function () { return { lat: 10.0, lng: 10.0 }}
+            pos: function () { return { lat: 10.0, lng: 10.0 } }
         },
-        methods:{
-            $_clickItem(){
-                if(!this.$vuetify.breakpoint.xsOnly){
-                    this.showMap=!this.showMap;
-                }else{
-                    this.$router.push({name:"foodDetails",params:{item:this.item,id:this.item.placeId}})
+        methods: {
+            $_clickItem() {
+                if (!this.$vuetify.breakpoint.xsOnly) {
+                    this.showMap = !this.showMap;
+                } else {
+                    this.$router.push({ name: "foodDetails", params: { item: this.item, id: this.item.placeId } })
                 }
             }
         }

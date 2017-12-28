@@ -9,11 +9,12 @@
 }
 
 
-@spaceFromNavBar: @resultsTabsHeight + 40; //40 px of space according to Shlomi's request
+//@spaceFromNavBar: @resultsTabsHeight + 40; //40 px of space according to Shlomi's request
 
+@marginTop : 36px;
 .sec-result {
     max-width: 504px;
-    margin-top: 36px;
+    margin-top: @marginTop;
     //margin-top: @spaceFromTop;
     .result-cell {
         border-radius: 4px;
@@ -37,7 +38,7 @@
 
 
 .side-bar {
-    @upperSpace: @navBarHeightDesktop + @spaceFromNavBar + 8; //TODO: check why content--wrap containes margin of -8 pixels
+    @upperSpace: @navBarHeightMdAndUp + @marginTop; //TODO: check why content--wrap containes margin of -8 pixels
     position: -webkit-sticky;
     position: sticky;
     max-height: ~"calc(100vh - @{upperSpace} - 16px)"; //container padding from bottom is 16

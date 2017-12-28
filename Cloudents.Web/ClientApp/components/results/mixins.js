@@ -28,7 +28,7 @@ export const sortAndFilterMixin = {
         $_calcTerm: { type: Function },
         sort: { type: String },
         page: { type: Object },
-        params: { type: Object },
+        params: { type: Object }
     },
     computed: {
         ...mapGetters(['loading'])
@@ -145,6 +145,7 @@ export const pageMixin =
 
         data() {
             return {
+                test:true,
                 items: '',
                 pageData: '',
                 selectedItem: null,
@@ -168,6 +169,7 @@ export const pageMixin =
 
         },
         created() {
+            
             //If query have courses save those courses
             if (this.query.course) this.$route.meta.myClasses = this.query.course;
             this.UPDATE_LOADING(true);
@@ -191,8 +193,12 @@ export const pageMixin =
                         //fetch data with the params
                         this.fetchingData({
                             name: this.name,
-                            params: { ...this.query, ...this.params },
-                            luisTerm: term, docType
+                            params: { ...this.query, ...this.params }, //TODO: new version of vuex dont need it
+                            luisTerm: term, docType //TODO: new version of vuex dont need it
+
+                            //This is new version
+                            //name: this.name
+                            
                         })
                             .then(({ data }) => {
                                 updateData.call(this, data);

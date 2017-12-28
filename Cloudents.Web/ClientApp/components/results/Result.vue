@@ -1,27 +1,16 @@
 ﻿﻿
 <template>
-    <general-page>
-        <!--<v-btn icon slot="mobileFilter" @click="showFilters=true" class="text-xs-right mb-2">
-            <v-icon>sbf-filter</v-icon>
-        </v-btn>-->
-        <!--<button type="button" slot="mobileFilter" @click="showFilters=true" class="text-xs-right mb-2">
-
-            <filter-icon></filter-icon>
-        </button>-->
-        <!--<v-chip color="color-light-gray" label slot="selectedFilters" slot-scope="props" class="filter-chip" @click="$_removeFilter(props.item)">
-            {{$_showSelectedFilter(props.item) | capitalize}}
-            <v-icon right>sbf-close</v-icon>
-        </v-chip>-->
+    <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp">
         <div slot="main">
             <div class="d-flex mobile-filter hidden-sm-and-up">
-                <v-btn icon :color="`color-${name}`"  flat  slot="mobileFilter" @click="showFilters=true" class="text-xs-right mb-2">
-                    <v-icon >sbf-filter</v-icon>
+                <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right mb-2">
+                    <v-icon>sbf-filter</v-icon>
                 </v-btn>
             </div>
             <div v-if="filterSelection.length" class="pb-3">
                 <template v-for="item in filterSelection">
-                    <v-chip color="color-light-gray" label slot="selectedFilters" slot-scope="props" class="filter-chip" @click="$_removeFilter(props.item)">
-                        {{$_showSelectedFilter(props.item) | capitalize}}
+                    <v-chip color="color-light-gray" label class="filter-chip" @click="$_removeFilter(item)">
+                        {{$_showSelectedFilter(item) | capitalize}}
                         <v-icon right>sbf-close</v-icon>
                     </v-chip>
                 </template>
@@ -44,7 +33,9 @@
         </div>
         <template slot="sideBar" v-if="page">
             <component :is="($vuetify.breakpoint.xsOnly?'mobile-':'')+'sort-and-filter'"
-                       :sortOptions="page.sort" :sortCallback="$_updateSort" :sortVal="sort"
+                       :sortOptions="page.sort" 
+                       :sortCallback="$_updateSort"
+                       :sortVal="sort"
                        v-model="showFilters"
                        :filterOptions="filterObject"
                        :filterCallback="$_updateFilter"
@@ -77,7 +68,7 @@
             </v-container>
         </scroll-list>-->
 
-        <component slot="adsense" v-if="hasExtra&&!isEmpty" :is="name+'-extra'" :place="selectedItem"></component>
+        <component slot="rightSide" v-if="hasExtra&&!isEmpty" :is="name+'-extra'" :place="selectedItem"></component>
         <router-link slot="suggestCell" v-if="!hasExtra" tag="v-flex" class="result-cell hidden-md-and-down elevation-1 mb-2 xs-12 order-xs3 " :to="{path:'/'+currentSuggest,query:{q:this.query.q}}">
             <suggest-card :name="currentSuggest"></suggest-card>
         </router-link>
