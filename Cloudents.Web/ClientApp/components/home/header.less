@@ -1,5 +1,7 @@
 ﻿@import "../../mixin.less";
 
+@maxWidth959: 768px;
+
 .h-p-header {
 
     &.toolbar {
@@ -27,7 +29,7 @@
         padding-left: 20px;
 
         @media(max-width: @tabletEndBreakPoint) {
-            max-width: 736px;
+            max-width: @maxWidth959;
             padding-left: 0;
         }
 
@@ -56,11 +58,16 @@
     }
 
 
-    .sbf-3-dot {
+    /*.sbf-3-dot {
         color: #3293F6;
-    }
+    }*/
 
     .logo {
         margin-right: 10px;
+
+        @media(max-width: @tabletEndBreakPoint) {
+            width:114px;
+            height:23px;
+        }
     }
 }

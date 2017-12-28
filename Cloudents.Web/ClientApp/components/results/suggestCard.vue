@@ -6,7 +6,7 @@
                     <div class="action">Show me</div>
             </v-layout>
             <div class="text">
-                I found some sweet {{name}} for you.  You can thank me later
+                {{suggestList[name]}}
                 <!--<img src="./img/smily.png"
                      srcset="./img/smily@2x.png 2x,
                                 ./img/smily@3x.png 3x"
@@ -15,13 +15,20 @@
         </v-container>
     </button>
 </template>
-pl
-ip
 <script>
     import logo from "./svg/sb-logo.svg";
+    const suggestList={
+        job:"Need some cash? Find the best jobs & internships for students at your school.",
+        tutor:"Still need help? Connect with a tutor and make sure you ace your class.",
+    note:"Searching for study documents for your classes? Look no further.",
+    book:"Buying or selling a textbook? We'll make sure you get the best price!",
+    ask:"Have a question you need answered? Try us.",
+        flashcard:"We found some flashcards that may help you study!"};
     export default {
         components: { logo },
-
+        data(){
+            return{suggestList}
+            },
         props: {
             name: { type: String }
         }

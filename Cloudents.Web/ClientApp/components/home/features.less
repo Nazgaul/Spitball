@@ -3,35 +3,32 @@
 .features {
     color: white;
     text-align: center;
-    margin-top: 98px;
+    margin-top: 8%;
     max-width: 1128px;
 
-    @media(max-width: @tabletEndBreakPoint){
+    @media(max-width: @tabletEndBreakPoint) {
         max-width: 768px;
     }
-
-    @media(max-width: 600px) {
+    /*@media(max-width: 600px) {
         margin-top: 16px;
-    }
-
-
-    h3 {
+    }*/
+    /*h3 {
         font-weight: bold;
         line-height: normal;
-    }
 
+      
+    }*/
     .feature {
-        @media(min-width: 600px) {
+        /*@media(min-width: 600px) {
             max-width: 340px;
-        }
-
+        }*/
         .icon-wrapper {
             height: 64px;
-            margin-bottom: 12px;
-
-            @media(max-width: 600px) {
+            //margin-bottom: 12px;
+            .inTheMiddle();
+            /*@media(max-width: 600px) {
                 height: 50px;
-            }
+            }*/
         }
 
         svg {
@@ -41,10 +38,12 @@
         &.document {
             svg {
                 transform: rotate(-15deg);
-                width: 54px;
+                width: 19%;
                 height: auto;
-
-                @media(max-width: 600px) {
+                /*@media(max-width: @tabletEndBreakPoint) {
+                   width:15%;
+                }*/
+                @media(max-width: @mobileEndBreakPoint) {
                     width: 28px;
                 }
             }
@@ -52,57 +51,69 @@
 
         &.textbook {
             svg {
-                width: 68px;
+                //width: 68px;
+                width: 24%;
                 height: auto;
 
-                @media(max-width: 600px) {
+                @media(max-width: @mobileEndBreakPoint) {
+                    width: 32px;
+                }
+                /*@media(max-width: 600px) {
                     width: 32px;
                     padding-top: 6px;
-                }
+                }*/
             }
         }
 
         &.homework {
             svg {
                 transform: rotate(-12.5deg);
-                width: 60px;
+                //width: 60px;
+                width: 21%;
                 height: auto;
-                margin-top: -14px;
-                margin-left: -20px;
 
-                @media(max-width: 600px) {
+                @media(max-width: @mobileEndBreakPoint) {
+                    width: 26px;
+                }
+                //margin-top: -14px;
+                //margin-left: -20px;
+                /*@media(max-width: 600px) {
                     width: 26px;
                     padding-bottom: 12px;
-                }
+                }*/
             }
         }
 
         .wrapper {
-            @media(max-width: 600px) {
+            /*@media(max-width: 600px) {
                 flex-wrap: nowrap;
                 max-width: 300px;
                 margin: 0 auto;
-            }
+            }*/
         }
     }
 
     .data {
         font-size: 18px;
         letter-spacing: -0.3px;
-
-        @media(max-width: 600px) {
+        /*@media(max-width: 600px) {
             font-size: 14px;
 
             h3, p {
                 margin: 0
             }
-        }
-
+        }*/
         h3 {
             letter-spacing: -1.4px;
             font-size: 20px;
             font-weight: 600;
             color: #302eb5;
+
+            @media(max-width: @tabletEndBreakPoint) {
+                color: #4a4a4a;
+                font-size: 16px;
+                letter-spacing: -0.4px;
+            }
         }
         /*h3, p {
             font-size: inherit;

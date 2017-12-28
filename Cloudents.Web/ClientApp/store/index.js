@@ -12,7 +12,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     modules: { Search, User },
     plugins: [
-       // createPersistedState({ paths: ["User"] })
+       createPersistedState({ paths: ["User"] })
     ]
 });
 export default store;

@@ -18,13 +18,20 @@ export default {
             this.isLoading = false;
             this.val="";
             this.items = [];
-            //this.$refs.searchText ? this.$refs.searchText.inputValue = "" : this.$_search("");
+            this.$refs.searchText ? this.$refs.searchText.focus():"";
         },
         val: debounce(function () {
             this.items = [];
             if (this.val.length > 2)
             this.$_search();
-        }, 500)
+        }, 500),
+        isShown(val){
+            if(val&&this.$refs.searchText){
+                this.$refs.searchText.focus();
+            }else if(!val&&this.$refs.searchText){
+                this.$refs.searchText.inputValue="";
+            }
+        }
     },
     computed: {
         ...mapGetters(["courseFirstTime", "myCourses", "getUniversityImage", "getUniversityName", "myCoursesId"]),
@@ -37,7 +44,6 @@ export default {
             return this.val.length > 2 && this.currentType === typesPersonalize.course;
         },
 
-
         currentItem: function () {
             return searchObjects[this.currentType];
         },
@@ -46,7 +52,7 @@ export default {
                 this.items = this.items.filter(i => !this.myCoursesId.includes(i.id));
                 return this.myCourses;
             }
-        },
+        }
 
     },
     data() {
@@ -58,14 +64,13 @@ export default {
             currentAction: "",
             newCourseName: "",
             val: ""
-
         };
     },
 
     components: {
         CourseAdd, PageLayout, searchItemUniversity, searchItemCourse, plusButton
     },
-    props: { type: { type: String, required: true }, keep: { type: Boolean }, isFirst: { type: Boolean } },
+    props: { type: { type: String, required: true }, keep: { type: Boolean }, isFirst: { type: Boolean },isShown:{type:Boolean} },
     methods: {
         ...mapMutations({ updateUser: "UPDATE_USER" }),
         ...mapActions(["createCourse"]),

@@ -27,18 +27,18 @@
                         <div class="sort-filter">
                             <div v-for="s in k.data" :key="(s.id?s.id:s)" class="filter">
                                 <!--<v-checkbox :label="s.name?s.name:s" :inputValue="props.filterVal.includes(s.id?s.id:s.toString())"></v-checkbox>-->
-                                <sb-checkbox hide-details @change="props.filterCallback({id:k.modelId,val:(s.id?s.id:s),type:$event})" :inputValue="props.filterVal.includes(s.id?s.id:s.toString())">
-                                    <span slot="label" :title="s.name?s.name:s">
-                                    {{s.name?s.name:s | capitalize}}
-                                    </span>
-                                </sb-checkbox>
+                                <!--<sb-checkbox hide-details @change="props.filterCallback({id:k.modelId,val:(s.id?s.id:s),type:$event})" :inputValue="props.filterVal.includes(s.id?s.id:s.toString())">-->
+                                    <!--<span slot="label" :title="s.name?s.name:s">-->
+                                    <!--{{s.name?s.name:s | capitalize}}-->
+                                    <!--</span>-->
+                                <!--</sb-checkbox>-->
                                 <!--<sb-checkbox :inputValue="true" :label="s.name?s.name:s"></sb-checkbox>-->
 
-                                <!--<input type="checkbox" :id="(s.id?s.id:s)" :checked="props.filterVal.includes(s.id?s.id:s.toString())"-->
-                                       <!--@change="props.filterCallback({id:k.modelId,val:(s.id?s.id:s),type:$event})" />-->
-                                <!--<label :title="s.name?s.name:s" :for="(s.id?s.id:s)">-->
-                                    <!--{{s.name?s.name:s | capitalize}}-->
-                                <!--</label>-->
+                                <input type="checkbox" :id="(s.id?s.id:s)" :checked="props.filterVal.includes(s.id?s.id:s.toString())"
+                                       @change="props.filterCallback({id:k.modelId,val:(s.id?s.id:s),type:$event})" />
+                                <label :title="s.name?s.name:s" :for="(s.id?s.id:s)">
+                                    {{s.name?s.name:s | capitalize}}
+                                </label>
                             </div>
                             <slot :name="`${k.modelId}EmptyState`" v-if="k.data&&k.data.length===0"></slot>
                             <slot :name="`${k.modelId}ExtraState`" v-else></slot>
