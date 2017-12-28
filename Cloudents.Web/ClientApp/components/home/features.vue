@@ -1,7 +1,7 @@
 ﻿<template functional>
     <v-container class="features" grid-list-xs>
         <v-layout row justify-space-around wrap>
-            <v-flex v-for="(feature, index) in props.features" :key="index" :class="`feature ${index}`" xs4 pa-3>
+            <v-flex v-for="(feature, index) in props.features" :key="index" :class="`feature ${index}`" xs4 px-3 mb-3>
                 <v-layout class="wrapper" column align-top justify-space-between d-flex wrap>
                     <v-flex class="icon-wrapper" xs12>
                         <slot :type="feature.icon" name="item" ></slot>
