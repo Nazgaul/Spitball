@@ -24,7 +24,14 @@ export default {
             this.items = [];
             if (this.val.length > 2)
             this.$_search();
-        }, 500)
+        }, 500),
+        isShown(val){
+            if(val&&this.$refs.searchText){
+                this.$refs.searchText.focus();
+            }else if(!val&&this.$refs.searchText){
+                this.$refs.searchText.inputValue="";
+            }
+        }
     },
     computed: {
         ...mapGetters(["courseFirstTime", "myCourses", "getUniversityImage", "getUniversityName", "myCoursesId"]),
@@ -63,7 +70,7 @@ export default {
     components: {
         CourseAdd, PageLayout, searchItemUniversity, searchItemCourse, plusButton
     },
-    props: { type: { type: String, required: true }, keep: { type: Boolean }, isFirst: { type: Boolean } },
+    props: { type: { type: String, required: true }, keep: { type: Boolean }, isFirst: { type: Boolean },isShown:{type:Boolean} },
     methods: {
         ...mapMutations({ updateUser: "UPDATE_USER" }),
         ...mapActions(["createCourse"]),

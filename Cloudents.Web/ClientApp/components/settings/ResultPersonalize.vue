@@ -11,7 +11,7 @@
                 <v-btn flat="flat" @click.native="$_personalize">Personalize</v-btn>
             </v-card-actions>
         </v-card>
-         <search-item v-model="showDialog" v-show="isSearch" :type="type" :keep="keep" :isFirst="isfirst"></search-item>
+         <search-item ref="search" v-model="showDialog" v-show="isSearch" :type="type" :keep="keep" :isFirst="isfirst" :isShown="isSearch&&showDialog"></search-item>
     </v-dialog>
 </template>
 <style lang="less" src="./ResultPersonalize.less">
