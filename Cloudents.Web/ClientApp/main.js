@@ -113,7 +113,8 @@ Vue.filter('capitalize',
     });
 Vue.filter('ellipsis',
     function (value, characters) {
-        if (value && (value.length <= characters))
+        value = value || '';
+        if (value.length <= characters)
             return value;
         return value.substr(0, characters) + '...';
 
