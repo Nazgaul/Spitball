@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -28,12 +29,13 @@ namespace Cloudents.Infrastructure.Search
         [Cache(TimeConst.Day, "book")]
         public async Task<IEnumerable<BookSearchDto>> SearchAsync(IEnumerable<string> term, int imageWidth, int page, CancellationToken token)
         {
-            term = term ?? new[] { "textbooks" };
+            var query = string.Join(" ", term ?? Enumerable.Empty<string>()) ?? "textbooks";
+            //term = term ?? new[] { "textbooks" };
 
             var nvc = new NameValueCollection
             {
                 ["key"] = Key,
-                ["keywords"] = string.Join(" ", term),
+                ["keywords"] = query,
                 ["page"] = (++page).ToString(),
                 ["f"] = "search",
                 ["image_width"] = imageWidth.ToString(),

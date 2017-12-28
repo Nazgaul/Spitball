@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 
@@ -23,7 +24,7 @@ namespace Cloudents.Infrastructure.Search
             var term = new List<string>();
             if (model.Query != null)
             {
-                term.Add(string.Join(" ", model.Query));
+                term.AddNotNull(string.Join(" ", model.Query));
             }
 
             if (term.Count == 0)
