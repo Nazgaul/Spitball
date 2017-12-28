@@ -11,7 +11,7 @@
 
         <sort-and-filter :sortOptions="sortOptions" :sortCallback="$_updateSortMobile" :sortVal="sortVal"
                          :filterOptions="filterOptions"
-                         :filterCallback="$_updateFilterMobile" :filterVal="filterVal">
+                         :filterCallback="$_updateFilterMobile" :filterVal="selectedFilters">
             
             <!--</template>-->
             <!--<template slot="courseEmptyState">
@@ -33,7 +33,7 @@
             event: "input"
         },
         data() {
-            return { filters: {}, sort: "" }
+            return { filters: {}, sort: "",selectedFilters:[]}
         },
         components: { SortAndFilter },
         props: { value: { type: Boolean }, sortOptions: {}, filterOptions: {}, filterVal: {}, sortVal: {} },
@@ -55,8 +55,11 @@
             $_updateFilterMobile({ id, val, type }) {
                 let currentFilter = this.filters[id] || [];
                 let listo = [val, ...currentFilter];
-                if (!type.target.checked) {
+                if (!type) {
                     listo = currentFilter.filter(i => i.toString() !== val.toString());
+                    this.selectedFilters=this.selectedFilters.filter(i=>i!==val);
+                }else{
+                    this.selectedFilters.push(val);
                 }
                 if (id === 'course') {
                     this.$route.meta.myClasses = listo;
@@ -68,7 +71,11 @@
         watch:{
             filterVal(val){
                 this.filters=val;
+                this.selectedFilters=val;
             }
+        },
+        created(){
+            this.selectedFilters=this.filterVal;
         }
     }
 </script>

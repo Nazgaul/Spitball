@@ -240,7 +240,7 @@ export const pageMixin =
                 const currentFilter = !this.query[id] ? [] : Array.isArray(this.query[id]) ? this.query[id] : [this.query[id]];
                 let updatedList = [val, ...currentFilter];
                 //if the selected was uncheck remove this filter from the list
-                if (!type.target.checked) {
+                if (!type) {
                     updatedList = currentFilter.filter(i => i.toString() !== val.toString());
                 }
                 //If it course l;ist save it for next
