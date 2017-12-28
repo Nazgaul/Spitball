@@ -118,10 +118,10 @@ export default {
                 if (this.myClasses && (result.includes('note') || result.includes('flashcard'))) query.course = this.myClasses;
                 this.$router.push({ path: '/' + result, query })
             } else {
-                if (!this.getUniversityName && (result !== 'food' && result !== 'job')) {
-                    this.$root.$children[0].$refs.personalize.showDialog = true;
-                    return;
-                }
+                // if (!this.getUniversityName && (result !== 'food' && result !== 'job')) {
+                //     this.$root.$children[0].$refs.personalize.showDialog = true;
+                //     return;
+                // }
                 this.$router.push({ path: '/' + result, query: { q: "" } });
             }
             //THIS is new version of vuex
