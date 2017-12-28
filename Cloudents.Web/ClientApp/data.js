@@ -5,9 +5,7 @@ export let verticals =
         note: {
             id: routes.notesRoute,
             name: "Study Documents",
-            //image: "document",
-            // resultTitle: "I found some documents that might help.See what you think!",
-            //emptyState: "Darn, I wasn't able to find any documents.Try these other options.",
+            needLocation:false,
             filter: [{ id: "course", name: "My Courses" }, { id: "source", name: "sources" }],
             sort: [
                 { id: "relevance", name: "relevance" },
@@ -17,9 +15,7 @@ export let verticals =
         flashcard: {
             id: routes.flashcardRoute,
             name: "Flashcards",
-            //image: "flashcard",
-            //resultTitle: "Oh look - I found some flashcards for you.Test yourself!",
-            //emptyState: "Sorry, I did not find any quiz results...",
+            needLocation: false,
             filter: [
                 { id: "course", name: "My Courses" },
                 { id: "source", name: "sources" }
@@ -32,9 +28,7 @@ export let verticals =
         tutor: {
             id: routes.tutorRoute,
             name: "Tutors",
-            //image: "tutor",
-            //resultTitle: "I found these tutors. Help is just a click away!",
-            //emptyState: "Sorry, I did not find any tutors...",
+            needLocation: true,
             filter: [
                 //{ id: "all", name: "all" },
                 { id: "online", name: "Online Lessons" },
@@ -52,14 +46,12 @@ export let verticals =
         ask: {
             id: routes.questionRoute,
             name: "Ask a Question"
-            //image: "ask"
-            //resultTitle:  "I found a few things that I think are relevant. Check these out.",
-            //emptyState: "I could not find any relevant answers.Try these other options.",
-            //sort: ""
+            
         },
         job: {
             id: routes.jobRoute,
             name: "Jobs",
+            needLocation: true,
             filter: [{ id: "jobType", name: "job type" },{id: "filter", name: "Filter" }],
             sort: [
                 { id: "price", name: "price" },
@@ -68,6 +60,7 @@ export let verticals =
         },
         food: {
             id: routes.foodRoute,
+            needLocation: true,
             name: "Food and Deals",
             filter: [
                 { id: "openNow", name: "Open now" }]

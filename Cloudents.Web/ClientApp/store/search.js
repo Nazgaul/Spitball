@@ -1,10 +1,9 @@
 ﻿﻿import { SEARCH, FLOW } from "./mutation-types"
-import {interpetPromise} from "./../services/resources"
+import { interpetPromise } from "./../services/resources"
 import searchService from "./../services/searchService"
 
 const state = {
     loading: false,
-    scrollingLoader: false,
     search: {
         page: 0,
         term: ""
@@ -16,8 +15,8 @@ const mutations = {
         state.search.page = payload ? 0 : 1;
         state.loading = payload;
     },
-    [SEARCH.UPDATE_SEARCH_PARAMS](state, {term,location}) {
-        state.search = { ...state.search, term,location} ;
+    [SEARCH.UPDATE_SEARCH_PARAMS](state, { term, location }) {
+        state.search = { ...state.search, term, location };
     }
 };
 
@@ -31,51 +30,53 @@ const getters = {
 const actions = {
     //Always update the current route according the flow
     updateSearchText(context, text) {
-            if (!text) {
-                return Promise.resolve("");
-            }
-           return interpetPromise(text).then(({data:body}) => {
-                let params={...body};
-               return new Promise((resolve)=>{
-                   //if AI return cords use it
-                    if(params.hasOwnProperty('cords')) {
-                        params.location = `${params.cords.latitude},${params.cords.longitude}`;
+        if (!text) {
+            return Promise.resolve("");
+        }
+        return interpetPromise(text).then(({ data: body }) => {
+            let params = { ...body };
+            return new Promise((resolve) => {
+                //if AI return cords use it
+                if (params.hasOwnProperty('cords')) {
+                    params.location = `${params.cords.latitude},${params.cords.longitude}`;
+                    resolve();
+                } else if (["tutor", "job", "food", "purchase"].includes(body.vertical)) {
+                    //if it's vertical that need location get it from my location
+                    context.dispatch("updateLocation").then((location) => {
+                        params.location = location;
                         resolve();
-                    }else if(["tutor","job","food","purchase"].includes(body.vertical)){
-                        //if it's vertical that need location get it from my location
-                        context.dispatch("updateLocation").then((location)=>{
-                            params.location=location;
-                            resolve();
-                        });
-                    }else{resolve();}
-                }).then(()=>{
-                    context.commit(SEARCH.UPDATE_SEARCH_PARAMS, { ...params });
-                    return{ result: body.vertical, term: body.term,docType:body.docType};
-                });
+                    });
+                } else { resolve(); }
+            }).then(() => {
+                context.commit(SEARCH.UPDATE_SEARCH_PARAMS, { ...params });
+                return { result: body.vertical, term: body.term, docType: body.docType };
+            });
 
-           });
+        });
     },
 
-    bookDetails: (context, {pageName,isbn13,type}) => {
-        return searchService.activateFunction[pageName]({isbn13,type});
+    bookDetails: (context, { pageName, isbn13, type }) => {
+        return searchService.activateFunction[pageName]({ isbn13, type });
     },
-    foodDetails: (context, {  id }) => {
+    foodDetails: (context, { id }) => {
         return searchService.activateFunction["foodDetails"]({ id });
     },
 
-    fetchingData: (context, { name, params, page, luisTerm: term,docType }) => {
+    fetchingData: (context, { name, params, page, luisTerm: term, docType }) => {
         let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
-        let paramsList={ ...context.getters.searchParams, ...params, university, page,docType };
-        if(term!==undefined)paramsList={...paramsList,term};
+        let paramsList = { ...context.getters.searchParams, ...params, university, page, docType };
+        if (term !== undefined) {
+            paramsList = { ...paramsList, term };
+        }
         //get location if needed
         return new Promise((resolve) => {
-            if(!paramsList.term&&!paramsList.location&&["tutor","job","food","purchase"].includes(name)){
-                context.dispatch("updateLocation").then((location)=>{
-                    paramsList.location=location;
+            if (!paramsList.term && !paramsList.location && ["tutor", "job", "food", "purchase"].includes(name)) {
+                context.dispatch("updateLocation").then((location) => {
+                    paramsList.location = location;
                     resolve();
                 });
-            }else{resolve();}
-        }).then(()=>{
+            } else { resolve(); }
+        }).then(() => {
             return searchService.activateFunction[name](paramsList);
         });
     },
