@@ -27,7 +27,7 @@
                         <div class="sort-filter">
                             <div v-for="s in k.data" :key="(s.id?s.id:s)" class="filter">
                                 <!--<v-checkbox :label="s.name?s.name:s" :inputValue="props.filterVal.includes(s.id?s.id:s.toString())"></v-checkbox>-->
-                                <sb-checkbox @change="props.filterCallback({id:k.modelId,val:(s.id?s.id:s),type:$event})" :inputValue="props.filterVal.includes(s.id?s.id:s.toString())">
+                                <sb-checkbox hide-details @change="props.filterCallback({id:k.modelId,val:(s.id?s.id:s),type:$event})" :inputValue="props.filterVal.includes(s.id?s.id:s.toString())">
                                     <span slot="label" :title="s.name?s.name:s">
                                     {{s.name?s.name:s | capitalize}}
                                     </span>
