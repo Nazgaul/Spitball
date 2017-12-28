@@ -5,13 +5,25 @@ namespace Cloudents.Core.Request
 {
     public class SearchQuery
     {
-        public SearchQuery(IEnumerable<string> query, int page)
-            : this(query, default, null, null, page, SearchCseRequestSort.None)
+        public static SearchQuery Document(IEnumerable<string> query, long? university,
+            IEnumerable<long> courses, IEnumerable<string> source, int page, SearchCseRequestSort sort, string docType)
         {
+            return  new SearchQuery(query,university,courses,source,page,sort,docType);
         }
 
-        public SearchQuery(IEnumerable<string> query, long? university,
+        public static SearchQuery Flashcard(IEnumerable<string> query, long? university,
             IEnumerable<long> courses, IEnumerable<string> source, int page, SearchCseRequestSort sort)
+        {
+            return new SearchQuery(query, university, courses, source, page, sort, null);
+        }
+
+        public static SearchQuery Ask(IEnumerable<string> query, int page)
+        {
+            return new SearchQuery(query, default, null, null, page, default, null);
+        }
+
+        private SearchQuery(IEnumerable<string> query, long? university,
+            IEnumerable<long> courses, IEnumerable<string> source, int page, SearchCseRequestSort sort, string docType)
         {
             Query = query;
             University = university;
@@ -19,6 +31,7 @@ namespace Cloudents.Core.Request
             Source = source;
             Page = page;
             Sort = sort;
+            DocType = docType;
         }
 
         public IEnumerable<string> Source { get; }
@@ -27,5 +40,7 @@ namespace Cloudents.Core.Request
         public IEnumerable<string> Query { get; }
         public int Page { get; }
         public SearchCseRequestSort Sort { get; }
+
+        public string DocType { get; }
     }
 }

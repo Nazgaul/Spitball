@@ -38,6 +38,11 @@ namespace Cloudents.Infrastructure.Search
             {
                 term.Add(string.Join(" ", model.Query));
             }
+            term.AddNotNull(model.DocType);
+            if (term.Count == 0)
+            {
+                term.Add("biology");
+            }
             var result = Enumerable.Range(model.Page * CseSearch.NumberOfPagesPerRequest, CseSearch.NumberOfPagesPerRequest).Select(s =>
             {
                 var cseModel = new CseModel(term, model.Source, s, model.Sort, CustomApiKey.Documents);

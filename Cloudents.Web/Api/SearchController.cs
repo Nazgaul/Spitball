@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using Cloudents.Web.Models;
@@ -19,9 +16,8 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> SearchDocumentAsync([FromQuery] DocumentSearchRequest model,
             CancellationToken token, [FromServices] IDocumentCseSearch searchProvider)
         {
-            var term = model.Term.Union(new[] {model.DocType});
-            var query = new SearchQuery(term, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
-                model.Sort.GetValueOrDefault());
+            var query = SearchQuery.Document(model.Term, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
+                model.Sort.GetValueOrDefault(), model.DocType);
 
             var result = await searchProvider.SearchAsync(query, token).ConfigureAwait(false);
             return Json(result);
@@ -32,7 +28,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> SearchFlashcardsAsync([FromQuery] SearchRequest model,
             CancellationToken token, [FromServices] IFlashcardSearch searchProvider)
         {
-            var query = new SearchQuery(model.Term, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
+            var query = SearchQuery.Flashcard(model.Term, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
                 model.Sort.GetValueOrDefault());
 
             var result = await searchProvider.SearchAsync(query, token).ConfigureAwait(false);
