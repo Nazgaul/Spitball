@@ -1,7 +1,8 @@
 <template>
     <v-dialog v-model="value" fullscreen content-class="white filter-dialog">
-        <v-toolbar fixed class="elevation-1">
-            <v-btn icon class="back" @click="$emit('input',false)">X</v-btn>
+        <v-toolbar fixed class="elevation-1" height="48">
+            <v-btn icon class="back" @click="$emit('input',false)">
+                <i class="sbf icon sbf-arrow-button"></i></v-btn>
             <v-toolbar-title class="toolbar-title">Filter & Sort</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn flat class="clear-btn" @click="$_resetFilters">Clear all</v-btn>
@@ -14,13 +15,13 @@
                          :filterCallback="$_updateFilterMobile" :filterVal="selectedFilters">
             
             <!--</template>-->
-            <!--<template slot="courseEmptyState">
+            <template slot="courseEmptyState">
                 <slot name="courseEmptyState"></slot>
             </template>
             <template slot="courseExtraState">
                 <slot name="courseExtraState">
                 </slot>
-            </template>-->
+            </template>
         </sort-and-filter>
     </v-dialog>
 </template>

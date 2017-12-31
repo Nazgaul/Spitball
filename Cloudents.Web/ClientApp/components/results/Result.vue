@@ -47,7 +47,7 @@
                     <v-btn @click="$_openPersonalize">Personalize</v-btn>
                 </div>
                 <template slot="courseExtraState" v-else>
-                    <button class="add-course" @click="$_openPersonalize" type="button">
+                    <button class="add-course hidden-xs-only" @click="$_openPersonalize" type="button">
                         <plus-btn></plus-btn><span>Add Course</span>
                     </button>
                 </template>

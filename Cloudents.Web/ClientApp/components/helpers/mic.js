@@ -33,10 +33,12 @@ export const micMixin = {
                 };
                 this.recognition.onresult = function (event) {
                     _self.msg = event.results[0][0].transcript;
-                    _self.isRecording = false;
-                    if(_self.$vuetify.breakpoint.xsOnly){
-                        _self.submitMic();
-                    }
+                    this.$nextTick(()=>{
+                        _self.isRecording = false;
+                        if(_self.$vuetify.breakpoint.xsOnly){
+                            _self.submitMic();
+                        }
+                    });
                 };
             }
         },
