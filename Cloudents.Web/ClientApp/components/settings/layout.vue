@@ -37,6 +37,7 @@
                 <template v-for="item in props.items" v-if="props.items.length">
                     <slot name="results" :item="item"></slot>
                 </template>
+                <slot :name="`${props.type}EmptyState`"></slot>
             </v-layout>
             <slot :name="`${props.type}ExtraItem`"></slot>
             <slot name="actionContent">

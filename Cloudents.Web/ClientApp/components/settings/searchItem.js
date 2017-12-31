@@ -24,7 +24,7 @@ export default {
             this.items = [];
             if (this.val.length > 2)
             this.$_search();
-        }, 500),
+        }, 250),
         isShown(val){
             if(val&&this.$refs.searchText){
                 this.$refs.searchText.focus();
@@ -63,7 +63,8 @@ export default {
             currentType: "",
             currentAction: "",
             newCourseName: "",
-            val: ""
+            val: "",
+            noResults:false
         };
     },
 
@@ -104,6 +105,7 @@ export default {
             //    debounce(function (val) {
             this.$store.dispatch(this.currentItem.searchApi, { term: this.val }).then(({ data: body }) => {
                 this.items = body;
+                this.noResults= !this.items||!this.items.length;
                 this.isLoading = false;
             });
             //    }, 500);
