@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Castle.DynamicProxy;
 using Cloudents.Core.Interfaces;
@@ -30,8 +33,38 @@ namespace Cloudents.Infrastructure.Cache
 
         public static string GetInvocationSignature(IInvocation invocation)
         {
+            var sb = new StringBuilder();
+            foreach (var arg in invocation.Arguments)
+            {
+                if (arg is string s)
+                {
+                    sb.Append(s);
+                    continue;
+                }
+
+                if (arg is CancellationToken _)
+                {
+                    continue;
+                }
+
+                if (arg is IEnumerable collection)
+                {
+                    foreach (var collectionArg in collection)
+                    {
+                        sb.Append(collectionArg);
+                    }
+                }
+                //foreach (var prop in arg.GetType().GetProperties())
+                //{
+                //    sb.Append($"{prop.Name}={prop.GetValue(prop, null)}");
+                //}
+            }
+
+
             return
-                $"{Assembly.GetExecutingAssembly().GetName().Version.ToString(4)}-{invocation.TargetType.FullName}-{invocation.Method.Name}-{string.Join("-", invocation.Arguments.Select(a => (a ?? "").ToString()).ToArray())}";
+                $"{Assembly.GetExecutingAssembly().GetName().Version.ToString(4)}-" +
+                $"{invocation.TargetType.FullName}-{invocation.Method.Name}" +
+                $"-{sb}";
         }
 
         private static Task InterceptAsync(string key, CacheAttribute att, Task task)
