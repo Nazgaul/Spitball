@@ -11,6 +11,7 @@
     background: @color-white;
 
     .d-wrapper {
+        height: 100%;
         max-height: 100vh;
     }
 
@@ -36,6 +37,8 @@
         font-size: 22px;
         font-weight: 600;
         margin: 28px 32px 0px 32px;
+        flex-grow: 1;
+        flex-shrink: 0;
 
         button:focus {
             outline: none;
@@ -55,6 +58,7 @@
 
         .done-btn {
             color: @color-blue;
+            font-size: 20px;
         }
     }
 
@@ -68,8 +72,9 @@
         max-width: @search-width;
         width: 100%;
         margin: 0 auto;
-        max-height: 100vh;
-        height: 100%;
+        padding-top: 36px;
+        flex-grow: 0;
+        flex-shrink: 1;
 
         button {
             height: 100%;
@@ -126,7 +131,7 @@
 
     .results-divider {
         margin: 0 auto;
-        max-width: @search-width - 32px
+        max-width: @search-width - 32px;
     }
 
     .d-wrapper {
@@ -151,11 +156,14 @@
                 padding: 8px 0 8px 8px;
                 border-radius: 4px;
                 overflow: hidden;
-                background: @color-blue;
                 width: @course-width;
+                background-color: @color-white;
+                box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+                border: 1px solid #9b9b9b;
+
 
                 .name {
-                    color: @color-white;
+                    color: @color-blue;
                     font-weight: normal;
                     text-transform: capitalize;
                     text-overflow: ellipsis;
@@ -173,7 +181,7 @@
 
                     .sbf-close {
                         font-size: 10px;
-                        color: @color-white;
+                        color: #9b9b9b;
                     }
                 }
             }
@@ -221,6 +229,9 @@
             max-width: @search-width;
             margin: 0 auto;
             overflow-y: auto;
+            height: 100%;
+            flex-grow: 0;
+            flex-shrink: 1;
 
             .result {
                 flex-grow: 0;
@@ -231,14 +242,20 @@
             }
 
             .uni {
-                width: 96px;
+                width: 104px;
                 text-align: center;
                 color: #000;
                 font-size: 12px;
                 line-height: 1.17;
                 letter-spacing: -0.5px;
+                margin-right: 12px;
+                margin-left: 12px;
 
                 .image {
+                    width: 96px;
+                    height: 96px;
+                    margin-left: auto;
+                    margin-right: auto;
                     background-size: contain;
                     background-position: center;
                 }
