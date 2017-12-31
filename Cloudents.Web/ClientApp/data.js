@@ -54,7 +54,7 @@ export let verticals =
             needLocation: true,
             filter: [{ id: "jobType", name: "job type" },{id: "filter", name: "Filter" }],
             sort: [
-                { id: "price", name: "price" },
+                { id: "date", name: "date" },
                 { id: "distance", name: "distance" }
             ]
         },
