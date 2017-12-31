@@ -1,7 +1,7 @@
 <template functional>
     <div class="sort-filter-wrap">
         <template v-if="props.sortOptions">
-            <h3>Sort by</h3>
+            <h3>Sort</h3>
             <div class="sort-switch">
                 <template v-for="(o,index) in props.sortOptions">
                     <input type="radio" :id="`option${index}`" @click="props.sortCallback(o.id)"
@@ -11,7 +11,7 @@
             </div>
         </template>
         <div v-if="props.filterOptions">
-            <h3>Filter by</h3>
+            <h3>Filter</h3>
             <div class="filter-switch" v-if="props.filterOptions">
                 <v-expansion-panel :value="true" expand>
                     <v-expansion-panel-content v-for="k in props.filterOptions" :key="k.modelId" hide-actions :value="true">
@@ -37,7 +37,7 @@
                                        @change="props.filterCallback({id:k.modelId,val:(s.id?s.id:s),type:$event})"></sb-checkbox>-->
                                 <input type="checkbox" :id="(s.id?s.id:s)" :checked="props.filterVal.includes(s.id?s.id:s.toString())"
                                        @change="props.filterCallback({id:k.modelId,val:(s.id?s.id:s),type:$event})" />
-                               
+
                                 <span class="checkmark"></span>
                                 <label :title="s.name?s.name:s" :for="(s.id?s.id:s)">
                                     {{s.name?s.name:s | capitalize}}
