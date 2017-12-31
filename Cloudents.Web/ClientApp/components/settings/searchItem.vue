@@ -20,7 +20,7 @@
             </div>
         </template>
 
-        <v-text-field light solo slot="inputField" @input="(val)=>{val.length > 2 ? isLoading = true : isLoading = false}" v-model.lazy="val" class="search-b elevation-0" ref="searchText" autofocus :placeholder="currentItem.placeholder" prepend-icon="sbf-search"></v-text-field>
+        <v-text-field light solo slot="inputField" @input="(val)=>{val.length > 2 ? isLoading = true : isLoading = false}" v-model.lazy="val" class="search-b" ref="searchText" autofocus :placeholder="currentItem.placeholder" prepend-icon="sbf-search"></v-text-field>
         <v-chip class="ma-2" slot="selectedItems" slot-scope="props" v-if="selectedCourse" label>
             <span class="name" :title="props.course.name">{{ props.course.name }}</span>
             <button class="close pa-2" @click="$_removeCourse(props.course.id)">
