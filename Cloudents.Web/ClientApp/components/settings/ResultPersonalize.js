@@ -28,7 +28,10 @@ export default {
     },
     created() {
         if (this.isFirst) {
-            setTimeout(() => this.showDialog = true, 5000);
+            setTimeout(() => {
+                if(!this.$root.$el.querySelector(".dialog__content__active"))
+                        this.showDialog = true
+            }, 5000);
         }
         this.$root.$on("personalize",
             (type) => {

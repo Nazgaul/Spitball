@@ -15,15 +15,12 @@
                          :filterCallback="$_updateFilterMobile" :filterVal="selectedFilters">
             
             <!--</template>-->
-            <template slot="courseMobileEmptyState">
-                <slot name="courseEmptyState"></slot>
-            </template>
             <template slot="courseTitlePrefix">
                 <slot name="courseTitlePrefix"></slot>
             </template>
             <template slot="courseMobileExtraState">
-                <slot name="courseExtraState">
-                </slot>
+                <slot name="courseExtraState"></slot>
+                <slot name="courseEmptyState"></slot>
             </template>
         </sort-and-filter>
     </v-dialog>
