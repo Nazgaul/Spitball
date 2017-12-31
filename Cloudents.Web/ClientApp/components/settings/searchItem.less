@@ -40,6 +40,10 @@
         flex-grow: 1;
         flex-shrink: 0;
 
+        @media(max-width: @mobileEndBreakPoint) {
+            margin: 8px 16px 0 18px;
+        }
+
         button:focus {
             outline: none;
         }
@@ -76,6 +80,10 @@
         flex-grow: 0;
         flex-shrink: 1;
 
+        @media(max-width: @mobileEndBreakPoint) {
+            padding-top: 0;
+        }
+
         button {
             height: 100%;
 
@@ -86,6 +94,10 @@
 
         .title-text {
             padding: 10px 0 30px 0;
+
+            @media(max-width: @mobileEndBreakPoint) {
+                padding: 0 0 20px 0;
+            }
 
             img {
                 width: 48px;
@@ -101,6 +113,12 @@
                 text-align: center;
                 color: @Spitball-Text;
                 letter-spacing: -0.5px;
+
+                @media(max-width: @mobileEndBreakPoint) {
+                    font-size: 26px;
+                    line-height: 0.85;
+                    letter-spacing: -0.3px;
+                }
             }
 
             h5 {
@@ -114,10 +132,30 @@
             }
         }
 
+        .search-wrapper {
+            padding: 0;
+
+            @media(max-width: @mobileEndBreakPoint) {
+                padding: 0 8px;
+            }
+        }
+
         .search-b {
             border-radius: 4px;
             background: @color-light-grey;
             min-height: 56px;
+
+            @media(max-width: @mobileEndBreakPoint) {
+                min-height: 40px;
+                border: 1px solid #bbbbbb;
+                border-radius: 4px;
+                box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+
+                .input-group__input {
+                    align-items: center;
+                    padding: 4px 8px;
+                }
+            }
 
             icon {
                 font-size: 32px;
@@ -125,6 +163,11 @@
 
             input {
                 font-size: 20px;
+
+                @media(max-width: @mobileEndBreakPoint) {
+                    font-size: 16px;
+                    letter-spacing: -0.4px;
+                }
             }
         }
     }
