@@ -42,7 +42,6 @@ const allModules = [
     "vuetify/es5/components/VSwitch",
     "vuetify/es5/components/VTabs",
     "vuetify/es5/directives/scroll",
-    "vuetify/es5/components/VCheckbox",
     "vuetify/es5/components/VIcon",
   "webfontloader"
 ];
