@@ -34,10 +34,11 @@ namespace Test
         builder.RegisterModule(infrastructureModule);
             var container = builder.Build();
 
-            var repository = container.Resolve<IBlobProvider>();
+            var repository = container.Resolve<IEngineProcess>();
 
-            var result  = await repository.FetchBlobMetaDataAsync(new Uri(
-                "https://zboxstorage.blob.core.windows.net/zboxfiles/b6a4938b-8dd8-4df7-bcdf-4454a80e31d1.pdf"),default);
+            var result = await repository.ProcessRequestAsync("suburbs", default);
+            //var result  = await repository.FetchBlobMetaDataAsync(new Uri(
+            //    "https://zboxstorage.blob.core.windows.net/zboxfiles/b6a4938b-8dd8-4df7-bcdf-4454a80e31d1.pdf"),default);
            
 
 
