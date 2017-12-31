@@ -62,11 +62,12 @@ namespace Cloudents.Infrastructure.Cache
 
                 var instance = (IList)Activator.CreateInstance(constructedListType);
 
-                var temp = val as IEnumerable;
-                foreach (var obj in temp)
-                {
-                    instance.Add(obj);
-                }
+                if (val is IEnumerable temp)
+                    foreach (var obj in temp)
+                    {
+                        instance.Add(obj);
+                    }
+
                 return instance;
 
 
