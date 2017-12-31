@@ -38,6 +38,7 @@
                     <slot name="results" :item="item"></slot>
                 </template>
                 <slot :name="`${props.type}ExtraItem`"></slot>
+                <slot :name="`${props.type}EmptyState`"></slot>
             </v-layout>
             <slot name="actionContent">
             </slot>
