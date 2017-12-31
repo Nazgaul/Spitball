@@ -56,7 +56,7 @@
             $_updateFilterMobile({ id, val, type }) {
                 let currentFilter = this.filters[id] || [];
                 let listo = [val, ...currentFilter];
-                if (!type) {
+                if (!type.target.checked) {
                     listo = currentFilter.filter(i => i.toString() !== val.toString());
                     this.selectedFilters=this.selectedFilters.filter(i=>i!==val);
                 }else{
