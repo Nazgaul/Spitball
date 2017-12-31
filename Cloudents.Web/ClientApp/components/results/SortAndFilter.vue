@@ -21,7 +21,8 @@
                             <div class="header__icon hidden-xs-only">
                                 <v-icon>sbf-arrow-button</v-icon>
                             </div>
-                            <button v-if="k.modelId === 'course'" class="edit-list hidden-sm-and-up" type="button">Edit List</button>
+                            <slot :name="`${k.modelId}MobileExtraState`"></slot>
+                            <!--<button v-if="k.modelId === 'course'" class="edit-list hidden-sm-and-up" @click="props.$_openPersonalize()" type="button">Edit List</button>-->
 
                         </template>
                         <div class="sort-filter">

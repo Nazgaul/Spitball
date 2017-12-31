@@ -15,10 +15,10 @@
                          :filterCallback="$_updateFilterMobile" :filterVal="selectedFilters">
             
             <!--</template>-->
-            <template slot="courseEmptyState">
+            <template slot="courseMobileEmptyState">
                 <slot name="courseEmptyState"></slot>
             </template>
-            <template slot="courseExtraState">
+            <template slot="courseMobileExtraState">
                 <slot name="courseExtraState">
                 </slot>
             </template>
