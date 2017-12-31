@@ -33,8 +33,10 @@
         </v-flex>
         <component slot="actionContent" v-if="currentAction" :is="currentType+'-'+currentAction" @done="$_actionDone"></component>
         <template slot="universityEmptyState" v-if="noResults">
-            <div>Can't find your school?</div>
-            <div> email us at <a href="mailto:support@spitball.co">support@spitball.co</a> and we will add it.</div>
+            <div class="uni-empty-state">
+                <div>Can't find your school?</div>
+                <div> email us at <a href="mailto:support@spitball.co">support@spitball.co</a> and we will add it.</div>
+            </div>
         </template>
     </page-layout>
 </template>

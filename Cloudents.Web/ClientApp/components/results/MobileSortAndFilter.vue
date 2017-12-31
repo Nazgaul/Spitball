@@ -15,10 +15,13 @@
                          :filterCallback="$_updateFilterMobile" :filterVal="selectedFilters">
             
             <!--</template>-->
-            <template slot="courseEmptyState">
+            <template slot="courseMobileEmptyState">
                 <slot name="courseEmptyState"></slot>
             </template>
-            <template slot="courseExtraState">
+            <template slot="courseTitlePrefix">
+                <slot name="courseTitlePrefix"></slot>
+            </template>
+            <template slot="courseMobileExtraState">
                 <slot name="courseExtraState">
                 </slot>
             </template>
@@ -41,6 +44,8 @@
         name: "mobile-sort-and-filter",
         methods: {
             $_applayFilters() {
+                if (this.$route.path.includes('note') || this.$route.path.includes('flashcard'))
+                    this.$route.meta.myClasses=this.filters.course;
                 this.$router.push({ query: { q: this.$route.query.q, sort: this.sort, ...this.filters } });
                 this.$emit('input', false);
             },
@@ -62,9 +67,9 @@
                 }else{
                     this.selectedFilters.push(val);
                 }
-                if (id === 'course') {
-                    this.$route.meta.myClasses = listo;
-                }
+                // if (id === 'course') {
+                //     this.$route.meta.myClasses = listo;
+                // }
                 this.filters[id] = listo;
                 if (val === 'inPerson' && type) this.sort = "price";
             }

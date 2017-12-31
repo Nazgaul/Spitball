@@ -24,9 +24,9 @@
 
         methods: {
             keepLoad(){
-                let totalHeight=document.body.scrollHeight;
-                let currentScroll=window.scrollY;
-                let scrollOffset=(currentScroll>0.75*totalHeight);
+                let totalHeight=this.$el.offsetHeight;
+                let currentScroll=window.pageYOffset || document.documentElement.scrollTop;
+                let scrollOffset=(currentScroll>(0.75*totalHeight-document.documentElement.clientHeight));
                 let retVal=((window.pageYOffset>0 || document.documentElement.scrollTop>0)&&scrollOffset&&
                     !this.isLoading&&!this.isComplete);
                 return retVal},

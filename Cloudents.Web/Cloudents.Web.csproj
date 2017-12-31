@@ -23,6 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\components\settings\layout.vue.orig" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="ClientApp\components\navbar\images\ask.svg" />
     <Content Include="ClientApp\components\navbar\images\book.svg" />
     <Content Include="ClientApp\components\navbar\images\document.svg" />
