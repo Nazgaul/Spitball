@@ -8,7 +8,7 @@
         </template>
         
         <template v-if="showCreateCourse" slot="courseExtraItem">
-            <div class="add-course-form ma-2 py-3 px-3">
+            <div class="add-course-form mx-2 mt-4 py-3 px-3">
                 <form @submit.prevent="$_submitAddCourse" ref="addForm">
                     <div class="form-title">Still don't see your class?</div>
                         <v-text-field light v-model="newCourseName" placeholder="Type it in here:"></v-text-field>
@@ -27,11 +27,15 @@
                 <i class="sbf icon sbf-close"></i>
             </button>
         </v-chip>
-            <v-flex class="result mx-2 mt-3" v-if="!currentAction" @click="$_clickItemCallback(keep)" slot-scope="props" slot="results">
+            <v-flex class="result mt-3" v-if="!currentAction" @click="$_clickItemCallback(keep)" slot-scope="props" slot="results">
             
             <component :is="'search-item-'+currentType" :item="props.item"></component>
         </v-flex>
         <component slot="actionContent" v-if="currentAction" :is="currentType+'-'+currentAction" @done="$_actionDone"></component>
+        <template slot="universityEmptyState" v-if="noResults">
+            <div>Can't find your school?</div>
+            <div> email us at <a href="mailto:support@spitball.co">support@spitball.co</a> and we will add it.</div>
+        </template>
     </page-layout>
 </template>
 <script src="./searchItem.js">

@@ -9,7 +9,7 @@
                 </v-flex>
                 <v-flex class="right-section">
                         <v-layout  wrap column justify-content-space-between align-item-stretch class="full-height ma-0">
-                            <v-flex class="pa-0" style="flex-grow:1">
+                            <v-flex class="pa-0 item-data" style="flex-grow:1">
                                 <div class="cell-title" :class="'text-'+$route.path.slice(1)">{{item.title}}</div>
                                 <p>{{item.snippet}}</p>
                             </v-flex>
