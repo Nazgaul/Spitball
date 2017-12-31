@@ -1,6 +1,6 @@
 ﻿<template>
     <div class="uni ml-3 mr-3 mt-3" :key="item.id" @click="$_universitySelected(item)">
-        <div class="image elevation-1 mb-3" :style="`background-image: url('${item.image}')`"></div>
+        <div class="image uni-icon elevation-1 mb-3" :style="`background-image: url('${item.image}')`"></div>
         <div>{{item.name}}</div>
     </div>
 </template>

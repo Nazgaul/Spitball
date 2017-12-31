@@ -9,8 +9,8 @@
         <div class="d-header pt-3">
             <div>
                 <v-layout row align-center justify-center class="title-text mt-3">
-                    <img class="ma-4" v-if="props.titleImage" :src="props.titleImage" />
-                    <h1>{{props.title}}</h1>
+                    <img class="mr-2 elevation-1 uni-icon" v-if="props.titleImage" :src="props.titleImage" />
+                    <h1 class="">{{props.title}}</h1>
                 </v-layout>
             </div>
             <slot name="search" v-if="props.search">
@@ -18,7 +18,7 @@
                     <v-layout row justify-center>
                         <v-flex><slot name="inputField"></slot></v-flex>
                     </v-layout>
-                    <v-container fluid slot="selectedItems" class="selected-items px-2 pt-4 pb-0" v-if="props.selectedCourse">
+                    <v-container fluid slot="selectedItems" class="selected-items px-2 pt-3 pb-0" v-if="props.selectedCourse">
                         <v-layout row wrap justify-start>
                             <template v-for="course in props.selectedCourse">
                                 <slot name="selectedItems" :course="course"></slot>

@@ -20,6 +20,14 @@
             height: 54px;
             display: block;
 
+            .image {
+                max-width: 102px;
+
+                @media(max-width: @mobileEndBreakPoint) {
+                    max-width: 120px;
+                }
+            }
+
             @media(max-width: @mobileEndBreakPoint) {
                 height: 62px;
 
@@ -39,10 +47,11 @@
 
             .flex {
                 .inTheMiddle();
+                flex-grow: 0;
             }
 
             .flex:nth-child(2) {
-                font-size: 14px;
+                font-size: 12px;
                 letter-spacing: -0.3px;
                 color: #000;
             }
