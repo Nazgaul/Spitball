@@ -78,10 +78,10 @@ export default {
                     term: this.qFilter,
                     luisTerm, docType
                 };
+                this.$router.push({ path: result, query: { q: this.qFilter }, meta: { ...this.$route.meta } });
                 this.$nextTick(() => {
-                    this.$refs.myForm.blur();
-                    this.$refs.qFilter.blur();
-                    this.$router.push({ path: result, query: { q: this.qFilter }, meta: { ...this.$route.meta } });
+                    this.$el.querySelector('input').blur();
+                    this.$el.querySelector('form').blur();
                 });
             });
         },
