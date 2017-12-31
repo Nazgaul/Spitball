@@ -21,14 +21,13 @@ export default {
         showDialog(val) {
             !val && this.isfirst ? this.isfirst = false : "";
             if(!val){
+                if(this.isFirst){this.updateFirstTime("isFirst");}
                 this.$root.$emit("closePersonalize");
             }
         }
     },
     created() {
         if (this.isFirst) {
-            this.isfirst = true;
-            this.updateFirstTime("isFirst");
             setTimeout(() => this.showDialog = true, 5000);
         }
         this.$root.$on("personalize",

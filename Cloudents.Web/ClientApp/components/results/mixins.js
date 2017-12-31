@@ -46,6 +46,7 @@ let updateData = function (data, isFilterUpdate = false) {
     this.content = data;
     (data.data.length && this.hasExtra) ? this.selectedItem = data.data[0].placeId : '';
     this.filter = this.filterSelection;
+    console.log(`update data ${this.filterSelection}`);
     this.UPDATE_LOADING(false);
 
     //if the vertical or search term has been changed update the optional filters according
@@ -171,6 +172,7 @@ export const pageMixin =
 
         },
         created() {
+            if(!this.isFirst){this.showPersonalizeField=true}
             this.$root.$on("closePersonalize",()=>{this.showPersonalizeField=true});
             //If query have courses save those courses
             if (this.query.course) this.$route.meta.myClasses = this.query.course;
