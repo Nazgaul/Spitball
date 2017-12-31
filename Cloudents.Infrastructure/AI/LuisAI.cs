@@ -29,6 +29,12 @@ namespace Cloudents.Infrastructure.AI
         public async Task<AiDto> InterpretStringAsync(string sentence, CancellationToken token)
         {
             if (sentence == null) throw new ArgumentNullException(nameof(sentence));
+
+            if (sentence.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries).Length <= 1)
+            {
+                return new AiDto(AiIntent.Search, null, null, new[] { sentence }, null, null, null);
+            }
+
             var result = await _client.Predict(sentence).ConfigureAwait(false);
             var entities = result.GetAllEntities();
 

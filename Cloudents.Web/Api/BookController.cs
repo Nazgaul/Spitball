@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +21,7 @@ namespace Cloudents.Web.Api
         [Route("search")]
         public async Task<IActionResult> Get(string[] term, int page, CancellationToken token)
         {
-            var result = await _booksSearch.SearchAsync( term, 150, page, token).ConfigureAwait(false);
+            var result = await _booksSearch.SearchAsync(term, 150, page, token).ConfigureAwait(false);
             return Json(result);
         }
 
