@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
@@ -13,7 +15,7 @@ namespace Cloudents.Infrastructure.Test
     public class LuisAITests
     {
 
-        Mock<LuisClient> mock = new Mock<LuisClient>(new object[] { "1", "2", false });
+        Mock<ILuisClient> mock = new Mock<ILuisClient>();
 
         [TestMethod]
         public async Task InterpretStringAsync_SingleWord_ReturnSearchWithUserText()
@@ -24,6 +26,27 @@ namespace Cloudents.Infrastructure.Test
 
             Assert.AreEqual(AiIntent.Search, result.Intent);
             CollectionAssert.AreEqual(new[] { "suburbs" }, result.Subject.ToList());
+        }
+
+        [TestMethod]
+        public async Task InterpretStringAsync_ResultNoEntites_ReturnEntityWithUserText()
+        {
+            const string sentence = "looking for blue";
+            mock.Setup(s => s.Predict(sentence)).Returns(Task.FromResult(new LuisResult()
+            {
+                Entities = new ConcurrentDictionary<string, IList<Entity>>(),
+                TopScoringIntent = new Intent()
+                {
+                    Name = "Ask",
+                    Score = 100
+                }
+
+            }));
+            LuisAI unit = new LuisAI(mock.Object);
+
+            var result = await unit.InterpretStringAsync(sentence, default);
+
+            CollectionAssert.AreEqual(new[] { sentence }, result.Subject.ToList());
         }
     }
 }
