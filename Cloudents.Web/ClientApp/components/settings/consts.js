@@ -10,6 +10,10 @@ export let searchObjects = {
         searchApi: "getCorses",
         defaultFilter: 'all',
         filters: [{ id: 'all', name: 'ALL COURSES' }, { id: 'myCourses', name: 'MY COURSES' }],
+        click: function () {
+            this.val="";
+            this.$refs.searchText.focus();
+        },
         action: "add"
     }, university: {
         id: typesPersonalize.university,

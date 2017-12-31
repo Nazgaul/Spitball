@@ -37,7 +37,8 @@
                                        @change="props.filterCallback({id:k.modelId,val:(s.id?s.id:s),type:$event})"></sb-checkbox>-->
                                 <input type="checkbox" :id="(s.id?s.id:s)" :checked="props.filterVal.includes(s.id?s.id:s.toString())"
                                        @change="props.filterCallback({id:k.modelId,val:(s.id?s.id:s),type:$event})" />
-                                
+                               
+                                <span class="checkmark"></span>
                                 <label :title="s.name?s.name:s" :for="(s.id?s.id:s)">
                                     {{s.name?s.name:s | capitalize}}
                                 </label>
