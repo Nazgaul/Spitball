@@ -27,15 +27,16 @@
         </section>
         <slot name="stripSection"></slot>
         <section class="box-section testimonials">
-            <v-carousel hide-delimiters left-control-icon="sbf-arrow-right" interval="6000000" right-control-icon="sbf-arrow-right" class="limited-width">
-                <v-carousel-item v-for="(testimonial,index) in props.testimonials" src="" :key="index">
+            <v-carousel lazy hide-delimiters left-control-icon="sbf-arrow-right" interval="10000" right-control-icon="sbf-arrow-right" class="limited-width">
+                <v-carousel-item transition="fade" v-for="(testimonial,index) in props.testimonials" src="" :key="index">
                     <div class="testimonial">
                         <p class="testimonial-text">"{{testimonial.testimonial}}"</p>
                         <div class="author">
-                            <lazy-component>
+                            <!--<lazy-component>-->
                                 <div class="testimonial-image"></div>
-                                <!--<img :src="require(`./img/${testimonial.image}`)" />-->
-                            </lazy-component>                            <div>
+                                <!--<img :src="`./img/${testimonial.image}`" />-->
+                            <!--</lazy-component>-->                   
+                            <div>
                                 <span class="name">{{testimonial.name}}</span>
                                 <span class="uni">{{testimonial.uni}}</span>
                             </div>
