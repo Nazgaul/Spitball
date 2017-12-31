@@ -159,7 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EfRepositoryTests.cs" />
-    <Compile Include="LuisAITests.cs" />
+    <Compile Include="LuisAiTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

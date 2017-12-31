@@ -12,27 +12,27 @@ using Moq;
 namespace Cloudents.Infrastructure.Test
 {
     [TestClass]
-    public class LuisAITests
+    public class LuisAiTests
     {
-
-        Mock<ILuisClient> mock = new Mock<ILuisClient>();
+        readonly Mock<ILuisClient> _mock = new Mock<ILuisClient>();
 
         [TestMethod]
         public async Task InterpretStringAsync_SingleWord_ReturnSearchWithUserText()
         {
-            LuisAI unit = new LuisAI(mock.Object);
+            using (var unit = new LuisAI(_mock.Object))
+            {
+                var result = await unit.InterpretStringAsync("suburbs", default);
 
-            var result = await unit.InterpretStringAsync("suburbs", default);
-
-            Assert.AreEqual(AiIntent.Search, result.Intent);
-            CollectionAssert.AreEqual(new[] { "suburbs" }, result.Subject.ToList());
+                Assert.AreEqual(AiIntent.Search, result.Intent);
+                CollectionAssert.AreEqual(new[] { "suburbs" }, result.Subject.ToList());
+            }
         }
 
         [TestMethod]
         public async Task InterpretStringAsync_ResultNoEntites_ReturnEntityWithUserText()
         {
             const string sentence = "looking for blue";
-            mock.Setup(s => s.Predict(sentence)).Returns(Task.FromResult(new LuisResult()
+            _mock.Setup(s => s.Predict(sentence)).Returns(Task.FromResult(new LuisResult()
             {
                 Entities = new ConcurrentDictionary<string, IList<Entity>>(),
                 TopScoringIntent = new Intent()
@@ -42,11 +42,12 @@ namespace Cloudents.Infrastructure.Test
                 }
 
             }));
-            LuisAI unit = new LuisAI(mock.Object);
+            using (var unit = new LuisAI(_mock.Object))
+            {
+                var result = await unit.InterpretStringAsync(sentence, default);
 
-            var result = await unit.InterpretStringAsync(sentence, default);
-
-            CollectionAssert.AreEqual(new[] { sentence }, result.Subject.ToList());
+                CollectionAssert.AreEqual(new[] { sentence }, result.Subject.ToList());
+            }
         }
     }
 }
