@@ -25,14 +25,14 @@
             <div class="book-sources pa-2 elevation-1">
                 <a :href="item.link" :target="$vuetify.breakpoint.xsOnly?'_self':'_blank'" class="price-line" v-for="(item,index) in filteredList" :key="index">
                     <v-layout row justify-space-between class="price-line-content">
-                        <v-flex xs3 class="text-xs-left">
+                        <v-flex class="image text-xs-left">
                             <img v-if="item.image" :src="item.image" />
                             <span v-else>{{item.name}}</span>
                         </v-flex>
-                        <v-flex xs3 class="text-xs-center">
+                        <v-flex class="text-xs-center">
                             {{item.condition}}
                         </v-flex>
-                        <v-flex xs3 class="text-xs-right">
+                        <v-flex class="text-xs-right">
                             <div>
                                 ${{item.price}}
                             </div>
