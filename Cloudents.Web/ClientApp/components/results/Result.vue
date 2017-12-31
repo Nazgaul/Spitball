@@ -42,12 +42,16 @@
                        :filterCallback="$_updateFilter"
                        :filterVal="filterSelection">
                 <img :src="universityImage" slot="courseTitlePrefix" width="24" height="24" v-if="universityImage" />
-                <div class="course-empty-state" slot="courseEmptyState" v-if="!myCourses.length">
+              <template slot="courseEmptyState" v-if="!myCourses.length">
+                  <button v-if="$vuetify.breakpoint.xsOnly" class="edit-list hidden-sm-and-up" @click="$_openPersonalize()" type="button">Edit List</button>
+                  <div class="course-empty-state" v-else>
                     <div>Add your school and courses for better results</div>
                     <v-btn @click="$_openPersonalize">Personalize</v-btn>
                 </div>
+              </template>
                 <template slot="courseExtraState" v-else>
-                    <button class="add-course hidden-xs-only" @click="$_openPersonalize" type="button">
+                    <button v-if="$vuetify.breakpoint.xsOnly" class="edit-list" @click.stop.prevent="$_openPersonalize()" type="button">Edit List</button>
+                    <button v-else class="add-course" @click="$_openPersonalize" type="button">
                         <plus-btn></plus-btn><span>Add Course</span>
                     </button>
                 </template>
