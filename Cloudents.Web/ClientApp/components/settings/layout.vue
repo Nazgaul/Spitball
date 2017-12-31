@@ -14,7 +14,7 @@
                 </v-layout>
             </div>
             <slot name="search" v-if="props.search">
-                <v-container class="pa-0">
+                <v-container class="search-wrapper">
                     <v-layout row justify-center>
                         <v-flex><slot name="inputField"></slot></v-flex>
                     </v-layout>

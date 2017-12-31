@@ -27,13 +27,17 @@
                         <v-flex class="ml-2 side-bar" v-if="props.breakPointSideBar">
                             <slot name="rightSide">
                                 <div class="side-bar-wrapper">
-                                    <adsense ad-client="ca-pub-1215688692145777"
-                                             ad-slot="3866041406"
-                                             ad-format="auto" class="mb-2 order-lg1 side-element">
+                                    <adsense ad-client="ca-pub-1215688692145777"  
+                                             ad-style="display:inline-block;width:300px;height:250px"
+                                             ad-slot="5350268955"
+                                             data-ad-format="rectangle"
+                                             class="mb-2 order-lg1 side-element">
                                     </adsense>
                                     <slot name="suggestCell"></slot>
                                     <adsense ad-client="ca-pub-1215688692145777"
-                                             ad-slot="5547053037" class="order-lg3 side-element">
+                                             data-ad-format="rectangle"
+                                             ad-style="display:inline-block;width:300px;height:250px"
+                                             ad-slot="3866041406" class="order-lg3 side-element">
                                     </adsense>
                                 </div>
                             </slot>
