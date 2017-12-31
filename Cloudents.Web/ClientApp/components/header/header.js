@@ -10,7 +10,7 @@ let placeholders={
     note:"Find study documents in...",
     book:"Textbook title of ISBN...",
     ask:"Ask anything...",
-    flashcard:"look for flashcards...",
+    flashcard:"Look for flashcards...",
     food:"Search for deals..."
 }
 export default {
