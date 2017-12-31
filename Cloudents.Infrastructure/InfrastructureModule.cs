@@ -57,7 +57,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<UniqueKeyGenerator>().As<IKeyGenerator>();
 
             builder.Register(c => new DapperRepository(_sqlConnectionString));
-            builder.Register(c => new LuisClient("a1a0245f-4cb3-42d6-8bb2-62b6cfe7d5a3", "6effb3962e284a9ba73dfb57fa1cfe40"));
+            builder.Register(c => new LuisClient("a1a0245f-4cb3-42d6-8bb2-62b6cfe7d5a3", "6effb3962e284a9ba73dfb57fa1cfe40")).AsImplementedInterfaces();
             //builder.Register(c => new DocumentDbInitializer().GetClient("https://zboxnew.documents.azure.com:443/",
             //        "y2v1XQ6WIg81Soasz5YBA7R8fAp52XhJJufNmHy1t7y3YQzpBqbgRnlRPlatGhyGegKdsLq0qFChzOkyQVYdLQ=="))
             //    .As<IReliableReadWriteDocumentClient>().SingleInstance();

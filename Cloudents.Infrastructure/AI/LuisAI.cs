@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
-using Cloudents.Core.Extension;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Microsoft.Cognitive.LUIS;
@@ -15,12 +15,12 @@ namespace Cloudents.Infrastructure.AI
     // ReSharper disable once InconsistentNaming - AI is Shorthand
     public class LuisAI : IAI, IDisposable
     {
-        private readonly LuisClient _client;
+        private readonly ILuisClient _client;
 
         private readonly HashSet<string> _searchVariables = new HashSet<string>(new[] { "documents", "flashcards" },
             StringComparer.InvariantCultureIgnoreCase);
 
-        public LuisAI(LuisClient client)
+        public LuisAI(ILuisClient client)
         {
             _client = client;
         }
@@ -42,6 +42,10 @@ namespace Cloudents.Infrastructure.AI
             KeyValuePair<string, string>? searchType = null;
             string location = null, course = null, isbn = null;
             var terms = new List<string>();
+            if (entities.Count == 0)
+            {
+                return new AiDto(intent, null, null, new[] { sentence }, null, null, null);
+            }
             foreach (var entity in entities)
             {
                 //if (entity.Name.Equals("university", StringComparison.InvariantCultureIgnoreCase))
