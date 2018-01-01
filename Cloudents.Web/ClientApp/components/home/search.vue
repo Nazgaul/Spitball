@@ -4,7 +4,7 @@
             <v-container>
                 <v-layout row>
                     <v-flex class="tx-input">
-                        <v-menu offset-y full-width content-class="search-menu">
+                        <v-menu :allow-overflow="true" offset-y full-width content-class="search-menu">
                             <span slot="activator">
                                 <v-text-field slot="inputField" type="search" solo
                                               @keyup.enter="search" autocomplete="off"

@@ -8,11 +8,11 @@ let placeholders={
     job:"Your field of expertise...",
     tutor: "Find a tutor...",
     note:"Find study documents in...",
-    book:"Textbook title of ISBN...",
+    book:"Textbook title or ISBN...",
     ask:"Ask anything...",
     flashcard:"Look for flashcards...",
     food:"Search for deals..."
-}
+};
 export default {
     mixins: [micMixin],
     components: {

@@ -9,8 +9,8 @@
                             <v-flex class="pa-0">
                                 <v-container class="pa-0">
                                     <v-layout row>
-                                        <v-flex xs8 class="tutor-title">{{item.name}}</v-flex>
-                                        <v-flex xs4 v-if="item.fee"><div class="price text-xs-right">${{item.fee}} / hour</div></v-flex>
+                                        <v-flex  class="tutor-title">{{item.name}}</v-flex>
+                                        <v-flex  v-if="item.fee"><div class="price text-xs-right">${{item.fee}} / hour</div></v-flex>
                                     </v-layout>
                                         <div class="description" v-if="item.description">{{item.description}}</div>
                                     

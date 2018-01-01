@@ -15,15 +15,12 @@
                          :filterCallback="$_updateFilterMobile" :filterVal="selectedFilters">
             
             <!--</template>-->
-            <template slot="courseMobileEmptyState">
-                <slot name="courseEmptyState"></slot>
-            </template>
             <template slot="courseTitlePrefix">
                 <slot name="courseTitlePrefix"></slot>
             </template>
             <template slot="courseMobileExtraState">
-                <slot name="courseExtraState">
-                </slot>
+                <slot name="courseExtraState"></slot>
+                <slot name="courseEmptyState"></slot>
             </template>
         </sort-and-filter>
     </v-dialog>
@@ -41,7 +38,6 @@
         },
         components: { SortAndFilter },
         props: { value: { type: Boolean }, sortOptions: {}, filterOptions: {}, filterVal: {}, sortVal: {} },
-        name: "mobile-sort-and-filter",
         methods: {
             $_applayFilters() {
                 if (this.$route.path.includes('note') || this.$route.path.includes('flashcard'))
@@ -63,20 +59,20 @@
                 let listo = [val, ...currentFilter];
                 if (!type.target.checked) {
                     listo = currentFilter.filter(i => i.toString() !== val.toString());
-                    this.selectedFilters=this.selectedFilters.filter(i=>i!==val);
+                    // this.selectedFilters=this.selectedFilters.filter(i => i!==val);
                 }else{
-                    this.selectedFilters.push(val);
+                    // this.selectedFilters.push(val);
                 }
                 // if (id === 'course') {
                 //     this.$route.meta.myClasses = listo;
                 // }
-                this.filters[id] = listo;
+                this.filters[id] = [...new Set(listo)];
                 if (val === 'inPerson' && type) this.sort = "price";
             }
         },
         watch:{
             filterVal(val){
-                this.filters=val;
+                // this.filters=val;
                 this.selectedFilters=val;
             }
         },
