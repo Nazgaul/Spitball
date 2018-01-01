@@ -249,6 +249,7 @@
     <Compile Include="Controllers\AiController.cs" />
     <Compile Include="Controllers\AskController.cs" />
     <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Extensions\HttpRequestMessageExtensions.cs" />
     <Compile Include="Extensions\UrlHelperExtension.cs" />
     <Compile Include="Filters\PagingAttribute.cs" />
     <Compile Include="Models\BookRequest.cs" />

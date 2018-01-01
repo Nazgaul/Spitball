@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Net;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -20,10 +21,12 @@ namespace Zbang.Cloudents.Jared.Controllers
     public class TutorController : ApiController
     {
         private readonly ITutorSearch _tutorSearch;
+        private readonly IIpToLocation _ipToLocation;
 
-        public TutorController(ITutorSearch tutorSearch)
+        public TutorController(ITutorSearch tutorSearch, IIpToLocation ipToLocation)
         {
             _tutorSearch = tutorSearch;
+            _ipToLocation = ipToLocation;
         }
 
         /// <summary>
@@ -55,6 +58,12 @@ namespace Zbang.Cloudents.Jared.Controllers
         [VersionedRoute("api/tutor", "2017-12-19", Name = "TutorSearch"), HttpGet]
         public async Task<HttpResponseMessage> TutorV2Async([FromUri]TutorRequest model, CancellationToken token)
         {
+            if (model.Location == null)
+            {
+                var location = Request.GetClientIp();
+                var locationResult = await _ipToLocation.GetAsync(IPAddress.Parse(location), token);
+                model.Location = locationResult.ConvertToPoint();
+            }
             var result = await _tutorSearch.SearchAsync(model.Term,
                 model.Filter,
                 model.Sort.GetValueOrDefault(TutorRequestSort.Price),

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,10 +18,12 @@ namespace Zbang.Cloudents.Jared.Controllers
     public class PlacesController : ApiController
     {
         private readonly IPlacesSearch _purchaseSearch;
+        private readonly IIpToLocation _ipToLocation;
 
-        public PlacesController(IPlacesSearch purchaseSearch)
+        public PlacesController(IPlacesSearch purchaseSearch, IIpToLocation ipToLocation)
         {
             _purchaseSearch = purchaseSearch;
+            _ipToLocation = ipToLocation;
         }
         /// <summary>
         /// Query to get food and places vertical
@@ -32,7 +35,13 @@ namespace Zbang.Cloudents.Jared.Controllers
             CancellationToken token)
         {
             if (purchaseRequest.Term == null) throw new ArgumentNullException(nameof(purchaseRequest.Term));
-            if (purchaseRequest.Location == null) throw new ArgumentNullException(nameof(purchaseRequest.Location));
+            if (purchaseRequest.Location == null)
+            {
+                var location = Request.GetClientIp();
+                var locationResult = await _ipToLocation.GetAsync(IPAddress.Parse(location), token);
+                purchaseRequest.Location = locationResult.ConvertToPoint();
+            }
+
             var result = await _purchaseSearch.SearchNearbyAsync(string.Join(" ", purchaseRequest.Term), purchaseRequest.Filter.GetValueOrDefault(), purchaseRequest.Location, null, token).ConfigureAwait(false);
 
             var nextPageLink = Url.Link("DefaultApis", new
