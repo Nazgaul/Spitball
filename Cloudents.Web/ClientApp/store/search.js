@@ -63,9 +63,11 @@ const actions = {
     },
 
     fetchingData: (context, { name, params, page, luisTerm: term, docType }) => {
+        console.log(term);
         let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
         let paramsList = { ...context.getters.searchParams, ...params, university, page, docType };
         if (term !== undefined) {
+            if(!term){context.commit(SEARCH.UPDATE_SEARCH_PARAMS, { term });}
             paramsList = { ...paramsList, term };
         }
         //get location if needed

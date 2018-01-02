@@ -231,7 +231,14 @@ export const pageMixin =
                         return item;
                     });
                 }
-            },
+                //check if filter selection have values that not exist in the current filter options make query replace without the filters
+                let filterPotential=this.filterObject.map(i=>i.data);
+                if(Array.from(this.filterSelection).filter(i=>filterPotential.includes(i)).length!==this.filterSelection.length){
+                    const routeParams = { path: '/' + this.name, query: { q: this.userText } };
+                    this.$router.replace(routeParams);
+                }
+
+                    },
             //when sort updated update sort in params query
             $_updateSort(sort) {
                 this.$router.push({ query: { ... this.query, sort: sort } });

@@ -41,7 +41,7 @@ export default {
             return "Personalize Results";
         },
         showCreateCourse: function () {
-            return this.val.length > 2 && this.currentType === typesPersonalize.course;
+            return this.val.length > 2 && this.currentType === typesPersonalize.course && !this.isLoading;
         },
 
         currentItem: function () {

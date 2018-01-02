@@ -79,7 +79,7 @@ function moreInfoFn(route) {
     };
 }
 function verticalsLinkFun(route) {
-    let currentPath=route.name==="bookDetails"?"/book":route.path;
+    let currentPath=route.path;
     return {
         $_calcTerm: $_calcTerm,
         verticals: verticalsNavbar,
@@ -89,7 +89,7 @@ function verticalsLinkFun(route) {
         name:route.name,
         myClasses:route.meta.myClasses,
         luisType:currentPath.includes('food')?'foodTerm':currentPath.includes('job')?'jobTerm':'term',
-        currentSelection: route.name === "result" ? route.path.slice(1) : "book"
+        currentSelection: route.path.slice(1)
     }
 }
 function headerResultPageFn(route){
@@ -137,7 +137,7 @@ const bookDetailsProps = {
     ...resultProps,
     default: dynamicDetailsPropsFn,
     //verticalListMobile: filterLinkFun,
-    header: (route) => ({ name: "textbooks", id: route.params.id })
+    header: (route) => ({...verticalsLinkFun(route), name: "textbooks", id: route.params.id,currentSelection:"book",currentPath:"bookDetails"})
 };
 export const routes = [
     {
