@@ -24,7 +24,7 @@
                                 <slot name="selectedItems" :course="course"></slot>
                             </template>
                         </v-layout>
-                        <v-divider v-if="props.selectedCourse.length" class="mt-3 results-divider"></v-divider>
+                        <v-divider v-if="props.selectedCourse.length" class="mt-3 results-divider hidden-xs-only"></v-divider>
                     </v-container>
                 </v-container>
             </slot>
@@ -43,5 +43,8 @@
             <slot name="actionContent">
             </slot>
         </v-flex>
+        <v-dialog persistent :value="props.showAdd" content-class="white">
+            <slot :name="`${props.type}MobileExtraItem`"></slot>
+        </v-dialog>
     </v-layout>
 </template>

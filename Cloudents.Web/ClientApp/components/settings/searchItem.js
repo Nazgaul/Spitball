@@ -23,11 +23,16 @@ export default {
         val: debounce(function () {
             this.items = [];
             if (this.val.length > 2)
-            this.$_search();
+                 this.$_search();
+            else{
+                this.noResults=false;
+            }
         }, 250),
         isShown(val){
             if(val&&this.$refs.searchText){
                 this.$refs.searchText.focus();
+                this.items = [];
+                this.noResults=false;
             }else if(!val&&this.$refs.searchText){
                 this.$refs.searchText.inputValue="";
             }
@@ -52,7 +57,8 @@ export default {
                 this.items = this.items.filter(i => !this.myCoursesId.includes(i.id));
                 return this.myCourses;
             }
-        }
+        },
+        isMobile(){return this.$vuetify.breakpoint.xsOnly;}
 
     },
     data() {
@@ -64,7 +70,8 @@ export default {
             currentAction: "",
             newCourseName: "",
             val: "",
-            noResults:false
+            noResults:false,
+            showAdd:false
         };
     },
 
@@ -76,7 +83,7 @@ export default {
         ...mapMutations({ updateUser: "UPDATE_USER" }),
         ...mapActions(["createCourse"]),
         $_removeCourse(val) {
-            this.items.push(this.myCourses.find(i => i.id === val));
+            if(this.val){this.items.push(this.myCourses.find(i => i.id === val));}
             this.updateUser({ myCourses: this.myCourses.filter(i => i.id !== val) });
         },
         $_closeButton() {
@@ -113,13 +120,15 @@ export default {
         },
 
         $_submitAddCourse() {
-            this.$refs.addForm.blur();
             this.createCourse({ name: this.newCourseName });
             this.newCourseName = "";
             this.$el.querySelector('.results-container').scrollTop = 0;
+            this.val="";
+            this.showAdd=false;
         },
         $_clearAddCourse() {
             this.newCourseName = "";
+            this.showAdd=false;
         }
     }
 }

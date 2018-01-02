@@ -1,6 +1,9 @@
 ﻿<template>
     <div class="course pa-2" :key="item.id" @click="$_updateMyCourses(item)">
-        <div class="name" :title="item.name">{{item.name | ellipsis(38)}}</div>
+        <input type="checkbox" :checked="isChecked"  :id="`course-${item.id}`" @change="$_updateMyCourses(item)" class="hidden-md-and-up"/>
+        <label class="name" :title="item.name" :for="`course-${item.id}`">
+            {{item.name | ellipsis(38)}}
+        </label>
     </div>
     </template>
 <script>
@@ -10,7 +13,7 @@
                 prop: 'value',
                 event: 'selected'
             },
-            props: { item: { type: Object, required: true }, value: {} },
+            props: { item: { type: Object, required: true }, value: {},isChecked:{type:Boolean,default:false} },
 
             computed: {
                 ...mapGetters(['myCoursesId','myCourses']),
