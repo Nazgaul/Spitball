@@ -1,7 +1,20 @@
 ﻿@import "../../mixin.less";
 
 
+.fade-enter-active,
+.fade-leave-active,
+.fade-leave-to {
+    transition: 1s ease-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 
+.fade-enter,
+.fade-leave,
+.fade-leave-to {
+    opacity: 0;
+}
 .h-p {
     &.wrapper {
         width: 100%;
@@ -59,12 +72,10 @@
                 margin: 0 0 54px;
                 letter-spacing: -0.4px;
                 font-weight: 300;
-
                 /*@media(max-width: @tabletEndBreakPoint) {
                     font-size: 16px;
                     letter-spacing: -0.2px;
                 }*/
-
                 @media(max-width: @mobileEndBreakPoint) {
                     font-size: 16px;
                     letter-spacing: -0.3px;
@@ -261,6 +272,9 @@
             box-shadow: none;
             margin: 0 auto;
             padding: 0;
+            max-width: 1280px;
+
+
 
             @media(max-width: 600px) {
                 padding: 0 16px;
@@ -291,7 +305,7 @@
                 top: 57%;
 
                 .btn i {
-                    font-size: 58px;
+                    font-size: 40px;
                 }
             }
 
@@ -378,12 +392,10 @@
                 padding: 0 12px;
             }
         }
-
-        @media(max-width: 600px) {
+        /*@media(max-width: 600px) {
             margin: 0;
             padding: 12px 0;
-        }
-
+        }*/
         a {
             color: @color-white;
         }
@@ -502,7 +514,7 @@
         }
     }
 
-    @media screen and (max-width: 960px) {
+    @media screen and (max-width: @tabletEndBreakPoint) {
         .container {
             padding: 0 40px;
             width: 100%;

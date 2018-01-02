@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cloudents.Core.Models;
 
 namespace Cloudents.Core.DTOs
 {
@@ -30,5 +31,11 @@ namespace Cloudents.Core.DTOs
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public string MetroCode { get; set; }
+
+
+        public GeoPoint ConvertToPoint()
+        {
+            return new GeoPoint(Longitude, Latitude);
+        }
     }
 }

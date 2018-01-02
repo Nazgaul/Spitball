@@ -52,10 +52,10 @@ namespace Cloudents.Infrastructure.Cache
                         sb.Append(collectionArg);
                     }
                 }
-                //foreach (var prop in arg.GetType().GetProperties())
-                //{
-                //    sb.Append($"{prop.Name}={prop.GetValue(prop, null)}");
-                //}
+                foreach (var prop in arg.GetType().GetProperties())
+                {
+                    sb.Append($"{prop.Name}={prop.GetValue(arg)}");
+                }
             }
 
 

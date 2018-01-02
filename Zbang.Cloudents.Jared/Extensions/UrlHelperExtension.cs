@@ -9,8 +9,19 @@ using Zbang.Cloudents.Jared.Models;
 
 namespace Zbang.Cloudents.Jared.Extensions
 {
+    /// <summary>
+    /// Extension class for urlHelper
+    /// </summary>
     public static class UrlHelperExtension
     {
+        /// <summary>
+        /// Generate link with query string
+        /// </summary>
+        /// <param name="urlHelper"></param>
+        /// <param name="routeName">the route we want</param>
+        /// <param name="routeValue">route object</param>
+        /// <param name="queryString">query string</param>
+        /// <returns>link</returns>
         public static string Link(this UrlHelper urlHelper, string routeName, object routeValue, object queryString)
         {
             var url = urlHelper.Link(routeName, routeValue);
@@ -19,7 +30,14 @@ namespace Zbang.Cloudents.Jared.Extensions
             return builder.ToString();
         }
 
-
+        /// <summary>
+        /// Generate next page link for paging
+        /// </summary>
+        /// <param name="urlHelper"></param>
+        /// <param name="routeName">the route we want</param>
+        /// <param name="routeValue">route object</param>
+        /// <param name="queryString">query string</param>
+        /// <returns>link</returns>
         public static string NextPageLink(this UrlHelper urlHelper, string routeName, object routeValue, IPaging queryString)
         {
             queryString.Page = queryString.Page.GetValueOrDefault() + 1;
