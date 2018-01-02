@@ -19,7 +19,9 @@
                 <slot name="courseTitlePrefix"></slot>
             </template>
             <template slot="courseMobileExtraState">
-                <slot name="courseExtraState"></slot>
+                <slot name="mobileExtra"></slot>
+            </template>
+            <template slot="courseEmptyState">
                 <slot name="courseEmptyState"></slot>
             </template>
         </sort-and-filter>
