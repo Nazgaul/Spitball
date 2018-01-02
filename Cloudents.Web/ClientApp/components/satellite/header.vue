@@ -23,7 +23,7 @@
 <script>
     import logo from '../../../wwwroot/Images/logo-spitball.svg';
     import sbSearch from "../home/search.vue";
-    import { staticRoutes } from "../../routeTypes"
+    import { staticRoutes } from "./satellite-routes"
     export default {
         components: {
             logo, sbSearch

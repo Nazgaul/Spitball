@@ -12,6 +12,7 @@ const boodDetailsHeader = () => import("./components/book/header.vue");
 const bookDetails = () => import("./components/book/ResultBookDetails.vue");
 
 const satelliteHeader = () => import("./components/satellite/header.vue");
+import { staticRoutes } from "./components/satellite/satellite-routes";
 //const faqView = () => import("./components/satellite/faq.vue");
 
 
@@ -207,8 +208,8 @@ let routes2 = [
     },
 
 ];
-for (let v in RouteTypes.staticRoutes) {
-    let item = RouteTypes.staticRoutes[v];
+for (let v in staticRoutes) {
+    let item = staticRoutes[v];
     routes2.push({
         path: item.path || "/" + item.name,
         name: item.name,
