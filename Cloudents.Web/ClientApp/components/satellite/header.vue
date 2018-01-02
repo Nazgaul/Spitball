@@ -1,18 +1,18 @@
 ﻿<template>
-    <v-toolbar :height="$vuetify.breakpoint.smAndDown? 64 : 150" flat class="h-p-header" :class="{scroll: scrollTop}" :extended="$vuetify.breakpoint.smAndDown && showText" app fixed v-scroll="onScroll">
+    <v-toolbar :height="$vuetify.breakpoint.smAndDown? 64 : 150" flat class="h-p-header" app fixed>
         <v-toolbar-title class="ml-2">
             <logo class="logo"></logo>
         </v-toolbar-title>
         <v-toolbar-items>
             <sb-search></sb-search>
         </v-toolbar-items>
-        <v-tabs class="verticals-bar" :value="currentSelection" :scrollable="false">
+        <v-tabs class="verticals-bar" :value="currentSelection" >
             <v-tabs-bar>
-                <v-tabs-item v-for="tab in verticals" :key="tab.id" :href="tab.id" :id="tab.id"
+                <v-tabs-item router v-for="tab in verticals" :key="tab.name" :to="tab.name" 
                              class="mr-4 vertical">
-                    {{tab.name}}
+                    {{tab.display}}
                 </v-tabs-item>
-                <v-tabs-slider :color="color-blue"></v-tabs-slider>
+                <v-tabs-slider color="color-blue"></v-tabs-slider>
             </v-tabs-bar>
         </v-tabs>
 
@@ -22,23 +22,15 @@
 
 <script>
     import logo from '../../../wwwroot/Images/logo-spitball.svg';
-    import sbSearch from "./search.vue";
+    import sbSearch from "../home/search.vue";
+    import { staticRoutes } from "./satellite-routes"
     export default {
         components: {
             logo, sbSearch
         },
         data() {
             return {
-                verticals: [
-                    {
-                        id: "A",
-                        name: "Privacy"
-                    },
-                    {
-                        id: "A",
-                        name: "Terms"
-                    }
-                ]
+                verticals: staticRoutes
             }
         }
     }

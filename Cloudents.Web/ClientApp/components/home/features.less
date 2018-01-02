@@ -1,34 +1,18 @@
 ﻿@import "../../mixin.less";
 
 .features {
-    color: white;
-    text-align: center;
-    margin-top: 8%;
-    max-width: 1128px;
+    margin-top: 50px;
 
-    @media(max-width: @tabletEndBreakPoint) {
-        max-width: 768px;
+    .divider {
+        height: 36px;
+        background: none;
     }
-    /*@media(max-width: 600px) {
-        margin-top: 16px;
-    }*/
-    /*h3 {
-        font-weight: bold;
-        line-height: normal;
 
-      
-    }*/
     .feature {
-        /*@media(min-width: 600px) {
-            max-width: 340px;
-        }*/
+        max-width: 272px;
+
         .icon-wrapper {
-            height: 64px;
-            //margin-bottom: 12px;
-            .inTheMiddle();
-            /*@media(max-width: 600px) {
-                height: 50px;
-            }*/
+            .responsive-property(height, 100px,null,40px);
         }
 
         svg {
@@ -38,91 +22,36 @@
         &.document {
             svg {
                 transform: rotate(-15deg);
-                width: 43px;
-                height: auto;
-                /*@media(max-width: @tabletEndBreakPoint) {
-                   width:15%;
-                }*/
-                @media(max-width: @mobileEndBreakPoint) {
-                    width: 28px;
-                }
+                .responsive-property(height, 64px,null,28px);
             }
         }
 
         &.textbook {
             svg {
-                width: 68px;
-                //width: 24%;
-                height: auto;
-
-                @media(max-width: @mobileEndBreakPoint) {
-                    width: 32px;
-                }
-                /*@media(max-width: 600px) {
-                    width: 32px;
-                    padding-top: 6px;
-                }*/
+                .responsive-property(height, 54px,null,28px);
             }
         }
 
         &.homework {
             svg {
-                transform: rotate(-12.5deg);
-                width: 60px;
-                //width: 21%;
-                height: auto;
-
-                @media(max-width: @mobileEndBreakPoint) {
-                    width: 26px;
-                }
-                //margin-top: -14px;
-                //margin-left: -20px;
-                /*@media(max-width: 600px) {
-                    width: 26px;
-                    padding-bottom: 12px;
-                }*/
+                transform: rotate(-12deg);
+                .responsive-property(height, 76px,null,28px);
             }
         }
 
-        .wrapper {
-            /*@media(max-width: 600px) {
-                flex-wrap: nowrap;
-                max-width: 300px;
-                margin: 0 auto;
-            }*/
-        }
-    }
-
-    .data {
-        font-size: 18px;
-        letter-spacing: -0.3px;
-        /*@media(max-width: 600px) {
-            font-size: 14px;
-
-            h3, p {
-                margin: 0
-            }
-        }*/
-        h3 {
-            letter-spacing: -1.4px;
-            font-size: 20px;
-            font-weight: 600;
-            color: #302eb5;
-
-            @media(max-width: @tabletEndBreakPoint) {
-                color: #4a4a4a;
-                font-size: 16px;
-                letter-spacing: -0.4px;
-            }
-        }
-        /*h3, p {
-            font-size: inherit;
-        }*/
-        p {
-            color: #4a4a4a;
-            line-height: 1.65;
+        .data {
             font-size: 16px;
-            //font-weight: 100;
+            line-height: 1.63;
+            letter-spacing: -0.3px;
+            color: #4a4a4a;
+
+            h3 {
+                line-height: 1.44;
+                font-weight: 600;
+                color: #302eb5;
+                .responsive-property(font-size, 18px, 16px);
+                .responsive-property(color, #302eb5, #4a4a4a);
+            }
         }
     }
 }

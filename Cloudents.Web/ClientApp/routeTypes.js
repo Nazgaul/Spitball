@@ -10,3 +10,7 @@ export const foodDetailsRoute = "foodDetails";
 export const jobRoute = "job";
 
 
+
+
+
+

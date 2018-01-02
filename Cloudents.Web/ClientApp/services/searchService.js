@@ -1,4 +1,4 @@
-﻿import { search, flashcard } from "./resources";
+﻿import { search, flashcard, help } from "./resources";
 import axios from "axios";
 import qs from "qs"
 axios.defaults.paramsSerializer = params => qs.stringify(params, { indices: false });

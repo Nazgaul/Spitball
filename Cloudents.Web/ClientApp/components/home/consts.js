@@ -36,7 +36,7 @@ let strips =
             floatingImages: ['tutorIcon', 'discussionIcon','studentLaptopIcon'],
             titleIcon: 'stripTutorIcon',
             title: "Tutors",
-            text: "Spitball has teamed up with the most trusted tutoring services to help you ace your classes. All of our online and in-person tutors are highly qualified experts with educations from some of the best universities in the world."
+            text: "Spitball has teamed up with the most trusted tutoring services to help you ace your classes."// All of our online and in-person tutors are highly qualified experts with educations from some of the best universities in the world."
         },
 
         textbooks: {
