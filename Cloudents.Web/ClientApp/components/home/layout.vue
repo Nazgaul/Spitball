@@ -51,34 +51,34 @@
                 <v-flex class="box-app" xs12 sm6>
                     <div class="footer-title pb-2">GET THE SPITBALL APP</div>
                     <p>Simplify School. Find class notes, textbooks,<br/> deals, tutors and more anytime, anywhere.</p>
-                    <a href="#" class="app"><lazy-component><img src="./img/app-store-icon.png" alt=""></lazy-component></a>
+                    <a href="https://itunes.apple.com/us/app/spitball-simplify-school/id990911114?mt=8" class="app"><lazy-component><img src="./img/app-store-icon.png" alt=""></lazy-component></a>
                 </v-flex>
                 <v-flex class="box-links" xs10 sm5>
                     <v-layout class="about-links" row wrap justify-space-between>
                         <v-flex class="box-list">
                             <div class="list-title">COMPANY</div>
                             <ul>
-                                <li><a href="#">How Spitball Works</a></li>
-                                <li><a href="#">Work For Us</a></li>
-                                <li><a href="#">Blog</a></li>
-                                <li><a href="#">Contact Us</a></li>
+                                <li><router-link to="work">How Spitball Works</router-link></li>
+                                <li><router-link to="reps">Work For Us</router-link></li>
+                                <li><router-link to="blog">Blog</router-link></li>
+                                <li><router-link to="contact">Contact Us</router-link></li>
                             </ul>
                         </v-flex>
                         <v-flex class="box-list">
                             <div class="list-title">SUPPORT</div>
                             <ul>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Terms of Service</a></li>
-                                <li><a href="#">FAQ</a></li>
-                                <li><a href="#">Become a Partner</a></li>
+                                <li><router-link to="privacy">Privacy Policy</router-link></li>
+                                <li><router-link to="terms">Terms of Service</router-link></li>
+                                <li><router-link to="faq">FAQ</router-link></li>
+                                <li><router-link to="partners">Become a Partner</router-link></li>
                             </ul>
                         </v-flex>
                     </v-layout>
                     <v-layout class="list-social-links mt-4 pb-3" justify-space-between>
                         <v-flex v-for="icon in props.bottomIcons" :key="icon" pa-0>
-                            <a href="#">
+                            <a :href="icon.link">
                                 <span class="demo-icon">
-                                    <slot name="bottomIcon" :iconName="icon"></slot>
+                                    <slot name="bottomIcon" :iconName="icon.img"></slot>
                                 </span>
                             </a>
                         </v-flex>
