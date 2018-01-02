@@ -32,7 +32,7 @@
             </v-flex>
             <v-flex v-if="$vuetify.breakpoint.smAndDown" class="line">
                 <form @submit.prevent="submit">
-                    <v-text-field type="search" light solo class="search-b" placeholder="Ask me anything" v-model="qFilter" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>
+                    <v-text-field type="search" light solo class="search-b" :placeholder="placeholders[currentSelection]" v-model="qFilter" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>
                 </form>
             </v-flex>
             <v-flex class="line">
