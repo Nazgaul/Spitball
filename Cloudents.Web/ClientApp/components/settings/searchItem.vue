@@ -26,7 +26,7 @@
             <div class="add-course-form mx-2 mt-4 py-3 px-3">
                 <form @submit.prevent="$_submitAddCourse">
                     <!--<div class="form-title">Still don't see your class?</div>-->
-                    <v-text-field light v-model="newCourseName" label="Type it in here:"></v-text-field>
+                    <v-text-field light v-model="newCourseName" label="Type it in here:" ></v-text-field>
                     <div class="actions">
                         <v-btn class="save" :disabled="!newCourseName" @click="$_submitAddCourse">save</v-btn>
                         <v-btn class="clear"  @click="$_clearAddCourse">Cancel</v-btn>
