@@ -6,19 +6,19 @@ const foodDetails = () => import("./components/food/foodDetails.vue");
 const foodHeader = () => import("./components/food/foodHeader.vue");
 const showItem = () => import("./components/preview/Item.vue");
 const showFlashcard = () => import("./components/preview/Flashcard.vue");
-//const notFound = () => import("./components/results/notFound.vue");
-//const theNavbar = () => import("./components/navbar/TheNavbar.vue");
-//const moreInfo = () => import("./components/results/MoreInfo.vue");
 const personalize = () => import("./components/settings/ResultPersonalize.vue");
 const pageHeader = () => import("./components/header/header.vue");
-//const foodDetailsHeader = () => import("./components/header/headerFirstLineMobile.vue");
 const boodDetailsHeader = () => import("./components/book/header.vue");
 const bookDetails = () => import("./components/book/ResultBookDetails.vue");
+
+const satelliteHeader = () => import("./components/satellite/header.vue");
+//const faqView = () => import("./components/satellite/faq.vue");
+
 
 //const mobileDetailsFirstLine = () => import("./components/header/headerFirstLineMobile.vue");
 import { page, verticalsName, verticalsNavbar, details } from './data'
 const $_calcTerm = (name) => {
-     return (name.includes('food') || name.includes('purchase')) ? 'foodTerm' : name.includes('job') ? 'jobTerm' : 'term'
+    return (name.includes('food') || name.includes('purchase')) ? 'foodTerm' : name.includes('job') ? 'jobTerm' : 'term'
 };
 
 function dynamicPropsFn(route) {
@@ -79,22 +79,22 @@ function moreInfoFn(route) {
     };
 }
 function verticalsLinkFun(route) {
-    let currentPath=route.path;
+    let currentPath = route.path;
     return {
         $_calcTerm: $_calcTerm,
         verticals: verticalsNavbar,
-        userText:route.query.q,
+        userText: route.query.q,
         currentPath,
-        getLuisBox:(name)=>route.meta[$_calcTerm(name)],
-        name:route.name,
-        myClasses:route.meta.myClasses,
-        luisType:currentPath.includes('food')?'foodTerm':currentPath.includes('job')?'jobTerm':'term',
+        getLuisBox: (name) => route.meta[$_calcTerm(name)],
+        name: route.name,
+        myClasses: route.meta.myClasses,
+        luisType: currentPath.includes('food') ? 'foodTerm' : currentPath.includes('job') ? 'jobTerm' : 'term',
         currentSelection: route.path.slice(1)
     }
 }
-function headerResultPageFn(route){
+function headerResultPageFn(route) {
     return {
-        userText:route.query.q
+        userText: route.query.q
     }
 }
 //function filterLinkFun(route){
@@ -125,21 +125,18 @@ const resultProps = {
 };
 
 
-//const notFoundPage = { default: notFound };
 
 
 const foodDetailsProps = {
     default: true,
-    //header: { showSingleLine: true },
-    //headerMobile: { name: "Food and Deals" }
 };
 const bookDetailsProps = {
     ...resultProps,
     default: dynamicDetailsPropsFn,
     //verticalListMobile: filterLinkFun,
-    header: (route) => ({...verticalsLinkFun(route), name: "textbooks", id: route.params.id,currentSelection:"book",currentPath:"bookDetails"})
+    header: (route) => ({ ...verticalsLinkFun(route), name: "textbooks", id: route.params.id, currentSelection: "book", currentPath: "bookDetails" })
 };
-export const routes = [
+let routes2 = [
     {
         path: "/", components: {
             default: HomePage,
@@ -179,7 +176,8 @@ export const routes = [
             //personalize,
             //verticalListMobile: theNavbar,
             //headerMobile: boodDetailsHeaderMobile,
-            header: boodDetailsHeader },
+            header: boodDetailsHeader
+        },
         props: bookDetailsProps,
         meta: {
             pageName: "book"
@@ -194,17 +192,10 @@ export const routes = [
         },
         props: foodDetailsProps
     },
-    //{
-    //    path: "/not-found", name: "notFound", components: notFoundPage, alias: [
-
-    //    ], meta: {
-    //        //showHeader: true
-    //    }
-    //},
     {
         path: "/item/:university/:courseId/:courseName/:id/:itemName", name: "item", component: showItem, props: true, meta: {
             pageName: RouteTypes.notesRoute
-           // showHeader: true
+            // showHeader: true
         }
     },
     {
@@ -213,5 +204,19 @@ export const routes = [
             pageName: RouteTypes.flashcardRoute
             //showHeader: true
         }
-    }
+    },
+
 ];
+for (let v in RouteTypes.staticRoutes) {
+    let item = RouteTypes.staticRoutes[v];
+    routes2.push({
+        path: item.path || "/" + item.name,
+        name: item.name,
+        components: {
+            header: satelliteHeader,
+            default: item.import
+        }
+    })
+}
+
+export const routes = routes2;
