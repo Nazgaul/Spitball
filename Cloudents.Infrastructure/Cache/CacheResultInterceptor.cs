@@ -34,6 +34,10 @@ namespace Cloudents.Infrastructure.Cache
             var sb = new StringBuilder();
             foreach (var arg in invocation.Arguments)
             {
+                if (arg == null)
+                {
+                    continue;
+                }
                 if (arg is string s)
                 {
                     sb.Append(s);

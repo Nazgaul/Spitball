@@ -28,7 +28,7 @@ namespace Cloudents.Infrastructure.Search
         }
 
         public async Task<ResultWithFacetDto<JobDto>> SearchAsync(
-            string term,
+            IEnumerable<string> term,
             JobRequestFilter filter,
             JobRequestSort sort,
             IEnumerable<string> jobType,
@@ -73,13 +73,14 @@ namespace Cloudents.Infrastructure.Search
                 OrderBy = sortQuery
 
             };
-            if (string.IsNullOrEmpty(term))
+            var str = string.Join(" ", term ?? Enumerable.Empty<string>());
+            if (string.IsNullOrWhiteSpace(str))
             {
-                term = "*";
+                str = "*";
             }
 
             var retVal = await
-                _client.Documents.SearchAsync<Job>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
+                _client.Documents.SearchAsync<Job>(str, searchParams, cancellationToken: token).ConfigureAwait(false);
             return _mapper.Map<ResultWithFacetDto<JobDto>>(retVal,
                 opt => opt.Items[JobResultConverter.FacetType] = "jobType");
         }
