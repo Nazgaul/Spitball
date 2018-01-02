@@ -28,7 +28,7 @@ namespace Cloudents.Web.Api
             GeoPoint location, string[] facet,int? page, CancellationToken token)
         {
             var result = await _jobSearch.SearchAsync(
-                string.Join(" ", term ?? Enumerable.Empty<string>()),
+                term,
                 filter.GetValueOrDefault(),
                 sort.GetValueOrDefault(JobRequestSort.Distance),
                 facet, location, page.GetValueOrDefault(), token).ConfigureAwait(false);

@@ -31,6 +31,7 @@ const vuetifyComponents = {
     VSwitch,
     VTabs,
     VIcon,
+    VSnackbar
 };
 import {
     Vuetify,
@@ -54,6 +55,7 @@ import {
     VSwitch,
     VTabs,
     VIcon,
+    VSnackbar
 
 } from "vuetify"
 import * as route from "./routes";

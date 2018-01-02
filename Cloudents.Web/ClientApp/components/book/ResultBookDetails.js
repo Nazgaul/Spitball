@@ -22,17 +22,29 @@ export default {
     components: { ResultBook },
     computed: {
         filteredList: function () {
-            return !this.pageData.data ? [] : this.filter === all ? this.pageData.data.sort((a, b) => a.price - b.price) : this.pageData.data.filter(item => item.condition === this.filter);
+            return !this.pageData.data ? [] : this.filter === all ? this.pageData.data.sort((a, b) => a.price - b.price) : this.pageData.data.filter(item => [].concat(this.filter).includes(item.condition));
         }
     },
 
     methods: {
         $_updateFilter({ val, type }) {
-            this.filter = (type.target.checked || val === all) ? val : all;
+            if(this.filter===all){
+                this.filter=[];
+            }
+            if(!type.target.checked){
+                this.filter=this.filter.filter(i=>i!==val);
+            }else{
+               this.filter.push(val);
+            }
+            if(!this.filter.length){this.filter=all}
         },
         $_updateSort(val) {
             this.sortVal = val;
             this.$_changeTab(val);
+        },
+        submitMobile({filters}){
+            if(filters&&filters.filter&&filters.filter.length){this.filter=filters.filter}
+            else{this.filter=all}
         }
     },
     props: { filterOptions: { type: Array } }

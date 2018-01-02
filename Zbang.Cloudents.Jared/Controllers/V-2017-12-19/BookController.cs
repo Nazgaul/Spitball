@@ -17,8 +17,9 @@ namespace Zbang.Cloudents.Jared.Controllers
     /// The book api controller
     /// </summary>
 
-    [MobileAppController, RoutePrefix("api/book"), ApiVersion("2017-01-01",Deprecated = true)]
-    public class BookController : ApiController
+    [MobileAppController, RoutePrefix("api/book"), ApiVersion("2017-12-19")]
+    [ControllerName(nameof(BookController))]
+    public class Book2Controller : ApiController
     {
         private readonly IBookSearch _booksSearch;
 
@@ -26,7 +27,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         /// Ctor
         /// </summary>
         /// <param name="booksSearch"></param>
-        public BookController(IBookSearch booksSearch)
+        public Book2Controller(IBookSearch booksSearch)
         {
             _booksSearch = booksSearch;
         }
@@ -39,15 +40,38 @@ namespace Zbang.Cloudents.Jared.Controllers
         /// <param name="token"></param>
         /// <returns>List of book</returns>
         /// <exception cref="ArgumentNullException">term cannot be empty</exception>
-        [Route("search")]
-        public async Task<IHttpActionResult> Get([FromUri]BookRequest bookRequest, CancellationToken token)
+        //[Route("search"), MapToApiVersion("2017-01-01")]
+        //public async Task<IHttpActionResult> Get([FromUri]BookRequest bookRequest, CancellationToken token)
+        //{
+        //    bookRequest = bookRequest ?? new BookRequest();
+        //    var result = await _booksSearch.SearchAsync(bookRequest.Term, bookRequest.Thumbnail.GetValueOrDefault(150), bookRequest.Page.GetValueOrDefault(), token).ConfigureAwait(false);
+        //    return Ok(result);
+        //}
+
+        /// <summary>
+        /// Search book vertical end point with next page token add to query string api-version = 2017-12-19
+        /// </summary>
+        /// <param name="bookRequest"></param>
+        /// <param name="token"></param>
+        /// <returns>List of book</returns>
+        /// <exception cref="ArgumentNullException">term cannot be empty</exception>
+        //[VersionedRoute("search", "2017-12-19", Name = "BookSearch"), HttpGet]
+        [HttpGet, Route("search", Name = "BookSearch")]
+        public async Task<IHttpActionResult> SearchV2Async([FromUri]BookRequest bookRequest, CancellationToken token)
         {
             bookRequest = bookRequest ?? new BookRequest();
             var result = await _booksSearch.SearchAsync(bookRequest.Term, bookRequest.Thumbnail.GetValueOrDefault(150), bookRequest.Page.GetValueOrDefault(), token).ConfigureAwait(false);
-            return Ok(result);
+            var nextPageLink = Url.NextPageLink("BookSearch", new
+            {
+                api_version = "2017-12-19"
+            }, bookRequest);
+            return Ok(new
+            {
+                result,
+                nextPageLink
+            }
+            );
         }
-
-       
 
         /// <summary>
         /// Buy book api 

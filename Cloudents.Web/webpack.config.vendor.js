@@ -43,7 +43,8 @@ const allModules = [
     "vuetify/es5/components/VTabs",
     "vuetify/es5/directives/scroll",
     "vuetify/es5/components/VIcon",
-  "webfontloader"
+    "vuetify/es5/components/VSnackbar",
+    "webfontloader"
 ];
 
 module.exports = (env) => {
@@ -136,7 +137,7 @@ module.exports = (env) => {
         target: 'node',
         resolve: { mainFields: ['main'] },
         entry: {
-          vendor: allModules.concat(['aspnet-prerendering'])
+            vendor: allModules.concat(['aspnet-prerendering'])
         },
         output: {
             path: path.join(__dirname, 'ClientApp', 'dist'),
@@ -153,8 +154,8 @@ module.exports = (env) => {
                 library: '[name]_[hash]',
                 path: path.join(__dirname, 'ClientApp', 'dist', '[name]-manifest.json'),
                 name: '[name]_[hash]'
-          }),
-          
+            }),
+
         ].concat(isDevBuild ? [
             new CleanWebpackPlugin(path.join(__dirname, "ClientApp", "dist"))
         ] : [])

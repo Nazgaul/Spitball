@@ -27,8 +27,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> GetAsync(string[] term, PlacesRequestFilter filter, GeoPoint location, CancellationToken token)
         {
             if (location == null) throw new ArgumentNullException(nameof(location));
-            var queryTerm = string.Join(" ", term ?? Enumerable.Empty<string>());
-            var result = await _placesSearch.SearchNearbyAsync(queryTerm, filter, location, null, token).ConfigureAwait(false);
+            var result = await _placesSearch.SearchNearbyAsync(term, filter, location, null, token).ConfigureAwait(false);
             return Json(new
             {
                 result.token,
@@ -41,7 +40,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             if (nextPageToken == null) throw new ArgumentNullException(nameof(nextPageToken));
-            var result = await _placesSearch.SearchNearbyAsync(string.Empty,
+            var result = await _placesSearch.SearchNearbyAsync(null,
                 PlacesRequestFilter.None, null, nextPageToken, token).ConfigureAwait(false);
 
             return Json(new

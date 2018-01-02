@@ -22,7 +22,6 @@
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
-    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
     <ApplicationInsightsResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zboxmobile/providers/microsoft.insights/components/Spitball-Mobile</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourceGroups/zboxmobile/providers/microsoft.insights/components/Spitball-Mobile</ApplicationInsightsAnnotationResourceId>
     <Use64BitIISExpress />
@@ -101,6 +100,12 @@
     </Reference>
     <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.WebApi.Versioning, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Versioning.2.1.0\lib\net45\Microsoft.AspNet.WebApi.Versioning.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.WebApi.Versioning.ApiExplorer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Versioning.ApiExplorer.1.0.2\lib\net45\Microsoft.AspNet.WebApi.Versioning.ApiExplorer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Azure.Mobile.Server, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.Mobile.Server.2.0.0\lib\net46\Microsoft.Azure.Mobile.Server.dll</HintPath>
@@ -249,6 +254,10 @@
     <Compile Include="Controllers\AiController.cs" />
     <Compile Include="Controllers\AskController.cs" />
     <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\V-2017-12-19\BookController.cs" />
+    <Compile Include="Controllers\V-2017-12-19\JobController.cs" />
+    <Compile Include="Controllers\V-2017-12-19\TutorController.cs" />
+    <Compile Include="Extensions\HttpRequestMessageExtensions.cs" />
     <Compile Include="Extensions\UrlHelperExtension.cs" />
     <Compile Include="Filters\PagingAttribute.cs" />
     <Compile Include="Models\BookRequest.cs" />
@@ -281,8 +290,6 @@
     <Compile Include="Models\SearchRequest.cs" />
     <Compile Include="Models\UpdateTagsRequest.cs" />
     <Compile Include="Models\UpdateUniversityRequest.cs" />
-    <Compile Include="Filters\VersionConstraint.cs" />
-    <Compile Include="Filters\VersionedRoute.cs" />
     <Compile Include="Models\AddCommentRequest.cs" />
     <Compile Include="Models\ChatFileUploadRequest.cs" />
     <Compile Include="Models\CreateUniversityRequest.cs" />

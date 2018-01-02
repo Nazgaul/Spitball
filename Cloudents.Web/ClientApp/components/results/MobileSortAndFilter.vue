@@ -19,7 +19,9 @@
                 <slot name="courseTitlePrefix"></slot>
             </template>
             <template slot="courseMobileExtraState">
-                <slot name="courseExtraState"></slot>
+                <slot name="mobileExtra"></slot>
+            </template>
+            <template slot="courseEmptyState">
                 <slot name="courseEmptyState"></slot>
             </template>
         </sort-and-filter>
@@ -37,12 +39,16 @@
             return { filters: {}, sort: "",selectedFilters:[]}
         },
         components: { SortAndFilter },
-        props: { value: { type: Boolean }, sortOptions: {}, filterOptions: {}, filterVal: {}, sortVal: {} },
+        props: { value: { type: Boolean }, sortOptions: {}, filterOptions: {}, filterVal: {}, sortVal: {},submitCallback:{Function} },
         methods: {
             $_applayFilters() {
-                if (this.$route.path.includes('note') || this.$route.path.includes('flashcard'))
-                    this.$route.meta.myClasses=this.filters.course;
-                this.$router.push({ query: { q: this.$route.query.q, sort: this.sort, ...this.filters } });
+                if(this.submitCallback){
+                   this.submitCallback({filters:this.filters,sort:this.sort});
+                }else {
+                    if (this.$route.path.includes('note') || this.$route.path.includes('flashcard'))
+                        this.$route.meta.myClasses = this.filters.course;
+                    this.$router.push({query: {q: this.$route.query.q, sort: this.sort, ...this.filters}});
+                }
                 this.$emit('input', false);
             },
             $_resetFilters() {

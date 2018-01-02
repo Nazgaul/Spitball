@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using Cloudents.Core.Interfaces;
 using Microsoft.Azure.Mobile.Server.Config;
 using Zbang.Cloudents.Jared.Extensions;
 using Zbang.Cloudents.Jared.Models;
+using Enumerable = System.Linq.Enumerable;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
@@ -17,10 +19,17 @@ namespace Zbang.Cloudents.Jared.Controllers
     public class PlacesController : ApiController
     {
         private readonly IPlacesSearch _purchaseSearch;
+        private readonly IIpToLocation _ipToLocation;
 
-        public PlacesController(IPlacesSearch purchaseSearch)
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="purchaseSearch"></param>
+        /// <param name="ipToLocation"></param>
+        public PlacesController(IPlacesSearch purchaseSearch, IIpToLocation ipToLocation)
         {
             _purchaseSearch = purchaseSearch;
+            _ipToLocation = ipToLocation;
         }
         /// <summary>
         /// Query to get food and places vertical
@@ -31,9 +40,14 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> Get([FromUri]PurchaseRequest purchaseRequest,
             CancellationToken token)
         {
-            if (purchaseRequest.Term == null) throw new ArgumentNullException(nameof(purchaseRequest.Term));
-            if (purchaseRequest.Location == null) throw new ArgumentNullException(nameof(purchaseRequest.Location));
-            var result = await _purchaseSearch.SearchNearbyAsync(string.Join(" ", purchaseRequest.Term), purchaseRequest.Filter.GetValueOrDefault(), purchaseRequest.Location, null, token).ConfigureAwait(false);
+            if (purchaseRequest.Location == null)
+            {
+                var location = Request.GetClientIp();
+                var locationResult = await _ipToLocation.GetAsync(IPAddress.Parse(location), token);
+                purchaseRequest.Location = locationResult.ConvertToPoint();
+            }
+
+            var result = await _purchaseSearch.SearchNearbyAsync(purchaseRequest.Term, purchaseRequest.Filter.GetValueOrDefault(), purchaseRequest.Location, null, token).ConfigureAwait(false);
 
             var nextPageLink = Url.Link("DefaultApis", new
             {
@@ -58,7 +72,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             CancellationToken token)
         {
             if (nextPageToken == null) throw new ArgumentNullException(nameof(nextPageToken));
-            var result = await _purchaseSearch.SearchNearbyAsync(string.Empty,
+            var result = await _purchaseSearch.SearchNearbyAsync(null,
                 default, default, nextPageToken, token).ConfigureAwait(false);
 
             var nextPageLink = Url.Link("DefaultApis", new
