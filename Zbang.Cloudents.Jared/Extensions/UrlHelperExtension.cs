@@ -25,6 +25,7 @@ namespace Zbang.Cloudents.Jared.Extensions
         public static string Link(this UrlHelper urlHelper, string routeName, object routeValue, object queryString)
         {
             var url = urlHelper.Link(routeName, routeValue);
+            url = url.Replace("_", "-");
             var builder = new UriBuilder(new Uri(url));
             builder.AddQuery(AddObject(queryString));
             return builder.ToString();

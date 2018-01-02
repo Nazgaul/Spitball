@@ -1,7 +1,9 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Reflection;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
+using System.Web.Http.Routing;
 using Autofac;
 using Autofac.Integration.SignalR;
 using Autofac.Integration.WebApi;
@@ -9,6 +11,8 @@ using Microsoft.AspNet.SignalR;
 using Microsoft.Azure.Mobile.Server;
 using Microsoft.Azure.Mobile.Server.Authentication;
 using Microsoft.Azure.Mobile.Server.Config;
+using Microsoft.Web.Http;
+using Microsoft.Web.Http.Routing;
 using Newtonsoft.Json;
 using Owin;
 using Zbang.Cloudents.Connect;
@@ -35,14 +39,22 @@ namespace Zbang.Cloudents.Jared
             var builder = new ContainerBuilder();
 
             var config = new HttpConfiguration();
+            //var constraintResolver = new DefaultInlineConstraintResolver() { ConstraintMap = { ["apiVersion"] = typeof(ApiVersionRouteConstraint) } };
             config.EnableSystemDiagnosticsTracing();
             config.MapHttpAttributeRoutes();
+            config.AddApiVersioning(o =>
+            {
+                o.AssumeDefaultVersionWhenUnspecified = true;
+                o.DefaultApiVersion = new ApiVersion(new DateTime(2017,1,1));
+                o.ReportApiVersions = true;
+
+            });
             config.Formatters.JsonFormatter.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
 
             new MobileAppConfiguration()
         .AddMobileAppHomeController()             // from the Home package
         .MapApiControllers()
-       //   .AddPushNotifications()                   // from the Notifications package
+        //   .AddPushNotifications()                   // from the Notifications package
         .ApplyTo(config);
 
             config.Services.Add(typeof(IExceptionLogger), new AiExceptionLogger());
@@ -100,7 +112,7 @@ namespace Zbang.Cloudents.Jared
             var config = new HubConfiguration
             {
                 EnableDetailedErrors = false
-               // Resolver = new AutofacDependencyResolver(container)
+                // Resolver = new AutofacDependencyResolver(container)
             };
 
             GlobalHost.DependencyResolver = new AutofacDependencyResolver(container);// config.Resolver;

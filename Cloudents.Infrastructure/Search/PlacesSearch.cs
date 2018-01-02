@@ -27,11 +27,11 @@ namespace Cloudents.Infrastructure.Search
             _mapper = mapper;
         }
 
-        public async Task<(string token, IEnumerable<PlaceDto> data)> SearchNearbyAsync(string term, PlacesRequestFilter filter,
+        public async Task<(string token, IEnumerable<PlaceDto> data)> SearchNearbyAsync(IEnumerable<string> term, PlacesRequestFilter filter,
             GeoPoint location, string nextPageToken, CancellationToken token)
         {
             var nvc = BuildQuery(term, filter, location, nextPageToken);
-            
+
             var result = await _restClient.GetJsonAsync(new Uri("https://maps.googleapis.com/maps/api/place/nearbysearch/json"), nvc, token).ConfigureAwait(false);
             return _mapper.Map<JObject, (string, IEnumerable<PlaceDto>)>(result, opt =>
             {
@@ -52,22 +52,23 @@ namespace Cloudents.Infrastructure.Search
             return _mapper.Map<JObject, GeoPoint>(result);
         }
 
-        private static NameValueCollection BuildQuery(string term, PlacesRequestFilter filter,
+        private static NameValueCollection BuildQuery(IEnumerable<string> term, PlacesRequestFilter filter,
             GeoPoint location, string nextPageToken)
         {
             if (string.IsNullOrEmpty(nextPageToken))
             {
+                var termStr = string.Join(" ", term ?? Enumerable.Empty<string>()) ?? string.Empty;
                 if (location == null) throw new ArgumentNullException(nameof(location));
-                var nvc =  new NameValueCollection
+                var nvc = new NameValueCollection
                 {
                     ["location"] = $"{location.Latitude} {location.Longitude}",
-                    ["keyword"] = term ?? string.Empty,
-                    
+                    ["keyword"] = termStr,
+
                     ["key"] = Key,
                     ["rankby"] = "distance",
                     //["pagetoken"] = nextPageToken
                 };
-                if (string.IsNullOrEmpty(term))
+                if (string.IsNullOrEmpty(termStr))
                 {
                     nvc.Add("type", "restaurant");
                 }

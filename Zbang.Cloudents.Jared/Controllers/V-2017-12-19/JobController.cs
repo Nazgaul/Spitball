@@ -18,34 +18,44 @@ namespace Zbang.Cloudents.Jared.Controllers
     /// <summary>
     /// The controller of job api
     /// </summary>
-    [MobileAppController, ApiVersion("2017-01-01", Deprecated = true)]
-    public class JobController : ApiController
+    [MobileAppController, ApiVersion("2017-12-19")]
+    [ControllerName(nameof(JobController))]
+    public class Job2Controller : ApiController
     {
         private readonly IJobSearch _jobSearch;
         /// <summary>
         /// ctor
         /// </summary>
         /// <param name="jobSearch">job search provider</param>
-        public JobController(IJobSearch jobSearch)
+        public Job2Controller(IJobSearch jobSearch)
         {
             _jobSearch = jobSearch;
         }
 
-        //[TypeFilter(typeof(IpToLocationActionFilter), Arguments = new object[] { "location" })]
         /// <summary>
-        /// Query to get jobs vertical
+        /// Get Job with next page token add to query string api-version = 2017-12-19
         /// </summary>
-        /// <param name="model">The model to transfer</param>
+        /// <param name="model"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async Task<IHttpActionResult> Get([FromUri]JobRequest model, CancellationToken token)
+        [Route("api/job", Name = "JobSearch"), HttpGet]
+        public async Task<IHttpActionResult> JobV2Async([FromUri]JobRequest model, CancellationToken token)
         {
             var result = await _jobSearch.SearchAsync(model.Term,
                 model.Filter.GetValueOrDefault(), model.Sort.GetValueOrDefault(JobRequestSort.Distance),
                 model.Facet, model.Location, model.Page.GetValueOrDefault(), token).ConfigureAwait(false);
-            return Ok(result);
-        }
 
-       
+            var nextPageLink = Url.NextPageLink("JobSearch", new
+            {
+                api_version = "2017-12-19"
+            }, model);
+
+            return Ok(
+                new
+                {
+                    result,
+                    nextPageLink
+                });
+        }
     }
 }

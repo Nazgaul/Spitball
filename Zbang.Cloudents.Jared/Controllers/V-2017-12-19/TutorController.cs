@@ -18,8 +18,9 @@ namespace Zbang.Cloudents.Jared.Controllers
     /// <summary>
     /// Tutor api controller
     /// </summary>
-    [MobileAppController, ApiVersion("2017-01-01", Deprecated = true)]
-    public class TutorController : ApiController
+    [MobileAppController, ApiVersion("2017-12-19")]
+    [ControllerName(nameof(TutorController))]
+    public class Tutor2Controller : ApiController
     {
         private readonly ITutorSearch _tutorSearch;
         private readonly IIpToLocation _ipToLocation;
@@ -29,31 +30,43 @@ namespace Zbang.Cloudents.Jared.Controllers
         /// </summary>
         /// <param name="tutorSearch"></param>
         /// <param name="ipToLocation"></param>
-        public TutorController(ITutorSearch tutorSearch, IIpToLocation ipToLocation)
+        public Tutor2Controller(ITutorSearch tutorSearch, IIpToLocation ipToLocation)
         {
             _tutorSearch = tutorSearch;
             _ipToLocation = ipToLocation;
         }
 
+        
+
         /// <summary>
-        /// Get Tutors
+        /// Get Tutors with next page token add to query string api-version = 2017-12-19
         /// </summary>
         /// <param name="model">The model to parse</param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async Task<HttpResponseMessage> Get([FromUri]TutorRequest model, CancellationToken token)
+        [HttpGet, Route("api/tutor", Name = "TutorSearch")]
+        public async Task<HttpResponseMessage> TutorV2Async([FromUri]TutorRequest model, CancellationToken token)
         {
+            if (model.Location == null)
+            {
+                var location = Request.GetClientIp();
+                var locationResult = await _ipToLocation.GetAsync(IPAddress.Parse(location), token).ConfigureAwait(false);
+                model.Location = locationResult.ConvertToPoint();
+            }
             var result = await _tutorSearch.SearchAsync(model.Term,
                 model.Filter,
                 model.Sort.GetValueOrDefault(TutorRequestSort.Price),
                 model.Location,
                 model.Page.GetValueOrDefault(), token).ConfigureAwait(false);
-
-            return Request.CreateResponse(
-                result
-                );
+            var nextPageLink = Url.NextPageLink("TutorSearch", new
+            {
+                api_version = "2017-12-19"
+            }, model);
+            return Request.CreateResponse(new
+            {
+                result,
+                nextPageLink
+            });
         }
-
-       
     }
 }
