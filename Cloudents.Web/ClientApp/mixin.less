@@ -126,14 +126,32 @@
         color: @color !important;
     }
 }
+
+.responsive-property(@property, @desktop, @tablet: null, @mobile: null) {
+    @{property}: @desktop;
+
+    & when (ispixel(@tablet)) or (iscolor(@tablet)) or (ispercentage(@tablet)) {
+        @media(max-width:@screen-sm) {
+            @{property}: @tablet;
+        }
+    }
+
+    & when (ispixel( @mobile )) or (iscolor(@mobile)) or (ispercentage(@mobile)) {
+
+        @media(max-width:@screen-xs) {
+            @{property}: @mobile;
+        }
+    }
+}
+
 .flexSameSize() {
     flex-grow: 0;
     flex-shrink: 0;
 }
 
 .postitionSticky() {
-    position:-webkit-sticky; // safari
-    position:sticky;
+    position: -webkit-sticky; // safari
+    position: sticky;
 }
 
 // Size constants
@@ -141,5 +159,5 @@
 //@navBarHeightMobile: 96px;
 @resultsFilterWidth: 222px;
 //@resultsTabsHeight: 52px;
-@mobileEndBreakPoint: 599px;
-@tabletEndBreakPoint: 959px;
+@screen-xs: 599px;
+@screen-sm: 959px;
