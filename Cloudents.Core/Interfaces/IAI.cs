@@ -11,11 +11,6 @@ namespace Cloudents.Core.Interfaces
         Task<AiDto> InterpretStringAsync(string sentence, CancellationToken token);
     }
 
-    public interface IDecision
-    {
-        VerticalEngineDto MakeDecision(AiDto aiResult);
-    }
-
     public interface IEngineProcess
     {
         Task<VerticalEngineDto> ProcessRequestAsync(string str,CancellationToken token);

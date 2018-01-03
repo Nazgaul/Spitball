@@ -1,16 +1,9 @@
 ﻿@import "../../mixin.less";
 
 @maxWidth959: 768px;
-
-.h-p-header {
-
+.sat-header {
     &.toolbar {
-        background-color: #f0f0f0;
-    }
-
-    &.scroll {
         background-color: #ffffff;
-        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5) !important;
     }
 
     .toolbar__title {
@@ -53,21 +46,41 @@
         transition: opacity .5s
     }
 
-    .fade-enter, .fade-leave-to  {
+    .fade-enter, .fade-leave-to {
         opacity: 0
     }
-
-
     /*.sbf-3-dot {
         color: #3293F6;
     }*/
-
     .logo {
         margin-right: 10px;
 
         @media(max-width: @screen-sm) {
-            width:114px;
-            height:23px;
+            width: 114px;
+            height: 23px;
         }
     }
+
+    .vertical {
+        font-size: 14px;
+        font-weight: 600;
+        color: #302eb5 !important;
+        letter-spacing: -0.2px;
+
+        .tabs__item {
+            text-transform: capitalize;
+        }
+    }
+    /*background-color: #fff !important;
+
+    .child {
+        max-width: 1280px;
+    }
+
+    
+
+    .verticals-bar {
+        // max-width:800px;
+        //  margin:0 auto;
+    }*/
 }

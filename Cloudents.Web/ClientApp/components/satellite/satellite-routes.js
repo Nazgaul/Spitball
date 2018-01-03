@@ -2,7 +2,7 @@
     {
         name: "work",
         display: "How Spitball Works",
-        import: () => import("./faq.vue")
+        import: () => import("./work.vue")
 
     },
     {
@@ -14,19 +14,19 @@
     {
         name: "blog",
         display: "Blog",
-        import: () => import("./faq.vue")
+        import: () => import("./blog.vue")
 
     },
     {
         name: "partners",
         display: "Partners",
-        import: () => import("./faq.vue")
+        import: () => import("./partner.vue")
 
     },
     {
         name: "reps",
         display: "Reps",
-        import: () => import("./faq.vue")
+        import: () => import("./reps.vue")
 
     },
     {
@@ -44,7 +44,7 @@
     {
         name: "contact",
         display: "Contact",
-        import: () => import("./faq.vue")
+        import: () => import("./contact.vue")
 
     }
 ];
