@@ -36,7 +36,7 @@
     .navigation-buttons {
         font-size: 22px;
         font-weight: 600;
-        margin: 28px 32px 0px 32px;
+        margin: 24px 32px 0px 32px;
         flex-grow: 1;
         flex-shrink: 0;
 
@@ -62,7 +62,7 @@
 
         .done-btn {
             color: @color-blue;
-            font-size: 20px;
+            .responsive-property(font-size, 20px, null, 14px);
         }
     }
 
@@ -76,7 +76,7 @@
         max-width: @search-width;
         width: 100%;
         margin: 0 auto;
-        padding-top: 36px;
+        padding-top: 20px;
         flex-grow: 0;
         flex-shrink: 1;
 
@@ -93,15 +93,15 @@
         }
 
         .title-text {
-            padding: 10px 0 30px 0;
+            padding: 10px 0 26px 0;
 
             @media(max-width: @screen-xs) {
-                padding: 0 0 20px 0;
+                padding: 0 0 14px 0;
             }
 
             img {
-                width: 48px;
-                height: 48px;
+                .responsive-property(width, 48px, null, 32px);
+                .responsive-property(width, 48px, null, 32px);
                 border-radius: 4px;
                 overflow: hidden;
             }
@@ -143,31 +143,30 @@
         .search-b {
             border-radius: 4px;
             background: @color-light-grey;
-            min-height: 56px;
+            .responsive-property(min-height, 56px, null, 40px);
+            border: solid 1px #bbbbbb;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+            padding-top: 0;
+            padding-bottom: 0;
+            align-items: center;
 
-            @media(max-width: @screen-xs) {
-                min-height: 40px;
-                border: 1px solid #bbbbbb;
-                border-radius: 4px;
-                box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
 
-                .input-group__input {
-                    align-items: center;
-                    padding: 4px 8px;
-                }
+            .input-group__input {
+                padding-top: 0;
+                padding-bottom: 0;
+                .responsive-property(padding-left, 16px, null, 12px);
+                .responsive-property(padding-right, 16px, null, 12px);
             }
 
-            icon {
-                font-size: 32px;
+            .icon {
+                .responsive-property(font-size, 32px, null, 26px);
+                .responsive-property(min-width, 36px, null, 36px);
+                color: #9b9b9b;
             }
 
             input {
-                font-size: 20px;
-
-                @media(max-width: @screen-xs) {
-                    font-size: 16px;
-                    letter-spacing: -0.4px;
-                }
+                .responsive-property(font-size, 20px, null, 16px);
+                .responsive-property(letter-spacing, -0.5px, null, -0.4px);
             }
         }
     }
@@ -273,13 +272,20 @@
             height: 100%;
             flex-grow: 0;
             flex-shrink: 1;
+            .responsive-property(margin-top, 16px, null, 16px);
 
             .d-result {
-                margin-left: 6px;
+                .responsive-property(margin-left, null, null, 6px);
             }
 
             .result {
+                margin-top: 16px;
                 flex-grow: 0;
+
+                @media(max-width: @screen-xs) {
+                    width: 100%;
+                    margin: 0 8px 0 8px;
+                }
             }
 
             .uni, .course {
@@ -287,22 +293,42 @@
             }
 
             .uni {
-                width: 104px;
-                text-align: center;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                justify-content: flex-start;
+                margin-top: 16px;
+                .responsive-property(width, 104px, null, 100%);
+                .responsive-property(margin-left, 12px, null, 0);
+                .responsive-property(margin-right, 12px, null, 0);
                 color: #000;
-                font-size: 12px;
+                .responsive-property(font-size, 12px, null, 14px);
                 line-height: 1.17;
                 letter-spacing: -0.5px;
-                margin-right: 12px;
-                margin-left: 12px;
+
+                @media(max-width: @screen-xs) {
+                    flex-direction: row;
+                }
 
                 .image {
-                    width: 96px;
-                    height: 96px;
+                    .responsive-property(width, 96px, null, 40px);
+                    .responsive-property(height, 96px, null, 40px);
+                    .responsive-property(margin-bottom, 8px, null, 0px);
                     margin-left: auto;
                     margin-right: auto;
                     background-size: contain;
                     background-position: center;
+
+                    @media(max-width: @screen-xs) {
+                        margin-right: 16px;
+                    }
+                }
+
+                .uni-name {
+
+                    @media(max-width: @screen-xs) {
+                        flex-grow: 1;
+                    }
                 }
             }
 
@@ -313,20 +339,88 @@
 
             .course {
                 height: 72px;
-                width: @course-width;
-                background: @color-blue;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                .responsive-property(background, @color-blue, null, transparent);
+                .responsive-property(width, @course-width, null, 100%);
+                .inTheMiddle;
                 border: none;
+                margin-right: 4px;
+                .responsive-property(margin-left, 12px, null, 0);
+                .responsive-property(padding-left, 8px, null, 0);
+                .responsive-property(padding-right, 8px, null, 0);
+
 
                 .name {
                     font-size: 16px;
-                    color: white;
+                    .responsive-property(color, white, null, black);
                     text-align: center;
                     text-transform: capitalize;
+                    overflow: hidden;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 3;
+                    -webkit-box-orient: vertical;
+                }
+
+                input {
+                    display: none;
+                }
+
+                @media(max-width: @screen-xs) {
+                    justify-content: flex-start;
+                    position: relative;
+
+                    .name {
+                        -webkit-line-clamp: 2;
+                    }
+
+                    input:checked ~ .checkmark {
+                        background: @color-blue;
+                        opacity: 1;
+
+                        &:after {
+                            display: block;
+                        }
+                    }
+
+
+                    .checkmark {
+                        position: absolute;
+                        background: none;
+                        border: 1px solid #979797;
+                        opacity: 0.8;
+                        top: 28px;
+                        right: 0px;
+                        left: unset;
+                        width: 16px;
+                        height: 16px;
+                    }
+
+                    .checkmark:after {
+                        content: "";
+                        position: absolute;
+                        display: none;
+                        width: 5px;
+                        height: 8px;
+                        margin-left: 4px;
+                        margin-top: 1px;
+                        border: solid white;
+                        border-width: 0 2px 2px 0;
+                        -webkit-transform: rotate(45deg);
+                        -ms-transform: rotate(45deg);
+                        transform: rotate(45deg);
+                        width: 6px;
+                        height: 11px;
+                        margin-left: 5px;
+                    }
+
+
+                    label {
+                        padding-left: 0;
+                        padding-right: 28px;
+                        width: 100%;
+                    }
                 }
             }
+
 
             .add-course-form {
                 width: 368px;
@@ -398,6 +492,80 @@
                 line-height: 24px;
                 margin-top: 60px;
                 letter-spacing: -0.8px;
+            }
+        }
+
+
+        .results-container, .selected-items {
+            .course {
+                height: 72px;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+
+                input {
+                    display: none;
+                }
+
+                @media(max-width: @screen-xs) {
+                    justify-content: flex-start;
+                    position: relative;
+                    border-bottom: 1px solid @color-light-grey;
+                    width: 100%;
+
+                    .name {
+                        -webkit-line-clamp: 2;
+                        font-size: 16px;
+                    }
+
+                    input:checked ~ .checkmark {
+                        background: @color-blue;
+                        opacity: 1;
+                        border: none;
+
+                        &:after {
+                            display: block;
+                        }
+                    }
+
+
+                    .checkmark {
+                        position: absolute;
+                        background: none;
+                        border: 1px solid #979797;
+                        opacity: 0.8;
+                        top: 28px;
+                        right: 0px;
+                        left: unset;
+                        width: 16px;
+                        height: 16px;
+                    }
+
+                    .checkmark:after {
+                        content: "";
+                        position: absolute;
+                        display: none;
+                        width: 5px;
+                        height: 8px;
+                        margin-left: 4px;
+                        margin-top: 1px;
+                        border: solid white;
+                        border-width: 0 2px 2px 0;
+                        -webkit-transform: rotate(45deg);
+                        -ms-transform: rotate(45deg);
+                        transform: rotate(45deg);
+                        width: 6px;
+                        height: 11px;
+                        margin-left: 5px;
+                    }
+
+
+                    label {
+                        padding-left: 0;
+                        padding-right: 28px;
+                        width: 100%;
+                    }
+                }
             }
         }
     }

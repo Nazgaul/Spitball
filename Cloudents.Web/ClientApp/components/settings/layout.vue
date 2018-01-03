@@ -32,7 +32,7 @@
         <div class="loader" v-if="props.search&&props.isLoading">
             <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
         </div>
-        <v-flex class="results-container px-1 mt-2">
+        <v-flex class="results-container px-1">
             <v-layout v-if="props.search&&!props.isLoading" fluid class="d-result" row justify-start wrap>
                 <template v-for="item in props.items" v-if="props.items.length">
                     <slot name="results" :item="item"></slot>
