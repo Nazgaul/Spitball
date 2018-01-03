@@ -4,7 +4,7 @@
         <div slot="main">
            
             <div class="d-flex mobile-filter hidden-sm-and-up">
-                <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right mb-2" v-if="filterObject">
+                <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right" v-if="filterObject">
                     <v-icon>sbf-filter</v-icon>
                 </v-btn>
             </div>
