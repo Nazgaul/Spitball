@@ -5,6 +5,8 @@
 
 
     .card__title {
+        .responsive-property(font-size, 36px, null, 26px);
+        .responsive-property(letter-spacing, -0.5px, null, -0.3px);
         font-size: 36px;
         font-weight: 300;
         letter-spacing: -0.5px;
@@ -14,10 +16,11 @@
     }
 
     .card__text {
-        font-size: 16px;
         letter-spacing: -0.3px;
         text-align: center;
-        padding: 0 24px;
+        .responsive-property(padding-right, 24px, null, 8px); // TODO: Irena - need to see how to combine these lines into one 0px 24px rule (only desktop css is generated now)
+        .responsive-property(padding-left, 24px, null, 8px);
+        padding-top: 0;
         max-width: 100%;
         margin: 0 auto;
         line-height: 1.38;
@@ -26,25 +29,43 @@
 
     .input-group.input-group--solo {
         background: @color-light-grey;
-        min-height: 40px;
+        .responsive-property(min-height, 40px, null, 36px);
         border: 1px solid @Suggestion-Title-Background;
         border-radius: 6px;
 
         .input-group__input {
             padding: 4px 12px;
 
+            input {
+                .responsive-property(font-size, 16px, null, 20px);
+            }
+
             .sbf-search {
                 min-width: 32px;
+                .responsive-property(font-size, null, null, 20px);
+                .responsive-property(padding-top, null, null, 4px);
                 color: #9b9b9b !important;
             }
         }
     }
 
-    .btn {
-        text-transform: capitalize;
-        font-size: 16px;
+    .card__actions {
         letter-spacing: -0.3px;
-        color: @Spitball-Main-color;
+        margin-right: 6px;
+        .responsive-property(padding-top, null, null, 16px);
+
+        .btn {
+            min-width: 0;
+            margin: 0 10px;
+            text-transform: none;
+            font-size: 16px;
+            letter-spacing: -0.3px;
+            color: @Spitball-Main-color;
+
+            .btn__content {
+                padding: 4px;
+            }
+        }
     }
 }
 
