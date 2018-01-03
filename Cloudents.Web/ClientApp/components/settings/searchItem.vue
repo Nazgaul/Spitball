@@ -48,7 +48,7 @@
                 <component :is="'search-item-'+currentType" :item="props.course" :isChecked="true"></component>
             </template>
         </template>
-            <v-flex class="result mt-3 mx-2" v-if="!currentAction" @click="$_clickItemCallback(keep)" slot-scope="props" slot="results">
+            <v-flex class="result" v-if="!currentAction" @click="$_clickItemCallback(keep)" slot-scope="props" slot="results">
             
             <component :is="'search-item-'+currentType" :item="props.item"></component>
         </v-flex>

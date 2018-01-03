@@ -1,8 +1,9 @@
 ﻿<template>
-    <div class="course pa-2" :key="item.id" @click="$_updateMyCourses(item)">
-        <input type="checkbox" :checked="isChecked"  :id="`course-${item.id}`" @change="$_updateMyCourses(item)" class="hidden-md-and-up"/>
-        <label class="name" :title="item.name" :for="`course-${item.id}`">
-            {{item.name | ellipsis(38)}}
+    <div class="course py-2" :key="item.id" @click="$_updateMyCourses(item)">
+        <input type="checkbox" :checked="isChecked"  :id="`course-${item.id}`" @change="$_updateMyCourses(item)"/>
+        <span class="checkmark"></span>
+        <label class="name text-xs-left text-md-center" :title="item.name" :for="`course-${item.id}`">
+            {{item.name}}
         </label>
     </div>
     </template>

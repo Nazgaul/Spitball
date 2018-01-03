@@ -1,7 +1,7 @@
 ﻿<template>
-    <div class="uni mt-3" :key="item.id" @click="$_universitySelected(item)">
-        <div class="image uni-icon elevation-1 mb-3" :style="`background-image: url('${item.image}')`"></div>
-        <div>{{item.name}}</div>
+    <div class="uni" :key="item.id" @click="$_universitySelected(item)">
+        <div class="image uni-icon elevation-1" :style="`background-image: url('${item.image}')`"></div>
+        <div class="uni-name text-sm-center text-xs-left">{{item.name}}</div>
     </div>
 </template>
 <script>
