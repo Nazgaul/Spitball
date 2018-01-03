@@ -2,7 +2,7 @@ let homeSuggest = [
     "Flashcards for financial accounting",
     "Class notes for my Calculus class",
     "When did World War 2 end?",
-    "Difference between meiosis and mitosis",
+    "Difference between Meiosis and Mitosis",
     "Tutor for Linear Algebra",
     "Job in marketing in NYC",
     "The textbook - Accounting: Tools for Decision Making",
