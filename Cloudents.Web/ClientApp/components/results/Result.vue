@@ -4,13 +4,13 @@
         <div slot="main">
            
             <div class="d-flex mobile-filter hidden-sm-and-up">
-                <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right mb-2" v-if="filterObject">
+                <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right" v-if="filterObject">
                     <v-icon>sbf-filter</v-icon>
                 </v-btn>
             </div>
             <div v-if="filterSelection.length" class="pb-3">
                 <template v-for="item in filterSelection">
-                    <v-chip color="color-light-gray" label class="filter-chip" @click="$_removeFilter(item)">
+                    <v-chip label class="filter-chip elevation-1" @click="$_removeFilter(item)">
                         {{$_showSelectedFilter(item) | capitalize}}
                         <v-icon right>sbf-close</v-icon>
                     </v-chip>

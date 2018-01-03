@@ -11,7 +11,8 @@
 
 //@spaceFromNavBar: @resultsTabsHeight + 40; //40 px of space according to Shlomi's request
 
-@marginTop : 42px;
+@marginTop: 42px;
+
 .sec-result {
     max-width: 504px;
     margin-top: @marginTop;
@@ -38,6 +39,12 @@
 
     .mobile-filter {
         flex-direction: row-reverse;
+
+        button {
+            @media(max-width: @screen-xs) {
+                margin: 13px 0 10px 0;
+            }
+        }
     }
 }
 
@@ -57,6 +64,7 @@
 
 .chip.filter-chip {
     margin: 0 8px 8px 0;
+    border: none;
 
     &:focus {
         box-shadow: none;
@@ -72,6 +80,7 @@
         letter-spacing: -0.8px;
         min-width: 102px;
         border-radius: 4px;
+        background: white;
         color: @color-grey;
         z-index: 0;
     }
@@ -86,6 +95,6 @@
     i {
         margin: 0 4px 0 16px;
         font-size: 10px;
-        color: @color-grey;
+        color: #bbb;
     }
 }

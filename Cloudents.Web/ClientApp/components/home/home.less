@@ -183,15 +183,16 @@ footer {
         .box-list {
             flex-grow: 0;
 
-            .list-title, ul {
+            .list-title, ul li {
                 .responsive-property(font-size, 20px, 16px, 14px);
+                .responsive-property(line-height, 2.44, 24px, 24px);
                 letter-spacing: -0.3px;
-                line-height: 2.44;
             }
 
             .list-title {
                 font-weight: bold;
-                line-height: 3;
+                .responsive-property(line-height, 42px, 24px, 24px);
+                .responsive-property(margin-top, 8px, null, null);
             }
 
             ul {
