@@ -130,13 +130,13 @@
 .responsive-property(@property, @desktop, @tablet: null, @mobile: null) {
     @{property}: @desktop;
 
-    & when (ispixel(@tablet)) or (iscolor(@tablet)) or (ispercentage(@tablet)) {
+    & when (ispixel(@tablet)) or (iscolor(@tablet)) or (ispercentage(@tablet)) or (isnumber(@tablet)) {
         @media(max-width:@screen-sm) {
             @{property}: @tablet;
         }
     }
 
-    & when (ispixel( @mobile )) or (iscolor(@mobile)) or (ispercentage(@mobile)) {
+    & when (ispixel( @mobile )) or (iscolor(@mobile)) or (ispercentage(@mobile)) or (isnumber(@mobile)) {
 
         @media(max-width:@screen-xs) {
             @{property}: @mobile;
