@@ -54,7 +54,7 @@ namespace Cloudents.Infrastructure.Search
                     sortQuery.Add($"geo.distance(location, geography'POINT({location.Longitude} {location.Latitude})')");
                     break;
                 case JobRequestSort.Date:
-                    sortQuery.Add("dateTime");
+                    sortQuery.Add("dateTime desc");
                     break;
             }
             var searchParams = new SearchParameters
