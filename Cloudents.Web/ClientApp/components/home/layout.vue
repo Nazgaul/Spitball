@@ -75,7 +75,7 @@
                         </v-flex>
                     </v-layout>
                     <v-layout class="list-social-links mt-4 pb-3" justify-space-between>
-                        <v-flex v-for="icon in props.bottomIcons" :key="icon" pa-0>
+                        <v-flex v-for="(icon,index) in props.bottomIcons" :key="index" pa-0>
                             <a :href="icon.link">
                                 <span class="demo-icon">
                                     <slot name="bottomIcon" :iconName="icon.img"></slot>
