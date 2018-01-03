@@ -44,7 +44,7 @@
     {
         name: "contact",
         display: "Contact",
-        import: () => import("./faq.vue")
+        import: () => import("./contact.vue")
 
     }
 ];

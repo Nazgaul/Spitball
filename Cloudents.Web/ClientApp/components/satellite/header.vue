@@ -24,7 +24,7 @@
                 </v-layout>
             </v-flex>
             <v-flex fill-height align-end d-flex>
-                <v-tabs class="verticals-bar" :value="currentSelection" centered :scrollable="false">
+                <v-tabs class="verticals-bar" centered :scrollable="false">
                     <v-tabs-bar>
                         <v-tabs-item router v-for="tab in verticals" :key="tab.name" :to="tab.name"
                                      class="vertical">

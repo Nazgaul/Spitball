@@ -1,6 +1,6 @@
 ﻿<template functional>
     <div class="s-main-page">
-        <div>
+        <div class="wrapper">
             <slot name="default"></slot>
         </div>
     </div>
