@@ -1,8 +1,8 @@
-﻿<template>
-    <div>
+﻿<template functional v-once>
+    <div class="term">
         <h2>Terms of Service</h2>
         <br /><br />
-        <h5>Last Modified 1/1/2018</h5>
+        Last Modified 1/1/2018
         <br /><br />
         These terms of service govern your access to and use of Spitball websites and services (the "Services"), so please carefully read them before using the Services.
         By using the Services you agree to be bound by these Terms. If you are using the Services on behalf of an organization, you are agreeing to these Terms for that organization and promising that you have the authority to bind that organization to these terms. In that case, "you" and "your" will refer to that organization.
@@ -116,3 +116,5 @@
         support@spitball.co
     </div>
 </template>
+<style lang="less" src="./term.less">
+</style>

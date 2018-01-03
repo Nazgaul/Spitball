@@ -41,9 +41,7 @@ var components = {};
 <style src="./satellite-share.less" lang="less"></style>
 <style lang="less">
     @import "../../mixin.less";
-    .h-icon {
-        margin: 0 auto;
-    }
+    
     .wrapper {
         font-size: 18px;
         letter-spacing: -0.2px;
