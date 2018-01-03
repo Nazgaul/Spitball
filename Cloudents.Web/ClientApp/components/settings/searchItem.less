@@ -195,18 +195,16 @@
             }
 
             .chip__content {
-                background: white;
                 padding: 8px 0 8px 8px;
                 border-radius: 4px;
                 overflow: hidden;
                 width: @course-width;
-                background-color: @color-white;
+                background-color: @color-blue;
                 box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-                border: 1px solid #9b9b9b;
 
 
                 .name {
-                    color: @color-blue;
+                    color: @color-white;
                     font-weight: normal;
                     text-transform: capitalize;
                     text-overflow: ellipsis;
@@ -224,7 +222,7 @@
 
                     .sbf-close {
                         font-size: 10px;
-                        color: #9b9b9b;
+                        color: @color-white;
                     }
                 }
             }
@@ -275,6 +273,10 @@
             height: 100%;
             flex-grow: 0;
             flex-shrink: 1;
+
+            .d-result {
+                margin-left: 6px;
+            }
 
             .result {
                 flex-grow: 0;
