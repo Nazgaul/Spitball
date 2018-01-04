@@ -4,7 +4,7 @@
     background: white;
 
     .strip {
-        .responsive-property(min-height,520px, 400px, null);
+        .responsive-property(min-height,520px, 500px, 400px);
         .inTheMiddle;
 
         .strip-content {
@@ -49,7 +49,7 @@
             svg {
                 opacity: 0.5;
 
-                @media(max-width: @screen-sm) {
+                @media(max-width: @screen-xs) {
                     width: 20%;
                     height: 20%;
                 }
@@ -80,6 +80,8 @@
             .icon-1 {
                 .responsive-property(top, 9%, 26%, null);
                 .responsive-property(left, -6%, 103%, null);
+                .responsive-property(width, null, 48px, 20%);
+                .responsive-property(height, null, 48px, 20%);
 
                 @media(max-width: @screen-xs) {
                     transform: rotate(45deg);
@@ -89,11 +91,15 @@
             .icon-2 {
                 .responsive-property(top, -6%, 0%, null);
                 .responsive-property(right, 17%, 86%, null);
+                .responsive-property(width, null, 38px, 20%);
+                .responsive-property(height, null, 44px, 20%);
             }
 
             .icon-3 {
                 .responsive-property(bottom, 0%, 9%, null);
                 .responsive-property(right, 7%, 98%, null);
+                .responsive-property(width, null, 40px, 20%);
+                .responsive-property(height, null, 52px, 20%);
             }
         }
 
@@ -121,6 +127,8 @@
             .icon-1 {
                 .responsive-property(top, -5%, -5%, null);
                 .responsive-property(right, 7%, -5%, null);
+                .responsive-property(width, null, 63px, 20%);
+                .responsive-property(height, null, 60px, 20%);
 
                 @media(max-width: @screen-xs) {
                     width: 46px;
@@ -131,11 +139,15 @@
             .icon-2 {
                 .responsive-property(bottom, -12%, -12%, null);
                 .responsive-property(right, 14%, -6%, null);
+                .responsive-property(width, null, 56px, 20%);
+                .responsive-property(height, null, 58px, 20%);
             }
 
             .icon-3 {
                 .responsive-property(bottom, 7%, 40%, null);
                 .responsive-property(left, -7.5%, -25%, null);
+                .responsive-property(width, null, 60px, 20%);
+                .responsive-property(height, null, 52px, 20%);
 
                 @media(max-width: @screen-xs) {
                     width: 36px;
@@ -169,6 +181,8 @@
             .icon-1 {
                 .responsive-property(top, -20%, 11%, null);
                 .responsive-property(left, 39%, -16%, null);
+                .responsive-property(width, null, 60px, 20%);
+                .responsive-property(height, null, 46px, 20%);
 
                 @media(max-width: @screen-xs) {
                     width: 40px;
@@ -179,6 +193,8 @@
             .icon-2 {
                 .responsive-property(bottom, -11%, 81%, null);
                 .responsive-property(right, -3%, -11%, null);
+                .responsive-property(width, null, 62px, 20%);
+                .responsive-property(height, null, 62px, 20%);
 
                 @media(max-width: @screen-xs) {
                     width: 38px;
@@ -189,6 +205,8 @@
             .icon-3 {
                 .responsive-property(bottom, -19%, 0%, null);
                 .responsive-property(left, 5%, 97%, null);
+                .responsive-property(width, null, 58px, 20%);
+                .responsive-property(height, null, 44px, 20%);
 
                 @media(max-width: @screen-xs) {
                     width: 45px;
@@ -220,21 +238,22 @@
             .icon-1 {
                 .responsive-property(top, -6.5%, -2%, null);
                 .responsive-property(right, 9.5%, -20%, null);
-
-                @media(max-width: @screen-xs) {
-                    width: 34px;
-                    height: 80px;
-                }
+                .responsive-property(width, null, 56px, 34px);
+                .responsive-property(height, null, 56px, 80px);
             }
 
             .icon-2 {
                 .responsive-property(bottom, -6.5%, -1%, null);
                 .responsive-property(right, 18%, -18%, null);
+                .responsive-property(width, null, 50px, 20%);
+                .responsive-property(height, null, 42px, 20%);
             }
 
             .icon-3 {
                 .responsive-property(bottom, 11%, 32%, null);
                 .responsive-property(left, -18%, -25%, null);
+                .responsive-property(width, null, 48px, 20%);
+                .responsive-property(height, null, 52px, 20%);
 
                 @media(max-width: @screen-xs) {
                     width: 40px;
@@ -263,18 +282,26 @@
             }
 
             .icon-1 {
-                .responsive-property(top, 3%, 3%, null);
-                .responsive-property(left, -1.5%, -20%, null);
+                .responsive-property(top, 4%, 7%, null);
+                .responsive-property(left, 2.5%, -9%, null);
+                .responsive-property(width, 54px, 40px, 32px);
+                .responsive-property(height, 54px, 40px, 32px);
+                transform: rotate(18deg);
             }
 
             .icon-2 {
-                .responsive-property(top, -15%, 3%, null);
-                .responsive-property(right, 23.5%, -18%, null);
+                .responsive-property(top, 12%, -8%, null);
+                .responsive-property(right, -4.5%, 0%, null);
+                .responsive-property(width, 52px, 40px, 34px);
+                .responsive-property(height, 52px, 40px, 34px);
+                transform: rotate(-23deg);
             }
 
             .icon-3 {
                 .responsive-property(bottom, -17%, 0%, null);
                 .responsive-property(right, 53%, -19%, null);
+                .responsive-property(width, null, 52px, 20%);
+                .responsive-property(height, null, 52px, 20%);
             }
         }
 
@@ -301,11 +328,15 @@
             .icon-1 {
                 .responsive-property(bottom, -7%, 8%, null);
                 .responsive-property(right, 49%, -24%, null);
+                .responsive-property(width, 54px, 62px, 20%);
+                .responsive-property(height, 54px, 56px, 20%);
             }
 
             .icon-2 {
                 .responsive-property(top, 15%, 42%, null);
                 .responsive-property(right, 4%, 106%, null);
+                .responsive-property(width, 54px, 46px, 20%);
+                .responsive-property(height, 54px, 46px, 20%);
 
                 @media(max-width: @screen-xs) {
                     width: 36px;
@@ -316,6 +347,8 @@
             .icon-3 {
                 .responsive-property(top, -13.5%, 6%, null);
                 .responsive-property(left, 15.5%, 86%, null);
+                .responsive-property(width, 54px, 40px, 20%);
+                .responsive-property(height, 54px, 40px, 20%);
 
                 @media(max-width: @screen-xs) {
                     transform: rotate(-90deg);
@@ -346,6 +379,8 @@
             .icon-1 {
                 .responsive-property(top, -7.5%, -5%, null);
                 .responsive-property(left, 46%, 88%, null);
+                .responsive-property(width, 54px, 58px, 20%);
+                .responsive-property(height, 54px, 48px, 20%);
 
                 @media(max-width: @screen-xs) {
                     width: 46px;
@@ -356,6 +391,8 @@
             .icon-2 {
                 .responsive-property(bottom, -18.5%, -7%, null);
                 .responsive-property(right, 10%, -15%, null);
+                .responsive-property(width, 54px, 76px, 20%);
+                .responsive-property(height, 54px, 68px, 20%);
 
                 @media(max-width: @screen-xs) {
                     width: 52px;
@@ -366,6 +403,8 @@
             .icon-3 {
                 .responsive-property(bottom, -17%, 36%, null);
                 .responsive-property(left, 8.5%, -27%, null);
+                .responsive-property(width, 54px, 54px, 20%);
+                .responsive-property(height, 54px, 60px, 20%);
 
                 @media(max-width: @screen-xs) {
                     width: 43px;

@@ -13,7 +13,6 @@
 
 @marginTop: 42px;
 .main-section {
-    margin-top: @marginTop;
     min-width: 0
 }
 .sec-result {
@@ -34,6 +33,10 @@
         }*/
     }
 
+    .personalize-wrapper .sbf-search {
+        display: none;
+    }
+
     .cell {
         background: #fff;
         border-radius: 4px;
@@ -42,6 +45,10 @@
 
     .mobile-filter {
         flex-direction: row-reverse;
+
+        @media(max-width: @screen-xs) {
+            min-height: 42px;
+        }
 
         button {
             @media(max-width: @screen-xs) {
