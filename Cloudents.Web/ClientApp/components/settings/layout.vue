@@ -43,7 +43,7 @@
             <slot name="actionContent">
             </slot>
         </v-flex>
-        <v-dialog persistent :value="props.showAdd" content-class="white">
+        <v-dialog persistent :value="props.showAdd" content-class="white extra-item-dialog ma-3">
             <slot :name="`${props.type}MobileExtraItem`"></slot>
         </v-dialog>
     </v-layout>

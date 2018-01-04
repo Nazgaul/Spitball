@@ -421,69 +421,84 @@
                 }
             }
 
-
             .add-course-form {
+                .responsive-property(margin-left, 12px, null, 0px);
+                .responsive-property(margin-right, 12px, null, 0px);
+                .responsive-property(margin-top, 4px, null, 12px);
+                .responsive-property(padding-right, 16px, null, 4px);
                 width: 368px;
+                max-width: 100%;
                 letter-spacing: -0.3px;
                 color: @color-grey;
                 border: 1px solid @color-blue;
 
-                form {
+                @media(max-width: @screen-xs) {
+                    border: none;
+                }
+
+                .form-title {
+                    font-size: 16px;
+                    padding-bottom: 10px;
+                }
+
+
+                .input-group {
+                    padding: 0;
+                    .responsive-property(padding-top, null, null, 22px);
+
+                    label {
+                        color: @color-blue;
+
+                        @media(max-width: @screen-xs) {
+                            transform: translate(0, -21px);
+                        }
+                    }
+
+                    .input-group__details {
+                        color: @color-blue;
+                    }
+                }
+
+                .input-group__input {
+                    align-items: flex-end;
+                }
+
+                .input-group__details:before {
+                    background-color: @color-blue;
+                }
+
+                input {
+                    font-size: 14px;
+                    .responsive-property(height, null, null, 36px);
+                    .placeholder-color(@Feed-Date);
+                }
+
+                .actions {
                     display: flex;
-                    flex-direction: column;
                     justify-content: space-between;
-                    align-items: stretch;
-                    height: 100%;
 
-                    .form-title {
-                        font-size: 16px;
-                        padding-bottom: 10px;
-                    }
+                    button {
+                        width: ~"calc(50% - 8px)";
+                        margin: 0;
+                        color: white;
+                        height: 24px;
 
-
-                    .input-group {
-                        padding: 0;
-                    }
-
-                    .input-group__input {
-                        align-items: flex-end;
-                    }
-
-                    .input-group__details:before {
-                        background-color: @color-blue;
-                    }
-
-                    input {
-                        font-size: 14px;
-                        .placeholder-color(@Feed-Date);
-                    }
-
-                    .actions {
-                        display: flex;
-                        justify-content: space-between;
-
-                        button {
-                            width: ~"calc(50% - 8px)";
-                            margin: 0;
-                            color: white;
-                            height: 24px;
-
-                            &.save {
-                                background: @color-blue;
-                            }
-
-                            &.clear {
-                                background: #9b9b9b;
-                            }
+                        &.save {
+                            background: @color-blue;
                         }
 
-                        .btn.btn--disabled:not(.btn--icon):not(.btn--flat) {
-                            background-color: #bbbbbb !important;
-                            color: white !important;
+                        &.clear {
+                            background: #9b9b9b;
                         }
+                    }
+
+                    .btn.btn--disabled:not(.btn--icon):not(.btn--flat) {
+                        background-color: #bbbbbb !important;
+                        color: white !important;
                     }
                 }
             }
+
 
             .uni-empty-state {
                 width: 100%;
@@ -565,6 +580,47 @@
                         padding-right: 28px;
                         width: 100%;
                     }
+                }
+            }
+        }
+    }
+}
+
+.extra-item-dialog {
+    border-radius: 4px;
+
+    .add-course-dialog {
+        .form-title {
+            color: @color-blue;
+            font-size: 16px;
+            letter-spacing: -0.3px;
+        }
+
+        .input-group {
+            padding: 6px 0;
+
+            .input-group__details {
+                color: @color-blue;
+            }
+        }
+
+        .actions {
+            padding-right: 8px;
+
+            button {
+                background: none;
+                color: @Feed-Date;
+                text-transform: none;
+                font-size: 16px;
+                min-width: 0;
+                margin: 6px;
+
+                &.save:not(.btn--disabled) {
+                    color: @color-blue;
+                }
+
+                .btn__content {
+                    padding: 0 8px;
                 }
             }
         }
