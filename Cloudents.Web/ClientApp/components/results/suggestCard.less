@@ -13,20 +13,38 @@
 
     .container {
         padding: 14px 8px;
+        display: flex;
+        flex-direction: column;
+
+        @media(max-width: @screen-xs) {
+            padding: 8px;
+            flex-direction: row;
+        }
 
         .wrapper {
-
-            .logo {
-            }
-
             .action {
                 color: @color-blue;
+            }
+        }
+
+        .icon {
+            display: flex;
+            align-items: flex-start;
+            padding: 0 8px;
+            min-height: 56px;
+
+            svg {
+                width: 72px;
             }
         }
 
         .text {
             font-weight: 300;
             margin: 16px 0 14px 0;
+
+            @media(max-width: @screen-xs) {
+                margin: 2px 0;
+            }
         }
     }
 }
