@@ -56,7 +56,7 @@
         <template slot="universityEmptyState" v-if="noResults">
             <div class="uni-empty-state">
                 <div>Can't find your school?</div>
-                <div> email us at <a  onclick="Intercom('showNewMessage')">support@spitball.co</a> and we will add it.</div>
+                <div>click <a  onclick="Intercom('showNewMessage')">here</a></div>
             </div>
         </template>
     </page-layout>
