@@ -50,7 +50,7 @@
             <v-layout row wrap justify-space-between class="footer-content">
                 <v-flex class="box-app" xs12 sm6>
                     <div class="footer-title pb-2">GET THE SPITBALL APP</div>
-                    <p>Simplify School. Find class notes, textbooks,<br/> deals, tutors and more anytime, anywhere.</p>
+                    <p>Simplify School. Find class notes, textbooks,<br /> deals, tutors and more anytime, anywhere.</p>
                     <a href="https://itunes.apple.com/us/app/spitball-simplify-school/id990911114?mt=8" class="app"><lazy-component><img src="./img/app-store-icon.png" alt=""></lazy-component></a>
                 </v-flex>
                 <v-flex class="box-links" xs10 sm5>
@@ -77,9 +77,7 @@
                     <v-layout class="list-social-links mt-4 pb-3" justify-space-between>
                         <v-flex v-for="(icon,index) in props.bottomIcons" :key="index" pa-0>
                             <a :href="icon.link">
-                                <span class="demo-icon">
-                                    <slot name="bottomIcon" :iconName="icon.img"></slot>
-                                </span>
+                                <slot name="bottomIcon" :iconName="icon.img"></slot>
                             </a>
                         </v-flex>
                     </v-layout>
