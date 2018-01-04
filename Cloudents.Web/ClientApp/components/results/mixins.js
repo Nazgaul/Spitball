@@ -86,6 +86,7 @@ export const pageMixin =
             new Promise((resolve, reject) => {
                 if (!to.query.q || !to.query.q.length) { resolve({ luisTerm: "" }) }
                 else if (!savedTerm || (savedTerm.term !== to.query.q)) {
+                    console.log("1")
                     this.updateSearchText(to.query.q).then(({ term, docType }) => {
                         this.$route.meta[this.$_calcTerm(toName)] = { term: to.query.q, luisTerm: term, docType };
                         resolve({ luisTerm: to.meta[this.$_calcTerm(toName)].luisTerm, docType });
@@ -189,11 +190,12 @@ export const pageMixin =
                     //save the data in the appropriate meta according the box methodology
                     this.$route.meta[this.$_calcTerm(result)] = { term: this.userText, luisTerm: term, docType };
                     //If should update vertical(not book details) and luis return not identical vertical as current vertical replace to luis vertical page
-                    if (!this.vertical && result !== this.name) {
+                    if (this.name == "result") { //from homepage
                         this.UPDATE_LOADING(false);
                         const routeParams = { path: '/' + result, query: { ...this.query, q: this.userText } };
                         this.$router.replace(routeParams);
-                    } else {
+                    }
+                    else {
                         //fetch data with the params
                         this.fetchingData({
                             name: this.name,
@@ -232,7 +234,7 @@ export const pageMixin =
                     });
                 }
                 //check if filter selection have values that not exist in the current filter options make query replace without the filters
-                let filterPotential = this.filterObject.map(i => i.data);
+                let filterPotential = (this.filterObject || []).map(i => i.data);
                 if (Array.from(this.filterSelection).filter(i => filterPotential.includes(i)).length !== this.filterSelection.length) {
                     const routeParams = { path: '/' + this.name, query: { q: this.userText } };
                     this.$router.replace(routeParams);
