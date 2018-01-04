@@ -58,6 +58,7 @@
         color: #4a4a4a;
         line-height:56px;
         vertical-align:middle;
+        font-weight:normal;
     }
 
     .uni {

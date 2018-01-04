@@ -19,7 +19,7 @@ namespace Cloudents.Infrastructure.Data
         public Task<IEnumerable<CourseNameDto>> GetAsync(IEnumerable<long> query, CancellationToken token)
         {
             return _repository.WithConnectionAsync(c => c.QueryAsync<CourseNameDto>(
-                @"SELECT COALESCE(CourseCode,BoxName) as Name 
+                @"SELECT BoxName as Name 
 FROM zbox.box WHERE IsDeleted=0 AND BoxId IN @BoxIds;",
                 new { BoxIds = query }), token);
         }
