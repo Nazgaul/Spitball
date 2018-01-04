@@ -62,7 +62,8 @@ export const getUniversity = (params) => axios.get("university", { params });
 export const search = { getBookDetails, ...searchFunctions, getPlacesDetails };
 export const course = { ...courseFunctions };
 export const help = {
-    getFaq: () => axios.get("help")
+    getFaq: () => axios.get("help"),
+    getUniData: (id) => axios.get("blog", { params: { id: id } })
 }
 
 export const flashcard = {};
