@@ -22,6 +22,7 @@ const $_calcTerm = (name) => {
     return (name.includes('food') || name.includes('purchase')) ? 'foodTerm' : name.includes('job') ? 'jobTerm' : 'term'
 };
 
+
 function dynamicPropsFn(route) {
     let newName = route.path.slice(1);
     let filterOptions = [];
@@ -98,31 +99,17 @@ function headerResultPageFn(route) {
         userText: route.query.q
     }
 }
-//function filterLinkFun(route){
-//    return{
-//        verticals:[{id:"all",name:"all"}, ...details.bookDetails.filter],
-//        callbackFunc:function(res){
-//            console.log(res);
-//            this.$root.$children[0].$refs.mainPage.filter=res;
-//        },
-//        currentSelection:"all"
-//    }
-//}
+
 
 const resultPage = {
     default: resultContent,
-    //verticalList: theNavbar,
     personalize,
-    //verticalListMobile: theNavbar,
     header: pageHeader,
-    headerMobile: pageHeader
 };
 const resultProps = {
     default: dynamicPropsFn,
+    personalize,
     header: verticalsLinkFun
-    //headerMobile: verticalsLinkFun
-    //verticalList: verticalsLinkFun,
-    //verticalListMobile: verticalsLinkFun
 };
 
 
@@ -157,26 +144,15 @@ let routes2 = [
             "/" + RouteTypes.jobRoute,
             "/" + RouteTypes.foodRoute
         ], components: resultPage, props: resultProps, meta: {
-
+            isAcademic: true
 
         }
     },
-    //{
-    //    path: "/moreInfo", name: "moreInfo", alias: ["/searchOrQuestion", "/AddSubjectOrCourse"], component: moreInfo,
-    //    meta: {
-    //        showHeader: true
-
-    //    }, props: moreInfoFn
-    //},
     {
         path: "/book/:id",
         name: RouteTypes.bookDetailsRoute,
         components: {
             default: bookDetails,
-            //verticalList: theNavbar,
-            //personalize,
-            //verticalListMobile: theNavbar,
-            //headerMobile: boodDetailsHeaderMobile,
             header: boodDetailsHeader
         },
         props: bookDetailsProps,
@@ -196,14 +172,12 @@ let routes2 = [
     {
         path: "/item/:university/:courseId/:courseName/:id/:itemName", name: "item", component: showItem, props: true, meta: {
             pageName: RouteTypes.notesRoute
-            // showHeader: true
         }
     },
     {
         path: "/flashcard/:university/:courseId/:courseName/:id/:itemName", name: "flashcard", component: showFlashcard, props: true,
         meta: {
             pageName: RouteTypes.flashcardRoute
-            //showHeader: true
         }
     },
 

@@ -96,7 +96,6 @@ export default {
             this.$root.$emit("personalize", item.id);
         },
         $_updateType(result) {
-            console.log(result);
             //if(this.isMobileSize){
             let tabs = this.$el.querySelector('.tabs__wrapper');
             let currentItem = this.$el.querySelector(`#${result}`);
