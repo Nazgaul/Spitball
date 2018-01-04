@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Interfaces;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Cloudents.Web.Api
+{
+    [Produces("application/json")]
+    [Route("api/Blog")]
+    public class BlogController : Controller
+    {
+        private readonly IReadRepositoryAsync<UniversityDto, long> _repository;
+
+        public BlogController(IReadRepositoryAsync<UniversityDto, long> repository)
+        {
+            _repository = repository;
+        }
+
+        public async Task<IActionResult> Get(long id, CancellationToken token)
+        {
+            var result = await _repository.GetAsync(id, token).ConfigureAwait(false);
+            return Json(result);
+        }
+    }
+}
