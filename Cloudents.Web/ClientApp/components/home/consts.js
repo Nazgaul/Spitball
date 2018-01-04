@@ -162,7 +162,7 @@ let testimonials = [{
 {
     name: "Daniel Kaplan",
     uni: "Senior at Michigan",
-    testimonial: "It’s so nice to have all of my notes, questions, tutors and more in one place and always available. Spitball comes in handy when I miss class and need to find notes or homework help. Thank you Spitball for making my life a whole lot easier!"
+    testimonial: "It’s so nice to have all of my notes, questions, tutors and more in one place and always available. Spitball comes in handy when I miss class and need to find notes or homework help. Thank you for making my life a whole lot easier!"
 },
 {
     name: "Sarah Friedman",

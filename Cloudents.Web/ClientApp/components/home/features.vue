@@ -1,5 +1,5 @@
 ﻿<template functional>
-    <v-container class="features" pa-0>
+    <v-container class="features limited-width" pa-0>
         <v-divider class="hidden-xs-only"></v-divider>
         <v-layout row justify-space-around>
             <v-flex v-for="(feature, index) in props.features" :key="index" :class="`feature ${index}`" xs4 px-1 mb-3 text-xs-center>

@@ -5,7 +5,7 @@
 }
 
 .dialog-choose {
-    @search-width: 788px;
+    @search-width: 820px;
     @course-width: 176px;
 
     background: @color-white;
@@ -74,6 +74,7 @@
 
     .d-header {
         max-width: @search-width;
+        padding: 0 16px;
         width: 100%;
         margin: 0 auto;
         padding-top: 20px;
@@ -134,10 +135,6 @@
 
         .search-wrapper {
             padding: 0;
-
-            @media(max-width: @screen-xs) {
-                padding: 0 8px;
-            }
         }
 
         .search-b {
@@ -149,6 +146,8 @@
             padding-top: 0;
             padding-bottom: 0;
             align-items: center;
+            .responsive-property(padding-right, 16px, null, 8px);
+            .responsive-property(padding-right, 16px, null, 8px);
 
 
             .input-group__input {
@@ -275,7 +274,7 @@
             .responsive-property(margin-top, 16px, null, 16px);
 
             .d-result {
-                .responsive-property(margin-left, null, null, 6px);
+                .responsive-property(margin-left, 16px, null, 6px);
             }
 
             .result {
@@ -348,6 +347,9 @@
                 .responsive-property(padding-left, 8px, null, 0);
                 .responsive-property(padding-right, 8px, null, 0);
 
+                label{
+                    width: 100%;
+                }
 
                 .name {
                     font-size: 16px;

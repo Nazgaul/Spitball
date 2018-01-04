@@ -2,7 +2,7 @@
     <div class="course py-2" :key="item.id" @click="$_updateMyCourses(item)">
         <input type="checkbox" :checked="isChecked"  :id="`course-${item.id}`" @change="$_updateMyCourses(item)"/>
         <span class="checkmark"></span>
-        <label class="name text-xs-left text-md-center" :title="item.name" :for="`course-${item.id}`">
+        <label class="name text-xs-left text-sm-center" :title="item.name" :for="`course-${item.id}`">
             {{item.name}}
         </label>
     </div>
