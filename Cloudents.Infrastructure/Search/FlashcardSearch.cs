@@ -32,7 +32,7 @@ namespace Cloudents.Infrastructure.Search
             }
             if (courses != null)
             {
-                term.Add(string.Join(" OR ", courses.Select(s => '"' + s + '"')));
+                term.Add(string.Join(" OR ", courses.Select(s => '"' + s.UppercaseFirst() + '"')));
             }
             if (model.Query != null)
             {

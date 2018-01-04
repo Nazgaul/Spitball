@@ -6,44 +6,30 @@
                     <slot name="sideBar">
                     </slot>
                 </v-flex>
-                <v-container class="px-2 pt-0 ma-0" fluid style="min-width:0">
-                    <v-layout row>
-                        <v-flex class="sec-result">
-                            <slot name="main"></slot>
-                            <!--<div class="d-flex mobile-filter hidden-sm-and-up">
-            <v-btn icon slot="mobileFilter" @click="props.showFilters=true" class="text-xs-right mb-2">
-                <v-icon>sbf-filter</v-icon>
-            </v-btn>
-        </div>
-        <div v-if="props.filterSelection.length" class="pb-3">
-            <template v-for="item in props.filterSelection">
-                <slot name="selectedFilters" :item="item"></slot>
-            </template>
-        </div>
-        <slot name="data">
-        </slot>-->
-                        </v-flex>
-                        <!--v-if="props.breakPointSideBar"-->
-                        <v-flex class="ml-2 side-bar" v-if="props.breakPointSideBar">
-                            <slot name="rightSide">
-                                <div class="side-bar-wrapper">
-                                    <adsense ad-client="ca-pub-1215688692145777"  
-                                             ad-style="display:inline-block;width:300px;height:250px"
-                                             ad-slot="5350268955"
-                                             data-ad-format="rectangle"
-                                             class="mb-2 order-lg1 side-element">
-                                    </adsense>
-                                    <slot name="suggestCell"></slot>
-                                    <adsense ad-client="ca-pub-1215688692145777"
-                                             data-ad-format="rectangle"
-                                             ad-style="display:inline-block;width:300px;height:250px"
-                                             ad-slot="3866041406" class="order-lg3 side-element">
-                                    </adsense>
-                                </div>
-                            </slot>
-                        </v-flex>
-                    </v-layout>
-                </v-container>
+                <v-layout class="main-section" row>
+                    <v-flex class="sec-result">
+                        <slot name="main"></slot>
+                    </v-flex>
+                    <!--v-if="props.breakPointSideBar"-->
+                    <v-flex class="ml-2 side-bar" v-if="props.breakPointSideBar">
+                        <slot name="rightSide">
+                            <div class="side-bar-wrapper">
+                                <adsense ad-client="ca-pub-1215688692145777"
+                                         ad-style="display:inline-block;width:300px;height:250px"
+                                         ad-slot="5350268955"
+                                         data-ad-format="rectangle"
+                                         class="mb-2 order-lg1 side-element">
+                                </adsense>
+                                <slot name="suggestCell"></slot>
+                                <adsense ad-client="ca-pub-1215688692145777"
+                                         data-ad-format="rectangle"
+                                         ad-style="display:inline-block;width:300px;height:250px"
+                                         ad-slot="3866041406" class="order-lg3 side-element">
+                                </adsense>
+                            </div>
+                        </slot>
+                    </v-flex>
+                </v-layout>
             </v-layout>
         </v-container>
     </div>

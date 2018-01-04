@@ -30,7 +30,7 @@ namespace Cloudents.Web.Api
             var tVideo = Task.FromResult<VideoDto>(null);
             if (model.Page.GetValueOrDefault() == 0)
             {
-                tVideo = _videoSearch.SearchAsync(model.UserText, token);
+                tVideo = _videoSearch.SearchAsync(model.Term, token);
             }
             await Task.WhenAll(tResult, tVideo).ConfigureAwait(false);
             return Json(new

@@ -31,7 +31,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<SeoQuizRepository>()
                 .Keyed<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>(SeoType.Quiz);
 
-            builder.RegisterType<TutorMeSearch>().As<ITutorProvider>();
+            //builder.RegisterType<TutorMeSearch>().As<ITutorProvider>();
 
 
         }

@@ -12,10 +12,13 @@
 //@spaceFromNavBar: @resultsTabsHeight + 40; //40 px of space according to Shlomi's request
 
 @marginTop: 42px;
-
+.main-section {
+    margin-top: @marginTop;
+    min-width: 0
+}
 .sec-result {
     max-width: 504px;
-    margin-top: @marginTop;
+    //margin-top: @marginTop;
     min-width: 0;
 
     @media(max-width: @screen-xs) {

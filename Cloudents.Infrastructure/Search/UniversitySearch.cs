@@ -51,7 +51,7 @@ namespace Cloudents.Infrastructure.Search
                     cancellationToken: token);
 
             var tSuggest = CompletedTask;
-            if (!string.IsNullOrEmpty(term) && term.Length >= 3)
+            if (term.Length >= 3)
             {
                 tSuggest = _client.Documents.SuggestAsync<University>(term, "sg",
                     new SuggestParameters

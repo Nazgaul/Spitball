@@ -62,7 +62,9 @@
         },
         methods: {
             search() {
-                this.$router.push({ name: "result", query: { q: this.msg } });
+                if (this.msg) {
+                    this.$router.push({ name: "result", query: { q: this.msg } });
+                }
             },
             //focus() {
             //    if (this.$vuetify.breakpoint.smAndDown && !this.headerMenu) {

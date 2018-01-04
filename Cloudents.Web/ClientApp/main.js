@@ -105,9 +105,16 @@ Vue.use(VueAnalytics,
     });
 Vue.filter('capitalize',
     function (value) {
+        console.log(value);
         if (!value) return '';
         value = value.toString();
-        return value.charAt(0).toUpperCase() + value.slice(1);
+        var values = value.split("/");
+        for (var v in values) {
+            var tempVal = values[v];
+            values[v] = tempVal.charAt(0).toUpperCase() + tempVal.slice(1);
+        }
+        return values.join(" ")
+        //return value.charAt(0).toUpperCase() + value.slice(1);
     });
 Vue.filter('ellipsis',
     function (value, characters) {

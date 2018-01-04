@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
@@ -7,11 +8,16 @@ using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Infrastructure.Search
 {
-    public class VideoSearch:IVideoSearch
+    public class VideoSearch : IVideoSearch
     {
-        public async Task<VideoDto> SearchAsync(string term, CancellationToken token)
+        public async Task<VideoDto> SearchAsync(IEnumerable<string> term, CancellationToken token)
         {
-            term = term ?? QuestionSearch.QueryString;
+            var termStr = string.Join(" ", term ?? Enumerable.Empty<string>());
+            if (string.IsNullOrWhiteSpace(termStr))
+            {
+                termStr = QuestionSearch.QueryString;
+            }
+
             var t = new Google.Apis.YouTube.v3.YouTubeService(new BaseClientService.Initializer
             {
                 ApiKey = "AIzaSyCAaZGgVHm0GxY2lY_mWQw3JXGy7KMypZ0"
@@ -19,7 +25,7 @@ namespace Cloudents.Infrastructure.Search
             var client = new Google.Apis.YouTube.v3.SearchResource(t);
 
             var query = client.List("snippet");
-            query.Q = term;
+            query.Q = termStr;
             query.Type = "video";
             query.VideoDuration = Google.Apis.YouTube.v3.SearchResource.ListRequest.VideoDurationEnum.Short__;
             query.VideoEmbeddable = Google.Apis.YouTube.v3.SearchResource.ListRequest.VideoEmbeddableEnum.True__;
@@ -30,7 +36,7 @@ namespace Cloudents.Infrastructure.Search
             var result = await query.ExecuteAsync(token).ConfigureAwait(false);
             var videoId = result.Items.FirstOrDefault()?.Id.VideoId;
             //var url="";
-            if(string.IsNullOrEmpty(videoId))
+            if (string.IsNullOrEmpty(videoId))
             {
                 return null;
                 //url =$"https://www.youtube.com/embed/{videoId}";

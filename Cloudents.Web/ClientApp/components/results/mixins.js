@@ -9,6 +9,7 @@ const foodExtra = () => import('./foodExtra.vue');
 const SortAndFilter = () => import('./SortAndFilter.vue');
 const MobileSortAndFilter = () => import('./MobileSortAndFilter.vue');
 import plusBtn from "../settings/svg/plus-button.svg";
+import emptyState from "./svg/no-match-icon.svg";
 import { typesPersonalize } from "../settings/consts.js";
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 export const sortAndFilterMixin = {
@@ -157,7 +158,7 @@ export const pageMixin =
             };
         },
 
-        components: { foodExtra, ResultItem, SuggestCard, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood  },
+        components: { emptyState, foodExtra, ResultItem, SuggestCard, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood  },
 
         //If change term on book details page stay in book vertical(don't update vertical) according vertical flag
         beforeRouteEnter(to, from, next) {

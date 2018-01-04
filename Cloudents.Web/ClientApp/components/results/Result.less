@@ -1,5 +1,43 @@
-﻿
+﻿@import "../../mixin.less";
 .personalize-wrapper{
     background: white;
     border-radius: 4px;
+}
+
+.empty-state {
+    svg {
+        width: 120px;
+        //height: 96px;
+
+        .responsive-property(width,120px,120px,100px);
+    }
+
+    .img-wrap {
+        .flexSameSize();
+    }
+
+    h6 {
+        font-size: 16px;
+        color: #003b78;
+        letter-spacing: -0.3px;
+        line-height: 1.25;
+    }
+
+    .sug {
+        font-size: 12px;
+        color: #4a4a4a;
+        letter-spacing: -0.3px;
+    }
+
+    ul {
+        list-style-position: inside;
+    }
+
+    li {
+        font-size: 12px;
+        letter-spacing: -0.3px;
+        color: #888b8e;
+    }
+
+    background: #fff;
 }

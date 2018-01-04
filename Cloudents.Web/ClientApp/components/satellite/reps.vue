@@ -1,15 +1,19 @@
 <template>
-  <div class="s-main-page">
-        <img src="./img/reps-header.png" alt="header" />
-        <img src="./img/reps.png" class="h-icon d-block">
+  <general-page header="./img/reps-header.png" icon="./img/reps.png">
+      
         
-        <div class="wrapper">
             Want to help grow the Spitball community at your school and rep a really cool (we think) company on campus? Reach out to us at 
             <a href="mailto:work@spitball.co">work@spitball.co</a>
-        </div>
-  </div>
+  </general-page>
 </template>
-<style src="./satellite-share.less" lang="less"></style>
+
+<script>
+import generalPage from "./generalImage.vue";
+export default {
+  components: {generalPage}
+}
+</script>
+
 <style lang="less" scoped>
     .wrapper {
         font-size: 18px;

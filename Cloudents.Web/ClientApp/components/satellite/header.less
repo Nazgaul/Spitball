@@ -19,7 +19,7 @@
     .toolbar__content {
         max-width: 1280px;
         margin: 0 auto;
-        padding-left: 20px;
+        //padding-left: 20px;
 
         @media(max-width: @screen-sm) {
             max-width: @maxWidth959;
@@ -41,19 +41,16 @@
         color: #302eb5;
         text-transform: capitalize;
     }
-
-    .fade-enter-active, .fade-leave-active {
-        transition: opacity .5s
+    .h-menu {
+        flex-grow: 0;
+        .inTheMiddle();
     }
-
-    .fade-enter, .fade-leave-to {
-        opacity: 0
-    }
+  
     /*.sbf-3-dot {
         color: #3293F6;
     }*/
     .logo {
-        margin-right: 10px;
+        margin-right: 40px;
 
         @media(max-width: @screen-sm) {
             width: 114px;
