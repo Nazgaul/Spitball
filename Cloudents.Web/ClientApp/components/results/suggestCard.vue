@@ -1,9 +1,13 @@
 <template>
     <button type="button" class="suggest">
         <v-container>
-            <v-layout class="wrapper" row justify-space-between>
+            <v-layout class="wrapper hidden-xs-only" row justify-space-between >
                     <div class="logo">Spitball</div>
                     <div class="action">Show me</div>
+            </v-layout>
+            
+            <v-layout class="icon hidden-sm-and-up">
+                <logo></logo>
             </v-layout>
             <div class="text">
                 {{suggestList[name]}}
