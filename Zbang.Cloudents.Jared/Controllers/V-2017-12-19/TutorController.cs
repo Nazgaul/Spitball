@@ -7,7 +7,6 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Microsoft.Azure.Mobile.Server.Config;
-using Microsoft.Web.Http;
 using Zbang.Cloudents.Jared.Extensions;
 using Zbang.Cloudents.Jared.Filters;
 using Zbang.Cloudents.Jared.Models;
@@ -18,8 +17,7 @@ namespace Zbang.Cloudents.Jared.Controllers
     /// <summary>
     /// Tutor api controller
     /// </summary>
-    [MobileAppController, ApiVersion("2017-12-19")]
-    [ControllerName(nameof(TutorController))]
+    [MobileAppController]
     public class Tutor2Controller : ApiController
     {
         private readonly ITutorSearch _tutorSearch;
@@ -44,7 +42,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         /// <param name="model">The model to parse</param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpGet, Route("api/tutor", Name = "TutorSearch")]
+        [VersionedRoute("api/tutor", "2017-12-19", Name = "TutorSearch"), HttpGet]
         public async Task<HttpResponseMessage> TutorV2Async([FromUri]TutorRequest model, CancellationToken token)
         {
             if (model.Location == null)

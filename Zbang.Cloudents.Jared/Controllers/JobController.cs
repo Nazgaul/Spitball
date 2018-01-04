@@ -1,15 +1,9 @@
-﻿using System;
-using System.Net.Http;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Microsoft.Azure.Mobile.Server.Config;
-using Microsoft.ServiceBus.Messaging;
-using Microsoft.Web.Http;
-using Zbang.Cloudents.Jared.Extensions;
-using Zbang.Cloudents.Jared.Filters;
 using Zbang.Cloudents.Jared.Models;
 
 namespace Zbang.Cloudents.Jared.Controllers
@@ -18,7 +12,7 @@ namespace Zbang.Cloudents.Jared.Controllers
     /// <summary>
     /// The controller of job api
     /// </summary>
-    [MobileAppController, ApiVersion("2017-01-01", Deprecated = true)]
+    [MobileAppController]
     public class JobController : ApiController
     {
         private readonly IJobSearch _jobSearch;

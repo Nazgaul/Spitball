@@ -49,14 +49,13 @@ namespace Zbang.Cloudents.Jared.Controllers
         /// <summary>
         /// Get list of universities
         /// </summary>
-        /// <param name="term">the user input</param>
-        /// <param name="location">the user location</param>
+        /// <param name="model">object of query string</param>
         /// <param name="token"></param>
         /// <returns>list of universities</returns>
         [HttpGet]
-        public async Task<HttpResponseMessage> Get(string term, GeoPoint location, CancellationToken token)
+        public async Task<HttpResponseMessage> Get([FromUri] UniversityRequest model, CancellationToken token)
         {
-            var result = await _universityProvider.SearchAsync(term, location, token).ConfigureAwait(false);
+            var result = await _universityProvider.SearchAsync(model.Term, model.Location, token).ConfigureAwait(false);
             return Request.CreateResponse(result);
         }
     }
