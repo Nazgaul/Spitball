@@ -1,10 +1,10 @@
 ﻿<template>
     <div class="box-search" ref="search">
-        <form method="get" @submit.prevent="search">
+        <form method="get" @submit.prevent="search" v-scroll="onScroll">
             <v-container>
                 <v-layout row>
                     <v-flex class="tx-input">
-                        <v-menu :allow-overflow="true" offset-y full-width content-class="search-menu">
+                        <v-menu :allow-overflow="true" offset-y full-width content-class="search-menu" v-model="menuOpen">
                             <span slot="activator">
                                 <v-text-field slot="inputField" type="search" solo
                                               @keyup.enter="search" autocomplete="off"
@@ -57,7 +57,8 @@
         },
         data() {
             return {
-                items: homeSuggest
+                items: homeSuggest,
+                menuOpen:false
             }
         },
         methods: {
@@ -77,6 +78,11 @@
             selectos(item) {
                 this.msg = item;
                 this.search();
+            },
+            onScroll(e) {
+                this.menuOpen = false;
+                //this.scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
             },
             //callback for mobile submit mic
             submitMic(){

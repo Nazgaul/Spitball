@@ -2,7 +2,7 @@
     <!--<general-page>-->
     <div class="blog-wrap">
         <v-layout row v-if="uni" class="uni" justify-center>
-            <img :src="uni.image" class="mr-3" />
+            <img :src="uni.image" class="mr-3 elevation-2" />
             <h5>{{uni.name}}</h5>
         </v-layout>
         <iframe src="https://spitballco.wordpress.com/"></iframe>
@@ -36,6 +36,7 @@
     .blog-wrap {
         background:#f0f0f0;
         padding-top:32px;
+       
 
 
      iframe {
@@ -60,7 +61,7 @@
     }
 
     .uni {
-        margin: 0 auto;
+        margin: 0 auto 5px;
     }
     
     }
