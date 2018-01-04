@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Cloudents.Core.Interfaces;
 using Microsoft.Azure.Mobile.Server.Config;
-using Microsoft.Web.Http;
-using Zbang.Cloudents.Jared.Extensions;
 using Zbang.Cloudents.Jared.Filters;
 using Zbang.Cloudents.Jared.Models;
 
@@ -17,7 +15,7 @@ namespace Zbang.Cloudents.Jared.Controllers
     /// The book api controller
     /// </summary>
 
-    [MobileAppController, RoutePrefix("api/book"), ApiVersion("2017-01-01",Deprecated = true)]
+    [MobileAppController, RoutePrefix("api/book")]
     public class BookController : ApiController
     {
         private readonly IBookSearch _booksSearch;
@@ -39,7 +37,8 @@ namespace Zbang.Cloudents.Jared.Controllers
         /// <param name="token"></param>
         /// <returns>List of book</returns>
         /// <exception cref="ArgumentNullException">term cannot be empty</exception>
-        [Route("search")]
+        [VersionedRoute("search"), HttpGet]
+
         public async Task<IHttpActionResult> Get([FromUri]BookRequest bookRequest, CancellationToken token)
         {
             bookRequest = bookRequest ?? new BookRequest();

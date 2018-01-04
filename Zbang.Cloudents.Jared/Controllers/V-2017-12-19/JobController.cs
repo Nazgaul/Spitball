@@ -6,8 +6,6 @@ using System.Web.Http;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Microsoft.Azure.Mobile.Server.Config;
-using Microsoft.ServiceBus.Messaging;
-using Microsoft.Web.Http;
 using Zbang.Cloudents.Jared.Extensions;
 using Zbang.Cloudents.Jared.Filters;
 using Zbang.Cloudents.Jared.Models;
@@ -18,8 +16,7 @@ namespace Zbang.Cloudents.Jared.Controllers
     /// <summary>
     /// The controller of job api
     /// </summary>
-    [MobileAppController, ApiVersion("2017-12-19")]
-    [ControllerName(nameof(JobController))]
+    [MobileAppController ]
     public class Job2Controller : ApiController
     {
         private readonly IJobSearch _jobSearch;
@@ -38,7 +35,8 @@ namespace Zbang.Cloudents.Jared.Controllers
         /// <param name="model"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [Route("api/job", Name = "JobSearch"), HttpGet]
+        [VersionedRoute("api/job", "2017-12-19", Name = "JobSearch"), HttpGet]
+
         public async Task<IHttpActionResult> JobV2Async([FromUri]JobRequest model, CancellationToken token)
         {
             var result = await _jobSearch.SearchAsync(model.Term,

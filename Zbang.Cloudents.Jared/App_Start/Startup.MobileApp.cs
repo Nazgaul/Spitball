@@ -1,18 +1,13 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Reflection;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
-using System.Web.Http.Routing;
 using Autofac;
 using Autofac.Integration.SignalR;
 using Autofac.Integration.WebApi;
 using Microsoft.AspNet.SignalR;
-using Microsoft.Azure.Mobile.Server;
 using Microsoft.Azure.Mobile.Server.Authentication;
 using Microsoft.Azure.Mobile.Server.Config;
-using Microsoft.Web.Http;
-using Microsoft.Web.Http.Routing;
 using Newtonsoft.Json;
 using Owin;
 using Zbang.Cloudents.Connect;
@@ -42,13 +37,13 @@ namespace Zbang.Cloudents.Jared
             //var constraintResolver = new DefaultInlineConstraintResolver() { ConstraintMap = { ["apiVersion"] = typeof(ApiVersionRouteConstraint) } };
             config.EnableSystemDiagnosticsTracing();
             config.MapHttpAttributeRoutes();
-            config.AddApiVersioning(o =>
-            {
-                o.AssumeDefaultVersionWhenUnspecified = true;
-                o.DefaultApiVersion = new ApiVersion(new DateTime(2017,1,1));
-                o.ReportApiVersions = true;
+            //config.AddApiVersioning(o =>
+            //{
+            //    o.AssumeDefaultVersionWhenUnspecified = true;
+            //    o.DefaultApiVersion = new ApiVersion(new DateTime(2017, 1, 1));
+            //    o.ReportApiVersions = true;
 
-            });
+            //});
             config.Formatters.JsonFormatter.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
 
             new MobileAppConfiguration()

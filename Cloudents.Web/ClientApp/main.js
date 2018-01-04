@@ -105,7 +105,6 @@ Vue.use(VueAnalytics,
     });
 Vue.filter('capitalize',
     function (value) {
-        console.log(value);
         if (!value) return '';
         value = value.toString();
         var values = value.split("/");

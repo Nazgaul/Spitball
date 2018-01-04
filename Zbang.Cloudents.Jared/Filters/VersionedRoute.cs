@@ -5,6 +5,11 @@ namespace Zbang.Cloudents.Jared.Filters
 {
     public class VersionedRouteAttribute : RouteFactoryAttribute
     {
+        public VersionedRouteAttribute(string template)
+            : base(template)
+        {
+           
+        }
         public VersionedRouteAttribute(string template, string allowedVersion)
             : base(template)
         {
@@ -14,13 +19,6 @@ namespace Zbang.Cloudents.Jared.Filters
         {
             get;
         }
-        public override IDictionary<string, object> Constraints
-        {
-            get
-            {
-                var constraints = new HttpRouteValueDictionary {["version"] = new VersionConstraint(AllowedVersion) };
-                return constraints;
-            }
-        }
+        public override IDictionary<string, object> Constraints => new HttpRouteValueDictionary {["version"] = new VersionConstraint(AllowedVersion) };
     }
 }

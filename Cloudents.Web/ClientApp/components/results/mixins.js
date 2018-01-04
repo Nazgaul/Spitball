@@ -47,7 +47,6 @@ let updateData = function (data, isFilterUpdate = false) {
     this.content = data;
     (data.data.length && this.hasExtra) ? this.selectedItem = data.data[0].placeId : '';
     this.filter = this.filterSelection;
-    console.log(`update data ${this.filterSelection}`);
     this.UPDATE_LOADING(false);
 
     //if the vertical or search term has been changed update the optional filters according
@@ -113,7 +112,7 @@ export const pageMixin =
         watch: {
             //update the course list of filters if have in page while the course list changes
             myCourses(val) {
-                if(this.filterObject) {
+                if (this.filterObject) {
                     const courseIndex = this.filterObject.findIndex(i => i.modelId === "course");
                     if (courseIndex > -1)
                         this.filterObject[courseIndex].data = val;
@@ -154,11 +153,11 @@ export const pageMixin =
                 selectedItem: null,
                 filterObject: null,
                 showFilters: false,
-                showPersonalizeField:false
+                showPersonalizeField: false
             };
         },
 
-        components: { emptyState, foodExtra, ResultItem, SuggestCard, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood  },
+        components: { emptyState, foodExtra, ResultItem, SuggestCard, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood },
 
         //If change term on book details page stay in book vertical(don't update vertical) according vertical flag
         beforeRouteEnter(to, from, next) {
@@ -173,8 +172,8 @@ export const pageMixin =
 
         },
         created() {
-            if(!this.isFirst){this.showPersonalizeField=true}
-            this.$root.$on("closePersonalize",()=>{this.showPersonalizeField=true});
+            if (!this.isFirst) { this.showPersonalizeField = true }
+            this.$root.$on("closePersonalize", () => { this.showPersonalizeField = true });
             //If query have courses save those courses
             if (this.query.course) this.$route.meta.myClasses = this.query.course;
             this.UPDATE_LOADING(true);
@@ -203,7 +202,7 @@ export const pageMixin =
 
                             //This is new version
                             //name: this.name
-                            
+
                         })
                             .then(({ data }) => {
                                 updateData.call(this, data);
@@ -233,13 +232,13 @@ export const pageMixin =
                     });
                 }
                 //check if filter selection have values that not exist in the current filter options make query replace without the filters
-                let filterPotential=this.filterObject.map(i=>i.data);
-                if(Array.from(this.filterSelection).filter(i=>filterPotential.includes(i)).length!==this.filterSelection.length){
+                let filterPotential = this.filterObject.map(i => i.data);
+                if (Array.from(this.filterSelection).filter(i => filterPotential.includes(i)).length !== this.filterSelection.length) {
                     const routeParams = { path: '/' + this.name, query: { q: this.userText } };
                     this.$router.replace(routeParams);
                 }
 
-                    },
+            },
             //when sort updated update sort in params query
             $_updateSort(sort) {
                 this.$router.push({ query: { ... this.query, sort: sort } });

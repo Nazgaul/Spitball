@@ -14,7 +14,6 @@ namespace Zbang.Cloudents.Jared
         public static void ConfigureSwagger(HttpConfiguration config)
         {
 
-            var apiExplorer =  config.AddVersionedApiExplorer();
             // Use the custom ApiExplorer that applies constraints. This prevents
             // duplicate routes on /api and /tables from showing in the Swagger doc.
             config.Services.Replace(typeof(IApiExplorer), new MobileAppApiExplorer(config));

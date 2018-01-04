@@ -30,7 +30,6 @@ export let verticals =
             name: "Tutors",
             needLocation: true,
             filter: [
-                //{ id: "all", name: "all" },
                 { id: "online", name: "Online Lessons" },
                 { id: "inPerson", name: "In Person" }
             ],
@@ -54,8 +53,8 @@ export let verticals =
             needLocation: true,
             filter: [{ id: "jobType", name: "job type" },{id: "filter", name: "Filter" }],
             sort: [
-                { id: "date", name: "date" },
-                { id: "distance", name: "distance" }
+                { id: "distance", name: "distance" },
+                { id: "date", name: "date" }
             ]
         },
         food: {
