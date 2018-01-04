@@ -1,10 +1,12 @@
 ﻿<template>
     <v-toolbar :height="$vuetify.breakpoint.smAndDown? 128 : 150" class="sat-header" app fixed>
-        <v-layout column justify-end  fill-height class="pt-3 mx-0">
+        <v-layout column justify-end fill-height class="pt-3 mx-0">
             <v-flex>
                 <v-layout row fill-height>
                     <v-toolbar-title class="ml-2">
-                        <logo class="logo"></logo>
+                        <router-link :to="{name:'home'}">
+                            <logo class="logo"></logo>
+                        </router-link>
                     </v-toolbar-title>
                     <sb-search class="search-bar hidden-md-and-down"></sb-search>
                     <v-spacer></v-spacer>
