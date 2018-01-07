@@ -78,7 +78,9 @@
         },
         watch:{
             filterVal(val){
-                // this.filters=val;
+                Object.entries(this.filters).forEach(([key, currentVal]) => {
+                    this.filters[key]=currentVal.concat(val).filter((val,index,self)=>self.indexOf(val)!==index);
+                });
                 this.selectedFilters=val;
             }
         },
