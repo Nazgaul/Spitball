@@ -17,7 +17,7 @@
         </v-toolbar>
         <regular-header v-else :$_calcTerm="$_calcTerm" :verticals="verticals" :callbackFunc="callbackFunc"
                         :currentSelection="currentSelection" :userText="userText"
-                        :currentPath="currentPath" :luisType="luisType"
+                        currentPath="/book" :luisType="luisType"
                         :getLuisBox="getLuisBox" :name="name" :myClasses="myClasses"></regular-header>
     </div>
 </template>
