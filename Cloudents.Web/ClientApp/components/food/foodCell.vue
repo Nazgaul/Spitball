@@ -1,6 +1,6 @@
 ﻿<template functional>
     <v-layout row class="place-cell">
-        <div class="img-wrap">
+        <div class="img-wrap spitball-bg-food">
             <img :src="props.item.image" alt="" v-if="props.item.image">
             <food-default v-else class="defaultImage spitball-bg-food"></food-default>
         </div>
@@ -11,7 +11,6 @@
                         <div class="cell-title">{{props.item.name}}</div>
                         <div class="rate mb-2">
                             <span>{{props.item.rating}}</span>
-
                             <star-rating :inline="true" :star-size="12"
                                          :read-only="true" :show-rating="false"
                                          active-color="#f6a623"
@@ -27,12 +26,4 @@
         </v-flex>
     </v-layout>
 </template>
-<!--<script>
-    //import StarRating from 'vue-star-rating';
-   // import FoodDefault from './../navbar/images/food.svg'
-    //export default {
-        //components: { StarRating, FoodDefault },
-        //props: { props }
-    //}
-</script>-->
 <style lang="less" src="./foodCell.less"></style>

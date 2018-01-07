@@ -37,10 +37,8 @@
 </script>
 <style lang="less">
     @import "../../mixin.less";
-    
-    .icons {
-        fill:#3293f6;
-       
+    .contact { .icons {
+        fill: #3293f6;
     }
     .social-btns {
          .flexSameSize()
@@ -48,7 +46,7 @@
     .map {
         border: solid 2px #3293f6;
         max-width: 100%;
-    }
+    }}
     
 </style>
 
