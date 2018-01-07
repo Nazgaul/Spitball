@@ -1,7 +1,7 @@
 <template functional>
 <div class="s-main-page">
         <div class="image-section">
-        <img :src="require(`./img/${props.header}`)" alt="header" />
+        <img class="hidden-xs-only" :src="require(`./img/${props.header}`)" alt="header" />
         <img :src="require(`./img/${props.icon}`)" class="h-icon d-block">
         </div>
         <div class="wrapper">
