@@ -2,13 +2,8 @@
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Filters;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Controllers
@@ -29,29 +24,20 @@ namespace Cloudents.Web.Controllers
         // GET
         public async Task<IActionResult> Index(CancellationToken token)
         {
-            var requestIp = this.HttpContext.Connection.GetIpAddress();
+            var requestIp = HttpContext.Connection.GetIpAddress();
             if (Equals(requestIp, OfficeIp))
             {
                 return View();
             }
 
-            var location = await _ipToLocation.GetAsync(requestIp, token);
+            var location = await _ipToLocation.GetAsync(requestIp, token).ConfigureAwait(false);
 
             if (!string.Equals(location.CountryCode, "US", StringComparison.InvariantCultureIgnoreCase))
             {
 
-                var uriBuilder = new UriBuilder()
-                {
-                    Scheme = "https",
-                    Host = "heb.spitball.co",
-                    Path = HttpContext.Request.Path,
-                    Query = HttpContext.Request.QueryString.Value
-                };
-                return Redirect(uriBuilder.ToString());
+                return this.RedirectToOldSite();
             }
             return RedirectToRoute("Alex");
-
-            //return View();
         }
     }
 }

@@ -24,32 +24,14 @@ namespace Cloudents.Web.Test
 
 
         private HomeController _controller;
-        //
-        // You can use the following additional attributes as you write your tests:
-        //
-        // Use ClassInitialize to run code before running the first test in the class
-        // [ClassInitialize()]
         public HomeControllerTests()
         {
             _mock = new Mock<IIpToLocation>();
-
             _controller = new HomeController(_mock.Object);
             _controller.ControllerContext.HttpContext = new DefaultHttpContext();
 
         }
-        //
-        // Use ClassCleanup to run code after all tests in a class have run
-        // [ClassCleanup()]
-        // public static void MyClassCleanup() { }
-        //
-        // Use TestInitialize to run code before running each test 
-        // [TestInitialize()]
-        // public void MyTestInitialize() { }
-        //
-        // Use TestCleanup to run code after each test has run
-        // [TestCleanup()]
-        // public void MyTestCleanup() { }
-        //
+
         [TestMethod]
         public async Task Index_OfficeIP_ReturnViewAsync()
         {
