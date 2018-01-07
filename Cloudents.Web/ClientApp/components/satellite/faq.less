@@ -1,7 +1,7 @@
 ﻿@import "../../mixin.less";
 
 .faq {
-    padding-top: 18px;
+    .responsive-property(padding-top, 18px, null, 0px);
 
     .expansion-panel {
         .expansion-panel__container {
@@ -9,7 +9,7 @@
             border-bottom: 1px solid #302eb5;
             border-top: none;
             color: #302eb5;
-            font-size: 18px;
+            .responsive-property(font-size, 18px, null, 16px);
             letter-spacing: -0.2px;
             max-width: none;
 
@@ -26,7 +26,7 @@
                 color: #000000;
                 line-height: 1.67;
                 letter-spacing: -0.2px;
-                font-size: 18px;
+                .responsive-property(font-size, 18px, null, 16px);
                 //   padding:24px;
                 p {
                     margin: 0;

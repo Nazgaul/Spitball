@@ -29,18 +29,28 @@ namespace Cloudents.Infrastructure.Cache
                 as CacheAttribute;
         }
 
-        public static string GetInvocationSignature(IInvocation invocation)
+        private static bool IsSimple(Type type)
+        {
+            return type.IsPrimitive
+                   || type.IsEnum
+                   || type == typeof(string)
+                   || type == typeof(decimal);
+        }
+
+
+        public static string BuildArgument(object[] argument)
         {
             var sb = new StringBuilder();
-            foreach (var arg in invocation.Arguments)
+            foreach (var arg in argument)
             {
                 if (arg == null)
                 {
                     continue;
                 }
-                if (arg is string s)
+
+                if (IsSimple(arg.GetType()))
                 {
-                    sb.Append(s);
+                    sb.Append(arg);
                     continue;
                 }
 
@@ -55,6 +65,7 @@ namespace Cloudents.Infrastructure.Cache
                     {
                         sb.Append(collectionArg);
                     }
+                    continue;
                 }
                 foreach (var prop in arg.GetType().GetProperties())
                 {
@@ -62,11 +73,15 @@ namespace Cloudents.Infrastructure.Cache
                 }
             }
 
+            return sb.ToString();
+        }
 
+        public static string GetInvocationSignature(IInvocation invocation)
+        {
             return
                 $"{Assembly.GetExecutingAssembly().GetName().Version.ToString(4)}-" +
                 $"{invocation.TargetType.FullName}-{invocation.Method.Name}" +
-                $"-{sb}";
+                $"-{BuildArgument(invocation.Arguments)}";
         }
 
         private static Task InterceptAsync(string key, CacheAttribute att, Task task)

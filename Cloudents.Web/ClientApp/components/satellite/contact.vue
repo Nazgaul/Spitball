@@ -38,12 +38,6 @@
 <style lang="less">
     @import "../../mixin.less";
     
-    .wrapper {
-        font-size: 18px;
-        letter-spacing: -0.2px;
-        text-align: left;
-        color: #302eb5;
-    }
     .icons {
         fill:#3293f6;
        
@@ -53,6 +47,7 @@
     }
     .map {
         border: solid 2px #3293f6;
+        max-width: 100%;
     }
     
 </style>
