@@ -63,10 +63,13 @@
                        :filterVal="filterSelection">
                 <img :src="universityImage" slot="courseTitlePrefix" width="24" height="24" v-if="universityImage" />
                 <template slot="courseEmptyState" v-if="!myCourses.length">
-                    <button v-if="$vuetify.breakpoint.xsOnly" class="edit-list hidden-sm-and-up" @click="$_openPersonalize()">Empty state mobile</button>
-                    <div class="course-empty-state" v-else>
-                        <div>Add your school and courses for better results</div>
-                        <v-btn @click="$_openPersonalize">Personalize</v-btn>
+                    <div class="course-empty-state">
+                        <div class="text">Add your school and courses for better results</div>
+                        <button class="mobile-button" v-if="$vuetify.breakpoint.xsOnly" @click="$_openPersonalize">
+                            <v-icon class="hidden-sm-and-up">sbf-search</v-icon>
+                            <span class="hidden-sm-and-up">Where do you go to school?</span>
+                        </button>
+                        <v-btn v-else @click="$_openPersonalize">Personalize</v-btn>
                     </div>
                 </template>
                 <template slot="courseExtraState" v-else>
