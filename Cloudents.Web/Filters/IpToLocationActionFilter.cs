@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Cloudents.Web.Filters
 {
+    [AttributeUsage(AttributeTargets.All, AllowMultiple = false)]
     public sealed class IpToLocationActionFilter : ActionFilterAttribute
     {
         private readonly string _geoLocationArgumentName;
@@ -45,12 +46,9 @@ namespace Cloudents.Web.Filters
                 context.ActionArguments[_geoLocationArgumentName] = place;
                 await next().ConfigureAwait(false);
             }
-            var ip = context.HttpContext.Connection.RemoteIpAddress;
-            var ipV4 = ip.MapToIPv4();
-            if (context.HttpContext.Connection.IsLocal())
-            {
-                ipV4 = IPAddress.Parse("72.229.28.185");
-            }
+
+            var ipV4 = context.HttpContext.Connection.GetIpAddress();
+            
 
             var ipDto = await _ipToLocation.GetAsync(ipV4, context.HttpContext.RequestAborted).ConfigureAwait(false);
             place = new GeoPoint
@@ -61,7 +59,6 @@ namespace Cloudents.Web.Filters
             context.ActionArguments[_geoLocationArgumentName] = place;
             AppendCookie(context, place);
             await next().ConfigureAwait(false);
-            //await next().ConfigureAwait(false);
         }
 
         private static void AppendCookie(ActionExecutingContext context, GeoPoint place)

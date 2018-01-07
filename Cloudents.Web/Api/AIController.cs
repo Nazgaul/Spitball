@@ -19,7 +19,6 @@ namespace Cloudents.Web.Api
             _engineProcess = engineProcess;
         }
 
-
         [HttpGet]
         [ValidateModel]
         //[ResponseCache(VaryByQueryKeys = new[] { "sentence" }, Duration = 30 * 60)]
