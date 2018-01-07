@@ -18,7 +18,7 @@
                             <v-list>
                                 <v-subheader>Some things you can ask me:</v-subheader>
                                 <template v-for="(item, index) in items">
-                                    <v-list-tile @click="selectos(item)" :key="index">
+                                    <v-list-tile @click="selectos({item,index})" :key="index">
                                         <v-list-tile-action hidden-xs-only>
                                             <v-icon>sbf-search</v-icon>
                                         </v-list-tile-action>
@@ -75,8 +75,9 @@
             //        })
             //    }
             //},
-            selectos(item) {
+            selectos({item,index}) {
                 this.msg = item;
+                this.$ga.event('Search','suggest', `#${index+1}_${item}`);
                 this.search();
             },
             onScroll(e) {
