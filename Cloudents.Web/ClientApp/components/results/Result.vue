@@ -23,7 +23,7 @@
                                 <v-text-field class="elevation-0" type="search" solo prepend-icon="sbf-search" placeholder="Where do you go to school?" @click="$_openPersonalize"></v-text-field>
                             </v-flex>
                             <v-flex class="result-cell elevation-1 mb-2" xs-12 v-for="(item,index) in items" :key="index" @click="(hasExtra?selectedItem=item.placeId:'')" :class="(index>6?'order-xs4':'order-xs2')">
-                                <component :is="'result-'+item.template" :item="item" :key="index" class="cell"></component>
+                                <component :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell"></component>
                             </v-flex>
                             <router-link v-if="!hasExtra" tag="v-flex" class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs3 " :to="{path:'/'+currentSuggest,query:{q:this.query.q}}">
                                 <suggest-card :name="currentSuggest"></suggest-card>
