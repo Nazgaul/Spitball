@@ -11,7 +11,6 @@ namespace Cloudents.Web.Api
     [Route("api/Search")]
     public class SearchController : Controller
     {
-
         [Route("documents")]
         public async Task<IActionResult> SearchDocumentAsync([FromQuery] DocumentSearchRequest model,
             CancellationToken token, [FromServices] IDocumentCseSearch searchProvider)

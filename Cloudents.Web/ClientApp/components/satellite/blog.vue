@@ -35,7 +35,7 @@
 <style lang="less">
     .blog-wrap {
         background:#f0f0f0;
-        padding-top:32px;
+        padding-top:22px;
        
 
 

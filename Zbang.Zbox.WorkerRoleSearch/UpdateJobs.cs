@@ -17,24 +17,20 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class UpdateJobs : UpdateAffiliate<WayUpJob, Job>
     {
-        private readonly JobsProvider m_JobSearchService;
-        private readonly IZipToLocationProvider m_ZipToLocation;
+        private readonly JobsProvider _jobSearchService;
+        private readonly IZipToLocationProvider _zipToLocation;
 
         public UpdateJobs(JobsProvider jobSearchService, ILogger logger,
             ILocalStorageProvider localStorage, IZipToLocationProvider zipToLocation) : base(logger, localStorage)
         {
-            m_JobSearchService = jobSearchService;
-            m_ZipToLocation = zipToLocation;
+            _jobSearchService = jobSearchService;
+            _zipToLocation = zipToLocation;
         }
-
 
         protected override Task DeleteOldItemsAsync(CancellationToken token)
         {
-            return m_JobSearchService.DeleteOldJobsAsync(token);
+            return _jobSearchService.DeleteOldJobsAsync(token);
         }
-
-
-
 
         protected override HttpClientHandler HttpHandler()
         {
@@ -76,22 +72,17 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
         }
 
-
-
-
-
         protected override async Task<Job> ParseTAsync(WayUpJob obj, CancellationToken token)
         {
             var dateTimeStr = obj.PostedDate.Replace("UTC", string.Empty).Trim();
 
             DateTime? dateTime = null;
-            if (DateTimeOffset.TryParse(dateTimeStr, out DateTimeOffset p))
+            if (DateTimeOffset.TryParse(dateTimeStr, out var p))
             {
                 dateTime = p.DateTime;
             }
 
-
-            var location = await m_ZipToLocation.GetLocationViaZipAsync(obj.Zip).ConfigureAwait(false);
+            var location = await _zipToLocation.GetLocationViaZipAsync(obj.Zip).ConfigureAwait(false);
             return new Job
             {
                 City = obj.City,
@@ -111,11 +102,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         protected override Task UpdateSearchAsync(IEnumerable<Job> list, CancellationToken token)
         {
-            return m_JobSearchService.UpdateDataAsync(list, token);
+            return _jobSearchService.UpdateDataAsync(list, token);
         }
-
-
-
 
         private static string JobTypeConversion(string jobType)
         {

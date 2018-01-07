@@ -38,39 +38,4 @@ export default {
 };
 </script>
 
-<style lang="less">
-.faq {
-  .expansion-panel {
-    .expansion-panel__container {
-      background-color: transparent;
-      border-top-color: #302eb5;
-      color: #302eb5;
-      font-size: 18px;
-      letter-spacing: -0.2px;
-      .actions {
-        color: #302eb5 !important;
-      }
-      .expansion-panel__body {
-           background: #fff;
-           color: #000000;
-             line-height: 1.67;
-   letter-spacing: -0.2px;
-   font-size: 18px;
-//   padding:24px;
-           p {
-               margin:0;
-           }
-      }
-    }
-  }
-  .expansion-panel__container--active {
-    .expansion-panel__header {
-      background-color: #302eb5;
-      color: #fff;
-      .actions {
-        color: #fff !important;
-      }
-    }
-  }
-}
-</style>
+<style src="./faq.less" lang="less"></style>

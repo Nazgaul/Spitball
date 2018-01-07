@@ -26,13 +26,14 @@
                 </v-layout>
             </v-flex>
             <v-flex fill-height align-end d-flex class="hidden-md-and-down">
-                <v-tabs class="verticals-bar" centered :scrollable="false">
+                <div  class="gap"></div>
+                <v-tabs class="verticals-bar" :scrollable="false">
                     <v-tabs-bar>
                         <v-tabs-item router v-for="tab in verticals" :key="tab.name" :to="tab.name"
                                      class="vertical">
                             {{tab.display}}
                         </v-tabs-item>
-                        <v-tabs-slider color="color-blue"></v-tabs-slider>
+                        <v-tabs-slider color="color-dark-blue"></v-tabs-slider>
                     </v-tabs-bar>
                 </v-tabs>
             </v-flex>

@@ -28,7 +28,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private async Task DoDeleteAsync(CancellationToken cancellationToken, string prefix, Func<CancellationToken, Task<int>> func)
         {
             var needLoop = true;
-            // var mailContent = new StringBuilder();
             while (needLoop && !cancellationToken.IsCancellationRequested)
             {
                 try
