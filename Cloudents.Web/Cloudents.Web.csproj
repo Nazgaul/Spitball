@@ -72,7 +72,6 @@
   <ItemGroup>
     <Folder Include="Extensions\" />
     <Folder Include="Views\Home\" />
-    <Folder Include="wwwroot\Images\alex\" />
   </ItemGroup>
 
   <ItemGroup>
