@@ -178,7 +178,6 @@ set isDirty = 1, isDeleted = 1, updateTime = getUtcDate()-121
                 }
             } while (result > 0);
 
-
             return counter;
         }
 
@@ -325,7 +324,6 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
                             needToLoop = true;
                         }
                     }
-
                 }
             }
             return counter;

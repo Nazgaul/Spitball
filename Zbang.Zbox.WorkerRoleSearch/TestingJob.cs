@@ -46,7 +46,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var process = _lifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("deleteOld");
             await process.ExecuteAsync(0, (a, b) => Task.CompletedTask, cancellationToken).ConfigureAwait(false);
 
-
             _logger.Info("finish test");
 
             //var msgData = new BoxFileProcessData(70197);

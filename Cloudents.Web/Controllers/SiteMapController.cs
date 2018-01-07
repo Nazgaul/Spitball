@@ -123,7 +123,6 @@ namespace Cloudents.Web.Controllers
 
             await myWriter.WriteEndElementAsync().ConfigureAwait(false);
         }
-
        
     }
 }

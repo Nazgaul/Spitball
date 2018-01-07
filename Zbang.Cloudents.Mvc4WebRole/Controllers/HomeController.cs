@@ -95,7 +95,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var country = "US";
             var prefix = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
-            if (prefix.ToLower() == "he")
+            if (string.Equals(prefix, "he", StringComparison.OrdinalIgnoreCase))
             {
                 country = "IL";
             }
@@ -186,18 +186,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var data = XDocument.Load(stream);
                 var model = from category in data.Descendants("category")
                             let faqs = category.Descendants("content")
-                            orderby int.Parse(category.Attribute("order")?.Value)
+                            orderby int.Parse(category.Attribute("order")?.Value ?? "0")
                             select new Category
                             {
                                 Language = category.Attribute("lang")?.Value,
                                 Name = category.Attribute("name")?.Value,
-                                Order = int.Parse(category.Attribute("order")?.Value),
+                                Order = int.Parse(category.Attribute("order")?.Value ?? "0"),
                                 QuestionNAnswers = faqs.Select(s =>
                                     new QnA
                                     {
                                         Answer = s.Element("answer")?.Value,
                                         Question = s.Element("question")?.Value,
-                                        Order = int.Parse(s.Attribute("order").Value)
+                                        Order = int.Parse(s.Attribute("order")?.Value ?? "0")
 
                                     }).OrderBy(s => s.Order).ToList()
                             };
@@ -239,7 +239,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 LanguageMiddleware.ChangeThreadLanguage(lang);
             }
             var iFrameSrc = "https://spitballblog.wordpress.com/";
-            if (Thread.CurrentThread.CurrentUICulture.Name.ToLower().StartsWith("he"))
+            if (Thread.CurrentThread.CurrentUICulture.Name.StartsWith("he", StringComparison.OrdinalIgnoreCase))
             {
                 iFrameSrc = "https://spitballcoh.wordpress.com/";
             }
@@ -274,7 +274,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!string.IsNullOrEmpty(lang))
             {
-                if (lang.ToLower() == "en")
+                if (string.Equals(lang, "en", StringComparison.OrdinalIgnoreCase))
                 {
                     return RedirectToRoutePermanent("Features");
                 }
@@ -340,7 +340,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!string.IsNullOrEmpty(lang))
             {
-                if (lang.ToLower() == "en")
+                if (string.Equals(lang, "en", StringComparison.OrdinalIgnoreCase))
                 {
                     return RedirectToRoutePermanent("courses");
                 }
@@ -399,8 +399,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         private async Task<string> GetSitemapIndexAsync()
         {
-            const string sitemapsNamespace = "http://www.sitemaps.org/schemas/sitemap/0.9";
-            XNamespace xmlns = sitemapsNamespace;
+            XNamespace xmlns = "http://www.sitemaps.org/schemas/sitemap/0.9";
             var model = await ZboxReadService.GetSeoItemCountAsync();
 
             const int pageSize = 49950;
