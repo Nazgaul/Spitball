@@ -100,6 +100,14 @@ Vue.use(VueAnalytics,
         id: 'UA-100723645-2',
         router,
         autoTracking: {
+            pageviewTemplate (route) {
+                // let title=route.name.charAt(0).toUpperCase() + route.name.slice(1);
+                return {
+                    page: route.path,
+                    title: route.name?route.name.charAt(0).toUpperCase() + route.name.slice(1):'',
+                    location: window.location.href
+                }
+            },
             exception: true
         }
     });

@@ -144,8 +144,16 @@ let routes2 = [
             "/" + RouteTypes.jobRoute,
             "/" + RouteTypes.foodRoute
         ], components: resultPage, props: resultProps, meta: {
-            isAcademic: true
-
+            isAcademic: true,
+            analytics: {
+                pageviewTemplate(route) {
+                    return {
+                        title: route.path.slice(1).charAt(0).toUpperCase() + route.path.slice(1),
+                        path: route.path,
+                        location: window.location.href
+                    }
+                }
+            }
         }
     },
     {
