@@ -1,13 +1,19 @@
 ﻿@import "../../mixin.less";
 
 @maxWidth959: 768px;
+
 .sat-header {
+    .box-search {
+        width: 100%;
+    }
+
     &.toolbar {
         background-color: #ffffff;
     }
 
     .toolbar__title {
         .inTheMiddle();
+        padding-left: 26px;
     }
 
     .toolbar__extension {
@@ -20,7 +26,6 @@
         max-width: 1280px;
         margin: 0 auto;
         //padding-left: 20px;
-
         @media(max-width: @screen-sm) {
             max-width: @maxWidth959;
             padding-left: 0;
@@ -41,11 +46,11 @@
         color: #302eb5;
         text-transform: capitalize;
     }
+
     .h-menu {
         flex-grow: 0;
         .inTheMiddle();
     }
-  
     /*.sbf-3-dot {
         color: #3293F6;
     }*/
@@ -58,14 +63,28 @@
         }
     }
 
-    .vertical {
-        font-size: 14px;
-        font-weight: 600;
-        color: #302eb5 !important;
-        letter-spacing: -0.2px;
+    .gap {
+        width: 236px;
+        flex-shrink: 0;
+    }
 
-        .tabs__item {
-            text-transform: capitalize;
+    .tabs__bar {
+        .vertical {
+            font-size: 14px;
+            font-weight: 600;
+            color: #302eb5 !important;
+            letter-spacing: -0.2px;
+            margin: 0 12px;
+
+            .tabs__item {
+                padding: 0;
+                text-transform: capitalize;
+            }
+        }
+
+        .tabs__slider {
+            height: 3px;
+            background: #302eb5;
         }
     }
     /*background-color: #fff !important;
