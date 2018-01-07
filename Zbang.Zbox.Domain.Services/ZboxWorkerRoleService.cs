@@ -144,28 +144,41 @@ set isDirty = 1, isDeleted = 1, updateTime = getUtcDate()-121
 
         public async Task<int> DeleteOldItemAsync(CancellationToken token)
         {
+            int result;
             var counter = 0;
-            counter +=
-                await ExecuteSqlLoopAsync(
-                    new[] {
+            do
+            {
+                counter +=
+                    await ExecuteSqlLoopAsync(
+                        new[] {
                         @"delete from zbox.ItemCommentReply where itemId in (
 
-    select top (50) itemId from zbox.item where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
+    select top (50) itemId from zbox.item where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 order by itemid
 ) option(maxDop 1)",
                         @"delete from zbox.itemComment where itemId in (
-	select  top (50) itemId from zbox.item where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
+	select  top (50) itemId from zbox.item where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 order by itemid
 ) option (maxDop 1)",
                         @"delete from Zbox.NewUpdates where itemId in (
-	select top (50) itemId from zbox.item where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
+	select top (50) itemId from zbox.item where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 order by itemid
 ) option (maxDop 1)",
                         @"delete from Zbox.itemRate where itemId in (
-	select top (50) itemId from zbox.item where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
+	select top (50) itemId from zbox.item where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 order by itemid
 ) option (maxDop 1)",
                         @"delete from Zbox.ItemTag where itemId in (
-	select top (50) itemId from zbox.item where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0
-) option (maxDop 1)",
-                        "delete top (50) from zbox.item where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 option (maxDop 1)"
-                    }, token).ConfigureAwait(false);
+	select top (50) itemId from zbox.item where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 order by itemid
+) option (maxDop 1)"
+
+                        }, token).ConfigureAwait(false);
+                using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
+                {
+                    result = await conn.ExecuteAsync(@"delete from zbox.item where itemid in (
+ select top (50) itemId from zbox.item where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 order by itemid 
+)option (maxDop 1)").ConfigureAwait(false);
+                    counter += result;
+                }
+            } while (result > 0);
+
+
             return counter;
         }
 
@@ -215,6 +228,10 @@ select top(3) questionId from Zbox.Question where boxId in (
 	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0  order by boxId
 ) 
 )option (maxDop 1)",
+                            @"delete  from Zbox.item where isDeleted = 1 and isDirty = 0
+and boxId in (
+	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0  order by boxId
+) option (maxDop 1)",
                             @"delete top(3) from Zbox.Question where boxId in (
 	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0  order by boxId
 ) option (maxDop 1)",
@@ -236,10 +253,7 @@ and boxId in (
 and boxId in (
 	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0  order by boxId
 ) option (maxDop 1)",
-                            @"delete  from Zbox.item where isDeleted = 1 and isDirty = 0
-and boxId in (
-	select top(3)  boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0  order by boxId
-) option (maxDop 1)",
+
                             @"delete from zbox.flashcard where boxId in (
 select top (3) boxId  from zbox.box where isDeleted = 1 and updateTime < getUtcDate() - 120 and isDirty = 0 order by boxId
 )  and isDeleted = 1 and isDirty = 0 option(maxDop 1)",
@@ -287,29 +301,31 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
                 }, token);
         }
 
-        private async Task<int> ExecuteSqlLoopAsync(string[] sqlStatements, CancellationToken token)
+        private async Task<int> ExecuteSqlLoopAsync(IEnumerable<string> sqlStatements, CancellationToken token)
         {
-            var needToLoop = true;
             var counter = 0;
-            while (needToLoop && !token.IsCancellationRequested)
+            foreach (var sql in sqlStatements)
             {
+                var needToLoop = true;
                 using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
                 {
-                    try
+                    while (needToLoop && !token.IsCancellationRequested)
                     {
-                        var i = 0;
-                        foreach (var sql in sqlStatements)
+                        try
                         {
+                            var i = 0;
                             i += await conn.ExecuteAsync(new CommandDefinition(sql, cancellationToken: token)).ConfigureAwait(false);
                             await Task.Delay(TimeSpan.FromMilliseconds(1000), token).ConfigureAwait(false);
+                            needToLoop = i > 0;
+                            counter += i;
                         }
-                        needToLoop = i > 0;
-                        counter += i;
+                        catch (SqlException ex) when (ex.Number == -2)
+                        {
+                            m_Logger.Exception(ex, new Dictionary<string, string> { ["ExecuteSqlLoopAsync"] = "timeout" });
+                            needToLoop = true;
+                        }
                     }
-                    catch (SqlException ex) when (ex.Number == -2)
-                    {
-                        m_Logger.Exception(ex, new Dictionary<string, string> {["ExecuteSqlLoopAsync"] = "timeout" });
-                    }
+
                 }
             }
             return counter;
@@ -432,7 +448,7 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
                 catch (Exception ex)
                 {
                     //this can only happen from the await
-                    m_Logger.Exception(ex, new Dictionary<string, string> {["AddNewUpdateAsync"] = "" });
+                    m_Logger.Exception(ex, new Dictionary<string, string> { ["AddNewUpdateAsync"] = "" });
                 }
                 unitOfWork.TransactionalFlush();
             }

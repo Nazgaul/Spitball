@@ -11,17 +11,17 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class DeleteOldStuff : ISchedulerProcess
     {
-        private readonly IZboxWorkerRoleService m_ZboxWorkerRoleService;
-        private readonly IMailComponent m_MailComponent;
-        private readonly IMediaServicesProvider m_MediaService;
+        private readonly IZboxWorkerRoleService _zboxWorkerRoleService;
+        private readonly IMailComponent _mailComponent;
+        private readonly IMediaServicesProvider _mediaService;
         private readonly ILogger _logger;
 
         public DeleteOldStuff(IZboxWorkerRoleService zboxWorkerRoleService, IMailComponent mailComponent,
             IMediaServicesProvider mediaService, ILogger logger)
         {
-            m_ZboxWorkerRoleService = zboxWorkerRoleService;
-            m_MailComponent = mailComponent;
-            m_MediaService = mediaService;
+            _zboxWorkerRoleService = zboxWorkerRoleService;
+            _mailComponent = mailComponent;
+            _mediaService = mediaService;
             _logger = logger;
         }
 
@@ -45,7 +45,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 catch (Exception ex)
                 {
                     _logger.Exception(ex);
-                    await m_MailComponent.GenerateSystemEmailAsync("delete old stuff", ex.ToString()).ConfigureAwait(false);
+                    await _mailComponent.GenerateSystemEmailAsync("delete old stuff", ex.ToString()).ConfigureAwait(false);
                     break;
                 }
             }
@@ -59,33 +59,33 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 var newToken = CancellationTokenSource.CreateLinkedTokenSource(token, timeoutToken.Token);
                 try
                 {
-                    await m_MediaService.DeleteOldAssetsAsync().ConfigureAwait(false);
-                    _logger.Info("delete stuff starting to work");
-                    await m_ZboxWorkerRoleService.DoDirtyUpdateAsync(newToken.Token).ConfigureAwait(false);
+                    //await _mediaService.DeleteOldAssetsAsync().ConfigureAwait(false);
+                    //_logger.Info("delete stuff starting to work");
+                   // await _zboxWorkerRoleService.DoDirtyUpdateAsync(newToken.Token).ConfigureAwait(false);
 
-                    await
-                        DoDeleteAsync(newToken.Token, "deleteOldUpdates",
-                            m_ZboxWorkerRoleService.DeleteOldUpdatesAsync).ConfigureAwait(false);
+                    //await
+                    //    DoDeleteAsync(newToken.Token, "deleteOldUpdates",
+                    //        _zboxWorkerRoleService.DeleteOldUpdatesAsync).ConfigureAwait(false);
 
                     await
                         DoDeleteAsync(newToken.Token, "deleteOldItems",
-                            m_ZboxWorkerRoleService.DeleteOldItemAsync).ConfigureAwait(false);
+                            _zboxWorkerRoleService.DeleteOldItemAsync).ConfigureAwait(false);
 
                     await
                         DoDeleteAsync(newToken.Token, "DeleteOldFlashcard",
-                            m_ZboxWorkerRoleService.DeleteOldFlashcardAsync).ConfigureAwait(false);
+                            _zboxWorkerRoleService.DeleteOldFlashcardAsync).ConfigureAwait(false);
 
                     await
                         DoDeleteAsync(newToken.Token, "deleteOldQuiz",
-                            m_ZboxWorkerRoleService.DeleteOldQuizAsync).ConfigureAwait(false);
+                            _zboxWorkerRoleService.DeleteOldQuizAsync).ConfigureAwait(false);
 
                   await
                         DoDeleteAsync(newToken.Token, "deleteOldBoxes",
-                            m_ZboxWorkerRoleService.DeleteOldBoxAsync).ConfigureAwait(false);
+                            _zboxWorkerRoleService.DeleteOldBoxAsync).ConfigureAwait(false);
 
                     await
                         DoDeleteAsync(newToken.Token, "deleteOldUniversity",
-                            m_ZboxWorkerRoleService.DeleteOldUniversityAsync).ConfigureAwait(false);
+                            _zboxWorkerRoleService.DeleteOldUniversityAsync).ConfigureAwait(false);
                     return true;
                 }
                 catch (TaskCanceledException)

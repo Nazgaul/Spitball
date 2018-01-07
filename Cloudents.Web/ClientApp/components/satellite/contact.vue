@@ -1,5 +1,5 @@
 <template v-once>
-<general-page header="./img/contact-header.png" icon="./img/contact-icon.png">
+<general-page header="contact-header.png" icon="contact-icon.png">
     <div class="contact">
         <a href="mailto:support@spitball.co" class="d-block">support@spitball.co</a>
         <span class="d-block">79 Madison Ave, New York, New York, 10016</span>

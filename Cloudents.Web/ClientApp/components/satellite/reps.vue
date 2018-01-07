@@ -1,5 +1,5 @@
 <template>
-  <general-page header="./img/reps-header.png" icon="./img/reps.png">
+  <general-page header="reps-header.png" icon="reps.png">
       
         <div class="reps">
             Want to help grow the Spitball community at your school and rep a really cool (we think) company on campus? Reach out to us at 
