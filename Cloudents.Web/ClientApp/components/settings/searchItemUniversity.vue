@@ -11,6 +11,7 @@
         methods: {
             ...mapActions(['updateUniversity']),
             $_universitySelected(val) {
+                this.$ga.event("Uni_Select",val.name);
                 this.updateUniversity(val);
             }
         }

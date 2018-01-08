@@ -77,7 +77,7 @@
             //},
             selectos({item,index}) {
                 this.msg = item;
-                this.$ga.event('Search','suggest', `#${index+1}_${item}`);
+                this.$ga.event('Search','Suggest', `#${index+1}_${item}`);
                 this.search();
             },
             onScroll(e) {
