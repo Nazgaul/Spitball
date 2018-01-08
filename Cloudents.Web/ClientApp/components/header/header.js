@@ -97,6 +97,7 @@ export default {
         },
         $_updateType(result) {
             //if(this.isMobileSize){
+            this.$ga.event("Search_Bar",result);
             let tabs = this.$el.querySelector('.tabs__wrapper');
             let currentItem = this.$el.querySelector(`#${result}`);
             if (currentItem) {

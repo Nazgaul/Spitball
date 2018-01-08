@@ -45,7 +45,6 @@ export default {
     created() {
         this.$_isAcademic(this.$route);
         //if ( this.isAcademic) {
-        console.log(this.isAcademic);
         //setTimeout(() => {
         //    if(!this.$root.$el.querySelector(".dialog__content__active"))
         //            this.showDialog = true

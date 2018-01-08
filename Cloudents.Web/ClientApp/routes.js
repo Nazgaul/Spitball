@@ -148,7 +148,7 @@ let routes2 = [
             analytics: {
                 pageviewTemplate(route) {
                     return {
-                        title: route.path.slice(1).charAt(0).toUpperCase() + route.path.slice(1),
+                        title: route.path.slice(1).charAt(0).toUpperCase() + route.path.slice(2),
                         path: route.path,
                         location: window.location.href
                     }

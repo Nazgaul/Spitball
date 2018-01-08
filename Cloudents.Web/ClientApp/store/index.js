@@ -16,14 +16,29 @@ function canWriteStorage(storage) {
 
     return false;
 }
+const storageFallback = [{
+    provider: localStorage,
+    enable: true
+},
+{
+    provider: sessionStorage,
+    enable: true
+}]
+for (let v in storageFallback) {
+    let item = storageFallback[v];
+    item.enable = canWriteStorage(item.provider);
+}
+let storage = storageFallback.find(f => f.enable);
 
-
-const plugins = [createPersistedState(
-    {
-        paths: ["User"],
-        storage: canWriteStorage(localStorage) ? localStorage : sessionStorage
-    }
-)];
+const plugins = [];
+if (storage) {
+    createPersistedState(
+        {
+            paths: ["User"],
+            storage: storage.provider
+        }
+    )
+}
 
 Vue.use(Vuex);
 const store = new Vuex.Store({
