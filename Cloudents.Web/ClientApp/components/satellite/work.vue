@@ -1,7 +1,7 @@
 <template>
     <general-page>
         <div class="work">
-            <v-layout class="strip" v-for="(data,key,index) in pageData" row align-center justify-space-between :reverse="$vuetify.breakpoint.smAndUp && index%2">
+            <v-layout class="strip" v-for="(data,key,index) in pageData"  row align-center justify-space-between :reverse="$vuetify.breakpoint.smAndUp && index%2" :key="index">
                 
                 <v-flex class="text">
                     <h2>{{data.title}}</h2>
