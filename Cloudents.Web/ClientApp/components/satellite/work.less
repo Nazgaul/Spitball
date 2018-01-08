@@ -1,0 +1,46 @@
+﻿@import "../../mixin.less";
+
+.work {
+    color: #302eb5;
+    .responsive-property(margin-top, 52px, null, 36px);
+
+    .strip {
+        .responsive-property(margin-bottom, 106px, null, 42px);
+
+        @media(max-width: @screen-xs) {
+            flex-direction: column;
+        }
+
+        img {
+            max-width: 100%;
+
+            @media(max-width: @screen-xs) {
+                padding: 0 8px;
+            }
+        }
+
+        .gap {
+            width: 16px;
+            height: 36px;
+        }
+
+        .text {
+            max-width: 344px;
+
+            h2 {
+                .responsive-property(font-size, 24px, null, 18px);
+                font-weight: 600;
+                line-height: 1.25;
+                letter-spacing: -0.2px;
+            }
+
+            p {
+                margin-bottom: 0;
+                .responsive-property(font-size, 18px, null, 16px);
+                .responsive-property(margin-top, 24px, null, 8px);
+                .responsive-property(line-height, 1.67, null, 1.88);
+                .responsive-property(line-height, -0.2px, null, -0.1px);
+            }
+        }
+    }
+}
