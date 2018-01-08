@@ -22,12 +22,14 @@ export default {
 
     watch: {
         showDialog(val) {
+            this.isfirst=this.isFirst;
             !val && this.isfirst ? this.isfirst = false : "";
             if (!val) {
                 this.type="";
                 if (this.isFirst) { this.updateFirstTime("isFirst"); }
                 this.$root.$emit("closePersonalize");
             }
+
         },
         isAcademinc(val) {
             if (val && this.isFirst) {

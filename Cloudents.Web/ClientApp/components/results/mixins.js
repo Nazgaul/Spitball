@@ -190,7 +190,7 @@ export const pageMixin =
                     //save the data in the appropriate meta according the box methodology
                     this.$route.meta[this.$_calcTerm(result)] = { term: this.userText, luisTerm: term, docType };
                     //If should update vertical(not book details) and luis return not identical vertical as current vertical replace to luis vertical page
-                    if (this.name == "result") { //from homepage
+                    if (this.name === "result") { //from homepage
                         this.UPDATE_LOADING(false);
                         const routeParams = { path: '/' + result, query: { ...this.query, q: this.userText } };
                         this.$router.replace(routeParams);
@@ -233,8 +233,12 @@ export const pageMixin =
                         return item;
                     });
                 }
+
                 //check if filter selection have values that not exist in the current filter options make query replace without the filters
-                let filterPotential = (this.filterObject || []).map(i => i.data);
+                let filterPotential = (this.filterObject || []).map(i => {if(i.data&&i.data.length&&i.data[0].id){
+                                                                            return i.data.map(i=>i.id);
+                                                                          } return i.data});
+                filterPotential=filterPotential.join('&').replace('&','').split(',');
                 if (Array.from(this.filterSelection).filter(i => filterPotential.includes(i)).length !== this.filterSelection.length) {
                     const routeParams = { path: '/' + this.name, query: { q: this.userText } };
                     this.$router.replace(routeParams);
@@ -259,10 +263,10 @@ export const pageMixin =
                     this.$route.meta.myClasses = updatedList;
                 }
                 const newFilter = { [id]: updatedList };
-                let { q, sort, course, source, filter } = this.query;
+                let { q, sort, course, source, filter,jobType } = this.query;
                 if (val === 'inPerson' && type) sort = "price";
                 //Combine current filters and the updated filter and call query
-                this.$router.push({ query: { q, sort, course, source, filter, ...newFilter } });
+                this.$router.push({ query: { q, sort, course, source, jobType, filter, ...newFilter } });
             },
             //functionality when remove filter from the selected filters
             $_removeFilter(val) {

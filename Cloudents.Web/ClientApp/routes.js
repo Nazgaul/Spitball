@@ -28,6 +28,9 @@ function dynamicPropsFn(route) {
     let filterOptions = [];
     if (route.query.filter) {
         filterOptions = filterOptions.concat(route.query.filter);
+        if (route.query.jobType) {
+            filterOptions = filterOptions.concat(route.query.jobType);
+        }
     } else {
         if (route.query.source) {
             filterOptions = filterOptions.concat(route.query.source);
