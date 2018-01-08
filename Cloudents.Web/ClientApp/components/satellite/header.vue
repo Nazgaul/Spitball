@@ -8,7 +8,7 @@
                             <logo class="logo"></logo>
                         </router-link>
                     </v-toolbar-title>
-                    <sb-search class="search-bar hidden-md-and-down"></sb-search>
+                    <sb-search class="search-bar hidden-sm-and-down"></sb-search>
                     <v-spacer></v-spacer>
                     <v-flex class="h-menu hidden-md-and-up">
                         <v-menu bottom left>
@@ -25,7 +25,7 @@
 
                 </v-layout>
             </v-flex>
-            <v-flex fill-height align-end d-flex class="hidden-md-and-down">
+            <v-flex fill-height align-end d-flex class="hidden-sm-and-down">
                 <div  class="gap"></div>
                 <v-tabs class="verticals-bar" :scrollable="false">
                     <v-tabs-bar>

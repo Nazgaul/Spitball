@@ -1,4 +1,5 @@
-﻿
+﻿@import "../../mixin.less";
+
 .book-header {
     .tabs__item {
         color: red;
@@ -9,14 +10,23 @@
 
         .toolbar__title {
             font-size: 18px;
+            margin-left: 2px;
         }
 
-        .btn .btn__content {
-            transform: rotate(-90deg);
+        .btn {
+            &:first-child {
+                @media(max-width: @screen-xs) {
+                    margin-left: 0;
+                }
+            }
 
-            .icon {
-                font-size: 12px;
-                color: #9b9b9b;
+            .btn__content {
+                transform: rotate(-90deg);
+
+                .icon {
+                    font-size: 12px;
+                    color: #9b9b9b;
+                }
             }
         }
 

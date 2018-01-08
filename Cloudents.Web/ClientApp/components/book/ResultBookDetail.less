@@ -6,6 +6,7 @@
 
         @media(max-width: @screen-xs) {
             border-radius: 4px;
+            margin-top: 16px;
         }
     }
 
@@ -19,6 +20,12 @@
         .price-line {
             height: 54px;
             display: block;
+
+            &:last-child {
+                .divider{
+                    display: none;
+                }
+            }
 
             .image {
                 max-width: 102px;
