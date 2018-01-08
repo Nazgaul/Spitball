@@ -18,26 +18,30 @@ function canWriteStorage(storage) {
 }
 const storageFallback = [{
     provider: localStorage,
-    enable: true
+    enable: true,
+    name:"local"
 },
 {
     provider: sessionStorage,
-    enable: true
+    enable: true,
+    name: "session"
 }]
 for (let v in storageFallback) {
     let item = storageFallback[v];
     item.enable = canWriteStorage(item.provider);
 }
-let storage = storageFallback.find(f => f.enable);
 
+let storage = storageFallback.find(f => f.enable);
+console.log(storage)
 const plugins = [];
 if (storage) {
-    createPersistedState(
+    plugins.push(createPersistedState(
         {
             paths: ["User"],
             storage: storage.provider
         }
-    )
+    ));
+
 }
 
 Vue.use(Vuex);
