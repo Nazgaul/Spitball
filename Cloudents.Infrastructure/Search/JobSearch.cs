@@ -36,16 +36,17 @@ namespace Cloudents.Infrastructure.Search
             int page,
             CancellationToken token)
         {
-            string filterQuery = null;
+            var filterQuery = new List<string>();
             var sortQuery = new List<string>();
             if (filter == JobRequestFilter.Paid)
             {
-                filterQuery = "compensationType eq 'paid'";
+                filterQuery.Add("compensationType eq 'paid'");
             }
 
             if (jobType != null)
             {
-                filterQuery = string.Join(" or ", jobType.Select(s => $"jobType eq '{s}'"));
+                filterQuery.AddRange(jobType.Select(s => $"jobType eq '{s}'"));
+                //filterQuery = string.Join(" or ", jobType.Select(s => $"jobType eq '{s}'"));
             }
 
             switch (sort)
@@ -63,13 +64,13 @@ namespace Cloudents.Infrastructure.Search
                 {
                     "title","responsibilities","dateTime","city","state","jobType","compensationType","url","company"
                 },
-                Facets = string.IsNullOrEmpty(filterQuery) ? new[]
+                Facets = filterQuery.Count == 0 ? new[]
                 {
                     "jobType"
                 } : null,
                 Top = PageSize,
                 Skip = PageSize * page,
-                Filter = filterQuery,
+                Filter = string.Join(" or " , filterQuery),
                 OrderBy = sortQuery
 
             };
