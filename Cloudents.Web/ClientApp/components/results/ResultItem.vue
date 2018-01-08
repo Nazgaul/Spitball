@@ -34,7 +34,6 @@
         computed: {
             //isSpitball() { return this.item.source.includes('spitball')},
             url: function () {
-                console.log(this);
                 return /*this.isSpitball ? this.item.url.split('.co/')[1]:*/ this.item.url
             }
         },
