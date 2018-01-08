@@ -11,10 +11,10 @@ namespace Cloudents.Infrastructure.Search
 {
     public class FlashcardSearch : IFlashcardSearch
     {
-        private readonly ICseSearch _search;
+        private readonly ISearch _search;
         private readonly ISearchConvertRepository _searchConvertRepository;
 
-        public FlashcardSearch(ICseSearch search, ISearchConvertRepository searchConvertRepository)
+        public FlashcardSearch(ISearch search, ISearchConvertRepository searchConvertRepository)
         {
             _search = search;
             _searchConvertRepository = searchConvertRepository;

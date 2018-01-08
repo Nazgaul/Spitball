@@ -11,10 +11,10 @@ namespace Cloudents.Infrastructure.Search
 {
     public class DocumentCseSearch : IDocumentCseSearch
     {
-        private readonly ICseSearch _search;
+        private readonly ISearch _search;
         private readonly ISearchConvertRepository _searchConvertRepository;
 
-        public DocumentCseSearch(ICseSearch search, ISearchConvertRepository searchConvertRepository)
+        public DocumentCseSearch(ISearch search, ISearchConvertRepository searchConvertRepository)
         {
             _search = search;
             _searchConvertRepository = searchConvertRepository;

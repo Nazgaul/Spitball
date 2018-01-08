@@ -12,9 +12,9 @@ namespace Cloudents.Infrastructure.Search
     public class QuestionSearch : IQuestionSearch
     {
         public const string QueryString = "world war 2";
-        private readonly ICseSearch _search;
+        private readonly ISearch _search;
 
-        public QuestionSearch(ICseSearch search)
+        public QuestionSearch(ISearch search)
         {
             _search = search;
         }

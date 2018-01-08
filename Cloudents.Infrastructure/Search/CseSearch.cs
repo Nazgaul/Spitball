@@ -41,7 +41,7 @@ namespace Cloudents.Infrastructure.Search
         }
     }
 
-    internal class CseSearch : ICseSearch
+    internal class CseSearch : ISearch
     {
         private readonly IKeyGenerator _keyGenerator;
         public const int NumberOfPagesPerRequest = 2;

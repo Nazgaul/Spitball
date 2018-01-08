@@ -74,7 +74,7 @@ namespace Cloudents.Infrastructure
                 .SingleInstance().AsSelf().As<ISearchServiceClient>();
 
             builder.RegisterType<CacheProvider>().AsImplementedInterfaces();
-            builder.RegisterType<CseSearch>().As<ICseSearch>().EnableInterfaceInterceptors()
+            builder.RegisterType<CseSearch>().As<ISearch>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<DocumentCseSearch>().As<IDocumentCseSearch>();
             builder.RegisterType<FlashcardSearch>().As<IFlashcardSearch>();
