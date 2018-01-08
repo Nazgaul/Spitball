@@ -22,7 +22,7 @@
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
-    <ApplicationInsightsResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zboxmobile/providers/microsoft.insights/components/Spitball-Mobile</ApplicationInsightsResourceId>
+    <ApplicationInsightsResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourceGroups/zboxmobile/providers/microsoft.insights/components/Spitball-Mobile</ApplicationInsightsAnnotationResourceId>
     <Use64BitIISExpress />
   </PropertyGroup>
@@ -252,6 +252,7 @@
     <Compile Include="Controllers\V-2017-12-19\JobController.cs" />
     <Compile Include="Controllers\V-2017-12-19\TutorController.cs" />
     <Compile Include="Extensions\HttpRequestMessageExtensions.cs" />
+    <Compile Include="Extensions\ModelStateDictionaryExtensions.cs" />
     <Compile Include="Extensions\UrlHelperExtension.cs" />
     <Compile Include="Filters\PagingAttribute.cs" />
     <Compile Include="Filters\VersionConstraint.cs" />
@@ -266,6 +267,7 @@
     <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PlacesController.cs" />
+    <Compile Include="Models\CourseRequest.cs" />
     <Compile Include="Models\IPaging.cs" />
     <Compile Include="Models\PurchaseRequest.cs" />
     <Compile Include="Controllers\QuizController.cs" />

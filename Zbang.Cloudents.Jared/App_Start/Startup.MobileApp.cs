@@ -5,9 +5,11 @@ using System.Web.Http.ExceptionHandling;
 using Autofac;
 using Autofac.Integration.SignalR;
 using Autofac.Integration.WebApi;
+using Cloudents.Infrastructure.Data;
 using Microsoft.AspNet.SignalR;
 using Microsoft.Azure.Mobile.Server.Authentication;
 using Microsoft.Azure.Mobile.Server.Config;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Owin;
 using Zbang.Cloudents.Connect;
@@ -34,16 +36,8 @@ namespace Zbang.Cloudents.Jared
             var builder = new ContainerBuilder();
 
             var config = new HttpConfiguration();
-            //var constraintResolver = new DefaultInlineConstraintResolver() { ConstraintMap = { ["apiVersion"] = typeof(ApiVersionRouteConstraint) } };
             config.EnableSystemDiagnosticsTracing();
             config.MapHttpAttributeRoutes();
-            //config.AddApiVersioning(o =>
-            //{
-            //    o.AssumeDefaultVersionWhenUnspecified = true;
-            //    o.DefaultApiVersion = new ApiVersion(new DateTime(2017, 1, 1));
-            //    o.ReportApiVersions = true;
-
-            //});
             config.Formatters.JsonFormatter.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
 
             new MobileAppConfiguration()
@@ -77,6 +71,12 @@ namespace Zbang.Cloudents.Jared
             builder.RegisterModule<DataModule>();
             builder.RegisterModule<ReadServiceModule>();
             builder.RegisterModule<MailModule>();
+            builder.Register(_ =>
+            {
+                var x = new DbContextOptionsBuilder<AppDbContext>();
+                x.UseSqlServer(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString);
+                return new AppDbContext(x.Options);
+            });
             var module = new t.InfrastructureModule(
                 ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                 ConfigurationManager.AppSettings["AzureSearchServiceName"],

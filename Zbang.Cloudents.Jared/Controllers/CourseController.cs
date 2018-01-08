@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
 using System.Net.Http;
@@ -7,10 +9,13 @@ using System.Net;
 using System.Threading;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Zbang.Cloudents.Jared.Extensions;
 using Zbang.Cloudents.Jared.Models;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
+    /// <inheritdoc />
     /// <summary>
     /// Course api controller
     /// </summary>
@@ -20,12 +25,13 @@ namespace Zbang.Cloudents.Jared.Controllers
         private readonly ICourseSearch _courseProvider;
         private readonly IRepository<Course> _repository;
 
+        /// <inheritdoc />
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="courseProvider"></param>
         /// <param name="repository"></param>
-        public CourseController( ICourseSearch courseProvider, IRepository<Course> repository)
+        public CourseController(ICourseSearch courseProvider, IRepository<Course> repository)
         {
             _courseProvider = courseProvider;
             _repository = repository;
@@ -34,20 +40,20 @@ namespace Zbang.Cloudents.Jared.Controllers
         /// <summary>
         /// Perform course search
         /// </summary>
-        /// <param name="term">the user input</param>
-        /// <param name="universityId">the user university</param>
+        /// <param name="model">params</param>
         /// <param name="token"></param>
         /// <returns>list of courses filter by input</returns>
         /// <exception cref="ArgumentException">university is empty</exception>
         [Route("api/course/search")]
         [HttpGet]
-        public async Task<HttpResponseMessage> Get(string term, long universityId, CancellationToken token)
+        public async Task<HttpResponseMessage> Get([FromUri]  CourseRequest model, CancellationToken token)
         {
-            if (universityId == default)
+            if (!ModelState.IsValid)
             {
-                throw new ArgumentException(nameof(universityId));
+                return Request.CreateBadRequestResponse(ModelState.GetError());
             }
-            var result = await _courseProvider.SearchAsync(term, universityId, token).ConfigureAwait(false);
+
+            var result = await _courseProvider.SearchAsync(model.Term, model.UniversityId.GetValueOrDefault(), token).ConfigureAwait(false);
             return Request.CreateResponse(result);
         }
 

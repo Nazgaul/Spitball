@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using Zbang.Zbox.Infrastructure.Mail;
 namespace Zbang.Cloudents.Jared.Controllers
 {
     [MobileAppController]
+    [Obsolete]
     public class ValuesController : ApiController
     {
         private readonly IZboxReadService m_ZboxReadService;

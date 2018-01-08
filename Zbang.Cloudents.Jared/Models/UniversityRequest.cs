@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using Cloudents.Core.Models;
 
 namespace Zbang.Cloudents.Jared.Models
 {
@@ -10,6 +11,7 @@ namespace Zbang.Cloudents.Jared.Models
         /// <summary>
         /// the user input
         /// </summary>
+        [StringLength(int.MaxValue, MinimumLength = 3)]
         public string Term { get; set; }
         /// <summary>
         /// the user location

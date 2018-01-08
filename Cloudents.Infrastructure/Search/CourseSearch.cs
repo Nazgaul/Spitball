@@ -38,36 +38,11 @@ namespace Cloudents.Infrastructure.Search
                 Filter = $"universityId eq {universityId}"
             }, cancellationToken: token);
 
-
-            //var tSuggest = CompletedTask;
-            //if (term.Length >= 3)
-            //{
-            //    tSuggest = _client.Documents.SuggestAsync<Course>(term, "sg",
-            //        new SuggestParameters
-            //        {
-            //            UseFuzzyMatching = true,
-            //            Select = new[] { "id", "name2" },
-            //            Filter = $"universityId eq {universityId}"
-            //        }, cancellationToken: token);
-            //}
             await Task.WhenAll(tResult).ConfigureAwait(false);
 
-            var result = _mapper.Map<IEnumerable<Course>, IList<CourseDto>>(tResult.Result.Results.Select(s => s.Document));
-
-            //if (tSuggest.Result != null)
-            //{
-            //    var result2 =
-            //        _mapper.Map<IEnumerable<Course>, IList<CourseDto>>(
-            //            tSuggest?.Result?.Results?.Select(s => s.Document));
-            //    return result.Union(result2, new CourseDtoEquality());
-            //}
-
-            return result;
-            //return _mapper.Map<IEnumerable<Course>, IEnumerable<CourseDto>>(result.Results.Select(s => s.Document));
+            return _mapper.Map<IEnumerable<Course>, IList<CourseDto>>(tResult.Result.Results.Select(s => s.Document));
         }
 
-
-        private static readonly Task<DocumentSuggestResult<Course>> CompletedTask = Task.FromResult<DocumentSuggestResult<Course>>(null);
 
     }
 }
