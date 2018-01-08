@@ -1,7 +1,7 @@
 ﻿<template>
     <!--@click="(isSpitball?$_spitball($event):'')"-->
     <a class="d-block" :target="$vuetify.breakpoint.xsOnly?'_self':'_blank'" :href="url" :class="'cell-'+$route.path.slice(1)">
-        <v-container class="pa-2" @click="$ga.event('Partnerships', item.source)">
+        <v-container class="pa-2" @click="$ga.event('Search_Results', $route.path.slice(1),`#${index+1}_${item.source}`)">
             <v-layout row fluid>
                 <v-flex class="img-wrap mr-2 pa-0" :class="['border-'+$route.path.slice(1),'spitball-bg-'+$route.path.slice(1)]">
                     <img  :src="item.image" alt="" v-if="item.image">
@@ -20,6 +20,7 @@
                 </v-flex>
             </v-layout>
         </v-container>
+        <!--{{url}}-->
     </a>
 </template>
 <script>
@@ -29,10 +30,11 @@
     export default {
         components:{AskDefault,FlashcardDefault,NoteDefault},
 
-        props: { item: { type: Object, required: true } },
+        props: { item: { type: Object, required: true },index:{Number} },
         computed: {
             //isSpitball() { return this.item.source.includes('spitball')},
             url: function () {
+                console.log(this);
                 return /*this.isSpitball ? this.item.url.split('.co/')[1]:*/ this.item.url
             }
         },

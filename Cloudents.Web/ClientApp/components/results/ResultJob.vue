@@ -1,6 +1,6 @@
 ﻿<template v-once>
     <a class="d-block job-cell" target="_blank" :href="item.url">
-        <div class="cell-title mb-1">{{item.title}}</div>
+       <span @click="$ga.event('Search_Results', 'Jobs',`#${index+1}_www.careerbuilder.com`)"> <div class="cell-title mb-1">{{item.title}}</div>
         <div class="desc">
             <div class="desc-title">Job description:</div>
             <p>{{item.responsibilities}}</p>
@@ -12,7 +12,7 @@
             <v-flex class="property mt-3" sm4 xs6><paid-icon class="mr-2"></paid-icon><span>{{item.compensationType}}</span></v-flex>
             <v-flex class="property mt-3" sm4 xs6><caldendar-icon class="mr-2"></caldendar-icon><span>{{formatDate}}</span></v-flex>
             <v-flex sm4 xs0></v-flex>
-        </v-layout>
+        </v-layout></span>
 
     </a>
 </template>
@@ -24,7 +24,7 @@
     export default {
         components: { caldendarIcon, companyIcon, locationIcon, paidIcon },
         props: {
-            item: { type: Object, required: true }
+            item: { type: Object, required: true },index:{Number}
         },
 
         computed:{

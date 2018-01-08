@@ -1,4 +1,4 @@
-﻿import debounce from "lodash/debounce"
+﻿﻿import debounce from "lodash/debounce"
 const plusButton = () => import("./svg/plus-button.svg");
 import { typesPersonalize, searchObjects } from "./consts"
 const searchItemUniversity = () => import("./searchItemUniversity.vue");
@@ -12,6 +12,12 @@ export default {
         type(val) {
             if (val) {
                 this.currentType = val;
+                let title=`${val} Select`;
+                this.$ga.page({
+                    page: `select${val}`,
+                    title,
+                    location: window.location.href
+                });
             }
         },
         currentType() {

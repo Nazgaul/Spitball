@@ -25,7 +25,7 @@
             </div>
             <div class="book-sources pa-2 elevation-1">
                 <a :href="item.link" :target="$vuetify.breakpoint.xsOnly?'_self':'_blank'" class="price-line" v-for="(item,index) in filteredList" :key="index">
-                    <v-layout row justify-space-between class="price-line-content">
+                    <v-layout row justify-space-between class="price-line-content" @click="$ga.event('Search_Results', 'Books_Details',`#${index+1}_${item.name}`)">
                         <v-flex class="image text-xs-left">
                             <img v-if="item.image" :src="item.image" />
                             <span v-else>{{item.name}}</span>

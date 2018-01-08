@@ -8,7 +8,7 @@
     import FoodDefault from './../navbar/images/food.svg'
     import foodCell from "../food/foodCell.vue"
     export default {
-        props: { item: { type: Object, required: true } },
+        props: { item: { type: Object, required: true },index:{Number} },
         components: { StarRating, FoodDefault, foodCell },
         data() { return { showMap: false } },
         computed: {
@@ -25,6 +25,7 @@
         },
         methods: {
             $_clickItem() {
+            this.$ga.event('Search_Results', 'food',`#${this.index+1}_${this.item.placeId}`);
                 if (!this.$vuetify.breakpoint.xsOnly) {
                     this.showMap = !this.showMap;
                 } else {

@@ -24,6 +24,7 @@ export default {
         showDialog(val) {
             !val && this.isfirst ? this.isfirst = false : "";
             if (!val) {
+                this.type="";
                 if (this.isFirst) { this.updateFirstTime("isFirst"); }
                 this.$root.$emit("closePersonalize");
             }
