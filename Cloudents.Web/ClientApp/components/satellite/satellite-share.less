@@ -4,6 +4,12 @@
     height: 100%;
     background: #f0f0f0;
     //background-image: linear-gradient(to top, #9ccdff, #f0f0f0);
+    .responsive-property(font-size, 18px, null, 16px);
+
+    @media(max-width: @screen-sm) {
+        margin: 0 8px;
+    }
+
     .wrapper {
         max-width: 800px;
         margin: 24px auto 0;
@@ -32,22 +38,14 @@
             width: 120px;
         }
     }
-}
 
-.contact, .reps, .partner {
-    line-height: 30px;
-    letter-spacing: -0.2px;
-    text-align: left;
-    color: #302eb5;
-    max-width: 610px;
-    margin-top: -8px;
-    margin: 0 auto;
-}
-
-.content--wrap {
-    .responsive-property(font-size, 18px, null, 16px);
-
-    @media(max-width: @screen-sm) {
-        margin: 0 8px;
+    .contact, .reps, .partner {
+        line-height: 30px;
+        letter-spacing: -0.2px;
+        text-align: left;
+        color: #302eb5;
+        max-width: 610px;
+        margin-top: -8px;
+        margin: 0 auto;
     }
 }
