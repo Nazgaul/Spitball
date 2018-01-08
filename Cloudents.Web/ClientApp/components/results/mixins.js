@@ -238,7 +238,7 @@ export const pageMixin =
                 let filterPotential = (this.filterObject || []).map(i => {if(i.data&&i.data.length&&i.data[0].id){
                                                                             return i.data.map(i=>i.id);
                                                                           } return i.data});
-                filterPotential=filterPotential.join('&').replace('&','').split(',');
+                filterPotential=filterPotential.join(',').split(',');
                 if (Array.from(this.filterSelection).filter(i => filterPotential.includes(i)).length !== this.filterSelection.length) {
                     const routeParams = { path: '/' + this.name, query: { q: this.userText } };
                     this.$router.replace(routeParams);
