@@ -19,12 +19,10 @@ function canWriteStorage(storage) {
 const storageFallback = [{
     provider: localStorage,
     enable: true,
-    name:"local"
 },
 {
     provider: sessionStorage,
     enable: true,
-    name: "session"
 }]
 for (let v in storageFallback) {
     let item = storageFallback[v];
@@ -32,7 +30,6 @@ for (let v in storageFallback) {
 }
 
 let storage = storageFallback.find(f => f.enable);
-console.log(storage)
 const plugins = [];
 if (storage) {
     plugins.push(createPersistedState(
