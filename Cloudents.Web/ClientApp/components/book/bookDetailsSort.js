@@ -1,4 +1,4 @@
-let sortOptions = [{ id: 'buy', name: 'BUY/RENT' }, { id: 'sell', name: 'SELL' }];
+let sortOptions = [{ id: 'buy', name: 'BUY / RENT' }, { id: 'sell', name: 'SELL' }];
 import { mapMutations } from 'vuex'
 export default {
     data: () => { return { sortOptions } },

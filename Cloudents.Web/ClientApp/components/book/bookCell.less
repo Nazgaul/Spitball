@@ -35,11 +35,16 @@
     .cell-title {
         color: @Textbooks;
         margin-bottom: 6px;
+        .giveMeEllipsis(3,19px);
     }
 
     .book-info {
         line-height: 22px;
         letter-spacing: -0.5px;
+
+        &.author {
+            .giveMeEllipsis(2,19px);
+        }
     }
 
     .imageWrapper(120px,170px);

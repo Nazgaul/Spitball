@@ -4,7 +4,15 @@
 
 .sat-header {
     .box-search {
-        width: 100%;
+        width: ~"calc(100% - 16px)";
+
+        @media(max-width: @screen-sm) {
+            margin-top: 4px !important;
+        }
+    }
+
+    .spacer{
+        min-width: 16px;
     }
 
     &.toolbar {
@@ -13,7 +21,7 @@
 
     .toolbar__title {
         .inTheMiddle();
-        padding-left: 26px;
+        .responsive-property(padding-left, 26px, 0, 0);
     }
 
     .toolbar__extension {
