@@ -1,5 +1,5 @@
 <template>
-    <button type="button" class="suggest">
+    <button type="button" class="suggest" @click="$ga.event('Suggest_Window',$route.path.slice(1),name)">
         <v-container>
             <v-layout class="wrapper hidden-xs-only" row justify-space-between >
                     <div class="logo">Spitball</div>
