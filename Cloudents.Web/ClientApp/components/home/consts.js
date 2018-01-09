@@ -35,14 +35,20 @@ let bottomIcons = [
         svg: () => import("./svg/instagram-icon.svg")
     },
 ];
+
+
+
 let strips =
     {
-
         documents: {
             class: "documents",
             image: "strip-documents.png",
-            floatingImages: ['laptopIcon', 'notebookIcon', 'bagIcon'],
-            titleIcon: 'stripDocumentIcon',
+            floatingImages: {
+                svg1: () => import("./svg/laptop-icon.svg"),
+                svg2: () => import("./svg/notebook-icon.svg"),
+                svg3: () => import("./svg/bag-icon.svg")
+            },
+            titleIcon: () => import("./../navbar/images/document.svg"),
             title: "Study Documents",
             text: "Spitball curates study documents from the best sites on the web. Our notes, study guides and exams populate based on student ratings and are filtered by your school, classes and preferences."
         },
@@ -50,8 +56,12 @@ let strips =
         flashcards: {
             class: "flashcards",
             image: "strip-flashcards.png",
-            floatingImages: ['flashcardPenIcon', 'flashcardQuestionIcon', 'flashcardGroupIcon'],
-            titleIcon: 'stripFlashcardsIcon',
+            floatingImages: {
+                svg1: () => import("./svg/flashcard-pen-icon.svg"),
+                svg2: () => import("./svg/flashcard-question-icon.svg"),
+                svg3: () => import("./svg/flashcard-group-icon.svg")
+            },
+            titleIcon: () => import("./../navbar/images/flashcard.svg"),
             title: "Flashcards",
             text: "Search millions of study sets and improve your grades by studying with flashcards."
         },
@@ -59,8 +69,12 @@ let strips =
         tutors: {
             class: "tutors",
             image: "strip-tutors.png",
-            floatingImages: ['tutorIcon', 'discussionIcon', 'studentLaptopIcon'],
-            titleIcon: 'stripTutorIcon',
+            floatingImages: {
+                svg1: () => import("./svg/tutor-icon.svg"),
+                svg2: () => import("./svg/discussion-icon.svg"),
+                svg3: () => import("./svg/student-laptop-icon.svg")
+            },
+            titleIcon: () => import("./../navbar/images/tutor.svg"),
             title: "Tutors",
             text: "Spitball has teamed up with the most trusted tutoring services to help you ace your classes."// All of our online and in-person tutors are highly qualified experts with educations from some of the best universities in the world."
         },
@@ -68,8 +82,12 @@ let strips =
         textbooks: {
             class: "textbooks",
             image: "strip-textbook-icon.png",
-            floatingImages: ['bookClosedIcon', 'bookStackIcon', 'bookOpenIcon'],
-            titleIcon: "stripTextbooksIcon",
+            floatingImages: {
+                svg1: () => import("./svg/book-closed-icon.svg"),
+                svg2: () => import("./svg/book-stack-icon.svg"),
+                svg3: () => import("./svg/book-open-icon.svg")
+            },
+            titleIcon: () => import("./../navbar/images/book.svg"),
             title: "Textbooks",
             text: "Find the best prices to buy, rent and sell your textbooks by comparing hundreds of sites simultaneously."
         },
@@ -77,8 +95,12 @@ let strips =
         askQuestion: {
             class: "ask-question",
             image: "strip-ask-question.png",
-            floatingImages: ['askQuestionMountainIcon', 'askQuestionHouseIcon', 'askQuestionRocketIcon'],
-            titleIcon: 'stripAskQuestionIcon',
+            floatingImages: {
+                svg1: () => import("./svg/ask-question-mountain-icon.svg"),
+                svg2: () => import("./svg/ask-question-house-icon.svg"),
+                svg3: () => import("./svg/ask-question-rocket-icon.svg")
+            },
+            titleIcon: () => import("./../navbar/images/ask.svg"),
             title: "Ask A Question",
             text: "Ask any school related question and immediately get answers and information that relates specifically to you, your classes, and your university."
         },
@@ -86,8 +108,12 @@ let strips =
         jobs: {
             class: "jobs",
             image: "strip-jobs.png",
-            floatingImages: ['jobsGraphIcon', 'jobsChemistryIcon', 'jobsSlideIcon'],
-            titleIcon: 'stripJobsIcon',
+            floatingImages: {
+                svg1: () => import("./svg/jobs-graph-icon.svg"),
+                svg2: () => import("./svg/jobs-chemistry-icon.svg"),
+                svg3: () => import("./svg/jobs-slide-icon.svg")
+            },
+            titleIcon: () => import("./../navbar/images/job.svg"),
             title: "Jobs",
             text: "Easily search and apply to paid internships, part-time jobs and entry-level opportunities from local businesses all the way to Fortune 500 companies."
         },
@@ -95,8 +121,12 @@ let strips =
         foodDeals: {
             class: "food-deals",
             image: "strip-food-deals.png",
-            floatingImages: ['shoppingBagsIcon', 'headsetIcon', 'pizzaIcon'],
-            titleIcon: "stripFoodDealsIcon",
+            floatingImages: {
+                svg1: () => import("./svg/shopping-bags-icon.svg"),
+                svg2: () => import("./svg/headset-icon.svg"),
+                svg3: () => import("./svg/pizza-icon.svg")
+            },
+            titleIcon: () => import("./../navbar/images/food.svg"),
             title: "Food and Deals",
             text: "Discover exclusive deals to local businesses, restaurants and bars near campus."
         }
@@ -109,19 +139,19 @@ let features =
         document: {
             title: "Millions of Documents",
             text: "Find study guides, homework, practice exams and notes for courses at your school.",
-            icon: "notebookIcon"
+            icon: () => import("./svg/notebook-icon.svg")
         },
 
         textbook: {
             title: "Save up to 50% on Textbooks",
             text: "A new course load doesn’t have to break the bank! Find the best prices to rent, buy or sell your textbooks.",
-            icon: "bookStackIcon"
+            icon: () => import("./svg/book-stack-icon.svg")
         },
 
         homework: {
             title: "Homework Help 24/7",
             text: "Find the answers to all of your questions with help from expert tutors in person or online.",
-            icon: "studentLaptopIcon"
+            icon: () => import("./svg/student-laptop-icon.svg")
         },
     }
 let sites = [
