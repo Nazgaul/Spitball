@@ -52,9 +52,11 @@
                 this.$emit('input', false);
             },
             $_resetFilters() {
-                if (this.$route.path.includes('note') || this.$route.path.includes('flashcard'))
-                    this.$route.meta.myClasses = [];
-                this.$router.push({ query: { q: this.$route.query.q } });
+               if(this.submitCallback){this.submitCallback({})}else {
+                   if (this.$route.path.includes('note') || this.$route.path.includes('flashcard'))
+                       this.$route.meta.myClasses = [];
+                   this.$router.push({query: {q: this.$route.query.q}});
+               }
                 this.$emit('input', false);
             },
             $_updateSortMobile(val) {
