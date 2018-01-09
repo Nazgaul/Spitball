@@ -13,6 +13,7 @@ export default {
                 type: val
             }).then(({ data }) => {
                 _this.$root.$children[0].$refs.mainPage.pageData = data;
+                _this.$root.$children[0].$refs.mainPage.sortVal = val;
                 this.UPDATE_LOADING(false);
             });
         }
