@@ -21,7 +21,7 @@
         whatIsSpitball: {
             image: "how-spitball-works-1.png",
             title: "What is Spitball?",
-            text: "Simply put, Spitball curates resources for students.From class notes & study guides, to tutors, textbooks, jobs, discounts and more, we bring the best that the internet has to offer students, all together in one place."
+            text: "Simply put, Spitball curates resources for students. From class notes & study guides, to tutors, textbooks, jobs, discounts and more, we bring the best that the internet has to offer students, all together in one place."
         },
         Technology: {
             image: "how-spitball-works-2.png",
