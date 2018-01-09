@@ -29,7 +29,7 @@
             showCards() { return (this.currentCard&&!this.isEnded)}
         },
         created() {
-            this.getPreview({ type: 'flashcard', id: this.$attrs.id }).then(({body}) => {
+            this.getPreview({ type: 'flashcard', id: this.$attrs.id }).then((body) => {
                 this.item = body;
                 this.showList = this.item.cards.map((item, index) => ({ index, data: item } ))
             })

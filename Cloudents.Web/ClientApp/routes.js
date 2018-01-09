@@ -12,6 +12,7 @@ const boodDetailsHeader = () => import("./components/book/header.vue");
 const bookDetails = () => import("./components/book/ResultBookDetails.vue");
 
 const satelliteHeader = () => import("./components/satellite/header.vue");
+const previewHeader = () => import("./components/preview/header.vue");
 import { staticRoutes } from "./components/satellite/satellite-routes";
 //const faqView = () => import("./components/satellite/faq.vue");
 
@@ -186,7 +187,7 @@ let routes2 = [
         }
     },
     {
-        path: "/flashcard/:university/:courseId/:courseName/:id/:itemName", name: "flashcard", component: showFlashcard, props: true,
+        path: "/flashcard/:university/:courseId/:courseName/:id/:itemName", name: "flashcard", components: {default:showFlashcard,header:previewHeader}, props: true,
         meta: {
             pageName: RouteTypes.flashcardRoute
         }

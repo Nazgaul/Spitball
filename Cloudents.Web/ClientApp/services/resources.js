@@ -66,4 +66,6 @@ export const help = {
     getUniData: (id) => axios.get("blog", { params: { id: id } })
 }
 
-export const flashcard = {};
+export const flashcard = {
+    get:({id})=>axios.get("flashcard",{ params: { id:Number(id.id) }})
+};
