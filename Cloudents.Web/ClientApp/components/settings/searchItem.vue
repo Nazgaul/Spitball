@@ -59,6 +59,9 @@
                 <div>click <a  onclick="Intercom('showNewMessage')">here</a></div>
             </div>
         </template>
+        <template slot="courseEmptyState" v-if="!items.length && !myCourses.length && !showCreateCourse">
+            <div class="course-empty-state">You have not selected any courses</div>
+        </template>
     </page-layout>
 </template>
 <script src="./searchItem.js">

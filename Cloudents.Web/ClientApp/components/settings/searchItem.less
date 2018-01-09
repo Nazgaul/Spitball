@@ -47,9 +47,11 @@
         button:focus {
             outline: none;
         }
-        .icon{
+
+        .icon {
             transition: none;
         }
+
         .sbf-arrow-button {
             transform: rotate(-90deg);
             color: #9b9b9b;
@@ -273,7 +275,7 @@
             height: 100%;
             flex-grow: 0;
             flex-shrink: 1;
-            .responsive-property(margin-top, 16px, null, 16px);
+            .responsive-property(margin-top, 16px, null, 8px);
 
             .d-result {
                 .responsive-property(margin-left, 16px, null, 6px);
@@ -349,7 +351,7 @@
                 .responsive-property(padding-left, 8px, null, 0);
                 .responsive-property(padding-right, 8px, null, 0);
 
-                label{
+                label {
                     width: 100%;
                 }
 
@@ -511,6 +513,21 @@
                 line-height: 24px;
                 margin-top: 60px;
                 letter-spacing: -0.8px;
+            }
+
+            .course-empty-state {
+                margin: 20px auto 0 auto;
+                text-align: center;
+                font-size: 18px;
+                line-height: 1.33;
+                letter-spacing: -0.7px;
+
+                @media(max-width: @screen-xs) {
+                    margin-top: 14px;
+                    font-size: 16px;
+                    line-height: 1.5;
+                    letter-spacing: -0.6px;
+                }
             }
         }
 
