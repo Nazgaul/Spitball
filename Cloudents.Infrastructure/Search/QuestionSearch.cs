@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
@@ -19,28 +18,10 @@ namespace Cloudents.Infrastructure.Search
             _search = search;
         }
 
-        public async Task<IEnumerable<SearchResult>> SearchAsync(SearchQuery model, CancellationToken token)
+        public Task<IEnumerable<SearchResult>> SearchAsync(SearchQuery model, CancellationToken token)
         {
-            var term = new List<string>();
-            if (model.Query != null)
-            {
-                term.AddNotNull(string.Join(" ", model.Query));
-            }
-
-            if (term.Count == 0)
-            {
-                term.Add(QueryString);
-            }
-
-            var result = Enumerable.Range(model.Page * CseSearch.NumberOfPagesPerRequest, CseSearch.NumberOfPagesPerRequest).Select(s =>
-            {
-                var cseModel = new SearchModel(term, model.Source, s, model.Sort, CustomApiKey.AskQuestion);
-                return _search.DoSearchAsync(cseModel,
-                    token);
-            }).ToList();
-
-            await Task.WhenAll(result).ConfigureAwait(false);
-            return result.Where(s => s.Result != null).SelectMany(s => s.Result);
+            var cseModel = new SearchModel(model.Query, model.Source, model.Page, model.Sort, CustomApiKey.AskQuestion, null, null, QueryString, null);
+            return _search.DoSearchAsync(cseModel, token);
         }
     }
 }

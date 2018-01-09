@@ -20,7 +20,7 @@ namespace Cloudents.Core.Request
 
         public static SearchQuery Ask(IEnumerable<string> query, int page)
         {
-            return new SearchQuery(query, default, null, null, page, default, null);
+            return new SearchQuery(query, null, null, null, page, default, null);
         }
 
         private SearchQuery(IEnumerable<string> query, long? university,

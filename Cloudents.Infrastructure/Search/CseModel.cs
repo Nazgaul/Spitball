@@ -1,27 +1,39 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Infrastructure.Search
 {
     public class SearchModel
     {
-        public SearchModel(IEnumerable<string> query, IEnumerable<string> source,
+        public SearchModel(IEnumerable<string> query, IEnumerable<string> sources,
             int page, SearchRequestSort sort, 
-            CustomApiKey key)
+            CustomApiKey key, IEnumerable<string> courses, IEnumerable<string> universitySynonym, string defaultTerm, string docType)
         {
-            Query = string.Join(" ", query);
-            if (source != null)
-            {
-                Source = string.Join(" OR ", source.Select(s => $"site:{s}"));
-            }
+            Query = query;
+            Sources = sources;
+
+            //if (source != null)
+            //{
+            //    Source = string.Join(" OR ", source.Select(s => $"site:{s}"));
+            //}
             Page = page;
             Sort = sort;
             Key = key;
+            Courses = courses;
+            UniversitySynonym = universitySynonym;
+            DefaultTerm = defaultTerm;
+            DocType = docType;
         }
 
-        public string Query { get; }
-        public string Source { get; }
+        public IEnumerable<string> Courses { get; }
+        public IEnumerable<string> Query { get; }
+        public IEnumerable<string> UniversitySynonym { get;  }
+
+        public string DocType { get;  }
+
+        public string DefaultTerm { get;  }
+
+        public IEnumerable<string> Sources { get; }
         public int Page { get; }
         public SearchRequestSort Sort { get; }
         public CustomApiKey Key { get; }
