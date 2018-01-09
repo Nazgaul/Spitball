@@ -1,4 +1,4 @@
-﻿﻿import { SEARCH, FLOW } from "./mutation-types"
+﻿﻿import {SEARCH, FLOW, UPDATE_GLOBAL_TERM} from "./mutation-types"
 import { interpetPromise } from "./../services/resources"
 import searchService from "./../services/searchService"
 
@@ -35,6 +35,7 @@ const actions = {
         }
         return interpetPromise(text).then(({ data: body }) => {
             let params = { ...body };
+            context.commit(UPDATE_GLOBAL_TERM,text);
             return new Promise((resolve) => {
                 //if AI return cords use it
                 if (params.hasOwnProperty('cords')) {

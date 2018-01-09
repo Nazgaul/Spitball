@@ -2,6 +2,7 @@
 import Vuex from "vuex";
 //This is new vuex
 //import Search from "./session";
+import {SEARCH, UPDATE_GLOBAL_TERM} from "./mutation-types"
 import Search from "./search";
 import User from "./User";
 //TODO: server side fix
@@ -43,6 +44,12 @@ if (storage) {
 
 Vue.use(Vuex);
 const store = new Vuex.Store({
+    state:{globalTerm:""},
+    getters:{ globalTerm: state => state.globalTerm},
+    mutations:{[UPDATE_GLOBAL_TERM](state, val) {
+            console.log(val);
+            state.globalTerm = val;
+        }},
     modules: { Search, User },
     plugins: plugins
 });
