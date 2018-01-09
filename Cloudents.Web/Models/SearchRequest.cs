@@ -9,7 +9,7 @@ namespace Cloudents.Web.Models
         public long[] Course { get; set; }
         public string[] Term { get; set; }
         public int? Page { get; set; }
-        public SearchCseRequestSort? Sort { get; set; }
+        public SearchRequestSort? Sort { get; set; }
     }
 
     public class DocumentSearchRequest : SearchRequest

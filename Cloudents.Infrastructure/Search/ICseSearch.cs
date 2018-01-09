@@ -6,9 +6,9 @@ using Cloudents.Core.Enum;
 
 namespace Cloudents.Infrastructure.Search
 {
-    public interface ICseSearch
+    public interface ISearch
     {
-        Task<IEnumerable<SearchResult>> DoSearchAsync(CseModel model,
+        Task<IEnumerable<SearchResult>> DoSearchAsync(SearchModel model,
             CancellationToken token);
     }
 }

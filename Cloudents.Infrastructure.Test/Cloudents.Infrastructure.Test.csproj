@@ -162,6 +162,7 @@
     <Compile Include="LuisAiTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CacheResultInterceptorTests.cs" />
+    <Compile Include="BingSearchTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
