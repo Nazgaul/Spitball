@@ -18,8 +18,8 @@
             <div class="d-cell elevation-1 pa-2">
                 <result-book :item="pageData.details" :isDetails="true"></result-book>
             </div>
-            <div class="d-flex mobile-filter hidden-sm-and-up">
-                <v-btn icon flat color="color-book" slot="mobileFilter" @click="showFilters=true" class="text-xs-right mb-2">
+            <div class="d-flex mobile-filter" :class="sortVal==='buy'?'pb-2':'pb-3'">
+                <v-btn class="hidden-sm-and-up text-xs-right" v-if="sortVal==='buy'" icon flat color="color-book" slot="mobileFilter" @click="showFilters=true">
                     <v-icon>sbf-filter</v-icon>
                 </v-btn>
             </div>

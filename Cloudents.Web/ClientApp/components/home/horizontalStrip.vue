@@ -9,8 +9,8 @@
                             <img :src="require(`./img/${strip.image}`)" />
                         </lazy-component>
                         <div class="floating-icons">
-                            <template v-for="(image,index2) in strip.floatingImages">
-                                <slot name="stripImage" :type="image" :class-icon="`icon-${index2+1}`" class="white"></slot>
+                            <template v-for="(image,index2,key) in strip.floatingImages">
+                                <slot name="stripImage" :type="image" :class-icon="`icon-${key+1}`" class="white"></slot>
                             </template>
                         </div>
                     </div>

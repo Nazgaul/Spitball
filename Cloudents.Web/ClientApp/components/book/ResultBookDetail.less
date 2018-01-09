@@ -1,12 +1,20 @@
 ﻿@import "../../mixin.less";
 
-.book-detail {
+.sec-result .book-detail {
     .d-cell {
         background: white;
 
         @media(max-width: @screen-xs) {
             border-radius: 4px;
             margin-top: 16px;
+        }
+    }
+
+    .mobile-filter {
+        min-height: 0;
+
+        button {
+            margin-bottom: 0;
         }
     }
 
@@ -20,19 +28,17 @@
         .price-line {
             height: 54px;
             display: block;
+            .responsive-property(padding-right, 8px, null, 0px);
+            .responsive-property(padding-left, 8px, null, 0px);
 
             &:last-child {
-                .divider{
+                .divider {
                     display: none;
                 }
             }
 
             .image {
-                max-width: 102px;
-
-                @media(max-width: @screen-xs) {
-                    max-width: 120px;
-                }
+                max-width: 120px;
             }
 
             @media(max-width: @screen-xs) {
@@ -42,6 +48,7 @@
                     padding-left: 8px;
                     padding-right: 8px;
                 }
+
 
                 .divider {
                     background-color: #dddddd;
@@ -58,9 +65,12 @@
             }
 
             .flex:nth-child(2) {
-                font-size: 12px;
                 letter-spacing: -0.3px;
                 color: #000;
+
+                @media(max-width: @screen-xs) {
+                    font-size: 12px;
+                }
             }
 
             .flex:nth-child(3) {
