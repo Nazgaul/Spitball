@@ -182,7 +182,7 @@ let routes2 = [
         props: foodDetailsProps
     },
     {
-        path: "/item/:university/:courseId/:courseName/:id/:itemName", name: "item", component: showItem, props: true, meta: {
+        path: "/item/:university/:courseId/:courseName/:id/:itemName", name: "item", components: {default:showItem,header:previewHeader}, props: true, meta: {
             pageName: RouteTypes.notesRoute
         }
     },
