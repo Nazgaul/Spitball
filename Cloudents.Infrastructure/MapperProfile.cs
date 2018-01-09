@@ -60,7 +60,6 @@ namespace Cloudents.Infrastructure
                 };
             });
             CreateMap<string, IpDto>().ConvertUsing<IpConverter>();
-
         }
     }
 }

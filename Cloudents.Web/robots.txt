@@ -1,10 +1,8 @@
 User-agent: *
 disallow: /error/
-disallow: /account/settings/
 disallow: */print/$
-disallow: */members/$
 disallow: */download/$
 disallow: /d/
-disallow: /promotion/
+disallow: /new/
 
 Sitemap: https://www.spitball.co/sitemap.xml/

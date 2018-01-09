@@ -28,7 +28,6 @@ namespace Cloudents.Infrastructure
         {
             using (var client = new HttpClient())
             {
-
                 client.DefaultRequestHeaders.Accept.Clear();
                 foreach (var header in headers)
                 {

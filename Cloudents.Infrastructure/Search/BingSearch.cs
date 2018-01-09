@@ -15,7 +15,6 @@ namespace Cloudents.Infrastructure.Search
 {
     public class BingSearch : ISearch
     {
-
         private const string SubscriptionKey = "285e26627c874d28be01859b4fb08a58";
         // private readonly ICustomSearchAPI _api;
         private readonly IRestClient _restClient;
@@ -48,7 +47,6 @@ namespace Cloudents.Infrastructure.Search
                 ["textDecorations"] = bool.TrueString
             };
             var uri = new Uri("https://api.cognitive.microsoft.com/bingcustomsearch/v7.0/search");
-
 
             var result = await _restClient.GetAsync(uri, nvc, new[]
             {

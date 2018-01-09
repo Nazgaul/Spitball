@@ -40,6 +40,5 @@ FETCH NEXT @rowsPerPage ROWS ONLY", new { rowsPerPage = pageSize, pageNumber = q
                 }
             }
         }
-        
     }
 }

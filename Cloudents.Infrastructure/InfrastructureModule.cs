@@ -98,8 +98,6 @@ namespace Cloudents.Infrastructure
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IReadRepositoryAsync<,>));
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IReadRepositoryAsync<>));
 
-            builder.RegisterType<SeoDocumentRepository>()
-                .Keyed<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>(SeoType.Item);
             builder.RegisterGeneric(typeof(EfRepository<>)).AsImplementedInterfaces();
             builder.Register(c => new CloudStorageProvider(_storageConnectionString)).SingleInstance();
             builder.RegisterType<BlobProvider>().AsImplementedInterfaces();
@@ -135,7 +133,6 @@ namespace Cloudents.Infrastructure
             return new MapperConfiguration(cfg => cfg.AddProfile<MapperProfile>());
         }
     }
-
 
 }
 
