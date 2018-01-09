@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -29,7 +30,8 @@ namespace Cloudents.Infrastructure.Search
             //var x = new ApiKeyServiceClientCredentials("285e26627c874d28be01859b4fb08a58");
             //_api = new CustomSearchAPI(x);
         }
-        [Cache(TimeConst.Day, "bing")]
+
+        //[Cache(TimeConst.Day, "bing")]
         public async Task<IEnumerable<SearchResult>> DoSearchAsync(SearchModel model, CancellationToken token)
         {
             if (model == null) throw new ArgumentNullException(nameof(model));
@@ -57,21 +59,24 @@ namespace Cloudents.Infrastructure.Search
                 new KeyValuePair<string,string>("Ocp-Apim-Subscription-Key", SubscriptionKey)
             }, token).ConfigureAwait(false);
             var response = JsonConvert.DeserializeObject<BingCustomSearchResponse>(result);
-
-            return response.WebPages.Value.Select(s =>
+            var dictionaryOfHost = new ConcurrentDictionary<string,int>();
+            return  response.WebPages.Value.Select((s,i) =>
             {
                 Uri.TryCreate(s.OpenGraphImage?.ContentUrl, UriKind.Absolute, out var image);
                 var url = new Uri(s.Url);
-                return new SearchResult()
+                dictionaryOfHost.AddOrUpdate(url.Host, 1, (id, count) => count + 1);
+                return new SearchResult
                 {
                     Url = url,
                     Id = _keyGenerator.GenerateKey(s.Url),
                     Image = image,
                     Snippet = s.Snippet,
                     Source = url.Host,
-                    Title = s.Name
+                    Title = s.Name,
+                    Order = dictionaryOfHost[url.Host]
+
                 };
-            });
+            }).OrderBy(o=> o.Order);
         }
 
         public static string BuildSources(IEnumerable<string> sources)
