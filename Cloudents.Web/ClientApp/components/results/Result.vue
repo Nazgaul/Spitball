@@ -67,7 +67,8 @@
                         <div class="text">Add your school and courses for better results</div>
                         <button class="mobile-button" v-if="$vuetify.breakpoint.xsOnly" @click="$_openPersonalize">
                             <v-icon class="hidden-sm-and-up">sbf-search</v-icon>
-                            <span class="hidden-sm-and-up">Where do you go to school?</span>
+                            <span class="hidden-sm-and-up" v-if="!university">Where do you go to school?</span>
+                            <span class="hidden-sm-and-up" v-else>What class are you taking</span>
                         </button>
                         <v-btn v-else @click="$_openPersonalize">Personalize</v-btn>
                     </div>
