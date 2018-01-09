@@ -1,7 +1,7 @@
 <template>
     <div class="book-header">
         <v-toolbar class="elevation-1" height="48" app fixed v-if="$vuetify.breakpoint.xsOnly" extended>
-            <v-btn icon @click="$router.go(-1)">
+            <v-btn class="back" icon @click="$router.go(-1)">
                 <v-icon>sbf-arrow-button</v-icon>
             </v-btn>
             <v-toolbar-title class="spitball-text-book">Textbooks</v-toolbar-title>
