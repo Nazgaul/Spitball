@@ -3,7 +3,7 @@
 @media(max-width: @screen-xs) {
 
     .food-detail {
-        height: 100vh;
+        height: 100%;
 
         .d-block {
             position: fixed;
@@ -11,6 +11,12 @@
             background: #fff;
             border-radius: 4px;
             width: calc(~"100% - 16px");
+
         }
+            iframe {
+                height: 100%;
+                width: 100%;
+                margin: 0 !important;
+            }
     }
 }
