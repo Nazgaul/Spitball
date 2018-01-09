@@ -17,10 +17,12 @@ namespace Cloudents.Infrastructure.Search
             var x = new ApiKeyServiceClientCredentials("285e26627c874d28be01859b4fb08a58");
             _api = new CustomSearchAPI(x);
         }
-        public async Task<IEnumerable<SearchResult>> DoSearchAsync(CseModel model, CancellationToken token)
+        public async Task<IEnumerable<SearchResult>> DoSearchAsync(SearchModel model, CancellationToken token)
         {
             //const int  config = 2506829495;
             var result = await _api.CustomInstance.SearchAsync("microsoft");
+            _api.CustomInstance.SearchWithHttpMessagesAsync()
+
             return result.WebPages.Value.Select(s => new SearchResult()
             {
                 Url = s.Url,

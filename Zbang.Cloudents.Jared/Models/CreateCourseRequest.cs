@@ -19,6 +19,5 @@ namespace Zbang.Cloudents.Jared.Models
         /// </summary>
         [Required]
         public long? University { get; set; }
-
     }
 }

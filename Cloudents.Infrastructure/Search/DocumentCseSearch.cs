@@ -45,7 +45,7 @@ namespace Cloudents.Infrastructure.Search
             }
             var result = Enumerable.Range(model.Page * CseSearch.NumberOfPagesPerRequest, CseSearch.NumberOfPagesPerRequest).Select(s =>
             {
-                var cseModel = new CseModel(term, model.Source, s, model.Sort, CustomApiKey.Documents);
+                var cseModel = new SearchModel(term, model.Source, s, model.Sort, CustomApiKey.Documents);
 
                 return _search.DoSearchAsync(cseModel,
                     token);

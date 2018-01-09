@@ -15,32 +15,6 @@ using Google.Apis.Services;
 
 namespace Cloudents.Infrastructure.Search
 {
-    public class CseModel
-    {
-        public CseModel(IEnumerable<string> query, IEnumerable<string> source, int page, SearchCseRequestSort sort, CustomApiKey key)
-        {
-            Query = string.Join(" ", query);
-            if (source != null)
-            {
-                Source = string.Join(" OR ", source.Select(s => $"site:{s}"));
-            }
-            Page = page;
-            Sort = sort;
-            Key = key;
-        }
-
-        public string Query { get; }
-        public string Source { get; }
-        public int Page { get; }
-        public SearchCseRequestSort Sort { get; }
-        public CustomApiKey Key { get; }
-
-        public override string ToString()
-        {
-            return $"Query:{Query}-Source:{Source}-Page:{Page}-Sort:{Sort}-Key:{Key.Key}";
-        }
-    }
-
     internal class CseSearch : ISearch
     {
         private readonly IKeyGenerator _keyGenerator;
@@ -51,7 +25,7 @@ namespace Cloudents.Infrastructure.Search
         }
 
         [Cache(TimeConst.Day, "cse")]
-        public async Task<IEnumerable<SearchResult>> DoSearchAsync(CseModel model,
+        public async Task<IEnumerable<SearchResult>> DoSearchAsync(SearchModel model,
             CancellationToken token)
         {
             if (model == null) throw new ArgumentNullException(nameof(model));
@@ -70,7 +44,7 @@ namespace Cloudents.Infrastructure.Search
                 Hq = model.Source,
                 Cx = model.Key.Key,
                 Fields = "items(title,link,snippet,pagemap/cse_image,displayLink)",
-                Sort = model.Sort == SearchCseRequestSort.Date ? "date" : string.Empty
+                Sort = model.Sort == SearchRequestSort.Date ? "date" : string.Empty
             };
             try
             {
