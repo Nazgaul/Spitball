@@ -19,6 +19,7 @@ namespace Cloudents.Infrastructure.Search
         private readonly ISearchIndexClient _client;
         private readonly IMapper _mapper;
 
+
         private const int PageSize = 30;
 
         public JobSearch(SearchServiceClient client, IMapper mapper)

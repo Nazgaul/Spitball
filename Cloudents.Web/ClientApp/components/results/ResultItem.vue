@@ -1,5 +1,4 @@
 ﻿<template>
-    <!--@click="(isSpitball?$_spitball($event):'')"-->
     <a class="d-block" :target="($vuetify.breakpoint.xsOnly)?'_self':'_blank'" @click="(isSpitball?$_spitball($event):'')" :href="url" :class="'cell-'+$route.path.slice(1)">
         <v-container class="pa-2" @click="$ga.event('Search_Results', $route.path.slice(1),`#${index+1}_${item.source}`)">
             <v-layout row fluid>
@@ -10,8 +9,8 @@
                 <v-flex class="right-section">
                         <v-layout  wrap column justify-content-space-between align-item-stretch class="full-height ma-0">
                             <v-flex class="pa-0 item-data" style="flex-grow:1">
-                                <div class="cell-title" :class="'text-'+$route.path.slice(1)">{{item.title}}</div>
-                                <p>{{item.snippet}}</p>
+                                <div class="cell-title" :class="'text-'+$route.path.slice(1)" v-html="item.title"></div>
+                                <p v-html="item.snippet"></p>
                             </v-flex>
                             <v-flex class="pa-0 bottom">
                                {{item.source}}
@@ -20,7 +19,6 @@
                 </v-flex>
             </v-layout>
         </v-container>
-        <!--{{url}}-->
     </a>
 </template>
 <script>
