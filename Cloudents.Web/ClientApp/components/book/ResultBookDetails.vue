@@ -35,7 +35,7 @@
                         </v-flex>
                         <v-flex class="text-xs-right">
                             <div>
-                                ${{item.price}}
+                                ${{item.price|floatDot(2)}}
                             </div>
                         </v-flex>
                     </v-layout>

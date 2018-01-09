@@ -26,6 +26,12 @@ export default {
         }
     },
 
+    filters: {
+        floatDot: function (value,a) {
+            return value.toFixed(a)
+        }
+    },
+
     methods: {
         $_updateFilter({ val, type }) {
             if(this.filter===all){
