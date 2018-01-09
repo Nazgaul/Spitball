@@ -23,25 +23,25 @@ namespace Cloudents.Web.Controllers
         [Route("flashcard/{universityName}/{boxId:long}/{boxName}/{id:long}/{name}", Name = SeoTypeString.Flashcard)]
         public async Task<IActionResult> Index(long id, CancellationToken token)
         {
-            return this.RedirectToOldSite();
-            //ViewBag.fbImage = ViewBag.imageSrc = "/images/3rdParty/fbFlashcard.png";
-            //var model = await _repository.GetAsync(id, token).ConfigureAwait(false);
+            //return this.RedirectToOldSite();
+            ViewBag.fbImage = ViewBag.imageSrc = "/images/3rdParty/fbFlashcard.png";
+            var model = await _repository.GetAsync(id, token).ConfigureAwait(false);
 
-            //if (model == null)
-            //{
-            //    return NotFound();
-            //}
+            if (model == null)
+            {
+                return NotFound();
+            }
 
-            //if (string.IsNullOrEmpty(model.Country)) return View();
+            if (string.IsNullOrEmpty(model.Country)) return View();
 
-            ////TODO: need to add specific culture base on country - culture not working
-            ////SeoBaseUniversityResources.Culture = Languages.GetCultureBaseOnCountry(model.Country);
-            //ViewBag.title =
-            //    $"{ _localizer["FlashcardTitle"]} - {model.Name} - {model.BoxName} | {_localizer["Cloudents"]}";
+            //TODO: need to add specific culture base on country - culture not working
+            //SeoBaseUniversityResources.Culture = Languages.GetCultureBaseOnCountry(model.Country);
+            ViewBag.title =
+                $"{ _localizer["FlashcardTitle"]} - {model.Name} - {model.BoxName} | {_localizer["Cloudents"]}";
 
-            //ViewBag.metaDescription = string.Format(_localizer["FlashcardMetaDescription"], model.Name, model.BoxName);
+            ViewBag.metaDescription = string.Format(_localizer["FlashcardMetaDescription"], model.Name, model.BoxName);
 
-            //return View();
+            return View();
         }
     }
 }
