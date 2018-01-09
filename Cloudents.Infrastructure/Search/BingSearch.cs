@@ -3,15 +3,12 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
-using Microsoft.Azure.CognitiveServices.Search.CustomSearch;
-using Microsoft.Azure.CognitiveServices.Search.CustomSearch.Models;
 using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure.Search
@@ -31,7 +28,7 @@ namespace Cloudents.Infrastructure.Search
             //_api = new CustomSearchAPI(x);
         }
 
-        //[Cache(TimeConst.Day, "bing")]
+        [Cache(TimeConst.Day, "bing")]
         public async Task<IEnumerable<SearchResult>> DoSearchAsync(SearchModel model, CancellationToken token)
         {
             if (model == null) throw new ArgumentNullException(nameof(model));
@@ -40,7 +37,6 @@ namespace Cloudents.Infrastructure.Search
                 model.DefaultTerm);
             var sourceQuery = BuildSources(model.Sources);
 
-            //TODO: need to do source //site:bbc.co.uk OR site:cnn.com
             //TODO: need to do sort
             var nvc = new NameValueCollection
             {
