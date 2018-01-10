@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,7 +13,10 @@ namespace Cloudents.Web.Controllers
     {
         private readonly IIpToLocation _ipToLocation;
 
-        public static readonly IPAddress OfficeIp = IPAddress.Parse("31.154.39.170");
+        public static readonly IPAddress[] OfficeIps = {
+            IPAddress.Parse("31.154.39.170")
+           
+        };
 
         public HomeController(IIpToLocation ipToLocation)
         {
@@ -25,7 +29,7 @@ namespace Cloudents.Web.Controllers
         public async Task<IActionResult> Index(CancellationToken token)
         {
             var requestIp = HttpContext.Connection.GetIpAddress();
-            if (Equals(requestIp, OfficeIp))
+            if (OfficeIps.Contains(requestIp))
             {
                 return View();
             }
@@ -34,10 +38,9 @@ namespace Cloudents.Web.Controllers
 
             if (!string.Equals(location.CountryCode, "US", StringComparison.InvariantCultureIgnoreCase))
             {
-
                 return this.RedirectToOldSite();
             }
-            return RedirectToRoute("Alex");
+            return View();
         }
     }
 }
