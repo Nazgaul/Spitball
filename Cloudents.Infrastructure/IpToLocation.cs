@@ -13,20 +13,20 @@ namespace Cloudents.Infrastructure
 {
     public class IpToLocation : IIpToLocation
     {
-        private readonly IRestClient m_RestClient;
-        private readonly IMapper m_Mapper;
+        private readonly IRestClient _restClient;
+        private readonly IMapper _mapper;
 
         public IpToLocation(IRestClient restClient, IMapper mapper)
         {
-            m_RestClient = restClient;
-            m_Mapper = mapper;
+            _restClient = restClient;
+            _mapper = mapper;
         }
 
         public async Task<IpDto> GetAsync(IPAddress address, CancellationToken token)
         {
             var uri = new Uri($"http://freegeoip.net/json/{address}");
-            var str = await m_RestClient.GetAsync(uri, null, token).ConfigureAwait(false);
-            return m_Mapper.Map<IpDto>(str);
+            var str = await _restClient.GetAsync(uri, null, token).ConfigureAwait(false);
+            return _mapper.Map<IpDto>(str);
         }
     }
 }
