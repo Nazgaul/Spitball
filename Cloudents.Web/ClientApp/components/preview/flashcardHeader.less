@@ -1,0 +1,248 @@
+﻿@import "../../mixin.less";
+
+@flashcardHeaderHeight: 126px;
+
+.card-size(@width: 2, @height: 1) {
+    @media(min-width: 600px) {
+        position: relative;
+        max-height: @cardHeight;
+        max-width: @cardWidth;
+        width: 100%;
+
+        &:before {
+            display: block;
+            content: "";
+            width: 100%;
+            padding-top: (@height / @width) * 100%;
+        }
+
+        .flipper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    }
+}
+
+.card-style() {
+    background-color: @color-white;
+    border-radius: 10px;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.43);
+}
+
+
+.flashcard-header {
+    min-height: @flashcardHeaderHeight;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    //padding-bottom: 12px;
+    @media(max-width: 600px) {
+        min-height: 80px;
+        padding-top: 0;
+        position: fixed;
+        //top: @heightOfHeader; // TODO: Irena -fix
+        left: 0;
+        right: 0;
+        z-index: 2;
+        //background: @backgroundColor; // TODO: Irena -fix
+        background: transparent // TODO: Irena -fix
+        //padding-bottom: 25px;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        line-height: 0;
+
+        svg {
+            fill: @Feed-Like-count;
+            width: 22px;
+            height: 22px;
+        }
+
+        @media(max-width: 600px) {
+            top: 29px;
+            right: 12px;
+            z-index: 1;
+
+            svg {
+                fill: #888b8e;
+                width: 14px;
+                height: 14px;
+            }
+        }
+    }
+
+    .progress-wrapper {
+        width: 100%;
+        position: relative;
+
+        @media(min-width: 600px) {
+            margin-left: 14px;
+            max-width: 240px;
+        }
+
+        .flashcard-title {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+
+            @media(max-width: 600px) {
+                display: none;
+            }
+
+            h4 {
+                font-size: 20px;
+                font-weight: bold;
+            }
+
+            md-icon {
+                width: 48px;
+                height: 40px;
+                fill: @color-blue;
+                margin-right: 10px;
+            }
+
+            .flashcard-icon {
+                margin-right: 10px;
+                .flashcard-icon(42px, @color-blue, @color-blue, #eee, @color-blue, @color-blue, '');
+            }
+        }
+
+        .progress-settings {
+            .inTheMiddle;
+
+            @media(min-width: 600px) {
+                margin-top: 16px;
+            }
+
+            @media(max-width: 600px) {
+                padding-right: 50px;
+                padding-bottom: 25px;
+            }
+
+            .sides {
+                width: auto;
+                height: auto;
+
+                @media(max-width: 600px) {
+                    margin: 0 6px 0 10px;
+                }
+
+                md-icon {
+                    width: 20px;
+                    height: 20px;
+                    fill: @color-blue;
+                    margin: 0;
+                }
+            }
+
+            .progress-line {
+                width: 100%;
+                position: relative;
+
+                span {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    text-align: center;
+
+                    @media(max-width: 600px) {
+                        line-height: 22px;
+                    }
+                }
+            }
+        }
+
+        .progress-text {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-transform: capitalize;
+            margin-top: 4px;
+            margin-top: 9px;
+            font-size: 14px;
+            padding: 0 8px;
+
+            @media(max-width: 600px) {
+                display: none;
+            }
+        }
+    }
+
+    .card-sides {
+        font-size: 14px;
+
+        button {
+            text-transform: none;
+
+            .flashcard-icon {
+                margin-right: 10px;
+                margin-bottom: 6px;
+            }
+
+
+            &:not(.active) .flashcard-icon {
+                margin-right: 10px;
+                .flashcard-icon(36px, #bbb, #bbb, #eee, #bbb, #bbb, '');
+            }
+
+            &.active {
+                &.front .flashcard-icon {
+                    .flashcard-icon(36px, @color-blue, #bbb, #eee, #bbb, #bbb, '');
+                }
+
+                &.back .flashcard-icon {
+                    .flashcard-icon(36px, #bbb, @color-blue, #eee,#bbb, #bbb, '');
+                    /*md-icon {
+                        fill: @buttonColorBlue;
+                    }*/
+                }
+
+                &.both .flashcard-icon {
+                    .flashcard-icon(36px, @color-blue, @color-blue, #eee, #bbb, #bbb, '');
+                }
+            }
+        }
+        /* TODO: Irena - stopped here
+    .progress-wrapper, .card-sides, .pinned-counter {
+        @media(min-width: 600px) {
+            padding-bottom: 12px;
+        }
+    }
+
+    .pinned-counter {
+        .displayFlex;
+        .align-items(flex-start);
+        margin-right: 15px;
+
+        @media(max-width: 600px) {
+            display: none;
+        }
+
+        .num {
+            font-size: 32px;
+            line-height: 32px;
+        }
+
+        .icon {
+            text-align: center;
+            font-size: 12px;
+
+            md-icon {
+                width: 30px;
+                height: 30px;
+                fill: @pinColor;
+                margin-bottom: 5px;
+            }
+        }
+    }*/
+    }
+}

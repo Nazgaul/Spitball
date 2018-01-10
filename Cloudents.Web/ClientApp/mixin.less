@@ -154,6 +154,52 @@
     position: sticky;
 }
 
+
+.flashcard-icon(@width, @frontColor, @backColor, @borderColor, @frontHover, @backHover, @frontText,@height: 0.88*@width) {
+    //@height: 0.88*@width;
+    position: relative;
+    width: @width;
+    height: @height;
+
+    &:before, &:after {
+        display: block;
+        width: 0.8*@width;
+        height: 0.72*@height;
+        border-radius: @height/6;
+        border: 0.048*@width solid @borderColor;
+        position: absolute;
+    }
+
+    &:before {
+        content: '';
+        bottom: 0;
+        left: @width/4;
+        background: @backColor;
+    }
+
+    &:after {
+        content: @frontText;
+        text-align: center;
+        line-height: 0.62*@height;
+        color: @backColor;
+        transform: rotate(-20deg);
+        bottom: @height/4;
+        left: 0;
+        background: @frontColor;
+    }
+
+    &:hover {
+        &:before {
+            background: @backHover;
+        }
+
+        &:after {
+            background: @frontHover;
+        }
+    }
+}
+
+
 // Size constants
 @navBarHeightMdAndUp: 120px;
 //@navBarHeightMobile: 96px;
