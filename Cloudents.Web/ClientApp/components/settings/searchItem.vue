@@ -3,7 +3,7 @@
     <page-layout v-if="currentType" :type="currentType" :title="title" :search="!currentAction" :showAdd="showAdd" :titleImage="(currentType==='course'&&!currentAction)?getUniversityImage:''" :isLoading="isLoading" :items="items" :selectedCourse="selectedCourse" :closeFunction="$_closeButton">
             <button class="done-btn" slot="courseExtraClose" @click="$emit('input',false)">DONE</button>
         <template slot="closeAction">
-            <i v-if="isFirst&&currentType==='course'" class="sbf icon sbf-arrow-button"></i>
+            <i v-if="isFirst&&currentType==='course'" class="sbf icon sbf-chevron-down"></i>
             <i v-else class="sbf icon sbf-close"></i>
         </template>
         
