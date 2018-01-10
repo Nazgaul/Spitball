@@ -19,7 +19,6 @@ namespace Cloudents.Web.Api
 
         public async Task<IActionResult> Get(long id, CancellationToken token)
         {
-            //TODO: need to add to queue extra view
             var result = await _repository.GetAsync(id, token).ConfigureAwait(false);
             return Json(new
             {

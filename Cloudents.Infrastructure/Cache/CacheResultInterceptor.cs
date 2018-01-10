@@ -29,13 +29,13 @@ namespace Cloudents.Infrastructure.Cache
                 as CacheAttribute;
         }
 
-        private static bool IsSimple(Type type)
-        {
-            return type.IsPrimitive
-                   || type.IsEnum
-                   || type == typeof(string)
-                   || type == typeof(decimal);
-        }
+        //private static bool IsSimple(Type type)
+        //{
+        //    return type.IsPrimitive
+        //           || type.IsEnum
+        //           || type == typeof(string)
+        //           || type == typeof(decimal);
+        //}
 
 
         public static string BuildArgument(object[] argument)

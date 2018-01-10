@@ -5,6 +5,7 @@ using System.Globalization;
 
 namespace Cloudents.Core.Entities.DocumentDb
 {
+    [CollectionId(nameof(Flashcard))]
     public class Flashcard
     {
         protected Flashcard()

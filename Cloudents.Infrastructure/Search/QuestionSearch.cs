@@ -19,7 +19,7 @@ namespace Cloudents.Infrastructure.Search
         public async Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, CancellationToken token)
         {
             var cseModel = new SearchModel(model.Query, model.Source, model.Page, model.Sort, CustomApiKey.AskQuestion, null, null, QueryString, null);
-            var result = await _search.DoSearchAsync(cseModel, token);
+            var result = await _search.DoSearchAsync(cseModel, token).ConfigureAwait(false);
             return new ResultWithFacetDto<SearchResult>
             {
                 Result = result,

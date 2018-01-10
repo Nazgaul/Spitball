@@ -12,7 +12,7 @@ let transferResultNote = res => {
 //todo think about error
 let transferResultAsk = res => {
     const video = res.video;
-    const itemResult = res.result || [];
+    const itemResult = res.result.result || [];
     const items = itemResult.map(val => { return { ...val, template: "item" } });
     const data = video ? [{ ...video, template: "video" }, ...items] : items;
     return { data }
@@ -67,5 +67,5 @@ export const help = {
 }
 
 export const flashcard = {
-    get:({id})=>axios.get("flashcard",{ params: { id:Number(id.id) }})
+    get: ({ id }) => axios.get("flashcard", { params: { id: Number(id.id) } })
 };

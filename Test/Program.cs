@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Entities.DocumentDb;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
@@ -34,10 +35,10 @@ namespace Test
         builder.RegisterModule(infrastructureModule);
             var container = builder.Build();
 
-            var repository = container.Resolve<IDocumentCseSearch>();
+            var repository = container.Resolve<IReadRepositoryAsync<Flashcard, long>>();
 
-            var model = SearchQuery.Document(new [] {"microsoft"}, null, null, null, 0, SearchRequestSort.None, null);
-            var result = await repository.SearchAsync(model, default);
+           // var model = SearchQuery.Document(new [] {"microsoft"}, null, null, null, 0, SearchRequestSort.None, null);
+            var result = await repository.GetAsync(1741, default);
             //var result  = await repository.FetchBlobMetaDataAsync(new Uri(
             //    "https://zboxstorage.blob.core.windows.net/zboxfiles/b6a4938b-8dd8-4df7-bcdf-4454a80e31d1.pdf"),default);
            
