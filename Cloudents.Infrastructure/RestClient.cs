@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -17,11 +18,21 @@ namespace Cloudents.Infrastructure
             return JObject.Parse(str);
         }
 
-        public async Task<string> GetAsync(Uri url, NameValueCollection queryString, CancellationToken token)
+        public Task<string> GetAsync(Uri url, NameValueCollection queryString, CancellationToken token)
+        {
+            return GetAsync(url, queryString, null, token);
+        }
+
+        public async Task<string> GetAsync(Uri url, NameValueCollection queryString, IEnumerable<KeyValuePair<string,string>> headers,
+            CancellationToken token)
         {
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Clear();
+                foreach (var header in headers)
+                {
+                    client.DefaultRequestHeaders.Add(header.Key, header.Value);
+                }
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 var uri = new UriBuilder(url);

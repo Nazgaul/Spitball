@@ -67,7 +67,7 @@ export default {
 
         $_isAcademic(to) {
             let newName = to.path.slice(1);
-            this.isAcademinc = (newName != "job" && newName != "food")
+            this.isAcademinc = (newName !== "job" && newName !== "food"&&!to.path.includes('result'))
         }
     }
 }

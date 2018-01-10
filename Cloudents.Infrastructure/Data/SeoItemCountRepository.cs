@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
@@ -27,16 +24,13 @@ namespace Cloudents.Infrastructure.Data
                     new CommandDefinition(@"WITH item as (
 SELECT COUNT(*) AS itemCount FROM zbox.item i WHERE IsDeleted = 0 and i.content is not null
 and i.Discriminator = 'FILE'),
-quiz AS (
-SELECT COUNT(*) as quizCount FROM zbox.Quiz WHERE IsDeleted = 0),
 flashcard AS (
 SELECT COUNT(*) as flashcardCount FROM zbox.Flashcard WHERE IsDeleted = 0) 
-SELECT * FROM item,quiz,flashcard", cancellationToken: token)
+SELECT * FROM item,flashcard", cancellationToken: token)
                 ), token).ConfigureAwait(false);
             return new List<SiteMapCountDto>
             {
                 new SiteMapCountDto(SeoType.Item, data.itemCount),
-                new SiteMapCountDto(SeoType.Quiz, data.quizCount),
                 new SiteMapCountDto(SeoType.Flashcard, data.flashcardCount),
             };
         }

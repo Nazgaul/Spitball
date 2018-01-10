@@ -11,10 +11,10 @@ namespace Cloudents.Infrastructure.Search
 {
     public class DocumentCseSearch : IDocumentCseSearch
     {
-        private readonly ICseSearch _search;
+        private readonly ISearch _search;
         private readonly ISearchConvertRepository _searchConvertRepository;
 
-        public DocumentCseSearch(ICseSearch search, ISearchConvertRepository searchConvertRepository)
+        public DocumentCseSearch(ISearch search, ISearchConvertRepository searchConvertRepository)
         {
             _search = search;
             _searchConvertRepository = searchConvertRepository;
@@ -24,36 +24,40 @@ namespace Cloudents.Infrastructure.Search
         {
             var (universitySynonym, courses) = await _searchConvertRepository.ParseUniversityAndCoursesAsync(model.University, model.Courses, token).ConfigureAwait(false);
 
-            var term = new List<string>();
 
-            if (universitySynonym != null)
-            {
-                term.Add(string.Join(" OR ", universitySynonym.Select(s => '"' + s + '"')));
-            }
-            if (courses != null)
-            {
-                term.Add(string.Join(" OR ", courses.Select(s => '"' + s.UppercaseFirst() + '"')));
-            }
-            if (model.Query != null)
-            {
-                term.AddNotNull(string.Join(" ", model.Query));
-            }
-            term.AddNotNull(model.DocType);
-            if (term.Count == 0)
-            {
-                term.Add("biology");
-            }
-            var result = Enumerable.Range(model.Page * CseSearch.NumberOfPagesPerRequest, CseSearch.NumberOfPagesPerRequest).Select(s =>
-            {
-                var cseModel = new CseModel(term, model.Source, s, model.Sort, CustomApiKey.Documents);
+            var cseModel = new SearchModel(model.Query, model.Source, model.Page, model.Sort, CustomApiKey.Documents,courses,universitySynonym,"biology",model.DocType);
+            //var term = new List<string>();
 
-                return _search.DoSearchAsync(cseModel,
-                    token);
-            }).ToList();
-            await Task.WhenAll(result).ConfigureAwait(false);
+            //if (universitySynonym != null)
+            //{
+            //    term.Add(string.Join(" OR ", universitySynonym.Select(s => '"' + s + '"')));
+            //}
+            //if (courses != null)
+            //{
+            //    term.Add(string.Join(" OR ", courses.Select(s => '"' + s.UppercaseFirst() + '"')));
+            //}
+            //if (model.Query != null)
+            //{
+            //    term.AddNotNull(string.Join(" ", model.Query));
+            //}
+            //term.AddNotNull(model.DocType);
+            //if (term.Count == 0)
+            //{
+            //    term.Add("biology");
+            //}
+            //var result = Enumerable.Range(model.Page * CseSearch.NumberOfPagesPerRequest, CseSearch.NumberOfPagesPerRequest).Select(s =>
+            //{
+            //    var cseModel = new SearchModel(term, model.Source, s, model.Sort, CustomApiKey.Documents);
+
+            //    return _search.DoSearchAsync(cseModel,
+            //        token);
+            //}).ToList();
+
+            var result = await _search.DoSearchAsync(cseModel, token);
+
             return new ResultWithFacetDto<SearchResult>
             {
-                Result = result.Where(s => s.Result != null).SelectMany(s => s.Result),
+                Result = result,
                 Facet = new[]
                 {
                     "Spitball.co",

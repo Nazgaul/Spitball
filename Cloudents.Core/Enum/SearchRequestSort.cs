@@ -7,7 +7,7 @@
         Distance
     }
 
-    public enum SearchCseRequestSort
+    public enum SearchRequestSort
     {
         None,
         Date

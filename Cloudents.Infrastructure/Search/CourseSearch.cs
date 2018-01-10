@@ -43,6 +43,5 @@ namespace Cloudents.Infrastructure.Search
             return _mapper.Map<IEnumerable<Course>, IList<CourseDto>>(tResult.Result.Results.Select(s => s.Document));
         }
 
-
     }
 }

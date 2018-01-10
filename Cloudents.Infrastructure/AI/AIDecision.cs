@@ -51,7 +51,6 @@ namespace Cloudents.Infrastructure.AI
                 }
             }
             return new VerticalEngineNoneDto();
-
         }
 
         [Factory]
@@ -161,7 +160,6 @@ namespace Cloudents.Infrastructure.AI
         [Factory]
         private static VerticalEngineDto BookEngine(AiDto aiResult)
         {
-
             if (aiResult.Intent != AiIntent.Book)
             {
                 return null;

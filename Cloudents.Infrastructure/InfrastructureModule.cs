@@ -74,7 +74,7 @@ namespace Cloudents.Infrastructure
                 .SingleInstance().AsSelf().As<ISearchServiceClient>();
 
             builder.RegisterType<CacheProvider>().AsImplementedInterfaces();
-            builder.RegisterType<CseSearch>().As<ICseSearch>().EnableInterfaceInterceptors()
+            builder.RegisterType<BingSearch>().As<ISearch>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<DocumentCseSearch>().As<IDocumentCseSearch>();
             builder.RegisterType<FlashcardSearch>().As<IFlashcardSearch>();
@@ -82,9 +82,8 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<TutorSearch>().As<ITutorSearch>();
             builder.RegisterType<CourseSearch>().As<ICourseSearch>();
             builder.RegisterType<TutorAzureSearch>().As<ITutorProvider>();
-            
-            builder.RegisterType<TitleSearch>().As<ITitleSearch>().EnableInterfaceInterceptors()
-                .InterceptedBy(typeof(CacheResultInterceptor));
+            //builder.RegisterType<TitleSearch>().As<ITitleSearch>().EnableInterfaceInterceptors()
+            //    .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<VideoSearch>().As<IVideoSearch>();
             builder.RegisterType<JobSearch>().As<IJobSearch>();
             builder.RegisterType<BookSearch>().As<IBookSearch>().EnableInterfaceInterceptors()
@@ -99,14 +98,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IReadRepositoryAsync<,>));
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IReadRepositoryAsync<>));
 
-            builder.RegisterType<SeoDocumentRepository>()
-                .Keyed<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>(SeoType.Item);
-
-         
-
             builder.RegisterGeneric(typeof(EfRepository<>)).AsImplementedInterfaces();
-
-
             builder.Register(c => new CloudStorageProvider(_storageConnectionString)).SingleInstance();
             builder.RegisterType<BlobProvider>().AsImplementedInterfaces();
 
@@ -141,7 +133,6 @@ namespace Cloudents.Infrastructure
             return new MapperConfiguration(cfg => cfg.AddProfile<MapperProfile>());
         }
     }
-
 
 }
 

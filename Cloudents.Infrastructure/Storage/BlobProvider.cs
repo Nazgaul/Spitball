@@ -9,7 +9,6 @@ using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace Cloudents.Infrastructure.Storage
 {
-
     public class BlobProvider : IBlobProvider
     {
         private readonly CloudStorageProvider _storageProvider;

@@ -12,7 +12,6 @@ namespace Cloudents.Infrastructure.Data
 {
     public partial class AppDbContext : DbContext
     {
-
         //public static readonly LoggerFactory MyLoggerFactory
         //    = new LoggerFactory(new[] { new DebugLoggerProvider() });
 

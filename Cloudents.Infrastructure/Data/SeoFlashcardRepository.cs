@@ -38,9 +38,7 @@ FETCH NEXT @rowsPerPage ROWS ONLY", new { rowsPerPage = pageSize, pageNumber = q
                     //query.Callback(row);
                     yield return row;
                 }
-
             }
         }
-        
     }
 }

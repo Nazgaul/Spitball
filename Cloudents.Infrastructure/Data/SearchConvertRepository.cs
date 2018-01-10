@@ -36,7 +36,6 @@ namespace Cloudents.Infrastructure.Data
         }
 
         private static readonly Task<IEnumerable<string>> EmptyResultTask = Task.FromResult<IEnumerable<string>>(null);
-
         
     }
 }

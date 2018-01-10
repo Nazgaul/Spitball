@@ -70,7 +70,6 @@ namespace Cloudents.Infrastructure.Cache
 
                 return instance;
 
-
             }
             return val;
         }

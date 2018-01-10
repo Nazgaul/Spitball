@@ -28,16 +28,16 @@ namespace Cloudents.Web.Test
 
         }
 
-        [TestMethod]
-        public async Task Index_RedirectToOldSite()
-        {
-            var result = await _controller.Index(609395,default);
-            Assert.IsInstanceOfType(result, typeof(RedirectResult), "need redirect");
+        //[TestMethod]
+        //public async Task Index_RedirectToOldSite()
+        //{
+        //    var result = await _controller.Index(609395,default);
+        //    Assert.IsInstanceOfType(result, typeof(RedirectResult), "need redirect");
 
-            if (result is RedirectResult result2)
-            {
-                Assert.AreEqual("https://heb.spitball.co" + _controller.ControllerContext.HttpContext.Request.Path, result2.Url);
-            }
-        }
+        //    if (result is RedirectResult result2)
+        //    {
+        //        Assert.AreEqual("https://heb.spitball.co" + _controller.ControllerContext.HttpContext.Request.Path, result2.Url);
+        //    }
+        //}
     }
 }
