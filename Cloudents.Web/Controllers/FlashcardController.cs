@@ -21,7 +21,7 @@ namespace Cloudents.Web.Controllers
             _repository = repository;
         }
         [Route("flashcard/{universityName}/{boxId:long}/{boxName}/{id:long}/{name}", Name = SeoTypeString.Flashcard)]
-        public async Task<IActionResult> Index(long id, CancellationToken token)
+        public IActionResult Index(long id, CancellationToken token)
         {
             return this.RedirectToOldSite();
             //ViewBag.fbImage = ViewBag.imageSrc = "/images/3rdParty/fbFlashcard.png";

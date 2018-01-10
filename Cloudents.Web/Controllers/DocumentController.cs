@@ -25,7 +25,7 @@ namespace Cloudents.Web.Controllers
         }
 
         [Route("item/{universityName}/{boxId:long}/{boxName}/{id:long}/{name}", Name = SeoTypeString.Item)]
-        public async Task<IActionResult> Index(long id, CancellationToken token)
+        public IActionResult Index(long id, CancellationToken token)
         {
             return this.RedirectToOldSite();
 

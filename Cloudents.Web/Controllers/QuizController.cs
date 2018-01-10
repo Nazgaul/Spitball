@@ -25,7 +25,7 @@ namespace Cloudents.Web.Controllers
         }
 
         [Route("quiz/{universityName}/{boxId:long}/{boxName}/{id:long}/{name}", Name = SeoTypeString.Quiz)]
-        public async Task<IActionResult> Index(long id, CancellationToken token)
+        public IActionResult Index(long id, CancellationToken token)
         {
             return this.RedirectToOldSite();
             //var model = await _repository.GetAsync(id, token).ConfigureAwait(false);

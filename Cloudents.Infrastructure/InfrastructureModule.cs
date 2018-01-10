@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
@@ -82,7 +83,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<TutorSearch>().As<ITutorSearch>();
             builder.RegisterType<CourseSearch>().As<ICourseSearch>();
             builder.RegisterType<TutorAzureSearch>().As<ITutorProvider>();
-            
+
             builder.RegisterType<TitleSearch>().As<ITitleSearch>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<VideoSearch>().As<IVideoSearch>();
@@ -102,7 +103,6 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<SeoDocumentRepository>()
                 .Keyed<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>(SeoType.Item);
 
-         
 
             builder.RegisterGeneric(typeof(EfRepository<>)).AsImplementedInterfaces();
 
@@ -119,7 +119,7 @@ namespace Cloudents.Infrastructure
         {
             var cacheConfig = ConfigurationBuilder.BuildConfiguration(settings =>
             {
-                settings.WithMicrosoftMemoryCacheHandle();
+                settings.WithMicrosoftMemoryCacheHandle().WithExpiration(ExpirationMode.Sliding,TimeSpan.FromHours(1));
                 if (!string.IsNullOrEmpty(_redisConnectionString))
                 {
                     settings.WithJsonSerializer();
