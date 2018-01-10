@@ -17,7 +17,7 @@
             ...mapGetters(['pinnedCards']),
             beginText() { return this.isEnded?'Start Over':'Start'},
             isEnded() {
-                let retVal = this.currentIndex == this.showList.length;
+                let retVal = this.currentIndex === this.showList.length;
                 if (retVal) {
                     this.showList = this.item.cards.map((item, index) => ({ index, data: item }));
                     this.slideFront = true;
@@ -51,8 +51,8 @@
             },
 
             handleArrow (event){
-                if (event.keyCode == 37 && this.currentIndex > 0 && !this.isEnded) this.currentIndex--;
-                else if (this.currentIndex >= 0 && event.keyCode == 39 && !this.isEnded) this.currentIndex++;
+                if (event.keyCode === 37 && this.currentIndex > 0 && !this.isEnded) this.currentIndex--;
+                else if (this.currentIndex >= 0 && event.keyCode === 39 && !this.isEnded) this.currentIndex++;
             }
         },
 

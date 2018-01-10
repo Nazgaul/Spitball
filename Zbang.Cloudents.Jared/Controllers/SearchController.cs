@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Specialized;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,6 +11,7 @@ using Zbang.Cloudents.Jared.Models;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
+    /// <inheritdoc />
     /// <summary>
     /// Search Cse controller for flashcard and document
     /// </summary>
@@ -22,6 +22,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         private readonly Lazy<IFlashcardSearch> _flashcardProvider;
         private readonly Lazy<IQuestionSearch> _questionProvider;
 
+        /// <inheritdoc />
         /// <summary>
         /// Constructor
         /// </summary>
@@ -48,7 +49,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             CancellationToken token)
         {
             var query = SearchQuery.Document(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
-                model.Sort.GetValueOrDefault(),model.DocType);
+                model.Sort.GetValueOrDefault(), model.DocType);
             var result = await _searchProvider.Value.SearchAsync(query, token).ConfigureAwait(false);
 
             var nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
@@ -86,7 +87,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> SearchQuestionAsync([FromUri] SearchRequest model,
             CancellationToken token)
         {
-            var query = SearchQuery.Ask(model.Query, model.Page.GetValueOrDefault());
+            var query = SearchQuery.Ask(model.Query, model.Page.GetValueOrDefault(), null);
             var result = await _questionProvider.Value.SearchAsync(query, token).ConfigureAwait(false);
             return Request.CreateResponse(result);
         }

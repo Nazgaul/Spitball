@@ -11,6 +11,7 @@ using Zbang.Cloudents.Jared.Models;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
+    /// <inheritdoc />
     /// <summary>
     /// Perform Ask question search
     /// </summary>
@@ -20,6 +21,12 @@ namespace Zbang.Cloudents.Jared.Controllers
         private readonly IQuestionSearch _searchProvider;
         private readonly IVideoSearch _videoSearch;
 
+        /// <inheritdoc />
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="searchProvider"></param>
+        /// <param name="videoSearch"></param>
         public AskController(IQuestionSearch searchProvider, IVideoSearch videoSearch)
         {
             _searchProvider = searchProvider;
@@ -35,7 +42,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         public async Task<HttpResponseMessage> Get([FromUri] AskRequest model,
             CancellationToken token)
         {
-            var query = SearchQuery.Ask(model.Term, model.Page.GetValueOrDefault());
+            var query = SearchQuery.Ask(model.Term, model.Page.GetValueOrDefault(), model.Source);
             var tResult = _searchProvider.SearchAsync(query, token);
             var tVideo = Task.FromResult<VideoDto>(null);
             if (model.Page.GetValueOrDefault() == 0)
@@ -54,7 +61,6 @@ namespace Zbang.Cloudents.Jared.Controllers
                 video = tVideo.Result,
                 nextPageLink
             });
-
         }
     }
 }

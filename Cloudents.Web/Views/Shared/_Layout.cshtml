@@ -6,6 +6,7 @@
 @inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
 @inject IHostingEnvironment Environment
 @inject WebPackChunkName Provider
+
 @{
     const string themeColor = "#4190b";
     ViewBag.title = ViewBag.title ?? "Spitball";
@@ -15,7 +16,7 @@
     var version = Assembly.GetEntryAssembly().GetName().Version.ToString(4);
     var p = Provider.GetTag("vendor");
     var main = Provider.GetTag("main");
-    const string cdnEndPoint = Constants.CdnEndpoint;
+    string cdnEndPoint = Constants.GetCdnEndpoint(Environment);
 }
 <!DOCTYPE html>
 
@@ -126,8 +127,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         })();
     </script>
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
+<script>
         window.version = '@version';
+        window.publicPath = '@cdnEndPoint' + '/dist/';
     </script>
     @await RenderSectionAsync("scripts", required: false).ConfigureAwait(false)
 </body>

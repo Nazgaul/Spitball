@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
@@ -29,7 +30,7 @@ namespace Cloudents.Infrastructure
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Clear();
-                foreach (var header in headers)
+                foreach (var header in headers ?? Enumerable.Empty<KeyValuePair<string, string>>())
                 {
                     client.DefaultRequestHeaders.Add(header.Key, header.Value);
                 }

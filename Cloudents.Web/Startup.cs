@@ -10,6 +10,7 @@ using Cloudents.Core.Request;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Web.Extensions;
+using Cloudents.Web.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
@@ -50,7 +51,7 @@ namespace Cloudents.Web
                 {
                     DateTimeStyles = DateTimeStyles.AssumeUniversal
                 });
-            });
+            }).AddMvcOptions(o => o.Filters.Add(new GlobalExceptionFilter()));
             services.Configure<MvcOptions>(options =>
             {
                 options.Filters.Add(new RequireHttpsAttribute());

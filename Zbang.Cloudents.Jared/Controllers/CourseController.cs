@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
 using System.Net.Http;
@@ -9,7 +7,6 @@ using System.Net;
 using System.Threading;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using Zbang.Cloudents.Jared.Extensions;
 using Zbang.Cloudents.Jared.Models;
 

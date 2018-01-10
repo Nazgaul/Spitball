@@ -17,5 +17,9 @@ namespace Zbang.Cloudents.Jared.Models
         /// The term array of Ai parse
         /// </summary>
         public string[] Term { get; set; }
+        /// <summary>
+        /// Array of sites to search for
+        /// </summary>
+        public string[] Source { get; set; }
     }
 }
