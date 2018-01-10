@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
 using Microsoft.Azure.Mobile.Server.Config;
 using Zbang.Cloudents.Jared.Extensions;
 using Zbang.Cloudents.Jared.Filters;

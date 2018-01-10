@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Web.Http.Routing;
 using Cloudents.Core.Extension;
-using Zbang.Cloudents.Jared.Filters;
 using Zbang.Cloudents.Jared.Models;
 
 namespace Zbang.Cloudents.Jared.Extensions

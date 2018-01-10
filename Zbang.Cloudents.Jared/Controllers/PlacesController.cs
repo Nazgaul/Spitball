@@ -8,7 +8,6 @@ using Cloudents.Core.Interfaces;
 using Microsoft.Azure.Mobile.Server.Config;
 using Zbang.Cloudents.Jared.Extensions;
 using Zbang.Cloudents.Jared.Models;
-using Enumerable = System.Linq.Enumerable;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {

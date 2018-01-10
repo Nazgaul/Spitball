@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Specialized;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,6 +11,7 @@ using Zbang.Cloudents.Jared.Models;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
+    /// <inheritdoc />
     /// <summary>
     /// Search Cse controller for flashcard and document
     /// </summary>
@@ -22,6 +22,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         private readonly Lazy<IFlashcardSearch> _flashcardProvider;
         private readonly Lazy<IQuestionSearch> _questionProvider;
 
+        /// <inheritdoc />
         /// <summary>
         /// Constructor
         /// </summary>
