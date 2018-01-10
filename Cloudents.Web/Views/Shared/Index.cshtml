@@ -1,6 +1,8 @@
 ﻿@using Cloudents.Web.Extensions
 @using Cloudents.Web.Views
+@using Microsoft.AspNetCore.Hosting
 @inject WebPackChunkName Provider
+@inject IHostingEnvironment Environment
 @{
     ViewBag.Title = "Spitball";
     var main = Provider.GetTag("main");
@@ -12,7 +14,8 @@
 
 
 @*<div id="app" asp-prerender-module="ClientApp/renderOnServer">Loading....</div>*@
-<div id="app">Loading....</div> 
+<div id="app">Loading....</div>
+@Environment.EnvironmentName
 <div class="cdn-only2"></div>
 
 @section scripts {
@@ -20,7 +23,7 @@
         <script src="~/dist/@main.Js"></script>
     </environment>
     <environment exclude="Development">
-        <script src="@Constants.CdnEndpoint/dist/@main.Js"
+        <script src="@Constants.GetCdnEndpoint(Environment)/dist/@main.Js"
                 asp-fallback-src="~/dist/@main.Js"
                 asp-fallback-test="window.mainCdn">
         </script>

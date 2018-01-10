@@ -1,4 +1,8 @@
-﻿import { app, router } from "./main";
+﻿import "./publicPath";
+import { app, router } from "./main";
+debugger;
+
+
 
 router.onReady(() => {
   //const matchedComponents = router.getMatchedComponents()
