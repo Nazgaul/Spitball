@@ -43,37 +43,55 @@ namespace Cloudents.Infrastructure.Cache
             var sb = new StringBuilder();
             foreach (var arg in argument)
             {
-                if (arg == null)
+                var result = BuildSimpleArgument(arg);
+                if (result == null)
                 {
-                    continue;
-                }
-
-                if (IsSimple(arg.GetType()))
-                {
-                    sb.Append(arg);
-                    continue;
-                }
-
-                if (arg is CancellationToken _)
-                {
-                    continue;
-                }
-
-                if (arg is IEnumerable collection)
-                {
-                    foreach (var collectionArg in collection)
+                    foreach (var prop in arg.GetType().GetProperties())
                     {
-                        sb.Append(collectionArg);
+                        sb.Append(prop.Name).Append("=").Append(BuildSimpleArgument(prop.GetValue(arg)) ?? string.Empty);
                     }
-                    continue;
                 }
-                foreach (var prop in arg.GetType().GetProperties())
+                else
                 {
-                    sb.Append($"{prop.Name}={prop.GetValue(arg)}");
+                    sb.Append(result);
                 }
             }
 
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// Build simple argument
+        /// </summary>
+        /// <param name="arg">the object</param>
+        /// <returns>string or empty if can process null if cant</returns>
+        private static string BuildSimpleArgument(object arg)
+        {
+            if (arg == null)
+            {
+                return string.Empty;
+            }
+            if (arg.ToString() != arg.GetType().ToString())
+            {
+                return arg.ToString();
+                // This Type or one of its base types has overridden object.ToString()
+            }
+            if (arg is CancellationToken _)
+            {
+                return string.Empty;
+            }
+            if (arg is IEnumerable collection)
+            {
+                var sb = new StringBuilder();
+                foreach (var collectionArg in collection)
+                {
+                    sb.Append(BuildSimpleArgument(collectionArg));
+                }
+
+                return sb.ToString();
+            }
+
+            return null;
         }
 
         public static string GetInvocationSignature(IInvocation invocation)

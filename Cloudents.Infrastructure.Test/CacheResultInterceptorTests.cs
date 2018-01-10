@@ -31,10 +31,10 @@ namespace Cloudents.Infrastructure.Test
             var searchModel1 = new SearchModel(new[] {"biology"}, null, 0, SearchRequestSort.None,
                 CustomApiKey.Documents, null, null, "biology", null);
             var searchModel2 = new SearchModel(new[] { "chemistry" }, null, 0, SearchRequestSort.None,
-                CustomApiKey.Flashcard, null, null, "chemistry", null);
+                CustomApiKey.Documents, null, null, "biology", null);
             //IEnumerable<string> term, int imageWidth, int page, CancellationToken token
             var bookRequest1 = new object[] { searchModel1, CancellationToken.None };
-            var bookRequest2 = new object[] { searchModel2, 150, 1, CancellationToken.None };
+            var bookRequest2 = new object[] { searchModel2, CancellationToken.None };
             var result1 = CacheResultInterceptor.BuildArgument(bookRequest1);
             var result2 = CacheResultInterceptor.BuildArgument(bookRequest2);
 
@@ -50,7 +50,7 @@ namespace Cloudents.Infrastructure.Test
                 CustomApiKey.Flashcard, null, null, "biology", null);
             //IEnumerable<string> term, int imageWidth, int page, CancellationToken token
             var bookRequest1 = new object[] { searchModel1, CancellationToken.None };
-            var bookRequest2 = new object[] { searchModel2, 150, 1, CancellationToken.None };
+            var bookRequest2 = new object[] { searchModel2, CancellationToken.None };
             var result1 = CacheResultInterceptor.BuildArgument(bookRequest1);
             var result2 = CacheResultInterceptor.BuildArgument(bookRequest2);
 
