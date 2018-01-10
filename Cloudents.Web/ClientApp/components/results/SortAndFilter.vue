@@ -19,7 +19,7 @@
                             <div class="icon-wrapper"><slot :name="`${k.modelId}TitlePrefix`"></slot></div>
                             <div>{{k.title}}</div>
                             <div class="header__icon hidden-xs-only">
-                                <v-icon>sbf-arrow-button</v-icon>
+                                <v-icon>sbf-chevron-down</v-icon>
                             </div>
                             <slot :name="`${k.modelId}MobileExtraState`"></slot>
                             <!--<button v-if="k.modelId === 'course'" class="edit-list hidden-sm-and-up" @click="props.$_openPersonalize()" type="button">Edit List</button>-->

@@ -2,7 +2,7 @@
     <div class="book-header">
         <v-toolbar class="elevation-1" height="48" app fixed v-if="$vuetify.breakpoint.xsOnly" extended>
             <v-btn class="back" icon @click="$router.go(-1)">
-                <v-icon>sbf-arrow-button</v-icon>
+                <v-icon>sbf-chevron-down</v-icon>
             </v-btn>
             <v-toolbar-title class="spitball-text-book">Textbooks</v-toolbar-title>
             <v-tabs class="mx-2" value="buy" grow slot="extension">

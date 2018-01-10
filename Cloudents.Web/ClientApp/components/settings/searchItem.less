@@ -36,12 +36,12 @@
     .navigation-buttons {
         font-size: 22px;
         font-weight: 600;
-        margin: 24px 32px 0px 32px;
+        margin: 24px 32px 0px 16px;
         flex-grow: 1;
         flex-shrink: 0;
 
         @media(max-width: @screen-xs) {
-            margin: 8px 16px 0 18px;
+            margin: 8px 16px 0 0;
         }
 
         button:focus {
@@ -52,16 +52,17 @@
             transition: none;
         }
 
-        .sbf-arrow-button {
-            transform: rotate(-90deg);
+        .sbf-chevron-down {
+            transform: rotate(90deg);
             color: #9b9b9b;
-            font-size: 12px;
+            font-size: 38px;
             margin-top: 0;
         }
 
         .sbf-close {
             font-size: 18px;
             color: #9b9b9b;
+            margin-left: 16px;
         }
 
         .done-btn {
