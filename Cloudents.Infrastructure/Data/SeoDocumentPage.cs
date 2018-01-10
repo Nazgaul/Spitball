@@ -20,14 +20,11 @@ namespace Cloudents.Infrastructure.Data
             return _repository.WithConnectionAsync(c => c.QueryFirstOrDefaultAsync<DocumentSeoDto>(
                 @"select i.name
 ,i.Content as Description
-,u.Country
 ,b.BoxName
 ,i.Discriminator
 ,i.blobName as ImageUrl
-,l.name as departmentName
 from zbox.item i 
 join zbox.box b on i.BoxId = b.BoxId
-left join zbox.library l on b.libraryId = l.libraryId
 where itemId = @ItemId
 and i.IsDeleted = 0;", new { ItemId = query }), token);
         }
