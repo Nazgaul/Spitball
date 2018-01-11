@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.DocumentDb;
 using Cloudents.Core.Interfaces;
@@ -20,6 +21,14 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> Get(long id, CancellationToken token)
         {
             var result = await _repository.GetAsync(id, token).ConfigureAwait(false);
+            if (!result.Publish)
+            {
+                throw new ArgumentException("Flashcard is not published");
+            }
+            if (result.IsDeleted)
+            {
+                throw new ArgumentException("Flashcard is deleted");
+            }
             return Json(new
             {
                 result.Name,

@@ -17,7 +17,7 @@ using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Jared.Controllers
 {
-    [MobileAppController]
+    [MobileAppController, Obsolete]
     public class QuizController : ApiController
     {
         private readonly IZboxCacheReadService m_ZboxReadService;

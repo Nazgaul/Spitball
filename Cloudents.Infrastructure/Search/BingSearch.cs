@@ -7,6 +7,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Newtonsoft.Json;
@@ -16,19 +18,17 @@ namespace Cloudents.Infrastructure.Search
     public class BingSearch : ISearch
     {
         private const string SubscriptionKey = "285e26627c874d28be01859b4fb08a58";
-        // private readonly ICustomSearchAPI _api;
         private readonly IRestClient _restClient;
         private readonly IKeyGenerator _keyGenerator;
+
         public BingSearch(IRestClient restClient, IKeyGenerator keyGenerator)
         {
             _restClient = restClient;
             _keyGenerator = keyGenerator;
-            //var x = new ApiKeyServiceClientCredentials("285e26627c874d28be01859b4fb08a58");
-            //_api = new CustomSearchAPI(x);
         }
 
         [Cache(TimeConst.Day, "bing")]
-        public async Task<IEnumerable<SearchResult>> DoSearchAsync(SearchModel model, CancellationToken token)
+        public async Task<IEnumerable<SearchResult>> DoSearchAsync(SearchModel model, BingTextFormat format, CancellationToken token)
         {
             //https://docs.microsoft.com/en-us/rest/api/cognitiveservices/bing-custom-search-api-v7-reference#query-parameters
             if (model == null) throw new ArgumentNullException(nameof(model));
@@ -44,7 +44,7 @@ namespace Cloudents.Infrastructure.Search
                 ["customConfig"] = model.Key.Key,
                 ["offset"] = (model.Page * 50).ToString(),
                 ["q"] = $"{query} {sourceQuery}",
-                ["textFormat"] = "HTML",
+                ["textFormat"] = format.GetDescription(),
                 ["textDecorations"] = bool.TrueString
             };
             var uri = new Uri("https://api.cognitive.microsoft.com/bingcustomsearch/v7.0/search");
@@ -54,24 +54,24 @@ namespace Cloudents.Infrastructure.Search
                 new KeyValuePair<string,string>("Ocp-Apim-Subscription-Key", SubscriptionKey)
             }, token).ConfigureAwait(false);
             var response = JsonConvert.DeserializeObject<BingCustomSearchResponse>(result);
-            var dictionaryOfHost = new ConcurrentDictionary<string,int>();
-            return  response.WebPages.Value.Select((s,i) =>
-            {
-                Uri.TryCreate(s.OpenGraphImage?.ContentUrl, UriKind.Absolute, out var image);
-                var url = new Uri(s.Url);
-                dictionaryOfHost.AddOrUpdate(url.Host, 1, (id, count) => count + 1);
-                return new SearchResult
-                {
-                    Url = url,
-                    Id = _keyGenerator.GenerateKey(s.Url),
-                    Image = image,
-                    Snippet = s.Snippet,
-                    Source = url.Host,
-                    Title = s.Name,
-                    Order = dictionaryOfHost[url.Host]
+            var dictionaryOfHost = new ConcurrentDictionary<string, int>();
+            return response.WebPages.Value.Select((s, i) =>
+           {
+               Uri.TryCreate(s.OpenGraphImage?.ContentUrl, UriKind.Absolute, out var image);
+               var url = new Uri(s.Url);
+               dictionaryOfHost.AddOrUpdate(url.Host, 1, (id, count) => count + 1);
+               return new SearchResult
+               {
+                   Url = url,
+                   Id = _keyGenerator.GenerateKey(s.Url),
+                   Image = image,
+                   Snippet = s.Snippet,
+                   Source = url.Host,
+                   Title = s.Name,
+                   Order = dictionaryOfHost[url.Host]
 
-                };
-            }).OrderBy(o=> o.Order);
+               };
+           }).OrderBy(o => o.Order);
         }
 
         public static string BuildSources(IEnumerable<string> sources)

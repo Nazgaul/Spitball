@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using Cloudents.Web.Models;
@@ -18,7 +19,7 @@ namespace Cloudents.Web.Api
             var query = SearchQuery.Document(model.Term, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
                 model.Sort.GetValueOrDefault(), model.DocType);
 
-            var result = await searchProvider.SearchAsync(query, token).ConfigureAwait(false);
+            var result = await searchProvider.SearchAsync(query,BingTextFormat.Html, token).ConfigureAwait(false);
             return Json(result);
         }
 
@@ -30,7 +31,7 @@ namespace Cloudents.Web.Api
             var query = SearchQuery.Flashcard(model.Term, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
                 model.Sort.GetValueOrDefault());
 
-            var result = await searchProvider.SearchAsync(query, token).ConfigureAwait(false);
+            var result = await searchProvider.SearchAsync(query, BingTextFormat.Html, token).ConfigureAwait(false);
             return Json(result);
         }
     }

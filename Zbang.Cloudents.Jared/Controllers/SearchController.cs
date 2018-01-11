@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using Microsoft.Azure.Mobile.Server.Config;
@@ -50,7 +51,7 @@ namespace Zbang.Cloudents.Jared.Controllers
         {
             var query = SearchQuery.Document(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
                 model.Sort.GetValueOrDefault(), model.DocType);
-            var result = await _searchProvider.Value.SearchAsync(query, token).ConfigureAwait(false);
+            var result = await _searchProvider.Value.SearchAsync(query, BingTextFormat.Raw, token).ConfigureAwait(false);
 
             var nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
             return Request.CreateResponse(new
@@ -74,7 +75,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             var query = SearchQuery.Flashcard(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
                 model.Sort.GetValueOrDefault());
             var nextPageLink = Url.NextPageLink("FlashcardSearch", null, model);
-            var result = await _flashcardProvider.Value.SearchAsync(query, token).ConfigureAwait(false);
+            var result = await _flashcardProvider.Value.SearchAsync(query, BingTextFormat.Raw, token).ConfigureAwait(false);
             return Request.CreateResponse(new
             {
                 documents = result.Result,
@@ -88,7 +89,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             CancellationToken token)
         {
             var query = SearchQuery.Ask(model.Query, model.Page.GetValueOrDefault(), null);
-            var result = await _questionProvider.Value.SearchAsync(query, token).ConfigureAwait(false);
+            var result = await _questionProvider.Value.SearchAsync(query, BingTextFormat.Raw, token).ConfigureAwait(false);
             return Request.CreateResponse(result);
         }
     }

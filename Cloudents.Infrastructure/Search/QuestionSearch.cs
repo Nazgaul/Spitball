@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 
@@ -16,10 +17,10 @@ namespace Cloudents.Infrastructure.Search
             _search = search;
         }
 
-        public async Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, CancellationToken token)
+        public async Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, BingTextFormat format, CancellationToken token)
         {
             var cseModel = new SearchModel(model.Query, model.Source, model.Page, model.Sort, CustomApiKey.AskQuestion, null, null, QueryString, null);
-            var result = await _search.DoSearchAsync(cseModel, token).ConfigureAwait(false);
+            var result = await _search.DoSearchAsync(cseModel, format, token).ConfigureAwait(false);
             return new ResultWithFacetDto<SearchResult>
             {
                 Result = result,

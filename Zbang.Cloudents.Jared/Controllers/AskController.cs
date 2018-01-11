@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using Microsoft.Azure.Mobile.Server.Config;
@@ -43,7 +44,7 @@ namespace Zbang.Cloudents.Jared.Controllers
             CancellationToken token)
         {
             var query = SearchQuery.Ask(model.Term, model.Page.GetValueOrDefault(), model.Source);
-            var tResult = _searchProvider.SearchAsync(query, token);
+            var tResult = _searchProvider.SearchAsync(query, BingTextFormat.Raw, token);
             var tVideo = Task.FromResult<VideoDto>(null);
             if (model.Page.GetValueOrDefault() == 0)
             {
