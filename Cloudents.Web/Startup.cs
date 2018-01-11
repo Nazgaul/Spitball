@@ -92,7 +92,7 @@ namespace Cloudents.Web
             {
                 new CultureInfo("en-US")
             };
-            app.UseRequestLocalization(new RequestLocalizationOptions()
+            app.UseRequestLocalization(new RequestLocalizationOptions
             {
                 DefaultRequestCulture = new RequestCulture(supportedCultures[0]),
                 SupportedCultures = supportedCultures,

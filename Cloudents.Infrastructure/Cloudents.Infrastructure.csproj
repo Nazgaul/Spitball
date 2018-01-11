@@ -30,6 +30,7 @@
     <PackageReference Include="Dapper" Version="1.50.4" />
     <PackageReference Include="Google.Apis.YouTube.v3" Version="1.32.0.1079" />
     <PackageReference Include="Microsoft.Azure.DocumentDB" Version="1.19.1" />
+    <PackageReference Include="Microsoft.Azure.DocumentDB.Core" Version="1.7.1" />
     <PackageReference Include="Microsoft.Azure.Search" Version="4.0.1-preview" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0" />

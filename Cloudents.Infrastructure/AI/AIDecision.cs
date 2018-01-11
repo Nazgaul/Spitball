@@ -6,7 +6,6 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
 
 namespace Cloudents.Infrastructure.AI
 {

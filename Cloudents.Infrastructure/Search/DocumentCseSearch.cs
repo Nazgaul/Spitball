@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 
@@ -17,11 +18,11 @@ namespace Cloudents.Infrastructure.Search
             _searchConvertRepository = searchConvertRepository;
         }
 
-        public async Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, CancellationToken token)
+        public async Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, BingTextFormat format, CancellationToken token)
         {
             var (universitySynonym, courses) = await _searchConvertRepository.ParseUniversityAndCoursesAsync(model.University, model.Courses, token).ConfigureAwait(false);
             var cseModel = new SearchModel(model.Query, model.Source, model.Page, model.Sort, CustomApiKey.Documents,courses,universitySynonym,"biology",model.DocType);
-            var result = await _search.DoSearchAsync(cseModel, token);
+            var result = await _search.DoSearchAsync(cseModel, format, token).ConfigureAwait(false);
 
             return new ResultWithFacetDto<SearchResult>
             {

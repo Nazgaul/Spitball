@@ -5,11 +5,9 @@ using System.Web.Http.ExceptionHandling;
 using Autofac;
 using Autofac.Integration.SignalR;
 using Autofac.Integration.WebApi;
-using Cloudents.Infrastructure.Data;
 using Microsoft.AspNet.SignalR;
 using Microsoft.Azure.Mobile.Server.Authentication;
 using Microsoft.Azure.Mobile.Server.Config;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Owin;
 using Zbang.Cloudents.Connect;
@@ -71,13 +69,8 @@ namespace Zbang.Cloudents.Jared
             builder.RegisterModule<DataModule>();
             builder.RegisterModule<ReadServiceModule>();
             builder.RegisterModule<MailModule>();
-            builder.Register(_ =>
-            {
-                var x = new DbContextOptionsBuilder<AppDbContext>();
-                x.UseSqlServer(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString);
-                return new AppDbContext(x.Options);
-            });
-            var module = new t.InfrastructureModule(
+           
+            var module = new t.MobileAppInfrastructureModule(
                 ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                 ConfigurationManager.AppSettings["AzureSearchServiceName"],
                 ConfigurationManager.AppSettings["AzureSearchKey"],

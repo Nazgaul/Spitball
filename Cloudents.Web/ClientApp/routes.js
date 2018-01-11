@@ -187,7 +187,10 @@ let routes2 = [
         }
     },
     {
-        path: "/flashcard/:university/:courseId/:courseName/:id/:itemName", name: "flashcard", components: {default:showFlashcard,header:previewHeader}, props: true,
+        path: "/flashcard/:university/:courseId/:courseName/:id/:itemName",
+        name: "flashcard",
+        components: { default: showFlashcard, header: previewHeader },
+        props: true,
         meta: {
             pageName: RouteTypes.flashcardRoute
         }

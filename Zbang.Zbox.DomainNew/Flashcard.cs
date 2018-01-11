@@ -48,24 +48,5 @@ namespace Zbang.Zbox.Domain
     {
         public string Text { get; set; }
         public string Image { get; set; }
-
-        //public Flashcard Flashcard { get; set; }
     }
-
-    //public class PinnedCard
-    //{
-    //    public Guid Id { get; set; }
-    //    public User User { get; set; }
-    //    public int Order { get; set; }
-    //    //public Card Card { get; set; }
-    //    public Flashcard Flashcard { get; set; }
-    //}
-
-    //public class FlashcardLike
-    //{
-    //    public Guid Id { get; set; }
-    //    public User User { get; set; }
-    //    public Flashcard Flashcard { get; set; }
-    //    public DateTime CreationTime { get; protected set; }
-    //}
 }
