@@ -29,10 +29,11 @@
             showCards() { return (this.currentCard&&!this.isEnded)}
         },
         created() {
-            this.getPreview({ type: 'flashcard', id: this.$attrs.id }).then((body) => {
+            // this.getPreview({ type: 'flashcard', id: this.id }).then(({data:body}) => {
+            this.getPreview({ type: 'flashcard', id: this.id }).then((body) => {
                 this.item = body;
                 this.showList = this.item.cards.map((item, index) => ({ index, data: item } ))
-            })
+            });
             window.addEventListener('keyup', this.handleArrow);
         },
         beforeDestroy(){
@@ -55,6 +56,7 @@
                 else if (this.currentIndex >= 0 && event.keyCode === 39 && !this.isEnded) this.currentIndex++;
             }
         },
+<<<<<<< Updated upstream
 
         components: {
             closeAction,
@@ -63,4 +65,8 @@
             shuffleIcon: () => import("./svg/shuffle-icon.svg"),
             pinIcon: () => import("./svg/pin-icon.svg")
             }
+=======
+        props:{id:{Number}},
+        components: { closeAction, flashcardHeader, flashcardContent}
+>>>>>>> Stashed changes
     }
