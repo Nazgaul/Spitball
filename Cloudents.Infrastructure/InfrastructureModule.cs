@@ -21,7 +21,7 @@ namespace Cloudents.Infrastructure
         protected readonly string SqlConnectionString;
         private readonly string _searchServiceName;
         private readonly string _searchServiceKey;
-        private readonly string _redisConnectionString;
+        protected readonly string RedisConnectionString;
 
         private readonly string _storageConnectionString;
         // private readonly Environment _environment;
@@ -36,7 +36,7 @@ namespace Cloudents.Infrastructure
             SqlConnectionString = sqlConnectionString;
             _searchServiceName = searchServiceName;
             _searchServiceKey = searchServiceKey;
-            _redisConnectionString = redisConnectionString;
+            RedisConnectionString = redisConnectionString;
             _storageConnectionString = storageConnectionString;
             // _environment = environment;
         }
@@ -102,31 +102,12 @@ namespace Cloudents.Infrastructure
             builder.Register(c => new CloudStorageProvider(_storageConnectionString)).SingleInstance();
             builder.RegisterType<BlobProvider>().AsImplementedInterfaces();
 
-            ConfigureCache(builder);
+            
             var config = MapperConfiguration();
             builder.Register(c => config.CreateMapper()).SingleInstance();
         }
 
-        private void ConfigureCache(ContainerBuilder builder)
-        {
-            var cacheConfig = ConfigurationBuilder.BuildConfiguration(settings =>
-            {
-                settings.WithMicrosoftMemoryCacheHandle().WithExpiration(ExpirationMode.Sliding, TimeSpan.FromHours(1));
-                if (!string.IsNullOrEmpty(_redisConnectionString))
-                {
-                    settings.WithJsonSerializer();
-                    settings.WithRedisConfiguration("redis", _redisConnectionString)
-                    .WithRedisBackplane("redis").WithRedisCacheHandle("redis");
-                }
-            });
-            builder.RegisterGeneric(typeof(BaseCacheManager<>))
-                .WithParameters(new[]
-                {
-                    new TypedParameter(typeof(ICacheManagerConfiguration), cacheConfig)
-                })
-                .As(typeof(ICacheManager<>))
-                .SingleInstance();
-        }
+        
 
         private static MapperConfiguration MapperConfiguration()
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Microsoft.Azure.Mobile.Server;
@@ -52,7 +53,7 @@ namespace Cloudents.Mobile
                     c.DescribeAllEnumsAsStrings(true);
 
                     c.IncludeXmlComments(
-                        $@"{AppDomain.CurrentDomain.BaseDirectory}\bin\Zbang.Cloudents.Jared.xml");
+                        $@"{AppDomain.CurrentDomain.BaseDirectory}\bin\Cloudents.Mobile.xml");
                 })
                 .EnableSwaggerUi(swagger => swagger.EnableDiscoveryUrlSelector());
         }

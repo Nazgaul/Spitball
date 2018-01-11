@@ -65,8 +65,6 @@ Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Zbang.Cloudents.Cloud.Image
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Management Application", "Management Application\Management Application.csproj", "{8E505C7F-EF4B-43D1-9906-34823932AAED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Cloudents.Jared", "Zbang.Cloudents.Jared\Zbang.Cloudents.Jared.csproj", "{C8347269-DC11-4382-9E62-5BDE4D6B2279}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{5E236067-82C7-4A3C-99D7-F64C95268EDB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Web", "Cloudents.Web\Cloudents.Web.csproj", "{CC9D9000-196A-432B-968C-85A239B1ABF9}"
@@ -686,36 +684,6 @@ Global
 		{8E505C7F-EF4B-43D1-9906-34823932AAED}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
 		{8E505C7F-EF4B-43D1-9906-34823932AAED}.SingleImage|x86.ActiveCfg = Release|Any CPU
 		{8E505C7F-EF4B-43D1-9906-34823932AAED}.SingleImage|x86.Build.0 = Release|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.CD_ROM|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.CD_ROM|Mixed Platforms.Build.0 = Release|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.CD_ROM|x86.ActiveCfg = Release|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.CD_ROM|x86.Build.0 = Release|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.Debug|x86.Build.0 = Debug|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.DVD-5|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.DVD-5|Mixed Platforms.Build.0 = Debug|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.DVD-5|x86.ActiveCfg = Debug|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.DVD-5|x86.Build.0 = Debug|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.Release|x86.ActiveCfg = Release|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.Release|x86.Build.0 = Release|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.SingleImage|Any CPU.Build.0 = Release|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.SingleImage|x86.ActiveCfg = Release|Any CPU
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279}.SingleImage|x86.Build.0 = Release|Any CPU
 		{CC9D9000-196A-432B-968C-85A239B1ABF9}.CD_ROM|Any CPU.ActiveCfg = Debug|Any CPU
 		{CC9D9000-196A-432B-968C-85A239B1ABF9}.CD_ROM|Any CPU.Build.0 = Debug|Any CPU
 		{CC9D9000-196A-432B-968C-85A239B1ABF9}.CD_ROM|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -984,7 +952,6 @@ Global
 		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
 		{55208D32-DD75-4C47-B692-89620A6A41F1} = {B3E23D7B-5670-4C30-85BF-0094713146B2}
 		{8E505C7F-EF4B-43D1-9906-34823932AAED} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
-		{C8347269-DC11-4382-9E62-5BDE4D6B2279} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
 		{CC9D9000-196A-432B-968C-85A239B1ABF9} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
 		{C51BEA65-E234-4264-879B-410A83C3710F} = {AEE91C15-BC24-464C-9C73-7EBBE61B6044}
 		{85208B6B-6AD1-4B2E-8CC7-EEC6990085A7} = {5E236067-82C7-4A3C-99D7-F64C95268EDB}
@@ -995,9 +962,9 @@ Global
 		{3C8E64C1-BF7D-4B46-BCD1-2D67BDEB0B0D} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {6A41ACFB-B3D1-4E6A-941F-516155ACC34A}
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.2.1.505.2\lib\NET35;packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45
+		SolutionGuid = {6A41ACFB-B3D1-4E6A-941F-516155ACC34A}
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True

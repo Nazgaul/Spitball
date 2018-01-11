@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Autofac;
+using CacheManager.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
@@ -29,8 +31,30 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<SeoDocumentRepository>()
                 .Keyed<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>(SeoType.Item);
             //builder.RegisterType<TutorMeSearch>().As<ITutorProvider>();
-
+            ConfigureCache(builder);
         }
+
+        protected void ConfigureCache(ContainerBuilder builder)
+        {
+            var cacheConfig = ConfigurationBuilder.BuildConfiguration(settings =>
+            {
+                settings.WithMicrosoftMemoryCacheHandle().WithExpiration(ExpirationMode.Sliding, TimeSpan.FromHours(1));
+                if (!string.IsNullOrEmpty(RedisConnectionString))
+                {
+                    settings.WithJsonSerializer();
+                    settings.WithRedisConfiguration("redis", RedisConnectionString)
+                        .WithRedisBackplane("redis").WithRedisCacheHandle("redis");
+                }
+            });
+            builder.RegisterGeneric(typeof(BaseCacheManager<>))
+                .WithParameters(new[]
+                {
+                    new TypedParameter(typeof(ICacheManagerConfiguration), cacheConfig)
+                })
+                .As(typeof(ICacheManager<>))
+                .SingleInstance();
+        }
+
     }
 
 
@@ -55,8 +79,30 @@ namespace Cloudents.Infrastructure
                 x.UseSqlServer(SqlConnectionString);
                 return new AppDbContext(x.Options);
             });
+            ConfigureCache(builder);
             //builder.RegisterType<TutorMeSearch>().As<ITutorProvider>();
 
+        }
+
+
+        protected void ConfigureCache(ContainerBuilder builder)
+        {
+            var cacheConfig = ConfigurationBuilder.BuildConfiguration(settings =>
+            {
+                if (!string.IsNullOrEmpty(RedisConnectionString))
+                {
+                    settings.WithJsonSerializer();
+                    settings.WithRedisConfiguration("redis", RedisConnectionString)
+                        .WithRedisBackplane("redis").WithRedisCacheHandle("redis");
+                }
+            });
+            builder.RegisterGeneric(typeof(BaseCacheManager<>))
+                .WithParameters(new[]
+                {
+                    new TypedParameter(typeof(ICacheManagerConfiguration), cacheConfig)
+                })
+                .As(typeof(ICacheManager<>))
+                .SingleInstance();
         }
     }
 }
