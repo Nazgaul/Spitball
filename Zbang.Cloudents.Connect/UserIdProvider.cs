@@ -3,7 +3,7 @@ using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Cloudents.Connect
 {
-    public class UserIdProvider : IUserIdProvider
+    internal class UserIdProvider : IUserIdProvider
     {
         public string GetUserId(IRequest request)
         {

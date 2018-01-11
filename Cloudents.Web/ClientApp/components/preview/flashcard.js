@@ -56,5 +56,11 @@
             }
         },
 
-        components: { closeAction, flashcardHeader, flashcardContent}
+        components: {
+            closeAction,
+            flashcardHeader,
+            flashcardContent,
+            shuffleIcon: () => import("./svg/shuffle-icon.svg"),
+            pinIcon: () => import("./svg/pin-icon.svg")
+            }
     }

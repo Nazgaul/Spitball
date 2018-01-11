@@ -1,0 +1,10 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Zbang.Cloudents.Jared.Models
+{
+    public class UpdateUniversityRequest
+    {
+        [Required]
+        public long UniversityId { get; set; }
+    }
+}

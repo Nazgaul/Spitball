@@ -1,28 +1,31 @@
 ﻿<template>
     <!--<div :class="{'both':showBoth}">-->
     <div class="card-player">
-        isPinn:{{isPined}}
-        <div class="card-template" :class="showFront ? 'front' : (showBoth ? 'both' : 'back')">
-            {{showFrontSide}}
+        <div class="card-template" :class="showBoth ? 'both' : (showFront ? 'front' : 'back')">
             <div class="flip-container">
                 <div class="flipper">
                     <div class="card-content">
                         <div class="side front">
-                            <v-btn @click="$_pinCard">{{isPined?'unpin':'pin'}} this card</v-btn>
-                            <div class="data-wrapper" @click="$_flip(slide)">
+                            <button class="pin-btn" @click="$_pinCard" :class="{'pinned':isPined}">
+                                <pin-icon></pin-icon>
+                            </button>
+                            <div class="data-wrapper" role="button" @click="$_flip(slide)">
                                 <div class="img-container" v-if="slide.front.image">
                                     <img :src="slide.front.image" v-once alt="font image" />
                                 </div>
                                 <div class="text-container" v-if="slide.front.text">
                                     <p class="scrollbar" dir="auto" v-text="slide.front.text" fit-text></p>
                                 </div>
-                                <div class="flip" v-if="!showBoth">
-                                    click to flip
-                                </div>
+                                <v-layout class="flip" v-if="!showBoth" row align-center>
+                                    <flip-icon></flip-icon>
+                                    <span>Click to flip</span>
+                                </v-layout>
                             </div>
                         </div>
                         <div class="side back">
-                            <v-btn @click="$_pinCard">{{isPined?'unpin':'pin'}} this card</v-btn>
+                            <button class="pin-btn" @click="$_pinCard" :class="{'pinned':isPined}">
+                                <pin-icon></pin-icon>
+                            </button>
                             <div class="data-wrapper" @click="$_flip(slide)">
                                 <div class="img-container" v-if="slide.cover.image">
                                     <img :src="slide.cover.image" alt="font image" />
@@ -31,7 +34,8 @@
                                     <p class="scrollbar" dir="auto" v-text="slide.cover.text" fit-text></p>
                                 </div>
                                 <div class="flip" v-if="!showBoth">
-                                    click to flip
+                                    <flip-icon></flip-icon>
+                                    Click to flip
                                 </div>
                             </div>
                         </div>
@@ -78,6 +82,9 @@
         props: {
             card: { type: Object },
             showFrontSide: { default: true }
-        }
+        },
+        components: {
+            pinIcon: () => import("./svg/pin-icon.svg"),
+            flipIcon: () => import("./svg/flip-icon.svg")        }
     }
 </script>
