@@ -55,7 +55,7 @@ namespace Cloudents.Infrastructure.Search
             }, token).ConfigureAwait(false);
             var response = JsonConvert.DeserializeObject<BingCustomSearchResponse>(result);
             var dictionaryOfHost = new ConcurrentDictionary<string, int>();
-            return response.WebPages.Value.Select((s, i) =>
+            return response.WebPages?.Value?.Select((s, i) =>
            {
                Uri.TryCreate(s.OpenGraphImage?.ContentUrl, UriKind.Absolute, out var image);
                var url = new Uri(s.Url);
