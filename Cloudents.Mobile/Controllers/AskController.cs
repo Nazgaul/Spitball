@@ -6,11 +6,11 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
+using Cloudents.Mobile.Extensions;
+using Cloudents.Mobile.Models;
 using Microsoft.Azure.Mobile.Server.Config;
-using Zbang.Cloudents.Jared.Extensions;
-using Zbang.Cloudents.Jared.Models;
 
-namespace Zbang.Cloudents.Jared.Controllers
+namespace Cloudents.Mobile.Controllers
 {
     /// <inheritdoc />
     /// <summary>

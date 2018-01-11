@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 using Cloudents.Core.Enum;
-using Zbang.Cloudents.Jared.Filters;
+using Cloudents.Mobile.Filters;
 
-namespace Zbang.Cloudents.Jared.Models
+namespace Cloudents.Mobile.Models
 {
     /// <summary>
     /// Document and flashcard search object

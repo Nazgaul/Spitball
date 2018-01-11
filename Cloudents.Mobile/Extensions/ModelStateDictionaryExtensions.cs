@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Http.ModelBinding;
 
-namespace Zbang.Cloudents.Jared.Extensions
+namespace Cloudents.Mobile.Extensions
 {
     /// <summary>
     /// Extension for modelstate

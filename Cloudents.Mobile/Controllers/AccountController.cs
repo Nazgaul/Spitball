@@ -1,21 +1,21 @@
-﻿using System.Net;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Cloudents.Mobile.Models;
 using Microsoft.Azure.Mobile.Server.Config;
-using Zbang.Cloudents.Jared.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Extensions;
+using Zbang.Zbox.Infrastructure.Profile;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries;
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using Zbang.Zbox.Infrastructure.Profile;
 
-namespace Zbang.Cloudents.Jared.Controllers
+namespace Cloudents.Mobile.Controllers
 {
     [MobileAppController, Authorize]
     public class AccountController : ApiController

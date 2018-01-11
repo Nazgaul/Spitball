@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Zbang.Cloudents.Jared.Models
+namespace Cloudents.Mobile.Models
 {
     /// <summary>
     /// Create course object
@@ -11,7 +11,7 @@ namespace Zbang.Cloudents.Jared.Models
         /// The course name
         /// </summary>
         [Required]
-        [StringLength(Zbox.Domain.Box.NameLength)]
+        [StringLength(Zbang.Zbox.Domain.Box.NameLength)]
         public string CourseName { get; set; }
 
         /// <summary>

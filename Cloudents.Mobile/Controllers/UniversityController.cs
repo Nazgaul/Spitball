@@ -4,14 +4,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Cloudents.Core.Interfaces;
+using Cloudents.Mobile.Extensions;
+using Cloudents.Mobile.Models;
 using Microsoft.Azure.Mobile.Server.Config;
-using Zbang.Cloudents.Jared.Extensions;
-using Zbang.Cloudents.Jared.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Extensions;
 
-namespace Zbang.Cloudents.Jared.Controllers
+namespace Cloudents.Mobile.Controllers
 {
     /// <inheritdoc />
     /// <summary>

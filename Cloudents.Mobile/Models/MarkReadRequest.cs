@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Zbang.Cloudents.Jared.Models
+namespace Cloudents.Mobile.Models
 {
     public class MarkReadRequest
     {

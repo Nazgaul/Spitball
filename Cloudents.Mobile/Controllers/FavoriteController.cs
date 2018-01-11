@@ -10,7 +10,7 @@ using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Dto.JaredDtos;
 using Zbang.Zbox.ViewModel.Queries.Jared;
 
-namespace Zbang.Cloudents.Jared.Controllers
+namespace Cloudents.Mobile.Controllers
 {
     [MobileAppController]
     public class FavoriteController : ApiController

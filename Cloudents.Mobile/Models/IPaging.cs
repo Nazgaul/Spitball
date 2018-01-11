@@ -1,4 +1,4 @@
-﻿namespace Zbang.Cloudents.Jared.Models
+﻿namespace Cloudents.Mobile.Models
 {
     public interface IPaging
     {

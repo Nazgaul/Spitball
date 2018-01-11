@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Web.Http.Routing;
 
-namespace Zbang.Cloudents.Jared.Filters
+namespace Cloudents.Mobile.Filters
 {
     public class VersionConstraint : IHttpRouteConstraint
     {
