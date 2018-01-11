@@ -15,7 +15,7 @@ let transferResultAsk = res => {
     const itemResult = res.result.result || [];
     const items = itemResult.map(val => { return { ...val, template: "item" } });
     const data = video ? [{ ...video, template: "video" }, ...items] : items;
-    return { data }
+    return { data, source:res.result.facet}
 };
 let transferResultTutor = data => {
     let body = data || [];
@@ -64,8 +64,9 @@ export const course = { ...courseFunctions };
 export const help = {
     getFaq: () => axios.get("help"),
     getUniData: (id) => axios.get("blog", { params: { id: id } })
-}
+};
 
-export const flashcard = {
-    get: ({ id }) => axios.get("flashcard", { params: { id: Number(id.id) } })
+export const spitballPreview = {
+    getFlashcard: ({ id }) => axios.get("flashcard", { params: { id: Number(id) } }),
+    getDocument: ({ id }) => axios.get("document", { params: { id: Number(id) } })
 };
