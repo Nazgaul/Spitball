@@ -136,6 +136,28 @@ export const pageMixin =
                         this.pageData = val;
                         this.items = val.data;
                         this.$nextTick(() => {
+                            if(!this.items.length){
+                               Promise.resolve(()=>{
+                                   let filters={};
+                                   Object.entries(this.query).forEach(([key, currentVal]) => {
+                                    if(key!=="sort"&&key!=="q"&&currentVal){
+                                        filters[key]=currentVal;
+                                    }
+                                });
+                                   return filters;
+                               }).then(filters=>{
+                                   let myFilters=filters();
+                                   let ExtraContent="";
+                                   if(myFilters&&Object.keys(myFilters).length){
+                                       ExtraContent="#";
+                                       Object.entries(myFilters).forEach(([key, currentVal]) => {
+                                           ExtraContent+=`${key}:[${currentVal}]`;
+                                       });
+                                       ExtraContent+="#";
+                                   }
+                                this.$ga.event("Empty_State",this.name,ExtraContent+this.userText);
+                               });
+                            }
                             this.UPDATE_LOADING(false);
                         });
                     }
@@ -143,7 +165,7 @@ export const pageMixin =
             },
             isEmpty: function () { return this.pageData.data ? !this.pageData.data.length : true },
             subFilterVertical() {
-                return this.name.includes('note') || this.name === 'flashcard' || this.name === 'job';
+                return this.name.includes('note') || this.name === 'flashcard' || this.name === 'job'||this.name.includes('ask');
             }
         },
 
@@ -237,9 +259,9 @@ export const pageMixin =
                 //check if filter selection have values that not exist in the current filter options make query replace without the filters
                 let filterPotential = (this.filterObject || []).map(i => {if(i.data&&i.data.length&&i.data[0].id){
                                                                             return i.data.map(i=>i.id);
-                                                                          } return i.data});
+                                                                          } return i.data?i.data.map(c=>c.toString()):[]});
                 filterPotential=filterPotential.join(',').split(',');
-                if (Array.from(this.filterSelection).filter(i => filterPotential.includes(i)).length !== this.filterSelection.length) {
+                if (Array.from(this.filterSelection).filter(i => filterPotential.includes(i.toString())).length !== this.filterSelection.length) {
                     const routeParams = { path: '/' + this.name, query: { q: this.userText } };
                     this.$router.replace(routeParams);
                 }
