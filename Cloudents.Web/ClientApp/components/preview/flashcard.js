@@ -63,6 +63,5 @@
             shuffleIcon: () => import("./svg/shuffle-icon.svg"),
             pinIcon: () => import("./svg/pin-icon.svg")
             },
-        props:{id:{Number}},
-        components: { closeAction, flashcardHeader, flashcardContent}
+        props:{id:{Number}}
     }
