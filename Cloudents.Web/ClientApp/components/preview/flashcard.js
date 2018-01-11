@@ -56,17 +56,13 @@
                 else if (this.currentIndex >= 0 && event.keyCode === 39 && !this.isEnded) this.currentIndex++;
             }
         },
-<<<<<<< Updated upstream
-
         components: {
             closeAction,
             flashcardHeader,
             flashcardContent,
             shuffleIcon: () => import("./svg/shuffle-icon.svg"),
             pinIcon: () => import("./svg/pin-icon.svg")
-            }
-=======
+            },
         props:{id:{Number}},
         components: { closeAction, flashcardHeader, flashcardContent}
->>>>>>> Stashed changes
     }
