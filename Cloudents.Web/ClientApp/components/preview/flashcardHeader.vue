@@ -25,19 +25,25 @@
         <v-flex class="progress-wrapper">
 
             <div class="flashcard-title">
-                <div class="flashcard-icon"></div>
-                <h4 v-if="props.showCards">{{props.name}} </h4>
+                <h4 v-if="props.showProgress">{{props.name}} </h4>
             </div>
-            <v-progress-linear v-if="props.showCards" height="10" color="info" :value="((props.currentIndex+1)/props.cardsSize)*100"></v-progress-linear>
-            <v-layout v-if="props.showCards" row justify-space-between>
-                <v-flex xs2>progress</v-flex>
-                <v-flex xs2 class="text-xs-right">
+            <v-progress-linear v-if="props.showProgress" height="10" color="info" :value="((props.isEnded?props.currentIndex:props.currentIndex+1)/(props.isEnded?props.currentIndex:props.cardsSize))*100"></v-progress-linear>
+            <v-layout v-if="props.showProgress" class="progress-text" hidden-xs-only row justify-space-between>
+                <div>progress</div>
+                <div class="text-xs-right">
                     <span>{{(props.currentIndex+1)}}/{{props.cardsSize}}</span>
-                </v-flex>
+                </div>
             </v-layout>
         </v-flex>
         <close-action class="close-btn"></close-action>
         <slot name="actions"></slot>
+        <div class="pinned-counter" v-if="props.isEnded">
+            <div class="num">{{props.pinnedCount}}</div>
+            <div class="icon">
+                <pin-icon></pin-icon>
+                <div>pinned</div>
+            </div>
+        </div>
     </v-layout>
 </template>
 <style src="./flashcardHeader.less" lang="less"></style>

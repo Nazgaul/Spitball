@@ -43,6 +43,7 @@ export let verticals =
             name: "Textbooks"
         },
         ask: {
+            filter:[{ id: "source", name: "sources" }],
             id: routes.questionRoute,
             name: "Ask a Question"
             
