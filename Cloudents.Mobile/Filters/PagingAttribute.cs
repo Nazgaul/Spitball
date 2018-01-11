@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Zbang.Cloudents.Jared.Filters
+namespace Cloudents.Mobile.Filters
 {
-    [AttributeUsageAttribute(AttributeTargets.Property, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public sealed class PagingAttribute : Attribute
     {
     }

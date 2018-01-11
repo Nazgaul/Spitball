@@ -2,7 +2,7 @@
 using System.ServiceModel.Channels;
 using System.Web;
 
-namespace Zbang.Cloudents.Jared.Extensions
+namespace Cloudents.Mobile.Extensions
 {
     internal static class HttpRequestMessageExtensions
     {

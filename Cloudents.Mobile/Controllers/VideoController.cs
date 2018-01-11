@@ -6,7 +6,7 @@ using System.Web.Http;
 using Cloudents.Core.Interfaces;
 using Microsoft.Azure.Mobile.Server.Config;
 
-namespace Zbang.Cloudents.Jared.Controllers
+namespace Cloudents.Mobile.Controllers
 {
     [Obsolete]
     [MobileAppController]

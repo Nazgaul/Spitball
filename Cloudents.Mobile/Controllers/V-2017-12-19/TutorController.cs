@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Cloudents.Mobile.Extensions;
+using Cloudents.Mobile.Filters;
+using Cloudents.Mobile.Models;
 using Microsoft.Azure.Mobile.Server.Config;
-using Zbang.Cloudents.Jared.Extensions;
-using Zbang.Cloudents.Jared.Filters;
-using Zbang.Cloudents.Jared.Models;
 
-namespace Zbang.Cloudents.Jared.Controllers
+namespace Cloudents.Mobile.Controllers
 {
     /// <inheritdoc />
     /// <summary>

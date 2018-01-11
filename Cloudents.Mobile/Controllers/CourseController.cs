@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Web.Http;
-using Microsoft.Azure.Mobile.Server.Config;
-using System.Net.Http;
-using System.Threading.Tasks;
 using System.Net;
+using System.Net.Http;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Web.Http;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
-using Zbang.Cloudents.Jared.Extensions;
-using Zbang.Cloudents.Jared.Models;
+using Cloudents.Mobile.Extensions;
+using Cloudents.Mobile.Models;
+using Microsoft.Azure.Mobile.Server.Config;
 
-namespace Zbang.Cloudents.Jared.Controllers
+namespace Cloudents.Mobile.Controllers
 {
     /// <inheritdoc />
     /// <summary>

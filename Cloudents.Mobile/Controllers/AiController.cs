@@ -6,7 +6,7 @@ using System.Web.Http;
 using Cloudents.Core.Interfaces;
 using Microsoft.Azure.Mobile.Server.Config;
 
-namespace Zbang.Cloudents.Jared.Controllers
+namespace Cloudents.Mobile.Controllers
 {
     /// <summary>
     /// Get a sentence the user enter and interpret it

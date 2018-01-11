@@ -1,8 +1,8 @@
 ﻿using System.Web.Http;
+using Cloudents.Mobile.Models;
 using Newtonsoft.Json.Linq;
-using Zbang.Cloudents.Jared.Models;
 
-namespace Zbang.Cloudents.Jared.Controllers
+namespace Cloudents.Mobile.Controllers
 {
     [Route(".auth/refresh")]
     public class RefreshController : ApiController

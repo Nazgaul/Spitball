@@ -2,7 +2,7 @@
 using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
 
-namespace Zbang.Cloudents.Jared.Models
+namespace Cloudents.Mobile.Models
 {
     /// <summary>
     /// Job request api model

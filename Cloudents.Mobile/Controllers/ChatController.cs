@@ -4,8 +4,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Cloudents.Mobile.Models;
 using Microsoft.Azure.Mobile.Server.Config;
-using Zbang.Cloudents.Jared.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Extensions;
@@ -14,7 +14,7 @@ using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries;
 
-namespace Zbang.Cloudents.Jared.Controllers
+namespace Cloudents.Mobile.Controllers
 {
     [MobileAppController]
    

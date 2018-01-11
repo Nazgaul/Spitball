@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Zbang.Cloudents.Jared.Models
+namespace Cloudents.Mobile.Models
 {
     public class LoginResult
     {

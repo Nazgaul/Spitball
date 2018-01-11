@@ -5,7 +5,7 @@ using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
 using Zbang.Zbox.ReadServices;
 
-namespace Zbang.Cloudents.Jared.Controllers
+namespace Cloudents.Mobile.Controllers
 {
     [MobileAppController]
     [Obsolete]

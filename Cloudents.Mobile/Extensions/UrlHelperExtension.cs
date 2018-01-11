@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.Web.Http.Routing;
 using Cloudents.Core.Extension;
-using Zbang.Cloudents.Jared.Models;
+using Cloudents.Mobile.Models;
 
-namespace Zbang.Cloudents.Jared.Extensions
+namespace Cloudents.Mobile.Extensions
 {
     /// <summary>
     /// Extension class for urlHelper

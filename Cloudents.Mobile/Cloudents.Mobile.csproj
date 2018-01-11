@@ -267,10 +267,6 @@
       <Project>{A29AAA7A-E472-4661-A503-EB00FD43D2C3}</Project>
       <Name>Zbang.Zbox.Infrastructure.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Mail\Zbang.Zbox.Infrastructure.Mail.csproj">
-      <Project>{F5E270CF-6B83-4879-9B04-773B87F80B0E}</Project>
-      <Name>Zbang.Zbox.Infrastructure.Mail</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Notification\Zbang.Zbox.Infrastructure.Notifications.csproj">
       <Project>{20D10149-03BF-4C32-ABE4-D278A46CAD7F}</Project>
       <Name>Zbang.Zbox.Infrastructure.Notifications</Name>

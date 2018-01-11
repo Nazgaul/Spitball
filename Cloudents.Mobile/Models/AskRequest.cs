@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Zbang.Cloudents.Jared.Models
+namespace Cloudents.Mobile.Models
 {
     /// <summary>
     /// Ask Question search object
