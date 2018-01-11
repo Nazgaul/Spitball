@@ -147,6 +147,132 @@
     max-width: 800px;
     margin: 0 auto;
 
+
+    nav.buttons, .keyboard {
+        position: absolute;
+        bottom: -44px;
+
+        button {
+            margin: 0;
+            border: 2px solid @color-blue;
+            border-radius: 100%;
+
+            i {
+                color: @color-blue;
+            }
+        }
+    }
+
+
+    nav.buttons {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        text-align: center;
+        width: 180px;
+
+        @media(min-width: 600px) {
+            left: ~"calc(50% - 90px)";
+        }
+
+        @media(max-width: 600px) {
+            justify-content: space-between;
+        }
+
+
+        .prev {
+            -moz-transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            -o-transform: rotate(90deg);
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
+
+        .next {
+            -moz-transform: rotate(-90deg);
+            -ms-transform: rotate(-90deg);
+            -o-transform: rotate(-90deg);
+            -webkit-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+        }
+
+        button[disabled] {
+            border-color: @color-medium-grey; // TODO: irena- fix to actual color
+            i {
+                color: @color-medium-grey; // TODO: irena- fix to actual color
+                margin: 0;
+            }
+        }
+
+        button {
+            outline: none;
+
+            &:hover:not([disabled]) {
+                border-color: @color-dark-blue;
+
+                i {
+                    color: @color-dark-blue;
+                }
+            }
+        }
+
+        i {
+            padding-top: 4px;
+            width: 28px;
+            height: 28px;
+            font-size: 32px;
+        }
+    }
+
+
+    .pinned-counter {
+        display: flex;
+        align-items: flex-start;
+        margin-right: 15px;
+
+        @media(max-width: 600px) {
+            display: none;
+        }
+
+        .num {
+            font-size: 32px;
+            line-height: 32px;
+        }
+
+        .icon {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            font-size: 12px;
+
+            svg {
+                width: 30px;
+                height: 30px;
+                fill: @pinColor;
+                margin-bottom: 5px;
+            }
+        }
+    }
+
+    .keyboard {
+        right: 10px;
+
+        .md-ripple-container {
+            display: none;
+        }
+
+
+        > button {
+            min-width: 0;
+        }
+
+        md-icon {
+            width: 40px;
+            height: 40px;
+        }
+    }
+
     .flashcard-wrapper {
         max-width: @cardWidth;
         width: 100%;
@@ -279,6 +405,7 @@
             font-size: 50px;
             font-weight: bold;
             margin: 0;
+            color: @color-grey;
 
             @media(max-width: 600px) {
                 font-size: 34px;
@@ -286,6 +413,8 @@
         }
 
         h4 {
+            margin: 10px 0;
+            font-weight: normal;
             color: @color-grey; // TODO: Irena - fix to actual color
             font-size: 14px;
         }
@@ -310,28 +439,15 @@
         .shuffle {
             .inTheMiddle;
             color: @color-grey; // TODO: Irena - fix to actual color
-
             @media(min-width: 600px) {
                 margin-top: 20px;
             }
 
-            md-switch {
-                margin: 0;
-                flex-direction: row-reverse;
-                .inTheMiddle;
-                font-size: 16px;
-                font-weight: bold;
-                letter-spacing: 0.5px;
-
-
-                .md-container {
-                    margin-right: 0;
-                    margin-left: 8px;
-                    transform: rotateY(0deg) /*rtl:rotateY(180deg)*/;
-                }
+            .switch {
+                margin-left: 10px;
             }
 
-            md-icon {
+            svg {
                 width: 22px;
                 height: 20px;
                 fill: @color-grey;
@@ -359,10 +475,23 @@
                 text-transform: capitalize;
                 margin: 10px;
                 border-radius: 10px;
+                text-align: center;
+                min-width: 92px;
+                min-height: 26px;
+                cursor: pointer;
+                padding: 5px 16px;
+                white-space: normal;
+                background: @color-blue;
+                color: #fff;
+                outline: none;
 
                 @media(max-width:600px) {
                     height: 46px;
                     font-size: 16px;
+                }
+
+                &:hover {
+                    background: @color-dark-blue;
                 }
 
                 &.pinned-cards {
@@ -589,7 +718,7 @@
                 .card-style;
 
                 .front {
-                    border-right: 1px solid @color-grey; // TODO: Irena - fix to actual color
+                    border-right: 1px solid @color-medium-grey; // TODO: Irena - fix to actual color
                 }
 
                 .card-content .side .data-wrapper {
@@ -677,7 +806,7 @@
                         p {
                             font-size: 48px;
                             overflow: auto;
-                            height: 100%; // IE will fuck up if you change this
+                            //height: 100%; // IE will fuck up if you change this // Irena - i changed it - IE fucks up when it comes to resizing - lets see if it will keep happenning with vue resizing library...
                             margin: 0 auto;
 
                             &.lessText {
@@ -716,18 +845,21 @@
 
             .pin-btn {
                 position: absolute;
-                top: 10px;
+                top: 5px;
                 right: 5px;
                 z-index: 1;
+                outline: none;
+                width: 36px;
+                height: 36px;
 
-                &.pinned md-icon {
+                &.pinned svg {
                     fill: @pinColor;
                 }
 
-                md-icon {
+                svg {
                     width: 24px;
                     height: 24px;
-                    fill: @color-light-grey; // TODO: Irena - fix to actual color
+                    fill: @color-medium-grey; // TODO: Irena - fix to actual color
                     @media(max-width: 600px) {
                         width: 20px;
                         height: 20px;
@@ -736,20 +868,20 @@
             }
 
             .flip {
-                color: @color-light-grey; // TODO: Irena - fix to actual color
+                color: @color-medium-grey; // TODO: Irena - fix to actual color
                 position: absolute;
                 right: 10px;
                 bottom: 10px;
-                font-size: 16px;
+                font-size: 10px;
                 right: 11px;
                 bottom: 7px;
 
-                md-icon {
+                svg {
+                    transform: scaleX(-1) rotate(90deg);
+                    width: 16px;
+                    height: 15px;
                     margin-right: 4px;
-                    margin-bottom: 4px;
-                    width: 20px;
-                    height: 19px;
-                    fill: @color-light-grey; // TODO: Irena - fix to actual color
+                    fill: @color-medium-grey; // TODO: Irena - fix to actual color
                 }
             }
         }

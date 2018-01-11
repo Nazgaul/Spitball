@@ -1,6 +1,6 @@
 ﻿@import "../../mixin.less";
 
-@flashcardHeaderHeight: 126px;
+@flashcardHeaderHeight: 142px;
 
 .card-size(@width: 2, @height: 1) {
     @media(min-width: 600px) {
@@ -39,6 +39,7 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
+    padding-bottom: 16px;
     //padding-bottom: 12px;
     @media(max-width: 600px) {
         min-height: 80px;
@@ -55,14 +56,14 @@
 
     .close-btn {
         position: absolute;
-        top: 10px;
+        top: 52px;
         right: 10px;
         line-height: 0;
 
         svg {
             fill: @Feed-Like-count;
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
         }
 
         @media(max-width: 600px) {
@@ -83,7 +84,6 @@
         position: relative;
 
         @media(min-width: 600px) {
-            margin-left: 14px;
             max-width: 240px;
         }
 
@@ -97,20 +97,10 @@
             }
 
             h4 {
-                font-size: 20px;
-                font-weight: bold;
-            }
-
-            md-icon {
-                width: 48px;
-                height: 40px;
-                fill: @color-blue;
-                margin-right: 10px;
-            }
-
-            .flashcard-icon {
-                margin-right: 10px;
-                .flashcard-icon(42px, @color-blue, @color-blue, #eee, @color-blue, @color-blue, '');
+                font-size: 18px;
+                font-weight: 600;
+                letter-spacing: -0.3px;
+                color: @color-grey;
             }
         }
 
@@ -141,23 +131,19 @@
                     margin: 0;
                 }
             }
+        }
 
-            .progress-line {
-                width: 100%;
-                position: relative;
+        .progress-linear {
+            margin-top: 16px;
+            margin-bottom: 4px;
 
-                span {
-                    position: absolute;
-                    top: 0;
-                    right: 0;
-                    bottom: 0;
-                    left: 0;
-                    text-align: center;
+            .progress-linear__background, .progress-linear__bar {
+                border-radius: 10px;
+                overflow: hidden;
+            }
 
-                    @media(max-width: 600px) {
-                        line-height: 22px;
-                    }
-                }
+            .progress-linear__bar {
+                border: 1px solid #3293f6;
             }
         }
 
@@ -167,9 +153,8 @@
             justify-content: space-between;
             text-transform: capitalize;
             margin-top: 4px;
-            margin-top: 9px;
-            font-size: 14px;
-            padding: 0 8px;
+            font-size: 10px;
+            padding: 0 4px;
 
             @media(max-width: 600px) {
                 display: none;
@@ -178,36 +163,53 @@
     }
 
     .card-sides {
-        font-size: 14px;
+        margin-right: 8px;
 
         button {
             text-transform: none;
+            outline: none;
+            margin-left: 16px;
 
             .flashcard-icon {
-                margin-right: 10px;
-                margin-bottom: 6px;
+                margin-right: 4px;
+                margin-bottom: 2px;
+            }
+
+            .side-name {
+                font-size: 10px;
+                letter-spacing: -0.3px;
             }
 
 
-            &:not(.active) .flashcard-icon {
-                margin-right: 10px;
-                .flashcard-icon(36px, #bbb, #bbb, #eee, #bbb, #bbb, '');
+            &:not(.active) {
+
+                &.front .flashcard-icon {
+                    .flashcard-icon(24px, @color-medium-grey, @color-medium-grey, @Site-Background, @color-blue, @color-medium-grey, '');
+                }
+
+                &.back .flashcard-icon {
+                    .flashcard-icon(24px, @color-medium-grey, @color-medium-grey, @Site-Background,@color-medium-grey, @color-blue, '');
+                }
+
+                &.both .flashcard-icon {
+                    .flashcard-icon(24px, @color-medium-grey, @color-medium-grey, @Site-Background, @color-blue, @color-blue, '');
+                }
             }
 
             &.active {
                 &.front .flashcard-icon {
-                    .flashcard-icon(36px, @color-blue, #bbb, #eee, #bbb, #bbb, '');
+                    .flashcard-icon(24px, @color-blue, @color-medium-grey, @Site-Background, @color-blue, @color-medium-grey, '');
                 }
 
                 &.back .flashcard-icon {
-                    .flashcard-icon(36px, #bbb, @color-blue, #eee,#bbb, #bbb, '');
+                    .flashcard-icon(24px, @color-medium-grey, @color-blue, @Site-Background,@color-medium-grey, @color-blue, '');
                     /*md-icon {
                         fill: @buttonColorBlue;
                     }*/
                 }
 
                 &.both .flashcard-icon {
-                    .flashcard-icon(36px, @color-blue, @color-blue, #eee, #bbb, #bbb, '');
+                    .flashcard-icon(24px, @color-blue, @color-blue, @Site-Background, @color-blue, @color-blue, '');
                 }
             }
         }
