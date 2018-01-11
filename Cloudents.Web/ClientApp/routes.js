@@ -182,7 +182,9 @@ let routes2 = [
         props: foodDetailsProps
     },
     {
-        path: "/item/:university/:courseId/:courseName/:id/:itemName", name: "item", components: {default:showItem,header:previewHeader}, props: true, meta: {
+        path: "/item/:university/:courseId/:courseName/:id/:itemName", name: "item", components: {default:showItem,header:previewHeader},
+        props: {default:(route)=>({id:route.params.id})},
+        meta: {
             pageName: RouteTypes.notesRoute
         }
     },
@@ -190,7 +192,7 @@ let routes2 = [
         path: "/flashcard/:university/:courseId/:courseName/:id/:itemName",
         name: "flashcard",
         components: { default: showFlashcard, header: previewHeader },
-        props: true,
+        props: {default:(route)=>({id:route.params.id})},
         meta: {
             pageName: RouteTypes.flashcardRoute
         }
