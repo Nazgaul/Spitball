@@ -13,6 +13,10 @@ using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Cloudents.Connect
 {
+    /// <inheritdoc />
+    /// <summary>
+    /// Hub chat
+    /// </summary>
     public class SpitballHub : Hub
     {
         private readonly IZboxWriteService m_WriteService;

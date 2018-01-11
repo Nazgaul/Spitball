@@ -3,7 +3,7 @@ using Microsoft.ApplicationInsights.Extensibility;
 
 namespace Zbang.Cloudents.Jared
 {
-    public class RequestBodyInitializer : ITelemetryInitializer
+    internal class RequestBodyInitializer : ITelemetryInitializer
     {
         public void Initialize(ITelemetry telemetry)
         {

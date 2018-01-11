@@ -4,7 +4,7 @@ using System.Web;
 
 namespace Zbang.Cloudents.Jared.Extensions
 {
-    public static class HttpRequestMessageExtensions
+    internal static class HttpRequestMessageExtensions
     {
         public static string GetClientIp(this HttpRequestMessage request)
         {
