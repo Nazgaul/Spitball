@@ -3,29 +3,26 @@ using System.Reflection;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
 using Autofac;
-using Autofac.Integration.SignalR;
 using Autofac.Integration.WebApi;
-using Microsoft.AspNet.SignalR;
+using Cloudents.Infrastructure;
 using Microsoft.Azure.Mobile.Server.Authentication;
 using Microsoft.Azure.Mobile.Server.Config;
+using Microsoft.Owin.Logging;
 using Newtonsoft.Json;
 using Owin;
-using Zbang.Cloudents.Connect;
 using Zbang.Zbox.Domain.CommandHandlers;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Domain.Services;
-using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Data;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Notifications;
 using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.WorkerRoleSearch;
-using t = Cloudents.Infrastructure;
+using InfrastructureModule = Zbang.Zbox.Infrastructure.InfrastructureModule;
 
-namespace Zbang.Cloudents.Jared
+namespace Cloudents.Mobile
 {
     public partial class Startup
     {
@@ -34,7 +31,7 @@ namespace Zbang.Cloudents.Jared
             var builder = new ContainerBuilder();
 
             var config = new HttpConfiguration();
-            config.EnableSystemDiagnosticsTracing();
+            //config.EnableSystemDiagnosticsTracing();
             config.MapHttpAttributeRoutes();
             config.Formatters.JsonFormatter.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
 
@@ -69,8 +66,8 @@ namespace Zbang.Cloudents.Jared
             builder.RegisterModule<DataModule>();
             builder.RegisterModule<ReadServiceModule>();
             builder.RegisterModule<MailModule>();
-           
-            var module = new t.MobileAppInfrastructureModule(
+
+            var module = new MobileAppInfrastructureModule(
                 ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                 ConfigurationManager.AppSettings["AzureSearchServiceName"],
                 ConfigurationManager.AppSettings["AzureSearchKey"],
@@ -83,33 +80,19 @@ namespace Zbang.Cloudents.Jared
                 .WithParameter("connectionString", "Endpoint=sb://spitball.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=1+AAf2FSzauWHpYhHaoweYT9576paNgmicNSv6jAvKk=")
                 .WithParameter("hubName", "jared-spitball")
                 .InstancePerLifetimeScope();
-            builder.RegisterHubs(Assembly.GetExecutingAssembly());
+           // builder.RegisterHubs(Assembly.GetExecutingAssembly());
             builder.RegisterType<TelemetryLogger>().As<ILogger>();
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
-            ConfigureSignalR(app, container);
+            //ConfigureSignalR(app, container);
             app.UseAutofacMiddleware(container);
             app.UseAutofacWebApi(config);
 
             app.UseWebApi(config);
             ConfigureSwagger(config);
         }
-
-        private static void ConfigureSignalR(IAppBuilder app, IContainer container)
-        {
-            var config = new HubConfiguration
-            {
-                EnableDetailedErrors = false
-                // Resolver = new AutofacDependencyResolver(container)
-            };
-
-            GlobalHost.DependencyResolver = new AutofacDependencyResolver(container);// config.Resolver;
-            GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => new UserIdProvider());
-
-            GlobalHost.DependencyResolver.UseServiceBus(
-                ConfigurationManager.AppSettings["Microsoft.ServiceBus.ConnectionString"], "signalr");
-            app.MapSignalR(config);
-        }
     }
+
+    
 }
 

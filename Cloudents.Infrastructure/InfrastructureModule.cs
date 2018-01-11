@@ -18,7 +18,7 @@ namespace Cloudents.Infrastructure
 {
     public class InfrastructureModule : Module
     {
-        private readonly string _sqlConnectionString;
+        protected readonly string SqlConnectionString;
         private readonly string _searchServiceName;
         private readonly string _searchServiceKey;
         private readonly string _redisConnectionString;
@@ -33,7 +33,7 @@ namespace Cloudents.Infrastructure
             //Environment environment
             )
         {
-            _sqlConnectionString = sqlConnectionString;
+            SqlConnectionString = sqlConnectionString;
             _searchServiceName = searchServiceName;
             _searchServiceKey = searchServiceKey;
             _redisConnectionString = redisConnectionString;
@@ -53,7 +53,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<EngineProcess>().As<IEngineProcess>();
             builder.RegisterType<UniqueKeyGenerator>().As<IKeyGenerator>();
 
-            builder.Register(c => new DapperRepository(_sqlConnectionString));
+            builder.Register(c => new DapperRepository(SqlConnectionString));
             builder.Register(c => new LuisClient("a1a0245f-4cb3-42d6-8bb2-62b6cfe7d5a3", "6effb3962e284a9ba73dfb57fa1cfe40")).AsImplementedInterfaces();
 
             builder.RegisterType<DocumentDbRepositoryUnitOfWork>().AsSelf().As<IStartable>().SingleInstance().AutoActivate();
