@@ -29,8 +29,7 @@
             showCards() { return (this.currentCard&&!this.isEnded)}
         },
         created() {
-            // this.getPreview({ type: 'flashcard', id: this.id }).then(({data:body}) => {
-            this.getPreview({ type: 'flashcard', id: this.id }).then((body) => {
+            this.getPreview({ type: 'flashcard', id: this.id }).then(({data:body}) => {
                 this.item = body;
                 this.showList = this.item.cards.map((item, index) => ({ index, data: item } ))
             });
@@ -61,8 +60,8 @@
             flashcardHeader,
             flashcardContent,
             shuffleIcon: () => import("./svg/shuffle-icon.svg"),
-            pinIcon: () => import("./svg/pin-icon.svg")
+            pinIcon: () => import("./svg/pin-icon.svg"),
+            keyboardIcon: () => import("./svg/keyboard.svg")
             },
-        props:{id:{Number}},
-        components: { closeAction, flashcardHeader, flashcardContent}
+        props:{id:{Number}}
     }

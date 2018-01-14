@@ -1,30 +1,7 @@
 ﻿@import "../../mixin.less";
 
 @flashcardHeaderHeight: 142px;
-
-.card-size(@width: 2, @height: 1) {
-    @media(min-width: 600px) {
-        position: relative;
-        max-height: @cardHeight;
-        max-width: @cardWidth;
-        width: 100%;
-
-        &:before {
-            display: block;
-            content: "";
-            width: 100%;
-            padding-top: (@height / @width) * 100%;
-        }
-
-        .flipper {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-        }
-    }
-}
+@heightOfSiteHeader: 60px;
 
 .card-style() {
     background-color: @color-white;
@@ -45,7 +22,7 @@
         min-height: 80px;
         padding-top: 0;
         position: fixed;
-        //top: @heightOfHeader; // TODO: Irena -fix
+        top: @heightOfSiteHeader; // TODO: Irena -fix
         left: 0;
         right: 0;
         z-index: 2;

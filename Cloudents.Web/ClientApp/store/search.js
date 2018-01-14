@@ -82,12 +82,7 @@ const actions = {
         }).then(() => {
             return searchService.activateFunction[name](paramsList);
         });
-    },
-
-    getPreview(context, model) {
-        return searchService.getPreview(model);
     }
-
 };
 
 export default {
