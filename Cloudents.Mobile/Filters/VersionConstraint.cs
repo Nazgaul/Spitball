@@ -4,7 +4,7 @@ using System.Web.Http.Routing;
 
 namespace Cloudents.Mobile.Filters
 {
-    public class VersionConstraint : IHttpRouteConstraint
+    internal class VersionConstraint : IHttpRouteConstraint
     {
         public const string VersionHeaderName = "api-version";
         //private const int DefaultVersion = 1;

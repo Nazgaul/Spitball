@@ -18,7 +18,6 @@ using Zbang.Zbox.Infrastructure.Notifications;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
-using Zbang.Zbox.WorkerRoleSearch;
 using InfrastructureModule = Zbang.Zbox.Infrastructure.InfrastructureModule;
 
 namespace Cloudents.Mobile
@@ -40,7 +39,7 @@ namespace Cloudents.Mobile
         //   .AddPushNotifications()                   // from the Notifications package
         .ApplyTo(config);
 
-            config.Services.Add(typeof(IExceptionLogger), new AiExceptionLogger());
+            //config.Services.Add(typeof(IExceptionLogger), new AiExceptionLogger());
             var settings = config.GetMobileAppSettingsProvider().GetMobileAppSettings();
 
             if (string.IsNullOrEmpty(settings.HostName))
@@ -80,7 +79,7 @@ namespace Cloudents.Mobile
                 .WithParameter("hubName", "jared-spitball")
                 .InstancePerLifetimeScope();
            // builder.RegisterHubs(Assembly.GetExecutingAssembly());
-            builder.RegisterType<TelemetryLogger>().As<ILogger>();
+            //builder.RegisterType<TelemetryLogger>().As<ILogger>();
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
             //ConfigureSignalR(app, container);

@@ -15,9 +15,9 @@ using Cloudents.Infrastructure.Framework;
 
 namespace ConsoleApp
 {
-    class Program
+    static class Program
     {
-        static async Task Main(string[] args)
+        static async Task Main()
         {
             var builder = new ContainerBuilder();
             var infrastructureModule = new InfrastructureModule(

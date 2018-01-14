@@ -30,7 +30,7 @@ namespace Cloudents.Infrastructure.Framework
 
             var process = _providers.FirstOrDefault(f =>
             {
-                if (f.Metadata.Values is string[] p)
+                if (f.Metadata["AppenderName"] is string[] p)
                 {
                     return p.Contains(Path.GetExtension(uri.AbsoluteUri).ToLower());
                 }
