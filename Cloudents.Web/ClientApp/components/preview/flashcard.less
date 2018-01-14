@@ -6,7 +6,7 @@
 
 /*#region begining*/
 .card-size(@width: 2, @height: 1) {
-    @media(min-width: 600px) {
+    @media(min-width: @screen-xs+1) {
         position: relative;
         max-height: @cardHeight;
         max-width: @cardWidth;
@@ -171,11 +171,11 @@
         text-align: center;
         width: 180px;
 
-        @media(min-width: 600px) {
+        @media(min-width: @screen-xs+1) {
             left: ~"calc(50% - 90px)";
         }
 
-        @media(max-width: 600px) {
+        @media(max-width: @screen-xs) {
             justify-content: space-between;
         }
 
@@ -230,7 +230,7 @@
         align-items: flex-start;
         margin-right: 15px;
 
-        @media(max-width: 600px) {
+        @media(max-width: @screen-xs) {
             display: none;
         }
 
@@ -345,7 +345,7 @@
             transform: rotateX(-180deg) translateZ(1px);
         }
 
-        @media(max-width: 600px) {
+        @media(max-width: @screen-xs) {
             .data-wrapper {
                 flex-direction: column;
             }
@@ -407,7 +407,7 @@
             margin: 0;
             color: @color-grey;
 
-            @media(max-width: 600px) {
+            @media(max-width: @screen-xs) {
                 font-size: 34px;
             }
         }
@@ -426,7 +426,7 @@
             font-size: 16px;
             font-weight: bold;
 
-            @media(min-width: 600px) {
+            @media(min-width: @screen-xs+1) {
                 margin-bottom: 20px;
                 font-size: 16px;
             }
@@ -439,7 +439,7 @@
         .shuffle {
             .inTheMiddle;
             color: @color-grey; // TODO: Irena - fix to actual color
-            @media(min-width: 600px) {
+            @media(min-width: @screen-xs+1) {
                 margin-top: 20px;
             }
 
@@ -462,7 +462,7 @@
             margin: 0 auto;
             width: 100%;
 
-            @media(max-width:600px) {
+            @media(max-width:@screen-xs) {
                 max-width: 200px;
             }
 
@@ -485,7 +485,7 @@
                 color: #fff;
                 outline: none;
 
-                @media(max-width:600px) {
+                @media(max-width:@screen-xs) {
                     height: 46px;
                     font-size: 16px;
                 }
@@ -518,7 +518,7 @@
             //color: @textColorGrey;// TODO: Irena - fix
             font-size: 16px;
 
-            @media(max-width: 600px) {
+            @media(max-width: @screen-xs) {
                 font-size: 14px;
             }
 
@@ -553,7 +553,7 @@
                 margin-left: 10px;
                 padding: 0 10px;
 
-                @media(max-width: 600px) {
+                @media(max-width: @screen-xs) {
                     padding: 0 6px;
                     margin-left: 4px;
                 }
@@ -593,7 +593,7 @@
     .card-player {
         position: relative;
 
-        @media(max-width: 600px) {
+        @media(max-width: @screen-xs) {
             margin-top: 80px;
         }
 
@@ -603,14 +603,14 @@
             max-height: 400px;
             position: relative;
 
-            @media(max-width: 600px) {
+            @media(max-width: @screen-xs) {
                 margin: 16px 0;
                 height: @cardHeight;
             }
 
             &:not(.both) {
                 .card-content .side {
-                    @media(min-width: 600px) {
+                    @media(min-width: @screen-xs+1) {
                         position: absolute;
                         top: 0;
                         bottom: 0;
@@ -626,14 +626,14 @@
                         width: ~"calc(100% - 60px)";
                         margin: 0 auto;
 
-                        @media(max-width: 600px) {
+                        @media(max-width: @screen-xs) {
                             padding: 6px 25px;
                         }
                     }
                 }
             }
 
-            @media(min-width:600px) {
+            @media(min-width:@screen-xs+1) {
                 &.ng-hide-add, &.ng-hide-remove {
                     display: block !important;
                     animation-duration: 0.3s;
@@ -671,24 +671,24 @@
                     flex-direction: row;
                     .card-style;
 
-                    @media(max-width: 600px) {
+                    @media(max-width: @screen-xs) {
                         flex-direction: column;
                     }
                 }
             }
 
             &.both .card-content {
-                @media(max-width: 600px) {
+                @media(max-width: @screen-xs) {
                     flex-direction: column;
                     width: 100%;
                 }
 
                 .side {
-                    @media(min-width: 600px) {
+                    @media(min-width: @screen-xs+1) {
                         width: 50%;
                     }
 
-                    @media(max-width: 600px) {
+                    @media(max-width: @screen-xs) {
                         height: 50%;
                     }
 
@@ -724,7 +724,7 @@
                 .card-content .side .data-wrapper {
                     cursor: auto;
 
-                    @media(max-width: 600px) {
+                    @media(max-width: @screen-xs) {
                         max-height: @cardHeight/2;
                     }
                 }
@@ -767,7 +767,7 @@
                         max-height: @cardHeight;
                     }
 
-                    @media(max-width: 600px) {
+                    @media(max-width: @screen-xs) {
                         height: 100%;
 
                         .data-wrapper {
@@ -827,7 +827,7 @@
                         width: 50%;
                         flex-grow: 1;
 
-                        @media(max-width: 600px) {
+                        @media(max-width: @screen-xs) {
                             width: 100%;
                             height: 50%;
                         }
@@ -836,7 +836,7 @@
                     .img-container img, .text-container p {
                         padding: 35px;
 
-                        @media(max-width: 600px) {
+                        @media(max-width: @screen-xs) {
                             padding: 10px 0;
                         }
                     }
@@ -860,7 +860,7 @@
                     width: 24px;
                     height: 24px;
                     fill: @color-medium-grey; // TODO: Irena - fix to actual color
-                    @media(max-width: 600px) {
+                    @media(max-width: @screen-xs) {
                         width: 20px;
                         height: 20px;
                     }
@@ -888,7 +888,7 @@
     }
 
     .card-player, .cards-info {
-        @media(max-width: 600px) {
+        @media(max-width: @screen-xs) {
             margin-top: 80px;
         }
     }
