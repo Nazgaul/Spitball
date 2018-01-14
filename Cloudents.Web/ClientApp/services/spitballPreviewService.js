@@ -1,23 +1,23 @@
 import {spitballPreview} from "./resources"
 const previewMap = {
     item(id) {
-        // spitballPreview.getDocument({ id: id })
-        return Promise.resolve({
-            //blob: ["https://zboxstorage.blob.core.windows.net/zboxcahce/850de13a-001a-4284-9fa8-68d97dcd81adV6_0_.docx.svg?sv=2016-05-31&sr=b&sig=3Ymn%2BX5WFN%2BuBA3kaxImosiQQhdSeK0QmZNcItQQUX8%3D&st=2017-11-07T09%3A19%3A47Z&se=2017-11-07T09%3A40%3A47Z&sp=r", "https://zboxstorage.blob.core.windows.net/zboxcahce/850de13a-001a-4284-9fa8-68d97dcd81adV6_1_.docx.svg?sv=2016-05-31&sr=b&sig=zhbfiY%2Fi6Z%2F6i2995OevC1CXsJU9jTx7eaekzl8m9pA%3D&st=2017-11-07T09%3A19%3A47Z&se=2017-11-07T09%3A40%3A47Z&sp=r"]
-            //            blob: ["https://zboxstorage.blob.core.windows.net/zboxcahce/c0a06374-acc2-4815-89cc-8f5bb11cda4cV3_.cpp.html?sv=2016-05-31&sr=b&sig=4EowLDbARoM5%2F3CiSJe1YQwHVhnKEdbn%2BadeIuE%2BsPc%3D&st=2017-11-07T09%3A24%3A23Z&se=2017-11-07T09%3A55%3A23Z&sp=r"
-            //],
-            //            blob: ["https://www.spitball.co/item/%D7%94%D7%9E%D7%A1%D7%9C%D7%95%D7%9C-%D7%94%D7%90%D7%A7%D7%93%D7%9E%D7%99-%D7%94%D7%9E%D7%9B%D7%9C%D7%9C%D7%94-%D7%9C%D7%9E%D7%A0%D7%94%D7%9C/72742/%D7%90%D7%A0%D7%92%D7%9C%D7%99%D7%AA-%D7%9E%D7%AA%D7%A7%D7%93%D7%9E%D7%99%D7%9D/175573/%D7%9E-%D7%A0%D7%95%D7%A9%D7%90-410011-%D7%90%D7%A0%D7%92%D7%9C%D7%99%D7%AA-%D7%9E%D7%AA%D7%A7%D7%93%D7%9E%D7%99%D7%9D-%D7%9E%D7%95%D7%A2%D7%93-1-2.pdf/"
-            //],
-            type: "image",
-            blob: ["https://www.laptopmag.com/images/wp/purch-api/incontent/2017/05/ram_lead_image.jpg",
-                "https://beebom.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg",
-                "https://animalsadda.com/wp-content/uploads/2015/04/Booby-4.jpg"
-            ],
-            author: "Jamie Schneider",
-            name: "Item name",
-            date: "2014-01-03T14:02:12Z",
-
-        });
+        return spitballPreview.getDocument({ id: id })
+        // return Promise.resolve({
+        //     //blob: ["https://zboxstorage.blob.core.windows.net/zboxcahce/850de13a-001a-4284-9fa8-68d97dcd81adV6_0_.docx.svg?sv=2016-05-31&sr=b&sig=3Ymn%2BX5WFN%2BuBA3kaxImosiQQhdSeK0QmZNcItQQUX8%3D&st=2017-11-07T09%3A19%3A47Z&se=2017-11-07T09%3A40%3A47Z&sp=r", "https://zboxstorage.blob.core.windows.net/zboxcahce/850de13a-001a-4284-9fa8-68d97dcd81adV6_1_.docx.svg?sv=2016-05-31&sr=b&sig=zhbfiY%2Fi6Z%2F6i2995OevC1CXsJU9jTx7eaekzl8m9pA%3D&st=2017-11-07T09%3A19%3A47Z&se=2017-11-07T09%3A40%3A47Z&sp=r"]
+        //     //            blob: ["https://zboxstorage.blob.core.windows.net/zboxcahce/c0a06374-acc2-4815-89cc-8f5bb11cda4cV3_.cpp.html?sv=2016-05-31&sr=b&sig=4EowLDbARoM5%2F3CiSJe1YQwHVhnKEdbn%2BadeIuE%2BsPc%3D&st=2017-11-07T09%3A24%3A23Z&se=2017-11-07T09%3A55%3A23Z&sp=r"
+        //     //],
+        //     //            blob: ["https://www.spitball.co/item/%D7%94%D7%9E%D7%A1%D7%9C%D7%95%D7%9C-%D7%94%D7%90%D7%A7%D7%93%D7%9E%D7%99-%D7%94%D7%9E%D7%9B%D7%9C%D7%9C%D7%94-%D7%9C%D7%9E%D7%A0%D7%94%D7%9C/72742/%D7%90%D7%A0%D7%92%D7%9C%D7%99%D7%AA-%D7%9E%D7%AA%D7%A7%D7%93%D7%9E%D7%99%D7%9D/175573/%D7%9E-%D7%A0%D7%95%D7%A9%D7%90-410011-%D7%90%D7%A0%D7%92%D7%9C%D7%99%D7%AA-%D7%9E%D7%AA%D7%A7%D7%93%D7%9E%D7%99%D7%9D-%D7%9E%D7%95%D7%A2%D7%93-1-2.pdf/"
+        //     //],
+        //     type: "image",
+        //     blob: ["https://www.laptopmag.com/images/wp/purch-api/incontent/2017/05/ram_lead_image.jpg",
+        //         "https://beebom.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg",
+        //         "https://animalsadda.com/wp-content/uploads/2015/04/Booby-4.jpg"
+        //     ],
+        //     author: "Jamie Schneider",
+        //     name: "Item name",
+        //     date: "2014-01-03T14:02:12Z",
+        //
+        // });
     },
     flashcard(id) {
         debugger;
