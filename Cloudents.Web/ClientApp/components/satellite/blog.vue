@@ -5,7 +5,7 @@
             <img :src="uni.image" class="mr-3 elevation-2" />
             <h5>{{uni.name}}</h5>
         </v-layout>
-        <iframe src="https://spitballco.wordpress.com/"></iframe>
+        <iframe :src="src"></iframe>
     </div>
     <!--</general-page>-->
 </template>
@@ -18,12 +18,16 @@
         components: { generalPage },
         data() {
             return {
-                uni: null
+                uni: null,
+                src: "https://spitballco.wordpress.com/"
             }
         },
         created() {
+            let append = this.$route.query.path || "";
+            append.replace("https://spitballco.wordpress.com/", "")
+            append.replace("http://spitballco.wordpress.com/", "")
+            this.src += append;
             if (this.$route.query.uni) {
-                console.log(this.$route.query.uni);
                 help.getBlog(this.$route.query.uni).then(val => {
                     this.uni = val;
                 });
