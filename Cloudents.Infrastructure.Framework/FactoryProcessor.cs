@@ -12,10 +12,10 @@ namespace Cloudents.Infrastructure.Framework
     {
         private readonly IBlobProvider<FilesContainerName> _blobProvider;
 
-        private readonly IEnumerable<Meta<IPreviewProvider>> _providers;
+        private readonly IEnumerable<Meta<Func<Uri,IPreviewProvider>>> _providers;
 
         public FileFactoryProcessor(IBlobProvider<FilesContainerName> blobProvider, 
-            IEnumerable<Meta<IPreviewProvider>> providers)
+            IEnumerable<Meta<Func<Uri, IPreviewProvider>>> providers)
         {
             _blobProvider = blobProvider;
             _providers = providers;
@@ -36,8 +36,8 @@ namespace Cloudents.Infrastructure.Framework
                 }
                 return false;
             });
-
-            return process?.Value;
+            return process?.Value(uri);
+            //return process.Value;
         }
     }
 }

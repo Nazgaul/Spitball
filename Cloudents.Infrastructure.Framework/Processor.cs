@@ -11,22 +11,24 @@ namespace Cloudents.Infrastructure.Framework
     {
         protected readonly IBlobProvider BlobProvider;
         protected readonly IBlobProvider<CacheContainer> BlobProviderCache;
+        protected readonly Uri BlobUri;
 
         protected const string CacheVersionPrefix = "V";
         protected const string PagesInDocsMetaKey = "pageCount";
         protected const int NumberOfFilesInGroup = 15;
         protected const string DatePattern = "M-d-yy";
 
-        protected Processor(IBlobProvider blobProvider, IBlobProvider<CacheContainer> blobProviderCache)
+        protected Processor(IBlobProvider blobProvider, IBlobProvider<CacheContainer> blobProviderCache, Uri blobUri)
         {
             BlobProvider = blobProvider;
             BlobProviderCache = blobProviderCache;
+            BlobUri = blobUri;
         }
 
        // public abstract bool CanProcessFile(Uri blobName);
 
 
-        protected async Task<IEnumerable<string>> UploadPreviewCacheToAzureAsync(Uri blobName,
+        protected async Task<IEnumerable<string>> UploadPreviewCacheToAzureAsync(
             int startPage,
             Func<int, string> pageCacheBlobName,
             Func<int, Task<Stream>> convertPageToPreview, string cacheVersion,
@@ -38,7 +40,7 @@ namespace Cloudents.Infrastructure.Framework
             var blobsNamesInCache = new List<string>();
             var parallelTask = new List<Task>();
 
-            var meta = await BlobProvider.FetchBlobMetaDataAsync(blobName, token).ConfigureAwait(false);
+            var meta = await BlobProvider.FetchBlobMetaDataAsync(BlobUri, token).ConfigureAwait(false);
             //meta = RemoveOldMetaTags(meta, cacheVersion);
             var pageCount = int.MaxValue;
             if (meta.TryGetValue(PagesInDocsMetaKey, out string sPageCount))
@@ -74,7 +76,7 @@ namespace Cloudents.Infrastructure.Framework
                     break;
                 }
             }
-            var t = BlobProvider.SaveMetaDataToBlobAsync(blobName, meta, token);
+            var t = BlobProvider.SaveMetaDataToBlobAsync(BlobUri, meta, token);
             var tasks = new List<Task>();
             tasks.AddRange(parallelTask);
             tasks.Add(t);

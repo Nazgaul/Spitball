@@ -17,10 +17,12 @@ namespace Cloudents.Infrastructure.Framework
         private const string CacheVersion = CacheVersionPrefix + "6";
 
 
-        public WordProcessor(IBlobProvider blobProvider,
+        public WordProcessor(
+                Uri blobUri,
+                IBlobProvider blobProvider,
                 IBlobProvider<CacheContainer> blobProviderCache)
             //: base(blobProvider, blobProviderPreview, blobProviderCache)
-            : base(blobProvider, blobProviderCache)
+            : base(blobProvider, blobProviderCache, blobUri)
         {
             SetLicense();
         }
@@ -32,22 +34,22 @@ namespace Cloudents.Infrastructure.Framework
         }
 
         public Task<IEnumerable<string>> ConvertFileToWebsitePreviewAsync(
-            Uri blobUri, int indexNum,
+            int indexNum,
             CancellationToken cancelToken)
         {
-            var blobName = BlobProvider.GetBlobNameFromUri(blobUri);
+            var blobName = BlobProvider.GetBlobNameFromUri(BlobUri);
 
             var word = new AsyncLazy<Document>(async () =>
             {
                 SetLicense();
-                using (var sr = await BlobProvider.DownloadFileAsync(blobUri, cancelToken).ConfigureAwait(false))
+                using (var sr = await BlobProvider.DownloadFileAsync(BlobUri, cancelToken).ConfigureAwait(false))
                 {
                     return new Document(sr);
                 }
             });
 
             var svgOptions = new SvgSaveOptions { ShowPageBorder = false, FitToViewPort = true, JpegQuality = 85, ExportEmbeddedImages = true, PageCount = 1 };
-            return UploadPreviewCacheToAzureAsync(blobUri, indexNum,
+            return UploadPreviewCacheToAzureAsync(indexNum,
                 i => CreateCacheFileName(blobName, i),
                 async z =>
                 {

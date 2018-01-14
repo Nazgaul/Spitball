@@ -21,14 +21,14 @@ namespace Cloudents.Web.Api
             _factoryProcessor = factoryProcessor;
         }
 
-        public async Task<IActionResult> Get(long id, bool? firstTime, CancellationToken token)
+        public async Task<IActionResult> Get(long id, int? index, bool? firstTime, CancellationToken token)
         {
             var tModel = _repository.GetAsync(id, token);
             var tContent = firstTime.GetValueOrDefault() ?
                 _documentSearch.Value.ItemContentAsync(id, token) : Task.FromResult<string>(null);
             await Task.WhenAll(tModel, tContent).ConfigureAwait(false);
             var preview = _factoryProcessor.PreviewFactory(tModel.Result.Blob);
-            preview.ConvertFileToWebsitePreviewAsync()
+            var result = await preview.ConvertFileToWebsitePreviewAsync(index.GetValueOrDefault(), token).ConfigureAwait(false);
             var model = tModel.Result;
             if (model == null)
             {
@@ -37,8 +37,9 @@ namespace Cloudents.Web.Api
             return Json(
                 new
                 {
-                    model,
-                    content = tContent.Result
+                    details = model,
+                    content = tContent.Result,
+                    preview = result
                 });
         }
     }

@@ -8,7 +8,7 @@ namespace Cloudents.Core.Storage
 {
     public interface IPreviewProvider
     {
-        Task<IEnumerable<string>> ConvertFileToWebsitePreviewAsync(Uri blobUri, int indexNum,
+        Task<IEnumerable<string>> ConvertFileToWebsitePreviewAsync(int indexNum,
             CancellationToken cancelToken);
     }
 }

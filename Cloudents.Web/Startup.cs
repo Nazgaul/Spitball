@@ -79,7 +79,7 @@ namespace Cloudents.Web
                 Configuration["Storage"]
                 );
             containerBuilder.RegisterModule(infrastructureModule);
-
+            containerBuilder.RegisterModule<Cloudents.Infrastructure.Framework.IocModule>();
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);
@@ -132,6 +132,7 @@ namespace Cloudents.Web
             app.UseWebMarkupMin();
             app.UseMvc(routes =>
             {
+                
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

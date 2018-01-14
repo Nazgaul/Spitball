@@ -17,9 +17,10 @@ namespace Cloudents.Infrastructure.Framework
         private const string CacheVersion = CacheVersionPrefix + "4";
 
         public PdfProcessor(
+            Uri blobUri,
             IBlobProvider blobProvider,
             IBlobProvider<CacheContainer> blobProviderCache)
-            : base(blobProvider,  blobProviderCache)
+            : base(blobProvider,  blobProviderCache, blobUri)
         {
             SetLicense();
         }
@@ -30,9 +31,9 @@ namespace Cloudents.Infrastructure.Framework
             license.SetLicense("Aspose.Total.lic");
         }
 
-        public async Task<IEnumerable<string>> ConvertFileToWebsitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public async Task<IEnumerable<string>> ConvertFileToWebsitePreviewAsync(int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
-            var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
+            var blobName = BlobProvider.GetBlobNameFromUri(BlobUri);
 
             var resolution = new Resolution(150);
             var jpegDevice = new JpegDevice(resolution, 90);
@@ -41,11 +42,11 @@ namespace Cloudents.Infrastructure.Framework
             var pdf = new AsyncLazy<Document>(async () =>
             {
                 SetLicense();
-                blobSr = await BlobProvider.DownloadFileAsync(blobUri, cancelToken).ConfigureAwait(false);
+                blobSr = await BlobProvider.DownloadFileAsync(BlobUri, cancelToken).ConfigureAwait(false);
                 return new Document(blobSr);
             });
 
-            var retVal = await UploadPreviewCacheToAzureAsync(blobUri,
+            var retVal = await UploadPreviewCacheToAzureAsync(
                 indexNum,
                 i => CreateCacheFileName(blobName, i),
                 async z =>
