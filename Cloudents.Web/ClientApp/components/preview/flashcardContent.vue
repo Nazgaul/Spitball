@@ -30,7 +30,7 @@
                                 <div class="img-container" v-if="slide.cover.image">
                                     <img :src="slide.cover.image" alt="font image" />
                                 </div>
-                                <div class="text-container" v-once v-if="slide.cover.text">
+                                <div class="text-container" v-if="slide.cover.text">
                                     <p class="scrollbar" dir="auto" v-text="slide.cover.text" fit-text></p>
                                 </div>
                                 <div class="flip" v-if="!showBoth">

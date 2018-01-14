@@ -6,7 +6,7 @@
 
 /*#region begining*/
 .card-size(@width: 2, @height: 1) {
-    @media(min-width: @screen-xs+1) {
+    @media(min-width: (@screen-xs+1)) {
         position: relative;
         max-height: @cardHeight;
         max-width: @cardWidth;
@@ -151,17 +151,8 @@
     nav.buttons, .keyboard {
         position: absolute;
         bottom: -44px;
-
-        button {
-            margin: 0;
-            border: 2px solid @color-blue;
-            border-radius: 100%;
-
-            i {
-                color: @color-blue;
-            }
         }
-    }
+    
 
 
     nav.buttons {
@@ -171,7 +162,7 @@
         text-align: center;
         width: 180px;
 
-        @media(min-width: @screen-xs+1) {
+        @media(min-width: (@screen-xs + 1)) {
             left: ~"calc(50% - 90px)";
         }
 
@@ -206,6 +197,14 @@
 
         button {
             outline: none;
+            margin: 0;
+            border: 2px solid @color-blue;
+            border-radius: 100%;
+
+            i {
+                color: @color-blue;
+            }
+        
 
             &:hover:not([disabled]) {
                 border-color: @color-dark-blue;
@@ -258,18 +257,16 @@
     .keyboard {
         right: 10px;
 
-        .md-ripple-container {
-            display: none;
-        }
-
-
-        > button {
+        button {
             min-width: 0;
-        }
+            display: flex;
+            align-items: center;
 
-        md-icon {
-            width: 40px;
-            height: 40px;
+            svg{
+                width:36px;
+                height: 36px;
+                fill: @color-blue;
+            }
         }
     }
 
@@ -426,7 +423,7 @@
             font-size: 16px;
             font-weight: bold;
 
-            @media(min-width: @screen-xs+1) {
+            @media(min-width: (@screen-xs + 1)) {
                 margin-bottom: 20px;
                 font-size: 16px;
             }
@@ -439,7 +436,7 @@
         .shuffle {
             .inTheMiddle;
             color: @color-grey; // TODO: Irena - fix to actual color
-            @media(min-width: @screen-xs+1) {
+            @media(min-width: (@screen-xs + 1)) {
                 margin-top: 20px;
             }
 
@@ -610,7 +607,7 @@
 
             &:not(.both) {
                 .card-content .side {
-                    @media(min-width: @screen-xs+1) {
+                    @media(min-width: (@screen-xs + 1)) {
                         position: absolute;
                         top: 0;
                         bottom: 0;
@@ -633,7 +630,7 @@
                 }
             }
 
-            @media(min-width:@screen-xs+1) {
+            @media(min-width:@screen-xs) {
                 &.ng-hide-add, &.ng-hide-remove {
                     display: block !important;
                     animation-duration: 0.3s;
@@ -684,7 +681,7 @@
                 }
 
                 .side {
-                    @media(min-width: @screen-xs+1) {
+                    @media(min-width: (@screen-xs + 1)) {
                         width: 50%;
                     }
 
@@ -891,5 +888,28 @@
         @media(max-width: @screen-xs) {
             margin-top: 80px;
         }
+    }
+}
+
+
+.keyboard-menu {
+
+    .key {
+        width: 18px;
+        text-align: center;
+        margin-right: 10px;
+    }
+
+    .key, .info {
+        display: inline-block;
+    }
+
+    &:before {
+        display: none;
+    }
+
+    .list__tile {
+        min-height: 30px;
+        height: 36px;
     }
 }

@@ -51,6 +51,61 @@
                         <v-icon>sbf-chevron-down</v-icon>
                     </button>
                 </nav>
+
+                <v-menu class="keyboard">
+                    <button color="primary" dark slot="activator">
+                        <keyboard-icon></keyboard-icon>
+                    </button>
+                    <v-list class="keyboard-menu">
+                        <v-list-tile>
+                            <v-list-tile-title>
+                                <span class="key">&larr;</span><span class="info">Previous</span>
+                            </v-list-tile-title>
+                        </v-list-tile>
+                        <v-list-tile>
+                            <v-list-tile-title>
+                                <span class="key">&rarr;</span><span class="info">Next</span>
+                            </v-list-tile-title>
+                        </v-list-tile>
+                        <v-list-tile>
+                            <v-list-tile-title>
+                                <span class="key">&uarr;</span><span class="info">FlipUp</span>
+                            </v-list-tile-title>
+                        </v-list-tile>
+                        <v-list-tile>
+                            <v-list-tile-title>
+                                <span class="key">&darr;</span><span class="info">FlipDown</span>
+                            </v-list-tile-title>
+                        </v-list-tile>
+                        <v-list-tile>
+                            <v-list-tile-title>
+                                <span class="key">P</span><span class="info">Pinned</span>
+                            </v-list-tile-title>
+                        </v-list-tile>
+                        <v-list-tile>
+                            <v-list-tile-title>
+                                <span class="key">S</span><span class="info">Shuffle</span>
+                            </v-list-tile-title>
+                        </v-list-tile>
+                        <v-list-tile>
+                            <v-list-tile-title>
+                                <span class="key">F</span><span class="info">Front</span>
+                            </v-list-tile-title>
+                        </v-list-tile>
+                        <v-list-tile>
+                            <v-list-tile-title>
+                                <span class="key">K</span><span class="info">Back</span>
+                            </v-list-tile-title>
+                        </v-list-tile>
+                        <v-list-tile>
+                            <v-list-tile-title>
+                                <span class="key">B</span><span class="info">Both</span>
+                            </v-list-tile-title>
+                        </v-list-tile>
+                    </v-list>
+                </v-menu>
+
+
             </div>
         </div>
     </div>
