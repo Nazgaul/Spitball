@@ -57,7 +57,7 @@ namespace Cloudents.Mobile.Controllers
         [Route("api/course/follow")]
         [HttpPost]
         [Obsolete]
-        public HttpResponseMessage Follow(FollowRequest model)
+        public HttpResponseMessage Follow(/*FollowRequest model*/)
         {
             //if (model == null)
             //{
@@ -74,7 +74,7 @@ namespace Cloudents.Mobile.Controllers
 
         [HttpDelete, Route("api/course/follow")]
         [Obsolete]
-        public HttpResponseMessage UnFollow(long courseId)
+        public HttpResponseMessage UnFollow(/*long courseId*/)
         {
             return Request.CreateResponse(HttpStatusCode.OK);
         }

@@ -13,10 +13,12 @@ namespace Cloudents.Web.Api
     {
         private readonly IReadRepositoryAsync<DocumentDto, long> _repository;
         private readonly Lazy<IDocumentSearch> _documentSearch;
-        public DocumentController(IReadRepositoryAsync<DocumentDto, long> repository, Lazy<IDocumentSearch> documentSearch)
+        private readonly IFactoryProcessor _factoryProcessor;
+        public DocumentController(IReadRepositoryAsync<DocumentDto, long> repository, Lazy<IDocumentSearch> documentSearch, IFactoryProcessor factoryProcessor)
         {
             _repository = repository;
             _documentSearch = documentSearch;
+            _factoryProcessor = factoryProcessor;
         }
 
         public async Task<IActionResult> Get(long id, bool? firstTime, CancellationToken token)
@@ -25,7 +27,8 @@ namespace Cloudents.Web.Api
             var tContent = firstTime.GetValueOrDefault() ?
                 _documentSearch.Value.ItemContentAsync(id, token) : Task.FromResult<string>(null);
             await Task.WhenAll(tModel, tContent).ConfigureAwait(false);
-
+            var preview = _factoryProcessor.PreviewFactory(tModel.Result.Blob);
+            preview.ConvertFileToWebsitePreviewAsync()
             var model = tModel.Result;
             if (model == null)
             {

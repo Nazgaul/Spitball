@@ -24,6 +24,10 @@ namespace Cloudents.Mobile
 {
     public partial class Startup
     {
+        /// <summary>
+        /// Entry point of app
+        /// </summary>
+        /// <param name="app"></param>
         public static void ConfigureMobileApp(IAppBuilder app)
         {
             var builder = new ContainerBuilder();
@@ -63,7 +67,7 @@ namespace Cloudents.Mobile
             builder.RegisterModule<WriteServiceModule>();
             builder.RegisterModule<DataModule>();
             builder.RegisterModule<ReadServiceModule>();
-           // builder.RegisterModule<MailModule>();
+            // builder.RegisterModule<MailModule>();
 
             var module = new MobileAppInfrastructureModule(
                 ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
@@ -78,7 +82,7 @@ namespace Cloudents.Mobile
                 .WithParameter("connectionString", "Endpoint=sb://spitball.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=1+AAf2FSzauWHpYhHaoweYT9576paNgmicNSv6jAvKk=")
                 .WithParameter("hubName", "jared-spitball")
                 .InstancePerLifetimeScope();
-           // builder.RegisterHubs(Assembly.GetExecutingAssembly());
+            // builder.RegisterHubs(Assembly.GetExecutingAssembly());
             //builder.RegisterType<TelemetryLogger>().As<ILogger>();
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
@@ -91,6 +95,6 @@ namespace Cloudents.Mobile
         }
     }
 
-    
+
 }
 

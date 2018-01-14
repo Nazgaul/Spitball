@@ -6,12 +6,8 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Cloudents.Mobile.Models;
 using Microsoft.Azure.Mobile.Server.Config;
-using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Extensions;
-using Zbang.Zbox.Infrastructure.Profile;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries;
 
@@ -28,6 +24,10 @@ namespace Cloudents.Mobile.Controllers
         private readonly IZboxReadService _zboxReadService;
         //private readonly IProfilePictureProvider _profilePicture;
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="zboxReadService"></param>
         public AccountController(IZboxReadService zboxReadService)
         {
             //_zboxWriteService = zboxWriteService;
@@ -65,7 +65,7 @@ namespace Cloudents.Mobile.Controllers
 
         [HttpPost]
         [Route("api/Account/profile")]
-        public HttpResponseMessage ChangeProfile(ProfileRequest model)
+        public HttpResponseMessage ChangeProfile(/*ProfileRequest model*/)
         {
             //if (!ModelState.IsValid)
             //{
@@ -94,7 +94,7 @@ namespace Cloudents.Mobile.Controllers
 
         [HttpPost]
         [Route("api/account/university")]
-        public HttpResponseMessage UpdateUniversity(UpdateUniversityRequest model)
+        public HttpResponseMessage UpdateUniversity(/*UpdateUniversityRequest model*/)
         {
             //if (model == null)
             //{
