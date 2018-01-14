@@ -1,6 +1,7 @@
 import {spitballPreview} from "./resources"
 const previewMap = {
     item(id) {
+
         return spitballPreview.getDocument({ id: id })
         // return Promise.resolve({
         //     //blob: ["https://zboxstorage.blob.core.windows.net/zboxcahce/850de13a-001a-4284-9fa8-68d97dcd81adV6_0_.docx.svg?sv=2016-05-31&sr=b&sig=3Ymn%2BX5WFN%2BuBA3kaxImosiQQhdSeK0QmZNcItQQUX8%3D&st=2017-11-07T09%3A19%3A47Z&se=2017-11-07T09%3A40%3A47Z&sp=r", "https://zboxstorage.blob.core.windows.net/zboxcahce/850de13a-001a-4284-9fa8-68d97dcd81adV6_1_.docx.svg?sv=2016-05-31&sr=b&sig=zhbfiY%2Fi6Z%2F6i2995OevC1CXsJU9jTx7eaekzl8m9pA%3D&st=2017-11-07T09%3A19%3A47Z&se=2017-11-07T09%3A40%3A47Z&sp=r"]

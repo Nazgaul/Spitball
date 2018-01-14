@@ -9,7 +9,7 @@
                 </v-container>
                     <v-layout row><v-flex>{{item.author}}</v-flex> <v-flex>{{item.date | mediumDate}}</v-flex></v-layout>
         </slot>
-        <div class="page text-xs-center" v-for="(page,index) in item.blob" :key="index">
+        <div class="page text-xs-center" v-for="(page,index) in item.preview" :key="index">
             <component :is="currentComponent" :src="page" :class="item.type+'Content'"></component>
         </div>
     </div>
@@ -35,15 +35,18 @@
         }, 
 
         created() {
-            this.getPreview({ type: 'item', id: this.id }).then(res => {
-                this.item =res
+            this.getPreview({ type: 'item', id: this.id }).then(({data:body})  => {
+                this.item ={...body.details,preview:body.preview};
+                let postfix=this.item.preview[0].split('?')[0].split('.');
+                this.item.type=postfix[postfix.length-1];
             })
         },
         props: { id: { type: String }},
 
         computed: {
             currentComponent() {
-                let type = this.item.type;
+
+                let type = 'image';
                 if (['image', 'svg'].find((x) => x == type.toLowerCase())) return 'img'
                 if (['link', 'text'].find((x) => x == type.toLowerCase()))return 'iframe'
             }
