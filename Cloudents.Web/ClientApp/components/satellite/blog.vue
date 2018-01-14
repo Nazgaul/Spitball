@@ -1,5 +1,4 @@
 <template>
-    <!--<general-page>-->
     <div class="blog-wrap">
         <v-layout row v-if="uni" class="uni" justify-center>
             <img :src="uni.image" class="mr-3 elevation-2" />
@@ -7,7 +6,6 @@
         </v-layout>
         <iframe :src="src"></iframe>
     </div>
-    <!--</general-page>-->
 </template>
 
 
