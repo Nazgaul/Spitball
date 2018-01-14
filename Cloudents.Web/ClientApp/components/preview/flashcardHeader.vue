@@ -27,9 +27,12 @@
             <div class="flashcard-title">
                 <h4 v-if="props.showProgress">{{props.name}} </h4>
             </div>
-            <v-progress-linear v-if="props.showProgress" height="10" color="info" :value="((props.isEnded?props.currentIndex:props.currentIndex+1)/(props.isEnded?props.currentIndex:props.cardsSize))*100"></v-progress-linear>
-            <v-layout v-if="props.showProgress" class="progress-text" hidden-xs-only row justify-space-between>
-                <div>progress</div>
+            <div class="progress-settings" v-if="props.showProgress">
+                <slot name="mobile-actions"></slot>
+                <v-progress-linear :height="props.height" color="info" class="progress-line" :value="((props.isEnded?props.currentIndex:props.currentIndex+1)/(props.isEnded?props.currentIndex:props.cardsSize))*100"></v-progress-linear>
+            </div>
+            <v-layout v-if="props.showProgress" class="progress-text" row justify-space-between>
+                <div class="hidden-xs-only">progress</div>
                 <div class="text-xs-right">
                     <span>{{(props.currentIndex+1)}}/{{props.cardsSize}}</span>
                 </div>

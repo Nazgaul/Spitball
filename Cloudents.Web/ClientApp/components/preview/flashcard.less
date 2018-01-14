@@ -151,8 +151,8 @@
     nav.buttons, .keyboard {
         position: absolute;
         bottom: -44px;
-        }
-    
+    }
+
 
 
     nav.buttons {
@@ -168,6 +168,7 @@
 
         @media(max-width: @screen-xs) {
             justify-content: space-between;
+            width: 100%;
         }
 
 
@@ -204,7 +205,7 @@
             i {
                 color: @color-blue;
             }
-        
+
 
             &:hover:not([disabled]) {
                 border-color: @color-dark-blue;
@@ -261,9 +262,10 @@
             min-width: 0;
             display: flex;
             align-items: center;
+            outline: none;
 
-            svg{
-                width:36px;
+            svg {
+                width: 36px;
                 height: 36px;
                 fill: @color-blue;
             }
@@ -272,7 +274,7 @@
 
     .flashcard-wrapper {
         max-width: @cardWidth;
-        width: 100%;
+        width: ~"calc(100% - 32px)";
         margin: 0 auto;
         position: relative;
     }
@@ -590,10 +592,6 @@
     .card-player {
         position: relative;
 
-        @media(max-width: @screen-xs) {
-            margin-top: 80px;
-        }
-
         .card-template {
             position: relative;
             width: 100%;
@@ -886,14 +884,14 @@
 
     .card-player, .cards-info {
         @media(max-width: @screen-xs) {
-            margin-top: 80px;
+            margin-top: 62px;
         }
     }
 }
 
 
 .keyboard-menu {
-
+    padding: 0; 
     .key {
         width: 18px;
         text-align: center;
@@ -910,6 +908,10 @@
 
     .list__tile {
         min-height: 30px;
-        height: 36px;
+        height: 33px;
+
+        .list__tile__title {
+            font-size: 13px;
+        }
     }
 }

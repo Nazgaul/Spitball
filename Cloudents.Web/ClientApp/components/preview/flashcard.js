@@ -61,7 +61,8 @@
             flashcardContent,
             shuffleIcon: () => import("./svg/shuffle-icon.svg"),
             pinIcon: () => import("./svg/pin-icon.svg"),
-            keyboardIcon: () => import("./svg/keyboard.svg")
+            keyboardIcon: () => import("./svg/keyboard.svg"),
+            settingsIcon: () => import("./svg/settings-icon.svg")
             },
         props:{id:{Number}}
     }

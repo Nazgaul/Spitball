@@ -18,17 +18,24 @@
     justify-content: space-between;
     padding-bottom: 16px;
     //padding-bottom: 12px;
-    @media(max-width: 600px) {
-        min-height: 80px;
+    @media(max-width: @screen-xs) {
+        min-height: 56px;
+        padding-bottom: 0;
         padding-top: 0;
         position: fixed;
         top: @heightOfSiteHeader; // TODO: Irena -fix
         left: 0;
         right: 0;
-        z-index: 2;
+        z-index: 1;
         //background: @backgroundColor; // TODO: Irena -fix
-        background: transparent // TODO: Irena -fix
+        background: @Site-Background // TODO: Irena -fix
         //padding-bottom: 25px;
+    }
+
+    .card-sides {
+        @media(max-width: @screen-xs) {
+            display: none;
+        }
     }
 
     .close-btn {
@@ -43,8 +50,8 @@
             height: 20px;
         }
 
-        @media(max-width: 600px) {
-            top: 29px;
+        @media(max-width: @screen-xs) {
+            top: 26px;
             right: 12px;
             z-index: 1;
 
@@ -60,7 +67,7 @@
         width: 100%;
         position: relative;
 
-        @media(min-width: 600px) {
+        @media(min-width: (@screen-xs+1)) {
             max-width: 240px;
         }
 
@@ -69,7 +76,7 @@
             align-items: center;
             justify-content: flex-start;
 
-            @media(max-width: 600px) {
+            @media(max-width: @screen-xs) {
                 display: none;
             }
 
@@ -84,35 +91,41 @@
         .progress-settings {
             .inTheMiddle;
 
-            @media(min-width: 600px) {
-                margin-top: 16px;
-            }
-
-            @media(max-width: 600px) {
+            @media(max-width: @screen-xs) {
                 padding-right: 50px;
-                padding-bottom: 25px;
+                //padding-bottom: 25px;
             }
 
             .sides {
+                display: flex;
                 width: auto;
                 height: auto;
 
-                @media(max-width: 600px) {
+                @media(max-width: @screen-xs) {
                     margin: 0 6px 0 10px;
+                    margin-left: 12px;
                 }
 
-                md-icon {
+                svg {
                     width: 20px;
                     height: 20px;
                     fill: @color-blue;
                     margin: 0;
                 }
             }
+
+            .settings-menu {
+                max-width: 50px;
+                width: 100%;
+                z-index: 2;
+            }
         }
 
         .progress-linear {
-            margin-top: 16px;
-            margin-bottom: 4px;
+            @media(min-width: (@screen-xs + 1)) {
+                margin-top: 16px;
+                margin-bottom: 0;
+            }
 
             .progress-linear__background, .progress-linear__bar {
                 border-radius: 10px;
@@ -133,8 +146,12 @@
             font-size: 10px;
             padding: 0 4px;
 
-            @media(max-width: 600px) {
-                display: none;
+            @media(max-width: @screen-xs) {
+                position: absolute;
+                top: 12px;
+                font-size: 12px;
+                width: 100%;
+                justify-content: center;
             }
         }
     }
@@ -223,5 +240,15 @@
             }
         }
     }*/
+    }
+}
+
+
+.sides.list {
+    padding: 0;
+    width: 112px;
+
+    .list__tile {
+        height: 36px;
     }
 }
