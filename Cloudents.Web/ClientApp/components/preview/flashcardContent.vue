@@ -13,9 +13,10 @@
                                 <div class="img-container" v-if="slide.front.image">
                                     <img :src="slide.front.image" v-once alt="font image" />
                                 </div>
-                                <div class="text-container" v-if="slide.front.text">
-                                    <p class="scrollbar" dir="auto" v-text="slide.front.text" fit-text></p>
-                                </div>
+                                <fit-text :input-text="slide.front.text" :preview-options="previewOptions"></fit-text>
+                                <!--<div class="text-container" v-if="slide.front.text">-->
+                                    <!--<p class="scrollbar" dir="auto" v-text="slide.front.text" fit-text></p>-->
+                                <!--</div>-->
                                 <v-layout class="flip" v-if="!showBoth" row align-center>
                                     <flip-icon></flip-icon>
                                     <span>Click to flip</span>
@@ -46,6 +47,7 @@
     </div>
 </template>
 <script>
+    import FitText from './../helpers/fitText.vue';
     import { mapActions, mapGetters } from 'vuex'
     export default {
         methods: {
@@ -76,7 +78,13 @@
         },
         data() {
             return {
-                showFront: true
+                showFront: true,
+                previewOptions: {
+                    safeWidth: 512,
+                    previewHeight: 360,
+                    previewVertOffset: 0,
+                    originalFontSize: 24
+                }
             }
         },
         props: {
@@ -84,6 +92,7 @@
             showFrontSide: { default: true }
         },
         components: {
+            FitText,
             pinIcon: () => import("./svg/pin-icon.svg"),
             flipIcon: () => import("./svg/flip-icon.svg")        }
     }
