@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Autofac.Features.Metadata;
+using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class FileFactoryProcessor
+    public class FileFactoryProcessor : IFactoryProcessor
     {
         private readonly IBlobProvider<FilesContainerName> _blobProvider;
 
