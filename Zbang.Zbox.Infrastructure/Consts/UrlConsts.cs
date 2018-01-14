@@ -7,7 +7,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
 {
     public static class UrlConst
     {
-        public const string SystemUrl = "https://www.spitball.co";
+        public const string SystemUrl = "https://heb.spitball.co";
         private const string ItemUrl = "/item/{0}/{1}/{2}/{3}/{4}/";
         private const string QuizUrl = "/quiz/{0}/{1}/{2}/{3}/{4}/";
         private const string BoxUrl = "/course/my/{0}/{1}/";
@@ -123,7 +123,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
         public static string NameToQueryString(string name)
         {
             //var outString =  sourceString.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
-            // - < > " ' % ; ) ( & + - 
+            // - < > " ' % ; ) ( & + -
 
             //<,>,*,%,&,:,\\
             if (string.IsNullOrEmpty(name))
