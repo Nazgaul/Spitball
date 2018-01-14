@@ -151,8 +151,8 @@
     nav.buttons, .keyboard {
         position: absolute;
         bottom: -44px;
-        }
-    
+    }
+
 
 
     nav.buttons {
@@ -168,6 +168,7 @@
 
         @media(max-width: @screen-xs) {
             justify-content: space-between;
+            width: 100%;
         }
 
 
@@ -204,7 +205,7 @@
             i {
                 color: @color-blue;
             }
-        
+
 
             &:hover:not([disabled]) {
                 border-color: @color-dark-blue;
@@ -261,9 +262,10 @@
             min-width: 0;
             display: flex;
             align-items: center;
+            outline: none;
 
-            svg{
-                width:36px;
+            svg {
+                width: 36px;
                 height: 36px;
                 fill: @color-blue;
             }
@@ -272,7 +274,7 @@
 
     .flashcard-wrapper {
         max-width: @cardWidth;
-        width: 100%;
+        width: ~"calc(100% - 32px)";
         margin: 0 auto;
         position: relative;
     }
@@ -435,7 +437,7 @@
 
         .shuffle {
             .inTheMiddle;
-            color: @color-grey; // TODO: Irena - fix to actual color
+            color: #5d5d5d;
             @media(min-width: (@screen-xs + 1)) {
                 margin-top: 20px;
             }
@@ -447,7 +449,7 @@
             svg {
                 width: 22px;
                 height: 20px;
-                fill: @color-grey;
+                fill: #5d5d5d;
                 margin-right: 8px;
                 transform: rotateY(0deg) /*rtl:rotateY(180deg)*/;
             }
@@ -471,7 +473,7 @@
                 font-weight: bold;
                 text-transform: capitalize;
                 margin: 10px;
-                border-radius: 10px;
+                border-radius: 4px;
                 text-align: center;
                 min-width: 92px;
                 min-height: 26px;
@@ -505,7 +507,7 @@
                 }
             }
         }
-
+        /*
         .like-wrapper {
             position: absolute;
             bottom: 10px;
@@ -522,7 +524,7 @@
             span {
                 font-weight: bold;
             }
-            /*md-icon {// TODO: Irena - fix
+            md-icon {// TODO: Irena - fix
                 width: 20px;
                 height: 21px;
                 fill: @textColorGrey;
@@ -543,7 +545,7 @@
                 md-icon {
                     fill: @textColorWhite;
                 }
-            }*/
+            }
             button {
                 //border: 1px solid @textColorGrey; // TODO: Irena - fix
                 border-radius: 5px;
@@ -564,6 +566,8 @@
         .like-wrapper, .like-wrapper button > div {
             .inTheMiddle;
         }
+        */
+
         /*.share-btn { // TODO: Irena - fix
             position: absolute;
             top: 0;
@@ -589,10 +593,6 @@
 
     .card-player {
         position: relative;
-
-        @media(max-width: @screen-xs) {
-            margin-top: 80px;
-        }
 
         .card-template {
             position: relative;
@@ -747,6 +747,7 @@
                 height: inherit;
 
                 .side {
+                    color: #5d5d5d;
                     width: 100%;
                     flex-grow: 1;
                     display: flex;
@@ -844,7 +845,7 @@
                 position: absolute;
                 top: 5px;
                 right: 5px;
-                z-index: 1;
+                z-index: 0;
                 outline: none;
                 width: 36px;
                 height: 36px;
@@ -886,14 +887,14 @@
 
     .card-player, .cards-info {
         @media(max-width: @screen-xs) {
-            margin-top: 80px;
+            margin-top: 62px;
         }
     }
 }
 
 
 .keyboard-menu {
-
+    padding: 0; 
     .key {
         width: 18px;
         text-align: center;
@@ -910,6 +911,10 @@
 
     .list__tile {
         min-height: 30px;
-        height: 36px;
+        height: 33px;
+
+        .list__tile__title {
+            font-size: 13px;
+        }
     }
 }
