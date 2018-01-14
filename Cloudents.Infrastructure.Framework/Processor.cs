@@ -23,7 +23,7 @@ namespace Cloudents.Infrastructure.Framework
             BlobProviderCache = blobProviderCache;
         }
 
-        public abstract bool CanProcessFile(Uri blobName);
+       // public abstract bool CanProcessFile(Uri blobName);
 
 
         protected async Task<IEnumerable<string>> UploadPreviewCacheToAzureAsync(Uri blobName,
@@ -124,5 +124,6 @@ namespace Cloudents.Infrastructure.Framework
 
         //    return metaTags;
         //}
+
     }
 }

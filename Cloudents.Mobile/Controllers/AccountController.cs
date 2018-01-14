@@ -17,18 +17,22 @@ using Zbang.Zbox.ViewModel.Queries;
 
 namespace Cloudents.Mobile.Controllers
 {
-    [MobileAppController, Authorize]
+    /// <inheritdoc />
+    /// <summary>
+    /// Account controller
+    /// </summary>
+    [MobileAppController, Authorize ,Obsolete]
     public class AccountController : ApiController
     {
-        private readonly IZboxWriteService _zboxWriteService;
+        //private readonly IZboxWriteService _zboxWriteService;
         private readonly IZboxReadService _zboxReadService;
-        private readonly IProfilePictureProvider _profilePicture;
+        //private readonly IProfilePictureProvider _profilePicture;
 
-        public AccountController(IZboxWriteService zboxWriteService, IZboxReadService zboxReadService, IProfilePictureProvider profilePicture)
+        public AccountController(IZboxReadService zboxReadService)
         {
-            _zboxWriteService = zboxWriteService;
+            //_zboxWriteService = zboxWriteService;
             _zboxReadService = zboxReadService;
-            _profilePicture = profilePicture;
+            //_profilePicture = profilePicture;
         }
 
         // GET api/Account
@@ -63,15 +67,15 @@ namespace Cloudents.Mobile.Controllers
         [Route("api/Account/profile")]
         public HttpResponseMessage ChangeProfile(ProfileRequest model)
         {
-            if (!ModelState.IsValid)
-            {
-                return Request.CreateBadRequestResponse();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Request.CreateBadRequestResponse();
+            //}
 
-            var command = new UpdateUserProfileCommand(User.GetUserId(),
-                model.FirstName,
-                model.LastName);
-            _zboxWriteService.UpdateUserProfile(command);
+            //var command = new UpdateUserProfileCommand(User.GetUserId(),
+            //    model.FirstName,
+            //    model.LastName);
+            //_zboxWriteService.UpdateUserProfile(command);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
@@ -81,10 +85,10 @@ namespace Cloudents.Mobile.Controllers
             var bytes = await Request.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
             using (var ms = new MemoryStream(bytes))
             {
-                var result = await _profilePicture.UploadProfilePicturesAsync(ms).ConfigureAwait(false);
-                var command = new UpdateUserProfileImageCommand(User.GetUserId(), result.Image.AbsoluteUri);
-                _zboxWriteService.UpdateUserImage(command);
-                return result.Image.AbsoluteUri;
+                //var result = await _profilePicture.UploadProfilePicturesAsync(ms).ConfigureAwait(false);
+                //var command = new UpdateUserProfileImageCommand(User.GetUserId(), result.Image.AbsoluteUri);
+                //_zboxWriteService.UpdateUserImage(command);
+                return null;
             }
         }
 
@@ -92,25 +96,25 @@ namespace Cloudents.Mobile.Controllers
         [Route("api/account/university")]
         public HttpResponseMessage UpdateUniversity(UpdateUniversityRequest model)
         {
-            if (model == null)
-            {
-                return Request.CreateBadRequestResponse();
-            }
-            if (!ModelState.IsValid)
-            {
-                return Request.CreateBadRequestResponse();
-            }
+            //if (model == null)
+            //{
+            //    return Request.CreateBadRequestResponse();
+            //}
+            //if (!ModelState.IsValid)
+            //{
+            //    return Request.CreateBadRequestResponse();
+            //}
 
-            var id = User.GetUserId();
-            var command = new UpdateUserUniversityCommand(model.UniversityId, id, null);
-            try
-            {
-                _zboxWriteService.UpdateUserUniversity(command);
-            }
-            catch (ArgumentException ex)
-            {
-                return Request.CreateBadRequestResponse(ex.Message);
-            }
+            //var id = User.GetUserId();
+            //var command = new UpdateUserUniversityCommand(model.UniversityId, id, null);
+            //try
+            //{
+            //    _zboxWriteService.UpdateUserUniversity(command);
+            //}
+            //catch (ArgumentException ex)
+            //{
+            //    return Request.CreateBadRequestResponse(ex.Message);
+            //}
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }

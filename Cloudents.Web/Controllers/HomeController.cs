@@ -15,7 +15,6 @@ namespace Cloudents.Web.Controllers
 
         public static readonly IPAddress[] OfficeIps = {
             IPAddress.Parse("31.154.39.170")
-           
         };
 
         public HomeController(IIpToLocation ipToLocation)

@@ -3,7 +3,7 @@
 namespace Cloudents.Mobile.Filters
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public sealed class PagingAttribute : Attribute
+    internal sealed class PagingAttribute : Attribute
     {
     }
 }

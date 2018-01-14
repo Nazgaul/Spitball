@@ -67,7 +67,8 @@ let KeyCode={
             flashcardHeader,
             flashcardContent,
             shuffleIcon: () => import("./svg/shuffle-icon.svg"),
-            pinIcon: () => import("./svg/pin-icon.svg")
+            pinIcon: () => import("./svg/pin-icon.svg"),
+            keyboardIcon: () => import("./svg/keyboard.svg")
             },
         props:{id:{Number}}
     }
