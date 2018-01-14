@@ -5,6 +5,7 @@ import Vuex from "vuex";
 import {SEARCH, UPDATE_GLOBAL_TERM} from "./mutation-types"
 import Search from "./search";
 import User from "./User";
+import SpitballPreview from "./SpitballPreview";
 //TODO: server side fix
 import createPersistedState from "vuex-persistedstate"
 
@@ -47,10 +48,9 @@ const store = new Vuex.Store({
     state:{globalTerm:""},
     getters:{ globalTerm: state => state.globalTerm},
     mutations:{[UPDATE_GLOBAL_TERM](state, val) {
-            console.log(val);
             state.globalTerm = val;
         }},
-    modules: { Search, User },
+    modules: { Search, User, SpitballPreview},
     plugins: plugins
 });
 export default store;
