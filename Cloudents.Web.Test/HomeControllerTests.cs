@@ -35,11 +35,11 @@ namespace Cloudents.Web.Test
         [TestMethod]
         public async Task Index_OfficeIP_ReturnViewAsync()
         {
-            IPAddress ip = IPAddress.Parse("31.154.39.170");
+            var ip = IPAddress.Parse("31.154.39.170");
             _controller.ControllerContext.HttpContext.Request.Path = "/classnotes";
             _controller.ControllerContext.HttpContext.Request.Host = new HostString("www.spitball.co");
             _controller.ControllerContext.HttpContext.Connection.RemoteIpAddress = ip;
-            _mock.Setup(s => s.GetAsync(ip, default)).Returns(Task.FromResult(new IpDto()
+            _mock.Setup(s => s.GetAsync(ip, default)).Returns(Task.FromResult(new IpDto
             {
                 CountryCode = "IL"
             }));
@@ -51,10 +51,10 @@ namespace Cloudents.Web.Test
         [TestMethod]
         public async Task Index_ILIP_ReturnRedirectToOldSiteAsync()
         {
-            IPAddress ip = IPAddress.Parse("31.154.39.150");
+            var ip = IPAddress.Parse("31.154.39.150");
             _controller.ControllerContext.HttpContext.Request.Path = "/classnotes";
             _controller.ControllerContext.HttpContext.Connection.RemoteIpAddress = ip;
-            _mock.Setup(s => s.GetAsync(ip, default)).Returns(Task.FromResult(new IpDto()
+            _mock.Setup(s => s.GetAsync(ip, default)).Returns(Task.FromResult(new IpDto
             {
                 CountryCode = "IL"
             }));
@@ -74,10 +74,10 @@ namespace Cloudents.Web.Test
         [TestMethod]
         public async Task Index_USIP_ReturnRedirectToOldSiteAsync()
         {
-            IPAddress ip = IPAddress.Parse("31.154.39.150");
+            var ip = IPAddress.Parse("31.154.39.150");
             _controller.ControllerContext.HttpContext.Request.Path = "/classnotes";
             _controller.ControllerContext.HttpContext.Connection.RemoteIpAddress = ip;
-            _mock.Setup(s => s.GetAsync(ip, default)).Returns(Task.FromResult(new IpDto()
+            _mock.Setup(s => s.GetAsync(ip, default)).Returns(Task.FromResult(new IpDto
             {
                 CountryCode = "US"
             }));

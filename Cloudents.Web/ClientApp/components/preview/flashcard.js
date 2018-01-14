@@ -3,6 +3,12 @@
     import flashcardHeader from './flashcardHeader.vue'
     import flashcardContent from './flashcardContent.vue'
     import { mapActions, mapGetters } from 'vuex'
+let KeyCode={
+    ARROW_UP:38,
+    ARROW_DOWN:40,
+    ARROW_RIGHT:39,
+    ARROW_LEFT:37
+};
     export default {
         data() {
             return {
@@ -51,8 +57,9 @@
             },
 
             handleArrow (event){
-                if (event.keyCode === 37 && this.currentIndex > 0 && !this.isEnded) this.currentIndex--;
-                else if (this.currentIndex >= 0 && event.keyCode === 39 && !this.isEnded) this.currentIndex++;
+                if (event.keyCode === KeyCode.ARROW_LEFT && this.currentIndex > 0 && !this.isEnded) this.currentIndex--;
+                else if (this.currentIndex >= 0 && event.keyCode === KeyCode.ARROW_RIGHT && !this.isEnded) this.currentIndex++;
+                else if (this.currentCard&&(KeyCode.ARROW_DOWN||KeyCode.ARROW_UP)){this.slideFront=!this.slideFront;}
             }
         },
         components: {

@@ -23,7 +23,7 @@ namespace Cloudents.Infrastructure.Data
  i.creationTime as date,
     u.UserName as owner, 
     i.BlobName as blob,
-    i.Discriminator as type,
+    i.Discriminator as type
     from zbox.Item i
     join zbox.Users u on u.UserId = i.UserId
     where i.ItemId = @ItemId

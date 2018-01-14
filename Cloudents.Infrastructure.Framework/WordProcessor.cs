@@ -67,7 +67,7 @@ namespace Cloudents.Infrastructure.Framework
         }
 
         public static readonly string[] WordExtensions = { ".rtf", ".docx", ".doc", ".odt" };
-        public override bool CanProcessFile(Uri blobName)
+        public static bool CanProcessFile(Uri blobName)
         {
             return WordExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
         }

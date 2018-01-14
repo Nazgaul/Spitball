@@ -101,6 +101,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterGeneric(typeof(EfRepository<>)).AsImplementedInterfaces();
             builder.Register(c => new CloudStorageProvider(_storageConnectionString)).SingleInstance();
             builder.RegisterType<BlobProvider>().AsImplementedInterfaces();
+            builder.RegisterGeneric(typeof(BlobProvider<>)).AsImplementedInterfaces();
 
             
             var config = MapperConfiguration();

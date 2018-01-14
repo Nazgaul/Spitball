@@ -5,9 +5,6 @@ namespace Cloudents.Web.Views
 {
     public static class Constants
     {
-        //public const string CdnEndpoint =
-        //    "//spitball.azureedge.net";
-
         public  static string GetCdnEndpoint(IHostingEnvironment env)
         {
             if (string.Equals(env.EnvironmentName, "Development", StringComparison.InvariantCultureIgnoreCase))

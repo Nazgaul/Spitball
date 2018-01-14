@@ -19,9 +19,9 @@ namespace Cloudents.Infrastructure.Storage
             _blobDirectory = container.GetDirectoryReference(_container.RelativePath);
         }
 
-        public Uri GetBlobUrl(string name)
+        public Uri GetBlobUrl(string blobName)
         {
-            var blob = _blobDirectory.GetBlockBlobReference(name);
+            var blob = _blobDirectory.GetBlockBlobReference(blobName);
             return blob.Uri;
         }
 

@@ -16,6 +16,10 @@ namespace Cloudents.Mobile.Controllers
     {
         private readonly IEngineProcess _engineProcess;
 
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="engineProcess"></param>
         public AiController(IEngineProcess engineProcess)
         {
             _engineProcess = engineProcess;

@@ -4,13 +4,13 @@ namespace Cloudents.Infrastructure.Storage
 {
     public class CloudStorageProvider : Autofac.IStartable
     {
-        private readonly string _connectionString;
+        //private readonly string _connectionString;
         public CloudStorageAccount CloudStorage { get; }
 
         public CloudStorageProvider(string connectionString)
         {
-            _connectionString = connectionString;
-            CloudStorage = CloudStorageAccount.Parse(_connectionString);
+            //_connectionString = connectionString;
+            CloudStorage = CloudStorageAccount.Parse(connectionString);
         }
 
 
