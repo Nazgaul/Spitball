@@ -7,20 +7,17 @@ using Cloudents.Core.Storage;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class AppenderMetadata
-    {
-        public string[] AppenderName { get; set; }
-    }
-    public class FactoryProcessor
+    public class FileFactoryProcessor
     {
         private readonly IBlobProvider<FilesContainerName> _blobProvider;
 
-        //private readonly IEnumerable<Lazy<IPreviewProvider, AppenderMetadata>> _appenders;
         private readonly IEnumerable<Meta<IPreviewProvider>> _providers;
 
-        public FactoryProcessor(IBlobProvider<FilesContainerName> blobProvider)
+        public FileFactoryProcessor(IBlobProvider<FilesContainerName> blobProvider, 
+            IEnumerable<Meta<IPreviewProvider>> providers)
         {
             _blobProvider = blobProvider;
+            _providers = providers;
         }
 
         public IPreviewProvider PreviewFactory(string blobName)
@@ -32,10 +29,10 @@ namespace Cloudents.Infrastructure.Framework
 
             var process = _providers.FirstOrDefault(f =>
             {
-                //if (f.Metadata is string[] p)
-                //{
-                //    return p.Contains(Path.GetExtension(uri.AbsoluteUri).ToLower());
-                //}
+                if (f.Metadata.Values is string[] p)
+                {
+                    return p.Contains(Path.GetExtension(uri.AbsoluteUri).ToLower());
+                }
                 return false;
             });
 

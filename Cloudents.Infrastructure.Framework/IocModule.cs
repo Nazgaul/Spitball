@@ -17,7 +17,7 @@ namespace Cloudents.Infrastructure.Framework
         {
 
 
-            builder.RegisterType<FactoryProcessor>().AsImplementedInterfaces();
+            builder.RegisterType<FileFactoryProcessor>().AsImplementedInterfaces();
 
 
             builder.RegisterType<WordProcessor>().As<IPreviewProvider>().WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName, WordProcessor.WordExtensions));

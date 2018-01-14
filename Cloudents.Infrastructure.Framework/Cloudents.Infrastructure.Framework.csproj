@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppenderMetadata.cs" />
     <Compile Include="FactoryProcessor.cs" />
     <Compile Include="IocModule.cs" />
     <Compile Include="PdfProcessor.cs" />
