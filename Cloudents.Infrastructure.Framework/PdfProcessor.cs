@@ -72,7 +72,7 @@ namespace Cloudents.Infrastructure.Framework
 
         public static readonly string[] PdfExtensions = { ".pdf" };
 
-        public override bool CanProcessFile(Uri blobName)
+        public static bool CanProcessFile(Uri blobName)
         {
                 return PdfExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
         }
