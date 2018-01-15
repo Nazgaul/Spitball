@@ -19,7 +19,7 @@ namespace Cloudents.Mobile.Controllers
     [MobileAppController]
     public class PlacesController : ApiController
     {
-        private readonly IGooglePlacesSearch _purchaseSearch;
+        private readonly IPlacesSearch _purchaseSearch;
         private readonly IIpToLocation _ipToLocation;
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace Cloudents.Mobile.Controllers
         /// </summary>
         /// <param name="purchaseSearch"></param>
         /// <param name="ipToLocation"></param>
-        public PlacesController(IGooglePlacesSearch purchaseSearch, IIpToLocation ipToLocation)
+        public PlacesController(IPlacesSearch purchaseSearch, IIpToLocation ipToLocation)
         {
             _purchaseSearch = purchaseSearch;
             _ipToLocation = ipToLocation;
@@ -48,7 +48,7 @@ namespace Cloudents.Mobile.Controllers
                 purchaseRequest.Location = locationResult.ConvertToPoint();
             }
 
-            var result = await _purchaseSearch.SearchNearbyAsync(purchaseRequest.Term, purchaseRequest.Filter.GetValueOrDefault(), purchaseRequest.Location, null, token).ConfigureAwait(false);
+            var result = await _purchaseSearch.SearchAsync(purchaseRequest.Term, purchaseRequest.Filter.GetValueOrDefault(), purchaseRequest.Location, null, token).ConfigureAwait(false);
 
             var nextPageLink = Url.Link("DefaultApis", new
             {
@@ -73,7 +73,7 @@ namespace Cloudents.Mobile.Controllers
             CancellationToken token)
         {
             if (nextPageToken == null) throw new ArgumentNullException(nameof(nextPageToken));
-            var result = await _purchaseSearch.SearchNearbyAsync(null,
+            var result = await _purchaseSearch.SearchAsync(null,
                 PlacesRequestFilter.None, null, nextPageToken, token).ConfigureAwait(false);
 
             var nextPageLink = Url.Link("DefaultApis", new
