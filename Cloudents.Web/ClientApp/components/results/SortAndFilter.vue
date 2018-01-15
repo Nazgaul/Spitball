@@ -17,8 +17,8 @@
                     <v-expansion-panel-content v-for="k in props.filterOptions" :key="k.modelId" hide-actions :value="true">
                         <template slot="header">
                             <div class="icon-wrapper"><slot :name="`${k.modelId}TitlePrefix`"></slot></div>
-                            <div>{{k.title}}</div>
-                            <div class="header__icon hidden-xs-only">
+<slot name="headerTitle" :title="k.title">                            <div>{{k.title}}</div>
+</slot>                            <div class="header__icon hidden-xs-only">
                                 <v-icon>sbf-chevron-down</v-icon>
                             </div>
                             <slot :name="`${k.modelId}MobileExtraState`"></slot>

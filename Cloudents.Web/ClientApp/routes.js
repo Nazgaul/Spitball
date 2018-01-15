@@ -13,6 +13,7 @@ const bookDetails = () => import("./components/book/ResultBookDetails.vue");
 
 const satelliteHeader = () => import("./components/satellite/header.vue");
 const previewHeader = () => import("./components/preview/header.vue");
+const documentPreviewHeader = () => import("./components/preview/headerDocument.vue");
 import { staticRoutes } from "./components/satellite/satellite-routes";
 //const faqView = () => import("./components/satellite/faq.vue");
 
@@ -182,7 +183,8 @@ let routes2 = [
         props: foodDetailsProps
     },
     {
-        path: "/item/:university/:courseId/:courseName/:id/:itemName", name: "item", components: {default:showItem,header:previewHeader},
+        path: "/item/:university/:courseId/:courseName/:id/:itemName", name: "item",
+        components: { default: showItem, header: documentPreviewHeader },
         props: {default:(route)=>({id:route.params.id})},
         meta: {
             pageName: RouteTypes.notesRoute

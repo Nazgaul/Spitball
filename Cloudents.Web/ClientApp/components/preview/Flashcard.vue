@@ -63,7 +63,7 @@
                 </div>
             </div>
             <div v-else>
-                <flashcard-content v-if="currentCard" v-bind="$attrs" :showFrontSide="slideFront" :card="showList[currentIndex]">
+                <flashcard-content v-if="currentCard" v-bind="$attrs" :showFrontSide="slideFront" :card="showList[currentIndex]" :side.sync="slideFront">
                 </flashcard-content>
                 <nav class="buttons">
                     <button class="prev" @click="currentIndex--" :disabled="currentIndex==0">
