@@ -13,7 +13,7 @@
                                 <div class="img-container" v-if="slide.front.image">
                                     <img :src="slide.front.image" v-once alt="font image" />
                                 </div>
-                                <fit-text :input-text="slide.front.text" :preview-options="previewOptions"></fit-text>
+                                <fit-text  v-if="slide.front.text" :input-text="slide.front.text" :preview-options="previewOptions"></fit-text>
                                 <!--<div class="text-container" v-if="slide.front.text">-->
                                     <!--<p class="scrollbar" dir="auto" v-text="slide.front.text" fit-text></p>-->
                                 <!--</div>-->
@@ -31,9 +31,11 @@
                                 <div class="img-container" v-if="slide.cover.image">
                                     <img :src="slide.cover.image" alt="font image" />
                                 </div>
-                                <div class="text-container" v-if="slide.cover.text">
-                                    <p class="scrollbar" dir="auto" v-text="slide.cover.text" fit-text></p>
-                                </div>
+                                <fit-text  v-if="slide.cover.text" :input-text="slide.cover.text" :preview-options="previewOptions"></fit-text>
+
+                                <!--<div class="text-container" v-if="slide.cover.text">-->
+                                    <!--<p class="scrollbar" dir="auto" v-text="slide.cover.text" fit-text></p>-->
+                                <!--</div>-->
                                 <div class="flip" v-if="!showBoth">
                                     <flip-icon></flip-icon>
                                     Click to flip
@@ -60,7 +62,10 @@
                 this.updatePinnedCards(updatedPinned);
             },
             $_flip() {
-                if (!this.showBoth) this.showFront = !this.showFront;
+                if (!this.showBoth){ this.showFront = !this.showFront;
+                    this.previewOptions.safeWidth= this.$el.clientWidth;
+                    this.$emit('update:side',this.showFront)
+                }
             }
         },
         computed: {
@@ -73,15 +78,32 @@
                 return this.card.data
             },
             showBoth() {
-                return this.showFrontSide == -1;
+                // this.previewOptionsCover.previewVertOffset=this.previewOptions.safeWidth;
+                // this.previewOptionsCover.safeWidth=this.previewOptions.safeWidth/2;
+
+                return this.showFrontSide === -1;
             }
+        },
+        watch:{
+            showFrontSide(val){
+                // if(val===-1) {
+                //     this.previewOptions.safeWidth = this.previewOptions.safeWidth / 2;
+                // }else{safeWidth:elm.clientWidth}
+                this.previewOptions.safeWidth=(val===-1)?this.previewOptions.safeWidth / 2:this.$el.clientWidth;
+            }
+        },
+        mounted(){
+            debugger;
+            let elm=this.$el;
+            this.previewOptions={...this.previewOptions,safeWidth:elm.clientWidth,previewHeight:elm.clientHeight};
+            // this.$nextTick(()=>{
+            //     this.previewOptionsCover=this.previewOptions;
+            // })
         },
         data() {
             return {
                 showFront: true,
                 previewOptions: {
-                    safeWidth: 512,
-                    previewHeight: 360,
                     previewVertOffset: 0,
                     originalFontSize: 24
                 }

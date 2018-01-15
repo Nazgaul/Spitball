@@ -24,12 +24,13 @@
         },
 
         methods: {
-            ...mapActions(['getPreview'])
+            ...mapActions(['getPreview','updateItemDetails'])
         },
 
         created() {
             this.getPreview({ type: 'item', id: this.id }).then(({ data: body }) => {
                 this.item = { ...body.details, preview: body.preview };
+                this.updateItemDetails({ details: body.details});
                 let postfix = this.item.preview[0].split('?')[0].split('.');
                 this.item.type = postfix[postfix.length - 1];
             })

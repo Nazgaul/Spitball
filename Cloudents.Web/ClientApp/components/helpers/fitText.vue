@@ -8,7 +8,17 @@
     export default {
         name: "fit-text",
         props: ['inputText', 'previewOptions'],
-
+        watch:{
+            "previewOptions.safeWidth":function(val){
+                this.safeWidth=val},
+            "previewOptions.previewHeight":function(val){
+                this.previewHeight=val}
+            // previewOptions(val){
+            //     this.safeWidth=val.safeWidth;
+            //     this.previewHeight=val.previewHeight;
+            //     debugger;
+            // }
+        },
         data: function() {
             return {
                 originalFontSize: this.previewOptions.originalFontSize,
@@ -20,8 +30,8 @@
                     height: '0'
                 },
                 text: {
-                    fontSize: '24px',
-                    position: 'absolute',
+                    fontSize: '18px',
+                    // position: 'absolute',
                     overflow: 'hidden',
                     top: 0,
                     left: 0
