@@ -2,7 +2,7 @@
 {
     public enum SeoType
     {
-        Static,
+        //Static,
         [Parse(SeoTypeString.Item)]
         Item,
         [Parse(SeoTypeString.Quiz)]

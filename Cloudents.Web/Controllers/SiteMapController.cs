@@ -110,7 +110,7 @@ namespace Cloudents.Web.Controllers
             await myWriter.WriteEndElementAsync().ConfigureAwait(false);
 
             myWriter.WriteStartElement("lastmod");
-            myWriter.WriteValue(DateTime.Now.ToShortDateString());
+            myWriter.WriteValue(DateTime.Now.ToString("yyyy-MM-dd"));
             await myWriter.WriteEndElementAsync().ConfigureAwait(false);
 
             myWriter.WriteStartElement("changefreq");
