@@ -3,12 +3,13 @@ using System.Web.Http.Routing;
 
 namespace Cloudents.Mobile.Filters
 {
-    internal class VersionedRouteAttribute : RouteFactoryAttribute
+    [System.AttributeUsage(System.AttributeTargets.All, AllowMultiple = false)]
+    internal sealed class VersionedRouteAttribute : RouteFactoryAttribute
     {
         public VersionedRouteAttribute(string template)
             : base(template)
         {
-           
+
         }
         public VersionedRouteAttribute(string template, string allowedVersion)
             : base(template)
@@ -19,6 +20,6 @@ namespace Cloudents.Mobile.Filters
         {
             get;
         }
-        public override IDictionary<string, object> Constraints => new HttpRouteValueDictionary {["version"] = new VersionConstraint(AllowedVersion) };
+        public override IDictionary<string, object> Constraints => new HttpRouteValueDictionary { ["version"] = new VersionConstraint(AllowedVersion) };
     }
 }
