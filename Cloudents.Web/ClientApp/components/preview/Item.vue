@@ -42,14 +42,6 @@
                 return this.item.type==="html"? "iframe":"img";
                 if (['link', 'text'].find((x) => x == type.toLowerCase()))return 'iframe'
             }
-        },
-
-        filters: {
-            mediumDate: function (value) {
-                if (!value) return '';
-                let date = new Date(value);
-                return date.toLocaleString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-            }
         }
     }
 </script>
