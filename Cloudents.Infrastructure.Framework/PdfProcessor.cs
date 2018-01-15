@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Aspose.Pdf;
@@ -73,10 +72,10 @@ namespace Cloudents.Infrastructure.Framework
 
         public static readonly string[] PdfExtensions = { ".pdf" };
 
-        public static bool CanProcessFile(Uri blobName)
-        {
-                return PdfExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
-        }
+        //public static bool CanProcessFile(Uri blobName)
+        //{
+        //        return PdfExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
+        //}
 
     }
 }

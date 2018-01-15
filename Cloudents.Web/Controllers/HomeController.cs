@@ -35,7 +35,7 @@ namespace Cloudents.Web.Controllers
 
             var location = await _ipToLocation.GetAsync(requestIp, token).ConfigureAwait(false);
 
-            if (!string.Equals(location.CountryCode, "US", StringComparison.InvariantCultureIgnoreCase))
+            if (!string.Equals(location?.CountryCode, "US", StringComparison.InvariantCultureIgnoreCase))
             {
                 return this.RedirectToOldSite();
             }

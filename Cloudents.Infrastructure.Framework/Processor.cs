@@ -13,7 +13,7 @@ namespace Cloudents.Infrastructure.Framework
         protected readonly IBlobProvider<CacheContainer> BlobProviderCache;
         protected readonly Uri BlobUri;
 
-        protected const string CacheVersionPrefix = "V";
+        public const string CacheVersionPrefix = "V";
         protected const string PagesInDocsMetaKey = "pageCount";
         protected const int NumberOfFilesInGroup = 15;
         protected const string DatePattern = "M-d-yy";

@@ -72,21 +72,21 @@ namespace Cloudents.Mobile.Controllers
         [Route("api/document/like")]
         [HttpPost]
         [Authorize]
-        public async Task<HttpResponseMessage> LikeAsync(ItemLikeRequest model)
+        public HttpResponseMessage LikeAsync(/*ItemLikeRequest model*/)
         {
-            if (ModelState?.IsValid == false)
-            {
-                return Request.CreateBadRequestResponse();
-            }
-            var id = _guidGenerator.GetId();
-            var command = new RateItemCommand(model.Id, User.GetUserId(), id);
-            await _zboxWriteService.RateItemAsync(command).ConfigureAwait(true);
+            //if (ModelState?.IsValid == false)
+            //{
+            //    return Request.CreateBadRequestResponse();
+            //}
+            //var id = _guidGenerator.GetId();
+            //var command = new RateItemCommand(model.Id, User.GetUserId(), id);
+            //await _zboxWriteService.RateItemAsync(command).ConfigureAwait(true);
 
-            if (model.Tags?.Any() == true)
-            {
-                var z = new AssignTagsToDocumentCommand(model.Id, model.Tags, TagType.User);
-                await _zboxWriteService.AddItemTagAsync(z).ConfigureAwait(false);
-            }
+            //if (model.Tags?.Any() == true)
+            //{
+            //    var z = new AssignTagsToDocumentCommand(model.Id, model.Tags, TagType.User);
+            //    await _zboxWriteService.AddItemTagAsync(z).ConfigureAwait(false);
+            //}
 
             return Request.CreateResponse();
         }

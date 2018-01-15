@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,11 +43,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppenderMetadata.cs" />
+    <Compile Include="ExcelProcessor.cs" />
     <Compile Include="FactoryProcessor.cs" />
+    <Compile Include="ImageProcessor.cs" />
     <Compile Include="IocModule.cs" />
     <Compile Include="PdfProcessor.cs" />
+    <Compile Include="PowerPoint2007Processor.cs" />
     <Compile Include="Processor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextProcessor.cs" />
+    <Compile Include="TiffProcessor.cs" />
     <Compile Include="WordProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
