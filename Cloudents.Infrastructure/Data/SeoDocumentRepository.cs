@@ -21,7 +21,7 @@ namespace Cloudents.Infrastructure.Data
             using (var conn = _repository.OpenConnection())
             {
                 var data = conn.Query<SiteMapSeoDto>(@"WITH boxSeo as (
- select BoxId, BoxName,u.UniversityName from zbox.box b LEFT JOIN zbox.University u on u.id = b.University
+ select BoxId, BoxName,u.UniversityName from zbox.box b JOIN zbox.University u on u.id = b.University
 and Discriminator = 2
 and b.IsDeleted = 0
 )
