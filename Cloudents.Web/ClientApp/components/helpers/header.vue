@@ -1,5 +1,5 @@
 <template>
-    <v-layout column class="header-elements">
+    <v-layout column class="header-elements pb-2">
     <v-flex class="line">
         <v-layout row>
             <v-toolbar-title class="ma-0">
