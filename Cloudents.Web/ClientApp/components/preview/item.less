@@ -1,9 +1,9 @@
 ﻿@import "../../mixin.less";
 
 .page-width() {
-    max-width: 780px;
+    max-width: 756px;
     width: 100%;
-    padding: 0 20px;
+    padding: 0 8px;
     margin: 0 auto !important;
 }
 
@@ -19,7 +19,7 @@
     box-shadow: 0 3px 8px rgba(0,0,0,.2);
 }
 
-.text-content, .link-content {
+.html-content {
     border: 0;
     height: ~"calc(100vh - 175px)";
     width: ~"calc(100% - 40px)";
@@ -33,7 +33,7 @@
 .item {
     .item-toolbar {
         background-color: @Site-Background;
-        z-index: 0;
+        position: sticky;
         .responsive-property(top, @mainNavHeightSmAndUp,null,@mainNavHeightXsOnly);
 
         .toolbar-content {
