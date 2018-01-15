@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Net;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
@@ -9,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Cloudents.Web.Filters
 {
-    [AttributeUsage(AttributeTargets.All, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.All)]
     public sealed class IpToLocationActionFilter : ActionFilterAttribute
     {
         private readonly string _geoLocationArgumentName;
@@ -48,7 +47,6 @@ namespace Cloudents.Web.Filters
             }
 
             var ipV4 = context.HttpContext.Connection.GetIpAddress();
-            
 
             var ipDto = await _ipToLocation.GetAsync(ipV4, context.HttpContext.RequestAborted).ConfigureAwait(false);
             place = new GeoPoint

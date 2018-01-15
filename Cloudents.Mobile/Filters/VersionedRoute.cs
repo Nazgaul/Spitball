@@ -3,7 +3,7 @@ using System.Web.Http.Routing;
 
 namespace Cloudents.Mobile.Filters
 {
-    public class VersionedRouteAttribute : RouteFactoryAttribute
+    internal class VersionedRouteAttribute : RouteFactoryAttribute
     {
         public VersionedRouteAttribute(string template)
             : base(template)

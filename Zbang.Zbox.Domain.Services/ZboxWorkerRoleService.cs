@@ -320,7 +320,7 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
                         }
                         catch (SqlException ex) when (ex.Number == -2)
                         {
-                            m_Logger.Exception(ex, new Dictionary<string, string> { ["ExecuteSqlLoopAsync"] = "timeout" });
+                            m_Logger.Exception(ex, new Dictionary<string, string> { [nameof(ExecuteSqlLoopAsync)] = "timeout" });
                             needToLoop = true;
                         }
                     }
@@ -446,7 +446,7 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
                 catch (Exception ex)
                 {
                     //this can only happen from the await
-                    m_Logger.Exception(ex, new Dictionary<string, string> { ["AddNewUpdateAsync"] = "" });
+                    m_Logger.Exception(ex, new Dictionary<string, string> { [nameof(AddNewUpdateAsync)] = "" });
                 }
                 unitOfWork.TransactionalFlush();
             }
@@ -493,7 +493,7 @@ where id = @id";
             }
         }
 
-        public void UpdateBoxUrl()
+        public static void UpdateBoxUrl()
         {
             using (var unitOfWork = UnitOfWork.Start())
             {

@@ -13,9 +13,7 @@ namespace Cloudents.Infrastructure.Framework
 {
     public class WordProcessor : Processor, IPreviewProvider
     {
-
         private const string CacheVersion = CacheVersionPrefix + "6";
-
 
         public WordProcessor(
                 Uri blobUri,
@@ -69,10 +67,10 @@ namespace Cloudents.Infrastructure.Framework
         }
 
         public static readonly string[] WordExtensions = { ".rtf", ".docx", ".doc", ".odt" };
-        public static bool CanProcessFile(Uri blobName)
-        {
-            return WordExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
-        }
+        //public static bool CanProcessFile(Uri blobName)
+        //{
+        //    return WordExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
+        //}
 
         //public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri,
         //    CancellationToken cancelToken = default(CancellationToken))

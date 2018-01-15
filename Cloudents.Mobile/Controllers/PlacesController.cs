@@ -12,6 +12,7 @@ using Microsoft.Azure.Mobile.Server.Config;
 
 namespace Cloudents.Mobile.Controllers
 {
+    /// <inheritdoc />
     /// <summary>
     /// The food and places api controller
     /// </summary>

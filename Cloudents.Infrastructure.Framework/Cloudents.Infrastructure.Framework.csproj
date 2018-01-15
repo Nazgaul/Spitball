@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AppenderMetadata.cs" />
     <Compile Include="FactoryProcessor.cs" />
+    <Compile Include="ImageProcessor.cs" />
     <Compile Include="IocModule.cs" />
     <Compile Include="PdfProcessor.cs" />
     <Compile Include="Processor.cs" />
