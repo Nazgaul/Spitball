@@ -10,8 +10,15 @@ using Swashbuckle.Swagger;
 
 namespace Cloudents.Mobile
 {
+    /// <summary>
+    /// Partial startup
+    /// </summary>
     public partial class Startup
     {
+        /// <summary>
+        /// Add swagger config
+        /// </summary>
+        /// <param name="config"></param>
         public static void ConfigureSwagger(HttpConfiguration config)
         {
 
