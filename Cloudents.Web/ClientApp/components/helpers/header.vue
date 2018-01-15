@@ -1,4 +1,5 @@
 <template>
+    <v-layout column class="header-elements">
     <v-flex class="line">
         <v-layout row>
             <v-toolbar-title class="ma-0">
@@ -28,6 +29,12 @@
             </v-toolbar-items>
         </v-layout>
     </v-flex>
+    <v-flex v-if="$vuetify.breakpoint.smAndDown" class="line">
+        <form @submit.prevent="submit">
+            <v-text-field type="search" light solo class="search-b" :placeholder="placeholders[currentSelection]" v-model="msg" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>
+        </form>
+    </v-flex>
+    </v-layout>
 </template>
 
 <script>

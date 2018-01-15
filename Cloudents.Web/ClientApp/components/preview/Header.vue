@@ -1,8 +1,6 @@
 <template>
-    <v-toolbar app fixed :height="60" class="header">
-        <v-layout column class="header-elements">
+    <v-toolbar app fixed :height="$vuetify.breakpoint.mdAndUp ? 60 : 115" class="header">
             <main-header></main-header>
-        </v-layout>
     </v-toolbar>
 </template>
 
