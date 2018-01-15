@@ -50,6 +50,7 @@ let strips =
             },
             titleIcon: () => import("./../navbar/images/document.svg"),
             title: "Study Documents",
+            link:"/note",
             text: "Spitball curates study documents from the best sites on the web. Our notes, study guides and exams populate based on student ratings and are filtered by your school, classes and preferences."
         },
 
@@ -63,6 +64,7 @@ let strips =
             },
             titleIcon: () => import("./../navbar/images/flashcard.svg"),
             title: "Flashcards",
+            link:"/flashcard",
             text: "Search millions of study sets and improve your grades by studying with flashcards."
         },
 
@@ -76,6 +78,7 @@ let strips =
             },
             titleIcon: () => import("./../navbar/images/tutor.svg"),
             title: "Tutors",
+            link:"/tutor",
             text: "Spitball has teamed up with the most trusted tutoring services to help you ace your classes."// All of our online and in-person tutors are highly qualified experts with educations from some of the best universities in the world."
         },
 
@@ -89,6 +92,7 @@ let strips =
             },
             titleIcon: () => import("./../navbar/images/book.svg"),
             title: "Textbooks",
+            link:"/book",
             text: "Find the best prices to buy, rent and sell your textbooks by comparing hundreds of sites simultaneously."
         },
 
@@ -102,6 +106,7 @@ let strips =
             },
             titleIcon: () => import("./../navbar/images/ask.svg"),
             title: "Ask A Question",
+            link:"/ask",
             text: "Ask any school related question and immediately get answers and information that relates specifically to you, your classes, and your university."
         },
 
@@ -115,6 +120,7 @@ let strips =
             },
             titleIcon: () => import("./../navbar/images/job.svg"),
             title: "Jobs",
+            link:"/job",
             text: "Easily search and apply to paid internships, part-time jobs and entry-level opportunities from local businesses all the way to Fortune 500 companies."
         },
 
@@ -128,6 +134,7 @@ let strips =
             },
             titleIcon: () => import("./../navbar/images/food.svg"),
             title: "Food and Deals",
+            link:"/food",
             text: "Discover exclusive deals to local businesses, restaurants and bars near campus."
         }
 
