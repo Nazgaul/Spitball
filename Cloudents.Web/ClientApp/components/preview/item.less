@@ -1,0 +1,85 @@
+﻿@import "../../mixin.less";
+
+.page-width() {
+    max-width: 780px;
+    width: 100%;
+    padding: 0 20px;
+    margin: 0 auto !important;
+}
+
+@itemToolbarHeight: 80px;
+
+
+
+.svg-content, .jpg-content {
+    border-radius: 15px;
+    max-width: 100%;
+    vertical-align: middle;
+    margin: 10px 0;
+    box-shadow: 0 3px 8px rgba(0,0,0,.2);
+}
+
+.text-content, .link-content {
+    border: 0;
+    height: ~"calc(100vh - 175px)";
+    width: ~"calc(100% - 40px)";
+    max-width: 760px;
+
+    @media (max-width: 600px) {
+        width: ~ "calc(100% - 20px)";
+    }
+}
+
+.item {
+    .item-toolbar {
+        background-color: @Site-Background;
+        z-index: 0;
+        .responsive-property(top, @mainNavHeightSmAndUp,null,@mainNavHeightXsOnly);
+
+        .toolbar-content {
+            .page-width();
+
+            .item-name {
+                font-size: 24px;
+                font-weight: 600;
+                line-height: 1.21;
+                letter-spacing: -0.5px;
+                text-align: left;
+                color: #5d5d5d;
+                padding-right: 36px;
+                .giveMeEllipsisOne;
+            }
+
+            .actions {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-shrink: 0;
+                width: 176px;
+            }
+
+            .item-meta {
+                .author {
+                    font-size: 16px;
+                    letter-spacing: -0.4px;
+                    color: @color-dark-blue;
+                }
+
+                .date {
+                    font-size: 16px;
+                    letter-spacing: -0.4px;
+                    color: #5d5d5d;
+                }
+            }
+        }
+    }
+
+    .item-content {
+        .page-width();
+        padding-top: @itemToolbarHeight;
+
+        .page-content {
+            background: @color-white;
+        }
+    }
+}
