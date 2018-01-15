@@ -45,17 +45,14 @@
 
         computed: {
             currentComponent() {
-
-                let type = 'image';
-                if (['image', 'svg'].find((x) => x == type.toLowerCase())) return 'img'
-                if (['link', 'text'].find((x) => x == type.toLowerCase()))return 'iframe'
+                return this.item.type==="html"? "iframe":"img";
             }
         },
 
         filters: {
             mediumDate: function (value) {
                 if (!value) return '';
-                var date = new Date(value)
+                let date = new Date(value);
                 return date.toLocaleString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
             }
         }
