@@ -32,7 +32,7 @@
         computed: {
             isSpitball() { return this.item.source.includes('spitball')},
             url: function () {
-                return  this.isSpitball ? this.item.url.split('.co/')[1]: this.item.url
+                return  this.isSpitball ? this.item.url.split('.co/')[1]: this.item.source.includes("studyblue")?this.item.url=`${this.item.url}?utm_source=spitball&utm_medium=referral`:this.item.url
             }
         },
         methods: {

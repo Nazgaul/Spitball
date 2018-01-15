@@ -21,12 +21,11 @@ namespace Cloudents.Infrastructure.Data
         {
             var data = await _repository.WithConnectionAsync(c =>
                 c.QueryFirstOrDefaultAsync(
-                    new CommandDefinition(@"WITH item as (
-SELECT COUNT(*) AS itemCount FROM zbox.item i WHERE IsDeleted = 0 and i.content is not null
-and i.Discriminator = 'FILE'),
-flashcard AS (
-SELECT COUNT(*) as flashcardCount FROM zbox.Flashcard WHERE IsDeleted = 0) 
-SELECT * FROM item,flashcard", cancellationToken: token)
+                    new CommandDefinition(@"select sum(b.ItemCount) as itemCount , sum(b.QuizCount) as quizCount , sum(b.FlashcardCount) as flashcardCount
+from zbox.box b 
+where University in (select id from zbox.University where  needcode = 0)
+and Discriminator = 2
+and IsDeleted = 0", cancellationToken: token)
                 ), token).ConfigureAwait(false);
             return new List<SiteMapCountDto>
             {
@@ -34,5 +33,16 @@ SELECT * FROM item,flashcard", cancellationToken: token)
                 new SiteMapCountDto(SeoType.Flashcard, data.flashcardCount),
             };
         }
+
+        /*WITH item as (
+SELECT COUNT(*) AS itemCount FROM zbox.item i 
+WHERE IsDeleted = 0 and i.content is not null
+
+and i.Discriminator = 'FILE'),
+quiz AS (
+SELECT COUNT(*) as quizCount FROM zbox.Quiz WHERE IsDeleted = 0),
+flashcard AS (
+SELECT COUNT(*) as flashcardCount FROM zbox.Flashcard WHERE IsDeleted = 0) 
+SELECT * FROM item,quiz,flashcard*/
     }
 }

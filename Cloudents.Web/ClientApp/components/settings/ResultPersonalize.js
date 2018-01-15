@@ -12,7 +12,8 @@ export default {
             type: "",
             keep: true,
             isfirst: false,
-            isAcademinc: false
+            isAcademinc: false,
+            currentUni:""
         }
     },
 
@@ -28,6 +29,11 @@ export default {
                 this.type="";
                 if (this.isFirst) { this.updateFirstTime("isFirst"); }
                 this.$root.$emit("closePersonalize");
+                if(this.currentUni!==this.getUniversityName&&this.$route.name==="result"){
+                    window.location.reload();
+                }
+            }else{
+                this.currentUni=this.getUniversityName;
             }
 
         },
