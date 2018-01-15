@@ -13,6 +13,7 @@ namespace Cloudents.Infrastructure.Framework
             builder.RegisterType<ImageProcessor>().As<IPreviewProvider>().WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName, ImageProcessor.ImageExtensions));
             builder.RegisterType<ExcelProcessor>().As<IPreviewProvider>().WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName, ExcelProcessor.ExcelExtensions));
             builder.RegisterType<PowerPoint2007Processor>().As<IPreviewProvider>().WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName, PowerPoint2007Processor.PowerPoint2007Extensions));
+            builder.RegisterType<TextProcessor>().As<IPreviewProvider>().WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName, TextProcessor.TxtExtensions));
 
             //builder.RegisterType<PdfProcessor>().Keyed()
             base.Load(builder);

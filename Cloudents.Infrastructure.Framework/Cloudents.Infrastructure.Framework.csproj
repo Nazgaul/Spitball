@@ -51,6 +51,7 @@
     <Compile Include="PowerPoint2007Processor.cs" />
     <Compile Include="Processor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextProcessor.cs" />
     <Compile Include="WordProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
