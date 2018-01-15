@@ -7,7 +7,7 @@ using Cloudents.Core.Models;
 
 namespace Cloudents.Core.Interfaces
 {
-    public interface IPlacesSearch
+    public interface IGooglePlacesSearch
     {
         Task<(string token, IEnumerable<PlaceDto> data)> SearchNearbyAsync(IEnumerable<string> term, PlacesRequestFilter filter,
             GeoPoint location, string nextPageToken, CancellationToken token);
@@ -15,5 +15,11 @@ namespace Cloudents.Core.Interfaces
         //Task<PlaceDto> SearchAsync(string term, CancellationToken token);
         Task<PlaceDto> ByIdAsync(string id, CancellationToken token);
         Task<GeoPoint> GeoCodingAsync(string location, CancellationToken token);
+    }
+
+    public interface IPlacesSearch
+    {
+        Task<(string token, IEnumerable<PlaceDto> data)> SearchAsync(IEnumerable<string> term, PlacesRequestFilter filter,
+            GeoPoint location, string nextPageToken, CancellationToken token);
     }
 }

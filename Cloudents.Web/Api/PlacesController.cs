@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
@@ -27,7 +25,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> GetAsync(string[] term, PlacesRequestFilter filter, GeoPoint location, CancellationToken token)
         {
             if (location == null) throw new ArgumentNullException(nameof(location));
-            var result = await _placesSearch.SearchNearbyAsync(term, filter, location, null, token).ConfigureAwait(false);
+            var result = await _placesSearch.SearchAsync(term, filter, location, null, token).ConfigureAwait(false);
             return Json(new
             {
                 result.token,
@@ -40,7 +38,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             if (nextPageToken == null) throw new ArgumentNullException(nameof(nextPageToken));
-            var result = await _placesSearch.SearchNearbyAsync(null,
+            var result = await _placesSearch.SearchAsync(null,
                 PlacesRequestFilter.None, null, nextPageToken, token).ConfigureAwait(false);
 
             return Json(new
@@ -53,10 +51,10 @@ namespace Cloudents.Web.Api
 
         [HttpGet]
         public async Task<IActionResult> GetByIdAsync([RequiredFromQuery]string id,
-            CancellationToken token)
+            CancellationToken token, [FromServices] IGooglePlacesSearch places)
         {
             if (id == null) throw new ArgumentNullException(nameof(id));
-            var result = await _placesSearch.ByIdAsync(id, token).ConfigureAwait(false);
+            var result = await places.ByIdAsync(id, token).ConfigureAwait(false);
 
             return Json(result);
         }

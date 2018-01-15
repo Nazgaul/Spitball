@@ -13,5 +13,17 @@ namespace Cloudents.Core.DTOs
 
         public string Image { get; set; }
         public string PlaceId { get; set; }
+
+        public bool Hooked { get; set; }
+    }
+
+    public class HookedDto : System.IEquatable<HookedDto>
+    {
+        public string Id { get; set; }
+
+        public bool Equals(HookedDto other)
+        {
+            return this.Id == other.Id;
+        }
     }
 }

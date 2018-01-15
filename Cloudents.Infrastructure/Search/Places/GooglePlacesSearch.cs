@@ -11,29 +11,31 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Newtonsoft.Json.Linq;
 
-namespace Cloudents.Infrastructure.Search
+namespace Cloudents.Infrastructure.Search.Places
 {
-    public class PlacesSearch : IPlacesSearch
+    public class GooglePlacesSearch : IGooglePlacesSearch
     {
+        private const string Key = "AIzaSyAoFR5uWJy1cf76q-J46EoEbFVZCaLk93w";//"AIzaSyAhNIR9O5bBnPZoB0lm5qRNeNN6EzjTTBg";
         //https://developers.google.com/places/web-service/search
         private readonly IMapper _mapper;
         private readonly IRestClient _restClient;
 
-        private const string Key = "AIzaSyAoFR5uWJy1cf76q-J46EoEbFVZCaLk93w";//"AIzaSyAhNIR9O5bBnPZoB0lm5qRNeNN6EzjTTBg";
-
-        public PlacesSearch(IRestClient restClient, IMapper mapper)
+        public GooglePlacesSearch(IRestClient restClient, IMapper mapper)
         {
             _restClient = restClient;
             _mapper = mapper;
         }
 
-        public async Task<(string token, IEnumerable<PlaceDto> data)> SearchNearbyAsync(IEnumerable<string> term, PlacesRequestFilter filter,
-            GeoPoint location, string nextPageToken, CancellationToken token)
+        public async Task<PlaceDto> ByIdAsync(string id, CancellationToken token)
         {
-            var nvc = BuildQuery(term, filter, location, nextPageToken);
+            var nvc = new NameValueCollection
+            {
+                ["key"] = Key,
+                ["placeid"] = id
+            };
 
-            var result = await _restClient.GetJsonAsync(new Uri("https://maps.googleapis.com/maps/api/place/nearbysearch/json"), nvc, token).ConfigureAwait(false);
-            return _mapper.Map<JObject, (string, IEnumerable<PlaceDto>)>(result, opt =>
+            var result = await _restClient.GetJsonAsync(new Uri("https://maps.googleapis.com/maps/api/place/details/json"), nvc, token).ConfigureAwait(false);
+            return _mapper.Map<JObject, PlaceDto>(result, opt =>
             {
                 opt.Items["width"] = 150;
                 opt.Items["key"] = Key;
@@ -50,6 +52,38 @@ namespace Cloudents.Infrastructure.Search
 
             var result = await _restClient.GetJsonAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token).ConfigureAwait(false);
             return _mapper.Map<JObject, GeoPoint>(result);
+        }
+
+        public async Task<PlaceDto> SearchAsync(string term, CancellationToken token)
+        {
+            if (term == null) throw new ArgumentNullException(nameof(term));
+
+            var nvc = new NameValueCollection
+            {
+                ["query"] = term,
+                ["key"] = Key,
+            };
+
+            var result = await _restClient.GetJsonAsync(new Uri("https://maps.googleapis.com/maps/api/place/textsearch/json"), nvc, token).ConfigureAwait(false);
+            var mapperResult = _mapper.Map<JObject, IEnumerable<PlaceDto>>(result, opt =>
+            {
+                opt.Items["width"] = 150;
+                opt.Items["key"] = Key;
+            });
+            return mapperResult.FirstOrDefault();
+        }
+
+        public async Task<(string token, IEnumerable<PlaceDto> data)> SearchNearbyAsync(IEnumerable<string> term, PlacesRequestFilter filter,
+            GeoPoint location, string nextPageToken, CancellationToken token)
+        {
+            var nvc = BuildQuery(term, filter, location, nextPageToken);
+
+            var result = await _restClient.GetJsonAsync(new Uri("https://maps.googleapis.com/maps/api/place/nearbysearch/json"), nvc, token).ConfigureAwait(false);
+            return _mapper.Map<JObject, (string, IEnumerable<PlaceDto>)>(result, opt =>
+            {
+                opt.Items["width"] = 150;
+                opt.Items["key"] = Key;
+            });
         }
 
         private static NameValueCollection BuildQuery(IEnumerable<string> term, PlacesRequestFilter filter,
@@ -83,41 +117,6 @@ namespace Cloudents.Infrastructure.Search
                 ["key"] = Key,
                 ["pagetoken"] = nextPageToken
             };
-        }
-
-        public async Task<PlaceDto> SearchAsync(string term, CancellationToken token)
-        {
-            if (term == null) throw new ArgumentNullException(nameof(term));
-
-            var nvc = new NameValueCollection
-            {
-                ["query"] = term,
-                ["key"] = Key,
-            };
-
-            var result = await _restClient.GetJsonAsync(new Uri("https://maps.googleapis.com/maps/api/place/textsearch/json"), nvc, token).ConfigureAwait(false);
-            var mapperResult = _mapper.Map<JObject, IEnumerable<PlaceDto>>(result, opt =>
-           {
-               opt.Items["width"] = 150;
-               opt.Items["key"] = Key;
-           });
-            return mapperResult.FirstOrDefault();
-        }
-
-        public async Task<PlaceDto> ByIdAsync(string id, CancellationToken token)
-        {
-            var nvc = new NameValueCollection
-            {
-                ["key"] = Key,
-                ["placeid"] = id
-            };
-
-            var result = await _restClient.GetJsonAsync(new Uri("https://maps.googleapis.com/maps/api/place/details/json"), nvc, token).ConfigureAwait(false);
-            return _mapper.Map<JObject, PlaceDto>(result, opt =>
-            {
-                opt.Items["width"] = 150;
-                opt.Items["key"] = Key;
-            });
         }
     }
 }

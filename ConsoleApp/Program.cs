@@ -8,7 +8,9 @@ using Autofac;
 using Autofac.Features.Metadata;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.DocumentDb;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Models;
 using Cloudents.Core.Storage;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Framework;
@@ -32,15 +34,13 @@ namespace ConsoleApp
             builder.RegisterModule<IocModule>();
             var container = builder.Build();
             //210ec431-2d6d-45cb-bc01-04e3f687f0ed.docx
-            var meta = container.Resolve<IFactoryProcessor>();
+            var meta = container.Resolve<IPlacesSearch>();
 
 
-            var repository = container.Resolve<IReadRepositoryAsync<DocumentDto, long>>();
+            var result = await meta.SearchAsync(new[] { "Cici's Pizza" }, PlacesRequestFilter.None,
+                new GeoPoint(-82.3359404, 29.6519322), null,
+                default);
 
-            var result = await repository.GetAsync(566636, default);
-
-            var result2 = meta.PreviewFactory(result.Blob);
-            
             // var model = SearchQuery.Document(new [] {"microsoft"}, null, null, null, 0, SearchRequestSort.None, null);
         }
     }
