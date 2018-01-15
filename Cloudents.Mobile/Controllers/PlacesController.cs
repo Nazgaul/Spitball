@@ -19,7 +19,7 @@ namespace Cloudents.Mobile.Controllers
     [MobileAppController]
     public class PlacesController : ApiController
     {
-        private readonly IPlacesSearch _purchaseSearch;
+        private readonly IGooglePlacesSearch _purchaseSearch;
         private readonly IIpToLocation _ipToLocation;
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace Cloudents.Mobile.Controllers
         /// </summary>
         /// <param name="purchaseSearch"></param>
         /// <param name="ipToLocation"></param>
-        public PlacesController(IPlacesSearch purchaseSearch, IIpToLocation ipToLocation)
+        public PlacesController(IGooglePlacesSearch purchaseSearch, IIpToLocation ipToLocation)
         {
             _purchaseSearch = purchaseSearch;
             _ipToLocation = ipToLocation;
