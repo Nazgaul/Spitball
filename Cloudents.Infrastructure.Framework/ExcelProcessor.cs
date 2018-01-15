@@ -42,7 +42,6 @@ namespace Cloudents.Infrastructure.Framework
 
             var excel = new AsyncLazy<Workbook>(async () =>
             {
-                SetLicense();
                 using (var sr = await BlobProvider.DownloadFileAsync(BlobUri, cancelToken).ConfigureAwait(false))
                 {
                     return new Workbook(sr);
