@@ -13,7 +13,7 @@
         <sort-and-filter :sortOptions="sortOptions" :sortCallback="$_updateSortMobile" :sortVal="sortVal"
                          :filterOptions="filterOptions"
                          :filterCallback="$_updateFilterMobile" :filterVal="selectedFilters">
-            
+            <div slot="headerTitle" slot-scope="props"><span @click.stop.prevent="">{{props.title}}</span></div>
             <!--</template>-->
             <template slot="courseTitlePrefix">
                 <slot name="courseTitlePrefix"></slot>
