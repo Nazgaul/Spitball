@@ -1,15 +1,15 @@
 import previewService from "../services/spitballPreviewService";
 import {PREVIEW} from "./mutation-types";
-const store={
+const state={
     item:{details:{}}
 };
 const mutations = {
     [PREVIEW.UPDATE_ITEM_PREVIEW](state, payload) {
-        state.item = { ...state.item, ...payload };
+        state.item = {...state.item,...payload};
     }
 };
 const getters={
-    itemDetails:state=>state.item.details
+    itemDetails : state => state.item.details
 };
 const actions={
     getPreview(context, model) {
@@ -21,7 +21,7 @@ const actions={
 };
 export default {
     actions,
-    store,
+    state,
     getters,
     mutations
 }
