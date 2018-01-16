@@ -8,6 +8,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Web.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -21,13 +22,15 @@ namespace Cloudents.Web.Test
     {
 
         Mock<IIpToLocation> _mock;
+        private Mock<IConfiguration> _configurationMock;
 
 
         private HomeController _controller;
         public HomeControllerTests()
         {
             _mock = new Mock<IIpToLocation>();
-            _controller = new HomeController(_mock.Object);
+            _configurationMock = new Mock<IConfiguration>();
+            _controller = new HomeController(_mock.Object, _configurationMock.Object);
             _controller.ControllerContext.HttpContext = new DefaultHttpContext();
 
         }

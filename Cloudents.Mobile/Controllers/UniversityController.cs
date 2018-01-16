@@ -35,22 +35,22 @@ namespace Cloudents.Mobile.Controllers
             _universityProvider = universityProvider;
         }
 
-        [HttpPost, Authorize, Obsolete]
-        public async Task<HttpResponseMessage> Post(CreateUniversityRequest model)
-        {
-            if (model == null)
-            {
-                return Request.CreateBadRequestResponse();
-            }
-            if (!ModelState.IsValid)
-            {
-                return Request.CreateBadRequestResponse();
-            }
-            var command = new CreateUniversityCommand(model.Name, model.Country, User.GetUserId());
-            await _zboxWriteService.CreateUniversityAsync(command).ConfigureAwait(false);
+        //[HttpPost, Authorize, Obsolete]
+        //public async Task<HttpResponseMessage> Post(CreateUniversityRequest model)
+        //{
+        //    if (model == null)
+        //    {
+        //        return Request.CreateBadRequestResponse();
+        //    }
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Request.CreateBadRequestResponse();
+        //    }
+        //    var command = new CreateUniversityCommand(model.Name, model.Country, User.GetUserId());
+        //    await _zboxWriteService.CreateUniversityAsync(command).ConfigureAwait(false);
 
-            return Request.CreateResponse(command.Id);
-        }
+        //    return Request.CreateResponse(command.Id);
+        //}
 
 
         /// <summary>

@@ -8,6 +8,7 @@ using Microsoft.Azure.Mobile.Server.Config;
 
 namespace Cloudents.Mobile.Controllers
 {
+    /// <inheritdoc />
     /// <summary>
     /// Get a sentence the user enter and interpret it
     /// </summary>
@@ -16,6 +17,7 @@ namespace Cloudents.Mobile.Controllers
     {
         private readonly IEngineProcess _engineProcess;
 
+        /// <inheritdoc />
         /// <summary>
         /// ctor
         /// </summary>

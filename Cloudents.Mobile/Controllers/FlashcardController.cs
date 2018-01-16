@@ -56,28 +56,28 @@ namespace Cloudents.Mobile.Controllers
             });
         }
 
-        [HttpPost, Route("api/flashcard/like")]
-        [Authorize , Obsolete]
-        public HttpResponseMessage AddLike(ItemLikeRequest model)
-        {
-            //var command = new AddFlashcardLikeCommand(User.GetUserId(), model.Id);
-            //await _zboxWriteService.AddFlashcardLikeAsync(command).ConfigureAwait(false);
+        //[HttpPost, Route("api/flashcard/like")]
+        //[Authorize , Obsolete]
+        //public HttpResponseMessage AddLike(ItemLikeRequest model)
+        //{
+        //    //var command = new AddFlashcardLikeCommand(User.GetUserId(), model.Id);
+        //    //await _zboxWriteService.AddFlashcardLikeAsync(command).ConfigureAwait(false);
 
-            //if (model.Tags != null && model.Tags.Any())
-            //{
-            //    var z = new AssignTagsToFlashcardCommand(model.Id, model.Tags, TagType.User);
-            //    await _zboxWriteService.AddItemTagAsync(z).ConfigureAwait(false);
-            //}
+        //    //if (model.Tags != null && model.Tags.Any())
+        //    //{
+        //    //    var z = new AssignTagsToFlashcardCommand(model.Id, model.Tags, TagType.User);
+        //    //    await _zboxWriteService.AddItemTagAsync(z).ConfigureAwait(false);
+        //    //}
 
-            return Request.CreateResponse(HttpStatusCode.OK, Guid.NewGuid());
-        }
-        [HttpDelete, Route("api/flashcard/like")]
-        [Authorize, Obsolete]
-        public HttpResponseMessage DeleteLike(Guid likeId)
-        {
-            //var command = new DeleteFlashcardLikeCommand(User.GetUserId(), likeId);
-            //await _zboxWriteService.DeleteFlashcardLikeAsync(command).ConfigureAwait(false);
-            return Request.CreateResponse(HttpStatusCode.OK);
-        }
+        //    return Request.CreateResponse(HttpStatusCode.OK, Guid.NewGuid());
+        //}
+        //[HttpDelete, Route("api/flashcard/like")]
+        //[Authorize, Obsolete]
+        //public HttpResponseMessage DeleteLike(Guid likeId)
+        //{
+        //    //var command = new DeleteFlashcardLikeCommand(User.GetUserId(), likeId);
+        //    //await _zboxWriteService.DeleteFlashcardLikeAsync(command).ConfigureAwait(false);
+        //    return Request.CreateResponse(HttpStatusCode.OK);
+        //}
     }
 }

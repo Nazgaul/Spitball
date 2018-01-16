@@ -28,7 +28,6 @@
     </NuGetPackageImportStamp>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
     <TargetFrameworkProfile />
-    
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -99,60 +98,37 @@
   <ItemGroup>
     <Compile Include="App_Start\Startup.MobileApp.cs" />
     <Compile Include="App_Start\Startup.Swagger.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AiController.cs" />
     <Compile Include="Controllers\AskController.cs" />
     <Compile Include="Controllers\BookController.cs" />
-    <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
-    <Compile Include="Controllers\FavoriteController.cs" />
-    <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Controllers\FlashcardController.cs" />
     <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\PlacesController.cs" />
-    <Compile Include="Controllers\QuizController.cs" />
-    <Compile Include="Controllers\RefreshController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
-    <Compile Include="Controllers\TitleController.cs" />
     <Compile Include="Controllers\TutorController.cs" />
     <Compile Include="Controllers\UniversityController.cs" />
-    <Compile Include="Controllers\UpdateTagsController.cs" />
     <Compile Include="Controllers\V-2017-12-19\BookController.cs" />
     <Compile Include="Controllers\V-2017-12-19\JobController.cs" />
     <Compile Include="Controllers\V-2017-12-19\TutorController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="Controllers\VideoController.cs" />
     <Compile Include="Extensions\HttpRequestMessageExtensions.cs" />
     <Compile Include="Extensions\ModelStateDictionaryExtensions.cs" />
     <Compile Include="Extensions\UrlHelperExtension.cs" />
     <Compile Include="Filters\PagingAttribute.cs" />
     <Compile Include="Filters\VersionConstraint.cs" />
     <Compile Include="Filters\VersionedRoute.cs" />
-    <Compile Include="Models\AddCommentRequest.cs" />
     <Compile Include="Models\AskRequest.cs" />
     <Compile Include="Models\BookRequest.cs" />
-    <Compile Include="Models\ChatFileUploadRequest.cs" />
     <Compile Include="Models\CourseRequest.cs" />
     <Compile Include="Models\CreateCourseRequest.cs" />
     <Compile Include="Models\CreateUniversityRequest.cs" />
-    <Compile Include="Models\DropboxUploadRequest.cs" />
-    <Compile Include="Models\FileUploadRequest.cs" />
-    <Compile Include="Models\FollowRequest.cs" />
     <Compile Include="Models\IPaging.cs" />
-    <Compile Include="Models\ItemLikeRequest.cs" />
-    <Compile Include="Models\ItemTagRequest.cs" />
     <Compile Include="Models\JobRequest.cs" />
-    <Compile Include="Models\LoginResult.cs" />
-    <Compile Include="Models\MailRequest.cs" />
-    <Compile Include="Models\MarkReadRequest.cs" />
-    <Compile Include="Models\ProfileRequest.cs" />
     <Compile Include="Models\PurchaseRequest.cs" />
     <Compile Include="Models\SearchRequest.cs" />
     <Compile Include="Models\TutorRequest.cs" />
     <Compile Include="Models\UniversityRequest.cs" />
-    <Compile Include="Models\UpdateTagsRequest.cs" />
-    <Compile Include="Models\UpdateUniversityRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
