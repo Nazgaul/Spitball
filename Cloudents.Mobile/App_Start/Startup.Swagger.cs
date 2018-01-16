@@ -58,7 +58,6 @@ namespace Cloudents.Mobile
                     c.SchemaFilter<MobileAppSchemaFilter>();
                     c.OperationFilter<SwaggerDefaultValues>();
                     c.DescribeAllEnumsAsStrings(true);
-
                     c.IncludeXmlComments(
                         $@"{AppDomain.CurrentDomain.BaseDirectory}\bin\Cloudents.Mobile.xml");
                 })

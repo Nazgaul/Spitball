@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -6,6 +7,7 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
 using Cloudents.Web.Resources;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
@@ -16,15 +18,20 @@ namespace Cloudents.Web.Controllers
     {
         private readonly IStringLocalizer<Seo> _localizer;
         private readonly IReadRepositoryAsync<DocumentSeoDto, long> _repository;
+        private readonly IReadRepositoryAsync<DocumentDto, long> _repositoryDocument;
+        private readonly IBlobProvider<FilesContainerName> _blobProvider;
 
-        public DocumentController(IStringLocalizer<Seo> localizer, IReadRepositoryAsync<DocumentSeoDto, long> repository)
+        public DocumentController(IStringLocalizer<Seo> localizer, IReadRepositoryAsync<DocumentSeoDto, long> repository, IReadRepositoryAsync<DocumentDto, long> repositoryDocument, IBlobProvider<FilesContainerName> blobProvider)
         {
             _localizer = localizer;
             _repository = repository;
+            _repositoryDocument = repositoryDocument;
+            _blobProvider = blobProvider;
         }
 
         [Route("item/{universityName}/{boxId:long}/{boxName}/{id:long}/{name}", Name = SeoTypeString.Item)]
-        public async Task<IActionResult> Index(long id, CancellationToken token)
+        [ActionName("Index")]
+        public async Task<IActionResult> IndexAsync(long id, CancellationToken token)
         {
             //return this.RedirectToOldSite();
 
@@ -57,6 +64,24 @@ namespace Cloudents.Web.Controllers
             }
             ViewBag.metaDescription = WebUtility.HtmlDecode(ViewBag.metaDescription);
             return View();
+        }
+
+
+        [Route("Item/{universityName}/{boxId:long}/{boxName}/{itemid:long:min(0)}/{itemName}/download", Name = "ItemDownload")]
+        [Route("D/{boxId:long:min(0)}/{itemId:long:min(0)}", Name = "ItemDownload2")]
+        public async Task<ActionResult> DownloadAsync(long itemId, CancellationToken token)
+        {
+
+            var item = await _repositoryDocument.GetAsync(itemId, token);
+            if (item.Type == "Link")
+            {
+                return Redirect(item.Blob);
+            }
+
+            var nameToDownload = Path.GetFileNameWithoutExtension(item.Name);
+            var extension = Path.GetExtension(item.Blob);
+            var url = _blobProvider.GenerateSharedAccessReadPermission(item.Blob, 30, nameToDownload + extension);
+            return Redirect(url);
         }
     }
 }

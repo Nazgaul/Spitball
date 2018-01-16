@@ -14,6 +14,9 @@ namespace Cloudents.Core.Storage
 
         string GenerateSharedAccessReadPermission(string blobName, double expirationTimeInMinutes);
 
+        string GenerateSharedAccessReadPermission(string blobName, double expirationTimeInMinutes,
+            string contentDisposition);
+
         Task<bool> ExistsAsync(string blobName, CancellationToken token);
         Uri GetBlobUrl(string blobName);
     }
