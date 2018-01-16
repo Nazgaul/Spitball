@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Request;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Web.Extensions;
@@ -19,7 +14,6 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Newtonsoft.Json.Converters;
 using WebMarkupMin.AspNetCore2;
 
@@ -110,7 +104,11 @@ namespace Cloudents.Web
 
                 //     app.UseExceptionHandler("Home/Error");
             }
-            app.UseRewriter(new RewriteOptions().AddRedirectToHttpsPermanent());
+            app.UseRewriter(new RewriteOptions()
+                .AddRedirectToHttpsPermanent()
+            //.AddIISUrlRewrite(env.ContentRootFileProvider, "IISUrlRewrite.xml")
+            .Add(new RemoveTrailingSlash())
+            );
 
             app.UseResponseCompression();
             app.UseResponseCaching();
