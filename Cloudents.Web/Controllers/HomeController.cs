@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace Cloudents.Web.Controllers
 {
@@ -13,13 +15,21 @@ namespace Cloudents.Web.Controllers
     {
         private readonly IIpToLocation _ipToLocation;
 
-        public static readonly IPAddress[] OfficeIps = {
-            IPAddress.Parse("31.154.39.170")
-        };
+        public readonly List<IPAddress> OfficeIps = new List<IPAddress>();
 
-        public HomeController(IIpToLocation ipToLocation)
+        public HomeController(IIpToLocation ipToLocation, IConfiguration configuration)
         {
             _ipToLocation = ipToLocation;
+            var ipsStr = configuration["Ips"];
+
+            if (ipsStr == null) return;
+            foreach (var ipStr in ipsStr.Split(','))
+            {
+                if (IPAddress.TryParse(ipStr, out var ip))
+                {
+                    OfficeIps.Add(ip);
+                }
+            }
         }
 
         //[ResponseCache()] 
