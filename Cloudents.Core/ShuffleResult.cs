@@ -31,6 +31,10 @@ namespace Cloudents.Core
             {
                 var lastElement = list.Last();
                 var index = listOfResult.FindIndex(f => !Equals(f.Bucket, lastElement.Bucket));
+                if (index == -1)
+                {
+                    index = 0;
+                }
                 list.Add(listOfResult.RemoveAndGet(index));
             }
 

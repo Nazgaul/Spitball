@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Cloudents.Core.DTOs
 {
     [DataContract]
-    public class SearchResult
+    public class SearchResult : IShuffleable
     {
         [DataMember]
         public string Id { get; set; }
@@ -20,6 +20,6 @@ namespace Cloudents.Core.DTOs
         [DataMember]
         public string Source { get; set; }
 
-        public int Order { get; set; }
+        public object Bucket => Source;
     }
 }

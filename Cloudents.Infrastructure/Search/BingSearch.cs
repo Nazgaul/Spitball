@@ -54,24 +54,23 @@ namespace Cloudents.Infrastructure.Search
                 new KeyValuePair<string,string>("Ocp-Apim-Subscription-Key", SubscriptionKey)
             }, token).ConfigureAwait(false);
             var response = JsonConvert.DeserializeObject<BingCustomSearchResponse>(result);
-            var dictionaryOfHost = new ConcurrentDictionary<string, int>();
-            return response.WebPages?.Value?.Select((s, i) =>
-           {
-               Uri.TryCreate(s.OpenGraphImage?.ContentUrl, UriKind.Absolute, out var image);
-               var url = new Uri(s.Url);
-               dictionaryOfHost.AddOrUpdate(url.Host, 1, (id, count) => count + 1);
-               return new SearchResult
-               {
-                   Url = url,
-                   Id = _keyGenerator.GenerateKey(s.Url),
-                   Image = image,
-                   Snippet = s.Snippet,
-                   Source = url.Host,
-                   Title = s.Name,
-                   Order = dictionaryOfHost[url.Host]
+            //var dictionaryOfHost = new ConcurrentDictionary<string, int>();
+            var searchResult = response.WebPages?.Value?.Select((s, i) =>
+          {
+              Uri.TryCreate(s.OpenGraphImage?.ContentUrl, UriKind.Absolute, out var image);
+              var url = new Uri(s.Url);
+              return new SearchResult
+              {
+                  Url = url,
+                  Id = _keyGenerator.GenerateKey(s.Url),
+                  Image = image,
+                  Snippet = s.Snippet,
+                  Source = url.Host,
+                  Title = s.Name,
 
-               };
-           }).OrderBy(o => o.Order);
+              };
+          });
+            return Shuffle<SearchResult>.DoShuffle(searchResult);
         }
 
         public static string BuildSources(IEnumerable<string> sources)

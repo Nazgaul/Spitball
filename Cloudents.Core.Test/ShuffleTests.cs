@@ -68,5 +68,28 @@ namespace Cloudents.Core.Test
             CollectionAssert.AreEqual(result,expectedList);
 
         }
+
+        [TestMethod]
+        public void DoShuffle_Array2_RightResult()
+        {
+            var list = new List<ShuffleTestModel>
+            {
+                new ShuffleTestModel {Host = "A", Result = 1},
+                new ShuffleTestModel {Host = "A", Result = 2},
+                new ShuffleTestModel {Host = "A", Result = 3},
+                new ShuffleTestModel {Host = "A", Result = 4},
+                new ShuffleTestModel {Host = "A", Result = 5},
+                new ShuffleTestModel {Host = "A", Result = 6},
+                new ShuffleTestModel {Host = "A", Result = 7},
+                new ShuffleTestModel {Host = "A", Result = 8}
+            };
+            var result = Shuffle<ShuffleTestModel>.DoShuffle(list).ToList();
+
+
+            
+
+            CollectionAssert.AreEqual(result, list);
+
+        }
     }
 }
