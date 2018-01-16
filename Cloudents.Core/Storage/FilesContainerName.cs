@@ -1,8 +1,8 @@
 ﻿namespace Cloudents.Core.Storage
 {
-    public class CacheContainer : IStorageContainer
+    public class FilesContainerName : IStorageContainer
     {
-        public string Name => "zboxcahce";
+        public string Name => "zboxfiles";
         public string RelativePath => string.Empty;
     }
 }
