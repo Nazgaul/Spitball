@@ -50,16 +50,6 @@ namespace Cloudents.Infrastructure.Storage
         public string GenerateSharedAccessReadPermission(string blobName, double expirationTimeInMinutes)
         {
             return GenerateSharedAccessReadPermission(blobName, expirationTimeInMinutes, null);
-            var blob = GetBlob(blobName);
-
-            var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
-            {
-                SharedAccessStartTime = DateTime.UtcNow.AddMinutes(-1),
-                Permissions = SharedAccessBlobPermissions.Read,
-                SharedAccessExpiryTime = DateTime.UtcNow.AddMinutes(expirationTimeInMinutes)
-            });
-            var url = new Uri(blob.Uri, signedUrl);
-            return url.AbsoluteUri;
         }
 
         public string GenerateSharedAccessReadPermission(string blobName, double expirationTimeInMinutes, string contentDisposition)
