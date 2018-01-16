@@ -2,13 +2,12 @@
     <div class="item">
         <div class="item-content">
             <div class="page text-xs-center" v-for="(page,index) in item.preview" :key="index">
-                <component class="page-content" :is="currentComponent" :src="page" :class="item.type+'-content'"></component>
+                <component class="page-content elevation-1" :is="currentComponent" :src="page" :class="item.type+'-content'"></component>
             </div>
         </div>
     </div>
 </template>
 <script>
-    import itemActions from './itemActions.vue'
     import { mapActions } from 'vuex'
     export default {
         data() {
@@ -17,10 +16,6 @@
                 item: {},
                 actions
             }
-        },
-
-        components: {
-            itemActions
         },
 
         methods: {

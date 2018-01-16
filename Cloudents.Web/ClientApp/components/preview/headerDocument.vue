@@ -1,25 +1,21 @@
 ﻿<template>
     <v-toolbar app fixed :height="$vuetify.breakpoint.mdAndUp ? 140 : 182" class="header elevation-0">
-        <v-layout column class="header-elements">
-            <v-layout column class="header-elements">
-                <main-header class="elevation-1"></main-header>
-            </v-layout>
+        <v-layout column class="header-elements ma-0">
+            <main-header class="elevation-1"></main-header>
             <slot name="header">
                 <v-toolbar class="item-toolbar elevation-0" height="80">
-                    <v-layout class="toolbar-content" column>
-                        <v-flex>
-                            <v-layout row align-center justify-space-between>
-                                <div class="item-name">{{item.name}}</div>
-                                <!--<item-actions></item-actions>-->
-                            </v-layout>
-                        </v-flex>
+                    <div class="toolbar-content">
+                        <v-layout row align-center justify-space-between>
+                            <div class="item-name">Math 116 formula sheet.doc<!--{{item.name}}--></div>
+                            <item-actions></item-actions>
+                        </v-layout>
                         <v-flex class="item-meta mt-2">
                             <v-layout row align-center justify-space-between>
-                                <div class="author">{{item.author}} woop</div>
-                                <div class="date">{{item.date | mediumDate}}</div>
+                                <div class="author">Jamie Schneider<!--{{item.owner}}--></div>
+                                <div class="date">Dec 10, 2015<!--{{item.date | mediumDate}}--></div>
                             </v-layout>
                         </v-flex>
-                    </v-layout>
+                    </div>
                 </v-toolbar>
             </slot>
 
@@ -28,11 +24,14 @@
 </template>
 
 <script>
+    import itemActions from './itemActions.vue'
     import mainHeader from '../helpers/header.vue'
-    import {mapGetters} from 'vuex'
+    import { mapGetters } from 'vuex'
     export default {
-        components: { mainHeader },
-        computed:{...mapGetters({'item':'itemDetails'})},
+        components: {
+            mainHeader, itemActions
+        },
+        computed: { ...mapGetters({ 'item': 'itemDetails' }) },
         filters: {
             mediumDate: function (value) {
                 if (!value) return '';
@@ -42,3 +41,4 @@
         }
     }
 </script>
+<style src="./headerDocument.less" lang="less"></style>
