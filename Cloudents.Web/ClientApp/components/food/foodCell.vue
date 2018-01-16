@@ -21,9 +21,14 @@
                         <div class="address">{{props.item.address}}</div>
                     </v-flex>
                     <div class="pa-0 bottom" v-if="props.item.open">Open Now</div>
+                    <div class="hooked-container" v-if="props.item.hooked">
+                        <hooked-logo class="logo"></hooked-logo>
+                        <div class="text">Discount</div>
+                    </div>
                 </v-layout>
             </v-container>
         </v-flex>
     </v-layout>
 </template>
+
 <style lang="less" src="./foodCell.less"></style>

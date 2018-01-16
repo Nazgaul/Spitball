@@ -1,6 +1,7 @@
 ﻿@import "../../mixin.less";
 
 .place-cell {
+    position: relative;
     .imageWrapper(96px,120px);
     width: 100%;
     text-align: left;
@@ -34,6 +35,27 @@
         font-size: 12px;
         letter-spacing: 0.1px;
         color: @Book-Info;
+    }
+
+    .hooked-container {
+        background-color: #69B74A;
+        position: absolute;
+        right: 8px;
+        bottom: -8px;
+        padding: 3px;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        text-align: center;
+
+        .logo {
+            margin: 4px 0 -5px 0;
+        }
+
+        .text {
+            color: @color-white;
+            font-size: 12px;
+            letter-spacing: -0.3px;
+        }
     }
 
     .bottom {

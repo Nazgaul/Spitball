@@ -14,10 +14,11 @@
     import FoodMap from '../results/foodExtra.vue'
     import StarRating from 'vue-star-rating';
     import FoodDefault from './../navbar/images/food.svg'
+    import hookedLogo from "./svg/hooked-logo.svg"
     import { mapMutations } from 'vuex'
     export default {
         name: "food-details",
-        components: { foodCell, FoodMap, StarRating, FoodDefault },
+        components: { foodCell, FoodMap, StarRating, FoodDefault, hookedLogo },
         props: { id: { type: String }, item: { type: Object } },
         data() {
             return { pageData: '' }

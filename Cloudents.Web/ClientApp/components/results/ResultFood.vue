@@ -7,9 +7,10 @@
     import StarRating from 'vue-star-rating'
     import FoodDefault from './../navbar/images/food.svg'
     import foodCell from "../food/foodCell.vue"
+    import hookedLogo from "../food/svg/hooked-logo.svg"
     export default {
         props: { item: { type: Object, required: true },index:{Number} },
-        components: { StarRating, FoodDefault, foodCell },
+        components: { StarRating, FoodDefault, foodCell, hookedLogo },
         data() { return { showMap: false } },
         computed: {
             myLocation: function () {
