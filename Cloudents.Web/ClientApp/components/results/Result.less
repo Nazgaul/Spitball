@@ -8,7 +8,6 @@
     svg {
         width: 120px;
         //height: 96px;
-
         .responsive-property(width,120px,120px,100px);
     }
 
@@ -40,4 +39,36 @@
     }
 
     background: #fff;
+}
+
+.promo-cell {
+    background: white;
+    border-radius: 4px;
+    position: relative;
+    padding: 20px 12px 10px 12px;
+
+    .promo-title {
+        font-size: 34px;
+        letter-spacing: -0.5px;
+        text-align: left;
+    }
+
+    p {
+        font-size: 14px;
+        line-height: 1.43;
+        letter-spacing: -0.3px;
+        color: black;
+    }
+
+    .close-btn {
+        line-height: 0;
+        outline: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        i {
+            font-size: 10px;
+        }
+    }
 }
