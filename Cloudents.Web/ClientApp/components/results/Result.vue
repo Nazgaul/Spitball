@@ -19,8 +19,14 @@
                 <scroll-list v-if="items.length" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
                     <v-container class="pa-0">
                         <v-layout column>
-                            <v-flex order-xs1 v-if="showPromo"><div>{{currentPromotion.title}}<span @click="showPromo=false">X</span></div>
-                                <p>{{currentPromotion.content}}</p>
+                            <v-flex class="promo-cell mb-2 elevation-1" order-xs1 v-if="showPromo">
+                                <button class="close-btn pa-2" @click="showPromo=false">
+                                    <v-icon right>sbf-close</v-icon>
+                                </button>
+                                <div>
+                                    <div class="promo-title" :class="`color-${name}--text`">{{currentPromotion.title}}</div>
+                                    <p class="mt-1">{{currentPromotion.content}}</p>
+                                </div>
                             </v-flex>
                             <v-flex order-xs2 v-if="showPersonalizeField&&!university" class="personalize-wrapper pa-3 mb-2 elevation-1">
                                 <v-text-field class="elevation-0" type="search" solo prepend-icon="sbf-search" placeholder="Where do you go to school?" @click="$_openPersonalize"></v-text-field>
