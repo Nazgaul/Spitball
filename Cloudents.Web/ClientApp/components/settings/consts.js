@@ -50,7 +50,13 @@ export let settingMenu = [
             this.type = universityExist ? "course" : "university";
             this.keep = !universityExist ? true : "";
             this.isSearch = true;
-
+        }
+    },
+    {
+        id: "intercom",
+        name: "Feedback",
+        click: function () {
+            Intercom('showNewMessage', 'Feedback on the new reports feature:');
         }
     }
 ];

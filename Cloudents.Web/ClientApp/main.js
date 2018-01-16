@@ -94,7 +94,9 @@ const router = new VueRouter({
             return { x: 0, y: 0 }
         }
     }
+   
 });
+
 Vue.use(VueAnalytics,
     {
         id: 'UA-100723645-2',
@@ -137,6 +139,22 @@ const app = new Vue({
     router: router,
     render: h => h(App),
     store
+});
+router.onReady(() => {
+    intercom(router.currentRoute)
+    router.beforeEach((to, from, next) => {
+        intercom(to)
+        next();
+    });
+
+    function intercom(to) {
+        let hideLauncher = true
+        if (to.name === "home") {
+            hideLauncher = false;
+        }
+        intercomSettings.hide_default_launcher = hideLauncher;
+        Intercom("update");
+    }
 });
 //app.$mount("#app");
 //This is for cdn fallback do not touch

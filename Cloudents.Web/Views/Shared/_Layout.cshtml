@@ -22,14 +22,14 @@
 
 <html>
 <head>
-   
+
     <title>@ViewBag.title</title>
 
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <base href="~/" />
     @*<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">*@
-    
+
 
     <environment include="Development">
         <link rel="stylesheet" href="~/dist/@p.Css" />
@@ -101,6 +101,9 @@
 
     <script async>
         (function () {
+            window.intercomSettings = {
+                app_id: "njmpgayv"
+            };
             var w = window; var ic = w.Intercom; if (typeof ic === "function") { ic('reattach_activator'); ic('update', intercomSettings); } else {
                 var d = document; var i = function () { i.c(arguments) }; i.q = []; i.c = function (args) { i.q.push(args) }; w.Intercom = i; function l() {
                     var s = d.createElement('script'); s.type = 'text/javascript'; s.async = true;
@@ -108,17 +111,21 @@
                     var x = d.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
                 } if (w.attachEvent) { w.attachEvent('onload', l); } else { w.addEventListener('load', l, false); }
             }
-            Intercom('boot', { app_id: 'njmpgayv' })
+            //Intercom('boot', { app_id: 'njmpgayv' })
         })()
     </script>
     <!-- Google Tag Manager -->
-<script async>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window, document, 'script', 'dataLayer','GTM-M2BGS2G');</script>
-<!-- End Google Tag Manager -->
- <script async type="text/javascript" id="inspectletjs">
+    <script async>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-M2BGS2G');</script>
+    <!-- End Google Tag Manager -->
+    <script async type="text/javascript" id="inspectletjs">
         (function () {
             window.__insp = window.__insp || [];
             __insp.push(['wid', 348650174]);
@@ -127,7 +134,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         })();
     </script>
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
+    <script>
         window.version = '@version';
         window.publicPath = '@cdnEndPoint' + '/dist/';
     </script>

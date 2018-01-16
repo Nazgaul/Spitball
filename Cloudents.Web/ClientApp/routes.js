@@ -127,8 +127,14 @@ const foodDetailsProps = {
 const bookDetailsProps = {
     ...resultProps,
     default: dynamicDetailsPropsFn,
-    //verticalListMobile: filterLinkFun,
-    header: (route) => ({ ...verticalsLinkFun(route), name: "textbooks", id: route.params.id, currentSelection: "book", currentPath: "bookDetails" })
+    header: (route) => (
+        {
+            ...verticalsLinkFun(route),
+            name: "textbooks",
+            id: route.params.id,
+            currentSelection: "book",
+            currentPath: "bookDetails"
+        })
 };
 let routes2 = [
     {
