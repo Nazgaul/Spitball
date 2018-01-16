@@ -45,7 +45,11 @@
     background: white;
     border-radius: 4px;
     position: relative;
-    padding: 20px 12px 10px 12px;
+    padding: 20px 60px 10px 12px;
+
+    @media(max-width: @screen-xs) {
+        padding: 20px 12px 10px 12px;
+    }
 
     .promo-title {
         font-size: 34px;
