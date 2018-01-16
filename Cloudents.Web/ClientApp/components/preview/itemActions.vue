@@ -1,23 +1,12 @@
 ﻿<template>
     <div class="actions">
-        <v-tooltip bottom v-if="showActions" max-width>
+        <v-tooltip bottom v-if="showActions">
             <info-icon slot="activator" class="info-icon ml-4"></info-icon>
             <span>This item might be subject to certain laws and school policies that restrict third-party use of materials prepared by educators. It is your sole responsibility to be aware of and to abide by any such laws or policies that may apply to you. You may access materials solely for your information and your non-commercial, personal use and as intended through the normal functionality of the site and service.</span>
         </v-tooltip>
-        <a target="_blank" :href="$route.path+'download'" v-if="showActions" class="hidden-xs-only ml-4">
+        <a target="_blank" :href="$route.path+'download'" v-if="showActions" class="ml-4">
             <download-icon></download-icon>
         </a>
-        <a target="_blank" :href="$route.path+'print'" v-if="showActions" class="hidden-xs-only ml-4">
-            <print-icon ></print-icon>
-        </a>
-        <v-menu bottom class="hidden-sm-and-up ml-4" v-if="showActions">
-            <more-icon slot="activator"></more-icon>
-            <v-list class="actions-list">
-                <v-list-tile v-for="item in moreActions" :key="item.title" @click="">
-                    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                </v-list-tile>
-            </v-list>
-        </v-menu>
         <a href="#" @click.prevent="$_back" class="ml-4"> 
             <close-icon></close-icon>
         </a>

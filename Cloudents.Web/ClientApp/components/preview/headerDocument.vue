@@ -6,13 +6,13 @@
                 <v-toolbar class="item-toolbar elevation-0" height="80">
                     <div class="toolbar-content">
                         <v-layout row align-center justify-space-between>
-                            <div class="item-name">Math 116 formula sheet.doc<!--{{item.name}}--></div>
+                            <div class="item-name">{{item.name}}</div>
                             <item-actions></item-actions>
                         </v-layout>
                         <v-flex class="item-meta mt-2">
                             <v-layout row align-center justify-space-between>
-                                <div class="author">Jamie Schneider<!--{{item.owner}}--></div>
-                                <div class="date">Dec 10, 2015<!--{{item.date | mediumDate}}--></div>
+                                <div class="author">{{item.owner}}</div>
+                                <div class="date">{{item.date | mediumDate}}</div>
                             </v-layout>
                         </v-flex>
                     </div>
