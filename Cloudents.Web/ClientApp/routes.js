@@ -63,6 +63,7 @@ function dynamicPropsFn(route) {
         hasExtra: newName.includes('food'),
         page: page[newName],
         $_calcTerm: $_calcTerm,
+        isPromo:route.query.hasOwnProperty("promo"),
         getFacet: route.meta[`${newName}Facet`],
         currentSuggest: verticalsName.filter(i => i !== newName)[(Math.floor(Math.random() * (verticalsName.length - 2)))],
         vertical: route.meta.vertical

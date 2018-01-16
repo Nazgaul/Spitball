@@ -1,6 +1,6 @@
 ﻿﻿
 <template>
-    <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp">
+    <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp" :name="name">
         <div slot="main">
             <div class="d-flex mobile-filter hidden-sm-and-up">
                 <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right" v-if="filterObject">
@@ -19,13 +19,16 @@
                 <scroll-list v-if="items.length" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
                     <v-container class="pa-0">
                         <v-layout column>
-                            <v-flex order-xs1 v-if="showPersonalizeField&&!university" class="personalize-wrapper pa-3 mb-2 elevation-1">
+                            <v-flex order-xs1 v-if="showPromo"><div>{{currentPromotion.title}}<span @click="showPromo=false">X</span></div>
+                                <p>{{currentPromotion.content}}</p>
+                            </v-flex>
+                            <v-flex order-xs2 v-if="showPersonalizeField&&!university" class="personalize-wrapper pa-3 mb-2 elevation-1">
                                 <v-text-field class="elevation-0" type="search" solo prepend-icon="sbf-search" placeholder="Where do you go to school?" @click="$_openPersonalize"></v-text-field>
                             </v-flex>
-                            <v-flex class="result-cell elevation-1 mb-2" xs-12 v-for="(item,index) in items" :key="index" @click="(hasExtra?selectedItem=item.placeId:'')" :class="(index>6?'order-xs4':'order-xs2')">
+                            <v-flex class="result-cell elevation-1 mb-2" xs-12 v-for="(item,index) in items" :key="index" @click="(hasExtra?selectedItem=item.placeId:'')" :class="(index>6?'order-xs5':'order-xs3')">
                                 <component :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell"></component>
                             </v-flex>
-                            <router-link v-if="!hasExtra" tag="v-flex" class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs3 " :to="{path:'/'+currentSuggest,query:{q:this.query.q}}">
+                            <router-link v-if="!hasExtra" tag="v-flex" class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs4 " :to="{path:'/'+currentSuggest,query:{q:this.userText}}">
                                 <suggest-card :name="currentSuggest"></suggest-card>
                             </router-link>
                         </v-layout>
@@ -83,7 +86,7 @@
         </template>
 
 
-        <component slot="rightSide" v-if="hasExtra&&!isEmpty" :is="name+'-extra'" :place="selectedItem"></component>
+        <component slot="foodRightSide" v-if="!isEmpty" :is="name+'-extra'" :place="selectedItem"></component>
         <router-link slot="suggestCell" v-if="!hasExtra" tag="v-flex" class="result-cell hidden-md-and-down elevation-1 mb-2 xs-12 order-xs3 " :to="{path:'/'+currentSuggest,query:{q:this.query.q}}">
             <suggest-card :name="currentSuggest"></suggest-card>
         </router-link>

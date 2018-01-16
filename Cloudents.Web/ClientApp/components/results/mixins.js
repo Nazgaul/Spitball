@@ -38,7 +38,14 @@ export const sortAndFilterMixin = {
         ...mapMutations(['UPDATE_LOADING'])
     }
 };
-
+let promotions={note:{title:"Study Documents",content:"Spitball curates study documents from the best sites on the web. Our notes, study guides and exams populate based on student ratings and are filtered by your school, classes and preferences."},
+    flashcard:{title:"Flashcard",content:"Search millions of study sets and improve your grades by studying with flashcards."},
+    ask:{title:"Ask A Question",content:"Ask any school related question and immediately get answers and information that relates specifically to you, your classes, and your university."},
+    tutor:{title:"Tutors",content:"Spitball has teamed up with the most trusted tutoring services to help you ace your classes."},
+    book:{title:"Textbooks",content:"Find the best prices to buy, rent and sell your textbooks by comparing hundreds of sites simultaneously."},
+    job:{title:"Jobs",content:"Easily search and apply to paid internships, part-time jobs and entry-level opportunities from local businesses all the way to Fortune 500 companies."},
+    food:{title:"Food and Deals",content:"Discover exclusive deals to local businesses, restaurants and bars near campus."}
+};
 //update data function update the page content and selected filters
 let updateData = function (data, isFilterUpdate = false) {
     const { source, jobType } = data;
@@ -124,6 +131,7 @@ export const pageMixin =
             //get data from vuex getters
             ...mapGetters(['term', 'isFirst', 'myCourses', 'luisTerm',]),
             ...mapGetters({ universityImage: 'getUniversityImage', university: 'getUniversity' }),
+            currentPromotion(){return promotions[this.name]},
             //isMobile() {
             //    return this.$vuetify.breakpoint.xsOnly;
             //},
@@ -176,7 +184,8 @@ export const pageMixin =
                 selectedItem: null,
                 filterObject: null,
                 showFilters: false,
-                showPersonalizeField: false
+                showPersonalizeField: false,
+                showPromo:this.isPromo
             };
         },
 
@@ -318,7 +327,8 @@ export const pageMixin =
             getFacet: { type: [Array] },
             currentSuggest: { type: String },
             vertical: {},
-            userText: { type: String }
+            userText: { type: String },
+            isPromo:{type:Boolean}
         }
 
     };
