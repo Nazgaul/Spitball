@@ -32,7 +32,6 @@ let transferBook = body => {
 };
 let transferFood = body => {
     const data = body.data || [];
-    console.log(body.token);
     return { token: body.token, data: data.map(val => { return { ...val, template: "food" } }) };
 };
 let transferBookDetails = body => {
