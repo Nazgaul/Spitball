@@ -14,24 +14,26 @@
             <h3>Filter</h3>
             <div class="filter-switch" v-if="props.filterOptions">
                 <v-expansion-panel :value="true" expand>
-                    <v-expansion-panel-content v-for="k in props.filterOptions" :key="k.modelId" hide-actions :value="true">
+                    <v-expansion-panel-content v-for="k in props.filterOptions" :key="k.modelId" :value="true">
+                        <v-icon slot="actions" class="hidden-xs-only">sbf-chevron-down</v-icon>
                         <template slot="header">
                             <div class="icon-wrapper"><slot :name="`${k.modelId}TitlePrefix`"></slot></div>
-<slot name="headerTitle" :title="k.title">                            <div>{{k.title}}</div>
-</slot>                            <div class="header__icon hidden-xs-only">
-                                <v-icon>sbf-chevron-down</v-icon>
-                            </div>
+                            <slot name="headerTitle" :title="k.title">
+                                <div>{{k.title}}</div>
+                            </slot>
+                            <!--<div class="header__icon hidden-xs-only" >-->
+                            <!--</div>-->
                             <slot :name="`${k.modelId}MobileExtraState`"></slot>
                             <!--<button v-if="k.modelId === 'course'" class="edit-list hidden-sm-and-up" @click="props.$_openPersonalize()" type="button">Edit List</button>-->
-
                         </template>
                         <div class="sort-filter">
                             <div v-for="s in k.data" :key="(s.id?s.id:s)" class="filter">
+
                                 <!--<v-checkbox :label="s.name?s.name:s" :inputValue="props.filterVal.includes(s.id?s.id:s.toString())"></v-checkbox>-->
                                 <!--<sb-checkbox hide-details @change="props.filterCallback({id:k.modelId,val:(s.id?s.id:s),type:$event})" :inputValue="props.filterVal.includes(s.id?s.id:s.toString())">-->
-                                    <!--<span slot="label" :title="s.name?s.name:s">-->
-                                    <!--{{s.name?s.name:s | capitalize}}-->
-                                    <!--</span>-->
+                                <!--<span slot="label" :title="s.name?s.name:s">-->
+                                <!--{{s.name?s.name:s | capitalize}}-->
+                                <!--</span>-->
                                 <!--</sb-checkbox>-->
                                 <!--<sb-checkbox :inputValue="true" :label="s.name?s.name:s"></sb-checkbox>-->
                                 <!--<sb-checkbox :id="(s.id?s.id:s)" :checked="props.filterVal.includes(s.id?s.id:s.toString())"
