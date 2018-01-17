@@ -3,19 +3,15 @@
         <v-container class="pa-2" @click="$ga.event('Search_Results', $route.path.slice(1),`#${index+1}_${item.source}`)">
             <v-layout row fluid>
                 <v-flex class="img-wrap mr-2 pa-0" :class="['border-'+$route.path.slice(1),'spitball-bg-'+$route.path.slice(1)]">
-                    <img :src="item.image" v-if="item.image" alt="">
-                    <img :src="require(`./../${sourcesImages[sourceName]}`)" v-else-if="sourcesImages[sourceName]" alt="">
-                    
-                    <component :is="$route.path.slice(1)+'-default'" v-else :class="'spitball-bg-'+$route.path.slice(1) + 'spitball-border-'+$route.path.slice(1)" class="defaultImage case3"></component>
-
-                    <!--<component :is="$route.path.slice(1)==='flashcard' ? sourceName : $route.path.slice(1)+'-default'" v-else :class="'spitball-bg-'+$route.path.slice(1) + 'spitball-border-'+$route.path.slice(1)" class="defaultImage"></component>-->
+                    <img :src="item.image" v-if="item.image" alt="" class="image-from-source">
+                    <img :src="require(`./img/${sourcesImages[sourceName]}`)" v-else-if="sourcesImages[sourceName]" alt="">                    
+                    <component :is="$route.path.slice(1)+'-default'" v-else :class="'spitball-bg-'+$route.path.slice(1) + 'spitball-border-'+$route.path.slice(1)" class="defaultImage"></component>
                 </v-flex>
                 <v-flex class="right-section">
                     <v-layout wrap column justify-content-space-between align-item-stretch class="full-height ma-0">
                         <v-flex class="pa-0 item-data" style="flex-grow:1">
                             <div class="cell-title" :class="'text-'+$route.path.slice(1)" v-html="item.title"></div>
                             <p v-html="item.snippet"></p>
-                            <div v-html="sourcesImages[sourceName]"></div>
                         </v-flex>
                         <v-flex class="pa-0 bottom">
                             {{item.source}}
@@ -33,12 +29,11 @@
     import NoteDefault from './../navbar/images/document.svg'
 
     var sourcesImages = {
-        quizlet: 'home/img/quizlet.png',
-        cram: 'home/img/quizlet.png',
-        koofers: 'home/img/quizlet.png',
-        coursehero: 'home/img/course-hero.png',
-        studysoup: 'home/img/quizlet.png',
-        spitball: 'home/img/spitball-logo.png'
+        quizlet: 'quizlet.png',
+        cram: 'cram.png',
+        koofers: 'koofers.png',
+        coursehero: 'coursehero.png',
+        studysoup: 'studysoup.png'
     }
 
 

@@ -1,79 +1,80 @@
-﻿@import "../../mixin.less";
-
-.sb-menu {
-    .postitionSticky();
-    top: @navBarHeightDesktop;
-    background: @Site-Background;
-    padding-left: @resultsFilterWidth;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    z-index:1;
-
-    &.scrolled {
-        box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
-    }
-
-    @media(max-width: 600px) {
-        top: @navBarHeightMobile;
-        padding-left: 8px;
-        //Mobile class added for mobile bookDetailsFilter
-        &.bookDetailsMobile{
-            .tabs__li{
-                background:mediumpurple ;
-            }
-            .tabs__slider{
-            color: mediumpurple;
-        }
-        }
-    }
-
-    .tabs:not(.tabs--centered):not(.tabs--grow):not(.tabs--mobile) .tabs__wrapper--scrollable {
-        margin: 0;
-    }
-
-    .tabs:not(.tabs--grow):not(.tabs--mobile) .tabs__item {
-        padding: 0 16px;
-    }
-
-    .tabs__bar {
-        @tabsPaddingTop: 16px;
-        @tabsPaddingBottom: 8px;
-        height: @resultsTabsHeight;
-        background-color: transparent;
-
-        .tabs__container {
-            padding: 16px 0 16px 0;
-        }
-
-        .tabs__li {
-            height: @resultsTabsHeight - 20;
-
-            a {
-                // display:inline-block;
-                //width:100%;
-                color: #fff !important;
-                font-size: 14px;
-                letter-spacing: -0.3px;
-                padding: 0 16px;
-                opacity: 1;
-                //  margin-bottom:8px;
-            }
-        }
-
-        .tabs__slider {
-            border-top-style: solid;
-            border-top-width: 3px;
-        }
-        /*.tabs__item--active {
-            border-bottom: 2px solid @Class-Material;
-        }*/
-    }
-
-    .vertical {
-        border-radius: 4px;
-
-        a {
-            text-transform: capitalize;
-        }
-    }
-}
+﻿//@import "../../mixin.less";
+//
+//.sb-menu {
+//    .postitionSticky();
+//    top: @navBarHeightDesktop;
+//    background: @Site-Background;
+//    padding-left: @resultsFilterWidth;
+//    padding-top: 6px;
+//    padding-bottom: 6px;
+//    z-index:1;
+//
+//    &.scrolled {
+//        box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+//    }
+//
+//    @media(max-width: 600px) {
+//        top: @navBarHeightMobile;
+//        padding-left: 8px;
+//        //Mobile class added for mobile bookDetailsFilter
+//        &.bookDetailsMobile{
+//            .tabs__li{
+//                background:mediumpurple ;
+//            }
+//            .tabs__slider{
+//            color: mediumpurple;
+//        }
+//        }
+//    }
+//
+//    .tabs:not(.tabs--centered):not(.tabs--grow):not(.tabs--mobile) .tabs__wrapper--scrollable {
+//        margin: 0;
+//    }
+//
+//    .tabs:not(.tabs--grow):not(.tabs--mobile) .tabs__item {
+//        padding: 0 16px;
+//    }
+//
+//    .tabs__bar {
+//        @tabsPaddingTop: 16px;
+//        @tabsPaddingBottom: 8px;
+//        height: @resultsTabsHeight;
+//        background-color: transparent;
+//
+//        .tabs__container {
+//            padding: 16px 0 16px 0;
+//        }
+//
+//        .tabs__li {
+//            height: @resultsTabsHeight - 20;
+//
+//            a {
+//                // display:inline-block;
+//                //width:100%;
+//                color: #fff !important;
+//                font-size: 14px;
+//                letter-spacing: -0.3px;
+//                padding: 0 16px;
+//                opacity: 1;
+//                //  margin-bottom:8px;
+//            }
+//        }
+//
+//        .tabs__slider {
+//            border-top-style: solid;
+//            border-top-width: 3px;
+//        }
+//        /*.tabs__item--active {
+//            border-bottom: 2px solid @Class-Material;
+//        }*/
+//    }
+//
+//    .vertical {
+//        border-radius: 4px;
+//
+//        a {
+//            text-transform: capitalize;
+//        }
+//    }
+//}
+//
