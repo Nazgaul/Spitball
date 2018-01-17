@@ -2,6 +2,7 @@
   "version": "1.0.0",
   "name": "asp.net",
   "private": true,
+  "engines": { "node" : "8.9.4"},
   "devDependencies": {
     "aspnet-prerendering": "3.0.1",
     "aspnet-webpack": "^2.0.1",
