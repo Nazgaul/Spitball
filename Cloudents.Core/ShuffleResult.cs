@@ -13,15 +13,12 @@ namespace Cloudents.Core
 
     public static class Shuffle<T> where T : IShuffleable
     {
-       // private readonly List<T> _arr = new List<T>();
-
-        //public ShuffleResult(IEnumerable<T> arr)
-        //{
-        //    _arr = arr.ToList();
-        //}
-
-        public static IEnumerable<T> DoShuffle(IEnumerable<T> result)
+       public static IEnumerable<T> DoShuffle(IEnumerable<T> result)
         {
+            if (result == null)
+            {
+                return null;
+            }
             var listOfResult = result.ToList();
             var objectToKeep = listOfResult.RemoveAndGet(0);
 

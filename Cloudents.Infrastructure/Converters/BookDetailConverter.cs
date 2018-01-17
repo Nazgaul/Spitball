@@ -20,16 +20,6 @@ namespace Cloudents.Infrastructure.Converters
                     var uri = new Uri(merchantImage);
 
                     uri = uri.ChangeToHttps();
-                    //Uri uri = null;
-                    //if (merchantImage != null)
-                    //{
-                    //    var uriBuilder = new UriBuilder(merchantImage)
-                    //    {
-                    //        Scheme = Uri.UriSchemeHttps,
-                    //        Port = -1
-                    //    };
-                    //    uri = uriBuilder.Uri;
-                    //}
                     return new BookPricesDto
                     {
                         Condition = s["condition"]["condition"].Value<string>(),

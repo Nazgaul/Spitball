@@ -43,6 +43,7 @@ namespace Cloudents.Mobile
         //   .AddPushNotifications()                   // from the Notifications package
         .ApplyTo(config);
 
+
             //config.Services.Add(typeof(IExceptionLogger), new AiExceptionLogger());
             var settings = config.GetMobileAppSettingsProvider().GetMobileAppSettings();
 

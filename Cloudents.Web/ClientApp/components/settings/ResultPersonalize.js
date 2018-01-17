@@ -13,7 +13,7 @@ export default {
             keep: true,
             isfirst: false,
             isAcademinc: false,
-            currentUni:""
+            currentUni: ""
         }
     },
 
@@ -23,24 +23,24 @@ export default {
 
     watch: {
         showDialog(val) {
-            this.isfirst=this.isFirst;
+            this.isfirst = this.isFirst;
             !val && this.isfirst ? this.isfirst = false : "";
             if (!val) {
-                this.type="";
+                this.type = "";
                 if (this.isFirst) { this.updateFirstTime("isFirst"); }
                 this.$root.$emit("closePersonalize");
-                if(this.currentUni!==this.getUniversityName&&this.$route.name==="result"){
+                if (this.currentUni !== this.getUniversityName && this.$route.name === "result") {
                     window.location.reload();
                 }
-            }else{
-                this.currentUni=this.getUniversityName;
+            } else {
+                this.currentUni = this.getUniversityName;
             }
 
         },
         isAcademinc(val) {
             if (val && this.isFirst) {
                 setTimeout(() => {
-                    if (!this.$root.$el.querySelector(".dialog__content__active"))
+                    if (this.isAcademinc && !this.$root.$el.querySelector(".dialog__content__active"))
                         this.showDialog = true
                 }, 5000);
             }
@@ -73,7 +73,7 @@ export default {
 
         $_isAcademic(to) {
             let newName = to.path.slice(1);
-            this.isAcademinc = (newName !== "job" && newName !== "food"&&!to.path.includes('result'))
+            this.isAcademinc = (newName !== "job" && newName !== "food" && !to.path.includes('result'))
         }
     }
 }

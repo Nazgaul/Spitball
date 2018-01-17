@@ -101,7 +101,7 @@ namespace Cloudents.Infrastructure.Search
             }
             if (terms != null)
             {
-                query.Add(string.Join(" AND ", terms.Select(s => $"({s})")));
+                query.AddNotNull(string.Join(" AND ", terms.Where(w => !string.IsNullOrWhiteSpace(w)).Select(s => $"({s})")));
             }
 
             if (!string.IsNullOrEmpty(docType))

@@ -93,7 +93,15 @@ export default {
             this.$emit("input", !this.value);
         },
         $_currentClick(item) {
-            this.$root.$emit("personalize", item.id);
+            function isPersonalize() {
+                return item.id;
+            }
+            if (isPersonalize()) {
+                this.$root.$emit("personalize", item.id);
+            }
+            else {
+                item.click();
+            }
         },
         $_updateType(result) {
             //if(this.isMobileSize){

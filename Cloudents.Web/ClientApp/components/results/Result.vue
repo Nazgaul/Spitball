@@ -92,7 +92,7 @@
         </template>
 
 
-        <component slot="foodRightSide" v-if="!isEmpty" :is="name+'-extra'" :place="selectedItem"></component>
+        <component slot="rightSide" v-if="hasExtra&&!isEmpty" :is="name+'-extra'" :place="selectedItem"></component>
         <router-link slot="suggestCell" v-if="!hasExtra" tag="v-flex" class="result-cell hidden-md-and-down elevation-1 mb-2 xs-12 order-xs3 " :to="{path:'/'+currentSuggest,query:{q:this.query.q}}">
             <suggest-card :name="currentSuggest"></suggest-card>
         </router-link>
