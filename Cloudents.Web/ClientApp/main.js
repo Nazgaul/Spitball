@@ -94,7 +94,7 @@ const router = new VueRouter({
             return { x: 0, y: 0 }
         }
     }
-   
+
 });
 
 Vue.use(VueAnalytics,
@@ -102,11 +102,11 @@ Vue.use(VueAnalytics,
         id: 'UA-100723645-2',
         router,
         autoTracking: {
-            pageviewTemplate (route) {
+            pageviewTemplate(route) {
                 // let title=route.name.charAt(0).toUpperCase() + route.name.slice(1);
                 return {
                     page: route.path,
-                    title: route.name?route.name.charAt(0).toUpperCase() + route.name.slice(1):'',
+                    title: route.name ? route.name.charAt(0).toUpperCase() + route.name.slice(1) : '',
                     location: window.location.href
                 }
             },
@@ -148,12 +148,14 @@ router.onReady(() => {
     });
 
     function intercom(to) {
-        let hideLauncher = true
-        if (to.name === "home") {
-            hideLauncher = false;
+        if (window.innerWidth < 600) {
+            let hideLauncher = true
+            if (to.name === "home") {
+                hideLauncher = false;
+            }
+
+            intercomSettings.hide_default_launcher = hideLauncher;
         }
-        
-        intercomSettings.hide_default_launcher = hideLauncher;
         Intercom("update");
     }
 });
