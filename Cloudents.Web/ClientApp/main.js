@@ -144,7 +144,6 @@ router.onReady(() => {
     intercom(router.currentRoute)
     router.beforeEach((to, from, next) => {
         intercom(to)
-        Intercom("update");
         next();
     });
 
@@ -157,6 +156,7 @@ router.onReady(() => {
 
             intercomSettings.hide_default_launcher = hideLauncher;
         }
+        Intercom("update");
     }
 });
 //app.$mount("#app");
