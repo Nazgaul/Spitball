@@ -21,7 +21,7 @@ namespace Cloudents.Infrastructure.Test
         {
             using (var unit = new LuisAI(_mock.Object))
             {
-                var result = await unit.InterpretStringAsync("suburbs", default);
+                var result = await unit.InterpretStringAsync("suburbs", default).ConfigureAwait(false);
 
                 Assert.AreEqual(AiIntent.Search, result.Intent);
                 CollectionAssert.AreEqual(new[] { "suburbs" }, result.Subject.ToList());
@@ -32,10 +32,10 @@ namespace Cloudents.Infrastructure.Test
         public async Task InterpretStringAsync_ResultNoEntites_ReturnEntityWithUserText()
         {
             const string sentence = "looking for blue";
-            _mock.Setup(s => s.Predict(sentence)).Returns(Task.FromResult(new LuisResult()
+            _mock.Setup(s => s.Predict(sentence)).Returns(Task.FromResult(new LuisResult
             {
                 Entities = new ConcurrentDictionary<string, IList<Entity>>(),
-                TopScoringIntent = new Intent()
+                TopScoringIntent = new Intent
                 {
                     Name = "Ask",
                     Score = 100
@@ -44,7 +44,7 @@ namespace Cloudents.Infrastructure.Test
             }));
             using (var unit = new LuisAI(_mock.Object))
             {
-                var result = await unit.InterpretStringAsync(sentence, default);
+                var result = await unit.InterpretStringAsync(sentence, default).ConfigureAwait(false);
 
                 CollectionAssert.AreEqual(new[] { sentence }, result.Subject.ToList());
             }

@@ -9,12 +9,11 @@ namespace Cloudents.Core.Test
     [TestClass]
     public class ShuffleTests
     {
-        class ShuffleTestModel : IShuffleable
+        private class ShuffleTestModel : IShuffleable
         {
             public string Host { get; set; }
 
             public int Result { get; set; }
-
 
             public object Bucket => Host;
 
@@ -34,8 +33,6 @@ namespace Cloudents.Core.Test
             }
         }
 
-        
-
         [TestMethod]
         public void DoShuffle_Array_RightResult()
         {
@@ -52,7 +49,6 @@ namespace Cloudents.Core.Test
             };
             var result = Shuffle<ShuffleTestModel>.DoShuffle(list).ToList();
 
-
             var expectedList = new List<ShuffleTestModel>
             {
                 new ShuffleTestModel {Host = "A", Result = 1},
@@ -65,8 +61,7 @@ namespace Cloudents.Core.Test
                 new ShuffleTestModel {Host = "C", Result = 2}
             };
 
-            CollectionAssert.AreEqual(result,expectedList);
-
+            CollectionAssert.AreEqual(result, expectedList);
         }
 
         [TestMethod]
@@ -85,11 +80,7 @@ namespace Cloudents.Core.Test
             };
             var result = Shuffle<ShuffleTestModel>.DoShuffle(list).ToList();
 
-
-            
-
             CollectionAssert.AreEqual(result, list);
-
         }
     }
 }

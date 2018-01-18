@@ -30,6 +30,8 @@ namespace Cloudents.Web.Test
         {
             _mock = new Mock<IIpToLocation>();
             _configurationMock = new Mock<IConfiguration>();
+
+            _configurationMock.Setup(f => f["Ips"]).Returns("31.154.39.170");
             _controller = new HomeController(_mock.Object, _configurationMock.Object);
             _controller.ControllerContext.HttpContext = new DefaultHttpContext();
 
@@ -75,7 +77,7 @@ namespace Cloudents.Web.Test
 
 
         [TestMethod]
-        public async Task Index_USIP_ReturnRedirectToOldSiteAsync()
+        public async Task Index_USIP_ReturnNewSite()
         {
             var ip = IPAddress.Parse("31.154.39.150");
             _controller.ControllerContext.HttpContext.Request.Path = "/classnotes";
@@ -88,11 +90,8 @@ namespace Cloudents.Web.Test
             var result = await _controller.Index(default);
 
 
-            Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
-            if (result is RedirectToRouteResult result2)
-            {
-                Assert.AreEqual("alex", result2.RouteName,true);
-            }
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            
 
         }
     }

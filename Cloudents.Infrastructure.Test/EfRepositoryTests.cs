@@ -18,13 +18,11 @@ namespace Cloudents.Infrastructure.Test
                 .UseInMemoryDatabase(databaseName: "Add_writes_to_database")
                 .Options;
 
-
-
             // Run the test against one instance of the context
             using (var context = new AppDbContext(options))
             {
                 var service = new EfRepository<Course>(context);
-                await service.AddAsync(new Course("ram", 1), default);
+                await service.AddAsync(new Course("ram", 1), default).ConfigureAwait(false);
             }
 
             // Use a separate instance of the context to verify correct data was saved to database

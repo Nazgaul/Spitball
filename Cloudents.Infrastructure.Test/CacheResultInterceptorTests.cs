@@ -5,14 +5,12 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Cache;
 using Cloudents.Infrastructure.Search;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace Cloudents.Infrastructure.Test
 {
     [TestClass]
     public class CacheResultInterceptorTests
     {
-
         [TestMethod]
         public void GetInvocationSignature_BookDetailPaging_Works()
         {

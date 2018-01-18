@@ -7,7 +7,6 @@ namespace Cloudents.Infrastructure.Test
     [TestClass]
     public class BingSearchTests
     {
-
         //IEnumerable<string> universitySynonym,
         //    IEnumerable<string> courses,
         //IEnumerable<string> terms,
@@ -19,7 +18,6 @@ namespace Cloudents.Infrastructure.Test
             var result = BingSearch.BuildQuery(null, null, null, null, "hi");
 
             Assert.AreEqual("hi",result);
-
         }
 
         [TestMethod]
@@ -28,7 +26,6 @@ namespace Cloudents.Infrastructure.Test
             var university = new[] { "uni1", "uni2" };
             var result = BingSearch.BuildQuery(university, null, null, null, "hi");
             Assert.AreEqual(@"(""uni1"" OR ""uni2"")", result);
-
         }
 
         [TestMethod]
@@ -37,7 +34,6 @@ namespace Cloudents.Infrastructure.Test
             var courses = new[] { "course1", "course2" };
             var result = BingSearch.BuildQuery(null, courses, null, null, "hi");
             Assert.AreEqual(@"(course1) AND (course2)", result);
-
         }
 
         [TestMethod]
@@ -46,7 +42,6 @@ namespace Cloudents.Infrastructure.Test
             var subject = new[] { "sub1", "sub2" };
             var result = BingSearch.BuildQuery(null, null, subject, null, "hi");
             Assert.AreEqual(@"(sub1) AND (sub2)", result);
-
         }
 
         [TestMethod]
@@ -58,11 +53,8 @@ namespace Cloudents.Infrastructure.Test
             var docType = "doc1";
             var result = BingSearch.BuildQuery(university, courses, subject, docType, "hi");
 
-
             Assert.AreEqual(@"(""uni1"" OR ""uni2"") AND (course1) AND (course2) AND (sub1) AND (sub2) AND (doc1)", result);
-
         }
-
 
         [TestMethod]
         public void BuildQuery_TermWithNull_ReturnDefaultValue()
@@ -70,9 +62,7 @@ namespace Cloudents.Infrastructure.Test
             var subject = new string[] { null };
             var result = BingSearch.BuildQuery(null, null, subject, null, "hi");
 
-
             Assert.AreEqual("hi", result);
-
         }
     }
 }
