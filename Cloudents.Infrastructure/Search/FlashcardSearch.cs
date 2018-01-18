@@ -34,7 +34,8 @@ namespace Cloudents.Infrastructure.Search
                     "Koofers.com",
                     "Coursehero.com",
                     "Studysoup.com",
-                    "Spitball.co"
+                    "Spitball.co",
+                    "Studyblue.com"
                 }
 
             };
