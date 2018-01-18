@@ -42,6 +42,22 @@ namespace Cloudents.Infrastructure.Test
         }
 
         [TestMethod]
+        public void GetInvocationSignature_DifferentArrayOrder_SameResultWorks()
+        {
+            var searchModel1 = new SearchModel(new [] { "Linear Algebra" }, new [] { "spitball", "koofers" }, 0, SearchRequestSort.None,
+                CustomApiKey.Documents, null, null, "biology", null);
+            var searchModel2 = new SearchModel(new[] { "Linear Algebra" }, new[] { "koofers","spitball", }, 0, SearchRequestSort.None,
+                CustomApiKey.Documents, null, null, "biology", null);
+            //IEnumerable<string> term, int imageWidth, int page, CancellationToken token
+            var bookRequest1 = new object[] { searchModel1, CancellationToken.None };
+            var bookRequest2 = new object[] { searchModel2, CancellationToken.None };
+            var result1 = CacheResultInterceptor.BuildArgument(bookRequest1);
+            var result2 = CacheResultInterceptor.BuildArgument(bookRequest2);
+
+            Assert.AreEqual(result1, result2);
+        }
+
+        [TestMethod]
         public void GetInvocationSignature_BingDifferentKey_Works()
         {
             var searchModel1 = new SearchModel(new[] { "biology" }, null, 0, SearchRequestSort.None,

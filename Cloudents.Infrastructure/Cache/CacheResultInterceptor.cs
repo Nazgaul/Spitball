@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -76,19 +77,19 @@ namespace Cloudents.Infrastructure.Cache
                 return arg.ToString();
                 // This Type or one of its base types has overridden object.ToString()
             }
-            if (arg is CancellationToken _)
+            switch (arg)
             {
-                return string.Empty;
-            }
-            if (arg is IEnumerable collection)
-            {
-                var sb = new StringBuilder();
-                foreach (var collectionArg in collection)
-                {
-                    sb.Append(BuildSimpleArgument(collectionArg));
-                }
+                case CancellationToken _:
+                    return string.Empty;
+                case IEnumerable collection:
+                    var list = new List<string>();
+                    foreach (var collectionArg in collection)
+                    {
+                        list.Add(BuildSimpleArgument(collectionArg));
+                    }
 
-                return sb.ToString();
+                    list.Sort();
+                    return string.Join("", list);// sb.ToString();
             }
 
             return null;
