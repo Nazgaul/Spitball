@@ -54,7 +54,6 @@ namespace Cloudents.Infrastructure
                 .As(typeof(ICacheManager<>))
                 .SingleInstance();
         }
-
     }
 
 

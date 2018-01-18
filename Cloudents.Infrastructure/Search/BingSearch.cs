@@ -120,7 +120,7 @@ namespace Cloudents.Infrastructure.Search
                 return defaultTerm;
             }
 
-            return string.Join(" AND ", query.Select(s => $"{s}"));
+            return string.Join(" AND ", query.Select(s => s));
         }
 
         public class BingCustomSearchResponse

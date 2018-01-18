@@ -76,6 +76,5 @@ namespace Cloudents.Infrastructure.Storage
             var blob = GetBlob(blobName);
             return blob.ExistsAsync();
         }
-
     }
 }

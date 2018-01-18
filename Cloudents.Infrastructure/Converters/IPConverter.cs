@@ -9,7 +9,7 @@ namespace Cloudents.Infrastructure.Converters
         public IpDto Convert(string source, IpDto destination, ResolutionContext context)
         {
             return JsonConvert.DeserializeObject<IpDto>(source,
-                new JsonSerializerSettings()
+                new JsonSerializerSettings
                 {
                     ContractResolver = new UnderscorePropertyNamesContractResolver()
                 });

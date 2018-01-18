@@ -3,8 +3,10 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Models;
 
 namespace Cloudents.Infrastructure
 {
@@ -18,6 +20,8 @@ namespace Cloudents.Infrastructure
             _restClient = restClient;
             _mapper = mapper;
         }
+
+        [Cache(TimeConst.Year, nameof(IpToLocation))]
 
         public async Task<IpDto> GetAsync(IPAddress address, CancellationToken token)
         {

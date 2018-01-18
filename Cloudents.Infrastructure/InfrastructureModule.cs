@@ -1,9 +1,8 @@
-﻿using System;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
 using AutoMapper;
-using CacheManager.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.AI;
 using Cloudents.Infrastructure.Cache;
@@ -25,13 +24,11 @@ namespace Cloudents.Infrastructure
         protected readonly string RedisConnectionString;
 
         private readonly string _storageConnectionString;
-        // private readonly Environment _environment;
 
         public InfrastructureModule(string sqlConnectionString,
             string searchServiceName,
             string searchServiceKey,
             string redisConnectionString, string storageConnectionString
-            //Environment environment
             )
         {
             SqlConnectionString = sqlConnectionString;
@@ -39,9 +36,9 @@ namespace Cloudents.Infrastructure
             _searchServiceKey = searchServiceKey;
             RedisConnectionString = redisConnectionString;
             _storageConnectionString = storageConnectionString;
-            // _environment = environment;
         }
 
+        [SuppressMessage("Microsoft.Design", "RCS1163:Unused parameter")]
         protected override void Load(ContainerBuilder builder)
         {
             //builder.Register(c => new CacheResultInterceptor(c.Resolve<ICacheProvider>())); //<CacheResultInterceptor>();
@@ -59,16 +56,6 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterType<DocumentDbRepositoryUnitOfWork>().AsSelf().As<IStartable>().SingleInstance().AutoActivate();
             builder.RegisterGeneric(typeof(DocumentDbRepository<>)).AsImplementedInterfaces();
-            //builder.Register(c => new DocumentDbInitializer().GetClient("https://zboxnew.documents.azure.com:443/",
-            //        "y2v1XQ6WIg81Soasz5YBA7R8fAp52XhJJufNmHy1t7y3YQzpBqbgRnlRPlatGhyGegKdsLq0qFChzOkyQVYdLQ=="))
-            //    .As<IReliableReadWriteDocumentClient>().SingleInstance();
-
-            //builder.RegisterGeneric(typeof(DocumentDbRepository<>))
-            //    .AsImplementedInterfaces().SingleInstance()
-            //    .WithParameter("databaseId", "Zbox")
-            //    .WithParameter(new ResolvedParameter((pi, ctx) => pi.Name == "client",
-            //    (pi, ctx) => ctx.Resolve<IReliableReadWriteDocumentClient>()
-            //    ));
 
             builder.Register(c =>
                 new SearchServiceClient(_searchServiceName, new SearchCredentials(_searchServiceKey)))
@@ -84,7 +71,6 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<CourseSearch>().As<ICourseSearch>();
             builder.RegisterType<TutorAzureSearch>().As<ITutorProvider>();
 
-            //    .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<VideoSearch>().As<IVideoSearch>();
             builder.RegisterType<JobSearch>().As<IJobSearch>();
             builder.RegisterType<BookSearch>().As<IBookSearch>().EnableInterfaceInterceptors()
@@ -93,7 +79,8 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<GooglePlacesSearch>().As<IGooglePlacesSearch>();
             builder.RegisterType<PlacesSearch>().As<IPlacesSearch>();
             builder.RegisterType<UniversitySearch>().As<IUniversitySearch>();
-            builder.RegisterType<IpToLocation>().As<IIpToLocation>();
+            builder.RegisterType<IpToLocation>().As<IIpToLocation>().EnableInterfaceInterceptors()
+                .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<DocumentIndexSearch>().AsImplementedInterfaces();
             builder.RegisterType<SearchConvertRepository>().AsImplementedInterfaces();
 
@@ -101,22 +88,19 @@ namespace Cloudents.Infrastructure
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IReadRepositoryAsync<>));
 
             builder.RegisterGeneric(typeof(EfRepository<>)).AsImplementedInterfaces();
+
             builder.Register(c => new CloudStorageProvider(_storageConnectionString)).SingleInstance();
             builder.RegisterType<BlobProvider>().AsImplementedInterfaces();
             builder.RegisterGeneric(typeof(BlobProvider<>)).AsImplementedInterfaces();
 
-            
             var config = MapperConfiguration();
             builder.Register(c => config.CreateMapper()).SingleInstance();
         }
-
-        
 
         private static MapperConfiguration MapperConfiguration()
         {
             return new MapperConfiguration(cfg => cfg.AddProfile<MapperProfile>());
         }
     }
-
 }
 
