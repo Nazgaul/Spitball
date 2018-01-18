@@ -22,6 +22,7 @@ namespace Cloudents.Mobile.Controllers
         private readonly IPlacesSearch _purchaseSearch;
         private readonly IIpToLocation _ipToLocation;
 
+        /// <inheritdoc />
         /// <summary>
         /// Ctor
         /// </summary>
@@ -38,7 +39,7 @@ namespace Cloudents.Mobile.Controllers
         /// <param name="purchaseRequest">The model</param>
         /// <param name="token"></param>
         /// <returns>The list of places and token for paging</returns>
-        public async Task<HttpResponseMessage> Get([FromUri]PurchaseRequest purchaseRequest,
+        public async Task<IHttpActionResult> Get([FromUri]PurchaseRequest purchaseRequest,
             CancellationToken token)
         {
             if (purchaseRequest.Location == null)
@@ -55,7 +56,7 @@ namespace Cloudents.Mobile.Controllers
                 controller = "Places"
             }, new { nextPageToken = result.token });
 
-            return Request.CreateResponse(new
+            return Ok(new
             {
                 nextPageLink,
                 result.data
@@ -69,7 +70,7 @@ namespace Cloudents.Mobile.Controllers
         /// <param name="token"></param>
         /// <returns>The list of places and token for paging</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public async Task<HttpResponseMessage> Get([FromUri]string nextPageToken,
+        public async Task<IHttpActionResult> Get([FromUri]string nextPageToken,
             CancellationToken token)
         {
             if (nextPageToken == null) throw new ArgumentNullException(nameof(nextPageToken));
@@ -81,7 +82,7 @@ namespace Cloudents.Mobile.Controllers
                 controller = "Places"
             }, new { nextPageToken = result.token });
 
-            return Request.CreateResponse(new
+            return Ok(new
             {
                 nextPageLink,
                 result.data
