@@ -1,5 +1,5 @@
 ﻿import axios from "axios";
-import qs from "querystring";
+import qs from "query-string";
 
 axios.defaults.paramsSerializer = params => qs.stringify(params, { indices: false });
 axios.defaults.responseType = "json";
@@ -32,7 +32,6 @@ let transferBook = body => {
 };
 let transferFood = body => {
     const data = body.data || [];
-    console.log(body.token);
     return { token: body.token, data: data.map(val => { return { ...val, template: "food" } }) };
 };
 let transferBookDetails = body => {

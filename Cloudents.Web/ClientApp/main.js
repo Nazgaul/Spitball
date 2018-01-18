@@ -152,6 +152,7 @@ router.onReady(() => {
         if (to.name === "home") {
             hideLauncher = false;
         }
+        
         intercomSettings.hide_default_launcher = hideLauncher;
         Intercom("update");
     }

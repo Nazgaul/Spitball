@@ -95,9 +95,6 @@
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\TutorController.cs" />
     <Compile Include="Controllers\UniversityController.cs" />
-    <Compile Include="Controllers\V-2017-12-19\BookController.cs" />
-    <Compile Include="Controllers\V-2017-12-19\JobController.cs" />
-    <Compile Include="Controllers\V-2017-12-19\TutorController.cs" />
     <Compile Include="Extensions\HttpRequestMessageExtensions.cs" />
     <Compile Include="Extensions\ModelStateDictionaryExtensions.cs" />
     <Compile Include="Extensions\UrlHelperExtension.cs" />
@@ -108,7 +105,6 @@
     <Compile Include="Models\BookRequest.cs" />
     <Compile Include="Models\CourseRequest.cs" />
     <Compile Include="Models\CreateCourseRequest.cs" />
-    <Compile Include="Models\CreateUniversityRequest.cs" />
     <Compile Include="Models\IPaging.cs" />
     <Compile Include="Models\JobRequest.cs" />
     <Compile Include="Models\PurchaseRequest.cs" />
@@ -147,58 +143,6 @@
     <ProjectReference Include="..\Cloudents.Infrastructure\Cloudents.Infrastructure.csproj">
       <Project>{1464aece-aaf3-4910-a0da-153420580a69}</Project>
       <Name>Cloudents.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.Domain.CommandHandlers\Zbang.Zbox.Domain.CommandHandlers.csproj">
-      <Project>{9ED04567-B2D0-4040-88A6-1AD752A3D83F}</Project>
-      <Name>Zbang.Zbox.Domain.CommandHandlers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.Domain.Commands\Zbang.Zbox.Domain.Commands.csproj">
-      <Project>{0CAEE4F2-421B-4FA3-9A13-1402EA6FCDA8}</Project>
-      <Name>Zbang.Zbox.Domain.Commands</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.Domain.Common\Zbang.Zbox.Domain.Common.csproj">
-      <Project>{B4B7F91C-9412-4D6B-93E2-F3B7C4BD9B90}</Project>
-      <Name>Zbang.Zbox.Domain.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.Domain.DataAccess\Zbang.Zbox.Domain.DataAccess.csproj">
-      <Project>{C2010FF2-7020-4BE7-8CB8-D43C7F9C4363}</Project>
-      <Name>Zbang.Zbox.Domain.DataAccess</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.Domain.Services\Zbang.Zbox.Domain.Services.csproj">
-      <Project>{F1AC4D4D-0633-4343-A657-DA275D33466D}</Project>
-      <Name>Zbang.Zbox.Domain.Services</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.DomainNew\Zbang.Zbox.Domain.csproj">
-      <Project>{35DC2A36-5E24-4E09-8967-838C6EDCA465}</Project>
-      <Name>Zbang.Zbox.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Azure\Zbang.Zbox.Infrastructure.Azure.csproj">
-      <Project>{9A210D03-F7A2-4CF6-B311-742A2A1949D4}</Project>
-      <Name>Zbang.Zbox.Infrastructure.Azure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Data\Zbang.Zbox.Infrastructure.Data.csproj">
-      <Project>{A29AAA7A-E472-4661-A503-EB00FD43D2C3}</Project>
-      <Name>Zbang.Zbox.Infrastructure.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Notification\Zbang.Zbox.Infrastructure.Notifications.csproj">
-      <Project>{20D10149-03BF-4C32-ABE4-D278A46CAD7F}</Project>
-      <Name>Zbang.Zbox.Infrastructure.Notifications</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Transport\Zbang.Zbox.Infrastructure.Transport.csproj">
-      <Project>{4F5EDC5B-31FA-4904-BD11-2CF1790AE234}</Project>
-      <Name>Zbang.Zbox.Infrastructure.Transport</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.Infrastructure\Zbang.Zbox.Infrastructure.csproj">
-      <Project>{3E0F1FBF-60D1-40B2-B649-933142C27CB7}</Project>
-      <Name>Zbang.Zbox.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.ReadServices\Zbang.Zbox.ReadServices.csproj">
-      <Project>{091BCB44-6764-41CA-A255-C6DA6157092B}</Project>
-      <Name>Zbang.Zbox.ReadServices</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.ViewModel\Zbang.Zbox.ViewModel.csproj">
-      <Project>{BC85A7BD-262D-43E0-8D9D-EE76C602BFAF}</Project>
-      <Name>Zbang.Zbox.ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

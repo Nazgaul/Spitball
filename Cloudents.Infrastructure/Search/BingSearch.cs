@@ -37,25 +37,31 @@ namespace Cloudents.Infrastructure.Search
                 model.DefaultTerm);
             var sourceQuery = BuildSources(model.Sources);
 
-            //TODO: need to do sort
             var nvc = new NameValueCollection
             {
                 ["count"] = 50.ToString(),
                 ["customConfig"] = model.Key.Key,
                 ["offset"] = (model.Page * 50).ToString(),
-                ["q"] = $"{query} {sourceQuery}",
-                ["textFormat"] = format.GetDescription(),
-                ["textDecorations"] = bool.TrueString
+                ["q"] = $"{query} {sourceQuery}"
             };
+            if (format != BingTextFormat.None)
+            {
+                nvc.Add("textFormat", format.GetDescription());
+                nvc.Add("textDecorations",bool.TrueString);
+            }
             var uri = new Uri("https://api.cognitive.microsoft.com/bingcustomsearch/v7.0/search");
 
             var result = await _restClient.GetAsync(uri, nvc, new[]
             {
                 new KeyValuePair<string,string>("Ocp-Apim-Subscription-Key", SubscriptionKey)
             }, token).ConfigureAwait(false);
+            if (result == null)
+            {
+                return null;
+            }
+
             var response = JsonConvert.DeserializeObject<BingCustomSearchResponse>(result);
-            //var dictionaryOfHost = new ConcurrentDictionary<string, int>();
-            var searchResult = response.WebPages?.Value?.Select((s, i) =>
+            var searchResult = response.WebPages?.Value?.Select(s =>
           {
               Uri.TryCreate(s.OpenGraphImage?.ContentUrl, UriKind.Absolute, out var image);
               var url = new Uri(s.Url);
@@ -101,7 +107,7 @@ namespace Cloudents.Infrastructure.Search
             }
             if (terms != null)
             {
-                query.Add(string.Join(" AND ", terms.Select(s => $"({s})")));
+                query.AddNotNull(string.Join(" AND ", terms.Where(w => !string.IsNullOrWhiteSpace(w)).Select(s => $"({s})")));
             }
 
             if (!string.IsNullOrEmpty(docType))

@@ -9,16 +9,6 @@ using Microsoft.Azure.Mobile.Server.Authentication;
 using Microsoft.Azure.Mobile.Server.Config;
 using Newtonsoft.Json;
 using Owin;
-using Zbang.Zbox.Domain.CommandHandlers;
-using Zbang.Zbox.Domain.DataAccess;
-using Zbang.Zbox.Domain.Services;
-using Zbang.Zbox.Infrastructure.Azure;
-using Zbang.Zbox.Infrastructure.Data;
-using Zbang.Zbox.Infrastructure.Notifications;
-using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.ReadServices;
-using InfrastructureModule = Zbang.Zbox.Infrastructure.InfrastructureModule;
 
 namespace Cloudents.Mobile
 {
@@ -43,6 +33,7 @@ namespace Cloudents.Mobile
         //   .AddPushNotifications()                   // from the Notifications package
         .ApplyTo(config);
 
+
             //config.Services.Add(typeof(IExceptionLogger), new AiExceptionLogger());
             var settings = config.GetMobileAppSettingsProvider().GetMobileAppSettings();
 
@@ -60,14 +51,6 @@ namespace Cloudents.Mobile
             }
 
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-            builder.RegisterModule<InfrastructureModule>();
-            builder.RegisterModule<StorageModule>();
-            builder.RegisterModule<RepositoryModule>();
-            builder.RegisterModule<CommandsModule>();
-            builder.RegisterModule<WriteServiceModule>();
-            builder.RegisterModule<DataModule>();
-            builder.RegisterModule<ReadServiceModule>();
-            // builder.RegisterModule<MailModule>();
 
             var module = new MobileAppInfrastructureModule(
                 ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
@@ -77,11 +60,11 @@ namespace Cloudents.Mobile
                 null);
             builder.RegisterModule(module);
 
-            builder.RegisterType<JaredSendPush>()
-                .As<IJaredPushNotification>()
-                .WithParameter("connectionString", "Endpoint=sb://spitball.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=1+AAf2FSzauWHpYhHaoweYT9576paNgmicNSv6jAvKk=")
-                .WithParameter("hubName", "jared-spitball")
-                .InstancePerLifetimeScope();
+            //builder.RegisterType<JaredSendPush>()
+            //    .As<IJaredPushNotification>()
+            //    .WithParameter("connectionString", "Endpoint=sb://spitball.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=1+AAf2FSzauWHpYhHaoweYT9576paNgmicNSv6jAvKk=")
+            //    .WithParameter("hubName", "jared-spitball")
+            //    .InstancePerLifetimeScope();
             // builder.RegisterHubs(Assembly.GetExecutingAssembly());
             //builder.RegisterType<TelemetryLogger>().As<ILogger>();
             var container = builder.Build();

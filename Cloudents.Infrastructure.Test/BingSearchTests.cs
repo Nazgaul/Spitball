@@ -62,5 +62,17 @@ namespace Cloudents.Infrastructure.Test
             Assert.AreEqual(@"(""uni1"" OR ""uni2"") AND (course1) AND (course2) AND (sub1) AND (sub2) AND (doc1)", result);
 
         }
+
+
+        [TestMethod]
+        public void BuildQuery_TermWithNull_ReturnDefaultValue()
+        {
+            var subject = new string[] { null };
+            var result = BingSearch.BuildQuery(null, null, subject, null, "hi");
+
+
+            Assert.AreEqual("hi", result);
+
+        }
     }
 }

@@ -40,6 +40,12 @@ namespace Cloudents.Mobile.Models
         /// </summary>
         public string DocType { get; set; }
 
+        /// <summary>
+        /// Format of result
+        /// </summary>
+        [DefaultValue(0)]
+        public BingTextFormat Format { get; set; }
+
        
     }
 }

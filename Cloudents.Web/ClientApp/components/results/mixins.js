@@ -4,6 +4,7 @@ const ResultBook = () => import('./ResultBook.vue');
 const ResultJob = () => import('./ResultJob.vue');
 import ResultVideo from './ResultVideo.vue'
 import SuggestCard from './suggestCard.vue'
+import studyblueCard from './studyblueCard.vue'
 const ResultFood = () => import('./ResultFood.vue');
 const foodExtra = () => import('./foodExtra.vue');
 const SortAndFilter = () => import('./SortAndFilter.vue');
@@ -189,7 +190,7 @@ export const pageMixin =
             };
         },
 
-        components: { emptyState, foodExtra, ResultItem, SuggestCard, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood },
+        components: { emptyState, foodExtra, ResultItem, SuggestCard, studyblueCard, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood },
 
         //If change term on book details page stay in book vertical(don't update vertical) according vertical flag
         beforeRouteEnter(to, from, next) {

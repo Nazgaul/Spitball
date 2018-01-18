@@ -11,7 +11,7 @@ namespace Cloudents.Mobile.Models
         /// The course name
         /// </summary>
         [Required]
-        [StringLength(Zbang.Zbox.Domain.Box.NameLength)]
+        [StringLength(120)]
         public string CourseName { get; set; }
 
         /// <summary>

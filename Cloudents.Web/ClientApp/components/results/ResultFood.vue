@@ -22,7 +22,7 @@
                 return { lat: this.item.location.latitude, lng: this.item.location.longitude }
             },
             //pos: function () { return { lat: this.item.location.latitude, lng: this.item.location.longitude } }
-            pos: function () { return { lat: 10.0, lng: 10.0 } }
+            //pos: function () { return { lat: 10.0, lng: 10.0 } }
         },
         methods: {
             $_clickItem() {

@@ -2,6 +2,9 @@
   "version": "1.0.0",
   "name": "asp.net",
   "private": true,
+  "engines": {
+    "node": "8.9.3"
+  },
   "devDependencies": {
     "aspnet-prerendering": "3.0.1",
     "aspnet-webpack": "^2.0.1",
@@ -52,7 +55,7 @@
     "webfontloader": "1.6.28",
     "webpack-merge": "4.1.1",
     "axios": "^0.17.1",
-    "querystring": "^0.2.0"
+    "query-string": "^5.0.1"
   },
   "dependencies": {}
 }
