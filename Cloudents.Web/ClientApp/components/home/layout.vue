@@ -3,7 +3,7 @@
         <div class="box-header">
             <div class="box-small-container">
                 <div class="box-inner-header text-xs-center">
-                    <h2 class="box-title">Simplify School</h2>
+                    <h1 class="box-title">Simplify School</h1>
                     <h4 class="px-5">Curating all of the resources you need. For <b>Free.</b></h4>
                     <div class="hidden-sm-and-down">
                         <slot name="search"></slot>
