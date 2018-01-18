@@ -4,22 +4,27 @@
     .inTheMiddle();
     width: 100vw;
     height: 100vh;
-    position:fixed;
-    background-color:rgba(255, 255, 255,.8);
-    z-index:3;
-}
-.loading{
-    main.content{
-        padding-top: 0!important;
+    position: fixed;
+    z-index: 3;
+    .progress-circular {
+        color: #302eb5;
     }
-    .p-result{
+}
+
+.loading {
+    main.content {
+        padding-top: 0 !important;
+    }
+
+    .p-result {
         opacity: 0;
     }
 }
+
 .flex-fix {
     min-width: 0;
 }
 
 .cdn-only2 {
-    position:absolute;
+    position: absolute;
 }
