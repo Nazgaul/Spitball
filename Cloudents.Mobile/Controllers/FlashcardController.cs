@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Net;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Cloudents.Core.Entities.DocumentDb;
 using Cloudents.Core.Interfaces;
-using Cloudents.Mobile.Models;
 using Microsoft.Azure.Mobile.Server.Config;
 
 namespace Cloudents.Mobile.Controllers

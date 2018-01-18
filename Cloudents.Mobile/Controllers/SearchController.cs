@@ -46,15 +46,15 @@ namespace Cloudents.Mobile.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [Route("api/search/documents", Name = "DocumentSearch"), HttpGet]
-        public async Task<HttpResponseMessage> SearchDocumentAsync([FromUri] SearchRequest model,
+        public async Task<IHttpActionResult> SearchDocumentAsync([FromUri] SearchRequest model,
             CancellationToken token)
         {
             var query = SearchQuery.Document(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
                 model.Sort.GetValueOrDefault(), model.DocType);
-            var result = await _searchProvider.Value.SearchAsync(query, BingTextFormat.Raw, token).ConfigureAwait(false);
+            var result = await _searchProvider.Value.SearchAsync(query, model.Format, token).ConfigureAwait(false);
 
             var nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
-            return Request.CreateResponse(new
+            return Ok(new
             {
                 documents = result.Result,
                 result.Facet,
@@ -69,14 +69,14 @@ namespace Cloudents.Mobile.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [Route("api/search/flashcards", Name = "FlashcardSearch"), HttpGet]
-        public async Task<HttpResponseMessage> SearchFlashcardAsync([FromUri] SearchRequest model,
+        public async Task<IHttpActionResult> SearchFlashcardAsync([FromUri] SearchRequest model,
             CancellationToken token)
         {
             var query = SearchQuery.Flashcard(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
                 model.Sort.GetValueOrDefault());
             var nextPageLink = Url.NextPageLink("FlashcardSearch", null, model);
-            var result = await _flashcardProvider.Value.SearchAsync(query, BingTextFormat.Raw, token).ConfigureAwait(false);
-            return Request.CreateResponse(new
+            var result = await _flashcardProvider.Value.SearchAsync(query, model.Format, token).ConfigureAwait(false);
+            return Ok(new
             {
                 documents = result.Result,
                 result.Facet,
@@ -84,13 +84,6 @@ namespace Cloudents.Mobile.Controllers
             });
         }
 
-        [Route("api/search/qna"), HttpGet, Obsolete]
-        public async Task<HttpResponseMessage> SearchQuestionAsync([FromUri] SearchRequest model,
-            CancellationToken token)
-        {
-            var query = SearchQuery.Ask(model.Query, model.Page.GetValueOrDefault(), null);
-            var result = await _questionProvider.Value.SearchAsync(query, BingTextFormat.Raw, token).ConfigureAwait(false);
-            return Request.CreateResponse(result);
-        }
+      
     }
 }

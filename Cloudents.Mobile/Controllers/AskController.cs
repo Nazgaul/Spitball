@@ -1,5 +1,4 @@
-﻿using System.Net.Http;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Cloudents.Core.DTOs;
@@ -40,11 +39,11 @@ namespace Cloudents.Mobile.Controllers
         /// <param name="model"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async Task<HttpResponseMessage> Get([FromUri] AskRequest model,
+        public async Task<IHttpActionResult> Get([FromUri] AskRequest model,
             CancellationToken token)
         {
             var query = SearchQuery.Ask(model.Term, model.Page.GetValueOrDefault(), model.Source);
-            var tResult = _searchProvider.SearchAsync(query, BingTextFormat.Raw, token);
+            var tResult = _searchProvider.SearchAsync(query, model.Format, token);
             var tVideo = Task.FromResult<VideoDto>(null);
             if (model.Page.GetValueOrDefault() == 0)
             {
@@ -56,7 +55,7 @@ namespace Cloudents.Mobile.Controllers
                 controller = "Ask"
             }, model);
 
-            return Request.CreateResponse(new
+            return Ok(new
             {
                 result = tResult.Result,
                 video = tVideo.Result,

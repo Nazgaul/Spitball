@@ -1,8 +1,10 @@
-﻿using System.Threading;
+﻿using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Cloudents.Mobile.Extensions;
 using Cloudents.Mobile.Models;
 using Microsoft.Azure.Mobile.Server.Config;
 
@@ -16,16 +18,20 @@ namespace Cloudents.Mobile.Controllers
     public class JobController : ApiController
     {
         private readonly IJobSearch _jobSearch;
+        private readonly IIpToLocation _ipToLocation;
+
+        /// <inheritdoc />
         /// <summary>
         /// ctor
         /// </summary>
         /// <param name="jobSearch">job search provider</param>
-        public JobController(IJobSearch jobSearch)
+        /// <param name="ipToLocation"></param>
+        public JobController(IJobSearch jobSearch, IIpToLocation ipToLocation)
         {
             _jobSearch = jobSearch;
+            _ipToLocation = ipToLocation;
         }
 
-        //[TypeFilter(typeof(IpToLocationActionFilter), Arguments = new object[] { "location" })]
         /// <summary>
         /// Query to get jobs vertical
         /// </summary>
@@ -34,12 +40,25 @@ namespace Cloudents.Mobile.Controllers
         /// <returns></returns>
         public async Task<IHttpActionResult> Get([FromUri]JobRequest model, CancellationToken token)
         {
+            if (model.Location == null)
+            {
+                var location = Request.GetClientIp();
+                var locationResult = await _ipToLocation.GetAsync(IPAddress.Parse(location), token).ConfigureAwait(false);
+                model.Location = locationResult.ConvertToPoint();
+            }
             var result = await _jobSearch.SearchAsync(model.Term,
                 model.Filter.GetValueOrDefault(), model.Sort.GetValueOrDefault(JobRequestSort.Distance),
                 model.Facet, model.Location, model.Page.GetValueOrDefault(), token).ConfigureAwait(false);
-            return Ok(result);
+
+            var nextPageLink = Url.NextPageLink("DefaultApis", null, model);
+            return Ok(
+                new
+                {
+                    result,
+                    nextPageLink
+                });
         }
 
-       
+
     }
 }

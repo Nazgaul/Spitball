@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -7,9 +6,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Mobile.Extensions;
 using Cloudents.Mobile.Models;
 using Microsoft.Azure.Mobile.Server.Config;
-using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Cloudents.Mobile.Controllers
 {
@@ -20,18 +16,15 @@ namespace Cloudents.Mobile.Controllers
     [MobileAppController]
     public class UniversityController : ApiController
     {
-        private readonly IZboxWriteService _zboxWriteService;
         private readonly IUniversitySearch _universityProvider;
 
         /// <inheritdoc />
         /// <summary>
-        /// Ctor
+        /// Constructor
         /// </summary>
-        /// <param name="zboxWriteService"></param>
         /// <param name="universityProvider"></param>
-        public UniversityController(IZboxWriteService zboxWriteService, IUniversitySearch universityProvider)
+        public UniversityController(IUniversitySearch universityProvider)
         {
-            _zboxWriteService = zboxWriteService;
             _universityProvider = universityProvider;
         }
 
@@ -60,14 +53,14 @@ namespace Cloudents.Mobile.Controllers
         /// <param name="token"></param>
         /// <returns>list of universities</returns>
         [HttpGet]
-        public async Task<HttpResponseMessage> Get([FromUri] UniversityRequest model, CancellationToken token)
+        public async Task<IHttpActionResult> Get([FromUri] UniversityRequest model, CancellationToken token)
         {
             if (!ModelState.IsValid)
             {
-                return Request.CreateBadRequestResponse(ModelState.GetError());
+                return BadRequest(ModelState.GetError());
             }
             var result = await _universityProvider.SearchAsync(model.Term, model.Location, token).ConfigureAwait(false);
-            return Request.CreateResponse(result);
+            return Ok(result);
         }
     }
 }

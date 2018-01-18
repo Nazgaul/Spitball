@@ -15,7 +15,7 @@ const allModules = [
     "vue-analytics",
     "vue-lazyload",
     "axios",
-    "querystring",
+    "query-string",
     "./ClientApp/main.styl",
     "./wwwroot/content/main.less",
     "./ClientApp/myFont.font.js",

@@ -43,40 +43,15 @@ namespace Cloudents.Mobile.Controllers
         /// <exception cref="ArgumentException">university is empty</exception>
         [Route("api/course/search")]
         [HttpGet]
-        public async Task<HttpResponseMessage> Get([FromUri]  CourseRequest model, CancellationToken token)
+        public async Task<IHttpActionResult> Get([FromUri]  CourseRequest model, CancellationToken token)
         {
             if (!ModelState.IsValid)
             {
-                return Request.CreateBadRequestResponse(ModelState.GetError());
+                return BadRequest(ModelState.GetError());
             }
 
             var result = await _courseProvider.SearchAsync(model.Term, model.UniversityId.GetValueOrDefault(), token).ConfigureAwait(false);
-            return Request.CreateResponse(result);
-        }
-
-        [Route("api/course/follow")]
-        [HttpPost]
-        [Obsolete]
-        public HttpResponseMessage Follow(/*FollowRequest model*/)
-        {
-            //if (model == null)
-            //{
-            //    return Request.CreateBadRequestResponse();
-            //}
-            //if (!ModelState.IsValid)
-            //{
-            //    return Request.CreateBadRequestResponse();
-            //}
-            //var command = new SubscribeToSharedBoxCommand(User.GetUserId(), model.BoxId);
-            //await _zboxWriteService.SubscribeToSharedBoxAsync(command).ConfigureAwait(false);
-            return Request.CreateResponse(HttpStatusCode.OK);
-        }
-
-        [HttpDelete, Route("api/course/follow")]
-        [Obsolete]
-        public HttpResponseMessage UnFollow(/*long courseId*/)
-        {
-            return Request.CreateResponse(HttpStatusCode.OK);
+            return Ok(result);
         }
 
         /// <summary>
@@ -87,17 +62,17 @@ namespace Cloudents.Mobile.Controllers
         /// <returns>The id of the course created</returns>
         [Route("api/course/create")]
         [HttpPost]
-        public async Task<HttpResponseMessage> CreateAcademicBoxAsync(CreateCourseRequest model, CancellationToken token)
+        public async Task<IHttpActionResult> CreateAcademicBoxAsync(CreateCourseRequest model, CancellationToken token)
         {
             if (!ModelState.IsValid || !model.University.HasValue)
             {
-                return Request.CreateBadRequestResponse();
+                return BadRequest();
             }
 
             var course = new Course(model.CourseName, model.University.Value);
 
             var result = await _repository.AddAsync(course, token).ConfigureAwait(false);
-            return Request.CreateResponse(result.Id);
+            return Ok(result.Id);
         }
     }
 }
