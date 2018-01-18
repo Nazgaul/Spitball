@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Microsoft.Azure.Mobile.Server;
@@ -65,7 +64,7 @@ namespace Cloudents.Mobile
         }
     }
 
-    public class SwaggerDefaultValues : IOperationFilter
+    internal class SwaggerDefaultValues : IOperationFilter
     {
         public void Apply(
             Operation operation,

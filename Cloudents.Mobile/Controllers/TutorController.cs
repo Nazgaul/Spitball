@@ -1,9 +1,11 @@
-﻿using System.Net.Http;
+﻿using System.Net;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Cloudents.Mobile.Extensions;
 using Cloudents.Mobile.Models;
 using Microsoft.Azure.Mobile.Server.Config;
 
@@ -19,6 +21,7 @@ namespace Cloudents.Mobile.Controllers
         private readonly ITutorSearch _tutorSearch;
         private readonly IIpToLocation _ipToLocation;
 
+        /// <inheritdoc />
         /// <summary>
         /// Ctor
         /// </summary>
@@ -36,19 +39,28 @@ namespace Cloudents.Mobile.Controllers
         /// <param name="model">The model to parse</param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async Task<HttpResponseMessage> Get([FromUri]TutorRequest model, CancellationToken token)
+
+        public async Task<IHttpActionResult> Get([FromUri]TutorRequest model, CancellationToken token)
         {
+            if (model.Location == null)
+            {
+                var location = Request.GetClientIp();
+                var locationResult = await _ipToLocation.GetAsync(IPAddress.Parse(location), token).ConfigureAwait(false);
+                model.Location = locationResult.ConvertToPoint();
+            }
             var result = await _tutorSearch.SearchAsync(model.Term,
                 model.Filter,
                 model.Sort.GetValueOrDefault(TutorRequestSort.Price),
                 model.Location,
                 model.Page.GetValueOrDefault(), token).ConfigureAwait(false);
-
-            return Request.CreateResponse(
-                result
-                );
+            var nextPageLink = Url.NextPageLink("DefaultApis", null, model);
+            return Ok(new
+            {
+                result,
+                nextPageLink
+            });
         }
 
-       
+
     }
 }

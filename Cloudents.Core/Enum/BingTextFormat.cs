@@ -2,6 +2,7 @@
 {
     public enum BingTextFormat
     {
+        None,
         [Parse("Raw")]
         Raw,
         [Parse("HTML")]

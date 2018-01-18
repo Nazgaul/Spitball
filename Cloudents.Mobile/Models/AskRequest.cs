@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Mobile.Models
 {
@@ -21,5 +22,11 @@ namespace Cloudents.Mobile.Models
         /// Array of sites to search for
         /// </summary>
         public string[] Source { get; set; }
+
+        /// <summary>
+        /// Format of result
+        /// </summary>
+        [DefaultValue(0)]
+        public BingTextFormat Format { get; set; }
     }
 }

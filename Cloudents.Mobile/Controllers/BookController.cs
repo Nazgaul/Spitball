@@ -3,12 +3,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Cloudents.Core.Interfaces;
+using Cloudents.Mobile.Extensions;
 using Cloudents.Mobile.Filters;
 using Cloudents.Mobile.Models;
 using Microsoft.Azure.Mobile.Server.Config;
 
 namespace Cloudents.Mobile.Controllers
 {
+    /// <inheritdoc />
     /// <summary>
     /// The book api controller
     /// </summary>
@@ -34,17 +36,20 @@ namespace Cloudents.Mobile.Controllers
         /// <param name="bookRequest"></param>
         /// <param name="token"></param>
         /// <returns>List of book</returns>
-        /// <exception cref="ArgumentNullException">term cannot be empty</exception>
-        [VersionedRoute("search"), HttpGet]
+        [Route("search", Name = "BookSearch"), HttpGet]
 
         public async Task<IHttpActionResult> Get([FromUri]BookRequest bookRequest, CancellationToken token)
         {
             bookRequest = bookRequest ?? new BookRequest();
             var result = await _booksSearch.SearchAsync(bookRequest.Term, bookRequest.Thumbnail.GetValueOrDefault(150), bookRequest.Page.GetValueOrDefault(), token).ConfigureAwait(false);
-            return Ok(result);
+            var nextPageLink = Url.NextPageLink("BookSearch", null, bookRequest);
+            return Ok(new
+            {
+                result,
+                nextPageLink
+            }
+            );
         }
-
-       
 
         /// <summary>
         /// Buy book api 

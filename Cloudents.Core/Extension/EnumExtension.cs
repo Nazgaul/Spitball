@@ -11,11 +11,15 @@ namespace Cloudents.Core.Extension
             if (value == null) throw new ArgumentNullException(nameof(value));
             var fi = value.GetType().GetField(value.ToString());
 
-            if (!(fi.GetCustomAttributes(typeof(ParseAttribute), false).First() is ParseAttribute att))
+            switch (fi.GetCustomAttributes(typeof(ParseAttribute), false).FirstOrDefault())
             {
-                throw new NullReferenceException(nameof(att));
+                case null:
+                    return value.ToString();
+                case ParseAttribute parse:
+                    return parse.Description;
             }
-            return att.Description;
+
+            throw new InvalidCastException();
         }
     }
 }

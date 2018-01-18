@@ -1,22 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Cloudents.Mobile.Models;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
 using Microsoft.Azure.Mobile.Server.Config;
-using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure.Enums;
-using Zbang.Zbox.Infrastructure.Extensions;
-using Zbang.Zbox.Infrastructure.IdGenerator;
-using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Transport;
-using Zbang.Zbox.ReadServices;
-using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 
 namespace Cloudents.Mobile.Controllers
 {
@@ -26,58 +14,51 @@ namespace Cloudents.Mobile.Controllers
     [MobileAppController]
     public class DocumentController : ApiController
     {
-        private readonly IBlobProvider2<FilesContainerName> _blobProviderFiles;
-        private readonly IQueueProvider _queueProvider;
-        private readonly IZboxWriteService _zboxWriteService;
-        private readonly IZboxReadService _zboxReadService;
-        private readonly IGuidIdGenerator _guidGenerator;
+        private readonly IBlobProvider<FilesContainerName> _blobProviderFiles;
+        private readonly IReadRepositoryAsync<DocumentDto, long> _repository;
 
         /// <summary>
-        /// ctor
+        /// Constructor
         /// </summary>
         /// <param name="blobProviderFiles"></param>
-        /// <param name="queueProvider"></param>
-        /// <param name="zboxWriteService"></param>
-        /// <param name="guidGenerator"></param>
-        /// <param name="zboxReadService"></param>
-        public DocumentController(IBlobProvider2<FilesContainerName> blobProviderFiles, IQueueProvider queueProvider, IZboxWriteService zboxWriteService, IGuidIdGenerator guidGenerator, IZboxReadService zboxReadService)
+        /// <param name="repository"></param>
+        public DocumentController(IBlobProvider<FilesContainerName> blobProviderFiles, IReadRepositoryAsync<DocumentDto, long> repository)
         {
             _blobProviderFiles = blobProviderFiles;
-            _queueProvider = queueProvider;
-            _zboxWriteService = zboxWriteService;
-            _guidGenerator = guidGenerator;
-            _zboxReadService = zboxReadService;
+            _repository = repository;
         }
 
+        /// <summary>
+        /// Get spitball document data
+        /// </summary>
+        /// <param name="id">id of the document</param>
+        /// <param name="token">cancellation token</param>
+        /// <returns>name and source</returns>
         [Route("api/document/{id}")]
-        public async Task<HttpResponseMessage> GetDataAsync(long id)
+        public async Task<IHttpActionResult> GetDataAsync(long id, CancellationToken token)
         {
-            var retVal = await _zboxReadService.GetItemDetailApiAsync(id).ConfigureAwait(false);
+            var retVal = await _repository.GetAsync(id, token).ConfigureAwait(false);
 
-            return Request.CreateResponse(new
+            return Ok(new
             {
                 retVal.Name,
-                retVal.Source,
+                Source = retVal.Blob,
             });
         }
 
-        // GET api/Document
-        public async Task<HttpResponseMessage> Get(long itemId, string blob, CancellationToken cancellationToken)
+        /// <summary>
+        /// Get download link of specific doc
+        /// </summary>
+        /// <param name="blob">blob name</param>
+        /// <returns>link</returns>
+        public IHttpActionResult Get(string blob)
         {
             if (string.IsNullOrEmpty(blob))
             {
-                return Request.CreateBadRequestResponse();
+                return BadRequest();
             }
-            await _queueProvider.InsertMessageToTransactionAsync(
-                new StatisticsData4(
-                    new StatisticsData4.StatisticItemData
-                    {
-                        Id = itemId,
-                        Action = (int)StatisticsAction.View
-                    }
-                    , -1), cancellationToken).ConfigureAwait(false);
             var blobUrl = _blobProviderFiles.GenerateSharedAccessReadPermission(blob, 20);
-            return Request.CreateResponse(blobUrl);
+            return Ok(blobUrl);
         }
 
         //[Route("api/document/like")]
