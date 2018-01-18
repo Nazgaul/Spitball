@@ -15,6 +15,7 @@ namespace Cloudents.Infrastructure.Search
 {
     public class BookSearch : IBookSearch
     {
+        //https://partners.campusbooks.com/api.php
         private readonly IMapper _mapper;
         private readonly IRestClient _restClient;
 
@@ -30,7 +31,6 @@ namespace Cloudents.Infrastructure.Search
         public async Task<IEnumerable<BookSearchDto>> SearchAsync(IEnumerable<string> term, int imageWidth, int page, CancellationToken token)
         {
             var query = string.Join(" ", term ?? Enumerable.Empty<string>()) ?? "textbooks";
-            //term = term ?? new[] { "textbooks" };
 
             var nvc = new NameValueCollection
             {
