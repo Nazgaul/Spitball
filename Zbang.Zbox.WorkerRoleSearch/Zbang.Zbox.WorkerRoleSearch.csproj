@@ -160,7 +160,6 @@
     <Compile Include="UpdateCareerBuilderAffiliate.cs" />
     <Compile Include="UpdateJobs.cs" />
     <Compile Include="UpdateSearch.cs" />
-    <Compile Include="UpdateSearchFeed.cs" />
     <Compile Include="UpdateSearchFlashcard.cs" />
     <Compile Include="UpdateSearchItem.cs" />
     <Compile Include="UpdateSearchBox.cs" />

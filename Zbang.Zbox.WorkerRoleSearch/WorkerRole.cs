@@ -15,7 +15,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly CancellationTokenSource _mCancellationTokenSource = new CancellationTokenSource();
         private readonly ManualResetEvent _mRunCompleteEvent = new ManualResetEvent(false);
 
-        private readonly IocFactory _mUnity;
+        private readonly IocFactory _ioc;
 
         private readonly IList<IJob> _mJobs;
         private readonly List<Task> _mTasks = new List<Task>();
@@ -23,9 +23,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public WorkerRole()
         {
-            _mUnity = new IocFactory();
+            _ioc = new IocFactory();
             _mJobs = GetJob();
-            _logger = _mUnity.Resolve<ILogger>();
+            _logger = _ioc.Resolve<ILogger>();
         }
 
         public override void Run()
@@ -134,42 +134,23 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 return new List<IJob>
                 {
-                    //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchItem), //0
-                    //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchBox), //1
-                    //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchQuiz), //2
-                    //_mUnity.Resolve<IJob>(IocFactory.UpdateSearchUniversity), //3
-                    //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchFlashcard), //4
-                    //m_Unity.Resolve<IJob>(nameof(UpdateUnsubscribeList)), //5
-                    //m_Unity.Resolve<IJob>(nameof(SchedulerListener)), //6
-                    //m_Unity.Resolve<IJob>(nameof(MailQueueProcess)), //7
-                    //m_Unity.Resolve<IJob>(nameof(TransactionQueueProcess)), //8
-                    //m_Unity.Resolve<IJob>(nameof(ThumbnailQueueProcess)), //9
-                    //m_Unity.Resolve<IJob>(nameof(DeleteOldConnections)), //10
-                    //m_Unity.Resolve<IJob>(nameof(UpdateSearchFeed)), //11
-                    //m_Unity.Resolve<IJob>(nameof(Crawler)) //12
-
-                   // m_Unity.Resolve<IJob>(nameof(BlobManagement))
-                    _mUnity.Resolve<IJob>(nameof(TestingJob))
+                     _ioc.Resolve<IJob>(nameof(TestingJob))
 
                 };
             }
             return new List<IJob>
             {
-                _mUnity.Resolve<IJob>(IocFactory.UpdateSearchItem), //0
-                _mUnity.Resolve<IJob>(IocFactory.UpdateSearchBox), //1
-                _mUnity.Resolve<IJob>(IocFactory.UpdateSearchQuiz), //2
-                _mUnity.Resolve<IJob>(IocFactory.UpdateSearchUniversity), //3
-                _mUnity.Resolve<IJob>(IocFactory.UpdateSearchFlashcard), //4
-                _mUnity.Resolve<IJob>(nameof(UpdateUnsubscribeList)), //5
-                _mUnity.Resolve<IJob>(nameof(SchedulerListener)), //6
-                _mUnity.Resolve<IJob>(nameof(MailQueueProcess)), //7
-                _mUnity.Resolve<IJob>(nameof(TransactionQueueProcess)), //8
-                _mUnity.Resolve<IJob>(nameof(ThumbnailQueueProcess)), //9
-                _mUnity.Resolve<IJob>(nameof(DeleteOldConnections)), //10
-                _mUnity.Resolve<IJob>(nameof(UpdateSearchFeed)), //11
-                //m_Unity.Resolve<IJob>(nameof(BlobManagement))
-                //m_Unity.Resolve<IJob>(nameof(Crawler)) //12
-               // m_Unity.Resolve<IJob>(nameof(TestingJob)) //13
+                _ioc.Resolve<IJob>(IocFactory.UpdateSearchItem), //0
+                _ioc.Resolve<IJob>(IocFactory.UpdateSearchBox), //1
+                _ioc.Resolve<IJob>(IocFactory.UpdateSearchQuiz), //2
+                _ioc.Resolve<IJob>(IocFactory.UpdateSearchUniversity), //3
+                _ioc.Resolve<IJob>(IocFactory.UpdateSearchFlashcard), //4
+                _ioc.Resolve<IJob>(nameof(UpdateUnsubscribeList)), //5
+                _ioc.Resolve<IJob>(nameof(SchedulerListener)), //6
+                _ioc.Resolve<IJob>(nameof(MailQueueProcess)), //7
+                _ioc.Resolve<IJob>(nameof(TransactionQueueProcess)), //8
+                _ioc.Resolve<IJob>(nameof(ThumbnailQueueProcess)), //9
+                _ioc.Resolve<IJob>(nameof(DeleteOldConnections)), //10
             };
         }
     }

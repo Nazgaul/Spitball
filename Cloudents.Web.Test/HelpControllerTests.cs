@@ -1,25 +1,18 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Xml.Linq;
-using Cloudents.Core.Storage;
 using Cloudents.Web.Api;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace Cloudents.Web.Test
 {
     [TestClass]
     public class HelpControllerTests
     {
-        readonly Mock<IBlobProvider> _mock = new Mock<IBlobProvider>();
-
-
         private static Stream InitializeXmlFile()
         {
             var asm = Assembly.GetExecutingAssembly();
-            var xmlFile = "help.xml";
+            const string xmlFile = "help.xml";
             var resource = $"Cloudents.Web.Test.{xmlFile}";
             return asm.GetManifestResourceStream(resource);
 

@@ -11,22 +11,19 @@ namespace Zbang.Zbox.WorkerRoleSearch
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<UpdateSearchItem>().Named<IJob>(IocFactory.UpdateSearchItem);
-            builder.RegisterType<UpdateSearchBox>().Named<IJob>(IocFactory.UpdateSearchBox);
-            builder.RegisterType<UpdateSearchQuiz>().Named<IJob>(IocFactory.UpdateSearchQuiz);
-            builder.RegisterType<UpdateSearchFlashcard>().Named<IJob>(IocFactory.UpdateSearchFlashcard);
-            builder.RegisterType<UpdateSearchUniversity>().Named<IJob>(IocFactory.UpdateSearchUniversity);
-            builder.RegisterType<UpdateSearchFeed>().Named<IJob>(nameof(UpdateSearchFeed));
-           // builder.RegisterType<Crawler>().Named<IJob>(nameof(Crawler));
+            builder.RegisterType<UpdateSearchItem>().Named<IJob>(IocFactory.UpdateSearchItem);//
+            builder.RegisterType<UpdateSearchBox>().Named<IJob>(IocFactory.UpdateSearchBox);//
+            builder.RegisterType<UpdateSearchQuiz>().Named<IJob>(IocFactory.UpdateSearchQuiz);//
+            builder.RegisterType<UpdateSearchFlashcard>().Named<IJob>(IocFactory.UpdateSearchFlashcard);//
+            builder.RegisterType<UpdateSearchUniversity>().Named<IJob>(IocFactory.UpdateSearchUniversity);//
 
-            builder.RegisterType<SchedulerListener>().Named<IJob>(nameof(SchedulerListener));
-            builder.RegisterType<UpdateUnsubscribeList>().Named<IJob>(nameof(UpdateUnsubscribeList));
-            builder.RegisterType<TransactionQueueProcess>().Named<IJob>(nameof(TransactionQueueProcess));
-            builder.RegisterType<ThumbnailQueueProcess>().Named<IJob>(nameof(ThumbnailQueueProcess));
-            builder.RegisterType<MailQueueProcess>().Named<IJob>(nameof(MailQueueProcess));
+            builder.RegisterType<SchedulerListener>().Named<IJob>(nameof(SchedulerListener));//
+            builder.RegisterType<UpdateUnsubscribeList>().Named<IJob>(nameof(UpdateUnsubscribeList));//
+            builder.RegisterType<TransactionQueueProcess>().Named<IJob>(nameof(TransactionQueueProcess));//
+            builder.RegisterType<ThumbnailQueueProcess>().Named<IJob>(nameof(ThumbnailQueueProcess));//
+            builder.RegisterType<MailQueueProcess>().Named<IJob>(nameof(MailQueueProcess));//
             builder.RegisterType<TestingJob>().Named<IJob>(nameof(TestingJob));
-           // builder.RegisterType<BlobManagement>().Named<IJob>(nameof(BlobManagement));
-            builder.RegisterType<DeleteOldConnections>().Named<IJob>(nameof(DeleteOldConnections));
+            builder.RegisterType<DeleteOldConnections>().Named<IJob>(nameof(DeleteOldConnections));//
 
             builder.RegisterType<NoUniversityMailProcess>().Named<ISchedulerProcess>("universityNotSelected");
             builder.RegisterType<NoFollowClassMailProcess>().Named<ISchedulerProcess>("notFollowing");

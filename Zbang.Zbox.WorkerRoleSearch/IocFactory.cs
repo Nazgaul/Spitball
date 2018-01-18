@@ -45,11 +45,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             .WithParameter("hubName", ConfigFetcher.Fetch("ServiceBusHubName"))
             .InstancePerLifetimeScope();
 
-            builder.RegisterType<JaredSendPush>()
-                .As<IJaredPushNotification>()
-                .WithParameter("connectionString", "Endpoint=sb://spitball.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=1+AAf2FSzauWHpYhHaoweYT9576paNgmicNSv6jAvKk=")
-                .WithParameter("hubName", "jared-spitball")
-                .InstancePerLifetimeScope();
+            //builder.RegisterType<JaredSendPush>()
+            //    .As<IJaredPushNotification>()
+            //    .WithParameter("connectionString", "Endpoint=sb://spitball.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=1+AAf2FSzauWHpYhHaoweYT9576paNgmicNSv6jAvKk=")
+            //    .WithParameter("hubName", "jared-spitball")
+            //    .InstancePerLifetimeScope();
 
             builder.RegisterModule<WorkerRoleModule>();
             Container = builder.Build();
