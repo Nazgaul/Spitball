@@ -37,10 +37,9 @@
                             <router-link v-if="!hasExtra" tag="v-flex" class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs4 " :to="{path:'/'+currentSuggest,query:{q:this.userText}}">
                                 <suggest-card :name="currentSuggest"></suggest-card>
                             </router-link>
-                            <v-flex v-if="$route.path.slice(1)==='ask'" class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs5">
-                                <studyblue-card></studyblue-card>
+                            <v-flex v-if="name==='ask'" class="result-cell elevation-1 mb-2 xs-12 order-xs5">
+                                <studyblue-card :searchterm="term"></studyblue-card>
                             </v-flex>
-
                         </v-layout>
                     </v-container>
                 </scroll-list>
