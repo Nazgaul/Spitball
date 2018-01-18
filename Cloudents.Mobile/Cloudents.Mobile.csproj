@@ -185,12 +185,6 @@
     <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
       <Version>1.0.8</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.Data.Edm">
-      <Version>5.8.3</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Data.OData">
-      <Version>5.8.3</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.Owin.Security">
       <Version>3.0.1</Version>
     </PackageReference>
@@ -211,9 +205,6 @@
     </PackageReference>
     <PackageReference Include="System.IdentityModel.Tokens.Jwt">
       <Version>4.0.3.308261200</Version>
-    </PackageReference>
-    <PackageReference Include="System.Spatial">
-      <Version>5.8.3</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup>
