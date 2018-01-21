@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
@@ -27,7 +26,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var query = SearchQuery.Ask(model.Term, model.Page.GetValueOrDefault(), model.Source);
-            var tResult = _searchProvider.SearchAsync(query, BingTextFormat.Html, token);
+            var tResult = _searchProvider.SearchAsync(query, BingTextFormat.None, token);
             var tVideo = Task.FromResult<VideoDto>(null);
             if (model.Page.GetValueOrDefault() == 0)
             {

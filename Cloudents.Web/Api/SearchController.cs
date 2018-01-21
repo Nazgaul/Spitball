@@ -19,7 +19,7 @@ namespace Cloudents.Web.Api
             var query = SearchQuery.Document(model.Term, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
                 model.Sort.GetValueOrDefault(), model.DocType);
 
-            var result = await searchProvider.SearchAsync(query,BingTextFormat.Html, token).ConfigureAwait(false);
+            var result = await searchProvider.SearchAsync(query,BingTextFormat.None, token).ConfigureAwait(false);
             return Json(result);
         }
 
@@ -31,7 +31,7 @@ namespace Cloudents.Web.Api
             var query = SearchQuery.Flashcard(model.Term, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
                 model.Sort.GetValueOrDefault());
 
-            var result = await searchProvider.SearchAsync(query, BingTextFormat.Html, token).ConfigureAwait(false);
+            var result = await searchProvider.SearchAsync(query, BingTextFormat.None, token).ConfigureAwait(false);
             return Json(result);
         }
     }

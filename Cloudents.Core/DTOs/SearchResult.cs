@@ -15,7 +15,7 @@ namespace Cloudents.Core.DTOs
         [DataMember]
         public string Snippet { get; set; }
         [DataMember]
-        public Uri Url { get; set; }
+        public string Url { get; set; }
 
         [DataMember]
         public string Source { get; set; }

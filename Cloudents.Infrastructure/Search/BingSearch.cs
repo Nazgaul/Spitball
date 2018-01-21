@@ -47,7 +47,7 @@ namespace Cloudents.Infrastructure.Search
             if (format != BingTextFormat.None)
             {
                 nvc.Add("textFormat", format.GetDescription());
-                nvc.Add("textDecorations",bool.TrueString);
+                nvc.Add("textDecorations", bool.TrueString);
             }
             var uri = new Uri("https://api.cognitive.microsoft.com/bingcustomsearch/v7.0/search");
 
@@ -61,22 +61,30 @@ namespace Cloudents.Infrastructure.Search
             }
 
             var response = JsonConvert.DeserializeObject<BingCustomSearchResponse>(result);
-            var searchResult = response.WebPages?.Value?.Select(s =>
-          {
-              Uri.TryCreate(s.OpenGraphImage?.ContentUrl, UriKind.Absolute, out var image);
-              var url = new Uri(s.Url);
-              return new SearchResult
-              {
-                  Url = url,
-                  Id = _keyGenerator.GenerateKey(s.Url),
-                  Image = image,
-                  Snippet = s.Snippet,
-                  Source = url.Host,
-                  Title = s.Name,
-
-              };
-          });
+            var searchResult = response.WebPages?.Value?.Select(ConvertToResult);
             return Shuffle<SearchResult>.DoShuffle(searchResult);
+        }
+
+        private SearchResult ConvertToResult(WebPage s)
+        {
+            Uri.TryCreate(s.OpenGraphImage?.ContentUrl, UriKind.Absolute, out var image);
+            var url = new Uri(s.Url);
+            var result = new SearchResult
+            {
+                Url = s.Url,
+                Id = _keyGenerator.GenerateKey(s.Url),
+                Image = image,
+                Snippet = s.Snippet,
+                Source = url.Host,
+                Title = s.Name,
+            };
+            if (string.Equals(url.Host, "www.courseHero.com", StringComparison.InvariantCultureIgnoreCase))
+            {
+                result.Url =
+                    $"http://shareasale.com/r.cfm?b=661825&u=1469379&m=55976&urllink={url.Host + url.PathAndQuery + url.Fragment}&afftrack=";
+
+            }
+            return result;
         }
 
         public static string BuildSources(IEnumerable<string> sources)
