@@ -9,9 +9,9 @@
             </div>
             <div v-if="filterSelection.length" class="pb-3">
                 <template v-for="item in filterSelection">
-                    <v-chip label class="filter-chip elevation-1" @click="$_removeFilter(item)">
+                    <v-chip label class="filter-chip elevation-1">
                         {{$_showSelectedFilter(item) | capitalize}}
-                        <v-icon right>sbf-close</v-icon>
+                        <v-icon right @click="$_removeFilter(item)">sbf-close</v-icon>
                     </v-chip>
                 </template>
             </div>
