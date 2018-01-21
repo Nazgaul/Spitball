@@ -35,9 +35,6 @@ namespace Cloudents.Core.Extension
                 Port = -1
             };
             return uriBuilder.Uri;
-
         }
     }
-
-    
 }
