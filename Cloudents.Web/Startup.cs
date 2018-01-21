@@ -6,6 +6,7 @@ using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
+using Cloudents.Web.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
@@ -73,7 +74,7 @@ namespace Cloudents.Web
                 Configuration["Storage"]
                 );
             containerBuilder.RegisterModule(infrastructureModule);
-            containerBuilder.RegisterModule<Cloudents.Infrastructure.Framework.IocModule>();
+            containerBuilder.RegisterModule<Infrastructure.Framework.IocModule>();
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);
@@ -82,6 +83,7 @@ namespace Cloudents.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseHeaderRemover("X-HTML-Minification-Powered-By");
             var supportedCultures = new[]
             {
                 new CultureInfo("en-US")
@@ -107,8 +109,7 @@ namespace Cloudents.Web
             }
             app.UseRewriter(new RewriteOptions()
                 .AddRedirectToHttpsPermanent()
-            //.AddIISUrlRewrite(env.ContentRootFileProvider, "IISUrlRewrite.xml")
-            .Add(new RemoveTrailingSlash())
+                .Add(new RemoveTrailingSlash())
             );
 
             app.UseResponseCompression();

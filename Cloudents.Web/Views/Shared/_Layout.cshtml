@@ -16,7 +16,7 @@
     var version = Assembly.GetEntryAssembly().GetName().Version.ToString(4);
     var p = Provider.GetTag("vendor");
     var main = Provider.GetTag("main");
-    string cdnEndPoint = Constants.GetCdnEndpoint(Environment);
+    var cdnEndPoint = Constants.GetCdnEndpoint(Environment);
 }
 <!DOCTYPE html>
 
