@@ -1,49 +1,51 @@
 ﻿@import "../../mixin.less";
 
 .book-header {
-    .tabs__item {
-        color: red;
-    }
-
-    .toolbar {
-        background-color: white;
-
-        .toolbar__title {
-            font-size: 18px;
-            margin-left: 2px;
+    @media(max-width: @screen-xs) {
+        .tabs__item {
+            color: red;
         }
 
-        .back.btn {
-            &:first-child {
-                @media(max-width: @screen-xs) {
-                    margin-left: 0;
+        .toolbar {
+            background-color: white;
+
+            .toolbar__title {
+                font-size: 18px;
+                margin-left: 2px;
+            }
+
+            .back.btn {
+                &:first-child {
+                    @media(max-width: @screen-xs) {
+                        margin-left: 0;
+                    }
+                }
+
+                .btn__content {
+
+                    .icon {
+                        transform: rotate(90deg);
+                        font-size: 38px;
+                        color: #9b9b9b;
+                    }
                 }
             }
 
-            .btn__content {
+            .tabs {
+                margin-bottom: 4px;
 
-                .icon {
-                transform: rotate(90deg);
-                    font-size: 38px;
-                    color: #9b9b9b;
+                li {
+                    font-size: 16px;
+                    font-weight: 600;
+
+                    &:not(.tabs__item--active) {
+                        color: #cea1ec;
+                    }
                 }
-            }
-        }
 
-        .tabs {
-            margin-bottom: 4px;
-
-            li {
-                font-size: 16px;
-                font-weight: 600;
-
-                &:not(.tabs__item--active) {
-                    color: #cea1ec;
+                .tabs__slider {
+                    height: 4px;
                 }
-            }
-
-            .tabs__slider {
-                height: 4px;
             }
         }
     }
