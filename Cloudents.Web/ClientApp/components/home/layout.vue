@@ -28,7 +28,7 @@
         <slot name="stripSection"></slot>
         <section class="box-section testimonials pb-4">
             <v-carousel lazy hide-delimiters left-control-icon="sbf-arrow-right" interval="10000" right-control-icon="sbf-arrow-right" class="limited-width">
-                <v-carousel-item transition="fade" v-for="(testimonial,index) in props.testimonials" src="" :key="index">
+                <v-carousel-item transition="fade-animation" v-for="(testimonial,index) in props.testimonials" src="" :key="index">
                     <div class="testimonial">
                         <p class="testimonial-text">"{{testimonial.testimonial}}"</p>
                         <div class="author">

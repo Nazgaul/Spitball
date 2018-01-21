@@ -68,11 +68,12 @@
         margin: 0 auto;
         padding: 0;
         max-width: 1280px;
-
+        position: relative;
 
 
         @media(max-width: @screen-xs) {
-            padding: 0 16px;
+            margin: 0 16px;
+            max-width: ~"calc(100% - 32px)";
 
             .carousel__right, .carousel__left {
                 display: none;
@@ -127,6 +128,21 @@
                 background-position: -2px -250px;
             }
         }
+
+        .fade-animation {
+            &-enter-active, &-leave-active, &-leave-to {
+                transition: .3s ease-out;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                opacity: 1;
+            }
+
+            &-enter, &-leave, &-leave-to {
+                opacity: 0;
+            }
+        }
     }
 
     .testimonial-text {
@@ -135,7 +151,7 @@
         letter-spacing: -0.4px;
         line-height: 33px;
         padding: 0 0 22px 0;
-        color:  @color-grey;
+        color: @color-grey;
     }
 
     .author {
