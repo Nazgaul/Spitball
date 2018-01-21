@@ -9,9 +9,9 @@
             </div>
             <div v-if="filterSelection.length" class="pb-3">
                 <template v-for="item in filterSelection">
-                    <v-chip label class="filter-chip elevation-1" @click="$_removeFilter(item)">
+                    <v-chip label class="filter-chip elevation-1">
                         {{$_showSelectedFilter(item) | capitalize}}
-                        <v-icon right>sbf-close</v-icon>
+                        <v-icon right @click="$_removeFilter(item)">sbf-close</v-icon>
                     </v-chip>
                 </template>
             </div>
@@ -28,16 +28,16 @@
                                     <p class="mt-1">{{currentPromotion.content}}</p>
                                 </div>
                             </v-flex>
-                            <v-flex order-xs2 v-if="showPersonalizeField&&!university" class="personalize-wrapper pa-3 mb-2 elevation-1">
+                            <v-flex order-xs1 v-if="showPersonalizeField&&!university" class="personalize-wrapper pa-3 mb-2 elevation-1">
                                 <v-text-field class="elevation-0" type="search" solo prepend-icon="sbf-search" placeholder="Where do you go to school?" @click="$_openPersonalize"></v-text-field>
                             </v-flex>
-                            <v-flex class="result-cell elevation-1 mb-2" xs-12 v-for="(item,index) in items" :key="index" @click="(hasExtra?selectedItem=item.placeId:'')" :class="(index>6?'order-xs6':'order-xs3')">
+                            <v-flex class="result-cell elevation-1 mb-2" xs-12 v-for="(item,index) in items" :key="index" @click="(hasExtra?selectedItem=item.placeId:'')" :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
                                 <component :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell"></component>
                             </v-flex>
                             <router-link v-if="!hasExtra" tag="v-flex" class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs4 " :to="{path:'/'+currentSuggest,query:{q:this.userText}}">
                                 <suggest-card :name="currentSuggest"></suggest-card>
                             </router-link>
-                            <v-flex v-if="name==='ask'" class="result-cell elevation-1 mb-2 xs-12 order-xs5">
+                            <v-flex v-if="name==='ask'" class="result-cell elevation-1 mb-2 xs-12 order-xs2">
                                 <studyblue-card :searchterm="term"></studyblue-card>
                             </v-flex>
                         </v-layout>
