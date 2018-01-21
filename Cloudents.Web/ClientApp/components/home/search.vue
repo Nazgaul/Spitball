@@ -1,6 +1,6 @@
 ﻿<template>
     <div class="box-search" ref="search">
-        <form method="get" @submit.prevent="search" v-scroll="onScroll">
+        <form action="." method="get" @submit.prevent="search" v-scroll="onScroll">
             <v-container>
                 <v-layout row>
                     <v-flex class="tx-input">
