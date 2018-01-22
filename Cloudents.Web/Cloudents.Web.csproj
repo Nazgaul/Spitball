@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\components\food\foodheader.vue" />
     <None Remove="ClientApp\components\settings\layout.vue.orig" />
   </ItemGroup>
 
