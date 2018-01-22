@@ -10,16 +10,15 @@ const SortAndFilter = () => import('./SortAndFilter.vue');
 const MobileSortAndFilter = () => import('./MobileSortAndFilter.vue');
 import plusBtn from "../settings/svg/plus-button.svg";
 import emptyState from "./svg/no-match-icon.svg";
+import {page, verticalsName} from '../../data'
 import { typesPersonalize } from "../settings/consts.js";
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 export const sortAndFilterMixin = {
-
     data() {
         return {
             filter: ''
         };
     },
-
     components: { SortAndFilter, plusBtn, MobileSortAndFilter },
 
     props: {
@@ -27,11 +26,11 @@ export const sortAndFilterMixin = {
         query: { type: Object },
         filterSelection: { type: [String, Array] },
         sort: { type: String },
-        page: { type: Object },
         params: { type: Object }
     },
     computed: {
-        ...mapGetters(['loading'])
+        ...mapGetters(['loading']),
+        page(){return page[this.name]}
     },
     methods: {
         ...mapMutations(['UPDATE_LOADING'])
@@ -168,7 +167,8 @@ export const pageMixin =
             isEmpty: function () { return this.pageData.data ? !this.pageData.data.length : true },
             subFilterVertical() {
                 return this.name.includes('note') || this.name === 'flashcard' || this.name === 'job'||this.name.includes('ask');
-            }
+            },
+            currentSuggest(){return verticalsName.filter(i => i !== this.name)[(Math.floor(Math.random() * (verticalsName.length - 2)))]}
         },
 
         data() {
@@ -185,23 +185,11 @@ export const pageMixin =
 
         components: { emptyState, foodExtra, ResultItem, SuggestCard, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood },
 
-        //If change term on book details page stay in book vertical(don't update vertical) according vertical flag
-        beforeRouteEnter(to, from, next) {
-            new Promise(resolve => {
-                if (from.name && from.name === "bookDetails") {
-                    to.meta.vertical = true;
-                    resolve();
-                } else {
-                    resolve();
-                }
-            }).then(() => next());
-
-        },
         created() {
             if (!this.isFirst) { this.showPersonalizeField = true }
             this.$root.$on("closePersonalize", () => { this.showPersonalizeField = true });
             //If query have courses save those courses
-            if (this.query.course) this.$route.meta.myClasses = this.query.course;
+            if (this.query.course) this.setFileredCourses(this.query.course);
             this.UPDATE_LOADING(true);
             //if the term is empty fetch the data
             if (!this.query.q || !this.query.q.length) {
@@ -314,10 +302,8 @@ export const pageMixin =
         props: {
             hasExtra: { type: Boolean },
             getFacet: { type: [Array] },
-            currentSuggest: { type: String },
-            vertical: {},
             userText: { type: String },
-            isPromo:{type:Boolean}
+            isPromo:  {type:Boolean}
         }
 
     };

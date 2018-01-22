@@ -10,16 +10,13 @@ const personalize = () => import("./components/settings/ResultPersonalize.vue");
 const pageHeader = () => import("./components/header/header.vue");
 const boodDetailsHeader = () => import("./components/book/header.vue");
 const bookDetails = () => import("./components/book/ResultBookDetails.vue");
-
 const satelliteHeader = () => import("./components/satellite/header.vue");
 const previewHeader = () => import("./components/helpers/header.vue");
 const documentPreviewHeader = () => import("./components/preview/headerDocument.vue");
 import { staticRoutes } from "./components/satellite/satellite-routes";
-//const faqView = () => import("./components/satellite/faq.vue");
-
 
 //const mobileDetailsFirstLine = () => import("./components/header/headerFirstLineMobile.vue");
-import { page, verticalsName, details } from './data'
+import { details } from './data'
 
 
 function dynamicPropsFn(route) {
@@ -41,18 +38,15 @@ function dynamicPropsFn(route) {
         }
 
     return {
-        name: route.path.slice(1),
+        name: newName,
         query: route.query,
         filterSelection: filterOptions,
         sort: route.query.sort,
         userText: route.query.q,
         params: route.params,
         hasExtra: newName.includes('food'),
-        page: page[newName],//todo:move to the page itself
         isPromo:route.query.hasOwnProperty("promo"),
-        getFacet: route.meta[`${newName}Facet`],
-        currentSuggest: verticalsName.filter(i => i !== newName)[(Math.floor(Math.random() * (verticalsName.length - 2)))],//todo:move to the page itself
-        vertical: route.meta.vertical
+        getFacet: route.meta[`${newName}Facet`]
     }
 }
 function dynamicDetailsPropsFn(route) {
@@ -63,25 +57,14 @@ function dynamicDetailsPropsFn(route) {
         sort: "price",
         id: route.params.id,
         params: route.params,
-        page: page[route.name]//todo:move to the page itself
     }
 }
-function moreInfoFn(route) {
-    return {
-        actions: route.path.includes("SubjectOrCourse") ? [{ name: "edit Subject" }, { name: "Select Course" }] : [{ name: "edit Search" }]
-    };
-}
-function verticalsLinkFun(route) {
-    let currentPath = route.path;
-    return {
-        userText: route.query.q,
-        submitRoute:currentPath,
-        currentSelection: route.path.slice(1)
-    }
-}
+
 function headerResultPageFn(route) {
     return {
-        userText: route.query.q
+        userText: route.query.q,
+        submitRoute:route.path,
+        currentSelection: route.path.slice(1)
     }
 }
 
@@ -94,7 +77,7 @@ const resultPage = {
 const resultProps = {
     default: dynamicPropsFn,
     personalize,
-    header: verticalsLinkFun
+    header: headerResultPageFn
 };
 
 
@@ -106,7 +89,6 @@ const foodDetailsProps = {
 const bookDetailsProps = {
     ...resultProps,
     default: dynamicDetailsPropsFn,
-    //verticalListMobile: filterLinkFun,
     header: (route) => ({id: route.params.id })
 };
 let routes2 = [
