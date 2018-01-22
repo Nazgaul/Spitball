@@ -67,8 +67,6 @@
     <Compile Include="BoxSearchProvider.cs" />
     <Compile Include="Content.cs" />
     <Compile Include="ContentSearchProvider.cs" />
-    <Compile Include="FeedSearch.cs" />
-    <Compile Include="FeedSearchProvider.cs" />
     <Compile Include="FilterProvider.cs" />
     <Compile Include="FlashcardSearch.cs" />
     <Compile Include="FlashcardSearchProvider.cs" />
@@ -82,8 +80,6 @@
     <Compile Include="ItemSearchProvider3.cs" />
     <Compile Include="IUniversityReadSearchProvider.cs" />
     <Compile Include="IUniversityWriteSearchProvider.cs" />
-    <Compile Include="Job.cs" />
-    <Compile Include="JobsProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuizSearch.cs" />
     <Compile Include="QuizSearchProvider2.cs" />

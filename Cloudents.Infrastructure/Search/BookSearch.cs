@@ -72,7 +72,7 @@ namespace Cloudents.Infrastructure.Search
         [Cache(TimeConst.Day, "book-sell")]
         public async Task<BookDetailsDto> SellAsync(string isbn13, int imageWidth, CancellationToken token)
         {
-            var result = await  BuyOrSellApiAsync(isbn13, imageWidth, true, token);
+            var result = await  BuyOrSellApiAsync(isbn13, imageWidth, true, token).ConfigureAwait(false);
             result.Prices = result.Prices?.Where(w => string.Equals(w.Condition, "used", StringComparison.InvariantCultureIgnoreCase));
             return result;
         }

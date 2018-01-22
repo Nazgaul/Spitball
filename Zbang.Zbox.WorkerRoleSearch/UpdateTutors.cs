@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
+using Microsoft.Spatial;
 using Newtonsoft.Json;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -14,10 +16,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public class UpdateTutors : UpdateAffiliate<WyzantTutor, Tutor>
     {
         private readonly TutorProvider _tutorProvider;
-        private readonly IZipToLocationProvider _zipToLocation;
+        private readonly IGooglePlacesSearch _zipToLocation;
 
-        public UpdateTutors(TutorProvider tutorProvider, ILogger logger, IZipToLocationProvider zipToLocation, ILocalStorageProvider localStorage)
-            :base(logger,localStorage)
+        public UpdateTutors(TutorProvider tutorProvider, ILogger logger, IGooglePlacesSearch zipToLocation, ILocalStorageProvider localStorage)
+            : base(logger, localStorage)
         {
             _tutorProvider = tutorProvider;
             _zipToLocation = zipToLocation;
@@ -51,7 +53,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         protected override async Task<Tutor> ParseTAsync(WyzantTutor obj, CancellationToken token)
         {
-            var location = await _zipToLocation.GetLocationViaZipAsync(obj.Zip).ConfigureAwait(false);
+            var location = await _zipToLocation.GeoCodingByZipAsync(obj.Zip, token).ConfigureAwait(false);
             return new Tutor
             {
                 City = obj.City,
@@ -60,7 +62,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 Image = obj.TutorPictures.FirstOrDefault(),
                 InPerson = obj.OffersInPersonLessons,
                 InsertDate = DateTime.UtcNow,
-                Location = location,
+                Location = GeographyPoint.Create(location.Latitude, location.Longitude),
                 Name = obj.Name,
                 Online = obj.OffersOnlineLessons,
                 Rank = obj.TutorRank,

@@ -8,8 +8,9 @@ namespace Cloudents.Core.Entities.Db
     {
         protected Course()
         {
-                
+
         }
+
         public Course(string name, long universityId)
         {
             RowDetail = new RowDetail();

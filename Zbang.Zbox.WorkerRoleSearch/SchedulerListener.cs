@@ -6,31 +6,31 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using Autofac;
+using Autofac.Features.Indexed;
+using Cloudents.Core.Extension;
 using Microsoft.WindowsAzure.Scheduler.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Zbang.Zbox.Infrastructure.Azure.Queue;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.WorkerRoleSearch.Mail;
-using TaskExtensions = Zbang.Zbox.Infrastructure.Extensions.TaskExtensions;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class SchedulerListener : IJob, IDisposable
     {
-        private readonly IQueueProviderExtract m_QueueProviderExtract;
-        private readonly ILifetimeScope m_LifetimeScope;
-        private readonly XmlSerializer m_Dcs = new XmlSerializer(typeof(StorageQueueMessage));
-        private readonly SemaphoreSlim m_CriticalCode = new SemaphoreSlim(1);
+        private readonly IQueueProviderExtract _queueProviderExtract;
+        private readonly IIndex<string, ISchedulerProcess> _scope;
+        //private readonly ILifetimeScope m_LifetimeScope;
+        private readonly XmlSerializer _dcs = new XmlSerializer(typeof(StorageQueueMessage));
+        private readonly SemaphoreSlim _criticalCode = new SemaphoreSlim(1);
         private readonly ILogger _logger;
 
-        public SchedulerListener(IQueueProviderExtract queueProviderExtract, ILifetimeScope lifetimeScope, ILogger logger)
+        public SchedulerListener(IQueueProviderExtract queueProviderExtract,  ILogger logger, IIndex<string, ISchedulerProcess> scope)
         {
-            m_QueueProviderExtract = queueProviderExtract;
-            m_LifetimeScope = lifetimeScope;
+            _queueProviderExtract = queueProviderExtract;
             _logger = logger;
+            _scope = scope;
         }
 
         public string Name => nameof(SchedulerListener);
@@ -43,12 +43,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 {
                     var queueName = new SchedulerQueueName();
 
-                    await m_QueueProviderExtract.RunQueueAsync(queueName, async msg =>
+                    await _queueProviderExtract.RunQueueAsync(queueName, async msg =>
                     {
                         StorageQueueMessage message;
                         using (var xmlStream = new MemoryStream(Encoding.Unicode.GetBytes(msg.AsString)))
                         {
-                            message = (StorageQueueMessage)m_Dcs.Deserialize(xmlStream);
+                            message = (StorageQueueMessage)_dcs.Deserialize(xmlStream);
                         }
                         _logger.Info($"{Name} found message {msg.AsString}");
                         var messageContent = JObject.Parse(message.Message);
@@ -57,7 +57,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         foreach (var property in properties)
                         {
                             var t = (int?)property;
-                            var process = m_LifetimeScope.ResolveOptionalNamed<ISchedulerProcess>(property.Name);
+                            _scope.TryGetValue(property.Name, out var process);
                             if (process != null)
                             {
                                 list.Add(process.ExecuteAsync(t ?? 0, async (progress,visible) =>
@@ -66,12 +66,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
                                     message.Message = JsonConvert.SerializeObject(messageContent);
                                     using (var memoryStream = new MemoryStream())
                                     {
-                                        await m_CriticalCode.WaitAsync(cancellationToken).ConfigureAwait(false);
+                                        await _criticalCode.WaitAsync(cancellationToken).ConfigureAwait(false);
                                         try
                                         {
-                                            m_Dcs.Serialize(memoryStream, message);
+                                            _dcs.Serialize(memoryStream, message);
                                             msg.SetMessageContent(memoryStream.ToArray());
-                                            await m_QueueProviderExtract.UpdateMessageAsync(queueName, msg, visible, cancellationToken).ConfigureAwait(false);
+                                            await _queueProviderExtract.UpdateMessageAsync(queueName, msg, visible, cancellationToken).ConfigureAwait(false);
                                         }
                                         catch (Exception ex)
                                         {
@@ -79,14 +79,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
                                         }
                                         finally
                                         {
-                                            m_CriticalCode.Release();
+                                            _criticalCode.Release();
                                         }
                                     }
                                 }, cancellationToken));
                             }
                             else
                             {
-                                list.Add(TaskExtensions.CompletedTaskFalse);
+                                list.Add(TaskCompleted.CompletedTaskFalse);
                                 _logger.Warning($"can't resolve {property.Name}");
                             }
                         }
@@ -111,8 +111,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public void Dispose()
         {
-            m_CriticalCode?.Dispose();
-            m_LifetimeScope?.Dispose();
+            _criticalCode?.Dispose();
             GC.SuppressFinalize(this);
         }
     }

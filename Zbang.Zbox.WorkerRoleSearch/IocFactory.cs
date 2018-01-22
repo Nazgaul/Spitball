@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System.Configuration;
+using Autofac;
 using Zbang.Zbox.Domain.CommandHandlers;
 using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure;
@@ -50,6 +51,17 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //    .WithParameter("connectionString", "Endpoint=sb://spitball.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=1+AAf2FSzauWHpYhHaoweYT9576paNgmicNSv6jAvKk=")
             //    .WithParameter("hubName", "jared-spitball")
             //    .InstancePerLifetimeScope();
+
+
+            var infrastructureModule = new Cloudents.Infrastructure.InfrastructureModule(
+                ConfigFetcher.Fetch("ZBox"),
+                ConfigFetcher.Fetch("AzureSeachServiceName"),
+                ConfigFetcher.Fetch("AzureSearchKey"),
+                "zboxcache.redis.cache.windows.net,abortConnect=false,allowAdmin=true,ssl=true,password=CxHKyXDx40vIS5EEYT0UfnVIR1OJQSPrNnXFFdi3UGI=",
+                ConfigFetcher.Fetch("StorageConnectionString"));
+
+            //  builder.RegisterType<GoogleSheet>().As<IGoogleSheet>();
+            builder.RegisterModule(infrastructureModule);
 
             builder.RegisterModule<WorkerRoleModule>();
             Container = builder.Build();

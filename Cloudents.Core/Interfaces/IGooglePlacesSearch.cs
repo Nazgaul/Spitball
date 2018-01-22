@@ -12,14 +12,8 @@ namespace Cloudents.Core.Interfaces
         Task<(string token, IEnumerable<PlaceDto> data)> SearchNearbyAsync(IEnumerable<string> term, PlacesRequestFilter filter,
             GeoPoint location, string nextPageToken, CancellationToken token);
 
-        //Task<PlaceDto> SearchAsync(string term, CancellationToken token);
         Task<PlaceDto> ByIdAsync(string id, CancellationToken token);
-        Task<GeoPoint> GeoCodingAsync(string location, CancellationToken token);
-    }
-
-    public interface IPlacesSearch
-    {
-        Task<(string token, IEnumerable<PlaceDto> data)> SearchAsync(IEnumerable<string> term, PlacesRequestFilter filter,
-            GeoPoint location, string nextPageToken, CancellationToken token);
+        Task<GeoPoint> GeoCodingByAddressAsync(string address, CancellationToken token);
+        Task<GeoPoint> GeoCodingByZipAsync(string zip, CancellationToken token);
     }
 }

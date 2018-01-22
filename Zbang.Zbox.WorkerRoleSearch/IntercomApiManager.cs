@@ -42,23 +42,23 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
         }
 
-        public async Task UpdateUserRefAsync(long userId, string email, string reference, CancellationToken token)
-        {
-            using (var client = new HttpClient())
-            {
-                AddHeaders(client);
-                var jsonString = JsonConvert.SerializeObject(new { user_id = userId, email, custom_attributes = new { reference } });
-                using (var content = new StringContent(jsonString,Encoding.UTF8,"application/json"))
-                {
-                    var response = await client.PostAsync("https://api.intercom.io/users", content, token);
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        var text = await response.Content.ReadAsStringAsync();
-                        TraceLog.WriteError($"on update ref user intercom {text}");
-                    }
-                }
-            }
-        }
+        //public async Task UpdateUserRefAsync(long userId, string email, string reference, CancellationToken token)
+        //{
+        //    using (var client = new HttpClient())
+        //    {
+        //        AddHeaders(client);
+        //        var jsonString = JsonConvert.SerializeObject(new { user_id = userId, email, custom_attributes = new { reference } });
+        //        using (var content = new StringContent(jsonString,Encoding.UTF8,"application/json"))
+        //        {
+        //            var response = await client.PostAsync("https://api.intercom.io/users", content, token);
+        //            if (!response.IsSuccessStatusCode)
+        //            {
+        //                var text = await response.Content.ReadAsStringAsync();
+        //                TraceLog.WriteError($"on update ref user intercom {text}");
+        //            }
+        //        }
+        //    }
+        //}
 
         private static void AddHeaders(HttpClient client)
         {
@@ -74,6 +74,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public interface IIntercomApiManager
     {
         Task<IEnumerable<IntercomUsers>> GetUnsubscribersAsync(int page, CancellationToken token);
-        Task UpdateUserRefAsync(long userId, string email, string reference, CancellationToken token);
+        //Task UpdateUserRefAsync(long userId, string email, string reference, CancellationToken token);
     }
 }

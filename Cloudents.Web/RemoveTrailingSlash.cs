@@ -18,7 +18,7 @@ namespace Cloudents.Web
             {
                 var uri = new UriBuilder
                 {
-                    Query = context.HttpContext.Request.QueryString.Value,
+                    Query = context.HttpContext.Request.QueryString.Value.TrimStart('?'),
                     Host = context.HttpContext.Request.Host.Host,
                     
                     Path = context.HttpContext.Request.Path.Value.TrimEnd('/'),
