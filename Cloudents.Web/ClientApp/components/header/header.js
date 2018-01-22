@@ -1,44 +1,8 @@
-﻿import logo from "../../../wwwroot/Images/logo-spitball.svg";
-//import navBar from "../navbar/TheNavbar.vue"
-import { mapActions, mapGetters } from 'vuex';
-import { settingMenu } from '../settings/consts';
-import { micMixin } from '../helpers/mic';
-
-let placeholders={
-    job:"Your field of expertise...",
-    tutor: "Find a tutor...",
-    note:"Find study documents in...",
-    book:"Textbook title or ISBN...",
-    ask:"Ask anything...",
-    flashcard:"Look for flashcards...",
-    food:"Search for deals..."
-};
+﻿import mainHeader from '../helpers/header.vue'
+import verticalsTabs from './verticalsTabs.vue'
 export default {
-    mixins: [micMixin],
     components: {
-        logo
-    },
-    data() {
-        return {
-            settingMenu,
-            placeholders,
-            qFilter: this.userText,
-        };
-    },
-    computed: {
-        ...mapGetters(['luisTerm', 'getUniversityName', 'isFirst'])
-        //isMobileSize: function () {
-        //    return this.$vuetify.breakpoint.xsOnly;
-        //}
-    },
-    watch: {
-        userText(val) {
-            this.qFilter = val;
-        },
-        //update text according mic update
-        msg(val) {
-            this.qFilter = val;
-        }
+        mainHeader,verticalsTabs
     },
     beforeRouteUpdate(to, from, next) {
         const toName = to.path.slice(1);
@@ -50,82 +14,36 @@ export default {
         next();
     },
     mounted() {
-        //if(this.isMobileSize){
         let tabs = this.$el.querySelector('.tabs__wrapper');
         let currentItem = this.$el.querySelector(`#${this.currentSelection}`);
         if (currentItem)
             tabs.scrollLeft = currentItem.offsetLeft - (tabs.clientWidth / 2);
-        //}
     },
     props: {
-        $_calcTerm: { type: Function },
-        verticals: { type: Array },
-        callbackFunc: { type: Function },
-        currentSelection: { type: String },
-        userText: { type: String },
-        currentPath: { type: String },
-        luisType: { type: String },
-        getLuisBox: { type: Function },
-        name: { type: String },
-        myClasses: {}
-    },
-    methods: {
-        ...mapActions(["updateSearchText"]),
-        submit: function () {
-            this.updateSearchText(this.qFilter).then(({ term: luisTerm, docType }) => {
-                let result = this.currentPath;
-                this.$route.meta[this.luisType] = {
-                    term: this.qFilter,
-                    luisTerm, docType
-                };
-                this.$router.push({ path: result, query: { q: this.qFilter }, meta: { ...this.$route.meta } });
-                this.$nextTick(() => {
-                    this.$el.querySelector('input').blur();
-                    this.$el.querySelector('form').blur();
-                });
-            });
-        },
-        //callback for mobile submit mic
-        submitMic() {
-            this.submit();
-        },
-        menuToggle: function () {
-            this.$emit("input", !this.value);
-        },
-        $_currentClick(item) {
-            this.$root.$emit("personalize", item.id);
-        },
-        $_updateType(result) {
-            //if(this.isMobileSize){
-            this.$ga.event("Vertical_Tab",result);
-            let tabs = this.$el.querySelector('.tabs__wrapper');
-            let currentItem = this.$el.querySelector(`#${result}`);
-            if (currentItem) {
-                tabs.scrollLeft = currentItem.offsetLeft - (tabs.clientWidth / 2);
-            }
-            //}
-            if (this.name !== "result") {
-                if (this.callbackFunc) {
-                    this.callbackFunc.call(this, result);
-                } else {
-                    this.$router.push({ path: '/' + result, query: { q: this.userText } });
-                }
-            }
-            //TODO - new version of vuex dont need this
-            else if (this.$route.meta[this.$_calcTerm(result)]) {
-                let query = { q: this.getLuisBox(result).term };
-                if (this.currentPath.includes(result)) query = { ...this.$route.query, ...query };
-                if (this.myClasses && (result.includes('note') || result.includes('flashcard'))) query.course = this.myClasses;
-                this.$router.push({ path: '/' + result, query })
-            } else {
-                // if (!this.getUniversityName && (result !== 'food' && result !== 'job')) {
-                //     this.$root.$children[0].$refs.personalize.showDialog = true;
-                //     return;
-                // }
-                this.$router.push({ path: '/' + result, query: { q: "" } });
-            }
-            //THIS is new version of vuex
-            //this.$router.push({ path: '/' + result, query: { q: this.userText } });
-        }
+        currentSelection: {type: String},
+        submitRoute: {String},
+        userText: {String}
     }
+    // },
+    // methods: {
+    //     ...mapActions(["setCurrentVertical","getAIDataForVertical"]),
+    //     submit: function () {
+    //         this.$nextTick(() => {
+    //             this.$el.querySelector('input').blur();
+    //             this.$el.querySelector('form').blur();
+    //         });
+    //     },
+    //     $_updateType(result) {
+    //         this.$ga.event("Vertical_Tab",result);
+    //         let tabs = this.$el.querySelector('.tabs__wrapper');
+    //         let currentItem = this.$el.querySelector(`#${result}`);
+    //         if (currentItem) {
+    //             tabs.scrollLeft = currentItem.offsetLeft - (tabs.clientWidth / 2);
+    //         }
+    //         this.setCurrentVertical(result);
+    //         this.getAIDataForVertical(result).then(({text="",course})=>{
+    //             this.$router.push({ path: '/' + result, query: { q: text,course } });
+    //         })
+    //     }
+    // }
 }

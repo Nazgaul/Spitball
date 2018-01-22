@@ -12,60 +12,46 @@ const boodDetailsHeader = () => import("./components/book/header.vue");
 const bookDetails = () => import("./components/book/ResultBookDetails.vue");
 
 const satelliteHeader = () => import("./components/satellite/header.vue");
-const previewHeader = () => import("./components/preview/header.vue");
+const previewHeader = () => import("./components/helpers/header.vue");
 const documentPreviewHeader = () => import("./components/preview/headerDocument.vue");
 import { staticRoutes } from "./components/satellite/satellite-routes";
 //const faqView = () => import("./components/satellite/faq.vue");
 
 
 //const mobileDetailsFirstLine = () => import("./components/header/headerFirstLineMobile.vue");
-import { page, verticalsName, verticalsNavbar, details } from './data'
-const $_calcTerm = (name) => {
-    return (name.includes('food') || name.includes('purchase')) ? 'foodTerm' : name.includes('job') ? 'jobTerm' : 'term'
-};
+import { page, verticalsName, details } from './data'
 
 
 function dynamicPropsFn(route) {
     let newName = route.path.slice(1);
     let filterOptions = [];
-    if (route.query.filter) {
-        filterOptions = filterOptions.concat(route.query.filter);
-        if (route.query.jobType) {
-            filterOptions = filterOptions.concat(route.query.jobType);
+    let filtersList=['jobType','source','course'];
+
+        if (route.query.filter) {
+            filterOptions = filterOptions.concat(route.query.filter);
+            if (route.query.jobType) {
+                filterOptions = filterOptions.concat(route.query.jobType);
+            }
+        } else {
+            Object.entries(route.query).forEach(([key, val])=>{
+                if(val&&filtersList.includes(key)) {
+                    filterOptions = filterOptions.concat(val);
+                }
+            });
         }
-    } else {
-        if (route.query.source) {
-            filterOptions = filterOptions.concat(route.query.source);
-        }
-        if (route.query.course ||
-            (newName.includes("flashcard") || newName.includes("note"))
-        ) {
-            let list = [].concat(route.query.course ? route.query.course : []);
-            list = list.concat(route.meta.myClasses ? route.meta.myClasses : []);
-            filterOptions = filterOptions.concat([...new Set(list.map(i => Number(i)))]);
-        }
-        if (route.query.jobType) {
-            filterOptions = filterOptions.concat(route.query.jobType);
-        }
-    }
+
     return {
         name: route.path.slice(1),
         query: route.query,
         filterSelection: filterOptions,
         sort: route.query.sort,
         userText: route.query.q,
-        currentTerm: newName.includes("food")
-            ? route.meta.foodTerm
-            : newName.includes("job")
-                ? route.meta.jobTerm
-                : route.meta.term,
         params: route.params,
         hasExtra: newName.includes('food'),
-        page: page[newName],
-        $_calcTerm: $_calcTerm,
+        page: page[newName],//todo:move to the page itself
         isPromo:route.query.hasOwnProperty("promo"),
         getFacet: route.meta[`${newName}Facet`],
-        currentSuggest: verticalsName.filter(i => i !== newName)[(Math.floor(Math.random() * (verticalsName.length - 2)))],
+        currentSuggest: verticalsName.filter(i => i !== newName)[(Math.floor(Math.random() * (verticalsName.length - 2)))],//todo:move to the page itself
         vertical: route.meta.vertical
     }
 }
@@ -77,8 +63,7 @@ function dynamicDetailsPropsFn(route) {
         sort: "price",
         id: route.params.id,
         params: route.params,
-        page: page[route.name],
-        $_calcTerm: $_calcTerm
+        page: page[route.name]//todo:move to the page itself
     }
 }
 function moreInfoFn(route) {
@@ -89,14 +74,8 @@ function moreInfoFn(route) {
 function verticalsLinkFun(route) {
     let currentPath = route.path;
     return {
-        $_calcTerm: $_calcTerm,
-        verticals: verticalsNavbar,
         userText: route.query.q,
-        currentPath,
-        getLuisBox: (name) => route.meta[$_calcTerm(name)],
-        name: route.name,
-        myClasses: route.meta.myClasses,
-        luisType: currentPath.includes('food') ? 'foodTerm' : currentPath.includes('job') ? 'jobTerm' : 'term',
+        submitRoute:currentPath,
         currentSelection: route.path.slice(1)
     }
 }
@@ -128,7 +107,7 @@ const bookDetailsProps = {
     ...resultProps,
     default: dynamicDetailsPropsFn,
     //verticalListMobile: filterLinkFun,
-    header: (route) => ({ ...verticalsLinkFun(route), name: "textbooks", id: route.params.id, currentSelection: "book", currentPath: "bookDetails" })
+    header: (route) => ({id: route.params.id })
 };
 let routes2 = [
     {
@@ -185,7 +164,7 @@ let routes2 = [
     },
     {
         path: "/item/:university/:courseId/:courseName/:id/:itemName", name: "item",
-        components: { default: showItem, header: documentPreviewHeader },
+        components: { default: showItem, header: documentPreviewHeader,personalize},
         props: {default:(route)=>({id:route.params.id})},
         meta: {
             pageName: RouteTypes.notesRoute
@@ -194,7 +173,7 @@ let routes2 = [
     {
         path: "/flashcard/:university/:courseId/:courseName/:id/:itemName",
         name: "flashcard",
-        components: { default: showFlashcard, header: previewHeader },
+        components: { default: showFlashcard, header: previewHeader,personalize },
         props: {default:(route)=>({id:route.params.id})},
         meta: {
             pageName: RouteTypes.flashcardRoute

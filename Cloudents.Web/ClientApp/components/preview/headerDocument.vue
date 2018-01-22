@@ -1,26 +1,20 @@
 ﻿<template>
-    <v-toolbar app fixed :height="$vuetify.breakpoint.mdAndUp ? 140 : 182" class="header elevation-0">
-        <v-layout column class="header-elements ma-0">
-            <main-header class="elevation-1"></main-header>
-            <slot name="header">
-                <v-toolbar class="item-toolbar elevation-0" height="80">
+            <main-header class="elevation-0" :toolbarHeight="$vuetify.breakpoint.mdAndUp ? 140 : 182" layoutClass="header-elements ma-0">
+                <v-toolbar class="item-toolbar elevation-0 mt-2" height="80" slot="extraHeader">
                     <div class="toolbar-content">
                         <v-layout row align-center justify-space-between>
-                            <div class="item-name">Math 116 formula sheet.doc<!--{{item.name}}--></div>
+                            <div class="item-name">{{item.name}}</div>
                             <item-actions></item-actions>
                         </v-layout>
                         <v-flex class="item-meta mt-2">
                             <v-layout row align-center justify-space-between>
-                                <div class="author">Jamie Schneider<!--{{item.owner}}--></div>
-                                <div class="date">Dec 10, 2015<!--{{item.date | mediumDate}}--></div>
+                                <div class="author">{{item.owner}}</div>
+                                <div class="date">{{item.date | mediumDate}}</div>
                             </v-layout>
                         </v-flex>
                     </div>
                 </v-toolbar>
-            </slot>
-
-        </v-layout>
-    </v-toolbar>
+            </main-header>
 </template>
 
 <script>

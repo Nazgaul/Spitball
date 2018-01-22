@@ -15,31 +15,18 @@
                 </v-tabs-bar>
             </v-tabs>
         </v-toolbar>
-        <regular-header v-else :$_calcTerm="$_calcTerm" :verticals="verticals" :callbackFunc="callbackFunc"
-                        :currentSelection="currentSelection" :userText="userText"
-                        currentPath="/book" :luisType="luisType"
-                        :getLuisBox="getLuisBox" :name="name" :myClasses="myClasses"></regular-header>
+        <regular-header v-else
+                        currentSelection="book"
+                        submitRoute="/book"
+                        ></regular-header>
     </div>
 </template>
 
 <script>
     import regularHeader from "../header/header.vue"
     import TabMixin from "./bookDetailsSort"
-    //import TopBar from "../header/detailsTopToolbar.vue";
     export default {
         mixins: [TabMixin],
-        props: {
-            $_calcTerm: { type: Function },
-            verticals: { type: Array },
-            callbackFunc: { type: Function },
-            currentSelection: { type: String },
-            userText: { type: String },
-            currentPath: { type: String },
-            luisType: { type: String },
-            getLuisBox: { type: Function },
-            name: { type: String },
-            myClasses: {}
-        },
         components: { regularHeader },
     }
 </script>

@@ -1,5 +1,6 @@
 <template>
-    <v-layout column class="header-elements pb-2">
+   <v-toolbar app fixed :height="height" class="header">
+       <v-layout column :class="layoutClass?layoutClass:'header-elements'">
     <v-flex class="line">
         <v-layout row>
             <v-toolbar-title class="ma-0">
@@ -34,7 +35,8 @@
             <v-text-field type="search" light solo class="search-b" :placeholder="placeholders[currentSelection]" v-model="msg" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>
         </form>
     </v-flex>
-    </v-layout>
+        <slot name="extraHeader"></slot>
+    </v-layout></v-toolbar>
 </template>
 
 <script>
@@ -55,14 +57,24 @@
     export default {
         mixins:[micMixin],
         computed: {
-            ...mapGetters(['getUniversityName','globalTerm'])
+            ...mapGetters(['getUniversityName']),
+            ...mapGetters({'globalTerm':'currentText'})
+        },
+        watch:{
+            userText(val){
+                this.msg=val;
+            }
         },
         components:{AppLogo},
-        props:{currentSelection:{type:String,default:'ask'},userText:{type:String}},
+        props:{currentSelection:{type:String,default:'ask'},userText:{type:String},submitRoute:{type:String,default:'/result'},toolbarHeight:{},layoutClass:{}},
         data(){return {settingMenu,placeholders}},
         methods:{
             submit: function () {
-                this.$router.push({name:"result",query:{q:this.msg}});
+                this.$router.push({path:this.submitRoute,query:{q:this.msg}});
+                this.$nextTick(() => {
+                    this.$el.querySelector('input').blur();
+                    this.$el.querySelector('form').blur();
+                });
             },
             //callback for mobile submit mic
             submitMic() {
@@ -74,6 +86,7 @@
         },
         created(){
             this.msg=this.userText?this.userText:this.globalTerm;
+            this.height=this.toolbarHeight?this.toolbarHeight:(this.$vuetify.breakpoint.mdAndUp ? 60 : 115)
         }
     }
 </script>
