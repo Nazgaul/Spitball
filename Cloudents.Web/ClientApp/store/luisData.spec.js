@@ -8,37 +8,59 @@ describe('luis term store', function () {
         expect(store.state.ask).toEqual(store.state.flashcard)
     });
     describe('mutations', function () {
-        test('update term academic' +
-            '',()=>{
-            let term={term:["yifat"],text:"yifat"};
-            let state={luis:{ask:term}};
-            store.mutations[LUIS.UPDATE_TERM](state,{vertical:'ask',data:{term:["yifat"],text:"yifat"}});
-            expect(state.academic).toEqual(term);
-            expect(state.currentText).toEqual(term.text);
-            store.mutations[LUIS.UPDATE_TERM](state,{vertical:'flashcard',data:{term:["yifat"],text:"flashcard"}});
-            expect(state.academic.text).toEqual('flashcard');
-            expect(state.currentText).toEqual('flashcard');
-            store.mutations[LUIS.UPDATE_TERM](state,{vertical:'note',data:{term:["yifat"],text:"note"}});
-            expect(state.academic.text).toEqual('note');
-            expect(state.currentText).toEqual('note');
-
-            store.mutations[LUIS.UPDATE_TERM](state,{vertical:'book',data:{term:["yifat"],text:"book"}});
-            expect(state.academic.text).toEqual('book');
-            expect(state.currentText).toEqual('book');
-
-            store.mutations[LUIS.UPDATE_TERM](state,{vertical:'note',data:{term:["yifat"],text:"tutor"}});
-            expect(state.academic.text).toEqual('tutor');
-            expect(state.currentText).toEqual('tutor');
+        test('update term academic',()=>{
+            let state={luis:{ask:""}};
+            aiGeneralTypes.forEach(value => {
+                let valueText=`${value}Text`;
+                let term={term:[value],text:valueText};
+                store.mutations[LUIS.UPDATE_TERM](state,{vertical:value,data:term});
+                expect(state.academic).toEqual(term);
+                expect(state.currentVertical).toEqual(value);
+                expect(state.currentText).toEqual(valueText)
+            });
 
             store.mutations[LUIS.UPDATE_TERM](state,{vertical:'job',data:{term:["yifat"],text:"job"}});
-            expect(state.academic.text).toEqual('tutor');
+            expect(state.academic.text).toEqual(aiGeneralTypes[aiGeneralTypes.length-1]+'Text');
             expect(state.currentText).toEqual('job');
 
             store.mutations[LUIS.UPDATE_TERM](state,{vertical:'food',data:{term:["yifat"],text:"food"}});
-            expect(state.academic.text).toEqual('tutor');
+            expect(state.academic.text).toEqual(aiGeneralTypes[aiGeneralTypes.length-1]+'Text');
             expect(state.currentText).toEqual('food');
 
-        })
+        });
+
+        test('clean data', ()=> {
+            let state={};
+            Object.values = (obj) => Object.keys(obj).map(key => obj[key]);
+            store.mutations[LUIS.UPDATE_TERM](state,{vertical:'job',data:{term:["yifat"],text:"job"}});
+            store.mutations[LUIS.UPDATE_TERM](state,{vertical:'food',data:{term:["yifat"],text:"food"}});
+            store.mutations[LUIS.UPDATE_TERM](state,{vertical:'ask',data:{text:'ask'}});
+            expect(Object.values(state).filter(v=>v!=="").length).toBeTruthy();
+            store.mutations[LUIS.CLEAN_DATA](state);
+            expect(Object.values(state).filter(v=>v!=="").length).toBeFalsy();
+        });
+
+        test('update current vertical', ()=> {
+            let state={};
+            store.mutations[LUIS.UPDATE_TERM](state,{vertical:'ask',data:{text:'ask'}});
+            expect(state.currentVertical).toEqual('ask');
+            expect(state.currentText).toEqual('ask');
+            store.mutations[LUIS.UPDATE_TERM](state,{vertical:'job',data:{text:'job'}});
+            expect(state.currentVertical).toEqual('job');
+            expect(state.currentText).toEqual('job');
+            store.mutations[LUIS.UPDATE_CURRENT_VERTICAL](state,'ask');
+            expect(state.currentVertical).toEqual('ask');
+            expect(state.currentText).toEqual('ask');
+            store.mutations[LUIS.UPDATE_CURRENT_VERTICAL](state,'food');
+            expect(state.currentVertical).toEqual('food');
+            expect(state.currentText).toEqual('');
+        });
+        test('update filter courses', ()=> {
+            let state={};
+            store.mutations[LUIS.UPDATE_FILTER_COURSES](state,[1234]);
+            expect(state.filterCourses.length).toBeTruthy();
+
+        });
     });
     describe('actions', function () {
         let $store;
@@ -48,17 +70,40 @@ describe('luis term store', function () {
             $store=new Vuex.Store(store)
         });
 
+        test('clean data', ()=> {
+            let term={term:["yifat"],text:"yifat"};
+            $store.commit(LUIS.UPDATE_TERM,{vertical:'ask',data:term});
+            expect($store.getters.currentText).toEqual(term.text);
+            $store.dispatch("cleanData")
+            expect($store.state.currentText).toBe('');
+        });
+        test('set currentVertical', ()=> {
+            let term={term:["yifat"],text:"yifat"};
+            $store.commit(LUIS.UPDATE_TERM,{vertical:'ask',data:term});
+            expect($store.state.currentVertical).toEqual('ask');
+            $store.dispatch("setCurrentVertical",'flashcard');
+            expect($store.state.currentVertical).toBe('flashcard');
+            $store.dispatch("setCurrentVertical",'gyuj');
+            expect($store.state.currentVertical).toBe('gyuj');
+        });
+
+        test('set filteredClasses', ()=> {
+            let classes=[12345];
+            expect($store.state.filterCourses.length).toBeFalsy();
+            $store.dispatch("setFileredCourses",classes);
+            expect($store.state.filterCourses.length).toBeTruthy();
+        });
+
         describe('update term', function () {
             test('update general', ()=> {
                 let term={term:["yifat"],text:"yifat"};
-              $store.dispatch('updateTerm',{vertical:'ask',data:term});
-                console.log(JSON.stringify($store.state.academic));
+                $store.dispatch('updateAITerm',{vertical:'ask',data:term});
                 expect($store.state.academic.text).toBe('yifat');
-                $store.dispatch('updateTerm',{vertical:'flashcard',data:{...term,text:'flashcard'}});
+                $store.dispatch('updateAITerm',{vertical:'flashcard',data:{...term,text:'flashcard'}});
                 expect($store.state.academic.text).toBe('flashcard')
             });
         });
-        describe('get luis term', function () {
+        describe('get AI data for vertical', function () {
             let general={text:"general",term:["general"]};
             let food={text:"food",term:["food"]};
             let job={text:"job",term:["job"]};
@@ -69,15 +114,42 @@ describe('luis term store', function () {
             });
             test('getLuis general', ()=> {
                 aiGeneralTypes.forEach(async (term)=>{
-                    let val= await $store.dispatch("getAIData",term);
+                    let val= await $store.dispatch("getAIDataForVertical",term);
                     expect(val).toEqual(general);
                 });
             });
             test('getLuis job and food',async ()=> {
-                    let val= await $store.dispatch("getAIData",'food');
+                    let val= await $store.dispatch("getAIDataForVertical",'food');
                     expect(val).toEqual(food);
-                    val= await $store.dispatch("getAIData",'job');
+                    val= await $store.dispatch("getAIDataForVertical",'job');
                     expect(val).toEqual(job);
+            });
+        });
+    });
+    describe('getters', function () {
+        let $store;
+        let general={text:"general",term:["general"]};
+        let food={text:"food",term:["food"]};
+        let job={text:"job",term:["job"]};
+        beforeAll(()=>{
+            Vue.use(Vuex);
+            $store=new Vuex.Store(store);
+        });
+        describe('get luis term', function () {
+
+            test('getAI general', ()=> {
+                aiGeneralTypes.forEach((val)=>{
+                    $store.commit(LUIS.UPDATE_TERM,{vertical:val,data:general});
+                    let value= $store.getters.getAIData;
+                    expect(value).toEqual(general);
+                    expect($store.state.currentVertical).toEqual(val);
+                });
+            });
+            test('getLuis job and food',()=> {
+                $store.commit(LUIS.UPDATE_TERM,{vertical:"food",data:food});
+                expect($store.getters.getAIData).toEqual(food);
+                $store.commit(LUIS.UPDATE_TERM,{vertical:"job",data:job});
+                expect($store.getters.getAIData).toEqual(job);
             });
         });
     });

@@ -1,4 +1,4 @@
-﻿﻿import {SEARCH, FLOW, UPDATE_GLOBAL_TERM} from "./mutation-types"
+﻿﻿import {SEARCH, LUIS} from "./mutation-types"
 import { interpetPromise } from "./../services/resources"
 import searchService from "./../services/searchService"
 
@@ -29,13 +29,15 @@ const getters = {
 };
 const actions = {
     //Always update the current route according the flow
-    updateSearchText(context, text) {
+    updateSearchText(context, {text,vertical}) {
         if (!text) {
+            context.commit(LUIS.UPDATE_TERM,{vertical,data:{text,term:""}});
             return Promise.resolve("");
         }
         return interpetPromise(text).then(({ data: body }) => {
             let params = { ...body };
-            context.commit(UPDATE_GLOBAL_TERM,text);
+            let {docType,term}=body;
+            context.commit(LUIS.UPDATE_TERM,{vertical:vertical?vertical:body.vertical,data:{text,term,docType}});
             return new Promise((resolve) => {
                 //if AI return cords use it
                 if (params.hasOwnProperty('cords')) {
@@ -63,25 +65,23 @@ const actions = {
         return searchService.activateFunction["foodDetails"]({ id });
     },
 
-    fetchingData: (context, { name, params, page, luisTerm: term, docType }) => {
-        console.log(term);
+    fetchingData(context, { name, params, page}) {
+        // console.log(term);
         let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
-        let paramsList = { ...context.getters.searchParams, ...params, university, page, docType };
-        if (term !== undefined) {
-            if(!term){context.commit(SEARCH.UPDATE_SEARCH_PARAMS, { term });}
-            paramsList = { ...paramsList, term };
-        }
-        //get location if needed
-        return new Promise((resolve) => {
-            if (!paramsList.term && !paramsList.location && ["tutor", "job", "food", "purchase"].includes(name)) {
-                context.dispatch("updateLocation").then((location) => {
-                    paramsList.location = location;
-                    resolve();
-                });
-            } else { resolve(); }
-        }).then(() => {
-            return searchService.activateFunction[name](paramsList);
-        });
+        return context.dispatch('getAIDataForVertical',name).then((aiData)=>{
+            let paramsList = { ...context.getters.searchParams, ...params, university, page, ...aiData};
+            //get location if needed
+            return new Promise((resolve) => {
+                if (!paramsList.term && !paramsList.location && ["tutor", "job", "food", "purchase"].includes(name)) {
+                    context.dispatch("updateLocation").then((location) => {
+                        paramsList.location = location;
+                        resolve();
+                    });
+                } else { resolve(); }
+            }).then(() => {
+                return searchService.activateFunction[name](paramsList);
+            });
+        })
     }
 };
 
