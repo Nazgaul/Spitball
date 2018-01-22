@@ -79,7 +79,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             builder.RegisterType<UpdateSearchBox>().Named<IFileProcess>(nameof(BoxProcessData));
 
             builder.RegisterType<TelemetryLogger>().As<ILogger>();
-            builder.RegisterType<ZipToLocationProvider>().As<IZipToLocationProvider>().SingleInstance();
             base.Load(builder);
         }
     }

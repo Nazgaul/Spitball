@@ -8,6 +8,7 @@ using Cloudents.Infrastructure.AI;
 using Cloudents.Infrastructure.Cache;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Search;
+using Cloudents.Infrastructure.Search.Job;
 using Cloudents.Infrastructure.Search.Places;
 using Cloudents.Infrastructure.Storage;
 using Microsoft.Azure.Search;

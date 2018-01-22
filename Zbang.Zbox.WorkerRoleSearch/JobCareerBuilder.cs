@@ -8,7 +8,9 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Write;
+using Microsoft.Spatial;
 using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -18,8 +20,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public class JobCareerBuilder : UpdateAffiliate<CareerBuilderJobs, Job>
     {
         private readonly JobSearchWrite _jobSearchService;
-        private readonly IZipToLocationProvider _zipToLocation;
-        public JobCareerBuilder(ILogger logger, ILocalStorageProvider localStorage, JobSearchWrite jobSearchService, IZipToLocationProvider zipToLocation) : base(logger, localStorage)
+        private readonly IGooglePlacesSearch _zipToLocation;
+        public JobCareerBuilder(ILogger logger, ILocalStorageProvider localStorage, JobSearchWrite jobSearchService, IGooglePlacesSearch zipToLocation) : base(logger, localStorage)
         {
             _jobSearchService = jobSearchService;
             _zipToLocation = zipToLocation;
@@ -52,7 +54,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         protected override async Task<Job> ParseTAsync(CareerBuilderJobs obj, CancellationToken token)
         {
-            var location = await _zipToLocation.GetLocationViaZipAsync(obj.Zip).ConfigureAwait(false);
+            var location = await _zipToLocation.GeoCodingByZipAsync(obj.Zip, token).ConfigureAwait(false);
             return new Job
             {
                 City = obj.City,
@@ -60,7 +62,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 DateTime = obj.posted_at,
                 Id = obj.job_reference,
                 JobType = JobTypeConversion(obj.job_type),
-                Location = location,
+                Location = GeographyPoint.Create(location.Latitude, location.Longitude),
                 Description = StripHtml(obj.body),
                 State = obj.state,
                 Title = obj.title,

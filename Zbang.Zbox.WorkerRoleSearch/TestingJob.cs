@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.ApplicationInsights;
 using Microsoft.WindowsAzure.Storage;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
@@ -102,11 +101,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     }
                     catch (Exception ex)
                     {
-                        var telemetry = new TelemetryClient();
-                        var properties = new Dictionary<string, string>
-                        {["section"] = "md5",["itemId"] = document.Item1.ToString() };
+                        //var telemetry = new TelemetryClient();
+                        //var properties = new Dictionary<string, string>
+                        //{["section"] = "md5",["itemId"] = document.Item1.ToString() };
 
-                        telemetry.TrackException(ex, properties);
+                        //telemetry.TrackException(ex, properties);
                     }
                 }
             }

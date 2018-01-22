@@ -126,14 +126,16 @@
     <Compile Include="IJob.cs" />
     <Compile Include="IntercomApiManager.cs" />
     <Compile Include="IntercomUsers.cs" />
+    <Compile Include="ISchedulerProcess.cs" />
     <Compile Include="IWatsonExtract.cs" />
+    <Compile Include="JobCareerBuilder.cs" />
+    <Compile Include="JobWayUp.cs" />
     <Compile Include="Mail\BaseMarketingMailProcess.cs" />
     <Compile Include="Mail\ChangeEmail.cs" />
     <Compile Include="Mail\DigestEmail.cs" />
     <Compile Include="Mail\FollowLowActivityCourses.cs" />
     <Compile Include="Mail\ForgotPassword.cs" />
     <Compile Include="Mail\Imail2.cs" />
-    <Compile Include="Mail\ISchedulerProcess.cs" />
     <Compile Include="Mail\Invite2.cs" />
     <Compile Include="Mail\InviteToCloudents.cs" />
     <Compile Include="Mail\LibraryAccessApproved.cs" />
@@ -157,8 +159,6 @@
     <Compile Include="ThumbnailQueueProcess.cs" />
     <Compile Include="TransactionQueueProcess.cs" />
     <Compile Include="UpdateAffiliate.cs" />
-    <Compile Include="UpdateCareerBuilderAffiliate.cs" />
-    <Compile Include="UpdateJobs.cs" />
     <Compile Include="UpdateSearch.cs" />
     <Compile Include="UpdateSearchFlashcard.cs" />
     <Compile Include="UpdateSearchItem.cs" />
@@ -175,9 +175,6 @@
     <Compile Include="ZipToLocationProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="AbotX.lic">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
@@ -190,6 +187,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj">
+      <Project>{85208b6b-6ad1-4b2e-8cc7-eec6990085a7}</Project>
+      <Name>Cloudents.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cloudents.Infrastructure\Cloudents.Infrastructure.csproj">
+      <Project>{1464aece-aaf3-4910-a0da-153420580a69}</Project>
+      <Name>Cloudents.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Domain.CommandHandlers\Zbang.Zbox.Domain.CommandHandlers.csproj">
       <Project>{9ed04567-b2d0-4040-88a6-1ad752a3d83f}</Project>
       <Name>Zbang.Zbox.Domain.CommandHandlers</Name>

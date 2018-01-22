@@ -10,7 +10,9 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Write;
+using Microsoft.Spatial;
 using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -20,10 +22,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public class JobWayUp : UpdateAffiliate<WayUpJob, Job>
     {
         private readonly JobSearchWrite _jobSearchService;
-        private readonly IZipToLocationProvider _zipToLocation;
+        private readonly IGooglePlacesSearch _zipToLocation;
 
         public JobWayUp(JobSearchWrite jobSearchService, ILogger logger,
-            ILocalStorageProvider localStorage, IZipToLocationProvider zipToLocation) :
+            ILocalStorageProvider localStorage, IGooglePlacesSearch zipToLocation) :
             base(logger, localStorage)
         {
             _jobSearchService = jobSearchService;
@@ -85,7 +87,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 dateTime = p.DateTime;
             }
 
-            var location = await _zipToLocation.GetLocationViaZipAsync(obj.Zip).ConfigureAwait(false);
+            var location = await _zipToLocation.GeoCodingByZipAsync(obj.Zip, token).ConfigureAwait(false);
             return new Job
             {
                 City = obj.City,
@@ -93,7 +95,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 DateTime = dateTime,
                 Id = obj.Id,
                 JobType = JobTypeConversion(obj.JobType),
-                Location = location,
+                Location = GeographyPoint.Create(location.Latitude, location.Longitude),
                 Description = obj.Responsibilities,
                 State = obj.State,
                 Title = obj.Title,
