@@ -15,7 +15,7 @@ let transferResultAsk = res => {
     const itemResult = res.result.result || [];
     const items = itemResult.map(val => { return { ...val, template: "item" } });
     const data = video ? [{ ...video, template: "video" }, ...items] : items;
-    return { data, source:res.result.facet}
+    return { data, source: res.result.facet }
 };
 let transferResultTutor = data => {
     let body = data || [];
@@ -56,7 +56,10 @@ const courseFunctions = {
 };
 export const interpetPromise = (sentence) => axios.get("AI", { params: { sentence } });
 const getBookDetails = ({ type, isbn13 }) => axios.get(`book/${type}`, { params: { isbn13 } });
-const getPlacesDetails = ({ id }) => axios.get("places/", { params: { id } });
+const getPlacesDetails = ({ id }) => {
+    debugger;
+    return axios.get("places", { params: { id } });
+}
 export const getUniversity = (params) => axios.get("university", { params });
 export const search = { getBookDetails, ...searchFunctions, getPlacesDetails };
 export const course = { ...courseFunctions };
