@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
@@ -42,11 +43,26 @@ namespace Cloudents.Infrastructure.Search.Places
             });
         }
 
-        public async Task<GeoPoint> GeoCodingAsync(string location, CancellationToken token)
+        [Cache(TimeConst.Year, "address")]
+        public async Task<GeoPoint> GeoCodingByAddressAsync(string address, CancellationToken token)
         {
             var nvc = new NameValueCollection
             {
-                ["address"] = location,
+                ["address"] = address,
+                ["key"] = Key,
+            };
+
+            var result = await _restClient.GetJsonAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token).ConfigureAwait(false);
+            return _mapper.Map<JObject, GeoPoint>(result);
+        }
+
+
+        [Cache(TimeConst.Year, "zip")]
+        public async Task<GeoPoint> GeoCodingByZipAsync(string zip, CancellationToken token)
+        {
+            var nvc = new NameValueCollection
+            {
+                ["components"] = "postal_code:" + zip,
                 ["key"] = Key,
             };
 

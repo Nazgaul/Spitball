@@ -1,8 +1,8 @@
 ﻿namespace Cloudents.Core.Enum
 {
-    public enum SearchRequestSort
+    public enum JobRequestFilter
     {
         None,
-        Date
+        Paid
     }
 }

@@ -3,29 +3,30 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Entity = Cloudents.Core.Entities.Search;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
-using Cloudents.Infrastructure.Search.Entities;
+using Cloudents.Infrastructure.Converters;
+using Cloudents.Infrastructure.Write;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
-using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure.Converters;
 
-namespace Cloudents.Infrastructure.Search
+namespace Cloudents.Infrastructure.Search.Job
 {
     public class JobSearch : IJobSearch
     {
         private readonly ISearchIndexClient _client;
         private readonly IMapper _mapper;
 
-
         private const int PageSize = 30;
 
-        public JobSearch(SearchServiceClient client, IMapper mapper)
+        public JobSearch(ISearchServiceClient client, IMapper mapper)
         {
             _mapper = mapper;
-            _client = client.Indexes.GetClient("jobs");
+            _client = client.Indexes.GetClient(JobSearchWrite.IndexName);
         }
 
         public async Task<ResultWithFacetDto<JobDto>> SearchAsync(
@@ -63,11 +64,21 @@ namespace Cloudents.Infrastructure.Search
             {
                 Select = new[]
                 {
-                    "title","responsibilities","dateTime","city","state","jobType","compensationType","url","company"
+                    nameof(Entity.Job.Title).CamelCase(),
+                    nameof(Entity.Job.Description).CamelCase(),
+                    nameof(Entity.Job.DateTime).CamelCase(),
+                    nameof(Entity.Job.City).CamelCase(),
+                    nameof(Entity.Job.State).CamelCase(),
+                    nameof(Entity.Job.JobType).CamelCase(),
+                    nameof(Entity.Job.Compensation).CamelCase(),
+                    nameof(Entity.Job.Url).CamelCase(),
+                    nameof(Entity.Job.Company).CamelCase(),
+
+
                 },
                 Facets = filterQuery.Count == 0 ? new[]
                 {
-                    "jobType"
+                    nameof(Entity.Job.JobType).CamelCase()
                 } : null,
                 Top = PageSize,
                 Skip = PageSize * page,
@@ -82,9 +93,9 @@ namespace Cloudents.Infrastructure.Search
             }
 
             var retVal = await
-                _client.Documents.SearchAsync<Job>(str, searchParams, cancellationToken: token).ConfigureAwait(false);
+                _client.Documents.SearchAsync<Entity.Job>(str, searchParams, cancellationToken: token).ConfigureAwait(false);
             return _mapper.Map<ResultWithFacetDto<JobDto>>(retVal,
-                opt => opt.Items[JobResultConverter.FacetType] = "jobType");
+                opt => opt.Items[JobResultConverter.FacetType] = nameof(Entity.Job.JobType).CamelCase());
         }
     }
 }

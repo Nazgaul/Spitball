@@ -8,6 +8,7 @@ namespace Cloudents.Core.DTOs
         {
 
         }
+
         public override Vertical Vertical => Vertical.None;
     }
 }

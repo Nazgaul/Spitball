@@ -6,21 +6,23 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using Cloudents.Core.Entities.Search;
+using Cloudents.Core.Enum;
+using Cloudents.Infrastructure.Write;
 using Zbang.Zbox.Infrastructure;
-using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
-    public class UpdateCareerBuilderAffiliate : UpdateAffiliate<CareerBuilderJobs, Job>
+    public class JobCareerBuilder : UpdateAffiliate<CareerBuilderJobs, Job>
     {
-        private readonly JobsProvider m_JobSearchService;
-        private readonly IZipToLocationProvider m_ZipToLocation;
-        public UpdateCareerBuilderAffiliate(ILogger logger, ILocalStorageProvider localStorage, JobsProvider jobSearchService, IZipToLocationProvider zipToLocation) : base(logger, localStorage)
+        private readonly JobSearchWrite _jobSearchService;
+        private readonly IZipToLocationProvider _zipToLocation;
+        public JobCareerBuilder(ILogger logger, ILocalStorageProvider localStorage, JobSearchWrite jobSearchService, IZipToLocationProvider zipToLocation) : base(logger, localStorage)
         {
-            m_JobSearchService = jobSearchService;
-            m_ZipToLocation = zipToLocation;
+            _jobSearchService = jobSearchService;
+            _zipToLocation = zipToLocation;
         }
 
         protected override string FileLocation => "CareerBuilderJobs.xml";
@@ -50,16 +52,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         protected override async Task<Job> ParseTAsync(CareerBuilderJobs obj, CancellationToken token)
         {
-            var location = await m_ZipToLocation.GetLocationViaZipAsync(obj.Zip).ConfigureAwait(false);
+            var location = await _zipToLocation.GetLocationViaZipAsync(obj.Zip).ConfigureAwait(false);
             return new Job
             {
                 City = obj.City,
-                CompensationType = "paid",
+                Compensation = "paid",
                 DateTime = obj.posted_at,
                 Id = obj.job_reference,
                 JobType = JobTypeConversion(obj.job_type),
                 Location = location,
-                Responsibilities = StripHtml(obj.body),
+                Description = StripHtml(obj.body),
                 State = obj.state,
                 Title = obj.title,
                 InsertDate = DateTime.UtcNow,
@@ -77,17 +79,17 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         protected override Task UpdateSearchAsync(IEnumerable<Job> list, CancellationToken token)
         {
-            return m_JobSearchService.UpdateDataAsync(list, token);
+            return _jobSearchService.UpdateDataAsync(list, token);
         }
 
         protected override Task DeleteOldItemsAsync(CancellationToken token)
         {
-            return m_JobSearchService.DeleteOldJobsAsync(token);
+            return _jobSearchService.DeleteOldJobsAsync(token);
         }
 
-        private static string JobTypeConversion(string jobType)
+        private static JobFilter JobTypeConversion(string jobType)
         {
-            return jobType?.Replace("-", " ").ToLowerInvariant();
+            return JobFilter.None; //jobType?.Replace("-", " ").ToLowerInvariant();
         }
     }
 }

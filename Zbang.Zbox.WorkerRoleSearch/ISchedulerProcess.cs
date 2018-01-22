@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Zbang.Zbox.WorkerRoleSearch.Mail
+namespace Zbang.Zbox.WorkerRoleSearch
 {
     public interface ISchedulerProcess
     {

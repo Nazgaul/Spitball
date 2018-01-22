@@ -8,20 +8,23 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using Cloudents.Core.Entities.Search;
+using Cloudents.Core.Enum;
+using Cloudents.Infrastructure.Write;
 using Zbang.Zbox.Infrastructure;
-using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
-    public class UpdateJobs : UpdateAffiliate<WayUpJob, Job>
+    public class JobWayUp : UpdateAffiliate<WayUpJob, Job>
     {
-        private readonly JobsProvider _jobSearchService;
+        private readonly JobSearchWrite _jobSearchService;
         private readonly IZipToLocationProvider _zipToLocation;
 
-        public UpdateJobs(JobsProvider jobSearchService, ILogger logger,
-            ILocalStorageProvider localStorage, IZipToLocationProvider zipToLocation) : base(logger, localStorage)
+        public JobWayUp(JobSearchWrite jobSearchService, ILogger logger,
+            ILocalStorageProvider localStorage, IZipToLocationProvider zipToLocation) :
+            base(logger, localStorage)
         {
             _jobSearchService = jobSearchService;
             _zipToLocation = zipToLocation;
@@ -86,12 +89,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return new Job
             {
                 City = obj.City,
-                CompensationType = obj.CompType,
+                Compensation = obj.CompType,
                 DateTime = dateTime,
                 Id = obj.Id,
                 JobType = JobTypeConversion(obj.JobType),
                 Location = location,
-                Responsibilities = obj.Responsibilities,
+                Description = obj.Responsibilities,
                 State = obj.State,
                 Title = obj.Title,
                 InsertDate = DateTime.UtcNow,
@@ -105,9 +108,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return _jobSearchService.UpdateDataAsync(list, token);
         }
 
-        private static string JobTypeConversion(string jobType)
+        private static JobFilter JobTypeConversion(string jobType)
         {
-            return jobType?.Replace("_", " ").ToLowerInvariant();
+            return JobFilter.None;// jobType?.Replace("_", " ").ToLowerInvariant();
         }
     }
 }

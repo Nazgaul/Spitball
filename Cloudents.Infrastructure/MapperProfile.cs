@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Converters;
 using Microsoft.Azure.Search.Models;
@@ -27,10 +28,20 @@ namespace Cloudents.Infrastructure
                         StringSplitOptions.RemoveEmptyEntries).Length;
                 }));
 
-            CreateMap<DocumentSearchResult<Search.Entities.Job>, ResultWithFacetDto<JobDto>>()
+            CreateMap<DocumentSearchResult<Job>, ResultWithFacetDto<JobDto>>()
                 .ConvertUsing<JobResultConverter>();
 
-            CreateMap<Search.Entities.Job, JobDto>();
+            CreateMap<Job, JobDto>().ConvertUsing(jo => new JobDto
+            {
+                Url = jo.Url,
+                CompensationType = jo.Compensation,
+                Company = jo.Company,
+                DateTime = jo.DateTime,
+                City = jo.City,
+                Title = jo.Title,
+                State = jo.State,
+                Responsibilities = jo.Description
+            });
             CreateMap<Search.Entities.Course, CourseDto>();
             CreateMap<Search.Entities.University, UniversityDto>();
 

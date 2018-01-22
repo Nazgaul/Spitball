@@ -25,31 +25,31 @@ namespace Zbang.Zbox.WorkerRoleSearch
             builder.RegisterType<TestingJob>().Named<IJob>(nameof(TestingJob));
             builder.RegisterType<DeleteOldConnections>().Named<IJob>(nameof(DeleteOldConnections));//
 
-            builder.RegisterType<NoUniversityMailProcess>().Named<ISchedulerProcess>("universityNotSelected");
-            builder.RegisterType<NoFollowClassMailProcess>().Named<ISchedulerProcess>("notFollowing");
-            builder.RegisterType<UniversityWithLowActivation>().Named<ISchedulerProcess>("universityLowActivity");
-            builder.RegisterType<FollowLowActivityCourses>().Named<ISchedulerProcess>("followLowActivity");
-            builder.RegisterType<LikesMailProcess>().Named<ISchedulerProcess>("likesReport");
+            builder.RegisterType<NoUniversityMailProcess>().Keyed<ISchedulerProcess>("universityNotSelected");
+            builder.RegisterType<NoFollowClassMailProcess>().Keyed<ISchedulerProcess>("notFollowing");
+            builder.RegisterType<UniversityWithLowActivation>().Keyed<ISchedulerProcess>("universityLowActivity");
+            builder.RegisterType<FollowLowActivityCourses>().Keyed<ISchedulerProcess>("followLowActivity");
+            builder.RegisterType<LikesMailProcess>().Keyed<ISchedulerProcess>("likesReport");
 
-            builder.RegisterType<DeleteOldStuff>().Named<ISchedulerProcess>("deleteOld");
-            builder.RegisterType<UpdateJobs>().Named<ISchedulerProcess>("downloadXml");
-            builder.RegisterType<UpdateTutors>().Named<ISchedulerProcess>("downloadTutor");
-            builder.RegisterType<UpdateCareerBuilderAffiliate>().Named<ISchedulerProcess>("careerBuilder");
+            builder.RegisterType<DeleteOldStuff>().Keyed<ISchedulerProcess>("deleteOld");
+            builder.RegisterType<JobWayUp>().Keyed<ISchedulerProcess>("downloadXml");
+            builder.RegisterType<UpdateTutors>().Keyed<ISchedulerProcess>("downloadTutor");
+            builder.RegisterType<JobCareerBuilder>().Keyed<ISchedulerProcess>("careerBuilder");
 
             foreach (var i in new[] { 0, 3, -5, -4, -6 })
             {
                 builder.RegisterType<DigestEmail>()
-                    .Named<ISchedulerProcess>($"digestOnceADay_{i}")
+                    .Keyed<ISchedulerProcess>($"digestOnceADay_{i}")
                     .WithParameter("hourForEmailDigest", NotificationSetting.OnceADay)
                     .WithParameter("utcTimeOffset", i);
 
                 builder.RegisterType<DigestEmail>()
-                    .Named<ISchedulerProcess>($"digestOnceAWeek_{i}")
+                    .Keyed<ISchedulerProcess>($"digestOnceAWeek_{i}")
                     .WithParameter("hourForEmailDigest", NotificationSetting.OnceAWeek)
                     .WithParameter("utcTimeOffset", i);
             }
 
-            builder.RegisterType<SpamGun>().Named<ISchedulerProcess>("spamGun");
+            builder.RegisterType<SpamGun>().Keyed<ISchedulerProcess>("spamGun");
 
             builder.RegisterType<IntercomApiManager>().As<IIntercomApiManager>();
             builder.RegisterType<WatsonExtract>().As<IWatsonExtract>();

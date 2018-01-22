@@ -28,7 +28,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             var t1 = Task.CompletedTask;
             if (!string.IsNullOrEmpty(parameters.Referrel))
             {
-               t1 =  m_IntercomManager.UpdateUserRefAsync(parameters.UserId, parameters.EmailAddress, parameters.Referrel, token);
+              // t1 =  m_IntercomManager.UpdateUserRefAsync(parameters.UserId, parameters.EmailAddress, parameters.Referrel, token);
             }
 
             var t2 =  m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,

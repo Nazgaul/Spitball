@@ -11,9 +11,9 @@ namespace Zbang.Zbox.Infrastructure.Search
         Task<bool> UpdateDataAsync(IEnumerable<FlashcardSearchDto> flashcardToUpload, IEnumerable<long> flashcardToDelete, CancellationToken token);
     }
 
-    public interface IFeedWriteSearchProvider
-    {
-        Task UpdateDataAsync(FeedSearchDto itemToUpload, IEnumerable<FeedSearchDeleteDto> itemToDelete,
-            CancellationToken token);
-    }
+    //public interface IFeedWriteSearchProvider
+    //{
+    //    Task UpdateDataAsync(FeedSearchDto itemToUpload, IEnumerable<FeedSearchDeleteDto> itemToDelete,
+    //        CancellationToken token);
+    //}
 }
