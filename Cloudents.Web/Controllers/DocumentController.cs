@@ -8,6 +8,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Resources;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
@@ -36,14 +37,15 @@ namespace Cloudents.Web.Controllers
         [ActionName("Index")]
         public async Task<IActionResult> IndexAsync(long id, CancellationToken token)
         {
-            //return this.RedirectToOldSite();
-
-
             var model = await _repository.GetAsync(id, token).ConfigureAwait(false);
-
             if (model == null)
             {
                 return NotFound();
+            }
+
+            if (!string.Equals(model.Country, "us", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return this.RedirectToOldSite();
             }
 
             if (!model.Discriminator.Equals("file", StringComparison.InvariantCultureIgnoreCase))
@@ -58,9 +60,9 @@ namespace Cloudents.Web.Controllers
             //SeoBaseUniversityResources.Culture = culture;
             //TODO: culture base globalization - localize doesn't work
             ViewBag.title =
-                $"{model.BoxName} - {model.Name} | {_localizer["Cloudents"]}";
+                $"{model.BoxName} - {model.Name} | Spitball";
 
-            ViewBag.metaDescription = _localizer["ItemMetaDescription"];
+            ViewBag.metaDescription = "Get class notes for free with Spitball";
             if (!string.IsNullOrEmpty(model.Description))
             {
                 ViewBag.metaDescription += ":" + model.Description.RemoveEndOfString(100);
@@ -74,8 +76,11 @@ namespace Cloudents.Web.Controllers
         [Route("D/{boxId:long:min(0)}/{itemId:long:min(0)}", Name = "ItemDownload2")]
         public async Task<ActionResult> DownloadAsync(long itemId, CancellationToken token)
         {
-
-            var item = await _repositoryDocument.GetAsync(itemId, token);
+            var item = await _repositoryDocument.GetAsync(itemId, token).ConfigureAwait(false);
+            if (item == null)
+            {
+                return NotFound();
+            }
             if (item.Type == "Link")
             {
                 return Redirect(item.Blob);
