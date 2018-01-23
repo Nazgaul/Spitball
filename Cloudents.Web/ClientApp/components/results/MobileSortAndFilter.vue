@@ -30,6 +30,7 @@
 
 <script>
     import SortAndFilter from './SortAndFilter.vue'
+    import {mapActions} from 'vuex'
     export default {
         model: {
             prop: "value",
@@ -41,12 +42,13 @@
         components: { SortAndFilter },
         props: { value: { type: Boolean }, sortOptions: {}, filterOptions: {}, filterVal: {}, sortVal: {},submitCallback:{Function} },
         methods: {
+            ...mapActions(['setFileredCourses']),
             $_applayFilters() {
                 if(this.submitCallback){
                    this.submitCallback({filters:this.filters,sort:this.sort});
                 }else {
                     if (this.$route.path.includes('note') || this.$route.path.includes('flashcard'))
-                        this.$route.meta.myClasses = this.filters.course;
+                        this.setFileredCourses(this.filters.course);
                     this.$router.push({query: {q: this.$route.query.q, sort: this.sort, ...this.filters}});
                 }
                 this.$emit('input', false);
@@ -54,7 +56,7 @@
             $_resetFilters() {
                if(this.submitCallback){this.submitCallback({})}else {
                    if (this.$route.path.includes('note') || this.$route.path.includes('flashcard'))
-                       this.$route.meta.myClasses = [];
+                       this.setFileredCourses([]);
                    this.$router.push({query: {q: this.$route.query.q}});
                }
                 this.$emit('input', false);
@@ -67,13 +69,7 @@
                 let listo = [val, ...currentFilter];
                 if (!type.target.checked) {
                     listo = currentFilter.filter(i => i.toString() !== val.toString());
-                    // this.selectedFilters=this.selectedFilters.filter(i => i!==val);
-                }else{
-                    // this.selectedFilters.push(val);
                 }
-                // if (id === 'course') {
-                //     this.$route.meta.myClasses = listo;
-                // }
                 this.filters[id] = [...new Set(listo)];
                 if (val === 'inPerson' && type) this.sort = "price";
             }

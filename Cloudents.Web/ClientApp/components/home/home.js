@@ -43,23 +43,6 @@ export default {
             scrollTop: false
 
         };
-    },
-    //methods: {
-    //    search() {
-    //        this.$router.push({ name:"result", query: {q:this.msg} });
-    //    },
-    //    selectos(item) {
-    //        this.msg = item;
-    //        this.search();
-    //    },
-    //    //onScroll(e) {
-    //    //    this.scrollTop = window.pageYOffset || document.documentElement.scrollTop > 100;
-    //    //}
-    //    //$_imageUrl(image) { return require.context(`~/img/${image}.png`);}
-    //},
-
-    props: {
-        metaText: { type: String }
     }
 
 };
