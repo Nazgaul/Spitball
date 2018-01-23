@@ -2,10 +2,10 @@
 import Vuex from "vuex";
 //This is new vuex
 //import Search from "./session";
-import {SEARCH, UPDATE_GLOBAL_TERM} from "./mutation-types"
 import Search from "./search";
 import User from "./User";
 import SpitballPreview from "./SpitballPreview";
+import LuisData from "./luisData";
 //TODO: server side fix
 import createPersistedState from "vuex-persistedstate"
 
@@ -40,17 +40,11 @@ if (storage) {
             storage: storage.provider
         }
     ));
-
 }
 
 Vue.use(Vuex);
 const store = new Vuex.Store({
-    state:{globalTerm:""},
-    getters:{ globalTerm: state => state.globalTerm},
-    mutations:{[UPDATE_GLOBAL_TERM](state, val) {
-            state.globalTerm = val;
-        }},
-    modules: { Search, User, SpitballPreview},
+    modules: { Search, User, SpitballPreview,LuisData},
     plugins: plugins
 });
 export default store;
