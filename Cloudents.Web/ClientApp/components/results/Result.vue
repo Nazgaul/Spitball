@@ -63,6 +63,7 @@
                     </div>
                 </div>
             </div>
+            <div v-else class="skeleton"></div>
         </div>
         <template slot="sideBar" v-if="page">
             <component :is="($vuetify.breakpoint.xsOnly?'mobile-':'')+'sort-and-filter'"

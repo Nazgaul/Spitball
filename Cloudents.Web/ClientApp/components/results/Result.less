@@ -1,5 +1,6 @@
 ﻿@import "../../mixin.less";
-.personalize-wrapper{
+
+.personalize-wrapper {
     background: white;
     border-radius: 4px;
 }
@@ -76,3 +77,128 @@
         }
     }
 }
+
+/*#region item skeleton*/
+@skeletonWidth: 504px;
+@cardHeight: 184px;
+@cardImageHeight: 160px;
+@titleHeight: 16px;
+@textLineHeght: 8px;
+@textPosLeft: 136px;
+
+@mobileSkeletonWidth: 376px;
+@mobileCardHeight: 144px;
+@mobileCardImageHeight: 120px;
+@mobileTextPosLeft: 104px;
+
+@elementsPos: 8px 8px, /* image */
+@textPosLeft 8px, /* title */
+@textPosLeft 32px, /* line 1 */
+@textPosLeft 48px, /* line 2 */
+@textPosLeft 64px, /* line 3 */
+@textPosLeft 80px, /* line 4 */
+@textPosLeft 96px, /* line 5 */
+@textPosLeft 153px, /* footer line */
+0 0, /* background */
+0 0; /* wrapper */
+
+@mobileElementsPos: 8px 8px, /* image */
+@mobileTextPosLeft 8px, /* title */
+@mobileTextPosLeft 32px, /* line 1 */
+@mobileTextPosLeft 48px, /* line 2 */
+@mobileTextPosLeft 64px, /* line 3 */
+@mobileTextPosLeft 120px, /* footer line */
+0 0, /* background */
+0 0; /* wrapper */
+.loading {
+
+    .loader {
+        display: none;
+    }
+
+    .skeleton {
+        width: @skeletonWidth;
+        height: 100vh;
+        background-image: /**/
+        linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0)), /* highlight */
+        linear-gradient(#e6e8e9 @cardImageHeight, transparent 0), /* image */
+        linear-gradient(#e6e8e9 @titleHeight, transparent 0), /* title */
+        linear-gradient(#e6e8e9 @textLineHeght, transparent 0), /* line 1 */
+        linear-gradient(#e6e8e9 @textLineHeght, transparent 0), /* line 2 */
+        linear-gradient(#e6e8e9 @textLineHeght, transparent 0), /* line 3 */
+        linear-gradient(#e6e8e9 @textLineHeght, transparent 0), /* line 4 */
+        linear-gradient(#e6e8e9 @textLineHeght, transparent 0), /* line 5 */
+        linear-gradient(#e6e8e9 @textLineHeght, transparent 0), /* footer line */
+        linear-gradient(white @cardHeight - 8px, transparent 0), /* background */
+        linear-gradient(transparent @cardHeight, transparent 0); /* wrapper */
+        /**/
+        background-size: /**/
+        200px @cardHeight - 8px, /* highlight */
+        120px @cardHeight, /* image */
+        224px @cardHeight, /* title */
+        264px @cardHeight, /* line 1 */
+        264px @cardHeight, /* line 2 */
+        240px @cardHeight, /* line 3 */
+        160px @cardHeight, /* line 4 */
+        240px @cardHeight, /* line 5 */
+        160px @cardHeight, /* footer line */
+        @skeletonWidth @cardHeight, /* background */
+        @skeletonWidth @cardHeight; /* wrapper */
+        /**/
+        background-position: /**/
+        0 0, /* highlight */
+        @elementsPos;
+        /**/
+        background-repeat: repeat-y;
+        animation: shine 2s infinite;
+
+        @media(max-width: @screen-xs) {
+            width: @mobileSkeletonWidth;
+            height: 100vh;
+            background-image: /**/
+            linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0)), /* highlight */
+            linear-gradient(#e6e8e9 @mobileCardImageHeight, transparent 0), /* image */
+            linear-gradient(#e6e8e9 @titleHeight, transparent 0), /* title */
+            linear-gradient(#e6e8e9 @textLineHeght, transparent 0), /* line 1 */
+            linear-gradient(#e6e8e9 @textLineHeght, transparent 0), /* line 2 */
+            linear-gradient(#e6e8e9 @textLineHeght, transparent 0), /* line 3 */
+            linear-gradient(#e6e8e9 @textLineHeght, transparent 0), /* footer line */
+            linear-gradient(white @mobileCardHeight - 8px, transparent 0), /* background */
+            linear-gradient(transparent @mobileCardHeight, transparent 0); /* wrapper */
+            /**/
+            background-size: /**/
+            200px @mobileCardHeight - 8px, /* highlight */
+            88px @mobileCardHeight, /* image */
+            168px @mobileCardHeight, /* title */
+            184px @mobileCardHeight, /* line 1 */
+            184px @mobileCardHeight, /* line 2 */
+            152px @mobileCardHeight, /* line 3 */
+            104px @mobileCardHeight, /* footer line */
+            @mobileSkeletonWidth @mobileCardHeight, /* background */
+            @mobileSkeletonWidth @mobileCardHeight; /* wrapper */
+            /**/
+            background-position: /**/
+            0 0, /* highlight */
+            @mobileElementsPos;
+            /**/
+            background-repeat: repeat-y;
+            animation: mobileShine 2s infinite;
+        }
+    }
+}
+
+@keyframes shine {
+    to {
+        background-position: @skeletonWidth 0, /* move highlight to right */
+        @elementsPos;
+    }
+}
+
+@keyframes mobileShine {
+    to {
+        background-position: @mobileSkeletonWidth 0, /* move highlight to right */
+        @mobileElementsPos;
+    }
+}
+
+/*#endregion*/
