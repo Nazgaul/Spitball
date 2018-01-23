@@ -1,14 +1,9 @@
 <template>
     <v-dialog v-model="value" fullscreen content-class="white filter-dialog">
-        <v-toolbar fixed class="elevation-1" height="48">
-            <v-btn icon class="back" @click="$emit('input',false)">
-                <i class="sbf icon sbf-chevron-down"></i>
-            </v-btn>
-            <v-toolbar-title class="toolbar-title">Filter & Sort</v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-btn flat class="clear-btn" @click="$_resetFilters">Clear all</v-btn>
-        </v-toolbar>
-
+        <dialog-toolbar height="48" toolbarTitle="Filter & Sort" :backAction="$_backAction">
+            <v-btn slot="rightElement" flat class="clear-btn" @click="$_resetFilters">Clear all</v-btn>
+        </dialog-toolbar>
+ 
         <v-btn class="apply elevation-0" fixed color="color-blue" @click="$_applayFilters">Apply Filters</v-btn>
 
         <sort-and-filter :sortOptions="sortOptions" :sortCallback="$_updateSortMobile" :sortVal="sortVal"
@@ -33,6 +28,8 @@
 
 <script>
     import SortAndFilter from './SortAndFilter.vue'
+    import DialogToolbar from '../dialog-toolbar/DialogToolbar.vue'
+
     export default {
         model: {
             prop: "value",
@@ -41,7 +38,7 @@
         data() {
             return { filters: {}, sort: "", selectedFilters: [] }
         },
-        components: { SortAndFilter },
+        components: { SortAndFilter, DialogToolbar },
         props: { value: { type: Boolean }, sortOptions: {}, filterOptions: {}, filterVal: {}, sortVal: {}, submitCallback: { Function } },
         methods: {
             $_applayFilters() {
@@ -79,6 +76,9 @@
                 // }
                 this.filters[id] = [...new Set(listo)];
                 if (val === 'inPerson' && type) this.sort = "price";
+            },
+            $_backAction() {
+                this.$emit('input', false)
             }
         },
         watch: {

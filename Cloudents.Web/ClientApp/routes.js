@@ -3,7 +3,8 @@ const homePageHeader = () => import("./components/home/header.vue");
 import * as RouteTypes from "./routeTypes";
 const resultContent = () => import("./components/results/Result.vue");
 const foodDetails = () => import("./components/food/foodDetails.vue");
-const foodHeader = () => import("./components/food/foodHeader.vue");
+//const foodHeader = () => import("./components/food/foodHeader.vue");
+const dialogToolbar = () =>  import("./components/dialog-toolbar/DialogToolbar.vue");
 const showItem = () => import("./components/preview/Item.vue");
 const showFlashcard = () => import("./components/preview/Flashcard.vue");
 const personalize = () => import("./components/settings/ResultPersonalize.vue");
@@ -123,6 +124,10 @@ const resultProps = {
 
 const foodDetailsProps = {
     default: true,
+    header: () => ({
+            toolbarTitle: "Food & Deals",
+            height: "48",
+        })
 };
 const bookDetailsProps = {
     ...resultProps,
@@ -185,7 +190,7 @@ let routes2 = [
         name: RouteTypes.foodDetailsRoute,
         components: {
             default: foodDetails,
-            header: foodHeader
+            header: dialogToolbar
         },
         props: foodDetailsProps
     },
