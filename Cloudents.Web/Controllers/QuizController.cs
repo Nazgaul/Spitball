@@ -15,7 +15,6 @@ namespace Cloudents.Web.Controllers
         public IActionResult Index()
         {
             return this.RedirectToOldSite();
-            
         }
     }
 }
