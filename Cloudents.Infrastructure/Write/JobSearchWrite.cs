@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Search;
-using Cloudents.Core.Extension;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 
@@ -26,56 +25,56 @@ namespace Cloudents.Infrastructure.Write
                 Name = IndexName,
                 Fields = new List<Field>
                 {
-                    new Field(nameof(Job.Id).CamelCase(), DataType.String)
+                    new Field(nameof(Job.Id), DataType.String)
                     {
                         IsKey = true
                     },
-                    new Field(nameof(Job.Title).CamelCase(), DataType.String)
+                    new Field(nameof(Job.Title), DataType.String)
                     {
                         IsSearchable = true
                     },
-                    new Field(nameof(Job.Description).CamelCase(), DataType.String)
+                    new Field(nameof(Job.Description), DataType.String)
                     ,
-                    new Field(nameof(Job.Company).CamelCase(), DataType.String)
+                    new Field(nameof(Job.Company), DataType.String)
                     {
                         IsSearchable = true
                     },
-                    new Field(nameof(Job.City).CamelCase(), DataType.String)
+                    new Field(nameof(Job.City), DataType.String)
                     {
                         IsSearchable = true
                     },
-                    new Field(nameof(Job.State).CamelCase(), DataType.String)
+                    new Field(nameof(Job.State), DataType.String)
                     {
                         IsSearchable = true
                     },
-                    new Field(nameof(Job.Compensation).CamelCase(), DataType.String)
+                    new Field(nameof(Job.Compensation), DataType.String)
                     {
                         IsFilterable = true
                     },
-                    new Field(nameof(Job.DateTime).CamelCase(), DataType.DateTimeOffset)
+                    new Field(nameof(Job.DateTime), DataType.DateTimeOffset)
                     {
                         IsSortable = true
                     },
-                    new Field(nameof(Job.Location).CamelCase(), DataType.GeographyPoint)
+                    new Field(nameof(Job.Location), DataType.GeographyPoint)
                     {
                         IsFilterable = true,
                         IsSortable = true
                     },
-                    new Field(nameof(Job.Source).CamelCase(), DataType.String)
+                    new Field(nameof(Job.Source), DataType.String)
                     {
                         IsFilterable = true
                     },
-                    new Field(nameof(Job.Extra).CamelCase(), DataType.Collection(DataType.String))
+                    new Field(nameof(Job.Extra), DataType.Collection(DataType.String))
                     {
                         IsSearchable = true
                     },
-                    new Field(nameof(Job.Url).CamelCase(), DataType.String)
+                    new Field(nameof(Job.Url), DataType.String)
                     ,
-                    new Field(nameof(Job.InsertDate).CamelCase(), DataType.DateTimeOffset)
+                    new Field(nameof(Job.InsertDate), DataType.DateTimeOffset)
                     {
                         IsFilterable = true
                     },
-                    new Field(nameof(Job.JobType).CamelCase(), DataType.String)
+                    new Field(nameof(Job.JobType), DataType.String)
                     {
                         IsFilterable = true,
                         IsFacetable = true
@@ -84,13 +83,13 @@ namespace Cloudents.Infrastructure.Write
             };
         }
 
-        public async Task DeleteOldJobsAsync(CancellationToken token)
+        public async Task DeleteOldJobsAsync(string source, CancellationToken token)
         {
             const int top = 1000;
             var parameters = new SearchParameters
             {
-                Filter = $"insertDate lt {DateTime.UtcNow.AddDays(-4):yyyy-MM-dd'T'hh:mm:ss'Z'}",
-                Select = new[] { "id" },
+                Filter = $"{nameof(Job.InsertDate)} lt {DateTime.UtcNow.AddDays(-4):yyyy-MM-dd'T'hh:mm:ss'Z'} and {nameof(Job.Source)} eq '{source}'",
+                Select = new[] { nameof(Job.Id) },
                 Top = top
             };
             IList<SearchResult<Job>> result;

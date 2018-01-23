@@ -31,28 +31,6 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<SeoDocumentRepository>()
                 .Keyed<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>(SeoType.Item);
             //builder.RegisterType<TutorMeSearch>().As<ITutorProvider>();
-            ConfigureCache(builder);
-        }
-
-        protected void ConfigureCache(ContainerBuilder builder)
-        {
-            var cacheConfig = ConfigurationBuilder.BuildConfiguration(settings =>
-            {
-                settings.WithMicrosoftMemoryCacheHandle().WithExpiration(ExpirationMode.Sliding, TimeSpan.FromHours(1));
-                if (!string.IsNullOrEmpty(RedisConnectionString))
-                {
-                    settings.WithJsonSerializer();
-                    settings.WithRedisConfiguration("redis", RedisConnectionString)
-                        .WithRedisBackplane("redis").WithRedisCacheHandle("redis");
-                }
-            });
-            builder.RegisterGeneric(typeof(BaseCacheManager<>))
-                .WithParameters(new[]
-                {
-                    new TypedParameter(typeof(ICacheManagerConfiguration), cacheConfig)
-                })
-                .As(typeof(ICacheManager<>))
-                .SingleInstance();
         }
     }
 

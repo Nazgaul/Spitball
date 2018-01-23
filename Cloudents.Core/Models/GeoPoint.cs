@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.Spatial;
+
 namespace Cloudents.Core.Models
 {
     //[TypeConverter(typeof(GeoPointConverter))]
@@ -17,6 +19,16 @@ namespace Cloudents.Core.Models
         public double Longitude { get; set; }
 
         public double Latitude { get; set; }
+
+        public static GeographyPoint ToPoint(GeoPoint point)
+        {
+            if (point == null)
+            {
+                return null;
+            }
+
+            return GeographyPoint.Create(point.Latitude, point.Longitude);
+        }
 
         //public static bool TryParse(string s, out GeoPoint result)
         //{

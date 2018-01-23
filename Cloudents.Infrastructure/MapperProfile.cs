@@ -63,12 +63,15 @@ namespace Cloudents.Infrastructure
             CreateMap<JObject, IEnumerable<TutorDto>>().ConvertUsing<TutorMeConverter>();
             CreateMap<JObject, GeoPoint>().ConvertUsing(jo =>
             {
+                if (!string.Equals(jo["status"].Value<string>(), "ok", StringComparison.InvariantCultureIgnoreCase))
+                    return null;
                 var geo = jo["results"][0]["geometry"]["location"];
                 return new GeoPoint
                 {
                     Latitude = geo["lat"].Value<double>(),
                     Longitude = geo["lng"].Value<double>()
                 };
+
             });
             CreateMap<string, IpDto>().ConvertUsing<IpConverter>();
         }

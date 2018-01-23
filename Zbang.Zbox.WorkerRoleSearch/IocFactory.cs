@@ -54,9 +54,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //    .InstancePerLifetimeScope();
 
 
-            var infrastructureModule = new WriteModuleBase(
+            var infrastructureModule = new WriteModule(
                 new SearchServiceCredentials(ConfigFetcher.Fetch("AzureSeachServiceName"),
-                    ConfigFetcher.Fetch("AzureSearchKey")));
+                    ConfigFetcher.Fetch("AzureSearchKey")), "zboxcache.redis.cache.windows.net,abortConnect=false,allowAdmin=true,ssl=true,password=CxHKyXDx40vIS5EEYT0UfnVIR1OJQSPrNnXFFdi3UGI=");
 
             //  builder.RegisterType<GoogleSheet>().As<IGoogleSheet>();
             builder.RegisterModule(infrastructureModule);

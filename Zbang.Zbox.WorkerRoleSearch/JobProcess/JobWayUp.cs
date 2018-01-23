@@ -8,33 +8,33 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Write;
-using Microsoft.Spatial;
-using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 
-namespace Zbang.Zbox.WorkerRoleSearch
+namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
 {
-    public class JobWayUp : UpdateAffiliate<WayUpJob, Job>
+    public class JobWayUp : UpdateAffiliate<WayUpJob, Cloudents.Core.Entities.Search.Job>
     {
         private readonly JobSearchWrite _jobSearchService;
         private readonly IGooglePlacesSearch _zipToLocation;
+        private readonly IKeyGenerator _keyGenerator;
 
         public JobWayUp(JobSearchWrite jobSearchService, ILogger logger,
-            ILocalStorageProvider localStorage, IGooglePlacesSearch zipToLocation) :
+            ILocalStorageProvider localStorage, IGooglePlacesSearch zipToLocation, IKeyGenerator keyGenerator) :
             base(logger, localStorage)
         {
             _jobSearchService = jobSearchService;
             _zipToLocation = zipToLocation;
+            _keyGenerator = keyGenerator;
         }
 
         protected override Task DeleteOldItemsAsync(CancellationToken token)
         {
-            return _jobSearchService.DeleteOldJobsAsync(token);
+            return _jobSearchService.DeleteOldJobsAsync(Source, token);
         }
 
         protected override HttpClientHandler HttpHandler()
@@ -71,13 +71,15 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     }
                     var stringReader = new StringReader(str);
                     var job = (WayUpJob)serializer.Deserialize(stringReader);
-                    job.Id = MD5HashGenerator.GenerateKey(str);
+                    job.Id = _keyGenerator.GenerateKey(str);
                     yield return job;
                 }
             }
         }
 
-        protected override async Task<Job> ParseTAsync(WayUpJob obj, CancellationToken token)
+        private const string Source = "WayUp";
+
+        protected override async Task<Cloudents.Core.Entities.Search.Job> ParseTAsync(WayUpJob obj, CancellationToken token)
         {
             var dateTimeStr = obj.PostedDate.Replace("UTC", string.Empty).Trim();
 
@@ -88,30 +90,59 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
 
             var location = await _zipToLocation.GeoCodingByZipAsync(obj.Zip, token).ConfigureAwait(false);
-            return new Job
+            var job = new Cloudents.Core.Entities.Search.Job
             {
                 City = obj.City,
                 Compensation = obj.CompType,
                 DateTime = dateTime,
                 Id = obj.Id,
-                JobType = JobTypeConversion(obj.JobType),
-                Location = GeographyPoint.Create(location.Latitude, location.Longitude),
+                JobType2 = JobTypeConversion(obj.JobType),
+                Location = GeoPoint.ToPoint(location),
                 Description = obj.Responsibilities,
                 State = obj.State,
                 Title = obj.Title,
                 InsertDate = DateTime.UtcNow,
                 Url = obj.Url,
                 Company = obj.Company,
+                Source = Source
             };
+            if (job.JobType2 == JobFilter.None && obj.JobType != null)
+            {
+                job.Extra = new[] { obj.JobType };
+
+            }
+
+            return job;
         }
 
-        protected override Task UpdateSearchAsync(IEnumerable<Job> list, CancellationToken token)
+        protected override Task UpdateSearchAsync(IEnumerable<Cloudents.Core.Entities.Search.Job> list, CancellationToken token)
         {
             return _jobSearchService.UpdateDataAsync(list, token);
         }
 
         private static JobFilter JobTypeConversion(string jobType)
         {
+            if (string.IsNullOrEmpty(jobType))
+            {
+                return JobFilter.None;
+            }
+            jobType = jobType.ToLowerInvariant();
+
+
+            switch (jobType)
+            {
+                case "full_time":
+                    return JobFilter.FullTime;
+                case "internship":
+                    return JobFilter.Internship;
+                case "part_time":
+                    return JobFilter.PartTime;
+                case "remote":
+                    return JobFilter.Remote;
+                case "campus_rep":
+                    return JobFilter.CampusRep;
+            }
+
             return JobFilter.None;// jobType?.Replace("_", " ").ToLowerInvariant();
         }
     }

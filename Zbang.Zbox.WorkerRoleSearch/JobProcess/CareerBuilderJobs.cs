@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Zbang.Zbox.WorkerRoleSearch
+namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
 {
     /// <remarks/>
     [System.Serializable]
@@ -121,7 +121,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime posted_at
         {
             get

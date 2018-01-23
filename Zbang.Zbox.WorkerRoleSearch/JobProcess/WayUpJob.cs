@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace Zbang.Zbox.WorkerRoleSearch
+namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
 {
     [Serializable]
     [DesignerCategory("code")]

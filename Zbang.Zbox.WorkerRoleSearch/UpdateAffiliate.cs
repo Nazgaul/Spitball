@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -57,7 +58,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     }
                 }
             }
-            var list = new List<TU>();
+            var list = new List<Task<TU>>();
             var i = 0;
             try
             {
@@ -68,10 +69,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     {
                         continue;
                     }
-                    var obj = await ParseTAsync(job, token).ConfigureAwait(false);
+                    var obj = ParseTAsync(job, token);
                     list.Add(obj);
                     if (list.Count <= 100) continue;
-                    var t1 = UpdateSearchAsync(list, token); // m_JobSearchService.UpdateDataAsync(list, token);
+                    await Task.WhenAll(list).ConfigureAwait(false);
+                    var t1 = UpdateSearchAsync(list.Select(s => s.Result), token); // m_JobSearchService.UpdateDataAsync(list, token);
 
                     var t2 = progressAsync.Invoke(i, TimeSpan.FromMinutes(10));
                     _logger.Info($"{Service} finish processing " + i);
@@ -87,7 +89,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             if (list.Count > 0)
             {
-                await UpdateSearchAsync(list, token).ConfigureAwait(false);
+                await Task.WhenAll(list).ConfigureAwait(false);
+                await UpdateSearchAsync(list.Select(s => s.Result), token).ConfigureAwait(false);
             }
             _logger.Info($"{Service} Going To delete old items");
             await DeleteOldItemsAsync(token).ConfigureAwait(false);

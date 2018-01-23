@@ -39,7 +39,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-  <Reference Include="Microsoft.WindowsAzure.Diagnostics, Version=2.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+    <Reference Include="Microsoft.WindowsAzure.Diagnostics, Version=2.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=2.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
@@ -60,7 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CareerBuilderJobs.cs" />
+    <Compile Include="JobProcess\CareerBuilderJobs.cs" />
     <Compile Include="DeleteOldConnections.cs" />
     <Compile Include="DeleteOldStuff.cs" />
     <Compile Include="DomainProcess\DeleteBox.cs" />
@@ -79,8 +79,8 @@
     <Compile Include="IntercomUsers.cs" />
     <Compile Include="ISchedulerProcess.cs" />
     <Compile Include="IWatsonExtract.cs" />
-    <Compile Include="JobCareerBuilder.cs" />
-    <Compile Include="JobWayUp.cs" />
+    <Compile Include="JobProcess\JobCareerBuilder.cs" />
+    <Compile Include="JobProcess\JobWayUp.cs" />
     <Compile Include="Mail\BaseMarketingMailProcess.cs" />
     <Compile Include="Mail\ChangeEmail.cs" />
     <Compile Include="Mail\DigestEmail.cs" />
@@ -119,7 +119,7 @@
     <Compile Include="UpdateTutors.cs" />
     <Compile Include="UpdateUnsubscribeList.cs" />
     <Compile Include="WatsonExtract.cs" />
-    <Compile Include="WayUpJob.cs" />
+    <Compile Include="JobProcess\WayUpJob.cs" />
     <Compile Include="WorkerRole.cs" />
     <Compile Include="WorkerRoleModule.cs" />
     <Compile Include="WyzantTutor.cs" />

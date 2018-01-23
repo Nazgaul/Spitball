@@ -15,7 +15,7 @@ using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 
-namespace Zbang.Zbox.WorkerRoleSearch
+namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
 {
     public class JobCareerBuilder : UpdateAffiliate<CareerBuilderJobs, Job>
     {
@@ -61,7 +61,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 Compensation = "paid",
                 DateTime = obj.posted_at,
                 Id = obj.job_reference,
-                JobType = JobTypeConversion(obj.job_type),
+                JobType2 = JobTypeConversion(obj.job_type),
                 Location = GeographyPoint.Create(location.Latitude, location.Longitude),
                 Description = StripHtml(obj.body),
                 State = obj.state,
@@ -69,7 +69,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 InsertDate = DateTime.UtcNow,
                 Url = obj.url,
                 Company = obj.company,
-                Extra = new[] { obj.category }
+                Extra = new[] { obj.category },
+                Source = "CareerBuilder"
             };
         }
 
@@ -86,7 +87,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         protected override Task DeleteOldItemsAsync(CancellationToken token)
         {
-            return _jobSearchService.DeleteOldJobsAsync(token);
+            return _jobSearchService.DeleteOldJobsAsync("CareerBuilder",token);
         }
 
         private static JobFilter JobTypeConversion(string jobType)
