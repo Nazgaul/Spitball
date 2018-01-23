@@ -31,6 +31,8 @@ export const micMixin = {
                 this.recognition.onstart = function () {
                     _self.isRecording = true;
                 };
+                this.recognition.onerror = function(event) { this.isRecording = false;};
+                this.recognition.onend = function() {this.isRecording = false;};
                 this.recognition.onresult = function (event) {
                     _self.msg = event.results[0][0].transcript;
                     this.$nextTick(()=>{

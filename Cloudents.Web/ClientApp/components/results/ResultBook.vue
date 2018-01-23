@@ -1,6 +1,6 @@
 ﻿<template v-once>
-    <router-link class="pa-2 d-block" :to="{name:'bookDetails',params:{id:item.isbn13},query:{q:$route.query.q}}">
-<span @click="$ga.event('Search_Results', 'Textbooks',`#${index+1}_clickBook`)">        <book-cell :item="item" ></book-cell>
+    <router-link class="pa-2 d-block" :to="{name:'bookDetails',params:{id:item.isbn13}}">
+<span @click="$ga.event('Search_Results', 'Textbooks',`#${index+1}_click`)">        <book-cell :item="item" ></book-cell>
 </span>        <!--<v-container class="pa-0">
             <v-layout row>
                 <div class="img-wrap">

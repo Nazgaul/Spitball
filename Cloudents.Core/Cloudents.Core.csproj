@@ -15,6 +15,7 @@
   <ItemGroup>
     <Compile Remove="Class2.cs" />
     <Compile Remove="Entities\Db\CourseContent.cs" />
+    <Compile Remove="Models\GeoPointConverter.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -23,8 +23,10 @@ namespace Cloudents.Infrastructure.Data
 ,b.BoxName
 ,i.Discriminator
 ,i.blobName as ImageUrl
+,u.country as country
 from zbox.item i 
 join zbox.box b on i.BoxId = b.BoxId
+left join zbox.university u on b.university = u.id
 where itemId = @ItemId
 and i.IsDeleted = 0;", new { ItemId = query }), token);
         }

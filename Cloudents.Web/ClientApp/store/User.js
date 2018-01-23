@@ -7,12 +7,16 @@ const state = {
         isFirst: true,
         location: null,
         pinnedCards: {}
-    }
+    },
+    facet:""
 };
 
 const mutations = {
     [USER.UPDATE_USER](state, payload) {
         state.user = { ...state.user, ...payload };
+    },
+    [USER.UPDATE_FACET](state,payload){
+        state.facet=payload;
     }
 };
 const getters = {
@@ -32,7 +36,8 @@ const getters = {
         return obj.image;
     },
     myCourses: state => state.user.myCourses,
-    myCoursesId: state => (state.user.myCourses.length ? state.user.myCourses.map(i => i.id) : [])
+    myCoursesId: state => (state.user.myCourses.length ? state.user.myCourses.map(i => i.id) : []),
+    getFacet:state=>state.facet
 };
 const actions = {
     updateLocation(context) {
@@ -73,6 +78,9 @@ const actions = {
     },
     updatePinnedCards(context, data) {
         context.commit(USER.UPDATE_USER, { pinnedCards: { ...context.getters.pinnedCards, ...data } });
+    },
+    updateFacet({commit},data){
+        commit(USER.UPDATE_FACET,data)
     }
 
 };

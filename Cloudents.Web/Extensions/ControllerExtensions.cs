@@ -9,16 +9,16 @@ namespace Cloudents.Web.Extensions
 {
     public static class ControllerExtensions
     {
-        public static RedirectResult RedirectToOldSite(this Controller conteroller)
+        public static RedirectResult RedirectToOldSite(this Controller controller)
         {
             var uriBuilder = new UriBuilder
             {
                 Scheme = "https",
                 Host = "heb.spitball.co",
-                Path = conteroller.HttpContext.Request.Path,
-                Query = conteroller.HttpContext.Request.QueryString.Value
+                Path = controller.HttpContext.Request.Path,
+                Query = controller.HttpContext.Request.QueryString.Value
             };
-            return conteroller.Redirect(uriBuilder.ToString());
+            return controller.Redirect(uriBuilder.ToString());
         }
     }
 }

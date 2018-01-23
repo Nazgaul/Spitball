@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
@@ -20,6 +21,7 @@ namespace Cloudents.Web.Controllers
             _localizer = localizer;
             _repository = repository;
         }
+
         [Route("flashcard/{universityName}/{boxId:long}/{boxName}/{id:long}/{name}", Name = SeoTypeString.Flashcard)]
         public async Task<IActionResult> Index(long id, CancellationToken token)
         {
@@ -31,15 +33,20 @@ namespace Cloudents.Web.Controllers
             {
                 return NotFound();
             }
+            if (!string.Equals(model.Country, "us", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return this.RedirectToOldSite();
+            }
 
             if (string.IsNullOrEmpty(model.Country)) return View();
 
             //TODO: need to add specific culture base on country - culture not working
             //SeoBaseUniversityResources.Culture = Languages.GetCultureBaseOnCountry(model.Country);
             ViewBag.title =
-                $"{ _localizer["FlashcardTitle"]} - {model.Name} - {model.BoxName} | {_localizer["Cloudents"]}";
+                $"Flashcard - {model.Name} - {model.BoxName} | Spitball";
 
-            ViewBag.metaDescription = string.Format(_localizer["FlashcardMetaDescription"], model.Name, model.BoxName);
+            ViewBag.metaDescription =
+                $"Practice and improve your knowledge in {model.Name} and test yourself with the {model.BoxName} flashcards your classmates have built. Start getting better grades with Spitball!";
 
             return View();
         }
