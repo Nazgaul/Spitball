@@ -7,7 +7,7 @@ import SuggestCard from './suggestCard.vue'
 import studyblueCard from './studyblueCard.vue'
 const ResultFood = () => import('./ResultFood.vue');
 const foodExtra = () => import('./foodExtra.vue');
-const SortAndFilter = () => import('./SortAndFilter.vue');
+const SortAndFilter = () => import('../SortAndFilter/SortAndFilter.vue');
 const MobileSortAndFilter = () => import('./MobileSortAndFilter.vue');
 import plusBtn from "../settings/svg/plus-button.svg";
 import emptyState from "./svg/no-match-icon.svg";
@@ -39,7 +39,22 @@ export const sortAndFilterMixin = {
                     filterOptions = filterOptions.concat(val);
                 }
             });
+            this.selectedFilters
             return filterOptions;
+        },
+        selectedFilters(){
+            let data=new Map();
+            let filtersList=['jobType','source','course','filter'];
+            Object.entries(this.query).forEach(([key, val])=>{
+                if(val&&filtersList.includes(key)) {
+                    data.set(key,[].concat(val));
+                }
+            });
+            console.log(data);
+            return data;
+        },
+        aa(){
+            return  Array( ...this.selectedFilters.keys())
         }
     },
     methods: {
@@ -198,7 +213,7 @@ export const pageMixin =
             if (!this.isFirst) { this.showPersonalizeField = true }
             this.$root.$on("closePersonalize", () => { this.showPersonalizeField = true });
             //If query have courses save those courses
-            if (this.query.course) this.setFileredCourses(this.query.course);
+            if (this.query.course) this.setFilteredCourses(this.query.course);
             this.UPDATE_LOADING(true);
             //if the term is empty fetch the data
             if (!this.query.q || !this.query.q.length) {
@@ -233,7 +248,7 @@ export const pageMixin =
         },
         methods: {
             //Get functions from vuex actions
-            ...mapActions(['updateSearchText', 'fetchingData','getAIDataForVertical','setFileredCourses','cleanData','updateFacet']),
+            ...mapActions(['updateSearchText', 'fetchingData','getAIDataForVertical','setFilteredCourses','cleanData','updateFacet']),
             //Function for update the filter object(when term or vertical change)
             $_updateFilterObject() {
                 //validate current page have filters
@@ -277,7 +292,7 @@ export const pageMixin =
                 }
                 //If it course l;ist save it for next
                 if (id === 'course') {
-                    this.setFileredCourses(updatedList);
+                    this.setFilteredCourses(updatedList);
                 }
                 const newFilter = { [id]: updatedList };
                 let { q, sort, course, source, filter,jobType } = this.query;
@@ -294,7 +309,7 @@ export const pageMixin =
                 course = course ? [].concat(course).filter(i => i.toString() !== val.toString()) : course;
                 filter = filter ? [].concat(filter).filter(i => i !== val) : filter;
                 jobType = jobType ? [].concat(jobType).filter(i => i !== val) : jobType;
-                isCourseFiltered?this.setFileredCourses(course):"";
+                isCourseFiltered?this.setFilteredCourses(course):"";
                 this.$router.push({ path: this.name, query: { ...this.query, source, course, filter, jobType } });
             },
             //Open the personalize dialog when click on select course in class filter
