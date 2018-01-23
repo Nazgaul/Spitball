@@ -6,19 +6,19 @@ using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure.Search.Entities
 {
-    [SerializePropertyNamesAsCamelCase]
+   // [SerializePropertyNamesAsCamelCase]
     internal class University
     {
         public const string NameProperty = "name4";
 
-        [Key]
+       // [Key]
         public string Id { get; set; }
 
-        [IsSearchable]
+       // [IsSearchable]
         [JsonProperty(NameProperty)]
         public string Name { get; set; }
 
-        [IsSearchable]
+       // [IsSearchable]
         public string[] Extra3 { get; set; }
 
         [JsonProperty("ImageField")]
@@ -26,14 +26,10 @@ namespace Cloudents.Infrastructure.Search.Entities
 
         // ReSharper disable once StringLiteralTypo this is what it is :(
         [JsonProperty("coutry")]
-        [IsFilterable]
+        //[IsFilterable]
         public string Country { get; set; }
 
-        //[JsonProperty("membersCount")]
-        //public int? MembersCount { get; set; }
-        //[JsonProperty("membersImages")]
-        //public string[] MembersImages { get; set; }
-        [IsSortable,IsFilterable]
+       // [IsSortable,IsFilterable]
         public GeographyPoint GeographyPoint { get; set; }
     }
 }

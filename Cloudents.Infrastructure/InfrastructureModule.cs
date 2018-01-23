@@ -3,7 +3,9 @@ using System.Reflection;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
 using AutoMapper;
+using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Interfaces;
+using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.AI;
 using Cloudents.Infrastructure.Cache;
 using Cloudents.Infrastructure.Data;
@@ -11,12 +13,60 @@ using Cloudents.Infrastructure.Search;
 using Cloudents.Infrastructure.Search.Job;
 using Cloudents.Infrastructure.Search.Places;
 using Cloudents.Infrastructure.Storage;
+using Cloudents.Infrastructure.Write;
 using Microsoft.Azure.Search;
 using Microsoft.Cognitive.LUIS;
 using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure
 {
+    public class SearchServiceCredentials
+    {
+        public SearchServiceCredentials(string name, string key)
+        {
+            Name = name;
+            Key = key;
+        }
+
+        public string Name { get;  }
+        public string Key { get;  }
+    }
+    public class ModuleInfrastructureBase : Module
+    {
+        private readonly SearchServiceCredentials _searchService;
+
+        public ModuleInfrastructureBase(SearchServiceCredentials searchService)
+        {
+            _searchService = searchService;
+        }
+
+
+        protected override void Load(ContainerBuilder builder)
+        {
+            base.Load(builder);
+
+            builder.Register(c => new SearchServiceClient(_searchService.Name, new SearchCredentials(_searchService.Key)))
+                    .SingleInstance().AsSelf().As<ISearchServiceClient>();
+        }
+    }
+
+
+    public class WriteModuleBase : ModuleInfrastructureBase
+    {
+
+        public WriteModuleBase(SearchServiceCredentials searchCredentials) :base(searchCredentials)
+        {
+        }
+        protected override void Load(ContainerBuilder builder)
+        {
+            base.Load(builder);
+
+            builder.RegisterGeneric(typeof(SearchServiceWrite<>));
+            builder.RegisterType<JobSearchWrite>().As<ISearchServiceWrite<Job>>().As<IStartable>().SingleInstance().AutoActivate();
+        }
+    }
+
+
     public class InfrastructureModule : Module
     {
         protected readonly string SqlConnectionString;
@@ -58,9 +108,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<DocumentDbRepositoryUnitOfWork>().AsSelf().As<IStartable>().SingleInstance().AutoActivate();
             builder.RegisterGeneric(typeof(DocumentDbRepository<>)).AsImplementedInterfaces();
 
-            builder.Register(c =>
-                new SearchServiceClient(_searchServiceName, new SearchCredentials(_searchServiceKey)))
-                .SingleInstance().AsSelf().As<ISearchServiceClient>();
+
 
             builder.RegisterType<CacheProvider>().AsImplementedInterfaces();
             builder.RegisterType<BingSearch>().As<ISearch>().EnableInterfaceInterceptors()

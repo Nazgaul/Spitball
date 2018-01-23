@@ -6,42 +6,42 @@ using Microsoft.Spatial;
 
 namespace Cloudents.Infrastructure.Search.Entities
 {
-    [SerializePropertyNamesAsCamelCase]
+    //[SerializePropertyNamesAsCamelCase]
     public class Tutor
     {
-        [Key]
+       // [Key]
         public string Id { get; set; }
 
         public string Name { get; set; }
         public string Image { get; set; }
         public string Url { get; set; }
 
-        [IsSearchable]
+        //[IsSearchable]
         public string City { get; set; }
 
-        [IsSearchable]
+       // [IsSearchable]
         public string State { get; set; }
 
-        [IsSortable, IsFilterable]
+       // [IsSortable, IsFilterable]
         public GeographyPoint Location { get; set; }
-        [IsSortable]
+       // [IsSortable]
         public double Fee { get; set; }
 
-        [IsFilterable]
+       // [IsFilterable]
         public bool Online { get; set; }
 
-        [IsFilterable]
+       // [IsFilterable]
         public bool InPerson { get; set; }
-        [IsSearchable]
+       // [IsSearchable]
         public string[] Subjects { get; set; }
 
-        [IsSortable]
+       // [IsSortable]
         public double Rank { get; set; }
 
-        [IsFilterable]
+       // [IsFilterable]
         public DateTime? InsertDate { get; set; }
 
-        [IsSearchable]
+       // [IsSearchable]
         public string[] Extra { get; set; }
 
         public string Description { get; set; }

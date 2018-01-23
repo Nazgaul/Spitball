@@ -1,8 +1,8 @@
 ﻿using System.Configuration;
 using Autofac;
+using Cloudents.Infrastructure;
 using Zbang.Zbox.Domain.CommandHandlers;
 using Zbang.Zbox.Domain.Services;
-using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Data;
 using Zbang.Zbox.Infrastructure.Extensions;
@@ -12,6 +12,7 @@ using Zbang.Zbox.Infrastructure.Notifications;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.ReadServices;
+using InfrastructureModule = Zbang.Zbox.Infrastructure.InfrastructureModule;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
@@ -53,12 +54,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //    .InstancePerLifetimeScope();
 
 
-            var infrastructureModule = new Cloudents.Infrastructure.InfrastructureModule(
-                ConfigFetcher.Fetch("ZBox"),
-                ConfigFetcher.Fetch("AzureSeachServiceName"),
-                ConfigFetcher.Fetch("AzureSearchKey"),
-                "zboxcache.redis.cache.windows.net,abortConnect=false,allowAdmin=true,ssl=true,password=CxHKyXDx40vIS5EEYT0UfnVIR1OJQSPrNnXFFdi3UGI=",
-                ConfigFetcher.Fetch("StorageConnectionString"));
+            var infrastructureModule = new WriteModuleBase(
+                new SearchServiceCredentials(ConfigFetcher.Fetch("AzureSeachServiceName"),
+                    ConfigFetcher.Fetch("AzureSearchKey")));
 
             //  builder.RegisterType<GoogleSheet>().As<IGoogleSheet>();
             builder.RegisterModule(infrastructureModule);
