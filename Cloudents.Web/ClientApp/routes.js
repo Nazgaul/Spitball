@@ -125,7 +125,8 @@ const resultProps = {
 const foodDetailsProps = {
     default: true,
     header: () => ({
-            toolbarTitle: "Food & Deals woop",
+            toolbarTitle: "Food & Deals",
+            height: "48",
         })
 };
 const bookDetailsProps = {
