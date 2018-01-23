@@ -15,27 +15,8 @@ const previewHeader = () => import("./components/helpers/header.vue");
 const documentPreviewHeader = () => import("./components/preview/headerDocument.vue");
 import { staticRoutes } from "./components/satellite/satellite-routes";
 
-//const mobileDetailsFirstLine = () => import("./components/header/headerFirstLineMobile.vue");
-import { details } from './data'
-
-
 function dynamicPropsFn(route) {
     let newName = route.path.slice(1);
-    let filterOptions = [];
-    let filtersList=['jobType','source','course'];
-
-        if (route.query.filter) {
-            filterOptions = filterOptions.concat(route.query.filter);
-            if (route.query.jobType) {
-                filterOptions = filterOptions.concat(route.query.jobType);
-            }
-        } else {
-            Object.entries(route.query).forEach(([key, val])=>{
-                if(val&&filtersList.includes(key)) {
-                    filterOptions = filterOptions.concat(val);
-                }
-            });
-        }
 
     return {
         name: newName,
@@ -49,8 +30,6 @@ function dynamicDetailsPropsFn(route) {
     return {
         name: route.name,
         query: route.query,
-        filterOptions: [{ title: "Book Type", modelId: "filter", data: details.bookDetails.filter }],
-        sort: "price",
         id: route.params.id,
         params: route.params,
     }
@@ -83,7 +62,6 @@ const foodDetailsProps = {
     default: true,
 };
 const bookDetailsProps = {
-    ...resultProps,
     default: dynamicDetailsPropsFn,
     header: (route) => ({id: route.params.id })
 };
@@ -92,9 +70,7 @@ let routes2 = [
         path: "/", components: {
             default: HomePage,
             header: homePageHeader
-        }, name: "home", meta: {
-
-        }
+        }, name: "home"
     },
 
     {
@@ -124,6 +100,7 @@ let routes2 = [
         name: RouteTypes.bookDetailsRoute,
         components: {
             default: bookDetails,
+            personalize,
             header: boodDetailsHeader
         },
         props: bookDetailsProps

@@ -10,9 +10,6 @@
                        :filterCallback="$_updateFilter"
                        :filterVal="filter">
                 </component>
-                <!--<sort-and-filter :sortOptions="sortOptions" :sortCallback="$_updateSort"
-                                 :sortVal="sortVal" :filterOptions="filterOptions"
-                                 :filterCallback="$_updateFilter" :filterVal="[filter]"></sort-and-filter>-->
         </template>
         <div slot="main" class="book-detail">
             <div class="d-cell elevation-1 pa-2">
