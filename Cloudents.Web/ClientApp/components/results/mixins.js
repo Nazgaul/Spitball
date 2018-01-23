@@ -24,13 +24,22 @@ export const sortAndFilterMixin = {
     props: {
         name: { type: String },
         query: { type: Object },
-        filterSelection: { type: [String, Array] },
-        sort: { type: String },
         params: { type: Object }
     },
     computed: {
         ...mapGetters(['loading']),
-        page(){return page[this.name]}
+        page(){return page[this.name]},
+        sort(){return this.query.sort},
+        filterSelection(){
+            let filterOptions = [];
+            let filtersList=['jobType','source','course','filter'];
+            Object.entries(this.query).forEach(([key, val])=>{
+                if(val&&filtersList.includes(key)) {
+                    filterOptions = filterOptions.concat(val);
+                }
+            });
+            return filterOptions;
+        }
     },
     methods: {
         ...mapMutations(['UPDATE_LOADING'])
@@ -46,19 +55,18 @@ let promotions={note:{title:"Study Documents",content:"Spitball curates study do
 };
 //update data function update the page content and selected filters
 let updateData = function (data, isFilterUpdate = false) {
-    const { source, jobType } = data;
-
+    const { facet } = data;
+    facet?this.updateFacet(facet):'';
     this.pageData = {};
     this.content = data;
     (data.data.length && this.hasExtra) ? this.selectedItem = data.data[0].placeId : '';
     this.filter = this.filterSelection;
     this.UPDATE_LOADING(false);
 
-    //if the vertical or search term has been changed update the optional filters according
-    if (!isFilterUpdate) {
-        this.$_updateFilterObject();
-        if (source || jobType) this.$route.meta[`${this.name}Facet`] = source ? source : jobType;
-    }
+        //if the vertical or search term has been changed update the optional filters according
+        if (!isFilterUpdate) {
+            this.$_updateFilterObject();
+        }
 };
 //The vue functionality for result page
 export const pageMixin =
@@ -80,7 +88,6 @@ export const pageMixin =
             const toName = to.path.slice(1);
             this.pageData = {};
             this.items = [];
-            // this.getAIDataForVertical(toName).then((val)=>{savedTerm=val});
             //if the term for the page is as the page saved term use it else call to luis and update the saved term
             new Promise((resolve, reject) => {
                 if (!to.query.q || !to.query.q.length) {
@@ -125,7 +132,7 @@ export const pageMixin =
         },
         computed: {
             //get data from vuex getters
-            ...mapGetters(['term', 'isFirst', 'myCourses']),
+            ...mapGetters(['term', 'isFirst', 'myCourses','getFacet']),
             ...mapGetters({ universityImage: 'getUniversityImage', university: 'getUniversity' }),
             currentPromotion(){return promotions[this.name]},
             content: {
@@ -168,7 +175,8 @@ export const pageMixin =
             subFilterVertical() {
                 return this.name.includes('note') || this.name === 'flashcard' || this.name === 'job'||this.name.includes('ask');
             },
-            currentSuggest(){return verticalsName.filter(i => i !== this.name)[(Math.floor(Math.random() * (verticalsName.length - 2)))]}
+            currentSuggest(){return verticalsName.filter(i => i !== this.name)[(Math.floor(Math.random() * (verticalsName.length - 2)))]},
+            userText(){return this.query.q}
         },
 
         data() {
@@ -224,7 +232,7 @@ export const pageMixin =
         },
         methods: {
             //Get functions from vuex actions
-            ...mapActions(['updateSearchText', 'fetchingData','getAIDataForVertical','setFileredCourses','cleanData']),
+            ...mapActions(['updateSearchText', 'fetchingData','getAIDataForVertical','setFileredCourses','cleanData','updateFacet']),
             //Function for update the filter object(when term or vertical change)
             $_updateFilterObject() {
                 //validate current page have filters
@@ -301,8 +309,6 @@ export const pageMixin =
         //Page props come from the route
         props: {
             hasExtra: { type: Boolean },
-            getFacet: { type: [Array] },
-            userText: { type: String },
             isPromo:  {type:Boolean}
         }
 

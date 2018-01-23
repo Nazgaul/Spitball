@@ -40,13 +40,9 @@ function dynamicPropsFn(route) {
     return {
         name: newName,
         query: route.query,
-        filterSelection: filterOptions,
-        sort: route.query.sort,
-        userText: route.query.q,
         params: route.params,
         hasExtra: newName.includes('food'),
         isPromo:route.query.hasOwnProperty("promo"),
-        getFacet: route.meta[`${newName}Facet`]
     }
 }
 function dynamicDetailsPropsFn(route) {
@@ -130,10 +126,7 @@ let routes2 = [
             default: bookDetails,
             header: boodDetailsHeader
         },
-        props: bookDetailsProps,
-        meta: {
-            pageName: "book"
-        }
+        props: bookDetailsProps
     },
     {
         path: "/food/:id",
@@ -147,19 +140,13 @@ let routes2 = [
     {
         path: "/item/:university/:courseId/:courseName/:id/:itemName", name: "item",
         components: { default: showItem, header: documentPreviewHeader,personalize},
-        props: {default:(route)=>({id:route.params.id})},
-        meta: {
-            pageName: RouteTypes.notesRoute
-        }
+        props: {default:(route)=>({id:route.params.id})}
     },
     {
         path: "/flashcard/:university/:courseId/:courseName/:id/:itemName",
         name: "flashcard",
         components: { default: showFlashcard, header: previewHeader,personalize },
-        props: {default:(route)=>({id:route.params.id})},
-        meta: {
-            pageName: RouteTypes.flashcardRoute
-        }
+        props: {default:(route)=>({id:route.params.id})}
     },
 
 ];

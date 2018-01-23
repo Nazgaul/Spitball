@@ -7,7 +7,7 @@ axios.defaults.baseURL = "api/";
 
 let transferResultNote = res => {
     let result = res.result || [];
-    return { source: res.facet, data: result.map(val => { return { ...val, template: "item" } }) }
+    return { source: res.facet,facet:res.facet, data: result.map(val => { return { ...val, template: "item" } }) }
 };
 //todo think about error
 let transferResultAsk = res => {
@@ -15,15 +15,15 @@ let transferResultAsk = res => {
     const itemResult = res.result.result || [];
     const items = itemResult.map(val => { return { ...val, template: "item" } });
     const data = video ? [{ ...video, template: "video" }, ...items] : items;
-    return { data, source:res.result.facet}
+    return { data, source:res.result.facet,facet:res.result.facet}
 };
 let transferResultTutor = data => {
     let body = data || [];
     return { data: body.map(val => { return { ...val, template: "tutor" } }) };
 };
 let transferJob = body => {
-    let { result, facet: jobType } = body;
-    return { jobType, data: result.map(val => { return { ...val, template: "job" } }) };
+    let { result, facet: jobType,facet } = body;
+    return { jobType,facet, data: result.map(val => { return { ...val, template: "job" } }) };
 };
 let transferBook = body => {
     body = body || [];
