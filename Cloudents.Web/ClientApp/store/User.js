@@ -8,7 +8,7 @@ const state = {
         location: null,
         pinnedCards: {}
     },
-    currentFacet:""
+    facet:""
 };
 
 const mutations = {
