@@ -1,6 +1,7 @@
 ﻿using Autofac;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
 using Zbang.Zbox.Infrastructure.Enums;
-using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.WorkerRoleSearch.DomainProcess;
 using Zbang.Zbox.WorkerRoleSearch.Mail;
@@ -32,9 +33,17 @@ namespace Zbang.Zbox.WorkerRoleSearch
             builder.RegisterType<LikesMailProcess>().Keyed<ISchedulerProcess>("likesReport");
 
             builder.RegisterType<DeleteOldStuff>().Keyed<ISchedulerProcess>("deleteOld");
-            builder.RegisterType<JobWayUp>().Keyed<ISchedulerProcess>("downloadXml");
             builder.RegisterType<UpdateTutors>().Keyed<ISchedulerProcess>("downloadTutor");
-            builder.RegisterType<JobCareerBuilder>().Keyed<ISchedulerProcess>("careerBuilder");
+            builder.Register(c=>
+            {
+                var affiliate = c.ResolveKeyed<IUpdateAffiliate>(AffiliateProgram.CareerBuilder);
+                return new AffiliateBuilder(affiliate);
+            }).Keyed<ISchedulerProcess>("careerBuilder");
+            builder.Register(c =>
+            {
+                var affiliate = c.ResolveKeyed<IUpdateAffiliate>(AffiliateProgram.WayUp);
+                return new AffiliateBuilder(affiliate);
+            }).Keyed<ISchedulerProcess>("downloadXml");
 
             foreach (var i in new[] { 0, 3, -5, -4, -6 })
             {

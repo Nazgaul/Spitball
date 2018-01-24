@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Reflection;
 using System.Threading.Tasks;
-using Autofac;
 using Cloudents.Core.Entities.DocumentDb;
 using Cloudents.Core.Interfaces;
 using Microsoft.Azure.Documents;

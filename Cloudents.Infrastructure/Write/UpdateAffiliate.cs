@@ -6,9 +6,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 
-namespace Zbang.Zbox.WorkerRoleSearch
+namespace Cloudents.Infrastructure.Write
 {
-    public abstract class UpdateAffiliate<T, TU> : ISchedulerProcess
+    public abstract class UpdateAffiliate<T, TU> : IUpdateAffiliate
     {
         private readonly ILogger _logger;
         private readonly IDownloadFile _downloadFile;
@@ -34,7 +34,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         protected abstract Task UpdateSearchAsync(IEnumerable<TU> list, CancellationToken token);
         protected abstract Task DeleteOldItemsAsync(CancellationToken token);
 
-        public async Task<bool> ExecuteAsync(int index, Func<int, TimeSpan, Task> progressAsync, CancellationToken token)
+        public async Task ExecuteAsync(int index, Func<int, Task> progressAsync, CancellationToken token)
         {
             if (progressAsync == null) throw new ArgumentNullException(nameof(progressAsync));
             _logger.Info($"{Service} starting to work");
@@ -54,11 +54,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     }
                     var obj = ParseTAsync(job, token);
                     list.Add(obj);
-                    if (list.Count <= 100) continue;
+                    if (list.Count < 100) continue;
                     await Task.WhenAll(list).ConfigureAwait(false);
                     var t1 = UpdateSearchAsync(list.Select(s => s.Result), token); // m_JobSearchService.UpdateDataAsync(list, token);
 
-                    var t2 = progressAsync.Invoke(i, TimeSpan.FromMinutes(10));
+                    var t2 = progressAsync.Invoke(i);
                     _logger.Info($"{Service} finish processing " + i);
 
                     await Task.WhenAll(t1, t2).ConfigureAwait(false);
@@ -78,7 +78,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             _logger.Info($"{Service} Going To delete old items");
             await DeleteOldItemsAsync(token).ConfigureAwait(false);
             _logger.Info($"{Service} finish to work");
-            return true;
         }
     }
 }

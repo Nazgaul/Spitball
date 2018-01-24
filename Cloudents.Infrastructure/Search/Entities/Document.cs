@@ -1,28 +1,23 @@
-using System.ComponentModel.DataAnnotations;
-using Microsoft.Azure.Search;
-using Microsoft.Azure.Search.Models;
-using Newtonsoft.Json;
-
 namespace Cloudents.Infrastructure.Search.Entities
 {
-    [SerializePropertyNamesAsCamelCase]
+   // [SerializePropertyNamesAsCamelCase]
     public class Document
     {
-        [Key]
+       // [Key]
         public string Id { get; set; }
-        [IsSearchable]
+       // [IsSearchable]
         public string Name { get; set; }
         public string Image { get; set; }
         public string BoxName { get; set; }
-        [IsSearchable]
+       // [IsSearchable]
         public string Content { get; set; }
         public string MetaContent { get; set; }
         public string UniversityName { get; set; }
-        [IsFilterable]
+      //  [IsFilterable]
         public string UniversityId { get; set; }
 
-        [IsFilterable]
-        [JsonProperty("BoxId2")]
+       // [IsFilterable]
+       // [JsonProperty("BoxId2")]
         public long? BoxId { get; set; }
         public string Extension { get; set; }
 

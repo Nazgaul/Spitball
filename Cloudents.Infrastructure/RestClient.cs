@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -13,6 +14,7 @@ namespace Cloudents.Infrastructure
 {
     public class RestClient : IRestClient
     {
+
         public async Task<JObject> GetJsonAsync(Uri url, NameValueCollection queryString, CancellationToken token)
         {
             var str = await GetAsync(url, queryString, token).ConfigureAwait(false);
@@ -24,7 +26,7 @@ namespace Cloudents.Infrastructure
             return GetAsync(url, queryString, null, token);
         }
 
-        public async Task<string> GetAsync(Uri url, NameValueCollection queryString, IEnumerable<KeyValuePair<string,string>> headers,
+        public async Task<string> GetAsync(Uri url, NameValueCollection queryString, IEnumerable<KeyValuePair<string, string>> headers,
             CancellationToken token)
         {
             using (var client = new HttpClient())
@@ -44,6 +46,17 @@ namespace Cloudents.Infrastructure
                 if (!response.IsSuccessStatusCode)
                     return null;
                 return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            }
+        }
+
+        public async Task<(Stream, EntityTagHeaderValue)> DownloadStreamAsync(Uri url, HttpClientHandler handler, CancellationToken token)
+        {
+            using (var client = new HttpClient(handler))
+            {
+                var result = await client.GetAsync(url,
+                    HttpCompletionOption.ResponseHeadersRead, token).ConfigureAwait(false);
+                result.EnsureSuccessStatusCode();
+                return (await result.Content.ReadAsStreamAsync().ConfigureAwait(false), result.Headers.ETag);
             }
         }
     }

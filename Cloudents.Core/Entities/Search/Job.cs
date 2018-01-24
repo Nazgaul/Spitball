@@ -1,50 +1,66 @@
 using System;
+using System.Runtime.Serialization;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Microsoft.Spatial;
 
 namespace Cloudents.Core.Entities.Search
 {
+    [DataContract]
     public class Job :ISearchObject
     {
-        //[Key]
+        [DataMember]
         public string Id { get; set; }
 
-        //[IsSearchable]
+        [DataMember]
         public string Title { get; set; }
+        [DataMember]
         public string Description { get; set; }
 
-        //[IsSearchable]
+        [DataMember]
         public string Company { get; set; }
 
 
-        //[IsSearchable]
+        [DataMember]
         public string City { get; set; }
-        //[IsSearchable]
+        [DataMember]
         public string State { get; set; }
 
-        // [IsFilterable]
+        [DataMember]
         public string Compensation { get; set; }
 
-        //[IsSortable]
+        [DataMember]
         public DateTime? DateTime { get; set; }
 
-        // [IsFilterable, IsSortable]
+        [DataMember]
         public GeographyPoint Location { get; set; }
 
-
+        [DataMember]
         public string Source { get; set; }
 
-        // [IsSearchable]
+        [DataMember]
         public string[] Extra { get; set; }
 
-
+        [DataMember]
         public string Url { get; set; }
 
-        //[IsFilterable]
+        [DataMember]
         public DateTime? InsertDate { get; set; }
 
-        // [IsFilterable, IsFacetable]
-        public JobFilter JobType { get; set; }
+        public JobFilter JobType2 { get; set; }
+
+        [DataMember]
+        public string JobType
+        {
+            get => JobType2.GetDescription();
+            set
+            {
+                if (value.TryToEnum(out JobFilter filter))
+                {
+                    JobType2 = filter;
+                }
+            }
+        }
     }
 }

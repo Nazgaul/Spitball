@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Autofac;
-using CacheManager.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
@@ -11,97 +9,70 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cloudents.Infrastructure
 {
-    public class WebInfrastructureModule : InfrastructureModule
+    public class ModuleWeb : Module
     {
-        public WebInfrastructureModule(string sqlConnectionString,
-            string searchServiceName,
-            string searchServiceKey,
+        private readonly string _sqlConnectionString;
+        private readonly SearchServiceCredentials _searchServiceCredentials;
+        private readonly string _redisConnectionString;
+        private readonly string _storageConnectionString;
+
+        public ModuleWeb(string sqlConnectionString,
+            SearchServiceCredentials searchServiceCredentials,
             string redisConnectionString,
-            string storageConnectionString) :
-            base(sqlConnectionString, searchServiceName, searchServiceKey, redisConnectionString, storageConnectionString)
+            string storageConnectionString)
         {
+            _sqlConnectionString = sqlConnectionString;
+            _searchServiceCredentials = searchServiceCredentials;
+            _redisConnectionString = redisConnectionString;
+            _storageConnectionString = storageConnectionString;
         }
 
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
 
+            builder.RegisterModule(new ModuleRead(_sqlConnectionString, _redisConnectionString,
+                _storageConnectionString, _searchServiceCredentials));
             builder.RegisterType<SeoFlashcardRepository>()
                 .Keyed<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>(SeoType.Flashcard);
             builder.RegisterType<SeoDocumentRepository>()
                 .Keyed<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>(SeoType.Item);
             //builder.RegisterType<TutorMeSearch>().As<ITutorProvider>();
-            ConfigureCache(builder);
-        }
-
-        protected void ConfigureCache(ContainerBuilder builder)
-        {
-            var cacheConfig = ConfigurationBuilder.BuildConfiguration(settings =>
-            {
-                settings.WithMicrosoftMemoryCacheHandle().WithExpiration(ExpirationMode.Sliding, TimeSpan.FromHours(1));
-                if (!string.IsNullOrEmpty(RedisConnectionString))
-                {
-                    settings.WithJsonSerializer();
-                    settings.WithRedisConfiguration("redis", RedisConnectionString)
-                        .WithRedisBackplane("redis").WithRedisCacheHandle("redis");
-                }
-            });
-            builder.RegisterGeneric(typeof(BaseCacheManager<>))
-                .WithParameters(new[]
-                {
-                    new TypedParameter(typeof(ICacheManagerConfiguration), cacheConfig)
-                })
-                .As(typeof(ICacheManager<>))
-                .SingleInstance();
         }
     }
 
+   
 
-    public class MobileAppInfrastructureModule : InfrastructureModule
+    public class ModuleMobile : Module
     {
-        public MobileAppInfrastructureModule(string sqlConnectionString,
-            string searchServiceName,
-            string searchServiceKey,
+        private readonly string _sqlConnectionString;
+        private readonly SearchServiceCredentials _searchServiceCredentials;
+        private readonly string _redisConnectionString;
+        private readonly string _storageConnectionString;
+
+        public ModuleMobile(string sqlConnectionString,
+            SearchServiceCredentials searchServiceCredentials,
             string redisConnectionString,
-            string storageConnectionString) :
-            base(sqlConnectionString, searchServiceName, searchServiceKey, redisConnectionString, storageConnectionString)
+            string storageConnectionString)
         {
+            _sqlConnectionString = sqlConnectionString;
+            _searchServiceCredentials = searchServiceCredentials;
+            _redisConnectionString = redisConnectionString;
+            _storageConnectionString = storageConnectionString;
         }
 
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
 
+            builder.RegisterModule(new ModuleRead(_sqlConnectionString, _redisConnectionString,
+                _storageConnectionString, _searchServiceCredentials));
             builder.Register(_ =>
             {
                 var x = new DbContextOptionsBuilder<AppDbContext>();
-                x.UseSqlServer(SqlConnectionString);
+                x.UseSqlServer(_sqlConnectionString);
                 return new AppDbContext(x.Options);
             });
-            ConfigureCache(builder);
-            //builder.RegisterType<TutorMeSearch>().As<ITutorProvider>();
-
-        }
-
-
-        protected void ConfigureCache(ContainerBuilder builder)
-        {
-            var cacheConfig = ConfigurationBuilder.BuildConfiguration(settings =>
-            {
-                if (!string.IsNullOrEmpty(RedisConnectionString))
-                {
-                    settings.WithJsonSerializer();
-                    settings.WithRedisConfiguration("redis", RedisConnectionString)
-                        .WithRedisBackplane("redis").WithRedisCacheHandle("redis");
-                }
-            });
-            builder.RegisterGeneric(typeof(BaseCacheManager<>))
-                .WithParameters(new[]
-                {
-                    new TypedParameter(typeof(ICacheManagerConfiguration), cacheConfig)
-                })
-                .As(typeof(ICacheManager<>))
-                .SingleInstance();
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 return Proxy;
             }
-            TraceLog.WriteWarning($"SignalR is in state {_hub.State}");
+            //TraceLog.WriteWarning($"SignalR is in state {_hub.State}");
             return null;
         }
 

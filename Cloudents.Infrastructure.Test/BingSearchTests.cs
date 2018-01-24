@@ -18,7 +18,7 @@ namespace Cloudents.Infrastructure.Test
         {
             var bingClient = new BingSearch(_clientMock.Object, _keyMock.Object);
             var obj = new PrivateObject(bingClient);
-            var argument = new BingSearch.WebPage()
+            var argument = new BingSearch.WebPage
             {
                 Url = "https://www.spitball.co"
 
@@ -40,7 +40,7 @@ namespace Cloudents.Infrastructure.Test
                 "https://www.coursehero.com/file/11150425/Calculus-Basics-you-should-know-class-notes/";
             var bingClient = new BingSearch(_clientMock.Object, _keyMock.Object);
             var obj = new PrivateObject(bingClient);
-            var argument = new BingSearch.WebPage()
+            var argument = new BingSearch.WebPage
             {
                 Url = courseHeroLink
 

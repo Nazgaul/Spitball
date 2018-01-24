@@ -30,7 +30,7 @@ namespace Cloudents.Web
         }
 
         public IConfiguration Configuration { get; }
-        private IHostingEnvironment HostingEnvironment { get;  }
+        private IHostingEnvironment HostingEnvironment { get; }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public IServiceProvider ConfigureServices(IServiceCollection services)
@@ -60,16 +60,16 @@ namespace Cloudents.Web
                 options.UseSqlServer(connection);
             });
 
-            
+
             var physicalProvider = HostingEnvironment.ContentRootFileProvider;
             services.AddSingleton(physicalProvider);
 
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();
-            var infrastructureModule = new WebInfrastructureModule(
+            var infrastructureModule = new ModuleWeb(
                 Configuration.GetConnectionString("DefaultConnection"),
-                Configuration["AzureSearch:SearchServiceName"],
-                Configuration["AzureSearch:SearchServiceAdminApiKey"],
+                new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],
+                Configuration["AzureSearch:SearchServiceAdminApiKey"]),
                 Configuration["Redis"],
                 Configuration["Storage"]
                 );
@@ -125,13 +125,13 @@ namespace Cloudents.Web
                 OnPrepareResponse = ctx =>
                 {
                     ctx.Context.Response.Headers.Add("Cache-Control", "public,max-age=864000");
-                    ctx.Context.Response.Headers.Add("Access-Control-Allow-Origin","*");
+                    ctx.Context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
                 }
             });
             app.UseWebMarkupMin();
             app.UseMvc(routes =>
             {
-                
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

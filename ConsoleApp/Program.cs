@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
@@ -22,24 +25,32 @@ namespace ConsoleApp
         static async Task Main()
         {
             var builder = new ContainerBuilder();
-            var infrastructureModule = new InfrastructureModule(
-                ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
-                ConfigurationManager.AppSettings["AzureSearchServiceName"],
-                ConfigurationManager.AppSettings["AzureSearchKey"],
-                ConfigurationManager.AppSettings["Redis"],
-                ConfigurationManager.AppSettings["StorageConnectionString"]);
+            //var infrastructureModule = new InfrastructureModule(
+            //    ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
+            //    ConfigurationManager.AppSettings["AzureSearchServiceName"],
+            //    ConfigurationManager.AppSettings["AzureSearchKey"],
+            //    ConfigurationManager.AppSettings["Redis"],
+            //    ConfigurationManager.AppSettings["StorageConnectionString"]);
 
             //  builder.RegisterType<GoogleSheet>().As<IGoogleSheet>();
-            builder.RegisterModule(infrastructureModule);
+            builder.RegisterModule(new ModuleWrite(new SearchServiceCredentials(
+                ConfigurationManager.AppSettings["AzureSearchServiceName"],
+                    ConfigurationManager.AppSettings["AzureSearchKey"])
+                    ,
+                ConfigurationManager.AppSettings["Redis"],
+                new LocalStorageData(Path.Combine(Directory.GetCurrentDirectory(), "Temp"), 500)));
             builder.RegisterModule<IocModule>();
             var container = builder.Build();
+
+            var affiliate = container.ResolveKeyed<IUpdateAffiliate>(AffiliateProgram.CareerBuilder);
+            await affiliate.ExecuteAsync(52500, i =>
+             {
+                 Console.WriteLine(i);
+                 return Task.CompletedTask;
+             }, default);
             //210ec431-2d6d-45cb-bc01-04e3f687f0ed.docx
-            var meta = container.Resolve<IPlacesSearch>();
+            Console.ReadLine();
 
-
-            var result = await meta.SearchAsync(new[] { "Cici's Pizza" }, PlacesRequestFilter.None,
-                new GeoPoint(-82.3359404, 29.6519322), null,
-                default);
 
             // var model = SearchQuery.Document(new [] {"microsoft"}, null, null, null, 0, SearchRequestSort.None, null);
         }

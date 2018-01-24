@@ -55,48 +55,50 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             using (var timeoutToken = new CancellationTokenSource(TimeSpan.FromMinutes(20)))
             {
-                var newToken = CancellationTokenSource.CreateLinkedTokenSource(token, timeoutToken.Token);
-                try
+                using (var newToken = CancellationTokenSource.CreateLinkedTokenSource(token, timeoutToken.Token))
                 {
-                    //await _mediaService.DeleteOldAssetsAsync().ConfigureAwait(false);
-                    //_logger.Info("delete stuff starting to work");
-                   // await _zboxWorkerRoleService.DoDirtyUpdateAsync(newToken.Token).ConfigureAwait(false);
+                    try
+                    {
+                        await _mediaService.DeleteOldAssetsAsync().ConfigureAwait(false);
+                        _logger.Info("delete stuff starting to work");
+                        await _zboxWorkerRoleService.DoDirtyUpdateAsync(newToken.Token).ConfigureAwait(false);
 
-                    //await
-                    //    DoDeleteAsync(newToken.Token, "deleteOldUpdates",
-                    //        _zboxWorkerRoleService.DeleteOldUpdatesAsync).ConfigureAwait(false);
+                        await
+                            DoDeleteAsync(newToken.Token, "deleteOldUpdates",
+                                _zboxWorkerRoleService.DeleteOldUpdatesAsync).ConfigureAwait(false);
 
-                    await
-                        DoDeleteAsync(newToken.Token, "deleteOldItems",
-                            _zboxWorkerRoleService.DeleteOldItemAsync).ConfigureAwait(false);
+                        await
+                            DoDeleteAsync(newToken.Token, "deleteOldItems",
+                                _zboxWorkerRoleService.DeleteOldItemAsync).ConfigureAwait(false);
 
-                    await
-                        DoDeleteAsync(newToken.Token, "DeleteOldFlashcard",
-                            _zboxWorkerRoleService.DeleteOldFlashcardAsync).ConfigureAwait(false);
+                        await
+                            DoDeleteAsync(newToken.Token, "DeleteOldFlashcard",
+                                _zboxWorkerRoleService.DeleteOldFlashcardAsync).ConfigureAwait(false);
 
-                    await
-                        DoDeleteAsync(newToken.Token, "deleteOldQuiz",
-                            _zboxWorkerRoleService.DeleteOldQuizAsync).ConfigureAwait(false);
+                        await
+                            DoDeleteAsync(newToken.Token, "deleteOldQuiz",
+                                _zboxWorkerRoleService.DeleteOldQuizAsync).ConfigureAwait(false);
 
-                  await
-                        DoDeleteAsync(newToken.Token, "deleteOldBoxes",
-                            _zboxWorkerRoleService.DeleteOldBoxAsync).ConfigureAwait(false);
+                        await
+                              DoDeleteAsync(newToken.Token, "deleteOldBoxes",
+                                  _zboxWorkerRoleService.DeleteOldBoxAsync).ConfigureAwait(false);
 
-                    await
-                        DoDeleteAsync(newToken.Token, "deleteOldUniversity",
-                            _zboxWorkerRoleService.DeleteOldUniversityAsync).ConfigureAwait(false);
-                    return true;
-                }
-                catch (TaskCanceledException)
-                {
-                    await progressAsync.Invoke(0, TimeSpan.FromHours(1)).ConfigureAwait(false);
-                    return false;
-                }
-                catch (Exception ex)
-                {
-                    _logger.Exception(ex);
-                    await progressAsync.Invoke(0, TimeSpan.FromHours(1)).ConfigureAwait(false);
-                    return false;
+                        await
+                            DoDeleteAsync(newToken.Token, "deleteOldUniversity",
+                                _zboxWorkerRoleService.DeleteOldUniversityAsync).ConfigureAwait(false);
+                        return true;
+                    }
+                    catch (TaskCanceledException)
+                    {
+                        await progressAsync.Invoke(0, TimeSpan.FromHours(1)).ConfigureAwait(false);
+                        return false;
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Exception(ex);
+                        await progressAsync.Invoke(0, TimeSpan.FromHours(1)).ConfigureAwait(false);
+                        return false;
+                    }
                 }
             }
         }

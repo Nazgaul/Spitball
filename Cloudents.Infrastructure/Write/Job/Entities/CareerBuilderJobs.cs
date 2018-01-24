@@ -1,12 +1,11 @@
 ﻿using System.Xml.Serialization;
 
-namespace Zbang.Zbox.WorkerRoleSearch
+namespace Cloudents.Infrastructure.Write.Job.Entities
 {
-    /// <remarks/>
     [System.Serializable]
     [System.ComponentModel.DesignerCategory("code")]
-    [System.Xml.Serialization.XmlType(AnonymousType = true)]
-    [System.Xml.Serialization.XmlRoot("job", Namespace = "", IsNullable = false)]
+    [XmlType(AnonymousType = true)]
+    [XmlRoot("job", Namespace = "", IsNullable = false)]
     public class CareerBuilderJobs
     {
         private string locationField;
@@ -41,200 +40,184 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private decimal cpaField;
 
-        /// <remarks/>
         public string location
         {
             get
             {
-                return this.locationField;
+                return locationField;
             }
             set
             {
-                this.locationField = value;
+                locationField = value;
             }
         }
 
-        /// <remarks/>
         public string title
         {
             get
             {
-                return this.titleField;
+                return titleField;
             }
             set
             {
-                this.titleField = value;
+                titleField = value;
             }
         }
 
-        /// <remarks/>
          [XmlElement("city")]
         public string City
         {
             get;set;
         }
 
-        /// <remarks/>
         public string state
         {
             get
             {
-                return this.stateField;
+                return stateField;
             }
             set
             {
-                this.stateField = value;
+                stateField = value;
             }
         }
 
-        /// <remarks/>
         [XmlElement("zip")]
         public string Zip
         {
             get; set;
         }
 
-        /// <remarks/>
         public string country
         {
             get
             {
-                return this.countryField;
+                return countryField;
             }
             set
             {
-                this.countryField = value;
+                countryField = value;
             }
         }
 
-        /// <remarks/>
         public string job_type
         {
             get
             {
-                return this.job_typeField;
+                return job_typeField;
             }
             set
             {
-                this.job_typeField = value;
+                job_typeField = value;
             }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime posted_at
         {
             get
             {
-                return this.posted_atField;
+                return posted_atField;
             }
             set
             {
-                this.posted_atField = value;
+                posted_atField = value;
             }
         }
 
-        /// <remarks/>
         public string job_reference
         {
             get
             {
-                return this.job_referenceField;
+                return job_referenceField;
             }
             set
             {
-                this.job_referenceField = value;
+                job_referenceField = value;
             }
         }
 
-        /// <remarks/>
         public string body
         {
             get
             {
-                return this.bodyField;
+                return bodyField;
             }
             set
             {
-                this.bodyField = value;
+                bodyField = value;
             }
         }
 
-        /// <remarks/>
         public string company
         {
             get
             {
-                return this.companyField;
+                return companyField;
             }
             set
             {
-                this.companyField = value;
+                companyField = value;
             }
         }
 
-        /// <remarks/>
         public string mobile_friendly_apply
         {
             get
             {
-                return this.mobile_friendly_applyField;
+                return mobile_friendly_applyField;
             }
             set
             {
-                this.mobile_friendly_applyField = value;
+                mobile_friendly_applyField = value;
             }
         }
 
-        /// <remarks/>
         public string category
         {
             get
             {
-                return this.categoryField;
+                return categoryField;
             }
             set
             {
-                this.categoryField = value;
+                categoryField = value;
             }
         }
 
-        /// <remarks/>
         public string html_jobs
         {
             get
             {
-                return this.html_jobsField;
+                return html_jobsField;
             }
             set
             {
-                this.html_jobsField = value;
+                html_jobsField = value;
             }
         }
 
-        /// <remarks/>
         public string url
         {
             get
             {
-                return this.urlField;
+                return urlField;
             }
             set
             {
-                this.urlField = value;
+                urlField = value;
             }
         }
 
-        /// <remarks/>
         public decimal cpa
         {
             get
             {
-                return this.cpaField;
+                return cpaField;
             }
             set
             {
-                this.cpaField = value;
+                cpaField = value;
             }
         }
     }
