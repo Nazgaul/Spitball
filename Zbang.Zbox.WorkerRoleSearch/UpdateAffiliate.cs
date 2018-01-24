@@ -5,18 +5,16 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.WorkerRoleSearch.Mail;
+using Cloudents.Core.Interfaces;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
     public abstract class UpdateAffiliate<T, TU> : ISchedulerProcess
     {
         private readonly ILogger _logger;
-        private readonly ILocalStorageProvider _localStorage;
+        private readonly ITempStorageProvider _localStorage;
 
-        protected UpdateAffiliate(ILogger logger, ILocalStorageProvider localStorage)
+        protected UpdateAffiliate(ILogger logger, ITempStorageProvider localStorage)
         {
             _logger = logger;
             _localStorage = localStorage;

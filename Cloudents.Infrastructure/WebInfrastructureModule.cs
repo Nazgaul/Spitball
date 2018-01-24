@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Autofac;
 using CacheManager.Core;
 using Cloudents.Core.DTOs;
@@ -7,6 +8,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using Cloudents.Infrastructure.Data;
+using Cloudents.Infrastructure.Storage;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cloudents.Infrastructure
@@ -34,13 +36,7 @@ namespace Cloudents.Infrastructure
         }
     }
 
-    public class ModuleConsole : Module
-    {
-        protected override void Load(ContainerBuilder builder)
-        {
-            builder.RegisterModule<ModuleMail>();
-        }
-    }
+   
 
     public class MobileAppInfrastructureModule : InfrastructureModule
     {

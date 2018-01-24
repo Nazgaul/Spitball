@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using Autofac;
 using Cloudents.Infrastructure;
+using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.CommandHandlers;
 using Zbang.Zbox.Domain.Services;
 using Zbang.Zbox.Infrastructure.Azure;
@@ -53,10 +54,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //    .WithParameter("hubName", "jared-spitball")
             //    .InstancePerLifetimeScope();
 
+            var azureLocalResource = RoleEnvironment.GetLocalResource("ItemPreviewStorage");
 
             var infrastructureModule = new ModuleWrite(
                 new SearchServiceCredentials(ConfigFetcher.Fetch("AzureSeachServiceName"),
-                    ConfigFetcher.Fetch("AzureSearchKey")), "zboxcache.redis.cache.windows.net,abortConnect=false,allowAdmin=true,ssl=true,password=CxHKyXDx40vIS5EEYT0UfnVIR1OJQSPrNnXFFdi3UGI=");
+                    ConfigFetcher.Fetch("AzureSearchKey")), "zboxcache.redis.cache.windows.net,abortConnect=false,allowAdmin=true,ssl=true,password=CxHKyXDx40vIS5EEYT0UfnVIR1OJQSPrNnXFFdi3UGI="
+                ,new LocalStorageData(azureLocalResource.RootPath, azureLocalResource.MaximumSizeInMegabytes));
 
             //  builder.RegisterType<GoogleSheet>().As<IGoogleSheet>();
             builder.RegisterModule(infrastructureModule);

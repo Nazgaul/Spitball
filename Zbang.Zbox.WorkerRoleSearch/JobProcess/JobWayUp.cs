@@ -12,8 +12,6 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Write;
-using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
 {
@@ -24,7 +22,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
         private readonly IKeyGenerator _keyGenerator;
 
         public JobWayUp(JobSearchWrite jobSearchService, ILogger logger,
-            ILocalStorageProvider localStorage, IGooglePlacesSearch zipToLocation, IKeyGenerator keyGenerator) :
+            ITempStorageProvider localStorage, IGooglePlacesSearch zipToLocation, IKeyGenerator keyGenerator) :
             base(logger, localStorage)
         {
             _jobSearchService = jobSearchService;

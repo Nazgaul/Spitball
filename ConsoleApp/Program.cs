@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,12 +31,14 @@ namespace ConsoleApp
             //    ConfigurationManager.AppSettings["StorageConnectionString"]);
 
             //  builder.RegisterType<GoogleSheet>().As<IGoogleSheet>();
-            builder.RegisterModule<ModuleConsole>();
+            builder.RegisterModule(new ModuleWrite(new SearchServiceCredentials(
+                    ConfigurationManager.AppSettings["AzureSearchKey"],
+                    ConfigurationManager.AppSettings["AzureSearchServiceName"]),
+                ConfigurationManager.AppSettings["Redis"],
+                new LocalStorageData(Path.Combine(Directory.GetCurrentDirectory(), "Temp"), 500)));
             builder.RegisterModule<IocModule>();
             var container = builder.Build();
             //210ec431-2d6d-45cb-bc01-04e3f687f0ed.docx
-            var meta = container.Resolve<IMailProvider>();
-            await meta.GenerateSystemEmailAsync("test", "test", default);
             Console.ReadLine();
 
 

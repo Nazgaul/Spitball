@@ -12,8 +12,6 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Write;
-using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
 {
@@ -21,7 +19,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
     {
         private readonly JobSearchWrite _jobSearchService;
         private readonly IGooglePlacesSearch _zipToLocation;
-        public JobCareerBuilder(ILogger logger, ILocalStorageProvider localStorage, JobSearchWrite jobSearchService, IGooglePlacesSearch zipToLocation) : base(logger, localStorage)
+        public JobCareerBuilder(ILogger logger, ITempStorageProvider localStorage, JobSearchWrite jobSearchService, IGooglePlacesSearch zipToLocation) : base(logger, localStorage)
         {
             _jobSearchService = jobSearchService;
             _zipToLocation = zipToLocation;

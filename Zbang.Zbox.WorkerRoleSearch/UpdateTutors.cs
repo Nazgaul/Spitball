@@ -8,8 +8,6 @@ using Cloudents.Core.Interfaces;
 using Microsoft.Spatial;
 using Newtonsoft.Json;
 using Zbang.Zbox.Infrastructure.Search;
-using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
@@ -18,7 +16,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly TutorProvider _tutorProvider;
         private readonly IGooglePlacesSearch _zipToLocation;
 
-        public UpdateTutors(TutorProvider tutorProvider, ILogger logger, IGooglePlacesSearch zipToLocation, ILocalStorageProvider localStorage)
+        public UpdateTutors(TutorProvider tutorProvider, ILogger logger, IGooglePlacesSearch zipToLocation, ITempStorageProvider localStorage)
             : base(logger, localStorage)
         {
             _tutorProvider = tutorProvider;
