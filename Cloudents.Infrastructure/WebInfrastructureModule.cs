@@ -34,6 +34,13 @@ namespace Cloudents.Infrastructure
         }
     }
 
+    public class ModuleConsole : Module
+    {
+        protected override void Load(ContainerBuilder builder)
+        {
+            builder.RegisterModule<ModuleMail>();
+        }
+    }
 
     public class MobileAppInfrastructureModule : InfrastructureModule
     {

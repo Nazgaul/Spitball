@@ -22,24 +22,22 @@ namespace ConsoleApp
         static async Task Main()
         {
             var builder = new ContainerBuilder();
-            var infrastructureModule = new InfrastructureModule(
-                ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
-                ConfigurationManager.AppSettings["AzureSearchServiceName"],
-                ConfigurationManager.AppSettings["AzureSearchKey"],
-                ConfigurationManager.AppSettings["Redis"],
-                ConfigurationManager.AppSettings["StorageConnectionString"]);
+            //var infrastructureModule = new InfrastructureModule(
+            //    ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
+            //    ConfigurationManager.AppSettings["AzureSearchServiceName"],
+            //    ConfigurationManager.AppSettings["AzureSearchKey"],
+            //    ConfigurationManager.AppSettings["Redis"],
+            //    ConfigurationManager.AppSettings["StorageConnectionString"]);
 
             //  builder.RegisterType<GoogleSheet>().As<IGoogleSheet>();
-            builder.RegisterModule(infrastructureModule);
+            builder.RegisterModule<ModuleConsole>();
             builder.RegisterModule<IocModule>();
             var container = builder.Build();
             //210ec431-2d6d-45cb-bc01-04e3f687f0ed.docx
-            var meta = container.Resolve<IPlacesSearch>();
+            var meta = container.Resolve<IMailProvider>();
+            await meta.GenerateSystemEmailAsync("test", "test", default);
+            Console.ReadLine();
 
-
-            var result = await meta.SearchAsync(new[] { "Cici's Pizza" }, PlacesRequestFilter.None,
-                new GeoPoint(-82.3359404, 29.6519322), null,
-                default);
 
             // var model = SearchQuery.Document(new [] {"microsoft"}, null, null, null, 0, SearchRequestSort.None, null);
         }

@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
 using AutoMapper;
+using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Cache;
 using Cloudents.Infrastructure.Search.Places;
@@ -37,8 +38,9 @@ namespace Cloudents.Infrastructure
             var config = MapperConfiguration();
             builder.Register(c => config.CreateMapper()).SingleInstance();
             builder.RegisterType<CacheProvider>().AsImplementedInterfaces();
-
+            builder.RegisterType<Logger>().As<ILogger>();
         }
+
         private static MapperConfiguration MapperConfiguration()
         {
             return new MapperConfiguration(cfg => cfg.AddProfile<MapperProfile>());

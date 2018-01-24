@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using Cloudents.Core;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Write;
-using Microsoft.Spatial;
-using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 
@@ -62,7 +62,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
                 DateTime = obj.posted_at,
                 Id = obj.job_reference,
                 JobType2 = JobTypeConversion(obj.job_type),
-                Location = GeographyPoint.Create(location.Latitude, location.Longitude),
+                Location = GeoPoint.ToPoint(location),
                 Description = StripHtml(obj.body),
                 State = obj.state,
                 Title = obj.title,
@@ -76,8 +76,8 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
 
         private static string StripHtml(string body)
         {
-            var t = TextManipulation.RemoveHtmlTags.Replace(body, string.Empty);
-            return TextManipulation.SpaceReg.Replace(t, " ");
+            var t = RegEx.RemoveHtmlTags.Replace(body, string.Empty);
+            return RegEx.SpaceReg.Replace(t, " ");
         }
 
         protected override Task UpdateSearchAsync(IEnumerable<Job> list, CancellationToken token)
@@ -87,11 +87,32 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
 
         protected override Task DeleteOldItemsAsync(CancellationToken token)
         {
-            return _jobSearchService.DeleteOldJobsAsync("CareerBuilder",token);
+            return _jobSearchService.DeleteOldJobsAsync("CareerBuilder", token);
         }
 
         private static JobFilter JobTypeConversion(string jobType)
         {
+            if (string.IsNullOrEmpty(jobType))
+            {
+                return JobFilter.None;
+            }
+            jobType = jobType.Replace("-", " ").ToLowerInvariant();
+            switch (jobType)
+            {
+                case "full time":
+                    return JobFilter.FullTime;
+                case "internship":
+                    return JobFilter.Internship;
+                case "part time":
+                case "full time/part time":
+                    return JobFilter.PartTime;
+                case "remote":
+                    return JobFilter.Remote;
+                case "campus rep":
+                    return JobFilter.CampusRep;
+                case "contractor":
+                    return JobFilter.Contractor;
+            }
             return JobFilter.None; //jobType?.Replace("-", " ").ToLowerInvariant();
         }
     }

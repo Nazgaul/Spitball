@@ -42,8 +42,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
             // ReSharper disable once AsyncConverter.AsyncAwaitMayBeElidedHighlighting
             //await process.ExecuteAsync(0, (a, b) => Task.CompletedTask, cancellationToken).ConfigureAwait(false);
             //_zboxWorkerRoleService.OneTimeDbi();
-            var process = _lifetimeScope.ResolveKeyed<ISchedulerProcess>("downloadXml");
-            await process.ExecuteAsync(500, (a, b) => Task.CompletedTask, cancellationToken).ConfigureAwait(false);
+            var process = _lifetimeScope.ResolveKeyed<ISchedulerProcess>("careerBuilder");
+            await process.ExecuteAsync(0, (a, b) => Task.CompletedTask, cancellationToken).ConfigureAwait(false);
 
             _logger.Info("finish test");
 

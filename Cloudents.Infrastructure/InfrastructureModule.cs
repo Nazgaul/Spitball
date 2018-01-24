@@ -2,7 +2,6 @@
 using System.Reflection;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
-using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.AI;
@@ -12,32 +11,11 @@ using Cloudents.Infrastructure.Search;
 using Cloudents.Infrastructure.Search.Job;
 using Cloudents.Infrastructure.Search.Places;
 using Cloudents.Infrastructure.Storage;
-using Cloudents.Infrastructure.Write;
 using Microsoft.Cognitive.LUIS;
 using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure
 {
-    public class WriteModule : Module
-    {
-        private readonly SearchServiceCredentials _searchCredentials;
-        private readonly string _redisConnection;
-
-        public WriteModule(SearchServiceCredentials searchCredentials, string redisConnection)
-        {
-            _searchCredentials = searchCredentials;
-            _redisConnection = redisConnection;
-        }
-        protected override void Load(ContainerBuilder builder)
-        {
-            base.Load(builder);
-            builder.RegisterModule(new ModuleInfrastructureBase(_searchCredentials, _redisConnection));
-            builder.RegisterGeneric(typeof(SearchServiceWrite<>));
-            builder.RegisterType<JobSearchWrite>().AsSelf().As<ISearchServiceWrite<Job>>().As<IStartable>().SingleInstance().AutoActivate();
-        }
-    }
-
-
     public class InfrastructureModule : Module
     {
         protected readonly string SqlConnectionString;

@@ -1,6 +1,6 @@
 ﻿using Autofac;
+using Cloudents.Core.Interfaces;
 using Zbang.Zbox.Infrastructure.Enums;
-using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.WorkerRoleSearch.DomainProcess;
 using Zbang.Zbox.WorkerRoleSearch.JobProcess;
