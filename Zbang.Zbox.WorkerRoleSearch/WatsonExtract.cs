@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using AlchemyAPIClient;
 using AlchemyAPIClient.Requests;
 using Zbang.Zbox.Infrastructure;
-using Zbang.Zbox.Infrastructure.Trace;
+using Cloudents.Core.Interfaces;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {

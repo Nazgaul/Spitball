@@ -181,7 +181,6 @@
     <Compile Include="Storage\IBlobProvider2.cs" />
     <Compile Include="Storage\IContentProcessor.cs" />
     <Compile Include="Storage\IFileProcessorFactory.cs" />
-    <Compile Include="Storage\IJaredPushNotification.cs" />
     <Compile Include="Storage\ILocalStorageProvider.cs" />
     <Compile Include="Storage\IQueueProvider.cs" />
     <Compile Include="Storage\ISendPush.cs" />

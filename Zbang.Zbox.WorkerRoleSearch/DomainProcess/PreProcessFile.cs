@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Trace;
+using Cloudents.Core.Interfaces;
 using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess

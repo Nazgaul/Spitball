@@ -12,7 +12,7 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Azure.Blob;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Mail;
-using Zbang.Zbox.Infrastructure.Trace;
+using Cloudents.Core.Interfaces;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {

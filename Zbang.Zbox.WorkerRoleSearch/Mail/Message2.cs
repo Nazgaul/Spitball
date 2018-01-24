@@ -2,24 +2,22 @@
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.WorkerRoleSearch.Mail
 {
     internal class Message2 : IMail2
     {
-        private readonly IMailComponent m_MailComponent;
-        private readonly ISendPush m_SendPush;
-        private readonly IJaredPushNotification m_JaredPush;
+        private readonly IMailComponent _mailComponent;
+        private readonly ISendPush _sendPush;
         private readonly ILogger _logger;
-        public Message2(IMailComponent mailComponent, ISendPush sendPush, IJaredPushNotification jaredPush, ILogger logger)
+        public Message2(IMailComponent mailComponent, ISendPush sendPush, ILogger logger)
         {
-            m_MailComponent = mailComponent;
-            m_SendPush = sendPush;
-            m_JaredPush = jaredPush;
+            _mailComponent = mailComponent;
+            _sendPush = sendPush;
             _logger = logger;
         }
 
@@ -27,15 +25,14 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
         {
             if (!(data is MessageMailData parameters)) return true;
 
-            //TODO: This is Jared user - need to figure out better system
-            if (Guid.TryParse(parameters.EmailAddress, out _))
-            {
-                await DoJaredPushAsync(parameters).ConfigureAwait(false);
-                return true;
-            }
+            //if (Guid.TryParse(parameters.EmailAddress, out _))
+            //{
+            //    await DoJaredPushAsync(parameters).ConfigureAwait(false);
+            //    return true;
+            //}
 
             var userImage = parameters.SenderUserImage ?? "https://az32006.vo.msecnd.net/zboxprofilepic/DefaultEmailImage.jpg";
-            var t1 = m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
+            var t1 = _mailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
                   new MessageMailParams(parameters.Message, parameters.SenderUserName,
                       new CultureInfo(parameters.Culture), parameters.SenderUserEmail, userImage), token);
 
@@ -43,12 +40,12 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             if (string.IsNullOrEmpty(parameters.Message))
             {
                 t2 =
-                    m_SendPush.SendChatFileNotificationAsync(parameters.SenderUserName, parameters.ConversationId,
+                    _sendPush.SendChatFileNotificationAsync(parameters.SenderUserName, parameters.ConversationId,
                         new[] { parameters.UserId });
             }
             else
             {
-                t2 = m_SendPush.SendChatMessageNotificationAsync(parameters.SenderUserName,
+                t2 = _sendPush.SendChatMessageNotificationAsync(parameters.SenderUserName,
                     parameters.Message, parameters.ConversationId, new[] { parameters.UserId });
             }
             try
@@ -63,23 +60,6 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             return true;
         }
 
-        private Task DoJaredPushAsync(MessageMailData parameters)
-        {
-            if (!parameters.SenderUserId.HasValue)
-            {
-                return Task.CompletedTask;
-            }
-            //if (!string.IsNullOrEmpty(parameters.Message))
-            //{
-            var t2 = m_JaredPush.SendChatMessagePushAsync(parameters.SenderUserName, parameters.Message,
-                parameters.ConversationId, parameters.SenderUserId.Value, parameters.UserId);
-            //}
-            //else
-            //{
-            //    t2 = m_JaredPush.SendChatFilePushAsync(parameters.SenderUserName, parameters.ConversationId, parameters.SenderUserId.Value,
-            //        parameters.UserId);
-            //}
-            return t2;
-        }
+       
     }
 }

@@ -100,7 +100,7 @@ namespace Zbang.Zbox.Domain
 
         public virtual ISet<ItemTag> ItemTags { get; set; }
 
-        public virtual Task AddTagAsync(Tag tag, TagType type, IJaredPushNotification jaredPush)
+        public virtual Task AddTagAsync(Tag tag, TagType type)
         {
             var newExists = ItemTags.FirstOrDefault(w => w.Tag.Id == tag.Id);
             if (newExists != null) return Task.CompletedTask;
@@ -111,10 +111,10 @@ namespace Zbang.Zbox.Domain
             {
                 ShouldMakeDirty = () => true;
             }
-            if (DateTimeUser.CreationTime.AddDays(1) > DateTime.UtcNow)
-            {
-                return jaredPush.SendItemPushAsync(User.Name, Box.Id, Id, tag.Name, ItemType.Quiz);
-            }
+            //if (DateTimeUser.CreationTime.AddDays(1) > DateTime.UtcNow)
+            //{
+            //    return jaredPush.SendItemPushAsync(User.Name, Box.Id, Id, tag.Name, ItemType.Quiz);
+            //}
             return Task.CompletedTask;
         }
 

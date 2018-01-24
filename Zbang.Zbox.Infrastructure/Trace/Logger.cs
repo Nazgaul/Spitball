@@ -11,25 +11,25 @@ namespace Zbang.Zbox.Infrastructure.Trace
             System.Diagnostics.Trace.TraceError(ex.ToString());
         }
 
-        public void Info(string info)
+        public void Info(string message)
         {
 #if DEBUG
-            System.Diagnostics.Debug.WriteLine(info);
+            System.Diagnostics.Debug.WriteLine(message);
 #endif
-            System.Diagnostics.Trace.TraceInformation(info);
+            System.Diagnostics.Trace.TraceInformation(message);
         }
 
-        public void Warning(string warning)
+        public void Warning(string message)
         {
 #if DEBUG
-            System.Diagnostics.Debug.WriteLine(warning);
+            System.Diagnostics.Debug.WriteLine(message);
 #endif
-            System.Diagnostics.Trace.TraceWarning(warning);
+            System.Diagnostics.Trace.TraceWarning(message);
         }
 
-        public void Error(string error)
+        public void Error(string message)
         {
-            System.Diagnostics.Trace.TraceError(error);
+            System.Diagnostics.Trace.TraceError(message);
         }
 
         public void TrackMetric(string name, double value)
