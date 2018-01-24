@@ -83,13 +83,15 @@
 @cardHeight: 184px;
 @cardImageHeight: 160px;
 @titleHeight: 16px;
-@textLineHeght: 8px;
+@textLineHeight: 8px;
 @textPosLeft: 136px;
 
 @mobileSkeletonWidth: 376px;
 @mobileCardHeight: 144px;
 @mobileCardImageHeight: 120px;
 @mobileTextPosLeft: 104px;
+@placeholdersColor: #e6e8e9;
+@cardColor: white;
 
 @elementsPos: 8px 8px, /* image */
 @textPosLeft 8px, /* title */
@@ -110,73 +112,86 @@
 @mobileTextPosLeft 120px, /* footer line */
 0 0, /* background */
 0 0; /* wrapper */
-.loading {
 
+.skeletonBackgroundImage(@placeholdersColor, @cardColor, @cardHeight, @cardImageHeight,@titleHeight,@textLineHeght) {
+    background-image: /**/
+    linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0)), /* highlight */
+    linear-gradient(@placeholdersColor @cardImageHeight, transparent 0), /* image */
+    linear-gradient(@placeholdersColor @titleHeight, transparent 0), /* title */
+    linear-gradient(@placeholdersColor @textLineHeight, transparent 0), /* line 1 */
+    linear-gradient(@placeholdersColor @textLineHeight, transparent 0), /* line 2 */
+    linear-gradient(@placeholdersColor @textLineHeight, transparent 0), /* line 3 */
+    linear-gradient(@placeholdersColor @textLineHeight, transparent 0), /* line 4 */
+    linear-gradient(@placeholdersColor @textLineHeight, transparent 0), /* line 5 */
+    linear-gradient(@placeholdersColor @textLineHeight, transparent 0), /* footer line */
+    linear-gradient(@cardColor @cardHeight - 8px, transparent 0), /* background */
+    linear-gradient(transparent @cardHeight, transparent 0); /* wrapper */
+}
+
+.skeletonBackgroundSize(@cardHeight, @highlightWidth, @imageWidth, @titleWidth, @line1Width, @line2Width, @line3Width, @line4Width, @line5Width, @footerWidth, @backgroundWidth) {
+    background-size: /**/
+    @highlightWidth @cardHeight - 8px, /* highlight */
+    @imageWidth @cardHeight, /* image */
+    @titleWidth @cardHeight, /* title */
+    @line1Width @cardHeight, /* line1 */
+    @line2Width @cardHeight, /* line2 */
+    @line3Width @cardHeight, /* line3 */
+    @line4Width @cardHeight, /* line4 */
+    @line5Width @cardHeight, /* line5 */
+    @footerWidth @cardHeight, /* footer line */
+    @backgroundWidth @cardHeight, /* background */
+    @backgroundWidth @cardHeight; /* wrapper */
+}
+
+.skeletonMobileBackgroundImage(@placeholdersColor, @cardColor, @cardHeight, @cardImageHeight,@titleHeight,@textLineHeght) {
+    background-image: /**/
+    linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0)), /* highlight */
+    linear-gradient(@placeholdersColor @cardImageHeight, transparent 0), /* image */
+    linear-gradient(@placeholdersColor @titleHeight, transparent 0), /* title */
+    linear-gradient(@placeholdersColor @textLineHeight, transparent 0), /* line 1 */
+    linear-gradient(@placeholdersColor @textLineHeight, transparent 0), /* line 2 */
+    linear-gradient(@placeholdersColor @textLineHeight, transparent 0), /* line 3 */
+    linear-gradient(@placeholdersColor @textLineHeight, transparent 0), /* footer line */
+    linear-gradient(@cardColor @cardHeight - 8px, transparent 0), /* background */
+    linear-gradient(transparent @cardHeight, transparent 0); /* wrapper */
+}
+
+.skeletonMobileBackgroundSize(@cardHeight, @highlightWidth, @imageWidth, @titleWidth, @line1Width, @line2Width, @line3Width, @footerWidth, @backgroundWidth) {
+    background-size: /**/
+    @highlightWidth @cardHeight - 8px, /* highlight */
+    @imageWidth @cardHeight, /* image */
+    @titleWidth @cardHeight, /* title */
+    @line1Width @cardHeight, /* line1 */
+    @line2Width @cardHeight, /* line2 */
+    @line3Width @cardHeight, /* line3 */
+    @footerWidth @cardHeight, /* footer line */
+    @backgroundWidth @cardHeight, /* background */
+    @backgroundWidth @cardHeight; /* wrapper */
+}
+
+.loading {
     .loader {
         display: none;
     }
 
     .skeleton {
         width: @skeletonWidth;
+        max-width: 100%;
         height: 100vh;
-        background-image: /**/
-        linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0)), /* highlight */
-        linear-gradient(#e6e8e9 @cardImageHeight, transparent 0), /* image */
-        linear-gradient(#e6e8e9 @titleHeight, transparent 0), /* title */
-        linear-gradient(#e6e8e9 @textLineHeght, transparent 0), /* line 1 */
-        linear-gradient(#e6e8e9 @textLineHeght, transparent 0), /* line 2 */
-        linear-gradient(#e6e8e9 @textLineHeght, transparent 0), /* line 3 */
-        linear-gradient(#e6e8e9 @textLineHeght, transparent 0), /* line 4 */
-        linear-gradient(#e6e8e9 @textLineHeght, transparent 0), /* line 5 */
-        linear-gradient(#e6e8e9 @textLineHeght, transparent 0), /* footer line */
-        linear-gradient(white @cardHeight - 8px, transparent 0), /* background */
-        linear-gradient(transparent @cardHeight, transparent 0); /* wrapper */
-        /**/
-        background-size: /**/
-        200px @cardHeight - 8px, /* highlight */
-        120px @cardHeight, /* image */
-        224px @cardHeight, /* title */
-        264px @cardHeight, /* line 1 */
-        264px @cardHeight, /* line 2 */
-        240px @cardHeight, /* line 3 */
-        160px @cardHeight, /* line 4 */
-        240px @cardHeight, /* line 5 */
-        160px @cardHeight, /* footer line */
-        @skeletonWidth @cardHeight, /* background */
-        @skeletonWidth @cardHeight; /* wrapper */
-        /**/
+        .skeletonBackgroundImage(@placeholdersColor, @cardColor, @cardHeight, @cardImageHeight,@titleHeight,@textLineHeight);
+        .skeletonBackgroundSize(@cardHeight,200px, 120px, 224px, 264px, 264px, 240px, 160px, 240px, 160px, @skeletonWidth);
         background-position: /**/
         0 0, /* highlight */
         @elementsPos;
-        /**/
         background-repeat: repeat-y;
         animation: shine 2s infinite;
 
         @media(max-width: @screen-xs) {
             width: @mobileSkeletonWidth;
+            max-width: 100%;
             height: 100vh;
-            background-image: /**/
-            linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0)), /* highlight */
-            linear-gradient(#e6e8e9 @mobileCardImageHeight, transparent 0), /* image */
-            linear-gradient(#e6e8e9 @titleHeight, transparent 0), /* title */
-            linear-gradient(#e6e8e9 @textLineHeght, transparent 0), /* line 1 */
-            linear-gradient(#e6e8e9 @textLineHeght, transparent 0), /* line 2 */
-            linear-gradient(#e6e8e9 @textLineHeght, transparent 0), /* line 3 */
-            linear-gradient(#e6e8e9 @textLineHeght, transparent 0), /* footer line */
-            linear-gradient(white @mobileCardHeight - 8px, transparent 0), /* background */
-            linear-gradient(transparent @mobileCardHeight, transparent 0); /* wrapper */
-            /**/
-            background-size: /**/
-            200px @mobileCardHeight - 8px, /* highlight */
-            88px @mobileCardHeight, /* image */
-            168px @mobileCardHeight, /* title */
-            184px @mobileCardHeight, /* line 1 */
-            184px @mobileCardHeight, /* line 2 */
-            152px @mobileCardHeight, /* line 3 */
-            104px @mobileCardHeight, /* footer line */
-            @mobileSkeletonWidth @mobileCardHeight, /* background */
-            @mobileSkeletonWidth @mobileCardHeight; /* wrapper */
-            /**/
+            .skeletonMobileBackgroundImage(@placeholdersColor, @cardColor, @mobileCardHeight, @mobileCardImageHeight,@titleHeight,@textLineHeight);
+            .skeletonMobileBackgroundSize(@mobileCardHeight,200px, 88px,168px,184px,184px,152px,104px,@mobileSkeletonWidth);
             background-position: /**/
             0 0, /* highlight */
             @mobileElementsPos;
