@@ -7,15 +7,14 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using Cloudents.Core;
-using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
-using Cloudents.Infrastructure.Write;
+using Cloudents.Infrastructure.Write.Job.Entities;
 
-namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
+namespace Cloudents.Infrastructure.Write.Job
 {
-    public class JobCareerBuilder : UpdateAffiliate<CareerBuilderJobs, Job>
+    public class JobCareerBuilder : UpdateAffiliate<CareerBuilderJobs, Core.Entities.Search.Job>
     {
         private readonly JobSearchWrite _jobSearchService;
         private readonly IGooglePlacesSearch _zipToLocation;
@@ -50,10 +49,10 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
             }
         }
 
-        protected override async Task<Job> ParseTAsync(CareerBuilderJobs obj, CancellationToken token)
+        protected override async Task<Core.Entities.Search.Job> ParseTAsync(CareerBuilderJobs obj, CancellationToken token)
         {
             var location = await _zipToLocation.GeoCodingByZipAsync(obj.Zip, token).ConfigureAwait(false);
-            return new Job
+            return new Core.Entities.Search.Job
             {
                 City = obj.City,
                 Compensation = "paid",
@@ -78,7 +77,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
             return RegEx.SpaceReg.Replace(t, " ");
         }
 
-        protected override Task UpdateSearchAsync(IEnumerable<Job> list, CancellationToken token)
+        protected override Task UpdateSearchAsync(IEnumerable<Core.Entities.Search.Job> list, CancellationToken token)
         {
             return _jobSearchService.UpdateDataAsync(list, token);
         }
@@ -110,6 +109,8 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
                     return JobFilter.CampusRep;
                 case "contractor":
                     return JobFilter.Contractor;
+                case "per diem":
+                    return JobFilter.Temporary;
             }
             return JobFilter.None; //jobType?.Replace("-", " ").ToLowerInvariant();
         }

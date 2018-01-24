@@ -1,9 +1,11 @@
 ﻿using System.IO;
 using Autofac;
 using Cloudents.Core.Entities.Search;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Infrastructure.Write;
+using Cloudents.Infrastructure.Write.Job;
 
 namespace Cloudents.Infrastructure
 {
@@ -30,6 +32,10 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<DownloadFile>().As<IDownloadFile>();
             builder.Register(c =>
                 new TempStorageProvider(c.Resolve<ILogger>(), _localStorageData)).As<ITempStorageProvider>();
+
+
+            builder.RegisterType<JobCareerBuilder>().Keyed<IUpdateAffiliate>(AffiliateProgram.CareerBuilder);
+            builder.RegisterType<JobWayUp>().Keyed<IUpdateAffiliate>(AffiliateProgram.WayUp);
         }
     }
 }

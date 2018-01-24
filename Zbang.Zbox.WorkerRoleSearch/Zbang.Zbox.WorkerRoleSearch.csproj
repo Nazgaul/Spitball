@@ -60,7 +60,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="JobProcess\CareerBuilderJobs.cs" />
     <Compile Include="DeleteOldConnections.cs" />
     <Compile Include="DeleteOldStuff.cs" />
     <Compile Include="DomainProcess\DeleteBox.cs" />
@@ -79,8 +78,7 @@
     <Compile Include="IntercomUsers.cs" />
     <Compile Include="ISchedulerProcess.cs" />
     <Compile Include="IWatsonExtract.cs" />
-    <Compile Include="JobProcess\JobCareerBuilder.cs" />
-    <Compile Include="JobProcess\JobWayUp.cs" />
+    <Compile Include="AffiliateBuilder.cs" />
     <Compile Include="Mail\BaseMarketingMailProcess.cs" />
     <Compile Include="Mail\ChangeEmail.cs" />
     <Compile Include="Mail\DigestEmail.cs" />
@@ -119,7 +117,6 @@
     <Compile Include="UpdateTutors.cs" />
     <Compile Include="UpdateUnsubscribeList.cs" />
     <Compile Include="WatsonExtract.cs" />
-    <Compile Include="JobProcess\WayUpJob.cs" />
     <Compile Include="WorkerRole.cs" />
     <Compile Include="WorkerRoleModule.cs" />
     <Compile Include="WyzantTutor.cs" />

@@ -42,17 +42,12 @@ namespace ConsoleApp
             builder.RegisterModule<IocModule>();
             var container = builder.Build();
 
-            var t = container.Resolve<IDownloadFile>();
-            await t.DownloadFileAsync(
-                new Uri("https://clickcastfeeds.s3.amazonaws.com/2221af50160b28c835156240c9f8d21f/feed.xml"),
-                "test.xml", true, default);
-
-            var handler = new HttpClientHandler
-            {
-                Credentials = new NetworkCredential("cqSCcVaGdfHVTefIBGCTdLqmYPeboa", "LAGhyQrQdfLumRjMrXVVVISAnrbTZn")
-            };
-            await t.DownloadFileAsync(new Uri("https://www.wayup.com/integrations/clickcast-feed/"), "wayup.xml", true,
-                handler, default);
+            var affiliate = container.ResolveKeyed<IUpdateAffiliate>(AffiliateProgram.CareerBuilder);
+            await affiliate.ExecuteAsync(0, i =>
+             {
+                 Console.WriteLine(i);
+                 return Task.CompletedTask;
+             }, default);
             //210ec431-2d6d-45cb-bc01-04e3f687f0ed.docx
             Console.ReadLine();
 

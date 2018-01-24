@@ -1,12 +1,12 @@
 ﻿using System.Xml.Serialization;
 
-namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
+namespace Cloudents.Infrastructure.Write.Job.Entities
 {
     /// <remarks/>
     [System.Serializable]
     [System.ComponentModel.DesignerCategory("code")]
-    [System.Xml.Serialization.XmlType(AnonymousType = true)]
-    [System.Xml.Serialization.XmlRoot("job", Namespace = "", IsNullable = false)]
+    [XmlType(AnonymousType = true)]
+    [XmlRoot("job", Namespace = "", IsNullable = false)]
     public class CareerBuilderJobs
     {
         private string locationField;
@@ -46,11 +46,11 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
         {
             get
             {
-                return this.locationField;
+                return locationField;
             }
             set
             {
-                this.locationField = value;
+                locationField = value;
             }
         }
 
@@ -59,11 +59,11 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
         {
             get
             {
-                return this.titleField;
+                return titleField;
             }
             set
             {
-                this.titleField = value;
+                titleField = value;
             }
         }
 
@@ -79,11 +79,11 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
         {
             get
             {
-                return this.stateField;
+                return stateField;
             }
             set
             {
-                this.stateField = value;
+                stateField = value;
             }
         }
 
@@ -99,11 +99,11 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
         {
             get
             {
-                return this.countryField;
+                return countryField;
             }
             set
             {
-                this.countryField = value;
+                countryField = value;
             }
         }
 
@@ -112,11 +112,11 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
         {
             get
             {
-                return this.job_typeField;
+                return job_typeField;
             }
             set
             {
-                this.job_typeField = value;
+                job_typeField = value;
             }
         }
 
@@ -126,11 +126,11 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
         {
             get
             {
-                return this.posted_atField;
+                return posted_atField;
             }
             set
             {
-                this.posted_atField = value;
+                posted_atField = value;
             }
         }
 
@@ -139,11 +139,11 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
         {
             get
             {
-                return this.job_referenceField;
+                return job_referenceField;
             }
             set
             {
-                this.job_referenceField = value;
+                job_referenceField = value;
             }
         }
 
@@ -152,11 +152,11 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
         {
             get
             {
-                return this.bodyField;
+                return bodyField;
             }
             set
             {
-                this.bodyField = value;
+                bodyField = value;
             }
         }
 
@@ -165,11 +165,11 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
         {
             get
             {
-                return this.companyField;
+                return companyField;
             }
             set
             {
-                this.companyField = value;
+                companyField = value;
             }
         }
 
@@ -178,11 +178,11 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
         {
             get
             {
-                return this.mobile_friendly_applyField;
+                return mobile_friendly_applyField;
             }
             set
             {
-                this.mobile_friendly_applyField = value;
+                mobile_friendly_applyField = value;
             }
         }
 
@@ -191,11 +191,11 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
         {
             get
             {
-                return this.categoryField;
+                return categoryField;
             }
             set
             {
-                this.categoryField = value;
+                categoryField = value;
             }
         }
 
@@ -204,11 +204,11 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
         {
             get
             {
-                return this.html_jobsField;
+                return html_jobsField;
             }
             set
             {
-                this.html_jobsField = value;
+                html_jobsField = value;
             }
         }
 
@@ -217,11 +217,11 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
         {
             get
             {
-                return this.urlField;
+                return urlField;
             }
             set
             {
-                this.urlField = value;
+                urlField = value;
             }
         }
 
@@ -230,11 +230,11 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
         {
             get
             {
-                return this.cpaField;
+                return cpaField;
             }
             set
             {
-                this.cpaField = value;
+                cpaField = value;
             }
         }
     }
