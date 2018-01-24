@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure.Trace;
+using Cloudents.Core.Interfaces;
 using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess

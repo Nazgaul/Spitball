@@ -42,7 +42,7 @@ namespace Zbang.Zbox.Domain
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
 
-        private string ExtractCommentText(FeedType feedType, string text, User user)
+        private static string ExtractCommentText(FeedType feedType, string text, User user)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
             if (feedType == Infrastructure.Enums.FeedType.None) return string.IsNullOrEmpty(text) ? null : text.Trim();
@@ -128,7 +128,7 @@ namespace Zbang.Zbox.Domain
         public virtual ISet<CommentTag> CommentTags { get; set; }
 
 
-        public virtual  Task AddTagAsync(Tag tag, TagType type, IJaredPushNotification jaredPush)
+        public virtual  Task AddTagAsync(Tag tag, TagType type)
         {
             var newExists = CommentTags.FirstOrDefault(w => w.Tag.Id == tag.Id);
             if (newExists != null) return Task.CompletedTask;
@@ -140,10 +140,7 @@ namespace Zbang.Zbox.Domain
                 //TODO: think about this
                 DateTimeUser.UpdateTime = DateTime.UtcNow;
             }
-            if (DateTimeUser.CreationTime.AddDays(1) > DateTime.UtcNow)
-            {
-                return jaredPush.SendAddPostNotificationAsync(User.Name, Text, Box.Id, Id, tag.Name);
-            }
+            
             return Task.CompletedTask;
         }
 

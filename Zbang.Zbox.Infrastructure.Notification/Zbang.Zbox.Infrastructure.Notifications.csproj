@@ -58,7 +58,6 @@
     <Compile Include="DictionaryExtensions.cs" />
     <Compile Include="GooglePushMessage.cs" />
     <Compile Include="IPushMessage.cs" />
-    <Compile Include="JaredSendPush.cs" />
     <Compile Include="PushAction.cs" />
     <Compile Include="QueueProvider.cs" />
     <Compile Include="SendPush.cs" />

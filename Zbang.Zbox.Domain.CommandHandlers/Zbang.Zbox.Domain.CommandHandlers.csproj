@@ -159,6 +159,10 @@
     <Compile Include="UpdateUserProfileCommandHandler.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj">
+      <Project>{85208B6B-6AD1-4B2E-8CC7-EEC6990085A7}</Project>
+      <Name>Cloudents.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Domain.Commands\Zbang.Zbox.Domain.Commands.csproj">
       <Project>{0CAEE4F2-421B-4FA3-9A13-1402EA6FCDA8}</Project>
       <Name>Zbang.Zbox.Domain.Commands</Name>
