@@ -129,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Connected Services\Application Insights\ConnectedService.json" />
+    <Content Include="ApplicationInsights.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
