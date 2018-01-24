@@ -1,12 +1,12 @@
 <template>
     <button type="button" class="suggest" @click="$ga.event('Suggest_Window',$route.path.slice(1),name)">
         <v-container>
-            <v-layout class="wrapper hidden-xs-only" row justify-space-between >
+            <v-layout class="wrapper hidden-md-and-down" row justify-space-between >
                     <div class="logo">Spitball</div>
                     <div class="action">Show me</div>
             </v-layout>
             
-            <v-layout class="icon hidden-sm-and-up">
+            <v-layout class="icon hidden-lg-and-up">
                 <logo></logo>
             </v-layout>
             <div class="text">
