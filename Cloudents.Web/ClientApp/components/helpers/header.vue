@@ -1,40 +1,42 @@
 <template>
    <v-toolbar app fixed :height="height" class="header">
-       <v-layout column :class="layoutClass?layoutClass:'header-elements'">
-    <v-flex class="line">
-        <v-layout row>
-            <v-toolbar-title class="ma-0">
-                <router-link class="logo-link" :to="{name:'home'}">
-                    <app-logo class="logo"></app-logo>
-                </router-link>
-            </v-toolbar-title>
-            <v-toolbar-items>
-                <form v-if="$vuetify.breakpoint.mdAndUp" @submit.prevent="submit">
-                    <v-text-field type="search" light solo class="search-b"  :placeholder="placeholders[currentSelection]" v-model="msg" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>
-                </form>
-                <v-spacer v-if="$vuetify.breakpoint.smAndDown"></v-spacer>
-                <div class="settings-wrapper d-flex align-center">
-                    <v-menu bottom left>
-                        <v-btn icon slot="activator">
-                            <v-icon>sbf-3-dot</v-icon>
-                        </v-btn>
-                        <v-list class="settings-list">
-                            <v-list-tile @click="$_currentClick(item)" v-for="(item,index) in settingMenu" :key="index" :id="item.id">
-                                <v-list-tile-content>
-                                    <v-list-tile-title>{{item.id==='university'&&getUniversityName?getUniversityName:item.name}}</v-list-tile-title>
-                                </v-list-tile-content>
-                            </v-list-tile>
-                        </v-list>
-                    </v-menu>
-                </div>
-            </v-toolbar-items>
-        </v-layout>
-    </v-flex>
-    <v-flex v-if="$vuetify.breakpoint.smAndDown" class="line">
-        <form @submit.prevent="submit">
-            <v-text-field type="search" light solo class="search-b" :placeholder="placeholders[currentSelection]" v-model="msg" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>
-        </form>
-    </v-flex>
+       <v-layout column :class="layoutClass?layoutClass:'header-elements'" class="mx-0">
+           <div class="main">
+               <v-flex class="line top">
+                   <v-layout row>
+                       <v-toolbar-title class="ma-0">
+                           <router-link class="logo-link" :to="{name:'home'}">
+                               <app-logo class="logo"></app-logo>
+                           </router-link>
+                       </v-toolbar-title>
+                       <v-toolbar-items>
+                           <form v-if="$vuetify.breakpoint.mdAndUp" @submit.prevent="submit">
+                               <v-text-field type="search" light solo class="search-b" :placeholder="placeholders[currentSelection]" v-model="msg" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>
+                           </form>
+                           <v-spacer v-if="$vuetify.breakpoint.smAndDown"></v-spacer>
+                           <div class="settings-wrapper d-flex align-center">
+                               <v-menu bottom left>
+                                   <v-btn icon slot="activator">
+                                       <v-icon>sbf-3-dot</v-icon>
+                                   </v-btn>
+                                   <v-list class="settings-list">
+                                       <v-list-tile @click="$_currentClick(item)" v-for="(item,index) in settingMenu" :key="index" :id="item.id">
+                                           <v-list-tile-content>
+                                               <v-list-tile-title>{{item.id==='university'&&getUniversityName?getUniversityName:item.name}}</v-list-tile-title>
+                                           </v-list-tile-content>
+                                       </v-list-tile>
+                                   </v-list>
+                               </v-menu>
+                           </div>
+                       </v-toolbar-items>
+                   </v-layout>
+               </v-flex>
+               <v-flex v-if="$vuetify.breakpoint.smAndDown" class="line search-wrapper">
+                   <form @submit.prevent="submit">
+                       <v-text-field type="search" light solo class="search-b" :placeholder="placeholders[currentSelection]" v-model="msg" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>
+                   </form>
+               </v-flex>
+           </div>
         <slot name="extraHeader"></slot>
     </v-layout></v-toolbar>
 </template>
@@ -90,5 +92,4 @@
         }
     }
 </script>
-<!--//TODO:seperate the header css -->
-<style src="./../header/header.less" lang="less"></style>
+<style src="./header.less" lang="less"></style>

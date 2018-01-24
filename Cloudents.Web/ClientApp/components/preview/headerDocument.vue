@@ -1,7 +1,7 @@
 ﻿<template>
-            <main-header class="elevation-0" :toolbarHeight="$vuetify.breakpoint.mdAndUp ? 140 : 182" layoutClass="header-elements ma-0">
-                <v-toolbar class="item-toolbar elevation-0 mt-2" height="80" slot="extraHeader">
-                    <div class="toolbar-content">
+            <main-header class="elevation-0" :toolbarHeight="$vuetify.breakpoint.mdAndUp ? 140 : 182" layoutClass="header-elements">
+                <nav class="item-header elevation-0 mt-2" slot="extraHeader">
+                    <div class="item-header-content">
                         <v-layout row align-center justify-space-between>
                             <div class="item-name">{{item.name}}</div>
                             <item-actions></item-actions>
@@ -13,7 +13,7 @@
                             </v-layout>
                         </v-flex>
                     </div>
-                </v-toolbar>
+                </nav>
             </main-header>
 </template>
 
