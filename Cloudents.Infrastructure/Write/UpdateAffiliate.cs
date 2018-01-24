@@ -12,6 +12,7 @@ namespace Cloudents.Infrastructure.Write
     {
         private readonly ILogger _logger;
         private readonly IDownloadFile _downloadFile;
+        
 
         protected UpdateAffiliate(ILogger logger, IDownloadFile localStorage)
         {
@@ -24,10 +25,13 @@ namespace Cloudents.Infrastructure.Write
 
         protected abstract string Service { get; }
 
-        protected virtual HttpClientHandler HttpHandler()
-        {
-            return new HttpClientHandler();
-        }
+        protected abstract HttpClientHandler HttpHandler { get; }
+        
+
+        //protected virtual HttpClientHandler HttpHandler()
+        //{
+        //    return new HttpClientHandler();
+        //}
 
         protected abstract IEnumerable<T> GetT(string location);
         protected abstract Task<TU> ParseTAsync(T obj, CancellationToken token);
@@ -38,13 +42,13 @@ namespace Cloudents.Infrastructure.Write
         {
             if (progressAsync == null) throw new ArgumentNullException(nameof(progressAsync));
             _logger.Info($"{Service} starting to work");
-
-            var locationToSave = await _downloadFile.DownloadFileAsync(Url, FileLocation, index == 0, token).ConfigureAwait(false);
-
             var list = new List<Task<TU>>();
-            var i = 0;
             try
             {
+                var locationToSave = await _downloadFile.DownloadFileAsync(Url, FileLocation, index == 0, HttpHandler, token).ConfigureAwait(false);
+
+                var i = 0;
+
                 foreach (var job in GetT(locationToSave))
                 {
                     i++;
@@ -75,9 +79,9 @@ namespace Cloudents.Infrastructure.Write
             }
             catch (Exception ex)
             {
-                _logger.Exception(ex,new Dictionary<string, string>()
+                _logger.Exception(ex, new Dictionary<string, string>()
                 {
-                    ["Service"] =  Service 
+                    ["Service"] = Service
                 });
                 throw;
             }

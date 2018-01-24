@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
@@ -15,7 +16,7 @@ using Cloudents.Infrastructure.Write.Job.Entities;
 
 namespace Cloudents.Infrastructure.Write.Job
 {
-    public class JobCareerBuilder : UpdateAffiliate<CareerBuilderJobs, Core.Entities.Search.Job>
+    public class JobCareerBuilder : UpdateAffiliate<CareerBuilderJobs, Core.Entities.Search.Job>, IDisposable
     {
         private readonly JobSearchWrite _jobSearchService;
         private readonly IGooglePlacesSearch _zipToLocation;
@@ -23,6 +24,7 @@ namespace Cloudents.Infrastructure.Write.Job
         {
             _jobSearchService = jobSearchService;
             _zipToLocation = zipToLocation;
+            HttpHandler = new HttpClientHandler();
         }
 
         protected override string FileLocation => "CareerBuilderJobs.xml";
@@ -31,6 +33,8 @@ namespace Cloudents.Infrastructure.Write.Job
             new Uri("https://clickcastfeeds.s3.amazonaws.com/2221af50160b28c835156240c9f8d21f/feed.xml");
 
         protected override string Service => "CareerBuilder jobs";
+        protected override HttpClientHandler HttpHandler { get; }
+
         protected override IEnumerable<CareerBuilderJobs> GetT(string location)
         {
             var serializer = new XmlSerializer(typeof(CareerBuilderJobs));
@@ -118,6 +122,11 @@ namespace Cloudents.Infrastructure.Write.Job
                     return JobFilter.Temporary;
             }
             return JobFilter.None; //jobType?.Replace("-", " ").ToLowerInvariant();
+        }
+
+        public void Dispose()
+        {
+            HttpHandler?.Dispose();
         }
     }
 }

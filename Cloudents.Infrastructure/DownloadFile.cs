@@ -39,7 +39,7 @@ namespace Cloudents.Infrastructure
                 }
             }
 
-            var result = await _client.DownloadStreamAsync(url, handler, token);
+            var result = await _client.DownloadStreamAsync(url, handler, token).ConfigureAwait(false);
 
             try
             {
@@ -63,7 +63,6 @@ namespace Cloudents.Infrastructure
             {
                 return await DownloadFileAsync(url, fileName, @override, defaultClientHeader, token).ConfigureAwait(false);
             }
-
         }
     }
 }

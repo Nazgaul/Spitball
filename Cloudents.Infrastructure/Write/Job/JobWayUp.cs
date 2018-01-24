@@ -15,7 +15,7 @@ using Cloudents.Infrastructure.Write.Job.Entities;
 
 namespace Cloudents.Infrastructure.Write.Job
 {
-    public class JobWayUp : UpdateAffiliate<WayUpJob, Core.Entities.Search.Job>
+    public class JobWayUp : UpdateAffiliate<WayUpJob, Core.Entities.Search.Job>, IDisposable
     {
         private readonly JobSearchWrite _jobSearchService;
         private readonly IGooglePlacesSearch _zipToLocation;
@@ -28,6 +28,10 @@ namespace Cloudents.Infrastructure.Write.Job
             _jobSearchService = jobSearchService;
             _zipToLocation = zipToLocation;
             _keyGenerator = keyGenerator;
+            HttpHandler = new HttpClientHandler()
+            {
+                Credentials = new NetworkCredential("cqSCcVaGdfHVTefIBGCTdLqmYPeboa", "LAGhyQrQdfLumRjMrXVVVISAnrbTZn")
+            };
         }
 
         protected override Task DeleteOldItemsAsync(CancellationToken token)
@@ -35,17 +39,18 @@ namespace Cloudents.Infrastructure.Write.Job
             return _jobSearchService.DeleteOldJobsAsync(Source, token);
         }
 
-        protected override HttpClientHandler HttpHandler()
-        {
-            return new HttpClientHandler
-            {
-                Credentials = new NetworkCredential("cqSCcVaGdfHVTefIBGCTdLqmYPeboa", "LAGhyQrQdfLumRjMrXVVVISAnrbTZn")
-            };
-        }
+        //protected override HttpClientHandler HttpHandler()
+        //{
+        //    return new HttpClientHandler
+        //    {
+        //        Credentials = new NetworkCredential("cqSCcVaGdfHVTefIBGCTdLqmYPeboa", "LAGhyQrQdfLumRjMrXVVVISAnrbTZn")
+        //    };
+        //}
 
         protected override string FileLocation => "wayUpJobs.xml";
         protected override Uri Url => new Uri("https://www.wayup.com/integrations/clickcast-feed/");
         protected override string Service => "WayUp jobs";
+        protected override HttpClientHandler HttpHandler { get; }
 
         protected override IEnumerable<WayUpJob> GetT(string location)
         {
@@ -142,6 +147,11 @@ namespace Cloudents.Infrastructure.Write.Job
             }
 
             return JobFilter.None;// jobType?.Replace("_", " ").ToLowerInvariant();
+        }
+
+        public void Dispose()
+        {
+            HttpHandler?.Dispose();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
@@ -25,6 +26,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             catch (OperationCanceledException)
             {
                 return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+                //_logger.Exception(ex, new Dictionary<string, string> { ["process"] = "AffiliateBuilder" });
             }
 
             return true;
