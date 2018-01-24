@@ -1,7 +1,10 @@
 ﻿import { sortAndFilterMixin } from '../results/mixins'
 import ResultBook from './bookCell.vue';
 import TabsSort from "./bookDetailsSort"
+import {details} from "../../data";
 const all = "all";
+const filterOptions= [{ title: "Book Type", modelId: "filter", data: details.bookDetails.filter }];
+
 export default {
     mixins: [sortAndFilterMixin, TabsSort],
     created() {
@@ -16,11 +19,13 @@ export default {
         return {
             pageData: '',
             sortVal: "buy",
-            showFilters: false
+            showFilters: false,
+            filterOptions
         };
     },
     components: { ResultBook },
     computed: {
+        sort:()=>'price',
         filteredList: function () {
             return !this.pageData.data ? [] : this.filter === all ? this.pageData.data.sort((a, b) => a.price - b.price) : this.pageData.data.filter(item => [].concat(this.filter).includes(item.condition));
         }
@@ -52,6 +57,5 @@ export default {
             if(filters&&filters.filter&&filters.filter.length){this.filter=filters.filter}
             else{this.filter=all}
         }
-    },
-    props: { filterOptions: { type: Array } }
+    }
 }

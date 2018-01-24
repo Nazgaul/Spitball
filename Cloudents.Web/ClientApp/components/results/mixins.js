@@ -11,29 +11,36 @@ const SortAndFilter = () => import('./SortAndFilter.vue');
 const MobileSortAndFilter = () => import('./MobileSortAndFilter.vue');
 import plusBtn from "../settings/svg/plus-button.svg";
 import emptyState from "./svg/no-match-icon.svg";
+import {page, verticalsName} from '../../data'
 import { typesPersonalize } from "../settings/consts.js";
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 export const sortAndFilterMixin = {
-
     data() {
         return {
             filter: ''
         };
     },
-
     components: { SortAndFilter, plusBtn, MobileSortAndFilter },
 
     props: {
         name: { type: String },
         query: { type: Object },
-        filterSelection: { type: [String, Array] },
-        $_calcTerm: { type: Function },
-        sort: { type: String },
-        page: { type: Object },
         params: { type: Object }
     },
     computed: {
-        ...mapGetters(['loading'])
+        ...mapGetters(['loading']),
+        page(){return page[this.name]},
+        sort(){return this.query.sort},
+        filterSelection(){
+            let filterOptions = [];
+            let filtersList=['jobType','source','course','filter'];
+            Object.entries(this.query).forEach(([key, val])=>{
+                if(val&&filtersList.includes(key)) {
+                    filterOptions = filterOptions.concat(val);
+                }
+            });
+            return filterOptions;
+        }
     },
     methods: {
         ...mapMutations(['UPDATE_LOADING'])
@@ -49,19 +56,18 @@ let promotions={note:{title:"Study Documents",content:"Spitball curates study do
 };
 //update data function update the page content and selected filters
 let updateData = function (data, isFilterUpdate = false) {
-    const { source, jobType } = data;
-
+    const { facet } = data;
+    facet?this.updateFacet(facet):'';
     this.pageData = {};
     this.content = data;
     (data.data.length && this.hasExtra) ? this.selectedItem = data.data[0].placeId : '';
     this.filter = this.filterSelection;
     this.UPDATE_LOADING(false);
 
-    //if the vertical or search term has been changed update the optional filters according
-    if (!isFilterUpdate) {
-        this.$_updateFilterObject();
-        if (source || jobType) this.$route.meta[`${this.name}Facet`] = source ? source : jobType;
-    }
+        //if the vertical or search term has been changed update the optional filters according
+        if (!isFilterUpdate) {
+            this.$_updateFilterObject();
+        }
 };
 //The vue functionality for result page
 export const pageMixin =
@@ -71,41 +77,38 @@ export const pageMixin =
         //when go back to home clear the saved term and classes
         beforeRouteLeave(to, from, next) {
             if (to.name && to.name === 'home') {
-                this.$route.meta.jobTerm = null;
-                this.$route.meta.foodTerm = null;
-                this.$route.meta.term = null;
-                this.$route.meta.myClasses = [];
-                this.$nextTick(() => {
-                    next();
-                });
-            } else {
-                next();
+                this.cleanData();
             }
+                next();
+
         },
 
         //When route has been updated(query,filter,vertical)
         beforeRouteUpdate(to, from, next) {
             this.UPDATE_LOADING(true);
             const toName = to.path.slice(1);
-            const savedTerm = to.meta[this.$_calcTerm(toName)];
             this.pageData = {};
             this.items = [];
             //if the term for the page is as the page saved term use it else call to luis and update the saved term
             new Promise((resolve, reject) => {
-                if (!to.query.q || !to.query.q.length) { resolve({ luisTerm: "" }) }
-                else if (!savedTerm || (savedTerm.term !== to.query.q)) {
-                    console.log("1")
-                    this.updateSearchText(to.query.q).then(({ term, docType }) => {
-                        this.$route.meta[this.$_calcTerm(toName)] = { term: to.query.q, luisTerm: term, docType };
-                        resolve({ luisTerm: to.meta[this.$_calcTerm(toName)].luisTerm, docType });
-                    })
-                } else {
-                    resolve({ luisTerm: savedTerm.luisTerm, docType: savedTerm.docType });
+                if (!to.query.q || !to.query.q.length) {
+                    //update vertical data
+                    this.updateSearchText({vertical:toName});
+                    resolve();
+                }else {
+                    this.getAIDataForVertical(toName).then(({text=""}) => {
+                        if (!text || (text !== to.query.q)) {
+                            this.updateSearchText({text: to.query.q, vertical: toName}).then(() => {
+                                resolve();
+                            })
+                        }else{resolve()}
+                    });
                 }
-            }).then(({ luisTerm, docType }) => {
+
+            }).then(() => {
                 //After luis return term and optional docType fetch the data
                 const updateFilter = (to.path === from.path && to.query.q === from.query.q);
-                this.fetchingData({ name: toName, params: { ...to.query, ...to.params }, luisTerm, docType })
+                this.fetchingData({ name: toName, params: { ...to.query, ...to.params }})
                     .then(({ data }) => {
                         //update data for this page
                         updateData.call(this, data, updateFilter);
@@ -130,12 +133,9 @@ export const pageMixin =
         },
         computed: {
             //get data from vuex getters
-            ...mapGetters(['term', 'isFirst', 'myCourses', 'luisTerm',]),
+            ...mapGetters(['term', 'isFirst', 'myCourses','getFacet']),
             ...mapGetters({ universityImage: 'getUniversityImage', university: 'getUniversity' }),
             currentPromotion(){return promotions[this.name]},
-            //isMobile() {
-            //    return this.$vuetify.breakpoint.xsOnly;
-            //},
             content: {
                 get() {
                     return this.pageData;
@@ -175,7 +175,9 @@ export const pageMixin =
             isEmpty: function () { return this.pageData.data ? !this.pageData.data.length : true },
             subFilterVertical() {
                 return this.name.includes('note') || this.name === 'flashcard' || this.name === 'job'||this.name.includes('ask');
-            }
+            },
+            currentSuggest(){return verticalsName.filter(i => i !== this.name)[(Math.floor(Math.random() * (verticalsName.length - 2)))]},
+            userText(){return this.query.q}
         },
 
         data() {
@@ -192,23 +194,11 @@ export const pageMixin =
 
         components: { emptyState, foodExtra, ResultItem, SuggestCard, studyblueCard, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood },
 
-        //If change term on book details page stay in book vertical(don't update vertical) according vertical flag
-        beforeRouteEnter(to, from, next) {
-            new Promise(resolve => {
-                if (from.name && from.name === "bookDetails") {
-                    to.meta.vertical = true;
-                    resolve();
-                } else {
-                    resolve();
-                }
-            }).then(() => next());
-
-        },
         created() {
             if (!this.isFirst) { this.showPersonalizeField = true }
             this.$root.$on("closePersonalize", () => { this.showPersonalizeField = true });
             //If query have courses save those courses
-            if (this.query.course) this.$route.meta.myClasses = this.query.course;
+            if (this.query.course) this.setFileredCourses(this.query.course);
             this.UPDATE_LOADING(true);
             //if the term is empty fetch the data
             if (!this.query.q || !this.query.q.length) {
@@ -217,10 +207,9 @@ export const pageMixin =
                         updateData.call(this, data);
                     }).catch(reason => { this.UPDATE_LOADING(false); });
             } else {
+                let vertical=this.name === "result"?"":this.name;
                 //call luis with the userText
-                this.updateSearchText(this.userText).then(({ term, result, docType }) => {
-                    //save the data in the appropriate meta according the box methodology
-                    this.$route.meta[this.$_calcTerm(result)] = { term: this.userText, luisTerm: term, docType };
+                this.updateSearchText({text:this.userText,vertical}).then(({ term, result}) => {
                     //If should update vertical(not book details) and luis return not identical vertical as current vertical replace to luis vertical page
                     if (this.name === "result") { //from homepage
                         this.UPDATE_LOADING(false);
@@ -231,11 +220,7 @@ export const pageMixin =
                         //fetch data with the params
                         this.fetchingData({
                             name: this.name,
-                            params: { ...this.query, ...this.params }, //TODO: new version of vuex dont need it
-                            luisTerm: term, docType //TODO: new version of vuex dont need it
-
-                            //This is new version
-                            //name: this.name
+                            params: { ...this.query, ...this.params }
 
                         })
                             .then(({ data }) => {
@@ -248,7 +233,7 @@ export const pageMixin =
         },
         methods: {
             //Get functions from vuex actions
-            ...mapActions(['updateSearchText', 'fetchingData']),
+            ...mapActions(['updateSearchText', 'fetchingData','getAIDataForVertical','setFileredCourses','cleanData','updateFacet']),
             //Function for update the filter object(when term or vertical change)
             $_updateFilterObject() {
                 //validate current page have filters
@@ -292,7 +277,7 @@ export const pageMixin =
                 }
                 //If it course l;ist save it for next
                 if (id === 'course') {
-                    this.$route.meta.myClasses = updatedList;
+                    this.setFileredCourses(updatedList);
                 }
                 const newFilter = { [id]: updatedList };
                 let { q, sort, course, source, filter,jobType } = this.query;
@@ -304,11 +289,12 @@ export const pageMixin =
             $_removeFilter(val) {
                 //take all filters options from the query and remove the selected val from the correct option and make query with the updated filters
                 let { source, course, filter, jobType } = this.query;
+                let isCourseFiltered=course;
                 source = source ? [].concat(source).filter(i => i !== val) : source;
                 course = course ? [].concat(course).filter(i => i.toString() !== val.toString()) : course;
                 filter = filter ? [].concat(filter).filter(i => i !== val) : filter;
                 jobType = jobType ? [].concat(jobType).filter(i => i !== val) : jobType;
-                this.$route.meta.myClasses = course;
+                isCourseFiltered?this.setFileredCourses(course):"";
                 this.$router.push({ path: this.name, query: { ...this.query, source, course, filter, jobType } });
             },
             //Open the personalize dialog when click on select course in class filter
@@ -324,12 +310,7 @@ export const pageMixin =
         //Page props come from the route
         props: {
             hasExtra: { type: Boolean },
-            currentTerm: { type: [String, Object] },
-            getFacet: { type: [Array] },
-            currentSuggest: { type: String },
-            vertical: {},
-            userText: { type: String },
-            isPromo:{type:Boolean}
+            isPromo:  {type:Boolean}
         }
 
     };

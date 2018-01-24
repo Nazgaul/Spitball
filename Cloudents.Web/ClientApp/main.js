@@ -113,6 +113,7 @@ Vue.use(VueAnalytics,
             exception: true
         }
     });
+//#region yifat
 Vue.filter('capitalize',
     function (value) {
         if (!value) return '';
@@ -125,6 +126,7 @@ Vue.filter('capitalize',
         return values.join(" ")
         //return value.charAt(0).toUpperCase() + value.slice(1);
     });
+//#endregion
 Vue.filter('ellipsis',
     function (value, characters) {
         value = value || '';
