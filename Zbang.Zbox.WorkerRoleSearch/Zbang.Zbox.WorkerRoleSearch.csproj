@@ -77,7 +77,6 @@
     <Compile Include="IntercomApiManager.cs" />
     <Compile Include="IntercomUsers.cs" />
     <Compile Include="ISchedulerProcess.cs" />
-    <Compile Include="IWatsonExtract.cs" />
     <Compile Include="AffiliateBuilder.cs" />
     <Compile Include="Mail\BaseMarketingMailProcess.cs" />
     <Compile Include="Mail\ChangeEmail.cs" />
@@ -116,7 +115,6 @@
     <Compile Include="UpdateSearchUniversity.cs" />
     <Compile Include="UpdateTutors.cs" />
     <Compile Include="UpdateUnsubscribeList.cs" />
-    <Compile Include="WatsonExtract.cs" />
     <Compile Include="WorkerRole.cs" />
     <Compile Include="WorkerRoleModule.cs" />
     <Compile Include="WyzantTutor.cs" />
@@ -201,9 +199,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AlchemyAPIClient">
-      <Version>1.5.1801.42</Version>
-    </PackageReference>
     <PackageReference Include="Autofac">
       <Version>4.6.1</Version>
     </PackageReference>

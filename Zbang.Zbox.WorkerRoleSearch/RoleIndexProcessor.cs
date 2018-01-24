@@ -7,10 +7,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
     {
         public  static int GetIndex()
         {
-            int currentIndex;
-
-            string instanceId = RoleEnvironment.CurrentRoleInstance.Id;
-            bool withSuccess = int.TryParse(instanceId.Substring(instanceId.LastIndexOf(".", StringComparison.Ordinal) + 1), out currentIndex);
+            var instanceId = RoleEnvironment.CurrentRoleInstance.Id;
+            var withSuccess = int.TryParse(instanceId.Substring(instanceId.LastIndexOf(".", StringComparison.Ordinal) + 1), out var currentIndex);
             if (!withSuccess)
             {
                 int.TryParse(instanceId.Substring(instanceId.LastIndexOf("_", StringComparison.Ordinal) + 1), out currentIndex);

@@ -10,12 +10,12 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 {
     public class ReplyToComment : IMail2
     {
-        private readonly IMailComponent m_MailComponent;
+        private readonly IMailComponent _mailComponent;
         private readonly ILogger _logger;
 
         public ReplyToComment(IMailComponent mailComponent, ILogger logger)
         {
-            m_MailComponent = mailComponent;
+            _mailComponent = mailComponent;
             _logger = logger;
         }
 
@@ -23,11 +23,11 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
         {
             if (!(data is ReplyToCommentData parameters))
             {
-                throw new NullReferenceException("parameters");
+                throw new NullReferenceException(nameof(parameters));
             }
             try
             {
-                await m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
+                await _mailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
                     new ReplyToCommentMailParams(new CultureInfo(parameters.Culture), parameters.UserName,
                         parameters.UserWhoMadeAction, parameters.BoxOrItemName, parameters.BoxOrItemUrl), token).ConfigureAwait(false);
             }

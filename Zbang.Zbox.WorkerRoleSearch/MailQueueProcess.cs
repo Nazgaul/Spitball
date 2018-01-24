@@ -14,13 +14,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class MailQueueProcess : IJob
     {
-        private readonly IQueueProviderExtract m_QueueProviderExtract;
-        private readonly ILifetimeScope m_ComponentContent;
+        private readonly IQueueProviderExtract _queueProviderExtract;
+        private readonly ILifetimeScope _componentContent;
         private readonly ILogger _logger;
         public MailQueueProcess(IQueueProviderExtract queueProviderExtract, ILifetimeScope componentContent, ILogger logger)
         {
-            m_QueueProviderExtract = queueProviderExtract;
-            m_ComponentContent = componentContent;
+            _queueProviderExtract = queueProviderExtract;
+            _componentContent = componentContent;
             _logger = logger;
         }
 
@@ -32,16 +32,15 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 try
                 {
                     var queueName = new MailQueueName();
-                    var result = await m_QueueProviderExtract.RunQueueAsync(queueName, async msg =>
+                    var result = await _queueProviderExtract.RunQueueAsync(queueName, async msg =>
                     {
-                        _logger.Info($"{Name} is doing process");
                         var msgData = msg.FromMessageProto<BaseMailData>();
                         if (msgData == null)
                         {
                             _logger.Error($"{Name} run - msg cannot transfer to DomainProcess");
                             return true;
                         }
-                        var process = m_ComponentContent.ResolveOptionalNamed<IMail2>(msgData.MailResolver);
+                        var process = _componentContent.ResolveOptionalNamed<IMail2>(msgData.MailResolver);
                         if (process == null)
                         {
                             _logger.Error($"{Name} run - process is null msgData.ProcessResolver:" + msgData.MailResolver);

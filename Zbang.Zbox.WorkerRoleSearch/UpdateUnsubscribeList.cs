@@ -135,7 +135,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var page = 1;
             while (true)
             {
-                var result = await m_IntercomManager.GetUnsubscribersAsync(page++, token).ConfigureAwait(false);
+                var result = await m_IntercomManager.GetUnsubscribesAsync(page++, token).ConfigureAwait(false);
                 if (result == null)
                 {
                     break;

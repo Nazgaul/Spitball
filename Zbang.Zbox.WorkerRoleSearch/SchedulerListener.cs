@@ -21,7 +21,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
     {
         private readonly IQueueProviderExtract _queueProviderExtract;
         private readonly IIndex<string, ISchedulerProcess> _scope;
-        //private readonly ILifetimeScope m_LifetimeScope;
         private readonly XmlSerializer _dcs = new XmlSerializer(typeof(StorageQueueMessage));
         private readonly SemaphoreSlim _criticalCode = new SemaphoreSlim(1);
         private readonly ILogger _logger;

@@ -59,7 +59,6 @@
     <Compile Include="GooglePushMessage.cs" />
     <Compile Include="IPushMessage.cs" />
     <Compile Include="PushAction.cs" />
-    <Compile Include="QueueProvider.cs" />
     <Compile Include="SendPush.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

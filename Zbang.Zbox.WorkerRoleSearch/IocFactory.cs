@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using Autofac;
+﻿using Autofac;
 using Cloudents.Infrastructure;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.CommandHandlers;

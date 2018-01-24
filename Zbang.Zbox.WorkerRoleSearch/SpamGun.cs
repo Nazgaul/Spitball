@@ -9,7 +9,6 @@ using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Storage;
 using Cloudents.Core.Interfaces;
 using Zbang.Zbox.ReadServices;
-using Zbang.Zbox.WorkerRoleSearch.Mail;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {

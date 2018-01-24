@@ -61,7 +61,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             builder.RegisterType<SpamGun>().Keyed<ISchedulerProcess>("spamGun");
 
             builder.RegisterType<IntercomApiManager>().As<IIntercomApiManager>();
-            builder.RegisterType<WatsonExtract>().As<IWatsonExtract>();
 
             builder.RegisterType<Welcome>().Named<IMail2>(BaseMailData.WelcomeResolver);
             builder.RegisterType<Invite2>().Named<IMail2>(BaseMailData.InviteResolver);

@@ -52,11 +52,13 @@ namespace Cloudents.Infrastructure.Write
                     {
                         continue;
                     }
+
                     var obj = ParseTAsync(job, token);
                     list.Add(obj);
                     if (list.Count < 100) continue;
                     await Task.WhenAll(list).ConfigureAwait(false);
-                    var t1 = UpdateSearchAsync(list.Select(s => s.Result), token); // m_JobSearchService.UpdateDataAsync(list, token);
+                    var t1 = UpdateSearchAsync(list.Select(s => s.Result),
+                        token); // m_JobSearchService.UpdateDataAsync(list, token);
 
                     var t2 = progressAsync.Invoke(i);
                     _logger.Info($"{Service} finish processing " + i);
@@ -66,9 +68,18 @@ namespace Cloudents.Infrastructure.Write
                     list.Clear();
                 }
             }
+            catch (OperationCanceledException)
+            {
+                _logger.Info($"{Service} Task was Canceled");
+                throw;
+            }
             catch (Exception ex)
             {
-                _logger.Exception(ex);
+                _logger.Exception(ex,new Dictionary<string, string>()
+                {
+                    ["Service"] =  Service 
+                });
+                throw;
             }
             if (list.Count > 0)
             {

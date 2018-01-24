@@ -2,18 +2,16 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Cloudents.Core.Interfaces;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class IntercomApiManager : IIntercomApiManager
     {
-        public async Task<IEnumerable<IntercomUsers>> GetUnsubscribersAsync(int page, CancellationToken token)
+        public async Task<IEnumerable<IntercomUsers>> GetUnsubscribesAsync(int page, CancellationToken token)
         {
             if (page < 1)
             {
@@ -23,16 +21,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 AddHeaders(client);
                 using (
-                    var response = await client.GetAsync($"https://api.intercom.io/users?segment_id=573177a948717f93ab00017a&page={page}", token))
+                    var response = await client.GetAsync($"https://api.intercom.io/users?segment_id=573177a948717f93ab00017a&page={page}", token).ConfigureAwait(false))
                 {
                     if (!response.IsSuccessStatusCode) return null;
-                    using (var s = await response.Content.ReadAsStreamAsync())
+                    using (var s = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
                     {
                         using (var sr = new StreamReader(s))
                         {
                             using (var reader = new JsonTextReader(sr))
                             {
-                                var obj = JObject.Load(reader);
+                                var obj = await JObject.LoadAsync(reader, token).ConfigureAwait(false);
                                 var users = obj["users"];
                                 return users.ToObject<IEnumerable<IntercomUsers>>();
                             }
@@ -41,24 +39,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
             }
         }
-
-        //public async Task UpdateUserRefAsync(long userId, string email, string reference, CancellationToken token)
-        //{
-        //    using (var client = new HttpClient())
-        //    {
-        //        AddHeaders(client);
-        //        var jsonString = JsonConvert.SerializeObject(new { user_id = userId, email, custom_attributes = new { reference } });
-        //        using (var content = new StringContent(jsonString,Encoding.UTF8,"application/json"))
-        //        {
-        //            var response = await client.PostAsync("https://api.intercom.io/users", content, token);
-        //            if (!response.IsSuccessStatusCode)
-        //            {
-        //                var text = await response.Content.ReadAsStringAsync();
-        //                TraceLog.WriteError($"on update ref user intercom {text}");
-        //            }
-        //        }
-        //    }
-        //}
 
         private static void AddHeaders(HttpClient client)
         {
@@ -73,7 +53,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
     public interface IIntercomApiManager
     {
-        Task<IEnumerable<IntercomUsers>> GetUnsubscribersAsync(int page, CancellationToken token);
-        //Task UpdateUserRefAsync(long userId, string email, string reference, CancellationToken token);
+        Task<IEnumerable<IntercomUsers>> GetUnsubscribesAsync(int page, CancellationToken token);
     }
 }

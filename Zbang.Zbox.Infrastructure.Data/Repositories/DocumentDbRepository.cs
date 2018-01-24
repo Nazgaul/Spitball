@@ -44,22 +44,22 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
             throw new ArgumentException("no collection Id");
         }
 
-        public async Task<IEnumerable<T>> GetItemsAsync(Expression<Func<T, bool>> predicate)
-        {
-            var query = DocumentDbUnitOfWork.Client.CreateDocumentQuery<T>(
-                DocumentDbUnitOfWork.BuildCollectionUri(GetCollectionId()),
-                new FeedOptions { MaxItemCount = -1 })
-                .Where(predicate)
-                .AsDocumentQuery();
+        //public async Task<IEnumerable<T>> GetItemsAsync(Expression<Func<T, bool>> predicate)
+        //{
+        //    var query = DocumentDbUnitOfWork.Client.CreateDocumentQuery<T>(
+        //        DocumentDbUnitOfWork.BuildCollectionUri(GetCollectionId()),
+        //        new FeedOptions { MaxItemCount = -1 })
+        //        .Where(predicate)
+        //        .AsDocumentQuery();
 
-            var results = new List<T>();
-            while (query.HasMoreResults)
-            {
-                results.AddRange(await query.ExecuteNextAsync<T>().ConfigureAwait(false));
-            }
+        //    var results = new List<T>();
+        //    while (query.HasMoreResults)
+        //    {
+        //        results.AddRange(await query.ExecuteNextAsync<T>().ConfigureAwait(false));
+        //    }
 
-            return results;
-        }
+        //    return results;
+        //}
 
         public Task CreateItemAsync(T item)
         {
@@ -73,26 +73,12 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
                 DocumentDbUnitOfWork.BuildDocumentUri(GetCollectionId(), id), item);
         }
 
-        public Task DeleteItemAsync(string id)
-        {
-            return DocumentDbUnitOfWork.Client.DeleteDocumentAsync(
-                DocumentDbUnitOfWork.BuildDocumentUri(GetCollectionId(), id));
-            //UriFactory.CreateDocumentUri(DatabaseId, CollectionId, id));
-        }
-
-        //public async Task<IEnumerable<T>> GetItemsAsync(Expression<Func<T, bool>> predicate)
+        //public Task DeleteItemAsync(string id)
         //{
-        //    IDocumentQuery<T> query = DocumentDbUnitOfWork.Client.CreateDocumentQuery<T>(
-        //        DocumentDbUnitOfWork.BuildCollectionUri(typeof(T).Name))
-        //        .Where(predicate)
-        //        .AsDocumentQuery();
-        //    List<T> results = new List<T>();
-        //    while (query.HasMoreResults)
-        //    {
-        //        results.AddRange(await query.ExecuteNextAsync<T>());
-        //    }
-        //    return results;
+        //    return DocumentDbUnitOfWork.Client.DeleteDocumentAsync(
+        //        DocumentDbUnitOfWork.BuildDocumentUri(GetCollectionId(), id));
         //}
+
 
         public async Task<IEnumerable<T>> GetItemsAsync(string sql)
         {
@@ -107,43 +93,6 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
             //
             return results;
         }
-
-        //public Task CreateItemAsync(T item)
-        //{
-        //    return DocumentDbUnitOfWork.Client.CreateDocumentAsync(
-        //        DocumentDbUnitOfWork.BuildCollectionUri(typeof(T).Name)
-        //        //UriFactory.CreateDocumentCollectionUri(DatabaseId, nameof(T))
-        //        , item);
-        //}
-
-        //public Task UpdateItemAsync(string id, T item)
-        //{
-        //    return DocumentDbUnitOfWork.Client.ReplaceDocumentAsync(
-        //        DocumentDbUnitOfWork.BuildDocumentUri(typeof(T).Name, id),
-        //        //UriFactory.CreateDocumentUri(DatabaseId, nameof(T), id),
-        //        item);
-        //}
-
-        //public async Task<T> GetItemAsync(string id)
-        //{
-        //    try
-        //    {
-        //        Document document = await DocumentDbUnitOfWork.Client.ReadDocumentAsync(
-        //            DocumentDbUnitOfWork.BuildDocumentUri(typeof(T).Name, id));
-        //        return (T)(dynamic)document;
-        //    }
-        //    catch (DocumentClientException e)
-        //    {
-        //        if (e.StatusCode == HttpStatusCode.NotFound)
-        //        {
-        //            return null;
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-        //}
     }
 
     public static class DocumentDbUnitOfWork

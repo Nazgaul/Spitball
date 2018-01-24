@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Search;
@@ -24,13 +23,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public class UpdateSearchItem : UpdateSearch, IJob, IFileProcess
     {
         private readonly IZboxReadServiceWorkerRole _zboxReadService;
-        private readonly IZboxWorkerRoleService m_ZboxWriteService;
-        private readonly IFileProcessorFactory m_FileProcessorFactory;
-        private readonly IItemWriteSearchProvider m_ItemSearchProvider3;
-        private readonly IBlobProvider2<FilesContainerName> m_BlobProvider;
-        private readonly IZboxWriteService _writeService;
-        private readonly IWatsonExtract _watsonExtractProvider;
-        private readonly IContentWriteSearchProvider m_ContentSearchProvider;
+        private readonly IZboxWorkerRoleService _zboxWriteService;
+        private readonly IFileProcessorFactory _fileProcessorFactory;
+        private readonly IItemWriteSearchProvider _itemSearchProvider3;
+        private readonly IBlobProvider2<FilesContainerName> _blobProvider;
+        private readonly IContentWriteSearchProvider _contentSearchProvider;
         private readonly ILogger _logger;
 
         public UpdateSearchItem(IZboxReadServiceWorkerRole zboxReadService,
@@ -38,18 +35,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
             IFileProcessorFactory fileProcessorFactory,
             IBlobProvider2<FilesContainerName> blobProvider,
             IItemWriteSearchProvider itemSearchProvider3,
-            IZboxWriteService writeService,
-            IWatsonExtract watsonExtractProvider,
             IContentWriteSearchProvider contentSearchProvider, ILogger logger)
         {
             _zboxReadService = zboxReadService;
-            m_ZboxWriteService = zboxWriteService;
-            m_FileProcessorFactory = fileProcessorFactory;
-            m_BlobProvider = blobProvider;
-            m_ItemSearchProvider3 = itemSearchProvider3;
-            _writeService = writeService;
-            _watsonExtractProvider = watsonExtractProvider;
-            m_ContentSearchProvider = contentSearchProvider;
+            _zboxWriteService = zboxWriteService;
+            _fileProcessorFactory = fileProcessorFactory;
+            _blobProvider = blobProvider;
+            _itemSearchProvider3 = itemSearchProvider3;
+            _contentSearchProvider = contentSearchProvider;
             _logger = logger;
         }
 
@@ -92,10 +85,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 tasks.Add(ProcessDocumentAsync(cancellationToken, elem));
             }
 
-            tasks.Add(m_ItemSearchProvider3.UpdateDataAsync(null, updates.ItemsToDelete.Select(s => s.Id), cancellationToken));
-            tasks.Add(m_ContentSearchProvider.UpdateDataAsync(null, updates.ItemsToDelete, cancellationToken));
+            tasks.Add(_itemSearchProvider3.UpdateDataAsync(null, updates.ItemsToDelete.Select(s => s.Id), cancellationToken));
+            tasks.Add(_contentSearchProvider.UpdateDataAsync(null, updates.ItemsToDelete, cancellationToken));
             await Task.WhenAll(tasks).ConfigureAwait(true);
-            await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
+            await _zboxWriteService.UpdateSearchItemDirtyToRegularAsync(
                 new UpdateDirtyToRegularCommand(
                     updates.ItemsToDelete.Select(s => s.Id).Union(updates.ItemsToUpdate.Select(s => s.Id)))).ConfigureAwait(false);
 
@@ -117,55 +110,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 elem.DocumentContent = null;
             }
-            var t1 = Task.CompletedTask;
-            if (elem.University != null && JaredUniversityIdPilot.Contains(elem.University.Id))
-            {
-                t1 = JaredPilotAsync(elem, cancellationToken);
-            }
-
-            var t2 = UploadToAzureSearchAsync(elem, cancellationToken);
-            return Task.WhenAll(t1, t2);
-        }
-
-        private void ExtractText(DocumentSearchDto elem, CancellationToken token)
-        {
-            if (string.IsNullOrEmpty(elem.Content))
-            {
-                elem.DocumentContent = ExtractContentToUploadToSearch(elem, token);
-            }
-        }
-
-        private async Task JaredPilotAsync(DocumentSearchDto elem, CancellationToken token)
-        {
-            if (elem.Type == ItemType.Document)
-            {
-                if (elem.Language.GetValueOrDefault(Language.Undefined) == Language.Undefined)
-                {
-                    ExtractText(elem, token);
-                    var result = await _watsonExtractProvider.GetLanguageAsync(elem.Content, token).ConfigureAwait(false);
-                    elem.Language = result;
-                    if (result != Language.Undefined)
-                    {
-                        var commandLang = new AddLanguageToDocumentCommand(elem.Id, result);
-                        _writeService.AddItemLanguage(commandLang);
-                    }
-                }
-
-                if (elem.Language == Language.EnglishUs && elem.Tags.All(a => a.Type != TagType.Watson))
-                {
-                    ExtractText(elem, token);
-                    var result = await _watsonExtractProvider.GetConceptAsync(elem.Content, token).ConfigureAwait(false);
-                    if (result != null)
-                    {
-                        var resultList = result.ToList();
-                        elem.Tags.AddRange(resultList.Select(s => new ItemSearchTag { Name = s }));
-                        var z = new AssignTagsToDocumentCommand(elem.Id, resultList, TagType.Watson);
-                        await _writeService.AddItemTagAsync(z).ConfigureAwait(false);
-                    }
-                }
-
-                await m_ContentSearchProvider.UpdateDataAsync(elem, null, token).ConfigureAwait(false);
-            }
+            return UploadToAzureSearchAsync(elem, cancellationToken);
         }
 
         private async Task UploadToAzureSearchAsync(DocumentSearchDto elem, CancellationToken token)
@@ -174,7 +119,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 try
                 {
-                    await m_ItemSearchProvider3.UpdateDataAsync(elem, null, token).ConfigureAwait(false);
+                    await _itemSearchProvider3.UpdateDataAsync(elem, null, token).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
@@ -188,10 +133,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Uri uri;
             if (msgData.Type == ItemType.Document)
             {
-                uri = m_BlobProvider.GetBlobUrl(msgData.BlobName);
+                uri = _blobProvider.GetBlobUrl(msgData.BlobName);
                 return new Processor
                 {
-                    ContentProcessor = m_FileProcessorFactory.GetProcessor(uri),
+                    ContentProcessor = _fileProcessorFactory.GetProcessor(uri),
                     Uri = uri
                 };
             }
@@ -199,7 +144,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 return new Processor
                 {
-                    ContentProcessor = m_FileProcessorFactory.GetProcessor(uri),
+                    ContentProcessor = _fileProcessorFactory.GetProcessor(uri),
                     Uri = uri
                 };
             }
@@ -254,8 +199,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         if (msgData.Type == ItemType.Document)
                         {
                             var command = new UpdateThumbnailCommand(msgData.Id, retVal?.BlobName,
-                                msgData.Content, await m_BlobProvider.MD5Async(msgData.BlobName).ConfigureAwait(false));
-                            m_ZboxWriteService.UpdateThumbnailPicture(command);
+                                msgData.Content, await _blobProvider.MD5Async(msgData.BlobName).ConfigureAwait(false));
+                            _zboxWriteService.UpdateThumbnailPicture(command);
                         }
                         // ReSharper disable once AccessToDisposedClosure
                         wait.Set();
@@ -283,7 +228,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             wait.Close();
         }
 
-        private readonly TimeSpan m_TimeToWait = TimeSpan.FromMinutes(double.Parse(ConfigFetcher.Fetch("TimeToExtractText")));
+        private readonly TimeSpan _timeToWait = TimeSpan.FromMinutes(double.Parse(ConfigFetcher.Fetch("TimeToExtractText")));
         private string ExtractContentToUploadToSearch(DocumentSearchDto elem, CancellationToken token)
         {
             if (elem.Type != ItemType.Document)
@@ -300,11 +245,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 var wait = new ManualResetEvent(false);
 
-                var uri = m_BlobProvider.GetBlobUrl(elem.BlobName);
-                var processor = m_FileProcessorFactory.GetProcessor(uri);
+                var uri = _blobProvider.GetBlobUrl(elem.BlobName);
+                var processor = _fileProcessorFactory.GetProcessor(uri);
                 if (processor == null) return null;
                 string str = null;
-                using (var cancellationTokenSource = new CancellationTokenSource(m_TimeToWait))
+                using (var cancellationTokenSource = new CancellationTokenSource(_timeToWait))
                 {
                     var tokenSource =
 CancellationTokenSource.CreateLinkedTokenSource(cancellationTokenSource.Token,
@@ -343,7 +288,7 @@ token);
                             }
                         });
                     work.Start();
-                    var signal = wait.WaitOne(m_TimeToWait);
+                    var signal = wait.WaitOne(_timeToWait);
                     if (!signal)
                     {
                         work.Abort();
@@ -374,7 +319,7 @@ token);
                     return true;
                 }
                 await ProcessDocumentAsync(token, elem).ConfigureAwait(false);
-                await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
+                await _zboxWriteService.UpdateSearchItemDirtyToRegularAsync(
                     new UpdateDirtyToRegularCommand(new[] { parameters.ItemId })).ConfigureAwait(false);
 
                 return true;

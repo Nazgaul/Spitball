@@ -6,22 +6,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public abstract class UpdateSearch
     {
-        public  readonly long[] JaredUniversityIdPilot = {
-            164901L,
-            166100L,
-            167920L,
-            168860L,
-            171885L,
-            171985L,
-            172566L,
-            173365L,
-            173408L,
-            173437L,
-            173499L,
-            173806L,
-            173845L,
-            173945L
-        };
         protected Task SleepAsync(CancellationToken cancellationToken)
         {
             return Task.Delay(TimeSpan.FromSeconds(Interval), cancellationToken);
