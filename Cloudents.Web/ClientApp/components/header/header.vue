@@ -19,6 +19,5 @@
         </main-header>
 </template>
 <script src="./header.js"></script>
-<style src="./header.less" lang="less"></style>
 
 

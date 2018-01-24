@@ -1,5 +1,5 @@
 <template>
-    <v-flex class="line">
+    <v-flex class="line verticals">
         <v-layout row>
             <div class="gap ma-0" v-if="$vuetify.breakpoint.mdAndUp"></div>
             <v-tabs class="verticals-bar" :value="currentSelection" :scrollable="false">
@@ -40,6 +40,4 @@
     }
 </script>
 
-<style scoped>
-
-</style>
+<style src="./verticalTabs.less" lang="less"></style>
