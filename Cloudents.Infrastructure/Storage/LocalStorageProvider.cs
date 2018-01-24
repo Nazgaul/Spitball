@@ -19,6 +19,7 @@ namespace Cloudents.Infrastructure.Storage
         {
             _logger = logger;
             LocalStorageLocation = meta.Path;
+            Directory.CreateDirectory(meta.Path);
             _localResourceSize = meta.Size * 1024 * 1024;
         }
 

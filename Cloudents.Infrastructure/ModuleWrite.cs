@@ -27,9 +27,9 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterGeneric(typeof(SearchServiceWrite<>));
             builder.RegisterType<JobSearchWrite>().AsSelf().As<ISearchServiceWrite<Job>>().As<IStartable>().SingleInstance().AutoActivate();
-
+            builder.RegisterType<DownloadFile>().As<IDownloadFile>();
             builder.Register(c =>
-                new TempStorageProvider(c.Resolve<ILogger>(), _localStorageData));
+                new TempStorageProvider(c.Resolve<ILogger>(), _localStorageData)).As<ITempStorageProvider>();
         }
     }
 }

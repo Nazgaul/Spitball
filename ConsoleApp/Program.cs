@@ -32,12 +32,18 @@ namespace ConsoleApp
 
             //  builder.RegisterType<GoogleSheet>().As<IGoogleSheet>();
             builder.RegisterModule(new ModuleWrite(new SearchServiceCredentials(
-                    ConfigurationManager.AppSettings["AzureSearchKey"],
-                    ConfigurationManager.AppSettings["AzureSearchServiceName"]),
+                ConfigurationManager.AppSettings["AzureSearchServiceName"],
+                    ConfigurationManager.AppSettings["AzureSearchKey"])
+                    ,
                 ConfigurationManager.AppSettings["Redis"],
                 new LocalStorageData(Path.Combine(Directory.GetCurrentDirectory(), "Temp"), 500)));
             builder.RegisterModule<IocModule>();
             var container = builder.Build();
+
+            var t = container.Resolve<IDownloadFile>();
+            await t.DownloadFileAsync(
+                new Uri("https://clickcastfeeds.s3.amazonaws.com/2221af50160b28c835156240c9f8d21f/feed.xml"),
+                "test.xml", true, default);
             //210ec431-2d6d-45cb-bc01-04e3f687f0ed.docx
             Console.ReadLine();
 
