@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -12,16 +11,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public abstract class UpdateAffiliate<T, TU> : ISchedulerProcess
     {
         private readonly ILogger _logger;
-        private readonly ITempStorageProvider _localStorage;
+        private readonly IDownloadFile _downloadFile;
 
-        protected UpdateAffiliate(ILogger logger, ITempStorageProvider localStorage)
+        protected UpdateAffiliate(ILogger logger, IDownloadFile localStorage)
         {
             _logger = logger;
-            _localStorage = localStorage;
+            _downloadFile = localStorage;
         }
 
         protected abstract string FileLocation { get; }
-        protected abstract string Url { get; }
+        protected abstract Uri Url { get; }
 
         protected abstract string Service { get; }
 
@@ -39,23 +38,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             if (progressAsync == null) throw new ArgumentNullException(nameof(progressAsync));
             _logger.Info($"{Service} starting to work");
-            var locationToSave = _localStorage.CombineDirectoryWithFileName(FileLocation);
-            if (!File.Exists(locationToSave) || index == 0)
-            {
-                using (var client = new HttpClient(HttpHandler()))
-                {
-                    //client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic",)
-                    var result = await client.GetAsync(Url,
-                        HttpCompletionOption.ResponseHeadersRead, token).ConfigureAwait(false);
-                    result.EnsureSuccessStatusCode();
 
-                    using (var stream = await result.Content.ReadAsStreamAsync().ConfigureAwait(false))
-                    {
-                        locationToSave = await _localStorage.SaveFileToStorageAsync(stream, FileLocation)
-                            .ConfigureAwait(false);
-                    }
-                }
-            }
+            var locationToSave = await _downloadFile.DownloadFileAsync(Url, FileLocation, index == 0, token).ConfigureAwait(false);
+
             var list = new List<Task<TU>>();
             var i = 0;
             try

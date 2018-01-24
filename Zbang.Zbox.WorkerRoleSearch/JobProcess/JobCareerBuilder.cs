@@ -19,7 +19,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
     {
         private readonly JobSearchWrite _jobSearchService;
         private readonly IGooglePlacesSearch _zipToLocation;
-        public JobCareerBuilder(ILogger logger, ITempStorageProvider localStorage, JobSearchWrite jobSearchService, IGooglePlacesSearch zipToLocation) : base(logger, localStorage)
+        public JobCareerBuilder(ILogger logger, IDownloadFile localStorage, JobSearchWrite jobSearchService, IGooglePlacesSearch zipToLocation) : base(logger, localStorage)
         {
             _jobSearchService = jobSearchService;
             _zipToLocation = zipToLocation;
@@ -27,8 +27,8 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
 
         protected override string FileLocation => "CareerBuilderJobs.xml";
 
-        protected override string Url =>
-            "https://clickcastfeeds.s3.amazonaws.com/2221af50160b28c835156240c9f8d21f/feed.xml";
+        protected override Uri Url =>
+            new Uri("https://clickcastfeeds.s3.amazonaws.com/2221af50160b28c835156240c9f8d21f/feed.xml");
 
         protected override string Service => "CareerBuilder jobs";
         protected override IEnumerable<CareerBuilderJobs> GetT(string location)

@@ -16,7 +16,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly TutorProvider _tutorProvider;
         private readonly IGooglePlacesSearch _zipToLocation;
 
-        public UpdateTutors(TutorProvider tutorProvider, ILogger logger, IGooglePlacesSearch zipToLocation, ITempStorageProvider localStorage)
+        public UpdateTutors(TutorProvider tutorProvider, ILogger logger, IGooglePlacesSearch zipToLocation, IDownloadFile localStorage)
             : base(logger, localStorage)
         {
             _tutorProvider = tutorProvider;
@@ -25,8 +25,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         protected override string FileLocation => "tutor.json";
 
-        protected override string Url =>
-            "https://data.wyzant.com/feeds/downloadFeed?apiKey=286f1896-e056-4376-9747-9f9a5dbcb4d2&feedFormat=json";
+        protected override Uri Url =>
+            new Uri("https://data.wyzant.com/feeds/downloadFeed?apiKey=286f1896-e056-4376-9747-9f9a5dbcb4d2&feedFormat=json");
 
         protected override string Service => "WyzantTutor";
 

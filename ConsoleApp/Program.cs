@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
@@ -44,6 +46,13 @@ namespace ConsoleApp
             await t.DownloadFileAsync(
                 new Uri("https://clickcastfeeds.s3.amazonaws.com/2221af50160b28c835156240c9f8d21f/feed.xml"),
                 "test.xml", true, default);
+
+            var handler = new HttpClientHandler
+            {
+                Credentials = new NetworkCredential("cqSCcVaGdfHVTefIBGCTdLqmYPeboa", "LAGhyQrQdfLumRjMrXVVVISAnrbTZn")
+            };
+            await t.DownloadFileAsync(new Uri("https://www.wayup.com/integrations/clickcast-feed/"), "wayup.xml", true,
+                handler, default);
             //210ec431-2d6d-45cb-bc01-04e3f687f0ed.docx
             Console.ReadLine();
 

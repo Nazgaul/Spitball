@@ -22,7 +22,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
         private readonly IKeyGenerator _keyGenerator;
 
         public JobWayUp(JobSearchWrite jobSearchService, ILogger logger,
-            ITempStorageProvider localStorage, IGooglePlacesSearch zipToLocation, IKeyGenerator keyGenerator) :
+            IDownloadFile localStorage, IGooglePlacesSearch zipToLocation, IKeyGenerator keyGenerator) :
             base(logger, localStorage)
         {
             _jobSearchService = jobSearchService;
@@ -44,7 +44,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.JobProcess
         }
 
         protected override string FileLocation => "wayUpJobs.xml";
-        protected override string Url => "https://www.wayup.com/integrations/clickcast-feed/";
+        protected override Uri Url => new Uri("https://www.wayup.com/integrations/clickcast-feed/");
         protected override string Service => "WayUp jobs";
 
         protected override IEnumerable<WayUpJob> GetT(string location)

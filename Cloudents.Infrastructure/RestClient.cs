@@ -52,35 +52,13 @@ namespace Cloudents.Infrastructure
 
         public async Task<(Stream, EntityTagHeaderValue)> DownloadStreamAsync(Uri url, HttpClientHandler handler, CancellationToken token)
         {
-            //var locationToSave = _localStorage.CombineDirectoryWithFileName(fileName);
-            //if (File.Exists(locationToSave) && !@override)
-            //{
-            //    return locationToSave;
-            //}
-
-
             using (var client = new HttpClient(handler))
             {
-                client.DefaultRequestHeaders.IfMatch.Add(EntityTagHeaderValue.Parse("\"a53dfa946845e083d0e642de91ec3c05\""));
-                //client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic",)
                 var result = await client.GetAsync(url,
                     HttpCompletionOption.ResponseHeadersRead, token).ConfigureAwait(false);
                 result.EnsureSuccessStatusCode();
-                return (await result.Content.ReadAsStreamAsync(), result.Headers.ETag);
-                //using (var stream = await result.Content.ReadAsStreamAsync().ConfigureAwait(false))
-                //{
-                //    return await _localStorage.SaveFileToStorageAsync(stream, fileName)
-                //        .ConfigureAwait(false);
-                //}
+                return (await result.Content.ReadAsStreamAsync().ConfigureAwait(false), result.Headers.ETag);
             }
-
         }
-
-
-        //public Task<Stream> DownloadStreamAsync(Uri url, CancellationToken token)
-        //{
-        //    var defaultClientHeader = new HttpClientHandler();
-        //    return DownloadStreamAsync(url,  defaultClientHeader, token);
-        //}
     }
 }
