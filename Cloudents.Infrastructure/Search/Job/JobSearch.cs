@@ -6,11 +6,9 @@ using AutoMapper;
 using Entity = Cloudents.Core.Entities.Search;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Converters;
-using Cloudents.Infrastructure.Write;
 using Cloudents.Infrastructure.Write.Job;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
@@ -55,7 +53,7 @@ namespace Cloudents.Infrastructure.Search.Job
             switch (sort)
             {
                 case JobRequestSort.Distance when location != null:
-                    sortQuery.Add($"geo.distance(location, geography'POINT({location.Longitude} {location.Latitude})')");
+                    sortQuery.Add($"geo.distance({ nameof(Entity.Job.Location)}, geography'POINT({location.Longitude} {location.Latitude})')");
                     break;
                 case JobRequestSort.Date:
                     sortQuery.Add("dateTime desc");
@@ -65,25 +63,23 @@ namespace Cloudents.Infrastructure.Search.Job
             {
                 Select = new[]
                 {
-                    nameof(Entity.Job.Title).CamelCase(),
-                    nameof(Entity.Job.Description).CamelCase(),
-                    nameof(Entity.Job.DateTime).CamelCase(),
-                    nameof(Entity.Job.City).CamelCase(),
-                    nameof(Entity.Job.State).CamelCase(),
-                    nameof(Entity.Job.JobType).CamelCase(),
-                    nameof(Entity.Job.Compensation).CamelCase(),
-                    nameof(Entity.Job.Url).CamelCase(),
-                    nameof(Entity.Job.Company).CamelCase(),
-
-
+                    nameof(Entity.Job.Title),
+                    nameof(Entity.Job.Description),
+                    nameof(Entity.Job.DateTime),
+                    nameof(Entity.Job.City),
+                    nameof(Entity.Job.State),
+                    nameof(Entity.Job.JobType),
+                    nameof(Entity.Job.Compensation),
+                    nameof(Entity.Job.Url),
+                    nameof(Entity.Job.Company),
                 },
                 Facets = filterQuery.Count == 0 ? new[]
                 {
-                    nameof(Entity.Job.JobType).CamelCase()
+                    nameof(Entity.Job.JobType)
                 } : null,
                 Top = PageSize,
                 Skip = PageSize * page,
-                Filter = string.Join(" or " , filterQuery),
+                Filter = string.Join(" or ", filterQuery),
                 OrderBy = sortQuery
 
             };
@@ -96,7 +92,7 @@ namespace Cloudents.Infrastructure.Search.Job
             var retVal = await
                 _client.Documents.SearchAsync<Entity.Job>(str, searchParams, cancellationToken: token).ConfigureAwait(false);
             return _mapper.Map<ResultWithFacetDto<JobDto>>(retVal,
-                opt => opt.Items[JobResultConverter.FacetType] = nameof(Entity.Job.JobType).CamelCase());
+                opt => opt.Items[JobResultConverter.FacetType] = nameof(Entity.Job.JobType));
         }
     }
 }

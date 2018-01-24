@@ -8,6 +8,7 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using Cloudents.Core;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Write.Job.Entities;
@@ -60,7 +61,7 @@ namespace Cloudents.Infrastructure.Write.Job
                 Id = obj.job_reference,
                 JobType2 = JobTypeConversion(obj.job_type),
                 Location = GeoPoint.ToPoint(location),
-                Description = StripHtml(obj.body),
+                Description = StripHtml(obj.body).RemoveEndOfString(300),
                 State = obj.state,
                 Title = obj.title,
                 InsertDate = DateTime.UtcNow,
@@ -99,6 +100,7 @@ namespace Cloudents.Infrastructure.Write.Job
                 case "full time":
                     return JobFilter.FullTime;
                 case "internship":
+                case "intern":
                     return JobFilter.Internship;
                 case "part time":
                 case "full time/part time":
@@ -108,8 +110,11 @@ namespace Cloudents.Infrastructure.Write.Job
                 case "campus rep":
                     return JobFilter.CampusRep;
                 case "contractor":
+                case "contract to hire":
                     return JobFilter.Contractor;
                 case "per diem":
+                case "temporary/seasonal":
+                case "seasonal/temp":
                     return JobFilter.Temporary;
             }
             return JobFilter.None; //jobType?.Replace("-", " ").ToLowerInvariant();

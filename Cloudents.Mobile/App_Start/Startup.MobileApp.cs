@@ -52,12 +52,12 @@ namespace Cloudents.Mobile
 
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
-            var module = new MobileAppInfrastructureModule(
+            var module = new ModuleMobile(
                 ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
-                ConfigurationManager.AppSettings["AzureSearchServiceName"],
-                ConfigurationManager.AppSettings["AzureSearchKey"],
+              new SearchServiceCredentials(  ConfigurationManager.AppSettings["AzureSearchServiceName"],
+                ConfigurationManager.AppSettings["AzureSearchKey"]),
                 ConfigurationManager.AppSettings["Redis"],
-                null);
+                ConfigurationManager.AppSettings["Storage"]);
             builder.RegisterModule(module);
 
             //builder.RegisterType<JaredSendPush>()

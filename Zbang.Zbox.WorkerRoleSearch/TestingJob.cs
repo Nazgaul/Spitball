@@ -38,21 +38,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public string Name => nameof(TestingJob);
         public async Task RunAsync(CancellationToken cancellationToken)
         {
-            //var process = m_LifetimeScope.ResolveOptionalNamed<ISchedulerProcess>("careerBuilder");
-            // ReSharper disable once AsyncConverter.AsyncAwaitMayBeElidedHighlighting
-            //await process.ExecuteAsync(0, (a, b) => Task.CompletedTask, cancellationToken).ConfigureAwait(false);
-            //_zboxWorkerRoleService.OneTimeDbi();
-            var process = _lifetimeScope.ResolveKeyed<ISchedulerProcess>("careerBuilder");
+            var process = _lifetimeScope.ResolveKeyed<ISchedulerProcess>("deleteOld");
             await process.ExecuteAsync(0, (a, b) => Task.CompletedTask, cancellationToken).ConfigureAwait(false);
-
             _logger.Info("finish test");
-
-            //var msgData = new BoxFileProcessData(70197);
-            //var process = m_LifetimeScope.ResolveOptionalNamed<IFileProcess>(msgData.ProcessResolver);
-            //var t =  await process.ExecuteAsync(msgData, cancellationToken).ConfigureAwait(false);
-
-            //await RemoveDuplicatesFilesAsync().ConfigureAwait(false);
-            // await Md5ProcessAsync(cancellationToken).ConfigureAwait(false);
         }
 
         private async Task RemoveDuplicatesFilesAsync()
@@ -101,11 +89,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     }
                     catch (Exception ex)
                     {
-                        //var telemetry = new TelemetryClient();
-                        //var properties = new Dictionary<string, string>
-                        //{["section"] = "md5",["itemId"] = document.Item1.ToString() };
-
-                        //telemetry.TrackException(ex, properties);
+                        var properties = new Dictionary<string, string>
+                        {["section"] = "md5",["itemId"] = document.Item1.ToString() };
+                        _logger.Exception(ex, properties);
                     }
                 }
             }

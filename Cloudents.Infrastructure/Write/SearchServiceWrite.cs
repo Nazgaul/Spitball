@@ -81,14 +81,14 @@ namespace Cloudents.Infrastructure.Write
         public abstract Index GetIndexStructure(string indexName);
         public void Start()
         {
-            try
-            {
+            //try
+            //{
                 _client.Indexes.CreateOrUpdate(GetIndexStructure(_indexName));
-            }
-            catch (Exception ex)
-            {
+            //}
+            //catch (Exception ex)
+            //{
                 //Finish for now
-            }
+            //}
         }
 
         public void Dispose()

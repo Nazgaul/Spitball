@@ -2,7 +2,6 @@
 
 namespace Cloudents.Infrastructure.Write.Job.Entities
 {
-    /// <remarks/>
     [System.Serializable]
     [System.ComponentModel.DesignerCategory("code")]
     [XmlType(AnonymousType = true)]
@@ -41,7 +40,6 @@ namespace Cloudents.Infrastructure.Write.Job.Entities
 
         private decimal cpaField;
 
-        /// <remarks/>
         public string location
         {
             get
@@ -54,7 +52,6 @@ namespace Cloudents.Infrastructure.Write.Job.Entities
             }
         }
 
-        /// <remarks/>
         public string title
         {
             get
@@ -67,14 +64,12 @@ namespace Cloudents.Infrastructure.Write.Job.Entities
             }
         }
 
-        /// <remarks/>
          [XmlElement("city")]
         public string City
         {
             get;set;
         }
 
-        /// <remarks/>
         public string state
         {
             get
@@ -87,14 +82,12 @@ namespace Cloudents.Infrastructure.Write.Job.Entities
             }
         }
 
-        /// <remarks/>
         [XmlElement("zip")]
         public string Zip
         {
             get; set;
         }
 
-        /// <remarks/>
         public string country
         {
             get
@@ -107,7 +100,6 @@ namespace Cloudents.Infrastructure.Write.Job.Entities
             }
         }
 
-        /// <remarks/>
         public string job_type
         {
             get
@@ -120,7 +112,6 @@ namespace Cloudents.Infrastructure.Write.Job.Entities
             }
         }
 
-        /// <remarks/>
         [XmlElement(DataType = "date")]
         public System.DateTime posted_at
         {
@@ -134,7 +125,6 @@ namespace Cloudents.Infrastructure.Write.Job.Entities
             }
         }
 
-        /// <remarks/>
         public string job_reference
         {
             get
@@ -147,7 +137,6 @@ namespace Cloudents.Infrastructure.Write.Job.Entities
             }
         }
 
-        /// <remarks/>
         public string body
         {
             get
@@ -160,7 +149,6 @@ namespace Cloudents.Infrastructure.Write.Job.Entities
             }
         }
 
-        /// <remarks/>
         public string company
         {
             get
@@ -173,7 +161,6 @@ namespace Cloudents.Infrastructure.Write.Job.Entities
             }
         }
 
-        /// <remarks/>
         public string mobile_friendly_apply
         {
             get
@@ -186,7 +173,6 @@ namespace Cloudents.Infrastructure.Write.Job.Entities
             }
         }
 
-        /// <remarks/>
         public string category
         {
             get
@@ -199,7 +185,6 @@ namespace Cloudents.Infrastructure.Write.Job.Entities
             }
         }
 
-        /// <remarks/>
         public string html_jobs
         {
             get
@@ -212,7 +197,6 @@ namespace Cloudents.Infrastructure.Write.Job.Entities
             }
         }
 
-        /// <remarks/>
         public string url
         {
             get
@@ -225,7 +209,6 @@ namespace Cloudents.Infrastructure.Write.Job.Entities
             }
         }
 
-        /// <remarks/>
         public decimal cpa
         {
             get

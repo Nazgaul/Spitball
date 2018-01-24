@@ -54,7 +54,7 @@ namespace Cloudents.Infrastructure.Write
                     }
                     var obj = ParseTAsync(job, token);
                     list.Add(obj);
-                    if (list.Count <= 100) continue;
+                    if (list.Count < 100) continue;
                     await Task.WhenAll(list).ConfigureAwait(false);
                     var t1 = UpdateSearchAsync(list.Select(s => s.Result), token); // m_JobSearchService.UpdateDataAsync(list, token);
 
