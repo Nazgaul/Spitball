@@ -3,7 +3,6 @@ using System.Linq;
 using AutoMapper;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Search;
-using Cloudents.Infrastructure.Search.Entities;
 using Microsoft.Azure.Search.Models;
 
 namespace Cloudents.Infrastructure.Converters

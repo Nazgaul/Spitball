@@ -1,7 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.Azure.Search;
-using Microsoft.Azure.Search.Models;
 using Microsoft.Spatial;
 
 namespace Cloudents.Infrastructure.Search.Entities

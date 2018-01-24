@@ -6,7 +6,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Cache;
 using Cloudents.Infrastructure.Search.Places;
 using Microsoft.Azure.Search;
-using Newtonsoft.Json.Serialization;
 
 namespace Cloudents.Infrastructure
 {

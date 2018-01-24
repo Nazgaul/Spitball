@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using Autofac;
-using CacheManager.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using Cloudents.Infrastructure.Data;
-using Cloudents.Infrastructure.Storage;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cloudents.Infrastructure

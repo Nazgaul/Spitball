@@ -8,7 +8,6 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
 using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Infrastructure

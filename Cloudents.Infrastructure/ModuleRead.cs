@@ -3,7 +3,6 @@ using System.Reflection;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.AI;
 using Cloudents.Infrastructure.Cache;
 using Cloudents.Infrastructure.Data;

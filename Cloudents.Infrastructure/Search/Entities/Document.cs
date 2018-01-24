@@ -1,8 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-using Microsoft.Azure.Search;
-using Microsoft.Azure.Search.Models;
-using Newtonsoft.Json;
-
 namespace Cloudents.Infrastructure.Search.Entities
 {
    // [SerializePropertyNamesAsCamelCase]
