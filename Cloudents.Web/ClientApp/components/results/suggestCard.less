@@ -16,9 +16,11 @@
         display: flex;
         flex-direction: column;
 
-        @media(max-width: @screen-xs) {
+        @media(max-width: @screen-md) {
             padding: 8px;
             flex-direction: row;
+            align-items: center;
+            min-height: 72px;
         }
 
         .wrapper {
@@ -29,9 +31,8 @@
 
         .icon {
             display: flex;
-            align-items: flex-start;
-            padding: 0 8px;
-            min-height: 56px;
+            align-items: center;
+            padding: 0 8px 3px 8px;
 
             svg {
                 width: 72px;
@@ -42,7 +43,7 @@
             font-weight: 300;
             margin: 16px 0 14px 0;
 
-            @media(max-width: @screen-xs) {
+            @media(max-width: @screen-md) {
                 margin: 2px 0;
             }
         }
