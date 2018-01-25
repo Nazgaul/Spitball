@@ -36,16 +36,15 @@ namespace Cloudents.Infrastructure
                 lastWriteTime = p.LastWriteTimeUtc;
             }
 
-            var result = await _client.DownloadStreamAsync(url, handler, token).ConfigureAwait(false);
+            var (stream, etagHeader) = await _client.DownloadStreamAsync(url, handler, token).ConfigureAwait(false);
 
             try
             {
-                if (result.Item2.Tag == eTag)
+                if (etagHeader != null && etagHeader.Tag == eTag) //using ? will do null == null => true
                 {
                     return (locationToSave, lastWriteTime);
                 }
-
-                var tempFile = await _localStorage.SaveFileToStorageAsync(result.Item1, tempFileName);
+                var tempFile = await _localStorage.SaveFileToStorageAsync(stream, tempFileName).ConfigureAwait(false);
                 var tempFileEtag = CalculateMd5(tempFile);
                 if (tempFileEtag == eTag)
                 {
@@ -61,20 +60,28 @@ namespace Cloudents.Infrastructure
             }
             finally
             {
-                result.Item1.Dispose();
+                stream.Dispose();
             }
         }
 
         private static string CalculateMd5(string locationToSave)
         {
             string eTag;
+            using (var stream = File.OpenRead(locationToSave))
+            {
+                eTag = CalculateMd5(stream);
+            }
+
+            return eTag;
+        }
+
+        private static string CalculateMd5(Stream stream)
+        {
+            string eTag;
             using (var md5 = MD5.Create())
             {
-                using (var stream = File.OpenRead(locationToSave))
-                {
-                    var hash = md5.ComputeHash(stream);
-                    eTag = $"\"{BitConverter.ToString(hash).Replace("-", string.Empty).ToLower()}\"";
-                }
+                var hash = md5.ComputeHash(stream);
+                eTag = $"\"{BitConverter.ToString(hash).Replace("-", string.Empty).ToLower()}\"";
             }
 
             return eTag;

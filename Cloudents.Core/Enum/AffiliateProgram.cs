@@ -4,6 +4,7 @@
     {
         None,
         CareerBuilder,
-        WayUp
+        WayUp,
+        Wyzant
     }
 }

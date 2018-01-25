@@ -21,7 +21,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             builder.RegisterType<ContentSearchProvider>().As<IContentWriteSearchProvider>().SingleInstance();
             //builder.RegisterType<FeedSearchProvider>().As<IFeedWriteSearchProvider>().As<IStartable>().SingleInstance().AutoActivate();
             //builder.RegisterType<JobsProvider>().AsSelf().As<ISearchServiceWrite<Job>>().As<IStartable>().SingleInstance().AutoActivate();
-            builder.RegisterType<TutorProvider>().AsSelf().As<ISearchServiceWrite<Tutor>>().As<IStartable>().SingleInstance().AutoActivate();
+            //builder.RegisterType<TutorProvider>().AsSelf().As<ISearchServiceWrite<Tutor>>().As<IStartable>().SingleInstance().AutoActivate();
         }
     }
 }

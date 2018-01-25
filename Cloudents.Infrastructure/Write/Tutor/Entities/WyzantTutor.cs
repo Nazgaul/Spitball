@@ -1,4 +1,4 @@
-﻿namespace Zbang.Zbox.WorkerRoleSearch
+﻿namespace Cloudents.Infrastructure.Write.Tutor.Entities
 {
     public class WyzantTutor
     {

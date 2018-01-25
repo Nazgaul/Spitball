@@ -69,7 +69,7 @@ namespace Cloudents.Infrastructure.Write
                     list.Add(obj);
                     if (list.Count < 100) continue;
                     await Task.WhenAll(list).ConfigureAwait(false);
-                    var t1 = UpdateSearchAsync(list.Select(s => s.Result),
+                    var t1 =  UpdateSearchAsync(list.Select(s => s.Result),
                         token); // m_JobSearchService.UpdateDataAsync(list, token);
 
                     var t2 = progressAsync.Invoke(i);

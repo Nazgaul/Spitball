@@ -5,6 +5,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Infrastructure.Write;
 using Cloudents.Infrastructure.Write.Job;
+using Cloudents.Infrastructure.Write.Tutor;
 
 namespace Cloudents.Infrastructure
 {
@@ -28,6 +29,7 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterGeneric(typeof(SearchServiceWrite<>));
             builder.RegisterType<JobSearchWrite>().AsSelf().As<ISearchServiceWrite<Job>>().As<IStartable>().SingleInstance().AutoActivate();
+            builder.RegisterType<TutorSearchWrite>().AsSelf().As<ISearchServiceWrite<Tutor>>().As<IStartable>().SingleInstance().AutoActivate();
             builder.RegisterType<DownloadFile>().As<IDownloadFile>();
             builder.Register(c =>
                 new TempStorageProvider(c.Resolve<ILogger>(), _localStorageData)).As<ITempStorageProvider>();
@@ -35,6 +37,7 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterType<JobCareerBuilder>().Keyed<IUpdateAffiliate>(AffiliateProgram.CareerBuilder);
             builder.RegisterType<JobWayUp>().Keyed<IUpdateAffiliate>(AffiliateProgram.WayUp);
+            builder.RegisterType<TutorWyzant>().Keyed<IUpdateAffiliate>(AffiliateProgram.Wyzant);
         }
     }
 }
