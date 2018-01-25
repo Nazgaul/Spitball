@@ -12,7 +12,7 @@ namespace Cloudents.Infrastructure.Write
     {
         private readonly ILogger _logger;
         private readonly IDownloadFile _downloadFile;
-        
+
 
         protected UpdateAffiliate(ILogger logger, IDownloadFile localStorage)
         {
@@ -28,25 +28,33 @@ namespace Cloudents.Infrastructure.Write
         protected abstract HttpClientHandler HttpHandler { get; }
         
 
-        //protected virtual HttpClientHandler HttpHandler()
-        //{
-        //    return new HttpClientHandler();
-        //}
-
         protected abstract IEnumerable<T> GetT(string location);
         protected abstract Task<TU> ParseTAsync(T obj, CancellationToken token);
         protected abstract Task UpdateSearchAsync(IEnumerable<TU> list, CancellationToken token);
-        protected abstract Task DeleteOldItemsAsync(CancellationToken token);
+        protected abstract Task DeleteOldItemsAsync(DateTime timeToDelete, CancellationToken token);
 
         public async Task ExecuteAsync(int index, Func<int, Task> progressAsync, CancellationToken token)
         {
             if (progressAsync == null) throw new ArgumentNullException(nameof(progressAsync));
             _logger.Info($"{Service} starting to work");
             var list = new List<Task<TU>>();
+            var timeNow = DateTime.UtcNow;
+            var (locationToSave, lastWriteTime) = await _downloadFile.DownloadFileAsync(Url, FileLocation, HttpHandler, token).ConfigureAwait(false);
             try
             {
-                var locationToSave = await _downloadFile.DownloadFileAsync(Url, FileLocation, index == 0, HttpHandler, token).ConfigureAwait(false);
-
+                if (lastWriteTime < timeNow)
+                {
+                    if (index == 0)
+                    {
+                        //the data haven't change since last time
+                        return;
+                    }
+                    
+                }
+                else
+                {
+                    index = 0;
+                }
                 var i = 0;
 
                 foreach (var job in GetT(locationToSave))
@@ -91,7 +99,7 @@ namespace Cloudents.Infrastructure.Write
                 await UpdateSearchAsync(list.Select(s => s.Result), token).ConfigureAwait(false);
             }
             _logger.Info($"{Service} Going To delete old items");
-            await DeleteOldItemsAsync(token).ConfigureAwait(false);
+            await DeleteOldItemsAsync(lastWriteTime, token).ConfigureAwait(false);
             _logger.Info($"{Service} finish to work");
         }
     }

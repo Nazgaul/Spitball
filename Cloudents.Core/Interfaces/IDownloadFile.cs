@@ -8,7 +8,7 @@ namespace Cloudents.Core.Interfaces
 {
     public interface IDownloadFile
     {
-        Task<string> DownloadFileAsync(Uri url, string fileName, bool @override, HttpClientHandler handler, CancellationToken token);
+        Task<(string path, DateTime lastWriteTime)> DownloadFileAsync(Uri url, string fileName, HttpClientHandler handler, CancellationToken token);
         Task<string> DownloadFileAsync(Uri url, string fileName, bool @override, CancellationToken token);
     }
 }

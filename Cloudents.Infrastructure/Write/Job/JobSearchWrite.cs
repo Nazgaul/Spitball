@@ -82,12 +82,12 @@ namespace Cloudents.Infrastructure.Write.Job
             };
         }
 
-        public async Task DeleteOldJobsAsync(string source, CancellationToken token)
+        public async Task DeleteOldJobsAsync(string source, DateTime timeToDelete, CancellationToken token)
         {
             const int top = 1000;
             var parameters = new SearchParameters
             {
-                Filter = $"{nameof(Core.Entities.Search.Job.InsertDate)} lt {DateTime.UtcNow.AddDays(-4):yyyy-MM-dd'T'hh:mm:ss'Z'} and {nameof(Core.Entities.Search.Job.Source)} eq '{source}'",
+                Filter = $"{nameof(Core.Entities.Search.Job.InsertDate)} lt {timeToDelete.ToUniversalTime():yyyy-MM-dd'T'hh:mm:ss'Z'} and {nameof(Core.Entities.Search.Job.Source)} eq '{source}'",
                 Select = new[] { nameof(Core.Entities.Search.Job.Id) },
                 Top = top
             };

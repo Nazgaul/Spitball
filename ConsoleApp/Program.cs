@@ -42,8 +42,8 @@ namespace ConsoleApp
             builder.RegisterModule<IocModule>();
             var container = builder.Build();
 
-            var affiliate = container.ResolveKeyed<IUpdateAffiliate>(AffiliateProgram.CareerBuilder);
-            await affiliate.ExecuteAsync(52500, i =>
+            var affiliate = container.ResolveKeyed<IUpdateAffiliate>(AffiliateProgram.WayUp);
+            await affiliate.ExecuteAsync(100, i =>
              {
                  Console.WriteLine(i);
                  return Task.CompletedTask;

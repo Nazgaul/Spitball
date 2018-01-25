@@ -87,9 +87,9 @@ namespace Cloudents.Infrastructure.Write.Job
             return _jobSearchService.UpdateDataAsync(list, token);
         }
 
-        protected override Task DeleteOldItemsAsync(CancellationToken token)
+        protected override Task DeleteOldItemsAsync(DateTime timeToDelete, CancellationToken token)
         {
-            return _jobSearchService.DeleteOldJobsAsync("CareerBuilder", token);
+            return _jobSearchService.DeleteOldJobsAsync("CareerBuilder", timeToDelete, token);
         }
 
         private static JobFilter JobTypeConversion(string jobType)

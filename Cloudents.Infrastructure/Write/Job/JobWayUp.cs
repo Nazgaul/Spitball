@@ -34,9 +34,9 @@ namespace Cloudents.Infrastructure.Write.Job
             };
         }
 
-        protected override Task DeleteOldItemsAsync(CancellationToken token)
+        protected override Task DeleteOldItemsAsync(DateTime timeToDelete, CancellationToken token)
         {
-            return _jobSearchService.DeleteOldJobsAsync(Source, token);
+            return _jobSearchService.DeleteOldJobsAsync(Source, timeToDelete, token);
         }
 
         //protected override HttpClientHandler HttpHandler()
