@@ -8,7 +8,7 @@ import studyblueCard from './studyblueCard.vue'
 const ResultFood = () => import('./ResultFood.vue');
 const foodExtra = () => import('./foodExtra.vue');
 const SortAndFilter = () => import('../SortAndFilter/SortAndFilter.vue');
-const MobileSortAndFilter = () => import('./MobileSortAndFilter.vue');
+const MobileSortAndFilter = () => import('../SortAndFilter/MobileSortAndFilter.vue');
 import plusBtn from "../settings/svg/plus-button.svg";
 import emptyState from "./svg/no-match-icon.svg";
 import {page, verticalsName} from '../../data'

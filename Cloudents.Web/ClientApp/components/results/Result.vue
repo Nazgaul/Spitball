@@ -84,11 +84,11 @@
                     </div>
                 </template>
                 <template slot="courseExtraState" v-else>
-                    <button class="add-course" @click="$_openPersonalize" type="button">
+                   <button class="add-course" @click="$_openPersonalize" type="button">
                         <plus-btn></plus-btn><span>Add Course</span>
                     </button>
                 </template>
-                <button v-if="$vuetify.breakpoint.xsOnly" slot="mobileExtra" class="edit-list" @click.stop.prevent="$_openPersonalize()" type="button">Edit List</button>
+                <button v-if="$vuetify.breakpoint.xsOnly" slot="courseMobileExtraState" class="edit-list" @click.stop.prevent="$_openPersonalize()" type="button">Edit List</button>
             </component>
         </template>
 
