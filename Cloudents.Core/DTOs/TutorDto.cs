@@ -20,14 +20,17 @@ namespace Cloudents.Core.DTOs
         [DataMember]
         public double? Fee { get; set; }
 
-        [DataMember]
-        public bool? Online { get; set; }
+        //[DataMember]
+        //public bool? Online { get; set; }
 
         [DataMember]
         public GeoPoint Location { get; set; }
         [DataMember]
         public string Description { get; set; }
 
-        public int TermCount { get; set; }
+        [DataMember]
+        public string Source { get; set; }
+
+        //public int TermCount { get; set; }
     }
 }

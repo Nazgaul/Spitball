@@ -6,11 +6,12 @@ using AutoMapper;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
-using Cloudents.Infrastructure.Search.Entities;
+using Cloudents.Infrastructure.Write.Tutor;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
+using TutorObj = Cloudents.Core.Entities.Search.Tutor;
 
-namespace Cloudents.Infrastructure.Search
+namespace Cloudents.Infrastructure.Search.Tutor
 {
     public class TutorAzureSearch : ITutorProvider
     {
@@ -20,7 +21,7 @@ namespace Cloudents.Infrastructure.Search
         public TutorAzureSearch(SearchServiceClient client, IMapper mapper)
         {
             _mapper = mapper;
-            _client = client.Indexes.GetClient("tutors2");
+            _client = client.Indexes.GetClient(TutorSearchWrite.IndexName);
         }
 
         public async Task<IEnumerable<TutorDto>> SearchAsync(string term, TutorRequestFilter[] filters,
@@ -31,27 +32,31 @@ namespace Cloudents.Infrastructure.Search
 
             foreach (var filter in filters ?? Enumerable.Empty<TutorRequestFilter>())
             {
+                var filterResult = TutorFilter.None;
                 switch (filter)
                 {
                     case TutorRequestFilter.Online:
-                        filterQuery.Add("online eq true");
+                        filterResult |= TutorFilter.Online;
+                        //filterQuery.Add($"{nameof(Tutor.)} eq true");
                         break;
                     case TutorRequestFilter.InPerson:
-                        filterQuery.Add("inPerson eq true");
+                        filterResult |= TutorFilter.InPerson;
+                        //filterQuery.Add("inPerson eq true");
                         const double distance = 50 * 1.6;
                         filterQuery.Add(
-                            $"geo.distance(location, geography'POINT({location.Longitude} {location.Latitude})') le {distance}");
+                            $"geo.distance({nameof(TutorObj.Location)}, geography'POINT({location.Longitude} {location.Latitude})') le {distance}");
                         break;
                 }
+                filterQuery.Add($"{nameof(TutorObj.TutorFilter)} eq {(int)filterResult}");
             }
             switch (sort)
             {
                 case TutorRequestSort.Price:
-                    sortQuery.Add("fee");
+                    sortQuery.Add(nameof(TutorObj.Fee));
                     break;
                 case TutorRequestSort.Distance:
                     sortQuery.Add(
-                        $"geo.distance(location, geography'POINT({location.Longitude} {location.Latitude})')");
+                        $"geo.distance({nameof(TutorObj.Location)}, geography'POINT({location.Longitude} {location.Latitude})')");
                     break;
             }
 
@@ -61,15 +66,27 @@ namespace Cloudents.Infrastructure.Search
                 Skip = 15 * page,
                 Select = new[]
                 {
-                    "name", "image", "url", "city", "state", "fee", "online", "location","subjects","extra","description"
+                    nameof(TutorObj.Name),
+                    nameof(TutorObj.Image),
+                    nameof(TutorObj.Url),
+                    nameof(TutorObj.City),
+                    nameof(TutorObj.State),
+                    nameof(TutorObj.Fee),
+                    //"online",
+                    nameof(TutorObj.Location),
+                    //"subjects",
+                    //"extra",
+                    nameof(TutorObj.Description),
+                    nameof(TutorObj.Source)
+                    
                 },
                 Filter = string.Join(" and ", filterQuery),
                 OrderBy = sortQuery
 
             };
             var retVal = await
-                _client.Documents.SearchAsync<Tutor>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
-            return _mapper.Map<IEnumerable<Tutor>, IList<TutorDto>>(retVal.Results.Select(s => s.Document), opt => opt.Items["term"] = term);
+                _client.Documents.SearchAsync<TutorObj>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
+            return _mapper.Map<IEnumerable<TutorObj>, IList<TutorDto>>(retVal.Results.Select(s => s.Document), opt => opt.Items["term"] = term);
         }
     }
 }

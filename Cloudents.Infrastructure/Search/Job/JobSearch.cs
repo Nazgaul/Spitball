@@ -41,12 +41,12 @@ namespace Cloudents.Infrastructure.Search.Job
             var sortQuery = new List<string>();
             if (filter == JobRequestFilter.Paid)
             {
-                filterQuery.Add("compensationType eq 'paid'");
+                filterQuery.Add($"{nameof(Entity.Job.Compensation)} eq 'paid'");
             }
 
             if (jobType != null)
             {
-                filterQuery.AddRange(jobType.Select(s => $"jobType eq '{s}'"));
+                filterQuery.AddRange(jobType.Select(s => $"{nameof(Entity.Job.JobType)} eq '{s}'"));
                 //filterQuery = string.Join(" or ", jobType.Select(s => $"jobType eq '{s}'"));
             }
 
@@ -56,7 +56,7 @@ namespace Cloudents.Infrastructure.Search.Job
                     sortQuery.Add($"geo.distance({ nameof(Entity.Job.Location)}, geography'POINT({location.Longitude} {location.Latitude})')");
                     break;
                 case JobRequestSort.Date:
-                    sortQuery.Add("dateTime desc");
+                    sortQuery.Add($"{nameof(Entity.Job.DateTime)} desc");
                     break;
             }
             var searchParams = new SearchParameters
@@ -72,6 +72,7 @@ namespace Cloudents.Infrastructure.Search.Job
                     nameof(Entity.Job.Compensation),
                     nameof(Entity.Job.Url),
                     nameof(Entity.Job.Company),
+                    nameof(Entity.Job.Source)
                 },
                 Facets = filterQuery.Count == 0 ? new[]
                 {

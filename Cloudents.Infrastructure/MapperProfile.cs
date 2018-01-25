@@ -15,18 +15,18 @@ namespace Cloudents.Infrastructure
     {
         public MapperProfile()
         {
-            CreateMap<Search.Entities.Tutor, TutorDto>()
-                .ForMember(d => d.Location, o => o.ResolveUsing(p => new GeoPoint
-                {
-                    Latitude = p.Location.Latitude,
-                    Longitude = p.Location.Longitude
-                }))
-                .ForMember(d => d.TermCount, o => o.ResolveUsing((t, ts, i, c) =>
-                {
-                    var temp = $"{t.City} {t.State} {string.Join(" ", t.Subjects)} {string.Join(" ", t.Extra)}";
-                    return temp.Split(new[] { c.Items["term"].ToString() },
-                        StringSplitOptions.RemoveEmptyEntries).Length;
-                }));
+            CreateMap<Tutor, TutorDto>();
+                //.ForMember(d => d.Location, o => o.ResolveUsing(p => new GeoPoint
+                //{
+                //    Latitude = p.Location.Latitude,
+                //    Longitude = p.Location.Longitude
+                //}))
+                //.ForMember(d => d.TermCount, o => o.ResolveUsing((t, ts, i, c) =>
+                //{
+                //    var temp = $"{t.City} {t.State} {string.Join(" ", t.Subjects)} {string.Join(" ", t.Extra)}";
+                //    return temp.Split(new[] { c.Items["term"].ToString() },
+                //        StringSplitOptions.RemoveEmptyEntries).Length;
+                //}));
 
             CreateMap<DocumentSearchResult<Job>, ResultWithFacetDto<JobDto>>()
                 .ConvertUsing<JobResultConverter>();
@@ -40,7 +40,9 @@ namespace Cloudents.Infrastructure
                 City = jo.City,
                 Title = jo.Title,
                 State = jo.State,
-                Responsibilities = jo.Description
+                Responsibilities = jo.Description,
+                Source = jo.Source
+
             });
             CreateMap<Search.Entities.Course, CourseDto>();
             CreateMap<Search.Entities.University, UniversityDto>();

@@ -16,11 +16,11 @@ namespace Cloudents.Infrastructure.Converters
                 Url = $"https://tutorme.com/tutors/{result["id"].Value<string>()}",
                 Image = result["avatar"]["x300"].Value<string>(),
                 Name = result["shortName"].Value<string>(),
-                Online = result["isOnline"].Value<bool>(),
+                //Online = result["isOnline"].Value<bool>(),
                 Description = result["about"].Value<string>(),
                 Fee = 60,
-                TermCount = result.ToString().Split(new[] { context.Items["term"].ToString() },
-                    StringSplitOptions.RemoveEmptyEntries).Length
+                //TermCount = result.ToString().Split(new[] { context.Items["term"].ToString() },
+                //    StringSplitOptions.RemoveEmptyEntries).Length
             });
         }
     }
