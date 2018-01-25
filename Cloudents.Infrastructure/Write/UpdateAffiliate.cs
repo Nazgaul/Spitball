@@ -47,7 +47,7 @@ namespace Cloudents.Infrastructure.Write
                     if (index == 0)
                     {
                         //the data haven't change since last time
-                        return;
+                       // return;
                     }
                     
                 }

@@ -30,7 +30,7 @@ namespace Cloudents.Infrastructure.Write.Tutor
         protected override string FileLocation => "tutor.json";
 
         protected override Uri Url =>
-            new Uri("https://data.wyzant.com/feeds/downloadFeed?apiKey=286f1896-e056-4376-9747-9f9a5dbcb4d2&feedFormat=json&MaxResults=1");
+            new Uri("https://data.wyzant.com/feeds/downloadFeed?apiKey=286f1896-e056-4376-9747-9f9a5dbcb4d2&feedFormat=json");
 
         protected override string Service => "WyzantTutor";
         protected override HttpClientHandler HttpHandler { get; }
