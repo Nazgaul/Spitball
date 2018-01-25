@@ -35,26 +35,11 @@ export const sortAndFilterMixin = {
             let filterOptions = [];
             let filtersList=['jobType','source','course','filter'];
             Object.entries(this.query).forEach(([key, val])=>{
-                if(val&&filtersList.includes(key)) {
-                    filterOptions = filterOptions.concat(val);
+                if(val&&val.length&&filtersList.includes(key)) {
+                    [].concat(val).forEach(value=>filterOptions=filterOptions.concat({key,value}));
                 }
             });
-            this.selectedFilters
             return filterOptions;
-        },
-        selectedFilters(){
-            let data=new Map();
-            let filtersList=['jobType','source','course','filter'];
-            Object.entries(this.query).forEach(([key, val])=>{
-                if(val&&filtersList.includes(key)) {
-                    data.set(key,[].concat(val));
-                }
-            });
-            console.log(data);
-            return data;
-        },
-        aa(){
-            return  Array( ...this.selectedFilters.keys())
         }
     },
     methods: {
@@ -107,8 +92,6 @@ export const pageMixin =
             //if the term for the page is as the page saved term use it else call to luis and update the saved term
             new Promise((resolve, reject) => {
                 if (!to.query.q || !to.query.q.length) {
-                    //update vertical data
-                    this.updateSearchText({vertical:toName});
                     resolve();
                 }else {
                     this.getAIDataForVertical(toName).then(({text=""}) => {
@@ -266,60 +249,33 @@ export const pageMixin =
                     });
                 }
 
-                //check if filter selection have values that not exist in the current filter options make query replace without the filters
-                let filterPotential = (this.filterObject || []).map(i => {if(i.data&&i.data.length&&i.data[0].id){
-                                                                            return i.data.map(i=>i.id);
-                                                                          } return i.data?i.data.map(c=>c.toString()):[]});
-                filterPotential=filterPotential.join(',').split(',');
-                if (Array.from(this.filterSelection).filter(i => filterPotential.includes(i.toString())).length !== this.filterSelection.length) {
-                    const routeParams = { path: '/' + this.name, query: { q: this.userText } };
-                    this.$router.replace(routeParams);
+                let matchValues=this.filterSelection.filter(i=>this.filterObject.find(t=>
+                     (t.modelId===i.key&&
+                         (t.data.find(
+                             k=>i.value.toString()===(k.id?k.id.toString():k.toString()))
+                         ))
+                ));
+                if(matchValues.length!==this.filterSelection.length){
+                        const routeParams = { path: '/' + this.name, query: { q: this.userText } };
+                        this.$router.replace(routeParams);
                 }
+            },
 
-            },
-            //when sort updated update sort in params query
-            $_updateSort(sort) {
-                this.$router.push({ query: { ... this.query, sort: sort } });
-            },
-            //update page filters functionality(click on one of the filters)
-            $_updateFilter({ id, val, type }) {
-                //Take the filter list from query according the id(course,source,filter,jobType..)
-                const currentFilter = !this.query[id] ? [] : Array.isArray(this.query[id]) ? this.query[id] : [this.query[id]];
-                let updatedList = [val, ...currentFilter];
-                //if the selected was uncheck remove this filter from the list
-                if (!type.target.checked) {
-                    updatedList = currentFilter.filter(i => i.toString() !== val.toString());
-                }
-                //If it course l;ist save it for next
-                if (id === 'course') {
-                    this.setFilteredCourses(updatedList);
-                }
-                const newFilter = { [id]: updatedList };
-                let { q, sort, course, source, filter,jobType } = this.query;
-                if (val === 'inPerson' && type) sort = "price";
-                //Combine current filters and the updated filter and call query
-                this.$router.push({ query: { q, sort, course, source, jobType, filter, ...newFilter } });
-            },
             //functionality when remove filter from the selected filters
-            $_removeFilter(val) {
-                //take all filters options from the query and remove the selected val from the correct option and make query with the updated filters
-                let { source, course, filter, jobType } = this.query;
-                let isCourseFiltered=course;
-                source = source ? [].concat(source).filter(i => i !== val) : source;
-                course = course ? [].concat(course).filter(i => i.toString() !== val.toString()) : course;
-                filter = filter ? [].concat(filter).filter(i => i !== val) : filter;
-                jobType = jobType ? [].concat(jobType).filter(i => i !== val) : jobType;
-                isCourseFiltered?this.setFilteredCourses(course):"";
-                this.$router.push({ path: this.name, query: { ...this.query, source, course, filter, jobType } });
+            $_removeFilter({value,key}) {
+                let updatedList=this.query[key];
+                updatedList = [].concat(updatedList).filter(i => i.toString() !== value.toString());
+                key==='course'?this.setFilteredCourses(updatedList):"";
+                this.$router.push({ path: this.name, query: {...this.query,[key]:updatedList} });
             },
             //Open the personalize dialog when click on select course in class filter
             $_openPersonalize() {
                 this.$root.$emit("personalize", typesPersonalize.course);
             },
             //The presentation functionality for the selected filter(course=>take course name,known list=>take the terms from the const name,else=>the given name)
-            $_showSelectedFilter(item) {
-                if (this.page && !this.subFilterVertical) return this.page.filter.find(i => i.id === item).name;
-                return !Number.isNaN(item) && this.myCourses.find(x => x.id === Number(item)) ? this.myCourses.find(x => x.id === Number(item)).name : item;
+            $_showSelectedFilter({value,key}) {
+                if (this.page && !this.subFilterVertical) return this.page.filter.find(i => i.id === value).name;
+                return key==='course' && this.myCourses.find(x => x.id === Number(value)) ? this.myCourses.find(x => x.id === Number(value)).name : value;
             }
         },
         //Page props come from the route

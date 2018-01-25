@@ -7,12 +7,12 @@
                     <v-icon>sbf-filter</v-icon>
                 </v-btn>
             </div>
-            <div v-if="selectedFilters.size" class="pb-3">
-                <template v-for="key in aa">
-                   <template  v-for="item in new Array( ...selectedFilters.get(key))"> <v-chip label class="filter-chip elevation-1">
+            <div v-if="filterSelection.length" class="pb-3">
+                <template v-for="item in filterSelection">
+                    <v-chip label class="filter-chip elevation-1">
                         {{$_showSelectedFilter(item) | capitalize}}
                         <v-icon right @click="$_removeFilter(item)">sbf-close</v-icon>
-                    </v-chip></template>
+                    </v-chip>
                 </template>
             </div>
             <div v-if="!loading">
@@ -67,12 +67,10 @@
         <template slot="sideBar" v-if="page">
             <component :is="($vuetify.breakpoint.xsOnly?'mobile-':'')+'sort-and-filter'"
                        :sortOptions="page.sort"
-                       :sortCallback="$_updateSort"
                        :sortVal="sort"
                        v-model="showFilters"
                        :filterOptions="filterObject"
-                       :filterCallback="$_updateFilter"
-                       :filterVal="selectedFilters">
+                       :filterVal="filterSelection">
                 <img :src="universityImage" slot="courseTitlePrefix" width="24" height="24" v-if="universityImage" />
                 <template slot="courseEmptyState" v-if="!myCourses.length">
                     <div class="course-empty-state">

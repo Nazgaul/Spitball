@@ -24,8 +24,8 @@
                         </template>
                         <div class="sort-filter">
                             <div v-for="s in k.data" :key="(s.id?s.id:s)" class="filter">
-                                <input type="checkbox" :id="(s.id?s.id:s)" :checked="filterVal.get(k.modelId)?filterVal.get(k.modelId).includes(s.id?s.id.toString():s.toString()):false"
-                                       @change="filterCallback({id:k.modelId,val:(s.id?s.id.toString():s),type:$event})" />
+                                <input type="checkbox" :id="(s.id?s.id:s)" :checked="filterVal.find(i=>i.key===k.modelId&&i.value===(s.id?s.id.toString():s.toString()))"
+                                       @change="updateFilter({id:k.modelId,val:(s.id?s.id.toString():s),type:$event})" />
 
                                 <span class="checkmark"></span>
                                 <label :title="s.name?s.name:s" :for="(s.id?s.id:s)">
@@ -41,30 +41,7 @@
         </div>
     </div>
 </template>
-<script>
-    import {mapActions} from 'vuex'
-    export default{
-        props:{sortOptions:Array,sortVal:{},filterOptions:{},filterVal:{}},
-        methods:{
-            ...mapActions(['setFilteredCourses']),
-            updateSort(val){
-                this.$router.push({query:{...this.$route.query,sort:val}});
-            },
-            updateFilter({id,val,type}){
-                let query=this.$route.query;
-                let currentFilter=query[id];
-                let model=Array.isArray(currentFilter)? currentFilter:[currentFilter];
-                query[id]=[].concat([model,val]);
-                if(!type.target.checked){
-                    query[id]=query[id].filter(i=>i!==val);
-                }
-                if (val === 'inPerson' && type){query.sort="price"}
-                if(id==='course'){this.setFilteredCourses(query.course)}
-                this.$router.push({query});
-            }
-        }
-    }
-</script>
+<script src="./SortAndFilter.js"></script>
 <style src="./SortAndFilter.less" lang="less"></style>
 
 
