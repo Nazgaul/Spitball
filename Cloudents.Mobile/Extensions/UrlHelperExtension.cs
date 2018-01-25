@@ -74,6 +74,7 @@ namespace Cloudents.Mobile.Extensions
                             builder.Add(property.Name, z.ToString());
                         }
                     }
+                    continue;
                 }
                 builder.Add(property.Name, propertyValue.ToString());
             }

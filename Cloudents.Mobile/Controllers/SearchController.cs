@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using Cloudents.Mobile.Extensions;
@@ -21,7 +19,6 @@ namespace Cloudents.Mobile.Controllers
     {
         private readonly Lazy<IDocumentCseSearch> _searchProvider;
         private readonly Lazy<IFlashcardSearch> _flashcardProvider;
-        private readonly Lazy<IQuestionSearch> _questionProvider;
 
         /// <inheritdoc />
         /// <summary>
@@ -29,14 +26,12 @@ namespace Cloudents.Mobile.Controllers
         /// </summary>
         /// <param name="searchProvider"></param>
         /// <param name="flashcardProvider"></param>
-        /// <param name="questionProvider"></param>
         public SearchController(
-            Lazy<IDocumentCseSearch> searchProvider, Lazy<IFlashcardSearch> flashcardProvider,
-            Lazy<IQuestionSearch> questionProvider)
+            Lazy<IDocumentCseSearch> searchProvider, Lazy<IFlashcardSearch> flashcardProvider
+            )
         {
             _searchProvider = searchProvider;
             _flashcardProvider = flashcardProvider;
-            _questionProvider = questionProvider;
         }
 
         /// <summary>
@@ -84,6 +79,6 @@ namespace Cloudents.Mobile.Controllers
             });
         }
 
-      
+
     }
 }

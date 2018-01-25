@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Cloudents.Core.Interfaces;
 using Cloudents.Mobile.Extensions;
-using Cloudents.Mobile.Filters;
 using Cloudents.Mobile.Models;
 using Microsoft.Azure.Mobile.Server.Config;
 
@@ -29,7 +28,6 @@ namespace Cloudents.Mobile.Controllers
             _booksSearch = booksSearch;
         }
 
-
         /// <summary>
         /// Search book vertical end point
         /// </summary>
@@ -52,7 +50,7 @@ namespace Cloudents.Mobile.Controllers
         }
 
         /// <summary>
-        /// Buy book api 
+        /// Buy book api
         /// </summary>
         /// <param name="isbn13">the book serial number</param>
         /// <param name="thumbnail">size of width of image size</param>
@@ -68,7 +66,7 @@ namespace Cloudents.Mobile.Controllers
         }
 
         /// <summary>
-        /// Sell book api 
+        /// Sell book api
         /// </summary>
         /// <param name="isbn13">the book serial number</param>
         /// <param name="thumbnail">size of width of image size</param>

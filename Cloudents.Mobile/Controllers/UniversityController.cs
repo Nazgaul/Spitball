@@ -1,5 +1,4 @@
-﻿using System.Net.Http;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Cloudents.Core.Interfaces;
@@ -27,24 +26,6 @@ namespace Cloudents.Mobile.Controllers
         {
             _universityProvider = universityProvider;
         }
-
-        //[HttpPost, Authorize, Obsolete]
-        //public async Task<HttpResponseMessage> Post(CreateUniversityRequest model)
-        //{
-        //    if (model == null)
-        //    {
-        //        return Request.CreateBadRequestResponse();
-        //    }
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return Request.CreateBadRequestResponse();
-        //    }
-        //    var command = new CreateUniversityCommand(model.Name, model.Country, User.GetUserId());
-        //    await _zboxWriteService.CreateUniversityAsync(command).ConfigureAwait(false);
-
-        //    return Request.CreateResponse(command.Id);
-        //}
-
 
         /// <summary>
         /// Get list of universities

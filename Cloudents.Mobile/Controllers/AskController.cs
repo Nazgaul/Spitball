@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using System.Web.Http;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using Cloudents.Mobile.Extensions;
