@@ -65,6 +65,9 @@
         watch:{
             userText(val){
                 this.msg=val;
+            },
+            toolbarHeight(val) {
+                this.height = val;
             }
         },
         components:{AppLogo},
